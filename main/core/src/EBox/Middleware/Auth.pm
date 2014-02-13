@@ -153,8 +153,6 @@ sub _validateSession {
         throw EBox::Exceptions::MissingArgument("env");
     }
 
-    my $global = $self->_global();
-
     unless ((exists $env->{'psgix.session'}{last_time}) and
             (exists $env->{'psgix.session'}{user_id})) {
         # The session is not valid.
@@ -165,6 +163,10 @@ sub _validateSession {
     my $user = $env->{'psgix.session'}{user_id};
 
     my $expired =  _timeExpired($last_time);
+    my $global;
+    if ($self->app_name eq 'webadmin') {
+        $global = $self->_global();
+    }
 
     if ($self->_actionScriptSession()) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
@@ -172,13 +174,17 @@ sub _validateSession {
     } elsif (not $expired) {
         # Increase the last time this session was valid.
         $env->{'psgix.session'}{last_time} = time();
-        my $audit = $global->modInstance('audit');
-        $audit->setUsername($user);
+        if ($self->app_name eq 'webadmin') {
+            my $audit = $global->modInstance('audit');
+            $audit->setUsername($user);
+        }
         return 1;
     } elsif ($expired) {
-        my $audit = $global->modInstance('audit');
-        my $ip = $env->{'REMOTE_ADDR'};
-        $audit->logSessionEvent($user, $ip, 'expired');
+        if ($self->app_name eq 'webadmin') {
+            my $audit = $global->modInstance('audit');
+            my $ip = $env->{'REMOTE_ADDR'};
+            $audit->logSessionEvent($user, $ip, 'expired');
+        }
 
         $env->{'psgix.session'}{AuthReason} = 'Expired';
         $self->_cleanSession($env);
@@ -228,7 +234,10 @@ sub _login
         }
 
         my $ip = $env->{'REMOTE_ADDR'};
-        my $audit = $self->_global()->modInstance('audit');
+        my $audit;
+        if ($self->app_name eq 'webadmin') {
+            $audit = $self->_global()->modInstance('audit');
+        }
         my $redir_to = $params->get('destination');
         my $user = $params->get('credential_0');
         my $password = $params->get('credential_1');
@@ -237,7 +246,9 @@ sub _login
             $env->{'psgix.session.options'}->{change_id}++;
             $env->{'psgix.session'}{user_id} = $user;
             $env->{'psgix.session'}{last_time} = time();
-            $audit->logSessionEvent($user, $ip, 'login');
+            if ($self->app_name eq 'webadmin') {
+                $audit->logSessionEvent($user, $ip, 'login');
+            }
             my $tmp_redir = delete $env->{'psgix.session'}{redir_to};
             unless (defined($redir_to)){
                 $redir_to = $tmp_redir;
@@ -254,7 +265,9 @@ sub _login
             $env->{'psgix.session'}{AuthReason} = 'Incorrect password';
             $self->_cleanSession($env);
             $log->warn("Failed login from: $ip");
-            $audit->logSessionEvent($user, $ip, 'fail');
+            if ($self->app_name eq 'webadmin') {
+                $audit->logSessionEvent($user, $ip, 'fail');
+            }
         }
     }
     # Leave Zentyal application to print the login form with any error that may exist.
@@ -266,10 +279,12 @@ sub _logout
     my ($self, $env) = @_;
 
     if($env->{REQUEST_METHOD} eq 'POST') {
-        my $audit = $self->_global()->modInstance('audit');
-        my $ip = $env->{'REMOTE_ADDR'};
-        my $user = $env->{'psgix.session'}{user_id};
-        $audit->logSessionEvent($user, $ip, 'logout');
+        if ($self->app_name eq 'webadmin') {
+            my $audit = $self->_global()->modInstance('audit');
+            my $ip = $env->{'REMOTE_ADDR'};
+            my $user = $env->{'psgix.session'}{user_id};
+            $audit->logSessionEvent($user, $ip, 'logout');
+        }
         my $ret = $self->app->($env);
         $self->_cleanSession($env);
         return $ret;
