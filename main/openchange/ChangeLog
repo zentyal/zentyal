@@ -1,4 +1,6 @@
 HEAD
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work
