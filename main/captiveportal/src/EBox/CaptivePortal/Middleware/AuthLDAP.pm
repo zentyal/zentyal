@@ -281,7 +281,7 @@ sub updateSession
     unless ($session) {
         throw EBox::Exceptions::Internal("Session '$sid' doesn't exist");
     }
-    $session->{time} = $time;
+    $session->{last_time} = $time;
     $session->{ip} = $ip;
     $session->{mac} = ip_mac($ip);
     $store->store($sid, $session);
