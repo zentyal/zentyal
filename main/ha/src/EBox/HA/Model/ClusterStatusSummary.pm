@@ -59,7 +59,7 @@ sub templateContext
         metadata => [
             # name => value
             [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
-            [ __('Cluster secret') => 'raro'],
+            [ __('Cluster secret') => $self->{ha}->userSecret()],
             [ __('Current Designated Controller')     => $self->{clusterStatus}->designatedController()],
             [ __('Last update')     => $summary{'last_update'}],
             [ __('Last modification')     => $summary{'last_change'}],
