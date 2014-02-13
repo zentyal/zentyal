@@ -378,8 +378,8 @@ sub _setRPCProxyConf
         my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
 
         my @params = ();
-        push (@params, bindaddress => $self->targetHAProxyIP());
-        push (@params, port        => $self->targetHAProxyPort());
+        push (@params, bindaddress => $self->targetIP());
+        push (@params, port        => $self->targetHTTPPort());
         push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
         push (@params, tmpdir => EBox::Config::tmp());
 
@@ -694,9 +694,9 @@ sub certificates
 
     return [
         {
-            serviceId => $self->caServiceIdForHAProxy(),
+            serviceId => $self->caServiceIdForHTTPS(),
             service   => __('RPC over HTTP Proxy'),
-            path      => $self->pathHAProxySSLCertificate(),
+            path      => $self->pathHTTPSSSLCertificate(),
             cn        => $self->_defaultRPCProxyVHost(),
             user      => 'root',
             group     => 'root',
@@ -709,18 +709,7 @@ sub certificates
 # Implementation of EBox::HAProxy::ServiceBase
 #
 
-# Method: HAProxyServiceId
-#
-# Returns:
-#
-#   string - A unique ID across Zentyal that identifies this HAProxy service.
-#
-sub HAProxyServiceId
-{
-    return 'rpcproxyHAProxyId';
-}
-
-# Method: defaultHAProxySSLPort
+# Method: defaultHTTPSPort
 #
 # Returns:
 #
@@ -728,52 +717,52 @@ sub HAProxyServiceId
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
 #
-sub defaultHAProxySSLPort
+sub defaultHTTPSPort
 {
     return 443;
 }
 
-# Method: targetHAProxyDomains
+# Method: targetVHostDomains
 #
 # Returns:
 #
 #   list - List of domains that the target service will handle. If empty, this service will be used as the default
 #          traffic destination for the configured ports.
 #
-sub targetHAProxyDomains
+sub targetVHostDomains
 {
     my ($self) = @_;
 
     return [$self->_defaultRPCProxyVHost()];
 }
 
-# Method: pathHAProxySSLCertificate
+# Method: pathHTTPSSSLCertificate
 #
 # Returns:
 #
 #   string - The full path to the SSL certificate file to use by HAProxy.
 #
-sub pathHAProxySSLCertificate
+sub pathHTTPSSSLCertificate
 {
     return '/var/lib/zentyal/conf/ssl/rpcproxy.pem';
 }
 
-# Method: caServiceIdForHAProxy
+# Method: caServiceIdForHTTPS
 #
 # Returns:
 #
 #   string - The CA SSL service name for HAProxy.
 #
-sub caServiceIdForHAProxy
+sub caServiceIdForHTTPS
 {
     my ($self) = @_;
 
     return 'zentyal_' . $self->name() . '_rpcproxy';
 }
 
-# Method: targetHAProxyIP
+# Method: targetIP
 #
 # Returns:
 #
@@ -781,43 +770,43 @@ sub caServiceIdForHAProxy
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#   <EBox::HAProxy::ServiceBase::targetIP>
 #
-sub targetHAProxyIP
+sub targetIP
 {
     return '127.0.0.1';
 }
 
-# Method: targetHAProxyPort
+# Method: targetHTTPPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for nonSSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for nonSSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
 #
-sub targetHAProxyPort
+sub targetHTTPPort
 {
     return 63080;
 }
 
-# Method: targetHAProxySSLPort
+# Method: targetHTTPSPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
 #
-sub targetHAProxySSLPort
+sub targetHTTPSPort
 {
     my ($self) = @_;
 
-    return $self->targetHAProxyPort();
+    return $self->targetHTTPPort();
 }
 
 
