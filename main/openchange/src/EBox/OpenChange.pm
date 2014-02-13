@@ -460,7 +460,7 @@ sub _createRPCProxyCertificate
     }
 
     my $certPath = $self->_rpcProxyCertificate();
-    if ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath)) {
+    if (EBox::Sudo::fileTest('-r', $certPath) and ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath))) {
         # correct, nothing to do besides updating download version
         $self->_updateDownloadableCert();
         return undef;
@@ -473,7 +473,7 @@ sub _createRPCProxyCertificate
                      "mkdir -p -m770 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
-        my $webadminCert = $self->global()->modInstance('webadmin')->pathHAProxySSLCertificate();
+        my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
         if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
             # reuse webadmin certificate if issuer == fqdn
             my $webadminCertDir = dirname($webadminCert);
