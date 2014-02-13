@@ -41,9 +41,6 @@ sub run
         throw EBox::Exceptions::InvalidArgument('request');
     }
 
-    my $global = EBox::Global->getInstance();
-    $global->setRequest($request);
-
     my $url = $self->urlFromRequest($request);
 
     try {

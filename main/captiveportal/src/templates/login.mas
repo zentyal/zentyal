@@ -15,7 +15,7 @@ use EBox::Gettext;
 <script src="/data/js/capsLock.js" type="text/javascript">//</script>
 <div id="login">
 <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
-<form name='login' action='/LOGIN' method='post'>
+<form name='login' action='/Login' method='post'>
       <h1><% __('Captive portal') %></h1>
 
           <label><% __('Username') %></label>

@@ -53,7 +53,7 @@ sub _process
         $authreason = delete $session->{AuthReason};
     }
 
-    my $destination = _requestDestination($r);
+    my $destination = $self->_requestDestination($session);
 
     my $reason;
     if (defined $authreason) {
@@ -83,7 +83,7 @@ sub _process
 
 sub _requestDestination
 {
-    my ($session) = @_;
+    my ($self, $session) = @_;
 
     unless (defined $session->{redir_to}) {
         return DEFAULT_DESTINATION;
@@ -98,7 +98,8 @@ sub _requestDestination
         my $dstUrl = $session->{redir_to};
         $dstUrl =~ s{^.*redirect=}{};
         $dstUrl =~ s{%3f}{?};
-        if ($protocol =~ m/HTTPS/i) {
+        my $request = $self->request();
+        if ($request->scheme() =~ m/HTTPS/i) {
             $dstUrl = 'https://' . $dstUrl;
         } else {
             $dstUrl = 'http://' . $dstUrl;

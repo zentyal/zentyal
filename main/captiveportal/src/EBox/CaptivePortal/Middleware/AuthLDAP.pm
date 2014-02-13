@@ -90,7 +90,12 @@ sub _checkLDAPPassword
 
     # Replace username in bind string.
     $bindDN =~ s/{USERNAME}/$username/g;
-    my $filter = "(&(memberOf=$groupDN)(uid=%s))";
+    my $filter;
+    if ($groupDN) {
+        $filter = "(&(memberOf=$groupDN)(uid=%s))";
+    } else {
+        $filter = "(uid=%s)";
+    }
     my $scope = 'base';
     my $auth = new Authen::Simple::LDAP(
         binddn => $bindDN,
@@ -170,6 +175,40 @@ sub _logout
     }
 
     return $ret;
+}
+
+# Method: call
+#
+#   Handles validation of credentials to allow access to Zentyal.
+#
+# Overrides: <EBox::Middleware::Auth::call>
+#
+sub call
+{
+    my ($self, $env) = @_;
+
+    my $path = $env->{PATH_INFO};
+    $env->{'psgix.session'}{app} = $self->app_name;
+
+    if ($path eq '/Login') {
+        $self->_login($env);
+    } elsif ($path eq '/Logout') {
+        $self->_logout($env);
+    } elsif ($self->_validateSession($env)) {
+        delete $env->{'psgix.session'}{AuthReason};
+        return $self->app->($env);
+    } else {
+        # Store in session where should we return after login.
+        $env->{'psgix.session'}{'redir_to'} = $path;
+
+        # Require authentication, redirect to the login form.
+        my $login_url = '/Login';
+        return [
+            302,
+            [Location => $login_url],
+            ["<html><body><a href=\"$login_url\">You need to authenticate first</a></body></html>"]
+        ];
+    }
 }
 
 # Function: currentSessions
