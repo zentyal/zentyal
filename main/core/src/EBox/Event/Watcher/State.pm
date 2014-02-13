@@ -95,8 +95,8 @@ sub run
     my $gl = EBox::Global->getInstance(1);
     my $webadminMod = $gl->modInstance('webadmin');
     my $sock = IO::Socket::INET->new(
-            PeerAddr => $webadminMod->targetHAProxyIP(),
-            PeerPort => $webadminMod->targetHAProxyPort(),
+            PeerAddr => $webadminMod->targetIP(),
+            PeerPort => $webadminMod->targetHTTPSPort(),
             Proto    => "tcp",
             Timeout  => 5);
     if ($sock) {

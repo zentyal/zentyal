@@ -108,40 +108,40 @@ sub ports
         my $serviceId = $row->valueByName('serviceId');
         my $module = $global->modInstance($row->valueByName('module'));
 
-        my $enabledPort = $module->isPortEnabledInHAProxy();
+        my $enabledPort = $module->isHTTPPortEnabled();
         my $port = undef;
         if ($enabledPort) {
             my $service = {};
             $service->{name} = $serviceId;
-            $service->{domains} = $module->targetHAProxyDomains();
-            $service->{targetIP} = $module->targetHAProxyIP();
+            $service->{domains} = $module->targetVHostDomains();
+            $service->{targetIP} = $module->targetIP();
 
-            $port = $module->usedHAProxyPort();
+            $port = $module->listeningHTTPPort();
             if (not exists ($ports{$port})) {
                 $ports{$port}->{isSSL} = 0;
                 $ports{$port}->{services} = [];
             }
             $service->{isDefault} = $row->valueByName('defaultPort');
-            $service->{targetPort} = $module->targetHAProxyPort();
+            $service->{targetPort} = $module->targetHTTPPort();
             push (@{$ports{$port}->{services}}, $service);
         }
 
-        my $enabledSSLPort = $module->isSSLPortEnabledInHAProxy();
+        my $enabledSSLPort = $module->isHTTPSPortEnabled();
         my $sslPort = undef;
         if ($enabledSSLPort) {
             my $service = {};
             $service->{name} = $serviceId;
-            $service->{domains} = $module->targetHAProxyDomains();
-            $service->{targetIP} = $module->targetHAProxyIP();
+            $service->{domains} = $module->targetVHostDomains();
+            $service->{targetIP} = $module->targetIP();
 
-            $sslPort = $module->usedHAProxySSLPort();
+            $sslPort = $module->listeningHTTPSPort();
             if (not exists ($ports{$sslPort})) {
                 $ports{$sslPort}->{isSSL} = 1;
                 $ports{$sslPort}->{services} = [];
             }
             $service->{isDefault} = $row->valueByName('defaultSSLPort');
-            $service->{pathSSLCert} = $module->pathHAProxySSLCertificate();
-            $service->{targetPort} = $module->targetHAProxySSLPort();
+            $service->{pathSSLCert} = $module->pathHTTPSSSLCertificate();
+            $service->{targetPort} = $module->targetHTTPSPort();
             push (@{$ports{$sslPort}->{services}}, $service);
         }
     }

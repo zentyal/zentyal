@@ -77,9 +77,9 @@ sub _defaultServices
     my $webadminMod = $self->global()->modInstance('webadmin');
     my $webAdminPort;
     try {
-        $webAdminPort = $webadminMod->usedHAProxySSLPort();
+        $webAdminPort = $webadminMod->listeningHTTPSPort();
     } catch {
-        $webAdminPort = $webadminMod->defaultHAProxySSLPort();
+        $webAdminPort = $webadminMod->defaultHTTPSPort();
     }
 
     return [

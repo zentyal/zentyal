@@ -125,7 +125,7 @@ sub initialSetup
     unless ($version) {
         my @args = ();
         push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, sslPort        => $self->defaultHTTPSPort());
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
@@ -174,7 +174,7 @@ sub _migrateTo34
         # This case happens when there is no modification on WebAdmin
         my @args = ();
         push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, sslPort        => $self->defaultHTTPSPort());
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
@@ -300,8 +300,8 @@ sub _setConf
     my $nginxFileTemplate = 'usercorner/nginx.conf.mas';
     @confFileParams = ();
     push (@confFileParams, socket => "$socketPath/$socketName");
-    push (@confFileParams, bindaddress => $self->targetHAProxyIP());
-    push (@confFileParams, port  => $self->targetHAProxySSLPort());
+    push (@confFileParams, bindaddress => $self->targetIP());
+    push (@confFileParams, port  => $self->targetHTTPSPort());
     EBox::Module::Base::writeConfFileNoCheck(
         USERCORNER_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
 
@@ -329,7 +329,7 @@ sub certificates
         {
             serviceId =>  'zentyal_' . $self->name(),
             service   =>  __(q{User Corner Web Server}),
-            path      =>  $self->pathHAProxySSLCertificate(),
+            path      =>  $self->pathHTTPSSSLCertificate(),
             user      => USERCORNER_USER,
             group     => USERCORNER_GROUP,
             mode      => '0400',
@@ -421,7 +421,7 @@ sub userCredentials
 # Implementation of EBox::HAProxy::ServiceBase
 #
 
-# Method: allowDisableHAProxyService
+# Method: allowServiceDisabling
 #
 #   Usercorner must be always on so users don't lose access to the admin UI.
 #
@@ -429,25 +429,12 @@ sub userCredentials
 #
 #   boolean - Whether this service may be disabled from the reverse proxy.
 #
-sub allowDisableHAProxyService
+sub allowServiceDisabling
 {
-    return undef;
+    return 0;
 }
 
-# Method: HAProxyServiceId
-#
-#   This method must be always overrided by services implementing this interface.
-#
-# Returns:
-#
-#   string - A unique ID across Zentyal that identifies this HAProxy service.
-#
-sub HAProxyServiceId
-{
-    return 'usercornerHAProxyId';
-}
-
-# Method: defaultHAProxySSLPort
+# Method: defaultHTTPSPort
 #
 # Returns:
 #
@@ -455,14 +442,14 @@ sub HAProxyServiceId
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
 #
-sub defaultHAProxySSLPort
+sub defaultHTTPSPort
 {
     return 8888;
 }
 
-# Method: blockHAProxyPort
+# Method: blockHTTPPortChange
 #
 #   Always return True to prevent that user corner is served without SSL.
 #
@@ -470,23 +457,23 @@ sub defaultHAProxySSLPort
 #
 #   boolean - Whether the port may be customised or not.
 #
-sub blockHAProxyPort
+sub blockHTTPPortChange
 {
     return 1;
 }
 
-# Method: pathHAProxySSLCertificate
+# Method: pathHTTPSSSLCertificate
 #
 # Returns:
 #
 #   string - The full path to the SSL certificate file to use by HAProxy.
 #
-sub pathHAProxySSLCertificate
+sub pathHTTPSSSLCertificate
 {
     return '/var/lib/zentyal-usercorner/ssl/ssl.pem';
 }
 
-# Method: targetHAProxyIP
+# Method: targetIP
 #
 # Returns:
 #
@@ -494,24 +481,24 @@ sub pathHAProxySSLCertificate
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#   <EBox::HAProxy::ServiceBase::targetIP>
 #
-sub targetHAProxyIP
+sub targetIP
 {
     return '127.0.0.1';
 }
 
-# Method: targetHAProxySSLPort
+# Method: targetHTTPSPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
 #
-sub targetHAProxySSLPort
+sub targetHTTPSPort
 {
     return 61888;
 }
