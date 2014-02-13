@@ -1496,7 +1496,7 @@ sub _uploadReplicationBundle
     my $secret = $self->userSecret();
     my $addr = $node->{addr};
     my $port = $node->{port};
-    system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/conf/replication");
+    system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/cluster/conf/replication");
     EBox::info("Replication bundle uploaded to $addr");
 }
 
