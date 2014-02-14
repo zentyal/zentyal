@@ -47,10 +47,12 @@ group www-data
 WSGILazyInitialization On
 WSGIPythonPath /usr/lib/openchange/web/rpcproxy
 
+<VirtualHost  *:<% $port %>>
+
 ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
 
-LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined3
 CustomLog /var/log/apache2/rpcproxy-access.log combined
 
 <Directory /usr/lib/openchange/web/rpcproxy/>
@@ -60,8 +62,11 @@ CustomLog /var/log/apache2/rpcproxy-access.log combined
   SetEnv SAMBA_HOST 127.0.0.1
   WSGIPassAuthorization On
   WSGIProcessGroup %{GLOBAL}
+
+ Require all granted
 </Directory>
 
 WSGIScriptAlias /rpc/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
 WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
 
+</VirtualHost>
