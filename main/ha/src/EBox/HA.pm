@@ -790,13 +790,16 @@ sub _setConf
 
     $self->_setPSGI();
 
+    # Notify the leave even when the module is being disabled
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->_notifyLeave();
         $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
     }
 
-    $self->_corosyncSetConf();
+    if ($self->isEnabled()) {
+        $self->_corosyncSetConf();
+    }
     if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
@@ -817,17 +820,17 @@ sub _postServiceHook
 
     $self->SUPER::_postServiceHook($enabled);
 
-    $self->_waitPacemaker();
-
-    my $state = $self->get_state();
-    if ($enabled and $state->{bootstraping}) {
-        $self->_initialClusterOperations();
-        delete $state->{bootstraping};
-        $self->set_state($state);
+    if ($enabled) {
+        $self->_waitPacemaker();
+        my $state = $self->get_state();
+        if ($state->{bootstraping}) {
+            $self->_initialClusterOperations();
+            delete $state->{bootstraping};
+            $self->set_state($state);
+        }
+        $self->_setFloatingIPRscs();
+        $self->_setSingleInstanceInClusterModules();
     }
-
-    $self->_setFloatingIPRscs();
-    $self->_setSingleInstanceInClusterModules();
 }
 
 # Group: subroutines
