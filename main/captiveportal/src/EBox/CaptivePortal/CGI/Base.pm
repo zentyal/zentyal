@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,25 +12,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::Base;
-
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
-use Apache2::RequestUtil;
 
-sub new
-{
-    my $class = shift;
-    my $self = $class->SUPER::new(htmlblocks => 'EBox::HtmlBlocks', @_);
-    bless($self, $class);
-    return $self;
-}
-
+# Method: _validateReferer
+#
+#   Checks whether the referer header has valid information. For Captive Portal, it's completely disabled.
+#
+# Overrides: <EBox::CGI::ClientBase::_validateReferer>
+#
 sub _validateReferer
 {
 }

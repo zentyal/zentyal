@@ -56,6 +56,8 @@ use constant RPCPROXY_PORT           => 62081;
 use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -80,7 +82,24 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
+
+    if (defined($version)
+            and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+        $self->_migrateOutgoingDomain();
+    }
+}
+
+# Migration of form keys after extracting the rewrite rule for outgoing domain
+# from the provision form.
+#
+sub _migrateOutgoingDomain
+{
+  my ($self) = @_;
+
+  my $oldKeyValue = $self->get('Provision/keys/form');
+  $self->set('Configuration/keys/form', $oldKeyValue);
 }
 
 # Migration of form keys to better names (between development versions)
@@ -503,20 +522,22 @@ sub _writeRewritePolicy
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my $defaultDomain = $sysinfo->hostDomain();
+    if ($self->isProvisioned()) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $defaultDomain = $sysinfo->hostDomain();
 
-    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+        my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 
-    my @rewriteParams;
-    push @rewriteParams, ('defaultDomain' => $defaultDomain);
-    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+        my @rewriteParams;
+        push @rewriteParams, ('defaultDomain' => $defaultDomain);
+        push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-    $self->writeConfFile(REWRITE_POLICY_FILE,
-        'openchange/rewriteDomainPolicy.mas',
-        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+        $self->writeConfFile(REWRITE_POLICY_FILE,
+            'openchange/rewriteDomainPolicy.mas',
+            \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
 
-    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+        EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+    }
 }
 
 # Method: menu
@@ -536,16 +557,19 @@ sub menu
         text => $self->printableName(),
         separator => $separator,
         order => $order);
+
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/Composite/General',
         text      => __('Setup'),
         order     => 0));
+
     if ($self->isProvisioned()) {
         $folder->add(new EBox::Menu::Item(
             url       => 'OpenChange/Migration/Connect',
             text      => __('MailBox Migration'),
             order     => 1));
     }
+
     $root->add($folder);
 }
 
@@ -756,8 +780,6 @@ sub organizations
 
     return $list;
 }
-
-
 sub _rpcProxyHostForDomain
 {
     my ($self, $domain) = @_;
@@ -813,7 +835,7 @@ sub _rpcProxyHostForDomain
 sub _rpcProxyDomain
 {
     my ($self) = @_;
-    return $self->model('Provision')->outgoingDomain();
+    return $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 }
 
 sub _rpcProxyHosts
@@ -881,6 +903,60 @@ sub _vdomainModImplementation
 {
     my ($self) = @_;
     return EBox::OpenChange::VDomainsLdap->new($self);
+}
+
+sub _getMySQLPassword
+{
+    my $path = OPENCHANGE_MYSQL_PASSWD_FILE;
+    open(PASSWD, $path) or
+        throw EBox::Exceptions::Internal("Could not open $path to " .
+                "get Openchange MySQL password.");
+
+    my $pwd = <PASSWD>;
+    close(PASSWD);
+
+    $pwd =~ s/[\n\r]//g;
+
+    return $pwd;
+}
+
+# Method: isProvisionedWithMySQL
+#
+# Returns:
+#
+#   Whether OpenChange module has been provisioned using MySQL backends or not.
+#
+#   Since Zentyal 3.4 they are the default backends but on previous versions
+#   they didn't exist.
+#
+sub isProvisionedWithMySQL
+{
+    my ($self) = @_;
+
+    return $self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE);
+}
+
+# Method: connectionString
+#
+#   Return a connection string to be used for the different configurable backends of
+#   OpenChange: named properties, openchangedb and indexing.
+#
+# Returns:
+#
+#   string with the following format schema://user:password@host/table, schema will
+#   be, normally, mysql (because is the only one supported right now)
+#
+sub connectionString
+{
+    my ($self) = @_;
+
+    unless (-e OPENCHANGE_MYSQL_PASSWD_FILE) {
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                'generate-database');
+    }
+    my $pwd = $self->_getMySQLPassword();
+
+    return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
 1;

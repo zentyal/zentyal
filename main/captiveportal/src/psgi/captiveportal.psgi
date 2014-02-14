@@ -18,20 +18,19 @@ use warnings;
 
 use EBox;
 use EBox::Gettext;
-use EBox::UserCorner;
-use EBox::UserCorner::CGI::Run;
+use EBox::CaptivePortal;
+use EBox::CaptivePortal::CGI::Run;
 
-use Authen::Simple::PAM;
 use Plack::Builder;
 use Plack::Session::Store::File;
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
-use constant SESSIONS_PATH => EBox::UserCorner::usersessiondir();
+use constant SESSIONS_PATH => EBox::CaptivePortal->SIDS_DIR;
 
 my $app = sub {
     my $env = shift;
 
-    EBox::initLogger('usercorner-log.conf');
+    EBox::initLogger('captiveportal-log.conf');
     POSIX::setlocale(LC_ALL, EBox::locale());
     POSIX::setlocale(LC_NUMERIC, 'C');
 
@@ -43,7 +42,7 @@ my $app = sub {
     binmode(STDOUT, ':utf8');
 
     my $req = Plack::Request->new($env);
-    return EBox::UserCorner::CGI::Run->run($req, 'EBox::UserCorner::HtmlBlocks');
+    return EBox::CaptivePortal::CGI::Run->run($req);
 };
 
 builder {
@@ -53,7 +52,8 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable "+EBox::UserCorner::Middleware::AuthLDAP", app_name => 'usercorner';
+    enable "+EBox::CaptivePortal::Middleware::AuthLDAP",
+        app_name => 'captiveportal';
     $app;
 };
 

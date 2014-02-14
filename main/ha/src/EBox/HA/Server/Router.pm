@@ -40,7 +40,8 @@ my $routes = {
     qr{/cluster/nodes/(?<name>[a-zA-Z0-9\-\.]+)$}
                                 => { 'DELETE' => \&EBox::HA::deleteNode },
 
-    qr{/conf/replication$}      => { 'GET'    => \&EBox::HA::confReplicationStatus,
+    qr{/cluster/conf/replication$}
+                                => { 'GET'    => \&EBox::HA::confReplicationStatus,
                                      'POST'   => \&EBox::HA::replicateConf },
 };
 

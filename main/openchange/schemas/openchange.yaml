@@ -18,6 +18,8 @@ models:
     - Provision
     - RPCProxy
     - OpenChangeUser
+    - Configuration
 
 composites:
-   General: [Provision, RPCProxy]
+    General: [Provision, Configuration, RPCProxy]
+

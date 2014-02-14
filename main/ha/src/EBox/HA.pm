@@ -35,6 +35,7 @@ use feature qw(switch);
 use Data::Dumper;
 use EBox::Config;
 use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -70,7 +71,7 @@ use constant {
     ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
-my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn);
 my @SINGLE_INSTANCE_MODULES = qw(dhcp);
 
 # Constructor: _create
@@ -141,10 +142,10 @@ sub widgets
 {
     return {
         'nodelist' => {
-            'title' => __("Cluster nodes"),
-            'widget' => \&nodeListWidget,
-            'order' => 5,
-            'default' => 1
+            'title'   => __("Cluster status"),
+            'widget'  => \&clusterWidget,
+            'order'   => 5,
+            'default' => 1,
         }
     };
 }
@@ -449,7 +450,9 @@ sub replicateConf
             }
         }
 
-        $mod->restoreBackup("$tmpdir/$modname.bak");
+        my $backupDir = "$tmpdir/$modname.bak";
+        next unless (-d $backupDir);
+        $mod->restoreBackup($backupDir);
 
         foreach my $key (keys %keysToReplace) {
             $mod->set($key, $keysToReplace{$key});
@@ -463,7 +466,7 @@ sub replicateConf
     EBox::Global->modRestarted('ha');
 
     EBox::info("Configuration replicated, now saving changes...");
-    EBox::Global->saveAllModules();
+    EBox::Global->saveAllModules(replicating => 1);
     EBox::info("Changes saved after replication request");
 
     EBox::Sudo::root("rm -rf $tmpdir");
@@ -483,9 +486,13 @@ sub replicationExcludeKeys
     ];
 }
 
+# TODO: Public method doc
 sub askForReplication
 {
     my ($self, $modules) = @_;
+
+    my @nodes = @{$self->nodes()};
+    return if (scalar(@nodes) <= 1);
 
     my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
     EBox::info("Generating replication bundle of the following modules: @modules");
@@ -510,10 +517,9 @@ sub askForReplication
 
     my $path = "$tmpdir/$tarfile";
 
-    foreach my $node (@{$self->nodes()}) {
+    foreach my $node (@nodes) {
         next if ($node->{localNode});
-        my $addr = $node->{addr};
-        $self->_uploadReplicationBundle($addr, $path);
+        $self->_uploadReplicationBundle($node, $path);
     }
 
     EBox::info("Replication to the rest of nodes done");
@@ -777,11 +783,31 @@ sub _daemons
     return $daemons;
 }
 
+# Method: _stopDaemon
+#
+#     Override as init.d pacemaker return non-required exit codes
+#     and upstart for UWSGI is deleted on _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_stopDaemon>
+#
+sub _stopDaemon
+{
+    my ($self, $daemon) = @_;
+
+    if ($daemon->{name} eq 'pacemaker') {
+        EBox::Sudo::silentRoot("service pacemaker stop");
+    } elsif (($daemon->{name} ne PSGI_UPSTART) or (-e '/etc/init/' . PSGI_UPSTART . '.conf')) {
+        $self->SUPER::_stopDaemon($daemon);
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
 #
-#       <EBox::Module::Base::_setConf>
+#      <EBox::Module::Base::_setConf>
 #
 sub _setConf
 {
@@ -789,13 +815,16 @@ sub _setConf
 
     $self->_setPSGI();
 
+    # Notify the leave even when the module is being disabled
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->_notifyLeave();
         $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
     }
 
-    $self->_corosyncSetConf();
+    if ($self->isEnabled()) {
+        $self->_corosyncSetConf();
+    }
     if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
@@ -816,36 +845,75 @@ sub _postServiceHook
 
     $self->SUPER::_postServiceHook($enabled);
 
-    $self->_waitPacemaker();
-
-    my $state = $self->get_state();
-    if ($enabled and $state->{bootstraping}) {
-        $self->_initialClusterOperations();
-        delete $state->{bootstraping};
-        $self->set_state($state);
+    if ($enabled) {
+        $self->_waitPacemaker();
+        my $state = $self->get_state();
+        if ($state->{bootstraping}) {
+            $self->_initialClusterOperations();
+            delete $state->{bootstraping};
+            $self->set_state($state);
+        }
+        $self->_setFloatingIPRscs();
+        $self->_setSingleInstanceInClusterModules();
     }
-
-    $self->_setFloatingIPRscs();
-    $self->_setSingleInstanceInClusterModules();
 }
 
-# Group: subroutines
+# Group: Public methods
 
-sub nodeListWidget
+# Method: clusterWidget
+#
+#    Establish the cluster status widget
+#
+# Parameters:
+#
+#    widget - <EBox::Dashboard::Widget> the widget to add new sections
+#
+sub clusterWidget
 {
     my ($self, $widget) = @_;
 
-    my $section = new EBox::Dashboard::Section('nodelist');
-    $widget->add($section);
+    my $clusterSection = new EBox::Dashboard::Section('status',);
+    $widget->add($clusterSection);
+
+    if ($self->isEnabled()) {
+        my $clusterStatus;
+        my ($lastUpdate, $error, $errorType) = (__('Unknown'), __('None'), 'info');
+        try {
+            $clusterStatus = new EBox::HA::ClusterStatus($self);
+            $lastUpdate = $clusterStatus->summary()->{last_update};
+            my $errors = $clusterStatus->errors();
+            if (defined($errors) and keys %{$errors} > 0) {
+                $error = __x('{oh}There are errors{ch}',
+                             oh => '<a href="/HA/Composite/General#Status">',
+                             ch => '</a>');
+                $errorType = 'error';
+            }
+        } catch ($e) {
+            # TODO properly
+            ;
+        }
+        $clusterSection->add(new EBox::Dashboard::Value(__('Last update'),
+                                                        $lastUpdate));
+        $clusterSection->add(new EBox::Dashboard::Value(__('Errors'),
+                                                        $error, $errorType
+                                                       ));
+    } else {
+        $clusterSection->add(new EBox::Dashboard::Value(__('Status'),
+                                                        __('not enabled')));
+    }
+
+    my $nodeSection = new EBox::Dashboard::Section('nodelist', __('Nodes'));
+    $widget->add($nodeSection);
     my $titles = [__('Host name'),__('IP address')];
 
-    my $list = new EBox::HA::NodeList(EBox::Global->getInstance()->modInstance('ha'))->list();
+    my $list = new EBox::HA::NodeList($self)->list();
 
     my @ids = map { $_->{name} } @{$list};
     my %rows = map { $_->{name} => [$_->{name}, $_->{addr}] } @{$list};
 
-    $section->add(new EBox::Dashboard::List(undef, $titles, \@ids, \%rows,
+    $nodeSection->add(new EBox::Dashboard::List(undef, $titles, \@ids, \%rows,
                                             __('Cluster is not configured')));
+
 }
 
 # Method: floatingIPs
@@ -1255,14 +1323,24 @@ sub _notifyClusterConfChange
     }
 }
 
+# Get the corosync-cmapctl index for nodelist
+sub _corosyncNodelistIndex
+{
+    my ($self, $node) = @_;
+
+    my $output = EBox::Sudo::root(q{corosync-cmapctl nodelist.node | grep -P '= } . $node->{name} . q{'$});
+    my ($idx) = $output->[0] =~ m/node\.(\d+)\./;
+    return $idx;
+}
+
 # Dynamically update a corosync node
 # Only update on addr is supported
 sub _updateCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $idx = $self->_corosyncNodelistIndex($node);
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${idx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1271,12 +1349,12 @@ sub _addCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.nodeid u32 ' . $node->{nodeid},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.name str ' . $node->{name},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $output = EBox::Sudo::root('corosync-cmapctl nodelist.node');
+    my ($lastIdx) = $output->[$#{$output}] =~ m/node\.(\d+)\./;
+    $lastIdx++;
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${lastIdx}.nodeid u32 " . $node->{nodeid},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.name str " . $node->{name},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1285,10 +1363,11 @@ sub _deleteCorosyncNode
 {
     my ($self, $node) = @_;
 
+    my $idx = $self->_corosyncNodelistIndex($node);
     EBox::Sudo::root(
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.ring0_addr',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.name',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.nodeid');
+        "corosync-cmapctl -D nodelist.node.${idx}.ring0_addr",
+        "corosync-cmapctl -D nodelist.node.${idx}.name",
+        "corosync-cmapctl -D nodelist.node.${idx}.nodeid");
 
 }
 
@@ -1492,11 +1571,12 @@ sub _setNoQuorumPolicy
 
 sub _uploadReplicationBundle
 {
-    my ($self, $addr, $file) = @_;
+    my ($self, $node, $file) = @_;
 
     my $secret = $self->userSecret();
-    # FIXME: Use port from node list
-    system ("curl -k -F file=\@$file http://zentyal:$secret\@$addr:443/conf/replication");
+    my $addr = $node->{addr};
+    my $port = $node->{port};
+    system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/cluster/conf/replication");
     EBox::info("Replication bundle uploaded to $addr");
 }
 

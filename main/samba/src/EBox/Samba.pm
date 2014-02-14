@@ -931,12 +931,17 @@ sub writeSambaConfig
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
+        my $openchangeConnectionString = $openchangeModule->connectionString();
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+        push (@array, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@array, 'openchangeConnectionString' => $openchangeConnectionString);
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba/smb.conf.mas', \@array);
+                         'samba/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '600' });
 
     $self->_writeAntivirusConfig();
 }
@@ -1108,13 +1113,10 @@ sub _daemons
 {
     return [
         {
-            name => 'samba',
-            type => 'init.d',
-            pidfiles => ['/var/run/samba/samba.pid'],
+            name => 'samba-ad-dc',
         },
         {
-            name => 'zentyal.nmbd',
-            precondition => \&_nmbdCond,
+            name => 'nmbd',
         },
         {
             name => 'zentyal.s4sync',
@@ -1130,6 +1132,20 @@ sub _daemons
         },
     ];
 }
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
+    ];
+}
+
 
 # Function: usesPort
 #
