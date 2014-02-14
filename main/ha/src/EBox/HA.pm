@@ -35,6 +35,7 @@ use feature qw(switch);
 use Data::Dumper;
 use EBox::Config;
 use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -141,10 +142,10 @@ sub widgets
 {
     return {
         'nodelist' => {
-            'title' => __("Cluster nodes"),
-            'widget' => \&nodeListWidget,
-            'order' => 5,
-            'default' => 1
+            'title'   => __("Cluster status"),
+            'widget'  => \&clusterWidget,
+            'order'   => 5,
+            'default' => 1,
         }
     };
 }
@@ -857,23 +858,62 @@ sub _postServiceHook
     }
 }
 
-# Group: subroutines
+# Group: Public methods
 
-sub nodeListWidget
+# Method: clusterWidget
+#
+#    Establish the cluster status widget
+#
+# Parameters:
+#
+#    widget - <EBox::Dashboard::Widget> the widget to add new sections
+#
+sub clusterWidget
 {
     my ($self, $widget) = @_;
 
-    my $section = new EBox::Dashboard::Section('nodelist');
-    $widget->add($section);
+    my $clusterSection = new EBox::Dashboard::Section('status',);
+    $widget->add($clusterSection);
+
+    if ($self->isEnabled()) {
+        my $clusterStatus;
+        my ($lastUpdate, $error, $errorType) = (__('Unknown'), __('None'), 'info');
+        try {
+            $clusterStatus = new EBox::HA::ClusterStatus($self);
+            $lastUpdate = $clusterStatus->summary()->{last_update};
+            my $errors = $clusterStatus->errors();
+            if (defined($errors) and keys %{$errors} > 0) {
+                $error = __x('{oh}There are errors{ch}',
+                             oh => '<a href="/HA/Composite/General#Status">',
+                             ch => '</a>');
+                $errorType = 'error';
+            }
+        } catch ($e) {
+            # TODO properly
+            ;
+        }
+        $clusterSection->add(new EBox::Dashboard::Value(__('Last update'),
+                                                        $lastUpdate));
+        $clusterSection->add(new EBox::Dashboard::Value(__('Errors'),
+                                                        $error, $errorType
+                                                       ));
+    } else {
+        $clusterSection->add(new EBox::Dashboard::Value(__('Status'),
+                                                        __('not enabled')));
+    }
+
+    my $nodeSection = new EBox::Dashboard::Section('nodelist', __('Nodes'));
+    $widget->add($nodeSection);
     my $titles = [__('Host name'),__('IP address')];
 
-    my $list = new EBox::HA::NodeList(EBox::Global->getInstance()->modInstance('ha'))->list();
+    my $list = new EBox::HA::NodeList($self)->list();
 
     my @ids = map { $_->{name} } @{$list};
     my %rows = map { $_->{name} => [$_->{name}, $_->{addr}] } @{$list};
 
-    $section->add(new EBox::Dashboard::List(undef, $titles, \@ids, \%rows,
+    $nodeSection->add(new EBox::Dashboard::List(undef, $titles, \@ids, \%rows,
                                             __('Cluster is not configured')));
+
 }
 
 # Method: floatingIPs
