@@ -485,9 +485,13 @@ sub replicationExcludeKeys
     ];
 }
 
+# TODO: Public method doc
 sub askForReplication
 {
     my ($self, $modules) = @_;
+
+    my @nodes = @{$self->nodes()};
+    return if (scalar(@nodes) <= 1);
 
     my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
     EBox::info("Generating replication bundle of the following modules: @modules");
@@ -512,7 +516,7 @@ sub askForReplication
 
     my $path = "$tmpdir/$tarfile";
 
-    foreach my $node (@{$self->nodes()}) {
+    foreach my $node (@nodes) {
         next if ($node->{localNode});
         $self->_uploadReplicationBundle($node, $path);
     }
