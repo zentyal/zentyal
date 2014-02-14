@@ -1,4 +1,6 @@
 3.4
+	+ Don't allow to remove outgoing mail virtual domain
+	+ Added rpcproxy service
 	+ Provision openchangedb with mysql as backend
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Remove obsolete sope dependency

@@ -22,9 +22,6 @@ case "$1" in
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
         chmod 750 $ZENTYAL_LOGS_DIR
 
-        # create Zentyal webadmin certificates
-        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
-
         # add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
         then
@@ -94,6 +91,10 @@ case "$1" in
 
         # sudo configuration
         /usr/share/zentyal/sudoers-friendly
+
+        # create Zentyal webadmin certificates
+        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn` > /dev/null 2>&1
+        chown -R ebox.adm $ZENTYAL_HOME/conf/ssl
 
         # stop disable default nginx init.d script
         service nginx stop > /dev/null 2>&1

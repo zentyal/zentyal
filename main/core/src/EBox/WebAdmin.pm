@@ -509,7 +509,7 @@ sub addNginxInclude
     unless(defined($includeFilePath)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    unless(-f $includeFilePath and -r $includeFilePath) {
+    unless(EBox::Sudo::fileTest('-r', $includeFilePath)) {
         throw EBox::Exceptions::Internal(
             "File $includeFilePath cannot be read or it is not a file"
            );

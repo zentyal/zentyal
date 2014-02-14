@@ -1,4 +1,8 @@
 3.4
+	+ Added template for download link
+	+ Created EBox::Util::Certificate, refactored create-certificate
+	  script
+	+ Changes in haproxy port validation and allow haproxy internal services
 	+ Restore AdminPort model for WebAdmin to improve usability
 	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Added EBox::WebAdmin::PortObserver to be used by ha and
@@ -45,6 +49,8 @@
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
 	+ Avoid division by zero while using page navigation
+	+ Fix tab selection in tabbed composite from URL path anchor,
+	  for instance, /Maintenance/Events#ConfigureDispatchers
 	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 	+ Show nice error when global-action fails using die + scalar

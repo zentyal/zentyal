@@ -300,4 +300,10 @@ sub targetHTTPSPort
     }
 }
 
+# only override if it is a internal service not modifiable by the user
+sub HAProxyInternalService
+{
+    return undef;
+}
+
 1;
