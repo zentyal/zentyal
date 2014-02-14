@@ -45,7 +45,7 @@ user  www-data
 group www-data
 
 WSGILazyInitialization On
-WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
+WSGIPythonPath /usr/lib/openchange/web/rpcproxy
 
 ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
@@ -53,14 +53,15 @@ LogLevel warn
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
 CustomLog /var/log/apache2/rpcproxy-access.log combined
 
-<Directory /opt/samba4/lib/openchange/web/rpcproxy/>
-  SetEnv RPCPROXY_LOGLEVEL INFO
+<Directory /usr/lib/openchange/web/rpcproxy/>
+%#  SetEnv RPCPROXY_LOGLEVEL INFO
+  SetEnv RPCPROXY_LOGLEVEL DEBUG
   SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
   SetEnv SAMBA_HOST 127.0.0.1
   WSGIPassAuthorization On
   WSGIProcessGroup %{GLOBAL}
 </Directory>
 
-WSGIScriptAlias /rpc/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
-WSGIScriptAlias /rpcwithcert/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpc/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
 
