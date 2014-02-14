@@ -1,4 +1,6 @@
 HEAD
+	+ Fix tab selection in tabbed composite from URL path anchor,
+	  for instance, /Maintenance/Events#ConfigureDispatchers
 	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 3.2.7
