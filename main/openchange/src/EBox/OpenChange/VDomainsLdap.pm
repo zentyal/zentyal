@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,40 +12,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
-package EBox::OpenChange::Composite::General;
-use base 'EBox::Model::Composite';
+package EBox::OpenChange::VDomainsLdap;
+use base qw(EBox::LdapVDomainBase);
 
 use EBox::Gettext;
 
 sub new
 {
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
+    my ($class, $openchangeMod) = @_;
+    my $self  = { openchangeMod => $openchangeMod };
+    bless($self, $class);
     return $self;
 }
 
-
-# Method: _description
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::_description>
-#
-sub _description
+sub _delVDomainAbort
 {
-    my $description = {
-        layout          => 'top-bottom',
-        name            => 'General',
-        pageTitle       => __('OpenChange'),
-        compositeDomain => 'OpenChange',
-    };
+    my ($self, $vdomain) = @_;
+    if (not $self->{openchangeMod}->isProvisioned()) {
+        # no outgoing domain really set
+        return;
+    }
 
-    return $description;
+    my $outgoing  = $self->{openchangeMod}->model('Provision')->outgoingDomain();
+    if ($vdomain eq $outgoing) {
+        throw EBox::Exceptions::External(
+            __x('The virtual mail domain {dom} cannot  be removed because is openchange outgoing domain', dom => $vdomain)
+           );
+    }
+
 }
 
 1;

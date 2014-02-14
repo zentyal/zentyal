@@ -1,4 +1,8 @@
 3.4
+	+ Added template for download link
+	+ Created EBox::Util::Certificate, refactored create-certificate
+	  script
+	+ Changes in haproxy port validation and allow haproxy internal services
 	+ Restore AdminPort model for WebAdmin to improve usability
 	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Added EBox::WebAdmin::PortObserver to be used by ha and

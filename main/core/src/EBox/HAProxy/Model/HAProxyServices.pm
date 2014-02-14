@@ -74,6 +74,7 @@ sub syncRows
 
     my $haproxyMod = $self->parentModule();
     my @mods = @{$haproxyMod->modsWithHAProxyService()};
+    @mods = grep { not $_->HAProxyInternalService()  } @mods;
 
     my %currentSrvs = map {
         my $sid = $self->row($_)->valueByName('serviceId');
@@ -367,7 +368,7 @@ sub validateTypedRow
                     module => $module->name()
                 );
             }
-            unless (-e $module->pathHTTPSSSLCertificate()) {
+            unless (EBox::Sudo::fileTest('-r', $module->pathHTTPSSSLCertificate())) {
                 if (EBox::Global->modExists('ca')) {
                     my $ca = EBox::Global->modInstance('ca');
                     my $certificates = $ca->model('Certificates');
@@ -459,10 +460,12 @@ sub checkServicePort
     my $global = $self->global();
     if ($global->modExists('firewall')) {
         my $firewallMod = $global->modInstance('firewall');
-        unless ($firewallMod->availablePort("tcp", $port)) {
+        my $used = $firewallMod->portUsedByService('tcp', $port);
+        if ($used) {
             throw EBox::Exceptions::External(__x(
-                'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
-                p => $port
+                'Zentyal is already configured to use port {p} for {use}. Choose another port or free it and retry.',
+                 p => $port,
+                 use => $used
             ));
         }
     }
@@ -471,7 +474,21 @@ sub checkServicePort
     foreach my $line (@{ $netstatLines }) {
         my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) = split '\s+', $line, 7;
         if ($localAddr =~ m/:$port$/) {
+            $PIDProgram =~ s/\s*$//;
             my ($pid, $program) = split '/', $PIDProgram;
+            if ($program eq 'haproxy') {
+                # assumed we don't change daemon defintion to have more than one
+                # daemon nor pidfile
+                my $parentMod = $self->parentModule();
+                my $pidFile = $parentMod->_daemons()->[0]->{pidfiles}->[0];
+                my $haproxyPid = $parentMod->pidFileRunning($pidFile);
+                if ($pid == $haproxyPid) {
+                    # port used by itself
+                    next;
+                } else {
+                    $program = __('Unmanaged instance of haproxy');
+                }
+            }
             throw EBox::Exceptions::External(__x(
                 q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
                 p => $port,

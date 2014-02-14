@@ -1,4 +1,6 @@
 3.4
+	+ Added _delVDomainAbort to LdapVDomain base to give the
+	  opportunity to abort vdomain removals
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 	+ Better integration with openchange account addon
