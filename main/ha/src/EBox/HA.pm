@@ -513,37 +513,73 @@ sub askForReplication
     my @nodes = @{$self->nodes()};
     return if (scalar(@nodes) <= 1);
 
-    my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
-    EBox::info("Generating replication bundle of the following modules: @modules");
-    my $tarfile = 'bundle.tar.gz';
-    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
+    my $state = $self->get_state();
+    if ($state->{joining}) {
+        # If we are joining to the cluster, get your data instead of replicate my data
+        my $peerNode = $state->{joining};
+        delete $state->{joining};
+        $self->set_state($state);
+        $self->_askForConf($peerNode);
+    } else {
+        my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
 
-    write_file("$tmpdir/modules.json", encode_json($modules));
+        my ($tmpdir, $path) = $self->_generateReplicationBundle(\@modules);
 
-    foreach my $modname (@modules) {
-        my $mod = EBox::Global->modInstance($modname);
-        $mod->makeBackup($tmpdir);
+        foreach my $node (@nodes) {
+            next if ($node->{localNode});
+            $self->_uploadReplicationBundle($node, $path);
+        }
+
+        EBox::info("Replication to the rest of nodes done");
+
+        EBox::Sudo::root("rm -rf $tmpdir");
+    }
+}
+
+# Method: askForReplicationNode
+#
+#    Ask for replication from a node
+#
+# Parameters:
+#
+#    params - <Hash::MultiValue> containing the node to delete in the
+#             key 'name'
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any mandatory param is missing
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the node name is not valid
+#
+#     <EBox::Exceptions::External> - thrown if the node name is equals to local node name
+#
+sub askForReplicationNode
+{
+    my ($self, $params) = @_;
+
+    EBox::info('ask for replication node (params): ' . Dumper($params));
+
+    unless (exists $params->{name}) {
+        throw EBox::Exceptions::MissingArgument('name');
     }
 
-    system ("mkdir -p $tmpdir/files");
-    foreach my $dir (@{EBox::Config::list('ha_conf_dirs')}) {
-        next unless (-d $dir);
-        EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
+    my $nodeList = new EBox::HA::NodeList($self);
+    my $localNode = $nodeList->localNode();
+    if ($localNode->{name} eq $params->{name}) {
+        throw EBox::Exceptions::External('Ask for replication for local node!!');
     }
+    my $node = $nodeList->node($params->{name});
 
-    system ("cd $tmpdir; tar czf $tarfile *");
-    EBox::debug("Replication bundle generated");
+    my $global = $self->global();
+    my @modules = grep { $global->modExists($_) } keys %REPLICATE_MODULES;
 
-    my $path = "$tmpdir/$tarfile";
+    my ($tmpdir, $path) = $self->_generateReplicationBundle(\@modules);
 
-    foreach my $node (@nodes) {
-        next if ($node->{localNode});
-        $self->_uploadReplicationBundle($node, $path);
-    }
-
-    EBox::info("Replication to the rest of nodes done");
+    $self->_uploadReplicationBundle($node, $path);
+    EBox::info('Replication to the ' . $node->{name} . ' done');
 
     EBox::Sudo::root("rm -rf $tmpdir");
+
 }
 
 # Method: updateClusterConfiguration
@@ -1175,9 +1211,10 @@ sub _join
     my ($self, $clusterSettings, $localNodeAddr, $hostname, $userSecret) = @_;
 
     my $row = $clusterSettings->row();
+    my $peerHost = $row->valueByName('zentyal_host');
     my $client = new EBox::RESTClient(
         credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
-        server => $row->valueByName('zentyal_host'),
+        server => $peerHost,
         verifyHostname => 0,
        );
     $client->setPort($row->valueByName('zentyal_port'));
@@ -1212,10 +1249,16 @@ sub _join
     my $state = $self->get_state();
     $state->{cluster_conf}->{transport} = $clusterConf->{transport};
     $state->{cluster_conf}->{multicast} = $clusterConf->{multicastConf};
-    $self->set_state($state);
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
+
+    # Set as joining
+    my @matchedNodes = grep { ($_->{name} eq $peerHost) or ($_->{addr} eq $peerHost) } @{$clusterConf->{nodes}};
+    if (@matchedNodes > 0) {
+        $state->{joining} = $matchedNodes[0];
+    }
+    $self->set_state($state);
 }
 
 # Store the set of bytes to the auth file
@@ -1606,6 +1649,36 @@ sub _setNoQuorumPolicy
     EBox::Sudo::root("crm configure property no-quorum-policy=$noQuorumPolicy");
 }
 
+sub _generateReplicationBundle
+{
+    my ($self, $modules) = @_;
+
+    my @modules = @{$modules};
+    EBox::info("Generating replication bundle of the following modules: @modules");
+    my $tarfile = 'bundle.tar.gz';
+    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
+
+    write_file("$tmpdir/modules.json", encode_json($modules));
+
+    foreach my $modname (@modules) {
+        my $mod = EBox::Global->modInstance($modname);
+        $mod->makeBackup($tmpdir);
+    }
+
+    system ("mkdir -p $tmpdir/files");
+    foreach my $dir (@{EBox::Config::list('ha_conf_dirs')}) {
+        next unless (-d $dir);
+        EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
+    }
+
+    system ("cd $tmpdir; tar czf $tarfile *");
+    EBox::debug("Replication bundle generated");
+
+    my $path = "$tmpdir/$tarfile";
+    return ($tmpdir, $path);
+
+}
+
 sub _uploadReplicationBundle
 {
     my ($self, $node, $file) = @_;
@@ -1615,6 +1688,28 @@ sub _uploadReplicationBundle
     my $port = $node->{port};
     system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/cluster/conf/replication");
     EBox::info("Replication bundle uploaded to $addr");
+}
+
+sub _askForConf
+{
+    my ($self, $node) = @_;
+
+    my $clusterSecret = $self->userSecret();
+    my $client = new EBox::RESTClient(
+        credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                        password => $clusterSecret},
+            server => $node->{addr},
+            verifyHostname => 0,
+           );
+    $client->setPort($node->{port});
+
+    try {
+        my $localNode = new EBox::HA::NodeList($self)->localNode();
+        $client->POST('/cluster/conf/ask/replication/' . $localNode->{name});
+    } catch ($e) {
+        # Catch any exception
+        EBox::error('Error asking for replication to ' . $node->{name} . ": $e");
+    }
 }
 
 1;
