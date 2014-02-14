@@ -482,7 +482,6 @@ sub checkServicePort
                 my $parentMod = $self->parentModule();
                 my $pidFile = $parentMod->_daemons()->[0]->{pidfiles}->[0];
                 my $haproxyPid = $parentMod->pidFileRunning($pidFile);
-                EBox::debug("file $pidFile hapid $haproxyPid");
                 if ($pid == $haproxyPid) {
                     # port used by itself
                     next;
