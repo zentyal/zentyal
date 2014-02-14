@@ -24,100 +24,100 @@ use EBox::Exceptions::External;
 
 sub generateRSAKey
 {
-  my ($destDir, $length) = @_;
+    my ($destDir, $length) = @_;
 
-  my $type    = 'key';
-  my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir);
+    my $type    = 'key';
+    my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir);
 
-  return  ($keyFile, 0)  if   $alreadyExists;
+    return  ($keyFile, 0)  if   $alreadyExists;
 
-  my @cmds = (
-              "openssl genrsa $length > $keyFile",
-              "chmod 0400 $keyFile",
-             );
-  EBox::Sudo::root(@cmds);
+    my @cmds = (
+        "openssl genrsa $length > $keyFile",
+        "chmod 0400 $keyFile",
+       );
+    EBox::Sudo::root(@cmds);
 
-  return wantarray ? ($keyFile, 1) : $keyFile;
+    return wantarray ? ($keyFile, 1) : $keyFile;
 }
 
 sub generateCert
 {
-  my ($destDir, $keyFile, $keyUpdated, $issuer) = @_;
+    my ($destDir, $keyFile, $keyUpdated, $issuer) = @_;
 
-  my $type = 'crt';
-  my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated, 'cert');
+    my $type = 'crt';
+    my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated, 'cert');
 
-  return $certFile if $alreadyExists;
+    return $certFile if $alreadyExists;
 
-  my $subject;
-  if ($issuer) {
-      $subject = qq{/CN=$issuer/};
-  } else {
-      $subject = q{/CN=eBox\ Server/};
-  }
+    my $subject;
+    if ($issuer) {
+        $subject = qq{/CN=$issuer/};
+    } else {
+        $subject = q{/CN=eBox\ Server/};
+    }
 
-  my @cmds = (
-              "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
-              "chmod 0400 $certFile",
-             );
-  EBox::Sudo::root(@cmds);
+    my @cmds = (
+        "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
+        "chmod 0400 $certFile",
+       );
+    EBox::Sudo::root(@cmds);
 
-  return $certFile;
+    return $certFile;
 }
 
 sub generatePem
 {
-  my ($destDir, $certFile, $keyFile, $keyUpdated) = @_;
+    my ($destDir, $certFile, $keyFile, $keyUpdated) = @_;
 
-  my $type = 'pem';
-  my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated);
+    my $type = 'pem';
+    my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated);
 
-  return $pemFile if $alreadyExists;
+    return $pemFile if $alreadyExists;
 
-  my @cmds = (
-              "cat $certFile $keyFile > $pemFile",
-              "chmod 0400 $pemFile",
-             );
-  EBox::Sudo::root(@cmds);
+    my @cmds = (
+        "cat $certFile $keyFile > $pemFile",
+        "chmod 0400 $pemFile",
+       );
+    EBox::Sudo::root(@cmds);
 
-  return $pemFile;
+    return $pemFile;
 }
 
 sub _generateFileInfraestructure
 {
-  my ($type, $destDir, $alwaysDelete, $extension) = @_;
-  defined $alwaysDelete or $alwaysDelete = 0;
-  $extension            or $extension    = $type;
+    my ($type, $destDir, $alwaysDelete, $extension) = @_;
+    defined $alwaysDelete or $alwaysDelete = 0;
+    $extension            or $extension    = $type;
 
-  my $sslDir  = _sslDir($destDir, $type);
-  my $file     = "$sslDir/ssl.$extension";
+    my $sslDir  = _sslDir($destDir, $type);
+    my $file     = "$sslDir/ssl.$extension";
 
-  if (-e $file) {
-    # "$file already exists. Skipping generation\n";
-    return ($file, 1);
-  }
+    if (-e $file) {
+        # "$file already exists. Skipping generation\n";
+        return ($file, 1);
+    }
 
-  my  @cmds = (
-      "touch $file",
-      "chmod 0600 $file",
-     );
-  EBox::Sudo::root(@cmds);
+    my  @cmds = (
+        "touch $file",
+        "chmod 0600 $file",
+       );
+    EBox::Sudo::root(@cmds);
 
-  return ($file, 0);
+    return ($file, 0);
 }
 
 sub _sslDir
 {
-  my ($destDir, $postfix) = @_;
+    my ($destDir, $postfix) = @_;
 
-  my $sslDir = "$destDir";
-  if (not -d $sslDir) {
-      EBox::Sudo::root("mkdir -p '$sslDir'",
-                       "chmod 0700 '$sslDir'",
-                       );
-  }
+    my $sslDir = "$destDir";
+    if (not -d $sslDir) {
+        EBox::Sudo::root("mkdir -p '$sslDir'",
+                         "chmod 0700 '$sslDir'",
+                        );
+    }
 
-  return $sslDir;
+    return $sslDir;
 }
 
 sub getCertIssuer
