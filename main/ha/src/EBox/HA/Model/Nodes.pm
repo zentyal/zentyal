@@ -109,7 +109,12 @@ sub row
     $row->setModel($self);
     $row->setReadOnly(1);
 
-    my $errors = $self->get_state()->{errors};
+    my $errors = $self->parentModule()->get_state()->{errors};
+
+    my $okHTML = '<p style="color: green">' . __('OK') . '</p>';
+    my $retry = __('Retry');
+    my $js = "Zentyal.TableHelper.setLoading('retrybtn_$name'); Zentyal.HA.replicate('$name')";
+    my $retryHTML = "<button id=\"retrybtn_$name\" onclick=\"$js\">$retry</button>";
 
     my $tableDesc = $self->table()->{tableDescription};
     foreach my $type (@{$tableDesc}) {
@@ -119,9 +124,9 @@ sub row
             $element->setValue($nodeOnline ? __('Online') : __('Offline'));
         } elsif ($type->fieldName() eq 'replication') {
             if ($errors->{$name}) {
-                $element->setValue(__('Retry'));
+                $element->setValue($retryHTML);
             } else {
-                $element->setValue(__('OK'));
+                $element->setValue($okHTML);
             }
         } else {
             $element->setValue($node->{$element->fieldName()});

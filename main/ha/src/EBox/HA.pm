@@ -591,13 +591,14 @@ sub askForReplicationNode
     unless (exists $params->{name}) {
         throw EBox::Exceptions::MissingArgument('name');
     }
+    my $name = $params->{name};
 
     my $nodeList = new EBox::HA::NodeList($self);
     my $localNode = $nodeList->localNode();
-    if ($localNode->{name} eq $params->{name}) {
+    if ($localNode->{name} eq $name) {
         throw EBox::Exceptions::External('Ask for replication for local node!!');
     }
-    my $node = $nodeList->node($params->{name});
+    my $node = $nodeList->node($name);
 
     my $global = $self->global();
     my @modules = grep { $global->modExists($_) } keys %REPLICATE_MODULES;
