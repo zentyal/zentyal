@@ -892,7 +892,7 @@ sub pidFromFile
         }
     } catch {
         $pid = undef;
-    };
+    }
     return $pid;
 }
 
