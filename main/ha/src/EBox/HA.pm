@@ -53,6 +53,7 @@ use JSON::XS;
 use File::Temp;
 use File::Slurp;
 use MIME::Base64;
+use Scalar::Util qw(blessed);
 use TryCatch::Lite;
 use XML::LibXML;
 
@@ -465,8 +466,26 @@ sub replicateConf
     # Avoid to save changes in ha module
     EBox::Global->modRestarted('ha');
 
+    my $state = $self->get_state();
+    $state->{replicating} = 1;
+    $self->set_state($state);
     EBox::info("Configuration replicated, now saving changes...");
-    EBox::Global->saveAllModules(replicating => 1);
+    try {
+        EBox::Global->saveAllModules(replicating => 1);
+    } catch ($ex) {
+        # Delete replicating state and rethrow the exception
+        delete $state->{replicating};
+        $self->set_state($state);
+        if (blessed($ex)) {
+            $ex->throw();
+        } else {
+            throw EBox::Exceptions::Internal($ex);
+        }
+    }
+    # Finally block
+    delete $state->{replicating};
+    $self->set_state($state);
+
     EBox::info("Changes saved after replication request");
 
     EBox::Sudo::root("rm -rf $tmpdir");
@@ -800,6 +819,24 @@ sub _stopDaemon
         EBox::Sudo::silentRoot("service pacemaker stop");
     } elsif (($daemon->{name} ne PSGI_UPSTART) or (-e '/etc/init/' . PSGI_UPSTART . '.conf')) {
         $self->SUPER::_stopDaemon($daemon);
+    }
+}
+
+# Method: _enforceServiceState
+#
+#     Override to do nothing when replicating flag is set
+#
+# Overrides:
+#
+#     <EBox::Module::Service::_enforceServiceState>
+#
+sub _enforceServiceState
+{
+    my ($self, @params) = @_;
+
+    # FIXME: Do it in the framework as jacalvo suggests
+    unless ($self->get_state()->{replicating}) {
+        $self->SUPER::_enforceServiceState(@params);
     }
 }
 
