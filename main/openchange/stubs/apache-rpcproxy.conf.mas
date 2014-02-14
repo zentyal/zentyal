@@ -52,7 +52,7 @@ WSGIPythonPath /usr/lib/openchange/web/rpcproxy
 ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
 
-LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined3
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
 CustomLog /var/log/apache2/rpcproxy-access.log combined
 
 <Directory /usr/lib/openchange/web/rpcproxy/>
