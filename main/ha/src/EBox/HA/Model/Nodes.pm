@@ -27,7 +27,8 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::External;
 use EBox::Gettext;
-use EBox::HA::CRMWrapper;
+use EBox::HA::NodePromoter;
+use EBox::HA::ClusterStatus;
 use EBox::HA::NodeList;
 use EBox::Types::Host;
 use EBox::Types::HostIP;
@@ -49,6 +50,7 @@ sub new
     bless($self, $class);
 
     $self->{list} = new EBox::HA::NodeList($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     return $self;
 }
@@ -81,8 +83,8 @@ sub ids
     my ($self)  = @_;
 
     # Calculate and cache the nodes status
-    $self->{nodesStatus} = EBox::HA::CRMWrapper::nodesStatus();
-    $self->{resourcesNum} = EBox::HA::CRMWrapper::resourceNum();
+    $self->{nodesStatus} = $self->{clusterStatus}->nodes();
+    $self->{resourcesNum} = $self->{clusterStatus}->numberOfResources();
 
     my @names = map { $_->{name} } @{$self->{list}->list()};
     return \@names;
@@ -112,8 +114,8 @@ sub row
         my $element = $type->clone();
         # FIXME: Modify this to given stanza once replication status field is added
         if ($type->fieldName() eq 'status') {
-            my $nodeOnline = EBox::HA::CRMWrapper::nodeOnline($id, $self->{nodesStatus});
-            $element->setValue($nodeOnline ? __('Online') : __('Offline'));
+            my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
+            $element->setValue($nodeInfo{online} ? __('Online') : __('Offline'));
         } else {
             $element->setValue($node->{$element->fieldName()});
         }
@@ -210,7 +212,7 @@ sub _acquireActive
 {
     my ($self, $id) = @_;
 
-    my $activeNode = EBox::HA::CRMWrapper::activeNode($self->{nodesStatus});
+    my $activeNode = $self->{clusterStatus}->activeNode();
 
     return ($activeNode eq $id ? 'active' : 'passive');
 }
@@ -237,7 +239,7 @@ sub _doPromote
     my ($self, $actionType, $id, %params) = @_;
 
     try {
-        EBox::HA::CRMWrapper::promote($id);
+        EBox::HA::NodePromoter::promote($id);
         $self->setMessage(__x('Node {name} is now the active node', name => $id),
                           'note');
     } catch ($exc) {
@@ -251,7 +253,7 @@ sub _doDemote
     my ($self, $actionType, $id, %params) = @_;
 
     try {
-        EBox::HA::CRMWrapper::demote($id);
+        EBox::HA::NodePromoter::demote($id);
         $self->setMessage(__x('Node {name} is now a passive node', name => $id),
                           'note');
     } catch ($exc) {

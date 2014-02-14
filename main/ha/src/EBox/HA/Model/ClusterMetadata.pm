@@ -27,7 +27,7 @@ package EBox::HA::Model::ClusterMetadata;
 use base 'EBox::Model::Template';
 
 use EBox::Gettext;
-use EBox::HA::CRMWrapper;
+use EBox::HA::ClusterStatus;
 
 # Group: Public methods
 
@@ -52,12 +52,14 @@ sub templateContext
 {
     my ($self) = @_;
 
+    my $clusterStatus = new EBox::HA::ClusterStatus();
+
     return {
         metadata => [
             # id, name, value
             [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
             [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
-            [ 'cluster_dc', __('Current Desginated Controller'), EBox::HA::CRMWrapper::currentDCNode()],
+            [ 'cluster_dc', __('Current Desginated Controller'), $clusterStatus->designatedController()],
            ],
         help => __('The current Designated Controller performs the operations in the cluster. This node may be changed without any impact in the cluster.'),
     };

@@ -42,7 +42,6 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::HA::ClusterStatus;
-use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
@@ -90,6 +89,8 @@ sub _create
     );
 
     bless ($self, $class);
+
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self);
 
     return $self;
 }
@@ -1380,7 +1381,7 @@ sub _setFloatingIPRscs
 
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
-    my $activeNode = EBox::HA::CRMWrapper::activeNode();
+    my $activeNode = $self->{clusterStatus}->activeNode();
     my @moves = ();
     while (my ($rscName, $rscAddr) = each(%finalRscs)) {
         if (exists($currentRscs{$rscName})) {
@@ -1405,8 +1406,7 @@ sub _setFloatingIPRscs
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $rscName (@moves) {
-                # FIXME: Use new class for cluster status
-                my $currentNode = EBox::HA::CRMWrapper::_locateResource($rscName);
+                my $currentNode = $self->{clusterStatus}->resourceByName($rscName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$rscName' --move --host '$activeNode'",
@@ -1434,7 +1434,7 @@ sub _setSingleInstanceInClusterModules
 
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
-    my $activeNode = EBox::HA::CRMWrapper::activeNode();
+    my $activeNode = $self->{clusterStatus}->activeNode();
 
     my @rootCmds;
     my @moves = ();
@@ -1465,7 +1465,7 @@ sub _setSingleInstanceInClusterModules
             @rootCmds = ();
             foreach my $modName (@moves) {
                 # FIXME: Use new class for cluster status
-                my $currentNode = EBox::HA::CRMWrapper::_locateResource($modName);
+                my $currentNode = $self->{clusterStatus}->resourceByName($modName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$modName' --move --host '$activeNode'",
