@@ -476,7 +476,6 @@ sub checkServicePort
         if ($localAddr =~ m/:$port$/) {
             $PIDProgram =~ s/\s*$//;
             my ($pid, $program) = split '/', $PIDProgram;
-                EBox::debug("program '$program' PID $pid");
             if ($program eq 'haproxy') {
                 # assumed we don't change daemon defintion to have more than one
                 # daemon nor pidfile
