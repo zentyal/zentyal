@@ -27,6 +27,8 @@
 
     $openchangeEnabled => undef
     $openchangeProvisioned => undef
+    $openchangeProvisionedWithMySQL => 0
+    $openchangeConnectionString => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -73,6 +75,11 @@ use EBox::Gettext;
     dcerpc endpoint servers = +epmapper, +mapiproxy
     dcerpc_mapiproxy:server = true
     dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
+%     if ($openchangeProvisionedWithMySQL == 1 and defined $openchangeConnectionString) {
+    mapistore:nprops_backend = <% $openchangeConnectionString %>
+    mapistore:indexing_backend = <% $openchangeConnectionString %>
+    mapiproxy:openchangedb = <% $openchangeConnectionString %>
+%     }
 ### Configuration required by OpenChange server ###
 %   }
 % }

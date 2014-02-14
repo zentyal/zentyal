@@ -50,6 +50,8 @@ use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanage
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -708,5 +710,60 @@ sub organizations
 
     return $list;
 }
+
+sub _getMySQLPassword
+{
+    my $path = OPENCHANGE_MYSQL_PASSWD_FILE;
+    open(PASSWD, $path) or
+        throw EBox::Exceptions::Internal("Could not open $path to " .
+                "get Openchange MySQL password.");
+
+    my $pwd = <PASSWD>;
+    close(PASSWD);
+
+    $pwd =~ s/[\n\r]//g;
+
+    return $pwd;
+}
+
+# Method: isProvisionedWithMySQL
+#
+# Returns:
+#
+#   Whether OpenChange module has been provisioned using MySQL backends or not.
+#
+#   Since Zentyal 3.4 they are the default backends but on previous versions
+#   they didn't exist.
+#
+sub isProvisionedWithMySQL
+{
+    my ($self) = @_;
+
+    return $self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE);
+}
+
+# Method: connectionString
+#
+#   Return a connection string to be used for the different configurable backends of
+#   OpenChange: named properties, openchangedb and indexing.
+#
+# Returns:
+#
+#   string with the following format schema://user:password@host/table, schema will
+#   be, normally, mysql (because is the only one supported right now)
+#
+sub connectionString
+{
+    my ($self) = @_;
+
+    unless (-e OPENCHANGE_MYSQL_PASSWD_FILE) {
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                'generate-database');
+    }
+    my $pwd = $self->_getMySQLPassword();
+
+    return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
 
 1;
