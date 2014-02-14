@@ -27,6 +27,7 @@
 
     $openchangeEnabled => undef
     $openchangeProvisioned => undef
+    $openchangeProvisionedWithMySQL => 0
     $openchangeConnectionString => undef
 </%args>
 <%init>
