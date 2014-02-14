@@ -70,7 +70,7 @@ use constant {
     ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
-my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn);
 my @SINGLE_INSTANCE_MODULES = qw(dhcp);
 
 # Constructor: _create
@@ -485,9 +485,13 @@ sub replicationExcludeKeys
     ];
 }
 
+# TODO: Public method doc
 sub askForReplication
 {
     my ($self, $modules) = @_;
+
+    my @nodes = @{$self->nodes()};
+    return if (scalar(@nodes) <= 1);
 
     my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
     EBox::info("Generating replication bundle of the following modules: @modules");
@@ -512,7 +516,7 @@ sub askForReplication
 
     my $path = "$tmpdir/$tarfile";
 
-    foreach my $node (@{$self->nodes()}) {
+    foreach my $node (@nodes) {
         next if ($node->{localNode});
         $self->_uploadReplicationBundle($node, $path);
     }
@@ -778,11 +782,31 @@ sub _daemons
     return $daemons;
 }
 
+# Method: _stopDaemon
+#
+#     Override as init.d pacemaker return non-required exit codes
+#     and upstart for UWSGI is deleted on _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_stopDaemon>
+#
+sub _stopDaemon
+{
+    my ($self, $daemon) = @_;
+
+    if ($daemon->{name} eq 'pacemaker') {
+        EBox::Sudo::silentRoot("service pacemaker stop");
+    } elsif (($daemon->{name} ne PSGI_UPSTART) or (-e '/etc/init/' . PSGI_UPSTART . '.conf')) {
+        $self->SUPER::_stopDaemon($daemon);
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
 #
-#       <EBox::Module::Base::_setConf>
+#      <EBox::Module::Base::_setConf>
 #
 sub _setConf
 {
@@ -790,13 +814,16 @@ sub _setConf
 
     $self->_setPSGI();
 
+    # Notify the leave even when the module is being disabled
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->_notifyLeave();
         $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
     }
 
-    $self->_corosyncSetConf();
+    if ($self->isEnabled()) {
+        $self->_corosyncSetConf();
+    }
     if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
@@ -817,17 +844,17 @@ sub _postServiceHook
 
     $self->SUPER::_postServiceHook($enabled);
 
-    $self->_waitPacemaker();
-
-    my $state = $self->get_state();
-    if ($enabled and $state->{bootstraping}) {
-        $self->_initialClusterOperations();
-        delete $state->{bootstraping};
-        $self->set_state($state);
+    if ($enabled) {
+        $self->_waitPacemaker();
+        my $state = $self->get_state();
+        if ($state->{bootstraping}) {
+            $self->_initialClusterOperations();
+            delete $state->{bootstraping};
+            $self->set_state($state);
+        }
+        $self->_setFloatingIPRscs();
+        $self->_setSingleInstanceInClusterModules();
     }
-
-    $self->_setFloatingIPRscs();
-    $self->_setSingleInstanceInClusterModules();
 }
 
 # Group: subroutines
@@ -1256,14 +1283,24 @@ sub _notifyClusterConfChange
     }
 }
 
+# Get the corosync-cmapctl index for nodelist
+sub _corosyncNodelistIndex
+{
+    my ($self, $node) = @_;
+
+    my $output = EBox::Sudo::root(q{corosync-cmapctl nodelist.node | grep -P '= } . $node->{name} . q{'$});
+    my ($idx) = $output->[0] =~ m/node\.(\d+)\./;
+    return $idx;
+}
+
 # Dynamically update a corosync node
 # Only update on addr is supported
 sub _updateCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $idx = $self->_corosyncNodelistIndex($node);
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${idx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1272,12 +1309,12 @@ sub _addCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.nodeid u32 ' . $node->{nodeid},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.name str ' . $node->{name},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $output = EBox::Sudo::root('corosync-cmapctl nodelist.node');
+    my ($lastIdx) = $output->[$#{$output}] =~ m/node\.(\d+)\./;
+    $lastIdx++;
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${lastIdx}.nodeid u32 " . $node->{nodeid},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.name str " . $node->{name},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1286,10 +1323,11 @@ sub _deleteCorosyncNode
 {
     my ($self, $node) = @_;
 
+    my $idx = $self->_corosyncNodelistIndex($node);
     EBox::Sudo::root(
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.ring0_addr',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.name',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.nodeid');
+        "corosync-cmapctl -D nodelist.node.${idx}.ring0_addr",
+        "corosync-cmapctl -D nodelist.node.${idx}.name",
+        "corosync-cmapctl -D nodelist.node.${idx}.nodeid");
 
 }
 
