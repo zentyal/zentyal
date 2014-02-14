@@ -506,7 +506,14 @@ sub replicationExcludeKeys
     ];
 }
 
-# TODO: Public method doc
+# Method: askForReplication
+#
+#   Ask for replication in all the nodes except the local one
+#
+#   Parameters:
+#
+#       modules - list of modules with changes
+#
 sub askForReplication
 {
     my ($self, $modules) = @_;
