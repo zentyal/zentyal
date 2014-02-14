@@ -782,11 +782,31 @@ sub _daemons
     return $daemons;
 }
 
+# Method: _stopDaemon
+#
+#     Override as init.d pacemaker return non-required exit codes
+#     and upstart for UWSGI is deleted on _setConf
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_stopDaemon>
+#
+sub _stopDaemon
+{
+    my ($self, $daemon) = @_;
+
+    if ($daemon->{name} eq 'pacemaker') {
+        EBox::Sudo::silentRoot("service pacemaker stop");
+    } elsif (($daemon->{name} ne PSGI_UPSTART) or (-e '/etc/init/' . PSGI_UPSTART . '.conf')) {
+        $self->SUPER::_stopDaemon($daemon);
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
 #
-#       <EBox::Module::Base::_setConf>
+#      <EBox::Module::Base::_setConf>
 #
 sub _setConf
 {
