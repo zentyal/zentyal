@@ -86,11 +86,13 @@ use EBox::Gettext;
   );
   var url = location.href.split('#');
   if ( url[1] ) {
-     var activeTab = tabMenu_<% $tabName | hu %>.tabs.detect(
+     var activeTabs = $.grep(tabMenu_<% $tabName | hu %>.tabs,
         function (t) {
              return t.href.split('#')[1] == url[1];
         }
      );
-     tabMenu_<% $tabName | hu %>.showActiveTab(activeTab);
+     if (activeTabs.length > 0) {
+        tabMenu_<% $tabName | hu %>.showActiveTab(activeTabs[0]);
+     }
   }
 </script>
