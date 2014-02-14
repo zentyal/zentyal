@@ -84,6 +84,19 @@ sub summary
     return $_summary;
 }
 
+# Function: xmlStatus
+#
+# Returns:
+#
+#   Hash ref - The cluster status XML
+#
+sub xmlStatus
+{
+    my ($self) = @_;
+
+    return $_xml_dom;
+}
+
 # Function: nodes
 #
 # Returns:
@@ -132,10 +145,6 @@ sub errors
 #
 #   Hash - The cluster resource
 #
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no resource with
-#                                   the given name
 sub resourceByName
 {
     my ($self, $name) = @_;
@@ -145,7 +154,7 @@ sub resourceByName
         return $resources{$name};
     }
 
-    throw EBox::Exceptions::Internal("There is no resource with the name: $name");
+    return undef;
 }
 
 # Function: nodeByName
@@ -157,10 +166,6 @@ sub resourceByName
 #
 #   Hash - The cluster node
 #
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no node with the given
-#                                   name
 sub nodeByName
 {
     my ($self, $name) = @_;
@@ -169,7 +174,7 @@ sub nodeByName
         return $_nodes->{$name};
     }
 
-    throw EBox::Exceptions::Internal("There is no node with the name: $name");
+    return undef;
 }
 
 # Function: nodeById
@@ -180,10 +185,6 @@ sub nodeByName
 # Returns:
 #
 #   Hash - The cluster node
-#
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no node with the given id
 #
 sub nodeById
 {
@@ -197,7 +198,7 @@ sub nodeById
         }
     }
 
-    throw EBox::Exceptions::Internal("There is no node with the id: $id");
+    return undef;
 }
 
 # Function: numberOfResources
