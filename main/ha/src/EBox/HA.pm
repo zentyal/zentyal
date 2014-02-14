@@ -428,7 +428,8 @@ sub replicateConf
 
     my $file = $uploads->get('file');
     my $path = $file->path;
-    system ("tar xzf $path -C $tmpdir");
+
+    EBox::Sudo::root("tar xzf $path -C $tmpdir");
 
     EBox::Sudo::root("cp -a $tmpdir/files/* /");
 
@@ -1671,7 +1672,7 @@ sub _generateReplicationBundle
         EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
     }
 
-    system ("cd $tmpdir; tar czf $tarfile *");
+    EBox::Sudo::root("cd $tmpdir; tar czf $tarfile *");
     EBox::debug("Replication bundle generated");
 
     my $path = "$tmpdir/$tarfile";
