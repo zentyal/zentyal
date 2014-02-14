@@ -33,6 +33,7 @@ use EBox::Types::Host;
 use EBox::Types::HostIP;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Port;
+use EBox::Types::HTML;
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -101,19 +102,27 @@ sub row
     my ($self, $id)  = @_;
 
     my $node = $self->{list}->node($id);
+    my $name = $node->{name};
 
     my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());
     $row->setId($id);
     $row->setModel($self);
     $row->setReadOnly(1);
 
+    my $errors = $self->get_state()->{errors};
+
     my $tableDesc = $self->table()->{tableDescription};
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
-        # FIXME: Modify this to given stanza once replication status field is added
         if ($type->fieldName() eq 'status') {
             my $nodeOnline = EBox::HA::CRMWrapper::nodeOnline($id, $self->{nodesStatus});
             $element->setValue($nodeOnline ? __('Online') : __('Offline'));
+        } elsif ($type->fieldName() eq 'replication') {
+            if ($errors->{$name}) {
+                $element->setValue(__('Retry'));
+            } else {
+                $element->setValue(__('OK'));
+            }
         } else {
             $element->setValue($node->{$element->fieldName()});
         }
@@ -154,20 +163,24 @@ sub _table
         new EBox::Types::Text(
             fieldName     => 'status',
             printableName => __('Status'),
-           ),
+        ),
         new EBox::Types::Host(
             fieldName     => 'name',
             printableName => __('Hostname'),
-           ),
+        ),
         new EBox::Types::HostIP(
             fieldName     => 'addr',
             printableName => __('IP address'),
-       ),
+        ),
         new EBox::Types::Port(
             fieldName     => 'port',
             printableName => __('Port'),
-           ),
-       );
+        ),
+        new EBox::Types::HTML(
+            fieldName     => 'replication',
+            printableName => __('Replication'),
+        ),
+    );
     my $customActions = [
         new EBox::Types::MultiStateAction(
             acquirer  => \&_acquireActive,

@@ -414,7 +414,13 @@ sub confReplicationStatus
 {
     my ($self) = @_;
 
-    return { errors => 0 };
+    my $errors = $self->get_state()->{errors};
+
+    unless (defined $errors) {
+        $errors = {};
+    }
+
+    return { errors => $errors };
 }
 
 sub replicateConf
@@ -512,12 +518,27 @@ sub askForReplication
 
     my $path = "$tmpdir/$tarfile";
 
+    my $failed = 0;
+    my $state = $self->get_state();
     foreach my $node (@{$self->nodes()}) {
         next if ($node->{localNode});
-        $self->_uploadReplicationBundle($node, $path);
+        try {
+            $self->_uploadReplicationBundle($node, $path);
+        } catch {
+            my $name = $node->{name};
+            EBox::error("Replication to node $name failed");
+            $state->{errors}->{$name} = 1;
+        }
     }
+    $self->set_state($state);
 
-    EBox::info("Replication to the rest of nodes done");
+    my $msg = 'Replication to the rest of nodes finished';
+    if ($failed) {
+        $msg .= ' with errors';
+        EBox::error($msg);
+    } else {
+        EBox::info($msg);
+    }
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
@@ -1499,6 +1520,9 @@ sub _uploadReplicationBundle
     my $addr = $node->{addr};
     my $port = $node->{port};
     system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/cluster/conf/replication");
+    if ($? != 0) {
+        throw EBox::Exceptions::External("Error uploading replication bundle to $addr");
+    }
     EBox::info("Replication bundle uploaded to $addr");
 }
 
