@@ -225,7 +225,6 @@ sub isRunning
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
-    return 0; # XXX until ocsmanager pkg is ok
     return $self->isProvisioned();
 }
 
@@ -247,23 +246,22 @@ sub usedFiles
         file => SOGO_DEFAULT_FILE,
         reason => __('To configure sogo daemon'),
         module => 'openchange'
-    });
+       });
     push (@files, {
         file => SOGO_CONF_FILE,
         reason => __('To configure sogo parameters'),
         module => 'openchange'
-    });
-#    push (@files, {
-#        file => OCSMANAGER_CONF_FILE,
-#        reason => __('To configure autodiscovery service'),
-#        module => 'openchange'
-#    });
-#
+       });
+    push (@files, {
+       file => OCSMANAGER_CONF_FILE,
+       reason => __('To configure autodiscovery service'),
+       module => 'openchange'
+      });
     push (@files, {
         file => RPCPROXY_STOCK_CONF_FILE,
         reason => __('Remove RPC Proxy stock file to avoid interference'),
         module => 'openchange'
-    });
+       });
 
     return \@files;
 }
@@ -275,7 +273,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-#    $self->_setAutodiscoverConf(); # XXX until ocsmanager package is ok
+    $self->_setAutodiscoverConf();
     $self->_setRPCProxyConf();
     $self->_writeRewritePolicy();
 }
