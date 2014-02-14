@@ -43,6 +43,8 @@ my $routes = {
     qr{/cluster/conf/replication$}
                                 => { 'GET'    => \&EBox::HA::confReplicationStatus,
                                      'POST'   => \&EBox::HA::replicateConf },
+    qr{/cluster/conf/ask/replication/(?<name>[a-zA-Z0-9\-\.]+)$}
+                                => { 'POST'   => \&EBox::HA::askForReplicationNode },
 };
 
 # Function: routeExists

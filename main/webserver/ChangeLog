@@ -1,4 +1,6 @@
 3.4
+	+ Added support for internal virtual domains (only for openchange
+	  for now)
 	+ Updated to use the new haproxy API
 	+ Adapt configuration for Apache 2.4
 	+ Set version to 3.4

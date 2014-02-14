@@ -23,7 +23,7 @@
 #
 #   Let's see the data structure returned by printableValueRows()
 #
-#	[
+#       [
 #            {
 #               'source' => 'any',
 #               'protocol' => 'TCP',
