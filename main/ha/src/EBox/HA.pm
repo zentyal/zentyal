@@ -1259,14 +1259,24 @@ sub _notifyClusterConfChange
     }
 }
 
+# Get the corosync-cmapctl index for nodelist
+sub _corosyncNodelistIndex
+{
+    my ($self, $node) = @_;
+
+    my $output = EBox::Sudo::root(q{corosync-cmapctl nodelist.node | grep -P '= } . $node->{name} . q{'$});
+    my ($idx) = $output->[0] =~ m/node\.(\d+)\./;
+    return $idx;
+}
+
 # Dynamically update a corosync node
 # Only update on addr is supported
 sub _updateCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $idx = $self->_corosyncNodelistIndex($node);
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${idx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1275,12 +1285,12 @@ sub _addCorosyncNode
 {
     my ($self, $node) = @_;
 
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.nodeid u32 ' . $node->{nodeid},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.name str ' . $node->{name},
-                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
-                     . '.ring0_addr str ' . $node->{addr});
+    my $output = EBox::Sudo::root('corosync-cmapctl nodelist.node');
+    my ($lastIdx) = $output->[$#{$output}] =~ m/node\.(\d+)\./;
+    $lastIdx++;
+    EBox::Sudo::root("corosync-cmapctl -s nodelist.node.${lastIdx}.nodeid u32 " . $node->{nodeid},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.name str " . $node->{name},
+                     "corosync-cmapctl -s nodelist.node.${lastIdx}.ring0_addr str " . $node->{addr});
 
 }
 
@@ -1289,10 +1299,11 @@ sub _deleteCorosyncNode
 {
     my ($self, $node) = @_;
 
+    my $idx = $self->_corosyncNodelistIndex($node);
     EBox::Sudo::root(
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.ring0_addr',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.name',
-        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.nodeid');
+        "corosync-cmapctl -D nodelist.node.${idx}.ring0_addr",
+        "corosync-cmapctl -D nodelist.node.${idx}.name",
+        "corosync-cmapctl -D nodelist.node.${idx}.nodeid");
 
 }
 
