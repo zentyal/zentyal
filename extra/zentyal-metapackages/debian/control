@@ -19,7 +19,7 @@ Description: Zentyal - Core metapackage
 Package: zentyal-all
 Architecture: all
 Replaces: ebox-all
-Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office, zentyal-communication, zentyal-webmail, zentyal-radius, zentyal-captiveportal, zentyal-ipsec, zentyal-usercorner, zentyal-monitor, zentyal-ips, zentyal-bwmonitor, zentyal-zarafa, zentyal-nut, zentyal-openchange, zentyal-remoteservices
+Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office, zentyal-communication, zentyal-webmail, zentyal-radius, zentyal-captiveportal, zentyal-ipsec, zentyal-usercorner, zentyal-monitor, zentyal-ips, zentyal-bwmonitor, zentyal-nut, zentyal-remoteservices
 Description: Zentyal - All Modules
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

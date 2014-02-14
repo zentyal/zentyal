@@ -105,14 +105,21 @@ sub get
 {
     my ($self, $attr) = @_;
 
+    my $entry = $self->_entry();
+    unless (defined $entry) {
+        my $dn = $self->{dn} ? $self->{dn} : "Unknown";
+        my $msg = "get method called but entry does not exists ($dn)";
+        throw EBox::Exceptions::Internal($msg);
+    }
+
     if (wantarray()) {
-        my @value = $self->_entry->get_value($attr);
+        my @value = $entry->get_value($attr);
         foreach my $el (@value) {
             utf8::decode($el);
         }
         return @value;
     } else {
-        my $value = $self->_entry->get_value($attr);
+        my $value = $entry->get_value($attr);
         utf8::decode($value);
         return $value;
     }

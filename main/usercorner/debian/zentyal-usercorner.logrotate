@@ -1,0 +1,13 @@
+/var/log/zentyal-usercorner/error.log /var/log/zentyal-usercorner/access.log /var/log/zentyal-usercorner/zentyal.log /var/log/zentyal-usercorner/redis-server.log
+{
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        delaycompress
+        notifempty
+        postrotate
+                service zentyal usercorner restart > /dev/null; \
+        endscript
+}

@@ -1,0 +1,91 @@
+<%doc>
+   Template to set the haproxy configuration file for Zentyal
+
+Parameters:
+
+    bindaddress   - String the bind address.
+                     Default value: 0.0.0.0
+    zentyalconfdir - String the path to the HAProxy configuration folder.
+    caFile         - String the CA pem file to validate SSL certificate against.
+    ports          - Hash of ports used by services.
+
+</%doc>
+<%args>
+    $bindaddress => '0.0.0.0'
+    $zentyalconfdir
+    $caFile
+    $ports
+</%args>
+% if (%{$ports}) {
+% my %dumpedservices = ();
+global
+  tune.ssl.lifetime 300
+
+defaults
+  timeout client 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  option forwardfor
+%   foreach my $portNumber (keys %{$ports}) {
+
+frontend ft_zentyal_<% $portNumber %>
+  mode http
+%     if ($ports->{$portNumber}->{isSSL}) {
+%       my $certificates = '';
+%       foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%           my $newCrt = 'crt ' . $service->{pathSSLCert};
+%           if ($service->{isDefault}) {
+%               $certificates = "$newCrt $certificates";
+%           } else {
+%               $certificates = "$certificates $newCrt";
+%           }
+%       }
+%       if ($caFile) {
+  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+%       } else {
+  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM
+%       }
+%     } else {
+  bind <% $bindaddress %>:<% $portNumber %>
+%     }
+%     if ($ports->{$portNumber}->{isSSL}) {
+  http-request set-header X-Forwarded-Proto      https
+  http-request set-header X-SSL                       %[ssl_fc]
+  http-request set-header X-SSL-Client-Used           %[ssl_c_used]
+  http-request set-header X-SSL-Client-Verify         %[ssl_c_verify]
+  http-request set-header X-SSL-Client-SHA1           %{+Q}[ssl_c_sha1]
+  http-request set-header X-SSL-Client-DN             %{+Q}[ssl_c_s_dn]
+  http-request set-header X-SSL-Client-CN             %{+Q}[ssl_c_s_dn(cn)]
+  http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
+  http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
+  http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
+%     } else {
+  http-request set-header X-Forwarded-Proto      http
+%     }
+%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%       foreach my $domain (@{$service->{domains}}) {
+%         if ($ports->{$portNumber}->{isSSL}) {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { ssl_fc_sni <% $domain %> }
+%         } else {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { hdr(host) -i <% $domain %> }
+%         }
+%       }
+%       if ($service->{isDefault}) {
+  default_backend bk_zentyal_<% $serviceNameWithPort %>
+%       }
+%     }
+%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%       if (exists $dumpedservices{$serviceNameWithPort}) {
+%         next;
+%       } else {
+%         $dumpedservices{$serviceNameWithPort} = 1;
+%       }
+
+backend bk_zentyal_<% $serviceNameWithPort %>
+ mode http
+ server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
+%     }
+%   }
+% }

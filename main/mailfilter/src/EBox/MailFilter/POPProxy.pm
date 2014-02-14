@@ -19,7 +19,6 @@ use warnings;
 package EBox::MailFilter::POPProxy;
 
 use EBox::Config;
-# use EBox::Service;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Global;

@@ -625,7 +625,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
@@ -843,8 +842,14 @@ sub _writeCronFile
     my $times;
     my @cronTimes;
 
+    my $usingExternalAD = ($self->authenticationMode() eq $self->AUTH_MODE_EXTERNAL_AD());
+    my $usingExternalADGroups = 0;
+
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
+        if ($usingExternalAD and exists($profile->{users})) {
+            $usingExternalADGroups = 1;
+        }
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
@@ -870,6 +875,11 @@ sub _writeCronFile
         my ($hour, $min) = split (':', $time);
         my $days = join (',', sort (keys %{$times->{$time}}));
         push (@cronTimes, { days => $days, hour => $hour, min => $min });
+    }
+
+    # Synchronise AD groups every 30min
+    if ($usingExternalADGroups) {
+        push(@cronTimes, { days => '*', hour => '*', min => '*/30' });
     }
 
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
@@ -1310,13 +1320,7 @@ sub authenticationMode
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
     } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
-        my $edition = EBox::Global->edition();
-        if (($edition eq 'basic') or ($edition eq 'community')) {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for commercial editions');
-            return AUTH_MODE_INTERNAL;
-        } else {
-            return AUTH_MODE_EXTERNAL_AD;
-        }
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;

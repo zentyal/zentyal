@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,12 +22,17 @@ use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
 use POSIX qw(ceil floor INT_MAX);
 use TryCatch::Lite;
+use JSON::XS;
+use Perl6::Junction qw(all any);
+
+use constant DEFAULT_PAGE_SIZE => 10;
 
 sub new
 {
@@ -56,7 +61,7 @@ sub getParams
     foreach my $field (@{$tableDesc}) {
         foreach my $fieldName ($field->fields()) {
             my $value;
-            if ( $field->allowUnsafeChars() ) {
+            if ($field->allowUnsafeChars()) {
                 $value = $self->unsafeParam($fieldName);
             } else {
                 $value = $self->param($fieldName);
@@ -77,14 +82,14 @@ sub _pageSize
 {
     my ($self) = @_;
     my $pageSize = $self->param('pageSize');
-    if (not $pageSize) {
-        $pageSize = $self->{tableModel}->pageSize();
+    unless ($pageSize) {
+        $pageSize = $self->{tableModel}->pageSize($self->user());
     }
     if ($pageSize eq '_all') {
         return INT_MAX; # could also be size but maximum int avoids the call
     }
 
-    return $pageSize;
+    return $pageSize ? $pageSize : DEFAULT_PAGE_SIZE;
 }
 
 sub _auditLog
@@ -119,7 +124,12 @@ sub _auditLog
         } elsif (($type and ($type eq 'password')) or ($elementId eq 'password')) {
             $value = '****' if $value;
             $oldValue = '****' if $oldValue;
+        } elsif (ref($value) or ref($oldValue)) {
+            my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+            $value = $encoder->encode($value) if ref($value);
+            $oldValue = $encoder->encode($oldValue) if ref($oldValue);
         }
+
     }
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
@@ -200,9 +210,16 @@ sub _editField
     my $row = $model->row($id);
     my $auditId = $self->_getAuditId($id);
 
+    my $viewCustomizer = $model->viewCustomizer();
+    my $triggerFields = $viewCustomizer->onChangeFields();
+    # Fetch trigger fields
+    foreach my $name (keys %{$triggerFields}) {
+        $triggerFields->{$name} = $params{$name};
+    }
+
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    for my $field (@{$tableDesc} ) {
+    for my $field (@{$tableDesc}) {
         my $fieldName = $field->fieldName();
 
         if ($inPlace and (not $field->isa('EBox::Types::Basic'))) {
@@ -211,13 +228,21 @@ sub _editField
         }
 
         unless ($field->isa('EBox::Types::Boolean')) {
-            next unless defined $params{$fieldName};
+            # Check all fields are in the params
+            my @fields = $field->fields();
+            my $seen = grep { defined ($params{$_})} @fields;
+            next if ($seen != scalar(@fields));
         }
 
-        my $newValue = $params{$fieldName};
+        # Skip fields that are hidden or disabled by the view customizer
+        next if($viewCustomizer->skipField($fieldName, $triggerFields));
+
+        my $newField = $field->clone();
+        $newField->setMemValue(\%params);
+        my $newValue = $newField->value();
         my $oldValue = $row->valueByName($fieldName);
 
-        next if ($newValue eq $oldValue);
+        next if ($row->elementByName($fieldName)->isEqualTo($newField));
 
         $changedValues{$fieldName} = {
             id => $id ? "$auditId/$fieldName" : $fieldName,
@@ -230,7 +255,7 @@ sub _editField
         $model->setRow($force, %params);
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{editField},
             "$e",
            );
@@ -351,9 +376,10 @@ sub _paramsForRefreshTable
     my $action = $self->{'action'};
     my $filter = $self->unsafeParam('filter');
     my $page = defined $forcePage ? $forcePage : $self->param('page');
-    my $pageSizeParam = $self->param('pageSize');
-    if (defined ($pageSizeParam)) {
-        $model->setPageSize($pageSizeParam);
+
+    my $user = $self->user();
+    if ((defined $self->param('pageSize')) and $user) {
+        $model->setPageSize($user, $self->param('pageSize'));
     }
 
     my $editId;
@@ -371,6 +397,7 @@ sub _paramsForRefreshTable
     push(@params, 'hasChanged' => $global->unsaved());
     push(@params, 'filter' => $filter);
     push(@params, 'page' => $page);
+    push(@params, 'user' => $user);
 
     return \@params;
 }
@@ -511,7 +538,7 @@ sub delAction
         $rowId = $self->removeRow();
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{del},
             "$e",
            );
@@ -826,6 +853,7 @@ sub _htmlForChangeRow
     my @params = (
         model  => $model,
         action => $action,
+        user => $self->user(),
 
         editid => $editId,
         filter => $filter,

@@ -3,6 +3,7 @@
     @groupusers
     @remainusers => ()
     @components => ()
+    $usersWithMail => 0
     $slave => 1
 </%args>
 <%init>
@@ -64,7 +65,11 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 % if ($slave) {
 <& .usersRO, groupusers => \@groupusers &>
 % } else {
-<& .usersRW, group => $group, groupusers => \@groupusers, remainusers => \@remainusers &>
+<& .usersRW, group => $group,
+             groupusers => \@groupusers,
+             remainusers => \@remainusers,
+             usersWithMail => $usersWithMail
+&>
 % }
 </div>
 
@@ -90,6 +95,7 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 $group
 @groupusers
 @remainusers
+$usersWithMail
 </%args>
 <%init>
 my $json = JSON::XS->new();
@@ -111,10 +117,18 @@ $(function() {
         noteDiv: '#editGroupForm_message',
         errorDiv: '#editGroupForm_error',
         submitButton: '#submitEditGroupForm',
+        success: function (response) {
+           if ('type' in response) {
+                var tree =  $("#tree_Manage");
+                var selected = tree.jstree("get_selected")[0];
+                $(selected).attr('rel', response.type);
+           }
+        }
    });
 
    var updateUserWidgets = function(data) {
-      var user, i;
+      var user, i,
+          groupEmpty = true;
 
       var addUser = $('#adduser');
       addUser.detach();
@@ -139,11 +153,17 @@ $(function() {
                             'data-user-name="' + user + '" ' +
                             '>delete</span>' +   '</li>'
                            );
+         groupEmpty = false;
       }
       groupUsers.insertAfter('#removeUserFromGroup_error');
+
+      var members_change_event = jQuery.Event("group_members_change");
+      members_change_event.groupEmpty    = data.member.length === 0;
+      members_change_event.usersWithMail = data.usersWithMail;
+      $('.group_members_observer').trigger(members_change_event);
   };
 
-   var refreshUsers = function (groupInfo) {
+   var refreshUsers = function () {
         $.getJSON('/Users/EditGroup', 'userInfo=1&dn=' + '<% $group->dn() %>', updateUserWidgets);
    };
 
@@ -172,7 +192,7 @@ $(function() {
              $('#removeUserFromGroup_error').html(response.error).show();
           }
        },
-       complete: function() {
+       complete: function(response) {
            refreshUsers();
        }
     });

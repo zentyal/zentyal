@@ -130,11 +130,10 @@ sub _delUser
 # Method: _preModifyUser
 #
 #   When a user is going to be modified
-#   TODO
 #
-#sub _preModifyUser
-#{
-#}
+sub _preModifyUser
+{
+}
 
 # Method: _modifyUser
 #

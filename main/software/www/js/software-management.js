@@ -131,13 +131,14 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
     }
 };
 
-Zentyal.SoftwareManagementUI.checkAll = function(table, value) {
+Zentyal.SoftwareManagementUI.checkAll = function(table, value, buttonId) {
     $('#' + table  + ' :checkbox').prop('checked', value);
+    Zentyal.SoftwareManagementUI.updateActionButton(table, buttonId);
 };
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
     var packages = [];
-    packages = $('#' + container + ' :checked').map(function() {
+    packages = $('#' + container + ' tbody :checked').map(function() {
          return 'pkg-' + this.getAttribute('data-pkg');
     }).get();
     Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);

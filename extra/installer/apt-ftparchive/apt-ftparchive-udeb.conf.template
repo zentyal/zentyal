@@ -7,13 +7,13 @@ TreeDefault {
 };
 
 BinDirectory "pool/main" {
-  Packages "dists/precise/main/debian-installer/binary-ARCH/Packages";
-  BinOverride "INDICES/override.precise.main.debian-installer";
+  Packages "dists/DIST/main/debian-installer/binary-ARCH/Packages";
+  BinOverride "INDICES/override.DIST.main.debian-installer";
 };
 
 BinDirectory "pool/restricted" {
-  Packages "dists/precise/restricted/debian-installer/binary-ARCH/Packages";
-  BinOverride "INDICES/override.precise.restricted.debian-installer";
+  Packages "dists/DIST/restricted/debian-installer/binary-ARCH/Packages";
+  BinOverride "INDICES/override.DIST.restricted.debian-installer";
 };
 
 Default {

@@ -226,9 +226,7 @@ sub preconditionFailMsg
     return $msg;
 }
 
-# Group: Public methods
-
-# Method: getInterfaceResolvers
+# Method: getInterfaceResolvconfConfig
 #
 #   This method get the resolvconf configuration for a given interface.
 #
@@ -341,5 +339,20 @@ sub importSystemResolvers
     }
     $self->table->{insertPosition} = 'back';
 }
+
+# Method: nameservers
+#
+#  Returns:
+#
+#   Array ref - each element contains a string holding the nameserver
+#
+sub nameservers
+{
+    my ($self) = @_;
+    my $ids = $self->ids();
+    my @nameservers = map { $self->row($_)->valueByName('nameserver') } @{$ids};
+    return \@nameservers;
+}
+
 
 1;

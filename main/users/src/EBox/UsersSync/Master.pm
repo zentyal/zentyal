@@ -64,7 +64,8 @@ sub confSOAPService
     EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
 
     my $webAdminMod = EBox::Global->modInstance('webadmin');
-    $webAdminMod->addApacheInclude($confFile);
+# FIXME: this method no longer exists!!
+#    $webAdminMod->addApacheInclude($confFile);
     $webAdminMod->addNginxInclude($confSSLFile);
 
     $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);
@@ -249,7 +250,7 @@ sub setupSlave
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            $client->registerSlave($webAdminMod->port(), $client_cert, 1);
+            $client->registerSlave($webAdminMod->listeningHTTPSPort(), $client_cert, 1);
         } catch ($e) {
             $self->_analyzeException($e);
         }

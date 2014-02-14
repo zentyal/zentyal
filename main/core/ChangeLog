@@ -1,11 +1,77 @@
-HEAD
+3.4
+	+ Restore AdminPort model for WebAdmin to improve usability
+	+ Added EBox::Module::Config::replicationExcludeKeys()
+	+ Added EBox::WebAdmin::PortObserver to be used by ha and
+	  remoteservices modules by the moment
+	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
+	  after normal save changes process
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used
+	+ Added a left-right composite layout
+	+ Search and pagination forms can be omitted using showFilterForm
+	  and showPaginationForm properties
+	+ Show nice error when global-action fails using die + scalar
+	+ EBox::Util::Random now accepts a set of chars to have a random string
+	+ Notify HA when a module which must have a single instance in the
+	  cluster is enabled/disabled.
+	+ Added enabled action to /etc/init.d/zentyal to display whether a
+	  module is enabled or disabled
+	+ Pass model, type and id to enabled subroutine in
+	  EBox::Types::MultiStateAction to be ortoghonal to handler property
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Added middleware to have auth based on a env variable
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
+	+ Use uWSGI instead of Apache mod_perl for running CGIs
+	+ Updated automatic bug report URL to new bug report endpoint.
+	+ Give support to custom actions without image. Those actions will
+	  not appear in the legend.
+	+ Added to findValueMultipleFields and findValue the nosync parameter
+	+ Added support for haproxy 1.5
+	+ Moved nginx to listen on localhost
+	+ Integration with HA module in save changes process
+	+ Added icon for new zentyal-ha module
+	+ Migrate rs_verify_servers in remoteservices.conf to
+	  rest_verify_servers core.conf
+	+ Include basic support to free-format Template models to be
+	  included in Composites
+	+ Move run-pending-ops script from remoteservices to core
+	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result
+	+ Move EBox::RemoteServices::RESTClient to EBox::RESTClient as it
+	  is used in ha and remoteservices module.
+	+ Adapt init.d and upstart running checks to Ubuntu 13.10
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Adapted apache configuration to 2.4
+	+ Adapted EBox::Config::Redis to the new libredis-perl API
+	+ Adapted redis.conf to redis 2.6
+	+ Avoid division by zero while using page navigation
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
+	+ Show nice error when global-action fails using die + scalar
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Fixed rethrown of exception in restartService() and
+	  EBox::CGI::Base::upload methods
+	+ Remove lock file in EBox::Util::Lock::unlock()
+	+ Fixed mason component root for custom stubs
+	+ Fixed regression in clone action
+	+ Decode to utf8 the MySQL database results
+	+ Create log database using utf8 charset
+	+ Better way to set MySQL password for all the root accounts
+	+ Use same JSON reply file for changeRowForm and dataInUse
 	+ Fixed regression in AJAX changes with raised error when a
 	  data in use exception was found
 	+ Fixed css error that hide information in the logs tables
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
-3.3.2
 	+ Fixed regression when table size is set to 'view all'
+	+ Set version to 3.4
 3.3.1
 	+ Fixed redirects in table/form JSON replies
 	+ Set automated ticket report milestone to 3.3.X

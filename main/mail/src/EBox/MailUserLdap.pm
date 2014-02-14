@@ -160,6 +160,16 @@ sub delUserAccount
     push (@cmds, "/bin/rm -rf $sieveDir");
 
     EBox::Sudo::root(@cmds);
+
+    # disable openchange account if exists. We don't implement and observer
+    # notifier interface bz only one module is to be notifier
+    if ($self->openchangeAccountEnabled($user)) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        my $userOc = $openchange->_ldapModImplementation();
+        if ($userOc->enabled($user)) {
+            $userOc->setAccountEnabled($user, 0);
+        }
+    }
 }
 
 # Method: userAccount
@@ -371,14 +381,25 @@ sub _groupAddOns
 
     my $mail = EBox::Global->modInstance('mail');
     my $aliases = $mail->{malias}->groupAliases($group);
-
     my @vd =  $mail->{vdomains}->vdomains();
+
+    my $groupEmpty    = 1;
+    my $usersWithMail = 0;
+    foreach my $user (@{ $group->members() }) {
+        $groupEmpty = 0;
+        if ($self->userAccount($user)) {
+            $usersWithMail = 1;
+            last;
+        }
+    }
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
         'service'  => $mail->service(),
+        'groupEmpty' => $groupEmpty,
+        'usersWithMail' => $usersWithMail,
     };
 
     return {
@@ -836,5 +857,20 @@ sub hiddenOUs
 {
     return [ 'postfix' ];
 }
+
+sub openchangeAccountEnabled
+{
+    my ($self, $user) = @_;
+    if (EBox::Global->modExists('openchange')) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        if ($openchange->configured() and $openchange->isProvisioned()) {
+            my $userOc = $openchange->_ldapModImplementation();
+            return $userOc->enabled($user);
+        }
+    }
+    return 0;
+}
+
+
 
 1;

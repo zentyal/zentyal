@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,7 +21,8 @@ package EBox::RemoteServices;
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::WebAdmin::PortObserver);
 
 # Class: EBox::RemoteServices
 #
@@ -1359,27 +1360,24 @@ sub latestRemoteConfBackup
     return $bakService->latestRemoteConfBackup();
 }
 
-# Method: reportAdminPort
+# Method: adminPortChanged
 #
-#     Report to Zentyal Cloud for a new TCP port for the Zentyal
+#     Report to Zentyal Remote for a new TCP port for the Zentyal
 #     server admin interface.
 #
-#     It will do so only if the server is connected to Zentyal Cloud
+#     It will do so only if the server is connected to Zentyal Remote
 #
 # Parameters:
 #
 #     port - Int the new TCP port
 #
-# Exceptions:
+# Overrides:
 #
-#     <EBox::Exceptions::InvalidData> - if the given port is not a
-#     valid port
+#     <EBox::WebAdmin::PortObserver::adminPortChanged>
 #
-sub reportAdminPort
+sub adminPortChanged
 {
     my ($self, $port) = @_;
-
-    EBox::Validate::checkPort($port, "$port is not a valid port");
 
     my $state = $self->get_state();
 
@@ -2065,7 +2063,7 @@ sub _latestBackup
     return $latest;
 }
 
-# Report the Zentyal server TCP admin port to Zentyal Cloud
+# Report the Zentyal server TCP admin port to Zentyal Remote
 sub _reportAdminPort
 {
     my ($self) = @_;
@@ -2073,7 +2071,7 @@ sub _reportAdminPort
     my $gl = EBox::Global->getInstance(1);
     my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($webAdminMod->port());
+    $self->adminPortChanged($webAdminMod->listeningPort());
 }
 
 # Method: extraSudoerUsers

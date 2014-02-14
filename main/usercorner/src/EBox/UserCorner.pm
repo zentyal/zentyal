@@ -17,27 +17,31 @@ use warnings;
 
 package EBox::UserCorner;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
 
 use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
 use EBox::UserCorner;
+use EBox::UserCorner::Middleware::AuthLDAP;
 use EBox::Util::Version;
-use EBox::Exceptions::External;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
-use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
+use constant USERCORNER_UPSTART_NAME => 'zentyal.usercorner-uwsgi';
+use constant USERCORNER_NGINX_FILE => '/var/lib/zentyal-usercorner/conf/usercorner-nginx.conf';
 use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'usercorner',
-                                      printableName => __('User Corner'),
-                                      @_);
+    my $self = $class->SUPER::_create(
+        name          => 'usercorner',
+        printableName => __('User Corner'),
+        @_);
 
     bless($self, $class);
     return $self;
@@ -114,27 +118,82 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default rules and services
-    # only if installing the first time
-    unless ($version) {
-        my $fw = EBox::Global->modInstance('firewall');
-
-        my $port = 8888;
-        $fw->addInternalService(
-                'name'            => 'usercorner',
-                'printableName'   => __('User Corner'),
-                'description'     => __('User Corner Web Server'),
-                'protocol'        => 'tcp',
-                'sourcePort'      => 'any',
-                'destinationPort' => $port,
-                );
-        $fw->saveConfigRecursive();
-
-        $self->setPort($port);
-    }
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+
+    # Register the service if installing the first time
+    unless ($version) {
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHTTPSPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        my $haproxyMod = $self->global()->modInstance('haproxy');
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
+
+    # Upgrade from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrate34();
+    }
+}
+
+# Migration to 3.4
+#
+#  * Migrate redis keys to use haproxy.
+#
+sub _migrateTo34
+{
+    my ($self) = @_;
+
+    my $haproxyMod = $self->global()->modInstance('haproxy');
+    my $redis = $self->redis();
+    my $key = 'usercorner/conf/Settings/keys/form';
+    my $value = $redis->get($key);
+    unless ($value) {
+        # Fallback to the 'ro' version.
+        $key = 'usercorner/ro/Settings/keys/form';
+        $value = $redis->get($key);
+    }
+    if ($value) {
+        if (defined $value->{port}) {
+            # There are keys to migrate...
+            my @args = ();
+            push (@args, modName        => $self->name);
+            push (@args, sslPort        => $value->{port});
+            push (@args, enableSSLPort  => 1);
+            push (@args, defaultSSLPort => 1);
+            push (@args, force          => 1);
+            $haproxyMod->setHAProxyServicePorts(@args);
+        }
+
+        my @keysToRemove = ('usercorner/conf/Settings/keys/form', 'usercorner/ro/Settings/keys/form');
+        $redis->unset(@keysToRemove);
+    } else {
+        # This case happens when there is no modification on WebAdmin
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHTTPSPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
+
+    # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+    my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
+    foreach my $key (@caKeys) {
+        my $value = $redis->get($key);
+        unless (ref $value eq 'HASH') {
+            next;
+        }
+        if ($value->{serviceId} eq 'User Corner web server') {
+            $value->{serviceId} = 'zentyal_' . $self->name();
+            $value->{service} = $self->printableName();
+            $redis->set($key, $value);
+        }
+    }
 }
 
 sub _setupRoLDAPAccess
@@ -162,7 +221,8 @@ sub enableActions
     # check if users module is running in standalone mode
     my $users = $self->global()->modInstance('users');
     if ($users->mode() ne $users->STANDALONE_MODE) {
-        throw EBox::Exceptions::External(__('User corner needs that the users module is configured in standalone server mode'));
+        throw EBox::Exceptions::External(__(
+            'User corner needs that the users module is configured in standalone server mode'));
     }
 
     # Create userjournal dir if it not exists
@@ -201,10 +261,10 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.apache2-usercorner'
+            name => USERCORNER_UPSTART_NAME,
         },
         {
-            'name' => 'ebox.redis-usercorner'
+            name => 'ebox.redis-usercorner'
         }
     ];
 }
@@ -217,14 +277,36 @@ sub _setConf
 {
     my ($self) = @_;
 
-    # We can assume the listening port is ready available
-    my $settings = $self->model('Settings');
+    my $permissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+    my $socketPath = '/run/zentyal-' . $self->name();
+    my $socketName = 'usercorner.sock';
+    my $upstartFileTemplate = 'core/upstart-uwsgi.mas';
+    my $upstartFile = '/etc/init/' . USERCORNER_UPSTART_NAME . '.conf';
+    my @confFileParams = ();
+    push (@confFileParams, socketpath => $socketPath);
+    push (@confFileParams, socketname => $socketName);
+    push (@confFileParams, script => EBox::Config::psgi() . 'usercorner.psgi');
+    push (@confFileParams, module => $self->printableName());
+    push (@confFileParams, user   => USERCORNER_USER);
+    push (@confFileParams, group  => USERCORNER_GROUP);
+    EBox::Module::Base::writeConfFileNoCheck(
+        $upstartFile, $upstartFileTemplate, \@confFileParams, $permissions);
 
-    # Overwrite the listening port conf file
-    EBox::Module::Base::writeConfFileNoCheck(USERCORNER_APACHE,
-        "usercorner/user-apache2.conf.mas",
-        [ port => $settings->portValue() ],
-    );
+    my $nginxFileTemplate = 'usercorner/nginx.conf.mas';
+    @confFileParams = ();
+    push (@confFileParams, socket => "$socketPath/$socketName");
+    push (@confFileParams, bindaddress => $self->targetIP());
+    push (@confFileParams, port  => $self->targetHTTPSPort());
+    EBox::Module::Base::writeConfFileNoCheck(
+        USERCORNER_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    $webadminMod->addNginxServer(USERCORNER_NGINX_FILE);
 
     # Write user corner redis file
     $self->{redis}->writeConfigFile(USERCORNER_USER);
@@ -239,68 +321,20 @@ sub _setConf
     }
 }
 
-# Method: menu
-#
-#        Show the usercorner menu entry
-#
-# Overrides:
-#
-#        <EBox::Module::menu>
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    my $folder = new EBox::Menu::Folder('name' => 'Users',
-                                        'icon' => 'users',
-                                        'text' => __('Users and Computers'),
-                                        'separator' => 'Office',
-                                        'order' => 510);
-
-    my $item = new EBox::Menu::Item(text => $self->printableName(),
-                                    url => 'Users/UserCorner',
-                                    order => 100);
-    $folder->add($item);
-    $root->add($folder);
-}
-
-# Method: port
-#
-#       Returns the port the usercorner webserver is on
-#
-sub port
-{
-    my ($self) = @_;
-    my $settings = $self->model('Settings');
-    return $settings->portValue();
-}
-
-# Method: setPort
-#
-#       Sets the port the usercorner webserver is on
-#
-sub setPort
-{
-    my ($self, $port) = @_;
-
-    my $settingsModel = $self->model('Settings');
-    $settingsModel->set(port => $port);
-}
-
 sub certificates
 {
     my ($self) = @_;
 
     return [
-            {
-             serviceId =>  q{User Corner web server},
-             service =>  __(q{User Corner web server}),
-             path    =>  '/var/lib/zentyal-usercorner/ssl/ssl.pem',
-             user => USERCORNER_USER,
-             group => USERCORNER_GROUP,
-             mode => '0400',
-            },
-           ];
+        {
+            serviceId =>  'zentyal_' . $self->name(),
+            service   =>  __(q{User Corner Web Server}),
+            path      =>  $self->pathHTTPSSSLCertificate(),
+            user      => USERCORNER_USER,
+            group     => USERCORNER_GROUP,
+            mode      => '0400',
+        },
+    ];
 }
 
 # Method: editableMode
@@ -341,19 +375,132 @@ sub roRootDn
 #
 sub getRoPassword
 {
+    open(PASSWD, USERCORNER_LDAP_PASS) or
+        throw EBox::Exceptions::External('Could not get LDAP password');
+
+    my $pwd = <PASSWD>;
+    close(PASSWD);
+
+    $pwd =~ s/[\n\r]//g;
+    return $pwd;
+}
+
+# Method: userCredentials
+#
+#   Return a tuple of user, pass and userDN strings for the logged in user.
+#
+# Raises: <EBox::Exceptions::Internal> If there are no credentials available.
+#
+sub userCredentials
+{
     my ($self) = @_;
 
-    unless (defined($self->{roPassword})) {
-        open(PASSWD, USERCORNER_LDAP_PASS) or
-            throw EBox::Exceptions::External('Could not get LDAP password');
-
-        my $pwd = <PASSWD>;
-        close(PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{roPassword} = $pwd;
+    my $global = $self->global();
+    my $request = $global->request();
+    unless (defined $request) {
+        throw EBox::Exceptions::Internal("There is no request available!");
     }
-    return $self->{roPassword};
+    my $session = $request->session();
+    unless (defined $session->{user_id}) {
+        throw EBox::Exceptions::Internal("There is no user_id information in the request object!");
+    }
+    my $user = $session->{user_id};
+    unless (defined $session->{userDN}) {
+        throw EBox::Exceptions::Internal("There is no userDN information in the request object!");
+    }
+    my $userDN = $session->{userDN};
+    my $pass = EBox::UserCorner::Middleware::AuthLDAP->sessionPassword($request);
+    unless (defined $pass) {
+        throw EBox::Exceptions::Internal("There is password defined for this request object!");
+    }
+
+    return ($user, $pass, $userDN);
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: allowServiceDisabling
+#
+#   Usercorner must be always on so users don't lose access to the admin UI.
+#
+# Returns:
+#
+#   boolean - Whether this service may be disabled from the reverse proxy.
+#
+sub allowServiceDisabling
+{
+    return 0;
+}
+
+# Method: defaultHTTPSPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
+#
+sub defaultHTTPSPort
+{
+    return 8888;
+}
+
+# Method: blockHTTPPortChange
+#
+#   Always return True to prevent that user corner is served without SSL.
+#
+# Returns:
+#
+#   boolean - Whether the port may be customised or not.
+#
+sub blockHTTPPortChange
+{
+    return 1;
+}
+
+# Method: pathHTTPSSSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHTTPSSSLCertificate
+{
+    return '/var/lib/zentyal-usercorner/ssl/ssl.pem';
+}
+
+# Method: targetIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetIP>
+#
+sub targetIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHTTPSPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
+#
+sub targetHTTPSPort
+{
+    return 61888;
 }
 
 1;

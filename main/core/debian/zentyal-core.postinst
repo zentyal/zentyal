@@ -1,0 +1,135 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+# This will be replaced with debian/zentyal-core.scripts-commmon which includes
+# helper functions to set the password
+#SCRIPTSCOMMON#
+
+#DEBHELPER#
+
+ZENTYAL_HOME=/var/lib/zentyal/
+FIRST_FILE=$ZENTYAL_HOME/.first
+
+case "$1" in
+    configure)
+        ZENTYAL_LOGS_DIR=/var/log/zentyal
+        ZENTYAL_BACKUPS_DIR=$ZENTYAL_HOME/conf/backups
+
+        # create log directory
+        test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
+        chmod 750 $ZENTYAL_LOGS_DIR
+
+        # create Zentyal webadmin certificates
+        /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
+
+        # add the ebox group and user
+        if ! getent group ebox > /dev/null 2>&1
+        then
+            addgroup --system ebox
+
+            # create the .first file only if we are on the first install
+            touch $FIRST_FILE
+        fi
+
+        ENT_EBOX=`getent passwd ebox` || true
+        if [ -z "$ENT_EBOX" ];
+        then
+            adduser --system --home $ZENTYAL_HOME \
+                --disabled-password --ingroup ebox ebox
+            adduser ebox adm
+        elif [[ "$ENT_EBOX" =~ ":/var/lib/zentyal/:" ]]
+        then
+            true # user exists and has correct directory, do nothing
+        else
+            # override old Zentyal <= 2.0 home if the user ebox already exists
+            chown ebox:ebox $ZENTYAL_HOME
+            stop_ebox_processes
+            usermod --home $ZENTYAL_HOME ebox > /dev/null 2>&1
+        fi
+        # to allow PAM authentication
+        adduser ebox shadow > /dev/null 2>&1
+
+        chown ebox:adm $ZENTYAL_LOGS_DIR
+        chown -R ebox:adm $ZENTYAL_HOME/tmp
+        chown -R ebox:adm $ZENTYAL_HOME/conf
+        chown -R ebox:adm $ZENTYAL_HOME/log
+        chown ebox:adm $ZENTYAL_BACKUPS_DIR
+        chmod 700 $ZENTYAL_BACKUPS_DIR
+
+        # create and set permissions for ebox.sid
+        EBOX_SID="$ZENTYAL_HOME/conf/ebox.sid"
+        if [ ! -e $EBOX_SID ]; then
+            touch $EBOX_SID
+        fi
+        chown ebox:ebox $EBOX_SID
+        chmod 0600 $EBOX_SID
+
+        # add the stderr file needed by sudo
+        STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
+        touch ${STDERR_FILE}
+        chmod 0600 ${STDERR_FILE}
+        chown ebox:ebox ${STDERR_FILE}
+
+        # add the dynamic-www- and downloads directories
+        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;');
+        for DIR in $DYNAMIC_WWW_DIRS; do
+            mkdir -p $DIR
+            chown -R ebox:ebox $DIR
+        done
+
+        # change owner of $ZENTYAL_HOME
+        chown ebox:ebox $ZENTYAL_HOME
+
+        # setup random redis password
+        REDIS_PASS="$ZENTYAL_HOME/conf/redis.passwd"
+        if [ ! -f $REDIS_PASS ]; then
+            touch $REDIS_PASS
+            chmod 0600 $REDIS_PASS
+            chown ebox:ebox $REDIS_PASS
+            tr -dc A-Za-z0-9 < /dev/urandom | head -c8 > $REDIS_PASS
+        fi
+
+        # sudo configuration
+        /usr/share/zentyal/sudoers-friendly
+
+        # stop disable default nginx init.d script
+        service nginx stop > /dev/null 2>&1
+        update-rc.d nginx disable > /dev/null 2>&1
+
+        if [ -z "$2" ]; then
+            # Set Zentyal port only if it's the first time we install
+            set_ebox_port
+
+            # Write redis configuration
+            service zentyal webadmin start || true
+        fi
+
+        # create logs & reports database
+        /usr/share/zentyal/create-db
+
+        # setup core modules
+        /usr/share/zentyal/initial-setup sysinfo $2
+        /usr/share/zentyal/initial-setup --no-restart logs $2
+        /usr/share/zentyal/initial-setup --no-restart events $2
+        /usr/share/zentyal/initial-setup --no-restart webadmin $2
+        /usr/share/zentyal/initial-setup --no-restart haproxy $2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+    triggered)
+        # remove the menu cache
+        rm -f $ZENTYAL_HOME/tmp/menucache
+
+        # Call restart script (haproxy, webadmin, logs, events)
+        /usr/share/zentyal/restart-trigger
+
+        rm -f $ZENTYAL_HOME/dpkg_running
+    ;;
+esac
+
+db_stop
+
+exit 0

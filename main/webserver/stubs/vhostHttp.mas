@@ -4,17 +4,17 @@
 
    Parameters:
 
-   vHostName - String with the virtual host name
-   hostname - String with the server host name
-   portNumber - String with the HTTP listen port
-   sslportNumber - String with the HTTPS listen port
-   sslSupport - [disabled|allowssl|forcessl]
+   vHostName   - String with the virtual host name
+   hostname    - String with the server host name
+   port        - String with the HTTP listen port
+   sslPort     - String with the HTTPS listen port
+   sslSupport  - [disabled|allowssl|forcessl]
 </%doc>
 <%args>
   $vHostName
   $hostname
-  $portNumber
-  $sslportNumber
+  $port
+  $sslPort
   $sslSupport
 </%args>
 <%init>
@@ -25,7 +25,7 @@
   my $etcPath = EBox::WebServer::PlatformPath::ConfDirPath();
 </%init>
 % if ($sslSupport ne 'forcessl') {
-<VirtualHost *:<% $portNumber %>>
+<VirtualHost *:<% $port %>>
         ServerAdmin webmaster@<% $hostname %>
 
         ServerName <% $vHostName %>
@@ -35,10 +35,10 @@
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
         # Custom configuration goes in this file
-        Include <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
+        IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
 % } else {
-<VirtualHost *:<% $portNumber %>>
+<VirtualHost <% *:<% $port %>>
         ServerAdmin webmaster@<% $hostname %>
 
         ServerName <% $vHostName %>
@@ -47,6 +47,6 @@
         ErrorLog /var/log/apache2/<% $vHostName %>-error.log
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
-        Redirect permanent / https://<% $vHostName %>:<% $sslportNumber %>/
+        Redirect permanent / https://<% $vHostName %>:<% $sslPort %>/
 </VirtualHost>
 % }

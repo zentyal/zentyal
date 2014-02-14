@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Auxlilaire base class for firewall rules which use interface
+# Auxiliar base class for firewall rules which use interface
 
 use strict;
 use warnings;

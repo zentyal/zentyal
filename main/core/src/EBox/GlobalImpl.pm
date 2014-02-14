@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::GlobalImpl;
 
-use base qw(EBox::Module::Config Apache::Singleton::Process);
+use base qw(EBox::Module::Config Class::Singleton);
 
 use EBox;
 use EBox::Exceptions::Command;
@@ -56,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo webadmin events global logs audit);
+use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -78,6 +78,7 @@ sub _new_instance
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
+    $self->{request} = undef;
     return $self;
 }
 
@@ -718,6 +719,14 @@ sub saveAllModules
     $self->unset('post_save_modules');
 
     if (not $failed) {
+        # Replicate conf if there are more HA servers and it does not come from replication
+        if ($self->modExists('ha') and not $options{replicating}) {
+            my $ha = $self->modInstance(0, 'ha');
+            if ($ha->isEnabled()) {
+                $ha->askForReplication(\@mods);
+            }
+        }
+
         # post save hooks
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending
@@ -1118,6 +1127,56 @@ sub deleteDisasterRecovery
     }
 }
 
+# Method: appName
+#
+# Returns:
+#
+#   String - The application name we are running as or undef if unknown.
+#
+sub appName
+{
+    my ($self) = @_;
+
+    my $request = $self->{request};
+    if (defined $request) {
+        my $session = $request->session();
+        if (defined $session) {
+            return $session->{app};
+        }
+    }
+    return undef;
+}
+
+# Method: request
+#
+# Returns:
+#
+#   <Plack::Request> - The http request, undef if we are not in an http request
+#
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
+}
+
+# Method: setRequest
+#
+# Parameters:
+#
+#   <Plack::Request> - The http request.
+#
+sub setRequest
+{
+    my ($self, $request) = @_;
+
+    unless ($request) {
+        throw EBox::Exceptions::Internal("Missing argument 'request'");
+    }
+
+    $self->{request} = $request;
+}
+
 # Method: saveMessages
 #
 # Returns:
@@ -1180,6 +1239,25 @@ sub communityEdition
     my $edition = $self->edition();
 
     return (($edition eq 'community') or ($edition eq 'basic'));
+}
+
+# Method: addModuleToPostSave
+#
+#      Add a module to be saved after single normal saving changes
+#
+# Parameters:
+#
+#      module - String the module name
+#
+sub addModuleToPostSave
+{
+    my ($self, $name) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    unless (grep { $_ eq $name} @postSaveModules) {
+        push (@postSaveModules, $name);
+        $self->set('post_save_modules', \@postSaveModules);
+    }
 }
 
 # Method: _runExecFromDir
@@ -1310,7 +1388,7 @@ sub _assertNotChanges
     my @unsaved =  @{$self->modifiedModules('save')};
     if (@unsaved) {
         my $names = join ', ',  @unsaved;
-        throw EBox::Exceptions::Internal("There have been moules which remain in unsaved state after saving changes operatios: $names");
+        throw EBox::Exceptions::Internal("The following modules remain unsaved after save changes: $names");
     }
 }
 

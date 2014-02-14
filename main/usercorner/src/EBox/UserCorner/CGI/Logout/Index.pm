@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,39 +12,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::UserCorner::CGI::Logout::Index;
-
-use mod_perl;
-
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
-use Apache2::RequestUtil;
+use EBox::Global;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my ($self) = @_;
 
-	my $r = Apache2::RequestUtil->request;
-	my $auth_type = $r->auth_type;
-
-	$self->{redirect} = "/Login/Index";
-	$self->{errorchain} = "/Logout/Index";
-
-	# Delete the cookie
-	$auth_type->logout($r);
+    $self->{redirect} = "Login/Index";
+    $self->{errorchain} = "Logout/Index";
 }
 
 1;

@@ -1,3 +1,16 @@
+3.4
+	+ Adapt configuration for squid 3.3.8
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Synchronise AD groups every 30 min if using external AD and any
+	  filter profile includes an AD group
+	+ Manage errors when AD failed on fulfill our requests in external
+	  AD mode
+	+ Give support to groups with more than 1500 members and more than
+	  1000 groups in external AD mode
+	+ Fixed regression in authenticationMode method
+	+ Added validation of the domains added to the transparent proxy
+	  exceptions
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions

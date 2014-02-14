@@ -1,0 +1,13 @@
+/var/log/zentyal-captiveportal/error.log /var/log/zentyal-captiveportal/access.log /var/log/zentyal-captiveportal/zentyal.log
+{
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        delaycompress
+        notifempty
+        postrotate
+                service zentyal captiveportal restart > /dev/null; \
+        endscript
+}

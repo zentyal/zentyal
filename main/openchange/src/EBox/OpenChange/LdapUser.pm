@@ -46,21 +46,10 @@ sub _userAddOns
         return;
     }
 
-    # If the user does not have a mailbox in the AD domain, do not show
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
-    my $mail = $user->get('mail');
-    unless (defined $mail and length $mail) {
-        return;
-    }
-    my (undef, $mailDomain) = split (/@/, $mail);
-    if (lc $mailDomain ne $adDomain) {
-        return;
-    }
-
     my $active = $self->enabled($user) ? 1 : 0;
     my $args = {
         user     => $user,
+        hasMail  => $user->get('mail') ? 1 : 0,
         active   => $active,
     };
 
@@ -100,7 +89,7 @@ sub enabled
 
 sub setAccountEnabled
 {
-    my ($self, $ldapUser, $option) = @_;
+    my ($self, $ldapUser, $enabled) = @_;
 
     my $ldbUser = new EBox::Samba::User(samAccountName => $ldapUser->get('uid'));
     unless (defined $ldbUser and $ldbUser->exists()) {
@@ -110,9 +99,9 @@ sub setAccountEnabled
     my $samAccountName = $ldbUser->get('samAccountName');
     my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
 
-    my $cmd = '/opt/samba4/sbin/openchange_newuser ';
+    my $cmd = 'openchange_newuser ';
     $cmd .= ' --create ' unless (defined $msExchUserAccountControl);
-    if ($option) {
+    if ($enabled) {
         $cmd .= ' --enable ';
     } else {
         $cmd .= ' --disable ';
@@ -138,11 +127,6 @@ sub _addUser
     my $mail = EBox::Global->modInstance('mail');
     my $mailUserModel = $mail->model('MailUser');
     return unless ($mailUserModel->enabledValue());
-
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
-    my $vDomain = $mailUserModel->domainValue();
-    return unless (lc $vDomain eq lc $adDomain);
 
     $self->setAccountEnabled($user, 1);
 }
