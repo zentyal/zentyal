@@ -1,4 +1,5 @@
 3.4
+	+ Avoid warning when checking whether we are in the usercorner
 	+ Updated to use Plack / PSGI instead of mod_perl
 	+ Updated to use the new haproxy API
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

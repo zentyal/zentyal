@@ -931,12 +931,17 @@ sub writeSambaConfig
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
+        my $openchangeConnectionString = $openchangeModule->connectionString();
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+        push (@array, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@array, 'openchangeConnectionString' => $openchangeConnectionString);
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba/smb.conf.mas', \@array);
+                         'samba/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '600' });
 
     $self->_writeAntivirusConfig();
 }

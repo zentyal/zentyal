@@ -361,8 +361,10 @@ sub _doProvision
 
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+        my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
         $cmd = "openchange_provision --openchangedb " .
+               "--openchangedb-uri='$openchangeConnectionString' ".
                "--firstorg='$organizationName'";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});

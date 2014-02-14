@@ -719,8 +719,8 @@ sub saveAllModules
     $self->unset('post_save_modules');
 
     if (not $failed) {
-        # Replicate conf if there are more HA servers
-        if ($self->modExists('ha')) {
+        # Replicate conf if there are more HA servers and it does not come from replication
+        if ($self->modExists('ha') and not $options{replicating}) {
             my $ha = $self->modInstance(0, 'ha');
             if ($ha->isEnabled()) {
                 $ha->askForReplication(\@mods);

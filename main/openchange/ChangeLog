@@ -1,4 +1,5 @@
 3.4
+	+ Provision openchangedb with mysql as backend
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Remove obsolete sope dependency
 	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere

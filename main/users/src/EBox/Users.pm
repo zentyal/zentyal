@@ -1667,8 +1667,8 @@ sub isUserCorner
     my ($self) = @_;
 
     my $global = EBox::Global->modInstance('global');
-
-    return ($global->appName() eq 'usercorner');
+    my $appName = $global->appName();
+    return $appName and ($appName eq 'usercorner');
 }
 
 # Method: defaultUserModels

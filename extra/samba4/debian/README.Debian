@@ -1,6 +1,0 @@
-Samba 4 for Debian
-------------------
-
-This is a special bundled build, that means that it includes a lot of
-libraries (which are normally provided by the system) to cut down dependencies.
-Also includes Zentyal specific patches.
