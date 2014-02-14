@@ -368,7 +368,7 @@ sub validateTypedRow
                     module => $module->name()
                 );
             }
-            unless (-e $module->pathHTTPSSSLCertificate()) {
+            unless (EBox::Sudo::fileTest('-r', $module->pathHTTPSSSLCertificate())) {
                 if (EBox::Global->modExists('ca')) {
                     my $ca = EBox::Global->modInstance('ca');
                     my $certificates = $ca->model('Certificates');
