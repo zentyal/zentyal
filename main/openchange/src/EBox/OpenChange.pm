@@ -423,7 +423,6 @@ sub _setRPCProxyConf
         my $rpcProxyConfFile = $self->_rpcProxyConfFile();
         my @params = (
             rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
-            tmpdir => EBox::Config::tmp(),
             port   => RPCPROXY_PORT
            );
 

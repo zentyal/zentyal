@@ -18,7 +18,6 @@ Parameters:
   $bindaddress => '127.0.0.1'
   $port
   $rpcproxyAuthCacheDir
-  $tmpdir
   $group => 'www-data'
   $user => 'www-data'
 </%args>
@@ -29,7 +28,7 @@ KeepAliveTimeout 120
 MaxKeepAliveRequests 500
 AddDefaultCharset utf-8
 
-PidFile <% $tmpdir %>/apache-oc.pid
+PidFile /var/run/apache2/apache2.pid
 
 StartServers 5
 MinSpareServers 5
