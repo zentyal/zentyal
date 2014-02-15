@@ -30,22 +30,6 @@ use EBox::HA::ClusterStatus;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#    To store the list
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
-
-    return $self;
-}
-
 # Method: ids
 #
 #     Return the current list of resource names
@@ -57,6 +41,8 @@ sub new
 sub ids
 {
     my ($self)  = @_;
+
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     unless (defined($self->{clusterStatus}->resources())) {
         return [];
@@ -154,9 +140,10 @@ sub _parseResource_started
 {
     my ($self, %resource) = @_;
 
-    my %managingNode = %{ $self->{clusterStatus}->nodeById($resource{'managed'}) };
+    my $nodes = $resource{'nodes'};
+    my @nodeNames = map { $self->{clusterStatus}->nodeById($_)->{'name'} } @{$nodes};
 
-    return $managingNode{'name'};
+    return join(', ', @nodeNames);
 }
 
 1;

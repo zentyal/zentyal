@@ -30,22 +30,6 @@ use EBox::HA::ClusterStatus;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#    To store the list
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
-
-    return $self;
-}
-
 # Method: ids
 #
 #     Return the current list of node names
@@ -57,6 +41,8 @@ sub new
 sub ids
 {
     my ($self)  = @_;
+
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     unless (defined($self->{clusterStatus}->errors())) {
         return [];

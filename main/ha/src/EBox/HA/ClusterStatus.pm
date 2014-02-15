@@ -472,8 +472,13 @@ sub _parseResources
                            managed => ($xmlResource->getAttribute('managed') eq 'true'),
                            failed => ($xmlResource->getAttribute('failed') eq 'true'),
                            failure_ignored => ($xmlResource->getAttribute('failure_ignored') eq 'true'),
-                           nodes_running_on => $xmlResource->getAttribute('nodes_running_on'),
+                           nodes_running_on => $xmlResource->getAttribute('nodes_running_on'),  # Number of nodes running this resource
                          };
+        # Store the nodes we are running on
+        if ($resources{$name}->{nodes_running_on} > 0) {
+            my @nodes = map { $_->getAttribute('id') } $xmlResource->findnodes('./node');
+            $resources{$name}->{nodes} = \@nodes;
+        }
     }
 
     return \%resources;

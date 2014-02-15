@@ -31,22 +31,6 @@ use EBox::Types::Host;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#    To store the list
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
-
-    return $self;
-}
-
 # Method: ids
 #
 #     Return the current list of node names
@@ -58,6 +42,8 @@ sub new
 sub ids
 {
     my ($self)  = @_;
+
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     unless (defined($self->{clusterStatus}->nodes())) {
         return [];
@@ -173,11 +159,13 @@ sub _parseNode_floating
         my %resource = %{ $resources{$key} };
 
         if ($resource{'resource_agent'} eq 'ocf::heartbeat:IPaddr2') {
-            my %managingNode = %{ $self->{clusterStatus}->nodeById($resource{'managed'}) };
+            foreach my $nodeId (@{$resource{'nodes'}}) {
+                my $managingNode = $self->{clusterStatus}->nodeById($nodeId);
 
-            if ($node{'name'} eq $managingNode{'name'}) {
-                if ($result) { $result = $result . " - "; }
-                $result = $result . $resource{'id'} . " ";
+                if ($node{'name'} eq $managingNode->{'name'}) {
+                    $result = $result . " - " if ($result);
+                    $result = $result . $resource{'id'} . " ";
+                }
             }
         }
     }

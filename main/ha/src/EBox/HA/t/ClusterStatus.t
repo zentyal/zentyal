@@ -50,7 +50,7 @@ sub setUpInstance : Test(setup)
     my ($self) = @_;
     my $redis = EBox::Test::RedisMock->new();
     my $ha = EBox::HA->_create(redis => $redis);
-    $self->{xml} = "<?xml version='1.0'?>
+    $self->{xml} = q{<?xml version='1.0'?>
         <crm_mon version='1.1.10'>
         <summary>
             <last_update time='Thu Jan 30 10:34:32 2014' />
@@ -67,11 +67,13 @@ sub setUpInstance : Test(setup)
         </nodes>
         <resources>
             <resource id='ClusterIP' resource_agent='ocf::heartbeat:IPaddr2' role='Started' active='true' orphaned='false' managed='true' failed='false' failure_ignored='false' nodes_running_on='1' >
+               <node name="mini-fox" id="2" cached="false"/>
             </resource>
             <resource id='ClusterIP2' resource_agent='ocf::heartbeat:IPaddr2' role='Started' active='true' orphaned='false' managed='true' failed='false' failure_ignored='false' nodes_running_on='1' >
+               <node name="mini-fox" id="2" cached="false"/>
             </resource>
         </resources>
-        </crm_mon>";
+        </crm_mon>};
     $self->{crm_mon_1} = "Last updated: Thu Feb  6 11:26:40 2014
 Last change: Thu Feb  6 11:26:39 2014 via cibadmin on perra-vieja
 Stack: corosync
@@ -147,6 +149,22 @@ sub test_status_search : Test(4)
     cmp_ok($node{'name'}, 'eq', 'mega-cow', 'Searching by id');
     %node = %{ $clusterStatus->nodeById(2) };
     cmp_ok($node{'name'}, 'eq', 'mini-fox', 'Searching by id (2)');
+}
+
+sub test_resources : Test(10)
+{
+    my ($self) = @_;
+
+    my $clusterStatus = $self->{clusterStatus};
+
+    my $resources = $clusterStatus->resources();
+    while( my ($rscId, $rsc) = each (%{$resources}) ) {
+        cmp_ok($rscId, 'eq', $rsc->{id}, 'Resource id is its name');
+        cmp_ok($rsc->{resource_agent}, 'eq', 'ocf::heartbeat:IPaddr2', 'An IPAddr2 resource');
+        ok($rsc->{active}, 'Resource is active');
+        cmp_ok($rsc->{nodes_running_on}, '==', 1, 'Single node resources');
+        eq_deeply($rsc->{nodes}, [ 2 ], 'Running on node 2');
+    }
 }
 
 sub test_status_print : Test(3)
