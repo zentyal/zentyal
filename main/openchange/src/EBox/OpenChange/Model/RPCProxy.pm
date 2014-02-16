@@ -61,11 +61,11 @@ sub _table
              volatile  => 1,
              optionalLabel => 0,
              acquirer => sub {
-                 my $file = EBox::Config::downloads() . 'rpcproxy.cert';
+                 my $file = EBox::Config::downloads() . 'rpcproxy.crt';
                  if (not -r $file) {
                      return undef;
                  }
-                 return '/Downloader/FromTempDir?filename=rpcproxy.cert';
+                 return '/Downloader/FromTempDir?filename=rpcproxy.crt';
              },
             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
             HTMLSetter     => '/ajax/viewer/downloadLink.mas',

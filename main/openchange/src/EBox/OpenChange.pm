@@ -512,7 +512,7 @@ sub _updateDownloadableCert
     my ($self) = @_;
     my $certPath = $self->_rpcProxyCertificate();
     $certPath =~ s/pem$/cert/;
-    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.cert';
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
     EBox::Sudo::root("cp '$certPath' '$downloadPath'",
                      "chown ebox.ebox '$downloadPath'"
                     );
