@@ -549,6 +549,7 @@ sub askForReplication
                 my $name = $node->{name};
                 EBox::error("Replication to node $name failed");
                 $state->{errors}->{$name} = 1;
+                $failed = 1;
             }
         }
         $self->set_state($state);
