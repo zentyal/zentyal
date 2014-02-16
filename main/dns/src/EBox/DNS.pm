@@ -36,6 +36,7 @@ use EBox::Model::Manager;
 use EBox::Sudo;
 use EBox::DNS::FirewallHelper;
 use EBox::NetWrappers;
+use EBox::DNS::Update::GSS;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
