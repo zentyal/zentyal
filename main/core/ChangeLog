@@ -1,5 +1,7 @@
 HEAD
 	+ More usable change administrator password model
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
 3.2.7
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Decode to utf8 the MySQL database results
