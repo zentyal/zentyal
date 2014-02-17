@@ -430,13 +430,19 @@ sub _doDeprovision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationName = $params{organizationname};
+    my $organizationName = $params{provisionedorganizationname};
 
     try {
         my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+
+        if ($self->parentModule->isProvisionedWithMySQL()) {
+            # It removes the file with mysql password and the user from mysql
+            EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                             'remove-database');
+        }
 
         # Drop SOGo database and db user. To avoid error if it does not exists,
         # the user is created and granted harmless privileges before drop it
