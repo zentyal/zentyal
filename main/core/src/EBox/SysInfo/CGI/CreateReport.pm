@@ -45,14 +45,14 @@ sub _print
     }
 
     my $description = $self->unsafeParam('description');
-    $description .= "\n\n'''Error'''\n\n";
-    $description .= "{{{\n";
+    $description .= "\n\nh2. Error\n\n";
+    $description .= "<pre>\n";
     $description .= $self->unsafeParam('error');
-    $description .= "\n}}}";
-    $description .= "\n\n'''Trace'''\n\n";
-    $description .= "{{{\n";
+    $description .= "\n</pre>";
+    $description .= "\n\nh2. Trace\n\n";
+    $description .= "<pre>\n";
     $description .= $self->unsafeParam('stacktrace');
-    $description .= "\n}}}";
+    $description .= "\n</pre>";
 
     my $ticket = EBox::Util::BugReport::send($email,
                                              $description);
