@@ -74,6 +74,9 @@ sub fake
     ($? == 0) or die ("Can not clean temporally test dir $tmpConfDir");
     mkdir ($tmpConfDir);
     ($? == 0) or die ("Can not create the temporally test dir $tmpConfDir");
+    my $tmpTmpDir = "${tmpConfDir}tmp";
+    mkdir ($tmpTmpDir);
+    ($? == 0) or die ("Can not create the temporally test tmp dir $tmpTmpDir");
 
     my $tmpEtcDir = '/tmp/zentyal-test-etc/';
     system ("rm -rf $tmpEtcDir") if ( -e $tmpEtcDir);
@@ -92,6 +95,7 @@ sub fake
         modules => $ENV{ZENTYAL_MODULES_SCHEMAS},
         conf => $tmpConfDir,
         etc => $tmpEtcDir,
+        tmp => $tmpTmpDir,
         user => 'nobody'
     );
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
