@@ -1,0 +1,106 @@
+<div id="eventedit" class="uidialog uidialog-tabbed">
+	<form id="eventtabs" action="#" method="post" enctype="multipart/form-data">
+		<ul>
+			<li><a href="#event-tab-1"><roundcube:label name="calendar.tabsummary" /></a></li><li id="edit-tab-recurrence"><a href="#event-tab-2"><roundcube:label name="calendar.tabrecurrence" /></a></li><li id="edit-tab-attendees"><a href="#event-tab-3"><roundcube:label name="calendar.tabattendees" /></a></li><li id="edit-tab-attachments"><a href="#event-tab-4"><roundcube:label name="calendar.tabattachments" /></a></li>
+		</ul>
+		<!-- basic info -->
+		<div id="event-tab-1">
+			<div class="event-section">
+				<label for="edit-title"><roundcube:label name="calendar.title" /></label>
+				<br />
+				<input type="text" class="text" name="title" id="edit-title" size="40" />
+			</div>
+			<div class="event-section">
+				<label for="edit-location"><roundcube:label name="calendar.location" /></label>
+				<br />
+				<input type="text" class="text" name="location" id="edit-location" size="40" />
+			</div>
+			<div class="event-section">
+				<label for="edit-description"><roundcube:label name="calendar.description" /></label>
+				<br />
+				<textarea name="description" id="edit-description" class="text" rows="5" cols="40"></textarea>
+			</div>
+			<div class="event-section">
+				<label for="edit-url"><roundcube:label name="calendar.url" /></label>
+				<br />
+				<input type="text" class="text" name="vurl" id="edit-url" size="40" />
+			</div>
+			<div class="event-section">
+				<label style="float:right;padding-right:0.5em"><input type="checkbox" name="allday" id="edit-allday" value="1" /><roundcube:label name="calendar.all-day" /></label>
+				<label for="edit-startdate"><roundcube:label name="calendar.start" /></label>
+				<input type="text" name="startdate" size="11" id="edit-startdate" /> &nbsp;
+				<input type="text" name="starttime" size="6" id="edit-starttime" />
+			</div>
+			<div class="event-section">
+				<label for="edit-enddate"><roundcube:label name="calendar.end" /></label>
+				<input type="text" name="enddate" size="11" id="edit-enddate" /> &nbsp;
+				<input type="text" name="endtime" size="6" id="edit-endtime" />
+			</div>
+			<div class="event-section" id="edit-alarms">
+				<label for="edit-alarm"><roundcube:label name="calendar.alarms" /></label>
+				<roundcube:object name="plugin.alarm_select" />
+			</div>
+			<div class="event-section" id="calendar-select">
+				<label for="edit-calendar"><roundcube:label name="calendar.calendar" /></label>
+				<roundcube:object name="plugin.calendar_select" id="edit-calendar" />
+			</div>
+			<div class="event-section">
+				<label for="edit-categories"><roundcube:label name="calendar.category" /></label>
+				<roundcube:object name="plugin.category_select" id="edit-categories" />
+			</div>
+			<div class="event-section">
+				<label for="edit-free-busy"><roundcube:label name="calendar.freebusy" /></label>
+				<roundcube:object name="plugin.freebusy_select" id="edit-free-busy" />
+			</div>
+			<div class="event-section">
+				<label for="edit-priority"><roundcube:label name="calendar.priority" /></label>
+				<roundcube:object name="plugin.priority_select" id="edit-priority" />
+			</div>
+			<div class="event-section">
+				<label for="edit-sensitivity"><roundcube:label name="calendar.sensitivity" /></label>
+				<roundcube:object name="plugin.sensitivity_select" id="edit-sensitivity" />
+			</div>
+		</div>
+		<!-- recurrence settings -->
+		<div id="event-tab-2">
+			<div class="event-section border-after">
+				<roundcube:object name="plugin.recurrence_form" part="frequency" />
+			</div>
+			<div class="recurrence-form border-after" id="recurrence-form-daily">
+				<roundcube:object name="plugin.recurrence_form" part="daily" class="event-section" />
+			</div>
+			<div class="recurrence-form border-after" id="recurrence-form-weekly">
+				<roundcube:object name="plugin.recurrence_form" part="weekly" class="event-section" />
+			</div>
+			<div class="recurrence-form border-after" id="recurrence-form-monthly">
+				<roundcube:object name="plugin.recurrence_form" part="monthly" class="event-section" />
+			</div>
+			<div class="recurrence-form border-after" id="recurrence-form-yearly">
+				<roundcube:object name="plugin.recurrence_form" part="yearly" class="event-section" />
+			</div>
+			<div class="recurrence-form" id="recurrence-form-until">
+				<roundcube:object name="plugin.recurrence_form" part="until" class="event-section" />
+			</div>
+		</div>
+		<!-- attendees list -->
+		<div id="event-tab-3">
+			<roundcube:object name="plugin.attendees_list" id="edit-attendees-table" class="records-table" />
+			<roundcube:object name="plugin.attendees_form" id="edit-attendees-form" />
+			<roundcube:include file="/templates/freebusylegend.html" />
+		</div>
+		<!-- attachments list (with upload form) -->
+		<div id="event-tab-4">
+			<div id="edit-attachments">
+				<roundcube:object name="plugin.attachments_list" id="attachment-list" class="attachmentslist" />
+			</div>
+			<div id="edit-attachments-form">
+				<roundcube:object name="plugin.attachments_form" id="calendar-attachment-form" attachmentFieldSize="30" />
+			</div>
+			<roundcube:object name="plugin.filedroparea" id="event-tab-4" />
+		</div>
+	</form>
+
+	<roundcube:object name="plugin.edit_attendees_notify" id="edit-attendees-notify" class="event-dialog-message" style="display:none" />
+	<roundcube:object name="plugin.edit_recurring_warning" class="event-dialog-message edit-recurring-warning" style="display:none" />
+	<div id="edit-localchanges-warning" class="event-dialog-message" style="display:none"><roundcube:label name="calendar.localchangeswarning" /></div>
+</div>

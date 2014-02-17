@@ -1,0 +1,204 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/this/iehacks.css" /><![endif]-->
+</head>
+<body class="calendarmain noscroll">
+<roundcube:include file="/includes/left-header.html" />
+	<div id="calendartoolbar" class="toolbar">
+		<roundcube:button command="addevent" type="link" class="button addevent disabled" classAct="button addevent" classSel="button addevent pressed" label="calendar.new_event" title="calendar.new_event" />
+		<roundcube:button command="print" type="link" class="button print disabled" classAct="button print" classSel="button print pressed" label="calendar.print" title="calendar.printtitle" />
+		<roundcube:button command="export" type="link" class="button export disabled" classAct="button export" classSel="button export pressed" label="calendar.export" title="calendar.exporttitle" />
+		<roundcube:container name="toolbar" id="calendartoolbar" />
+	</div>
+<roundcube:include file="/includes/right-header.html" />
+
+<div id="mainscreen">
+	<div id="calendarsidebar">
+		<div id="quicksearchbar">
+			<div class="searchbox">
+				<roundcube:object name="plugin.searchform" id="quicksearchbox" />
+				<a id="searchmenulink" class="iconbutton searchoptions" > </a>
+				<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+			</div>
+		</div>
+		<div id="datepicker" class="uibox"></div>
+		<div id="calendars" class="uibox listbox" style="visibility:hidden">
+			<h2 class="boxtitle"><roundcube:label name="calendar.calendars" /></h2>
+			<div class="scroller withfooter">
+			<roundcube:object name="plugin.calendar_list" id="calendarslist" class="listing" />
+			</div>
+			<div class="boxfooter">
+				<roundcube:button command="calendar-create" type="link" title="calendar.createcalendar" class="listbutton add disabled" classAct="listbutton add disabled" innerClass="inner" content="+" /><roundcube:button name="calendaroptionslink" id="calendaroptionsmenulink" type="link" title="moreactions" class="listbutton groupactions" onclick="UI.show_popup('calendaroptionsmenu', undefined, { above:true });return false" innerClass="inner" content="&#9881;" />
+			</div>
+		</div>
+	</div>
+	<div id="calendarsidebartoggle"></div>
+
+	<div id="calendar">
+		<roundcube:object name="plugin.angenda_options" class="boxfooter" id="agendaoptions" />
+		<roundcube:object name="message" id="message" class="statusbar" />
+		<div class="timezonedisplay"><roundcube:var name="env:timezone" /></div>
+	</div>
+</div>
+
+<div id="calendaroptionsmenu" class="popupmenu">
+	<ul class="toolbarmenu">
+    <!--
+        <li><roundcube:button command="calendar-edit" label="calendar.edit" classAct="active" /></li>
+		<li><roundcube:button command="calendar-remove" label="calendar.remove" classAct="active" /></li>
+    -->
+		<li><roundcube:button command="events-import" label="calendar.importevents" classAct="active" /></li>
+		<li><roundcube:button command="calendar-showurl" label="calendar.showurl" classAct="active" /></li>
+		<roundcube:if condition="env:calendar_driver == 'kolab'" />
+		<li class="separator_above"><roundcube:button command="folders" task="settings" type="link" label="managefolders" classAct="active" /></li>
+		<roundcube:endif />
+	</ul>
+</div>
+
+<div id="eventshow" class="uidialog">
+	<h1 id="event-title">Event Title</h1>
+	<div class="event-section" id="event-location">Location</div>
+	<div class="event-section" id="event-date">From-To</div>
+	<div class="event-section" id="event-description">
+		<h5 class="label"><roundcube:label name="calendar.description" /></h5>
+		<div class="event-text"></div>
+	</div>
+	<div class="event-section" id="event-url">
+		<h5 class="label"><roundcube:label name="calendar.url" /></h5>
+		<div class="event-text"></div>
+	</div>
+	<div class="event-section" id="event-repeat">
+		<h5 class="label"><roundcube:label name="calendar.repeat" /></h5>
+		<div class="event-text"></div>
+	</div>
+	<div class="event-section" id="event-alarm">
+		<h5 class="label"><roundcube:label name="calendar.alarms" /></h5>
+		<div class="event-text"></div>
+	</div>
+	<div class="event-section" id="event-attendees">
+		<h5 class="label"><roundcube:label name="calendar.tabattendees" /></h5>
+		<div class="event-text"></div>
+	</div>
+	<div class="event-line" id="event-calendar">
+		<label><roundcube:label name="calendar.calendar" /></label>
+		<span class="event-text">Default</span>
+	</div>
+	<div class="event-line" id="event-category">
+		<label><roundcube:label name="calendar.category" /></label>
+		<span class="event-text"></span>
+	</div>
+	<div class="event-line" id="event-free-busy">
+		<label><roundcube:label name="calendar.freebusy" /></label>
+		<span class="event-text"></span>
+	</div>
+	<div class="event-line" id="event-priority">
+		<label><roundcube:label name="calendar.priority" /></label>
+		<span class="event-text"></span>
+	</div>
+	<div class="event-line" id="event-sensitivity">
+		<label><roundcube:label name="calendar.sensitivity" /></label>
+		<span class="event-text"></span>
+	</div>
+	<div class="event-section" id="event-attachments">
+		<label><roundcube:label name="attachments" /></label>
+		<div class="event-text"></div>
+	</div>
+
+	<roundcube:object name="plugin.event_rsvp_buttons" id="event-rsvp" style="display:none" />
+</div>
+
+<roundcube:include file="/templates/eventedit.html" />
+
+<div id="eventfreebusy" class="uidialog">
+	<roundcube:object name="plugin.attendees_freebusy_table" id="attendees-freebusy-table" cellpadding="0" />
+
+	<div class="schedule-options">
+		&nbsp;
+		<div class="schedule-buttons">
+			<button id="shedule-freebusy-prev" title="<roundcube:label name='previouspage' />">&#9668;</button><button id="shedule-freebusy-next" title="<roundcube:label name='nextpage' />">&#9658;</button>
+		</div>
+	</div>
+
+	<div style="float:left; width:28em">
+		<div class="form-section">
+			<label for="schedule-startdate"><roundcube:label name="calendar.start" /></label>
+			<input type="text" name="startdate" size="11" id="schedule-startdate" disabled="true" /> &nbsp;
+			<input type="text" name="starttime" size="6" id="schedule-starttime" disabled="true" />
+		</div>
+		<div class="form-section">
+			<label for="schedule-enddate"><roundcube:label name="calendar.end" /></label>
+			<input type="text" name="enddate" size="11" id="schedule-enddate" disabled="true" /> &nbsp;
+			<input type="text" name="endtime" size="6" id="schedule-endtime" disabled="true" />
+		</div>
+	</div>
+	<div style="float:left">
+		<div class="schedule-find-buttons">
+			<button id="shedule-find-prev">&#9668; <roundcube:label name="calendar.prevslot" /></button>
+			<button id="shedule-find-next"><roundcube:label name="calendar.nextslot" /> &#9658;</button>
+		</div>
+		<div class="schedule-options">
+			<label><input type="checkbox" id="schedule-freebusy-workinghours" value="1" /><roundcube:label name="calendar.onlyworkinghours" /></label>
+		</div>
+	</div>
+	<br style="clear:both;" />
+
+	<roundcube:include file="/templates/freebusylegend.html" />
+	<div class="attendees-list">
+		<span class="attendee organizer"><roundcube:label name="calendar.roleorganizer" /></span>
+		<span class="attendee req-participant"><roundcube:label name="calendar.rolerequired" /></span>
+		<span class="attendee opt-participant"><roundcube:label name="calendar.roleoptional" /></span>
+		<span class="attendee chair"><roundcube:label name="calendar.rolechair" /></span>
+	</div>
+</div>
+
+<div id="calendarform" class="uidialog">
+	<roundcube:label name="loading" />
+</div>
+
+<div id="eventsimport" class="uidialog">
+	<roundcube:object name="plugin.events_import_form" id="events-import-form" uploadFieldSize="30" />
+</div>
+
+<div id="calendarurlbox" class="uidialog">
+	<p><roundcube:label name="calendar.showurldescription" /></p>
+	<textarea id="calfeedurl" rows="2" readonly="readonly"></textarea>
+</div>
+
+<roundcube:object name="plugin.calendar_css" />
+<roundcube:include file="/includes/footer.html" />
+<script type="text/javascript">
+
+// UI startup
+var UI = new rcube_mail_ui();
+
+$(document).ready(function(e){
+	UI.init();
+
+	// initialize sidebar toggle
+	$('#calendarsidebartoggle').click(function() {
+		var width = $(this).data('sidebarwidth');
+		var offset = $(this).data('offset');
+		var $sidebar = $('#calendarsidebar'), time = 250;
+		
+		if ($sidebar.is(':visible')) {
+			$sidebar.animate({ left:'-'+(width+10)+'px' }, time, function(){ $('#calendarsidebar').hide(); });
+			$(this).animate({ left:'8px'}, time, function(){ $('#calendarsidebartoggle').addClass('sidebarclosed') });
+			$('#calendar').animate({ left:'20px'}, time, function(){ $(this).fullCalendar('render'); });
+		}
+		else {
+			$sidebar.show().animate({ left:'0px' }, time);
+			$(this).animate({ left:offset+'px'}, time, function(){ $('#calendarsidebartoggle').removeClass('sidebarclosed'); });
+			$('#calendar').animate({ left:(width+16)+'px'}, time, function(){ $(this).fullCalendar('render'); });
+		}
+	})
+	.data('offset', $('#calendarsidebartoggle').position().left)
+	.data('sidebarwidth', $('#calendarsidebar').width() + $('#calendarsidebar').position().left);
+});
+
+</script>
+
+</body>
+</html>
