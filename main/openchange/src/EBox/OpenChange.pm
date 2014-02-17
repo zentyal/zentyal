@@ -950,6 +950,8 @@ sub connectionString
 {
     my ($self) = @_;
 
+    return undef unless ($self->isProvisioned());
+
     unless (-e OPENCHANGE_MYSQL_PASSWD_FILE) {
         EBox::Sudo::root(EBox::Config::scripts('openchange') .
                 'generate-database');
