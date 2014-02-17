@@ -14,28 +14,35 @@
 
 #settings-sections {
 	position: absolute;
-	top: 33px;
+	top: 0px;
 	left: 0;
 	width: 220px;
 	bottom: 0;
-	border-right: 12px solid #EEEEEE;
+	border-right: 1px solid #EEEEEE;
+	background-color: #e5e5e5;
+	box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.3) inset;
 }
 
 #pluginbody,
 #settings-right {
 	position: absolute;
-	top: 33px;
-	left: 232px;
+	top: 0px;
+	left: 221px;
 	right: 0;
 	bottom: 0;
 }
 
+#folderslist,
+#identitieslist,
 #sectionslist {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 260px;
 	bottom: 0;
+	background-color: #f5f5f5;
+	box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.3) inset;
+	border-right: 1px solid #ccc;
 }
 
 #preferences-box {
@@ -59,24 +66,17 @@
 	background-position: -100px 0;
 	background-repeat: no-repeat;
 }
-
+.listbox .listitem.selected > a{
+	background-color: #c5c5c5;
+}
 /* note: support span.tablink because this is used by plugins */
 #settings-sections span.listitem a,
 #settings-sections span.tablink a {
 	background-position: 6px -862px;
 }
 
-#settings-sections span.selected a,
-#settings-sections span.tablink.selected a {
-	background-position: 6px -887px;
-}
-
 #settings-sections span.preferences a {
 	background-position: 6px -427px;
-}
-
-#settings-sections span.preferences.selected a {
-	background-position: 6px -450px;
 }
 
 #settings-sections span.folders a,
@@ -84,99 +84,47 @@
 	background-position: 6px 5px;
 }
 
-#settings-sections span.folders.selected a,
-#sections-table #rcmrowfolders.selected td.section {
-	background-position: 6px -19px;
-}
-
 #settings-sections span.identities a {
 	background-position: 6px -474px;
 }
 
-#settings-sections span.identities.selected a {
-	background-position: 6px -498px;
-}
-
 #settings-sections span.filter a {
-	background-position: 6px -1746px;
-}
-
-#settings-sections span.filter.selected a {
-	background-position: 6px -1770px;
+	background-position: 6px -1768px;
 }
 
 #settings-sections span.password a {
 	background-position: 6px -1795px;
 }
 
-#settings-sections span.password.selected a {
-	background-position: 6px -1819px;
-}
-
 #sections-table #rcmrowgeneral td.section {
 	background-position: 6px -570px;
 }
 
-#sections-table #rcmrowgeneral.selected td.section {
-	background-position: 6px -595px;
-}
-
 #sections-table #rcmrowmailbox td.section {
-	background-position: 6px -619px;
-}
-
-#sections-table #rcmrowmailbox.selected td.section {
-	background-position: 6px -644px;
+	background-position: 6px -617px;
 }
 
 #sections-table #rcmrowcompose td.section {
 	background-position: 6px -667px;
 }
 
-#sections-table #rcmrowcompose.selected td.section {
-	background-position: 6px -692px;
-}
-
 #sections-table #rcmrowmailview td.section {
 	background-position: 6px -714px;
-}
-
-#sections-table #rcmrowmailview.selected td.section {
-	background-position: 6px -739px;
 }
 
 #sections-table #rcmrowaddressbook td.section {
 	background-position: 6px -763px;
 }
 
-#sections-table #rcmrowaddressbook.selected td.section {
-	background-position: 6px -788px;
-}
-
 #sections-table #rcmrowserver td.section {
 	background-position: 6px -812px;
 }
 
-#sections-table #rcmrowserver.selected td.section {
-	background-position: 6px -836px;
-}
-
 #sections-table #rcmrowcalendar td.section {
-	background-position: 6px -526px;
+	background-position: 6px -523px;
 }
 
-#sections-table #rcmrowcalendar.selected td.section {
-	background-position: 6px -550px;
-}
 
-#folderslist,
-#identitieslist {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 260px;
-	bottom: 0;
-}
 
 #identities-table {
 	width: 100%;

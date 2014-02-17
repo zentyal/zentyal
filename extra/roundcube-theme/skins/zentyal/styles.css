@@ -76,14 +76,16 @@ img {
 input[type="text"],
 input[type="password"],
 textarea {
+    border: 1px solid #BBBBBB;
+    border-radius: 2px;
+    font-size: 13px;
+    margin: 0;
+    padding: 8px 10px;
 	margin: 0; /* Safari by default adds a margin */
-	padding: 4px;
-	border: 1px solid #b2b2b2;
-	border-radius: 4px;
-	box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
-	-moz-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
-	-webkit-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
-	-o-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
+	box-shadow: inset 0 0 3px 0px rgba(0,0,0, 0.1);
+	-moz-box-shadow: inset 0 0 3px 0px rgba(0,0,0, 0.1);
+	-webkit-box-shadow: inset 0 0 3px 0px rgba(0,0,0, 0.1);
+	-o-box-shadow: inset 0 0 3px 0px rgba(0,0,0, 0.1);
 }
 
 input[type="text"]:focus,
@@ -91,7 +93,7 @@ input[type="password"]:focus,
 input.button:focus,
 textarea:focus {
 	border-color: #4787b1;
-	box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	box-shadow: 0 0 5px 0px rgba(71,135,177, 0.9);
 	-moz-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
 	-webkit-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
 	-o-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
@@ -721,7 +723,6 @@ float: left;
 }
 
 .uibox .listing thead td {
-	padding-bottom: 8px;
 	height: auto;
 }
 
@@ -749,13 +750,15 @@ float: left;
 	display: block;
 	color: #333;
 	text-decoration: none;
-	cursor: default;
-	padding: 8px 10px 8px 35px;
+	cursor: pointer;
+	padding: 8px 10px;
 	font-size: 14px;
 	height: 17px; /* doesn't affect table-cells in FF */
 	white-space: nowrap;
 }
-
+div.listing tbody td{
+cursor: default;
+}
 .listbox .listitem a:hover,
 .listbox .tablink a:hover,
 .listing tbody td:hover,
@@ -1063,18 +1066,13 @@ body.iframe.fullheight {
 	margin: 0;
 }
 
-.contentbox .boxtitle,
-body.iframe .boxtitle {
-	color: #bbb;
-	border-bottom: 1px dashed #eee;
-}
-
 body.iframe .boxtitle {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.8);	
 }
 
 body.iframe .footerleft.floating {
@@ -1086,16 +1084,7 @@ body.iframe .footerleft.floating {
 	background: #fff;
 	padding-top: 8px;
 	padding-bottom: 12px;
-}
-
-body.iframe .footerleft.floating:before {
-	content: " ";
-	position: absolute;
-	top: -6px;
-	left: 0;
-	width: 100%;
-	height: 6px;
-	background: url(images/overflowshadow.png) top center no-repeat;
+	border-top: 1px solid #eee;
 }
 
 .boxcontent {
@@ -1124,17 +1113,19 @@ body.iframe .footerleft.floating:before {
 }
 
 .propform fieldset {
-	margin-bottom: 20px;
-	border: 0;
-	padding: 0;
+	background: none repeat scroll 0 0 #F5F5F5;
+    border: 0 none;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .propform fieldset legend {
-	display: block;
-	font-size: 14px;
-	font-weight: bold;
-	padding-bottom: 10px;
-	margin-bottom: 0;
+    background: none repeat scroll 0 0 #F5F5F5;
+    display: block;
+    font-size: 17px;
+    margin: 0 -10px;
+    padding: 10px;
+    width: 100%;
 }
 
 .propform fieldset fieldset legend {
@@ -1157,16 +1148,15 @@ table.propform {
 ul.proplist li,
 table.propform td {
 	width: 80%;
-	padding: 4px 10px;
-	background: #eee;
-	border-bottom: 2px solid #fff;
+	padding: 5px 0;
 }
 
 table.propform td.title {
-	width: 20%;
-	color: #333;
-	padding-right: 20px;
-	white-space: nowrap;
+    color: #666;
+    padding-right: 10px;
+    text-align: right;
+    white-space: nowrap;
+    width: 20%;
 }
 
 table.propform .mceLayout td {
