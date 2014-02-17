@@ -438,6 +438,12 @@ sub _doDeprovision
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
+        if ($self->parentModule->isProvisionedWithMySQL()) {
+            # It removes the file with mysql password and the user from mysql
+            EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                             'remove-database');
+        }
+
         # Drop SOGo database and db user. To avoid error if it does not exists,
         # the user is created and granted harmless privileges before drop it
         my $db = EBox::DBEngineFactory::DBEngine();
