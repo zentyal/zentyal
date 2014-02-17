@@ -7,7 +7,7 @@ You can find commented examples in build_cd.conf
 
 You also need to have the following packages installed:
 
-build-essential dpkg-dev devscripts mkisofs zentyal-common
+build-essential dpkg-dev devscripts mkisofs squashfs-tools zentyal-common
 
 WARNING: debootstrap will fail over cryptfs mount points.
 

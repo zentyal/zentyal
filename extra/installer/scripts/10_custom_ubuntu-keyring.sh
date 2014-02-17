@@ -16,9 +16,9 @@ popd
 pushd $UBUNTU_KEYRING_DIR/keyrings
 
 gpg --import < ubuntu-archive-keyring.gpg
-# Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>
-# Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>
-gpg --export FBB75451 437D05B5 $ZINSTALLER_KEYID > ubuntu-archive-keyring.gpg
+# Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>
+# Ubuntu Archive Automatic Signing Key (2012) <ftpmaster@ubuntu.com>
+gpg --export FBB75451 437D05B5 C0B21F32 EFE21092 $ZINSTALLER_KEYID > ubuntu-archive-keyring.gpg
 
 popd
 
@@ -27,5 +27,15 @@ pushd $UBUNTU_KEYRING_DIR
 rm -f ../ubuntu-keyring*deb
 dpkg-buildpackage -rfakeroot -m"'$ZINSTALLER_ADDRESS'" -k$ZINSTALLER_KEYID
 cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
+
+sudo rm -rf squashfs-root
+sudo unsquashfs $CD_BUILD_DIR/install/filesystem.squashfs
+sudo cp ../ubuntu-keyring*.deb squashfs-root/
+sudo chroot squashfs-root sh -c "dpkg -i ubuntu-keyring*.deb"
+sudo rm squashfs-root/ubuntu-keyring*.deb
+sudo mksquashfs squashfs-root filesystem.squashfs
+mv filesystem.squashfs $CD_BUILD_DIR/install/
+printf $(sudo du -sx --block-size=1 squashfs-root | cut -f1) > $CD_BUILD_DIR/install/filesystem.size
+sudo rm -rf squashfs-root
 
 popd
