@@ -6,10 +6,7 @@
 </head>
 <body class="noscroll">
 
-<roundcube:include file="/includes/header.html" />
-
-<div id="mainscreen">
-<div class="mainscreen_head mail_head"><h2>MAIL</h2></div>
+<roundcube:include file="/includes/left-header.html" />
 <!-- toolbar -->
 <div id="messagetoolbar" class="toolbar fullwidth">
 	<roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="back" />
@@ -19,6 +16,11 @@
 		<roundcube:object name="mailboxlist" type="select" noSelection="moveto" maxlength="25" onchange="rcmail.command('moveto', this.options[this.selectedIndex].value)" class="mailboxlist decorated" folder_filter="mail" />
 	</div>
 </div>
+<roundcube:include file="/includes/right-header.html" />
+
+
+<div id="mainscreen">
+
 
 <div id="mailview-left">
 
