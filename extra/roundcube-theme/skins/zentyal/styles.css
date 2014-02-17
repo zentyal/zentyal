@@ -705,7 +705,7 @@ float: left;
 }
 
 .listbox .boxtitle + .scroller {
-	top: 34px;
+	top: 40px;
 }
 
 .boxtitle,
@@ -1308,17 +1308,17 @@ ul.proplist li {
 /*** quicksearch **/
 
 #quicksearchbar,
-#composequicksearch {
+#fullquicksearch {
 	position: absolute;
 	right: 0px;
 	top: 0;
 	width: 240px;
 }
 
-#composequicksearch{
+div#fullquicksearch{
 	width: 100%;
 }
-#composequicksearch .searchbox,
+#fullquicksearch .searchbox,
 #quicksearchbar .searchbox {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
@@ -1328,7 +1328,7 @@ ul.proplist li {
     right: 10px;
     top: 10px;
 }
-#composequicksearch input,
+#fullquicksearch input,
 #quicksearchbar input {
     background-color:transparent;
     border: 0 none;
@@ -1339,13 +1339,13 @@ ul.proplist li {
     padding: 5px 0;
     width: 75%;
 }
-#composequicksearch #searchmenulink,
+#fullquicksearch #searchmenulink,
 #quicksearchbar #searchmenulink{
 	position: absolute;
 	top: 7px;
 	left: 6px;
 }
-#composequicksearch #searchreset,
+#fullquicksearch #searchreset,
 #quicksearchbar #searchreset{
 	position: absolute;
 	top: 6px;
