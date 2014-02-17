@@ -430,7 +430,7 @@ sub _doDeprovision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationName = $params{organizationname};
+    my $organizationName = $params{provisionedorganizationname};
 
     try {
         my $cmd = 'openchange_provision --deprovision ' .
