@@ -19,10 +19,12 @@
 <div id="mainscreen">
 <div id="addressview-left">
 <!-- search box -->
-<div id="quicksearchbar">
-<roundcube:object name="searchform" id="quicksearchbox" />
-<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
-<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+<div id="fullquicksearch">
+	<div class="searchbox">
+		<roundcube:object name="searchform" id="quicksearchbox" />
+		<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
+		<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+	</div>
 </div>
 
 <!-- sources/groups list -->

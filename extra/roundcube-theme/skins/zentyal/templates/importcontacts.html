@@ -6,13 +6,13 @@
 </head>
 <body>
 
-<roundcube:include file="/includes/header.html" />
-
-<div id="mainscreen">
-
+<roundcube:include file="/includes/left-header.html" />
 <div id="addressbooktoolbar" class="toolbar">
 	<roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="back" />
 </div>
+<roundcube:include file="/includes/right-header.html" />
+
+<div id="mainscreen">
 
 <div class="offset uibox contentbox">
 <h2 class="boxtitle"><roundcube:label name="importcontacts" /></h2>
