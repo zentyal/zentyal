@@ -28,7 +28,6 @@ rm -f ../ubuntu-keyring*deb
 dpkg-buildpackage -rfakeroot -m"'$ZINSTALLER_ADDRESS'" -k$ZINSTALLER_KEYID
 cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
 
-sudo rm -rf squashfs-root
 sudo unsquashfs $CD_BUILD_DIR/install/filesystem.squashfs
 sudo cp ../ubuntu-keyring*.deb squashfs-root/
 sudo chroot squashfs-root sh -c "dpkg -i ubuntu-keyring*.deb"
