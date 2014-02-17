@@ -1,4 +1,5 @@
 HEAD
+	+ Clean up openchange section in stub smb.conf file
 	+ Fix typo in SambaLdapUser that fixes error in change email
 	+ Change user modification hook from _modifyUser to _preModifyUser
 	+ Throw DataExists exception if the user try to rename a user on a
