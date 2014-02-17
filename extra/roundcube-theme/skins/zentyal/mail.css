@@ -242,23 +242,13 @@ a.iconbutton.threadmode {
 }
 
 #messagetoolbar {
-	position: absolute;
-	top: 33px;
-	right: 390px;
-	left: 0;
-	height:55px;
-	white-space: nowrap;
-	z-index: 10;
+	position: relative;
 }
 
 #mailview-right #messagetoolbar{
 	top:0px;
 }
 
-#messagetoolbar.fullwidth {
-	right: 0;
-	background-color: white;
-}
 
 #messagetoolbar .toolbarselect {
 	position: absolute;
