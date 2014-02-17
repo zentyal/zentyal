@@ -127,7 +127,15 @@ sub activeNode
         $nodesStatus = nodesStatus();
     }
 
-    my @byRscRunning = sort { $b->{resources_running} <=> $a->{resources_running} } values %{$nodesStatus};
+    my $ordFunc = sub {
+        my $r = $b->{resources_running} <=> $a->{resources_running};
+        if ($r == 0) {
+            return $a->{id} <=> $b->{id};
+        }
+        return $r;
+    };
+
+    my @byRscRunning = sort $ordFunc values %{$nodesStatus};
 
     return $byRscRunning[0]->{name};
 }
