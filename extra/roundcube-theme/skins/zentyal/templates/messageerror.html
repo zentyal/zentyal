@@ -12,16 +12,15 @@
 <roundcube:else />
 <body>
 
-<roundcube:include file="/includes/header.html" />
-
-<div id="mainscreen">
-
-<!-- toolbar -->
+<roundcube:include file="/includes/left-header.html" />
 <div id="messagetoolbar" class="fullwidth">
 	<div id="mailtoolbar" class="toolbar">
 		<roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="back" />
 	</div>
 </div>
+<roundcube:include file="/includes/right-header.html" />
+
+<div id="mainscreen">
 
 <div id="mailview-left">
 
