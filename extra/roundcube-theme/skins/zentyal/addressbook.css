@@ -14,16 +14,18 @@
 
 #addressview-left {
 	position: absolute;
-	top: 88px;
+	top: 0px;
 	left: 0;
 	width: 220px;
 	bottom: 0;
 	z-index: 2;
+	background-color: #eee;
+	box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.3) inset;
 }
 
 #addressview-right {
 	position: absolute;
-	top: 88px;
+	top: 0px;
 	left: 232px;
 	right: 0;
 	bottom: 0;
@@ -31,14 +33,7 @@
 }
 
 #addressbooktoolbar {
-	position: absolute;
-	top: 33px;
-	left: 0;
-	right: 260px;
-	height: 55px;
-	white-space: nowrap;
-	z-index: 10;
-	background-color: white;
+	position: relative;
 }
 
 #directorylistbox {
@@ -47,7 +42,6 @@
 	left: 0;
 	width: 100%;
 	bottom: 0;
-	border-top: 2px dotted #ccc;
 }
 
 #addresslist {
@@ -56,7 +50,6 @@
 	left: 0;
 	width: 280px;
 	bottom: 0;
-	border-top: 2px dotted #ccc;
 }
 
 #contacts-box {
@@ -90,17 +83,9 @@
 	background-position: 6px -763px;
 }
 
-#directorylist li.addressbook.selected a {
-	background-position: 6px -787px;
-}
-
 #directorylist li.contactgroup a {
 	padding-left: 62px;
 	background-position: 32px -1550px;
-}
-
-#directorylist li.contactgroup.selected a {
-	background-position: 32px -1575px;
 }
 
 #directorylist li.contactgroup input {
@@ -109,10 +94,6 @@
 
 #directorylist li.contactsearch a {
 	background-position: 6px -1647px;
-}
-
-#directorylist li.contactsearch.selected a {
-	background-position: 6px -1671px;
 }
 
 #directorylist li.contactsearch input {

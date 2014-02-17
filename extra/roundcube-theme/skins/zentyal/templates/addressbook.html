@@ -6,21 +6,24 @@
 </head>
 <body class="noscroll">
 
-<roundcube:include file="/includes/header.html" />
-
-<div id="mainscreen">
-<div class="mainscreen_head mail_head"><h2>Contacts</h2></div>
-<!-- toolbar -->
+<roundcube:include file="/includes/left-header.html" />
+	<!-- toolbar -->
 <div id="addressbooktoolbar" class="toolbar">
 	<roundcube:button command="import" type="link" class="button import disabled" classAct="button import" classSel="button import pressed" label="import" title="importcontacts" />
 	<roundcube:button command="export" type="link" class="button export disabled" classAct="button export" classSel="button export pressed" label="export" title="exportvcards" />
-	<span class="spacer"></span>
 	<roundcube:button command="compose" type="link" class="button compose disabled" classAct="button compose" classSel="button compose pressed" label="compose" title="writenewmessage" />
 	<!--<roundcube:button command="advanced-search" type="link" class="button search disabled" classAct="button search" classSel="button search pressed" label="advanced" title="advsearch" />-->
 	<roundcube:container name="toolbar" id="addressbooktoolbar" />
 </div>
-
+<roundcube:include file="/includes/right-header.html" />
+<div id="mainscreen">
 <div id="addressview-left">
+<!-- search box -->
+<div id="quicksearchbar">
+<roundcube:object name="searchform" id="quicksearchbox" />
+<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
+<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+</div>
 
 <!-- sources/groups list -->
 <div id="directorylistbox" class="uibox listbox">
@@ -37,12 +40,7 @@
 
 <div id="addressview-right">
 
-<!-- search box -->
-<div id="quicksearchbar">
-<roundcube:object name="searchform" id="quicksearchbox" />
-<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
-<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
-</div>
+
 
 <!-- contacts list -->
 <div id="addresslist" class="uibox listbox">
