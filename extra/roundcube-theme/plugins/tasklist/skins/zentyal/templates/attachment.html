@@ -1,0 +1,33 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+</head>
+<body class="extwin attachmentwin">
+
+<div id="header">
+	<div id="topnav">
+		<roundcube:object name="logo" src="/images/roundcube_logo.png" id="toplogo" border="0" alt="Logo" />
+		<div class="topright">
+			<a href="#close" class="closelink" onclick="self.close()"><roundcube:label name="close" /></a>
+		</div>
+	</div>
+
+	<br style="clear:both" />
+</div>
+
+<div id="mainscreen">
+	<div id="partheader" class="uibox">
+	<roundcube:object name="plugin.attachmentcontrols" class="headers-table" />
+	</div>
+
+	<div id="attachmentcontainer" class="uibox">
+	<roundcube:object name="plugin.attachmentframe" id="attachmentframe" class="header-table" style="width:100%" />
+	</div>
+
+</div>
+
+</body>
+</html>
+

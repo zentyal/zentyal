@@ -1,0 +1,837 @@
+/**
+ * Roundcube Taklist plugin styles for skin "Larry"
+ *
+ * Copyright (C) 2012, Kolab Systems AG <contact@kolabsys.com>
+ * Screendesign by FLINT / Büro für Gestaltung, bueroflint.com
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original autors in the README file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ */
+
+#taskbar a.button-tasklist span.button-inner {
+	background-image: url(buttons.png);
+	background-position: 0 0;
+}
+
+#taskbar a.button-tasklist:hover span.button-inner,
+#taskbar a.button-tasklist.button-selected span.button-inner {
+	background-position: 0 -26px;
+}
+
+ul.toolbarmenu li span.icon.taskadd {
+	background-image: url(buttons.png);
+	background-position: -4px -90px;
+}
+
+div.uidialog {
+	display: none;
+}
+
+body.attachmentwin #mainscreen {
+	top: 60px;
+}
+
+body.attachmentwin #topnav .topright {
+	margin-top: 20px;
+}
+
+#sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 240px;
+}
+
+.tasklistview #searchmenulink {
+	width: 15px;
+}
+
+#tagsbox {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	height: 242px;
+}
+
+#tasklistsbox {
+	position: absolute;
+	//top: 300px;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+}
+
+#taskselector {
+	margin: -4px 0 0;
+	padding: 0;
+}
+
+#taskselector li {
+	display: inline-block;
+	position: relative;
+	font-size: 90%;
+	padding-right: 0.3em;
+}
+
+#tagslist li,
+#taskselector li a {
+	display: inline-block;
+	color: #004458;
+	min-width: 4em;
+	padding: 0.2em 0.6em 0.3em 0.6em;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #eee;
+	border-color: transparent;
+}
+
+#taskselector li:first-child {
+	border-top: 0;
+	border-radius: 4px 4px 0 0;
+}
+
+#taskselector li:last-child {
+	border-bottom: 0;
+	border-radius: 0 0 4px 4px;
+}
+
+#taskselector li.overdue a {
+	color: #b72a2a;
+	font-weight: bold;
+}
+
+#taskselector li.inactive a {
+	color: #97b3bf;
+}
+
+#tagslist li.selected,
+#taskselector li.selected a {
+	color: #fff;
+	background: #005d76;
+	background: -moz-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005d76), color-stop(100%,#004558));
+	background: -o-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: -ms-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: linear-gradient(top, #005d76 0%, #004558 100%);
+	box-shadow: inset 0 1px 1px 0 #003645;
+	-o-box-shadow: inset 0 1px 1px 0 #003645;
+	-webkit-box-shadow: inset 0 1px 1px 0 #003645;
+	-moz-box-shadow: inset 0 1px 1px 0 #003645;
+	border-color: #003645;
+	border-radius: 9px;
+	text-shadow: none;
+	outline: none;
+}
+
+#taskselector li .count {
+	display: none;
+	position: absolute;
+	top: -18px;
+	right: 5px;
+	min-width: 1.8em;
+	padding: 2px 4px;
+	background: #004558;
+	background: -moz-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005d76), color-stop(100%,#004558));
+	background: -o-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: -ms-linear-gradient(top, #005d76 0%, #004558 100%);
+	background: linear-gradient(top, #005d76 0%, #004558 100%);
+	box-shadow: 0 1px 2px 0 rgba(24,24,24,0.6);
+	color: #fff;
+	border-radius: 3px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 80%;
+	text-shadow: none;
+}
+
+#taskselector li .count:after {
+	content: "";
+	position: absolute;
+	bottom: -5px;
+	left: 50%;
+	margin-left: -5px;
+	border-style: solid;
+	border-width: 5px 5px 0;
+	border-color: #004558 transparent;
+	/* reduce the damage in FF3.0 */
+	display: block; 
+	width: 0;
+}
+
+#taskselector li.overdue .count {
+	background: #ff3800;
+}
+
+#taskselector li.overdue .count:after {
+	border-color: #ff3800 transparent;
+}
+
+#tagslist {
+	padding: 0;
+	margin: 6px;
+	list-style: none;
+}
+
+#tagslist li {
+	display: inline-block;
+	color: #004458;
+	margin-right: 0.5em;
+	margin-bottom: 0.4em;
+	min-width: 1.2em;
+	cursor: pointer;
+}
+
+#tasklists li {
+	margin: 0;
+	height: 20px;
+	padding: 6px 8px 2px;
+	display: block;
+	position: relative;
+	white-space: nowrap;
+}
+
+#tasklists li label {
+	display: block;
+}
+
+#tasklists li span.listname {
+	display: block;
+	cursor: default;
+	padding-bottom: 2px;
+	padding-right: 30px;
+	margin-right: 20px;
+	color: #004458;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background: url(sprites.png) right 20px no-repeat;
+}
+
+#tasklists li span.handle {
+	display: none;
+}
+
+#tasklists li.selected span.listname {
+	font-weight: bold;
+}
+
+#tasklists li.readonly span.listname {
+	background-position: right -142px;
+}
+
+#tasklists li.other span.listname {
+	background-position: right -160px;
+}
+
+#tasklists li.other.readonly span.listname {
+	background-position: right -178px;
+}
+
+#tasklists li.shared span.listname {
+	background-position: right -196px;
+}
+
+#tasklists li.shared.readonly span.listname {
+	background-position: right -214px;
+}
+
+#tasklists li input {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+#mainview-right {
+	position: absolute;
+	top: 0;
+	left: 256px;
+	right: 0;
+	bottom: 0;
+}
+
+#taskstoolbar {
+	position: absolute;
+	top: -6px;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	white-space: nowrap;
+}
+
+#taskstoolbar a.button.newtask {
+	background-image: url(buttons.png);
+	background-position: center -53px;
+}
+
+#quickaddbox {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 60%;
+	height: 32px;
+	white-space: nowrap;
+}
+
+#quickaddinput {
+	width: 85%;
+	margin: 0;
+	padding: 3px 8px;
+	height: 18px;
+	background: #f1f1f1;
+	background: rgba(255, 255, 255, 0.7);
+	border-color: #a3a3a3;
+	font-weight: bold;
+}
+
+#quickaddbox .button {
+	margin-left: 5px;
+	padding: 3px 10px;
+	font-weight: bold;
+}
+
+#tasksview {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding-bottom: 28px;
+	background: rgba(255, 255, 255, 0.2);
+	overflow: visible;
+}
+
+#message.statusbar {
+	border-top: 1px solid #c3c3c3;
+}
+
+#tasksview .scroller {
+	position: absolute;
+	left: 0;
+	top: 35px;
+	width: 100%;
+	bottom: 28px;
+	overflow: auto;
+}
+
+#tasksview .buttonbar {
+	color: #777;
+	background: #eee;
+	background: -moz-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eee), color-stop(100%,#dfdfdf));
+	background: -o-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+	background: -ms-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+	background: linear-gradient(top, #eee 0%, #dfdfdf 100%);
+	border-bottom: 1px solid #ccc;
+}
+
+#thelist {
+	padding: 0;
+	margin: 1em;
+	list-style: none;
+}
+
+#listmessagebox {
+	display: none;
+	font-size: 14px;
+	color: #666;
+	margin: 1.5em;
+	text-shadow: 0px 1px 1px #fff;
+	text-align:center;
+}
+
+.taskitem {
+	position: relative;
+	display: block;
+	margin-bottom: 3px;
+}
+
+.taskitem.dragging {
+	opacity: 0.5;
+}
+
+.taskitem .childtasks {
+	position: relative;
+	padding: 0;
+	margin: 3px 0 0 20px;
+	list-style: none;
+}
+
+.taskitem .childtoggle {
+	display: none;
+	position: absolute;
+	top: 4px;
+	left: -5px;
+	padding: 2px;
+	font-size: 10px;
+	color: #727272;
+	cursor: pointer;
+	
+	width: 14px;
+	height: 14px;
+	background: url(sprites.png) -2px -80px no-repeat;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+
+.taskitem .childtoggle.collapsed {
+	background-position: -18px -81px;
+}
+
+.taskhead {
+	position: relative;
+	margin-left: 14px;
+	padding: 4px 5px 3px 5px;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.5);
+	-moz-box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.5);
+	box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.5);
+	padding-right: 26em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: default;
+}
+
+.taskhead.droptarget {
+	border-color: #4787b1;
+	box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-moz-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-webkit-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-o-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+}
+
+.taskhead .complete {
+	margin: -1px 1em 0 0;
+}
+
+.taskhead .title {
+	font-size: 12px;
+}
+
+.taskhead .flagged {
+	display: inline-block;
+	visibility: hidden;
+	width: 16px;
+	height: 16px;
+	background: url(sprites.png) -2px -3px no-repeat;
+	margin: -3px 1em 0 0;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.taskhead:hover .flagged {
+	visibility: visible;
+}
+
+.taskhead.flagged .flagged {
+	visibility: visible;
+	background-position: -2px -23px;
+}
+
+.taskhead .tags {
+	display: block;
+	position: absolute;
+	top: 3px;
+	right: 10em;
+	max-width: 14em;
+	height: 16px;
+	overflow: hidden;
+	padding-top: 1px;
+	text-align: right;
+}
+
+.taskhead .tags .tag {
+	font-size: 85%;
+	background: #d9ecf4;
+	border: 1px solid #c2dae5;
+	border-radius: 4px;
+	padding: 1px 7px;
+	margin-right: 3px;
+}
+
+.taskhead .date {
+	position: absolute;
+	top: 4px;
+	right: 30px;
+	text-align: right;
+	cursor: pointer;
+}
+
+.taskhead.nodate .date {
+	color: #ddd;
+}
+
+.taskhead.overdue .date {
+	color: #d00;
+}
+
+.taskhead.nodate:hover .date {
+	color: #999;
+}
+
+.taskhead .date input {
+	padding: 1px 2px;
+	border: 1px solid #ddd;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	outline: none;
+	text-align: right;
+	width: 6em;
+	font-size: 11px;
+}
+
+.taskhead .actions,
+.taskhead .delete {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	top: 3px;
+	right: 6px;
+	width: 18px;
+	height: 18px;
+	background: url(sprites.png) 0 -80px no-repeat;
+	text-indent: -1000px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.taskhead .delete {
+	background-position: 0 -40px;
+}
+
+.taskhead:hover .actions,
+.taskhead:hover .delete {
+	visibility: visible;
+}
+
+.taskhead.complete {
+	opacity: 0.6;
+}
+
+.taskhead.complete .title {
+	text-decoration: line-through;
+}
+
+.taskhead .progressbar {
+	position: absolute;
+	bottom: 1px;
+	left: 6px;
+	right: 6px;
+	height: 2px;
+}
+
+.taskhead.complete .progressbar {
+	display: none;
+}
+
+.taskhead .progressvalue {
+	height: 1px;
+	background: rgba(1, 124, 180, 0.2);
+	border-top: 1px solid #219de6;
+}
+
+ul.toolbarmenu li span.add {
+	background-image: url(sprites.png);
+	background-position: 0 -100px;
+}
+
+ul.toolbarmenu li span.delete {
+	background-position: 0 -1508px;
+}
+
+.taskitem-draghelper {
+/*
+	width: 32px;
+	height: 26px;
+*/
+	background: #444;
+	border: 1px solid #555;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px 0 #333;
+	-moz-box-shadow: 0 2px 6px 0 #333;
+	-webkit-box-shadow: 0 2px 6px 0 #333;
+	-o-box-shadow: 0 2px 6px 0 #333;
+	z-index: 5000;
+	padding: 2px 10px;
+	font-size: 20px;
+	color: #ccc;
+	opacity: 0.92;
+	filter: alpha(opacity=90);
+	text-shadow: 0px 1px 1px #333;
+}
+
+#rootdroppable {
+	display: none;
+	position: absolute;
+	top: 36px;
+	left: 1em;
+	right: 1em;
+	height: 5px;
+	background: #ddd;
+	border-radius: 3px;
+}
+
+#rootdroppable.droptarget {
+	background: #4787b1;
+	box-shadow: 0 0 2px 1px rgba(71,135,177, 0.9);
+	-moz-box-shadow: 0 0 2px 1px rgba(71,135,177, 0.9);
+	-webkit-box-shadow: 0 0 2px 1px rgba(71,135,177, 0.9);
+	-o-box-shadow: 0 0 2px 1px rgba(71,135,177, 0.9);
+	
+}
+
+/*** task edit form ***/
+
+#taskedit,
+#taskshow {
+	display:none;
+}
+
+#taskedit {
+	position: relative;
+	top: -1.5em;
+	padding: 0.5em 0.1em;
+	margin: 0 -0.2em;
+}
+
+#taskshow h2 {
+	margin-top: -0.5em;
+}
+
+#taskshow label {
+	color: #999;
+}
+
+#task-parent-title {
+	position: relative;
+	top: -0.6em;
+}
+
+a.morelink {
+	font-size: 90%;
+	color: #0069a6;
+	text-decoration: none;
+	outline: none;
+}
+
+a.morelink:hover {
+	text-decoration: underline;
+}
+
+#taskedit .ui-tabs-panel {
+	min-height: 24em;
+}
+
+#taskeditform input.text,
+#taskeditform textarea {
+	width: 97%;
+}
+
+#taskeditform .formbuttons {
+	margin: 0.5em 0;
+}
+
+#taskedit-attachments {
+	margin: 0.6em 0;
+}
+
+#taskedit-attachments ul li {
+	display: block;
+	color: #333;
+	font-weight: bold;
+	padding: 8px 4px 3px 30px;
+	text-shadow: 0px 1px 1px #fff;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+#taskedit-attachments ul li a.file {
+	padding: 0;
+}
+
+#taskedit-attachments-form {
+	margin-top: 1em;
+	padding-top: 0.8em;
+	border-top: 2px solid #fafafa;
+}
+
+div.form-section {
+	position: relative;
+	margin-top: 0.2em;
+	margin-bottom: 0.8em;
+}
+
+.form-section label {
+	display: inline-block;
+	min-width: 7em;
+	padding-right: 0.5em;
+	margin-bottom: 0.3em;
+}
+
+label.block {
+	display: block;
+	margin-bottom: 0.3em;
+}
+
+#taskedit-completeness-slider {
+	display: inline-block;
+	margin-left: 2em;
+	width: 30em;
+	height: 0.8em;
+	border: 1px solid #ccc;
+}
+
+#taskedit-tagline {
+	width: 97%;
+}
+
+#taskedit .droptarget {
+	background-image: url(../../../../skins/larry/images/filedrop.png) !important;
+	background-position: center bottom !important;
+	background-repeat: no-repeat !important;
+}
+
+#taskedit .droptarget.hover,
+#taskedit .droptarget.active {
+	border-color: #019bc6;
+	box-shadow: 0 0 3px 2px rgba(71,135,177, 0.5);
+	-moz-box-shadow: 0 0 3px 2px rgba(71,135,177, 0.5);
+	-webkit-box-shadow: 0 0 3px 2px rgba(71,135,177, 0.5);
+	-o-box-shadow: 0 0 3px 2px rgba(71,135,177, 0.5);
+}
+
+#taskedit .droptarget.hover {
+	background-color: #d9ecf4;
+	box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-moz-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-webkit-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+	-o-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
+}
+
+#task-attachments .attachmentslist li {
+	float: left;
+	margin-right: 1em;
+}
+
+#task-attachments .attachmentslist li a {
+	outline: none;
+}
+
+
+/**
+ * Styles of the tagedit inputsforms
+ */
+.tagedit-list {
+	width: 100%;
+	margin: 0;
+	padding: 4px 4px 0 5px;
+	overflow: auto;
+	min-height: 26px;
+	background: #fff;
+	border: 1px solid #b2b2b2;
+	border-radius: 4px;
+	box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
+	-moz-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
+	-webkit-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
+	-o-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
+}
+.tagedit-list li.tagedit-listelement {
+	list-style-type: none;
+	float: left;
+	margin: 0 4px 4px 0;
+	padding: 0;
+}
+
+/* New Item input */
+.tagedit-list li.tagedit-listelement-new input {
+	border: 0;
+	height: 100%;
+	padding: 4px 1px;
+	width: 15px;
+	background: #fff;
+	border-radius: 0;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-o-box-shadow: none;
+}
+.tagedit-list li.tagedit-listelement-new input:focus {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-o-box-shadow: none;
+	outline: none;
+}
+.tagedit-list li.tagedit-listelement-new input.tagedit-input-disabled {
+	display: none;
+}
+
+/* Item that is put to the List */
+.form-section span.tag-element,
+.tagedit-list li.tagedit-listelement-old {
+	padding: 3px 0 1px 6px;
+	background: #ddeef5;
+	background: -moz-linear-gradient(top, #edf6fa 0%, #d6e9f3 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#edf6fa), color-stop(100%,#d6e9f3));
+	background: -o-linear-gradient(top, #edf6fa 0%, #d6e9f3 100%);
+	background: -ms-linear-gradient(top, #edf6fa 0%, #d6e9f3 100%);
+	background: linear-gradient(top, #edf6fa 0%, #d6e9f3 100%);
+	border: 1px solid #c2dae5;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	color: #0d5165;
+}
+
+.form-section span.tag-element {
+	margin-right: 0.6em;
+	padding: 2px 6px;
+/*	cursor: pointer; */
+}
+
+.tagedit-list li.tagedit-listelement-old a.tagedit-close,
+.tagedit-list li.tagedit-listelement-old a.tagedit-break,
+.tagedit-list li.tagedit-listelement-old a.tagedit-delete,
+.tagedit-list li.tagedit-listelement-old a.tagedit-save {
+	text-indent: -2000px;
+	display: inline-block;
+	position: relative;
+	top: -1px;
+	width: 16px;
+	height: 16px;
+	margin: 0 2px 0 6px;
+	background: url(sprites.png) -2px -122px no-repeat;
+	cursor: pointer;
+}
+
+
+/** Special hacks for IE7 **/
+/** They need to be in this file to also affect the task-create dialog embedded in mail view **/
+
+html.ie7 #taskedit-completeness-slider {
+	display: inline;
+}
+
+html.ie7 .form-section span.tag-element,
+html.ie7 .tagedit-list li.tagedit-listelement-old {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#edf6fa', endColorstr='#d6e9f3', GradientType=0);
+}
+
+html.ie7 .tagedit-list li.tagedit-listelement span {
+	position: relative;
+	top: -3px;
+}
+
+html.ie7 .tagedit-list li.tagedit-listelement-old a.tagedit-close {
+	left: 5px;
+}
+

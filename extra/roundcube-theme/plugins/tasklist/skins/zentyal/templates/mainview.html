@@ -1,0 +1,156 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+<head>
+<title><roundcube:object name="pagetitle" /></title>
+<roundcube:include file="/includes/links.html" />
+<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/this/iehacks.css" /><![endif]-->
+</head>
+<body class="tasklistview noscroll">
+
+<roundcube:include file="/includes/header.html" />
+
+<div id="mainscreen">
+	<div id="sidebar">
+		<div id="taskstoolbar" class="toolbar">
+			<roundcube:button command="newtask" type="link" class="button newtask disabled" classAct="button newtask" classSel="button newtask pressed" label="tasklist.newtask" title="tasklist.newtask" />
+			<roundcube:container name="toolbar" id="taskstoolbar" />
+		</div>
+        <!--
+		<div id="tagsbox" class="uibox listbox">
+			<h2 class="boxtitle"><roundcube:label name="tasklist.tags" id="taglist" /></h2>
+			<div class="scroller">
+				<roundcube:object name="plugin.tagslist" id="tagslist" />
+			</div>
+		</div>
+        -->
+
+		<div id="tasklistsbox" class="uibox listbox">
+			<h2 class="boxtitle"><roundcube:label name="tasklist.lists" /></h2>
+			<div class="scroller withfooter">
+			<roundcube:object name="plugin.tasklists" id="tasklists" class="listing" />
+			</div>
+			<div class="boxfooter">
+				<roundcube:button command="list-create" type="link" title="tasklist.createlist" class="listbutton add disabled" classAct="listbutton add disabled" innerClass="inner" content="+" /><roundcube:button name="tasklistoptionslink" id="tasklistoptionsmenulink" type="link" title="tasklist.listactions" class="listbutton groupactions disabled" onclick="UI.show_popup('tasklistoptionsmenu', undefined, { above:true });return false" innerClass="inner" content="&#9881;" />
+			</div>
+		</div>
+	</div>
+	
+	<div id="mainview-right">
+	
+	<div id="quickaddbox">
+		<roundcube:object name="plugin.quickaddform" />
+	</div>
+
+	<div id="quicksearchbar">
+		<roundcube:object name="plugin.searchform" id="quicksearchbox" />
+		<a id="searchmenulink" class="iconbutton searchoptions" > </a>
+		<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+	</div>
+
+	<div id="tasksview" class="uibox">
+		<div class="boxtitle buttonbar">
+			<ul id="taskselector">
+				<li class="all selected"><a href="#all"><roundcube:label name="tasklist.all" /><span class="count"></span></a></li>
+				<li class="overdue inactive"><a href="#overdue"><roundcube:label name="tasklist.overdue" /><span class="count"></span></a></li>
+				<li class="flagged"><a href="#flagged"><roundcube:label name="tasklist.flagged" /><span class="count"></span></a></li>
+				<li class="today"><a href="#today"><roundcube:label name="tasklist.today" /><span class="count"></span></a></li>
+				<li class="tomorrow"><a href="#tomorrow"><roundcube:label name="tasklist.tomorrow" /><span class="count"></span></a></li>
+				<li class="week"><a href="#week"><roundcube:label name="tasklist.next7days" /></a></li>
+				<li class="later"><a href="#later"><roundcube:label name="tasklist.later" /></a></li>
+				<li class="nodate"><a href="#nodate"><roundcube:label name="tasklist.nodate" ucfirst="true" /></a></li>
+				<li class="complete"><a href="#complete"><roundcube:label name="tasklist.complete" /><span class="count"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class="scroller">
+			<roundcube:object name="plugin.tasks" id="thelist" />
+			<div id="listmessagebox"></div>
+		</div>
+		<div id="rootdroppable"></div>
+		<roundcube:object name="message" id="message" class="statusbar" />
+	</div>
+	
+	</div>
+
+</div>
+
+<div id="taskitemmenu" class="popupmenu">
+	<ul class="toolbarmenu iconized">
+		<li><roundcube:button name="edit" type="link" onclick="rctasks.edit_task(rctasks.selected_task.id, 'edit'); return false" label="edit" class="icon active" innerclass="icon edit" /></li>
+		<li><roundcube:button name="delete" type="link" onclick="rctasks.delete_task(rctasks.selected_task.id); return false" label="delete" class="icon active" innerclass="icon delete" /></li>
+        <!--
+		<li><roundcube:button name="addchild" type="link" onclick="rctasks.add_childtask(rctasks.selected_task.id); return false" label="tasklist.addsubtask" class="icon active" innerclass="icon add" /></li>
+        -->
+	</ul>
+</div>
+
+<div id="tasklistoptionsmenu" class="popupmenu">
+	<ul class="toolbarmenu">
+		<li><roundcube:button command="list-edit" label="edit" classAct="active" /></li>
+		<li><roundcube:button command="list-remove" label="delete" classAct="active" /></li>
+		<!--<li><roundcube:button command="list-import" label="tasklist.import" classAct="active" /></li>-->
+		<roundcube:if condition="env:tasklist_driver == 'kolab'" />
+		<li><roundcube:button command="folders" task="settings" type="link" label="managefolders" classAct="active" /></li>
+		<roundcube:endif />
+	</ul>
+</div>
+
+<div id="taskshow">
+	<div class="form-section" id="task-parent-title"></div>
+	<div class="form-section">
+		<h2 id="task-title"></h2>
+	</div>
+	<div id="task-description" class="form-section">
+	</div>
+	<div id="task-tags" class="form-section">
+		<label><roundcube:label name="tasklist.tags" /></label>
+		<span class="task-text"></span>
+	</div>
+	<div id="task-start" class="form-section">
+		<label><roundcube:label name="tasklist.start" /></label>
+		<span class="task-text"></span>
+		<span id="task-starttime"></span>
+	</div>
+	<div id="task-date" class="form-section">
+		<label><roundcube:label name="tasklist.datetime" /></label>
+		<span class="task-text"></span>
+		<span id="task-time"></span>
+	</div>
+	<div id="task-alarm" class="form-section">
+		<label><roundcube:label name="tasklist.alarms" /></label>
+		<span class="task-text"></span>
+	</div>
+	<div id="task-list" class="form-section">
+		<label><roundcube:label name="tasklist.list" /></label>
+		<span class="task-text"></span>
+	</div>
+	<div id="task-completeness" class="form-section">
+		<label><roundcube:label name="tasklist.complete" /></label>
+		<span class="task-text"></span>
+	</div>
+	<div id="task-attachments" class="form-section">
+		<label><roundcube:label name="attachments" /></label>
+		<div class="task-text"></div>
+	</div>
+</div>
+
+<roundcube:include file="/templates/taskedit.html" />
+
+<div id="tasklistform" class="uidialog">
+	<roundcube:object name="plugin.tasklist_editform" />
+</div>
+
+<script type="text/javascript">
+
+// UI startup
+var UI = new rcube_mail_ui();
+
+$(document).ready(function(e){
+	UI.init();
+
+});
+
+</script>
+
+</body>
+</html>
