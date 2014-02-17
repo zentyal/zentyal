@@ -1,0 +1,94 @@
+#!/usr/bin/perl -w
+
+# Copyright (C) 2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# A module to test EBox::WebAdmin::PSGI
+
+use warnings;
+use strict;
+
+package EBox::WebAdmin::PSGI::Test;
+
+use base 'Test::Class';
+
+use EBox::Config::TestStub;
+use EBox::Module::Config::TestStub;
+
+use Test::Exception;
+use Test::More;
+
+sub setUpConfiguration : Test(startup)
+{
+    EBox::Config::TestStub::fake('conf' => '/tmp/');
+}
+
+sub clearConfiguration : Test(shutdown)
+{
+    EBox::Module::Config::TestStub::setConfig();
+}
+
+sub test_use_ok : Test(startup => 1)
+{
+    my ($self) = @_;
+
+    use_ok('EBox::WebAdmin::PSGI') or die;
+}
+
+sub teardown_sub_app_file : Test(teardown)
+{
+    system('rm -rf /tmp/webadmin');
+}
+
+sub test_add : Test(5)
+{
+    my ($self) = @_;
+
+    lives_ok {
+        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf');
+    } 'Adding a sub app';
+    throws_ok {
+        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_daemons');
+    } 'EBox::Exceptions::DataExists', 'Throw exception if the same URL is used twice';
+    my $subApps = EBox::WebAdmin::PSGI::subapps();
+    cmp_ok(@{$subApps}, '==', 1, 'Added a subapp');
+    cmp_ok($subApps->[0]->{url}, 'eq', '/foo', 'First URL');
+    cmp_ok(ref($subApps->[0]->{app}), 'eq', 'CODE', 'Second is a code ref');
+}
+
+sub test_remove : Test(4)
+{
+    my ($self) = @_;
+
+    throws_ok {
+        EBox::WebAdmin::PSGI::removeSubApp('/foo');
+    } 'EBox::Exceptions::DataNotFound', 'Throw exception if the URL does not exist';
+
+    EBox::WebAdmin::PSGI::addSubApp('/bar', 'EBox::WebAdmin::_create');
+    my $subApps = EBox::WebAdmin::PSGI::subapps();
+    cmp_ok(@{$subApps}, '==', 1, 'Added sub-app');
+    lives_ok {
+        EBox::WebAdmin::PSGI::removeSubApp('/bar');
+    } 'Removing a sub app';
+    $subApps = EBox::WebAdmin::PSGI::subapps();
+    cmp_ok(@{$subApps}, '==', 0, 'Empty subapps');
+}
+
+1;
+
+END {
+    EBox::WebAdmin::PSGI::Test->runtests();
+}
+
