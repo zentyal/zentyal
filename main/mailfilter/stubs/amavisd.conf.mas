@@ -213,6 +213,7 @@ $default_ldap = {
   query_filter => <% "'$queryFilter'" %>,
   bind_dn   =>    <% "'$bindDn'" %>,
   bind_password => <% "'$bindPasswd'" %>,
+  inet6          => 0
 };
 
 

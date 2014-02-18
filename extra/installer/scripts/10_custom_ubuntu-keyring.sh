@@ -33,7 +33,7 @@ sudo cp ../ubuntu-keyring*.deb squashfs-root/
 sudo chroot squashfs-root sh -c "dpkg -i ubuntu-keyring*.deb"
 sudo rm squashfs-root/ubuntu-keyring*.deb
 sudo mksquashfs squashfs-root filesystem.squashfs
-mv filesystem.squashfs $CD_BUILD_DIR/install/
+mv -f filesystem.squashfs $CD_BUILD_DIR/install/
 printf $(sudo du -sx --block-size=1 squashfs-root | cut -f1) > $CD_BUILD_DIR/install/filesystem.size
 sudo rm -rf squashfs-root
 
