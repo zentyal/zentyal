@@ -88,7 +88,7 @@ sub _print
 
 sub _menu
 {
-    my ($self) = @_;
+    my $self = shift;
 
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
