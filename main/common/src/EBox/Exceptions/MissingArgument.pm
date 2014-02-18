@@ -17,8 +17,7 @@ use strict;
 use warnings;
 # Class: EBox::Exceptions::MissingArgument
 #
-#       Internal exception raised when a compulsory argument is
-#       missing in a method call
+#       Raised when a compulsory argument is missing in a method call
 
 package EBox::Exceptions::MissingArgument;
 

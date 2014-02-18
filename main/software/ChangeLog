@@ -1,4 +1,6 @@
-3.4
+3.4.0.1
+	+ When there is no action defined for EBox::Software::CGI::InstallPkgs
+	  throw a MissingArgument instead of an Internal exception
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Remove useless initial-setup script
 	+ Set version to 3.4
