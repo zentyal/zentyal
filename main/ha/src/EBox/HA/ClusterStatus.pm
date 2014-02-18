@@ -52,8 +52,9 @@ sub new
     my $self = { ha => $ha};
     bless($self, $class);
 
-    if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE) ) {
-        return $self->_parseCrmMonCommands($ha, $xml_dump, $text_dump);
+    if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE)
+                                                   or $xml_dump or $text_dump) {
+        return $self->_parseCrmMonCommands($xml_dump, $text_dump);
     } else {
         return $self;
     }
@@ -61,7 +62,7 @@ sub new
 
 sub _parseCrmMonCommands
 {
-    my ($self, $ha, $xml_dump, $text_dump) = @_;
+    my ($self, $xml_dump, $text_dump) = @_;
 
     $_timeCreation = time;
     $self->_parseCrmMon_X($xml_dump);

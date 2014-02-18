@@ -111,7 +111,7 @@ sub test_status_info : Test(6)
 
     my $clusterStatus = $self->{clusterStatus};
 
-    cmp_ok($clusterStatus->activeNode(), 'eq', 'mega-cow', 'Getting the active node');
+    cmp_ok($clusterStatus->activeNode(), 'eq', 'mini-fox', 'Getting the active node');
     ok($clusterStatus->nodeOnline('mega-cow'), 'Testing an online node');
     ok(! $clusterStatus->nodeOnline('failed-doggie'), 'Testing an offline node');
     cmp_ok($clusterStatus->numberOfNodes(), '==', 3, 'Counting the nodes');
@@ -194,7 +194,7 @@ sub test_errors : Test(3)
     cmp_ok($errors[0]{info}, 'eq', 'ClusterIP4_start_0 - unknown error', 'Node of the error correct');
 }
 
-sub test_active_node : Test
+sub test_active_node : Test(1)
 {
     my ($self) = @_;
 
