@@ -139,8 +139,8 @@ sub _print
 {
     my ($self) = @_;
 
+    my $json = $self->{json};
     if ($json) {
-        my $json = $self->{json};
         $self->JSONReply($json);
     } elsif ($self->param('noPopup')) {
         $self->SUPER::_print();
