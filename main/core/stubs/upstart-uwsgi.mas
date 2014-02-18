@@ -23,4 +23,4 @@ respawn
 respawn limit 10 5
 
 # FIXME: Once finished the development the umask must be fixed!!!
-exec uwsgi --ignore-sigpipe --plugins 0:psgi --uid <% $user %> --gid <% $group %> --umask 000 -s <% $socketpath %>/<% $socketname %> --psgi <% $script %>
+exec uwsgi --ignore-sigpipe --buffer-size 10240 --plugins 0:psgi --uid <% $user %> --gid <% $group %> --umask 000 -s <% $socketpath %>/<% $socketname %> --psgi <% $script %>
