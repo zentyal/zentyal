@@ -92,8 +92,6 @@ sub _create
 
     bless ($self, $class);
 
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self);
-
     return $self;
 }
 
@@ -1559,6 +1557,7 @@ sub _setFloatingIPRscs
     my ($self) = @_;
 
     my $rsc = $self->floatingIPs();
+    my $clusterStatus = new EBox::HA::ClusterStatus($self);
 
     # Get the resource configuration from the cib directly
     my $dom = $self->_rscsConf();
@@ -1580,7 +1579,8 @@ sub _setFloatingIPRscs
 
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
-    my $activeNode = $self->{clusterStatus}->activeNode();
+
+    my $activeNode = $clusterStatus->activeNode();
     my @moves = ();
     while (my ($rscName, $rscAddr) = each(%finalRscs)) {
         if (exists($currentRscs{$rscName})) {
@@ -1605,7 +1605,7 @@ sub _setFloatingIPRscs
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $rscName (@moves) {
-                my $currentNode = $self->{clusterStatus}->resourceByName($rscName);
+                my $currentNode = $clusterStatus->resourceByName($rscName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$rscName' --move --host '$activeNode'",
@@ -1626,6 +1626,7 @@ sub _setSingleInstanceInClusterModules
     my ($self) = @_;
 
     my $dom = $self->_rscsConf();
+    my $clusterStatus = new EBox::HA::ClusterStatus($self);
     my @zentyalRscElems = $dom->findnodes('//primitive[@type="Zentyal"]');
 
     # For ease to existence checking
@@ -1633,7 +1634,7 @@ sub _setSingleInstanceInClusterModules
 
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
-    my $activeNode = $self->{clusterStatus}->activeNode();
+    my $activeNode = $clusterStatus->activeNode();
 
     my @rootCmds;
     my @moves = ();
@@ -1663,8 +1664,7 @@ sub _setSingleInstanceInClusterModules
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $modName (@moves) {
-                # FIXME: Use new class for cluster status
-                my $currentNode = $self->{clusterStatus}->resourceByName($modName);
+                my $currentNode = $clusterStatus->resourceByName($modName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$modName' --move --host '$activeNode'",
