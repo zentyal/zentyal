@@ -36,13 +36,13 @@ sub _process
     # FIXME: unhardcode samba if more daemon crashes are watched
 
     if ($action eq 'report') {
-        my @files = @{EBox::Sudo::root("ls $CRASH_DIR | grep ^_opt_samba4")};
+        my @files = @{EBox::Sudo::root("ls $CRASH_DIR | grep ^_usr_sbin_samba")};
         foreach my $file (@files) {
             EBox::info("Sending crash report: $file");
             EBox::Sudo::root("/usr/share/zentyal/crash-report $CRASH_DIR/$file");
         }
     } elsif ($action eq 'discard') {
-        EBox::Sudo::root('rm -f /var/crash/_opt_samba4_*');
+        EBox::Sudo::root('rm -f /var/crash/_usr_sbin_samba*');
     }
 }
 
