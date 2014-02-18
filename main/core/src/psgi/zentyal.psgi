@@ -19,6 +19,7 @@ use warnings;
 use EBox;
 use EBox::CGI::Run;
 use EBox::Gettext;
+use EBox::WebAdmin::PSGI;
 
 use Authen::Simple::PAM;
 use Plack::Builder;
@@ -42,16 +43,18 @@ my $app = sub {
     return EBox::CGI::Run->run($req);
 };
 
-builder {
-    enable "+EBox::Middleware::UnhandledError";
-    enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
-        "ReverseProxy";
-    enable "Session",
-        state   => 'Plack::Session::State::Cookie',
-        store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
-      "+EBox::Middleware::NoAuth";
-    enable "+EBox::Middleware::AuthPAM", app_name => 'webadmin';
-    $app;
-};
+my $builder = new Plack::Builder();
+$builder->add_middleware("+EBox::Middleware::UnhandledError");
+$builder->add_middleware_if(sub { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }, "ReverseProxy");
+$builder->add_middleware("Session",
+                         state   => 'Plack::Session::State::Cookie',
+                         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH));
+$builder->add_middleware_if(sub { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') },
+                            "+EBox::Middleware::NoAuth");
+#$builder->add_middleware("+EBox::Middleware::AuthPAM", app_name => 'webadmin');
+foreach my $appConf (@{EBox::WebAdmin::PSGI::subApps()}) {
+    $builder->mount($appConf->{url} => $appConf->{app});
+}
+$builder->mount('/' => $app);
+$builder->to_app();
 
