@@ -61,8 +61,8 @@ sub setUpInstance : Test(setup)
             <resources_configured number='2' />
         </summary>
         <nodes>
-            <node name='mega-cow' id='1' online='true' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='true' resources_running='2' type='member' />
-            <node name='mini-fox' id='2' online='true' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='false' resources_running='0' type='member' />
+            <node name='mega-cow' id='1' online='true' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='true' resources_running='0' type='member' />
+            <node name='mini-fox' id='2' online='true' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='false' resources_running='2' type='member' />
             <node name='failed-doggie' id='3' online='false' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='false' resources_running='0' type='member' />
         </nodes>
         <resources>
@@ -192,6 +192,14 @@ sub test_errors : Test(3)
     cmp_ok(@errors, '==', 2, 'Two errors retrieved');
     cmp_ok($errors[0]{node}, 'eq', 'perra-vieja', 'Node of the error correct');
     cmp_ok($errors[0]{info}, 'eq', 'ClusterIP4_start_0 - unknown error', 'Node of the error correct');
+}
+
+sub test_active_node : Test
+{
+    my ($self) = @_;
+
+    my $clusterStatus = $self->{clusterStatus};
+    cmp_ok($clusterStatus->activeNode(), 'eq', 'mini-fox');
 }
 
 1;

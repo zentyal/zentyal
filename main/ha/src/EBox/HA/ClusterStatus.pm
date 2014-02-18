@@ -240,21 +240,24 @@ sub numberOfNodes
 
 # Function: activeNode
 #
-# Parameters:
-#
-#     nodesStatus - Hash ref *(Optional)* Default value: nodesStatus()
-#                   is called
-#
 # Returns:
 #
-#     String - the node which owns as much resources
+#     String - the node which owns as much resources. If two or more
+#              nodes have the same number of resources, then use
+#              ascent order from node id
 #
 sub activeNode
 {
     my ($self) = @_;
 
-    # sorting the nodes by the number of resources running at it
-    my @byRscRunning = sort { $b->{resources_running} <=> $a->{resources_running} } values %{$_nodes};
+    my $ordFunc = sub {
+        my $r = $b->{resources_running} <=> $a->{resources_running};
+        if ($r == 0) {
+            return $a->{id} <=> $b->{id};
+        }
+        return $r;
+    };
+    my @byRscRunning = sort $ordFunc values %{$_nodes};
 
     return $byRscRunning[0]->{name};
 }
