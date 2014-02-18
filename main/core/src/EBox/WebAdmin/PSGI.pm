@@ -26,6 +26,7 @@ package EBox::WebAdmin::PSGI;
 use EBox::Config;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
 
 use File::Slurp;
 use JSON::XS;
@@ -86,7 +87,7 @@ sub removeSubApp
     _write($json);
 }
 
-# Function: subapps
+# Function: subApps
 #
 # Returns:
 #
@@ -95,7 +96,7 @@ sub removeSubApp
 #      - url: String the url to mount the app
 #      - app: Code ref the PSGI app subroutine
 #
-sub subapps
+sub subApps
 {
     my $json = _read();
 
@@ -105,6 +106,9 @@ sub subapps
         my $appRelativeName = pop(@appNameParts);
         my $pkgName = join('::', @appNameParts);
         eval "use $pkgName";
+        if ($@) {
+            throw EBox::Exceptions::Internal("Cannot load $pkgName: $@");
+        }
         push(@res, {'url' => $url,
                     'app' => UNIVERSAL::can($pkgName, $appRelativeName)});
     }

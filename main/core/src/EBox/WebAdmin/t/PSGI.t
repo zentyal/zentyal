@@ -52,20 +52,23 @@ sub teardown_sub_app_file : Test(teardown)
     system('rm -rf /tmp/webadmin');
 }
 
-sub test_add : Test(5)
+sub test_add : Test(7)
 {
     my ($self) = @_;
 
     lives_ok {
         EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf');
-    } 'Adding a sub app';
+        EBox::WebAdmin::PSGI::addSubApp('/bar', 'EBox::WebAdmin::_create');
+    } 'Adding two sub apps';
     throws_ok {
         EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_daemons');
     } 'EBox::Exceptions::DataExists', 'Throw exception if the same URL is used twice';
-    my $subApps = EBox::WebAdmin::PSGI::subapps();
-    cmp_ok(@{$subApps}, '==', 1, 'Added a subapp');
-    cmp_ok($subApps->[0]->{url}, 'eq', '/foo', 'First URL');
-    cmp_ok(ref($subApps->[0]->{app}), 'eq', 'CODE', 'Second is a code ref');
+    my $subApps = EBox::WebAdmin::PSGI::subApps();
+    cmp_ok(@{$subApps}, '==', 2, 'Added a subapp');
+    foreach my $subApp (@{$subApps}) {
+        like($subApp->{url}, qr{^/.*}, 'First URL');
+        cmp_ok(ref($subApp->{app}), 'eq', 'CODE', 'Second is a code ref');
+    }
 }
 
 sub test_remove : Test(4)
@@ -77,13 +80,13 @@ sub test_remove : Test(4)
     } 'EBox::Exceptions::DataNotFound', 'Throw exception if the URL does not exist';
 
     EBox::WebAdmin::PSGI::addSubApp('/bar', 'EBox::WebAdmin::_create');
-    my $subApps = EBox::WebAdmin::PSGI::subapps();
+    my $subApps = EBox::WebAdmin::PSGI::subApps();
     cmp_ok(@{$subApps}, '==', 1, 'Added sub-app');
     lives_ok {
         EBox::WebAdmin::PSGI::removeSubApp('/bar');
     } 'Removing a sub app';
-    $subApps = EBox::WebAdmin::PSGI::subapps();
-    cmp_ok(@{$subApps}, '==', 0, 'Empty subapps');
+    $subApps = EBox::WebAdmin::PSGI::subApps();
+    cmp_ok(@{$subApps}, '==', 0, 'Empty subApps');
 }
 
 1;
