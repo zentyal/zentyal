@@ -86,17 +86,17 @@ sub render
 {
     my($class, $trace, %opt) = @_;
 
-    # template params
     my $theme = EBox::Global::_readTheme();
     my $headerTemplateFile = 'psgiErrorHeader.html';
     my $templateFile;
     my $params = {};
+    # header template params
     $params->{page_title} = __('Zentyal');
+    # common template params
     $params->{image_title} = $theme->{image_title};
     $params->{actions} = __('Actions');
     $params->{go_back} = __('Go back');
     $params->{title} = __('Sorry, an unexpected error has occurred');
-
     $params->{stacktrace_html} = renderSnippet($class, $trace, %opt);
     $params->{error} = encode_html($trace->frame(0)->as_string(1));
 
@@ -118,20 +118,23 @@ sub render
             __('You should reinstall them and retry your operation.') . '</p>';
         $templateFile = 'psgiErrorBrokenPackages.html';
     } else {
+        my $stacktrace = $trace->as_string();
+        $stacktrace =~ s/"/'/g;
+        $params->{stacktrace} = $stacktrace;
         $params->{show_details} = __('Show technical details');
         $params->{report} = __('Report the problem');
         $params->{cancel} = __('Cancel');
         $params->{email} = __('Email (you will receive updates on the report)');
         $params->{description} = __('Describe in English what you where doing');
-        $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
+        $params->{newticket_url} = 'https://tracker.zentyal.org/projects/zentyal/issues/new';
         $params->{report_error} = __("Couldn't send the report");
         $params->{report_sent} = __(
             'The report has been successfully sent, you can keep track of it in the following ticket:');
 
         my $instructions = '<strong>' . __(
             'To do a manual report, please follow these instructions:') . '</strong>';
-        $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ');
-        $instructions .= '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">';
+        $instructions .= '<li>' . __('Create a new ticket in the Zentyal bug tracker by clicking ');
+        $instructions .= '<a class="nvac" href="#" onclick="window.open(\'https://tracker.zentyal.org/projects/zentyal/issues/new\')">';
         $instructions .= __('here') . "</a>.</li>";
         $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
         $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';

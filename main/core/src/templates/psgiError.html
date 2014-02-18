@@ -75,7 +75,7 @@ var submitCallback = function(event) {
                   if (transport.responseText.indexOf('OK') == 0) {
                          var ticket = transport.responseText.substr(3);
                            $('#report').html('<div class="note">{{ report_sent }} ' +
-                               '<a href="http://trac.zentyal.org/ticket/' + ticket + '">#' + ticket + '</a></note>');
+                               '<a href="http://tracker.zentyal.org/issues/' + ticket + '">#' + ticket + '</a></note>');
                  } else if (transport.responseText.indexOf('ERROR ') == 0)  {
                       var error_string =  transport.responseText.substr(6);
                      $('#report_error_message').text(error_string);
