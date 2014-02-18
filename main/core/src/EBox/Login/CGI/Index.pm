@@ -67,7 +67,7 @@ sub _process
                          'Please, wait patiently until it is done');
         } elsif ($authreason eq 'Invalid session'){
             $reason = __('Your session was not valid anymore');
-        } elsif ($authreason  eq 'bad_credentials'){
+        } elsif ($authreason  eq 'Incorrect password'){
             $reason = __('Incorrect password');
         } elsif ($authreason eq 'Expired'){
             $reason = __('For security reasons your session has expired due to inactivity');
