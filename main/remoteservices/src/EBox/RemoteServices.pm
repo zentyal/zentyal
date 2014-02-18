@@ -67,6 +67,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
+use EBox::WebAdmin::PSGI;
 use TryCatch::Lite;
 use File::Slurp;
 use JSON::XS;
@@ -1693,6 +1694,9 @@ sub _confSOAPService
             EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
             EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
+            try {
+                EBox::WebAdmin::PSGI::addSubApp('/soap', 'EBox::RemoteServices::WSDispatcher::psgiApp');
+            } catch (EBox::Exceptions::DataExists $e) {}
             # $webAdminMod->addApacheInclude($confFile);
             $webAdminMod->addNginxInclude($confSSLFile);
             $webAdminMod->addCA($self->_caCertPath());
@@ -1700,6 +1704,7 @@ sub _confSOAPService
     } else {
         # Do nothing if CA or include are already removed
         try {
+            EBox::WebAdmin::PSGI::removeSubApp('/soap');
             # $webAdminMod->removeApacheInclude($confFile);
             $webAdminMod->removeNginxInclude($confSSLFile);
             $webAdminMod->removeCA($self->_caCertPath('force'));
