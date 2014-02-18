@@ -24,6 +24,7 @@ use warnings;
 package EBox::HA::ClusterStatus;
 
 use EBox::Sudo;
+use TryCatch::Lite;
 use XML::LibXML;
 
 use constant REFRESH_RATE => 5;
@@ -73,9 +74,7 @@ sub designatedController
 {
     my ($self) = @_;
 
-    my %summary = %{$_summary};
-
-    return $summary{'designated_controller_name'};
+    return $_summary ? $_summary->{'designated_controller_name'} : undef;
 }
 
 # Function: summary
@@ -300,9 +299,9 @@ sub _parseCrmMon_X
     my ($self, $xml_dump) = @_;
 
     $_xml_dom = $self->_getXmlOutput($xml_dump);
-    $_nodes = $self->_parseNodesStatus();
-    $_summary = $self->_parseSummary();
-    $_resources = $self->_parseResources();
+    $_nodes = $_xml_dom ? $self->_parseNodesStatus() : undef;
+    $_summary = $_xml_dom ? $self->_parseSummary() : undef;
+    $_resources = $_xml_dom ? $self->_parseResources() : undef;
 }
 
 # Function: _parseCrmMon_1
@@ -320,10 +319,14 @@ sub _parseCrmMon_1
 
     my @reversedText = ();
 
-    if (! $text_dump) {
-        @reversedText = reverse(@{EBox::Sudo::root('crm_mon -1')});
-    } else {
-        @reversedText = reverse(split(/^/, $text_dump));
+    try {
+        if (! $text_dump) {
+            @reversedText = reverse(@{EBox::Sudo::root('crm_mon -1')});
+        } else {
+            @reversedText = reverse(split(/^/, $text_dump));
+        }
+    } catch {
+        return;
     }
 
     my $fullText = join(';', @reversedText);
@@ -371,11 +374,16 @@ sub _getXmlOutput
     my ($self, $xml) = @_;
 
     my $outputString;
-    if ($xml) {
-        $outputString = $xml;
-    } else {
-        my $crmOutput = EBox::Sudo::root('crm_mon -X');
-        $outputString = join('', @{$crmOutput});
+
+    try {
+        if ($xml) {
+            $outputString = $xml;
+        } else {
+            my $crmOutput = EBox::Sudo::root('crm_mon -X');
+            $outputString = join('', @{$crmOutput});
+        }
+    } catch {
+        return undef;
     }
 
     return XML::LibXML->load_xml(string => $outputString);

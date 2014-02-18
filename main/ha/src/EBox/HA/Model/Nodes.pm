@@ -83,6 +83,10 @@ sub ids
 {
     my ($self)  = @_;
 
+    unless (defined($self->{clusterStatus}->nodes())) {
+        return [];
+    }
+
     # Calculate and cache the nodes status
     $self->{nodesStatus} = $self->{clusterStatus}->nodes();
     $self->{resourcesNum} = $self->{clusterStatus}->numberOfResources();
@@ -217,6 +221,7 @@ sub _table
         customActions  => $customActions,
         modelDomain => 'HA',
         tableDescription => \@fields,
+        noDataMsg => __('The cluster does not have any nodes.'),
         help => undef,
     };
 
