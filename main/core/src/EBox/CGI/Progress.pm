@@ -113,9 +113,9 @@ sub _print
     my ($self) = @_;
     if (not $self->param('raw')) {
         $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    $self->_printPopup();
 }
 
 sub _menu

@@ -104,9 +104,9 @@ if ($changed and not $alreadyChanged) {
         $networkModule->_lock();
         $networkModule->_saveConfig();
         $networkModule->_unlock();
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         # if locked, just mark as usnaved
-    };
+    }
     $networkModule->setAsChanged(0);
 }
 

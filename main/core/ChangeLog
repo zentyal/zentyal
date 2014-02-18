@@ -4,6 +4,7 @@
 	+ Added a UnhandledError middleware to catch any die or exception not
 	  handled by Zentyal
 	+ Added a Devel::StackTrace helper view that shows pretty backtraces
+	+ Enable crash reports by default
 	+ Added template for download link
 	+ Created EBox::Util::Certificate, refactored create-certificate
 	  script
