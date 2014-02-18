@@ -185,8 +185,8 @@ $(document).ready(function(e){
 		
 		if ($sidebar.is(':visible')) {
 			$sidebar.animate({ left:'-'+(width+10)+'px' }, time, function(){ $('#calendarsidebar').hide(); });
-			$(this).animate({ left:'8px'}, time, function(){ $('#calendarsidebartoggle').addClass('sidebarclosed') });
-			$('#calendar').animate({ left:'20px'}, time, function(){ $(this).fullCalendar('render'); });
+			$(this).animate({ left:'0px'}, time, function(){ $('#calendarsidebartoggle').addClass('sidebarclosed') });
+			$('#calendar').animate({ left:'16px'}, time, function(){ $(this).fullCalendar('render'); });
 		}
 		else {
 			$sidebar.show().animate({ left:'0px' }, time);

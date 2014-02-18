@@ -117,16 +117,24 @@ div.ui-datepicker td a.ui-state-default{
 
 #datepicker .ui-datepicker .ui-datepicker-prev,
 #datepicker .ui-datepicker .ui-datepicker-next {
-	top: 4px;
+	cursor: pointer;
+	border-radius: 2px; 
+}
+#datepicker .ui-datepicker .ui-datepicker-prev:hover,
+#datepicker .ui-datepicker .ui-datepicker-next:hover {
+	background:#ddd;
+}
+#datepicker .ui-datepicker .ui-datepicker-header .ui-icon{
+	background-image: url("images/ui-icons-datepicker.png");
 }
 
 #calendarsidebartoggle {
 	position: absolute;
-	left: 254px;
-	width: 8px;
+	left: 250px;
+	width: 16px;
 	top: 0px;
 	bottom: 0;
-	background: url(images/toggle.gif) 0 48% no-repeat transparent;
+	background: url(images/toggle.gif) 6px 48% no-repeat transparent;
 	cursor: pointer;
 }
 
@@ -1009,20 +1017,10 @@ a.dropdown-link:after {
 
 /* fullcalendar style overrides */
 
-
-.fc-header .fc-header-left{
-	float: right;
-}
-.fc-header .fc-header-center,
-.fc-header .fc-header-right{
-	float: left;
-}
-
 .rcube-fc-content {
 	overflow: hidden;
 	border: 0;
 }
-
 
 .calendarmain .fc-content {
 	position: absolute !important;
@@ -1041,11 +1039,6 @@ a.dropdown-link:after {
 .fc-content tbody{
 	vertical-align: top;
 }
-.fc-view-month td {
-padding: 5px;
-border-top: 1px solid #CCC;
-border-spacing: 0px;
-border-left: 1px solid #CCC;}
 
 .calendarmain .fc-button,
 .calendarmain .fc-button.fc-state-hover,
@@ -1056,29 +1049,12 @@ border-left: 1px solid #CCC;}
 
 .calendarmain .fc-state-default .fc-button-inner,
 .calendarmain .fc-state-hover .fc-button-inner {
-	margin: 0 0 0 0;
-	color: #505050;
-	text-shadow: 0px 1px 1px #fff;
-	border: 1px solid #e6e6e6;
-	background: #d8d8d8;
-	background: -moz-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8d8d8), color-stop(100%,#bababa));
-	background: -o-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: -ms-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	box-shadow: 0 1px 1px 0 #999;
-	-o-box-shadow: 0 1px 1px 0 #999;
-	-webkit-box-shadow: 0 1px 1px 0 #999;
-	-moz-box-shadow: 0 1px 1px 0 #999;
-	text-decoration: none;
 }
 
 .calendarmain .fc-state-disabled .fc-button-inner {
 	color: #999;
 	background: #d8d8d8;
 }
-
-
 
 .calendarmain .fc-state-down .fc-button-inner {
 	margin: 0;
@@ -1100,25 +1076,47 @@ border-left: 1px solid #CCC;}
 	background: linear-gradient(top, #bababa 0%, #d8d8d8 100%);
 }
 
-.calendarmain .fc-button-effect {
+/* calendar header toolbar */
+
+div.fc-header .fc-header-left{
+	float: right;
+}
+div.fc-header .fc-header-center,
+div.fc-header .fc-header-right{
+	float: left;
+}
+div.fc-header .fc-header-center{
+	margin-right: 10px;
+}
+div.fc-header .fc-header-title h2{
+	font-size: 2em;
+	line-height:50px;
+	height: 50px;
+	font-weight: normal;
+	margin:0px;
+}
+div.fc-header .fc-button-effect {
 	display: none;
 }
 
-.calendarmain .fc-button-content {
-	height: 20px;
-	line-height: 20px;
+div.fc-header .fc-button{
+	margin:0px;
 }
 
-/* calendar view top toolbar */
-
-.calendarmain .fc-header-left .fc-button {
+div.fc-header .fc-button {
 	margin: 0;
 	padding: 0;
 	float: left;
 }
 
-.calendarmain .fc-header-left .fc-state-default .fc-button-inner,
-.calendarmain .fc-header-left .fc-state-hover .fc-button-inner {
+div.fc-header .fc-button-prev .fc-button-content,
+div.fc-header .fc-button-next .fc-button-content{
+	font-family: sans-serif;
+	padding: 0px 5px;
+}
+
+div.fc-header .fc-state-default .fc-button-inner,
+div.fc-header .fc-state-hover .fc-button-inner {
 	margin: 0;
 	text-align: center;
 	background: none;
@@ -1133,7 +1131,7 @@ border-left: 1px solid #CCC;}
 	display: block;
 }
 
-.calendarmain .fc-header-left .fc-button-content {
+div.fc-header .fc-button-content {
 	float: left;
 	line-height:50px;
 	height: 50px;
@@ -1141,67 +1139,25 @@ border-left: 1px solid #CCC;}
 	font-size: 12px;
 	cursor: pointer;
 }
-.calendarmain .fc-header-left .fc-button-content:hover{
+div.fc-header .fc-button-content:hover{
 	background-color: #eee;
 }
 
-.calendarmain .fc-header-left .fc-state-active .fc-button-content {
+div.fc-header .fc-state-active .fc-button-content {
 	font-weight: bold;
 	color: #222;
 }
 
-.calendarmain .fc-header-left .fc-button-agendaDay .fc-button-inner {
-	background-position: center -120px;
-}
-
-.calendarmain .fc-header-left .fc-button-agendaDay.fc-state-active .fc-button-inner {
-	background-position: center -160px;
-}
-
-.calendarmain .fc-header-left .fc-button-agendaWeek .fc-button-inner {
-	background-position: center -200px;
-}
-
-.calendarmain .fc-header-left .fc-button-agendaWeek.fc-state-active .fc-button-inner {
-	background-position: center -240px;
-}
-
-.calendarmain .fc-header-left .fc-button-month .fc-button-inner {
-	background-position: center -280px;
-}
-
-.calendarmain .fc-header-left .fc-button-month.fc-state-active .fc-button-inner {
-	background-position: center -320px;
-}
-
-.calendarmain .fc-header-left .fc-button-table .fc-button-inner {
-	background-position: center -360px;
-}
-
-.calendarmain .fc-header-left .fc-button-table.fc-state-active .fc-button-inner {
-	background-position: center -400px;
-}
-
-.calendarmain .fc-header-right {
-	padding-right: 252px;
-	padding-top: 4px;
-}
-
-.fc-header-title {
-	padding-top: 5px;
-}
-
-.fc-event {
-	font-size: 1em !important;
-	padding: 5px;
-	margin: 1px 0px ;
-	border-radius: 2px;
-}
+/* events overrides */
 
 .fc-event-title {
-	font-weight: bold;
+	font-size: 1.3em;
+	margin-bottom: 5px;
 }
-
+.fc-event-location {
+	font-size: 1em;
+	opacity: 0.8;
+}
 .fc-event-hori .fc-event-title {
 	font-weight: normal;
 	white-space: nowrap;
@@ -1221,10 +1177,6 @@ border-left: 1px solid #CCC;}
 
 .fc-event-cateories {
 	font-style:italic; 
-}
-
-div.fc-event-location {
-	font-size: 90%;
 }
 
 .fc-more-link {
@@ -1250,7 +1202,7 @@ th.fc-widget-header {
 }
 
 .fc-day-number {
-	color: #578da5;
+	color: #333;
 }
 
 .fc-icon-alarms,
@@ -1339,6 +1291,9 @@ th.fc-widget-header {
 	opacity: 0.4;
 	filter: alpha(opacity=40); /* IE8 */
 }
+
+.fc-other-month{
+background: #f5f5f5}
 
 /* Settings section */
 
