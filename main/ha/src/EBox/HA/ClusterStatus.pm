@@ -26,6 +26,8 @@ package EBox::HA::ClusterStatus;
 use EBox::Sudo;
 use XML::LibXML;
 
+use constant REFRESH_RATE => 5;
+
 my $_resources = undef;
 my $_nodes = undef;
 my $_summary = undef;
@@ -34,9 +36,14 @@ my $_errors = undef;
 
 my $_timeCreation = undef;
 
-# FIXME: Doc
-# If we have parsed the crm_mon commands before 5 seconds we won't
-# parse them again
+# Group: Public methods
+
+# Constructor: new
+#
+# Parameters:
+#
+#      ha - <EBox::HA> module instance
+#
 sub new
 {
     my ($class, $ha, $xml_dump, $text_dump) = @_;
@@ -44,7 +51,7 @@ sub new
     my $self = { ha => $ha};
     bless($self, $class);
 
-    if ((!defined $_timeCreation) or (time - $_timeCreation > 5) ) {
+    if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE) ) {
         return $self->_parseCrmMonCommands($ha, $xml_dump, $text_dump);
     } else {
         return $self;
