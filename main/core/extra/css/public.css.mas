@@ -771,7 +771,8 @@ td[class^="icon"] {
 .icon-usercorner { background-image: url("/data/images/package-icons/zentyal-usercorner.png");}
 .icon-users { background-image: url("/data/images/package-icons/zentyal-users.png");}
 .icon-virt { background-image: url("/data/images/package-icons/zentyal-virt.png");}
-.icon-webmail, .icon-sogo { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
+.icon-webmail { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
+.icon-sogo { background-image: url("/data/images/package-icons/zentyal-sogo.png");}
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
 .icon-zarafa { background-image: url("/data/images/package-icons/zentyal-zarafa.png");}
 .icon-openchange { background-image: url("/data/images/package-icons/zentyal-openchange.png");}
@@ -1965,7 +1966,8 @@ input[type='image']:hover
 button:disabled, button:disabled:hover,
 input[type='submit']:disabled, input[type='submit']:disabled:hover,
 input[type='button']:disabled, input[type='button']:disabled:hover,
-input[type='image']:disabled, input[type='image']:disabled:hover
+input[type='image']:disabled, input[type='image']:disabled:hover,
+.btn-disabled, .btn-disabled:hover
 {
     opacity: 0.4;
     box-shadow: none;

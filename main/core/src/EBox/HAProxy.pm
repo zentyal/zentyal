@@ -152,7 +152,49 @@ sub ports
             $ports{$port}->{services}->[0]->{isDefault} = 1;
         }
     }
+
+    my @modsServices = @{ $self->_hiddenServices() };
+    foreach my $service (@modsServices) {
+        my $port  = $service->{port};
+        my $isSSL = $service->{isSSL};
+        if ($ports{$port}) {
+            if ($isSSL and not $ports{$port}->{isSSL}) {
+                EBox::Exceptions::External->throw(
+                    __x('Port {port} must be configured as SSL for {service}',
+                         port => $port,
+                        service => $service->{printableName},
+                       )
+                   );
+            } elsif (not $isSSL and $ports{$port}->{isSSL}) {
+                EBox::Exceptions::External->throw(
+                    __x('Port {port} must be configured as NOT SSL for {service}',
+                         port => $port,
+                        service => $service->{printableName},
+                       )
+                   );
+            }
+        } else {
+            $ports{$port}->{isSSL} = $isSSL;
+            $ports{$port}->{services} = [];
+        }
+        unshift @{ $ports{$port}->{services}  }, $service;
+    }
+
     return \%ports;
+}
+
+sub _hiddenServices
+{
+    my ($self) = @_;
+    my @services;
+    foreach my $mod (@{$self->modsWithHAProxyService()}) {
+        my $hidden = $mod->HAProxyInternalService();
+        if ($hidden) {
+            push @services, @{ $hidden };
+        }
+    }
+
+    return \@services;
 }
 
 # Method: _setConf
@@ -192,7 +234,6 @@ sub _setConf
     };
 
     EBox::Module::Base::writeConfFileNoCheck(HAPROXY_CONF_FILE, 'core/haproxy.cfg.mas', \@params, $permissions);
-
 }
 
 # Method: isEnabled

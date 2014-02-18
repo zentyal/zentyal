@@ -109,15 +109,16 @@ sub delVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-
     # Verify vdomain exists
     unless ($self->vdomainExists($vdomain)) {
         throw EBox::Exceptions::DataNotFound('data' => __('virtual domain'),
                                              'value' => $vdomain);
     }
 
+    $self->validateDelVDomain($vdomain);
+
     # We Should warn about users whose mail account belong to this vdomain.
+    my $mail = EBox::Global->modInstance('mail');
     $mail->{malias}->delAliasesFromVDomain($vdomain);
     $mail->{musers}->delAccountsFromVDomain($vdomain);
 
@@ -125,6 +126,14 @@ sub delVDomain
 
     my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
                                     $self->vdomainDn);
+}
+
+sub validateDelVDomain
+{
+    my ($self, $vdomain) = @_;
+    foreach my $vdomainLdap (@{ $self->_modsVDomainModule() }) {
+        $vdomainLdap->_delVDomainAbort($vdomain);
+    }
 }
 
 # Method: _cleanVDomain
@@ -235,7 +244,6 @@ sub vdomainExists
 
 # Method: _modsVDomainModule
 #
-#  FIXME
 #
 # Returns:
 #
@@ -250,9 +258,9 @@ sub _modsVDomainModule
     my @modules;
     foreach my $name (@names) {
         my $mod = EBox::Global->modInstance($name);
-                if ($mod->isa('EBox::VDomainModule')) {
-                    push (@modules, $mod->_vdomainModImplementation);
-                }
+        if ($mod->isa('EBox::VDomainModule')) {
+            push (@modules, $mod->_vdomainModImplementation);
+        }
     }
 
     return \@modules;
