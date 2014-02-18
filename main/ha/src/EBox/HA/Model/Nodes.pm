@@ -122,8 +122,8 @@ sub row
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
         if ($type->fieldName() eq 'status') {
-            my $nodeOnline = EBox::HA::CRMWrapper::nodeOnline($id, $self->{nodesStatus});
-            $element->setValue($nodeOnline ? __('Online') : __('Offline'));
+            my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
+            $element->setValue($nodeInfo{online} ? __('Online') : __('Offline'));
         } elsif ($type->fieldName() eq 'replication') {
             if ($errors->{$name}) {
                 $element->setValue($retryHTML);
