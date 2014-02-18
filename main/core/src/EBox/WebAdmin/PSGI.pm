@@ -34,6 +34,8 @@ use JSON::XS;
 use constant WEBADMIN_DIR => EBox::Config::conf() . 'webadmin/';
 use constant APPS_FILE => WEBADMIN_DIR . 'psgi-subapps.yaml';
 
+my $_apps;
+
 # Group: Public methods
 
 # Procedure: addSubApp
@@ -46,6 +48,11 @@ use constant APPS_FILE => WEBADMIN_DIR . 'psgi-subapps.yaml';
 #
 #    appName - String the app name to get the code ref for PSGI app
 #
+#    sslValidation - Boolean to indicate whether it requires SSL validation
+#                    *(Optional)* Default value: False
+#
+#    validateFunc - String the code to validate that SSL environment
+#
 # Exceptions:
 #
 #    <EBox::Exceptions::DataExists> - thrown if the url does already
@@ -53,13 +60,14 @@ use constant APPS_FILE => WEBADMIN_DIR . 'psgi-subapps.yaml';
 #
 sub addSubApp
 {
-    my ($url, $appName) = @_;
+    my ($url, $appName, $sslValidation, $validateFunc) = @_;
 
     my $json = _read();
     if (exists $json->{$url}) {
         throw EBox::Exceptions::DataExists(data => 'url', value => $url);
     }
-    $json->{$url} = $appName;
+    $json->{$url} = { appName => $appName, sslValidation => $sslValidation,
+                      validateFunc => $validateFunc };
     _write($json);
 }
 
@@ -95,24 +103,85 @@ sub removeSubApp
 #
 #      - url: String the url to mount the app
 #      - app: Code ref the PSGI app subroutine
+#      - sslValidation - Boolean indicating if any SSL validation is required
+#      - validate - Code ref
 #
 sub subApps
 {
     my $json = _read();
 
     my @res;
-    while (my ($url, $appName) = each %{$json}) {
-        my @appNameParts = split('::', $appName);
-        my $appRelativeName = pop(@appNameParts);
-        my $pkgName = join('::', @appNameParts);
-        eval "use $pkgName";
-        if ($@) {
-            throw EBox::Exceptions::Internal("Cannot load $pkgName: $@");
+    while (my ($url, $appConf) = each %{$json}) {
+        my $validate = undef;
+        if ($appConf->{sslValidation} and $appConf->{validateFunc}) {
+            $validate = _getCodeRef($appConf->{validateFunc});
         }
         push(@res, {'url' => $url,
-                    'app' => UNIVERSAL::can($pkgName, $appRelativeName)});
+                    'app' => _getCodeRef($appConf->{appName}),
+                    'sslValidation' => $appConf->{sslValidation},
+                    'validate' => $validate})
     }
+    $_apps = \@res;
     return \@res;
+}
+
+# Function: subApp
+#
+#   Get the sub app that match the criteria set
+#
+# Parameters:
+#
+#   url - String the url to check
+#
+#   sslValidation - Boolean the sub app with SSL validation. Default value: false
+#
+# Returns:
+#
+#    Hash ref - containing the following keys:
+#
+#      - url: String the url to mount the app
+#      - app: Code ref the PSGI app subroutine
+#      - user_id: String it is required validation, then the user_id used
+#
+#    Undef if not found
+#
+sub subApp
+{
+    my (%params) = @_;
+
+    $params{sslValidation} = 0 unless (exists $params{sslValidation});
+    my $apps = $_apps;
+    unless ($apps and scalar(@{$apps}) > 0) {
+        $apps = subApps();
+    }
+    my @matched = grep { my $url = $_->{url}; $params{url} =~ /^$url/ and $_->{sslValidation} == $params{sslValidation} }
+      @{$apps};
+    if (@matched) {
+        return $matched[0];
+    }
+    return undef;
+}
+
+# Method: validate
+#
+#  Validate the given environment in an app
+#
+# Parameters:
+#
+#  app - Hash ref the sub-app returned by <subApp> or <subApps>
+#
+#  env - Hash ref the Plack environment
+#
+# Returns:
+#
+#  Boolean - indicating if we validate
+#
+sub validate
+{
+    my ($app, $env) = @_;
+
+    my $validateSub = $app->{validate};
+    return (&$validateSub($env));
 }
 
 # Group: Private methods
@@ -136,6 +205,22 @@ sub _write
         mkdir(WEBADMIN_DIR);
     }
     File::Slurp::write_file(APPS_FILE, new JSON::XS->encode($json));
+}
+
+# Get the coderef
+sub _getCodeRef
+{
+    my ($name) = @_;
+
+    my @nameParts = split('::', $name);
+    my $relativeName = pop(@nameParts);
+    my $pkgName = join('::', @nameParts);
+    eval "use $pkgName";
+    if ($@) {
+        throw EBox::Exceptions::Internal("Cannot load $pkgName: $@");
+    }
+    return UNIVERSAL::can($pkgName, $relativeName);
+
 }
 
 1;

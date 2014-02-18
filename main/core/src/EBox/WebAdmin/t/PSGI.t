@@ -52,7 +52,7 @@ sub teardown_sub_app_file : Test(teardown)
     system('rm -rf /tmp/webadmin');
 }
 
-sub test_add : Test(7)
+sub test_add : Test(11)
 {
     my ($self) = @_;
 
@@ -64,11 +64,43 @@ sub test_add : Test(7)
         EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_daemons');
     } 'EBox::Exceptions::DataExists', 'Throw exception if the same URL is used twice';
     my $subApps = EBox::WebAdmin::PSGI::subApps();
-    cmp_ok(@{$subApps}, '==', 2, 'Added a subapp');
+    cmp_ok(@{$subApps}, '==', 2, 'Added two subapps');
     foreach my $subApp (@{$subApps}) {
         like($subApp->{url}, qr{^/.*}, 'First URL');
         cmp_ok(ref($subApp->{app}), 'eq', 'CODE', 'Second is a code ref');
+        cmp_ok($subApp->{sslValidation}, '==', 0, 'Not SSL validated');
+        is($subApp->{validate}, undef, 'Not Code ref for that validation');
     }
+}
+
+sub test_add_ssl_validate : Test(6)
+{
+    my ($self) = @_;
+
+    lives_ok {
+        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf', 1, 'EBox::WebAdmin::_create');
+    } 'Adding a sub app with SSL validation';
+    my $subApps = EBox::WebAdmin::PSGI::subApps();
+    cmp_ok(@{$subApps}, '==', 1, 'Added a subapp');
+    foreach my $subApp (@{$subApps}) {
+        like($subApp->{url}, qr{^/.*}, 'First URL');
+        cmp_ok(ref($subApp->{app}), 'eq', 'CODE', 'Second is a code ref');
+        ok($subApp->{sslValidation}, 'SSL validated');
+        cmp_ok(ref($subApp->{validate}), 'eq', 'CODE',
+               'Code ref for that validation');
+    }
+}
+
+sub test_ssl_validate : Test(2)
+{
+    my ($self) = @_;
+
+    EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf', 1, 'EBox::WebAdmin::_create');
+    is(EBox::WebAdmin::PSGI::subApp(url => '/foo/bar', sslValidation => 0), undef,
+       'Do not return the app if SSL validation mismatches');
+    isnt(EBox::WebAdmin::PSGI::subApp(url => '/foo/bar', sslValidation => 1), undef,
+         'Return the app if the SSL validation matches and the path matches with the start of the url');
+
 }
 
 sub test_remove : Test(4)
