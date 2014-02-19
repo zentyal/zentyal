@@ -124,7 +124,11 @@ sub  restoreFromFileAction
   if ($self->param('alreadyUploaded')) {
       $filename = $self->param('backupfile');
   } else {
-      $filename = $self->upload('backupfile');
+      my $request = $self->request();
+      my $uploads = $request->uploads();
+
+      my $upload = $uploads->{backupfile};
+      my $filename = $upload->path();
   }
 
   my $details = $self->backupDetailsFromFile($filename);

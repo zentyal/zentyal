@@ -941,54 +941,6 @@ sub masonParameters
     return [];
 }
 
-# Method: upload
-#
-#  Upload a file from the client computer. The file is place in
-#  the tmp directory (/tmp)
-#
-#
-# Parameters:
-#
-#   uploadParam - String request parameter name which contains the path to the
-#   file which will be uploaded. It is usually obtained from a HTML
-#   file input
-#
-# Returns:
-#
-#   String - the path of the uploaded file
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - thrown if an error has happened
-#   within the request or it is impossible to read the upload file or the
-#   parameter does not pass on the request
-#
-#   <EBox::Exceptions::External> - thrown if there is no file to
-#   upload or cannot create the temporally file
-#
-sub upload
-{
-    my ($self, $uploadParam) = @_;
-    defined $uploadParam or throw EBox::Exceptions::MissingArgument('uploadParam');
-
-    # upload parameter...
-    my $request = $self->request();
-    my $uploads = $request->uploads();
-    my $upload = $uploads->{$uploadParam};
-    if (not defined $upload) {
-        # FIXME: We should add upload error handling for Plack / PSGI.
-        throw EBox::Exceptions::Internal("The upload parameter $uploadParam does not "
-                . 'pass on HTTP request');
-    }
-
-    # get upload contents temp file path
-    unless ($upload->path()) {
-        throw EBox::Exceptions::External( __('Invalid uploaded file.'));
-    }
-
-    return $upload->path();
-}
-
 # Method: setMenuNamespace
 #
 #   Set the menu namespace to help the menu code to find out
