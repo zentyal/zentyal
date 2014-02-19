@@ -742,10 +742,16 @@ sub _setConf
         }
 
         # Skip if this is a dynamic zone
-        next if $self->_isDynamicZone($domainId);
+        my $dynamic = $self->_isDynamicZone($domainId);
 
         # Write zone file
-        my $file = BIND9CONFDIR . '/db.' . $domdata->{'name'};
+        my $file = $dynamic ? 
+                   BIND9CONFDIR . '/db.' . $domdata->{'name'} :
+                   BIND9_UPDATE_ZONES . '/db.' . $domdata->{'name'};
+
+        # Skip if journal file is created
+        next if ($dynamic and -e "$file.jnl");
+
         @array = ();
         push (@array, 'domain' => $domdata);
         $self->writeConfFile($file, "dns/db.mas", \@array);
