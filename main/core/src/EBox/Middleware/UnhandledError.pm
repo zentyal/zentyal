@@ -66,14 +66,19 @@ sub call
     };
 
     my $res;
+    my $caught = 0;
     try {
         $res = $self->app->($env);
     } catch ($e) {
+        $caught = 1;
         # This $res will only be used if $trace is undef
         $res = [500, ['Content-Type' => 'text/plain; charset=utf-8'], [no_trace_error($e)]];
     }
 
-    if ($trace) {
+    # The __DIE__ endpoint may catch exceptions that are not valid ones, for instance, an eval to check if a package
+    # is available. In those cases, the application will not break and thus we should not fail and print the
+    # backtrace.
+    if ($caught and $trace) {
         $res = [500, ['Content-Type' => 'text/html; charset=utf-8'], [$trace->as_html()]];
     }
 
