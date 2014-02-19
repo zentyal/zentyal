@@ -12,12 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 
-# Based on
-
 use strict;
 use warnings;
 
 package EBox::DNS::Update::GSS;
+
+use base 'EBox::DNS::Update';
 
 use Net::DNS;
 use GSSAPI;
@@ -28,31 +28,21 @@ sub new
 {
     my ($class, %params) = @_;
 
-    my $self = {};
+    my $self = $class->SUPER::new(%params);
     bless ($self, $class);
 
     $self->{gssCtx} = new GSSAPI::Context();
     $self->{gssName} = new GSSAPI::Name();
 
-
-    $self->{domain} = $params{domain};
     $self->{realm} = uc ($params{domain});
     $self->{pending} = [];
 
-    # find the name of the DNS server
-    my $serverName = $self->_findServerName($domain);
-    unless (defined $serverName) {
-        throw EBox::Exceptions::External("Failed to find a DNS server name for $domain");
-    }
-    EBox::debug("Using DNS server name $serverName");
-    $self->{serverName} = $serverName;
-
     # connect to the nameserver
-	my $nameserver = Net::DNS::Resolver->new(nameservers => [$serverName], recurse => 0, debug => 0);
-    unless (defined($nameserver) and (uc($nameserver->errorstring()) eq 'NOERROR')) {
-        throw EBox::Exceptions::External("Failed to connect to nameserver for domain $domain");
-    }
-    $self->{nameserver} = $nameserver;
+	#my $nameserver = Net::DNS::Resolver->new(nameservers => [$serverName], recurse => -1, debug => 0);
+    #unless (defined($nameserver) and (uc($nameserver->errorstring()) eq 'NOERROR')) {
+    #    throw EBox::Exceptions::External("Failed to connect to nameserver for domain $domain");
+    #}
+    #$self->{nameserver} = $nameserver;
 
     return $self;
 }
@@ -65,6 +55,7 @@ sub negotiate
 {
     my ($self) = @_;
 
+    my $serverName = $self->{serverName};
     $self->_getCreds($serverName);
 
     # use a long random key name
@@ -77,42 +68,6 @@ sub negotiate
     }
     EBox::debug("Negotiated TKEY $keyname");
 
-}
-
-# Method: add
-#
-#   Push an 'add' update request to the pending operations list
-#
-# Parameters:
-#
-#   host   - host name
-#   ttl    - time to live
-#   type   - record type
-#   target - record target
-#
-sub add
-{
-    my ($self, $host, $ttl, $type, $target) = @_;
-
-    my $domain = $self->{domain};
-    push (@{$self->{pending}}, rr_add("$host.$domain. $ttl $type $target"));
-}
-
-# Method: del
-#
-#   Push a 'del' update request to the pending operations list
-#
-# Parameters:
-#
-#   host - host name
-#   type - record type
-#
-sub del
-{
-    my ($self, $host, $type) = @_;
-
-    my $domain = $self->{domain};
-    push (@{$self->{pending}}, rr_del("$host.$domain. $type"));
 }
 
 # Method: send
@@ -135,7 +90,7 @@ sub send
     }
 
     my $sig = Net::DNS::RR->new(
-        Name => $keyname,
+        Name => $self->{keyName},
         Type => 'TSIG',
         TTL => 0,
         Class => 'ANY',
@@ -155,6 +110,7 @@ sub send
     $self->{update}->push('additional', $sig);
 
     # send the dynamic update
+    my $nameserver;
     my $update_reply = $nameserver->send($self->{update});
 
     # empty pending ops after send
@@ -171,26 +127,9 @@ sub send
     }
 }
 
-# find a server name for a domain - currently uses the NS record
-sub _findServerName
-{
-	my ($self, $domain) = @_;
-
-	my $res = Net::DNS::Resolver->new;
-	my $srv_query = $res->query("$domain.", "NS");
-	unless (defined $srv_query) {
-		return undef;
-	}
-	my $server_name;
-	foreach my $rr (grep { $_->type eq 'NS' } $srv_query->answer) {
-		$server_name = $rr->nsdname;
-	}
-	return $server_name;
-}
-
 sub _getCreds
 {
-    my ($serverName) = @_;
+    my ($self, $serverName) = @_;
 
     my $realm = $self->{realm};
 
@@ -205,6 +144,7 @@ sub _getCreds
         throw EBox::Exceptions::External("GSS: name import failed");
     }
 
+	my ($gssCred, $gssOidSet, $gssTime);
 	$status = GSSAPI::Cred::acquire_cred(undef, 120, undef, GSS_C_INITIATE,
 			                             $gssCred, $gssOidSet, $gssTime);
     if ($status->major() != 0) {
@@ -234,6 +174,7 @@ sub _negotiateTKEY
     my $gssToken = undef;
     my $gssToken2 = '';
     my $gssReply;
+	my ($gssCred, $gssOidSet, $gssTime);
 
     do {
 	    $status = $self->{gssCtx}->init($gssCred, $self->{gssName}, undef, $flags, 0, undef, $gssToken2, undef, $gssToken, undef, undef);

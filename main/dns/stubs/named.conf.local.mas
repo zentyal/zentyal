@@ -68,10 +68,11 @@ zone "<% $dom->{name} %>." IN {
 %       } else {
     file "<% $confDir %>/db.<% $dom->{'name'} %>";
 %       }
+    allow-transfer { trusted; };
 %       if ($dom->{dynamic}) {
     update-policy {
-        // The only allowed dynamic updates are A records
-        grant <% $dom->{'name'} %>. subdomain <% $dom->{'name'} %>. A TXT;
+        // Grant TSIG updates
+        grant <% $dom->{name} %> zonesub any;
         // Grant from localhost
         grant local-ddns zonesub any;
     };
