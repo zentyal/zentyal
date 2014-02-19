@@ -1,3 +1,5 @@
+HEAD
+	+ Remove unnecessary trailing dots in domain names in template.
 3.4
 	+ Added HA floating IPs constraints when creating ranges and fixed IPs
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
