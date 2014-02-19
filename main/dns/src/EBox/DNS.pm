@@ -711,9 +711,6 @@ sub _setConf
             "dns/named.conf.options.mas",
             \@array);
 
-    # Delete the already removed RR from dynamic and dlz zones
-#   $self->_removeDeletedRR();
-
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
 
@@ -744,45 +741,15 @@ sub _setConf
             $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
         }
 
+        # Skip if this is a dynamic zone
         next if $self->_isDynamicZone($domainId);
 
-        my $file;
-        if ($domdata->{'dynamic'}) {
-            $file = BIND9_UPDATE_ZONES;
-        } else {
-            $file = BIND9CONFDIR;
-        }
-        $file .= '/db.' . $domdata->{'name'};
-
-        # Prevent to write the file again if this is dynamic and the
-        # journal file has been already created
-        if ($domdata->{samba}) {
-#            my $sambaDomData = $self->_completeDomain($domainId);
-#            delete $sambaDomData->{'nameServers'};
-#
-#            my $newSRV = [];
-#            foreach my $srvRR ( @{$sambaDomData->{'srv'}} ) {
-#                push (@{$newSRV}, $srvRR) unless $srvRR->{readOnly};
-#            }
-#            $sambaDomData->{srv} = $newSRV;
-#
-#            my $newTXT = [];
-#            foreach my $txtRR ( @{$sambaDomData->{'txt'}} ) {
-#                push (@{$newTXT}, $txtRR) unless $txtRR->{readOnly};
-#            }
-#            $sambaDomData->{txt} = $newTXT;
-#
-#            $self->_updateDynDirectZone($sambaDomData);
-        } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
-            next;
-
-#            $self->_updateDynDirectZone($domdata);
-        } else {
-            @array = ();
-            push (@array, 'domain' => $domdata);
-            $self->writeConfFile($file, "dns/db.mas", \@array);
-            EBox::Sudo::root("chown bind:bind '$file'");
-        }
+        # Write zone file
+        my $file = BIND9CONFDIR . '/db.' . $domdata->{'name'};
+        @array = ();
+        push (@array, 'domain' => $domdata);
+        $self->writeConfFile($file, "dns/db.mas", \@array);
+        EBox::Sudo::root("chown bind:bind '$file'");
     }
 
     my @inaddrs;
@@ -839,9 +806,9 @@ sub _writeReverseFiles
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $group;
-        EBox::debug("reverse zone data : $file");
+
         if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-#            $self->_updateDynReverseZone($reversedDataItem);
+            # Will be updated in posthook
         } else {
             my @params = ();
             push (@params, 'groupip' => $group);
@@ -949,7 +916,7 @@ sub keysFile
 
 # Group: Protected methods
 
-sub _updateDynamicZone
+sub _updateDynamicDirectZone
 {
     my ($self, $rowId) = @_;
 
@@ -1041,6 +1008,36 @@ sub _updateDynamicZone
     $update->send();
 }
 
+sub _updateDynamicReverseZone
+{
+    my ($self, $rdata) = @_;
+
+    my $zone = $rdata->{group} . ".in-addr.arpa";
+    my $domain = $rdata->{domain};
+
+    my $update;
+    if ($rdata->{samba}) {
+        $update = new EBox::DNS::Update::GSS(domain => $zone);
+    } elsif ($rdata->{dynamic}) {
+        my $model = $self->model('DomainTable');
+        my $row = $model->find(domain => $domain);
+        my $tsigKey = $row->valueByName('tsigKey');
+        $update = new EBox::DNS::Update::TSIG(domain => $zone, keyName => $domain, key => $tsigKey);
+    } else {
+        return;
+    }
+
+    foreach my $host (@{$rdata->{hosts}}) {
+        my $ip = $host->{ip};
+        $update->del("$ip.$zone PTR");
+
+        my $prefix = '';
+        $prefix = $host->{name} . '.' if ($host->{name});
+        $update->add("$ip.$zone 259200 PTR ${prefix}${domain}");
+   }
+   $update->send();
+}
+
 # Method: _postServiceHook
 #
 #   Override this method to try to update the dynamic and dlz zones
@@ -1061,11 +1058,20 @@ sub _postServiceHook
             sleep(1);
         } while ($nTry < 5 and (not $self->_isNamedListening()));
 
-        if ($nTry < 5) {            
+        if ($nTry < 5) {
+            # Update dynamic direct zones
             foreach my $zone (@{$self->domains()}) {
                 my $id = $zone->{rowId};
                 next unless $self->_isDynamicZone($id);
-                $self->_updateDynamicZone($id);
+                $self->_updateDynamicDirectZone($id);
+            }
+
+            # Update dynamic reverse zones
+            my $reversedData = $self->_reverseData();
+            foreach my $group (keys %{ $reversedData }) {
+                my $reversedDataItem = $reversedData->{$group};
+                next unless $reversedDataItem->{dynamic};
+                $self->_updateDynamicReverseZone($reversedDataItem);
             }
         }
 
@@ -1555,143 +1561,6 @@ sub _domainIds
     my $model = $self->model('DomainTable');
     return $model->ids();
 }
-
-# Update an already created dynamic reverse zone using nsupdate
-#sub _updateDynReverseZone
-#{
-#    my ($self, $rdata) = @_;
-#
-#    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-#    my $zone = $rdata->{'group'} . ".in-addr.arpa";
-#    foreach my $host (@{$rdata->{'hosts'}}) {
-#        print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
-#        my $prefix = "";
-#        $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
-#        print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $rdata->{'domain'} . ".\n";
-#    }
-#    # Send the previous commands in batch
-#    if ( $fh->tell() > 0 ) {
-#        close($fh);
-#        tie my @file, 'Tie::File', $fh->filename();
-#        unshift(@file, "zone $zone");
-#        push(@file, "send");
-#        untie(@file);
-#        $self->_launchNSupdate($fh);
-#    }
-#}
-
-# Update the dynamic direct zone
-#sub _updateDynDirectZone
-#{
-#    my ($self, $domData) = @_;
-#
-#    my $zone = $domData->{'name'};
-#    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-#
-#    print $fh "zone $zone\n";
-#    # Delete everything to make sure the RRs are deleted
-#    # Likewise, MX applies
-#    # We cannot do it with dhcpd like records
-#    print $fh "update delete $zone A\n";
-#
-#    foreach my $ip (@{$domData->{'ipAddresses'}}) {
-#        print $fh "update add $zone 259200 A " . $ip . "\n";
-#    }
-#
-#    # print $fh "update delete $zone NS\n";
-#    foreach my $ns (@{$domData->{'nameServers'}}) {
-#        if ($ns !~ m:\.:g) {
-#            $ns .= ".$zone";
-#        }
-#        print $fh "update add $zone 259200 NS $ns\n";
-#    }
-#
-#    my %seen = ();
-#    foreach my $host (@{$domData->{'hosts'}}) {
-#        unless ($seen{$host->{'name'}}) {
-#            # To avoid deleting same name records with different IP addresses
-#            print $fh 'update delete ' . $host->{'name'} . ".$zone A\n";
-#        }
-#        $seen{$host->{'name'}} = 1;
-#        foreach my $ip (@{$host->{ip}}) {
-#            print $fh 'update add ' . $host->{'name'} . ".$zone 259200 A $ip\n";
-#        }
-#        foreach my $alias (@{$host->{'aliases'}}) {
-#            print $fh 'update delete ' . $alias . ".$zone CNAME\n";
-#            print $fh 'update add ' . $alias . ".$zone 259200 CNAME " . $host->{'name'} . ".$zone\n";
-#        }
-#    }
-#
-#    print $fh "update delete $zone MX\n";
-#    foreach my $mxRR ( @{$domData->{'mailExchangers'}} ) {
-#        my $mx = $mxRR->{'hostName'};
-#        if ( $mx !~ m:\.:g ) {
-#            $mx .= ".$zone";
-#        }
-#        print $fh "update add $zone 259200 MX " . $mxRR->{'preference'} . " $mx\n";
-#    }
-#
-#    foreach my $txtRR ( @{$domData->{'txt'}} ) {
-#        my $txt = $txtRR->{'hostName'};
-#        if ( $txt !~ m:\.:g ) {
-#            $txt .= ".$zone";
-#        }
-#        print $fh "update add $txt 259200 TXT " . $txtRR->{'txt_data'} . "\n";
-#    }
-#
-#    foreach my $srvRR ( @{$domData->{'srv'}} ) {
-#        if ( $srvRR->{'target_host'} !~ m:\.:g ) {
-#            $srvRR->{'target_host'} .= ".$zone";
-#        }
-#        print $fh 'update add _' . $srvRR->{'service_name'} . '._'
-#                  . $srvRR->{'protocol'} . ".${zone}. 259200 SRV " . $srvRR->{'priority'}
-#                  . ' ' . $srvRR->{'weight'} . ' ' . $srvRR->{'target_port'}
-#                  . ' ' . $srvRR->{'target_host'} . "\n";
-#    }
-#
-#    print $fh "send\n";
-#
-#    $self->_launchNSupdate($fh);
-#}
-
-# Remove no longer available RR in dynamic zones
-#sub _removeDeletedRR
-#{
-#    my ($self) = @_;
-#
-#    my $deletedRRs = $self->st_get_list(DELETED_RR_KEY);
-#    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-#    foreach my $rr (@{$deletedRRs}) {
-#        print $fh "update delete $rr\n";
-#    }
-#
-#    if ( $fh->tell() > 0 ) {
-#        print $fh "send\n";
-#        $self->_launchNSupdate($fh);
-#        $self->st_unset(DELETED_RR_KEY);
-#    }
-#}
-
-# Send the nsupdate command or defer to the postservice hook
-#sub _launchNSupdate
-#{
-#    my ($self, $fh) = @_;
-#
-#    my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-#    if ($self->_isNamedListening()) {
-#        try {
-#            EBox::Sudo::root($cmd);
-#        } catch ($e) {
-#            EBox::error("nsupdate error: $e");
-#            $fh->unlink_on_destroy(0); # For debug purposes
-#        }
-#    } else {
-#        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-#        push(@{$self->{nsupdateCmds}}, $cmd);
-#        $fh->unlink_on_destroy(0);
-#        EBox::warn('Cannot contact with named, trying in posthook');
-#    }
-#}
 
 # Check if named is listening
 sub _isNamedListening

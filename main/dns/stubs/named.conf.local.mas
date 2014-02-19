@@ -89,6 +89,7 @@ zone "<% $dom->{name} %>." IN {
 zone "<% $zoneName %>" {
     type master;
     file "<% $inaddr->{'file'} %>";
+    allow-transfer { trusted; };
     update-policy {
         // The only allowed dynamic updates are PTR records
 %       foreach my $keyName (@{$inaddr->{'keyNames'}}) {
