@@ -1398,6 +1398,7 @@ sub _formatNameServers
 #
 #      hostName
 #      txt_data
+#
 sub _formatTXT
 {
     my ($self, $txt) = @_;
@@ -1409,10 +1410,15 @@ sub _formatTXT
         if ($row->elementByName('hostName')->selectedType() eq 'domain') {
             $hostName = $row->parentRow()->valueByName('domain') . '.';
         } elsif ($row->elementByName('hostName')->selectedType() eq 'ownerDomain') {
-            $hostName = $row->parentRow()
-               ->subModel('hostnames')
-               ->row($hostName)
-               ->valueByName('hostname');
+            my $zoneRow = $row->parentRow();
+            my $zone = $zoneRow->printableValueByName('domain');
+            my $hostsModel = $zoneRow->subModel('hostnames');
+            my $hostRow = $hostsModel->row($hostName);
+            unless (defined $hostRow) {
+                EBox::warn("Orphan TXT record found in domain $zone");
+                next;
+            }
+            $hostName = $hostRow->valueByName('hostname');
         } else {
             $hostName = $row->valueByName('hostName');
         }

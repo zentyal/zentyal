@@ -151,9 +151,9 @@ sub deletedRowNotify
     my $zone = $zoneRow->valueByName('domain');
     my $host = $row->valueByName('hostname');
 
-    # Delete the associated MX RR
+    # Delete associated MX records
     my $mailExModel = $zoneRow->subModel('mailExchangers');
-    for my $id(@{$mailExModel->ids()}) {
+    foreach my $id (@{$mailExModel->ids()}) {
         my $mailRow = $mailExModel->row($id);
         my $hostname = $mailRow->elementByName('hostName');
         next unless ($hostname->selectedType() eq 'ownerDomain');
@@ -162,6 +162,21 @@ sub deletedRowNotify
             $mailExModel->removeRow($mailRow->id());
 
             my $record = "$zone MX $preference $host.$zone";
+            $self->_addToDelete($zone, $record);
+        }
+    }
+
+    # Delete associated TXT records
+    my $txtModel = $zoneRow->subModel('txt');
+    foreach my $id (@{$txtModel->ids()}) {
+        my $txtRow = $txtModel->row($id);
+        my $hostname = $txtRow->elementByName('hostName');
+        next unless ($hostname->selectedType() eq 'ownerDomain');
+        if ($hostname->value() eq $row->id()) {
+            $txtModel->removeRow($txtRow->id());
+
+            my $data = $txtRow->printableValueByName('txt_data');
+            my $record = "$host.$zone TXT $data";
             $self->_addToDelete($zone, $record);
         }
     }
