@@ -1,4 +1,5 @@
 3.4
+	+ Ported restricted resources to use nginx
 	+ Increased the buffer size for uwsgi applications to allow big submits
 	  like the one from automatic error report
 	+ Added a UnhandledError middleware to catch any die or exception not
