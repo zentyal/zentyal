@@ -31,8 +31,6 @@ use TryCatch::Lite;
 use JSON::XS;
 use Perl6::Junction qw(all any);
 
-use constant DEFAULT_PAGE_SIZE => 10;
-
 sub new
 {
     my $class = shift;
@@ -88,7 +86,7 @@ sub _pageSize
         return INT_MAX; # could also be size but maximum int avoids the call
     }
 
-    return $pageSize ? $pageSize : DEFAULT_PAGE_SIZE;
+    return $pageSize;
 }
 
 sub _auditLog
