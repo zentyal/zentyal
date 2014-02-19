@@ -64,15 +64,12 @@ sub _print
         $response->header('Last-Modified' => HTTP::Date::time2str($stat[9]));
         $response->header('Content-Disposition' => 'attachment; filename="' . $self->{downfilename} . '"');
         $response->body($fh);
-        return;
+    } elsif (not $self->{popup}) {
+        $self->SUPER::_print();
+    } else {
+        $self->{template} = '/ajax/simpleModalDialog.mas';
+        $self->_printPopup();
     }
-
-    if (not $self->{popup}) {
-        return $self->SUPER::_print();
-    }
-
-    $self->{template} = '/ajax/simpleModalDialog.mas';
-    $self->_printPopup();
 }
 
 sub requiredParameters

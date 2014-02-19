@@ -27,7 +27,7 @@ package EBox::HA::Model::ClusterMetadata;
 use base 'EBox::Model::Template';
 
 use EBox::Gettext;
-use EBox::HA::CRMWrapper;
+use EBox::HA::ClusterStatus;
 
 # Group: Public methods
 
@@ -52,15 +52,31 @@ sub templateContext
 {
     my ($self) = @_;
 
-    return {
-        metadata => [
-            # id, name, value
-            [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
-            [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
-            [ 'cluster_dc', __('Current Desginated Controller'), EBox::HA::CRMWrapper::currentDCNode()],
-           ],
-        help => __('The current Designated Controller performs the operations in the cluster. This node may be changed without any impact in the cluster.'),
-    };
+    $self->{ha} = $self->parentModule();
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
+
+    my $summary = $self->{clusterStatus}->summary() ? $self->{clusterStatus}->summary() : undef;
+
+    if ($summary) {
+        return {
+            metadata => [
+                # id, name, value
+                [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
+                [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
+                [ 'cluster_dc', __('Current Desginated Controller'), $self->{clusterStatus}->designatedController()],
+            ],
+            help => __('The current Designated Controller performs the operations in the cluster. This node may be changed without any impact in the cluster.'),
+        };
+    } else {
+        return {
+            metadata => [
+                # id, name, value
+                [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
+                [ 'cluster_status', __('Cluster status'),
+                    __x('Error: {service} service is not running', service => 'Zentyal HA') ],
+            ],
+        }
+    }
 }
 
 1;

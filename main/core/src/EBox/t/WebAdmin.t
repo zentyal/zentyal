@@ -27,8 +27,10 @@ use Test::Deep;
 use lib '../../..';
 
 use EBox::Global::TestStub;
+use EBox::Sudo::TestStub;
 
 EBox::Global::TestStub::fake();
+EBox::Sudo::TestStub::fake();
 
 use_ok('EBox::WebAdmin') or die;
 

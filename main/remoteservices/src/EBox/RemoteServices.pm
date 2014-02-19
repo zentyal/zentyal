@@ -1693,14 +1693,14 @@ sub _confSOAPService
             EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
             EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
-            $webAdminMod->addApacheInclude($confFile);
+            # $webAdminMod->addApacheInclude($confFile);
             $webAdminMod->addNginxInclude($confSSLFile);
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
         # Do nothing if CA or include are already removed
         try {
-            $webAdminMod->removeApacheInclude($confFile);
+            # $webAdminMod->removeApacheInclude($confFile);
             $webAdminMod->removeNginxInclude($confSSLFile);
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch (EBox::Exceptions::Internal $e) {
@@ -1734,7 +1734,7 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            $webadminMod->addApacheInclude($confFile);
+            # $webadminMod->addApacheInclude($confFile);
         } catch ($e) {
             # Not proper YAML file
             EBox::error($e);
@@ -1743,7 +1743,7 @@ sub _setProxyRedirections
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            $webadminMod->removeApacheInclude($confFile);
+            # $webadminMod->removeApacheInclude($confFile);
         } catch (EBox::Exceptions::Internal $e) {
         }
     }

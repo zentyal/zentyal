@@ -53,20 +53,31 @@ sub templateContext
 
     $self->{ha} = $self->parentModule();
     $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
-    my %summary = %{$self->{clusterStatus}->summary()};
+    my $summary = $self->{clusterStatus}->summary();
 
-    return {
-        metadata => [
-            # name => value
-            [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
-            [ __('Cluster secret') => 'raro'],
-            [ __('Current Designated Controller')     => $self->{clusterStatus}->designatedController()],
-            [ __('Last update')     => $summary{'last_update'}],
-            [ __('Last modification')     => $summary{'last_change'}],
-            [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],
-            [ __('Configurated resources')     => $self->{clusterStatus}->numberOfResources() . __(' resources')],
-           ],
-    };
+    if (defined($summary)) {
+        return {
+            metadata => [
+                # name => value
+                [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
+                [ __('Cluster secret') => $self->{ha}->userSecret()],
+                [ __('Current Designated Controller')     => $self->{clusterStatus}->designatedController()],
+                [ __('Last update')     => $summary->{'last_update'}],
+                [ __('Last modification')     => $summary->{'last_change'}],
+                [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],
+                [ __('Configurated resources')     => $self->{clusterStatus}->numberOfResources() . __(' resources')],
+            ],
+        };
+    } else {
+        return {
+            metadata => [
+                # name => value
+                [ __('Cluster name') => $self->{ha}->model('Cluster')->nameValue()],
+                [ __('Cluster status') =>
+                        __x('Error: {service} service is not running', service => 'Zentyal HA') ],
+            ],
+        };
+    }
 }
 
 1;

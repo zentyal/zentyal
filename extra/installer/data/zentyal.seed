@@ -11,7 +11,7 @@ d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-3.4-archive.asc
 # ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore
 
-# do not isntall recommends by default
+# do not install recommends by default
 d-i base-installer/install-recommends boolean false
 
 # support installations from USB

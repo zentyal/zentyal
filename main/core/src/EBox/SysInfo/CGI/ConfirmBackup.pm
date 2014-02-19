@@ -124,7 +124,11 @@ sub  restoreFromFileAction
   if ($self->param('alreadyUploaded')) {
       $filename = $self->param('backupfile');
   } else {
-      $filename = $self->upload('backupfile');
+      my $request = $self->request();
+      my $uploads = $request->uploads();
+
+      my $upload = $uploads->{backupfile};
+      my $filename = $upload->path();
   }
 
   my $details = $self->backupDetailsFromFile($filename);
@@ -187,10 +191,10 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('popup')) {
-        return $self->SUPER::_print();
+        $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    $self->_printPopup();
 }
 
 1;

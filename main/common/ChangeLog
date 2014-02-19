@@ -1,4 +1,5 @@
 3.4
+	+ Set debug = yes by default for daily builds
 	+ Added EBox::Config::psgi() to get the path where all PSGI applications
 	  are stored
 	+ Added EBox::Config::list() to parse space-separated values

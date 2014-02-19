@@ -1668,7 +1668,11 @@ sub isUserCorner
 
     my $global = EBox::Global->modInstance('global');
     my $appName = $global->appName();
-    return $appName and ($appName eq 'usercorner');
+    if (defined $appName) {
+        return ($appName eq 'usercorner');
+    } else {
+        return 0;
+    }
 }
 
 # Method: defaultUserModels

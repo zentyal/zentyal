@@ -98,7 +98,7 @@ sub _menu
 
 sub _top
 {
-    my ($self) = @_;
+    my $self = shift;
 
     if (EBox::Global->first()) {
         return $self->_topNoAction();

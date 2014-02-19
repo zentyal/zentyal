@@ -27,12 +27,14 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::External;
 use EBox::Gettext;
-use EBox::HA::CRMWrapper;
+use EBox::HA::NodePromoter;
+use EBox::HA::ClusterStatus;
 use EBox::HA::NodeList;
 use EBox::Types::Host;
 use EBox::Types::HostIP;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Port;
+use EBox::Types::HTML;
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -49,6 +51,7 @@ sub new
     bless($self, $class);
 
     $self->{list} = new EBox::HA::NodeList($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     return $self;
 }
@@ -80,9 +83,13 @@ sub ids
 {
     my ($self)  = @_;
 
+    unless (defined($self->{clusterStatus}->nodes())) {
+        return [];
+    }
+
     # Calculate and cache the nodes status
-    $self->{nodesStatus} = EBox::HA::CRMWrapper::nodesStatus();
-    $self->{resourcesNum} = EBox::HA::CRMWrapper::resourceNum();
+    $self->{nodesStatus} = $self->{clusterStatus}->nodes();
+    $self->{resourcesNum} = $self->{clusterStatus}->numberOfResources();
 
     my @names = map { $_->{name} } @{$self->{list}->list()};
     return \@names;
@@ -101,19 +108,32 @@ sub row
     my ($self, $id)  = @_;
 
     my $node = $self->{list}->node($id);
+    my $name = $node->{name};
 
     my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());
     $row->setId($id);
     $row->setModel($self);
     $row->setReadOnly(1);
 
+    my $errors = $self->parentModule()->get_state()->{errors};
+
+    my $okHTML = '<p style="color: green">' . __('OK') . '</p>';
+    my $retry = __('Retry');
+    my $js = "Zentyal.TableHelper.setLoading('retrybtn_$name'); Zentyal.HA.replicate('$name')";
+    my $retryHTML = "<button id=\"retrybtn_$name\" onclick=\"$js\">$retry</button>";
+
     my $tableDesc = $self->table()->{tableDescription};
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
-        # FIXME: Modify this to given stanza once replication status field is added
         if ($type->fieldName() eq 'status') {
-            my $nodeOnline = EBox::HA::CRMWrapper::nodeOnline($id, $self->{nodesStatus});
-            $element->setValue($nodeOnline ? __('Online') : __('Offline'));
+            my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
+            $element->setValue($nodeInfo{online} ? __('Online') : __('Offline'));
+        } elsif ($type->fieldName() eq 'replication') {
+            if ($errors->{$name}) {
+                $element->setValue($retryHTML);
+            } else {
+                $element->setValue($okHTML);
+            }
         } else {
             $element->setValue($node->{$element->fieldName()});
         }
@@ -154,20 +174,24 @@ sub _table
         new EBox::Types::Text(
             fieldName     => 'status',
             printableName => __('Status'),
-           ),
+        ),
         new EBox::Types::Host(
             fieldName     => 'name',
             printableName => __('Hostname'),
-           ),
+        ),
         new EBox::Types::HostIP(
             fieldName     => 'addr',
             printableName => __('IP address'),
-       ),
+        ),
         new EBox::Types::Port(
             fieldName     => 'port',
             printableName => __('Port'),
-           ),
-       );
+        ),
+        new EBox::Types::HTML(
+            fieldName     => 'replication',
+            printableName => __('Replication'),
+        ),
+    );
     my $customActions = [
         new EBox::Types::MultiStateAction(
             acquirer  => \&_acquireActive,
@@ -197,6 +221,7 @@ sub _table
         customActions  => $customActions,
         modelDomain => 'HA',
         tableDescription => \@fields,
+        noDataMsg => __('The cluster does not have any nodes.'),
         help => undef,
     };
 
@@ -210,7 +235,7 @@ sub _acquireActive
 {
     my ($self, $id) = @_;
 
-    my $activeNode = EBox::HA::CRMWrapper::activeNode($self->{nodesStatus});
+    my $activeNode = $self->{clusterStatus}->activeNode();
 
     return ($activeNode eq $id ? 'active' : 'passive');
 }
@@ -237,7 +262,7 @@ sub _doPromote
     my ($self, $actionType, $id, %params) = @_;
 
     try {
-        EBox::HA::CRMWrapper::promote($id);
+        EBox::HA::NodePromoter::promote($id);
         $self->setMessage(__x('Node {name} is now the active node', name => $id),
                           'note');
     } catch ($exc) {
@@ -251,7 +276,7 @@ sub _doDemote
     my ($self, $actionType, $id, %params) = @_;
 
     try {
-        EBox::HA::CRMWrapper::demote($id);
+        EBox::HA::NodePromoter::demote($id);
         $self->setMessage(__x('Node {name} is now a passive node', name => $id),
                           'note');
     } catch ($exc) {

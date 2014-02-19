@@ -932,7 +932,10 @@ sub writeSambaConfig
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
         my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
-        my $openchangeConnectionString = $openchangeModule->connectionString();
+        my $openchangeConnectionString = undef;
+        if ($openchangeProvisionedWithMySQL) {
+            $openchangeConnectionString = $openchangeModule->connectionString();
+        }
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
         push (@array, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
@@ -941,7 +944,7 @@ sub writeSambaConfig
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array,
-                         { 'uid' => 'root', 'gid' => 'root', mode => '600' });
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 
     $self->_writeAntivirusConfig();
 }

@@ -24,7 +24,10 @@ use warnings;
 package EBox::HA::ClusterStatus;
 
 use EBox::Sudo;
+use TryCatch::Lite;
 use XML::LibXML;
+
+use constant REFRESH_RATE => 5;
 
 my $_resources = undef;
 my $_nodes = undef;
@@ -34,9 +37,14 @@ my $_errors = undef;
 
 my $_timeCreation = undef;
 
-# FIXME: Doc
-# If we have parsed the crm_mon commands before 5 seconds we won't
-# parse them again
+# Group: Public methods
+
+# Constructor: new
+#
+# Parameters:
+#
+#      ha - <EBox::HA> module instance
+#
 sub new
 {
     my ($class, $ha, $xml_dump, $text_dump) = @_;
@@ -44,8 +52,9 @@ sub new
     my $self = { ha => $ha};
     bless($self, $class);
 
-    if ((!defined $_timeCreation) or (time - $_timeCreation > 5) ) {
-        return $self->_parseCrmMonCommands($ha, $xml_dump, $text_dump);
+    if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE)
+                                                   or $xml_dump or $text_dump) {
+        return $self->_parseCrmMonCommands($xml_dump, $text_dump);
     } else {
         return $self;
     }
@@ -53,7 +62,7 @@ sub new
 
 sub _parseCrmMonCommands
 {
-    my ($self, $ha, $xml_dump, $text_dump) = @_;
+    my ($self, $xml_dump, $text_dump) = @_;
 
     $_timeCreation = time;
     $self->_parseCrmMon_X($xml_dump);
@@ -66,9 +75,7 @@ sub designatedController
 {
     my ($self) = @_;
 
-    my %summary = %{$_summary};
-
-    return $summary{'designated_controller_name'};
+    return $_summary ? $_summary->{'designated_controller_name'} : undef;
 }
 
 # Function: summary
@@ -82,6 +89,19 @@ sub summary
     my ($self) = @_;
 
     return $_summary;
+}
+
+# Function: xmlStatus
+#
+# Returns:
+#
+#   Hash ref - The cluster status XML
+#
+sub xmlStatus
+{
+    my ($self) = @_;
+
+    return $_xml_dom;
 }
 
 # Function: nodes
@@ -132,10 +152,6 @@ sub errors
 #
 #   Hash - The cluster resource
 #
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no resource with
-#                                   the given name
 sub resourceByName
 {
     my ($self, $name) = @_;
@@ -145,7 +161,7 @@ sub resourceByName
         return $resources{$name};
     }
 
-    throw EBox::Exceptions::Internal("There is no resource with the name: $name");
+    return undef;
 }
 
 # Function: nodeByName
@@ -157,10 +173,6 @@ sub resourceByName
 #
 #   Hash - The cluster node
 #
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no node with the given
-#                                   name
 sub nodeByName
 {
     my ($self, $name) = @_;
@@ -169,7 +181,7 @@ sub nodeByName
         return $_nodes->{$name};
     }
 
-    throw EBox::Exceptions::Internal("There is no node with the name: $name");
+    return undef;
 }
 
 # Function: nodeById
@@ -180,10 +192,6 @@ sub nodeByName
 # Returns:
 #
 #   Hash - The cluster node
-#
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if there is no node with the given id
 #
 sub nodeById
 {
@@ -197,7 +205,7 @@ sub nodeById
         }
     }
 
-    throw EBox::Exceptions::Internal("There is no node with the id: $id");
+    return undef;
 }
 
 # Function: numberOfResources
@@ -232,21 +240,24 @@ sub numberOfNodes
 
 # Function: activeNode
 #
-# Parameters:
-#
-#     nodesStatus - Hash ref *(Optional)* Default value: nodesStatus()
-#                   is called
-#
 # Returns:
 #
-#     String - the node which owns as much resources
+#     String - the node which owns as much resources. If two or more
+#              nodes have the same number of resources, then use
+#              ascent order from node id
 #
 sub activeNode
 {
     my ($self) = @_;
 
-    # sorting the nodes by the number of resources running at it
-    my @byRscRunning = sort { $b->{resources_running} <=> $a->{resources_running} } values %{$_nodes};
+    my $ordFunc = sub {
+        my $r = $b->{resources_running} <=> $a->{resources_running};
+        if ($r == 0) {
+            return $a->{id} <=> $b->{id};
+        }
+        return $r;
+    };
+    my @byRscRunning = sort $ordFunc values %{$_nodes};
 
     return $byRscRunning[0]->{name};
 }
@@ -289,9 +300,9 @@ sub _parseCrmMon_X
     my ($self, $xml_dump) = @_;
 
     $_xml_dom = $self->_getXmlOutput($xml_dump);
-    $_nodes = $self->_parseNodesStatus();
-    $_summary = $self->_parseSummary();
-    $_resources = $self->_parseResources();
+    $_nodes = $_xml_dom ? $self->_parseNodesStatus() : undef;
+    $_summary = $_xml_dom ? $self->_parseSummary() : undef;
+    $_resources = $_xml_dom ? $self->_parseResources() : undef;
 }
 
 # Function: _parseCrmMon_1
@@ -309,10 +320,14 @@ sub _parseCrmMon_1
 
     my @reversedText = ();
 
-    if (! $text_dump) {
-        @reversedText = reverse(@{EBox::Sudo::root('crm_mon -1')});
-    } else {
-        @reversedText = reverse(split(/^/, $text_dump));
+    try {
+        if (! $text_dump) {
+            @reversedText = reverse(@{EBox::Sudo::root('crm_mon -1')});
+        } else {
+            @reversedText = reverse(split(/^/, $text_dump));
+        }
+    } catch {
+        return;
     }
 
     my $fullText = join(';', @reversedText);
@@ -360,11 +375,16 @@ sub _getXmlOutput
     my ($self, $xml) = @_;
 
     my $outputString;
-    if ($xml) {
-        $outputString = $xml;
-    } else {
-        my $crmOutput = EBox::Sudo::root('crm_mon -X');
-        $outputString = join('', @{$crmOutput});
+
+    try {
+        if ($xml) {
+            $outputString = $xml;
+        } else {
+            my $crmOutput = EBox::Sudo::root('crm_mon -X');
+            $outputString = join('', @{$crmOutput});
+        }
+    } catch {
+        return undef;
     }
 
     return XML::LibXML->load_xml(string => $outputString);

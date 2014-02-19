@@ -938,8 +938,11 @@ sub isProvisionedWithMySQL
 
 # Method: connectionString
 #
-#   Return a connection string to be used for the different configurable backends of
+#   Get a connection string to be used for the different configurable backends of
 #   OpenChange: named properties, openchangedb and indexing.
+#
+#   Currently MySQL is used as backend, the first time this method is called an
+#   openchange user will be created 
 #
 # Returns:
 #
