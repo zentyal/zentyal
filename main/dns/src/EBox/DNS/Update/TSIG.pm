@@ -64,7 +64,6 @@ sub send
 
     # Send the update
     my $packet = $self->{packet};
-    EBox::info($packet->string());
     my $reply = $resolver->send($packet);
     unless (defined $reply) {
         throw EBox::Exceptions::External(
