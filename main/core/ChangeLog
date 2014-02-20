@@ -1,6 +1,6 @@
 3.4
-	+ Added EBox::Middleware::SSLAuth to validate SSL requests only
-	  using the certificate
+	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
+	  WebAdmin sub-app requests
 	+ Added template for download link
 	+ Created EBox::Util::Certificate, refactored create-certificate
 	  script

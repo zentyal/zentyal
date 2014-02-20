@@ -48,10 +48,10 @@ my $_apps;
 #
 #    appName - String the app name to get the code ref for PSGI app
 #
-#    sslValidation - Boolean to indicate whether it requires SSL validation
+#    validation - Boolean to indicate whether it requires validation
 #                    *(Optional)* Default value: False
 #
-#    validateFunc - String the code to validate that SSL environment
+#    validateFunc - String the code to validate that environment
 #
 #    userId - String the user identifier to set when validation is correct
 #
@@ -68,7 +68,7 @@ sub addSubApp
     if (exists $json->{$params{url}}) {
         throw EBox::Exceptions::DataExists(data => 'url', value => $params{url});
     }
-    $json->{$params{url}} = { appName => $params{appName}, sslValidation => $params{sslValidation},
+    $json->{$params{url}} = { appName => $params{appName}, validation => $params{validation},
                               validateFunc => $params{validateFunc}, userId => $params{userId} };
     _write($json);
 }
@@ -105,7 +105,7 @@ sub removeSubApp
 #
 #      - url: String the url to mount the app
 #      - app: Code ref the PSGI app subroutine
-#      - sslValidation - Boolean indicating if any SSL validation is required
+#      - validation - Boolean indicating if any validation is required
 #      - validate - Code ref
 #      - userId: String it is required validation, then the user_id used
 #
@@ -116,12 +116,12 @@ sub subApps
     my @res;
     while (my ($url, $appConf) = each %{$json}) {
         my $validate = undef;
-        if ($appConf->{sslValidation} and $appConf->{validateFunc}) {
+        if ($appConf->{validation} and $appConf->{validateFunc}) {
             $validate = _getCodeRef($appConf->{validateFunc});
         }
         push(@res, {'url' => $url,
                     'app' => _getCodeRef($appConf->{appName}),
-                    'sslValidation' => $appConf->{sslValidation},
+                    'validation' => $appConf->{validation},
                     'validate' => $validate,
                     'userId' => $appConf->{userId}})
     }
@@ -137,7 +137,7 @@ sub subApps
 #
 #   url - String the url to check
 #
-#   sslValidation - Boolean the sub app with SSL validation. Default value: false
+#   validation - Boolean the sub app with validation. Default value: false
 #
 # Returns:
 #
@@ -145,7 +145,7 @@ sub subApps
 #
 #      - url: String the url to mount the app
 #      - app: Code ref the PSGI app subroutine
-#      - sslValidation - Boolean indicating if any SSL validation is required
+#      - validation - Boolean indicating if any validation is required
 #      - validate - Code ref
 #      - userId: String it is required validation, then the user_id used
 #
@@ -155,12 +155,12 @@ sub subApp
 {
     my (%params) = @_;
 
-    $params{sslValidation} = 0 unless (exists $params{sslValidation});
+    $params{validation} = 0 unless (exists $params{validation});
     my $apps = $_apps;
     unless ($apps and scalar(@{$apps}) > 0) {
         $apps = subApps();
     }
-    my @matched = grep { my $url = $_->{url}; $params{url} =~ /^$url/ and $_->{sslValidation} == $params{sslValidation} }
+    my @matched = grep { my $url = $_->{url}; $params{url} =~ /^$url/ and $_->{validation} == $params{validation} }
       @{$apps};
     if (@matched) {
         return $matched[0];
