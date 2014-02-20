@@ -1605,7 +1605,7 @@ sub _setFloatingIPRscs
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $rscName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($rscName);
+                my $currentNode = $clusterStatus->nodeRunningResource($rscName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$rscName' --move --host '$activeNode'",
@@ -1664,7 +1664,7 @@ sub _setSingleInstanceInClusterModules
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $modName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($modName);
+                my $currentNode = $clusterStatus->nodeRunningResource($modName);
                 if (defined($currentNode) and ($currentNode ne $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$modName' --move --host '$activeNode'",
