@@ -944,7 +944,7 @@ sub writeSambaConfig
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array,
-                         { 'uid' => 'root', 'gid' => 'root', mode => '600' });
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 
     $self->_writeAntivirusConfig();
 }
