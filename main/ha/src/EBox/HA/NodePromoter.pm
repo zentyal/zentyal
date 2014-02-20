@@ -54,8 +54,10 @@ sub promote
     my $clusterStatus = new EBox::HA::ClusterStatus();
 
     foreach my $r (@{_simpleResources()}) {
-        my $node = $clusterStatus->nodeRunningResource($r);
-        if (not defined($node) or ($node ne $nodeName)) {
+        my $resourceStatus = $clusterStatus->resourceByName($r);
+        my @runningNodes = @{ $resourceStatus->{nodes} };
+
+        if (defined($runningNodes) and ($nodeName ~~ @runningNodes)) {
             push(@cmds,
                  qq{crm_resource --resource '$r' --move --host '$nodeName'},
                  'sleep 3',

@@ -517,7 +517,7 @@ sub _parseResources
                          };
         # Store the nodes we are running on
         if ($resources{$name}->{nodes_running_on} > 0) {
-            my @nodes = map { $_->getAttribute('id') } $xmlResource->findnodes('./node');
+            my @nodes = map { $_->getAttribute('name') } $xmlResource->findnodes('./node');
             $resources{$name}->{nodes} = \@nodes;
         }
     }
