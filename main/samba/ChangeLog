@@ -1,4 +1,6 @@
 HEAD
+	+ Samba provision failures when IPs are not set no longer talk
+	  wrongly about internal interfaces
 	+ Clean up openchange section in stub smb.conf file
 	+ Fix typo in SambaLdapUser that fixes error in change email
 	+ Change user modification hook from _modifyUser to _preModifyUser
