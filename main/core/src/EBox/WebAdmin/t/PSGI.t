@@ -52,16 +52,16 @@ sub teardown_sub_app_file : Test(teardown)
     system('rm -rf /tmp/webadmin');
 }
 
-sub test_add : Test(11)
+sub test_add : Test(13)
 {
     my ($self) = @_;
 
     lives_ok {
-        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf');
-        EBox::WebAdmin::PSGI::addSubApp('/bar', 'EBox::WebAdmin::_create');
+        EBox::WebAdmin::PSGI::addSubApp(url => '/foo', appName => 'EBox::WebAdmin::_setConf');
+        EBox::WebAdmin::PSGI::addSubApp(url => '/bar', appName => 'EBox::WebAdmin::_create');
     } 'Adding two sub apps';
     throws_ok {
-        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_daemons');
+        EBox::WebAdmin::PSGI::addSubApp(url => '/foo', appName => 'EBox::WebAdmin::_daemons');
     } 'EBox::Exceptions::DataExists', 'Throw exception if the same URL is used twice';
     my $subApps = EBox::WebAdmin::PSGI::subApps();
     cmp_ok(@{$subApps}, '==', 2, 'Added two subapps');
@@ -70,15 +70,18 @@ sub test_add : Test(11)
         cmp_ok(ref($subApp->{app}), 'eq', 'CODE', 'Second is a code ref');
         cmp_ok($subApp->{sslValidation}, '==', 0, 'Not SSL validated');
         is($subApp->{validate}, undef, 'Not Code ref for that validation');
+        is($subApp->{userId}, undef, 'Not user id when no validation is required');
     }
 }
 
-sub test_add_ssl_validate : Test(6)
+sub test_add_ssl_validate : Test(7)
 {
     my ($self) = @_;
 
     lives_ok {
-        EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf', 1, 'EBox::WebAdmin::_create');
+        EBox::WebAdmin::PSGI::addSubApp(url => '/foo', appName => 'EBox::WebAdmin::_setConf',
+                                        sslValidation => 1, validateFunc => 'EBox::WebAdmin::_create',
+                                        userId => 'test');
     } 'Adding a sub app with SSL validation';
     my $subApps = EBox::WebAdmin::PSGI::subApps();
     cmp_ok(@{$subApps}, '==', 1, 'Added a subapp');
@@ -88,6 +91,7 @@ sub test_add_ssl_validate : Test(6)
         ok($subApp->{sslValidation}, 'SSL validated');
         cmp_ok(ref($subApp->{validate}), 'eq', 'CODE',
                'Code ref for that validation');
+        cmp_ok($subApp->{userId}, 'eq', 'test', 'User id set');
     }
 }
 
@@ -95,7 +99,8 @@ sub test_ssl_validate : Test(2)
 {
     my ($self) = @_;
 
-    EBox::WebAdmin::PSGI::addSubApp('/foo', 'EBox::WebAdmin::_setConf', 1, 'EBox::WebAdmin::_create');
+    EBox::WebAdmin::PSGI::addSubApp(url => '/foo', appName => 'EBox::WebAdmin::_setConf',
+                                    sslValidation => 1, validateFunc => 'EBox::WebAdmin::_create');
     is(EBox::WebAdmin::PSGI::subApp(url => '/foo/bar', sslValidation => 0), undef,
        'Do not return the app if SSL validation mismatches');
     isnt(EBox::WebAdmin::PSGI::subApp(url => '/foo/bar', sslValidation => 1), undef,
@@ -111,7 +116,7 @@ sub test_remove : Test(4)
         EBox::WebAdmin::PSGI::removeSubApp('/foo');
     } 'EBox::Exceptions::DataNotFound', 'Throw exception if the URL does not exist';
 
-    EBox::WebAdmin::PSGI::addSubApp('/bar', 'EBox::WebAdmin::_create');
+    EBox::WebAdmin::PSGI::addSubApp(url => '/bar', appName => 'EBox::WebAdmin::_create');
     my $subApps = EBox::WebAdmin::PSGI::subApps();
     cmp_ok(@{$subApps}, '==', 1, 'Added sub-app');
     lives_ok {

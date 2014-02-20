@@ -42,7 +42,7 @@ my $_apps;
 #
 #    Add a new sub PSGI app
 #
-# Parameters:
+# Named parameters:
 #
 #    url - String the url to mount this app
 #
@@ -53,6 +53,8 @@ my $_apps;
 #
 #    validateFunc - String the code to validate that SSL environment
 #
+#    userId - String the user identifier to set when validation is correct
+#
 # Exceptions:
 #
 #    <EBox::Exceptions::DataExists> - thrown if the url does already
@@ -60,14 +62,14 @@ my $_apps;
 #
 sub addSubApp
 {
-    my ($url, $appName, $sslValidation, $validateFunc) = @_;
+    my (%params) = @_;
 
     my $json = _read();
-    if (exists $json->{$url}) {
-        throw EBox::Exceptions::DataExists(data => 'url', value => $url);
+    if (exists $json->{$params{url}}) {
+        throw EBox::Exceptions::DataExists(data => 'url', value => $params{url});
     }
-    $json->{$url} = { appName => $appName, sslValidation => $sslValidation,
-                      validateFunc => $validateFunc };
+    $json->{$params{url}} = { appName => $params{appName}, sslValidation => $params{sslValidation},
+                              validateFunc => $params{validateFunc}, userId => $params{userId} };
     _write($json);
 }
 
@@ -105,6 +107,7 @@ sub removeSubApp
 #      - app: Code ref the PSGI app subroutine
 #      - sslValidation - Boolean indicating if any SSL validation is required
 #      - validate - Code ref
+#      - userId: String it is required validation, then the user_id used
 #
 sub subApps
 {
@@ -119,7 +122,8 @@ sub subApps
         push(@res, {'url' => $url,
                     'app' => _getCodeRef($appConf->{appName}),
                     'sslValidation' => $appConf->{sslValidation},
-                    'validate' => $validate})
+                    'validate' => $validate,
+                    'userId' => $appConf->{userId}})
     }
     $_apps = \@res;
     return \@res;
@@ -141,7 +145,9 @@ sub subApps
 #
 #      - url: String the url to mount the app
 #      - app: Code ref the PSGI app subroutine
-#      - user_id: String it is required validation, then the user_id used
+#      - sslValidation - Boolean indicating if any SSL validation is required
+#      - validate - Code ref
+#      - userId: String it is required validation, then the user_id used
 #
 #    Undef if not found
 #
