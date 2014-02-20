@@ -277,7 +277,10 @@ sub _adGroupMembers
         my @members = $groupEntry->get_value('member');
         next unless @members;
         foreach my $memberDN (@members) {
-            $memberDN = canonical_dn($memberDN);
+            # NOTE MS LDAP does not collapse multiple consecutive white spaces
+            #      as openLDAP does. The canonical_dn function collapse them
+            #      and make ldap search fail with LDAP_NO_SUCH_OBJECT
+            #$memberDN = canonical_dn($memberDN);
 
             # Get nested groups
             my $result2 = $ldap->search(base => $memberDN,
@@ -645,6 +648,7 @@ sub delPoliciesForGroup
 sub filterProfiles
 {
     my ($self) = @_;
+
     my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
