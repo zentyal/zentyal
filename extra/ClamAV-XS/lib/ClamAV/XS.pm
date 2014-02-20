@@ -68,8 +68,7 @@ Enrique J. Hernández <ejhernandez@zentyal.com>
 Copyright (C) 2014 Zentyal S.L.
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.2 or,
-at your option, any later version of Perl 5 you may have available.
+it under the same terms as GPL-2.
 
 
 =cut
