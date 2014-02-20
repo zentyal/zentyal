@@ -8,13 +8,12 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::Exception;
+use Test::More tests => 1;
 BEGIN { use_ok('ClamAV::XS') };
 
 #########################
 
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
-my $sigs = ClamAV::XS::signatures();
-print "Signatures: $sigs\n";
-ok($sigs, "Signatures");
+# throws_ok {
+#     my $sigs = ClamAV::XS::signatures();
+# } qr/Error getting signature count/ , 'It fails to get the number of signatures';
