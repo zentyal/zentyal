@@ -455,7 +455,7 @@ sub addedRowNotify
     my @addedAddrs;
     my %seenAddrs;
     my $network = EBox::Global->modInstance('network');
-    my $ifaces = $network->ifaces();
+    my $ifaces = $network->allIfaces();
     foreach my $iface (@{$ifaces}) {
         my $addrs = $network->ifaceAddresses($iface);
         foreach my $addr (@{$addrs}) {
