@@ -19,6 +19,7 @@ use warnings;
 use EBox;
 use EBox::CGI::Run;
 use EBox::Gettext;
+use EBox::Middleware::NoAuth;
 use EBox::WebAdmin::PSGI;
 
 use Authen::Simple::PAM;
@@ -49,8 +50,11 @@ $builder->add_middleware_if(sub { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }, "Revers
 $builder->add_middleware("Session",
                          state   => 'Plack::Session::State::Cookie',
                          store   => new Plack::Session::Store::File(dir => SESSIONS_PATH));
+$builder->add_middleware_if(sub { $_[0]->{HTTP_X_SSL_CLIENT_USED }},
+                            "+EBox::Middleware::SSLAuth");
 $builder->add_middleware_if(sub { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') },
                             "+EBox::Middleware::NoAuth");
+
 #$builder->add_middleware("+EBox::Middleware::AuthPAM", app_name => 'webadmin');
 foreach my $appConf (@{EBox::WebAdmin::PSGI::subApps()}) {
     $builder->mount($appConf->{url} => $appConf->{app});
