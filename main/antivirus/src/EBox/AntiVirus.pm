@@ -255,12 +255,12 @@ sub _setConf
 #     hash ref with the following fields
 #       update - true if the last event was a succesful update
 #       error  - true if the last event was a error
-#       outdated  - contains a version number if the last event was a updte
-#                   that recommend a updated version of engine. (in this case
+#       outdated  - contains a version number if the last event was an update
+#                   that recommends an updated version of engine. (in this case
 #                   update field is not set to true)
 #       date     - date of the last event
 #
-#    If there is not last recorded event it returns a empty hash
+#    If there is not last recorded event it returns a empty hash.
 sub freshclamState
 {
     my ($self) = @_;
@@ -273,6 +273,10 @@ sub freshclamState
 
     my $file = new File::ReadBackwards($freshclamStateFile);
     my $lastLine = $file->readline();
+    if ($lastLine eq "") {
+        # Empty file
+        return { map {  ( $_ => undef )  } @stateAttrs  };
+    }
     my %state = split(',', $lastLine, (@stateAttrs * 2));
 
     # checking state file coherence
