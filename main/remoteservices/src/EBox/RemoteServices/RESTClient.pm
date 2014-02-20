@@ -57,10 +57,9 @@ sub new
 
     # Get the server from conf
     my $key = 'rs_api';
-    # TODO: Use cloudDomain when available
-    my $server = 'https://' . EBox::Config::configkey($key);
 
-    my $self = $class->SUPER::new(server => $server, %params);
+    # TODO: Use cloudDomain when available
+    my $self = $class->SUPER::new(server => EBox::Config::configkey($key), %params);
 
     if ( exists $self->{credentials} and (not $self->{credentials}->{realm}) ) {
         $self->{credentials}->{realm} = 'Zentyal Cloud API';
