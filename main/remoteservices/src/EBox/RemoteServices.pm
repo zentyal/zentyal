@@ -1686,30 +1686,27 @@ sub _confSOAPService
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ($self->hasBundle()) {
-            my @tmplParams = (
-                (soapHandler      => WS_DISPATCHER),
-                (caDomain         => $self->_confKeys()->{caDomain}),
-                (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            );
-            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
-            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
-
             try {
-                EBox::WebAdmin::PSGI::addSubApp('/soap', 'EBox::RemoteServices::WSDispatcher::psgiApp');
+                EBox::WebAdmin::PSGI::addSubApp(url => '/soap',
+                                                appName => 'EBox::RemoteServices::WSDispatcher::psgiApp',
+                                                sslValidation => 1,
+                                                validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
+                                                userId => 'remote');
             } catch (EBox::Exceptions::DataExists $e) {}
-            # $webAdminMod->addApacheInclude($confFile);
-            $webAdminMod->addNginxInclude($confSSLFile);
+            # Write the SSL validation
+            File::Slurp::write_file(SERV_DIR . 'ssl-auth.json',
+                                    JSON::XS->new()->encode({'caDomain' => $self->_confKeys()->{caDomain},
+                                                             'allowedClientCNRegexp' => $self->_allowedClientCNRegexp()}));
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
-        # Do nothing if CA or include are already removed
+        # Do nothing if CA or the sub-app are already removed
         try {
             EBox::WebAdmin::PSGI::removeSubApp('/soap');
-            # $webAdminMod->removeApacheInclude($confFile);
-            $webAdminMod->removeNginxInclude($confSSLFile);
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch (EBox::Exceptions::Internal $e) {
         }
+        unlink(SERV_DIR . 'ssl-auth.json');
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();

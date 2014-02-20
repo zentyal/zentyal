@@ -26,6 +26,8 @@ package EBox::RemoteServices::WSDispatcher;
 #      this SOAP service is required.
 #
 
+use File::Slurp;
+use JSON::XS;
 use Plack::Request;
 use SOAP::Transport::HTTP::Plack;
 
@@ -40,6 +42,29 @@ sub psgiApp
             'urn:EBox/Services/Jobs' => 'EBox::RemoteServices::Server::JobReceiver',
         }
        )->handler(new Plack::Request($env));
+}
+
+# Function: validate
+#
+# Parameters:
+#
+#    env - Hash ref the Plack environment from the request
+#
+sub validate
+{
+    my ($env) = @_;
+
+    my $sslAuthFile = EBox::Config::conf() . 'remoteservices/ssl-auth.json';
+    if (-f $sslAuthFile) {
+        my $sslAuth = JSON::XS->new()->decode(File::Slurp::read_file($sslAuthFile));
+        my $caDomain = $sslAuth->{caDomain};
+        my $allowedClientCNs = $sslAuth->{allowedClientCNRegexp};
+
+        return (($env->{HTTP_X_SSL_CLIENT_O} eq $caDomain)
+                and ($env->{HTTP_X_SSL_ISSUER_O} eq $caDomain)
+                and ($env->{HTTP_X_SSL_CLIENT_CN} =~ $allowedClientCNs));
+    }
+    return 0;
 }
 
 1;
