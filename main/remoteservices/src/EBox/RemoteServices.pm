@@ -1689,7 +1689,7 @@ sub _confSOAPService
             try {
                 EBox::WebAdmin::PSGI::addSubApp(url => '/soap',
                                                 appName => 'EBox::RemoteServices::WSDispatcher::psgiApp',
-                                                sslValidation => 1,
+                                                validation => 1,
                                                 validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
                                                 userId => 'remote');
             } catch (EBox::Exceptions::DataExists $e) {}

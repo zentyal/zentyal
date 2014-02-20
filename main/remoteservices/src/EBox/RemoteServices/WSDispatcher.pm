@@ -54,15 +54,17 @@ sub validate
 {
     my ($env) = @_;
 
-    my $sslAuthFile = EBox::Config::conf() . 'remoteservices/ssl-auth.json';
-    if (-f $sslAuthFile) {
-        my $sslAuth = JSON::XS->new()->decode(File::Slurp::read_file($sslAuthFile));
-        my $caDomain = $sslAuth->{caDomain};
-        my $allowedClientCNs = $sslAuth->{allowedClientCNRegexp};
+    if ($env->{HTTP_X_SSL_CLIENT_USED}) {  # Only SSL requests
+        my $sslAuthFile = EBox::Config::conf() . 'remoteservices/ssl-auth.json';
+        if (-f $sslAuthFile) {
+            my $sslAuth = JSON::XS->new()->decode(File::Slurp::read_file($sslAuthFile));
+            my $caDomain = $sslAuth->{caDomain};
+            my $allowedClientCNs = $sslAuth->{allowedClientCNRegexp};
 
-        return (($env->{HTTP_X_SSL_CLIENT_O} eq $caDomain)
-                and ($env->{HTTP_X_SSL_ISSUER_O} eq $caDomain)
-                and ($env->{HTTP_X_SSL_CLIENT_CN} =~ $allowedClientCNs));
+            return (($env->{HTTP_X_SSL_CLIENT_O} eq $caDomain)
+                    and ($env->{HTTP_X_SSL_ISSUER_O} eq $caDomain)
+                    and ($env->{HTTP_X_SSL_CLIENT_CN} =~ $allowedClientCNs));
+        }
     }
     return 0;
 }
