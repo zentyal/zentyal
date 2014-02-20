@@ -1058,6 +1058,13 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        if (EBox::Global->modExists('openchange')) {
+            my $openchangeMod = EBox::Global->modInstance('openchange');
+            if ($openchangeMod->isProvisioned()) {
+                # Set OpenChange as not provisioned.
+                $openchangeMod->setProvisioned(0);
+            }
+        }
         if ($self->get('need_reprovision')) {
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
