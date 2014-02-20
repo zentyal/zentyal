@@ -462,4 +462,17 @@ sub initialSetup
     }
 }
 
+# Method: enableActions
+#
+#   Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    # FIXME: workaround to stop apache, otherwise port 80
+    #        will be in use and haproxy will fail to listen on it
+    EBox::Sudo::silentRoot('service apache2 stop');
+}
+
 1;
