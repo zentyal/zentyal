@@ -137,10 +137,29 @@ sub proxyDomain
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->hasBundle()) {
         return $self->_confKeys()->{realm};
     }
     return undef;
+}
+
+# Method: caDomain
+#
+#   Returns CA organizational name from Zentyal Remote
+#
+# Returns:
+#
+#   String - the CA organizational name from Zentyal Remote
+#            Empty string if it does not have a bundle.
+#
+sub caDomain
+{
+    my ($self) = @_;
+
+    if ($self->hasBundle()) {
+        return $self->_confKeys()->{caDomain};
+    }
+    return "";
 }
 
 # Method: _setConf
@@ -1667,15 +1686,15 @@ sub checkAdMessages
 
 # Group: Private methods
 
-# Configure the SOAP server
+# Configure the SOAP server and Remote Access
 #
 # if subscribed and has bundle
-# 1. Write soap-loc.mas template
-# 2. Write the SSLCACertificatePath directory
-# 3. Add include in zentyal-apache configuration
+# 1. Add /soap and /ebox PSGI sub applications
+# 2. Write the SSLCACertificatePath directory for SSL validation
+# 3. Save webadmin module
 # elsif not subscribed
 # 1. Remove SSLCACertificatePath directory
-# 2. Remove include in zentyal-webadmin configuration
+# 2. Remove /soap and /ebox PSGI sub applications
 #
 sub _confSOAPService
 {
@@ -1692,6 +1711,13 @@ sub _confSOAPService
                                                 validation => 1,
                                                 validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
                                                 userId => 'remote');
+            } catch (EBox::Exceptions::DataExists $e) {}
+            try {
+                EBox::WebAdmin::PSGI::addSubApp(url => '/ebox',
+                                                appName => 'EBox::RemoteServices::RemoteAccess::psgiApp',
+                                                validation => 1,
+                                                validateFunc => 'EBox::RemoteServices::RemoteAccess::validate',
+                                                userId => 'remote_user');
             } catch (EBox::Exceptions::DataExists $e) {}
             # Write the SSL validation
             File::Slurp::write_file(SERV_DIR . 'ssl-auth.json',
