@@ -161,12 +161,12 @@ http {
 }
 <%def .restricted>
 <%args>
-%restrictions
+$restrictions
 </%args>
-% if ( %restrictions ) {
-            location <% $restrictions{location} %> {
-%     unless ( $restrictions{foundNobody} ) {
-%         foreach my $ip (@{$restrictions{allowIPs}}) {
+% if ( $restrictions ) {
+            location <% $restrictions->{location} %> {
+%     unless ( $restrictions->{foundNobody} ) {
+%         foreach my $ip (@{$restrictions->{allowIPs}}) {
                 allow <% $ip %>;
 %         }
 %     }
