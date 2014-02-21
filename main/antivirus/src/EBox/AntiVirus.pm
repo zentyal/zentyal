@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -261,21 +261,24 @@ sub _setConf
 #       date     - date of the last event
 #
 #    If there is not last recorded event it returns a empty hash.
+#
 sub freshclamState
 {
     my ($self) = @_;
+
     my @stateAttrs = qw(update error outdated date);
 
+    my $emptyRes = { map {  ( $_ => undef )  } @stateAttrs  };
     my $freshclamStateFile = $self->freshclamStateFile();
     if (not -e $freshclamStateFile) {
-        return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
+        return $emptyRes; # freshclam has never updated before
     }
 
     my $file = new File::ReadBackwards($freshclamStateFile);
     my $lastLine = $file->readline();
     if ($lastLine eq "") {
         # Empty file
-        return { map {  ( $_ => undef )  } @stateAttrs  };
+        return $emptyRes;
     }
     my %state = split(',', $lastLine, (@stateAttrs * 2));
 
@@ -283,7 +286,7 @@ sub freshclamState
     foreach my $attr (@stateAttrs) {
         exists $state{$attr} or throw EBox::Exceptions::Internal("Invalid freshclam state file. Missing attribute: $attr");
     }
-    if ( scalar @stateAttrs !=  scalar keys %state) {
+    if ( scalar @stateAttrs != scalar keys %state) {
         throw EBox::Exceptions::Internal("Invalid fresclam state file: invalid attributes found. (valid attributes are @stateAttrs)");
     }
 
