@@ -652,7 +652,7 @@ sub users
     my $params = {
         base => $self->dn(),
         scope => 'one',
-        filter => '(objectClass=Container)',
+        filter => '(|(objectClass=Container)(objectClass=OrganizationalUnit)(objectClass=msExchSystemObjectsContainer))',
         attrs => ['*'],
     };
     my $result = $self->search($params);
