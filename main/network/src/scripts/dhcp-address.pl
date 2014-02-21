@@ -30,16 +30,11 @@ my $network = $global->modInstance("network");
 
 my ($iface, $address, $mask) = @ARGV;
 
-EBox::debug('Called dhcp-address.pl with the following values:');
+EBox::debug("Called dhcp-address.pl with the following values: iface '$iface' address: '$address:' mask: '$mask'" );
 
 $iface or exit;
-EBox::debug("iface: $iface");
-
 $address or exit;
-EBox::debug("address: $address");
-
 $mask or exit;
-EBox::debug("mask: $mask");
 
 try {
     $network->setDHCPAddress($iface, $address, $mask);

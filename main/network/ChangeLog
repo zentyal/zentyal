@@ -1,4 +1,5 @@
 3.4
+	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
 	+ Implement replicationExcludeKeys() to avoid replication of ifaces in HA
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ When adding a new IP (viface or static iface) it is checked to avoid

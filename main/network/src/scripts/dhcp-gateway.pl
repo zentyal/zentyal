@@ -30,13 +30,10 @@ my $network = EBox::Global->modInstance('network');
 
 my ($iface, $router) = @ARGV;
 
-EBox::debug('Called dhcp-gateway.pl with the following values:');
+EBox::debug("Called dhcp-gateway.pl with the following values: iface '$iface' router '$router'");
 
 $iface or exit;
-EBox::debug("iface: $iface");
-
 $router or exit;
-EBox::debug("router: $router");
 
 try {
     $network->setDHCPGateway($iface, $router);
