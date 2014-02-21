@@ -62,6 +62,10 @@ sub isHTTPPortEnabled
     my $services = $haproxyMod->model('HAProxyServices');
     my $moduleRow = $services->find(serviceId => $self->_serviceId());
 
+    unless ($moduleRow) {
+        return undef;
+    }
+
     my $portItem = $moduleRow->elementByName('port');
     return ($portItem->selectedType() eq 'port_number');
 }
