@@ -1,4 +1,5 @@
 HEAD
+	+ Added a way to check whether we are managing the AD schema or not
 	+ Samba provision failures when IPs are not set no longer talk
 	  wrongly about internal interfaces
 	+ Create directories in _setConf to avoid invalid group __USERS__ error

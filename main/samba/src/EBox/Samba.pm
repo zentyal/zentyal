@@ -39,6 +39,7 @@ use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
+use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
@@ -2480,6 +2481,19 @@ sub defaultNamingContext
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
+    return new EBox::Samba::DMD(dn => $dn);
 }
 
 # Method: hiddenSid
