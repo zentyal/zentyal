@@ -57,7 +57,7 @@ sub promote
         my $resourceStatus = $clusterStatus->resourceByName($r);
         my @runningNodes = @{ $resourceStatus->{nodes} };
 
-        if (defined($runningNodes) and ($nodeName ~~ @runningNodes)) {
+        if (not ($nodeName ~~ @runningNodes)) {
             push(@cmds,
                  qq{crm_resource --resource '$r' --move --host '$nodeName'},
                  'sleep 3',

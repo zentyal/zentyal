@@ -1631,7 +1631,7 @@ sub _resourceCanBeMovedToNode
     if (defined($resourceStatus)) {
         my @runningNodes = @{ $resourceStatus->{nodes} };
 
-        return (defined(@runningNodes) and ($node ~~ @runningNodes));
+        return (not ($node ~~ @runningNodes));
     }
 
     return 0;
