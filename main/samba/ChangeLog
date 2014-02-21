@@ -1,5 +1,6 @@
 HEAD
 	+ Set OpenChange as not provisioned when Samba is reprovisioned
+	+ Create directories in _setConf to avoid invalid group __USERS__ error
 	+ Clean up openchange section in stub smb.conf file
 	+ Fix typo in SambaLdapUser that fixes error in change email
 	+ Change user modification hook from _modifyUser to _preModifyUser
