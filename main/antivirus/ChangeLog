@@ -1,3 +1,6 @@
+HEAD
+	+ Make FreshclamStatus model more resilient to errors
+	+ Fix status when the freshclam state file is empty
 3.2.1
 	+ Update strings to new offering
 	+ Added missing EBox::Exceptions uses
