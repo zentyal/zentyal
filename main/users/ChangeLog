@@ -1,4 +1,6 @@
 HEAD
+	+ Check available IP addresses when enable module
+	+ Added lock to cloud-sync script
 	+ Better integration of edit groups for mail group aliases
 	+ Update group icon when type of group changes
 3.3.2

@@ -205,8 +205,8 @@ sub checkEnvironment
         my $ipUrl = '/DNS/View/HostIpTable?directory=' .
                     'DomainTable/keys/' . $domainRow->id() .
                     '/hostnames/keys/' .  $hostRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for host {host}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for host {host}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the hostname {host}.<br/>" .
                        "You can add it in the {ohref}IP addresses page for {host}{chref}",
                       host => $hostName,
@@ -240,8 +240,6 @@ sub _domainsIP
         my $ifaceAddrs = $network->ifaceAddresses($iface);
         foreach my $data (@{$ifaceAddrs}) {
             # Got one candidate address, check that it is assigned to the DNS domain
-            my $inDomainModel = 0;
-            my $inHostModel = 0;
             foreach my $rowId (@ipIds) {
                 my $row = $domainIPsModel->row($rowId);
                 my $ip = $row->valueByName('ip');
@@ -257,8 +255,8 @@ sub _domainsIP
         my $domain = $domainRow->valueByName('domain');
         my $domainIpUrl = '/DNS/View/DomainIpTable?directory=DomainTable/keys/' .
                           $domainRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for domain {dom}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the local hostname.<br/>" .
                        "You can assign it in the {ohref}IP addresses page for {dom}{chref}",
                        dom => $domain,

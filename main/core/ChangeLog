@@ -1,5 +1,6 @@
 HEAD
 	+ Avoid division by zero while using page navigation
+	+ Automatic report text formatting adapted to Redmine
 	+ Fix tab selection in tabbed composite from URL path anchor,
 	  for instance, /Maintenance/Events#ConfigureDispatchers
 	+ Avoid errors triggered on web administration port validation

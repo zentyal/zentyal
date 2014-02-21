@@ -1,4 +1,10 @@
 HEAD
+	+ Set OpenChange as not provisioned when Samba is reprovisioned
+	+ Added a way to check whether we are managing the AD schema or not
+	+ Samba provision failures when IPs are not set no longer talk
+	  wrongly about internal interfaces
+	+ Create directories in _setConf to avoid invalid group __USERS__ error
+	+ Clean up openchange section in stub smb.conf file
 	+ Fixed bug in EBox::LDB::users which made the method to not
 	  return users inside Organization Units
 3.3.3

@@ -1,3 +1,6 @@
+HEAD
+	+ Remove canonical_dn call for compatibility with MS LDAP servers in
+	  external AD mode
 3.3.2
 	+ Synchronise AD groups every 30 min if using external AD and any
 	  filter profile includes an AD group
