@@ -43,7 +43,11 @@ sub call
             $env->{'psgix.session'}{last_time} = time();
             $env->{'psgix.session'}{user_id} = $subApp->{userId};
         } else {
-            return [ 403, [], ['403 Forbidden'] ];
+            # Do logout
+            if (exists $env->{'psgix.session'}) {
+                delete $env->{'psgix.session'}{user_id};
+                delete $env->{'psgix.session'}{last_time};
+            }
         }
     }
     return $self->app->($env);
