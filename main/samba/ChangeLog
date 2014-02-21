@@ -1,4 +1,6 @@
 HEAD
+	+ Samba provision failures when IPs are not set no longer talk
+	  wrongly about internal interfaces
 	+ Create directories in _setConf to avoid invalid group __USERS__ error
 	+ Clean up openchange section in stub smb.conf file
 	+ Fix typo in SambaLdapUser that fixes error in change email
