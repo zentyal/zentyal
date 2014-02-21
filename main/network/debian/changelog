@@ -1,9 +1,3 @@
-zentyal-network (3.4) saucy; urgency=low
-
-  * New upstream release
-
- -- jag <jag@onemonkey>  Fri, 21 Feb 2014 12:02:20 +0100
-
 zentyal-network (3.4~1) saucy; urgency=low
 
   * New upstream release
@@ -510,7 +504,7 @@ ebox-network (0.12-0ubuntu1) jaunty; urgency=low
 ebox-network (0.11.99-0ubuntu1) hardy; urgency=low
 
   * Added debian/patches/01_traffic_shape_path.
-    - Fixes missing path for ebox-traffic-monitor. 
+    - Fixes missing path for ebox-traffic-monitor.
   * Added debian/patches/02-fix-elogger-path.dpatch
     - Fixes missing path for ebox-traffic-monitor-logger.
 
@@ -536,7 +530,7 @@ ebox-network (0.11.99) unstable; urgency=low
 
 ebox-network (0.11-0ubuntu1~ppa1) hardy; urgency=low
 
-  * New upstream release 
+  * New upstream release
 
  -- Javier Uruen Val <javi@warp.es>  Wed, 28 Nov 2007 15:23:33 +0100
 
