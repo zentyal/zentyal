@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,8 +31,7 @@ use TryCatch::Lite;
 #
 #       <EBox::CGI::ClientBase::new> the parent parameters
 #
-#       modelModel - <EBox::Model::Tree> the model model
-#       to show
+#       model - <EBox::Model::Tree> the tree model to show
 #
 # Returns:
 #
@@ -54,7 +53,7 @@ sub new
 
 # Method: _header
 #
-#      Overrides to print the page title in the HTML title if defined
+#      Overrides to dump the page title in the HTML title if defined
 #
 # Overrides:
 #
@@ -64,15 +63,16 @@ sub _header
 {
     my ($self) = @_;
 
-    print $self->cgi()->header(-charset=>'utf-8');
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     my $pageTitle;
     try {
         $pageTitle = $self->{model}->pageTitle();
     } catch {
-        EBox::error("Cannot get pageTitle for Tree");
+        EBox::error("Cannot get pageTitle for model");
         $pageTitle = '';
     }
-    print EBox::Html::header($pageTitle, $self->menuFolder());
+    return EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

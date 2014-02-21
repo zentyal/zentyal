@@ -24,13 +24,14 @@ package EBox::Users::Model::Password;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Users::Types::Password;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Gettext;
+use EBox::Users::Types::Password;
+use EBox::Validate qw(:all);
 
-use File::Temp qw/tempfile/;
 use Encode;
+use File::Temp qw/tempfile/;
 
 use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
 
@@ -166,10 +167,10 @@ sub setTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
-    eval 'use EBox::UserCorner::Auth';
-    my $auth = EBox::UserCorner::Auth->credentials();
-    my $user = $auth->{user};
-    my $pass = $auth->{pass};
+    my $global = $self->global();
+    # We don't need to check for usercorner because this form does it on its precondition check.
+    my $usercornerMod = $global->modInstance('usercorner');
+    my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
 
     # Check we can instance the zentyal user
     my $zentyalUser = new EBox::Users::User(uid => $user);
@@ -184,7 +185,9 @@ sub setTypedRow
     # At this point, the password has been changed in samba
     $zentyalUser->changePassword($pass1->value());
 
-    EBox::UserCorner::Auth->updatePassword($user, $pass1->value(), $zentyalUser->dn());
+    # FIXME: Hide this inside a method on EBox::UserCorner
+    use EBox::UserCorner::Middleware::AuthLDAP;
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }

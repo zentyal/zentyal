@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+# FIXME: check if this works properly
+if [ "$1" = remove ] || [ "$1" = purge ]; then
+    service zentyal stop || true
+fi
+
+exit 0

@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,102 +12,94 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::Login;
-
 use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
-use Apache2::RequestUtil;
 
 use constant DEFAULT_DESTINATION => '/Dashboard/Index';
 
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => '',
-                                  'template' => '/captiveportal/login.mas',
-                                   @_);
+    my $self = $class->SUPER::new(
+        'title' => '',
+        'template' => '/captiveportal/login.mas',
+        @_);
     bless($self, $class);
     return $self;
 }
 
 sub _print
 {
-    my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->_body;
+    my ($self) = @_;
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process
 {
-    my $self = shift;
-    my $r = Apache2::RequestUtil->request;
-    my $envre;
-    my $authreason;
+    my ($self) = @_;
 
-    if ($r->prev){
-        $envre = $r->prev->subprocess_env("LoginReason");
-        $authreason = $r->prev->subprocess_env('AuthCookieReason');
+    my $authreason;
+    my $request = $self->request();
+    my $session = $request->session();
+    if (exists $session->{AuthReason}){
+        $authreason = delete $session->{AuthReason};
     }
 
-    my $destination = _requestDestination($r);
+    my $destination = $self->_requestDestination($session);
 
     my $reason;
-    if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
-        $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
-                     'Please, wait patiently until it is done');
-    }
-    elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-        $reason = __('Incorrect password');
-    }
-    elsif ((defined $envre) and ($envre eq 'Expired')){
-        $reason = __('For security reasons your session ' .
-                 'has expired due to inactivity');
-    }elsif ((defined $envre and $envre eq 'Already')){
-        $reason = __('You have been logged out because ' .
-                 'a new session has been opened');
-    }elsif ((defined $envre and $envre eq 'NotLoggedIn')){
-        $reason = __('You are not logged in');
+    if (defined $authreason) {
+        if ($authreason eq 'Script active') {
+            $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
+                         'Please, wait patiently until it is done');
+        } elsif ($authreason eq 'Invalid session'){
+            $reason = __('Your session was not valid anymore');
+        } elsif ($authreason  eq 'Incorrect password'){
+            $reason = __('Incorrect password');
+        } elsif ($authreason eq 'Expired'){
+            $reason = __('For security reasons your session has expired due to inactivity');
+        } elsif ($authreason eq 'Already'){
+            $reason = __('You have been logged out because a new session has been opened');
+        } else {
+            $reason = __x("Unknown error: '{error}'", error => $authreason);
+        }
     }
 
     my @htmlParams = (
-              'destination' => $destination,
-              'reason'      => $reason,
-             );
+        'destination' => $destination,
+        'reason'      => $reason,
+    );
 
     $self->{params} = \@htmlParams;
 }
 
 sub _requestDestination
 {
-    my ($r) = @_;
+    my ($self, $session) = @_;
 
-    if ($r->prev) {
-        return _requestDestination($r->prev);
-    }
-
-    my $request = $r->the_request;
-    my $method  = $r->method;
-    my $protocol = $r->protocol;
-
-    my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
-    defined $destination or return DEFAULT_DESTINATION;
-
-    if ($destination =~ m{^/*zentyal/+Login$}) {
-        # /Login is the standard location from login, his destination must be the default destination
+    unless (defined $session->{redir_to}) {
         return DEFAULT_DESTINATION;
     }
-    elsif (not $destination =~ m{^/*zentyal}) {
+
+    if ($session->{redir_to} =~ m{^/*zentyal/+Login$}) {
+        # /Login is the standard location from login, his destination must be the default destination
+        return DEFAULT_DESTINATION;
+    } elsif (not $session->{redir_to} =~ m{^/*zentyal}) {
         # url wich does not follow the normal zentyal pattern must use the default
         #  destination
-        my $dstUrl = $destination;
+        my $dstUrl = $session->{redir_to};
         $dstUrl =~ s{^.*redirect=}{};
         $dstUrl =~ s{%3f}{?};
-        if ($protocol =~ m/HTTPS/i) {
+        my $request = $self->request();
+        if ($request->scheme() =~ m/HTTPS/i) {
             $dstUrl = 'https://' . $dstUrl;
         } else {
             $dstUrl = 'http://' . $dstUrl;
@@ -116,15 +108,23 @@ sub _requestDestination
         return DEFAULT_DESTINATION . "?dst=$dstUrl";
     }
 
-    return $destination;
+    return $session->{redir_to};
 }
 
+# Method: _validateReferer
+#
+#   Checks whether the referer header has valid information.
+#
+# Overrides: <EBox::CaptivePortal::CGI::Base::_validateReferer>
+#
+# FIXME: EBox::CaptivePortal::CGI::Base disables all kind of validation, does it makes sense?
 sub _validateReferer
 {
     my ($self) = @_;
 
     # Disable referer for GET method (safe because takes no action)
-    return if ($self->{cgi}->request_method() eq 'GET');
+    my $request = $self->request();
+    return if ($request->method() eq 'GET');
 
     $self->SUPER::_validateReferer(@_);
 }

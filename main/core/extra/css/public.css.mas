@@ -298,6 +298,9 @@
 .legend {
     background-color: #EEEEEE;
     margin-top: 10px;
+    border-spacing: 0px;
+}
+.legend td {
     padding: 5px;
 }
 .legendName {
@@ -572,6 +575,21 @@ TABS options
     right: 10px;
     top: 7px;
 }
+
+/* Left-Right composite */
+.left-right-container {
+    clear: both;
+}
+
+.half-left {
+    clear: left;
+}
+
+.half-left, .half-right {
+    float: left;
+}
+/* END Left-Right composite */
+
 .insideTab {
     margin: 0px;
     padding: 15px;
@@ -753,10 +771,12 @@ td[class^="icon"] {
 .icon-usercorner { background-image: url("/data/images/package-icons/zentyal-usercorner.png");}
 .icon-users { background-image: url("/data/images/package-icons/zentyal-users.png");}
 .icon-virt { background-image: url("/data/images/package-icons/zentyal-virt.png");}
-.icon-webmail, .icon-sogo { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
+.icon-webmail { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
+.icon-sogo { background-image: url("/data/images/package-icons/zentyal-sogo.png");}
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
 .icon-zarafa { background-image: url("/data/images/package-icons/zentyal-zarafa.png");}
 .icon-openchange { background-image: url("/data/images/package-icons/zentyal-openchange.png");}
+.icon-ha { background-image: url("/data/images/package-icons/zentyal-ha.png");}
 
 /**********************************************************************************************
 
@@ -1946,7 +1966,8 @@ input[type='image']:hover
 button:disabled, button:disabled:hover,
 input[type='submit']:disabled, input[type='submit']:disabled:hover,
 input[type='button']:disabled, input[type='button']:disabled:hover,
-input[type='image']:disabled, input[type='image']:disabled:hover
+input[type='image']:disabled, input[type='image']:disabled:hover,
+.btn-disabled, .btn-disabled:hover
 {
     opacity: 0.4;
     box-shadow: none;
@@ -2489,6 +2510,11 @@ NEW BUTTONS STYLES*/
 .btn-apply-w{ background-image: url('/data/images/apply-w.gif')}
 .btn-log{background-image: url('/data/images/log.gif')}
 
+/*** cluster layout ***/
+.cluster-info{
+    background-color: #F5F5FF;
+}
+
 /*** migration layout ***/
 .info-block{
     display: inline-block;
@@ -2643,7 +2669,7 @@ td.stopped .done-bar{
     margin-top: 10px;
     background-color: whitesmoke;
 }
-.migration-info .info-block{
+.migration-info .info-block, .cluster-info .info-block{
     display: block;
     margin-bottom: 10px;
     float: none;

@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,28 +15,86 @@
 
 # Class: EBox::WebAdmin::Model::AdminPort
 #
-#   This model is used to configure the interface port
+#   This model is used to configure the interface port. It is just a
+#   view of the model <EBox::HAProxy::Model::HAProxyServices> for
+#   Webadmin service row.
 #
-package EBox::WebAdmin::Model::AdminPort;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
 
-use TryCatch::Lite;
+package EBox::WebAdmin::Model::AdminPort;
 
+use base 'EBox::Model::DataForm';
+
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Port;
+use TryCatch::Lite;
 
 use constant DEFAULT_ADMIN_PORT => 443;
+
+# Group: Public methods
+
+# Method: validateTypedRow
+#
+#     Override to check if the selected port is already taken
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedValues, $allValues) = @_;
+
+    if (exists $changedValues->{port}) {
+        my $actualPort = EBox::Global->getInstance(1)->modInstance('webadmin')->listeningPort();
+        my $port = $changedValues->{port}->value();
+        if ($port != $actualPort) {
+            my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
+            $haProxyMod->validateSSLPortChange($port);
+        }
+    }
+}
+
+# Method: updatedTypedRow
+#
+#     Override to notify HAProxy the change in the port
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $port = $row->valueByName('port');
+    my $oldPort = $oldRow->valueByName('port');
+    if ($port != $oldPort) {
+        my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
+        $haProxyMod->updateServicePorts('webadmin', [$port]);
+        $self->setMessage(
+            __('Take into account you have to manually change the URL once the save changes'
+               . ' process is started to see web administration again.'),
+            'warning');
+    }
+}
+
+# Group: Protected methods
 
 sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Port(fieldName      => 'port',
-                                           editable       => 1,
-                                           defaultValue   => DEFAULT_ADMIN_PORT));
+    my @tableHead = (
+        new EBox::Types::Port(fieldName      => 'port',
+                              editable       => 1,
+                              defaultValue   => DEFAULT_ADMIN_PORT,
+                              volatile       => 1,
+                              acquirer       => \&_acquirePort,
+                              storer         => \&_storePort)
+    );
 
     my $dataTable =
     {
@@ -50,25 +108,36 @@ sub _table
     return $dataTable;
 }
 
-sub validateTypedRow
-{
-    my ($self, $action, $changedValues, $allValues) = @_;
+# Group: Subroutines
 
-    if (exists $changedValues->{port}) {
-        my $actualPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
-        my $port = $changedValues->{port}->value();
-        if ($port != $actualPort) {
-            $self->parentModule()->checkAdminPort($port);
-        }
+# Get the port
+sub _acquirePort
+{
+    my ($type) = @_;
+
+    my $haProxy = $type->model()->parentModule()->global()->modInstance('haproxy');
+    my $model = $haProxy->model('HAProxyServices');
+    my $haProxySrv = $model->find(module => 'webadmin');
+    if ($haProxySrv) {
+        return $haProxySrv->valueByName('sslPort');
     }
+    return undef;
 }
 
-sub updatedRowNotify
+# Set the port
+sub _storePort
 {
-    my ($self, $row, $oldRow, $force) = @_;
+    my ($type, $hash) = @_;
 
-    my $port = $row->valueByName('port');
-    $self->parentModule()->updateAdminPortService($port);
+    my $haProxy = $type->model()->parentModule()->global()->modInstance('haproxy');
+    my $model = $haProxy->model('HAProxyServices');
+    my $haProxySrv = $model->find(module => 'webadmin');
+    if ($haProxySrv) {
+        $haProxySrv->elementByName('sslPort')->setValue({'sslPort_number' => $type->value()});
+        $haProxySrv->store();
+    } else {
+        EBox::error('HA proxy service for webadmin does not exist');
+    }
 }
 
 1;

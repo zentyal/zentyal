@@ -11,6 +11,8 @@
 use strict;
 use warnings;
 
+use feature qw(switch);
+
 use EBox;
 use EBox::Util::Init;
 
@@ -27,39 +29,47 @@ sub usage {
 sub main
 {
     if (@ARGV == 1) {
-        if ($ARGV[0] eq 'start') {
-            EBox::Util::Init::start();
-            EBox::Sudo::root('initctl emit zentyal-started');
+        given($ARGV[0]) {
+            when ('start') {
+                EBox::Util::Init::start();
+                EBox::Sudo::root('initctl emit zentyal-started');
+            }
+            when ('restart') {
+                EBox::Util::Init::stop();
+                EBox::Util::Init::start();
+            }
+            when ('force-reload') {
+                EBox::Util::Init::stop();
+                EBox::Util::Init::start();
+            }
+            when ('stop') {
+                EBox::Sudo::root('initctl emit zentyal-stopped');
+                EBox::Util::Init::stop();
+            }
+            default {
+                usage();
+            }
         }
-        elsif ($ARGV[0] eq 'restart') {
-            EBox::Util::Init::stop();
-            EBox::Util::Init::start();
-        }
-        elsif ($ARGV[0] eq 'force-reload') {
-            EBox::Util::Init::stop();
-            EBox::Util::Init::start();
-        }
-        elsif ($ARGV[0] eq 'stop') {
-            EBox::Sudo::root('initctl emit zentyal-stopped');
-            EBox::Util::Init::stop();
-        } else {
-            usage();
-        }
-    }
-    elsif (@ARGV == 2) {
+    } elsif (@ARGV == 2) {
         # action upon one module mode
         my ($modName, $action) = @ARGV;
 
-        if (($action eq 'restart') or ($action eq 'start')) {
-            EBox::Util::Init::moduleRestart($modName);
-        }
-        elsif ($action eq 'stop') {
-            EBox::Util::Init::moduleStop($modName);
-        } elsif ($action eq 'status' or $action eq 'enabled') {
-            # FIXME: Separate enabled and status actions
-            EBox::Util::Init::status($modName);
-        } else {
-            usage();
+        given ($action) {
+            when (['restart', 'start']) {
+                EBox::Util::Init::moduleRestart($modName);
+            }
+            when ('stop') {
+                EBox::Util::Init::moduleStop($modName);
+            }
+            when ('status') {
+                EBox::Util::Init::status($modName);
+            }
+            when ('enabled') {
+                EBox::Util::Init::enabled($modName);
+            }
+            default {
+                usage();
+            }
         }
     } else {
         usage();

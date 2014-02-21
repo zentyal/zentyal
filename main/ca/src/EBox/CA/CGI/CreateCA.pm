@@ -132,7 +132,9 @@ sub actuate
         throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
     }
 
-    $self->cgi()->delete_all();
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    $parameters->clear();
 }
 
 1;

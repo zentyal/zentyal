@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
@@ -21,7 +20,6 @@ package EBox::UserCorner::CGI::Login::Index;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
-use Apache2::RequestUtil;
 
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
@@ -39,76 +37,69 @@ sub new # (error=?, msg=?, cgi=?)
 sub _print
 {
     my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->_body;
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process
 {
-    my $self = shift;
-    my $r = Apache2::RequestUtil->request;
-    my $envre;
-    my $authreason;
+    my ($self) = @_;
 
-    if ($r->prev){
-        $envre = $r->prev->subprocess_env("LoginReason");
-        $authreason = $r->prev->subprocess_env('AuthCookieReason');
+    my $authreason;
+    my $request = $self->request();
+    my $session = $request->session();
+    if (exists $session->{AuthReason}){
+        $authreason = delete $session->{AuthReason};
     }
 
-    my $destination = _requestDestination($r);
+    my $destination = _requestDestination($session);
 
     my $reason;
-    if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
-      $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
-               'Please, wait patiently until it is done');
-    }
-    elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-        $reason = __('Incorrect password');
-    }
-    elsif ((defined $envre) and ($envre eq 'Expired')){
-        $reason = __('For security reasons your session ' .
-                 'has expired due to inactivity');
-    }elsif ((defined $envre and $envre eq 'Already')){
-        $reason = __('You have been logged out because ' .
-                 'a new session has been opened');
-    }elsif ((defined $envre and $envre eq 'NotLoggedIn')){
-        $reason = __('You are not logged in');
+    if (defined $authreason) {
+        if ($authreason eq 'Script active') {
+            $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
+                         'Please, wait patiently until it is done');
+        } elsif ($authreason eq 'Invalid session'){
+            $reason = __('Your session was not valid anymore');
+        } elsif ($authreason  eq 'Incorrect password'){
+            $reason = __('Incorrect password');
+        } elsif ($authreason eq 'Expired'){
+            $reason = __('For security reasons your session has expired due to inactivity');
+        } elsif ($authreason eq 'Already'){
+            $reason = __('You have been logged out because a new session has been opened');
+        } else {
+            $reason = __x("Unknown error: '{error}'", error => $authreason);
+        }
     }
 
     my $global = EBox::Global->getInstance();
 
     my @htmlParams = (
-              'title'       => __('User Corner'),
-              'destination' => $destination,
-              'reason'      => $reason,
-                %{ $global->theme() }
-             );
+        'title'             => __('User Corner'),
+        'destination'       => $destination,
+        'reason'            => $reason,
+        %{ $global->theme() }
+    );
 
     $self->{params} = \@htmlParams;
 }
 
 sub _requestDestination
 {
-  my ($r) = @_;
+    my ($session) = @_;
 
-  if ($r->prev) {
-    return _requestDestination($r->prev);
-  }
 
-  my $request = $r->the_request;
-  my $method  = $r->method;
-  my $protocol = $r->protocol;
+    unless (defined $session->{redir_to}) {
+        return $DEFAULT_DESTINATION;
+    }
 
-  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
+    if ($session->{redir_to} =~ m{^/*Login/+Index$}) {
+        # /Login/Index is the standard location from login, his destination must be the default destination
+        return $DEFAULT_DESTINATION;
+    }
 
-  defined $destination or return $DEFAULT_DESTINATION;
-
-  if ($destination =~ m{^/*Login/+Index$}) {
-    # /Login/Index is the standard location from login, his destination must be the default destination
-    return $DEFAULT_DESTINATION;
-  }
-
-  return $destination;
+    return $session->{redir_to};
 }
 
 sub _top

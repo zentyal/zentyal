@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+#SCRIPTSCOMMON#
+
+#DEBHELPER#
+
+case "$1" in
+    purge)
+        # logs database
+        db_name="zentyal"
+        db_user="zentyal"
+        echo "DROP DATABASE $db_name;
+              DROP USER '$db_user'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
+        rm -f /var/lib/zentyal/.db-created
+
+        # delete webadmin certificates
+        rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \
+            /var/lib/zentyal/conf/ssl/ssl.pem
+
+        # delete logs
+        rm -rf /var/log/zentyal
+
+        # delete ebox user
+        stop_ebox_processes
+        deluser --remove-home ebox
+
+        # delete shared memory data
+        rm -rf /run/shm/zentyal
+    ;;
+esac
+
+exit 0

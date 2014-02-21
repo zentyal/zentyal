@@ -110,7 +110,7 @@ $page
       my $table = $model->table();
       my $onlyCustomActions = $table->{'onlyCustomActions'};
 </%perl>
-<& /ajax/customActions.mas, model => $model, id => $row->{id}, type => 'image' &>
+<& /ajax/customActions.mas, model => $model, id => $row->{id}, origin => 'row' &>
 
 %    unless ((defined $onlyCustomActions) and $onlyCustomActions)
 %    {

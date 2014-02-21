@@ -54,6 +54,12 @@ fi
 USB_SUPPORT="cdrom-detect\/try-usb=true"
 sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg
 
+if echo $VERSION | grep -q daily
+then
+    DATE=`date +%Y-%m-%d`
+    sed -e s:DATE:$DATE: < $DATA_DIR/isolinux-daily.template >> $CD_BUILD_DIR/isolinux/adtxt.cfg
+fi
+
 test -d $CD_ZENTYAL_DIR || mkdir -p $CD_ZENTYAL_DIR
 
 rm -rf $CD_ZENTYAL_DIR/*

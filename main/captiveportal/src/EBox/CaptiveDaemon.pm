@@ -25,17 +25,19 @@ use warnings;
 # this daemons is only in charge of new logins and logouts / expired sessions
 package EBox::CaptiveDaemon;
 
-use EBox::Config;
-use EBox::Global;
 use EBox::CaptivePortal;
-use EBox::Sudo;
-use TryCatch::Lite;
+use EBox::CaptivePortal::Middleware::AuthLDAP;
+use EBox::Config;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
-use EBox::Util::Lock;
-use Linux::Inotify2;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Sudo;
+use EBox::Util::Lock;
+
+use Linux::Inotify2;
 use Time::HiRes qw(usleep);
+use TryCatch::Lite;
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -164,7 +166,7 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
-            $self->{module}->removeSession($user->{sid});
+            EBox::CaptivePortal::Middleware::AuthLDAP::removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user)});
 

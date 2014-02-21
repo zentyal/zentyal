@@ -1,0 +1,100 @@
+#!/usr/bin/perl -w
+
+# Copyright (C) 2012-2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script is intended to perform the pending operations
+
+use strict;
+use warnings;
+
+package EBox::RESTClient::Run::Pending;
+
+use EBox;
+use EBox::RESTClient;
+use File::Slurp;
+use Getopt::Long;
+use JSON::XS qw(decode_json);
+use Pod::Usage;
+use TryCatch::Lite;
+
+# Run pending jobs
+sub _runPendingOps
+{
+    my $journalDirPath = EBox::RESTClient::JournalOpsDirPath();
+
+    my @files;
+    opendir(my $dir, $journalDirPath);
+    while (my $file = readdir($dir)) {
+        next if ( $file =~ m:^\.: );
+        my $filePath = "${journalDirPath}$file";
+        next unless ( -f $filePath );
+        push(@files, $filePath);
+    }
+    closedir($dir);
+
+    foreach my $filePath (sort(@files)) {
+        my $content = File::Slurp::read_file($filePath);
+        my $op;
+        try {
+            $op = decode_json($content);
+        } catch ($e) {
+            EBox::error("Can't parse $filePath $content: $e");
+        }
+        unlink($filePath);
+
+        next unless (defined($op));
+        my $rest = new EBox::RESTClient(uri => $op->{uri},
+                                        credentials => $op->{credentials});
+        try {
+            $rest->request($op->{method}, $op->{path}, $op->{query});
+        } catch ($e) {
+            EBox::error("Can't perform the request: $e");
+        }
+    }
+}
+
+# MAIN
+
+# Get arguments
+my ($usage) = (0);
+my $correct = GetOptions(
+    'usage|help' => \$usage,
+   );
+
+if ( $usage or (not $correct)) {
+    pod2usage(1);
+}
+
+EBox::init();
+
+_runPendingOps();
+
+1;
+
+__END__
+
+=head1 NAME
+
+run-pending-ops - Utility to perform the pending ops using EBox::RESTClient
+
+=head1 SYNOPSIS
+
+run-pending-ops [--usage|help]
+
+ Options:
+    --usage|help  Print this help and exit
+
+=cut

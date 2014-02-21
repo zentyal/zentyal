@@ -14,6 +14,7 @@
 <%args>
   $model
   $hasChanged
+  $user
   $action => 'view'
 </%args>
 <%init>
@@ -24,6 +25,7 @@
    model => $model,
    hasChanged => $hasChanged,
    action     => $action,
+   user       => $user,
 &>
 
 <%doc>
@@ -43,8 +45,9 @@
 <%init>
   my $tableName = $model->tableName();
   my $formDataRef;
-  if ( defined ( $model->row() )) {
-      $formDataRef = $model->row()->{'values'};
+  my $row = $model->row();
+  if ($row) {
+      $formDataRef = $row->{'values'};
   } else {
       $formDataRef = $model->table()->{'tableDescription'};
   }

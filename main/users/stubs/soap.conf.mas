@@ -5,8 +5,7 @@
 <Location /slave>
     SetHandler perl-script
     PerlHandler EBox::UsersSync::WSDispatcherSlave
-    Order allow,deny
-    Allow from all
+    Require all granted
 </Location>
 
 <Location /master>

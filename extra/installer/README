@@ -5,10 +5,6 @@ How to create the Zentyal installation CD
 You need to export ZINSTALLER_ADDRESS and ZINSTALLER_KEYID on your ~/.bashrc
 You can find commented examples in build_cd.conf
 
-You also need to have the following packages installed:
-
-build-essential dpkg-dev devscripts mkisofs zentyal-common
-
 WARNING: debootstrap will fail over cryptfs mount points.
 
 2) Run ./autobuild

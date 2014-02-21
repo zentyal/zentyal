@@ -147,19 +147,15 @@ sub _print
         return;
     }
 
-    binmode(STDOUT, ':raw');
-    open(my $keyFile, $self->{downfile})
-        or throw EBox::Exceptions::Internal("Could NOT open key file.");
+    open (my $fh, "<:raw", $self->{downfile}) or
+        throw EBox::Exceptions::Internal('Could NOT open key file.');
+    Plack::Util::set_io_path($fh, Cwd::realpath($self->{downfile}));
 
-    print($self->cgi()->header(-type => 'application/octet-stream',
-                -attachment => $self->{downfilename}));
-
-    while(<$keyFile>) {
-        print $_;
-    }
-
-    close($keyFile);
-    binmode(STDOUT, ':utf8');
+    my $response = $self->response();
+    $response->status(200);
+    $response->content_type('application/octet-stream');
+    $response->header('Content-Disposition' => 'attachment; filename="' . $self->{downfilename} . '"');
+    $response->body($fh);
 }
 
 1;

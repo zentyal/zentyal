@@ -42,7 +42,7 @@ use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
-use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
 
 # The LDB containers that will be ignored when quering for users stored in LDB
 use constant QUERY_IGNORE_CONTAINERS => (
@@ -223,7 +223,7 @@ sub dn
         return $self->{dn};
     }
 
-    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
+    my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
     my $ldifBuffer = join ('', @{$output});
     EBox::debug($ldifBuffer);
 
@@ -812,7 +812,7 @@ sub dnsZones
 
     foreach my $prefix (@zonePrefixes) {
         my $output = EBox::Sudo::root(
-            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
+            "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
         my $ldifBuffer = join ('', @{$output});
         EBox::debug($ldifBuffer);
 

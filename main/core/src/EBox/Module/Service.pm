@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -30,8 +30,6 @@ use EBox::Gettext;
 
 use Perl6::Junction qw(any);
 use TryCatch::Lite;
-
-use constant INITDPATH => '/etc/init.d/';
 
 # Method: usedFiles
 #
@@ -456,18 +454,15 @@ sub disabledModuleWarning
 sub _isDaemonRunning
 {
     my ($self, $dname) = @_;
-    my $daemons = $self->_daemons();
 
-    my $daemon;
-    my @ds = grep { $_->{'name'} eq $dname } @{$daemons};
-    if(@ds) {
-        $daemon = $ds[0];
+    my $daemons = $self->_daemons();
+    my ($daemon) = grep { $_->{'name'} eq $dname } @{$daemons};
+    unless (defined $daemon) {
+        my $modname = $self->name();
+        throw EBox::Exceptions::Internal("Daemon $dname is not defined in $modname module");
     }
-    if(!defined($daemon)) {
-        throw EBox::Exceptions::Internal(
-            "no such daemon defined in this module: " . $dname);
-    }
-    if(defined($daemon->{'pidfiles'})) {
+
+    if ($daemon->{'pidfiles'}) {
         foreach my $pidfile (@{$daemon->{'pidfiles'}}) {
             unless ($self->pidFileRunning($pidfile)) {
                 return 0;
@@ -475,27 +470,26 @@ sub _isDaemonRunning
         }
         return 1;
     }
-    if(daemon_type($daemon) eq 'upstart') {
-        my $running = 0;
+
+    if (daemon_type($daemon) eq 'upstart') {
         try {
-            $running = EBox::Service::running($dname);
+            return EBox::Service::running($dname);
         } catch (EBox::Exceptions::Internal $e) {
-            # If the daemon does not exist, then return false
-            ;
+            return 0;
         }
-        return $running;
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output = EBox::Sudo::silentRoot(INITDPATH .
-                $dname . ' ' . 'status');
+    } elsif (daemon_type($daemon) eq 'init.d') {
+        my $output = EBox::Sudo::silentRoot("service $dname status");
         if ($? != 0) {
             return 0;
         }
         my $status = join ("\n", @{$output});
         if ($status =~ m{$dname .* running}) {
             return 1;
+        } elsif ($status =~ m{$dname .* \[ RUNNING \]}) {
+            return 1;
         } elsif ($status =~ m{ is running}) {
             return 1;
-        } elsif ($status =~ m{$dname .* [ OK ]}) {
+        } elsif ($status =~ m{$dname .* \[ OK \]}) {
             return 1;
         } elsif ($status =~ m{$dname .*done}s) {
             return 1;
@@ -503,8 +497,7 @@ sub _isDaemonRunning
             return 0;
         }
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
@@ -619,11 +612,17 @@ sub enableService
 
     $self->set_bool('_serviceModuleStatus', $status);
 
+    # FIXME: Move this to an observer pattern
     my $audit = EBox::Global->modInstance('audit');
     if (defined ($audit)) {
         my $action = $status ? 'enableService' : 'disableService';
         $audit->logAction('global', 'Module Status', $action, $self->{name});
     }
+    my $ha = $self->global()->modInstance('ha');
+    if (defined($ha)) {
+        $ha->setIfSingleInstanceModule($self->name());
+    }
+
 }
 
 # Method: defaultStatus
@@ -751,44 +750,36 @@ sub _daemons
 
 sub _startDaemon
 {
-    my($self, $daemon, %params) = @_;
+    my ($self, $daemon, %params) = @_;
 
-    my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
-
-    my $restartAction = 'restart';
-    $restartAction = 'reload' if ((exists $params{reload}) and $params{reload});
-
-    if(daemon_type($daemon) eq 'upstart') {
-        if($isRunning) {
-            EBox::Service::manage($daemon->{'name'}, $restartAction);
-        } else {
-            EBox::Service::manage($daemon->{'name'},'start');
-        }
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'};
-        if($isRunning) {
-            $script = $script . ' ' . $restartAction;
-        } else {
-            $script = $script . ' ' . 'start';
-        }
-        EBox::Sudo::root($script);
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+    my $action = 'start';
+    if ($self->_isDaemonRunning($daemon->{name})) {
+        $action = $params{reload} ? 'reload' : 'restart';
     }
+
+    $self->_manageDaemon($daemon, $action);
 }
 
 sub _stopDaemon
 {
-    my($self, $daemon) = @_;
-    if(daemon_type($daemon) eq 'upstart') {
-        EBox::Service::manage($daemon->{'name'},'stop');
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'} . ' ' . 'stop';
-        EBox::Sudo::root($script);
+    my ($self, $daemon) = @_;
+
+    $self->_manageDaemon($daemon, 'stop');
+}
+
+sub _manageDaemon
+{
+    my ($self, $daemon, $action) = @_;
+
+    my $dname = $daemon->{name};
+    my $type = daemon_type($daemon);
+
+    if ($type eq 'upstart') {
+        EBox::Service::manage($dname, $action);
+    } elsif ($type eq 'init.d') {
+        EBox::Sudo::root("service $dname $action");
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
@@ -1126,7 +1117,7 @@ sub disableApparmorProfile
 {
     my ($self, $profile) = @_;
 
-    if ( -f '/etc/init.d/apparmor' ) {
+    if (-f '/etc/init.d/apparmor') {
         my $profPath = "/etc/apparmor.d/$profile";
         my $disPath = "/etc/apparmor.d/disable/$profile";
         if (-f $profPath and not -f $disPath) {
@@ -1135,7 +1126,7 @@ sub disableApparmorProfile
             }
             my $cmd = "ln -s $profPath $disPath";
             EBox::Sudo::root($cmd);
-            EBox::Sudo::root('invoke-rc.d apparmor restart');
+            EBox::Sudo::root('service apparmor restart');
         }
     }
 }

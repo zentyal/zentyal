@@ -71,13 +71,15 @@ sub actuate
 sub _print
 {
     my ($self) = @_;
-    print($self->cgi()->header(-charset=>'utf-8',-type=>'application/json'));
+
+    my $response = $self->response();
+    $response->content_type('application/json; charset=utf-8');
 
     local $JSON::ConvBlessed = 1;
 
     my $json = new JSON;
     my $js = $json->allow_blessed->convert_blessed->encode( $self->{widget} );
-    print $js;
+    $response->body($js);
 }
 
 1;

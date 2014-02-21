@@ -17,15 +17,18 @@ use strict;
 use warnings;
 
 package EBox::OpenChange::Composite::General;
-
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
-use EBox::Global;
 
-# Group: Public methods
+sub new
+{
+    my ($class, @params) = @_;
 
-# Group: Protected methods
+    my $self = $class->SUPER::new(@params);
+    return $self;
+}
+
 
 # Method: _description
 #
@@ -36,11 +39,10 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        components      => ['Provision', 'Configuration'],
         layout          => 'top-bottom',
-        pageTitle       => __('OpenChange'),
-        compositeDomain => 'openchange',
         name            => 'General',
+        pageTitle       => __('OpenChange'),
+        compositeDomain => 'OpenChange',
     };
 
     return $description;

@@ -1,3 +1,5 @@
+3.4
+	+ Set version to 3.4
 3.3
 	+ Disable seccomp sandboxing in the conf to avoid errors
 	+ Delete migration code from old versions

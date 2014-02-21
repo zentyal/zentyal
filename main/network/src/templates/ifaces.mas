@@ -4,6 +4,7 @@
     $iface
     @vlans => ()
     @bridges => ()
+    @bonds => ()
     $externalWarning
 </%args>
 <%init>
@@ -35,9 +36,46 @@ use EBox::NetWrappers qw(:all);
             <input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
     </div>
 %   }
-    <div>
-        <label><%__('Method')%></label>
 
+% if ($iface->{'name'} =~ /^bond/) {
+    <div id="bond_mode">
+            <label><% __('Bonding Mode') %>:</label>
+            <select name='bond_mode'>
+% if ($iface->{'bond_mode'} eq 'balance-rr') {
+                <option value='balance-rr' selected="true"><% __('Static') %> (<% __('default') %>)</option>
+% } else {
+                <option value='balance-rr'><% __('Static') %> (<% __('default') %>)</option>
+% }
+% if ($iface->{'bond_mode'} eq '802.3ad') {
+                <option value='802.3ad' selected="true">LACP/802.3ad</option>
+% } else {
+                <option value='802.3ad'>LACP/802.3ad</option>
+% }
+% if ($iface->{'bond_mode'} eq 'balance-alb') {
+                <option value='balance-alb' selected="true">Balance (alb)</option>
+% } else {
+                <option value='balance-alb'>Balance (alb)</option>
+% }
+% if ($iface->{'bond_mode'} eq 'balance-tlb') {
+                <option value='balance-tlb' selected="true">Balance (tlb)</option>
+% } else {
+                <option value='balance-tlb'>Balance (tlb)</option>
+% }
+% if ($iface->{'bond_mode'} eq 'active-backup') {
+                <option value='active-backup' selected="true"><% __('Backup') %></option>
+% } else {
+                <option value='active-backup'><% __('Backup') %></option>
+% }
+% if ($iface->{'bond_mode'} eq 'broadcast') {
+                <option value='broadcast' selected="true"><% __('Broadcast') %></option>
+% } else {
+                <option value='broadcast'><% __('Broadcast') %></option>
+% }
+            </select>
+    </div>
+% }
+    <div>
+            <label><%__('Method')%></label>
             <select name='method' id='method'>
 % if ($iface->{'method'} eq 'static') {
                 <option selected value='static'><% __('Static') %></option>
@@ -51,7 +89,7 @@ use EBox::NetWrappers qw(:all);
                 <option value='dhcp'>DHCP</option>
 % }
 
-% unless ($iface->{'name'} =~ /^br/) {
+% unless ($iface->{'name'} =~ /^(br|bond)/) {
 %   if ($iface->{'method'} eq 'ppp') {
                 <option selected value='ppp'>PPPoE</option>
 %   } else {
@@ -72,6 +110,14 @@ use EBox::NetWrappers qw(:all);
                 <option selected value='bridged'><% __('Bridged') %></option>
 %   } else {
                 <option value='bridged'><% __('Bridged') %></option>
+%   }
+% }
+
+% unless ($iface->{'name'} =~ /^(vlan|br|bond)/) {
+%   if ($iface->{'method'} eq 'bundled') {
+                <option selected value='bundled'><% __('Bundled') %></option>
+%   } else {
+                <option value='bundled'><% __('Bundled') %></option>
 %   }
 % }
 
@@ -145,8 +191,24 @@ use EBox::NetWrappers qw(:all);
                 <option value='-1'>New bridge</option>
         </select>
     </div>
+
+% unless ($iface->{'name'} =~ /^vlan/) {
+    <div id="bundled">
+        <label><% __('Bonding') %>:</label>
+        <select name="bond">
+%   foreach my $bond ( @bonds ) {
+%       if ( $bond->{id} == $iface->{$bond} ) {
+                <option value='<% $bond->{id} %>' selected="true"><% $bond->{alias} %></option>
+%       } else {
+                <option value='<% $bond->{id} %>'><% $bond->{alias} %></option>
+%       }
+%   }
+                <option value='-1'>New bonding device</option>
+        </select>
+    </div>
+% }
     <div id="ppp_user">
-                <label><% __('User name') %></label>
+            <label><% __('User name') %></label>
             <input class='inputText' type='text' size='16' name='if_ppp_user'
                    alt='if_ppp_user' value='<% $iface->{'ppp_user'} %>' />
     </div>
@@ -314,7 +376,7 @@ $('#method').change(function(event) {
     var selected = $(event.target).val();
 
     if (selected === 'static' || selected === 'dhcp' ||
-        selected === 'ppp' || selected === 'bridged') {
+        selected === 'ppp' || selected === 'bridged' || selected === 'bundled') {
         $('#external').show();
     } else {
         $('#external').hide();
@@ -327,6 +389,8 @@ $('#method').change(function(event) {
     $('#trunk').toggle(selected === 'trunk');
 
     $('#bridged').toggle(selected === 'bridged');
+
+    $('#bundled').toggle(selected === 'bundled');
 
     $('#ppp_user').toggle(selected === 'ppp');
     $('#ppp_pass').toggle(selected === 'ppp');

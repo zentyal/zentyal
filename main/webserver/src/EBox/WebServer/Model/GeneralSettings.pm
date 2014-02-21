@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::WebServer::Model::GeneralSettings;
-
 use base 'EBox::Model::DataForm';
 
 # Class: EBox::WebServer::Model::GeneralSettings
@@ -84,125 +82,20 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $oldFields) = @_;
 
-    my $global = EBox::Global->getInstance();
-    my $webAdminMod = $global->modInstance('webadmin');
-    my $services = $global->modInstance('services');
-    my $firewall = $global->modInstance('firewall');
-    my $portNumber;
-
-    if (exists $changedFields->{port}) {
-        $portNumber = $changedFields->{port}->value();
-        my $oldPortNumber = $oldFields->{port}->value();
-        # avoid first set error
-        if ($portNumber != $oldPortNumber) {
-            # Only check availablePort if our port it not already in our service
-            unless ($services->serviceFromPort('tcp', $portNumber) eq 'http') {
-                unless ($firewall->availablePort('tcp', $portNumber)) {
-                    throw EBox::Exceptions::DataExists(
-                        'data'  => __('Listening port'),
-                        'value' => $portNumber,
-                       );
-                }
-            }
-        }
-    }
-
-    if (exists $changedFields->{ssl} and
-        $changedFields->{ssl}->selectedType() eq 'ssl_port') {
-        my $portNumberSSL = $changedFields->{ssl}->value();
-        if ($webAdminMod->port() eq $portNumberSSL) {
-            throw EBox::Exceptions::External(
-                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
-                        ohref => '<a href="/SysInfo/Composite/General">', chref => '</a>')
-                    );
-        }
-        if ($portNumber eq $portNumberSSL) {
-            throw EBox::Exceptions::DataExists(
-                    'data'  => __('Listening SSL port'),
-                    'value' => $portNumberSSL,
-                    );
-        }
-
-        my $oldPortNumberSSL = $oldFields->{ssl}->value();
-        # avoid first set error
-        if ($portNumberSSL != $oldPortNumberSSL) {
-            # Only check availablePort if our port it not already in our service
-            unless ($services->serviceFromPort('tcp', $portNumberSSL) eq 'http') {
-                unless ($firewall->availablePort('tcp', $portNumberSSL)) {
-                    throw EBox::Exceptions::DataExists(
-                        'data'  => __('Listening SSL port'),
-                        'value' => $portNumberSSL,
-                       );
-                }
-            }
-        }
-
-    }
-
     if (exists $changedFields->{enableDir} and
-               $changedFields->{enableDir}->value())  {
+        $changedFields->{enableDir}->value())  {
         my $users = EBox::Global->modInstance('users');
         if (not $users) {
             throw EBox::Exceptions::External(
-                    __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')
-                    );
+                __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')
+            );
         }
         my $configured = $users->configured();
         if (not $configured) {
             throw EBox::Exceptions::External(
-                    __('A properly configured Users and Groups module is required to allow HTML directories for users. To configure it, please enable it at least one time.')
-                    );
+                __('A properly configured Users and Groups module is required to allow HTML directories for users. To configure it, please enable it at least one time.')
+            );
         }
-    }
-}
-
-# Method: formSubmitted
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-    my ($self) = @_;
-
-    my @services = ();
-
-    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $self->portValue() });
-
-    if ($self->row()->elementByName('ssl')->selectedType() eq 'ssl_port') {
-        my $sslportNumber = $self->row()->valueByName('ssl');
-        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $sslportNumber });
-    }
-
-    my $serviceName = 'webserver';
-    my @serviceParams = (name => $serviceName,
-                                 internal => 1,
-                                 printableName => __('Web Server'),
-                                 description => __('Zentyal Web Server'),
-                                 services => \@services);
-    my $servMod = $self->global()->modInstance('services');
-    if ($servMod->serviceExists(name => $serviceName)) {
-        $servMod->setMultipleService(@serviceParams);
-    } else {
-        $servMod->addMultipleService(@serviceParams, readOnly => 1);
-    }
-}
-
-# Method: sslPort
-#
-#     Returns the SSL port if enabled.
-#
-# Returns:
-#
-#     integer - the value for ssl field if enabled.
-#
-sub sslPort
-{
-    my ($self) = @_;
-
-    if ($self->sslValue() ne 'ssl_disabled') {
-        return $self->sslValue()
     }
 }
 
@@ -249,10 +142,8 @@ sub message
 
 # Method: _table
 #
-#       The table description which consists of three fields:
+#       The table description which consists of:
 #
-#       port        - <EBox::Types::Int>
-#       ssl         - <EBox::Types::Union>
 #       enabledDir  - <EBox::Types::Boolean>
 #
 # Overrides:
@@ -262,59 +153,35 @@ sub message
 sub _table
 {
 
-    my @tableHeader =
-      (
-       new EBox::Types::Port(
-                             fieldName     => 'port',
-                             printableName => __('Listening port'),
-                             editable      => 1,
-                             defaultValue  => 80,
-                            ),
-       new EBox::Types::Union(
-                             fieldName     => 'ssl',
-                             printableName => __('Listening SSL port'),
-                             subtypes => [
-                                 new EBox::Types::Union::Text(
-                                     fieldName => 'ssl_disabled',
-                                     printableName => __('Disabled'),
-                                     optional => 1,
-                                 ),
-                                 new EBox::Types::Port(
-                                     fieldName     => 'ssl_port',
-                                     printableName => __('Enabled'),
-                                     editable      => 1,
-                                     defaultValue  => '443',
-                                 ),
-                             ],
-                             ),
-       new EBox::Types::Boolean(
-                                fieldName     => 'enableDir',
-                                printableName => __x('Enable per user {dirName}',
-                                                     dirName => PUBLIC_DIR),
-                                editable      => 1,
-                                defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
-                                help          => __('Allow users to publish web documents' .
-                                    ' using the public_html directory on their home.')
-                               ),
-      );
+    my @tableHeader = (
+        new EBox::Types::Boolean(
+            fieldName     => 'enableDir',
+            printableName => __x('Enable per user {dirName}', dirName => PUBLIC_DIR),
+            editable      => 1,
+            defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
+            help          => __('Allow users to publish web documents using the public_html directory on their home.')
+            ),
+    );
 
-    my $dataTable =
-      {
+    my $dataTable = {
        tableName          => 'GeneralSettings',
        printableTableName => __('General configuration settings'),
        defaultActions     => [ 'editField', 'changeView' ],
        tableDescription   => \@tableHeader,
        class              => 'dataForm',
-       help               => __x('General Web server configuration. The listening port '
-                                 . 'must not be used by another service. If you enable '
+       help               => __x('General Web server configuration. If you enable '
                                  . 'user to publish their own html pages, those should be '
-                                 . 'loaded from {dirName} directory from their home directories.',
-                                 dirName => PUBLIC_DIR),
+                                 . 'loaded from {dirName} directory from their home directories. If you want to '
+                                 . 'change the public ports or enable/disable SSL, you can do it from the '
+                                 . '{ohref}System\'s General configuration page{chref}.',
+                                 dirName => PUBLIC_DIR,
+                                 ohref => '<a href="/SysInfo/Composite/General">',
+                                 chref => '</a>'),
        messages           => {
                               update => __('General Web server configuration settings updated.'),
                              },
        modelDomain        => 'WebServer',
-      };
+    };
 
     return $dataTable;
 }

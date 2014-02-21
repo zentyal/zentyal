@@ -67,6 +67,6 @@ close (FD);
 system ("/bin/mount -o remount $mount");
 
 # Enable quota
-system ("/etc/init.d/quota restart");
+system ("service quota restart");
 
 exit 0;

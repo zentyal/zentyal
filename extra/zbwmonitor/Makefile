@@ -18,5 +18,5 @@ install: all
 	install -m644 CONF.EXAMPLE $(DESTDIR)/usr/share/doc/zbwmonitor
 
 clean:
-	rm *.o zbwmonitor
+	rm -f *.o zbwmonitor
 

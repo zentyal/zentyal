@@ -1081,7 +1081,7 @@ sub dhcpLeasesWidget
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 
-### Method: widgets
+# Method: widgets
 #
 #   Overrides <EBox::Module::Base::widgets>
 #

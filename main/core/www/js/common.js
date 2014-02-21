@@ -203,3 +203,21 @@ Zentyal.MenuSearch.filterMenu = function(event) {
     }
 };
 
+Zentyal.namespace('HA');
+
+Zentyal.HA.replicate = function(node) {
+    $.ajax({
+        url: '/HA/RetryReplication',
+        type: 'post',
+        dataType: 'json',
+        data: { 'node': node },
+        complete: function(response) {
+            if (response.responseJSON && ('error' in response.responseJSON)) {
+                //TODO: set error on table instead of alert
+                //Zentyal.TableHelper.setError('Nodes', response.responseJSON.error);
+                alert(response.responseJSON.error);
+            }
+            window.location.reload();
+        },
+    });
+};

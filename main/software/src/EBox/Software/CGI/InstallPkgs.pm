@@ -16,13 +16,14 @@ use strict;
 use warnings;
 
 package EBox::Software::CGI::InstallPkgs;
-
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
-use EBox::Global;
-use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Gettext;
+use EBox::Global;
+
 use TryCatch::Lite;
 
 ## arguments:
@@ -62,7 +63,7 @@ sub _process
     } elsif (defined($self->param('remove'))) {
         $action = 'remove';
     } else {
-        throw EBox::Exceptions::Internal("Missing action parameter");
+        throw EBox::Exceptions::MissingArgument("action");
     }
 
     # Take the packages
@@ -88,20 +89,20 @@ sub _print
 
 sub _menu
 {
-    my ($self) = @_;
+    my $self = shift;
 
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
-        $software->firstTimeMenu(1);
+        return $software->firstTimeMenu(1);
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
 sub _top
 {
     my ($self) = @_;
-    $self->_topNoAction();
+    return $self->_topNoAction();
 }
 
 sub _packages

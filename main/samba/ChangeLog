@@ -1,15 +1,15 @@
-HEAD
-	+ Fixed bug in EBox::LDB::users which made the method to not
-	  return users inside Organization Units
-3.3.3
-	+ Fix typo in SambaLdapUser that fixes error in change email
-3.3.2
+3.4
+	+ Write openchange options to use mysql as backend
+	+ Use new addModuleToPostSave Global interface in Provision class
+	+ Depend on new samba packaging instead of old samba4 one
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+		+ Fix typo in SambaLdapUser that fixes error in change email
 	+ Change user modification hook from _modifyUser to _preModifyUser
 	+ Throw DataExists exception if the user try to rename a user on a
 	  container and already exists
 	+ Check for duplicated DN on user creation and show a proper error, not
 	  an internal exception.
-3.3.1
 	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
 	  OpenLDAP. Those users are ignored on EBox::LDB::users method
 	+ Remove group share on group deletion
@@ -25,8 +25,8 @@ HEAD
 	+ Renamed printableName to File Sharing and Domain Services
 	+ Split settings in two menu entries: Domain and File Sharing
 	+ Switch from Error to TryCatch for exception handling
-	+ Improved migration code from 3.2.11
 	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
+				  adc
 	  adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
 	              when reprovisioning as additional DC

@@ -1,4 +1,5 @@
-3.3.1
+3.4
+	+ Set version to 3.4
 	+ Clearer error when calling objectMembers with a invalid object id
 3.3
 	+ Added missing EBox::Exceptions uses

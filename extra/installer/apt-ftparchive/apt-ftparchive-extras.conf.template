@@ -7,7 +7,7 @@ TreeDefault {
 };
 
 BinDirectory "pool/extras" {
-  Packages "dists/precise/extras/binary-ARCH/Packages";
+  Packages "dists/DIST/extras/binary-ARCH/Packages";
 };
 
 Default {
