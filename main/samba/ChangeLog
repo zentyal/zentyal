@@ -1,4 +1,5 @@
 HEAD
+	+ Set OpenChange as not provisioned when Samba is reprovisioned
 	+ Added a way to check whether we are managing the AD schema or not
 	+ Samba provision failures when IPs are not set no longer talk
 	  wrongly about internal interfaces
