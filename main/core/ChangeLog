@@ -1,4 +1,5 @@
 3.4
+	+ Ported restricted resources to use nginx
 	+ Removed EBox::Base::upload method because that's 100% handled by Plack
 	  now.
 	+ Increased the buffer size for uwsgi applications to allow big submits
