@@ -510,11 +510,11 @@ sub _checkEnableIPs
     if ($noAddresses) {
         my $errMsg;
         if (@dhcpIfaces) {
-            $errMsg = __x('Cannot enable Users and Computers module because your system has not availabe IPs. Since you have dhcp interfaces ({ifaces}) it is possible that you do nt have received leases. Saving changes if network module has just been configured or waiting for a lease can solve this situation',
+            $errMsg = __x('Cannot enable Users and Computers module because your system does not have availalbe IPs. Since you have dhcp interfaces ({ifaces}) it is possible that you have not received leases. Saving changes if network module has just been configured or waiting for a lease can solve this situation',
                           ifaces => "@dhcpIfaces"
                          );
         } else {
-            $errMsg = __x('Cannot enable Usersand computers module  because your system has not availabe IPs. {oh}Configuring network interfaces{ch} and saving changes can solve this situation',
+            $errMsg = __x('Cannot enable Users and Computers module because your system does not have available IPs. {oh}Configuring network interfaces{ch} and saving changes can solve this situation',
                           oh => '<a href="/Network/Ifaces">',
                           ch => '</a>'
                           );
