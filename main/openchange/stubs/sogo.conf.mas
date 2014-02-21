@@ -43,7 +43,7 @@
     SOGoLanguage = English;                 // User can override parameter
 
     /* Mail preferences */
-    SOGoAppointmentSendEMailNotifications = NO;
+    SOGoAppointmentSendEMailNotifications = YES;
     SOGoACLsSendEMailNotifications = NO;
 
     /* Database configuration */
@@ -82,7 +82,7 @@
             IDFieldName = uid;
             UIDFieldName = uid;
             hostname = "<% $ldapHost %>";
-            baseDN = "<% $ldapBaseDN %>";
+            baseDN = "ou=Users,<% $ldapBaseDN %>";
             bindDN = "<% $ldapBindDN %>";
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = YES;

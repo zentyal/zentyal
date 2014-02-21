@@ -438,11 +438,10 @@ sub _redis_call
                 $failure = 1;
             };
             eval {
-                $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
-                    @response = $self->{redis}->__read_response();
+                    @response = $self->{redis}->__run_cmd($command, 0, 0, 0, @args);
                 } else {
-                    $response = $self->{redis}->__read_response();
+                    $response = $self->{redis}->__run_cmd($command, 0, 0, 0, @args);
                 }
                 $failure = 0;
             };

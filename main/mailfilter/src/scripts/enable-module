@@ -3,7 +3,7 @@
 # stop services
 SERVICES="amavis spamassassin"
 for SERVICE in $SERVICES; do
-    invoke-rc.d  $SERVICE stop || true
+    service $SERVICE stop || true
 done
 
 # move out old amavis conf files
@@ -17,12 +17,6 @@ if [ $? != 0 ]; then
   # add clamav user to group amavis. Because it need access to amavis stuff
   addgroup clamav amavis
 fi
-
-## copy LDAP schemas
-#cp /usr/share/zentyal-mailfilter/*.schema /etc/ldap/schema
-## update ldap
-#/usr/share/zentyal-users/init-ldap genconfig
-#/etc/init.d/slapd restart
 
 /usr/share/zentyal-mailfilter/create-spamassassin-db
 

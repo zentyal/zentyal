@@ -407,9 +407,9 @@ sub setupKerberos
     EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
-    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'service heidmal-kdc stop || true');
     push (@cmds, 'stop zentyal.heimdal-kdc || true');
-    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'service kpasswdd stop || true');
     push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
@@ -520,7 +520,7 @@ sub _internalServerEnableActions
 
     # Stop slapd daemon
     EBox::Sudo::root(
-        'invoke-rc.d slapd stop || true',
+        'service slapd stop || true',
         'stop ebox.slapd        || true',
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
@@ -1043,9 +1043,9 @@ sub initUser
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd force-reload');
+            EBox::Sudo::root('service nscd force-reload');
         } catch {
         }
    }
@@ -1604,7 +1604,7 @@ sub notifyModsLdapUserBase
     }
 
     # Save user corner operations for slave-sync daemon
-    if ($self->isUserCorner) {
+    if ($self->isUserCorner()) {
         my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
         mkdir ($dir) unless (-d $dir);
 
@@ -1666,15 +1666,13 @@ sub isUserCorner
 {
     my ($self) = @_;
 
-    my $auth_type = undef;
-    try {
-        my $r = Apache2::RequestUtil->request();
-        $auth_type = $r->auth_type;
-    } catch {
+    my $global = EBox::Global->modInstance('global');
+    my $appName = $global->appName();
+    if (defined $appName) {
+        return ($appName eq 'usercorner');
+    } else {
+        return 0;
     }
-
-    return (defined $auth_type and
-            $auth_type eq 'EBox::UserCorner::Auth');
 }
 
 # Method: defaultUserModels

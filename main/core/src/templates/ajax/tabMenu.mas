@@ -3,6 +3,7 @@
   displayed selecting the corresponding tab. The selection and load is
   done with JavaScript and AJAX requests.
   A parameter is required:
+  - user - String username of the logged in user.
   - models - array ref with with the model instances
   - selectedTab - Integer the index for the selected tab. Default
   value: 0
@@ -12,6 +13,7 @@
   when more than one tab is used at the same page
 </%doc>
 <%args>
+  $user
   $tabName      => ''
   $models      => []
   $selectedTab => 0
@@ -57,6 +59,7 @@ use EBox::Gettext;
   <!-- The default model is shown -->
   <& $defaultModel->Viewer(),
      model => $defaultModel,
+     user => $user,
      hasChanged => $hasChanged,
      action => 'view',
   &>

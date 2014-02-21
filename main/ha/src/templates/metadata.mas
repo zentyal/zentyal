@@ -1,0 +1,20 @@
+<%doc>
+This template is for showing the cluster metadata info
+</%doc>
+<%args>
+  %context
+</%args>
+<div class="help">
+  <% $context{help} %>
+</div>
+<div class="info-top full-width">
+   <img class="info-block" src="/data/images/cluster.png">
+% foreach my $pair (@{$context{metadata}}) {
+   <div id="<% $pair->[0] %>" class="info-block">
+     <span class="info-label"><% $pair->[1] %></span>
+     <span class="info-value"><% $pair->[2] %></span>
+   </div>
+% }
+    <a href="/HA/LeaveCluster" class="btn btn-black force-right"
+     title="<% __('Leave Cluster') %>"><% __('Leave Cluster') %></a>
+</div>

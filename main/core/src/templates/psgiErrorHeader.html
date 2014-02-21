@@ -1,0 +1,49 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+  <head>
+    <title>{{ page_title }}</title>
+    <link type="text/css" rel="stylesheet" href="/dynamic-data/css/public.css" />
+    <style type="text/css">
+      a.toggle { color: #444 }
+      body { margin: 0; padding: 0; background: #fff; color: #000; }
+      h1 { margin: 0 0 .5em; padding: .25em .5em .1em 1.5em; border-bottom: thick solid #002; background: #444; color: #eee; font-size: x-large; }
+      pre.message { margin: .5em 1em; }
+      li.frame { font-size: small; margin-top: 3em }
+      li.frame:nth-child(1) { margin-top: 0 }
+      pre.context { border: 1px solid #aaa; padding: 0.2em 0; background: #fff; color: #444; font-size: medium; }
+      pre .match { color: #000;background-color: #f99; font-weight: bold }
+      pre.vardump { margin:0 }
+      pre code strong { color: #000; background: #f88; }
+
+      table.lexicals, table.arguments { border-collapse: collapse }
+      table.lexicals td, table.arguments td { border: 1px solid #000; margin: 0; padding: .3em }
+      table.lexicals tr:nth-child(2n) { background: #DDDDFF }
+      table.arguments tr:nth-child(2n) { background: #DDFFDD }
+      .lexicals, .arguments { display: none }
+      .variable, .value { font-family: monospace; white-space: pre }
+      td.variable { vertical-align: top }
+    </style>
+    <script src="/data/js/jquery.js" type="text/javascript"></script>
+    <script src="/data/js/common.js" type="text/javascript"></script>
+    <script language="JavaScript" type="text/javascript">
+      function toggleThing(ref, type, hideMsg, showMsg) {
+        var css = document.getElementById(type+'-'+ref).style;
+        css.display = css.display == 'block' ? 'none' : 'block';
+
+        var hyperlink = document.getElementById('toggle-'+ref);
+        hyperlink.textContent = css.display == 'block' ? hideMsg : showMsg;
+      }
+
+      function toggleArguments(ref) {
+        toggleThing(ref, 'arguments', 'Hide function arguments', 'Show function arguments');
+      }
+
+      function toggleLexicals(ref) {
+        toggleThing(ref, 'lexicals', 'Hide lexical variables', 'Show lexical variables');
+      }
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>

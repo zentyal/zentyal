@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,7 +21,8 @@ package EBox::RemoteServices;
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::WebAdmin::PortObserver);
 
 # Class: EBox::RemoteServices
 #
@@ -66,6 +67,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
+use EBox::WebAdmin::PSGI;
 use TryCatch::Lite;
 use File::Slurp;
 use JSON::XS;
@@ -135,10 +137,29 @@ sub proxyDomain
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->hasBundle()) {
         return $self->_confKeys()->{realm};
     }
     return undef;
+}
+
+# Method: caDomain
+#
+#   Returns CA organizational name from Zentyal Remote
+#
+# Returns:
+#
+#   String - the CA organizational name from Zentyal Remote
+#            Empty string if it does not have a bundle.
+#
+sub caDomain
+{
+    my ($self) = @_;
+
+    if ($self->hasBundle()) {
+        return $self->_confKeys()->{caDomain};
+    }
+    return "";
 }
 
 # Method: _setConf
@@ -1359,27 +1380,24 @@ sub latestRemoteConfBackup
     return $bakService->latestRemoteConfBackup();
 }
 
-# Method: reportAdminPort
+# Method: adminPortChanged
 #
-#     Report to Zentyal Cloud for a new TCP port for the Zentyal
+#     Report to Zentyal Remote for a new TCP port for the Zentyal
 #     server admin interface.
 #
-#     It will do so only if the server is connected to Zentyal Cloud
+#     It will do so only if the server is connected to Zentyal Remote
 #
 # Parameters:
 #
 #     port - Int the new TCP port
 #
-# Exceptions:
+# Overrides:
 #
-#     <EBox::Exceptions::InvalidData> - if the given port is not a
-#     valid port
+#     <EBox::WebAdmin::PortObserver::adminPortChanged>
 #
-sub reportAdminPort
+sub adminPortChanged
 {
     my ($self, $port) = @_;
-
-    EBox::Validate::checkPort($port, "$port is not a valid port");
 
     my $state = $self->get_state();
 
@@ -1668,15 +1686,15 @@ sub checkAdMessages
 
 # Group: Private methods
 
-# Configure the SOAP server
+# Configure the SOAP server and Remote Access
 #
 # if subscribed and has bundle
-# 1. Write soap-loc.mas template
-# 2. Write the SSLCACertificatePath directory
-# 3. Add include in zentyal-apache configuration
+# 1. Add /soap and /ebox PSGI sub applications
+# 2. Write the SSLCACertificatePath directory for SSL validation
+# 3. Save webadmin module
 # elsif not subscribed
 # 1. Remove SSLCACertificatePath directory
-# 2. Remove include in zentyal-webadmin configuration
+# 2. Remove /soap and /ebox PSGI sub applications
 #
 sub _confSOAPService
 {
@@ -1687,26 +1705,34 @@ sub _confSOAPService
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ($self->hasBundle()) {
-            my @tmplParams = (
-                (soapHandler      => WS_DISPATCHER),
-                (caDomain         => $self->_confKeys()->{caDomain}),
-                (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            );
-            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
-            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
-
-            $webAdminMod->addApacheInclude($confFile);
-            $webAdminMod->addNginxInclude($confSSLFile);
+            try {
+                EBox::WebAdmin::PSGI::addSubApp(url => '/soap',
+                                                appName => 'EBox::RemoteServices::WSDispatcher::psgiApp',
+                                                validation => 1,
+                                                validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
+                                                userId => 'remote');
+            } catch (EBox::Exceptions::DataExists $e) {}
+            try {
+                EBox::WebAdmin::PSGI::addSubApp(url => '/ebox',
+                                                appName => 'EBox::RemoteServices::RemoteAccess::psgiApp',
+                                                validation => 1,
+                                                validateFunc => 'EBox::RemoteServices::RemoteAccess::validate',
+                                                userId => 'remote_user');
+            } catch (EBox::Exceptions::DataExists $e) {}
+            # Write the SSL validation
+            File::Slurp::write_file(SERV_DIR . 'ssl-auth.json',
+                                    JSON::XS->new()->encode({'caDomain' => $self->_confKeys()->{caDomain},
+                                                             'allowedClientCNRegexp' => $self->_allowedClientCNRegexp()}));
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
-        # Do nothing if CA or include are already removed
+        # Do nothing if CA or the sub-app are already removed
         try {
-            $webAdminMod->removeApacheInclude($confFile);
-            $webAdminMod->removeNginxInclude($confSSLFile);
+            EBox::WebAdmin::PSGI::removeSubApp('/soap');
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch (EBox::Exceptions::Internal $e) {
         }
+        unlink(SERV_DIR . 'ssl-auth.json');
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();
@@ -1736,7 +1762,7 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            $webadminMod->addApacheInclude($confFile);
+            # $webadminMod->addApacheInclude($confFile);
         } catch ($e) {
             # Not proper YAML file
             EBox::error($e);
@@ -1745,7 +1771,7 @@ sub _setProxyRedirections
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            $webadminMod->removeApacheInclude($confFile);
+            # $webadminMod->removeApacheInclude($confFile);
         } catch (EBox::Exceptions::Internal $e) {
         }
     }
@@ -2065,7 +2091,7 @@ sub _latestBackup
     return $latest;
 }
 
-# Report the Zentyal server TCP admin port to Zentyal Cloud
+# Report the Zentyal server TCP admin port to Zentyal Remote
 sub _reportAdminPort
 {
     my ($self) = @_;
@@ -2073,7 +2099,7 @@ sub _reportAdminPort
     my $gl = EBox::Global->getInstance(1);
     my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($webAdminMod->port());
+    $self->adminPortChanged($webAdminMod->listeningPort());
 }
 
 # Method: extraSudoerUsers

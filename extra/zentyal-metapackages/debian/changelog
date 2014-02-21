@@ -1,3 +1,15 @@
+zentyal-metapackages (3.4~2) saucy; urgency=low
+
+  * Add openchange and sogo to zentyal-all
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 14 Feb 2014 19:14:13 +0100
+
+zentyal-metapackages (3.4~1) saucy; urgency=low
+
+  * Temporary removal of zarafa and openchange until ready
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 26 Dec 2013 12:38:32 +0100
+
 zentyal-metapackages (3.3) precise; urgency=low
 
   * Added zentyal-openchange to zentyal-all

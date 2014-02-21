@@ -610,6 +610,8 @@ sub store
 #
 # Exceptions:
 #
+#   <EBox::Exceptions::MissingArgument> - thrown if element is missing
+#
 #   <EBox::Exceptions::Internal>
 #
 sub storeElementByName

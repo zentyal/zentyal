@@ -873,6 +873,17 @@ sub pidRunning
 sub pidFileRunning
 {
     my ($self, $file) = @_;
+    my $pid = $self->pidFromFile($file);
+    if ($pid and $self->pidRunning($pid)) {
+        return $pid;
+    } else {
+        return undef;
+    }
+}
+
+sub pidFromFile
+{
+    my ($self, $file) = @_;
     my $pid;
     try {
         my $output = EBox::Sudo::silentRoot("cat $file");
@@ -882,11 +893,7 @@ sub pidFileRunning
     } catch {
         $pid = undef;
     }
-    if ($pid and $self->pidRunning($pid)) {
-        return $pid;
-    } else {
-        return undef;
-    }
+    return $pid;
 }
 
 # Method: _preSetConf
@@ -1071,7 +1078,6 @@ sub _writeFileSave # (tmpfile, file, defaults)
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
 #    defaults  - a reference to hash with keys mode, uid, gid and force. Those values will be used when creating a new file. (If the file already exists and the force parameter is not set the existent values of these parameters will be left untouched)
 #
-
 sub writeConfFileNoCheck # (file, component, params, defaults)
 {
     my ($file, $compname, $params, $defaults) = @_;

@@ -201,7 +201,7 @@ sub _table
                 ),
 # XXX asymmetric key disabled until we could support it in disaster-recovery if
 #     you want to use it uncomment the following lines and execute
-#     '/etc/init.d/zentyal apache restart
+#     service zentyal webadmin restart
 
 #    new EBox::Types::Select( fieldName =>
 #     'asymmetric', printableName => __('GPG Key'), editable => 1, populate =>

@@ -85,6 +85,7 @@ sub masonParameters
 
         return [
                 model  => $self->{composite},
+                user => $self->user(),
                 hasChanged => $global->unsaved(),
                ];
     } else {

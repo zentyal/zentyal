@@ -1,4 +1,14 @@
-HEAD
+3.4
+	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
+	+ Don't allow to remove outgoing mail virtual domain
+	+ Added rpcproxy service
+	+ Provision openchangedb with mysql as backend
+	+ Migrated to use Plack / PSGI API instead of the CGI one
+	+ Remove obsolete sope dependency
+	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
+	+ Calendar invitations now sent via email by default
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Better user addon integration
@@ -6,10 +16,8 @@ HEAD
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work
-3.3.2
 	+ Hide openchange service status from the dashboard and linked it status
 	  to the one from Samba
-3.3.1
 	+ User addon - remove check that require AD domain to be the same as mail
 	  virtual domain
 	+ Added basic deprovision option

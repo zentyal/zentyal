@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+my $ha = EBox::Global->getInstance()->modInstance('ha');
+$ha->checkAndUpdateClusterConfiguration();

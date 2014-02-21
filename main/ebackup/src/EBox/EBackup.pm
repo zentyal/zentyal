@@ -195,10 +195,10 @@ sub restoreFile
             throw EBox::Exceptions::EBackup::BadSymmetricKey();
         } elsif ($error =~ m/No backup chains found/) {
             throw EBox::Exceptions::External(
-                __(q{No backup archives found. Maybe they were deleted?.} .
-                     q{ Run '/etc/init.d/zentyal ebackup restart' to refresh backup's information.}
-                    )
-               );
+                __x(q{No backup archives found. Maybe they were deleted?.} . ' ' .
+                    q{Run '{cmd}' to refresh backup's information.},
+                    cmd => 'service zentyal ebackup restart')
+            );
         } else {
             $e->throw();
         }

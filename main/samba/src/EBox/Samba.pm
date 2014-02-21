@@ -107,7 +107,7 @@ use IO::Socket::INET;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant PRIVATE_DIR          => '/opt/samba4/private/';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
@@ -115,7 +115,7 @@ use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
+use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
@@ -474,7 +474,7 @@ sub _startDaemon
 
     $self->SUPER::_startDaemon($daemon, %params);
 
-    if ($daemon->{name} eq 'samba4') {
+    if ($daemon->{name} eq 'samba') {
         my $services = $self->_services();
         foreach my $service (@{$services}) {
             my $port = $service->{destinationPort};
@@ -931,12 +931,20 @@ sub writeSambaConfig
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
+        my $openchangeConnectionString = undef;
+        if ($openchangeProvisionedWithMySQL) {
+            $openchangeConnectionString = $openchangeModule->connectionString();
+        }
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+        push (@array, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@array, 'openchangeConnectionString' => $openchangeConnectionString);
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba/smb.conf.mas', \@array);
+                         'samba/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 
     $self->_writeAntivirusConfig();
 }
@@ -1108,13 +1116,10 @@ sub _daemons
 {
     return [
         {
-            name => 'samba4',
-            type => 'init.d',
-            pidfiles => ['/opt/samba4/var/run/samba.pid'],
+            name => 'samba-ad-dc',
         },
         {
-            name => 'zentyal.nmbd',
-            precondition => \&_nmbdCond,
+            name => 'nmbd',
         },
         {
             name => 'zentyal.s4sync',
@@ -1130,6 +1135,20 @@ sub _daemons
         },
     ];
 }
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
+    ];
+}
+
 
 # Function: usesPort
 #

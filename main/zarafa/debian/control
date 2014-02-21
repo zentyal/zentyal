@@ -1,0 +1,21 @@
+Source: zentyal-zarafa
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
+
+Package: zentyal-zarafa
+Architecture: all
+Pre-Depends: mysql-server
+Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
+         zentyal-users, zentyal-mail, zentyal-webserver,
+         zarafa, zarafa-webaccess, zarafa-webapp, d-push,
+         aspell, libapache2-mod-auth-kerb, ${misc:Depends}
+Description: Zentyal - Groupware (Zarafa)
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds Zarafa integration with Zentyal.

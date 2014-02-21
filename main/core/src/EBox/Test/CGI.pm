@@ -41,9 +41,10 @@ sub setCgiParams
 {
     my ($cgi, %params) = @_;
 
+    my $request = $cgi->request();
+    my $parameters = $request->parameters();
     while (my ($paramName, $paramValue) = each %params) {
-        my $query = $cgi->{cgi};
-        $query->param( $paramName =>  $paramValue);
+        $parameters->set($paramName, $paramValue);
     }
 }
 

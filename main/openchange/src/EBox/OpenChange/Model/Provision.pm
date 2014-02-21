@@ -348,8 +348,7 @@ sub _doProvision
     }
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  "--firstorg='$organizationName' ";
+        my $cmd = "openchange_provision --firstorg='$organizationName' ";
 
         if ($additionalInstallation) {
             $cmd .= ' --additional ';
@@ -362,9 +361,10 @@ sub _doProvision
 
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+        my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
-        $cmd = '/opt/samba4/sbin/openchange_provision ' .
-               "--openchangedb " .
+        $cmd = "openchange_provision --openchangedb " .
+               "--openchangedb-uri='$openchangeConnectionString' ".
                "--firstorg='$organizationName'";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
@@ -411,7 +411,7 @@ sub _doProvision
                 # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
                 unless (defined $ac and $ac == 0) {
-                    my $cmd = "/opt/samba4/sbin/openchange_newuser ";
+                    my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
                     my $output = EBox::Sudo::root($cmd);
@@ -430,14 +430,19 @@ sub _doDeprovision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationName = $params{organizationname};
+    my $organizationName = $params{provisionedorganizationname};
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  '--deprovision ' .
+        my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+
+        if ($self->parentModule->isProvisionedWithMySQL()) {
+            # It removes the file with mysql password and the user from mysql
+            EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                             'remove-database');
+        }
 
         # Drop SOGo database and db user. To avoid error if it does not exists,
         # the user is created and granted harmless privileges before drop it

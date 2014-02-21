@@ -1,0 +1,41 @@
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
+
+<div id="top"></div>
+
+<div id="header">
+  <a href="/"><img src="{{ image_title }}" alt="title"/></a>
+</div>
+
+<div id="menu">
+  <ul id="nav">
+    <li id=""><div class="separator">{{ actions }}</div></li>
+    <li id="menu_0"><a href="#" class="nvac" onclick="$('#details').show(); $('#report').hide(); return false">{{ show_details }}</a></li>
+    <li id="menu_1"><a href="#" class="nvac" onclick="history.back(); return false">{{ go_back }}</a></li>
+  </ul>
+</div>
+
+<div id="content">
+    <div><span class="title">{{ title }}</span></div>
+
+    <div class="error">{{ main_text }}</div>
+
+    <ul style="list-style: none; margin: 0; padding: 15px 0;">
+       <li style="display: inline"><a href="#" class="button_link" onclick="$('#details').show(); return false">{{ show_details }}</a></li>
+    </ul>
+
+    <div id="details" style="display: none">
+      {{ stacktrace_html }}
+    </div>
+
+     <div id="report_error_message" class="error" style="display: none">
+     </div>
+
+     <div id="general_report_error" style="display: none">
+      <div class="error">{{ report_error }}</div>
+      <p>{{ report_instructions }}</p>
+     </div>
+
+    <div id="back">
+      <a href="#" onclick="history.back(); return false">{{ go_back }}</a>
+    </div>
+</div>

@@ -32,11 +32,8 @@ use EBox::Types::HostIP;
 use EBox::Types::Action;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
-use EBox::CaptivePortal::Auth;
+use EBox::CaptivePortal::Middleware::AuthLDAP;
 use EBox::Types::Int;
-
-use Fcntl qw(:flock);
-use YAML::XS;
 
 sub new
 {
@@ -207,24 +204,8 @@ sub syncRows
     # Get current users array
     my $sidFile;
     my $sessions = {};
-    for my $sess_file (glob(EBox::CaptivePortal->SIDS_DIR . '*')) {
-        unless (open ($sidFile,  $sess_file)) {
-            throw EBox::Exceptions::Internal("Could not open $sess_file");
-        }
-        # Lock in shared mode for reading
-        flock($sidFile, LOCK_SH)
-          or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
-
-        my $sess_info = join('', <$sidFile>);
-        my $data = YAML::XS::Load($sess_info);
-
-        # Release the lock
-        flock($sidFile, LOCK_UN);
-        close($sidFile);
-
-        if (defined($data)) {
-            $sessions->{$data->{sid}} = $data;
-        }
+    for my $session (@{EBox::CaptivePortal::Middleware::AuthLDAP::currentSessions()}) {
+        $sessions->{$session->{sid}} = $session;
     }
 
     # Update table removing, adding and updating users
@@ -288,7 +269,7 @@ sub _kickUser
     my $username= $row->valueByName('user');
 
     # End session
-    EBox::CaptivePortal::Auth::updateSession($sid, $ip, 0);
+    EBox::CaptivePortal::Middleware::AuthLDAP::updateSession($sid, $ip, 0);
 
     # notify captive daemon
     system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);

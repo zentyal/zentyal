@@ -27,7 +27,6 @@ package EBox::Services;
 
 use base qw(EBox::Module::Config);
 
-use EBox::Validate qw( :all );
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
 use EBox::Gettext;
@@ -75,11 +74,12 @@ sub _defaultServices
 {
     my ($self) = @_;
 
+    my $webadminMod = $self->global()->modInstance('webadmin');
     my $webAdminPort;
     try {
-        $webAdminPort = $self->global()->modInstance('webadmin')->port();
+        $webAdminPort = $webadminMod->listeningHTTPSPort();
     } catch {
-        $webAdminPort = 443;
+        $webAdminPort = $webadminMod->defaultHTTPSPort();
     }
 
     return [
@@ -116,9 +116,9 @@ sub _defaultServices
          'internal' => 0,
         },
         {
-         'name' => 'administration',
-         'printableName' => __('Zentyal Administration'),
-         'description' => __('Zentyal Administration Web Server'),
+         'name' => 'zentyal_' . $webadminMod->name(),
+         'printableName' => $webadminMod->printableName(),
+         'description' => $webadminMod->printableName(),
          'protocol' => 'tcp',
          'destinationPort' => $webAdminPort,
          'internal' => 1,
@@ -452,32 +452,6 @@ sub setMultipleService
     $self->model('ServiceTable')->setMultipleService(%params);
 }
 
-# Method: setAdministrationPort
-#
-#       Set administration port on service
-#
-# Parameters:
-#
-#       port - port
-#
-sub setAdministrationPort
-{
-    my ($self, $port) = @_;
-
-    checkPort($port, __("port"));
-
-    $self->setService(
-            'name' => 'administration',
-            'printableName' => __('Zentyal Administration'),
-            'description' => __('Zentyal Administration Web Server'),
-            'protocol' => 'tcp',
-            'sourcePort' => 'any',
-            'destinationPort' => $port,
-            'internal' => 1,
-            'readOnly' => 1
-    );
-}
-
 # Method: availablePort
 #
 #       Check if a given port for a given protocol is available. That is,
@@ -492,11 +466,32 @@ sub setAdministrationPort
 # Returns:
 #   boolean - true if it's available, otherwise false
 #
+# Note:
+#    portUsedByService returns the information of what is using the port
 sub availablePort
 {
-    my ($self, %params) = @_;
+    my ($self, @params) = @_;
+    return not $self->portUsedByService(@params);
+}
 
-    return $self->model('ServiceTable')->availablePort(%params);
+# Method: portUsedByService
+#
+#       Checks if a port is configured to be used by a service
+#
+# Parameters:
+#
+#       proto - protocol
+#       port - port number
+#       interface - interface
+#
+# Returns:
+#
+#       false - if it is not used not empty string - if it is in use, the string
+#               contains the name of what is using it
+sub portUsedByService
+{
+    my ($self, @params) = @_;
+    return $self->model('ServiceTable')->portUsedByService(@params);
 }
 
 # Method: serviceFromPort

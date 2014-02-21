@@ -2,29 +2,34 @@
 use strict;
 use warnings;
 use English '-no_match_vars';
+use EBox;
+use EBox::Util::Certificate;
 
-
-my $destDir = $ARGV[0];
+my ($destDir, $issuer) = @ARGV;
 
 my $RSA_LENGTH = 1024;
 
-my %COMPROMISED_FILES_SUMS = (
-			'key' => '554056bd16e9f34db567dfd613b706bd',
-			'crt'=> 'c2b7b96aa141f8e0e415f6a977193433',
-			'pem' => '9b51c428fe86e6ac03fc1427c5bc0958',
-		       );
-
-unless (defined($destDir)) {
-   print "Usage:$0 prefix destDir\n";
+unless (defined $destDir) {
+   print "Usage:$0 prefix [issuer]\n";
    exit 1;
 }
 
 _checkCredentials();
+EBox::init();
 _checkPrograms();
 
-my ($keyFile, $keyUpdated)  = _generateRSAKey($destDir, $RSA_LENGTH);
-my $certFile = _generateCert($destDir, $keyFile, $keyUpdated);
-_generatePem($destDir, $certFile, $keyFile, $keyUpdated);
+if (not -d $destDir) {
+    print "SSL directory $destDir does not exist, we will create it\n";
+}
+
+my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($destDir, $RSA_LENGTH);
+if ($keyUpdated) {
+    print "New key file generated: '$keyFile'\n";
+    my $certFile = EBox::Util::Certificate::generateCert($destDir, $keyFile, $keyUpdated, $issuer);
+    print "New certificate file generated: '$certFile'\n";
+    my $pemFile = EBox::Util::Certificate::generatePem($destDir, $certFile, $keyFile, $keyUpdated);
+    print "New PEM file generated: '$pemFile'\n";
+}
 print "All server's certificate files in place\n\n";
 
 sub _checkCredentials
@@ -32,7 +37,7 @@ sub _checkCredentials
   if ($EUID != 0) {
     die "This script can only be run by root";
   }
-  
+
   my ($gid) = split '\s', $EGID;
   if ($gid != 0) {
     die "To run this script your primary group must be set to root";
@@ -41,170 +46,13 @@ sub _checkCredentials
 
 sub _checkPrograms
 {
-  my @programs = qw(openssl md5sum);
+  my @programs = qw(openssl);
   foreach (@programs) {
-    system "which $_";
+    system "which $_ 2>&1 > /dev/null";
     if ($? != 0) {
       die "$_ program not found in the path. Make sure it is installed";
     }
   }
+
 }
-
-sub _generateRSAKey
-{
-  my ($destDir, $length) = @_;
-
-  my $type    = 'key';
-  my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir);
-
-  return  ($keyFile, 0)  if   $alreadyExists;
-
-  my @cmds = (
-	      "openssl genrsa $RSA_LENGTH > $keyFile",
-	      "chmod 0400 $keyFile",
-	     );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of RSA key failed";
-    }
-  }
-
-  print "New key file generated\n";
-  return ($keyFile, 1);
-}
-
-sub _generateCert
-{
-  my ($destDir, $keyFile, $keyUpdated) = @_;
-
-  my $type = 'crt';
-  my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated, 'cert');
-
-  return $certFile if $alreadyExists;
-
-  my $subject = q{/CN=eBox\ Server/};
-
-  my @cmds = (
-	      "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
-	      "chmod 0400 $certFile",
-	     );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of CERT file failed";
-    }
-  }
-
-  print "New certificate file generated\n";
-  return $certFile;
-}
-
-
-sub _generatePem
-{
-  my ($destDir, $certFile, $keyFile, $keyUpdated) = @_;
-
-  my $type = 'pem';
-  my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $destDir, $keyUpdated);
-
-  return $pemFile if $alreadyExists;
-
-  my @cmds = (
-	      "cat $certFile $keyFile > $pemFile",
-	      "chmod 0400 $pemFile",
-	     );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of PEM file failed";
-    }
-  }
-
-  print "New PEM file generated\n";
-}
-
-
-sub _generateFileInfraestructure
-{
-  my ($type, $destDir, $alwaysDelete, $extension) = @_;
-  defined $alwaysDelete or $alwaysDelete = 0;
-  $extension            or $extension    = $type;
-
-  my $sslDir  = _sslDir($destDir, $type);
-  my $file     = "$sslDir/ssl.$extension";
-
-  if (_correctFileExists($type, $file, $alwaysDelete)) {
-    print "$file already exists. Skipping generation\n";
-    return ($file, 1);
-  }
-
-  my  @cmds =  (
-		"touch $file",
-		 "chmod 0600 $file",
-		 );
-
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of $type file failed";
-    }
-  }
-
-  return ($file, 0);
-}
-
-sub _sslDir
-{
-  my ($destDir, $postfix) = @_;
-
-  my $sslDir = "$destDir";
-  if (not -d $sslDir) {
-    print "Creating eBox's $destDir SSL directory\n";
-    mkdir $sslDir, 0700;
-  }
-
-  return $sslDir;
-}
-
-
-
-sub _correctFileExists
-{
-  my ($type, $file, $alwaysDelete) = @_;
-
-  if ( -e $file) {
-    my $compromisedSum = $COMPROMISED_FILES_SUMS{$type};
-    if (not $compromisedSum) {
-      warn "md5sum for type $type not found. For safety we assume it was compromised";
-    }
-    else {
-      my $md5sumOutput = `md5sum $file`;
-      ($? == 0) or die "Error calculating md5 sum of file $file";
-
-      my ($fileSum) = split '\s', $md5sumOutput; # removing file name
-
-      if ($fileSum eq $compromisedSum) {
-	print "File $file was compromissed. Removing it\n";
-      }
-      elsif ($alwaysDelete) {
-	print "File $file is not updated. Removing it\n";
-      }
-      else {
-	# left file untouched...
-	return 1;
-      }
-
-    }
-
-    unlink $file or die "Unable to remove $file";
-  }
-
-  return 0;
-}
-
 1;

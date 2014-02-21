@@ -38,7 +38,7 @@ sub _table
     my @tableHead = (new EBox::Types::Boolean(fieldName     => 'enabled',
                                               printableName => __('Enable bug report for daemon crashes'),
                                               editable      => 1,
-                                              defaultValue  => 0));
+                                              defaultValue  => 1));
 
     my $dataTable =
     {

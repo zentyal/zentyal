@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PASSWD_FILE='/var/lib/zentyal/conf/openchange/mysql.passwd'
+
+if [ -s $PASSWD_FILE ]; then
+    rm $PASSWD_FILE
+fi
+
+echo "DROP USER 'openchange'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
+
+exit 0
