@@ -1,4 +1,5 @@
 HEAD
+	+ Added a way to check whether we are managing the AD schema or not
 	+ Create directories in _setConf to avoid invalid group __USERS__ error
 	+ Clean up openchange section in stub smb.conf file
 	+ Fix typo in SambaLdapUser that fixes error in change email
