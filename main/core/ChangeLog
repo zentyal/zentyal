@@ -1,4 +1,6 @@
 3.4
+	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
+	  WebAdmin sub-app requests
 	+ Ported restricted resources to use nginx
 	+ Removed EBox::Base::upload method because that's 100% handled by Plack
 	  now.
