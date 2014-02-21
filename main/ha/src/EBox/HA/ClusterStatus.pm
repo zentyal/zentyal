@@ -164,27 +164,6 @@ sub resourceByName
     return undef;
 }
 
-# Function: nodeRunningResource
-#
-# Parameters:
-#   resourceName - The name of the resource we are looking for
-#
-# Returns:
-#
-#   String - node running the given resource, undef if it is stopped
-#
-sub nodeRunningResource
-{
-    my ($self, $resourceName) = @_;
-
-    my ($elem) = $self->$_xml_dom->findnodes("//resource[\@id='$resourceName']");
-    if (defined($elem) and $elem->getAttribute('role') eq 'Started') {
-        return $elem->childNodes()->get_node(2)->getAttribute('name');
-    }
-
-    return undef;
-}
-
 # Function: nodeByName
 #
 # Parameters:
@@ -519,6 +498,8 @@ sub _parseResources
         if ($resources{$name}->{nodes_running_on} > 0) {
             my @nodes = map { $_->getAttribute('name') } $xmlResource->findnodes('./node');
             $resources{$name}->{nodes} = \@nodes;
+        } else {
+            $resources{$name}->{nodes} = [];
         }
     }
 
