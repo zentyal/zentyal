@@ -1,3 +1,9 @@
+zentyal-metapackages (3.4~3) saucy; urgency=low
+
+  * Added zsupporttools metapackage
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 21 Feb 2014 19:52:23 +0100
+
 zentyal-metapackages (3.4~2) saucy; urgency=low
 
   * Add openchange and sogo to zentyal-all
