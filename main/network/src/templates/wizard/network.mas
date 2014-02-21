@@ -5,7 +5,7 @@
 <%init>
 use EBox::Gettext;
 
-my @ifaces = ( @extifaces, @intifaces );
+my @ifaces = sort ( @extifaces, @intifaces );
 my $numExt = scalar @extifaces;
 my $counter = 0;
 

@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug in EBox::LDB::users which made the method to not
+	  return users inside Organization Units
 3.3.3
 	+ Fix typo in SambaLdapUser that fixes error in change email
 3.3.2
