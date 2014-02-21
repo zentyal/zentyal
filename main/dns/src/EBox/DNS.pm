@@ -1762,7 +1762,7 @@ sub _updateManagedDomainIPsModel
     my ($self, $model) = @_;
 
     my $networkModule = EBox::Global->modInstance('network');
-    my $ifaces = $networkModule->ifaces();
+    my $ifaces = $networkModule->allIfaces();
     my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
         my $addrs = $networkModule->ifaceAddresses($iface);

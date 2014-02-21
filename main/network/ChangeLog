@@ -6,6 +6,7 @@
 	  collision with the current HA floating IPs
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Fixed bad behaviour in interfaces method wizard
 	+ Don't generate resolvconf file until all interfaces are up
 	+ nameservers() method always return 127.0.0.1 if DNS module is
 	  installed and enabled

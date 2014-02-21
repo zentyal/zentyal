@@ -39,6 +39,7 @@ use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
+use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
@@ -621,10 +622,6 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    # Create directories
-    EBox::info('Creating directories');
-    $self->_createDirectories();
-
     # Load the required OpenLDAP schema updates.
     $self->performLDAPActions();
 }
@@ -1042,6 +1039,17 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        # Create directories
+        EBox::info('Creating directories');
+        $self->_createDirectories();
+
+        if (EBox::Global->modExists('openchange')) {
+            my $openchangeMod = EBox::Global->modInstance('openchange');
+            if ($openchangeMod->isProvisioned()) {
+                # Set OpenChange as not provisioned.
+                $openchangeMod->setProvisioned(0);
+            }
+        }
         if ($self->get('need_reprovision')) {
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
@@ -2475,6 +2483,19 @@ sub defaultNamingContext
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
+    return new EBox::Samba::DMD(dn => $dn);
 }
 
 # Method: hiddenSid

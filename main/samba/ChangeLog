@@ -4,6 +4,14 @@
 	+ Depend on new samba packaging instead of old samba4 one
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Set OpenChange as not provisioned when Samba is reprovisioned
+	+ Added a way to check whether we are managing the AD schema or not
+	+ Samba provision failures when IPs are not set no longer talk
+	  wrongly about internal interfaces
+	+ Create directories in _setConf to avoid invalid group __USERS__ error
+	+ Clean up openchange section in stub smb.conf file
+	+ Fixed bug in EBox::LDB::users which made the method to not
+	  return users inside Organization Units
 	+ Fix typo in SambaLdapUser that fixes error in change email
 	+ Change user modification hook from _modifyUser to _preModifyUser
 	+ Throw DataExists exception if the user try to rename a user on a

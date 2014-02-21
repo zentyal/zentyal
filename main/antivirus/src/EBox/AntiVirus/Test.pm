@@ -58,7 +58,7 @@ sub av_isa_ok : Test
     use_ok('EBox::AntiVirus') or die;
 }
 
-sub freshclamEventTest : Test(14)
+sub freshclamEventTest : Test(17)
 {
     my ($self) = @_;
 
@@ -75,7 +75,7 @@ sub freshclamEventTest : Test(14)
     my $state_r = $clam->freshclamState();
     is_deeply($state_r, { date => undef, update => undef, error => undef, outdated => undef,  }, 'Checking freshclamState when no update has been done');
 
-    my @allFields     = qw(update error outdated);
+    my @allFields     = qw(update error outdated date);
     my @straightCases = (
         {
             params         => [ 'update'],

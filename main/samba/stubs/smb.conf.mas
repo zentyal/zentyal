@@ -57,20 +57,7 @@ use EBox::Gettext;
     disable spoolss = yes
 % }
 
-% if (defined $openchangeEnabled and defined $openchangeProvisioned) {
-%   if ($openchangeEnabled == 0) {
-### Configuration required by OpenChange server (Module is disabled!) ###
-###    dcerpc endpoint servers = +epmapper, +mapiproxy
-###    dcerpc_mapiproxy:server = true
-###    dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
-### Configuration required by OpenChange server ###
-%   } elsif ($openchangeProvisioned == 0) {
-### Configuration required by OpenChange server (Module not provisioned!) ###
-###    dcerpc endpoint servers = +epmapper, +mapiproxy
-###    dcerpc_mapiproxy:server = true
-###    dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
-### Configuration required by OpenChange server ###
-%   } elsif ($openchangeEnabled == 1 and $openchangeProvisioned == 1) {
+% if ($openchangeEnabled and $openchangeProvisioned) {
 ### Configuration required by OpenChange server (Module is enabled) ###
     dcerpc endpoint servers = +epmapper, +mapiproxy
     dcerpc_mapiproxy:server = true
@@ -81,7 +68,8 @@ use EBox::Gettext;
     mapiproxy:openchangedb = <% $openchangeConnectionString %>
 %     }
 ### Configuration required by OpenChange server ###
-%   }
+% } else {
+### OpenChange module not active, no configuration for it
 % }
 
 % if ($mode eq 'dc') {
