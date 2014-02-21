@@ -645,10 +645,6 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    # Create directories
-    EBox::info('Creating directories');
-    $self->_createDirectories();
-
     # Load the required OpenLDAP schema updates.
     $self->performLDAPActions();
 }
@@ -1058,6 +1054,10 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        # Create directories
+        EBox::info('Creating directories');
+        $self->_createDirectories();
+
         if ($self->get('need_reprovision')) {
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
