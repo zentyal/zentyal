@@ -59,7 +59,6 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
-	+ Avoid division by zero while using page navigation
 	+ Fix tab selection in tabbed composite from URL path anchor,
 	  for instance, /Maintenance/Events#ConfigureDispatchers
 	+ Avoid errors triggered on web administration port validation
