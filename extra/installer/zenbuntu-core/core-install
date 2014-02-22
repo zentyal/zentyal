@@ -28,6 +28,9 @@ create_repository()
     done
     popd
 
+    # Comment source lines by default to make apt-get update faster
+    sed -i 's/^deb-src/#deb-src/g' ${SOURCES_LIST}
+
     # Update the package database with only the local repository
     # just in case we are installing without internet connection
     mv ${SOURCES_LIST} /tmp/sources.list.orig
