@@ -947,7 +947,8 @@ sub _updateDynamicDirectZone
 
     my $update;
     if ($domdata->{samba}) {
-        $update = new EBox::DNS::Update::GSS(domain => $domain);
+        $update = new EBox::DNS::Update::GSS(domain => $domain,
+            keytab => '/var/lib/samba/private/secrets.keytab', principal => 'SAUCY$'); # TODO
     } elsif ($domdata->{dynamic}) {
         $update = new EBox::DNS::Update::TSIG(domain => $domdata->{name}, keyName => $domdata->{name}, key => $domdata->{tsigKey});
     } else {
@@ -1023,7 +1024,8 @@ sub _updateDynamicReverseZone
 
     my $update;
     if ($rdata->{samba}) {
-        $update = new EBox::DNS::Update::GSS(domain => $zone);
+        $update = new EBox::DNS::Update::GSS(domain => $zone,
+            keytab => '/var/lib/samba/private/secrets.keytab', principal => 'SAUCY$'); # TODO
     } elsif ($rdata->{dynamic}) {
         my $model = $self->model('DomainTable');
         my $row = $model->find(domain => $domain);

@@ -19,11 +19,9 @@ package EBox::DNS::Update::TSIG;
 
 use base 'EBox::DNS::Update';
 
-use EBox::DNS;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-
-use Net::DNS::Resolver;
+use EBox::Exceptions::MissingArgument;
 
 sub new
 {
@@ -32,7 +30,14 @@ sub new
     my $self = $class->SUPER::new(%params);
     bless ($self, $class);
 
+    unless (defined $params{keyName}) {
+        throw EBox::Exceptions::MissingArgument('keyName');
+    }
     $self->{keyName} = $params{keyName};
+
+    unless (defined $params{key}) {
+        throw EBox::Exceptions::MissingArgument('key');
+    }
     $self->{key} = $params{key};
 
     return $self;
@@ -42,38 +47,12 @@ sub _sign
 {
     my ($self) = @_;
 
-    my $packet = $self->{packet};
+    my $packet = $self->_packet();
     my $keyName = $self->{keyName};
     my $key = $self->{key};
     my $tsig = $packet->sign_tsig($keyName, $key);
     unless (defined $tsig) {
         throw EBox::Exceptions::External(__("Failed to sign DNS packet."));
-    }
-}
-
-sub send
-{
-    my ($self) = @_;
-
-    my $serverName = $self->{serverName};
-    my $resolver = new Net::DNS::Resolver();
-    $resolver->nameservers($serverName);
-
-    # Sign the update
-    $self->_sign();
-
-    # Send the update
-    my $packet = $self->{packet};
-    my $reply = $resolver->send($packet);
-    unless (defined $reply) {
-        throw EBox::Exceptions::External(
-            __x("Failed to send update to server {srv}: {err}.",
-                srv => $serverName, err => $resolver->errorstring()));
-    }
-    if ($reply->header->rcode() ne 'NOERROR') {
-        throw EBox::Exceptions::External(
-            __x("Failed to update: {err}.",
-                err => $reply->header->rcode()));
     }
 }
 

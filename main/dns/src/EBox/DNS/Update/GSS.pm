@@ -19,10 +19,16 @@ package EBox::DNS::Update::GSS;
 
 use base 'EBox::DNS::Update';
 
-use Net::DNS;
-use GSSAPI;
+use EBox::Gettext;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 
-use constant ALGORITHM => 'gss.microsoft.com';
+use GSSAPI;
+use Net::DNS;
+use Net::DNS::RR;
+use Net::DNS::Packet;
+use Net::DNS::Resolver;
+use Authen::Krb5::Easy qw(kinit kdestroy kerror);
 
 sub new
 {
@@ -31,122 +37,157 @@ sub new
     my $self = $class->SUPER::new(%params);
     bless ($self, $class);
 
-    $self->{gssCtx} = new GSSAPI::Context();
-    $self->{gssName} = new GSSAPI::Name();
+    unless (defined $params{keytab}) {
+        throw EBox::Exceptions::MissingArgument('keytab');
+    }
+    $self->{keytab} = $params{keytab};
 
-    $self->{realm} = uc ($params{domain});
-    $self->{pending} = [];
-
-    # connect to the nameserver
-	#my $nameserver = Net::DNS::Resolver->new(nameservers => [$serverName], recurse => -1, debug => 0);
-    #unless (defined($nameserver) and (uc($nameserver->errorstring()) eq 'NOERROR')) {
-    #    throw EBox::Exceptions::External("Failed to connect to nameserver for domain $domain");
-    #}
-    #$self->{nameserver} = $nameserver;
+    unless (defined $params{principal}) {
+        throw EBox::Exceptions::MissingArgument('principal');
+    }
+    $self->{principal} = $params{principal};
 
     return $self;
 }
 
-# Method: negotiate
+# Method: _sigVerify
+#
+#   Verify a TSIG signature from a DNS server reply
+#
+sub _sigVerify
+{
+    my ($self, $gssContext, $packet) = @_;
+
+    my $tsig;
+    foreach my $rr ($packet->additional()) {
+        next unless $rr->type() eq 'TSIG';
+        $tsig = $rr;
+        last;
+    }
+    unless (defined $tsig) {
+        throw EBox::Exceptions::External(
+            __('The DNS server has not signed the reply. Can not verify its authenticity.'));
+    }
+
+    my $sigdata = $tsig->sig_data($packet);
+    my $mac = $tsig->{mac};
+    my $status = $gssContext->verify_mic($sigdata, $mac, 0);
+    unless ($status->major() == GSS_S_COMPLETE) {
+        throw EBox::Exceptions::External(
+            __x('Failed to verify MIC: {err}',
+                err => $status->stringify()));
+    }
+}
+
+# Method: _negotiateTKEY
+#
+#   Negotiate the TKEY with the server
+#
+sub _negotiateTKEY
+{
+    my ($self, $keyName, $gssName, $gssCred) = @_;
+
+    my $resolver = $self->_resolver();
+
+    my $flags = GSS_C_REPLAY_FLAG   | GSS_C_MUTUAL_FLAG |
+                GSS_C_SEQUENCE_FLAG | GSS_C_CONF_FLAG   |
+                GSS_C_INTEG_FLAG    | GSS_C_DELEG_FLAG;
+
+    my $gssCtx = new GSSAPI::Context();
+    my $status;
+    my $gssInToken = '';
+    my $gssOutToken;
+    my $gssOidSet;
+    my $gssTime;
+    my $reply;
+
+    my $count = 1;
+    for (my $count = 1; $count <= 10; $count++)  {
+        $status = $gssCtx->init($gssCred, $gssName, undef, $flags,
+                                0, undef, $gssInToken, undef, $gssOutToken,
+                                undef, undef);
+        unless ($status->major() == GSS_S_CONTINUE_NEEDED or
+                $status->major() == GSS_S_COMPLETE) {
+            throw EBox::Exceptions::External(
+                __x('GSS: failed to init security context: {err}',
+                    err => $status->stringify()));
+        }
+        last if ($status->major() == GSS_S_COMPLETE and not defined $gssOutToken);
+
+        my $query = new Net::DNS::Packet($keyName, 'TKEY', 'ANY');
+        my $tkeyRR = new Net::DNS::RR(
+            name        => $keyName,
+            type        => 'TKEY',
+            ttl         => 0,
+            class       => 'ANY',
+            mode        => 3,
+            algorithm   => 'gss.microsoft.com',
+            inception   => time,
+            expiration  => time + 24*60*60,
+            key         => $gssOutToken,
+            other_data  => '',
+        );
+        $query->push(additional => $tkeyRR);
+        $reply = $resolver->send($query);
+        unless (defined $reply) {
+            throw EBox::Exceptions::External(
+                __x('GSS: Failed to send update: {err}.',
+                    err => $resolver->errorstring()));
+        }
+        unless ($reply->header->rcode() eq 'NOERROR') {
+            my $error = $reply->header->rcode();
+            throw EBox::Exceptions::External(
+                __x('GSS: Failed to send TKEY: {err}.',
+                    err => $error));
+        }
+        my $tkey;
+        foreach my $rr ($reply->answer()) {
+            next unless $rr->type() eq 'TKEY';
+    		$tkey = $rr;
+            last;
+	    }
+        unless (defined $tkey) {
+            throw EBox::Exceptions::External(
+                __('Failed to negotiate security context with DNS server. ' .
+                   'The server reply does not contain a TKEY record.')),
+        }
+        $gssInToken = $tkey->key();
+    };
+
+    # FIXME: According to RFC 3645, the response MUST be signed with a TSIG
+    #        record (section 3.1.3.1). Bind does not, while MS DNS server does.
+    #$self->_sigVerify($gssCtx, $reply);
+    return $gssCtx;
+}
+
+
+# Method: _negotiateContext
 #
 #   Negotiate the GSS context with the server
 #
-sub negotiate
+sub _negotiateContext
 {
-    my ($self) = @_;
+    my ($self, $keyName) = @_;
 
-    my $serverName = $self->{serverName};
-    $self->_getCreds($serverName);
+    # Acquire kerberos credentials
+    $self->_getCredentials();
 
-    # use a long random key name
-    my $keyname = int(rand 1000000000) . 'sig-saucy'; #TODO
-
-    # negotiate a TKEY key
-    $self->_negotiateTKEY($keyname);
-    unless (defined $self->{gssCtx}) {
-        throw EBox::Exceptions::External('Failed to negotiate a TKEY');
-    }
-    EBox::debug("Negotiated TKEY $keyname");
-
-}
-
-# Method: send
-#
-#   Perform the pending dynamic updates signing the request with the negotiated key
-#
-sub send
-{
-    my ($self) = @_;
-
-    my $domain = $self->{domain};
-
-    # construct a signed update
-    my $update = Net::DNS::Update->new($domain);
-
-    $update->push('pre', yxdomain($domain));
-
-    foreach my $op (@{$self->{pending}}) {
-        $update->push('update', $op);
-    }
-
-    my $sig = Net::DNS::RR->new(
-        Name => $self->{keyName},
-        Type => 'TSIG',
-        TTL => 0,
-        Class => 'ANY',
-        Algorithm => ALGORITHM,
-        Time_Signed => time,
-        Fudge => 36000,
-        Mac_Size => 0,
-        Mac => '',
-        Key => $self->{gssCtx},
-        Sign_Func => \&_gssSign,
-        Other_Len => 0,
-        Other_Data => '',
-        Error => 0,
-        mode => 3,
-    );
-
-    $self->{update}->push('additional', $sig);
-
-    # send the dynamic update
-    my $nameserver;
-    my $update_reply = $nameserver->send($self->{update});
-
-    # empty pending ops after send
-    $self->{pending} = [];
-
-    unless (defined $update_reply) {
-        throw EBox::Exceptions::External('GSS: No reply to dynamic update');
-    }
-
-    # make sure it worked
-    my $result = $update_reply->header->{'rcode'};
-    if ($result ne 'NOERROR') {
-        throw EBox::Exceptions::External("GSS: update failed with result code: $result");
-    }
-}
-
-sub _getCreds
-{
-    my ($self, $serverName) = @_;
-
-    my $realm = $self->{realm};
-
+    my $serverName = 'saucy.kernevil.lan'; # TODO
+    my $realm = 'KERNEVIL.LAN';
     my $status;
+    my $gssName;
 
-    # use a principal name of DNS/fqdn@REALM
-	$status = GSSAPI::Name->import($self->{gssName}, "DNS/" . $serverName . "@" . uc($realm));
+    $status = GSSAPI::Name->import($gssName, "DNS/$serverName\@$realm");
     if ($status->major() != 0) {
-        foreach my $error ($status->generic_message, $status->specific_message) {
+        foreach my $error ($status->generic_message(), $status->specific_message()) {
             EBox::error("GSSAPI error: $error");
         }
         throw EBox::Exceptions::External("GSS: name import failed");
     }
 
-	my ($gssCred, $gssOidSet, $gssTime);
-	$status = GSSAPI::Cred::acquire_cred(undef, 120, undef, GSS_C_INITIATE,
-			                             $gssCred, $gssOidSet, $gssTime);
+    my ($gssCred, $gssOidSet, $gssTime);
+    $status = GSSAPI::Cred::acquire_cred(undef, 120, undef, GSS_C_INITIATE,
+                                         $gssCred, $gssOidSet, $gssTime);
     if ($status->major() != 0) {
         foreach my $error ($status->generic_message, $status->specific_message) {
             EBox::error("GSSAPI error: $error");
@@ -154,95 +195,74 @@ sub _getCreds
         throw EBox::Exceptions::External("GSS: acquire credentials failed");
     }
 
-	EBox::debug('creds acquired');
+    # Negotiate the TKEY
+    return $self->_negotiateTKEY($keyName, $gssName, $gssCred);
 }
 
-
-sub _negotiateTKEY
+sub _getCredentials
 {
-	my ($self, $keyname) = @_;
+    my ($self) = @_;
 
-    my $nameserver = $self->{nameserver};
-    my $domain = $self->{domain};
-    my $server_name = $self->{serverName};
-
-    my $status;
-	my $flags = GSS_C_REPLAY_FLAG | GSS_C_MUTUAL_FLAG |
-		        GSS_C_SEQUENCE_FLAG | GSS_C_CONF_FLAG |
-		        GSS_C_INTEG_FLAG | GSS_C_DELEG_FLAG;
-
-    my $gssToken = undef;
-    my $gssToken2 = '';
-    my $gssReply;
-	my ($gssCred, $gssOidSet, $gssTime);
-
-    do {
-	    $status = $self->{gssCtx}->init($gssCred, $self->{gssName}, undef, $flags, 0, undef, $gssToken2, undef, $gssToken, undef, undef);
-	    my $gssQuery = new Net::DNS::Packet($keyname, 'TKEY', 'ANY');
-        my $tkeyRR = Net::DNS::RR->new(
-			name    => $keyname,
-			type    => 'TKEY',
-			ttl     => 0,
-			class   => 'ANY',
-			mode    => 3,
-			algorithm => ALGORITHM,
-			inception => time,
-			expiration => time + 24*60*60,
-			key => $gssToken,
-			other_data => '',
-		);
-	    $gssQuery->push(additional => $tkeyRR);
-
-        $gssReply = $nameserver->send($gssQuery);
-        unless (defined($gssReply) and ($gssReply->header->{'rcode'} eq 'NOERROR')) {
-            throw EBox::Exceptions::External("GSS: failed to send TKEY");
-        }
-
-        $gssToken2 = ($gssReply->answer)[0]->{"key"};
-	} while ($status->major() == GSS_S_CONTINUE_NEEDED);
-
-    if ($status->major() == GSS_S_COMPLETE) {
-        EBox::debug('Negotiation completed');
-    } else {
-        throw EBox::Exceptions::External('GSS: negotiation failed');
+    my $keytab = $self->{keytab};
+    my $principal = $self->{principal};
+    my $ret = kinit($keytab, $principal);
+    unless ($ret == 1) {
+        my $error = kerror();
+        throw EBox::Exceptions::External($error);
     }
-
-    # FIXME: bind does not sign the replies, remove the return when fixed
-    return;
-
-    EBox::debug('Verifying signature on the TKEY reply');
-    my $rc = $self->_sigVerify($self->{gssCtx}, $gssReply);
-    if (!$rc) {
-        EBox::error("Failed to verify TKEY reply: $rc");
-        return undef;
-    }
-    EBox::debug('Verification successful');
 }
 
-# signing callback function for TSIG module
+sub _sign
+{
+    my ($self) = @_;
+
+    my $keyName = time . '.sig-saucy'; # TODO
+
+    # Negotiate the GSS context
+    my $gssCtx = $self->_negotiateContext($keyName);
+
+    # Create the TSIG record
+    my $tsig = new Net::DNS::RR(
+        Name        => $keyName,
+        Type        => 'TSIG',
+        TTL         => 0,
+        Class       => 'ANY',
+        #Algorithm   => 'gss-tsig',
+        Algorithm   => 'gss.microsoft.com',
+        Time_Signed => time,
+        Fudge       => 36000,
+        Mac_Size    => 0,
+        Mac         => '',
+        Key         => $gssCtx,
+        Sign_Func   => \&_gssSign,
+        Other_Len   => 0,
+        Other_Data  => '',
+        Error       => 0,
+        Mode        => 3,
+    );
+
+    # And push to the update packet
+    my $packet = $self->_packet();
+    $packet->push(additional => $tsig);
+}
+
+# Method: _gssSign
+#
+#   Signing callback function
+#
 sub _gssSign
 {
-	my ($key, $data) = @_;
-	my $sig;
-	$key->get_mic(0, $data, $sig);
-	return $sig;
+    my ($key, $data) = @_;
+
+    my $sig;
+    $key->get_mic(0, $data, $sig);
+
+    return $sig;
 }
 
-# verify a TSIG signature from a DNS server reply
-sub _sigVerify
+sub DESTROY
 {
-	my ($self, $context, $packet) = @_;
-
-    my @tsig = $packet->additional();
-    EBox::debug("additional has " . scalar(@tsig));
-
-	my $tsig = $tsig[0];
-	EBox::debug('calling sig_data');
-	my $sigdata = $tsig->sig_data($packet);
-
-    EBox::debug('sig_data_done');
-
-	return $self->{gssCtx}->verify_mic($sigdata, $tsig->{'mac'}, 0);
+    kdestroy();
 }
 
 1;

@@ -22,6 +22,8 @@ use Net::DNS::Resolver;
 use Net::DNS::Update;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 sub new
 {
@@ -30,16 +32,14 @@ sub new
     my $self = {};
     bless ($self, $class);
 
-    # Find the name of the DNS server
+    unless (defined $params{domain}) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
     my $domain = $params{domain};
-    #my $serverName = $self->_findServerName($domain);
-    #my $sysinfo = EBox::Global->modInstance('sysinfo');
-    #my $serverName = $sysinfo->fqdn();
-    my $serverName = '127.0.0.1';
-    EBox::info("Using DNS server $serverName to update the domain $domain");
+    my $server = '127.0.0.1';
 
     $self->{domain} = $domain;
-    $self->{serverName} = $serverName;
+    $self->{server} = $server;
     $self->{packet} = new Net::DNS::Update($domain, 'IN');
 
     return $self;
@@ -47,7 +47,7 @@ sub new
 
 # Method: add
 #
-#   Push an 'add' update request to the pending operations list
+#   Push an 'add' update request to the update packet
 #
 # Parameters:
 #
@@ -57,6 +57,10 @@ sub add
 {
     my ($self, $record) = @_;
 
+    unless (defined $record) {
+        throw EBox::Exceptions::MissingArgument('record');
+    }
+
     my $domain = $self->{domain};
     my $packet = $self->{packet};
     $packet->push(update => rr_add($record));
@@ -64,7 +68,7 @@ sub add
 
 # Method: del
 #
-#   Push a 'del' update request to the pending operations list
+#   Push a 'del' update request to the update packet
 #
 # Parameters:
 #
@@ -74,6 +78,10 @@ sub del
 {
     my ($self, $record) = @_;
 
+    unless (defined $record) {
+        throw EBox::Exceptions::MissingArgument('record');
+    }
+
     my $domain = $self->{domain};
     my $packet = $self->{packet};
     $packet->push(update => rr_del($record));
@@ -81,22 +89,71 @@ sub del
 
 # Method: send
 #
-#
+#   Sign and send the update to the server.
 #
 sub send
 {
-    throw EBox::Exceptions::NotImplemented('send', __PACKAGE__);
+    my ($self) = @_;
+
+    # Get the resolver
+    my $resolver = $self->_resolver();
+
+    # Sign the update
+    $self->_sign();
+
+    # Send the update
+    my $packet = $self->_packet();
+    my $reply = $resolver->send($packet);
+    unless (defined $reply) {
+        throw EBox::Exceptions::External(
+            __x("Failed to send update: {err}.",
+                err => $resolver->errorstring()));
+    }
+    if ($reply->header->rcode() ne 'NOERROR') {
+        throw EBox::Exceptions::External(
+            __x("Failed to update: {err}.",
+                err => $reply->header->rcode()));
+    }
 }
 
 # Method: _sign
 #
-#
+#   Child classes must implement this method to sign the update packet.
 #
 sub _sign
 {
     my ($self) = @_;
 
     throw EBox::Exceptions::NotImplemented('_sign', __PACKAGE__);
+}
+
+# Method: _packet
+#
+#   Return the update packet.
+#
+sub _packet
+{
+    my ($self) = @_;
+
+    return $self->{packet};
+}
+
+# Method: _resolver
+#
+#   Return the resolver.
+#
+sub _resolver
+{
+    my ($self) = @_;
+
+    unless (defined $self->{resolver}) {
+        my $resolver = new Net::DNS::Resolver();
+        my $address = $self->{server};
+        $resolver->nameservers($address);
+        $self->{resolver} = $resolver;
+    }
+
+    return $self->{resolver};
 }
 
 # Method: _findServerName
@@ -107,8 +164,12 @@ sub _findServerName
 {
 	my ($self, $domain) = @_;
 
+    unless (defined $domain) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
 	my $resolver = new Net::DNS::Resolver();
-	my $reply = $resolver->query("$domain.", 'NS');
+	my $reply = $resolver->query($domain, 'NS');
 	unless (defined $reply) {
         throw EBox::Exceptions::External(
             __x("Failed to query the {dom} zone NS record: {err}",
