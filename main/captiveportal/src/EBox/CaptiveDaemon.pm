@@ -220,12 +220,21 @@ sub _updateSessions
 
         if ($lockedFw) {
             try {
-                my @pending;
+                my @rulesToExecute = ();
                 if ($self->{pendingRules}) {
-                    @pending = @{ $self->{pendingRules} };
+                    @rulesToExecute = @{ $self->{pendingRules} };
                     $self->{pendingRules} = undef;
                 }
-                EBox::Sudo::root(@pending, @rules, @removeRules) ;
+                push @rulesToExecute, @rules, @removeRules;
+                foreach my $rule (@rulesToExecute) {
+                    try {
+                        EBox::Sudo::root($rule);
+                    } otherwise {
+                        my ($ex) = @_;
+                        EBox::debug("Cannot execute captive portal fw rule: $ex");
+                        # ignore error and continue with next rule
+                    };
+                }
             } finally {
                 EBox::Util::Lock::unlock('firewall');
             };
