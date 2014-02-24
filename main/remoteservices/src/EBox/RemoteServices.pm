@@ -1726,11 +1726,13 @@ sub _confSOAPService
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
-        # Do nothing if CA or the sub-app are already removed
+        # Do nothing if CA or the sub-apps are already removed
         try {
             EBox::WebAdmin::PSGI::removeSubApp('/soap');
+            EBox::WebAdmin::PSGI::removeSubApp('/ebox');
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch (EBox::Exceptions::Internal $e) {
+        } catch (EBox::Exceptions::DataNotFound $e) {
         }
         unlink(SERV_DIR . 'ssl-auth.json');
     }
