@@ -1,3 +1,6 @@
+HEAD
+        + Added Warning in Dashboard when reboot is required by software
+          update
 3.4
 	+ Continue installation without ads if there is a error getting them
 	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
