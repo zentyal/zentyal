@@ -1744,9 +1744,9 @@ sub _confSOAPService
 #
 # if subscribed and has bundle and remoteservices_redirections.conf is written
 # 1. Write proxy-redirections.conf.mas template
-# 2. Add include in zentyal-apache configuration
+# 2. Add include in nginx configuration from webadmin module
 # elsif not subscribed
-# 1. Remove include in zentyal-apache configuration
+# 1. Remove include in nginx configuration from webadmin module
 #
 sub _setProxyRedirections
 {
@@ -1754,7 +1754,7 @@ sub _setProxyRedirections
 
     my $confFile = SERV_DIR . 'proxy-redirections.conf';
     my $webadminMod = EBox::Global->modInstance('webadmin');
-    if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
+    if ($self->hasBundle() and (-r REDIR_CONF_FILE)) {
         try {
             my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
             my @tmplParams = (
@@ -1764,7 +1764,7 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            # $webadminMod->addApacheInclude($confFile);
+            $webadminMod->addNginxInclude($confFile);
         } catch ($e) {
             # Not proper YAML file
             EBox::error($e);
@@ -1773,7 +1773,7 @@ sub _setProxyRedirections
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            # $webadminMod->removeApacheInclude($confFile);
+            $webadminMod->removeNginxInclude($confFile);
         } catch (EBox::Exceptions::Internal $e) {
         }
     }
