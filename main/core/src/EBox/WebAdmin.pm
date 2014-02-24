@@ -600,7 +600,6 @@ sub _nginxServers
 #
 # Parameters:
 #
-#      serv
 #      includeFilePath - String the configuration file path to include
 #      in nginx configuration
 #

@@ -1,4 +1,5 @@
 3.4
+	+ Port proxy redirections to Nginx from Apache
 	+ Use the new PortObserver to report a change in the webadmin
 	  listening port
 	+ Migrated to use Plack as the application server instead of mod_perl
