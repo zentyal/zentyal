@@ -104,7 +104,7 @@ sub _process
             }
             $reboot ='/var/run/reboot-required';
             if (-e $reboot) {
-                $updatesStr.= __(' Moreover, there are some updates that require a reboot to be applied');
+                $updatesStr.= __(' Moreover, there are some packages that require a reboot to be applied');
             }
         }
     }
