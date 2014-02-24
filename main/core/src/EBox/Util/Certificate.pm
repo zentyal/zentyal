@@ -92,7 +92,7 @@ sub _generateFileInfraestructure
     my $sslDir  = _sslDir($destDir, $type);
     my $file     = "$sslDir/ssl.$extension";
 
-    if (-e $file) {
+    if (EBox::Sudo::fileTest('-e', $file)) {
         # "$file already exists. Skipping generation\n";
         return ($file, 1);
     }
