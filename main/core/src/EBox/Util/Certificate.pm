@@ -92,7 +92,7 @@ sub _generateFileInfraestructure
     my $sslDir  = _sslDir($destDir, $type);
     my $file     = "$sslDir/ssl.$extension";
 
-    if (-e $file) {
+    if (EBox::Sudo::fileTest('-e', $file)) {
         # "$file already exists. Skipping generation\n";
         return ($file, 1);
     }
@@ -111,7 +111,7 @@ sub _sslDir
     my ($destDir, $postfix) = @_;
 
     my $sslDir = "$destDir";
-    if (not -d $sslDir) {
+    if (not EBox::Sudo::fileTest('-d', $sslDir)) {
         EBox::Sudo::root("mkdir -p '$sslDir'",
                          "chmod 0700 '$sslDir'",
                         );
