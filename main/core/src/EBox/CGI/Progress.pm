@@ -36,9 +36,8 @@ use File::Slurp;
 use JSON::XS;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
+use TryCatch::Lite;
 
-## arguments:
-##  title [required]
 sub new
 {
     my $class = shift;
@@ -182,7 +181,6 @@ sub _slidesFilePath
 
 sub _loadSlides
 {
-
     my $slidesPkg = 'zentyal-software';
     my $imgPkg = 'software';
     if (EBox::GlobalImpl::_packageInstalled('zentyal-cloud-prof')) {
@@ -192,9 +190,18 @@ sub _loadSlides
 
     my $file = _slidesFilePath($slidesPkg);
     EBox::debug("Loading ads from: $file");
-    my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
-    my $slides = decode_json($json);
+    my $json;
+    try {
+        $json = read_file($file);
+   } catch {
+       $json = undef;
+   }
+   if (not $json) {
+       EBox::error("Error loading ads. Ingnoring them");
+       return [];
+   }
 
+    my $slides = decode_json($json);
     my @html;
     my $num = 1;
     foreach my $slide (@{$slides}) {
