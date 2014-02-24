@@ -47,5 +47,4 @@ options {
     allow-transfer { internal-local-nets; };
 };
 
-
 logging { category lame-servers { null; }; };
