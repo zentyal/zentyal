@@ -111,7 +111,7 @@ sub _sslDir
     my ($destDir, $postfix) = @_;
 
     my $sslDir = "$destDir";
-    if (not -d $sslDir) {
+    if (not EBox::Sudo::fileTest('-d', $sslDir)) {
         EBox::Sudo::root("mkdir -p '$sslDir'",
                          "chmod 0700 '$sslDir'",
                         );
