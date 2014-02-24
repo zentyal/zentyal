@@ -1,4 +1,6 @@
 HEAD
+	+ On initial setup, do only reload bundle and restart the service
+	  if the server is registered
 	+ Fix warning on last inside an eval on automatic-conf-backup script
 3.2.3
 	+ Adapted to new AJAX update of save changes button
