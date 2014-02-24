@@ -107,7 +107,7 @@ sub _process
                 $updatesStr.= __(' Moreover, there are some updates that require a reboot to be applied');
             }
 
-}
+        }
     }
 
     $self->{json} = {
