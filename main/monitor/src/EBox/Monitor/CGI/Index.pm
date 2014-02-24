@@ -94,7 +94,8 @@ sub masonParameters
             $msgClass = 'note';
         } else {
             $msg = __x('{p}An error has happened reading RRD files: {strong}{error}{estrong}.{ep}'
-                       . '{p}This can be easily fixed by starting over again removing '
+                       . '{p}Retry to check if it is fixed.{ep}'
+                       . '{p}If not, this can be easily fixed by starting over again removing '
                        . 'the {dir} content and launching this command: {cmd}.{ep}'
                        . 'Take into account your monitor data will be lost.',
                        error => $error, p => '<p>', ep => '</ep>',
