@@ -1,3 +1,6 @@
+HEAD
+	+ Added packages involved in a restart requirement after upgrade in 
+          the event
 3.4
 	+ When there is no action defined for EBox::Software::CGI::InstallPkgs
 	  throw a MissingArgument instead of an Internal exception
