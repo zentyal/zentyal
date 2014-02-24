@@ -1,4 +1,5 @@
 3.4
+	+ Continue installation without ads if there is a error getting them
 	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
 	  WebAdmin sub-app requests
 	+ Ported restricted resources to use nginx
