@@ -64,8 +64,17 @@ try {
     if (-e '/var/run/reboot-required') {
         my $events = $global->getInstance(1)->modInstance('events');
         if ((defined $events) and ($events->isRunning())) {
+    
+            open FILE, "/var/run/reboot-required.pkgs" or die $!;
+            my $pending = '';
+            my @lines = <FILE>;
+            foreach my $line (@lines) {
+                $pending .= " " . $line;
+            } 
+	    close (FILE);
+
             $events->sendEvent(
-                        message => __x('A reboot is required in the host to complete the installation of packages'),
+                        message => __x('A reboot is required in the host to complete the installation of the following packages: ' . $pending ),
                         source  => 'reboot-required',
                         level   => 'info'
                     );
