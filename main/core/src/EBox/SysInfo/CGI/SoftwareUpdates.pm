@@ -106,7 +106,6 @@ sub _process
             if (-e $reboot) {
                 $updatesStr.= __(' Moreover, there are some updates that require a reboot to be applied');
             }
-
         }
     }
 
