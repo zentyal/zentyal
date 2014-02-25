@@ -126,13 +126,6 @@ sub _updateSessions
     my @removeRules;
     my %sidsFromFWRules = %{ $self->{module}->currentSidsByFWRules() };
 
-    # firewall already inserted rules, checked to avoid duplicates
-    my $iptablesRules = {
-        captive  => join('', @{EBox::Sudo::root(IPTABLES . ' -t nat -n -L captive')}),
-        icaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L icaptive')}),
-        fcaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L fcaptive')}),
-    };
-
     foreach my $user (@{$currentUsers}) {
         my $sid = $user->{sid};
         my $new = (not exists($self->{sessions}->{$sid}));
@@ -140,7 +133,7 @@ sub _updateSessions
         if ($new) {
             $self->{sessions}->{$sid} = $user;
 
-            push (@rules, @{$self->_addRule($user, $sid, $iptablesRules)});
+            push @rules, @{$self->_addRule($user, $sid)};
 
             # bwmonitor...
             $self->_matchUser($user);
@@ -194,11 +187,9 @@ sub _updateSessions
             my $oldip = $self->{sessions}->{$sid}->{ip};
             my $newip = $user->{ip};
             my $changedIP = $oldip ne $newip;
-            if ($changedIP or $notFWRules) {
-                push (@rules, @{$self->_addRule($user, $sid)});
-            }
             if ($changedIP) {
-                # Ip changed, update rules
+                EBox::debug("changedIp for user $user $sid");
+                # Ip changed, remove old rules
                 push (@rules, @{$self->_removeRule($self->{sessions}->{$sid}), $sid});
 
                 # bwmonitor...
@@ -208,6 +199,11 @@ sub _updateSessions
                 # update ip
                 $self->{sessions}->{$sid}->{ip} = $newip;
             }
+            if ($changedIP or $notFWRules) {
+                EBox::debug("adding  rule for cahngedIP notFWRules $user $sid");
+                push (@rules, @{$self->_addRule($user, $sid)});
+            }
+
         }
 
         delete $sidsFromFWRules{$sid};
@@ -221,7 +217,7 @@ sub _updateSessions
                 ($prevRule->{ip}   eq $rule->{ip})   and
                 ($prevRule->{mac}  eq $rule->{mac})
                ) {
-                # same rule, be have already rules to remove it
+                # same rule, we have already rules to remove it
                 next;
             }
             $prevRule = $rule;
@@ -267,7 +263,7 @@ sub _updateSessions
 
 sub _addRule
 {
-    my ($self, $user, $sid, $current) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
@@ -276,9 +272,9 @@ sub _addRule
     my $rule = $self->{module}->userFirewallRule($user, $sid);
 
     my @rules;
-    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
+    push (@rules, IPTABLES . " -t nat -I captive $rule");
+    push (@rules, IPTABLES . " -I fcaptive $rule");
+    push (@rules, IPTABLES . " -I icaptive $rule");
     # conntrack remove redirect conntrack (this will remove
     # conntrack state for other connections from the same source but it is not
     # important)
@@ -293,9 +289,9 @@ sub _removeRule
 
     my $ip = $user->{ip};
     my $name = $user->{user};
-    EBox::debug("Removing user $name with IP $ip");
 
     my $rule = $self->{module}->userFirewallRule($user, $sid);
+    EBox::debug("Removing user $name with IP $ip base rule $rule");
     my @rules;
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");

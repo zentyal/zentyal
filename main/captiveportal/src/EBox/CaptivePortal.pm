@@ -307,8 +307,9 @@ sub currentSidsByFWRules
 # Also it is assumed that it is only one rule by session
 # Example: 0 0 RETURN all -- * * 192.168.56.5 0.0.0.0/0 MAC 00:0C:29:E7:71:B8 /*u1:d128a0371046a523c8eb4ad79206de38 */
 
-    foreach my $chain ('icaptive', 'fcaptive') {
-        my $rules = EBox::Sudo::root("iptables -vL $chain -n");
+    foreach my $tableAndChain (['nat', 'captive'], ['filter', 'icaptive'], ['filter', 'fcaptive']) {
+        my ($table, $chain) = @{ $tableAndChain };
+        my $rules = EBox::Sudo::root("iptables -t $table -vL $chain -n");
         foreach my $rule (@{$rules}) {
             $rule =~ m{
                           ([\d.]+)\s+                # source field $1

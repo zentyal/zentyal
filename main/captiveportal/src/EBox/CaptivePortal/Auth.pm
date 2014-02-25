@@ -96,6 +96,7 @@ sub _savesession
                 "Could not open to write ".  $filename);
     }
 
+    EBox::debug("BEGin save session $user $sid");
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
@@ -116,6 +117,7 @@ sub _savesession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
+    EBox::debug("ENDin save session $user $sid");
 
     return $sid . $key;
 }
@@ -133,6 +135,7 @@ sub updateSession
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
     # Lock in exclusive
+    EBox::debug("BEGin to update $sid");
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
@@ -154,6 +157,7 @@ sub updateSession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
+    EBox::debug("END to update $sid");
 }
 
 # Method: checkPassword

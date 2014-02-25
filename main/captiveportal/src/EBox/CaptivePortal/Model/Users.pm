@@ -235,7 +235,7 @@ sub syncRows
     my @sessionsToDel = grep { not exists $sessions->{$_} } keys %currentSessions;
     my @sessionsToModify = grep { exists $sessions->{$_} } keys %currentSessions;
 
-    unless (@sessionsToAdd + @sessionsToDel + @sessionsToModify) {
+    unless (@sessionsToAdd or @sessionsToDel or @sessionsToModify) {
         return 0;
     }
 
@@ -357,7 +357,13 @@ sub currentUsers
             quotaExtension => $quotaExtension,
             bwusage => $bwusage,
         });
+
+        EBox::debug("User by model " . $row->valueByName('user') . " sid:" . $row->valueByName('sid') );
+
     }
+
+
+
     return \@users;
 }
 
