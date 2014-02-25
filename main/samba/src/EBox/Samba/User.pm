@@ -105,6 +105,7 @@ sub changePassword
 # Method: setCredentials
 #
 #   Configure user credentials directly from kerberos hashes
+#   IMPORTANT: We cannot use lazy flag here due to the relaxing permissions we need.
 #
 # Parameters:
 #
@@ -112,7 +113,7 @@ sub changePassword
 #
 sub setCredentials
 {
-    my ($self, $keys, $lazy) = @_;
+    my ($self, $keys) = @_;
 
     my $pwdSet = 0;
     my $credentials = new EBox::Samba::Credentials(krb5Keys => $keys);
@@ -140,7 +141,7 @@ sub setCredentials
     my $bypassControl = Net::LDAP::Control->new(
         type => '1.3.6.1.4.1.7165.4.3.12',
         critical => 1 );
-    $self->save($bypassControl) unless $lazy;
+    $self->save($bypassControl);
 }
 
 # Method: deleteObject

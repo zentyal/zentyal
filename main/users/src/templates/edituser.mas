@@ -41,6 +41,15 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                    &>
           </div>
           <div>
+          <label><% __('Display name') %><span class="optional_field"><% __('Optional') %></label>
+
+                  <& masterSlaveUserAttr,
+                               name => 'displayname',
+                               value=> $user->displayname(),
+                               slave => $slave,
+                   &>
+          </div>
+          <div>
           <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'description',
@@ -66,7 +75,6 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
             <% __('Disabled account') %>
           </label>
           </div>
-          
 %   unless ($slave) {
           <div>
             <label><% __('Password') %></label>
@@ -74,14 +82,14 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
           </div>
           <div>
             <label><% __('Retype password') %></label>
-            <input type='password' class='inputText' name='repassword'> 
+            <input type='password' class='inputText' name='repassword'>
           </div>
 % }
           <div>
           <input class='btn btn-submit' id='submitEditUserForm' type='submit' name='user'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
-          </div>   
+          </div>
      </form>
 </div>
 <div id="user_groups" class="form-block half-block">

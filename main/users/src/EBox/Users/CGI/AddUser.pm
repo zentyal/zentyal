@@ -55,7 +55,6 @@ sub _process
 
         $params{givenname} = $self->param('givenname');
         $params{surname} = $self->param('surname');
-        $params{fullname} = $self->param('fullname');
 
         $params{password} = $self->unsafeParam('password');
         $params{repassword} = $self->unsafeParam('repassword');
