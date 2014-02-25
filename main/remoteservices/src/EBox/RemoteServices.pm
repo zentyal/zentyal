@@ -204,15 +204,18 @@ sub initialSetup
     my ($self, $version) = @_;
 
     if (defined ($version)) {
-        # Reload bundle without forcing
-        $self->reloadBundle(0);
+        # Upgrading...
+        if ($self->eBoxSubscribed()) {
+            # Reload bundle without forcing
+            $self->reloadBundle(0);
+            # Restart the service
+            unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
+                $self->restartService();
+            }
+        }
     }
 
     EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
-
-    unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
-        $self->restartService();
-    }
 }
 
 sub _setRemoteSupportAccessConf
