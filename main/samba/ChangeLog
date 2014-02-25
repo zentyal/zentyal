@@ -1,4 +1,6 @@
 3.4
+	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
+	  and added a note about why it cannot be used in the method documentation
 	+ Write openchange options to use mysql as backend
 	+ Use new addModuleToPostSave Global interface in Provision class
 	+ Depend on new samba packaging instead of old samba4 one
