@@ -150,7 +150,7 @@ sub updateSession
         my $data = YAML::XS::Load($sess_info);
         $data->{time} = $time;
         $data->{ip} = $ip;
-        $data->{mac} = ip_mac($ip);
+        $data->{mac} = uc(ip_mac($ip));
         print $sidFile YAML::XS::Dump($data);
     }
 
