@@ -146,6 +146,7 @@ sub _migrateFormKeys
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
     $self->SUPER::enableActions();
     $self->_setupDNS();
 }
@@ -942,7 +943,7 @@ sub isProvisionedWithMySQL
 #   OpenChange: named properties, openchangedb and indexing.
 #
 #   Currently MySQL is used as backend, the first time this method is called an
-#   openchange user will be created 
+#   openchange user will be created
 #
 # Returns:
 #

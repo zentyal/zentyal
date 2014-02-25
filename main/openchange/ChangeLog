@@ -1,4 +1,5 @@
 3.4
+	+ Made module incompatible with external AD mode
 	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
 	+ Don't allow to remove outgoing mail virtual domain
 	+ Added rpcproxy service
