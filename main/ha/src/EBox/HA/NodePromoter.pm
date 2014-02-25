@@ -51,9 +51,13 @@ sub promote
     my ($nodeName) = @_;
 
     my @cmds = ();
+    my $clusterStatus = new EBox::HA::ClusterStatus();
+
     foreach my $r (@{_simpleResources()}) {
-        my $node = _locateResource($r);
-        if (not defined($node) or ($node ne $nodeName)) {
+        my $resourceStatus = $clusterStatus->resourceByName($r);
+        my @runningNodes = @{ $resourceStatus->{nodes} };
+
+        if (not ($nodeName ~~ @runningNodes)) {
             push(@cmds,
                  qq{crm_resource --resource '$r' --move --host '$nodeName'},
                  'sleep 3',
@@ -110,23 +114,6 @@ sub _simpleResources
 
     my @primitives = map { $_->getAttribute('id') } @primitivesElems;
     return \@primitives;
-}
-
-# Locate a resource based on info from monDoc
-# Return undef if the resource is stopped
-sub _locateResource
-{
-    my ($rscName) = @_;
-
-    my $clusterStatus = new EBox::HA::ClusterStatus();
-    my $dom = $clusterStatus->xmlStatus();
-
-    my ($elem) = $dom->findnodes("//resource[\@id='$rscName']");
-    if (defined($elem) and $elem->getAttribute('role') eq 'Started') {
-        return $elem->childNodes()->get_node(2)->getAttribute('name');
-    }
-
-    return undef;
 }
 
 1;

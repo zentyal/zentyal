@@ -1605,8 +1605,7 @@ sub _setFloatingIPRscs
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $rscName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($rscName);
-                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                if ($self->_resourceCanBeMovedToNode($rscName, $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$rscName' --move --host '$activeNode'",
                          "sleep 3",
@@ -1618,6 +1617,24 @@ sub _setFloatingIPRscs
             }
         }
     }
+}
+
+# Returns if the resource can be moved to the given node (usually active node)
+sub _resourceCanBeMovedToNode
+{
+    my ($self, $resource, $node) = @_;
+
+    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+
+    my $resourceStatus = $clusterStatus->resourceByName($resource);
+
+    if (defined($resourceStatus)) {
+        my @runningNodes = @{ $resourceStatus->{nodes} };
+
+        return (not ($node ~~ @runningNodes));
+    }
+
+    return 0;
 }
 
 # Set up and down the modules with a single instance in the cluster
@@ -1664,8 +1681,7 @@ sub _setSingleInstanceInClusterModules
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $modName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($modName);
-                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                if ($self->_resourceCanBeMovedToNode($modName, $activeNode)) {
                     push(@rootCmds,
                          "crm_resource --resource '$modName' --move --host '$activeNode'",
                          "sleep 3",
