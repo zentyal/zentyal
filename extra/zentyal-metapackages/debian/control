@@ -90,7 +90,7 @@ Depends: at, ack-grep, autojump, bash-completion, binutils, byobu,
          iftop, info, iotop, ipcalc, iptables, iptraf, kpartx, joe,
          logrotate, lsof, ltrace, lynx, mailutils, man-db, manpages,
          mime-support, mosh, mtr-tiny, ncftp, ngrep, nmap, netstat-nat,
-         pastebinit, psmisc, pv, rsync, screen, slay, strace, sysstat,
+         pastebinit, psmisc, pv, rsync, screen, slay, squidclient, strace, sysstat,
          tcpdump, telnet, time, tofrodos, traceroute, unrar-free,
          uuid-runtime, unzip, vim, wget, zip
 Description: Zentyal - Support Tools
