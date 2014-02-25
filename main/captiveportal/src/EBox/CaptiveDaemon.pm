@@ -100,6 +100,7 @@ sub run
 
     my $timeLeft;
     while (1) {
+        EBox::debug("BEG CAPTIVE LOOP");
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
 
@@ -111,6 +112,7 @@ sub run
             }
             usleep(80);
         }
+        EBox::debug("END CAPTIVE LOOP");
     }
 }
 
