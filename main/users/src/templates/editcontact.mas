@@ -23,6 +23,8 @@ use JSON::XS;
             <input type='text' class='inputText' name='firstname' value="<% $contact->firstname() %>">
         <label><% __('Last name') %></label>
             <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
+        <label><% __('Display name') %><span class="optional_field"><% __('Optional') %></span></label>
+            <input type='text' class='inputText' name='displayname' value="<% $contact->displayname() %>">
         <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
             <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
         <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>

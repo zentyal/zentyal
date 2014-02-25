@@ -395,8 +395,40 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
+    # Upgrade from previous versions
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        # Perform the migration to 3.4
+        $self->_migrateTo34();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.4
+#
+# * Fixed displayName value to match cn if not set already.
+#
+sub _migrateTo34
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    my $ldap = $self->ldap;
+
+    my $users = $self->users(1);
+    foreach my $user (@{$users}) {
+        unless ($user->displayname()) {
+            $user->set('displayname', $user->fullname());
+        }
+    }
+
+    foreach my $contact (@{$self->contacts()}) {
+        unless ($contact->displayname()) {
+            $contact->set('displayname', $contact->fullname());
+        }
+    }
 }
 
 sub _checkEnableIPs
