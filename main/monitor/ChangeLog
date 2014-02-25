@@ -1,3 +1,7 @@
+HEAD
+	+ Show save changes message advice only when it applies
+	+ Do not show internal errors when possible and suggest an advice
+	  to fix it
 3.2.1
 	+ Adapted strings to new offering
 	+ Added missing EBox::Exceptions uses
