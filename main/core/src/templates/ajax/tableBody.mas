@@ -81,7 +81,7 @@ use Perl6::Junction qw(any);
     $page = 0;
   } elsif ($page == -1) {
     # go to last page
-    $page = POSIX::floor(@ids/$pageSizeInt);
+    $page = POSIX::ceil(@ids/$pageSize) - 1;
   }
 
 my %checkAllControls = %{ $model->checkAllControls()  };
