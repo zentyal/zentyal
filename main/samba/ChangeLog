@@ -1,4 +1,6 @@
 HEAD
+	+ Change Allow_non_scanned_files on samba.conf as default to 
+	  avoid issues with antivirus when editing files.
 	+ Set OpenChange as not provisioned when Samba is reprovisioned
 	+ Added a way to check whether we are managing the AD schema or not
 	+ Samba provision failures when IPs are not set no longer talk
