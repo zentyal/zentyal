@@ -1357,7 +1357,6 @@ sub _setPSGI
         } catch (EBox::Exceptions::Internal $e) {
             # Do nothing if the include has been already removed
         }
-        EBox::Sudo::root("rm -f '$upstartJobFile'");
     }
     if (not $self->isReadOnly() and $self->global()->modIsChanged('webadmin')) {
         $self->global()->addModuleToPostSave('webadmin');
