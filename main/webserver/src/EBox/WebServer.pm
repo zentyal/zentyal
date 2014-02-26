@@ -28,7 +28,7 @@ use EBox::Service;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
 use EBox::WebServer::PlatformPath;
-use EBox::WebServer::Model::GeneralSettings;
+use EBox::WebServer::Model::PublicFolder;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
 
@@ -175,8 +175,8 @@ sub initialSetup
 
         $haproxyMod->setHAProxyServicePorts(@args);
 
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue(enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
+        my $settings = $self->model('PublicFolder');
+        $settings->setValue(enableDir => EBox::WebServer::Model::PublicFolder::DefaultEnableDir());
     }
 
     # Upgrade from pre 3.3
@@ -235,10 +235,14 @@ sub initialSetup
 
         $haproxyMod->setHAProxyServicePorts(@args);
 
-        if ($value) {
-            # At this point the migration is complete so is safe to commit the changes in Redis.
-            $redis->set($key, $value);
+        my @keys = $redis->_keys('webserver/*/GeneralSettings/keys/forms');
+        foreach my $key (@keys) {
+            my $value = $redis->get($key);
+            my $newkey = $key;
+            $newkey =~ s{GeneralSettings}{PublicFolder};
+            $redis->set($newkey, { enableDir => $value->{enableDir} });
         }
+        $redis->unset(@keys);
 
         # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
         my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
@@ -480,7 +484,7 @@ sub _setUserDir
 {
     my ($self) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
+    my $generalConf = $self->model('PublicFolder');
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module

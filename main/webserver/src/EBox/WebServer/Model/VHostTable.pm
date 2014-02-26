@@ -100,7 +100,6 @@ sub validateTypedRow
     if (exists $changedFields->{ssl}) {
         # SSL checking
         my $webserverMod = $self->parentModule();
-        my $settings = $webserverMod->model('GeneralSettings');
         my $ca = EBox::Global->modInstance('ca');
         my $certificates = $ca->model('Certificates');
         if ($changedFields->{ssl}->value() ne 'disabled') {
