@@ -183,9 +183,8 @@ sub _updateSessions
                 }
             }
         } else {
-            # NOT new session
             # Check for IP change or missing rule
-            my $notFWRules = (not exists $sidsFromFWRules{$sid});
+            my $notFWRules = (not $new) and (not exists $sidsFromFWRules{$sid});
             my $oldip = $self->{sessions}->{$sid}->{ip};
             my $newip = $user->{ip};
             my $changedIP = $oldip ne $newip;
