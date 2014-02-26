@@ -37,12 +37,20 @@ use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
+use String::Random;
 
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007;
 
 # Init logger
 EBox::initLogger('captiveportal-log.conf');
+
+sub new
+{
+    my ($class, @params) = @_;
+    srand();
+    return $class->SUPER::new(@params);
+}
 
 # Method: _savesession
 #
@@ -62,21 +70,13 @@ sub _savesession
     print STDERR "\nXXXXX " .  ("_savesession($user, $passwd, $ip, $sid, $key)");
 
     if(not defined($sid)) {
-        my $rndStr;
-        for my $i (1..64) {
-            $rndStr .= rand (2**32);
-        }
-
+        print STDERR "\nXXXXX Creating sid...";
         my $md5 = Digest::MD5->new();
-        $md5->add($rndStr);
+        $md5->add($$ , time() , rand(time) );
         $sid = $md5->hexdigest();
 
-        for my $i (1..64) {
-            $rndStr .= rand (2**32);
-        }
         $md5 = Digest::MD5->new();
-        $md5->add($rndStr);
-
+        $md5->add($$ , time() , rand(time) );
         $key = $md5->hexdigest();
     }
 
@@ -241,7 +241,7 @@ sub _checkLdapPassword
 sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
-
+    print STDERR "\nXXXXX " .  ("Authen_cred $user $passwd");
     unless ($self->checkPassword($user, $passwd)) {
         my $ip  = $r->connection->remote_ip();
         EBox::warn("Failed login from: $ip");
@@ -258,7 +258,7 @@ sub authen_cred  # (request, user, password)
 sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_data) = @_;
-
+    print STDERR "\nXXXXX " .  ("Authen_ses_key $session_data");
     my $session_key = substr($session_data, 0, 32);
     my $sidFile; # sid file handle
 
@@ -285,6 +285,8 @@ sub authen_ses_key  # (request, session_key)
     flock($sidFile, LOCK_UN);
     close($sidFile);
 
+    print STDERR "\nXXXXX " .  ("user |$user| session_key |$session_key+");
+
     if(defined($user)) {
         updateSession($session_key, $r->connection->remote_ip());
         return $user;
@@ -305,6 +307,7 @@ sub logout # (request)
 
     # expire session
     my $session_key = substr($self->key($r), 0, 32);
+    print STDERR "\nXXXXX " .  ("logou session_key $session_key");
     updateSession($session_key, $r->connection->remote_ip(), 0);
 
     # notify captive daemon
