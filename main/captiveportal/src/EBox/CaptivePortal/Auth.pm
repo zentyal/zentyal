@@ -67,10 +67,8 @@ sub new
 sub _savesession
 {
     my ($user, $passwd, $ip, $sid, $key) = @_;
-    print STDERR "\nXXXXX " .  ("_savesession($user, $passwd, $ip, $sid, $key)");
 
     if(not defined($sid)) {
-        print STDERR "\nXXXXX Creating sid...";
         my $md5 = Digest::MD5->new();
         $md5->add($$ , time() , rand(time) );
         $sid = $md5->hexdigest();

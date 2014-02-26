@@ -357,12 +357,7 @@ sub currentUsers
             quotaExtension => $quotaExtension,
             bwusage => $bwusage,
         });
-
-        EBox::debug("User by model " . $row->valueByName('user') . " sid:" . $row->valueByName('sid') );
-
     }
-
-
 
     return \@users;
 }
