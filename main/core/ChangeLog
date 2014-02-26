@@ -1,5 +1,5 @@
 3.4
-	+ Send restartUI flag to restart service when restarting a service
+	+ Send restartUI flag to restart service when restarting a module
 	  from the UI
 	+ Fix calculation of page number when using go to last page control
 	+ Update tracker url in dashboard widget
