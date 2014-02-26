@@ -81,11 +81,11 @@ sub _ipCollides
     my $ipCollisionReason = "";
 
     if ($self->_existsNetworkIpCollision($iface, $ip)) {
-        $ipCollisionReason = __('There is a Network interface with the given IP address.');
+        $ipCollisionReason = __('There is a network interface with the given IP address.');
     } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
-        $ipCollisionReason = __('There is a fixed DHCP object with the given IP address.');
+        $ipCollisionReason = __('There is a fixed address in DHCP with the given IP address.');
     } elsif ($self->_existsDhcpRangesCollision($iface, $ip)) {
-        $ipCollisionReason = __('There is a DHCP range that include the given IP address.');
+        $ipCollisionReason = __('There is a DHCP range that includes the given IP address.');
     }
 
     return $ipCollisionReason;
