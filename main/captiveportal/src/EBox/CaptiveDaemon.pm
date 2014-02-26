@@ -100,7 +100,6 @@ sub run
 
     my $timeLeft;
     while (1) {
-        EBox::debug("BEG CAPTIVE LOOP");
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
 
@@ -112,7 +111,6 @@ sub run
             }
             usleep(80);
         }
-        EBox::debug("END CAPTIVE LOOP");
     }
 }
 
@@ -189,7 +187,6 @@ sub _updateSessions
             my $newip = $user->{ip};
             my $changedIP = $oldip ne $newip;
             if ($changedIP) {
-                EBox::debug("changedIp for user $user $sid");
                 # Ip changed, remove old rules
                 push (@rules, @{$self->_removeRule($self->{sessions}->{$sid}), $sid});
 
@@ -201,7 +198,6 @@ sub _updateSessions
                 $self->{sessions}->{$sid}->{ip} = $newip;
             }
             if ($changedIP or $notFWRules) {
-                EBox::debug("adding  rule for cahngedIP notFWRules $user $sid");
                 push (@rules, @{$self->_addRule($user, $sid)});
             }
 
