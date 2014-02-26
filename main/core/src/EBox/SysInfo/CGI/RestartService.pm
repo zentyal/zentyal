@@ -47,7 +47,7 @@ sub _process
     my $name = $mod->printableName();
     $self->{chain} = "/Dashboard/Index";
     try {
-        $mod->restartService();
+        $mod->restartService(restartUI => 1);
         $self->{msg} = __('The module was restarted correctly.');
 
         my $audit = $global->modInstance('audit');
