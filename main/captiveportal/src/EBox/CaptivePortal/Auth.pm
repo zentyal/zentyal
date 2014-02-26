@@ -39,7 +39,7 @@ use File::Basename;
 use YAML::XS;
 
 # Session files dir, +rw for captiveportal & zentyal
-use constant UMASK => 0007; # (Bond, James Bond)
+use constant UMASK => 0007;
 
 # Init logger
 EBox::initLogger('captiveportal-log.conf');
@@ -59,6 +59,7 @@ EBox::initLogger('captiveportal-log.conf');
 sub _savesession
 {
     my ($user, $passwd, $ip, $sid, $key) = @_;
+    print STDERR "\nXXXXX " .  ("_savesession($user, $passwd, $ip, $sid, $key)");
 
     if(not defined($sid)) {
         my $rndStr;
@@ -96,7 +97,7 @@ sub _savesession
                 "Could not open to write ".  $filename);
     }
 
-    EBox::debug("BEGin save session $user $sid");
+    print STDERR "\nXXXXX " .  ("BEGin save session $user $sid");
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
@@ -117,7 +118,7 @@ sub _savesession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
-    EBox::debug("ENDin save session $user $sid");
+    print STDERR "\nXXXXX " .  ("ENDin save session $user $sid");
 
     return $sid . $key;
 }
@@ -126,7 +127,7 @@ sub _savesession
 sub updateSession
 {
     my ($sid, $ip, $time) = @_;
-
+    print STDERR "\nXXXXX " .  ("updateSession($sid, $ip)");
     defined($time) or $time = time();
 
     my $sidFile;
@@ -135,7 +136,7 @@ sub updateSession
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
     # Lock in exclusive
-    EBox::debug("BEGin to update $sid");
+    print STDERR "\nXXXXX " .  ("BEGin to update $sid");
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
@@ -157,7 +158,7 @@ sub updateSession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
-    EBox::debug("END to update $sid");
+    print STDERR "\nXXXXX " .  ("END to update $sid");
 }
 
 # Method: checkPassword
