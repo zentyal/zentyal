@@ -97,7 +97,6 @@ sub _savesession
                 "Could not open to write ".  $filename);
     }
 
-    print STDERR "\nXXXXX " .  ("BEGin save session $user $sid");
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
@@ -118,7 +117,6 @@ sub _savesession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
-    print STDERR "\nXXXXX " .  ("ENDin save session $user $sid");
 
     return $sid . $key;
 }
@@ -127,7 +125,6 @@ sub _savesession
 sub updateSession
 {
     my ($sid, $ip, $time) = @_;
-    print STDERR "\nXXXXX " .  ("updateSession($sid, $ip)");
     defined($time) or $time = time();
 
     my $sidFile;
@@ -136,7 +133,6 @@ sub updateSession
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
     # Lock in exclusive
-    print STDERR "\nXXXXX " .  ("BEGin to update $sid");
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
@@ -158,7 +154,6 @@ sub updateSession
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
-    print STDERR "\nXXXXX " .  ("END to update $sid");
 }
 
 # Method: checkPassword
@@ -241,7 +236,6 @@ sub _checkLdapPassword
 sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
-    print STDERR "\nXXXXX " .  ("Authen_cred $user $passwd");
     unless ($self->checkPassword($user, $passwd)) {
         my $ip  = $r->connection->remote_ip();
         EBox::warn("Failed login from: $ip");
@@ -258,7 +252,6 @@ sub authen_cred  # (request, user, password)
 sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_data) = @_;
-    print STDERR "\nXXXXX " .  ("Authen_ses_key $session_data");
     my $session_key = substr($session_data, 0, 32);
     my $sidFile; # sid file handle
 
@@ -285,7 +278,6 @@ sub authen_ses_key  # (request, session_key)
     flock($sidFile, LOCK_UN);
     close($sidFile);
 
-    print STDERR "\nXXXXX " .  ("user |$user| session_key |$session_key+");
 
     if(defined($user)) {
         updateSession($session_key, $r->connection->remote_ip());
@@ -307,7 +299,6 @@ sub logout # (request)
 
     # expire session
     my $session_key = substr($self->key($r), 0, 32);
-    print STDERR "\nXXXXX " .  ("logou session_key $session_key");
     updateSession($session_key, $r->connection->remote_ip(), 0);
 
     # notify captive daemon
