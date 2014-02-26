@@ -324,6 +324,29 @@ sub test_admin_port_changed : Test(3)
     $list->empty();
 }
 
+sub test_restart_required : Test(7)
+{
+    my ($self) = @_;
+
+    my $mod = $self->{mod};
+    ok(not($mod->_restartRequired()), 'By default, restart is not required');
+
+    $mod->{restart_required} = 1;
+    ok($mod->_restartRequired(), 'Set restart required');
+    ok(not(exists $mod->{restart_required}), 'Flag unset');
+
+    ok($mod->_restartRequired(restartModules => 1), 'Restart from CLI');
+    ok($mod->_restartRequired(restartUI => 1), 'Restart from GUI');
+
+    my $state = $mod->get_state();
+    $state->{replicating} = 1;
+    $mod->set_state($state);
+    ok(not($mod->_restartRequired()), 'Do not restart when replicating');
+    delete $state->{replicating};
+
+    ok(not($mod->_restartRequired()), 'At the end, restart is not required');
+}
+
 1;
 
 END {
