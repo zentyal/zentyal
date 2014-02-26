@@ -599,6 +599,8 @@ sub setServicePorts
             } else {
                 $portItem->setValue({ port_disabled => undef });
             }
+        } else {
+            $portItem->setValue({ port_disabled => undef });
         }
         my $defaultItem = $moduleRow->elementByName('defaultPort');
         if ($args{defaultPort}) {
@@ -613,6 +615,8 @@ sub setServicePorts
             } else {
                 $sslPortItem->setValue({ sslPort_disabled => undef });
             }
+        } else {
+            $sslPortItem->setValue({ sslPort_disabled => undef });
         }
         my $defaultSSLItem = $moduleRow->elementByName('defaultSSLPort');
         if ($args{defaultSSLPort}) {
