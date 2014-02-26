@@ -164,6 +164,19 @@ sub resourceByName
     return undef;
 }
 
+sub areThereUnamanagedResources
+{
+    my ($self) = @_;
+
+    foreach my $key (keys %{ $_resources }) {
+        if (not $_resources->{$key}{managed}) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 # Function: nodeByName
 #
 # Parameters:
