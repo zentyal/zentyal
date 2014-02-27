@@ -1,4 +1,5 @@
 3.4
+	+ Revert haproxy status as changed after webadmin's initialSetup
 	+ Send restartUI flag to restart service when restarting a module
 	  from the UI
 	+ Fix calculation of page number when using go to last page control

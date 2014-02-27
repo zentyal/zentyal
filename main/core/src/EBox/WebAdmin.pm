@@ -863,13 +863,19 @@ sub initialSetup
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
         my $haproxyMod = $self->global()->modInstance('haproxy');
+        my $alreadyChanged = $haproxyMod->changed();
         $haproxyMod->setHAProxyServicePorts(@args);
+        if ((not $alreadyChanged) and $haproxyMod->changed()) {
+            $haproxyMod->setAsChanged(0);
+        }
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
     }
+
+
 }
 
 # Migration to 3.4
