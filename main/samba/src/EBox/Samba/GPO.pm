@@ -37,6 +37,7 @@ use Data::UUID;
 use Fcntl;
 use TryCatch::Lite;
 use Net::LDAP::Control;
+use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
 use Samba::Security::Descriptor;
 
 use constant STATUS_ENABLED                 => 0x00;
@@ -416,8 +417,12 @@ sub create
 
         $smb->mkdir("$path\\USER");
         $smb->mkdir("$path\\MACHINE");
-        my $fd = $smb->open("$path\\GPT.INI", O_CREAT | O_RDWR | O_TRUNC,
-            Samba::Smb::DENY_NONE);
+        my $openParams = {
+            open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+            access_mask => SEC_RIGHTS_FILE_ALL,
+            file_attr => FILE_ATTRIBUTE_NORMAL,
+        };
+        my $fd = $smb->open("$path\\GPT.INI", $openParams);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
     } catch ($e) {
@@ -533,8 +538,16 @@ sub extensionUpdate
     }
 
     # Update GPT.INI file
-    my $fd = $smb->open($gptIniPath,
-        O_CREAT | O_RDWR | O_TRUNC, Samba::Smb::DENY_NONE);
+    my $openParams = {
+        open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+        access_mask => SEC_RIGHTS_FILE_ALL,
+        file_attr => FILE_ATTRIBUTE_NORMAL,
+    };
+    if ($smb->chkpath($gptIniPath)) {
+        my $finfo = $smb->getattr($gptIniPath);
+        $openParams->{file_attr} = $finfo->{mode};
+    }
+    my $fd = $smb->open($gptIniPath, $openParams);
     my $gptContent;
     foreach my $section (keys %{$data}) {
         my $wrote;

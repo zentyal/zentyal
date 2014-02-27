@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -110,7 +110,7 @@ sub validateTypedRow
             }
             unless ($certificates->isEnabledService('zentyal_' . $webserverMod->name())) {
                 throw EBox::Exceptions::External(
-                    __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
+                    __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtual host.',
                         module => $webserverMod->printableName(), ohref => '<a href="/CA/View/Certificates">',
                         chref => '</a>')
                     );

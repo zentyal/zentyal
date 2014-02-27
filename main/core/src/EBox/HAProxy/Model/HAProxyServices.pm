@@ -272,14 +272,14 @@ sub validateTypedRow
         if (exists $params_r->{port}) {
             if ($actual_r->{blockPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the http port.')
+                    __('This service does not allow to change the HTTP port.')
                 );
             }
         }
         if (exists $params_r->{sslPort}) {
             if ($actual_r->{blockSSLPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the https port.')
+                    __('This service does not allow to change the HTTPS port.')
                 );
             }
         }
@@ -374,7 +374,7 @@ sub validateTypedRow
                     my $certificates = $ca->model('Certificates');
                     unless ($certificates->isEnabledService($module->caServiceIdForHTTPS())) {
                         my $errorMsg = __x(
-                            'You need to enable the certificate for {module} on {ohref}Services Certificates{chref}',
+                            'You need to enable the certificate for {module} at {ohref}Services Certificates page{chref}',
                             service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
                             chref => '</a>'
                         );

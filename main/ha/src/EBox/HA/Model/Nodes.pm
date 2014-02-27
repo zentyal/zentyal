@@ -51,7 +51,6 @@ sub new
     bless($self, $class);
 
     $self->{list} = new EBox::HA::NodeList($self->parentModule());
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     return $self;
 }
@@ -82,6 +81,8 @@ sub size
 sub ids
 {
     my ($self)  = @_;
+
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     unless (defined($self->{clusterStatus}->nodes())) {
         return [];
