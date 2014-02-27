@@ -374,7 +374,7 @@ sub validateTypedRow
                     my $certificates = $ca->model('Certificates');
                     unless ($certificates->isEnabledService($module->caServiceIdForHTTPS())) {
                         my $errorMsg = __x(
-                            'You need to enable the certificate for {module} in {ohref}Services Certificates{chref}',
+                            'You need to enable the certificate for {module} at {ohref}Services Certificates page{chref}',
                             service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
                             chref => '</a>'
                         );
