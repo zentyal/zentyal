@@ -863,7 +863,9 @@ sub initialSetup
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
         my $haproxyMod = $self->global()->modInstance('haproxy');
+        my $alreadyChanged = $haproxyMod->changed();
         $haproxyMod->setHAProxyServicePorts(@args);
+        $haproxyMod->saveConfigRecursive();
     }
 
     # Upgrade from 3.3
