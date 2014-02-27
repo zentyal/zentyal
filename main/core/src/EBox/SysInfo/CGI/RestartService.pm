@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -47,7 +47,7 @@ sub _process
     my $name = $mod->printableName();
     $self->{chain} = "/Dashboard/Index";
     try {
-        $mod->restartService();
+        $mod->restartService(restartUI => 1);
         $self->{msg} = __('The module was restarted correctly.');
 
         my $audit = $global->modInstance('audit');

@@ -37,7 +37,7 @@ sub _table
 
     my $dataTable = {
         tableName          => 'OpenChangeUser',
-        printableTableName => __('OpenChange'),
+        printableTableName => 'OpenChange',
         pageTitle          => undef,
         modelDomain        => 'OpenChange',
         defaultActions     => ['add', 'del', 'editField', 'changeView' ],

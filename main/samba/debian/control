@@ -16,7 +16,7 @@ Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
          rsync, acl, libdate-calc-perl, libnet-dns-perl,
          libauthen-krb5-easy-perl (>= 0.91-1), ldb-tools,
          libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
-         libfile-libmagic-perl, libsamba-perl (>= 0.11),
+         libfile-libmagic-perl, libsamba-perl (>= 0.11~1),
          libparse-recdescent-perl, libxs-object-magic-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl,
          samba (>= 2:4.1.5), samba-vfs-modules, ${misc:Depends}
