@@ -20,13 +20,15 @@ use strict;
 
 package EBox::HA::Test;
 
-use base 'Test::Class';
+use parent 'Test::Class';
 
 use EBox::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::HA::NodeList;
 use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
+use EBox::TestStubs;
+
 use Test::Deep;
 use Test::Exception;
 use Test::MockModule;
@@ -324,11 +326,12 @@ sub test_admin_port_changed : Test(3)
     $list->empty();
 }
 
-sub test_restart_required : Test(7)
+sub test_restart_required : Test(9)
 {
     my ($self) = @_;
 
     my $mod = $self->{mod};
+    $mod->set_true('isEnabled', 'isRunning');
     ok(not($mod->_restartRequired()), 'By default, restart is not required');
 
     $mod->{restart_required} = 1;
@@ -343,6 +346,12 @@ sub test_restart_required : Test(7)
     $mod->set_state($state);
     ok(not($mod->_restartRequired()), 'Do not restart when replicating');
     delete $state->{replicating};
+
+    $mod->set_false('enabled', 'isRunning');
+    ok($mod->_restartRequired(), 'Restart required when the module is disabled');
+    $mod->set_true('enabled');
+    ok($mod->_restartRequired(), 'Restart required when the module is enabled and not running');
+    $mod->set_true('isRunning');
 
     ok(not($mod->_restartRequired()), 'At the end, restart is not required');
 }
