@@ -31,8 +31,6 @@ use EBox::Gettext;
 use EBox::Types::Port;
 use TryCatch::Lite;
 
-use constant DEFAULT_ADMIN_PORT => 443;
-
 # Group: Public methods
 
 # Method: validateTypedRow
@@ -47,12 +45,14 @@ sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
 
+    my $webadminModro = EBox::Global->getInstance(1)->modInstance('webadmin');
     if (exists $changedValues->{port}) {
-        my $actualPort = EBox::Global->getInstance(1)->modInstance('webadmin')->listeningPort();
+        my $actualPort = $webadminModro->listeningPort();
         my $port = $changedValues->{port}->value();
         if ($port != $actualPort) {
-            my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
-            $haProxyMod->validateSSLPortChange($port);
+            my $haProxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
+            my $default = 1;
+            $haProxyModel->validateHTTPSPortChange($port, $webadminModro->_serviceId, $default);
         }
     }
 }
@@ -87,10 +87,12 @@ sub _table
 {
     my ($self) = @_;
 
+    my $webadminMod = $self->parentModule();
+
     my @tableHead = (
         new EBox::Types::Port(fieldName      => 'port',
                               editable       => 1,
-                              defaultValue   => DEFAULT_ADMIN_PORT,
+                              defaultValue   => $webadminMod->defaultHTTPSPort(),
                               volatile       => 1,
                               acquirer       => \&_acquirePort,
                               storer         => \&_storePort)
