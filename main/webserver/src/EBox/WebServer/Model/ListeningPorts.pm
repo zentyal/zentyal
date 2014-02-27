@@ -40,123 +40,43 @@ use TryCatch::Lite;
 
 # Method: validateTypedRow
 #
+#     Override to check if the selected port is already taken
+#
 # Overrides:
 #
-#       <EBox::Model::DataTable::ValidateTypedRow>
+#     <EBox::Model::DataTable::validateTypedRow>
 #
-# Exceptions:
-#
-#       <EBox::Exceptions::DataExists> - if the port number is already
-#       in use by any ebox module.
-#
-#sub validateTypedRow
-#{
-#    my ($self, $action, $changedFields, $oldFields) = @_;
-#
-#    my $global = EBox::Global->getInstance();
-#    my $webAdminMod = $global->modInstance('webadmin');
-#    my $services = $global->modInstance('services');
-#    my $firewall = $global->modInstance('firewall');
-#    my $portNumber;
-#
-#    if (exists $changedFields->{port}) {
-#        $portNumber = $changedFields->{port}->value();
-#        my $oldPortNumber = $oldFields->{port}->value();
-#        # avoid first set error
-#        if ($portNumber != $oldPortNumber) {
-#            # Only check availablePort if our port it not already in our service
-#            unless ($services->serviceFromPort('tcp', $portNumber) eq 'http') {
-#                unless ($firewall->availablePort('tcp', $portNumber)) {
-#                    throw EBox::Exceptions::DataExists(
-#                        'data'  => __('Listening port'),
-#                        'value' => $portNumber,
-#                       );
-#                }
-#            }
-#        }
-#    }
-#
-#    if (exists $changedFields->{ssl} and
-#        $changedFields->{ssl}->selectedType() eq 'ssl_port') {
-#        my $portNumberSSL = $changedFields->{ssl}->value();
-#        if ($webAdminMod->port() eq $portNumberSSL) {
-#            throw EBox::Exceptions::External(
-#                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
-#                        ohref => '<a href="/SysInfo/Composite/General">', chref => '</a>')
-#                    );
-#        }
-#        if ($portNumber eq $portNumberSSL) {
-#            throw EBox::Exceptions::DataExists(
-#                    'data'  => __('Listening SSL port'),
-#                    'value' => $portNumberSSL,
-#                    );
-#        }
-#
-#        my $oldPortNumberSSL = $oldFields->{ssl}->value();
-#        # avoid first set error
-#        if ($portNumberSSL != $oldPortNumberSSL) {
-#            # Only check availablePort if our port it not already in our service
-#            unless ($services->serviceFromPort('tcp', $portNumberSSL) eq 'http') {
-#                unless ($firewall->availablePort('tcp', $portNumberSSL)) {
-#                    throw EBox::Exceptions::DataExists(
-#                        'data'  => __('Listening SSL port'),
-#                        'value' => $portNumberSSL,
-#                       );
-#                }
-#            }
-#        }
-#
-#    }
-#
-#    if (exists $changedFields->{enableDir} and
-#               $changedFields->{enableDir}->value())  {
-#        my $users = EBox::Global->modInstance('users');
-#        if (not $users) {
-#            throw EBox::Exceptions::External(
-#                    __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')
-#                    );
-#        }
-#        my $configured = $users->configured();
-#        if (not $configured) {
-#            throw EBox::Exceptions::External(
-#                    __('A properly configured Users and Groups module is required to allow HTML directories for users. To configure it, please enable it at least one time.')
-#                    );
-#        }
-#    }
-#}
+sub validateTypedRow
+{
+    my ($self, $action, $changedValues, $allValues) = @_;
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::formSubmitted>
-#
-#sub formSubmitted
-#{
-#    my ($self) = @_;
-#
-#    my @services = ();
-#
-#    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $self->portValue() });
-#
-#    if ($self->row()->elementByName('ssl')->selectedType() eq 'ssl_port') {
-#        my $sslportNumber = $self->row()->valueByName('ssl');
-#        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => $sslportNumber });
-#    }
-#
-#    my $serviceName = 'webserver';
-#    my @serviceParams = (name => $serviceName,
-#                                 internal => 1,
-#                                 printableName => __('Web Server'),
-#                                 description => __('Zentyal Web Server'),
-#                                 services => \@services);
-#    my $servMod = $self->global()->modInstance('services');
-#    if ($servMod->serviceExists(name => $serviceName)) {
-#        $servMod->setMultipleService(@serviceParams);
-#    } else {
-#        $servMod->addMultipleService(@serviceParams, readOnly => 1);
-#    }
-#}
+    my $httpPort = undef;
+    my $actualHTTPPort = undef;
+    my $httpsPort = undef;
+    my $actualHTTPSPort = undef;
+    my $changed = 0;
+    my $webserverModro = EBox::Global->getInstance(1)->modInstance('webserver');
+    my $haproxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
+
+    if (exists $changedValues->{port} and (defined $changedValues->{port}->value())) {
+        $actualHTTPPort = $webserverModro->listeningHTTPPort();
+        $httpPort = $changedValues->{port}->value();
+        if ($httpPort != $actualHTTPPort) {
+            $changed = 1;
+        }
+    } else {
+        $httpPort = $actualHTTPPort;
+    }
+    if (exists $changedValues->{sslPort} and (defined $changedValues->{sslPort}->value())) {
+        $actualHTTPSPort = $webserverModro->listeningHTTPSPort();
+        $httpsPort = $changedValues->{sslPort}->value();
+        if ($httpsPort != $actualHTTPSPort) {
+            $changed = 1;
+        }
+    } else {
+        $httpsPort = $actualHTTPSPort;
+    }
+}
 
 # Method: row
 #
@@ -297,10 +217,14 @@ sub _table
 
     my $dataTable = {
         tableName          => 'ListeningPorts',
-        printableTableName => __('Listening Ports'),
+        printableTableName => __('Listening Ports settings'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
+        class              => 'dataForm',
         help               => __('Listening Ports configuration'),
+        messages           => {
+                                update => __('Listening ports configuration settings updated.'),
+                              },
         modelDomain        => 'WebServer',
     };
 
