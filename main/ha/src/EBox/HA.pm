@@ -1609,9 +1609,9 @@ sub _setFloatingIPRscs
             foreach my $rscName (@moves) {
                 if ($self->_resourceCanBeMovedToNode($rscName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$rscName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$rscName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$rscName' --move --host '$activeNode' --lifetime 'P30S'",
+                         );
                 }
             }
             if (@rootCmds > 0) {
@@ -1685,9 +1685,8 @@ sub _setSingleInstanceInClusterModules
             foreach my $modName (@moves) {
                 if ($self->_resourceCanBeMovedToNode($modName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$modName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$modName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$modName' --move --host '$activeNode' --lifetime 'P30S'");
                 }
             }
             if (@rootCmds > 0) {
