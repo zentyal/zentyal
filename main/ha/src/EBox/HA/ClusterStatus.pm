@@ -164,6 +164,12 @@ sub resourceByName
     return undef;
 }
 
+# Function areThereUnamanagedResources
+#
+# Returns:
+#
+#   Boolean - Wether if there are unamanaged resourcesin the Cluster or not
+#
 sub areThereUnamanagedResources
 {
     my ($self) = @_;
