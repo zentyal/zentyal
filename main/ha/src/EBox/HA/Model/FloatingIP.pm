@@ -50,6 +50,8 @@ sub validateTypedRow
     $self->_checkNameRestrictions($name);
 
     my $ip = $newParams->{'floating_ip'}->value();
+    my $haIface = $self->parentModule()->model('Cluster')->interfaceValue();
+    $self->_checkIPWithinNetworkIface($haIface, $ip);
     $self->_checkDhcpNetworkCollisions($ip);
 }
 
@@ -73,6 +75,22 @@ sub _checkNameRestrictions
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
+}
+
+# Method: _checkIPWithinNetworkIface
+#
+# Raise external exception if the Floating IP does not belongs to the given network iface
+#
+sub _checkIPWithinNetworkIface
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $network = $self->parentModule()->global()->modInstance('network');
+
+    if ( not EBox::Validate::isIPInRange($network->netInitRange($iface), $network->netEndRange($iface), $ip) ) {
+        throw EBox::Exceptions::External(__x('The IP {ip} does not belong to the HA cluster interface ({iface}).',
+                                                    ip => $ip, iface => $iface));
+     }
 }
 
 # Method: _checkDhcpNetworkCollisions
