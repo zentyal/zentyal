@@ -51,7 +51,8 @@ sub promote
     my ($nodeName) = @_;
 
     my @cmds = ();
-    my $clusterStatus = new EBox::HA::ClusterStatus();
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => EBox::Global->getInstance()->modInstance('ha'),
+                                                    force => 1);
 
     foreach my $r (@{_simpleResources()}) {
         my $resourceStatus = $clusterStatus->resourceByName($r);

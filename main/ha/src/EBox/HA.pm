@@ -742,7 +742,7 @@ sub checkAndUpdateClusterConfiguration
 
     my $clusterStatus;
     try {
-        $clusterStatus = new EBox::HA::ClusterStatus($self);
+        $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     } catch (EBox::Exceptions::Sudo::Command $e) {
         EBox::warn('Cannot get the status from the cluster');
     }
@@ -994,7 +994,7 @@ sub clusterWidget
         my $clusterStatus;
         my ($lastUpdate, $error, $errorType) = (__('Unknown'), __('None'), 'info');
         try {
-            $clusterStatus = new EBox::HA::ClusterStatus($self);
+            $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
             $lastUpdate = $clusterStatus->summary()->{last_update};
             my $errors = $clusterStatus->errors();
             if (defined($errors) and keys %{$errors} > 0) {
@@ -1559,7 +1559,7 @@ sub _setFloatingIPRscs
     my ($self) = @_;
 
     my $rsc = $self->floatingIPs();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
 
     # Get the resource configuration from the cib directly
     my $dom = $self->_rscsConf();
@@ -1626,10 +1626,10 @@ sub _resourceCanBeMovedToNode
 {
     my ($self, $resource, $node) = @_;
 
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self,
+                                                    force => 1);
 
     my $resourceStatus = $clusterStatus->resourceByName($resource);
-
     if (defined($resourceStatus)) {
         my @runningNodes = @{ $resourceStatus->{nodes} };
 
@@ -1645,7 +1645,7 @@ sub _setSingleInstanceInClusterModules
     my ($self) = @_;
 
     my $dom = $self->_rscsConf();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     my @zentyalRscElems = $dom->findnodes('//primitive[@type="Zentyal"]');
 
     # For ease to existence checking
