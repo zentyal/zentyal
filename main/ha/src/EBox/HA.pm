@@ -447,8 +447,9 @@ sub replicateConf
         my %keysToReplace;
         my @keysToDelete;
 
-        # TODO: need to differentiate conf/ro ?
-        foreach my $key (@{$mod->replicationExcludeKeys()}) {
+        my @excludedKeys = @{$mod->replicationExcludeKeys()};
+        push (@excludedKeys, '_serviceModuleStatus');
+        foreach my $key (@excludedKeys) {
             my $value = $mod->get($key);
             if (defined ($value)) {
                 $keysToReplace{$key} = $value;
