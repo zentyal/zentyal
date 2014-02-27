@@ -1,4 +1,5 @@
 3.4
+	+ Remove printers from dependencies list if the module is not installed
 	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
 	  and added a note about why it cannot be used in the method documentation
 	+ Write openchange options to use mysql as backend
