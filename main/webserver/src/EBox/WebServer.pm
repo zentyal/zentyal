@@ -484,11 +484,11 @@ sub _setUserDir
 {
     my ($self) = @_;
 
-    my $generalConf = $self->model('PublicFolder');
+    my $publicFolder = $self->model('PublicFolder');
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module
-    if ($generalConf->enableDirValue() and $gl->modExists('users')) {
+    if ($publicFolder->enableDirValue() and $gl->modExists('users')) {
         my $usersMod = $gl->modInstance('users');
         my $ldap = $usersMod->ldap();
         my $ldapServer = '127.0.0.1';
