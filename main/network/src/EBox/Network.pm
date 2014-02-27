@@ -251,7 +251,7 @@ sub initialSetup
     unless ($version) {
         try {
             $self->importInterfacesFile();
-            $self->_saveConfigRecursive($self->name);
+            $self->saveConfigRecursive();
         } catch {
             EBox::warn('Network configuration import failed');
         }
