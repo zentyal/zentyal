@@ -58,11 +58,6 @@ sub setUpInstance : Test(setup)
 
     $self->{model} = $ha->model('FloatingIP');
 
-    $self->{cl_model} = $ha->model('Cluster');
-    $self->{cl_model} = new Test::MockObject::Extends($self->{cl_model});
-    $self->{cl_model}->mock('interfaceValue', sub { 'eth0' });
-
-
     my $model = $self->{model};
 
     my ($nameElement) = grep { $_->{fieldName} eq 'name' } @{$model->table()->{'tableDescription'}};

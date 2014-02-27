@@ -50,8 +50,7 @@ sub validateTypedRow
     $self->_checkNameRestrictions($name);
 
     my $ip = $newParams->{'floating_ip'}->value();
-    my $haIface = $self->parentModule()->model('Cluster')->interfaceValue();
-    $self->_checkIPWithinNetworkIface($haIface, $ip);
+    $self->_checkIPWithinNetworkIface($ip);
     $self->_checkDhcpNetworkCollisions($ip);
 }
 
@@ -83,13 +82,21 @@ sub _checkNameRestrictions
 #
 sub _checkIPWithinNetworkIface
 {
-    my ($self, $iface, $ip) = @_;
+    my ($self, $ip) = @_;
 
     my $network = $self->parentModule()->global()->modInstance('network');
+    my @staticIfaces = (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
 
-    if ( not EBox::Validate::isIPInRange($network->netInitRange($iface), $network->netEndRange($iface), $ip) ) {
-        throw EBox::Exceptions::External(__x('The IP {ip} does not belong to the HA cluster interface ({iface}).',
-                                                    ip => $ip, iface => $iface));
+    my $floatingIPisCorrect = 0;
+
+    foreach my $iface (@staticIfaces) {
+        if ( EBox::Validate::isIPInRange($network->netInitRange($iface), $network->netEndRange($iface), $ip) ) {
+            $floatingIPisCorrect = 1;
+        }
+    }
+
+    if ( not $floatingIPisCorrect ) {
+        throw EBox::Exceptions::External(__x('The IP {ip} does not belong to any interface.', ip => $ip));
      }
 }
 
