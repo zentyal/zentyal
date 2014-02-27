@@ -130,6 +130,13 @@ sub initialSetup
         $self->model('AccessRules')->add(source => { any => undef },
                                          policy => { allow => undef });
     }
+
+    foreach my $name ('squid', 'logs') {
+        my $mod = $self->global()->modInstance($name);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
+        }
+    }
 }
 
 # Method: enableActions

@@ -1,4 +1,5 @@
 3.4
+	+ Save modules configurations afer initialSetup
 	+ Added all subdomains in cache exemptions
 	+ Deny cache explicitly from cache exemption domains
 	+ Give support to optional ABORTED flag in denied requests when
