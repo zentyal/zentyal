@@ -874,8 +874,6 @@ sub initialSetup
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
     }
-
-
 }
 
 # Migration to 3.4
