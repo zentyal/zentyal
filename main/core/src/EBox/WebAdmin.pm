@@ -865,9 +865,7 @@ sub initialSetup
         my $haproxyMod = $self->global()->modInstance('haproxy');
         my $alreadyChanged = $haproxyMod->changed();
         $haproxyMod->setHAProxyServicePorts(@args);
-        if ((not $alreadyChanged) and $haproxyMod->changed()) {
-            $haproxyMod->setAsChanged(0);
-        }
+        $haproxyMod->_saveConfigRecursive('haproxy');
     }
 
     # Upgrade from 3.3
