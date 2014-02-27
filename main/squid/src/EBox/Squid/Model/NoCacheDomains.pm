@@ -58,7 +58,7 @@ sub _table
         order              => 0,
         rowUnique          => 1,
         printableRowName   => __('domain name address'),
-        help               => __('You can exempt some addresses from caching'),
+        help               => __('You can exempt some addresses from caching. It will include the subdomains.'),
         messages           => {
                                 add => __('Address added'),
                                 del => __('Address removed'),
@@ -75,7 +75,7 @@ sub notCachedDomains
     my @domains = map {
         my $row = $self->row($_);
         if ($row->valueByName('noCache')) {
-            $row->valueByName('domain');
+            '.' . $row->valueByName('domain');  # Added subdomains as well
         }
         else {
             ()

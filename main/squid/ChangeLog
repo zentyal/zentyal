@@ -1,4 +1,6 @@
 3.4
+	+ Added all subdomains in cache exemptions
+	+ Deny cache explicity from cache exemption domains
 	+ Adapt configuration for squid 3.3.8
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
