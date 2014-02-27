@@ -911,7 +911,7 @@ sub _enforceServiceState
     my ($self, @params) = @_;
 
     # FIXME: Do it in the framework as jacalvo suggests
-    unless ($self->get_state()->{replicating}) {
+    if ($self->_restartRequired(@params)) {
         $self->SUPER::_enforceServiceState(@params);
     }
 }
@@ -933,6 +933,7 @@ sub _setConf
         $self->_notifyLeave();
         $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
+        $self->{restart_required} = 1;
     }
 
     if ($self->isEnabled()) {
@@ -1140,6 +1141,7 @@ sub _corosyncSetConf
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
                    port => 443, localNode => 1);
         $self->_notifyClusterConfChange($list);
+        $self->{restart_required} = 1;
     }
 
     my $clusterConf = $self->clusterConfiguration();
@@ -1355,7 +1357,6 @@ sub _setPSGI
         } catch (EBox::Exceptions::Internal $e) {
             # Do nothing if the include has been already removed
         }
-        EBox::Sudo::root("rm -f '$upstartJobFile'");
     }
     if (not $self->isReadOnly() and $self->global()->modIsChanged('webadmin')) {
         $self->global()->addModuleToPostSave('webadmin');
@@ -1770,6 +1771,59 @@ sub _askForConf
         # Catch any exception
         EBox::error('Error asking for replication to ' . $node->{name} . ": $e");
     }
+}
+
+# Check if restart is required
+# Cases:
+#  1 - Not required if replicating flag is set
+#  2 - Required if ifup was done
+#  3 - Restart from CLI or UI
+#  4 - Cluster bootstrap
+#  5 - Actions defined in _setConf
+#  5.1 - Leaving a cluster
+#  5.2 - changing the network communication
+#  6 - Changing enabled status
+sub _restartRequired
+{
+    my ($self, %params) = @_;
+
+    my $state = $self->get_state();
+    if ($state->{replicating}) {
+        return 0;
+    }
+
+    my $required = 0;
+    my $net = $self->global->modInstance('network');
+    if ($net->flagIfUp()) {
+        $net->unsetFlagIfUp();
+        $required = 1;
+    }
+
+    # Set by leaving the cluster and changing the network communication
+    if ($self->{restart_required}) {
+        delete $self->{restart_required};
+        $required = 1;
+    }
+
+    if ($required) {
+        return 1;
+    }
+
+    if (exists $params{restartModules} or exists $params{restartUI}) {
+        return 1;
+    }
+
+    if ($state->{bootstraping}) {
+        return 1;
+    }
+
+    # Set restart required if the enabled status has changed
+    my $enabled = $self->isEnabled();
+    if ($enabled != $self->isRunning() or (not $enabled)) {
+        return 1;
+    }
+
+    return 0;
 }
 
 1;
