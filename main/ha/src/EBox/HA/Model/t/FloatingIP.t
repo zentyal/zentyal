@@ -58,6 +58,11 @@ sub setUpInstance : Test(setup)
 
     $self->{model} = $ha->model('FloatingIP');
 
+    $self->{cl_model} = $ha->model('Cluster');
+    $self->{cl_model} = new Test::MockObject::Extends($self->{cl_model});
+    $self->{cl_model}->mock('interfaceValue', sub { 'eth0' });
+
+
     my $model = $self->{model};
 
     my ($nameElement) = grep { $_->{fieldName} eq 'name' } @{$model->table()->{'tableDescription'}};
@@ -111,7 +116,7 @@ sub test_validate_row_format_exceptions :  Test(3)
     } 'EBox::Exceptions::External', 'Bad name, it is too short';
 }
 
-sub test_validate_row_collision_exceptions : Test(3)
+sub test_validate_row_collision_exceptions : Test(5)
 {
     my ($self) = @_;
 
@@ -138,7 +143,9 @@ sub test_validate_row_collision_exceptions : Test(3)
                 'InternalIfaces' => sub { [ 'eth0' ] },
                 'ExternalIfaces' => sub { [] },
                 'ifaceAddresses' => sub { return $fakeNetworkIPs; },
-                'ifaceMethod' => sub { return 'static'; }
+                'ifaceMethod' => sub { return 'static'; },
+                'netInitRange' => sub { return '1.1.1.1'; },
+                'netEndRange' => sub { return '1.1.1.200'; }
             ]);
 
     EBox::TestStubs::fakeModule(
@@ -181,6 +188,23 @@ sub test_validate_row_collision_exceptions : Test(3)
            });
     } 'EBox::Exceptions::External', 'IP collides with DHCP ranges';
 
+    $self->{nameElement}->setValue('testIP');
+    $self->{floating_ipElement}->setValue('1.1.1.210');
+    throws_ok {
+        $model->validateTypedRow('add', undef, {
+            name => $self->{nameElement},
+            floating_ip => $self->{floating_ipElement}
+           });
+    } 'EBox::Exceptions::External', 'Floating IP does not belong to network iface';
+
+    $self->{nameElement}->setValue('AddedFloating');
+    $self->{floating_ipElement}->setValue('1.1.1.199');
+    lives_ok{
+        $model->validateTypedRow('add', undef, {
+            name => $self->{nameElement},
+            floating_ip => $self->{floating_ipElement}
+            });
+    } 'Floating IP added correctly';
 }
 
 1;
