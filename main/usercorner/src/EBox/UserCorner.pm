@@ -131,11 +131,21 @@ sub initialSetup
         push (@args, force          => 1);
         my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
+        $haproxyMod->saveConfigRecursive();
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrate34();
+    }
+
+    if ($self->changed()) {
+       $self->saveConfigRecursive();
+    }
+
+    my $fwMod = $self->global()->modInstance('firewall');
+    if ($fwMod and $fwMod->changed()){
+        $fwMod->saveConfigRecursive();
     }
 }
 
