@@ -64,8 +64,8 @@ sub templateContext
                 [ __('Current Designated Controller')     => $self->{clusterStatus}->designatedController()],
                 [ __('Last update')     => $summary->{'last_update'}],
                 [ __('Last modification')     => $summary->{'last_change'}],
-                [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],
-                [ __('Configurated resources')     => $self->{clusterStatus}->numberOfResources() . __(' resources')],
+                [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . ' ' . __('nodes')],
+                [ __('Configurated resources')     => $self->{clusterStatus}->numberOfResources() . ' ' . __('resources')],
             ],
         };
     } else {
