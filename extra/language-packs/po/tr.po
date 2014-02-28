@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-06-12 13:37+0200\n"
-"Last-Translator: neo <nurettinemreozbakir@gmail.com>\n"
+"PO-Revision-Date: 2014-02-21 00:20+0200\n"
+"Last-Translator: DarkRoad <mnozturk2@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,6 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1395
-#, fuzzy
 msgid "disabled"
 msgstr ""
 "#-#-#-#-#  tr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
@@ -48,33 +47,43 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"(Açılamaz)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"(Sunucu yapılandırma dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. (CA "
+"sertifika dosyasını Eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"(Sertifika dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"(Sertifika özel anahtar dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
 msgstr "Var olmayan dosya {path}"
 
@@ -90,27 +99,31 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "CA'nın sertifikası olarak verilen dosya geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "İstemci sertifikası olarak verilen dosya geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "İstemci için verilen özel anahtar dosyası geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"İstemcinin sertifikası olarak sağlanan dosya CA'nın sertifikası olarak "
+"verilen dosya ile uyuşmuyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"İstemcinin özel anahtarıi olarak sağlanan dosya CA'nın sertifikası olarak "
+"verilen dosya ile uyuşmuyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format

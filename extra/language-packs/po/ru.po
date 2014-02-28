@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-10-21 09:32+0200\n"
-"Last-Translator: Dzhurab <sparta17@futumika.spb.ru>\n"
+"PO-Revision-Date: 2014-02-22 16:23+0200\n"
+"Last-Translator: Sergey <samserg@front.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -87,40 +87,40 @@ msgstr "Несуществующий файл сертификата CA {p}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Несуществующий файл сертификатата клиента {p}"
+msgstr "Несуществующий файл сертификата клиента {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Файл приватного ключа сертификата существует {p}"
+msgstr "Несуществующий файл сертификата приватного ключа {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "Файл представленный, как сертификат CA не действителен"
+msgstr "Файл, представленный как сертификат CA, не действителен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "Файл представленный, как клиентский сертификат не действителен"
+msgstr "Файл, представленный как клиентский сертификат, не действителен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "Файл представленный, как клиентский приватный ключ не действителен"
+msgstr "Файл, представленный как клиентский приватный ключ не действителен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
-"Файл представленный, как клиентский сертификат не соответствует файлу "
-"представленному, как серификат CA"
+"Файл, представленный как клиентский сертификат не соответствует файлу "
+"представленному как сертификат CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
-"Файл представленный, как клиентский сертификат не соответствует файлу "
-"представленному, как приватного ключ сертификата"
+"Файл, представленный как клиентский сертификат не соответствует файлу "
+"представленному как сертификат приватного ключа"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -128,8 +128,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
-"VPN клиент не может быть настроен для соединения с адресом {addr} так как "
-"это локальный адрес"
+"VPN клиент не должен быть настроен для соединения с адресом {addr} так как "
+"это его собственный локальный адрес"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -137,7 +137,7 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
-"VPN клиент не может быть настроен для соединения с адресом {addr} так как "
+"VPN клиент не должен быть настроен для соединения с адресом {addr} так как "
 "это адрес локального сетевого интерфейса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
@@ -243,7 +243,7 @@ msgstr "Объект подключения"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr "VPN адрес интерфейса"
+msgstr "адрес интерфейса VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
@@ -486,19 +486,16 @@ msgstr ""
 "перейдите в модуль центра сертификации и создайте новые сертификаты"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "Отозванный"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
 msgstr "Просроченный"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "Действующий"
+msgstr "неверный"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -543,7 +540,7 @@ msgstr "Порт сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
-msgstr "CA-сертификат"
+msgstr "CA-сертификаты"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
@@ -618,8 +615,8 @@ msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
-"Это адрес, который будет использваться вашими клиентами для подключения к "
-"серверу. Обычно, это либо публичный IP либо имя узла"
+"Это адрес, который будет использоваться вашими клиентами для подключения к "
+"серверу. Обычно, это либо публичный IP, либо имя узла"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
@@ -643,7 +640,7 @@ msgstr "Скачать"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Произвольный"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 #, fuzzy
@@ -675,7 +672,7 @@ msgstr "Неправильный тип клиента: cервер не раз�
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
-"Неправильный тип клиента: сервер предназначен для тунелей Zentyal-Zentyal"
+"Неправильный тип клиента: сервер сконфигурирован для тунелей Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
@@ -694,7 +691,7 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
-"Невозможно создать пакет, поскольку сервер  полностью не сконфигурирован; "
+"Невозможно создать пакет, поскольку сервер  не полностью сконфигурирован; "
 "пожалуйста завершите конфигурацию и повторите попытку"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:347
@@ -736,9 +733,8 @@ msgid "Network Address Translation"
 msgstr "Трансляция сетевых адресов (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Включите, если этот VPN используется для подключения к другому Zentyal"
+msgstr "Включите, если этот VPN сервер не является основным шлюзом"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -762,21 +758,22 @@ msgstr "Пароль туннеля Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Отклонить маршруты от клиентов Zentyal туннеля"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"При проверке, данный сервер не принял ни одного маршрута, предложенного "
+"клиентом"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
 msgstr "Прослушиваемый интерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Шлюз по умолчанию"
+msgstr "Шлюз переадресации"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
@@ -803,7 +800,7 @@ msgstr "WINS сервер"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr "Настройка сервера"
+msgstr "Конфигурация сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
@@ -824,12 +821,12 @@ msgstr "Другой сервер использует данный VPN адре
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr "Другой сервер прослушивает этот же порт"
+msgstr "Другой сервер использует этот же порт"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Порт {p}/{pro} уже используется {mod}"
+msgstr "Порт {p}/{pr} уже используется в {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
@@ -846,24 +843,24 @@ msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
-"Невозможно использовать NAT, так как требуется модуль файрвола. Модуль или "
-"не установлен или не активизирован"
+"Невозможно использовать NAT, так как требуется firewall  модуль. Модуль или "
+"не установлен или не активирован."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
-"Невозможно использовать NAT так как требуется модуль файрвола. Пожалуйста "
-"активизируйте его и попробуйте еще раз"
+"Невозможно использовать NAT так как требуется активированный модуль "
+"файрвола. Пожалуйста активируйте его и попробуйте еще раз"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
-"Когда опция трансляции сетевых адресов включена, необходим по крайне мере "
-"один внешний интерфейс для подключения к серверу"
+"Для подключения к серверу необходим по крайне мере один внешний интерфейс "
+"если включена опция NAT"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
@@ -877,27 +874,25 @@ msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
 msgstr "{par} не совместим с туннелем Zentyal-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Списко объявленных сетей"
+msgstr "Список объявленных сетей для туннеля сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"Опубликованные маршруты не поддерживаются для клиентов через TUN интерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
-#, fuzzy
 msgid "Advertised Network"
-msgstr "Объявленные сети"
+msgstr "Опубликованные сети"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
-msgstr "Включить"
+msgstr "Разрешить"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
-#, fuzzy
 msgid "Upload client bundle"
 msgstr "Загрузить клиентский пакет"
 
@@ -915,7 +910,7 @@ msgid ""
 "configuration and retry"
 msgstr ""
 "Не возможно активировать клиента так как он не полностью сконфигурирован; "
-"пожалуйста отредактируйте конфиграцию и повторите"
+"пожалуйста отредактируйте конфигурацию и повторите"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
@@ -930,7 +925,6 @@ msgid "daemon"
 msgstr "демон"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
 msgstr "Загрузка пакета конфигурации"
 
@@ -939,9 +933,9 @@ msgid "Upload client configuration bundle"
 msgstr "Загрузка пакета конфигурации клиента"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Загрузка пакета конфигурации"
+msgstr "Загрузка пакета конфигурации для {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
@@ -961,12 +955,11 @@ msgstr "Главный конфигурационный файл zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
-msgstr ""
-"Настройка ripd по обмену маршрутами с клиентом для клиентского подключения"
+msgstr "Настройка ripd для обмена маршрутами при подключении клиент-клиент"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr "Отключить общесистемный автозапуск VPN-серверов"
+msgstr "Отключить автозапуск VPN-серверов на системном уровне"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -974,19 +967,22 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"Неверное имя {name}. Только алфавитно-цифровые  и '-', '_', '.' символы "
-"разрешены"
+"Неверное имя {name}. Разрешены только алфавитно-цифровые  и '-', '_', '.' "
+"символы"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:622
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
-"Не возможно использовать имя {n} пока другой клиент использует такое же имя"
+"Не возможно использовать имя {n} потому что другой клиент использует такое "
+"же имя"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:633
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr "Не возможно использовать имя {n} пока сервер использует такое же имя"
+msgstr ""
+"Не возможно использовать имя {n} Потому что есть другой сервер с таким же "
+"именем"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:655
 #, perl-brace-format
@@ -994,20 +990,20 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
-"Неправильное имя {name}. Имена начинающиеся с приставки {pf} зарезерфированы "
+"Неправильное имя {name}. Имена начинающиеся с префикса {pf} зарезервированы "
 "для внутреннего использования"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
-"Неправильное имя {name}. Имя внутренего демона должно начинатся с приставки "
+"Неправильное имя {name}. Имя внутреннего демона должно начинаться с префикса "
 "{pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "Клиент {c} не существует"
 
@@ -1021,7 +1017,7 @@ msgstr "Клиенты"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 msgid "Common name"
-msgstr "Канноническое имя"
+msgstr "Каноническое имя"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
@@ -1114,12 +1110,12 @@ msgstr "Удаленный IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1485
 msgid "Remote Certificate"
-msgstr "Сертификат удаленного"
+msgstr "Удаленный (подключенный) сертификат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1490
 #: ../../main/ipsec/src/EBox/IPsec.pm:372
 msgid "Initialization sequence completed"
-msgstr "Последовательность инициализации закончена"
+msgstr "Последовательность инициализации завершена"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate issuer not authorized"
@@ -1127,7 +1123,7 @@ msgstr "Поставщик сертификата не авторизован"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate common name not authorized"
-msgstr "Сертифкат канонического имени не авторизован"
+msgstr "Сертификат канонического имени не авторизован"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1494
 msgid "Certificate verification failed"
@@ -1143,11 +1139,11 @@ msgstr "Клиентское подключение прервано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1499
 msgid "Connection to server initiated"
-msgstr "Инициализация подключения к серверу"
+msgstr "Инициализировано подключения к серверу"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1500
 msgid "Server connection terminated"
-msgstr "Окончание подключения к серверу"
+msgstr "Подключения к серверу прервано"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1528
 msgid "You must set insecure_rip_conf to yes or no"
@@ -1169,19 +1165,16 @@ msgid "System"
 msgstr "Система"
 
 #: ../../main/ha/src/EBox/HA.pm:124
-#, fuzzy
 msgid "Cluster nodes"
-msgstr "имя пользователя"
+msgstr "Узлы кластера"
 
 #: ../../main/ha/src/EBox/HA.pm:142
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr " Настроить демона clamd"
+msgstr "Настроить демона corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:145
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Выключение или перезагрузка"
+msgstr "Запускать corosync при загрузке"
 
 #: ../../main/ha/src/EBox/HA.pm:546
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1221,67 +1214,57 @@ msgid "IP address"
 msgstr "IP-адрес"
 
 #: ../../main/ha/src/EBox/HA.pm:554
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "Интерфейс {iface} не настроен"
+msgstr "Кластер не настроен"
 
 #: ../../main/ha/src/EBox/HA.pm:642
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} не имеет IP адреса для использования"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:58
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Имя слишком длинное. Максимальная длина {max} символов."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:61
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Имя слишком короткое. Минимальная длина {min} символов."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:64
-#, fuzzy
 msgid "Name must only contain letters, numbers or underscores."
-msgstr "Имя дожно содержать только буквы, цифры и знак подчеркивания"
+msgstr "Имя может содержать только буквы, цифры и знак подчеркивания"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:83
-#, fuzzy
 msgid "There is a a Network interface with the given IP address."
-msgstr ""
-"Отсутствует статический внутренний интерфейс для установки IP-адреса для веб-"
-"сервера."
+msgstr "Это сетевой интерфейс с представленным IP адресом."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:85
-#, fuzzy
 msgid "There is a fixed DHCP object with the given IP address."
-msgstr ""
-"Отсутствует статический внутренний интерфейс для установки IP-адреса для веб-"
-"сервера."
+msgstr "Это фиксированный DHCP объект с представленным IP адресом."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:87
 msgid "There is a DHCP range that include the given IP address."
 msgstr ""
+"Это диапазон DHCP адресов, который включает в себя представленный IP адрес."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:192
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Домен или IP-адрес"
+msgstr "динамический IP-адрес"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:201
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Домен или IP-адрес"
+msgstr "Динамические IP-адреса"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:205
-#, fuzzy
 msgid "floating IP address"
-msgstr "Домен или IP-адрес"
+msgstr "динамический IP-адрес"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:110
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Список узлов кластера {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:128
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
@@ -1292,30 +1275,26 @@ msgstr "Имя узла"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:143
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Список узлов для кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:57
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:114
-#, fuzzy
 msgid "Cluster name"
-msgstr "имя пользователя"
+msgstr "Имя кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:58
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:107
-#, fuzzy
 msgid "Cluster secret"
-msgstr "имя пользователя"
+msgstr "Пароль кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:59
-#, fuzzy
 msgid "Current DC"
-msgstr "Текущий модуль"
+msgstr "Текущий DC"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:87
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:136
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Конфигурация клиента"
+msgstr "Конфигурация кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:94
 #, fuzzy
@@ -1328,9 +1307,8 @@ msgid "Cluster host port"
 msgstr "имя пользователя"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:122
-#, fuzzy
 msgid "Choose network interface"
-msgstr "сетевой интерфейс"
+msgstr "Выбранный сетевой интерфейс"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:124
 msgid "It will be used as communication channel between the cluster members."
@@ -1361,34 +1339,33 @@ msgid "IPS Alerts report"
 msgstr "Отчёт оповещений IDS"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
 msgstr "Система обнаружения вторжений"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
 msgid "number of alerts"
-msgstr "количество тревог"
+msgstr "количество предупреждений"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:58
 msgid "Number of alerts"
-msgstr "Количество тревог"
+msgstr "Количество предупреждений"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
 msgid "Alert details"
-msgstr "Детали оповещения"
+msgstr "Детали предупреждения"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
 msgid "alerts"
-msgstr "оповещения"
+msgstr "предупреждения"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
 msgid "Alerts chart"
-msgstr "Диаграмма оповещений"
+msgstr "Диаграмма предупреждений"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
 msgid "Alert Graph"
-msgstr "График оповещений"
+msgstr "График предупреждений"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:245
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:324
@@ -1515,23 +1492,21 @@ msgid "interface"
 msgstr "интерфейс"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
 msgstr "Укажите на каких интерфейсах IDS будет активна"
 
 #: ../../main/ips/src/EBox/IPS.pm:67
+#, fuzzy
 msgid "IDS/IPS"
-msgstr ""
+msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Настройка статуса модуля"
+msgstr "Добавление правил для модуля suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
-#, fuzzy
 msgid "Enable start of suricata daemon"
-msgstr "Влючить Zarafa dagent демон"
+msgstr "Разрешить запуск модуля suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
@@ -1612,33 +1587,30 @@ msgstr "Протокол"
 #: ../../main/ips/src/EBox/IPS.pm:320
 #, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "Alert"
-msgstr "Оповещение"
+msgstr "Предупреждение"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
 #, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Системные обновления"
+msgstr "обновление правил IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Свободное пространство"
+msgstr "Причина сбоя"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:402
-#, fuzzy
 msgid "Success"
-msgstr "Гостевой доступ"
+msgstr "Удачно"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:402
-#, fuzzy
 msgid "Failure"
-msgstr "сбой"
+msgstr "Сбой"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -1646,11 +1618,13 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"Последние изменения правил демона IDS/IPS вызвали его остановку. Посмотрите "
+"{log} для подробностей и  журнал изменения правил в  {url} ({name} rules)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:80
 msgid "Web Server"
-msgstr "Веб сервер"
+msgstr "Web сервер"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:87
 msgid "To set webserver listening port."
@@ -1658,7 +1632,7 @@ msgstr "Установить порт веб-сервера."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:92
 msgid "To configure default virtual host."
-msgstr "Настроить виртуальный узел по умолчанию."
+msgstr "Настроить виртуальный хост по умолчанию."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:97
 msgid "To configure default SSL virtual host."
@@ -1666,19 +1640,19 @@ msgstr "Настроить основной виртуальный узел дл
 
 #: ../../main/webserver/src/EBox/WebServer.pm:102
 msgid "To configure the per-user public_html directory."
-msgstr "Настроить каталоги для веб-публикаций пользователей."
+msgstr "Настроить домашние html каталоги для пользователей."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:127
 msgid "Enable Apache LDAP user module"
-msgstr "Включить модуль apache LDAP user"
+msgstr "Включить модуль Apache LDAP"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:129
 msgid "To fetch home directories from LDAP."
-msgstr "Перенести домашние каталоги из LDAP."
+msgstr "Выбрать домашние каталоги из LDAP."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:132
 msgid "Enable Apache SSL module"
-msgstr "Включить модуль apache SSL"
+msgstr "Включить модуль Apache SSL"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:134
 msgid "To serve pages over HTTPS."
@@ -1695,23 +1669,26 @@ msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal позаботиться о запуске и остановке служб."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:604
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
+"{dir} указывает на каталог с конфигурацией виртуального хоста. Пожалуйста, "
+"переместите или удалите ее."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:619
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} указывает на каталог(папку) с файлами виртуального хоста. Пожалуйста, "
+"переместите или удалите ее."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:861
-#, fuzzy
 msgid "Web server data"
-msgstr "Статус веб-службы"
+msgstr "Содержимое Web  сервера"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:57
 #, perl-brace-format
@@ -1748,7 +1725,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:133
 #, fuzzy
 msgid "Configuration Settings saved."
-msgstr "Настройки квоты"
+msgstr "Настройки конфигурации сохранены."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:134
 #, perl-brace-format

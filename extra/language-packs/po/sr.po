@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-08-16 12:16+0200\n"
+"PO-Revision-Date: 2014-02-14 01:36+0200\n"
 "Last-Translator: Bojan <bojce@ubuntusrbija.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -60,7 +60,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Овај пакет није валидан Zentyal-на-Zentyal конфигурациони пакет. (Недостаје "
+"Овај пакет није валидан Zentyal-to-Zentyal конфигурациони пакет. (Недостаје "
 "датотека СА сертификата)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
@@ -450,7 +450,7 @@ msgid ""
 msgstr ""
 "{openpar}Потребан Вам је валидан CA сертификат да покренете VPN сервере. "
 "{closepar}{openpar}Молимо, идите на {openhref} модул сертификационог "
-"ауторитета{closehref}  и обновите га.{closepar}"
+"ауторитета{closehref} и обновите га.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -508,7 +508,7 @@ msgid ""
 "{certName} certificate"
 msgstr ""
 "Не могу креирати сервер са именом {name} јер већ постоји сертификат назван "
-"{certName} са статусом {state}.<br/>Одаберите друго име или реиздајте "
+"{certName} са {state} статусом.<br/>Одаберите друго име или реиздајте "
 "{certName} сертификат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
@@ -522,12 +522,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Можете конфигурисати openVPN сервере да лако конкетујете удаљене "
-"канцеларије или кориснике.{closepar}{openpar} Кликните на {openit}"
-"Configuration{closeit} да подесите VPN параметре.{closepar}{openpar}{openit}"
-"Advertised networks{closeit} омогућава Вам да подесите која мрежа ће бити "
-"доступна удаљеним корисницима.{openpar} Једном када завршите са подешавањем "
-"можете преузети пакет за Ваш оперативни систем и користите га у Вашим "
-"клијентима."
+"канцеларије или кориснике.{closepar}{openpar}Кликните на "
+"{openit}Configuration{closeit} да подесите VPN "
+"параметре.{closepar}{openpar}{openit}Advertised networks{closeit} омогућава "
+"Вам да подесите која мрежа ће бити доступна удаљеним "
+"корисницима.{openpar}Једном када завршите са подешавањем можете преузети "
+"пакет за Ваш оперативни систем и користите га у Вашим клијентима."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
@@ -856,7 +856,7 @@ msgid ""
 "module enabled. Please activate it and try again"
 msgstr ""
 "Не могу користити претварање Мрежних Адреса јер то захтева укључен модул "
-"заштитног зида. молимо активирајте га и покушајте поново"
+"заштитног зида. Молимо активирајте га и покушајте поново"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
@@ -1167,19 +1167,16 @@ msgid "System"
 msgstr "Систем"
 
 #: ../../main/ha/src/EBox/HA.pm:124
-#, fuzzy
 msgid "Cluster nodes"
-msgstr "корисничко име"
+msgstr "Чворови кластера"
 
 #: ../../main/ha/src/EBox/HA.pm:142
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr " Да конфугуришете clamd димон"
+msgstr "Да конфугуришете corosync димон"
 
 #: ../../main/ha/src/EBox/HA.pm:145
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Zaustavi ili Restartuj"
+msgstr "Да покренете corosync при бутовању"
 
 #: ../../main/ha/src/EBox/HA.pm:546
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1287,20 +1284,17 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:57
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:114
-#, fuzzy
 msgid "Cluster name"
-msgstr "корисничко име"
+msgstr "Име кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:58
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:107
-#, fuzzy
 msgid "Cluster secret"
-msgstr "корисничко име"
+msgstr "Тајна кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:59
-#, fuzzy
 msgid "Current DC"
-msgstr "Тренутна датотека"
+msgstr "Тренутни ДЦ"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:87
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:136
@@ -1347,7 +1341,7 @@ msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
-msgstr "Извештај ИПС упозорења"
+msgstr "ИПС Извештај упозорења"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
 msgid "Intrusion Detection/Prevention System"
@@ -2087,7 +2081,7 @@ msgid ""
 "option instead"
 msgstr ""
 "Прилагођено име домаћина не може бити подешено из истог домена. Користите "
-"уместо тога \"Овај домен\" опцију "
+"уместо тога \"Овај домен\" опцију"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:87
 #, perl-brace-format
@@ -4098,7 +4092,7 @@ msgstr ""
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:407
 #, perl-brace-format
 msgid "The server domain '{x}' does not match DC domain '{y}'."
-msgstr "Домен сервера {x} се не поклапа са доменом ДЦ-а '{y}'."
+msgstr "Домен сервера '{x}' се не поклапа са доменом ДЦ-а '{y}'."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:420
 #, perl-brace-format
@@ -4771,14 +4765,14 @@ msgid "Re-type new password"
 msgstr "Поново унеси нову лозинку"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not bind to LDAP: {x}"
-msgstr "Не могу да повежем са AD LDAP сервером '{x}'. Грешке су '{y}'"
+msgstr "Не могу да повежем са LDAP сервером: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not get the user DN: {x}"
-msgstr "Не могу да преузети samAccountName атрибуте за ДН '{x}'"
+msgstr "Не могу да преузети корисника ДН: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:133
 #, perl-brace-format
@@ -4818,9 +4812,8 @@ msgid "Security Groups"
 msgstr "Корисничка Група"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:158
-#, fuzzy
 msgid "Distribution Groups"
-msgstr "Адмнинистрација групе "
+msgstr "Дистрибуционе групе"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:160
 msgid "Computers"
@@ -9366,14 +9359,12 @@ msgid "Initial configuration wizard"
 msgstr "Чаробњак почетне конфигурације"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:196
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
-"Лозинка PPPoE садржи недозвољене карактере. Сви алфанумерички карактери, "
-"плус следећи неалфанумерички карактери: /.?!&+:-_\\@$%=* и размаци су "
-"дозвољени."
+"Унос садржи недозвољене карактере. Сви алфанумерички карактери, плус следећи "
+"неалфанумерички карактери: ={},/.?&+:-@ и размаци су дозвољени."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:350
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:159
@@ -10162,9 +10153,8 @@ msgid "This service does not allow to change the https port."
 msgstr "Овај сервер није у могућности да обави ту акцију."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:291
-#, fuzzy
 msgid "This service cannot have both ports disabled."
-msgstr "'Било који' не сме имати обрнуто кретање"
+msgstr "Овај сервис не сме имати оба порта искључена."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:317
 msgid "The port must be defined before enable it."
@@ -10321,7 +10311,7 @@ msgstr "Провери да ли се нешто догодило на RAID по
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:237
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "Информација о новом низу RAID уређаја {devName}:"
+msgstr "Информација о новом низу RAID {devName} уређаја:"
 
 # State of what
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:239
@@ -11018,7 +11008,7 @@ msgid ""
 "favourite RSS. "
 msgstr ""
 "Канал линк је линк који користите да дистрибуирали садржај ваших омиљених "
-"РСС-ова."
+"РСС-ова. "
 
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:189
 msgid "RSS dispatcher configuration updated"
@@ -11252,9 +11242,8 @@ msgid "Must be a valid regular expression"
 msgstr ""
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4640
-#, fuzzy
 msgid "Page 1"
-msgstr "Величина стране"
+msgstr "Страна 1"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4642
 #, perl-brace-format
@@ -11536,9 +11525,8 @@ msgid "OpenChange"
 msgstr "Измени"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:229
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr " Да конфугуришете clamd димон"
+msgstr "Да конфугуришете sogo димон"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:234
 #, fuzzy
@@ -13794,7 +13782,7 @@ msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
 "Ако је глобално ограничавање укључено морате да наведете њену величину и "
-"брзину  "
+"брзину"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:67
 msgid ""
@@ -14263,15 +14251,14 @@ msgid "Not supported"
 msgstr "Није подржано"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:304
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Обликовање саобраћаја се примењује када је Zentyal мрежни пролаз. Да би сте "
-"постигли ово, потребно је најмање један унутрашњи и један спољашњи "
-"интерфејс. Проверите Ваше подешавање интерфејса да ли одговара, на {openhref}"
-"Мрежа->Интерфејси{closehref}"
+"IPsec може једино бити конфигурисан на интерфејсима обележеним као 'спољњи' "
+"Проверите да Ваша конфигурација одговара томе, на "
+"{openhref}Мрежа->Интерфејси{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:53
 msgid ""
@@ -17044,9 +17031,8 @@ msgstr "Корисничка Група"
 #: ../../main/users/src/templates/addgroup.mas:10
 #: ../../main/users/src/templates/editgroup.mas:29
 #: ../../main/users/src/templates/editgroup.mas:35
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Адмнинистрација групе "
+msgstr "Дистрибуциона група"
 
 #: ../../main/users/src/templates/addgroup.mas:12
 msgid "Group name"
@@ -17058,9 +17044,8 @@ msgid "Optional value"
 msgstr ""
 
 #: ../../main/users/src/templates/editgroup.mas:16
-#, fuzzy
 msgid "Group "
-msgstr "Група: {g}"
+msgstr "Група "
 
 #: ../../main/users/src/templates/editgroup.mas:20
 msgid ""
@@ -17629,7 +17614,7 @@ msgid ""
 "Please use {url} instead."
 msgstr ""
 "Упозорење: На жалост Internet Explorer тренутно није подржан од Zentyal-a. "
-"Молимо вас употребите овај линк {url}."
+"Молимо вас употребите линк {url} уместо њега."
 
 #: ../../main/core/src/templates/login/index.mas:46
 #, perl-brace-format
@@ -18412,9 +18397,8 @@ msgid "Total calendar"
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Очекивано преостало време"
+msgstr "Очекивано преостало време (100мб/с)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
 #, fuzzy

@@ -9,26 +9,26 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-08-17 14:05+0200\n"
-"Last-Translator: AvPme <artem@dis.kiev.ua>\n"
+"PO-Revision-Date: 2014-02-13 17:54+0200\n"
+"Last-Translator: adm_ <adm_@gala.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1395
 msgid "disabled"
-msgstr ""
+msgstr "вимкнено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Адреса сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -278,29 +278,29 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "Сервери OpenVPN не можуть бути використані для внутрішніх служб"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Тип клієнта не підтримужться: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "Сервер {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "All external interfaces"
-msgstr ""
+msgstr "Усі зовнішні інтерфейси"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 msgid "Not found"
-msgstr ""
+msgstr "Не знайдено"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
-msgstr ""
+msgstr "Локальна адреса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:912
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
@@ -314,7 +314,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:915
 msgid "VPN subnet"
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN network interface"
-msgstr ""
+msgstr "VPN мережевий інтерфейс"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
@@ -376,7 +376,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:33
 #: ../../main/network/src/templates/ifaces.mas:233
 msgid "Name"
-msgstr ""
+msgstr "Ім’я"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
@@ -402,21 +402,21 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr ""
+msgstr "Завантажити клієнтський пакет"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
-msgstr ""
+msgstr "Список серверів"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
-msgstr ""
+msgstr "VPN сервери"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "сервер"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -436,7 +436,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
-msgstr ""
+msgstr "Створення сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""
@@ -446,7 +446,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "Неможливо створити сервер, тому що CA сертифікат відсутній"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
 #, perl-brace-format
@@ -494,35 +494,34 @@ msgstr ""
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
-msgstr ""
+msgstr "Сервер"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
 msgid "Server port"
-msgstr ""
+msgstr "Порт сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
-msgstr ""
+msgstr "CA-сертифікат"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "Сертифікат клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
-msgstr ""
+msgstr "Приватний ключ клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr "мережевий інтерфейс"
+msgstr "інтерфейс TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
-msgstr ""
+msgstr "Пароль тунеля сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
@@ -538,7 +537,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
-msgstr ""
+msgstr "Конфігурація клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
@@ -555,15 +554,15 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr ""
+msgstr "Тип клієнта"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Додати інсталятор OpenVPN в пакет"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Інсталятор OpenVPN для Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 msgid "Connection strategy"
@@ -571,7 +570,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr ""
+msgstr "Адреса сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
@@ -589,7 +588,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
-msgstr ""
+msgstr "Завантажити клієнтський пакет"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
@@ -597,7 +596,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/viewer/file.mas:19
 #: ../../main/core/src/templates/ajax/viewer/file.mas:27
 msgid "Download"
-msgstr ""
+msgstr "Завантажити"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
@@ -859,11 +858,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:59
 msgid "Deleted daemons"
-msgstr ""
+msgstr "Видалені демони"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:65
 msgid "daemon"
-msgstr ""
+msgstr "демон"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
 #, fuzzy
@@ -16788,15 +16787,15 @@ msgstr ""
 
 #: ../../main/ca/src/templates/formReissue.mas:32
 msgid "Reissue a certificate"
-msgstr ""
+msgstr "Перевидання сертифіката"
 
 #: ../../main/ca/src/templates/forceRenew.mas:42
 msgid "Renewing CA certificate"
-msgstr ""
+msgstr "Оновлення CA сертифіката"
 
 #: ../../main/ca/src/templates/forceRenew.mas:44
 msgid "Renewing certificate"
-msgstr ""
+msgstr "Оновлення сертифіката"
 
 #: ../../main/ca/src/templates/forceRenew.mas:50
 #, perl-brace-format
@@ -17191,7 +17190,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:137
 msgid "Enter user and password"
-msgstr ""
+msgstr "Введіть ім’я користувача та пароль"
 
 #: ../../main/remoteservices/src/templates/Backup/confirm.mas:18
 #: ../../main/core/src/templates/confirm-backup.mas:23
@@ -17526,11 +17525,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:43
 msgid "Official documentation in English and Spanish."
-msgstr ""
+msgstr "Офіційна документація на англійскій та інспанскій мові"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:43
 msgid "Documentation"
-msgstr ""
+msgstr "Документація"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:45
 msgid "Community Support Forum to give and get help."
@@ -18046,15 +18045,15 @@ msgstr "Прийняти"
 
 #: ../../main/core/src/templates/wizard/wizard.mas:20
 msgid "Skip"
-msgstr ""
+msgstr "Пропустити"
 
 #: ../../main/core/src/templates/wizard/wizard.mas:20
 msgid "Next"
-msgstr ""
+msgstr "Далі"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:15
 msgid "Congratulations!"
-msgstr ""
+msgstr "Вітаємо!"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:15
 msgid "Your Zentyal installation has successfully finished!"
@@ -18359,7 +18358,7 @@ msgstr ""
 
 #: ../../main/openchange/src/templates/migration/progress.mas:53
 msgid "Details"
-msgstr ""
+msgstr "Деталі"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:57
 msgid "discard mailbox"
@@ -18367,7 +18366,7 @@ msgstr ""
 
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
-msgstr ""
+msgstr "Активувати поштову скриньку"
 
 #: ../../main/software/src/templates/config.mas:9
 msgid "Perform automatic software updates"
@@ -18375,7 +18374,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr ""
+msgstr "Zentyal налаштований для отримання автоматичних QA оновлень"
 
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
@@ -18383,15 +18382,15 @@ msgstr ""
 
 #: ../../main/software/src/templates/del.mas:69
 msgid "Confirm packages to install"
-msgstr ""
+msgstr "Підвердіть пакети для встановлення"
 
 #: ../../main/software/src/templates/del.mas:71
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Наступні пакети будуть встановлені"
 
 #: ../../main/software/src/templates/del.mas:72
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Наступні пакети будуть видалені"
 
 #: ../../main/software/src/templates/updates.mas:69
 msgid ""
@@ -18402,7 +18401,7 @@ msgstr ""
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:507
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Спикок пакетів успішно оновлено"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:514
@@ -18413,7 +18412,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Оновлення доступні для наступних системних компонентів"
 
 #: ../../main/software/src/templates/updates.mas:87
 msgid "Community updates are available for the following system components"
@@ -18424,19 +18423,19 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:65
 #: ../../main/software/src/templates/ebox.mas:328
 msgid "Update"
-msgstr ""
+msgstr "Оновлення"
 
 #: ../../main/software/src/templates/updates.mas:100
 msgid "Security update"
-msgstr ""
+msgstr "Оновлення безпеки"
 
 #: ../../main/software/src/templates/updates.mas:103
 msgid "Zentyal QA update"
-msgstr ""
+msgstr "Оновлення QA Zentyal"
 
 #: ../../main/software/src/templates/updates.mas:125
 msgid "Update all packages"
-msgstr ""
+msgstr "Оновити всі пакети"
 
 #: ../../main/software/src/templates/updates.mas:135
 msgid ""
@@ -18445,25 +18444,24 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/updates.mas:139
-#, fuzzy
 msgid "Upgrading system packages"
-msgstr "Файл налаштування NTP"
+msgstr "Оновлення системних пакетів"
 
 #: ../../main/software/src/templates/updates.mas:140
 #: ../../main/software/src/templates/ebox.mas:445
 msgid "Update list"
-msgstr ""
+msgstr "Список оновлень"
 
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:69
 #: ../../main/software/src/templates/ebox.mas:72
 msgid "Installed Version"
-msgstr ""
+msgstr "Встановлена версія"
 
 #: ../../main/software/src/templates/ebox.mas:44
 #: ../../main/software/src/templates/ebox.mas:73
 msgid "Latest Version"
-msgstr ""
+msgstr "Остання версія"
 
 #: ../../main/software/src/templates/ebox.mas:50
 #, fuzzy
@@ -18481,12 +18479,16 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Наступні пакети встановлено некоректно. Ви повинні це виправити перед їх "
+"використанням або встановити нові модулі"
 
 #: ../../main/software/src/templates/ebox.mas:110
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
+"Для того, щоб виправити цю ситуацію, будь-ласка, виконайте наступну команду "
+"в консолі"
 
 #: ../../main/software/src/templates/ebox.mas:115
 #, perl-brace-format
@@ -18501,13 +18503,12 @@ msgid "View advanced mode"
 msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:127
-#, fuzzy
 msgid "Server roles"
-msgstr "ім’я користувача"
+msgstr "Роль сервера"
 
 #: ../../main/software/src/templates/ebox.mas:302
 msgid "Skip install"
-msgstr ""
+msgstr "Пропустити встановлення"
 
 #: ../../main/software/src/templates/ebox.mas:319
 msgid "View basic mode"
@@ -18524,13 +18525,15 @@ msgstr ""
 
 #: ../../main/firewall/src/templates/filter.mas:15
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr ""
+msgstr "Правила фільтрації із внутрішніх мереж на Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:16
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
+"Ці правила дозволяють Вам контролювати доступ до служб, які запущені на "
+"комп’ютері Zentyal, з внутрішніх мереж "
 
 #: ../../main/firewall/src/templates/filter.mas:17
 #: ../../main/firewall/src/templates/filter.mas:25
@@ -18539,11 +18542,11 @@ msgstr ""
 #: ../../main/firewall/src/templates/filter.mas:52
 #: ../../main/firewall/src/templates/filter.mas:62
 msgid "Configure rules"
-msgstr ""
+msgstr "Налаштувати правила"
 
 #: ../../main/firewall/src/templates/filter.mas:23
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Правила фільтрації для внутрішніх мереж"
 
 #: ../../main/firewall/src/templates/filter.mas:24
 msgid ""
@@ -18734,19 +18737,19 @@ msgstr ""
 
 #: ../../main/mail/src/templates/alias.mas:26
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Створити поштові псевдоніми"
 
 #: ../../main/mail/src/templates/alias.mas:184
 msgid "No quota"
-msgstr ""
+msgstr "Квота відсутня"
 
 #: ../../main/mail/src/templates/alias.mas:185
 msgid "Default quota"
-msgstr ""
+msgstr "Квота за замовчанням"
 
 #: ../../main/mail/src/templates/alias.mas:186
 msgid "Custom quota"
-msgstr ""
+msgstr "Квота користувача"
 
 #: ../../main/mail/src/templates/alias.mas:194
 #, fuzzy
@@ -18773,15 +18776,15 @@ msgstr ""
 
 #: ../../main/mail/src/templates/account.mas:34
 msgid "Click here to create a new mail virtual domain"
-msgstr ""
+msgstr "Натисніть тут, щоб створити новий поштовий віртуальний домен"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
-msgstr ""
+msgstr "Відправник"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Recipients"
-msgstr ""
+msgstr "Отримувачі"
 
 #: ../../main/mail/src/templates/qmanager.mas:33
 msgid "Requeue"
@@ -18789,11 +18792,11 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:35
 msgid "Show Info"
-msgstr ""
+msgstr "Показати інформацію"
 
 #: ../../main/mail/src/templates/qmanager.mas:48
 msgid "Hide Info"
-msgstr ""
+msgstr "Сховати інформацію"
 
 #: ../../main/mail/src/templates/qmanager.mas:57
 msgid "Attempt to deliver all queued mail"
@@ -18801,11 +18804,11 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Remove all messages"
-msgstr ""
+msgstr "Видалити всі повідомлення"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "У черзі відсутні повідомлення або сервіс зупинений"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
 #, fuzzy
@@ -18820,7 +18823,7 @@ msgstr ""
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "Віртуальний поштовий домен"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Set up the default virtual mail domain"

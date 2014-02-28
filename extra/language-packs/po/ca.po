@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2013-09-03 23:48+0200\n"
+"PO-Revision-Date: 2014-02-25 10:33+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -351,7 +351,7 @@ msgstr "Xarxa anunciada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You can add here those networks which you want to make available to "
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
@@ -359,9 +359,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar}Pot afegir aquí aquelles xarxes que vulgui posar a disposició dels "
-"clients que es connectin a aquesta VPN.{closepar}{openpar}Normalment, es "
-"permet l'accés a la seva LAN anunciant la seva adreça de xarxa aquí{closepar}"
+"{openpar}Pot afegir aquí aquelles les xarxes que vulgui posar a disposició "
+"dels clients que es connectin a aquesta VPN.{closepar}{openpar}Normalment, "
+"es permet l'accés a la seva LAN anunciant la seva adreça de xarxa "
+"aquí{closepar} Si l'adreça d'una xarxa anunciada coincideix amb l'adreça "
+"d'una xarxa VPN, la xarxa anunciada serà ignorada.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -485,19 +487,16 @@ msgstr ""
 "vagi al mòdul d'autoritat de certificació i creï nous certificats"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
-msgstr "Revocat"
+msgstr "revocat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
-msgstr "Expirat"
+msgstr "expirat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "Vàlid"
+msgstr "invàlid"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -506,6 +505,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"No es pot crear un servidor anomenat {name} perquè ja existeix un certificat "
+"anomenat {certName} amb estat {state}.<br/>Triï un altre nom o torni a "
+"expedir el certificat {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -604,9 +606,8 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Instal·lador d'OpenVPN per Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Estat de la connexió"
+msgstr "Estratègia de connexió"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -625,9 +626,8 @@ msgid "Additional server address (optional)"
 msgstr "Adreça addicional del servidor (opcional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "Adreça addicional del servidor (opcional)"
+msgstr "Segona adreça addicional del servidor (opcional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -643,12 +643,11 @@ msgstr "Descarrega"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Aleatori"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "WAN Failover"
+msgstr "En ordre"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -706,6 +705,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"No hi ha certificats disponibles per aquest client. Sis plau, {ohref}crea "
+"un{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -739,10 +740,8 @@ msgid "Network Address Translation"
 msgstr "Traducció d'Adreça de Xarxa (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
-"Habilitar-lo si aquesta VPN és utilitzada per connectar a altre Zentyal"
+msgstr "Habiliti-ho si aquest servidor VPN no és la porta d'enllaç per defecte"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -769,33 +768,32 @@ msgstr "Contrasenya de túnel de Zentyal a Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Rebutjar les rutes enviades pels Zentyals clients del tunel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Quan marqui aquesta opció, aquest servidor no aplicarà cap ruta publicada "
+"pels seus clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
 msgstr "Interfície per escoltar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Porta d'enllaç per defecte"
+msgstr "Redirigir porta d'enllaç"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Configura Zentyal com la porta d'enllaç per defecte per al client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "Nom"
+msgstr "Servidor de noms primari"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Secod nameserver"
 msgstr "Servidor de noms secundari"
 
@@ -838,9 +836,9 @@ msgid "Other server is listening on the same port"
 msgstr "Altre servidor està a l'escolta en el mateix port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "El port {p}/{pro} ja està en ús"
+msgstr "El port {p}/{pr} ja està en ús per {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
@@ -885,21 +883,21 @@ msgstr ""
 "habilitada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "Permetre túnels de Zentyal a Zentyal"
+msgstr "{par} no és compatible amb túnels de Zentyal a Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Llista de Xarxes Anunciades"
+msgstr "Llista de Xarxes Anunciades pel servidor de túnels"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"Rutes anunciades per als clients a través d'una interfície TUN no són "
+"compatibles"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
-#, fuzzy
 msgid "Advertised Network"
 msgstr "Xarxa anunciada"
 
@@ -910,9 +908,8 @@ msgid "Enable"
 msgstr "Habilitar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
-#, fuzzy
 msgid "Upload client bundle"
-msgstr "Descarregar paquet de configuració de client"
+msgstr "Pujar paquet de configuració de client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
@@ -943,19 +940,17 @@ msgid "daemon"
 msgstr "dimoni"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
 msgstr "Pujar el paquet de configuració"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Pujar el paquet de configuració"
+msgstr "Pujar paquet de configuració del client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Pujar el paquet de configuració"
+msgstr "Pujar paquet de configuració per {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
@@ -1013,7 +1008,7 @@ msgstr ""
 "reservats per a ús intern"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
@@ -1022,7 +1017,7 @@ msgstr ""
 "prefix {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "El client {c} no existeix"
 
@@ -1171,9 +1166,8 @@ msgstr "Has de configurar insecure_rip_conf a 'yes' o 'no'"
 #: ../../main/ha/src/EBox/HA.pm:68
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "Disponible"
+msgstr "Alta disponibilitat"
 
 #: ../../main/ha/src/EBox/HA.pm:93
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
@@ -1184,19 +1178,16 @@ msgid "System"
 msgstr "Sistema"
 
 #: ../../main/ha/src/EBox/HA.pm:124
-#, fuzzy
 msgid "Cluster nodes"
-msgstr "nom de l'usuari"
+msgstr "Nodes del clúster"
 
 #: ../../main/ha/src/EBox/HA.pm:142
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Configurar el dimoni clamd"
+msgstr "Per configurar el dimoni corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:145
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Apaga o reinicia"
+msgstr "Comença corosync al inici"
 
 #: ../../main/ha/src/EBox/HA.pm:546
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1236,66 +1227,56 @@ msgid "IP address"
 msgstr "Adreça IP"
 
 #: ../../main/ha/src/EBox/HA.pm:554
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "La interfície {iface} no està configurada"
+msgstr "Clúster no configurat"
 
 #: ../../main/ha/src/EBox/HA.pm:642
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} no té adreça IP a utilitzar"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:58
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Nom massa llarg. La longitud màxima és {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:61
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Nom massa curt. La longitud mínima és {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:64
 msgid "Name must only contain letters, numbers or underscores."
-msgstr ""
+msgstr "Nom ha de contenir només lletres, números o guions baixos"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:83
-#, fuzzy
 msgid "There is a a Network interface with the given IP address."
-msgstr ""
-"No hi ha una interfície interna estàtica per establir l'adreça IP del "
-"servidor Web."
+msgstr "Ja hi ha una interfície de xarxa amb aquesta IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:85
-#, fuzzy
 msgid "There is a fixed DHCP object with the given IP address."
-msgstr ""
-"No hi ha una interfície interna estàtica per establir l'adreça IP del "
-"servidor Web."
+msgstr "Ja hi ha un client DHCP amb aquesta IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:87
 msgid "There is a DHCP range that include the given IP address."
-msgstr ""
+msgstr "Ja existeix un rang DHCP que inclou l'IP donada "
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:192
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Domini o adreça IP"
+msgstr "Adreça IP flotant"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:201
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Domini o adreça IP"
+msgstr "Adreçes IP flotants"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:205
-#, fuzzy
 msgid "floating IP address"
-msgstr "Domini o adreça IP"
+msgstr "Adreça IP flotant"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:110
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Llista de nodes per al {name} clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:128
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
@@ -1306,78 +1287,72 @@ msgstr "Nom de màquina"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:143
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Llista de nodes per al clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:57
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:114
-#, fuzzy
 msgid "Cluster name"
-msgstr "nom de l'usuari"
+msgstr "Nom del clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:58
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:107
 #, fuzzy
 msgid "Cluster secret"
-msgstr "nom de l'usuari"
+msgstr "Clúster secret"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:59
-#, fuzzy
 msgid "Current DC"
-msgstr "Mòdul actual"
+msgstr "Actual DC"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:87
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:136
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Configuració del client"
+msgstr "Configuració del clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:94
-#, fuzzy
 msgid "Cluster host"
-msgstr "nom de l'usuari"
+msgstr "Cluster amfitrió"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:100
-#, fuzzy
 msgid "Cluster host port"
-msgstr "nom de l'usuari"
+msgstr "Port del clúster amfitrió"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:122
-#, fuzzy
 msgid "Choose network interface"
-msgstr "interfície de xarxa"
+msgstr "Triar interfície de xarxa"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:124
 msgid "It will be used as communication channel between the cluster members."
-msgstr ""
+msgstr "Serà utilitzat com canal de comunicació entre els membres del clúster."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:128
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Configurar com aquest servidor iniciarà un cluster o l'unirà a un existent"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:130
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
+"Si canvia alguna configuració, pot patir una interrupció del servei del "
+"clúster,"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:151
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Crear un nou disc"
+msgstr "Crear un nou clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:152
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Unir aqust node a un clúster existent"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
-msgstr "Informe d'alertes IDS"
+msgstr "Informe d'alertes de l'IPS"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
-msgstr "Sistema de Detecció d'Intrusos"
+msgstr "Sistema de Detecció/Precenció d'Intrusions"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1390,7 +1365,7 @@ msgstr "Nombre d'alertes"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
 msgid "Alert details"
-msgstr "Detall de l'alerta"
+msgstr "Detalls de l'alerta"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
 msgid "alerts"
@@ -1398,7 +1373,7 @@ msgstr "alertes"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
 msgid "Alerts chart"
-msgstr "Gràfic d'alertes"
+msgstr "Taula d'alertes"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
 msgid "Alert Graph"
@@ -1429,6 +1404,8 @@ msgstr "regla"
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
+"Seleccioni el conjunt de regles que desitgi aplicar quan s'escanegi el "
+"trànsit de la xarxa"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
@@ -1438,13 +1415,12 @@ msgid "Log"
 msgstr "Registre"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
-#, fuzzy
 msgid "Block"
-msgstr "Bloqueig de propaganda"
+msgstr "Bloquejar"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
-msgstr ""
+msgstr "Registrar i Bloquejar"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
@@ -1527,23 +1503,20 @@ msgid "interface"
 msgstr "interfície"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
-msgstr "Selecciona a quina interfície s'activarà el sistema IDS"
+msgstr "Seleccionar en quines interfícies s'activarà el sistema IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:67
 msgid "IDS/IPS"
-msgstr ""
+msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Configuració de l'estat dels móduls"
+msgstr "Afegir regles a la configuració del Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
-#, fuzzy
 msgid "Enable start of suricata daemon"
-msgstr "Habilitar dimoni dagent de Zarafa"
+msgstr "Habilitar l'execució del dimoni del Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
@@ -1622,33 +1595,28 @@ msgid "Protocol"
 msgstr "Protocol"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "Alert"
 msgstr "Alerta"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Actualitzacions del sistema"
+msgstr "Actualitzacions  de les regles de l'IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Espai lliure"
+msgstr "Causa de la fallada"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:402
-#, fuzzy
 msgid "Success"
-msgstr "Accés de convidat"
+msgstr "Éxit"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:402
-#, fuzzy
 msgid "Failure"
 msgstr "Fallada"
 
@@ -1658,6 +1626,9 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"L'última actualització de regles fa que el dimoni estigui aturat. Comprovi "
+"{log} per més detalls i els logs de canvis en les regles {url} ({name} "
+"rules)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:80
@@ -1719,11 +1690,12 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} hauria de ser un directori per a l'arrel del domini virtual. Sis plau, "
+"mogui'l o esborri'l"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:861
-#, fuzzy
 msgid "Web server data"
-msgstr "Estat del servei web"
+msgstr "Dades del servidor web"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:57
 #, perl-brace-format
@@ -1731,6 +1703,9 @@ msgid ""
 "You must enable {module} ports on the Zentyal's reverse proxy configuration "
 "at {ohref}System's General configuration page{chref}."
 msgstr ""
+"S'han d'habilitar {module} els ports sobre la configuració de proxi invers "
+"de Zentyal  a {ohref} la pàgina de la configuració general del sistema "
+"{chref}."
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:82
 msgid ""
@@ -1841,22 +1816,23 @@ msgstr ""
 "nom {name} - adreça IP {ip}. {noDnsWarning} "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:177
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
 msgstr ""
-"El host virtual {vhost} s'ha afegit. El domini {domain} s'ha creat amb el "
-"nom {name} - adreça IP {ip}. {noDnsWarning} "
+"El host virtual {vhost} s'ha afegit. Un domini {domain} ha estat creat amb "
+"el nom de l'equip {name}. Sis plau, configuri l'adreça IP {ip} de l'equip. "
+"{noDnsWarning} "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:199
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
 "Please, set the host IP address"
 msgstr ""
-"El host virtual {vhost} s'ha afegit. El nom de mapatge {name} - adreça IP "
-"{ip} ha estat afegit al domini {domain}."
+"El host virtual {vhost} s'ha afegit. Un nom de l'equip {name} ha estat "
+"afegit al domini {domain}. Sis plau, configuri l'adreça IP de l'equip."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:207
 #, perl-brace-format

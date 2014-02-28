@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-01-12 17:27+0200\n"
-"Last-Translator: weißnix <alegat@web.de>\n"
+"PO-Revision-Date: 2014-02-23 12:12+0200\n"
+"Last-Translator: lyon <shieldwed@outlook.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -492,7 +492,6 @@ msgstr ""
 "zum Modul Zertifizierungsstelle und erstellen sie ein neues Zertifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "Widerrufen"
 
@@ -502,7 +501,7 @@ msgstr "Abgelaufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
-msgstr "ungültig"
+msgstr "Ungültig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -511,6 +510,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Kann den Server mit Namen \"{name}\" nicht erstellen, da bereits ein "
+"Zertifikat \"{certName}\" mit Status \"{state}\" existiert. Wählen Sie einen "
+"anderen Namen oder erneuern Sie das Zertifikat \"{certName}\"."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -654,7 +656,7 @@ msgstr "Zufall"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 #, fuzzy
 msgid "Failover"
-msgstr "WAN Ausfallleitung"
+msgstr "Ausfallsicherung"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -713,6 +715,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Es sind keine Zertifikate für diesen Client verfügbar. Bitte "
+"{ohref}erstellen{chref} Sie eines."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -896,7 +900,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "{par} ist nicht kompatible zum Zentyal-zu-Zentyal-Tunnel"
+msgstr "{par} ist nicht kompatibel mit Zentyal-zu-Zentyal-Tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 #, fuzzy
@@ -951,14 +955,12 @@ msgid "daemon"
 msgstr "Hintergrunddienst"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
-msgstr "Konfigurations-Dateipaket hochladen"
+msgstr "Konfigurationspaket hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Konfigurations-Dateipaket hochladen"
+msgstr "Client Konfigurationspaket hochladen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
 #, perl-brace-format
@@ -20445,10 +20447,13 @@ msgid "Changing maildir size of"
 msgstr "Ändern der Postfachgrösse von"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
+#, fuzzy
 msgid ""
 "The new maildir size is smaller than the oldest one and the actual\n"
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
+"Die neue Postfachgrösse ist kleiner als die älteste und die aktuelle\n"
+"\t Größe der Benutzer Postfächer wird die neue Limit überschreiten."
 
 #: ../../main/mail/src/templates/account.mas:31
 msgid ""
@@ -20495,15 +20500,16 @@ msgstr ""
 "Es sind keine Nachrichten in der Warteschlange oder der Dienst ist gestoppt."
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Dateigröße"
+msgstr "Postfachgrösse"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
+"Die neue Postfachgrösse ist kleiner als die alte. Folgende\n"
+"\t Benutzer werden das neue Limit überschreiten:"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
