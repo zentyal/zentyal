@@ -1,4 +1,6 @@
 3.4
+	+ In EBox::Type::Select, use element value as printableValue for
+	  unknown options or options without printableValue
 	+ Send restartUI flag to restart service when restarting a module
 	  from the UI
 	+ Fix calculation of page number when using go to last page control
