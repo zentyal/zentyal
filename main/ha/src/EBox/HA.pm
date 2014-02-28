@@ -1594,7 +1594,7 @@ sub _setFloatingIPRscs
         } else {
             # Add it!
             push(@rootCmds,
-                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr op monitor interval=30s");
             if ($activeNode ne $localNode) {
                 push(@moves, $rscName);
             }
@@ -1663,7 +1663,10 @@ sub _setSingleInstanceInClusterModules
             if ($mod->isEnabled()) {
                 unless (exists $currentRscs{$modName}) {
                     push(@rootCmds,
-                         "crm -w configure primitive '$modName' ocf:zentyal:Zentyal params module_name='$modName'");
+                         "crm -w configure primitive '$modName' "
+                         . "ocf:zentyal:Zentyal params module_name='$modName' "
+                         . "op monitor interval=60s timeout=10s"
+                         . "op monitor interval=300s role=Stopped timeout=10s");
                     if ($activeNode ne $localNode) {
                         push(@moves, $modName);
                     }
