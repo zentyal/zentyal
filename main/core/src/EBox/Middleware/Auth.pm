@@ -27,9 +27,11 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 
 use Fcntl qw(:flock);
+use JSON::XS;
 use Plack::Request;
 use Plack::Util::Accessor qw( app_name );
 use TryCatch::Lite;
+use URI;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
@@ -296,6 +298,38 @@ sub _logout
     }
 }
 
+# Redirect properly to the login page
+sub _redirectToLogin
+{
+    my ($self, $env) = @_;
+
+    my $ajaxRequest = (exists $env->{HTTP_X_REQUESTED_WITH} and $env->{HTTP_X_REQUESTED_WITH} eq 'XMLHttpRequest');
+    my $path = $env->{PATH_INFO};
+    if ($ajaxRequest and $env->{REQUEST_METHOD} ne 'GET' and exists $env->{HTTP_REFERER}) {
+        my $uri = new URI($env->{HTTP_REFERER});
+        $path = $uri->path();  # We assume the referer is always another Zentyal page
+    }
+
+    # Store in session where we should return after login.
+    $env->{'psgix.session'}{'redir_to'} = $path;
+
+    my $login_url = '/Login/Index';
+    if ($ajaxRequest) {
+        return [
+            200,
+            undef,
+            [ JSON::XS->new()->encode({'success' => 1, 'redirect' => $login_url}) ]
+           ];
+    } else {
+        return [
+            302,
+            [Location => $login_url],
+            ["<html><body><a href=\"$login_url\">You need to authenticate first</a></body></html>"]
+           ];
+    }
+
+}
+
 # Method: call
 #
 #   Handles validation of credentials to allow access to Zentyal.
@@ -318,16 +352,8 @@ sub call
         delete $env->{'psgix.session'}{AuthReason};
         return $self->app->($env);
     } else {
-        # Store in session where should we return after login.
-        $env->{'psgix.session'}{'redir_to'} = $path;
-
         # Require authentication, redirect to the login form.
-        my $login_url = '/Login/Index';
-        return [
-            302,
-            [Location => $login_url],
-            ["<html><body><a href=\"$login_url\">You need to authenticate first</a></body></html>"]
-        ];
+        return $self->_redirectToLogin($env);
     }
 }
 

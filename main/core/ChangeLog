@@ -1,4 +1,6 @@
 3.4
+	+ Use window.location.replace instead of window.location.href
+	  to redirect using JS
 	+ In EBox::Type::Select, use element value as printableValue for
 	  unknown options or options without printableValue
 	+ Save haproxy config as changed after webadmin's initialSetup
