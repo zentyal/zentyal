@@ -46,7 +46,7 @@ msgstr ""
 "Por favor, ten en cuenta que el máximo número de usuarios para esta edición "
 "es {max} y tienes {nUsers}."
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:201
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:222
 #, perl-brace-format
 msgid ""
 "Want to protect your system against scams, spear phishing, frauds and other "
@@ -215,25 +215,25 @@ msgstr ""
 "soporte completo por una {oh}cuota mensual asequible{ch} a través de tu "
 "partner local autorizado."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1950
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1969
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2000
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1971
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2002
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2495
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2526
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
