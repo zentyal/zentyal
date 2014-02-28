@@ -47,9 +47,24 @@ sub validateTypedRow
     my ($self, $action, $oldParams, $newParams) = @_;
 
     my $name = $newParams->{'name'}->value();
+    $self->_checkNameRestrictions($name);
+
     my $ip = $newParams->{'floating_ip'}->value();
+    $self->_checkIPWithinNetworkIface($ip);
+    $self->_checkDhcpNetworkCollisions($ip);
+}
+
+# Method: _checkNameRestrictions
+#
+# * Name must have a MIN_NAME_LENGHT < name_lenght < MAX_NAME_LENGHT
+# * Name must only have letters (capital or not), numbers and underscores
+#
+sub _checkNameRestrictions
+{
+    my ($self, $name) = @_;
 
     my $nameLength = length ($name);
+
     if ($nameLength > MAX_NAME_LENGTH) {
         throw EBox::Exceptions::External(__x('Name is too long. Maximum length is {max}.', max => MAX_NAME_LENGTH));
     }
@@ -59,9 +74,44 @@ sub validateTypedRow
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
-    # Check DHCP and network for every interface
+}
+
+# Method: _checkIPWithinNetworkIface
+#
+# Raise external exception if the Floating IP does not belongs to the given network iface
+#
+sub _checkIPWithinNetworkIface
+{
+    my ($self, $ip) = @_;
+
     my $network = $self->parentModule()->global()->modInstance('network');
+    my @staticIfaces = (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
+
+    my $floatingIPisCorrect = 0;
+
+    foreach my $iface (@staticIfaces) {
+        if ( EBox::Validate::isIPInRange($network->netInitRange($iface), $network->netEndRange($iface), $ip) ) {
+            $floatingIPisCorrect = 1;
+        }
+    }
+
+    if ( not $floatingIPisCorrect ) {
+        throw EBox::Exceptions::External(__x('The IP {ip} does not belong to any interface.', ip => $ip));
+     }
+}
+
+# Method: _checkDhcpNetworkCollisions
+#
+# Check DHCP and network IP collisions for every interface
+#
+sub _checkDhcpNetworkCollisions
+{
+    my ($self, $ip) = @_;
+
+    my $network = $self->parentModule()->global()->modInstance('network');
+
     my @staticIfaces = grep { $network->ifaceMethod($_) eq 'static' } (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
+
     foreach my $iface (@staticIfaces) {
         if (my $error_message = $self->_ipCollides($iface, $ip)) {
             throw EBox::Exceptions::External($error_message);

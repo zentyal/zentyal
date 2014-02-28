@@ -51,7 +51,8 @@ sub promote
     my ($nodeName) = @_;
 
     my @cmds = ();
-    my $clusterStatus = new EBox::HA::ClusterStatus();
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => EBox::Global->getInstance()->modInstance('ha'),
+                                                    force => 1);
 
     foreach my $r (@{_simpleResources()}) {
         my $resourceStatus = $clusterStatus->resourceByName($r);
@@ -59,9 +60,8 @@ sub promote
 
         if (not ($nodeName ~~ @runningNodes)) {
             push(@cmds,
-                 qq{crm_resource --resource '$r' --move --host '$nodeName'},
-                 'sleep 3',
-                 qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+                 qq{crm_resource --resource '$r' --clear},  # Clear any previous outdated constraint
+                 qq{crm_resource --resource '$r' --move --host '$nodeName' --lifetime 'P30S'});
         }
     }
 
@@ -92,9 +92,10 @@ sub demote
 
     my @cmds = ();
     foreach my $r (@{_simpleResources()}) {
-        push(@cmds, qq{crm_resource --resource '$r' --ban --host '$nodeName'});
-        push(@cmds, qq{sleep 3});  # Wait for the resource to stop in the local node
-        push(@cmds, qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+        push(@cmds,
+             qq{crm_resource --resource '$r' --clear},  # Clear any previous outdated constraint
+             qq{crm_resource --resource '$r' --ban --host '$nodeName' --lifetime 'P30S'},
+             );
     }
 
     EBox::Sudo::root(@cmds);

@@ -1,8 +1,9 @@
 class: 'EBox::WebServer'
 
 models:
-    - GeneralSettings
+    - ListeningPorts
+    - PublicFolder
     - VHostTable
 
 composites:
-    General: [GeneralSettings, VHostTable]
+    General: [ListeningPorts, PublicFolder, VHostTable]
