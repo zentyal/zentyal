@@ -1,4 +1,9 @@
 3.4
+	+ Import current DHCP addresses in first setup and when enabling module
+	+ Don't allow domain names as target of failover tests, usability
+	  changes in failover rules
+	+ Removed DNS resolution failover test
+	+ Save module config after initialSetup
 	+ Added flag to notify when an ifup is set
 	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
 	+ Implement replicationExcludeKeys() to avoid replication of ifaces in HA

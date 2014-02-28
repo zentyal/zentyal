@@ -42,7 +42,7 @@ sub ids
 {
     my ($self)  = @_;
 
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
 
     unless (defined($self->{clusterStatus}->errors())) {
         return [];

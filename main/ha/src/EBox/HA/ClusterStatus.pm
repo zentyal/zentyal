@@ -41,20 +41,23 @@ my $_timeCreation = undef;
 
 # Constructor: new
 #
-# Parameters:
+# Named parameters:
 #
 #      ha - <EBox::HA> module instance
+#      force - Boolean force the refresh *(Optional)*
+#      xml_dump - String XML dump *(Optional)*
+#      text_dump - String Text dump *(Optional)*
 #
 sub new
 {
-    my ($class, $ha, $xml_dump, $text_dump) = @_;
+    my ($class, %params) = @_;
 
-    my $self = { ha => $ha};
+    my $self = { ha => $params{ha}};
     bless($self, $class);
 
     if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE)
-                                                   or $xml_dump or $text_dump) {
-        return $self->_parseCrmMonCommands($xml_dump, $text_dump);
+        or $params{force} or $params{xml_dump} or $params{text_dump}) {
+        return $self->_parseCrmMonCommands($params{xml_dump}, $params{text_dump});
     } else {
         return $self;
     }

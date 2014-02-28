@@ -267,6 +267,13 @@ sub initialSetup
             }
         }
     }
+
+    foreach my $modName ('firewall', 'haproxy', 'webserver') {
+        my $mod = $self->global()->modInstance($modName);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
+        }
+    }
 }
 
 # Method: depends

@@ -216,7 +216,7 @@ sub syncRows
     my @sessionsToDel = grep { not exists $sessions->{$_} } keys %currentSessions;
     my @sessionsToModify = grep { exists $sessions->{$_} } keys %currentSessions;
 
-    unless (@sessionsToAdd + @sessionsToDel + @sessionsToModify) {
+    unless (@sessionsToAdd or @sessionsToDel or @sessionsToModify) {
         return 0;
     }
 
@@ -339,6 +339,7 @@ sub currentUsers
             bwusage => $bwusage,
         });
     }
+
     return \@users;
 }
 
