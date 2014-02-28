@@ -354,6 +354,41 @@ sub currentUsers
     return $model->currentUsers();
 }
 
+sub currentSidsByFWRules
+{
+    my %users;
+# It is assumed that captiveportal user rules are always RETURN and has only the
+# variable fields assigned in the below regex
+# Also it is assumed that it is only one rule by session
+# Example: 0 0 RETURN all -- * * 192.168.56.5 0.0.0.0/0 MAC 00:0C:29:E7:71:B8 /*u1:d128a0371046a523c8eb4ad79206de38 */
+
+    foreach my $tableAndChain (['nat', 'captive'], ['filter', 'icaptive'], ['filter', 'fcaptive']) {
+        my ($table, $chain) = @{ $tableAndChain };
+        my $rules = EBox::Sudo::root("iptables -t $table -vL $chain -n");
+        foreach my $rule (@{$rules}) {
+            $rule =~ m{
+                          ([\d.]+)\s+                # source field $1
+                          [\d./]+\s+                 # destination field (not used)
+                          MAC\s+([:A-F0-9]+)\s+      # MAC field $2
+                          /\*\s*(.*?):(.*?)\s*\*/\s* # commentary field (user:sid) $3 $4
+                          $
+                  }msx;
+            if ($1 and $2 and $3 and $4) {
+                if (not exists $users{$4}) {
+                    $users{$4} = {};
+                }
+                $users{$4}->{$chain} = {
+                    user => $3,
+                    ip   => $1,
+                    mac  => $2,
+                };
+            }
+        }
+    }
+
+    return \%users;
+}
+
 # method: userFirewallRule
 #
 #   Parameters:
@@ -363,14 +398,14 @@ sub currentUsers
 #     - Iptables rule part with matching and decision (RETURN);
 sub userFirewallRule
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
     my $mac = $user->{mac};
     my $macSrc = '';
     $macSrc = "-m mac --mac-source $mac" if defined($mac);
-    return "-s $ip $macSrc -m comment --comment 'user:$name' -j RETURN";
+    return "-s $ip $macSrc -m comment --comment '$name:$sid' -j RETURN";
 }
 
 sub exceptionsFirewallRules

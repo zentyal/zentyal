@@ -1,6 +1,7 @@
 3.4
 	+ Give support to multiple addresses for a domain in Transparent
 	  Proxy Exemptions
+	+ Save modules configurations after initialSetup
 	+ Added all subdomains in cache exemptions
 	+ Deny cache explicitly from cache exemption domains
 	+ Give support to optional ABORTED flag in denied requests when

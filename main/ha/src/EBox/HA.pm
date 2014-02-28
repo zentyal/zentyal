@@ -171,7 +171,9 @@ sub usedFiles
 # Method: setIfSingleInstanceModule
 #
 #     Set the module as changed if the given module is in the list of
-#     modules which must have a single instance in the cluster
+#     modules which must have a single instance in the cluster.
+#
+#     Stop the module and let the cluster decide if it should be enabled.
 #
 # Parameters:
 #
@@ -183,6 +185,9 @@ sub setIfSingleInstanceModule
 
     if ($moduleName ~~ @SINGLE_INSTANCE_MODULES) {
         $self->setAsChanged();
+        my $state = $self->get_state();
+        $state->{new_enabled_modules}->{$moduleName} = 1;
+        $self->set_state($state);
     }
 }
 
@@ -742,7 +747,7 @@ sub checkAndUpdateClusterConfiguration
 
     my $clusterStatus;
     try {
-        $clusterStatus = new EBox::HA::ClusterStatus($self);
+        $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     } catch (EBox::Exceptions::Sudo::Command $e) {
         EBox::warn('Cannot get the status from the cluster');
     }
@@ -994,7 +999,7 @@ sub clusterWidget
         my $clusterStatus;
         my ($lastUpdate, $error, $errorType) = (__('Unknown'), __('None'), 'info');
         try {
-            $clusterStatus = new EBox::HA::ClusterStatus($self);
+            $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
             $lastUpdate = $clusterStatus->summary()->{last_update};
             my $errors = $clusterStatus->errors();
             if (defined($errors) and keys %{$errors} > 0) {
@@ -1559,7 +1564,7 @@ sub _setFloatingIPRscs
     my ($self) = @_;
 
     my $rsc = $self->floatingIPs();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
 
     # Get the resource configuration from the cib directly
     my $dom = $self->_rscsConf();
@@ -1594,7 +1599,7 @@ sub _setFloatingIPRscs
         } else {
             # Add it!
             push(@rootCmds,
-                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr op monitor interval=30s");
             if ($activeNode ne $localNode) {
                 push(@moves, $rscName);
             }
@@ -1609,9 +1614,9 @@ sub _setFloatingIPRscs
             foreach my $rscName (@moves) {
                 if ($self->_resourceCanBeMovedToNode($rscName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$rscName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$rscName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$rscName' --move --host '$activeNode' --lifetime 'P30S'",
+                         );
                 }
             }
             if (@rootCmds > 0) {
@@ -1626,10 +1631,10 @@ sub _resourceCanBeMovedToNode
 {
     my ($self, $resource, $node) = @_;
 
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self,
+                                                    force => 1);
 
     my $resourceStatus = $clusterStatus->resourceByName($resource);
-
     if (defined($resourceStatus)) {
         my @runningNodes = @{ $resourceStatus->{nodes} };
 
@@ -1645,7 +1650,7 @@ sub _setSingleInstanceInClusterModules
     my ($self) = @_;
 
     my $dom = $self->_rscsConf();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     my @zentyalRscElems = $dom->findnodes('//primitive[@type="Zentyal"]');
 
     # For ease to existence checking
@@ -1661,9 +1666,14 @@ sub _setSingleInstanceInClusterModules
         my $mod = $self->global()->modInstance($modName);
         if (defined($mod) and $mod->configured()) {
             if ($mod->isEnabled()) {
-                unless (exists $currentRscs{$modName}) {
+                if (exists $currentRscs{$modName}) {
+                    $self->_stopSingleInstanceMods();
+                } else {  # Create the new resource
                     push(@rootCmds,
-                         "crm -w configure primitive '$modName' ocf:zentyal:Zentyal params module_name='$modName'");
+                         "crm -w configure primitive '$modName' "
+                         . "ocf:zentyal:Zentyal params module_name='$modName' "
+                         . "op monitor interval=60s timeout=10s"
+                         . "op monitor interval=300s role=Stopped timeout=10s");
                     if ($activeNode ne $localNode) {
                         push(@moves, $modName);
                     }
@@ -1685,9 +1695,8 @@ sub _setSingleInstanceInClusterModules
             foreach my $modName (@moves) {
                 if ($self->_resourceCanBeMovedToNode($modName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$modName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$modName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$modName' --move --host '$activeNode' --lifetime 'P30S'");
                 }
             }
             if (@rootCmds > 0) {
@@ -1825,6 +1834,24 @@ sub _restartRequired
     }
 
     return 0;
+}
+
+# Stop single instance modules and let the cluster decide for them to locate
+# if not active node
+sub _stopSingleInstanceMods
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    if (exists $state->{new_enabled_modules}) {
+        my $gl = $self->global();
+        foreach my $modName (keys %{$state->{new_enabled_modules}}) {
+            my $mod = $gl->modInstance($modName);
+            $mod->stopService();
+        }
+        delete $state->{new_enabled_modules};
+        $self->set_state($state);
+    }
 }
 
 1;

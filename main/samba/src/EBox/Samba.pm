@@ -1553,7 +1553,10 @@ sub depends
 {
     my ($self) = @_;
 
-    my @deps = ('network', 'printers');
+    my @deps = ('network');
+    if ($self->global()->modExists('printers')) {
+        push @deps, 'printers';
+    }
 
     if ($self->get('need_reprovision')) {
         push (@deps, 'users');
