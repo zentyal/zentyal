@@ -1,3 +1,7 @@
+HEAD
+	+ Better synchronization between sessions and iptables rules
+	+ Fixed SID generation code
+	+ Fix missing uses in EBox::CaptivePortal::Model::BWSettings
 3.3
 	+ Fixed regression on restricted authentication to group
 	+ Switch from Error to TryCatch for exception handling

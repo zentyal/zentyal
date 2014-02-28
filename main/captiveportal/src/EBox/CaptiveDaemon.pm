@@ -124,27 +124,20 @@ sub _updateSessions
     my ($self, $currentUsers, $events, $exceededEvent) = @_;
     my @rules;
     my @removeRules;
-
-    # firewall already inserted rules, checked to avoid duplicates
-    my $iptablesRules = {
-        captive  => join('', @{EBox::Sudo::root(IPTABLES . ' -t nat -n -L captive')}),
-        icaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L icaptive')}),
-        fcaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L fcaptive')}),
-    };
+    my %sidsFromFWRules = %{ $self->{module}->currentSidsByFWRules() };
 
     foreach my $user (@{$currentUsers}) {
         my $sid = $user->{sid};
-        my $new = 0;
+        my $new = (not exists($self->{sessions}->{$sid}));
 
-        # New sessions
-        if (not exists($self->{sessions}->{$sid})) {
+        if ($new) {
             $self->{sessions}->{$sid} = $user;
-            push (@rules, @{$self->_addRule($user, $iptablesRules)});
+
+            push @rules, @{$self->_addRule($user, $sid)};
 
             # bwmonitor...
             $self->_matchUser($user);
 
-            $new = 1;
             if ($exceededEvent) {
                     $events->sendEvent(
                         message => __x('{user} has logged in captive portal and has quota left',
@@ -166,7 +159,7 @@ sub _updateSessions
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
-            push (@removeRules, @{$self->_removeRule($user)});
+            push (@removeRules, @{$self->_removeRule($user, $sid)});
 
             # bwmonitor...
             $self->_unmatchUser($user);
@@ -187,18 +180,15 @@ sub _updateSessions
                        );
                 }
             }
-
-            next;
-        }
-
-        # Check for IP change
-        unless ($new) {
+        } else {
+            # Check for IP change or missing rule
+            my $notFWRules = (not $new) and (not exists $sidsFromFWRules{$sid});
             my $oldip = $self->{sessions}->{$sid}->{ip};
             my $newip = $user->{ip};
-            unless ($oldip eq $newip) {
-                # Ip changed, update rules
-                push (@rules, @{$self->_addRule($user)});
-                push (@rules, @{$self->_removeRule($self->{sessions}->{$sid})});
+            my $changedIP = $oldip ne $newip;
+            if ($changedIP) {
+                # Ip changed, remove old rules
+                push (@rules, @{$self->_removeRule($self->{sessions}->{$sid}), $sid});
 
                 # bwmonitor...
                 $self->_matchUser($user);
@@ -207,6 +197,28 @@ sub _updateSessions
                 # update ip
                 $self->{sessions}->{$sid}->{ip} = $newip;
             }
+            if ($changedIP or $notFWRules) {
+                push (@rules, @{$self->_addRule($user, $sid)});
+            }
+
+        }
+
+        delete $sidsFromFWRules{$sid};
+    }
+
+    # check and remove leftover rules
+    while (my ($sid, $rulesByChain) = each %sidsFromFWRules) {
+        my $prevRule;
+        while (my ($chain, $rule) = each %{ $rulesByChain }) {
+            if (($prevRule->{user} eq $rule->{user}) and
+                ($prevRule->{ip}   eq $rule->{ip})   and
+                ($prevRule->{mac}  eq $rule->{mac})
+               ) {
+                # same rule, we have already rules to remove it
+                next;
+            }
+            $prevRule = $rule;
+            push @removeRules, @{ $self->_removeRule($rule, $sid) };
         }
     }
 
@@ -221,12 +233,20 @@ sub _updateSessions
 
         if ($lockedFw) {
             try {
-                my @pending;
+                my @rulesToExecute = ();
                 if ($self->{pendingRules}) {
-                    @pending = @{ $self->{pendingRules} };
+                    @rulesToExecute = @{ $self->{pendingRules} };
                     $self->{pendingRules} = undef;
                 }
-                EBox::Sudo::root(@pending, @rules, @removeRules) ;
+                push @rulesToExecute, @rules, @removeRules;
+                foreach my $rule (@rulesToExecute) {
+                    try {
+                        EBox::Sudo::root($rule);
+                    } catch ($e) {
+                        EBox::debug("Cannot execute captive portal fw rule: $e");
+                        # ignore error and continue with next rule
+                    }
+                }
             } catch ($e) {
                 EBox::Util::Lock::unlock('firewall');
                 $e->throw();
@@ -242,17 +262,18 @@ sub _updateSessions
 
 sub _addRule
 {
-    my ($self, $user, $current) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
     EBox::debug("Adding user $name with IP $ip");
 
-    my $rule = $self->{module}->userFirewallRule($user);
+    my $rule = $self->{module}->userFirewallRule($user, $sid);
+
     my @rules;
-    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
+    push (@rules, IPTABLES . " -t nat -I captive $rule");
+    push (@rules, IPTABLES . " -I fcaptive $rule");
+    push (@rules, IPTABLES . " -I icaptive $rule");
     # conntrack remove redirect conntrack (this will remove
     # conntrack state for other connections from the same source but it is not
     # important)
@@ -263,13 +284,13 @@ sub _addRule
 
 sub _removeRule
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
-    EBox::debug("Removing user $name with IP $ip");
 
-    my $rule = $self->{module}->userFirewallRule($user);
+    my $rule = $self->{module}->userFirewallRule($user, $sid);
+    EBox::debug("Removing user $name with IP $ip base rule $rule");
     my @rules;
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");
