@@ -1,4 +1,5 @@
 3.4
+	+ Zentyal internal accounts hidden from webmail interface
 	+ Save config if it changes in migration between versions
 	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
 	+ Don't allow to remove outgoing mail virtual domain
