@@ -854,6 +854,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    my $haproxyMod = $self->global()->modInstance('haproxy');
     # Register the service if installing the first time
     unless ($version) {
         my @args = ();
@@ -862,15 +863,16 @@ sub initialSetup
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
-        my $haproxyMod = $self->global()->modInstance('haproxy');
-        my $alreadyChanged = $haproxyMod->changed();
         $haproxyMod->setHAProxyServicePorts(@args);
-        $haproxyMod->saveConfigRecursive();
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
+    }
+
+    if (haproxyMod->changed()) {
+        $haproxyMod->saveConfigRecursive();
     }
 }
 
