@@ -259,7 +259,7 @@ sub run
     return $self->{eventList};
 }
 
-sub _testRule # (row)
+sub _testRule
 {
     my ($self, $row) = @_;
 
@@ -372,11 +372,15 @@ sub _runTest
 
     if (($type eq 'gw_ping') or ($type eq 'host_ping')) {
         $result = system("ping -W5 -c1 -p" . PING_PATTERN . " $host");
-    } elsif ($type eq 'dns') {
-        $result = system("host -W 5 $host");
     } elsif ($type eq 'http') {
         my $command = "wget $host --tries=1 -T 5 -O /dev/null";
         $result = system($command);
+    } elsif ($type eq 'dns') {
+        # DEPRECATED test type, we mantain here just for backwards compability
+        $result = system("host -W 5 $host");
+    } else {
+        EBox::error("Invalid type of failover test: $type");
+        return 0;
     }
 
     return $result == 0;

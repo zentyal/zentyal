@@ -182,9 +182,15 @@ sub printableValue
     my $value = $self->value();
     foreach my $option (@{$options}) {
         if ($option->{'value'} eq $value) {
-            return $option->{'printableValue'};
+            if ($option->{'printableValue'}) {
+                return $option->{'printableValue'};
+            } else {
+                return $value;
+            }
         }
     }
+
+    return $value;
 }
 
 # Method: value
