@@ -22,6 +22,7 @@ package EBox::HAProxy::Model::HAProxyServices::Test;
 
 use base 'Test::Class';
 
+use EBox::Exceptions::External;
 use EBox::Global::TestStub;
 use EBox::HAProxy;
 use EBox::Module::Config::TestStub;
@@ -64,7 +65,119 @@ sub setUpInstance : Test(setup)
     $self->{modelElems} = \%modelElems;
 }
 
-sub test_validate_ssl_port_change :  Test(4)
+sub test_validate_ports_change :  Test(9)
+{
+    my ($self) = @_;
+
+    my $model = $self->{model};
+
+    my $row = new EBox::Model::Row(dir => 'foo', confmodule => $model);
+    my %values = ('serviceId' => 'id', 'module' => 'mod', 'service' => 'module',
+                  'port' => { port_number => 80 }, 'defaultPort' => 0,
+                  'blockPort' => 0, 'sslPort' => { 'sslPort_number' => 443 },
+                  'defaultSSLPort' => 0, 'blockSSLPort' => 0, 'canBeDisabled' => 1);
+    foreach my $fn (keys %values) {
+        my $type = $self->{modelElems}->{$fn}->clone();
+        $type->setValue($values{$fn});
+        $row->addElement($type);
+    }
+
+    $model->mock('ids', sub { ['a'] });
+    $model->mock('row', sub { $row });
+
+    $model->set_false('checkServicePort');
+    throws_ok {
+        $model->validatePortsChange(80, 80, 'changedService');
+    } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is DEFAULT';
+
+    lives_ok {
+        $model->validatePortsChange(8080, 443, 'changedService');
+    } 'No problem to change to a free port for http and https';
+
+    lives_ok {
+        $model->validatePortsChange(80, 443, 'changedService');
+    } 'No problem to change to a non-free port as it is not default';
+
+    $row->elementByName('defaultPort')->setValue(1);
+    $row->elementByName('defaultSSLPort')->setValue(1);
+    lives_ok {
+        $model->validatePortsChange(80, 443, 'changedService');
+    } 'No problem to change to a non-free port even if there is already a default one because it is not DEFAULT';
+
+    throws_ok {
+        $model->validatePortsChange(80, 443, 'changedService', 1, 1);
+    } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is DEFAULT';
+
+    lives_ok {
+        $model->validatePortsChange(80, 443, 'id', 1, 1);
+    } 'No problem if we call validation for the same service and port and being default';
+
+    lives_ok {
+        $model->validatePortsChange(undef, 80, 'id', 0, 0);
+    } 'No problem if we call validation for HTTPS using a previous value of HTTP';
+
+    # Simulate a collision with an outsider service.
+    $model->mock('checkServicePort', sub { throw EBox::Exceptions::External(); });
+    lives_ok {
+        $model->validatePortsChange(80, 443, 'changedService', 0, 0, 1);
+    } 'No problem if we pass the force flag and checkServicePort returns true';
+    throws_ok {
+        $model->validatePortsChange(80, 443, 'changedService', 0, 0, 0);
+    } 'EBox::Exceptions::External', 'Problem to change a port when checkServicePort is not forced';
+}
+
+sub test_validate_http_port_change :  Test(6)
+{
+    my ($self) = @_;
+
+    my $model = $self->{model};
+
+    my $row = new EBox::Model::Row(dir => 'foo', confmodule => $model);
+    my %values = ('serviceId' => 'id', 'module' => 'mod', 'service' => 'module',
+                  'port' => { port_number => 80 }, 'defaultPort' => 0,
+                  'blockPort' => 0, 'sslPort' => { 'sslPort_disabled' => 1 },
+                  'defaultSSLPort' => 0, 'blockSSLPort' => 0, 'canBeDisabled' => 1);
+    foreach my $fn (keys %values) {
+        my $type = $self->{modelElems}->{$fn}->clone();
+        $type->setValue($values{$fn});
+        $row->addElement($type);
+    }
+
+    $model->mock('ids', sub { ['a'] });
+    $model->mock('row', sub { $row });
+
+    $model->set_false('checkServicePort');
+    lives_ok {
+        $model->validateHTTPPortChange(8080, 'changedService', 0);
+    } 'No problem to change to a free port';
+
+    lives_ok {
+        $model->validateHTTPPortChange(80, 'changedService', 0);
+    } 'No problem to change to a non-free port as it is not default';
+
+    $row->elementByName('defaultPort')->setValue(1);
+    lives_ok {
+        $model->validateHTTPPortChange(80, 'changedService', 0);
+    } 'No problem to change to a non-free port even if there is already a default one because it is not DEFAULT';
+
+    throws_ok {
+        $model->validateHTTPPortChange(80, 'changedService', 1);
+    } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is DEFAULT';
+
+    lives_ok {
+        $model->validateHTTPPortChange(80, 'id', 1);
+    } 'No problem if we call validation for the same service and port and being default';
+
+    $row->elementByName('port')->setValue({'port_disabled' => 1});
+    $row->elementByName('sslPort')->setValue({ 'sslPort_number' => 80});
+    throws_ok {
+        $model->validateHTTPPortChange(80, 'changedService', 0);
+    } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is HTTPS';
+
+
+}
+
+sub test_validate_https_port_change :  Test(6)
 {
     my ($self) = @_;
 
@@ -86,29 +199,34 @@ sub test_validate_ssl_port_change :  Test(4)
 
     $model->set_false('checkServicePort');
     lives_ok {
-        $model->validateSSLPortChange(3443);
+        $model->validateHTTPSPortChange(3443, 'changedService', 0);
     } 'No problem to change to a free port';
 
     lives_ok {
-        $model->validateSSLPortChange(443);
+        $model->validateHTTPSPortChange(443, 'changedService', 0);
     } 'No problem to change to a non-free port as it is not default SSL';
 
     $row->elementByName('defaultSSLPort')->setValue(1);
+    lives_ok {
+        $model->validateHTTPSPortChange(443, 'changedService', 0);
+    } 'No problem to change to a non-free port even if there is already a default one because it is not DEFAULT SSL';
+
     throws_ok {
-        $model->validateSSLPortChange(443);
+        $model->validateHTTPSPortChange(443, 'changedService', 1);
     } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is DEFAULT SSL';
+
+    lives_ok {
+        $model->validateHTTPSPortChange(443, 'id', 1);
+    } 'No problem if we call validation for the same service and port and being default ssl';
 
     $row->elementByName('sslPort')->setValue({'sslPort_disabled' => 1});
     $row->elementByName('port')->setValue({ 'port_number' => 80});
     throws_ok {
-        $model->validateSSLPortChange(80);
+        $model->validateHTTPSPortChange(80, 'changedService', 0);
     } 'EBox::Exceptions::External', 'Problem to change to a non-free port as it is plain HTTP';
-
-
 }
 
 1;
-
 
 END {
     EBox::HAProxy::Model::HAProxyServices::Test->runtests();

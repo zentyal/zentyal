@@ -81,7 +81,7 @@ sub syncRows
         $sid ? ($sid => 1) : ()
     } @{$currentRows};
 
-    my @srvsToAdd = grep { not exists $currentSrvs{$_->_serviceId()} } @mods;
+    my @srvsToAdd = grep { not exists $currentSrvs{$_->serviceId()} } @mods;
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
@@ -97,7 +97,7 @@ sub syncRows
         my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHTTPSPort() and (not $srv->targetVHostDomains()));
         my @args = ();
         push (@args, module           => $srv->name());
-        push (@args, serviceId        => $srv->_serviceId());
+        push (@args, serviceId        => $srv->serviceId());
         push (@args, service          => $srv->printableName());
         if ($enabledPort) {
             push (@args, port_selected => 'port_number');
@@ -124,7 +124,7 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsFromModules = map { $_->_serviceId() => $_ } @mods;
+    my %srvsFromModules = map { $_->serviceId() => $_ } @mods;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
 
@@ -314,51 +314,13 @@ sub validateTypedRow
         }
     }
 
-    if ($enabledPort and (not defined $port)) {
-        throw EBox::Exceptions::External(__('The port must be defined before enable it.'));
-    }
-    if ($enabledSSLPort and (not defined $sslPort)) {
-        throw EBox::Exceptions::External(__('The SSL port must be defined before enable it.'));
-    }
-    if ($enabledPort and $enabledSSLPort and ($port == $sslPort)) {
-        throw EBox::Exceptions::External(__('Both SSL and non-SSL ports cannot be enabled with the same number.'));
-    }
-
     if (($enabledPort or $enabledSSLPort) and (($action eq 'update') or ($action eq 'add'))) {
-        if ($enabledPort) {
-            if ($self->findValue('sslPort', $port, 1)) {
-                throw EBox::Exceptions::External(__x(
-                    'The port {port} is used already for SSL, you cannot use it as a non SSL port.',
-                    port => $port
-                ));
-            }
-            if ((exists $params_r->{defaultPort}) and $params_r->{defaultPort}->value and
-                $self->findValueMultipleFields({ port => $port, defaultPort => 1 }, 1)) {
-                throw EBox::Exceptions::External(__x(
-                    'The port {port} already has a default service defined.', port => $port
-                ));
-            }
-            unless ($force) {
-                $self->checkServicePort($port);
-            }
-        }
-        if ($enabledSSLPort) {
-            if ($self->findValue('port', $sslPort, 1)) {
-                throw EBox::Exceptions::External(__x(
-                    'The port {port} is used already for non-SSL, you cannot use it as a SSL port.',
-                    port => $sslPort
-                ));
-            }
-            if ((exists $params_r->{defaultSSLPort}) and $params_r->{defaultSSLPort}->value and
-                $self->findValueMultipleFields({ sslPort => $sslPort, defaultPort => 1 }, 1)) {
-                throw EBox::Exceptions::External(__x(
-                    'The port {port} already has a default service defined.', port => $sslPort
-                ));
-            }
-            unless ($force) {
-                $self->checkServicePort($sslPort);
-            }
+        my $isHTTPDefault = ((exists $params_r->{defaultPort}) and $params_r->{defaultPort}->value());
+        my $isHTTPSDefault = ((exists $params_r->{defaultSSLPort}) and $params_r->{defaultSSLPort}->value());
+        $self->validatePortsChange(
+            $port, $sslPort, $actual_r->{serviceId}->value(), $isHTTPDefault, $isHTTPSDefault, $force);
 
+        if ($enabledSSLPort) {
             # SSL certificate checking.
             my $moduleName = $actual_r->{module}->value();
             my $module = EBox::Global->modInstance($moduleName);
@@ -563,7 +525,7 @@ sub setServicePorts
     }
 
     my $module = $self->global()->modInstance($modName);
-    my $moduleRow = $self->find(serviceId => $module->_serviceId());
+    my $moduleRow = $self->find(serviceId => $module->serviceId());
     if ($module->blockHTTPPortChange() and $port) {
         EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable. Ignored...");
         if (defined $moduleRow) {
@@ -599,6 +561,8 @@ sub setServicePorts
             } else {
                 $portItem->setValue({ port_disabled => undef });
             }
+        } else {
+            $portItem->setValue({ port_disabled => undef });
         }
         my $defaultItem = $moduleRow->elementByName('defaultPort');
         if ($args{defaultPort}) {
@@ -613,6 +577,8 @@ sub setServicePorts
             } else {
                 $sslPortItem->setValue({ sslPort_disabled => undef });
             }
+        } else {
+            $sslPortItem->setValue({ sslPort_disabled => undef });
         }
         my $defaultSSLItem = $moduleRow->elementByName('defaultSSLPort');
         if ($args{defaultSSLPort}) {
@@ -631,7 +597,7 @@ sub setServicePorts
         }
         my @args = ();
         push (@args, module           => $module->name());
-        push (@args, serviceId        => $module->_serviceId());
+        push (@args, serviceId        => $module->serviceId());
         push (@args, service          => $module->printableName());
         if ($args{enablePort}) {
             push (@args, port_selected => 'port_number');
@@ -657,12 +623,84 @@ sub setServicePorts
     my @ports = ();
     push (@ports, $port) if ($args{enablePort});
     push (@ports, $sslPort) if ($args{enableSSLPort});
-    if (@ports) {
-        $self->parentModule()->updateServicePorts($modName, \@ports);
+    $self->parentModule()->updateServicePorts($modName, \@ports);
+}
+
+# Method: validatePortsChange
+#
+#     Helper method for models which implements a view of changing the
+#     port of a valid row from this model. It must check the following
+#     constraints:
+#
+#       * No other service using that port different from HAProxy
+#       * HTTPS and HTTP cannot be mixed with the same port
+#       * No service as default with the same port
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if any of previous
+#    constraints is not matched
+#
+sub validatePortsChange
+{
+    my ($self, $http, $https, $serviceId, $isHTTPDefault, $isHTTPSDefault, $force) = @_;
+
+    if ((defined $http) and (defined $https) and ($http == $https)) {
+        throw EBox::Exceptions::External(__('Cannot use the same port number for HTTP and HTTPS traffic.'));
+    }
+
+    if (defined $http) {
+        $self->validateHTTPPortChange($http, $serviceId, $isHTTPDefault, $force);
+    }
+    if (defined $https) {
+        $self->validateHTTPSPortChange($https, $serviceId, $isHTTPSDefault, $force);
     }
 }
 
-# Method: validateSSLPortChange
+# Method: validateHTTPPortChange
+#
+#     Helper method for models which implements a view of changing the
+#     port of a valid row from this model. It must check the following
+#     constraints:
+#
+#       * No other service using that port different from HAProxy
+#       * HTTPS and HTTP cannot be mixed with the same port
+#       * No service as default with the same port
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if any of previous
+#    constraints is not matched
+#
+sub validateHTTPPortChange
+{
+    my ($self, $port, $serviceId, $isDefault, $force) = @_;
+
+    my $haProxyServ = $self->findValue('sslPort' => $port);
+    if ($haProxyServ and ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
+        throw EBox::Exceptions::External(__x(
+            'Port {port} is already used by {row} using HTTPS.',
+            port => $port, row => $haProxyServ->printableValueByName('service')));
+    }
+    if ($isDefault) {
+        my $haProxyServs = $self->findAllValue('port' => $port);
+        foreach my $srvId (@{$haProxyServs}) {
+            $haProxyServ = $self->row($srvId);
+            if ($haProxyServ->valueByName('defaultPort') and
+                ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
+                throw EBox::Exceptions::External(__x(
+                    'Port {port} is already used by {row} as default service.',
+                    port => $port,
+                    row  => $haProxyServ->printableValueByName('service')));
+            }
+        }
+    }
+    unless ($force) {
+        $self->checkServicePort($port);
+    }
+}
+
+# Method: validateHTTPSPortChange
 #
 #     Helper method for models which implements a view of changing the
 #     port of a valid row from this model. It must check the following
@@ -677,27 +715,32 @@ sub setServicePorts
 #    <EBox::Exceptions::External> - thrown if any of previous
 #    constraints is not matched
 #
-sub validateSSLPortChange
+sub validateHTTPSPortChange
 {
-    my ($self, $port) = @_;
+    my ($self, $port, $serviceId, $isDefault, $force) = @_;
 
     my $haProxyServ = $self->findValue('port' => $port);
-    if ($haProxyServ) {
+    if ($haProxyServ and ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
         throw EBox::Exceptions::External(__x(
             'Port {port} is already used by {row} using plain HTTP.',
             port => $port, row => $haProxyServ->printableValueByName('service')));
     }
-    my $haProxyServs = $self->findAllValue('sslPort' => $port);
-    foreach my $srvId (@{$haProxyServs}) {
-        $haProxyServ = $self->row($srvId);
-        if ($haProxyServ->valueByName('defaultSSLPort')) {
-            throw EBox::Exceptions::External(__x(
-                'Port {port} is already used by {row} as default SSL service.',
-                port => $port,
-                row  => $haProxyServ->printableValueByName('service')));
+    if ($isDefault) {
+        my $haProxyServs = $self->findAllValue('sslPort' => $port);
+        foreach my $srvId (@{$haProxyServs}) {
+            $haProxyServ = $self->row($srvId);
+            if ($haProxyServ->valueByName('defaultSSLPort') and
+                ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
+                throw EBox::Exceptions::External(__x(
+                    'Port {port} is already used by {row} as default SSL service.',
+                    port => $port,
+                    row  => $haProxyServ->printableValueByName('service')));
+            }
         }
     }
-    $self->checkServicePort($port);
+    unless ($force) {
+        $self->checkServicePort($port);
+    }
 }
 
 1;
