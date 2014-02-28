@@ -171,7 +171,9 @@ sub usedFiles
 # Method: setIfSingleInstanceModule
 #
 #     Set the module as changed if the given module is in the list of
-#     modules which must have a single instance in the cluster
+#     modules which must have a single instance in the cluster.
+#
+#     Stop the module and let the cluster decide if it should be enabled.
 #
 # Parameters:
 #
@@ -183,6 +185,9 @@ sub setIfSingleInstanceModule
 
     if ($moduleName ~~ @SINGLE_INSTANCE_MODULES) {
         $self->setAsChanged();
+        my $state = $self->get_state();
+        $state->{new_enabled_modules}->{$moduleName} = 1;
+        $self->set_state($state);
     }
 }
 
@@ -1661,7 +1666,9 @@ sub _setSingleInstanceInClusterModules
         my $mod = $self->global()->modInstance($modName);
         if (defined($mod) and $mod->configured()) {
             if ($mod->isEnabled()) {
-                unless (exists $currentRscs{$modName}) {
+                if (exists $currentRscs{$modName}) {
+                    $self->_stopSingleInstanceMods();
+                } else {  # Create the new resource
                     push(@rootCmds,
                          "crm -w configure primitive '$modName' "
                          . "ocf:zentyal:Zentyal params module_name='$modName' "
@@ -1827,6 +1834,24 @@ sub _restartRequired
     }
 
     return 0;
+}
+
+# Stop single instance modules and let the cluster decide for them to locate
+# if not active node
+sub _stopSingleInstanceMods
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    if (exists $state->{new_enabled_modules}) {
+        my $gl = $self->global();
+        foreach my $modName (keys %{$state->{new_enabled_modules}}) {
+            my $mod = $gl->modInstance($modName);
+            $mod->stopService();
+        }
+        delete $state->{new_enabled_modules};
+        $self->set_state($state);
+    }
 }
 
 1;
