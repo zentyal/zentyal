@@ -75,7 +75,8 @@ sub _table
         order              => 0,
         rowUnique          => 1,
         printableRowName   => __('domain name address'),
-        help               => __('You can exempt some addresses from transparent proxy'),
+        help               => __('You can exempt some addresses from transparent proxy. '
+                                 . 'The domains will be resolved at saving changes process.' ),
         messages           => {
                                 add => __('Address added'),
                                 del => __('Address removed'),
