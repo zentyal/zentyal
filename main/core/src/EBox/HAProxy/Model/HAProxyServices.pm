@@ -623,9 +623,7 @@ sub setServicePorts
     my @ports = ();
     push (@ports, $port) if ($args{enablePort});
     push (@ports, $sslPort) if ($args{enableSSLPort});
-    if (@ports) {
-        $self->parentModule()->updateServicePorts($modName, \@ports);
-    }
+    $self->parentModule()->updateServicePorts($modName, \@ports);
 }
 
 # Method: validatePortsChange
