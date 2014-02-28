@@ -52,7 +52,7 @@ sub validateTypedRow
         if ($port != $actualPort) {
             my $haProxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
             my $default = 1;
-            $haProxyModel->validateHTTPSPortChange($port, $webadminModro->_serviceId, $default);
+            $haProxyModel->validateHTTPSPortChange($port, $webadminModro->serviceId, $default);
         }
     }
 }

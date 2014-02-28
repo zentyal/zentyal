@@ -81,7 +81,7 @@ sub syncRows
         $sid ? ($sid => 1) : ()
     } @{$currentRows};
 
-    my @srvsToAdd = grep { not exists $currentSrvs{$_->_serviceId()} } @mods;
+    my @srvsToAdd = grep { not exists $currentSrvs{$_->serviceId()} } @mods;
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
@@ -97,7 +97,7 @@ sub syncRows
         my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHTTPSPort() and (not $srv->targetVHostDomains()));
         my @args = ();
         push (@args, module           => $srv->name());
-        push (@args, serviceId        => $srv->_serviceId());
+        push (@args, serviceId        => $srv->serviceId());
         push (@args, service          => $srv->printableName());
         if ($enabledPort) {
             push (@args, port_selected => 'port_number');
@@ -124,7 +124,7 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsFromModules = map { $_->_serviceId() => $_ } @mods;
+    my %srvsFromModules = map { $_->serviceId() => $_ } @mods;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
 
@@ -525,7 +525,7 @@ sub setServicePorts
     }
 
     my $module = $self->global()->modInstance($modName);
-    my $moduleRow = $self->find(serviceId => $module->_serviceId());
+    my $moduleRow = $self->find(serviceId => $module->serviceId());
     if ($module->blockHTTPPortChange() and $port) {
         EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable. Ignored...");
         if (defined $moduleRow) {
@@ -597,7 +597,7 @@ sub setServicePorts
         }
         my @args = ();
         push (@args, module           => $module->name());
-        push (@args, serviceId        => $module->_serviceId());
+        push (@args, serviceId        => $module->serviceId());
         push (@args, service          => $module->printableName());
         if ($args{enablePort}) {
             push (@args, port_selected => 'port_number');
