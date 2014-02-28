@@ -722,8 +722,6 @@ sub validateHTTPSPortChange
     my ($self, $port, $serviceId, $isDefault, $force) = @_;
 
     my $haProxyServ = $self->findValue('port' => $port);
-    EBox::debug($serviceId);
-    EBox::debug($haProxyServ->valueByName('serviceId'));
     if ($haProxyServ and ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
         throw EBox::Exceptions::External(__x(
             'Port {port} is already used by {row} using plain HTTP.',
