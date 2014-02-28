@@ -1,4 +1,5 @@
 3.4
+	+ Made module incompatible with external AD mode
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
