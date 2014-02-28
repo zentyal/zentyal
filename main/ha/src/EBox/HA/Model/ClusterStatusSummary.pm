@@ -52,7 +52,7 @@ sub templateContext
     my ($self) = @_;
 
     $self->{ha} = $self->parentModule();
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->{ha});
     my $summary = $self->{clusterStatus}->summary();
 
     if (defined($summary)) {
