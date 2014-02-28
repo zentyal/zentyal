@@ -158,6 +158,7 @@ sub setTypedRow
         push (@args, enableSSLPort  => 0);
     }
     $haproxyMod->setHAProxyServicePorts(@args);
+    $self->setMessage($self->message('update'));
 }
 
 # Method: _table
