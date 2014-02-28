@@ -871,7 +871,7 @@ sub initialSetup
         $self->_migrateTo34();
     }
 
-    if (haproxyMod->changed()) {
+    if ($haproxyMod->changed()) {
         $haproxyMod->saveConfigRecursive();
     }
 }
