@@ -1,4 +1,6 @@
 3.4
+	+ In EBox::Type::Select, use element value as printableValue for
+	  unknown options or options without printableValue
 	+ Save haproxy config as changed after webadmin's initialSetup
 	+ Send restartUI flag to restart service when restarting a module
 	  from the UI

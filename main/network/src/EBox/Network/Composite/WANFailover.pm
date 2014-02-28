@@ -23,8 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
 # Constructor: new
 #
 #         Constructor for the DNS composite
@@ -39,8 +37,6 @@ sub new
 
     return $self;
 }
-
-# Group: Protected methods
 
 # Method: _description
 #
@@ -61,34 +57,25 @@ sub _description
     return $description;
 }
 
-sub precondition
+sub permanentMessage
 {
-    return (_isEventsEnabled() and _isWatcherEnabled());
-}
+    my ($self) = @_;
 
-sub preconditionFailMsg
-{
-    unless (_isEventsEnabled()) {
+    my $events = $self->global()->getInstance()->modInstance('events');
+    unless ($events->isEnabled()) {
         return __('Events module is not enabled. You have to enable it and also enable the WAN Failover event in order to use this feature.');
     }
 
-    unless (_isWatcherEnabled()) {
+    unless ($events->isEnabledWatcher('EBox::Event::Watcher::Gateways')) {
         return __('WAN Failover event is not enabled. You have to enable it in order to use this feature');
     }
+
+    return undef;
 }
 
-sub _isEventsEnabled
+sub permanentMessageType
 {
-    my $events = EBox::Global->getInstance()->modInstance('events');
-
-    return $events->isEnabled();
-}
-
-sub _isWatcherEnabled
-{
-    my $events = EBox::Global->getInstance()->modInstance('events');
-
-    return $events->isEnabledWatcher('EBox::Event::Watcher::Gateways');
+    return 'warning';
 }
 
 1;
