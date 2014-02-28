@@ -251,7 +251,10 @@ sub initialSetup
     unless ($version) {
         try {
             $self->importInterfacesFile();
-            $self->saveConfigRecursive();
+            $self->_importDHCPAddresses();
+            if ($self->changed()) {
+                $self->saveConfigRecursive();
+            }
         } catch {
             EBox::warn('Network configuration import failed');
         }
@@ -281,6 +284,7 @@ sub enableActions
 
         EBox::Sudo::root(@cmds);
     }
+    $self->_importDHCPAddresses();
 }
 
 # Method: wizardPages
@@ -4937,6 +4941,28 @@ sub importInterfacesFile
     $searchDomainModel->importSystemSearchDomain();
 
     $self->saveConfig();
+}
+
+sub _importDHCPAddresses
+{
+    my ($self) = @_;
+    EBox::NetWrappers::clean_ifaces_list_cache();
+    foreach my $iface (@{ $self->allIfaces() }) {
+        if ($self->ifaceMethod($iface) eq 'dhcp') {
+            my %addr;
+            try {
+                %addr = %{ iface_addresses_with_netmask($iface) };
+            } catch {
+                # ignore errors, just skip this interface;
+            }
+            if (not %addr) {
+                next;
+            }
+            my ($address, $netmask) = each %addr;
+            EBox::debug("_importDHCPAdress $iface $address $netmask");
+            $self->setDHCPAddress($iface, $address, $netmask);
+        }
+    }
 }
 
 sub _readInterfaces
