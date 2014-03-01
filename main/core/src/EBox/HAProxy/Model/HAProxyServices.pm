@@ -772,7 +772,6 @@ sub validateHTTPSPortChange
         } else {
             @haProxyServs = @{$self->findAllValue('sslPort' => $port)};
         }
-        EBox::debug(@haProxyServs);
         foreach my $srvId (@haProxyServs) {
             if (ref($srvId)) {
                 $haProxyServ = $srvId;  # This is the row
