@@ -1,3 +1,5 @@
 class: 'EBox::UserCorner'
 enabledepends:
     - users
+models:
+    - Settings
