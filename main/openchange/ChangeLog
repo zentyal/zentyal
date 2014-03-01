@@ -2,6 +2,8 @@ HEAD
 	+ Prevent OpenChange provision if we don't have access to update the
 	  schema or it's already extended by another OpenChange / Exchange
 	  previous installation.
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
 3.2.6
 	+ Clean all previous data before enabling the module
 3.2.5
