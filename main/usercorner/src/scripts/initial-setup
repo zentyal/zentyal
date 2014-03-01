@@ -37,6 +37,6 @@ if [ ! -f $REDIS_PASS ]; then
 fi
 chown ebox-usercorner:ebox $REDIS_PASS
 
-# create ebox user corner apache certificates
+# create ebox user corner HTTP server certificates
 /usr/share/zentyal/create-certificate /var/lib/zentyal-usercorner/ssl > /dev/null 2>&1 || true
 chown -R ebox-usercorner:ebox /var/lib/zentyal-usercorner/ssl
