@@ -272,14 +272,14 @@ sub validateTypedRow
         if (exists $params_r->{port}) {
             if ($actual_r->{blockPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the HTTP port.')
+                    __('This service does not let change the HTTP port.')
                 );
             }
         }
         if (exists $params_r->{sslPort}) {
             if ($actual_r->{blockSSLPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the HTTPS port.')
+                    __('This service does not let change the HTTPS port.')
                 );
             }
         }
