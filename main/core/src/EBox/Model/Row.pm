@@ -37,12 +37,6 @@
 #       - 'valueHash' => hash ref containing the same objects as
 #          'values' but indexed by 'fieldName'
 #
-#       - 'plainValueHash' => hash ref containing the fields and their
-#          value
-#
-#       - 'printableValueHash' => hash ref containing the fields and
-#          their printable value
-
 use strict;
 use warnings;
 
