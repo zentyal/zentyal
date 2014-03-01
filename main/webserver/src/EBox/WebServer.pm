@@ -44,7 +44,8 @@ use constant AVAILABLE_MODS_DIR => CONF_DIR . '/mods-available/';
 use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR => CONF_DIR . '/sites-enabled/';
-use constant GLOBAL_CONF_DIR => CONF_DIR . '/conf.d/';
+use constant CONF_AVAILABLE_DIR => CONF_DIR . '/conf-available/';
+use constant CONF_ENABLED_DIR => CONF_DIR . '/conf-enabled/';
 
 use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . '000-default.conf';
 use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl.conf';

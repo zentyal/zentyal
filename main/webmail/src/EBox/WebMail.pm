@@ -291,7 +291,7 @@ sub usedFiles
         },
     ];
 
-    my $destFile = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
+    my $destFile = EBox::WebServer::CONF_AVAILABLE_DIR . 'zentyal-webmail.conf';
     push(@{$files}, { 'file' => $destFile, 'module' => 'webmail',
                       'reason' => __('To configure the webmail on the webserver.') });
     return $files;
@@ -336,7 +336,7 @@ sub enableActions
 
     if ($self->_usesEBoxMail()) {
         my $mail = EBox::Global->modInstance('mail');
-        if ((not $mail->imap())and (not $mail->imaps()) ) {
+        if ((not $mail->imap()) and (not $mail->imaps())) {
             throw EBox::Exceptions::External(__x('Webmail module needs IMAP or IMAPS service enabled if ' .
                                                  'using Zentyal mail service. You can enable it at ' .
                                                  '{openurl}Mail -> General{closeurl}.',
@@ -437,24 +437,24 @@ sub _setWebServerConf
     my @cmd = ();
     push(@cmd, 'rm -f ' . HTTPD_WEBMAIL_DIR);
     my $vHostPattern = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
-                       EBox::WebServer::VHOST_PREFIX. '*/ebox-webmail';
+                       EBox::WebServer::VHOST_PREFIX. '*/zentyal-webmail';
     push(@cmd, 'rm -f ' . "$vHostPattern");
-    my $globalPattern = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
-    push(@cmd, 'rm -f ' . "$globalPattern");
     EBox::Sudo::root(@cmd);
 
-    return unless $self->isEnabled();
-
     my $vhost = $self->model('Options')->vHostValue();
+    my $vhostEnabled = ((defined $vhost) and ($vhost ne 'disabled'));
 
-    if ($vhost eq 'disabled') {
-        my $destFile = EBox::WebServer::GLOBAL_CONF_DIR . 'ebox-webmail';
-        $self->writeConfFile($destFile, 'webmail/apache.mas', [vhost => 0]);
+    my $destFile = EBox::WebServer::CONF_AVAILABLE_DIR . 'zentyal-webmail.conf';
+    if ($vhostEnabled) {
+        $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
+                    EBox::WebServer::VHOST_PREFIX. "$vhost/zentyal-webmail";
+    }
+    $self->writeConfFile($destFile, 'webmail/apache.mas', [ vhost => $vhostEnabled ]);
+
+    if ($self->isEnabled()) {
+        EBox::Sudo::root('a2enconf zentyal-webmail');
     } else {
-        my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
-                       EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-webmail';
-        EBox::debug("DEST $destFile");
-        $self->writeConfFile($destFile, 'webmail/apache.mas', [vhost => 1]);
+        EBox::Sudo::silentRoot('a2disconf zentyal-webmail');
     }
 }
 
