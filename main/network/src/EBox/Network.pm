@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -251,6 +251,10 @@ sub initialSetup
     unless ($version) {
         try {
             $self->importInterfacesFile();
+            $self->_importDHCPAddresses();
+            if ($self->changed()) {
+                $self->saveConfigRecursive();
+            }
         } catch {
             EBox::warn('Network configuration import failed');
         }
@@ -280,6 +284,7 @@ sub enableActions
 
         EBox::Sudo::root(@cmds);
     }
+    $self->_importDHCPAddresses();
 }
 
 # Method: wizardPages
@@ -3490,7 +3495,7 @@ sub _disableReversePath
 
 sub _multigwRoutes
 {
-    my ($self) = @_;
+    my ($self, $dynIfaces) = @_;
 
     # Flush the rules
     #
@@ -3581,6 +3586,9 @@ sub _multigwRoutes
     push(@fcmds, '/sbin/iptables -t mangle -X');
     push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
     push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
+    if ($dynIfaces) {
+        sleep 1;
+    }
     EBox::Sudo::silentRoot(@fcmds);
 
     my $defaultRouterMark;
@@ -3798,13 +3806,18 @@ sub _enforceServiceState
 
     EBox::Sudo::silentRoot("ip addr add 127.0.1.1/8 dev lo");
 
+    my $dynIfaces = 0;
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
         my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
+        if ($dhcpIface) {
+            $dynIfaces = 1;
+        }
         if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
                 $iface = "zentyal-ppp-$iface";
+                $dynIfaces = 1;
             }
             if ($self->ifaceIsBond($iface)) {
                 # ifup bond slaves first
@@ -3817,10 +3830,9 @@ sub _enforceServiceState
         }
     }
 
-
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
-    if (exists $ENV{'USER'}) {
+    if ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
         EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
@@ -3830,6 +3842,8 @@ sub _enforceServiceState
             }
         }
         EBox::Util::Lock::unlock('ifup');
+        # Notify if ifup has been done
+        $self->_flagIfUp(\@ifups);
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
@@ -3851,7 +3865,7 @@ sub _enforceServiceState
 
     $self->_generateRoutes();
     $self->_disableReversePath();
-    $self->_multigwRoutes();
+    $self->_multigwRoutes($dynIfaces);
     $self->_cleanupVlanIfaces();
 
     EBox::Sudo::root('/sbin/ip route flush cache');
@@ -4708,6 +4722,43 @@ sub replicationExcludeKeys
     return [ 'interfaces' ];
 }
 
+# Group: Ifup flag methods
+
+# Method: flagIfUp
+#
+# Returns:
+#
+#    Array ref - containing the ifaces that have set up in last setConf
+#
+#    undef - if the flag is not set
+sub flagIfUp
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    if (exists $state->{ifup}) {
+        return $state->{ifup};
+    }
+    return undef;
+}
+
+# Method: unsetFlagIfUp
+#
+#    Delete flag if up
+#
+sub unsetFlagIfUp
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    if (exists $state->{ifup}) {
+        delete $state->{ifup};
+        $self->set_state($state);
+    }
+}
+
+# Group: Other methods
+
 sub _pppoeRules
 {
     my ($self, $flush) = @_;
@@ -4892,6 +4943,28 @@ sub importInterfacesFile
     $self->saveConfig();
 }
 
+sub _importDHCPAddresses
+{
+    my ($self) = @_;
+    EBox::NetWrappers::clean_ifaces_list_cache();
+    foreach my $iface (@{ $self->allIfaces() }) {
+        if ($self->ifaceMethod($iface) eq 'dhcp') {
+            my %addr;
+            try {
+                %addr = %{ iface_addresses_with_netmask($iface) };
+            } catch {
+                # ignore errors, just skip this interface;
+            }
+            if (not %addr) {
+                next;
+            }
+            my ($address, $netmask) = each %addr;
+            EBox::debug("_importDHCPAdress $iface $address $netmask");
+            $self->setDHCPAddress($iface, $address, $netmask);
+        }
+    }
+}
+
 sub _readInterfaces
 {
     my ($self) = @_;
@@ -4941,6 +5014,19 @@ sub _checkHAFloatingIPCollision
             throw EBox::Exceptions::External("The IP: " . $address . " is already".
                     " a HA floating IP.");
         }
+    }
+}
+
+# Flag the iface is up
+# Only useful to ha by now
+sub _flagIfUp
+{
+    my ($self, $ifups) = @_;
+
+    if (@{$ifups}) {
+        my $state = $self->get_state();
+        $state->{ifup} = $ifups;
+        $self->set_state($state);
     }
 }
 

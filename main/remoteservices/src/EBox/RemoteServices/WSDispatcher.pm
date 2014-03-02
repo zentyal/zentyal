@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,27 +22,51 @@ package EBox::RemoteServices::WSDispatcher;
 
 # Class: EBox::RemoteServices::WSDispatcher
 #
-#      A SOAP::Lite handle called by apache-perl (mod_perl) everytime
-#      a SOAP service is required.
+#      A SOAP::Lite handle called by zentyal.psgi everytime
+#      this SOAP service is required.
 #
 
-use SOAP::Transport::HTTP;
+use File::Slurp;
+use JSON::XS;
+use Plack::Request;
+use SOAP::Transport::HTTP::Plack;
 
-my $server = SOAP::Transport::HTTP::Apache
-  ->dispatch_with(
-      {
-         'urn:EBox/Services/Jobs' => 'EBox::RemoteServices::Server::JobReceiver',
-      }
-     );
+my $server = new SOAP::Transport::HTTP::Plack();
 
-# Method: handler
-#
-#     Handle the HTTP request
-#
-sub handler
+sub psgiApp
 {
-    # Currently connection is just once basis
-    $server->handler(@_);
+    my ($env) = @_;
+
+    return $server->dispatch_with(
+        {
+            'urn:EBox/Services/Jobs' => 'EBox::RemoteServices::Server::JobReceiver',
+        }
+       )->handler(new Plack::Request($env));
+}
+
+# Function: validate
+#
+# Parameters:
+#
+#    env - Hash ref the Plack environment from the request
+#
+sub validate
+{
+    my ($env) = @_;
+
+    if ($env->{HTTP_X_SSL_CLIENT_USED}) {  # Only SSL requests
+        my $sslAuthFile = EBox::Config::conf() . 'remoteservices/ssl-auth.json';
+        if (-f $sslAuthFile) {
+            my $sslAuth = JSON::XS->new()->decode(File::Slurp::read_file($sslAuthFile));
+            my $caDomain = $sslAuth->{caDomain};
+            my $allowedClientCNs = $sslAuth->{allowedClientCNRegexp};
+
+            return (($env->{HTTP_X_SSL_CLIENT_O} eq $caDomain)
+                    and ($env->{HTTP_X_SSL_ISSUER_O} eq $caDomain)
+                    and ($env->{HTTP_X_SSL_CLIENT_CN} =~ $allowedClientCNs));
+        }
+    }
+    return 0;
 }
 
 1;

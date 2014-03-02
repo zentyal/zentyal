@@ -105,7 +105,7 @@ sub formSubmitted
     my $dynamicWWWPath = EBox::Config::dynamicwww();
     $rssFilePath =~ s:$dynamicWWWPath:/dynamic-data/:;
     if ( @ips > 0 ) {
-        $webAdminMod->setRestrictedResource($rssFilePath, \@ips, 'location');
+        $webAdminMod->setRestrictedResource($rssFilePath, \@ips);
     }
 }
 

@@ -327,12 +327,13 @@ sub _preModifyUser
         }
     }
 
+    my $lazy = 1;
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
         utf8::encode($displayName);
-        $sambaUser->set('displayName', $displayName, 1);
+        $sambaUser->set('displayName', $displayName, $lazy);
     } else {
-        $sambaUser->delete('displayName', 1);
+        $sambaUser->delete('displayName', $lazy);
     }
     my $description = $zentyalUser->description();
     my $mail = $zentyalUser->mail();
@@ -340,29 +341,29 @@ sub _preModifyUser
     utf8::encode($gn);
     my $sn = $zentyalUser->get('sn');
     utf8::encode($sn);
-    $sambaUser->set('givenName', $gn, 1);
-    $sambaUser->set('sn', $sn, 1);
+    $sambaUser->set('givenName', $gn, $lazy);
+    $sambaUser->set('sn', $sn, $lazy);
     if ($description) {
         utf8::encode($description);
-        $sambaUser->set('description', $description, 1);
+        $sambaUser->set('description', $description, $lazy);
     } else {
-        $sambaUser->delete('description', 1);
+        $sambaUser->delete('description', $lazy);
     }
     if ($mail) {
-        $sambaUser->set('mail', $mail, 1);
+        $sambaUser->set('mail', $mail, $lazy);
     } else {
-        $sambaUser->delete('mail', 1);
+        $sambaUser->delete('mail', $lazy);
+    }
+    if ($zentyalUser->isDisabled()) {
+        $sambaUser->setAccountEnabled(0, $lazy);
+    } else {
+        $sambaUser->setAccountEnabled(1, $lazy);
     }
     if (defined($zentyalPwd)) {
-        $sambaUser->changePassword($zentyalPwd, 1);
+        $sambaUser->changePassword($zentyalPwd, $lazy);
     } else {
         my $keys = $zentyalUser->kerberosKeys();
         $sambaUser->setCredentials($keys);
-    }
-    if ($zentyalUser->isDisabled()) {
-        $sambaUser->setAccountEnabled(0);
-    } else {
-        $sambaUser->setAccountEnabled(1);
     }
     $sambaUser->save();
 }

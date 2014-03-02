@@ -89,6 +89,10 @@ sub initialSetup
             and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
     }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
 }
 
 # Migration of form keys after extracting the rewrite rule for outgoing domain
@@ -942,7 +946,7 @@ sub isProvisionedWithMySQL
 #   OpenChange: named properties, openchangedb and indexing.
 #
 #   Currently MySQL is used as backend, the first time this method is called an
-#   openchange user will be created 
+#   openchange user will be created
 #
 # Returns:
 #

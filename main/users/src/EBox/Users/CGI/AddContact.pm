@@ -50,17 +50,15 @@ sub _process
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
 
-        $self->_requireParam('givenname', __('Given name'));
-        $self->_requireParam('surname', __('Surname'));
+        $self->_requireParam('givenname', __('first name'));
+        $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('description', __('Description'));
         $self->_requireParamAllowEmpty('mail', __('E-Mail'));
 
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');
-        my $fullname = "$givenname $surname";
 
         my $contact = EBox::Users::Contact->create(
-            fullname => $fullname,
             parent => $users->objectFromDN($dn),
             givenname => $givenname,
             surname => $surname,

@@ -1,4 +1,7 @@
 3.4
+	+ Zentyal internal accounts hidden from webmail interface
+	+ Save config if it changes in migration between versions
+	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
 	+ Don't allow to remove outgoing mail virtual domain
 	+ Added rpcproxy service
 	+ Provision openchangedb with mysql as backend
@@ -12,6 +15,9 @@
 	  model named Configuration
 	+ Better user addon integration
 	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
+	+ Prevent OpenChange provision if we don't have access to update the
+	  schema or it's already extended by another OpenChange / Exchange
+	  previous installation.
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work

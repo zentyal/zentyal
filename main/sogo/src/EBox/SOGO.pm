@@ -49,37 +49,14 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $sogoApacheConf = EBox::WebServer::GLOBAL_CONF_DIR . 'zentyal-sogo';
-
     if ($self->isEnabled()) {
-        $self->writeConfFile($sogoApacheConf, 'sogo/apache.mas', []);
+        EBox::Sudo::root("a2ensite zentyal-sogo");
     } else {
-        EBox::Sudo::root("rm -f $sogoApacheConf");
+        EBox::Sudo::root("a2dissite zentyal-sogo");
     }
-
-    EBox::Sudo::silentRoot("cp /usr/share/zentyal-sogo/resources/* /usr/lib/GNUstep/SOGo/WebServerResources/");
 }
 
 # Group: Public methods
-
-# Method: usedFiles
-#
-#        Indicate which files are required to overwrite to configure
-#        the module to work. Check overriden method for details
-#
-# Overrides:
-#
-#        <EBox::Module::Service::usedFiles>
-#
-sub usedFiles
-{
-    my ($self) = @_;
-
-    my $sogoApacheConf = EBox::WebServer::GLOBAL_CONF_DIR . 'zentyal-sogo';
-    return [
-        { 'file' => $sogoApacheConf, 'module' => 'webmail', 'reason' => __('To configure the webmail on the webserver.') }
-    ];
-}
 
 # Method: actions
 #

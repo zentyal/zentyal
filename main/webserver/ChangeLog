@@ -1,4 +1,5 @@
 3.4
+	+ Modules changed in initialSetup have now its configuration saved
 	+ Added support for internal virtual domains (only for openchange
 	  for now)
 	+ Updated to use the new haproxy API

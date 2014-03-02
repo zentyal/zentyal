@@ -1,7 +1,16 @@
 3.4
+	+ Give support to multiple addresses for a domain in Transparent
+	  Proxy Exemptions
+	+ Save modules configurations after initialSetup
+	+ Added all subdomains in cache exemptions
+	+ Deny cache explicitly from cache exemption domains
+	+ Give support to optional ABORTED flag in denied requests when
+	  the HTTP client aborts the request
 	+ Adapt configuration for squid 3.3.8
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Remove canonical_dn call for compatibility with MS LDAP servers in
+	  external AD mode
 	+ Synchronise AD groups every 30 min if using external AD and any
 	  filter profile includes an AD group
 	+ Manage errors when AD failed on fulfill our requests in external

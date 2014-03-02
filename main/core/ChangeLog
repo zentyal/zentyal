@@ -1,4 +1,17 @@
 3.4
+	+ Use window.location.replace instead of window.location.href
+	  to redirect using JS
+	+ In EBox::Type::Select, use element value as printableValue for
+	  unknown options or options without printableValue
+	+ Save haproxy config as changed after webadmin's initialSetup
+	+ Send restartUI flag to restart service when restarting a module
+	  from the UI
+	+ Fix calculation of page number when using go to last page control
+	+ Update tracker url in dashboard widget
+	+ Continue installation without ads if there is a error getting them
+	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
+	  WebAdmin sub-app requests
+	+ Ported restricted resources to use nginx
 	+ Removed EBox::Base::upload method because that's 100% handled by Plack
 	  now.
 	+ Increased the buffer size for uwsgi applications to allow big submits
@@ -56,7 +69,7 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
-	+ Avoid division by zero while using page navigation
+	+ Automatic report text formatting adapted to Redmine
 	+ Fix tab selection in tabbed composite from URL path anchor,
 	  for instance, /Maintenance/Events#ConfigureDispatchers
 	+ Avoid errors triggered on web administration port validation

@@ -1,10 +1,18 @@
 3.4
+	+ Import current DHCP addresses in first setup and when enabling module
+	+ Don't allow domain names as target of failover tests, usability
+	  changes in failover rules
+	+ Removed DNS resolution failover test
+	+ Save module config after initialSetup
+	+ Added flag to notify when an ifup is set
+	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
 	+ Implement replicationExcludeKeys() to avoid replication of ifaces in HA
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ When adding a new IP (viface or static iface) it is checked to avoid
 	  collision with the current HA floating IPs
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Fixed bad behaviour in interfaces method wizard
 	+ Don't generate resolvconf file until all interfaces are up
 	+ nameservers() method always return 127.0.0.1 if DNS module is
 	  installed and enabled

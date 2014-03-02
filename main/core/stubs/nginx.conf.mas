@@ -9,7 +9,11 @@ Parameters:
     zentyalconfdir - String the path to the WebAdmin configuration folder.
     includes - Array. The list of configuration files to include.
     servers - Array The list of configuration files with servers definition.
-
+    restrictedresources - Array containing a hash ref structure which contains
+                          the following elements:
+                          - allowedIPs - array ref containing the allowed IPs
+                                         for accessing this resource.
+                          - name       - String the location name.
 # FIXME: unhardcode paths passing them as args...
 </%doc>
 <%args>
@@ -19,8 +23,31 @@ Parameters:
     $zentyalconfdir
     @includes => ()
     @servers => ()
+    @restrictedresources => ()
 </%args>
-
+<%init>
+my %sectionrestrictions = ();
+</%init>
+<%perl>
+my %dumpedrestricted = ();
+my @nginxsections = ('/data/', '/dynamic-data/', '');
+if ( $#restrictedresources > 0 ) {
+    foreach my $section (@nginxsections) {
+        foreach my $resource (@restrictedresources) {
+            my $location = $resource->{name};
+            if ((not exists $dumpedrestricted{$location}) and
+                ($location =~ /^$section/)) {
+                $dumpedrestricted{$location} = 1;
+                my @allowIPs = @{ $resource->{allowedIPs} };
+                my $foundNobody = grep { $_ eq 'nobody' } @allowIPs;
+                $sectionrestrictions{$section}{location} = $location;
+                $sectionrestrictions{$section}{foundNobody} = $foundNobody;
+                $sectionrestrictions{$section}{allowIPs} = \@allowIPs;
+            }
+        }
+    }
+}
+</%perl>
 user www-data;
 worker_processes 4;
 daemon off;
@@ -44,6 +71,9 @@ http {
     types_hash_max_size 2048;
     server_tokens off;
     client_max_body_size 50m;
+
+    real_ip_header X-Forwarded-For;
+    set_real_ip_from 127.0.0.1;
 
     server_names_hash_bucket_size 64;
     server_name_in_redirect off;
@@ -70,21 +100,6 @@ http {
     gzip_http_version 1.1;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-    #map $ssl_client_s_dn $ssl_client_s_dn_o {
-    #    default           "";
-    #    ~/O=(?<O>[^/]+) $O;
-    #}
-
-    #map $ssl_client_s_dn $ssl_client_s_dn_cn {
-    #    default           "";
-    #    ~/CN=(?<CN>[^/]+) $CN;
-    #}
-
-    #map $ssl_client_i_dn $ssl_client_i_dn_o {
-    #    default           "";
-    #    ~/O=(?<O>[^/]+) $O;
-    #}
-
     server {
         listen <% $bindaddress %>:<% $port %>;
 
@@ -102,16 +117,19 @@ http {
         }
 
         location /data/ {
+<& .restricted, restrictions => $sectionrestrictions{'/data/'} &>
             root /usr/share/zentyal/www;
             rewrite  ^/data/(.*)$  /$1  break;
             return   403;
         }
 
         location /dynamic-data/ {
+<& .restricted, restrictions => $sectionrestrictions{'/dynamic-data/'} &>
             root /var/lib/zentyal/dynamicwww/;
             rewrite  ^/dynamic-data/(.*)$  /$1  break;
             return   403;
         }
+<& .restricted, restrictions => $sectionrestrictions{''} &>
 
         location @proxy {
             uwsgi_pass unix:///run/zentyal-webadmin/webadmin.sock;
@@ -130,7 +148,6 @@ http {
             uwsgi_param SERVER_PORT $server_port;
             uwsgi_param SERVER_NAME $server_name;
         }
-
 % foreach my $includeFile (@includes) {
 
         include <% $includeFile %>;
@@ -142,3 +159,18 @@ http {
     include <% $serverFile %>;
 % }
 }
+<%def .restricted>
+<%args>
+$restrictions
+</%args>
+% if ( $restrictions ) {
+            location <% $restrictions->{location} %> {
+%     unless ( $restrictions->{foundNobody} ) {
+%         foreach my $ip (@{$restrictions->{allowIPs}}) {
+                allow <% $ip %>;
+%         }
+%     }
+                deny all;
+            }
+% }
+</%def>

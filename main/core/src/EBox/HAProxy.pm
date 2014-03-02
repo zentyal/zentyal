@@ -330,7 +330,6 @@ sub modsWithHAProxyService
 
     my @mods;
     foreach my $module (@allModules) {
-        $module->configured() or next;
         if ($module->isa('EBox::HAProxy::ServiceBase')) {
             push (@mods, $module);
         }

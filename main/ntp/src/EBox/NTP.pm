@@ -146,6 +146,7 @@ sub initialSetup
             $fw->setInternalService($serviceName, 'accept');
         }
         $fw->saveConfigRecursive();
+        $self->saveConfigRecursive();
     }
 }
 

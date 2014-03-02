@@ -223,12 +223,13 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (bindaddress => $self->targetIP());
-    push @confFileParams, (port => $self->targetHTTPSPort());
-    push @confFileParams, (tmpdir => EBox::Config::tmp());
-    push @confFileParams, (zentyalconfdir => EBox::Config::conf());
-    push @confFileParams, (includes => $self->_nginxIncludes(1));
-    push @confFileParams, (servers => $self->_nginxServers(1));
+    push @confFileParams, (bindaddress         => $self->targetIP());
+    push @confFileParams, (port                => $self->targetHTTPSPort());
+    push @confFileParams, (tmpdir              => EBox::Config::tmp());
+    push @confFileParams, (zentyalconfdir      => EBox::Config::conf());
+    push @confFileParams, (includes            => $self->_nginxIncludes(1));
+    push @confFileParams, (servers             => $self->_nginxServers(1));
+    push @confFileParams, (restrictedresources => $self->get_list('restricted_resources') );
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -348,6 +349,120 @@ sub logs
     $log->{'types'} = \@types;
     push(@logs, $log);
     return \@logs;
+}
+
+# Method: setRestrictedResource
+#
+#   Set a restricted resource to the nginx configuration.
+#
+# Parameters:
+#
+#   resourceName - String the resource location to restrict.
+#   allowedIPs   - Array ref the set of IPs which allow the restricted resource to be accessed in CIDR
+#                  format or magic word 'all' or 'nobody'. The former all sources are allowed to see
+#                  that resourcename and the latter nobody is allowed to see this resource. 'all'
+#                  value has more priority than 'nobody' value.
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
+#   <EBox::Exceptions::InvalidType>     - thrown if the resource type is invalid.
+#   <EBox::Exceptions::Internal>        - thrown if any of the allowed IP addresses are not in CIDR format or no
+#                                         allowed IP is given.
+#
+sub setRestrictedResource
+{
+    my ($self, $resourceName, $allowedIPs) = @_;
+
+    unless (defined $resourceName) {
+        throw EBox::Exceptions::MissingArgument('resourceName');
+    }
+    unless (defined $allowedIPs) {
+        throw EBox::Exceptions::MissingArgument('allowedIPs');
+    }
+
+    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
+    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
+    if ($allFound) {
+        $allowedIPs = ['all'];
+    } elsif ($nobodyFound) {
+        $allowedIPs = ['nobody'];
+    } else {
+        # Check the given list is a list of IPs
+        my $notIPs = grep { !checkCIDR($_) } @{$allowedIPs};
+        if ($notIPs > 0) {
+            throw EBox::Exceptions::Internal('Some of the given allowed IP addresses are not in CIDR format');
+        }
+        if ( @{$allowedIPs} == 0 ) {
+            throw EBox::Exceptions::Internal('Some allowed IP must be set');
+        }
+    }
+
+    my $resources = $self->get_list('restricted_resources');
+    if ($self->_restrictedResourceExists($resourceName)) {
+        my @deleted = grep { $_->{name} ne $resourceName } @{$resources};
+        $resources = \@deleted;
+    }
+    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs });
+    $self->set('restricted_resources', $resources);
+}
+
+# Method: delRestrictedResource
+#
+#   Remove a restricted resource from the list.
+#
+# Parameters:
+#
+#   resourcename - String the resource name which indexes which restricted resource is requested to be deleted.
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing.
+#   <EBox::Exceptions::DataNotFound>    - thrown if the given resource name is not in the list of restricted
+#                                         resources.
+#
+sub delRestrictedResource
+{
+    my ($self, $resourcename) = @_;
+
+    unless (defined $resourcename) {
+        throw EBox::Exceptions::MissingArgument('resourcename');
+    }
+
+    $resourcename =~ s:^/::;
+
+    my $resources = $self->get_list('restricted_resources');
+
+    unless ($self->_restrictedResourceExists($resourcename)) {
+        throw EBox::Exceptions::DataNotFound(data => 'resourcename', value => $resourcename);
+    }
+
+    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
+    $self->set('restricted_resources', \@deleted);
+}
+
+# Method: _restrictedResourceExists
+#
+#   Whether a restricted resource exists.
+#
+# Parameters:
+#
+#   resourcename - String the resource name which we want to check.
+#
+# Returns:
+#
+#   Boolean - Whether the given resource is registered or not.
+#
+sub _restrictedResourceExists
+{
+    my ($self, $resourcename) = @_;
+
+    foreach my $resource (@{$self->get_list('restricted_resources')}) {
+        if ($resource->{name} eq $resourcename) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 # Method: isEnabled
@@ -485,7 +600,6 @@ sub _nginxServers
 #
 # Parameters:
 #
-#      serv
 #      includeFilePath - String the configuration file path to include
 #      in nginx configuration
 #
@@ -740,6 +854,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    my $haproxyMod = $self->global()->modInstance('haproxy');
     # Register the service if installing the first time
     unless ($version) {
         my @args = ();
@@ -748,13 +863,16 @@ sub initialSetup
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
-        my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
+    }
+
+    if ($haproxyMod->changed()) {
+        $haproxyMod->saveConfigRecursive();
     }
 }
 

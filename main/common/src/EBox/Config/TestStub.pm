@@ -106,7 +106,6 @@ sub setConfigKeys
 {
     my %fakedConfig = @_;
 
-    print "checkConfigKey\n\n";
     _checkConfigKeysParameters(@_);
 
     my @fakeSubs;

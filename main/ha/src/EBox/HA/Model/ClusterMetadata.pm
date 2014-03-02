@@ -53,7 +53,7 @@ sub templateContext
     my ($self) = @_;
 
     $self->{ha} = $self->parentModule();
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->{ha});
 
     my $summary = $self->{clusterStatus}->summary() ? $self->{clusterStatus}->summary() : undef;
 
@@ -63,7 +63,7 @@ sub templateContext
                 # id, name, value
                 [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
                 [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
-                [ 'cluster_dc', __('Current Desginated Controller'), $self->{clusterStatus}->designatedController()],
+                [ 'cluster_dc', __('Current Designated Controller'), $self->{clusterStatus}->designatedController()],
             ],
             help => __('The current Designated Controller performs the operations in the cluster. This node may be changed without any impact in the cluster.'),
         };

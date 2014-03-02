@@ -395,8 +395,73 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
+    # Upgrade from previous versions
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        # Perform the migration to 3.4
+        $self->_migrateTo34();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.4
+#
+# * Fixed displayName value to match cn if not set already.
+#
+sub _migrateTo34
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    my $ldap = $self->ldap;
+
+    my $users = $self->users(1);
+    foreach my $user (@{$users}) {
+        unless ($user->displayname()) {
+            $user->set('displayname', $user->fullname());
+        }
+    }
+
+    foreach my $contact (@{$self->contacts()}) {
+        unless ($contact->displayname()) {
+            $contact->set('displayname', $contact->fullname());
+        }
+    }
+}
+
+sub _checkEnableIPs
+{
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
+    my @dhcpIfaces = ();
+    my $noAddresses = 1;
+    foreach my $iface (@{ $network->allIfaces() }) {
+        my @addresses = @{ $network->ifaceAddresses($iface) };
+        if (@addresses) {
+            $noAddresses = 0;
+            last;
+        }
+        if ($network->ifaceMethod($iface) eq 'dhcp') {
+            push @dhcpIfaces, $iface;
+        }
+    }
+    if ($noAddresses) {
+        my $errMsg;
+        if (@dhcpIfaces) {
+            $errMsg = __x('Cannot enable Users and Computers module because your system does not have availalbe IPs. Since you have dhcp interfaces ({ifaces}) it is possible that you have not received leases. Saving changes if network module has just been configured or waiting for a lease can solve this situation',
+                          ifaces => "@dhcpIfaces"
+                         );
+        } else {
+            $errMsg = __x('Cannot enable Users and Computers module because your system does not have available IPs. {oh}Configuring network interfaces{ch} and saving changes can solve this situation',
+                          oh => '<a href="/Network/Ifaces">',
+                          ch => '</a>'
+                          );
+        }
+
+        EBox::Exceptions::External->throw($errMsg);
+    }
 }
 
 sub setupKerberos
@@ -517,6 +582,8 @@ sub enableActions
 sub _internalServerEnableActions
 {
     my ($self) = @_;
+
+    $self->_checkEnableIPs();
 
     # Stop slapd daemon
     EBox::Sudo::root(
@@ -847,7 +914,9 @@ sub _setConfInternal
 
         push(@params, 'cloudsync_enabled' => 1);
     }
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
+
+    # TODO: No users sync in 3.4, reenable in 4.0
+    #$self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -1828,11 +1897,12 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/UserTemplate',
             'text' => __('User Template'), order => 30));
-        if ($self->mode() eq STANDALONE_MODE) {
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Users/Composite/Sync',
-                'text' => __('Synchronization'), order => 40));
-        }
+# TODO: re-enable this in Zentyal 4.0 for Cloud Sync
+#        if ($self->mode() eq STANDALONE_MODE) {
+#            $folder->add(new EBox::Menu::Item(
+#                'url'  => 'Users/Composite/Sync',
+#                'text' => __('Synchronization'), order => 40));
+#        }
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/Settings',
             'text' => __('LDAP Settings'), order => 50));

@@ -60,7 +60,11 @@ sub isHTTPPortEnabled
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
+
+    unless ($moduleRow) {
+        return undef;
+    }
 
     my $portItem = $moduleRow->elementByName('port');
     return ($portItem->selectedType() eq 'port_number');
@@ -81,7 +85,7 @@ sub listeningHTTPPort
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     if ($self->isHTTPPortEnabled()) {
         return $moduleRow->valueByName('port');
@@ -105,7 +109,7 @@ sub isHTTPSPortEnabled
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     unless ($moduleRow) {
         return undef;
@@ -130,7 +134,7 @@ sub listeningHTTPSPort
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     if ($self->isHTTPSPortEnabled()) {
         return $moduleRow->valueByName('sslPort');
@@ -152,13 +156,13 @@ sub allowServiceDisabling
     return 1;
 }
 
-# Method: _serviceId
+# Method: serviceId
 #
 # Returns:
 #
 #   string - A unique ID across Zentyal that identifies this HAProxy service.
 #
-sub _serviceId
+sub serviceId
 {
     my ($self) = @_;
 

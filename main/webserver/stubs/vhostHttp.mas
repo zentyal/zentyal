@@ -38,7 +38,7 @@
         IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
 % } else {
-<VirtualHost <% *:<% $port %>>
+<VirtualHost *:<% $port %>>
         ServerAdmin webmaster@<% $hostname %>
 
         ServerName <% $vHostName %>

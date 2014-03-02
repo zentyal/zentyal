@@ -42,7 +42,7 @@ sub ids
 {
     my ($self)  = @_;
 
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
 
     unless (defined($self->{clusterStatus}->resources())) {
         return [];
@@ -141,7 +141,7 @@ sub _parseResource_started
     my ($self, %resource) = @_;
 
     my $nodes = $resource{'nodes'};
-    my @nodeNames = map { $self->{clusterStatus}->nodeById($_)->{'name'} } @{$nodes};
+    my @nodeNames = map { $self->{clusterStatus}->nodeByName($_)->{'name'} } @{$nodes};
 
     return join(', ', @nodeNames);
 }

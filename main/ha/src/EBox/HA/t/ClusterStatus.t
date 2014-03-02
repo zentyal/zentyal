@@ -96,7 +96,9 @@ Failed actions:
     ClusterIP4_start_0 (node=perra-vieja, call=41, rc=1, status=complete, last-rc-change=Thu Feb  6 11:26:40 2014
 , queued=57ms, exec=0ms
 ): unknown error";
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($ha, $self->{xml}, $self->{crm_mon_1});
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $ha,
+                                                         xml_dump => $self->{xml},
+                                                         text_dump => $self->{crm_mon_1});
 }
 
 sub test_isa_ok  : Test

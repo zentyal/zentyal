@@ -171,7 +171,9 @@ sub usedFiles
 # Method: setIfSingleInstanceModule
 #
 #     Set the module as changed if the given module is in the list of
-#     modules which must have a single instance in the cluster
+#     modules which must have a single instance in the cluster.
+#
+#     Stop the module and let the cluster decide if it should be enabled.
 #
 # Parameters:
 #
@@ -183,6 +185,9 @@ sub setIfSingleInstanceModule
 
     if ($moduleName ~~ @SINGLE_INSTANCE_MODULES) {
         $self->setAsChanged();
+        my $state = $self->get_state();
+        $state->{new_enabled_modules}->{$moduleName} = 1;
+        $self->set_state($state);
     }
 }
 
@@ -447,8 +452,9 @@ sub replicateConf
         my %keysToReplace;
         my @keysToDelete;
 
-        # TODO: need to differentiate conf/ro ?
-        foreach my $key (@{$mod->replicationExcludeKeys()}) {
+        my @excludedKeys = @{$mod->replicationExcludeKeys()};
+        push (@excludedKeys, '_serviceModuleStatus');
+        foreach my $key (@excludedKeys) {
             my $value = $mod->get($key);
             if (defined ($value)) {
                 $keysToReplace{$key} = $value;
@@ -741,7 +747,7 @@ sub checkAndUpdateClusterConfiguration
 
     my $clusterStatus;
     try {
-        $clusterStatus = new EBox::HA::ClusterStatus($self);
+        $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     } catch (EBox::Exceptions::Sudo::Command $e) {
         EBox::warn('Cannot get the status from the cluster');
     }
@@ -911,7 +917,7 @@ sub _enforceServiceState
     my ($self, @params) = @_;
 
     # FIXME: Do it in the framework as jacalvo suggests
-    unless ($self->get_state()->{replicating}) {
+    if ($self->_restartRequired(@params)) {
         $self->SUPER::_enforceServiceState(@params);
     }
 }
@@ -933,6 +939,7 @@ sub _setConf
         $self->_notifyLeave();
         $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
+        $self->{restart_required} = 1;
     }
 
     if ($self->isEnabled()) {
@@ -992,7 +999,7 @@ sub clusterWidget
         my $clusterStatus;
         my ($lastUpdate, $error, $errorType) = (__('Unknown'), __('None'), 'info');
         try {
-            $clusterStatus = new EBox::HA::ClusterStatus($self);
+            $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
             $lastUpdate = $clusterStatus->summary()->{last_update};
             my $errors = $clusterStatus->errors();
             if (defined($errors) and keys %{$errors} > 0) {
@@ -1140,6 +1147,7 @@ sub _corosyncSetConf
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
                    port => 443, localNode => 1);
         $self->_notifyClusterConfChange($list);
+        $self->{restart_required} = 1;
     }
 
     my $clusterConf = $self->clusterConfiguration();
@@ -1355,7 +1363,6 @@ sub _setPSGI
         } catch (EBox::Exceptions::Internal $e) {
             # Do nothing if the include has been already removed
         }
-        EBox::Sudo::root("rm -f '$upstartJobFile'");
     }
     if (not $self->isReadOnly() and $self->global()->modIsChanged('webadmin')) {
         $self->global()->addModuleToPostSave('webadmin');
@@ -1557,7 +1564,7 @@ sub _setFloatingIPRscs
     my ($self) = @_;
 
     my $rsc = $self->floatingIPs();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
 
     # Get the resource configuration from the cib directly
     my $dom = $self->_rscsConf();
@@ -1592,7 +1599,7 @@ sub _setFloatingIPRscs
         } else {
             # Add it!
             push(@rootCmds,
-                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr op monitor interval=30s");
             if ($activeNode ne $localNode) {
                 push(@moves, $rscName);
             }
@@ -1605,12 +1612,11 @@ sub _setFloatingIPRscs
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $rscName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($rscName);
-                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                if ($self->_resourceCanBeMovedToNode($rscName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$rscName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$rscName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$rscName' --move --host '$activeNode' --lifetime 'P30S'",
+                         );
                 }
             }
             if (@rootCmds > 0) {
@@ -1620,13 +1626,31 @@ sub _setFloatingIPRscs
     }
 }
 
+# Returns if the resource can be moved to the given node (usually active node)
+sub _resourceCanBeMovedToNode
+{
+    my ($self, $resource, $node) = @_;
+
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self,
+                                                    force => 1);
+
+    my $resourceStatus = $clusterStatus->resourceByName($resource);
+    if (defined($resourceStatus)) {
+        my @runningNodes = @{ $resourceStatus->{nodes} };
+
+        return (not ($node ~~ @runningNodes));
+    }
+
+    return 0;
+}
+
 # Set up and down the modules with a single instance in the cluster
 sub _setSingleInstanceInClusterModules
 {
     my ($self) = @_;
 
     my $dom = $self->_rscsConf();
-    my $clusterStatus = new EBox::HA::ClusterStatus($self);
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => $self);
     my @zentyalRscElems = $dom->findnodes('//primitive[@type="Zentyal"]');
 
     # For ease to existence checking
@@ -1642,9 +1666,14 @@ sub _setSingleInstanceInClusterModules
         my $mod = $self->global()->modInstance($modName);
         if (defined($mod) and $mod->configured()) {
             if ($mod->isEnabled()) {
-                unless (exists $currentRscs{$modName}) {
+                if (exists $currentRscs{$modName}) {
+                    $self->_stopSingleInstanceMods();
+                } else {  # Create the new resource
                     push(@rootCmds,
-                         "crm -w configure primitive '$modName' ocf:zentyal:Zentyal params module_name='$modName'");
+                         "crm -w configure primitive '$modName' "
+                         . "ocf:zentyal:Zentyal params module_name='$modName' "
+                         . "op monitor interval=60s timeout=10s"
+                         . "op monitor interval=300s role=Stopped timeout=10s");
                     if ($activeNode ne $localNode) {
                         push(@moves, $modName);
                     }
@@ -1664,12 +1693,10 @@ sub _setSingleInstanceInClusterModules
             # Do the initial movements after adding new primitives
             @rootCmds = ();
             foreach my $modName (@moves) {
-                my $currentNode = $clusterStatus->resourceByName($modName);
-                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                if ($self->_resourceCanBeMovedToNode($modName, $activeNode)) {
                     push(@rootCmds,
-                         "crm_resource --resource '$modName' --move --host '$activeNode'",
-                         "sleep 3",
-                         "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                         "crm_resource --resource '$modName' --clear",  # Clear any previous outdated constraint
+                         "crm_resource --resource '$modName' --move --host '$activeNode' --lifetime 'P30S'");
                 }
             }
             if (@rootCmds > 0) {
@@ -1753,6 +1780,77 @@ sub _askForConf
     } catch ($e) {
         # Catch any exception
         EBox::error('Error asking for replication to ' . $node->{name} . ": $e");
+    }
+}
+
+# Check if restart is required
+# Cases:
+#  1 - Not required if replicating flag is set
+#  2 - Required if ifup was done
+#  3 - Restart from CLI or UI
+#  4 - Cluster bootstrap
+#  5 - Actions defined in _setConf
+#  5.1 - Leaving a cluster
+#  5.2 - changing the network communication
+#  6 - Changing enabled status
+sub _restartRequired
+{
+    my ($self, %params) = @_;
+
+    my $state = $self->get_state();
+    if ($state->{replicating}) {
+        return 0;
+    }
+
+    my $required = 0;
+    my $net = $self->global->modInstance('network');
+    if ($net->flagIfUp()) {
+        $net->unsetFlagIfUp();
+        $required = 1;
+    }
+
+    # Set by leaving the cluster and changing the network communication
+    if ($self->{restart_required}) {
+        delete $self->{restart_required};
+        $required = 1;
+    }
+
+    if ($required) {
+        return 1;
+    }
+
+    if (exists $params{restartModules} or exists $params{restartUI}) {
+        return 1;
+    }
+
+    if ($state->{bootstraping}) {
+        return 1;
+    }
+
+    # Set restart required if the enabled status has changed
+    my $enabled = $self->isEnabled();
+    if ($enabled != $self->isRunning() or (not $enabled)) {
+        return 1;
+    }
+
+    return 0;
+}
+
+# Stop single instance modules and let the cluster decide for them to locate
+# if not active node
+sub _stopSingleInstanceMods
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    if (exists $state->{new_enabled_modules}) {
+        my $gl = $self->global();
+        foreach my $modName (keys %{$state->{new_enabled_modules}}) {
+            my $mod = $gl->modInstance($modName);
+            $mod->stopService();
+        }
+        delete $state->{new_enabled_modules};
+        $self->set_state($state);
     }
 }
 

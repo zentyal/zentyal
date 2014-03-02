@@ -1,4 +1,7 @@
 3.4
+	+ Stop changing users and contacts' cn field on object edition, allowed to
+	  edit the displayName field, just as Windows does
+	+ Disable OpenLDAP users sync in favor of Samba AD replication
 	+ Avoid warning when checking whether we are in the usercorner
 	+ Updated to use Plack / PSGI instead of mod_perl
 	+ Updated to use the new haproxy API
@@ -6,6 +9,8 @@
 	+ Fixed soap.conf for apache 2.4
 	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
+	+ Check available IP addresses when enable module
+	+ Added lock to cloud-sync script
 	+ Better integration of edit groups for mail group aliases
 	+ Update group icon when type of group changes
 	+ Implement _preModifyUser on LdapUserBase

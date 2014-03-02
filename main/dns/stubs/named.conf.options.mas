@@ -46,3 +46,5 @@ options {
     allow-query-cache { trusted; };
     allow-transfer { internal-local-nets; };
 };
+
+logging { category lame-servers { null; }; };
