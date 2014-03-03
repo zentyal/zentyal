@@ -243,6 +243,7 @@ sub _modifyContact
 #
 #   When a new group is going to be added
 #
+# Parame
 sub _preAddGroup
 {
 }
