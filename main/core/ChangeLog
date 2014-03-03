@@ -1,7 +1,4 @@
 3.4
-	+ Added a workaround to an Apache bug not using the public port in
-	  internal redirects for requests without an explicit port number set
-	  (80, 443)
 	+ Use window.location.replace instead of window.location.href
 	  to redirect using JS
 	+ In EBox::Type::Select, use element value as printableValue for
