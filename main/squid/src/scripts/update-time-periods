@@ -27,7 +27,7 @@ EBox::init();
 my $squid = EBox::Global->modInstance('squid');
 if ($squid->filterNeeded()) {
     $squid->writeDgGroups();
-    EBox::Sudo::root('dansguardian -r');
+    EBox::Sudo::root('dansguardian -g');
 }
 
 1;
