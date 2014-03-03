@@ -71,6 +71,10 @@ frontend ft_zentyal_<% $port %>
   bind <% $bindaddress %>:<% $port %>
 %  }
 <& .frontendSetHeaders, isSSL => $conf->{isSSL} &>
+% if (($port == 443) or ($port == 80)) {
+  http-request set-header HOST %[dst] unless { hdr(host) -m found }
+  reqirep ^Host:\ (.*)   Host:\ \1:<% $port %>
+% }
 
 % foreach my $service (@{$conf->{services}}) {
 %    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
