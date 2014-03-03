@@ -1,4 +1,6 @@
 3.4
+	+ Register in Apache configuration the public port used to reach it so
+	  automatic redirects work behind haproxy
 	+ Modules changed in initialSetup have now its configuration saved
 	+ Added support for internal virtual domains (only for openchange
 	  for now)
