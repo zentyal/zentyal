@@ -58,25 +58,6 @@ sub _setConf
 
 # Group: Public methods
 
-# Method: usedFiles
-#
-#        Indicate which files are required to overwrite to configure
-#        the module to work. Check overriden method for details
-#
-# Overrides:
-#
-#        <EBox::Module::Service::usedFiles>
-#
-sub usedFiles
-{
-    my ($self) = @_;
-
-    my $sogoApacheConf = EBox::WebServer::GLOBAL_CONF_DIR . 'zentyal-sogo';
-    return [
-        { 'file' => $sogoApacheConf, 'module' => 'webmail', 'reason' => __('To configure the webmail on the webserver.') }
-    ];
-}
-
 # Method: actions
 #
 #        Explain the actions the module must make to configure the

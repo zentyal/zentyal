@@ -81,6 +81,9 @@ sub syncRows
         $sid ? ($sid => 1) : ()
     } @{$currentRows};
 
+    my @currentSynchedRows = map { $self->row($_) } @{$currentRows};
+    $self->{synchedRows} = \@currentSynchedRows;
+
     my @srvsToAdd = grep { not exists $currentSrvs{$_->serviceId()} } @mods;
 
     my $modified = 0;
@@ -120,6 +123,7 @@ sub syncRows
         # Warn the validators that we are doing a forced edition / addition.
         $self->{force} = 1;
 
+        # FIXME: Use add to reduce this code length
         $self->addRow(@args);
         $modified = 1;
     }
@@ -141,6 +145,8 @@ sub syncRows
             $modified = 1;
         }
     }
+
+    delete $self->{synchedRows};
 
     return $modified;
 }
@@ -414,7 +420,11 @@ sub checkServicePort
 {
     my ($self, $port) = @_;
 
-    if ($self->find(port => $port) or $self->find(sslPort => $port)) {
+    if (exists $self->{synchedRows}) {
+        # From syncRows (Avoid deep recursion)
+        my $nMatches = grep { $_->valueByName('port') == $port or $_->valueByName('sslPort') == $port } @{$self->{synchedRows}};
+        return if ($nMatches > 0);
+    } elsif ($self->find(port => $port) or $self->find(sslPort => $port)) {
         # This port is being used by us so can be shared.
         return;
     }
@@ -643,6 +653,7 @@ sub setServicePorts
 #
 sub validatePortsChange
 {
+    # FIXME: This MUST be named parameters for mental sanity
     my ($self, $http, $https, $serviceId, $isHTTPDefault, $isHTTPSDefault, $force) = @_;
 
     if ((defined $http) and (defined $https) and ($http == $https)) {
@@ -658,6 +669,8 @@ sub validatePortsChange
 }
 
 # Method: validateHTTPPortChange
+#
+#     FIXME: This doc is a copy-paste.
 #
 #     Helper method for models which implements a view of changing the
 #     port of a valid row from this model. It must check the following
@@ -676,16 +689,33 @@ sub validateHTTPPortChange
 {
     my ($self, $port, $serviceId, $isDefault, $force) = @_;
 
-    my $haProxyServ = $self->findValue('sslPort' => $port);
+    my $haProxyServ;
+    if (exists($self->{synchedRows})) {
+        # From syncRows (Avoid deep recursion)
+        ($haProxyServ) = grep { $_->valueByName('sslPort') == $port } @{$self->{synchedRows}};
+    } else {
+        $haProxyServ = $self->findValue('sslPort' => $port);
+    }
     if ($haProxyServ and ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
         throw EBox::Exceptions::External(__x(
             'Port {port} is already used by {row} using HTTPS.',
             port => $port, row => $haProxyServ->printableValueByName('service')));
     }
+
     if ($isDefault) {
-        my $haProxyServs = $self->findAllValue('port' => $port);
-        foreach my $srvId (@{$haProxyServs}) {
-            $haProxyServ = $self->row($srvId);
+        my @haProxyServs;
+        if (exists($self->{synchedRows})) {
+            # From syncRows (Avoid deep recursion)
+            @haProxyServs = grep { $_->valueByName('port') == $port } @{$self->{synchedRows}};
+        } else {
+            @haProxyServs = @{$self->findAllValue('port' => $port)};
+        }
+        foreach my $srvId (@haProxyServs) {
+            if (ref($srvId)) {
+                $haProxyServ = $srvId;  # This is the row
+            } else {
+                $haProxyServ = $self->row($srvId);
+            }
             if ($haProxyServ->valueByName('defaultPort') and
                 ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
                 throw EBox::Exceptions::External(__x(
@@ -701,6 +731,8 @@ sub validateHTTPPortChange
 }
 
 # Method: validateHTTPSPortChange
+#
+#     FIXME: This doc is a copy-paste.
 #
 #     Helper method for models which implements a view of changing the
 #     port of a valid row from this model. It must check the following
@@ -719,16 +751,33 @@ sub validateHTTPSPortChange
 {
     my ($self, $port, $serviceId, $isDefault, $force) = @_;
 
-    my $haProxyServ = $self->findValue('port' => $port);
+    my $haProxyServ;
+    if (exists($self->{synchedRows})) {
+        # From syncRows (Avoid deep recursion)
+        ($haProxyServ) = grep { $_->valueByName('port') == $port } @{$self->{synchedRows}};
+    } else {
+        $haProxyServ = $self->findValue('port' => $port);
+    }
     if ($haProxyServ and ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
         throw EBox::Exceptions::External(__x(
             'Port {port} is already used by {row} using plain HTTP.',
             port => $port, row => $haProxyServ->printableValueByName('service')));
     }
+
     if ($isDefault) {
-        my $haProxyServs = $self->findAllValue('sslPort' => $port);
-        foreach my $srvId (@{$haProxyServs}) {
-            $haProxyServ = $self->row($srvId);
+        my @haProxyServs;
+        if (exists($self->{synchedRows})) {
+            # From syncRows (Avoid deep recursion)
+            @haProxyServs = grep { $_->valueByName('sslPort') == $port } @{$self->{synchedRows}};
+        } else {
+            @haProxyServs = @{$self->findAllValue('sslPort' => $port)};
+        }
+        foreach my $srvId (@haProxyServs) {
+            if (ref($srvId)) {
+                $haProxyServ = $srvId;  # This is the row
+            } else {
+                $haProxyServ = $self->row($srvId);
+            }
             if ($haProxyServ->valueByName('defaultSSLPort') and
                 ($haProxyServ->valueByName('serviceId') ne $serviceId)) {
                 throw EBox::Exceptions::External(__x(
@@ -738,6 +787,7 @@ sub validateHTTPSPortChange
             }
         }
     }
+
     unless ($force) {
         $self->checkServicePort($port);
     }

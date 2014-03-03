@@ -263,6 +263,31 @@ sub enableActions
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
 }
 
+# Method: menu
+#
+# Show the usercorner menu entry
+#
+# Overrides:
+#
+# <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
+                                        'text' => __('Users and Computers'),
+                                        'separator' => 'Office',
+                                        'order' => 510);
+
+    my $item = new EBox::Menu::Item(text => $self->printableName(),
+                                    url => 'Users/UserCorner',
+                                    order => 100);
+    $folder->add($item);
+    $root->add($folder);
+}
+
 # Method: _daemons
 #
 #  Override <EBox::Module::Service::_daemons>

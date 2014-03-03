@@ -1,5 +1,5 @@
 // Copyright (C) 2007 Warp Networks S.L.
-// Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
+// Copyright (C) 2008-2014 Zentyal S.L. licensed under the GPLv2
 "use strict";
 
 Zentyal.namespace('TableHelper');
@@ -201,7 +201,7 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
 
     if (noMoreRowChanges) {
         if ('redirect' in changes) {
-            window.location.href= changes.redirect;
+            window.location.replace(changes.redirect);
         }
         return;
     }
@@ -256,7 +256,7 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
     Zentyal.TableHelper.restoreTop(tableId);
 
     if ('redirect' in changes) {
-        window.location.href= changes.redirect;
+        window.location.replace(changes.redirect);
     }
 };
 
@@ -390,7 +390,7 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
             Zentyal.TableHelper.setMessage(table, response.message);
         }
         if ('redirect' in response) {
-            window.location.href= response.redirect;
+            window.location.replace(response.redirect);
         }
     };
     var complete = function(response){
