@@ -4,15 +4,14 @@
 
 Zentyal.namespace('Help');
 
-Zentyal.Help.helpShown = false;
-
 Zentyal.Help.showHelp = function () {
-    Zentyal.Help.helpShown = true;
     $('.help').slideToggle('fast');
 };
 
 Zentyal.Help.initHelp = function () {
-    var hasHelp = $('.help').length > 0;
+    var helpElements = $('.help');
+    var hasHelp = helpElements.length > 0;
+    helpElements.hide();
     $('#helpbutton').toggle(hasHelp);
 };
 
