@@ -1,6 +1,5 @@
 3.4
 	+ Added and used checkMailNotInUse method
-	+ Added ZentyalDistribution
 	+ Added _delVDomainAbort to LdapVDomain base to give the
 	  opportunity to abort vdomain removals
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
