@@ -138,7 +138,6 @@ sub get
 sub set
 {
     my ($self, $attr, $value, $lazy) = @_;
-
     $self->_entry->replace($attr => $value);
     $self->save() unless $lazy;
 }

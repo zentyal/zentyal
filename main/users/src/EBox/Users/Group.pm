@@ -567,7 +567,7 @@ sub create
     }
     push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
     if (defined $args{mail} and $args{mail}) {
-        EBox::Validate::checkEmailAddress($args{mail}, __('E-mail'));
+        $class->checkMail($args{mail});
         push (@attr, 'mail' => $args{mail});
     }
 
@@ -777,6 +777,17 @@ sub _checkGid
             )
         );
     }
+}
+
+sub checkMail
+{
+    my ($class, $address) = @_;
+    EBox::debug("XXX _checkMail $address");
+    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
+
+    my $global = EBox::Global->getInstance();
+    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
+    $mod->checkMailNotInUse($address);
 }
 
 1;
