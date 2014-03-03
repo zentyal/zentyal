@@ -114,7 +114,7 @@
             bindDN = "<% $ldapBindDN %>";
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = NO;
-            displayName = "Shared Contacts";
+            displayName = "Shared Groups";
             id = sharedGroups;
             isAddressBook = YES;
             filter = "((objectClass=zentyalDistributionGroup) AND (gidNumber>=2000)) AND (NOT internal=1) AND (NOT uid=Guest)";
