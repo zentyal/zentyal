@@ -90,7 +90,8 @@ sub _table
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __('Setup access to Openchange throught HTTP/HTTPS. Remember that HTTPS requires you import Zentyal certificate into your Windows account'),
+        help               => __x('Setup access to {oc} through HTTP/HTTPS. Remember HTTPS access requires you import Zentyal certificate into your {win} account',
+                                  'oc' => 'OpenChange', win => 'Windows'),
     };
 
     return $dataForm;
