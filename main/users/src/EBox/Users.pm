@@ -2543,7 +2543,6 @@ sub checkMailNotInUse
                                     );
     }
 
-
 }
 
 1;

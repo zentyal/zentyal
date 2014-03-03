@@ -130,11 +130,7 @@ sub addGroupAlias
     my ($self, $alias, $group) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-
-    if ($self->accountExists($alias)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                                        'value' => $alias);
-    }
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
@@ -147,7 +143,6 @@ sub addGroupAlias
         if ($first) {
             $self->addAlias($alias, $mail, $group->get('cn'));
             $first = 0;
-
         } else {
             $self->addMaildrop($alias, $mail);
         }
