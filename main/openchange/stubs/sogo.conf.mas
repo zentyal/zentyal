@@ -102,7 +102,7 @@
             displayName = "Shared Contacts";
             id = sharedContacts;
             isAddressBook = YES;
-            filter = "((objectClass=inetOrgPerson) AND (uidNumber>=2000)) AND (NOT internal=1) AND (NOT uid=Guest)";
+            filter = "((objectClass=inetOrgPerson) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT internal=1) AND (NOT uid=Guest)";
         },
         {
             type = ldap;
