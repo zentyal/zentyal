@@ -1839,4 +1839,17 @@ sub openchangeProvisioned
     return 0;
 }
 
+sub checkMailNotInUse
+{
+    my ($self, $mail) =@_;
+    # TODO: check vdomain alias mapping to the other domains?
+
+    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+        throw EBox::Exceptions::External(
+            __x('Address {addr} is in use as external alias', addr => $mail)
+           );
+    }
+}
+
 1;
