@@ -2607,7 +2607,6 @@ sub checkMailNotInUse
                                     );
     }
 
-
 }
 
 1;
