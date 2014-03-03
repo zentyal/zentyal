@@ -1,4 +1,5 @@
 3.4
+	+ Contacts are now shown at the webmail interface
 	+ Zentyal internal accounts hidden from webmail interface
 	+ Save config if it changes in migration between versions
 	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
