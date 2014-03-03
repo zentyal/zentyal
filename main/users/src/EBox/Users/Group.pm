@@ -772,15 +772,4 @@ sub _checkGid
     }
 }
 
-sub checkMail
-{
-    my ($class, $address) = @_;
-    EBox::debug("XXX _checkMail $address");
-    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
-
-    my $global = EBox::Global->getInstance();
-    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
-    $mod->checkMailNotInUse($address);
-}
-
 1;

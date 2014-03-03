@@ -635,4 +635,30 @@ sub relativeDN
     return $ldapMod->relativeDN($self->dn());
 }
 
+
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+
+# Method: checkMail
+#
+#   Helper class to check if a mail address is valid and not in use
+sub checkMail
+{
+    my ($class, $address) = @_;
+    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
+
+    my $global = EBox::Global->getInstance();
+    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
+    $mod->checkMailNotInUse($address);
+}
+
+
 1;
