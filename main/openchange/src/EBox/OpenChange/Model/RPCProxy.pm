@@ -113,8 +113,8 @@ sub precondition
     try {
         $host = $self->_host();
         if (not $host) {
-            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}>',
-                                               oh => '<a href="/DNS/Composite/Global"',
+            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}',
+                                               oh => '<a href="/DNS/Composite/Global">',
                                                ch => '</a>'
                                               );
         }
