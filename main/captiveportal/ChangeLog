@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Better synchronization between sessions and iptables rules
 	+ Fixed SID generation code
 	+ Fix missing uses in EBox::CaptivePortal::Model::BWSettings
