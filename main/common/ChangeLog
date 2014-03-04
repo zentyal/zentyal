@@ -1,3 +1,6 @@
+HEAD
+	+ Updated EBox::Config::TestStub::fake to override EBox::Config::home so
+	  is more easy to use EBox::Users in unit tests
 3.2.2
 	+ New urlEditions() helper method in EBox::Config
 	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
