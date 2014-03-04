@@ -1,4 +1,5 @@
 3.4
+	+ Don't expire session on finish software wizard page
 	+ Fixed show help JS to avoid to have help elements with different
 	  show state
 	+ Use window.location.replace instead of window.location.href

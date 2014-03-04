@@ -22,3 +22,13 @@ use EBox::Gettext;
     <input style="" class="btn btn-green btn-big" type="submit" name="save" value="<% __('Go to the Dashboard') %>" onclick="window.location='/Dashboard/Index'; return false"/>
   </form>
 </div>
+<script>
+$(function() {
+   // ping the server each 60s
+   var ping_server = function() {
+        $.getJSON('/SysInfo/HasUnsavedChanges',  function(response){});
+        setTimeout(ping_server, 60000);
+   };
+  setTimeout(ping_server, 60000);
+});
+</script>
