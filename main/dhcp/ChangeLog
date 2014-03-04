@@ -1,4 +1,5 @@
 3.4
+	+ Fixed ThinClientOptions nextServer value for interfaces other than eth0
 	+ Added HA floating IPs constraints when creating ranges and fixed IPs
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
