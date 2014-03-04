@@ -1,6 +1,7 @@
 <%args>
 $rsPackage       => 0
 $softwarePackage => 0
+$community       => 1
 </%args>
 <%init>
  use EBox::Gettext;
@@ -32,6 +33,7 @@ function installSoftware(title, html) {
 }
 </script>
 % }
+% if ($community) {
 <div class="linksBlock">
     <ul>
         <li class="links-register">
@@ -76,7 +78,7 @@ function installSoftware(title, html) {
         </ul>
 </div>
 
-<!-- The 2 divs below are for commercial editions-->
+% } else {
 
 <div class="linksBlock">
    <ul>
@@ -88,10 +90,10 @@ function installSoftware(title, html) {
                title="<% __s('"Zentyal for Network Administrators" book in English and Spanish.') %>">
                <% __s('Official Manual') %></a>
         </li>
-      
+
     </ul>
 </div>
-<div class="linksBlock">   
+<div class="linksBlock">
     <ul>
       <li><a class="i-train" target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
              title="<% __s('Learn to use all Zentyal based network services in production environments.') %>">
@@ -103,6 +105,8 @@ function installSoftware(title, html) {
         </li>
     </ul>
 </div>
+
+% }
 
 <%def .subscriptionElement>
 <%args>
