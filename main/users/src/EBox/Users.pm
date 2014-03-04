@@ -2598,7 +2598,7 @@ sub checkMailNotInUse
         my $entry = $result->entry(0);
         my $modeledObject = $usersMod->entryModeledObject($entry);
         my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
-        my $name = $modeledObject ? $modeledObject->name() : $entry->get_value('dn');
+        my $name = $modeledObject ? $modeledObject->name() : $entry->dn();
         EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
                                               addr => $addr,
                                               type => $type,
