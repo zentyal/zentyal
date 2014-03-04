@@ -9,9 +9,7 @@ Zentyal.Help.showHelp = function () {
 };
 
 Zentyal.Help.initHelp = function () {
-    var helpElements = $('.help');
-    var hasHelp = helpElements.length > 0;
-    helpElements.hide();
+    var hasHelp = $('.help').length > 0;
     $('#helpbutton').toggle(hasHelp);
 };
 
