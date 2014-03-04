@@ -961,7 +961,7 @@ sub writeDgGroups
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
-                         [ objects => \@objects ], , { mode => '0644'});
+                         [ objects => \@objects ], { mode => '0644'});
 }
 
 # FIXME: template format has changed, reimplement this
