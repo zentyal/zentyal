@@ -1,4 +1,5 @@
 3.4
+	+ Properly enabled mcrypt module (hotfix)
 	+ Adapt to Apache 2.4
 	+ Rename ebox-webmail conf to zentyal-webmail
 	+ Do not depend on roundcube-plugins-openchange
