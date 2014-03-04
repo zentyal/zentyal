@@ -43,6 +43,7 @@ use constant {
            '/etc/roundcube/managesieve-config.inc.php',
     ROUNDCUBE_DIR => '/var/lib/roundcube',
     HTTPD_WEBMAIL_DIR => '/var/www/webmail',
+    MAX_UPLOAD_SIZE => 6,
 };
 
 # Group: Protected methods
@@ -106,6 +107,9 @@ sub _setConf
                         );
 
     $params = [];
+    push @{$params}, (
+        uploadLimit => $self->_retrieveMaxMailSize(),
+    );
     $self->writeConfFile(
                          HTACCESS_FILE,
                          'webmail/htaccess.mas',
@@ -117,6 +121,20 @@ sub _setConf
     }
 
     $self->_setWebServerConf();
+}
+
+sub _retrieveMaxMailSize
+{
+    my ($self) = @_;
+
+    my $mailLimit = 0;
+    my $mail = $self->global()->modInstance('mail');
+
+    if (defined ($mail) and $mail->isEnabled()) {
+        $mailLimit = $mail->getMaxMsgSize();
+    }
+
+    return $mailLimit ? $mailLimit : MAX_UPLOAD_SIZE;
 }
 
 sub _openchangeEnabled
