@@ -43,7 +43,7 @@ use constant {
            '/etc/roundcube/managesieve-config.inc.php',
     ROUNDCUBE_DIR => '/var/lib/roundcube',
     HTTPD_WEBMAIL_DIR => '/var/www/webmail',
-    MAX_UPLOAD_SIZE => 6,
+    MAX_UPLOAD_SIZE => 50,
 };
 
 # Group: Protected methods
