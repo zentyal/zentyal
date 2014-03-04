@@ -168,7 +168,7 @@ sub resourceByName
 #
 # Returns:
 #
-#   Boolean - Wether if there are unamanaged resourcesin the Cluster or not
+#   Boolean - Whether there are unamanaged resources in the Cluster or not
 #
 sub areThereUnamanagedResources
 {
