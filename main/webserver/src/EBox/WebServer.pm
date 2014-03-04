@@ -591,7 +591,9 @@ sub _setVHosts
         my @params = ();
         push (@params, vHostName  => $vHostName);
         push (@params, hostname   => $self->_fqdn());
+        push (@params, publicPort    => $self->listeningHTTPPort());
         push (@params, port       => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
         push (@params, sslPort    => $self->targetHTTPSPort());
         push (@params, sslSupport => $sslSupport);
 
