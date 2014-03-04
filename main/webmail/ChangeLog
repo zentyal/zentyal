@@ -1,3 +1,6 @@
+HEAD
+	+ Module manages Roundcube htaccess. Max upload file size is now got from
+	  the mail module. Also added a default timezone to avoid Roundcube warning
 3.2.2
 	+ Non localhost IPs are used in the Roundcube config file
 3.2.1
