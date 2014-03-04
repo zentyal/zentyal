@@ -1,4 +1,5 @@
 3.4
+	+ Don't expire session when first time menu is visible
 	+ When there is no action defined for EBox::Software::CGI::InstallPkgs
 	  throw a MissingArgument instead of an Internal exception
 	+ Migrated to use Plack as the application server instead of mod_perl
