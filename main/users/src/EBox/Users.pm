@@ -2589,7 +2589,7 @@ sub checkMailNotInUse
     my $usersMod = $self->global()->modInstance('users');
     my %searchParams = (
         base => $usersMod->ldap()->dn(),
-        filter => "&(|(objectclass=couriermailaccount)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
         scope => 'sub'
     );
 
