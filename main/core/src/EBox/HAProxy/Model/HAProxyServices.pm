@@ -361,10 +361,8 @@ sub validateTypedRow
                         throw EBox::Exceptions::External($errorMsg);
                     }
                 } else {
-                    throw EBox::Exceptions::External(__x(
-                        'The SSL certificate {module} does not exists, you cannot enable SSL for this service.',
-                        module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
-                    ));
+                    throw EBox::Exceptions::External(
+                        __('To enable SSL port you need the CA module installed and enabled.'));
                 }
             }
         }
