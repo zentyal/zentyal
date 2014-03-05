@@ -395,10 +395,30 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
+    if (defined ($version)) {
+        # Upgrade from 3.0
+        if (EBox::Util::Version::compare($version, '3.1') < 0) {
+            # Perform the migration to 3.2
+            $self->_migrateTo32();
+        }
+        # Remove from cloud all users and groups tagged as internal or non security groups
+        if (($self->master() eq 'cloud') and (EBox::Util::Version::compare($version, '3.2.7') <= 0)) {
+            my $rs = new EBox::Global->modInstance('remoteservices');
+            my $rest = $rs->REST();
+            my $system = 1;
+            foreach $user (@{$self->users($system)}) {
+                if ($user->isInternal()) {
+                    my $uid = $user->name();
+                    $rest->DELETE("/v1/users/users/$uid", retry => 1);
+                }
+            }
+            foreach $group (@{$self->groups($system)}) {
+                if ($group->isInternal() or (not $group->isSecurityGroup())) {
+                    my $groupName = $group->name();
+                    $rest->DELETE("/v1/users/groups/$groupName", retry => 1);
+                }
+            }
+        }
     }
 
     # Execute initial-setup script

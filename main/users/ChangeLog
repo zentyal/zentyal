@@ -1,4 +1,6 @@
 HEAD
+	+ Updated migration code to clean cloud from internal users, groups and
+	  non security groups
 	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
 	  and added unit tests for it
 	+ Added EBox::Users::Group::setInternal method
