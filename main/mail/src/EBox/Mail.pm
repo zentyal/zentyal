@@ -409,7 +409,7 @@ sub _setMailConf
     push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push (@array, 'relay', $self->relay());
     push (@array, 'relayAuth', $self->relayAuth());
-    push (@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
+    push (@array, 'maxmsgsize', int($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
     push (@array, 'allowed', $allowedaddrs);
     push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
