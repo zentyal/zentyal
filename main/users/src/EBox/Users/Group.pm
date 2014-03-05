@@ -748,6 +748,16 @@ sub isInternal
     return $self->get('internal');
 }
 
+sub setInternal
+{
+    my ($self, $internal, $lazy) = @_;
+
+    if ($internal) {
+        $self->set('internal', 1, $lazy);
+    } else {
+        $self->set('internal', undef, $lazy);
+    }
+}
 
 sub _checkGid
 {
