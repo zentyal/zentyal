@@ -75,6 +75,7 @@ use constant KEYTAB_FILE              => '/etc/dovecot/dovecot.keytab';
 use constant DOVECOT_PAM              => '/etc/pam.d/dovecot';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
+use constant BASE64_ENCODING_OVERSIZE => 1.36;
 
 sub _create
 {
@@ -408,7 +409,7 @@ sub _setMailConf
     push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push (@array, 'relay', $self->relay());
     push (@array, 'relayAuth', $self->relayAuth());
-    push (@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
+    push (@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
     push (@array, 'allowed', $allowedaddrs);
     push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
