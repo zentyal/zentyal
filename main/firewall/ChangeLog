@@ -1,4 +1,6 @@
 3.4
+	+ Added EBox::Iptables::executeModuleRules to be able to execute
+	  individual module rules
 	+ Added portUsedByService method
 	+ Updated to use the new haproxy API
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
