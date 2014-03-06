@@ -1,3 +1,6 @@
+HEAD
+	+ Split openchange configuration into its own config file and set correct
+	  permissions on it
 3.4
 	+ Remove printers from dependencies list if the module is not installed
 	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
