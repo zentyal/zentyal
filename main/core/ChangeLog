@@ -1,4 +1,6 @@
 3.4
+	+ Use root ownership for webadmin certificates
+	+ Execute change hostname actions only if the hostname has really changed
 	+ Don't expire session on finish software wizard page
 	+ Fixed show help JS to avoid to have help elements with different
 	  show state
