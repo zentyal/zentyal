@@ -406,13 +406,13 @@ sub initialSetup
             my $rs = new EBox::Global->modInstance('remoteservices');
             my $rest = $rs->REST();
             my $system = 1;
-            foreach $user (@{$self->users($system)}) {
+            foreach my $user (@{$self->users($system)}) {
                 if ($user->isInternal()) {
                     my $uid = $user->name();
                     $rest->DELETE("/v1/users/users/$uid", retry => 1);
                 }
             }
-            foreach $group (@{$self->groups($system)}) {
+            foreach my $group (@{$self->groups($system)}) {
                 if ($group->isInternal() or (not $group->isSecurityGroup())) {
                     my $groupName = $group->name();
                     $rest->DELETE("/v1/users/groups/$groupName", retry => 1);
