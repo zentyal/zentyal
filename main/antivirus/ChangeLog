@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Make FreshclamStatus model more resilient to errors
 	+ Fix status when the freshclam state file is empty
 3.2.1

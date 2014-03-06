@@ -402,7 +402,7 @@ sub initialSetup
             $self->_migrateTo32();
         }
         # Remove from cloud all users and groups tagged as internal or non security groups
-        if (($self->master() eq 'cloud') and (EBox::Util::Version::compare($version, '3.2.7') <= 0)) {
+        if (($self->master() eq 'cloud') and (EBox::Util::Version::compare($version, '3.2.8') <= 0)) {
             my $rs = new EBox::Global->modInstance('remoteservices');
             my $rest = $rs->REST();
             my $system = 1;

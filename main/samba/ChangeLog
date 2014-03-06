@@ -1,4 +1,4 @@
-HEAD
+3.2.14
 	+ Fix NT_STATUS_ACCESS_DENIED opening files quering the DOS attributes
 	  and passing them to open function
 	+ Set OpenChange as not provisioned when Samba is reprovisioned
