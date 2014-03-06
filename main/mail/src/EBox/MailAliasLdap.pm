@@ -167,7 +167,11 @@ sub _addmailboxRelatedObject
     return if $self->_mailboxRelatedObjectInGroup($group);
 
     $group->add('objectClass', 'mailboxRelatedObject', 1);
-    $group->add('mail', $alias, 1);
+    my @currentMail = $group->get('mail');
+    if (not grep { $_ eq $alias  } @currentMail) {
+        $group->add('mail', $alias, 1) ;
+    }
+
     $group->save();
 }
 
