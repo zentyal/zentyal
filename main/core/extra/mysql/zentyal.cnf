@@ -2,6 +2,7 @@
 innodb = off
 default-storage-engine = MyISAM
 character-set-server=utf8
+collation-server=utf8_unicode_ci
 
 [client]
 default-character-set=utf8
