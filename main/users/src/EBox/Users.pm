@@ -2583,6 +2583,13 @@ sub ousToHide
     return \@ous;
 }
 
+# Method: checkMailNotInUse
+#
+#   check if a mail address is not used by the system and throw exception if it
+#   is already used
+#
+#   If mail module is installed its checkMailNotInUse method should be called
+#   instead this one
 sub checkMailNotInUse
 {
     my ($self, $addr) = @_;
