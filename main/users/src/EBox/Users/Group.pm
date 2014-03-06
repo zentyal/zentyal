@@ -73,6 +73,11 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
+sub printableType
+{
+    return __('group');
+}
+
 # Class method: defaultContainer
 #
 #   Parameters:

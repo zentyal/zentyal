@@ -79,6 +79,11 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+sub printableType
+{
+    return __('user');
+}
+
 # Clss method: defaultContainer
 #
 #   Parameters:
