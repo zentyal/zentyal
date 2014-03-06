@@ -1,3 +1,6 @@
+HEAD
+	+ Remove Disaster Recovery menu entry as it is managed by
+	  cloud-prof module
 3.2.4
 	+ On initial setup, do only reload bundle and restart the service
 	  if the server is registered
