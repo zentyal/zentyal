@@ -1341,7 +1341,7 @@ sub _thinClientOptions # (iface, element)
     my $ret = {};
     my $row = $thinClientModel->row();
     if (defined ($row)) {
-        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
+        $ret->{nextServer} = $thinClientModel->nextServer($iface);
         $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;

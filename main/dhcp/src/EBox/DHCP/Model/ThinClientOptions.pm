@@ -60,7 +60,7 @@ use EBox::View::Customizer;
 #
 # Parameters:
 #
-#     id - String the row identifier
+#     iface - iface on which DHCP is listening (needed for failures with parentRow)
 #
 # Returns:
 #
@@ -73,21 +73,17 @@ use EBox::View::Customizer;
 #
 sub nextServer
 {
-    my ($self, $id) = @_;
-
+    my ($self, $iface) = @_;
     my $row = $self->row();
-
     unless (defined($row)) {
-        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+        throw EBox::Exceptions::Internal("Cannot retrieve ThinClientOptions for interface $iface");
     }
 
     my $nextServerType = $row->elementByName('nextServer');
     my $nextServerSelectedName = $nextServerType->selectedType();
     given ($nextServerSelectedName) {
         when ('nextServerEBox') {
-            my $netMod = EBox::Global->modInstance('network');
-            # FIXME: unhardcode this (parentRow() is undefined)
-            my $iface = 'eth0';
+            my $netMod = $self->global()->modInstance('network');
             return $netMod->ifaceAddress($iface);
         }
         default {
