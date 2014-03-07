@@ -940,8 +940,11 @@ sub _updateDynamicDirectZone
 
     my $update;
     if ($domdata->{samba}) {
+        my $sysinfo = $self->global->modInstance('sysinfo');
+        my $hostname = $sysinfo->hostName();
+        $hostname = uc ($hostname) . '$';
         $update = new EBox::DNS::Update::GSS(domain => $domain,
-            keytab => '/var/lib/samba/private/secrets.keytab', principal => 'SAUCY$'); # TODO
+            keytab => '/var/lib/samba/private/secrets.keytab', principal => $hostname);
     } elsif ($domdata->{dynamic}) {
         $update = new EBox::DNS::Update::TSIG(domain => $domdata->{name}, keyName => $domdata->{name}, key => $domdata->{tsigKey});
     } else {
