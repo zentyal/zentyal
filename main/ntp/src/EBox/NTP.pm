@@ -163,7 +163,7 @@ sub _preSetConf
 
     try {
         $self->_stopService();
-        # wait for ntpd daemon stoo
+        # wait for ntpd daemon stop
         my $tries = 4000;
         while ($self->isRunning()) {
             usleep(1000);
