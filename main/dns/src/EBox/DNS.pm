@@ -1034,10 +1034,7 @@ sub _updateDynamicReverseZone
     my $domain = $rdata->{domain};
 
     my $update;
-    if ($rdata->{samba}) {
-        $update = new EBox::DNS::Update::GSS(domain => $zone,
-            keytab => '/var/lib/samba/private/secrets.keytab', principal => 'SAUCY$'); # TODO
-    } elsif ($rdata->{dynamic}) {
+    if ($rdata->{samba} or $rdata->{dynamic}) {
         my $model = $self->model('DomainTable');
         my $row = $model->find(domain => $domain);
         my $tsigKey = $row->valueByName('tsigKey');
