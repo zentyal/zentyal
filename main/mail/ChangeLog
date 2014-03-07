@@ -1,3 +1,5 @@
+HEAD
+	+ Postfix max mail size is increased by 36% because of base64 encoding
 3.2.5
 	+ Better integration of group alias addon
 3.2.4
