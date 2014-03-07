@@ -105,6 +105,9 @@ sub updatedRowNotify
     my $zoneRow = $oldRow->parentRow->parentRow();
     my $zone = $zoneRow->printableValueByName('domain');
     my $oldIp = $oldRow->printableValueByName('ip');
+    my $newIp = $row->printableValueByName('ip');
+    return unless ($oldIp ne $newIp);
+
     my $host = $oldRow->parentRow->printableValueByName('hostname');
     my $record = "$host.$zone A $oldIp";
     $self->_addToDelete($zone, $record);
