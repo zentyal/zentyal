@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 11:55+0200\n"
-"PO-Revision-Date: 2013-08-07 13:42+0200\n"
-"Last-Translator: robb <r_bosch@gmx.net>\n"
+"PO-Revision-Date: 2014-03-04 19:29+0200\n"
+"Last-Translator: gcxhosting <arnon@gcx-hosting.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Server adres"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Mintens één adres moet toegewezen worden voor deze server {name}"
+msgstr "Mintens één adres moet toegewezen worden voor de server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -707,6 +707,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Er zijn geen certificaten beschikbaar voor deze cliënt. Gelieve {ohref} er "
+"één te creëren{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -766,12 +768,14 @@ msgstr "Zentyal-to-Zentyal tunnel wachtwoord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Wijs routes af gepushed door Zentyal tunnel clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Indien aangevinkt neemt deze server geen route welke geadverteerd wordt door "
+"zijn client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -881,13 +885,14 @@ msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
 msgstr "{par} is niet verenigbaar met Zentyal-naar-Zentyal tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Lijst met beschikbare netwerken"
+msgstr "Lijst met geadverteerde netwerken"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"Geadverteerde routes voor clients over een TUN interface worden niet "
+"ondersteund"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
@@ -1011,7 +1016,7 @@ msgstr ""
 "begint met een voorvoegsel {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "Cliënt {c} bestaat niet"
 
@@ -1151,7 +1156,7 @@ msgstr "Verbinidng naar server is gestart"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1500
 msgid "Server connection terminated"
-msgstr "Verbinidng naar Server is afgebroken"
+msgstr "Verbinding naar Server is afgebroken"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1528
 msgid "You must set insecure_rip_conf to yes or no"
@@ -1161,7 +1166,7 @@ msgstr "Zet insecure_rip_conf naar ja(yes) of nee(no)"
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 msgid "High Availability"
-msgstr ""
+msgstr "Hoge Beschikbaarheid"
 
 #: ../../main/ha/src/EBox/HA.pm:114
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:473
@@ -1175,19 +1180,16 @@ msgstr "Systeem"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "gebruikersnaam"
+msgstr "Cluster status"
 
 #: ../../main/ha/src/EBox/HA.pm:163
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Configureer de clamd daemon"
+msgstr "Configureer de corosync daemon"
 
 #: ../../main/ha/src/EBox/HA.pm:166
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Uitschakelen of herstarten"
+msgstr "Om corosync te starten bij opstarten"
 
 #: ../../main/ha/src/EBox/HA.pm:995
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1238,18 +1240,16 @@ msgstr "Geen"
 #: ../../main/ha/src/EBox/HA.pm:1001
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Er zijn fouten{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1010
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Laatste dag"
+msgstr "Laatste update"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
-#, fuzzy
 msgid "Errors"
-msgstr "Fout"
+msgstr "Fouten"
 
 #: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1267,13 +1267,12 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "not enabled"
-msgstr "Dienst"
+msgstr "niet geactiveerd"
 
 #: ../../main/ha/src/EBox/HA.pm:1020
 msgid "Nodes"
-msgstr ""
+msgstr "Nodes"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1314,27 +1313,27 @@ msgid "IP address"
 msgstr "IP adres"
 
 #: ../../main/ha/src/EBox/HA.pm:1030
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "De interface {iface} is niet geconfigureerd"
+msgstr "Cluster is niet geconfigureerd"
 
 #: ../../main/ha/src/EBox/HA.pm:1119
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} heeft geen IP adres om te gebruiken"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 msgid ""
 "Replication failed. Please check /var/log/zentyal/zentyal.log for more "
 "information."
 msgstr ""
+"Replicatie mislukt. AUB check /var/log/zentyal/zentyal.log voor meer "
+"informatie."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Client configuratie"
+msgstr "Cluster configuratie"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1342,57 +1341,46 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Hier kan je de status van het cluster bekijken. Als je meer informatie wilt "
+"zien over de fouten, ga dan naar {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:54
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Naam is te lang. Maximum lengte is {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:57
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Naam is te kort. Minimum lengte is {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:60
-#, fuzzy
 msgid "Name must only contain letters, numbers or underscores."
-msgstr "De naam mag alleen karakter, getallen en _ bevatten"
+msgstr "De naam mag alleen letters, getallen en underscores bevatten"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:84
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Er is geen interne netwerkverbinding met vast IP adres beschikbaar om de Web "
-"server aan te koppelen."
+msgstr "Er bestaat een interface met dit IP adres."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:86
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Er is geen interne netwerkverbinding met vast IP adres beschikbaar om de Web "
-"server aan te koppelen."
+msgstr "Er is een vast IP adres in DHCP met dit IP adres."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:88
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Er is geen interne netwerkverbinding met vast IP adres beschikbaar om de Web "
-"server aan te koppelen."
+msgstr "Er is een DHCP range waar dit IP adres een onderdeel van is."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:191
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Domein IP-adres"
+msgstr "Zwevend IP adres"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:200
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Domein IP-adres"
+msgstr "Zwevend IP adres"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:204
-#, fuzzy
 msgid "floating IP address"
-msgstr "Domein of IP-adres"
+msgstr "zwevend IP adres"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:121
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1407,20 +1395,20 @@ msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Probeer opnieuw"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
-msgstr ""
+msgstr "Actief"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Niet actief"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Node lijst van cluster {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
@@ -1431,193 +1419,176 @@ msgid "Hostname"
 msgstr "Hostnaam"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Toepassing"
+msgstr "Replicatie"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr "Op afstand"
+msgstr "Afwaarderen"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr "Op afstand"
+msgstr "Opwaarderen"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Node lijst voor cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Dit protocol gebruikt geen poorten"
+msgstr "Het cluster heeft geen nodes"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "Node {name} is nu de actieve node"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "Node {name} is nu de passieve node"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr "gebruikersnaam"
+msgstr "Cluster naam"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr "gebruikersnaam"
+msgstr "Cluster wachtwoord"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Huidige aangewezen Controller"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"De huidige aangewezen Controller voert de taken uit in het cluster. Deze "
+"node kan veranderd worden zonder impact voor het cluster. "
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
 #, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr ""
+msgstr "Fout: {service} service draait niet"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Actie"
+msgstr "Laatste wijziging"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Geconfigureerde"
+msgstr "Geconfigureerde nodes"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid " nodes"
-msgstr "gebruikersnaam"
+msgstr "nodes"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Geconfigureerde"
+msgstr "Geconfigureerde bronnen"
 
 # #-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#
 # Vertrekpunt
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid " resources"
-msgstr "Bron"
+msgstr "bronnen"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1588
 msgid "Resource"
-msgstr ""
+msgstr "Bron"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
-msgstr "Start"
+msgstr "Gestart om"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster has not any resources defined."
-msgstr "Deze lijst heeft geen categorieën"
+msgstr "Het clustert heeft geen bronnen gedefinieerd."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "noname"
-msgstr "naam gebruiker"
+msgstr "geen naam"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
-#, fuzzy
 msgid "Cluster host"
-msgstr "gebruikersnaam"
+msgstr "Cluster host"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
-#, fuzzy
 msgid "Cluster host port"
-msgstr "gebruikersnaam"
+msgstr "Cluster host poort"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
-#, fuzzy
 msgid "Choose network interface"
-msgstr "VPN netwerk interface"
+msgstr "Kies netwerk interface"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
 msgid "It will be used as communication channel between the cluster members."
 msgstr ""
+"Het zal gebruikt worden als communicatie kanaal tussen de cluster leden."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Configureer hoe deze server een cluster begint anders zal het zich aan een "
+"bestaand cluster toevoegen"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
+"Als je de instelling verandert, kan er een verstoring van het cluster "
+"optreden,"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Creëer mail account"
+msgstr "Creëer een nieuw cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Voeg deze node toe aan een bestaand cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
-#, fuzzy
 msgid "Floating IP"
-msgstr "Domein IP-adres"
+msgstr "Zwevend IP"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:107
-#, fuzzy
 msgid "Cluster error"
-msgstr "gebruikersnaam"
+msgstr "Cluster fout"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
 msgid "Node"
-msgstr ""
+msgstr "Node"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:124
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Dit protocol gebruikt geen poorten"
+msgstr "Het cluster heeft geen fouten."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:137
-#, fuzzy
 msgid "no error"
-msgstr "Fout"
+msgstr "geen fout"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
-msgstr "IDS Meldingen rapport"
+msgstr "IPS Meldingen rapport"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
-msgstr "Indringing Detectie Systeem"
+msgstr "Indringing Detectie/Preventie Systeem"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1630,7 +1601,6 @@ msgstr "Aantal meldingen"
 
 # Melding bijzonderheden 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
-#, fuzzy
 msgid "Alert details"
 msgstr "Melding details"
 
@@ -1641,9 +1611,8 @@ msgstr "meldingen"
 # Meldingen kaart
 # Meldingen diagram
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
-#, fuzzy
 msgid "Alerts chart"
-msgstr "Meldingen lijst"
+msgstr "Meldingen diagram"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
 msgid "Alert Graph"
@@ -1674,6 +1643,8 @@ msgstr "regel"
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
+"Selecteer de regels die je wilt toepassen wanneer het netwerkverkeer wordt "
+"gescand"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
@@ -1683,13 +1654,12 @@ msgid "Log"
 msgstr "Log"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
-#, fuzzy
 msgid "Block"
-msgstr "Advertenties Blokkeren"
+msgstr "Blokkeren"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
-msgstr ""
+msgstr "Log & Blokkeer"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
@@ -1772,22 +1742,20 @@ msgid "interface"
 msgstr "interface"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
-msgstr "Selecteer in welke interfaces IDS ingeschakeld word."
+msgstr "Selecteer voor welke interfaces IPS ingeschakeld word."
 
 #: ../../main/ips/src/EBox/IPS.pm:67
 msgid "IDS/IPS"
-msgstr ""
+msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Module status configuratie"
+msgstr "Voeg regels toe aan suricata configuratie"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
 msgid "Enable start of suricata daemon"
-msgstr ""
+msgstr "Start de suricata daemon"
 
 # of Prioriteit
 #: ../../main/ips/src/EBox/IPS.pm:308
@@ -1871,9 +1839,8 @@ msgid "Protocol"
 msgstr "Protocol"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 # of Verwittiging
 #: ../../main/ips/src/EBox/IPS.pm:325
@@ -1881,26 +1848,22 @@ msgid "Alert"
 msgstr "Melding"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Systeem Updates"
+msgstr "IPS Regel Updates"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Fout op reserve"
+msgstr "Reden van de fout"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:409
-#, fuzzy
 msgid "Success"
-msgstr "Door Samba gedeelde mappen"
+msgstr "Succes"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:409
-#, fuzzy
 msgid "Failure"
-msgstr "mislukt"
+msgstr "Mislukt"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -1908,6 +1871,8 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"Laatste regel update maakt dat de IDS/IPS daemon zal stoppen. Raadpleeg "
+"{log} voor details en changelog van de regels op {url} ({name} rules) "
 
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:80
@@ -1962,6 +1927,8 @@ msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
+"{dir} moet een directory voor een virtuele host configuratie zijn. Verplaats "
+"of verwijder de directory"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:653
 #, perl-brace-format
@@ -1969,11 +1936,12 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} moet een directory voor een virtuele host document root zijn. "
+"Verplaats of verwijder de directory"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:895
-#, fuzzy
 msgid "Web server data"
-msgstr "Web dienst status"
+msgstr "Webserver data"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:57
 #, perl-brace-format
@@ -1981,15 +1949,16 @@ msgid ""
 "You must enable {module} ports on the Zentyal's reverse proxy configuration "
 "at {ohref}System's General configuration page{chref}."
 msgstr ""
+"Je moet de {module} poorten activeren op de Zentyal reverse proxy "
+"configuratie op {ohref}Systeem Algemene configuratie pagina{chref}."
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:82
-#, fuzzy
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
 "different virtual hosts."
 msgstr ""
-"De eBox web dienst maakt het u mogelijk om meerdere Web pagina's in zuivere "
-"HTML aan te bieden binnenin verschillende virtuele gastheren."
+"De Zentyal web dienst maakt het u mogelijk om HTTP en HTTPS pagina's aan te "
+"bieden binnenin verschillende virtuele gastheren."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid ""
@@ -2006,14 +1975,13 @@ msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
-"Om HTML folders voor gebruikers tot te staan is een correct ingestelde "
+"Om HTML folders voor gebruikers toe te staan is een correct ingestelde "
 "Gebruikers en Groepen module vereist. Om deze in te stellen, gelieve ze "
 "minstens eenmaal in te schakelen."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:133
-#, fuzzy
 msgid "Configuration Settings saved."
-msgstr "Algemene configuratie"
+msgstr "Configuratie instellingen opgeslagen."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:134
 #, perl-brace-format
@@ -2044,7 +2012,7 @@ msgid "General configuration settings"
 msgstr "Algemene configuratie instellingen"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "General Web server configuration. If you enable user to publish their own "
 "html pages, those should be loaded from {dirName} directory from their home "
@@ -10442,7 +10410,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:102
-#, fuzzy
 msgid "Administration interface TCP port"
 msgstr "Administratie pagina TCP poort"
 

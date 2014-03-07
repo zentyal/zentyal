@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-02-27 20:30+0200\n"
+"PO-Revision-Date: 2014-03-01 13:15+0200\n"
 "Last-Translator: Miripi <mduran86@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: eu\n"
@@ -71,41 +71,45 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "CA {p} ziurtagiriaren fitxagia ez da existitzen."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "{p} bezeroaren ziurtagiri-fitxategia ez da existitzen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "{p} ziurtagiriaren gako pribaturen fitxategia ez da existitzen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "CA ziurtagiri bezala emandako fitxategia ez du balio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Bezero-ziurtagiri bezala emandako fitxategia ez du balio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Bezeroaren gako pribatu bezala emandako fitxategia ez du balio"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Bezeroaren ziurtagiri bezala emandako fitxategia ez dator bat CA ziurtagiri "
+"bezala emandako fitxategiarekin"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Bezeroaren ziurtagiri bezala emandako fitxategia ez dator bat gako pribatu "
+"bezala emandako fitxategiarekin"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -124,7 +128,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "{name} bezeroa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -150,23 +154,8 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  eu.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Gaitua\n"
-"#-#-#-#-#  eu.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Gaiturik\n"
-"#-#-#-#-#  eu.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Gaitua\n"
-"#-#-#-#-#  eu.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Gaitua\n"
-"#-#-#-#-#  eu.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Gaitu\n"
-"#-#-#-#-#  eu.po (ebox 0.12)  #-#-#-#-#\n"
-"Gaiturik\n"
-"#-#-#-#-#  eu.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Gaitua"
+msgstr "Gaituta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -197,19 +186,8 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  eu.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Desgaitua\n"
-"#-#-#-#-#  eu.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Ezgaiturik\n"
-"#-#-#-#-#  eu.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Ez-gaitua\n"
-"#-#-#-#-#  eu.po (ebox 0.12)  #-#-#-#-#\n"
-"Ezgaiturik\n"
-"#-#-#-#-#  eu.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Desgaitua"
+msgstr "Ezgaituta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -221,13 +199,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
-#, fuzzy
 msgid "Service"
-msgstr ""
-"#-#-#-#-#  eu.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Zerbitzua\n"
-"#-#-#-#-#  eu.po (ebox 0.12)  #-#-#-#-#\n"
-"Zertibtzua"
+msgstr "Zerbitzua"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
@@ -245,47 +218,47 @@ msgstr "Gelditurik"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
 msgid "Daemon status"
-msgstr ""
+msgstr "Demonioaren egoera"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr ""
+msgstr "Konexioaren helburua"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr ""
+msgstr "VPN interfazearen helbidea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
 msgid "No active"
-msgstr ""
+msgstr "Ez aktibo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "{p}/{pro} portua dagoeneko erabileran dago"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "{cn} ziurtagiria ez da existitzen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:239
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "{cn} ziurtagiria amaitu da"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:242
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "{cn} ziurtagiria ezeztatuta izan da"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:260
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "{name} zerbitzaria ez dauka ziurtagiririk esleituta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:281
 #, perl-brace-format
@@ -293,6 +266,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
+"Ezin da {name} zerbitzariaren gakoa eskuratu ez daukalako ziurtagiririk "
+"esleituta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
 #, perl-brace-format
@@ -300,24 +275,26 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
+"{name} VPN zerbitzaria ezin izan da konfiguratu, {iface} interfazerako IP-a "
+"ez da aurkitu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "OpenVPN zerbitzariak ezin dira erabili barne-zerbitzuendako"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Bezero mota ez onartuta: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "{name} zerbitzaria"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "All external interfaces"
-msgstr ""
+msgstr "Kanpo-interfaze guztiak"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 #, fuzzy
@@ -326,7 +303,7 @@ msgstr "Ez da orria aurkitu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
-msgstr ""
+msgstr "Helbide lokala"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:912
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:189
@@ -338,33 +315,25 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:69
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
-#, fuzzy
 msgid "Port"
-msgstr ""
-"#-#-#-#-#  eu.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  eu.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  eu.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  eu.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  eu.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"#-#-#-#-#  eu.po (ebox 0.12)  #-#-#-#-#\n"
-"ataka"
+msgstr "Portua"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:915
 msgid "VPN subnet"
-msgstr ""
+msgstr "VPN azpisarea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN network interface"
-msgstr ""
+msgstr "VPN-aren sare interfazea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "Adierazitako sareen zerrenda"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr ""
+msgstr "Adierazitako sarea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -376,6 +345,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
+"{openpar}VPN honetara konektatzen diren berezoentzat nahi dituzun sareak "
+"hemen gehitu ditzakezu.{closepar}{openpar}Normalean, zure LAN sarrera "
+"onartzen da zure sare helbidea hemen adierazten{closepar}{openpar} "
+"Adierazitako sare baten helbidea VPN sare baten helbidearekin bat baldin "
+"badator, adierazitako helbidea ez da kontutan hartuko {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -432,25 +406,25 @@ msgstr "Hobespenak"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr ""
+msgstr "Adierazitako sareak"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr ""
+msgstr "Bezeroaren konfigurazio paketea deskargatu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
-msgstr ""
+msgstr "Zerbitzari zerrenda"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
-msgstr ""
+msgstr "VPN zerbitzariak"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "Zerbitzaria"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -459,20 +433,24 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}VPN zerbitzariak erabiltzeko onartutako CA ziurtagiri bat behar "
+"duzu {closepar}{openpar}Mesedez, {openhref}Ziurtagiri-Autoritatearen "
+"modulura{closehref} joan eta berritu ezazu.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"Lehendik Ziurtagiri Autoritatea sortu behar duzu. {openhref}Ziurtagiri "
-"Autoritatea {closehref}  aldera joan horrela egiteko"
+"{openpar}VPN zerbitzariak erabiltzeko CA ziurtagiri bat sortu behar duzu. "
+"{closepar}{openpar}Mesedez, {openhref}Ziurtagiri-Autoritatearen "
+"modulura{closehref} joan eta sortu ezazu.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
-msgstr ""
+msgstr "Zerbitzariaren sorrera"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""

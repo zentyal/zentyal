@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-12-02 13:10+0200\n"
-"Last-Translator: KIhelaf <mahrez.khelaf@openxnet.dz>\n"
+"PO-Revision-Date: 2014-03-05 18:33+0200\n"
+"Last-Translator: Schawy <moise.michel@free.fr>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -490,12 +490,10 @@ msgstr ""
 "module d'autorité de certification et de créer des nouveaux certificats"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
 msgstr "Révoqué "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
 msgstr "Expiré"
 
@@ -633,9 +631,8 @@ msgid "Additional server address (optional)"
 msgstr "Adresse supplémentaire du serveur (optionnelle)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "Adresse supplémentaire du serveur (optionnelle)"
+msgstr "Adresse supplémentaire du serveur secondaire (optionnelle)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -1190,15 +1187,8 @@ msgstr "Système"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Etat de la grappe"
 
 #: ../../main/ha/src/EBox/HA.pm:163
 #, fuzzy
@@ -10983,7 +10973,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:102
-#, fuzzy
 msgid "Administration interface TCP port"
 msgstr "Port TCP de l'interface d'administration"
 

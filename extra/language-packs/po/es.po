@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-02-27 12:00+0200\n"
+"PO-Revision-Date: 2014-03-04 15:46+0200\n"
 "Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -1185,9 +1185,8 @@ msgstr "Sistema"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "Máquina del cluster"
+msgstr "Estado del cluster"
 
 #: ../../main/ha/src/EBox/HA.pm:163
 msgid "To configure corosync daemon"
@@ -1244,20 +1243,18 @@ msgid "None"
 msgstr "Ninguno"
 
 #: ../../main/ha/src/EBox/HA.pm:1001
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "{oh}Echa un vistazo{ch}"
+msgstr "{oh}Hay errores{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1010
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Último día"
+msgstr "Última actualización"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
-#, fuzzy
 msgid "Errors"
-msgstr "Error"
+msgstr "Errores"
 
 #: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1275,13 +1272,12 @@ msgid "Status"
 msgstr "Estado"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "not enabled"
-msgstr "Enlace habilitado"
+msgstr "no activado"
 
 #: ../../main/ha/src/EBox/HA.pm:1020
 msgid "Nodes"
-msgstr ""
+msgstr "Nodos"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1335,6 +1331,8 @@ msgid ""
 "Replication failed. Please check /var/log/zentyal/zentyal.log for more "
 "information."
 msgstr ""
+"Fallo en la replicación. Por favor, comprueba el fichero "
+"/var/log/zentyal/zentyal.log para más información."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
@@ -1348,6 +1346,8 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Aquí puedes observar el estado de tu cluster. Si quieres ver más información "
+"sobre los errores mostrados, ve al fichero {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:54
 #, perl-brace-format
@@ -1364,17 +1364,14 @@ msgid "Name must only contain letters, numbers or underscores."
 msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:84
-#, fuzzy
 msgid "There is a network interface with the given IP address."
 msgstr "Ya existe una interfaz de red para la dirección IP introducida."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:86
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
 msgstr "Hay una asignación fija de DHCP para la dirección IP introducida."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:88
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
 msgstr "Hay un rango DHCP que incluye la dirección IP introducida."
 
@@ -1403,16 +1400,15 @@ msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Reintentar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
-#, fuzzy
 msgid "On-line"
-msgstr "Tienda Online"
+msgstr "En línea"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Apagado"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
@@ -1428,19 +1424,16 @@ msgid "Hostname"
 msgstr "Nombre de máquina"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Aplicación"
+msgstr "Replicación"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr "Remote"
+msgstr "Degradar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr "Remote"
+msgstr "Promocionar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
@@ -1448,19 +1441,18 @@ msgstr "Lista de nodos para el cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Este mes no tiene 31 días."
+msgstr "El cluster no tiene nodos."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "El nodo {name} es ahora el nodo activo"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "El nodo {name} es ahora un nodo pasivo"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -1489,29 +1481,29 @@ msgstr "Secreto del cluster"
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Controlador Designado actual"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"El Controlador Designado actual realiza las operaciones en el cluster. Este "
+"nodo puede cambiarse sin impacto alguno en el cluster."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "El servicio está habilitado, pero no está ejecutándose"
+msgstr "Error: el servicio {service} no está ejecutándose"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Ubicación"
+msgstr "Última modificación"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Las configuradas"
+msgstr "Nodos configurados"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -1519,19 +1511,16 @@ msgstr "Las configuradas"
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid " nodes"
-msgstr "Nodos del Cluster"
+msgstr " nodos"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Las configuradas"
+msgstr "Recursos configurados"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid " resources"
-msgstr "Recursos"
+msgstr " recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1588
@@ -1539,21 +1528,18 @@ msgid "Resource"
 msgstr "Recurso"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
-msgstr "Arrancar"
+msgstr "Arrancado a"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster has not any resources defined."
-msgstr "Esta lista no tiene categorías"
+msgstr "El cluster no tiene ningún recurso definido."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "noname"
-msgstr "nombre"
+msgstr "sinnombre"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -1604,9 +1590,8 @@ msgid "Join this node to an existing cluster"
 msgstr "Une este nodo a un cluster existente"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
-#, fuzzy
 msgid "Floating IP"
-msgstr "Direcciones IP del Dominio"
+msgstr "Dirección IP flotante"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -1614,23 +1599,20 @@ msgstr "Direcciones IP del Dominio"
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:107
-#, fuzzy
 msgid "Cluster error"
-msgstr "Secreto del cluster"
+msgstr "Error en el cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
 msgid "Node"
-msgstr ""
+msgstr "Nodo"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:124
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Este mes no tiene 31 días."
+msgstr "El cluster no tiene ningún error."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:137
-#, fuzzy
 msgid "no error"
-msgstr "Error desconocido"
+msgstr "sin errores"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -2089,13 +2071,13 @@ msgid "You need to enable Listening SSL port."
 msgstr "Necesita habilitar el puerto de escucha SSL."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:114
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
 "SSL on a virtual host."
 msgstr ""
-"Necesitas habilitar el {module} en {ohref}Certificados de los Servicios"
-"{chref} para activar SSL en un host virtual."
+"Necesitas activar {module} en {ohref}Certificados de los Servicios{chref} "
+"para activar SSL en un host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:169
 #, perl-brace-format
@@ -2748,7 +2730,7 @@ msgstr ""
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:64
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:69
 msgid "Your session was not valid anymore"
-msgstr ""
+msgstr "Tu sesión no fue válida más"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:66
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:66
@@ -2771,9 +2753,9 @@ msgstr "Su sesión ha sido cerrada porque se ha iniciado una nueva sesión"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:72
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:72
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown error: '{error}'"
-msgstr "Error desconocido"
+msgstr "Error desconocido: '{error}'"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:43
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:170
@@ -4505,6 +4487,9 @@ msgid ""
 "available IPs. {oh}Configuring network interfaces{ch} and saving changes can "
 "solve this situation"
 msgstr ""
+"No se puede activar el módulo de Usuarios y Grupos porque tu sistema no "
+"tiene direcciones IP disponibles. {oh}Configurando los interfaces de red{ch} "
+"y guardando cambios quizá se solucione esta situación"
 
 #: ../../main/users/src/EBox/Users.pm:637
 msgid "Error performing users initialization"
@@ -4708,9 +4693,8 @@ msgstr "apellido"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:69
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:75
-#, fuzzy
 msgid "display name"
-msgstr "apellido"
+msgstr "nombre a mostrar"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:70
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
@@ -4959,7 +4943,7 @@ msgid "There was an error updating LDAP:"
 msgstr "Ocurrió un error actualizando LDAP:"
 
 #: ../../main/users/src/EBox/Users/LdapObject.pm:665
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr "Ya existe un objeto de tipo {type} con CN = {cn} en este contenedor"
@@ -5530,9 +5514,8 @@ msgstr "Actualización de la base de datos del antivirus"
 
 # Is a product. Same name.
 #: ../../main/sogo/src/EBox/SOGO.pm:34
-#, fuzzy
 msgid "OpenChange Webmail"
-msgstr "OpenChange"
+msgstr "Correo Web de OpenChange"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:76
 #: ../../main/webmail/src/EBox/WebMail.pm:296
@@ -5540,14 +5523,14 @@ msgid "To configure the webmail on the webserver."
 msgstr "Configurar el webmail en el servidor web"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:92
-#, fuzzy
 msgid "Create MySQL webmail database."
-msgstr "Cree la base de datos de webmail en MySQL"
+msgstr "Crear la base de datos de webmail en MySQL"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:93
-#, fuzzy
 msgid "This database will store the data needed by the webmail service."
-msgstr "Esta base de datos almacenará los datos necesitados por Zarafa."
+msgstr ""
+"Esta base de datos almacenará los datos necesitados por el servicio de "
+"Webmail."
 
 #: ../../main/sogo/src/EBox/SOGO.pm:97
 #: ../../main/webmail/src/EBox/WebMail.pm:317
@@ -5555,9 +5538,8 @@ msgid "Add webmail link to www data directory."
 msgstr "Añade link a webmail en el directorio de datos www"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:98
-#, fuzzy
 msgid "WebMail UI will be accesible at http://ip/webmail/."
-msgstr "Webmail será accesible por http://ip/webmail"
+msgstr "Webmail será accesible por http://ip/webmail/."
 
 # FALTA la parte de {openurl}Mail -> General{closeurl}
 #: ../../main/sogo/src/EBox/SOGO.pm:118
@@ -10499,15 +10481,16 @@ msgid "Show technical details"
 msgstr "Mostrar detalles técnicos"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are some software packages which are not correctly installed: {pack}."
 msgstr ""
-"Los siguientes paquetes de software no están correctamente instalados: {pack}"
+"Los siguientes paquetes de software no están correctamente instalados: "
+"{pack}."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:118
 msgid "You should reinstall them and retry your operation."
-msgstr ""
+msgstr "Debes reinstalarlos y volver a intentar la operación."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:125
 msgid "Report the problem"
@@ -10557,9 +10540,8 @@ msgid "To do a manual report, please follow these instructions:"
 msgstr "Para informar manualmente, por favor sigue estas instrucciones:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:136
-#, fuzzy
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
-msgstr "Crear un ticket nuevo en el trac de Zentyal clicando"
+msgstr "Crear un ticket nuevo en el tracker de bugs de Zentyal pulsando "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:138
 #: ../../main/core/src/EBox/View/StackTrace.pm:142
@@ -10651,6 +10633,9 @@ msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
 msgstr ""
+"Ten en cuenta que tienes que cambiar la URL de manera manual una vez el "
+"proceso de guardar cambios haya empezado para ver la web de administración "
+"de nuevo."
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:102
 msgid "Administration interface TCP port"
@@ -11024,14 +11009,12 @@ msgid "Here you may configure the services to be served from the reverse proxy"
 msgstr "Aquí puedes configurar los servicios que gestiona el proxy inverso"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:275
-#, fuzzy
 msgid "This service does not allow to change the HTTP port."
 msgstr "Este servicio no permite cambiar el puerto HTTP."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
-#, fuzzy
 msgid "This service does not allow to change the HTTPS port."
-msgstr "Este servicio no permite cambiar el puerto HTTP."
+msgstr "Este servicio no permite cambiar el puerto HTTPS."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:292
 msgid "This service cannot have both ports disabled."
@@ -11070,22 +11053,22 @@ msgstr ""
 "El puerto {port} ya se usa para no-SSL, no puedes usarlo como un puerto SSL."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:377
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
 "Certificates page{chref}"
 msgstr ""
-"Necesita activar {module} en {ohref}Certificados de los Servicios{chref} "
-"para activar SSL para él."
+"Necesitas activar el certificado para el módulo {module} en la página "
+"{ohref}Certificados de los Servicios{chref}"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:385
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
 "Services Certificates{chref}"
 msgstr ""
-"Necesita activar {module} en {ohref}Certificados de los Servicios{chref} "
-"para activar SSL para él."
+"Necesitas activar el certificado {serviceName} para el módulo {module} en "
+"{ohref}Certificados de los Servicios{chref}"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:397
 #, perl-brace-format
@@ -11097,17 +11080,17 @@ msgstr ""
 "servicio."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:466
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
 "or free it and retry."
 msgstr ""
-"Zentyal ya está configurado para usar el puerto {p} para otro servicio. "
-"Elige otro puerto o libera este y reintenta."
+"Zentyal ya está configurado para usar el puerto {p} para {use}. Elige otro "
+"puerto o libera este y reintenta."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:489
 msgid "Unmanaged instance of haproxy"
-msgstr ""
+msgstr "Instancia no gestionada de haproxy"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:493
 #, perl-brace-format
@@ -11119,14 +11102,14 @@ msgstr ""
 "libera este y reintenta."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:687
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
-msgstr "El puerto {port} está siendo usado por el modulo {mod}"
+msgstr "El puerto {port} está siendo usado por {row} usando HTTP plano."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:695
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
-msgstr "El puerto {port} ya tiene un servicio predeterminado definido."
+msgstr "El puerto {port} ya está usado por {row} como servicio SSL por defecto."
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:124
 #, perl-brace-format
@@ -12126,17 +12109,16 @@ msgstr "Proxy Inverso"
 #: ../../main/core/src/EBox/HAProxy.pm:163
 #, perl-brace-format
 msgid "Port {port} must be configured as SSL for {service}"
-msgstr ""
+msgstr "El puerto {port} debe configurarse como SSL para {service}"
 
 #: ../../main/core/src/EBox/HAProxy.pm:170
 #, perl-brace-format
 msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr ""
+msgstr "El puerto {port} debe configurarse como NO SSL para {service}"
 
 #: ../../main/core/src/EBox/HAProxy.pm:298
-#, fuzzy
 msgid "HTTP Services"
-msgstr "Servicios"
+msgstr "Servicios HTTP"
 
 #: ../../main/core/src/EBox/HAProxy.pm:388
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
@@ -12235,6 +12217,8 @@ msgid ""
 "You cannot set the width property if the composite has not a: {left_right} "
 "layout"
 msgstr ""
+"No puede establecer la propiedad de anchura si el composite no tiene una "
+"distribución {left_right}"
 
 #: ../../main/core/src/EBox/Model/TreeView.pm:268
 #: ../../main/core/src/templates/ajax/tableBody.mas:385
@@ -12413,6 +12397,8 @@ msgid ""
 "The virtual mail domain {dom} cannot  be removed because is openchange "
 "outgoing domain"
 msgstr ""
+"El dominio virtual de correo {dom} no puede borrarse porque el dominio "
+"saliente de OpenChange"
 
 # Is a product. Same name.
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:44
@@ -12424,44 +12410,44 @@ msgid "OpenChange Account"
 msgstr "Cuenta de OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:86
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown value for {control}: {x}"
-msgstr "Valor desconocido para msExchUserAccountControl: {x}"
+msgstr "Valor desconocido para {control}: {x}"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:149
 msgid "This user has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:60
-#, fuzzy
 msgid "Certificate"
-msgstr "certificado"
+msgstr "Certificado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:75
 msgid "Access without SSL"
-msgstr ""
+msgstr "Acceso sin SSL"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:81
 msgid "Access with SSL"
-msgstr ""
+msgstr "Acceso con SSL"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:89
-#, fuzzy
 msgid "HTTP/HTTPS proxy access"
-msgstr "Reglas de acceso al proxy HTTP"
+msgstr "Acceso al proxy HTTP/HTTPS"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:93
 msgid ""
 "Setup access to Openchange throught HTTP/HTTPS. Remember that HTTPS requires "
 "you import Zentyal certificate into your Windows account"
 msgstr ""
+"Configura el acceso a OpenChange a través de HTTP/HTTPS. Recuerda que el "
+"acceso por HTTPS exige que importes el certificado de Zentyal en tu cuenta "
+"de Windows"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:107
-#, fuzzy
 msgid "Web Server module needs to be installed and enabled to use RPC proxy"
 msgstr ""
-"El módulo de Zentyal antivirus debe ser instalado y activado para usar esta "
-"característica"
+"Se necesita instalar y activar el módulo de Servidor Web para usar el proxy "
+"RPC"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:115
 #, perl-brace-format
@@ -12469,11 +12455,15 @@ msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
 "{ch}>"
 msgstr ""
+"No se puede usar el proxy RPC porque no podemos encontrar este nombre de "
+"máquina en el {oh}módulo DNS{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:121
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
 msgstr ""
+"No se puede usar el proxy RPC porque no podemos encontrar este nombre de "
+"máquina: {err}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:63
 msgid "Outgoing Mail Domain"
@@ -12484,11 +12474,12 @@ msgid ""
 "Outgoing mail domain of emails sent from this server will be overwritten "
 "with this one."
 msgstr ""
+"El dominio del correo saliente de los correos enviados desde este servidor "
+"serán sobrescritos con este."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:77
-#, fuzzy
 msgid "Configure an OpenChange Groupware server."
-msgstr "Poner en marcha un servidor de OpenChange Groupware."
+msgstr "Configurar un servidor de OpenChange Groupware."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "New One"
@@ -12570,7 +12561,7 @@ msgstr "Para configurar el servicio de descubrimiento automático"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:281
 msgid "Remove RPC Proxy stock file to avoid interference"
-msgstr ""
+msgstr "Borra el fichero stock de RPC proxy para evitar interferencias"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:569
 msgid "MailBox Migration"
@@ -12591,14 +12582,14 @@ msgstr ""
 "{chref}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:789
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
-msgstr "Volcando configuración del módulo {m}"
+msgstr "Dominio {dom} no configurado en el {oh}módulo de DNS{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:826
 #, perl-brace-format
 msgid "Cannot find this host in {oh}DNS domain {dom}{ch}"
-msgstr ""
+msgstr "No se puede encontrar esta máquina en el {oh}dominio DNS {dom}{ch}"
 
 # Is a product. Same name.
 #: ../../main/openchange/src/EBox/OpenChange.pm:873
@@ -13115,9 +13106,8 @@ msgstr ""
 "HTTPS."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:297
-#, fuzzy
 msgid "port redirections"
-msgstr "Opciones del informe"
+msgstr "redirecciones de puertos"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:764
 msgid "Input interface"
@@ -13668,6 +13658,9 @@ msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
+"La cuenta de invitado del dominio debe estar activa para tener acceso a los "
+"invitados a los recursos compartidos. Puedes activarlo en el {oh}gestor de "
+"Usuarios y Grupos{ch}."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:455
 #, perl-brace-format
@@ -14093,6 +14086,9 @@ msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
 msgstr ""
+"Las listas de control de acceso (ACLs) a recursos compartidos están en modo "
+"no administrado. Para cambiar este modo, editar {file} y reiniciar este "
+"módulo"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:312
 msgid ""
@@ -14877,10 +14873,11 @@ msgid "Cache Exemptions"
 msgstr "Excepciones en la caché"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
-#, fuzzy
 msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
-msgstr "Puede negar el almacenamiento en caché de algunos dominios"
+msgstr ""
+"Puede negar el almacenamiento en caché de algunos dominios Esto incluirá los "
+"subdominios."
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:42
 msgid "Squid traffic requests graph"
@@ -16896,6 +16893,11 @@ msgid ""
 "removing the {dir} content and launching this command: {cmd}.{ep}Take into "
 "account your monitor data will be lost."
 msgstr ""
+"{p}Un error ha ocurrido leyendo ficheros RRD: {error}.{ep}{p}Reintenta para "
+"comprobar que funciona.{ep}{p}Si no es así, este problema se puede "
+"solucionar fácilmente empezando de nuevo borrando el contenido de {dir} y "
+"ejecutando este comando: {cmd}.{ep}Ten en cuenta que tus datos de "
+"monitorización se perderán."
 
 #: ../../main/monitor/src/EBox/Monitor/Configuration.pm:123
 msgid "Last hour"
@@ -18557,9 +18559,8 @@ msgstr "Agregar Unidad Organizativa (OU)"
 
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/editcontact.mas:20
-#, fuzzy
 msgid "Display name"
-msgstr "Mostrar notas de ayuda"
+msgstr "Nombre en pantalla"
 
 #: ../../main/users/src/templates/edituser.mas:57
 msgid "User quota"
@@ -19803,11 +19804,12 @@ msgstr "Estado de la cuenta"
 msgid ""
 "OpenChange account could not enabled until the user has an email account"
 msgstr ""
+"La cuenta OpenChange no se puede activar hasta que el usuario tenga una "
+"cuenta de correo"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
-#, fuzzy
 msgid "Migration finished!"
-msgstr "Registro finalizado"
+msgstr "¡Migración finalizada!"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:8
 msgid "Migration has been finished!!"
@@ -19833,7 +19835,7 @@ msgstr "Desconectado de {ip}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 msgid "DISCONNECT"
-msgstr ""
+msgstr "DESCONECTAR"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
@@ -19861,48 +19863,40 @@ msgid "Migration details"
 msgstr "Detalles de la migración"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:65
-#, fuzzy
 msgid "No mailboxes selected"
-msgstr "Sin dominio seleccionado"
+msgstr "No hay buzones de correo seleccionados"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:69
-#, fuzzy
 msgid "selected mailboxes"
-msgstr "Mensajes rechazados"
+msgstr "Buzones de correo seleccionados"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:72
-#, fuzzy
 msgid "Total data"
-msgstr "Almacenamiento total"
+msgstr "Total de datos"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:75
-#, fuzzy
 msgid "Total mails"
-msgstr "Marcas totales"
+msgstr "Total de correos"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:78
-#, fuzzy
 msgid "Total contacts"
-msgstr "Marcas totales"
+msgstr "Total de contactos"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:81
 msgid "Total calendar"
-msgstr ""
+msgstr "Total de calendarios"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Tiempo estimado para finalizar: {time}."
+msgstr "Tiempo estimado (100Mb/s)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "estimate migration"
-msgstr "Restaurar el backup de la configuración"
+msgstr "estimación de la migración"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "start migration"
-msgstr "Restaurar el backup de la configuración"
+msgstr "comenzar migración"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:10
 #, fuzzy, perl-brace-format
@@ -19920,9 +19914,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
-#, fuzzy
 msgid "Select origin server"
-msgstr "Servidor secundario"
+msgstr "Selecciona el servidor de origen"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:24
 msgid ""
@@ -19931,9 +19924,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
-#, fuzzy
 msgid "Enter origin server name"
-msgstr "Nombre del Servidor Externo"
+msgstr "Introduce el nombre del servidor de origen"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
@@ -19978,48 +19970,40 @@ msgstr ""
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid "Zentyal user name"
-msgstr "nombre de usuario"
+msgstr "Nombre de usuario Zentyal"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:36
-#, fuzzy
 msgid "Zentyal user password"
-msgstr "Contraseña en Zentyal Cloud"
+msgstr "Contraseña del usuario Zentyal"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:32
-#, fuzzy
 msgid "User name conflict"
-msgstr "Nombre de usuario"
+msgstr "Conflicto en el nombre de usuario"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:13
-#, fuzzy
 msgid "Migrating process"
-msgstr "En proceso"
+msgstr "Proceso de migración"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:19
-#, fuzzy
 msgid "Mailbox migrated"
-msgstr "Buzones de correo"
+msgstr "Buzón de correo migrado"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:21
 msgid "Data migrated"
-msgstr ""
+msgstr "Datos migrados"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:23
-#, fuzzy
 msgid "Time left"
-msgstr "Ítems que quedan"
+msgstr "Tiempo restante"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:26
-#, fuzzy
 msgid "Cancel migration process"
-msgstr "Cambios en la configuración"
+msgstr "Cancela el proceso de migración"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:32
-#, fuzzy
 msgid "total data"
-msgstr "{txt} datos"
+msgstr "total de datos"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
 msgid "errors"
@@ -20043,11 +20027,11 @@ msgstr "Detalles"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:57
 msgid "discard mailbox"
-msgstr ""
+msgstr "descarta buzón de correo"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:58
 msgid "activate mailbox"
-msgstr ""
+msgstr "activa buzón de correo"
 
 #: ../../main/software/src/templates/config.mas:9
 msgid "Perform automatic software updates"

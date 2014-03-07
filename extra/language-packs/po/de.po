@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-02-23 12:12+0200\n"
-"Last-Translator: lyon <shieldwed@outlook.com>\n"
+"PO-Revision-Date: 2014-02-28 17:25+0200\n"
+"Last-Translator: treffer <treffer_hh@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Adresse des Servers"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Sie müssen dem Benutzer mindestens einen Server zuweisen {name}"
+msgstr "Sie müssen dem Server [name] mindestens eine Adresse zuweisen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -10766,7 +10766,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:102
-#, fuzzy
 msgid "Administration interface TCP port"
 msgstr "TCP-Port der Administrationsschnittstelle"
 
@@ -20817,11 +20816,11 @@ msgstr "Info anzeigen"
 
 #: ../../main/mail/src/templates/qmanager.mas:48
 msgid "Hide Info"
-msgstr "Info verbergen"
+msgstr "Informationen ausblenden"
 
 #: ../../main/mail/src/templates/qmanager.mas:57
 msgid "Attempt to deliver all queued mail"
-msgstr "Versuche alle Mails der Warteschlange zu senden."
+msgstr "Versuche alle Mails der Warteschlange zu senden"
 
 #: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Remove all messages"
@@ -20830,9 +20829,10 @@ msgstr "Lösche alle Nachrichten"
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
 msgstr ""
-"Es sind keine Nachrichten in der Warteschlange oder der Dienst ist gestoppt."
+"Es sind keine Nachrichten in der Warteschlange oder der Dienst ist gestoppt"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
+#, fuzzy
 msgid "Maildir size"
 msgstr "Postfachgrösse"
 
@@ -20860,7 +20860,7 @@ msgstr "Das ist die Domäne für die E-Mail Konten."
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
-"Die folgenden Einstellungen werden nur angewendet, wenn der E-Mail-Dienst "
+"Die folgenden Einstellungen werden erst angewendet, wenn der E-Mail-Dienst "
 "aktiviert ist"
 
 #, fuzzy
