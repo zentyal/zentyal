@@ -45,6 +45,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
 use TryCatch::Lite;
+use Scalar::Util qw(blessed);
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);
@@ -1001,18 +1002,33 @@ sub _updateDynamicDirectZone
                 . ' ' . $srvRR->{'target_host'});
     }
 
-    # Delete records
-    # TODO deal with deleted domain
-    my $dataToDelete = $self->st_get(DELETED_RR_KEY, {});
-    my $recordsToDelete = $dataToDelete->{$domain};
-    foreach my $rr (@{$recordsToDelete}) {
-        $update->del($rr);
+    # Push to the update the deleted records
+    my $state = $self->get_state();
+    my $key = DELETED_RR_KEY;
+    my $dataToDelete = $state->{$key};
+    if (defined $dataToDelete) {
+        my $recordsToDelete = $dataToDelete->{$domain};
+        foreach my $rr (@{$recordsToDelete}) {
+            $update->del($rr);
+        }
     }
-    # TODO delete key only if success update
-    delete $dataToDelete->{$domain};
-    $self->st_set(DELETED_RR_KEY, $dataToDelete);
 
-    $update->send();
+    try {
+        $update->send();
+
+        # Only delete from state if the update has been successful
+        delete $dataToDelete->{$domain};
+        $state->{$key} = $dataToDelete;
+        $self->set_state($state);
+    } catch ($exception) {
+        if (blessed($exception)) {
+            $exception->throw();
+        } else {
+            throw EBox::Exceptions::External(
+            __x("Failed to update: {err}.",
+                err => $exception));
+        }
+    }
 }
 
 sub _updateDynamicReverseZone

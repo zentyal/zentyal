@@ -73,10 +73,15 @@ sub _addToDelete
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
 
-    my $data = $mod->st_get($key, {});
+    my $state = $mod->get_state();
+    my $data = $state->{$key};
+    $data = {} unless defined $data;
+
     $data->{$zone} = [] unless exists $data->{$zone};
     push (@{$data->{$zone}}, $record);
-    $mod->st_set($key, $data);
+
+    $state->{$key} = $data;
+    $mod->set_state($state);
 }
 
 1;
