@@ -34,7 +34,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Util::Lock;
 use EBox::Iptables;
-
 use Linux::Inotify2;
 use EBox::Gettext;
 use Time::HiRes qw(usleep);
