@@ -656,16 +656,8 @@ sub _isDynamicZone
     my $model = $self->model('DomainTable');
     my $row = $model->row($rowId);
 
-    my $file;
-    if ($row->valueByName('dynamic')) {
-        $file = BIND9_UPDATE_ZONES;
-    } else {
-        $file = BIND9CONFDIR;
-    }
-    $file .= '/db.' . $row->valueByName('domain');
-
     return 1 if ($row->valueByName('samba'));
-    return 1 if ($row->valueByName('dynamic') and -e $file);
+    return 1 if ($row->valueByName('dynamic'));
     return 0;
 }
 
