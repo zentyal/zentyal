@@ -1068,7 +1068,16 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    my $skipDynamicUpdates = 0;
+    if (EBox::Global->modExists('samba')) {
+        my $samba = EBox::Global->modInstance('samba');
+        my $provision = $samba->getProvision();
+        if ($provision->isProvisioning()) {
+            $skipDynamicUpdates = 1;
+        }
+    }
+
+    if ($enabled and not $skipDynamicUpdates) {
         my $nTry = 0;
         do {
             sleep(1);
