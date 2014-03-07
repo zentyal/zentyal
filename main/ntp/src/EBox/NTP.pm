@@ -162,9 +162,7 @@ sub _preSetConf
     my ($self) = @_;
 
     try {
-
         $self->_stopService();
-        EBox::debug("XXX ntp wait");
         # wait for ntpd daemon stoo
         my $tries = 4000;
         while ($self->isRunning()) {
@@ -175,9 +173,7 @@ sub _preSetConf
                 last;
             }
         }
-        EBox::debug("XXX END ntp wait");
         $self->_syncDate();
-        EBox::debug("XXX END _syncDate");
     } catch {
     }
 }
