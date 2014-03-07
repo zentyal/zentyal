@@ -164,12 +164,12 @@ sub isInternal
 
 sub setInternal
 {
-    my ($self, $internal) = @_;
+    my ($self, $internal, $lazy) = @_;
 
     if ($internal) {
-        $self->set('title', 'internal');
+        $self->set('title', 'internal', $lazy);
     } else {
-        $self->set('title', undef);
+        $self->set('title', undef, $lazy);
     }
 }
 
