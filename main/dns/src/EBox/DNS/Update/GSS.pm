@@ -172,8 +172,9 @@ sub _negotiateContext
     # Acquire kerberos credentials
     $self->_getCredentials();
 
-    my $serverName = 'saucy.kernevil.lan'; # TODO
-    my $realm = 'KERNEVIL.LAN';
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $serverName = $sysinfo->fqdn();
+    my $realm = uc($sysinfo->hostDomain());
     my $status;
     my $gssName;
 
@@ -205,6 +206,8 @@ sub _getCredentials
 
     my $keytab = $self->{keytab};
     my $principal = $self->{principal};
+    EBox::Sudo::root("chgrp ebox $keytab");
+    EBox::Sudo::root("chmod g+r $keytab");
     my $ret = kinit($keytab, $principal);
     unless ($ret == 1) {
         my $error = kerror();
@@ -216,7 +219,9 @@ sub _sign
 {
     my ($self) = @_;
 
-    my $keyName = time . '.sig-saucy'; # TODO
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $keyName = time . ".sig-$hostname";
 
     # Negotiate the GSS context
     my $gssCtx = $self->_negotiateContext($keyName);
