@@ -4,3 +4,7 @@
 /opt/samba4/var/lib/ntp_signd/socket rw,
 
 /etc/ldap/ldap.conf r,
+/run/slapd/ldapi rw,
+
+/usr/local/sbin/ r,
+/usr/local/bin/ r,
