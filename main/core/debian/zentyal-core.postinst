@@ -108,8 +108,6 @@ case "$1" in
             service zentyal webadmin start || true
         fi
 
-        # Restart mysql
-        service mysql restart
         # create logs & reports database
         /usr/share/zentyal/create-db
 
