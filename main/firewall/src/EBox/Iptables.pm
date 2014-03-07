@@ -665,13 +665,8 @@ sub _executeModuleRules
     my @failedMods;
     foreach my $mod (@mods) {
         try {
-<<<<<<< HEAD
-            EBox::Sudo::root(@commands);
-        } otherwise {
-=======
             $self->executeModuleRules($mod, \%enabledRules);
-        } catch {
->>>>>>> ef3531b... Regenerate, if needed captive, portal rules on startup of captived
+        } otherwise {
             EBox::error('Error executing firewall rules for module ' . $mod->name());
             push(@failedMods, $mod->name());
         };
