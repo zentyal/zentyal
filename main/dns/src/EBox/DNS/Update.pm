@@ -103,7 +103,9 @@ sub send
 
     # Send the update
     my $packet = $self->_packet();
+    EBox::debug($packet->string());
     my $reply = $resolver->send($packet);
+    EBox::debug($reply->string());
     unless (defined $reply) {
         throw EBox::Exceptions::External(
             __x("Failed to send update: {err}.",
