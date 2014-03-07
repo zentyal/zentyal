@@ -29,6 +29,7 @@ use EBox::Menu::Folder;
 use TryCatch::Lite;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
+use Time::HiRes qw(usleep);
 use EBox;
 
 use constant NTPCONFFILE => '/etc/ntp.conf';
@@ -65,15 +66,6 @@ sub appArmorProfiles
                 'params' => \@params,
             }
            ];
-}
-
-sub isRunning
-{
-    my ($self) = @_;
-    # return undef if service is not enabled
-    # otherwise it might be misleading if time synchronization is set
-    ($self->isEnabled()) or return undef;
-    return EBox::Service::running('ebox.ntpd');
 }
 
 # Method: actions
@@ -170,9 +162,22 @@ sub _preSetConf
     my ($self) = @_;
 
     try {
+
         $self->_stopService();
-        sleep 2;
+        EBox::debug("XXX ntp wait");
+        # wait for ntpd daemon stoo
+        my $tries = 4000;
+        while ($self->isRunning()) {
+            usleep(1000);
+            $tries -= 1;
+            if ($tries == 0) {
+                EBox::error("Cannot stop zentyal ntp daemon");
+                last;
+            }
+        }
+        EBox::debug("XXX END ntp wait");
         $self->_syncDate();
+        EBox::debug("XXX END _syncDate");
     } catch {
     }
 }
