@@ -738,9 +738,9 @@ sub _setConf
         my $dynamic = $self->_isDynamicZone($domainId);
 
         # Write zone file
-        my $file = $dynamic ? 
-                   BIND9CONFDIR . '/db.' . $domdata->{'name'} :
-                   BIND9_UPDATE_ZONES . '/db.' . $domdata->{'name'};
+        my $file = $dynamic ?
+                   BIND9_UPDATE_ZONES . '/db.' . $domdata->{'name'} :
+                   BIND9CONFDIR . '/db.' . $domdata->{'name'};
 
         # Skip if journal file is created
         next if ($dynamic and -e "$file.jnl");
