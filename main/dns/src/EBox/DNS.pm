@@ -747,8 +747,8 @@ sub _setConf
 
         @array = ();
         push (@array, 'domain' => $domdata);
-        $self->writeConfFile($file, "dns/db.mas", \@array);
-        EBox::Sudo::root("chown bind:bind '$file'");
+        $self->writeConfFile($file, "dns/db.mas", \@array,
+            {mode => '0644', uid => 'bind', gid => 'bind'});
     }
 
     my @inaddrs;
@@ -812,8 +812,8 @@ sub _writeReverseFiles
             my @params = ();
             push (@params, 'groupip' => $group);
             push (@params, 'rdata' => $reversedDataItem);
-            $self->writeConfFile($file, "dns/dbrev.mas", \@params);
-            EBox::Sudo::root("chown bind:bind '$file'");
+            $self->writeConfFile($file, "dns/dbrev.mas", \@params,
+                {mode => '0644', uid => 'bind', gid => 'bind'});
         }
         # Store to write the zone in named.conf.local
         push (@inaddrs, { ip       => $group,
