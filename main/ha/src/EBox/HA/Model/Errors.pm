@@ -112,6 +112,8 @@ sub _table
                 ),
             );
 
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
+
     my $dataTable =
     {
         tableName => 'Errors',
@@ -122,7 +124,8 @@ sub _table
         showPaginationForm => 0,
         showFilterForm => 0,
         noDataMsg => __('The cluster does not have any errors.'),
-        help => undef,
+        help => $self->{clusterStatus}->areThereUnamanagedResources() ? $self->_unamanagedResourcesHelp() : undef,
+
     };
 
     return $dataTable;
@@ -142,6 +145,19 @@ sub _parseError_node
     my ($self, %error) = @_;
 
     return $error{node} ? $error{node} : __('noname');
+}
+
+sub _unamanagedResourcesHelp
+{
+    my ($self) = @_;
+
+    my $command = __x("\"{initialCommandPart} resource_name {node} node_name_where_resource_is\"",
+                        initialCommandPart => "sudo crm_resource --cleanup --resource",
+                        node => "--node");
+
+    return __x("There is an unmanaged resource, we cannot deal with that by the momment. " .
+               "You should type in a terminal the following command: {command} " .
+               "to recover the control from that resource", command => $command);
 }
 
 1;
