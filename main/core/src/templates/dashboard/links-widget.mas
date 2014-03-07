@@ -2,6 +2,7 @@
 $rsPackage       => 0
 $softwarePackage => 0
 $community       => 1
+$registered      => 0
 </%args>
 <%init>
  use EBox::Gettext;
@@ -35,6 +36,7 @@ function installSoftware(title, html) {
 % }
 % if ($community) {
 <div>
+% if (not $registered) {
     <span class="links-register links-highlight links-half">
           <& .subscriptionElement,
             rsPackage => $rsPackage,
@@ -42,6 +44,9 @@ function installSoftware(title, html) {
             &>
         </span>
         <span class="links-highlight links-half">
+% } else {
+        <span class="links-highlight">
+% }
               <a target="_blank" href="https://remote.zentyal.com/trial/ent/" title="<% __('Test the Commercial for 30 days') %>">
                   <% __('Free Commercial Trial') %></a>
         </span>
