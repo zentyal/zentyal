@@ -208,13 +208,12 @@ sub removeRow
 {
     my ($self, $id, $force) = @_;
 
-    if ( $force and $self->table()->{automaticRemove} ) {
+    if ($force and $self->table->{automaticRemove}) {
         # Trying to remove the pointed elements first
         my $manager = EBox::Model::Manager->instance();
         $manager->removeRowsUsingId($self->contextName(), $id);
     }
     return $self->SUPER::removeRow($id, $force);
-
 }
 
 # Group: Protected methods
