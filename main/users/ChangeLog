@@ -1,3 +1,5 @@
+HEAD
+	+ Added and used checkMailNotInUse method
 3.2.8
 	+ Check available IP addresses when enable module
 	+ Added lock to cloud-sync script

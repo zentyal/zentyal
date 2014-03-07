@@ -1,3 +1,6 @@
+HEAD
+	+ Added and used checkMailNotInUse method
+	+ Don't add mail which already exists when adding group alias
 3.2.5
 	+ Better integration of group alias addon
 3.2.4
