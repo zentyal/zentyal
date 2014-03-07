@@ -122,6 +122,7 @@ use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
+use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 
 sub _create
 {
@@ -928,20 +929,25 @@ sub writeSambaConfig
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        push (@array, 'openchangeEnabled' => $openchangeEnabled);
+        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+
         my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
         my $openchangeConnectionString = undef;
         if ($openchangeProvisionedWithMySQL) {
             $openchangeConnectionString = $openchangeModule->connectionString();
         }
-        push (@array, 'openchangeEnabled' => $openchangeEnabled);
-        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
-        push (@array, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
-        push (@array, 'openchangeConnectionString' => $openchangeConnectionString);
+        my $oc = [];
+        push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+        $self->writeConfFile(OPENCHANGE_CONF_FILE,
+                         'samba/openchange.conf.mas', $oc,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
     }
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array,
-                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
 
     $self->_writeAntivirusConfig();
 }

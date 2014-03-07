@@ -2,24 +2,27 @@
   $hostname
   $hostnameVhost
   $port
+  $publicPort
   $sslPort
+  $publicSSLPort
 </%args>
-ServerName <% $hostname %>
-
 % if ($hostnameVhost) {
   <& /webserver/vhostHttp.mas,
        hostname    => $hostname,
        vHostName   => $hostname,
        port        => $port,
        sslPort     => $sslPort,
+       publicSSLPort => $publicSSLPort,
        sslSupport  => $hostnameVhost->{ssl},
    &>
 % }
 
 <VirtualHost *:<% $port %>>
-	ServerAdmin webmaster@<% $hostname %>
+    ServerName <% $hostname %>:<% $publicPort %>
 
-	DocumentRoot /var/www/
+    ServerAdmin webmaster@<% $hostname %>
+
+    DocumentRoot /var/www/
 
     # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
     # error, crit, alert, emerg.

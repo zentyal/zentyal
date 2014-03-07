@@ -17,7 +17,7 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 <!-- "tableBody.mas" -->
 <div id="hiddenDiv" class="hidden"></div>
 
-<div class="help">
+<div class="help" style="display:none">
 <% $dataTable->{'help'} %>
 </div>
 

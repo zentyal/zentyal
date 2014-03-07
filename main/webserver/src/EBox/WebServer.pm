@@ -450,7 +450,9 @@ sub _setDfltVhost
     my @params = ();
     push (@params, hostname      => $hostname);
     push (@params, hostnameVhost => $hostnameVhost);
+    push (@params, publicPort    => $self->listeningHTTPPort());
     push (@params, port          => $self->targetHTTPPort());
+    push (@params, publicSSLPort => $self->listeningHTTPSPort());
     push (@params, sslPort       => $self->targetHTTPSPort());
 
     # Overwrite the default vhost file
@@ -467,6 +469,7 @@ sub _setDfltSSLVhost
         push (@params, hostname      => $hostname);
         push (@params, hostnameVhost => $hostnameVhost);
         push (@params, sslPort       => $self->targetHTTPSPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
 
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas", \@params);
@@ -588,7 +591,9 @@ sub _setVHosts
         my @params = ();
         push (@params, vHostName  => $vHostName);
         push (@params, hostname   => $self->_fqdn());
+        push (@params, publicPort    => $self->listeningHTTPPort());
         push (@params, port       => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
         push (@params, sslPort    => $self->targetHTTPSPort());
         push (@params, sslSupport => $sslSupport);
 

@@ -167,6 +167,25 @@ sub resourceByName
     return undef;
 }
 
+# Function areThereUnamanagedResources
+#
+# Returns:
+#
+#   Boolean - Whether there are unamanaged resources in the Cluster or not
+#
+sub areThereUnamanagedResources
+{
+    my ($self) = @_;
+
+    foreach my $key (keys %{ $_resources }) {
+        if (not $_resources->{$key}{managed}) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 # Function: nodeByName
 #
 # Parameters:

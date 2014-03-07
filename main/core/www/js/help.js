@@ -4,10 +4,7 @@
 
 Zentyal.namespace('Help');
 
-Zentyal.Help.helpShown = false;
-
 Zentyal.Help.showHelp = function () {
-    Zentyal.Help.helpShown = true;
     $('.help').slideToggle('fast');
 };
 

@@ -874,7 +874,7 @@ sub HAProxyInternalService
         my $rpcpService = {
             name => 'oc_rpcproxy_https',
             port => 443,
-            printableName => __('OpenChange RPCProxy'),
+            printableName => 'OpenChange RPCProxy',
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
@@ -889,7 +889,7 @@ sub HAProxyInternalService
         my $httpRpcpService = {
             name => 'oc_rpcproxy_http',
             port => 80,
-            printableName => __('OpenChange RPCProxy'),
+            printableName => 'OpenChange RPCProxy',
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,

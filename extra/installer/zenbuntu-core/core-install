@@ -97,8 +97,6 @@ PACKAGES=zentyal
 
 update_if_network # apt-get update if we are connected to the internet
 
-gen_locales
-
 REGISTER_DATA=/var/lib/zinstaller-remote
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
@@ -107,6 +105,8 @@ then
 fi
 
 DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
+
+gen_locales
 
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then
