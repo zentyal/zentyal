@@ -82,7 +82,7 @@ function installSoftware(title, html) {
 
 <div class="linksBlock">
    <ul>
-      <li><a class="i-support" target="_blank" href="support.zentyal.com"
+      <li><a class="i-support" target="_blank" href="http://support.zentyal.com"
              title="<% __s('Contact our Support Team') %>">
              <% __s('Contact Support') %></a>
       </li>
