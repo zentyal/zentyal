@@ -35,7 +35,6 @@ use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
 use TryCatch::Lite;
-use String::Random;
 
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007;

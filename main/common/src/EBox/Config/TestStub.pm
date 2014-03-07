@@ -70,6 +70,7 @@ sub fake
     if (@fakedConfig > 0)  {
         setConfigKeys(@fakedConfig);
     }
+    *EBox::Config::home = sub { return '/tmp/' };
 }
 
 sub _checkFakeParams

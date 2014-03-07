@@ -1,4 +1,11 @@
 HEAD
+	+ Updated cloud sync to ignore any change done in cloud to internal users
+	  or groups
+	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
+	  and added unit tests for it
+	+ Added EBox::Users::Group::setInternal method
+	+ Allow to use lazy flag with EBox::Users::User::setInternal
+	+ Added unit tests for cloud sync code
 	+ Check available IP addresses when enable module
 	+ Added lock to cloud-sync script
 	+ Better integration of edit groups for mail group aliases

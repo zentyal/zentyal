@@ -1,6 +1,7 @@
 HEAD
 	+ Better integration with openchange account addon
 	+ Remove openchange account when removing mail account
+	+ Postfix max mail size is increased by 36% because of base64 encoding
 	+ Better integration of group alias addon
 3.3.1
 	+ Added openchange outgoing mail rewriting

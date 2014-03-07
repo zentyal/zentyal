@@ -1,3 +1,6 @@
+HEAD
+	+ Updated EBox::Config::TestStub::fake to override EBox::Config::home so
+	  is more easy to use EBox::Users in unit tests
 3.3.1
 	+ Avoid undefined $Error::Depth warning in exceptions
 3.3

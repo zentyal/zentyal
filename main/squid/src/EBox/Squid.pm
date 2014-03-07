@@ -786,20 +786,20 @@ sub _writeDgConf
     push(@writeParam, 'maxagechildren' => $maxagechildren);
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
-            'squid/dansguardian.conf.mas', \@writeParam);
+            'squid/dansguardian.conf.mas', \@writeParam, { mode => '0644'});
 
     # disable banned, exception phrases lists, regex URLs and PICS ratings
     $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
-                         'squid/bannedphraselist.mas', []);
+                         'squid/bannedphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
-                         'squid/exceptionphraselist.mas', []);
+                         'squid/exceptionphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/pics',
-                         'squid/pics.mas', []);
+                         'squid/pics.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
-                         'squid/bannedregexpurllist.mas', []);
+                         'squid/bannedregexpurllist.mas', [],  { mode => '0644'});
 
     $self->writeDgGroups();
 
@@ -823,7 +823,7 @@ sub _writeDgConf
         push(@writeParam, 'groupName' => $group->{groupName});
         push(@writeParam, 'defaults' => $group->{defaults});
         EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
-                'squid/dansguardianfN.conf.mas', \@writeParam);
+                'squid/dansguardianfN.conf.mas', \@writeParam, { mode => '0644'});
 
         if ($policy eq 'filter') {
              $self->_writeDgDomainsConf($group);
@@ -950,11 +950,11 @@ sub writeDgGroups
     push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         \@writeParams);
+                         \@writeParams, { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
-                         [ objects => \@objects ]);
+                         [ objects => \@objects ], { mode => '0644'});
 }
 
 # FIXME: template format has changed, reimplement this
