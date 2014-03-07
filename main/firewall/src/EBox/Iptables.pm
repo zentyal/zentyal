@@ -627,6 +627,30 @@ sub _loadIptModules
     return \@commands;
 }
 
+# Method: executeModuleRules
+#
+#   executes the rules for the firewall helper of the given module
+#
+#   Parameters:
+#      $mod - module instance
+#      $enabledRules - hash to fitler out rules (Optional)
+sub executeModuleRules
+{
+    my ($self, $mod, $enabledRules) = @_;
+    my $helper = $mod->firewallHelper();
+    ($helper) or return;
+
+    my $modRules = $self->_modRules($mod, $helper);
+
+    my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @{$modRules};
+    my @commands = map {
+        my $r = $_->{'rule'};
+        pf($r) if ((not $enabledRules) or $enabledRules->{$r})
+    } @sortedRules;
+
+    EBox::Sudo::root(@commands);
+}
+
 # Execute firewall helper rules for each module
 sub _executeModuleRules
 {
@@ -640,17 +664,14 @@ sub _executeModuleRules
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
     my @failedMods;
     foreach my $mod (@mods) {
-        my $helper = $mod->firewallHelper();
-        ($helper) or next;
-
-        my $modRules = $self->_modRules($mod, $helper);
-
-        my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @{$modRules};
-        my @commands = map { my $r = $_->{'rule'}; pf($r) if $enabledRules{$r} } @sortedRules;
-
         try {
+<<<<<<< HEAD
             EBox::Sudo::root(@commands);
         } otherwise {
+=======
+            $self->executeModuleRules($mod, \%enabledRules);
+        } catch {
+>>>>>>> ef3531b... Regenerate, if needed captive, portal rules on startup of captived
             EBox::error('Error executing firewall rules for module ' . $mod->name());
             push(@failedMods, $mod->name());
         };
@@ -665,6 +686,7 @@ sub _executeModuleRules
         $global->addSaveMessage($message);
     }
 }
+
 
 # Helper rules for one module
 sub _modRules
