@@ -52,8 +52,6 @@ use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::View::Customizer;
 
-# Group: Public methods
-
 # Method: nextServer
 #
 #     Get the next server (name or IP address) in an string form to
@@ -137,8 +135,6 @@ sub remoteFilename
     }
 }
 
-# Group: Protected methods
-
 # Method: _table
 #
 # Overrides:
@@ -174,9 +170,6 @@ sub _table
                             ),
     );
 
-    # FIXME: unhardcode this (parentRow() is undefined)
-    my $interface = 'eth0';
-
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
                     printableTableName => __('Thin client / External TFTP-Server'),
@@ -187,7 +180,8 @@ sub _table
                     help               => __x('You may want to customise your thin client options.'
                                              . 'To do so, you may include all the files you require '
                                              . 'under {path} directory',
-                                             path => EBox::DHCP->PluginConfDir($interface)),
+                                             path => EBox::DHCP->PluginConfDirPath('(INTERFACE)')
+                                             ),
                     sortedBy           => 'hosts',
                     printableRowName   => __('thin client option'),
                    };
