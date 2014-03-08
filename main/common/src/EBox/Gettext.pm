@@ -14,11 +14,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Gettext;
 
 use utf8;
 use Locale::gettext;
-use EBox::Config;
+use EBox;
 
 BEGIN {
     use Exporter ();
@@ -28,12 +31,15 @@ BEGIN {
     @EXPORT = qw{ __ __x __s __sx __p __px langs __n};
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
-    $VERSION = EBox::Config::version;
 }
 
 my $DEFAULT_DOMAIN = 'zentyal';
 my $PROF_DOMAIN = 'zentyal-prof';
-my $LOCALE = substr($ENV{LANG}, 0, 2);
+my $LOCALE;
+
+INIT {
+    $LOCALE = substr(EBox::locale(), 0, 2);
+}
 
 sub __ # (text)
 {
