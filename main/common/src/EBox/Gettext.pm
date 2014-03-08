@@ -35,10 +35,16 @@ BEGIN {
 
 my $DEFAULT_DOMAIN = 'zentyal';
 my $PROF_DOMAIN = 'zentyal-prof';
-my $LOCALE;
 
-INIT {
-    $LOCALE = substr(EBox::locale(), 0, 2);
+my $_lang = undef;
+
+sub _lang
+{
+    unless (defined $_lang) {
+        $_lang = substr(EBox::locale(), 0, 2);
+    }
+
+    return $_lang;
 }
 
 sub __ # (text)
@@ -84,14 +90,14 @@ sub __s # (text)
 {
     my ($text) = @_;
 
-    return ($LOCALE eq 'es') ? __($text) : $text;
+    return (_lang() eq 'es') ? __($text) : $text;
 }
 
 sub __sx # (text, %variables)
 {
     my ($text, %vars) = @_;
 
-    return ($LOCALE eq 'es') ? __x($text, %vars) : __expand($text, %vars);
+    return (_lang() eq 'es') ? __x($text, %vars) : __expand($text, %vars);
 }
 
 sub __p # (text)
