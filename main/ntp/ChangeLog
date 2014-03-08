@@ -1,4 +1,5 @@
 3.4
+	+ Adapted apparmor configuration to Saucy
 	+ Save module config after initialSetup
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4

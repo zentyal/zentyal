@@ -9,6 +9,7 @@
 	+ Adapt configuration for squid 3.3.8
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Forced 644 permission on Dansguardian files to avoid zombie processes
 	+ Remove canonical_dn call for compatibility with MS LDAP servers in
 	  external AD mode
 	+ Synchronise AD groups every 30 min if using external AD and any

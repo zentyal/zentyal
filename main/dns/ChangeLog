@@ -1,4 +1,5 @@
 3.4
+	+ Adapted apparmor configuration to Saucy
 	+ Avoid lame servers message
 	+ Use proper dlz library for bind9.9
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
