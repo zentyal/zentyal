@@ -32,8 +32,8 @@ BEGIN {
 }
 
 my $DEFAULT_DOMAIN = 'zentyal';
-my $SUBS_DOMAIN = 'zentyal-subscription';
 my $PROF_DOMAIN = 'zentyal-prof';
+my $LOCALE = substr($ENV{LANG}, 0, 2);
 
 sub __ # (text)
 {
@@ -78,14 +78,14 @@ sub __s # (text)
 {
     my ($text) = @_;
 
-    return __d($text, $SUBS_DOMAIN);
+    return ($LOCALE eq 'es') ? __($text) : $text;
 }
 
 sub __sx # (text, %variables)
 {
     my ($text, %vars) = @_;
 
-    return __dx($text, $SUBS_DOMAIN, %vars);
+    return ($LOCALE eq 'es') ? __x($text, %vars) : __expand($text, %vars);
 }
 
 sub __p # (text)
