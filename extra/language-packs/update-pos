@@ -2,8 +2,7 @@
 
 set -e
 
-KEYWORDS="-k__ -k__n -k__x -k__d -k__d"
-SUBS_KEYWORDS="-k__s -k__sx"
+KEYWORDS="-k__ -k__n -k__x -k__d -k__d -k__s -k__sx"
 
 SRC=../../main
 
@@ -42,6 +41,5 @@ function extract_strings
 }
 
 extract_strings po zentyal $KEYWORDS
-extract_strings po/zentyal-subscription zentyal-subscription $SUBS_KEYWORDS
 
 rm -rf templates
