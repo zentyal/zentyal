@@ -354,7 +354,7 @@ msgstr ""
 "de las {oh}Ediciones Comerciales{ch} para activar todas las alertas "
 "automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:972
+#: ../../main/squid/src/EBox/Squid.pm:979
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
@@ -363,7 +363,7 @@ msgstr ""
 "Esta es una Edición Comunidad. Obtén una de las {oh}Ediciones Comerciales"
 "{ch} completamente soportada para actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1311
+#: ../../main/squid/src/EBox/Squid.pm:1318
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -525,46 +525,50 @@ msgstr "<strong>subdominio zentyal.me</strong> para tu servidor"
 msgid "And much more coming soon!"
 msgstr "¡Y mucho más a punto de llegar!"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:36
-msgid "Community"
-msgstr "Comunidad"
-
-#: ../../main/core/src/templates/dashboard/links-widget.mas:52
-msgid "Business"
-msgstr "Negocio"
-
-#: ../../main/core/src/templates/dashboard/links-widget.mas:53
+#: ../../main/core/src/templates/dashboard/links-widget.mas:64
 msgid "Fully supported Zentyal Server editions"
 msgstr "Ediciones completamente soportadas del Servidor Zentyal"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:53
+#: ../../main/core/src/templates/dashboard/links-widget.mas:64
 msgid "Commercial Editions"
 msgstr "Ediciones Comerciales"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:55
+#: ../../main/core/src/templates/dashboard/links-widget.mas:66
+#: ../../main/core/src/templates/dashboard/links-widget.mas:84
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
 msgstr ""
 "Aprende a usar todos los servicios de red basados en Zentyal en entornos de "
 "producción."
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:55
+#: ../../main/core/src/templates/dashboard/links-widget.mas:66
+#: ../../main/core/src/templates/dashboard/links-widget.mas:84
 msgid "Certified Training"
 msgstr "Formación Certificada"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:56
+#: ../../main/core/src/templates/dashboard/links-widget.mas:67
+#: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
 msgstr "Libro \"Zentyal para Administradores de Redes\" en Español e Inglés."
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:56
+#: ../../main/core/src/templates/dashboard/links-widget.mas:67
+#: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "Official Manual"
 msgstr "Manual Oficial"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:69
+#: ../../main/core/src/templates/dashboard/links-widget.mas:76
+msgid "Contact our Support Team"
+msgstr ""
+
+#: ../../main/core/src/templates/dashboard/links-widget.mas:76
+msgid "Contact Support"
+msgstr ""
+
+#: ../../main/core/src/templates/dashboard/links-widget.mas:102
 msgid "Install Zentyal Cloud Client"
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:71
+#: ../../main/core/src/templates/dashboard/links-widget.mas:104
 #, perl-brace-format
 msgid ""
 "{op}You need to install some missing packages to register your server. "
@@ -572,11 +576,11 @@ msgid ""
 "get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:80
+#: ../../main/core/src/templates/dashboard/links-widget.mas:113
 msgid "Register your server"
 msgstr "Registra tu servidor"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:81
+#: ../../main/core/src/templates/dashboard/links-widget.mas:114
 msgid ""
 "Gain access to benefits such as free remote configuration backup and zentyal."
 "me subdomains!"
@@ -584,7 +588,7 @@ msgstr ""
 "¡Obtén acceso a ventajas como el backup de configuración remoto o "
 "subdominios zentyal.me gratuitos!"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:81
+#: ../../main/core/src/templates/dashboard/links-widget.mas:114
 msgid "Register for Free!"
 msgstr "¡Regístrate Gratis!"
 
@@ -1041,6 +1045,12 @@ msgid ""
 msgstr ""
 "¿Quieres monitorizar y gestionar tus servidores y escritorios de forma "
 "remota? ¡Obtén una de las ediciones comerciales(ch}!"
+
+#~ msgid "Community"
+#~ msgstr "Comunidad"
+
+#~ msgid "Business"
+#~ msgstr "Negocio"
 
 #~ msgid ""
 #~ "Please note that the maximum number of users for Small Business Edition "
