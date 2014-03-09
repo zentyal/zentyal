@@ -1,3 +1,6 @@
+HEAD
+	+ Fix: Do not subscribe to the newsletter in the wizard if the
+	  user requires so
 3.2.4
 	+ On initial setup, do only reload bundle and restart the service
 	  if the server is registered
