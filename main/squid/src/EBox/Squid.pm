@@ -136,7 +136,8 @@ sub initialSetup
     if (defined ($version)) {
         if (EBox::Util::Version::compare($version, '3.1') < 0) {
             $self->_overrideDaemons() if $self->configured();
-        } elsif (EBox::Util::Version::compare($version, '3.2.7') < 0) {
+        }
+        if (EBox::Util::Version::compare($version, '3.2.7') < 0) {
             $self->_fixPermCatList();
         }
     }
