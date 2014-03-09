@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
@@ -132,8 +133,12 @@ sub initialSetup
     }
 
     # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
+    if (defined ($version)) {
+        if (EBox::Util::Version::compare($version, '3.1') < 0) {
+            $self->_overrideDaemons() if $self->configured();
+        } elsif (EBox::Util::Version::compare($version, '3.2.7') < 0) {
+            $self->_fixPermCatList();
+        }
     }
 }
 
@@ -1331,6 +1336,25 @@ sub authenticationMode
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;
+    }
+}
+
+# Group: Private methods
+
+# Allow dansguardian user read categorised files
+sub _fixPermCatList
+{
+    my ($self) = @_;
+
+    my $catListModel = $self->model('CategorizedLists');
+    foreach my $listId (@{$catListModel->ids()}) {
+        my $path = $catListModel->row($listId)->elementByName('fileList')->archiveContentsDir();
+        try {
+            EBox::Sudo::root("find '$path' -type d | xargs chmod o+x");
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            EBox::error($exc);  # Do not fail on exceptions
+        };
     }
 }
 
