@@ -1,6 +1,5 @@
-HEAD
-	+ Remove unnecessary trailing dots in domain names in template.
 3.4
+	+ Remove unnecessary trailing dots in domain names in template.
 	+ Fixed ThinClientOptions nextServer value for interfaces other than eth0
 	+ More generic help message for thin clients options page
 	+ Added HA floating IPs constraints when creating ranges and fixed IPs
