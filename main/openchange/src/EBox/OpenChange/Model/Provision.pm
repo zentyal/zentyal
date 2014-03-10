@@ -411,8 +411,7 @@ sub _doProvision
                 next unless $ldbUser;
                 my $samAccountName = $ldbUser->get('samAccountName');
 
-                my $critical = $ldbUser->get('isCriticalSystemObject');
-                next if (defined $critical and $critical eq 'TRUE');
+                next if ($ldbUser->isCritical());
 
                 # Skip users with already defined mailbox
                 my $mailbox = $ldapUser->get('mailbox');
