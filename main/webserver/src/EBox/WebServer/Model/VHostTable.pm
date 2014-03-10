@@ -26,7 +26,6 @@ package EBox::WebServer::Model::VHostTable;
 
 use base 'EBox::Model::DataTable';
 
-use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::Text;
@@ -100,7 +99,7 @@ sub validateTypedRow
     if (exists $changedFields->{ssl}) {
         # SSL checking
         my $webserverMod = $self->parentModule();
-        my $ca = EBox::Global->modInstance('ca');
+        my $ca = $self->global()->modInstance('ca');
         my $certificates = $ca->model('Certificates');
         if ($changedFields->{ssl}->value() ne 'disabled') {
             unless ($webserverMod->isHTTPSPortEnabled()) {
@@ -135,8 +134,8 @@ sub addedRowNotify
     my ($self, $row) = @_;
 
     # Get the DNS module
-    my $gl = EBox::Global->getInstance();
-    if (not  $gl->modExists('dns') ) {
+    my $gl = $self->global();
+    if (not $gl->modExists('dns') ) {
         # no DNS module present, nothing to add then
         return;
     }
@@ -343,7 +342,7 @@ sub _table
 sub _dnsNoActiveWarning
 {
     my ($self) = @_;
-    my $dns = EBox::Global->modInstance('dns');
+    my $dns = $self->global()->modInstance('dns');
     if ($dns->isEnabled()) {
         return '';
     }
