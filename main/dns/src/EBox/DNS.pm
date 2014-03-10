@@ -1079,7 +1079,7 @@ sub _postServiceHook
         my $nTry = 0;
         do {
             sleep(1);
-        } while ($nTry < 5 and (not $self->_isNamedListening()));
+        } while ($nTry++ < 5 and (not $self->_isNamedListening()));
 
         if ($nTry < 5) {
             # Update dynamic direct zones
