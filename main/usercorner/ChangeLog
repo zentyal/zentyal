@@ -1,4 +1,5 @@
 3.4
+	+ Enable ReverseProxy middleware always
 	+ Added updateSessionPassword method
 	+ User Corner service is now managed by HAProxy Service
 	+ Added necessary saveConfigRecursive after initialSetup

@@ -21,7 +21,6 @@ use EBox::Gettext;
 use EBox::UserCorner;
 use EBox::UserCorner::CGI::Run;
 
-use Authen::Simple::PAM;
 use Plack::Builder;
 use Plack::Session::Store::File;
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
@@ -48,8 +47,7 @@ my $app = sub {
 
 builder {
     enable "+EBox::Middleware::UnhandledError";
-    enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
-        "ReverseProxy";
+    enable "ReverseProxy";
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
