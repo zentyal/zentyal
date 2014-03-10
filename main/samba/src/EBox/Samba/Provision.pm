@@ -407,7 +407,10 @@ sub linkContainer
         }
     }
     $ldbObject->_linkWithUsersObject($ldapObject);
-    $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
+    unless ($ldbObject->isa('EBox::Samba::Container') or $ldbObject->isa('EBox::Samba::BuiltinDomain')) {
+        # All objects except EBox::Samba::Container or EBox::Samba::BuiltinDomain can be modified
+        $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
+    }
 }
 
 # Method: mapDefaultContainers
