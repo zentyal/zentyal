@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
