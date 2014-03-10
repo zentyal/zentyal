@@ -78,11 +78,7 @@ sub setUserAccount
     my $email = $lhs.'@'.$rhs;
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-
-    if ($mail->{malias}->accountExists($email)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                           'value' => $email);
-    }
+    $mail->checkMailNotInUse($email);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 

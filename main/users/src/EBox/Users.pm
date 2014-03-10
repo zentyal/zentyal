@@ -2486,4 +2486,44 @@ sub ousToHide
     return \@ous;
 }
 
+# Method: checkMailNotInUse
+#
+#   check if a mail address is not used by the system and throw exception if it
+#   is already used
+#
+#   If mail module is installed its checkMailNotInUse method should be called
+#   instead this one
+sub checkMailNotInUse
+{
+    my ($self, $addr) = @_;
+    my $usersMod = $self->global()->modInstance('users');
+    my %searchParams = (
+        base => $usersMod->ldap()->dn(),
+        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        scope => 'sub'
+    );
+
+    my $result = $self->{'ldap'}->search(\%searchParams);
+    if ($result->count() > 0) {
+        my $entry = $result->entry(0);
+        my $modeledObject = $usersMod->entryModeledObject($entry);
+        my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
+        my $name;
+        if ($type eq 'CourierMailAlias') {
+            $type = __('alias');
+            $name = $entry->get_value('mail');
+        } else {
+            $name = $modeledObject ? $modeledObject->name() : $entry->dn();
+        }
+
+        EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
+                                              addr => $addr,
+                                              type => $type,
+                                              name => $name,
+                                        ),
+                                    );
+    }
+
+}
+
 1;

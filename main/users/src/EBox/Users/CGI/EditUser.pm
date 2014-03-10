@@ -94,7 +94,8 @@ sub _process
                 $user->delete('description', 1);
             }
             my $mail = $self->unsafeParam('mail');
-            if (length ($mail)) {
+            if (length ($mail) and ($mail ne $user->get('mail'))) {
+                $user->checkMail($mail);
                 $user->set('mail', $mail, 1);
             } else {
                 $user->delete('mail', 1);
