@@ -46,7 +46,7 @@ my $app = sub {
 
 my $builder = new Plack::Builder();
 $builder->add_middleware("+EBox::Middleware::UnhandledError");
-$builder->add_middleware_if(sub { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }, "ReverseProxy");
+$builder->add_middleware("ReverseProxy");
 $builder->add_middleware("Session",
                          state   => 'Plack::Session::State::Cookie',
                          store   => new Plack::Session::Store::File(dir => SESSIONS_PATH));
