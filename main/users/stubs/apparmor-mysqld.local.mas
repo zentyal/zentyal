@@ -3,3 +3,4 @@
 
 /run/slapd/ldapi rw,
 
+/etc/ldap/ldap.conf r,

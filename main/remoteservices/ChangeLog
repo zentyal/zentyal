@@ -9,6 +9,8 @@
 	  and uses it as base in specific behaviour
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Fix: Do not subscribe to the newsletter in the wizard if the
+	  user requires so
 	+ On initial setup, do only reload bundle and restart the service
 	  if the server is registered
 	+ Fix warning on last inside an eval on automatic-conf-backup script

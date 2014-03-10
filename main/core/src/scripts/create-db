@@ -7,6 +7,9 @@ create_db()
 {
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
+    # Restart mysql so it loads the zentyal.cnf file
+    service mysql restart
+
     # Do not disable innodb if there are other databases previous to the
     # creation of the Zentyal one
     lines=$(echo "show databases" | mysql --defaults-file=/etc/mysql/debian.cnf | wc -l)
