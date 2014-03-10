@@ -147,6 +147,15 @@ sub initialSetup
     if ($fwMod and $fwMod->changed()){
         $fwMod->saveConfigRecursive();
     }
+
+    if ($self->changed()) {
+       $self->saveConfigRecursive();
+    }
+
+    my $fwMod = $self->global()->modInstance('firewall');
+    if ($fwMod and $fwMod->changed()){
+        $fwMod->saveConfigRecursive();
+    }
 }
 
 # Migration to 3.4
@@ -450,6 +459,13 @@ sub userCredentials
     }
 
     return ($user, $pass, $userDN);
+}
+
+sub updateSessionPassword
+{
+    my ($self, $passwd) = @_;
+    my $global = $self->global();
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $passwd);
 }
 
 #

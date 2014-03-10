@@ -179,15 +179,14 @@ sub setTypedRow
             x => $user);
     }
 
+    my $newPasswd = $pass1->value();
     # Set the new password in the samba database in first place
-    $self->_updateSambaPassword($user, $pass, $pass1->value());
+    $self->_updateSambaPassword($user, $pass, $newPasswd);
 
     # At this point, the password has been changed in samba
-    $zentyalUser->changePassword($pass1->value());
+    $zentyalUser->changePassword($newPasswd);
 
-    # FIXME: Hide this inside a method on EBox::UserCorner
-    use EBox::UserCorner::Middleware::AuthLDAP;
-    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
+    $usercornerMod->updateSessionPassword($newPasswd);
 
     $self->setMessage(__('Password successfully updated'));
 }
