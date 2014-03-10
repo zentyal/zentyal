@@ -752,7 +752,6 @@ sub _getCertificateCNAndSAN
     foreach my $vhost (@san) {
         push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
     }
-
     push @vhosts, $cn;
 
     return \@vhosts;
