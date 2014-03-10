@@ -64,7 +64,7 @@ sub actuate
 
     my $errors = $ha->get_state()->{errors};
     if ($errors->{$node}) {
-        $self->JSONReply({ error => __('Replication failed. Please check /var/log/zentyal/zentyal.log for more information.') });
+        $self->JSONReply({ error => __x('Replication failed. Please check {logfile} for more information.', logfile => '/var/log/zentyal/zentyal.log') });
     }
 
     my $request = $self->request();

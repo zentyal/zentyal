@@ -9,10 +9,14 @@ then
     exit 1
 fi
 
-CURRENT=`hostname`
+if [ `hostname --fqdn` == "$NEW.$DOMAIN" ]; then
+# nothing needs to change, exiting
+    exit 0
+fi
 
 # Set /etc/hosts
 
+CURRENT=`hostname`
 # Delete all lines where current appears un /etc/hosts
 sed -Ei "/^.*\s+$CURRENT\s*$/d" /etc/hosts
 sed -Ei "/^.*\s+$CURRENT\..*$/d" /etc/hosts

@@ -1,4 +1,6 @@
 3.4
+	+ Module manages Roundcube htaccess. Max upload file size is now got from
+	  the mail module. Also added a default timezone to avoid Roundcube warning
 	+ Properly enabled mcrypt module (hotfix)
 	+ Adapt to Apache 2.4
 	+ Rename ebox-webmail conf to zentyal-webmail
