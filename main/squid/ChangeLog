@@ -1,4 +1,4 @@
-HEAD
+3.3.3
 	+ Forced 644 permission on Dansguardian files to avoid zombie processes
 	+ Remove canonical_dn call for compatibility with MS LDAP servers in
 	  external AD mode
