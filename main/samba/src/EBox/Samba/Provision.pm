@@ -407,19 +407,7 @@ sub linkContainer
         }
     }
     $ldbObject->_linkWithUsersObject($ldapObject);
-
-    if ($ldb{advanced}) {
-        # LDB Object is a container and API forbid to change a Container, but
-        # setting the isCriticalSystemObject is valid. Workaround the
-        # restriction.
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 1);
-        $entry->update($ldbObject->_ldap->connection());
-    } else {
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 0);
-        $entry->update($ldbObject->_ldap->connection());
-    }
+    $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
 }
 
 # Method: mapDefaultContainers

@@ -111,7 +111,7 @@ sub row
             status => $status,
         );
         $row->setId($id);
-        if ($gpo->get('isCriticalSystemObject')) {
+        if ($gpo->isCritical()) {
             # Cache the attribute in the row to disallow row
             # deletion
             $row->{isCriticalSystemObject} = 1;

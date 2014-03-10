@@ -1,4 +1,8 @@
 3.4
+	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
+	  and forced the critical flag to 0 so Samba accepts it
+	+ Added EBox::Samba::LdbObject::isCritical method to simplify all checks
+	  of the isCriticalSystemObject attribute
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
 	+ Split openchange configuration into its own config file and set correct
