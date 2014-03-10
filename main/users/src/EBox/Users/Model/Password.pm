@@ -33,16 +33,36 @@ use EBox::Validate qw(:all);
 use Encode;
 use File::Temp qw/tempfile/;
 
-use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
+use constant SAMBA_LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldapi" ;
 
 sub precondition
 {
-    return EBox::Global->modInstance('usercorner')->editableMode();
+    my ($self) = @_;
+
+    my $usercornerMod = EBox::Global->modInstance('usercorner');
+    unless (defined $usercornerMod) {
+        $self->{preconditionFail} = 'notUserCorner';
+        return undef;
+    }
+
+    unless ($usercornerMod->editableMode()) {
+        $self->{preconditionFail} = 'nonEditableMode';
+        return undef;
+    }
+
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notUserCorner') {
+        return __('This form is only available from the User Corner application.');
+    }
+    if ($self->{preconditionFail} eq 'nonEditableMode') {
+        return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
+    }
 }
 
 sub pageTitle
@@ -179,15 +199,14 @@ sub setTypedRow
             x => $user);
     }
 
+    my $newPasswd = $pass1->value();
     # Set the new password in the samba database in first place
-    $self->_updateSambaPassword($user, $pass, $pass1->value());
+    $self->_updateSambaPassword($user, $pass, $newPasswd);
 
     # At this point, the password has been changed in samba
-    $zentyalUser->changePassword($pass1->value());
+    $zentyalUser->changePassword($newPasswd);
 
-    # FIXME: Hide this inside a method on EBox::UserCorner
-    use EBox::UserCorner::Middleware::AuthLDAP;
-    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
+    $usercornerMod->updateSessionPassword($newPasswd);
 
     $self->setMessage(__('Password successfully updated'));
 }

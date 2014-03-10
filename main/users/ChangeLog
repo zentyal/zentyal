@@ -1,4 +1,7 @@
 3.4
+	+ Updated EBox::Users::Model::Password to use
+	  EBox::Usercorner::updateSessionPassword method and the new samba
+	  location
 	+ Added local apparmor profile for mysqld
 	+ Stop changing users and contacts' cn field on object edition, allowed to
 	  edit the displayName field, just as Windows does

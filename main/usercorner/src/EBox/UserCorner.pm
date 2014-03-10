@@ -452,6 +452,13 @@ sub userCredentials
     return ($user, $pass, $userDN);
 }
 
+sub updateSessionPassword
+{
+    my ($self, $passwd) = @_;
+    my $global = $self->global();
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $passwd);
+}
+
 #
 # Implementation of EBox::HAProxy::ServiceBase
 #

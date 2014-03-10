@@ -1,4 +1,5 @@
 3.4
+	+ Enable ReverseProxy middleware always
 	+ MySQL is restarted before creating database
 	+ Use root ownership for webadmin certificates
 	+ Execute change hostname actions only if the hostname has really changed

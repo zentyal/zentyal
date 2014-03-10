@@ -147,6 +147,7 @@ http {
             uwsgi_param SERVER_ADDR $server_addr;
             uwsgi_param SERVER_PORT $server_port;
             uwsgi_param SERVER_NAME $server_name;
+            uwsgi_param HTTP_X_FORWARDED_PROTO https;
         }
 % foreach my $includeFile (@includes) {
 
