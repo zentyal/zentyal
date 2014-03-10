@@ -1,3 +1,5 @@
+HEAD
+	+ Regenerate, if needed captive, portal rules on startup of captived
 3.2.2
 	+ Better synchronization between sessions and iptables rules
 	+ Fixed SID generation code
