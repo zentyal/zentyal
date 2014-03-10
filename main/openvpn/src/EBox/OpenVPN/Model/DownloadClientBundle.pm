@@ -265,7 +265,8 @@ sub formSubmitted
     my ($self, $row) =  @_;
 
     my $type = $row->elementByName('clientType')->value();
-    my $certificate = $row->elementByName('certificate')->value();
+    my $certificateElement = $row->elementByName('certificate');
+    my $certificate = $certificateElement->value();
     my $installer = $row->elementByName('installer')->value();
     my $connStrategy = $row->elementByName('connStrategy')->value();
 
@@ -288,6 +289,13 @@ sub formSubmitted
                                          );
 
     $self->pushFileToDownload($bundle);
+
+    $self->global()->modInstance('audit')->logAction(
+                                 $self->parentModule()->name(),
+                                 'Client bundle',
+                                 'Download',
+                                 $server->name() . ' / ' . $certificateElement->printableValue()
+                                );
 }
 
 sub _server
@@ -405,6 +413,11 @@ sub viewCustomizer
                  }
            }  );
     return $customizer;
+}
+
+sub auditable
+{
+    return 0;
 }
 
 1;

@@ -99,8 +99,9 @@ sub _auditLog
     }
     return unless $self->{audit}->isEnabled();
 
-
     my $model = $self->{tableModel};
+    return unless $model->auditable();
+
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
 
