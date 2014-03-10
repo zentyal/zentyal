@@ -1,4 +1,4 @@
-HEAD
+3.3.2
 	+ Fixed bad behaviour in interfaces method wizard
 	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
 	+ Don't generate resolvconf file until all interfaces are up
