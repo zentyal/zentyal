@@ -156,7 +156,7 @@ sub srvsCerts
         next unless @modsrvs;
         for my $srv (@modsrvs) {
             $srv->{serviceId} or next;
-            $srv->{'module'} = $mod;
+            $srv->{module} = $mod;
             push(@srvscerts, $srv);
         }
     }
