@@ -1,4 +1,4 @@
-HEAD
+3.3.4
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
 	+ Fix NT_STATUS_ACCESS_DENIED opening files quering the DOS attributes
