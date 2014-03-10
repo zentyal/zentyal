@@ -30,7 +30,7 @@ use EBox::Exceptions::LDAP;
 use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use Net::LDAP::Control;
+use Net::LDAP::Control::Relax;
 
 use Perl6::Junction qw(any);
 use TryCatch::Lite;
@@ -382,9 +382,11 @@ sub setInAdvancedViewOnly
     } else {
         $self->delete('showInAdvancedViewOnly', 1);
     }
-    my $relaxOidControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.4203.666.5.12',
-        critical => 0 );
+
+    my $relaxOidControl = new Net::LDAP::Control::Relax();
+    # SAMBA requires the critical flag set to 0 to be able to get the Relax control working, however,
+    # Net::LDAP::Control::Relax forces it always to 1 so we need to force it back to 0.
+    $relaxOidControl->{critical} = 0;
     $self->save($relaxOidControl) unless $lazy;
 }
 
