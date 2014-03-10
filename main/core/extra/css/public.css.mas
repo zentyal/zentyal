@@ -1191,36 +1191,39 @@ a.minBox, a.maxBox {
     margin-top:15px;
     text-transform: uppercase;
 }
-.linksBlock li.links-register a,
-.linksBlock li.links-trial a{
+
+.links-highlight a{
     display: block;
     text-align: center;
     font-size: 16px;
     padding: 15px 0px;
-    color: #fff;
-    background-color: #00add0;
     border-radius: 2px;
     text-decoration: none;
     margin-bottom: 10px;
-    border: 1px solid #0087a5;
-}
-.linksBlock li.links-trial > a{
+    border: 1px solid #ccc;
     background-color: #ddd;
-    border-color: #ccc;
     color: #333;
 }
-.linksBlock li.links-register a:hover{
+span.links-register a{
+   color: #fff;
+   background-color: #00add0;
+   border-color: #0087a5;
+}
+span.links-register a:hover{
     background-color: #0087a5;
     border-color: #006981;
 }
-.linksBlock li.links-trial a:hover{
+.links-highlight a:hover{
     background-color: #ccc;
     border-color: #999;
 }
+
+.links-half,
 .linksBlock {
     float: left;
     width: 49%;
 }
+.links-half + .links-half,
 .linksBlock + .linksBlock{
     margin-left: 2%;
 }

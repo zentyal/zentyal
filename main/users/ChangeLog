@@ -1,4 +1,5 @@
 3.4
+	+ Added local apparmor profile for mysqld
 	+ Stop changing users and contacts' cn field on object edition, allowed to
 	  edit the displayName field, just as Windows does
 	+ Disable OpenLDAP users sync in favor of Samba AD replication

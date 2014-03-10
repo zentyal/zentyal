@@ -14,11 +14,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Gettext;
 
 use utf8;
 use Locale::gettext;
-use EBox::Config;
+use EBox;
 
 BEGIN {
     use Exporter ();
@@ -28,12 +31,21 @@ BEGIN {
     @EXPORT = qw{ __ __x __s __sx __p __px langs __n};
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
-    $VERSION = EBox::Config::version;
 }
 
 my $DEFAULT_DOMAIN = 'zentyal';
-my $SUBS_DOMAIN = 'zentyal-subscription';
 my $PROF_DOMAIN = 'zentyal-prof';
+
+my $_lang = undef;
+
+sub _lang
+{
+    unless (defined $_lang) {
+        $_lang = substr(EBox::locale(), 0, 2);
+    }
+
+    return $_lang;
+}
 
 sub __ # (text)
 {
@@ -78,14 +90,14 @@ sub __s # (text)
 {
     my ($text) = @_;
 
-    return __d($text, $SUBS_DOMAIN);
+    return (_lang() eq 'es') ? __($text) : $text;
 }
 
 sub __sx # (text, %variables)
 {
     my ($text, %vars) = @_;
 
-    return __dx($text, $SUBS_DOMAIN, %vars);
+    return (_lang() eq 'es') ? __x($text, %vars) : __expand($text, %vars);
 }
 
 sub __p # (text)
