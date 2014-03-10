@@ -1,4 +1,6 @@
 3.4
+	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
+	  correctly
 	+ Split openchange configuration into its own config file and set correct
 	  permissions on it
 	+ Remove printers from dependencies list if the module is not installed
