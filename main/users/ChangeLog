@@ -1,4 +1,5 @@
 HEAD
+	+ Add script to update the credentials when mode is external AD
 	+ Updated cloud sync to ignore any change done in cloud to internal users
 	  or groups
 	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
