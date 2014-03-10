@@ -729,10 +729,8 @@ sub _setConf
         # Store the domain data to create the reverse zones
         push (@domainData, $domdata);
 
-        # Add the updater key if the zone is dynamic
-        if ($domdata->{dynamic}) {
-            $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
-        }
+        # Add the domain key used for dynamic updates
+        $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
 
         # Skip if this is a dynamic zone
         my $dynamic = $self->_isDynamicZone($domainId);
