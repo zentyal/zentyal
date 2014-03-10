@@ -735,11 +735,11 @@ sub certificates
 }
 
 # Get subjAltNames on the existing certificate
-sub _getCertificateSAN
+sub _getCertificateCNAndSAN
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
@@ -752,6 +752,8 @@ sub _getCertificateSAN
     foreach my $vhost (@san) {
         push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
     }
+
+    push @vhosts, $cn;
 
     return \@vhosts;
 }
@@ -797,7 +799,7 @@ sub _issueCertificate
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
@@ -829,14 +831,13 @@ sub _checkCertificate
 
     return unless $self->listeningHTTPSPort();
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     return unless $certificates->isEnabledService('zentyal_' . $self->name());
 
     my $model = $self->model('VHostTable');
     my @vhostsTable = @{$model->getWebServerSAN()};
-    my @vhostsCert = @{$self->_getCertificateSAN()};
-
+    my @vhostsCert = @{$self->_getCertificateCNAndSAN()};
     return unless @vhostsTable;
 
     if (@vhostsCert) {
