@@ -147,15 +147,6 @@ sub initialSetup
     if ($fwMod and $fwMod->changed()){
         $fwMod->saveConfigRecursive();
     }
-
-    if ($self->changed()) {
-       $self->saveConfigRecursive();
-    }
-
-    my $fwMod = $self->global()->modInstance('firewall');
-    if ($fwMod and $fwMod->changed()){
-        $fwMod->saveConfigRecursive();
-    }
 }
 
 # Migration to 3.4
