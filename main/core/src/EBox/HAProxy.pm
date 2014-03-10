@@ -455,10 +455,41 @@ sub initialSetup
             $value->{name} = 'zentyal_' . $webserverMod->name();
             $value->{printableName} = $webserverMod->printableName(),
             $value->{description} = $webserverMod->printableName(),
-            $redis->set($key, $value);
+            $redis->set($key, $1);
         }
 
     }
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+    my $webadmin = $self->global()->modInstance('webadmin');
+    return [
+            {
+             serviceId =>  'zentyal_' . $webadmin->name(),
+             service =>  __('Zentyal Administration Web Server'),
+             path    =>  $webadmin->pathHTTPSSSLCertificate(),
+             user => EBox::Config::user(),
+             group => EBox::Config::group(),
+             mode => '0600',
+            },
+           ];
 }
 
 1;
