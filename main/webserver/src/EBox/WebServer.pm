@@ -734,7 +734,7 @@ sub certificates
     ];
 }
 
-# Get subjAltNames on the existing certificate
+# Get CN and subjAltNames on the existing certificate
 sub _getCertificateCNAndSAN
 {
     my ($self) = @_;

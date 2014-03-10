@@ -455,7 +455,7 @@ sub initialSetup
             $value->{name} = 'zentyal_' . $webserverMod->name();
             $value->{printableName} = $webserverMod->printableName(),
             $value->{description} = $webserverMod->printableName(),
-            $redis->set($key, $1);
+            $redis->set($key, $value);
         }
 
     }

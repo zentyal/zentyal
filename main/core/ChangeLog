@@ -1,5 +1,5 @@
 3.4
-	+ Moved management of webadmin certifcate to HAProxy module
+	+ Moved management of webadmin certificate to HAProxy module
 	+ Use root ownership for webadmin certificates
 	+ Execute change hostname actions only if the hostname has really changed
 	+ Don't expire session on finish software wizard page

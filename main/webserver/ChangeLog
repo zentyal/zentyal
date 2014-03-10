@@ -1,5 +1,5 @@
 3.4
-	+ Don't regenerate certficate if it has the same CN that the
+	+ Don't regenerate certificate if it has the same CN that the
 	  virtual host name
 	+ Register in Apache configuration the public port used to reach it so
 	  automatic redirects work behind haproxy
