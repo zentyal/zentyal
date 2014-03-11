@@ -245,13 +245,11 @@ sub _updateSessions
                 }
                 push @rulesToExecute, @rules, @removeRules;
                 foreach my $rule (@rulesToExecute) {
-                    try {
-                        EBox::Sudo::root($rule);
-                    } otherwise {
-                        my ($ex) = @_;
-                        EBox::debug("Cannot execute captive portal fw rule: $ex");
+                    EBox::Sudo::silentRoot($rule);
+                    if ($? != 0) {
                         # ignore error and continue with next rule
-                    };
+                        EBox::debug("Cannot execute captive portal fw rule: $rule");
+                    }
                 }
             } finally {
                 EBox::Util::Lock::unlock('firewall');
