@@ -1,4 +1,6 @@
 HEAD
+	+ Use replace instead of href to redirect in Controller::DataTable
+	  (This avoids infinite loops if the user press back button)
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
 	  make file downloads work again
 3.3.5
