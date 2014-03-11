@@ -447,16 +447,38 @@ sub _setDfltVhost
 {
     my ($self, $hostname, $hostnameVhost) = @_;
 
-    my @params = ();
-    push (@params, hostname      => $hostname);
-    push (@params, hostnameVhost => $hostnameVhost);
-    push (@params, publicPort    => $self->listeningHTTPPort());
-    push (@params, port          => $self->targetHTTPPort());
-    push (@params, publicSSLPort => $self->listeningHTTPSPort());
-    push (@params, sslPort       => $self->targetHTTPSPort());
+    if ($self->listeningHTTPPort()) {
+        my @params = ();
+        push (@params, hostname      => $hostname);
+        push (@params, hostnameVhost => $hostnameVhost);
+        push (@params, publicPort    => $self->listeningHTTPPort());
+        push (@params, port          => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
+        push (@params, sslPort       => $self->targetHTTPSPort());
 
-    # Overwrite the default vhost file
-    $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas", \@params);
+        # Overwrite the default vhost file
+        $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas", \@params);
+
+        # Enable 000-default vhost
+        try {
+            EBox::Sudo::root('a2ensite 000-default');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    } else {
+        # Disable 000-default vhost
+        try {
+            EBox::Sudo::root('a2dissite 000-default');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    }
 }
 
 # Set up default-ssl vhost
@@ -488,7 +510,7 @@ sub _setDfltSSLVhost
         try {
             EBox::Sudo::root('a2dissite default-ssl');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already enabled?
+            # Already disabled?
             if ($e->exitValue() != 1) {
                 $e->throw();
             }
