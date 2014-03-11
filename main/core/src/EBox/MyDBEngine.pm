@@ -41,6 +41,8 @@ use EBox::Util::SQLTypes;
 use TryCatch::Lite;
 use Data::Dumper;
 
+use constant SQL_CONF_FILE => "/etc/mysql/conf.d/zentyal.cnf";
+
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
 
 sub new
@@ -54,6 +56,31 @@ sub new
     $self->{logs} = EBox::Global->getInstance(1)->modInstance('logs');
 
     return $self;
+}
+
+# Method: updateMysqlConf
+#
+# Checks the server status and writes down the MySQL Zentyal conf file
+#  * It also restarts the mysql daemon
+#
+sub updateMysqlConf
+{
+    my ($self) = @_;
+
+    my @confParams;
+    push @confParams, (enableInnoDB => $self->_enableInnoDB());
+
+    EBox::Module::Base::writeConfFileNoCheck(SQL_CONF_FILE, "core/zentyal.cnf.mas", \@confParams);
+    EBox::Sudo::root("restart mysql");
+}
+
+sub _enableInnoDB
+{
+    my ($self) = @_;
+
+    return (EBox::Global->modExists('openchange')
+            or EBox::Global->modExists('zarafa')
+            or EBox::Global->modExists('webmail'));
 }
 
 # Method: _dbname
