@@ -2556,7 +2556,6 @@ sub checkMailNotInUse
                                         ),
                                     );
     }
-
 }
 
 # Method: appArmorProfiles
@@ -2580,7 +2579,6 @@ sub appArmorProfiles
          'params' => [],
         }
     ];
-
 }
 
 1;
