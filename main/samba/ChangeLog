@@ -1,4 +1,6 @@
 HEAD
+	+ Set allow_non_scanned_files = True on samba.conf by default to
+	  avoid issues with antivirus when editing files
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
 3.2.14
