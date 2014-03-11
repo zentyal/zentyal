@@ -1,4 +1,5 @@
 3.4
+	+ Better control of stopping daemon before syncing time
 	+ Adapted apparmor configuration to Saucy
 	+ Save module config after initialSetup
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
