@@ -1,3 +1,6 @@
+HEAD
+	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
+	  make file downloads work again
 3.3.5
 	+ Avoid division by zero while using page navigation
 	+ Automatic report text formatting adapted to Redmine
