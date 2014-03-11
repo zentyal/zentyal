@@ -1,4 +1,12 @@
 3.4
+	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
+	  and forced the critical flag to 0 so Samba accepts it
+	+ Added EBox::Samba::LdbObject::isCritical method to simplify all checks
+	  of the isCriticalSystemObject attribute
+	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
+	  correctly
+	+ Split openchange configuration into its own config file and set correct
+	  permissions on it
 	+ Remove printers from dependencies list if the module is not installed
 	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
 	  and added a note about why it cannot be used in the method documentation
@@ -7,6 +15,8 @@
 	+ Depend on new samba packaging instead of old samba4 one
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
+	  correctly
 	+ Fix NT_STATUS_ACCESS_DENIED opening files quering the DOS attributes
 	  and passing them to open function
 	+ Set OpenChange as not provisioned when Samba is reprovisioned

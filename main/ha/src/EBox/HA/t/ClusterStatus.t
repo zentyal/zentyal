@@ -66,7 +66,7 @@ sub setUpInstance : Test(setup)
             <node name='failed-doggie' id='3' online='false' standby='false' standby_onfail='false' maintenance='false' pending='false' unclean='false' shutdown='false' expected_up='true' is_dc='false' resources_running='0' type='member' />
         </nodes>
         <resources>
-            <resource id='ClusterIP' resource_agent='ocf::heartbeat:IPaddr2' role='Started' active='true' orphaned='false' managed='true' failed='false' failure_ignored='false' nodes_running_on='1' >
+            <resource id='ClusterIP' resource_agent='ocf::heartbeat:IPaddr2' role='Started' active='true' orphaned='false' managed='false' failed='false' failure_ignored='false' nodes_running_on='1' >
                <node name="mini-fox" id="2" cached="false"/>
             </resource>
             <resource id='ClusterIP2' resource_agent='ocf::heartbeat:IPaddr2' role='Started' active='true' orphaned='false' managed='true' failed='false' failure_ignored='false' nodes_running_on='1' >
@@ -202,6 +202,15 @@ sub test_active_node : Test(1)
 
     my $clusterStatus = $self->{clusterStatus};
     cmp_ok($clusterStatus->activeNode(), 'eq', 'mini-fox');
+}
+
+sub test_unamanaged_resources : Test(1)
+{
+    my ($self) = @_;
+
+    my $clusterStatus = $self->{clusterStatus};
+
+    ok($clusterStatus->areThereUnamanagedResources(), "There are unmanaged resources");
 }
 
 1;

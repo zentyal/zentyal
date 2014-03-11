@@ -131,7 +131,7 @@ sub _register
     $sector = 'other' unless ($sector);
 
     my $newsletter = $self->param('newsletter');
-    $newsletter = "off" unless(defined($newsletter));
+    $newsletter = "" unless(defined($newsletter));
 
     my $result;
     my $restClient = new EBox::RemoteServices::RESTClient();

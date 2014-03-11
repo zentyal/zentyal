@@ -139,7 +139,7 @@ $model
 %  # Print the help if any
 %  my $help = $model->help();
 %  if ($help) {
-<div class="help">
+<div class="help" style="display:none">
   <% $model->help() %>
 </div>
 %  }

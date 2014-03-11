@@ -57,7 +57,7 @@ sub validateTypedRow
     }
 }
 
-# Method: updatedTypedRow
+# Method: updatedRowNotify
 #
 #     Override to notify HAProxy the change in the port
 #

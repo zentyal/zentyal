@@ -49,10 +49,6 @@ use Text::DHCPLeases;
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
-#use constant DHCPCONFFILE => "@DHCPDCONF@";
-#use constant LEASEFILE => "@DHCPDLEASES@";
-#use constant PIDFILE => "@DHCPDPID@";
-#use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
 use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
 use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
@@ -816,11 +812,17 @@ sub PluginConfDir
 {
     my ($class, $iface) = @_;
 
-    my $pluginDir = CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
+    my $pluginDir = $class->PluginConfDirPath($iface);
     unless ( -d $pluginDir ) {
         mkdir ( $pluginDir, 0755 );
     }
     return $pluginDir;
+}
+
+sub PluginConfDirPath
+{
+    my ($class, $iface) = @_;
+    return CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
 }
 
 # Method:  userConfDir
@@ -1339,7 +1341,7 @@ sub _thinClientOptions # (iface, element)
     my $ret = {};
     my $row = $thinClientModel->row();
     if (defined ($row)) {
-        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
+        $ret->{nextServer} = $thinClientModel->nextServer($iface);
         $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;

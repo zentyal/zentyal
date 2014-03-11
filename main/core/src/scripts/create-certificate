@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use English '-no_match_vars';
 use EBox;
+use EBox::Sudo;
 use EBox::Util::Certificate;
 
 my ($destDir, $issuer) = @ARGV;
@@ -18,7 +19,7 @@ _checkCredentials();
 EBox::init();
 _checkPrograms();
 
-if (not -d $destDir) {
+if (EBox::Sudo::fileTest('-d', $destDir)) {
     print "SSL directory $destDir does not exist, we will create it\n";
 }
 

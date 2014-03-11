@@ -774,37 +774,6 @@ sub _CAs
     return \@cas;
 }
 
-# Method: certificates
-#
-#   This method is used to tell the CA module which certificates
-#   and its properties we want to issue for this service module.
-#
-# Returns:
-#
-#   An array ref of hashes containing the following:
-#
-#       service - name of the service using the certificate
-#       path    - full path to store this certificate
-#       user    - user owner for this certificate file
-#       group   - group owner for this certificate file
-#       mode    - permission mode for this certificate file
-#
-sub certificates
-{
-    my ($self) = @_;
-
-    return [
-            {
-             serviceId =>  'zentyal_' . $self->name(),
-             service =>  __('Zentyal Administration Web Server'),
-             path    =>  $self->pathHTTPSSSLCertificate(),
-             user => EBox::Config::user(),
-             group => EBox::Config::group(),
-             mode => '0600',
-            },
-           ];
-}
-
 # Method: disableRestartOnTrigger
 #
 #   Makes webadmin and other modules listed in the restart-trigger script  to

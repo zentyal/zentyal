@@ -450,7 +450,9 @@ sub _setDfltVhost
     my @params = ();
     push (@params, hostname      => $hostname);
     push (@params, hostnameVhost => $hostnameVhost);
+    push (@params, publicPort    => $self->listeningHTTPPort());
     push (@params, port          => $self->targetHTTPPort());
+    push (@params, publicSSLPort => $self->listeningHTTPSPort());
     push (@params, sslPort       => $self->targetHTTPSPort());
 
     # Overwrite the default vhost file
@@ -467,6 +469,7 @@ sub _setDfltSSLVhost
         push (@params, hostname      => $hostname);
         push (@params, hostnameVhost => $hostnameVhost);
         push (@params, sslPort       => $self->targetHTTPSPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
 
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas", \@params);
@@ -588,7 +591,9 @@ sub _setVHosts
         my @params = ();
         push (@params, vHostName  => $vHostName);
         push (@params, hostname   => $self->_fqdn());
+        push (@params, publicPort    => $self->listeningHTTPPort());
         push (@params, port       => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
         push (@params, sslPort    => $self->targetHTTPSPort());
         push (@params, sslSupport => $sslSupport);
 
@@ -729,12 +734,12 @@ sub certificates
     ];
 }
 
-# Get subjAltNames on the existing certificate
-sub _getCertificateSAN
+# Get CN and subjAltNames on the existing certificate
+sub _getCertificateCNAndSAN
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
@@ -747,6 +752,7 @@ sub _getCertificateSAN
     foreach my $vhost (@san) {
         push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
     }
+    push @vhosts, $cn;
 
     return \@vhosts;
 }
@@ -792,7 +798,7 @@ sub _issueCertificate
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
@@ -824,14 +830,13 @@ sub _checkCertificate
 
     return unless $self->listeningHTTPSPort();
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
     return unless $certificates->isEnabledService('zentyal_' . $self->name());
 
     my $model = $self->model('VHostTable');
     my @vhostsTable = @{$model->getWebServerSAN()};
-    my @vhostsCert = @{$self->_getCertificateSAN()};
-
+    my @vhostsCert = @{$self->_getCertificateCNAndSAN()};
     return unless @vhostsTable;
 
     if (@vhostsCert) {

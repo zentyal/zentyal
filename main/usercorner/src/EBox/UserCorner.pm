@@ -136,7 +136,7 @@ sub initialSetup
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrate34();
+        $self->_migrateTo34();
     }
 
     if ($self->changed()) {
@@ -450,6 +450,13 @@ sub userCredentials
     }
 
     return ($user, $pass, $userDN);
+}
+
+sub updateSessionPassword
+{
+    my ($self, $passwd) = @_;
+    my $global = $self->global();
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $passwd);
 }
 
 #

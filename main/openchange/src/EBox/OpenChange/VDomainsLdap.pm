@@ -39,7 +39,8 @@ sub _delVDomainAbort
     my $outgoing  = $self->{openchangeMod}->model('Provision')->outgoingDomain();
     if ($vdomain eq $outgoing) {
         throw EBox::Exceptions::External(
-            __x('The virtual mail domain {dom} cannot  be removed because is openchange outgoing domain', dom => $vdomain)
+            __x('The virtual mail domain {dom} cannot be removed because it is {oc} outgoing domain',
+                dom => $vdomain, oc => 'OpenChange')
            );
     }
 

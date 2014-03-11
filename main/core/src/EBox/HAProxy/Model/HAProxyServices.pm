@@ -278,14 +278,14 @@ sub validateTypedRow
         if (exists $params_r->{port}) {
             if ($actual_r->{blockPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the HTTP port.')
+                    __('This service does not let change the HTTP port.')
                 );
             }
         }
         if (exists $params_r->{sslPort}) {
             if ($actual_r->{blockSSLPort}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service does not allow to change the HTTPS port.')
+                    __('This service does not let change the HTTPS port.')
                 );
             }
         }
@@ -361,10 +361,8 @@ sub validateTypedRow
                         throw EBox::Exceptions::External($errorMsg);
                     }
                 } else {
-                    throw EBox::Exceptions::External(__x(
-                        'The SSL certificate {module} does not exists, you cannot enable SSL for this service.',
-                        module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
-                    ));
+                    throw EBox::Exceptions::External(
+                        __('To enable SSL port you need the CA module installed and enabled.'));
                 }
             }
         }

@@ -1078,6 +1078,18 @@ sub firstTimeMenu
     $output .= $self->_dumpMenuItem(__('Finish'), 5, $current);
 
     $output .= "</ul></div>\n";
+    $output .= <<END_SCRIPT;
+<script>
+\$(function() {
+   // ping the server each 60s
+   var ping_server = function() {
+        \$.getJSON('/SysInfo/HasUnsavedChanges',  function(response){});
+         setTimeout(ping_server, 60000);
+   };
+  setTimeout(ping_server, 60000);
+});
+</script>
+END_SCRIPT
 
     return $output;
 }

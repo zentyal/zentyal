@@ -778,7 +778,7 @@ sub _printRedirect
     my ($self) = @_;
     my $url = $self->_redirect();
     return unless (defined($url));
-    print "<script>window.location.href='$url'</script>";
+    print qq{<script type="text/javascript">\$(document).ready(function(){ window.location.replace('$url'); });</script>};
 }
 
 sub _print

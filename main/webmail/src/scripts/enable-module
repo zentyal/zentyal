@@ -36,4 +36,8 @@ EOT
 # Required for openchange calendar plugin
 cat /usr/share/roundcube/plugins/calendar/drivers/zentyal_openchange/SQL/mysql.initial.sql | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
 
+# Solving a mcrypt problem in 13.10 (Saucy)
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+php5enmod mcrypt
+
 exit 0

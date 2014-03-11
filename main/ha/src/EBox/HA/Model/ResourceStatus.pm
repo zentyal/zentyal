@@ -120,7 +120,7 @@ sub _table
         withoutActions => 1,
         showPaginationForm => 0,
         showFilterForm => 0,
-        noDataMsg => __('The cluster has not any resources defined.'),
+        noDataMsg => __('The cluster does not have any resources defined.'),
         help => undef,
     };
 

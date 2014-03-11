@@ -35,6 +35,7 @@ use File::Slurp;
 
 use constant {
     MAIN_INC_FILE => '/etc/roundcube/main.inc.php',
+    HTACCESS_FILE => '/etc/roundcube/htaccess',
     DES_KEY_FILE  => EBox::Config::conf() . 'roundcube.key',
     SIEVE_PLUGIN_INC_USR_FILE =>
            '/usr/share/roundcube/plugins/managesieve/config.inc.php',
@@ -42,6 +43,7 @@ use constant {
            '/etc/roundcube/managesieve-config.inc.php',
     ROUNDCUBE_DIR => '/var/lib/roundcube',
     HTTPD_WEBMAIL_DIR => '/var/www/webmail',
+    MAX_UPLOAD_SIZE => 50,
 };
 
 # Group: Protected methods
@@ -104,11 +106,35 @@ sub _setConf
                          $params,
                         );
 
+    $params = [];
+    push @{$params}, (
+        uploadLimit => $self->_retrieveMaxMailSize(),
+    );
+    $self->writeConfFile(
+                         HTACCESS_FILE,
+                         'webmail/htaccess.mas',
+                         $params,
+                        );
+
     if ($managesieve) {
         $self->_setManageSievePluginConf();
     }
 
     $self->_setWebServerConf();
+}
+
+sub _retrieveMaxMailSize
+{
+    my ($self) = @_;
+
+    my $mailLimit = 0;
+    my $mail = $self->global()->modInstance('mail');
+
+    if (defined ($mail) and $mail->isEnabled()) {
+        $mailLimit = $mail->getMaxMsgSize();
+    }
+
+    return $mailLimit ? $mailLimit : MAX_UPLOAD_SIZE;
 }
 
 sub _openchangeEnabled
@@ -117,6 +143,20 @@ sub _openchangeEnabled
 
     my $openchange = $self->global()->modInstance('openchange');
     return (defined ($openchange) and $openchange->isEnabled() and $openchange->isProvisioned());
+}
+
+sub _retrieveMaxMailSize
+{
+    my ($self) = @_;
+
+    my $mailLimit = 0;
+    my $mail = $self->global()->modInstance('mail');
+
+    if (defined ($mail) and $mail->isEnabled()) {
+        $mailLimit = $mail->getMaxMsgSize();
+    }
+
+    return $mailLimit ? $mailLimit : MAX_UPLOAD_SIZE;
 }
 
 sub _managesieveEnabled
@@ -282,6 +322,11 @@ sub usedFiles
         {
             'file' => MAIN_INC_FILE,
             'reason' => __('To configure Roundcube webmail.'),
+            'module' => 'webmail'
+        },
+        {
+            'file' => HTACCESS_FILE,
+            'reason' => __('To customize PHP for the webmail.'),
             'module' => 'webmail'
         },
         {

@@ -94,7 +94,6 @@ case "$1" in
 
         # create Zentyal webadmin certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl `hostname --fqdn` > /dev/null 2>&1
-        chown -R ebox.adm $ZENTYAL_HOME/conf/ssl
 
         # stop disable default nginx init.d script
         service nginx stop > /dev/null 2>&1

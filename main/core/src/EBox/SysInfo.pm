@@ -370,6 +370,8 @@ sub linksWidget
     my @params = (
         rsPackage => $global->modExists('remoteservices'),
         softwarePackage => $global->modExists('software'),
+        community => $global->communityEdition(),
+        registered => ($global->edition() eq 'basic'),
     );
 
     my $html = EBox::Html::makeHtml('dashboard/links-widget.mas', @params);

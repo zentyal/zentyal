@@ -13,20 +13,25 @@
 <%args>
   $vHostName
   $hostname
+  $publicPort
   $port
+  $publicSSLPort
   $sslPort
   $sslSupport
 </%args>
 <& /webserver/vhostHttp.mas,
       vHostName  => $vHostName,
       hostname   => $hostname,
+      publicPort => $publicPort,
       port       => $port,
+      publicSSLPort => $publicSSLPort,
       sslPort    => $sslPort,
       sslSupport => $sslSupport,
 &>
 <& /webserver/vhostHttps.mas,
       vHostName  => $vHostName,
       hostname   => $hostname,
+      publicSSLPort => $publicSSLPort,
       sslPort    => $sslPort,
       sslSupport => $sslSupport,
 &>

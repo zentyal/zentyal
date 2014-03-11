@@ -231,7 +231,6 @@ sub pathHTTPSSSLCertificate
 #   string - The CA SSL service name for HAProxy.
 #
 sub caServiceIdForHTTPS
-
 {
     my ($self) = @_;
 
