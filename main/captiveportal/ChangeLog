@@ -2,6 +2,7 @@
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Don't show iptables error on Captive Daemon if debug is not enabled
 	+ Regenerate, if needed captive, portal rules on startup of captived
 	+ Better synchronization between sessions and iptables rules
 	+ Fixed SID generation code
