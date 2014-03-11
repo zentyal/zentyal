@@ -1,4 +1,5 @@
 3.4
+	+ Added auditable property to EBox::Model::DataTable
 	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
 	+ Moved management of webadmin certificate to HAProxy module
 	+ Enable ReverseProxy middleware always

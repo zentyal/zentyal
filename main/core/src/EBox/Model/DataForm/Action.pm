@@ -107,4 +107,11 @@ sub setTypedRow
     $self->updatedRowNotify($row, undef, $force);
 }
 
+# auditable turned off, in case of need to audit actions there must be audited
+# by custom code
+sub auditable
+{
+    return 0;
+}
+
 1;
