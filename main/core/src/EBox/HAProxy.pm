@@ -209,6 +209,11 @@ sub _setConf
 {
     my ($self) = @_;
 
+    # execute HAProxyPreSetConf for dependent modules
+    foreach my $mod (@{ $self->modsWithHAProxyService() }) {
+        $mod->HAProxyPreSetConf();
+    }
+
     my @params = ();
     push (@params, haproxyconfpath => HAPROXY_CONF_FILE);
     $self->writeConfFile(HAPROXY_DEFAULT_FILE, 'core/haproxy-default.mas', \@params);
