@@ -1,3 +1,6 @@
+HEAD
+	+ Use replace instead of href to redirect in Controller::DataTable
+	  (This avoids infinite loops if the user press back button)
 3.2.8
 	+ Automatic report text formatting adapted to Redmine
 	+ Fix tab selection in tabbed composite from URL path anchor,

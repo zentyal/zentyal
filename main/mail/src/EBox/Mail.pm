@@ -1840,4 +1840,27 @@ sub openchangeProvisioned
     return 0;
 }
 
+# Method: checkMailNotInUse
+#
+#   check if a mail address is not used by the system and throw exception if it
+#   is already used
+#
+#  This method should be called in preference of EBox::Users::checkMailNotInUse
+#  since it check some extra situations which arises with the mail module.
+#  Do NOT call both
+sub checkMailNotInUse
+{
+    my ($self, $mail) =@_;
+    # TODO: check vdomain alias mapping to the other domains?
+    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+
+    # if the external aliases has been already saved to LDAP it will be caught
+    # by the previous check
+    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+        throw EBox::Exceptions::External(
+            __x('Address {addr} is in use as external alias', addr => $mail)
+           );
+    }
+}
+
 1;
