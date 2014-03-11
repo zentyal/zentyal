@@ -343,7 +343,7 @@ sub validateTypedRow
                     unless ($certificates->isEnabledService($module->caServiceIdForHTTPS())) {
                         my $errorMsg = __x(
                             'You need to enable the certificate for {module} at {ohref}Services Certificates page{chref}',
-                            service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
+                            service => $module->printableName(), ohref => '<a href="/CA/View/Certificates">',
                             chref => '</a>'
                         );
                         foreach my $certificate (@{$module->certificates}) {
@@ -352,7 +352,7 @@ sub validateTypedRow
                                 $errorMsg = __x(
                                     'You need to enable the {serviceName} certificate for {module} on '.
                                     '{ohref}Services Certificates{chref}',
-                                    serviceName => $serviceName, service => $module->displayName(),
+                                    serviceName => $serviceName, service => $module->printableName(),
                                     ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
                                 );
                                 last;
