@@ -1849,7 +1849,7 @@ sub checkMailNotInUse
     # TODO: check vdomain alias mapping to the other domains?
     $self->global()->modInstance('users')->checkMailNotInUse($mail);
 
-    # if the external aliases has been already saved to LDAP it will be caught
+   # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
     if ($self->model('ExternalAliases')->aliasInUse($mail)) {
         throw EBox::Exceptions::External(
