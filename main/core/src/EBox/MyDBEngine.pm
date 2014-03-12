@@ -60,7 +60,8 @@ sub new
 
 # Method: updateMysqlConf
 #
-#   Checks the server status and writes down the MySQL Zentyal conf file
+#   Checks the server status and writes down the MySQL Zentyal conf file.
+#   Using the zentyal.cnf.mas the innodb parameter is set here
 #   It also restarts the mysql daemon
 #
 sub updateMysqlConf

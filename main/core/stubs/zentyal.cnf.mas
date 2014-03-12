@@ -1,6 +1,7 @@
 <%args>
     $enableInnoDB
 </%args>
+# Managed by Zentyal
 [mysqld]
 % if ($enableInnoDB) {
 innodb = on
