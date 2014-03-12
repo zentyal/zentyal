@@ -60,6 +60,7 @@ sub _process
 
     my $updatesStr = __('No updates');
     my $updatesType = 'good';
+    my $reboot ='/var/run/reboot-required';
     if (-e $reboot) {
         $updatesStr.= __(" Nevertheless some packages require a reboot to be applied");
         $updatesType = 'warning';
@@ -102,7 +103,6 @@ sub _process
                 }
                 $updatesStr .= '</a>';
             }
-            $reboot ='/var/run/reboot-required';
             if (-e $reboot) {
                 $updatesStr.= __(' Moreover, there are some packages that require a reboot to be applied');
             }
