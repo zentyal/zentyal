@@ -808,7 +808,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/authldap.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
 

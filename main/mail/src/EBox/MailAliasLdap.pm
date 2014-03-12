@@ -147,76 +147,6 @@ sub addGroupAlias
             $self->addMaildrop($alias, $mail);
         }
     }
-
-    $self->_addmailboxRelatedObject($alias, $group);
-}
-
-sub _addmailboxRelatedObject
-{
-    my ($self, $alias, $group) = @_;
-
-    return if $self->_mailboxRelatedObjectInGroup($group);
-
-    $group->add('objectClass', 'mailboxRelatedObject', 1);
-    my @currentMail = $group->get('mail');
-    if (not grep { $_ eq $alias  } @currentMail) {
-        $group->add('mail', $alias, 1) ;
-    }
-
-    $group->save();
-}
-
-sub _delmailboxRelatedObject
-{
-    my ($self, $alias, $group) = @_;
-
-    return unless $self->_mailboxRelatedObjectExists($alias);
-
-    my @classes = $group->get('objectClass');
-    my @mail = $group->get('mail');
-
-    @classes = grep { $_ ne 'mailboxRelatedObject' } @classes;
-    @mail = grep { $_ ne $alias } @mail;
-
-    $group->set('objectClass', \@classes, 1);
-    $group->set('mail', \@mail, 1);
-    $group->save();
-}
-
-sub _mailboxRelatedObjectInGroup
-{
-    my ($self, $group) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-
-    $group = $group->get('cn');
-    my %attrs = (
-        base => $users->ldap()->dn(),
-        filter => "(&(objectclass=mailboxRelatedObject)(cn=$group))",
-        scope => 'sub'
-    );
-
-    my $result = $self->{'ldap'}->search(\%attrs);
-    my $entry = $result->entry(0);
-
-    return $entry->get_value('mail') if ($result->count() != 0);
-}
-
-sub _mailboxRelatedObjectExists
-{
-    my ($self, $alias) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-
-    my %attrs = (
-        base => $users->ldap()->dn(),
-        filter => "(&(objectclass=mailboxRelatedObject)(mail=$alias))",
-        scope => 'sub'
-    );
-
-    my $result = $self->{'ldap'}->search(\%attrs);
-
-    return ($result->count > 0);
 }
 
 # Method: addVDomainALias
@@ -467,14 +397,6 @@ sub delGroupAlias
     my ($self, $alias, $group) = @_;
 
     $self->delAlias($alias);
-
-    $self->_delmailboxRelatedObject($alias, $group);
-
-    my @aliases = @{$self->groupAliases($group)};
-    if (@aliases and not $self->_mailboxRelatedObjectInGroup($group)) {
-        $alias = shift @aliases;
-        $self->_addmailboxRelatedObject($alias, $group);
-    }
 }
 
 # Method: delAliasesFromVDomain

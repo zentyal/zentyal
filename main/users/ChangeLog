@@ -1,4 +1,5 @@
 3.4
+	+ Added and used checkMailNotInUse method
 	+ Updated EBox::Users::Model::Password to use
 	  EBox::Usercorner::updateSessionPassword method and the new samba
 	  location
