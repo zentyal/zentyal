@@ -41,7 +41,7 @@ use EBox::Util::SQLTypes;
 use TryCatch::Lite;
 use Data::Dumper;
 
-use constant SQL_CONF_FILE => "/etc/mysql/conf.d/zentyal.cnf";
+use constant MYSQL_CUSTOM_CONF => "/etc/mysql/conf.d/zentyal.cnf";
 
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
 
@@ -75,7 +75,7 @@ sub updateMysqlConf
     push @confParams, (enableInnoDB => $nextInnoDbValue);
 
     if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
-        EBox::Module::Base::writeConfFileNoCheck(SQL_CONF_FILE, "core/zentyal.cnf.mas", \@confParams);
+        EBox::Module::Base::writeConfFileNoCheck(MYSQL_CUSTOM_CONF, "core/zentyal.cnf.mas", \@confParams);
         EBox::Sudo::root("restart mysql");
     }
 }
@@ -114,7 +114,7 @@ sub _innoDbValueHasChanged
 
     my $nextOptionValue = $nextValue ? "on" : "off";
 
-    return not (system("cat " . SQL_CONF_FILE . " | grep -q \"^innodb = $nextOptionValue\$\"") == 0);
+    return not (system("cat " . MYSQL_CUSTOM_CONF . " | grep -q \"^innodb = $nextOptionValue\$\"") == 0);
 }
 
 # Method: _dbname
