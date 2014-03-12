@@ -1,4 +1,5 @@
 HEAD
+	+ Zentyal MySQL conf file is now a template
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
