@@ -68,7 +68,9 @@ sub updateMysqlConf
 {
     my ($self) = @_;
 
-    my $nextInnoDbValue = $self->_enableInnoDB();
+    # If the database has already enabled the innoDB engine, we won't disable it
+    my $nextInnoDbValue = $self->_innoDbEnabled ? 1 : $self->_enableInnoDB();
+
     my @confParams;
     push @confParams, (enableInnoDB => $nextInnoDbValue);
 
@@ -76,6 +78,17 @@ sub updateMysqlConf
         EBox::Module::Base::writeConfFileNoCheck(SQL_CONF_FILE, "core/zentyal.cnf.mas", \@confParams);
         EBox::Sudo::root("restart mysql");
     }
+}
+
+# Method: _innoDbEnabled
+#
+#   Returns true if the InnoDB engine is already enabled
+#
+sub _innoDbEnabled
+{
+    my ($self) = @_;
+
+    return (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q YES") == 0);
 }
 
 # Method: _enableInnoDB
