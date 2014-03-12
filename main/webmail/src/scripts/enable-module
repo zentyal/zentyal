@@ -6,6 +6,8 @@ db_pass=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
 DB_CONF_FILE=/etc/roundcube/debian-db.php
 POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/mysql
 
+if [ ! -f $DB_CONF_FILE ];
+then
 echo "CREATE DATABASE $db_name;
       GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
       FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
@@ -32,6 +34,7 @@ cat <<EOT > $DB_CONF_FILE
 \$dbport='';
 \$dbtype='mysql';
 EOT
+fi
 
 # Required for openchange calendar plugin
 cat /usr/share/roundcube/plugins/calendar/drivers/zentyal_openchange/SQL/mysql.initial.sql | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
