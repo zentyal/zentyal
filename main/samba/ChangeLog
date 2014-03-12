@@ -1,3 +1,5 @@
+HEAD
+	+ ad-migrate: Detect offline role owner and seize roles
 3.3.4
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
