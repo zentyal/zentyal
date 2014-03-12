@@ -1,3 +1,5 @@
+HEAD
+	+ s4sync: Check samba daemon is running
 3.3.4
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
