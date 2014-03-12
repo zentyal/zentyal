@@ -114,7 +114,7 @@ sub _innoDbValueHasChanged
 
     my $nextOptionValue = $nextValue ? "on" : "off";
 
-    return not (system("cat " . MYSQL_CUSTOM_CONF . " | grep -q \"^innodb = $nextOptionValue\$\"") == 0);
+    return (system ("grep -q \"^innodb = $nextOptionValue\$\" " . MYSQL_CUSTOM_CONF) != 0);
 }
 
 # Method: _dbname
