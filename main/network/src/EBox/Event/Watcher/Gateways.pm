@@ -107,7 +107,11 @@ sub run
     my $global = EBox::Global->getInstance(1);
     my $network = $global->modInstance('network');
 
-    return [] unless $network->isEnabled();
+    if (not $network->isEnabled()) {
+        EBox::debug('Leaving failover event (no network enabled)');
+        return [];
+    }
+
 
     my $rules = $network->model('WANFailoverRules');
     my $gateways = $network->model('GatewayTable');
@@ -117,7 +121,10 @@ sub run
     my @enabledRules = @{$rules->enabledRows()};
 
     # If we don't have any enabled rule we finish here
-    return [] unless @enabledRules;
+    if (not @enabledRules) {
+        EBox::debug('Leaving failover event (no rules enabled)');
+        return [];
+    }
 
     foreach my $id (@enabledRules) {
         EBox::debug("Testing rules for gateway with id $id...");
@@ -259,7 +266,7 @@ sub run
     return $self->{eventList};
 }
 
-sub _testRule # (row)
+sub _testRule
 {
     my ($self, $row) = @_;
 
@@ -271,7 +278,6 @@ sub _testRule # (row)
     my $wasEnabled = $self->{gateways}->row($gw)->valueByName('enabled');
 
     EBox::debug("Entering _testRule for gateway $gwName...");
-
     # First test on this gateway, initialize its entry on the hash
     unless (exists $self->{failed}->{$gw}) {
         $self->{failed}->{$gw} = 0;
@@ -290,10 +296,17 @@ sub _testRule # (row)
         EBox::debug("Iface $ppp_iface up? = $iface_up");
 
         if (!$iface_up) {
-            # PPP interface down, do not make test (not needed)
+            EBox::debug("PPP interface down, mark test as failed");
             $self->{failed}->{$gw} = 1;
             return;
         }
+    }
+
+    my $address = $network->ifaceAddress($iface);
+    if (not $address) {
+        EBox::debug("$iface has not address. Failing test.");
+        $self->{failed}->{$gw} = 1;
+        return;
     }
 
     my $type = $row->valueByName('type');
@@ -323,7 +336,7 @@ sub _testRule # (row)
 
     for (1..$probes) {
         $usedProbes++;
-        if ($self->_runTest($type, $host)) {
+        if ($self->_runTest($type, $host, $address)) {
             EBox::debug("Probe number $_ succeded.");
             $successes++;
             last if ($successes >= $neededSuccesses);
@@ -366,12 +379,11 @@ sub _testRule # (row)
 
 sub _runTest
 {
-    my ($self, $type, $host) = @_;
+    my ($self, $type, $host, $localAddress) = @_;
 
     my $result;
-
     if (($type eq 'gw_ping') or ($type eq 'host_ping')) {
-        $result = system("ping -W5 -c1 -p" . PING_PATTERN . " $host");
+        $result = system("ping -W5 -c1 -I $localAddress -p" . PING_PATTERN . " $host");
     } elsif ($type eq 'dns') {
         $result = system("host -W 5 $host");
     } elsif ($type eq 'http') {
