@@ -80,9 +80,9 @@ sub _process
             }
             my $displayname = $self->unsafeParam('displayname');
             if (length ($displayname)) {
-                $contact->set('displayname', $displayname, 1);
+                $contact->set('displayName', $displayname, 1);
             } else {
-                $contact->delete('displayname', 1);
+                $contact->delete('displayName', 1);
             }
             my $description = $self->unsafeParam('description');
             if (length ($description)) {

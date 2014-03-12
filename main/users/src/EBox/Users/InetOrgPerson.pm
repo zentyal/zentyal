@@ -96,9 +96,7 @@ sub surname
 sub displayname
 {
     my ($self) = @_;
-    my $value = $self->get('displayName');
-    $value = '' unless defined $value;
-    return $value;
+    return $self->get('displayName');
 }
 
 sub description
