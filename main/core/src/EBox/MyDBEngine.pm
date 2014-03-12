@@ -60,20 +60,27 @@ sub new
 
 # Method: updateMysqlConf
 #
-# Checks the server status and writes down the MySQL Zentyal conf file
-#  * It also restarts the mysql daemon
+#   Checks the server status and writes down the MySQL Zentyal conf file
+#   It also restarts the mysql daemon
 #
 sub updateMysqlConf
 {
     my ($self) = @_;
 
+    my $nextInnoDbValue = $self->_enableInnoDB();
     my @confParams;
-    push @confParams, (enableInnoDB => $self->_enableInnoDB());
+    push @confParams, (enableInnoDB => $nextInnoDbValue);
 
-    EBox::Module::Base::writeConfFileNoCheck(SQL_CONF_FILE, "core/zentyal.cnf.mas", \@confParams);
-    EBox::Sudo::root("restart mysql");
+    if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
+        EBox::Module::Base::writeConfFileNoCheck(SQL_CONF_FILE, "core/zentyal.cnf.mas", \@confParams);
+        EBox::Sudo::root("restart mysql");
+    }
 }
 
+# Method: _enableInnoDB
+#
+#   Returns true if we should turn on the innodb mysql engine
+#
 sub _enableInnoDB
 {
     my ($self) = @_;
@@ -81,6 +88,19 @@ sub _enableInnoDB
     return (EBox::Global->modExists('openchange')
             or EBox::Global->modExists('zarafa')
             or EBox::Global->modExists('webmail'));
+}
+
+# Method: _innoDbValueHasChanged
+#
+#   Returns true if the $nextInnoDbValue is different than the current one
+#
+sub _innoDbValueHasChanged
+{
+    my ($self, $nextValue) = @_;
+
+    my $nextOptionValue = $nextValue ? "on" : "off";
+
+    return not (system("cat " . SQL_CONF_FILE . " | grep -q \"^innodb = $nextOptionValue\$\"") == 0);
 }
 
 # Method: _dbname
