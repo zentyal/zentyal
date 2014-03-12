@@ -99,8 +99,9 @@ sub _auditLog
     }
     return unless $self->{audit}->isEnabled();
 
-
     my $model = $self->{tableModel};
+    return unless $model->auditable();
+
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
 
@@ -778,7 +779,7 @@ sub _printRedirect
     my ($self) = @_;
     my $url = $self->_redirect();
     return unless (defined($url));
-    print "<script>window.location.href='$url'</script>";
+    print qq{<script type="text/javascript">\$(document).ready(function(){ window.location.replace('$url'); });</script>};
 }
 
 sub _print

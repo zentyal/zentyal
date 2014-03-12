@@ -92,32 +92,17 @@
         {
             type = ldap;
             CNFieldName = cn;
-            IDFieldName = uid;
-            UIDFieldName = uid;
+            IDFieldName = mail;
+            UIDFieldName = mail;
             hostname = "<% $ldapHost %>";
-            baseDN = "ou=Users,<% $ldapBaseDN %>";
+            baseDN = "<% $ldapBaseDN %>";
             bindDN = "<% $ldapBindDN %>";
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = NO;
             displayName = "Shared Contacts";
             id = sharedContacts;
             isAddressBook = YES;
-            filter = "((objectClass=inetOrgPerson) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT internal=1) AND (NOT uid=Guest)";
-        },
-        {
-            type = ldap;
-            CNFieldName = cn;
-            IDFieldName = cn;
-            UIDFieldName = cn;
-            hostname = "<% $ldapHost %>";
-            baseDN = "ou=Users,<% $ldapBaseDN %>";
-            bindDN = "<% $ldapBindDN %>";
-            bindPassword = "<% $ldapBindPwd %>";
-            canAuthenticate = NO;
-            displayName = "Shared Groups";
-            id = sharedGroups;
-            isAddressBook = YES;
-            filter = "((objectClass=zentyalDistributionGroup) AND (gidNumber>=2000)) AND (NOT internal=1) AND (NOT uid=Guest)";
+            filter = "((((objectClass=inetOrgPerson) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT internal=1) AND (NOT uid=Guest)) OR (((objectClass=zentyalDistributionGroup) AND (gidNumber>=2000)) AND (NOT internal=1)))";
         }
     );
 

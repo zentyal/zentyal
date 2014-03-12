@@ -1,4 +1,9 @@
 3.4
+	+ Added auditable property to EBox::Model::DataTable
+	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
+	+ Moved management of webadmin certificate to HAProxy module
+	+ Enable ReverseProxy middleware always
+	+ MySQL is restarted before creating database
 	+ Use root ownership for webadmin certificates
 	+ Execute change hostname actions only if the hostname has really changed
 	+ Don't expire session on finish software wizard page
@@ -74,6 +79,11 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Use replace instead of href to redirect in Controller::DataTable
+	  (This avoids infinite loops if the user press back button)
+	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
+	  make file downloads work again
+	+ Avoid division by zero while using page navigation
 	+ Automatic report text formatting adapted to Redmine
 	+ Fix tab selection in tabbed composite from URL path anchor,
 	  for instance, /Maintenance/Events#ConfigureDispatchers

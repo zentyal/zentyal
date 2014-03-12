@@ -153,7 +153,7 @@ sub _webserverEnabled
 sub enabled
 {
     my ($self) = @_;
-    return $self->httpEnabled() or $self->httpsEnabled();
+    return ($self->httpEnabled() or $self->httpsEnabled());
 }
 
 sub httpEnabled
@@ -162,7 +162,7 @@ sub httpEnabled
     if (not $self->_webserverEnabled()) {
         return 0;
     }
-    return $self->value('http')
+    return $self->value('http');
 }
 
 sub httpsEnabled
@@ -171,14 +171,14 @@ sub httpsEnabled
     if (not $self->_webserverEnabled()) {
         return 0;
     }
-    return $self->value('https')
+    return $self->value('https');
 }
 
 sub formSubmitted
 {
     my ($self, $row, $oldRow) = @_;
     # mark webadmin as changed if the service has changed
-    $self->global()->modInstance('haproxy')->setAsChanged();
+    $self->global()->modInstance('haproxy')->setAsChanged(1);
 }
 
 1;

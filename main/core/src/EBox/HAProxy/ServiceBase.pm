@@ -309,4 +309,14 @@ sub HAProxyInternalService
     return undef;
 }
 
+# MNethod: HAProxyPreSetConf
+#
+# this method we will invoked before HAProxy set conf, it could be useful
+# to do things like putting certificates in place
+#
+# Default implementation is to do nothing
+sub HAProxyPreSetConf
+{
+}
+
 1;

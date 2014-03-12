@@ -1,4 +1,5 @@
 3.4
+	+ Log audit working properly for download client bundle
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 3.3

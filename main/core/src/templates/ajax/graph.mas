@@ -4,10 +4,12 @@
 <%args>
   $model
   $hasChanged
+  $user
   $action => 'view'
 </%args>
 <& SELF:view,
    model => $model,
+   user => $user,
    hasChanged => $hasChanged,
    action => $action,
 &>
