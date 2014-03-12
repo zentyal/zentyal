@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
 
+use Data::Dumper;
 use Error qw(:try);
 use File::Slurp;
 use Time::gmtime;
@@ -71,18 +72,26 @@ while (1) {
 
     write_file($sambaTimestampFile, getTimestamp());
 
-    my %zentyalUsers    = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->users()};
-    my %zentyalContacts = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->contacts()};
-    my %zentyalGroups   = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->groups()};
-    my @zentyalOUs      = @{$usersModule->ous()};
-    my %zentyalOUs;
-    foreach my $zou (@zentyalOUs) {
-        my $guid = $zou->get('msdsObjectGUID');
-        # We ignore non linked OUs, such OU=zarafa or OU=postfix, they are
-        # internal to Zentyal and does not exists in the samba database
-        if (defined $guid) {
-            $zentyalOUs{$guid} = $zou;
-        }
+    my %zentyalUsers    = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->users()};
+    my %zentyalContacts = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->contacts()};
+    my %zentyalGroups   = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->groups()};
+    my %zentyalOUs      = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->ous()};
+
+    my @brokenZentyalUsers = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->users()};
+    my @brokenZentyalContacts = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->contacts()};
+    my @brokenZentyalGroups = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->groups()};
+
+    if (@brokenZentyalUsers) {
+        EBox::error("Found users that are not linked to any Samba user!");
+        EBox::error(Dumper(\@brokenZentyalUsers));
+    }
+    if (@brokenZentyalContacts) {
+        EBox::error("Found contacts that are not linked to any Samba contact!");
+        EBox::error(Dumper(\@brokenZentyalContacts));
+    }
+    if (@brokenZentyalGroups) {
+        EBox::error("Found groups that are not linked to any Samba group!");
+        EBox::error(Dumper(\@brokenZentyalGroups));
     }
 
     # The following samba entries are special cases, not returned by users or

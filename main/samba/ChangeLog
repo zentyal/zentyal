@@ -1,4 +1,8 @@
 HEAD
+	+ Removed obsolete dns-$hostname account from OpenLDAP, it should be only
+	  available in Samba
+	+ Ignored and logged as errors the users, contacts and groups in OpenLDAP
+	  that are not linked with Samba objects
 	+ Set allow_non_scanned_files = True on samba.conf by default to
 	  avoid issues with antivirus when editing files
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
