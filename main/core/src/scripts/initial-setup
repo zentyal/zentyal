@@ -36,6 +36,10 @@ EBox::init();
 
 EBox::Util::SQL::createModuleTables($modname);
 
+# Make sure the MySQL conf file is correct
+my $db = EBox::DBEngineFactory::DBEngine();
+$db->updateMysqlConf();
+
 # Copy purge-module script if exists
 my $purgeSrc = "/usr/share/zentyal-$modname/purge-module";
 if (EBox::Sudo::fileTest('-f', $purgeSrc) ) {
