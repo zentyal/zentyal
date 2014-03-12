@@ -1,3 +1,5 @@
+HEAD
+	+ Fix revert resolvconf configuration after joining domain
 3.3.4
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
