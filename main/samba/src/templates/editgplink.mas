@@ -1,5 +1,5 @@
 <%args>
-	$containerDN
+    $containerDN
     $gpoDN
     $gpoDisplayName
     $linkIndex
@@ -26,7 +26,6 @@ use EBox::Gettext;
         <label><% __('Enforced') %></label>
 % my $isEnforced = ($enforced ? 'checked' : '');
             <input name='enforced' type='checkbox' <% $isEnforced %>/>
-    </div>
     <div class="form-buttons">
         <input class='inputButton' type='submit' name='edit'
 					   value="<% __('Edit') %>"
