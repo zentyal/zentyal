@@ -65,7 +65,7 @@ sub _table
                  if (not -r $file) {
                      return undef;
                  }
-                 return '/Downloader/FromTempDir?filename=rpcproxy.crt';
+                 return '/Downloader/FromTempDir?filename=rpcproxy.crt&keepFile=1';
              },
             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
             HTMLSetter     => '/ajax/viewer/downloadLink.mas',

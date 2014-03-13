@@ -1,4 +1,5 @@
 3.4
+	+ Keep temporal rpcproxy certificate file after download
 	+ Sogo webmail shared contacts unified. Contacts working properly
 	+ Use the new EBox::Samba::Ldbobject::isCritical method
 	+ Contacts are now shown at the webmail interface
