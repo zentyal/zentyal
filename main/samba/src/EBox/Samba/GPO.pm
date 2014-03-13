@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -590,7 +590,7 @@ sub link
         throw EBox::Exceptions::Internal(
             "Container $containerDN not found.");
     }
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Check this GPO is not already linked
@@ -623,7 +623,7 @@ sub link
     $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
 
     # Write GPLink attribute
-    $container->set('gpLink', $gpLinkAttr);
+    $container->set('gPLink', $gpLinkAttr);
 }
 
 sub unlink
@@ -637,13 +637,13 @@ sub unlink
             "Container $containerDN does not exists");
     }
 
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Split linked GPOs
     my @linkedGPOs = grep (/.+/, reverse split (/\[([^\[\]]+)\]/, $gpLinkAttr));
 
-    # Check linked GPO at given index is ourself
+    # Check linked GPO at given index is myself
     my $target = $linkedGPOs[$linkIndex - 1];
     my ($gpoPath, $linkOptions) = split(/;/, $target);
     $gpoPath =~ s/ldap:\/\///ig;
@@ -663,7 +663,7 @@ sub unlink
         $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
         $container->set('gpLink', $gpLinkAttr);
     } else {
-        $container->delete('gpLink', 0);
+        $container->delete('gPLink', 0);
     }
 }
 
@@ -677,7 +677,7 @@ sub editLink
         throw EBox::Exceptions::Internal(
             "Container $containerDN does not exists");
     }
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Split linked GPOs
@@ -708,7 +708,7 @@ sub editLink
     $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
 
     # Write GPLink attribute
-    $container->set('gpLink', $gpLinkAttr);
+    $container->set('gPLink', $gpLinkAttr);
 }
 
 1;

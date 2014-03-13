@@ -1,4 +1,6 @@
 HEAD
+	+ Fix delete GPLink: use gPLink attribute name as our checkers are
+	  case sensitive
 	+ Set allow_non_scanned_files = True on samba.conf by default to
 	  avoid issues with antivirus when editing files
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
