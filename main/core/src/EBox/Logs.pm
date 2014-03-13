@@ -60,6 +60,20 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Make sure the MySQL conf file is correct
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
+}
+
 # Method: depends
 #
 #       Override EBox::Module::Base::depends

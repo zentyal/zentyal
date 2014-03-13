@@ -465,7 +465,7 @@ sub _setupSOGoDatabase
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
-    $db->enableInnoDBIfNeeded();
+    $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");

@@ -31,6 +31,7 @@ use EBox::Sudo;
 use EBox::Config;
 use EBox::WebServer;
 use EBox::Exceptions::External;
+use EBox::DBEngineFactory;
 use File::Slurp;
 
 use constant {
@@ -375,6 +376,10 @@ sub enableActions
                                                  closeurl => q{</a>}));
         }
     }
+
+    # Make sure the MySQL conf file is correct
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
