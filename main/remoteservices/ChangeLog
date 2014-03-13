@@ -1,4 +1,5 @@
 HEAD
+	+ Fix restore remote backup with spaces in the backup name
 	+ Fix: Do not subscribe to the newsletter in the wizard if the
 	  user requires so
 3.2.4
