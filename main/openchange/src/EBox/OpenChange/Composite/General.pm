@@ -48,4 +48,16 @@ sub _description
     return $description;
 }
 
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    my $message = __x('You can access the {open_href}OpenChange Webmail{close_href}',
+            open_href => "<a href='#' target='_blank' id='sogo_url'>",
+            close_href => '</a>');
+    $message .= "<script>document.getElementById('sogo_url').href='http://' + document.domain + '/SOGo';</script>";
+
+    return $self->parentModule->isEnabled() ? $message : undef;
+}
+
 1;
