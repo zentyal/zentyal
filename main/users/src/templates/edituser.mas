@@ -45,7 +45,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 
                   <& masterSlaveUserAttr,
                                name => 'displayname',
-                               value=> $user->displayname(),
+                               value=> ($user->displayname() or ''),
                                slave => $slave,
                    &>
           </div>

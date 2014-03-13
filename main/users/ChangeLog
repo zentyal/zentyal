@@ -13,6 +13,7 @@
 	+ Fixed soap.conf for apache 2.4
 	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
+	+ Add script to update the credentials when mode is external AD
 	+ Added and used checkMailNotInUse method
 	+ Updated cloud sync to ignore any change done in cloud to internal users
 	  or groups

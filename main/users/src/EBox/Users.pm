@@ -420,13 +420,13 @@ sub _migrateTo34
     my $users = $self->users(1);
     foreach my $user (@{$users}) {
         unless ($user->displayname()) {
-            $user->set('displayname', $user->fullname());
+            $user->set('displayName', $user->fullname());
         }
     }
 
     foreach my $contact (@{$self->contacts()}) {
         unless ($contact->displayname()) {
-            $contact->set('displayname', $contact->fullname());
+            $contact->set('displayName', $contact->fullname());
         }
     }
 }

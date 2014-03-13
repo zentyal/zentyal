@@ -84,10 +84,10 @@ sub _process
 
             my $displayname = $self->unsafeParam('displayname');
             if (length ($displayname)) {
-                $user->set('displayname', $displayname, 1);
+                $user->set('displayName', $displayname, 1);
                 $setText = $user->name() . " ($displayname)";
             } else {
-                $user->delete('displayname', 1);
+                $user->delete('displayName', 1);
                 $setText = $user->name();
             }
             my $description = $self->unsafeParam('description');

@@ -145,20 +145,6 @@ sub _openchangeEnabled
     return (defined ($openchange) and $openchange->isEnabled() and $openchange->isProvisioned());
 }
 
-sub _retrieveMaxMailSize
-{
-    my ($self) = @_;
-
-    my $mailLimit = 0;
-    my $mail = $self->global()->modInstance('mail');
-
-    if (defined ($mail) and $mail->isEnabled()) {
-        $mailLimit = $mail->getMaxMsgSize();
-    }
-
-    return $mailLimit ? $mailLimit : MAX_UPLOAD_SIZE;
-}
-
 sub _managesieveEnabled
 {
     my ($self) = @_;
