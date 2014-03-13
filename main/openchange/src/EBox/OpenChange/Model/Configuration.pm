@@ -81,6 +81,21 @@ sub _table
     return $dataForm;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    my $vdomains = $self->global()->modInstance('mail')->model('VDomains')->size();
+    return ($vdomains > 0);
+}
+
+sub preconditionFailMsg
+{
+    return  __x('To configure OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               );
+}
+
 sub validateTypedRow
 {
     my ($self, $action, $changed, $all) = @_;
@@ -99,6 +114,5 @@ sub formSubmitted
     # rpcproxy certificate with the new fqdn
     $self->global()->modInstance('haproxy')->setAsChanged(1);
 }
-
 
 1;

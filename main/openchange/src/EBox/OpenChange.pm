@@ -143,6 +143,12 @@ sub _migrateFormKeys
     }
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+    $self->SUPER::enableService($status);
+}
+
 # Method: enableActions
 #
 # Action to do when openchange module is enabled for first time
@@ -161,15 +167,27 @@ sub enableActions
 sub enableService
 {
     my ($self, $status) = @_;
+    my $global = $self->global();
+    my $mail = $global->modInstance('mail');
+
+    if ($status) {
+        my $vdomains = $mail->model('VDomains')->size();
+        if ($vdomains == 0) {
+            throw EBox::Exceptions::External(
+                __x('To enable OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                    oh => q{<a href='/Mail/View/VDomains'>},
+                    oc => q{</a>}
+                   )
+               );
+        }
+    }
 
     $self->SUPER::enableService($status);
+
     if ($self->changed()) {
-        my $global = $self->global();
         # Mark mail as changed to make dovecot listen IMAP protocol at least
         # on localhost
-        my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
-
 
         if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
             my $webserverMod = $global->modInstance("webserver");
@@ -184,6 +202,14 @@ sub enableService
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
+
+        # Workaround: Set outoing domain if nto set to avoid it to change when
+        # modify vdomains list
+        my $configuration = $self->model('Configuration');
+        if (not $configuration->_rowStored()) {
+            my $defaultOutgoing = $configuration->value('outgoingDomain');
+            $configuration->setValue('outgoingDomain', $defaultOutgoing);
+        }
     }
 }
 
