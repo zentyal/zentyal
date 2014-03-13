@@ -129,7 +129,7 @@ sub validateTypedRow
         my $vdomain = $allFields->{vdomain}->value();
         my $fullAlias = $alias . '@' . $vdomain;
 
-        $self->_checkAliasIsNotAccount($fullAlias);
+        $self->parentModule()->checkMailNotInUse($fullAlias);
         $self->_checkAliasIsInternal($fullAlias);
     }
 
@@ -157,20 +157,6 @@ sub _checkAliasIsInternal
 __x('Cannot add alias because domain {vd} is not a virtual domain or virtual domain alias managed by this server',
    vd => $vdomain)
 );
-}
-
-sub _checkAliasIsNotAccount
-{
-    my ($self, $alias) = @_;
-    my $mailAlias = $self->parentModule()->{malias};
-    if ($mailAlias->accountExists($alias)) {
-        throw EBox::Exceptions::External(
-      __x('An account or alias called {al} already exists',
-          al => $alias
-         )
-                                        );
-    }
-
 }
 
 sub _checkExternalAccountIsExternal
@@ -289,6 +275,20 @@ sub pageTitle
 
     return $self->parentRow()->printableValueByName('vdomain');
 
+}
+
+sub aliasInUse
+{
+    my ($self, $addr) = @_;
+    my ($alias, $vdomain) = split '@', $addr, 2;
+    foreach my $id (@{ $self->ids()} ) {
+        my $row = $self->row($id);
+        if (($alias eq $row->valueByName('alias')) and ($vdomain eq $row->valueByName('vdomain')) ) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;

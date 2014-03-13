@@ -103,12 +103,7 @@ sub _checkAccountAlias
     my ($self, $alias, $maildrop) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('mail alias'));
-
-    # Verify alias not exists
-    if ($self->accountExists($alias)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                                        'value' => $alias);
-    }
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
     # Verify maildrop is not an alias
     # (For now it is not allowed alias of aliases)
@@ -135,11 +130,7 @@ sub addGroupAlias
     my ($self, $alias, $group) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-
-    if ($self->accountExists($alias)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                                        'value' => $alias);
-    }
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
@@ -167,7 +158,11 @@ sub _addmailboxRelatedObject
     return if $self->_mailboxRelatedObjectInGroup($group);
 
     $group->add('objectClass', 'mailboxRelatedObject', 1);
-    $group->add('mail', $alias, 1);
+    my @currentMail = $group->get('mail');
+    if (not grep { $_ eq $alias  } @currentMail) {
+        $group->add('mail', $alias, 1) ;
+    }
+
     $group->save();
 }
 
@@ -743,12 +738,11 @@ sub accountExists
 
     my %attrs = (
         base => $users->ldap()->dn(),
-        filter => "&(objectclass=couriermailaccount)(mail=$alias)",
+        filter => "&(|(objectclass=couriermailaccount)(objectclass=zentyalDistributionGroup))(mail=$alias)",
         scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
-
     return (($result->count > 0) || ($self->aliasExists($alias)));
 }
 
