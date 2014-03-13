@@ -22,6 +22,8 @@ use base 'EBox::LDB';
 
 use EBox::Exceptions::Internal;
 use EBox::Sudo;
+use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
+use Net::Ping;
 
 sub new
 {
@@ -137,44 +139,101 @@ sub getSchemaMaster
     return $owner;
 }
 
+sub isRoleOwnerOnline
+{
+    my ($self, $currentOwner) = @_;
+
+    # Current owner is the nTDSDSA. Shift to get the server and query the
+    # dns name
+    my $parts = ldap_explode_dn($currentOwner);
+    shift @{$parts};
+    my $dn = canonical_dn($parts);
+    my $params = {
+        base => $dn,
+        scope => 'base',
+        filter => '(objectClass=*)',
+        attrs => ['dNSHostName'],
+    };
+    my $result = $self->search($params);
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal("Expected one entry");
+    }
+    my $entry = $result->entry(0);
+    my $hostname = $entry->get_value('dNSHostName');
+
+    # Check if current master is online pinging EPM port
+    my $p = new Net::Ping('tcp', 5);
+    $p->service_check(1);
+    $p->port_number(135);
+    my $online = $p->ping($hostname, 5);
+    $p->close();
+
+    return $online;
+}
+
 sub transferSchemaMaster
 {
-    my ($self) = @_;
+    my ($self, $seize) = @_;
 
-    EBox::info("Transfering Schema Master role");
-    EBox::Sudo::root('samba-tool fsmo transfer --role schema');
+    if ($seize) {
+        EBox::info("Seizing Schema Master role");
+        EBox::Sudo::root('samba-tool fsmo seize --force --role schema');
+    } else {
+        EBox::info("Transfering Schema Master role");
+        EBox::Sudo::root('samba-tool fsmo transfer --role schema');
+    }
 }
 
 sub transferDomainNamingMaster
 {
-    my ($self) = @_;
+    my ($self, $seize) = @_;
 
-    EBox::info("Transfering Domain Naming Master role");
-    EBox::Sudo::root('samba-tool fsmo transfer --role naming');
+    if ($seize) {
+        EBox::info("Seizing Domain Naming Master role");
+        EBox::Sudo::root('samba-tool fsmo seize --force --role naming');
+    } else {
+        EBox::info("Transfering Domain Naming Master role");
+        EBox::Sudo::root('samba-tool fsmo transfer --role naming');
+    }
 }
 
 sub transferPdcEmulationMaster
 {
-    my ($self) = @_;
+    my ($self, $seize) = @_;
 
-    EBox::info("Transfering PDC Emulation Master role");
-    EBox::Sudo::root('samba-tool fsmo transfer --role pdc');
+    if ($seize) {
+        EBox::info("Seizing PDC Emulation Master role");
+        EBox::Sudo::root('samba-tool fsmo seize --force --role pdc');
+    } else {
+        EBox::info("Transfering PDC Emulation Master role");
+        EBox::Sudo::root('samba-tool fsmo transfer --role pdc');
+    }
 }
 
 sub transferInfrastructureMaster
 {
-    my ($self) = @_;
+    my ($self, $seize) = @_;
 
-    EBox::info("Transfering Infrastructure Master role");
-    EBox::Sudo::root('samba-tool fsmo transfer --role infrastructure');
+    if ($seize) {
+        EBox::info("Seizing Infrastructure Master role");
+        EBox::Sudo::root('samba-tool fsmo seize --force --role infrastructure');
+    } else {
+        EBox::info("Transfering Infrastructure Master role");
+        EBox::Sudo::root('samba-tool fsmo transfer --role infrastructure');
+    }
 }
 
 sub transferRidAllocationMaster
 {
-    my ($self) = @_;
+    my ($self, $seize) = @_;
 
-    EBox::info("Transfering Rid Allocation Master role");
-    EBox::Sudo::root('samba-tool fsmo transfer --role rid');
+    if ($seize) {
+        EBox::info("Seizing Rid Allocation Master role");
+        EBox::Sudo::root('samba-tool fsmo seize --force --role rid');
+    } else {
+        EBox::info("Transfering Rid Allocation Master role");
+        EBox::Sudo::root('samba-tool fsmo transfer --role rid');
+    }
 }
 
 1;
