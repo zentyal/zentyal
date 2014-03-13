@@ -208,10 +208,6 @@ sub _setConf
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
 
-    # disabled until vsftpd allows it, see #4113
-    # my $chrootUsers = $options->chrootUsers();
-    my $chrootUsers = 0;
-
     my $ssl = $options->ssl();
 
     $self->writeConfFile('/etc/pam.d/vsftpd',
@@ -222,7 +218,6 @@ sub _setConf
                          '/ftp/vsftpd.conf.mas',
                          [ anonymous => $anonymous,
                            userHomes => $userHomes,
-                           chrootUsers => $chrootUsers,
                            ssl => $ssl ]);
 }
 

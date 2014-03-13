@@ -1,3 +1,5 @@
+HEAD
+	+ Disabled chrooting users, vsftpd is still broken
 3.2.1
 	+ Force depend on PPA version of vsftpd with the chroot patch
 	+ Added Support for chrooting users

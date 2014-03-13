@@ -1,7 +1,6 @@
 <%args>
 $anonymous
 $userHomes
-$chrootUsers
 $ssl
 </%args>
 <%init>
@@ -75,13 +74,9 @@ ftpd_banner=<% __('Welcome to Zentyal FTP service.') %>
 # Use the contents of this file for the login banner
 #banner_file=/etc/vsftpd/banner
 #
-# Restrict local users to their home directories
-% if ($chrootUsers) {
-allow_writeable_chroot=YES
-chroot_local_user=YES
-% } else {
+# Restrict local users to their home directories. Disabled because vsftpd < 3.0
+# is not able to handle it and breaks.
 chroot_local_user=NO
-% }
 #
 # List of local users to chroot() to their home directory. If
 # chroot_local_user is YES, then this list becomes a list of users to NOT

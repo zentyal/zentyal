@@ -43,7 +43,6 @@ sub new
 #
 #       <EBox::Model::DataTable::viewCustomizer>
 #
-# XXX FIXME not working
 sub viewCustomizer
 {
     my ($self) = @_;
@@ -51,7 +50,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
-    my @fields = ('chrootUsers', 'ssl');
+    my @fields = ('ssl');
 
     $customizer->setOnChangeActions(
             { 'userHomes' =>
@@ -141,13 +140,6 @@ sub _table
                 defaultValue => 1,
                 help => __('Enable authenticated FTP access to each user home directory.'),
                ),
-         new EBox::Types::Boolean(
-                fieldName => 'chrootUsers',
-                printableName => __('Restrict to personal directories'),
-                editable => 1,
-                defaultValue => 1,
-                help => __('Restrict access to each user home directory. Take into account that this restriction can be circumvented under some conditions.'),
-               ),
          new EBox::Types::Select(
                 fieldName     => 'ssl',
                 printableName => __('SSL support'),
@@ -183,13 +175,6 @@ sub userHomes
     my ($self) = @_;
 
     return $self->row()->valueByName('userHomes');
-}
-
-sub chrootUsers
-{
-    my ($self) = @_;
-
-    return $self->row()->valueByName('chrootUsers');
 }
 
 sub ssl
