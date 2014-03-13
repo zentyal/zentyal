@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -45,7 +45,8 @@ sub _scriptPath
 {
     my ($self, $basename) = @_;
 
-    my $gpoDN = $self->parentRow->id();
+    my $gpoId = $self->parentRow()->id();
+    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
     my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
     my $path = $gpo->path();
     return "$path/Machine/Scripts/Shutdown/$basename";
@@ -78,7 +79,8 @@ sub ids
 
     my @ids;
 
-    my $gpoDN = $parentRow->id();
+    my $gpoId = $parentRow->id();
+    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
     my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
 
     my $data = $extension->read();
@@ -110,7 +112,8 @@ sub row
     # Try to retrieve cached data
     my $data = $self->{data};
     unless (defined $data) {
-        my $gpoDN = $self->parentRow->id();
+        my $gpoId = $self->parentRow()->id();
+        my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
         my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
         $data = $extension->read();
     }
@@ -148,7 +151,8 @@ sub addTypedRow
     $scriptElement->_moveToPath();
 
     # Write extension
-    my $gpoDN = $self->parentRow->id();
+    my $gpoId = $self->parentRow()->id();
+    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
     my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
     my $data = $self->{data};
     unless (defined $data) {
@@ -186,7 +190,8 @@ sub removeRow
     my $e = $row->elementByName('script');
     my $name = $e->userPath();
 
-    my $gpoDN = $self->parentRow->id();
+    my $gpoId = $self->parentRow()->id();
+    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
     my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
     my $data = $self->{data};
     unless (defined $data) {
