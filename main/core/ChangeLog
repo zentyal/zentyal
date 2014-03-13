@@ -1,4 +1,5 @@
 3.4
+	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir
 	+ Added auditable property to EBox::Model::DataTable
 	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
 	+ Moved management of webadmin certificate to HAProxy module

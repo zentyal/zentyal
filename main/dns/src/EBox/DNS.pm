@@ -1946,4 +1946,19 @@ sub hostDomainChangedDone
     }
 }
 
+# Method: notifyOpenchange
+#
+#  changes in DNS configuration can force openchange to change rpcproxy
+# certificates, so we will notify it with this method. If openchange does not
+# exists it does nothing
+sub notifyOpenchange
+{
+    my ($self, $domain) = @_;
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        $openchange->DNSChangeNotification($domain);
+    }
+}
+
+
 1;

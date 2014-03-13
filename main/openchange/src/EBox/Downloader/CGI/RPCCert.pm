@@ -12,34 +12,39 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
-package EBox::OpenChange::VDomainsLdap;
-use base qw(EBox::LdapVDomainBase);
+package EBox::Downloader::CGI::RPCCert;
+use base 'EBox::Downloader::CGI::Base';
 
-use EBox::Gettext;
+use EBox::Global;
+use EBox::Config;
 
 sub new
 {
-    my ($class, $openchangeMod) = @_;
-    my $self  = { openchangeMod => $openchangeMod };
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(@_);
     bless($self, $class);
-    return $self;
+    return  $self;
 }
 
-sub _delVDomainAbort
+sub _path
 {
-    my ($self, $vdomain) = @_;
-    my $configuration = $self->{openchangeMod}->model('Configuration');
-    my $outgoing = $configuration->row()->elementByName('outgoingDomain')->printableValue();
-    if ($vdomain eq $outgoing) {
-        throw EBox::Exceptions::External(
-            __x('The virtual mail domain {dom} cannot be removed because it is {oc} outgoing domain',
-                dom => $vdomain, oc => 'OpenChange')
-           );
-    }
+    return EBox::Config::downloads() . 'rpcproxy.crt';
+}
 
+sub _process
+{
+    my ($self) = @_;
+
+    my $file = $self->_path();
+    if (not -r $file) {
+        my $openchange = EBox::Global->modInstance('openchange');
+        $openchange->_createRPCProxyCertificate();
+    }
+    $self->SUPER::_process();
 }
 
 1;
