@@ -1,4 +1,5 @@
 HEAD
+	+ Fix GPO models UI
 	+ Fix revert resolvconf configuration after joining domain
 	+ Set allow_non_scanned_files = True on samba.conf by default to
 	  avoid issues with antivirus when editing files
