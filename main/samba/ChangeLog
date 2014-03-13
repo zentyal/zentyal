@@ -1,3 +1,7 @@
+HEAD
+	+ Fix revert resolvconf configuration after joining domain
+	+ Set allow_non_scanned_files = True on samba.conf by default to
+	  avoid issues with antivirus when editing files
 3.3.4
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
