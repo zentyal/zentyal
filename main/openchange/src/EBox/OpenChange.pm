@@ -831,8 +831,6 @@ sub _rpcProxyHostForDomain
                                             ));
     }
 
-
-    my $dns = $self->global()->modInstance('dns');
     my @hosts = @{ $dns->getHostnames($domain)  };
     my @ips;
     my $network = $self->global()->modInstance('network');
@@ -1010,16 +1008,23 @@ sub connectionString
     return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
-sub notifiyDNSChange
+# Method: DNSChangeNotification
+#
+#   This module should be notified of changes of DNs configuration bz things
+#   like rpcproxy hostname can change with it
+sub DNSChangeNotification
 {
     my ($self, $domain) = @_;
-    if (not $self->enabled()) {
-        return;
+    if (not $self->isEnabled()) {
+         return;
     }
 
     my $rpcpDomain = $self->_rpcProxyDomain();
     if ($domain eq $rpcpDomain) {
+        # we cannot check more form dns becaue we enter on infinite loop, so we
+        # prevent worst case and set rpcproxy relate modules as changed
         $self->global()->modInstance('haproxy')->setAsChanged(1);
+        $self->setAsChanged(1);
     }
 }
 
