@@ -1,4 +1,5 @@
 HEAD
+	+ s4sync: Check samba daemon is running
 	+ Removed obsolete dns-$hostname account from OpenLDAP, it should be only
 	  available in Samba
 	+ Ignored and logged as errors the users, contacts and groups in OpenLDAP
