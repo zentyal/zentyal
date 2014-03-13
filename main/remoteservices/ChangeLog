@@ -1,4 +1,6 @@
 HEAD
+	+ Remove Disaster Recovery menu entry as it is managed by
+	  cloud-prof module
 	+ Fix restore remote backup with spaces in the backup name
 	+ Fix: Do not subscribe to the newsletter in the wizard if the
 	  user requires so
