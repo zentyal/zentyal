@@ -468,7 +468,6 @@ sub _rpcProxyCertificate
 sub _createRPCProxyCertificate
 {
     my ($self) = @_;
-    EBox::debug("XXX BEG CREATE");
     my $issuer;
     try {
         $issuer = $self->_rpcProxyHosts()->[0];
@@ -510,7 +509,6 @@ sub _createRPCProxyCertificate
     my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
     my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
     $self->_updateDownloadableCert();
-    EBox::debug("XXX END CREATE");
 }
 
 sub _updateDownloadableCert
