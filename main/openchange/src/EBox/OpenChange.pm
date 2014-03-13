@@ -143,12 +143,6 @@ sub _migrateFormKeys
     }
 }
 
-sub enableService
-{
-    my ($self, $status) = @_;
-    $self->SUPER::enableService($status);
-}
-
 # Method: enableActions
 #
 # Action to do when openchange module is enabled for first time
