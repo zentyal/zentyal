@@ -325,6 +325,7 @@ sub _setConf
     $self->_setAutodiscoverConf();
     $self->_setRPCProxyConf();
     $self->_clearDownloadableCert();
+
     $self->_writeRewritePolicy();
 }
 
@@ -554,6 +555,7 @@ sub _clearDownloadableCert
     my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
     EBox::Sudo::root("rm -f $downloadPath");
 }
+
 sub _writeRewritePolicy
 {
     my ($self) = @_;

@@ -91,23 +91,6 @@ sub _table
     return $dataForm;
 }
 
-sub _certificateLinkAcquirer
-{
-    my ($self) = @_;
-    my $file = EBox::Config::downloads() . 'rpcproxy.crt';
-    my $noFile = (not -r $file);
-    if ($noFile and $self->_rpcProxyEnabled()) {
-        $self->_createRPCProxyCertificate();
-        if (not -r $file) {
-            return undef;
-        }
-    } elsif ($noFile)  {
-        return undef;
-    }
-
-    return '/Downloader/FromTempDir?filename=rpcproxy.crt&keepFile=1';
-}
-
 sub precondition
 {
     my ($self) = @_;
