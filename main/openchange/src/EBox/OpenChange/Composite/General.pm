@@ -52,12 +52,25 @@ sub permanentMessage
 {
     my ($self) = @_;
 
-    my $message = __x('You can access the {open_href}OpenChange Webmail{close_href}',
+    my $sogoModule = $self->parentModule()->global()->modInstance('sogo');
+    my $openchangeModule = $self->parentModule();
+
+    my $readyToUseMessage = __x('You can access the {open_href}OpenChange Webmail{close_href}',
             open_href => "<a href='#' target='_blank' id='sogo_url'>",
             close_href => '</a>');
-    $message .= "<script>document.getElementById('sogo_url').href='http://' + document.domain + '/SOGo';</script>";
+    $readyToUseMessage .= "<script>document.getElementById('sogo_url').href='http://' + document.domain + '/SOGo';</script>";
 
-    return $self->parentModule->isEnabled() ? $message : undef;
+    my $needProvisionMessage = __('OpenChange webmail is enabled but you still need to complete the OpenChange module setup.');
+
+    if ($sogoModule->isEnabled() and not $openchangeModule->isProvisioned()) {
+        return $needProvisionMessage;
+    }
+
+    if ($sogoModule->isEnabled() and $openchangeModule->isProvisioned()) {
+        return $readyToUseMessage;
+    }
+
+    return undef;
 }
 
 1;
