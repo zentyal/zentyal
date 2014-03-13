@@ -1,4 +1,5 @@
 3.4
+	+ Set HTTPS env variable to 'On' always for SSL vhosts
 	+ Don't regenerate certificate if it has the same CN that the
 	  virtual host name
 	+ Register in Apache configuration the public port used to reach it so
