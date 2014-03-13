@@ -60,7 +60,7 @@ sub _table
              printableName => __('Certificate'),
              volatile  => 1,
              optionalLabel => 0,
-             value => '/Downloader/RPCCert',
+             acquirer => sub { return '/Downloader/RPCCert'; },
              HTMLViewer     => '/ajax/viewer/downloadLink.mas',
              HTMLSetter     => '/ajax/viewer/downloadLink.mas',
          ),
