@@ -27,6 +27,9 @@ defaults
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
+  # Test this two options as a way to assure that the added HTTP headers are always set but that we don't break outlook anywhere in the process...
+  #option http-server-close
+  #option http-pretend-keepalive
 %   foreach my $portNumber (keys %{$ports}) {
 <& .frontend, port => $portNumber,
               conf => $ports->{$portNumber},
