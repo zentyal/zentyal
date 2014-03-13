@@ -31,7 +31,7 @@ use EBox::Sudo;
 use EBox::Config;
 use EBox::WebServer;
 use EBox::Exceptions::External;
-use EBox::DBEngineFactory::DBEngine;
+use EBox::DBEngineFactory;
 use File::Slurp;
 
 use constant {
