@@ -16,44 +16,35 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Cancel;
+package EBox::Downloader::CGI::RPCCert;
+use base 'EBox::Downloader::CGI::Base';
 
-# Class: EBox::OpenChange::CGI::Migration::Cancel
-#
-#      Cancel migration in progress and redirect to Select Mailboxes
-#
-
-use base qw(EBox::CGI::ClientBase);
-
-use EBox::Gettext;
+use EBox::Global;
+use EBox::Config;
 
 sub new
 {
-    my $class = shift;
+    my ($class, %params) = @_;
     my $self = $class->SUPER::new(@_);
-    $self->{redirect} = 'OpenChange/Migration/SelectMailBoxes';
-    bless ($self, $class);
-    return $self;
+    bless($self, $class);
+    return  $self;
 }
 
-# Method: actuate
-#
-#    Kill the migration process and redirect
-#
-# Overrides:
-#
-#    <EBox::CGI::ClientBase>
-#
-sub actuate
+sub _path
+{
+    return EBox::Config::downloads() . 'rpcproxy.crt';
+}
+
+sub _process
 {
     my ($self) = @_;
 
-    # TODO: Kill migration process
-
-    # No parameters to send to the chain
-    my $request = $self->request();
-    my $parameters = $request->parameters();
-    $parameters->clear();
+    my $file = $self->_path();
+    if (not -r $file) {
+        my $openchange = EBox::Global->modInstance('openchange');
+        $openchange->_createRPCProxyCertificate();
+    }
+    $self->SUPER::_process();
 }
 
 1;

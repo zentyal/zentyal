@@ -60,15 +60,9 @@ sub _table
              printableName => __('Certificate'),
              volatile  => 1,
              optionalLabel => 0,
-             acquirer => sub {
-                 my $file = EBox::Config::downloads() . 'rpcproxy.crt';
-                 if (not -r $file) {
-                     return undef;
-                 }
-                 return '/Downloader/FromTempDir?filename=rpcproxy.crt&keepFile=1';
-             },
-            HTMLViewer     => '/ajax/viewer/downloadLink.mas',
-            HTMLSetter     => '/ajax/viewer/downloadLink.mas',
+             value => '/Downloader/RPCCert',
+             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
+             HTMLSetter     => '/ajax/viewer/downloadLink.mas',
          ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',
@@ -95,6 +89,23 @@ sub _table
     };
 
     return $dataForm;
+}
+
+sub _certificateLinkAcquirer
+{
+    my ($self) = @_;
+    my $file = EBox::Config::downloads() . 'rpcproxy.crt';
+    my $noFile = (not -r $file);
+    if ($noFile and $self->_rpcProxyEnabled()) {
+        $self->_createRPCProxyCertificate();
+        if (not -r $file) {
+            return undef;
+        }
+    } elsif ($noFile)  {
+        return undef;
+    }
+
+    return '/Downloader/FromTempDir?filename=rpcproxy.crt&keepFile=1';
 }
 
 sub precondition
