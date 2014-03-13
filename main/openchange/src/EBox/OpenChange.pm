@@ -790,20 +790,24 @@ sub organizations
 
     return $list;
 }
+
 sub _rpcProxyHostForDomain
 {
     my ($self, $domain) = @_;
+
     my $dns = $self->global()->modInstance('dns');
     my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
     if (not $domainExists) {
-        throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
+        throw EBox::Exceptions::External(__x('Domain {dom} not able to serve RPCProxy: is not configured in {oh}DNS module{ch}',
                                              dom => $domain,
                                              oh => '<a href="/DNS/Composite/Global">',
                                              ch => '</a>'
                                             ));
     }
-    my @hosts = @{ $dns->getHostnames($domain)  };
 
+
+    my $dns = $self->global()->modInstance('dns');
+    my @hosts = @{ $dns->getHostnames($domain)  };
     my @ips;
     my $network = $self->global()->modInstance('network');
     foreach my $iface (@{ $network->ExternalIfaces() }) {
@@ -833,7 +837,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Cannot find this host in {oh}DNS domain {dom}{ch}',
+        EBox::Exceptions::External->throw(__x('Domain cannot use RPC Proxy becasue we cannot find this host in {oh}DNS domain {dom}{ch}',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'
@@ -978,6 +982,19 @@ sub connectionString
     my $pwd = $self->_getMySQLPassword();
 
     return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
+sub notifiyDNSChange
+{
+    my ($self, $domain) = @_;
+    if (not $self->enabled()) {
+        return;
+    }
+
+    my $rpcpDomain = $self->_rpcProxyDomain();
+    if ($domain eq $rpcpDomain) {
+        $self->global()->modInstance('haproxy')->setAsChanged(1);
+    }
 }
 
 1;

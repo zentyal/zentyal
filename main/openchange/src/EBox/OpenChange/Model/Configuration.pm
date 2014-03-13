@@ -81,6 +81,24 @@ sub _table
     return $dataForm;
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $changed, $all) = @_;
+    my $domain = $all->{outgoingDomain}->printableValue();
+    my $openchange = $self->parentModule();
+    if ($openchange->_rpcProxyEnabled()) {
+        # check if there is a host for rpcprpxoy
+        $openchange->_rpcProxyHostForDomain($domain);
+    }
+}
+
+sub formSubmitted
+{
+    my ($self, $row, $oldRow) = @_;
+    # mark haproxy changed because a domain change could need a regenaration of
+    # rpcproxy certificate with the new fqdn
+    $self->global()->modInstance('haproxy')->setAsChanged(1);
+}
 
 
 1;
