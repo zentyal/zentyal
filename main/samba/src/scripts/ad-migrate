@@ -100,7 +100,16 @@ my $schemaMaster = $fsmo->getSchemaMaster();
 unless ($dsServiceName =~/$schemaMaster/i) {
     try {
         print "Transferring Schema Master role from owner: $schemaMaster\n";
-        $fsmo->transferSchemaMaster();
+        if ($fsmo->isRoleOwnerOnline($schemaMaster)) {
+            $fsmo->transferSchemaMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferSchemaMaster(1);
+            }
+        }
     } catch ($error) {
         print "ERROR: $error\n";
     }
@@ -110,7 +119,16 @@ my $domainNamingMaster = $fsmo->getDomainNamingMaster();
 unless ($dsServiceName =~/$domainNamingMaster/i) {
     try {
         print "Transferring Domain Naming Master role from owner: $domainNamingMaster\n";
-        $fsmo->transferDomainNamingMaster();
+        if ($fsmo->isRoleOwnerOnline($domainNamingMaster)) {
+            $fsmo->transferDomainNamingMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferDomainNamingMaster(1);
+            }
+        }
     } catch ($error) {
         print "ERROR: $error\n";
     }
@@ -120,7 +138,16 @@ my $pdcEmulationMaster = $fsmo->getPdcEmulationMaster();
 unless ($dsServiceName =~/$pdcEmulationMaster/i) {
     try {
         print "Transferring PDC Emulation Master role from owner: $pdcEmulationMaster\n";
-        $fsmo->transferPdcEmulationMaster();
+        if ($fsmo->isRoleOwnerOnline($pdcEmulationMaster)) {
+            $fsmo->transferPdcEmulationMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferPdcEmulationMaster(1);
+            }
+        }
     } catch ($error) {
         print "ERROR: $error\n";
     }
@@ -131,7 +158,16 @@ my $ridAllocationMaster = $fsmo->getRidAllocationMaster();
 unless ($dsServiceName =~/$ridAllocationMaster/i) {
     try {
         print "Transferring RID Allocation Master role from owner: $ridAllocationMaster\n";
-        $fsmo->transferRidAllocationMaster();
+        if ($fsmo->isRoleOwnerOnline($ridAllocationMaster)) {
+            $fsmo->transferRidAllocationMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferRidAllocationMaster(1);
+            }
+        }
     } catch ($error) {
         print "ERROR: $error\n";
     }
@@ -141,7 +177,16 @@ my $infrastructureMaster = $fsmo->getInfrastructureMaster();
 unless ($dsServiceName =~/$infrastructureMaster/i) {
     try {
         print "Transferring Infrastructure Master role from owner: $infrastructureMaster\n";
-        $fsmo->transferInfrastructureMaster();
+        if ($fsmo->isRoleOwnerOnline($infrastructureMaster)) {
+            $fsmo->transferInfrastructureMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferInfrastructureMaster(1);
+            }
+        }
     } catch ($error) {
         print "ERROR: $error\n";
     }

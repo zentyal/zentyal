@@ -1491,7 +1491,8 @@ sub provisionADC
     }
     # Revert primary resolver changes
     if (defined $dnsFile and -f $dnsFile) {
-        EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                         'resolvconf -d zentyal.temp');
         unlink $dnsFile;
     }
     # Remote stashed password

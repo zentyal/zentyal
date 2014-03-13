@@ -201,6 +201,20 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    # Upgrade from 3.3.4 to 3.3.5
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.3.5') < 0)) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $hostname = $sysinfo->hostName();
+        my $dnsAccount = new EBox::Users::User(uid => "dns-$hostname");
+        if ($dnsAccount->exists()) {
+            # This user is deprecated and not synced to OpenLDAP ever since 3.2, it's a bug that it exists after the
+            # upgrade to from 3.0 to 3.2 and then carried to 3.3
+            EBox::debug("Removing obsolete user dns-$hostname");
+            $dnsAccount->setIgnoredModules(['samba']);
+            $dnsAccount->deleteObject();
+        }
+    }
 }
 
 sub enableService
