@@ -298,7 +298,7 @@ sub _setConf
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
     $self->_setRPCProxyConf();
-    $self->_clearDownloadRPCProxyCert();
+    $self->_clearDownloadableCert();
     $self->_writeRewritePolicy();
 }
 
