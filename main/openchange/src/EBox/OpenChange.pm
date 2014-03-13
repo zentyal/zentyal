@@ -798,7 +798,7 @@ sub _rpcProxyHostForDomain
     my $dns = $self->global()->modInstance('dns');
     my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
     if (not $domainExists) {
-        throw EBox::Exceptions::External(__x('Domain {dom} not able to serve RPCProxy: is not configured in {oh}DNS module{ch}',
+        throw EBox::Exceptions::External(__x('Domain {dom} not able to serve RPCProxy because is not configured in {oh}DNS module{ch}',
                                              dom => $domain,
                                              oh => '<a href="/DNS/Composite/Global">',
                                              ch => '</a>'
@@ -837,7 +837,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Domain cannot use RPC Proxy becasue we cannot find this host in {oh}DNS domain {dom}{ch}',
+        EBox::Exceptions::External->throw(__x('Domain cannot use RPC Proxy because we cannot find this host in {oh}DNS domain {dom}{ch}',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'
