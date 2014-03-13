@@ -322,7 +322,9 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+
     $self->_setAutodiscoverConf();
+
     $self->_setRPCProxyConf();
     $self->_clearDownloadableCert();
 
