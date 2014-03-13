@@ -33,6 +33,7 @@ use TryCatch::Lite;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Util::Lock;
+use EBox::Iptables;
 use Linux::Inotify2;
 use EBox::Gettext;
 use Time::HiRes qw(usleep);
@@ -85,6 +86,8 @@ sub run
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
+    $self->_checkChains($captive);
+
     my $expirationTime = $captive->expirationTime();
 
     my $exceededEvent = 0;
@@ -182,7 +185,10 @@ sub _updateSessions
             }
         } else {
             # Check for IP change or missing rule
-            my $notFWRules = (not $new) and (not exists $sidsFromFWRules{$sid});
+            my $notFWRules = 0;
+            if (not $new) {
+                $notFWRules = not exists $sidsFromFWRules{$sid};
+            }
             my $oldip = $self->{sessions}->{$sid}->{ip};
             my $newip = $user->{ip};
             my $changedIP = $oldip ne $newip;
@@ -240,11 +246,10 @@ sub _updateSessions
                 }
                 push @rulesToExecute, @rules, @removeRules;
                 foreach my $rule (@rulesToExecute) {
-                    try {
-                        EBox::Sudo::root($rule);
-                    } catch ($e) {
-                        EBox::debug("Cannot execute captive portal fw rule: $e");
+                    EBox::Sudo::silentRoot($rule);
+                    if ($? != 0) {
                         # ignore error and continue with next rule
+                        EBox::debug("Cannot execute captive portal fw rule: $rule");
                     }
                 }
             } catch ($e) {
@@ -325,6 +330,46 @@ sub _unmatchUser
         $self->{bwmonitor}->removeUserIP($user->{user}, $user->{ip});
     }
 }
+
+# checks if all chains are in place and put them if dont exists
+sub _checkChains
+{
+    my ($self, $captive) = @_;
+
+    my $fwHelper = $captive->firewallHelper();
+    my $chains   = $fwHelper->chains();
+
+    my $chainsInPlace = 1;
+    while(my ($table, $chains_list) = each %{$chains}) {
+        foreach my $ch (@{ $chains_list }) {
+            try {
+                EBox::Sudo::root("iptables -t $table -nL $ch");
+            } catch {
+                $chainsInPlace = 0;
+            }
+        }
+        if (not $chainsInPlace) {
+            next;
+        }
+    }
+
+    if ($chainsInPlace) {
+        return;
+    }
+
+    # remove chains to be sure they are not leftovers
+    while(my ($table, $chains_list) = each %{$chains}) {
+        foreach my $ch (@{ $chains_list }) {
+
+            EBox::Sudo::silentRoot("iptables -t $table -F $ch",
+                             "iptables -t $table -X $ch");
+        }
+    }
+
+    my $iptables = EBox::Iptables->new();
+    $iptables->executeModuleRules($captive);
+}
+
 
 ###############
 # Main program
