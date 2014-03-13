@@ -1,4 +1,5 @@
 HEAD
+	+ ad-migrate: Detect offline role owner and seize roles
 	+ s4sync: Check samba daemon is running
 	+ Removed obsolete dns-$hostname account from OpenLDAP, it should be only
 	  available in Samba
