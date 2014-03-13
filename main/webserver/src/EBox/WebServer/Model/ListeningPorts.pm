@@ -40,7 +40,9 @@ use TryCatch::Lite;
 
 # Method: validateTypedRow
 #
-#     Override to check if the selected port is already taken
+#     Override to check:
+#
+#     * if both ports are disabled
 #
 # Overrides:
 #
@@ -50,31 +52,17 @@ sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
 
-    my $httpPort = undef;
-    my $actualHTTPPort = undef;
-    my $httpsPort = undef;
-    my $actualHTTPSPort = undef;
-    my $changed = 0;
-    my $webserverModro = EBox::Global->getInstance(1)->modInstance('webserver');
-    my $haproxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
-
-    if (exists $changedValues->{port} and (defined $changedValues->{port}->value())) {
-        $actualHTTPPort = $webserverModro->listeningHTTPPort();
-        $httpPort = $changedValues->{port}->value();
-        if ($httpPort != $actualHTTPPort) {
-            $changed = 1;
-        }
-    } else {
-        $httpPort = $actualHTTPPort;
+    my $port = $allValues->{port}->value();
+    if (exists $changedValues->{port}) {
+        $port = $changedValues->{port}->value();
     }
-    if (exists $changedValues->{sslPort} and (defined $changedValues->{sslPort}->value())) {
-        $actualHTTPSPort = $webserverModro->listeningHTTPSPort();
-        $httpsPort = $changedValues->{sslPort}->value();
-        if ($httpsPort != $actualHTTPSPort) {
-            $changed = 1;
-        }
-    } else {
-        $httpsPort = $actualHTTPSPort;
+    my $SSLPort = $allValues->{sslPort}->value();
+    if (exists $changedValues->{sslPort}) {
+        $SSLPort = $changedValues->{sslPort}->value();
+    }
+
+    if ($port ~~ 'port_disabled' and $SSLPort ~~ 'sslPort_disabled') {
+        throw EBox::Exceptions::External(__('You must enable, at least, a listening port to make this module useful.'));
     }
 }
 
