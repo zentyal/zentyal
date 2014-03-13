@@ -1,4 +1,5 @@
 HEAD
+	+ s4sync: Check samba daemon is running
 	+ Fix GPO models UI
 	+ Fix revert resolvconf configuration after joining domain
 	+ Set allow_non_scanned_files = True on samba.conf by default to
