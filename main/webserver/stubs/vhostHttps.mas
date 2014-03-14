@@ -33,6 +33,7 @@
         DocumentRoot <% $docRoot %>/<% $vHostName %>
 
         SetEnv HTTPS On
+        SetEnv isSSL 1
 
         ErrorLog /var/log/apache2/<% $vHostName %>-error.log
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
