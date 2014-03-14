@@ -1,4 +1,5 @@
 HEAD
+	+ Skip configuring logs if module is disabled
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
 3.2.8
