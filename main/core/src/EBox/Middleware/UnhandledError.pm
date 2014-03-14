@@ -82,7 +82,7 @@ sub call
     if ($caught and $trace) {
         my $HTMLContent;
         if (exists($env->{'HTTP_X_REQUESTED_WITH'}) and $env->{'HTTP_X_REQUESTED_WITH'} eq 'XMLHttpRequest') {
-            EBox::TraceStorable::storeTrace($trace);
+            EBox::TraceStorable::storeTrace($trace, $env);
             $HTMLContent = $trace->redirect_html();
         } else {
             $HTMLContent = $trace->as_html();

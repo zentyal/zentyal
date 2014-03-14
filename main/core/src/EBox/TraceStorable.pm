@@ -26,7 +26,7 @@ package EBox::TraceStorable;
 
 use Storable;
 
-use constant TRACE_FILE => '/var/lib/zentyal/tmp/trace';
+use constant TRACE_PREFIX => '/var/lib/zentyal/tmp/trace-';
 
 # Procedure: storeTrace
 #
@@ -35,18 +35,27 @@ use constant TRACE_FILE => '/var/lib/zentyal/tmp/trace';
 # Parameters:
 #
 #     trace - <Devel::StackTrace> the trace to store
+#     env - Hash ref the PSGI environment
 #
 sub storeTrace
 {
-    my ($trace) = @_;
+    my ($trace, $env) = @_;
+
+    my $appName = _getAppName($env);
+    return unless ($appName);
+    my $traceFile = TRACE_PREFIX . $appName;
 
     local $Storable::forgive_me = 1;
-    Storable::store($trace, TRACE_FILE);
+    Storable::store($trace, $traceFile);
 }
 
 # Procedure: retrieveTrace
 #
 #     Retrieve a stored trace
+#
+# Parameters:
+#
+#     env - Hash ref the PSGI environment
 #
 # Returns:
 #
@@ -56,14 +65,30 @@ sub storeTrace
 #
 sub retrieveTrace
 {
-    my ($trace) = @_;
+    my ($env) = @_;
 
-    if (-e TRACE_FILE) {
-        my $trace = Storable::retrieve(TRACE_FILE);
-        unlink(TRACE_FILE);
+    my $appName = _getAppName($env);
+    return undef unless ($appName);
+    my $traceFile = TRACE_PREFIX . $appName;
+
+    if (-f $traceFile) {
+        my $trace = Storable::retrieve($traceFile);
+        unlink($traceFile);
         return $trace;
     }
     return undef;
+}
+
+# Get the app name
+sub _getAppName
+{
+    my ($env) = @_;
+
+    if (exists $env->{'psgix.session'} and exists $env->{'psgix.session'}->{app}) {
+        return $env->{'psgix.session'}->{app};
+    } else {
+        return undef;
+    }
 }
 
 1;

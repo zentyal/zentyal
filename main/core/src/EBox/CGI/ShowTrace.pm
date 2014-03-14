@@ -27,7 +27,7 @@ sub _print
     my ($self) = @_;
 
     my $response = $self->response();
-    my $trace = EBox::TraceStorable::retrieveTrace();
+    my $trace = EBox::TraceStorable::retrieveTrace($self->request()->env());
 
     if ($trace) {
         $response->body($trace->as_html());
