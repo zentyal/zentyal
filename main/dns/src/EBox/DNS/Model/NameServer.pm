@@ -26,10 +26,11 @@ use warnings;
 
 package EBox::DNS::Model::NameServer;
 
-use base 'EBox::DNS::Model::Record';
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
+
 use EBox::Types::DomainName;
 use EBox::Types::Select;
 use EBox::Types::Union;
@@ -39,18 +40,19 @@ use EBox::Exceptions::External;
 
 # Constructor: new
 #
-#   Create a new NameServer model instance
+#      Create a new NameServer model instance
 #
 # Returns:
 #
-#   <EBox::DNS::Model::NameServer> - the newly created model instance
+#      <EBox::DNS::Model::NameServer> - the newly created model
+#      instance
 #
 sub new
 {
     my ($class, %params) = @_;
 
     my $self = $class->SUPER::new(%params);
-    bless ($self, $class);
+    bless($self, $class);
 
     return $self;
 }
@@ -61,7 +63,7 @@ sub new
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::validateTypedRow>
+#      <EBox::Model::DataTable::validateTypedRow>
 #
 sub validateTypedRow
 {
@@ -90,44 +92,63 @@ sub validateTypedRow
                                                 . '"This domain" option instead'));
         }
     }
+
+    if ($action eq 'update') {
+        # Add toDelete the RRs for this nameserver
+        my $oldRow = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow();
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $ns   = $oldRow->printableValueByName('hostName');
+            if ( $ns !~ m:\.:g ) {
+                $ns = "$ns.$zone";
+            }
+            $self->{toDelete} = "$zone NS $ns";
+        }
+    }
+
 }
 
 # Method: updatedRowNotify
 #
-#   Overrides to add to the list of deleted RR in dynamic zones
+#   Override to add to the list of removed of RRs
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::updatedRowNotify>
+#   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
 
-    my $zoneRow = $oldRow->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $oldName = $oldRow->printableValueByName('hostName');
-    my $record = "$zone NS $oldName.$zone";
-    $self->_addToDelete($zone, $record);
+    # The field is added in validateTypedRow
+    if (exists $self->{toDelete}) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
 }
 
 # Method: deletedRowNotify
 #
-#   Overrides to add to the list of deleted RR in dynamic zones
+# 	Overrides to add to the list of deleted RR in dynamic zones
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::deletedRowNotify>
+#      <EBox::Model::DataTable::deletedRowNotify>
 #
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
 
-     my $zoneRow = $row->parentRow();
-     my $zone = $zoneRow->printableValueByName('domain');
-     my $oldName = $row->printableValueByName('hostName');
-     my $record = "$zone NS $oldName.$zone";
-     $self->_addToDelete($zone, $record);
+    my $zoneRow = $row->parentRow();
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+        my $zone = $zoneRow->valueByName('domain');
+        my $ns   = $row->printableValueByName('hostName');
+        if ( $ns !~ m:\.:g ) {
+            $ns = "$ns.$zone";
+        }
+        $self->_addToDelete("$zone NS $ns");
+    }
 }
 
 # Method: removeRow
@@ -150,6 +171,20 @@ sub removeRow
     }
 
     return $self->SUPER::removeRow($id, $force);
+
+}
+
+# Method: pageTitle
+#
+# Overrides:
+#
+#     <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Protected methods
@@ -231,6 +266,28 @@ sub _hostnameModel
         return $model;
     # }
 
+}
+
+# Add the RR to the deleted list
+sub _addToDelete
+{
+    my ($self, $domain) = @_;
+
+    my $mod = $self->{confmodule};
+    my $key = EBox::DNS::DELETED_RR_KEY();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+        foreach my $elem (@list) {
+            if ($elem eq $domain) {
+                # domain already added, nothing to do
+                return;
+            }
+        }
+    }
+
+    push (@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
 }
 
 1;
