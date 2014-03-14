@@ -29,6 +29,7 @@ use File::Slurp qw(read_file);
 
 no warnings 'qw';
 my %enc = qw( & &amp; > &gt; < &lt; " &quot; ' &#39; );
+my $SHOW_TRACE_URL = '/ShowTrace';
 
 # Method encode_html
 #
@@ -47,6 +48,10 @@ sub Devel::StackTrace::as_html {
 
 sub Devel::StackTrace::as_html_snippet {
     __PACKAGE__->renderSnippet(@_);
+}
+
+sub Devel::StackTrace::redirect_html {
+    qq{<script type="text/javascript">window.location.href="$SHOW_TRACE_URL"</script>};
 }
 
 sub renderSnippet

@@ -635,18 +635,18 @@ sub setError
 
 # Method: setErrorFromException
 #
-#    set the error message using the description value found in an exception
+#    Set the error message using the description value found in the exception
 #
 # Parameters:
 #
-#   ex - Exception used to set the error attribute
+#    ex - exception used to set the error attribute
 #
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
 
-    my $dump = EBox::Config::configkey('dump_exceptions');
-    if (defined ($dump) and ($dump eq 'yes')) {
+    my $dump = EBox::Config::boolean('dump_exceptions');
+    if ($dump) {
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
