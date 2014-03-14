@@ -133,8 +133,8 @@ msgstr "客户端 {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:211
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:182
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:199
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
@@ -144,7 +144,7 @@ msgstr "客户端 {name}"
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Model/DataTable.pm:4354
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:128
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:217
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
@@ -160,9 +160,9 @@ msgstr "已启用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:189
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:206
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:177
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:270
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:64
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -353,7 +353,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:234
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:304
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:303
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
@@ -362,7 +362,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:202
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:178
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:49
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:52
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -387,7 +387,7 @@ msgstr "名称"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:189
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:190
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:225
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:39
@@ -655,19 +655,19 @@ msgstr "无效的客户端类型：服务器用于 Zentyal-to-Zentyal 通道"
 msgid "Installer is only available for Windows clients"
 msgstr "安装器只适用于 Windows 客户端"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:312
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr "客户端软件包是一个文件，有了它，您的客户端“开箱即用”"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:337
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr "无法创建软件包，因为服务器还没配置完；请完成配置后重试"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:347
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:355
 #, perl-brace-format
 msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
@@ -1009,7 +1009,7 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/samba/src/EBox/Samba.pm:1593
 #: ../../main/samba/src/EBox/Samba.pm:1613
 #: ../../main/samba/src/EBox/Samba.pm:1624
-#: ../../main/squid/src/EBox/Squid.pm:1133
+#: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:365
 #: ../../main/mail/src/EBox/Mail.pm:1506
@@ -1037,7 +1037,7 @@ msgstr "日期"
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
 #: ../../main/core/src/EBox/AuditLogging.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:144
-#: ../../main/squid/src/EBox/Squid.pm:1140
+#: ../../main/squid/src/EBox/Squid.pm:1141
 #: ../../main/ipsec/src/EBox/IPsec.pm:366
 #: ../../main/mail/src/EBox/Mail.pm:1516
 msgid "Event"
@@ -1112,7 +1112,7 @@ msgstr "高可用"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:473
 #: ../../main/core/src/EBox/SysInfo.pm:111
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:182
-#: ../../main/core/src/EBox/HAProxy.pm:292
+#: ../../main/core/src/EBox/HAProxy.pm:298
 #: ../../main/ebackup/src/EBox/EBackup.pm:870
 msgid "System"
 msgstr "系统"
@@ -1198,7 +1198,7 @@ msgstr "错误"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:435
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:318
 #: ../../main/network/src/EBox/Network.pm:4470
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:53
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1398 ../../main/mail/src/EBox/Mail.pm:1515
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
@@ -1215,10 +1215,10 @@ msgid "Nodes"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA.pm:1027
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:234
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:173
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:171
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:153
 #: ../../main/network/src/EBox/Network.pm:4316
 #: ../../main/network/src/EBox/Network.pm:4337
 #: ../../main/dhcp/src/EBox/DHCP.pm:1066
@@ -1230,8 +1230,8 @@ msgstr "主机名"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:185
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:125
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:131
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:117
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:65
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
@@ -1535,7 +1535,9 @@ msgid ""
 "There is an unmanaged resource, we cannot deal with that by the momment. You "
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
-msgstr "当前有一个未管理的资源无法处理，你应该在终端中输入以下命令来恢复其控制：{command}"
+msgstr ""
+"当前有一个未管理的资源无法处理，你应该在终端中输入以下命令来恢复其控制："
+"{command}"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -1552,7 +1554,9 @@ msgid ""
 "attempts and attacks on security vulnerabilities? Get  one of the {oh}"
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
-msgstr "希望保护你的系统远离最近的安全威胁、黑客攻击吗？即刻获取我们包含入侵检测防护的{oh}商业版本{ch}"
+msgstr ""
+"希望保护你的系统远离最近的安全威胁、黑客攻击吗？即刻获取我们包含入侵检测防护"
+"的{oh}商业版本{ch}"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1631,8 +1635,8 @@ msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr "高级安全更新授权你使用日常更新规则{rules}"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:119
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:117
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:156
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:57
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:305
@@ -1722,7 +1726,7 @@ msgid "Enable start of suricata daemon"
 msgstr "允许启动 suricata 服务"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:159
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:360
 msgid "Priority"
 msgstr "优先级"
@@ -1786,7 +1790,7 @@ msgid "Destination"
 msgstr "目的"
 
 #: ../../main/ips/src/EBox/IPS.pm:312
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:153
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/firewall/src/EBox/Firewall.pm:768
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
@@ -1875,26 +1879,26 @@ msgid "Remove apache2 init script link"
 msgstr "移除apache2初始化脚本链接"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:139
-#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:334
-#: ../../main/squid/src/EBox/Squid.pm:340 ../../main/ntp/src/EBox/NTP.pm:88
+#: ../../main/dns/src/EBox/DNS.pm:539 ../../main/squid/src/EBox/Squid.pm:335
+#: ../../main/squid/src/EBox/Squid.pm:341 ../../main/ntp/src/EBox/NTP.pm:80
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal会接管启动和停止服务行为"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:661
+#: ../../main/webserver/src/EBox/WebServer.pm:683
 #, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr "对于虚拟主机配置，{dir}应该是一个目录。请移走或者删除它"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:676
+#: ../../main/webserver/src/EBox/WebServer.pm:698
 #, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr "对于虚拟主机文档根目录，{dir}应该是一个目录。请移走或者删除它"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:918
+#: ../../main/webserver/src/EBox/WebServer.pm:940
 msgid "Web server data"
 msgstr "Web服务器数据"
 
@@ -1904,54 +1908,58 @@ msgid ""
 "different virtual hosts."
 msgstr "Zentyal网络服务器允许HTTP和HTTPS页面在不同的虚拟主机。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:185
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
+msgid "You must enable, at least, a listening port to make this module useful."
+msgstr ""
+
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
 #, fuzzy
 msgid "HTTP listening port"
 msgstr "监听端口"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:202
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
 #, fuzzy
 msgid "HTTPS listening port"
 msgstr "监听端口"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:221
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
 #, fuzzy
 msgid "Listening Ports settings"
 msgstr "会议列表"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:225
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
 #, fuzzy
 msgid "Listening Ports configuration"
 msgstr "客户端配置"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:227
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
 #, fuzzy
 msgid "Listening ports configuration settings updated."
 msgstr "Zarafa 服务器限额配置已更新。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:91
 msgid "Virtual host name"
 msgstr "虚拟主机名称"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:328
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:95
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:131
 msgid "Virtual host"
 msgstr "虚拟主机"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:107
 msgid "You need to enable Listening SSL port."
 msgstr "您需要启用SSL端口监听。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:112
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
 "SSL on a virtual host."
 msgstr "在一个虚拟主机开启SSL，你需要在{ohref}服务启用{module}。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:167
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
@@ -1959,7 +1967,7 @@ msgid ""
 msgstr ""
 "虚拟主机{vhost}已添加。一个域{domain}已建立。请检查它的IP地址{noDnsWarning}。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:175
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
@@ -1968,7 +1976,7 @@ msgstr ""
 "虚拟主机{vhost}已建立。一个主机名称为{name}的域{domain}已建立。请设置主机的IP"
 "地址。{noDnsWarning}"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:197
 #, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
@@ -1977,34 +1985,34 @@ msgstr ""
 "虚拟主机{vhost}已添加。一个主机名称为{name}的域{domain}已建立。请设置主机的IP"
 "地址。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:205
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
 msgstr "虚拟主机{vhost}已添加。 "
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:272
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:119
 msgid "Allow SSL"
 msgstr "允许SSL"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:273
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:272
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:120
 msgid "Force SSL"
 msgstr "强制SSL"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:297
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:296
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:153
 msgid "SSL support"
 msgstr "SSL支持"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:314
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:313
 msgid "Virtual hosts"
 msgstr "虚拟主机"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:318
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -2018,11 +2026,11 @@ msgstr ""
 "式。不同的主机名指向相同的web服务器。如果可行，DNS条目将自动建立。内容必须置"
 "于{docRoot}目录之下。添加任何特定的配置需要放置在{userConf}目录下。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:334
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:333
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr "虚拟主机已移除。该虚拟主机的文件将保留"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:352
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:351
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -2088,72 +2096,79 @@ msgstr ""
 "各自的主目录。如果您想改变公共端口或者启用/禁用SSL，你可以通过{ohref}系统常规"
 "配置页面{chref}。"
 
-#: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
-#: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1712
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:638
+#: ../../main/dns/src/EBox/DNS.pm:285 ../../main/dns/src/EBox/DNS.pm:365
+#: ../../main/dns/src/EBox/DNS.pm:393 ../../main/dns/src/EBox/DNS.pm:1738
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:637
 msgid "domain"
 msgstr "域名"
 
-#: ../../main/dns/src/EBox/DNS.pm:491
+#: ../../main/dns/src/EBox/DNS.pm:497
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr "Zentyal将设置bind9服务必需的环境变量"
 
-#: ../../main/dns/src/EBox/DNS.pm:496
+#: ../../main/dns/src/EBox/DNS.pm:502
 msgid "main bind9 configuration file"
 msgstr "bind9的主配置文件"
 
-#: ../../main/dns/src/EBox/DNS.pm:501
+#: ../../main/dns/src/EBox/DNS.pm:507
 msgid "bind9 options configuration file"
 msgstr "bind9的选项(option)配置文件"
 
-#: ../../main/dns/src/EBox/DNS.pm:506
+#: ../../main/dns/src/EBox/DNS.pm:512
 msgid "local bind9 configuration file"
 msgstr "bind9的local配置文件"
 
-#: ../../main/dns/src/EBox/DNS.pm:511
+#: ../../main/dns/src/EBox/DNS.pm:517
 msgid "Keys configuration file"
 msgstr "密钥配置文件"
 
-#: ../../main/dns/src/EBox/DNS.pm:526
+#: ../../main/dns/src/EBox/DNS.pm:532
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr "变更目录{dir}的权限，允许bind组写入"
 
-#: ../../main/dns/src/EBox/DNS.pm:528
+#: ../../main/dns/src/EBox/DNS.pm:534
 msgid "Let the bind daemon to be dynamically updated"
 msgstr "使bind监控进程动态更新"
 
-#: ../../main/dns/src/EBox/DNS.pm:532
+#: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Remove bind9 init script link"
 msgstr "移除bind9初始化脚本链接"
 
-#: ../../main/dns/src/EBox/DNS.pm:538
+#: ../../main/dns/src/EBox/DNS.pm:544
 msgid "Override named apparmor profile"
 msgstr "覆盖 named 的apparmor配置"
 
-#: ../../main/dns/src/EBox/DNS.pm:539
+#: ../../main/dns/src/EBox/DNS.pm:545
 msgid "To allow samba daemon load Active Directory zone"
 msgstr "允许samba服务加载活动目录区"
 
-#: ../../main/dns/src/EBox/DNS.pm:564
+#: ../../main/dns/src/EBox/DNS.pm:570
 msgid "Domain Name Service"
 msgstr "域名服务器"
 
-#: ../../main/dns/src/EBox/DNS.pm:977
+#: ../../main/dns/src/EBox/DNS.pm:1021
+#: ../../main/dns/src/EBox/DNS/Update.pm:116
+#, fuzzy, perl-brace-format
+msgid "Failed to update: {err}."
+msgstr "启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS.pm:1134
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
 msgstr "配置文件中的键名'{key}' {value}"
 
-#: ../../main/dns/src/EBox/DNS.pm:1738
+#: ../../main/dns/src/EBox/DNS.pm:1764
 msgid "hostname"
 msgstr "主机名"
 
-#: ../../main/dns/src/EBox/DNS.pm:1743
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
+#: ../../main/dns/src/EBox/DNS.pm:1769
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:174
+#: ../../main/users/src/EBox/Users.pm:2546
 msgid "alias"
 msgstr "别名"
 
-#: ../../main/dns/src/EBox/DNS.pm:1864
+#: ../../main/dns/src/EBox/DNS.pm:1890
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "这个域名{y}中已存在一个与{x}相同的主机名"
@@ -2162,8 +2177,58 @@ msgstr "这个域名{y}中已存在一个与{x}相同的主机名"
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr "需要提供一个不合法的域名或者一个通配符(*)"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:68
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
+#: ../../main/dns/src/EBox/DNS/Update.pm:111
+#, fuzzy, perl-brace-format
+msgid "Failed to send update: {err}."
+msgstr "启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS/Update.pm:177
+#, fuzzy, perl-brace-format
+msgid "Failed to query the {dom} zone NS record: {err}"
+msgstr "{mod}启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS/Update.pm:189
+#, perl-brace-format
+msgid "Failed to query the {dom} zone NS record: Record not found."
+msgstr ""
+
+#: ../../main/dns/src/EBox/DNS/Update/TSIG.pm:55
+msgid "Failed to sign DNS packet."
+msgstr ""
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:69
+msgid ""
+"The DNS server has not signed the reply. Can not verify its authenticity."
+msgstr ""
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:77
+#, fuzzy, perl-brace-format
+msgid "Failed to verify MIC: {err}"
+msgstr "启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:112
+#, perl-brace-format
+msgid "GSS: failed to init security context: {err}"
+msgstr ""
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:134
+#, fuzzy, perl-brace-format
+msgid "GSS: Failed to send update: {err}."
+msgstr "启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:140
+#, fuzzy, perl-brace-format
+msgid "GSS: Failed to send TKEY: {err}."
+msgstr "启用失败：{err}"
+
+#: ../../main/dns/src/EBox/DNS/Update/GSS.pm:151
+msgid ""
+"Failed to negotiate security context with DNS server. The server reply does "
+"not contain a TKEY record."
+msgstr ""
+
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:110
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:242
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
@@ -2172,7 +2237,7 @@ msgstr "需要提供一个不合法的域名或者一个通配符(*)"
 msgid "IP Address"
 msgstr "IP地址"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:91
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:133
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr "该域名将被解析为这个 IP 地址列表。"
 
@@ -2221,49 +2286,49 @@ msgstr "服务器会首先将请求进行转发，如果没有回应它将试图
 msgid "forwarder"
 msgstr "转发"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
 msgid "Service name"
 msgstr "服务名"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:164
 msgid "Lower value is greater priority"
 msgstr "较低的值有更高的优先级"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:152
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:191
 msgid "Weight"
 msgstr "权重"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:157
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:173
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr "0 表示没有权重，值越大，优先级就越大"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:163
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:179
 msgid "Target port"
 msgstr "源端口"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:184
 msgid "Target"
 msgstr "目标"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:186
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr "如果您选择“定制”，需要输入完整域名"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:215
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:150
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:192
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:182
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:180
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
 msgid "This domain"
 msgstr "此域名"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:199
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:190
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:188
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:380
@@ -2275,66 +2340,66 @@ msgstr "此域名"
 msgid "Custom"
 msgstr "定制"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:585
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:584
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:150
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
 msgstr "服务管理"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:199
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:215
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
 "它管理此域的 SRV 记录。当为一个服务选择一个基于优先级的主机时，这些很有用。"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:218
 #, perl-brace-format
 msgid "{srv} record"
 msgstr "{srv} 记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:307
 #, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
 msgstr "{file} 中不存在 {srv} 服务"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:325
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr "主机名不是正式域名(FQDN)。你的意思是否是 {srv}.{name}?"
 
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:321
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:337
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:108
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:90
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:88
 msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr "自定义主机名不能来自同一个域。请使用“该域”选项。"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:87
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:86
 #, perl-brace-format
 msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr "在这个域中，\"{hostname}\"已有一个\"{name}\"的别名"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:192
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:180
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:190
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:251
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:157
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:167
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
 #: ../../main/dns/src/templates/edit.mas:51
 #: ../../main/dns/src/templates/edit.mas:66
 msgid "Alias"
 msgstr "别名"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:203
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:262
 msgid "Host names"
 msgstr "主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:268
 msgid ""
 "Automatic reverse resolution is done. If you repeat an IP address in another "
 "domain, only first match will be used by reverse resolution. Dynamic zones "
@@ -2343,7 +2408,7 @@ msgstr ""
 "自动反向解析完成。如果您在其他域重复一个 IP 地址，只有第一个匹配项会被用于反"
 "向解析。动态区域可能会删除您的手动反向解析。"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
+#: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:273
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
 #: ../../main/network/src/EBox/Network.pm:4357
 msgid "host name"
@@ -2361,20 +2426,20 @@ msgid ""
 "mx.{name}?"
 msgstr "主机名不是正式域名(FQDN). 是否是mx.{name}?"
 
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:176
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:174
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr "如果您选择\"定制\"，需要输入正式域名"
 
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:211
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:198
 msgid "Preference"
 msgstr "偏好设置"
 
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:207
 msgid "Mail exchangers"
 msgstr "邮件交换"
 
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:226
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:213
 #, perl-brace-format
 msgid ""
 "The smallest preference number has the highest priority  and is the first "
@@ -2385,7 +2450,7 @@ msgstr ""
 "编号最小的偏好有最高的优先权. 远程客户端(通常是另外一个邮件服务器)执行MX查询"
 "时，这是优先解析的服务器. 允许的偏好值 = ({min}, {max})"
 
-#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
+#: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:219
 msgid "Mail exchanger record"
 msgstr "邮件交换记录"
 
@@ -2401,8 +2466,8 @@ msgstr ""
 "为 NS 记录。此外，相同的 IP 地址已被分配给此新域。您可以随时为其重命名或创建"
 "别名。"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:535
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:534
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
@@ -2411,45 +2476,45 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:197
 #: ../../main/samba/src/EBox/Samba.pm:1233
-#: ../../main/squid/src/EBox/Squid.pm:1137
+#: ../../main/squid/src/EBox/Squid.pm:1138
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:543
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:542
 msgid "Domain IP Addresses"
 msgstr "域的 IP 地址"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:552
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:551
 msgid "Hostnames"
 msgstr "主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:561
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:560
 msgid "Mail Exchangers"
 msgstr "邮件交换者"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:569
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:568
 msgid "Name Servers"
 msgstr "域名服务器"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:577
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:576
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:189
 #, perl-brace-format
 msgid "{txt} records"
 msgstr "{txt} 记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:595
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:594
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:191
 msgid "Dynamic domain"
 msgstr "动态域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:631
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:630
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:198
 msgid "Domains"
 msgstr "域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:639
 msgid ""
 "Here you can add the domains for this DNS server. Each domain can have "
 "different hostnames with aliases  (A and CNAME) and other special records "
@@ -2458,81 +2523,81 @@ msgstr ""
 "在这里，您可以为这个 DNS 服务器添加域。每个域可以有不同的主机名与别名（A记录"
 "和CNAME记录）和其他特殊记录（MX，NS，TXT 和 SRV）。"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:76
 #, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr "给出的主机名不是完整域名(FQDN)。你的意思是否是 ns {name}?"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:170
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:149
 msgid "Last name server cannot be removed"
 msgstr "最后的域名服务器不允许移除"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:234
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:199
 msgid "Name servers"
 msgstr "域名服务器"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:240
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:205
 msgid "It manages the name server (NS) records for this domain"
 msgstr "它管理该域的域名服务器(NS)记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:241
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
 msgid "name server record"
 msgstr "域名服务器（NS）记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:77
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:76
 #, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
 msgstr "{name} 长度不能超过 {value} 个字符"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:144
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:155
 msgid "If you select the Domain, then you are choosing the zone"
 msgstr "选择该域，就选择了区域"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:172
 msgid "Custom owner"
 msgstr "自定义所有者"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:179
 #, perl-brace-format
 msgid "{txt} data"
 msgstr "{txt} 数据"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:170
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:181
 msgid "Any data could be provided"
 msgstr "能够提供的任何数据"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:184
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:195
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr "它管理此域的 TXT 记录。这些对 SPF 或 DKIM 反垃圾邮件协议很有用"
 
-#: ../../main/dns/src/EBox/DNS/Model/Text.pm:185
+#: ../../main/dns/src/EBox/DNS/Model/Text.pm:196
 #, perl-brace-format
 msgid "{txt} record"
 msgstr "{txt} 记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:70
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:68
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr "别名不能作为域名服务器主机名“{ns}”。请使用主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:83
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:81
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "该域名有一个与“{name}”同名的主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:93
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:91
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr "该域中已经有一个别名 {hostname}，主机名“{name}”相同"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:196
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:173
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
@@ -2543,9 +2608,9 @@ msgstr "这是主机名的别名列表。所有记录都将被解析为主机的
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr "IP {ip} 已经被分配给该域的 {name} 主机"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:112
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:127
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:134
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:149
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:164
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:171
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:58
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/dhcp/src/EBox/DHCP.pm:976
@@ -2554,7 +2619,7 @@ msgstr "IP {ip} 已经被分配给该域的 {name} 主机"
 msgid "IP"
 msgstr "IP"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:133
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:170
 msgid "The host name will be resolved to this list of IP addresses."
 msgstr "该主机名将被解析到这个列表中的 IP 地址。"
 
@@ -2583,12 +2648,12 @@ msgstr "强制入口"
 msgid "Notify when a user is out of quota"
 msgstr "当用户超出配额后，通知用户"
 
-#: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:145
+#: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:148
 #, perl-brace-format
 msgid "{user} has logged in captive portal and has quota left"
 msgstr "{user} 已登录到强制入口，其配额还剩"
 
-#: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:172
+#: ../../main/captiveportal/src/EBox/CaptiveDaemon.pm:175
 #, perl-brace-format
 msgid "{user} is out of quota in captive portal with a usage of {bwusage} Mb"
 msgstr "{user} 的配额已用完（已用 {bwusage} Mb）"
@@ -2807,7 +2872,7 @@ msgid "HTTPS port"
 msgstr "HTTPS 端口"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:86
-#: ../../main/squid/src/EBox/Squid.pm:1076
+#: ../../main/squid/src/EBox/Squid.pm:1077
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 msgid "General Settings"
@@ -2892,7 +2957,7 @@ msgstr "月带宽用量(MB)"
 #: ../../main/samba/src/EBox/Samba.pm:1595
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1626
-#: ../../main/squid/src/EBox/Squid.pm:1135
+#: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
@@ -4197,7 +4262,7 @@ msgid "Could not retrive time from AD server {x} via NTP."
 msgstr "无法通过 NTP 从 AD 服务器 {x} 获取时间。"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:589
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1035
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1026
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -4332,7 +4397,7 @@ msgid "Configure mode"
 msgstr "配置模式"
 
 #: ../../main/users/src/EBox/Users.pm:1928
-#: ../../main/users/src/EBox/Users/Model/Password.pm:75
+#: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:93
@@ -4382,6 +4447,11 @@ msgstr ""
 msgid "Users data"
 msgstr "用户数据"
 
+#: ../../main/users/src/EBox/Users.pm:2552
+#, fuzzy, perl-brace-format
+msgid "Address {addr} is already in use by the {type} {name}"
+msgstr "地址 {ip} 已经用于接口 {iface}"
+
 #: ../../main/users/src/EBox/UsersSync/Master.pm:168
 #, perl-brace-format
 msgid ""
@@ -4428,7 +4498,7 @@ msgid ""
 msgstr "无效的 RealM 名。通常，RealM 是本地 DNS 域的大写版本。"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:66
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:157
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:158
 #: ../../main/users/src/templates/wizard/users.mas:61
 msgid "Active Directory hostname"
 msgstr "活动目录主机名"
@@ -4439,19 +4509,19 @@ msgid "Administrative user"
 msgstr "管理员账户"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:68
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:173
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:174
 #: ../../main/users/src/templates/wizard/users.mas:67
 msgid "User password"
 msgstr "用户密码"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:69
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:180
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:181
 #: ../../main/users/src/templates/wizard/users.mas:69
 msgid "Confirm user password"
 msgstr "确认密码"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:73
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:131
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:132
 msgid "User password and confirm user password does not match"
 msgstr "新密码不匹配"
 
@@ -4487,8 +4557,6 @@ msgid "description"
 msgstr "说明"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:71
-#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:82
-#: ../../main/users/src/EBox/Users/Group.pm:570
 #: ../../main/users/src/templates/addgroup.mas:19
 msgid "E-mail"
 msgstr "E-mail"
@@ -4499,8 +4567,8 @@ msgstr "联系人已更新"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:110
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:122
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:132
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:144
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:133
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:145
 #: ../../main/users/src/EBox/Users/Group.pm:78
 #: ../../main/users/src/EBox/Users/Group.pm:532
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:44
@@ -4552,13 +4620,13 @@ msgstr "密码"
 msgid "confirm password"
 msgstr "确认密码"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:115
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:116
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:72
-#: ../../main/users/src/EBox/Users/Model/Password.pm:167
+#: ../../main/users/src/EBox/Users/Model/Password.pm:187
 msgid "Passwords do not match."
 msgstr "密码不一致"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:125
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:126
 msgid "User updated"
 msgstr "用户已更新"
 
@@ -4628,12 +4696,12 @@ msgid ""
 msgstr "创建新用户帐号时，会用到这些设置。"
 
 #: ../../main/users/src/EBox/Users/Group.pm:114
-#: ../../main/users/src/EBox/Users/LdapObject.pm:388
+#: ../../main/users/src/EBox/Users/LdapObject.pm:387
 #: ../../main/users/src/EBox/Users/User.pm:129
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:107
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
-#: ../../main/samba/src/EBox/Samba/LdbObject.pm:247
+#: ../../main/samba/src/EBox/Samba/LdbObject.pm:250
 #: ../../main/samba/src/EBox/Samba.pm:2423
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
@@ -4680,7 +4748,7 @@ msgid ""
 msgstr "名为 '{name}' 的用户已经存在。用户和组不能重名"
 
 #: ../../main/users/src/EBox/Users/Group.pm:589
-#: ../../main/users/src/EBox/Users/OU.pm:122
+#: ../../main/users/src/EBox/Users/OU.pm:127
 msgid "Error on group LDAP entry creation:"
 msgstr "创建 LDAP 组时出差："
 
@@ -4699,24 +4767,34 @@ msgstr "GID {gid} 不正确。GID 必须大于等于 {min}"
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "系统组的 GID {gid} 不对。GID 必须小于 {max}"
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:287
-#: ../../main/samba/src/EBox/Samba/LdbObject.pm:194
+#: ../../main/users/src/EBox/Users/LdapObject.pm:286
+#: ../../main/samba/src/EBox/Samba/LdbObject.pm:197
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:324
 msgid "There was an error updating LDAP:"
 msgstr "更新 LDAP 时出错："
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:665
+#: ../../main/users/src/EBox/Users/LdapObject.pm:664
 #, fuzzy, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr "本容器中已经有一个对象类型 {type}，CN={cn}"
 
-#: ../../main/users/src/EBox/Users/OU.pm:146
+#: ../../main/users/src/EBox/Users/LdapObject.pm:678
+#, fuzzy
+msgid "Group E-mail"
+msgstr "E-mail"
+
+#: ../../main/users/src/EBox/Users/OU.pm:61
+#, fuzzy
+msgid "Organization Unit"
+msgstr "部门（OU）"
+
+#: ../../main/users/src/EBox/Users/OU.pm:151
 #: ../../main/users/src/templates/addobject.mas:10
 msgid "Organizational Unit"
 msgstr "部门（OU）"
 
-#: ../../main/users/src/EBox/Users/OU.pm:174
+#: ../../main/users/src/EBox/Users/OU.pm:179
 msgid ""
 "Creation of OUs inside either Users, Groups or Computer default OUs is not "
 "supported"
@@ -4844,53 +4922,57 @@ msgstr "系统用户 UID {uid} 无效。UID 必须小于 {max}"
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "密码不能多于  {maxPwdLength} 个字符"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:45
+#: ../../main/users/src/EBox/Users/Model/Password.pm:61
+msgid "This form is only available from the User Corner application."
+msgstr ""
+
+#: ../../main/users/src/EBox/Users/Model/Password.pm:64
 msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
 msgstr ""
 "只能在主服务器或独立服务器上修改密码。请到主服务器的用户区修改您的密码。"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:50
+#: ../../main/users/src/EBox/Users/Model/Password.pm:70
 msgid "Password management"
 msgstr "密码管理"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:59
+#: ../../main/users/src/EBox/Users/Model/Password.pm:79
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:107
 msgid "New password"
 msgstr "新密码"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:66
+#: ../../main/users/src/EBox/Users/Model/Password.pm:86
 msgid "Re-type new password"
 msgstr "再次输入新密码"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:117
+#: ../../main/users/src/EBox/Users/Model/Password.pm:137
 #, perl-brace-format
 msgid "Could not bind to LDAP: {x}"
 msgstr "无法绑定到 LDAP：{x}"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:128
+#: ../../main/users/src/EBox/Users/Model/Password.pm:148
 #, perl-brace-format
 msgid "Could not get the user DN: {x}"
 msgstr "无法提取用户 DN: {x}"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:134
+#: ../../main/users/src/EBox/Users/Model/Password.pm:154
 #, perl-brace-format
 msgid "The search for user {x} returned {count} results, expected one"
 msgstr "找到  {count} 个 {x} 用户（应该只有一个）"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:149
+#: ../../main/users/src/EBox/Users/Model/Password.pm:169
 #, perl-brace-format
 msgid "Could not change password: {x}"
 msgstr "无法修改密码：{x}"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:178
+#: ../../main/users/src/EBox/Users/Model/Password.pm:198
 #, perl-brace-format
 msgid "User {x} not found in LDAP database"
 msgstr "LDAP 数据库中没找到用户 {x}"
 
-#: ../../main/users/src/EBox/Users/Model/Password.pm:192
+#: ../../main/users/src/EBox/Users/Model/Password.pm:211
 msgid "Password successfully updated"
 msgstr "密码修改成功"
 
@@ -4966,12 +5048,12 @@ msgstr "只对新建用户有效（从现在起）"
 msgid "PAM settings"
 msgstr "PAM 设置"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:79
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:80
 msgid ""
 "External AD mode cannot be set once the users module has been configured."
 msgstr "一旦用户模块已经配置完，外部 AD 模式无法设置。"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:116
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:117
 #, perl-brace-format
 msgid ""
 "Invalid DC hostname {dc}; it must be in the same domain that the Zentyal "
@@ -4980,26 +5062,26 @@ msgstr ""
 "无效的 DC 主机名 {dc}；它必须和 Zentyal 服务器在同一个域。目前 Zentyal 服务器"
 "的域是 {dom}"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:126
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:127
 msgid ""
 "The user should not contain a domain. The domain will be automatically "
 "extracted from Active Directory"
 msgstr "用户不应该包含域。该域名将在 Active Directory 中自动提取"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:142
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:143
 msgid "Server mode"
 msgstr "服务器模式"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:148
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:248
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:149
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:249
 msgid "LDAP DN"
 msgstr "LDAP DN"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:153
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:154
 msgid "This will be the DN suffix in LDAP tree"
 msgstr "这将是 LDAP 的 DN 后缀"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:158
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:159
 #: ../../main/users/src/templates/wizard/users.mas:58
 msgid ""
 "Both the Active Directory hostname and the own Zentyal server hostname "
@@ -5008,26 +5090,26 @@ msgstr ""
 "无论 Active Directory 的主机名还是 Zentyal 服务器的主机名，都应该能用 DNS 解"
 "析到"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:164
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:165
 msgid "Administrative user of the Active Directory"
 msgstr "AD 的管理员用户"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:166
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:167
 msgid ""
 "This user has to have enough permissions to create a computer account in the "
 "domain"
 msgstr "要在域中创建一个计算机帐户，该用户必须拥有足够的权限"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:190
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:191
 msgid "Zentyal Users"
 msgstr "Zentyal 用户"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:273
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:274
 #: ../../main/users/src/templates/wizard/users.mas:13
 msgid "Standalone server"
 msgstr "独立服务器"
 
-#: ../../main/users/src/EBox/Users/Model/Mode.pm:277
+#: ../../main/users/src/EBox/Users/Model/Mode.pm:278
 msgid "Use external Active Directory server"
 msgstr "使用外部 AD 服务器"
 
@@ -5256,7 +5338,7 @@ msgid "This database will store the data needed by the webmail service."
 msgstr "该数据库将用于存储 Zarafa 数据。"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:78
-#: ../../main/webmail/src/EBox/WebMail.pm:362
+#: ../../main/webmail/src/EBox/WebMail.pm:348
 msgid "Add webmail link to www data directory."
 msgstr "将 webmail 链接到 www 目录。"
 
@@ -5266,7 +5348,7 @@ msgid "WebMail UI will be accesible at http://ip/webmail/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:99
-#: ../../main/webmail/src/EBox/WebMail.pm:385
+#: ../../main/webmail/src/EBox/WebMail.pm:371
 #, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
@@ -5834,7 +5916,7 @@ msgstr "透明 POP 代理流量细节"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:120
-#: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:79
+#: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:105
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:95
 msgid "traffic"
@@ -7397,7 +7479,7 @@ msgstr "网络诊断工具"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1134
+#: ../../main/squid/src/EBox/Squid.pm:1135
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -8641,39 +8723,39 @@ msgid ""
 "another one now."
 msgstr "所选的虚拟主机已被删除。请另选一个虚拟主机以用于 Webmail。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:223
+#: ../../main/webmail/src/EBox/WebMail.pm:209
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "IMAP 或 IMAPS 均未启用。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:324
+#: ../../main/webmail/src/EBox/WebMail.pm:310
 msgid "To configure Roundcube webmail."
 msgstr "配置 Roundcube webmail。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:329
+#: ../../main/webmail/src/EBox/WebMail.pm:315
 msgid "To customize PHP for the webmail."
 msgstr ""
 
-#: ../../main/webmail/src/EBox/WebMail.pm:334
+#: ../../main/webmail/src/EBox/WebMail.pm:320
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "配置 Roundcube webmail 插件。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:341
+#: ../../main/webmail/src/EBox/WebMail.pm:327
 msgid "To configure the webmail on the webserver."
 msgstr "在 Web 服务器上配置 Webmail"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:357
+#: ../../main/webmail/src/EBox/WebMail.pm:343
 msgid "Create MySQL Roundcube webmail database."
 msgstr "创建 Roundcube webmail 的  MySQL 数据库。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:358
+#: ../../main/webmail/src/EBox/WebMail.pm:344
 msgid "This database will store the data needed by Roundcube."
 msgstr "Roundcube 将使用该数据库存储数据。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:363
+#: ../../main/webmail/src/EBox/WebMail.pm:349
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:444
+#: ../../main/webmail/src/EBox/WebMail.pm:430
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
@@ -9761,10 +9843,6 @@ msgstr "用户名、密码不匹配"
 #: ../../main/core/src/EBox/WebAdmin.pm:65
 msgid "Zentyal Webadmin"
 msgstr "Zentyal Web 管理页面"
-
-#: ../../main/core/src/EBox/WebAdmin.pm:799
-msgid "Zentyal Administration Web Server"
-msgstr "Zentyal管理web服务器"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:100
 msgid "Service enabled"
@@ -11582,27 +11660,31 @@ msgstr "由于创建的存档已损坏，请重新创建存档"
 msgid "Reverse Proxy"
 msgstr "反向代理"
 
-#: ../../main/core/src/EBox/HAProxy.pm:163
+#: ../../main/core/src/EBox/HAProxy.pm:164
 #, perl-brace-format
 msgid "Port {port} must be configured as SSL for {service}"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy.pm:170
+#: ../../main/core/src/EBox/HAProxy.pm:171
 #, perl-brace-format
 msgid "Port {port} must be configured as NOT SSL for {service}"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy.pm:298
+#: ../../main/core/src/EBox/HAProxy.pm:304
 #, fuzzy
 msgid "HTTP Services"
 msgstr "服务管理"
 
-#: ../../main/core/src/EBox/HAProxy.pm:387
+#: ../../main/core/src/EBox/HAProxy.pm:393
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:742
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
 msgid "port"
 msgstr "端口"
+
+#: ../../main/core/src/EBox/HAProxy.pm:492
+msgid "Zentyal Administration Web Server"
+msgstr "Zentyal管理web服务器"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
@@ -11862,6 +11944,17 @@ msgstr "虚拟域名称不能和邮件名称相同"
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:44
 msgid "OpenChange"
 msgstr "OpenChange"
+
+#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:61
+#, perl-brace-format
+msgid "You can access the {oh}OpenChange Webmail{ch}"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:66
+msgid ""
+"OpenChange webmail is enabled but you still need to complete the OpenChange "
+"module setup."
+msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
 msgid "OpenChange Account"
@@ -12214,26 +12307,26 @@ msgstr "软件管理设置"
 msgid "Automatic software updates"
 msgstr "自动软件更新"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:660
+#: ../../main/firewall/src/EBox/Iptables.pm:676
 msgid "Firewall failed to add rules for the following modules: "
 msgstr "为以下模块添加防火墙规则而失败："
 
-#: ../../main/firewall/src/EBox/Iptables.pm:663
+#: ../../main/firewall/src/EBox/Iptables.pm:679
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr "这可能是由于缺乏连通性造成的，请检查你的设置或者禁用这些模块"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:915
-#: ../../main/firewall/src/EBox/Iptables.pm:952
+#: ../../main/firewall/src/EBox/Iptables.pm:932
+#: ../../main/firewall/src/EBox/Iptables.pm:969
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:82
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:72
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "您必须在ebox配置文件中设置iptables_log_limit变量"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:921
-#: ../../main/firewall/src/EBox/Iptables.pm:958
+#: ../../main/firewall/src/EBox/Iptables.pm:938
+#: ../../main/firewall/src/EBox/Iptables.pm:975
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:87
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:77
 msgid ""
@@ -12645,7 +12738,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:204
 #: ../../main/samba/src/EBox/Samba/User.pm:157
-#: ../../main/samba/src/EBox/Samba/LdbObject.pm:155
+#: ../../main/samba/src/EBox/Samba/LdbObject.pm:158
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
 msgstr "对象 {x} 是一个系统关键对象。"
@@ -12754,7 +12847,7 @@ msgstr ""
 msgid "The mode {mode} is not supported"
 msgstr "模式 {mode} 不支持"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:553
+#: ../../main/samba/src/EBox/Samba/Provision.pm:544
 msgid ""
 "There are nested organizational units created inside the organizational unit "
 "'Users'. This is not supported and will cause the import of LDAP entries to "
@@ -12763,7 +12856,7 @@ msgstr ""
 "在组织单元 'Users' 中有嵌套的组织单元被创建。这是不被支持的，将导致 LDAP 条目"
 "导入到 Samba 失败。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:568
+#: ../../main/samba/src/EBox/Samba/Provision.pm:559
 msgid ""
 "There are nested organizational units created inside the organizational unit "
 "'Computers'. This is not supported and will cause the import of LDAP entries "
@@ -12772,23 +12865,23 @@ msgstr ""
 "在组织单元 'Computers' 中有嵌套的组织单元被创建。这是不被支持的，将导致 LDAP "
 "条目导入到 Samba 失败。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:689
+#: ../../main/samba/src/EBox/Samba/Provision.pm:680
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr "无法确定指定的 AD 服务器 {x} 域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:709
+#: ../../main/samba/src/EBox/Samba/Provision.pm:700
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr "无法确定指定的 AD 服务器 {x} 区域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:730
+#: ../../main/samba/src/EBox/Samba/Provision.pm:721
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr "无法绑定至 AD LDAP 服务器 ({x})。请检查提供的凭据。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:779
+#: ../../main/samba/src/EBox/Samba/Provision.pm:770
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -12802,82 +12895,82 @@ msgstr ""
 "至 \"DomainDnsZones\" 或者 \"ForestDnsZones\"并再试一次。 点击链接 {link} 帮"
 "助您如何完成。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:817
+#: ../../main/samba/src/EBox/Samba/Provision.pm:808
 msgid "Could not retrieve the domain information."
 msgstr "无法获取域信息。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:826
+#: ../../main/samba/src/EBox/Samba/Provision.pm:817
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr "这个 AD 林 包含多个域。而Samba 每个林只支持一个域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:846
+#: ../../main/samba/src/EBox/Samba/Provision.pm:837
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "指定的域控制器 {x} 不可达。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:865
+#: ../../main/samba/src/EBox/Samba/Provision.pm:856
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr "本地 kerberos 区域 {x} 须与 AD 服务区域 {y} 一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:874
+#: ../../main/samba/src/EBox/Samba/Provision.pm:865
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr "本地域 {x} 须与 AD 服务域 {y} 一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:909
+#: ../../main/samba/src/EBox/Samba/Provision.pm:900
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr "DC {x} 无法解析其 IP 地址。请检查指定的服务器名称和 DNS 服务器。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:935
+#: ../../main/samba/src/EBox/Samba/Provision.pm:926
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr "指定的 AD 服务器已作为 {x} 注册至本地 DNS， 并且和本地主机名一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:956
+#: ../../main/samba/src/EBox/Samba/Provision.pm:947
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr "林功能级别必须是 Windows Server 2003 或更高。请提升您的林功能级别。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:962
+#: ../../main/samba/src/EBox/Samba/Provision.pm:953
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr "域功能级别必须是 Windows Server 2003 或更高。请提升您的域功能级别。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:989
+#: ../../main/samba/src/EBox/Samba/Provision.pm:980
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr "你试图加入的域已被定义为信任关系。目前并不被 Samba 支持。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1022
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1013
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "无法通过 NTP 从  AD server {x}  检索时间。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1074
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1065
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "指定的站点 {x} 不存在。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1086
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1077
 msgid "Could not determine the site of the specified server"
 msgstr "无法确定指定服务器的站点"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1120
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1111
 msgid "Could not determine the netbios domain name."
 msgstr "无法确定 netbios 域名。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1124
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1115
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
@@ -12929,7 +13022,7 @@ msgstr "请先到“模块状态”部分启用该模块。"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:154
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:279
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:273
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:281
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:134
 msgid "The domain has not been created yet."
 msgstr "这个域还没创建。"
@@ -13266,7 +13359,7 @@ msgid "Sites"
 msgstr "站点"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:275
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:269
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:277
 msgid ""
 "You must enable the File Sharing module in the module status section in "
 "order to use it."
@@ -13284,20 +13377,20 @@ msgstr "添加一个例外到默认反病毒设置"
 msgid "path"
 msgstr "路径"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:39
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
 msgid "Logon Scripts"
 msgstr "登录脚本"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:41
 msgid "logon script"
 msgstr "登录脚本"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:166
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:171
 #, perl-brace-format
 msgid "Logon script {x} added"
 msgstr "登录脚本 {x} 已添加"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:207
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:213
 #, perl-brace-format
 msgid "Logon script {x} removed"
 msgstr "登录脚本 {x} 已移除"
@@ -13310,12 +13403,12 @@ msgstr "登出脚本"
 msgid "logoff script"
 msgstr "登出脚本"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:166
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:170
 #, perl-brace-format
 msgid "Logoff script {x} added"
 msgstr "登出脚本 {x} 已添加"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:207
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:212
 #, perl-brace-format
 msgid "Logoff script {x} removed"
 msgstr "登出脚本 {x} 已移除"
@@ -13328,60 +13421,60 @@ msgstr "启动脚本"
 msgid "startup script"
 msgstr "启动脚本"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:166
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:170
 #, perl-brace-format
 msgid "Startup script {x} added"
 msgstr "启动脚本 {x} 已添加"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:207
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:212
 #, perl-brace-format
 msgid "Startup script {x} removed"
 msgstr "启动脚本 {x} 已移除"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:57
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:60
 msgid "GPO Editor"
 msgstr "GPO 编辑器"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:65
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
 #: ../../main/samba/src/EBox/Samba.pm:1242
 msgid "Group Policy Objects"
 msgstr "组策略对象"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:69
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:72
 msgid "group policy object"
 msgstr "组策略对象"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:129
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:134
 msgid "User configuration disabled"
 msgstr "用户配置已禁用"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:130
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:135
 msgid "Computer configuration disabled"
 msgstr "计算机配置已禁用"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:131
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:136
 msgid "All settings disabled"
 msgstr "所有设置已停用"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:152
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:157
 msgid "GPO successfully created"
 msgstr "GPO 创建成功"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:174
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:179
 msgid "This is a system critical object and cannot be removed."
 msgstr "这是系统关键对象从而不能被移除"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:182
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:188
 #, perl-brace-format
 msgid "GPO {gpo} removed"
 msgstr "GPO {gpo} 已删除"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:191
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:198
 #, perl-brace-format
 msgid "GPO {dn} not found"
 msgstr "GPO {dn} 没找到"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:210
+#: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:217
 #, perl-brace-format
 msgid "GPO {gpo} updated"
 msgstr "GPO {gpo} 已更新"
@@ -13458,12 +13551,12 @@ msgstr "关机脚本"
 msgid "shutdown script"
 msgstr "关机脚本"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:166
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:170
 #, perl-brace-format
 msgid "Shutdown script {x} added"
 msgstr "关机脚本 {x} 已添加"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:207
+#: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:212
 #, perl-brace-format
 msgid "Shutdown script {x} removed"
 msgstr "关机脚本 {x} 已移除"
@@ -13635,8 +13728,8 @@ msgid ""
 "additional domain controller."
 msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不能被改变。"
 
-#: ../../main/squid/src/EBox/Squid.pm:96
-#: ../../main/squid/src/EBox/Squid.pm:1149
+#: ../../main/squid/src/EBox/Squid.pm:97
+#: ../../main/squid/src/EBox/Squid.pm:1150
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:109
@@ -13645,177 +13738,177 @@ msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不�
 msgid "HTTP Proxy"
 msgstr "HTTP代理"
 
-#: ../../main/squid/src/EBox/Squid.pm:204
+#: ../../main/squid/src/EBox/Squid.pm:205
 msgid "Front HTTP Proxy configuration file"
 msgstr "前端 HTTP 代理配置文件"
 
-#: ../../main/squid/src/EBox/Squid.pm:209
+#: ../../main/squid/src/EBox/Squid.pm:210
 msgid "Back HTTP Proxy configuration file"
 msgstr "后端 HTTP 代理配置文件"
 
-#: ../../main/squid/src/EBox/Squid.pm:214
+#: ../../main/squid/src/EBox/Squid.pm:215
 msgid "Squid's log rotation configuration"
 msgstr "Squid 的日志轮转配置文件"
 
-#: ../../main/squid/src/EBox/Squid.pm:219
+#: ../../main/squid/src/EBox/Squid.pm:220
 msgid "Content filter configuration file"
 msgstr "内容过滤配置文件"
 
-#: ../../main/squid/src/EBox/Squid.pm:224
+#: ../../main/squid/src/EBox/Squid.pm:225
 msgid "Default filter group configuration"
 msgstr "默认过滤组配置"
 
-#: ../../main/squid/src/EBox/Squid.pm:229
+#: ../../main/squid/src/EBox/Squid.pm:230
 msgid "Filter groups membership"
 msgstr "过滤组成员关系"
 
-#: ../../main/squid/src/EBox/Squid.pm:234
+#: ../../main/squid/src/EBox/Squid.pm:235
 msgid "Content filter banned extension list"
 msgstr "内容过滤扩展列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:239
+#: ../../main/squid/src/EBox/Squid.pm:240
 msgid "Content filter banned mime type list"
 msgstr "禁止访问文件类型过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:244
+#: ../../main/squid/src/EBox/Squid.pm:245
 msgid "Content filter exception site list"
 msgstr "异常站点过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:249
+#: ../../main/squid/src/EBox/Squid.pm:250
 msgid "Content filter grey site list"
 msgstr "灰色网站过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:254
+#: ../../main/squid/src/EBox/Squid.pm:255
 msgid "Content filter banned site list"
 msgstr "禁止访问站点过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:259
+#: ../../main/squid/src/EBox/Squid.pm:260
 msgid "Content filter exception URL list"
 msgstr "异常 URL 过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:264
+#: ../../main/squid/src/EBox/Squid.pm:265
 msgid "Content filter grey URL list"
 msgstr "灰色 URL 过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:269
+#: ../../main/squid/src/EBox/Squid.pm:270
 msgid "Content filter banned URL list"
 msgstr "禁止访问 URL 过滤列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:274
+#: ../../main/squid/src/EBox/Squid.pm:275
 msgid "Forbidden phrases list"
 msgstr "禁止短语列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:279
+#: ../../main/squid/src/EBox/Squid.pm:280
 msgid "Exception phrases list"
 msgstr "异常短语列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:284
+#: ../../main/squid/src/EBox/Squid.pm:285
 msgid "PICS ratings configuration"
 msgstr "PICS 评级配置"
 
-#: ../../main/squid/src/EBox/Squid.pm:289
+#: ../../main/squid/src/EBox/Squid.pm:290
 msgid "Dansguardian's log rotation configuration"
 msgstr "Dansguardian 的 log rotation 配置"
 
-#: ../../main/squid/src/EBox/Squid.pm:294
+#: ../../main/squid/src/EBox/Squid.pm:295
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Dansguardian 反病毒扫描配置"
 
-#: ../../main/squid/src/EBox/Squid.pm:299
+#: ../../main/squid/src/EBox/Squid.pm:300
 msgid "Filter groups per IP"
 msgstr "每个IP过滤组"
 
-#: ../../main/squid/src/EBox/Squid.pm:304
+#: ../../main/squid/src/EBox/Squid.pm:305
 msgid "Configuration of adzapper"
 msgstr "adzapper 配置"
 
-#: ../../main/squid/src/EBox/Squid.pm:309
+#: ../../main/squid/src/EBox/Squid.pm:310
 msgid "Set the kerberos keytab path"
 msgstr "设置 kerberos keytab 路径"
 
-#: ../../main/squid/src/EBox/Squid.pm:314
+#: ../../main/squid/src/EBox/Squid.pm:315
 msgid "Extract the service principal key"
 msgstr "提取服务主体键名"
 
-#: ../../main/squid/src/EBox/Squid.pm:327
+#: ../../main/squid/src/EBox/Squid.pm:328
 msgid "Overwrite blocked page templates"
 msgstr "覆盖阻止页面模板"
 
-#: ../../main/squid/src/EBox/Squid.pm:328
+#: ../../main/squid/src/EBox/Squid.pm:329
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr "Dansguardian 阻止页面模板会被 Zentyal 自定义模板覆盖。"
 
-#: ../../main/squid/src/EBox/Squid.pm:333
+#: ../../main/squid/src/EBox/Squid.pm:334
 msgid "Override squid upstart job"
 msgstr "覆盖 squid upstart 作业"
 
-#: ../../main/squid/src/EBox/Squid.pm:339
+#: ../../main/squid/src/EBox/Squid.pm:340
 msgid "Remove dansguardian init script link"
 msgstr "移除 dansguardian 初始化脚本链接"
 
-#: ../../main/squid/src/EBox/Squid.pm:351
+#: ../../main/squid/src/EBox/Squid.pm:352
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "你必须在 Zentyal 配置文件中设置 cache_mem 变量"
 
-#: ../../main/squid/src/EBox/Squid.pm:360
+#: ../../main/squid/src/EBox/Squid.pm:361
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "你必须在 Zentyal 配置文件中设置 max_object_size 变量"
 
-#: ../../main/squid/src/EBox/Squid.pm:979
+#: ../../main/squid/src/EBox/Squid.pm:980
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1079
+#: ../../main/squid/src/EBox/Squid.pm:1080
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
 msgid "Access Rules"
 msgstr "访问规则"
 
-#: ../../main/squid/src/EBox/Squid.pm:1082
+#: ../../main/squid/src/EBox/Squid.pm:1083
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 msgid "Filter Profiles"
 msgstr "过滤器配置文件"
 
-#: ../../main/squid/src/EBox/Squid.pm:1085
+#: ../../main/squid/src/EBox/Squid.pm:1086
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "分类列表"
 
-#: ../../main/squid/src/EBox/Squid.pm:1088
+#: ../../main/squid/src/EBox/Squid.pm:1089
 msgid "Bandwidth Throttling"
 msgstr "带宽限制"
 
-#: ../../main/squid/src/EBox/Squid.pm:1136
+#: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1138
+#: ../../main/squid/src/EBox/Squid.pm:1139
 msgid "Bytes"
 msgstr "字节"
 
-#: ../../main/squid/src/EBox/Squid.pm:1139
+#: ../../main/squid/src/EBox/Squid.pm:1140
 msgid "Mime/type"
 msgstr "Mime/type"
 
-#: ../../main/squid/src/EBox/Squid.pm:1145
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Accepted"
 msgstr "接受"
 
-#: ../../main/squid/src/EBox/Squid.pm:1146
+#: ../../main/squid/src/EBox/Squid.pm:1147
 msgid "Denied"
 msgstr "拒绝"
 
-#: ../../main/squid/src/EBox/Squid.pm:1147
+#: ../../main/squid/src/EBox/Squid.pm:1148
 msgid "Filtered"
 msgstr "过滤"
 
-#: ../../main/squid/src/EBox/Squid.pm:1318
+#: ../../main/squid/src/EBox/Squid.pm:1319
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -13824,7 +13917,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-msgid "Supplied file is not a archive file"
+#, fuzzy
+msgid "Supplied file is not an archive file"
 msgstr "提供的文件不是一个归档文件"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
@@ -15259,6 +15353,11 @@ msgid ""
 "complete"
 msgstr "从属配置完成会将邮件域和它的账户删除"
 
+#: ../../main/mail/src/EBox/Mail.pm:1856
+#, fuzzy, perl-brace-format
+msgid "Address {addr} is in use as external alias"
+msgstr "地址 {ip} 已经用于接口 {iface}"
+
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:42
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:167
 msgid "Mail virtual domain"
@@ -15785,17 +15884,12 @@ msgid ""
 "domain alias managed by this server"
 msgstr "无法添加别名，由为域 {vd} 不是一个虚拟域或者虚拟域别名已被服务器托管"
 
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:168
-#, perl-brace-format
-msgid "An account or alias called {al} already exists"
-msgstr "称为 {al} 的账户或者别名已存在"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:184
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:170
 #, perl-brace-format
 msgid "{ac} is not an external account"
 msgstr "{ac} 不是一个外部账户"
 
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:276
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:262
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr "你需要在模块状态部分启用邮件模块来使用它"
@@ -15923,39 +16017,32 @@ msgstr "{ac} 不是一个内部账户"
 msgid "{ac} is not a external account"
 msgstr "{ac} 不是一个外部账户"
 
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:109
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:140
-#: ../../main/mail/src/EBox/MailUserLdap.pm:80
-#: ../../main/mail/src/EBox/MailUserLdap.pm:83
-msgid "mail account"
-msgstr "邮件账户"
-
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:137
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:132
 msgid "group alias"
 msgstr "组别名"
 
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:240
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:259
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:165
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:184
 msgid "Domain alias"
 msgstr "域别名"
 
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:245
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:282
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:307
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:170
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:207
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:232
 #, perl-brace-format
 msgid "Mail domain {d} does not exist"
 msgstr "邮件域 {d} 不存在"
 
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:252
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:177
 #, perl-brace-format
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
 msgstr "无法使用 {d} 作为邮件域别名，因为一个以此命名的域已存在"
 
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:387
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:417
-#: ../../main/mail/src/EBox/MailAliasLdap.pm:452
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:312
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:342
+#: ../../main/mail/src/EBox/MailAliasLdap.pm:377
 msgid "mail alias account"
 msgstr "邮件别名账户"
 
@@ -15964,32 +16051,36 @@ msgstr "邮件别名账户"
 msgid "Cannot connect to {smtp} mail server."
 msgstr "无法连接到 {smtp} 邮件服务器"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:293
+#: ../../main/mail/src/EBox/MailUserLdap.pm:80
+msgid "mail account"
+msgstr "邮件账户"
+
+#: ../../main/mail/src/EBox/MailUserLdap.pm:289
 msgid "This group has a mail alias"
 msgstr "这个组有一个邮件别名"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:317
+#: ../../main/mail/src/EBox/MailUserLdap.pm:313
 msgid "This user has a mail account"
 msgstr "这个用户有一个邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:362
+#: ../../main/mail/src/EBox/MailUserLdap.pm:358
 msgid "Mail account"
 msgstr "邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:364
+#: ../../main/mail/src/EBox/MailUserLdap.pm:360
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "建立邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:366
+#: ../../main/mail/src/EBox/MailUserLdap.pm:362
 msgid "Mail account settings"
 msgstr "邮件账户设置"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:406
+#: ../../main/mail/src/EBox/MailUserLdap.pm:402
 msgid "Mail alias settings"
 msgstr "邮件别名设置"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:702
+#: ../../main/mail/src/EBox/MailUserLdap.pm:698
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "配置必须是一个整数或者零或者无限配额"
 
@@ -16667,23 +16758,23 @@ msgstr "NTP 服务器"
 msgid "Here you can add external NTP servers to synchronize with."
 msgstr "这里你可以添加互相同步的外部 NTP 服务器"
 
-#: ../../main/ntp/src/EBox/NTP.pm:87
+#: ../../main/ntp/src/EBox/NTP.pm:79
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr "移除 ntp 初始化脚本链接和网络 hooks (if-up.d 和 dhclient)"
 
-#: ../../main/ntp/src/EBox/NTP.pm:93
+#: ../../main/ntp/src/EBox/NTP.pm:85
 msgid "Override ntpd apparmor profile"
 msgstr "覆盖 ntpd apparmor 配置"
 
-#: ../../main/ntp/src/EBox/NTP.pm:94
+#: ../../main/ntp/src/EBox/NTP.pm:86
 msgid "To allow samba clients to synchronize clock with ntp server"
 msgstr "允许 samba 客户端通过 ntp 服务器同步时钟"
 
-#: ../../main/ntp/src/EBox/NTP.pm:110
+#: ../../main/ntp/src/EBox/NTP.pm:102
 msgid "NTP configuration file"
 msgstr "NTP 配置文件"
 
-#: ../../main/ntp/src/EBox/NTP.pm:140
+#: ../../main/ntp/src/EBox/NTP.pm:132
 msgid "Network Time Protocol"
 msgstr "网络时间协议"
 
@@ -17254,7 +17345,7 @@ msgstr "域名列表"
 #: ../../main/dns/src/templates/index.mas:41
 #: ../../main/core/src/templates/ajax/tableBody.mas:449
 #: ../../main/core/src/templates/ajax/row.mas:94
-#: ../../main/samba/src/templates/editgplink.mas:23
+#: ../../main/samba/src/templates/editgplink.mas:22
 msgid "Edit"
 msgstr "编辑"
 
@@ -20137,6 +20228,9 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+
+#~ msgid "An account or alias called {al} already exists"
+#~ msgstr "称为 {al} 的账户或者别名已存在"
 
 #~ msgid ""
 #~ "You must enable {module} ports on the Zentyal's reverse proxy "
