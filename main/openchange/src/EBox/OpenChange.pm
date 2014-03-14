@@ -1008,17 +1008,4 @@ sub connectionString
     return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
-sub notifiyDNSChange
-{
-    my ($self, $domain) = @_;
-    if (not $self->enabled()) {
-        return;
-    }
-
-    my $rpcpDomain = $self->_rpcProxyDomain();
-    if ($domain eq $rpcpDomain) {
-        $self->global()->modInstance('haproxy')->setAsChanged(1);
-    }
-}
-
 1;
