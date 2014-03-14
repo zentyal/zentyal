@@ -50,9 +50,9 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        EBox::Sudo::root("a2enconf zentyal-sogo");
+        EBox::Sudo::root("a2enmod zentyal-sogo");
     } else {
-        EBox::Sudo::root("a2disconf zentyal-sogo");
+        EBox::Sudo::root("a2dismod zentyal-sogo");
     }
 }
 
