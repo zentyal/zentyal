@@ -181,7 +181,7 @@ use EBox::Gettext;
  path = /var/spool/samba
  read only = Yes
  printable = Yes
- valid users = <% $printer->{'users'} %>
+ valid users = <% "@{$printer->{'users'}}" %>
 %   }
 % }
 
