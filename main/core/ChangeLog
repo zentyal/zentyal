@@ -1,7 +1,6 @@
-HEAD
+3.4
         + Added Warning in Dashboard when reboot is required by software
           update
-3.4
 	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir
 	+ Remove idle and dead code from EBox::Module::Service::writeConfFile
 	+ Added auditable property to EBox::Model::DataTable
