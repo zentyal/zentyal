@@ -21,6 +21,7 @@ package EBox::Middleware::UnhandledError;
 use parent qw/Plack::Middleware/;
 
 use EBox::View::StackTrace;
+use EBox::TraceStorable;
 
 use Devel::StackTrace;
 use Plack::Util::Accessor qw( force no_print_errors );
@@ -79,7 +80,14 @@ sub call
     # is available. In those cases, the application will not break and thus we should not fail and print the
     # backtrace.
     if ($caught and $trace) {
-        $res = [500, ['Content-Type' => 'text/html; charset=utf-8'], [$trace->as_html()]];
+        my $HTMLContent;
+        if (exists($env->{'HTTP_X_REQUESTED_WITH'}) and $env->{'HTTP_X_REQUESTED_WITH'} eq 'XMLHttpRequest') {
+            EBox::TraceStorable::storeTrace($trace, $env);
+            $HTMLContent = $trace->redirect_html();
+        } else {
+            $HTMLContent = $trace->as_html();
+        }
+        $res = [500, ['Content-Type' => 'text/html; charset=utf-8'], [$HTMLContent]];
     }
 
     # break $trace here since $SIG{__DIE__} holds the ref to it, and
