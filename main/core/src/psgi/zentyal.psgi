@@ -40,6 +40,8 @@ my $app = sub {
     EBox::init();
     binmode(STDOUT, ':utf8');
 
+    local $SIG{__WARN__} = sub { EBox::warn($_[0]) };
+
     my $req = Plack::Request->new($env);
     return EBox::CGI::Run->run($req);
 };
