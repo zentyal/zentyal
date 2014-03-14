@@ -343,7 +343,7 @@ sub validateTypedRow
                     unless ($certificates->isEnabledService($module->caServiceIdForHTTPS())) {
                         my $errorMsg = __x(
                             'You need to enable the certificate for {module} at {ohref}Services Certificates page{chref}',
-                            service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
+                            service => $module->printableName(), ohref => '<a href="/CA/View/Certificates">',
                             chref => '</a>'
                         );
                         foreach my $certificate (@{$module->certificates}) {
@@ -352,7 +352,7 @@ sub validateTypedRow
                                 $errorMsg = __x(
                                     'You need to enable the {serviceName} certificate for {module} on '.
                                     '{ohref}Services Certificates{chref}',
-                                    serviceName => $serviceName, service => $module->displayName(),
+                                    serviceName => $serviceName, service => $module->printableName(),
                                     ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
                                 );
                                 last;
@@ -690,7 +690,7 @@ sub validateHTTPPortChange
     my $haProxyServ;
     if (exists($self->{synchedRows})) {
         # From syncRows (Avoid deep recursion)
-        ($haProxyServ) = grep { $_->valueByName('sslPort') == $port } @{$self->{synchedRows}};
+        ($haProxyServ) = grep { $_->valueByName('sslPort') ~~ $port } @{$self->{synchedRows}};
     } else {
         $haProxyServ = $self->findValue('sslPort' => $port);
     }
@@ -704,7 +704,7 @@ sub validateHTTPPortChange
         my @haProxyServs;
         if (exists($self->{synchedRows})) {
             # From syncRows (Avoid deep recursion)
-            @haProxyServs = grep { $_->valueByName('port') == $port } @{$self->{synchedRows}};
+            @haProxyServs = grep { $_->valueByName('port') ~~ $port } @{$self->{synchedRows}};
         } else {
             @haProxyServs = @{$self->findAllValue('port' => $port)};
         }
@@ -752,7 +752,7 @@ sub validateHTTPSPortChange
     my $haProxyServ;
     if (exists($self->{synchedRows})) {
         # From syncRows (Avoid deep recursion)
-        ($haProxyServ) = grep { $_->valueByName('port') == $port } @{$self->{synchedRows}};
+        ($haProxyServ) = grep { $_->valueByName('port') ~~ $port } @{$self->{synchedRows}};
     } else {
         $haProxyServ = $self->findValue('port' => $port);
     }
@@ -766,7 +766,7 @@ sub validateHTTPSPortChange
         my @haProxyServs;
         if (exists($self->{synchedRows})) {
             # From syncRows (Avoid deep recursion)
-            @haProxyServs = grep { $_->valueByName('sslPort') == $port } @{$self->{synchedRows}};
+            @haProxyServs = grep { $_->valueByName('sslPort') ~~ $port } @{$self->{synchedRows}};
         } else {
             @haProxyServs = @{$self->findAllValue('sslPort' => $port)};
         }
