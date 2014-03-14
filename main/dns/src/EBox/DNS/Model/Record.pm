@@ -28,7 +28,25 @@ package EBox::DNS::Model::Record;
 use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::NotImplemented;
-use TryCatch::Lite;
+
+# Method: updatedRowNotify
+#
+#   Override to add to the list of removed of RRs
+#
+# Overrides:
+#
+#   <EBox::Exceptions::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if (exists $self->{toDelete}) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
+}
 
 # Method: pageTitle
 #
@@ -40,13 +58,7 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    my $row = $self->parentRow();
-    my $parentModel = $row->model();
-    if ($parentModel->isa('EBox::DNS::Model::Record')) {
-        $row = $row->parentRow();
-    }
-
-    return $row->printableValueByName('domain');
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Protected methods
@@ -59,7 +71,7 @@ sub pageTitle
 #
 sub _table
 {
-    throw EBox::Exceptions::NotImplemented('_table', __PACKAGE__);
+    throws EBox::Exceptions::NotImplemented();
 }
 
 # Group: Private methods
@@ -67,21 +79,23 @@ sub _table
 # Add the RR to the deleted list
 sub _addToDelete
 {
-    my ($self, $zone, $record) = @_;
+    my ($self, $domain) = @_;
 
-    # TODO Do nothing if domain is not dynamic
     my $mod = $self->{confmodule};
     my $key = EBox::DNS::DELETED_RR_KEY();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        foreach my $elem (@list) {
+            if ($elem eq $domain) {
+                # domain already added, nothing to do
+                return;
+            }
+        }
+        @list = @{$mod->st_get_list($key)};
+    }
 
-    my $state = $mod->get_state();
-    my $data = $state->{$key};
-    $data = {} unless defined $data;
-
-    $data->{$zone} = [] unless exists $data->{$zone};
-    push (@{$data->{$zone}}, $record);
-
-    $state->{$key} = $data;
-    $mod->set_state($state);
+    push (@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
 }
 
 1;

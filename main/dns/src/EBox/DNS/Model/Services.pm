@@ -47,11 +47,12 @@ use constant SERVICE_FILE => '/etc/services';
 
 # Constructor: new
 #
-#   Create a new Services model instance
+#      Create a new Services model instance
 #
 # Returns:
 #
-#   <EBox::DNS::Model::Services> - the newly created model instance
+#      <EBox::DNS::Model::Services> - the newly created model
+#      instance
 #
 sub new
 {
@@ -69,7 +70,7 @@ sub new
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::validateTypedRow>
+#      <EBox::Model::DataTable::validateTypedRow>
 #
 sub validateTypedRow
 {
@@ -77,56 +78,39 @@ sub validateTypedRow
 
     $self->checkService($changedFields, $allFields);
     $self->checkHostname($changedFields, $allFields);
-}
 
-# Method: updatedRowNotify
-#
-#   Overrides to add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
-
-    my $zoneRow = $row->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $srvName = $oldRow->printableValueByName('service_name');
-    my $protocol = $oldRow->printableValueByName('protocol');
-    my $priority = $oldRow->printableValueByName('priority');
-    my $target = $oldRow->printableValueByName('hostName');
-    my $weight = $oldRow->printableValueByName('weight');
-    my $port = $oldRow->printableValueByName('port');
-    $target = "${target}.${zone}" unless ($target != m:\.:g);
-    my $record = "_${srvName}._${protocol}.${zone} SRV ${priority} ${weight} ${port} ${target}";
-    $self->_addToDelete($zone, $record);
+    if ($action eq 'update') {
+        # Add toDelete the RRs for this SRV record
+        my $oldRow  = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow();
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $srvName  = $oldRow->valueByName('service_name');
+            my $protocol = $oldRow->valueByName('protocol');
+            $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
+        }
+    }
 }
 
 # Method: deletedRowNotify
 #
-#   Overrides to add to the list of deleted RR in dynamic zones
+# 	Overrides to add to the list of deleted RR in dynamic zones
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::deletedRowNotify>
+#      <EBox::Model::DataTable::deletedRowNotify>
 #
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
 
     my $zoneRow = $row->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $srvName = $row->printableValueByName('service_name');
-    my $protocol = $row->printableValueByName('protocol');
-    my $priority = $row->printableValueByName('priority');
-    my $target = $row->printableValueByName('hostName');
-    my $weight = $row->printableValueByName('weight');
-    my $port = $row->printableValueByName('port');
-    $target = "${target}.${zone}" unless ($target != m:\.:g);
-    my $record = "_${srvName}._${protocol}.${zone} SRV ${priority} ${weight} ${port} ${target}";
-    $self->_addToDelete($zone, $record);
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+        my $zone = $zoneRow->valueByName('domain');
+        my $srvName  = $row->valueByName('service_name');
+        my $protocol = $row->valueByName('protocol');
+        $self->_addToDelete("_${srvName}._${protocol}.${zone}. SRV");
+    }
 }
 
 # Group: Protected methods
