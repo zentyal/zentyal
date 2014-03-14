@@ -345,6 +345,8 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
@@ -354,6 +356,21 @@ sub _doProvision
 
     unless ($organizationName) {
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
+    my $vdomains = $global->modInstance('mail')->model('VDomains')->size();
+    if ($vdomains == 0) {
+        throw EBox::Exceptions::External(
+            __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               )
+           );
+    }
+
+    my $configuration = $openchange->model('Configuration');
+    if (not $configuration->_rowStored()) {
+        my $defaultOutgoing = $configuration->value('outgoingDomain');
+        $configuration->setValue('outgoingDomain', $defaultOutgoing);
     }
 
     foreach my $organization (@{$self->{organizations}}) {
@@ -395,9 +412,20 @@ sub _doProvision
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
     }
-    $self->global->modChange('mail');
-    $self->global->modChange('samba');
-    $self->global->modChange('openchange');
+
+    # Mark mail as changed to make dovecot listen IMAP protocol at least
+    # on localhost
+    $global->modChange('mail');
+    # Mark samba as changed to write smb.conf
+    $global->modChange('samba');
+    # Mark webadmin as changed so we are sure nginx configuration is
+    # refreshed with the new includes
+    $global->modChange('webadmin');
+    if ($openchange->_rpcProxyEnabled()) {
+        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
+        $global->modChange('webserver');
+        $global->modChange('haproxy');
+    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();

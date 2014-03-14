@@ -84,16 +84,26 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
+
     my $vdomains = $self->global()->modInstance('mail')->model('VDomains')->size();
-    return ($vdomains > 0);
+    if ($vdomains == 0) {
+        if (not $self->parentModule()->isProvisioned()) {
+            $self->{preconditionFailMsg} = '';
+            return 0;
+        }
+
+        $self->{preconditionFailMsg} = __x('To choose mail outgoing OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               );
+    }
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return  __x('To configure OpenChange you need first to {oh}create a mail virtual domain{oc}',
-                oh => q{<a href='/Mail/View/VDomains'>},
-                oc => q{</a>}
-               );
+    my ($self) = @_;
+    return  $self->{preconditionFailMsg};
 }
 
 sub validateTypedRow

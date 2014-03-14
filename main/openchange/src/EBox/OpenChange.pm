@@ -158,7 +158,7 @@ sub enableActions
 #
 #   Override EBox::Module::Service::enableService to notify samba
 #
-sub enableService
+sub enableServiceDisabled
 {
     my ($self, $status) = @_;
     my $global = $self->global();
