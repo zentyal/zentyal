@@ -34,7 +34,7 @@ use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use Error qw( :try );
+use TryCatch::Lite;
 use Perl6::Junction qw( any );
 use EBox::Sudo;
 
@@ -357,10 +357,10 @@ sub _setRemoteServices
             try {
                 if ( $rsMod->hasBundle() ) {
                     my %vpnSettings = %{$rsMod->vpnSettings()};
-                    push(@commands,
-                         pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                              . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
-                        );
+                    push (@commands,
+                        pf("-A ointernal $statenew -p $vpnSettings{protocol} "
+                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
+                    );
                 }
 
                 # Allow communications between ns and API
@@ -377,13 +377,13 @@ sub _setRemoteServices
                 push(@commands,
                      pf("-A ointernal $statenew -p tcp -d $APIEndPoint --dport 443 -j oaccept || true")
                     );
-            } catch EBox::Exceptions::External with {
+            } catch (EBox::Exceptions::External $e) {
                 # Cannot contact eBox CC, no DNS?
                 my ($exc) = @_;
                 my $msg = "Cannot contact Zentyal Remote: $exc";
                 EBox::error($msg);
                 $gl->addSaveMessage($msg);
-            };
+            }
         }
     }
     return \@commands;
@@ -472,8 +472,10 @@ sub start
     push(@commands, @{$self->_setStructure()});
 
     my @dns = @{$self->{net}->nameservers()};
-    foreach (@dns) {
-        push(@commands, @{$self->_setDNS($_)});
+    foreach my $ns (@dns) {
+        if ($ns ne '127.0.0.1') {
+            push(@commands, @{$self->_setDNS($ns)});
+        }
     }
 
     foreach my $object (@{$self->{objects}->objects}) {
@@ -498,10 +500,6 @@ sub start
 
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
-            my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
-            foreach my $srv (@{$dnsSrvs}) {
-                push(@commands, @{$self->_setDNS($srv)});
-            }
         } else {
             # Anti-spoof rules only for static interfaces
             my $addrs = $self->{net}->ifaceAddresses($ifc);
@@ -629,6 +627,30 @@ sub _loadIptModules
     return \@commands;
 }
 
+# Method: executeModuleRules
+#
+#   executes the rules for the firewall helper of the given module
+#
+#   Parameters:
+#      $mod - module instance
+#      $enabledRules - hash to fitler out rules (Optional)
+sub executeModuleRules
+{
+    my ($self, $mod, $enabledRules) = @_;
+    my $helper = $mod->firewallHelper();
+    ($helper) or return;
+
+    my $modRules = $self->_modRules($mod, $helper);
+
+    my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @{$modRules};
+    my @commands = map {
+        my $r = $_->{'rule'};
+        pf($r) if ((not $enabledRules) or $enabledRules->{$r})
+    } @sortedRules;
+
+    EBox::Sudo::root(@commands);
+}
+
 # Execute firewall helper rules for each module
 sub _executeModuleRules
 {
@@ -642,20 +664,12 @@ sub _executeModuleRules
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
     my @failedMods;
     foreach my $mod (@mods) {
-        my $helper = $mod->firewallHelper();
-        ($helper) or next;
-
-        my $modRules = $self->_modRules($mod, $helper);
-
-        my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @{$modRules};
-        my @commands = map { my $r = $_->{'rule'}; pf($r) if $enabledRules{$r} } @sortedRules;
-
         try {
-            EBox::Sudo::root(@commands);
-        } otherwise {
+            $self->executeModuleRules($mod, \%enabledRules);
+        } catch {
             EBox::error('Error executing firewall rules for module ' . $mod->name());
             push(@failedMods, $mod->name());
-        };
+        }
     }
 
     if (@failedMods) {
@@ -667,6 +681,7 @@ sub _executeModuleRules
         $global->addSaveMessage($message);
     }
 }
+
 
 # Helper rules for one module
 sub _modRules

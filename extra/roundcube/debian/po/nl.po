@@ -1,0 +1,133 @@
+# Dutch translation of roundcube debconf templates.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the roundcube package.
+# Jeroen Schot <schot@a-eskwadraat.nl>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube 0.7-3\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2012-01-13 15:20+0100\n"
+"Last-Translator: Jeroen Schot <schot@a-eskwadraat.nl>\n"
+"Language-Team: Debian l10n Dutch <debian-l10n-dutch@lists.debian.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "Automatisch te configureren webserver(s):"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"RoundCube ondersteunt elke webserver die PHP ondersteunt, maar alleen Apache "
+"2 en lighttpd kunnen automatisch worden geconfigureerd."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr ""
+"Welke webservers moeten automatisch worden geconfigureerd voor RoundCube?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "Webserver(s) nu herstarten?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"Om de nieuwe configuratie te activeren moeten de opnieuw ingestelde webserver"
+"(s) worden herstart."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "Bij RoundCube te gebruiken IMAP-server(s):"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "Welke IMAP-servers moeten er met RoundCube worden gebruikt?"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"Wanneer dit leeg wordt gelaten zal er een tekstvak worden weergegeven bij "
+"het inloggen. Wanneer u een door spaties gescheiden lijst van computernamen "
+"opgeeft zal dit als een keuzemenu worden weergegeven. Het opgeven van één "
+"enkele computernaam dwingt het gebruikt van deze af."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"U kunt een SSL-verbinding aangeven door de computernaam als volgt in te "
+"voeren: 'ssl://hostname:993'."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "Standaardtaal:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "Wat is de standaardtaal voor RoundCube?"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr ""
+"Individuele gebruikers kunnen in hun voorkeuren een andere taal kiezen."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"Maar de standaardtaal zal worden gebruikt voor het loginscherm en bij de "
+"eerste verbinding van gebruikers."

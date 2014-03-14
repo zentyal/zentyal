@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 
 ## arguments:
 ##  title [required]
@@ -72,13 +72,13 @@ sub _process
         push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
         push(@array, 'QAUpdates' => $software->QAUpdates());
         $self->{params} = \@array;
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my @array;
         push(@array, 'automaticUpdates' => 0);
         push(@array, 'QAUpdates'        => $software->QAUpdates());
         push(@array, 'updateStatus'     => $software->updateStatus(0));
         $self->{params} = \@array;
-    };
+    }
 }
 
 1;

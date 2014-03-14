@@ -24,7 +24,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -172,9 +172,9 @@ sub _loadACLDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid ACL: $acl");
-        };
+        }
     }
 }
 
@@ -225,9 +225,9 @@ sub _addIndexDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid index: $index");
-        };
+        }
     }
 }
 

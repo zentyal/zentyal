@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -25,11 +26,10 @@ use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
 use EBox::AuditLogging;
+use EBox::Gettext;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
-
-use constant INITDPATH => '/etc/init.d/';
+use TryCatch::Lite;
 
 # Method: usedFiles
 #
@@ -371,13 +371,12 @@ sub configureModule
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         $self->setConfigured(0);
         $self->enableService(0);
         $self->setNeedsSaveAfterConfig(undef);
-        $ex->throw();
-    };
+        $e->throw();
+    }
 }
 
 sub setNeedsSaveAfterConfig
@@ -432,6 +431,19 @@ sub isEnabled
     return $enabled;
 }
 
+sub disabledModuleWarning
+{
+    my ($self) = @_;
+    if ($self->isEnabled()) {
+        return '';
+    } else {
+        # TODO: If someday we implement the auto-enable for dependencies with one single click
+        # we could replace the Module Status link with a "Click here to enable it" one
+        return __x("{mod} module is disabled. Don't forget to enable it on the {oh}Module Status{ch} section, otherwise your changes won't have any effect.",
+                   mod => $self->printableName(), oh => '<a href="/ServiceModule/StatusView">', ch => '</a>');
+    }
+}
+
 # Method: _isDaemonRunning
 #
 #   Used to tell if a daemon is running or not
@@ -442,18 +454,15 @@ sub isEnabled
 sub _isDaemonRunning
 {
     my ($self, $dname) = @_;
-    my $daemons = $self->_daemons();
 
-    my $daemon;
-    my @ds = grep { $_->{'name'} eq $dname } @{$daemons};
-    if(@ds) {
-        $daemon = $ds[0];
+    my $daemons = $self->_daemons();
+    my ($daemon) = grep { $_->{'name'} eq $dname } @{$daemons};
+    unless (defined $daemon) {
+        my $modname = $self->name();
+        throw EBox::Exceptions::Internal("Daemon $dname is not defined in $modname module");
     }
-    if(!defined($daemon)) {
-        throw EBox::Exceptions::Internal(
-            "no such daemon defined in this module: " . $dname);
-    }
-    if(defined($daemon->{'pidfiles'})) {
+
+    if ($daemon->{'pidfiles'}) {
         foreach my $pidfile (@{$daemon->{'pidfiles'}}) {
             unless ($self->pidFileRunning($pidfile)) {
                 return 0;
@@ -461,27 +470,26 @@ sub _isDaemonRunning
         }
         return 1;
     }
-    if(daemon_type($daemon) eq 'upstart') {
-        my $running = 0;
+
+    if (daemon_type($daemon) eq 'upstart') {
         try {
-            $running = EBox::Service::running($dname);
-        } catch EBox::Exceptions::Internal with {
-            # If the daemon does not exist, then return false
-            ;
-        };
-        return $running;
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output = EBox::Sudo::silentRoot(INITDPATH .
-                $dname . ' ' . 'status');
+            return EBox::Service::running($dname);
+        } catch (EBox::Exceptions::Internal $e) {
+            return 0;
+        }
+    } elsif (daemon_type($daemon) eq 'init.d') {
+        my $output = EBox::Sudo::silentRoot("service $dname status");
         if ($? != 0) {
             return 0;
         }
         my $status = join ("\n", @{$output});
         if ($status =~ m{$dname .* running}) {
             return 1;
+        } elsif ($status =~ m{$dname .* \[ RUNNING \]}) {
+            return 1;
         } elsif ($status =~ m{ is running}) {
             return 1;
-        } elsif ($status =~ m{$dname .* [ OK ]}) {
+        } elsif ($status =~ m{$dname .* \[ OK \]}) {
             return 1;
         } elsif ($status =~ m{$dname .*done}s) {
             return 1;
@@ -489,8 +497,7 @@ sub _isDaemonRunning
             return 0;
         }
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
@@ -605,11 +612,17 @@ sub enableService
 
     $self->set_bool('_serviceModuleStatus', $status);
 
+    # FIXME: Move this to an observer pattern
     my $audit = EBox::Global->modInstance('audit');
     if (defined ($audit)) {
         my $action = $status ? 'enableService' : 'disableService';
         $audit->logAction('global', 'Module Status', $action, $self->{name});
     }
+    my $ha = $self->global()->modInstance('ha');
+    if (defined($ha)) {
+        $ha->setIfSingleInstanceModule($self->name());
+    }
+
 }
 
 # Method: defaultStatus
@@ -680,11 +693,14 @@ sub saveReload
             $self->_enforceServiceState(reload => 1);
             $self->_postServiceHook($enabled);
         }
-    } finally {
-        # Mark as changes has been saved
+    } catch ($e) {
         $global->modRestarted($self->name());
         $self->_unlock();
-    };
+        $e->throw();
+    }
+    # Mark as changes has been saved
+    $global->modRestarted($self->name());
+    $self->_unlock();
 }
 
 # Method: _daemons
@@ -734,44 +750,36 @@ sub _daemons
 
 sub _startDaemon
 {
-    my($self, $daemon, %params) = @_;
+    my ($self, $daemon, %params) = @_;
 
-    my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
-
-    my $restartAction = 'restart';
-    $restartAction = 'reload' if ((exists $params{reload}) and $params{reload});
-
-    if(daemon_type($daemon) eq 'upstart') {
-        if($isRunning) {
-            EBox::Service::manage($daemon->{'name'}, $restartAction);
-        } else {
-            EBox::Service::manage($daemon->{'name'},'start');
-        }
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'};
-        if($isRunning) {
-            $script = $script . ' ' . $restartAction;
-        } else {
-            $script = $script . ' ' . 'start';
-        }
-        EBox::Sudo::root($script);
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+    my $action = 'start';
+    if ($self->_isDaemonRunning($daemon->{name})) {
+        $action = $params{reload} ? 'reload' : 'restart';
     }
+
+    $self->_manageDaemon($daemon, $action);
 }
 
 sub _stopDaemon
 {
-    my($self, $daemon) = @_;
-    if(daemon_type($daemon) eq 'upstart') {
-        EBox::Service::manage($daemon->{'name'},'stop');
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'} . ' ' . 'stop';
-        EBox::Sudo::root($script);
+    my ($self, $daemon) = @_;
+
+    $self->_manageDaemon($daemon, 'stop');
+}
+
+sub _manageDaemon
+{
+    my ($self, $daemon, $action) = @_;
+
+    my $dname = $daemon->{name};
+    my $type = daemon_type($daemon);
+
+    if ($type eq 'upstart') {
+        EBox::Service::manage($dname, $action);
+    } elsif ($type eq 'init.d') {
+        EBox::Sudo::root("service $dname $action");
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
@@ -880,10 +888,11 @@ sub stopService
     $self->_lock();
     try {
         $self->_stopService(%params);
-    } finally {
+    } catch ($e) {
         $self->_unlock();
-    };
-
+        $e->throw();
+    }
+    $self->_unlock();
 }
 
 
@@ -986,13 +995,12 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1, @params);
-    } otherwise  {
-        my ($ex) = @_;
-        $log->error("Error restarting service: $ex");
-        throw $ex;
-    } finally {
+    } catch ($e) {
+        $log->error("Error restarting service: $e");
         $self->_unlock();
-    };
+        EBox::Exceptions::Internal->throw("$e");
+    }
+    $self->_unlock();
 }
 
 # Method: _supportActions
@@ -1041,23 +1049,7 @@ sub _enforceServiceState
 sub writeConfFile # (file, component, params, defaults)
 {
     my ($self, $file, $compname, $params, $defaults) = @_;
-
-    # we will avoid check modification when the method is called as class method
-    #  this is awkward but is the fudge we had used to date for files created
-    #  by ebox which rhe user shoudn't give their permission to modify
-    #   maybe we need to add some parameter to better reflect this?
-
-    my $manager;
-
-    $manager = new EBox::ServiceManager();
-#    if ($manager->skipModification($self->{'name'}, $file)) {
-#        EBox::info("Skipping modification of $file");
-#        return;
-#    }
-
     EBox::Module::Base::writeConfFileNoCheck($file, $compname, $params, $defaults);
-
-#    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 # Method: certificates
@@ -1109,7 +1101,7 @@ sub disableApparmorProfile
 {
     my ($self, $profile) = @_;
 
-    if ( -f '/etc/init.d/apparmor' ) {
+    if (-f '/etc/init.d/apparmor') {
         my $profPath = "/etc/apparmor.d/$profile";
         my $disPath = "/etc/apparmor.d/disable/$profile";
         if (-f $profPath and not -f $disPath) {
@@ -1118,7 +1110,7 @@ sub disableApparmorProfile
             }
             my $cmd = "ln -s $profPath $disPath";
             EBox::Sudo::root($cmd);
-            EBox::Sudo::root('invoke-rc.d apparmor restart');
+            EBox::Sudo::root('service apparmor restart');
         }
     }
 }

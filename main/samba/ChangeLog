@@ -1,11 +1,66 @@
-HEAD
+3.4
+	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
+	  and forced the critical flag to 0 so Samba accepts it
+	+ Added EBox::Samba::LdbObject::isCritical method to simplify all checks
+	  of the isCriticalSystemObject attribute
+	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
+	  correctly
+	+ Split openchange configuration into its own config file and set correct
+	  permissions on it
+	+ Remove printers from dependencies list if the module is not installed
+	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
+	  and added a note about why it cannot be used in the method documentation
+	+ Write openchange options to use mysql as backend
+	+ Use new addModuleToPostSave Global interface in Provision class
+	+ Depend on new samba packaging instead of old samba4 one
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ ad-migrate: Detect offline role owner and seize roles
+	+ s4sync: Check samba daemon is running
+	+ Ignored and logged as errors the users, contacts and groups in OpenLDAP
+	  that are not linked with Samba objects
+	+ Fix edit Group Policy Link after UI changes
+	+ Fix GPO models UI
+	+ Fix revert resolvconf configuration after joining domain
+	+ Fix delete GPLink: use gPLink attribute name as our checkers are
+	  case sensitive
+	+ Set allow_non_scanned_files = True on samba.conf by default to
+	  avoid issues with antivirus when editing files
+	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
+	  correctly
+	+ Fix NT_STATUS_ACCESS_DENIED opening files quering the DOS attributes
+	  and passing them to open function
+	+ Set OpenChange as not provisioned when Samba is reprovisioned
+	+ Added a way to check whether we are managing the AD schema or not
+	+ Samba provision failures when IPs are not set no longer talk
+	  wrongly about internal interfaces
+	+ Create directories in _setConf to avoid invalid group __USERS__ error
+	+ Clean up openchange section in stub smb.conf file
+	+ Fixed bug in EBox::LDB::users which made the method to not
+	  return users inside Organization Units
+	+ Fix typo in SambaLdapUser that fixes error in change email
+	+ Change user modification hook from _modifyUser to _preModifyUser
+	+ Throw DataExists exception if the user try to rename a user on a
+	  container and already exists
+	+ Check for duplicated DN on user creation and show a proper error, not
+	  an internal exception.
+	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
+	  OpenLDAP. Those users are ignored on EBox::LDB::users method
+	+ Remove group share on group deletion
+	+ Set the setShareRightsReset flag on SambaSharesPermissions row deletion
+	+ Samba log helper is now aware of utf8
+	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
+	  deletion
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization
 	+ Typo fix in netbios validation
 	+ Check if objects are system critical before deletion
-	+ Improved migration code from 3.2.11
-3.2.12
+3.3
+	+ Renamed printableName to File Sharing and Domain Services
+	+ Split settings in two menu entries: Domain and File Sharing
+	+ Switch from Error to TryCatch for exception handling
 	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
+				  adc
 	  adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
 	              when reprovisioning as additional DC
@@ -25,12 +80,10 @@ HEAD
 	              AD DIT, as OU=Users is linked to CN=Users.
 	+ Do not import accounts while provisioning or joining a domain, rely on
 	  s4sync
-3.2.11
 	+ Remove useless chown workaround
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications
-3.2.10
 	+ Revert case sensitive shares. Use new SMB raw client library feature
 	  per packet case sensitive.
 	+ Throw external exception instead internal if error changing user password
@@ -43,36 +96,35 @@ HEAD
 	+ Added missing EBox::Exceptions uses
 	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
 	  objectGUID unique id to be 100% sure we match the right objects
-3.2.9
+	+ Fixed a typo in a info message
 	+ Depend on the new Samba 4.1.1, also with fixed init script
 	+ Improve GPO models preconditions to avoid cannot connect to samba
 	  LDAP
 	+ Fix regression in unmanaged ACLs option
-3.2.8
 	+ Prevent _postServiceHook code execution outside Save Changes
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
 	  non ascii characters
 	+ Check for acl and user_xattr mount options when adding system shares
-3.2.7
 	+ Depend on new samba4 version that fixes 0-byte size problems
 	+ NT SD are now written to hidden and readonly files
 	+ Remove no longer used antivirus options
 	+ Get ldb object in s4sync after the initial wait
 	+ Use resolvconf tool to modify resolv.conf when joining as ADC
-3.2.6
 	+ Set zavsd socket mode to 0777
 	+ Fix already defined variable warning
 	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
 	  (Contributed by on-jz)
 	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
 	+ Set case sensitive on a per share basis
-3.2.5
 	+ Fix netbios name no being updated when hostname change and samba module
 	  is not enabled
 	+ Disable debug to parse ldbsearch command output when looking for DNS
 	  zones stored in samba
 	+ Open files with minimal access mask to set the security descriptors
-3.2.4
+	+ Added new 'Apply ACLs recursively' feature - one checkbox per samba share.
+	  If unchecked, changed ACLs will only be written to top-level share.
+	  Subfolders' ACLs will be left unchanged. Default is checked.
+	  (Contributed by on-jz)
 	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
 	+ Listen on all interfaces to avoid problems when more than one IP address
 	  is configured in the DNS module
@@ -80,10 +132,15 @@ HEAD
 	+ Delete unused updateHostnameFields() method
 	+ Mark network module as changed when upgrading from 3.0
 	+ Enforce set of shares ACLs when upgrading from 3.0
-3.2.3
 	+ Remove old keytab when exporting new one
 	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
 	  join domain as additional domain controller
+	+ Removed old migration code from 3.0 to 3.2
+	+ Set version to 3.3
+	+ Ignore container 'Microsoft Exchange System Objects' when quering
+	  users stored in LDB
+	+ Write openchange options to smb.conf if module installed
+	+ Fix precondition on GPOScripts model
 3.2.2
 	+ Added retry mechanism in SmbClient to wait until samba is ready
 	+ Do not try to get domainSID in s4sync if not ready

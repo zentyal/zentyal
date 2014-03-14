@@ -26,7 +26,7 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
 use List::Util qw(sum);
-use Error qw(:try);
+use TryCatch::Lite;
 
 # TODO: Currently we can't have more than two dashboards because of
 # the design of the interface, but this could be incremented in the future
@@ -36,7 +36,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_, title => __('Dashboard'),
-                                 'template' => '/dashboard/index.mas');
+                                  'template' => '/dashboard/index.mas');
     bless($self, $class);
     return $self;
 }
@@ -161,7 +161,6 @@ sub masonParameters
     }
 
     if ($showMessage) {
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $state = $sysinfo->get_state();
         my $lastTime = $state->{lastMessageTime};
         my $currentTime = time();
@@ -173,6 +172,23 @@ sub masonParameters
             if ($offset >= $msg->{days}) {
                 push (@params, 'message' => $msg);
                 last;
+            }
+        }
+    }
+
+    if (EBox::Config::boolean('debug')) {
+        my $report = $sysinfo->model('Debug')->value('enabled');
+        # TODO: currently apport reports are only enabled for openchange
+        if ($report and EBox::Global->modExists('openchange')) {
+            EBox::Sudo::silentRoot('ls /var/crash | grep -q ^_usr_sbin_samba');
+            if ($? == 0) {
+                my $style = 'margin-top: 10px; margin-bottom: -6px;';
+                my $text = __sx('Crash report found! Click the button if you want to send the following files anonymously to help fixing the issue: {p}. Although Zentyal will make a good use of this information, please review the files if you want to be sure they do not contain any sensible information. {oc}{obs}Submit crash report{cb} {obd}Discard{cb}{cc}',
+                                p  => '/var/crash/_usr_sbin_samba*',
+                                obs => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.report()\">",
+                                obd => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.discard()\">",
+                                cb => '</button>', oc => '<center>', cc => '</center>');
+                push (@params, 'crashreport' => $text);
             }
         }
     }
@@ -198,13 +214,13 @@ sub _periodicMessages
 
     # FIXME: Close the message also when clicking the URL, not only with the close button
     return [
-        {
-         name => 'upgrade',
-         text => __sx('{oh}Zentyal 3.3{ch} is available! {ob}Upgrade now{cb}',
-                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
-                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
-         days => 0,
-        },
+#        {
+#         name => 'upgrade',
+#         text => __sx('{oh}Zentyal 3.3{ch} is available! {ob}Upgrade now{cb}',
+#                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
+#                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
+#         days => 0,
+#        },
         {
          name => 'backup',
          text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),

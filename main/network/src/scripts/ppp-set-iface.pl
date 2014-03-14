@@ -21,7 +21,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -43,12 +43,12 @@ for my $tries (1 .. 10) {
             $network->regenGateways();
         }
         exit 0;
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         sleep 5;
-    } otherwise {
+    } catch {
         EBox::error("Call to setRealPPPIface for $iface failed");
         exit 1;
-    };
+    }
 }
 
 exit 0;

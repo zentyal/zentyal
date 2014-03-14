@@ -9,6 +9,9 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
+<div id='group_alias_not_ready' class='group_members_observer warning' style='display:none'>
+</div>
+<div id='group_alias_ready' class='group_members_observer' >
    <div id='error_mailCreateAlias' class='error' style='display:none'></div>
    <div id='note_mailCreateAlias' class='note' style='display:none'></div>
    <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
@@ -31,6 +34,7 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
             </tbody>
         </table>
     </form>
+</div>
 <script>
 "use strict";
 $(function(){
@@ -40,31 +44,54 @@ $(function(){
       var tbody = $('tbody', aliasTable);
       tbody.detach();
       tbody.children('.aliasRow').remove();
-      for (i=0; i < aliases.length; i++) {
-          var alias = aliases[i];
-          var newRowHtml =  '<tr class="border aliasRow">'  +
-                            '<td>'  + alias + '</td>' +
-                             '<td class="tcenter">' +
-                                 '<a href="#">' +
-                                    '<img src="/data/images/delete.gif" ' +
-                                        'data-alias="' + alias +'" ' +
-                                        'title="<% __('Delete') %>" ' +
-                                        'alt="<% __('Delete') %>" ' +
-                                    '/>' +
-                                 '</a>' +
-                             '</td>' +
-                        '</tr>';
-         var newRow = $(newRowHtml);
-         tbody.append(newRow);
-      }
+      if(aliases) {
+         for (i=0; i < aliases.length; i++) {
+             var alias = aliases[i];
+             var newRowHtml =  '<tr class="border aliasRow">'  +
+                               '<td>'  + alias + '</td>' +
+                                '<td class="tcenter">' +
+                                    '<a href="#">' +
+                                       '<img src="/data/images/delete.gif" ' +
+                                           'data-alias="' + alias +'" ' +
+                                           'title="<% __('Delete') %>" ' +
+                                           'alt="<% __('Delete') %>" ' +
+                                       '/>' +
+                                    '</a>' +
+                                '</td>' +
+                           '</tr>';
+            var newRow = $(newRowHtml);
+            tbody.append(newRow);
+         }
+    }
     aliasTable.append(tbody);
   };
+
+  $('#group_alias_not_ready').on('group_members_change', function(ev) {
+      if (ev.groupEmpty) {
+          $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
+      } else if (!ev.usersWithMail) {
+          $(this).show().text('<% __('Group aliases cannot be created because no user has mail account') %>');
+      } else {
+          $(this).hide();
+      }
+  });
+
+  $('#group_alias_ready').on('group_members_change', function(ev) {
+      if (!ev.groupEmpty && ev.usersWithMail) {
+          $(this).show();
+      } else {
+          $(this).hide();
+          $('#note_mailCreateAlias').html('').hide();
+          refreshAliasList([]);
+      }
+  });
 
   Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
             noteDiv: '#note_mailCreateAlias',
             errorDiv: '#error_mailCreateAlias',
             submitButton: '#mailCreateAlias_submit',
             success : function (response) {
+                $('#mailCreateAlias_lhs').val(' ');
                 refreshAliasList(response.aliases);
             }
   });
@@ -96,6 +123,11 @@ $(function(){
   });
 
   refreshAliasList(<% $aliasesJS %>);
+
+  var members_change_event = jQuery.Event("group_members_change");
+  members_change_event.groupEmpty = <% $params->{groupEmpty} ? 'true' : 'false' %>;
+  members_change_event.usersWithMail =  <% $params->{usersWithMail} ? 'true' : 'false' %>;
+  $('.group_members_observer').trigger(members_change_event);
 });
 
 </script>
@@ -110,18 +142,20 @@ $group
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
-                                        <input type='text' class='inputText' name='lhs'>
+                                    <div class="inline-input">
+                                        <input id='mailCreateAlias_lhs' type='text' class='inputText' name='lhs'>
+                                        <span>@</span>
                                         <select name="rhs" enabled>
 %                                       foreach my $vd (@vdomains) {
                                                 <option value= <% $vd %> > <% __($vd) %> </option>
 %                                       }
                                         </select>
+                                      </div>
                                 </td>
                                 <td class='tcenter'>
-                                        <input class='inputButton'
-                                               id='mailCreateAlias_submit'
-                                               type='image'
-                                               src='/data/images/add.gif'
+                                        <input id='mailCreateAlias_submit'
+                                               class='btn-only-icon btn-add'
+                                               type='submit'
                                                name='change'
                                                value="<% __('Create') %>"
                                                title="<% __('Create') %>"

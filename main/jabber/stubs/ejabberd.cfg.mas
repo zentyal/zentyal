@@ -45,7 +45,7 @@
      {access, c2s},
      {shaper, c2s_shaper},
      {max_stanza_size, 65536},
-     tls, {certfile, "/etc/ejabberd/ejabberd.pem"}
+     {certfile, "/etc/ejabberd/ejabberd.pem"}, starttls
   ]},
 % }
   {5222, ejabberd_c2s, [

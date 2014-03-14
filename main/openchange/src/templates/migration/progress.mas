@@ -39,12 +39,12 @@ my $nMailboxes = scalar(@mailboxes);
                 <th class="name"><% __('name') %></th>
                 <th><% __('user') %></th>
                 <th><% __('total data') %></th>
-                <th><img src="/data/images/mail.gif" alt="mails"></th>
+                <th style="display:none"><img src="/data/images/mail.gif" alt="mails"></th>
                 <th><img src="/data/images/calendar.gif" alt="calendar"></th>
                 <th><img src="/data/images/contacts.gif" alt="contacts"></th>
                 <th><% __('errors') %></th>
                 <th><% __('status') %></th>
-                <th><% __('details') %></th>
+                <!--<th><% __('details') %></th>-->
                 <th><% __('actions') %></th>
               </tr>
             </thead>
@@ -59,7 +59,7 @@ my $nMailboxes = scalar(@mailboxes);
                   </script>
                 </td>
                 <td id="<% $mailbox->{username} %>_mail_pct">--</td>
-                <td id="<% $mailbox->{username} %>_calendar_pct">--</td>
+                <td style="display:none" id="<% $mailbox->{username} %>_calendar_pct">--</td>
                 <td id="<% $mailbox->{username} %>_contacts_pct">--</td>
                 <td id="<% $mailbox->{username} %>_errors" class="errors">--</td>
                 <td id="<% $mailbox->{username} %>_status" class="status">
@@ -69,6 +69,7 @@ my $nMailboxes = scalar(@mailboxes);
                     <span class="error-bar" style="width: 0%"></span>
                   </div>
                 </td>
+                  <!--
                 <td>
                   <a class="btn-only-icon btn-log" href="#"
                      onclick="Zentyal.Dialog.showURL('/OpenChange/Migration/MailboxDetails',
@@ -76,6 +77,7 @@ my $nMailboxes = scalar(@mailboxes);
                                                        data  : 'username=<% $mailbox->{username} %>' });"
                      title="<% __('See details') %>"><% __('Details') %></a>
                 </td>
+                  -->
                 <td>
                   <button class="btn-only-icon btn-delete" disabled="disabled"
                           style="display: none;" id="<% $mailbox->{username} %>_discard"

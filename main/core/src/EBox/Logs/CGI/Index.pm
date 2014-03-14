@@ -26,7 +26,7 @@ use EBox::Model::Manager;
 use EBox::Validate;
 use EBox::Html;
 use POSIX qw(ceil);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PAGESIZE => 15;
 
@@ -160,11 +160,10 @@ sub _searchLogs
 
     try {
         $hfilters = $self->_paramFilters();
-    } otherwise {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
         $hfilters = {};
-    };
+    }
     if (exists $tableinfo->{autoFilter}) {
         while (my ($field, $value) = each $tableinfo->{autoFilter}) {
             (exists $hfilters->{$field}) and next;
@@ -263,8 +262,7 @@ sub _header
     my ($self) = @_;
 
     if (not $self->refresh()) {
-        $self->SUPER::_header();
-        return;
+        return $self->SUPER::_header();
     }
 
     my $destination = "/Logs/Index?";
@@ -286,14 +284,15 @@ sub _header
     my $global = EBox::Global->getInstance();
     my $favicon = $global->theme()->{'favicon'};
 
-    print($self->cgi()->header(-charset=>'utf-8'));
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     my $html = EBox::Html::makeHtml(
                                      'headerWithRefresh.mas',
                                      title => $self->{title},
                                      destination => $destination,
                                      favicon => $favicon,
                                     );
-    print $html;
+    return $html;
 }
 
 sub refresh
@@ -351,12 +350,13 @@ sub menuFolder
 # Overrides: EBox::CGI::Base::params
 #
 # We need to override this because the name of a parameter could be
-# internaltionalized and thus contian unexpecteed characters
+# internaltionalized and thus contain unexpected characters
 sub params
 {
     my ($self) = @_;
-    my $cgi = $self->cgi;
-    my @names = $cgi->param;
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    my @names = keys %{$parameters};
 
     # Prototype adds a '_' empty param to Ajax POST requests when the agent is
     # webkit based

@@ -39,6 +39,7 @@ use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
+use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
@@ -59,7 +60,7 @@ use EBox::Users::User;
 use EBox::Users::Group;
 use EBox::Util::Random qw( generate );
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
@@ -107,7 +108,7 @@ use IO::Socket::INET;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant PRIVATE_DIR          => '/opt/samba4/private/';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
@@ -115,12 +116,13 @@ use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
+use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
+use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 
 sub _create
 {
@@ -198,36 +200,6 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
-
-    # Upgrade from 3.2.11 to 3.2.12
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.12') < 0)) {
-        # Start samba4 if not running
-        EBox::Sudo::silentRoot('service samba4 start');
-
-        # Ensure default containers properly linked
-        $self->getProvision->mapDefaultContainers();
-
-        # Accounts holding SPNs should be linked to LDAP service principals
-        $self->ldb->ldapServicePrincipalsToLdb();
-
-        # Do not hide domain guest account, as the share access is based on
-        # the enabled status of this account
-        if ($self->isEnabled() and $self->isProvisioned()) {
-            my $domainSid = $self->ldb->domainSID();
-            my $ldbGuest = new EBox::Samba::User(sid => "$domainSid-501");
-            my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
-            if ($ldapGuest) {
-                # The guest user exists, we should set it visible.
-                $ldapGuest->setInternal(0);
-            }
-        }
     }
 }
 
@@ -318,6 +290,7 @@ sub _postServiceHook
             my $enabled     = $row->valueByName('enabled');
             my $shareName   = $row->valueByName('share');
             my $guestAccess = $row->valueByName('guest');
+            my $recursiveAcls = $row->valueByName('recursive_acls');
 
             unless ($enabled) {
                 next;
@@ -393,6 +366,7 @@ sub _postServiceHook
                         unless ($object->exists()) {
                             next;
                         }
+
                         $sid = $object->sid();
                     }
                     my $rights = undef;
@@ -413,6 +387,7 @@ sub _postServiceHook
                 }
             }
             my $relativeSharePath = '/';
+            EBox::info("Applying ACLs for top-level share $shareName");
             my $sinfo = SECINFO_OWNER |
                         SECINFO_GROUP |
                         SECINFO_DACL |
@@ -436,11 +411,14 @@ sub _postServiceHook
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
             $sd->type($sdControl);
-            foreach my $item (@{$shareContentList}) {
-                my $itemName = $item->{name};
-                $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug("Setting NT ACL on file: $itemName");
-                $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+            ## only replace ACLs for subdirs if recursiveAcls = 1
+            if ($recursiveAcls) {
+                foreach my $item (@{$shareContentList}) {
+                    my $itemName = $item->{name};
+                    $itemName =~ s/^\/\/(.*)/\/$1/s;
+                    EBox::info("Replacing ACLs for $shareName$itemName");
+                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                }
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
@@ -498,7 +476,7 @@ sub _startDaemon
 
     $self->SUPER::_startDaemon($daemon, %params);
 
-    if ($daemon->{name} eq 'samba4') {
+    if ($daemon->{name} eq 'samba') {
         my $services = $self->_services();
         foreach my $service (@{$services}) {
             my $port = $service->{destinationPort};
@@ -644,10 +622,6 @@ sub enableActions
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-
-    # Create directories
-    EBox::info('Creating directories');
-    $self->_createDirectories();
 
     # Load the required OpenLDAP schema updates.
     $self->performLDAPActions();
@@ -957,10 +931,23 @@ sub writeSambaConfig
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+
+        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
+        my $openchangeConnectionString = undef;
+        if ($openchangeProvisionedWithMySQL) {
+            $openchangeConnectionString = $openchangeModule->connectionString();
+        }
+        my $oc = [];
+        push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+        $self->writeConfFile(OPENCHANGE_CONF_FILE,
+                         'samba/openchange.conf.mas', $oc,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba/smb.conf.mas', \@array);
+                         'samba/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
 
     $self->_writeAntivirusConfig();
 }
@@ -1058,6 +1045,17 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        # Create directories
+        EBox::info('Creating directories');
+        $self->_createDirectories();
+
+        if (EBox::Global->modExists('openchange')) {
+            my $openchangeMod = EBox::Global->modInstance('openchange');
+            if ($openchangeMod->isProvisioned()) {
+                # Set OpenChange as not provisioned.
+                $openchangeMod->setProvisioned(0);
+            }
+        }
         if ($self->get('need_reprovision')) {
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
@@ -1132,13 +1130,10 @@ sub _daemons
 {
     return [
         {
-            name => 'samba4',
-            type => 'init.d',
-            pidfiles => ['/opt/samba4/var/run/samba.pid'],
+            name => 'samba-ad-dc',
         },
         {
-            name => 'zentyal.nmbd',
-            precondition => \&_nmbdCond,
+            name => 'nmbd',
         },
         {
             name => 'zentyal.s4sync',
@@ -1154,6 +1149,20 @@ sub _daemons
         },
     ];
 }
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
+    ];
+}
+
 
 # Function: usesPort
 #
@@ -1408,7 +1417,8 @@ sub dumpConfig
     if ($self->_s4syncCond()) {
         try {
             EBox::Service::manage('zentyal.s4sync', 'stop');
-        } otherwise {};
+        } catch {
+        }
     }
 
     my $mirror = EBox::Config::tmp() . "/samba.backup";
@@ -1457,12 +1467,11 @@ sub dumpConfig
 
     try {
         EBox::Sudo::root(@cmds);
-    } otherwise {
-        my ($error) = @_;
-        throw $error;
-    } finally {
+    } catch ($e) {
         EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
-    };
+        $e->throw();
+    }
+    EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
 
     # Backup admin password
     unless ($options{bug}) {
@@ -1550,7 +1559,10 @@ sub depends
 {
     my ($self) = @_;
 
-    my @deps = ('network', 'printers');
+    my @deps = ('network');
+    if ($self->global()->modExists('printers')) {
+        push @deps, 'printers';
+    }
 
     if ($self->get('need_reprovision')) {
         push (@deps, 'users');
@@ -2482,6 +2494,19 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
+    return new EBox::Samba::DMD(dn => $dn);
+}
+
 # Method: hiddenSid
 #
 #   Check if the specified LDB object belongs to the list of regexps
@@ -2520,98 +2545,6 @@ sub _sidsToHide
     my @sids = map { s/\n//; $_; } @sidsTmp;
 
     return \@sids;
-}
-
-# Migration to 3.2
-#
-#  * Add new schema and link with existing LDAP users
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    # Current data backup
-    my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
-    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($backupDir);
-
-    EBox::Service::manage('zentyal.s4sync', 'stop');
-
-    my $provision = $self->getProvision();
-    my $oldProvisionFile = '/home/samba/.provisioned';
-    if (-f $oldProvisionFile) {
-        $provision->setProvisioned(1);
-        EBox::Sudo::root("rm -f $oldProvisionFile");
-    }
-
-    EBox::info("Removing posixAccount from users");
-    foreach my $user (@{$self->ldb->users()}) {
-        $user->delete('uidNumber', 1);
-        $user->remove('objectclass', 'posixAccount', 1);
-        $user->save();
-    }
-
-    EBox::info("Removing posixAccount from groups");
-    foreach my $group (@{$self->ldb->groups()}) {
-        $group->delete('gidNumber', 1);
-        $group->remove('objectclass', 'posixAccount', 1);
-        $group->save();
-    }
-
-    my $schema = 'zentyal-samba/zentyalsambalink.ldif';
-    EBox::info("Loading $schema");
-    my $usersMod = $self->global()->modInstance('users');
-    $usersMod->_loadSchema(EBox::Config::share() . $schema);
-
-    EBox::info("Map default containers");
-    $provision->mapDefaultContainers();
-    $provision->mapAccounts();
-
-    EBox::info("Link LDB users with LDAP");
-    foreach my $ldbUser (@{$self->ldb->users()}) {
-        my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
-        if ($ldapUser->exists()) {
-            $ldbUser->_linkWithUsersObject($ldapUser);
-
-            if (not $ldbUser->isAccountEnabled()) {
-                $ldapUser->setDisabled(1);
-            }
-        }
-    }
-
-    EBox::info("Link LDB groups with LDAP");
-    foreach my $ldbGroup (@{$self->ldb->groups()}) {
-        my $ldapGroup = new EBox::Users::Group(gid => $ldbGroup->get('samAccountName'));
-        if ($ldapGroup->exists()) {
-            $ldbGroup->_linkWithUsersObject($ldapGroup);
-        }
-    }
-
-    EBox::info("Setting Administrator user as internal");
-    my $adminUser = new EBox::Users::User(uid => 'Administrator');
-    if ($adminUser->exists()) {
-        $adminUser->setInternal();
-    }
-
-    EBox::info("Enforcing application of share permissions");
-    my $shares = $self->model('SambaShares');
-    my $state = $self->get_state();
-    unless (defined $state->{shares_set_rights}) {
-        $state->{shares_set_rights} = {};
-    }
-    for my $id (@{$shares->ids()}) {
-        my $row = $shares->row($id);
-        my $shareName = $row->valueByName('share');
-        $state->{shares_set_rights}->{$shareName} = 1;
-    }
-    $self->set_state($state);
-
-    # To ensure proper writing of /etc/resolv.conf
-    EBox::Global->modChange('network');
-
-    $self->_overrideDaemons();
 }
 
 1;

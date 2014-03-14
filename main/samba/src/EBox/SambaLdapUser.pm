@@ -22,7 +22,7 @@ use base qw(EBox::LdapUserBase);
 
 use MIME::Base64;
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::Util qw(canonical_dn ldap_explode_dn);
 
 use EBox::Exceptions::External;
@@ -124,10 +124,9 @@ sub _preAddOuFailed
 
         EBox::info("Aborted OU creation, removing from samba");
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _delOU
@@ -148,10 +147,9 @@ sub _delOU
 
     try {
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
-    };
+    }
 }
 
 # Method: _preAddUser
@@ -218,10 +216,9 @@ sub _preAddUserFailed
 
         EBox::info("Aborted User creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::info("Error removing samba user $uid: $error");
-    };
+    }
 }
 
 # Method: _addUser
@@ -285,85 +282,90 @@ sub _addUserFailed
         return unless $sambaUser->exists();
         EBox::info("Aborted user creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-    };
+    } catch {
+    }
 }
 
-sub _modifyUser
+sub _preModifyUser
 {
     my ($self, $zentyalUser, $zentyalPwd) = @_;
     $self->_sambaReady() or
         return;
 
     my $dn = $zentyalUser->dn();
-    EBox::debug("Updating user '$dn'");
-    try {
-        my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-        return unless $sambaUser->exists();
+    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
+    return unless $sambaUser->exists();
 
-        # Check if CN has changed. In this case, we have to change the user DN
-        if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
-            my $dn = ldap_explode_dn($sambaUser->_entry->dn());
-            my $rdn = shift (@{$dn});
-            foreach my $key (keys %{$rdn}) {
-                if ($key == 'CN') {
-                    $rdn->{CN} = $zentyalUser->get('cn');
-                    utf8::encode($rdn->{CN});
-                    last;
-                }
+    # Check if CN has changed. In this case, we have to change the user DN
+    if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
+        my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+        my $rdn = shift (@{$dn});
+        foreach my $key (keys %{$rdn}) {
+            if ($key == 'CN') {
+                $rdn->{CN} = $zentyalUser->get('cn');
+                utf8::encode($rdn->{CN});
+                last;
             }
-            unshift (@{$dn}, $rdn);
+        }
+        unshift (@{$dn}, $rdn);
 
-            my $newrdn = canonical_dn([ $rdn ]);
-            my $ldapCon = $sambaUser->_ldap->connection();
-            my $entry = $sambaUser->_entry();
-            my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
-            if ($result->is_error()) {
-                throw EBox::Exceptions::LDAP(
-                    message => __('There was an error updating LDAP:'),
-                    result =>   $result,
-                    opArgs   => "New RDN: $newrdn");
+        my $newrdn = canonical_dn([ $rdn ]);
+        my $ldapCon = $sambaUser->_ldap->connection();
+        my $entry = $sambaUser->_entry();
+        my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
+        if ($result->is_error()) {
+            if ($result->code() eq Net::LDAP::Constant::LDAP_ALREADY_EXISTS) {
+                my $name = $zentyalUser->get('cn');
+                throw EBox::Exceptions::DataExists(
+                    text => __x('User name {x} already exists in the same container.',
+                                x => $name));
             }
+            throw EBox::Exceptions::LDAP(
+                message => __('There was an error updating LDAP:'),
+                result =>   $result,
+                opArgs   => "New RDN: $newrdn");
+        }
+    }
 
-            $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
-            return unless $sambaUser->exists();
-        }
-
-        my $gn = $zentyalUser->get('givenName');
-        utf8::encode($gn);
-        my $sn = $zentyalUser->get('sn');
-        utf8::encode($sn);
-        my $description = $zentyalUser->description();
-        my $mail = $zentyalUser->mail();
-        $sambaUser->set('givenName', $gn, 1);
-        $sambaUser->set('sn', $sn, 1);
-        if ($description) {
-            utf8::encode($description);
-            $sambaUser->set('description', $description, 1);
-        } else {
-            $sambaUser->delete('description', 1);
-        }
-        if ($mail) {
-            $sambaUser->set('mail', $mail, 1);
-        } else {
-            $sambaUser->delete('mail', 1);
-        }
-        if (defined($zentyalPwd)) {
-            $sambaUser->changePassword($zentyalPwd, 1);
-        } else {
-            my $keys = $zentyalUser->kerberosKeys();
-            $sambaUser->setCredentials($keys);
-        }
-        if ($zentyalUser->isDisabled()) {
-            $sambaUser->setAccountEnabled(0);
-        } else {
-            $sambaUser->setAccountEnabled(1);
-        }
-        $sambaUser->save();
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Error modifying user: $error");
-    };
+    my $lazy = 1;
+    my $displayName = $zentyalUser->get('displayName');
+    if ($displayName) {
+        utf8::encode($displayName);
+        $sambaUser->set('displayName', $displayName, $lazy);
+    } else {
+        $sambaUser->delete('displayName', $lazy);
+    }
+    my $description = $zentyalUser->description();
+    my $mail = $zentyalUser->mail();
+    my $gn = $zentyalUser->get('givenName');
+    utf8::encode($gn);
+    my $sn = $zentyalUser->get('sn');
+    utf8::encode($sn);
+    $sambaUser->set('givenName', $gn, $lazy);
+    $sambaUser->set('sn', $sn, $lazy);
+    if ($description) {
+        utf8::encode($description);
+        $sambaUser->set('description', $description, $lazy);
+    } else {
+        $sambaUser->delete('description', $lazy);
+    }
+    if ($mail) {
+        $sambaUser->set('mail', $mail, $lazy);
+    } else {
+        $sambaUser->delete('mail', $lazy);
+    }
+    if ($zentyalUser->isDisabled()) {
+        $sambaUser->setAccountEnabled(0, $lazy);
+    } else {
+        $sambaUser->setAccountEnabled(1, $lazy);
+    }
+    if (defined($zentyalPwd)) {
+        $sambaUser->changePassword($zentyalPwd, $lazy);
+    } else {
+        my $keys = $zentyalUser->kerberosKeys();
+        $sambaUser->setCredentials($keys);
+    }
+    $sambaUser->save();
 }
 
 sub _delUser
@@ -403,10 +405,9 @@ sub _delUser
                 }
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting user: $error");
-    };
+    }
 }
 
 # Method: _preAddContact
@@ -463,10 +464,9 @@ sub _preAddContactFailed
 
         EBox::info("Aborted Contact creation, removing from samba");
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::debug("Error removing contact " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _modifyContact
@@ -525,10 +525,9 @@ sub _modifyContact
             $sambaContact->delete('mail', 1);
         }
         $sambaContact->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying contact: $error");
-    };
+    }
 }
 
 sub _delContact
@@ -549,10 +548,9 @@ sub _delContact
     EBox::debug("Deleting contact '$dn' from samba");
     try {
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting contact: $error");
-    };
+    }
 }
 
 sub _membersToSamba
@@ -598,10 +596,9 @@ sub _membersToSamba
             EBox::info("Removing member '$canonicalName' from Samba group '$gid'");
             try {
                 $sambaGroup->removeMember($sambaMembers{$memberUniqueID}, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error removing member '$canonicalName' from Samba group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -623,10 +620,9 @@ sub _membersToSamba
             }
             try {
                 $sambaGroup->addMember($sambaMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding member '$canonicalName' to Samba group '$gid': $error");
-            };
+            }
         }
     }
     unless ($lazy) {
@@ -686,10 +682,9 @@ sub _preAddGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 # Method: _addGroup
@@ -741,10 +736,9 @@ sub _addGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 sub _modifyGroup
@@ -780,10 +774,9 @@ sub _modifyGroup
             $sambaGroup->delete('mail', $lazy);
         }
         $sambaGroup->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying group: $error");
-    };
+    }
 }
 
 sub _delGroup
@@ -825,10 +818,13 @@ sub _delGroup
                 }
             }
         }
-    } otherwise {
-        my ($error) = @_;
+
+        if ($self->_groupShareEnabled($zentyalGroup)) {
+            $self->removeGroupShare($zentyalGroup);
+        }
+    } catch ($error) {
         EBox::error("Error deleting group: $error");
-    };
+    }
 }
 
 # User and group addons

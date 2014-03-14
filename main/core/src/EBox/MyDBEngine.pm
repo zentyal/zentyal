@@ -38,7 +38,7 @@ use File::Basename;
 use EBox::Logs::SlicedBackup;
 use EBox::Util::SQLTypes;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Data::Dumper;
 
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
@@ -94,6 +94,7 @@ sub _dbpass
 
     unless ($self->{dbpass}) {
         my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        chomp ($pass);
         $self->{dbpass} = $pass;
     }
 
@@ -121,7 +122,7 @@ sub _connect
     return if ($self->{'dbh'});
 
     my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
-                           $self->_dbpass(), { RaiseError => 1});
+                           $self->_dbpass(), { RaiseError => 1, mysql_enable_utf8 => 1});
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
@@ -300,10 +301,9 @@ sub _multiInsertBadEncoding
     foreach my $valuesToInsert (@{ $values_r }) {
         try {
             $self->unbufferedInsert($table, $valuesToInsert );
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
-        };
+        } catch ($e) {
+            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $e")
+        }
     }
 }
 
@@ -701,20 +701,23 @@ sub restoreDBDump
     try {
         my $superuser = _dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
-    } otherwise {
+    } catch ($e) {
         # left file were it was before
-        my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
-    } finally {
+    } catch ($e) {
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");
-    };
+        $e->throw();
+    }
+    # undo ownership and file move
+    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+    EBox::Sudo::root("mv $tmpFile $file");
 
     if ($onlySchema) {
         EBox::info('Database schema dump for ' . _dbname() . ' restored' );

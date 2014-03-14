@@ -24,7 +24,7 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use Error qw(:try);
+use TryCatch::Lite;
 use Encode;
 
 use EBox::Samba;

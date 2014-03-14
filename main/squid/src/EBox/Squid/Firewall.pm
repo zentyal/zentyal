@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,8 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
+
+use Socket;
 
 # Method: prerouting
 #
@@ -71,7 +73,13 @@ sub _trans_prerouting
     foreach my $id (@{$exceptions->enabledRows()}) {
         my $row = $exceptions->row($id);
         my $addr = $row->valueByName('domain');
-        push (@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
+        my ($h, undef, undef, undef, @addrs) = gethostbyname($addr);
+        if ($h) {
+            foreach my $packedIPAddr (@addrs) {
+                my $ipAddr = inet_ntoa($packedIPAddr);
+                push (@rules, "-p tcp -d $ipAddr --dport 80 -j ACCEPT");
+            }
+        }
     }
 
     my @ifaces = @{$net->InternalIfaces()};

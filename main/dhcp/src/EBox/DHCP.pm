@@ -43,16 +43,12 @@ use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
 use Net::IP;
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
-#use constant DHCPCONFFILE => "@DHCPDCONF@";
-#use constant LEASEFILE => "@DHCPDLEASES@";
-#use constant PIDFILE => "@DHCPDPID@";
-#use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
 use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
 use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
@@ -161,11 +157,6 @@ sub initialSetup
         push (@cmds, 'chown root:dhcpd ' . KEYS_DIR);
         push (@cmds, 'chmod 0750 ' . KEYS_DIR);
         EBox::Sudo::root(@cmds);
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
     }
 }
 
@@ -821,11 +812,17 @@ sub PluginConfDir
 {
     my ($class, $iface) = @_;
 
-    my $pluginDir = CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
+    my $pluginDir = $class->PluginConfDirPath($iface);
     unless ( -d $pluginDir ) {
         mkdir ( $pluginDir, 0755 );
     }
     return $pluginDir;
+}
+
+sub PluginConfDirPath
+{
+    my ($class, $iface) = @_;
+    return CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
 }
 
 # Method:  userConfDir
@@ -1035,10 +1032,9 @@ sub _dhcpLeases
         my $leases;
         try {
             $leases = Text::DHCPLeases->new(file => LEASEFILE);
-        } otherwise {
-           my $ex = shift;
-           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
-        };
+        } catch ($e) {
+           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $e");
+        }
 
         if (not $leases) {
             return $self->{'leases'};
@@ -1087,7 +1083,7 @@ sub dhcpLeasesWidget
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 
-### Method: widgets
+# Method: widgets
 #
 #   Overrides <EBox::Module::Base::widgets>
 #
@@ -1345,7 +1341,7 @@ sub _thinClientOptions # (iface, element)
     my $ret = {};
     my $row = $thinClientModel->row();
     if (defined ($row)) {
-        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
+        $ret->{nextServer} = $thinClientModel->nextServer($iface);
         $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;

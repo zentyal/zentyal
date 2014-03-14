@@ -22,7 +22,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Temp;
 use Perl6::Junction qw(any);
@@ -85,9 +85,9 @@ sub reportUserCheck
                                    from     => $fileSet->{from}});
                 }
             }
-        } catch EBox::Exceptions::Command with {
+        } catch (EBox::Exceptions::Command $e) {
             ;
-        };
+        }
     }
 
     return \@users;
@@ -123,9 +123,11 @@ sub userCheck
     my $users = [];
     try {
         $users = _check(_systemUserFiles('recreate'), _ldapUserFiles('recreate'));
-    } finally {
-        unlink(DOING_CRACKING_FILE);
-    };
+    } catch($e) {
+        unlink (DOING_CRACKING_FILE);
+        $e->throw();
+    }
+    unlink (DOING_CRACKING_FILE);
 
     return $users;
 }
@@ -390,7 +392,7 @@ sub _sendEvent
     my (%info) = @_;
 
     my $gl = EBox::Global->getInstance(1);
-    if ( $gl->modExists('events') ) {
+    if ($gl->modExists('events')) {
         try {
             $evtsMod = $gl->modInstance('events');
 
@@ -417,9 +419,9 @@ sub _sendEvent
                                                 'level_check' => $info{level} },
                                );
 
-        } catch EBox::Exceptions::External with {
+        } catch (EBox::Exceptions::External $e) {
             EBox::error('Cannot send alert regarding to weak password checker');
-        };
+        }
     }
 }
 

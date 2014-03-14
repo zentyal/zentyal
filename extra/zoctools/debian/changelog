@@ -1,0 +1,31 @@
+zoctools (0.1-4) precise; urgency=low
+
+  * Added an upstart file.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Fri, 13 Dec 2013 18:16:14 +0100
+
+zoctools (0.1-3) precise; urgency=low
+
+  * Added a dependency on libbsd-dev.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 22:06:51 +0100
+
+zoctools (0.1-2) precise; urgency=low
+
+  * Added a dependency on libssl-dev due to a bug on pkg-config's
+    Requires.private.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 21:25:40 +0100
+
+zoctools (0.1-1) precise; urgency=low
+
+  * Added a missing build dependency on pkg-config
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 20:53:19 +0100
+
+zoctools (0.1) precise; urgency=low
+
+  * Initial release
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 20:06:24 +0100
+

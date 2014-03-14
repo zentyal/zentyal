@@ -1,0 +1,131 @@
+# translation of ar.po to Arabic
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Ossama M. Khayat <okhayat@yahoo.com>, 2007, 2008, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: ar\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2010-09-09 05:05+0300\n"
+"Last-Translator: Ossama M. Khayat <okhayat@yahoo.com>\n"
+"Language-Team: Arabic <support@arabeyes.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "خادم الوب المطلوب تهيئته آلياً:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"يدعم RoundCube أي خادم وب يدعمه PHP، ولكن يمكن تهيئة Apache وlighttpd فقط "
+"آلياً."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr "الرجاء اختيار خادم الوب الذي يجب أن يقوم RoundCube بتهيئته آلياً."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "هل تريد تشغيل خادم الوب الآن؟"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"لتنشيط التهيئة الجديدة، يجب إعادة تشغيل خادمات الوب التي تمت إعادة تهيئتها."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "خادمات IMAP المستخدمة مع RoundCube:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "رجاء اختر خادم IMAP الذي يجب استخدامه مع RoundCube."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"إن ترك هذا الحقل فارغاً، فسيتم إظهار مربع نص عند تسجيل الدخول. إدخال أسماء "
+"مضيفين تفصل بينهم مسافات سيظهر قائمة منسدلة بهذه الأسماء. وإدخال اسم مضيف "
+"هنا سيجبر استخدام هذا المضيف."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"لاستخدام اتصالات SSL، الرجاء إدخال اسم المضيف بالشكل 'ssl://hostname:993'."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "اللغة الافتراضية:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "الرجاء اختيار اللغة الافتراضية للحزمة RoundCube."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr "يمكن تخطي هذا الخيار من قبل المستخدمين عبر تغيير تفضيلاتهم."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"على أي، سيتم استخدام اللغة الافتراضية لشاشة تسجيل الدخول والاتصال الأول "
+"للمستخدمين."

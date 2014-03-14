@@ -7,6 +7,9 @@ create_db()
 {
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
+    # Restart mysql so it loads the zentyal.cnf file
+    service mysql restart
+
     # Do not disable innodb if there are other databases previous to the
     # creation of the Zentyal one
     lines=$(echo "show databases" | mysql --defaults-file=/etc/mysql/debian.cnf | wc -l)
@@ -25,13 +28,12 @@ create_db()
     fi
 
     echo "Creating the $db_name database"
-    echo "CREATE DATABASE $db_name;
+    echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;
           GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";
+          UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';
           FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
-
-    mysqladmin -u root password "$PASSWD"
 }
 
 if ! [ -d /var/lib/mysql/$db_name ]; then

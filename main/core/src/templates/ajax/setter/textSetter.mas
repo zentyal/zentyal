@@ -17,9 +17,9 @@ $disabled
 <textarea class="inputText <% $cssClass %>" cols="<% $colSize %>"
  rows="<% $nRows %>" id='<% $id %>' name='<% $id %> <% $disableAttr %>'><% $data->printableValue() %></textarea>
 %    }
-<% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
 % } else {
 <input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
 <% $data->printableValue() %>
-<% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
 %}

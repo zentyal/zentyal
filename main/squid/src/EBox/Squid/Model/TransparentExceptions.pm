@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,22 @@ use EBox::Gettext;
 use EBox::Types::DomainName;
 use EBox::Types::Boolean;
 use EBox::Validate;
+use Socket;
+
+# Method: validateRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateRow>
+#
+sub validateRow
+{
+    my ($self, $action, %params) = @_;
+
+    unless (gethostbyname($params{domain})) {
+        throw EBox::Exceptions::External(__x("The domain '{domain}' could not be resolved.", domain => $params{domain}));
+    }
+}
 
 # Method: _table
 #
@@ -59,7 +75,8 @@ sub _table
         order              => 0,
         rowUnique          => 1,
         printableRowName   => __('domain name address'),
-        help               => __('You can exempt some addresses from transparent proxy'),
+        help               => __('You can exempt some addresses from transparent proxy. '
+                                 . 'The domains will be resolved at saving changes process.' ),
         messages           => {
                                 add => __('Address added'),
                                 del => __('Address removed'),

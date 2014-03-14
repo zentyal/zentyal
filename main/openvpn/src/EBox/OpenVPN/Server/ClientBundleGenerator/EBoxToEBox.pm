@@ -25,7 +25,7 @@ use EBox::Exceptions::External;
 use File::Copy;
 use File::Slurp qw(write_file read_file);
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub bundleFilename
 {
@@ -135,11 +135,11 @@ sub initParamsFromBundle
     try {
         my $extractCmd = "tar xzf '$bundleFile' -C '$tmpDir'";
         EBox::Sudo::root($extractCmd);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
 __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot unpack it)')
                                          );
-    };
+    }
 
     $class->_checkBundleContents($tmpDir);
 
@@ -153,13 +153,10 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
         push @initParams, (bundle => $bundleFile);
         push @initParams, (tmpDir => $tmpDir);
-    }
-    otherwise {
-        my $ex = shift @_;
+    } catch ($e) {
         system "rm -rf '$tmpDir'";
-        $ex->throw();
-
-    };
+        $e->throw();
+    }
 
     return @initParams;
 }

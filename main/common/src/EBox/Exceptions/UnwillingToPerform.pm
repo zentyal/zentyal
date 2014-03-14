@@ -37,7 +37,7 @@ sub new
     my $error = __x('The requested action cannot be performed. Reason: {r}',
                     r => $reason);
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;

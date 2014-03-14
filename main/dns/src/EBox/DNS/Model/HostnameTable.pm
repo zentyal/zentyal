@@ -26,6 +26,8 @@ use warnings;
 
 package EBox::DNS::Model::HostnameTable;
 
+use base 'EBox::DNS::Model::Record';
+
 use EBox::DNS::Types::Hostname;
 use EBox::Global;
 use EBox::Gettext;
@@ -42,16 +44,13 @@ use EBox::Model::Manager;
 
 use Net::IP;
 
-use base 'EBox::Model::DataTable';
-
 # Group: Public methods
 
 sub new
 {
-    my $class = shift;
-    my %parms = @_;
+    my ($class, %params) = @_;
 
-    my $self = $class->SUPER::new(@_);
+    my $self = $class->SUPER::new(%params);
     bless ($self, $class);
 
     return $self;
@@ -75,7 +74,7 @@ sub validateTypedRow
     return unless (exists $changedFields->{hostname});
 
     my $newHostName = $changedFields->{hostname};
-    my $domainModel = $newHostName->row()->model();
+    my $domainModel = $newHostName->row->model();
 
     for my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
@@ -91,48 +90,109 @@ sub validateTypedRow
             }
         }
     }
-
-    if ( $action eq 'update' ) {
-        # Add toDelete the RRs for this hostname and its aliases
-        my $oldRow  = $self->row($changedFields->{id});
-        my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-            my @toDelete = ();
-            my $zone = $zoneRow->valueByName('domain');
-            # Delete all aliases
-            my $aliasModel = $oldRow->subModel('alias');
-            my $ids = $aliasModel->ids();
-            foreach my $id (@{$ids}) {
-                my $aliasRow = $aliasModel->row($id);
-                push(@toDelete, $aliasRow->valueByName('alias') . ".$zone");
-            }
-
-            my $fullHostname = $oldRow->valueByName('hostname') . ".$zone";
-            push(@toDelete, $fullHostname);
-            $self->{toDelete} = \@toDelete;
-        }
-    }
 }
 
 # Method: updatedRowNotify
 #
-#   Override to add to the list of removed of RRs
+#   Overrides to add to the list of deleted RR in dynamic zones
 #
 # Overrides:
 #
-#   <EBox::Exceptions::DataTable::updatedRowNotify>
+#   <EBox::Model::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
 
-    # The field is added in validateTypedRow
-    if (exists $self->{toDelete}) {
-        foreach my $rr (@{$self->{toDelete}}) {
-            $self->_addToDelete($rr);
+    my $zoneRow = $oldRow->parentRow();
+    my $zone = $zoneRow->valueByName('domain');
+    my $host = $oldRow->valueByName('hostname');
+
+    # Delete the associated MX RR to the old host name
+    my $mailExModel = $zoneRow->subModel('mailExchangers');
+    for my $id(@{$mailExModel->ids()}) {
+        my $mailRow = $mailExModel->row($id);
+        my $hostname = $mailRow->elementByName('hostName');
+        next unless ($hostname->selectedType() eq 'ownerDomain');
+        if ($hostname->value() eq $row->id()) {
+            my $preference = $mailRow->printableValueByName('preference');
+            my $record = "$zone MX $preference $host.$zone";
+            $self->_addToDelete($zone, $record);
         }
-        delete $self->{toDelete};
     }
+
+    # Delete all aliases
+    my $aliasModel = $oldRow->subModel('alias');
+    foreach my $id (@{$aliasModel->ids()}) {
+        my $aliasRow = $aliasModel->row($id);
+        my $alias = $aliasRow->valueByName('alias');
+        my $record = "$alias.$zone CNAME $host.$zone";
+        $self->_addToDelete($zone, $record);
+    }
+
+    # Delete the host records
+    my $record = "$host.$zone A";
+    $self->_addToDelete($zone, $record);
+}
+
+# Method: deletedRowNotify
+#
+#   Overrides to add to the list of deleted RR in dynamic zones
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $zoneRow = $row->parentRow();
+    my $zone = $zoneRow->valueByName('domain');
+    my $host = $row->valueByName('hostname');
+
+    # Delete associated MX records
+    my $mailExModel = $zoneRow->subModel('mailExchangers');
+    foreach my $id (@{$mailExModel->ids()}) {
+        my $mailRow = $mailExModel->row($id);
+        my $hostname = $mailRow->elementByName('hostName');
+        next unless ($hostname->selectedType() eq 'ownerDomain');
+        if ($hostname->value() eq $row->id()) {
+            my $preference = $mailRow->printableValueByName('preference');
+            $mailExModel->removeRow($mailRow->id());
+
+            my $record = "$zone MX $preference $host.$zone";
+            $self->_addToDelete($zone, $record);
+        }
+    }
+
+    # Delete associated TXT records
+    my $txtModel = $zoneRow->subModel('txt');
+    foreach my $id (@{$txtModel->ids()}) {
+        my $txtRow = $txtModel->row($id);
+        my $hostname = $txtRow->elementByName('hostName');
+        next unless ($hostname->selectedType() eq 'ownerDomain');
+        if ($hostname->value() eq $row->id()) {
+            $txtModel->removeRow($txtRow->id());
+
+            my $data = $txtRow->printableValueByName('txt_data');
+            my $record = "$host.$zone TXT $data";
+            $self->_addToDelete($zone, $record);
+        }
+    }
+
+    # Delete all aliases
+    my $aliasModel = $row->subModel('alias');
+    foreach my $id (@{$aliasModel->ids()}) {
+        my $aliasRow = $aliasModel->row($id);
+        my $alias = $aliasRow->valueByName('alias');
+        my $record = "$alias.$zone CNAME $host.$zone";
+        $self->_addToDelete($zone, $record);
+    }
+
+    # Delete the host records
+    my $record = "$host.$zone A";
+    $self->_addToDelete($zone, $record);
 }
 
 # Method: removeRow
@@ -148,13 +208,12 @@ sub removeRow
 {
     my ($self, $id, $force) = @_;
 
-    if ( $force and $self->table()->{automaticRemove} ) {
+    if ($force and $self->table->{automaticRemove}) {
         # Trying to remove the pointed elements first
         my $manager = EBox::Model::Manager->instance();
         $manager->removeRowsUsingId($self->contextName(), $id);
     }
     return $self->SUPER::removeRow($id, $force);
-
 }
 
 # Group: Protected methods
@@ -218,82 +277,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-# Method: deletedRowNotify
-#
-# 	Overrides to remove mail exchangers referencing the deleted
-# 	host name and add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    # Delete the associated MX RR
-    my $mailExModel = $row->parentRow()->subModel('mailExchangers');
-    for my $id(@{$mailExModel->ids()}) {
-        my $mailRow = $mailExModel->row($id);
-        my $hostname = $mailRow->elementByName('hostName');
-        next unless ($hostname->selectedType() eq 'ownerDomain');
-        if ($hostname->value() eq $row->id()) {
-            $mailExModel->removeRow($mailRow->id());
-        }
-    }
-
-    # Deleted RRs to account
-    my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-        my $zone = $zoneRow->valueByName('domain');
-        # Delete all aliases
-        my $aliasModel = $row->subModel('alias');
-        my $ids = $aliasModel->ids();
-        foreach my $id (@{$ids}) {
-            my $aliasRow = $aliasModel->row($id);
-            $self->_addToDelete($aliasRow->valueByName('alias') . ".$zone");
-        }
-
-        my $fullHostname = $row->valueByName('hostname') . ".$zone";
-        $self->_addToDelete($fullHostname);
-    }
-}
-
-# Method: pageTitle
-#
-#   Overrides <EBox::Model::DataTable::pageTitle>
-#   to show the name of the domain
-sub pageTitle
-{
-    my ($self) = @_;
-
-    return $self->parentRow()->printableValueByName('domain');
-}
-
-# Group: Private methods
-
-# Add the RR to the deleted list
-sub _addToDelete
-{
-    my ($self, $domain) = @_;
-
-    my $mod = $self->{confmodule};
-    my $key = EBox::DNS::DELETED_RR_KEY();
-    my @list = ();
-    if ( $mod->st_entry_exists($key) ) {
-        @list = @{$mod->st_get_list($key)};
-        foreach my $elem (@list) {
-            if ($elem eq $domain) {
-                # domain already added, nothing to do
-                return;
-            }
-        }
-    }
-
-    push (@list, $domain);
-    $mod->st_set_list($key, 'string', \@list);
 }
 
 1;

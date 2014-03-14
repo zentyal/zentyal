@@ -1,5 +1,19 @@
-3.2.1
+3.4
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Fixed CaptivePortalQUota event watcher path
+	+ Don't show iptables error on Captive Daemon if debug is not enabled
+	+ Regenerate, if needed captive, portal rules on startup of captived
+	+ Better synchronization between sessions and iptables rules
+	+ Fixed SID generation code
+	+ Fix missing uses in EBox::CaptivePortal::Model::BWSettings
+3.3
+	+ Fixed regression on restricted authentication to group
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
+	+ Use upstream Apache2::AuthCookie instead of forked version
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.6

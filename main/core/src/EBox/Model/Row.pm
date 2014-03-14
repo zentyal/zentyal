@@ -37,12 +37,6 @@
 #       - 'valueHash' => hash ref containing the same objects as
 #          'values' but indexed by 'fieldName'
 #
-#       - 'plainValueHash' => hash ref containing the fields and their
-#          value
-#
-#       - 'printableValueHash' => hash ref containing the fields and
-#          their printable value
-
 use strict;
 use warnings;
 
@@ -54,7 +48,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::DataNotFound;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Dependencies
 
@@ -610,6 +604,8 @@ sub store
 #
 # Exceptions:
 #
+#   <EBox::Exceptions::MissingArgument> - thrown if element is missing
+#
 #   <EBox::Exceptions::Internal>
 #
 sub storeElementByName
@@ -663,9 +659,9 @@ sub subModel
     my $model;
     try {
         $model = $element->foreignModelInstance();
-    } catch EBox::Exceptions::DataNotFound with {
+    } catch (EBox::Exceptions::DataNotFound $e) {
         EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
-    };
+    }
 
     return $model;
 }

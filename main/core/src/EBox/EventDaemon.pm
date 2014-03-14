@@ -48,7 +48,7 @@ use EBox::Util::Event qw(:constants);
 use File::Slurp;
 use IO::Handle;
 use IO::Select;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX;
 use Time::Local qw(timelocal);
 use Data::Dumper;
@@ -166,12 +166,11 @@ sub _mainWatcherLoop
                 try {
                     # Run the event
                     $eventsRef = $queueElementRef->{instance}->run();
-                } otherwise {
-                    my $exception = shift;
-                    EBox::warn("Error executing run from $registeredEvent: $exception");
+                } catch ($e) {
+                    EBox::warn("Error executing run from $registeredEvent: $e");
                     # Deleting from registered events
                     delete ($self->{watchers}->{$registeredEvent});
-                };
+                }
                 # An event has happened
                 if ( defined ( $eventsRef )) {
                     foreach my $event (@{$eventsRef}) {
@@ -239,9 +238,9 @@ sub _mainDispatcherLoop
                 if (exists $self->{dbengine}) {
                     $self->_logEvent($event);
                 }
-            } otherwise {
+            } catch {
                 EBox::warn("Cannot log event, Mysql is stopped");
-            };
+            }
         }
     }
 }
@@ -316,11 +315,10 @@ sub _dispatchEventByDispatcher
             $dispatcher->enable();
             EBox::info("Send event to $dispatcher");
             $dispatcher->send($event);
-        } catch EBox::Exceptions::External with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::External $e) {
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
-            EBox::error($exc->stringify());
-        };
+            EBox::error($e->stringify());
+        }
     }
 }
 

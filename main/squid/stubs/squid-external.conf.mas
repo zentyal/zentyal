@@ -226,6 +226,10 @@ acl_uses_indirect_client on
 acl noCached dstdomain <% $domain %>
 % }
 
+% if (@notCachedDomains) {
+cache deny noCached
+% }
+
 
 acl from_localhost src 127.0.0.0/8 ::1
 acl to_localhost dst 127.0.0.0/8 ::1

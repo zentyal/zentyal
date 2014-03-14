@@ -22,7 +22,7 @@ use base 'EBox::Logs::Model::Graph';
 
 use EBox::Gettext;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -114,7 +114,7 @@ sub _table
 
 sub timePeriodModelPath
 {
-    return '/mailfilter/FilterReportOptions';
+    return 'FilterReportOptions';
 }
 
 1;

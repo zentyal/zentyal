@@ -24,18 +24,22 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => '',
-                      'template' => '/captiveportal/popupLaunch.mas',
-                      @_);
+    my $self = $class->SUPER::new(
+        'title' => '',
+        'template' => '/captiveportal/popupLaunch.mas',
+        @_
+    );
     bless($self, $class);
     return $self;
 }
 
 sub _print
 {
-    my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->_body;
+    my ($self) = @_;
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process

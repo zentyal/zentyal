@@ -28,7 +28,7 @@ use EBox::Global;
 use EBox::Util::Lock;
 use File::Basename;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant LOCK_NAME => 'zentyal-slave-sync';
 
@@ -46,9 +46,9 @@ EBox::Util::Lock::lock(LOCK_NAME);
 my $slaves = $users->allSlaves();
 try {
     (@{$slaves}) or exit 0;
-} otherwise {
+} catch {
     exit 0;
-};
+}
 
 processDir($slaves, EBox::Config::home() . 'syncjournal/');
 

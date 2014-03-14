@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,7 +32,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;
@@ -105,14 +105,21 @@ sub get
 {
     my ($self, $attr) = @_;
 
+    my $entry = $self->_entry();
+    unless (defined $entry) {
+        my $dn = $self->{dn} ? $self->{dn} : "Unknown";
+        my $msg = "get method called but entry does not exists ($dn)";
+        throw EBox::Exceptions::Internal($msg);
+    }
+
     if (wantarray()) {
-        my @value = $self->_entry->get_value($attr);
+        my @value = $entry->get_value($attr);
         foreach my $el (@value) {
             utf8::decode($el);
         }
         return @value;
     } else {
-        my $value = $self->_entry->get_value($attr);
+        my $value = $entry->get_value($attr);
         utf8::decode($value);
         return $value;
     }
@@ -131,7 +138,6 @@ sub get
 sub set
 {
     my ($self, $attr, $value, $lazy) = @_;
-
     $self->_entry->replace($attr => $value);
     $self->save() unless $lazy;
 }
@@ -525,7 +531,7 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self, $childrenObjectClass) = @_;
+    my ($self, $childrenObjectClass, $customFilter) = @_;
 
     return [] unless $self->isContainer();
     my $filter;
@@ -533,6 +539,9 @@ sub children
         $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
     } else {
         $filter = '(!(objectclass=organizationalRole))';
+    }
+    if ($customFilter) {
+        $filter = '(&' . $filter . "($customFilter))";
     }
 
     # All children except for organizationalRole objects which are only used
@@ -627,6 +636,50 @@ sub relativeDN
 
     my $ldapMod = $self->_ldapMod();
     return $ldapMod->relativeDN($self->dn());
+}
+
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+# Method: checkCN
+#
+#  Check if the given CN is correct.
+#  The default implementation just checks that there is no other object with
+#  the same CN in the container
+sub checkCN
+{
+    my ($class, $container, $cn)= @_;
+    my @children = @{ $container->children(undef, "cn=$cn") };
+    if (@children) {
+        my ($sameCN) = @children;
+        my $type = $sameCN->printableType();
+        throw EBox::Exceptions::External(
+            __x("There is already an object of type {type} with CN={cn} in this container",
+                type => $type,
+                cn => $cn
+               )
+           );
+    }
+}
+
+# Method: checkMail
+#
+#   Helper class to check if a mail address is valid and not in use
+sub checkMail
+{
+    my ($class, $address) = @_;
+    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
+
+    my $global = EBox::Global->getInstance();
+    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
+    $mod->checkMailNotInUse($address);
 }
 
 1;

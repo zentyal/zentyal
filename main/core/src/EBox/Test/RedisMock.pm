@@ -90,18 +90,11 @@ sub keys
     return \@filtered;
 }
 
-sub __send_command
+sub __run_cmd
 {
-    my ($self, $command, @args) = @_;
+    my ($self, $command, $p1, $p2, $p3, @args) = @_;
 
-    $self->{response} = $self->$command(@args);
-}
-
-sub __read_response
-{
-    my ($self) = @_;
-
-    delete $self->{response};
+    $self->$command(@args);
 }
 
 sub multi

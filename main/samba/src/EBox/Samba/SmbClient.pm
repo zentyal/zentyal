@@ -25,11 +25,12 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
 use Samba::Credentials;
 use Samba::LoadParm;
-use Samba::Smb;
+use Samba::Security::Descriptor;
+use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF NTCREATEX_DISP_OPEN FILE_ATTRIBUTE_NORMAL);
 
 sub new
 {
@@ -64,11 +65,10 @@ sub new
             if ($try > 1) {
                 EBox::info("Connection to Samba SMB successful after $try tries.");
             }
-        } otherwise {
-            my ($ex) = @_;
-            EBox::warn("Error connecting with SMB server: $ex, retrying ($try attempts)");
+        } catch ($e) {
+            EBox::warn("Error connecting with SMB server: $e, retrying ($try attempts)");
             sleep 1;
-        };
+        }
     }
     if (not $ok) {
         throw EBox::Exceptions::External("Error connecting with SMB server after $maxTries tries.");
@@ -86,10 +86,20 @@ sub read_file
 {
     my ($self, $path) = @_;
 
+    unless ($self->chkpath($path)) {
+        throw EBox::Exceptions::External("chkpath: Failed. File does not exists.");
+    }
+
     # Open file and get the size
-    my $fd = $self->open($path, O_RDONLY, Samba::Smb::DENY_NONE);
-    my $finfo = $self->getattr($fd);
+    my $finfo = $self->getattr($path);
     my $fileSize = $finfo->{size};
+
+    my $openParams = {
+        open_disposition => NTCREATEX_DISP_OPEN,
+        file_attr => $finfo->{mode},
+        access_mask => SEC_RIGHTS_FILE_READ,
+    };
+    my $fd = $self->open($path, $openParams);
 
     # Read to buffer
     my $buffer;
@@ -116,9 +126,17 @@ sub write_file
 {
     my ($self, $dst, $buffer) = @_;
 
-    my $openFlags = O_CREAT | O_TRUNC | O_RDWR;
-    my $fd = $self->open($dst, $openFlags, Samba::Smb::DENY_NONE);
+    my $openParams = {
+        open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+        access_mask => SEC_RIGHTS_FILE_ALL,
+        file_attr => FILE_ATTRIBUTE_NORMAL,
+    };
+    if ($self->chkpath($dst)) {
+        my $finfo = $self->getattr($dst);
+        $openParams->{file_attr} = $finfo->{mode},
+    }
 
+    my $fd = $self->open($dst, $openParams);
     my $size = length ($buffer);
     my $wrote = $self->write($fd, $buffer, $size);
     if ($wrote == -1) {
@@ -145,8 +163,16 @@ sub copy_file_to_smb
     my $pendingBytes = $srcSize;
     my $writtenBytes = 0;
 
-    my $openFlags = O_CREAT | O_TRUNC | O_RDWR;
-    my $fd = $self->open($dst, $openFlags, Samba::Smb::DENY_NONE);
+    my $openParams = {
+        open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+        access_mask => SEC_RIGHTS_FILE_ALL,
+        file_attr => FILE_ATTRIBUTE_NORMAL,
+    };
+    if ($self->chkpath($dst)) {
+        my $finfo = $self->getattr($dst);
+        $openParams->{file_attr} = $finfo->{mode},
+    }
+    my $fd = $self->open($dst, $openParams);
     my $ret = open(SRC, $src);
     if ($ret == 0) {
         throw EBox::Exceptions::Internal("Can not open $src: $!");

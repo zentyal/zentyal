@@ -20,13 +20,17 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::Util::Lock;
 
 use MIME::Base64;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant IGNORE => ['zentyal-cloud'];
+use constant LOCK_NAME => 'zentyal-cloud-sync';
 
 EBox::init();
+
+EBox::Util::Lock::lock(LOCK_NAME);
 
 my $users = EBox::Global->modInstance('users');
 
@@ -80,6 +84,11 @@ for my $ruser (@{$rusers}) {
 
         $luser = $users->userByUID($ruser->{name});
         if ($luser) {
+            if ($luser->isInternal()) {
+                # Ignore any change to this user, it may be removed from cloud at some point...
+                EBox::debug("Got the user '" . $ruser->{name} . "' from Cloud but it's an internal one. Ignoring...");
+                next;
+            }
             $luser->setIgnoredSlaves(IGNORE);
 
             # User exists, update fields:
@@ -127,7 +136,7 @@ for my $ruser (@{$rusers}) {
 
             EBox::Users::User->create(%user);
         }
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
 }
@@ -161,6 +170,13 @@ for my $rgroup (@{$rgroups}) {
     my $lgroup;
     try {
         $lgroup = $users->groupByName($rgroup->{name});
+
+        if ($lgroup and $lgroup->isInternal()) {
+            # Ignore any change to this group, it may be removed from cloud at some point...
+            EBox::debug("Got the group '" . $rgroup->{name} . "' from Cloud but it's an internal one. Ignoring...");
+            next;
+        }
+
         unless ($lgroup) {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
 
@@ -192,9 +208,9 @@ for my $rgroup (@{$rgroups}) {
             }
         }
         $lgroup->save() if ($changed);
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
-    };
+    }
 }
 
 
@@ -209,5 +225,7 @@ for my $group (@{$lgroups}) {
     }
 }
 
+EBox::Util::Lock::unlock(LOCK_NAME);
 EBox::info("Synchronization done");
+
 1;

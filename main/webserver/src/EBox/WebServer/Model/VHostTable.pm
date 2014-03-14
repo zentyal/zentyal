@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,7 +26,6 @@ package EBox::WebServer::Model::VHostTable;
 
 use base 'EBox::Model::DataTable';
 
-use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::Text;
@@ -38,7 +37,7 @@ use EBox::Validate;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(none);
 
 # Group: Public methods
@@ -99,19 +98,20 @@ sub validateTypedRow
 
     if (exists $changedFields->{ssl}) {
         # SSL checking
-        my $settings = $self->parentModule()->model('GeneralSettings');
-        my $ca = EBox::Global->modInstance('ca');
+        my $webserverMod = $self->parentModule();
+        my $ca = $self->global()->modInstance('ca');
         my $certificates = $ca->model('Certificates');
         if ($changedFields->{ssl}->value() ne 'disabled') {
-            if ($settings->row()->elementByName('ssl')->selectedType() eq 'ssl_disabled') {
+            unless ($webserverMod->isHTTPSPortEnabled()) {
                 throw EBox::Exceptions::External(
                     __('You need to enable Listening SSL port.')
                 );
             }
-            unless ($certificates->isEnabledService('Web Server')) {
+            unless ($certificates->isEnabledService('zentyal_' . $webserverMod->name())) {
                 throw EBox::Exceptions::External(
-                    __x('You need to enable Web Server on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
-                        ohref => '<a href="/CA/View/Certificates">', chref => '</a>')
+                    __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtual host.',
+                        module => $webserverMod->printableName(), ohref => '<a href="/CA/View/Certificates">',
+                        chref => '</a>')
                     );
             }
         }
@@ -134,8 +134,8 @@ sub addedRowNotify
     my ($self, $row) = @_;
 
     # Get the DNS module
-    my $gl = EBox::Global->getInstance();
-    if (not  $gl->modExists('dns') ) {
+    my $gl = $self->global();
+    if (not $gl->modExists('dns') ) {
         # no DNS module present, nothing to add then
         return;
     }
@@ -342,7 +342,7 @@ sub _table
 sub _dnsNoActiveWarning
 {
     my ($self) = @_;
-    my $dns = EBox::Global->modInstance('dns');
+    my $dns = $self->global()->modInstance('dns');
     if ($dns->isEnabled()) {
         return '';
     }

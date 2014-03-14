@@ -3,7 +3,7 @@ use warnings;
 
 package EBox::LDB::IdMapDb;
 
-use constant PRIVATE_DIR => '/opt/samba4/private/';
+use constant PRIVATE_DIR => '/var/lib/samba/private/';
 use constant FILE        => 'idmap.ldb';
 
 # Mappings for ID_TYPE_UID, ID_TYPE_GID and ID_TYPE_BOTH

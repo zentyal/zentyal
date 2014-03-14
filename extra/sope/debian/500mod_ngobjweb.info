@@ -1,0 +1,2 @@
+LoadModule ngobjweb_module /usr/lib/apache/1.3/mod_ngobjweb.so
+Description: Enables apache to handle HTTP requests for the OpenGroupware.org application server

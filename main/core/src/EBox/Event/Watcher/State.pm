@@ -73,7 +73,7 @@ sub ConfigurationMethod
 
 # Method: run
 #
-#        Check that Apache-perl from Web UI is up and running.
+#        Check that Zentyal Webadmin is up and running.
 #        Optionally, if the soap module is already installed, check if
 #        the corresponding Apache-soap is up and running.
 #
@@ -93,11 +93,12 @@ sub run
     # Check if apache is up and running
     my $up = undef;
     my $gl = EBox::Global->getInstance(1);
+    my $webadminMod = $gl->modInstance('webadmin');
     my $sock = IO::Socket::INET->new(
-            PeerAddr => "127.0.0.1",
-            PeerPort => $gl->modInstance('webadmin')->port(),
-            Proto	 => "tcp",
-            Timeout	 => 5);
+            PeerAddr => $webadminMod->targetIP(),
+            PeerPort => $webadminMod->targetHTTPSPort(),
+            Proto    => "tcp",
+            Timeout  => 5);
     if ($sock) {
         close($sock);
         $up = 1;

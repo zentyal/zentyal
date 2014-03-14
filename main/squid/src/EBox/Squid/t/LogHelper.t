@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -161,7 +161,7 @@ sub test_ip_addr_domain : Test(10)
     $self->_testCases(\@cases);
 }
 
-sub tests_denied_by_internal : Test(3)
+sub tests_denied_by_internal : Test(6)
 {
     my ($self) = @_;
 
@@ -178,6 +178,19 @@ sub tests_denied_by_internal : Test(3)
                 domain => 'foo.bar',
             },
         },
+        {
+            name => 'Internal denied and aborted by client',
+            file => '/var/log/squid3/access.log',
+            line => '1393495749.121     65 192.168.2.2 TCP_DENIED_ABORTED/403 16613 GET http://white.town.com/ - HIER_NONE/- text/html',
+            expected => {
+                bytes  => 16613,   code      => 'TCP_DENIED_ABORTED/403', elapsed    => 65, event => 'denied',
+                method => 'GET',   mimetype  => 'text/html',              remotehost => '192.168.2.2',
+                rfc931 => '-',     timestamp => '2014-02-27 11:09:09',    peer => 'HIER_NONE/-',
+                url    => 'http://white.town.com/',
+                domain => 'town.com',
+            },
+        },
+
     );
     $self->_testCases(\@cases);
 }

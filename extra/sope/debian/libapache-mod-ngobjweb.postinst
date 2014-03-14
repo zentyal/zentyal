@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+for i in apache apache-perl apache-ssl; do
+    if [ -e /etc/$i/httpd.conf ]; then
+        modules-config $i enable mod_ngobjweb
+    fi
+    if [ -d /etc/$i/conf.d ]; then
+        ucf --purge /etc/$i/conf.d/mod_ngobjweb
+    fi
+    if [ -x /usr/sbin/invoke-rc.d ] && [ -x /etc/init.d/$i ]; then
+        invoke-rc.d $i force-reload || true
+    elif [ -x /etc/init.d/$i ]; then
+        /etc/init.d/$i force-reload || true
+    fi
+done
+
+
+#DEBHELPER#

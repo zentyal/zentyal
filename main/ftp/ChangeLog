@@ -1,6 +1,12 @@
-3.2.1
+3.4
+	+ Enabled the chrootUsers option
+	+ Set version to 3.4
+3.3
+	+ Disable seccomp sandboxing in the conf to avoid errors
+	+ Delete migration code from old versions
 	+ Force depend on PPA version of vsftpd with the chroot patch
 	+ Added Support for chrooting users
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.4

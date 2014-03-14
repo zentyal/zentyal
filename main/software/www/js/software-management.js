@@ -2,15 +2,16 @@
 
 Zentyal.namespace('SoftwareManagementUI');
 
+// FIXME: add zentyal-remoteservices before 3.4 is released
 Zentyal.SoftwareManagementUI.suites =  {
     'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
-                  'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
+                  'zentyal-users', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
     'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
-                         'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
+                         'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca' ],
     'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
-                 'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
+                 'zentyal-network', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
     'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
-                         'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
+                         'zentyal-firewall', 'zentyal-network', 'zentyal-openvpn', 'zentyal-monitor' ]
 };
 
 Zentyal.SoftwareManagementUI.showInstallTab = function() {
@@ -131,19 +132,14 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
     }
 };
 
-Zentyal.SoftwareManagementUI.selectAll = function(table, actionButton) {
-    $('#' + table  + ' :checkbox').prop('checked', true);
-    $('#' + actionButton).prop('disabled', false);
-};
-
-Zentyal.SoftwareManagementUI.deselectAll = function(table, actionButton) {
-    $('#' + table  + ' :checkbox').prop('checked', false);
-    $('#' + actionButton).prop('disabled', true);
+Zentyal.SoftwareManagementUI.checkAll = function(table, value, buttonId) {
+    $('#' + table  + ' :checkbox').prop('checked', value);
+    Zentyal.SoftwareManagementUI.updateActionButton(table, buttonId);
 };
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
     var packages = [];
-    packages = $('#' + container + ' :checked').map(function() {
+    packages = $('#' + container + ' tbody :checked').map(function() {
          return 'pkg-' + this.getAttribute('data-pkg');
     }).get();
     Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);
@@ -206,7 +202,7 @@ Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
     }
 
     tableTr.each(function (index, tr) {
-        tr = $(tr)
+        tr = $(tr);
         if (tr.text().toLowerCase().indexOf(filterText) >= 0 ) {
             tr.show();
         } else {

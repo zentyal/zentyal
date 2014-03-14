@@ -1,0 +1,135 @@
+# translation of roundcube-eu.po to Euskara
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Piarres Beobide <pi@beobide.net>, 2007, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube-eu\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2008-03-14 09:03+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: Euskara <Librezale@librezale.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "Automatikoki konfiguratu behar den web zerbitzaria:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"RoundCube-k PHP onartzen duen edozein web zerbitzari onartzen du, hala ere "
+"Apache2 eta lighttpd bakarrik konfiguratu daiteke automatikoki."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr ""
+"Mesedez hautatu Roundube-rentzat automatikoki konfiguratu behar den web "
+"zerbitzaria(k)."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "Web zerbitzaria(k) orain berrabiarazi behar al da?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"Konfigurazio berria gaitu ahal izateko, birkonfiguratutako web zerbitzaria"
+"(k) berrabiarazi egin behar d(ir)a."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "RoundCube-rekin erabiliko d(ir)en IMAP zerbitzaria(k):"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "Mesedez hautatu RoundCube-rekin erabiliko den IMAP zerbitzaria(k)."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"Hau zurian utzi ezkero, testu kutxa bat bistaraziko da saioa hastean. "
+"Zuriunez bereziriko ostalari zerrenda bat idatzi ezkero aukeratzeko menu bat "
+"bistaraziko da. Ostalari bakar bat idatziaz ostalari hori erabiltzea "
+"behartuko da."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"SSL konexioak erabiltzeko, idatzi ostalari izena formatu honetan: 'ssl://"
+"ostalaria:993'."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "Lehenetsitako hizkuntza:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "Mesedez hautatu RoundCube-ren hizkuntz lehenetsia."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr ""
+"Hautapen hauek erabiltzaile bakoitzak bere hobespenetan gainidatzi ditzake."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"Hala ere, lehenetsiriko hizkuntza saio hasiera orria eta erabiltzailearen "
+"lehen konexioetan erabiliko da."

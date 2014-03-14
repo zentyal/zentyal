@@ -29,7 +29,7 @@ use EBox::Global;
 use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -98,11 +98,10 @@ sub check
     try {
         $self->_performUsersCheck($subscriptionDetails);
         delete $self->{lastError};
-    } catch EBox::RemoteServices::Exceptions::NotCapable with {
-        my ($exc) = @_;
-        $self->{lastError} = $exc->text();
+    } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
+        $self->{lastError} = $e->text();
         $capable = 0;
-    };
+    }
 
     return $capable;
 }

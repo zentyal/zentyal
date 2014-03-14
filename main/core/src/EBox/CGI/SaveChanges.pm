@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -138,17 +138,15 @@ sub revokeAllModulesAction
 sub _print
 {
     my ($self) = @_;
-    if ($self->param('noPopup')) {
-        return $self->SUPER::_print();
-    }
 
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
-        return;
+    } elsif ($self->param('noPopup')) {
+        $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    $self->_printPopup();
 }
 
 1;

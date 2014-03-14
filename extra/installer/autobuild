@@ -5,6 +5,9 @@ test -r build_cd.conf || exit 1
 
 SELECTED_ARCH=$1
 
+# Install required deps
+sudo apt-get install -y --force-yes --no-install-recommends build-essential dpkg-dev devscripts mkisofs squashfs-tools zentyal-common
+
 if [ -z "$BASE_DIR" ]
 then
     BUILD_DIR=../build-installer/$ZENTYAL_ISO_NAME

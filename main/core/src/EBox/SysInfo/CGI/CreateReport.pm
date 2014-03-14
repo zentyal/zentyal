@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Validate;
 use EBox::Util::BugReport;
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -36,29 +36,32 @@ sub new
 sub _print
 {
     my ($self) = @_;
+
+    my $response = $self->response();
+    $response->status(200);
+    $response->content_type('text/plain; charset=utf-8');
+
     my $email = $self->unsafeParam('email');
     my $validEmail = EBox::Validate::checkEmailAddress($email);
     if (not $validEmail) {
-        print($self->cgi()->header(-charset=>'utf-8'));
-        print 'ERROR ' . __('Invalid email address');
+        $response->body('ERROR ' . __('Invalid email address'));
         return;
     }
 
     my $description = $self->unsafeParam('description');
-    $description .= "\n\n'''Error'''\n\n";
-    $description .= "{{{\n";
+    $description .= "\n\nh2. Error\n\n";
+    $description .= "<pre>\n";
     $description .= $self->unsafeParam('error');
-    $description .= "\n}}}";
-    $description .= "\n\n'''Trace'''\n\n";
-    $description .= "{{{\n";
+    $description .= "\n</pre>";
+    $description .= "\n\nh2. Trace\n\n";
+    $description .= "<pre>\n";
     $description .= $self->unsafeParam('stacktrace');
-    $description .= "\n}}}";
+    $description .= "\n</pre>";
 
     my $ticket = EBox::Util::BugReport::send($email,
                                              $description);
 
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print 'OK ' . $ticket;
+    $response->body('OK ' . $ticket);
 }
 
 sub requiredParameters

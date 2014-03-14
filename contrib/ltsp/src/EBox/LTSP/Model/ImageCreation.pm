@@ -28,6 +28,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 
+use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
 use EBox::Types::Action;
@@ -67,6 +68,13 @@ sub _table
 
     my @fields =
     (
+        new EBox::Types::Text(
+            'fieldName'     => 'name',
+            'printableName' => __('Name'),
+            'size'          => '20',
+            'editable'      => 1,
+            'help' => __('Name that will be used to identify the image.'),
+        ),
         new EBox::Types::Select(
             'fieldName'     => 'architecture',
             'printableName' => __('Architecture'),
@@ -109,7 +117,8 @@ sub _doCreate
     my ($self, $action, $id, %params) = @_;
 
     my $ltsp = EBox::Global->modInstance('ltsp');
-    my $work = $ltsp->st_get_string('work');
+    my $state = $ltsp->get_state();
+    my $work = $state->{work};
 
     if ( (defined $work) and ($work ne 'none')) {
         throw EBox::Exceptions::External(
@@ -118,17 +127,18 @@ sub _doCreate
         );
     }
 
+    my $name = $params{'name'};
     my $arch = $params{'architecture'};
     my $fat  = ($params{'fat'} ? 1 : 0);
 
-    # Check we are not overwriting an already existing image
-    my $name;
-    if ($fat) {
-        $name = "fat-$arch";
-    } else {
-        $name = $arch;
+    unless (EBox::Validate::checkName($name)) {
+        throw EBox::Exceptions::External(
+            __('Incorrect name.')
+        );
     }
-    if (-f "/opt/ltsp/images/$name.img") {
+
+    # Check we are not overwriting an already existing image
+    if (exists $state->{images}->{$name}) {
         throw EBox::Exceptions::External(__('The image already exists.'));
     }
 
@@ -139,13 +149,17 @@ sub _doCreate
 
     if ($pid == 0) {
         # Needed here because the code in the script takes some seconds to execute
-        $ltsp->st_set_string('work', 'build');
+        $state->{work} = 'build';
+        $state->{images}->{$name} = {state => 'build',
+                                     arch  => $arch,
+                                     fat   => $fat};
+        $ltsp->set_state($state);
 
         EBox::WebAdmin::cleanupForExec();
-        exec("sudo /usr/share/zentyal-ltsp/build-image $arch $fat");
+        exec("sudo /usr/share/zentyal-ltsp/build-image $name $arch $fat");
     }
     $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
+    #$self->{customActions} = {};
 }
 
 1;

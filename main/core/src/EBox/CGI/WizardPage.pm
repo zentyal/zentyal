@@ -18,13 +18,13 @@
 # If a module implements some wizard it will be shown by zentyal-software to
 # the user
 #
-# A wizard page CGI has 2 types of calls differentiated by HTTP request method:
+# A wizard page handler has 2 types of calls differentiated by HTTP request method:
 #
 #   - GET - The page will show a form that the user must fill
 #           This information is normally written in a template with the
 #           parameters returned by <_masonParameters> method.
 #
-#   - POST - That form will sent to this CGI for processing.
+#   - POST - That form will sent to this handler for processing.
 #            The <_processWizard> method should be overriden to perform
 #            the action. If form processing fails, POST request must
 #            response with an error code and print error messages
@@ -40,14 +40,13 @@ package EBox::CGI::WizardPage;
 
 use base 'EBox::CGI::Base';
 
+use EBox::Exceptions::Base;
+use EBox::Exceptions::DataInUse;
 use EBox::Gettext;
 use EBox::Html;
+
 use HTML::Mason::Exceptions;
-use Apache2::RequestUtil;
-use Error qw(:try);
-use HTML::Mason::Exceptions;
-use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::Base;
+use TryCatch::Lite;
 
 use constant ERROR_STATUS => '500';
 
@@ -100,24 +99,33 @@ sub _print
 {
     my ($self) = @_;
 
-    $self->_header();
-
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
         return;
     }
 
-    if ($self->{cgi}->request_method() eq 'GET') {
-        $self->_body();
+    my $request = $self->request();
+    if ($request->method() eq 'GET') {
+        my $header = $self->_header();
+        my $body = $self->_body();
+        my $output = '';
+        $output .= $header if ($header);
+        $output .= $body if ($body);
+
+        my $response = $self->response();
+        $response->body($output);
     }
 }
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
+
     $self->{params} = $self->_masonParameters();
-    if ($self->{cgi}->request_method() eq 'POST') {
+
+    my $request = $self->request();
+    if ($request->method() eq 'POST') {
         $self->_processWizard();
     }
 }
@@ -128,12 +136,12 @@ sub _print_error
     $text or return;
     ($text ne "") or return;
 
+    my $response = $self->response();
     # We send a ERROR_STATUS code. This is necessary in order to trigger
     # onFailure functions on Ajax code
-    my $r = Apache2::RequestUtil->request();
-    $r->status(ERROR_STATUS);
-    $r->subprocess_env('suppress-error-charset' => 1) ;
-    $r->custom_response(ERROR_STATUS, $text);
+    $response->status(ERROR_STATUS);
+    $response->header('suppress-error-charset' => 1);
+    $response->body($text);
 }
 
 sub run
@@ -142,8 +150,7 @@ sub run
 
     if (not $self->_loggedIn) {
         $self->{redirect} = "/Login/Index";
-    }
-    else {
+    } else {
         try {
             $self->_validateReferer();
             if ($self->param('skip')) {
@@ -153,8 +160,7 @@ sub run
             }
 
             $self->_print;
-        } otherwise {
-            my $ex = shift;
+        } catch ($ex) {
             my $logger = EBox::logger;
             if (isa_mason_exception($ex)) {
                 $logger->error($ex->as_text);
@@ -172,7 +178,7 @@ sub run
                     $self->_print_error('Unknown exception');
                 }
             }
-        };
+        }
     }
 }
 
@@ -184,7 +190,9 @@ sub _title
 sub _header
 {
     my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
 }
 
 sub _footer

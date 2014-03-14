@@ -5,13 +5,28 @@ db_user=roundcube
 db_pass=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
 DB_CONF_FILE=/etc/roundcube/debian-db.php
 POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/mysql
+DEFAULTS_FILE=/etc/mysql/debian.cnf
 
+# Check if the database or user have been already created and dropping them
+if `mysql --defaults-file=/etc/mysql/debian.cnf -e "SHOW DATABASES" | grep -q "^$db_name$"` ;
+then
+    mysql --defaults-file=$DEFAULTS_FILE -e "DROP DATABASE $db_name;"
+fi
+
+if `mysql --defaults-file=/etc/mysql/debian.cnf -e "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = '$db_user')" | grep -q '^1$'` ;
+then
+    mysql --defaults-file=/etc/mysql/debian.cnf -e "DROP USER '$db_user'@'localhost'"
+fi
+
+# Creating new Roundcube database and user
 echo "CREATE DATABASE $db_name;
       GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
-      FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
+      FLUSH PRIVILEGES;" | mysql --defaults-file=$DEFAULTS_FILE
 
-cat $POPULATE_SCRIPT | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
+# Initializing the roundcube database
+cat $POPULATE_SCRIPT | mysql --defaults-file=$DEFAULTS_FILE $db_name
 
+# Writing conf file to handle database connections from Roundcube
 cat <<EOT > $DB_CONF_FILE
 <?php
 ##
@@ -32,5 +47,20 @@ cat <<EOT > $DB_CONF_FILE
 \$dbport='';
 \$dbtype='mysql';
 EOT
+
+# Required for openchange calendar plugin
+CALENDAR_MYSQL_INITIAL=/usr/share/roundcube/plugins/calendar/drivers/zentyal_openchange/SQL/mysql.initial.sql
+if [ -f $CALENDAR_MYSQL_INITIAL ] ; then
+    cat $CALENDAR_MYSQL_INITIAL | mysql --defaults-file=$DEFAULTS_FILE $db_name
+fi
+
+# Solving a mcrypt problem in 13.10 (Saucy)
+if [ ! -e /etc/php5/mods-available ] ; then
+    ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+
+    if type -t php5enmod ; then
+        php5enmod mcrypt
+    fi
+fi
 
 exit 0

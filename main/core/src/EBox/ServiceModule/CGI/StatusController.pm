@@ -65,8 +65,9 @@ sub _print
     my $self = shift;
 
     if ($self->{'to_print'}) {
-        print($self->cgi()->header(-charset=>'utf-8'));
-        print $self->{'to_print'};
+        my $response = $self->response();
+        $response->content_type('text/html; charset=utf-8');
+        $response->body($self->{'to_print'});
     } else {
         $self->SUPER::_print();
     }

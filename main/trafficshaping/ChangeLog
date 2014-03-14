@@ -1,7 +1,14 @@
-3.2.2
+3.4
+	+ Unallow edition of interface in rules until it is supported
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Mark bond slaves as not shapable and use the master bond for shaping
+	  (contribution by Vsevolod Kukol)
+	+ Set version to 3.4
+3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
-3.2.1
 	+ Show menu icon when zentyal-l7-protocols is not installed
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.3

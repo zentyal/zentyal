@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -73,13 +73,12 @@ sub _process
             value => $data,
             type => 'good',
         };
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         $self->{json} = {
             value => qq{<li><span class="red">$error</span></li>},
             type => 'error',
         };
-    };
+    }
 }
 
 1;

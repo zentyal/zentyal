@@ -148,4 +148,4 @@ unless ($data->editable()) {
 <p>
 </div>
 % }
-<% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>

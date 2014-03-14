@@ -1,0 +1,91 @@
+Source: roundcube
+Section: web
+Priority: extra
+Maintainer: Debian Roundcube Maintainers <pkg-roundcube-maintainers@lists.alioth.debian.org>
+Uploaders: Vincent Bernat <bernat@debian.org>, Romain Beauxis <toots@rastageeks.org>
+Build-Depends: cdbs, debhelper (>= 5), dh-buildinfo, po-debconf, yui-compressor
+Homepage: http://www.roundcube.net/
+Standards-Version: 3.9.4
+Vcs-Git: git://anonscm.debian.org/pkg-roundcube/roundcube.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-roundcube/roundcube.git
+
+Package: roundcube-core
+Architecture: all
+Depends: dbconfig-common, debconf | debconf-2.0, ucf,
+ libapache2-mod-php5 | php5,
+ php5-mcrypt, php5-intl, php5-json | php5-common (<< 5.5),
+ php-auth, php-net-smtp (>= 1.4.2),
+ php-net-socket, php-mail-mime (>= 1.8.0),
+ tinymce (>= 3), libjs-jquery (>= 1.6.4), libjs-jquery-ui (>= 1.8),
+ libmagic1,
+ roundcube-mysql (= ${source:Version}) | roundcube-sqlite3 (= ${source:Version}) | roundcube-pgsql (= ${source:Version}),
+ ${misc:Depends}
+Recommends: apache2 | lighttpd | httpd-cgi, php5-gd, php5-pspell
+Suggests: php-auth-sasl (>= 1.0.3), php-crypt-gpg, roundcube-plugins
+Breaks: roundcube-plugins-extra (<= 0.6-20111030)
+Replaces: roundcube-plugins-extra (<= 0.6-20111030)
+Description: skinnable AJAX based webmail solution for IMAP servers
+ RoundCube Webmail is a browser-based multilingual IMAP client with an
+ application-like user interface. It provides full functionality
+ expected from an e-mail client, including MIME support, address book,
+ folder manipulation and message filters.
+ .
+ The user interface is fully skinnable using XHTML and CSS 2.
+ .
+ This package provides the core code for roundcube. You should install
+ it along with one of the roundcube database metapackages.
+
+Package: roundcube
+Architecture: all
+Depends: roundcube-core (= ${source:Version}), ${misc:Depends}
+Description: skinnable AJAX based webmail solution for IMAP servers - metapackage
+ RoundCube Webmail is a browser-based multilingual IMAP client with an
+ application-like user interface. It provides full functionality
+ expected from an e-mail client, including MIME support, address book,
+ folder manipulation and message filters.
+ .
+ The user interface is fully skinnable using XHTML and CSS 2.
+ .
+ This package will install a full roundcube application.
+
+Package: roundcube-mysql
+Architecture: all
+Depends: php5-mysqlnd | php5-mysql, mysql-client | virtual-mysql-client, ${misc:Depends}
+Suggests: mysql-server
+Description: metapackage providing MySQL dependencies for RoundCube
+ This package provides MySQL dependencies for RoundCube Webmail, a
+ skinnable AJAX based webmail solution for IMAP servers. Install this
+ one if you want to use a MySQL database with RoundCube.
+
+Package: roundcube-pgsql
+Architecture: all
+Depends: php5-pgsql, postgresql-client-9.1 | postgresql-client, ${misc:Depends}
+Suggests: postgresql
+Description: metapackage providing PostgreSQL dependencies for RoundCube
+ This package provides PostgreSQL dependencies for RoundCube Webmail,
+ a skinnable AJAX based webmail solution for IMAP servers. Install
+ this one if you want to use a PostgreSQL database with RoundCube.
+
+Package: roundcube-sqlite3
+Architecture: all
+Depends: php5-sqlite, sqlite3, ${misc:Depends}
+Description: metapackage providing SQLite dependencies for RoundCube
+ This package provides SQLite dependencies for RoundCube Webmail,
+ a skinnable AJAX based webmail solution for IMAP servers. Install
+ this one if you want to use a SQLite database with RoundCube.
+
+Package: roundcube-plugins
+Architecture: all
+Depends: roundcube-core (= ${source:Version}), ${misc:Depends}
+Breaks: roundcube-plugins-extra (<= 0.7-20120110)
+Replaces: roundcube-plugins-extra (<= 0.7-20120110)
+Description: skinnable AJAX based webmail solution for IMAP servers - plugins
+ RoundCube Webmail is a browser-based multilingual IMAP client with an
+ application-like user interface. It provides full functionality
+ expected from an e-mail client, including MIME support, address book,
+ folder manipulation and message filters.
+ .
+ The user interface is fully skinnable using XHTML and CSS 2.
+ .
+ This package provides several plugins for Roundcube. They should be
+ enabled in the configuration of Roundcube.

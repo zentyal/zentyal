@@ -548,24 +548,6 @@ sub yesterdayDate
     return "$year-$mon-$mday 00:00:00";
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Perform consolidation migration from 3.0 to 3.2
-    if (defined($version) and EBox::Util::Version::compare($version, '3.1.10') < 0) {
-        EBox::Logs::Consolidate->migrateConsolidateTablesTo32();
-    }
-
-    $self->SUPER::initialSetup($version);
-}
-
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;

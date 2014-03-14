@@ -1,0 +1,50 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# for an advice to debian-l10n-english@lists.debian.org
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: roundcube/reconfigure-webserver
+Type: multiselect
+__Choices: apache2, lighttpd
+Default: apache2, lighttpd
+_Description: Web server(s) to configure automatically:
+ RoundCube supports any web server supported by PHP, however only
+ Apache 2 and lighttpd can be configured automatically.
+ .
+ Please select the web server(s) that should be configured
+ automatically for RoundCube.
+
+Template: roundcube/restart-webserver
+Type: boolean
+Default: true
+_Description: Should the webserver(s) be restarted now?
+ In order to activate the new configuration, the reconfigured web
+ server(s) have to be restarted.
+
+Template: roundcube/hosts
+Type: string
+Default:
+_Description: IMAP server(s) used with RoundCube:
+ Please select the IMAP server(s) that should be used with RoundCube.
+ .
+ If this is left blank, a text box will be displayed at
+ login. Entering a space-separated list of hosts will display a
+ pull-down menu. Entering a single host will enforce using this
+ host.
+ .
+ To use SSL connections, please enter host names as 'ssl://hostname:993'.
+
+Template: roundcube/language
+Type: select
+Choices: ${languages}
+_Description: Default language:
+ Please choose the default language for RoundCube.
+ .
+ This choice can be overridden by individual users in their preferences.
+ .
+ However, the default language will be used for the login screen and
+ the first connection of users.

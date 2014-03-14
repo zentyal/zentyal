@@ -1,0 +1,15 @@
+Use tinymce from tinycme package instead of the shipped one.
+
+Index: roundcube/program/steps/mail/sendmail.inc
+===================================================================
+--- roundcube.orig/program/steps/mail/sendmail.inc	2013-06-04 22:55:09.173050163 +0200
++++ roundcube/program/steps/mail/sendmail.inc	2013-06-04 22:55:09.165050135 +0200
+@@ -123,7 +123,7 @@
+ 
+         // sanitize image name so resulting attachment doesn't leave images dir
+         $image_name = preg_replace('/[^a-zA-Z0-9_\.\-]/i', '', $image_name);
+-        $img_file = INSTALL_PATH . '/' . $searchstr . $image_name;
++        $img_file = '/usr/share/tinymce/www/plugins/emotions/img/' . $image_name;
+ 
+         if (! in_array($image_name, $included_images)) {
+           // add the image to the MIME message

@@ -23,49 +23,49 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: staticIfaceAddressChanged
-#	Invoked when the address of an static network interface is going to
-#	be changed, this method receives the old and new addresses and masks
-#	as arguments. Returning a true value means that this
-#	module's configuration would become inconsistent if such a change
-#	was made. In that case the network module will not make the change,
-#	but warn the user instead. You should override this method if you need
-#	to.
+#       Invoked when the address of an static network interface is going to
+#       be changed, this method receives the old and new addresses and masks
+#       as arguments. Returning a true value means that this
+#       module's configuration would become inconsistent if such a change
+#       was made. In that case the network module will not make the change,
+#       but warn the user instead. You should override this method if you need
+#       to.
 #
 # Parameters:
 #
-#	iface - interface name
-#	oldaddr - old address
-#	oldmask - old mask
-#	newaddr - new address
-#	newmask - new mask
+#       iface - interface name
+#       oldaddr - old address
+#       oldmask - old mask
+#       newaddr - new address
+#       newmask - new mask
 #
 # Returns:
 #
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#       false
 sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 {
-        return undef;
+    return undef;
 }
 
 # Method: externalDhcpIfaceAddressChangedDone
 #
-#	Invoked when the address of an external network interface has been assigned
+#       Invoked when the address of an external network interface has been assigned
 #
 # Parameters:
 #
-#	iface - interface name
-#	oldaddr - old address
-#	oldmask - old mask
-#	newaddr - new address
-#	newmask - new mask
+#       iface - interface name
+#       oldaddr - old address
+#       oldmask - old mask
+#       newaddr - new address
+#       newmask - new mask
 #
 sub externalDhcpIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
 {
@@ -73,15 +73,15 @@ sub externalDhcpIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, new
 
 # Method: internalDhcpIfaceAddressChangedDone
 #
-#	Invoked when the address of an internal network interface has been assigned
+#       Invoked when the address of an internal network interface has been assigned
 #
 # Parameters:
 #
-#	iface - interface name
-#	oldaddr - old address
-#	oldmask - old mask
-#	newaddr - new address
-#	newmask - new mask
+#       iface - interface name
+#       oldaddr - old address
+#       oldmask - old mask
+#       newaddr - new address
+#       newmask - new mask
 #
 sub internalDhcpIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
 {
@@ -111,23 +111,23 @@ sub staticIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
 
 # Method: ifaceMethodChanged
 #
-#	Invoked when the configuration method for a network interface is
-#	going to change. Both the old and new methods are passed as
-#	arguments to this function. They are strings: static, dhcp,
-#	trunk or notset. As with the previous function, a return value of
-#	true will prevent the change from being made. You should override this
-#	method if you need to.
+#       Invoked when the configuration method for a network interface is
+#       going to change. Both the old and new methods are passed as
+#       arguments to this function. They are strings: static, dhcp,
+#       trunk or notset. As with the previous function, a return value of
+#       true will prevent the change from being made. You should override this
+#       method if you need to.
 #
 #   Parameteres:
 #
-#	iface - interface name
-#	oldmethod - old method
-#	newmethod - newmethod
+#       iface - interface name
+#       oldmethod - old method
+#       newmethod - newmethod
 #
 # Returns:
 #
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#       false
 sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 {
         return undef;
@@ -152,11 +152,11 @@ sub ifaceMethodChangeDone # (iface)
 
 # Method: ifaceExternalChanged
 #
-#	Invoked when a iface is going to change from external to
-#	internal and viceversa. Its argument is the name of the real
-#	interface. As with the previous function, a return value of
-#	true will prevent the change from being made. You should override this
-#	method if you need to.
+#       Invoked when a iface is going to change from external to
+#       internal and viceversa. Its argument is the name of the real
+#       interface. As with the previous function, a return value of
+#       true will prevent the change from being made. You should override this
+#       method if you need to.
 #
 #   Parameteres:
 #
@@ -167,8 +167,8 @@ sub ifaceMethodChangeDone # (iface)
 #
 # Returns:
 #
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#       false
 sub ifaceExternalChanged # (iface)
 {
   return undef;
@@ -176,48 +176,48 @@ sub ifaceExternalChanged # (iface)
 
 # Method: vifaceDelete
 #
-#	Invoked when a  virtual interface is going to be removed. Its
-#	arguments are the real interface  which it's going to be removed from,
-#	the name of the  interface to remove, its ip address and its netmask. It
-#	works the same way: return true if the removal of the virtual
-#	interface is incompatible with your module's current configuration.
+#       Invoked when a  virtual interface is going to be removed. Its
+#       arguments are the real interface  which it's going to be removed from,
+#       the name of the  interface to remove, its ip address and its netmask. It
+#       works the same way: return true if the removal of the virtual
+#       interface is incompatible with your module's current configuration.
 #
 #   Parameteres:
 #
-#	iface - interface name
-#	viface - virtual interface to be removed
+#       iface - interface name
+#       viface - virtual interface to be removed
 #
 # Returns:
 #
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#       false
 #
 sub vifaceDelete # (iface, viface)
 {
-        return undef;
+    return undef;
 }
 
 # Method: vifaceAdded
 #
-#	Invoked when a new virtual interface is going to be created. Its
-#	arguments are the real interface to which it's going to be added,
-#	the name of the new interface, its ip address and its netmask. It
-#	works the same way: return true if the creation of the virtual
-#	interface is incompatible with your module's current configuration.
+#       Invoked when a new virtual interface is going to be created. Its
+#       arguments are the real interface to which it's going to be added,
+#       the name of the new interface, its ip address and its netmask. It
+#       works the same way: return true if the creation of the virtual
+#       interface is incompatible with your module's current configuration.
 #
 #   Parameteres:
 #
-#	iface - interface name
-#	viface - virtual interface to be removed
-#	newmethod - newmethod
+#       iface - interface name
+#       viface - virtual interface to be removed
+#       newmethod - newmethod
 #
 # Returns:
 #
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#       false
 sub vifaceAdded # (iface, viface, address, netmask)
 {
-        return undef;
+    return undef;
 }
 
 # Method: changeIfaceExternalProperty
@@ -234,7 +234,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
 # Returns:
 #
 #       boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
+#       false
 #
 sub changeIfaceExternalProperty # (iface, external)
   {
@@ -244,13 +244,13 @@ sub changeIfaceExternalProperty # (iface, external)
 
 # Method: freeIface
 #
-#	Invoked when an interface is going to be removed. Its argument
-#	is the name of the real interface. It works exactly
-#	the same way as the three methods above.
+#       Invoked when an interface is going to be removed. Its argument
+#       is the name of the real interface. It works exactly
+#       the same way as the three methods above.
 #
 #   Parameteres:
 #
-#	iface - interface name
+#       iface - interface name
 #
 sub freeIface # (iface)
 {
@@ -260,14 +260,14 @@ sub freeIface # (iface)
 
 # Method: freeViface
 #
-#	Invoked when a virtual interface is going to be removed. Its arguments
-#	are the names of the real and virtual interfaces. It works exactly
-#	the same way as the four methods above.
+#       Invoked when a virtual interface is going to be removed. Its arguments
+#       are the names of the real and virtual interfaces. It works exactly
+#       the same way as the four methods above.
 #
 #   Parameteres:
 #
-#	iface - interface name
-#	viface - virtual interface to be removed
+#       iface - interface name
+#       viface - virtual interface to be removed
 #
 sub freeViface # (iface, viface)
 {
@@ -299,7 +299,7 @@ sub gatewayDelete
 
 # Method: regenGatewaysFailover
 #
-#	Invoked when the routing tables are regenerated after a failover event.
+#       Invoked when the routing tables are regenerated after a failover event.
 #
 sub regenGatewaysFailover
 {

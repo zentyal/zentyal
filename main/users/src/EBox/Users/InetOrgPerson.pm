@@ -31,10 +31,11 @@ use EBox::Users::Group;
 
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -343,13 +344,25 @@ sub create
     my $fullname = $args{fullname};
     $fullname = $class->generatedFullName(%args) unless ($fullname);
 
+    unless ($fullname) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('given name, initials, surname'),
+            value => __('empty'),
+            advice => __('Either given name, initials or surname must be non empty')
+        );
+    }
+
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');
     push (@attr, cn          => $fullname);
     push (@attr, givenName   => $args{givenname}) if ($args{givenname});
     push (@attr, initials    => $args{initials}) if ($args{initials});
     push (@attr, sn          => $args{surname}) if ($args{surname});
-    push (@attr, displayName => $args{displayname}) if ($args{displayname});
+    if ($args{displayname}) {
+        push (@attr, displayName => $args{displayname});
+    } else {
+        push (@attr, displayName => $fullname);
+    }
     push (@attr, description => $args{description}) if ($args{description});
     push (@attr, mail        => $args{mail}) if ($args{mail});
 
@@ -373,9 +386,7 @@ sub create
 
         $res = new EBox::Users::InetOrgPerson(dn => $args{dn});
 
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -384,7 +395,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

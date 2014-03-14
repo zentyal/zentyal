@@ -21,14 +21,13 @@ package EBox::CGI::ClientRawBase;
 
 use base 'EBox::CGI::Base';
 
+use EBox::Exceptions::Base;
+use EBox::Exceptions::DataInUse;
 use EBox::Gettext;
 use EBox::Html;
+
 use HTML::Mason::Exceptions;
-use Apache2::RequestUtil;
-use Error qw(:try);
-use HTML::Mason::Exceptions;
-use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::Base;
+use TryCatch::Lite;
 
 use constant ERROR_STATUS => '500';
 use constant DATA_IN_USE_STATUS => '501';
@@ -72,7 +71,11 @@ sub _title
 sub _header
 {
     my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+
+    return '';
 }
 
 sub _footer
@@ -84,6 +87,7 @@ sub _menu
 {
 
 }
+
 sub _print
 {
     my $self = shift;
@@ -92,8 +96,15 @@ sub _print
         $self->JSONReply($json);
         return;
     }
-    $self->_header();
-    $self->_body();
+    my $header = $self->_header();
+    my $body = $self->_body();
+
+    my $output = '';
+    $output .= $header if ($header);
+    $output .= $body if ($body);
+
+    my $response = $self->response();
+    $response->body($output);
 }
 
 sub _print_error
@@ -102,23 +113,16 @@ sub _print_error
     $text or return;
     ($text ne "") or return;
 
+    my $filename = 'error.mas';
+    my @params =  ('error' => $text);
+    my $output = EBox::Html::makeHtml($filename, @params);
+
+    my $response = $self->response();
     # We send a ERROR_STATUS code. This is necessary in order to trigger
     # onFailure functions on Ajax code
-    my $r = Apache2::RequestUtil->request();
-    my $filename = EBox::Config::templates . '/error.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
-    my $comp = $interp->make_component(comp_file => $filename);
-    my @params = ();
-    push(@params, 'error' => $text);
-    $interp->exec($comp, @params);
-
-    $r->status(ERROR_STATUS);
-    $r->subprocess_env('suppress-error-charset' => 1) ;
-    $r->custom_response(ERROR_STATUS, $output);
-
+    $response->status(ERROR_STATUS);
+    $response->header('suppress-error-charset' => 1);
+    $response->body($output);
 }
 
 sub _print_warning
@@ -127,42 +131,19 @@ sub _print_warning
     $text or return;
     ($text ne "") or return;
 
-    # We send a WARNING_STATUS code.
-    my $r = Apache2::RequestUtil->request();
-    $r->status(DATA_IN_USE_STATUS);
-    $r->custom_response(DATA_IN_USE_STATUS, "");
-
-    my $filename = EBox::Config::templates . '/dataInUse.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
-
-    my $comp = $interp->make_component(comp_file => $filename);
+    my $request = $self->request();
+    my $filename = 'dataInUse.mas';
     my @params = ();
     push(@params, 'warning' => $text);
-    push(@params, 'url' => _requestURL());
+    push(@params, 'url' => $request->env->{REQUEST_URI});
     push(@params, 'params' => $self->paramsAsHash());
-    $interp->exec($comp, @params);
+    my $output = EBox::Html::makeHtml($filename, @params);
 
-    $r->status(DATA_IN_USE_STATUS);
-    $r->subprocess_env('suppress-error-charset' => 1) ;
-    $r->custom_response(DATA_IN_USE_STATUS, $output);
-}
-
-# TODO Refactor this stuff as it's used in the auth process too
-sub _requestURL
-{
-    my $r = Apache2::RequestUtil->request();
-    return unless($r);
-
-    my $request = $r->the_request();
-    my $method = $r->method();
-    my $protocol = $r->protocol();
-
-    my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/ );
-
-    return $destination;
+    my $response = $self->response();
+    # We send a WARNING_STATUS code.
+    $response->status(DATA_IN_USE_STATUS);
+    $response->header('suppress-error-charset' => 1);
+    $response->body($output);
 }
 
 sub run
@@ -177,8 +158,7 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch EBox::Exceptions::DataInUse with {
-            my $e = shift;
+        } catch (EBox::Exceptions::DataInUse $e) {
             if ($self->{json}) {
                 $self->setErrorFromException($e);
             } else {
@@ -186,14 +166,13 @@ sub run
             }
 
             $finish = 1;
-        } otherwise {
-            my $e = shift;
+        } catch ($e) {
             $self->setErrorFromException($e);
             if (not $self->{json}) {
                 $self->_error();
             }
             $finish = 1;
-        };
+        }
     }
 
     if ($self->{json}) {
@@ -205,12 +184,10 @@ sub run
 
     try  {
         $self->_print;
-    } catch EBox::Exceptions::Base with {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+    } catch (EBox::Exceptions::Base $e) {
+        $self->setErrorFromException($e);
         $self->_print_error($self->{error});
-    } otherwise {
-        my $ex = shift;
+    } catch ($ex) {
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
             $logger->error($ex->as_text);
@@ -228,7 +205,7 @@ sub run
 
             throw $ex;
         }
-    };
+    }
 }
 
 1;

@@ -436,6 +436,7 @@ var pkgTable = new Array(
     </div>
     <div class="insideTab">
         <div id="installBox" class="item-block">
+%         if (@advInstallPkgs) {
               <& .pkgTable,
                  id => 'installTable',
                  pkgs => \@advInstallPkgs,
@@ -452,8 +453,12 @@ var pkgTable = new Array(
                 popup => $popup,
                 popupTitle => $titleByAction{install},
               &>
+%       } else {
+            <& .pkgTableEmpty, msg => __('No packages available for install')  &>
+%       }
         </div>
         <div id="updateBox" class="item-block">
+%          if (@advUpdatePkgs) {
               <& .pkgTable,
                  id => 'updateTable',
                  pkgs => \@advUpdatePkgs,
@@ -470,8 +475,12 @@ var pkgTable = new Array(
                 popup=> $popup,
                 popupTitle => $titleByAction{upgrade},
               &>
+%         } else {
+            <& .pkgTableEmpty, msg => __('No upgrades available')  &>
+%         }
         </div>
         <div id="deleteBox" class="item-block">
+%          if (@advRemovePkgs) {
              <& .pkgTable,
                 id => 'deleteTable',
                 pkgs => \@advRemovePkgs,
@@ -488,6 +497,9 @@ var pkgTable = new Array(
                popup => $popup,
                popupTitle => $titleByAction{remove},
              &>
+%         } else {
+            <& .pkgTableEmpty, msg => __('No installed packages to remove')  &>
+%         }
         </div>
 </div>
 </div>
@@ -501,9 +513,12 @@ $(function() {
    $('#advanced').show();
 % }
 
+// FIXME: uncomment this before 3.4 is released
+/*
    if ($('#zentyal-remoteservices').length > 0) {
         Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
    }
+*/
 
    $('#updNumber').html( '<% scalar @advUpdatePkgs %>' );
    // update button status
@@ -542,12 +557,6 @@ $popupTitle
                   <% $text %>
 </button>
 <button class='btn btn-icon btn-reload' onclick="$('#updateList').submit()"><%__('Update list')%></button>
-<button type="button" class="btn btn-icon btn-deselect" onclick="Zentyal.SoftwareManagementUI.deselectAll('<% $table %>' , '<% $id %>')">
-      <% __('Deselect All') %>
-</button>
-<button type="button" class="btn btn-icon btn-apply" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')">
-    <% __('Select All') %>
-</button>
 <form id='updateList' name='updateList' action='EBox' method='post'>
         <input type='hidden' name='updatePkgs' value="yes"/>
 </form>
@@ -564,7 +573,9 @@ $id
 %printableFieldNames
 $buttonId
 </%args>
-% my $filterId = $id . '_filter';
+<%init>
+ my $filterId   = $id . '_filter';
+</%init>
 <div class="tableSearch">
        <input type='text' id='<% $filterId %>'/>
        <input type='submit'
@@ -580,7 +591,14 @@ $buttonId
 %    my $printable = $printableFieldNames{$field};
     <th class='tleft'><% $printable %></th>
 % }
-    <th class='thOptions'><% __('Select') %></th>
+    <th class='thOptions'>
+      <% __('Select') %>
+      <div>
+      <input type='checkbox'
+             onchange='Zentyal.SoftwareManagementUI.checkAll("<% $id %>", $(this).prop("checked"), "<% $buttonId %> ");'
+       />
+      </div>
+    </th>
 </tr></thead>
 <tbody>
 % foreach my $pkg (@pkgs) {
@@ -588,11 +606,20 @@ $buttonId
 %   foreach my $field (@fields) {
             <td><% $pkg->{$field} %></td>
 %   }
-    <td><input type='checkbox' data-pkg='<% $pkg->{name} %>' onchange='Zentyal.SoftwareManagementUI.updateActionButton("<% $id %>", "<% $buttonId %>");'/></td>
+    <td class='tcenter'><input type='checkbox' data-pkg='<% $pkg->{name} %>' onchange='Zentyal.SoftwareManagementUI.updateActionButton("<% $id %>", "<% $buttonId %>");'/></td>
    </tr>
 % }
 </tbody>
 </table>
+</%def>
+
+<%def .pkgTableEmpty>
+<%args>
+$msg
+</%args>
+<div class='emptynote'>
+<% $msg %>
+</div>
 </%def>
 
 <%def .updateList>

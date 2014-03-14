@@ -2,7 +2,7 @@
   $nfQueueNum
 </%args>
 pre-start script
-    /etc/init.d/suricata stop || true
+    service suricata stop || true
 end script
 
 exec /usr/bin/suricata -c /etc/suricata/suricata-debian.yaml -q <% $nfQueueNum %>

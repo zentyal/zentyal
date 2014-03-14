@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f /var/lib/samba/private/openchange.ldb
+
+exit 0

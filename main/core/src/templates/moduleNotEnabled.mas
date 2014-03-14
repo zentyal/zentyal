@@ -1,0 +1,10 @@
+<%args>
+  $module
+</%args>
+<%init>
+my $disabledWarn = $module->disabledModuleWarning();
+$disabledWarn or return;
+</%init>
+<div class="warning">
+<% $disabledWarn %>
+</div>

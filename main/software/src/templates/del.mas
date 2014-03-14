@@ -66,7 +66,9 @@ if ($popup) {
     font-size: 11px;
 }
 </style>
-<span class="title"><% __('Confirm packages to install') %></span>
+% if (not $popup) {
+<h1><% __('Confirm packages to install') %></h1>
+% }
 <div class="note">
 % if ($action eq 'install') {
 <% __('The following packages will be installed') %>:

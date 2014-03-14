@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
@@ -47,7 +48,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 
@@ -131,9 +132,11 @@ sub initialSetup
                                          policy => { allow => undef });
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
+    foreach my $name ('squid', 'logs') {
+        my $mod = $self->global()->modInstance($name);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
+        }
     }
 }
 
@@ -157,10 +160,9 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -631,7 +633,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
@@ -740,11 +741,10 @@ sub _checkSquidFile
 
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools
@@ -794,20 +794,20 @@ sub _writeDgConf
     push(@writeParam, 'maxagechildren' => $maxagechildren);
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
-            'squid/dansguardian.conf.mas', \@writeParam);
+            'squid/dansguardian.conf.mas', \@writeParam, { mode => '0644'});
 
     # disable banned, exception phrases lists, regex URLs and PICS ratings
     $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
-                         'squid/bannedphraselist.mas', []);
+                         'squid/bannedphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
-                         'squid/exceptionphraselist.mas', []);
+                         'squid/exceptionphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/pics',
-                         'squid/pics.mas', []);
+                         'squid/pics.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
-                         'squid/bannedregexpurllist.mas', []);
+                         'squid/bannedregexpurllist.mas', [],  { mode => '0644'});
 
     $self->writeDgGroups();
 
@@ -831,7 +831,7 @@ sub _writeDgConf
         push(@writeParam, 'groupName' => $group->{groupName});
         push(@writeParam, 'defaults' => $group->{defaults});
         EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
-                'squid/dansguardianfN.conf.mas', \@writeParam);
+                'squid/dansguardianfN.conf.mas', \@writeParam, { mode => '0644'});
 
         if ($policy eq 'filter') {
              $self->_writeDgDomainsConf($group);
@@ -850,8 +850,14 @@ sub _writeCronFile
     my $times;
     my @cronTimes;
 
+    my $usingExternalAD = ($self->authenticationMode() eq $self->AUTH_MODE_EXTERNAL_AD());
+    my $usingExternalADGroups = 0;
+
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
+        if ($usingExternalAD and exists($profile->{users})) {
+            $usingExternalADGroups = 1;
+        }
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
@@ -877,6 +883,11 @@ sub _writeCronFile
         my ($hour, $min) = split (':', $time);
         my $days = join (',', sort (keys %{$times->{$time}}));
         push (@cronTimes, { days => $days, hour => $hour, min => $min });
+    }
+
+    # Synchronise AD groups every 30min
+    if ($usingExternalADGroups) {
+        push(@cronTimes, { days => '*', hour => '*', min => '*/30' });
     }
 
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
@@ -947,11 +958,11 @@ sub writeDgGroups
     push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         \@writeParams);
+                         \@writeParams, { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
-                         [ objects => \@objects ]);
+                         [ objects => \@objects ], { mode => '0644'});
 }
 
 # FIXME: template format has changed, reimplement this
@@ -1317,13 +1328,7 @@ sub authenticationMode
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
     } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
-        my $edition = EBox::Global->edition();
-        if (($edition eq 'basic') or ($edition eq 'community')) {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for commercial editions');
-            return AUTH_MODE_INTERNAL;
-        } else {
-            return AUTH_MODE_EXTERNAL_AD;
-        }
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;

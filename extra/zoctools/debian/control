@@ -1,0 +1,41 @@
+Source: zoctools
+Section: net
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>> 9),
+               pkg-config,
+               libjson0-dev (>= 0.9),
+               libssl-dev,
+               librabbitmq-dev (>= 0.4.1),
+               libpopt-dev (>= 1.16),
+               libocpf-dev (>= 2.0),
+               libmapi-dev (>= 2.0),
+               libbsd-dev (>= 0.3.0)
+Standards-Version: 3.9.3
+Homepage: http://ww.zentyal.org
+
+Package: zoctools
+Architecture: any
+Depends: ${shlibs:Depends},
+         libjson0,
+         librabbitmq1,
+         libpopt0,
+         libocpf0,
+         libmapi0,
+         libmapiproxy0,
+         libbsd0,
+         ${misc:Depends}
+Description: Zentyal OpenChange tools
+ This tool is used by Zentyal to handle the MAPI server migrations.
+
+Package: zoctools-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: zoctools (= ${binary:Version}), ${misc:Depends}
+Description: Zentyal OpenChange tools debugging symbols
+ This tool is used by Zentyal to handle the MAPI server migrations.
+ .
+ This package provides debugging information for the software in the
+ Samba suite. Install it to get a better backtrace in the event of a
+ crash.

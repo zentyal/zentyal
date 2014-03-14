@@ -47,7 +47,7 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 
-use Error qw( :try );
+use TryCatch::Lite;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;
@@ -75,6 +75,7 @@ use constant KEYTAB_FILE              => '/etc/dovecot/dovecot.keytab';
 use constant DOVECOT_PAM              => '/etc/pam.d/dovecot';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
+use constant BASE64_ENCODING_OVERSIZE => 1.36;
 
 sub _create
 {
@@ -91,6 +92,18 @@ sub _create
 
     bless($self, $class);
     return $self;
+}
+
+# Method: mailUser
+#
+#  returns the MailUser object
+#
+# Return:
+#   EBox::MailAliasLdap
+sub mailUser
+{
+    my ($self) = @_;
+    return $self->{musers};
 }
 
 # Method: greylist
@@ -227,11 +240,6 @@ sub initialSetup
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 sub _serviceRules
@@ -298,8 +306,8 @@ sub enableActions
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
-    } otherwise {
-    };
+    } catch {
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -396,7 +404,7 @@ sub _setMailConf
     push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push (@array, 'relay', $self->relay());
     push (@array, 'relayAuth', $self->relayAuth());
-    push (@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
+    push (@array, 'maxmsgsize', int($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
     push (@array, 'allowed', $allowedaddrs);
     push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
@@ -417,6 +425,7 @@ sub _setMailConf
     push (@array, 'greylist',     $greylist->isEnabled() );
     push (@array, 'greylistAddr', $greylist->address());
     push (@array, 'greylistPort', $greylist->port());
+    push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
@@ -1811,6 +1820,42 @@ sub slaveSetupWarning
     }
 
     return __('The mail domains and its accounts will be removed when the slave setup is complete');
+}
+
+sub openchangeProvisioned
+{
+    my ($self) = @_;
+
+    my $globalInstance = $self->global();
+    if ( $globalInstance->modExists('openchange') ) {
+        my $openchange = $globalInstance->modInstance('openchange');
+        return ($openchange->isEnabled() and $openchange->isProvisioned());
+    }
+
+    return 0;
+}
+
+# Method: checkMailNotInUse
+#
+#   check if a mail address is not used by the system and throw exception if it
+#   is already used
+#
+#  This method should be called in preference of EBox::Users::checkMailNotInUse
+#  since it check some extra situations which arises with the mail module.
+#  Do NOT call both
+sub checkMailNotInUse
+{
+    my ($self, $mail) =@_;
+    # TODO: check vdomain alias mapping to the other domains?
+    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+
+   # if the external aliases has been already saved to LDAP it will be caught
+    # by the previous check
+    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+        throw EBox::Exceptions::External(
+            __x('Address {addr} is in use as external alias', addr => $mail)
+           );
+    }
 }
 
 1;

@@ -1,5 +1,22 @@
-3.2.1
+3.4
+	+ Set HTTPS env variable to 'On' always for SSL vhosts
+	+ Check, at least, a listening port is mandatory
+	+ Fix when webserver is not listening in HTTP port
+	+ Don't regenerate certificate if it has the same CN that the
+	  virtual host name
+	+ Register in Apache configuration the public port used to reach it so
+	  automatic redirects work behind haproxy
+	+ Modules changed in initialSetup have now its configuration saved
+	+ Added support for internal virtual domains (only for openchange
+	  for now)
+	+ Updated to use the new haproxy API
+	+ Adapt configuration for Apache 2.4
+	+ Set version to 3.4
+3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
+	+ Delete migration code from old versions
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.5

@@ -25,17 +25,20 @@ use warnings;
 # this daemons is only in charge of new logins and logouts / expired sessions
 package EBox::CaptiveDaemon;
 
-use EBox::Config;
-use EBox::Global;
 use EBox::CaptivePortal;
-use EBox::Sudo;
-use Error qw(:try);
+use EBox::CaptivePortal::Middleware::AuthLDAP;
+use EBox::Config;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
-use EBox::Util::Lock;
-use Linux::Inotify2;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Sudo;
+use EBox::Util::Lock;
+use EBox::Iptables;
+
+use Linux::Inotify2;
 use Time::HiRes qw(usleep);
+use TryCatch::Lite;
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -85,6 +88,8 @@ sub run
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
+    $self->_checkChains($captive);
+
     my $expirationTime = $captive->expirationTime();
 
     my $exceededEvent = 0;
@@ -94,9 +99,9 @@ sub run
             $exceededEvent =
                 $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
         }
-    } otherwise {
+    } catch {
         $exceededEvent = 0;
-    };
+    }
 
     my $timeLeft;
     while (1) {
@@ -124,27 +129,20 @@ sub _updateSessions
     my ($self, $currentUsers, $events, $exceededEvent) = @_;
     my @rules;
     my @removeRules;
-
-    # firewall already inserted rules, checked to avoid duplicates
-    my $iptablesRules = {
-        captive  => join('', @{EBox::Sudo::root(IPTABLES . ' -t nat -n -L captive')}),
-        icaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L icaptive')}),
-        fcaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L fcaptive')}),
-    };
+    my %sidsFromFWRules = %{ $self->{module}->currentSidsByFWRules() };
 
     foreach my $user (@{$currentUsers}) {
         my $sid = $user->{sid};
-        my $new = 0;
+        my $new = (not exists($self->{sessions}->{$sid}));
 
-        # New sessions
-        if (not exists($self->{sessions}->{$sid})) {
+        if ($new) {
             $self->{sessions}->{$sid} = $user;
-            push (@rules, @{$self->_addRule($user, $iptablesRules)});
+
+            push @rules, @{$self->_addRule($user, $sid)};
 
             # bwmonitor...
             $self->_matchUser($user);
 
-            $new = 1;
             if ($exceededEvent) {
                     $events->sendEvent(
                         message => __x('{user} has logged in captive portal and has quota left',
@@ -164,9 +162,9 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
-            $self->{module}->removeSession($user->{sid});
+            EBox::CaptivePortal::Middleware::AuthLDAP::removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
-            push (@removeRules, @{$self->_removeRule($user)});
+            push (@removeRules, @{$self->_removeRule($user, $sid)});
 
             # bwmonitor...
             $self->_unmatchUser($user);
@@ -187,18 +185,18 @@ sub _updateSessions
                        );
                 }
             }
-
-            next;
-        }
-
-        # Check for IP change
-        unless ($new) {
+        } else {
+            # Check for IP change or missing rule
+            my $notFWRules = 0;
+            if (not $new) {
+                $notFWRules = not exists $sidsFromFWRules{$sid};
+            }
             my $oldip = $self->{sessions}->{$sid}->{ip};
             my $newip = $user->{ip};
-            unless ($oldip eq $newip) {
-                # Ip changed, update rules
-                push (@rules, @{$self->_addRule($user)});
-                push (@rules, @{$self->_removeRule($self->{sessions}->{$sid})});
+            my $changedIP = $oldip ne $newip;
+            if ($changedIP) {
+                # Ip changed, remove old rules
+                push (@rules, @{$self->_removeRule($self->{sessions}->{$sid}), $sid});
 
                 # bwmonitor...
                 $self->_matchUser($user);
@@ -207,6 +205,28 @@ sub _updateSessions
                 # update ip
                 $self->{sessions}->{$sid}->{ip} = $newip;
             }
+            if ($changedIP or $notFWRules) {
+                push (@rules, @{$self->_addRule($user, $sid)});
+            }
+
+        }
+
+        delete $sidsFromFWRules{$sid};
+    }
+
+    # check and remove leftover rules
+    while (my ($sid, $rulesByChain) = each %sidsFromFWRules) {
+        my $prevRule;
+        while (my ($chain, $rule) = each %{ $rulesByChain }) {
+            if (($prevRule->{user} eq $rule->{user}) and
+                ($prevRule->{ip}   eq $rule->{ip})   and
+                ($prevRule->{mac}  eq $rule->{mac})
+               ) {
+                # same rule, we have already rules to remove it
+                next;
+            }
+            $prevRule = $rule;
+            push @removeRules, @{ $self->_removeRule($rule, $sid) };
         }
     }
 
@@ -216,19 +236,29 @@ sub _updateSessions
         try {
             EBox::Util::Lock::lock('firewall');
             $lockedFw = 1;
-        } otherwise {};
+        } catch {
+        }
 
         if ($lockedFw) {
             try {
-                my @pending;
+                my @rulesToExecute = ();
                 if ($self->{pendingRules}) {
-                    @pending = @{ $self->{pendingRules} };
+                    @rulesToExecute = @{ $self->{pendingRules} };
                     $self->{pendingRules} = undef;
                 }
-                EBox::Sudo::root(@pending, @rules, @removeRules) ;
-            } finally {
+                push @rulesToExecute, @rules, @removeRules;
+                foreach my $rule (@rulesToExecute) {
+                    EBox::Sudo::silentRoot($rule);
+                    if ($? != 0) {
+                        # ignore error and continue with next rule
+                        EBox::debug("Cannot execute captive portal fw rule: $rule");
+                    }
+                }
+            } catch ($e) {
                 EBox::Util::Lock::unlock('firewall');
-            };
+                $e->throw();
+            }
+            EBox::Util::Lock::unlock('firewall');
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
             push @{ $self->{pendingRules} }, @rules, @removeRules;
@@ -239,17 +269,18 @@ sub _updateSessions
 
 sub _addRule
 {
-    my ($self, $user, $current) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
     EBox::debug("Adding user $name with IP $ip");
 
-    my $rule = $self->{module}->userFirewallRule($user);
+    my $rule = $self->{module}->userFirewallRule($user, $sid);
+
     my @rules;
-    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
-    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
+    push (@rules, IPTABLES . " -t nat -I captive $rule");
+    push (@rules, IPTABLES . " -I fcaptive $rule");
+    push (@rules, IPTABLES . " -I icaptive $rule");
     # conntrack remove redirect conntrack (this will remove
     # conntrack state for other connections from the same source but it is not
     # important)
@@ -260,13 +291,13 @@ sub _addRule
 
 sub _removeRule
 {
-    my ($self, $user) = @_;
+    my ($self, $user, $sid) = @_;
 
     my $ip = $user->{ip};
     my $name = $user->{user};
-    EBox::debug("Removing user $name with IP $ip");
 
-    my $rule = $self->{module}->userFirewallRule($user);
+    my $rule = $self->{module}->userFirewallRule($user, $sid);
+    EBox::debug("Removing user $name with IP $ip base rule $rule");
     my @rules;
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");
@@ -286,7 +317,9 @@ sub _matchUser
     if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
         try {
             $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
-        } catch EBox::Exceptions::DataExists with {}; # already in
+        } catch (EBox::Exceptions::DataExists $e) {
+            # already in
+        }
     }
 }
 
@@ -299,6 +332,46 @@ sub _unmatchUser
         $self->{bwmonitor}->removeUserIP($user->{user}, $user->{ip});
     }
 }
+
+# checks if all chains are in place and put them if dont exists
+sub _checkChains
+{
+    my ($self, $captive) = @_;
+
+    my $fwHelper = $captive->firewallHelper();
+    my $chains   = $fwHelper->chains();
+
+    my $chainsInPlace = 1;
+    while(my ($table, $chains_list) = each %{$chains}) {
+        foreach my $ch (@{ $chains_list }) {
+            try {
+                EBox::Sudo::root("iptables -t $table -nL $ch");
+            } catch {
+                $chainsInPlace = 0;
+            }
+        }
+        if (not $chainsInPlace) {
+            next;
+        }
+    }
+
+    if ($chainsInPlace) {
+        return;
+    }
+
+    # remove chains to be sure they are not leftovers
+    while(my ($table, $chains_list) = each %{$chains}) {
+        foreach my $ch (@{ $chains_list }) {
+
+            EBox::Sudo::silentRoot("iptables -t $table -F $ch",
+                             "iptables -t $table -X $ch");
+        }
+    }
+
+    my $iptables = EBox::Iptables->new();
+    $iptables->executeModuleRules($captive);
+}
+
 
 ###############
 # Main program

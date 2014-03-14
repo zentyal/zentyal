@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _tree
 {
@@ -92,13 +92,16 @@ sub childNodes
             my $hostname = Sys::Hostname::hostname();
             next if ($printableName =~ /^(\w+)-$hostname$/);
 
-            my $fullname = $child->fullname();
-            if ($fullname) {
-                $printableName .= " ($fullname)";
+            my $displayname = $child->displayname();
+            if ($displayname) {
+                $printableName .= " ($displayname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
-            $printableName = $child->fullname();
+            $printableName = $child->displayname();
+            unless ($printableName) {
+                $printableName = $child->fullname();
+            }
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             next if ($child->isInternal());

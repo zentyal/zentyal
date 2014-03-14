@@ -18,8 +18,11 @@ Description: Zentyal - Core metapackage
 
 Package: zentyal-all
 Architecture: all
-Replaces: ebox-all
-Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office, zentyal-communication, zentyal-webmail, zentyal-radius, zentyal-captiveportal, zentyal-ipsec, zentyal-usercorner, zentyal-monitor, zentyal-ips, zentyal-bwmonitor, zentyal-zarafa, zentyal-nut, zentyal-remoteservices
+Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office,
+         zentyal-communication, zentyal-webmail, zentyal-radius,
+         zentyal-captiveportal, zentyal-ipsec, zentyal-usercorner,
+         zentyal-monitor, zentyal-ips, zentyal-bwmonitor, zentyal-nut,
+         zentyal-openchange, zentyal-sogo, zentyal-remoteservices
 Description: Zentyal - All Modules
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -30,8 +33,8 @@ Description: Zentyal - All Modules
 
 Package: zentyal-gateway
 Architecture: all
-Replaces: ebox-gateway
-Depends: zentyal-squid, zentyal-trafficshaping, zentyal-l7-protocols, zentyal-software
+Depends: zentyal-squid, zentyal-trafficshaping, zentyal-l7-protocols,
+         zentyal-software
 Description: Zentyal - Gateway Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -42,8 +45,8 @@ Description: Zentyal - Gateway Suite
 
 Package: zentyal-infrastructure
 Architecture: all
-Replaces: ebox-infrastructure
-Depends: zentyal-dhcp, zentyal-dns, zentyal-openvpn, zentyal-webserver, zentyal-ftp, zentyal-ntp, zentyal-software
+Depends: zentyal-dhcp, zentyal-dns, zentyal-openvpn, zentyal-webserver,
+         zentyal-ftp, zentyal-ntp, zentyal-software
 Description: Zentyal - Network Infrastructure Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -55,8 +58,8 @@ Description: Zentyal - Network Infrastructure Suite
 
 Package: zentyal-office
 Architecture: all
-Replaces: ebox-office
-Depends: zentyal-samba, zentyal-printers, zentyal-antivirus, zentyal-ebackup, zentyal-software
+Depends: zentyal-samba, zentyal-printers, zentyal-antivirus, zentyal-ebackup,
+         zentyal-software
 Description: Zentyal - Office Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -68,8 +71,8 @@ Description: Zentyal - Office Suite
 
 Package: zentyal-communication
 Architecture: all
-Replaces: ebox-communication
-Depends: zentyal-mail, zentyal-jabber, zentyal-mailfilter, zentyal-antivirus, zentyal-ebackup, zentyal-software
+Depends: zentyal-mail, zentyal-jabber, zentyal-mailfilter, zentyal-antivirus,
+         zentyal-ebackup, zentyal-software
 Description: Zentyal - Communications Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -79,9 +82,16 @@ Description: Zentyal - Communications Suite
  This metapackage installs typical modules to configure Zentyal as a
  Communication server.
 
-Package: zentyal-ids
-Depends: zentyal-ips, ${misc:Depends}
+Package: zsupporttools
 Architecture: all
-Section: oldlibs
-Description: transitional package to zentyal-ips
- This is a transitional package. It can safely be removed.
+Depends: at, ack-grep, autojump, bash-completion, binutils, byobu,
+         cabextract, ccze, colordiff, cron, curl, dhcpdump, dnsutils,
+         dlocate, dstat, elinks, ethtool, file, ftp, gpw, hdparm, htop,
+         iftop, info, iotop, ipcalc, iptables, iptraf, kpartx, joe,
+         logrotate, lsof, ltrace, lynx, mailutils, man-db, manpages,
+         mime-support, mosh, mtr-tiny, ncftp, ngrep, nmap, netstat-nat,
+         pastebinit, psmisc, pv, rsync, screen, slay, squidclient, strace, sysstat,
+         tcpdump, telnet, time, tofrodos, traceroute, unrar-free,
+         uuid-runtime, unzip, vim, wget, zip
+Description: Zentyal - Support Tools
+ Compilation of tools useful for maintenance/support.

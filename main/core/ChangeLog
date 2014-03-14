@@ -1,9 +1,139 @@
-3.2.6
-	+ Show confirmation dialog before upgrading to 3.3
+3.4
+	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir
+	+ Remove idle and dead code from EBox::Module::Service::writeConfFile
+	+ Added auditable property to EBox::Model::DataTable
+	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
+	+ Moved management of webadmin certificate to HAProxy module
+	+ Enable ReverseProxy middleware always
+	+ MySQL is restarted before creating database
+	+ Use root ownership for webadmin certificates
+	+ Execute change hostname actions only if the hostname has really changed
+	+ Don't expire session on finish software wizard page
+	+ Fixed show help JS to avoid to have help elements with different
+	  show state
+	+ Use window.location.replace instead of window.location.href
+	  to redirect using JS
+	+ In EBox::Type::Select, use element value as printableValue for
+	  unknown options or options without printableValue
+	+ Save haproxy config as changed after webadmin's initialSetup
+	+ Send restartUI flag to restart service when restarting a module
+	  from the UI
+	+ Fix calculation of page number when using go to last page control
+	+ Update tracker url in dashboard widget
+	+ Continue installation without ads if there is a error getting them
+	+ Added EBox::WebAdmin::Middleware::SubAppAuth to validate
+	  WebAdmin sub-app requests
+	+ Ported restricted resources to use nginx
+	+ Removed EBox::Base::upload method because that's 100% handled by Plack
+	  now.
+	+ Increased the buffer size for uwsgi applications to allow big submits
+	  like the one from automatic error report
+	+ Added a UnhandledError middleware to catch any die or exception not
+	  handled by Zentyal
+	+ Added a Devel::StackTrace helper view that shows pretty backtraces
+	+ Enable crash reports by default
+	+ Added template for download link
+	+ Created EBox::Util::Certificate, refactored create-certificate
+	  script
+	+ Changes in haproxy port validation and allow haproxy internal services
+	+ Restore AdminPort model for WebAdmin to improve usability
+	+ Added EBox::Module::Config::replicationExcludeKeys()
+	+ Added EBox::WebAdmin::PortObserver to be used by ha and
+	  remoteservices modules by the moment
+	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
+	  after normal save changes process
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used
+	+ Added a left-right composite layout
+	+ Search and pagination forms can be omitted using showFilterForm
+	  and showPaginationForm properties
+	+ Show nice error when global-action fails using die + scalar
+	+ EBox::Util::Random now accepts a set of chars to have a random string
+	+ Notify HA when a module which must have a single instance in the
+	  cluster is enabled/disabled.
+	+ Added enabled action to /etc/init.d/zentyal to display whether a
+	  module is enabled or disabled
+	+ Pass model, type and id to enabled subroutine in
+	  EBox::Types::MultiStateAction to be ortoghonal to handler property
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Added middleware to have auth based on a env variable
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
+	+ Use uWSGI instead of Apache mod_perl for running CGIs
+	+ Updated automatic bug report URL to new bug report endpoint.
+	+ Give support to custom actions without image. Those actions will
+	  not appear in the legend.
+	+ Added to findValueMultipleFields and findValue the nosync parameter
+	+ Added support for haproxy 1.5
+	+ Moved nginx to listen on localhost
+	+ Integration with HA module in save changes process
+	+ Added icon for new zentyal-ha module
+	+ Migrate rs_verify_servers in remoteservices.conf to
+	  rest_verify_servers core.conf
+	+ Include basic support to free-format Template models to be
+	  included in Composites
+	+ Move run-pending-ops script from remoteservices to core
+	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result
+	+ Move EBox::RemoteServices::RESTClient to EBox::RESTClient as it
+	  is used in ha and remoteservices module.
+	+ Adapt init.d and upstart running checks to Ubuntu 13.10
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Adapted apache configuration to 2.4
+	+ Adapted EBox::Config::Redis to the new libredis-perl API
+	+ Adapted redis.conf to redis 2.6
+	+ Use replace instead of href to redirect in Controller::DataTable
+	  (This avoids infinite loops if the user press back button)
+	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to
+	  make file downloads work again
+	+ Avoid division by zero while using page navigation
+	+ Automatic report text formatting adapted to Redmine
+	+ Fix tab selection in tabbed composite from URL path anchor,
+	  for instance, /Maintenance/Events#ConfigureDispatchers
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
+	+ Show nice error when global-action fails using die + scalar
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Fixed rethrown of exception in restartService() and
+	  EBox::CGI::Base::upload methods
+	+ Remove lock file in EBox::Util::Lock::unlock()
+	+ Fixed mason component root for custom stubs
+	+ Fixed regression in clone action
+	+ Decode to utf8 the MySQL database results
+	+ Create log database using utf8 charset
+	+ Better way to set MySQL password for all the root accounts
+	+ Use same JSON reply file for changeRowForm and dataInUse
+	+ Fixed regression in AJAX changes with raised error when a
+	  data in use exception was found
+	+ Fixed css error that hide information in the logs tables
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
-3.2.5
-	+ Upgrade to 3.3 notification in dashboard
+	+ Fixed regression when table size is set to 'view all'
+	+ Set version to 3.4
+3.3.1
+	+ Fixed redirects in table/form JSON replies
+	+ Set automated ticket report milestone to 3.3.X
+3.3
+	+ Refactored module not enabled warning
+	+ Add version to header logo
+	+ HTML body can now have different styles based on the menu section
+	+ Hide close button on saving changes and backup progess
+	  dialogs. Don't allow to close it with esc key on those cases.
+	+ Fix error when pageSize parameter is not supplied to the model controller
+	+ Workaround against modules changed when saving all changes
+	+ Recover from widget function exceptions
+	+ Use the same Mason interpreter for most HTML templates
+	+ Use more granular AJAX for table actions
+	+ Use stand-alone AJAX call to refresh save changes button
+	+ Added missing use to EBox::CGI::Base
+	+ Allow to submit apport crash reports if debug=yes
+	+ Switch from Error to TryCatch for exception handling
 	+ Added new communityEdition() helper method in EBox::Global
 	+ Add version to header logo
 	+ Always reload page after saving changes
@@ -20,8 +150,14 @@
 	+ Added missing EBox::Exceptions uses
 	+ Fixed bug in selectSetter which hitted selects on DataForm with
 	  'unique' option enabled
+	+ EBox::WebServer::removeNginxInclude does not longer throws
+	  a exception if the path to remove is not included
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
+	+ Use printableName in Configure Module popup
+	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
-3.2.4
 	+ Set proper trial link in advertisements
 	+ Show register link in local backup when not registered
 	+ Strip the 'C:\fakepath\' that chrome adds to the file input
@@ -29,11 +165,9 @@
 	+ Pass HTTP_PROXY system environment variable to CGIs as they are
 	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
-3.2.3
 	+ Fixed error in the recursive method for getting module dependencies
 	+ Fixed JS typo which disabled export backup dialog
 	+ Added dbus dependency to avoid problems on some minimal installations
-3.2.2
 	+ When restoring pre-3.2 backups take in account that apache
 	  module was renamed to webadmin
 	+ Make sure that we always commit/discard audit of changes when we
@@ -42,13 +176,22 @@
 	+ Fixed JS glitch which broke the dashboard periodical updates
 	+ Better check of referer which skips cloud domain if it does not exists
 	+ Avoid warning when stopping a module without FirewallHelper
-3.2.1
 	+ Include contents of /etc/resolv.conf in bug report
 	+ Avoid Apache error screen in login when entering through Zentyal
 	  Remote using password
 	+ Fix warning comparing undefined string in DomainName type
 	+ Rewrite row isEqualTo method using hashElements instead of elements
 	+ Only allow to move dashboard widget by its handle
+	+ Do not fail if zentyal-mysql.passwd ends with a newline character
+	+ Removed old migration code from 3.0 to 3.2
+	+ Added Number.prototype.toTimeDiffString in format.js
+	+ Added .btn-black CSS class
+	+ Set version to 3.3
+	+ Added enableInnoDbIfNeeded() to MyDBEngine
+	+ Fix loading on custom action buttons
+	+ Add icon for openchange module
+	+ Add missing use statement in EBox::Types::MultiStateAction
+	+ Add icon for openchange module
 	+ Service type setter works again
 3.2
 	+ Set 3.2 versions and non-beta logo

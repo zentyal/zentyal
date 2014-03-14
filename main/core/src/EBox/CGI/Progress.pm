@@ -36,9 +36,8 @@ use File::Slurp;
 use JSON::XS;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
+use TryCatch::Lite;
 
-## arguments:
-##  title [required]
 sub new
 {
     my $class = shift;
@@ -112,10 +111,10 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('raw')) {
-        return $self->SUPER::_print();
+        $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    return $self->_printPopup();
 }
 
 sub _menu
@@ -130,12 +129,12 @@ sub _menu
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and
              ( __('Saving changes') eq $self->{title}) ) {
-            $software->firstTimeMenu(4);
+            return $software->firstTimeMenu(4);
         } else {
-            $software->firstTimeMenu(2);
+            return $software->firstTimeMenu(2);
         }
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
@@ -148,8 +147,7 @@ sub _top
 
     my $global = EBox::Global->getInstance();
     my $img = $global->theme()->{'image_title'};
-    print "<div id='top'></div><div id='header'><img src='$img'/></div>";
-    return;
+    return "<div id='top'></div><div id='header'><img src='$img'/></div>";
 }
 
 sub _footer
@@ -183,7 +181,6 @@ sub _slidesFilePath
 
 sub _loadSlides
 {
-
     my $slidesPkg = 'zentyal-software';
     my $imgPkg = 'software';
     if (EBox::GlobalImpl::_packageInstalled('zentyal-cloud-prof')) {
@@ -193,9 +190,18 @@ sub _loadSlides
 
     my $file = _slidesFilePath($slidesPkg);
     EBox::debug("Loading ads from: $file");
-    my $json = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
-    my $slides = decode_json($json);
+    my $json;
+    try {
+        $json = read_file($file);
+   } catch {
+       $json = undef;
+   }
+   if (not $json) {
+       EBox::error("Error loading ads. Ingnoring them");
+       return [];
+   }
 
+    my $slides = decode_json($json);
     my @html;
     my $num = 1;
     foreach my $slide (@{$slides}) {

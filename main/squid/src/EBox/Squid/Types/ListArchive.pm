@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,12 +26,12 @@ use EBox::Exceptions::External;
 use EBox::Sudo;
 use EBox::FileSystem;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 
 my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';
 
-# validation for catogory directories
+# validation for category directories
 my %validParentDirs = (
     BL => 1,
     blacklists => 1,
@@ -57,7 +57,7 @@ sub _paramIsValid
     my $tmpPath = $self->tmpPath();
     if (not $self->_fileIsArchive($tmpPath)) {
         throw EBox::Exceptions::External(
-            __('Supplied file is not a archive file')
+            __('Supplied file is not an archive file')
            );
     }
 
@@ -120,7 +120,8 @@ sub _extractArchive
     EBox::Sudo::root("mkdir -p '$dir'",
                      "tar xzf '$path' -C '$dir'",
                      "chown -R root:ebox '$dir'",
-                     "chmod -R o+r '$dir'");
+                     "chmod -R o+r '$dir'",
+                     "find '$dir' -type d | xargs chmod o+x");
 
 }
 
@@ -142,6 +143,12 @@ sub _makeSquidDomainFiles
     }
 }
 
+# Method: archiveContentsDir
+#
+# Returns:
+#
+#    String - the path where the archive contents are unpacked
+#
 sub archiveContentsDir
 {
     my ($self) = @_;
@@ -185,6 +192,12 @@ sub revokeAllPendingRemovals
     $squid->clearPathsToRemove('revoke');
 }
 
+# Method: unpackPath
+#
+# Returns:
+#
+#    String - the path where the archive is unpacked
+#
 sub unpackPath
 {
     return $UNPACK_PATH;

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,7 @@ use base 'EBox::Model::DataForm::ReadOnly';
 use feature 'switch';
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
@@ -31,7 +32,10 @@ use EBox::Sudo;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
+
+use ClamAV::XS;
 use Date::Calc;
+use TryCatch::Lite;
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';
@@ -125,7 +129,12 @@ sub _content
     my ($self) = @_;
 
     my $antivirus  = $self->{'confmodule'};
-    my $state      = $antivirus->freshclamState();
+    my $state;
+    try {
+        $state = $antivirus->freshclamState();
+    } catch (EBox::Exceptions::Internal $e) {
+        $state = { date => undef };
+    }
 
     my $date       = delete $state->{date};
     my $logDate = 0;
@@ -134,13 +143,19 @@ sub _content
     my $eventInfo;
     my $nSig = 0;
     if (defined $date) {
-        # select which event is active if a event has happened
+        # select which event is active if an event has happened
         while (($event, $eventInfo) = each %{ $state } ) {
             if ($eventInfo) {
                 last;
             }
         }
-        ($nSig, $logDate) = $self->_nSigsAndLastDate();
+        $logDate = $self->_lastUpdateDate();
+        try {
+            $nSig = ClamAV::XS::signatures();
+        } catch ($e) {
+            EBox::error($e);
+            $nSig = -1;
+        }
     }
     else {
         $date  = time();
@@ -150,13 +165,19 @@ sub _content
             $event = 'disabled';
         } else {
             $event = 'uninitialized';
-            ($nSig, $logDate)  = $self->_nSigsAndLastDate();
+            $logDate = $self->_lastUpdateDate();
+            try {
+                $nSig = ClamAV::XS::signatures();
+            } catch ($e) {
+                EBox::error($e);
+                $nSig = -1;
+            }
         }
     }
 
     if ($nSig and ($logDate > $date)) {
         $date = $logDate;
-        # adjust  event to reflect the last succesful update
+        # adjust event to reflect the last successful update
         $event = 'update';
     }
 
@@ -202,8 +223,8 @@ sub _commercialMsg
                 oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
-# Get the number of signatures from clamav log file
-sub _nSigsAndLastDate
+# Get the last updated date from clamav log file
+sub _lastUpdateDate
 {
     # get last update date
     my $date = 0;
@@ -216,35 +237,7 @@ sub _nSigsAndLastDate
             $date = _strToTime($dateStr);
         }
     }
-
-    # get n signatures
-    my $nSig = undef;
-    my $lastClamavDate;
-    my @loadRegexes = ('Loaded.*signatures', 'reloaded.*signatures');
-    foreach my $regex (@loadRegexes) {
-        $cmd = "grep $regex " . CLAMAV_LOG_FILE . ' | tail -n 1';
-        $output = EBox::Sudo::root($cmd);
-
-        $line = $output->[0];
-        if (defined $line) {
-            my ($lineDateStr, $lineSigs) = $line =~ m/^(.*?)\s\->.*?([0-9]+)\ssignatures/;
-            EBox::debug("$line -> \nlienDateStr $lineDateStr lineSigs:$lineSigs:");
-            my $lineDate = _strToTime($lineDateStr);
-            EBox::debug("lineDate: $lineDate");
-            if ($lineDate < $date) {
-                # before last update!
-                next;
-            }
-            if ((not $lastClamavDate) or ($lastClamavDate < $lineDate)) {
-                $lastClamavDate = $lineDate;
-                $nSig = $lineSigs;
-            }
-        }
-    }
-
-    defined $nSig or
-        $nSig = 0;
-    return ($nSig, $date);
+    return $date;
 }
 
 sub _strToTime
@@ -252,7 +245,7 @@ sub _strToTime
     my ($str) = @_;
     my ($ignoredWday, $monthStr, $mday, $timeString, $year) = split '\s+', $str;
     my $month = Date::Calc::Decode_Month($monthStr);
-    my ($hour, $min, $sec)= split ':', $timeString, 3;
+    my ($hour, $min, $sec) = split ':', $timeString, 3;
     my $date = Date::Calc::Date_to_Time($year,$month,$mday, $hour,$min,$sec);
     defined $date or $date = 0;
     return $date;

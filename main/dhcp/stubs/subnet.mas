@@ -83,13 +83,13 @@
                 ddns-hostname = pick-first-value ( host-decl-name,
                                                    option fqdn.hostname,
                                                    concat("static-", binary-to-ascii(10, 8, "-", leased-address)));
-                ddns-domainname      "<% $info{'staticDomain'} %>.";
-                zone <% $info{'staticDomain'} %>. {
+                ddns-domainname "<% $info{'staticDomain'} %>";
+                zone <% $info{'staticDomain'} %> {
                     primary 127.0.0.1;
                     key <% $info{'staticDomain'} %>;
                 }
 %         foreach my $revZone (@{$info{'reverseZones'}}) {
-                zone <% $revZone %>                       {
+                zone <% $revZone %> {
                     primary 127.0.0.1;
                     key <% $info{'dynamicDomain'} %>;
                 }
@@ -102,8 +102,8 @@
                 ddns-hostname = pick-first-value( option fqdn.hostname,
                                                   option host-name,
                                                   concat("dhcp-", binary-to-ascii(10, 8, "-", leased-address)));
-                ddns-domainname      "<% $info{'dynamicDomain'} %>.";
-                zone <% $info{'dynamicDomain'} %>. {
+                ddns-domainname "<% $info{'dynamicDomain'} %>";
+                zone <% $info{'dynamicDomain'} %> {
                     primary 127.0.0.1;
                     key <% $info{'dynamicDomain'} %>;
                 }

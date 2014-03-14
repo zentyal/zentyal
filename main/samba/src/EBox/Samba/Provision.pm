@@ -41,7 +41,7 @@ use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Time::HiRes;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -205,8 +205,8 @@ sub checkEnvironment
         my $ipUrl = '/DNS/View/HostIpTable?directory=' .
                     'DomainTable/keys/' . $domainRow->id() .
                     '/hostnames/keys/' .  $hostRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for host {host}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for host {host}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the hostname {host}.<br/>" .
                        "You can add it in the {ohref}IP addresses page for {host}{chref}",
                       host => $hostName,
@@ -240,8 +240,6 @@ sub _domainsIP
         my $ifaceAddrs = $network->ifaceAddresses($iface);
         foreach my $data (@{$ifaceAddrs}) {
             # Got one candidate address, check that it is assigned to the DNS domain
-            my $inDomainModel = 0;
-            my $inHostModel = 0;
             foreach my $rowId (@ipIds) {
                 my $row = $domainIPsModel->row($rowId);
                 my $ip = $row->valueByName('ip');
@@ -257,8 +255,8 @@ sub _domainsIP
         my $domain = $domainRow->valueByName('domain');
         my $domainIpUrl = '/DNS/View/DomainIpTable?directory=DomainTable/keys/' .
                           $domainRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for domain {dom}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the local hostname.<br/>" .
                        "You can assign it in the {ohref}IP addresses page for {dom}{chref}",
                        dom => $domain,
@@ -348,10 +346,8 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
-    # dns needs to be restarted after save changes to write proper bind conf with the dlz
-    my @postSaveModules = @{$global->get_list('post_save_modules')};
-    push (@postSaveModules, 'dns');
-    $global->set('post_save_modules', \@postSaveModules);
+    # dns needs to be restarted after save changes to write proper bind conf with the DLZ
+    $global->addModuleToPostSave('dns');
 }
 
 sub resetSysvolACL
@@ -411,18 +407,9 @@ sub linkContainer
         }
     }
     $ldbObject->_linkWithUsersObject($ldapObject);
-
-    if ($ldb{advanced}) {
-        # LDB Object is a container and API forbid to change a Container, but
-        # setting the isCriticalSystemObject is valid. Workaround the
-        # restriction.
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 1);
-        $entry->update($ldbObject->_ldap->connection());
-    } else {
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 0);
-        $entry->update($ldbObject->_ldap->connection());
+    unless ($ldbObject->isa('EBox::Samba::Container') or $ldbObject->isa('EBox::Samba::BuiltinDomain')) {
+        # All objects except EBox::Samba::Container or EBox::Samba::BuiltinDomain can be modified
+        $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
     }
 }
 
@@ -615,15 +602,14 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
         $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    $self->setProvisioning(0);
 
     try {
         # Disable password policy
@@ -656,11 +642,10 @@ sub provisionDC
 
         # Reset sysvol
         $self->resetSysvolACL();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         $self->setProvisioned(0);
         throw EBox::Exceptions::Internal($error);
-    };
+    }
 }
 
 sub rootDseAttributes
@@ -1023,11 +1008,11 @@ sub checkClockSkew
     try {
         EBox::info("Checking clock skew with AD server...");
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};
@@ -1042,7 +1027,7 @@ sub checkClockSkew
                'This can cause problems with kerberos authentication, please ' .
                'sync both clocks with an external NTP source and try again.'));
     }
-    EBox::info("Clock skew below two minutes, should be enought.");
+    EBox::info("Clock skew below two minutes, should be enough.");
 }
 
 sub checkADServerSite
@@ -1487,28 +1472,37 @@ sub provisionADC
 
         # Set provisioned flag
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
-        # Revert primary resolver changes
+
         if (defined $dnsFile and -f $dnsFile) {
             EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
                              'resolvconf -d zentyal.temp');
             unlink $dnsFile;
         }
-        # Remote stashed password
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
             unlink $adminAccountPwdFile;
         }
-        # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
 
-        $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    # Revert primary resolver changes
+    if (defined $dnsFile and -f $dnsFile) {
+        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                         'resolvconf -d zentyal.temp');
+        unlink $dnsFile;
+    }
+    # Remote stashed password
+    if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+        unlink $adminAccountPwdFile;
+    }
+    # Destroy cached tickets
+    EBox::Sudo::rootWithoutException('kdestroy');
+
+    $self->setProvisioning(0);
 }
 
 1;

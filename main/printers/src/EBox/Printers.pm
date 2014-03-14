@@ -29,7 +29,7 @@ use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
 use Net::CUPS::Destination;
 use Net::CUPS;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 
@@ -37,7 +37,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'printers',
-                                      printableName => __('Printer Sharing'),
+                                      printableName => __('Printers'),
                                       @_);
     bless ($self, $class);
     $self->{'cups'} = new Net::CUPS;
@@ -113,11 +113,6 @@ sub initialSetup
                            );
         $firewall->saveConfigRecursive();
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 # Method: enableActions
@@ -160,7 +155,8 @@ sub _preSetConf
     try {
         # Stop CUPS in order to force it to dump the conf to disk
         $self->stopService();
-    } otherwise {};
+    } catch {
+    }
 }
 
 # Method: _setConf
@@ -234,8 +230,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
-                                    'url' => 'Printers/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'Printers/Composite/General',
                                     'icon' => 'printers',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
@@ -279,9 +274,9 @@ sub restoreConfig
             $self->_stopService();
             EBox::Sudo::root("tar xf $dir/etc_cups.tar -C /");
             $self->_startService();
-        } otherwise {
+        } catch {
             EBox::error("Error restoring cups config from backup");
-        };
+        }
     } else {
         # This case can happen with old backups
         EBox::warn('Backup doesn\'t contain CUPS configuration files');

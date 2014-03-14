@@ -7,14 +7,14 @@ TreeDefault {
 };
 
 BinDirectory "pool/main" {
-  Packages "dists/precise/main/binary-ARCH/Packages";
-  BinOverride "INDICES/override.precise.main";
-  ExtraOverride "INDICES/override.precise.extra.main";
+  Packages "dists/DIST/main/binary-ARCH/Packages";
+  BinOverride "INDICES/override.DIST.main";
+  ExtraOverride "INDICES/override.DIST.extra.main";
 };
 
 BinDirectory "pool/restricted" {
- Packages "dists/precise/restricted/binary-ARCH/Packages";
- BinOverride "INDICES/override.precise.restricted";
+ Packages "dists/DIST/restricted/binary-ARCH/Packages";
+ BinOverride "INDICES/override.DIST.restricted";
 };
 
 Default {

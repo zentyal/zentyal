@@ -9,7 +9,7 @@ my $id = $tableName . '_' . $data->fieldName();
 my $typeSelected = $data->rangeType();
 </%init>
 
-<span id="<% $id %>" class="<% $cssClass %>">
+<div id="<% $id %>" class="<% $cssClass %>">
     <& /input/select.mas,
             'name'     => $id . '_range_type' ,
             'value'    => $data->rangeType(),
@@ -19,25 +19,25 @@ my $typeSelected = $data->rangeType();
             'disabled'  =>  $disabled
 
     &>
-    <span id="<% $id . '_range' %>" class="<% ($typeSelected eq 'range') ? '' : 'hidden' %>">
-      <%__('From')%>
+    <span id="<% $id . '_range' %>" class="inline-input" <% ($typeSelected eq 'range') ? '' : 'style="display:none"' %>>
+      <span><%__('From')%></span>
       <input type="text" class="inputText"
          value="<% $data->from() %>"
          size="5" id ="<% $id . '_from_port' %>"
          name='<% $id . '_from_port' %>',
          <% $disabled ?  'disabled' : '' %> />
-      <%__('To')%>
+      <span><%__('To')%></span>
       <input type="text" class="inputText"
          value="<% $data->to() %>"
          size="5" id ="<% $id . '_to_port' %>"
          name='<% $id . '_to_port' %>'
          <% $disabled ?  'disabled' : '' %> />
     </span>
-    <span id="<% $id . '_single' %>" class="<% ($typeSelected eq 'single') ? '' : 'hidden' %>">
+    <span id="<% $id . '_single' %>" <% ($typeSelected eq 'single') ? '' : 'style="display:none"' %>>
       <input type="text" class="inputText"
          value="<% $data->single() %>"
          size="5" id ="<% $id . '_single_port' %>"
          name='<% $id . '_single_port' %>'
          <% $disabled ?  'disabled' : '' %> />
     </span>
-</span>
+</div>

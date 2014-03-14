@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::ServiceManager;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -72,9 +72,9 @@ sub _pendingActions
                 my $modelInstance = $mod->model($model);
                 $action->{'modeltitle'} = $modelInstance->printableName();
                 $rowName = $modelInstance->printableRowName();
-            } otherwise {
+            } catch {
                 $action->{'modeltitle'} = $action->{'model'};
-            };
+            }
         } else {
             $action->{'modtitle'} = $modname;
         }

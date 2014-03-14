@@ -21,7 +21,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -30,21 +30,16 @@ my $network = $global->modInstance("network");
 
 my ($iface, $address, $mask) = @ARGV;
 
-EBox::debug('Called dhcp-address.pl with the following values:');
+EBox::debug("Called dhcp-address.pl with the following values: iface '$iface' address: '$address:' mask: '$mask'" );
 
 $iface or exit;
-EBox::debug("iface: $iface");
-
 $address or exit;
-EBox::debug("address: $address");
-
 $mask or exit;
-EBox::debug("mask: $mask");
 
 try {
     $network->setDHCPAddress($iface, $address, $mask);
-} otherwise {
+} catch {
     EBox::error("Call to setDHCPAddress for $iface failed");
-} finally {
-    exit;
-};
+}
+
+exit;

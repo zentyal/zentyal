@@ -1,0 +1,35 @@
+roundcube (0.7.2-7) unstable; urgency=low
+
+    Roundcube SQLite support is limited to SQLite 2.x. No support for
+    SQLite 3.x currently exists. Unfortunately, SQLite 2.x is unmaintained
+    for several years and therefore has been dropped from php5
+    package.
+
+    You need to select another database to continue to use
+    Roundcube. Unfortunately, there is currently no migration script
+    available. You have to start from an empty database and migrate
+    data yourself if you want to keep your settings. You can find some
+    directions here:
+     http://wiki.debian.org/Roundcube/DeprecationOfSQLitev2
+
+    Once the migration is done, you can remove roundcube-sqlite
+    package.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 02 Mar 2013 22:20:17 +0100
+
+roundcube (0.3.1-2) unstable; urgency=low
+
+    Starting from Roundcube 0.3, an incompatibility with Suhosin session
+    encryption is present. This can be resolved by tuning php.ini for
+    Roundcube with the "suhosin.session.encrypt" set to "Off".
+
+    We ship a .htaccess in /var/lib/roundcube to disable this
+    option. However, this only works with a webserver like Apache with
+    mod_php. If you are using a webserver with PHP configured as a
+    *CGI process, you need to tune the php.ini for this process:
+    either turn of globally Suhosin session encryption in
+    /etc/php5/conf.d/suhosin or you can provide your own php.ini to
+    php5-cgi with "-c" option.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 02 Nov 2009 19:48:22 +0100
+

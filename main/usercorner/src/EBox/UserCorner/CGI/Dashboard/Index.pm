@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {

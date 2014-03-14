@@ -1,6 +1,12 @@
-3.2.1
+3.4
+	+ Set version to 3.4
+	+ Make FreshclamStatus model more resilient to errors
+	+ Fix status when the freshclam state file is empty
+3.3
 	+ Update strings to new offering
 	+ Added missing EBox::Exceptions uses
+	+ Delete migration code from old versions
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.2

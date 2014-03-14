@@ -61,7 +61,7 @@ sub setUpLogHelper : Test(setup)
     my ($self) = @_;
 
     $self->{logHelper} = EBox::FirewallLogHelper->new();
-    $self->{year} = strftime('%Y',localtime)
+    $self->{year} = strftime('%Y', localtime());
 }
 
 sub test_drop : Test(6)

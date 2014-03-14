@@ -1,0 +1,21 @@
+Fix #599586 which was caused by duplicate boundaries. The fix is to
+simply use _addMixedPart from original Mail_Mime class which is recent
+enough in our case.
+
+--- roundcube/program/include/rcube_mail_mime.php~	2009-05-01 19:58:12.000000000 +0200
++++ roundcube/program/include/rcube_mail_mime.php	2010-10-18 19:31:33.751930400 +0200
+@@ -102,12 +102,12 @@
+    * @return object  The multipart/mixed mimePart object
+    * @access private
+    */
+-  function &_addMixedPart()
++  /* function &_addMixedPart()
+   {
+     $params['content_type'] = $this->_headers['Content-Type'] ? $this->_headers['Content-Type'] : 'multipart/mixed';
+     $ret = new Mail_mimePart('', $params);
+     return $ret;
+-  }
++  } */
+   
+   
+   /**

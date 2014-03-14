@@ -42,7 +42,7 @@ sub new # (statusCode, text)
 
       my ($class, $statusCode, $text) = @_;
 
-      local $Error::Depth = $Error::Depth + 1;
+      local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
       local $Error::Debug = 1;
 
       $self = $class->SUPER::new(("$statusCode $text"));

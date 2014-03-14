@@ -1,0 +1,23 @@
+Roundcube 0.7 doesn't properly recognize uuencoded attachments. Space
+(0x20) is a valid character to be found in uuencoded paragraphs while
+anything above backquote (0x60) is not valid.
+
+Source:
+ http://en.wikipedia.org/wiki/Uuencoding#Formatting_Mechanism
+
+Patch from Michał Mirosław.
+
+Index: roundcube/program/include/rcube_message.php
+===================================================================
+--- roundcube.orig/program/include/rcube_message.php	2012-09-29 11:30:54.555045159 +0200
++++ roundcube/program/include/rcube_message.php	2012-09-29 11:31:51.044174849 +0200
+@@ -622,8 +622,7 @@
+             $part->body = $this->imap->get_message_part($this->uid, $part->mime_id, $part);
+ 
+         $parts = array();
+-        // FIXME: line length is max.65?
+-        $uu_regexp = '/begin [0-7]{3,4} ([^\n]+)\n(([\x21-\x7E]{0,65}\n)+)`\nend/s';
++        $uu_regexp = '/begin [0-7]{3,4} ([^\n]+)\n(([\x20-\x60]{0,65}\n)+)`\nend/s';
+ 
+         if (preg_match_all($uu_regexp, $part->body, $matches, PREG_SET_ORDER)) {
+             // remove attachments bodies from the message body

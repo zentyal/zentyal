@@ -26,7 +26,7 @@ use base qw(
              EBox::CA::Observer);
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -1144,12 +1144,11 @@ sub newClient
     my $client;
     try {
         $client = $self->_doNewClient($name, %params);
+    } catch ($e) {
+        system ('rm -rf ' . $params{tmpDir}) if ($params{bundle});
+        $e->throw();
     }
-    finally {
-        if ($params{bundle}) {
-            system 'rm -rf ' . $params{tmpDir};
-        }
-    };
+    system ('rm -rf ' . $params{tmpDir}) if ($params{bundle});
 
     return $client;
 }

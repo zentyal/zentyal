@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::DataInUse;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {
@@ -57,8 +57,10 @@ sub _process
 
     my $audit = EBox::Global->modInstance('audit');
 
+    my $request = $self->request();
+    my $parameters = $request->parameters();
     $self->keepParam('iface');
-    $self->cgi()->param(-name=>'iface', -value=>$iface);
+    $parameters->set('iface', $iface);
     if ($ifaction eq 'add'){
         $self->_requireParam("vif_address", __("IP address"));
         $self->_requireParam("vif_netmask", __("netmask"));
@@ -76,14 +78,14 @@ sub _process
             $net->removeViface($iface, $viface, $force);
 
             $audit->logAction('network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             $self->{template} = 'network/confirmremove.mas';
             $self->{redirect} = undef;
             my @array = ();
             push(@array, 'iface' => $iface);
             push(@array, 'viface' => $viface);
             $self->{params} = \@array;
-        };
+        }
     }
 }
 

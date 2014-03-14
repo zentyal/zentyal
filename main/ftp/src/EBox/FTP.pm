@@ -84,11 +84,6 @@ sub initialSetup
 
         $firewall->saveConfigRecursive();
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 sub _services
@@ -208,9 +203,7 @@ sub _setConf
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
 
-    # disabled until vsftpd allows it, see #4113
-    # my $chrootUsers = $options->chrootUsers();
-    my $chrootUsers = 0;
+    my $chrootUsers = $options->chrootUsers();
 
     my $ssl = $options->ssl();
 

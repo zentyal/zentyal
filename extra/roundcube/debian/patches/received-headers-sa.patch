@@ -1,0 +1,37 @@
+Fix Received headers to behave better with SpamAssassin?
+ http://trac.roundcube.net/changeset/3291
+ http://trac.roundcube.net/ticket/1486513
+
+--- a/program/steps/mail/sendmail.inc	2009-11-16 23:49:07 +0000
++++ a/program/steps/mail/sendmail.inc	2010-02-24 00:48:24 +0000
+@@ -259,8 +259,8 @@
+         $http_header .= ' ('. rcmail_encrypt_header($host) . ')';
+     } else {
+       $http_header .= (($host != $hostname) ? $hostname : '[' . $host . ']');
+-      $http_header .= ' ('. ($host == $hostname ? '' : $hostname . ' ') .
+-        '[' . $host .'])';
++      if ($host != $hostname)
++        $http_header .= ' (['. $host .'])';
+     }
+     $http_header .= $nldlm . ' via ';
+   }
+@@ -272,14 +272,14 @@
+       $http_header .= ' ('. rcmail_encrypt_header($host) . ')';
+   } else {
+     $http_header .= (($host != $hostname) ? $hostname : '[' . $host . ']');
+-    $http_header .= ' ('. ($host == $hostname ? '' : $hostname . ' ') .
+-      '[' . $host .'])';
++    if ($host != $hostname)
++      $http_header .= ' (['. $host .'])';
+   }
+   // BY
+   $http_header .= $nldlm . 'by ' . $_SERVER['HTTP_HOST'];
+   // WITH
+-  $http_header .= $nldlm . 'with ' . $_SERVER['SERVER_PROTOCOL'] .
+-      ' ('.$_SERVER['REQUEST_METHOD'] . '); ' . date('r');
++  $http_header .= $nldlm . 'with HTTP (' . $_SERVER['SERVER_PROTOCOL'] .
++      ' '.$_SERVER['REQUEST_METHOD'] . '); ' . date('r');
+   $http_header = wordwrap($http_header, 69, $nldlm);
+ 
+   $headers['Received'] = $http_header;
+

@@ -35,7 +35,7 @@ use EBox::Types::Select;
 use EBox::Logs::Consolidate;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 

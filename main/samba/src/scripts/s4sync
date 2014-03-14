@@ -24,9 +24,10 @@ use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
 
-use Error qw(:try);
+use Data::Dumper;
 use File::Slurp;
 use Time::gmtime;
+use TryCatch::Lite;
 
 sub getTimestamp
 {
@@ -52,7 +53,9 @@ my $usersModule = $global->modInstance('users');
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
-    next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
+    next unless ($sambaModule->isEnabled() and
+                 $sambaModule->isRunning() and
+                 $sambaModule->getProvision->isProvisioned());
 
     my $ldap = $usersModule->ldap();
     my $ldb = $sambaModule->ldb();
@@ -71,18 +74,26 @@ while (1) {
 
     write_file($sambaTimestampFile, getTimestamp());
 
-    my %zentyalUsers    = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->users()};
-    my %zentyalContacts = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->contacts()};
-    my %zentyalGroups   = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->groups()};
-    my @zentyalOUs      = @{$usersModule->ous()};
-    my %zentyalOUs;
-    foreach my $zou (@zentyalOUs) {
-        my $guid = $zou->get('msdsObjectGUID');
-        # We ignore non linked OUs, such OU=zarafa or OU=postfix, they are
-        # internal to Zentyal and does not exists in the samba database
-        if (defined $guid) {
-            $zentyalOUs{$guid} = $zou;
-        }
+    my %zentyalUsers    = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->users()};
+    my %zentyalContacts = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->contacts()};
+    my %zentyalGroups   = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->groups()};
+    my %zentyalOUs      = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->ous()};
+
+    my @brokenZentyalUsers = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->users()};
+    my @brokenZentyalContacts = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->contacts()};
+    my @brokenZentyalGroups = map { $_->name() } grep { not $_->get('msdsobjectguid') } @{$usersModule->groups()};
+
+    if (@brokenZentyalUsers) {
+        EBox::error("Found users that are not linked to any Samba user!");
+        EBox::error(Dumper(\@brokenZentyalUsers));
+    }
+    if (@brokenZentyalContacts) {
+        EBox::error("Found contacts that are not linked to any Samba contact!");
+        EBox::error(Dumper(\@brokenZentyalContacts));
+    }
+    if (@brokenZentyalGroups) {
+        EBox::error("Found groups that are not linked to any Samba group!");
+        EBox::error(Dumper(\@brokenZentyalGroups));
     }
 
     # The following samba entries are special cases, not returned by users or
@@ -129,19 +140,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $ou->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating OU $canonicalName: $error");
-                };
+                }
             }
             delete $zentyalOUs{$uniqueID};
         } else {
             try {
                 $ou->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding OU $canonicalName: $error");
-            };
+            }
         }
     }
 
@@ -166,20 +175,18 @@ while (1) {
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaUser->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                    $sambaUsers{$uniqueID}->updateZentyal();
+                } catch ($error) {
                     EBox::error("Error updating user $canonicalName: $error");
-                };
+                }
             }
             delete $zentyalUsers{$uniqueID};
         } else {
             try {
-                $sambaUser->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+                $sambaUsers{$uniqueID}->addToZentyal();
+            } catch ($error) {
                 EBox::error("Error adding user $canonicalName: $error");
-            };
+            }
         }
     }
 
@@ -195,20 +202,18 @@ while (1) {
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaContact->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                    $sambaContacts{$uniqueID}->updateZentyal();
+                } catch ($error) {
                     EBox::error("Error updating contact $canonicalName: $error");
-                };
+                }
             }
             delete $zentyalContacts{$uniqueID};
         } else {
             try {
-                $sambaContact->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+                $sambaContacts{$uniqueID}->addToZentyal();
+            } catch ($error) {
                 EBox::error("Error adding contact $canonicalName: $error");
-            };
+            }
         }
     }
 
@@ -223,11 +228,10 @@ while (1) {
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaGroup->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                    $sambaGroups{$uniqueID}->updateZentyal();
+                } catch ($error) {
                     EBox::error("Error updating group $canonicalName: $error");
-                };
+                }
             }
             delete $zentyalGroups{$uniqueID};
         } else {
@@ -244,11 +248,10 @@ while (1) {
             next if ($result->count() > 0);
 
             try {
-                $sambaGroup->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+                $sambaGroups{$uniqueID}->addToZentyal();
+            } catch ($error) {
                 EBox::error("Error adding group $canonicalName: $error");
-            };
+            }
         }
     }
 
@@ -269,12 +272,11 @@ while (1) {
         my $zentyalGroup = $zentyalGroups{$uniqueID};
         my $canonicalName = $zentyalGroup->canonicalName(1);
         try {
-            $zentyalGroup->setIgnoredModules(['samba']);
-            $zentyalGroup->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+            $zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalGroups{$uniqueID}->deleteObject();
+        } catch ($error) {
             EBox::error("Error deleting group $canonicalName: $error");
-        };
+        }
     }
 
     # The contacts in the %zentyalContacts hash contain Zentyal contacts
@@ -283,12 +285,11 @@ while (1) {
         my $zentyalContact = $zentyalContacts{$uniqueID};
         my $canonicalName = $zentyalContact->canonicalName(1);
         try {
-            $zentyalContact->setIgnoredModules(['samba']);
-            $zentyalContact->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+            $zentyalContacts{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalContacts{$uniqueID}->deleteObject();
+        } catch ($error) {
             EBox::error("Error deleting contact $canonicalName: $error");
-        };
+        }
     }
 
     # The users in the %zentyalUsers hash contain Zentyal users linked to
@@ -297,12 +298,11 @@ while (1) {
         my $zentyalUser = $zentyalUsers{$uniqueID};
         my $canonicalName = $zentyalUser->canonicalName(1);
         try {
-            $zentyalUser->setIgnoredModules(['samba']);
-            $zentyalUser->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+            $zentyalUsers{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalUsers{$uniqueID}->deleteObject();
+        } catch ($error) {
             EBox::error("Error deleting user $canonicalName: $error");
-        };
+        }
     }
 
     # In the hash %zentyalOUs are the linked OUs that does not exists in samba.
@@ -334,11 +334,10 @@ while (1) {
 
         my $canonicalName = $zentyalOU->canonicalName(1);
         try {
-            $zentyalOU->setIgnoredModules(['samba']);
-            $zentyalOU->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+            $zentyalOUs{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalOUs{$uniqueID}->deleteObject();
+        } catch ($error) {
             EBox::error("Error removing OU $canonicalName: $error");
-        };
+        }
     }
 }

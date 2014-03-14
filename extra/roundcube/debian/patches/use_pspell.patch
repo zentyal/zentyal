@@ -1,0 +1,15 @@
+Instead of using Google by default, we use pspell to avoid to send each mail to Google...
+
+Index: roundcube/config/main.inc.php.dist
+===================================================================
+--- roundcube.orig/config/main.inc.php.dist	2013-06-04 22:55:13.853066181 +0200
++++ roundcube/config/main.inc.php.dist	2013-06-04 22:55:13.845066153 +0200
+@@ -489,7 +489,7 @@
+ 
+ // Set the spell checking engine. 'googie' is the default. 'pspell' is also available,
+ // but requires the Pspell extensions. When using Nox Spell Server, also set 'googie' here.
+-$rcmail_config['spellcheck_engine'] = 'googie';
++$rcmail_config['spellcheck_engine'] = 'pspell';
+ 
+ // For a locally installed Nox Spell Server, please specify the URI to call it.
+ // Get Nox Spell Server from http://orangoo.com/labs/?page_id=72

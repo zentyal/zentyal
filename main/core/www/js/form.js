@@ -60,19 +60,19 @@ Zentyal.Form.submit = function (formSelector, params) {
         url : url,
         data: data,
         dataType: 'json',
-            success: function (response){
-                if (response.success) {
-                    if ('msg' in response) {
-                        noteDiv.html(response.msg).show();
-                    }
-                } else if ('error' in response) {
-                    errorDiv.html(response.error).show();
+        success: function (response){
+            if (response.success) {
+                if ('msg' in response) {
+                    noteDiv.html(response.msg).show();
                 }
+            } else if ('error' in response) {
+                errorDiv.html(response.error).show();
+            }
 
-                if ('success' in params) {
-                    params.success(response);
-                }
-            },
+            if ('success' in params) {
+                params.success(response);
+            }
+        },
         error: function(jqXHR){
             errorDiv.html(jqXHR.responseText).show();
         },

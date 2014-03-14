@@ -1,8 +1,42 @@
-HEAD
+3.4
+	+ Updated EBox::Users::Model::Password to use
+	  EBox::Usercorner::updateSessionPassword method and the new samba
+	  location
+	+ Added local apparmor profile for mysqld
+	+ Stop changing users and contacts' cn field on object edition, allowed to
+	  edit the displayName field, just as Windows does
+	+ Disable OpenLDAP users sync in favor of Samba AD replication
+	+ Avoid warning when checking whether we are in the usercorner
+	+ Updated to use Plack / PSGI instead of mod_perl
+	+ Updated to use the new haproxy API
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Fixed soap.conf for apache 2.4
+	+ Depend on apache2-utils, required to run htpasswd
+	+ Set version to 3.4
+	+ Add script to update the credentials when mode is external AD
+	+ Added and used checkMailNotInUse method
+	+ Updated cloud sync to ignore any change done in cloud to internal users
+	  or groups
+	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
+	  and added unit tests for it
+	+ Added EBox::Users::Group::setInternal method
+	+ Allow to use lazy flag with EBox::Users::User::setInternal
+	+ Added unit tests for cloud sync code
+	+ Check available IP addresses when enable module
+	+ Added lock to cloud-sync script
+	+ Better integration of edit groups for mail group aliases
+	+ Update group icon when type of group changes
+	+ Implement _preModifyUser on LdapUserBase
+	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
+	+ Fixed regression in LDAP info page for external AD mode
 	+ Print slave-sync output to zentyal.log instead of stdout
 	+ Fixed excesive restrictive validation of external AD password in wizard
-	+ Fixed 3.0 -> 3.2 migration when there are other modules extending LDAP
-3.2.6
+3.3
+	+ Forbid to create OUs inside Users, Groups or Computer OUs
+	  because we not support them when Samba is enabled
+	+ Forbid and print specific  error message when trying to put two
+	  objects with the same CN in the same container
+	+ Switch from Error to TryCatch for exception handling
 	+ Remove useless warning when deleting a user or group with offer 2013
 	+ Show system but not internal groups in user edition form
 	+ Allow unsafe characters for user and password in external AD mode.
@@ -10,22 +44,18 @@ HEAD
 	  external AD connection.
 	+ The "sub ous" return the OUs hierarquically ordered
 	+ Check for defined uidNumber and gidNumber creating users and groups
-3.2.5
 	+ Revert useless chown workaround
 	+ Wait for the services before ending the start daemon action to prevent
 	  its usage before being ready
 	+ Better error handling when the default group is not found
 	+ Fixed distribution group edition
-3.2.4
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses
 	+ Better error handling when we get a LdapObject that doesn't exists
-3.2.3
 	+ Remove undefined warnings on users/group creation
 	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
 	  is installed but disabled
-3.2.2
 	+ Add missing use to EBox::Users::LDAP::ExternalAD
 	+ Force DNS restart when users mode changed
 	+ Force service principals update on _postServiceHook in external AD mode
@@ -34,7 +64,6 @@ HEAD
 	+ Added childrenObjectClass parameter to EBox::Users::LdapObject::children
 	+ userExists and groupExists discriminates between shown objects and
 	  objects hid by SID
-3.2.1
 	+ Fixed wrong path in ExternalAD::connectWithKerberos
 	+ Update names in tree view when either user or contact is edited
 	+ Fixed wizard error when setting external AD mode
@@ -43,6 +72,8 @@ HEAD
 	  givenname and sn to get fullname.
 	+ Use paginated search when getting children nodes in LdapObject
 	+ UTF8 decode DN when retrieving it from a LDAP object
+	+ Removed old migration code from 3.0 to 3.2
+	+ Set version to 3.3
 	+ Fixed cloud-sync script
 3.2
 	+ Set version to 3.2

@@ -39,7 +39,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 use Convert::ASN1;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
@@ -77,6 +77,11 @@ sub new
 sub mainObjectClass
 {
     return 'posixAccount';
+}
+
+sub printableType
+{
+    return __('user');
 }
 
 # Clss method: defaultContainer
@@ -164,12 +169,12 @@ sub isInternal
 
 sub setInternal
 {
-    my ($self, $internal) = @_;
+    my ($self, $internal, $lazy) = @_;
 
     if ($internal) {
-        $self->set('title', 'internal');
+        $self->set('title', 'internal', $lazy);
     } else {
-        $self->set('title', undef);
+        $self->set('title', undef, $lazy);
     }
 }
 
@@ -199,6 +204,15 @@ sub save
     my ($self) = @_;
 
     my $changetype = $self->_entry->changetype();
+    my $hasCoreChanges = $self->{core_changed};
+    my $passwd = delete $self->{core_changed_password};
+
+    if ($changetype ne 'delete') {
+        if ($hasCoreChanges or defined $passwd) {
+            my $usersMod = $self->_usersMod();
+            $usersMod->notifyModsLdapUserBase('preModifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
+        }
+    }
 
     if ($self->{set_quota}) {
         my $quota = $self->get('quota');
@@ -207,12 +221,9 @@ sub save
         delete $self->{set_quota};
     }
 
-    my $passwd = delete $self->{core_changed_password};
     if (defined $passwd) {
         $self->_ldap->changeUserPassword($self->dn(), $passwd);
     }
-
-    my $hasCoreChanges = $self->{core_changed};
 
     shift @_;
     $self->SUPER::save(@_);
@@ -431,23 +442,26 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
+    my $uid = $args{uid};
+    my $parent = $args{parent};
     my $isSystemUser = 0;
     if ($args{isSystemUser}) {
         $isSystemUser = 1;
     }
-
     my $isDisabled = 0; # All users are enabled by default.
     if ($args{isDisabled}) {
         $isDisabled = 1;
     }
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
-    unless (_checkUserName($args{uid})) {
+    unless (_checkUserName($uid)) {
         my $advice = __('To avoid problems, the uid should consist only ' .
                         'of letters, digits, underscores, spaces, periods, ' .
                         'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $args{uid},
+                                            'value' => $uid,
                                             'advice' => $advice
                                            );
     }
@@ -474,44 +488,47 @@ sub create
         }
     }
 
-    if (length($args{uid}) > MAXUSERLENGTH) {
+    if (length($uid) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
-    my $userExists = $usersMod->userExists($args{uid});
+    my $userExists = $usersMod->userExists($uid);
     if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $args{uid}));
+        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $uid));
     } elsif ($userExists) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $args{uid});
+                                           'value' => $uid);
     }
     # Verify that a group with the same name does not exists
-    my $groupExists =  $usersMod->groupExists($args{uid});
+    my $groupExists =  $usersMod->groupExists($uid);
     if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
         throw EBox::Exceptions::External(
             __x(q{A built-in Windows group with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{uid})
+               name => $uid)
            );
     } elsif ($groupExists) {
         throw EBox::Exceptions::DataExists(text =>
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{uid})
+               name => $uid)
            );
     }
 
-    my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
+    my $cn = $args{givenname} . ' ' . $args{surname};
+    $class->checkCN($parent, $cn);
 
-    my @userPwAttrs = getpwnam($args{uid});
+    my $dn = 'uid=' . $uid . ',' . $parent->dn();
+
+    my @userPwAttrs = getpwnam($uid);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
 
-    my $homedir = _homeDirectory($args{uid});
+    my $homedir = _homeDirectory($uid);
     if (-e $homedir) {
-        EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
+        EBox::warn("Home directory $homedir already exists when creating user $uid");
     }
 
     # Check the password length if specified
@@ -558,7 +575,7 @@ sub create
                 $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $parentRes->set('uid', $args{uid}, 1);
+        $parentRes->set('uid', $uid, 1);
         $parentRes->set('loginShell', $class->_loginShell(), 1);
         $parentRes->set('uidNumber', $uidNumber, 1);
         $parentRes->set('gidNumber', $gid, 1);
@@ -567,7 +584,7 @@ sub create
         if ($isDisabled) {
             $parentRes->set('shadowExpire', 0, 1);
         }
-        $parentRes->set('krb5PrincipalName', $args{uid} . '@' . $realm, 1);
+        $parentRes->set('krb5PrincipalName', $uid . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
@@ -578,7 +595,7 @@ sub create
         $entry = $parentRes->_entry();
         unless ($isSystemUser) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUser', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUser', [$entry, $parent], $ignoreMods, $ignoreSlaves);
         }
 
         my $result = $entry->update($class->_ldap->{ldap});
@@ -614,7 +631,7 @@ sub create
 
                 # Call modules initialization
                 $usersMod->notifyModsLdapUserBase(
-                    'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
+                    'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
             }
         } else {
             $usersMod->reloadNSCD();
@@ -623,11 +640,9 @@ sub create
 
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase(
-                'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
+                'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -637,11 +652,11 @@ sub create
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
             $usersMod->notifyModsLdapUserBase(
-                'addUserFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
+                'addUserFailed', [ $res ], $ignoreMods, $ignoreSlaves);
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUserFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUserFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
             $parentRes->deleteObject(@_);
         }
         $res = undef;
@@ -649,15 +664,15 @@ sub create
         $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed
         $res->save();
     }
 
-    $defaultGroup->setIgnoredModules($args{ignoreMods});
-    $defaultGroup->setIgnoredSlaves($args{ignoreSlaves});
+    $defaultGroup->setIgnoredModules($ignoreMods);
+    $defaultGroup->setIgnoredSlaves($ignoreSlaves);
     $defaultGroup->addMember($res, 1);
     $defaultGroup->save();
 

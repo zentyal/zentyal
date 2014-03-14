@@ -4,29 +4,41 @@
 
    Parameters:
 
-   vHostName - String with the virtual host name
-   hostname - String with the server host name
-   portNumber - String with the HTTP listen port
-   sslportNumber - String with the HTTPS listen port
+   vHostName  - String with the virtual host name
+   hostname   - String with the server host name
+   port       - String with the HTTP listen port
+   sslPort    - String with the HTTPS listen port
    sslSupport - [disabled|allowssl|forcessl]
 </%doc>
 <%args>
   $vHostName
   $hostname
-  $portNumber
-  $sslportNumber
+  $publicPort
+  $port
+  $publicSSLPort
+  $sslPort
   $sslSupport
 </%args>
 <& /webserver/vhostHttp.mas,
-      vHostName =>  $vHostName,
-      hostname => $hostname,
-      portNumber => $portNumber,
-      sslportNumber => $sslportNumber,
+      vHostName  => $vHostName,
+      hostname   => $hostname,
+      publicPort => $publicPort,
+      port       => $port,
+      publicSSLPort => $publicSSLPort,
+      sslPort    => $sslPort,
       sslSupport => $sslSupport,
 &>
 <& /webserver/vhostHttps.mas,
-      vHostName =>  $vHostName,
-      hostname => $hostname,
-      sslportNumber => $sslportNumber,
+      vHostName  => $vHostName,
+      hostname   => $hostname,
+      publicSSLPort => $publicSSLPort,
+      sslPort    => $sslPort,
       sslSupport => $sslSupport,
 &>
+
+<Directory /srv/www/<% $vHostName %>>
+      Options Indexes FollowSymLinks
+      AllowOverride None
+      Require all granted
+</Directory>
+

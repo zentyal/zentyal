@@ -27,7 +27,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
@@ -269,7 +269,8 @@ sub _enforceServiceState
 
     try {
         $self->_stopService();
-    } otherwise {};
+    } catch {
+    }
     $self->_startService() if($self->isEnabled());
 }
 
