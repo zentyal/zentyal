@@ -1067,11 +1067,6 @@ sub _postServiceHook
     my ($self, $enabled) = @_;
 
     my $skipDynamicUpdates = 0;
-
-    # Skip dynamic updates if module disabled
-    $skipDynamicUpdates = 1 unless ($enabled);
-
-    # Skip dynamic updates while provisioning samba
     if (EBox::Global->modExists('samba')) {
         my $samba = EBox::Global->modInstance('samba');
         my $provision = $samba->getProvision();
@@ -1079,9 +1074,6 @@ sub _postServiceHook
             $skipDynamicUpdates = 1;
         }
     }
-
-    # Skip dynamic updates while booting
-    $skipDynamicUpdates = 1 unless ($0 =~ /\/global-action$/);
 
     if ($enabled and not $skipDynamicUpdates) {
         my $nTry = 0;
