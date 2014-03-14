@@ -1,4 +1,11 @@
 3.4
+	+ enable-module script is now idempotent
+	+ enable-module script will not change password file if run more than once
+	+ Module manages Roundcube htaccess. Max upload file size is now got from
+	  the mail module. Also added a default timezone to avoid Roundcube warning
+	+ Properly enabled mcrypt module (hotfix)
+	+ Adapt to Apache 2.4
+	+ Rename ebox-webmail conf to zentyal-webmail
 	+ Do not depend on roundcube-plugins-openchange
 	+ Set version to 3.4
 3.3

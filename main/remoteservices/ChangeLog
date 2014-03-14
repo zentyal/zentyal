@@ -1,4 +1,5 @@
 3.4
+	+ Port proxy redirections to Nginx from Apache
 	+ Use the new PortObserver to report a change in the webadmin
 	  listening port
 	+ Migrated to use Plack as the application server instead of mod_perl
@@ -8,6 +9,10 @@
 	  and uses it as base in specific behaviour
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Fix: Do not subscribe to the newsletter in the wizard if the
+	  user requires so
+	+ On initial setup, do only reload bundle and restart the service
+	  if the server is registered
 	+ Fix warning on last inside an eval on automatic-conf-backup script
 3.3
 	+ Hide close button on subscription progress dialog

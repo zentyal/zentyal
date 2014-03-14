@@ -64,7 +64,7 @@ sub _process
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
-        my $setText = 0;
+        my $setText = undef;
         $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
@@ -72,6 +72,7 @@ sub _process
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
+            $self->_requireParamAllowEmpty('displayname', __('display name'));
             $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('mail', __('E-Mail'));
             $self->_requireParamAllowEmpty('password', __('password'));
@@ -81,12 +82,14 @@ sub _process
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
 
-            my $fullname = "$givenName $surname";
-            if ($fullname ne $user->get('cn')) {
-                $user->checkCN($user->parent(), $fullname);
-                $setText = $user->get('uid') . " ($fullname)";
+            my $displayname = $self->unsafeParam('displayname');
+            if (length ($displayname)) {
+                $user->set('displayName', $displayname, 1);
+                $setText = $user->name() . " ($displayname)";
+            } else {
+                $user->delete('displayName', 1);
+                $setText = $user->name();
             }
-
             my $description = $self->unsafeParam('description');
             if (length ($description)) {
                 $user->set('description', $description, 1);
@@ -94,7 +97,8 @@ sub _process
                 $user->delete('description', 1);
             }
             my $mail = $self->unsafeParam('mail');
-            if (length ($mail)) {
+            if (length ($mail) and ($mail ne $user->get('mail'))) {
+                $user->checkMail($mail);
                 $user->set('mail', $mail, 1);
             } else {
                 $user->delete('mail', 1);
@@ -102,7 +106,6 @@ sub _process
 
             $user->set('givenname', $givenName, 1);
             $user->set('sn', $surname, 1);
-            $user->set('cn', $fullname, 1);
             $user->setDisabled($disabled);
 
             # Change password if not empty

@@ -1,3 +1,4 @@
+// Copyright (C) 2013-2014 Zentyal S.L. licensed under the GPLv2
 "use strict";
 
 Zentyal.namespace('Dialog');
@@ -100,7 +101,7 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
                 params.complete(response);
             }
             if ('redirect' in response) {
-                window.location = response.redirect;
+                window.location.replace(response.redirect);
             }
         },
         error: function(jqXHR){

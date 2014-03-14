@@ -4690,4 +4690,12 @@ sub pageNumbersText
    }
 }
 
+# Method: auditable
+#
+#  whether changes in this component should be audited
+#
+sub auditable
+{
+    return 1;
+}
 1;

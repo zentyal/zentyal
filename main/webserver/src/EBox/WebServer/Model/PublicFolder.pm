@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::WebServer::Model::GeneralSettings;
+package EBox::WebServer::Model::PublicFolder;
 use base 'EBox::Model::DataForm';
 
-# Class: EBox::WebServer::Model::GeneralSettings
+# Class: EBox::WebServer::Model::PublicFolder
 #
-#   Form to set the general configuration settings for the web server.
+#   Form to set the user public folder settings for the web server.
 #
 
 use EBox::Global;
@@ -45,7 +45,7 @@ use constant PUBLIC_DIR => 'public_html';
 
 # Constructor: new
 #
-#       Create the new GeneralSettings model.
+#       Create the new PublicFolder model.
 #
 # Overrides:
 #
@@ -53,7 +53,7 @@ use constant PUBLIC_DIR => 'public_html';
 #
 # Returns:
 #
-#       <EBox::WebServer::Model::GeneralSettings> - the recently
+#       <EBox::WebServer::Model::PublicFolder> - the recently
 #       created model.
 #
 sub new
@@ -130,7 +130,7 @@ sub message
     if ($action eq 'update') {
         my $userstatus = $self->value('enableDir');
         if ($userstatus)  {
-            return __('Configuration Settings saved.') . '<br>' .
+            return __('User public folder configuration settings updated.') . '<br>' .
                    __x('Remember that in order to have UserDir working, you should create the {p} directory, and to provide www-data execution permissions over the involved /home/user directories.', p => PUBLIC_DIR);
         }
     }
@@ -158,27 +158,23 @@ sub _table
             fieldName     => 'enableDir',
             printableName => __x('Enable per user {dirName}', dirName => PUBLIC_DIR),
             editable      => 1,
-            defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
+            defaultValue  => EBox::WebServer::Model::PublicFolder::DefaultEnableDir(),
             help          => __('Allow users to publish web documents using the public_html directory on their home.')
             ),
     );
 
     my $dataTable = {
-       tableName          => 'GeneralSettings',
-       printableTableName => __('General configuration settings'),
+       tableName          => 'PublicFolder',
+       printableTableName => __('User public folder settings'),
        defaultActions     => [ 'editField', 'changeView' ],
        tableDescription   => \@tableHeader,
        class              => 'dataForm',
-       help               => __x('General Web server configuration. If you enable '
+       help               => __x('User public folder configuration. If you enable '
                                  . 'user to publish their own html pages, those should be '
-                                 . 'loaded from {dirName} directory from their home directories. If you want to '
-                                 . 'change the public ports or enable/disable SSL, you can do it from the '
-                                 . '{ohref}System\'s General configuration page{chref}.',
-                                 dirName => PUBLIC_DIR,
-                                 ohref => '<a href="/SysInfo/Composite/General">',
-                                 chref => '</a>'),
+                                 . 'loaded from {dirName} directory from their home directories.',
+                                 dirName => PUBLIC_DIR),
        messages           => {
-                              update => __('General Web server configuration settings updated.'),
+                              update => __('User public folder configuration settings updated.'),
                              },
        modelDomain        => 'WebServer',
     };

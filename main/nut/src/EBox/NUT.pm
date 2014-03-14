@@ -160,7 +160,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'nut',
+            'name' => 'nut-server',
             'type' => 'init.d',
             'pidfiles' => ['/var/run/nut/upsd.pid', '/var/run/nut/upsmon.pid'],
         },

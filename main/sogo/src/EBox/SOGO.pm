@@ -50,32 +50,13 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        EBox::Sudo::root("a2ensite zentyal-sogo");
+        EBox::Sudo::root("a2enconf zentyal-sogo");
     } else {
-        EBox::Sudo::root("a2dissite zentyal-sogo");
+        EBox::Sudo::root("a2disconf zentyal-sogo");
     }
 }
 
 # Group: Public methods
-
-# Method: usedFiles
-#
-#        Indicate which files are required to overwrite to configure
-#        the module to work. Check overriden method for details
-#
-# Overrides:
-#
-#        <EBox::Module::Service::usedFiles>
-#
-sub usedFiles
-{
-    my ($self) = @_;
-
-    my $sogoApacheConf = EBox::WebServer::GLOBAL_CONF_DIR . 'zentyal-sogo';
-    return [
-        { 'file' => $sogoApacheConf, 'module' => 'webmail', 'reason' => __('To configure the webmail on the webserver.') }
-    ];
-}
 
 # Method: actions
 #
@@ -133,5 +114,6 @@ sub _daemons
 {
     return [ { 'name' => 'sogo', 'type' => 'init.d' } ];
 }
+
 
 1;

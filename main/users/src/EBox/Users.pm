@@ -395,8 +395,40 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
+    # Upgrade from previous versions
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        # Perform the migration to 3.4
+        $self->_migrateTo34();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.4
+#
+# * Fixed displayName value to match cn if not set already.
+#
+sub _migrateTo34
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    my $ldap = $self->ldap;
+
+    my $users = $self->users(1);
+    foreach my $user (@{$users}) {
+        unless ($user->displayname()) {
+            $user->set('displayName', $user->fullname());
+        }
+    }
+
+    foreach my $contact (@{$self->contacts()}) {
+        unless ($contact->displayname()) {
+            $contact->set('displayName', $contact->fullname());
+        }
+    }
 }
 
 sub _checkEnableIPs
@@ -882,7 +914,9 @@ sub _setConfInternal
 
         push(@params, 'cloudsync_enabled' => 1);
     }
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
+
+    # TODO: No users sync in 3.4, reenable in 4.0
+    #$self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -1863,11 +1897,12 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/UserTemplate',
             'text' => __('User Template'), order => 30));
-        if ($self->mode() eq STANDALONE_MODE) {
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Users/Composite/Sync',
-                'text' => __('Synchronization'), order => 40));
-        }
+# TODO: re-enable this in Zentyal 4.0 for Cloud Sync
+#        if ($self->mode() eq STANDALONE_MODE) {
+#            $folder->add(new EBox::Menu::Item(
+#                'url'  => 'Users/Composite/Sync',
+#                'text' => __('Synchronization'), order => 40));
+#        }
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/Settings',
             'text' => __('LDAP Settings'), order => 50));
@@ -2482,6 +2517,68 @@ sub ousToHide
     }
 
     return \@ous;
+}
+
+# Method: checkMailNotInUse
+#
+#   check if a mail address is not used by the system and throw exception if it
+#   is already used
+#
+#   If mail module is installed its checkMailNotInUse method should be called
+#   instead this one
+sub checkMailNotInUse
+{
+    my ($self, $addr) = @_;
+    my $usersMod = $self->global()->modInstance('users');
+    my %searchParams = (
+        base => $usersMod->ldap()->dn(),
+        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        scope => 'sub'
+    );
+
+    my $result = $self->{'ldap'}->search(\%searchParams);
+    if ($result->count() > 0) {
+        my $entry = $result->entry(0);
+        my $modeledObject = $usersMod->entryModeledObject($entry);
+        my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
+        my $name;
+        if ($type eq 'CourierMailAlias') {
+            $type = __('alias');
+            $name = $entry->get_value('mail');
+        } else {
+            $name = $modeledObject ? $modeledObject->name() : $entry->dn();
+        }
+
+        EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
+                                              addr => $addr,
+                                              type => $type,
+                                              name => $name,
+                                        ),
+                                    );
+    }
+}
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting mysqld apparmor profile');
+    return [
+        {
+         'binary' => 'usr.sbin.mysqld',
+         'local'  => 1,
+         'file'   => 'users/apparmor-mysqld.local.mas',
+         'params' => [],
+        }
+    ];
 }
 
 1;

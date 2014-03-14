@@ -89,6 +89,10 @@ sub initialSetup
             and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
     }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
 }
 
 # Migration of form keys after extracting the rewrite rule for outgoing domain
@@ -294,6 +298,7 @@ sub _setConf
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
     $self->_setRPCProxyConf();
+
     $self->_writeRewritePolicy();
 }
 
@@ -452,8 +457,6 @@ sub _setRPCProxyConf
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
         EBox::Sudo::root(@cmds);
-
-        $self->_createRPCProxyCertificate();
     }
 }
 
@@ -472,6 +475,7 @@ sub _createRPCProxyCertificate
         EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
     };
     if (not $issuer) {
+        EBox::error("Not found issuer. Certifcate for RPC proxy will left untouched");
         return;
     }
 
@@ -866,11 +870,11 @@ sub HAProxyInternalService
     }
 
     my @services;
-    if ($RPCProxyModel->httpEnabled()) {
+    if ($RPCProxyModel->httpsEnabled()) {
         my $rpcpService = {
             name => 'oc_rpcproxy_https',
             port => 443,
-            printableName => __('OpenChange RPCProxy'),
+            printableName => 'OpenChange RPCProxy',
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
@@ -885,18 +889,26 @@ sub HAProxyInternalService
         my $httpRpcpService = {
             name => 'oc_rpcproxy_http',
             port => 80,
-            printableName => __('OpenChange RPCProxy'),
+            printableName => 'OpenChange RPCProxy',
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => $self->_rpcProxyCertificate(),
             isSSL   => 0,
         };
         push @services, $httpRpcpService;
     }
 
     return \@services;
+}
+
+sub HAProxyPreSetConf
+{
+    my ($self) = @_;
+    if ($self->_rpcProxyEnabled()) {
+        # the certificate must be in place before harpoxy restarts
+        $self->_createRPCProxyCertificate();
+    }
 }
 
 sub _vdomainModImplementation
@@ -942,7 +954,7 @@ sub isProvisionedWithMySQL
 #   OpenChange: named properties, openchangedb and indexing.
 #
 #   Currently MySQL is used as backend, the first time this method is called an
-#   openchange user will be created 
+#   openchange user will be created
 #
 # Returns:
 #

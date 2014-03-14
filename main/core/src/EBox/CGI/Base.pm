@@ -220,6 +220,7 @@ sub _printPopup
     $output .= $body if ($body);
     $output .= '</div>';
 
+    utf8::encode($output);
     $response->body($output);
 }
 

@@ -43,7 +43,7 @@ sub ids
 {
     my ($self)  = @_;
 
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
 
     unless (defined($self->{clusterStatus}->nodes())) {
         return [];
@@ -160,7 +160,7 @@ sub _parseNode_floating
 
         if ($resource{'resource_agent'} eq 'ocf::heartbeat:IPaddr2') {
             foreach my $nodeId (@{$resource{'nodes'}}) {
-                my $managingNode = $self->{clusterStatus}->nodeById($nodeId);
+                my $managingNode = $self->{clusterStatus}->nodeByName($nodeId);
 
                 if ($node{'name'} eq $managingNode->{'name'}) {
                     $result = $result . " - " if ($result);

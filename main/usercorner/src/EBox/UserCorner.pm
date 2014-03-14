@@ -131,11 +131,21 @@ sub initialSetup
         push (@args, force          => 1);
         my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
+        $haproxyMod->saveConfigRecursive();
     }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrate34();
+        $self->_migrateTo34();
+    }
+
+    if ($self->changed()) {
+       $self->saveConfigRecursive();
+    }
+
+    my $fwMod = $self->global()->modInstance('firewall');
+    if ($fwMod and $fwMod->changed()){
+        $fwMod->saveConfigRecursive();
     }
 }
 
@@ -251,6 +261,31 @@ sub enableActions
         }
     }
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
+}
+
+# Method: menu
+#
+# Show the usercorner menu entry
+#
+# Overrides:
+#
+# <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
+                                        'text' => __('Users and Computers'),
+                                        'separator' => 'Office',
+                                        'order' => 510);
+
+    my $item = new EBox::Menu::Item(text => $self->printableName(),
+                                    url => 'Users/UserCorner',
+                                    order => 100);
+    $folder->add($item);
+    $root->add($folder);
 }
 
 # Method: _daemons
@@ -415,6 +450,13 @@ sub userCredentials
     }
 
     return ($user, $pass, $userDN);
+}
+
+sub updateSessionPassword
+{
+    my ($self, $passwd) = @_;
+    my $global = $self->global();
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $passwd);
 }
 
 #

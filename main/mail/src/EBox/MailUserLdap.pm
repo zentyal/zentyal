@@ -78,11 +78,7 @@ sub setUserAccount
     my $email = $lhs.'@'.$rhs;
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-
-    if ($mail->{malias}->accountExists($email)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                           'value' => $email);
-    }
+    $mail->checkMailNotInUse($email);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 
@@ -812,7 +808,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/authldap.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
 

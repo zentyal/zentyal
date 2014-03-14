@@ -60,7 +60,7 @@ sub isHTTPPortEnabled
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     unless ($moduleRow) {
         return undef;
@@ -85,7 +85,7 @@ sub listeningHTTPPort
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     if ($self->isHTTPPortEnabled()) {
         return $moduleRow->valueByName('port');
@@ -109,7 +109,7 @@ sub isHTTPSPortEnabled
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     unless ($moduleRow) {
         return undef;
@@ -134,7 +134,7 @@ sub listeningHTTPSPort
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->_serviceId());
+    my $moduleRow = $services->find(serviceId => $self->serviceId());
 
     if ($self->isHTTPSPortEnabled()) {
         return $moduleRow->valueByName('sslPort');
@@ -156,13 +156,13 @@ sub allowServiceDisabling
     return 1;
 }
 
-# Method: _serviceId
+# Method: serviceId
 #
 # Returns:
 #
 #   string - A unique ID across Zentyal that identifies this HAProxy service.
 #
-sub _serviceId
+sub serviceId
 {
     my ($self) = @_;
 
@@ -231,7 +231,6 @@ sub pathHTTPSSSLCertificate
 #   string - The CA SSL service name for HAProxy.
 #
 sub caServiceIdForHTTPS
-
 {
     my ($self) = @_;
 
@@ -308,6 +307,16 @@ sub targetHTTPSPort
 sub HAProxyInternalService
 {
     return undef;
+}
+
+# MNethod: HAProxyPreSetConf
+#
+# this method we will invoked before HAProxy set conf, it could be useful
+# to do things like putting certificates in place
+#
+# Default implementation is to do nothing
+sub HAProxyPreSetConf
+{
 }
 
 1;

@@ -41,20 +41,23 @@ my $_timeCreation = undef;
 
 # Constructor: new
 #
-# Parameters:
+# Named parameters:
 #
 #      ha - <EBox::HA> module instance
+#      force - Boolean force the refresh *(Optional)*
+#      xml_dump - String XML dump *(Optional)*
+#      text_dump - String Text dump *(Optional)*
 #
 sub new
 {
-    my ($class, $ha, $xml_dump, $text_dump) = @_;
+    my ($class, %params) = @_;
 
-    my $self = { ha => $ha};
+    my $self = { ha => $params{ha}};
     bless($self, $class);
 
     if ((!defined $_timeCreation) or (time - $_timeCreation > REFRESH_RATE)
-                                                   or $xml_dump or $text_dump) {
-        return $self->_parseCrmMonCommands($xml_dump, $text_dump);
+        or $params{force} or $params{xml_dump} or $params{text_dump}) {
+        return $self->_parseCrmMonCommands($params{xml_dump}, $params{text_dump});
     } else {
         return $self;
     }
@@ -162,6 +165,25 @@ sub resourceByName
     }
 
     return undef;
+}
+
+# Function areThereUnamanagedResources
+#
+# Returns:
+#
+#   Boolean - Whether there are unamanaged resources in the Cluster or not
+#
+sub areThereUnamanagedResources
+{
+    my ($self) = @_;
+
+    foreach my $key (keys %{ $_resources }) {
+        if (not $_resources->{$key}{managed}) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 # Function: nodeByName
@@ -496,8 +518,10 @@ sub _parseResources
                          };
         # Store the nodes we are running on
         if ($resources{$name}->{nodes_running_on} > 0) {
-            my @nodes = map { $_->getAttribute('id') } $xmlResource->findnodes('./node');
+            my @nodes = map { $_->getAttribute('name') } $xmlResource->findnodes('./node');
             $resources{$name}->{nodes} = \@nodes;
+        } else {
+            $resources{$name}->{nodes} = [];
         }
     }
 

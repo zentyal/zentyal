@@ -51,13 +51,17 @@ sub promote
     my ($nodeName) = @_;
 
     my @cmds = ();
+    my $clusterStatus = new EBox::HA::ClusterStatus(ha => EBox::Global->getInstance()->modInstance('ha'),
+                                                    force => 1);
+
     foreach my $r (@{_simpleResources()}) {
-        my $node = _locateResource($r);
-        if (not defined($node) or ($node ne $nodeName)) {
+        my $resourceStatus = $clusterStatus->resourceByName($r);
+        my @runningNodes = @{ $resourceStatus->{nodes} };
+
+        if (not ($nodeName ~~ @runningNodes)) {
             push(@cmds,
-                 qq{crm_resource --resource '$r' --move --host '$nodeName'},
-                 'sleep 3',
-                 qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+                 qq{crm_resource --resource '$r' --clear},  # Clear any previous outdated constraint
+                 qq{crm_resource --resource '$r' --move --host '$nodeName' --lifetime 'P30S'});
         }
     }
 
@@ -88,9 +92,10 @@ sub demote
 
     my @cmds = ();
     foreach my $r (@{_simpleResources()}) {
-        push(@cmds, qq{crm_resource --resource '$r' --ban --host '$nodeName'});
-        push(@cmds, qq{sleep 3});  # Wait for the resource to stop in the local node
-        push(@cmds, qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+        push(@cmds,
+             qq{crm_resource --resource '$r' --clear},  # Clear any previous outdated constraint
+             qq{crm_resource --resource '$r' --ban --host '$nodeName' --lifetime 'P30S'},
+             );
     }
 
     EBox::Sudo::root(@cmds);
@@ -110,23 +115,6 @@ sub _simpleResources
 
     my @primitives = map { $_->getAttribute('id') } @primitivesElems;
     return \@primitives;
-}
-
-# Locate a resource based on info from monDoc
-# Return undef if the resource is stopped
-sub _locateResource
-{
-    my ($rscName) = @_;
-
-    my $clusterStatus = new EBox::HA::ClusterStatus();
-    my $dom = $clusterStatus->xmlStatus();
-
-    my ($elem) = $dom->findnodes("//resource[\@id='$rscName']");
-    if (defined($elem) and $elem->getAttribute('role') eq 'Started') {
-        return $elem->childNodes()->get_node(2)->getAttribute('name');
-    }
-
-    return undef;
 }
 
 1;

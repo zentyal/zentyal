@@ -1,10 +1,14 @@
 3.4
+	+ Added and used checkMailNotInUse method
 	+ Added _delVDomainAbort to LdapVDomain base to give the
 	  opportunity to abort vdomain removals
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Added and used checkMailNotInUse method
+	+ Don't add mail which already exists when adding group alias
 	+ Better integration with openchange account addon
 	+ Remove openchange account when removing mail account
+	+ Postfix max mail size is increased by 36% because of base64 encoding
 	+ Better integration of group alias addon
 	+ Added openchange outgoing mail rewriting
 	+ Added sieve_dir plugin parameter

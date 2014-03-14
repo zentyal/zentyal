@@ -107,6 +107,7 @@ sub ports
         my $row = $services->row($id);
         my $serviceId = $row->valueByName('serviceId');
         my $module = $global->modInstance($row->valueByName('module'));
+        next unless (defined($module));  # syncRows hasn't be launched
 
         my $enabledPort = $module->isHTTPPortEnabled();
         my $port = undef;
@@ -208,6 +209,11 @@ sub _hiddenServices
 sub _setConf
 {
     my ($self) = @_;
+
+    # execute HAProxyPreSetConf for dependent modules
+    foreach my $mod (@{ $self->modsWithHAProxyService() }) {
+        $mod->HAProxyPreSetConf();
+    }
 
     my @params = ();
     push (@params, haproxyconfpath => HAPROXY_CONF_FILE);
@@ -330,7 +336,6 @@ sub modsWithHAProxyService
 
     my @mods;
     foreach my $module (@allModules) {
-        $module->configured() or next;
         if ($module->isa('EBox::HAProxy::ServiceBase')) {
             push (@mods, $module);
         }
@@ -462,17 +467,35 @@ sub initialSetup
     }
 }
 
-# Method: enableActions
+# Method: certificates
 #
-#   Override EBox::Module::Service::enableActions
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
 #
-sub enableActions
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
 {
     my ($self) = @_;
-
-    # FIXME: workaround to stop apache, otherwise port 80
-    #        will be in use and haproxy will fail to listen on it
-    EBox::Sudo::silentRoot('service apache2 stop');
+    my $webadmin = $self->global()->modInstance('webadmin');
+    return [
+            {
+             serviceId =>  'zentyal_' . $webadmin->name(),
+             service =>  __('Zentyal Administration Web Server'),
+             path    =>  $webadmin->pathHTTPSSSLCertificate(),
+             user => EBox::Config::user(),
+             group => EBox::Config::group(),
+             mode => '0600',
+            },
+           ];
 }
 
 1;

@@ -90,7 +90,8 @@ sub _table
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __('Setup access to Openchange throught HTTP/HTTPS. Remember that HTTPS requires you import Zentyal certificate into your Windows account'),
+        help               => __x('Setup access to {oc} through HTTP/HTTPS. Remember HTTPS access requires you import Zentyal certificate into your {win} account',
+                                  'oc' => 'OpenChange', win => 'Windows'),
     };
 
     return $dataForm;
@@ -112,8 +113,8 @@ sub precondition
     try {
         $host = $self->_host();
         if (not $host) {
-            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}>',
-                                               oh => '<a href="/DNS/Composite/Global"',
+            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}',
+                                               oh => '<a href="/DNS/Composite/Global">',
                                                ch => '</a>'
                                               );
         }
@@ -152,7 +153,7 @@ sub _webserverEnabled
 sub enabled
 {
     my ($self) = @_;
-    return $self->httpEnabled() or $self->httpsEnabled();
+    return ($self->httpEnabled() or $self->httpsEnabled());
 }
 
 sub httpEnabled
@@ -161,7 +162,7 @@ sub httpEnabled
     if (not $self->_webserverEnabled()) {
         return 0;
     }
-    return $self->value('http')
+    return $self->value('http');
 }
 
 sub httpsEnabled
@@ -170,14 +171,14 @@ sub httpsEnabled
     if (not $self->_webserverEnabled()) {
         return 0;
     }
-    return $self->value('https')
+    return $self->value('https');
 }
 
 sub formSubmitted
 {
     my ($self, $row, $oldRow) = @_;
     # mark webadmin as changed if the service has changed
-    $self->global()->modInstance('haproxy')->setAsChanged();
+    $self->global()->modInstance('haproxy')->setAsChanged(1);
 }
 
 1;

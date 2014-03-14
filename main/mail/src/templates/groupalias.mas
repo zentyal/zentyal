@@ -70,7 +70,7 @@ $(function(){
       if (ev.groupEmpty) {
           $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
       } else if (!ev.usersWithMail) {
-          $(this).show().text('<% __('Group aliases cannot be created because any user has mail account') %>');
+          $(this).show().text('<% __('Group aliases cannot be created because no user has mail account') %>');
       } else {
           $(this).hide();
       }

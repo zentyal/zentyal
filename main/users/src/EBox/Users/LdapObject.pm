@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -138,7 +138,6 @@ sub get
 sub set
 {
     my ($self, $attr, $value, $lazy) = @_;
-
     $self->_entry->replace($attr => $value);
     $self->save() unless $lazy;
 }
@@ -662,12 +661,25 @@ sub checkCN
         my ($sameCN) = @children;
         my $type = $sameCN->printableType();
         throw EBox::Exceptions::External(
-            __x("There exists already a object of type {type} with CN={cn} in this container",
+            __x("There is already an object of type {type} with CN={cn} in this container",
                 type => $type,
                 cn => $cn
                )
            );
     }
+}
+
+# Method: checkMail
+#
+#   Helper class to check if a mail address is valid and not in use
+sub checkMail
+{
+    my ($class, $address) = @_;
+    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
+
+    my $global = EBox::Global->getInstance();
+    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
+    $mod->checkMailNotInUse($address);
 }
 
 1;

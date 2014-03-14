@@ -1,4 +1,11 @@
 3.4
+	+ Updated EBox::Users::Model::Password to use
+	  EBox::Usercorner::updateSessionPassword method and the new samba
+	  location
+	+ Added local apparmor profile for mysqld
+	+ Stop changing users and contacts' cn field on object edition, allowed to
+	  edit the displayName field, just as Windows does
+	+ Disable OpenLDAP users sync in favor of Samba AD replication
 	+ Avoid warning when checking whether we are in the usercorner
 	+ Updated to use Plack / PSGI instead of mod_perl
 	+ Updated to use the new haproxy API
@@ -6,6 +13,15 @@
 	+ Fixed soap.conf for apache 2.4
 	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
+	+ Add script to update the credentials when mode is external AD
+	+ Added and used checkMailNotInUse method
+	+ Updated cloud sync to ignore any change done in cloud to internal users
+	  or groups
+	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
+	  and added unit tests for it
+	+ Added EBox::Users::Group::setInternal method
+	+ Allow to use lazy flag with EBox::Users::User::setInternal
+	+ Added unit tests for cloud sync code
 	+ Check available IP addresses when enable module
 	+ Added lock to cloud-sync script
 	+ Better integration of edit groups for mail group aliases

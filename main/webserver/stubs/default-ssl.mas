@@ -1,24 +1,30 @@
 <%args>
   $hostname
+  $publicSSLPort
   $sslPort
   $hostnameVhost
 </%args>
 <IfModule mod_ssl.c>
 % if ($hostnameVhost) {
   <& /webserver/vhostHttps.mas,
-       hostname   => $hostname,
-       vHostName  => $hostname,
-       sslPort    => $sslPort,
-       sslSupport => $hostnameVhost->{ssl},
+       hostname      => $hostname,
+       vHostName     => $hostname,
+       publicSSLPort => $publicSSLPort,
+       sslPort       => $sslPort,
+       sslSupport    => $hostnameVhost->{ssl},
    &>
 % }
 # This file is for SSL hosting, however it doesn't activate Apache's SSL
 # given that in Zentyal, SSL handling is done by HAProxy.
 
 <VirtualHost *:<% $sslPort %>>
-	ServerAdmin webmaster@<% $hostname %>
+    ServerName <% $hostname %>:<% $publicSSLPort %>
 
-	DocumentRoot /var/www
+    SetEnv HTTPS On
+
+    ServerAdmin webmaster@<% $hostname %>
+
+    DocumentRoot /var/www
 
     # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
     # error, crit, alert, emerg.

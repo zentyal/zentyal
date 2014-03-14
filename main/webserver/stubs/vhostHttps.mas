@@ -4,14 +4,16 @@
 
    Parameters:
 
-   vHostName  - String with the virtual host name
-   hostname   - String with the server host name
-   sslPort    - String with the HTTPS listen port
-   sslSupport - [disabled|allowssl|forcessl]
+   vHostName     - String with the virtual host name
+   hostname      - String with the server host name
+   publicSSLPort - String with the HTTPS listen port
+   sslPort       - String with the HTTPS internal port
+   sslSupport    - [disabled|allowssl|forcessl]
 </%doc>
 <%args>
   $vHostName
   $hostname
+  $publicSSLPort
   $sslPort
   $sslSupport
 </%args>
@@ -27,8 +29,10 @@
 <VirtualHost *:<% $sslPort %>>
         ServerAdmin webmaster@<% $hostname %>
 
-        ServerName <% $vHostName %>
+        ServerName <% $vHostName %>:<% $publicSSLPort %>
         DocumentRoot <% $docRoot %>/<% $vHostName %>
+
+        SetEnv HTTPS On
 
         ErrorLog /var/log/apache2/<% $vHostName %>-error.log
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined

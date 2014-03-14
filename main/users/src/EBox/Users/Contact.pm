@@ -102,17 +102,6 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-# Method: fullname
-#
-#  Overrided because we cannot use the cn
-sub fullname
-{
-    my ($self) = @_;
-    my $givenname = $self->get('givenname');
-    my $surname   = $self->get('sn');
-    return "$givenname $surname";
-}
-
 # Method: create
 #
 #       Adds a new contact
@@ -136,17 +125,21 @@ sub create
     my ($class, %args) = @_;
 
     # Check for required arguments.
-    throw EBox::Exceptions::MissingArgument('fullname') unless ($args{fullname});
-    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
-    throw EBox::Exceptions::InvalidData(
-        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
+    unless ($args{parent}) {
+        throw EBox::Exceptions::MissingArgument('parent');
+    }
+    unless ($args{parent}->isContainer()) {
+        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
+    }
 
     my $fullName = $args{fullname};
     my $parent = $args{parent};
     my $ignoreMods   = $args{ignoreMods};
     my $ignoreSlaves = $args{ignoreSlaves};
 
-    $fullName = $class->generatedFullName(%args) unless ($fullName);
+    unless ($fullName) {
+        $fullName = $class->generatedFullName(%args);
+    }
 
     unless ($fullName) {
         throw EBox::Exceptions::InvalidData(

@@ -567,7 +567,7 @@ sub create
     }
     push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
     if (defined $args{mail} and $args{mail}) {
-        EBox::Validate::checkEmailAddress($args{mail}, __('E-mail'));
+        $class->checkMail($args{mail});
         push (@attr, 'mail' => $args{mail});
     }
 
@@ -755,6 +755,16 @@ sub isInternal
     return $self->get('internal');
 }
 
+sub setInternal
+{
+    my ($self, $internal, $lazy) = @_;
+
+    if ($internal) {
+        $self->set('internal', 1, $lazy);
+    } else {
+        $self->set('internal', undef, $lazy);
+    }
+}
 
 sub _checkGid
 {

@@ -407,18 +407,9 @@ sub linkContainer
         }
     }
     $ldbObject->_linkWithUsersObject($ldapObject);
-
-    if ($ldb{advanced}) {
-        # LDB Object is a container and API forbid to change a Container, but
-        # setting the isCriticalSystemObject is valid. Workaround the
-        # restriction.
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 1);
-        $entry->update($ldbObject->_ldap->connection());
-    } else {
-        my $entry = $ldbObject->_entry();
-        $entry->replace(isCriticalSystemObject => 0);
-        $entry->update($ldbObject->_ldap->connection());
+    unless ($ldbObject->isa('EBox::Samba::Container') or $ldbObject->isa('EBox::Samba::BuiltinDomain')) {
+        # All objects except EBox::Samba::Container or EBox::Samba::BuiltinDomain can be modified
+        $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
     }
 }
 
@@ -1500,7 +1491,8 @@ sub provisionADC
     }
     # Revert primary resolver changes
     if (defined $dnsFile and -f $dnsFile) {
-        EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                         'resolvconf -d zentyal.temp');
         unlink $dnsFile;
     }
     # Remote stashed password
