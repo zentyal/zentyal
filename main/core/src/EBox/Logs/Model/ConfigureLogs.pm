@@ -158,8 +158,6 @@ sub syncRows
         $changed = 1;
     }
 
-    $self->global()->addModuleToPostSave('logs') if $changed;
-
     return $changed;
 }
 
