@@ -11,7 +11,7 @@ Pre-Depends: mysql-server
 Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
          zentyal-monitor, zentyal-openvpn, zentyal-software,
          libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl,
-         liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl,
+         liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-xs-perl,
          libtext-csv-perl, screen, john, libapt-pkg-perl, apache2,
          curl, at, libwww-perl, libfile-copy-recursive-perl,
          libossp-uuid-perl, apt-transport-https, ocsinventory-agent,
