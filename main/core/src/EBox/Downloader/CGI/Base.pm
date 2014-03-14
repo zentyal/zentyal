@@ -29,22 +29,29 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
+# Core modules
 use File::Basename;
 use TryCatch::Lite;
+
+# Dependencies
 use File::MMagic;
+
+# Group: Public methods
 
 # Constructor: new
 #
 #      Create a <EBox::Downloader::CGI::Base>
 #
 #
-sub new
+sub new # (cgi=?)
 {
     my ($class, %params) = @_;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
     return  $self;
 }
+
+# Group: Protected methods
 
 # Method: _path
 #

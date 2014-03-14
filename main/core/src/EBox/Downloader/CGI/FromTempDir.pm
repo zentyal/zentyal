@@ -32,8 +32,11 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 
+# Core modules
 use TryCatch::Lite;
 use Cwd 'abs_path';
+
+# Group: Public methods
 
 # Constructor: new
 #
@@ -44,7 +47,7 @@ use Cwd 'abs_path';
 #   <EBox::Exceptions::MissingArgument> - If filename is not passsed
 #   <EBox::Exceptions::Internal> - If file can't be read or is an invalid path
 #
-sub new
+sub new # (cgi=?)
 {
 
     my ($class, %params) = @_;
@@ -120,9 +123,7 @@ sub _print
 
     $self->SUPER::_print(@params);
 
-    if (not $self->param('keepFile')) {
-        unlink ($self->{path}) if ( -e $self->{path} );
-    }
+    unlink ($self->{path}) if ( -e $self->{path} );
 }
 
 1;
