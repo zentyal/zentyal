@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 11:55+0200\n"
-"PO-Revision-Date: 2014-03-04 19:29+0200\n"
-"Last-Translator: gcxhosting <arnon@gcx-hosting.com>\n"
+"PO-Revision-Date: 2014-03-12 11:42+0200\n"
+"Last-Translator: robb <r_bosch@gmx.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -1327,11 +1327,9 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} heeft geen IP adres om te gebruiken"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
-msgstr ""
-"Replicatie mislukt. AUB check /var/log/zentyal/zentyal.log voor meer "
-"informatie."
+msgstr "Replicatie mislukt. Controleer {logfile} voor verdere informatie."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
@@ -1365,7 +1363,7 @@ msgstr "De naam mag alleen letters, getallen en underscores bevatten"
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "Het IP adres {ip} hoort bij geen enkele interface."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
 msgid "There is a network interface with the given IP address."
@@ -1500,7 +1498,6 @@ msgid "Configurated nodes"
 msgstr "Geconfigureerde nodes"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
 msgstr "nodes"
 
@@ -1511,7 +1508,6 @@ msgstr "Geconfigureerde bronnen"
 # #-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#
 # Vertrekpunt
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
 msgstr "bronnen"
 
@@ -1525,9 +1521,8 @@ msgid "Started at"
 msgstr "Gestart om"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Het clustert heeft geen bronnen gedefinieerd."
+msgstr "Het cluster heeft geen bronnen gedefinieerd."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
@@ -1599,6 +1594,7 @@ msgstr "geen fout"
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 msgstr ""
+"\"{initialCommandPart} bron_naam {node} node_naam_waar_bron_zich_bevindt\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:158
 #, perl-brace-format
@@ -1607,6 +1603,9 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Er is een ongecontroleerde bron, we kunnen deze op dit moment niet "
+"afhandelen. Tik in de terminal het volgende commando: {command} om de "
+"controle over de bron terug te krijgen."
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -1624,6 +1623,10 @@ msgid ""
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
 msgstr ""
+"Als je je systeem wilt beschermen tegen de laatste beveiligings risico's, "
+"hacking pogingen en aanvallen op beveiligings zwakheden? Neem dan een van de "
+"{oh}Commerciele versies{ch} die voorzien zijn van de IPS optie in de "
+"automatische beveiligings updates. "
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -18945,7 +18948,6 @@ msgid "IT"
 msgstr "Di"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:180
-#, fuzzy
 msgid "Country"
 msgstr "Land"
 

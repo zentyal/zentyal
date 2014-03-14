@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2014-02-25 10:33+0200\n"
+"PO-Revision-Date: 2014-03-10 14:03+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -1187,9 +1187,8 @@ msgstr "Sistema"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "Cluster amfitrió"
+msgstr "Estat del clúster"
 
 #: ../../main/ha/src/EBox/HA.pm:163
 msgid "To configure corosync daemon"
@@ -1248,18 +1247,16 @@ msgstr "Cap"
 #: ../../main/ha/src/EBox/HA.pm:1006
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Hi ha errors{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Últim dia"
+msgstr "Última actualizació"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
-msgstr "Error"
+msgstr "Errors"
 
 #: ../../main/ha/src/EBox/HA.pm:1021
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1277,13 +1274,12 @@ msgid "Status"
 msgstr "Estat"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
-#, fuzzy
 msgid "not enabled"
-msgstr "Activat"
+msgstr "no habilitat"
 
 #: ../../main/ha/src/EBox/HA.pm:1025
 msgid "Nodes"
-msgstr ""
+msgstr "Nodes"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175

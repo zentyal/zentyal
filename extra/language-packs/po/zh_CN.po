@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-02-19 11:22+0200\n"
-"Last-Translator: Hiweed <364961@qq.com>\n"
+"PO-Revision-Date: 2014-03-11 11:19+0200\n"
+"Last-Translator: Feng <windkoo@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1120,9 +1120,8 @@ msgstr "系统"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "集群主机"
+msgstr "集群状态"
 
 #: ../../main/ha/src/EBox/HA.pm:163
 msgid "To configure corosync daemon"
@@ -1179,18 +1178,16 @@ msgid "None"
 msgstr "无"
 
 #: ../../main/ha/src/EBox/HA.pm:1006
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "{oh}看一下{ch}"
+msgstr "{oh}出错了{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "最近一天"
+msgstr "最近更新"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
 msgstr "错误"
 
@@ -1210,9 +1207,8 @@ msgid "Status"
 msgstr "状态"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
-#, fuzzy
 msgid "not enabled"
-msgstr "链接已启用"
+msgstr "未启用"
 
 #: ../../main/ha/src/EBox/HA.pm:1025
 msgid "Nodes"
@@ -1303,17 +1299,14 @@ msgid "The IP {ip} does not belong to any interface."
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
 msgstr "已有网络接口使用了该 IP 地址"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
 msgstr "给定的IP地址有一个固定的 DHCP 对象。"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
 msgstr "有一个 DHCP 地址池包含了给出的 IP 地址。"
 
@@ -1342,7 +1335,7 @@ msgstr "好"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "重试"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
@@ -1350,7 +1343,7 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "离线"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
@@ -1366,9 +1359,8 @@ msgid "Hostname"
 msgstr "主机名"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "应用程序"
+msgstr "复制"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
 #, fuzzy
@@ -1386,19 +1378,18 @@ msgstr "集群的节点列表"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "这个月不是 31 天。"
+msgstr "这个集群不含任何节点设备。"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "{name} 当前是活动的节点"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "{name} 当前是非活动节点"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
@@ -1442,7 +1433,6 @@ msgid "Configurated nodes"
 msgstr "已配置的那些（Configured ones）"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
 msgstr "集群节点"
 
@@ -1462,12 +1452,10 @@ msgid "Resource"
 msgstr "资源"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
 msgstr "启动"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
 msgstr "这个月不是 31 天。"
 
@@ -1532,9 +1520,8 @@ msgid "The cluster does not have any errors."
 msgstr "这个月不是 31 天。"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:140
-#, fuzzy
 msgid "no error"
-msgstr "错误"
+msgstr "无错误"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:154
 #, perl-brace-format
@@ -1548,7 +1535,7 @@ msgid ""
 "There is an unmanaged resource, we cannot deal with that by the momment. You "
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
-msgstr ""
+msgstr "当前有一个未管理的资源无法处理，你应该在终端中输入以下命令来恢复其控制：{command}"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -1565,7 +1552,7 @@ msgid ""
 "attempts and attacks on security vulnerabilities? Get  one of the {oh}"
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
-msgstr ""
+msgstr "希望保护你的系统远离最近的安全威胁、黑客攻击吗？即刻获取我们包含入侵检测防护的{oh}商业版本{ch}"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1641,7 +1628,7 @@ msgstr "社区"
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:287
 #, perl-brace-format
 msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
-msgstr ""
+msgstr "高级安全更新授权你使用日常更新规则{rules}"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75

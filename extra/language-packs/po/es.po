@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-04 15:46+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2014-03-12 23:54+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Este paquete no es un paquete válido de configuraciones de Zentyal a "
+"Este paquete no es un paquete válido en la configuración de Zentyal a "
 "Zentyal: No se puede desempaquetar. "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
@@ -52,7 +52,7 @@ msgid ""
 "server configuration file)"
 msgstr ""
 "Este paquete no es un paquete válido de configuraciones de Zentyal a "
-"Zentyal: Falta el archivo de configuración del servidor. "
+"Zentyal. (Falta el archivo de configuración del servidor)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
@@ -1332,11 +1332,11 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} no tiene una direccion IP para usar"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
-"Fallo en la replicación. Por favor, comprueba el fichero /var/log/zentyal/"
-"zentyal.log para más información."
+"Fallo en la replicación. Por favor, comprueba el fichero {logfile} para más "
+"información."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
@@ -1370,7 +1370,7 @@ msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "La IP {ip} no pertenece a ninguna interfaz."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
 msgid "There is a network interface with the given IP address."
@@ -1520,18 +1520,16 @@ msgstr "Nodos configurados"
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr " nodos"
+msgstr "nodos"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
 msgid "Configurated resources"
 msgstr "Recursos configurados"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr " recursos"
+msgstr "recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1597
@@ -1543,7 +1541,6 @@ msgid "Started at"
 msgstr "Arrancado a"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
 msgstr "El cluster no tiene ningún recurso definido."
 
@@ -1631,6 +1628,8 @@ msgstr "sin errores"
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 msgstr ""
+"\"{initialCommandPart} nombre_recurso {node} "
+"nombre_nodo_donde_esta_el_recurso\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:158
 #, perl-brace-format
@@ -1639,6 +1638,9 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Hay un recurso no gestionado, no podemos manejarlo ahora mismo. Deberás "
+"escribir en una terminal el siguiente comando: {command} para recuperar el "
+"control sobre ese recurso."
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -2023,29 +2025,24 @@ msgstr ""
 "de los diferentes hosts virtuales."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:185
-#, fuzzy
 msgid "HTTP listening port"
-msgstr "puerto de escucha"
+msgstr "Puerto de escucha HTTP"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:202
-#, fuzzy
 msgid "HTTPS listening port"
-msgstr "puerto de escucha"
+msgstr "Puerto de escucha HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:221
-#, fuzzy
 msgid "Listening Ports settings"
-msgstr "Puerto de escucha"
+msgstr "Configuración de puertos de escucha"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:225
-#, fuzzy
 msgid "Listening Ports configuration"
-msgstr "Configuración del cliente"
+msgstr "Configuración de puertos de escucha"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:227
-#, fuzzy
 msgid "Listening ports configuration settings updated."
-msgstr "Configuración de quota de Zarafa actualizada."
+msgstr "Configuración de puertos de escucha actualizada."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
@@ -2176,9 +2173,9 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
-#, fuzzy
 msgid "User public folder configuration settings updated."
-msgstr "La configuración general del servidor web ha sido actualizada."
+msgstr ""
+"La configuración del directorio del usuario público ha sido actualizada."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:134
 #, perl-brace-format
@@ -2205,22 +2202,19 @@ msgstr ""
 "html en su carpeta personal."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
-#, fuzzy
 msgid "User public folder settings"
-msgstr "Configuración de usuario"
+msgstr "Configuración de carpeta pública de usuario"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "User public folder configuration. If you enable user to publish their own "
 "html pages, those should be loaded from {dirName} directory from their home "
 "directories."
 msgstr ""
-"Configuración general del Servidor Web. Si permite a los usuarios publicar "
-"sus propias páginas HTML, las páginas deberán ser cargadas desde el "
-"directorio {dirName} en sus directorios de inicio. Si quieres cambiar los "
-"puertos públicos o habilitar/deshabilitar el SSL, lo puedes hacer desde la "
-"{ohref}página de configuración general del sistema{chref}."
+"Configuración de carpeta pública de usuario. Si activas esto, los usuarios "
+"pueden publicar sus propias páginas HTML, las páginas deberán ser cargadas "
+"desde el directorio {dirName} en sus directorios de inicio."
 
 #: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
 #: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1712
@@ -3366,15 +3360,14 @@ msgid "General configuration"
 msgstr "Configuración general"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:129
-#, fuzzy
 msgid ""
 "This module enables a HTTPS server to allow the users to change their own "
 "data like their password. Here you can choose the port where to accept HTTPS "
 "connections."
 msgstr ""
-"Este módulo hace posible que un servidor web https permita a los usuarios "
+"Este módulo hace posible que un servidor web HTTPS permita a los usuarios "
 "cambiar sus propios datos, como su contraseña. Aquí puede escoger el puerto "
-"por el que se aceptarán las conexiones https."
+"por el que se aceptarán las conexiones HTTPS."
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:97
 msgid "Migrate configured modules"
@@ -4564,6 +4557,11 @@ msgid ""
 "you have not received leases. Saving changes if network module has just been "
 "configured or waiting for a lease can solve this situation"
 msgstr ""
+"No se puede habilitar el módulo de Usuarios y Equipos porque el sistema no "
+"tiene direcciones IP disponibles. Como hay interfaces DHCP ({ifaces}) es "
+"posible que no se haya asignado una dirección todavía. Guardar cambios o "
+"esperar a que se asigne una dirección puede resolver esta situación si el "
+"módulo de Red se acaba de habilitar."
 
 #: ../../main/users/src/EBox/Users.pm:457
 #, perl-brace-format
@@ -7858,7 +7856,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2526
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
-msgstr ""
+msgstr "Esto es un servidor Zentyal edición {edition}"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:301
@@ -8136,7 +8134,7 @@ msgstr ""
 "También necesitará habilitarlo para que comience a funcionar."
 
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:275
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You can configure your Dynamic DNS provider here. If your server is already "
 "registered, you provider is Zentyal. {ohf}Register your server for free{ch}, "
@@ -8290,9 +8288,8 @@ msgid "Test type"
 msgstr "Tipo de prueba"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
-msgstr "Dirección IP personalizada"
+msgstr "Dirección IP de la máquina"
 
 # pruebas o intentos, ambas deberían ser válidas
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:99
@@ -9313,9 +9310,8 @@ msgid "To configure Roundcube webmail."
 msgstr "Configurar webmail Roundcube"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:329
-#, fuzzy
 msgid "To customize PHP for the webmail."
-msgstr "Para configurar el buzón de voz."
+msgstr "Para personalizar PHP para el webmail"
 
 # Mange sieve o Managesieve  (Junto o separado)
 #: ../../main/webmail/src/EBox/WebMail.pm:334
@@ -10968,7 +10964,6 @@ msgid "({n} security)"
 msgstr "({n} de seguridad)"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:114
-#, fuzzy
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Professional, Business or "
@@ -10976,9 +10971,9 @@ msgid ""
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
-"pueden dañar tu sistema. En entornos de producción recomendamos usar la {oh}"
-"Edición Professional, Business o Premium{ch}: ediciones comerciales del "
-"Servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/ Ubuntu. "
+"pueden dañar tu sistema. En entornos de producción recomendamos usar la "
+"Edición Professional, Business o Premium: ediciones comerciales del Servidor "
+"Zentyal, con soporte completo de Zentyal S.L. y Canonical/ Ubuntu."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:119
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -11296,6 +11291,11 @@ msgid ""
 "do not contain any sensible information. {oc}{obs}Submit crash report{cb} "
 "{obd}Discard{cb}{cc}"
 msgstr ""
+"¡Informe de fallos encontrado! Aprieta el botón si quieres enviar los "
+"siguientes ficheros de forma anónima para ayudar a arreglar el problema: "
+"{p}. Aunque Zentyal hará el mejor uso de esta información, por favor, revisa "
+"los ficheros si quieres estar seguro que no contiene ninguna información "
+"sensible. {oc}{obs}Enviar el informe de fallos{cb} {obd}Descartar{cb}{cc}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:226
 #, perl-brace-format
@@ -11370,12 +11370,10 @@ msgid "Here you may configure the services to be served from the reverse proxy"
 msgstr "Aquí puedes configurar los servicios que gestiona el proxy inverso"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
-#, fuzzy
 msgid "This service does not let change the HTTP port."
 msgstr "Este servicio no permite cambiar el puerto HTTP."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:288
-#, fuzzy
 msgid "This service does not let change the HTTPS port."
 msgstr "Este servicio no permite cambiar el puerto HTTPS."
 
@@ -11402,11 +11400,10 @@ msgstr ""
 "{ohref}Certificados de los Servicios{chref}"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:365
-#, fuzzy
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr ""
-"Para poder resturar los registros es necesario instalar y activar el módulo "
-"de registros"
+"Para poder activar el puerto SSL es necesario instalar y activar el módulo "
+"de CA."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:436
 #, perl-brace-format
@@ -11432,18 +11429,17 @@ msgstr ""
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:658
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
-msgstr ""
+msgstr "No se puede usar el mismo número de puerto para HTTP y HTTPS."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:699
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
-msgstr "El puerto {port} está siendo usado por {row} usando HTTP plano."
+msgstr "El puerto {port} está siendo usado por {row} usando HTTPS."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:720
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
-msgstr ""
-"El puerto {port} ya está usado por {row} como servicio SSL por defecto."
+msgstr "El puerto {port} ya está usado por {row} como servicio por defecto."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:761
 #, perl-brace-format
@@ -12772,13 +12768,13 @@ msgid "OpenChange account disabled"
 msgstr "Cuenta de OpenChange deshabilitada"
 
 #: ../../main/openchange/src/EBox/OpenChange/VDomainsLdap.pm:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The virtual mail domain {dom} cannot be removed because it is {oc} outgoing "
 "domain"
 msgstr ""
 "El dominio virtual de correo {dom} no puede borrarse porque el dominio "
-"saliente de OpenChange"
+"saliente {oc}"
 
 # Is a product. Same name.
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:44
@@ -12815,14 +12811,13 @@ msgid "HTTP/HTTPS proxy access"
 msgstr "Acceso al proxy HTTP/HTTPS"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:93
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Setup access to {oc} through HTTP/HTTPS. Remember HTTPS access requires you "
 "import Zentyal certificate into your {win} account"
 msgstr ""
-"Configura el acceso a OpenChange a través de HTTP/HTTPS. Recuerda que el "
-"acceso por HTTPS exige que importes el certificado de Zentyal en tu cuenta "
-"de Windows"
+"Configura el acceso a {oc} a través de HTTP/HTTPS. Recuerda que el acceso "
+"por HTTPS exige que importes el certificado de Zentyal en tu cuenta de {win}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:108
 msgid "Web Server module needs to be installed and enabled to use RPC proxy"
@@ -12831,7 +12826,7 @@ msgstr ""
 "RPC"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
 "{ch}"
@@ -12859,9 +12854,9 @@ msgstr ""
 "serán sobrescritos con este."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure an {oc} server."
-msgstr "Para configurar el servidor PPTP."
+msgstr "Configurar un servidor {oc}."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "New One"
@@ -13693,7 +13688,7 @@ msgstr ""
 "añadirlo en la {ohref}página de nombres de máquinas del dominio {d}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:208
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for host {host}.<br/"
 ">Ensure that you have at least a IP address assigned to an interface, and "
@@ -13702,23 +13697,23 @@ msgid ""
 msgstr ""
 "Samba no puede ser provisionado si no se han asignado direcciones IP "
 "internal al equipo {host}. <br/> Asegúrese de que tiene por lo menos una "
-"dirección IP asignada a una interfaz interna, esta IP debe ser asignada al "
-"dominio {dom} y al nombre de equipo {host}.<br/>Puede añadirlo desde la "
-"{ohref}página de direcciones IP del equipo {host}{chref}"
+"dirección IP asignada al dominio {dom} y al nombre de equipo "
+"{host}.<br/>Puede añadirlo desde la {ohref}página de direcciones IP del "
+"equipo {host}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:258
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/"
 ">Ensure that you have at least a IP address assigned to an interface, and "
 "this IP has to be assigned to the domain {dom} and to the local hostname.<br/"
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
-"Samba no puede ser provisionado si no se han asignado direcciones IP "
-"internal al equipo {host}. <br/> Asegúrese de que tiene por lo menos una "
-"dirección IP asignada a una interfaz interna, esta IP debe ser asignada al "
-"dominio {dom} y al nombre de equipo {host}.<br/>Puede añadirlo desde la "
-"{ohref}página de direcciones IP del equipo {host}{chref}"
+"Samba no puede ser provisionado si no se han asignado direcciones IP  para "
+"el dominio {dom}. <br/> Asegúrese de que tiene por lo menos una dirección IP "
+"asignada a una interfaz interna, esta IP debe ser asignada al dominio {dom} "
+"y al nombre de equipo local.<br/>Puede añadirlo desde la {ohref}página de "
+"direcciones IP para {dom}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:307
 #, perl-brace-format
@@ -15677,11 +15672,12 @@ msgid "Transparent Proxy Exemptions"
 msgstr "Excepciones del Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
-#, fuzzy
 msgid ""
 "You can exempt some addresses from transparent proxy. The domains will be "
 "resolved at saving changes process."
-msgstr "Se puede omitir algunas direcciones del proxy transparente"
+msgstr ""
+"Se puede omitir algunas direcciones del proxy transparente. Los dominios "
+"serán resueltos al guardar cambios."
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
@@ -19272,7 +19268,7 @@ msgstr "Técnico de Redes o Administrador de Sistemas"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:174
 msgid "Sector"
-msgstr ""
+msgstr "Sector"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
 msgid "Public Administration"
@@ -19497,7 +19493,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:38
 msgid "Bonding Mode"
-msgstr ""
+msgstr "Modo de Bonding"
 
 #: ../../main/network/src/templates/ifaces.mas:40
 #: ../../main/network/src/templates/ifaces.mas:41
@@ -19524,7 +19520,7 @@ msgstr "En puente de red"
 #: ../../main/network/src/templates/ifaces.mas:100
 #: ../../main/network/src/templates/ifaces.mas:101
 msgid "Bundled"
-msgstr ""
+msgstr "Bundled"
 
 #: ../../main/network/src/templates/ifaces.mas:105
 #: ../../main/network/src/templates/ifaces.mas:106
@@ -19548,9 +19544,8 @@ msgid "Bridge"
 msgstr "Puente de red"
 
 #: ../../main/network/src/templates/ifaces.mas:166
-#, fuzzy
 msgid "Bonding"
-msgstr "Cargando..."
+msgstr "Bonding"
 
 #: ../../main/network/src/templates/ifaces.mas:190
 msgid "VLAN List"
@@ -19700,16 +19695,15 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Test the Commercial for 30 days"
-msgstr ""
+msgstr "Prueba la edición Comercial durante 30 días"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Free Commercial Trial"
-msgstr ""
+msgstr "Prueba la edición comercial Gratis"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
-#, fuzzy
 msgid "Official Community documentation in English and Spanish."
-msgstr "Documentación oficial en inglés y español"
+msgstr "Documentación oficial en inglés y español."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Documentation"
@@ -19764,24 +19758,23 @@ msgstr "Manual Oficial"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
 msgid "Contact our Support Team"
-msgstr ""
+msgstr "Contacta con nuestro equipo de Soporte"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
 msgid "Contact Support"
-msgstr ""
+msgstr "Contactar con Soporte"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:86
 msgid "Official documentation in English and Spanish."
 msgstr "Documentación oficial en inglés y español"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:86
-#, fuzzy
 msgid "Official Documentation "
-msgstr "Documentación"
+msgstr "Documentación Oficial "
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:102
 msgid "Install Zentyal Cloud Client"
-msgstr ""
+msgstr "Instalar cliente de Zentyal Cloud"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:104
 #, perl-brace-format
@@ -19790,6 +19783,10 @@ msgid ""
 "Please open a console and execute the following command:{br}{opre}sudo apt-"
 "get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 msgstr ""
+"{op}Necesitas instalar algunos paquetes que faltan para registrar tu "
+"servidor. Por favor, abre una terminal y ejecuta el siguiente comando: "
+"{br}{opre}sudo apt-get install zentyal-software zentyal-"
+"remoteservices{cpre}{cp}"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:113
 msgid "Register your server"
@@ -20430,11 +20427,11 @@ msgid "Account status"
 msgstr "Estado de la cuenta"
 
 #: ../../main/openchange/src/templates/openchange.mas:27
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oc} account could not enabled until the user has an email account"
 msgstr ""
-"La cuenta OpenChange no se puede activar hasta que el usuario tenga una "
-"cuenta de correo"
+"La cuenta {oc} no se puede activar hasta que el usuario tenga una cuenta de "
+"correo"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -20528,11 +20525,13 @@ msgid "start migration"
 msgstr "comenzar migración"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:10
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must provision the {x} module database before being able to use the "
 "migration."
-msgstr "Debe activar el módulo de {name} antes de configurar las reuniones"
+msgstr ""
+"Debes aprovisionar la base de datos del módulo {x} antes de poder usar la "
+"migración."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:20
 msgid ""
@@ -20541,6 +20540,10 @@ msgid ""
 "exist in Zentyal and its OpenChange account to be enabled prior the process "
 "starts."
 msgstr ""
+"Las características de migración se proporcionan como parte de la technology "
+"preview, y permiten solo migrar un usuario a la vez. Cada migración "
+"requiere que el usuario exista en Zentyal y que se le habilite la cuenta de "
+"OpenChange antes de iniciar el proceso."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
 msgid "Select origin server"
@@ -20551,6 +20554,8 @@ msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
 msgstr ""
+"Este asistente te ayuda a migrar los datos de los usuarios de cualquier "
+"servidor a este servidor Zentyal"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter origin server name"
@@ -20559,16 +20564,19 @@ msgstr "Introduce el nombre del servidor de origen"
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
 msgstr ""
+"Introduce un nombre de dominio completamente cualificado o una dirección IP"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Credential for origin server"
-msgstr ""
+msgstr "Credenciales para el servidor de origen"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
+"Necesitas un usuario con permisos completos en Exchange con acceso a todos "
+"los buzones o las crendenciales del usuario que va a ser migrado"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -20584,14 +20592,15 @@ msgid "Origin user password"
 msgstr "Contraseña del usuario en origen"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid "Credential for local server"
-msgstr "servidor de correo externo"
+msgstr "Credenciales para el servidor local"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
 msgstr ""
+"Necesitas el usuario y la contraseña del usuario de Zentyal que quieres "
+"migrar"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -20824,15 +20833,15 @@ msgstr "Más información"
 
 #: ../../main/software/src/templates/ebox.mas:160
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infraestructura"
 
 #: ../../main/software/src/templates/ebox.mas:179
 msgid "Office"
-msgstr ""
+msgstr "Oficina"
 
 #: ../../main/software/src/templates/ebox.mas:199
 msgid "Communications"
-msgstr ""
+msgstr "Comunicaciones"
 
 #: ../../main/software/src/templates/ebox.mas:208
 msgid "Zentyal Gateway features"
@@ -21430,7 +21439,6 @@ msgid "Group aliases cannot be created for a group without users"
 msgstr "Los alias de grupo no pueden ser creados para un grupo sin usuarios"
 
 #: ../../main/mail/src/templates/groupalias.mas:67
-#, fuzzy
 msgid "Group aliases cannot be created because no user has mail account"
 msgstr ""
 "Los alias de grupo no pueden crearse porque ningún usuario tiene cuenta de "

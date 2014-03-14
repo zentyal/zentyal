@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-12-19 00:50+0200\n"
-"Last-Translator: Nuno <nuno.filipe.pereira@live.com.pt>\n"
+"PO-Revision-Date: 2014-03-11 15:34+0200\n"
+"Last-Translator: vjmartins <vjmartins@sapo.pt>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -497,7 +497,6 @@ msgid "revoked"
 msgstr "revogado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
 msgstr "Expirado"
 
@@ -580,7 +579,7 @@ msgstr "Endereço do Bind para o cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Comando a executar após rotas estarem definidas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -612,9 +611,8 @@ msgid "OpenVPN installer for Microsoft Windows"
 msgstr "Programa de instalação para Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Objectivo da ligação"
+msgstr "Estratégia da ligação"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -633,7 +631,6 @@ msgid "Additional server address (optional)"
 msgstr "Endereço de servidor adicional (opcional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
 msgstr "Endereço de servidor adicional (opcional)"
 
@@ -714,6 +711,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Não existem certificados disponíveis para este cliente. Por favor, "
+"{ohref}crie um{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -771,12 +770,14 @@ msgstr "Palavra-passe do túnel Zentyal para Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Rejeitar rotas pedidas pelos clientes de túnel Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Quando selecionado este servidor não terá qualquer rota solicitada pelo seu "
+"cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -886,13 +887,14 @@ msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
 msgstr "{par} não é compatível com túnel Zentyal-a-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Lista das redes publicadas"
+msgstr "Lista das redes publicadas ao servidor de túnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"As rotas publicadas para os clientes sobre um interface TUN não são "
+"suportadas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
@@ -905,9 +907,8 @@ msgid "Enable"
 msgstr "Activar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
-#, fuzzy
 msgid "Upload client bundle"
-msgstr "Descarregar o pacote de cliente"
+msgstr "Carregar o pacote do cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
@@ -1006,7 +1007,7 @@ msgstr ""
 "para uso interno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
@@ -1015,7 +1016,7 @@ msgstr ""
 "prefixo {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "O cliente {c} não existe"
 
@@ -1164,9 +1165,8 @@ msgstr "tem que definir insegure_rip_conf para sim ou não"
 #: ../../main/ha/src/EBox/HA.pm:89
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "Disponível"
+msgstr "Alta disponibilidade"
 
 #: ../../main/ha/src/EBox/HA.pm:114
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:473
@@ -1180,25 +1180,16 @@ msgstr "Sistema"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "Estado do cluster"
 
 #: ../../main/ha/src/EBox/HA.pm:163
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Para configurar a rotina clamd"
+msgstr "Para configurar a rotina corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:166
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Desligar ou reiniciar"
+msgstr "Para iniciar corosync ao iniciar"
 
 #: ../../main/ha/src/EBox/HA.pm:1000
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1249,18 +1240,16 @@ msgstr "Nenhum"
 #: ../../main/ha/src/EBox/HA.pm:1006
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Existem erros{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Ultimo dia"
+msgstr "Ultima atualização"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
-msgstr "Erro"
+msgstr "Erros"
 
 #: ../../main/ha/src/EBox/HA.pm:1021
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1278,13 +1267,12 @@ msgid "Status"
 msgstr "Estado"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
-#, fuzzy
 msgid "not enabled"
-msgstr "activo"
+msgstr "inativo"
 
 #: ../../main/ha/src/EBox/HA.pm:1025
 msgid "Nodes"
-msgstr ""
+msgstr "Nós"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1325,26 +1313,25 @@ msgid "IP address"
 msgstr "Endereço IP"
 
 #: ../../main/ha/src/EBox/HA.pm:1035
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "A interface {iface} não está configurado"
+msgstr "O cluster não está configurado"
 
 #: ../../main/ha/src/EBox/HA.pm:1124
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} não tem endereço IP para usar"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
+"A replicação falhou. Por favor, verifique {logfile} para mais informações."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Configuração do cliente"
+msgstr "Configuração do Cluster"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1352,46 +1339,39 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Aqui você pode mostrar o estado do seu cluster. Se você quiser ver mais "
+"informações sobre os erros mostrados, por favor, vá a {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "O nome é muito longo. O comprimento máximo é {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "O nome é muito pequeno. O comprimento mínimo é {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
-msgstr ""
+msgstr "O nome só deverá conter letras, número ou underscore."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "O IP {ip} não pertence a nenhuma interface."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Não existe interface interno estático para definir o endereço IP do servidor "
-"Web"
+msgstr "Existe uma interface de rede com o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Não existe interface interno estático para definir o endereço IP do servidor "
-"Web"
+msgstr "Existe um endereço fixo no DHCP igual ao endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Não existe interface interno estático para definir o endereço IP do servidor "
-"Web"
+msgstr "Existe uma área no DHCP que inclui o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
 #, fuzzy
@@ -1399,14 +1379,12 @@ msgid "Floating IP Address"
 msgstr "Domínio ou endereço IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:250
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Domínio ou endereço IP"
+msgstr "Floating endereços IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:254
-#, fuzzy
 msgid "floating IP address"
-msgstr "Domínio ou endereço IP"
+msgstr "Endereço IP flutuante"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:121
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1417,24 +1395,24 @@ msgstr "Domínio ou endereço IP"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Tentar novamente"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
-msgstr ""
+msgstr "Ligado"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Desligado"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Lista de nós para Cluster {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
@@ -1445,115 +1423,88 @@ msgid "Hostname"
 msgstr "Nome da máquina"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Aplicação"
+msgstr "Replicação"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr "Remover"
+msgstr "Despromover"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr "Remover"
+msgstr "Promover"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Lista de nós do cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Este protocolo não utiliza portos"
+msgstr "Este cluster não tem nenhum nó."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "O nó {name} é atualmente o nó ativo."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "O nó {name} é atualmente um nó passivo."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "Nome do Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "Cluster password"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Controlador atualmente designado"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"O controlador actualmente designado efectua as operações no cluster. Este nó "
+"pode mudar sem qualquer impacto no cluster."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "O serviço está activo mas está parado"
+msgstr "Erro: o serviço {service} está parado"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Acção"
+msgstr "Ultima modificação"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Configurados"
+msgstr "Nós configurados"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "nós"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Configurados"
+msgstr "Recursos configurados"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Recursos"
+msgstr "recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1597
@@ -1561,48 +1512,30 @@ msgid "Resource"
 msgstr "Recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
-msgstr "Iniciar"
+msgstr "Iniciado em"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Esta lista não tem categorias"
+msgstr "Este cluster não tem nenhum recurso definido."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:147
-#, fuzzy
 msgid "noname"
-msgstr "nome"
+msgstr "sem nome"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
-#, fuzzy
 msgid "Cluster host"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "Servidor Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
-#, fuzzy
 msgid "Cluster host port"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"utilizador\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"utilizador"
+msgstr "Porta Servidor Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
-#, fuzzy
 msgid "Choose network interface"
-msgstr "interface de rede"
+msgstr "Escolha o interface de rede"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
 msgid "It will be used as communication channel between the cluster members."
@@ -19440,7 +19373,6 @@ msgid "IT"
 msgstr "T"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:180
-#, fuzzy
 msgid "Country"
 msgstr "país"
 
