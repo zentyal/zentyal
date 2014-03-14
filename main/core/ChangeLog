@@ -1,4 +1,9 @@
 3.4
+	+ All non external exceptions from normal requests are now shown
+	  in the UI with the stack trace to report as a bug
+	+ All non external exceptions from AJAX requests are now shown in
+	  the UI with the stack trace to report as a bug
+	+ Template exceptions in normal requests are now handled in webadmin
 	+ Set templated files encoding to UTF-8
 	+ Send Perl warnings to Zentyal log file in webadmin app
 	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir

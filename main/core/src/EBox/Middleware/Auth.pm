@@ -39,7 +39,8 @@ use constant EXPIRE => 3600; #In seconds  1h
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
 
-sub prepare_app {
+sub prepare_app
+{
     my ($self) = @_;
 
     unless ($self->app_name) {
