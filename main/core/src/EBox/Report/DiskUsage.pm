@@ -109,16 +109,14 @@ use EBox::Exceptions::Internal;
    }
 
    # calculate system usage and free space for each file system
-   foreach my $fileSys (keys %usageByFilesys) {
-     exists $fileSystems->{$fileSys} or
-       throw EBox::Exceptions::Internal("File system not found: $fileSys");
-
+   foreach my $fileSys (keys %{$fileSystems}) {
      my $mountPoint = $fileSystems->{$fileSys}->{mountPoint};
 
      my $df = df($mountPoint, 1 );
 
+     # This never raises a key error as it is built using fileSystems keys
      my $facilitiesUsage = delete $usageByFilesys{$fileSys}->{facilitiesUsage};
-     my $totalUsage       = $df->{used} / $blockSize;
+     my $totalUsage      = $df->{used} / $blockSize;
      my $systemUsage     = $totalUsage - $facilitiesUsage;
      if ($systemUsage < 0) {
          if ($systemUsage > -1000) {
@@ -126,8 +124,8 @@ use EBox::Exceptions::Internal;
              $systemUsage = 0;
          } else {
              EBox::error(
- "Error calculating system usage. Result: $systemUsage. Set to zero for avoid error"
-                        );
+                 "Error calculating system usage. Result: $systemUsage. Set to zero for avoid error"
+                );
              $systemUsage = 0;
          }
 
