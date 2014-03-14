@@ -426,7 +426,7 @@ sub permanentMessageType
 
 # Method: compositeDomain
 #
-#     Get the domain where the model is handled. That is, the eBox
+#     Get the domain where the model is handled. That is, the Zentyal
 #     module which the composite belongs to
 #
 # Returns:

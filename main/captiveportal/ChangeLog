@@ -1,3 +1,6 @@
+HEAD
+	+ Don't show iptables error on Captive Daemon if debug is not enabled
+	+ Regenerate, if needed captive, portal rules on startup of captived
 3.2.2
 	+ Better synchronization between sessions and iptables rules
 	+ Fixed SID generation code

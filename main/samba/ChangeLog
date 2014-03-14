@@ -1,5 +1,14 @@
 HEAD
 	+ Fixed setting of printers permissions
+	+ s4sync: Check samba daemon is running
+	+ Removed obsolete dns-$hostname account from OpenLDAP, it should be only
+	  available in Samba
+	+ Ignored and logged as errors the users, contacts and groups in OpenLDAP
+	  that are not linked with Samba objects
+	+ Fix delete GPLink: use gPLink attribute name as our checkers are
+	  case sensitive
+	+ Set allow_non_scanned_files = True on samba.conf by default to
+	  avoid issues with antivirus when editing files
 	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
 	  correctly
 3.2.14

@@ -56,6 +56,11 @@ sub isContainer
     return 1;
 }
 
+sub printableType
+{
+    return __('Organization Unit');
+}
+
 # Method: name
 #
 #   Return the name of this OU.

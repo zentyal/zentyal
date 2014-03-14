@@ -138,6 +138,7 @@ sub filter
     my ($src) = @_;
 
     if (($src =~ m{/t/}) or
+        ($src =~ m{/Migration}) or
         ($src =~ m{Test}) or
         ($src =~ m{/Fake\.pm$}) or
         ($src =~ m{/External\.pm$}) or

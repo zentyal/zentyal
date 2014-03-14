@@ -78,8 +78,8 @@ sub _process
             $group->delete('description', 1);
         }
         my $mail = $self->unsafeParam('mail');
-        if (length ($mail)) {
-            EBox::Validate::checkEmailAddress($mail, __('E-mail'));
+        if (length ($mail) and ($mail ne $group->get('mail'))) {
+            $group->checkMail($mail);
             $group->set('mail', $mail, 1);
         } else {
             $group->delete('mail', 1);
