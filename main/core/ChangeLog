@@ -1,4 +1,5 @@
 3.4
+	+ Send Perl warnings to Zentyal log file in webadmin app
 	+ Added auditable property to EBox::Model::DataTable
 	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
 	+ Moved management of webadmin certificate to HAProxy module
