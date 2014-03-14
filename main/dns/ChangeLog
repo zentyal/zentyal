@@ -1,7 +1,4 @@
 3.4
-	+ Allow zone transfers for trusted networks
-	+ Update dynamic domains using new EBox::DNS::Update wrappers
-	+ Use GSS updates instead of patched bind9
 	+ Adapted apparmor configuration to Saucy
 	+ Avoid lame servers message
 	+ Use proper dlz library for bind9.9

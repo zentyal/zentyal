@@ -502,6 +502,7 @@ sub addedRowNotify
                           . 'nameserver record. Moreover, the same IP addresses have been assigned '
                           . 'to this new domain. You can always rename it or create alias for it.',
                           nshost => $nsHost, ips => $addrs));
+
 }
 
 # Method: viewCustomizer
@@ -733,29 +734,6 @@ sub syncRows
     }
 
     return $changed;
-}
-
-# Method: deletedRowNotify
-#
-#   Overrides to clean the stored records to delete
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    my $zone = $row->valueByName('domain');
-    my $dns = $self->parentModule();
-    my $state = $dns->get_state();
-    my $key = $dns->DELETED_RR_KEY();
-    my $value = $state->{$key};
-    if (defined $value) {
-        delete $value->{$zone};
-    }
-    $dns->set_state($state);
 }
 
 # Group: Private methods
