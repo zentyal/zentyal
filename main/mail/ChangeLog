@@ -1,3 +1,6 @@
+HEAD
+	+ Removed free access to dovecot from localhost, now we have a
+	master password
 3.4
 	+ Added and used checkMailNotInUse method
 	+ Added _delVDomainAbort to LdapVDomain base to give the
