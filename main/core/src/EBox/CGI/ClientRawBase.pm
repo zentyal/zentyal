@@ -169,7 +169,7 @@ sub run
         } catch (EBox::Exceptions::External $e) {
             $self->setErrorFromException($e);
             if (not $self->{json}) {
-                $self->_error();
+                $self->_print_error($self->{error});
             }
             $finish = 1;
         }

@@ -100,7 +100,7 @@ sub _title
     return EBox::Html::makeHtml($filename, @params);
 }
 
-sub _print_error # (text)
+sub _format_error # (text)
 {
     my ($self, $text) = @_;
 
@@ -108,8 +108,7 @@ sub _print_error # (text)
     ($text ne "") or return;
     my $filename = 'error.mas';
     my @params = ('error' => $text);
-    my $response = $self->response();
-    $response->body(EBox::Html::makeHtml($filename, @params));
+    return EBox::Html::makeHtml($filename, @params);
 }
 
 sub _error #
@@ -117,10 +116,10 @@ sub _error #
     my ($self) = @_;
 
     if (defined $self->{olderror}) {
-        $self->_print_error($self->{olderror});
+        return $self->_format_error($self->{olderror});
     }
     if (defined $self->{error}) {
-        $self->_print_error($self->{error});
+        return $self->_format_error($self->{error});
     }
 }
 
@@ -360,7 +359,7 @@ sub run
         $self->_print();
     } catch (EBox::Exceptions::Base $e) {
         $self->setErrorFromException($e);
-        $self->_print_error($self->{error});
+        $self->_format_error($self->{error});
     } catch ($e) {
         if (isa_mason_exception($e)) {
             throw EBox::Exceptions::Internal($e->as_text());
