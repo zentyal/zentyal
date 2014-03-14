@@ -161,27 +161,15 @@ sub enableActions
 sub enableService
 {
     my ($self, $status) = @_;
-    my $global = $self->global();
-    my $mail = $global->modInstance('mail');
-
-    if ($status) {
-        my $vdomains = $mail->model('VDomains')->size();
-        if ($vdomains == 0) {
-            throw EBox::Exceptions::External(
-                __x('To enable OpenChange you need first to {oh}create a mail virtual domain{oc}',
-                    oh => q{<a href='/Mail/View/VDomains'>},
-                    oc => q{</a>}
-                   )
-               );
-        }
-    }
 
     $self->SUPER::enableService($status);
-
     if ($self->changed()) {
+        my $global = $self->global();
         # Mark mail as changed to make dovecot listen IMAP protocol at least
         # on localhost
+        my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
+
 
         if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
             my $webserverMod = $global->modInstance("webserver");
@@ -196,14 +184,6 @@ sub enableService
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
-
-        # Workaround: Set outoing domain if nto set to avoid it to change when
-        # modify vdomains list
-        my $configuration = $self->model('Configuration');
-        if (not $configuration->_rowStored()) {
-            my $defaultOutgoing = $configuration->value('outgoingDomain');
-            $configuration->setValue('outgoingDomain', $defaultOutgoing);
-        }
     }
 }
 
@@ -316,11 +296,8 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-
     $self->_setAutodiscoverConf();
-
     $self->_setRPCProxyConf();
-    $self->_clearDownloadableCert();
 
     $self->_writeRewritePolicy();
 }
@@ -543,13 +520,6 @@ sub _updateDownloadableCert
     EBox::Sudo::root("cp '$certPath' '$downloadPath'",
                      "chown ebox.ebox '$downloadPath'"
                     );
-}
-
-sub _clearDownloadableCert
-{
-    my ($self) = @_;
-    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
-    EBox::Sudo::root("rm -f $downloadPath");
 }
 
 sub _writeRewritePolicy
@@ -814,22 +784,20 @@ sub organizations
 
     return $list;
 }
-
 sub _rpcProxyHostForDomain
 {
     my ($self, $domain) = @_;
-
     my $dns = $self->global()->modInstance('dns');
     my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
     if (not $domainExists) {
-        throw EBox::Exceptions::External(__x('Domain {dom} not able to serve RPCProxy because is not configured in {oh}DNS module{ch}',
+        throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
                                              dom => $domain,
                                              oh => '<a href="/DNS/Composite/Global">',
                                              ch => '</a>'
                                             ));
     }
-
     my @hosts = @{ $dns->getHostnames($domain)  };
+
     my @ips;
     my $network = $self->global()->modInstance('network');
     foreach my $iface (@{ $network->ExternalIfaces() }) {
@@ -859,7 +827,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Domain cannot use RPC Proxy because we cannot find this host in {oh}DNS domain {dom}{ch}',
+        EBox::Exceptions::External->throw(__x('Cannot find this host in {oh}DNS domain {dom}{ch}',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'
@@ -1004,26 +972,6 @@ sub connectionString
     my $pwd = $self->_getMySQLPassword();
 
     return "mysql://openchange:$pwd\@localhost/openchange";
-}
-
-# Method: DNSChangeNotification
-#
-#   This module should be notified of changes of DNs configuration bz things
-#   like rpcproxy hostname can change with it
-sub DNSChangeNotification
-{
-    my ($self, $domain) = @_;
-    if (not $self->isEnabled()) {
-         return;
-    }
-
-    my $rpcpDomain = $self->_rpcProxyDomain();
-    if ($domain eq $rpcpDomain) {
-        # we cannot check more form dns becaue we enter on infinite loop, so we
-        # prevent worst case and set rpcproxy relate modules as changed
-        $self->global()->modInstance('haproxy')->setAsChanged(1);
-        $self->setAsChanged(1);
-    }
 }
 
 1;

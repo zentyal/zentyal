@@ -193,7 +193,8 @@ sub _updateVDomain
  {
      my ($self, $vdomain) = @_;
 
-     my @mods = @{$self->_modsVDomainModule()};
+        my @mods = @{$self->_modsVDomainModule()};
+
      foreach my $mod (@mods){
          $mod->_modifyVDomain($vdomain);
      }
