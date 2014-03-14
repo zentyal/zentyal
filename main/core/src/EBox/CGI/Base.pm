@@ -289,16 +289,11 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch (EBox::Exceptions::Internal $e) {
-            $e->throw();
-        } catch (EBox::Exceptions::Base $e) {
+        } catch (EBox::Exceptions::External $e) {
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
             }
-        } catch ($e) {
-            my $ex = new EBox::Exceptions::Error($e);
-            $ex->throw();
         }
     }
 
