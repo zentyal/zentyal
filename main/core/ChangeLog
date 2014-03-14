@@ -1,4 +1,5 @@
 3.4
+	+ Set templated files encoding to UTF-8
 	+ Send Perl warnings to Zentyal log file in webadmin app
 	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir
 	+ Remove idle and dead code from EBox::Module::Service::writeConfFile

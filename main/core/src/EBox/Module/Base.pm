@@ -1007,6 +1007,7 @@ sub _writeFileCreateTmpFile
     my ($fh,$tmpfile);
     try {
         ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        binmode ($fh, ":encoding(UTF-8)");
         unless($fh) {
             throw EBox::Exceptions::Internal(
                 "Could not create temp file in " .
