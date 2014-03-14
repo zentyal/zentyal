@@ -92,14 +92,6 @@ sub validateTypedRow
     }
 }
 
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-    my $zoneRow = $row->parentRow();
-    my $zone = $zoneRow->valueByName('domain');
-    $self->parentModule()->notifyOpenchange($zone);
-}
-
 # Method: updatedRowNotify
 #
 #   Overrides to add to the list of deleted RR in dynamic zones
@@ -141,8 +133,6 @@ sub updatedRowNotify
     # Delete the host records
     my $record = "$host.$zone A";
     $self->_addToDelete($zone, $record);
-
-    $self->parentModule()->notifyOpenchange($zone);
 }
 
 # Method: deletedRowNotify
@@ -203,8 +193,6 @@ sub deletedRowNotify
     # Delete the host records
     my $record = "$host.$zone A";
     $self->_addToDelete($zone, $record);
-
-    $self->parentModule()->notifyOpenchange($zone);
 }
 
 # Method: removeRow

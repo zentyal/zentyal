@@ -735,20 +735,6 @@ sub syncRows
     return $changed;
 }
 
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-    my $zone = $row->valueByName('domain');
-    $self->parentModule()->notifyOpenchange($zone);
-}
-
-sub updatedRowNotify
-{
-    my ($self, $row) = @_;
-    my $zone = $row->valueByName('domain');
-    $self->parentModule()->notifyOpenchange($zone);
-}
-
 # Method: deletedRowNotify
 #
 #   Overrides to clean the stored records to delete
@@ -770,8 +756,6 @@ sub deletedRowNotify
         delete $value->{$zone};
     }
     $dns->set_state($state);
-
-    $self->parentModule()->notifyOpenchange($zone);
 }
 
 # Group: Private methods
