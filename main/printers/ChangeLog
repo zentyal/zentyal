@@ -1,4 +1,5 @@
 3.4
+	+ Skip internal groups in printer ACL model
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 3.3
