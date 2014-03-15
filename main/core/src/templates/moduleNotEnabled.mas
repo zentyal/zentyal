@@ -2,6 +2,8 @@
   $module
 </%args>
 <%init>
+#  this is the no-modelized version of siabledModuleWarn.mas , current in use
+#  only for network interfaces CGI
 my $disabledWarn = $module->disabledModuleWarning();
 $disabledWarn or return;
 </%init>
