@@ -1,4 +1,5 @@
 3.4
+	+ Avoid to show two 'module not enabled' messages in composites
 	+ All non external exceptions from normal requests are now shown
 	  in the UI with the stack trace to report as a bug
 	+ All non external exceptions from AJAX requests are now shown in
