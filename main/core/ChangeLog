@@ -1,4 +1,5 @@
 3.4
+	+ Improve post save modules algorithm
 	+ Added local apparmor profile for mysqld
 	+ Avoid to show two 'module not enabled' messages in composites
 	+ All non external exceptions from normal requests are now shown
