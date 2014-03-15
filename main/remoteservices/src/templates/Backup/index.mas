@@ -6,6 +6,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use URI;
 </%init>
 <div class="insideTab">
 % if ($subscribed) {
@@ -172,7 +173,9 @@ my @legendElements = (
   <tbody>
 <%perl>
   foreach my $backup (@backups) {
-     my $name = $backup->{Filename};
+     my $uri = new URI();
+     $uri->path($backup->{Filename});
+     my $name = $uri->path();
      my $restoreUrl  = "Confirm?action=restore&name=$name&popup=1";
      my $restoreData = "name=$name&popup=1";
      my $restoreJS   = "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false";

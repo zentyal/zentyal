@@ -230,6 +230,19 @@ sub initialSetup
             }
         }
     }
+    # Upgrade from 3.2.14 to 3.2.15
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.15') < 0)) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $hostname = $sysinfo->hostName();
+        my $dnsAccount = new EBox::Users::User(uid => "dns-$hostname");
+        if ($dnsAccount->exists()) {
+            # This user is deprecated and not synced to OpenLDAP ever since 3.2, it's a bug that it exists after the
+            # upgrade to 3.2
+            EBox::debug("Removing obsolete user dns-$hostname");
+            $dnsAccount->setIgnoredModules(['samba']);
+            $dnsAccount->deleteObject();
+        }
+    }
 }
 
 sub enableService
@@ -936,7 +949,10 @@ sub writeSambaConfig
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
-        push (@array, 'print' => 1) if ($printersModule->isEnabled());
+        if ($printersModule->isEnabled()) {
+            push (@array, 'print' => 1);
+            push (@array, 'printers' => $printersModule->printers());
+        }
     }
 
     push (@array, 'shares' => $self->shares());

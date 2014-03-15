@@ -147,7 +147,9 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_saveEnabledLogsModules();
+    if ($self->isEnabled()) {
+        $self->_saveEnabledLogsModules();
+    }
 }
 
 sub cleanup

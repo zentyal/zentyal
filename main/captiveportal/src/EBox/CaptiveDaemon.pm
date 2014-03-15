@@ -339,7 +339,7 @@ sub _checkChains
         foreach my $ch (@{ $chains_list }) {
             try {
                 EBox::Sudo::root("iptables -t $table -nL $ch");
-            } catch {
+            } otherwise {
                 $chainsInPlace = 0;
             }
         }
