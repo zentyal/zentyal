@@ -12,10 +12,6 @@ bootdepends:
 models:
     - CUPS
     - Printers
-    - PrinterPermissions
 
 composites:
     General: [ CUPS, Printers ]
-
-foreign:
-    Printers: [ PrinterPermissions ]

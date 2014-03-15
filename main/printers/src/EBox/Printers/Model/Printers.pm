@@ -66,19 +66,6 @@ sub _table
             editable => 0,
             optional => 1,
         ),
-        new EBox::Types::Boolean(
-            fieldName     => 'guest',
-            printableName => __('Guest access'),
-            editable      => 1,
-            defaultValue  => 0,
-            help          => __('This printer will not require authentication.'),
-        ),
-        new EBox::Types::HasMany(
-            fieldName     => 'access',
-            printableName => __('Access control'),
-            foreignModel => 'PrinterPermissions',
-            view => '/Printers/View/PrinterPermissions'
-        ),
     );
 
     my $dataForm =
@@ -158,7 +145,7 @@ sub syncRows
             }
         } else {
             $self->add(printer => $printerName, description => $desc,
-                       location => $loc, guest => 0);
+                       location => $loc);
             $modified = 1;
         }
 
