@@ -32,8 +32,6 @@
         ServerName <% $vHostName %>:<% $publicSSLPort %>
         DocumentRoot <% $docRoot %>/<% $vHostName %>
 
-        SetEnv HTTPS On
-
         ErrorLog /var/log/apache2/<% $vHostName %>-error.log
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
