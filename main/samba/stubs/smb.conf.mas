@@ -12,7 +12,7 @@
     $sysvolPath
     $unmanagedAcls => 0
     $print => 0
-    @printers
+    @printers => ()
     $disableFullAudit => 0
 
     $antivirus => 0
