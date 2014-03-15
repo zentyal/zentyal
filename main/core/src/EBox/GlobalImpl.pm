@@ -1250,7 +1250,7 @@ sub addModuleToPostSave
 
 # Method: popPostSaveModule
 #
-#   Pop a module to from modules to saved after single normal saving changes
+#   Pop a module to from the list of modules to be saved after regular save changes
 #
 sub popPostSaveModule
 {
