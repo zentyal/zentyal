@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed restricted login by group
 	+ Don't show iptables error on Captive Daemon if debug is not enabled
 	+ Regenerate, if needed captive, portal rules on startup of captived
 3.2.2
