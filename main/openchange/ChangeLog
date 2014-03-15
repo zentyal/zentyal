@@ -1,4 +1,5 @@
 3.4
+	+ Update nginx template to allow access to /ews/oof
 	+ Added UI message with sogo webmail interface location
 	+ Sogo webmail shared contacts unified. Contacts working properly
 	+ Use the new EBox::Samba::Ldbobject::isCritical method
