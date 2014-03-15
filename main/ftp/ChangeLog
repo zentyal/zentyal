@@ -1,3 +1,5 @@
+HEAD
+	+ Fix the enabling of the chrootUsers option
 3.3
 	+ Disable seccomp sandboxing in the conf to avoid errors
 	+ Delete migration code from old versions

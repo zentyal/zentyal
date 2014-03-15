@@ -926,7 +926,10 @@ sub writeSambaConfig
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
-        push (@array, 'print' => 1) if ($printersModule->isEnabled());
+        if ($printersModule->isEnabled()) {
+            push (@array, 'print' => 1);
+            push (@array, 'printers' => $printersModule->printers());
+        }
     }
 
     push (@array, 'shares' => $self->shares());

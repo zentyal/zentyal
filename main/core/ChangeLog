@@ -1,6 +1,7 @@
 HEAD
 	+ Zentyal MySQL custom conf is now written on initial-setup of logs
 	  using a mason template
+	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to

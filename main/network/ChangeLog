@@ -1,3 +1,7 @@
+HEAD
+	+ Specifiy local address in failover tests to avoid vlan interface problems
+	+ Fix Dynamic DNS with Zentyal Remote as provider when the
+	  registration wizard is done
 3.3.2
 	+ Fixed bad behaviour in interfaces method wizard
 	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses

@@ -209,8 +209,8 @@ sub _checkLdapPassword
             $authorized = 0;
             # check also the group for the user
             my %attrs = (
-                base => $bind,
-                filter => "&(uid=$user)(memberOf=$groupDN)",
+                base => $groupDN,
+                filter => "(member=$bind)",
                 scope => 'base'
             );
             my $result = $ldap->search(%attrs);
