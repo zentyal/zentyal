@@ -89,6 +89,9 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Zentyal MySQL custom conf is now written on initial-setup of logs
+	  using a mason template
+	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to

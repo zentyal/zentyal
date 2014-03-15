@@ -41,6 +41,8 @@ use EBox::Util::SQLTypes;
 use TryCatch::Lite;
 use Data::Dumper;
 
+use constant MYSQL_CUSTOM_CONF => '/etc/mysql/conf.d/zentyal.cnf';
+
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
 
 sub new
@@ -54,6 +56,65 @@ sub new
     $self->{logs} = EBox::Global->getInstance(1)->modInstance('logs');
 
     return $self;
+}
+
+# Method: updateMysqlConf
+#
+#   Checks the server status and writes down the MySQL Zentyal conf file.
+#   Using the zentyal.cnf.mas the innodb parameter is set here
+#   It also restarts the mysql daemon
+#
+sub updateMysqlConf
+{
+    my ($self) = @_;
+
+    # If the database has already enabled the innoDB engine, we won't disable it
+    my $nextInnoDbValue = $self->_innoDbEnabled ? 1 : $self->_enableInnoDB();
+
+    my @confParams;
+    push @confParams, (enableInnoDB => $nextInnoDbValue);
+
+    if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
+        EBox::Module::Base::writeConfFileNoCheck(MYSQL_CUSTOM_CONF, 'core/zentyal.cnf.mas', \@confParams);
+        EBox::Sudo::rootWithoutException('restart mysql');
+    }
+}
+
+# Method: _innoDbEnabled
+#
+#   Returns true if the InnoDB engine is already enabled
+#
+sub _innoDbEnabled
+{
+    my ($self) = @_;
+
+    return (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q YES") == 0);
+}
+
+# Method: _enableInnoDB
+#
+#   Returns true if we should turn on the innodb mysql engine
+#
+sub _enableInnoDB
+{
+    my ($self) = @_;
+
+    return (EBox::Global->modExists('openchange')
+            or EBox::Global->modExists('sogo')
+            or EBox::Global->modExists('webmail'));
+}
+
+# Method: _innoDbValueHasChanged
+#
+#   Returns true if the $nextInnoDbValue is different than the current one
+#
+sub _innoDbValueHasChanged
+{
+    my ($self, $nextValue) = @_;
+
+    my $nextOptionValue = $nextValue ? "on" : "off";
+
+    return (system ("grep -q \"^innodb = $nextOptionValue\$\" " . MYSQL_CUSTOM_CONF) != 0);
 }
 
 # Method: _dbname
@@ -765,20 +826,6 @@ sub commandAsSuperuser
         throw EBox::Exceptions::MissingArgument('command');
 
     EBox::Sudo::root($cmd);
-}
-
-# Method: enableInnoDBIfNeeded
-#
-#   Enable InnoDB if it's not enabled already
-#
-sub enableInnoDBIfNeeded
-{
-    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
-        EBox::Sudo::root(
-            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
-            "restart mysql"
-        );
-    }
 }
 
 sub _superuserTmpFile
