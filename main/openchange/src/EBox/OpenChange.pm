@@ -297,7 +297,9 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+
     $self->_setRPCProxyConf();
+    $self->_clearDownloadableCert();
 
     $self->_writeRewritePolicy();
 }
@@ -475,7 +477,7 @@ sub _createRPCProxyCertificate
         EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
     };
     if (not $issuer) {
-        EBox::error("Not found issuer. Certifcate for RPC proxy will left untouched");
+        EBox::error("Not found issuer. Certificate for RPC proxy will left untouched");
         return;
     }
 
@@ -509,6 +511,14 @@ sub _createRPCProxyCertificate
     my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
     my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
     $self->_updateDownloadableCert();
+}
+
+sub _clearDownloadableCert
+{
+    my ($self) = @_;
+
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
+    EBox::Sudo::root("rm -f $downloadPath");
 }
 
 sub _updateDownloadableCert
