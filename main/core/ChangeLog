@@ -1,4 +1,6 @@
 3.4
+	+ EBox::WebAdmin::addNginxInclude does not longer raises exception
+	  if file not yet exists
 	+ All non external exceptions from normal requests are now shown
 	  in the UI with the stack trace to report as a bug
 	+ All non external exceptions from AJAX requests are now shown in
