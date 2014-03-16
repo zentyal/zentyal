@@ -492,7 +492,7 @@ sub _createRPCProxyCertificate
     my $parentCertDir = dirname($certDir);
     EBox::Sudo::root("rm -rf '$certDir'",
                      # create parent dir if it does not exists
-                     "mkdir -p -m770 '$parentCertDir'",
+                     "mkdir -p -m775 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
         my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
@@ -857,6 +857,9 @@ sub _rpcProxyHosts
     my ($self) = @_;
     my @hosts;
     my $domain = $self->_rpcProxyDomain();
+    if (not $domain) {
+        throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
+    }
     push @hosts, $self->_rpcProxyHostForDomain($domain);
     return \@hosts;
 }
