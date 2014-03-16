@@ -158,32 +158,19 @@ sub enableActions
 #
 #   Override EBox::Module::Service::enableService to notify samba
 #
-sub enableServiceDisabled
+sub enableService
 {
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
-        my $global = $self->global();
-        # Mark mail as changed to make dovecot listen IMAP protocol at least
-        # on localhost
-        my $mail = $global->modInstance('mail');
-        $mail->setAsChanged();
-
-
-        if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
-            my $webserverMod = $global->modInstance("webserver");
-            # Mark webserver as changed to load the configuration of rpcproxy
-            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        # manage the nginx include file
+        my $webadmin = $self->global()->modInstance('webadmin');
+        if ($status) {
+            $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
+        } else {
+            $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
         }
-
-        # Mark samba as changed to write smb.conf
-        my $samba = $global->modInstance('samba');
-        $samba->setAsChanged();
-
-        # Mark webadmin as changed so we are sure nginx configuration is
-        # refreshed with the new includes
-        $global->modInstance('webadmin')->setAsChanged();
     }
 }
 
@@ -413,8 +400,7 @@ sub _setAutodiscoverConf
                          { uid => 0, gid => 0, mode => '640' }
                         );
 
-    # manage the nginx include file
-    my $webadmin = $global->modInstance('webadmin');
+
     if ($self->isEnabled()) {
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
@@ -426,9 +412,6 @@ sub _setAutodiscoverConf
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
-        $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
-    } else {
-        $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
     }
 }
 
