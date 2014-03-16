@@ -1914,6 +1914,7 @@ sub hostDomainChangedDone
                 my $dataElement = $txtRow->elementByName('txt_data');
                 $dataElement->setValue($newDomainName);
                 $txtRow->store();
+                $self->st_unset(DELETED_RR_KEY);
                 last;
             }
         }
