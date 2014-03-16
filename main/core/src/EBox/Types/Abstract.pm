@@ -240,8 +240,24 @@ sub filter
 sub value
 {
     my ($self) = @_;
+    if (not exists $self->{value}) {
+        if ($self->volatile()) {
+            return $self->_volatileValue();
+        } else {
+            return undef;
+        }
+    }
 
     return $self->{'value'};
+}
+
+# return run-time value for volatiles types
+sub _volatileValue
+{
+    my ($self) = @_;
+    my $volatileFunc = $self->{acquirer};
+    $volatileFunc = \&_identity unless defined ($volatileFunc);
+    return $volatileFunc->($self);
 }
 
 # Method: defaultValue
@@ -514,9 +530,7 @@ sub restoreFromHash
     my ($self, $hashRef) = @_;
 
     if ($self->volatile()) {
-        my $volatileFunc = $self->{acquirer};
-        $volatileFunc = \&_identity unless defined ($volatileFunc);
-        $self->{value} = &$volatileFunc($self);
+        $self->{value} = $self->_volatileValue();
     } else {
         $self->_restoreFromHash($hashRef);
     }

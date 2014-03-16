@@ -1,4 +1,6 @@
 3.4
+	+ When requesting fro mtpye non-existing value return volatile
+	  value if it is a volatile type
 	+ All non external exceptions from normal requests are now shown
 	  in the UI with the stack trace to report as a bug
 	+ All non external exceptions from AJAX requests are now shown in
