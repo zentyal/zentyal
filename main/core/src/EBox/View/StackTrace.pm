@@ -130,7 +130,7 @@ sub render
         $params->{report} = __('Report the problem');
         $params->{cancel} = __('Cancel');
         $params->{email} = __('Email (you will receive updates on the report)');
-        $params->{description} = __('Describe in English what you where doing');
+        $params->{description} = __('Describe in English what you were doing');
         $params->{newticket_url} = 'https://tracker.zentyal.org/projects/zentyal/issues/new';
         $params->{report_error} = __("Couldn't send the report");
         $params->{report_sent} = __(
