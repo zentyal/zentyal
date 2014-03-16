@@ -285,8 +285,22 @@ sub _setConf
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
     $self->_setRPCProxyConf();
-
     $self->_writeRewritePolicy();
+    $self->_writeCronFile();
+}
+
+sub _writeCronFile
+{
+    my ($self) = @_;
+
+    my $cronfile = '/etc/cron.d/zentyal-openchange';
+    if ($self->isEnabled()) {
+        my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
+        my $crontab = "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
+        EBox::Sudo::root("echo '$crontab' > $cronfile");
+    } else {
+        EBox::Sudo::root("rm -f $cronfile");
+    }
 }
 
 sub _writeSOGoDefaultFile

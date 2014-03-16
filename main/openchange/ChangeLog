@@ -1,4 +1,5 @@
 3.4
+	+ Added cron job to check ensure OpenChange is up and running
 	+ Avoid to mark webadmin as changed
 	+ Update nginx template to allow access to /ews/oof
 	+ Added UI message with sogo webmail interface location
