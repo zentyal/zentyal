@@ -1,4 +1,6 @@
 3.4
+	+ When requesting from type a non-existing value use acquirer
+	  if it is a volatile type
 	+ Improve post save modules algorithm
 	+ Added local apparmor profile for mysqld
 	+ Avoid to show two 'module not enabled' messages in composites
