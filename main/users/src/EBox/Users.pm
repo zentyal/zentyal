@@ -2558,27 +2558,4 @@ sub checkMailNotInUse
     }
 }
 
-# Method: appArmorProfiles
-#
-#   Overrides to set the own AppArmor profile
-#
-# Overrides:
-#
-#   <EBox::Module::Base::appArmorProfiles>
-#
-sub appArmorProfiles
-{
-    my ($self) = @_;
-
-    EBox::info('Setting mysqld apparmor profile');
-    return [
-        {
-         'binary' => 'usr.sbin.mysqld',
-         'local'  => 1,
-         'file'   => 'users/apparmor-mysqld.local.mas',
-         'params' => [],
-        }
-    ];
-}
-
 1;

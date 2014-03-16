@@ -16,6 +16,7 @@
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Using Zentyal MySQL confile template
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Better user addon integration
