@@ -1,4 +1,6 @@
 3.4
+	+ EBox::WebAdmin::addNginxInclude does not longer raises exception
+	  if file not yet exists
 	+ Improve post save modules algorithm
 	+ Added local apparmor profile for mysqld
 	+ Avoid to show two 'module not enabled' messages in composites

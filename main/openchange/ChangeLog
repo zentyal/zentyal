@@ -1,4 +1,5 @@
 3.4
+	+ Avoid to mark webadmin as changed
 	+ Update nginx template to allow access to /ews/oof
 	+ Added UI message with sogo webmail interface location
 	+ Sogo webmail shared contacts unified. Contacts working properly
