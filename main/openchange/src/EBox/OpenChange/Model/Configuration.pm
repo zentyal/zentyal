@@ -81,4 +81,38 @@ sub _table
     return $dataForm;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    my $vdomains = $self->global()->modInstance('mail')->model('VDomains')->size();
+    return ($vdomains > 0);
+}
+
+sub preconditionFailMsg
+{
+    return  __x('To configure OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               );
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changed, $all) = @_;
+    my $domain = $all->{outgoingDomain}->printableValue();
+    my $openchange = $self->parentModule();
+    if ($openchange->_rpcProxyEnabled()) {
+        # check if there is a host for rpcprpxoy
+        $openchange->_rpcProxyHostForDomain($domain);
+    }
+}
+
+sub formSubmitted
+{
+    my ($self, $row, $oldRow) = @_;
+    # mark haproxy changed because a domain change could need a regenaration of
+    # rpcproxy certificate with the new fqdn
+    $self->global()->modInstance('haproxy')->setAsChanged(1);
+}
+
 1;

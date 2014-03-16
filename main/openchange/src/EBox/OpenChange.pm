@@ -284,7 +284,10 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+
     $self->_setRPCProxyConf();
+    $self->_clearDownloadableCert();
+
     $self->_writeRewritePolicy();
     $self->_writeCronFile();
 }
@@ -472,7 +475,7 @@ sub _createRPCProxyCertificate
         EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
     };
     if (not $issuer) {
-        EBox::error("Not found issuer. Certifcate for RPC proxy will left untouched");
+        EBox::error("Not found issuer. Certificate for RPC proxy will left untouched");
         return;
     }
 
@@ -487,7 +490,7 @@ sub _createRPCProxyCertificate
     my $parentCertDir = dirname($certDir);
     EBox::Sudo::root("rm -rf '$certDir'",
                      # create parent dir if it does not exists
-                     "mkdir -p -m770 '$parentCertDir'",
+                     "mkdir -p -m775 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
         my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
@@ -506,6 +509,14 @@ sub _createRPCProxyCertificate
     my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
     my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
     $self->_updateDownloadableCert();
+}
+
+sub _clearDownloadableCert
+{
+    my ($self) = @_;
+
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
+    EBox::Sudo::root("rm -f $downloadPath");
 }
 
 sub _updateDownloadableCert
@@ -844,6 +855,9 @@ sub _rpcProxyHosts
     my ($self) = @_;
     my @hosts;
     my $domain = $self->_rpcProxyDomain();
+    if (not $domain) {
+        throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
+    }
     push @hosts, $self->_rpcProxyHostForDomain($domain);
     return \@hosts;
 }
