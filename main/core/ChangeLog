@@ -1,4 +1,5 @@
 3.4
+	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
 	  exceptions in the UnhandledError middleware. This will gives us
 	  useful stack traces.

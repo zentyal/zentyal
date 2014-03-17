@@ -56,7 +56,8 @@ sub new # (text)
     }
 
     # Store the trace
-    $self->{trace} = new Devel::StackTrace(ignore_class => __PACKAGE__);
+    $self->{trace} = new Devel::StackTrace(ignore_class => __PACKAGE__,
+                                           no_refs => 1);
 
     bless ($self, $class);
     return $self;
