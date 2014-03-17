@@ -69,7 +69,7 @@ sub initialSetup
     $self->_migrateFormKeys();
 
     if (defined($version)
-            and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+            and (EBox::Util::Version::compare($version, '3.2') < 0)) {
         $self->_migrateOutgoingDomain();
     }
 }
