@@ -3,7 +3,7 @@ HEAD
 3.4
 	+ Set version to 3.4
 	+ Make FreshclamStatus model more resilient to errors
-	+ Fix status when the freshclam state file is emptys
+	+ Fix status when the freshclam state file is empty
 3.3
 	+ Update strings to new offering
 	+ Added missing EBox::Exceptions uses
