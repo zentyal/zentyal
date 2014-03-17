@@ -1,4 +1,5 @@
 3.4
+	+ create-db script can repair login problems
 	+ When requesting from type a non-existing value use acquirer
 	  if it is a volatile type
 	+ EBox::WebAdmin::addNginxInclude does not longer raises exception
