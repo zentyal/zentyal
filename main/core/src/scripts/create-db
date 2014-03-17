@@ -18,6 +18,18 @@ create_db()
         sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf
     fi
 
+    # If password file exists, but login is incorrect
+    # Delete password file and database user, so we create them again
+    if [ -s $PASSWD_FILE ]
+    then
+        PASSWD=`cat $PASSWD_FILE`
+        if ! mysql -u $db_name -p$PASSWD -e 'exit'; then
+            mysql --defaults-file=/etc/mysql/debian.cnf -e "DROP USER '$db_user'@'localhost'"
+            rm -rf $PASSWD_FILE
+        fi
+    fi
+
+    # If there is no password file, create a new one
     if [ -s $PASSWD_FILE ]
     then
         PASSWD=`cat $PASSWD_FILE`
