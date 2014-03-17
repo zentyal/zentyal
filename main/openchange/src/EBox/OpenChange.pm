@@ -541,6 +541,9 @@ sub _writeRewritePolicy
         my $defaultDomain = $sysinfo->hostDomain();
 
         my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        if (not $rewriteDomain) {
+            $rewriteDomain = $defaultDomain;
+        }
 
         my @rewriteParams;
         push @rewriteParams, ('defaultDomain' => $defaultDomain);

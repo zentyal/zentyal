@@ -36,7 +36,8 @@ sub _delVDomainAbort
         return;
     }
 
-    my $outgoing  = $self->{openchangeMod}->model('Provision')->outgoingDomain();
+    my $confRow  = $self->{openchangeMod}->model('Configuration')->row();
+    my $outgoing = $confRow->elementByName('outgoingDomain')->printableValue();
     if ($vdomain eq $outgoing) {
         throw EBox::Exceptions::External(
             __x('The virtual mail domain {dom} cannot be removed because it is {oc} outgoing domain',
