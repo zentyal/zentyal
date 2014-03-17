@@ -50,7 +50,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                                slave => $slave,
                    &>
           <label><% __('User quota') %> (MB)</label>
-          <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+          <& .quotaControl, quota => $user->quota() &>
           <label><% __('Disabled account') %></label>
           <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
 %   unless ($slave) {
@@ -250,4 +250,24 @@ $user
 <div class="note"><% __('This user is not a member of any group') %></div>
 % }
 </ul>
+</%def>
+
+<%def .quotaControl>
+<%args>
+$quota
+</%args>
+ <select name="AccountSettings_defaultQuota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="AccountSettings_defaultQuota_selected"   >
+   <option value="defaultQuota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
+       <% __('Limited to') %>
+   </option>
+   <option value="defaultQuota_disabled" <% ($quota == 0) ? 'selected="selected"' : '' %>  >
+        <% __('Disabled') %>
+    </option>
+</select>
+   <span id="selectValues_AccountSettings_defaultQuota_selected" <% ($quota >= 0) ? 'class="hidden"' : '' %> ></span>
+   <span id='AccountSettings_defaultQuota_selected_defaultQuota_size_container' <% ($quota == 0) ? 'class="hidden"' : '' %> >
+    <input type="text" class="inputText " value="<% $quota %>"
+ size="7" id='AccountSettings_defaultQuota_size' name='AccountSettings_defaultQuota_size'  />Mb
+  </span>
+</span>
 </%def>

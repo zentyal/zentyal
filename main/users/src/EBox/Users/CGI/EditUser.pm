@@ -66,8 +66,16 @@ sub _process
     if ($self->param('edit')) {
         my $setText = 0;
         $self->{json} = { success => 0 };
-        $self->_requireParamAllowEmpty('quota', __('quota'));
-        $user->set('quota', $self->param('quota'), 1);
+
+        $self->_requireParam('AccountSettings_defaultQuota_selected');
+        my $quotaTypeSelected = $self->param('AccountSettings_defaultQuota_selected');
+        my $quota;
+        if ($quotaTypeSelected eq 'defaultQuota_disabled') {
+            $quota = 0;
+        } elsif ($quotaTypeSelected eq 'defaultQuota_size') {
+            $quota = $self->param('AccountSettings_defaultQuota_size');
+        }
+        $user->set('quota', $quota, 1);
 
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
