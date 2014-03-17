@@ -1,4 +1,7 @@
 3.4
+	+ Ask for trace object to non-handled EBox::Exceptions::Base
+	  exceptions in the UnhandledError middleware. This will gives us
+	  useful stack traces.
 	+ When requesting from type a non-existing value use acquirer
 	  if it is a volatile type
 	+ EBox::WebAdmin::addNginxInclude does not longer raises exception

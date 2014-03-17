@@ -25,6 +25,7 @@ use EBox::TraceStorable;
 
 use Devel::StackTrace;
 use Plack::Util::Accessor qw( force no_print_errors );
+use Scalar::Util;
 use TryCatch::Lite;
 
 sub munge_error {
@@ -58,11 +59,16 @@ sub call
 
     my $trace;
     local $SIG{__DIE__} = sub {
-        $trace = Devel::StackTrace->new(
-            indent         => 1,
-            message        => munge_error($_[0], [ caller ]),
-            ignore_package => __PACKAGE__,
-        );
+        my ($err) = @_;
+        if (Scalar::Util::blessed($err) and $err->isa('EBox::Exceptions::Base')) {
+            $trace = $err->trace();
+        } else {
+            $trace = Devel::StackTrace->new(
+                indent         => 1,
+                message        => munge_error($_[0], [ caller ]),
+                ignore_package => __PACKAGE__,
+            );
+        }
         die @_;
     };
 
