@@ -1,7 +1,6 @@
-HEAD
+3.4
 	+ Store trace on EBox::Exceptions::Base creation and available at
 	  trace method
-3.4
 	+ Make sure commercial messages are only displayed in English or Spanish
 	+ Set debug = yes by default for daily builds
 	+ Added EBox::Config::psgi() to get the path where all PSGI applications
