@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-12 23:54+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2014-03-15 00:10+0200\n"
+"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -442,7 +442,7 @@ msgstr "Servidores VPN"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr "Servidor"
+msgstr "servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:160
 #, perl-brace-format
@@ -878,7 +878,7 @@ msgid ""
 "network address translation option is enabled"
 msgstr ""
 "Se necesita al menos una interfaz externa para conectarse al servidor a "
-"menos que la opción de NAT esté activada"
+"menos que la opción de traducción de dirección de red esté activada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
@@ -1324,7 +1324,7 @@ msgstr "Dirección IP"
 
 #: ../../main/ha/src/EBox/HA.pm:1035
 msgid "Cluster is not configured"
-msgstr "El Clusterfaz no está configurado"
+msgstr "El clúster no está configurado"
 
 #: ../../main/ha/src/EBox/HA.pm:1124
 #, perl-brace-format
@@ -1342,7 +1342,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
 msgid "Cluster configuration"
-msgstr "Configuración del Cluster"
+msgstr "Configuración del clúster"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1474,7 +1474,7 @@ msgstr "El nodo {name} es ahora un nodo pasivo"
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
 msgid "Cluster name"
-msgstr "nombre del cluster"
+msgstr "Nombre del cluster"
 
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
@@ -1828,11 +1828,11 @@ msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
 msgid "Add rules to suricata configuration"
-msgstr "Añadir reglas a la configuración del Suricata"
+msgstr "Añadir reglas a la configuración de suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
 msgid "Enable start of suricata daemon"
-msgstr "Habilitar ejecución del demonio del Suricata"
+msgstr "Activar la ejecución del demonio de suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:159
@@ -1986,7 +1986,7 @@ msgstr "Servir páginas a través de HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:138
 msgid "Remove apache2 init script link"
-msgstr "Borrar enlaces al script de inicio de Apache2"
+msgstr "Borrar enlaces al script de inicio de apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:139
 #: ../../main/dns/src/EBox/DNS.pm:539 ../../main/squid/src/EBox/Squid.pm:335
@@ -2014,7 +2014,7 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer.pm:940
 msgid "Web server data"
-msgstr "Datos del Servidor Web"
+msgstr "Datos del servidor Web"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
 msgid ""
@@ -2027,6 +2027,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
 msgid "You must enable, at least, a listening port to make this module useful."
 msgstr ""
+"Debes activar, al menos, un puerto de escucha para hacer este módulo útil."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
 msgid "HTTP listening port"
@@ -2103,7 +2104,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:205
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
-msgstr "Host Virtual {vhost} añadido."
+msgstr "Host virtual {vhost} añadido."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
@@ -2276,14 +2277,14 @@ msgstr "Servicio de Nombres de Dominio"
 
 #: ../../main/dns/src/EBox/DNS.pm:1021
 #: ../../main/dns/src/EBox/DNS/Update.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Failed to update: {err}."
-msgstr "Fallo al habilitar: {err}"
+msgstr "Fallo al actualizar: {err}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1134
 #, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Parámetro '{key}' en el fichero de configuración {value}"
+msgstr "parámetro '{key}' en el fichero de configuración {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1764
 msgid "hostname"
@@ -2298,61 +2299,66 @@ msgstr "alias"
 #: ../../main/dns/src/EBox/DNS.pm:1890
 #, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Ya existe un host llamado {host} registrado en este Zentyal"
+msgstr "Ya existe un nombre de máquina llamado {x} definido en el dominio {y}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr "Se debe proporcionar un nombre de dominio válido o un comodín (*)"
 
 #: ../../main/dns/src/EBox/DNS/Update.pm:111
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Failed to send update: {err}."
-msgstr "Fallo al habilitar: {err}"
+msgstr "Fallo al enviar actualización: {err}."
 
 #: ../../main/dns/src/EBox/DNS/Update.pm:177
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Failed to query the {dom} zone NS record: {err}"
-msgstr "Fallo al habilitar {mod}: {err}"
+msgstr "Fallo al preguntar el registro NS de la zona {dom}: {err}"
 
 #: ../../main/dns/src/EBox/DNS/Update.pm:189
 #, perl-brace-format
 msgid "Failed to query the {dom} zone NS record: Record not found."
 msgstr ""
+"Fallo al preguntar el registro NS de la zona {dom}: Registro no encontrado."
 
 #: ../../main/dns/src/EBox/DNS/Update/TSIG.pm:55
 msgid "Failed to sign DNS packet."
-msgstr ""
+msgstr "Fallo al firmar el paquete DNS."
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:69
 msgid ""
 "The DNS server has not signed the reply. Can not verify its authenticity."
 msgstr ""
+"El servidor DNS no ha firmado la respuesta. No podemos verificar su "
+"autenticidad."
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Failed to verify MIC: {err}"
-msgstr "Fallo al habilitar: {err}"
+msgstr "Fallo al verificar MIC: {err}"
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:112
 #, perl-brace-format
 msgid "GSS: failed to init security context: {err}"
-msgstr ""
+msgstr "GSS: fallo al iniciar el contexto de seguridad: {err}"
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:134
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GSS: Failed to send update: {err}."
-msgstr "Fallo al habilitar: {err}"
+msgstr "GSS: Fallo al enviar actualización: {err}."
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:140
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GSS: Failed to send TKEY: {err}."
-msgstr "Fallo al habilitar: {err}"
+msgstr "GSS: Fallo al enviar TKEY: {err}."
 
 #: ../../main/dns/src/EBox/DNS/Update/GSS.pm:151
 msgid ""
 "Failed to negotiate security context with DNS server. The server reply does "
 "not contain a TKEY record."
 msgstr ""
+"Fallo al negociar el contexto de seguridad con el servidor DNS. La respuesta "
+"del servidor no contiene el registro TKEY."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:110
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:242
@@ -2424,7 +2430,7 @@ msgstr "Nombre del servicio"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:164
 msgid "Lower value is greater priority"
-msgstr "valor más bajo es de prioridad más alta"
+msgstr "El valor más bajo es de prioridad más alta"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:191
@@ -2802,13 +2808,13 @@ msgstr "Añadir esquemas a LDAP"
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:71
 msgid "Zentyal will use this schema to store user sessions info."
 msgstr ""
-"Zentyal necesitará este esquema de LDAP para almacenar la información de las "
+"Zentyal necesitará este esquema para almacenar la información de las "
 "sesiones de los usuarios."
 
 #: ../../main/captiveportal/src/EBox/Event/Watcher/CaptivePortalQuota.pm:77
 #: ../../main/captiveportal/src/templates/login.mas:19
 msgid "Captive portal"
-msgstr "Portal Cautivo"
+msgstr "Portal cautivo"
 
 #: ../../main/captiveportal/src/EBox/Event/Watcher/CaptivePortalQuota.pm:92
 msgid "Notify when a user is out of quota"
@@ -3170,7 +3176,7 @@ msgstr "Dirección MAC"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:139
 msgid "Extend bandwidth quota"
-msgstr "Ampliar Límite de ancho de banda"
+msgstr "Ampliar la cuota de ancho de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:142
 msgid "Reset bandwith limit"
@@ -3199,8 +3205,8 @@ msgstr "No hay usuarios conectados"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:191
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
-"El módulo Portal Cautivo debe habilitarse para poder ver la lista de "
-"usuarios actuales."
+"El módulo portal cautivo debe activarse para poder ver la lista de usuarios "
+"actuales."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:277
 #, perl-brace-format
@@ -3258,15 +3264,15 @@ msgstr "habilitado"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
-msgstr "Cuenta de Jabber habilitada con permisos de administración"
+msgstr "Cuenta de Jabber activada con permisos de administración"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
 msgid "Jabber account enabled"
-msgstr "Cuenta Jabber habilitada"
+msgstr "Cuenta Jabber activada"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
 msgid "Jabber account disabled"
-msgstr "Cuenta Jabber deshabilitada"
+msgstr "Cuenta Jabber desactivada"
 
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:40
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:58
@@ -3276,7 +3282,7 @@ msgstr "Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
-msgstr "Dominio Jabber"
+msgstr "dominio de Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:123
 msgid "Domain used to connect to this server."
@@ -3346,7 +3352,7 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:144
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:163
 msgid "General configuration settings"
-msgstr "Configuración General"
+msgstr "Parámetros de configuración general"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:186
 msgid "General Jabber server configuration settings updated."
@@ -4738,9 +4744,9 @@ msgid "Users data"
 msgstr "Datos de usuario"
 
 #: ../../main/users/src/EBox/Users.pm:2552
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
-msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
+msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:168
 #, perl-brace-format
@@ -5097,12 +5103,10 @@ msgid ""
 msgstr "Ya existe un objeto de tipo {type} con CN = {cn} en este contenedor"
 
 #: ../../main/users/src/EBox/Users/LdapObject.pm:678
-#, fuzzy
 msgid "Group E-mail"
-msgstr "Correo electrónico"
+msgstr "Correo electrónico de grupo"
 
 #: ../../main/users/src/EBox/Users/OU.pm:61
-#, fuzzy
 msgid "Organization Unit"
 msgstr "Unidad Organizativa"
 
@@ -5256,9 +5260,9 @@ msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La contraseña no debe ser más larga de {maxPwdLength} caracteres"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:61
-#, fuzzy
 msgid "This form is only available from the User Corner application."
-msgstr "La lista debe contener al menos una aplicación."
+msgstr ""
+"Este formulario sólo está disponible desde la aplicación Rincón del Usuario."
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:64
 msgid ""
@@ -12863,13 +12867,15 @@ msgstr "OpenChange"
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:61
 #, perl-brace-format
 msgid "You can access the {oh}OpenChange Webmail{ch}"
-msgstr ""
+msgstr "Puedes acceder al {oh}Correo Web de OpenChange{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:66
 msgid ""
 "OpenChange webmail is enabled but you still need to complete the OpenChange "
 "module setup."
 msgstr ""
+"OpenChange webmail está activo pero se necesita completar la configuracióń "
+"del módulo OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
 msgid "OpenChange Account"
@@ -14964,9 +14970,8 @@ msgstr ""
 "Contenidos siempre actualizadas."
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not an archive file"
-msgstr "Tipo de archivo inexistente "
+msgstr "El fichero proporcionado no es un archivo"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
@@ -16482,9 +16487,9 @@ msgstr ""
 "esclavo esté completada"
 
 #: ../../main/mail/src/EBox/Mail.pm:1856
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is in use as external alias"
-msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
+msgstr "La dirección {addr} está en uso como alias externo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:42
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:167
