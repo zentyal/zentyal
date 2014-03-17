@@ -1,3 +1,6 @@
+HEAD
+	+ Store trace on EBox::Exceptions::Base creation and available at
+	  trace method
 3.4
 	+ Make sure commercial messages are only displayed in English or Spanish
 	+ Set debug = yes by default for daily builds
