@@ -58,8 +58,9 @@ sub _table
 {
     my ($self) = @_;
 
+    my $openchange = $self->parentModule();
     my @tableDesc = ();
-    if ($self->parentModule->isProvisioned()) {
+    if ($openchange->isProvisioned()) {
         push (@tableDesc, new EBox::Types::Text(
             fieldName     => 'provisionedorganizationname',
             printableName => __('Organization Name'),
@@ -112,7 +113,7 @@ sub _table
                     handler => \&_doDeprovision,
                     message => __('Database unconfigured'),
                     image => '/data/images/reload-plus.png',
-                    enabled => sub { $self->parentModule->isProvisioned() },
+                    enabled => sub { return $openchange->canDeprovision() },
                 },
                 notProvisioned => {
                     name => 'provision',
@@ -120,7 +121,7 @@ sub _table
                     handler => \&_doProvision,
                     message => __('Database configured'),
                     image => '/data/images/reload-plus.png',
-                    enabled => sub { not $self->parentModule->isProvisioned() },
+                    enabled => sub { return $openchange->isProvisioned() },
                 },
             }
         ),

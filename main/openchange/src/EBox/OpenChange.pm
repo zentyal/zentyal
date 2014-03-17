@@ -613,6 +613,18 @@ sub setProvisioned
     $self->set_state($state);
 }
 
+sub canDeprovision
+{
+    my ($self) = @_;
+    if (not $self->isProvisioned()) {
+        return 0;
+    }
+
+    my $cmd = 'openchange_provision --can-deprovision';
+    EBox::Sudo::silentRoot($cmd);
+    return ($? == 0);
+}
+
 sub _setupSOGoDatabase
 {
     my ($self) = @_;

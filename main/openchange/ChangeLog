@@ -1,3 +1,5 @@
+HEAD
+	+ Only allow deprovision when it is possible
 3.4
 	+ Avoid to mark webadmin as changed
 	+ Update nginx template to allow access to /ews/oof
