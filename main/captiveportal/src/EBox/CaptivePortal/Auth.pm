@@ -37,7 +37,6 @@ use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
-use String::Random;
 
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007;
@@ -208,13 +207,10 @@ sub _checkLdapPassword
         if ($authorized and $groupDN) {
             # we have not finished
             $authorized = 0;
-
-            my $dn = EBox::Ldap::dn();
-            my $userDN = "uid=$user,ou=Users,$dn";
             # check also the group for the user
             my %attrs = (
                 base => $groupDN,
-                filter => "(member=$userDN)",
+                filter => "(member=$bind)",
                 scope => 'base'
             );
             my $result = $ldap->search(%attrs);

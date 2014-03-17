@@ -12,6 +12,7 @@
     $sysvolPath
     $unmanagedAcls => 0
     $print => 0
+    @printers => ()
     $disableFullAudit => 0
 
     $antivirus => 0
@@ -173,6 +174,15 @@ use EBox::Gettext;
     browseable = Yes
     read only = No
     printable = Yes
+
+% foreach my $printer (@printers) {
+%   next unless (length ($printer->{'users'}) > 0);
+[<% $printer->{'name'} %>]
+ path = /var/spool/samba
+ read only = Yes
+ printable = Yes
+ valid users = <% "@{$printer->{'users'}}" %>
+%   }
 % }
 
 % if ($antivirus) {

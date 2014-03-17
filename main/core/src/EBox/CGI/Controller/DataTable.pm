@@ -549,15 +549,15 @@ sub _redirect
 # TODO: Move this function to the proper place
 sub _printRedirect
 {
-    my $self = shift;
+    my ($self) = @_;
     my $url = $self->_redirect();
     return unless (defined($url));
-    print "<script>window.location.href='$url'</script>";
+    print qq{<script type="text/javascript">\$(document).ready(function(){ window.location.replace('$url'); });</script>};
 }
 
 sub _print
 {
-    my $self = shift;
+    my ($self) = @_;
     $self->SUPER::_print();
     unless ($self->{json}) {
         $self->_printRedirect;

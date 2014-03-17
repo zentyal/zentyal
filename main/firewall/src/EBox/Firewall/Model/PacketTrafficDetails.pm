@@ -70,8 +70,7 @@ sub _table
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Packet traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],
-        'defaultController' =>
-         '/Firewall/Controller/PacketTrafficReport',
+            'defaultController' => '/Firewall/Controller/PacketTrafficDetails',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,
