@@ -289,7 +289,9 @@ sub _setConf
     $self->_clearDownloadableCert();
 
     $self->_writeRewritePolicy();
-    $self->_writeCronFile();
+
+    # FIXME: this may cause unexpected samba restarts during save changes, etc
+    #$self->_writeCronFile();
 }
 
 sub _writeCronFile
