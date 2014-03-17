@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -55,6 +55,9 @@ sub new # (text)
         $self->{silent} = 0;
     }
 
+    # Store the trace
+    $self->{trace} = new Devel::StackTrace(ignore_class => __PACKAGE__);
+
     bless ($self, $class);
     return $self;
 }
@@ -72,16 +75,35 @@ sub stringify
     return $self->{text} ? $self->{text} : 'Died';
 }
 
+# Method: stacktrace
+#
+# Returns:
+#
+#   String - the exception text appended using 'at' with the trace as
+#            string
+#
 sub stacktrace
 {
     my ($self) = @_;
 
-    my $trace = new Devel::StackTrace();
     my $msg = $self->{text};
     $msg .= ' at ';
-    $msg .= $trace->as_string();
+    $msg .= $self->{trace}->as_string();
 
     return $msg;
+}
+
+# Method: trace
+#
+# Returns:
+#
+#     <Devel::StackTrace> - the stack trace obj when the exception was
+#                           created
+#
+sub trace
+{
+    my ($self) = @_;
+    return $self->{trace};
 }
 
 sub throw
@@ -118,7 +140,7 @@ sub log
     $Log::Log4perl::caller_depth +=3;
     my $stacktrace = $self->stacktrace();
     if ($stacktrace =~ m/^\s*EBox::.*Auth::.*$/m) {
-        # only log first line,  to avoid reveal passwords
+        # only log first line to avoid reveal passwords
         $stacktrace  = (split "\n", $stacktrace)[0];
     }
 
