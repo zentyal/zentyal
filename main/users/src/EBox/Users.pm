@@ -395,11 +395,11 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    # Upgrade from previous versions
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        # Perform the migration to 3.4
-        $self->_migrateTo34();
-    }
+# TODO: Upgrade from previous versions
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+#        # Perform the migration to 3.4
+#        $self->_migrateTo34();
+#    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
