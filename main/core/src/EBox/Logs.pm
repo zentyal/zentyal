@@ -75,10 +75,9 @@ sub initialSetup
         $self->_setAppArmorProfiles();
     }
 
-    # FIXME: seems to be some regression during upgrade/install
     # Make sure the MySQL conf file is correct
-    #my $db = EBox::DBEngineFactory::DBEngine();
-    #$db->updateMysqlConf();
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
 }
 
 # Method: depends
