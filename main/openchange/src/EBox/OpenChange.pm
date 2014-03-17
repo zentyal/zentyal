@@ -66,7 +66,6 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    #FIXME: Maybe deprecated. We may not do anything here
     $self->_migrateFormKeys();
 
     if (defined($version)
