@@ -349,9 +349,12 @@ sub modelsUsingId
 
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
+    use Data::Dumper;
+    EBox::debug(Dumper($self->{'notifyActions'}));
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
+            EBox::debug($observerModel->isUsingId($modelName, $rowId));
             if ($observerModel->isUsingId($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
@@ -518,8 +521,7 @@ sub warnIfIdIsUsed
 #
 #       changedData - hash ref the types that has been changed
 #
-#       oldRow - hash ref the old row with the content as
-#       <EBox::Model::DataTable::row> return value
+#       oldRow - <EBox::Model::Row> the old row
 #
 # Exceptions:
 #
@@ -532,6 +534,7 @@ sub warnOnChangeOnId
 
     my $tablesUsing;
 
+    EBox::debug("$modelName, $id");
     for my $name (keys %{$self->modelsUsingId($modelName, $id)}) {
         my $model = $self->model($name);
         my $issue = $model->warnOnChangeOnId(modelName => $modelName,
@@ -704,7 +707,7 @@ sub _setupNotifyActions
         my $observerPath = '/' . $moduleName . '/' . $model . '/';
         foreach my $notifier (@{ $notify->{$model}   }) {
             # XXX change when we change the yaml to the more intuitive notifier
-            # - >wathcer format
+            # - >watcher format
             if (not exists $self->{notifyActions}->{$notifier}) {
                 $self->{notifyActions}->{$notifier} = [];
             }
