@@ -919,6 +919,10 @@ sub _vdomainModImplementation
     return EBox::OpenChange::VDomainsLdap->new($self);
 }
 
+# Method: _getPassword
+#
+#   Read a password file (one line, contents chomped) as root
+#
 sub _getPassword
 {
     my ($self, $path, $target) = @_;
@@ -936,6 +940,9 @@ sub _getPassword
 # Method: getImapMasterPassword
 #
 #   We can login as any user on imap server with this, the first time
+#   this method is called a new password will be generated and put it
+#   on a file inside samba private directory (SOGo will look for this
+#   password there)
 #
 # Returns:
 #
@@ -960,12 +967,12 @@ sub getImapMasterPassword
 
 # Method: isProvisionedWithMySQL
 #
+#   Since Zentyal 3.4 MySQL backends are the default ones but on previous
+#   versions they didn't exist.
+#
 # Returns:
 #
 #   Whether OpenChange module has been provisioned using MySQL backends or not.
-#
-#   Since Zentyal 3.4 they are the default backends but on previous versions
-#   they didn't exist.
 #
 sub isProvisionedWithMySQL
 {
