@@ -909,7 +909,7 @@ Parameters:
     field - field name
     element - HTML element
 */
-Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element) {
+Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element, force) {
     var elementId = element.id;
     element = $(element);
     Zentyal.TableHelper.startAjaxRequest();
@@ -926,6 +926,9 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     if (element.prop('checked')) {
        params += '&value=1';
     }
+    // If force is used, then use it
+    if (force) params += '&force=1';
+
     var error = function(response) {
         Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
