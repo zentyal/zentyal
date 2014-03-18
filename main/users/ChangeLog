@@ -1,3 +1,5 @@
+HEAD
+	+ Fix domain controllers shown on the computers OU in Manage model
 3.4
 	+ Updated EBox::Users::Model::Password to use
 	  EBox::Usercorner::updateSessionPassword method and the new samba

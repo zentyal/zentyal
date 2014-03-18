@@ -2262,15 +2262,41 @@ sub gpos
     return $gpos;
 }
 
-sub computers
+sub domainControllers
 {
-    my ($self, $system) = @_;
+    my ($self) = @_;
 
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
     my %args = (
-        base => $self->ldb()->dn(),
+        base => 'OU=Domain Controllers,' . $self->ldb()->dn(),
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [$sort],
+    );
+
+    my $result = $self->ldb->search(\%args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Samba::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+sub computers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my %args = (
+        base => 'CN=Computers,' . $self->ldb()->dn(),
         filter => 'objectClass=computer',
         scope => 'sub',
         control => [$sort],
