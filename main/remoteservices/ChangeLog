@@ -1,4 +1,5 @@
 HEAD
+	+ DisasterRecoveryDomains can notify other models
 	+ Remove Disaster Recovery menu entry as it is managed by
 	  cloud-prof module
 	+ Fix restore remote backup with spaces in the backup name
