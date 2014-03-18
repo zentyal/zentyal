@@ -19,12 +19,13 @@ my @fields = map { "'" . $_ . "'" } keys %{$params};
 my $cancelJS;
 if ($ajax) {
     $cancelJS = "Zentyal.TableHelper.highlightRow('$rowId', false);";
-    $cancelJS .=  "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
-    $cancelJS .= "Zentyal.TableHelper.restoreHidden('actionsCell_" . "$rowId');return false";
+    $cancelJS .= "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
+    $cancelJS .= "Zentyal.TableHelper.removeWarnings('$table'); return false";
 } else {
     $cancelJS = "Zentyal.TableHelper.changeView('$url', '$table', '$directory', 'changeList')";
 }
 </%init>
+<div id="<% $table %>_data_in_use">
 <div class='warning'>
 <% $warning %>
 </div>
@@ -33,18 +34,20 @@ if ($ajax) {
        value="<% __('Change') %>"
        onclick="Zentyal.TableHelper.changeRow('<% $url %>', '<% $table %>',
        [ <% join(', ', @fields) %> ], '<% $directory %>',
-       '<% $rowId %>', <% $page %>, true); return false"
+       '<% $rowId %>', <% $page %>, true); Zentyal.TableHelper.removeWarnings('<% $table %>'); return false"
 />
 % } elsif ($action eq 'del') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
-        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', true); return false"/>
+        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', true); Zentyal.TableHelper.removeWarnings('<% $table %>'); return false"/>
 % } elsif ($action eq 'editBoolean') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>" title="Change"
        onclick="Zentyal.TableHelper.sendInPlaceBooleanValue('<% $url %>','<% $table %>',
                                                             '<% $rowId %>', '<% $directory %>',
-                                                            <% $fields[0] %>, this, {force: 1});
+                                                            '<% $params->{'field'} %>',
+                                                             $('#' + '<% $table %>' + '_' + '<% $params->{'field'} %>' + '_' + '<% $rowId %>') , {force: 1});
+                Zentyal.TableHelper.removeWarnings('<% $table %>');
                 return false"/>
 % } else {
 %   $m->abort("Unexpected $action in dataInUse.mas template");
@@ -54,3 +57,4 @@ if ($ajax) {
                 value="<% __('Cancel') %>" title="Cancel"
                 onclick="<% $cancelJS %>" />
 
+</div>
