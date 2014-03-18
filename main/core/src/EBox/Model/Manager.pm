@@ -349,12 +349,9 @@ sub modelsUsingId
 
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
-    use Data::Dumper;
-    EBox::debug(Dumper($self->{'notifyActions'}));
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-            EBox::debug($observerModel->isUsingId($modelName, $rowId));
             if ($observerModel->isUsingId($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
@@ -534,7 +531,6 @@ sub warnOnChangeOnId
 
     my $tablesUsing;
 
-    EBox::debug("$modelName, $id");
     for my $name (keys %{$self->modelsUsingId($modelName, $id)}) {
         my $model = $self->model($name);
         my $issue = $model->warnOnChangeOnId(modelName => $modelName,
