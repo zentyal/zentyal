@@ -1,3 +1,5 @@
+HEAD
+	+ Set the message in the trace
 3.4
 	+ Store trace on EBox::Exceptions::Base creation and available at
 	  trace method
