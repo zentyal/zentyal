@@ -1,4 +1,5 @@
 HEAD
+	+ Give support to data in use exception for in-place booleans
 	+ Fix warnOnChangeId framework
 	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
