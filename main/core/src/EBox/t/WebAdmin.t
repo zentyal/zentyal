@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 37;
+use Test::More tests => 36;
 use Test::Exception;
 use Test::Deep;
 
@@ -101,9 +101,6 @@ throws_ok {
     $webAdminMod->addNginxInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to include';
 
-throws_ok {
-    $webAdminMod->addNginxInclude($deviantIncludes[0]);
-} 'EBox::Exceptions::Internal', 'File to include does not exits';
 
 lives_ok {
     $webAdminMod->addNginxInclude($_) foreach (@includes);

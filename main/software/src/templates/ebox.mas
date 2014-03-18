@@ -513,12 +513,9 @@ $(function() {
    $('#advanced').show();
 % }
 
-// FIXME: uncomment this before 3.4 is released
-/*
    if ($('#zentyal-remoteservices').length > 0) {
         Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
    }
-*/
 
    $('#updNumber').html( '<% scalar @advUpdatePkgs %>' );
    // update button status

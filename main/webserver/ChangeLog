@@ -1,5 +1,4 @@
 3.4
-	+ Set HTTPS env variable to 'On' always for SSL vhosts
 	+ Check, at least, a listening port is mandatory
 	+ Fix when webserver is not listening in HTTP port
 	+ Don't regenerate certificate if it has the same CN that the

@@ -2,16 +2,15 @@
 
 Zentyal.namespace('SoftwareManagementUI');
 
-// FIXME: add zentyal-remoteservices before 3.4 is released
 Zentyal.SoftwareManagementUI.suites =  {
     'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
-                  'zentyal-users', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
+                  'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
     'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
-                         'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca' ],
+                         'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
     'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
-                 'zentyal-network', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
+                 'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
     'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
-                         'zentyal-firewall', 'zentyal-network', 'zentyal-openvpn', 'zentyal-monitor' ]
+                         'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
 };
 
 Zentyal.SoftwareManagementUI.showInstallTab = function() {

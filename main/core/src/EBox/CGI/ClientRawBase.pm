@@ -166,10 +166,10 @@ sub run
             }
 
             $finish = 1;
-        } catch ($e) {
+        } catch (EBox::Exceptions::External $e) {
             $self->setErrorFromException($e);
             if (not $self->{json}) {
-                $self->_error();
+                $self->_print_error($self->{error});
             }
             $finish = 1;
         }
@@ -184,27 +184,15 @@ sub run
 
     try  {
         $self->_print;
-    } catch (EBox::Exceptions::Base $e) {
-        $self->setErrorFromException($e);
-        $self->_print_error($self->{error});
     } catch ($ex) {
-        my $logger = EBox::logger;
-        if (isa_mason_exception($ex)) {
-            $logger->error($ex->as_text);
-            my $error = __("An internal error related to ".
-                    "a template has occurred. This is ".
-                    "a bug, relevant information can ".
-                    "be found in the logs.");
-            $self->_print_error($error);
+        my $logger = EBox::logger();
+        if (ref($ex) and $ex->can('text')) {
+            $logger->error('Exception: ' . $ex->text());
         } else {
-            if ($ex->can('text')) {
-                $logger->error('Exception: ' . $ex->text());
-            } else {
-                $logger->error("Unknown exception");
-            }
-
-            throw $ex;
+            $logger->error("Unknown exception: $ex");
         }
+
+        throw $ex;
     }
 }
 
