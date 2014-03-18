@@ -256,18 +256,18 @@ $user
 <%args>
 $quota
 </%args>
- <select name="AccountSettings_defaultQuota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="AccountSettings_defaultQuota_selected"   >
-   <option value="defaultQuota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
+ <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"   >
+   <option value="quota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
        <% __('Limited to') %>
    </option>
-   <option value="defaultQuota_disabled" <% ($quota == 0) ? 'selected="selected"' : '' %>  >
+   <option value="quota_disabled" <% ($quota == 0) ? 'selected="selected"' : '' %>  >
         <% __('Disabled') %>
     </option>
 </select>
-   <span id="selectValues_AccountSettings_defaultQuota_selected" <% ($quota >= 0) ? 'class="hidden"' : '' %> ></span>
-   <span id='AccountSettings_defaultQuota_selected_defaultQuota_size_container' <% ($quota == 0) ? 'class="hidden"' : '' %> >
+   <span id="selectValues_User_quota_selected" <% ($quota >= 0) ? 'class="hidden"' : '' %> ></span>
+   <span id='User_quota_selected_quota_size_container' <% ($quota == 0) ? 'class="hidden"' : '' %> >
     <input type="text" class="inputText " value="<% $quota %>"
- size="7" id='AccountSettings_defaultQuota_size' name='AccountSettings_defaultQuota_size'  />Mb
+ size="7" id='User_quota_size' name='User_quota_size'  />Mb
   </span>
 </span>
 </%def>

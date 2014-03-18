@@ -67,13 +67,13 @@ sub _process
         my $setText = 0;
         $self->{json} = { success => 0 };
 
-        $self->_requireParam('AccountSettings_defaultQuota_selected');
-        my $quotaTypeSelected = $self->param('AccountSettings_defaultQuota_selected');
+        $self->_requireParam('User_quota_selected');
+        my $quotaTypeSelected = $self->param('User_quota_selected');
         my $quota;
-        if ($quotaTypeSelected eq 'defaultQuota_disabled') {
+        if ($quotaTypeSelected eq 'quota_disabled') {
             $quota = 0;
-        } elsif ($quotaTypeSelected eq 'defaultQuota_size') {
-            $quota = $self->param('AccountSettings_defaultQuota_size');
+        } elsif ($quotaTypeSelected eq 'quota_size') {
+            $quota = $self->param('User_quota_size');
         }
         $user->set('quota', $quota, 1);
 
