@@ -956,6 +956,8 @@ sub getImapMasterPassword
     unless (EBox::Sudo::fileTest('-e', OPENCHANGE_IMAP_PASSWD_FILE)) {
         # Generate password file
         EBox::debug("Generating imap master password file");
+        my $parentDir = dirname(OPENCHANGE_IMAP_PASSWD_FILE);
+        EBox::Sudo::root("mkdir -p -m700 '$parentDir'");
         my $generator = new String::Random();
         my $pass = $generator->randregex('\w\w\w\w\w\w\w\w');
         EBox::Module::Base::writeFile(OPENCHANGE_IMAP_PASSWD_FILE,
