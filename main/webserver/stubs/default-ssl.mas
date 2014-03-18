@@ -20,8 +20,6 @@
 <VirtualHost *:<% $sslPort %>>
     ServerName <% $hostname %>:<% $publicSSLPort %>
 
-    SetEnv HTTPS On
-
     ServerAdmin webmaster@<% $hostname %>
 
     DocumentRoot /var/www

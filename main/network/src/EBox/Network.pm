@@ -3272,7 +3272,7 @@ sub _generateDDClient
 
     if ($enabled) {
         if ( $row->valueByName('service') eq 'cloud' ) {
-            my $gl = EBox::Global->getInstance(1);
+            my $gl = $self->global();
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
                 if ( $rs->eBoxSubscribed() ) {

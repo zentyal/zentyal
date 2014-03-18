@@ -168,7 +168,9 @@ sub packageIt
 
     export($dir, $exportDir);
 
-    add_changelog_entry($exportDir);
+    unless ($ENV{NOT_INCREMENT_CHANGELOG}) {
+        add_changelog_entry($exportDir);
+    }
 
     build_package($exportDir);
 

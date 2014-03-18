@@ -60,15 +60,9 @@ sub _table
              printableName => __('Certificate'),
              volatile  => 1,
              optionalLabel => 0,
-             acquirer => sub {
-                 my $file = EBox::Config::downloads() . 'rpcproxy.crt';
-                 if (not -r $file) {
-                     return undef;
-                 }
-                 return '/Downloader/FromTempDir?filename=rpcproxy.crt';
-             },
-            HTMLViewer     => '/ajax/viewer/downloadLink.mas',
-            HTMLSetter     => '/ajax/viewer/downloadLink.mas',
+             acquirer => sub { return '/Downloader/RPCCert'; },
+             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
+             HTMLSetter     => '/ajax/viewer/downloadLink.mas',
          ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',
@@ -101,10 +95,7 @@ sub precondition
 {
     my ($self) = @_;
     my $parentModule = $self->parentModule();
-    if (not $parentModule->isProvisioned()) {
-        $self->{preconditionFailMsg} = '';
-        return 0;
-    } elsif (not $self->_webserverEnabled()) {
+    if (not $self->_webserverEnabled()) {
         $self->{preconditionFailMsg} = __('Web Server module needs to be installed and enabled to use RPC proxy');
         return 0;
     }
@@ -177,8 +168,9 @@ sub httpsEnabled
 sub formSubmitted
 {
     my ($self, $row, $oldRow) = @_;
-    # mark webadmin as changed if the service has changed
+    # mark haproxy and webserver as changed if the service has changed
     $self->global()->modInstance('haproxy')->setAsChanged(1);
+    $self->global()->modInstance('webserver')->setAsChanged(1);
 }
 
 1;

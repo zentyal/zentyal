@@ -1,0 +1,16 @@
+<%args>
+    $enableInnoDB
+</%args>
+# Managed by Zentyal
+[mysqld]
+% if ($enableInnoDB) {
+innodb = on
+% } else {
+innodb = off
+% }
+default-storage-engine = MyISAM
+character-set-server=utf8
+
+[client]
+default-character-set=utf8
+

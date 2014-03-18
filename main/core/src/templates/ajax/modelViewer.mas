@@ -68,7 +68,9 @@
 <& .pageTitle,
       crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
+% if (not $m->notes('composite')) {
 <& /disabledModuleWarn.mas, model => $model &>
+% }
 
 % if ($model->precondition()) {
 <%perl>

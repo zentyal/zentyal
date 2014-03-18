@@ -608,9 +608,6 @@ sub _nginxServers
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
-#      <EBox::Exceptions::Internal> - thrown if the given file does
-#      not exists
-#
 sub addNginxInclude
 {
     my ($self, $includeFilePath) = @_;
@@ -618,11 +615,7 @@ sub addNginxInclude
     unless(defined($includeFilePath)) {
         throw EBox::Exceptions::MissingArgument('includeFilePath');
     }
-    unless(EBox::Sudo::fileTest('-r', $includeFilePath)) {
-        throw EBox::Exceptions::Internal(
-            "File $includeFilePath cannot be read or it is not a file"
-           );
-    }
+
     my @includes = @{$self->_nginxIncludes(0)};
     unless ( grep { $_ eq $includeFilePath } @includes) {
         push(@includes, $includeFilePath);
@@ -835,10 +828,10 @@ sub initialSetup
         $haproxyMod->setHAProxyServicePorts(@args);
     }
 
-    # Upgrade from 3.3
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrateTo34();
-    }
+# TODO: Upgrade from 3.3
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+#        $self->_migrateTo34();
+#    }
 
     if ($haproxyMod->changed()) {
         $haproxyMod->saveConfigRecursive();

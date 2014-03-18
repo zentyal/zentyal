@@ -92,7 +92,7 @@ sub run
         $redis->commit();
         return $handler->response()->finalize();
     } catch ($ex) {
-        # Base exceptions are already logged, log the rest
+        # Base exceptions are already logged, log the other ones
         unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
             EBox::error("Exception trying to access $url: $ex");
         }
