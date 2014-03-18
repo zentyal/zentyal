@@ -410,7 +410,10 @@ sub _setJSONSuccess
 
     $self->{json}->{success} = 1;
     $self->{json}->{messageClass} = $model->messageClass();
-    $self->{json}->{message}  = $model->popMessage();
+    my $msg = $model->popMessage();
+    if ($msg) {
+        $self->{json}->{message} = $msg;
+    }
 }
 
 sub editAction
