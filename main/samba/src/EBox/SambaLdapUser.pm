@@ -728,10 +728,10 @@ sub _addGroup
         } elsif ($sambaGroup->isSecurityGroup()) {
             $sambaGroup->setSecurityGroup(0, $lazy);
         }
-        my $sambaMembersDNs = $self->_membersToSamba($sambaGroup, $zentyalGroup, $lazy);
         $sambaGroup->save();
     } else {
-        throw EBox::Exceptions::Internal("Unable to find the samba group for " . $zentyalGroup->canonicalName(1));
+        my $zentyalGroupDN = $zentyalGroup->dn();
+        throw EBox::Exceptions::Internal("Unable to find the samba group for " . $zentyalGroupDN);
     }
 }
 
