@@ -1845,10 +1845,13 @@ sub allUserAddOns
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
-        # Skip modules not support multiple OU, if not default OU
-        next unless ($mod->multipleOUSupport or $defaultOU);
+        my $comp;
+        if ($defaultOU or $mod->multipleOUSupport) {
+            $comp = $mod->_userAddOns($user);
+        } else {
+            $comp  = $mod->noMultipleOUSupportComponent($user);
+        }
 
-        my $comp = $mod->_userAddOns($user);
         if ($comp) {
             $comp->{id} = ref $mod;
             $comp->{id} =~ s/:/_/g;
