@@ -16,7 +16,7 @@
 
 # Class: EBox::Exceptions::DataInUse
 #
-#       Internal exception raised when there is a data in eBox which
+#       Internal exception raised when there is a data in Zentyal which
 #       it is about to be removed which it is being used by another
 #       part of eBox.
 #

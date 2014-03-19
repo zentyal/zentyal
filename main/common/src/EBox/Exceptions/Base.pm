@@ -57,6 +57,7 @@ sub new # (text)
 
     # Store the trace
     $self->{trace} = new Devel::StackTrace(ignore_class => __PACKAGE__,
+                                           message => $text,
                                            no_refs => 1);
 
     bless ($self, $class);
@@ -104,6 +105,7 @@ sub stacktrace
 sub trace
 {
     my ($self) = @_;
+
     return $self->{trace};
 }
 
