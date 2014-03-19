@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,12 +39,12 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-    return [qw(backup name description)];
+    return [qw(name description)];
 }
 
 sub optionalParameters
 {
-    return ['popup'];
+    return [qw(backup newName ok popup)];
 }
 
 sub actuate
@@ -55,6 +55,7 @@ sub actuate
 
     my $name        = $self->param('name');
     my $description = $self->param('description');
+    EBox::debug("Backing up $name");
 
     my $progress = $backup->prepareMakeRemoteBackup($name, $description);
 

@@ -50,8 +50,8 @@ if ($restricted) {
 
 my $backupTitle = __('Remote Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var name= $('#backup_name').val();
-     var description= $('#backup_description').val();
+     var name = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/RemoteServices/Backup/MakeRemoteBackup';
      var data = 'name=' + name;
@@ -61,6 +61,22 @@ my $backupOnClickJs =<< "ENDJS" ;
      Zentyal.Dialog.showURL(url, {title: title, data: data});
      return false
 ENDJS
+if ($restricted) {
+   $backupOnClickJs =<< "ENDJS";
+     var newName = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/Confirm';
+     var data = 'newName=' + newName;
+     data += '&description=' + description;
+     data += '&name=' + \$('#hidden_name').val();
+     data += '&action=overwrite';
+     data += '&backup=1&popup=1';
+
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     return false
+ENDJS
+}
 
 push @formElements, (
 
@@ -84,12 +100,14 @@ if ($restricted) {
     push @formElements, (
                          # name of the already-done backup
                          [
+                          id    => 'hidden_name',
                           input => 'hidden',
                           name => 'name',
                           value => $lastBackupName,
                          ],
                          # action to confirm
                          [
+                          id    => 'hidden_action',
                           input => 'hidden',
                           name => 'action',
                           value => 'overwrite',

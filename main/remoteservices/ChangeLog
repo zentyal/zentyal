@@ -1,3 +1,5 @@
+HEAD
+	+ Fix overwrite action on remote conf backup
 3.4
 	+ Port proxy redirections to Nginx from Apache
 	+ Use the new PortObserver to report a change in the webadmin
