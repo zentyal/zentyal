@@ -256,6 +256,7 @@ $user
 <%args>
 $quota
 </%args>
+
  <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"   >
    <option value="quota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
        <% __('Limited to') %>
@@ -266,8 +267,7 @@ $quota
 </select>
    <span id="selectValues_User_quota_selected" <% ($quota >= 0) ? 'class="hidden"' : '' %> ></span>
    <span id='User_quota_selected_quota_size_container' <% ($quota == 0) ? 'class="hidden"' : '' %> >
-    <input type="text" class="inputText " value="<% $quota %>"
- size="7" id='User_quota_size' name='User_quota_size'  />Mb
+    <input type="text" class="inputText " value="<% $quota %>" size="7" id='User_quota_size' name='User_quota_size' style='display:inline-block'  /> Mb
   </span>
 </span>
 </%def>
