@@ -1,4 +1,4 @@
-HEAD
+3.3.6
 	+ Zentyal MySQL custom conf is now written on initial-setup of logs
 	  using a mason template
 	+ Write logs configuration only when the module is enabled
