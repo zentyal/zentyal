@@ -600,31 +600,32 @@ sub _membersToSamba
     }
 
     foreach my $memberUniqueID (keys %sambaMembers) {
-        my $canonicalName = $sambaMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $zentyalMembers{$memberUniqueID}) {
-            EBox::info("Removing member '$canonicalName' from Samba group '$gid'");
+            my $sambaMember = $sambaMembers{$memberUniqueID};
+            my $sambaMemberDN = $sambaMember->dn();
+            EBox::info("Removing member '$sambaMemberDN' from Samba group '$gid'");
             try {
-                $sambaGroup->removeMember($sambaMembers{$memberUniqueID}, 1);
+                $sambaGroup->removeMember($sambaMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error removing member '$canonicalName' from Samba group '$gid': $error");
+                EBox::error("Error removing member '$sambaMemberDN' from Samba group '$gid': $error");
             };
          }
     }
 
     foreach my $memberUniqueID (keys %zentyalMembers) {
-        my $canonicalName = $zentyalMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $sambaMembers{$memberUniqueID}) {
-            EBox::info("Adding member '$canonicalName' to Samba group '$gid'");
             my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberUniqueID});
+            my $sambaMemberDN = $sambaMember->dn();
+            EBox::info("Adding member '$sambaMemberDN' to Samba group '$gid'");
             unless ($sambaMember and $sambaMember->exists()) {
                 if ($zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Users') or
                     $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Contact') or
                     $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Group')) {
-                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because the member does not exist");
+                    EBox::error("Cannot add member '$sambaMemberDN' to Samba group '$gid' because the member does not exist");
                     next;
                 } else {
-                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because it's not a known object.");
+                    EBox::error("Cannot add member '$sambaMemberDN' to Samba group '$gid' because it's not a known object.");
                     next;
                 }
             }
@@ -632,7 +633,7 @@ sub _membersToSamba
                 $sambaGroup->addMember($sambaMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding member '$canonicalName' to Samba group '$gid': $error");
+                EBox::error("Error adding member '$sambaMemberDN' to Samba group '$gid': $error");
             };
         }
     }
