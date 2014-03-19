@@ -2262,6 +2262,14 @@ sub gpos
     return $gpos;
 }
 
+# Method: domainControllers
+#
+#   Query the domain controllers by searching in 'Domain Controllers' OU
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Samba::Computer class
+#
 sub domainControllers
 {
     my ($self) = @_;
@@ -2269,14 +2277,16 @@ sub domainControllers
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
-    my %args = (
-        base => 'OU=Domain Controllers,' . $self->ldb()->dn(),
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "OU=Domain Controllers,$baseDN",
         filter => 'objectClass=computer',
         scope => 'sub',
-        control => [$sort],
-    );
+        control => [ $sort ],
+    };
 
-    my $result = $self->ldb->search(\%args);
+    my $result = $ldb->search($args);
 
     my @computers;
     foreach my $entry ($result->entries()) {
@@ -2288,6 +2298,15 @@ sub domainControllers
     return \@computers;
 }
 
+# Method: computers
+#
+#   Query the computers joined to the domain by searching in the computers
+#   container
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Samba::Computer class
+#
 sub computers
 {
     my ($self) = @_;
@@ -2295,14 +2314,16 @@ sub computers
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
-    my %args = (
-        base => 'CN=Computers,' . $self->ldb()->dn(),
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "CN=Computers,$baseDN",,
         filter => 'objectClass=computer',
         scope => 'sub',
-        control => [$sort],
-    );
+        control => [ $sort ],
+    };
 
-    my $result = $self->ldb->search(\%args);
+    my $result = $self->ldb->search($args);
 
     my @computers;
     foreach my $entry ($result->entries()) {
