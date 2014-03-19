@@ -44,7 +44,7 @@ sub requiredParameters
 
 sub optionalParameters
 {
-    return [qw(backup newName ok popup)];
+    return [qw(backup popup)];
 }
 
 sub actuate
@@ -55,7 +55,6 @@ sub actuate
 
     my $name        = $self->param('name');
     my $description = $self->param('description');
-    EBox::debug("Backing up $name");
 
     my $progress = $backup->prepareMakeRemoteBackup($name, $description);
 
