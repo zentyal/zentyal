@@ -159,7 +159,6 @@ sub delete_dir
     $self->begin();
 
     my @keys = $self->_keys("$dir/*");
-    print "DIR $dir keys -> @keys\n\n";
     $self->unset(@keys);
 
     $self->commit();
@@ -234,23 +233,17 @@ sub export_dir_to_file
 sub _keys
 {
     my ($self, $pattern) = @_;
-#    return $self->_redis_call('keys', $pattern);
-    print "_keys $pattern\n";
 
     my @keys = grep {
         my $key = $_;
-        print "GRep key $key " . ($deleted{$key} ? 'DEL': 'NODEL') ."\n";
         not $deleted{$key}
     } $self->_redis_call('keys', $pattern);
 
-    print "Looking in cache for $pattern\n";
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
-            print "Pater found in cache key $name\n";
             push (@keys, $name);
         }
     }
-    print "End cache look\n";
 
     return @keys;
 }
@@ -269,7 +262,6 @@ sub import_dir_from_file
     my ($self, $filename, $dest) = @_;
 
     my @lines;
-
     try {
         @lines = split ("\n\n+", read_file($filename));
     } otherwise {
@@ -462,20 +454,16 @@ sub _redis_call
 
             #     if ($wantarray) {
             #         @response = $self->{redis}->__read_response();
-            #         print "Response " . Dumper(\@response) . "\n";
             #     } else {
             #         $response = $self->{redis}->__read_response();
-            #         print "Response " . Dumper($response) . "\n";
             #     }
             #     $failure = 0;
             # };
             eval {
                 if ($wantarray) {
                     @response = $self->{redis}->__run_cmd($command, @args);
-#                    print "Response " . Dumper(\@response) . "\n";
                 } else {
                     $response = $self->{redis}->__run_cmd($command, @args);
-#                    print "Response " . Dumper($response) . "\n";
                 }
                 $failure = 0;
             };
