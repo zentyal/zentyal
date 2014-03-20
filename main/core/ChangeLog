@@ -1,3 +1,5 @@
+HEAD
+	+ Fix version available check in dashboard when file does not exist
 3.4
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
