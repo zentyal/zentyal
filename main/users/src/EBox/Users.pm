@@ -395,11 +395,11 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    # Upgrade from previous versions
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        # Perform the migration to 3.4
-        $self->_migrateTo34();
-    }
+# TODO: Upgrade from previous versions
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+#        # Perform the migration to 3.4
+#        $self->_migrateTo34();
+#    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
@@ -2556,29 +2556,6 @@ sub checkMailNotInUse
                                         ),
                                     );
     }
-}
-
-# Method: appArmorProfiles
-#
-#   Overrides to set the own AppArmor profile
-#
-# Overrides:
-#
-#   <EBox::Module::Base::appArmorProfiles>
-#
-sub appArmorProfiles
-{
-    my ($self) = @_;
-
-    EBox::info('Setting mysqld apparmor profile');
-    return [
-        {
-         'binary' => 'usr.sbin.mysqld',
-         'local'  => 1,
-         'file'   => 'users/apparmor-mysqld.local.mas',
-         'params' => [],
-        }
-    ];
 }
 
 1;

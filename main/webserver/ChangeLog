@@ -1,4 +1,6 @@
 3.4
+	+ Check, at least, a listening port is mandatory
+	+ Fix when webserver is not listening in HTTP port
 	+ Don't regenerate certificate if it has the same CN that the
 	  virtual host name
 	+ Register in Apache configuration the public port used to reach it so

@@ -652,7 +652,8 @@ sub daemon_type
 #   Indicate to ServiceManager if the module must be shown in Module
 #   status configuration.
 #
-#   It must be overridden in rare cases
+#   It must be overridden in rare cases such as the module is not
+#   enabled manually.
 #
 # Returns:
 #
@@ -1049,23 +1050,7 @@ sub _enforceServiceState
 sub writeConfFile # (file, component, params, defaults)
 {
     my ($self, $file, $compname, $params, $defaults) = @_;
-
-    # we will avoid check modification when the method is called as class method
-    #  this is awkward but is the fudge we had used to date for files created
-    #  by ebox which rhe user shoudn't give their permission to modify
-    #   maybe we need to add some parameter to better reflect this?
-
-    my $manager;
-
-    $manager = new EBox::ServiceManager();
-#    if ($manager->skipModification($self->{'name'}, $file)) {
-#        EBox::info("Skipping modification of $file");
-#        return;
-#    }
-
     EBox::Module::Base::writeConfFileNoCheck($file, $compname, $params, $defaults);
-
-#    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 # Method: certificates

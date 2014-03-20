@@ -75,6 +75,7 @@ sub populateGroup
     my @groups = ();
     my $list = $userMod->securityGroups();
     foreach my $g (@{$list}) {
+        next if ($g->isInternal());
         my $gr = {};
         $gr->{value} = $g->get('cn');
         $gr->{printableValue} = $g->name();

@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::DNS::Model::AliasTable;
 
-use base 'EBox::DNS::Model::Record';
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -34,10 +34,11 @@ use Net::IP;
 
 sub new
 {
-    my ($class, %params) = @_;
+    my $class = shift;
+    my %parms = @_;
 
-    my $self = $class->SUPER::new(%params);
-    bless ($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
     return $self;
 }
@@ -59,6 +60,7 @@ sub validateTypedRow
 
     return unless ( exists $changedFields->{alias} );
     my $alias = $changedFields->{alias};
+    my $olddir = $alias->model()->directory();
 
     # Check it is not the nameserver hostname
     my $dnsMod = EBox::Global->modInstance('dns');
@@ -96,46 +98,67 @@ sub validateTypedRow
             }
         }
     }
+
+    $self->setDirectory($olddir);
+
+    if ($action eq 'update') {
+        my $oldRow = $self->row($changedFields->{id});
+        my $zoneRow = $oldRow->parentRow()->parentRow();
+        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+            my $zone = $zoneRow->valueByName('domain');
+            my $alias = $oldRow->valueByName('alias');
+            $self->{toDelete} = "$alias.$zone";
+        }
+    }
 }
 
 # Method: updatedRowNotify
 #
-#   Overrides to add to the list of deleted RR in dynamic zones
+#   Override to add to the list of removed of RRs
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::updatedRowNotify>
+#   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
 
-    my $zoneRow = $oldRow->parentRow->parentRow();
-    my $zone = $zoneRow->valueByName('domain');
-    my $alias = $oldRow->valueByName('alias');
-    my $host = $oldRow->parentRow->printableValueByName('hostname');
-    my $record = "$alias.$zone CNAME $host.$zone";
-    $self->_addToDelete($zone, $record);
+    # The field is added in validateTypedRow
+    if (exists $self->{toDelete}) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
 }
 
 # Method: deletedRowNotify
 #
-#   Overrides to add to the list of deleted RR in dynamic zones
+#       Overrides to add to the list of deleted RR in dynamic zones
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::deletedRowNotify>
+#      <EBox::Model::DataTable::deletedRowNotify>
 #
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
 
-    my $zoneRow = $row->parentRow->parentRow();
-    my $zone = $zoneRow->valueByName('domain');
-    my $alias = $row->valueByName('alias');
-    my $host = $row->parentRow->printableValueByName('hostname');
-    my $record = "$alias.$zone CNAME $host.$zone";
-    $self->_addToDelete($zone, $record);
+    # Deleted RRs to account
+    my $zoneRow = $row->parentRow()->parentRow();
+    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+        my $zone = $zoneRow->valueByName('domain');
+        my $alias = $row->valueByName('alias');
+        my $fullName = "$alias.$zone";
+        # Delete all aliases
+        $self->_addToDelete($fullName);
+    }
+}
+
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('hostname');
 }
 
 # Group: Protected methods
@@ -176,6 +199,30 @@ sub _table
         };
 
     return $dataTable;
+}
+
+# Group: Private methods
+
+# Add the RR to the deleted list
+sub _addToDelete
+{
+    my ($self, $domain) = @_;
+
+    my $mod = $self->{confmodule};
+    my $key = EBox::DNS::DELETED_RR_KEY();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+        foreach my $elem (@list) {
+            if ($elem eq $domain) {
+                # domain already added, nothing to do
+                return;
+            }
+        }
+    }
+
+    push (@list, $domain);
+    $mod->st_set_list($key, 'string', \@list);
 }
 
 1;

@@ -100,7 +100,7 @@ sub _title
     return EBox::Html::makeHtml($filename, @params);
 }
 
-sub _print_error # (text)
+sub _format_error # (text)
 {
     my ($self, $text) = @_;
 
@@ -108,8 +108,7 @@ sub _print_error # (text)
     ($text ne "") or return;
     my $filename = 'error.mas';
     my @params = ('error' => $text);
-    my $response = $self->response();
-    $response->body(EBox::Html::makeHtml($filename, @params));
+    return EBox::Html::makeHtml($filename, @params);
 }
 
 sub _error #
@@ -117,10 +116,10 @@ sub _error #
     my ($self) = @_;
 
     if (defined $self->{olderror}) {
-        $self->_print_error($self->{olderror});
+        return $self->_format_error($self->{olderror});
     }
     if (defined $self->{error}) {
-        $self->_print_error($self->{error});
+        return $self->_format_error($self->{error});
     }
 }
 
@@ -289,16 +288,11 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch (EBox::Exceptions::Internal $e) {
-            $e->throw();
-        } catch (EBox::Exceptions::Base $e) {
+        } catch (EBox::Exceptions::External $e) {
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
             }
-        } catch ($e) {
-            my $ex = new EBox::Exceptions::Error($e);
-            $ex->throw();
         }
     }
 
@@ -365,21 +359,10 @@ sub run
         $self->_print();
     } catch (EBox::Exceptions::Base $e) {
         $self->setErrorFromException($e);
-        $self->_print_error($self->{error});
-    # FIXME: Should we just remove this with Apache's mod_perl code removal?
-    #} catch (APR::Error $e) {
-    #    my $debug = EBox::Config::boolean('debug');
-    #    my $error = $debug ? $e->confess() : $e->strerror();
-    #    $self->_print_error($error);
+        $self->_format_error($self->{error});
     } catch ($e) {
-        my $logger = EBox::logger;
         if (isa_mason_exception($e)) {
-            $logger->error($e->as_text);
-            my $error = __("An internal error related to ".
-                           "a template has occurred. This is ".
-                           "a bug, relevant information can ".
-                           "be found in the logs.");
-            $self->_print_error($error);
+            throw EBox::Exceptions::Internal($e->as_text());
         } else {
             # will be logged in EBox::CGI::Run
             my $ex = new EBox::Exceptions::Error($e);
@@ -645,16 +628,19 @@ sub setError
 }
 
 # Method: setErrorFromException
-#    set the error message eusing the description value found in a exception
+#
+#    Set the error message using the description value found in the exception
 #
 # Parameters:
-#  $ex - exception used to set the error attributer
+#
+#    ex - exception used to set the error attribute
+#
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
 
-    my $dump = EBox::Config::configkey('dump_exceptions');
-    if (defined ($dump) and ($dump eq 'yes')) {
+    my $dump = EBox::Config::boolean('dump_exceptions');
+    if ($dump) {
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
@@ -689,7 +675,7 @@ sub setErrorFromException
     }
 
     my $reportHelp = __x('Please look for the details in the {f} file and take a minute to {oh}submit a bug report{ch} so we can fix the issue as soon as possible.',
-                         f => '/var/log/zentyal/zentyal.log', oh => '<a href="http://trac.zentyal.org/newticket">', ch => '</a>');
+                         f => '/var/log/zentyal/zentyal.log', oh => '<a href="https://tracker.zentyal.org/projects/zentyal/issues/new">', ch => '</a>');
     $self->{error} .= " $reportHelp";
 }
 

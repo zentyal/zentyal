@@ -134,10 +134,10 @@ sub initialSetup
         $haproxyMod->saveConfigRecursive();
     }
 
-    # Upgrade from 3.3
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrateTo34();
-    }
+# TODO: Upgrade from 3.3
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+#        $self->_migrateTo34();
+#    }
 
     if ($self->changed()) {
        $self->saveConfigRecursive();

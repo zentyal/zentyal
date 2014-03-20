@@ -1,4 +1,24 @@
 3.4
+	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
+	+ Ask for trace object to non-handled EBox::Exceptions::Base
+	  exceptions in the UnhandledError middleware. This will gives us
+	  useful stack traces.
+	+ When requesting from type a non-existing value use acquirer
+	  if it is a volatile type
+	+ EBox::WebAdmin::addNginxInclude does not longer raises exception
+	  if file not yet exists
+	+ Improve post save modules algorithm
+	+ Added local apparmor profile for mysqld
+	+ Avoid to show two 'module not enabled' messages in composites
+	+ All non external exceptions from normal requests are now shown
+	  in the UI with the stack trace to report as a bug
+	+ All non external exceptions from AJAX requests are now shown in
+	  the UI with the stack trace to report as a bug
+	+ Template exceptions in normal requests are now handled in webadmin
+	+ Set templated files encoding to UTF-8
+	+ Send Perl warnings to Zentyal log file in webadmin app
+	+ Added keepFile parameter to EBox::Downloader::CGI::FromTempDir
+	+ Remove idle and dead code from EBox::Module::Service::writeConfFile
 	+ Added auditable property to EBox::Model::DataTable
 	+ Added HAProxyPreSetConf to HaProxy::ServiceBase
 	+ Moved management of webadmin certificate to HAProxy module
@@ -79,6 +99,9 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Zentyal MySQL custom conf is now written on initial-setup of logs
+	  using a mason template
+	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
 	+ Move EBox::CGI::Downloader::* modules  to EBox::Downloader to

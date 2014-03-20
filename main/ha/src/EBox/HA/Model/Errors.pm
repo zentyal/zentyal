@@ -112,7 +112,7 @@ sub _table
                 ),
             );
 
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
 
     my $dataTable =
     {

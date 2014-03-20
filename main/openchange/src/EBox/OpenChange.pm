@@ -164,26 +164,13 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
-        my $global = $self->global();
-        # Mark mail as changed to make dovecot listen IMAP protocol at least
-        # on localhost
-        my $mail = $global->modInstance('mail');
-        $mail->setAsChanged();
-
-
-        if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
-            my $webserverMod = $global->modInstance("webserver");
-            # Mark webserver as changed to load the configuration of rpcproxy
-            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        # manage the nginx include file
+        my $webadmin = $self->global()->modInstance('webadmin');
+        if ($status) {
+            $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
+        } else {
+            $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
         }
-
-        # Mark samba as changed to write smb.conf
-        my $samba = $global->modInstance('samba');
-        $samba->setAsChanged();
-
-        # Mark webadmin as changed so we are sure nginx configuration is
-        # refreshed with the new includes
-        $global->modInstance('webadmin')->setAsChanged();
     }
 }
 
@@ -297,9 +284,28 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+
     $self->_setRPCProxyConf();
+    $self->_clearDownloadableCert();
 
     $self->_writeRewritePolicy();
+
+    # FIXME: this may cause unexpected samba restarts during save changes, etc
+    #$self->_writeCronFile();
+}
+
+sub _writeCronFile
+{
+    my ($self) = @_;
+
+    my $cronfile = '/etc/cron.d/zentyal-openchange';
+    if ($self->isEnabled()) {
+        my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
+        my $crontab = "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
+        EBox::Sudo::root("echo '$crontab' > $cronfile");
+    } else {
+        EBox::Sudo::root("rm -f $cronfile");
+    }
 }
 
 sub _writeSOGoDefaultFile
@@ -399,8 +405,7 @@ sub _setAutodiscoverConf
                          { uid => 0, gid => 0, mode => '640' }
                         );
 
-    # manage the nginx include file
-    my $webadmin = $global->modInstance('webadmin');
+
     if ($self->isEnabled()) {
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
@@ -412,9 +417,6 @@ sub _setAutodiscoverConf
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
-        $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
-    } else {
-        $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
     }
 }
 
@@ -475,7 +477,7 @@ sub _createRPCProxyCertificate
         EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
     };
     if (not $issuer) {
-        EBox::error("Not found issuer. Certifcate for RPC proxy will left untouched");
+        EBox::error("Not found issuer. Certificate for RPC proxy will left untouched");
         return;
     }
 
@@ -490,7 +492,7 @@ sub _createRPCProxyCertificate
     my $parentCertDir = dirname($certDir);
     EBox::Sudo::root("rm -rf '$certDir'",
                      # create parent dir if it does not exists
-                     "mkdir -p -m770 '$parentCertDir'",
+                     "mkdir -p -m775 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
         my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
@@ -509,6 +511,14 @@ sub _createRPCProxyCertificate
     my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
     my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
     $self->_updateDownloadableCert();
+}
+
+sub _clearDownloadableCert
+{
+    my ($self) = @_;
+
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
+    EBox::Sudo::root("rm -f $downloadPath");
 }
 
 sub _updateDownloadableCert
@@ -531,6 +541,9 @@ sub _writeRewritePolicy
         my $defaultDomain = $sysinfo->hostDomain();
 
         my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        if (not $rewriteDomain) {
+            $rewriteDomain = $defaultDomain;
+        }
 
         my @rewriteParams;
         push @rewriteParams, ('defaultDomain' => $defaultDomain);
@@ -613,7 +626,7 @@ sub _setupSOGoDatabase
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
-    $db->enableInnoDBIfNeeded();
+    $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
@@ -847,6 +860,9 @@ sub _rpcProxyHosts
     my ($self) = @_;
     my @hosts;
     my $domain = $self->_rpcProxyDomain();
+    if (not $domain) {
+        throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
+    }
     push @hosts, $self->_rpcProxyHostForDomain($domain);
     return \@hosts;
 }

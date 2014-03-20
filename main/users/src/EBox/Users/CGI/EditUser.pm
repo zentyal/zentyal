@@ -97,11 +97,16 @@ sub _process
                 $user->delete('description', 1);
             }
             my $mail = $self->unsafeParam('mail');
-            if (length ($mail) and ($mail ne $user->get('mail'))) {
-                $user->checkMail($mail);
-                $user->set('mail', $mail, 1);
+            if (length ($mail)) {
+                if ($mail ne $user->get('mail')) {
+                    $user->checkMail($mail);
+                    $user->set('mail', $mail, 1);
+                }
             } else {
-                $user->delete('mail', 1);
+                # FIXME: We cannot delete the field if empty because if zentyal-mail is activated we will get an LDAP
+                # error because the schema requires this field. We should implement a way so this field is not optional
+                # with zentyal-mail installed
+                $user->set('mail', '', 1);
             }
 
             $user->set('givenname', $givenName, 1);

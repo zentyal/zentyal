@@ -107,6 +107,7 @@ sub ports
         my $row = $services->row($id);
         my $serviceId = $row->valueByName('serviceId');
         my $module = $global->modInstance($row->valueByName('module'));
+        next unless (defined($module));  # syncRows hasn't be launched
 
         my $enabledPort = $module->isHTTPPortEnabled();
         my $port = undef;
