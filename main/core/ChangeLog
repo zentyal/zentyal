@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed revert of changes in redisvi
+	+ Better input validation in EBox::Conf::Redis::import_dir_from_file
 	+ Remove ManageAdmins deprecated data on initial setup
 	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
