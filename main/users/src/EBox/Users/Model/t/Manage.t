@@ -34,6 +34,6 @@ isa_ok $manage, 'EBox::Users::Model::Manage', 'model can be instanced';
 isnt $manage->_hiddenOU('OU=Users,DC=foo,DC=bar'), 1, 'Users OU is not hidden';
 is $manage->_hiddenOU('OU=Kerberos,DC=foo,DC=bar'), 1, 'Kerberos OU is hidden';
 is $manage->_hiddenOU('OU=Builtin,DC=foo,DC=bar'), 1, 'Builtin OU is hidden';
-is $manage->_hiddenOU('OU=Kerberos,OU=foo,DC=bar,DC=baz'), 0, 'Only hide OUs under base DN';
+is $manage->_hiddenOU('OU=Kerberos,OU=foo,DC=bar,DC=baz'), undef, 'Only hide OUs under base DN';
 
 1;
