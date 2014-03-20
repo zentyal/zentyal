@@ -4,7 +4,6 @@
   $sslPort
   $hostnameVhost
 </%args>
-<IfModule mod_ssl.c>
 % if ($hostnameVhost) {
   <& /webserver/vhostHttps.mas,
        hostname      => $hostname,
@@ -43,4 +42,3 @@
     #Include conf-available/serve-cgi-bin.conf
 
 </VirtualHost>
-</IfModule>
