@@ -1,3 +1,6 @@
+HEAD
+	+ Give real no support to /media in Disk Usage even when modules
+	  use it
 3.4
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
