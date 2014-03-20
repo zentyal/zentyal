@@ -75,7 +75,9 @@ sub _process
         } elsif ($quotaTypeSelected eq 'quota_size') {
             $quota = $self->param('User_quota_size');
         }
-        $user->set('quota', $quota, 1);
+        if (defined $quota) {
+            $user->set('quota', $quota, 1);
+        }
 
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
