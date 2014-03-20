@@ -1,3 +1,5 @@
+HEAD
+	+ Hide passwords on admin user model on error and debug on
 3.3.6
 	+ Zentyal MySQL custom conf is now written on initial-setup of logs
 	  using a mason template
