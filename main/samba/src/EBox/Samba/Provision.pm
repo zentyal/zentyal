@@ -917,30 +917,6 @@ sub checkADNebiosName
     return $adNetbiosDomain;
 }
 
-# FIXME This should not be necessary, it is a samba bug.
-sub fixDnsSPN
-{
-    my ($self) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $fqdn = $sysinfo->fqdn();
-    my $ucHostname = uc ($sysinfo->hostName());
-
-    my @cmds = ();
-    push (@cmds, "rm -f " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "samba-tool spn add DNS/$fqdn $ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=$ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=DNS/$fqdn");
-    push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
-    EBox::Sudo::root(@cmds);
-}
-
 sub provisionADC
 {
     my ($self) = @_;
@@ -1038,7 +1014,6 @@ sub provisionADC
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
-        $self->fixDnsSPN();
         $self->setupDNS();
 
         $self->setProvisioned(1);

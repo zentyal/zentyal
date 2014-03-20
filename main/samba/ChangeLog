@@ -1,4 +1,5 @@
 HEAD
+	+ Remove workaround for DNS spn, fixed upstream
 	+ Force a DNS module restart after provision to load the domain zone from
 	  samba
 3.0.23
