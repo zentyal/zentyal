@@ -448,22 +448,13 @@ sub _redis_call
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
                 $failure = 1;
             };
-                use Data::Dumper;
-            # eval {
-            #     $self->{redis}->__send_command($command, @args);
-
-            #     if ($wantarray) {
-            #         @response = $self->{redis}->__read_response();
-            #     } else {
-            #         $response = $self->{redis}->__read_response();
-            #     }
-            #     $failure = 0;
-            # };
             eval {
+                $self->{redis}->__send_command($command, @args);
+
                 if ($wantarray) {
-                    @response = $self->{redis}->__run_cmd($command, @args);
+                    @response = $self->{redis}->__read_response();
                 } else {
-                    $response = $self->{redis}->__run_cmd($command, @args);
+                    $response = $self->{redis}->__read_response();
                 }
                 $failure = 0;
             };
