@@ -27,6 +27,7 @@ use EBox::Menu::Item;
 use EBox::Sudo;
 use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
+use EBox::Users::Group;
 use Net::CUPS::Destination;
 use Net::CUPS;
 use TryCatch::Lite;
@@ -282,6 +283,45 @@ sub restoreConfig
         EBox::warn('Backup doesn\'t contain CUPS configuration files');
     }
 }
+
+# Method: printers
+#
+#   Returns the list of printers with the permissions
+#
+# Returns:
+#
+#   array ref - holding hashrefs with name and users
+#
+sub printers
+{
+    my ($self) = @_;
+
+    my @list;
+    my $model = $self->model('Printers');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $name = $row->valueByName('printer');
+        my $permsModel = $row->subModel('access');
+        my @users;
+        foreach my $id (@{$permsModel->ids()}) {
+            my $row = $permsModel->row($id);
+            my $element = $row->elementByName('user_group');
+            if ($element->selectedType() eq 'user') {
+                push (@users, $element->value());
+            } else {
+                my $group = new EBox::Users::Group(gid => $element->value());
+                my @userNames = map { $_->name() } @{$group->users()};
+                push (@users, @userNames);
+            }
+        }
+        my %seen;
+        @users = grep { not $seen{$_}++ } @users;
+        push (@list, { name => $name, users => \@users });
+    }
+
+    return \@list;
+}
+
 
 # Method: networkPrinters
 #

@@ -55,12 +55,7 @@ if [ -f $CALENDAR_MYSQL_INITIAL ] ; then
 fi
 
 # Solving a mcrypt problem in 13.10 (Saucy)
-if [ ! -e /etc/php5/mods-available ] ; then
-    ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
-
-    if type -t php5enmod ; then
-        php5enmod mcrypt
-    fi
-fi
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+php5enmod mcrypt
 
 exit 0

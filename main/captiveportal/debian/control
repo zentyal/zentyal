@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-captiveportal
 Architecture: all
-Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
+Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
          zentyal-firewall, zentyal-users, libauthen-simple-ldap-perl,
          liblinux-inotify2-perl, conntrack, ${misc:Depends}
 Description: Zentyal - Captive Portal

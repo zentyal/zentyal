@@ -1,4 +1,6 @@
 3.4
+	+ Avoid to mark webadmin as changed
+	+ Update nginx template to allow access to /ews/oof
 	+ Added UI message with sogo webmail interface location
 	+ Sogo webmail shared contacts unified. Contacts working properly
 	+ Use the new EBox::Samba::Ldbobject::isCritical method
@@ -15,6 +17,7 @@
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Using Zentyal MySQL confile template
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Better user addon integration

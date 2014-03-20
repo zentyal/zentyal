@@ -183,91 +183,91 @@ sub initialSetup
         $settings->setValue(enableDir => EBox::WebServer::Model::PublicFolder::DefaultEnableDir());
     }
 
-    # Upgrade from pre 3.3
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        # Stop Apache process to allow haproxy to use the public port
-        EBox::Sudo::silentRoot('service apache2 stop');
-
-        # Disable the ssl module in Apache, haproxy handles it now.
-        try {
-            EBox::Sudo::root('a2dismod ssl');
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # If it's already disable, ignore the exception.
-            if ( $e->exitValue() != 1 ) {
-                $e->throw();
-            }
-        }
-
-        # Migrate ports definition to haproxy.
-        my $redis = $self->redis();
-        my $key = 'webserver/conf/GeneralSettings/keys/form';
-        my $value = $redis->get($key);
-        unless ($value) {
-            # Fallback to the 'ro' version.
-            $key = 'webserver/ro/GeneralSettings/keys/form';
-            $value = $redis->get($key);
-        }
-        my $port = $self->defaultHTTPPort();
-        my $sslPort = $self->defaultHTTPSPort();
-        my $sslEnabled = 0;
-        my $defaultSSLPort = 0;
-        if ($value) {
-            if (defined $value->{port}) {
-                $port = $value->{port};
-                delete $value->{port};
-            }
-            if (defined $value->{ssl_selected}) {
-                if ($value->{ssl_selected} eq 'ssl_port' and defined $value->{ssl_port}) {
-                    $sslEnabled = 1;
-                    # At this point, the SSL port is not being shared yet, so we set it as the default one.
-                    $defaultSSLPort = 1;
-                }
-                delete $value->{ssl_selected};
-            }
-            if (defined $value->{ssl_port}) {
-                $sslPort = $value->{ssl_port};
-                delete $value->{ssl_port};
-            }
-        }
-        # Set port in reverse proxy
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, port           => $port);
-        push (@args, enablePort     => 1);
-        push (@args, defaultPort    => 1);
-        push (@args, sslPort        => $sslPort);
-        push (@args, enableSSLPort  => $sslEnabled);
-        push (@args, defaultSSLPort => $defaultSSLPort);
-        push (@args, force          => 1);
-
-        $haproxyMod->setHAProxyServicePorts(@args);
-
-        my @keys = $redis->_keys('webserver/*/GeneralSettings/keys/forms');
-        foreach my $key (@keys) {
-            my $value = $redis->get($key);
-            my $newkey = $key;
-            $newkey =~ s{GeneralSettings}{PublicFolder};
-            $redis->set($newkey, { enableDir => $value->{enableDir} });
-        }
-        $redis->unset(@keys);
-
-        # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
-        my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
-        foreach my $key (@caKeys) {
-            my $value = $redis->get($key);
-            unless (ref $value eq 'HASH') {
-                next;
-            }
-            if ($value->{serviceId} eq 'Web Server') {
-                # WebServer.
-                $value->{serviceId} = 'zentyal_' . $self->name();
-                $value->{service} = $self->printableName();
-                # Zentyal handles this service automatically
-                $value->{readOnly} = 1;
-                $redis->set($key, $value);
-            }
-        }
-    }
+# TODO: Upgrade from pre 3.3
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+#        # Stop Apache process to allow haproxy to use the public port
+#        EBox::Sudo::silentRoot('service apache2 stop');
+#
+#        # Disable the ssl module in Apache, haproxy handles it now.
+#        try {
+#            EBox::Sudo::root('a2dismod ssl');
+#        } catch (EBox::Exceptions::Sudo::Command $e) {
+#            # If it's already disable, ignore the exception.
+#            if ( $e->exitValue() != 1 ) {
+#                $e->throw();
+#            }
+#        }
+#
+#        # Migrate ports definition to haproxy.
+#        my $redis = $self->redis();
+#        my $key = 'webserver/conf/GeneralSettings/keys/form';
+#        my $value = $redis->get($key);
+#        unless ($value) {
+#            # Fallback to the 'ro' version.
+#            $key = 'webserver/ro/GeneralSettings/keys/form';
+#            $value = $redis->get($key);
+#        }
+#        my $port = $self->defaultHTTPPort();
+#        my $sslPort = $self->defaultHTTPSPort();
+#        my $sslEnabled = 0;
+#        my $defaultSSLPort = 0;
+#        if ($value) {
+#            if (defined $value->{port}) {
+#                $port = $value->{port};
+#                delete $value->{port};
+#            }
+#            if (defined $value->{ssl_selected}) {
+#                if ($value->{ssl_selected} eq 'ssl_port' and defined $value->{ssl_port}) {
+#                    $sslEnabled = 1;
+#                    # At this point, the SSL port is not being shared yet, so we set it as the default one.
+#                    $defaultSSLPort = 1;
+#                }
+#                delete $value->{ssl_selected};
+#            }
+#            if (defined $value->{ssl_port}) {
+#                $sslPort = $value->{ssl_port};
+#                delete $value->{ssl_port};
+#            }
+#        }
+#        # Set port in reverse proxy
+#        my @args = ();
+#        push (@args, modName        => $self->name);
+#        push (@args, port           => $port);
+#        push (@args, enablePort     => 1);
+#        push (@args, defaultPort    => 1);
+#        push (@args, sslPort        => $sslPort);
+#        push (@args, enableSSLPort  => $sslEnabled);
+#        push (@args, defaultSSLPort => $defaultSSLPort);
+#        push (@args, force          => 1);
+#
+#        $haproxyMod->setHAProxyServicePorts(@args);
+#
+#        my @keys = $redis->_keys('webserver/*/GeneralSettings/keys/forms');
+#        foreach my $key (@keys) {
+#            my $value = $redis->get($key);
+#            my $newkey = $key;
+#            $newkey =~ s{GeneralSettings}{PublicFolder};
+#            $redis->set($newkey, { enableDir => $value->{enableDir} });
+#        }
+#        $redis->unset(@keys);
+#
+#        # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+#        my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
+#        foreach my $key (@caKeys) {
+#            my $value = $redis->get($key);
+#            unless (ref $value eq 'HASH') {
+#                next;
+#            }
+#            if ($value->{serviceId} eq 'Web Server') {
+#                # WebServer.
+#                $value->{serviceId} = 'zentyal_' . $self->name();
+#                $value->{service} = $self->printableName();
+#                # Zentyal handles this service automatically
+#                $value->{readOnly} = 1;
+#                $redis->set($key, $value);
+#            }
+#        }
+#    }
 
     foreach my $modName ('firewall', 'haproxy', 'webserver') {
         my $mod = $self->global()->modInstance($modName);

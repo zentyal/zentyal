@@ -29,6 +29,7 @@ use File::Slurp qw(read_file);
 
 no warnings 'qw';
 my %enc = qw( & &amp; > &gt; < &lt; " &quot; ' &#39; );
+my $SHOW_TRACE_URL = '/ShowTrace';
 
 # Method encode_html
 #
@@ -47,6 +48,10 @@ sub Devel::StackTrace::as_html {
 
 sub Devel::StackTrace::as_html_snippet {
     __PACKAGE__->renderSnippet(@_);
+}
+
+sub Devel::StackTrace::redirect_html {
+    qq{<script type="text/javascript">window.location.href="$SHOW_TRACE_URL"</script>};
 }
 
 sub renderSnippet
@@ -125,7 +130,7 @@ sub render
         $params->{report} = __('Report the problem');
         $params->{cancel} = __('Cancel');
         $params->{email} = __('Email (you will receive updates on the report)');
-        $params->{description} = __('Describe in English what you where doing');
+        $params->{description} = __('Describe in English what you were doing');
         $params->{newticket_url} = 'https://tracker.zentyal.org/projects/zentyal/issues/new';
         $params->{report_error} = __("Couldn't send the report");
         $params->{report_sent} = __(

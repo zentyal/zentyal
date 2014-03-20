@@ -1,3 +1,6 @@
+HEAD
+	+ Fix remove conf backup after PSGI migration
+	+ Fix overwrite action on remote conf backup
 3.4
 	+ Port proxy redirections to Nginx from Apache
 	+ Use the new PortObserver to report a change in the webadmin
@@ -9,6 +12,9 @@
 	  and uses it as base in specific behaviour
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Remove Disaster Recovery menu entry as it is managed by
+	  cloud-prof module
+	+ Fix restore remote backup with spaces in the backup name
 	+ Fix: Do not subscribe to the newsletter in the wizard if the
 	  user requires so
 	+ On initial setup, do only reload bundle and restart the service
