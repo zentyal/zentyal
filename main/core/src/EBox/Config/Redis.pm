@@ -271,7 +271,7 @@ sub import_dir_from_file
     my @lines;
 
     try {
-        @lines = split ("\n\n", read_file($filename));
+        @lines = split ("\n\n+", read_file($filename));
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
