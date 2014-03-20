@@ -1,3 +1,8 @@
+HEAD
+	+ Do not show success note if there is no note
+	+ Fix data in use behaviour on edition
+	+ Give support to data in use exception for in-place booleans
+	+ Fix warnOnChangeId framework
 3.4
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
