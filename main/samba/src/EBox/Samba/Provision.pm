@@ -21,6 +21,7 @@ package EBox::Samba::Provision;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
@@ -36,6 +37,7 @@ use Net::LDAP::Util qw(ldap_explode_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Error qw(:try);
+use Time::HiRes;
 
 use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
 
@@ -917,6 +919,89 @@ sub checkADNebiosName
     return $adNetbiosDomain;
 }
 
+# Method: _waitForRidSetAllocation
+#
+#   After joining the domain, samba contact the RID manager FSMO role owner
+#   to request a new RID pool. We have to wait for the response before
+#   creating security objects in the LDB or the server will deny with
+#   'unwilling to perform' error code until RID pool is allocated.
+#
+#   This function will block until a RID pool is allocated or timed
+#   out.
+#
+sub _waitForRidPoolAllocation
+{
+    my ($self) = @_;
+
+    my $allocated = 0;
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+
+    # Get the server object, contained in the config NC, that represents
+    # this DC
+    my $serverNameDN = $ldb->rootDse->get_value('serverName');
+    my $result = $ldb->search({
+            base => $serverNameDN,
+            scope => 'base',
+            filter => '(objectClass=*)',
+            attrs => ['serverReference']});
+    unless ($result->count() == 1) {
+        my $foundEntries = $result->count();
+        my $errorStr = "Error getting the DN of the server object from root " .
+            "DSE. Expected one entry but got $foundEntries";
+        throw EBox::Exceptions::Internal($errorStr);
+    }
+    my $serverObject = $result->entry(0);
+
+    # Get the domain controller object representing this DC
+    my $serverReferenceDN = $serverObject->get_value('serverReference');
+    while (not $allocated and $maxTries > 0) {
+        $result = $ldb->search({
+                base => $serverReferenceDN,
+                scope => 'base',
+                filter => '(objectClass=*)',
+                attrs => ['rIDSetReferences']});
+        unless ($result->count() == 1) {
+            my $foundEntries = $result->count();
+            my $errorStr = "Error getting the DN of the domain controller " .
+                "object. Expected one entry but got $foundEntries";
+            throw EBox::Exceptions::Internal($errorStr);
+        }
+        my $dcObject = $result->entry(0);
+
+        # Get the list of references to RID set objects managing RID allocation
+        my @ridSetReferencesDNs = $dcObject->get_value('rIDSetReferences');
+        foreach my $ridSetReferenceDN (@ridSetReferencesDNs) {
+            $result = $ldb->search({
+                    base => $ridSetReferenceDN,
+                    scope => 'base',
+                    filter => '(objectClass=*)',
+                    attrs => ['rIDAllocationPool']});
+            unless ($result->count() == 1) {
+                my $foundEntries = $result->count();
+                my $errorStr = "Error getting the RID set object. Expected " .
+                    "one entry but got $foundEntries";
+                throw EBox::Exceptions::Internal($errorStr);
+            }
+            my $ridSetObject = $result->entry(0);
+
+            # The rIDAllocationPool attribute is the pool that the DC will
+            # switch to next, managed by RID Manager
+            my $pool = $ridSetObject->get_value('ridAllocationPool');
+            if (defined $pool) {
+                $allocated = 1;
+                last;
+            }
+        }
+
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+}
+
 sub provisionADC
 {
     my ($self) = @_;
@@ -1031,6 +1116,10 @@ sub provisionADC
         EBox::info('Running DNS update on remote DC');
         $cmd = 'samba_dnsupdate --no-credentials';
         EBox::Sudo::rootWithoutException($cmd);
+
+        # Wait for RID pool allocation
+        EBox::info("Waiting RID pool allocation");
+        $self->_waitForRidPoolAllocation();
 
         # Run Knowledge Consistency Checker (KCC) on remote DC
         EBox::info('Running KCC on remote DC');
