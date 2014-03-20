@@ -21,7 +21,6 @@
     ServerName <% $hostname %>:<% $publicSSLPort %>
 
     SetEnv HTTPS On
-    SetEnv isSSL 1
 
     ServerAdmin webmaster@<% $hostname %>
 
