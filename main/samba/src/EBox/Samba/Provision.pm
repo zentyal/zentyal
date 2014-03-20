@@ -411,6 +411,8 @@ sub provisionDC
 
     $self->setupDNS();
     $self->setProvisioned(1);
+    my $dns = EBox::Global->modInstance('dns');
+    $dns->save();
 
     try {
         # Disable password policy
@@ -1040,6 +1042,8 @@ sub provisionADC
         $self->setupDNS();
 
         $self->setProvisioned(1);
+        my $dns = EBox::Global->modInstance('samba');
+        $dns->save();
 
         # Start managed service to let it create the LDAP socket
         EBox::debug('Starting service');
