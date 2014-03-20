@@ -159,6 +159,7 @@ sub delete_dir
     $self->begin();
 
     my @keys = $self->_keys("$dir/*");
+    print "DIR $dir keys -> @keys\n\n";
     $self->unset(@keys);
 
     $self->commit();
@@ -233,14 +234,23 @@ sub export_dir_to_file
 sub _keys
 {
     my ($self, $pattern) = @_;
+#    return $self->_redis_call('keys', $pattern);
+    print "_keys $pattern\n";
 
-    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+    my @keys = grep {
+        my $key = $_;
+        print "GRep key $key " . ($deleted{$key} ? 'DEL': 'NODEL') ."\n";
+        not $deleted{$key}
+    } $self->_redis_call('keys', $pattern);
 
+    print "Looking in cache for $pattern\n";
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
+            print "Pater found in cache key $name\n";
             push (@keys, $name);
         }
     }
+    print "End cache look\n";
 
     return @keys;
 }
@@ -268,11 +278,19 @@ sub import_dir_from_file
 
     $self->begin();
     foreach my $line (@lines) {
-        my ($key, $value) = $line =~ /^(.+?): (.*)$/s;
+        if ($line =~ m/^\s*$/) {
+            next;
+        }
+        my ($key, $value) = $line =~ /^\s*([^\s]+?): (.*)\s*$/s;
+        if ((not defined $key) or (not defined $value)) {
+            EBox::warn("Incorrect redis line for parsing: $line");
+            next;
+        }
 
         if ($dest) {
             $key = $dest . '/' .  $key;
         }
+
         # XXX: this can be problematic if we store a string
         # starting with '[' or '{', but decode_json fails to decode
         # regular strings some times, even with allow_nonref
@@ -282,6 +300,7 @@ sub import_dir_from_file
         if (($firstChar eq '[') or ($firstChar eq '{')) {
             $value = $self->{json_pretty}->decode($value);
         }
+
         $self->set($key, $value);
     }
 
@@ -437,12 +456,26 @@ sub _redis_call
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
                 $failure = 1;
             };
+                use Data::Dumper;
+            # eval {
+            #     $self->{redis}->__send_command($command, @args);
+
+            #     if ($wantarray) {
+            #         @response = $self->{redis}->__read_response();
+            #         print "Response " . Dumper(\@response) . "\n";
+            #     } else {
+            #         $response = $self->{redis}->__read_response();
+            #         print "Response " . Dumper($response) . "\n";
+            #     }
+            #     $failure = 0;
+            # };
             eval {
-                $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
-                    @response = $self->{redis}->__read_response();
+                    @response = $self->{redis}->__run_cmd($command, @args);
+#                    print "Response " . Dumper(\@response) . "\n";
                 } else {
-                    $response = $self->{redis}->__read_response();
+                    $response = $self->{redis}->__run_cmd($command, @args);
+#                    print "Response " . Dumper($response) . "\n";
                 }
                 $failure = 0;
             };
