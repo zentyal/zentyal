@@ -26,7 +26,7 @@ use warnings;
 #
 package EBox::DNS::Model::HostIpTable;
 
-use base 'EBox::DNS::Model::Record';
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -39,9 +39,10 @@ use EBox::Exceptions::External;
 
 sub new
 {
-    my ($class, %params) = @_;
+    my $class = shift;
+    my %parms = @_;
 
-    my $self = $class->SUPER::new(%params);
+    my $self = $class->SUPER::new(@_);
     bless ($self, $class);
 
     return $self;
@@ -49,15 +50,14 @@ sub new
 
 # Method: validateTypedRow
 #
-#   Check that there isn't a hostname with the same ip
-#
 # Overrides:
 #
 #    <EBox::Model::DataTable::validateTypedRow>
 #
 # Exceptions:
 #
-#    <EBox::Exceptions::External>
+#    <EBox::Exceptions::External> - thrown if there is a hostname with
+#    the same ip
 #
 sub validateTypedRow
 {
@@ -90,47 +90,10 @@ sub validateTypedRow
     }
 }
 
-# Method: updatedRowNotify
-#
-#   Overrides to add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
+sub pageTitle
 {
-    my ($self, $row, $oldRow, $force) = @_;
-
-    my $zoneRow = $oldRow->parentRow->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $oldIp = $oldRow->printableValueByName('ip');
-    my $newIp = $row->printableValueByName('ip');
-    return unless ($oldIp ne $newIp);
-
-    my $host = $oldRow->parentRow->printableValueByName('hostname');
-    my $record = "$host.$zone A $oldIp";
-    $self->_addToDelete($zone, $record);
-}
-
-# Method: deletedRowNotify
-#
-#   Overrides to add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    my $zoneRow = $row->parentRow->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $ip = $row->printableValueByName('ip');
-    my $host = $row->parentRow->printableValueByName('hostname');
-    my $record = "$host.$zone A $ip";
-    $self->_addToDelete($zone, $record);
+    my ($self) = @_;
+    return $self->parentRow()->printableValueByName('hostname');
 }
 
 # Group: Protected methods

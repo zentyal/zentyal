@@ -22,8 +22,6 @@ use warnings;
 
 package EBox::DNS::Model::DomainIpTable;
 
-use base 'EBox::DNS::Model::Record';
-
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -33,65 +31,25 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
 
+use base 'EBox::Model::DataTable';
+
 # Group: Public methods
 
-# Constructor: new
-#
-#   Create a new model instance
-#
-# Returns:
-#
-#   <EBox::DNS::Model::DomainIpTable> - the newly created model instance
-#
 sub new
 {
-    my ($class, %params) = @_;
+    my $class = shift;
+    my %parms = @_;
 
-    my $self = $class->SUPER::new(%params);
+    my $self = $class->SUPER::new(@_);
     bless ($self, $class);
 
     return $self;
 }
 
-# Method: updatedRowNotify
-#
-#   Overrides to add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
+sub pageTitle
 {
-    my ($self, $row, $oldRow, $force) = @_;
-
-    my $zoneRow = $oldRow->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $oldIp = $oldRow->printableValueByName('ip');
-    my $newIp = $row->printableValueByName('ip');
-    return unless ($oldIp ne $newIp);
-
-    my $record = "$zone A $oldIp";
-    $self->_addToDelete($zone, $record);
-}
-
-# Method: deletedRowNotify
-#
-#   Overrides to add to the list of deleted RR in dynamic zones
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    my $zoneRow = $row->parentRow();
-    my $zone = $zoneRow->printableValueByName('domain');
-    my $ip = $row->printableValueByName('ip');
-    my $record = "$zone A $ip";
-    $self->_addToDelete($zone, $record);
+    my ($self) = @_;
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Protected methods

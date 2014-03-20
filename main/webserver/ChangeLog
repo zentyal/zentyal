@@ -1,6 +1,7 @@
-3.4
+HEAD
 	+ Set HTTPS env variable to 'On' always for SSL vhosts and isSSL as a
 	  helper for webmail
+3.4
 	+ Check, at least, a listening port is mandatory
 	+ Fix when webserver is not listening in HTTP port
 	+ Don't regenerate certificate if it has the same CN that the

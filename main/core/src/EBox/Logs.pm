@@ -60,6 +60,26 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Force set of apparmor profile when installing for the first time
+    # to avoid error in the updateMysqlConf() call
+    unless ($version) {
+        $self->_setAppArmorProfiles();
+    }
+
+    # Make sure the MySQL conf file is correct
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
+}
+
 # Method: depends
 #
 #       Override EBox::Module::Base::depends
@@ -70,6 +90,29 @@ sub depends
     my $mods = $self->global()->modInstancesOfType('EBox::LogObserver');
     my @names = map ($_->{name}, @$mods);
     return \@names;
+}
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting mysqld apparmor profile');
+    return [
+        {
+         'binary' => 'usr.sbin.mysqld',
+         'local'  => 1,
+         'file'   => 'core/apparmor-mysqld.local.mas',
+         'params' => [],
+        }
+    ];
 }
 
 sub _daemons
@@ -147,7 +190,9 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_saveEnabledLogsModules();
+    if ($self->isEnabled()) {
+        $self->_saveEnabledLogsModules();
+    }
 }
 
 sub cleanup

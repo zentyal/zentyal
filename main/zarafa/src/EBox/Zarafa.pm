@@ -486,7 +486,10 @@ sub _setConf
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
-    EBox::MyDBEngine->enableInnoDBIfNeeded();
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
+
     $self->_createVMailDomainsOUs();
 }
 

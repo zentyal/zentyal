@@ -77,9 +77,14 @@ sub add_changelog_entry
 
     if ($version eq 'HEAD') {
         my $previousVersion = `grep '^[0-9]' ChangeLog | head -1`;
-        my ($major, $minor) = $previousVersion =~ /(.*)\.(\d+)/;
-        $minor++;
-        $version = "$major.$minor";
+        my ($major, $minor) = $previousVersion =~ /(\d+)\.(.*)/;
+        my ($minor1, $minor2) = $minor =~ /(\d+)\.(\d+)/;
+        if ($minor2) {
+            $minor2++;
+            $version = "$major.$minor1.$minor2";
+        } else {
+            $version = "$major.$minor.1";
+        }
     }
 
     my $dist = `head -1 debian/changelog | cut -d' ' -f3 | cut -d';' -f1`;
@@ -168,7 +173,9 @@ sub packageIt
 
     export($dir, $exportDir);
 
-    add_changelog_entry($exportDir);
+    unless ($ENV{NOT_INCREMENT_CHANGELOG}) {
+        add_changelog_entry($exportDir);
+    }
 
     build_package($exportDir);
 

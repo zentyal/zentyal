@@ -12,6 +12,9 @@
 	  collision with the current HA floating IPs
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Specifiy local address in failover tests to avoid vlan interface problems
+	+ Fix Dynamic DNS with Zentyal Remote as provider when the
+	  registration wizard is done
 	+ Fixed bad behaviour in interfaces method wizard
 	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
 	+ Don't generate resolvconf file until all interfaces are up

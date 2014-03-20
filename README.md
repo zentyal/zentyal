@@ -4,7 +4,7 @@ Zentyal Server is open source, released under the  GNU General Public License (G
 
 About
 -----
-Zentyal Server is a Linux small business server, that can act as a Gateway, Infrastructure Manager, Unified Threat Manager, Office Server, Unified Communication Server or a combination of them. These functionalities are tightly integrated, automating most tasks, avoiding mistakes and saving time for system administrators.
+Zentyal Server offers small and medium businesses (SMBs) a native Linux drop-in replacement for Windows® Small Business Server and Microsoft® Exchange Server.
 
 Download
 --------

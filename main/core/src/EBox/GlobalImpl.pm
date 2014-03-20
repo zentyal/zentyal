@@ -691,29 +691,17 @@ sub saveAllModules
 
     # TODO: tell events module to resume its watchers
 
-    my @postsaveModules = @{$self->get_list('post_save_modules')};
-    for (1 .. 3) {
-        my %seen;
-        push @postsaveModules, @{$self->modifiedModules('save')};
-        @postsaveModules or last;
-        foreach my $modName (@postsaveModules) {
+    while (my $modName = $self->popPostSaveModule()) {
+        try {
             my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
-            next unless defined ($mod);
-            if ($seen{$modName}) {
-                next;
-            }
-            $seen{$modName} = 1;
-
-            try {
-                $mod->save();
-            } catch (EBox::Exceptions::External $e) {
-                $e->throw();
-            } catch ($e) {
-                EBox::error("Failed to restart $modName after save changes: $e");
-                $failed .= "$modName ";
-            }
-
-            @postsaveModules = ();
+            $mod->save();
+            my @newModulesToSave = @{$self->modifiedModules('save')};
+            map { $self->addModuleToPostSave($_) } @newModulesToSave;
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to restart $modName after save changes: $e");
+            $failed .= "$modName ";
         }
     }
     $self->unset('post_save_modules');
@@ -1254,10 +1242,25 @@ sub addModuleToPostSave
     my ($self, $name) = @_;
 
     my @postSaveModules = @{$self->get_list('post_save_modules')};
-    unless (grep { $_ eq $name} @postSaveModules) {
+    unless (grep { $_ eq $name } @postSaveModules) {
         push (@postSaveModules, $name);
         $self->set('post_save_modules', \@postSaveModules);
     }
+}
+
+# Method: popPostSaveModule
+#
+#   Pop a module to from the list of modules to be saved after regular save changes
+#
+sub popPostSaveModule
+{
+    my ($self) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    my $element = shift @postSaveModules;
+    $self->set('post_save_modules', \@postSaveModules);
+
+    return $element;
 }
 
 # Method: _runExecFromDir

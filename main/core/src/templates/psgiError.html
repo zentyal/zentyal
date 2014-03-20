@@ -40,7 +40,7 @@
     <div id="report" style="display: none">
       <h2><b>Report</b></h2>
 
-        <form id="report_form" action="/SysInfo/CreateReport" method="POST" enctype="multipart/form-data; charset=utf-8">
+        <form id="report_form" action='#' enctype="multipart/form-data; charset=utf-8">
            <label for="email">{{ email }}:</label>
            <input type="text" name="email" id="email" /><br/>
            <label for="description">{{ description }}</label>
@@ -69,22 +69,23 @@ var submitCallback = function(event) {
     $('#general_report_error').hide();
     $('#report_error_message').hide();
     $.ajax({
-             url: form.attr('action'),
+             url: "/SysInfo/CreateReport",
              data: form.serialize(),
+             type: "POST",
              complete: function(transport){
-                  if (transport.responseText.indexOf('OK') == 0) {
-                         var ticket = transport.responseText.substr(3);
-                           $('#report').html('<div class="note">{{ report_sent }} ' +
-                               '<a href="http://tracker.zentyal.org/issues/' + ticket + '">#' + ticket + '</a></note>');
+                 if (transport.responseText.indexOf('OK') == 0) {
+                    var ticket = transport.responseText.substr(3);
+                    $('#report').html('<div class="note">{{ report_sent }} ' +
+                                      '<a href="http://tracker.zentyal.org/issues/' + ticket + '">#' + ticket + '</a></note>');
                  } else if (transport.responseText.indexOf('ERROR ') == 0)  {
-                      var error_string =  transport.responseText.substr(6);
+                     var error_string =  transport.responseText.substr(6);
                      $('#report_error_message').text(error_string);
                      $('#report_error_message').show();
-                      Zentyal.TableHelper.restoreHidden('submit_button');
+                     Zentyal.TableHelper.restoreHidden('submit_button');
                  } else {
                      $('#general_report_error').show();
                      Zentyal.TableHelper.restoreHidden('submit_button');
-                  }
+                 }
              }
     });
 };
