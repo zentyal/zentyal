@@ -50,9 +50,30 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        EBox::Sudo::root("a2ensite zentyal-sogo");
+        my $webserverMod = $self->global()->modInstance('webserver');
+        my $sysinfoMod = $global->modInstance('sysinfo');
+        my @params = ();
+        push (@params, hostname => $sysinfoMod->fqdn());
+        push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+
+        $self->writeConfFile("/etc/conf-available/zentyal-sogo.conf", "sogo/zentyal-sogo.mas", \@params);
+        try {
+            EBox::Sudo::root("a2enconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     } else {
-        EBox::Sudo::root("a2dissite zentyal-sogo");
+        try {
+            EBox::Sudo::root("a2disconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     }
 }
 
@@ -115,5 +136,27 @@ sub _daemons
     return [ { 'name' => 'sogo', 'type' => 'init.d' } ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#        <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if ((defined ($version)) and (EBox::Util::Version::compare($version, '3.4.1') < 0)) {
+        try {
+            EBox::Sudo::root("a2dissite zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+        EBox::Sudo::silentRoot("rm -f /etc/apache2/sites-available/zentyal-sogo.conf");
+    }
+}
 
 1;

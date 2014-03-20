@@ -1,6 +1,7 @@
-# This file MUST be added to the apache's sites-enabled instead of conf-enabled
-# so the http / https detection works.
-
+<%args>
+  $hostname
+  $sslPort
+</%args>
 Alias /SOGo.woa/WebServerResources/ \
       /usr/lib/GNUstep/SOGo/WebServerResources/
 Alias /SOGo/WebServerResources/ \
@@ -57,12 +58,13 @@ ProxyPass /sogo http://127.0.0.1:20000/SOGo
 ## adjust the following line:
 #  RequestHeader set "x-webobjects-remote-user" "%{REMOTE_USER}e"
 
-  RequestHeader set "x-webobjects-server-port" "%{SERVER_PORT}s"
-  RequestHeader set "x-webobjects-server-name" "%{SERVER_NAME}s"
-  RequestHeader set "x-webobjects-server-url" "https://%{SERVER_NAME}s" env=isSSL
-  RequestHeader set "x-webobjects-server-url" "http://%{SERVER_NAME}s" env=!isSSL
-  RequestHeader set "x-webobjects-remote-host" "%{REMOTE_HOST}e env=REMOTE_HOST"
+% if ($sslPort) {
+  RequestHeader set "x-webobjects-server-port" "<% $sslPort %>"
+  RequestHeader set "x-webobjects-server-name" "<% $hostname %>"
+  RequestHeader set "x-webobjects-server-url" "https://<% $hostname %>:<% $sslPort %>"
+% } else {
   RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
+% }
 
   AddDefaultCharset UTF-8
 
