@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2010-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -60,16 +60,16 @@ sub actuate
   my $newName = $self->param('newName');
   my $description = $self->param('description');
 
-  # go to make backup CGI with appropiate parameters
-  my $cgi = $self->{cgi};
-  $cgi->delete_all();
-  $cgi->param('name', $newName);
-  $cgi->param('description', $description);
-  $cgi->param('backup', 1);
+  # Go to make backup CGI with the proper parameters
 
-  $self->keepParam('name');
-  $self->keepParam('description');
-  $self->keepParam('backup');
+  # Delete all CGI parameters
+  my $request = $self->request();
+  my $parameters = $request->parameters();
+  $parameters->clear();
+
+  $parameters->add('name' => $newName);
+  $parameters->add('description' => $description);
+  $parameters->add('backup' => 1);
 
   $self->setChain("RemoteServices/Backup/MakeRemoteBackup");
 }
