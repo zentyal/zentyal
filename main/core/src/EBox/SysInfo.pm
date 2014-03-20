@@ -72,15 +72,6 @@ sub initialSetup
         $state->{closedMessages} = {};
         $self->set_state($state);
     }
-
-    # remove deprecated ManageAdmins data
-    $self->{redis}->delete_dir('sysinfo/conf/ManageAdmins');
-    $self->{redis}->delete_dir('sysinfo/ro/ManageAdmins');
-
-    # jsut in case some migration has triggered a change state
-    if ($self->changed()) {
-        $self->saveConfigRecursive();
-    }
 }
 
 # Method: menu
