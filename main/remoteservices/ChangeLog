@@ -1,4 +1,5 @@
 HEAD
+	+ DisasterRecoveryDomains can notify other models
 	+ Fix remove conf backup after PSGI migration
 	+ Fix overwrite action on remote conf backup
 3.4

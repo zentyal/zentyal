@@ -1,3 +1,5 @@
+HEAD
+	+ Setup mail account on enable for users that already have mail attribute
 3.4
 	+ Added and used checkMailNotInUse method
 	+ Added _delVDomainAbort to LdapVDomain base to give the
