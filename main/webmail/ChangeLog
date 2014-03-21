@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regression disabling OpenChange plugins
 3.4
 	+ enable-module script is now idempotent
 	+ enable-module script will not change password file if run more than once
