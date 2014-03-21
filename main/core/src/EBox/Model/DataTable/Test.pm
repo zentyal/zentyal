@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -711,14 +711,15 @@ sub setWithDataInUseTest : Test(15)
     my @ids = @{ $dataTable->ids() };
     my $id = shift @ids;
 
-    my $notifyMethodName = 'updatedRowNotify';
-    $dataTable->set_true($notifyMethodName);
+    $dataTable->set_true('updatedRowNotify');
 
+    # Real Model::Manager expects this kind of weird context name
+    my $contextName = $dataTable->contextName();
+    $contextName =~ s{^/}{};
+    $contextName =~ s{/$}{};
     EBox::Model::Manager::Fake::setModelsUsingId(
-        $dataTable->contextName() => {
-              $id => ['fakeTableUsingId']
-           }
-       );
+        $contextName => { $id => ['fakeTableUsingId'] }
+    );
 
     my %changeParams = (
             regularField => 'distinctData',
@@ -730,7 +731,7 @@ sub setWithDataInUseTest : Test(15)
             $dataTable,
             $id,
             \%changeParams,
-            'Checking that try to set a row with data on use raises error'
+            'Checking that try to set a row with data in use raises error'
     );
 
     $changeParams{force} = 1;
@@ -738,7 +739,7 @@ sub setWithDataInUseTest : Test(15)
             $dataTable,
             $id,
             \%changeParams,
-            'Checking that setting a row with data on use and force =1 works'
+            'Checking that setting a row with data in use and force = 1 works'
     );
 
     delete $changeParams{force};
@@ -748,7 +749,7 @@ sub setWithDataInUseTest : Test(15)
             $dataTable,
             $id,
             \%changeParams,
-            'Checking that setting a row with no data on use and force =0 works in a automaticRemoveTable'
+            'Checking that setting a row with no data in use and force = 0 works in a automaticRemoveTable'
     );
 }
 

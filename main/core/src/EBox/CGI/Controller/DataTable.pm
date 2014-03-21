@@ -254,11 +254,11 @@ sub _editField
         $model->setRow($force, %params);
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
+        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{editField},
             "$e",
            );
-        return;
+        return $id;
     }
 
     for my $fieldName (keys %changedValues) {
@@ -410,7 +410,10 @@ sub _setJSONSuccess
 
     $self->{json}->{success} = 1;
     $self->{json}->{messageClass} = $model->messageClass();
-    $self->{json}->{message}  = $model->popMessage();
+    my $msg = $model->popMessage();
+    if ($msg) {
+        $self->{json}->{message} = $msg;
+    }
 }
 
 sub editAction
@@ -660,6 +663,9 @@ sub editBooleanAction
     my ($self) = @_;
     delete $self->{template}; # to not print standard response
     $self->editBoolean();
+    if ($self->{json}) {
+        $self->_setJSONSuccess($self->{'tableModel'});
+    }
 }
 
 sub cloneAction

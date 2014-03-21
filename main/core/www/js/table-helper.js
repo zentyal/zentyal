@@ -194,6 +194,13 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
+    } else if ('dataInUseForm' in changes) {
+        var topForm = $('#' + tableId + '_top');
+        Zentyal.TableHelper.removeWarnings(tableId);
+        topForm.before(changes.dataInUseForm);
+        topForm.hide();
+        $('#' + tableId + '_editForm').hide(); // Hide form but sending in the dataInUse form
+        noMoreRowChanges = true;
     }
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);
@@ -264,6 +271,15 @@ Zentyal.TableHelper.restoreTop = function(tableId) {
     $('#' + tableId + '_top').show();
     $('#' + tableId + '_editForm').hide();
     $('#creatingForm_' + tableId).html('');
+};
+
+/* Function: removeWarnings
+
+    Restore the status before the DataInUse were raised
+
+*/
+Zentyal.TableHelper.removeWarnings = function(tableId) {
+    $('#' + tableId + '_data_in_use').remove();
 };
 
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force) {
@@ -898,7 +914,7 @@ Zentyal.TableHelper.markFileToRemove = function (id) {
 Function: sendInPlaceBooleanValue
 
     This function is used to send the value change of a boolean type with in-place
-    edtion
+    edition
 
 Parameters:
 
@@ -909,7 +925,7 @@ Parameters:
     field - field name
     element - HTML element
 */
-Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element) {
+Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element, force) {
     var elementId = element.id;
     element = $(element);
     Zentyal.TableHelper.startAjaxRequest();
@@ -926,6 +942,9 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     if (element.prop('checked')) {
        params += '&value=1';
     }
+    // If force is used, then use it
+    if (force) params += '&force=1';
+
     var error = function(response) {
         Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
@@ -937,13 +956,25 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
         Zentyal.TableHelper.restoreHidden(loadingId);
         Zentyal.refreshSaveChangesButton();
     };
+    var success = function(response) {
+        var json;
+        try {
+            json = $.parseJSON(response);
+        } catch (e) { };
+        if (json && json.success && 'dataInUseForm' in json) {
+            var topForm = $('#' + model + '_top');
+            Zentyal.TableHelper.removeWarnings(model);
+            topForm.before(json.dataInUseForm);
+            topForm.hide();
+        }
+    };
 
    $.ajax({
        url: url,
        data: params,
        type : 'POST',
-       dataType: 'html',
        error: error,
+       success: success,
        complete: complete
    });
 };
