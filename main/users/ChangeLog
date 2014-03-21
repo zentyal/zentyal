@@ -1,3 +1,6 @@
+HEAD
+	+ Updated group name and username validation code to follow Windows
+	  restrictions and added unit tests for those restrictions
 3.2.10
 	+ Added and used checkMailNotInUse method
 3.2.9

@@ -43,7 +43,7 @@ use Error qw(:try);
 use Convert::ASN1;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-use constant MAXUSERLENGTH  => 128;
+use constant MAXUSERLENGTH  => 104;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
@@ -452,16 +452,7 @@ sub create
         $isDisabled = 1;
     }
 
-    unless (_checkUserName($args{uid})) {
-        my $advice = __('To avoid problems, the uid should consist only ' .
-                        'of letters, digits, underscores, spaces, periods, ' .
-                        'dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $args{uid},
-                                            'advice' => $advice
-                                           );
-    }
+    _checkUserNameLimitations($args{uid});
 
     my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers();
@@ -483,12 +474,6 @@ sub create
                         . 'and you currently have {nUsers}',
                         max => $max_users, nUsers => scalar(@{$real_users})));
         }
-    }
-
-    if (length($args{uid}) > MAXUSERLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Username must not be longer than {maxuserlength} characters",
-                maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
@@ -676,19 +661,47 @@ sub create
     return $res;
 }
 
-sub _checkUserName
+# Performs validations on given name to see whether it matches the user name rules as restricted by the Active
+# directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
+# http://technet.microsoft.com/en-us/library/bb726984.aspx
+# We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
+# this installation.
+sub _checkUserNameLimitations
 {
     my ($name) = @_;
-    if (not EBox::Users::checkNameLimitations($name)) {
-        return undef;
+
+    unless (defined $name) {
+        throw EBox::Exceptions::InvalidArgument("name");
     }
 
-    # windows user names cannot end with a  period
+    # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
+    # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
+    # we follow the documentation on this or the Windows implementation?
+    if ($name =~ /(^\s|\s$|.*[,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('user name'),
+            value  => $name,
+            advice => __x(
+                "cannot start or end with a space, and should not have any of the following characters: {chars}",
+                chars => ",+\"\\=<>;\/\[\]:\|\*\?")
+        );
+    }
+
     if ($name =~ m/\.$/) {
-        return undef;
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('user name'),
+            'value' => $name,
+            'advice' => __('cannot end with a period (.)')
+           );
     }
 
-    return 1;
+    if (length ($name) > MAXUSERLENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('user name'),
+            'value' => $name,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXUSERLENGTH)
+           );
+    }
 }
 
 sub _homeDirectory

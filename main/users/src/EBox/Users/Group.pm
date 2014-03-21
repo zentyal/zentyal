@@ -27,6 +27,7 @@ use base 'EBox::Users::LdapObject';
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Ldap;
 use EBox::Users;
 use EBox::Users::User;
 use EBox::Validate;
@@ -45,7 +46,7 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
-use constant MAXGROUPLENGTH => 128;
+use constant MAXGROUPLENGTH => 64;
 use constant CORE_ATTRS     => ('objectClass', 'mail', 'member', 'description');
 
 sub new
@@ -500,22 +501,7 @@ sub create
         $isInternal = $args{isInternal};
     }
 
-    if (length ($args{name}) > MAXGROUPLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
-    }
-
-    unless (_checkGroupName($args{name})) {
-        my $advice = __('To avoid problems, the group name should consist ' .
-                        'only of letters, digits, underscores, spaces, ' .
-                        'periods, dashs and not start with a dash. They ' .
-                        'could not contain only number, spaces and dots.');
-        throw EBox::Exceptions::InvalidData(
-            'data' => __('group name'),
-            'value' => $args{name},
-            'advice' => $advice
-           );
-    }
+    _checkGroupNameLimitations($args{name});
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -621,19 +607,44 @@ sub create
     return $res;
 }
 
-sub _checkGroupName
+# Performs validations on given name to see whether it matches the group name rules as restricted by the Active
+# directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx
+# We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
+# this installation.
+sub _checkGroupNameLimitations
 {
-    my ($name)= @_;
-    if (not EBox::Users::checkNameLimitations($name)) {
-        return undef;
+    my ($name) = @_;
+
+    # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
+    # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
+    # we follow the documentation on this or the Windows implementation?
+    my $result = EBox::Ldap->checkSpecialChars($name);
+    if ($result) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('group name'),
+            value  => $name,
+            advice => $result
+        );
     }
 
-    # windows group names could not be only numbers, spaces and dots
     if ($name =~ m/^[[:space:]0-9\.]+$/) {
-        return undef;
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $name,
+            'advice' => __('cannot consist solely of numbers, periods (.), or spaces')
+           );
     }
 
-    return 1;
+    # Even if in some parts of the documentation states that it can be up to 128 characters, seems like it's really
+    # restricted to 64 characters, but accepts non ASCII ones that require two bytes, so the right thing to do is
+    # follow the windows implementation and count characters not bytes, and leave the limit in 64 characters.
+    if (length ($name) > MAXGROUPLENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $name,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXGROUPLENGTH)
+           );
+    }
 }
 
 # Method: isSecurityGroup

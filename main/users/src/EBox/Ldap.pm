@@ -22,6 +22,7 @@ use base 'EBox::LDAPBase';
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Gettext;
 
@@ -538,6 +539,35 @@ sub changeUserPassword
 sub connectWithKerberos
 {
     throw EBox::Exceptions::UnwillingToPerform(reason => 'Internal LDAP does not support this connection method');
+}
+
+# Method: checkSpecialChars
+#
+#   Checks whether the given $value contains any of the special characters for LDAP servers.
+#
+# Parameters:
+#
+#   value - String with the value that should be checked against the special LDAP characters.
+#
+# Return:
+#   An error message if the given $value has any forbiden special character or undef otherwise.
+#
+sub checkSpecialChars
+{
+    my ($class, $value) = @_;
+
+    unless (defined $value) {
+        throw EBox::Exceptions::InvalidArgument("value");
+    }
+
+    # Restricted to the general rules for Microsoft Windows Server 2003 and later.
+    # see http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx
+    if ($value =~ /(^\s|\s$|.*[#,\+\"\\=<>;].*)/) {
+        return __x("cannot start or end with a space, and should not have any of the following characters: {chars}",
+                   chars => "#,+\"\\=<>;");
+    } else {
+        return undef;
+    }
 }
 
 1;

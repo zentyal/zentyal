@@ -22,6 +22,7 @@ use base 'EBox::Test::LDAPClass';
 use EBox::Global::TestStub;
 
 use Test::More;
+use Test::Exception;
 
 sub class
 {
@@ -61,6 +62,43 @@ sub url : Test(1)
     my $class = $self->class;
 
     cmp_ok($class->url(), 'eq', 'ldapi://%2fvar%2frun%2fslapd%2fldapi', "Getting the LDAP's URL");
+}
+
+sub checkSpecialChars : Test(18)
+{
+    my ($self) = @_;
+    my $class = $self->class;
+
+    throws_ok {
+        $class->checkSpecialChars();
+    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+
+    throws_ok {
+        $class->checkSpecialChars(undef);
+    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+
+    lives_ok {
+        $class->checkSpecialChars('');
+    } 'Empty string';
+
+    is($class->checkSpecialChars("foo"), undef, "Valid value string");
+
+    my $expectedError = "cannot start or end with a space, and should not have any of the following characters: #,+\"\\=<>;";
+    cmp_ok($class->checkSpecialChars(" foo"), 'eq', $expectedError, "Leading space");
+    cmp_ok($class->checkSpecialChars("foo "), 'eq', $expectedError, "Trailing space");
+    is($class->checkSpecialChars("foo bar"), undef, "Spaces between words");
+    cmp_ok($class->checkSpecialChars("foo#"), 'eq', $expectedError, "Hash char");
+    cmp_ok($class->checkSpecialChars(",foo"), 'eq', $expectedError, "Comma");
+    cmp_ok($class->checkSpecialChars("foo+"), 'eq', $expectedError, "Plus");
+    cmp_ok($class->checkSpecialChars("foo\""), 'eq', $expectedError, "Quote");
+    cmp_ok($class->checkSpecialChars("foo\\"), 'eq', $expectedError, "Back slash");
+    cmp_ok($class->checkSpecialChars("foo="), 'eq', $expectedError, "Equal");
+    cmp_ok($class->checkSpecialChars("foo<"), 'eq', $expectedError, "Less-than");
+    cmp_ok($class->checkSpecialChars("foo>"), 'eq', $expectedError, "Greater-than");
+    cmp_ok($class->checkSpecialChars("foo;"), 'eq', $expectedError, "Semicolon");
+
+    is($class->checkSpecialChars("Prä-Windows 2000 kompatibler Zugriff"), undef, "German characters");
+    is($class->checkSpecialChars("Бухгалтерия"), undef, "Cyrillic characters");
 }
 
 1;
