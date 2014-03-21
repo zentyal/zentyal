@@ -7,11 +7,15 @@ package EBox::SOGO;
 
 use base qw(EBox::Module::Service);
 
+use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
-use EBox::Config;
 use EBox::WebServer;
+
+use TryCatch::Lite;
 
 # Group: Protected methods
 
@@ -50,13 +54,14 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        my $webserverMod = $self->global()->modInstance('webserver');
+        my $global = $self->global();
+        my $webserverMod = $global->modInstance('webserver');
         my $sysinfoMod = $global->modInstance('sysinfo');
         my @params = ();
         push (@params, hostname => $sysinfoMod->fqdn());
         push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
 
-        $self->writeConfFile("/etc/conf-available/zentyal-sogo.conf", "sogo/zentyal-sogo.mas", \@params);
+        $self->writeConfFile("/etc/apache2/conf-available/zentyal-sogo.conf", "sogo/zentyal-sogo.mas", \@params);
         try {
             EBox::Sudo::root("a2enconf zentyal-sogo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
