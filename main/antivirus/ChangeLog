@@ -1,4 +1,5 @@
 HEAD
+	+ Disabled Ubuntu freshclam daemon
 	+ Added clamd socket actions to freshclam apparmor profile
 3.4
 	+ Set version to 3.4
