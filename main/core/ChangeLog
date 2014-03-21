@@ -1,4 +1,5 @@
 HEAD
+	+ Fix version available check in dashboard when file does not exist
 	+ Do not show success note if there is no note
 	+ Fix data in use behaviour on edition
 	+ Give support to data in use exception for in-place booleans
