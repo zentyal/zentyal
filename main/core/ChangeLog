@@ -1,4 +1,5 @@
 HEAD
+	+ Remove ManageAdmins deprecated data on initial setup
 	+ Write logs configuration only when the module is enabled
 	+ Use replace instead of href to redirect in Controller::DataTable
 	  (This avoids infinite loops if the user press back button)
