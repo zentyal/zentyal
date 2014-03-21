@@ -27,7 +27,6 @@ use base 'EBox::Users::LdapObject';
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Ldap;
 use EBox::Users;
 use EBox::Users::User;
 use EBox::Validate;
@@ -618,12 +617,13 @@ sub _checkGroupNameLimitations
     # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
     # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
     # we follow the documentation on this or the Windows implementation?
-    my $result = EBox::Ldap->checkSpecialChars($name);
-    if ($result) {
+    if ($name =~ /(^\s|\s$|.*[,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
         throw EBox::Exceptions::InvalidData(
             data   => __('group name'),
             value  => $name,
-            advice => $result
+            advice => __x(
+                "cannot start or end with a space, and should not have any of the following characters: {chars}",
+                chars => ",+\"\\=<>;\/\[\]:\|\*\?")
         );
     }
 
@@ -633,6 +633,14 @@ sub _checkGroupNameLimitations
             'value' => $name,
             'advice' => __('cannot consist solely of numbers, periods (.), or spaces')
            );
+    }
+
+    if ($name =~ m/\.$/) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $name,
+            'advice' => __('cannot end with a period (.)')
+           )
     }
 
     # Even if in some parts of the documentation states that it can be up to 128 characters, seems like it's really
