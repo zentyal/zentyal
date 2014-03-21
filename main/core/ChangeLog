@@ -1,3 +1,5 @@
+HEAD
+	+ Set proper version for bugreport issues
 3.4
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
