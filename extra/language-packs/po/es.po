@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-15 00:10+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2014-03-19 15:50+0200\n"
+"Last-Translator: figarocorso <mjulian@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -10822,7 +10822,6 @@ msgid "Email (you will receive updates on the report)"
 msgstr "Email (se recibirán actualizaciones al respecto)"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:133
-#, fuzzy
 msgid "Describe in English what you were doing"
 msgstr "Describe lo que estabas haciendo"
 
@@ -11531,9 +11530,9 @@ msgid ""
 msgstr ""
 "Aviso: Estas actualizaciones son actualizaciones no probadas de comunidad y "
 "pueden dañar su sistema. En entornos de producción recomendamos usar la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch}: ediciones comerciales "
-"del servidor Zentyal, con soporte completo de Zentyal S.L. y Canonical/"
-"Ubuntu."
+"edición {oh}Profesional,  Business o Enterprise{ch}: ediciones comerciales "
+"del servidor Zentyal, con soporte completo de Zentyal S.L. y "
+"Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:240
 msgid "Security software updates"
@@ -12704,6 +12703,8 @@ msgstr "Sesiones del administrador"
 #: ../../main/openchange/src/EBox/Downloader/CGI/RPCCert.pm:48
 msgid "Cannot create certificate for RPC Proxy with the current configuration"
 msgstr ""
+"No se puede crear el certificado para el Proxy RPC con la configuración "
+"actual"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:53
 #, perl-brace-format
@@ -12899,6 +12900,8 @@ msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual domain"
 "{oc}"
 msgstr ""
+"Para configurar OpeChange se necesita primero {oh}crear un dominio de correo "
+"virtual{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "New One"
@@ -12968,6 +12971,8 @@ msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual domain"
 "{oc}"
 msgstr ""
+"Para provisionar OpenChange se necesita primero {oh}crear un dominio de "
+"correo virtual{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 msgid "Enable OpenChange account"
@@ -13018,9 +13023,8 @@ msgid "Cannot find this host in {oh}DNS domain {dom}{ch}"
 msgstr "No se puede encontrar esta máquina en el {oh}dominio DNS {dom}{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:861
-#, fuzzy
 msgid "No outgoing mail domain configured"
-msgstr "Dominio de correo saliente"
+msgstr "No hay dominio de correo saliente configurado"
 
 #: ../../main/software/src/EBox/Software.pm:59
 msgid "Software Management"

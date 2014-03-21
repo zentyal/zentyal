@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-02-28 17:25+0200\n"
-"Last-Translator: treffer <treffer_hh@web.de>\n"
+"PO-Revision-Date: 2014-03-20 17:02+0200\n"
+"Last-Translator: Manfred <steinbach73@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -660,9 +660,8 @@ msgid "Random"
 msgstr "Zufall"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "Ausfallsicherung"
+msgstr "Ausfallsicher"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -909,18 +908,18 @@ msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
 msgstr "{par} ist nicht kompatibel mit Zentyal-zu-Zentyal-Tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Verfügbare Netzwerke"
+msgstr "Liste der angezeigten Netzwerke am Tunnel Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
 msgstr ""
+"Angezeigten Routen für die Clienten über eine TUN-Schnittstelle werden nicht "
+"unterstützt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
-#, fuzzy
 msgid "Advertised Network"
-msgstr "Erreichbare Netzwerke"
+msgstr "Angezeigte Netzwerke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
@@ -995,6 +994,7 @@ msgstr "Zentrale Konfigurationsdatei für zebra"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
+"Konfiguriere den RIPD Wechsel Router,für eine Client-Client-Verbindungen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
@@ -1191,9 +1191,8 @@ msgstr "Sie müssen insecure_rip_conf auf \"Ja\" oder \"Nein\" setzen"
 #: ../../main/ha/src/EBox/HA.pm:89
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "verfügbar"
+msgstr "Höchste Verfügbarkeit"
 
 #: ../../main/ha/src/EBox/HA.pm:114 ../../main/core/src/EBox/SysInfo.pm:111
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:182
@@ -1205,18 +1204,16 @@ msgstr "System"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "Benutzername"
+msgstr "Gruppen Status"
 
 #: ../../main/ha/src/EBox/HA.pm:163
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Um den clamd-Dienst zu konfigurieren"
+msgstr "Konfiguriere denn corosync Dienst"
 
 #: ../../main/ha/src/EBox/HA.pm:166
 msgid "To start corosync at boot"
-msgstr ""
+msgstr "Starte corosync nach dem booten "
 
 #: ../../main/ha/src/EBox/HA.pm:1000
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1267,16 +1264,14 @@ msgstr "Keine"
 #: ../../main/ha/src/EBox/HA.pm:1006
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "Es sind Fehler"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "letzter Tag"
+msgstr "Letztes Update"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
 msgstr "Fehler"
 
@@ -1296,13 +1291,12 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
-#, fuzzy
 msgid "not enabled"
 msgstr "aktiviert"
 
 #: ../../main/ha/src/EBox/HA.pm:1025
 msgid "Nodes"
-msgstr ""
+msgstr "Knoten"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
