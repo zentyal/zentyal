@@ -116,11 +116,11 @@ sub _doChangePassword
                                          silent => 1);
     }
 
-    unless (EBox::Middleware::Auth->checkValidUser($username, $curpwd)) {
+    unless (EBox::Middleware::AuthPAM->checkValidUser($username, $curpwd)) {
         throw EBox::Exceptions::External(__('Incorrect current password.'), silent => 1);
     }
 
-    EBox::Middleware::Auth->setPassword($username, $newpwd1);
+    EBox::Middleware::AuthPAM->setPassword($username, $newpwd1);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username);
 
