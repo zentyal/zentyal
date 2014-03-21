@@ -40,7 +40,7 @@ cwd=`pwd`
 for i in $packages
 do
     changelog="$i/debian/precise/changelog"
-    git co $changelog
+    git checkout $changelog
     echo "Building package $i..."
     ../extra/zbuildtools/zentyal-package $i || exit 1
     cd debs-ppa

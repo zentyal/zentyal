@@ -1,3 +1,5 @@
+HEAD
+	+ Added clamd socket actions to freshclam apparmor profile
 3.3.1
 	+ Make FreshclamStatus model more resilient to errors
 	+ Fix status when the freshclam state file is empty

@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed CaptivePortalQUota event watcher path
+	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
 	+ Fixed restricted login by group
 	+ Don't show iptables error on Captive Daemon if debug is not enabled
 	+ Regenerate, if needed captive, portal rules on startup of captived
