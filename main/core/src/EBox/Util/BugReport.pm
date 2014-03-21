@@ -29,7 +29,6 @@ use TryCatch::Lite;
 # separated by dots are used to create the issue in the bug tracker.
 # Version MUST exist in bug tracker database AND zentyal-bug-interface service!
 use constant RPC_URL => 'http://bugreport.zentyal.org/bugreport/v1';
-use constant MILESTONE => '3.4';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 
@@ -52,6 +51,9 @@ sub send
 {
     my ($author_email, $description) = @_;
 
+    my $version = `dpkg -s zentyal-core|grep ^Version:`;
+    ($version) =~ /^Version: (\d+\.\d+)/;
+
     my $client = new JSON::RPC::Client;
 
     my $title = 'Bug report from Zentyal Server';
@@ -62,7 +64,7 @@ sub send
             $description,                    # description
             {
                 reporter => $author_email,   # author
-                milestone => MILESTONE,      # milestone
+                milestone => $version,       # milestone
             },
             'true',                          # notify
         ],
