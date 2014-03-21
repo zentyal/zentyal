@@ -243,6 +243,11 @@ vd => $vdomain, al => $alias
     }
 }
 
+# Method: checkNoExternalAccountsForDomain
+#
+#  Assures that no account from the domain are used by the retieval mail service
+#  Raises exception if this is not true
+#
 sub checkNoExternalAccountsForDomain
 {
     my ($self, $vdomain) = @_;
