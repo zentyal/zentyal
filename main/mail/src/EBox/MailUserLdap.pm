@@ -60,6 +60,10 @@ sub mailboxesDir
     return DIRVMAIL;
 }
 
+# Method: setupUsers
+#
+#  Set up existent users for working correctly when the module is enabled for
+#  first time
 sub setupUsers
 {
     my ($self) = @_;
