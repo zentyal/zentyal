@@ -44,7 +44,7 @@ use EBox::Samba::Contact;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
-use constant MAXGROUPLENGTH     => 128;
+use constant MAXGROUPLENGTH     => 64;
 use constant GROUPTYPESYSTEM    => 0x00000001;
 use constant GROUPTYPEGLOBAL    => 0x00000002;
 use constant GROUPTYPELOCAL     => 0x00000004;
@@ -110,7 +110,7 @@ sub create
 
     my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
 
-    $class->_checkAccountName($args{name}, MAXGROUPLENGTH);
+    _checkGroupNameLimitations($args{name});
     $class->_checkAccountNotExists($args{name});
 
     # TODO: We may want to support more than global groups!
@@ -351,19 +351,6 @@ sub _membersToZentyal
 
     $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->save();
-}
-
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-    $self->SUPER::_checkAccountName($name, $maxLength);
-    if ($name =~ m/^[[:space:]0-9\.]+$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>  __('Windows group names cannot be only spaces, numbers and dots'),
-           );
-    }
 }
 
 # Method: isSecurityGroup
