@@ -286,5 +286,4 @@ sub checkNoExternalAccountsForDomain
     }
 }
 
-
 1;
