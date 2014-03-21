@@ -242,14 +242,12 @@ sub _saveConfig
 sub _copy_to_ro
 {
     my ($self) = @_;
-
     $self->_copy('conf', 'ro');
 }
 
 sub _copy_from_ro
 {
     my ($self) = @_;
-
     $self->_copy('ro', 'conf');
 }
 
