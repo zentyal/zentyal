@@ -422,6 +422,20 @@ sub checkExternalAccount
                  $externalAccount,
                  __('External account')
                 );
+        my ($user, $domain) = split '@', $externalAccount, 2;
+        # assumed that we are in Rw mode
+        my $vdomains = EBox::Global->modInstance('mail')->model('VDomains');
+        if ($vdomains->existsVDomain($domain)) {
+            throw EBox::Exceptions::External(
+                __x('Cannot set a external account for the domain {dom} because is managed by Zentyal',
+                    dom => $domain )
+                 );
+        } elsif ($vdomains->existsVDomainAlias($domain)) {
+            throw EBox::Exceptions::External(
+                __x('Cannot set a external account for the domain {dom} because is an alias for a domain managed by Zentyal',
+                    dom => $domain )
+               );
+        }
     } else {
          # no info found on valid usernames for fetchmail..
         if ($externalAccount =~ m/\s/) {

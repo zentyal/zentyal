@@ -166,7 +166,6 @@ sub alwaysBcc
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
-
     if (not exists $changedFields->{vdomain}) {
         return;
     }
@@ -198,6 +197,8 @@ q{'sieve' is a reserved name in this context, please choose another name}
 __('The virtual domain name cannot be equal to the mailname')
                                            );
     }
+
+    $self->checkNoExternalAccountsForDomain($vdomain);
 }
 
 sub existsVDomain
@@ -241,5 +242,44 @@ vd => $vdomain, al => $alias
         }
     }
 }
+
+sub checkNoExternalAccountsForDomain
+{
+    my ($self, $vdomain) = @_;
+    my $mail = $self->parentModule();
+    my $fetchmailLdap = $mail->{fetchmail};
+
+    my @localAccounts;
+    my $allExternal   = $fetchmailLdap->allExternalAccountsByLocalAccount();
+    while (my ($local, $attrs) = each %{ $allExternal }) {
+        foreach my $externalAttr (@{ $attrs->{externalAccounts} }) {
+            my $external = $externalAttr->{user};
+            my ($lhs, $externalDomain) = split '@', $external, 2;
+            if ($externalDomain and ($externalDomain eq $vdomain)) {
+                push @localAccounts, $local;
+                last;
+            }
+        }
+    }
+
+    if (@localAccounts == 0) {
+        return;
+    }
+
+    my $userLdap = $mail->{musers};
+    my @localUsers = map {
+        my $user = $userLdap->userByAccount($_);
+        $user ? $user : ()
+    } @localAccounts;
+
+    if (@localUsers) {
+        throw EBox::Exceptions::External(__x('Cannot add {vd} because they are users which have external accounts in that domain. Please remove them before. Users affected: {us}',
+                                         vd => $vdomain,
+                                         us => join(', ', @localUsers)
+                                             )
+                                        );
+    }
+}
+
 
 1;

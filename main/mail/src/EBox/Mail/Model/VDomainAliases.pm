@@ -108,6 +108,8 @@ sub validateTypedRow
                     al => $alias)
                );
     }
+
+    $self->parent()->checkNoExternalAccountsForDomain($alias);
 }
 
 # Method: precondition
