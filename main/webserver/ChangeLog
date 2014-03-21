@@ -1,3 +1,5 @@
+HEAD
+	+ When creating domains take into account SLD
 3.4
 	+ Check, at least, a listening port is mandatory
 	+ Fix when webserver is not listening in HTTP port

@@ -1,4 +1,5 @@
 HEAD
+	+ Hide passwords on admin user model on error and debug on
 	+ Set proper version for bugreport issues
 3.4
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
