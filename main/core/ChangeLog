@@ -1,4 +1,5 @@
 HEAD
+	+ Migrate previous configuration from 3.3 when upgrading
 	+ Admin password change handled by AuthPAM
 	+ Fix version available check in dashboard when file does not exist
 	+ Do not show success note if there is no note
