@@ -298,6 +298,7 @@ sub enableActions
     $self->checkUsersMode();
 
     $self->performLDAPActions();
+    $self->{musers}->setupUsers();
 
     # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
