@@ -74,10 +74,10 @@ sub initialSetup
         $self->set_state($state);
     }
 
-# TODO: migrate from 3.3
-#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-#        $self->_migrateConfKeys();
-#    }
+    # Migrate from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateConfKeys();
+    }
 }
 
 # Method: menu
