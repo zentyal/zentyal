@@ -1,3 +1,8 @@
+HEAD
+	+ Wait for RID set allocation after join a domain before import accounts
+	+ Remove workaround for DNS spn, fixed upstream
+	+ Force a DNS module restart after provision to load the domain zone from
+	  samba
 3.0.23
 	+ Remove guest access related config keys after patches merged in samba4
 	  package
