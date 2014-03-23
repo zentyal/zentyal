@@ -782,11 +782,11 @@ Parameters:
 
         elementId - the element identifier
         modelName - the model name to distinguish among hiddenDiv tags *(Deprecated: not used)*
-        isSaved   - boolean to indicate if the inner HTML should be saved to be able to resotre it later
+        isSaved   - boolean to indicate if the inner HTML should be saved to be able to restore it later
                     with restoreHidden function
 */
 var savedElements = {};
-//XXX modelName does ntvalue = o do anything..
+//XXX modelName does not do anything..
 Zentyal.TableHelper.setLoading  = function (elementId, modelName, isSaved) {
   var element = $('#' + elementId);
   if (isSaved) {
@@ -816,20 +816,25 @@ Zentyal.TableHelper.setDone  = function (elementId)
 /*
 Function: restoreHidden
 
-        Restore HTML stored by setLoading methos
+        Restore HTML stored by setLoading method
 
 Parameters:
 
         elementId - the element identifier where to restore the HTML hidden
-        modelName - the model name to distinguish among hidden (*Deprecated: not used*)
+        modelName - the model name to distinguish among hidden (*Deprecated: not used*)        
+        optParameters - named optional parameters:
+                        keep_if_not_saved: do not overwrite with empty content
+                                           if the elementId is not in saved elements
 
 */
-Zentyal.TableHelper.restoreHidden  = function (elementId, modelName) {
+Zentyal.TableHelper.restoreHidden  = function (elementId, modelName, optParameters) {
     if (elementId in savedElements) {
         $('#' + elementId).html(savedElements[elementId]);
         delete savedElements[elementId];
     } else {
-        $('#' + elementId).html('');
+        if (! optParameters || ! optParameters['keep_if_not_saved']) {
+            $('#' + elementId).html('');
+        }
     }
 };
 
