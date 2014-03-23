@@ -427,12 +427,12 @@ sub checkExternalAccount
         my $vdomains = EBox::Global->modInstance('mail')->model('VDomains');
         if ($vdomains->existsVDomain($domain)) {
             throw EBox::Exceptions::External(
-                __x('Cannot set a external account for the domain {dom} because is managed by Zentyal',
+                __x('Cannot set an external account for the domain {dom} because is managed by Zentyal',
                     dom => $domain )
                  );
         } elsif ($vdomains->existsVDomainAlias($domain)) {
             throw EBox::Exceptions::External(
-                __x('Cannot set a external account for the domain {dom} because is an alias for a domain managed by Zentyal',
+                __x('Cannot set an external account for the domain {dom} because is an alias for a domain managed by Zentyal',
                     dom => $domain )
                );
         }
