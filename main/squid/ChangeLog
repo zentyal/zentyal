@@ -1,3 +1,6 @@
+HEAD
+	+  Added http_allow rule to avoid having to add an explicit rule for
+	 proxy events
 3.0.17
 	+ Make external AD auth available for offer 2013
 3.0.16
