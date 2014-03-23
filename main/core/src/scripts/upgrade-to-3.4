@@ -1,0 +1,37 @@
+#!/bin/bash
+
+function upgrade
+{
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes
+
+    apt-get clean
+}
+
+sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
+
+echo; echo "Upgrading your current distribution"; echo
+upgrade
+
+OLD_DIST=precise
+for DIST in quantal raring saucy
+do
+    echo; echo "Upgrading from $OLD_DIST to $DIST"; echo
+    sed -i "s/$OLD_DIST/$DIST/g" /etc/apt/sources.list
+    upgrade
+    OLD_DIST=$DIST
+done
+
+rm /var/lib/dpkg/info/freeradius-ldap.postinst
+dpkg --configure -a
+
+echo; echo "Base system upgrade finished"; echo
+
+echo; echo "Upgrading from Zentyal 3.3 to 3.4"; echo
+sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
+
+upgrade
+
+service zentyal haproxy restart
+
+echo; echo "Zentyal upgrade finished!"

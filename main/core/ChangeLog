@@ -1,3 +1,5 @@
+HEAD
+	+ Added script to upgrade to 3.4
 3.3.7
 	+ Hide passwords on admin user model on error and debug on
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
