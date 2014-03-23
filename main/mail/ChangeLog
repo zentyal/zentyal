@@ -1,5 +1,5 @@
 HEAD
-	+ Do not allow retieval for external accounts which use a domain
+	+ Do not allow retrieval for external accounts which use a domain
 	  already managed by Zentyal
 3.2.6
 	+ Added and used checkMailNotInUse method
