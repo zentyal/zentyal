@@ -22,7 +22,7 @@ do
     OLD_DIST=$DIST
 done
 
-rm /var/lib/dpkg/info/freeradius-ldap.postinst
+rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
 dpkg --configure -a
 
 echo; echo "Base system upgrade finished"; echo
