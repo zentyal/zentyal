@@ -60,6 +60,24 @@ sub mailboxesDir
     return DIRVMAIL;
 }
 
+# Method: setupUsers
+#
+#  Set up existent users for working correctly when the module is enabled for
+#  first time
+sub setupUsers
+{
+    my ($self) = @_;
+    my $userMod = EBox::Global->getInstance()->modInstance('users');
+
+    foreach my $user (@{ $userMod->users() }) {
+        my $mail = $user->get('mail');
+        if ($mail) {
+            my ($lhs, $rhs) = split '@', $mail, 2;
+            $self->setUserAccount($user, $lhs, $rhs);
+        }
+    }
+}
+
 # Method: setUserAccount
 #
 #  This method sets a mail account to a user.
