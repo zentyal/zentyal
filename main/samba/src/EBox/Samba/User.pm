@@ -334,7 +334,9 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $samAccountName = $args{samAccountName};
-    $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
+    # FIXME: EBox:Samba::User should either inherite from EBox::Users::User or be removed completely. We use a private
+    # method for code sharing until we remove OpenLDAP.
+    EBox::Users::User->_checkUserNameLimitations($samAccountName);
 
     # Check the password length if specified
     my $clearPassword = $args{'clearPassword'};
@@ -409,25 +411,6 @@ sub create
     };
 
     return $res;
-}
-
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-    $self->SUPER::_checkAccountName($name, $maxLength);
-    if ($name =~ m/^[[:space:]\.]+$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot be only spaces and dots.')
-           );
-    } elsif ($name =~ m/@/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot contain the "@" character.')
-           );
-    }
 }
 
 sub _checkPwdLength

@@ -40,7 +40,7 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::User') or die;
 }
 
-sub checkUserNameLimitations : Test(38)
+sub checkUserNameLimitations : Test(42)
 {
     my ($self) = @_;
 
@@ -60,7 +60,10 @@ sub checkUserNameLimitations : Test(38)
         'Prä-Windows 2000 kompatibler Zugriff',
         'Бухгалтерия',
         '12345',
-        '1234 5.45'
+        '1234 5.45',
+        'user-slash_',
+        '-startslash',
+        'problematic&characters'
     );
 
     my @invalid = (
@@ -83,8 +86,10 @@ sub checkUserNameLimitations : Test(38)
         'foo|',
         'foo*',
         'foo?',
+        'foo@',
         '...',
-        '   '
+        '   ',
+        'enddot.'
     );
 
     my $longer = 'l' x ($maxLen + 1);

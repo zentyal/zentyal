@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,43 +16,32 @@
 use strict;
 use warnings;
 
-use Test::More tests => 10;
+package EBox::Samba::User::Test;
+use base 'EBox::Test::Class';
+
+use EBox::Global::TestStub;
+
+use Encode;
+use Test::More;
 use Test::Exception;
 
-use lib '../../..';
-use EBox::Samba::User;
-use EBox::TestStub;
-
-sub testCheckAccountName
+sub setUpConfiguration : Test(startup)
 {
-    my $maxLen = 20;
-    my @valid = (
-        'user1',
-        '3232',
-        'user espacio',
-        'user-slash_',
-       );
-    push @valid, 'v' x  $maxLen;
-    my @invalid = (
-        'enddot.',
-        '-startslash',
-        '. ',
-        'problematic&characters',
-       );
-    push @invalid, 'l' x ($maxLen+1);
-    foreach my $validName (@valid) {
-        lives_ok {
-            EBox::Samba::User->_checkAccountName($validName, $maxLen);
-        } "Checking that $validName is a correct user account name";
-    }
-    foreach my $invalidName (@invalid) {
-        dies_ok {
-            EBox::Samba::User->_checkAccountName($invalidName, $maxLen);
-        } "Checking that $invalidName is raises exception as invalid user account name";
-    }
+    EBox::Global::TestStub::fake();
 }
 
-EBox::TestStub::fake();
-testCheckAccountName();
+sub clearConfiguration : Test(shutdown)
+{
+    EBox::Module::Config::TestStub::setConfig();
+}
+
+sub samba_user_use_ok : Test(startup => 1)
+{
+    use_ok('EBox::Samba::User') or die;
+}
 
 1;
+
+END {
+    EBox::Samba::User::Test->runtests();
+}
