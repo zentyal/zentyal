@@ -74,10 +74,10 @@ sub initialSetup
         $self->set_state($state);
     }
 
-# TODO: migrate from 3.3
-#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-#        $self->_migrateConfKeys();
-#    }
+    # Migrate from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateConfKeys();
+    }
 }
 
 # Method: menu
@@ -311,7 +311,7 @@ sub generalWidget
 
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
-    unless ($ignore) {
+    unless ($ignore or (not -f LATEST_VESION)) {
         my $url = UPDATES_URL;
         my $lastVersion;
         open (my $fh, LATEST_VERSION);

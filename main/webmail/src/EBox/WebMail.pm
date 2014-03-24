@@ -142,6 +142,9 @@ sub _openchangeEnabled
 {
     my ($self) = @_;
 
+    # TODO: remove this when roundcube plugins are enabled again
+    return 0;
+
     my $openchange = $self->global()->modInstance('openchange');
     return (defined ($openchange) and $openchange->isEnabled() and $openchange->isProvisioned());
 }
