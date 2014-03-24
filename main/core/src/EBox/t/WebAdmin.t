@@ -138,9 +138,9 @@ throws_ok {
     $webAdminMod->addNginxServer();
 } 'EBox::Exceptions::MissingArgument', 'No server file to include';
 
-throws_ok {
+lives_ok {
     $webAdminMod->addNginxServer($deviantIncludes[0]);
-} 'EBox::Exceptions::Internal', 'Server file to include does not exits';
+} 'Server file to include does not exits but it doesn\'t break';
 
 lives_ok {
     $webAdminMod->addNginxServer($_) foreach (@includes);

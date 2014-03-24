@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::WebAdmin::addNginxServer does not longer raises exception
+	  if file not yet exists
 	+ Migrate previous configuration from 3.3 when upgrading
 	+ Admin password change handled by AuthPAM
 	+ Fix version available check in dashboard when file does not exist
