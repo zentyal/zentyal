@@ -110,7 +110,7 @@ sub create
 
     my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
 
-    _checkGroupNameLimitations($args{name});
+    $class->_checkGroupNameLimitations($args{name});
     $class->_checkAccountNotExists($args{name});
 
     # TODO: We may want to support more than global groups!

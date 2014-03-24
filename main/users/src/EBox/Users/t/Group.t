@@ -40,7 +40,7 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::Group') or die;
 }
 
-sub checkGroupNameLimitations : Test(38)
+sub checkGroupNameLimitations : Test(42)
 {
     my ($self) = @_;
 
@@ -57,7 +57,10 @@ sub checkGroupNameLimitations : Test(38)
         'foo',
         'foo bar',
         'Prä-Windows 2000 kompatibler Zugriff',
-        'Бухгалтерия'
+        'Бухгалтерия',
+        'user-slash_',
+        '-startslash',
+        'problematic&characters'
     );
 
     my @invalid = (
@@ -83,7 +86,8 @@ sub checkGroupNameLimitations : Test(38)
         '12345',
         '...',
         '   ',
-        '1234 5.45'
+        '1234 5.45',
+        'enddot.'
     );
 
     my $longer = 'l' x ($maxLen + 1);
