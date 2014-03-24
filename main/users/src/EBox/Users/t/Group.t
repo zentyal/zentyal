@@ -40,104 +40,79 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::Group') or die;
 }
 
-sub checkGroupNameLimitations : Test(31)
+sub checkGroupNameLimitations : Test(38)
 {
     my ($self) = @_;
 
+    my $maxLen = EBox::Users::Group::MAXGROUPLENGTH();
     throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations();
+        EBox::Users::Group->_checkGroupNameLimitations();
     } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
 
     throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations(undef);
+        EBox::Users::Group->_checkGroupNameLimitations(undef);
     } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
 
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations('');
-    } 'Empty string';
+    my @valid = (
+        'foo',
+        'foo bar',
+        'Prä-Windows 2000 kompatibler Zugriff',
+        'Бухгалтерия'
+    );
 
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo");
-    } 'Valid value string';
+    my @invalid = (
+        '',
+        ' foo',
+        'foo ',
+        'foo#',
+        ',foo',
+        'foo+',
+        'foo"',
+        'foo\\',
+        'foo=',
+        'foo<',
+        'foo>',
+        'foo;',
+        'foo/',
+        'foo[',
+        'foo]',
+        'foo:',
+        'foo|',
+        'foo*',
+        'foo?',
+        '12345',
+        '...',
+        '   ',
+        '1234 5.45'
+    );
 
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations(" foo");
-    } 'EBox::Exceptions::InvalidData', 'Leading space';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo ");
-    } 'EBox::Exceptions::InvalidData', 'Trailing space';
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo bar");
-    } 'Spaces between words';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo#");
-    } 'EBox::Exceptions::InvalidData', 'Hash char';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations(",foo");
-    } 'EBox::Exceptions::InvalidData', 'Comma';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo+");
-    } 'EBox::Exceptions::InvalidData', 'Plus';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo\"");
-    } 'EBox::Exceptions::InvalidData', 'Quote';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo\\");
-    } 'EBox::Exceptions::InvalidData', 'Back slash';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo=");
-    } 'EBox::Exceptions::InvalidData', 'Equal';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo<");
-    } 'EBox::Exceptions::InvalidData', 'Less-than';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo>");
-    } 'EBox::Exceptions::InvalidData', 'Greater-than';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("foo;");
-    } 'EBox::Exceptions::InvalidData', 'Semicolon';
-
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("Prä-Windows 2000 kompatibler Zugriff");
-    } 'German characters';
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("Бухгалтерия");
-    } 'Cyrillic characters';
-
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("12345");
-    } 'EBox::Exceptions::InvalidData', 'Only numbers';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("...");
-    } 'EBox::Exceptions::InvalidData', 'Only periods (.)';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("  ");
-    } 'EBox::Exceptions::InvalidData', 'Only spaces';
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations("1234  5.45");
-    } 'EBox::Exceptions::InvalidData', 'Only numbers, periods and spaces';
-
-    my $longer = "a0123456789012345678901234567890123456789012345678901234567890123456789";
-    cmp_ok(length $longer, 'gt', 64, "Test string is longer than 64");
-    throws_ok {
-        EBox::Users::Group::_checkGroupNameLimitations($longer);
-    } 'EBox::Exceptions::InvalidData', 'No names longer than 64 characters';
-    my $limit = substr ($longer, 0, 64);
-    cmp_ok(length $limit, '==', 64, "Test string is exactly 64 characters long");
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations($limit);
-    } 'Exactly 64 characters';
-    my $nonascii = "a01234567890123456789012345678901234567890123456789012345678901á";
+    my $longer = 'l' x ($maxLen + 1);
+    cmp_ok(length $longer, 'gt', $maxLen, "Test string is longer than $maxLen");
+    push (@invalid, $longer);
+    my $exactLength = 'l' x $maxLen;
+    cmp_ok(length $exactLength, '==', $maxLen, "Test string is exactly $maxLen characters long");
+    push (@valid, $exactLength);
+    my $nonascii = ('l' x ($maxLen - 1)) . 'á';
     utf8::decode($nonascii);
     ok(utf8::is_utf8($nonascii), "It's a UTF-8 string");
-    cmp_ok(length $nonascii, '==', 64, "Test string is exactly 64 characters long even with non ascii characters");
+    cmp_ok(length $nonascii, '==', $maxLen, "Test string is exactly $maxLen characters long even with non ascii characters");
     {
         use bytes;
-        cmp_ok(bytes::length($nonascii), '==', 65, "Test string is exactly 65 bytes long due to the non ascii character");
+        cmp_ok(bytes::length($nonascii), '==', $maxLen + 1, "Test string is exactly " . ($maxLen + 1) . " bytes long due to the non ascii character");
     }
-    lives_ok {
-        EBox::Users::Group::_checkGroupNameLimitations($nonascii);
-    } 'Accept 64 characters with non ascii chars, even if it is 65 bytes long';
+    push (@valid, $nonascii);
+
+    foreach my $validName (@valid) {
+        lives_ok {
+            EBox::Users::Group->_checkGroupNameLimitations($validName);
+        } "Checking that '$validName' is a correct group account name";
+    }
+    foreach my $invalidName (@invalid) {
+        throws_ok {
+            EBox::Users::Group->_checkGroupNameLimitations($invalidName);
+        } 'EBox::Exceptions::InvalidData', "Checking that '$invalidName' throws exception as invalid group account name";
+    }
+
 }
 
 1;

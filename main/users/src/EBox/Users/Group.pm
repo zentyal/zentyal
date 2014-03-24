@@ -500,7 +500,7 @@ sub create
         $isInternal = $args{isInternal};
     }
 
-    _checkGroupNameLimitations($args{name});
+    $class->_checkGroupNameLimitations($args{name});
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -607,23 +607,28 @@ sub create
 }
 
 # Performs validations on given name to see whether it matches the group name rules as restricted by the Active
-# directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx
+# directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
+# http://technet.microsoft.com/en-us/library/bb726984.aspx
 # We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
 # this installation.
 sub _checkGroupNameLimitations
 {
-    my ($name) = @_;
+    my ($class, $name) = @_;
+
+    unless (defined $name) {
+        throw EBox::Exceptions::InvalidArgument("name");
+    }
 
     # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
     # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
     # we follow the documentation on this or the Windows implementation?
-    if ($name =~ /(^\s|\s$|.*[,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+    if ($name =~ /(^$|^\s|\s$|.*[#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
         throw EBox::Exceptions::InvalidData(
             data   => __('group name'),
             value  => $name,
             advice => __x(
-                "cannot start or end with a space, and should not have any of the following characters: {chars}",
-                chars => ",+\"\\=<>;\/\[\]:\|\*\?")
+                "cannot be empty, start or end with a space, and should not have any of the following characters: {chars}",
+                chars => "#,+\"\\=<>;\/\[\]:\|\*\?")
         );
     }
 

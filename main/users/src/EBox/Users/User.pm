@@ -452,7 +452,7 @@ sub create
         $isDisabled = 1;
     }
 
-    _checkUserNameLimitations($args{uid});
+    $class->_checkUserNameLimitations($args{uid});
 
     my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers();
@@ -668,7 +668,7 @@ sub create
 # this installation.
 sub _checkUserNameLimitations
 {
-    my ($name) = @_;
+    my ($class, $name) = @_;
 
     unless (defined $name) {
         throw EBox::Exceptions::InvalidArgument("name");
@@ -677,13 +677,13 @@ sub _checkUserNameLimitations
     # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
     # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
     # we follow the documentation on this or the Windows implementation?
-    if ($name =~ /(^\s|\s$|.*[,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+    if ($name =~ /(^$|^\s|\s$|.*[#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
         throw EBox::Exceptions::InvalidData(
             data   => __('user name'),
             value  => $name,
             advice => __x(
-                "cannot start or end with a space, and should not have any of the following characters: {chars}",
-                chars => ",+\"\\=<>;\/\[\]:\|\*\?")
+                "cannot be empty, start or end with a space, and should not have any of the following characters: {chars}",
+                chars => "#,+\"\\=<>;\/\[\]:\|\*\?")
         );
     }
 

@@ -44,121 +44,75 @@ sub checkUserNameLimitations : Test(38)
 {
     my ($self) = @_;
 
+    my $maxLen = EBox::Users::User::MAXUSERLENGTH();
+
     throws_ok {
-        EBox::Users::User::_checkUserNameLimitations();
+        EBox::Users::User->_checkUserNameLimitations();
     } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
 
     throws_ok {
-        EBox::Users::User::_checkUserNameLimitations(undef);
+        EBox::Users::User->_checkUserNameLimitations(undef);
     } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
 
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations('');
-    } 'Empty string';
+    my @valid = (
+        'foo',
+        'foo bar',
+        'Prä-Windows 2000 kompatibler Zugriff',
+        'Бухгалтерия',
+        '12345',
+        '1234 5.45'
+    );
 
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo");
-    } 'Valid value string';
+    my @invalid = (
+        '',
+        ' foo',
+        'foo ',
+        'foo#',
+        ',foo',
+        'foo+',
+        'foo"',
+        'foo\\',
+        'foo=',
+        'foo<',
+        'foo>',
+        'foo;',
+        'foo/',
+        'foo[',
+        'foo]',
+        'foo:',
+        'foo|',
+        'foo*',
+        'foo?',
+        '...',
+        '   '
+    );
 
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations(" foo");
-    } 'EBox::Exceptions::InvalidData', 'Leading space';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo ");
-    } 'EBox::Exceptions::InvalidData', 'Trailing space';
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo bar");
-    } 'Spaces between words';
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo#");
-    } 'Hash char';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations(",foo");
-    } 'EBox::Exceptions::InvalidData', 'Comma';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo+");
-    } 'EBox::Exceptions::InvalidData', 'Plus';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo\"");
-    } 'EBox::Exceptions::InvalidData', 'Quote';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo\\");
-    } 'EBox::Exceptions::InvalidData', 'Back slash';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo=");
-    } 'EBox::Exceptions::InvalidData', 'Equal';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo<");
-    } 'EBox::Exceptions::InvalidData', 'Less-than';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo>");
-    } 'EBox::Exceptions::InvalidData', 'Greater-than';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo;");
-    } 'EBox::Exceptions::InvalidData', 'Semicolon';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo/");
-    } 'EBox::Exceptions::InvalidData', 'Slash';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo[");
-    } 'EBox::Exceptions::InvalidData', 'Open square bracket';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo]");
-    } 'EBox::Exceptions::InvalidData', 'Closing square bracket';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo:");
-    } 'EBox::Exceptions::InvalidData', 'Colon';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo|");
-    } 'EBox::Exceptions::InvalidData', 'Pipe';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo*");
-    } 'EBox::Exceptions::InvalidData', 'Asterisk';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("foo?");
-    } 'EBox::Exceptions::InvalidData', 'Question mark';
-
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("Prä-Windows 2000 kompatibler Zugriff");
-    } 'German characters';
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("Бухгалтерия");
-    } 'Cyrillic characters';
-
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations("12345");
-    } 'Only numbers';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("...");
-    } 'EBox::Exceptions::InvalidData', 'Only periods (.)';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("  ");
-    } 'EBox::Exceptions::InvalidData', 'Only spaces';
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations("1234  5.");
-    } 'EBox::Exceptions::InvalidData', 'Ends with a period (.)';
-
-    my $longer = "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
-    cmp_ok(length $longer, 'gt', 104, "Test string is longer than 104");
-    throws_ok {
-        EBox::Users::User::_checkUserNameLimitations($longer);
-    } 'EBox::Exceptions::InvalidData', 'No names longer than 104 characters';
-    my $limit = substr ($longer, 0, 104);
-    cmp_ok(length $limit, '==', 104, "Test string is exactly 104 characters long");
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations($limit);
-    } 'Exactly 104 characters';
-    my $nonascii = "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012á";
+    my $longer = 'l' x ($maxLen + 1);
+    cmp_ok(length $longer, 'gt', $maxLen, "Test string is longer than $maxLen");
+    push (@invalid, $longer);
+    my $exactLength = 'l' x $maxLen;
+    cmp_ok(length $exactLength, '==', $maxLen, "Test string is exactly $maxLen characters long");
+    push (@valid, $exactLength);
+    my $nonascii = ('l' x ($maxLen - 1)) . 'á';
     utf8::decode($nonascii);
     ok(utf8::is_utf8($nonascii), "It's a UTF-8 string");
-    cmp_ok(length $nonascii, '==', 104, "Test string is exactly 104 characters long even with non ascii characters");
+    cmp_ok(length $nonascii, '==', $maxLen, "Test string is exactly $maxLen characters long even with non ascii characters");
     {
         use bytes;
-        cmp_ok(bytes::length($nonascii), '==', 105, "Test string is exactly 105 bytes long due to the non ascii character");
+        cmp_ok(bytes::length($nonascii), '==', $maxLen + 1, "Test string is exactly " . ($maxLen + 1) . " bytes long due to the non ascii character");
     }
-    lives_ok {
-        EBox::Users::User::_checkUserNameLimitations($nonascii);
-    } 'Accept 104 characters with non ascii chars, even if it is 105 bytes long';
+    push (@valid, $nonascii);
+
+    foreach my $validName (@valid) {
+        lives_ok {
+            EBox::Users::User->_checkUserNameLimitations($validName);
+        } "Checking that '$validName' is a correct user account name";
+    }
+    foreach my $invalidName (@invalid) {
+        throws_ok {
+            EBox::Users::User->_checkUserNameLimitations($invalidName);
+        } 'EBox::Exceptions::InvalidData', "Checking that '$invalidName' throws exception as invalid user account name";
+    }
 }
 
 1;
