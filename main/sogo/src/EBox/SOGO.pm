@@ -80,6 +80,10 @@ sub _setConf
             }
         }
     }
+
+    # Force apache restart to refresh the new sogo configuration
+    my $webserverMod = EBox::Global->modInstance('webserver');
+    $webserverMod->restartService();
 }
 
 # Group: Public methods
@@ -161,6 +165,9 @@ sub initialSetup
             }
         }
         EBox::Sudo::silentRoot("rm -f /etc/apache2/sites-available/zentyal-sogo.conf");
+
+        # Force a configuration dump
+        $self->save();
     }
 }
 
