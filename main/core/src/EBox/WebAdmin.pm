@@ -828,10 +828,10 @@ sub initialSetup
         $haproxyMod->setHAProxyServicePorts(@args);
     }
 
-# TODO: Upgrade from 3.3
-#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-#        $self->_migrateTo34();
-#    }
+    # Upgrade from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateTo34();
+    }
 
     if ($haproxyMod->changed()) {
         $haproxyMod->saveConfigRecursive();

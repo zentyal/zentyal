@@ -20,6 +20,7 @@ my $cancelJS;
 if ($ajax) {
     $cancelJS = "Zentyal.TableHelper.highlightRow('$rowId', false);";
     $cancelJS .= "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
+    $cancelJS .= "Zentyal.TableHelper.restoreHidden('actionsCell_" . "$rowId', 'deprecated', {'keep_if_not_saved': true});";
     $cancelJS .= "Zentyal.TableHelper.removeWarnings('$table'); return false";
 } else {
     $cancelJS = "Zentyal.TableHelper.changeView('$url', '$table', '$directory', 'changeList')";
