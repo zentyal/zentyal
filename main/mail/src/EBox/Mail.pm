@@ -240,6 +240,10 @@ sub initialSetup
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
 }
 
 sub _serviceRules

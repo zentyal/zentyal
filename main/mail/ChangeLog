@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid unsaved changes after running initialSetup
 	+ Setup mail account on enable for users that already have mail attribute
 3.4
 	+ Added and used checkMailNotInUse method
