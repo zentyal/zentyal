@@ -170,34 +170,6 @@ sub _stringToSid
     return $sid;
 }
 
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-
-    my $advice = undef;
-
-    if ($name =~ m/\.$/) {
-        $advice = __('Windows account names cannot end with a dot');
-    } elsif ($name =~ m/^-/) {
-        $advice = __('Windows account names cannot start with a dash');
-    } elsif (not $name =~ /^[a-zA-Z\d\s_\-\.]+$/) {
-        $advice = __('To avoid problems, the account name should ' .
-                     'consist only of letters, digits, underscores, ' .
-                      'spaces, periods, and dashes'
-               );
-    } elsif (length ($name) > $maxLength) {
-        $advice = __x("Account name must not be longer than {maxLength} characters",
-                       maxLength => $maxLength);
-    }
-
-    if ($advice) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' => $advice);
-    }
-}
-
 sub _checkAccountNotExists
 {
     my ($self, $samAccountName) = @_;
