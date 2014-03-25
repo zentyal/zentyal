@@ -1,4 +1,4 @@
-HEAD
+3.2.9
 	+ Give support to data in use exception for in-place booleans
 	+ Fix warnOnChangeId framework
 	+ Write logs configuration only when the module is enabled
