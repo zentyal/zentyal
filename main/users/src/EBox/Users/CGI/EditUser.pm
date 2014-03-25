@@ -117,14 +117,14 @@ sub _process
 
             my $mailMod = $global->modInstance('mail');
             if ($delMail) {
-                if ($mailMod) {
+                if ($mailMod->configured()) {
                     $mailMod->_ldapModImplementation()->delUserAccount($user);
                 } else {
                     $user->set('mail', '', 1);
                 }
             }
             if ($addMail) {
-                if ($mailMod) {
+                if ($mailMod->configured()) {
                     $mailMod->_ldapModImplementation()->setUserAccount($user, $addMail);
                 } else {
                     $user->checkMail($addMail);
