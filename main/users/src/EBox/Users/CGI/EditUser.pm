@@ -37,8 +37,8 @@ sub new
 sub _process
 {
     my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
+    my $global = EBox::Global->getInstance();
+    my $users  = $global->modInstance('users');
 
     $self->{'title'} = __('Users');
 
@@ -98,12 +98,38 @@ sub _process
             } else {
                 $user->delete('description', 1);
             }
+
             my $mail = $self->unsafeParam('mail');
-            if (length ($mail) and ($mail ne $user->get('mail'))) {
-                $user->checkMail($mail);
-                $user->set('mail', $mail, 1);
-            } else {
-                $user->delete('mail', 1);
+            my $oldMail = $user->get('mail');
+            my $addMail;
+            my $delMail;
+            if ($mail) {
+                $mail = lc $mail;
+                if (not $oldMail) {
+                    $addMail = $mail;
+                } elsif  ($mail ne $oldMail) {
+                    $delMail = 1;
+                    $addMail = $mail;
+                }
+            } elsif ($oldMail) {
+                $delMail = 1;
+            }
+
+            my $mailMod = $global->modInstance('mail');
+            if ($delMail) {
+                if ($mailMod) {
+                    $mailMod->_ldapModImplementation()->delUserAccount($user);
+                } else {
+                    $user->set('mail', '', 1);
+                }
+            }
+            if ($addMail) {
+                if ($mailMod) {
+                    $mailMod->_ldapModImplementation()->setUserAccount($user, $addMail);
+                } else {
+                    $user->checkMail($addMail);
+                    $user->set('mail', $addMail, 1);
+                }
             }
 
             $user->set('givenname', $givenName, 1);
