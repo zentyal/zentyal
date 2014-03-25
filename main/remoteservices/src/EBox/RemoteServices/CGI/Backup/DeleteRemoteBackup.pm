@@ -57,8 +57,10 @@ sub actuate
   $backup->removeRemoteBackup($name);
 
   # return to index page with a message
-  my $cgi = $self->{cgi};
-  $cgi->delete_all();
+  # Delete all CGI parameters
+  my $request = $self->request();
+  my $parameters = $request->parameters();
+  $parameters->clear();
 
   $self->setMsg(__('Backup deleted'));
   $self->setChain("RemoteServices/Backup/Index");

@@ -194,6 +194,13 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
+    } else if ('dataInUseForm' in changes) {
+        var topForm = $('#' + tableId + '_top');
+        Zentyal.TableHelper.removeWarnings(tableId);
+        topForm.before(changes.dataInUseForm);
+        topForm.hide();
+        $('#' + tableId + '_editForm').hide(); // Hide form but sending in the dataInUse form
+        noMoreRowChanges = true;
     }
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);
@@ -264,6 +271,15 @@ Zentyal.TableHelper.restoreTop = function(tableId) {
     $('#' + tableId + '_top').show();
     $('#' + tableId + '_editForm').hide();
     $('#creatingForm_' + tableId).html('');
+};
+
+/* Function: removeWarnings
+
+    Restore the status before the DataInUse were raised
+
+*/
+Zentyal.TableHelper.removeWarnings = function(tableId) {
+    $('#' + tableId + '_data_in_use').remove();
 };
 
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force) {
@@ -766,11 +782,11 @@ Parameters:
 
         elementId - the element identifier
         modelName - the model name to distinguish among hiddenDiv tags *(Deprecated: not used)*
-        isSaved   - boolean to indicate if the inner HTML should be saved to be able to resotre it later
+        isSaved   - boolean to indicate if the inner HTML should be saved to be able to restore it later
                     with restoreHidden function
 */
 var savedElements = {};
-//XXX modelName does ntvalue = o do anything..
+//XXX modelName does not do anything..
 Zentyal.TableHelper.setLoading  = function (elementId, modelName, isSaved) {
   var element = $('#' + elementId);
   if (isSaved) {
@@ -800,20 +816,25 @@ Zentyal.TableHelper.setDone  = function (elementId)
 /*
 Function: restoreHidden
 
-        Restore HTML stored by setLoading methos
+        Restore HTML stored by setLoading method
 
 Parameters:
 
         elementId - the element identifier where to restore the HTML hidden
-        modelName - the model name to distinguish among hidden (*Deprecated: not used*)
+        modelName - the model name to distinguish among hidden (*Deprecated: not used*)        
+        optParameters - named optional parameters:
+                        keep_if_not_saved: do not overwrite with empty content
+                                           if the elementId is not in saved elements
 
 */
-Zentyal.TableHelper.restoreHidden  = function (elementId, modelName) {
+Zentyal.TableHelper.restoreHidden  = function (elementId, modelName, optParameters) {
     if (elementId in savedElements) {
         $('#' + elementId).html(savedElements[elementId]);
         delete savedElements[elementId];
     } else {
-        $('#' + elementId).html('');
+        if (! optParameters || ! optParameters['keep_if_not_saved']) {
+            $('#' + elementId).html('');
+        }
     }
 };
 
@@ -898,7 +919,7 @@ Zentyal.TableHelper.markFileToRemove = function (id) {
 Function: sendInPlaceBooleanValue
 
     This function is used to send the value change of a boolean type with in-place
-    edtion
+    edition
 
 Parameters:
 
@@ -909,7 +930,7 @@ Parameters:
     field - field name
     element - HTML element
 */
-Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element) {
+Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element, force) {
     var elementId = element.id;
     element = $(element);
     Zentyal.TableHelper.startAjaxRequest();
@@ -926,6 +947,9 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     if (element.prop('checked')) {
        params += '&value=1';
     }
+    // If force is used, then use it
+    if (force) params += '&force=1';
+
     var error = function(response) {
         Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
@@ -937,13 +961,25 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
         Zentyal.TableHelper.restoreHidden(loadingId);
         Zentyal.refreshSaveChangesButton();
     };
+    var success = function(response) {
+        var json;
+        try {
+            json = $.parseJSON(response);
+        } catch (e) { };
+        if (json && json.success && 'dataInUseForm' in json) {
+            var topForm = $('#' + model + '_top');
+            Zentyal.TableHelper.removeWarnings(model);
+            topForm.before(json.dataInUseForm);
+            topForm.hide();
+        }
+    };
 
    $.ajax({
        url: url,
        data: params,
        type : 'POST',
-       dataType: 'html',
        error: error,
+       success: success,
        complete: complete
    });
 };
