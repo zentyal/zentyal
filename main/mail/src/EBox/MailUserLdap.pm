@@ -101,7 +101,6 @@ sub setUserAccount
     } else {
         $email = $lhs . '@' . $rhs;
     }
-    EBox::debug("XXX $email <> $lhs $rhs");
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
     $mail->checkMailNotInUse($email);
