@@ -69,6 +69,8 @@ sub _process
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
 
+        my $addMail;
+        my $delMail;
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
@@ -101,8 +103,6 @@ sub _process
 
             my $mail = $self->unsafeParam('mail');
             my $oldMail = $user->get('mail');
-            my $addMail;
-            my $delMail;
             if ($mail) {
                 $mail = lc $mail;
                 if (not $oldMail) {
@@ -155,6 +155,11 @@ sub _process
         $self->{json}->{msg} = __('User updated');
         if ($setText) {
             $self->{json}->{set_text} = $setText;
+        }
+        if ($addMail) {
+            $self->{json}->{mail} = $addMail;
+        } elsif ($delMail) {
+            $self->{json}->{mail} = '';
         }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
