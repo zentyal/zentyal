@@ -1,4 +1,6 @@
 HEAD
+	+ Removed free access to dovecot from localhost, now we have a
+	  master password
 	+ Avoid unsaved changes after running initialSetup
 	+ Setup mail account on enable for users that already have mail attribute
 3.4
