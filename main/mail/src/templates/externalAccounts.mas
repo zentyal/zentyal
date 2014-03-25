@@ -44,7 +44,7 @@ my %printableName = (
   </button>
 <& .accountsTable,
    params  => $params,
-   show    => @externalAccounts > 0
+   show    => (@externalAccounts > 0)
 &>
 <script>
 $(function() {
@@ -171,7 +171,7 @@ my @columnTitles = map {
 my $actionTitle = __('Action');
 </%init>
 <br/><br/>
-<table id='userMailExternalAccountsTable' class='dataTable' <% $show ? '' : 'style="displa:none"'%> >
+<table id='userMailExternalAccountsTable' class='dataTable' <% $show ? '' : 'style="display:none"'%> >
 <thead>
 %  foreach my $title (@columnTitles) {
    <th class ='tleft'><% $title %></th>
