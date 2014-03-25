@@ -58,6 +58,7 @@ use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
 use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
+use constant DOVECOT_SQL_CONFFILE     =>  '/etc/dovecot/dovecot-sql.conf';
 use constant MAILINIT                 => 'postfix';
 use constant BYTES                    => '1048576';
 use constant DOVECOT_SERVICE          => 'dovecot';
@@ -196,6 +197,11 @@ sub usedFiles
             {
               'file' => DOVECOT_LDAP_CONFFILE,
               'reason' =>  __('To configure dovecot to authenticate against LDAP'),
+              'module' => 'mail'
+            },
+            {
+              'file' => DOVECOT_SQL_CONFFILE,
+              'reason' =>  __('To configure dovecot to have a master password'),
               'module' => 'mail'
             },
             {
@@ -607,8 +613,10 @@ sub _setDovecotConf
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my $openchange = 0;
+    my $openchangeMod;
+
     if ($self->global->modExists('openchange')) {
-        my $openchangeMod = $self->global->modInstance('openchange');
+        $openchangeMod = $self->global->modInstance('openchange');
         if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
             $openchange = 1;
         }
@@ -638,6 +646,12 @@ sub _setDovecotConf
     push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
     push (@params, zentyalROPwd => $roPwd);
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+
+    if ($openchange) {
+        @params = ();
+        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params);
+    }
 }
 
 sub _getDovecotAntispamPluginConf
