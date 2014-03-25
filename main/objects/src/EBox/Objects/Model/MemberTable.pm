@@ -56,56 +56,54 @@ sub new
 
 sub _table
 {
-    my @tableHead =
-        (
+    my @tableHead = (
+        new EBox::Types::Text(
+            fieldName       => 'name',
+            printableName   => __('Name'),
+            unique          => 1,
+            editable        => 1
+        ),
+        new EBox::Types::Union(
+            fieldName       => 'address',
+            printableName   => __('IP address'),
+            subtypes        => [
+                new EBox::Types::IPAddr(
+                    fieldName       => 'ipaddr',
+                    printableName   => 'CIDR',
+                    editable        => 1
+                ),
+                new EBox::Types::IPRange(
+                    fieldName       => 'iprange',
+                    printableName   => __('Range'),
+                    editable        => 1
+                ),
+            ],
+        ),
+        new EBox::Types::MACAddr(
+            fieldName       => 'macaddr',
+            printableName   => __('MAC address'),
+            unique          => 1,
+            editable        => 1,
+            optional        => 1,
+        ),
+    );
 
-            new EBox::Types::Text
-                            (
-                                'fieldName' => 'name',
-                                'printableName' => __('Name'),
-                                'unique' => 1,
-                                'editable' => 1
-                             ),
-            new EBox::Types::Union(
-                fieldName => 'address',
-                printableName => __('IP address'),
-                subtypes => [
-                    new EBox::Types::IPAddr (
-                        'fieldName' => 'ipaddr',
-                        'printableName' => 'CIDR',
-                        'editable' => 1,
-                       ),
-                    new EBox::Types::IPRange(
-                        'fieldName' => 'iprange',
-                        'printableName' => __('Range'),
-                        'editable' => 1,
-                       ),
-                    ],
-            ),
-            new EBox::Types::MACAddr
-                            (
-                                'fieldName' => 'macaddr',
-                                'printableName' => __('MAC address'),
-                                'unique' => 1,
-                                'editable' => 1,
-                                'optional' => 1
-                            ),
+    my $helpMessage = __('For the IP addresses you can use CIDR notation ' .
+        '(address/netmask) or specify the first and last addresses of a ' .
+        'range that will also include all the IP addresses between them.');
 
-          );
-
-    my $dataTable =
-        {
-            'tableName' => 'MemberTable',
-            'printableTableName' => __('Members'),
-            'automaticRemove' => 1,
-            'defaultController' => '/Objects/Controller/MemberTable',
-            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'help' => __('For the IP addresses you can use CIDR notation (address/netmask) or specify the first and last addresses of a range that will also include all the IP addresses between them.'),
-            'printableRowName' => __('member'),
-            'sortedBy' => 'name',
-        };
+    my $dataTable = {
+        tableName           => 'MemberTable',
+        printableTableName  => __('Members'),
+        automaticRemove     => 1,
+        defaultController   => '/Objects/Controller/MemberTable',
+        defaultActions      => ['add', 'del', 'editField', 'changeView', 'clone' ],
+        tableDescription    => \@tableHead,
+        class               => 'dataTable',
+        printableRowName    => __('member'),
+        sortedBy            => 'name',
+        help                => $helpMessage,
+    };
 
     return $dataTable;
 }
@@ -113,6 +111,7 @@ sub _table
 sub validateTypedRow
 {
     my ($self, $action, $params, $actual) = @_;
+
     my $id = $params->{id}; # XXX not sure
     my $address = exists $params->{address} ?
                          $params->{address} : $actual->{address};
@@ -137,7 +136,6 @@ sub validateTypedRow
                         __('You can only use MAC addresses with hosts'));
             }
         }
-
         $printableValue = $ipaddr->printableValue();
     } elsif ($addressType eq 'iprange') {
         if (defined $mac) {
@@ -150,29 +148,27 @@ sub validateTypedRow
 
     if ($self->_alreadyInSameObject($id, $printableValue)) {
         throw EBox::Exceptions::External(
-            __x(
-                    q{{ip} overlaps with the address or another object's member},
-                    ip => $printableValue
-                   )
-           );
+            __x("{ip} overlaps with the address or another object's member",
+                ip => $printableValue));
     }
 }
 
-# Method: alreadyInSameObject
+# Method: _alreadyInSameObject
 #
-#       Checks if a member (i.e: its ip and mask) overlaps with another object's member
+#   Checks if a member (i.e: its ip and mask) overlaps with another object's
+#   member
 #
 # Parameters:
 #
-#           (POSITIONAL)
-#
-#       memberId - memberId
-#       ip - IPv4 address
-#       mask - network mask
+#   (POSITIONAL)
+#   memberId - memberId
+#   ip - IPv4 address
+#   mask - network mask
 #
 # Returns:
 #
-#       boolean - true if it overlaps, otherwise false
+#   boolean - true if it overlaps, otherwise false
+#
 sub _alreadyInSameObject
 {
     my ($self, $memberId, $printableValue) = @_;
@@ -196,20 +192,21 @@ sub _alreadyInSameObject
 
 # Method: members
 #
-#       Return the members
+#   Return the members
 #
 # Parameters:
 #
-#       (POSITIONAL)
-#
-#       id - object's id
+#   (POSITIONAL)
+#   id - object's id
 #
 # Returns:
-#       <EBox::Objects::Members>
+#
+#   <EBox::Objects::Members>
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::MissingArgument>
+#   <EBox::Exceptions::MissingArgument>
+#
 sub members
 {
     my ($self) = @_;
@@ -247,20 +244,20 @@ sub members
     return $membersObject;
 }
 
-# addresses
+# Method: addresses
 #
-#       Return the network addresses
+#   Return the network addresses
 #
 # Parameters:
 #
-#       mask - return also addresses' mask (named optional, default false)
+#   mask - return also addresses' mask (named optional, default false)
 #
 # Returns:
 #
-#       array ref - containing an ip addresses
-#                   empty array if there are no addresses in the table
-#
-#       If mask parameter is on, the elements of the array would be [ip_without_mask, mask]
+#   array - containing ip addresses. Empty array if there are no addresses
+#           in the table
+#   If mask parameter is on, the elements of the array would be
+#   [ip_without_mask, mask]
 #
 sub addresses
 {
@@ -272,13 +269,15 @@ sub addresses
 
 # Method: pageTitle
 #
-#   Overrides <EBox::Model::DataTable::pageTitle>
-#   to show the name of the domain
+#   Overrides <EBox::Model::DataTable::pageTitle> to show the name
+#   of the domain
+#
 sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('name');
+    my $parentRow = $self->parentRow();
+    return $parentRow->printableValueByName('name');
 }
 
 1;
