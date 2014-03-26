@@ -63,7 +63,7 @@ use EBox::Gettext;
 </div>
 
 <div id="webadmin_ko" class="warning" style="display: none">
-The webserver is currently unavaiable while its upgrade is in progress. You can keep track of the status in /var/log/zentyal/upgrade.log.
+The server is currently unavailable while the upgrade is in progress. The process is almost done and should finish in few minutes. In the meanwhile, you can keep track of the status with the following command: <b>tail -f /var/log/zentyal/upgrade.log</b>.
 </div>
 
 <div id="finished" class="note" style="display: none">
