@@ -37,14 +37,15 @@ use EBox::Exceptions::Internal;
 use constant CLAMAV_PID_DIR => '/var/run/clamav/';
 
 use constant {
-  CLAMAVPIDFILE                 => CLAMAV_PID_DIR . 'clamd.pid',
+  CLAMAV_PIDFILE                 => CLAMAV_PID_DIR . 'clamd.pid',
   CLAMD_INIT                    => 'clamav-daemon',
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
   CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
 
+  FRESHCLAM_PIDFILE            =>  CLAMAV_PID_DIR . 'freshclam.pid',
+  FRESHCLAM_INIT                => 'clamav-freshclam',
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
-  FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
   FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
   FRESHCLAM_USER                => 'clamav',
@@ -103,6 +104,23 @@ sub menu
 
     $root->add($item);
 }
+
+# Method: initialSetup
+#
+# Overrides:
+#
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
+    # Remove deprecated cron file
+    EBox::Sudo::root('rm -f /etc/cron.d/clamav-freshclam');
+}
+
 
 # Method: enableService
 #
@@ -194,22 +212,15 @@ sub _daemons
         {
             name => CLAMD_INIT,
             type => 'init.d',
-            pidfiles => [CLAMAVPIDFILE],
+            pidfiles => [CLAMAV_PIDFILE],
         },
+        {
+            name => FRESHCLAM_INIT,
+            type => 'init.d',
+            pidfiles => [FRESHCLAM_PIDFILE]
+        }
     ];
 }
-
-# Method: _daemonsToDisable
-#
-# Overrides:
-#
-#   <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [ { 'name' => 'clamav-freshclam', 'type' => 'init.d' } ];
-}
-
 
 sub localSocket
 {
@@ -251,12 +262,6 @@ sub _setConf
 
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
-
-    # Regenerate freshclam cron hourly script
-    $self->writeConfFile(FRESHCLAM_CRON_FILE,
-                         'antivirus/clamav-freshclam.cron.mas',
-                         [ enabled => $self->isEnabled() ]);
-
 }
 
 # Method: freshclamState
