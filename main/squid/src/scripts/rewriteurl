@@ -1,0 +1,61 @@
+#!/usr/bin/perl
+# Copyright (C) 2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+my %substByDomain = (
+    'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
+    'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
+    'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
+   );
+
+
+$| = 1;
+while (1) {
+    my $line = <>;
+    $line or next;
+    my ($url) = split '\s', $line, 3;
+    $url or next;
+
+    my $response = '';
+    # extract possible domains
+    $url =~ m{^.*?//(.*?)[/?]};
+    my @parts = split('\.', $1);
+    my $domain = $parts[-2];
+    system "echo 'URL $url DOMAIN $domain' >> /tmp/output";
+    if ($domain and exists $substByDomain{$domain}) {
+        my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
+        system "echo 'REGEX $removeRe -> $replacement' >> /tmp/output";
+        my $replaced = $url =~ s/$removeRe/$1$replacement/;
+        if (not $replaced) {
+            if ($url =~ m/\?/) {
+                $url .= '&';
+            } else {
+                $url .= '?';
+            }
+
+            $url .= $replacement;
+        }
+
+        $response = $url;
+    }
+
+    system "echo 'REW: $response'   >> /tmp/output";
+    print $response, "\n";
+}
+
+1;
