@@ -1,4 +1,5 @@
 HEAD
+	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4
 	+ Updated EBox::Users::Model::Password to use
