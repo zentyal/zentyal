@@ -299,6 +299,7 @@ sub regenConfig
     my $mf =  EBox::Global->modInstance('mail');
     my $vdomainsTable = $mf->model('VDomains');
 
+    # first sync vdomains
     foreach my $id (@{ $vdomainsTable->ids() }) {
         my $vdRow = $vdomainsTable->row($id);
         my $vdomain     = $vdRow->elementByName('vdomain')->value();
@@ -306,19 +307,23 @@ sub regenConfig
         if (not $self->vdomainExists($vdomain)) {
             $self->addVDomain($vdomain);
         }
+        delete $vdomainsToDelete{$vdomain};
+    }
+    # vdomains no present in the table must be deleted
+    foreach my $vdomain (keys %vdomainsToDelete) {
+        $self->delVDomain($vdomain);
+    }
+
+    # now that vdomains are synced you can sync aliases
+    foreach my $id (@{ $vdomainsTable->ids() }) {
+        my $vdRow = $vdomainsTable->row($id);
+        my $vdomain     = $vdRow->elementByName('vdomain')->value();
 
         my $vdAliasTable = $vdRow->elementByName('aliases')->foreignModelInstance();
         $aliasLdap->_syncVDomainAliasTable($vdomain, $vdAliasTable);
 
         my $externalAliasTable = $vdRow->elementByName('externalAliases')->foreignModelInstance();
         $aliasLdap->_syncExternalAliasTable($vdomain, $externalAliasTable);
-
-        delete $vdomainsToDelete{$vdomain};
-    }
-
-        # vdomains no present in the table must be deleted
-    foreach my $vdomain (keys %vdomainsToDelete) {
-        $self->delVDomain($vdomain);
     }
 }
 

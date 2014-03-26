@@ -245,7 +245,7 @@ sub addVDomainAlias
     if ($vdomainsLdap->vdomainExists($alias)) {
                 throw EBox::Exceptions::External(__x(
   'Cannot use {d} as alias for a mail domain because a domain which this name already exists',
-                                              d => $vdomain
+                                              d => $alias
                                             )
                                         );
     }
