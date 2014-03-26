@@ -83,10 +83,10 @@ sub _table
         {
             'tableName' => 'ObjectTable',
             'pageTitle' => __('Objects'),
-            'printableTableName' => __('Objects List'),
+            'printableTableName' => __('Static Objects'),
             'automaticRemove' => 1,
             'defaultController' => '/Objects/Controller/ObjectTable',
-            'HTTPUrlView'   => 'Objects/View/ObjectTable',
+            'HTTPUrlView'   => 'Objects/Composite/Objects',
             'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

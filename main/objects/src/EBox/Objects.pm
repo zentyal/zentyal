@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -303,6 +304,22 @@ sub addObject
     return $self->model('ObjectTable')->addObject(%params);
 }
 
+sub addDynamicObject
+{
+    my ($self, %params) = @_;
+
+    my $model = $self->model('DynamicObjectTable');
+    return $model->addObject(%params);
+}
+
+sub existsDynamicObject
+{
+    my ($self, %params) = @_;
+
+    my $model = $self->model('DynamicObjectTable');
+    return $model->find(%params);
+}
+
 # Method: menu
 #
 #       Overrides EBox::Module method.
@@ -318,7 +335,7 @@ sub menu
                                         'separator' => 'Core',
                                         'order' => 40);
 
-    my $item = new EBox::Menu::Item('url' => 'Network/Objects',
+    my $item = new EBox::Menu::Item('url' => 'Objects/Composite/Objects',
                                     'text' => __($self->title),
                                     'order' => 40);
     $folder->add($item);
