@@ -21,7 +21,7 @@ my %substByDomain = (
     'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
     'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
     'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
-   );
+);
 
 
 $| = 1;
@@ -36,10 +36,8 @@ while (1) {
     $url =~ m{^.*?//(.*?)[/?]};
     my @parts = split('\.', $1);
     my $domain = $parts[-2];
-    system "echo 'URL $url DOMAIN $domain' >> /tmp/output";
     if ($domain and exists $substByDomain{$domain}) {
         my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
-        system "echo 'REGEX $removeRe -> $replacement' >> /tmp/output";
         my $replaced = $url =~ s/$removeRe/$1$replacement/;
         if (not $replaced) {
             if ($url =~ m/\?/) {
@@ -54,7 +52,6 @@ while (1) {
         $response = $url;
     }
 
-    system "echo 'REW: $response'   >> /tmp/output";
     print $response, "\n";
 }
 

@@ -64,6 +64,14 @@ sub _table
                   defaultValue => 0,
                   help => __('Remove advertisements from all HTTP traffic')
               ),
+          new EBox::Types::Boolean(
+                  fieldName => 'safeSearch',
+                  printableName => __('Safe search'),
+                  editable => 1,
+                  defaultValue => 0,
+                  help => __('Force safe search in google, yahoo and bing')
+              ),
+
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),

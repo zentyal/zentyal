@@ -27,6 +27,7 @@
     $adDC => undef
     $adAclTTL => 3600
     $adNegativeAclTTL => 10
+    $safeSearch => 0
 </%args>
 <%shared>
 our $objectPrefix = 'obj~';
@@ -324,6 +325,10 @@ external_acl_type InetGroup ipv4 children=5 \
 ## Access
 ##
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
+
+% if ($safeSearch) {
+ url_rewrite_program  /usr/share/zentyal-squid/rewriteurl
+% }
 
 ##
 ## Default policy

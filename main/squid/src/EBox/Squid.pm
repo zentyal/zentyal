@@ -641,6 +641,7 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
+    push @writeParam, (safeSearch => $generalSettings->value('safeSearch'));
 
     if (not $kerberos) {
         my $ldap = $users->ldap();
