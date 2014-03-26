@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-ftp
 Architecture: all
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
+Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0),
          zentyal-network, zentyal-firewall, zentyal-users,
          vsftpd (>= 2.3.5-1ubuntu2ppa1), ${misc:Depends}
 Description: Zentyal - FTP
