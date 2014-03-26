@@ -34,6 +34,12 @@ sed -i 's/precise/saucy/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
 upgrade
 
+# Stop modules to avoid conflicts in listening ports with haproxy
+for module in usercorner captiveportal webserver
+do
+    service zentyal $module stop
+done
+
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
