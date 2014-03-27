@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS squid_access (
        mimetype VARCHAR(255),
        event VARCHAR(255),
        filterProfile VARCHAR(100),
+       filterCategory VARCHAR(255),
        INDEX(timestamp)
 ) ENGINE = MyISAM;
