@@ -33,7 +33,7 @@ use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Control::Paged;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
-use Net::LDAP::Util qw(canonical_dn escape_filter_value);
+use Net::LDAP::Util qw(escape_filter_value);
 use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
@@ -217,10 +217,13 @@ sub _populateGroupsFromExternalAD
 
     my $groups = [];
     my $ad = $self->_adLdap();
-    my $dse = $ad->root_dse(attrs => ['defaultNamingContext', '*']);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    $defaultNC = canonical_dn($defaultNC);
-    my $sort = new Net::LDAP::Control::Sort(order => 'samAccountName');
+    my $defaultNC = $ad->defaultNC();
+
+    if (not $self->{sortControl}) {
+        $self->{sortControl} =  new Net::LDAP::Control::Sort(order => 'samAccountName');
+    }
+    my $sort = $self->{sortControl};
+
     my $filter = $skip ?
         '(&(objectClass=group)(!(isCriticalSystemObject=*)))':
         '(objectClass=group)';
@@ -263,9 +266,7 @@ sub _adGroupMembers
 
     my $members = [];
     my $ldap = $self->_adLdap();
-    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    $defaultNC = canonical_dn($defaultNC);
+    my $defaultNC = $ldap->defaultNC();
     $group = escape_filter_value($group);
     my $filter = "(&(objectClass=group)(objectSid=$group))";
     my $result = $self->_pagedSearch($ldap,

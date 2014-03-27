@@ -33,6 +33,7 @@ use Net::LDAP;
 use Net::Ping;
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
+use Net::LDAP::Util qw(canonical_dn);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 use File::Basename;
 use Authen::SASL;
@@ -680,6 +681,21 @@ sub _dumpLdap
 sub changeUserPassword
 {
     throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
+}
+
+sub defaultNC
+{
+    my ($self) = @_;
+    if ($self->{defaultNC}) {
+        return $self->{defaultNC};
+    }
+
+    my $ldap = $self->_dcLDAPConnection();
+    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    $defaultNC = canonical_dn($defaultNC);
+    $self->{defaultNC} = $defaultNC;
+    return $self->{defaultNC};
 }
 
 1;
