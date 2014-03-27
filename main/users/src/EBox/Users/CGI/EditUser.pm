@@ -81,13 +81,7 @@ sub _process
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
 
-            my $fullname;
-            if ($givenName) {
-                $fullname = "$givenName $surname";
-            } else {
-                $fullname = $surname;
-            }
-
+            my $fullname = EBox::Users::User->generatedFullname(givenname => $givenname, surname => $surname)
             if ($fullname ne $user->get('cn')) {
                 $setText = $user->get('uid') . " ($fullname)";
             }
