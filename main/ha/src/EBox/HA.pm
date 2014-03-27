@@ -1232,8 +1232,11 @@ sub _createNetworkObject
     my $objectsModule = $self->global()->modInstance('objects');
 
     if ($objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
+        EBox::debug('Deleting HA network object');
         $objectsModule->model('ObjectTable')->removeRow(HA_NODES_OBJECT_ID);
     }
+
+    EBox::debug('Creating HA network object');
 
     $objectsModule->addObject(
         id => HA_NODES_OBJECT_ID,
@@ -1251,11 +1254,9 @@ sub _createFirewallRules
 {
     my ($self) = @_;
 
-    if ($self->global()->modExists('firewall') {
-        my $firewallModule = $self->global()->modInstance('firewall');
-    }
+    if ($self->global()->modExists('firewall')) {
+        EBox::debug('Creating HA firewall rule');
 
-    if ($firewallModule->isEnabled()) {
         my $servicesModule = $self->global()->modInstance('services');
         my $any = $servicesModule->serviceId('any');
 
@@ -1267,6 +1268,7 @@ sub _createFirewallRules
             description => HA_FIREWALL_RULES_DESCRIPTION,
         };
 
+        my $firewallModule = $self->global()->modInstance('firewall');
         $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
     }
 }
