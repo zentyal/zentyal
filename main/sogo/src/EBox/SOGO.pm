@@ -7,11 +7,15 @@ package EBox::SOGO;
 
 use base qw(EBox::Module::Service);
 
+use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
-use EBox::Config;
 use EBox::WebServer;
+
+use TryCatch::Lite;
 
 # Group: Protected methods
 
@@ -50,10 +54,36 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        EBox::Sudo::root("a2ensite zentyal-sogo");
+        my $global = $self->global();
+        my $webserverMod = $global->modInstance('webserver');
+        my $sysinfoMod = $global->modInstance('sysinfo');
+        my @params = ();
+        push (@params, hostname => $sysinfoMod->fqdn());
+        push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+
+        $self->writeConfFile("/etc/apache2/conf-available/zentyal-sogo.conf", "sogo/zentyal-sogo.mas", \@params);
+        try {
+            EBox::Sudo::root("a2enconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     } else {
-        EBox::Sudo::root("a2dissite zentyal-sogo");
+        try {
+            EBox::Sudo::root("a2disconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     }
+
+    # Force apache restart to refresh the new sogo configuration
+    my $webserverMod = EBox::Global->modInstance('webserver');
+    $webserverMod->restartService();
 }
 
 # Group: Public methods
@@ -115,5 +145,30 @@ sub _daemons
     return [ { 'name' => 'sogo', 'type' => 'init.d' } ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#        <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if ((defined ($version)) and (EBox::Util::Version::compare($version, '3.4.1') < 0)) {
+        try {
+            EBox::Sudo::root("a2dissite zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+        EBox::Sudo::silentRoot("rm -f /etc/apache2/sites-available/zentyal-sogo.conf");
+
+        # Force a configuration dump
+        $self->save();
+    }
+}
 
 1;

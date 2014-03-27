@@ -4,7 +4,6 @@
   $sslPort
   $hostnameVhost
 </%args>
-<IfModule mod_ssl.c>
 % if ($hostnameVhost) {
   <& /webserver/vhostHttps.mas,
        hostname      => $hostname,
@@ -19,6 +18,8 @@
 
 <VirtualHost *:<% $sslPort %>>
     ServerName <% $hostname %>:<% $publicSSLPort %>
+
+    SetEnv HTTPS On
 
     ServerAdmin webmaster@<% $hostname %>
 
@@ -41,4 +42,3 @@
     #Include conf-available/serve-cgi-bin.conf
 
 </VirtualHost>
-</IfModule>

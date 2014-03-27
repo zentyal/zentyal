@@ -1,5 +1,6 @@
 3.5
 	+ Set version to 3.5
+	+ Fixed bug in LDAP synchronization of mail virtual domains
 3.4.1
 	+ Removed free access to dovecot from localhost, now we have a
 	  master password
