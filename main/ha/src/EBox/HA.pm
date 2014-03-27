@@ -1234,6 +1234,11 @@ sub _createNetworkObject
     if ($objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
         EBox::debug('Deleting HA network object');
         $objectsModule->model('ObjectTable')->removeRow(HA_NODES_OBJECT_ID);
+
+        # Deleting object members
+        # FIXME: Remove when fixed the recursive row deletion
+        my $modelDirectory = $objectsModule->model('ObjectTable')->{'directory'};
+        $objectsModule->delete_dir("$modelDirectory/" . HA_NODES_OBJECT_ID);
     }
 
     EBox::debug('Creating HA network object');
