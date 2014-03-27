@@ -253,10 +253,6 @@ sub _populateGroupsFromExternalAD
         push (@{$groups}, { value => $sid, printableValue => $printableValue });
     }
 
-    # TODO Make connection persistent?
-    $ad->disconnect();
-    delete $self->{adLdap};
-
     return $groups;
 }
 
