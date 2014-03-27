@@ -1,4 +1,7 @@
 HEAD
+	+ s4sync is stopped before samba daemon to prevent ldb connection errors
+	+ s4sync run timestamp is saved only if it doesn't break with an error at
+	  the end of the work loop
 	+ Fixed setting of printers permissions
 	+ s4sync: Check samba daemon is running
 	+ Removed obsolete dns-$hostname account from OpenLDAP, it should be only
