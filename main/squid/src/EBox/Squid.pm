@@ -90,6 +90,9 @@ use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
+use constant  SAFESEARCH_FILE => '/etc/squid3/safesearch';
+use constant  YT_FOR_SCHOOLS_FILE => '/etc/squid3/edufilter';
+
 sub _create
 {
     my $class = shift;
@@ -565,6 +568,7 @@ sub _setConf
     $self->_writeSquidConf($filter);
     $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
+    $self->_writeRewriteURLConf();
 
     if ($filter) {
         $self->_writeDgConf();
@@ -641,7 +645,7 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
-    push @writeParam, (safeSearch => $generalSettings->value('safeSearch'));
+    push @writeParam, ('rewriteURL' => $generalSettings->rewriteURLEnabled());
 
     if (not $kerberos) {
         my $ldap = $users->ldap();
@@ -988,6 +992,27 @@ sub _writeDgTemplates
                                                 extra_messages => $extra_messages,
                                                 image_name => "zentyal-$edition.png",
                                              ]);
+}
+
+sub _writeRewriteURLConf
+{
+    my ($self) = @_;
+    my $settings = $self->model('GeneralSettings');
+
+    if ($settings->value('safeSearch')) {
+        $self->writeConfFile(SAFESEARCH_FILE, 'squid/text.mas', [ text => 'enabled']);
+        EBox::Sudo::root("chown proxy.proxy " . SAFESEARCH_FILE);
+    } else {
+        EBox::Sudo::root('rm -f ' . SAFESEARCH_FILE);
+    }
+
+    my $channelId = $settings->ytForSchoolsChannelID;
+    if ($channelId) {
+        $self->writeConfFile(YT_FOR_SCHOOLS_FILE, 'squid/text.mas', [ text => $channelId]);
+        EBox::Sudo::root("chown proxy.proxy " . YT_FOR_SCHOOLS_FILE);
+    } else {
+        EBox::Sudo::root('rm -f ' . YT_FOR_SCHOOLS_FILE);
+    }
 }
 
 sub _banThresholdActive

@@ -71,7 +71,21 @@ sub _table
                   defaultValue => 0,
                   help => __('Force safe search in google, yahoo and bing')
               ),
-
+          new EBox::Types::Union(
+              'fieldName' => 'ytForSchools',
+              'printableName' => __('Youtube For Schools'),
+              'subtypes' => [
+                  new EBox::Types::Union::Text(
+                      'fieldName' => 'ytForSchools_disabled',
+                      'printableName' => __('Disabled'),
+                     ),
+                  new EBox::Types::Text(
+                      'fieldName' => 'ytForSchools_channel',
+                      'printableName' => __('Channel ID'),
+                      'editable' => 1,
+                     ),
+                 ],
+             ),
           new EBox::Types::Port(
                   fieldName => 'port',
                   printableName => __('Port'),
@@ -165,6 +179,17 @@ sub validateTypedRow
 #         }
 
     }
+
+    my $ytForSchools = $actual_r->{ytForSchools};
+    if ($ytForSchools->selectedType eq 'ytForSchools_channel') {
+        my $channel = $ytForSchools->value();
+        if (not $channel =~ m/^[-A-Za-z0-9_]+$/) {
+            throw EBox::Exceptions::External(__x('Invalid Youtube for schools channel ID: {ch}',
+                                                ch => $channel)
+                                            );
+        }
+    }
+
 }
 
 # Method: row
@@ -228,6 +253,29 @@ sub _kerberosEnabled
 
     return 0 if ($mode eq $mod->AUTH_MODE_EXTERNAL_AD());
     return 1;
+}
+
+sub ytForSchoolsChannelID
+{
+    my ($self) = @_;
+    my $channelId;
+    my $ytConf = $self->row()->elementByName('ytForSchools');
+    if ($ytConf->selectedType() eq 'ytForSchools_channel') {
+        $channelId = $ytConf->value();
+        $channelId =~ s/^\s+//;
+        $channelId =~ s/\s+$//;
+    }
+
+    return $channelId
+}
+
+sub rewriteURLEnabled
+{
+    my ($self) = @_;
+    if ($self->value('safeSearch')) {
+        return 1;
+    }
+    return ($self->ytForSchoolsChannelID() ? 1 : 0);
 }
 
 1;
