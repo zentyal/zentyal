@@ -36,8 +36,7 @@ do
     service zentyal $module stop
 done
 
-mkdir -p /var/lib/samba/private
-cp /opt/samba4/private/*.ldb /var/lib/samba/private/
+cp -r /opt/samba4/private /var/lib/samba/
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
 sed -i 's/precise/saucy/g' /etc/apt/sources.list
