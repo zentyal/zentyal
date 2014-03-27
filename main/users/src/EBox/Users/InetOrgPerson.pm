@@ -31,6 +31,7 @@ use EBox::Users::Group;
 
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
@@ -297,20 +298,61 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-sub generatedFullName
+# Method: generatedFullname
+#
+#   Generates a fullname based on the provided givenname, initials and surname.
+#
+# Parameters:
+#
+#   givenname - String
+#   initials  - String
+#   surname   - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format of the provided fields.
+#
+sub generatedFullname
 {
-    my ($self, %args) = @_;
+    my ($class, %args) = @_;
+
+    unless (%args and ($args{givenname} or $args{initials} or $args{surname})) {
+        throw EBox::Exceptions::MissingArgument('givenname|initials|surname');
+    }
+
     my $fullname = '';
 
     if ($args{givenname}) {
+        $class->checkFirstnameFormat($args{givenname});
         $fullname = $args{givenname} . ' ';
     }
     if ($args{initials}) {
+        $class->checkInitialsFormat($args{initials});
         $fullname .= $args{initials} . '. ';
     }
     if ($args{surname}) {
+        $class->checkSurnameFormat($args{surname});
         $fullname .= $args{surname};
     }
+
+    if (length ($fullname) > MAXFULLNAMELENGTH) {
+        # The join of given name + initials + surname is too long, we truncate the string to the longest length
+        my $truncatedFullname = substr ($fullname, 0, MAXFULLNAMELENGTH);
+        EBox::warn("We had to truncate the generated fullname from '$fullname' to '$truncatedFullname'");
+        $fullname = $truncatedFullname;
+    }
+
+    # Remove leading / trailing spaces.
+    $fullname =~ s/^\s+//;
+    $fullname =~ s/\s+$//;
+
+    try {
+        $class->checkFullnameFormat($fullname);
+    } catch EBox::Exceptions::InvalidData with {
+        my ($exc) = @_;
+        # Throw again the exception but as EBox::Exceptions::Internal because we did something wrong that doesn't pass
+        # the validation and is not the user's fault.
+        throw EBox::Exceptions::Internal($exc);
+    };
+
     return $fullname
 }
 
@@ -323,14 +365,14 @@ sub generatedFullName
 #
 #   firstname - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as firstname.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as firstname.
 #
 sub checkFirstnameFormat
 {
     my ($class, $firstname) = @_;
 
     unless (defined $firstname) {
-        throw EBox::Exceptions::InvalidArgument("firstname");
+        throw EBox::Exceptions::MissingArgument("firstname");
     }
 
     if (length ($firstname) > MAXFIRSTNAMELENGTH) {
@@ -352,14 +394,14 @@ sub checkFirstnameFormat
 #
 #   initials - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as initials.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as initials.
 #
 sub checkInitialsFormat
 {
     my ($class, $initials) = @_;
 
     unless (defined $initials) {
-        throw EBox::Exceptions::InvalidArgument("initials");
+        throw EBox::Exceptions::MissingArgument("initials");
     }
 
     if (length ($initials) > MAXINITIALSLENGTH) {
@@ -381,14 +423,14 @@ sub checkInitialsFormat
 #
 #   surname - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as surname.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as surname.
 #
 sub checkSurnameFormat
 {
     my ($class, $surname) = @_;
 
     unless (defined $surname) {
-        throw EBox::Exceptions::InvalidArgument("surname");
+        throw EBox::Exceptions::MissingArgument("surname");
     }
 
     if (length ($surname) > MAXSURNAMELENGTH) {
@@ -410,14 +452,14 @@ sub checkSurnameFormat
 #
 #   fullname - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as fullname.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as fullname.
 #
 sub checkFullnameFormat
 {
     my ($class, $fullname) = @_;
 
     unless (defined $fullname) {
-        throw EBox::Exceptions::InvalidArgument("fullname");
+        throw EBox::Exceptions::MissingArgument("fullname");
     }
 
     if (length ($fullname) > MAXFULLNAMELENGTH) {
@@ -439,14 +481,14 @@ sub checkFullnameFormat
 #
 #   displayname - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as displayname.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as displayname.
 #
 sub checkDisplaynameFormat
 {
     my ($class, $displayname) = @_;
 
     unless (defined $displayname) {
-        throw EBox::Exceptions::InvalidArgument("displayname");
+        throw EBox::Exceptions::MissingArgument("displayname");
     }
 
     if (length ($displayname) > MAXDISPLAYNAMELENGTH) {
@@ -468,14 +510,14 @@ sub checkDisplaynameFormat
 #
 #   description - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as description.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as description.
 #
 sub checkDescriptionFormat
 {
     my ($class, $description) = @_;
 
     unless (defined $description) {
-        throw EBox::Exceptions::InvalidArgument("description");
+        throw EBox::Exceptions::MissingArgument("description");
     }
 
     if (length ($description) > MAXDESCRIPTIONLENGTH) {
@@ -497,14 +539,14 @@ sub checkDescriptionFormat
 #
 #   mail - String
 #
-# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as mail.
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as mail.
 #
 sub checkMailFormat
 {
     my ($class, $mail) = @_;
 
     unless (defined $mail) {
-        throw EBox::Exceptions::InvalidArgument("mail");
+        throw EBox::Exceptions::MissingArgument("mail");
     }
 
     if (length ($mail) > MAXMAILLENGTH) {
@@ -552,7 +594,7 @@ sub create
     }
 
     my $fullname = $args{fullname};
-    $fullname = $class->generatedFullName(%args) unless ($fullname);
+    $fullname = $class->generatedFullname(%args) unless ($fullname);
     $class->checkFullnameFormat($fullname);
 
     my @attr = ();

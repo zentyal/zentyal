@@ -40,6 +40,79 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::InetOrgPerson') or die;
 }
 
+sub generatedFullname : Test(18)
+{
+    my ($self) = @_;
+
+    my $maxLen = EBox::Users::InetOrgPerson::MAXFULLNAMELENGTH();
+
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname();
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
+
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname(undef);
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
+
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname(foo => 'bar');
+    } 'EBox::Exceptions::MissingArgument', 'No required arguments';
+
+    my $maxLenFirstname = EBox::Users::InetOrgPerson::MAXFIRSTNAMELENGTH();
+    my $longerFirstname = 'l' x ($maxLenFirstname + 1);
+    cmp_ok(length $longerFirstname, 'gt', $maxLenFirstname, "Test firstname string is longer than $maxLenFirstname");
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname(givenname => $longerFirstname);
+    } 'EBox::Exceptions::InvalidData', "Checking that '$longerFirstname' throws exception as invalid firstname";
+
+    my $exactLengthFirstname = 'l' x $maxLenFirstname;
+    cmp_ok(length $exactLengthFirstname, '==', $maxLenFirstname, "Test firstname string is exactly $maxLenFirstname characters long");
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(givenname => $exactLengthFirstname),
+        'eq', $exactLengthFirstname, 'Fullname is exactly the givenname');
+
+    my $maxLenInitials = EBox::Users::InetOrgPerson::MAXINITIALSLENGTH();
+    my $longerInitials = 'l' x ($maxLenInitials + 1);
+    cmp_ok(length $longerInitials, 'gt', $maxLenInitials, "Test initials string is longer than $maxLenInitials");
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname(initials => $longerInitials);
+    } 'EBox::Exceptions::InvalidData', "Checking that '$longerInitials' throws exception as invalid initials";
+
+    my $exactLengthInitials = 'l' x $maxLenInitials;
+    cmp_ok(length $exactLengthInitials, '==', $maxLenInitials, "Test initials string is exactly $maxLenInitials characters long");
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(initials => $exactLengthInitials),
+        'eq', "$exactLengthInitials.", 'Fullname is initials ended with a dot');
+
+    my $maxLenSurname = EBox::Users::InetOrgPerson::MAXSURNAMELENGTH();
+    my $longerSurname = 'l' x ($maxLenSurname + 1);
+    cmp_ok(length $longerSurname, 'gt', $maxLenSurname, "Test surname string is longer than $maxLenSurname");
+    throws_ok {
+        EBox::Users::InetOrgPerson->generatedFullname(surname => $longerSurname);
+    } 'EBox::Exceptions::InvalidData', "Checking that '$longerSurname' throws exception as invalid surname";
+
+    my $exactLengthSurname = 'l' x $maxLenSurname;
+    cmp_ok(length $exactLengthSurname, '==', $maxLenSurname, "Test surname string is exactly $maxLenSurname characters long");
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(surname => $exactLengthSurname),
+        'eq', $exactLengthSurname, 'Fullname is exactly the firstname');
+
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(
+            givenname => 'first name', initials => '123456', surname => 'surname'),
+        'eq', 'first name 123456. surname', 'Well generated fullname with all input parameters');
+
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(
+            givenname => $exactLengthFirstname, initials => $exactLengthInitials, surname => $exactLengthSurname),
+        'eq', $exactLengthFirstname, 'Fullname is exactly the firstname, we had to truncate it');
+
+    cmp_ok(
+        EBox::Users::InetOrgPerson->generatedFullname(
+            initials => $exactLengthInitials, surname => $exactLengthSurname),
+        'eq', "$exactLengthInitials. " . substr($exactLengthSurname, 0, $maxLen - $maxLenInitials - 2), 'Fullname is initials + a truncated long surname');
+}
+
 sub checkFirstnameFormat : Test(10)
 {
     my ($self) = @_;
@@ -48,11 +121,11 @@ sub checkFirstnameFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkFirstnameFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkFirstnameFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -94,11 +167,11 @@ sub checkInitialsFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkInitialsFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkInitialsFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -140,11 +213,11 @@ sub checkSurnameFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkSurnameFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkSurnameFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -186,11 +259,11 @@ sub checkFullnameFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkFullnameFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkFullnameFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -232,11 +305,11 @@ sub checkDisplaynameFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkDisplaynameFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkDisplaynameFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -278,11 +351,11 @@ sub checkDescriptionFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkDescriptionFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkDescriptionFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
@@ -324,11 +397,11 @@ sub checkMailFormat : Test(10)
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkMailFormat();
-    } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
+    } 'EBox::Exceptions::MissingArgument', 'Without passing any argument';
 
     throws_ok {
         EBox::Users::InetOrgPerson->checkMailFormat(undef);
-    } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
+    } 'EBox::Exceptions::MissingArgument', 'Passing an undef argument';
 
     my @validList = ();
 
