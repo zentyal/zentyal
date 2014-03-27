@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 36;
+use Test::More tests => 37;
 use Test::Exception;
 use Test::Deep;
 
@@ -141,6 +141,10 @@ throws_ok {
 lives_ok {
     $webAdminMod->addNginxServer($deviantIncludes[0]);
 } 'Server file to include does not exits but it doesn\'t break';
+
+lives_ok {
+    $webAdminMod->removeNginxServer($deviantIncludes[0]);
+} 'Server file to remove does not exits but it doesn\'t break';
 
 lives_ok {
     $webAdminMod->addNginxServer($_) foreach (@includes);
