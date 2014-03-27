@@ -1242,14 +1242,15 @@ sub _createNetworkObject
     }
 
     EBox::debug('Creating HA network object');
+    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
 
     $objectsModule->addObject(
         id => HA_NODES_OBJECT_ID,
         name => __('HA Nodes'),
         members => [{
-            name =>'HA node',
+            name => $hostname,
             address_selected => 'ipaddr',
-            ipaddr_ip =>'1.1.1.71',
+            ipaddr_ip => $self->model('Nodes')->row($hostname)->valueByName('addr'),
             ipaddr_mask => '32'
         }]
     );
