@@ -682,5 +682,4 @@ sub changeUserPassword
     throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
-
 1;
