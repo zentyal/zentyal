@@ -44,7 +44,6 @@ use EBox::Samba::Contact;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
-use constant MAXGROUPLENGTH     => 64;
 use constant GROUPTYPESYSTEM    => 0x00000001;
 use constant GROUPTYPEGLOBAL    => 0x00000002;
 use constant GROUPTYPELOCAL     => 0x00000004;
@@ -110,7 +109,7 @@ sub create
 
     my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
 
-    $class->_checkGroupNameLimitations($args{name});
+    $class->checkGroupnameFormat($args{name});
     $class->_checkAccountNotExists($args{name});
 
     # TODO: We may want to support more than global groups!

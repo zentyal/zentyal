@@ -40,17 +40,17 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::Group') or die;
 }
 
-sub checkGroupNameLimitations : Test(42)
+sub checkGroupnameFormat : Test(42)
 {
     my ($self) = @_;
 
-    my $maxLen = EBox::Users::Group::MAXGROUPLENGTH();
+    my $maxLen = EBox::Users::Group::MAXGROUPNAMELENGTH();
     throws_ok {
-        EBox::Users::Group->_checkGroupNameLimitations();
+        EBox::Users::Group->checkGroupnameFormat();
     } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
 
     throws_ok {
-        EBox::Users::Group->_checkGroupNameLimitations(undef);
+        EBox::Users::Group->checkGroupnameFormat(undef);
     } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
 
     my @valid = (
@@ -108,12 +108,12 @@ sub checkGroupNameLimitations : Test(42)
 
     foreach my $validName (@valid) {
         lives_ok {
-            EBox::Users::Group->_checkGroupNameLimitations($validName);
+            EBox::Users::Group->checkGroupnameFormat($validName);
         } "Checking that '$validName' is a correct group account name";
     }
     foreach my $invalidName (@invalid) {
         throws_ok {
-            EBox::Users::Group->_checkGroupNameLimitations($invalidName);
+            EBox::Users::Group->checkGroupnameFormat($invalidName);
         } 'EBox::Exceptions::InvalidData', "Checking that '$invalidName' throws exception as invalid group account name";
     }
 
