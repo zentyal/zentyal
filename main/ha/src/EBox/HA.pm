@@ -65,6 +65,8 @@ use constant {
     RESOURCE_STICKINESS   => 100,
     PSGI_UPSTART          => 'zentyal.ha-psgi',
     HA_CONF_DIR           => EBox::Config::conf() . 'ha',
+    HA_NODES_OBJECT_ID    => 'haNodes',
+    HA_FIREWALL_RULES_DESCRIPTION => __('Rule added by Zentyal HA module'),
 };
 use constant {
     NGINX_INCLUDE_FILE => HA_CONF_DIR . '/uwsgi.conf',
@@ -1209,6 +1211,10 @@ sub _bootstrap
                                                                             . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                                                                             . '0123456789')]));
 
+    # Add network objects and firewall rules
+    $self->_createNetworkObject();
+    $self->_createFirewallRules();
+
     # Finally, store it in Redis
     $self->set_state($state);
 
@@ -1217,6 +1223,52 @@ sub _bootstrap
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+sub _createNetworkObject
+{
+    my ($self) = @_;
+
+    my $objectsModule = $self->global()->modInstance('objects');
+
+    if ($objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
+        $objectsModule->model('ObjectTable')->removeRow(HA_NODES_OBJECT_ID);
+    }
+
+    $objectsModule->addObject(
+        id => HA_NODES_OBJECT_ID,
+        name => __('HA Nodes'),
+        members => [{
+            name =>'HA node',
+            address_selected => 'ipaddr',
+            ipaddr_ip =>'1.1.1.71',
+            ipaddr_mask => '32'
+        }]
+    );
+}
+
+sub _createFirewallRules
+{
+    my ($self) = @_;
+
+    if ($self->global()->modExists('firewall') {
+        my $firewallModule = $self->global()->modInstance('firewall');
+    }
+
+    if ($firewallModule->isEnabled()) {
+        my $servicesModule = $self->global()->modInstance('services');
+        my $any = $servicesModule->serviceId('any');
+
+        my $rule = {
+            source_object => HA_NODES_OBJECT_ID,
+            source_selected => 'source_object',
+            service => $any,
+            decision => 'accept',
+            description => HA_FIREWALL_RULES_DESCRIPTION,
+        };
+
+        $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
+    }
 }
 
 # Create and store the auth
