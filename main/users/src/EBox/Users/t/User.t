@@ -40,18 +40,18 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::User') or die;
 }
 
-sub checkUserNameLimitations : Test(42)
+sub checkUserNameFormat : Test(42)
 {
     my ($self) = @_;
 
-    my $maxLen = EBox::Users::User::MAXUSERLENGTH();
+    my $maxLen = EBox::Users::User::MAXUSERNAMELENGTH();
 
     throws_ok {
-        EBox::Users::User->_checkUserNameLimitations();
+        EBox::Users::User->checkUsernameFormat();
     } 'EBox::Exceptions::InvalidArgument', 'Without passing any argument';
 
     throws_ok {
-        EBox::Users::User->_checkUserNameLimitations(undef);
+        EBox::Users::User->checkUsernameFormat(undef);
     } 'EBox::Exceptions::InvalidArgument', 'Passing an undef argument';
 
     my @valid = (
@@ -110,12 +110,12 @@ sub checkUserNameLimitations : Test(42)
 
     foreach my $validName (@valid) {
         lives_ok {
-            EBox::Users::User->_checkUserNameLimitations($validName);
+            EBox::Users::User->checkUsernameFormat($validName);
         } "Checking that '$validName' is a correct user account name";
     }
     foreach my $invalidName (@invalid) {
         throws_ok {
-            EBox::Users::User->_checkUserNameLimitations($invalidName);
+            EBox::Users::User->checkUsernameFormat($invalidName);
         } 'EBox::Exceptions::InvalidData', "Checking that '$invalidName' throws exception as invalid user account name";
     }
 }

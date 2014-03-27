@@ -26,31 +26,31 @@ package EBox::Users::User;
 use base 'EBox::Users::InetOrgPerson';
 
 use EBox::Config;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Users;
 use EBox::Users::Group;
 
-use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::LDAP;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::Internal;
-
-use Perl6::Junction qw(any);
-use Error qw(:try);
 use Convert::ASN1;
+use Error qw(:try);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Net::LDAP::Util qw(canonical_dn);
+use Perl6::Junction qw(any);
 
-use constant MAXUSERLENGTH  => 104;
-use constant MAXPWDLENGTH   => 512;
-use constant SYSMINUID      => 1900;
-use constant MINUID         => 2000;
-use constant MAXUID         => 2**31;
-use constant HOMEPATH       => '/home';
-use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
-use constant QUOTA_LIMIT    => 2097151;
+use constant MAXUSERNAMELENGTH => 104;
+use constant MAXPWDLENGTH      => 512;
+use constant SYSMINUID         => 1900;
+use constant MINUID            => 2000;
+use constant MAXUID            => 2**31;
+use constant HOMEPATH          => '/home';
+use constant QUOTA_PROGRAM     => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_LIMIT       => 2097151;
 
 sub new
 {
@@ -452,7 +452,7 @@ sub create
         $isDisabled = 1;
     }
 
-    $class->_checkUserNameLimitations($args{uid});
+    $class->checkUsernameFormat($args{uid});
 
     my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers();
@@ -499,6 +499,11 @@ sub create
     }
 
     my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
+    my $canonicalDN = canonical_dn($dn);
+
+    unless ($canonicalDN) {
+        throw EBox::Exceptions::Internal(__x(q{'{dn}' is not a valid dn}, dn => $dn));
+    }
 
     my @userPwAttrs = getpwnam($args{uid});
     if (@userPwAttrs) {
@@ -542,7 +547,7 @@ sub create
     my $parentRes = undef;
     my $entry = undef;
     try {
-        $args{dn} = $dn;
+        $args{dn} = $canonicalDN;
         $parentRes = $class->SUPER::create(%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
@@ -588,7 +593,7 @@ sub create
             };
         }
 
-        $res = new EBox::Users::User(dn => $dn);
+        $res = new EBox::Users::User(dn => $canonicalDN);
 
         # Set the user password and kerberos keys
         if (defined $passwd) {
@@ -661,45 +666,55 @@ sub create
     return $res;
 }
 
-# Performs validations on given name to see whether it matches the user name rules as restricted by the Active
-# directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
-# http://technet.microsoft.com/en-us/library/bb726984.aspx
-# We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
-# this installation.
-sub _checkUserNameLimitations
+# Method: checkUsernameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a username field.
+#   Performs validations on given name to see whether it matches the user name rules as restricted by the Active
+#   directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
+#   http://technet.microsoft.com/en-us/library/bb726984.aspx
+#   We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
+#   this installation.
+#
+# Parameters:
+#
+#   username - String
+#
+# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as a username.
+#
+sub checkUsernameFormat
 {
-    my ($class, $name) = @_;
+    my ($class, $username) = @_;
 
-    unless (defined $name) {
-        throw EBox::Exceptions::InvalidArgument("name");
+    unless (defined $username) {
+        throw EBox::Exceptions::InvalidArgument("username");
     }
 
     # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
     # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
     # we follow the documentation on this or the Windows implementation?
-    if ($name =~ /(^$|^\s|\s$|.*[@#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+    if ($username =~ /(^$|^\s|\s$|.*[@#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
         throw EBox::Exceptions::InvalidData(
             data   => __('user name'),
-            value  => $name,
+            value  => $username,
             advice => __x(
                 "cannot be empty, start or end with a space, and should not have any of the following characters: {chars}",
                 chars => "@#,+\"\\=<>;\/\[\]:\|\*\?")
         );
     }
 
-    if ($name =~ m/\.$/) {
+    if ($username =~ m/\.$/) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('user name'),
-            'value' => $name,
+            'value' => $username,
             'advice' => __('cannot end with a period (.)')
            );
     }
 
-    if (length ($name) > MAXUSERLENGTH) {
+    if (length ($username) > MAXUSERNAMELENGTH) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('user name'),
-            'value' => $name,
-            'advice' => __x('cannot be longer than {limit} characters', limit => MAXUSERLENGTH)
+            'value' => $username,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXUSERNAMELENGTH)
            );
     }
 }
