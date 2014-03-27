@@ -29,16 +29,16 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
-sed -i 's/precise/saucy/g' /etc/apt/sources.list
-sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
-upgrade
-
 # Stop modules to avoid conflicts in listening ports with haproxy
 for module in usercorner captiveportal webserver
 do
     service zentyal $module stop
 done
+
+echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
+sed -i 's/precise/saucy/g' /etc/apt/sources.list
+sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
+upgrade
 
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
