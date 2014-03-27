@@ -413,6 +413,15 @@ sub _ADException
 {
     my ($self, $msg) = @_;
 
+    # try to disconnect to force reconnection in next request
+    if ($self->{adLdap}) {
+        try {
+            $self->{adLdap}->disconnect();
+        } otherwise {};
+    }
+    delete $self->{adLdap};
+    delete $self->{defaultNC};
+
     throw EBox::Exceptions::External(
         __x('AD Error {error_name}: {error_desc}. If you think this error is temporary, please try again later',
             error_name => $msg->error_name(),
@@ -795,6 +804,10 @@ sub defaultNC
     }
 
     my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
+    if (not $dse) {
+        throw EBox::Exceptions::Internal('Cannot get root dse');
+    }
+
     my $defaultNC = $dse->get_value('defaultNamingContext');
     $defaultNC = canonical_dn($defaultNC);
     $self->{defaultNC} = $defaultNC;
