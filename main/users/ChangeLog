@@ -1,4 +1,5 @@
 HEAD
+	+ Added basic format check for InetOrgPerson fields
 	+ Updated group name and username validation code to follow Windows
 	  restrictions and added unit tests for those restrictions
 3.2.10
