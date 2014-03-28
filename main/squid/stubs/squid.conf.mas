@@ -327,7 +327,7 @@ external_acl_type InetGroup ipv4 children=5 \
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
 
 % if ($rewriteURL) {
- url_rewrite_program  /usr/share/zentyal-squid/rewriteurl
+url_rewrite_program  /usr/share/zentyal-squid/rewriteurl
 % }
 
 ##
