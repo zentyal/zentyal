@@ -1891,14 +1891,16 @@ sub menu
                                         'separator' => $separator,
                                         'order' => $order);
     if ($self->configured()) {
+        my $mode = $self->mode();
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Tree/Manage',
-            'text' => __('Manage'), order => 10));
+            'text' => ($mode eq STANDALONE_MODE) ? __('Manage') : __('Examine'),
+            order => 10));
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/UserTemplate',
             'text' => __('User Template'), order => 30));
 # TODO: re-enable this in Zentyal 4.0 for Cloud Sync
-#        if ($self->mode() eq STANDALONE_MODE) {
+#        if ($mode eq STANDALONE_MODE) {
 #            $folder->add(new EBox::Menu::Item(
 #                'url'  => 'Users/Composite/Sync',
 #                'text' => __('Synchronization'), order => 40));
