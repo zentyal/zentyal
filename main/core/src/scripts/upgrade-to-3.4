@@ -36,6 +36,7 @@ do
     service zentyal $module stop
 done
 
+mkdir -p /var/lib/samba
 cp -r /opt/samba4/private /var/lib/samba/
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
