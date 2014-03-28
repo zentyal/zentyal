@@ -1243,6 +1243,8 @@ sub _createNetworkObject
     my $ip = $self->model('Nodes')->row($hostname)->valueByName('addr');
     EBox::debug("Adding $hostname - $ip to the HA network object");
     $self->_addHANetworkObjectNode($hostname, $ip);
+
+    $objectsModule->save();
 }
 
 sub _addHANetworkObjectNode
@@ -1281,6 +1283,8 @@ sub _createFirewallRules
 
         my $firewallModule = $self->global()->modInstance('firewall');
         $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
+
+        $firewallModule->save();
     }
 }
 
