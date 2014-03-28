@@ -57,7 +57,7 @@ logexceptionhits = 1
 # 2 = CSV-style format
 # 3 = Squid Log File Format
 # 4 = Tab delimited
-logfileformat = 3
+logfileformat = 4
 
 # truncate large items in log lines
 #maxlogitemlength = 400

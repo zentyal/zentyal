@@ -132,6 +132,13 @@ sub initialSetup
                                          policy => { allow => undef });
     }
 
+    # Add filterCategory field for the LogHelper
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4.1') < 0)) {
+        my $dbEngine = EBox::DBEngineFactory::DBEngine();
+        my $sqlCmd =  'ALTER TABLE squid_access ADD COLUMN filterCategory VARCHAR(255);';
+        $dbEngine->sqlAsSuperuser(sql => $sqlCmd);
+    }
+
     foreach my $name ('squid', 'logs') {
         my $mod = $self->global()->modInstance($name);
         if ($mod and $mod->changed()) {
@@ -1131,17 +1138,18 @@ sub tableInfo
 {
     my ($self) = @_;
 
-    my $titles = { 'timestamp'  => __('Date'),
-                   'remotehost' => __('Host'),
-                   'rfc931'     => __('User'),
-                   'url'        => __('URL'),
-                   'domain'     => __('Domain'),
-                   'bytes'      => __('Bytes'),
-                   'mimetype'   => __('Mime/type'),
-                   'event'      => __('Event')
+    my $titles = { 'timestamp'      => __('Date'),
+                   'remotehost'     => __('Host'),
+                   'rfc931'         => __('User'),
+                   'url'            => __('URL'),
+                   'domain'         => __('Domain'),
+                   'bytes'          => __('Bytes'),
+                   'mimetype'       => __('Mime/type'),
+                   'event'          => __('Event'),
+                   'filterCategory' => __('Filter category')
                  };
     my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url', 'domain',
-                  'bytes', 'mimetype', 'event');
+                  'bytes', 'mimetype', 'event', 'filterCategory');
 
     my $events = { 'accepted' => __('Accepted'),
                    'denied' => __('Denied'),

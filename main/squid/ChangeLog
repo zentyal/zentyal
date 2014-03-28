@@ -1,3 +1,7 @@
+HEAD
+	+ LogHelper modified to extract the filter categories from the
+	  dansguardian log
+	+ Use tab delimited log format for dansguardian
 3.4
 	+ Give support to multiple addresses for a domain in Transparent
 	  Proxy Exemptions

@@ -79,23 +79,35 @@ sub processLine # (file, line, logger)
     my ($self, $file, $line, $dbengine) = @_;
     chomp $line;
 
-    my @fields = split (/\s+/, $line);
+    my @fields;
+    my $remoteHost;
+    my $code;
+
+    if ($file eq  DANSGUARDIANLOGFILE) {
+        @fields = split (/\t/, $line);
+        $remoteHost = $fields[2];
+        $code = $fields[10];
+    } else {
+        @fields = split (/\s+/, $line);
+        $remoteHost = $fields[2];
+        $code = $fields[3];
+    }
 
     # FIXME: regex match instead of eq ??
-    if ($fields[2] eq '127.0.0.1') {
+    if ($remoteHost =~ m/.*127\.0\.0\.1.*/) {
         return;
     }
 
     my $event;
-    given($fields[3]) {
-        when (m{TCP_DENIED(_ABORTED)?/403}) {
+    given($code) {
+        when (m/403/) {
             if ($file eq  DANSGUARDIANLOGFILE) {
                 $event = 'filtered';
             } else {
                 $event = 'denied';
             }
         }
-        when ('TCP_DENIED/407') {
+        when (m/407/) {
             # This entry requires authentication, so ignore it
             return;
         }
@@ -104,11 +116,13 @@ sub processLine # (file, line, logger)
         }
     }
 
-    # Trim URL string as DB stores it as a varchar(1024)
-    my $url = substr($fields[6], 0, 1023);
+    my $url;
     if ($file eq  DANSGUARDIANLOGFILE) {
-        my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
-        my $domain = $self->_domain($fields[6]);
+
+        my $time = join('-', split(/\./, $fields[0]));
+        my $domain = $self->_domain($fields[3]);
+        # Trim URL string as DB stores it as a varchar(1024)
+        $url = substr($fields[3], 0, 1023);
 
         if ($url =~ m/$domain$/) {
             # Squid logs adds a final slash as dansguardian does not
@@ -117,19 +131,23 @@ sub processLine # (file, line, logger)
         }
 
         $temp{$url}->{timestamp} = $time;
-        $temp{$url}->{elapsed} = $fields[1];
-        $temp{$url}->{remotehost} = $fields[2];
-        $temp{$url}->{code} = $fields[3];
+        $temp{$url}->{remotehost} = $remoteHost;
         $temp{$url}->{method} = $fields[5];
         $temp{$url}->{url} = $url;
         $temp{$url}->{domain} = substr($domain, 0, 254);
-        $temp{$url}->{peer} = $fields[8];
-        $temp{$url}->{mimetype} = $fields[9];
+        $temp{$url}->{mimetype} = $fields[11];
         $temp{$url}->{event} = $event;
+        $temp{$url}->{filterCategory} = $fields[8];
     } else {
+        # Trim URL string as DB stores it as a varchar(1024)
+        $url = substr($fields[6], 0, 1023);
+
         if ($file eq EXTERNALSQUIDLOGFILE) {
             if ($self->{filterNeeded}) {
+                $temp{$url}->{elapsed} = $fields[1];
+                $temp{$url}->{code} = $fields[3];
                 $temp{$url}->{bytes} = $fields[4];
+                $temp{$url}->{peer} = $fields[8];
             } else {
                 $self->_fillExternalData($url, $event, @fields);
             }
