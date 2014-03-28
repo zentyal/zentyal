@@ -30,7 +30,7 @@ use EBox::Users::Types::Password;
 use EBox::Exceptions::External;
 
 use File::Temp qw/tempfile/;
-use Encode;
+use Encode qw(encode decode_utf8);
 
 use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
 
@@ -106,7 +106,7 @@ sub _updateSambaPassword
             # Connect to LDAP and retrieve the base DN
             my $ldap = new Net::LDAP(SAMBA_LDAPI);
             my $rootDSE = $ldap->root_dse(attrs => ['defaultNamingContext']);
-            my $defaultNC = $rootDSE->get_value('defaultNamingContext');
+            my $defaultNC = decode_utf8($rootDSE->get_value('defaultNamingContext'));
             my $dnsDomain = join('.', grep(/.+/, split(/[,]?DC=/, $defaultNC)));
 
             # Bind to perform searches

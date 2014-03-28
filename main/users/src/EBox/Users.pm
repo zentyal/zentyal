@@ -53,18 +53,18 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
 
-use Digest::SHA;
 use Digest::MD5;
-use Sys::Hostname;
-
+use Digest::SHA;
+use Encode qw(encode_utf8);
 use Error qw(:try);
+use Fcntl qw(:flock);
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Sys::Hostname;
 use Time::HiRes;
-use Fcntl qw(:flock);
 
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -2573,7 +2573,7 @@ sub checkMailNotInUse
         my $name;
         if ($type eq 'CourierMailAlias') {
             $type = __('alias');
-            $name = $entry->get_value('mail');
+            $name = decode_utf8($entry->get_value('mail'));
         } else {
             $name = $modeledObject ? $modeledObject->name() : $entry->dn();
         }

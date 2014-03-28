@@ -252,7 +252,7 @@ sub dn
             EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
         }
 
-        $self->{dn} = $contexts[0];
+        $self->{dn} = decode_utf8($contexts[0]);
     }
     return defined $self->{dn} ? $self->{dn} : '';
 }
@@ -419,7 +419,7 @@ sub usersInBackup
             # in zentyal users are identified by DN, not by objectclass
             # TODO: Review this code, with multiou this may not be true anymore!
             if ($dn =~ /$usersDn$/) {
-                push @users, $entry->get_value('uid');
+                push (@users, decode_utf8($entry->get_value('uid')));
             }
         }
     }

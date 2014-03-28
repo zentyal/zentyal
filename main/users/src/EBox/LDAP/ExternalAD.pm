@@ -18,24 +18,25 @@ use warnings;
 package EBox::LDAP::ExternalAD;
 use base 'EBox::Ldap';
 
-use EBox::Global;
-use EBox::Sudo;
-use EBox::Gettext;
-use EBox::Validate;
-use Error qw(:try);
-use Net::DNS::Resolver;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Sudo;
+use EBox::Validate;
 
-use Net::LDAP;
-use Net::Ping;
-use Net::DNS;
-use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
-use File::Basename;
 use Authen::SASL;
+use Encode qw(decode_utf8);
+use Error qw(:try);
+use File::Basename;
+use Net::DNS;
+use Net::DNS::Resolver;
+use Net::LDAP;
+use Net::NTP qw(get_ntp_response);
+use Net::Ping;
 
 # Singleton variable
 my $_instance = undef;
@@ -397,8 +398,8 @@ sub _adRealm
     my ($self) = @_;
 
     my $dse = $self->_rootDse();
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
+    my $defaultNC = decode_utf8($dse->get_value('defaultNamingContext'));
+    my @dcDnsHostname = split (/\./, decode_utf8($dse->get_value('dnsHostName')), 2);
     my $dcDomain = $dcDnsHostname[1];
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
@@ -434,7 +435,7 @@ sub _adDefaultNC
 
     my $dse = $self->_rootDse();
 
-    return $dse->get_value('defaultNamingContext');
+    return decode_utf8($dse->get_value('defaultNamingContext'));
 }
 
 # Method: initKeyTabs
@@ -537,7 +538,7 @@ sub _hostInAD
                           filter => '(objectClass=computer)',
                           attrs => ['samAccountName']);
     foreach my $entry ($result->entries()) {
-        my $entrySamAccountName = $entry->get_value('samAccountName');
+        my $entrySamAccountName = decode_utf8($entry->get_value('samAccountName'));
         if (uc $entrySamAccountName eq uc $hostSamAccountName) {
             return 1;
         }
