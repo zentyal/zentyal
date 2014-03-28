@@ -57,6 +57,7 @@ if ($? == 0) {
         $redis->import_dir_from_file($dumpfile);
     } otherwise {
         print "Import of modifications failed, restoring the original...\n";
+        $redis->rollback();
         $redis->delete_dir($dir);
         $redis->import_dir_from_file("$dumpfile.orig");
     };
