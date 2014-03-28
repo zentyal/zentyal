@@ -39,10 +39,11 @@ done
 # Copy samba data to new destination and re-create hardlinks
 mkdir -p /var/lib/samba
 cp -r /opt/samba4/private /var/lib/samba/
-for i in /var/lib/samba/private/sam.ldb.d/*.ldb
-do
-    ln -f $i /var/lib/samba/private/sam.ldb.d/dns/
-done
+ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
+chown root:bind /var/lib/samba/private/dns/*.ldb
+chmod 660 /var/lib/samba/private/dns/*.ldb
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
 sed -i 's/precise/saucy/g' /etc/apt/sources.list
