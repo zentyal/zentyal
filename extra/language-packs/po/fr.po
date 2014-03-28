@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-05 18:33+0200\n"
-"Last-Translator: Schawy <moise.michel@free.fr>\n"
+"PO-Revision-Date: 2014-03-21 11:35+0200\n"
+"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -657,9 +657,8 @@ msgid "Random"
 msgstr "Aléatoire"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "Basculement (Failover)"
+msgstr "Bascule (Failover)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -717,6 +716,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Aucun certificat n'est disponible pour ce client. Merci d'en {ohref}créer "
+"un{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -894,9 +895,8 @@ msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
 msgstr "{par} n'est pas compatible avec un tunnel Zentya-à-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Réseaux diffusés (Advertised networks)"
+msgstr "Liste des réseaux diffusés au serveur tunnel."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
@@ -946,14 +946,12 @@ msgid "daemon"
 msgstr "Démon (daemon)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
 msgstr "Envoi du paquetage de configuration"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Envoi du paquetage de configuration"
+msgstr "Envoi du paquetage de configuration du client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
 #, perl-brace-format
@@ -1025,7 +1023,7 @@ msgstr ""
 "préfixe {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "Le client {c} n'existe pas"
 
@@ -1176,9 +1174,8 @@ msgstr "Vous devez définir \"insecure_rip_conf\" à oui ou non"
 #: ../../main/ha/src/EBox/HA.pm:89
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "Disponible"
+msgstr "Haute disponibilité"
 
 #: ../../main/ha/src/EBox/HA.pm:114 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:182
@@ -1194,14 +1191,12 @@ msgid "Cluster status"
 msgstr "Etat de la grappe"
 
 #: ../../main/ha/src/EBox/HA.pm:163
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr " Configurer le service clamd"
+msgstr "Configurer le démon corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:166
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Arrêt ou redémarrage"
+msgstr "Démarre corosync au début"
 
 #: ../../main/ha/src/EBox/HA.pm:1000
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1246,33 +1241,22 @@ msgstr "Inconnu"
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:257
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:273
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
-#, fuzzy
 msgid "None"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Aucun\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"aucun\n"
-"#-#-#-#-#  fr.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Sans\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Aucun"
+msgstr "Aucun"
 
 #: ../../main/ha/src/EBox/HA.pm:1006
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Il y a des erreurs{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "ce dernier jour"
+msgstr "La dernier mise à jour"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
-msgstr "Erreur"
+msgstr "Erreurs"
 
 #: ../../main/ha/src/EBox/HA.pm:1021
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1286,21 +1270,8 @@ msgstr "Erreur"
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
-#, fuzzy
 msgid "Status"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Statut\n"
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Statut\n"
-"#-#-#-#-#  fr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Statut\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Statut\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Statut\n"
-"#-#-#-#-#  fr.po (ebox-antivirus 0.1)  #-#-#-#-#\n"
-"Etat"
+msgstr "État"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
 #, fuzzy

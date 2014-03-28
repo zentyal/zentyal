@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-02-15 10:19+0200\n"
-"Last-Translator: sergiu.bivol <sergiu@ase.md>\n"
+"PO-Revision-Date: 2014-03-21 11:38+0200\n"
+"Last-Translator: ionut <ionut@roman1392.ro>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "Client {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -237,7 +237,7 @@ msgstr "Oprit"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
 msgid "Daemon status"
-msgstr ""
+msgstr "Stare demon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"

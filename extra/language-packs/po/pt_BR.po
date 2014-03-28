@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-01-31 19:35+0200\n"
-"Last-Translator: Giovanne <giovanne.torres@gmail.com>\n"
+"PO-Revision-Date: 2014-03-27 18:33+0200\n"
+"Last-Translator: FernandoSinesio <fernandosinesio@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +22,15 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1396
-#, fuzzy
 msgid "disabled"
 msgstr "desabilitado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
-#, fuzzy
 msgid "Server's address"
 msgstr "Endereço do servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
 msgstr "Você precisa informar pelo menos um endereço para o servidor {name}"
 
@@ -1177,19 +1175,16 @@ msgstr "Sistema"
 #: ../../main/ha/src/EBox/HA.pm:145
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "nome de usuário"
+msgstr "Estado do cluster"
 
 #: ../../main/ha/src/EBox/HA.pm:163
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr " Para configurar o daemon Clamd"
+msgstr "Para configurar a rotina corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:166
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Desligar ou Reiniciar"
+msgstr "Para iniciar corosync durante o boot"
 
 #: ../../main/ha/src/EBox/HA.pm:1000
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1238,20 +1233,18 @@ msgid "None"
 msgstr "Nenhum"
 
 #: ../../main/ha/src/EBox/HA.pm:1006
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "{oh}Dê uma olhada{ch}"
+msgstr "{oh}Existem erros{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1015
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Último dia"
+msgstr "Última atualização"
 
 #: ../../main/ha/src/EBox/HA.pm:1017
-#, fuzzy
 msgid "Errors"
-msgstr "Erro"
+msgstr "Erros"
 
 #: ../../main/ha/src/EBox/HA.pm:1021
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1269,13 +1262,12 @@ msgid "Status"
 msgstr "Estado"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
-#, fuzzy
 msgid "not enabled"
-msgstr "habilitado"
+msgstr "não habilitado"
 
 #: ../../main/ha/src/EBox/HA.pm:1025
 msgid "Nodes"
-msgstr ""
+msgstr "Nós"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1316,26 +1308,25 @@ msgid "IP address"
 msgstr "Endereço IP"
 
 #: ../../main/ha/src/EBox/HA.pm:1035
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "A interface {iface} não está configurada"
+msgstr "O cluster não está configurado"
 
 #: ../../main/ha/src/EBox/HA.pm:1124
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} não tem endereço IP para usar"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
-msgstr "Erro reiniciando serviço {mod}. Veja {logs} para mais informações."
+msgstr ""
+"Falha na replicação. Por favor verifique {logfile} para mais informações."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Configuração do Computador"
+msgstr "Configuração do cluster"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1343,6 +1334,8 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Aqui você pode mostrar o estado do seu cluster. Se você quiser ver mais "
+"informações sobre os erros mostrados, por favor, vá para {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
@@ -1355,50 +1348,39 @@ msgid "Name is too short. Minimum length is {min}."
 msgstr "O nome é muito curto. Tamanho mínimo é {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
-#, fuzzy
 msgid "Name must only contain letters, numbers or underscores."
-msgstr "O nome deve conter apenas caracteres, dígitos e sublinhados"
+msgstr "O nome deve conter apenas letras, números ou sublinhados"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "O IP {ip} não pertence a nenhuma interface."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Não existe interface interna estática para definir o endereço IP do servidor "
-"Web."
+msgstr "Existe uma interface de rede com o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Não existe interface interna estática para definir o endereço IP do servidor "
-"Web."
+msgstr "Existe um endereço no DHCP igual ao endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Não existe interface interna estática para definir o endereço IP do servidor "
-"Web."
+msgstr "Existe uma extensão do DHCP que inclui o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
 #, fuzzy
 msgid "Floating IP Address"
-msgstr "Endereço IP do domínio"
+msgstr "Endereço IP público"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:250
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Endereço IP do domínio"
+msgstr "Endereço IP público"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:254
 #, fuzzy
 msgid "floating IP address"
-msgstr "Domínio ou endereço IP"
+msgstr "Endereço IP público"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:121
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1413,20 +1395,20 @@ msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Tentar novamente"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
-msgstr ""
+msgstr "Ligado"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Desligado"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Lista de nós para o Cluster {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
@@ -1437,72 +1419,68 @@ msgid "Hostname"
 msgstr "Hostname"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Aplicação"
+msgstr "Replicação"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr "Remover"
+msgstr "Rebaixar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr "Remover"
+msgstr "Promover"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Lista de nós do cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Este mês não tem 31 dias."
+msgstr "Este cluster não tem nenhum nó."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "O nó {name} é agora o nó ativo."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "O nó {name} é agora um nó passivo."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr "nome de usuário"
+msgstr "Nome do Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr "nome de usuário"
+msgstr "Cluster oculto"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Controlador atualmente designado"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"O controlador atualmente designado efetua as operações no cluster. Este nó "
+"pode mudar sem qualquer impacto no cluster."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "O serviço está habilitado, mas não está em execução"
+msgstr "Erro: o serviço {service} está parado"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
 #, fuzzy

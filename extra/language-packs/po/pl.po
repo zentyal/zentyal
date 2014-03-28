@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-03-06 22:23+0200\n"
-"Last-Translator: BrunoVonTroba <michal.markiewka@mcn.pl>\n"
+"PO-Revision-Date: 2014-03-27 20:16+0200\n"
+"Last-Translator: Dominik <dominik@szynk.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -357,7 +357,7 @@ msgstr "Nie znaleziono adresu IP na interfejsie {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr "Nie można używać serwera OpenVPN do wewnętrznych usług"
+msgstr "Nie można używać serwera OpenVPN do usług wewnętrznych"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
@@ -374,9 +374,8 @@ msgid "All external interfaces"
 msgstr "Wszystkie zewnętrzne interfejsy"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#, fuzzy
 msgid "Not found"
-msgstr "Nie odnaleziono strony"
+msgstr "Nie odnaleziono"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"

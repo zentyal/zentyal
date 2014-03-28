@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-08 13:25+0200\n"
-"Last-Translator: ytandogan <ytandogan@gmail.com>\n"
+"PO-Revision-Date: 2014-03-22 00:28+0200\n"
+"Last-Translator: IvanBarayev <ivanbarayev@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Sunucu adresleri"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "{name} sunucusu için en azından bir adres vermelisiniz"
+msgstr "{name} sunucusu için en az bir adres girmelisiniz"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -47,7 +47,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paketi değildir. "
 "(Açılamaz)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
@@ -55,7 +55,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paketi değildir. "
 "(Sunucu yapılandırma dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
@@ -63,15 +63,15 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. (CA "
-"sertifika dosyası Eksik)"
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paketi değildir. (CA "
+"sertifika dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paketi değildir. "
 "(Sertifika dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
@@ -79,27 +79,27 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paket değildir. "
+"Bu paket, geçerli bir Zentyal-to-Zentyal yapılandırma paketi değildir. "
 "(Sertifika özel anahtar dosyası eksik)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Var olmayan dosya {path}"
+msgstr "CA sertifika dosyası yok {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "Var olmayan İstemci sertifika dosyası"
+msgstr "İstemci sertifika dosyası yok {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Var olmayan sertifika özel anahtarı dosyası"
+msgstr "Sertifika'nın özel anahtar dosyası yok {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "CA'nın sertifikası olarak verilen dosya geçerli değil"
+msgstr "CA sertifikası olarak verilen dosya geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
@@ -107,23 +107,23 @@ msgstr "İstemci sertifikası olarak verilen dosya geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "İstemci için verilen özel anahtar dosyası geçerli değil"
+msgstr "İstemci özel anahtarı olarak verilen dosyas geçerli değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
-"İstemcinin sertifikası olarak sağlanan dosya CA'nın sertifikası olarak "
-"verilen dosya ile uyuşmuyor"
+"İstemci sertifikası olarak verilen dosya CA'nın sertifika dosyası ile "
+"uyuşmuyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
-"İstemcinin özel anahtarıi olarak sağlanan dosya CA'nın sertifikası olarak "
-"verilen dosya ile uyuşmuyor"
+"İstemcinin sertifikası olarak verilen dosya, İstemcinin özel anahtarı olarak "
+"verilen ile uyuşmuyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -131,6 +131,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"LocalHost kendisi bir adres oldugundan, VPN istemcisi {adres} adresine "
+"bağlanmak üzere yapılandırılmış olmamalı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -138,6 +140,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"Yerel Ağ Arayüzü'ün adresi olduğundan, VPN istemcisi {adres} adresine "
+"bağlanmak üzere yapılandırılmış olmamalı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
@@ -266,7 +270,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
-msgstr "Servis"
+msgstr "Hizmet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
@@ -289,7 +293,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
 msgid "Daemon status"
-msgstr "Bekletici program durumu"
+msgstr "Arkaplan program durumu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
@@ -298,20 +302,18 @@ msgstr "Bağlantı hedefi"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
-#, fuzzy
 msgid "VPN interface address"
-msgstr "VPN ağ adresi"
+msgstr "VPN ara yüz adresi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
-#, fuzzy
 msgid "No active"
-msgstr "Aktif"
+msgstr "Aktif değil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "{p}/{pro} zaten kullanılıyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
@@ -331,7 +333,7 @@ msgstr "{cn} sertifikası iptal edildi"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:260
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr "{name} sunucusu atanmış bir sertifikaya sahip değil "
+msgstr "{name} adındaki sunucu atanmış bir sertifikaya sahip değil "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:281
 #, perl-brace-format
@@ -339,23 +341,25 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"{name} sunucusu için anahtar alınamıyor çünkü atanmış bir sertifikası yok"
+"Atanmış bir sertifikası olmadığından {name} sunucusunun anahtarı alınamıyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "{iface} arabirimi için IP adresi bulunamadı"
+msgstr ""
+" {iface} arabirimi için IP adresi bulunamadığından, {name} adındaki VPN "
+"sunucusu yapılandırılmadı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OpenVPN sunucuları dahili servisler için kullanılamaz"
+msgstr "OpenVPN sunucuları dahili hizmetler için kullanılamaz"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Desteklenmeyen istemci türü: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, perl-brace-format
@@ -367,9 +371,8 @@ msgid "All external interfaces"
 msgstr "Tüm harici arabirimler"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#, fuzzy
 msgid "Not found"
-msgstr "Sayfa bulunamadı"
+msgstr "Bulunamadı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
@@ -394,20 +397,17 @@ msgid "VPN subnet"
 msgstr "VPN alt ağı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
-#, fuzzy
 msgid "VPN network interface"
-msgstr "VPN ağ alt maskesi"
+msgstr "VPN ağ ara yüzü"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
-#, fuzzy
 msgid "List of Advertised Networks"
-msgstr "Bildirilmiş ağlar"
+msgstr "Tanımlanmış ağların listesi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
-#, fuzzy
 msgid "Advertised network"
-msgstr "Bildirilmiş ağlar"
+msgstr "Tanımlanmış ağ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -419,6 +419,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
+"{openpar}Buraya VPN'e bağlanan istemcilere hangi ağları kullanılabilir "
+"yapmak istediğinizi ekleyebilirsiniz.{closepar}{openpar}Genellikle, buraya "
+"ağ adresini tanımlamanızla, LAN erişim izni "
+"sağlayacaksınız.{closepar}{openpar}Tanımlanan bir ağ adresi VPN ağ adresi "
+"olarak aynı ise, tanıtılan ağ göz ardı edilecektir.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -452,7 +457,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:33
 #: ../../main/network/src/templates/ifaces.mas:233
 msgid "Name"
-msgstr "Adı"
+msgstr "Ad"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
@@ -470,32 +475,28 @@ msgstr "Adı"
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:163
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
-msgstr "Yapilandirma"
+msgstr "Yapılandırma"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr "Bildirilmiş ağlar"
+msgstr "Tanımlanmış ağlar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
-#, fuzzy
 msgid "Download client bundle"
-msgstr "İstemcinin dosya paketini indir"
+msgstr "İstemci paketini indir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
-#, fuzzy
 msgid "List of servers"
-msgstr "OpenVPN servisi"
+msgstr "Sunucuların Listesi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:107
-#, fuzzy
 msgid "VPN servers"
-msgstr "OpenVPN servisi"
+msgstr "VPN sunucuları"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
-#, fuzzy
 msgid "server"
 msgstr "Sunucu"
 
@@ -506,6 +507,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}VPN sunucularını çalıştırmak için geçerli bir CA sertifikasına "
+"ihtiyacınız var. {closepar}{openpar}Lütfen, {openhref} sertifika yetkilisi "
+"modülüne gidin{closehref} ve yenileyin.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -514,23 +518,25 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
+"{openpar}VPN sunucularını çalıştırmak için bir CA sertifikası oluşturmanız "
+"gerek. {closepar}{openpar}Lütfen, {openhref} sertifika yetkilisi modülüne "
+"gidin{closehref} ve oluşturun.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
-#, fuzzy
 msgid "Server creation"
-msgstr "OpenVPN sunucu oluşturma"
+msgstr "Sunucu oluşturma"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Tam olarak yapılandırılmadığından sunucu etkinleştirilemedi; Lütfen "
+"yapılandırmayı düzenleyin ve tekrar deneyin"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
-#, fuzzy
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
-"{name} sunucusu için anahtar alınamıyor çünkü atanmış bir sertifikası yok"
+msgstr "Bir CA sertifikası olmadığından sunucu oluşturmazsınız"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
 #, perl-brace-format
@@ -538,6 +544,8 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"Kullanılabilir bir sertifika olmadığından {act} mümkün değil. Lütfen "
+"sertifika yetkilisi modülüne gidin ve yeni sertifikalar oluşturun"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 #, fuzzy
@@ -550,9 +558,8 @@ msgid "expired"
 msgstr "Sona Ermiş"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "Geçerli"
+msgstr "Geçersiz"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -561,6 +568,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"{name} adında bir sunucu oluşturamazsınız çünkü {state} durumu ile "
+"{certname} adında bir sertifika var.<br/>Başka bir isim seçin ya da "
+"{certName} sertifikasını tekrar yayınlayın"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -585,9 +595,8 @@ msgstr "Sunucu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
-#, fuzzy
 msgid "Server port"
-msgstr "Sunucunun portu"
+msgstr "Sunucu portu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
@@ -596,40 +605,36 @@ msgstr "CA sertifikası"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr "İstemcinin sertifikası"
+msgstr "İstemci sertifikası"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
-msgstr "İstemcinin özel anahtarı"
+msgstr "İstemci özel anahtarı"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr "arabirim"
+msgstr "TUN ara yüzü"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
-#, fuzzy
 msgid "Server tunnel password"
-msgstr "eBox-dan-eBox'a tünellerine izin ver"
+msgstr "Sunucu tünel parolası"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "İstemci için port bağla"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Vekil sunucu kullanılmayacak adresler"
+msgstr "İstemci için adres bağla"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Yollar ayarlandıktan sonra çalıştırılacak komut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
-#, fuzzy
 msgid "Client configuration"
-msgstr "{name} istemcisi yapılandırması"
+msgstr "İstemcisi yapılandırması"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
@@ -637,56 +642,52 @@ msgstr "{name} istemcisi yapılandırması"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:87
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:125
 msgid "client"
-msgstr "istemci"
+msgstr "İstemci"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr ""
+msgstr "{f} için önceden ayarlanmış dosya yok yada temin edilmemiş."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
-#, fuzzy
 msgid "Client's type"
-msgstr "İstemciler"
+msgstr "İstemcilerin türü"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Pakete OpenVPN yükleyicisi ekle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows için OpenVPN yükleyici"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Bağlantı hedefi"
+msgstr "Bağlantı stratejisi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
-#, fuzzy
 msgid "Server address"
-msgstr "Sunucu adresleri"
+msgstr "Sunucu adresi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Bu sunucuya bağlanmak için sizin istemcileriniz tarafından kullanılacak "
+"adrestir. Genelde, bu açık bir IP veya ana bilgisayar adı olacak"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
-#, fuzzy
 msgid "Additional server address (optional)"
-msgstr "Sunucu ek IP adresi (seçime bağlı)"
+msgstr "Ek sunucu adresi (seçime bağlı)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
-#, fuzzy
 msgid "Second additional server address (optional)"
-msgstr "Sunucu ek IP adresi (seçime bağlı)"
+msgstr "İkinci ek sunucu adresi (seçime bağlı)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
-#, fuzzy
 msgid "Download Client Bundle"
-msgstr "İstemcinin dosya paketini indir"
+msgstr "İstemci Paketini İndir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
@@ -694,63 +695,70 @@ msgstr "İstemcinin dosya paketini indir"
 #: ../../main/core/src/templates/ajax/viewer/file.mas:19
 #: ../../main/core/src/templates/ajax/viewer/file.mas:29
 #: ../../main/core/src/templates/ajax/viewer/downloadLink.mas:15
-#, fuzzy
 msgid "Download"
 msgstr ""
 "#-#-#-#-#  tr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"İndirmek\n"
+"İndir\n"
 "#-#-#-#-#  tr.po (ebox 0.12)  #-#-#-#-#\n"
 "İndir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Rastgele"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "Hata oluştu"
+msgstr "Yük Devretme"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyal'den Zentyal!e tünel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Sunucu tam olarak yapılandırılmadığından paket oluşturulamadı; Lütfen "
+"yapılandırmayı düzenleyip tekrar deneyin"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:196
-#, fuzzy
 msgid "Cannot use for the bundle the server's certificate"
-msgstr "İstemci sertifikasını açmak için kullanılan özel anahtar"
+msgstr "Sunucunun sertifikası paket için kullanılamıyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Geçersiz istemci türü: Sunucu Zentyal'den Zentyal'e tünellerine izin "
+"vermiyor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Geçersiz istemci türü: Sunucu Zentyal'den Zentyal'e tünelleri için "
+"tasarlanmış"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Yükleyici sadece Windows istemcileri için kullanılabilir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:312
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"İstemci paketi bir dosyadır ve istemcileriniz için kullanıma hazır "
+"yapılandırma içerir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Sunucu tam olarak yapılandırılmadığından paket oluşturulamadı; Lütfen "
+"yapılandırmayı düzenleyip tekrar deneyin"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:355
 #, perl-brace-format
@@ -758,24 +766,24 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Bu istemci için kullanılabilir sertifika yok. Lütfen, {ohref}bir sertifika "
+"oluşturun{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
-#, fuzzy
 msgid "VPN address"
-msgstr "Ağ adresi"
+msgstr "VPN adresi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Bu makine tarafından kullanılmayan bir ağ adresi kullanın"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
-#, fuzzy
 msgid "Server certificate"
-msgstr "Sertifika"
+msgstr "Sunucu sertifikası"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr "Genel isimle istemci kimlik doğrulaması"
+msgstr "Ortak adı ile istemci yetkilendirmesi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -785,26 +793,25 @@ msgid ""
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
-#, fuzzy
 msgid "Network Address Translation"
-msgstr "ağ adresi"
+msgstr "Ağ Adresi Çevirimi (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Eğer VPN sunucusu varsayılan geçitte değilse etkinleştir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr "İstemci-den-istemciye bağlantılarına izin ver"
+msgstr "İstemci'den istemci'ye bağlantılara izin ver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr ""
+"Bu VPN'in istemci makinelerini birbirini görmesine izin vermeyi etkinleştir"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
-#, fuzzy
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr "eBox-dan-eBox'a tünellerine izin ver"
+msgstr "Zentyal'dan Zentyal'a  tünellerine izin ver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"

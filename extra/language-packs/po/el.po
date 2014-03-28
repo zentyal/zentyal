@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-10-01 16:28+0200\n"
-"Last-Translator: copros <jgergian@gmail.com>\n"
+"PO-Revision-Date: 2014-03-28 01:25+0200\n"
+"Last-Translator: altiport <vasileios_s@yahoo.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "Ανύπαρκτο αρχείο πιστοποιητικού CA {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
@@ -81,7 +81,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Ανύπαρκτο αρχείο πιστοποιητικού ιδιωτικού κλειδιού {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -238,17 +238,17 @@ msgstr "Μή ενεργό"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr ""
+msgstr "H θύρα {p}/{pro} είναι ήδη σε χρήση"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "Το πιστοποιητικό {cn} δεν υπάρχει"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:239
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "Το πιστοποιητικό {cn} έχει λήξει"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:242
 #, perl-brace-format
@@ -475,6 +475,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Δεν μπορεί να δημιουργηθεί διακομιστής με το όνομα {name} επειδή ήδη υπάρχει "
+"πιστοποιητικό με το όνομα {certName} με κατάσταση {state}. <br/> Διαλέξτε "
+"ένα άλλο όνομα ή επανεκδώστε το πιστοποιητικό {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -657,6 +660,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Δεν υπάρχει διαθέσιμο κανένα πιστοποιητικό για αυτόν τον πελάτη.  Παρακαλώ, "
+"{ohref}δημιουργήστε ένα{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -689,7 +694,7 @@ msgstr "Μεταγλώττιση Διεύθυνσης Δικτύου"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Ενεργοποιήστε το εάν αυτός ο διακομιστής VPN δεν είναι ο προεπιλεγμένος"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -1060,7 +1065,7 @@ msgstr "Απομακρυσμένο πιστοποιητικό"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1490
 #: ../../main/ipsec/src/EBox/IPsec.pm:372
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Η διαδικασία αρχικοποίησης ολοκληρώθηκε"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate issuer not authorized"
@@ -20325,6 +20330,8 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+"Επιθυμείτε να επιβλέψετε και να διαχειριστείτε τους διακομιστές σας και τα "
+"desktop από απόσταση;  Προμηθευτείτε μία από τις {oh}Εμπορικές Εκδόσεις{ch}!"
 
 #, fuzzy
 #~ msgid "Failed to update: {err}."
