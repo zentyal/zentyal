@@ -16,46 +16,44 @@
 
 use strict;
 use warnings;
-use File::Slurp;
+
+my $safeSearchPath = '/etc/squid3/safesearch';
+my $edufilterPath = '/etc/squid3/edufilter';
 
 my %substByDomain;
 
-sub _log
+# for the moment we read only one line
+sub _readFile
 {
-    my ($msg) = @_;
-    system "echo '$msg' >> /tmp/log";
-}
-
-my $safeSearch;
-my $safeSearchPath = '/etc/squid3/safesearch';
-if (-r $safeSearchPath) {
-    _log("Safe search file found");
-    $safeSearch = File::Slurp::read_file($safeSearchPath);
-    _log("safeSearc contents: $safeSearch");
-    if ($safeSearch) {
-        _log("Adding safe search domains");
-        %substByDomain = (
-            'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
-            'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
-            'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
-           );
+    my ($path) = @_;
+    my $FH;
+    if (not -r $path) {
+        return undef;
     }
-}
-    _log("safeSearch : " . ($safeSearch ? 'Y' : 'N'));
 
-
-my $edufilter;
-my $edufilterPath = '/etc/squid3/edufilter';
-if (-r $edufilterPath) {
-    _log("edu file found");
-    $edufilter = File::Slurp::read_file($edufilterPath);
-    _log("Safe search file contents: $edufilter");
-    if ($edufilter) {
-        _log("Adding youtube domains");
-        $substByDomain{youtube} =  [qr{([?&])edufilter=[^&]*}, "edufilter=$edufilter"],
+    my $opened = open($FH, '<', $path);
+    if (not $opened) {
+        return undef;
     }
+    my $contents = <$FH>;
+    close $FH;
+
+    return $contents;
 }
-    _log("edufiler : " . ($edufilter ? 'Y' : 'N'));
+
+my $safeSearch = _readFile($safeSearchPath);
+if ($safeSearch) {
+    %substByDomain = (
+        'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
+        'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
+        'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
+       );
+}
+
+my $edufilter     = _readFile($edufilterPath);
+if ($edufilter) {
+    $substByDomain{youtube} =  [qr{([?&])edufilter=[^&]*}, "edufilter=$edufilter"],
+}
 
 $| = 1;
 while (1) {
@@ -69,10 +67,8 @@ while (1) {
     $url =~ m{^.*?//(.*?)[/?]};
     my @parts = split('\.', $1);
     my $domain = $parts[-2];
-    _log("$url -> domain $domain");
     if ($domain and exists $substByDomain{$domain}) {
         my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
-        _log("Domain foun $domain -> $removeRe $replacement");
         my $replaced = $url =~ s/$removeRe/$1$replacement/;
         if (not $replaced) {
             if ($url =~ m/\?/) {
@@ -80,11 +76,9 @@ while (1) {
             } else {
                 $url .= '?';
             }
-
             $url .= $replacement;
         }
 
-        _log("RESPONSE: $url");
         $response = $url;
     }
 
