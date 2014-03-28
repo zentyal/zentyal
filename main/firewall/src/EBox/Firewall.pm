@@ -185,6 +185,12 @@ sub _enforceServiceState
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
     if($self->isEnabled()) {
+        foreach my $mod (@{ $self->global()->modInstancesOfType('EBox::FirewallObserver') }) {
+            my $helper = $mod->firewallHelper();
+            if ($helper) {
+                $helper->beforeFwRestart();
+            }
+        }
         $ipt->start();
     } else {
         $ipt->stop();
