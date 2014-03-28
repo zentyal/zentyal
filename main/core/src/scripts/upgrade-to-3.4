@@ -47,8 +47,6 @@ done
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
 sed -i 's/precise/saucy/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
-echo "deb http://archive.zentyal.org/zentyal 3.4-proposed main" >> /etc/apt/sources.list
-echo "deb http://ppa.launchpad.net/jacalvo/ppa/ubuntu saucy main" >> /etc/apt/sources.list
 upgrade
 
 echo; echo "Forcing pending packages installation..."; echo
