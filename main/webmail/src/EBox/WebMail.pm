@@ -357,6 +357,25 @@ sub actions
            ];
 }
 
+# Method: initialSetup
+#
+#     Perform the required migrations
+#
+# Overrides:
+#
+#     <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        EBox::Sudo::silentRoot('ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available');
+        EBox::Sudo::silentRoot('php5enmod mcrypt');
+    }
+
+}
+
 # Method: enableActions
 #
 #        Run those actions explain by <actions> to enable the module
