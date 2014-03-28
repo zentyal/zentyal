@@ -66,6 +66,10 @@ sub row
 {
     my ($self, $name)  = @_;
 
+    if (not defined ($self->{clusterStatus})) {
+        $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
+    }
+
     my %node = %{ $self->{clusterStatus}->nodeByName($name) };
 
     my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());

@@ -65,6 +65,10 @@ sub row
 {
     my ($self, $id)  = @_;
 
+    if (not defined ($self->{clusterStatus})) {
+        $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
+    }
+
     my @errors = @{$self->{clusterStatus}->errors()};
     my %error = %{$errors[$id]};
 
