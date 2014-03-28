@@ -1,4 +1,5 @@
 HEAD
+	+ Decode strings coming from LDAP to handle non-ASCII values correctly
 	+ Share group name validation code with users code
 	+ s4sync is stopped before samba daemon to prevent ldb connection errors
 	+ s4sync run timestamp is saved only if it doesn't break with an error at

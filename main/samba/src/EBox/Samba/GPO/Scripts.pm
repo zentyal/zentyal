@@ -31,8 +31,9 @@ use EBox::Gettext;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+
+use Encode qw(encode decode decode_utf8);
 use Parse::RecDescent;
-use Encode qw(encode decode);
 
 # Constant: GRAMMAR_SCRIPTS_INI
 #
@@ -258,7 +259,7 @@ sub read
     my $gpo = $self->gpo();
     my $gpoFilesystemPath = $gpo->path();
 
-    my $host = $gpo->_ldap->rootDse->get_value('dnsHostName');
+    my $host = decode_utf8($gpo->_ldap->rootDse->get_value('dnsHostName'));
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
@@ -326,7 +327,7 @@ sub write
     my $gpo = $self->gpo();
     my $gpoFilesystemPath = $gpo->path();
 
-    my $host = $gpo->_ldap->rootDse->get_value('dnsHostName');
+    my $host = decode_utf8($gpo->_ldap->rootDse->get_value('dnsHostName'));
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
