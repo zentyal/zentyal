@@ -1,4 +1,5 @@
 HEAD
+	+ Decode strings coming from LDAP to handle non-ASCII values correctly
 	+ Updated the view code to use
 	  EBox::Users::InetOrgPerson::generatedFullname API
 	+ Documented and made EBox::Users::InetOrgPerson::generatedFullname method
