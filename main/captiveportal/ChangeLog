@@ -1,4 +1,5 @@
 HEAD
+	+ Stop captive portal on firewall restart
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
 	+ Fixed restricted login by group
 	+ Don't show iptables error on Captive Daemon if debug is not enabled
