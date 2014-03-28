@@ -16,13 +16,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1396
+#: ../../main/mail/src/EBox/Mail.pm:1415
 msgid "disabled"
 msgstr "отключено"
 
@@ -158,7 +158,7 @@ msgstr "Клиент {name}"
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:224
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:388
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
-#: ../../main/core/src/EBox/Model/DataTable.pm:4354
+#: ../../main/core/src/EBox/Model/DataTable.pm:4357
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:217
@@ -178,7 +178,7 @@ msgstr "Включено"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:177
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:270
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:64
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -372,7 +372,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:234
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:303
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
@@ -1027,7 +1027,7 @@ msgstr "Каноническое имя"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1413
+#: ../../main/mail/src/EBox/Mail.pm:1432
 msgid "Address"
 msgstr "Адрес"
 
@@ -1049,7 +1049,7 @@ msgstr "Демоны OpenVPN"
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:303
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:99
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:403
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:71
@@ -1059,13 +1059,13 @@ msgstr "Демоны OpenVPN"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:763
-#: ../../main/samba/src/EBox/Samba.pm:1596
-#: ../../main/samba/src/EBox/Samba.pm:1616
-#: ../../main/samba/src/EBox/Samba.pm:1627
+#: ../../main/samba/src/EBox/Samba.pm:1599
+#: ../../main/samba/src/EBox/Samba.pm:1619
+#: ../../main/samba/src/EBox/Samba.pm:1630
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:365
-#: ../../main/mail/src/EBox/Mail.pm:1506
+#: ../../main/mail/src/EBox/Mail.pm:1525
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1083,7 +1083,7 @@ msgstr "Дата"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1481
 #: ../../main/ips/src/EBox/IPS.pm:313 ../../main/ips/src/EBox/IPS.pm:336
 #: ../../main/printers/src/EBox/Printers.pm:367
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:405
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:606
 #: ../../main/radius/src/EBox/Radius.pm:340
 #: ../../main/dhcp/src/EBox/DHCP.pm:977
@@ -1092,13 +1092,13 @@ msgstr "Дата"
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/squid/src/EBox/Squid.pm:1141
 #: ../../main/ipsec/src/EBox/IPsec.pm:366
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1535
 msgid "Event"
 msgstr "Событие"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:1621
+#: ../../main/samba/src/EBox/Samba.pm:1624
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:156
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1163,7 +1163,7 @@ msgid "High Availability"
 msgstr "Доступен"
 
 #: ../../main/ha/src/EBox/HA.pm:114 ../../main/core/src/EBox/SysInfo.pm:112
-#: ../../main/core/src/EBox/Report/DiskUsage.pm:182
+#: ../../main/core/src/EBox/Report/DiskUsage.pm:180
 #: ../../main/core/src/EBox/HAProxy.pm:298
 #: ../../main/ebackup/src/EBox/EBackup.pm:870
 msgid "System"
@@ -1254,7 +1254,7 @@ msgstr "Ошибка"
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:318
 #: ../../main/network/src/EBox/Network.pm:4470
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1398 ../../main/mail/src/EBox/Mail.pm:1515
+#: ../../main/mail/src/EBox/Mail.pm:1417 ../../main/mail/src/EBox/Mail.pm:1534
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1512,7 +1512,7 @@ msgid "resources"
 msgstr "Ресурсы"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
-#: ../../main/samba/src/EBox/Samba.pm:1600
+#: ../../main/samba/src/EBox/Samba.pm:1603
 msgid "Resource"
 msgstr "Ресурс"
 
@@ -1838,7 +1838,7 @@ msgid "Description"
 msgstr "Описание"
 
 #: ../../main/ips/src/EBox/IPS.pm:310
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:404
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:416
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:305
 #: ../../main/core/src/EBox/Events.pm:437
@@ -1892,12 +1892,12 @@ msgid "Failure reason"
 msgstr "Причина сбоя"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:409
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
 msgid "Success"
 msgstr "Удачно"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:409
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
 msgid "Failure"
 msgstr "Сбой"
 
@@ -2017,22 +2017,22 @@ msgstr "Конфигурация клиента"
 msgid "Listening ports configuration settings updated."
 msgstr "Настройки квоты сервера Zarafa изменены."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:91
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
 msgstr "Имена виртуальных хостов"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:95
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:131
 msgid "Virtual host"
 msgstr "Виртуальный хост"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:107
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
 msgid "You need to enable Listening SSL port."
 msgstr "Вам необходимо включить прослушивание SSL порта."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:112
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
@@ -2041,7 +2041,7 @@ msgstr ""
 "Вы должны включить веб-сервер в {ohref}Сертификаты служб{chref} включить SSL "
 "на виртуальном хосте."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:167
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
@@ -2050,7 +2050,7 @@ msgstr ""
 "Виртуальный хост {vhost} добавлен. Домен {domain} был создан с отображаемым "
 "именем {name} - IP-адресом {ip}. {noDnsWarning} "
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:175
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
@@ -2059,7 +2059,7 @@ msgstr ""
 "Виртуальный хост {vhost} добавлен. Домен {domain} был создан с отображаемым "
 "именем {name} - IP-адресом {ip}. {noDnsWarning} "
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:197
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
@@ -2068,34 +2068,34 @@ msgstr ""
 "Виртуальный хост {vhost} добавлен. Отображаемое имя name {name} - IP-адрес "
 "{ip} были добавлены в домен {domain}."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:205
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
 #, perl-brace-format
 msgid "Virtual host {vhost} added."
 msgstr "Виртуальный хост {vhost} добавлен."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:119
 msgid "Allow SSL"
 msgstr "Разрешить SSL"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:272
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:286
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:120
 msgid "Force SSL"
 msgstr "Требовать SSL"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:296
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:310
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:153
 msgid "SSL support"
 msgstr "Поддержка SSL"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:313
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
 msgid "Virtual hosts"
 msgstr "Виртуальные хосты"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
 #, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -2111,11 +2111,11 @@ msgstr ""
 "каталоге {docRoot}. Если необходимо добавить особые конфигурации используйте "
 "каталог {userConf}."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:333
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:347
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr "Виртуальный хост удалён. Файлы виртуального хоста останутся"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:351
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:365
 #, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -2284,7 +2284,7 @@ msgstr "Разрешить прозрачное кэширование DNS"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1242
+#: ../../main/samba/src/EBox/Samba.pm:1245
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2378,7 +2378,7 @@ msgstr "Этот домен"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:212
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:251
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:277
-#: ../../main/mail/src/EBox/Mail.pm:1411
+#: ../../main/mail/src/EBox/Mail.pm:1430
 msgid "Custom"
 msgstr "Пользовательский"
 
@@ -2525,7 +2525,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:1236
+#: ../../main/samba/src/EBox/Samba.pm:1239
 #: ../../main/squid/src/EBox/Squid.pm:1138
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2693,7 +2693,7 @@ msgid "Captive Portal"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:70
-#: ../../main/mail/src/EBox/Mail.pm:133
+#: ../../main/mail/src/EBox/Mail.pm:134
 msgid "Add LDAP schemas"
 msgstr "Добавить схемы LDAP"
 
@@ -3039,9 +3039,9 @@ msgstr "Использование полосы пропускания за ме
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:142
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
-#: ../../main/samba/src/EBox/Samba.pm:1598
-#: ../../main/samba/src/EBox/Samba.pm:1618
-#: ../../main/samba/src/EBox/Samba.pm:1629
+#: ../../main/samba/src/EBox/Samba.pm:1601
+#: ../../main/samba/src/EBox/Samba.pm:1621
+#: ../../main/samba/src/EBox/Samba.pm:1632
 #: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -3153,7 +3153,7 @@ msgid "Interface {if} set to {val} in bandwith monitor module"
 msgstr "Для интерфейса {if} установлен {val} в модуле пропускной способности"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1396
+#: ../../main/mail/src/EBox/Mail.pm:1415
 msgid "enabled"
 msgstr "включен"
 
@@ -3690,7 +3690,7 @@ msgstr "Сертификат со стандартным именем {cn} NOT �
 #: ../../main/zarafa/src/EBox/Zarafa.pm:766
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1447
+#: ../../main/mail/src/EBox/Mail.pm:1466
 msgid "General"
 msgstr "Основные"
 
@@ -3792,13 +3792,13 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:75
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:605
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:628
-#: ../../main/core/src/EBox/Model/DataTable.pm:1760
+#: ../../main/core/src/EBox/Model/DataTable.pm:1763
 #: ../../main/core/src/EBox/Model/Composite.pm:521
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:126
-#: ../../main/samba/src/EBox/Samba.pm:1599
+#: ../../main/samba/src/EBox/Samba.pm:1602
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4169,9 +4169,9 @@ msgid "Network"
 msgstr "Сеть"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:1597
-#: ../../main/samba/src/EBox/Samba.pm:1617
-#: ../../main/samba/src/EBox/Samba.pm:1628
+#: ../../main/samba/src/EBox/Samba.pm:1600
+#: ../../main/samba/src/EBox/Samba.pm:1620
+#: ../../main/samba/src/EBox/Samba.pm:1631
 msgid "Client address"
 msgstr "Адрес клиента"
 
@@ -4868,7 +4868,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:250
-#: ../../main/samba/src/EBox/Samba.pm:2426
+#: ../../main/samba/src/EBox/Samba.pm:2429
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr ""
@@ -5445,8 +5445,8 @@ msgstr "Статус обновления антивирусной базы"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:110
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:369
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:374
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:381
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:386
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
 msgstr "Антивирус"
@@ -5512,38 +5512,38 @@ msgstr ""
 msgid "Disable {app} profile for {bin} binary"
 msgstr "Отключить {app} профиль для {bin} бинарных приложений"
 
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:412
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:424
 #, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Настройки антивируса по умолчанию"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:34
+#: ../../main/sogo/src/EBox/SOGO.pm:38
 #, fuzzy
 msgid "OpenChange Webmail"
 msgstr "Изменить"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:73
+#: ../../main/sogo/src/EBox/SOGO.pm:103
 #, fuzzy
 msgid "Create MySQL webmail database."
 msgstr "Создать базу данных Roundcube webmail в MySQL."
 
-#: ../../main/sogo/src/EBox/SOGO.pm:74
+#: ../../main/sogo/src/EBox/SOGO.pm:104
 #, fuzzy
 msgid "This database will store the data needed by the webmail service."
 msgstr "Эта база данных содержит данные необходимые для Zarafa."
 
-#: ../../main/sogo/src/EBox/SOGO.pm:78
-#: ../../main/webmail/src/EBox/WebMail.pm:349
+#: ../../main/sogo/src/EBox/SOGO.pm:108
+#: ../../main/webmail/src/EBox/WebMail.pm:352
 msgid "Add webmail link to www data directory."
 msgstr "Добавить ссылку на веб-почту в каталог www."
 
-#: ../../main/sogo/src/EBox/SOGO.pm:79
+#: ../../main/sogo/src/EBox/SOGO.pm:109
 #, fuzzy
 msgid "WebMail UI will be accesible at http://ip/webmail/."
 msgstr "Веб-почта теперь доступна по адресу http://ip/webmail/."
 
-#: ../../main/sogo/src/EBox/SOGO.pm:99
-#: ../../main/webmail/src/EBox/WebMail.pm:372
+#: ../../main/sogo/src/EBox/SOGO.pm:129
+#: ../../main/webmail/src/EBox/WebMail.pm:375
 #, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
@@ -6684,7 +6684,7 @@ msgstr "Пожалуйста подтвердите удаление следу�
 #: ../../main/network/src/templates/ifaces.mas:292
 #: ../../main/core/src/templates/ajax/tableBody.mas:451
 #: ../../main/core/src/templates/ajax/row.mas:96
-#: ../../main/core/src/templates/dataInUse.mas:32
+#: ../../main/core/src/templates/dataInUse.mas:36
 #: ../../main/software/src/templates/ebox.mas:334
 #: ../../main/samba/src/templates/samba.mas:30
 #: ../../main/samba/src/templates/delgplink.mas:20
@@ -7027,12 +7027,12 @@ msgstr "Аварийное Восстановление"
 msgid "Data to back up"
 msgstr "Резервная копия данных"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
 #, fuzzy
 msgid "data domain"
 msgstr "Статический домен"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:144
 #, fuzzy
 msgid "Select the data you want to back up."
 msgstr "Выберите домены, которые вы хотите зарезервировать."
@@ -8872,7 +8872,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
-#: ../../main/mail/src/EBox/Mail.pm:1410 ../../main/mail/src/EBox/Mail.pm:1417
+#: ../../main/mail/src/EBox/Mail.pm:1429 ../../main/mail/src/EBox/Mail.pm:1436
 msgid "Filter type"
 msgstr "Тип фильтра"
 
@@ -9146,40 +9146,40 @@ msgstr ""
 "Удалённый виртуальный узел был выбран для Веб-почты. Возможно вам необходимо "
 "выбрать другой."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:210
+#: ../../main/webmail/src/EBox/WebMail.pm:213
 msgid "Neither IMAP nor IMAPS service enabled."
 msgstr "Ни одна из служб IMAP или IMAPS не включена."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:311
+#: ../../main/webmail/src/EBox/WebMail.pm:314
 msgid "To configure Roundcube webmail."
 msgstr "Для конфигурации веб-почты roundcube."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:316
+#: ../../main/webmail/src/EBox/WebMail.pm:319
 #, fuzzy
 msgid "To customize PHP for the webmail."
 msgstr "Для настройки голосовой почты."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:321
+#: ../../main/webmail/src/EBox/WebMail.pm:324
 msgid "To configure managesieve Roundcube webmail plugin."
 msgstr "Для конфигурации плагина веб-почты managesieve roundcube."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:328
+#: ../../main/webmail/src/EBox/WebMail.pm:331
 msgid "To configure the webmail on the webserver."
 msgstr "Для настройки веб-почты на веб-сервере."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:344
+#: ../../main/webmail/src/EBox/WebMail.pm:347
 msgid "Create MySQL Roundcube webmail database."
 msgstr "Создать базу данных Roundcube webmail в MySQL."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:345
+#: ../../main/webmail/src/EBox/WebMail.pm:348
 msgid "This database will store the data needed by Roundcube."
 msgstr "Эта база данных для хранения данных необходимых Roundcube."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:350
+#: ../../main/webmail/src/EBox/WebMail.pm:353
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Веб-почта теперь доступна по адресу http://ip/webmail/."
 
-#: ../../main/webmail/src/EBox/WebMail.pm:435
+#: ../../main/webmail/src/EBox/WebMail.pm:438
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
@@ -9283,7 +9283,7 @@ msgid "Groupware services (Zarafa)"
 msgstr "Groupware службы (Zarafa)"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:773
-#: ../../main/mail/src/EBox/Mail.pm:1454
+#: ../../main/mail/src/EBox/Mail.pm:1473
 msgid "Virtual Mail Domains"
 msgstr "Виртуальные почтовые домены"
 
@@ -9716,7 +9716,7 @@ msgstr "Диапазон {from}-{to} включает интерфейс с IP-�
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:176
-#: ../../main/mail/src/EBox/Mail.pm:1508
+#: ../../main/mail/src/EBox/Mail.pm:1527
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -9724,7 +9724,7 @@ msgstr "От"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:182
-#: ../../main/mail/src/EBox/Mail.pm:1509
+#: ../../main/mail/src/EBox/Mail.pm:1528
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -10621,7 +10621,7 @@ msgstr "Сообщите о проблеме"
 #: ../../main/core/src/templates/input/dialogCancel.mas:6
 #: ../../main/core/src/templates/logout/index.mas:18
 #: ../../main/core/src/templates/confirm-backup.mas:58
-#: ../../main/core/src/templates/dataInUse.mas:37
+#: ../../main/core/src/templates/dataInUse.mas:44
 #: ../../main/openchange/src/templates/migration/progress.mas:26
 #: ../../main/software/src/templates/del.mas:88
 #: ../../main/mail/src/templates/warnvd.mas:27
@@ -10984,7 +10984,7 @@ msgstr "Текущий пароль"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:70
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4181
+#: ../../main/core/src/EBox/Model/DataTable.pm:4184
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/jabber/src/templates/jabber.mas:26
 #: ../../main/users/src/templates/editgroup.mas:45
@@ -10993,7 +10993,8 @@ msgstr "Текущий пароль"
 #: ../../main/network/src/templates/ifaces.mas:184
 #: ../../main/zarafa/src/templates/zarafa.mas:74
 #: ../../main/core/src/templates/enable.mas:23
-#: ../../main/core/src/templates/dataInUse.mas:29
+#: ../../main/core/src/templates/dataInUse.mas:33
+#: ../../main/core/src/templates/dataInUse.mas:38
 #: ../../main/openchange/src/templates/openchange.mas:24
 #: ../../main/samba/src/templates/samba.mas:29
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
@@ -11013,7 +11014,7 @@ msgstr "Изменить пароль администратора"
 msgid "New passwords do not match."
 msgstr "Новые пароли не совпадают."
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:119
+#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:120
 msgid "Incorrect current password."
 msgstr "Неверный текущий пароль."
 
@@ -11089,7 +11090,7 @@ msgstr ""
 "Не правильная файловая система: {f}. Только постоянные и не сменные файловые "
 "системы доступны"
 
-#: ../../main/core/src/EBox/Report/DiskUsage.pm:178
+#: ../../main/core/src/EBox/Report/DiskUsage.pm:176
 #, fuzzy
 msgid "Free space"
 msgstr "Свободное пространство"
@@ -12313,55 +12314,55 @@ msgstr "Выбранная служба не включена в {file}"
 msgid "field"
 msgstr "поле"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2517
+#: ../../main/core/src/EBox/Model/DataTable.pm:2520
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Удалить {num} строк {rowName} из {model}{br}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2650
+#: ../../main/core/src/EBox/Model/DataTable.pm:2653
 msgid "Page size"
 msgstr "Размер страницы"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2652
+#: ../../main/core/src/EBox/Model/DataTable.pm:2655
 msgid "Must be either a positive number or zero"
 msgstr "Должно быть положительным числом или 0"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2761
+#: ../../main/core/src/EBox/Model/DataTable.pm:2764
 #, perl-brace-format
 msgid "New {name}"
 msgstr "Новый {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3146
+#: ../../main/core/src/EBox/Model/DataTable.pm:3149
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} добавленно"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3147
+#: ../../main/core/src/EBox/Model/DataTable.pm:3150
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} удаленно"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3148
+#: ../../main/core/src/EBox/Model/DataTable.pm:3151
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} обновлено"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3592
+#: ../../main/core/src/EBox/Model/DataTable.pm:3595
 #, fuzzy
 msgid "Search rows term"
 msgstr "Поиск в домене"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3594
+#: ../../main/core/src/EBox/Model/DataTable.pm:3597
 #, fuzzy
 msgid "Must be a valid regular expression"
 msgstr "регулярное выражение для исключения пути"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4687
+#: ../../main/core/src/EBox/Model/DataTable.pm:4690
 #, fuzzy
 msgid "Page 1"
 msgstr "Страница"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4689
+#: ../../main/core/src/EBox/Model/DataTable.pm:4692
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr ""
@@ -12398,7 +12399,7 @@ msgstr ""
 "Удаляеммые данные используются\n"
 "                    в следующих разделах:"
 
-#: ../../main/core/src/EBox/Model/Manager.pm:548
+#: ../../main/core/src/EBox/Model/Manager.pm:547
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -12690,7 +12691,7 @@ msgstr "Не настраивайте"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:119
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:132
-#: ../../main/openchange/src/EBox/OpenChange.pm:580
+#: ../../main/openchange/src/EBox/OpenChange.pm:582
 msgid "Setup"
 msgstr ""
 
@@ -12742,52 +12743,59 @@ msgstr ""
 msgid "Enable OpenChange account"
 msgstr "PDC/File sharing аккаунт"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:257
+#: ../../main/openchange/src/EBox/OpenChange.pm:259
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr " Настроить демона clamd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:262
+#: ../../main/openchange/src/EBox/OpenChange.pm:264
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Настроить почтовое имя хоста"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:267
+#: ../../main/openchange/src/EBox/OpenChange.pm:269
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Настроить dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:272
+#: ../../main/openchange/src/EBox/OpenChange.pm:274
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:586
+#: ../../main/openchange/src/EBox/OpenChange.pm:588
 #, fuzzy
 msgid "MailBox Migration"
 msgstr "Ручная настройка"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:713
+#: ../../main/openchange/src/EBox/OpenChange.pm:715
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:722
+#: ../../main/openchange/src/EBox/OpenChange.pm:724
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:806
+#: ../../main/openchange/src/EBox/OpenChange.pm:808
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Создание дампа конфигурации модуля {m}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:843
+#: ../../main/openchange/src/EBox/OpenChange.pm:820
+#, fuzzy
+msgid "System needs at least one external interface"
+msgstr "Вам необходим хотя-бы один внешний и один внутренний интерфейс"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:849
 #, perl-brace-format
-msgid "Cannot find this host in {oh}DNS domain {dom}{ch}"
+msgid ""
+"Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
+"external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:864
+#: ../../main/openchange/src/EBox/OpenChange.pm:870
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "Виртуальные почтовые домены"
@@ -13400,7 +13408,7 @@ msgid "GPO DN"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:1251
+#: ../../main/samba/src/EBox/Samba.pm:1254
 msgid "File Sharing"
 msgstr "Шаринг файлов"
 
@@ -14037,7 +14045,7 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Добавить исключения в настройки по умолчанию для корзины"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:1248
+#: ../../main/samba/src/EBox/Samba.pm:1251
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Групповая' политика"
@@ -14145,7 +14153,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:1245
+#: ../../main/samba/src/EBox/Samba.pm:1248
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Групповая' политика"
@@ -14369,82 +14377,82 @@ msgstr "Протокол файловых ресурсов (Samba)"
 msgid "Filesystem shares"
 msgstr "Использование файловой системы"
 
-#: ../../main/samba/src/EBox/Samba.pm:1497
+#: ../../main/samba/src/EBox/Samba.pm:1500
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1604
+#: ../../main/samba/src/EBox/Samba.pm:1607
 msgid "Connect"
 msgstr "Подключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:1605
+#: ../../main/samba/src/EBox/Samba.pm:1608
 msgid "Access to directory"
 msgstr "Доступ к каталогу"
 
-#: ../../main/samba/src/EBox/Samba.pm:1606
+#: ../../main/samba/src/EBox/Samba.pm:1609
 msgid "Read file"
 msgstr "Чтение файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:1607
+#: ../../main/samba/src/EBox/Samba.pm:1610
 msgid "Write file"
 msgstr "Запись файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:1608
+#: ../../main/samba/src/EBox/Samba.pm:1611
 msgid "Disconnect"
 msgstr "Отключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:1609
+#: ../../main/samba/src/EBox/Samba.pm:1612
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Удалить"
 
-#: ../../main/samba/src/EBox/Samba.pm:1610
+#: ../../main/samba/src/EBox/Samba.pm:1613
 msgid "Create directory"
 msgstr "Создать каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:1611
+#: ../../main/samba/src/EBox/Samba.pm:1614
 msgid "Remove directory"
 msgstr "Удалить каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:1612
+#: ../../main/samba/src/EBox/Samba.pm:1615
 msgid "Rename"
 msgstr "Переименовать"
 
-#: ../../main/samba/src/EBox/Samba.pm:1619
-#: ../../main/samba/src/EBox/Samba.pm:1630
+#: ../../main/samba/src/EBox/Samba.pm:1622
+#: ../../main/samba/src/EBox/Samba.pm:1633
 msgid "File name"
 msgstr "Имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:1620
-#: ../../main/samba/src/EBox/Samba.pm:1624
+#: ../../main/samba/src/EBox/Samba.pm:1623
+#: ../../main/samba/src/EBox/Samba.pm:1627
 msgid "Virus"
 msgstr "Вирус"
 
-#: ../../main/samba/src/EBox/Samba.pm:1631
+#: ../../main/samba/src/EBox/Samba.pm:1634
 msgid "Quarantined file name"
 msgstr "Карантинное имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:1632
 #: ../../main/samba/src/EBox/Samba.pm:1635
+#: ../../main/samba/src/EBox/Samba.pm:1638
 msgid "Quarantine"
 msgstr "Крантин"
 
-#: ../../main/samba/src/EBox/Samba.pm:1638
+#: ../../main/samba/src/EBox/Samba.pm:1641
 msgid "Samba access"
 msgstr "Доступ Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1649
+#: ../../main/samba/src/EBox/Samba.pm:1652
 msgid "Samba virus"
 msgstr "Вирус Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1660
+#: ../../main/samba/src/EBox/Samba.pm:1663
 msgid "Samba quarantine"
 msgstr "Карантин Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:2210
+#: ../../main/samba/src/EBox/Samba.pm:2213
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -15918,39 +15926,39 @@ msgstr "Настроить vsftpd с авторизацией LDAP."
 msgid "FTP"
 msgstr "FTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:84 ../../main/mail/src/EBox/Mail.pm:1381
-#: ../../main/mail/src/EBox/Mail.pm:1541
+#: ../../main/mail/src/EBox/Mail.pm:85 ../../main/mail/src/EBox/Mail.pm:1400
+#: ../../main/mail/src/EBox/Mail.pm:1560
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
 msgstr "Почта"
 
-#: ../../main/mail/src/EBox/Mail.pm:126
+#: ../../main/mail/src/EBox/Mail.pm:127
 msgid "Generate mail aliases"
 msgstr "Создать почтовые псевдонимы"
 
-#: ../../main/mail/src/EBox/Mail.pm:128
+#: ../../main/mail/src/EBox/Mail.pm:129
 #, perl-brace-format
 msgid "Zentyal will execute {cmd}"
 msgstr "Zentyal выполнит {cmd}"
 
-#: ../../main/mail/src/EBox/Mail.pm:135
+#: ../../main/mail/src/EBox/Mail.pm:136
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr "Добавить в Zentyal две схемы LDAP: authldap.schema и eboximail.schema."
 
-#: ../../main/mail/src/EBox/Mail.pm:141
+#: ../../main/mail/src/EBox/Mail.pm:142
 msgid "Create certificates"
 msgstr "Создать сертификаты"
 
-#: ../../main/mail/src/EBox/Mail.pm:143
+#: ../../main/mail/src/EBox/Mail.pm:144
 msgid "Zentyal will create certificates to use in mail services"
 msgstr "Zentyal создал сертификаты для использования в почтовых службах"
 
-#: ../../main/mail/src/EBox/Mail.pm:148
+#: ../../main/mail/src/EBox/Mail.pm:149
 msgid "Add fetchmail update cron job"
 msgstr "Добавить в cron обновление fethmail"
 
-#: ../../main/mail/src/EBox/Mail.pm:150
+#: ../../main/mail/src/EBox/Mail.pm:151
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
@@ -15958,64 +15966,69 @@ msgstr ""
 "Zentyal добавит задание в сron для обновления настроек fechmail`a когда "
 "пользователь добавит внешние ящики"
 
-#: ../../main/mail/src/EBox/Mail.pm:170
+#: ../../main/mail/src/EBox/Mail.pm:171
 msgid "To configure postfix"
 msgstr "Настроить postfix"
 
-#: ../../main/mail/src/EBox/Mail.pm:176
+#: ../../main/mail/src/EBox/Mail.pm:177
 msgid "To define how client programs connect to services in  postfix"
 msgstr "Определить какие клиентские программы соединены со службой  postfix"
 
-#: ../../main/mail/src/EBox/Mail.pm:183
+#: ../../main/mail/src/EBox/Mail.pm:184
 msgid "To configure host mail name"
 msgstr "Настроить почтовое имя хоста"
 
-#: ../../main/mail/src/EBox/Mail.pm:188
+#: ../../main/mail/src/EBox/Mail.pm:189
 msgid "To configure postfix aliases"
 msgstr "Настроить псевдонимы postfix"
 
-#: ../../main/mail/src/EBox/Mail.pm:193
+#: ../../main/mail/src/EBox/Mail.pm:194
 msgid "To configure dovecot"
 msgstr "Настроить dovecot"
 
-#: ../../main/mail/src/EBox/Mail.pm:198
+#: ../../main/mail/src/EBox/Mail.pm:199
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Настроить dovecot для аутентификации через LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:203
+#: ../../main/mail/src/EBox/Mail.pm:204
+#, fuzzy
+msgid "To configure dovecot to have a master password"
+msgstr "Настроить dovecot для аутентификации через LDAP"
+
+#: ../../main/mail/src/EBox/Mail.pm:209
 msgid "To configure smart host authentication"
 msgstr "Настроить узел проверки подлиности"
 
-#: ../../main/mail/src/EBox/Mail.pm:208
+#: ../../main/mail/src/EBox/Mail.pm:214
 msgid "To configure mail transports"
 msgstr "Настроить почтовый транспортный протокол"
 
-#: ../../main/mail/src/EBox/Mail.pm:213
+#: ../../main/mail/src/EBox/Mail.pm:219
 #, fuzzy
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Настроить dovecot для аутентификации через LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:250
+#: ../../main/mail/src/EBox/Mail.pm:260
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "Исходящая Почта (SMTP протокол)."
 
-#: ../../main/mail/src/EBox/Mail.pm:259
+#: ../../main/mail/src/EBox/Mail.pm:269
 msgid "Incoming Mail"
 msgstr "Входящая почта"
 
-#: ../../main/mail/src/EBox/Mail.pm:260
+#: ../../main/mail/src/EBox/Mail.pm:270
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "POP, IMAP и SIEVE протоколы"
 
-#: ../../main/mail/src/EBox/Mail.pm:269
+#: ../../main/mail/src/EBox/Mail.pm:279
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:270
+#: ../../main/mail/src/EBox/Mail.pm:280
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:745
+#: ../../main/mail/src/EBox/Mail.pm:764
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -16023,146 +16036,146 @@ msgstr ""
 "НЕ возможно использовать имя хоста как имя почтового сервера, так как оно не "
 "подходит. Пожалуста определите вручную имя почтового сервера"
 
-#: ../../main/mail/src/EBox/Mail.pm:750
+#: ../../main/mail/src/EBox/Mail.pm:769
 msgid "The mail name must be a fully qualified name"
 msgstr "Имя почтового сервера должно быть подходящим"
 
-#: ../../main/mail/src/EBox/Mail.pm:754 ../../main/mail/src/EBox/Mail.pm:765
-#: ../../main/mail/src/EBox/Mail.pm:773
+#: ../../main/mail/src/EBox/Mail.pm:773 ../../main/mail/src/EBox/Mail.pm:784
+#: ../../main/mail/src/EBox/Mail.pm:792
 msgid "Host mail name"
 msgstr "Имя почтового сервера"
 
-#: ../../main/mail/src/EBox/Mail.pm:768
+#: ../../main/mail/src/EBox/Mail.pm:787
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Имя почтового сервера и имя виртуального домена одинаковые"
 
-#: ../../main/mail/src/EBox/Mail.pm:1327
+#: ../../main/mail/src/EBox/Mail.pm:1346
 msgid "SMTP service"
 msgstr "Служба SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1334
+#: ../../main/mail/src/EBox/Mail.pm:1353
 msgid "POP3 service"
 msgstr "Служба POP3"
 
-#: ../../main/mail/src/EBox/Mail.pm:1340
+#: ../../main/mail/src/EBox/Mail.pm:1359
 msgid "POP3S service"
 msgstr "Служба POP3S"
 
-#: ../../main/mail/src/EBox/Mail.pm:1346
+#: ../../main/mail/src/EBox/Mail.pm:1365
 msgid "IMAP service"
 msgstr "Служба IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1352
+#: ../../main/mail/src/EBox/Mail.pm:1371
 msgid "IMAPS service"
 msgstr "Служба IMAPS"
 
-#: ../../main/mail/src/EBox/Mail.pm:1401
+#: ../../main/mail/src/EBox/Mail.pm:1420
 msgid "Mail server's filter"
 msgstr "Фильтр почтовых серверов"
 
-#: ../../main/mail/src/EBox/Mail.pm:1460
+#: ../../main/mail/src/EBox/Mail.pm:1479
 msgid "Greylist"
 msgstr "Серый список"
 
-#: ../../main/mail/src/EBox/Mail.pm:1466
+#: ../../main/mail/src/EBox/Mail.pm:1485
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Управление очередью"
 
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1511
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Почта получаемая с внешних почтовых аккаунтов"
 
-#: ../../main/mail/src/EBox/Mail.pm:1507
+#: ../../main/mail/src/EBox/Mail.pm:1526
 msgid "Message ID"
 msgstr "ID сообщения"
 
-#: ../../main/mail/src/EBox/Mail.pm:1510
+#: ../../main/mail/src/EBox/Mail.pm:1529
 msgid "From hostname"
 msgstr "С хоста"
 
-#: ../../main/mail/src/EBox/Mail.pm:1511
+#: ../../main/mail/src/EBox/Mail.pm:1530
 msgid "From host ip"
 msgstr "С ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1512
+#: ../../main/mail/src/EBox/Mail.pm:1531
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Размер (байт)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1513
+#: ../../main/mail/src/EBox/Mail.pm:1532
 msgid "Relay"
 msgstr "Пересылка"
 
-#: ../../main/mail/src/EBox/Mail.pm:1514
+#: ../../main/mail/src/EBox/Mail.pm:1533
 msgid "Message type"
 msgstr "Тип сообщения"
 
-#: ../../main/mail/src/EBox/Mail.pm:1517
+#: ../../main/mail/src/EBox/Mail.pm:1536
 msgid "Additional Info"
 msgstr "Дополнительная информация"
 
-#: ../../main/mail/src/EBox/Mail.pm:1528
+#: ../../main/mail/src/EBox/Mail.pm:1547
 msgid "Successful messages"
 msgstr "Успешное сообщение"
 
-#: ../../main/mail/src/EBox/Mail.pm:1529
+#: ../../main/mail/src/EBox/Mail.pm:1548
 msgid "Maximum message size exceeded"
 msgstr "Превышен максимальный размер сообщения"
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "User quota exceeded"
 msgstr "Превышена квота пользователя"
 
-#: ../../main/mail/src/EBox/Mail.pm:1531
+#: ../../main/mail/src/EBox/Mail.pm:1550
 msgid "Relay access denied"
 msgstr "Доступ к пересылке отклонен"
 
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1551
 msgid "Account does not exist"
 msgstr "Учетная запись не существует"
 
-#: ../../main/mail/src/EBox/Mail.pm:1533
+#: ../../main/mail/src/EBox/Mail.pm:1552
 msgid "Host unreachable"
 msgstr "Узел недоступен"
 
-#: ../../main/mail/src/EBox/Mail.pm:1534
+#: ../../main/mail/src/EBox/Mail.pm:1553
 msgid "Authentication error"
 msgstr "Ошибка аутентификации"
 
-#: ../../main/mail/src/EBox/Mail.pm:1535
+#: ../../main/mail/src/EBox/Mail.pm:1554
 msgid "Greylisted"
 msgstr "Серый список"
 
-#: ../../main/mail/src/EBox/Mail.pm:1536
+#: ../../main/mail/src/EBox/Mail.pm:1555
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1537
+#: ../../main/mail/src/EBox/Mail.pm:1556
 msgid "Other events"
 msgstr "Другие события"
 
-#: ../../main/mail/src/EBox/Mail.pm:1670 ../../main/mail/src/EBox/Mail.pm:1777
+#: ../../main/mail/src/EBox/Mail.pm:1689 ../../main/mail/src/EBox/Mail.pm:1796
 msgid "Mailboxes"
 msgstr "Почтовые ящики"
 
-#: ../../main/mail/src/EBox/Mail.pm:1697
+#: ../../main/mail/src/EBox/Mail.pm:1716
 msgid "Mail SMTP server"
 msgstr "Почтовый SMTP сервер"
 
-#: ../../main/mail/src/EBox/Mail.pm:1705
+#: ../../main/mail/src/EBox/Mail.pm:1724
 msgid "Mail POP/IMAP server"
 msgstr "Почтовый POP/IMAP сервер"
 
-#: ../../main/mail/src/EBox/Mail.pm:1822
+#: ../../main/mail/src/EBox/Mail.pm:1841
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1856
+#: ../../main/mail/src/EBox/Mail.pm:1875
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
@@ -16899,36 +16912,36 @@ msgstr "почтовый псевдоним учетной записи"
 msgid "Cannot connect to {smtp} mail server."
 msgstr "Не возможно подключится к {smtp} почтовому серверу."
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:80
+#: ../../main/mail/src/EBox/MailUserLdap.pm:98
 msgid "mail account"
 msgstr "почтовые учетные записи"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:289
+#: ../../main/mail/src/EBox/MailUserLdap.pm:307
 msgid "This group has a mail alias"
 msgstr "Эта группа имеет почтовый псевдоним"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:313
+#: ../../main/mail/src/EBox/MailUserLdap.pm:331
 msgid "This user has a mail account"
 msgstr "Этот пользователь имеет почтовую учетную запись"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:358
+#: ../../main/mail/src/EBox/MailUserLdap.pm:376
 msgid "Mail account"
 msgstr "Почтовая учетная запись"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:360
+#: ../../main/mail/src/EBox/MailUserLdap.pm:378
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Создать почтовый аккаунт"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:362
+#: ../../main/mail/src/EBox/MailUserLdap.pm:380
 msgid "Mail account settings"
 msgstr "Настройки почтовой учетной записи"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:402
+#: ../../main/mail/src/EBox/MailUserLdap.pm:420
 msgid "Mail alias settings"
 msgstr "Настройки почтового псевдонима"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:698
+#: ../../main/mail/src/EBox/MailUserLdap.pm:716
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Квота может быть только положительной или нулем для безлимитной квоты"
 
@@ -22576,9 +22589,6 @@ msgstr ""
 
 #~ msgid "Remove groups from user"
 #~ msgstr "Удалить пользователя из группы"
-
-#~ msgid "You need at least one internal interface and one external interface"
-#~ msgstr "Вам необходим хотя-бы один внешний и один внутренний интерфейс"
 
 #~ msgid ""
 #~ "No backups found in this server. Do you want to retry with a different "
