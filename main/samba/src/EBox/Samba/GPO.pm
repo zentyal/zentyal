@@ -31,14 +31,14 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Samba::LDAP::Control::SDFlags;
 
-use Encode qw(encode decode);
-use Parse::RecDescent;
 use Data::UUID;
-use Fcntl;
+use Encode qw(encode decode decode_utf8);
 use Error qw( :try );
+use Fcntl;
 use Net::LDAP::Control;
-use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
+use Parse::RecDescent;
 use Samba::Security::Descriptor;
+use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
 
 use constant STATUS_ENABLED                 => 0x00;
 use constant STATUS_USER_CONF_DISABLED      => 0x01;
@@ -188,7 +188,7 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
@@ -328,7 +328,7 @@ sub create
     my $versionNumber = 0;
 
     # Get dns host name
-    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal("Could not get the DNS host name");
     }
@@ -478,7 +478,7 @@ sub extensionUpdate
 {
     my ($self, $isUser, $cseGUID, $toolGUID) = @_;
 
-    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }

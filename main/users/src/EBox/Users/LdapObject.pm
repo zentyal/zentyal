@@ -32,6 +32,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
+use Encode qw(decode_utf8);
 use Error qw(:try);
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
@@ -114,14 +115,14 @@ sub get
 
     if (wantarray()) {
         my @value = $entry->get_value($attr);
+        my @decodedValues = ();
         foreach my $el (@value) {
-            utf8::decode($el);
+            push (@decodedValues, decode_utf8($el));
         }
-        return @value;
+        return @decodedValues;
     } else {
         my $value = $entry->get_value($attr);
-        utf8::decode($value);
-        return $value;
+        return decode_utf($value);
     }
 }
 

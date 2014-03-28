@@ -24,29 +24,26 @@ package EBox::Samba::User;
 
 use base 'EBox::Samba::SecurityPrincipal';
 
-use EBox::Global;
-use EBox::Gettext;
-
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
-use EBox::Exceptions::Internal;
-
-use EBox::Samba::Credentials;
-
+use EBox::Gettext;
+use EBox::Global;
 use EBox::Users::User;
+use EBox::Samba::Credentials;
 use EBox::Samba::Group;
 
-use Perl6::Junction qw(any);
+use Date::Calc;
 use Encode qw(encode);
+use Error qw(:try);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use Date::Calc;
-use Error qw(:try);
+use Net::LDAP::Util qw(canonical_dn);
+use Perl6::Junction qw(any);
 
-use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
 # UserAccountControl flags extracted from http://support.microsoft.com/kb/305144
@@ -334,7 +331,7 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $samAccountName = $args{samAccountName};
-    $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
+    EBox::Users::User->checkUsernameFormat($samAccountName);
 
     # Check the password length if specified
     my $clearPassword = $args{'clearPassword'};
@@ -343,10 +340,16 @@ sub create
     }
 
     my $name = $args{name};
+    EBox::Users::User->checkFullnameFormat($name);
     my $dn = "CN=$name," .  $args{parent}->dn();
+    my $canonicalDN = canonical_dn($dn);
+
+    unless ($canonicalDN) {
+        throw EBox::Exceptions::Internal(__x(q{'{dn}' is not a valid dn}, dn => $dn));
+    }
 
     # Check DN is unique (duplicated givenName and surname)
-    $class->_checkDnIsUnique($dn, $name);
+    $class->_checkDnIsUnique($canonicalDN, $name);
 
     $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('users');
@@ -356,11 +359,30 @@ sub create
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user']);
     push (@attr, cn          => $name);
     push (@attr, name        => $name);
-    push (@attr, givenName   => $args{givenName}) if ($args{givenName});
-    push (@attr, initials    => $args{initials}) if ($args{initials});
-    push (@attr, sn          => $args{sn}) if ($args{sn});
-    push (@attr, displayName => $args{displayName}) if ($args{displayName});
-    push (@attr, description => $args{description}) if ($args{description});
+    if ($args{givenName}) {
+        EBox::Users::User->checkFirstnameFormat($args{givenName});
+        push (@attr, givenName   => $args{givenName});
+    }
+    if ($args{initials}) {
+        EBox::Users::User->checkInitialsFormat($args{initials});
+        push (@attr, initials    => $args{initials});
+    }
+    if ($args{sn}) {
+        EBox::Users::User->checkSurnameFormat($args{sn});
+        push (@attr, sn          => $args{sn});
+    }
+    if ($args{displayName}) {
+        EBox::Users::User->checkDisplaynameFormat($args{displayName});
+        push (@attr, displayName => $args{displayName});
+    }
+    if ($args{description}) {
+        EBox::Users::User->checkDescriptionFormat($args{description});
+        push (@attr, description => $args{description});
+    }
+    if ($args{mail}) {
+        EBox::Users::User->checkMailFormat($args{mail});
+        push (@attr, mail => $args{mail});
+    }
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
     # All accounts are, by default Normal and disabled accounts.
@@ -369,10 +391,11 @@ sub create
     my $res = undef;
     my $entry = undef;
     try {
-        $entry = new Net::LDAP::Entry($dn, @attr);
+        $entry = new Net::LDAP::Entry($canonicalDN, @attr);
         my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
             unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
+                EBox::debug($entry->ldif());
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,
@@ -381,7 +404,7 @@ sub create
             };
         }
 
-        $res = new EBox::Samba::User(dn => $dn);
+        $res = new EBox::Samba::User(dn => $canonicalDN);
 
         # Set the password
         if (defined $args{clearPassword}) {
@@ -409,25 +432,6 @@ sub create
     };
 
     return $res;
-}
-
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-    $self->SUPER::_checkAccountName($name, $maxLength);
-    if ($name =~ m/^[[:space:]\.]+$/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot be only spaces and dots.')
-           );
-    } elsif ($name =~ m/@/) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' =>   __('Windows user names cannot contain the "@" character.')
-           );
-    }
 }
 
 sub _checkPwdLength

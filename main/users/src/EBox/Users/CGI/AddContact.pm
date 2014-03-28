@@ -20,9 +20,10 @@ package EBox::Users::CGI::AddContact;
 
 use base 'EBox::CGI::ClientPopupBase';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Users;
-use EBox::Gettext;
+use EBox::Users::Contact;
 
 sub new
 {
@@ -57,7 +58,7 @@ sub _process
 
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');
-        my $fullname = "$givenname $surname";
+        my $fullname = EBox::Users::Contact->generatedFullname(givenname => $givenname, surname => $surname);
 
         my $contact = EBox::Users::Contact->create(
             fullname => $fullname,

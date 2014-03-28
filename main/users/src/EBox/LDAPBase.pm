@@ -362,36 +362,6 @@ sub delAttribute # (dn, attribute);
     }
 }
 
-# Method: getAttribute
-#
-#       Get the value for the given attribute.
-#       If there are more than one, the first is returned.
-#
-# Parameters:
-#
-#       dn - object's dn
-#       attribute - attribute to get its value
-#
-# Returns:
-#       string - attribute value if present
-#       undef  - if attribute not present
-#
-# Exceptions:
-#
-#       Internal - If there is an error during the modification
-#
-sub getAttribute # (dn, attribute);
-{
-    my ($self, $dn, $attribute) = @_;
-
-    my %args = (base => $dn, filter => "$attribute=*");
-    my $result = $self->search(\%args);
-
-    return undef unless ($result->count > 0);
-
-    return $result->entry(0)->get_value($attribute);
-}
-
 # Method: isObjectClass
 #
 #      check if a object is member of a given objectclass

@@ -188,7 +188,7 @@ sub _preAddUser
     push (@args, description    => $description) if ($description);
     push (@args, mail           => $mail) if ($mail);
 
-    EBox::info("Creating user '$uid'");
+    EBox::info("Creating user '$uid' ($name)");
     my $sambaUser = EBox::Samba::User->create(@args);
     my $uidNumber = $sambaUser->xidNumber();
     unless (defined $uidNumber) {

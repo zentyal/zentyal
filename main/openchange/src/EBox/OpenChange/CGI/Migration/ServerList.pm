@@ -23,6 +23,8 @@ use base 'EBox::CGI::Base';
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
+
+use Encode qw(decode_utf8);
 use Error qw(:try);
 
 sub new
@@ -47,7 +49,7 @@ sub _process
         my $samba = EBox::Global->modInstance('samba');
         my $ldb = $samba->ldb();
         my $rootDN = $ldb->dn();
-        my $defaultNC = $ldb->rootDse->get_value('defaultNamingContext');
+        my $defaultNC = decode_utf8($ldb->rootDse->get_value('defaultNamingContext'));
         my $dnsDomain = join('.', grep(/.+/, split(/,?DC=/, $defaultNC)));
 
         my $result = $ldb->search({
@@ -60,8 +62,8 @@ sub _process
             $data .= qq{<li><span>$name</span></li>\n};
         } else {
             foreach my $entry ($result->entries()) {
-                my $name = lc ($entry->get_value('name') . ".$dnsDomain");
-                my $addr = $entry->get_value('');
+                my $name = lc (decode_utf8($entry->get_value('name')) . ".$dnsDomain");
+                my $addr = decode_utf8($entry->get_value(''));
                 $data .= qq{<li><span>$name</span>};
                 if (defined $addr and length $addr) {
                     $data .= qq{<span class="orange"> | $addr</span>}
