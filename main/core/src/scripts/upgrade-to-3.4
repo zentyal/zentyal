@@ -46,7 +46,7 @@ upgrade
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
-if dpkg --configure -a --force-conf-def
+if dpkg --configure -a --force-confdef
 then
     service zentyal haproxy restart
     /usr/share/zentyal/global-action --action saveAllModules
