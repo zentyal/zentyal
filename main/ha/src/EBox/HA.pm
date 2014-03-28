@@ -1231,28 +1231,33 @@ sub _createNetworkObject
 
     my $objectsModule = $self->global()->modInstance('objects');
 
-    if ($objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
-        EBox::debug('Deleting HA network object');
-        $objectsModule->model('ObjectTable')->removeRow(HA_NODES_OBJECT_ID);
-
-        # Deleting object members
-        # FIXME: Remove when fixed the recursive row deletion
-        my $modelDirectory = $objectsModule->model('ObjectTable')->{'directory'};
-        $objectsModule->delete_dir("$modelDirectory/" . HA_NODES_OBJECT_ID);
+    if (not $objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
+        EBox::debug('Creating HA network object');
+        $objectsModule->addObject(id => HA_NODES_OBJECT_ID, name => __('HA Nodes'), members => []);
+    } else {
+        EBox::debug('Removing existing nodes from HA network object');
+        $objectsModule->removeObjectMembers(HA_NODES_OBJECT_ID);
     }
 
-    EBox::debug('Creating HA network object');
     my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+    my $ip = $self->model('Nodes')->row($hostname)->valueByName('addr');
+    EBox::debug("Adding $hostname - $ip to the HA network object");
+    $self->_addHANetworkObjectNode($hostname, $ip);
+}
 
-    $objectsModule->addObject(
-        id => HA_NODES_OBJECT_ID,
-        name => __('HA Nodes'),
-        members => [{
-            name => $hostname,
+sub _addHANetworkObjectNode
+{
+    my ($self, $nodeName, $nodeIP) = @_;
+
+    my $objectsModule = $self->global()->modInstance('objects');
+
+    $objectsModule->addMemberToObject(HA_NODES_OBJECT_ID,
+        {
+            name => $nodeName,
             address_selected => 'ipaddr',
-            ipaddr_ip => $self->model('Nodes')->row($hostname)->valueByName('addr'),
-            ipaddr_mask => '32'
-        }]
+            ipaddr_ip => $nodeIP,
+            ipaddr_mask => '32',
+        }
     );
 }
 
