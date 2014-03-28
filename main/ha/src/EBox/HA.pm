@@ -1268,24 +1268,44 @@ sub _createFirewallRules
     my ($self) = @_;
 
     if ($self->global()->modExists('firewall')) {
-        EBox::debug('Creating HA firewall rule');
+        my $any = $self->global()->modInstance('services')->serviceId('any');
 
-        my $servicesModule = $self->global()->modInstance('services');
-        my $any = $servicesModule->serviceId('any');
+        if (not $self->_firewallRuleCreated()) {
+            my $rule = {
+                source_object => HA_NODES_OBJECT_ID,
+                source_selected => 'source_object',
+                service => $any,
+                decision => 'accept',
+                description => HA_FIREWALL_RULES_DESCRIPTION,
+            };
 
-        my $rule = {
-            source_object => HA_NODES_OBJECT_ID,
-            source_selected => 'source_object',
-            service => $any,
-            decision => 'accept',
-            description => HA_FIREWALL_RULES_DESCRIPTION,
-        };
+            EBox::debug('Creating HA firewall rule');
+            my $firewallModule = $self->global()->modInstance('firewall');
+            $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
 
-        my $firewallModule = $self->global()->modInstance('firewall');
-        $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
-
-        $firewallModule->save();
+            $firewallModule->save();
+        }
     }
+}
+
+sub _firewallRuleCreated
+{
+    my ($self) = @_;
+
+    my $ruleAlreadyExists = 0;
+
+    my $internalRulesModel = $self->global()->modInstance('firewall')->model('InternalToEBoxRuleTable');
+    my $any = $self->global()->modInstance('services')->serviceId('any');
+
+    for my $id (@{ $internalRulesModel->ids() }) {
+        if ($internalRulesModel->row($id)->valueByName('source') eq HA_NODES_OBJECT_ID
+                and $internalRulesModel->row($id)->valueByName('decision') eq 'accept'
+                and $internalRulesModel->row($id)->valueByName('service') eq $any) {
+            $ruleAlreadyExists = 1;
+        }
+    }
+
+    return $ruleAlreadyExists;
 }
 
 # Create and store the auth
