@@ -67,7 +67,7 @@ The server is currently unavailable while the upgrade is in progress. The proces
 </div>
 
 <div id="finished" class="note" style="display: none">
-Upgrade finished! You will be redirected to the login page of Zentyal 3.4 after closing this dialog.
+Upgrade finished! You will be redirected to the login page of Zentyal 3.4 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
 </div>
 
 <pre id="output" style="display: none; white-space: pre-wrap;">
