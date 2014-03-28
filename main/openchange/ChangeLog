@@ -1,3 +1,5 @@
+HEAD
+	+ Decode strings coming from LDAP to handle non-ASCII values correctly
 3.2.7
 	+ Prevent OpenChange provision if we don't have access to update the
 	  schema or it's already extended by another OpenChange / Exchange
