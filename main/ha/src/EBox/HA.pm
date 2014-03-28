@@ -1243,24 +1243,28 @@ sub _createNetworkObject
     my $ip = $self->model('Nodes')->row($hostname)->valueByName('addr');
     EBox::debug("Adding $hostname - $ip to the HA network object");
     $self->_addHANetworkObjectNode($hostname, $ip);
-
-    $objectsModule->save();
 }
 
 sub _addHANetworkObjectNode
 {
     my ($self, $nodeName, $nodeIP) = @_;
 
-    my $objectsModule = $self->global()->modInstance('objects');
+    try {
+        my $objectsModule = $self->global()->modInstance('objects');
 
-    $objectsModule->addMemberToObject(HA_NODES_OBJECT_ID,
-        {
-            name => $nodeName,
-            address_selected => 'ipaddr',
-            ipaddr_ip => $nodeIP,
-            ipaddr_mask => '32',
-        }
-    );
+        $objectsModule->addMemberToObject(HA_NODES_OBJECT_ID,
+            {
+                name => $nodeName,
+                address_selected => 'ipaddr',
+                ipaddr_ip => $nodeIP,
+                ipaddr_mask => '32',
+            }
+        );
+
+        $objectsModule->save();
+    } catch {
+        EBox::error('Error when creating a new HA nodes network object member');
+    }
 }
 
 sub _createFirewallRules
@@ -1279,11 +1283,15 @@ sub _createFirewallRules
                 description => HA_FIREWALL_RULES_DESCRIPTION,
             };
 
-            EBox::debug('Creating HA firewall rule');
-            my $firewallModule = $self->global()->modInstance('firewall');
-            $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
+            try {
+                EBox::debug('Creating HA firewall rule');
+                my $firewallModule = $self->global()->modInstance('firewall');
+                $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
 
-            $firewallModule->save();
+                $firewallModule->save();
+            } catch {
+                EBox::error('Error when creating HA firewall rule');
+            }
         }
     }
 }
