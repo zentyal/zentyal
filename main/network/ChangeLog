@@ -1,4 +1,4 @@
-HEAD
+3.2.6
 	+ Specifiy local address in failover tests to avoid vlan interface problems
 	+ Fix Dynamic DNS with Zentyal Remote as provider when the
 	  registration wizard is done
