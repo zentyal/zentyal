@@ -1035,14 +1035,6 @@ sub _daemons
             name => 'samba-ad-dc',
             precondition => $usingInternalServer
         },
-        {
-            name => 'zentyal.heimdal-kdc',
-            precondition => $usingInternalServer
-        },
-        {
-            name => 'zentyal.heimdal-kpasswd',
-            precondition => $usingInternalServer
-        },
     ];
 }
 
