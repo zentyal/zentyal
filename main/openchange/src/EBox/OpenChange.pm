@@ -33,6 +33,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
+use EBox::Samba qw(PRIVATE_DIR);
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
@@ -57,6 +58,7 @@ use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
+use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR . 'mapistore/master.password';
 
 # Method: _create
 #
@@ -937,29 +939,62 @@ sub _vdomainModImplementation
     return EBox::OpenChange::VDomainsLdap->new($self);
 }
 
-sub _getMySQLPassword
+# Method: _getPassword
+#
+#   Read a password file (one line, contents chomped) as root
+#
+sub _getPassword
 {
-    my $path = OPENCHANGE_MYSQL_PASSWD_FILE;
-    open(PASSWD, $path) or
-        throw EBox::Exceptions::Internal("Could not open $path to " .
-                "get Openchange MySQL password.");
+    my ($self, $path, $target) = @_;
 
-    my $pwd = <PASSWD>;
-    close(PASSWD);
+    try {
+        my ($pwd) = @{EBox::Sudo::root("cat \"$path\"")};
+        $pwd =~ s/[\n\r]//g;
+        return $pwd;
+    } catch($ex) {
+        EBox::error("Error trying to read $path '$ex'");
+        throw EBox::Exceptions::Internal("Could not open $path to get $target password.");
+    };
+}
 
-    $pwd =~ s/[\n\r]//g;
+# Method: getImapMasterPassword
+#
+#   We can login as any user on imap server with this, the first time
+#   this method is called a new password will be generated and put it
+#   on a file inside samba private directory (SOGo will look for this
+#   password there)
+#
+# Returns:
+#
+#   Password to use as master password for imap server. We can login
+#   as any user with this.
+#
+sub getImapMasterPassword
+{
+    my ($self) = @_;
 
-    return $pwd;
+    unless (EBox::Sudo::fileTest('-e', OPENCHANGE_IMAP_PASSWD_FILE)) {
+        # Generate password file
+        EBox::debug("Generating imap master password file");
+        my $parentDir = dirname(OPENCHANGE_IMAP_PASSWD_FILE);
+        EBox::Sudo::root("mkdir -p -m700 '$parentDir'");
+        my $generator = new String::Random();
+        my $pass = $generator->randregex('\w\w\w\w\w\w\w\w');
+        EBox::Module::Base::writeFile(OPENCHANGE_IMAP_PASSWD_FILE,
+            "$pass", { mode => '0640', uid => 'root', gid => 'ebox' });
+    }
+
+    return $self->_getPassword(OPENCHANGE_IMAP_PASSWD_FILE, "Imap master");
 }
 
 # Method: isProvisionedWithMySQL
 #
+#   Since Zentyal 3.4 MySQL backends are the default ones but on previous
+#   versions they didn't exist.
+#
 # Returns:
 #
 #   Whether OpenChange module has been provisioned using MySQL backends or not.
-#
-#   Since Zentyal 3.4 they are the default backends but on previous versions
-#   they didn't exist.
 #
 sub isProvisionedWithMySQL
 {
@@ -989,7 +1024,8 @@ sub connectionString
         EBox::Sudo::root(EBox::Config::scripts('openchange') .
                 'generate-database');
     }
-    my $pwd = $self->_getMySQLPassword();
+
+    my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
 
     return "mysql://openchange:$pwd\@localhost/openchange";
 }

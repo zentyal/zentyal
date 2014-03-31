@@ -1132,15 +1132,18 @@ sub _antivirusEnabled
 sub _daemons
 {
     return [
+        # s4sync daemon must be stoped before samba4 is stopped to prevent LDB errors to appear on logs
+        # thus, it should be first in this list. When it starts, it waits until Samba daemon is ready, so is
+        # not a problem when we start it first.
+        {
+            name => 'zentyal.s4sync',
+            precondition => \&_s4syncCond,
+        },
         {
             name => 'samba-ad-dc',
         },
         {
             name => 'nmbd',
-        },
-        {
-            name => 'zentyal.s4sync',
-            precondition => \&_s4syncCond,
         },
         {
             name => 'zentyal.sysvol-sync',

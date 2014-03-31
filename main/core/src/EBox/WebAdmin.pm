@@ -514,8 +514,6 @@ sub addModuleStatus
 #
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
-#      <EBox::Exceptions::Internal> - thrown if the given file does
-#      not exists
 #
 sub addNginxServer
 {
@@ -523,11 +521,6 @@ sub addNginxServer
 
     unless(defined($serverFilePath)) {
         throw EBox::Exceptions::MissingArgument('serverFilePath');
-    }
-    unless(-f $serverFilePath and -r $serverFilePath) {
-        throw EBox::Exceptions::Internal(
-            "File $serverFilePath cannot be read or it is not a file"
-        );
     }
     my @servers = @{$self->_nginxServers(0)};
     unless ( grep { $_ eq $serverFilePath } @servers) {
