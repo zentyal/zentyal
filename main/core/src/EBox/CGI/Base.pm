@@ -709,10 +709,8 @@ sub _validateReferer
     my $noActionParams = any('directory', 'page', 'pageSize', 'backview');
     foreach my $param (@{ $self->params() }) {
         if ($param eq $noActionParams) {
-            EBox::debug("XXX noAction pram: $param");
             next;
         } else {
-            EBox::debug("XXX ACTION pram: $param");
             $hasActionParam = 1;
             last;
         }
