@@ -28,11 +28,13 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 use EBox::Users::Contact;
 
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub mainObjectClass
 {
@@ -105,10 +107,7 @@ sub create
         }
 
         $res = new EBox::Samba::Contact(dn => $dn);
-
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -117,7 +116,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -156,12 +155,11 @@ sub addToZentyal
 
         my $zentyalContact = EBox::Users::Contact->create(%args);
         $self->_linkWithUsersObject($zentyalContact);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("Contact $name already in OpenLDAP database");
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error loading contact '$name': $error");
-    };
+    } catch ($e) {
+        EBox::error("Error loading contact '$name': $e");
+    }
 }
 
 sub updateZentyal

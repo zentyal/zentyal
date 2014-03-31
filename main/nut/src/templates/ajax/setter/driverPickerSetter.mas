@@ -30,7 +30,7 @@ my $driverValue = $data->driver();
 
 my $aux = undef;
 </%init>
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="<% $cssClass %> inline-input">
     <select name=<% $id . '_manufacturer' %>
             id=<% $id . '_manufacturer' %>
             onChange='manufacturerChanged(this)'
@@ -81,14 +81,14 @@ my $aux = undef;
           value="<% $driver %>"><% $driver %></option>
 %   }
 % }
-    </select>
-    <div id="extrainfo" style="margin: 10px">
+    </select><br>
+    <span id="extrainfo">
 %       my $str = '---';
 %       if (defined $aux) {
 %           my $str = $aux->{driverComments};
 %       }
-        <b>Additional information:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"><% $str %></span><br/>
-    </div>
+       Additional information: <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"><% $str %></span>
+    </span>
 <script type="text/javascript">
     var manufacturerselect = document.getElementById( "<% $id . '_manufacturer' %>" );
     var modelselect = document.getElementById( "<% $id . '_upsmodel' %>" );

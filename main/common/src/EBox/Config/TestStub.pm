@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,7 +22,7 @@ package EBox::Config::TestStub;
 use Test::MockObject;
 use Perl6::Junction qw(all);
 use EBox::Config;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # XXX: Derivated paths are totally decoupled from their base path (datadir, sysconfdir, localstatedir, libdir)
 # possible solution 1: rewrite EBox::Config so the derivated elements use a sub to get the needed element
@@ -50,12 +51,11 @@ sub _defaultConfig
             } else {
                 $value = $configKeySub_r->();
             }
+        } catch {
+            # ignore systems where configuration files are  not installed
+            $value = undef;
+            print "\n\nFailed: $key \n";;
         }
-        otherwise {
-          # ignore systems where configuration files are  not installed
-          $value = undef;
-          print "\n\nFailed: $key \n";;
-        };
 
         push @defaultConfig, ($key => $value );
     }
@@ -70,6 +70,7 @@ sub fake
     if (@fakedConfig > 0)  {
         setConfigKeys(@fakedConfig);
     }
+    *EBox::Config::home = sub { return '/tmp/' };
 }
 
 sub _checkFakeParams
@@ -106,7 +107,6 @@ sub setConfigKeys
 {
     my %fakedConfig = @_;
 
-    print "checkConfigKey\n\n";
     _checkConfigKeysParameters(@_);
 
     my @fakeSubs;

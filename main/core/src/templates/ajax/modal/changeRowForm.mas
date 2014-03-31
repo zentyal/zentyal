@@ -1,0 +1,103 @@
+<%flags>
+inherit => '/ajax/changeRowForm.mas'
+</%flags>
+<& SELF:_exec, @_ &>
+
+<%doc>
+We dont want title so we override this
+</%doc>
+<%method title>
+</%method>
+
+
+<%doc>
+   Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%args>
+$model
+$action
+$editid
+$filter
+$page
+$tpages
+</%args>
+<%init>
+  # Getting the arguments from the first request
+  my $requestArgs = $m->request_args();
+  my $selectCallerId = $requestArgs->{selectCallerId};
+  my $selectForeignField = $requestArgs->{selectForeignField};
+  my $nextPageContextName  = $requestArgs->{nextPageContextName};
+  my $foreignNextPageField  = $requestArgs->{foreignNextPageField};
+  my $changeView = $model->action('changeView');
+
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if ( not $editid );
+      $action = 'changeEdit' if ( $editid );
+  }
+</%init>
+<tr>
+  <td id="applyChanges">
+  </td>
+  <td id="<% $model->modelName() . '_buttons' %>">
+% if ( $action eq 'changeAdd' ) {
+<%perl>
+my $addOnClick;
+if ($foreignNextPageField) {
+    $addOnClick = $model->modalAddNewRowJS($page, $foreignNextPageField,
+                                           selectCallerId => $selectCallerId,
+                                           selectForeignField => $selectForeignField,
+                                           nextPageContextName =>  $nextPageContextName,
+                                                 );
+    $addOnClick .= ';';
+} else {
+    $addOnClick .=   'Zentyal.Dialog.close();' ;
+}
+$addOnClick .=  'return false';
+</%perl>
+    <& /input/submit.mas,
+        class => 'btn btn-icon btn-add',
+        type => 'submit',
+        name => 'add',
+        value => __('Add'),
+        title => 'Add',
+        onclick => $addOnClick,
+    &>
+% } elsif ($action eq 'changeEdit')  {
+<%perl>
+ my $editOnClick =  $model->changeRowJS($editid, $page) . ';' .
+                   'Zentyal.Dialog.close();' .
+                   'return false';
+</%perl>
+    <& /ajax/customActions.mas, model => $model, id => $editid &>
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'change',
+        value => __('Change'),
+        title => 'Change',
+       onclick => $editOnClick
+    &>
+% }
+% if ($changeView) {
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'cancel',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick  => 'Zentyal.Dialog.close(); return false'
+    &>
+% }
+  </td>
+</tr>
+
+</%method>
+

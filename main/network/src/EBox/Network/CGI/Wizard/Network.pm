@@ -22,7 +22,7 @@ use base 'EBox::CGI::WizardPage';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {
@@ -98,10 +98,9 @@ sub _processWizard
                                   ip        => $gw,
                                   weight    => 1,
                                   default   => $defaultGw);
-                } otherwise {
-                    my $ex = shift;
-                    EBox::warn("Could not add gateway $gw: $ex");
-                };
+                } catch ($e) {
+                    EBox::warn("Could not add gateway $gw: $e");
+                }
             }
 
             my $dnsModel = $net->model('DNSResolver');

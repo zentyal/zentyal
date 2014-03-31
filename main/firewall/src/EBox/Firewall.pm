@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -103,7 +104,7 @@ sub initialSetup
 
     # Create default rules only if installing the first time
     unless ($version) {
-        $self->setInternalService('administration', 'accept');
+        $self->setInternalService('zentyal_webadmin', 'accept');
         $self->setInternalService('ssh', 'accept');
 
         my $services = EBox::Global->modInstance('services');
@@ -222,7 +223,7 @@ sub removePortRedirectionsOnIface # (interface)
 
 # Method: availablePort
 #
-#       Checks if a port is available, i.e: it's not used by any module.
+#       Checks if a port is not configured to be used by any service
 #
 # Parameters:
 #
@@ -234,9 +235,32 @@ sub removePortRedirectionsOnIface # (interface)
 #
 #       boolean - true if it's available, otherwise undef
 #
-sub availablePort # (proto, port, interface)
+# Note:
+#    portUsedByService returns the information of what is using the port
+sub availablePort
 {
     my ($self, $proto, $port, $iface) = @_;
+    return not $self->portUsedByService($proto, $port, $iface);
+}
+
+
+# Method: portUsedByService
+#
+#       Checks if a port is configured to be used by a service
+#
+# Parameters:
+#
+#       proto - protocol
+#       port - port number
+#       interface - interface
+#
+# Returns:
+#
+#       false - if it is not used not empty string - if it is in use, the string
+#               contains the name of what is using it
+sub portUsedByService
+{
+   my ($self, $proto, $port, $iface) = @_;
     defined($proto) or return undef;
     ($proto ne "") or return undef;
     defined($port) or return undef;
@@ -248,8 +272,9 @@ sub availablePort # (proto, port, interface)
     # if it's an internal interface, check all services
     unless ($iface &&
             ($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
-        unless ($services->availablePort($proto, $port)) {
-            return undef;
+        my $used = $services->portUsedByService($proto, $port);
+        if ($used) {
+            return $used;
         }
     }
 
@@ -268,7 +293,8 @@ sub availablePort # (proto, port, interface)
             my $red = $self->{'RedirectsTable'}->row($id);
             ($red->valueByName('protocol') eq $proto) or next;
             ($red->valueByName('interface') eq $ifc) or next;
-            ($red->valueByName('external_port') eq $port) and return undef;
+            ($red->valueByName('external_port') eq $port) and
+                return __('port redirections');
         }
     }
 
@@ -277,10 +303,11 @@ sub availablePort # (proto, port, interface)
         $mod->can('usesPort') or
             next;
         if ($mod->usesPort($proto, $port, $iface)) {
-            return undef;
+            return $mod->printableName();
         }
     }
-    return 1;
+
+    return 0;
 }
 
 # Method: requestAvailablePort

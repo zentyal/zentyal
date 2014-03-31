@@ -22,12 +22,11 @@
 #include <arpa/inet.h>
 #include "bwstats.h"
 #include "dumpers/console.h"
-#include <libconfig.h++>
+#include <libconfig.h>
 
 #define DEBUG 0
 
 using namespace std;
-using namespace libconfig;
 
 char ERROR_BUF[PCAP_ERRBUF_SIZE];
 
@@ -38,7 +37,7 @@ const int TO_MS = 1000;
 const int CAPTURE_SIZE = 64;
 
 // Dump stats each X seconds
-long int DUMP_RATE = 600;
+int DUMP_RATE = 600;
 
 // Global packet stats
 BWStats stats;

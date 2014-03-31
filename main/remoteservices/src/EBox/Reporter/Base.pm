@@ -30,7 +30,7 @@ use EBox::DBEngineFactory;
 use EBox::Exceptions::NotImplemented;
 use EBox::Global;
 use EBox::RemoteServices::Report;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use File::Temp;
 use JSON::XS;
@@ -141,10 +141,9 @@ sub consolidate
         my $result = $self->_consolidate($beginTime, $endTime);
         $self->_storeResult($result) if ($result and (@{$result} > 0));
         $self->_beginTime($endTime);
-    } otherwise {
-        my ($exc) = @_;
-        EBox::error("Can't consolidate " . $self->name() . " : $exc");
-    };
+    } catch ($e) {
+        EBox::error("Can't consolidate " . $self->name() . " : $e");
+    }
     return 1;
 }
 
@@ -164,11 +163,13 @@ sub send
         my $result = File::Slurp::read_file($file);
         try {
             $self->{sender}->report($self->name(), $result);
-        } finally {
+        } catch ($e) {
             # If it fails, there is a journal ops to finish up the
             # sending at some point
-            unlink($file);
-        };
+            unlink ($file);
+            $e->throw();
+        }
+        unlink ($file);
     }
 }
 
@@ -182,14 +183,13 @@ sub log
 
     my $logTime = $self->_logTime();
     my $ret = [];
-    if ( $logTime + $self->logPeriod() < time() ) {
+    if ($logTime + $self->logPeriod() < time()) {
         try {
             $ret = $self->_log();
             $self->_logTime(time());
-        } otherwise {
-            my ($exc) = @_;
-            EBox::error('Cannot log ' . $self->name() . " : $exc");
-        };
+        } catch ($e) {
+            EBox::error('Cannot log ' . $self->name() . " : $e");
+        }
     }
     return $ret;
 }

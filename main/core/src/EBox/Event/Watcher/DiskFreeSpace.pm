@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,7 +33,7 @@ use EBox::Global;
 use EBox::FileSystem;
 
 use Filesys::Df;
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 
 use constant SPACE_THRESHOLD => 1024; # a file system is considered full with it has

@@ -20,17 +20,17 @@ package EBox::OpenChange::Model::Provision;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::Gettext;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Gettext;
 use EBox::MailUserLdap;
-use EBox::Types::Text;
-use EBox::Types::Select;
-use EBox::Types::MultiStateAction;
-use EBox::Types::Action;
 use EBox::Samba::User;
-use EBox::Exceptions::NotImplemented;
+use EBox::Types::MultiStateAction;
+use EBox::Types::Select;
+use EBox::Types::Text;
+use EBox::Types::Union;
 
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -43,6 +43,10 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
 
+    $self->{global} = EBox::Global->getInstance();
+    $self->{openchangeMod} = $self->{global}->modInstance('openchange');
+    $self->{organizations} = $self->{openchangeMod}->organizations();
+
     return $self;
 }
 
@@ -54,38 +58,48 @@ sub _table
 {
     my ($self) = @_;
 
-    my $tableDesc = [
-        new EBox::Types::Select(
-            fieldName => 'mode',
-            printableName => __('Provision type'),
-            editable => sub { $self->parentModule->isEnabled() and
-                              not $self->parentModule->isProvisioned() },
-            populate => \&_modeOptions),
-        new EBox::Types::Text(
-            fieldName => 'organizationname',
+    my @tableDesc = ();
+    if ($self->parentModule->isProvisioned()) {
+        push (@tableDesc, new EBox::Types::Text(
+            fieldName     => 'provisionedorganizationname',
             printableName => __('Organization Name'),
-            defaultValue => 'First Organization',
-            editable => sub { $self->parentModule->isEnabled() and
-                              not $self->parentModule->isProvisioned() }),
-        new EBox::Types::Text(
-            fieldName => 'administrativegroup',
-            printableName => __('Administrative Group'),
-            defaultValue => 'First Administrative Group',
-            editable => sub { $self->parentModule->isEnabled() and
-                              not $self->parentModule->isProvisioned() }),
-        new EBox::Types::Boolean(
-            fieldName => 'enableUsers',
-            printableName => __('Enable all users after provision'),
-            defaultValue => 1,
-            editable => sub { $self->parentModule->isEnabled() and
-                              not $self->parentModule->isProvisioned() }),
-        new EBox::Types::Boolean(
-            fieldName => 'registerAsMain',
-            printableName => __('Set this server as the primary server'),
-            defaultValue => 0,
-            editable => sub { $self->parentModule->isEnabled() and
-                              not $self->parentModule->isProvisioned() }),
-    ];
+            acquirer      => \&_acquireOrganizationNameFromState,
+            storer        => \&_emptyFunc,
+            volatile      => 1,
+            editable      => 0)
+        );
+    } else {
+        push (@tableDesc, new EBox::Types::Union(
+            fieldName     => 'organizationname',
+            printableName => __('Organization Name'),
+            editable      => 1,
+            subtypes      => [
+                new EBox::Types::Text(
+                    fieldName     => 'neworganizationname',
+                    printableName => __('New One'),
+                    defaultValue  => $self->_defaultOrganizationName(),
+                    editable      => 1),
+                new EBox::Types::Select(
+                    fieldName     => 'existingorganizationname',
+                    printableName => __('Existing One'),
+                    populate      => \&_existingOrganizationNames,
+                    editable      => 1),
+            ])
+        );
+        push (@tableDesc, new EBox::Types::Boolean(
+            fieldName     => 'enableUsers',
+            printableName => __('Enable OpenChange account for all existing users'),
+            defaultValue  => 0,
+            editable      => 1)
+        );
+# TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
+#        push (@tableDesc, new EBox::Types::Boolean(
+#            fieldName => 'registerAsMain',
+#            printableName => __('Set this server as the primary server'),
+#            defaultValue => 0,
+#            editable      => 1)
+#        );
+    }
 
     my $customActions = [
         new EBox::Types::MultiStateAction(
@@ -94,17 +108,19 @@ sub _table
             states => {
                 provisioned => {
                     name => 'deprovision',
-                    printableValue => __('Deprovision'),
+                    printableValue => __('Unconfigure'),
                     handler => \&_doDeprovision,
-                    message => __('Database deprovisioned'),
-                    enabled => sub { $self->parentModule->isEnabled() },
+                    message => __('Database unconfigured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { $self->parentModule->isProvisioned() },
                 },
                 notProvisioned => {
                     name => 'provision',
-                    printableValue => __('Provision'),
+                    printableValue => __('Setup'),
                     handler => \&_doProvision,
-                    message => __('Database provisioned'),
-                    enabled => sub { $self->parentModule->isEnabled() },
+                    message => __('Database configured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { not $self->parentModule->isProvisioned() },
                 },
             }
         ),
@@ -113,13 +129,13 @@ sub _table
 
     my $dataForm = {
         tableName          => 'Provision',
-        printableTableName => __('Provision'),
+        printableTableName => __('Setup'),
         pageTitle          => __('OpenChange Server Provision'),
         modelDomain        => 'OpenChange',
         #defaultActions     => [ 'editField' ],
         customActions      => $customActions,
-        tableDescription   => $tableDesc,
-        # FIXME help               => __(''),
+        tableDescription   => \@tableDesc,
+        help               => __('Setup an OpenChange Groupware server.'),
     };
 
     return $dataForm;
@@ -141,6 +157,16 @@ sub precondition
     unless ($samba->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
+    }
+    my $dmd = $samba->dMD();
+    unless ($dmd->ownedByZentyal()) {
+        # Samba is not managing the Schema of the Active Directory.
+        unless (defined $self->parentModule->configurationContainer()) {
+            # There is no an existing Exchange or OpenChange server already, and thus, we require to change the
+            # Schema but it's not possible.
+            $self->{preconditionFail} = 'schemaNotWritable';
+            return undef;
+        }
     }
     unless ($self->parentModule->isEnabled()) {
         $self->{preconditionFail} = 'notEnabled';
@@ -166,7 +192,7 @@ sub precondition
     }
 
     # Check there are not unsaved changes
-    if ($self->global->unsaved()) {
+    if ($self->global->unsaved() and (not $self->parentModule->isProvisioned())) {
         $self->{preconditionFail} = 'unsavedChanges';
         return undef;
     }
@@ -196,6 +222,12 @@ sub preconditionFailMsg
                   x => $samba->printableName(),
                   y => $self->parentModule->printableName());
     }
+    if ($self->{preconditionFail} eq 'schemaNotWritable') {
+        return __('Your setup is not supported by Zentyal right now. You need either, have a MS Exchange ' .
+                  'installed already or provision OpenChange on the Samba server that manages the Active ' .
+                  'Directory schema. This server is not able to manage the schema, and thus cannot modify ' .
+                  'it to apply the required changes by OpenChange.');
+    }
     if ($self->{preconditionFail} eq 'notEnabled') {
         return __x('You must enable the {x} module before provision the ' .
                    'database', x => $self->parentModule->printableName());
@@ -221,18 +253,16 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
-    my $standaloneParams = [qw/dn/];
-    my $adParams = [qw/dcHostname dcUser dcPassword dcPassword2/];
-
+    # FIXME: This code is not working with Union type.
     my $onChange = {
-        mode => {
-            first => {
-                show => ['organizationname', 'administrativegroup', 'enableUsers'],
-                hide => ['registerAsMain'],
+        organizationname => {
+            neworganizationname => {
+                show => [],
+                hide => ['enableUsers'],
             },
-            additional => {
-                show => ['registerAsMain'],
-                hide => ['organizationname', 'administrativegroup', 'enableUsers'],
+            existingorganizationname => {
+                show => ['enableUsers'],
+                hide => [],
             },
         },
     };
@@ -240,16 +270,35 @@ sub viewCustomizer
     return $customizer;
 }
 
-sub _modeOptions
+sub _defaultOrganizationName
 {
     my ($self) = @_;
 
-    my $modes = [];
+    my $default = 'First Organization';
 
-    push (@{$modes}, {value => 'first', printableValue => __('First Exchange Server') });
-    push (@{$modes}, {value => 'additional', printableValue => __('Additional Exchange Server') });
+    foreach my $organization (@{$self->{organizations}}) {
+        if ($organization->name() eq $default) {
+            # The default organization name is already used, return empty string
+            return '';
+        }
+    }
+    return $default;
+}
 
-    return $modes;
+sub _existingOrganizationNames
+{
+    my ($self) = @_;
+
+    my @existingOrganizations = ();
+    foreach my $organization (@{$self->{organizations}}) {
+        push (@existingOrganizations, {value => $organization->name(), printableValue => $organization->name()});
+    }
+    return \@existingOrganizations;
+}
+
+sub _emptyFunc
+{
+
 }
 
 sub _acquireProvisioned
@@ -260,84 +309,123 @@ sub _acquireProvisioned
     return ($provisioned) ? 'provisioned' : 'notProvisioned';
 }
 
-sub _doProvisionAdditional
+sub _acquireOrganizationNameFromState
 {
-    my ($self, $action, $id, %params) = @_;
+    my ($type) = @_;
 
-    my $registerAsMain = $params{registerAsMain};
-    try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision --additional';
-        if ($registerAsMain) {
-            $cmd .= ' --primary-server ';
-        }
-        my $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+    my $model     = $type->model();
+    my $module    = $model->parentModule();
+    my $state     = $module->get_state();
+    my $modelName = $model->name();
+    my $keyField  = 'organizationname';
+    my $value = $state->{$modelName}->{$keyField};
+    if (defined($value) and ($value ne '')) {
+        return $value;
+    }
+    return undef;
+}
 
-        $cmd = '/opt/samba4/sbin/openchange_provision --openchangedb';
-        $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+sub _storeOrganizationNameInState
+{
+    my ($self, $name) = @_;
 
-        $self->parentModule->setProvisioned(1);
-        $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my ($error) = @_;
-
-        throw EBox::Exceptions::External("Error provisioninig: $error");
-        $self->parentModule->setProvisioned(0);
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
-    };
+    my $model     = $self;
+    my $module    = $model->parentModule();
+    my $state     = $module->get_state();
+    my $modelName = $model->name();
+    my $keyField  = 'organizationname';
+    if ($name) {
+        $state->{$modelName}->{$keyField} = $name;
+    } else {
+        delete $state->{$modelName}->{$keyField};
+    }
+    $module->set_state($state)
 }
 
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
 
-    my $mode = $params{mode};
-    my $organizationName = $params{organizationname};
-    my $administrativeGroup = $params{administrativegroup};
+    my $organizationNameSelected = $params{organizationname_selected};
+    my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
+#    my $registerAsMain = $params{registerAsMain};
+    my $additionalInstallation = 0;
 
-    $self->setValue('mode', $mode);
-    $self->setValue('organizationname', $organizationName);
-    $self->setValue('administrativegroup', $administrativeGroup);
-    $self->setValue('enableUsers', $enableUsers);
+    unless ($organizationName) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
+    my $vdomains = $global->modInstance('mail')->model('VDomains')->size();
+    if ($vdomains == 0) {
+        throw EBox::Exceptions::External(
+            __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               )
+           );
+    }
 
-    if ($mode eq 'additional') {
-        $self->_doProvisionAdditional($action, $id, %params);
-        return;
+    my $configuration = $openchange->model('Configuration');
+    if (not $configuration->_rowStored()) {
+        my $defaultOutgoing = $configuration->value('outgoingDomain');
+        $configuration->setValue('outgoingDomain', $defaultOutgoing);
+    }
+
+    foreach my $organization (@{$self->{organizations}}) {
+        if ($organization->name() eq $organizationName) {
+            # The selected organization already exists.
+            $additionalInstallation = 1;
+        }
     }
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  "--standalone " .
-                  "--firstorg='$organizationName' " .
-                  "--firstou='$administrativeGroup' ";
+        my $cmd = "openchange_provision --firstorg='$organizationName' ";
+
+        if ($additionalInstallation) {
+            $cmd .= ' --additional ';
+#            if ($registerAsMain) {
+#                $cmd .= ' --primary-server ';
+#            }
+        } else {
+            $cmd .= ' --standalone ';
+        }
+
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+        my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
-        $cmd = '/opt/samba4/sbin/openchange_provision ' .
-               "--openchangedb " .
-               "--firstorg='$organizationName' " .
-               "--firstou='$administrativeGroup' ";
+        $cmd = "openchange_provision --openchangedb " .
+               "--openchangedb-uri='$openchangeConnectionString' ".
+               "--firstorg='$organizationName'";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
 
+        $self->_storeOrganizationNameInState($organizationName);
         $self->parentModule->setProvisioned(1);
+        # Force a form definition reload to load the new provisioned content.
+        $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
-    };
+    }
+
+    # Mark mail as changed to make dovecot listen IMAP protocol at least
+    # on localhost
+    $global->modChange('mail');
+    # Mark samba as changed to write smb.conf
+    $global->modChange('samba');
+    # Mark webadmin as changed so we are sure nginx configuration is
+    # refreshed with the new includes
+    $global->modChange('webadmin');
+    if ($openchange->_rpcProxyEnabled()) {
+        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
+        $global->modChange('webserver');
+        $global->modChange('haproxy');
+    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -346,17 +434,12 @@ sub _doProvision
         my $usersModule = $self->global->modInstance('users');
         my $users = $usersModule->users();
         foreach my $ldapUser (@{$users}) {
-            my $samAccountName = undef;
             try {
-                $samAccountName = $ldapUser->get('uid');
-                next unless defined $samAccountName;
+                my $ldbUser = $sambaModule->ldbObjectFromLDAPObject($ldapUser);
+                next unless $ldbUser;
+                my $samAccountName = $ldbUser->get('samAccountName');
 
-                my $ldbUser = new EBox::Samba::User(
-                    samAccountName => $samAccountName);
-                next unless $ldbUser->exists();
-
-                my $critical = $ldbUser->get('isCriticalSystemObject');
-                next if (defined $critical and $critical eq 'TRUE');
+                next if ($ldbUser->isCritical());
 
                 # Skip users with already defined mailbox
                 my $mailbox = $ldapUser->get('mailbox');
@@ -371,18 +454,17 @@ sub _doProvision
                 # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
                 unless (defined $ac and $ac == 0) {
-                    my $cmd = "/opt/samba4/sbin/openchange_newuser ";
+                    my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
                     my $output = EBox::Sudo::root($cmd);
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error enabling user $samAccountName: $error");
+            } catch ($error) {
+                EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
-            };
+            }
         }
     }
 }
@@ -391,20 +473,19 @@ sub _doDeprovision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationName = $params{organizationname};
-    my $administrativeGroup = $params{administrativegroup};
+    my $organizationName = $params{provisionedorganizationname};
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  '--deprovision ' .
-                  "--firstorg='$organizationName' " .
-                  "--firstou='$administrativeGroup' ";
+        my $cmd = 'openchange_provision --deprovision ' .
+                  "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        $cmd = 'rm -rf /opt/samba4/private/openchange.ldb';
-        my $output2 = EBox::Sudo::root($cmd);
-        $output .= "\n" . join('', @{$output2});
+        if ($self->parentModule->isProvisionedWithMySQL()) {
+            # It removes the file with mysql password and the user from mysql
+            EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                             'remove-database');
+        }
 
         # Drop SOGo database and db user. To avoid error if it does not exists,
         # the user is created and granted harmless privileges before drop it
@@ -416,18 +497,21 @@ sub _doDeprovision
         $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 
         $self->parentModule->setProvisioned(0);
-        EBox::info("Openchange deprovisioned:\n$output");
-        $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my ($error) = @_;
 
-        throw EBox::Exceptions::External("Error deprovisioninig: $error");
-        $self->parentModule->setProvisioned(1);
-    } finally {
         $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
-    };
+
+        $self->reloadTable();
+        EBox::info("Openchange deprovisioned:\n$output");
+        $self->setMessage($action->message(), 'note');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
+        $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
+    } catch ($error) {
+        throw EBox::Exceptions::External("Error deprovisioninig: $error");
+        $self->parentModule->setProvisioned(1);
+    }
 }
 
 1;

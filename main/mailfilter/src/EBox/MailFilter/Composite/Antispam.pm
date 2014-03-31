@@ -23,9 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Constants
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=mailfilter&utm_campaign=enterprise_edition';
-
 # Group: Public methods
 
 # Method: permanentMessage
@@ -88,8 +85,8 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx('Want to keep spam out of your mail servers? Get the {openhref}Enterprise Edition{closehref} that includes the Antispam feature in the automatic security updates.',
-                openhref  => '<a href="' . ENT_URL . '" target="_blank">', closehref => '</a>');
+    return __sx('Want to keep spam out of your mail servers? Get one of the {openhref}Commercial Editions{closehref} that includes the Antispam feature in the automatic security updates.',
+                openhref  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', closehref => '</a>');
 }
 
 1;

@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -29,6 +30,7 @@ use base 'EBox::Event::Component';
 
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Model::Manager;

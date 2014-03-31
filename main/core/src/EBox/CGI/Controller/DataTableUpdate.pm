@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -35,19 +36,20 @@ sub new
 
 sub _process
 {
-	my $self = shift;
+    my ($self) = @_;
 
-	$self->editAction();
+    $self->editAction();
 }
 
 sub _print
 {
-	my $self = shift;
+    my $self = shift;
 
-	if ($self->{'to_print'}) {
-		print($self->cgi()->header(-charset=>'utf-8'));
-		print $self->{'to_print'};
-	}
+    if ($self->{'to_print'}) {
+        my $response = $self->response();
+        $response->content_type('text/html; charset=utf-8');
+        $response->body($self->{'to_print'});
+    }
 
 }
 

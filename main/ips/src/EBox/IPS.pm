@@ -25,7 +25,7 @@ package EBox::IPS;
 
 use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Service;
@@ -112,7 +112,7 @@ sub enabledIfaces
     foreach my $row (@{$ifacesModel->enabledRows()}) {
         my $iface = $ifacesModel->row($row)->valueByName('iface');
         my $method = $net->ifaceMethod($iface);
-        next if ($method eq 'notset' or $method eq 'trunk');
+        next if (($method eq 'notset') or ($method eq 'trunk') or ($method eq 'bundled'));
         push (@ifaces, $iface);
     }
 

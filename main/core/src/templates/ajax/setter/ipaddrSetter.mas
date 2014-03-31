@@ -40,7 +40,7 @@ unless ( $defaultMaskValue ) {
 
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="inline-input <% $cssClass %>">
   <input type="text" class="inputText" value="<% $data->ip() %>"
 	size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>'
     <% $disabled ? 'disabled' : '' %> />

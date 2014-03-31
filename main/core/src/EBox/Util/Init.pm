@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::ServiceManager;
 use File::Slurp;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub moduleList
 {
@@ -96,7 +96,9 @@ sub stop
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'webadmin' } @names;
-    unshift(@names, 'webadmin');
+    @names = grep { $_ ne 'haproxy' } @names;
+    # haproxy is the last task to stop, or webadmin will not be available.
+    unshift(@names, 'webadmin', 'haproxy');
 
     EBox::info("Modules to stop: @names");
     foreach my $modname (reverse @names) {
@@ -127,28 +129,47 @@ sub moduleAction
         $mod->$action(restartModules => 1);
         $redis->commit() if ($redisTrans);
         $success = 0;
-    } catch EBox::Exceptions::Base with {
-        my $ex = shift;
+    } catch (EBox::Exceptions::Base $e) {
         $success = 1;
-        $errorMsg =  $ex->text();
+        $errorMsg =  $e->text();
         $redis->rollback() if ($redisTrans);
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         $success = 1;
-        $errorMsg = "$ex";
+        $errorMsg = "$e";
         $redis->rollback() if ($redisTrans);
-    };
+    }
 
     printModuleMessage($modname, $actionName, $success, $errorMsg);
 }
 
+# Procedure: status
+#
+#    Print the status of a module.
+#
+#        - RUNNING (enabled and running)
+#        - STOPPED (enabled and not running)
+#        - RUNNING UNMANAGED (disabled and running)
+#        - DISABLED (disabled and not running)
+#
+#    It exits from the application.
+#
+# Parameters:
+#
+#    modname - String the module name
+#
+# Exits:
+#
+#    0 - If the module is enabled
+#    2 - If the module is not valid or it is not a service one
+#    3 - If the module is disabled
+#
 sub status
 {
-    my ($modname, $action, $actionName) = @_;
+    my ($modname) = @_;
 
     my $mod = checkModule($modname); #exits if module is not manageable
 
-    my $msg = "EBox: status module $modname:\t\t\t";
+    my $msg = "Zentyal: status module $modname:\t\t\t";
     my $enabled = $mod->isEnabled();
     my $running = $mod->isRunning();
     if ($enabled and $running) {
@@ -164,6 +185,39 @@ sub status
         print STDOUT $msg . "[ DISABLED ]\n";
         exit 3;
     }
+}
+
+# Procedure: enabled
+#
+#    Print if a module is enabled
+#
+#        - ENABLED
+#        - DISABLED
+#
+#    It exits from the application.
+#
+# Parameters:
+#
+#    modname - String the module name
+#
+# Exits:
+#
+#    0 - If the module is enabled or disabled
+#    2 - If the module is not valid or it is not a service one
+#
+sub enabled
+{
+    my ($modname) = @_;
+
+    my $mod = checkModule($modname);
+
+    my $msg = "Zentyal module $modname:\t\t\t";
+    if ($mod->isEnabled()) {
+        print STDOUT $msg . "[ ENABLED ]\n";
+    } else {
+        print STDOUT $msg . "[ DISABLED ]\n";
+    }
+    exit 0;
 }
 
 sub _logActionFunction

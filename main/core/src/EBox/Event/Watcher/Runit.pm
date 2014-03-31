@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -35,7 +36,7 @@ use EBox::Service;
 use EBox::Global;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use Fcntl qw(:flock); # Import LOCK * constants
 
 # Group: Public methods

@@ -66,13 +66,24 @@ sub _process
         if ($editable) {
             $self->_requireParam('firstname', __('first name'));
             $self->_requireParam('surname', __('last name'));
+            $self->_requireParamAllowEmpty('displayname', __('display name'));
             $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('mail', __('E-mail'));
 
             my $givenName = $self->param('firstname');
             my $surname = $self->param('surname');
             my $mail = $self->param('mail');
-
+            if (length ($mail)) {
+                $contact->set('mail', $mail, 1);
+            } else {
+                $contact->delete('mail', 1);
+            }
+            my $displayname = $self->unsafeParam('displayname');
+            if (length ($displayname)) {
+                $contact->set('displayName', $displayname, 1);
+            } else {
+                $contact->delete('displayName', 1);
+            }
             my $description = $self->unsafeParam('description');
             if (length ($description)) {
                 $contact->set('description', $description, 1);
@@ -82,10 +93,13 @@ sub _process
 
             $contact->set('givenname', $givenName, 1);
             $contact->set('sn', $surname, 1);
-            $contact->set('mail', $mail, 1);
 
             $contact->save();
-            $self->{json}->{set_text} = $contact->fullname();
+            $self->{json}->{set_text} = $contact->displayname();
+            unless ($self->{json}->{set_text}) {
+                # displayname is not set, fallback to fullname.
+                $self->{json}->{set_text} = $contact->fullname();
+            }
         }
 
         $self->{json}->{success} = 1;

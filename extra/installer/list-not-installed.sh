@@ -1,5 +1,8 @@
 #!/bin/bash
 
+test -r build_cd.conf || exit 1
+. ./build_cd.conf
+
 ARCH=$1
 
 if [ "$ARCH" != "i386" -a "$ARCH" != "amd64" ]
@@ -21,7 +24,7 @@ dmsetup
 devmapper
 crypt
 linux-image
-generic-lts-raring
+headers-generic
 mdadm
 kpartx
 multipath
@@ -33,15 +36,15 @@ usbutils
 watershed
 wireless"
 
-CHROOT_INSTALLED_PACKAGES=$(sudo chroot ubuntu-precise-$ARCH/ dpkg -l|awk '{ print $2 }'|tail -n +6)
+CHROOT_INSTALLED_PACKAGES=$(sudo chroot $CHROOT_BASE-$ARCH/ dpkg -l|awk '{ print $2 }'|tail -n +6)
 
 PACKAGES_TO_INSTALL=$(cat data/extra-packages.list | xargs)
 
-CHROOT_ZENTYAL_PACKAGES=$(sudo chroot ubuntu-precise-$ARCH/ apt-get install --simulate --no-install-recommends -y --force-yes $PACKAGES_TO_INSTALL |grep ^Inst|awk '{ print $2 }')
+CHROOT_ZENTYAL_PACKAGES=$(sudo chroot $CHROOT_BASE-$ARCH/ apt-get install --simulate --no-install-recommends -y --force-yes $PACKAGES_TO_INSTALL |grep ^Inst|awk '{ print $2 }')
 
 echo $CHROOT_INSTALLED_PACKAGES $CHROOT_ZENTYAL_PACKAGES | tr ' ' "\n" > NO_DELETE
 
-for pkgfile in `find cd-image-$ARCH/pool/main -name "*.deb"`
+for pkgfile in `find $CD_BUILD_DIR_BASE-$ARCH/pool/main -name "*.deb"`
 do
     name=$(basename $pkgfile | cut -f1 -d_)
     if grep -q ^$name$ NO_DELETE
@@ -65,7 +68,7 @@ do
     fi
 done
 
-find cd-image-$ARCH/pool/main -depth -type d -empty -exec echo {} \;
+find $CD_BUILD_DIR_BASE-$ARCH/pool/main -depth -type d -empty -exec echo {} \;
 
 rm -f NO_DELETE
 

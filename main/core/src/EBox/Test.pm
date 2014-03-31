@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,7 +29,7 @@ use base 'Exporter';
 use Test::More;
 use Test::Builder;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Params::Validate;
 
 our @EXPORT_OK = ('checkModuleInstantiation', @deprecatedSubs);
@@ -68,9 +69,9 @@ sub checkModuleInstantiation
 
     try {
         $instance = $global->modInstance($moduleName);
-    } otherwise {
-        $modInstanceError = 1;;
-    };
+    } catch {
+        $modInstanceError = 1;
+    }
 
     if ($modInstanceError or !defined $instance) {
         $Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
@@ -96,9 +97,9 @@ sub checkModels
     foreach my $name (@modelsNames) {
         try {
             $mod->model($name);
-        } otherwise {
+        } catch {
             push @failedModels, $name;
-        };
+        }
     }
 
     my $modName = $mod->name();
@@ -117,9 +118,9 @@ sub checkComposites
     foreach my $name (@compositesNames) {
         try {
             $mod->composite($name);
-        } otherwise {
+        } catch {
             push @failedComposites, $name;
-        };
+        }
     }
 
     my $modName = $mod->name();

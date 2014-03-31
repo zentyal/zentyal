@@ -1,0 +1,12 @@
+<%args>
+  $module
+</%args>
+<%init>
+#  this is the no-modelized version of disabledModuleWarn.mas , current only used
+#  by network interfaces CGI
+my $disabledWarn = $module->disabledModuleWarning();
+$disabledWarn or return;
+</%init>
+<div class="warning">
+<% $disabledWarn %>
+</div>

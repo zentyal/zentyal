@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -23,25 +24,24 @@ use EBox::Exceptions::NotImplemented;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _vdomainModImplementation
 #
 #  All modules using any of the functions in LdapVDomainsBase.pm
 #  should override this method to return the implementation
-#	of that interface.
+#       of that interface.
 #
 # Returns:
 #
-#	An object implementing EBox::LdapVDomainsBase
+#       An object implementing EBox::LdapVDomainsBase
 sub _vdomainModImplementation
 {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
-1
-;
+1;

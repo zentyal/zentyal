@@ -30,10 +30,10 @@ use EBox::Exceptions::LDAP;
 use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use Net::LDAP::Control;
+use Net::LDAP::Control::Relax;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $_sambaMod;
 
@@ -63,11 +63,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|objectGUID");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|objectGUID");
+        }
     }
 
     return $self;
@@ -131,15 +129,18 @@ sub _stringToObjectGUID
 
 # Method: checkObjectErasability
 #
-#   Returns whether the object could be deleted or not.
+#   Whether the object can be deleted or not.
+#
+# Return
+#
+#   Boolean - Whether the object can be deleted or not.
+#
 sub checkObjectErasability
 {
     my ($self) = @_;
 
     # Refuse to delete critical system objects
-    my $isCritical = $self->get('isCriticalSystemObject');
-    return not ($isCritical and (lc ($isCritical) eq 'true'));
-
+    return not $self->isCritical();
 }
 
 # Method: deleteObject
@@ -156,6 +157,19 @@ sub deleteObject
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
+    }
+
+    # Delete all entry childs or LDAP server will refuse to delete the entry
+    my $searchParam = {
+        base => $self->_entry->dn(),
+        scope => 'one',
+        filter => '(objectClass=*)',
+        attrs => ['*'],
+    };
+    my $result = $self->_ldap->search($searchParam);
+    foreach my $entry ($result->entries()) {
+        my $obj = new EBox::Samba::LdbObject(entry => $entry);
+        $obj->deleteObject();
     }
 
     $self->SUPER::deleteObject();
@@ -309,9 +323,30 @@ sub _stringToGuid
            pack("C", hex $10) . pack("C", hex $11);
 }
 
+# Method: isCritical
+#
+#   Whether this object is a critical one or not.
+#
+# Return:
+#
+#   Boolean - Whether it's a critical object or not.
+#
+sub isCritical
+{
+    my ($self) = @_;
+
+    my $isCritical = $self->get('isCriticalSystemObject');
+    return ($isCritical and (lc ($isCritical) eq 'true'));
+}
+
+# Method: setCritical
+#
+#   Tags / untags the object as a critical system object.
+#   This method doesn't support the lazy flag because it requires to relax restrictions to apply this change.
+#
 sub setCritical
 {
-    my ($self, $critical, $lazy) = @_;
+    my ($self, $critical) = @_;
 
     if ($critical) {
         $self->set('isCriticalSystemObject', 'TRUE', 1);
@@ -319,10 +354,11 @@ sub setCritical
         $self->delete('isCriticalSystemObject', 1);
     }
 
-    my $relaxOidControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.4203.666.5.12',
-        critical => 0 );
-    $self->save($relaxOidControl) unless $lazy;
+    my $relaxOidControl = new Net::LDAP::Control::Relax();
+    # SAMBA requires the critical flag set to 0 to be able to get the Relax control working, however,
+    # Net::LDAP::Control::Relax forces it always to 1 so we need to force it back to 0.
+    $relaxOidControl->{critical} = 0;
+    $self->save($relaxOidControl);
 }
 
 sub isInAdvancedViewOnly
@@ -346,9 +382,11 @@ sub setInAdvancedViewOnly
     } else {
         $self->delete('showInAdvancedViewOnly', 1);
     }
-    my $relaxOidControl = Net::LDAP::Control->new(
-        type => '1.3.6.1.4.1.4203.666.5.12',
-        critical => 0 );
+
+    my $relaxOidControl = new Net::LDAP::Control::Relax();
+    # SAMBA requires the critical flag set to 0 to be able to get the Relax control working, however,
+    # Net::LDAP::Control::Relax forces it always to 1 so we need to force it back to 0.
+    $relaxOidControl->{critical} = 0;
     $self->save($relaxOidControl) unless $lazy;
 }
 

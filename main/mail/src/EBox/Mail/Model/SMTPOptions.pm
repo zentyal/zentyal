@@ -34,7 +34,7 @@ use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
 use EBox::Types::MailAddress;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Exceptions::External;
 
@@ -428,9 +428,9 @@ sub viewCustomizer
     my $mailname;
     try {
         $mailname = $mail->mailname();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         $mailname = undef;
-    };
+    }
 
     my $msg;
     if (not defined $mailname) {

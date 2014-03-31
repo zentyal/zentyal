@@ -52,8 +52,6 @@ use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::View::Customizer;
 
-# Group: Public methods
-
 # Method: nextServer
 #
 #     Get the next server (name or IP address) in an string form to
@@ -62,7 +60,7 @@ use EBox::View::Customizer;
 #
 # Parameters:
 #
-#     id - String the row identifier
+#     iface - iface on which DHCP is listening (needed for failures with parentRow)
 #
 # Returns:
 #
@@ -75,21 +73,17 @@ use EBox::View::Customizer;
 #
 sub nextServer
 {
-    my ($self, $id) = @_;
-
+    my ($self, $iface) = @_;
     my $row = $self->row();
-
     unless (defined($row)) {
-        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+        throw EBox::Exceptions::Internal("Cannot retrieve ThinClientOptions for interface $iface");
     }
 
     my $nextServerType = $row->elementByName('nextServer');
     my $nextServerSelectedName = $nextServerType->selectedType();
     given ($nextServerSelectedName) {
         when ('nextServerEBox') {
-            my $netMod = EBox::Global->modInstance('network');
-            # FIXME: unhardcode this (parentRow() is undefined)
-            my $iface = 'eth0';
+            my $netMod = $self->global()->modInstance('network');
             return $netMod->ifaceAddress($iface);
         }
         default {
@@ -137,8 +131,6 @@ sub remoteFilename
     }
 }
 
-# Group: Protected methods
-
 # Method: _table
 #
 # Overrides:
@@ -174,9 +166,6 @@ sub _table
                             ),
     );
 
-    # FIXME: unhardcode this (parentRow() is undefined)
-    my $interface = 'eth0';
-
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
                     printableTableName => __('Thin client / External TFTP-Server'),
@@ -187,7 +176,8 @@ sub _table
                     help               => __x('You may want to customise your thin client options.'
                                              . 'To do so, you may include all the files you require '
                                              . 'under {path} directory',
-                                             path => EBox::DHCP->PluginConfDir($interface)),
+                                             path => EBox::DHCP->PluginConfDirPath('(INTERFACE)')
+                                             ),
                     sortedBy           => 'hosts',
                     printableRowName   => __('thin client option'),
                    };

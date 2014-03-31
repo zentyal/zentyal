@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
@@ -34,7 +36,7 @@ use EBox::DBEngineFactory;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
-use Error qw(:try);
+use TryCatch::Lite;
 use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);
@@ -230,10 +232,13 @@ sub save
     $self->_saveConfig();
     try {
         $self->_regenConfig();
-    } finally {
+    } catch ($e) {
         $global->modRestarted($self->name);
         $self->_unlock();
-    };
+        $e->throw();
+    }
+    $global->modRestarted($self->name);
+    $self->_unlock();
 }
 
 # Method: saveConfig
@@ -246,14 +251,15 @@ sub saveConfig
 
     $self->_lock();
     try {
-      my $global = EBox::Global->getInstance();
-      my $log = EBox::logger;
-      $log->info("Saving config for module: " . $self->name);
-      $self->_saveConfig();
+        my $global = EBox::Global->getInstance();
+        my $log = EBox::logger;
+        $log->info("Saving config for module: " . $self->name);
+        $self->_saveConfig();
+    } catch ($e) {
+        $self->_unlock();
+        $e->throw();
     }
-    finally {
-      $self->_unlock();
-    };
+    $self->_unlock();
 }
 
 # Method: saveConfigRecursive
@@ -688,15 +694,20 @@ sub widget
     my ($self, $name) = @_;
     my $widgets = $self->widgets();
     my $winfo = $widgets->{$name};
-    if(defined($winfo)) {
+    if (defined $winfo) {
         my $widget = new EBox::Dashboard::Widget($winfo->{'title'},$self->{'name'},$name);
         #fill the widget
         $widget->{'module'} = $self->{'name'};
         $widget->{'default'} = $winfo->{'default'};
         $widget->{'order'} = $winfo->{'order'};
         my $wfunc = $winfo->{'widget'};
-        &$wfunc($self, $widget, $winfo->{'parameter'});
-        return $widget;
+        try {
+            $wfunc->($self, $widget, $winfo->{'parameter'});
+            return $widget;
+        } catch ($ex) {
+            EBox::error("Error loading widget $name from module " . $self->name() . ": $ex");
+            return undef;
+        }
     } else {
         return undef;
     }
@@ -862,20 +873,27 @@ sub pidRunning
 sub pidFileRunning
 {
     my ($self, $file) = @_;
+    my $pid = $self->pidFromFile($file);
+    if ($pid and $self->pidRunning($pid)) {
+        return $pid;
+    } else {
+        return undef;
+    }
+}
+
+sub pidFromFile
+{
+    my ($self, $file) = @_;
     my $pid;
     try {
         my $output = EBox::Sudo::silentRoot("cat $file");
         if (@{$output}) {
             ($pid) = @{$output}[0] =~ m/(\d+)/;
         }
-    } otherwise {
+    } catch {
         $pid = undef;
-    };
-    if ($pid and $self->pidRunning($pid)) {
-        return $pid;
-    } else {
-        return undef;
     }
+    return $pid;
 }
 
 # Method: _preSetConf
@@ -989,15 +1007,17 @@ sub _writeFileCreateTmpFile
     my ($fh,$tmpfile);
     try {
         ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
+        binmode ($fh, ":encoding(UTF-8)");
         unless($fh) {
             throw EBox::Exceptions::Internal(
                 "Could not create temp file in " .
                 EBox::Config::tmp);
         }
-    }
-    finally {
+    } catch ($e) {
         umask $oldUmask;
-    };
+        $e->throw();
+    }
+    umask $oldUmask;
 
     return ($fh, $tmpfile);
 }
@@ -1065,31 +1085,42 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
 
     my ($fh, $tmpfile) = _writeFileCreateTmpFile();
 
-    my $interp = HTML::Mason::Interp->new(
-        comp_root => EBox::Config::stubs,
-        out_method => sub { $fh->print($_[0]) });
     my $comp;
+    my $customStubCompRoot = EBox::Config::etc() . 'stubs';
+    my $interp;
+    my $stub = EBox::Config::stubs() . $compname;
 
-    try {
-        my $stub = EBox::Config::stubs() . $compname;
-        my $customStub = EBox::Config::etc() . "stubs/$compname";
-        if (-f $customStub) {
-            try {
-                EBox::info("Using custom template for $file: $customStub");
-                $comp = $interp->make_component(comp_file => $customStub);
-            } otherwise {
-                my $ex = shift;
-                EBox::error("Falling back to default $stub due to exception " .
-                            "processing custom template $customStub: $ex");
-                $comp = $interp->make_component(comp_file => $stub);
-            };
-        } else {
-            $comp = $interp->make_component(comp_file => $stub);
+    # first try custom stub if it exists
+    my $customStub = $customStubCompRoot . '/' . $compname;
+    if (-f $customStub) {
+        $interp = HTML::Mason::Interp->new(
+            comp_root => [ [ custom => $customStubCompRoot],
+                           [ default => EBox::Config::stubs] ],
+            out_method => sub { $fh->print($_[0]) }
+        );
+        try {
+            EBox::info("Using custom template for $file: $customStub");
+            $comp = $interp->make_component(comp_file => $customStub);
+            $stub = $customStub;
+        } catch ($e) {
+            EBox::error("Falling back to default $stub due to exception " .
+                         "when processing custom template $customStub: $e");
+            $comp = undef;
         }
-    } otherwise {
-        my $ex = shift;
-        throw EBox::Exceptions::Internal("Template $compname failed with $ex");
-    };
+    }
+
+    if (not $comp) {
+        # using default stubs
+        $interp = HTML::Mason::Interp->new(
+            comp_root => EBox::Config::stubs,
+            out_method => sub { $fh->print($_[0]) }
+        );
+        try {
+            $comp = $interp->make_component(comp_file => $stub);
+        }  catch ($e) {
+            throw EBox::Exceptions::Internal("Compilation of template $stub failed with $e");
+        }
+    }
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not
     # scare users. New mason version fixes this issue
@@ -1098,10 +1129,15 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     open($old_stderr, ">&STDERR");
     open(STDERR, ">$tmpErr");
 
-    $interp->exec($comp, @{$params});
+    try {
+        $interp->exec($comp, @{$params});
+    } catch ($e) {
+        $fh->close();
+        throw EBox::Exceptions::Internal("Execution of template $stub failed with $e");
+    }
     $fh->close();
 
-    open(STDERR, ">&$old_stderr");
+    open(STDERR, ">&$old_stderr"); # mason workaround
 
     _writeFileSave($tmpfile, $file, $defaults);
 }

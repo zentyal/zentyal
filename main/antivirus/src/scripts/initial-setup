@@ -5,7 +5,7 @@
 APP_PROFILE="/etc/apparmor.d/usr.sbin.clamd"
 if [ -f $APP_PROFILE ]; then
     sed -i 's:^/usr/sbin/clamd:/usr/sbin/clamd.off:' $APP_PROFILE || true
-    /etc/init.d/apparmor restart || true
+    service apparmor restart || true
 fi
 
 # create directory for freshclam data

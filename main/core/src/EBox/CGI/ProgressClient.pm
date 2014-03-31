@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,17 +20,17 @@ use warnings;
 package EBox::CGI::ProgressClient;
 
 #  FIXME: Lack of proper doc
-#  this class is to provide helper method for any CGI which must
+#  this class is to provide helper method for any handler which must show a progress bar
 #
 
 sub new
 {
-  throw EBox::Exceptions::NotImplemented('This class must be inherited by other class which also inherits from EBox::CGI::Base');
+    throw EBox::Exceptions::NotImplemented('This class must be inherited by other class which also inherits from EBox::CGI::Base');
 }
 
 # Method: showProgress
 #
-#    Redirect the browser to the progression screen CGI
+#    Redirect the browser to the progression screen handler
 #
 #  Parameters:
 #   progressIndicator - an instance of <EBox::ProgressIndicator> needed
@@ -45,38 +46,44 @@ sub new
 #
 #   reloadInterval - reload interval in seconds (default 5)
 #
-#   currentItemUrl - with this you can change the CGI used to fetch the current
+#   currentItemUrl - with this you can change the handler used to fetch the current
 #                  item data. Probably you would NOT need it
 #
 #
-#   url - URL to the progress' CGI. Most of the time you don't want to touch this
+#   url - URL to the progress' handler. Most of the time you don't want to touch this
 #          default: '/Progress'
 #
 #   nextStepUrl - URL to redirect when job is done
 #
 #   nextStepText - Text to show in link to redirect when job is done
 #
-#   (other parameters) - will be passed to the CGI if they are defined
+#   (other parameters) - will be passed to the handler if they are defined
 sub showProgress
 {
-  my ($self, %params) =@_;
-  $params{progressIndicator} or
-    throw EBox::Exceptions::MissingArgument('progressIndicator');
-  $params{url} or $params{url} = '/Progress';
+    my ($self, %params) =@_;
 
-  my $progressIndicator = delete $params{progressIndicator};
-  my $url               = delete $params{url};
+    unless (defined $params{progressIndicator}) {
+        throw EBox::Exceptions::MissingArgument('progressIndicator');
+    }
+    unless (defined $params{url}) {
+        $params{url} = '/Progress';
+    }
 
-  $self->cgi()->delete(@{ $self->params() });
-  $self->cgi()->param('progress' => $progressIndicator->id());
-  $self->keepParam('progress');
-  # put the optional parameters in the CGI
-  while (my ($param, $value) = each %params) {
-    $self->cgi()->param($param, $value);
-    $self->keepParam($param);
-  }
+    my $progressIndicator = delete $params{progressIndicator};
+    my $url               = delete $params{url};
 
-  $self->setChain($url);
+    my $request = $self->request();
+    my $reqParams = $request->parameters();
+    $reqParams->clear();
+    $reqParams->set('progress', $progressIndicator->id());
+    $self->keepParam('progress');
+    # put the optional parameters in the request
+    while (my ($param, $value) = each %params) {
+        $reqParams->set($param, $value);
+        $self->keepParam($param);
+    }
+
+    $self->setChain($url);
 }
 
 1;

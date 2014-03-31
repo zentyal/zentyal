@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,7 +33,7 @@ sub new
 	my $method = shift;
 	my $caller = shift;
 
-	local $Error::Depth = $Error::Depth + 1;
+	local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
 	local $Error::Debug = 1;
 
 	$Log::Log4perl::caller_depth++;

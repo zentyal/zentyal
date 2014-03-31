@@ -1,0 +1,71 @@
+<%flags>
+  inherit => '/ajax/tableBody.mas'
+</%flags>
+<%args>
+  $model
+  $action => 'changeAdd'
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+  %presetParams => ()
+  $hideTable => 1
+  $selectCallerId => undef
+  $selectForeignField => undef
+  $nextPageContextName => undef
+  $foreignNextPageField    => undef
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Model::DataTable;
+use POSIX;
+</%init>
+
+<& SELF:view,
+   model      => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+   selectCallerId => $selectCallerId,
+   selectForeignField => $selectForeignField,
+  nextPageContextName => $nextPageContextName,
+  foreignNextPageField    => $foreignNextPageField,
+&>
+
+
+<%method view>
+<%args>
+  $model
+</%args>
+<& SELF:header,
+   model => $model
+&>
+% if ( $model->precondition() ) {
+<div id="<% $model->modelName() %>">
+  <& SELF:body,
+     @_
+  &>
+</div>
+% }
+% else
+% {
+%   my $failMsg =  $model->preconditionFailMsg();
+%   if ($failMsg) {
+<div class="note">
+  <% $failMsg %>
+</div>
+%   }
+% }
+</%method>
+
+<%method header>
+<%args>
+  $model
+</%args>
+<& SELF:headerScriptSection &>
+<!-- Element to hide the elements while Asynchronous request are -->
+<!-- working. Find more information at "table-helper.js"  -->
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
+
+<div id='<% $model->modelName() | hu %>_error'></div>
+</%method>

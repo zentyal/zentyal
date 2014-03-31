@@ -1,10 +1,63 @@
-HEAD
+3.4.1
+	+ Generate master password for IMAP access
+3.4
+	+ Avoid to mark webadmin as changed
+	+ Update nginx template to allow access to /ews/oof
+	+ Added UI message with sogo webmail interface location
+	+ Sogo webmail shared contacts unified. Contacts working properly
+	+ Use the new EBox::Samba::Ldbobject::isCritical method
+	+ Contacts are now shown at the webmail interface
+	+ Zentyal internal accounts hidden from webmail interface
+	+ Save config if it changes in migration between versions
+	+ Adapt sogo.conf to work only with ou=Users, fixes login problem
+	+ Don't allow to remove outgoing mail virtual domain
+	+ Added rpcproxy service
+	+ Provision openchangedb with mysql as backend
+	+ Migrated to use Plack / PSGI API instead of the CGI one
+	+ Remove obsolete sope dependency
+	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
+	+ Calendar invitations now sent via email by default
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Using Zentyal MySQL confile template
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
+	+ Better user addon integration
+	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
+	+ Prevent OpenChange provision if we don't have access to update the
+	  schema or it's already extended by another OpenChange / Exchange
+	  previous installation.
+	+ Clean all previous data before enabling the module
+	+ Fix regression hiding from module status
+	+ Fixed migration form that is missing a .js file to work
+	+ Hide openchange service status from the dashboard and linked it status
+	  to the one from Samba
+	+ User addon - remove check that require AD domain to be the same as mail
+	  virtual domain
+	+ Added basic deprovision option
+	+ Fixed a typo that makes openchange appear always off on Dashboard
+	+ Added vdomain selection for outgoing mail at provision screen
+3.3
+	+ Added a dependency on the zoctools package to handle the server migration
+	+ Updated to use the new communication protocol with the upgrade tool
+	+ Show new organization selector by default and block Provision submit
+	  with empty Organization Names
+	+ Added sieve features
+	+ Added autodiscovery of server parameters
+	+ Removed the deprovision option, it needs more work to be useful
+	+ Extract the list of existing organization names from AD for better user
+	  experience
+	+ Removed the selector of Administrative Group using the default one for
+	  existing organizations and falling back to the default 'First
+	  Administrative Group' for new installations. Exchange 2007 deprecated
+	  those kind of groups
+	+ Added a way to retrieve existing Organization Names
 	+ Use ou=Users as baseDN in sogo.conf if openchange_disable_multiou=yes
 	+ Changed field names to use the same terminology on Exchange
 	  installations
 	+ Added the firstorg and firstou arguments also when provisioning the
 	  openchangedb and newuser part
-3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
 	+ Disable mode select when provisioned

@@ -25,9 +25,10 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use JSON::XS;
 
 sub new

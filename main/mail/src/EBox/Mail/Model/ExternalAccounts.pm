@@ -34,8 +34,8 @@ use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
 use EBox::Validate;
-
-use Apache2::RequestUtil;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 sub new
 {
@@ -170,11 +170,15 @@ sub _mailProtocols
 sub _user
 {
     my ($self) = @_;
-    my $request = Apache2::RequestUtil->request();
-    my $user = $request->user();
-    my $usersMod = EBox::Global->modInstance('users');
 
-    return $usersMod->userByUID($user);
+    return undef;
+
+    # FIXME: FINISH MIGRATION TO PSGI
+#    my $request = Apache2::RequestUtil->request();
+#    my $user = $request->user();
+#    my $usersMod = EBox::Global->modInstance('users');
+#
+#    return $usersMod->userByUID($user);
 }
 
 sub _userExternalAccounts

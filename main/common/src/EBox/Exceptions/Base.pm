@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2004-2007 Warp Networks S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,14 +14,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Exceptions::Base;
+use strict;
+use warnings;
 
-use base 'Error';
+package EBox::Exceptions::Base;
 
 use EBox;
 use EBox::Gettext;
 
 use Log::Log4perl;
+use Devel::StackTrace;
+
+use overload (
+    '""'     => 'stringify',
+    fallback => 1
+);
 
 # Constructor: new
 #
@@ -40,23 +48,81 @@ sub new # (text)
     my $text = shift;
     my (%opts) = @_;
 
-    local $Error::Depth = $Error::Depth + 1;
-    local $Error::Debug = 1;
-
-    $self = $class->SUPER::new(-text => $text, @_);
+    my $self = { text => $text };
     if (exists $opts{silent} and $opts{silent}) {
         $self->{silent} = 1;
     } else {
         $self->{silent} = 0;
     }
 
+    # Store the trace
+    $self->{trace} = new Devel::StackTrace(ignore_class => __PACKAGE__,
+                                           message => $text,
+                                           no_refs => 1);
+
     bless ($self, $class);
     return $self;
 }
 
-sub toStderr
+sub text
+{
+    my ($self) = @_;
+
+    return $self->{text};
+}
+
+sub stringify
+{
+    my ($self) = @_;
+    return $self->{text} ? $self->{text} : 'Died';
+}
+
+# Method: stacktrace
+#
+# Returns:
+#
+#   String - the exception text appended using 'at' with the trace as
+#            string
+#
+sub stacktrace
+{
+    my ($self) = @_;
+
+    my $msg = $self->{text};
+    $msg .= ' at ';
+    $msg .= $self->{trace}->as_string();
+
+    return $msg;
+}
+
+# Method: trace
+#
+# Returns:
+#
+#     <Devel::StackTrace> - the stack trace obj when the exception was
+#                           created
+#
+sub trace
+{
+    my ($self) = @_;
+
+    return $self->{trace};
+}
+
+sub throw
 {
     my $self = shift;
+
+    unless (ref $self) {
+        $self = $self->new(@_);
+    }
+
+    die $self;
+}
+
+sub toStderr
+{
+    my ($self) = @_;
     print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
 }
 
@@ -77,7 +143,7 @@ sub log
     $Log::Log4perl::caller_depth +=3;
     my $stacktrace = $self->stacktrace();
     if ($stacktrace =~ m/^\s*EBox::.*Auth::.*$/m) {
-        # only log first line,  to avoid reveal passwords
+        # only log first line to avoid reveal passwords
         $stacktrace  = (split "\n", $stacktrace)[0];
     }
 

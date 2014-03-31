@@ -12,20 +12,22 @@ if (($active ne 'yes') and ($active ne 'no')) {
   $active = $active ? 'yes' : 'no';
 }
 </%init>
-	<form action='<% $action %>' method='POST'>
-	<div id="enable">
-		<span class="bold"><% $title %>: </span>
-		<select name="active" enabled>
+<form action='<% $action %>' method='POST' class="formDiv">
+	<div id="enable" >
+		<div class="inline-input">
+			<label><% $title %></label>
+			<select name="active" enabled>
 %  if($active eq 'yes') {
-			<option value='no' ><% __('Disabled') %></option>
-			<option selected value='yes' ><% __('Enabled') %></option>
+				<option value='no' ><% __('Disabled') %></option>
+				<option selected value='yes' ><% __('Enabled') %></option>
 %	}else{
-			<option selected value='no' ><% __('Disabled') %></option>
-			<option value='yes' ><% __('Enabled') %></option>
+				<option selected value='no' ><% __('Disabled') %></option>
+				<option value='yes' ><% __('Enabled') %></option>
 %	}
-		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Change') %>"
-			alt="<% __('Change') %>">
+			</select>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Change') %>"
+					alt="<% __('Change') %>">
+		</div>
 	</div>
-	</form>
+</form>

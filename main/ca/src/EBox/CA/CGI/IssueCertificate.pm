@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
@@ -183,7 +183,9 @@ sub actuate
     $msg = __("The new CA certificate has been issued.") if ($issueCA);
     $self->setMsg($msg);
     # Delete all CGI parameters for CA/Index
-    $self->cgi()->delete_all();
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    $parameters->clear();
 }
 
 1;

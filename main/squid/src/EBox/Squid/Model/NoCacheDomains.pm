@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -58,7 +58,7 @@ sub _table
         order              => 0,
         rowUnique          => 1,
         printableRowName   => __('domain name address'),
-        help               => __('You can exempt some addresses from caching'),
+        help               => __('You can exempt some addresses from caching. It will include the subdomains.'),
         messages           => {
                                 add => __('Address added'),
                                 del => __('Address removed'),
@@ -75,7 +75,7 @@ sub notCachedDomains
     my @domains = map {
         my $row = $self->row($_);
         if ($row->valueByName('noCache')) {
-            $row->valueByName('domain');
+            '.' . $row->valueByName('domain');  # Added subdomains as well
         }
         else {
             ()

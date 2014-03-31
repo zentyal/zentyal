@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _tree
 {
@@ -61,7 +61,7 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and EBox::Global->modExists('samba')) {
+    } elsif ($parentMetadata->{dn} =~ /^ou=Computers,/i) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -92,13 +92,16 @@ sub childNodes
             my $hostname = Sys::Hostname::hostname();
             next if ($printableName =~ /^(\w+)-$hostname$/);
 
-            my $fullname = $child->fullname();
-            if ($fullname) {
-                $printableName .= " ($fullname)";
+            my $displayname = $child->displayname();
+            if ($displayname) {
+                $printableName .= " ($displayname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
-            $printableName = $child->fullname();
+            $printableName = $child->displayname();
+            unless ($printableName) {
+                $printableName = $child->fullname();
+            }
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             next if ($child->isInternal());
@@ -126,10 +129,12 @@ sub _sambaComputers
 {
     my ($self) = @_;
 
+    return [] unless EBox::Global->modExists('samba');
+
     my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isEnabled();
 
     my @computers;
-
     foreach my $computer (@{$samba->computers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();

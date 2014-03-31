@@ -33,6 +33,8 @@ use EBox::Types::Password;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::View::Customizer;
 
 sub new
@@ -73,7 +75,8 @@ sub validateTypedRow
     if ($mode eq EBox::Users->STANDALONE_MODE) {
         $self->_validateNormalMode($allFields);
     } elsif ($mode eq EBox::Users->EXTERNAL_AD_MODE) {
-        if ($self->parentModule->configured()) {
+        if (exists $changedFields->{mode} and
+            $self->parentModule->configured()) {
             throw EBox::Exceptions::External(__('External AD mode cannot be set once the users module has been configured.'));
         }
         $self->_validateExternalADMode($allFields);
@@ -163,21 +166,21 @@ sub _table
             help          =>
                __('This user has to have enough permissions to create a computer account in the domain'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         ),
         EBox::Types::Password->new(
             fieldName => 'dcPassword',
             printableName => __('User password'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         ),
         EBox::Types::Password->new(
             fieldName => 'dcPassword2',
             printableName => __('Confirm user password'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         )
     );

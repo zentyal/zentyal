@@ -22,7 +22,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Int;
 use EBox::Types::Select;
-use EBox::Types::Host;
+use EBox::Types::HostIP;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::External;
@@ -58,10 +58,6 @@ sub types
                'printableValue' => __('Ping to host')
              },
              {
-               'value' => 'dns',
-               'printableValue' => __('DNS resolve')
-             },
-             {
                'value' => 'http',
                'printableValue' => __('HTTP Request')
              },
@@ -91,11 +87,12 @@ sub _table
            'populate' => \&types,
            'editable' => 1,
             ),
-        new EBox::Types::Host(
+        new EBox::Types::HostIP(
            'fieldName' => 'host',
-           'printableName' => __('Host'),
+           'printableName' => __('Host IP address'),
            'editable' => 1,
            'optional' => 1,
+           'optionalLabel' => 0,
             ),
         new EBox::Types::Int(
            'fieldName' => 'probes',
@@ -154,7 +151,6 @@ sub viewCustomizer
                 {
                 gw_ping   => { disable => $fields },
                 host_ping => { enable  => $fields },
-                dns       => { enable  => $fields },
                 http      => { enable  => $fields },
                 }
             });
@@ -176,10 +172,38 @@ sub validateTypedRow
     return if $type eq 'gw_ping';
 
     my $host = $allFields->{host}->value();
-
-    unless (EBox::Validate::checkHost($host)) {
-        throw EBox::Exceptions::External(__('Invalid value for Host'));
+    if (not $host) {
+        throw EBox::Exceptions::MissingArgument($allFields->{host}->printableName);
     }
 }
+
+sub addedRowNotify
+{
+    my ($self) = @_;
+    $self->_notifiyEvents();
+}
+
+sub deletedRowNotify
+{
+    my ($self) = @_;
+    $self->_notifiyEvents();
+}
+
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    $self->_notifiyEvents();
+}
+
+sub _notifiyEvents
+{
+    my ($self) = @_;
+    # Notify rule change to events module
+    my $events = $self->global()->modInstance('events');
+    if ($events->isEnabled()) {
+        $events->setAsChanged(1);
+    }
+}
+
 
 1;

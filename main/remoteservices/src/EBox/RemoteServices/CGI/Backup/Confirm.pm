@@ -63,9 +63,9 @@ sub optionalParameters
 }
 
 my %cgiByAction = (
-           delete  => 'DeleteRemoteBackup',
-           restore => 'RestoreRemoteBackup',
-           overwrite   => 'OverwriteRemoteBackup',
+           delete    => 'DeleteRemoteBackup',
+           restore   => 'RestoreRemoteBackup',
+           overwrite => 'OverwriteRemoteBackup',
 );
 
 sub actuate
@@ -151,7 +151,7 @@ sub masonParameters
 
     my @extraActionParams;
     foreach my $p (@extraParameters) {
-# need to use unsafeParam bz password parameter
+        # need to use unsafeParam because of password parameter
         my $value = $self->unsafeParam($p);
         if ($value) {
             push @extraActionParams, ($p => $value);
@@ -172,10 +172,10 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('popup')) {
-        return $self->SUPER::_print();
+        $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    $self->_printPopup();
 }
 
 1;

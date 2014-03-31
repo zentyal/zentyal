@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,8 +20,9 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Gettext;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 my $global = EBox::Global->getInstance(1);
@@ -34,9 +36,11 @@ try {
     #call listUpgradablePkgs even if we're not using them just now as this
     #causes the cache to be generated
     @pkgs = @{$software->listUpgradablePkgs(1)};
-} finally {
+} catch ($e) {
     $software->unlock();
-};
+    $e->throw();
+}
+$software->unlock();
 unless ($software->getAutomaticUpdates()) {
     exit 0;
 }
@@ -55,8 +59,22 @@ try {
         $software->listUpgradablePkgs(1);
     }
     $software->setAutoUpgradePkgNo(scalar(@pkgnames));
-} finally {
+} catch ($e) {
+    # Check if a reboot is required
+    if (-e '/var/run/reboot-required') {
+        my $events = $global->getInstance(1)->modInstance('events');
+        if ((defined $events) and ($events->isRunning())) {
+            $events->sendEvent(
+                        message => __x('A reboot is required in the host to complete the installation of packages'),
+                        source  => 'reboot-required',
+                        level   => 'info'
+                    );
+        }
+    }
+
     $software->unlock();
-};
+    $e->throw();
+}
+$software->unlock();
 
 1;

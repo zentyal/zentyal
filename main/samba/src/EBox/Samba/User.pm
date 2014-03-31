@@ -31,6 +31,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 
 use EBox::Samba::Credentials;
 
@@ -38,12 +39,12 @@ use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
-use Encode;
+use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Date::Calc;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -94,12 +95,17 @@ sub changePassword
 
     # The password will be changed on save
     $self->set('unicodePwd', $passwd, 1);
-    $self->save() unless $lazy;
+    try {
+        $self->save() unless $lazy;
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
 }
 
 # Method: setCredentials
 #
 #   Configure user credentials directly from kerberos hashes
+#   IMPORTANT: We cannot use lazy flag here due to the relaxing permissions we need.
 #
 # Parameters:
 #
@@ -107,7 +113,7 @@ sub changePassword
 #
 sub setCredentials
 {
-    my ($self, $keys, $lazy) = @_;
+    my ($self, $keys) = @_;
 
     my $pwdSet = 0;
     my $credentials = new EBox::Samba::Credentials(krb5Keys => $keys);
@@ -135,7 +141,7 @@ sub setCredentials
     my $bypassControl = Net::LDAP::Control->new(
         type => '1.3.6.1.4.1.7165.4.3.12',
         critical => 1 );
-    $self->save($bypassControl) unless $lazy;
+    $self->save($bypassControl);
 }
 
 # Method: deleteObject
@@ -338,6 +344,9 @@ sub create
     my $name = $args{name};
     my $dn = "CN=$name," .  $args{parent}->dn();
 
+    # Check DN is unique (duplicated givenName and surname)
+    $class->_checkDnIsUnique($dn, $name);
+
     $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
@@ -385,9 +394,7 @@ sub create
         if (defined $args{uidNumber}) {
             $res->setupUidMapping($args{uidNumber});
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -396,7 +403,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -428,6 +435,18 @@ sub _checkPwdLength
         throw EBox::Exceptions::External(
                 __x("Password must not be longer than {maxPwdLength} characters",
                     maxPwdLength => MAXPWDLENGTH));
+    }
+}
+
+sub _checkDnIsUnique
+{
+    my ($self, $dn, $name) = @_;
+
+    my $entry = new EBox::Samba::LdbObject(dn => $dn);
+    if ($entry->exists()) {
+        throw EBox::Exceptions::DataExists(
+            text => __x('User name {x} already exists in the same container.',
+                        x => $name));
     }
 }
 
@@ -475,13 +494,12 @@ sub addToZentyal
         }
 
         $zentyalUser = EBox::Users::User->create(%args);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("User $uid already in OpenLDAP database");
         $zentyalUser = new EBox::Users::User(uid => $uid);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error loading user '$uid': $error");
-    };
+    } catch ($e) {
+        EBox::error("Error loading user '$uid': $e");
+    }
 
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);
@@ -507,6 +525,28 @@ sub addToZentyal
 
         $self->_linkWithUsersObject($zentyalUser);
 
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        unless ($sambaMod->mode() eq 'adc') {
+            EBox::info("Setting roaming profile for $uid...");
+            my $netbiosName = $sambaMod->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            # Set roaming profiles
+            if ($sambaMod->roamingProfiles()) {
+                my $path = "\\\\$netbiosName.$realmName\\profiles";
+                $self->setRoamingProfile(1, $path, 1);
+            } else {
+                $self->setRoamingProfile(0, undef, 1);
+            }
+
+            # Mount user home on network drive
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+            $self->setHomeDrive($sambaMod->drive(), $drivePath, 1) unless $unmanagedHomes;
+            $self->save();
+        }
     }
 }
 

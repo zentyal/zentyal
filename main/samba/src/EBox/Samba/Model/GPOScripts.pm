@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -126,6 +126,10 @@ sub precondition
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
+    if ($samba->mode() eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
+        $self->{preconditionFail} = 'adcMode';
+        return undef;
+    }
 
     return 1;
 }
@@ -148,6 +152,11 @@ sub preconditionFailMsg
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
         return __('The domain has not been created yet.');
+    }
+    if ($self->{preconditionFail} eq 'adcMode') {
+        return __('This server is an additional domain controller. In order ' .
+                  'not to break sysvol replication, GPOs must be modified ' .
+                  'in the domain root server.');
     }
 }
 
@@ -172,7 +181,8 @@ sub parentRow
 
     my $rowId = undef;
     for (my $i = scalar (@parts) - 1; $i > 0; $i--) {
-        if ($parts[$i] =~ m/CN={.+}/) {
+        # See GPOIdMapper for details
+        if ($parts[$i] =~ m/CNequalsobracket.+cbracket/) {
             $rowId = $parts[$i];
             last;
         }

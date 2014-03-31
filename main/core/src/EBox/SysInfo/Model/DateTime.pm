@@ -17,20 +17,18 @@
 #
 #   This model is used to configure the system date time
 #
-
 use strict;
 use warnings;
 
 package EBox::SysInfo::Model::DateTime;
+use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Types::Date;
 use EBox::Types::Time;
 use EBox::Types::Action;
-
-use base 'EBox::Model::DataForm';
 
 sub new
 {
@@ -46,13 +44,19 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Date( fieldName => 'date',
-                                            editable  => $self->_enabledSub(),
-                                           ),
-
-                     new EBox::Types::Time( fieldName => 'time',
-                                            editable  => $self->_enabledSub(),
-                                            help      => __('A change in the date or time will cause all Zentyal services to be restarted.')));
+    my $changeEnabled = $self->_enabledSub();
+    my @tableHead = (
+        new EBox::Types::Date(
+            fieldName => 'date',
+            printableName => __('Date'),
+            editable  => $changeEnabled,
+        ),
+        new EBox::Types::Time(
+            fieldName => 'time',
+            printableName => __('Time'),
+            editable  => $changeEnabled,
+        ),
+       );
 
     my $customActions = [
         new EBox::Types::Action( name => 'changeDateTime',
@@ -73,6 +77,13 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub help
+{
+    my ($self) = @_;
+    my $editionEnabled = $self->_enabledSub()->();
+    return $editionEnabled ? __('A change in the date or time will cause all Zentyal services to be restarted.'): '';
 }
 
 # Method: viewCustomizer
@@ -174,5 +185,6 @@ sub _enabledSub
         }
     };
 }
+
 
 1;

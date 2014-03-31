@@ -23,8 +23,10 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::InvalidType;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use feature "switch";
 
 # Group: Public methods
@@ -209,8 +211,7 @@ sub validateTypedRow
                         $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
                     }
                 }
-            } otherwise {
-                my $error = shift;
+            } catch ($error) {
                 throw EBox::Exceptions::InvalidData(
                     data => __('Enabled flag'),
                     value => __('Enabled'),
@@ -219,7 +220,7 @@ sub validateTypedRow
                         error => $error
                     )
                 );
-            };
+            }
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),
@@ -279,6 +280,33 @@ sub acquireVPNConfigurationModel
             advice => __('Not supported'),
         );
     }
+}
+
+# Method: precondition
+#
+#   Overrid <EBox::Model::DataTable::precondition>
+#
+#   Num of external interfaces > 0
+sub precondition
+{
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
+    return (scalar(@{$network->ExternalIfaces()}) > 0);
+}
+
+# Method: preconditionFailMsg
+#
+#   Overrid <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+
+    return __x("IPsec can only be configured on interfaces tagged as 'external'"
+                   . ' Check your interface '
+                   . 'configuration to match, at '
+                   . '{openhref}Network->Interfaces{closehref}',
+               openhref  => '<a href="/Network/Ifaces">',
+               closehref => '</a>');
 }
 
 1;

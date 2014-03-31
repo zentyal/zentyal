@@ -3,6 +3,7 @@ $status
 $qa
 </%args>
 <%init>
+use EBox::Config;
 my $msg;
 my $class;
 
@@ -10,9 +11,7 @@ if ($qa) {
     $msg = __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
     $class = 'ad';
 } else {
-    $msg =  __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.", ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">', ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
-            ch    => '</a>',
-            );
+    $msg =  __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {oh}Professional, Business or Premium Editions{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.", oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 	$class = 'adwarning';
 }
 </%init>

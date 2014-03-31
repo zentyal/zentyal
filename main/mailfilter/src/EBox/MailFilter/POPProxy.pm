@@ -19,13 +19,13 @@ use warnings;
 package EBox::MailFilter::POPProxy;
 
 use EBox::Config;
-# use EBox::Service;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Global;
 use EBox;
 
 use EBox::Dashboard::ModuleStatus;
+use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(all);
 use File::Slurp qw(read_file);

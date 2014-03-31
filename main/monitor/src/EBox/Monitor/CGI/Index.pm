@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,11 +20,12 @@ package EBox::Monitor::CGI::Index;
 
 use base 'EBox::CGI::ClientBase';
 
+use EBox::Exceptions::Command;
 use EBox::Gettext;
 use EBox::Global;
-use  EBox::Exceptions::Command;
+use EBox::Monitor::Configuration;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -71,41 +72,50 @@ sub masonParameters
                  class => 'note' ];
     }
 
-    my $needSaveChanges = 0;
+    my ($msg, $msgClass) = ("", "");
 
     my $measuredData;
 
+    my $global = EBox::Global->getInstance();
+
     try {
         $measuredData = $mon->allMeasuredData();
-    } catch EBox::Exceptions::Internal with {
-        my $ex = shift;
-        my $error = $ex->text();
+    } catch (EBox::Exceptions::Internal $e) {
+        my $error = $e->text();
 
-        if ($error =~ m/Need to save changes/) {
-            $needSaveChanges = 1;
+        if ($error =~ m/Need to save changes/ and $global->unsaved()) {
+            $msg = __x('You must save the changes in module status to see monitor graphs '
+                       . 'in the {openhref}Save changes{closehref} section. '
+                       . 'In case it is already enabled you must wait for a '
+                       . 'few seconds to collect the first monitor data',
+                       openhref  => qq{<a href="/Finish"><em>},
+                       closehref => qq{</em></a>});
+            $msgClass = 'note';
         } else {
-            $ex->throw();
+            $msg = __x('{p}An error has happened reading RRD files: {error}.{ep}'
+                       . '{p}Retry to check if it is fixed.{ep}'
+                       . '{p}If not, this can be easily fixed by starting over again removing '
+                       . 'the {dir} content and launching this command: {cmd}.{ep}'
+                       . 'Take into account your monitor data will be lost.',
+                       error => "<strong>$error</strong>", p => '<p>', ep => '</ep>',
+                       dir => EBox::Monitor::Configuration::RRD_BASE_DIR,
+                       cmd => 'sudo service monitor restart');
+            $msgClass = 'warning';
         }
-    };
-
-    if ($needSaveChanges) {
-            $self->setTemplate('/msg.mas');
-            return [
-                    msg => __x('You must save the changes in module status to see monitor graphs '
- . 'in the {openhref}Save changes{closehref} section. In case it is already enabled you must wait for a few seconds to collect the first monitor data',
-                            openhref  => qq{<a href="/Finish"><em>},
-                            closehref => qq{</em></a>}),
-                    class => 'note' ];
     }
 
-    my $edition = EBox::Global->edition();
+    if ($msg) {
+            $self->setTemplate('/msg.mas');
+            return [ msg => $msg,
+                     class => $msgClass ];
+    }
 
     return [
         URL           => '/Monitor/DisplayGraphs',
         periods       => EBox::Monitor::Configuration::TimePeriods(),
         initialGraphs => $measuredData,
         tabName       => 'timePeriods',
-        community     => (($edition eq 'community') or ($edition eq 'basic')),
+        community     => $global->communityEdition(),
     ];
 }
 

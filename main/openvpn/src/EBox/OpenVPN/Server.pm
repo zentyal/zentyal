@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,13 +29,15 @@ use EBox::NetWrappers;
 use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
-use EBox::Validate
-  qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -898,9 +901,9 @@ sub summary
     try {
         $localAddress = $self->localAddress();
         defined $localAddress or $localAddress = __('All external interfaces');
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         $localAddress = __('Not found');
-    };
+    }
     push (@summary, (__('Local address'), $localAddress));
 
     my $proto   = $self->proto();

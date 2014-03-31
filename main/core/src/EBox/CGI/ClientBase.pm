@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +20,7 @@ package EBox::CGI::ClientBase;
 
 use base 'EBox::CGI::Base';
 
+use EBox::CGI::Run;
 use EBox::Gettext;
 use EBox::Html;
 use EBox::HtmlBlocks;
@@ -73,7 +75,9 @@ sub menuFolder
     my ($self) = @_;
 
     unless ($self->{menuFolder}) {
-        my @split = split ('/', $ENV{'script'});
+        my $request = $self->request();
+        my $url = EBox::CGI::Run->urlFromRequest($request);
+        my @split = split ('/', $url);
         if (@split) {
             return $split[0];
         } else {
@@ -86,33 +90,40 @@ sub menuFolder
 
 sub _header
 {
-    my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print(EBox::Html::header($self->{title}));
+    my ($self) = @_;
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    return EBox::Html::header($self->{title}, $self->menuFolder());
 }
 
 sub _top
 {
-    my $self = shift;
-    print($self->{htmlblocks}->title());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->title();
 }
 
 sub _topNoAction
 {
-    my $self = shift;
-    print($self->{htmlblocks}->titleNoAction());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->titleNoAction();
 }
 
 sub _menu
 {
-    my $self = shift;
-    print($self->{htmlblocks}->menu($self->menuFolder(), $self->{originalUrl}));
+    my ($self) = @_;
+
+    my $request = $self->request();
+    return $self->{htmlblocks}->menu($self->menuFolder(), EBox::CGI::Run->urlFromRequest($request));
 }
 
 sub _footer
 {
-    my $self = shift;
-    print($self->{htmlblocks}->footer());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->footer();
 }
 
 1;

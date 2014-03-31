@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -40,9 +41,10 @@ sub setCgiParams
 {
     my ($cgi, %params) = @_;
 
+    my $request = $cgi->request();
+    my $parameters = $request->parameters();
     while (my ($paramName, $paramValue) = each %params) {
-        my $query = $cgi->{cgi};
-        $query->param( $paramName =>  $paramValue);
+        $parameters->set($paramName, $paramValue);
     }
 }
 

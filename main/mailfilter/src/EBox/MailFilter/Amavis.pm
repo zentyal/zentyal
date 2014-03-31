@@ -25,7 +25,7 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
@@ -99,9 +99,9 @@ sub isRunning
 
     try {
         return EBox::Service::running(AMAVIS_SERVICE);
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         return undef;
-    };
+    }
 }
 
 sub stopService

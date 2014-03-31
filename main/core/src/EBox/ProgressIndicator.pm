@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,9 +25,10 @@ use EBox::Util::SHM;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use POSIX ":sys_wait_h";
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $KEY = 'progress_indicator';
 
@@ -481,10 +483,10 @@ sub _cleanupFinished
             if ($pI->finished()) {
                 $pI->destroy();
             }
-        } catch EBox::Exceptions::Base with {
+        } catch (EBox::Exceptions::Base $e) {
             # Ignore this strange case (Already cleaned up)
             ;
-        };
+        }
     }
 
     _collectChildrens();

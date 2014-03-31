@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::External;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
@@ -131,7 +132,9 @@ sub actuate
         throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
     }
 
-    $self->cgi()->delete_all();
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    $parameters->clear();
 }
 
 1;

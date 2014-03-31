@@ -71,7 +71,7 @@ Zentyal.Wizard.Software.loadPage = function(index) {
         var showed = $("#wizardPage" + showedNumber);
         showed.show(0).html(code).slideDown(Zentyal.Wizard.Software.DURATION);
         var form = $('#wizardPage' + showedNumber + ' form')[0];
-        // avoid automatic form submition (by enter press)
+        // avoid automatic form submission (by enter press)
         if ( form ) {
             $(form).submit(function() { return false; });
         }
@@ -79,8 +79,8 @@ Zentyal.Wizard.Software.loadPage = function(index) {
         Zentyal.Wizard.Software.setLoading(false);
         if ( index == Zentyal.Wizard.Software.pages.length-1 ) {
             var finishString = Zentyal.Wizard.Software.gettext('Finish');
-            $('#wizard-next1')[0].value = finishString;
-            $('#wizard-next2')[0].value = finishString;
+            $('#wizard-next1').val(finishString);
+            $('#wizard-next2').val(finishString);
         }
     };
 

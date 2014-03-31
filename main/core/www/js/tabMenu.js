@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2007 Warp Networks S.L.
  * Copyright (C) 2008-2013 Zentyal S.L.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -137,9 +138,9 @@ Zentyal.Tabs.prototype = {
     } else {
         // Hide the no-active tabs
         this.tabs.not(tab).removeClass(this.activeClassName);
-        this.activeTab = tab;
+        this.activeTab = $(tab);
         // Show the tab
-        tab.addClass(this.activeClassName);
+        this.activeTab.addClass(this.activeClassName);
         // Set the correct form values
         var activeTabDir = this.modelAttrs[this.activeTab.attr('id')].directory;
         this._setTableFormInput('directory', activeTabDir);
@@ -148,7 +149,7 @@ Zentyal.Tabs.prototype = {
         // Load the content from table-helper
         Zentyal.TableHelper.hangTable( 'tabData_' + this.tabName ,
                    'errorTabData_' + this.tabName,
-                   this.modelAttrs[ tab.attr('id') ].action,
+                   this.modelAttrs[ this.activeTab.attr('id') ].action,
                    'tableForm',
                    'tabData_' + this.tabName);
     }

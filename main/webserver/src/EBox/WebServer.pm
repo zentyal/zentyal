@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,7 +18,7 @@ use warnings;
 
 package EBox::WebServer;
 
-use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
+use base qw(EBox::Module::Service EBox::SyncFolders::Provider EBox::HAProxy::ServiceBase);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -27,11 +28,11 @@ use EBox::Service;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
 use EBox::WebServer::PlatformPath;
-use EBox::WebServer::Model::GeneralSettings;
+use EBox::WebServer::Model::PublicFolder;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 
 use constant VHOST_PREFIX => 'ebox-';
@@ -43,10 +44,11 @@ use constant AVAILABLE_MODS_DIR => CONF_DIR . '/mods-available/';
 use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR => CONF_DIR . '/sites-enabled/';
-use constant GLOBAL_CONF_DIR => CONF_DIR . '/conf.d/';
+use constant CONF_AVAILABLE_DIR => CONF_DIR . '/conf-available/';
+use constant CONF_ENABLED_DIR => CONF_DIR . '/conf-enabled/';
 
-use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
-use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl';
+use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . '000-default.conf';
+use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl.conf';
 use constant SSL_DIR => CONF_DIR . '/ssl/';
 
 # Constructor: _create
@@ -73,7 +75,7 @@ sub _create
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::usedFiles
+#       Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -107,7 +109,7 @@ sub usedFiles
         my $vHost = $vHostModel->row($id);
         # access to the field values for every virtual host
         my $vHostName = $vHost->valueByName('name');
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         push(@{$files}, { 'file' => $destFile, 'module' => 'webserver',
                           'reason' => "To configure $vHostName virtual host." });
     }
@@ -151,27 +153,127 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    my $global = $self->global();
+    my $haproxyMod = $global->modInstance('haproxy');
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        my $firewall = $self->global()->modInstance('firewall');
+        # Stop Apache process to allow haproxy to use the public port
+        EBox::Sudo::silentRoot('service apache2 stop');
 
-        my $port = $firewall->requestAvailablePort('tcp', 80, 8080);
-        $firewall->addInternalService(
-                'name'            => 'webserver',
-                'printableName'   => __('Web Server'),
-                'description'     => __('Zentyal Web Server'),
-                'protocol'        => 'tcp',
-                'sourcePort'      => 'any',
-                'destinationPort' => $port,
-        );
+        my $firewall = $global->modInstance('firewall');
 
-        $firewall->saveConfigRecursive();
+        my $fallbackPort = 8080;
+        my $port = $firewall->requestAvailablePort('tcp', $self->defaultHTTPPort(), $fallbackPort);
 
-        # Set port in the model
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue(port      => $port);
-        $settings->setValue(enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
+        # Set port in reverse proxy
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, port           => $port);
+        push (@args, enablePort     => 1);
+        push (@args, defaultPort    => 1);
+        push (@args, sslPort        => $self->defaultHTTPSPort());
+        push (@args, enableSSLPort  => 0);
+        push (@args, defaultSSLPort => 0);
+        push (@args, force          => 1);
+
+        $haproxyMod->setHAProxyServicePorts(@args);
+
+        my $settings = $self->model('PublicFolder');
+        $settings->setValue(enableDir => EBox::WebServer::Model::PublicFolder::DefaultEnableDir());
+    }
+
+    # Upgrade from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        # Stop Apache process to allow haproxy to use the public port
+        EBox::Sudo::silentRoot('service apache2 stop');
+
+        # Disable the ssl module in Apache, haproxy handles it now.
+        try {
+            EBox::Sudo::root('a2dismod ssl');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # If it's already disable, ignore the exception.
+            if ( $e->exitValue() != 1 ) {
+                $e->throw();
+            }
+        }
+
+        # Migrate ports definition to haproxy.
+        my $redis = $self->redis();
+        my $key = 'webserver/conf/GeneralSettings/keys/form';
+        my $value = $redis->get($key);
+        unless ($value) {
+            # Fallback to the 'ro' version.
+            $key = 'webserver/ro/GeneralSettings/keys/form';
+            $value = $redis->get($key);
+        }
+        my $port = $self->defaultHTTPPort();
+        my $sslPort = $self->defaultHTTPSPort();
+        my $sslEnabled = 0;
+        my $defaultSSLPort = 0;
+        if ($value) {
+            if (defined $value->{port}) {
+                $port = $value->{port};
+                delete $value->{port};
+            }
+            if (defined $value->{ssl_selected}) {
+                if ($value->{ssl_selected} eq 'ssl_port' and defined $value->{ssl_port}) {
+                    $sslEnabled = 1;
+                    # At this point, the SSL port is not being shared yet, so we set it as the default one.
+                    $defaultSSLPort = 1;
+                }
+                delete $value->{ssl_selected};
+            }
+            if (defined $value->{ssl_port}) {
+                $sslPort = $value->{ssl_port};
+                delete $value->{ssl_port};
+            }
+        }
+        # Set port in reverse proxy
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, port           => $port);
+        push (@args, enablePort     => 1);
+        push (@args, defaultPort    => 1);
+        push (@args, sslPort        => $sslPort);
+        push (@args, enableSSLPort  => $sslEnabled);
+        push (@args, defaultSSLPort => $defaultSSLPort);
+        push (@args, force          => 1);
+
+        $haproxyMod->setHAProxyServicePorts(@args);
+
+        my @keys = $redis->_keys('webserver/*/GeneralSettings/keys/forms');
+        foreach my $key (@keys) {
+            my $value = $redis->get($key);
+            my $newkey = $key;
+            $newkey =~ s{GeneralSettings}{PublicFolder};
+            $redis->set($newkey, { enableDir => $value->{enableDir} });
+        }
+        $redis->unset(@keys);
+
+        # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+        my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
+        foreach my $key (@caKeys) {
+            my $value = $redis->get($key);
+            unless (ref $value eq 'HASH') {
+                next;
+            }
+            if ($value->{serviceId} eq 'Web Server') {
+                # WebServer.
+                $value->{serviceId} = 'zentyal_' . $self->name();
+                $value->{service} = $self->printableName();
+                # Zentyal handles this service automatically
+                $value->{readOnly} = 1;
+                $redis->set($key, $value);
+            }
+        }
+    }
+
+    foreach my $modName ('firewall', 'haproxy', 'webserver') {
+        my $mod = $self->global()->modInstance($modName);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
+        }
     }
 }
 
@@ -227,8 +329,7 @@ sub menu
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
-                                      order => 570
-                                     );
+                                      order => 570);
       $root->add($item);
 }
 
@@ -243,7 +344,7 @@ sub _daemons
         {
             'name' => 'apache2',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/apache2.pid'],
+            'pidfiles' => ['/var/run/apache2/apache2.pid'],
         }
     ];
 }
@@ -309,6 +410,12 @@ sub _setConf
 {
     my ($self) = @_;
 
+    # adjust mpm modules
+    EBox::Sudo::root(
+        'a2dismod mpm_event',
+        'a2enmod mpm_prefork'
+       );
+
     my $vHostModel = $self->model('VHostTable');
     my $vhosts    = $vHostModel->virtualHosts();
     my $hostname      = $self->_fqdn();
@@ -327,14 +434,12 @@ sub _setPort
 {
     my ($self) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
+    my @params = ();
+    push (@params, bindAddress => $self->targetIP());
+    push (@params, port        => $self->targetHTTPPort());
+    push (@params, sslPort     => $self->targetHTTPSPort());
 
-    $self->writeConfFile(PORTS_FILE, "webserver/ports.conf.mas",
-                         [
-                           portNumber => $generalConf->portValue(),
-                           sslportNumber =>  $generalConf->sslPort(),
-                         ],
-                        );
+    $self->writeConfFile(PORTS_FILE, "webserver/ports.conf.mas", \@params);
 }
 
 # Set up default vhost
@@ -342,17 +447,38 @@ sub _setDfltVhost
 {
     my ($self, $hostname, $hostnameVhost) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
+    if ($self->listeningHTTPPort()) {
+        my @params = ();
+        push (@params, hostname      => $hostname);
+        push (@params, hostnameVhost => $hostnameVhost);
+        push (@params, publicPort    => $self->listeningHTTPPort());
+        push (@params, port          => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
+        push (@params, sslPort       => $self->targetHTTPSPort());
 
-    # Overwrite the default vhost file
-    $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas",
-                         [
-                           hostname => $hostname,
-                           portNumber => $generalConf->portValue(),
-                           sslportNumber =>  $generalConf->sslPort(),
-                           hostnameVhost => $hostnameVhost,
-                         ],
-                        );
+        # Overwrite the default vhost file
+        $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas", \@params);
+
+        # Enable 000-default vhost
+        try {
+            EBox::Sudo::root('a2ensite 000-default');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    } else {
+        # Disable 000-default vhost
+        try {
+            EBox::Sudo::root('a2dissite 000-default');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    }
 }
 
 # Set up default-ssl vhost
@@ -360,58 +486,35 @@ sub _setDfltSSLVhost
 {
     my ($self, $hostname, $hostnameVhost) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
+    if ($self->listeningHTTPSPort()) {
+        my @params = ();
+        push (@params, hostname      => $hostname);
+        push (@params, hostnameVhost => $hostnameVhost);
+        push (@params, sslPort       => $self->targetHTTPSPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
 
-    if ($generalConf->sslPort()) {
-        # Enable the SSL module
-        try {
-            EBox::Sudo::root('a2enmod ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
-            # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
-            }
-        };
         # Overwrite the default-ssl vhost file
-        $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas",
-                             [
-                                 hostname      => $hostname,
-                                 sslportNumber =>  $generalConf->sslPort(),
-                                 hostnameVhost  => $hostnameVhost,
-                             ],
-                            );
+        $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas", \@params);
+
         # Enable default-ssl vhost
         try {
             EBox::Sudo::root('a2ensite default-ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     } else {
-        # Disable the module
-        try {
-            EBox::Sudo::root('a2dissite default-ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
-            # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
-            }
-        };
         # Disable default-ssl vhost
         try {
-            EBox::Sudo::root('a2dismod ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
-            # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            EBox::Sudo::root('a2dissite default-ssl');
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     }
 }
 
@@ -420,11 +523,11 @@ sub _setUserDir
 {
     my ($self) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
+    my $publicFolder = $self->model('PublicFolder');
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module
-    if ($generalConf->enableDirValue() and $gl->modExists('users')) {
+    if ($publicFolder->enableDirValue() and $gl->modExists('users')) {
         my $usersMod = $gl->modInstance('users');
         my $ldap = $usersMod->ldap();
         my $ldapServer = '127.0.0.1';
@@ -447,43 +550,39 @@ sub _setUserDir
         # Enable the modules
         try {
             EBox::Sudo::root('a2enmod ldap_userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
         try {
             EBox::Sudo::root('a2enmod userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     } else {
         # Disable the modules
         try {
             EBox::Sudo::root('a2dismod userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
-        if ( $gl->modExists('users')) {
+        }
+        if ($gl->modExists('users')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
-            } catch EBox::Exceptions::Sudo::Command with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Sudo::Command $e) {
                 # Already disabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
+                if ($e->exitValue() != 1) {
+                    $e->throw();
                 }
-            };
+            }
         }
     }
 }
@@ -492,8 +591,6 @@ sub _setUserDir
 sub _setVHosts
 {
     my ($self, $vhosts, $vHostDefault) = @_;
-
-    my $generalConf = $self->model('GeneralSettings');
 
     # Remove every available site using our vhost pattern ebox-*
     my $vHostPattern = VHOST_PREFIX . '*';
@@ -510,39 +607,66 @@ sub _setVHosts
         my $vHostName  = $vHost->{'name'};
         my $sslSupport = $vHost->{'ssl'};
 
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         delete $sitesToRemove{$destFile};
-        $self->writeConfFile($destFile,
-                             "webserver/vhost.mas",
-                             [
-                               vHostName => $vHostName,
-                               portNumber => $generalConf->portValue(),
-                               sslportNumber =>  $generalConf->sslPort(),
-                               hostname => $self->_fqdn(),
-                               sslSupport => $sslSupport,
-                              ],
-                            );
+
+        my @params = ();
+        push (@params, vHostName  => $vHostName);
+        push (@params, hostname   => $self->_fqdn());
+        push (@params, publicPort    => $self->listeningHTTPPort());
+        push (@params, port       => $self->targetHTTPPort());
+        push (@params, publicSSLPort => $self->listeningHTTPSPort());
+        push (@params, sslPort    => $self->targetHTTPSPort());
+        push (@params, sslSupport => $sslSupport);
+
+        $self->writeConfFile($destFile, "webserver/vhost.mas", \@params);
         $self->_createSiteDirs($vHost);
 
         if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
-            try {
-                EBox::Sudo::root("a2ensite $vhostfile");
-            } catch EBox::Exceptions::Sudo::Command with {
-                my ($exc) = @_;
-                # Already enabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
-                }
-            };
+            $self->_enableVHost($vhostfile);
         }
+    }
 
+    # add additional vhost files
+    foreach my $vHostFilePath (@{ $self->_internalVHosts() }) {
+        delete $sitesToRemove{$vHostFilePath};
+
+        my $vhostfileBasename = File::Basename::basename($vHostFilePath);
+        $self->_enableVHost($vhostfileBasename);
     }
 
     # Remove not used old dirs
     for my $dir (keys %sitesToRemove) {
         EBox::Sudo::root("rm -f $dir");
     }
+}
+
+sub _internalVHosts
+{
+    my ($self) = @_;
+    my @vhosts;
+
+    # for now only used by openchange/rpcproxy
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        push @vhosts, @{ $openchange->internalVHosts() }
+    }
+
+    return \@vhosts;
+}
+
+sub _enableVHost
+{
+    my ($self, $vhostfile) = @_;
+    try {
+       EBox::Sudo::root("a2ensite $vhostfile");
+    } catch (EBox::Exceptions::Sudo::Command $exc) {
+       # Already enabled?
+        if ( $exc->exitValue() != 1 ) {
+            throw $exc;
+        }
+    };
 }
 
 sub _createSiteDirs
@@ -621,25 +745,25 @@ sub certificates
     my ($self) = @_;
 
     return [
-            {
-             serviceId =>  'Web Server',
-             service =>  __('Web Server'),
-             path    =>  '/etc/apache2/ssl/ssl.pem',
-             user => 'root',
-             group => 'root',
-             mode => '0400',
-            },
-           ];
+        {
+            serviceId =>  'zentyal_' . $self->name(),
+            service   =>  $self->printableName(),
+            path      =>  $self->pathHTTPSSSLCertificate(),
+            user      => 'root',
+            group     => 'root',
+            mode      => '0400',
+        },
+    ];
 }
 
-# Get subjAltNames on the existing certificate
-sub _getCertificateSAN
+# Get CN and subjAltNames on the existing certificate
+sub _getCertificateCNAndSAN
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
-    my $cn = $certificates->cnByService('Web Server');
+    my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
     my $meta = $ca->getCertificateMetadata(cn => $cn);
     return [] unless $meta;
@@ -650,6 +774,7 @@ sub _getCertificateSAN
     foreach my $vhost (@san) {
         push(@vhosts, $vhost->{value}) if ($vhost->{type} eq 'DNS');
     }
+    push @vhosts, $cn;
 
     return \@vhosts;
 }
@@ -695,9 +820,9 @@ sub _issueCertificate
 {
     my ($self) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
-    my $cn = $certificates->cnByService('Web Server');
+    my $cn = $certificates->cnByService('zentyal_' . $self->name());
 
     my $caMD = $ca->getCACertificateMetadata();
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
@@ -725,17 +850,15 @@ sub _checkCertificate
 {
     my ($self) = @_;
 
-    my $generalConf = $self->model('GeneralSettings');
-    return unless $generalConf->sslPort();
+    return unless $self->listeningHTTPSPort();
 
-    my $ca = EBox::Global->modInstance('ca');
+    my $ca = $self->global()->modInstance('ca');
     my $certificates = $ca->model('Certificates');
-    return unless $certificates->isEnabledService('Web Server');
+    return unless $certificates->isEnabledService('zentyal_' . $self->name());
 
     my $model = $self->model('VHostTable');
     my @vhostsTable = @{$model->getWebServerSAN()};
-    my @vhostsCert = @{$self->_getCertificateSAN()};
-
+    my @vhostsCert = @{$self->_getCertificateCNAndSAN()};
     return unless @vhostsTable;
 
     if (@vhostsCert) {
@@ -769,9 +892,9 @@ sub dumpConfig
        $dir =~ s/$toReplace/$replacement/;
         try {
             EBox::Sudo::root("cp -a $dir $sitesBackDir");
-        } catch EBox::Exceptions::Sudo::Command with {
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             EBox::error("Failed to do backup of the vhost custom configuration dir $dir");
-        };
+        }
     }
 }
 
@@ -815,6 +938,120 @@ sub syncFolders
 sub recoveryDomainName
 {
     return __('Web server data');
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: defaultHTTPPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHTTPPort>
+#
+sub defaultHTTPPort
+{
+    return 80;
+}
+
+# Method: defaultHTTPSPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
+#
+sub defaultHTTPSPort
+{
+    return 443;
+}
+
+# Method: targetVHostDomains
+#
+# Returns:
+#
+#   list - List of domains that the target service will handle. If empty, this service will be used as the default
+#          traffic destination for the configured ports.
+#
+sub targetVHostDomains
+{
+    my ($self) = @_;
+
+    my @domains = ();
+    push (@domains, $self->_fqdn());
+
+    my $vhosts = $self->virtualHosts();
+    foreach my $vhost (@{$vhosts}) {
+        if ($vhost->{enabled}) {
+            push (@domains, $vhost->{name});
+        }
+    }
+
+    return \@domains;
+}
+
+# Method: pathHTTPSSSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHTTPSSSLCertificate
+{
+    return '/etc/apache2/ssl/ssl.pem';
+}
+
+# Method: targetIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetIP>
+#
+sub targetIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHTTPPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
+#
+sub targetHTTPPort
+{
+    return 62080;
+}
+
+# Method: targetHTTPSPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
+#
+sub targetHTTPSPort
+{
+    return 62443;
 }
 
 1;

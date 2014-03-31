@@ -19,6 +19,8 @@ use warnings;
 package EBox::Util::Lock;
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
 
 use Fcntl qw(:flock);
 
@@ -44,6 +46,7 @@ sub unlock
     flock($LOCKS{$owner}, LOCK_UN);
     close($LOCKS{$owner});
     delete $LOCKS{$owner};
+    unlink($file);
 }
 
 sub _lockFile

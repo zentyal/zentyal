@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +20,7 @@ use warnings;
 package EBox::Service;
 
 use EBox::Sudo;
+use EBox::Exceptions::Internal;
 
 #   Function: manage
 #
@@ -36,23 +38,21 @@ use EBox::Sudo;
 sub manage # (daemon,action)
 {
     my ($daemon, $action) = @_;
-    (-f "/etc/init/$daemon.conf") or
-        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-    if ( $action eq 'start' ) {
+    unless (-f "/etc/init/$daemon.conf") {
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
+    }
+
+    if ($action eq 'start') {
         EBox::Sudo::root("/sbin/start '$daemon'");
-    }
-    elsif ( $action eq 'stop' ) {
+    } elsif ($action eq 'stop') {
         EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
-    }
-    elsif ( $action eq 'restart') {
+    } elsif ($action eq 'restart') {
         EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
         EBox::Sudo::root("/sbin/start '$daemon'");
-    }
-    elsif ( $action eq 'reload') {
+    } elsif ($action eq 'reload') {
         EBox::Sudo::root("/sbin/reload '$daemon'") if (running($daemon));
-    }
-    else {
+    } else {
         throw EBox::Exceptions::Internal("Bad argument: $action");
     }
 }
@@ -72,20 +72,13 @@ sub manage # (daemon,action)
 sub running # (daemon)
 {
     my ($daemon) = @_;
-    (-f "/etc/init/$daemon.conf") or
-        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-    my $status = `/sbin/status '$daemon'`;
-    # TODO: Parse different exit status:
-    #       Pre-start
-    #       Post-start
-    #       ....
-    #       Not it's running or stopped
-    if ($status =~ m{^$daemon start/running.*}) {
-        return 1;
-    } else {
-        return undef;
+    unless (-f "/etc/init/$daemon.conf") {
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
+
+    my $status = EBox::Sudo::silentRoot("/sbin/status '$daemon'");
+    return $status->[0] =~ m{^$daemon start/running};
 }
 
 1;

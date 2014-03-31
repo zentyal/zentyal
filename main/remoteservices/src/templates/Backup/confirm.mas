@@ -34,67 +34,39 @@ if ($popup) {
 <div class='note'>
 <% $text %>
 </div>
-<br/>
-<table class='formTable'>
-    <tbody>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'><% __('Name') %>:</span>
-            </td>
-            <td>
-                <% $backup->{Filename} %>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'><% __('Date') %>:</span>
-            </td>
-            <td>
-                <% $backup->{'Date'} %>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'><% __('Description') %>:</span>
-            </td>
-            <td>
-                <% $backup->{'Comment'} %>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'><% __('Archive size') %>:</span>
-            </td>
-            <td>
-                <% $backup->{'printableSize'} %>
-            </td>
-        </tr>
-
-        <form action='<% $actionCGI %>' method='POST'>
-            <tr>
-                <td></td>
-                <td>
-                    <& /input/hidden.mas,
-                        name => 'name',
-                        value => $backup->{'Filename'},
-                    &>
+<form action='<% $actionCGI %>' method='POST' class="formDiv">
+         <& /input/hidden.mas,
+                name => 'name',
+                value => $backup->{'Filename'},
+            &>
 %                   while (my ($name, $value) = each %extraParams) {
-                        <& /input/hidden.mas,
-                            name => $name,
-                            value => $value,
-                        &>
+                <& /input/hidden.mas,
+                    name => $name,
+                    value => $value,
+                &>
 %                   }
-
-                    <input class='inputButton' type='submit'
-                            name='ok' value='<%$okText%>' alt='<%$okText%>'
-                            <% $onclickSubmit  %> />
-                    <input class='inputButton' type='submit'
-                            name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"
-                            <% $onclickCancel  %> />
-
-                </td>
-            </tr>
-        </form>
-    </tbody>
-</table>
-<br/>
+    <div>
+        <label><% __('Name') %></label>
+        <span><% $backup->{Filename} %></span>
+    </div>
+    <div>
+        <label><% __('Date') %></label>
+        <span><% $backup->{'Date'} %></span>
+    </div>
+    <div>
+        <label><% __('Description') %></label>
+        <span><% $backup->{'Comment'} %></span>
+    </div>
+    <div>
+        <label><% __('Archive size') %></label>
+        <span><% $backup->{'printableSize'} %></span>
+    </div>
+    <div class="form-buttons">
+        <input class='inputButton' type='submit'
+                name='ok' value='<%$okText%>' alt='<%$okText%>'
+                <% $onclickSubmit  %> />
+        <input class='inputButton' type='submit'
+                name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"
+                <% $onclickCancel  %> />
+    </div>
+</form>

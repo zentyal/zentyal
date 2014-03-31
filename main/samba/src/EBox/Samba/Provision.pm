@@ -30,15 +30,18 @@ use EBox::Global;
 use EBox::Users::User;
 use EBox::Users::Group;
 
+use EBox::Users::NamingContext;
+use EBox::Samba::NamingContext;
+
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Net::Ping;
 use Net::LDAP;
-use Net::LDAP::Util qw(ldap_explode_dn);
+use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Time::HiRes;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -202,8 +205,8 @@ sub checkEnvironment
         my $ipUrl = '/DNS/View/HostIpTable?directory=' .
                     'DomainTable/keys/' . $domainRow->id() .
                     '/hostnames/keys/' .  $hostRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for host {host}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for host {host}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the hostname {host}.<br/>" .
                        "You can add it in the {ohref}IP addresses page for {host}{chref}",
                       host => $hostName,
@@ -237,8 +240,6 @@ sub _domainsIP
         my $ifaceAddrs = $network->ifaceAddresses($iface);
         foreach my $data (@{$ifaceAddrs}) {
             # Got one candidate address, check that it is assigned to the DNS domain
-            my $inDomainModel = 0;
-            my $inHostModel = 0;
             foreach my $rowId (@ipIds) {
                 my $row = $domainIPsModel->row($rowId);
                 my $ip = $row->valueByName('ip');
@@ -254,8 +255,8 @@ sub _domainsIP
         my $domain = $domainRow->valueByName('domain');
         my $domainIpUrl = '/DNS/View/DomainIpTable?directory=DomainTable/keys/' .
                           $domainRow->id() . '/ipAddresses';
-        my $err = __x("Samba can't be provisioned if no internal IP addresses are set for domain {dom}.<br/>"  .
-                      "Ensure that you have at least a IP address assigned to an internal interface, and this IP has to be " .
+        my $err = __x("Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/>"  .
+                      "Ensure that you have at least a IP address assigned to an interface, and this IP has to be " .
                        "assigned to the domain {dom} and to the local hostname.<br/>" .
                        "You can assign it in the {ohref}IP addresses page for {dom}{chref}",
                        dom => $domain,
@@ -345,10 +346,8 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
-    # dns needs to be restarted after save changes to write proper bind conf with the dlz
-    my @postSaveModules = @{$global->get_list('post_save_modules')};
-    push (@postSaveModules, 'dns');
-    $global->set('post_save_modules', \@postSaveModules);
+    # dns needs to be restarted after save changes to write proper bind conf with the DLZ
+    $global->addModuleToPostSave('dns');
 }
 
 sub resetSysvolACL
@@ -361,9 +360,73 @@ sub resetSysvolACL
     EBox::Sudo::rootWithoutException($cmd);
 }
 
+sub linkContainer
+{
+    my ($self, $ldb, $ldap) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my %ldb = %{$ldb};
+    my %ldap = %{$ldap};
+
+    EBox::info("Linking '$ldb{dn}' and '$ldap{dn}'");
+    my $ldapObject = $usersMod->objectFromDN($ldap{dn});
+    my $ldbObject = $sambaMod->objectFromDN($ldb{dn});
+    unless (defined $ldbObject and $ldbObject->exists()) {
+        if ($ldb{create}) {
+            my $dn = ldap_explode_dn($ldb{dn});
+            my $rdn = shift(@{$dn});
+            unless (exists $rdn->{OU}) {
+                throw EBox::Exceptions::Internal("Unable to parse DN $ldb{dn}");
+            }
+            my $name = $rdn->{OU};
+            my $parent = new EBox::Samba::NamingContext(dn => canonical_dn($dn));
+            $ldbObject = EBox::Samba::OU->create(name => $name, parent => $parent);
+            unless (defined $ldbObject and $ldbObject->exists()) {
+                throw EBox::Exceptions::Internal("Unable to create $ldb{dn}");
+            }
+        } else {
+            throw EBox::Exceptions::Internal("Unable to find $ldb{dn} on LDB.");
+        }
+    }
+    unless (defined $ldapObject and $ldapObject->exists()) {
+        if ($ldap{create}) {
+            my $dn = ldap_explode_dn($ldap{dn});
+            my $rdn = shift(@{$dn});
+            unless (exists $rdn->{OU}) {
+                throw EBox::Exceptions::Internal("Unable to parse DN $ldap{dn}");
+            }
+            my $name = $rdn->{OU};
+            my $parent = new EBox::Users::NamingContext(dn => canonical_dn($dn));
+            $ldapObject = EBox::Users::OU->create(name => $name, parent => $parent, ignoreMods=>['samba']);
+            unless (defined $ldapObject and $ldapObject->exists()) {
+                throw EBox::Exceptions::Internal("Unable to create $ldap{dn}");
+            }
+        } else {
+            throw EBox::Exceptions::Internal("Unable to find $ldap{dn} on LDAP.");
+        }
+    }
+    $ldbObject->_linkWithUsersObject($ldapObject);
+    unless ($ldbObject->isa('EBox::Samba::Container') or $ldbObject->isa('EBox::Samba::BuiltinDomain')) {
+        # All objects except EBox::Samba::Container or EBox::Samba::BuiltinDomain can be modified
+        $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
+    }
+}
+
 # Method: mapDefaultContainers
 #
-#   Links the default CN containers from SAMBA in the LDAP equivalent OUs.
+#   Links the default containers between Samba LDB and LDAP, adding to the
+#   LDAP entry the msdsObjectGUID attribute, which value is the LDB object GUID
+#
+#   The mappings stablished are:
+#
+#           LDAP                                LDB
+#
+#       OU=users,$baseDN                    CN=users,$baseDN
+#       OU=computers,$baseDN                CN=computers,$baseDN
+#       OU=Builtin,$baseDN   (created)      CN=Builtin,$baseDN
+#       OU=groups,$baseDN                   OU=groups,$baseDN       (created)
+#       OU=kerberos,$baseDN                 OU=kerberos,$baseDN     (created)
 #
 sub mapDefaultContainers
 {
@@ -371,53 +434,53 @@ sub mapDefaultContainers
 
     my $usersMod = EBox::Global->modInstance('users');
     my $sambaMod = EBox::Global->modInstance('samba');
-    my @containerNames = ('Users', 'Computers', 'Builtin');
-    my $ldb = $sambaMod->ldb();
-    my $ldbRootDN = $ldb->dn();
-    my $ldapRootDN = $usersMod->ldap()->dn();
 
-    foreach my $containerName (@containerNames) {
-        my $ldbDN = "CN=$containerName,$ldbRootDN";
-        my $ldapDN = "ou=$containerName,$ldapRootDN";
+    my $ldbBaseDN = $sambaMod->ldb->dn();
+    my $ldapBaseDN = $usersMod->ldap->dn();
+    my $ldap;
+    my $ldb;
 
-        EBox::info("Mapping '$ldbDN' into '$ldapDN'");
+    # Link users container
+    $ldap = {dn => "OU=Users,$ldapBaseDN", create => 0};
+    $ldb  = {dn => "CN=Users,$ldbBaseDN", create => 0};
+    $self->linkContainer($ldb, $ldap);
 
-        my $ldbObject = $sambaMod->objectFromDN($ldbDN);
-        my $ldapObject = $usersMod->objectFromDN($ldapDN);
+    # Link computers container
+    $ldap = {dn => "OU=Computers,$ldapBaseDN", create => 0};
+    $ldb  = {dn => "CN=Computers,$ldbBaseDN", create => 0};
+    $self->linkContainer($ldb, $ldap);
 
-        unless ($ldbObject) {
-            throw EBox::Exceptions::Internal("Unable to find $ldbDN on LDB.")
-        }
+    # Link builtin container
+    $ldap = {dn => "OU=Builtin,$ldapBaseDN", create => 1};
+    $ldb  = {dn => "CN=Builtin,$ldbBaseDN", create => 0};
+    $self->linkContainer($ldb, $ldap);
 
-        if ($ldapObject) {
-            $ldbObject->_linkWithUsersObject($ldapObject);
-        } else {
-            EBox::debug("'$ldapDN' doesn't exist in LDAP, creating it...");
-            $ldbObject->addToZentyal();
-        }
-    }
+    # Link groups container
+    $ldap = {dn => "OU=Groups,$ldapBaseDN", create => 0};
+    $ldb  = {dn => "OU=Groups,$ldbBaseDN", create => 1};
+    $self->linkContainer($ldb, $ldap);
 
-    # ou=Groups is an special case, it should exists always.
-    my $ldbDN = "OU=Groups,$ldbRootDN";
-    my $ldapDN = "ou=Groups,$ldapRootDN";
-
-    EBox::info("Mapping '$ldbDN' into '$ldapDN'");
-
-    my $sambaGroupsOU = $sambaMod->objectFromDN($ldbDN);
-    my $ldapGroupsOU = $usersMod->objectFromDN($ldapDN);
-
-    unless ($sambaGroupsOU and $sambaGroupsOU->exists()) {
-        my $sambaParent = $sambaMod->defaultNamingContext();
-        $sambaGroupsOU = EBox::Samba::OU->create(name => 'Groups', parent => $sambaParent);
-    }
-
-    if ($ldapGroupsOU and $ldapGroupsOU->exists()) {
-        $sambaGroupsOU->_linkWithUsersObject($ldapGroupsOU);
-    } else {
-        $sambaGroupsOU->addToZentyal();
-    }
+    # Link kerberos container
+    $ldap = {dn => "OU=Kerberos,$ldapBaseDN", create => 0};
+    $ldb  = {dn => "OU=Kerberos,$ldbBaseDN", create => 1, advanced => 1};
+    $self->linkContainer($ldb, $ldap);
 }
 
+# Method: mapAccounts
+#
+#   Set the mapping between the objectSID and uidNumber/gidNumber for the
+#   following entries by writing these entries in the idmap database.
+#
+#   NOTE: At this point the accounts does not exists yet in LDB, but as the
+#         SIDs are well-known we can stablish the mappings
+#
+#               LDB                         System
+#       User  'Administrator'   =>      User  'root'
+#       Group 'Domain Admins'   =>      Group 'adm'
+#       Group 'Domain Users'    =>      Group '__USERS__'
+#       User  'Guest'           =>      User  'nobody'
+#       Group 'Domain Guests'   =>      Group 'nogroup'
+#
 sub mapAccounts
 {
     my ($self) = @_;
@@ -437,44 +500,16 @@ sub mapAccounts
     my $admGID = 4;
 
     EBox::info("Mapping domain administrator account");
-    my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
-    my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
-    if ($domainAdmin->exists()) {
-        if ($domainAdminZentyal->exists()) {
-            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
-        } else {
-            $domainAdmin->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
-    my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
-    my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
-    if ($domainAdmins->exists()) {
-        if ($domainAdminsZentyal->exists()) {
-            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
-        } else {
-            $domainAdmins->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     EBox::info("Mapping domain users group account");
-    my $usersModule = EBox::Global->modInstance('users');
     # FIXME Why is this not working during first intall???
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
-    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
-    if ($domainUsers->exists()) {
-        if ($domainUsersZentyal->exists()) {
-            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
-        } else {
-            $domainUsers->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
@@ -493,6 +528,41 @@ sub provisionDC
     my ($self, $provisionIP) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
+    my $usersModule = EBox::Global->modInstance('users');
+
+    # The OU=Users will be linked to CN=Users, which can not contain OUs. Check
+    # there are not OUs created inside OU=Users.
+    my $ldap = $usersModule->ldap();
+    my $param = {
+        base => "OU=Users," . $ldap->dn(),
+        scope => 'one',
+        filter => '(objectClass=organizationalUnit)',
+        attrs => ['*']
+    };
+    my $result = $ldap->search($param);
+    if ($result->count() > 0) {
+        my $msg = __("There are nested organizational units created inside " .
+                     "the organizational unit 'Users'. This is not " .
+                     "supported and will cause the import of LDAP entries " .
+                     "to samba to fail.");
+        throw EBox::Exceptions::External($msg);
+    }
+    # Same about OU=Computers
+    $param = {
+        base => "OU=Computers," . $ldap->dn(),
+        scope => 'one',
+        filter => '(objectClass=organizationalUnit)',
+        attrs => ['*']
+    };
+    $result = $ldap->search($param);
+    if ($result->count() > 0) {
+        my $msg = __("There are nested organizational units created inside " .
+                     "the organizational unit 'Computers'. This is not " .
+                     "supported and will cause the import of LDAP entries " .
+                     "to samba to fail.");
+        throw EBox::Exceptions::External($msg);
+    }
+
     try {
         $self->setProvisioning(1);
 
@@ -500,7 +570,6 @@ sub provisionDC
 
         my $fs = EBox::Config::configkey('samba_fs');
         my $sysinfo = EBox::Global->modInstance('sysinfo');
-        my $usersModule = EBox::Global->modInstance('users');
         my $cmd = 'samba-tool domain provision ' .
             " --domain='" . $samba->workgroup() . "'" .
             " --workgroup='" . $samba->workgroup() . "'" .
@@ -533,15 +602,14 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
         $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    $self->setProvisioning(0);
 
     try {
         # Disable password policy
@@ -574,11 +642,10 @@ sub provisionDC
 
         # Reset sysvol
         $self->resetSysvolACL();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         $self->setProvisioned(0);
-        throw EBox::Exceptions::External($error);
-    };
+        throw EBox::Exceptions::Internal($error);
+    }
 }
 
 sub rootDseAttributes
@@ -941,11 +1008,11 @@ sub checkClockSkew
     try {
         EBox::info("Checking clock skew with AD server...");
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};
@@ -960,7 +1027,7 @@ sub checkClockSkew
                'This can cause problems with kerberos authentication, please ' .
                'sync both clocks with an external NTP source and try again.'));
     }
-    EBox::info("Clock skew below two minutes, should be enought.");
+    EBox::info("Clock skew below two minutes, should be enough.");
 }
 
 sub checkADServerSite
@@ -1127,7 +1194,6 @@ sub _waitForRidPoolAllocation
 {
     my ($self) = @_;
 
-    use Data::Dumper; # TODO Remove
     my $allocated = 0;
     my $maxTries = 300;
     my $sleepSeconds = 0.1;
@@ -1330,15 +1396,69 @@ sub provisionADC
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
         }
-        foreach my $zentyalOU (@{$ous}) {
-            next if (grep { lc $_ eq lc $zentyalOU->name() } @{
-                ['kerberos', 'users', 'groups', 'computers',
-                 'postfix', 'mailalias', 'vdomains', 'fetchmail',
-                 'zarafa']
+        foreach my $zentyalOU (reverse @{$ous}) {
+            # Do not remove any OU under these bases, won't be synced to LDB
+            #   (zarafa module) OU=zarafa,$baseDN
+            #   (mail module)   OU=postfix,$baseDN
+            # Do not remove this OUs (will be mapped), but remove any child
+            #   (users module)  OU=users
+            #   (users module)  OU=groups
+            #   (users module)  OU=computers
+            #   (users module)  OU=Kerberos
+            my $dn = ldap_explode_dn($zentyalOU->dn(), reverse => 1);
+            my $rdn;
+            do {
+                $rdn = shift (@{$dn});
+            } while (scalar @{$dn} and not defined $rdn->{OU});
+            my $ouName = lc $rdn->{OU};
+
+            # Skip removal of any OU under OU=zarafa and OU=postfix
+            next if (grep { $_ eq $ouName } @{
+                [ 'postfix', 'zarafa' ]
             });
 
+            # Skip the removal of kerberos, users, groups and computers, but
+            # remove any OU inside them
+            next if (grep { $_ eq $ouName } @{
+                [ 'kerberos', 'users', 'groups', 'computers' ]
+            } and not scalar @{$dn});
+
+            # As we iterate the array in reverse order, we should not remove
+            # a parent before a child, but just in case, check for object
+            # before delete
+            $zentyalOU->clearCache();
             $zentyalOU->setIgnoredModules(['samba']);
-            $zentyalOU->deleteObject();
+            $zentyalOU->deleteObject() if $zentyalOU->exists();
+        }
+        # Special cases that should be deleted from LDAP are those not
+        # returned from the users() or groups() functions
+        #   - Administrator user
+        #   - Domain Admins group
+        #   - Guest user
+        for my $gid (('Domain Admins')) {
+            my $zGroup = new EBox::Users::Group(gid => $gid);
+            if ($zGroup->exists()) {
+                $zGroup->setIgnoredModules(['samba']);
+                $zGroup->deleteObject();
+            }
+        }
+        for my $uid (('Administrator', 'Guest')) {
+            my $zUser = new EBox::Users::User(uid => $uid);
+            if ($zUser->exists()) {
+                $zUser->setIgnoredModules(['samba']);
+                $zUser->deleteObject();
+            }
+        }
+        # Clear the link from __USERS__ group, otherwise it will be deleted
+        # by s4sync
+        my $group = new EBox::Users::Group(gid => EBox::Users::DEFAULTGROUP());
+        if ($group->exists()) {
+            my $link = $group->get('msdsObjectGUID');
+            if (defined $link) {
+                $group->delete('msdsObjectGUID', 1);
+                $group->deleteValues('objectClass', 'zentyalSambaLink', 1);
+                $group->save();
+            }
         }
 
         # Map defaultContainers
@@ -1352,28 +1472,37 @@ sub provisionADC
 
         # Set provisioned flag
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
-        # Revert primary resolver changes
+
         if (defined $dnsFile and -f $dnsFile) {
             EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
                              'resolvconf -d zentyal.temp');
             unlink $dnsFile;
         }
-        # Remote stashed password
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
             unlink $adminAccountPwdFile;
         }
-        # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
 
-        $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    # Revert primary resolver changes
+    if (defined $dnsFile and -f $dnsFile) {
+        EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                         'resolvconf -d zentyal.temp');
+        unlink $dnsFile;
+    }
+    # Remote stashed password
+    if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+        unlink $adminAccountPwdFile;
+    }
+    # Destroy cached tickets
+    EBox::Sudo::rootWithoutException('kdestroy');
+
+    $self->setProvisioning(0);
 }
 
 1;

@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,6 +28,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 ###################
@@ -36,7 +38,7 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $ROW_ID = 'form';
 
@@ -82,6 +84,11 @@ sub _ids
 #
 #       Set the value of a element and store the row
 #
+# Parameters:
+#
+#       element - String the element's name
+#       value   - the value to set. The type depends on the element's type
+#
 sub setValue
 {
     my ($self, $element, $value) = @_;
@@ -94,6 +101,14 @@ sub setValue
 # Method: value
 #
 #       Get the value of a element of the row
+#
+# Parameters:
+#
+#       element - String the element's name
+#
+# Returns:
+#
+#       the value. The type depends on the element's type
 #
 sub value
 {
@@ -116,10 +131,9 @@ sub _checkTable
     my @unallowedSuperParams = qw(sortedBy order);
     foreach my $param (@unallowedSuperParams) {
         if (exists $table->{$param}) {
-            # FIXME: WTF is this?
             throw EBox::Exceptions::Internal(
-
-                                            );
+                "$param is not allowed in description of " . $self->name()
+            );
         }
     }
 }
@@ -181,7 +195,7 @@ sub row
     if ($self->_rowStored()) {
         return $self->SUPER::row($ROW_ID);
     } else {
-        $self->_defaultRow();
+        return $self->_defaultRow();
     }
 
 }
@@ -731,9 +745,29 @@ sub clone
 
         $dstRow->store();
         $dstRow->cloneSubModelsFrom($srcRow)
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir);
+}
+
+sub formSubmitJS
+{
+    my ($self, $editId) = @_;
+
+    my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s', '%s')";
+
+    my $table = $self->table();
+    my $tablename =  $table->{'tableName'};
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $fields = $self->_paramsWithSetterJS();
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $fields,
+                    $table->{'confdir'},
+                    $editId);
 }
 
 1;

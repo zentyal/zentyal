@@ -69,17 +69,17 @@ sub _description
 sub _commercialMsg
 {
     return __sx('Are you interested in a remote configuration backup of your Zentyal '
-                . 'server? Or do you want to use a subdomain, such as '
+                . 'Server? Or do you want to use a subdomain, such as '
                 . 'yourserver.zentyal.me? Get a {ohb}Free Zentyal Account{ch} that gives you '
-                . 'access to these features and much more! Or, if you already have a Small '
-                . 'Business or Enterprise Edition, use your credentials for full access.',
+                . 'access to these features and much more! Or, if you already have a Commercial '
+                . 'Edition, use your credentials for full access.',
                 ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 
 sub _commercialTrialMsg
 {
     return __sx('Are you interested in upgrading to one of commercial editions? Get '
-                . 'a {ohb}free 30-day trial{ch}.',
+                . 'a {ohb}Free 30-day trial{ch}.',
                 ohb => '<a href="' . TRIAL_URL . '">', ch  => '</a>');
 }
 

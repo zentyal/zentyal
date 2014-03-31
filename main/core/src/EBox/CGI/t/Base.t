@@ -11,6 +11,7 @@ use_ok ('EBox::CGI::Base');
 use EBox::Test::CGI ':all';
 use EBox::TestStub;
 use EBox::Global::TestStub;
+use EBox::Exceptions::External;
 
 EBox::TestStub::fake();
 EBox::Global::TestStub::fake();
@@ -222,7 +223,6 @@ sub validateRefererTest
    );
 
 
-    my $cgi = new EBox::CGI::DumbCGI;
     foreach my $case (@cases) {
         my $valid = $case->{valid};
         my $desc = $case->{desc};
@@ -230,9 +230,13 @@ sub validateRefererTest
         my $httpHost = exists $case->{httpHost} ? $case->{httpHost} : $defaultHttpHost;
         my @params = @{ $case->{params} };
 
+        my $env = {
+            HTTP_REFERER => $referer,
+            HTTP_HOST => $httpHost
+        };
+        my $request = new Plack::Request($env);
+        my $cgi = new EBox::CGI::DumbCGI(request => $request);
         setCgiParams($cgi, @params);
-        $ENV{HTTP_REFERER}  = $referer;
-        $ENV{HTTP_HOST}  =  $httpHost;
 
         if ($valid) {
             lives_ok {
@@ -253,12 +257,16 @@ sub validateRefererTest
 package EBox::CGI::DumbCGI;
 use lib '../../..';
 use base 'EBox::CGI::Base';
+use Plack::Request;
 use Test::More;
 
 sub new
 {
-    my ($class, @params) = @_;
-    my $self = $class->SUPER::new(@params);
+    my ($class, %params) = @_;
+    unless (defined $params{request}) {
+        $params{request} = new Plack::Request({});
+    }
+    my $self = $class->SUPER::new(%params);
 
     bless $self, $class;
     return $self;
@@ -319,10 +327,15 @@ sub _print
 package EBox::CGI::FlexibleOptions;
 use base 'EBox::CGI::Base';
 
+use Plack::Request;
+
 sub new
 {
-    my ($class, @params) = @_;
-    my $self = $class->SUPER::new(@params);
+    my ($class, %params) = @_;
+    unless (defined $params{request}) {
+        $params{request} = new Plack::Request({});
+    }
+    my $self = $class->SUPER::new(%params);
 
     bless $self, $class;
     return $self;

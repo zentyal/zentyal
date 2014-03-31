@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,6 +29,8 @@ use constant LEVEL_VALUES => qw(info warn error fatal);
 
 # eBox uses
 use EBox::Config;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
 
 ##################
 # Core modules

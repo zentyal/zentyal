@@ -23,7 +23,7 @@ use Thread::Queue;
 use IO::Socket::UNIX;
 use ClamAV::Client;
 use JSON::XS;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp qw(tempfile);
 use File::Slurp;
 use Time::HiRes;
@@ -41,10 +41,10 @@ logevent('INFO', 'Zentyal Antivirus for samba started');
 
 try {
     $CONF = decode_json(read_file($CONFFILE));
-} otherwise {
+} catch {
     logevent('ERROR', "Cannot read $CONFFILE. Exiting now...");
     exit 1;
-};
+}
 
 # Create the queue and launch threads
 my $q = Thread::Queue->new();
@@ -72,10 +72,9 @@ try {
         or fatal("setsockopt: $!");
     chmod(0777, $zavsSocket)
 	or fatal("chmod: $!");
-} otherwise {
-    my ($error) = @_;
+} catch {
     exit 1;
-};
+}
 
 
 ##
@@ -127,7 +126,8 @@ sub work
     while (not $pingOK) {
         try {
             $pingOK = $scanner->ping();
-        } otherwise {};
+        } catch {
+        }
 
         unless ($pingOK) {
             logevent('WARN', 'clamAV daemon not responding, will try again in 10 seconds...');
@@ -173,20 +173,18 @@ sub work
                 open ($FD,">>$fullPath") && close ($FD);
                 logevent('DEBUG', "Cache file '$fullPath' created");
             }
-        } catch ClamAV::Client::Error with {
-            my ($error) = @_;
-            logevent('ERROR', "Error scanning: $error");
+        } catch (ClamAV::Client::Error $e) {
+            logevent('ERROR', "Error scanning: $e");
 
             my $path = $data->{path};
             my $name = $data->{name};
             my $fullPath = "$path.failed:$name";
             unlink $fullPath if -f $fullPath;
             open ($FD,">>$fullPath") && close ($FD);
-        } otherwise {
-            my ($error) = @_;
-            logevent('ERROR', "Unexpected error, thread ends now: $error");
+        } catch ($e) {
+            logevent('ERROR', "Unexpected error, thread ends now: $e");
             threads->exit();
-        };
+        }
     }
 }
 

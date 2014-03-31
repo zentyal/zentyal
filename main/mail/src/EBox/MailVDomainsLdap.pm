@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,6 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 
@@ -107,15 +109,16 @@ sub delVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-
     # Verify vdomain exists
     unless ($self->vdomainExists($vdomain)) {
         throw EBox::Exceptions::DataNotFound('data' => __('virtual domain'),
                                              'value' => $vdomain);
     }
 
+    $self->validateDelVDomain($vdomain);
+
     # We Should warn about users whose mail account belong to this vdomain.
+    my $mail = EBox::Global->modInstance('mail');
     $mail->{malias}->delAliasesFromVDomain($vdomain);
     $mail->{musers}->delAccountsFromVDomain($vdomain);
 
@@ -123,6 +126,14 @@ sub delVDomain
 
     my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
                                     $self->vdomainDn);
+}
+
+sub validateDelVDomain
+{
+    my ($self, $vdomain) = @_;
+    foreach my $vdomainLdap (@{ $self->_modsVDomainModule() }) {
+        $vdomainLdap->_delVDomainAbort($vdomain);
+    }
 }
 
 # Method: _cleanVDomain
@@ -233,7 +244,6 @@ sub vdomainExists
 
 # Method: _modsVDomainModule
 #
-#  FIXME
 #
 # Returns:
 #
@@ -248,15 +258,15 @@ sub _modsVDomainModule
     my @modules;
     foreach my $name (@names) {
         my $mod = EBox::Global->modInstance($name);
-                if ($mod->isa('EBox::VDomainModule')) {
-                    push (@modules, $mod->_vdomainModImplementation);
-                }
+        if ($mod->isa('EBox::VDomainModule')) {
+            push (@modules, $mod->_vdomainModImplementation);
+        }
     }
 
     return \@modules;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #  Returns all the the warnings provided by the modules when a certain
 #  virtual domain is going to be deleted. Function _delVDomainWarning
@@ -297,6 +307,7 @@ sub regenConfig
     my $mf =  EBox::Global->modInstance('mail');
     my $vdomainsTable = $mf->model('VDomains');
 
+    # first sync vdomains
     foreach my $id (@{ $vdomainsTable->ids() }) {
         my $vdRow = $vdomainsTable->row($id);
         my $vdomain     = $vdRow->elementByName('vdomain')->value();
@@ -304,19 +315,23 @@ sub regenConfig
         if (not $self->vdomainExists($vdomain)) {
             $self->addVDomain($vdomain);
         }
+        delete $vdomainsToDelete{$vdomain};
+    }
+    # vdomains no present in the table must be deleted
+    foreach my $vdomain (keys %vdomainsToDelete) {
+        $self->delVDomain($vdomain);
+    }
+
+    # now that vdomains are synced you can sync aliases
+    foreach my $id (@{ $vdomainsTable->ids() }) {
+        my $vdRow = $vdomainsTable->row($id);
+        my $vdomain     = $vdRow->elementByName('vdomain')->value();
 
         my $vdAliasTable = $vdRow->elementByName('aliases')->foreignModelInstance();
         $aliasLdap->_syncVDomainAliasTable($vdomain, $vdAliasTable);
 
         my $externalAliasTable = $vdRow->elementByName('externalAliases')->foreignModelInstance();
         $aliasLdap->_syncExternalAliasTable($vdomain, $externalAliasTable);
-
-        delete $vdomainsToDelete{$vdomain};
-    }
-
-        # vdomains no present in the table must be deleted
-    foreach my $vdomain (keys %vdomainsToDelete) {
-        $self->delVDomain($vdomain);
     }
 }
 

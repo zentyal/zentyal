@@ -25,13 +25,18 @@ package EBox::Samba::OU;
 use base 'EBox::Samba::LdbObject';
 
 use EBox;
+use EBox::Gettext;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Global;
 use EBox::Users::OU;
 
-use Error qw(:try);
+use TryCatch::Lite;
+use Net::LDAP::Util qw(canonical_dn);
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 # Method: mainObjectClass
 #
@@ -82,12 +87,11 @@ sub addToZentyal
     try {
         my $zentyalOU = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
         $self->_linkWithUsersObject($zentyalOU);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    };
+    }
 }
 
 sub updateZentyal
@@ -108,26 +112,48 @@ sub updateZentyal
 # Parameters:
 #
 #   args - Named parameters:
-#       name    - Organizational Unit name
+#       name   - Organizational Unit name
 #       parent - Parent container that will hold this new OU.
 #
 sub create
 {
     my ($class, %args) = @_;
 
+    $args{name} or
+        throw EBox::Exceptions::MissingArgument('name');
+    $args{parent} or
+        throw EBox::Exceptions::MissingArgument('parent');
     $args{parent}->isContainer() or
         throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
 
-    my $attrs = {
-        attr => [
-            'objectclass' => ['organizationalUnit'],
-            'ou' => $args{name},
-        ]
-    };
+    my @attr;
+    push (@attr, objectClass => ['organizationalUnit']);
+    push (@attr, ou => $args{name});
 
-    my $dn = "ou=$args{name}," . $args{parent}->dn();
-    my $result = $class->_ldap->add($dn, $attrs);
-    my $res = EBox::Samba::OU->new(dn => $dn);
+    my $dn = canonical_dn("OU=" . $args{name} . "," . $args{parent}->dn());
+    my $res = undef;
+    try {
+        my $entry = new Net::LDAP::Entry($dn, @attr);
+        my $result = $entry->update($class->_ldap->connection());
+        if ($result->is_error()) {
+            unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error creating entry:'),
+                    result => $result,
+                    opArgs => $class->entryOpChangesInUpdate($entry),
+                );
+            };
+        }
+        $res = new EBox::Samba::OU(dn => $dn);
+    } catch ($error) {
+        EBox::error($error);
+
+        if (defined $res and $res->exists()) {
+            $res->SUPER::deleteObject(@_);
+        }
+        $res = undef;
+        throw $error;
+    }
     return $res;
 }
 

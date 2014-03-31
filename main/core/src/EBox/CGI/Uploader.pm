@@ -23,9 +23,10 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Copy;
 
@@ -56,21 +57,22 @@ sub _process
 {
     my $self = shift;
 
-    my $params = $self->params();
+    my $request = $self->request();
+    my $uploads = $request->uploads();
+    my @entryKeys = keys %{$uploads};
 
-    my $filePathParam = $params->[0];
-    my $uploadedFile = $self->upload($filePathParam);
-
-    my ($baseTmp, $tmpDir) = fileparse($uploadedFile);
-
+    # We only take the first uploaded file found.
+    my $upload = $uploads->{$entryKeys[0]};
+    my $uploadedFile = $upload->path();
+    my $basename = $entryKeys[0];
     # Remove the model name to get just the field name
-    $filePathParam =~ s/^.*?_//g;
+    $basename =~ s/^.*?_//g;
+    my $tmpDir = EBox::Config::tmp();
 
     # Rename to the user-defined file name
-    move($uploadedFile, $tmpDir . $filePathParam) or
-      throw EBox::Exceptions::Internal("Cannot move $uploadedFile to "
-                                       . $tmpDir . $filePathParam
-                                       . " $!");
+    unless (move($uploadedFile, $tmpDir . $basename)) {
+        throw EBox::Exceptions::Internal("Cannot move $uploadedFile to ${tmpDir}${basename} $!");
+    }
 
 }
 

@@ -1,5 +1,5 @@
 <%args>
-	$containerDN
+    $containerDN
     $gpoDN
     $gpoDisplayName
     $linkIndex
@@ -10,54 +10,28 @@
 use EBox::Gettext;
 </%init>
 <div id='error_editGPOLinkForm' class='error' style='display:none'></div>
-<form action='/Samba/EditGPLink' method='POST' id='editGPLinkForm'>
+<form action='/Samba/EditGPLink' method='POST' id='editGPLinkForm' class="formDiv">
     <input type="hidden" name="containerDN" value="<% $containerDN %>">
     <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
     <input type="hidden" name="linkIndex" value="<% $linkIndex %>">
-	<table class='formTable'>
-		<tr>
-			<td  class='tright'>
-				<span class="ftitle">
-					<% __('Group Policy Object') %>:
-				</span>
-			</td>
-			<td>
-                <% $gpoDisplayName %>
-			</td>
-		</tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'>
-                    <% __('Link enabled') %>:
-                </span>
-            </td>
-            <td>
+	<div>
+		<label><% __('Group Policy Object') %></label>
+		<% $gpoDisplayName %>
+    </div>
+    <div>
+        <label><% __('Link enabled') %></label>
 % my $isEnabled = ($linkEnabled ? 'checked' : '');
-                <input name='linkEnabled' type='checkbox' <% $isEnabled %>/>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'>
-                    <% __('Enforced') %>:
-                </span>
-            </td>
-            <td>
+        <input name='linkEnabled' type='checkbox' <% $isEnabled %>/>
+    </div>
+        <label><% __('Enforced') %></label>
 % my $isEnforced = ($enforced ? 'checked' : '');
-                <input name='enforced' type='checkbox' <% $isEnforced %>/>
-            </td>
-        </tr>
-		<tr>
-			<td></td>
-			<td>
-				<input class='inputButton' type='submit' name='edit'
+            <input name='enforced' type='checkbox' <% $isEnforced %>/>
+    <div class="form-buttons">
+        <input class='inputButton' type='submit' name='edit'
 					   value="<% __('Edit') %>"
 					   alt="<% __('Edit') %>"/>
-
-			</td>
-		</tr>
-	</table>
-	</form>
+    </div>
+</form>
 <script>
 jQuery(function() {
    jQuery('#editGPLinkForm').on('submit', function(event) {

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -39,12 +39,12 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub requiredParameters
 {
-    return [qw(backup name description)];
+    return [qw(name description)];
 }
 
 sub optionalParameters
 {
-    return ['popup'];
+    return [qw(backup popup)];
 }
 
 sub actuate
@@ -95,10 +95,10 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('popup')) {
-        return $self->SUPER::_print();
+        $self->SUPER::_print();
+    } else {
+        $self->_printPopup();
     }
-
-    $self->_printPopup();
 }
 
 1;

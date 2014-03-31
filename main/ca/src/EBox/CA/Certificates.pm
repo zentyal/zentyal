@@ -21,6 +21,7 @@ use base qw(EBox::CA::Observer);
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::Internal;
 
 use File::Temp qw(tempfile);
 
@@ -155,7 +156,7 @@ sub srvsCerts
         next unless @modsrvs;
         for my $srv (@modsrvs) {
             $srv->{serviceId} or next;
-            $srv->{'module'} = $mod;
+            $srv->{module} = $mod;
             push(@srvscerts, $srv);
         }
     }

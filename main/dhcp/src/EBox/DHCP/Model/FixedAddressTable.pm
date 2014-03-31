@@ -65,82 +65,6 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    # # Check the given fixed address is not in any user given
-    # # range, it is within the available range and it cannot be the
-    # # interface address
-    # if ( exists ( $changedFields->{ip} )) {
-    #     my $newIP = new Net::IP($changedFields->{ip}->value());
-    #     my $net = EBox::Global->modInstance('network');
-    #     my $dhcp = $self->{confmodule};
-    #     my $netIP = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
-    #                              . $dhcp->endRange($self->{interface}));
-    #     # Check if the ip address is within the network
-    #     unless ( $newIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP ) {
-    #         throw EBox::Exceptions::External(__x('IP address {ip} is not in '
-    #                                              . 'network {net}',
-    #                                              ip => $newIP->print(),
-    #                                              net  => EBox::NetWrappers::to_network_with_mask(
-    #                                                      $net->ifaceNetwork($self->{interface}),
-    #                                                      $net->ifaceNetmask($self->{interface}))
-    #                                             ));
-    #     }
-    #     # Check the ip address is not the interface address
-    #     my $ifaceIP = new Net::IP($net->ifaceAddress($self->{interface}));
-    #     unless ( $newIP->overlaps($ifaceIP) == $IP_NO_OVERLAP ) {
-    #         throw EBox::Exceptions::External(__x('The selected IP is the '
-    #                                              . 'interface IP address: '
-    #                                              . '{ifaceIP}',
-    #                                              ifaceIP => $ifaceIP->print()
-    #                                             ));
-    #     }
-    #     # Check the new IP is not within any given range by RangeTable model
-    #     # FIXME: When #847 is done
-    #     # my $rangeModel = $dhcp->model('RangeTable');
-    #     my $rangeModel = EBox::Model::Manager->instance()->model('/dhcp/RangeTable/'
-    #                                                                   . $self->{interface});
-    #     foreach my $id (@{$rangeModel->ids()}) {
-    #         my $rangeRow = $rangeModel->row($id);
-    #         my $from = $rangeRow->valueByName('from');
-    #         my $to   = $rangeRow->valueByName('to');
-    #         my $range = new Net::IP( $from . '-' . $to);
-    #         unless ( $newIP->overlaps($range) == $IP_NO_OVERLAP ) {
-    #             throw EBox::Exceptions::External(__x('IP address {ip} is in range '
-    #                                                  . "'{range}': {from}-{to}",
-    #                                                  ip => $newIP->print(),
-    #                                                  range => $rangeRow->valueByName('range'),
-    #                                                  from  => $from, to => $to));
-    #         }
-    #     }
-    # }
-    # if ( exists ( $changedFields->{name} )) {
-    #     my $newName = $changedFields->{name}->value();
-    #     # Check remainder FixedAddressTable models uniqueness since
-    #     # the dhcpd.conf may confuse those name repetition
-    #     my @fixedAddressTables = @{EBox::Model::Manager->instance()->model(
-    #          '/dhcp/FixedAddressTable/*'
-    #                                                                          )};
-    #     # Delete the self model
-    #     @fixedAddressTables = grep { $_->index() ne $self->index() }
-    #       @fixedAddressTables;
-
-    #     my $row = grep { $_->findValue( name => $newName ) }
-    #       @fixedAddressTables;
-
-    #     if ( $row ) {
-    #         my $i18nAction = '';
-    #         if ( $action eq 'update' ) {
-    #             $i18nAction = __('update');
-    #         } else {
-    #             $i18nAction = __('add');
-    #         }
-    #         throw EBox::Exceptions::External(__x('You cannot {action} a fixed address with a '
-    #                                              . 'name which is already used in other fixed '
-    #                                              . 'address table',
-    #                                              action => $i18nAction));
-    #     }
-
-    # }
-
 }
 
 # Method: viewCustomizer
@@ -318,6 +242,7 @@ sub addresses
 #  * The IP address must be in range available for the given interface
 #  * It must be not used by in the range for the given interface
 #  * It must be not the interface address
+#  * It must be not a HA floating IP
 #  * The member name must be unique in the object realm
 #  * The MAC address must be unique for subnet
 #
@@ -369,6 +294,16 @@ sub _allowedMemberInFixedAddress
             # The IP address is in the range
             EBox::debug('IP address ' . $memberIP->print() . ' is in range '
                         . $rangeRow->valueByName('name') . ": $from-$to");
+            return 0;
+        }
+    }
+
+    # Check the member IP address is not a HA floating IP
+    if ($gl->modExists('ha') and $gl->modInstance('ha')->isEnabled()) {
+        my $ha = $gl->modInstance('ha');
+        if ($ha->isFloatingIP($iface, $memberIP->{ip})) {
+            EBox::debug('IP addess ' . $memberIP->print() . 'is a HA floating IP.');
+
             return 0;
         }
     }

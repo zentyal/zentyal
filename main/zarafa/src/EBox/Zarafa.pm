@@ -34,7 +34,7 @@ use EBox::ZarafaLdapUser;
 use EBox::MyDBEngine;
 
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Storable;
 
@@ -486,7 +486,10 @@ sub _setConf
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
-    EBox::MyDBEngine->enableInnoDBIfNeeded();
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->updateMysqlConf();
+
     $self->_createVMailDomainsOUs();
 }
 
@@ -686,7 +689,7 @@ sub _setWebServerConf
     }
     try {
         EBox::Sudo::root(@cmds);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
     }
 }
 

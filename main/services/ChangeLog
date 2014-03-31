@@ -1,4 +1,10 @@
+3.4
+	+ Added portUsedByService method
+	+ Updated to use the new haproxy API
+	+ Set version to 3.4
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2

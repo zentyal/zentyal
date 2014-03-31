@@ -1,4 +1,42 @@
+3.4
+	+ Import current DHCP addresses in first setup and when enabling module
+	+ Don't allow domain names as target of failover tests, usability
+	  changes in failover rules
+	+ Removed DNS resolution failover test
+	+ Save module config after initialSetup
+	+ Added flag to notify when an ifup is set
+	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
+	+ Implement replicationExcludeKeys() to avoid replication of ifaces in HA
+	+ Migrated to use Plack / PSGI API instead of the CGI one
+	+ When adding a new IP (viface or static iface) it is checked to avoid
+	  collision with the current HA floating IPs
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Specifiy local address in failover tests to avoid vlan interface problems
+	+ Fix Dynamic DNS with Zentyal Remote as provider when the
+	  registration wizard is done
+	+ Fixed bad behaviour in interfaces method wizard
+	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
+	+ Don't generate resolvconf file until all interfaces are up
+	+ nameservers() method always return 127.0.0.1 if DNS module is
+	  installed and enabled
+	+ Fixed dhclient configuration
+	+ Fixed some issues with showing of DHCP nameservers and removed
+	  related dead code
+	+ Don't use owner module in external-ip.pl script
+	+ Changed failover firewall rules to not use owner module
+	+ Fixed regression in VLANs interface (contribution by Chris Pitchford)
+	+ Fixed bug which made impossible to edit pppoe gateways
+	+ Fix regresion in the installer wizard that made options for static
+	  interfaces be always shown
+	+ Set version to 3.4
 3.3
+	+ Add module not enabled warning to interfaces page
+	+ Switch from Error to TryCatch for exception handling
+	+ Update strings to new offering
+	+ ppp-set-iface.pl script should not regen gateway if we are saving changes
+	+ Flush interfaces list cache after all ifups and all ifdowns
+	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Write resolvconf head, base and tail
 	+ Set proper file name for HTTP proxy configuration for APT

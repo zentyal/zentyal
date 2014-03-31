@@ -1,49 +1,61 @@
 <%args>
-	$warning
-	$url
-	$params
+$warning
+$url
+$params
+$ajax => 0
 </%args>
 <%init>
 use EBox::Gettext;
-use Data::Dumper;
 my $table = delete $params->{'tablename'};
 my $action = delete $params->{'action'};
 my $directory = delete $params->{'directory'};
 my $rowId = delete $params->{'id'};
 my $page = delete $params->{'page'};
 $page = 0 unless ( $page );
+unless ($table) {
+   $table = delete $params->{'model'};
+}
+my @fields = map { "'" . $_ . "'" } keys %{$params};
+my $cancelJS;
+if ($ajax) {
+    $cancelJS = "Zentyal.TableHelper.highlightRow('$rowId', false);";
+    $cancelJS .= "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
+    $cancelJS .= "Zentyal.TableHelper.restoreHidden('actionsCell_" . "$rowId', 'deprecated', {'keep_if_not_saved': true});";
+    $cancelJS .= "Zentyal.TableHelper.removeWarnings('$table'); return false";
+} else {
+    $cancelJS = "Zentyal.TableHelper.changeView('$url', '$table', '$directory', 'changeList')";
+}
 </%init>
-
+<div id="<% $table %>_data_in_use">
 <div class='warning'>
 <% $warning %>
 </div>
-% if ( $action eq 'edit' )
-% {
-%    my @fields = map { "'" . $_ . "'" } keys %{$params};
+% if ( $action eq 'edit' ) {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>"
        onclick="Zentyal.TableHelper.changeRow('<% $url %>', '<% $table %>',
        [ <% join(', ', @fields) %> ], '<% $directory %>',
-       '<% $rowId %>', <% $page %>, true); return false"
+       '<% $rowId %>', <% $page %>, true); Zentyal.TableHelper.removeWarnings('<% $table %>'); return false"
 />
-% }
-% elsif ($action eq 'del')
-% {
+% } elsif ($action eq 'del') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
-	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', { force: 1}); return false"/>
-% }
-% else
-% {
+        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', true); Zentyal.TableHelper.removeWarnings('<% $table %>'); return false"/>
+% } elsif ($action eq 'editBoolean') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>" title="Change"
-	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>',  '<% $directory %>', '<% $page %>', { force: 1}
-        ); return false"/>
+       onclick="Zentyal.TableHelper.sendInPlaceBooleanValue('<% $url %>','<% $table %>',
+                                                            '<% $rowId %>', '<% $directory %>',
+                                                            '<% $params->{'field'} %>',
+                                                             $('#' + '<% $table %>' + '_' + '<% $params->{'field'} %>' + '_' + '<% $rowId %>') , {force: 1});
+                Zentyal.TableHelper.removeWarnings('<% $table %>');
+                return false"/>
+% } else {
+%   $m->abort("Unexpected $action in dataInUse.mas template");
 % }
 
 <input  class='inputButton' type='submit' name='cancel'
-		value="<% __('Cancel') %>" title="Cancel"
-		onclick="Zentyal.TableHelper.changeView('<% $url %>', '<% $table %>', '<% $directory %>', 'changeList')" />
+                value="<% __('Cancel') %>" title="Cancel"
+                onclick="<% $cancelJS %>" />
 
+</div>

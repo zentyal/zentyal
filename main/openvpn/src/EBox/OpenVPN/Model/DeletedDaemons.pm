@@ -22,6 +22,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Exceptions::MissingArgument;
 
 sub new
 {

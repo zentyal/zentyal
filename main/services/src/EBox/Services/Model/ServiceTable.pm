@@ -78,6 +78,8 @@ use EBox::Types::HasMany;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
 use base 'EBox::Model::DataTable';
 
@@ -149,7 +151,7 @@ sub _table
         'defaultController' =>
             '/Services/Controller/ServiceTable',
         'defaultActions' =>
-            [	'add', 'del', 'editField', 'changeView' ],
+            ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'Services/View/ServiceTable',
         'HTTPUrlView'   => 'Services/View/ServiceTable',
@@ -164,19 +166,25 @@ sub _table
 
 # Method: availablePort
 #
-#	Check if a given port for a given protocol is available. That is,
-#	no internal service uses it.
+#       Check if a given port for a given protocol is available. That is,
+#       no internal service uses it.
 #
 # Parameters:
 #
 #   (POSITIONAL)
 #   protocol   - it can take one of these: tcp, udp
-#   port 	   - An integer from 1 to 65536 -> 22
+#   port           - An integer from 1 to 65536 -> 22
 #
 # Returns:
 #   boolean - true if it's available, otherwise false
 #
 sub availablePort
+{
+    my ($self, $protocol, $port) = @_;
+    return not $self->portUsedByService($protocol, $port);
+}
+
+sub portUsedByService
 {
     my ($self, $protocol, $port) = @_;
 
@@ -195,11 +203,13 @@ sub availablePort
         my $serviceConf = $service->subModel('configuration');
         for my $subId (@{$serviceConf->findAllValue('destination' => $port)}) {
             my $row = $serviceConf->row($subId);
-            return undef if ($row->valueByName('protocol') eq $protocol);
+            if ($row->valueByName('protocol') eq $protocol) {
+                return $service->valueByName('printableName')
+            }
         }
     }
 
-    return 1;
+    return undef;
 }
 
 # Method: serviceFromPort

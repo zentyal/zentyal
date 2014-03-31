@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +20,8 @@ use warnings;
 package EBox::Report::DiskUsage;
 
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
  use EBox::Backup;
  use EBox::FileSystem;
 
@@ -106,16 +109,14 @@ use EBox::Gettext;
    }
 
    # calculate system usage and free space for each file system
-   foreach my $fileSys (keys %usageByFilesys) {
-     exists $fileSystems->{$fileSys} or
-       throw EBox::Exceptions::Internal("File system not found: $fileSys");
-
+   foreach my $fileSys (keys %{$fileSystems}) {
      my $mountPoint = $fileSystems->{$fileSys}->{mountPoint};
 
      my $df = df($mountPoint, 1 );
 
+     # This never raises a key error as it is built using fileSystems keys
      my $facilitiesUsage = delete $usageByFilesys{$fileSys}->{facilitiesUsage};
-     my $totalUsage       = $df->{used} / $blockSize;
+     my $totalUsage      = $df->{used} / $blockSize;
      my $systemUsage     = $totalUsage - $facilitiesUsage;
      if ($systemUsage < 0) {
          if ($systemUsage > -1000) {
@@ -123,8 +124,8 @@ use EBox::Gettext;
              $systemUsage = 0;
          } else {
              EBox::error(
- "Error calculating system usage. Result: $systemUsage. Set to zero for avoid error"
-                        );
+                 "Error calculating system usage. Result: $systemUsage. Set to zero for avoid error"
+                );
              $systemUsage = 0;
          }
 

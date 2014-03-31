@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -23,7 +24,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -59,6 +60,14 @@ sub ldap
         $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
+}
+
+sub clearLdapConn
+{
+    my ($self) = @_;
+    $self->{ldap} or return;
+    $self->{ldap}->clearConn();
+    $self->{ldap} = undef;
 }
 
 # Method: _loadSchema
@@ -163,9 +172,9 @@ sub _loadACLDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid ACL: $acl");
-        };
+        }
     }
 }
 
@@ -216,9 +225,9 @@ sub _addIndexDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid index: $index");
-        };
+        }
     }
 }
 

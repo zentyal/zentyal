@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,9 +27,10 @@ use EBox::Menu::Item;
 use EBox::Sudo;
 use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
+use EBox::Users::Group;
 use Net::CUPS::Destination;
 use Net::CUPS;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 
@@ -36,7 +38,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'printers',
-                                      printableName => __('Printer Sharing'),
+                                      printableName => __('Printers'),
                                       @_);
     bless ($self, $class);
     $self->{'cups'} = new Net::CUPS;
@@ -154,7 +156,8 @@ sub _preSetConf
     try {
         # Stop CUPS in order to force it to dump the conf to disk
         $self->stopService();
-    } otherwise {};
+    } catch {
+    }
 }
 
 # Method: _setConf
@@ -228,8 +231,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
-                                    'url' => 'Printers/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'Printers/Composite/General',
                                     'icon' => 'printers',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
@@ -273,14 +275,53 @@ sub restoreConfig
             $self->_stopService();
             EBox::Sudo::root("tar xf $dir/etc_cups.tar -C /");
             $self->_startService();
-        } otherwise {
+        } catch {
             EBox::error("Error restoring cups config from backup");
-        };
+        }
     } else {
         # This case can happen with old backups
         EBox::warn('Backup doesn\'t contain CUPS configuration files');
     }
 }
+
+# Method: printers
+#
+#   Returns the list of printers with the permissions
+#
+# Returns:
+#
+#   array ref - holding hashrefs with name and users
+#
+sub printers
+{
+    my ($self) = @_;
+
+    my @list;
+    my $model = $self->model('Printers');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $name = $row->valueByName('printer');
+        my $permsModel = $row->subModel('access');
+        my @users;
+        foreach my $id (@{$permsModel->ids()}) {
+            my $row = $permsModel->row($id);
+            my $element = $row->elementByName('user_group');
+            if ($element->selectedType() eq 'user') {
+                push (@users, $element->value());
+            } else {
+                my $group = new EBox::Users::Group(gid => $element->value());
+                my @userNames = map { $_->name() } @{$group->users()};
+                push (@users, @userNames);
+            }
+        }
+        my %seen;
+        @users = grep { not $seen{$_}++ } @users;
+        push (@list, { name => $name, users => \@users });
+    }
+
+    return \@list;
+}
+
 
 # Method: networkPrinters
 #

@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,10 +22,13 @@ package EBox::OpenVPN::Daemon;
 use base qw(EBox::NetworkObserver);
 
 use File::Slurp;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::NetWrappers;
 use EBox::Service;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 use constant UPSTART_DIR => '/etc/init';
 use constant RUN_DIR     => '/var/run/';
@@ -532,14 +536,10 @@ sub deletedDaemonCleanup
         foreach my $file( $class->daemonFiles($name) ) {
             EBox::Sudo::root("rm -rf '$file'");
         }
+    } catch ($e) {
+        EBox::error("Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup");
+        $e->throw();
     }
-    otherwise {
-        my $ex = shift;
-        EBox::error(
-"Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup"
-        );
-        $ex->throw();
-    };
 }
 
 sub _rootCommandForStartDaemon
@@ -595,10 +595,9 @@ sub pid
     try {
         $pid = File::Slurp::read_file($self->_pidFile());
 
-    }
-    otherwise {
+    } catch {
         $pid = undef;
-    };
+    }
 
     return $pid;
 }

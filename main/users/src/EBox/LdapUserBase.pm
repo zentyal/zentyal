@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -129,11 +130,10 @@ sub _delUser
 # Method: _preModifyUser
 #
 #   When a user is going to be modified
-#   TODO
 #
-#sub _preModifyUser
-#{
-#}
+sub _preModifyUser
+{
+}
 
 # Method: _modifyUser
 #

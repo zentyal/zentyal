@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,6 +21,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
@@ -30,6 +31,9 @@ use EBox::Squid::Types::TimePeriod;
 
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
+use Net::LDAP::Control::Paged;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
+use Net::LDAP::Util qw(canonical_dn escape_filter_value);
 use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
@@ -215,16 +219,18 @@ sub _populateGroupsFromExternalAD
     my $ad = $self->_adLdap();
     my $dse = $ad->root_dse(attrs => ['defaultNamingContext', '*']);
     my $defaultNC = $dse->get_value('defaultNamingContext');
+    $defaultNC = canonical_dn($defaultNC);
     my $sort = new Net::LDAP::Control::Sort(order => 'samAccountName');
     my $filter = $skip ?
         '(&(objectClass=group)(!(isCriticalSystemObject=*)))':
         '(objectClass=group)';
-    my $res = $ad->search(base => $defaultNC,
-                          scope => 'sub',
-                          filter => $filter,
-                          attrs => ['samAccountName', 'objectSid'],
-                          control => [$sort]);
-    foreach my $entry ($res->entries()) {
+    my $res = $self->_pagedSearch($ad,
+                                  { base   => $defaultNC,
+                                    scope  => 'sub',
+                                    filter => $filter,
+                                    attrs  => ['samAccountName', 'objectSid'],
+                                    control => [$sort] });
+    foreach my $entry (@{$res}) {
         my $printableValue;
         my $samAccountName = $entry->get_value('samAccountName');
         my $sid = $self->_sidToString($entry->get_value('objectSid'));
@@ -259,19 +265,47 @@ sub _adGroupMembers
     my $ldap = $self->_adLdap();
     my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
     my $defaultNC = $dse->get_value('defaultNamingContext');
-    my $result = $ldap->search(base => $defaultNC,
-                               scope => 'sub',
-                               filter => "(&(objectClass=group)(objectSid=$group))",
-                               attrs => ['member']);
-    foreach my $groupEntry ($result->entries()) {
+    $defaultNC = canonical_dn($defaultNC);
+    $group = escape_filter_value($group);
+    my $filter = "(&(objectClass=group)(objectSid=$group))";
+    my $result = $self->_pagedSearch($ldap,
+                                     { base  => $defaultNC,
+                                       scope  => 'sub',
+                                       filter => $filter,
+                                       attrs  => ['member'] });
+    foreach my $groupEntry (@{$result}) {
         my @members = $groupEntry->get_value('member');
         next unless @members;
         foreach my $memberDN (@members) {
-            my $result2 = $ldap->search(base => $defaultNC,
-                                        scope => 'sub',
-                                        filter => "(&(objectClass=user)(distinguishedName=$memberDN))",
+            # NOTE MS LDAP does not collapse multiple consecutive white spaces
+            #      as openLDAP does. The canonical_dn function collapse them
+            #      and make ldap search fail with LDAP_NO_SUCH_OBJECT
+            #$memberDN = canonical_dn($memberDN);
+
+            # Get nested groups
+            my $result2 = $ldap->search(base => $memberDN,
+                                        scope => 'base',
+                                        filter => '(objectClass=group)',
+                                        attrs => ['objectSid']);
+            unless ($result2->code() eq LDAP_SUCCESS) {
+                $self->_ADException($result2);
+            }
+            foreach my $nestedGroupEntry ($result2->entries()) {
+                my $nestedGroupSid = $nestedGroupEntry->get_value('objectSid');
+                next unless defined $nestedGroupSid;
+                my $nestedMembers = $self->_adGroupMembers($nestedGroupSid);
+                push (@{$members}, @{$nestedMembers});
+            }
+
+            # Get users
+            my $result3 = $ldap->search(base => $memberDN,
+                                        scope => 'base',
+                                        filter => "(objectClass=user)",
                                         attrs => ['samAccountName']);
-            foreach my $userEntry ($result2->entries()) {
+            unless ($result3->code() eq LDAP_SUCCESS) {
+                $self->_ADException($result3);
+            }
+            foreach my $userEntry ($result3->entries()) {
                 my $samAccountName = $userEntry->get_value('samAccountName');
                 next unless defined $samAccountName;
                 push (@{$members}, $samAccountName);
@@ -280,6 +314,112 @@ sub _adGroupMembers
     }
 
     return $members;
+}
+
+# Page search
+# Parameters:
+#    ldap - <Net::LDAP> connection
+#    searchParams - Hash ref with the following keys:
+#         base - String the base
+#         scope - String the scope  ('sub' or 'base')
+#         filter - String the filter
+#         attrs - Array ref with the attrs to retrieve
+#         control - Array ref with the controls
+#                   paged one will be added by _pagedSearch
+#    pageSize - Int the size *(Optional)* Default: 500
+#
+# Returns: Array ref of <Net::LDAP::Entry>
+sub _pagedSearch
+{
+    my ($self, $ldap, $searchParams, $pageSize) = @_;
+
+    $pageSize = 500 unless ($pageSize);
+    my $page = new Net::LDAP::Control::Paged(size => $pageSize);
+    my @controls = ( $page );
+    push(@controls, @{$searchParams->{control}}) if (ref($searchParams->{control}) eq 'ARRAY');
+    my %search = (
+        base    => $searchParams->{base},
+        filter  => $searchParams->{filter},
+        scope   => $searchParams->{scope},
+        attrs   => $searchParams->{attrs},
+        control => \@controls,
+    );
+
+    my @entries = ();
+    my $cookie;
+    while (1) {
+        # Perform the search
+        my $msg = $ldap->search(%search);
+        unless ($msg->code() eq LDAP_SUCCESS) {
+            $self->_ADException($msg);
+        }
+
+        foreach my $entry ($msg->entries()) {
+            $entry = $self->_rangeAttrSearch($ldap, $searchParams, $entry);
+            push(@entries, $entry);
+        }
+
+        my ($resp) = $msg->control(LDAP_CONTROL_PAGED);
+        last unless ($resp);
+
+        $cookie = $resp->cookie();
+        last unless ($cookie);
+
+        $page->cookie($cookie);
+    }
+
+    if ($cookie) {
+        # We had an abnormal exit, so let the server know we do not want any more
+        $page->cookie($cookie);
+        $page->size(0);
+        $ldap->search(%search);
+    }
+    return \@entries;
+}
+
+# Get the attributes which must have a range
+# Returns the entry modified
+sub _rangeAttrSearch
+{
+    my ($self, $ldap, $searchParams, $entry) = @_;
+
+    foreach my $attr ($entry->attributes()) {
+        if ($attr =~ /;range=/) {
+            my ($pureAttr, $range) = split(/;/, $attr, 2);
+            my ($last) = $range =~ m/range=\d+-(.*)$/;
+            my @attrValues = $entry->get_value($pureAttr);
+            push(@attrValues, $entry->get_value($attr));
+            while( $last ne '*' ) {
+                my $rangeAttr = "$pureAttr;range=" . ($last + 1) . '-*';
+                # Simple query
+                my $msg = $ldap->search(base   => $searchParams->{base},
+                                        scope  => $searchParams->{scope},
+                                        filter => $searchParams->{filter},
+                                        attrs  => [$rangeAttr]);
+                unless ($msg->code() eq LDAP_SUCCESS) {
+                    $self->_ADException($msg);
+                }
+                foreach my $rangeEntry ($msg->entries()) {
+                    ($rangeAttr) = grep { $_ =~ m/;range/ } $rangeEntry->attributes();
+                    push(@attrValues, $rangeEntry->get_value($rangeAttr));
+                }
+                ($last) = $rangeAttr =~ m/range=\d+-(.*)$/;  # To calculate new range
+            }
+            $entry->replace($pureAttr, \@attrValues);
+        }
+    }
+    return $entry;
+}
+
+# Launch an external exception if the AD cannot fulfil our request
+sub _ADException
+{
+    my ($self, $msg) = @_;
+
+    throw EBox::Exceptions::External(
+        __x('AD Error {error_name}: {error_desc}. If you think this error is temporary, please try again later',
+            error_name => $msg->error_name(),
+            error_desc => $msg->error_desc()))
 }
 
 sub validateTypedRow
@@ -508,6 +648,7 @@ sub delPoliciesForGroup
 sub filterProfiles
 {
     my ($self) = @_;
+
     my $filterProfilesModel = $self->parentModule()->model('FilterProfiles');
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 

@@ -21,6 +21,8 @@ package EBox::Squid::Types::TimePeriod;
 use base 'EBox::Types::Abstract';
 
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(all);
 use Time::Piece;

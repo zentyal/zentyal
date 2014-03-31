@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -104,6 +105,13 @@ sub setTypedRow
     }
     $self->_notifyManager('update', $row);
     $self->updatedRowNotify($row, undef, $force);
+}
+
+# auditable turned off, in case of need to audit actions there must be audited
+# by custom code
+sub auditable
+{
+    return 0;
 }
 
 1;

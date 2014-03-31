@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -84,6 +85,7 @@ sub masonParameters
 
         return [
                 model  => $self->{composite},
+                user => $self->user(),
                 hasChanged => $global->unsaved(),
                ];
     } else {

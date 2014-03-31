@@ -1,0 +1,14 @@
+Source: libclamav-xs-perl
+Section: perl
+Priority: optional
+Maintainer: Enrique J. Hernández <ejhernandez@zentyal.com>
+Build-Depends: debhelper (>= 8), perl, libtest-exception-perl, libclamav-dev
+Standards-Version: 3.9.3
+Homepage: http://www.zentyal.org
+
+Package: libclamav-xs-perl
+Architecture: any
+Depends: clamav, ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends}
+Description: Perl bindings for libclamav
+ This allows you to get the number of signatures available in your clamAV
+ installation.

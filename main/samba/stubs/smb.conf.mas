@@ -12,6 +12,7 @@
     $sysvolPath
     $unmanagedAcls => 0
     $print => 0
+    @printers => ()
     $disableFullAudit => 0
 
     $antivirus => 0
@@ -25,21 +26,11 @@
     $prefix => 'Zentyal'
     $backup_path => '/tmp'
 
-    $guestAccess => 0
-    $guestAccount => 'nobody'
-
     $openchangeEnabled => undef
     $openchangeProvisioned => undef
 </%args>
 <%init>
 use EBox::Gettext;
-use EBox::Samba;
-use EBox::Config;
-
-my $customAuthMethodsForGuest = 'guest sam_ignoredomain';
-if (EBox::Config::boolean('join_vista_with_guest_shares')) {
-    $customAuthMethodsForGuest .= ' samba4';
-}
 </%init>
 [global]
     workgroup = <% $workgroup %>
@@ -58,14 +49,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     log level = 3
     log file = /var/log/samba/samba.log
 
-% if ($guestAccess) {
-    guest ok = yes
-    map to guest = bad user
-    guest account = <% $guestAccount %>
-# Commented out until Samba 4 supports Guests sharing or Kerberos auth fails.
-#    auth methods = <% $customAuthMethodsForGuest %>
-% }
-
 % unless ($print) {
     load printers = no
     printcap name = /dev/null
@@ -73,26 +56,8 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     disable spoolss = yes
 % }
 
-% if (defined $openchangeEnabled and defined $openchangeProvisioned) {
-%   if ($openchangeEnabled == 0) {
-### Configuration required by OpenChange server (Module is disabled!) ###
-###    dcerpc endpoint servers = +epmapper, +mapiproxy
-###    dcerpc_mapiproxy:server = true
-###    dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
-### Configuration required by OpenChange server ###
-%   } elsif ($openchangeProvisioned == 0) {
-### Configuration required by OpenChange server (Module not provisioned!) ###
-###    dcerpc endpoint servers = +epmapper, +mapiproxy
-###    dcerpc_mapiproxy:server = true
-###    dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
-### Configuration required by OpenChange server ###
-%   } elsif ($openchangeEnabled == 1 and $openchangeProvisioned == 1) {
-### Configuration required by OpenChange server (Module is enabled) ###
-    dcerpc endpoint servers = +epmapper, +mapiproxy
-    dcerpc_mapiproxy:server = true
-    dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
-### Configuration required by OpenChange server ###
-%   }
+% if ($openchangeEnabled and $openchangeProvisioned) {
+    include = /etc/samba/openchange.conf
 % }
 
 % if ($mode eq 'dc') {
@@ -101,19 +66,16 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $profilesPath %>
     browseable = no
     read only = no
-    case sensitive = yes
 %   }
 
 [netlogon]
     path = <% $sysvolPath %>/<% $domain %>/scripts
     browseable = no
     read only = yes
-    case sensitive = no
 
 [sysvol]
     path = <% $sysvolPath %>
     read only = no
-    case sensitive = no
 % }
 
 [homes]
@@ -121,7 +83,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = /home/%S
     read only = no
     browseable = no
-    case sensitive = yes
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
@@ -159,9 +120,11 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $share->{path} %>
     browseable = Yes
     read only = No
-    case sensitive = yes
     force create mode = 0660
     force directory mode = 0660
+% if ($share->{guest}) {
+    guest ok = yes
+% }
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr';
@@ -196,17 +159,24 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 % if ($print) {
 [print$]
     comment = Point and Print Printer Drivers
-    path = /opt/samba4/var/print
+    path = /var/lib/samba/printers
     read only = No
-    case sensitive = no
 
 [printers]
     comment = All Printers
-    path = /opt/samba4/var/spool
+    path = var/spool/samba
     browseable = Yes
     read only = No
     printable = Yes
-    case sensitive = no
+
+% foreach my $printer (@printers) {
+%   next unless (length ($printer->{'users'}) > 0);
+[<% $printer->{'name'} %>]
+ path = /var/spool/samba
+ read only = Yes
+ printable = Yes
+ valid users = <% "@{$printer->{'users'}}" %>
+%   }
 % }
 
 % if ($antivirus) {
@@ -215,5 +185,4 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
-    case sensitive = yes
 % }

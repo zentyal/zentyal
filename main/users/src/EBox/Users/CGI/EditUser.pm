@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Users;
 use EBox::Users::User;
 use EBox::Gettext;
+use EBox::Exceptions::External;
 
 sub new
 {
@@ -49,8 +50,8 @@ sub _process
     my $user = new EBox::Users::User(dn => $dn);
 
     my $components = $users->allUserAddOns($user);
-    my $usergroups = $user->groups();
-    my $remaingroups = $user->groupsNotIn();
+    my $usergroups = $user->groups(internal => 0, system => 1);
+    my $remaingroups = $user->groupsNotIn(internal => 0, system => 1);
 
     my $editable = $users->editableMode();
 
@@ -63,7 +64,7 @@ sub _process
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
-        my $setText = 0;
+        my $setText = undef;
         $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
@@ -71,6 +72,7 @@ sub _process
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
+            $self->_requireParamAllowEmpty('displayname', __('display name'));
             $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('mail', __('E-Mail'));
             $self->_requireParamAllowEmpty('password', __('password'));
@@ -80,17 +82,14 @@ sub _process
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
 
-            my $fullname;
-            if ($givenName) {
-                $fullname = "$givenName $surname";
+            my $displayname = $self->unsafeParam('displayname');
+            if (length ($displayname)) {
+                $user->set('displayName', $displayname, 1);
+                $setText = $user->name() . " ($displayname)";
             } else {
-                $fullname = $surname;
+                $user->delete('displayName', 1);
+                $setText = $user->name();
             }
-
-            if ($fullname ne $user->get('cn')) {
-                $setText = $user->get('uid') . " ($fullname)";
-            }
-
             my $description = $self->unsafeParam('description');
             if (length ($description)) {
                 $user->set('description', $description, 1);
@@ -99,14 +98,19 @@ sub _process
             }
             my $mail = $self->unsafeParam('mail');
             if (length ($mail)) {
-                $user->set('mail', $mail, 1);
+                if ($mail ne $user->get('mail')) {
+                    $user->checkMail($mail);
+                    $user->set('mail', $mail, 1);
+                }
             } else {
-                $user->delete('mail', 1);
+                # FIXME: We cannot delete the field if empty because if zentyal-mail is activated we will get an LDAP
+                # error because the schema requires this field. We should implement a way so this field is not optional
+                # with zentyal-mail installed
+                $user->set('mail', '', 1);
             }
 
             $user->set('givenname', $givenName, 1);
             $user->set('sn', $surname, 1);
-            $user->set('cn', $fullname, 1);
             $user->setDisabled($disabled);
 
             # Change password if not empty

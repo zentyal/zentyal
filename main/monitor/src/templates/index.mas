@@ -22,10 +22,9 @@ Parameters:
 </%args>
 <%init>
   use EBox::Gettext;
-  my $admsg = __sx('Do you want to monitor and manage your servers and desktops remotely? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
-                   ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">',
-                   ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
-                   ch => '</a>');
+  use EBox::Config;
+  my $admsg = __sx('Do you want to monitor and manage your servers and desktops remotely? Get one of the {oh}Commercial Editions{ch}!',
+                   oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>

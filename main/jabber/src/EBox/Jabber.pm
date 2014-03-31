@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,7 +26,7 @@ use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
 use EBox::Users::User;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
 use constant JABBERPORT => '5222';
@@ -164,9 +165,9 @@ sub isRunning
     my $output;
     try {
         $output =  EBox::Sudo::root($stateCmd);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # output will be undef
-    };
+    }
 
     if (not $output) {
         return 0;

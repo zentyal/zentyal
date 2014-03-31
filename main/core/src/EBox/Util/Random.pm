@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,15 +26,23 @@ use EBox::Exceptions::Internal;
 #
 # Parameters:
 #
-#   len - Desired pasword length
+#   len - Int Desired password length
+#
+#   chars - Array ref the characters to use in the random generation
+#           string. *(Optional)* Default value: all ASCII letters
+#           including capital letters, numbers and @/= chars
 #
 # Returns:
 #
 #   String with a generated random password
 #
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if the length is negative
+#
 sub generate
 {
-    my ($len) = @_;
+    my ($len, $chars) = @_;
     my $path ='/dev/urandom';
     my $char;
     my $data;
@@ -45,8 +53,12 @@ sub generate
         throw EBox::Exceptions::Internal('Wrong length argument');
     }
 
-    @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
-            . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@/=");
+    if (defined ($chars)) {
+        @chars = @{$chars};
+    } else {
+        @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                         . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@/=");
+    }
 
     open(RD, "<$path") or die "Failed to open random source $path";
     $data = "";

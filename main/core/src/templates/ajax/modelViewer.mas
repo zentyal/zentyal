@@ -8,6 +8,7 @@
      model - <EBox::Model::DataTable> the model to use its name
      hasChanged - Boolean indicating whether the model has changed or
                   not
+     user       - String the user name
      action     - String the action be performed. Only if action is
                   equal to 'view' the whole model viewer will be
                   loaded, any other action just the body will be
@@ -18,6 +19,7 @@
 <%args>
   $model
   $hasChanged
+  $user
   $action => 'view'
 </%args>
 <%init>
@@ -27,7 +29,8 @@
 % if ( $action eq 'view' or $action eq 'presetUpdate') {
 <& SELF:view,
    model => $model,
-   hasChanged => $hasChanged
+   hasChanged => $hasChanged,
+   user => $user,
 &>
 % } else {
 <& SELF:body,
@@ -35,11 +38,6 @@
    onlyBody => 1,
 &>
 % }
-% # Anyway you should call the change menu sub-component to check if
-% # any change has been done
-<& SELF:changeMenu,
-   hasChanged => $hasChanged
-&>
 
 
 <%doc>
@@ -54,17 +52,25 @@
 
      model - <EBox::Model::DataTable> the model to view
      hasChanged - Boolean indicating whether the model has changed or not
+     user - String the user name
 
 </%doc>
 <%method view>
 <%args>
   $model
   $hasChanged
+  $user
 </%args>
 <& SELF:header,
    model => $model
 &>
 
+<& .pageTitle,
+      crumbs => $model->viewCustomizer()->HTMLTitle()
+&>
+% if (not $m->notes('composite')) {
+<& /disabledModuleWarn.mas, model => $model &>
+% }
 
 % if ($model->precondition()) {
 <%perl>
@@ -74,10 +80,8 @@
         $noDataMsg = $model->noDataMsg();
         my $actions = $model->table()->{'actions'};
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
-        if ($showBody) {
-           unless ($model->message) {
-              $model->setMessage($noDataMsg);
-           }
+        unless ($model->message) {
+           $model->setMessage($noDataMsg,'emptynote');
         }
      }
 </%perl>
@@ -85,20 +89,12 @@
        <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
-
              &>
        </div>
 %   } elsif ($noDataMsg) {
-        <& SELF:permanentMessage, model => $model &>
-        <& SELF:regularMessage, model => $model &>
-        <div class="note">
-            <% $noDataMsg %>
-        </div>
+        <& SELF:helpAndMessages, model => $model &>
 %   }
 % } else  {
-%   if ($model->printableModelName()) {
-<& /title.mas, title => $model->printableModelName() &>
-%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -107,6 +103,8 @@
 %   }
 % }
 </%method>
+
+
 
 <%doc>
   Method: header
@@ -125,8 +123,6 @@
 <!-- Element to hide the elements while Asynchronous request are -->
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
-
-<div id='error_<% $model->modelName() | hu %>'></div>
 </%method>
 
 <%method headerScriptSection>
@@ -145,6 +141,7 @@
   Parameters:
 
      model - <EBox::Model::DataTable> the model to view
+     user  - String the user name
      onlyBody - boolean indicating if just the body is updated
                 *(Optional)* Default value: false
 
@@ -159,38 +156,24 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
-<%doc>
-% unless ( $model->pageTitle() ) {
-   <& SELF:permanentMessage, model => $model &>
-   <& SELF:regularMessage, model => $model &>
-% }
-</%doc>
 <& SELF:_body,
    model => $model,
    @childArgs
 &>
 </%method>
 
-<%method messagesAndHelp>
+<%method helpAndMessages>
 <%args>
 $model
 </%args>
+%  my $help = $model->help();
+%  if ($help) {
+<div class="help" style="display:none">
+  <% $model->help() %>
+</div>
+%  }
 <& SELF:permanentMessage, model => $model &>
 <& SELF:regularMessage, model => $model &>
-
-% my $help = $model->help();
-% if ($help) {
-     <div class="help">
-       <% $help %>
-     </div>
-% }
-
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-     <div class="warning">
-        <% $disabledModuleWarning %>
-      </div>
-% }
 </%method>
 
 <%doc>
@@ -215,154 +198,6 @@ $model
 </%method>
 
 <%doc>
-  Method: editFormSection
-
-    Show a section of an edit form
-
-  Parameters:
-
-    name - String with the name
-    formData - array containing <EBox::Types::Abstract> which form the
-    table row
-
-</%doc>
-<%method editFormSection>
-<%args>
-  $name
-  @formData
-  $section => undef
-</%args>
-<%init>
-  my @data;
-  my $title;
-  if ($section) {
-    @data = grep {  $_->section() and ($_->section() eq $section->{'name'}) }
-        @formData;
-  } else {
-    @data = grep { not $_->section() } @formData;
-  }
-</%init>
-% if ($section) {
-%     my $sectionId = 'form_section_' . $section->{'name'};
-      <tr><td colspan="2">
-        <a id="<% $sectionId %>_toggler" href="#" onclick="toggleWithToggler('<% $sectionId %>'); return false;" class="maxBox"><span class="hidden">Toggle</span></a>
-        <h3 style="display: inline;">
-          <% $section->{'title'} %>
-        </h3>
-      </td></tr>
-      <tbody id="<% $sectionId %>" style="display: none;">
-% }
-      <& SELF:editRowFields,
-         modelName => $name,
-         formData => \@data
-      &>
-% if ($section) {
-      </tbody>
-% }
-</%method>
-
-
-<%doc>
-  Method: editForm
-
-    Show the form to edit the fields from a row
-
-  Parameters:
-
-    modelName - String the model name
-    formData - array containing <EBox::Types::Abstract> which form the
-    table row
-
-</%doc>
-<%method editForm>
-<%args>
-  $modelName
-  @formData
-  @sections => ()
-</%args>
-%  my $formAttrs = '';
-%  if (@formData and $formData[0]->model()->disableAutocomplete()) {
-%    $formAttrs = 'autocomplete="off"';
-%  }
-<form id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
-  <table class="formTable">
-    <tbody>
-      <& SELF:editFormSection,
-         name => $modelName,
-         formData => \@formData,
-      &>
-    </tbody>
-% foreach my $section (@sections)
-% {
-      <& SELF:editFormSection,
-         name => $modelName,
-         formData => \@formData,
-         section => $section
-      &>
-% }
-      <tr>
-        <td class="tright"
-            id="applyChanges">
-        </td>
-        <& SELF:buttons &>
-      </tr>
-  </table>
-</form>
-% if (@formData) {
-%   my $customizer = $formData[0]->model()->viewCustomizer();
-%   if ($customizer) {
-<script>
-<%   $customizer->onChangeActionsJS() %>
-</script>
-%    }
-% }
-</%method>
-
-<%doc>
-  Method: editRowFields
-
-    Show the form to edit the fields from a row
-
-  Parameters:
-
-    modelName - String the model name
-    formData - array containing <EBox::Types::Abstract> which form the
-    table row
-
-</%doc>
-<%method editRowFields>
-<%args>
-  $modelName
-  @formData
-</%args>
-% foreach my $type (grep { defined($_->HTMLSetter())} @formData)
-% {
-<%perl>
-    my $viewCustomizer = $type->model()->viewCustomizer();
-    my $rowInit;
-    my $disableSetter = 0;
-    my $displayRow;
-    if ($viewCustomizer) {
-        $rowInit = $viewCustomizer->initHTMLStateField($type->fieldName(), \@formData);
-        if ($rowInit eq 'hide') {
-            $displayRow = 'class="hidden"';
-        } elsif ($rowInit eq 'disable') {
-            $disableSetter = 1;
-        }
-    }
-</%perl>
-
-<& $type->typeRowLayout(),
-    'modelName' => $modelName,
-    'type' => $type,
-    'displayRow' => $displayRow,
-    'disableSetter' => $disableSetter,
-&>
-% }
-
-</%method>
-
-<%doc>
   Method: buttons
 
     Show the button to submit the form. It must be overriden. In order
@@ -370,30 +205,6 @@ $model
 
 </%doc>
 <%method buttons>
-</%method>
-
-<%doc>
-  Method: changeMenu
-
-     Change the CSS class from the changes menu in order to advise the
-     user some changes have been made
-
-</%doc>
-<%method changeMenu>
-<%args>
-  $hasChanged
-</%args>
-<script>
-<%perl>
-my $className;
-if ($hasChanged) {
-  $className = 'changed';
-} else {
-  $className = 'notchanged';
-}
-</%perl>
-$('#changes_menu').removeClass().addClass('<% $className %>');
-</script>
 </%method>
 
 <%doc>
@@ -445,7 +256,28 @@ $model
 % if ( $model->message() ) {
      <& /msg.mas,
         msg => $model->popMessage(),
-       class => $model->messageClass()
+        class => $model->messageClass()
      &>
 % }
 </%method>
+
+<%doc>
+  Method: pageTitle
+
+     Set the page title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%def .pageTitle>
+<%args>
+  $title => undef
+  $crumbs => undef
+</%args>
+<& /title.mas,
+    title => $title,
+    crumbs => $crumbs
+&>
+</%def>

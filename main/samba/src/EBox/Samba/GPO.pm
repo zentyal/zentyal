@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -28,14 +28,16 @@ use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Samba::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
 use Parse::RecDescent;
 use Data::UUID;
 use Fcntl;
-use Error qw( :try );
+use TryCatch::Lite;
 use Net::LDAP::Control;
+use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
 use Samba::Security::Descriptor;
 
 use constant STATUS_ENABLED                 => 0x00;
@@ -113,11 +115,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|displayName");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|displayName");
+        }
     }
     return $self;
 }
@@ -195,24 +195,6 @@ sub deleteObject
         target => $host, service => 'sysvol', RID => 500);
 
     # TODO: Remove all links to this GPO in the domain
-
-    # Remove subcontainers
-    my $gpoDN = $self->get('distinguishedName');
-    my $userDN = "CN=User,$gpoDN";
-    my $machineDN = "CN=Machine,$gpoDN";
-    my $result;
-    $result = $self->_ldap->delete($userDN);
-    if ($result->is_error()) {
-        my $msg = $result->error_desc();
-        throw EBox::Exceptions::Internal(
-            "Can not create GPO. LDAP error: $msg");
-    }
-    $result = $self->_ldap->delete($machineDN);
-    if ($result->is_error()) {
-        my $msg = $result->error_desc();
-        throw EBox::Exceptions::Internal(
-            "Can not create GPO. LDAP error: $msg");
-    }
 
     # Remove GPC from LDAP
     $self->SUPER::deleteObject();
@@ -435,15 +417,18 @@ sub create
 
         $smb->mkdir("$path\\USER");
         $smb->mkdir("$path\\MACHINE");
-        my $fd = $smb->open("$path\\GPT.INI", O_CREAT | O_RDWR | O_TRUNC,
-            Samba::Smb::DENY_NONE);
+        my $openParams = {
+            open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+            access_mask => SEC_RIGHTS_FILE_ALL,
+            file_attr => FILE_ATTRIBUTE_NORMAL,
+        };
+        my $fd = $smb->open("$path\\GPT.INI", $openParams);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $createdGPO->deleteObject();
-        throw $error;
-    };
+        $e->throw();
+    }
 
     return $createdGPO;
 }
@@ -553,8 +538,16 @@ sub extensionUpdate
     }
 
     # Update GPT.INI file
-    my $fd = $smb->open($gptIniPath,
-        O_CREAT | O_RDWR | O_TRUNC, Samba::Smb::DENY_NONE);
+    my $openParams = {
+        open_disposition => NTCREATEX_DISP_OVERWRITE_IF,
+        access_mask => SEC_RIGHTS_FILE_ALL,
+        file_attr => FILE_ATTRIBUTE_NORMAL,
+    };
+    if ($smb->chkpath($gptIniPath)) {
+        my $finfo = $smb->getattr($gptIniPath);
+        $openParams->{file_attr} = $finfo->{mode};
+    }
+    my $fd = $smb->open($gptIniPath, $openParams);
     my $gptContent;
     foreach my $section (keys %{$data}) {
         my $wrote;
@@ -594,7 +587,7 @@ sub link
         throw EBox::Exceptions::Internal(
             "Container $containerDN not found.");
     }
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Check this GPO is not already linked
@@ -627,7 +620,7 @@ sub link
     $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
 
     # Write GPLink attribute
-    $container->set('gpLink', $gpLinkAttr);
+    $container->set('gPLink', $gpLinkAttr);
 }
 
 sub unlink
@@ -641,13 +634,13 @@ sub unlink
             "Container $containerDN does not exists");
     }
 
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Split linked GPOs
     my @linkedGPOs = grep (/.+/, reverse split (/\[([^\[\]]+)\]/, $gpLinkAttr));
 
-    # Check linked GPO at given index is ourself
+    # Check linked GPO at given index is myself
     my $target = $linkedGPOs[$linkIndex - 1];
     my ($gpoPath, $linkOptions) = split(/;/, $target);
     $gpoPath =~ s/ldap:\/\///ig;
@@ -667,7 +660,7 @@ sub unlink
         $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
         $container->set('gpLink', $gpLinkAttr);
     } else {
-        $container->delete('gpLink', 0);
+        $container->delete('gPLink', 0);
     }
 }
 
@@ -681,7 +674,7 @@ sub editLink
         throw EBox::Exceptions::Internal(
             "Container $containerDN does not exists");
     }
-    my $gpLinkAttr = $container->get('gpLink');
+    my $gpLinkAttr = $container->get('gPLink');
     $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
 
     # Split linked GPOs
@@ -712,7 +705,7 @@ sub editLink
     $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
 
     # Write GPLink attribute
-    $container->set('gpLink', $gpLinkAttr);
+    $container->set('gPLink', $gpLinkAttr);
 }
 
 1;

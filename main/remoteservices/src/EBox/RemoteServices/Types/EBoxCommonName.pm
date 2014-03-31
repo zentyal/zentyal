@@ -22,6 +22,7 @@ use base 'EBox::Types::Text';
 
 use EBox::Gettext;
 use EBox::Validate;
+use EBox::Exceptions::InvalidData;
 
 # Constants
 use constant {

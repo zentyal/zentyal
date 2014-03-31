@@ -1,4 +1,13 @@
+3.4
+	+ Changed configuration of amavis to avoid only ipv6 in Net::LDAP bug
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Fixed logs summarized report
 3.3
+	+ Take in account mail dependency if mail module is enabled
+	+ Switch from Error to TryCatch for exception handling
+	+ Update strings to new offering
+	+ Added missing EBox::Exceptions uses
 	+ Avoid call to mailfilter-ldap script from enableActions
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3

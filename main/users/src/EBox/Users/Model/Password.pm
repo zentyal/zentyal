@@ -24,23 +24,45 @@ package EBox::Users::Model::Password;
 
 use base 'EBox::Model::DataForm';
 
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
 use EBox::Users::Types::Password;
+use EBox::Validate qw(:all);
 
-use File::Temp qw/tempfile/;
 use Encode;
+use File::Temp qw/tempfile/;
 
-use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
+use constant SAMBA_LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldapi" ;
 
 sub precondition
 {
-    return EBox::Global->modInstance('usercorner')->editableMode();
+    my ($self) = @_;
+
+    my $usercornerMod = EBox::Global->modInstance('usercorner');
+    unless (defined $usercornerMod) {
+        $self->{preconditionFail} = 'notUserCorner';
+        return undef;
+    }
+
+    unless ($usercornerMod->editableMode()) {
+        $self->{preconditionFail} = 'nonEditableMode';
+        return undef;
+    }
+
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notUserCorner') {
+        return __('This form is only available from the User Corner application.');
+    }
+    if ($self->{preconditionFail} eq 'nonEditableMode') {
+        return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
+    }
 }
 
 sub pageTitle
@@ -165,10 +187,10 @@ sub setTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
-    eval 'use EBox::UserCorner::Auth';
-    my $auth = EBox::UserCorner::Auth->credentials();
-    my $user = $auth->{user};
-    my $pass = $auth->{pass};
+    my $global = $self->global();
+    # We don't need to check for usercorner because this form does it on its precondition check.
+    my $usercornerMod = $global->modInstance('usercorner');
+    my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
 
     # Check we can instance the zentyal user
     my $zentyalUser = new EBox::Users::User(uid => $user);
@@ -177,13 +199,14 @@ sub setTypedRow
             x => $user);
     }
 
+    my $newPasswd = $pass1->value();
     # Set the new password in the samba database in first place
-    $self->_updateSambaPassword($user, $pass, $pass1->value());
+    $self->_updateSambaPassword($user, $pass, $newPasswd);
 
     # At this point, the password has been changed in samba
-    $zentyalUser->changePassword($pass1->value());
+    $zentyalUser->changePassword($newPasswd);
 
-    EBox::UserCorner::Auth->updatePassword($user, $pass1->value(), $zentyalUser->dn());
+    $usercornerMod->updateSessionPassword($newPasswd);
 
     $self->setMessage(__('Password successfully updated'));
 }

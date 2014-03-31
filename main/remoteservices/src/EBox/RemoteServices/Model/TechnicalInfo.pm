@@ -40,11 +40,6 @@ use EBox::Types::Text;
 use EBox::Types::HTML;
 use POSIX;
 
-# Constants:
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription.techinfo&utm_campaign=smallbusiness_edition';
-use constant ENT_URL   => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscripiton.techinfo&utm_campaign=enterprise_edition';
-
 # Group: Public methods
 
 # Constructor: new
@@ -165,7 +160,12 @@ sub _content
                                          ch => '</a>',
                                          os => '<span>',
                                          cs => '</span>'),
-                            '2'  => __sx('{os}{oh}On-line Support Platform{ch}, Chat'
+                            '2'  => __sx('{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}',
+                                         oh => '<a href="https://support.zentyal.com" target="_blank">',
+                                         ch => '</a>',
+                                         os => '<span>',
+                                         cs => '</span>'),
+                            '3'  => __sx('{os}{oh}On-line Support Platform{ch}, Chat'
                                          . ', Phone{cs}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>',
@@ -174,9 +174,10 @@ sub _content
                            );
             $supportVia = $i18nVia{$techSupportLevel};
 
-            my %i18nSLA = ( '0' => __s('Next Business Day'),
-                            '1' => __s('4 hours'),
-                            '2' => __s('1 hour') );
+            my %i18nSLA = ('0' => __s('2 Business Days'),
+                           '1' => __s('1 Business Day'),
+                           '2' => __s('4 hours'),
+                           '3' => __s('1 hour'));
             $sla = $i18nSLA{$techSupportLevel};
         }
 
@@ -187,15 +188,15 @@ sub _content
         edition      => $subscription,
         support_via  => $supportVia,
         sla          => $sla,
-       };
+    };
 }
 
 # Group: Private methods
 
 sub _message
 {
-    return __sx('Zentyal is full-featured Linux server that you can use for free without technical support or quality assured updates, or you can get it fully supported for an {oh}affordable monthly fee{ch}.',
-                oh => '<a href="http://www.zentyal.com/pricing-editions/" target="_blank">',
+    return __sx('Zentyal is a full-featured Linux server that you can use for free without cloud services, technical support or quality assured updates, or you can get it fully supported for an {oh}affordable monthly fee{ch} through your local Authorized Partner.',
+                oh => '<a href="http://www.zentyal.com/smb-editions/" target="_blank">',
                 ch => '</a>');
 }
 

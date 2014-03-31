@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 
 ## arguments:
 ##  title [required]
@@ -57,11 +57,10 @@ sub _process
             unless ($software->updatePkgList()) {
                 $updateListError = 1;
             }
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($e) {
             $updateListError = 1;
-            $updateListErrorMsg = "$ex";
-        };
+            $updateListErrorMsg = "$e";
+        }
     }
 
     my @pkgs = @{$software->listEBoxPkgs()};
@@ -81,7 +80,6 @@ sub _process
     push(@array, 'updateListError'    => $updateListError);
     push(@array, 'updateListErrorMsg'    => $updateListErrorMsg);
     push(@array, 'brokenPackages'     => $software->listBrokenPkgs());
-    push(@array, 'sb' => (EBox::Global->edition() eq 'sb'));
 
     $self->{params} = \@array;
 }
@@ -92,20 +90,20 @@ sub _menu
 
     if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
-        $software->firstTimeMenu(0);
+        return $software->firstTimeMenu(0);
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
 sub _top
 {
-    my ($self) = @_;
+    my $self = shift;
 
     if (EBox::Global->first()) {
-        $self->_topNoAction();
+        return $self->_topNoAction();
     } else {
-        $self->SUPER::_top(@_);
+        return $self->SUPER::_top(@_);
     }
 }
 

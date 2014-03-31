@@ -20,7 +20,7 @@ package EBox::RemoteServices::CGI::Backup::Index;
 
 use base qw(EBox::CGI::ClientBase);
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::RemoteServices::Backup;
 use EBox::Gettext;
@@ -62,11 +62,10 @@ sub actuate
     try {
         my $backup = $self->_backupService();
         $self->{backups} =  $backup->listRemoteBackups();
-    } otherwise {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
         $self->setChain('RemoteServices/NoConnection');
-    };
+    }
 }
 
 sub masonParameters

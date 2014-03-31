@@ -36,6 +36,7 @@ use EBox::Model::Manager;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
+use EBox::Exceptions::DataInUse;
 
 {
     my $rowIdUsed;
@@ -231,7 +232,7 @@ sub _newDataForm
 {
     my ($self, $table) = @_;
     if (not defined $table) {
-        $table = $self->_tableDescription4fields();
+        $table = $self->_tableDescriptionfields();
     }
 
     my $confmodule = EBox::Global->modInstance('fakeModule');
@@ -248,7 +249,7 @@ sub _newDataForm
     return $dataForm;
 }
 
-sub _tableDescription4fields
+sub _tableDescriptionfields
 {
     my $tableDescription = {
         tableDescription => [

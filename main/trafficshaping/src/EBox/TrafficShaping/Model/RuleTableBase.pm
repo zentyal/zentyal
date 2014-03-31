@@ -30,9 +30,11 @@ use base 'EBox::Model::DataTable';
 
 use integer;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;
@@ -78,12 +80,12 @@ sub new
 
 # Method: priority
 #
-#	Return select options for the priority field
+#       Return select options for the priority field
 #
 # Returns:
 #
-#	Array ref containing hash ref with value, printable
-#	value and selected status
+#       Array ref containing hash ref with value, printable
+#       value and selected status
 #
 sub priority
 {
@@ -117,6 +119,12 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
+    if (exists $changedParams->{iface}) {
+        throw EBox::Exceptions::External(
+            __('Changing rules interface is not supported. Remove the rule and add another for the desired interface')
+           );
+    }
+
     if ( defined ( $params->{guaranteed_rate} )) {
         $self->_checkRate( $params->{guaranteed_rate},
                 __('Guaranteed rate'));
@@ -464,14 +472,14 @@ sub _normalize
                 $row->elementByName('guaranteed_rate')->setValue($guaranteedRate);
                 $row->elementByName('limited-rate')->setValue($limitedRate);
                 $row->store();
-            } otherwise {
+            } catch {
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
                 my ($exc) = @_;
                 EBox::warn('Row ' . $id . " is being removed. Reason: $exc");
                 $self->removeRow($id, 1);
                 $removeNum++;
-            };
+            }
         }
     }
 

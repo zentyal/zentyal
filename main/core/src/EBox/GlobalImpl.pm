@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2004-2007 Warp Networks S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,7 +18,7 @@ use warnings;
 
 package EBox::GlobalImpl;
 
-use base qw(EBox::Module::Config Apache::Singleton::Process);
+use base qw(EBox::Module::Config Class::Singleton);
 
 use EBox;
 use EBox::Exceptions::Command;
@@ -26,7 +27,8 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
-use Error qw(:try);
+use EBox::Exceptions::External;
+use TryCatch::Lite;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::ProgressIndicator;
@@ -54,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo webadmin events global logs audit);
+use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -76,6 +78,7 @@ sub _new_instance
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
+    $self->{request} = undef;
     return $self;
 }
 
@@ -91,9 +94,9 @@ sub readModInfo # (module)
         my $yaml;
         try {
             ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
-        } otherwise {
+        } catch {
             $yaml = undef;
-        };
+        }
         $self->{mod_info}->{name} = $yaml;
     }
     return $self->{mod_info}->{name};
@@ -231,7 +234,6 @@ sub modIsChanged
 
     $self->modExists($name) or return undef;
 
-    my $info = $self->readModInfo($name);
     return $self->get_bool("modules/$name/changed");
 }
 
@@ -375,9 +377,9 @@ sub revokeAllModules
         my $mod = $self->modInstance($ro, $name);
         try {
             $mod->revokeConfig;
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
 
     # discard logging of revoked changes
@@ -388,6 +390,7 @@ sub revokeAllModules
 
     if (not $failed) {
         $progress->setAsFinished() if $progress;
+        $self->_assertNotChanges();
         return;
     }
 
@@ -551,6 +554,7 @@ sub saveAllModules
     my $modNames;
     my $ro = 0;
     my $failed = '';
+    my %modified;
 
     # Reset save messages array
     $self->{save_messages} = [];
@@ -599,13 +603,10 @@ sub saveAllModules
             try {
                 $module->{firstInstall} = 1;
                 $module->configureModule();
-            } otherwise {
-                my ($ex) = @_;
-                my $err = $ex->text();
-                EBox::debug("Failed to enable module $name: $err");
-            } finally {
-                delete $module->{firstInstall};
-            };
+            } catch ($e) {
+                EBox::debug("Failed to enable module $name: $e");
+            }
+            delete $module->{firstInstall};
         }
 
         # in first install sysinfo module is in changed state
@@ -613,6 +614,7 @@ sub saveAllModules
     } else {
         # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
+        %modified = map { $_ =>  1} @mods;
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
     }
@@ -626,16 +628,21 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    my $apache = 0;
+    foreach my $mod (@{ $self->modInstancesOfType($ro, 'EBox::Module::Config') }) {
+        my $name = $mod->name();
+        next if ($modified{$name} or ($name eq 'global'));
+        $mod->_saveConfig();
+    }
+
+    my $webadmin = 0;
     foreach my $name (@mods) {
         if ($name eq 'webadmin') {
-            $apache = 1;
+            $webadmin = 1;
             next;
         }
 
         if ($progress) {
-            $progress->setMessage(__x("Saving {modName} module",
-                                       modName => $name));
+            $progress->setMessage(__x("Saving {modName} module", modName => $name));
             $progress->notifyTick();
         }
 
@@ -644,30 +651,27 @@ sub saveAllModules
             $mod->setInstalled();
 
             if (not $mod->configured()) {
-                $mod->_saveConfig();
-                $self->modRestarted($name);
+                $self->modRestarted($mod->name);
                 next;
             }
         }
 
         try {
             $mod->save();
-        } catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module $name: $ex");
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to save changes in module $name: $e");
             $failed .= "$name ";
-        };
+        }
     }
 
     # Delete first time installation file (wizard)
     $self->deleteFirst();
 
-    # FIXME - tell the CGI to inform the user that apache is restarting
-    if ($apache) {
-        EBox::info("Saving configuration: apache");
+    # FIXME - tell the CGI to inform the user that webadmin is restarting
+    if ($webadmin) {
+        EBox::info("Saving configuration: webadmin");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
                                        modName => 'webadmin'));
@@ -677,36 +681,40 @@ sub saveAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, 'webadmin');
         try {
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module webadmin: $ex");
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to save changes in module webadmin: $e");
             $failed .= "webadmin ";
-        };
+        }
     }
 
     # TODO: tell events module to resume its watchers
 
-    foreach my $modName (@{$self->get_list('post_save_modules')}) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
-        next unless defined ($mod);
-
+    while (my $modName = $self->popPostSaveModule()) {
         try {
+            my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to restart $modName after save changes: $ex");
+            my @newModulesToSave = @{$self->modifiedModules('save')};
+            map { $self->addModuleToPostSave($_) } @newModulesToSave;
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to restart $modName after save changes: $e");
             $failed .= "$modName ";
-        };
+        }
     }
     $self->unset('post_save_modules');
 
     if (not $failed) {
+        # Replicate conf if there are more HA servers and it does not come from replication
+        if ($self->modExists('ha') and not $options{replicating}) {
+            my $ha = $self->modInstance(0, 'ha');
+            if ($ha->isEnabled()) {
+                $ha->askForReplication(\@mods);
+            }
+        }
+
         # post save hooks
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending
@@ -724,6 +732,8 @@ sub saveAllModules
         }
         $progress->setAsFinished(0, $message) if $progress;
 
+        $self->_assertNotChanges();
+
         return;
     }
 
@@ -732,74 +742,6 @@ sub saveAllModules
 
     $progress->setAsFinished(1, $errorText) if $progress;
     throw EBox::Exceptions::Internal($errorText);
-}
-
-# Method: restartAllModules
-#
-#       Force a restart for all the modules
-#
-sub restartAllModules
-{
-    my $self = shift;
-
-    my $ro = 1;
-
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Restarting all modules");
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "being restarted, their state is unknown: $failed");
-}
-
-# Method: stopAllModules
-#
-#       Stops all the modules
-#
-sub stopAllModules
-{
-    my $self = shift;
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Stopping all modules");
-
-    my $ro = 1;
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->stopService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "stopping, their state is unknown: $failed");
 }
 
 # Method: modInstances
@@ -1173,6 +1115,56 @@ sub deleteDisasterRecovery
     }
 }
 
+# Method: appName
+#
+# Returns:
+#
+#   String - The application name we are running as or undef if unknown.
+#
+sub appName
+{
+    my ($self) = @_;
+
+    my $request = $self->{request};
+    if (defined $request) {
+        my $session = $request->session();
+        if (defined $session) {
+            return $session->{app};
+        }
+    }
+    return undef;
+}
+
+# Method: request
+#
+# Returns:
+#
+#   <Plack::Request> - The http request, undef if we are not in an http request
+#
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
+}
+
+# Method: setRequest
+#
+# Parameters:
+#
+#   <Plack::Request> - The http request.
+#
+sub setRequest
+{
+    my ($self, $request) = @_;
+
+    unless ($request) {
+        throw EBox::Exceptions::Internal("Missing argument 'request'");
+    }
+
+    $self->{request} = $request;
+}
+
 # Method: saveMessages
 #
 # Returns:
@@ -1206,7 +1198,7 @@ sub addSaveMessage
 #
 #   Subscription level as string. Current possible values:
 #
-#     'community', 'basic', 'sb', 'professional', 'enterprise'
+#     'community', 'basic', 'trial', 'professional', 'business' and 'premium'
 #
 sub edition
 {
@@ -1220,6 +1212,55 @@ sub edition
     }
 
     return 'community';
+}
+
+# Method: communityEdition
+#
+# Returns:
+#
+#    boolean - true if community edition, false if commercial
+#
+sub communityEdition
+{
+    my ($self) = @_;
+
+    my $edition = $self->edition();
+
+    return (($edition eq 'community') or ($edition eq 'basic'));
+}
+
+# Method: addModuleToPostSave
+#
+#      Add a module to be saved after single normal saving changes
+#
+# Parameters:
+#
+#      module - String the module name
+#
+sub addModuleToPostSave
+{
+    my ($self, $name) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    unless (grep { $_ eq $name } @postSaveModules) {
+        push (@postSaveModules, $name);
+        $self->set('post_save_modules', \@postSaveModules);
+    }
+}
+
+# Method: popPostSaveModule
+#
+#   Pop a module to from the list of modules to be saved after regular save changes
+#
+sub popPostSaveModule
+{
+    my ($self) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    my $element = shift @postSaveModules;
+    $self->set('post_save_modules', \@postSaveModules);
+
+    return $element;
 }
 
 # Method: _runExecFromDir
@@ -1274,20 +1315,18 @@ sub _runExecFromDir
                     $progress->notifyTick();
                 }
                 my $output = EBox::Sudo::command("$exec $modNames");
-                if ( @{$output} > 0) {
+                if (@{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");
                 }
-            } catch EBox::Exceptions::Command with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Command $e) {
                 my $msg = "Command $exec failed its execution\n"
-                  . 'Output: ' . @{$exc->output()} . "\n"
-                  . 'Error: ' . @{$exc->error()} . "\n"
-                  . 'Return value: ' . $exc->exitValue();
+                  . 'Output: ' . @{$e->output()} . "\n"
+                  . 'Error: ' . @{$e->error()} . "\n"
+                  . 'Return value: ' . $e->exitValue();
                 EBox::error($msg);
-            } otherwise {
-                my ($exc) = @_;
-                EBox::error("Error executing $exec: $exc");
-            };
+            } catch ($e) {
+                EBox::error("Error executing $exec: $e");
+            }
         }
     }
 }
@@ -1344,6 +1383,16 @@ sub _packageInstalled
         }
     }
     return $installed;
+}
+
+sub _assertNotChanges
+{
+    my ($self) = @_;
+    my @unsaved =  @{$self->modifiedModules('save')};
+    if (@unsaved) {
+        my $names = join ', ',  @unsaved;
+        throw EBox::Exceptions::Internal("The following modules remain unsaved after save changes: $names");
+    }
 }
 
 1;

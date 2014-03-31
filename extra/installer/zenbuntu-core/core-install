@@ -1,17 +1,15 @@
 #!/bin/bash -x
 
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/zentyal/3.2/ubuntu"
-ZENTYAL_SOURCES="deb $PPA_URL precise main"
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.2 main extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.4 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
 create_repository()
 {
     # without this apt-ftparchive gives lots of "too many open files" errors
-    # for some reason this worked flawlessly in lucid but not now in precise
+    # for some reason this worked flawlessly in lucid but not in more recent versions
     ulimit -n 30000
 
     if ! [ -d $PKG_DIR ]; then
@@ -29,6 +27,9 @@ create_repository()
         ln -s $i .
     done
     popd
+
+    # Comment source lines by default to make apt-get update faster
+    sed -i 's/^deb-src/#deb-src/g' ${SOURCES_LIST}
 
     # Update the package database with only the local repository
     # just in case we are installing without internet connection
@@ -81,10 +82,10 @@ gen_locales()
 
 create_repository # Set up local package repository
 
-if ! grep -q ${PPA_URL} ${SOURCES_LIST}
-then
-    echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
-fi
+#if ! grep -q ${PPA_URL} ${SOURCES_LIST}
+#then
+#    echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
+#fi
 
 if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
 then
@@ -96,8 +97,6 @@ PACKAGES=zentyal
 
 update_if_network # apt-get update if we are connected to the internet
 
-gen_locales
-
 REGISTER_DATA=/var/lib/zinstaller-remote
 
 if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
@@ -106,6 +105,8 @@ then
 fi
 
 DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
+
+gen_locales
 
 if [ -f /var/tmp/.zentyal-disaster-recovery ]
 then

@@ -21,7 +21,7 @@ package EBox::Types::TestHelper;
 
 use Test::More;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::TestStub;
 
 sub setupFakes
@@ -61,12 +61,10 @@ sub defaultValueOk
                                defaultValue => $value,
                                @extraNewParams
                               );
-    }
-    otherwise {
-        my $ex = shift @_;
-        diag "$ex";
+    } catch ($e) {
+        diag "$e";
         fail "Cannot create a instance of $class with default value $value";
-    };
+    }
 
     is $instance->value(),
         $value,
@@ -95,8 +93,7 @@ sub _createTest
     if (@p % 2) {
         # odd number of elements
         $testName = pop @p;
-    }
-    else {
+    } else {
         $testName = "Creation of $class";
     }
 
@@ -108,18 +105,15 @@ sub _createTest
     my $instance;
     try {
         $instance = $class->new(%params);
-    }
-    otherwise {
+    } catch {
         $failed =1;
 
         if ($wantSuccess) {
             fail $testName;
+        } else {
+            pass $testName;
         }
-        else {
-            pass $testName
-        }
-
-    };
+    }
 
     $failed and
         return $instance;
@@ -128,30 +122,25 @@ sub _createTest
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    }
-    otherwise {
+    } catch ($e) {
         $failed = 1;
 
-        my $ex = shift @_;
-        diag $ex;
+        diag $e;
 
         if ($wantSuccess) {
             fail $testName;
+        } else {
+            pass $testName;
         }
-        else {
-            pass $testName
-        }
-
-    };
+    }
 
     $failed and
         return $instance;
 
     if ($wantSuccess) {
         pass $testName;
-    }
-    else {
-        fail  $testName
+    } else {
+        fail $testName;
     }
 
     return $instance;

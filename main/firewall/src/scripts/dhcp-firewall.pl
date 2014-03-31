@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,7 +22,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -36,10 +37,10 @@ while ($timeout) {
 	try {
 		$fw->restartService();
 		exit(0);
-	} catch EBox::Exceptions::Lock with {
+	} catch (EBox::Exceptions::Lock $e) {
 		sleep 5;
 		$timeout -= 5;
-	};
+	}
 }
 
 EBox::error("DHCP hook: Firewall module has been locked for 60 seconds, ".

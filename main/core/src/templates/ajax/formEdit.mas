@@ -1,0 +1,48 @@
+<%doc>
+This template is for the edit div of EBox::Model::DataForm
+</%doc>
+<%flags>
+inherit =>  '/ajax/changeRowForm.mas'
+</%flags>
+<%args>
+$model
+$formData
+</%args>
+<div id='<% $model->table()->{tableName} %>_message'></div>
+<& SELF:editForm,
+   model     => $model,
+   formData => $formData
+&>
+
+<%doc>
+  Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%args>
+$model
+</%args>
+<%init>
+  my $id = $model->name() . '_ajaxform';
+  my $actions = $model->table()->{actions};
+  my $onClick = $model->formSubmitJS($id);
+  $onClick =  $model->confirmationJS('submit', $onClick);
+  $onClick .= "; return false;";
+</%init>
+<td id="<%  $model->modelName() %>_buttons">
+% if (defined $actions and (keys %{ $actions} > 0)) {
+  <& /input/submit.mas,
+     name => 'change',
+     value => $model->printableActionName(),
+     onclick => $onClick,
+  &>
+% }
+<& /ajax/customActions.mas, model => $model, id => $id &>
+</td>
+</%method>

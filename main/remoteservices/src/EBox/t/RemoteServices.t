@@ -28,7 +28,7 @@ use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
 use Test::Exception;
 use Test::MockObject::Extends;
-use Test::More tests => 17;
+use Test::More tests => 29;
 use POSIX;
 
 sub setUpConfiguration : Test(startup)
@@ -120,6 +120,39 @@ sub test_control_panel_url : Test(3)
            'Non-current production one');
     cmp_ok($mockedRSMod->controlPanelURL(), 'eq', 'https://remote.zentyal.com/',
            'Current production one');
+}
+
+sub test_ad_messages : Test(11)
+{
+    # It tests everything related to ad messages methods
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
+    is($rsMod->popAdMessage('tais-toi'), undef, 'No message with this name');
+    cmp_ok($rsMod->adMessages()->{text}, 'eq', "", 'No ad messages');
+    cmp_ok($rsMod->adMessages()->{name}, 'eq', 'remoteservices', 'The ad-message name');
+
+    lives_ok { $rsMod->pushAdMessage('gas', 'drummers') } 'Pushing an ad message';
+    lives_ok { $rsMod->pushAdMessage('miss', 'caffeina') } 'Pushing another message';
+    like($rsMod->adMessages()->{text}, qr{drummers}, 'Ad messages');
+
+    cmp_ok($rsMod->popAdMessage('gas'), 'eq', 'drummers', 'Pop a valid ad message');
+    is($rsMod->popAdMessage('gas'), undef, 'You can only pop out once');
+
+    lives_ok { $rsMod->pushAdMessage('back-to', 'decandence') } 'Pushing an ad message';
+    lives_ok { $rsMod->pushAdMessage('back-to', 'uprising') } 'Overwritting an ad message';
+    cmp_ok($rsMod->popAdMessage('back-to'), 'eq', 'uprising', 'Last one were updated');
+}
+
+sub test_check_ad_messages : Test
+{
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
+    my $mockedRSMod = new Test::MockObject::Extends($rsMod);
+    $mockedRSMod->set_true('eBoxSubscribed');
+    $mockedRSMod->mock('addOnDetails', sub { {'max' => 232}});
+    lives_ok { $mockedRSMod->checkAdMessages(); } 'Check ad messages';
 }
 
 1;

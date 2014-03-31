@@ -1,0 +1,10 @@
+pre-start script
+    service dansguardian stop || true
+end script
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+manual
+respawn
+
+exec /usr/sbin/dansguardian -N

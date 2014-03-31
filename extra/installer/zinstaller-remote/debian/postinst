@@ -94,7 +94,7 @@ then
     # JSON formatting seems to change, so we remove all new lines
     RESPONSE=$(echo "$RESPONSE" | tr "\n" ' ')
 
-    echo $RESPONSE | sed "s/},/\n/g" | while read line
+    echo $RESPONSE | sed "s/},\s*{/\n/g" | while read line
     do
         company=$(get_field "$line" company)
         name=$(get_field "$line" name)
@@ -121,11 +121,14 @@ then
     elif [ $NUM_BUNDLES -eq 1 ]
     then
         BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
-        if grep "Enterprise" $DATA_DIR/BUNDLE_IDS
+        if grep "Premium" $DATA_DIR/BUNDLE_IDS
         then
-            db_input high zinstaller-remote/auth_ok_enterprise
+            db_input high zinstaller-remote/auth_ok_premium
+        elif grep "Business" $DATA_DIR/BUNDLE_IDS
+        then
+            db_input high zinstaller-remote/auth_ok_business
         else
-            db_input high zinstaller-remote/auth_ok_sb
+            db_input high zinstaller-remote/auth_ok_professional
         fi
         db_go
     else
@@ -140,8 +143,8 @@ then
     fi
 
     # Get subscription data
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-    if [ $? -eq 0 ] && ! echo "$RESPONSE" | grep -q "__all__"
+    RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
+    if [ $? -eq 0 ]
     then
         COMPANY=$(get_field "$RESPONSE" company)
         QA_USERNAME="$COMPANY-$SERVERNAME"
@@ -152,7 +155,12 @@ then
         echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
         touch $DATA_DIR/COMMERCIAL_EDITION
     else
+        # Repeat getting the error (without -f)
+        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
+        echo $RESPONSE
         echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
+        lines=$(echo $RESPONSE | tr ']' "\n" | cut -d[ -s -f2)
+        db_subst zinstaller-remote/error_register ERROR "$lines"
         db_input high zinstaller-remote/error_register
         db_go
         exit 0

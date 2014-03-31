@@ -26,7 +26,7 @@ package EBox::RemoteServices::AdminPort;
 use base 'EBox::RemoteServices::Cred';
 
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -69,10 +69,9 @@ sub setAdminPort
                                                 query => { port => $port },
                                                 retry => 1);
         $result = ($response->{result}->is_success());
-    } otherwise {
-        my $ex = shift;
-        EBox::error("Failed to notify admin port to Remote: $ex");
-    };
+    } catch ($e) {
+        EBox::error("Failed to notify admin port to Remote: $e");
+    }
 
     return $result;
 }

@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,6 +23,7 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 # package:
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 
 use File::Glob ':glob';
 use File::Slurp;

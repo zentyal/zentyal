@@ -1,4 +1,10 @@
+3.4
+	+ Log audit working properly for download client bundle
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Better behavior for daemons ifaceAddress methods
 	+ Precondition to assure there are certificates available in
 	  DownloadClientBundle model

@@ -28,7 +28,8 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
-use Error qw(:try);
+use EBox::Exceptions::MissingArgument;
+use TryCatch::Lite;
 
 # Constant
 use constant MAX_INT => 32767;
@@ -517,8 +518,7 @@ sub warnIfIdIsUsed
 #
 #       changedData - hash ref the types that has been changed
 #
-#       oldRow - hash ref the old row with the content as
-#       <EBox::Model::DataTable::row> return value
+#       oldRow - <EBox::Model::Row> the old row
 #
 # Exceptions:
 #
@@ -703,7 +703,7 @@ sub _setupNotifyActions
         my $observerPath = '/' . $moduleName . '/' . $model . '/';
         foreach my $notifier (@{ $notify->{$model}   }) {
             # XXX change when we change the yaml to the more intuitive notifier
-            # - >wathcer format
+            # - >watcher format
             if (not exists $self->{notifyActions}->{$notifier}) {
                 $self->{notifyActions}->{$notifier} = [];
             }

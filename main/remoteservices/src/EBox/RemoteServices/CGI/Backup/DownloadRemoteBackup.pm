@@ -23,15 +23,16 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::RemoteServices::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::External;
+
+use Cwd qw(realpath);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new( @_);
-	$self->{errorchain} = "RemoteServices/Backup/Index";
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new( @_);
+    $self->{errorchain} = "RemoteServices/Backup/Index";
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _print
@@ -52,12 +53,17 @@ sub _print
 
     my $name   = $self->param('name');
     my $backup = new EBox::RemoteServices::Backup();
+    my $tmpFile = $backup->downloadRemoteBackup($name);
 
-    print($self->cgi()->header(
-        -type       => 'application/x-tar',
-        -attachment => "$name.tar",
-       ));
-    $backup->downloadRemoteBackup($name, \*STDOUT);
+    open (my $fh, "<:raw", $tmpFile) or
+            throw EBox::Exceptions::Internal('Could not open backup file.');
+        Plack::Util::set_io_path($fh, Cwd::realpath($tmpFile));
+
+    my $response = $self->response();
+    $response->status(200);
+    $response->content_type('application/x-tar');
+    $response->header('Content-Disposition' => 'attachment; filename="' . "$name.tar" . '"');
+    $response->body($fh);
 }
 
 sub requiredParameters

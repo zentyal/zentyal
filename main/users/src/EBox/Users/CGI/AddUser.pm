@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Users;
 use EBox::Gettext;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
 sub new
 {
@@ -53,7 +55,6 @@ sub _process
 
         $params{givenname} = $self->param('givenname');
         $params{surname} = $self->param('surname');
-        $params{fullname} = $self->param('fullname');
 
         $params{password} = $self->unsafeParam('password');
         $params{repassword} = $self->unsafeParam('repassword');

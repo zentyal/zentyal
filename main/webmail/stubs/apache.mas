@@ -7,3 +7,38 @@ Alias / /var/lib/roundcube/
 % } else {
 Alias /webmail /var/lib/roundcube
 % }
+
+# Access to tinymce files
+<Directory "/usr/share/tinymce/www/">
+      Options Indexes MultiViews FollowSymLinks
+      AllowOverride None
+      Require all granted
+</Directory>
+
+<Directory /var/lib/roundcube/>
+  Options +FollowSymLinks
+  # This is needed to parse /var/lib/roundcube/.htaccess. See its
+  # content before setting AllowOverride to None.
+  AllowOverride All
+  Require all granted
+</Directory>
+
+# Protecting basic directories:
+<Directory /var/lib/roundcube/config>
+        Options -FollowSymLinks
+        AllowOverride None
+</Directory>
+
+<Directory /var/lib/roundcube/temp>
+        Options -FollowSymLinks
+        AllowOverride None
+        Require all denied
+</Directory>
+
+<Directory /var/lib/roundcube/logs>
+        Options -FollowSymLinks
+        AllowOverride None
+        Require all denied
+</Directory>
+
+

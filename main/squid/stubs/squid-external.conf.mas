@@ -155,7 +155,7 @@ snmp_access allow snmppublic from_localhost
 snmp_access deny all
 </%def>
 ###################################################################################
-http_port localhost:<% $port %>
+http_port 0.0.0.0:<% $port %>
 
 
 visible_hostname (external)<% $hostfqdn %>
@@ -224,6 +224,10 @@ acl_uses_indirect_client on
 # no cache domains acl
 % foreach my $domain (@notCachedDomains) {
 acl noCached dstdomain <% $domain %>
+% }
+
+% if (@notCachedDomains) {
+cache deny noCached
 % }
 
 

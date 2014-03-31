@@ -55,7 +55,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Dependencies
 
@@ -226,9 +226,7 @@ sub preconditionFailMsg
     return $msg;
 }
 
-# Group: Public methods
-
-# Method: getInterfaceResolvers
+# Method: getInterfaceResolvconfConfig
 #
 #   This method get the resolvconf configuration for a given interface.
 #
@@ -308,10 +306,9 @@ sub getSystemResolvers
             my $entry = $self->getInterfaceResolvconfConfig($file);
             push (@{$resolvers}, $entry);
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Failed to get the list of resolvconf resolvers: $error");
-    };
+    }
 
     return $resolvers;
 }
@@ -337,12 +334,25 @@ sub importSystemResolvers
                     nameserver => $nameserver);
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Could not import system resolvers: $error");
-    } finally {
-        $self->table->{insertPosition} = 'back';
-    };
+    }
+    $self->table->{insertPosition} = 'back';
 }
+
+# Method: nameservers
+#
+#  Returns:
+#
+#   Array ref - each element contains a string holding the nameserver
+#
+sub nameservers
+{
+    my ($self) = @_;
+    my $ids = $self->ids();
+    my @nameservers = map { $self->row($_)->valueByName('nameserver') } @{$ids};
+    return \@nameservers;
+}
+
 
 1;

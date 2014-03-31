@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,10 +28,12 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Users::User;
-use Error qw( :try );
+use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
 
@@ -57,6 +60,24 @@ sub mailboxesDir
     return DIRVMAIL;
 }
 
+# Method: setupUsers
+#
+#  Set up existent users for working correctly when the module is enabled for
+#  first time
+sub setupUsers
+{
+    my ($self) = @_;
+    my $userMod = EBox::Global->getInstance()->modInstance('users');
+
+    foreach my $user (@{ $userMod->users() }) {
+        my $mail = $user->get('mail');
+        if ($mail) {
+            my ($lhs, $rhs) = split '@', $mail, 2;
+            $self->setUserAccount($user, $lhs, $rhs);
+        }
+    }
+}
+
 # Method: setUserAccount
 #
 #  This method sets a mail account to a user.
@@ -75,11 +96,7 @@ sub setUserAccount
     my $email = $lhs.'@'.$rhs;
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-
-    if ($mail->{malias}->accountExists($email)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                           'value' => $email);
-    }
+    $mail->checkMailNotInUse($email);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 
@@ -157,6 +174,16 @@ sub delUserAccount
     push (@cmds, "/bin/rm -rf $sieveDir");
 
     EBox::Sudo::root(@cmds);
+
+    # disable openchange account if exists. We don't implement and observer
+    # notifier interface bz only one module is to be notifier
+    if ($self->openchangeAccountEnabled($user)) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        my $userOc = $openchange->_ldapModImplementation();
+        if ($userOc->enabled($user)) {
+            $userOc->setAccountEnabled($user, 0);
+        }
+    }
 }
 
 # Method: userAccount
@@ -251,9 +278,9 @@ sub _addUser
 
     try {
         $self->setUserAccount($user, lc($user->name()), $vdomain);
-    } otherwise {
+    } catch {
        EBox::info("Creation of email account for $user failed");
-    };
+    }
 }
 
 sub _delGroup
@@ -368,14 +395,25 @@ sub _groupAddOns
 
     my $mail = EBox::Global->modInstance('mail');
     my $aliases = $mail->{malias}->groupAliases($group);
-
     my @vd =  $mail->{vdomains}->vdomains();
+
+    my $groupEmpty    = 1;
+    my $usersWithMail = 0;
+    foreach my $user (@{ $group->members() }) {
+        $groupEmpty = 0;
+        if ($self->userAccount($user)) {
+            $usersWithMail = 1;
+            last;
+        }
+    }
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
         'service'  => $mail->service(),
+        'groupEmpty' => $groupEmpty,
+        'usersWithMail' => $usersWithMail,
     };
 
     return {
@@ -788,7 +826,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/authldap.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
 
@@ -833,5 +870,20 @@ sub hiddenOUs
 {
     return [ 'postfix' ];
 }
+
+sub openchangeAccountEnabled
+{
+    my ($self, $user) = @_;
+    if (EBox::Global->modExists('openchange')) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        if ($openchange->configured() and $openchange->isProvisioned()) {
+            my $userOc = $openchange->_ldapModImplementation();
+            return $userOc->enabled($user);
+        }
+    }
+    return 0;
+}
+
+
 
 1;

@@ -1,4 +1,5 @@
-// Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
+// Copyright (C) 2004-2007 Warp Networks S.L.
+// Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
 "use strict";
 
 if (!('Zentyal' in  window)) {
@@ -22,9 +23,33 @@ if (!('Zentyal' in  window)) {
     };
 }
 
+function assert(condition, text) {
+    if (!condition) {
+        var exText = "Assert failed";
+        if (text) {
+            exText += ': ' + text;
+        }
+        console.trace();
+        throw exText;
+    }
+}
+
 Zentyal.escapeSelector = function(selector) {
     return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
 };
+
+Zentyal.refreshSaveChangesButton = function() {
+    $.getJSON('/SysInfo/HasUnsavedChanges',  function(response) {
+                Zentyal.setSaveChangesButton(response.changed);
+             }
+    );
+};
+
+Zentyal.setSaveChangesButton = function(changed) {
+    var className = changed ?  'changed' : 'notchanged';
+    $('#changes_menu').removeClass().addClass(className);
+};
+
 
 /*
 Function: stripe
@@ -176,6 +201,23 @@ Zentyal.MenuSearch.filterMenu = function(event) {
     } else {
         Zentyal.MenuSearch.showAllMenuEntries();
     }
-
 };
 
+Zentyal.namespace('HA');
+
+Zentyal.HA.replicate = function(node) {
+    $.ajax({
+        url: '/HA/RetryReplication',
+        type: 'post',
+        dataType: 'json',
+        data: { 'node': node },
+        complete: function(response) {
+            if (response.responseJSON && ('error' in response.responseJSON)) {
+                //TODO: set error on table instead of alert
+                //Zentyal.TableHelper.setError('Nodes', response.responseJSON.error);
+                alert(response.responseJSON.error);
+            }
+            window.location.reload();
+        },
+    });
+};

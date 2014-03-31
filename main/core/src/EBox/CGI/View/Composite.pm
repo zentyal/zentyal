@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -30,7 +31,7 @@ package EBox::CGI::View::Composite;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constructor: new
 #
@@ -60,7 +61,7 @@ sub new
 
 # Method: _header
 #
-#      Overrides to print the page title in the HTML title if defined
+#      Overrides to dump the page title in the HTML title if defined
 #
 # Overrides:
 #
@@ -70,15 +71,16 @@ sub _header
 {
     my ($self) = @_;
 
-    print $self->cgi()->header(-charset=>'utf-8');
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     my $pageTitle;
     try {
         $pageTitle = $self->{composite}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
-    };
-    print EBox::Html::header($pageTitle);
+    }
+    return EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process
@@ -110,8 +112,9 @@ sub masonParameters
     my $global = EBox::Global->getInstance();
 
     return [
-             model      => $self->{composite},
-             hasChanged => $global->unsaved(),
+        model      => $self->{composite},
+        user       => $self->user(),
+        hasChanged => $global->unsaved(),
     ];
 }
 

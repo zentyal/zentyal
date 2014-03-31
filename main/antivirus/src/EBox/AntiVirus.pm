@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::Exceptions::Internal;
 
 use constant CLAMAV_PID_DIR => '/var/run/clamav/';
 
@@ -198,6 +199,18 @@ sub _daemons
     ];
 }
 
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'clamav-freshclam', 'type' => 'init.d' } ];
+}
+
+
 sub localSocket
 {
     return CLAMD_SOCKET;
@@ -254,31 +267,38 @@ sub _setConf
 #     hash ref with the following fields
 #       update - true if the last event was a succesful update
 #       error  - true if the last event was a error
-#       outdated  - contains a version number if the last event was a updte
-#                   that recommend a updated version of engine. (in this case
+#       outdated  - contains a version number if the last event was an update
+#                   that recommends an updated version of engine. (in this case
 #                   update field is not set to true)
 #       date     - date of the last event
 #
-#    If there is not last recorded event it returns a empty hash
+#    If there is not last recorded event it returns a empty hash.
+#
 sub freshclamState
 {
     my ($self) = @_;
+
     my @stateAttrs = qw(update error outdated date);
 
+    my $emptyRes = { map {  ( $_ => undef )  } @stateAttrs  };
     my $freshclamStateFile = $self->freshclamStateFile();
     if (not -e $freshclamStateFile) {
-        return { map {  ( $_ => undef )  } @stateAttrs  }; # freshclam has never updated before
+        return $emptyRes; # freshclam has never updated before
     }
 
     my $file = new File::ReadBackwards($freshclamStateFile);
     my $lastLine = $file->readline();
+    if ($lastLine eq "") {
+        # Empty file
+        return $emptyRes;
+    }
     my %state = split(',', $lastLine, (@stateAttrs * 2));
 
     # checking state file coherence
     foreach my $attr (@stateAttrs) {
         exists $state{$attr} or throw EBox::Exceptions::Internal("Invalid freshclam state file. Missing attribute: $attr");
     }
-    if ( scalar @stateAttrs !=  scalar keys %state) {
+    if ( scalar @stateAttrs != scalar keys %state) {
         throw EBox::Exceptions::Internal("Invalid fresclam state file: invalid attributes found. (valid attributes are @stateAttrs)");
     }
 

@@ -1,0 +1,137 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+from waflib.Task import Task
+from waflib.TaskGen import extension
+from waflib.Tools import c_config
+import os
+
+APPNAME = 'zoctools'
+VERSION	= '0.1'
+
+def options(ctx):
+    ctx.load('compiler_c')
+
+def configure(ctx):
+    ctx.load('compiler_c')
+
+    ctx.define('_GNU_SOURCE', 1)
+    ctx.env.append_value('CCDEFINES', '_GNU_SOURCE=1')
+
+    # Check headers
+    ctx.check(header_name='sys/types.h')
+    ctx.check(header_name='asm/byteorder.h')
+    ctx.check(header_name='stdint.h')
+    ctx.check(header_name='stddef.h')
+    ctx.check(header_name='stdio.h')
+    ctx.check(header_name='stdlib.h')
+    ctx.check(header_name='stdbool.h')
+    ctx.check(header_name='stdarg.h')
+    ctx.check(header_name='syslog.h')
+    ctx.check(header_name='iconv.h')
+    ctx.check(header_name='ctype.h')
+    ctx.check(header_name='pthread.h')
+
+    # Check types
+    ctx.check(type_name='uint8_t')
+    ctx.check(type_name='uint16_t')
+    ctx.check(type_name='uint32_t')
+    ctx.check(type_name='uint64_t')
+    ctx.check(type_name='double')
+    ctx.check(type_name='int')
+    ctx.check(type_name='int8_t')
+    ctx.check(type_name='int16_t')
+    ctx.check(type_name='int32_t')
+    ctx.check(type_name='int64_t')
+    ctx.check(type_name='size_t', header_name='stddef.h')
+    ctx.check(type_name='bool', header_name='stdbool.h')
+
+    # Check external libraries and packages
+    ctx.check(compiler='compiler_c', lib='pthread',
+              mandatory=True, uselib_store='PTHREAD')
+
+    ctx.check_cfg(atleast_pkgconfig_version='0.20')
+    ctx.check_cfg(package='samba-hostconfig',
+                  args=['samba-hostconfig', '--cflags', '--libs'],
+                  uselib_store='SAMBAHOSTCONFIG',
+                  msg="Checking for samba-hostconfig",
+                  mandatory=True)
+
+    ctx.check_cfg(package='libmapi',
+                  args=['libmapi >= 2.0', '--cflags', '--libs'],
+                  uselib_store='LIBMAPI',
+                  msg="Checking for libmapi 2.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='libocpf',
+                  args=['libocpf >= 2.0', '--cflags', '--libs'],
+                  uselib_store='LIBOCPF',
+                  msg="Checking for libocpf 2.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='popt',
+                  args=['popt >= 1.16', '--cflags', '--libs'],
+                  uselib_store='POPT',
+                  msg="Check for popt 1.16",
+                  mandatory=True)
+
+    ctx.check_cfg(package='librabbitmq',
+                  args=['librabbitmq >= 0.4.1', '--cflags', '--libs'],
+                  uselib_store='RABBITMQ',
+                  msg="Check for librabbitmq 0.4.1",
+                  mandatory=True)
+
+    ctx.check_cfg(package='json',
+                  args=['json >= 0.9', '--cflags', '--libs'],
+                  uselib_store='JSON',
+                  msg="Check for json 0.9",
+                  mandatory=True)
+
+    ctx.check_cfg(package='libbsd',
+                  args=['libbsd >= 0.3.0', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libbsd 0.3.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='tdb',
+                  args=['tdb', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libtdb",
+                  mandatory=True)
+
+def build(bld):
+    bld.program(
+        source = [
+            'mailboxsize.c',
+            ],
+        target = 'mailboxsize',
+        includes = ['.', '..'],
+        cflags = ['-ggdb'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'LIBMAPI', 'POPT', 'RABBITMQ'])
+
+    bld.program(
+        source = [
+            'migrate.c',
+            'rpc.c',
+            'control.c',
+            'estimate.c',
+            'export.c',
+            'import.c',
+            ],
+        target = 'migrate',
+        includes = ['.', '..'],
+        cflags = ['-ggdb', '-Wall'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'PTHREAD', 'LIBMAPI', 'LIBOCPF', 'POPT', 
+               'RABBITMQ', 'JSON', 'BSD', 'SAMBAHOSTCONFIG'])
+
+    bld.program(
+        source = [
+            'contactsummary.c',
+            ],
+        target = 'contactsummary',
+        includes = ['.', '..'],
+        cflags = ['-ggdb'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'LIBMAPI', 'POPT'])

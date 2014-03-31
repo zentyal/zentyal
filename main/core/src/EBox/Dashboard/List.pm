@@ -22,7 +22,17 @@ use base 'EBox::Dashboard::Item';
 
 use EBox::Gettext;
 
-sub new  # (title, colTitles, rows)
+# Constructor: new
+#
+# Parameters:
+#
+#      title - String the list title
+#      colTitles - Array ref the column titles
+#      ids - Array ref the row identifiers
+#      rows - Hash ref the rows to show indexed by id
+#      none_text - String the text to show when the list is empty
+#
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new();

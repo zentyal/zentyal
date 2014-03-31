@@ -31,19 +31,18 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 use Net::LDAP;
-use Net::LDAP::Util qw(ldap_error_name);
+use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 
-use Error qw( :try );
+use TryCatch::Lite;
 use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
-use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
-
-use constant BUILT_IN_CONTAINERS => qw(Users Computers Builtin);
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
 
 # The LDB containers that will be ignored when quering for users stored in LDB
 use constant QUERY_IGNORE_CONTAINERS => (
@@ -224,7 +223,7 @@ sub dn
         return $self->{dn};
     }
 
-    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
+    my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
     my $ldifBuffer = join ('', @{$output});
     EBox::debug($ldifBuffer);
 
@@ -325,50 +324,80 @@ sub ldapOUToLDB
     my $name = $ldapOU->name();
     my $parentDN = $parent->dn();
 
-    EBox::info("Loading OU $name into $parentDN");
-
     my $sambaOU = undef;
     try {
         $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
         $sambaOU->_linkWithUsersObject($ldapOU);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::warn("OU $name already in $parentDN on Samba database");
-        $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    };
-
-    return $sambaOU;
+        $sambaOU = new EBox::Samba::OU(dn => canonical_dn("OU=$name,$parentDN"));
+        if (defined $sambaOU and $sambaOU->exists()) {
+            $sambaOU->_linkWithUsersObject($ldapOU);
+        } else {
+            throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN'");
+        }
+    } catch ($e) {
+        throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN': $e");
+    }
 }
 
+# Method: ldapOUsToLDB
+#
+#   This method load all LDAP OUs to Samba LDB. The following containers are
+#   already created and linked at provision, so skip them. Their childs must
+#   be imported if exists.
+#
+#       OU=Users        => Linked to CN=Users
+#       OU=Groups       => Linked to OU=Groups
+#       OU=Computers    => Linked to CN=Computers
+#       OU=Kerberos     => Linked to OU=Kerberos
+#       OU=Builtin      => Linked to CN=Builtin
+#
+#   The following OUs are internal to zentyal, so them and all of its childs
+#   must be skipped
+#
+#       OU=postfix
+#       OU=zarafa
+#
+#   NOTE: Must be only called when provisioning as DC to load all LDAP OUs to
+#         LDB
+#
 sub ldapOUsToLDB
 {
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal OUS into samba database');
+    my ($self, $ldapBaseDN) = @_;
 
     my $global = EBox::Global->getInstance();
     my $usersMod = $global->modInstance('users');
-    my @ous = @{ $usersMod->ous() };
-    my $namingContextDN = $usersMod->ldap()->dn();
-    foreach my $ou (@ous) {
-        my $name = $ou->name();
-        my $parentDN = $ou->parent()->dn();
+    my $ldap = $usersMod->ldap();
+    unless (defined $ldapBaseDN) {
+        EBox::info("Loading Zentyal OUs into samba database");
+        $ldapBaseDN = $ldap->dn();
+    }
 
-        # Internal zentyal OUs should not been imported to LDB
-        next if (grep { lc $_ eq lc $ou->name() } @{
-            ['kerberos', 'users', 'groups', 'computers',
-             'postfix', 'mailalias', 'vdomains', 'fetchmail',
-             'zarafa']
-        });
+    my $params = {
+        base => $ldapBaseDN,
+        scope => 'one',
+        filter => '(objectClass=organizationalUnit)',
+        attrs => ['*'],
+    };
+    my $result = $ldap->search($params);
+    foreach my $entry ($result->entries()) {
+        my $name = lc $entry->get_value('ou');
+        my $dn = $entry->dn();
 
-        if ((lc $parentDN eq lc $namingContextDN) and ((grep { lc $_ eq lc $name } BUILT_IN_CONTAINERS) or (lc $name eq 'groups'))) {
-            # Samba already has an specific container for this OU, ignore it.
-            EBox::debug("Ignoring OU $name given that it has a built-in container");
+        # Ignore OU=zarafa and OU=postfix and all of its childs
+        if ($name eq any ('zarafa', 'postfix')) {
             next;
         }
-        $self->ldapOUToLDB($ou);
+
+        # These OUs already exists and are linked
+        unless ($name eq any ('users', 'groups', 'computers', 'kerberos', 'builtin')) {
+            my $ou = new EBox::Users::OU(dn => $dn);
+            $self->ldapOUToLDB($ou);
+        }
+
+        # Query OU childs
+        $self->ldapOUsToLDB($dn);
     }
 }
 
@@ -406,15 +435,14 @@ sub ldapUsersToLdb
             unless ($user->isDisabled()) {
                 $sambaUser->setAccountEnabled(1);
             }
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
             $sambaUser->setCredentials($user->kerberosKeys());
             EBox::debug("Password updated for user $samAccountName");
-        } otherwise {
-            my $error = shift;
+        } catch ($error) {
             EBox::error("Error loading user '$samAccountName': $error");
-        };
+        }
     }
 }
 
@@ -451,12 +479,11 @@ sub ldapContactsToLdb
             );
             my $sambaContact = EBox::Samba::Contact->create(%args);
             $sambaContact->_linkWithUsersObject($contact);
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Contact $name already in $parentDN on Samba database");
-        } otherwise {
-            my $error = shift;
+        } catch ($error) {
             EBox::error("Error loading contact '$name' in '$parentDN': $error");
-        };
+        }
     }
 }
 
@@ -492,12 +519,11 @@ sub ldapGroupsToLdb
             };
             $sambaGroup = EBox::Samba::Group->create(%args);
             $sambaGroup->_linkWithUsersObject($group);
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Group $name already in Samba database");
-        } otherwise {
-            my $error = shift;
-            EBox::error("Error loading group '$name': $error");
-        };
+        } catch ($e) {
+            EBox::error("Error loading group '$name': $e");
+        }
         next unless defined $sambaGroup;
 
         foreach my $member (@{$group->members()}) {
@@ -505,15 +531,34 @@ sub ldapGroupsToLdb
                 my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
                 next unless ($smbMember);
                 $sambaGroup->addMember($smbMember, 1);
-            } otherwise {
-                my $error = shift;
+            } catch ($error) {
                 EBox::error("Error adding member: $error");
-            };
+            }
         }
         $sambaGroup->save();
     }
 }
 
+# Method: ldapServicePrincipalsToLdb
+#
+#   This method import the zentyal module service principals to LDB. The only
+#   modules that create them are mail and proxy:
+#       mail  - IMAP/zentyal.zentyal-domain.lan
+#               POP3/zentyal.zentyal-domain.lan
+#               SMTP/zentyal.zentyal-domain.lan
+#       proxy - HTTP/zentyal.zentyal-domain.lan
+#
+#   The behaviour here is tricky because Heimdal does not support principal
+#   aliases. In LDAP a principal is created for each SPN, but in
+#   LDB an account {module}-{hostname} is created and all SPNs are added to it.
+#   For example, the mail account create three principal accounts in LDAP
+#   under the Kerberos OU (IMAP, POP3 and SMTP). When imported to LDB, an
+#   account mail-{hostname} is created and the three SPNs are added to this
+#   account.
+#
+#   The three different principal accounts in LDAP are linked to the same
+#   account in the SAM database.
+#
 sub ldapServicePrincipalsToLdb
 {
     my ($self) = @_;
@@ -536,27 +581,17 @@ sub ldapServicePrincipalsToLdb
     # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
     return unless ($ldapKerberosOU and $ldapKerberosOU->exists());
 
+    # At this point, the OU must has been created and linked in LDB
     my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
-    unless ($ldbKerberosOU) {
-        # Check whether the OU exist in Samba but it's not linked with OpenLDAP.
-        my $ldbRootDN = $ldb->dn();
-        my $ldbKerberosDN = "OU=Kerberos,$ldbRootDN";
-        $ldbKerberosOU = $sambaMod->objectFromDN($ldbKerberosDN);
-
-        if ($ldbKerberosOU and $ldbKerberosOU->exists()) {
-            $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
-            $ldbKerberosOU->setInAdvancedViewOnly(1);
-        } else {
-            $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
-            $ldbKerberosOU->setInAdvancedViewOnly(1);
-        }
+    unless ($ldbKerberosOU and $ldbKerberosOU->exists()) {
+        throw EBox::Exceptions::Internal("Kerberos OU not found in LDB.");
     }
-    return unless ($ldbKerberosOU and $ldbKerberosOU->exists());
 
     foreach my $module (@{$modules}) {
         my $principals = $module->kerberosServicePrincipals();
         my $samAccountName = "$principals->{service}-$hostname";
         try {
+            # First step, create the account
             my $smbUser = new EBox::Samba::User(samAccountName => $samAccountName);
             unless ($smbUser->exists()) {
                 # Get the heimdal user to extract the kerberos keys. All service
@@ -581,56 +616,46 @@ sub ldapServicePrincipalsToLdb
                 $smbUser = EBox::Samba::User->create(%args);
                 $smbUser->setCritical(1);
                 $smbUser->setInAdvancedViewOnly(1);
-                $smbUser->_linkWithUsersObject($user);
             }
+            # Second step, add the SPNs to the samba account
             foreach my $p (@{$principals->{principals}}) {
                 try {
                     my $spn = "$p/$fqdn";
                     EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
                     $smbUser->addSpn($spn);
-                } otherwise {
-                    my $error = shift;
+                } catch ($error) {
                     EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
-                };
+                }
             }
-        } otherwise {
-            my $error = shift;
+            # Third step, map LDAP principals to the same samba user
+            foreach my $p (@{$principals->{principals}}) {
+                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
+                my $user = new EBox::Users::User(dn => $dn, internal => 1);
+                $smbUser->_linkWithUsersObject($user);
+            }
+        } catch ($error) {
             EBox::error("Error adding account '$samAccountName': $error");
-        };
+        }
     }
 }
 
 sub users
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
     my $list = [];
-
-    # Query the users stored in the root DN
-    my $params = {
-        base => $self->dn(),
-        scope => 'base',
-        filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(isDeleted=*)))',
-        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-    };
-    my $result = $self->search($params);
-    foreach my $entry ($result->sorted('samAccountName')) {
-        my $user = new EBox::Samba::User(entry => $entry);
-        push (@{$list}, $user);
-    }
 
     # Query the containers stored in the root DN and skip the ignored ones
     # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
     # subclasses of 'Container'.
     my @containers;
-    $params = {
+    my $params = {
         base => $self->dn(),
         scope => 'one',
-        filter => '(objectClass=Container)',
+        filter => '(|(objectClass=Container)(objectClass=OrganizationalUnit)(objectClass=msExchSystemObjectsContainer))',
         attrs => ['*'],
     };
-    $result = $self->search($params);
+    my $result = $self->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $container = new EBox::Samba::Container(entry => $entry);
         next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
@@ -638,13 +663,14 @@ sub users
     }
 
     # Query the users stored in the non ignored containers
+    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
     foreach my $container (@containers) {
         $params = {
-            base => $container->dn(),
-            scope => 'sub',
-            filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                      '(!(isDeleted=*)))',
-            attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+            base   => $container->dn(),
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
         };
         $result = $self->search($params);
         foreach my $entry ($result->sorted('samAccountName')) {
@@ -736,27 +762,36 @@ sub securityGroups
     return \@securityGroups;
 }
 
+# Method: ous
+#
+#   Return OUs in samba LDB. It is guaranteed that OUs are returned in a
+#   hierarquical way, parents before childs.
+#
 sub ous
 {
-    my ($self) = @_;
-    my $objectClass = EBox::Samba::OU->mainObjectClass();
-    my %args = (
-        base => $self->dn(),
-        filter => "(objectclass=$objectClass)",
-        scope => 'sub',
-    );
+    my ($self, $baseDN) = @_;
 
-    my $result = $self->search(\%args);
-
-    my @ous = ();
-    foreach my $entry ($result->entries) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@ous, $ou);
+    unless (defined $baseDN) {
+        $baseDN = $self->dn();
     }
 
-    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+    my $objectClass = EBox::Samba::OU->mainObjectClass();
+    my $args = {
+        base => $baseDN,
+        filter => "(objectclass=$objectClass)",
+        scope => 'one',
+    };
 
-    return \@sortedOUs;
+    my $ous = [];
+    my $result = $self->search($args);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Samba::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: dnsZones
@@ -777,7 +812,7 @@ sub dnsZones
 
     foreach my $prefix (@zonePrefixes) {
         my $output = EBox::Sudo::root(
-            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
+            "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
         my $ldifBuffer = join ('', @{$output});
         EBox::debug($ldifBuffer);
 

@@ -1,0 +1,94 @@
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
+
+<div id="top"></div>
+
+<div id="header">
+  <a href="/"><img src="{{ image_title }}" alt="title"/></a>
+</div>
+
+<div id="menu">
+  <ul id="nav">
+    <li id=""><div class="separator">{{ actions }}</div></li>
+    <li id="menu_0"><a href="#" class="nvac" onclick="$('#details').show(); $('#report').hide(); return false">{{ show_details }}</a></li>
+    <li id="menu_1"><a href="#" class="nvac" onclick="$('#report').show(); $('#details').hide(); return false">{{ report }}</a></li>
+    <li id="menu_2"><a href="#" class="nvac" onclick="history.back(); return false">{{ go_back }}</a></li>
+  </ul>
+</div>
+
+<div id="content">
+    <div><span class="title">{{ title }}</span></div>
+
+    <div class="error">{{ error }}</div>
+
+    <ul style="list-style: none; margin: 0; padding: 15px 0;">
+       <li style="display: inline"><a href="#" class="button_link" onclick="$('#details').show(); $('#report').hide(); return false">{{ show_details }}</a></li>
+       <li style="display: inline"><a href="#" class="button_link" onclick="$('#report').show(); $('#details').hide(); return false">{{ report }}</a></li>
+    </ul>
+
+    <div id="details" style="display: none">
+      {{ stacktrace_html }}
+    </div>
+
+     <div id="report_error_message" class="error" style="display: none">
+     </div>
+
+     <div id="general_report_error" style="display: none">
+      <div class="error">{{ report_error }}</div>
+      <p>{{ report_instructions }}</p>
+     </div>
+
+    <div id="report" style="display: none">
+      <h2><b>Report</b></h2>
+
+        <form id="report_form" action='#' enctype="multipart/form-data; charset=utf-8">
+           <label for="email">{{ email }}:</label>
+           <input type="text" name="email" id="email" /><br/>
+           <label for="description">{{ description }}</label>
+           <textarea name="description" id="description" cols="68" rows="10" style="width: 100%"></textarea><br/>
+           <input type="hidden" name="error" id="error" value="{{ error }}" />
+           <input type="hidden" name="stacktrace" id="stacktrace" value="{{ stacktrace }}" />
+           <p>
+             <input type="button" onclick="$('#report').hide()" value="{{ cancel }}" />
+             <span id="submit_button" id="submit_button">
+                <input type="submit" />
+             </span>
+          </p>
+        </form>
+    </div>
+
+    <div id="back">
+      <a href="#" onclick="history.back(); return false">{{ go_back }}</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+var submitCallback = function(event) {
+    event.preventDefault();
+    Zentyal.TableHelper.setLoading('submit_button', undefined, 1);
+    var form = $('#report_form');
+    $('#general_report_error').hide();
+    $('#report_error_message').hide();
+    $.ajax({
+             url: "/SysInfo/CreateReport",
+             data: form.serialize(),
+             type: "POST",
+             complete: function(transport){
+                 if (transport.responseText.indexOf('OK') == 0) {
+                    var ticket = transport.responseText.substr(3);
+                    $('#report').html('<div class="note">{{ report_sent }} ' +
+                                      '<a href="http://tracker.zentyal.org/issues/' + ticket + '">#' + ticket + '</a></note>');
+                 } else if (transport.responseText.indexOf('ERROR ') == 0)  {
+                     var error_string =  transport.responseText.substr(6);
+                     $('#report_error_message').text(error_string);
+                     $('#report_error_message').show();
+                     Zentyal.TableHelper.restoreHidden('submit_button');
+                 } else {
+                     $('#general_report_error').show();
+                     Zentyal.TableHelper.restoreHidden('submit_button');
+                 }
+             }
+    });
+};
+
+$('#report_form').on('submit', submitCallback);
+</script>

@@ -6,6 +6,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use URI;
 </%init>
 <div class="insideTab">
 % if ($subscribed) {
@@ -49,8 +50,8 @@ if ($restricted) {
 
 my $backupTitle = __('Remote Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var name= $('#backup_name').val();
-     var description= $('#backup_description').val();
+     var name = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/RemoteServices/Backup/MakeRemoteBackup';
      var data = 'name=' + name;
@@ -60,6 +61,22 @@ my $backupOnClickJs =<< "ENDJS" ;
      Zentyal.Dialog.showURL(url, {title: title, data: data});
      return false
 ENDJS
+if ($restricted) {
+   $backupOnClickJs =<< "ENDJS";
+     var newName = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/Confirm';
+     var data = 'newName=' + newName;
+     data += '&description=' + description;
+     data += '&name=' + \$('#hidden_name').val();
+     data += '&action=overwrite';
+     data += '&backup=1&popup=1';
+
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     return false
+ENDJS
+}
 
 push @formElements, (
 
@@ -83,12 +100,14 @@ if ($restricted) {
     push @formElements, (
                          # name of the already-done backup
                          [
+                          id    => 'hidden_name',
                           input => 'hidden',
                           name => 'name',
                           value => $lastBackupName,
                          ],
                          # action to confirm
                          [
+                          id    => 'hidden_action',
                           input => 'hidden',
                           name => 'action',
                           value => 'overwrite',
@@ -115,13 +134,9 @@ if ($restricted) {
 % }
 
 <p>
-<table class='formTable'>
-    <tbody>
-        <form action='<% $formAction %>' method='POST'>
-             <& /formTable.mas, rows => \@formElements &>
-        </form>
-    </tbody>
-</table>
+<form action='<% $formAction %>' method='POST' class="formDiv">
+    <& /formTable.mas, rows => \@formElements &>
+</form>
 </p>
 </%def>
 
@@ -172,7 +187,9 @@ my @legendElements = (
   <tbody>
 <%perl>
   foreach my $backup (@backups) {
-     my $name = $backup->{Filename};
+     my $uri = new URI();
+     $uri->path($backup->{Filename});
+     my $name = $uri->path();
      my $restoreUrl  = "Confirm?action=restore&name=$name&popup=1";
      my $restoreData = "name=$name&popup=1";
      my $restoreJS   = "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false";

@@ -23,6 +23,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Union;
 use EBox::Types::Select;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

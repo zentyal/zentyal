@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,6 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Sudo::Command;
 
 use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
@@ -47,7 +48,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 
@@ -82,12 +83,10 @@ use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
 use constant SQUID3_DEFAULT_FILE => '/etc/default/squid3';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
-
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
@@ -132,6 +131,13 @@ sub initialSetup
         $self->model('AccessRules')->add(source => { any => undef },
                                          policy => { allow => undef });
     }
+
+    foreach my $name ('squid', 'logs') {
+        my $mod = $self->global()->modInstance($name);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
+        }
+    }
 }
 
 # Method: enableActions
@@ -154,10 +160,9 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -628,7 +633,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
@@ -649,12 +653,17 @@ sub _writeSquidConf
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
         my $externalAD = $self->global()->modInstance('users')->ldap();
         my $dc = $externalAD->dcHostname();
-        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
+        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
+            SQUID_ZCONF_FILE);
+        my $adNegativeAclTtl =
+            EBox::Config::configkeyFromFile(
+                AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = $externalAD->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
         push (@writeParam, (adAclTTL    => $adAclTtl));
+        push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
         push (@writeParam, (adPrincipal => $adPrincipal));
     }
 
@@ -732,11 +741,10 @@ sub _checkSquidFile
 
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools
@@ -786,20 +794,20 @@ sub _writeDgConf
     push(@writeParam, 'maxagechildren' => $maxagechildren);
 
     $self->writeConfFile(DGDIR . '/dansguardian.conf',
-            'squid/dansguardian.conf.mas', \@writeParam);
+            'squid/dansguardian.conf.mas', \@writeParam, { mode => '0644'});
 
     # disable banned, exception phrases lists, regex URLs and PICS ratings
     $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
-                         'squid/bannedphraselist.mas', []);
+                         'squid/bannedphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/exceptionphraselist',
-                         'squid/exceptionphraselist.mas', []);
+                         'squid/exceptionphraselist.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/pics',
-                         'squid/pics.mas', []);
+                         'squid/pics.mas', [], { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/bannedregexpurllist',
-                         'squid/bannedregexpurllist.mas', []);
+                         'squid/bannedregexpurllist.mas', [],  { mode => '0644'});
 
     $self->writeDgGroups();
 
@@ -823,7 +831,7 @@ sub _writeDgConf
         push(@writeParam, 'groupName' => $group->{groupName});
         push(@writeParam, 'defaults' => $group->{defaults});
         EBox::Module::Base::writeConfFileNoCheck(DGDIR . "/dansguardianf$number.conf",
-                'squid/dansguardianfN.conf.mas', \@writeParam);
+                'squid/dansguardianfN.conf.mas', \@writeParam, { mode => '0644'});
 
         if ($policy eq 'filter') {
              $self->_writeDgDomainsConf($group);
@@ -842,8 +850,14 @@ sub _writeCronFile
     my $times;
     my @cronTimes;
 
+    my $usingExternalAD = ($self->authenticationMode() eq $self->AUTH_MODE_EXTERNAL_AD());
+    my $usingExternalADGroups = 0;
+
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
+        if ($usingExternalAD and exists($profile->{users})) {
+            $usingExternalADGroups = 1;
+        }
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
@@ -869,6 +883,11 @@ sub _writeCronFile
         my ($hour, $min) = split (':', $time);
         my $days = join (',', sort (keys %{$times->{$time}}));
         push (@cronTimes, { days => $days, hour => $hour, min => $min });
+    }
+
+    # Synchronise AD groups every 30min
+    if ($usingExternalADGroups) {
+        push(@cronTimes, { days => '*', hour => '*', min => '*/30' });
     }
 
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
@@ -939,11 +958,11 @@ sub writeDgGroups
     push (@writeParams, realm => $realm);
     $self->writeConfFile(DGLISTSDIR . '/filtergroupslist',
                          'squid/filtergroupslist.mas',
-                         \@writeParams);
+                         \@writeParams, { mode => '0644'});
 
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                          'squid/ipgroups.mas',
-                         [ objects => \@objects ]);
+                         [ objects => \@objects ], { mode => '0644'});
 }
 
 # FIXME: template format has changed, reimplement this
@@ -958,10 +977,8 @@ sub _writeDgTemplates
     my $edition = $self->global()->edition();
 
     if (($edition eq 'community') or ($edition eq 'basic')) {
-        $extra_messages = __sx('This is an unsupported Community Edition. Get the fully supported {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates.',
-                               ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=smallbusiness_edition">',
-                               ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=enterprise_edition">',
-                               ch => '</a>');
+        $extra_messages = __sx('This is a Community Edition. Get one of the fully supported {oh}Commercial Editions{ch} for automatic security updates.',
+                               oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
     }
 
     EBox::Module::Base::writeConfFileNoCheck($file,
@@ -1299,10 +1316,8 @@ sub regenGatewaysFailover
 # Security Updates Add-On message
 sub _commercialMsg
 {
-    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that will keep your Content Filtering rules always up-to-date.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to avoid threats such as malware, phishing and bots? Get one of the {oh}Commercial Editions{ch} that will keep your Content Filtering rules always up-to-date.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 sub authenticationMode

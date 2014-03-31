@@ -19,7 +19,7 @@ package EBox::OpenVPN::Model::UploadClientBundle;
 
 use base 'EBox::Model::DataForm::Action';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -107,12 +107,11 @@ sub formSubmitted
     my $openvpn = EBox::Global->modInstance('openvpn');
     try {
         $openvpn->setClientConfFromBundle($clientName, $bundle);
+    } catch ($e) {
+        unlink $bundle if (-f $bundle);
+        $e->throw();
     }
-    finally {
-        if (-f $bundle) {
-            unlink $bundle;
-        }
-    };
+    unlink $bundle if (-f $bundle);
 }
 
 # Method: pageTitle
