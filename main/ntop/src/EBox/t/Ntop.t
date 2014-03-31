@@ -36,7 +36,7 @@ sub clearConfiguration : Test(shutdown)
     EBox::Module::Config::TestStub::setConfig();
 }
 
-sub ntop_use_ok : Test(startup => 1)
+sub ntop_use_ok : Test(1)
 {
     use_ok('EBox::Ntop') or die;
 }
