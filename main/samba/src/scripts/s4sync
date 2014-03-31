@@ -65,14 +65,13 @@ while (1) {
     my $domainAdminsSID = "$domainSID-512";
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
+    my $newSambaTimestamp = getTimestamp();
 
     my %sambaUsers    = map { $_->objectGUID() => $_ } @{$ldb->users()};
     my %sambaContacts = map { $_->objectGUID() => $_ } @{$ldb->contacts()};
     my %sambaGroups   = map { $_->objectGUID() => $_ } @{$ldb->groups()};
     my @sambaOUs      = @{$ldb->ous()};
     my %sambaOUs      = map { $_->objectGUID() => $_ } @sambaOUs;
-
-    write_file($sambaTimestampFile, getTimestamp());
 
     my %zentyalUsers    = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->users()};
     my %zentyalContacts = map { my $oguid = $_->get('msdsObjectGUID'); $oguid ? ($oguid => $_) : () } @{$usersModule->contacts()};
@@ -351,4 +350,9 @@ while (1) {
             EBox::error("Error removing OU '$dn': $error");
         };
     }
+
+    # Once we got a full loop execution, store the timestamp. Doing it as the
+    # last loop action allows us to retry in case of having a loop breakage.
+    write_file($sambaTimestampFile, $newSambaTimestamp);
+
 }
