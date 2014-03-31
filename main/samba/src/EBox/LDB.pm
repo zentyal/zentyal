@@ -83,14 +83,8 @@ sub _new_instance
 {
     my $class = shift;
 
-    my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
-    my @lines = read_file($ignoredGroupsFile);
-    chomp (@lines);
-    my %ignoredGroups = map { $_ => 1 } @lines;
-
     my $self = $class->SUPER::_new_instance();
     $self->{idamp} = undef;
-    $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
 }
@@ -715,11 +709,7 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
-
-        next if (exists $self->{ignoredGroups}->{$entry->get_value('samAccountName')});
-
         my $group = new EBox::Samba::Group(entry => $entry);
-
         push (@{$list}, $group);
     }
 

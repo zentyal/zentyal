@@ -1,8 +1,6 @@
 3.5
+	+ Removed s4sync
 	+ Set version to 3.5
-	+ s4sync is stopped before samba daemon to prevent ldb connection errors
-	+ s4sync run timestamp is saved only if it doesn't break with an error at
-	  the end of the work loop
 3.4
 	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
 	  and forced the critical flag to 0 so Samba accepts it

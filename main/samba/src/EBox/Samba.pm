@@ -1103,13 +1103,6 @@ sub _sysvolSyncCond
     return ($self->isEnabled() and $self->getProvision->isProvisioned() and $self->_adcMode());
 }
 
-sub _s4syncCond
-{
-    my ($self) = @_;
-
-    return ($self->isEnabled() and $self->getProvision->isProvisioned());
-}
-
 sub _antivirusEnabled
 {
     my ($self) = @_;
@@ -1132,13 +1125,6 @@ sub _antivirusEnabled
 sub _daemons
 {
     return [
-        # s4sync daemon must be stoped before samba4 is stopped to prevent LDB errors to appear on logs
-        # thus, it should be first in this list. When it starts, it waits until Samba daemon is ready, so is
-        # not a problem when we start it first.
-        {
-            name => 'zentyal.s4sync',
-            precondition => \&_s4syncCond,
-        },
         {
             name => 'samba-ad-dc',
         },
@@ -1420,13 +1406,6 @@ sub dumpConfig
 
     my @cmds;
 
-    if ($self->_s4syncCond()) {
-        try {
-            EBox::Service::manage('zentyal.s4sync', 'stop');
-        } catch {
-        }
-    }
-
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -1474,10 +1453,8 @@ sub dumpConfig
     try {
         EBox::Sudo::root(@cmds);
     } catch ($e) {
-        EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
         $e->throw();
     }
-    EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
 
     # Backup admin password
     unless ($options{bug}) {
