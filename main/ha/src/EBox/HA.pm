@@ -320,6 +320,12 @@ sub addNode
     EBox::Validate::checkIP($params->{addr}, 'addr');
     EBox::Validate::checkPort($params->{port}, 'port');
 
+    # Create network object (or member) for the new node
+    EBox::debug('Creating HA network object');
+    $self->_createNetworkObject();
+    EBox::debug("Adding $params->{name} - $params->{addr} to the HA network object");
+    $self->_addHANetworkObjectNode($params->{name}, $params->{addr});
+
     # Start to add
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
@@ -391,6 +397,10 @@ sub deleteNode
         return;
     }
     $list->remove($params->{name});
+
+    # Create network object (or member) for the new node
+    EBox::debug('Deleting HA network object member');
+    $self->_removeMemberFromHANetworkObject($params->{name});
 
     # Write corosync conf
     $self->_corosyncSetConf();
@@ -1212,7 +1222,10 @@ sub _bootstrap
                                                                             . '0123456789')]));
 
     # Add network objects and firewall rules
+    EBox::debug('Creating HA network object');
     $self->_createNetworkObject();
+    EBox::debug("Adding $hostname - $localNodeAddr to the HA network object");
+    $self->_addHANetworkObjectNode($hostname, $localNodeAddr);
     $self->_createFirewallRules();
 
     # Finally, store it in Redis
@@ -1225,6 +1238,7 @@ sub _bootstrap
     $self->model('ClusterState')->setValue('bootstraped', 1);
 }
 
+# Creates a HA network object, so firewall rules can affect HA nodes
 sub _createNetworkObject
 {
     my ($self) = @_;
@@ -1233,16 +1247,12 @@ sub _createNetworkObject
 
     if (not $objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
         EBox::debug('Creating HA network object');
+        $objectsModule->removeObjectMembers(HA_NODES_OBJECT_ID);
         $objectsModule->addObject(id => HA_NODES_OBJECT_ID, name => __('HA Nodes'), members => []);
     } else {
         EBox::debug('Removing existing nodes from HA network object');
         $objectsModule->removeObjectMembers(HA_NODES_OBJECT_ID);
     }
-
-    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
-    my $ip = $self->model('Nodes')->row($hostname)->valueByName('addr');
-    EBox::debug("Adding $hostname - $ip to the HA network object");
-    $self->_addHANetworkObjectNode($hostname, $ip);
 }
 
 sub _addHANetworkObjectNode
@@ -1267,18 +1277,37 @@ sub _addHANetworkObjectNode
     }
 }
 
+sub _removeMemberFromHANetworkObject
+{
+    my ($self, $nodeHostname) = @_;
+
+    my $objectsModule = $self->global()->modInstance('objects');
+
+    if ($objectsModule->objectExists(HA_NODES_OBJECT_ID)) {
+        my $membersModel = $objectsModule->model('ObjectTable')->row(HA_NODES_OBJECT_ID)->subModel('members');
+
+        for my $id (@{ $membersModel->ids() }) {
+            if ($membersModel->row($id)->valueByName('name') eq $nodeHostname) {
+                $objectsModule->removeObjectMember(HA_NODES_OBJECT_ID, $id);
+                return $id;
+            }
+        }
+    }
+
+    return 0;
+}
+
+# Creates a initial firewall rule so each HA node can contact each other
 sub _createFirewallRules
 {
     my ($self) = @_;
 
     if ($self->global()->modExists('firewall')) {
-        my $any = $self->global()->modInstance('services')->serviceId('any');
-
         if (not $self->_firewallRuleCreated()) {
             my $rule = {
                 source_object => HA_NODES_OBJECT_ID,
                 source_selected => 'source_object',
-                service => $any,
+                service => $self->global()->modInstance('services')->serviceId('any'),
                 decision => 'accept',
                 description => HA_FIREWALL_RULES_DESCRIPTION,
             };

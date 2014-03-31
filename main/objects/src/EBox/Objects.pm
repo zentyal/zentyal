@@ -368,6 +368,30 @@ sub removeObjectMembers # (objectId)
         $membersModel->removeRow($id);
     }
 }
+
+# Method: removeObjectMember
+#
+#   Removes all the members from the given network object
+#
+# Parameters:
+#
+#   objectId    - object's id
+#   memberId    - member's id
+#
+sub removeObjectMember # (objectId, memberId)
+{
+    my ($self, $objectId, $memberId) = @_;
+
+    if (not $self->objectExists($objectId)) {
+        return 0;
+    }
+
+    my $membersModel = $self->model('ObjectTable')->row($objectId)->subModel('members');
+    if (defined ($membersModel->row($memberId))) {
+        $membersModel->removeRow($memberId);
+    }
+}
+
 # Method: menu
 #
 #       Overrides EBox::Module method.
