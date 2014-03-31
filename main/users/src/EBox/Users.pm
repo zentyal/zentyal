@@ -1032,7 +1032,7 @@ sub _daemons
 
     return [
         {
-            name => 'ebox.slapd',
+            name => 'samba-ad-dc',
             precondition => $usingInternalServer
         },
         {

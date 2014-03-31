@@ -1126,9 +1126,6 @@ sub _daemons
 {
     return [
         {
-            name => 'samba-ad-dc',
-        },
-        {
             name => 'nmbd',
         },
         {
