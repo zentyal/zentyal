@@ -139,6 +139,7 @@ sub _table
         modelDomain         => 'RemoteServices',
         enableProperty      => 1,
         defaultEnabledValue => 0,
+        automaticRemove     => 1,  # WTF! to notify other modules
         printableRowName   => __('data domain'),
         help               => __('Select the data you want to back up.'),
     };

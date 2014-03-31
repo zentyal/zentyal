@@ -12,30 +12,35 @@ my $directory = delete $params->{'directory'};
 my $rowId = delete $params->{'id'};
 my $page = delete $params->{'page'};
 $page = 0 unless ( $page );
+unless ($table) {
+   $table = delete $params->{'model'};
+}
+my @fields = map { "'" . $_ . "'" } keys %{$params};
 </%init>
 
 <div class='warning'>
 <% $warning %>
 </div>
-% if ( $action eq 'edit' )
-% {
-%    my @fields = map { "'" . $_ . "'" } keys %{$params};
+% if ( $action eq 'edit' ) {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>"
        onclick="Zentyal.TableHelper.changeRow('<% $url %>', '<% $table %>',
        [ <% join(', ', @fields) %> ], '<% $directory %>',
        '<% $rowId %>', <% $page %>, true); return false"
 />
-% }
-% elsif ($action eq 'del')
-% {
+% } elsif ($action eq 'del') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
 	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
         $action %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', { force: 1}); return false"/>
-% }
-% else
-% {
+% } elsif ($action eq 'editBoolean') {
+<input class='inputButton' type='submit' name='change'
+       value="<% __('Change') %>" title="Change"
+       onclick="Zentyal.TableHelper.sendInPlaceBooleanValue('<% $url %>','<% $table %>',
+                                                            '<% $rowId %>', '<% $directory %>',
+                                                            <% $fields[0] %>, this, {force: 1});
+                return false"/>
+% } else {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>" title="Change"
 	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%

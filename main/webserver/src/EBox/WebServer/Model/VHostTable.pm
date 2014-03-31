@@ -40,6 +40,7 @@ use EBox::Exceptions::External;
 
 use Error qw(:try);
 use Perl6::Junction qw(none);
+use Net::Domain::TLD;
 
 # Group: Public methods
 
@@ -227,12 +228,25 @@ sub _domainAndHostnameForVHost
     if (@parts == 1) { # if no dots, only a domain = hostname
         $hostName = $vHostName;
         $domain = $vHostName;
-    } else { # If we have dots, last two parts for the domain, rest hostname
+    } else {
+        # If we have dots, last two parts for the domain, rest hostname
         my $tld = pop(@parts);
-        my $topdomain = pop(@parts);
-        $domain = "$topdomain.$tld";
-        $hostName = join('.', @parts);
-        $hostName = $domain unless $hostName; # If hostName is empty, then = domain
+        # look for sld
+        if (Net::Domain::TLD::tld_exists($parts[-1])) {
+            # this can be false positive if somehow the topdomain can have the
+            # same value than a TLD
+            my $sld = pop @parts;
+            $tld = $sld . '.' . $tld;
+        }
+        if (@parts) {
+            my $topdomain = pop @parts;
+            $domain = "$topdomain.$tld";
+            $hostName = join('.', @parts);
+            $hostName = $domain unless $hostName; # If hostName is empty, then = domain
+        } else {
+            # only tld, domain = hostname
+            $hostName = $domain = $vHostName;
+        }
     }
 
     return ($hostName, $domain);
