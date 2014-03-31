@@ -32,7 +32,6 @@ use Net::LDAP::Util qw(ldap_error_name);
 use TryCatch::Lite;
 use Time::HiRes;
 
-use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
 use constant CONF_DIR      => '/etc/ldap/slapd.d';
 
@@ -126,7 +125,7 @@ sub connection
 #
 sub url
 {
-    return LDAPI;
+    return LDAP;
 }
 
 # Method: anonymousLdapCon
@@ -143,7 +142,7 @@ sub url
 sub anonymousLdapCon
 {
     my ($self) = @_;
-    my $ldap = EBox::Ldap::safeConnect(LDAPI);
+    my $ldap = EBox::Ldap::safeConnect(LDAP);
     return $ldap;
 }
 
@@ -293,16 +292,16 @@ sub roRootDn {
 #
 # Returns:
 #
-#     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn'
+#     hash ref  - holding the keys 'dn', 'ldap', and 'rootdn'
 #
-sub ldapConf {
+sub ldapConf
+{
     my ($self) = @_;
 
     my $conf = {
         'dn'     => $self->dn(),
-        'ldapi'  => LDAPI,
         'ldap'   => LDAP,
-        'port' => 390,
+        'port' => 389,
         'rootdn' => $self->rootDn(),
     };
     return $conf;
@@ -331,96 +330,6 @@ sub refreshLdap
 
     $self->{ldap} = undef;
     return $self;
-}
-
-sub ldifFile
-{
-    my ($self, $dir, $base) = @_;
-    return "$dir/$base.ldif";
-}
-
-# Method: dumpLdap
-#
-#  dump the LDAP contents to a LDIF file in the given directory. The exact file
-#  path can be retrevied using the method ldifFile
-#
-#    Parameters:
-#       dir - directory in which put the LDIF file
-sub _dumpLdap
-{
-    my ($self, $dir, $type) = @_;
-
-    my $user  = EBox::Config::user();
-    my $group = EBox::Config::group();
-    my $ldifFile = $self->ldifFile($dir, $type);
-
-    my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
-    my $chownCommand = "/bin/chown $user:$group $ldifFile";
-    EBox::Sudo::root(
-                       $slapcatCommand,
-                       $chownCommand
-                    );
-}
-
-sub dumpLdapData
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdap($dir, 'data');
-}
-
-sub dumpLdapConfig
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdap($dir, 'config');
-}
-
-sub usersInBackup
-{
-    my ($self, $dir) = @_;
-
-    my @users;
-
-    my $ldifFile = $self->ldifFile($dir, 'data');
-
-    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
-    my $usersDn;
-
-    while (not $ldif->eof()) {
-        my $entry = $ldif->read_entry ( );
-        if ($ldif->error()) {
-           EBox::error("Error reading LDIOF file $ldifFile: " . $ldif->error() .
-                       '. Error lines: ' .  $ldif->error_lines());
-        } else {
-            my $dn = $entry->dn();
-            if (not defined $usersDn) {
-                # first entry, use it to fetch the DN
-                $usersDn = 'ou=Users,' . $dn;
-                next;
-            }
-
-            # in zentyal users are identified by DN, not by objectclass
-            # TODO: Review this code, with multiou this may not be true anymore!
-            if ($dn =~ /$usersDn$/) {
-                push @users, $entry->get_value('uid');
-            }
-        }
-    }
-    $ldif->done();
-
-    return \@users;
-}
-
-sub _slapcatCmd
-{
-    my ($self, $ldifFile, $type) = @_;
-
-    my $base;
-    if ($type eq 'config') {
-        $base = 'cn=config';
-    } else {
-        $base = $self->dn();
-    }
-    return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
 # Method: userBindDN

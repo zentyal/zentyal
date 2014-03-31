@@ -36,6 +36,6 @@ my $dn = exists $ARGV[0] ? $ARGV[0] : $ldapconf->{'dn'};
 my $bind = $ldapconf->{'rootdn'};
 my $pwfile = EBox::Config->conf() . "ldap.passwd";
 
-system("ldapvi -h localhost:390 -D $bind --bind simple -w \$(cat $pwfile) -b $dn");
+system("ldapvi -h localhost:389 -D $bind --bind simple -w \$(cat $pwfile) -b $dn");
 
 1;
