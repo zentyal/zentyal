@@ -122,7 +122,7 @@ sub get
         return @decodedValues;
     } else {
         my $value = $entry->get_value($attr);
-        return decode_utf($value);
+        return decode_utf8($value);
     }
 }
 
