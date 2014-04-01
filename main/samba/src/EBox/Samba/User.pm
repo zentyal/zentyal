@@ -395,7 +395,6 @@ sub create
         my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
             unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
-                EBox::debug($entry->ldif());
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,

@@ -19,26 +19,25 @@ use warnings;
 package EBox::LDB;
 use base 'EBox::LDAPBase';
 
-use EBox::Samba::OU;
-use EBox::Samba::User;
-use EBox::Samba::Contact;
-use EBox::Samba::Group;
-use EBox::Samba::DNS::Zone;
-use EBox::Users::User;
-
-use EBox::LDB::IdMapDb;
-use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
+use EBox::LDB::IdMapDb;
+use EBox::Samba::Contact;
+use EBox::Samba::DNS::Zone;
+use EBox::Samba::Group;
+use EBox::Samba::OU;
+use EBox::Samba::User;
+use EBox::Users::User;
 
-use Net::LDAP;
-use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
-
+use Encode qw(decode_utf8);
 use Error qw( :try );
 use File::Slurp qw(read_file);
+use Net::LDAP;
+use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
@@ -378,7 +377,7 @@ sub ldapOUsToLDB
     };
     my $result = $ldap->search($params);
     foreach my $entry ($result->entries()) {
-        my $name = lc $entry->get_value('ou');
+        my $name = lc decode_utf8($entry->get_value('ou'));
         my $dn = $entry->dn();
 
         # Ignore OU=zarafa and OU=postfix and all of its childs
@@ -697,7 +696,7 @@ sub groups
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
 
-        next if (exists $self->{ignoredGroups}->{$entry->get_value('samAccountName')});
+        next if (exists $self->{ignoredGroups}->{decode_utf8($entry->get_value('samAccountName'))});
 
         my $group = new EBox::Samba::Group(entry => $entry);
 

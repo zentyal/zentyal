@@ -4,12 +4,13 @@ use warnings;
 package EBox::Samba::AuthKrbHelper;
 
 use EBox;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Global;
 use EBox::Sudo;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::Internal;
 
 use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
+use Encode qw(decode_utf8);
 
 my $singleton;
 
@@ -57,7 +58,7 @@ sub new
                 "has returned $count results, expected one");
         }
         my $entry = $result->entry(0);
-        $principal = $entry->get_value('samAccountName');
+        $principal = decode_utf8($entry->get_value('samAccountName'));
     } elsif (length $params{RID}) {
         my $samba = EBox::Global->modInstance('samba');
         my $ldb = $samba->ldb();
@@ -72,7 +73,7 @@ sub new
                 "has returned $count results, expected one");
         }
         my $entry = $result->entry(0);
-        $principal = $entry->get_value('samAccountName');
+        $principal = decode_utf8($entry->get_value('samAccountName'));
     } elsif (length $params{principal}) {
         $principal = $params{principal};
     } else {
