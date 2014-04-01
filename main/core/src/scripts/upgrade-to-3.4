@@ -54,6 +54,10 @@ upgrade
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+dpkg --configure -a --force-confdef
+
+service zentyal samba restart
+
 if dpkg --configure -a --force-confdef
 then
     service zentyal haproxy restart
