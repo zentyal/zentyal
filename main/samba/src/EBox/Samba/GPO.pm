@@ -32,7 +32,7 @@ use EBox::Exceptions::External;
 use EBox::Samba::LDAP::Control::SDFlags;
 
 use Data::UUID;
-use Encode qw(encode decode decode_utf8);
+use Encode qw(encode decode);
 use Error qw( :try );
 use Fcntl;
 use Net::LDAP::Control;
@@ -188,7 +188,7 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
@@ -328,7 +328,7 @@ sub create
     my $versionNumber = 0;
 
     # Get dns host name
-    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal("Could not get the DNS host name");
     }
@@ -478,7 +478,7 @@ sub extensionUpdate
 {
     my ($self, $isUser, $cseGUID, $toolGUID) = @_;
 
-    my $host = decode_utf8($self->_ldap->rootDse->get_value('dnsHostName'));
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }

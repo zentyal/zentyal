@@ -32,7 +32,6 @@ use EBox::Samba::NamingContext;
 use EBox::Validate qw(:all);
 
 use Error qw(:try);
-use Encode qw(decode_utf8);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Net::DNS;
@@ -681,7 +680,7 @@ sub getADDomain
 
     my $adLdap = new Net::LDAP($adServerIp);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $defaultNC = decode_utf8($rootDse->get_value('defaultNamingContext'));
+    my $defaultNC = $rootDse->get_value('defaultNamingContext');
 
     my $adDomain = $defaultNC;
     $adDomain =~ s/DC=//g;
@@ -704,7 +703,7 @@ sub getADRealm
 
     my $adLdap = new Net::LDAP($adServerIp);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $ldapPrinc = decode_utf8($rootDse->get_value('ldapServiceName'));
+    my $ldapPrinc = $rootDse->get_value('ldapServiceName');
     my (undef, $adRealm) = split(/@/, $ldapPrinc);
 
     unless (defined $adRealm) {
@@ -762,7 +761,7 @@ sub checkDnsZonesInMainPartition
     EBox::info("Checking for old DNS zones stored in main domain partition...");
     my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $defaultNC = decode_utf8($rootDse->get_value('defaultNamingContext'));
+    my $defaultNC = $rootDse->get_value('defaultNamingContext');
 
     my $ldapMsg = $adLdap->search(base => "CN=MicrosoftDNS,CN=System,$defaultNC",
                                   scope => 'sub',
@@ -770,7 +769,7 @@ sub checkDnsZonesInMainPartition
                                   attrs => ['name']);
     my @zoneNames;
     foreach my $entry ($ldapMsg->entries) {
-        my $zoneName = decode_utf8($entry->get_value('name'));
+        my $zoneName = $entry->get_value('name');
         next if (lc ($zoneName) eq lc ('RootDNSServers') or
                  lc ($zoneName) eq lc ('..TrustAnchors'));
         push (@zoneNames, $zoneName);
@@ -809,7 +808,7 @@ sub checkForestDomains
     EBox::info("Checking number of domains inside forest...");
     my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $configurationNC = decode_utf8($rootDse->get_value('configurationNamingContext'));
+    my $configurationNC = $rootDse->get_value('configurationNamingContext');
 
     my $result = $adLdap->search(base => "CN=Partitions,$configurationNC",
                                scope => 'sub',
@@ -981,7 +980,7 @@ sub checkTrustDomainObjects
     EBox::info("Checking for domain trust relationships...");
     my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $defaultNC = decode_utf8($rootDse->get_value('defaultNamingContext'));
+    my $defaultNC = $rootDse->get_value('defaultNamingContext');
 
     my $ldapMsg = $adLdap->search(base => "CN=System,$defaultNC",
                                   scope => 'sub',
@@ -1060,13 +1059,13 @@ sub checkADServerSite
     if (defined $site and length $site) {
         # If the user has specified a site, check it exists
         EBox::info("Checking if the specified site $site exists in the domain");
-        my $configurationNC = decode_utf8($rootDse->get_value('configurationNamingContext'));
+        my $configurationNC = $rootDse->get_value('configurationNamingContext');
         my $ldapMsg = $adLdap->search(base => "CN=Sites,$configurationNC",
                                       scope => 'sub',
                                       filter => '(objectClass=site)',
                                       attrs => ['name']);
         foreach my $entry ($ldapMsg->entries()) {
-            my $name = decode_utf8($entry->get_value('name'));
+            my $name = $entry->get_value('name');
             if (lc ($name) eq lc ($site)) {
                 $adServerSite = $name;
                 last;
@@ -1081,7 +1080,7 @@ sub checkADServerSite
     } else {
         # Search the site of the given server
         EBox::info("Checking the site where the specified server is located");
-        my $serverNameDn = decode_utf8($rootDse->get_value('serverName'));
+        my $serverNameDn = $rootDse->get_value('serverName');
         my $dnParts = ldap_explode_dn($serverNameDn, reverse => 0);
         $adServerSite = @{$dnParts}[2]->{CN};
         unless (defined $adServerSite) {
@@ -1108,7 +1107,7 @@ sub checkADNebiosName
     EBox::info("Checking domain netbios name...");
     my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
     my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
-    my $configurationNC = decode_utf8($rootDse->get_value('configurationNamingContext'));
+    my $configurationNC = $rootDse->get_value('configurationNamingContext');
     my $result = $adLdap->search(base => "CN=Partitions,$configurationNC",
                                  scope => 'sub',
                                  filter => '(nETBIOSName=*)',
@@ -1116,7 +1115,7 @@ sub checkADNebiosName
     my $adNetbiosDomain = undef;
     if ($result->count() == 1) {
         my $entry = $result->entry(0);
-        $adNetbiosDomain = decode_utf8($entry->get_value('nETBIOSName'));
+        $adNetbiosDomain = $entry->get_value('nETBIOSName');
     }
     unless (defined $adNetbiosDomain) {
         throw EBox::Exceptions::External(
@@ -1139,7 +1138,7 @@ sub _addForestDnsZonesReplica
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
-    my $dsServiceName = decode_utf8($ldb->rootDse->get_value('dsServiceName'));
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -1155,7 +1154,7 @@ sub _addForestDnsZonesReplica
     my $entry = $result->entry(0);
     my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
     foreach my $replica (@replicas) {
-        return if (lc decode_utf8($replica) eq lc $dsServiceName);
+        return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
     $entry->update($ldb->connection());
@@ -1170,7 +1169,7 @@ sub _addDomainDnsZonesReplica
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
-    my $dsServiceName = decode_utf8($ldb->rootDse->get_value('dsServiceName'));
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -1186,7 +1185,7 @@ sub _addDomainDnsZonesReplica
     my $entry = $result->entry(0);
     my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
     foreach my $replica (@replicas) {
-        return if (lc decode_utf8($replica) eq lc $dsServiceName);
+        return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
     $entry->update($ldb->connection());
@@ -1215,7 +1214,7 @@ sub _waitForRidPoolAllocation
 
     # Get the server object, contained in the config NC, that represents
     # this DC
-    my $serverNameDN = decode_utf8($ldb->rootDse->get_value('serverName'));
+    my $serverNameDN = $ldb->rootDse->get_value('serverName');
     my $result = $ldb->search({
         base => $serverNameDN,
         scope => 'base',
@@ -1230,7 +1229,7 @@ sub _waitForRidPoolAllocation
     my $serverObject = $result->entry(0);
 
     # Get the domain controller object representing this DC
-    my $serverReferenceDN = decode_utf8($serverObject->get_value('serverReference'));
+    my $serverReferenceDN = $serverObject->get_value('serverReference');
     while (not $allocated and $maxTries > 0) {
         $result = $ldb->search({
             base => $serverReferenceDN,
@@ -1246,7 +1245,7 @@ sub _waitForRidPoolAllocation
         my $dcObject = $result->entry(0);
 
         # Get the list of references to RID set objects managing RID allocation
-        my @ridSetReferencesDNs = decode_utf8($dcObject->get_value('rIDSetReferences'));
+        my @ridSetReferencesDNs = $dcObject->get_value('rIDSetReferences');
         foreach my $ridSetReferenceDN (@ridSetReferencesDNs) {
             $result = $ldb->search({
                 base => $ridSetReferenceDN,
