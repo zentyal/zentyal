@@ -55,7 +55,7 @@ use EBox::Users::NamingContext;
 
 use Digest::MD5;
 use Digest::SHA;
-use Encode qw(encode_utf8);
+use Encode qw(decode_utf8);
 use Error qw(:try);
 use Fcntl qw(:flock);
 use File::Copy;
