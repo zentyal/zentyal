@@ -398,8 +398,8 @@ sub _adRealm
     my ($self) = @_;
 
     my $dse = $self->_rootDse();
-    my $defaultNC = decode_utf8($dse->get_value('defaultNamingContext'));
-    my @dcDnsHostname = split (/\./, decode_utf8($dse->get_value('dnsHostName')), 2);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
     my $dcDomain = $dcDnsHostname[1];
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
@@ -435,7 +435,7 @@ sub _adDefaultNC
 
     my $dse = $self->_rootDse();
 
-    return decode_utf8($dse->get_value('defaultNamingContext'));
+    return $dse->get_value('defaultNamingContext');
 }
 
 # Method: initKeyTabs
