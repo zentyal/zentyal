@@ -27,7 +27,6 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 
-use Encode qw(decode_utf8);
 use String::Random;
 
 use constant SOGO_PORT => 20000;
@@ -267,7 +266,7 @@ sub _writeSOGoConfFile
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
     my $samba = $self->global->modInstance('samba');
-    my $dcHostName = decode_utf8($samba->ldb->rootDse->get_value('dnsHostName'));
+    my $dcHostName = $samba->ldb->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
     push (@{$array}, sogoPort => SOGO_PORT);
