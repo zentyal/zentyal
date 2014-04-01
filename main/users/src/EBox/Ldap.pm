@@ -25,12 +25,12 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Gettext;
 
+use Apache2::RequestUtil;
+use Encode qw(decode_utf8);
+use Error qw(:try);
 use Net::LDAP;
 use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
-
-use Error qw(:try);
-use Apache2::RequestUtil;
 use Time::HiRes;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
@@ -252,7 +252,7 @@ sub dn
             EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
         }
 
-        $self->{dn} = decode_utf8($contexts[0]);
+        $self->{dn} = $contexts[0];
     }
     return defined $self->{dn} ? $self->{dn} : '';
 }
