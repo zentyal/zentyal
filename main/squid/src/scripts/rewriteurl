@@ -22,6 +22,13 @@ my $edufilterPath = '/etc/squid3/edufilter';
 
 my %substByDomain;
 
+
+sub _dbg
+{
+    my ($msg) = @_;
+    system "echo 'XXX $msg' >> /tmp/log";
+}
+
 # for the moment we read only one line
 sub _readFile
 {
@@ -62,24 +69,51 @@ while (1) {
     my ($url) = split '\s', $line, 3;
     $url or next;
 
+    _dbg("URL $url");
+
+    if ($url =~ m{[.][a-zA-Z]+$}) {
+        # filename, we let it pass
+        _dbg("FILENAME $url");
+        print "\n";
+        next;
+    }
+
     my $response = '';
     # extract possible domains
     $url =~ m{^.*?//(.*?)[/?]};
     my @parts = split('\.', $1);
-    my $domain = $parts[-2];
-    if ($domain and exists $substByDomain{$domain}) {
+    pop @parts; # last portion could not be domain
+    my $domain;
+    foreach my $part (reverse @parts) {
+        if (exists $substByDomain{$part}) {
+            $domain = $part;
+            _dbg("DOMAIN $domain");
+        }
+    }
+
+    if ($domain) {
         my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
         my $replaced = $url =~ s/$removeRe/$1$replacement/g;
         if (not $replaced) {
-            if ($url =~ m/\?/) {
-                $url .= '&';
+            $replacement = '?' . $replacement . '&';
+            $replaced  = $url =~ s/\?/$replacement/;
+            if (not $replaced) {
+                if (not $url =~ m{/$}) {
+                    $url .= '/';
+                }
+                $url .=  $replacement;
+                _dbg('add ?');
+
             } else {
-                $url .= '?';
+                _dbg('replaced ?');
             }
-            $url .= $replacement;
+
+        } else {
+            _dbg("Replaced previous version of $replacement");
         }
 
         $response = $url;
+        _dbg("$url -> $response");
     }
 
     print $response, "\n";
