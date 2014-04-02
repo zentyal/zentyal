@@ -202,7 +202,6 @@ while (1) {
                 try {
                     $sambaContact->updateZentyal();
                 } catch ($error) {
-                    EBox::error("Error updating contact $canonicalName: $error");
                     EBox::error("Error updating contact '$dn': $error");
                 }
             }
