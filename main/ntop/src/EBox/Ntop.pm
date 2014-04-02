@@ -98,6 +98,7 @@ sub _setConf
                          [ ifaces        => $self->model('Interfaces')->ifacesToMonitor(),
                            dataDir       => $dataDir,
                            localNetworks => $self->_localNetworks(),
+                           debug         => EBox::Config::boolean('debug'),
                          ]);
 }
 
