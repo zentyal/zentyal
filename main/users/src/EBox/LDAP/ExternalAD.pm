@@ -29,7 +29,6 @@ use EBox::Validate;
 
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 use Authen::SASL;
-use Encode qw(decode_utf8);
 use Error qw(:try);
 use File::Basename;
 use Net::DNS;
@@ -538,7 +537,8 @@ sub _hostInAD
                           filter => '(objectClass=computer)',
                           attrs => ['samAccountName']);
     foreach my $entry ($result->entries()) {
-        my $entrySamAccountName = decode_utf8($entry->get_value('samAccountName'));
+        my $entrySamAccountName = $entry->get_value('samAccountName');
+        utf8::decode($entrySamAccountName);
         if (uc $entrySamAccountName eq uc $hostSamAccountName) {
             return 1;
         }

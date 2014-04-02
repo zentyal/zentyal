@@ -33,7 +33,6 @@ use EBox::Samba::OU;
 use EBox::Samba::User;
 use EBox::Users::User;
 
-use Encode qw(decode_utf8);
 use Error qw( :try );
 use File::Slurp qw(read_file);
 use Net::LDAP;
@@ -377,7 +376,9 @@ sub ldapOUsToLDB
     };
     my $result = $ldap->search($params);
     foreach my $entry ($result->entries()) {
-        my $name = lc decode_utf8($entry->get_value('ou'));
+        my $name = $entry->get_value('ou');
+        utf8::decode($name);
+        $name = lc ($name);
         my $dn = $entry->dn();
 
         # Ignore OU=zarafa and OU=postfix and all of its childs
@@ -695,8 +696,9 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
-
-        next if (exists $self->{ignoredGroups}->{decode_utf8($entry->get_value('samAccountName'))});
+        my $samAccountName = $entry->get_value('samAccountName');
+        utf8::decode($samAccountName);
+        next if (exists $self->{ignoredGroups}->{$samAccountName});
 
         my $group = new EBox::Samba::Group(entry => $entry);
 

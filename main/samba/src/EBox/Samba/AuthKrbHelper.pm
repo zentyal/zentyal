@@ -10,7 +10,6 @@ use EBox::Global;
 use EBox::Sudo;
 
 use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
-use Encode qw(decode_utf8);
 
 my $singleton;
 
@@ -58,7 +57,8 @@ sub new
                 "has returned $count results, expected one");
         }
         my $entry = $result->entry(0);
-        $principal = decode_utf8($entry->get_value('samAccountName'));
+        $principal = $entry->get_value('samAccountName');
+        utf8::decode($principal);
     } elsif (length $params{RID}) {
         my $samba = EBox::Global->modInstance('samba');
         my $ldb = $samba->ldb();
@@ -73,7 +73,8 @@ sub new
                 "has returned $count results, expected one");
         }
         my $entry = $result->entry(0);
-        $principal = decode_utf8($entry->get_value('samAccountName'));
+        $principal = $entry->get_value('samAccountName');
+        utf8::decode($principal);
     } elsif (length $params{principal}) {
         $principal = $params{principal};
     } else {

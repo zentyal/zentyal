@@ -32,7 +32,6 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
-use Encode qw(decode_utf8);
 use Error qw(:try);
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
@@ -115,14 +114,14 @@ sub get
 
     if (wantarray()) {
         my @value = $entry->get_value($attr);
-        my @decodedValues = ();
         foreach my $el (@value) {
-            push (@decodedValues, decode_utf8($el));
+            utf8::decode($el);
         }
-        return @decodedValues;
+        return @value;
     } else {
         my $value = $entry->get_value($attr);
-        return decode_utf8($value);
+        utf8::decode($value);
+        return $value;
     }
 }
 
@@ -280,6 +279,8 @@ sub save
     my ($self) = @_;
     my $entry = $self->_entry;
 
+    use Data::Dumper;
+    EBox::debug(Dumper($entry));
     my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
@@ -328,7 +329,6 @@ sub dn
     }
 
     my $dn = $entry->dn();
-    utf8::decode($dn);
     return $dn;
 }
 

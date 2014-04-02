@@ -55,7 +55,6 @@ use EBox::Users::NamingContext;
 
 use Digest::MD5;
 use Digest::SHA;
-use Encode qw(decode_utf8);
 use Error qw(:try);
 use Fcntl qw(:flock);
 use File::Copy;
@@ -2573,7 +2572,8 @@ sub checkMailNotInUse
         my $name;
         if ($type eq 'CourierMailAlias') {
             $type = __('alias');
-            $name = decode_utf8($entry->get_value('mail'));
+            $name = $entry->get_value('mail');
+            utf8::decode($name);
         } else {
             $name = $modeledObject ? $modeledObject->name() : $entry->dn();
         }
