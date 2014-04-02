@@ -28,6 +28,7 @@ use base qw(EBox::Module::Service EBox::RedirectHelper);
 
 use EBox::Config;
 use EBox::Gettext;
+use EBox::NetWrappers;
 use EBox::Sudo;
 
 # Constants
@@ -208,9 +209,8 @@ sub _localNetworks
     my @privateNetworks;
     if (@{$internalIfaces}) {
         foreach my $iface (@{$internalIfaces}) {
-            my $network = $net->ifaceNetwork($iface);
-            my $netmask = $net->ifaceNetmask($iface);
-            push(@privateNetworks, "$network/$netmask");
+            push(@privateNetworks,
+                 EBox::NetWrappers::to_network_with_mask($net->ifaceNetwork($iface), $net->ifaceNetmask($iface)));
         }
     } else {
         @privateNetworks = PRIVATE_NETWORKS;
