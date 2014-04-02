@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,20 +17,19 @@ use strict;
 use warnings;
 
 package EBox::CGI::ReleaseUpgrade;
-use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
+use base qw(EBox::CGI::ClientPopupBase);
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Sudo;
-use Error qw(:try);
+use EBox::WebAdmin;
+
+my $LOGFILE = '/var/log/zentyal/upgrade.log';
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(
-            'title' => __('Upgrade to Zentyal 3.3'),
-            'template' => '/upgrade.mas',
-            @_);
+    my $self = $class->SUPER::new('title' => __('Upgrade to Zentyal 3.4'),
+                                  'template' => '/upgrade.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -39,31 +38,20 @@ sub _process
 {
     my ($self) = @_;
 
-    if ($self->param('upgrade')) {
-        EBox::Sudo::root('sudo sed -ri "s/zentyal(.)3.2/zentyal\13.3/g" /etc/apt/sources.list');
-        EBox::Sudo::root('sudo sed -ri "/ppa.launchpad.net\/zentyal\/3.2/d" /etc/apt/sources.list');
-        EBox::Sudo::root("apt-get update");
-    } elsif ($self->param('install')) {
-        $self->{redirect} = 'Software/InstallPkgs?install=1&pkg-zentyal-core=yes';
+    my $action = $self->param('action');
+    return unless defined ($action);
+
+    if ($action eq 'upgrade') {
+        if (fork() == 0) {
+            EBox::WebAdmin::cleanupForExec();
+            exec ('/usr/share/zentyal/upgrade-wrapper');
+        }
+    } elsif ($action eq 'output') {
+        my $output = `tail -10 $LOGFILE`;
+        utf8::decode($output);
+        my $finished = (-f '/var/lib/zentyal/.upgrade-finished');
+        $self->{json} = { output => $output, finished => $finished };
     }
-}
-
-sub _print
-{
-    my ($self) = @_;
-    $self->_printPopup();
-}
-
-sub _top
-{
-}
-
-sub _menu
-{
-}
-
-sub _footer
-{
 }
 
 1;

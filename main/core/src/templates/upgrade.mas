@@ -8,30 +8,75 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
+    var aboutToFinish = false;
+    function updateOutput() {
+        $.ajax({
+            url: '/ReleaseUpgrade?action=output',
+            dataType: 'json',
+            success: function(response) {
+                $('#output').html(response.output);
+                if (response.finished) {
+                    $('#ajax_loader_upgrade').hide();
+                    $('#close_button').show();
+                }
+            }
+        }).fail(function (jqXHR) {
+            if ((jqXHR.status == 404) && !aboutToFinish) {
+                aboutToFinish = true;
+                $('#output').hide();
+                $('#webadmin_ko').show();
+            } else if (aboutToFinish && (jqXHR.status == 0)) {
+                $('#webadmin_ko').hide();
+                $('#ajax_loader_upgrade').hide();
+                $('#finished').show();
+                $('#close_button').show();
+            }
+        });
+        setTimeout(updateOutput, 1000);
+    }
+
     function doReleaseUpgrade() {
         $('#ok_button').hide();
+        $('#confirmation').hide();
         $('#ajax_loader_upgrade').show();
-        $.ajax({ url: '/ReleaseUpgrade',
-            data: { upgrade: 1 },
+        $.ajax({
+            url: '/ReleaseUpgrade?action=upgrade',
             success: function(response) {
-                window.location = '/ReleaseUpgrade?install=1';
+                $('#output').show();
+                updateOutput();
             }
         });
     }
 </script>
 
+<div id="confirmation">
+
 <div class="note">
-<p>This will upgrade your Zentyal 3.2 to Zentyal 3.3 Community Edition.</p>
+<p>This will upgrade your Zentyal 3.3 to Zentyal 3.4 Community Edition.</p>
 <p>Close this dialog if you do not want to upgrade now.</p>
 </div>
+
 <div class="warning">
-<p>Zentyal 3.2 commercial editions will receive upgrades through the Service Packs available through our customers repository. Check the <a href="http://www.zentyal.com/zentyal-release-policy/"><b>Zentyal Release Policy</b></a> for more information.</p>
-<p>Before upgrading please read also carefully the <a target="_blank" href="http://trac.zentyal.org/wiki/Document/Announcement/3.3"><b>release notes</b>.</p>
+<p>Before upgrading please read also carefully the <a target="_blank" href="http://wiki.zentyal.org/wiki/Zentyal_3.4_Announcement"><b>release notes</b></a>.</p>
 </div>
+
+</div>
+
+<div id="webadmin_ko" class="warning" style="display: none">
+The server is currently unavailable while the upgrade is in progress. The process is almost done and should finish in few minutes. In the meanwhile, you can keep track of the status with the following command: <b>tail -f /var/log/zentyal/upgrade.log</b>.
+</div>
+
+<div id="finished" class="note" style="display: none">
+Upgrade finished! You will be redirected to the login page of Zentyal 3.4 after closing this dialog but <b>please note that it is highly recommended to reboot your server before resuming normal operations</b>.
+</div>
+
+<pre id="output" style="display: none; white-space: pre-wrap;">
+</pre>
 
 <div>
 <center>
 <img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
 <button id="ok_button" onclick="doReleaseUpgrade(); return false;">Continue</button>
+<button id="close_button" onclick="window.location.reload(); return false;" style="display: none">Close</button>
 </center>
 </div>
