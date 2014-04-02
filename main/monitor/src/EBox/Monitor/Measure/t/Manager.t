@@ -44,18 +44,18 @@ throws_ok {
 } 'EBox::Exceptions::Internal', 'Cannot load a non existant class';
 
 throws_ok {
-    $manager->register('EBox::Module');
+    $manager->register('EBox::Monitor');
 } 'EBox::Exceptions::InvalidType', 'Cannot register a non measure class';
 
-ok($manager->register('EBox::Monitor::Measure::Load'),
+cmp_ok($manager->register('EBox::Monitor::Measure::Load'), '==', 0,
    'Registering was going well');
 
-ok($manager->register('EBox::Monitor::Measure::CPU'),
+cmp_ok($manager->register('EBox::Monitor::Measure::CPU'), '==', 0,
    'Registering another one was going well');
 
 *EBox::Monitor::Measure::Thermal::enabled = sub { return 0; };
 
-cmp_ok($manager->register('EBox::Monitor::Measure::Thermal'), '==', 0,
+cmp_ok($manager->register('EBox::Monitor::Measure::Thermal'), '==', 1,
        'Registering a disabled measure is not possible');
 
 my $measures;

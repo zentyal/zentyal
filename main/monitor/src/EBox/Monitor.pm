@@ -745,7 +745,7 @@ sub _mountPointsToMonitor
 {
     my ($self) = @_;
 
-    my $dfMeasure = $self->_measureManager()->measure('Df');
+    my $dfMeasure = $self->_measureManager()->measure('EBox::Monitor::Measure::Df');
     my @printableTypeInstances = map { $dfMeasure->printableTypeInstance($_) } @{$dfMeasure->typeInstances()};
     return \@printableTypeInstances;
 }

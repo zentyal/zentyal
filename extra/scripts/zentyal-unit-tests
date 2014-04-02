@@ -4,7 +4,7 @@ PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mockti
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter monitor"
 
 while getopts ":vjsc" opt; do
     case $opt in
@@ -61,6 +61,11 @@ export ZENTYAL_MODULES_SCHEMAS
 
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
+
+# Create log file for Monitor tests
+sudo mkdir -p /var/log/zentyal
+sudo chmod 777 /var/log/zentyal
+touch /var/log/zentyal/zentyal.log || /bin/true
 
 COMMON_ARGS="$EXTRA_ARGS -r --timer"
 
