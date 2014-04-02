@@ -38,7 +38,7 @@ use File::Temp qw(tempfile);
 use HTML::Mason;
 use HTML::Mason::Exceptions;
 use JSON::XS;
-use Perl6::Junction qw(all);
+use Perl6::Junction qw(all any);
 use POSIX qw(setlocale LC_ALL);
 use TryCatch::Lite;
 use URI;
@@ -788,8 +788,20 @@ sub _validateReferer
 {
     my ($self) = @_;
 
-    # Only check if the client sends params
-    unless (@{$self->params()}) {
+    # Only check if the client sends params that can trigger actions
+    # It is assumed that the meaning of the accepted parameters does
+    # no change in CGIs
+    my $hasActionParam = 0;
+    my $noActionParams = any('directory', 'page', 'pageSize', 'backview');
+    foreach my $param (@{ $self->params() }) {
+        if ($param eq $noActionParams) {
+            next;
+        } else {
+            $hasActionParam = 1;
+            last;
+        }
+    }
+    if (not $hasActionParam) {
         return;
     }
 

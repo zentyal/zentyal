@@ -1,4 +1,6 @@
 HEAD
+	+ More tolerant referer validation so we can access to submodels
+	  with an URL
 	+ Restored reconnect option for mysql connections
 	+ EBox::WebAdmin::addNginxServer does not longer raises exception
 	  if file not yet exists
