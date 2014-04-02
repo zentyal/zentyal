@@ -27,6 +27,7 @@
     $adDC => undef
     $adAclTTL => 3600
     $adNegativeAclTTL => 10
+    $rewriteURL => 0
 </%args>
 <%shared>
 our $objectPrefix = 'obj~';
@@ -325,6 +326,10 @@ external_acl_type InetGroup ipv4 children=5 \
 ##
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
 
+% if ($rewriteURL) {
+url_rewrite_program  /usr/share/zentyal-squid/rewriteurl
+% }
+
 ##
 ## Default policy
 ##
@@ -332,3 +337,6 @@ external_acl_type InetGroup ipv4 children=5 \
 http_access deny all
 # reply access allowed if not denied before
 http_reply_access allow all
+
+# XXX debug
+strip_query_terms off
