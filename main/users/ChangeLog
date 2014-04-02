@@ -1,6 +1,7 @@
 HEAD
 	+ Fixed bug when altering mail address through the edit user form
 	+ Better integration between mail addon and mail field
+	+ Remove method canonicalName and use object DNs for greater performance
 3.2.10
 	+ Added and used checkMailNotInUse method
 3.2.9

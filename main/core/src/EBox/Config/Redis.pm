@@ -234,7 +234,10 @@ sub _keys
 {
     my ($self, $pattern) = @_;
 
-    my @keys = grep { not $deleted{$_} } $self->_redis_call('keys', $pattern);
+    my @keys = grep {
+        my $key = $_;
+        not $deleted{$key}
+    } $self->_redis_call('keys', $pattern);
 
     foreach my $name (keys %cache) {
         if ($name =~ /^$pattern/) {
@@ -259,20 +262,27 @@ sub import_dir_from_file
     my ($self, $filename, $dest) = @_;
 
     my @lines;
-
     try {
-        @lines = split ("\n\n", read_file($filename));
+        @lines = split ("\n\n+", read_file($filename));
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
 
     $self->begin();
     foreach my $line (@lines) {
-        my ($key, $value) = $line =~ /^(.+?): (.*)$/s;
+        if ($line =~ m/^\s*$/) {
+            next;
+        }
+        my ($key, $value) = $line =~ /^\s*([^\s]+?): (.*)\s*$/s;
+        if ((not defined $key) or (not defined $value)) {
+            EBox::warn("Incorrect redis line for parsing: $line");
+            next;
+        }
 
         if ($dest) {
             $key = $dest . '/' .  $key;
         }
+
         # XXX: this can be problematic if we store a string
         # starting with '[' or '{', but decode_json fails to decode
         # regular strings some times, even with allow_nonref
@@ -282,6 +292,7 @@ sub import_dir_from_file
         if (($firstChar eq '[') or ($firstChar eq '{')) {
             $value = $self->{json_pretty}->decode($value);
         }
+
         $self->set($key, $value);
     }
 
@@ -439,6 +450,7 @@ sub _redis_call
             };
             eval {
                 $self->{redis}->__send_command($command, @args);
+
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
                 } else {
