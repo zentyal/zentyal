@@ -66,9 +66,6 @@ then
 
     echo; echo "Zentyal upgrade finished!"
 
-    #Removing transactional package and some configuration files
-    apt-get purge samba4
-
     apt-get clean
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
