@@ -337,3 +337,6 @@ url_rewrite_program  /usr/share/zentyal-squid/rewriteurl
 http_access deny all
 # reply access allowed if not denied before
 http_reply_access allow all
+
+# XXX debug
+strip_query_terms off
