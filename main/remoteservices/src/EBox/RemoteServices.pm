@@ -1771,6 +1771,8 @@ sub _setProxyRedirections
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
             $webadminMod->addNginxInclude($confFile);
+        } else {
+            $webadminMod->removeNginxInclude($confFile);
         }
     } else {
         # Do nothing if include is already removed

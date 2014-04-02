@@ -6,6 +6,7 @@ HEAD
 	+ Improve proxy redirections:
 	  - Configuration from RedirectHelper modules
 	  - Added query string and referer-based patterns to redirect
+	  - Remove proxy redirections when removed
 	+ Disable QA updates until next commercial edition
 	+ DisasterRecoveryDomains can notify other models
 	+ Fix remove conf backup after PSGI migration
