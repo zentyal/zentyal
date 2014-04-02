@@ -62,6 +62,10 @@ export ZENTYAL_MODULES_SCHEMAS
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
 
+# Create log file for Monitor tests
+sudo mkdir -p -m 777 /var/log/zentyal
+touch /var/log/zentyal/zentyal.log || /bin/true
+
 COMMON_ARGS="$EXTRA_ARGS -r --timer"
 
 if [ "$@" == "ALL" ]
