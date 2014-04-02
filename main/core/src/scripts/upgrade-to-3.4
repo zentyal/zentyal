@@ -37,14 +37,15 @@ done
 
 # Copy samba data to new destination and re-create hardlinks
 service zentyal samba stop
+SAMBA_PID=$(cat /var/run/samba/samba.pid)
+kill -9 $SAMBA_PID
 mkdir -p /var/lib/samba
 cp -r /opt/samba4/private /var/lib/samba/
 ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
 ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
 ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
-chown root:bind /var/lib/samba/private/dns/*.ldb
-chmod 660 /var/lib/samba/private/dns/*.ldb
-service zentyal samba restart
+chown -R root:bind /var/lib/samba/private/dns
+chmod -R g+rw /var/lib/samba/private/dns
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
 sed -i 's/precise/saucy/g' /etc/apt/sources.list
@@ -64,6 +65,9 @@ then
     /usr/share/zentyal/global-action --action saveAllModules
 
     echo; echo "Zentyal upgrade finished!"
+
+    #Removing transactional package and some configuration files
+    apt-get purge samba4
 
     apt-get clean
 else
