@@ -97,6 +97,7 @@ sub _preAddOU
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
     my $name = $entry->get_value('ou');
+    utf8::decode($name);
 
     EBox::debug("Creating OU in LDB '$name'");
     my $ou = EBox::Samba::OU->create(name => $name, parent => $sambaParent);
@@ -167,13 +168,21 @@ sub _preAddUser
         return;
 
     my $name        = $entry->get_value('cn');
+    utf8::decode($name);
     my $givenName   = $entry->get_value('givenName');
+    utf8::decode($givenName);
     my $initials    = $entry->get_value('initials');
+    utf8::decode($initials);
     my $surname     = $entry->get_value('sn');
+    utf8::decode($surname);
     my $displayName = $entry->get_value('displayName');
+    utf8::decode($displayName);
     my $description = $entry->get_value('description');
+    utf8::decode($description);
     my $mail        = $entry->get_value('mail');
+    utf8::decode($mail);
     my $uid         = $entry->get_value('uid');
+    utf8::decode($uid);
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
@@ -205,6 +214,7 @@ sub _preAddUserFailed
         return;
 
     my $uid = $entry->get_value('uid');
+    utf8::decode($uid);
     try {
         my $sambaUser = undef;
         my $objectGUID = $entry->get_value('msdsObjectGUID');
@@ -307,7 +317,6 @@ sub _preModifyUser
         foreach my $key (keys %{$rdn}) {
             if ($key == 'CN') {
                 $rdn->{CN} = $zentyalUser->get('cn');
-                utf8::encode($rdn->{CN});
                 last;
             }
         }
@@ -336,7 +345,6 @@ sub _preModifyUser
 
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
-        utf8::encode($displayName);
         $sambaUser->set('displayName', $displayName, 1);
     } else {
         $sambaUser->delete('displayName', 1);
@@ -344,13 +352,10 @@ sub _preModifyUser
     my $description = $zentyalUser->description();
     my $mail = $zentyalUser->mail();
     my $gn = $zentyalUser->get('givenName');
-    utf8::encode($gn);
     my $sn = $zentyalUser->get('sn');
-    utf8::encode($sn);
     $sambaUser->set('givenName', $gn, 1);
     $sambaUser->set('sn', $sn, 1);
     if ($description) {
-        utf8::encode($description);
         $sambaUser->set('description', $description, 1);
     } else {
         $sambaUser->delete('description', 1);
@@ -427,12 +432,19 @@ sub _preAddContact
         return;
 
     my $name = $entry->get_value('cn');
+    utf8::decode($name);
     my $givenName = $entry->get_value('givenName');
+    utf8::decode($givenName);
     my $initials = $entry->get_value('initials');
+    utf8::decode($initials);
     my $sn = $entry->get_value('sn');
+    utf8::decode($sn);
     my $displayName = $entry->get_value('displayName');
+    utf8::decode($displayName);
     my $description = $entry->get_value('description');
+    utf8::decode($description);
     my $mail = $entry->get_value('mail');
+    utf8::decode($mail);
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
     my @args = ();
@@ -489,39 +501,34 @@ sub _modifyContact
         my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
         return unless $sambaContact->exists();
 
-        my $givenName = $zentyalContact->get_value('givenName');
-        my $initials = $zentyalContact->get_value('initials');
-        my $sn = $zentyalContact->get_value('sn');
-        my $displayName = $zentyalContact->get_value('displayName');
-        my $description = $zentyalContact->get_value('description');
-        my $mail = $zentyalContact->get_value('mail');
+        my $givenName = $zentyalContact->get('givenName');
+        my $initials = $zentyalContact->get('initials');
+        my $sn = $zentyalContact->get('sn');
+        my $displayName = $zentyalContact->get('displayName');
+        my $description = $zentyalContact->get('description');
+        my $mail = $zentyalContact->get('mail');
 
         if ($givenName) {
-            utf8::encode($givenName);
             $sambaContact->set('givenName', $givenName, 1);
         } else {
             $sambaContact->delete('givenName', 1);
         }
         if ($initials) {
-            utf8::encode($initials);
             $sambaContact->set('initials', $initials, 1);
         } else {
             $sambaContact->delete('initials', 1);
         }
         if ($sn) {
-            utf8::encode($sn);
             $sambaContact->set('sn', $sn, 1);
         } else {
             $sambaContact->delete('sn', 1);
         }
         if ($displayName) {
-            utf8::encode($displayName);
             $sambaContact->set('displayName', $displayName, 1);
         } else {
             $sambaContact->delete('displayName', 1);
         }
         if ($description) {
-            utf8::encode($description);
             $sambaContact->set('description', $description, 1);
         } else {
             $sambaContact->delete('description', 1);
@@ -651,9 +658,12 @@ sub _preAddGroup
         return;
 
     my $name = $entry->get_value('cn');
+    utf8::decode($name);
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
     my $description = $entry->get_value('description');
+    utf8::decode($description);
     my $mail = $entry->get_value('mail');
+    utf8::decode($mail);
 
     # The isSecurityGroup flag is not set here given that the zentyalObject doesn't exist yet, we will
     # update it later on the _addGroup callback. Maybe we would move this creation to _addGroup...
@@ -680,6 +690,7 @@ sub _preAddGroupFailed
         return;
 
     my $samAccountName = $entry->get_value('cn');
+    utf8::decode($samAccountName);
     try {
         my $sambaGroup = undef;
         my $objectGUID = $entry->get_value('msdsObjectGUID');
@@ -775,7 +786,6 @@ sub _modifyGroup
 
         my $description = $zentyalGroup->get('description');
         if ($description) {
-            utf8::encode($description);
             $sambaGroup->set('description', $description, $lazy);
         } else {
             $sambaGroup->delete('description', $lazy);
