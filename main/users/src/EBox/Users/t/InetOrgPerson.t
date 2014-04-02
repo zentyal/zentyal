@@ -21,7 +21,6 @@ use base 'EBox::Test::Class';
 
 use EBox::Global::TestStub;
 
-use Encode;
 use Test::More;
 use Test::Exception;
 

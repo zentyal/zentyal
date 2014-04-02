@@ -21,7 +21,6 @@ use base 'EBox::Test::Class';
 
 use EBox::Global::TestStub;
 
-use Encode;
 use Test::More;
 use Test::Exception;
 
@@ -40,7 +39,7 @@ sub users_group_use_ok : Test(startup => 1)
     use_ok('EBox::Users::Group') or die;
 }
 
-sub checkGroupnameFormat : Test(42)
+sub checkGroupnameFormat : Test(41)
 {
     my ($self) = @_;
 
