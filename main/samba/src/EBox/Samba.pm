@@ -201,6 +201,11 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    # Upgrade from previous versions (daemons have changed)
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_overrideDaemons();
+    }
 }
 
 sub enableService

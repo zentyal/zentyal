@@ -1,4 +1,5 @@
 HEAD
+	+ Override daemons when migrating from previous versions
 	+ Remove the use of method canonicalName for greater performance, use
 	  object DNs instead
 	+ s4sync is stopped before samba daemon to prevent ldb connection errors
