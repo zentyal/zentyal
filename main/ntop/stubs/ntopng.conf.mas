@@ -9,6 +9,7 @@
 @ifaces
 $dataDir
 @localNetworks => ()
+$debug => 0
 </%args>
 # DNS mode
 # Decode DNS responses and don't resolve numeric IP addresses
@@ -21,8 +22,10 @@ $dataDir
 --data-dir=<% $dataDir %>
 # Disable login by now
 --disable-login=
+% if ($debug) {
 # Verbose for debugging
 --verbose=
+% }
 % if (@localNetworks) {
 # Local networks
 --local-networks=<% join(',', @localNetworks) %>

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -35,6 +35,7 @@ use constant NTOPNG_UPSTART_JOB => 'zentyal.ntopng';
 use constant NTOPNG_CONF_FILE   => '/etc/ntopng/ntopng.conf';
 use constant NTOPNG_DATA_DIR    => EBox::Config::var() . 'lib/ntopng';
 use constant NTOPNG_PORT        => 3000;
+use constant PRIVATE_NETWORKS => qw(10.0.0.0/8 172.16.0.0/12 192.168.0.0/16);
 
 # Group: Protected methods
 
@@ -94,11 +95,10 @@ sub _setConf
     }
 
     $self->writeConfFile(NTOPNG_CONF_FILE, 'ntop/ntopng.conf.mas',
-                         [
-                             ifaces        => $self->model('Interfaces')->ifacesToMonitor(),
-                             dataDir       => $dataDir,
-                             localNetworks => $self->model('LocalNetworks')->networkIPAddresses(),
-                            ]);
+                         [ ifaces        => $self->model('Interfaces')->ifacesToMonitor(),
+                           dataDir       => $dataDir,
+                           localNetworks => $self->_localNetworks(),
+                         ]);
 }
 
 # Group: Public methods
@@ -195,5 +195,26 @@ sub redirectionConf
 
 
 # Group: Private methods
+
+# Local networks are based on internal networks
+# If there are not, then put all private classes
+sub _localNetworks
+{
+    my ($self) = @_;
+
+    my $net = $self->global()->modInstance('network');
+    my $internalIfaces = $net->InternalIfaces();
+    my @privateNetworks;
+    if (@{$internalIfaces}) {
+        foreach my $iface (@{$internalIfaces}) {
+            my $network = $net->ifaceNetwork($iface);
+            my $netmask = $net->ifaceNetmask($iface);
+            push(@privateNetworks, "$network/$netmask");
+        }
+    } else {
+        @privateNetworks = PRIVATE_NETWORKS;
+    }
+    return \@privateNetworks;
+}
 
 1;
