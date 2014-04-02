@@ -77,11 +77,11 @@ sub _process
             $self->_requireParamAllowEmpty('password', __('password'));
             $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
-            my $givenName = $self->param('givenname');
+            my $givenname = $self->param('givenname');
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
 
-            my $fullname = EBox::Users::User->generatedFullname(givenname => $givenname, surname => $surname)
+            my $fullname = EBox::Users::User->generatedFullname(givenname => $givenname, surname => $surname);
             if ($fullname ne $user->get('cn')) {
                 $setText = $user->get('uid') . " ($fullname)";
             }
@@ -100,7 +100,7 @@ sub _process
                 $user->delete('mail', 1);
             }
 
-            $user->set('givenname', $givenName, 1);
+            $user->set('givenname', $givenname, 1);
             $user->set('sn', $surname, 1);
             $user->set('cn', $fullname, 1);
             $user->setDisabled($disabled);
