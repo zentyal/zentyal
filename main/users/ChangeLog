@@ -1,4 +1,4 @@
-HEAD
+3.2.11
 	+ Remove method canonicalName and use object DNs for greater performance
 3.2.10
 	+ Added and used checkMailNotInUse method
