@@ -505,7 +505,10 @@ sub create
         throw EBox::Exceptions::Internal(__x(q{'{dn}' is not a valid dn}, dn => $dn));
     }
 
-    my @userPwAttrs = getpwnam($args{uid});
+    my $userName = $args{uid};
+    # WARNING: $args{uid} MUST NOT BE used directly to getpwnam function or it will "break" it's UTF-8 tags and break
+    # non-ASCII uids.
+    my @userPwAttrs = getpwnam($userName);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
