@@ -1,4 +1,6 @@
 HEAD
+	+ Changed CGI base to show correctly referer errors and
+	  generating response errors
 	+ More tolerant referer validation so we can access to submodels
 	  with an URL
 	+ Restored reconnect option for mysql connections
