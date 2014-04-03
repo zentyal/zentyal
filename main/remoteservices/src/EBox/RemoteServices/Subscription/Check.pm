@@ -101,7 +101,10 @@ sub check
     } catch EBox::RemoteServices::Exceptions::NotCapable with {
         my ($exc) = @_;
         $self->{lastError} = $exc->text();
-        $capable = 0;
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error("Error checking if suitable for this subscription level: $exc");
+        $self->{lastError} = "$exc";
     };
 
     return $capable;
