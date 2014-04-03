@@ -19,7 +19,7 @@ use warnings;
 
 package EBox::Objects;
 
-use base qw(EBox::Module::Config);
+use base qw( EBox::Module::Service );
 
 use Net::IP;
 use EBox::Validate qw( :all );
@@ -42,6 +42,116 @@ sub _create
     bless($self, $class);
 
     return $self;
+}
+
+sub _registerDynamicObjects
+{
+    my ($self) = @_;
+
+    $self->dynamicObjectRegister(
+        {
+            name            => 'os_linux',
+            printableName   => 'Linux devices',
+        }
+    ) unless $self->dynamicObjectIsRegistered('os_linux');
+    $self->dynamicObjectRegister(
+        {
+            name            => 'os_windows',
+            printableName   => 'Microsoft Windows devices',
+        }
+    ) unless $self->dynamicObjectIsRegistered('os_windows');
+    $self->dynamicObjectRegister(
+        {
+            name            => 'os_mac',
+            printableName   => 'Apple Mac OS devices',
+        }
+    ) unless $self->dynamicObjectIsRegistered('os_mac');
+    $self->dynamicObjectRegister(
+        {
+            name            => 'os_android',
+            printableName   => 'Android devices',
+        }
+    ) unless $self->dynamicObjectIsRegistered('os_android');
+    $self->dynamicObjectRegister(
+        {
+            name            => 'os_ios',
+            printableName   => 'Apple iOS (iPhone and iPad)',
+        }
+    ) unless $self->dynamicObjectIsRegistered('os_ios');
+}
+
+# Method: menu
+#
+#       Overrides EBox::Module method.
+#
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'icon' => 'network',
+                                        'text' => __('Network'),
+                                        'separator' => 'Core',
+                                        'order' => 40);
+
+    my $item = new EBox::Menu::Item('url' => 'Objects/Composite/Objects',
+                                    'text' => __($self->title),
+                                    'order' => 40);
+    $folder->add($item);
+    $root->add($folder);
+}
+
+sub usedFiles
+{
+    # TODO
+    return [];
+}
+
+sub actions
+{
+    # TODO
+    return [];
+}
+
+sub _snifferCond
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DynamicObjectTable');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $rowType = $row->valueByName('type');
+        return 1 if $self->dynamicObjectIsRegistered($rowType);
+    }
+
+    return 0;
+}
+
+sub _daemons
+{
+    my ($self) = @_;
+
+    my $daemons = [
+        {
+            name => 'p0f',
+            precondition => \&_snifferCond,
+        },
+    ];
+
+    return $daemons;
+}
+
+sub _setConf
+{
+    my ($self) = @_;
+
+    $self->_registerDynamicObjects();
+
+    # TODO fill data
+    my $data = [];
+    $self->writeConfFile('/etc/p0f/p0f.fp', '/objects/p0f.fp.mas', $data,
+        { uid => 0, gid => 0, mode => '0640' });
 }
 
 ## api functions
@@ -304,42 +414,60 @@ sub addObject
     return $self->model('ObjectTable')->addObject(%params);
 }
 
-sub addDynamicObject
+# Method: dynamicObjectRegister
+#
+#   Stores the object metadata in the module state. This information will be
+#   used to populate the DynamicObjectTable model to let the user create
+#   dynamic objects.
+#
+# Arguments:
+#
+#   params - Hash ref - Dynamic object metadata, containing the following keys
+#       name            - The ipset the host will be added by p0f daemon
+#       printableName   - The name to show in the web interface
+#
+sub dynamicObjectRegister
 {
-    my ($self, %params) = @_;
+    my ($self, $params) = @_;
 
-    my $model = $self->model('DynamicObjectTable');
-    return $model->addObject(%params);
+    unless (defined $params) {
+        throw EBox::Exceptions::MissingArgument('params');
+    }
+    unless (defined $params->{name}) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+    unless (defined $params->{printableName}) {
+        throw EBox::Exceptions::MissingArgument('printableName');
+    }
+
+    my $name = $params->{name};
+    if ($self->dynamicObjectIsRegistered($name)) {
+        throw EBox::Exceptions::DataExists();
+    }
+
+    my $state = $self->get_state();
+    my $registeredDynamicObjects = $state->{dynamicObjects};
+    $registeredDynamicObjects->{$name} = $params;
+    $state->{dynamicObjects} = $registeredDynamicObjects;
+    $self->set_state($state);
 }
 
-sub existsDynamicObject
+# Method: dynamicObjectIsRegistered
+#
+#   Checks if a dynamic object metadata is registered.
+#
+# Returns:
+#
+#   boolean - True if object is registered, false otherwise.
+#
+sub dynamicObjectIsRegistered
 {
-    my ($self, %params) = @_;
+    my ($self, $name) = @_;
 
-    my $model = $self->model('DynamicObjectTable');
-    return $model->find(%params);
+    my $state = $self->get_state();
+    my $registeredDynamicObjects = $state->{dynamicObjects};
+    return exists $registeredDynamicObjects->{$name};
 }
 
-# Method: menu
-#
-#       Overrides EBox::Module method.
-#
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    my $folder = new EBox::Menu::Folder('name' => 'Network',
-                                        'icon' => 'network',
-                                        'text' => __('Network'),
-                                        'separator' => 'Core',
-                                        'order' => 40);
-
-    my $item = new EBox::Menu::Item('url' => 'Objects/Composite/Objects',
-                                    'text' => __($self->title),
-                                    'order' => 40);
-    $folder->add($item);
-    $root->add($folder);
-}
 
 1;

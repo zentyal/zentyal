@@ -27,20 +27,10 @@ use warnings;
 
 package EBox::Objects::Model::DynamicObjectTable;
 
-use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Exceptions::External;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::Internal;
-use EBox::Exceptions::MissingArgument;
-use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
-use EBox::Sudo;
-
-use Net::IP;
+use EBox::Types::Select;
 
 use base 'EBox::Model::DataTable';
 
@@ -54,41 +44,31 @@ sub new
     return $self;
 }
 
-sub addObject
-{
-    my ($self, %params) = @_;
-
-    my $name = $params{name};
-    throw EBox::Exceptions::MissingArgument('name') unless defined $name;
-
-    my $id = $self->addRow(%params);
-    unless (defined $id) {
-        throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
-    }
-
-    return $id;
-}
-
 sub _table
 {
+    my ($self) = @_;
+
     my $tableHead = [
         new EBox::Types::Text(
-            'fieldName' => 'name',
-            'printableName' => __('Internal name'),
-            'localizable' => 1,
-            'size' => '20',
-            'unique' => 1,
-            'editable' => 0,
-            'hidden' => 1,
-            'optional' => 0,
-        ),
-        new EBox::Types::Text(
-            'fieldName' => 'printableName',
+            'fieldName'     => 'name',
             'printableName' => __('Name'),
-            'localizable' => 1,
-            'size' => '20',
-            'unique' => 0,
-            'editable' => 0,
+            'localizable'   => 1,
+            'size'          => '20',
+            'unique'        => 0,
+            'editable'      => 1,
+            'optional'      => 0,
+        ),
+        new EBox::Types::IPAddr(
+            fieldName       => 'filter',
+            printableName   => __('Filter by network (CIDR format)'),
+            editable        => 1,
+            optional        => 1,
+        ),
+        new EBox::Types::Select(
+            'fieldName'     => 'type',
+            'printableName' => __('Object type'),
+            'populate'      => sub { $self->_populateTypes() },
+            'editable'      => 1,
         ),
         new EBox::Types::HasMany(
             'fieldName' => 'members',
@@ -106,7 +86,7 @@ sub _table
         'automaticRemove'       => 1,
         'defaultController'     => '/Objects/Controller/DynamicObjectTable',
         'HTTPUrlView'           => 'Objects/Composite/Objects',
-        'defaultActions'        => [ 'changeView' ],
+        'defaultActions'        => [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription'      => $tableHead,
         'class'                 => 'dataTable',
         'help'                  => _objectHelp(),
@@ -117,11 +97,28 @@ sub _table
     return $dataTable;
 }
 
+sub _populateTypes
+{
+    my ($self) = @_;
+
+    my $module = $self->parentModule();
+    my $state = $module->get_state();
+    my $registered = $state->{dynamicObjects};
+
+    my $types = [];
+    foreach my $name (keys %{$registered}) {
+        my $obj = $registered->{$name};
+        push (@{$types}, { value => $obj->{name}, printableValue => $obj->{printableName} });
+    }
+    return $types;
+}
+
 sub _objectHelp
 {
-    return __('Objects are an abstraction of machines and network addresses ' .
-              'which can be used in other modules. Any change on an object ' .
-              'is automatically synched in all the modules using it');
+    return __('Dynamic objects are managed by Zentyal, adding and removing ' .
+              'members based on the filter criteria which can be used in ' .
+              'other modules. The members of these kind of objects are ' .
+              'always host addresses.');
 }
 
 1;
