@@ -1162,7 +1162,9 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            my $chownCmd = "chown -R $quser:$group $qhome";
+            # Samba users may start with a '-' character and that breaks command line execution. Fixed with the '--'
+            # addition.
+            my $chownCmd = "chown -R -- $quser:$group $qhome";
             EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
