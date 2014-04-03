@@ -322,7 +322,7 @@ sub addNode
 
     # Create network object (or member) for the new node
     $self->_addHANetworkObjectNode($params->{name}, $params->{addr});
-    $self->_saveFirewallIfNeeded();
+    $self->_saveObjectsAndFirewallIfNeeded();
 
     # Start to add
     my $list = new EBox::HA::NodeList($self);
@@ -398,7 +398,7 @@ sub deleteNode
 
     # Create network object (or member) for the new node
     $self->_removeMemberFromHANetworkObject($params->{name});
-    $self->_saveFirewallIfNeeded();
+    $self->_saveObjectsAndFirewallIfNeeded();
 
     # Write corosync conf
     $self->_corosyncSetConf();
@@ -955,6 +955,7 @@ sub _setConf
     if ($self->isEnabled()) {
         $self->_corosyncSetConf();
     }
+
     if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
@@ -1157,7 +1158,7 @@ sub _corosyncSetConf
         # Update Network Object with the new IP
         $self->_removeMemberFromHANetworkObject($localNode->{name});
         $self->_addHANetworkObjectNode($localNode->{name}, $localNodeAddr);
-        $self->_saveFirewallIfNeeded();
+        $self->_saveObjectsAndFirewallIfNeeded();
 
         # After updating the network objects we need to propagate those changes
         # to the rest of the cluster.
@@ -1230,11 +1231,10 @@ sub _bootstrap
                                                                             . '0123456789')]));
 
     # Add network objects and firewall rules
-    EBox::debug('Creating HA network object');
     $self->_createNetworkObject();
     $self->_addHANetworkObjectNode($hostname, $localNodeAddr);
     $self->_createFirewallRules();
-    $self->_saveFirewallIfNeeded();
+    $self->_saveObjectsAndFirewallIfNeeded();
 
     # Finally, store it in Redis
     $self->set_state($state);
@@ -1261,8 +1261,12 @@ sub _createNetworkObject
         EBox::debug('Removing existing nodes from HA network object');
         $objectsModule->removeObjectMembers(HA_NODES_OBJECT_ID);
     }
+
+    $self->{objects_restart} = 1;
+    $self->{firewall_restart} = 1;
 }
 
+# Adds a member to the HA network object
 sub _addHANetworkObjectNode
 {
     my ($self, $nodeName, $nodeIP) = @_;
@@ -1284,12 +1288,14 @@ sub _addHANetworkObjectNode
             }
         );
 
-        $objectsModule->save();
+        $self->{objects_restart} = 1;
+        $self->{firewall_restart} = 1;
     } catch {
         EBox::error('Error when creating a new HA nodes network object member');
     }
 }
 
+# Removes a member from the HA network object
 sub _removeMemberFromHANetworkObject
 {
     my ($self, $nodeHostname) = @_;
@@ -1303,12 +1309,11 @@ sub _removeMemberFromHANetworkObject
             if ($membersModel->row($id)->valueByName('name') eq $nodeHostname) {
                 EBox::debug("Removing member $nodeHostname from the HA network object");
                 $objectsModule->removeObjectMember(HA_NODES_OBJECT_ID, $id);
-                return $id;
+                $self->{objects_restart} = 1;
+                $self->{firewall_restart} = 1;
             }
         }
     }
-
-    return 0;
 }
 
 # Creates a initial firewall rule so each HA node can contact each other
@@ -1330,7 +1335,7 @@ sub _createFirewallRules
                 EBox::debug('Creating HA firewall rule');
                 my $firewallModule = $self->global()->modInstance('firewall');
                 $firewallModule->model('InternalToEBoxRuleTable')->addRow(%{ $rule });
-                $firewallModule->save();
+                $self->{firewall_restart} = 1;
             } catch {
                 EBox::error('Error when creating HA firewall rule');
             }
@@ -1338,14 +1343,19 @@ sub _createFirewallRules
     }
 }
 
-# Restart ferewall to apply new HA network object rules
-sub _saveFirewallIfNeeded
+# Restart objects and ferewall to apply new HA network object rules
+sub _saveObjectsAndFirewallIfNeeded
 {
     my ($self) = @_;
 
-    if ($self->global()->modExists('firewall') and $self->_firewallRuleCreated()) {
-        EBox::debug('Saving Firewall module after adding HA network object member');
+    if ($self->global()->modExists('objects') and $self->{objects_restart}) {
+        $self->global()->modInstance('objects')->save();
+        $self->{objects_restart} = 0;
+    }
+
+    if ($self->global()->modExists('firewall') and $self->{firewall_restart}) {
         $self->global()->modInstance('firewall')->save();
+        $self->{firewall_restart} = 0;
     }
 }
 
@@ -1418,12 +1428,10 @@ sub _join
     $client->setPort($row->valueByName('zentyal_port'));
 
     # Add network objects and firewall rules
-    EBox::debug('Creating HA network object');
     $self->_createNetworkObject();
-    EBox::debug("Adding $hostname - $localNodeAddr to the HA network object");
     $self->_addHANetworkObjectNode($hostname, $localNodeAddr);
     $self->_createFirewallRules();
-    $self->_saveFirewallIfNeeded();
+    $self->_saveObjectsAndFirewallIfNeeded();
 
     # This should not fail as we have a check in validateTypedRow
     my $response = $client->GET('/cluster/configuration');
