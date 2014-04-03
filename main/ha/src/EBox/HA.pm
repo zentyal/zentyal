@@ -1154,6 +1154,16 @@ sub _corosyncSetConf
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
     if ($localNodeAddr ne $localNode->{addr}) {
+        # Update Network Object with the new IP
+        $self->_removeMemberFromHANetworkObject($localNode->{name});
+        $self->_addHANetworkObjectNode($localNode->{name}, $localNodeAddr);
+        $self->_saveFirewallIfNeeded();
+
+        # After updating the network objects we need to propagate those changes
+        # to the rest of the cluster.
+        $self->askForReplication(['objects', 'firewall']);
+
+        # Update the NodeList
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
                    port => 443, localNode => 1);
         $self->_notifyClusterConfChange($list);
