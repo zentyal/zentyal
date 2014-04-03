@@ -25,6 +25,14 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 <span id="notification_text"><% $crashreport %></span>
 </div>
 % } elsif ($message) {
+<script>
+function releaseUpgrade(title) {
+      Zentyal.Dialog.showURL('/ReleaseUpgrade', {
+          title: title,
+          close: function() { window.location.reload(); }
+      });
+}
+</script>
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
 <a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
