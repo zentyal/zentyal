@@ -11,6 +11,8 @@ $page
 $changeView
 </%args>
 <%init>
+use EBox::Gettext;
+
 my @trClass = qw(border);
 my $addRowMoveHandle;
 if ($row->disabled()) {
