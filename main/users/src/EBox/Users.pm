@@ -451,7 +451,11 @@ sub _migrateTo32
 
     for my $entry ($result->entries) {
         if($entry->get_value('cn') =~ m/rfc2307bis/) {
-            EBox::info("Migrating " . $entry->dn() . " schema");
+            my $dn = $entry->dn();
+            unless (utf8::is_utf8($dn)) {
+                utf8::decode($dn);
+            }
+            EBox::info("Migrating '$dn' schema");
             my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
             defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
 
@@ -2580,7 +2584,11 @@ sub checkMailNotInUse
             $name = $entry->get_value('mail');
             utf8::decode($name);
         } else {
-            $name = $modeledObject ? $modeledObject->name() : $entry->dn();
+            my $dn = $entry->dn();
+            unless (utf8::is_utf8($dn)) {
+                utf8::decode($dn);
+            }
+            $name = $modeledObject ? $modeledObject->name() : $dn;
         }
 
         EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',

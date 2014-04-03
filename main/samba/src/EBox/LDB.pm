@@ -380,6 +380,9 @@ sub ldapOUsToLDB
         utf8::decode($name);
         $name = lc ($name);
         my $dn = $entry->dn();
+        unless (utf8::is_utf8($dn)) {
+            utf8::decode($dn);
+        }
 
         # Ignore OU=zarafa and OU=postfix and all of its childs
         if ($name eq any ('zarafa', 'postfix')) {

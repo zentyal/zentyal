@@ -327,6 +327,9 @@ sub dn
     }
 
     my $dn = $entry->dn();
+    unless (utf8::is_utf8($dn)) {
+        utf8::decode($dn);
+    }
     return $dn;
 }
 
@@ -359,6 +362,9 @@ sub _entry
 
     if ($self->{entry} and (not $self->{entry}->exists('entryUUID'))) {
         $self->{dn} = $self->{entry}->dn();
+        unless (utf8::is_utf8($self->{dn})) {
+            utf8::decode($self->{dn});
+        }
         delete $self->{entry};
     }
 
