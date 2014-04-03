@@ -17,6 +17,7 @@ HEAD
 	+ Fix warnOnChangeId framework
 	+ Give real no support to /media in Disk Usage even when modules
 	  use it
+	+ Added release upgrade code (disabled until 3.5)
 	+ Hide passwords on admin user model on error and debug on
 	+ Set proper version for bugreport issues
 3.4
