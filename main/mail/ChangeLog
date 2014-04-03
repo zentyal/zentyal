@@ -1,3 +1,4 @@
+HEAD
 	+ Better integration between mail addon and mail field
 	+ Fixed bug in LDAP synchronization of mail virtual domains
 	+ Setup mail account on enable for users that already have mail attribute
