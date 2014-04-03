@@ -130,6 +130,10 @@ sub initialSetup
             service => $any,
         );
     }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
 }
 
 sub restoreDependencies

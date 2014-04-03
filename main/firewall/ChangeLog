@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid that firewall is left in a unsaved state after running initialSetup
 3.4
 	+ Added portUsedByService method
 	+ Updated to use the new haproxy API
