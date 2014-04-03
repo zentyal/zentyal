@@ -1,10 +1,16 @@
 HEAD
+	+ RedirectHelper interface to redirect requests from Zentyal
+	  Remote to specific module HTTP applications
+	+ EBox::WebAdmin::addNginxServer does not longer raises exception
+	  if file not yet exists
 	+ create-db script can repair login problems
 	+ Migrate previous configuration from 3.3 when upgrading
 	+ Admin password change handled by AuthPAM
 	+ Fix version available check in dashboard when file does not exist
 	+ Do not show success note if there is no note
 	+ Fix data in use behaviour on edition
+	+ Fixed revert of changes in redisvi
+	+ Better input validation in EBox::Conf::Redis::import_dir_from_file
 	+ Give support to data in use exception for in-place booleans
 	+ Fix warnOnChangeId framework
 	+ Give real no support to /media in Disk Usage even when modules

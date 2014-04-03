@@ -21,7 +21,7 @@ package EBox::RemoteServices::Reporter;
 #
 #       - Log data for reporting
 #       - Perform the consolidation
-#       - Send consolidated results to the cloud
+#       - Send consolidated results to Zentyal Remote
 #
 
 use warnings;
@@ -117,7 +117,8 @@ sub consolidate
 
     # Easily to parallel
     foreach my $helper (@{$self->{helpers}}) {
-        $helper->consolidate();
+        my $isAnyToSend = $helper->consolidate();
+        $self->{ref($helper)}->{isAnyToSend} = $isAnyToSend;
     }
 }
 
@@ -130,7 +131,10 @@ sub send
     my ($self) = @_;
 
     foreach my $helper (@{$self->{helpers}}) {
-        $helper->send();
+        if ((not defined($self->{ref($helper)}))
+            or ($self->{ref($helper)}->{isAnyToSend})) {
+            $helper->send();
+        }
     }
 }
 
@@ -199,6 +203,7 @@ sub _getHelpers
 
     my $path = EBox::Config::perlPath() . 'EBox/Reporter/';
 
+    return unless (-d $path);
     opendir(my $dir, $path);
     while( my $file = readdir($dir) ) {
         next unless $file =~ '.pm$';

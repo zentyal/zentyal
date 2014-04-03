@@ -1,4 +1,13 @@
 HEAD
+	+ Now proxy redirections work in Nginx
+	+ reporterd query time is now 5 minutes
+	+ Default reporter granularity is set to 15 minutes
+	+ Give support to different granularities for reporters
+	+ Improve proxy redirections:
+	  - Configuration from RedirectHelper modules
+	  - Added query string and referer-based patterns to redirect
+	  - Remove proxy redirections when removed
+	+ Disable QA updates until next commercial edition
 	+ DisasterRecoveryDomains can notify other models
 	+ Fix remove conf backup after PSGI migration
 	+ Fix overwrite action on remote conf backup
@@ -21,7 +30,6 @@ HEAD
 	+ On initial setup, do only reload bundle and restart the service
 	  if the server is registered
 	+ Fix warning on last inside an eval on automatic-conf-backup script
-3.3
 	+ Hide close button on subscription progress dialog
 	+ Adapted to new AJAX update of save changes button
 	+ Switch from Error to TryCatch for exception handling

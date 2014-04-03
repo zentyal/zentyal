@@ -55,7 +55,12 @@ def __get_version(pkg):
     output = local('head -n 1 %s/debian/precise/changelog | grep -o -P " \((.*?)\)" | tr -d "()[:space:]"' % pkg, capture=True)
     head   = local('head -n 1 %s/ChangeLog' % pkg, capture=True)
     if head == 'HEAD':
-	major, minor, mminor = output.split('.')
+	versions = output.split('.')
+        if len(versions) == 2:
+            versions.append('0')
+        major, minor, mminor = versions
 	mminor = int(mminor) + 1
 	output = "%s.%s.%d" % (major, minor, mminor)
+    else:
+        output = head
     return output

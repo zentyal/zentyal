@@ -195,7 +195,7 @@ sub checkCIDR # (cidr, name?)
 
 # Function: checkIP
 #
-#       Checks if the string param that holds an ip address is a valid
+#       Checks if the string param that holds an IP address is a valid
 #       IPv4 address.
 #
 # Parameters:

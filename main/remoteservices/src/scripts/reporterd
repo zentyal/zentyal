@@ -24,7 +24,7 @@ use File::Slurp;
 use Log::Log4perl;
 
 # Constants
-use constant INTERVAL => 15 * 60;
+use constant INTERVAL => 5 * 60;
 
 # Daemonisation is done by upstart.
 # Follow Stevens chapter 13 coding rules if no upstart is available
