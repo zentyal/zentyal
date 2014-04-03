@@ -42,6 +42,7 @@ use Error qw(:try);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Util qw(canonical_dn);
 use Perl6::Junction qw(any);
+use Text::Unidecode qw(unidecode);
 
 use constant MAXUSERNAMELENGTH => 104;
 use constant MAXPWDLENGTH      => 512;
@@ -726,7 +727,10 @@ sub _homeDirectory
 {
     my ($uid) = @_;
 
-    my $home = HOMEPATH . '/' . $uid;
+    # homeDirectory must be ascii characters
+    my $ascii_uid = unidecode($uid);
+
+    my $home = HOMEPATH . '/' . $ascii_uid;
     return $home;
 }
 

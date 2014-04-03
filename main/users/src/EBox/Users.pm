@@ -1260,6 +1260,9 @@ sub userByUID
 
 # Method: userExists
 #
+#  FIXME: Windows doesn't allow two users that map into the same ASCII only values, for instance 'fóo' and 'foo' are
+#  not allowed at the same time. We don't do such check right now.
+#
 #  Returns:
 #
 #      bool - whether the user exists or not

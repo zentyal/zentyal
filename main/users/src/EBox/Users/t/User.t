@@ -119,6 +119,20 @@ sub checkUserNameFormat : Test(42)
     }
 }
 
+sub check_homeDirectory : Test(3)
+{
+    my ($self) = @_;
+
+    my $uid = 'aeiou';
+    cmp_ok(EBox::Users::User::_homeDirectory($uid), 'eq', '/home/aeiou', "home for an ASCII user");
+    $uid = 'aéiou';
+    utf8::decode($uid);
+    cmp_ok(EBox::Users::User::_homeDirectory($uid), 'eq', '/home/aeiou', "home for an non-ASCII user");
+    $uid = 'Бухгалтерия';
+    utf8::decode($uid);
+    cmp_ok(EBox::Users::User::_homeDirectory($uid), 'eq', '/home/Bukhghaltieriia', "home for a cyrilic user");
+}
+
 1;
 
 END {
