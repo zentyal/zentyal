@@ -506,14 +506,13 @@ sub create
         throw EBox::Exceptions::Internal(__x(q{'{dn}' is not a valid dn}, dn => $dn));
     }
 
-    my $userName = $args{uid};
-    # WARNING: $args{uid} MUST NOT BE used directly to getpwnam function or it will "break" it's UTF-8 tags and break
-    # non-ASCII uids.
-    my @userPwAttrs = getpwnam($userName);
+    my $username = $args{uid};
+    # WARNING: $args{uid} MUST NOT BE used directly to getpwnam function or it will "break" its UTF-8 tags and break
+    # non-ASCII uids. (FIXME: It's not a problem until we remove OpenLDAP)
+    my @userPwAttrs = getpwnam($username);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
-
     my $homedir = _homeDirectory($args{uid});
     if (-e $homedir) {
         EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
@@ -679,6 +678,9 @@ sub create
 #   We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
 #   this installation.
 #
+#   FIXME: OpenLDAP doesn't allow non ASCII characters in the krb5PrincipalName field, and thus, Zentyal cannot handle
+#   that kind of users. We block them here until OpenLDAP is removed and we relay only on Samba.
+#
 # Parameters:
 #
 #   username - String
@@ -691,6 +693,15 @@ sub checkUsernameFormat
 
     unless (defined $username) {
         throw EBox::Exceptions::InvalidArgument("username");
+    }
+
+    # FIXME: Remove this once OpenLDAP is not used anymore.
+    unless ($username =~ /^[\x00-\x7F]*\z/) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('user name'),
+            value  => $username,
+            advice => __("Zentyal is not able to handle usernames with non-ASCII characters")
+        );
     }
 
     # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the

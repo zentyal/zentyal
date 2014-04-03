@@ -56,8 +56,6 @@ sub checkUserNameFormat : Test(42)
     my @valid = (
         'foo',
         'foo bar',
-        'Prä-Windows 2000 kompatibler Zugriff',
-        'Бухгалтерия',
         '12345',
         '1234 5.45',
         'user-slash_',
@@ -88,6 +86,8 @@ sub checkUserNameFormat : Test(42)
         'foo@',
         '...',
         '   ',
+        'Prä-Windows 2000 kompatibler Zugriff',
+        'Бухгалтерия',
         'enddot.'
     );
 
@@ -105,7 +105,8 @@ sub checkUserNameFormat : Test(42)
         use bytes;
         cmp_ok(bytes::length($nonascii), '==', $maxLen + 1, "Test string is exactly " . ($maxLen + 1) . " bytes long due to the non ascii character");
     }
-    push (@valid, $nonascii);
+    # FIXME: Once OpenLDAP is removed and we are able to support non-ASCII usernames, we should change this back to the list of valid checks.
+    push (@invalid, $nonascii);
 
     foreach my $validName (@valid) {
         lives_ok {

@@ -279,8 +279,6 @@ sub save
     my ($self) = @_;
     my $entry = $self->_entry;
 
-    use Data::Dumper;
-    EBox::debug(Dumper($entry));
     my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
