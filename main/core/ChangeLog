@@ -1,4 +1,5 @@
 HEAD
+	+ Fix dashboard UI freeze when widgets were being updated
 	+ Add audit to post save when enabling logs
 	+ Fix enabled save changes button after installing packages
 	+ Changed CGI base to show correctly referer errors and
