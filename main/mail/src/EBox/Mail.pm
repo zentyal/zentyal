@@ -1299,9 +1299,12 @@ sub _checkService
 # LdapModule implmentation
 sub _ldapModImplementation
 {
-    my $self;
+    my ($self) = @_;;
+    if (not $self->{musers}) {
+        $self->{musers} = new EBox::MailUserLdap;
+    }
 
-    return new EBox::MailUserLdap();
+    return $self->{musers};
 }
 
 #  Method: notifyAntispamACL
