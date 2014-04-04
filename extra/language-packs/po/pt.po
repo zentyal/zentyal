@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-03-11 15:34+0200\n"
-"Last-Translator: vjmartins <vjmartins@sapo.pt>\n"
+"PO-Revision-Date: 2014-03-28 21:07+0200\n"
+"Last-Translator: TiagoPolicarpo <ubuntu@tiagopolicarpo.pt>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -1393,7 +1393,7 @@ msgstr "Endereço IP flutuante"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr "OK"
+msgstr "Concluido"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
@@ -1521,7 +1521,7 @@ msgstr "Este cluster não tem nenhum recurso definido."
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:147
 msgid "noname"
-msgstr "sem nome"
+msgstr "Sem nome"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
 msgid "Cluster host"
@@ -1620,6 +1620,9 @@ msgid ""
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
 msgstr ""
+"A versão instalada do Zentyal é da Comunidade, para uma melhor segurança "
+"contras as ameaças e tentativas de penetração. Veja as nossas versões {oh} "
+"Comerciais {ch} , com melhores recursos nas atualizações."
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -3577,9 +3580,8 @@ msgid "To configure cupsd"
 msgstr "Para configurar o cupsd"
 
 #: ../../main/printers/src/EBox/Printers.pm:109
-#, fuzzy
 msgid "Network Printers"
-msgstr "Interfaces de rede"
+msgstr "Impresoras de Rede"
 
 #: ../../main/printers/src/EBox/Printers.pm:110
 msgid "Internet Printing Protocol (CUPS)"
@@ -12716,9 +12718,8 @@ msgid "Failed login"
 msgstr "Falhada"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:151
-#, fuzzy
 msgid "Expired session"
-msgstr "expirado em"
+msgstr " a sessão expirou em"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:154
 #, fuzzy
@@ -13057,7 +13058,7 @@ msgstr "Configuração manual"
 #: ../../main/openchange/src/EBox/OpenChange.pm:715
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
-msgstr ""
+msgstr "O dominio esperado '{d}' não foi encontrado no modulo dns"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:724
 #, perl-brace-format
