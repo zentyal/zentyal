@@ -1,4 +1,6 @@
 3.5
+	+ Renamed 'manage' menu entry to 'examine' in external AD mode
+	  because in that mode you cannot change anything
 	+ Set version to 3.5
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4
