@@ -1,4 +1,4 @@
-HEAD
+3.4.1
 	+ Fix dashboard UI freeze when widgets were being updated
 	+ Add audit to post save when enabling logs
 	+ Fix enabled save changes button after installing packages
