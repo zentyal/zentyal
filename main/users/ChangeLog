@@ -1,4 +1,6 @@
 HEAD
+	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
+	  it's installed
 	+ Remove method canonicalName and use object DNs for greater performance
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4
