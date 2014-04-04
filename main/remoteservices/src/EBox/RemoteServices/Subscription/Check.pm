@@ -102,6 +102,10 @@ sub check
         my ($exc) = @_;
         $self->{lastError} = $exc->text();
         $capable = 0;
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error("Error checking if suitable for this subscription level: $exc");
+        $self->{lastError} = "$exc";
     };
 
     return $capable;
