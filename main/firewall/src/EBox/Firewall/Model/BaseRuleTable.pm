@@ -71,6 +71,24 @@ sub decision
     return \@options;
 }
 
+sub ndpiServices
+{
+    my @services = (
+        { 'value' => 'ndpi_http',
+          'printableValue' => __('HTTP') },
+        { 'value' => 'ndpi_facebook',
+          'printableValue' => __('Facebook') },
+        { 'value' => 'ndpi_yahoo',
+          'printableValue' => __('Yahoo') },
+        { 'value' => 'ndpi_google',
+          'printableValue' => __('Google') },
+        { 'value' => 'ndpi_skype',
+          'printableValue' => __('Skype') },
+    );
+
+    return \@services;
+}
+
 # Method: _fieldDescription
 #
 #   Return the field description for a firewall rule table. You have to
@@ -162,17 +180,30 @@ sub _fieldDescription
     }
 
     push (@tableHead,
-            new EBox::Types::InverseMatchSelect(
-                'fieldName' => 'service',
-                'printableName' => __('Service'),
-                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
-                'foreignField' => 'printableName',
-                'foreignNextPageField' => 'configuration',
-                'editable' => 1,
-                'help' => __('If inverse match is ticked, any ' .
-                             'service but the selected one will match this rule')
-
-                ),
+            new EBox::Types::InverseMatchUnion(
+              'fieldName' => 'service',
+              'printableName' => __('Service'),
+              'subtypes' => [
+                new EBox::Types::Select(
+                    'fieldName' => 'ebox_service',
+                    'printableName' => __('Service'),
+                    'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+                    'foreignField' => 'printableName',
+                    'foreignNextPageField' => 'configuration',
+                    'editable' => 1,
+                    'help' => __('If inverse match is ticked, any ' .
+                                 'service but the selected one will match this rule')
+                    ),
+                new EBox::Types::Select(
+                    'fieldName' => 'ndpi_service',
+                    'printableName' => __('Application'),
+                    'populate' => \&ndpiServices,
+                    'editable' => 1,
+                    'help' => __('If inverse match is ticked, any ' .
+                                 'service but the selected one will match this rule')
+                    ),
+              ],
+            ),
             new EBox::Types::Text(
                 'fieldName' => 'description',
                 'printableName' => __('Description'),
