@@ -40,6 +40,7 @@ use EBox::Exceptions::External;
 
 use EBox::Types::Text;
 use EBox::Types::Union::Text;
+use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::InverseMatchSelect;
@@ -180,11 +181,11 @@ sub _fieldDescription
     }
 
     push (@tableHead,
-            new EBox::Types::InverseMatchUnion(
+            new EBox::Types::Union(
               'fieldName' => 'service',
               'printableName' => __('Service'),
               'subtypes' => [
-                new EBox::Types::Select(
+                new EBox::Types::InverseMatchSelect(
                     'fieldName' => 'ebox_service',
                     'printableName' => __('Service'),
                     'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
@@ -252,7 +253,7 @@ sub validateTypedRow
     foreach my $addrParam (@addrsParams) {
         if ($params_r->{$addrParam}) {
             my $addrElement = $params_r->{$addrParam};
-            if ($addrElement->inverseMatch()) {
+            if ($addrElement->can('inverseMatch') and $addrElement->inverseMatch()) {
                 my $anyType = $addrParam . '_any';
                 if ($addrElement->selectedType() eq $anyType) {
                     throw EBox::Exceptions::External(
@@ -268,7 +269,7 @@ sub validateTypedRow
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
-        if ($service->inverseMatch()) {
+        if ($service->can('inverseMatch') and $service->inverseMatch()) {
             my $serviceTable = $self->global()->modInstance('services')->model('ServiceTable');
             my $serviceId = $service->value();
               if ($serviceId eq $serviceTable->serviceForAnyConnectionId('tcp/udp')) {

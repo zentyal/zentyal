@@ -336,7 +336,8 @@ sub _addServiceToRule
     my ($self, $rule, $row) = @_;
 
     my $service = $row->elementByName('service');
-    $rule->setService($service->value(), $service->inverseMatch());
+    my $inverseMatch = $service->can('inverseMatch') ? $service->inverseMatch() : undef;
+    $rule->setService($service->value(), $inverseMatch);
 }
 
 sub _addIfaceToRule
