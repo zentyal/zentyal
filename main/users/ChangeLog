@@ -1,3 +1,6 @@
+HEAD
+	+ Using paged serch in EBox::Users::users() method
+	+ Added EBox::LDAPBase::pagedSearch method
 3.2.11
 	+ Remove method canonicalName and use object DNs for greater performance
 3.2.10
