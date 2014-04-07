@@ -106,6 +106,11 @@ sub setService
         throw EBox::Exceptions::MissingArgument("service");
     }
 
+    if (index($service, 'ndpi_') == 0) {
+        $self->_setNdpiService($service, $inverseMatch);
+        return;
+    }
+
     my $serviceConf = $self->{'services'}->serviceConfiguration($service);
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::DataNotFound('data' => 'service',
@@ -159,6 +164,16 @@ sub setService
             push (@{$self->{'service'}}, '');
         }
     }
+}
+
+sub _setNdpiService
+{
+    my ($self, $service, $reverseMatch) = @_;
+
+    # actual service name
+    my $app_service_name = substr($service, length("ndpi_"));
+    my $iptables = "  -m ndpi --$app_service_name";
+    push (@{$self->{'service'}}, $iptables);
 }
 
 # Method: setChain
