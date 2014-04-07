@@ -66,8 +66,18 @@ sub _process
     if ($self->param('edit')) {
         my $setText = 0;
         $self->{json} = { success => 0 };
-        $self->_requireParamAllowEmpty('quota', __('quota'));
-        $user->set('quota', $self->param('quota'), 1);
+
+        $self->_requireParam('User_quota_selected');
+        my $quotaTypeSelected = $self->param('User_quota_selected');
+        my $quota;
+        if ($quotaTypeSelected eq 'quota_disabled') {
+            $quota = 0;
+        } elsif ($quotaTypeSelected eq 'quota_size') {
+            $quota = $self->param('User_quota_size');
+        }
+        if (defined $quota) {
+            $user->set('quota', $quota, 1);
+        }
 
         my $addMail;
         my $delMail;
