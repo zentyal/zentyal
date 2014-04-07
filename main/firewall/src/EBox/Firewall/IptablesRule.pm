@@ -583,7 +583,12 @@ sub _setAddress
 
     if (defined($obj)) {
         foreach my $member (@{ $objMembers }) {
-            if ($member->{type} eq 'ipaddr') {
+            if ($member->{type} eq 'ipset') {
+                $flag = 'src' if ($addressType eq 'source');
+                $flag = 'dst' if ($addressType eq 'destination');
+                # TODO Apply object filter
+                push (@{$self->{$addressType}}, $inverse . '-m set --match-set ' . $member->{name} . " $flag ");
+            } elsif ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {
                 my $range = $member->{begin} . '-' . $member->{end};
