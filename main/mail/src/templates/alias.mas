@@ -169,7 +169,7 @@ $params
                 var size = document.getElementById("maildirQuota")
                 var type = document.getElementById("quotaType")
                 var typeValue = type.value;
-                var val = <% $params->{'maildirQuota'} %>;
+                var val = <% $params->{'maildirQuota'} ? $params->{'maildirQuota'} : 0 %>;
 
                 if(typeValue != 'custom') {
                         size.disabled = true;
