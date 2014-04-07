@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -47,7 +47,6 @@ use base 'EBox::Model::DataTable';
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
@@ -57,43 +56,39 @@ sub new
 
 sub _table
 {
-    my @tableHead =
-        (
+    my ($self) = @_;
 
-            new EBox::Types::Text
-                            (
-                                'fieldName' => 'name',
-                                'printableName' => __('Name'),
-                                'size' => '12',
-                                'unique' => 1,
-                                'editable' => 1
-                             ),
-            new EBox::Types::HasMany
-                            (
-                                'fieldName' => 'members',
-                                'printableName' => __('Members'),
-                                'foreignModel' => 'MemberTable',
-                                'view' => '/Objects/View/MemberTable',
-                                'backView' => '/Objects/View/MemberTable',
-                             )
+    my $tableHead = [
+        new EBox::Types::Text(
+            'fieldName' => 'name',
+            'printableName' => __('Name'),
+            'size' => '12',
+            'unique' => 1,
+            'editable' => 1,
+        ),
+        new EBox::Types::HasMany(
+            'fieldName' => 'members',
+            'printableName' => __('Members'),
+            'foreignModel' => 'MemberTable',
+            'view' => '/Objects/View/MemberTable',
+            'backView' => '/Objects/View/MemberTable',
+        )
+    ];
 
-          );
-
-    my $dataTable =
-        {
-            'tableName' => 'ObjectTable',
-            'pageTitle' => __('Objects'),
-            'printableTableName' => __('Static Objects'),
-            'automaticRemove' => 1,
-            'defaultController' => '/Objects/Controller/ObjectTable',
-            'HTTPUrlView'   => 'Objects/Composite/Objects',
-            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'help' => _objectHelp(),
-            'printableRowName' => __('object'),
-            'sortedBy' => 'name',
-        };
+    my $dataTable = {
+        'tableName'             => 'ObjectTable',
+        'pageTitle'             => __('Objects'),
+        'printableTableName'    => __('Static Objects'),
+        'automaticRemove'       => 1,
+        'defaultController'     => '/Objects/Controller/ObjectTable',
+        'HTTPUrlView'           => 'Objects/Composite/Objects',
+        'defaultActions'        => ['add', 'del', 'editField', 'changeView', 'clone' ],
+        'tableDescription'      => $tableHead,
+        'class'                 => 'dataTable',
+        'help'                  => _objectHelp(),
+        'printableRowName'      => __('object'),
+        'sortedBy'              => 'name',
+    };
 
     return $dataTable;
 }
