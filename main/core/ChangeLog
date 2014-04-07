@@ -1,4 +1,5 @@
 HEAD
+	+ Support for redirection when loading URL in existent dialog
 	+ Fix dashboard UI freeze when widgets were being updated
 	+ More tolerant referer validation so we can access to submodels
 	  with an URL
