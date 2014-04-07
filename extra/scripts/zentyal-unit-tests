@@ -59,6 +59,9 @@ CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
 rm -f $CONF_DIR/*
 export ZENTYAL_MODULES_SCHEMAS
 
+#Temporary fix to permissions problems with this folder
+sudo chmod 777 /var/lib/zentyal/tmp
+
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
 

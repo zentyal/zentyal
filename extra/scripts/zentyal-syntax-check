@@ -193,6 +193,7 @@ sub _create_system_stuff
     unless (-d '/var/lib/zentyal/tmp') {
         system ("sudo mkdir -p /var/lib/zentyal/tmp");
         system ("chown ebox:adm /var/lib/zentyal/tmp");
+        system ("sudo chmod 777 /var/lib/zentyal/tmp");
     }
 }
 
