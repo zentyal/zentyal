@@ -1000,7 +1000,7 @@ sub isProvisionedWithMySQL
 {
     my ($self) = @_;
 
-    return $self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE);
+    return ($self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE));
 }
 
 # Method: connectionString
