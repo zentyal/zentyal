@@ -55,7 +55,16 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc = ();
+    my @tableDesc;
+
+    push (@tableDesc, new EBox::Types::Boolean(
+        fieldName => 'activesync',
+        printableName => 'ActiveSync',
+        editable => 1,
+        defaultValue => 0,
+        hidden => \&_hideActiveSync,
+    ));
+
     push (@tableDesc, new EBox::Types::Select(
         fieldName     => 'outgoingDomain',
         printableName => __('Outgoing Mail Domain'),
@@ -76,6 +85,17 @@ sub _table
     };
 
     return $dataForm;
+}
+
+sub _hideActiveSync
+{
+    my ($self) = @_;
+
+    foreach my $pkg (qw(z-push sogo-activesync)) {
+        return 0 if (EBox::GlobalImpl::_packageInstalled($pkg));
+    }
+
+    return 1;
 }
 
 1;

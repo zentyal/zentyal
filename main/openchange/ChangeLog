@@ -1,4 +1,5 @@
 HEAD
+	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
 	+ Updated SOGo conf
 	+ Added autodiscovery of server parameters
 	+ Added noMultipleOUSupportComponent support

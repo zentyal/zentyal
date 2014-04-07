@@ -243,6 +243,28 @@ sub _setConf
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
     $self->_writeRewritePolicy();
+
+    $self->_setupActiveSync();
+}
+
+sub _setupActiveSync
+{
+    my ($self) = @_;
+
+    my $enabled = (-f '/etc/apache2/conf.d/zentyal-activesync.conf');
+    my $enable = $self->_activesyncEnabled();
+    if ($enable) {
+        EBox::Sudo::root('ln -sf /etc/apache2/conf-available/zentyal-activesync.conf /etc/apache2/conf.d/');
+    } else {
+        EBox::Sudo::root('rm -f /etc/apache2/conf.d/zentyal-activesync.conf');
+    }
+    if ($enabled xor $enable) {
+        my $global = $self->global();
+        $global->modChange('webserver');
+        if ($global->modExists('sogo')) {
+            $global->addModuleToPostSave('sogo');
+        }
+    }
 }
 
 sub _writeSOGoDefaultFile
@@ -615,6 +637,12 @@ sub organizations
     }
 
     return $list;
+}
+
+sub _activesyncEnabled
+{
+    my ($self) = @_;
+    return $self->model('Configuration')->value('activesync');
 }
 
 1;
