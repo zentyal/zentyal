@@ -481,4 +481,76 @@ sub eventWatchers
     return ['CaptivePortalQuota'];
 }
 
+# Method: addUser
+#
+#   Adds a user to the captive portal users file.
+#
+# Parameters:
+#
+#   - username - String the username to add.
+#   - password - String the password to validate the given username.
+#   - quota    - Integer monthly bandwidth usage quota or undef to use the default.
+#
+# Throws:
+#   <EBox::Exceptions::DataExists> if the username already exists
+#
+sub addUser
+{
+}
+
+# Method: listUsers
+#
+#   Lists the valid usernames that will be allowed to use the captive portal.
+#
+# Returns:
+#   Array reference with this format:
+#
+#   [
+#      {
+#          username => 'usernameWithCustomQuota',
+#          quota    => 10240,
+#      },
+#      {
+#          username => 'usernameWithDefaultQuota',
+#      },
+#      ...
+#   ]
+#
+sub listUsers
+{
+}
+
+# Method: modifyUser
+#
+#   Modifies user parameters on the captive portal users file
+#
+# Parameters:
+#
+#   - username - String the username to modify.
+#   - args     - Hash dictionary (missing args are not changed):
+#       - password - String the new password to validate the given username (optional).
+#       - quota    - Integer monthly bandwidth usage quota or undef to use the default.
+#
+# Throws:
+#   <EBox::Exceptions::DataNotFound> if the given username doesn't exist.
+#
+sub modifyUser
+{
+}
+
+# Method: removeUser
+#
+#   Removes a user from the captive portal users file
+#
+# Parameters:
+#
+#   - username - String the username to remove.
+#
+# Throws:
+#   <EBox::Exceptions::DataNotFound> if the given username doesn't exist.
+#
+sub removeUser
+{
+}
+
 1;
