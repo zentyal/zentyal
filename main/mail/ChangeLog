@@ -1,3 +1,6 @@
+HEAD
+	+ Better integration between mail addon and mail field
+	+ Avoid error when trying to show a no longer existent mail in queue
 3.2.7
 	+ Fixed bug in LDAP synchronization of mail virtual domains
 	+ Setup mail account on enable for users that already have mail attribute

@@ -434,32 +434,6 @@ sub _usersMod
     return $_usersMod;
 }
 
-# Method canonicalName
-#
-#   Return a string representing the object's canonical name.
-#
-#   Parameters:
-#
-#       excludeRoot - Whether the LDAP root's canonical name should be excluded
-#
-sub canonicalName
-{
-    my ($self, $excludeRoot) = @_;
-
-    my $parent = $self->parent();
-
-    my $canonicalName = '';
-    if ($parent) {
-        unless ($excludeRoot and (not $parent->parent())) {
-            $canonicalName = $parent->canonicalName($excludeRoot) . '/';
-        }
-    }
-
-    $canonicalName .= $self->baseName();
-
-    return $canonicalName;
-}
-
 # Method baseName
 #
 #   Return a string representing the object's base name. Root node doesn't follow the standard naming schema,

@@ -46,6 +46,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
           <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
+                               id   => 'user_attrs_mail',
                                value => ($user->mail() or ''),
                                slave => $slave,
                    &>
@@ -95,12 +96,13 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 $name
 $value
 $slave
+$id => undef
 </%args>
 % if ($slave) {
 <% $value %>
- <input type="hidden" name="<% $name %>" value="<% $value %>" />
+ <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
 % } else {
- <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+ <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
 %}
 </%def>
 
@@ -136,6 +138,12 @@ $(function() {
                 var tree =  $("#tree_Manage");
                 var selected = tree.jstree("get_selected")[0];
                 tree.jstree("set_text", selected, response.set_text);
+            }
+            if ('mail' in response) {
+               if ('MailUserAddon' in Zentyal) {
+                   Zentyal.MailUserAddon.accountChange(response.mail);
+                   $('#note_userMailCreateDelAccount, #error_userMailCreateDelAccount').html('').hide();
+               }
             }
         }
    });

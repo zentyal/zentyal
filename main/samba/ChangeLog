@@ -1,4 +1,6 @@
-HEAD
+3.2.15
+	+ Remove the use of method canonicalName for greater performance, use
+	  object DNs instead
 	+ s4sync is stopped before samba daemon to prevent ldb connection errors
 	+ s4sync run timestamp is saved only if it doesn't break with an error at
 	  the end of the work loop
