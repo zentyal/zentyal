@@ -5,7 +5,7 @@
     $os_ios => 1
     $os_android => 1
     $ipset_os_linux => 'os_linux'
-    $ipset_os_win => 'os_win'
+    $ipset_os_win => 'os_windows'
     $ipset_os_mac => 'os_mac'
     $ipset_os_ios => 'os_ios'
     $ipset_os_android => 'os_android'

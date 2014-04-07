@@ -19,7 +19,16 @@
 #  for each member. Each member contains a hash with this keys:
 #
 #            'name' - member name
-#            'type' - either 'ipaddr' or 'iprange;
+#            'type' - either 'ipset', 'ipaddr' or 'iprange;
+#             ipset type additional keys:
+#               'name' - The name of the ipset
+#               'filter' - The filter to apply to the ipset content. Can be:
+#                   'ipaddr'
+#                       'ipaddr'
+#                       'mask'
+#                   'iprange'
+#                       'begin'
+#                       'end'
 #             ipaddr type additional keys:
 #               'ipaddr' - ip/s member (CIDR notation)
 #               'mask'   -  network mask's member
@@ -40,7 +49,7 @@ sub new
     my ($class, $membersList) = @_;
 
     my $self =  $membersList;
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -63,6 +72,15 @@ sub addresses
 {
     my ($self, %params) = @_;
     my $mask = $params{mask};
+
+    use Data::Dumper;
+    EBox::info("On addresses");
+
+    if ($self->{type} eq 'ipset') {
+        # TODO Remove
+        EBox::info("ADDRESSES called on IPSET");
+        return [];
+    }
 
     my @ips = map {
         my $member = $_;
@@ -112,16 +130,23 @@ sub iptablesSrcParams
     my ($self, $useMAC) = @_;
     my @params;
     foreach my $member (@{ $self }) {
-        if ($member->{type} eq 'ipaddr') {
+        if ($member->{type} eq 'ipset') {
+            my $arg = '-m set --match-set ' . $member->{name};
+            push (@params, $arg);
+        } elsif ($member->{type} eq 'ipaddr') {
             my $arg =  ' --source ' .  $member->{ipaddr};
             if ($useMAC and $member->{macaddr}) {
                 $arg .= ' -m mac --mac-source ' . $member->{macaddr};
             }
-            push @params, $arg;
+            push (@params, $arg);
         } elsif ($member->{type} eq 'iprange') {
-            push @params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end};
+            push (@params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end});
         }
     }
+
+    use Data::Dumper;
+    EBox::info("On iptablesSrcParams");
+    EBox::info(Dumper(\@params));
 
     return \@params;
 }
@@ -139,12 +164,19 @@ sub iptablesDstParams
     my ($self) = @_;
     my @params;
     foreach my $member (@{ $self }) {
-        if ($member->{type} eq 'ipaddr') {
+        if ($member->{type} eq 'ipset') {
+            my $arg = '-m set --match-set ' . $member->{name};
+            push (@params, $arg);
+        } elsif ($member->{type} eq 'ipaddr') {
             push @params,  ' --destination ' .  $member->{ipaddr};
         } elsif ($member->{type} eq 'iprange') {
             push @params, ' -m iprange --dst-range ' . $member->{begin} . '-' . $member->{end};
         }
     }
+
+    use Data::Dumper;
+    EBox::info("On iptablesDstParams");
+    EBox::info(Dumper(\@params));
 
     return \@params;
 }

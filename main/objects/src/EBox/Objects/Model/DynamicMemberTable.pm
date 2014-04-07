@@ -98,6 +98,14 @@ sub row
 
     my $socket = '/var/run/p0f/p0f.sock';
 
+    # Query the information to p0f cache. See api.h for struct definitions.
+    # TODO
+    # struct p0f_api_query {
+    #   u32 magic;                            /* Must be P0F_QUERY_MAGIC            */
+    #   u8  addr_type;                        /* P0F_ADDR_*                         */
+    #   u8  addr[16];                         /* IP address (big endian left align) */
+    # }
+
     my $row = new EBox::Model::Row(dir => $self->directory(),
         confmodule => $self->parentModule());
     $row->setId($id);

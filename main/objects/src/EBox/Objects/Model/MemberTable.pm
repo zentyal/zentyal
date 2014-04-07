@@ -54,9 +54,83 @@ sub new
     return $self;
 }
 
+# Method: ids
+#
+#   Return the current list of members
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::ids>
+#
+sub ids
+{
+    my ($self)  = @_;
+
+    my $parentRow = $self->parentRow();
+    my $isDynamic = $parentRow->valueByName('dynamic');
+    return $self->SUPER::ids() unless $isDynamic;
+
+    my ($filterIp, $filterMask) = $parentRow->valueByName('filter');
+
+    my $ipset = $self->_ipset();
+    my $ids = $ipset->{members};
+
+    # Filter elements if filter is defined in the parent row
+    if (defined $filterIp and defined $filterMask) {
+        my $range = new Net::IP("$filterIp/$filterMask");
+        $ids = [ grep {
+            my $ip = new Net::IP("$_/32");
+            $range->overlaps($ip) == $IP_B_IN_A_OVERLAP
+        } @{$ids} ];
+    }
+
+    return $ids;
+}
+
+# Method: row
+#
+#     Return a node names
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::row>
+#
+sub row
+{
+    my ($self, $id)  = @_;
+
+    my $parentRow = $self->parentRow();
+    my $isDynamic = $parentRow->valueByName('dynamic');
+    return $self->SUPER::row($id) unless $isDynamic;
+
+    my $row = new EBox::Model::Row(dir => $self->directory(),
+        confmodule => $self->parentModule());
+    $row->setId($id);
+    $row->setModel($self);
+    $row->setReadOnly(1);
+
+    my $table = $self->table();
+    foreach my $type (@{$table->{tableDescription}}) {
+        my $element = $type->clone();
+        if ($type->fieldName() eq 'name') {
+            my $ipset = $parentRow->valueByName('type');
+            $element->setValue("dynamic_${ipset}_${id}");
+        } elsif ($type->fieldName() eq 'address') {
+            $element->setValue({ ipaddr => "$id/32"});
+        } elsif ($type->fieldName() eq 'macaddr') {
+            $element->setValue(undef);
+        }
+        $row->addElement($element);
+    }
+
+    return $row;
+}
+
 sub _table
 {
-    my @tableHead = (
+    my ($self) = @_;
+
+    my $tableHead = [
         new EBox::Types::Text(
             fieldName       => 'name',
             printableName   => __('Name'),
@@ -86,19 +160,20 @@ sub _table
             editable        => 1,
             optional        => 1,
         ),
-    );
+    ];
 
     my $helpMessage = __('For the IP addresses you can use CIDR notation ' .
         '(address/netmask) or specify the first and last addresses of a ' .
         'range that will also include all the IP addresses between them.');
+
 
     my $dataTable = {
         tableName           => 'MemberTable',
         printableTableName  => __('Members'),
         automaticRemove     => 1,
         defaultController   => '/Objects/Controller/MemberTable',
-        defaultActions      => ['add', 'del', 'editField', 'changeView', 'clone' ],
-        tableDescription    => \@tableHead,
+        defaultActions      => [],
+        tableDescription    => $tableHead,
         class               => 'dataTable',
         printableRowName    => __('member'),
         sortedBy            => 'name',
@@ -106,6 +181,47 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub _defaultActions
+{
+    my ($self) = @_;
+
+    my $defaultActions = [ 'changeView' ];
+    unless ($self->parentRow->valueByName('dynamic')) {
+        push (@{$defaultActions}, qw( add del editField clone ));
+    }
+    return $defaultActions;
+}
+
+# Method: setDirectory
+#
+#   XXX This is an EVIL HACK to show a different set of default actions
+#   depending on the parent row and should be implemented in the framework
+#
+sub setDirectory
+{
+    my ($self) = shift;
+
+    $self->SUPER::setDirectory(@_);
+
+    my $defaultActions = [ 'changeView' ];
+    unless ($self->parentRow->valueByName('dynamic')) {
+        push (@{$defaultActions}, qw( add del editField clone ));
+    }
+
+    my $table = $self->{'table'};
+    $table->{actions} = undef;
+
+    my $defAction = $self->_mainController();
+    if ($defAction) {
+        foreach my $action (@{$self->_defaultActions()}) {
+            # Do not overwrite existing actions
+            unless ( exists ( $table->{'actions'}->{$action} )) {
+                $table->{'actions'}->{$action} = $defAction;
+            }
+        }
+    }
 }
 
 sub validateTypedRow
@@ -194,11 +310,6 @@ sub _alreadyInSameObject
 #
 #   Return the members
 #
-# Parameters:
-#
-#   (POSITIONAL)
-#   id - object's id
-#
 # Returns:
 #
 #   <EBox::Objects::Members>
@@ -211,36 +322,53 @@ sub members
 {
     my ($self) = @_;
 
-    my @members;
-    foreach my $id (@{$self->ids()}) {
-        my $memberRow = $self->row($id);
-        my $address = $memberRow->elementByName('address');
-        my $type =  $address->selectedType();
+    my $members = [];
 
-        my %member = (
-            name => $memberRow->valueByName('name'),
-            type => $type,
-           );
+    # If object is dynamic, return just the ipset name and filter
+    my $parentRow = $self->parentRow();
+    my $dynamic = $parentRow->valueByName('dynamic');
+    if ($dynamic) {
+        my $ipset = $parentRow->valueByName('type');
+        push (@{$members}, {
+            name => $ipset,
+            type => 'ipset',
+            filter => undef,
+        });
+    } else {
+        foreach my $id (@{$self->ids()}) {
+            my $memberRow = $self->row($id);
+            my $address = $memberRow->elementByName('address');
+            my $type =  $address->selectedType();
 
-        if ($type eq 'ipaddr') {
-            my $ipaddr = $address->subtype();
-            $member{ipaddr} = $ipaddr->printableValue();
-            $member{ip}     = $ipaddr->ip();
-            $member{mask}   = $ipaddr->mask();
-            $member{macaddr} = $memberRow->valueByName('macaddr');
-        } elsif ($type eq 'iprange') {
-            my $range = $address->subtype();
-            $member{begin} = $range->begin();
-            $member{end} = $range->end();
-            $member{addresses} = undef;
-            $member{mask} = 32,
+            my %member = (
+                name => $memberRow->valueByName('name'),
+                type => $type,
+               );
+
+            if ($type eq 'ipaddr') {
+                my $ipaddr = $address->subtype();
+                $member{ipaddr} = $ipaddr->printableValue();
+                $member{ip}     = $ipaddr->ip();
+                $member{mask}   = $ipaddr->mask();
+                $member{macaddr} = $memberRow->valueByName('macaddr');
+            } elsif ($type eq 'iprange') {
+                my $range = $address->subtype();
+                $member{begin} = $range->begin();
+                $member{end} = $range->end();
+                $member{addresses} = undef;
+                $member{mask} = 32,
+            }
+
+            push (@{$members}, \%member);
         }
-
-        push @members, \%member;
     }
 
-    my $membersObject = \@members;
-    bless $membersObject, 'EBox::Objects::Members';
+    # TODO Remove
+    use Data::Dumper;
+    EBox::info(Dumper($members));
+
+    my $membersObject = $members;
+    bless ($membersObject, 'EBox::Objects::Members');
     return $membersObject;
 }
 
@@ -279,5 +407,60 @@ sub pageTitle
     my $parentRow = $self->parentRow();
     return $parentRow->printableValueByName('name');
 }
+
+# Group: Private methods
+
+# Method: _linesplit
+#
+#   Auxiliary method to split a line int key and value. It is used to
+#   parse the output of 'ipset list' command.
+#
+# Returns:
+#
+#   array ref - The first value is the key, second the value
+#
+sub _linesplit
+{
+    my ($line) = @_;
+
+    my ($key, $value) = split(/:/, $line);
+    $key =~ s/^\s+|\s+$//g if length $key;
+    $value =~ s/^\s+|\s+$//g if length $value;
+
+    return [ $key, $value ];
+}
+
+# Method: _ipset
+#
+#   Return the ipset information which this dynamic object represent,
+#   including all its members.
+#
+# Returns:
+#
+#   hash ref - Contains the ipset information
+#
+sub _ipset
+{
+    my ($self) = @_;
+
+    my $parent = $self->parentRow();
+    my $ipsetName = $parent->valueByName('type');
+
+    my $output = EBox::Sudo::root("ipset list $ipsetName");
+
+    my $ipset = {};
+    $ipset->{name}       = @{_linesplit(shift @{$output})}[1];
+    $ipset->{type}       = @{_linesplit(shift @{$output})}[1];
+    $ipset->{revision}   = @{_linesplit(shift @{$output})}[1];
+    $ipset->{header}     = @{_linesplit(shift @{$output})}[1];
+    $ipset->{size}       = @{_linesplit(shift @{$output})}[1];
+    $ipset->{references} = @{_linesplit(shift @{$output})}[1];
+
+    shift @{$output};
+    $ipset->{members}   = [ map { $_ =~  s/^\s+|\s+$//g; $_ } @{$output} ];
+
+    return $ipset;
+}
+
 
 1;

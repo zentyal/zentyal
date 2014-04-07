@@ -38,6 +38,9 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
+use EBox::Types::Boolean;
+use EBox::Types::IPAddr;
+use EBox::Types::Select;
 use EBox::Sudo;
 
 use Net::IP;
@@ -49,7 +52,7 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -60,19 +63,38 @@ sub _table
 
     my $tableHead = [
         new EBox::Types::Text(
-            'fieldName' => 'name',
-            'printableName' => __('Name'),
-            'size' => '12',
-            'unique' => 1,
-            'editable' => 1,
+            'fieldName'         => 'name',
+            'printableName'     => __('Name'),
+            'size'              => '12',
+            'unique'            => 1,
+            'editable'          => 1,
+        ),
+        new EBox::Types::Boolean(
+            'fieldName'         => 'dynamic',
+            'printableName'     => __('Dynamic'),
+            'defaultValue'      => 0,
+            'editable'          => 1,
+        ),
+        new EBox::Types::IPAddr(
+            fieldName           => 'filter',
+            printableName       => __('Filter by network (CIDR format)'),
+            editable            => 1,
+            optional            => 1,
+        ),
+        new EBox::Types::Select(
+            'fieldName'         => 'type',
+            'printableName'     => __('Object type'),
+            'populate'          => sub { $self->_populateTypes() },
+            'editable'          => 1,
+            'HTMLViewer'        => '/objects/ajax/viewer/selectViewer.mas',
         ),
         new EBox::Types::HasMany(
-            'fieldName' => 'members',
-            'printableName' => __('Members'),
-            'foreignModel' => 'MemberTable',
-            'view' => '/Objects/View/MemberTable',
-            'backView' => '/Objects/View/MemberTable',
-        )
+            'fieldName'         => 'members',
+            'printableName'     => __('Members'),
+            'foreignModel'      => 'MemberTable',
+            'view'              => '/Objects/View/MemberTable',
+            'backView'          => '/Objects/View/MemberTable',
+        ),
     ];
 
     my $dataTable = {
@@ -93,6 +115,33 @@ sub _table
     return $dataTable;
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $actions = {
+        dynamic => {
+            1 => {
+                show => ['filter', 'type'],
+            },
+            0 => {
+                hide => ['filter', 'type'],
+            },
+        },
+    };
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions($actions);
+    #$customizer->setInitHTMLStateOrder(['dynamic']);
+
+    return $customizer;
+}
+
 # Method: warnIfIdUsed
 #
 #	Overrides <EBox::Model::DataTable::warnIfIdUsed>
@@ -105,12 +154,10 @@ sub warnIfIdUsed
     my ($self, $id) = @_;
 
     my $objects = EBox::Global->modInstance('objects');
-
     if ($objects->objectInUse($id)) {
         throw EBox::Exceptions::DataInUse(
                 __('This object is being used by another module'));
     }
-
 }
 
 # Method: validateRow
@@ -230,6 +277,22 @@ __(q{'Any' is a reserved word that could not be used as object name to avoid con
          'A object could not be named like a IP address with netmask'
                                         );
     }
+}
+
+sub _populateTypes
+{
+    my ($self) = @_;
+
+    my $module = $self->parentModule();
+    my $state = $module->get_state();
+    my $registered = $state->{dynamicObjects};
+
+    my $types = [];
+    foreach my $name (keys %{$registered}) {
+        my $obj = $registered->{$name};
+        push (@{$types}, { value => $obj->{name}, printableValue => $obj->{printableName} });
+    }
+    return $types;
 }
 
 1;

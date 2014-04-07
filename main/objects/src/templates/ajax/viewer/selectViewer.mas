@@ -1,0 +1,15 @@
+<%args>
+$data
+</%args>
+<%init>
+my $row = $data->row();
+my $dynamic = $row->valueByName('dynamic');
+my $printableValue = $dynamic ? $data->printableValue() : undef;
+if (defined ($printableValue)) {
+</%init>
+<span><% $printableValue %></span>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
+% }
+% else {
+<span>--</span>
+% }

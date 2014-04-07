@@ -118,9 +118,12 @@ sub _snifferCond
 {
     my ($self) = @_;
 
-    my $model = $self->model('DynamicObjectTable');
+    my $model = $self->model('ObjectTable');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        my $dynamic = $row->valueByName('dynamic');
+        next unless $dynamic;
+
         my $rowType = $row->valueByName('type');
         return 1 if $self->dynamicObjectIsRegistered($rowType);
     }
@@ -148,8 +151,20 @@ sub _setConf
 
     $self->_registerDynamicObjects();
 
-    # TODO fill data
+    # TODO Write P0F default file, set capture filter to ignore loopback and local addresses
+
     my $data = [];
+    # TODO fill data
+    #$os_linux => 1
+    #$os_win => 1
+    #$os_mac => 1
+    #$os_ios => 1
+    #$os_android => 1
+    #$ipset_os_linux => 'os_linux'
+    #$ipset_os_win => 'os_windows'
+    #$ipset_os_mac => 'os_mac'
+    #$ipset_os_ios => 'os_ios'
+    #$ipset_os_android => 'os_android'
     $self->writeConfFile('/etc/p0f/p0f.fp', '/objects/p0f.fp.mas', $data,
         { uid => 0, gid => 0, mode => '0640' });
 }
