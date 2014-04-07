@@ -61,7 +61,7 @@ sub parse_commandline
 sub get_command
 {
     if (@commands) {
-	return shift (@commands);
+        return shift (@commands);
     } else {
         return $term->readline($PROMPT);
     }

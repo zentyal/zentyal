@@ -188,7 +188,7 @@ sub _table
 
 # Method
 #
-#    Override this method to define sections for thsi model
+#    Override this method to define sections for this model
 #    XXX: define sections format
 #
 # Returns:
