@@ -34,6 +34,8 @@ use EBox::CaptivePortalFirewall;
 use EBox::CaptivePortal::LdapUser;
 use EBox::Exceptions::External;
 
+use Crypt::PBKDF2;
+
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
@@ -43,6 +45,7 @@ use constant CAPTIVE_USER  => 'zentyal-captiveportal';
 use constant CAPTIVE_GROUP => 'zentyal-captiveportal';
 use constant CAPTIVE_UPSTART_NAME => 'zentyal.captiveportal-uwsgi';
 use constant CAPTIVE_NGINX_FILE => CAPTIVE_DIR . 'captiveportal-nginx.conf';
+use constant USERSFILE => CAPTIVE_DIR . 'users.conf';
 
 sub _create
 {
@@ -481,6 +484,70 @@ sub eventWatchers
     return ['CaptivePortalQuota'];
 }
 
+sub _hashPassword
+{
+    my ($class, $password) = @_;
+
+    my $pbkdf2 = new Crypt::PBKDF2();
+
+    return $pbkdf2->generate($password);
+}
+
+sub _validatePassword
+{
+    my ($class, $hash, $password) = @_;
+
+    my $pbkdf2 = new Crypt::PBKDF2();
+    return $pbkdf2->validate($hash, $password) ? 1 : 0;
+
+}
+
+sub _parseUsersFile
+{
+    my ($self) = @_;
+
+    my $users = {};
+    my $FH;
+    unless (open $FH, USERSFILE) {
+        throw EBox::Exceptions::Internal(USERSFILE . ' cannot be opened');
+    }
+    while (my $line = <$FH>) {
+        chomp $line;
+        ($username, $hash, $quota) = split("\t", $line);
+        $users->{$username} = {hash => $hash};
+        $users->{$username}->{quota} = $quota if (defined $quota);
+    }
+
+    unless (close $FH) {
+        throw EBox::Exceptions::Internal('Cannot properly close ' . USERSFILE);
+    }
+
+    return $users;
+}
+
+sub _writeUsersFile
+{
+    my ($self, $users) = @_;
+
+    my $FH;
+    unless (open $FH, USERSFILE) {
+        throw EBox::Exceptions::Internal(USERSFILE . ' cannot be opened');
+    }
+    foreach my $user (keys %{$users}) {
+        my $username = $users->{$user};
+        my $hash = $users->{$user}->{hash};
+        my $quota = '';
+        if (defined $users->{$user}->{quota}) {
+            $quota = $users->{$user}->{quota};
+        }
+        print $FH "$username\t$hash\t$quota";
+    }
+
+    unless (close $FH) {
+        throw EBox::Exceptions::Internal('Cannot properly close ' . USERSFILE);
+    }
+}
+
 # Method: addUser
 #
 #   Adds a user to the captive portal users file.
@@ -496,6 +563,17 @@ sub eventWatchers
 #
 sub addUser
 {
+    my ($self, $username, $password, $quota) = @_;
+
+    my $users = $self->_parseUsersFile();
+
+    if (exists $users->{$username}) {
+        throw EBox:Exceptions::DataExists(data => 'username', value => $username);
+    }
+
+    $hash = $self->_hashPassword($password);
+    $users->{$username} = { quota => $quota, hash => $hash };
+    $self->_writeUsersFile($users);
 }
 
 # Method: listUsers
@@ -503,21 +581,29 @@ sub addUser
 #   Lists the valid usernames that will be allowed to use the captive portal.
 #
 # Returns:
-#   Array reference with this format:
+#   Hash reference with this format:
 #
-#   [
-#      {
-#          username => 'usernameWithCustomQuota',
-#          quota    => 10240,
-#      },
-#      {
-#          username => 'usernameWithDefaultQuota',
-#      },
-#      ...
-#   ]
+#   {
+#       'usernameWithCustomQuota' => {
+#           quota    => 10240,
+#       },
+#       'usernameWithDefaultQuota' => {},
+#       ...
+#   }
 #
 sub listUsers
 {
+    my ($self) = @_;
+
+    my $users = $self->_parseUsersFile();
+
+    my $list = {};
+    foreach my $user (keys %{$users}) {
+        my $userHash = {};
+        $userHash->{quota} = $users->{$user}->{quota} if (exists $users->{$user}->{quota});
+        $list->{$user} = $userHash;
+    }
+    return $list;
 }
 
 # Method: modifyUser
@@ -536,6 +622,19 @@ sub listUsers
 #
 sub modifyUser
 {
+    my ($self, $username, %args) = @_;
+
+    my $users = $self->_parseUsersFile();
+
+    my $user = $users->{$username};
+    unless (defined $user) {
+        throw EBox::Exceptions::DataNotFound(data => 'username', value => $username);
+    }
+
+    $user->{quota} = $args{quota} if (exists $args{quota});
+    $user->{hash} = $self->_hashPassword($args{password}) if (exists $args{password});
+
+    $self->_writeUsersFile($users);
 }
 
 # Method: removeUser
@@ -551,6 +650,17 @@ sub modifyUser
 #
 sub removeUser
 {
+    my ($self, $username) = @_;
+
+    my $users = $self->_parseUsersFile();
+
+    if (defined $users->{$username}) {
+        delete $users->{$username};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'username', value => $username);
+    }
+
+    $self->_writeUsersFile($users);
 }
 
 1;
