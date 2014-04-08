@@ -3,12 +3,6 @@ class: 'EBox::Objects'
 models:
     - ObjectTable
     - MemberTable
-    - DynamicObjectTable
-    - DynamicMemberTable
-
-composites:
-    Objects: [ObjectTable, DynamicObjectTable]
 
 foreign:
     ObjectTable: [MemberTable]
-    DynamicObjectTable: [DynamicMemberTable]

@@ -95,7 +95,7 @@ sub menu
                                         'separator' => 'Core',
                                         'order' => 40);
 
-    my $item = new EBox::Menu::Item('url' => 'Objects/Composite/Objects',
+    my $item = new EBox::Menu::Item('url' => 'Network/Objects',
                                     'text' => __($self->title),
                                     'order' => 40);
     $folder->add($item);
@@ -432,8 +432,8 @@ sub addObject
 # Method: dynamicObjectRegister
 #
 #   Stores the object metadata in the module state. This information will be
-#   used to populate the DynamicObjectTable model to let the user create
-#   dynamic objects.
+#   used to populate the dynamic object types selector in the ObjectTable
+#   model
 #
 # Arguments:
 #
