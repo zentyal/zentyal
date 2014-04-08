@@ -1,4 +1,4 @@
-HEAD
+3.3.3
 	+ Setup mail account on enable for users that already have mail attribute
 	+ Added and used checkMailNotInUse method
 	+ Don't add mail which already exists when adding group alias
