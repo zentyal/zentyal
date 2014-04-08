@@ -22,6 +22,7 @@ package EBox::Objects;
 use base qw( EBox::Module::Service );
 
 use Net::IP;
+use Net::Netmask;
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Objects::Model::ObjectTable;
@@ -155,12 +156,25 @@ sub _setConf
 
     $self->_registerDynamicObjects();
 
-    my $captureFilter = undef;
     my $network = $self->global->modInstance('network');
-    my $localAddresses = $network->internalIpAddresses();
-    push (@{$localAddresses}, 'net 127.0.0.0/8');
-    $localAddresses = [ map { "(not (src $_ or dst $_))" } @{$localAddresses} ];
-    $captureFilter = join(" and ", @{$localAddresses});
+    my @captureFilter;
+    my $ifaces = $network->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        next unless ($network->ifaceOnConfig($iface));
+        next if ($network->ifaceIsExternal($iface));
+
+        my $ifaceData = $network->ifaceAddresses($iface);
+        foreach my $addr (@{$ifaceData}) {
+            my $ip = $addr->{address};
+            my $mask = $addr->{netmask};
+            next unless (length $ip and length $mask);
+
+            my $m = new Net::Netmask($ip, $mask);
+            my $netcidr = $m->base() . '/' . $m->bits();
+            push (@captureFilter, "((not (src $ip or dst $ip)) and (src net $netcidr))");
+        }
+    }
+    my $captureFilter = join (' and ', @captureFilter);
 
     my $data = [];
     push (@{$data}, interface => 'any');
@@ -172,18 +186,17 @@ sub _setConf
     $self->writeConfFile(P0F_DEFAULT_FILE, '/objects/p0f.default.mas', $data,
         { uid => 0, gid => 0, mode => '0640' });
 
-    # TODO fill data
     $data = [];
-    #$os_linux => 1
-    #$os_win => 1
-    #$os_mac => 1
-    #$os_ios => 1
-    #$os_android => 1
-    #$ipset_os_linux => 'os_linux'
-    #$ipset_os_win => 'os_windows'
-    #$ipset_os_mac => 'os_mac'
-    #$ipset_os_ios => 'os_ios'
-    #$ipset_os_android => 'os_android'
+    push (@{$data}, os_linux => 1);
+    push (@{$data}, os_win => 1);
+    push (@{$data}, os_mac => 1);
+    push (@{$data}, os_ios => 1);
+    push (@{$data}, os_android => 1);
+    push (@{$data}, ipset_os_linux => 'os_linux');
+    push (@{$data}, ipset_os_win => 'os_windows');
+    push (@{$data}, ipset_os_mac => 'os_mac');
+    push (@{$data}, ipset_os_ios => 'os_ios');
+    push (@{$data}, ipset_os_android => 'os_android');
     $self->writeConfFile(P0F_CONFIG_FILE, '/objects/p0f.fp.mas', $data,
         { uid => 0, gid => 0, mode => '0640' });
 }
