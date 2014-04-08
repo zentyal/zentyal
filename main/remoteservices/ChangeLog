@@ -1,4 +1,4 @@
-HEAD
+3.3.3
 	+ Remove Disaster Recovery menu entry as it is managed by
 	  cloud-prof module
 	+ Fix restore remote backup with spaces in the backup name
