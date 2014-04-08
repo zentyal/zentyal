@@ -1,4 +1,14 @@
-HEAD
+3.4.1
+	+ Fix dashboard UI freeze when widgets were being updated
+	+ Add audit to post save when enabling logs
+	+ Fix enabled save changes button after installing packages
+	+ Changed CGI base to show correctly referer errors and
+	  generating response errors
+	+ Override daemons does not fail if a daemon is already stopped
+	+ Added missing use to row.mas
+	+ More tolerant referer validation so we can access to submodels
+	  with an URL
+	+ Restored reconnect option for mysql connections
 	+ EBox::WebAdmin::addNginxServer does not longer raises exception
 	  if file not yet exists
 	+ create-db script can repair login problems
@@ -13,6 +23,7 @@ HEAD
 	+ Fix warnOnChangeId framework
 	+ Give real no support to /media in Disk Usage even when modules
 	  use it
+	+ Added release upgrade code (disabled until 3.5)
 	+ Hide passwords on admin user model on error and debug on
 	+ Set proper version for bugreport issues
 3.4
