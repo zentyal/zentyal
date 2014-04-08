@@ -149,7 +149,8 @@ then
         COMPANY=$(get_field "$RESPONSE" company)
         QA_USERNAME="$COMPANY-$SERVERNAME"
         UUID=$(get_field "$RESPONSE" uuid)
-        QA_PASSWORD=$(get_field "$RESPONSE" password)
+        QA_PASSWORD=$(echo $UUID | sed 's/-//g')
+        SERVER_PASSWORD=$(get_field "$RESPONSE" password)
 
         echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
         echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
@@ -171,7 +172,7 @@ if [ -f /tmp/RECOVER_MODE ]
 then
     if [ "$EDITION" = "commercial" ]
     then
-        RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
+        RESPONSE=$(curl -u $UUID:$SERVER_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
         if [ $? -eq 0 ] && [ -z "$RESPONSE" ]
         then
             db_input high zinstaller-remote/error_backups
