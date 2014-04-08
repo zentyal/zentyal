@@ -597,7 +597,7 @@ sub _setAddress
                 }
                 $flag = 'src' if ($addressType eq 'source');
                 $flag = 'dst' if ($addressType eq 'destination');
-                $rule .= " $inverse -m set --match-set $ipsetName $flag ";
+                $rule .= " -m set $inverse --match-set $ipsetName $flag ";
                 push (@{$self->{$addressType}}, $rule);
             } elsif ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
