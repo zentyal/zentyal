@@ -38,7 +38,10 @@ done
 # Copy samba data to new destination and re-create hardlinks
 service zentyal samba stop
 SAMBA_PID=$(cat /var/run/samba/samba.pid)
-kill -9 $SAMBA_PID
+kill $SAMBA_PID
+sleep 1
+pkill -9 samba
+pkill -9 smbd
 mkdir -p /var/lib/samba
 cp -r /opt/samba4/private /var/lib/samba/
 ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
@@ -55,15 +58,19 @@ upgrade
 
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
+sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-users.postinst
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
-dpkg --configure -a --force-confdef
 
+pkill -9 samba
+pkill -9 smbd
 service zentyal samba restart
 
 if dpkg --configure -a --force-confdef
 then
-    service zentyal haproxy restart
     /usr/share/zentyal/global-action --action saveAllModules
+    /usr/share/zentyal/initial-setup users 3.3
+    service zentyal webadmin restart
+    service zentyal haproxy restart
 
     echo; echo "Zentyal upgrade finished!"
 
