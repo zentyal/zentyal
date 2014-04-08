@@ -329,11 +329,18 @@ sub members
     my $dynamic = $parentRow->valueByName('dynamic');
     if ($dynamic) {
         my $ipset = $parentRow->valueByName('type');
-        push (@{$members}, {
+        my $member = {
             name => $ipset,
             type => 'ipset',
             filter => undef,
-        });
+        };
+        my ($filterIp, $filterMask) = $parentRow->valueByName('filter');
+        if (length $filterIp and length $filterMask) {
+            $member->{filter} = {};
+            $member->{filter}->{ipaddr} = $filterIp;
+            $member->{filter}->{mask} = $filterMask;
+        }
+        push (@{$members}, $member);
     } else {
         foreach my $id (@{$self->ids()}) {
             my $memberRow = $self->row($id);
@@ -461,6 +468,5 @@ sub _ipset
 
     return $ipset;
 }
-
 
 1;

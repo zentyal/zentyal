@@ -584,10 +584,21 @@ sub _setAddress
     if (defined($obj)) {
         foreach my $member (@{ $objMembers }) {
             if ($member->{type} eq 'ipset') {
+                my $ipsetName = $member->{name};
+                my $rule = '';
+                if (defined $member->{filter}) {
+                    my $filter = $member->{filter};
+                    my $addr = $filter->{ipaddr};
+                    my $mask = $filter->{mask};
+                    unless (length $addr and length $mask) {
+                        throw EBox::Exceptions::MissingArgument("filter");
+                    }
+                    $rule .= " $inverse $flag $addr/$mask";
+                }
                 $flag = 'src' if ($addressType eq 'source');
                 $flag = 'dst' if ($addressType eq 'destination');
-                # TODO Apply object filter
-                push (@{$self->{$addressType}}, $inverse . '-m set --match-set ' . $member->{name} . " $flag ");
+                $rule .= " $inverse -m set --match-set $ipsetName $flag ";
+                push (@{$self->{$addressType}}, $rule);
             } elsif ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {

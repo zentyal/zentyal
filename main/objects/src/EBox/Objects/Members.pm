@@ -26,9 +26,6 @@
 #                   'ipaddr'
 #                       'ipaddr'
 #                       'mask'
-#                   'iprange'
-#                       'begin'
-#                       'end'
 #             ipaddr type additional keys:
 #               'ipaddr' - ip/s member (CIDR notation)
 #               'mask'   -  network mask's member
@@ -77,7 +74,7 @@ sub addresses
     EBox::info("On addresses");
 
     if ($self->{type} eq 'ipset') {
-        # TODO Remove
+        # TODO Check
         EBox::info("ADDRESSES called on IPSET");
         return [];
     }
@@ -131,7 +128,17 @@ sub iptablesSrcParams
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipset') {
-            my $arg = '-m set --match-set ' . $member->{name};
+            my $arg = '';
+            if (defined $member->{filter}) {
+                my $filter = $member->{filter};
+                my $addr = $filter->{ipaddr};
+                my $mask = $filter->{mask};
+                unless (length $addr and length $mask) {
+                    throw EBox::Exceptions::MissingArgument("filter");
+                }
+                $arg .= " --source $addr/$mask ";
+            }
+            $arg .= ' -m set --match-set ' . $member->{name} . ' src ';
             push (@params, $arg);
         } elsif ($member->{type} eq 'ipaddr') {
             my $arg =  ' --source ' .  $member->{ipaddr};
@@ -144,6 +151,7 @@ sub iptablesSrcParams
         }
     }
 
+    # TODO Check
     use Data::Dumper;
     EBox::info("On iptablesSrcParams");
     EBox::info(Dumper(\@params));
@@ -165,7 +173,17 @@ sub iptablesDstParams
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipset') {
-            my $arg = '-m set --match-set ' . $member->{name};
+            my $arg = '';
+            if (defined $member->{filter}) {
+                my $filter = $member->{filter};
+                my $addr = $filter->{ipaddr};
+                my $mask = $filter->{mask};
+                unless (length $addr and length $mask) {
+                    throw EBox::Exceptions::MissingArgument("filter");
+                }
+                $arg .= " --destination $addr/$mask ";
+            }
+            $arg .= ' -m set --match-set ' . $member->{name} . ' dst ';
             push (@params, $arg);
         } elsif ($member->{type} eq 'ipaddr') {
             push @params,  ' --destination ' .  $member->{ipaddr};
@@ -174,6 +192,7 @@ sub iptablesDstParams
         }
     }
 
+    # TODO Check
     use Data::Dumper;
     EBox::info("On iptablesDstParams");
     EBox::info(Dumper(\@params));
