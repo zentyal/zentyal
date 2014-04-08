@@ -1,4 +1,4 @@
-HEAD
+3.3.2
 	+ Fixed CaptivePortalQUota event watcher path
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
 	+ Fixed restricted login by group
