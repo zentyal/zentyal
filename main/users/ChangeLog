@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug when altering mail address through the edit user form
+	+ Better integration between mail addon and mail field
 	+ Remove method canonicalName and use object DNs for greater performance
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4
