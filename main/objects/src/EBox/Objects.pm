@@ -33,6 +33,10 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 
+use constant P0F_CONFIG_FILE  => '/etc/p0f/p0f.fp';
+use constant P0F_SOCKET       => '/var/run/p0f/p0f.sock';
+use constant P0F_DEFAULT_FILE => '/etc/default/p0f';
+
 sub _create
 {
     my $class = shift;
@@ -151,10 +155,25 @@ sub _setConf
 
     $self->_registerDynamicObjects();
 
-    # TODO Write P0F default file, set capture filter to ignore loopback and local addresses
+    my $captureFilter = undef;
+    my $network = $self->global->modInstance('network');
+    my $localAddresses = $network->internalIpAddresses();
+    push (@{$localAddresses}, 'net 127.0.0.0/8');
+    $localAddresses = [ map { "(not (src $_ or dst $_))" } @{$localAddresses} ];
+    $captureFilter = join(" and ", @{$localAddresses});
 
     my $data = [];
+    push (@{$data}, interface => 'any');
+    push (@{$data}, conffile  => P0F_CONFIG_FILE);
+    push (@{$data}, socket    => P0F_SOCKET);
+    push (@{$data}, connAge   => 30);
+    push (@{$data}, hostAge   => 120);
+    push (@{$data}, filter    => $captureFilter);
+    $self->writeConfFile(P0F_DEFAULT_FILE, '/objects/p0f.default.mas', $data,
+        { uid => 0, gid => 0, mode => '0640' });
+
     # TODO fill data
+    $data = [];
     #$os_linux => 1
     #$os_win => 1
     #$os_mac => 1
@@ -165,7 +184,7 @@ sub _setConf
     #$ipset_os_mac => 'os_mac'
     #$ipset_os_ios => 'os_ios'
     #$ipset_os_android => 'os_android'
-    $self->writeConfFile('/etc/p0f/p0f.fp', '/objects/p0f.fp.mas', $data,
+    $self->writeConfFile(P0F_CONFIG_FILE, '/objects/p0f.fp.mas', $data,
         { uid => 0, gid => 0, mode => '0640' });
 }
 

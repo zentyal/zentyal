@@ -1,0 +1,20 @@
+<%args>
+    $interface => 'any'
+    $conffile => '/etc/p0f/p0f.fp'
+    $socket => '/var/run/p0f/p0f.sock'
+    $connAge => 30
+    $hostAge => 120
+    $user => undef
+    $filter => undef
+</%args>
+INTERFACE="<% $interface %>"
+CONFFILE="<% $conffile %>"
+SOCKET="<% $socket %>"
+CONN_CACHE_AGE="<% $connAge %>"
+HOST_CACHE_AGE="<% $hostAge %>"
+% if (defined $user) {
+USER="<% $user %>"
+% }
+% if (defined $filter) {
+CAPTURE_FILTER="<% $filter %>"
+% }
