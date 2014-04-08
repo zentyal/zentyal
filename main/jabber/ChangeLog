@@ -1,4 +1,4 @@
-HEAD
+3.3.1
 	+ Corrected getJabberAdmins to properly provide array of admins uid's
 	+ Using STARTTLS instead of SSL by default
 3.3
