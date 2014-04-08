@@ -56,11 +56,8 @@ if ($version) {
 }
 
 try {
-    if ($restart) {
-        $module->save();
-    } else {
-        $module->saveConfig();
-    }
+    $module->saveConfigRecursive();
+    $module->save() if ($restart);
     $module->redis->commit();
 } catch {
     $module->redis->rollback();

@@ -1,3 +1,7 @@
+<%args>
+  $hostname
+  $sslPort
+</%args>
 Alias /SOGo.woa/WebServerResources/ \
       /usr/lib/GNUstep/SOGo/WebServerResources/
 Alias /SOGo/WebServerResources/ \
@@ -54,7 +58,11 @@ ProxyPass /sogo http://127.0.0.1:20000/SOGo
 ## adjust the following line:
 #  RequestHeader set "x-webobjects-remote-user" "%{REMOTE_USER}e"
 
+% if ($sslPort) {
+  RequestHeader set "x-webobjects-server-url" "https://<% $hostname %>:<% $sslPort %>"
+% } else {
   RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
+% }
 
   AddDefaultCharset UTF-8
 

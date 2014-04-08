@@ -1,4 +1,5 @@
 HEAD
+	+ Remove method canonicalName and use object DNs for greater performance
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4
 	+ Updated EBox::Users::Model::Password to use

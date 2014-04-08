@@ -1,4 +1,9 @@
 HEAD
+	+ Fixed bug in LDAP synchronization of mail virtual domains
+3.4.1
+	+ Removed free access to dovecot from localhost, now we have a
+	  master password
+	+ Avoid unsaved changes after running initialSetup
 	+ Setup mail account on enable for users that already have mail attribute
 3.4
 	+ Added and used checkMailNotInUse method

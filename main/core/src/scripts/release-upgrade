@@ -1,0 +1,75 @@
+#!/bin/bash
+
+UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
+
+rm -f $UPGRADE_FILE
+
+export DEBIAN_FRONTEND=noninteractive
+
+function upgrade
+{
+    apt-get update
+
+    for i in `seq 1 10`
+    do
+        if apt-get dist-upgrade -y --force-yes --download-only
+        then
+            break
+        else
+            echo "Download failed, retrying in 5 seconds..."
+            sleep 5
+        fi
+    done
+
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+}
+
+sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
+
+echo; echo "Upgrading your current system to the latest packages..."; echo
+upgrade
+
+# Stop modules to avoid conflicts in listening ports with haproxy
+for module in usercorner captiveportal webserver
+do
+    service zentyal $module stop
+done
+
+# Copy samba data to new destination and re-create hardlinks
+service zentyal samba stop
+SAMBA_PID=$(cat /var/run/samba/samba.pid)
+kill -9 $SAMBA_PID
+mkdir -p /var/lib/samba
+cp -r /opt/samba4/private /var/lib/samba/
+ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
+chown -R root:bind /var/lib/samba/private/dns
+chmod -R g+rw /var/lib/samba/private/dns
+service zentyal samba restart
+
+echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
+sed -i 's/precise/saucy/g' /etc/apt/sources.list
+sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
+upgrade
+
+echo; echo "Forcing pending packages installation..."; echo
+rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
+apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+dpkg --configure -a --force-confdef
+
+service zentyal samba restart
+
+if dpkg --configure -a --force-confdef
+then
+    service zentyal haproxy restart
+    /usr/share/zentyal/global-action --action saveAllModules
+
+    echo; echo "Zentyal upgrade finished!"
+
+    apt-get clean
+else
+    echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
+fi
+
+touch $UPGRADE_FILE

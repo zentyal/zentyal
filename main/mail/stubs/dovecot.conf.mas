@@ -72,11 +72,11 @@ passdb {
     driver = ldap
     args = /etc/dovecot/dovecot-ldap.conf
 }
-% if ($openchange) {
 
+% if ($openchange) {
 passdb {
-    driver = static
-    args = nopassword=y allow_nets=127.0.0.1/32
+    driver = sql
+    args = /etc/dovecot/dovecot-sql.conf
 }
 % }
 
