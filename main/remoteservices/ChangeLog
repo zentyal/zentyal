@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed JS regressions on subscribe action
 	+ Disable QA updates until next commercial edition
 	+ EBox::RemoteServices::Subscription::Check::check recovers for
 	  any error raised on users checking
