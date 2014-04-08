@@ -103,7 +103,7 @@ sub _table
         'printableTableName'    => __('Static Objects'),
         'automaticRemove'       => 1,
         'defaultController'     => '/Objects/Controller/ObjectTable',
-        'HTTPUrlView'           => 'Objects/Composite/Objects',
+        'HTTPUrlView'           => 'Objects/View/ObjectTable',
         'defaultActions'        => ['add', 'del', 'editField', 'changeView', 'clone' ],
         'tableDescription'      => $tableHead,
         'class'                 => 'dataTable',
