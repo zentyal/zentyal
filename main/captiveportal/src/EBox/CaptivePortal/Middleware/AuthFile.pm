@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::CaptivePortal::Middleware::AuthLDAP;
+package EBox::CaptivePortal::Middleware::AuthFile;
 use base qw(EBox::Middleware::Auth);
 
 use EBox;
@@ -25,12 +25,14 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::NetWrappers qw(ip_mac);
 
-use Authen::Simple::LDAP;
 use File::Basename;
 use Plack::Request;
 use Plack::Session::Store::File;
 use TryCatch::Lite;
 
+use constant USERSFILE => '/var/lib/zentyal-captiveportal/users.conf';
+
+my $_parsedUsers = undef;
 
 # Method: _cleanSession
 #
@@ -129,26 +131,12 @@ sub checkValidUser
 {
     my ($self, $username, $password, $env) = @_;
 
-    my $CONF_FILE = EBox::CaptivePortal->LDAP_CONF;
-
-    my $url = EBox::Config::configkeyFromFile('ldap_url', $CONF_FILE);
-    my $bindDN = EBox::Config::configkeyFromFile('ldap_bindstring', $CONF_FILE);
-    my $groupDN = EBox::Config::configkeyFromFile('ldap_group', $CONF_FILE);
+    my $users = parseUsersFile();
 
     my $isValid = 0;
-    if ($self->_checkLDAPPassword($username, $password, $url, $bindDN, $groupDN)) {
-        $isValid = 1;
-    }
-
-    unless ($isValid) {
-        # Test secondary ldap if it exists in configuration file
-        my $url2 = EBox::Config::configkeyFromFile('ldap2_url', $CONF_FILE);
-        my $bindDN2 = EBox::Config::configkeyFromFile('ldap2_bindstring', $CONF_FILE);
-
-        if (defined($url2) and defined($bindDN2) and
-            $self->_checkLDAPPassword($username, $password, $url2, $bindDN2)) {
-            $isValid = 1;
-        }
+    if (defined $users->{$username}) {
+        my $hash = $users->{$username}->{hash};
+        $isValid = ((crypt ($password, $hash)) eq $hash);
     }
 
     my $request = new Plack::Request($env);
@@ -285,6 +273,125 @@ sub updateSession
     $session->{ip} = $ip;
     $session->{mac} = ip_mac($ip);
     $store->store($sid, $session);
+}
+
+# Function: hashPassword
+#
+#   Return a hashed version of the give password salted with a random salt of 4 characters.
+#
+# Parameters:
+#   - password - String the password to process.
+#
+sub hashPassword
+{
+    my ($password) = @_;
+
+    my $salt = chr(65+rand(27)).chr(65+rand(27));
+    return (crypt ($password, $salt));
+}
+
+# Function: parseUsersFile
+#
+#   Parses the captiveportal users file from disk and returns its content.
+#
+# Returns:
+#
+#   Hash reference with this format:
+#
+#       {
+#           'usernameWithCustomQuota' => {
+#               hash     => HASH_PASSWORD_STRING,
+#               quota    => 10240,
+#           },
+#           'usernameWithDefaultQuota' => {
+#               hash     => HASH_PASSWORD_STRING,
+#               fullname => 'Foo Bar',
+#           },
+#           ...
+#       }
+#   or {} if the file is not available.
+#
+sub parseUsersFile
+{
+    if (defined $_parsedUsers) {
+        return $_parsedUsers;
+    }
+
+    my $users = {};
+    my $FH;
+    unless (open $FH, USERSFILE) {
+        return $users;
+    }
+    while (my $line = <$FH>) {
+        chomp $line;
+        unless ($line) {
+            next;
+        }
+        my ($username, $hash, $fullname, $quota) = split("\t", $line);
+        $users->{$username} = {hash => $hash};
+        $users->{$username}->{fullname} = $fullname if (defined $fullname);
+        $users->{$username}->{quota} = $quota if (defined $quota);
+    }
+
+    unless (close $FH) {
+        throw EBox::Exceptions::Internal('Cannot properly close ' . USERSFILE);
+    }
+
+    $_parsedUsers = $users;
+    return $_parsedUsers;
+}
+
+# Function: writeUsersFile
+#
+#   Dumps a list of captiveportal users into disk.
+#
+# Parameters:
+#
+#   users - Hash reference with this format:
+#
+#       {
+#           'usernameWithCustomQuota' => {
+#               hash     => HASH_PASSWORD_STRING,
+#               quota    => 10240,
+#           },
+#           'usernameWithDefaultQuota' => {
+#               hash     => HASH_PASSWORD_STRING,
+#               fullname => 'Foo Bar',
+#           },
+#           ...
+#       }
+#
+sub writeUsersFile
+{
+    my ($users) = @_;
+
+    if (defined $_parsedUsers) {
+        # Remove the cache.
+        $_parsedUsers = undef;
+    }
+
+    my $defaults = {
+        uid  => EBox::CaptivePortal::CAPTIVE_USER(),
+        gid  => EBox::CaptivePortal::CAPTIVE_GROUP(),
+        mode => 660
+    };
+
+    my $data = '';
+    foreach my $user (keys %{$users}) {
+        my $username = $users->{$user};
+        my $hash = $users->{$user}->{hash};
+        my $quota = '';
+        my $fullname = '';
+        if (defined $users->{$user}->{quota}) {
+            $quota = $users->{$user}->{quota};
+        }
+        if (defined $users->{$user}->{fullname}) {
+            $fullname = $users->{$user}->{fullname};
+        }
+        $data .= "$user\t$hash\t$fullname\t$quota\n";
+    }
+
+    EBox::Module::Base::writeFile(USERSFILE, $data, $defaults)
 }
 
 1;

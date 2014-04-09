@@ -26,7 +26,7 @@ use warnings;
 package EBox::CaptiveDaemon;
 
 use EBox::CaptivePortal;
-use EBox::CaptivePortal::Middleware::AuthLDAP;
+use EBox::CaptivePortal::Middleware::AuthFile;
 use EBox::Config;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
@@ -162,7 +162,7 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
-            EBox::CaptivePortal::Middleware::AuthLDAP::removeSession($user->{sid});
+            EBox::CaptivePortal::Middleware::AuthFile::removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user, $sid)});
 
