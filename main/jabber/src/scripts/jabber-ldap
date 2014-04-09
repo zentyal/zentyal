@@ -5,12 +5,12 @@ use warnings;
 
 use EBox::Global;
 use EBox::Users;
+use Error qw(:try);
 
 EBox::init();
 
 my $global = EBox::Global->getInstance();
 my $users = $global->modInstance('users');
-$users->{ldap}->connection();
 
 sub update
 {
@@ -38,7 +38,6 @@ sub update
 
 sub clean
 {
-    my $ldap = $users->{ldap};
     foreach my $user (@{$users->users()}){
         $user->delete('jabberUid', 1) if $user->get('jabberUid');
         $user->delete('jabberAdmin', 1) if $user->get('jabberAdmin');
