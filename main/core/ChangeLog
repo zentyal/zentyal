@@ -1,4 +1,6 @@
 3.5
+	+ Added Warning in Dashboard when reboot is requierd by software
+	  update
 	+ Set version to 3.5
 	+ create-db script can repair login problems
 	+ Migrate previous configuration from 3.3 when upgrading
@@ -13,8 +15,6 @@
 	+ Hide passwords on admin user model on error and debug on
 	+ Set proper version for bugreport issues
 3.4
-	+ Added Warning in Dashboard when reboot is requierd by software
-	  update
 	+ Do not launch exceptions on EBox::MyDBEngine DESTROY
 	+ Ask for trace object to non-handled EBox::Exceptions::Base
 	  exceptions in the UnhandledError middleware. This will gives us

@@ -1,8 +1,8 @@
 3.5
+	+ Added packages involved in a restart requirement after upgrade in
+	  the event
 	+ Set version to 3.5
 3.4
-	+ Added packages involved in a restart requirement after upgrade in 
-          the event
 	+ Don't expire session when first time menu is visible
 	+ When there is no action defined for EBox::Software::CGI::InstallPkgs
 	  throw a MissingArgument instead of an Internal exception
