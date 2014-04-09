@@ -332,13 +332,13 @@ sub members
         my $member = {
             name => $ipset,
             type => 'ipset',
-            filter => undef,
+            filterip => undef,
+            filtermask => undef,
         };
         my ($filterIp, $filterMask) = $parentRow->valueByName('filter');
         if (length $filterIp and length $filterMask) {
-            $member->{filter} = {};
-            $member->{filter}->{ipaddr} = $filterIp;
-            $member->{filter}->{mask} = $filterMask;
+            $member->{filterip} = $filterIp;
+            $member->{filtermask} = $filterMask;
         }
         push (@{$members}, $member);
     } else {
@@ -369,10 +369,6 @@ sub members
             push (@{$members}, \%member);
         }
     }
-
-    # TODO Remove
-    use Data::Dumper;
-    EBox::info(Dumper($members));
 
     my $membersObject = $members;
     bless ($membersObject, 'EBox::Objects::Members');

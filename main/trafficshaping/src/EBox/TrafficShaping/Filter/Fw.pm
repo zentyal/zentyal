@@ -95,16 +95,18 @@ sub new
     # Check addresses
     if ($args{srcAddr}) {
         if ((not $args{srcAddr}->isa('EBox::Types::IPAddr')) and
+            (not $args{srcAddr}->isa('EBox::Types::IPSet')) and
             (not $args{srcAddr}->isa('EBox::Types::MACAddr')) and
             (not $args{srcAddr}->isa('EBox::Types::IPRange'))) {
             throw EBox::Exceptions::InvalidType(
-                'srcAddr', 'EBox::Types::IPAddr or EBox::Types::MACAddr or EBox::Types::IPRange');
+                'srcAddr', 'EBox::Types::IPAddr or EBox::Types::IPSet or EBox::Types::MACAddr or EBox::Types::IPRange');
         }
     }
     if ($args{dstAddr}) {
         if ((not $args{dstAddr}->isa('EBox::Types::IPAddr')) and
+            (not $args{srcAddr}->isa('EBox::Types::IPSet')) and
             (not $args{dstAddr}->isa('EBox::Types::IPRange'))) {
-            throw EBox::Exceptions::InvalidType('srcAddr', 'EBox::Types::IPAddr or EBox::Types::IPRange');
+            throw EBox::Exceptions::InvalidType('srcAddr', 'EBox::Types::IPAddr EBox::Types::IPSet or EBox::Types::IPRange');
         }
     }
     $self->{mark} = $args{mark};
@@ -118,6 +120,10 @@ sub new
         if ($args{srcAddr}->isa('EBox::Types::IPAddr')) {
             $self->{srcIP} = $args{srcAddr}->ip();
             $self->{srcNetMask} = $args{srcAddr}->mask();
+        } elsif ($args{srcAddr}->isa('EBox::Types::IPSet')) {
+            $self->{srcIPSet} = $args{srcAddr}->set();
+            $self->{srcIPSetFilterIP} = $args{srcAddr}->filterIp();
+            $self->{srcIPSetFilterMask} = $args{srcAddr}->filterMask();
         } elsif ($args{srcAddr}->isa('EBox::Types::MACAddr')) {
             $self->{srcMAC} = $args{srcAddr}->value();
         } elsif ($args{srcAddr}->isa('EBox::Types::IPRange')) {
@@ -130,6 +136,10 @@ sub new
         if ($args{dstAddr}->isa('EBox::Types::IPAddr')) {
             $self->{dstIP} = $args{dstAddr}->ip();
             $self->{dstNetMask} = $args{dstAddr}->mask();
+        } elsif ($args{dstAddr}->isa('EBox::Types::IPSet')) {
+            $self->{dstIPSet} = $args{dstAddr}->set();
+            $self->{dstIPSetFilterIP} = $args{dstAddr}->filterIp();
+            $self->{dstIPSetFilterMask} = $args{dstAddr}->filterMask();
         } elsif ($args{dstAddr}->isa('EBox::Types::IPRange')) {
             $self->{dstRange} = $args{dstAddr};
         }
@@ -180,6 +190,8 @@ sub dumpIptablesCommands
     my $srcNetMask = $self->{srcNetMask};
     my $dstIP = $self->{dstIP};
     my $dstNetMask = $self->{dstNetMask};
+    my $srcIPSet = $self->{srcIPSet};
+    my $dstIPSet = $self->{dstIPSet};
 
     my $shaperChain;
     $shaperChain = 'EBOX-SHAPER-' . $self->{parent}->getInterface();
@@ -188,7 +200,7 @@ sub dumpIptablesCommands
     my @ipTablesCommands;
     my $leadingStr;
     my $mediumStr;
-    if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP )) {
+    if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP ) or defined $srcIPSet or defined $dstIPSet) {
         my $ipTablesRule = EBox::TrafficShaping::Firewall::IptablesRule->new( chain => $shaperChain );
 
         if (defined $self->{srcRange}) {
@@ -211,7 +223,6 @@ sub dumpIptablesCommands
         if (not defined ($self->{service})) {
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
-
         } elsif ($self->{service}->selectedType() eq 'service_port') {
             my $iface = $self->{parent}->getInterface();
             my $network = EBox::Global->modInstance('network');
@@ -220,18 +231,15 @@ sub dumpIptablesCommands
             } else {
                 $ipTablesRule->setReverseService($self->{service}->value());
             }
-
         } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
             #$ipTablesRule->setL7Service($self->{service}->value());
             $l7Rule = 1;
-
         } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
             #$ipTablesRule->setL7GroupedService($self->{service}->value());
             $l7Rule = 1;
-
         }
 
-        if ( $l7Rule ) {
+        if ($l7Rule) {
             # Send unmarked packets to l7filter (NFQUEUE)
             $ipTablesRule->setTable('mangle');
             $ipTablesRule->setChain($l7shaperChain);

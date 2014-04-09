@@ -22,10 +22,8 @@
 #            'type' - either 'ipset', 'ipaddr' or 'iprange;
 #             ipset type additional keys:
 #               'name' - The name of the ipset
-#               'filter' - The filter to apply to the ipset content. Can be:
-#                   'ipaddr'
-#                       'ipaddr'
-#                       'mask'
+#               'filterip'
+#               'filtermask'
 #             ipaddr type additional keys:
 #               'ipaddr' - ip/s member (CIDR notation)
 #               'mask'   -  network mask's member
@@ -69,15 +67,6 @@ sub addresses
 {
     my ($self, %params) = @_;
     my $mask = $params{mask};
-
-    use Data::Dumper;
-    EBox::info("On addresses");
-
-    if ($self->{type} eq 'ipset') {
-        # TODO Check
-        EBox::info("ADDRESSES called on IPSET");
-        return [];
-    }
 
     my @ips = map {
         my $member = $_;
@@ -129,13 +118,9 @@ sub iptablesSrcParams
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipset') {
             my $arg = '';
-            if (defined $member->{filter}) {
-                my $filter = $member->{filter};
-                my $addr = $filter->{ipaddr};
-                my $mask = $filter->{mask};
-                unless (length $addr and length $mask) {
-                    throw EBox::Exceptions::MissingArgument("filter");
-                }
+            if (length $member->{filterip} and length $member->{filtermask}) {
+                my $addr = $member->{filterip};
+                my $mask = $member->{filtermask};
                 $arg .= " --source $addr/$mask ";
             }
             $arg .= ' -m set --match-set ' . $member->{name} . ' src ';
@@ -174,13 +159,9 @@ sub iptablesDstParams
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipset') {
             my $arg = '';
-            if (defined $member->{filter}) {
-                my $filter = $member->{filter};
-                my $addr = $filter->{ipaddr};
-                my $mask = $filter->{mask};
-                unless (length $addr and length $mask) {
-                    throw EBox::Exceptions::MissingArgument("filter");
-                }
+            if (length $member->{filterip} and length $member->{filtermask}) {
+                my $addr = $member->{filterip};
+                my $mask = $member->{filtermask};
                 $arg .= " --destination $addr/$mask ";
             }
             $arg .= ' -m set --match-set ' . $member->{name} . ' dst ';

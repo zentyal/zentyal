@@ -65,6 +65,7 @@ use List::Util;
 use Perl6::Junction qw(none);
 
 # Types
+use EBox::Types::IPSet;
 use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 
@@ -1068,7 +1069,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                 # then attaching filters according to members of this object
                 $src = undef;
                 $srcObj =  $rule_ref->{source};
-                return unless (@{$objs->objectAddresses($srcObj)});
+                #return unless (@{$objs->objectAddresses($srcObj)});
             }
 
             # The same related to destination
@@ -1186,6 +1187,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 sub _buildObjMembers
 {
     my ($self, %args ) = @_;
+
     my $treeBuilder = $args{treeBuilder};
     my $what = $args{what};
     my $objectName = $args{objectName};
@@ -1255,8 +1257,8 @@ sub _buildObjMembers
 sub _buildObjToObj
 {
     my ($self, %args) = @_;
-    my $objs = $self->{'objects'};
 
+    my $objs = $self->{'objects'};
     my $srcMembers_ref = $objs->objectMembers($args{srcObject});
     my $dstMembers_ref = $objs->objectMembers($args{dstObject});
 
@@ -1276,7 +1278,6 @@ sub _buildObjToObj
                 id          => $filterId,
             );
             $filterId++;
-
         }
     }
 }
@@ -1292,13 +1293,20 @@ sub _addressFromObjectMember
             ip => $ipAddr,
             mask => $member->{mask},
             fieldName => 'ip'
-           );
+        );
     } elsif ($member->{type} eq 'iprange') {
         $address = new EBox::Types::IPRange(
             begin => $member->{begin},
             end => $member->{end},
-                fieldName => 'iprange'
-               );
+            fieldName => 'iprange'
+        );
+    } elsif ($member->{type} eq 'ipset') {
+        $address = new EBox::Types::IPSet(
+            set    => $member->{name},
+            filterip => $member->{filterip},
+            filtermask => $member->{filtermask},
+            fieldName => 'ipset',
+        );
     } else {
         throw EBox::Exceptions::Internal("Unexpected member type: " . $member->{type})
     }

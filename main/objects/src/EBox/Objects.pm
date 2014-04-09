@@ -281,6 +281,31 @@ sub objectMembers # (object)
     return $object->subModel('members')->members();
 }
 
+# objectIsDynamic
+#
+#   TODO
+#
+# Parameters:
+#
+#
+# Returns:
+#
+#
+sub objectIsDynamic
+{
+    my ($self, $id, @params) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument("id");
+    }
+
+    my $model = $self->model('ObjectTable');
+    my $row = $model->row($id);
+    my $dynamic = $row->valueByName('dynamic');
+
+    return (defined $dynamic and $dynamic == 1);
+}
+
 # objectAddresses
 #
 #       Return the network addresses of a object

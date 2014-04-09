@@ -119,7 +119,7 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
-    if (exists $changedParams->{iface}) {
+    if (($action ne 'add') and (exists $changedParams->{iface})) {
         throw EBox::Exceptions::External(
             __('Changing rules interface is not supported. Remove the rule and add another for the desired interface')
            );
@@ -149,11 +149,13 @@ sub validateTypedRow
             if ( defined ( $params->{$target} )) {
                 if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
                     my $srcObjId = $params->{$target}->value();
-                    unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
-                        throw EBox::Exceptions::External(
-                        __x('Object {object} has no members. Please add at ' .
-                            'least one to add rules using this object',
-                            object => $params->{$target}->printableValue()));
+                    unless ($objMod->objectIsDynamic($srcObjId)) {
+                        unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
+                            throw EBox::Exceptions::External(
+                            __x('Object {object} has no members. Please add at ' .
+                                'least one to add rules using this object',
+                                object => $params->{$target}->printableValue()));
+                        }
                     }
                 }
             }
