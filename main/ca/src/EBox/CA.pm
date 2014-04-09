@@ -46,9 +46,6 @@ use EBox::Util::Version;
 
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
-my $output_shell = EBox::Config->tmp() . 'openssl-shell.out';
-my $error_shell = EBox::Config->tmp() . 'openssl-shell.err';
-
 use constant CATOPDIR => EBox::Config->home() . "CA/";
 
 use constant SSLCONFFILE => EBox::Config->conf() . "openssl.cnf";
@@ -2586,13 +2583,13 @@ sub _audit
 #####
 sub _startShell
 {
-    my ($self) = @_;
+    my ($self, $outputFile, $errorFile) = @_;
 
     return if ( $self->{shell} );
 
     my $open = '| ' . OPENSSLPATH
-               . " 1>$output_shell"
-               . " 2>$error_shell";
+               . " 1>$outputFile"
+               . " 2>$errorFile";
 
     if ( not open($self->{shell}, $open) ) {
         throw EBox::Exceptions::Internal(__x("Cannot start OpenSSL shell. ({errval})", errval => $!));
@@ -2616,8 +2613,12 @@ sub _executeCommand # (command, input, hide_output)
 {
     my ($self, %params) = @_;
 
+    my $tmpDir = EBox::Config::tmp();
+    my (undef, $outputFile) = File::Temp::tempfile(OPEN => 0, DIR => $tmpDir);
+    my (undef, $errorFile)  = File::Temp::tempfile(OPEN => 0, DIR => $tmpDir);
+
     # Initialise the shell, launch exception if it is not possible
-    $self->_startShell();
+    $self->_startShell($outputFile, $errorFile);
 
     my $command = $params{command};
     # EBox::debug("OpenSSL command: $command");
@@ -2643,12 +2644,12 @@ sub _executeCommand # (command, input, hide_output)
     $self->_stopShell();
 
     # check for errors
-    if (-e $error_shell) {
+    if (-e $errorFile) {
         # There was an error
-        my $ret = File::Slurp::read_file($error_shell);
-        unlink($error_shell);
+        my $ret = File::Slurp::read_file($errorFile);
+        unlink($errorFile);
         if ( $ret =~ /error/i ) {
-            unlink($output_shell);
+            unlink($outputFile);
             EBox::error("Error: $ret");
             return ('ERROR', $ret);
         }
@@ -2656,13 +2657,13 @@ sub _executeCommand # (command, input, hide_output)
 
     # Load the output
     my $ret = 1;
-    if ( -e $output_shell ) {
-        $ret = File::Slurp::read_file($output_shell);
+    if ( -e $outputFile ) {
+        $ret = File::Slurp::read_file($outputFile);
         # $ret =~ s/^(OpenSSL>\s)*//s;
         $ret =~ s/^OpenSSL>\s*//gm;
         $ret = 1 if ($ret eq "");
     }
-    unlink($output_shell);
+    unlink($outputFile);
 
     my $msg = $ret;
     $msg = "<NOT LOGGED>" if ($params{hide_output});
