@@ -70,6 +70,7 @@ if dpkg --configure -a --force-confdef
 then
     /usr/share/zentyal/global-action --action saveAllModules
     /usr/share/zentyal/initial-setup users 3.3
+    service zentyal users restart
     service zentyal webadmin restart
     service zentyal haproxy restart
 
