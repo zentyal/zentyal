@@ -329,8 +329,8 @@ sub parseUsersFile
         }
         my ($username, $hash, $fullname, $quota) = split("\t", $line);
         $users->{$username} = {hash => $hash};
-        $users->{$username}->{fullname} = $fullname if (defined $fullname);
-        $users->{$username}->{quota} = $quota if (defined $quota);
+        $users->{$username}->{fullname} = $fullname if ((defined $fullname) and ($fullname ne ''));
+        $users->{$username}->{quota} = $quota if ((defined $quota) and ($quota ne ''));
     }
 
     unless (close $FH) {
