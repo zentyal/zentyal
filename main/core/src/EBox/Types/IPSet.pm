@@ -22,7 +22,6 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;
-use EBox::Exceptions::MissingArgument;
 use Net::IP;
 
 sub new
@@ -61,11 +60,23 @@ sub printableValue
     my ($self) = @_;
 
     my $value = '';
-    if (defined $self->{set}) {
-        $value .= $self->{set};
-        my $filter = $self->_filter();
-        if (defined $filter) {
-            $value .= "[ $filter ]";
+    my $options = $self->options();
+    if (defined $options) {
+        my $set = $self->{set};
+        if (defined $self->{set}) {
+            foreach my $option (@{$options}) {
+                if ($option->{'value'} eq $set) {
+                    if ($option->{'printableValue'}) {
+                        $value .= $option->{'printableValue'};
+                    } else {
+                        $value .= $value;
+                    }
+                }
+            }
+            my $filter = $self->_filter();
+            if (defined $filter) {
+                $value .= " on network $filter";
+            }
         }
     }
     return $value;
@@ -219,8 +230,12 @@ sub _paramIsValid
     unless (length $set) {
         throw EBox::Exceptions::InvalidData('data' => 'set name', 'value' => $set);
     }
-    checkIP($params->{$ip}, __($self->printableName()));
-    checkCIDR($params->{$ip} . "/$params->{$mask}", __($self->printableName()));
+
+    # Filter IP and mask are optional
+    if (defined $params->{$ip}) {
+        checkIP($params->{$ip}, __($self->printableName()));
+        checkCIDR($params->{$ip} . "/$params->{$mask}", __($self->printableName()));
+    }
 
     return 1;
 }
@@ -240,7 +255,8 @@ sub _paramIsSet
     my $ip =  $self->fieldName() . '_ip';
     my $mask =  $self->fieldName() . '_mask';
 
-    unless (defined $params->{$set} and defined $params->{$ip} and defined $params->{$mask}) {
+    # Filter IP and mask are optional
+    unless (defined $params->{$set}) {
         return 0;
     }
 
@@ -295,6 +311,26 @@ sub isEqualTo
     }
 
     return 1;
+}
+
+sub populate
+{
+    my ($self) = @_;
+
+    unless (defined $self->{populate}) {
+        throw EBox::Exceptions::Internal('No populate function has been ' .
+                                         'defined and it is required to fill ' .
+                                         'the options');
+    }
+    return $self->{populate};
+}
+
+sub options
+{
+    my ($self) = @_;
+
+    my $populateFunc = $self->populate();
+    return &$populateFunc($self->model());
 }
 
 1;

@@ -136,11 +136,6 @@ sub iptablesSrcParams
         }
     }
 
-    # TODO Check
-    use Data::Dumper;
-    EBox::info("On iptablesSrcParams");
-    EBox::info(Dumper(\@params));
-
     return \@params;
 }
 
@@ -172,11 +167,6 @@ sub iptablesDstParams
             push @params, ' -m iprange --dst-range ' . $member->{begin} . '-' . $member->{end};
         }
     }
-
-    # TODO Check
-    use Data::Dumper;
-    EBox::info("On iptablesDstParams");
-    EBox::info(Dumper(\@params));
 
     return \@params;
 }

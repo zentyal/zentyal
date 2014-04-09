@@ -126,11 +126,10 @@ sub _snifferCond
     my $model = $self->model('ObjectTable');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        my $dynamic = $row->valueByName('dynamic');
-        next unless $dynamic;
+        my $type = $row->elementByName('type');
+        next unless defined $type->set();
 
-        my $rowType = $row->valueByName('type');
-        return 1 if $self->dynamicObjectIsRegistered($rowType);
+        return 1 if $self->dynamicObjectIsRegistered($type->set());
     }
 
     return 0;
@@ -301,9 +300,9 @@ sub objectIsDynamic
 
     my $model = $self->model('ObjectTable');
     my $row = $model->row($id);
-    my $dynamic = $row->valueByName('dynamic');
+    my $type = $row->elementByName('type');
 
-    return (defined $dynamic and $dynamic == 1);
+    return (defined $type->set());
 }
 
 # objectAddresses

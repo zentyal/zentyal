@@ -41,6 +41,7 @@ use EBox::Types::HasMany;
 use EBox::Types::Boolean;
 use EBox::Types::IPAddr;
 use EBox::Types::Select;
+use EBox::Types::IPSet;
 use EBox::Sudo;
 
 use Net::IP;
@@ -69,24 +70,12 @@ sub _table
             'unique'            => 1,
             'editable'          => 1,
         ),
-        new EBox::Types::Boolean(
-            'fieldName'         => 'dynamic',
-            'printableName'     => __('Dynamic'),
-            'defaultValue'      => 0,
-            'editable'          => 1,
-        ),
-        new EBox::Types::IPAddr(
-            fieldName           => 'filter',
-            printableName       => __('Filter by network (CIDR format)'),
+        new EBox::Types::IPSet(
+            fieldName           => 'type',
+            printableName       => __('Object type'),
+            populate            => sub { $self->_populateTypes() },
             editable            => 1,
             optional            => 1,
-        ),
-        new EBox::Types::Select(
-            'fieldName'         => 'type',
-            'printableName'     => __('Object type'),
-            'populate'          => sub { $self->_populateTypes() },
-            'editable'          => 1,
-            'HTMLViewer'        => '/objects/ajax/viewer/selectViewer.mas',
         ),
         new EBox::Types::HasMany(
             'fieldName'         => 'members',
@@ -113,33 +102,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $actions = {
-        dynamic => {
-            1 => {
-                show => ['filter', 'type'],
-            },
-            0 => {
-                hide => ['filter', 'type'],
-            },
-        },
-    };
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    $customizer->setOnChangeActions($actions);
-    #$customizer->setInitHTMLStateOrder(['dynamic']);
-
-    return $customizer;
 }
 
 # Method: warnIfIdUsed

@@ -67,15 +67,14 @@ sub ids
     my ($self)  = @_;
 
     my $parentRow = $self->parentRow();
-    my $isDynamic = $parentRow->valueByName('dynamic');
-    return $self->SUPER::ids() unless $isDynamic;
-
-    my ($filterIp, $filterMask) = $parentRow->valueByName('filter');
+    my $type = $parentRow->elementByName('type');
+    return $self->SUPER::ids() unless defined $type->set();
 
     my $ipset = $self->_ipset();
     my $ids = $ipset->{members};
 
     # Filter elements if filter is defined in the parent row
+    my ($ipsetName, $filterIp, $filterMask) = $type->value();
     if (defined $filterIp and defined $filterMask) {
         my $range = new Net::IP("$filterIp/$filterMask");
         $ids = [ grep {
@@ -100,8 +99,8 @@ sub row
     my ($self, $id)  = @_;
 
     my $parentRow = $self->parentRow();
-    my $isDynamic = $parentRow->valueByName('dynamic');
-    return $self->SUPER::row($id) unless $isDynamic;
+    my $type = $parentRow->elementByName('type');
+    return $self->SUPER::row($id) unless defined $type->set();
 
     my $row = new EBox::Model::Row(dir => $self->directory(),
         confmodule => $self->parentModule());
@@ -113,7 +112,7 @@ sub row
     foreach my $type (@{$table->{tableDescription}}) {
         my $element = $type->clone();
         if ($type->fieldName() eq 'name') {
-            my $ipset = $parentRow->valueByName('type');
+            my ($ipset, undef, undef) = $parentRow->valueByName('type');
             $element->setValue("dynamic_${ipset}_${id}");
         } elsif ($type->fieldName() eq 'address') {
             $element->setValue({ ipaddr => "$id/32"});
@@ -188,7 +187,8 @@ sub _defaultActions
     my ($self) = @_;
 
     my $defaultActions = [ 'changeView' ];
-    unless ($self->parentRow->valueByName('dynamic')) {
+    my $type = $self->parentRow->elementByName('type');
+    unless (defined $type->set()) {
         push (@{$defaultActions}, qw( add del editField clone ));
     }
     return $defaultActions;
@@ -204,11 +204,6 @@ sub setDirectory
     my ($self) = shift;
 
     $self->SUPER::setDirectory(@_);
-
-    my $defaultActions = [ 'changeView' ];
-    unless ($self->parentRow->valueByName('dynamic')) {
-        push (@{$defaultActions}, qw( add del editField clone ));
-    }
 
     my $table = $self->{'table'};
     $table->{actions} = undef;
@@ -326,20 +321,15 @@ sub members
 
     # If object is dynamic, return just the ipset name and filter
     my $parentRow = $self->parentRow();
-    my $dynamic = $parentRow->valueByName('dynamic');
-    if ($dynamic) {
-        my $ipset = $parentRow->valueByName('type');
+    my $type = $parentRow->elementByName('type');
+    if (defined $type->set()) {
+        my ($ipset, $filterIp, $filterMask) = $type->value();
         my $member = {
-            name => $ipset,
             type => 'ipset',
-            filterip => undef,
-            filtermask => undef,
+            name => $ipset,
+            filterip => $filterIp,
+            filtermask => $filterMask,
         };
-        my ($filterIp, $filterMask) = $parentRow->valueByName('filter');
-        if (length $filterIp and length $filterMask) {
-            $member->{filterip} = $filterIp;
-            $member->{filtermask} = $filterMask;
-        }
         push (@{$members}, $member);
     } else {
         foreach my $id (@{$self->ids()}) {
@@ -447,7 +437,7 @@ sub _ipset
     my ($self) = @_;
 
     my $parent = $self->parentRow();
-    my $ipsetName = $parent->valueByName('type');
+    my ($ipsetName, $filterIp, $filterMask) = $parent->valueByName('type');
 
     my $output = EBox::Sudo::root("ipset list $ipsetName");
 

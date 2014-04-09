@@ -8,6 +8,7 @@ $disabled => undef
 my @masks = (32, 30, 29, 28, 27, 26, 25, 24,
              23, 22, 21, 20, 19, 18, 17, 16,
              15, 14, 13, 12, 11, 10, 9, 8);
+my $sets = $data->options();
 </%init>
 <& SELF:setter,
               tableName => $tableName,
@@ -23,37 +24,46 @@ $tableName
 $data
 $cssClass => ''
 $defaultMask => 24
-@masks
+$masks
 $disabled
 </%args>
 <%init>
-my @options;
-for my $mask (@masks) {
-	push (@options, {'value' => $mask, 'printableValue' => $mask});
+my $maskOptions = [];
+for my $mask (@{$masks}) {
+	push (@{$maskOptions}, {'value' => $mask, 'printableValue' => $mask});
 }
 
-my $defaultMaskValue = $data->mask();
+my $defaultMaskValue = $data->filterMask();
 unless ($defaultMaskValue) {
    $defaultMaskValue = $defaultMask;
 }
+
+my $setOptions = [];
+push (@{$setOptions}, { value => undef, printableValue => '---' }) if ($data->optional());
+push (@{$setOptions}, @{$data->options()});
+my $set = defined $data->set() ? $data->set() : '---';
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
 % if ($data->editable()) {
 <span id="<% $id %>" class="inline-input <% $cssClass %>">
-  <input type="text" class="inputText" value=" <% data->set() %>"
-    size="16" id='<% $id . '_set' %>' name='<% $id . '_set' %>'
-    <% $disabled ? 'disabled' : '' %> />
-  <br/>
-  <input type="text" class="inputText" value="<% $data->ip() %>"
+  <& /input/select.mas,
+    name => $id . '_set',
+    value => $set,
+    options => $setOptions,
+    id => $id . '_set',
+    disabled => $disabled
+  &>
+  <span> on network </span>
+  <input type="text" class="inputText" value="<% $data->filterIp() %>"
 	size="16" id='<% $id . '_filterip' %>' name='<% $id . '_filterip' %>'
     <% $disabled ? 'disabled' : '' %> />
   <span>/</span>
   <& /input/select.mas,
-    'name'  => $id . '_filtermask' ,
-    'value' => $defaultMaskValue,
-     options => \@options,
-    'id'    => "$id" . "_filtermask",
-    'disabled' => $disabled
+    name     => $id . '_filtermask',
+    value    => $defaultMaskValue,
+    options  => $maskOptions,
+    id       => $id . '_filtermask',
+    disabled => $disabled
   &>
 </span>
 % }
