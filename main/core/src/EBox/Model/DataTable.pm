@@ -1159,15 +1159,14 @@ sub warnIfIdUsed
 #
 #    (NAMED)
 #
-#       'modelName' - String the observable model's name
+#     'modelName' - String the observable model's name
 #
 #     'id' - String row id
 #
-#    'changeData' - hash ref of data types which are going to be
-#    changed
+#     'changedData' - hash ref of data types which are going to be
+#                    changed
 #
-#       'oldRow' - hash ref the same content as
-#       <EBox::Model::DataTable::row> using old row content
+#     'oldRow' - <EBox::Model::Row> the old row content
 #
 # Returns:
 #
@@ -1319,7 +1318,11 @@ sub setTypedRow
         # produces an inconsistent state
         if ((not $force) and $self->table()->{'automaticRemove'}) {
             my $manager = EBox::Model::Manager->instance();
-            $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
+            my $contextName = $self->contextName();
+            # remove begining and trailing '/' for context name
+            $contextName =~ s{^/}{};
+            $contextName =~ s{/$}{};
+            $manager->warnOnChangeOnId($contextName, $id, $changedElements, $oldRow);
         }
 
         my $key = "$dir/$id";

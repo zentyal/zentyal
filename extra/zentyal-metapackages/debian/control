@@ -33,8 +33,7 @@ Description: Zentyal - All Modules
 
 Package: zentyal-gateway
 Architecture: all
-Depends: zentyal-squid, zentyal-trafficshaping, zentyal-l7-protocols,
-         zentyal-software
+Depends: zentyal-squid, zentyal-trafficshaping, zentyal-software
 Description: Zentyal - Gateway Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -46,7 +45,7 @@ Description: Zentyal - Gateway Suite
 Package: zentyal-infrastructure
 Architecture: all
 Depends: zentyal-dhcp, zentyal-dns, zentyal-openvpn, zentyal-webserver,
-         zentyal-ftp, zentyal-ntp, zentyal-software
+         zentyal-ntp, zentyal-software
 Description: Zentyal - Network Infrastructure Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

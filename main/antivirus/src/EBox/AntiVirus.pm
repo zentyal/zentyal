@@ -199,6 +199,18 @@ sub _daemons
     ];
 }
 
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'clamav-freshclam', 'type' => 'init.d' } ];
+}
+
+
 sub localSocket
 {
     return CLAMD_SOCKET;

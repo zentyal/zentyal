@@ -1,3 +1,17 @@
+3.5
+	+ Set version to 3.5
+	+ create-db script can repair login problems
+	+ Migrate previous configuration from 3.3 when upgrading
+	+ Admin password change handled by AuthPAM
+	+ Fix version available check in dashboard when file does not exist
+	+ Do not show success note if there is no note
+	+ Fix data in use behaviour on edition
+	+ Give support to data in use exception for in-place booleans
+	+ Fix warnOnChangeId framework
+	+ Give real no support to /media in Disk Usage even when modules
+	  use it
+	+ Hide passwords on admin user model on error and debug on
+	+ Set proper version for bugreport issues
 3.4
 	+ Added Warning in Dashboard when reboot is requierd by software
 	  update

@@ -25,17 +25,16 @@ use MIME::Base64;
 use File::Slurp;
 use TryCatch::Lite;
 
-# Milestone must be in format 'x.y[.z]'. The first two version numbers as 
+# Milestone must be in format 'x.y[.z]'. The first two version numbers as
 # separated by dots are used to create the issue in the bug tracker.
 # Version MUST exist in bug tracker database AND zentyal-bug-interface service!
 use constant RPC_URL => 'http://bugreport.zentyal.org/bugreport/v1';
-use constant MILESTONE => '3.3.X';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 
 # Method: send
 #
-# Send a bug report to Zentyal automatic bug report interface. 
+# Send a bug report to Zentyal automatic bug report interface.
 # It will also attach a generated log
 #
 # Params:
@@ -52,6 +51,9 @@ sub send
 {
     my ($author_email, $description) = @_;
 
+    my $version = `dpkg -s zentyal-core|grep ^Version:`;
+    ($version) =~ /^Version: (\d+\.\d+)/;
+
     my $client = new JSON::RPC::Client;
 
     my $title = 'Bug report from Zentyal Server';
@@ -62,7 +64,7 @@ sub send
             $description,                    # description
             {
                 reporter => $author_email,   # author
-                milestone => MILESTONE,      # milestone
+                milestone => $version,       # milestone
             },
             'true',                          # notify
         ],

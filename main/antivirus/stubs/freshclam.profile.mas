@@ -1,6 +1,7 @@
 <%args>
   $observerScript
 </%args>
+/run/clamav/clamd.ctl rw,
 # Run observer script
 /bin/dash ix,
 <% $observerScript %> rUx,
