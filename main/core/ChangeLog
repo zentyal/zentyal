@@ -1,4 +1,5 @@
 HEAD
+	+ Support for redirection when loading URL in existent dialog
 	+ Added webadmin port tag to haproxy configuration file
 3.4.1
 	+ Fix dashboard UI freeze when widgets were being updated
