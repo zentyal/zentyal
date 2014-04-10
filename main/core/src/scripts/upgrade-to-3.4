@@ -36,7 +36,7 @@ do
 done
 
 # Copy samba data to new destination and re-create hardlinks
-if dpkg -l | grep -q samba4
+if dpkg -l | grep -q zentyal-samba
 then
     service zentyal samba stop
     pkill -9 samba
@@ -50,6 +50,13 @@ then
     chown -R root:bind /var/lib/samba/private/dns
     chmod -R g+rw /var/lib/samba/private/dns
     service zentyal samba restart
+fi
+
+PRINTERS_INSTALLED="no"
+if dpkg -l | grep -q zentyal-printers
+then
+    PRINTERS_INSTALLED="yes"
+    apt-get remove -y --force-yes cups-common
 fi
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
@@ -71,6 +78,11 @@ service zentyal samba restart > /dev/null 2>&1
 
 if dpkg --configure -a --force-confdef
 then
+    if [ "$PRINTERS_INSTALLED" == "yes" ]
+    then
+        apt-get install -y --force-yes -o DPkg::Options::="--force-confold" zentyal-printers
+    fi
+
     /usr/share/zentyal/global-action --action saveAllModules
     for i in users remoteservices
     do
