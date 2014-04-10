@@ -65,8 +65,10 @@ sub ToInternetRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        my $appRule = $self->_isApplicationRule($row);
+        my $chain = $appRule ? 'fapplicationglobal' : 'fglobal';
         my $rule = new EBox::Firewall::IptablesRule(
-                'table' => 'filter', 'chain' => 'fglobal');
+                'table' => 'filter', 'chain' => $chain);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
@@ -96,6 +98,8 @@ sub ExternalToInternalRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        my $appRule = $self->_isApplicationRule($row);
+        my $chain = $appRule ? 'fapplicationfwdrules' : 'ffwdrules';
         my $rule = new EBox::Firewall::IptablesRule(
                 'table' => 'filter', 'chain' => 'ffwdrules');
         $self->_addAddressToRule($rule, $row, 'source');
@@ -126,9 +130,14 @@ sub InternalToEBoxRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+
+        my $appRule = $self->_isApplicationRule($row);
+        my $chain = $appRule ? 'iapplicationglobal' : 'iglobal';
         my $rule = new EBox::Firewall::IptablesRule(
-                'table' => 'filter', 'chain' => 'iglobal');
-        $rule->setState('new' => 1);
+                'table' => 'filter', 'chain' => $chain);
+        if (not $appRule) {
+            $rule->setState('new' => 1);
+        }
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'iaccept');
@@ -156,9 +165,13 @@ sub ExternalToEBoxRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        my $appRule = $self->_isApplicationRule($row);
+        my $chain = $appRule ? 'iapplicationexternal' : 'iexternal';
         my $rule = new EBox::Firewall::IptablesRule(
-                'table' => 'filter', 'chain' => 'iexternal');
-        $rule->setState('new' => 1);
+                'table' => 'filter', 'chain' => $chain);
+        if (not $appRule) {
+            $rule->setState('new' => 1);
+        }
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'iaccept');
@@ -186,9 +199,14 @@ sub EBoxOutputRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        my $appRule = $self->_isApplicationRule($row);
+        my $chain = $appRule ? 'oapplicationglobal' : 'oglobal';
         my $rule = new EBox::Firewall::IptablesRule(
-                'table' => 'filter', 'chain' => 'oglobal');
-        $rule->setState('new' => 1);
+                'table' => 'filter', 'chain' => $chain);
+        if (not $appRule) {
+            $rule->setState('new' => 1);
+        }
+
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'oaccept');
@@ -254,6 +272,13 @@ sub SNATRules
     }
 
     return \@rules;
+}
+
+sub _isApplicationRule
+{
+    my ($self, $row) = @_;
+    my $service = $row->valueByName('service');
+    return ($service =~ m/^ndpi_/);
 }
 
 sub _addOrigAddressToRule
