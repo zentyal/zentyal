@@ -119,7 +119,7 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
-    if (exists $changedParams->{iface}) {
+    if (($action ne 'add') and (exists $changedParams->{iface})) {
         throw EBox::Exceptions::External(
             __('Changing rules interface is not supported. Remove the rule and add another for the desired interface')
            );
