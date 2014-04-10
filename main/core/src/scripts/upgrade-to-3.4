@@ -36,21 +36,21 @@ do
 done
 
 # Copy samba data to new destination and re-create hardlinks
-service zentyal samba stop
-SAMBA_PID=$(cat /var/run/samba/samba.pid)
-kill $SAMBA_PID
-sleep 1
-pkill -9 samba
-pkill -9 smbd
-mkdir -p /var/lib/samba
-cp -r /opt/samba4/private /var/lib/samba/
-cp -r /opt/samba4/var/locks/* /var/lib/samba/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
-chown -R root:bind /var/lib/samba/private/dns
-chmod -R g+rw /var/lib/samba/private/dns
-service zentyal samba restart
+if dpkg -l | grep -q samba4
+then
+    service zentyal samba stop
+    pkill -9 samba
+    pkill -9 smbd
+    mkdir -p /var/lib/samba
+    cp -r /opt/samba4/private /var/lib/samba/
+    cp -r /opt/samba4/var/locks/* /var/lib/samba/
+    ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+    ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
+    ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
+    chown -R root:bind /var/lib/samba/private/dns
+    chmod -R g+rw /var/lib/samba/private/dns
+    service zentyal samba restart
+fi
 
 echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
 sed -i 's/precise/saucy/g' /etc/apt/sources.list
@@ -61,20 +61,22 @@ echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
 for i in users remoteservices
 do
-    sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-${i}.postinst
+    sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-${i}.postinst > /dev/null 2>&1
 done
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
 pkill -9 samba
 pkill -9 smbd
-service zentyal samba restart
+service zentyal samba restart > /dev/null 2>&1
 
 if dpkg --configure -a --force-confdef
 then
     /usr/share/zentyal/global-action --action saveAllModules
-    /usr/share/zentyal/initial-setup users 3.3
-    /usr/share/zentyal/initial-setup remoteservices 3.3
-    service zentyal users restart
+    for i in users remoteservices
+    do
+        /usr/share/zentyal/initial-setup $i 3.3 > /dev/null 2>&1
+    done
+    service zentyal users restart > /dev/null 2>&1
     service zentyal webadmin restart
     service zentyal haproxy restart
 
