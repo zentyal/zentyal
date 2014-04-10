@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed Contact creation with non ASCII chars in the description field
 	+ Decode strings coming from LDAP to handle non-ASCII values correctly
 	+ Updated the view code to use
 	  EBox::Users::InetOrgPerson::generatedFullname API

@@ -59,14 +59,16 @@ sub _process
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');
         my $fullname = EBox::Users::Contact->generatedFullname(givenname => $givenname, surname => $surname);
+        my $description = $self->unsafeParam('description');
+        my $mail = $self->unsafeParam('mail');
 
         my $contact = EBox::Users::Contact->create(
             fullname => $fullname,
             parent => $users->objectFromDN($dn),
             givenname => $givenname,
             surname => $surname,
-            description => $self->param('description'),
-            mail => $self->param('mail'),
+            description => $description,
+            mail => $mail,
         );
 
         $self->{json}->{success} = 1;
