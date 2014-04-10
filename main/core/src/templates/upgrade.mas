@@ -9,6 +9,12 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
     var aboutToFinish = false;
+    function upgradeFinished() {
+        $('#webadmin_ko').hide();
+        $('#ajax_loader_upgrade').hide();
+        $('#finished').show();
+        $('#close_button').show();
+    }
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
@@ -16,10 +22,7 @@ use EBox::Gettext;
             success: function(response) {
                 $('#output').html(response.output);
                 if (aboutToFinish) {
-                    $('#webadmin_ko').hide();
-                    $('#ajax_loader_upgrade').hide();
-                    $('#finished').show();
-                    $('#close_button').show();
+                    upgradeFinished();
                 }
             }
         }).fail(function (jqXHR) {
@@ -27,6 +30,8 @@ use EBox::Gettext;
                 aboutToFinish = true;
                 $('#output').hide();
                 $('#webadmin_ko').show();
+            } else if (aboutToFinish && (jqXHR.status == 0)) {
+                upgradeFinished();
             }
         });
         setTimeout(updateOutput, 1000);
