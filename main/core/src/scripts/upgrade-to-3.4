@@ -80,6 +80,7 @@ then
 
     echo; echo "Zentyal upgrade finished!"
 
+    rm -f /var/crash/_usr_sbin_samba*
     apt-get clean
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
