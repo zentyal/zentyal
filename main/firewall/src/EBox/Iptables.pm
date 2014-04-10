@@ -212,10 +212,10 @@ sub _setStructure
             pf('-N fdrop'),
             pf('-N faccept'),
             pf('-N fapplicationglobal'),
-            pf('-N fapplicationexternal'),
+            pf('-N fapplicationfwdrules'),
             pf('-A FORWARD -m state --state INVALID -j fdrop'),
+            pf('-A FORWARD -j fapplicationfwdrules'),
             pf('-A FORWARD -j fapplicationglobal'),
-            pf('-A FORWARD -j fapplicationexternal'),
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j faccept'),
 
             pf('-t nat -N premodules'),
