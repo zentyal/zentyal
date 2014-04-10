@@ -59,7 +59,10 @@ upgrade
 
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
-sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-users.postinst
+for i in users remoteservices
+do
+    sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-${i}.postinst
+done
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
 pkill -9 samba
@@ -70,6 +73,7 @@ if dpkg --configure -a --force-confdef
 then
     /usr/share/zentyal/global-action --action saveAllModules
     /usr/share/zentyal/initial-setup users 3.3
+    /usr/share/zentyal/initial-setup remoteservices 3.3
     service zentyal users restart
     service zentyal webadmin restart
     service zentyal haproxy restart
