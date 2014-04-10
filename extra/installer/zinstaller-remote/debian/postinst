@@ -71,7 +71,7 @@ then
     if [ -f /tmp/RECOVER_MODE ]
     then
         servers=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
-        echo $servers | sed "s/, /\n/g" | grep : | cut -d\" -f2 | tr ':' '-' | sort > $DATA_DIR/PARSED_SERVERS
+        echo $servers | sed "s/, /\n/g" | grep : | cut -d\" -f2 | sed 's/:/ -/g' | sort > $DATA_DIR/PARSED_SERVERS
         choices=$(cat $DATA_DIR/PARSED_SERVERS | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
 
         db_subst zinstaller-remote/select_hostname_recover CHOICES "$choices"

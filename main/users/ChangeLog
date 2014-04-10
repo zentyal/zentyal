@@ -7,6 +7,9 @@ HEAD
 	+ Added basic format check for InetOrgPerson fields
 	+ Updated group name and username validation code to follow Windows
 	  restrictions and added unit tests for those restrictions
+3.2.12
+	+ Fixed bug when altering mail address through the edit user form
+	+ Better integration between mail addon and mail field
 3.2.11
 	+ Remove method canonicalName and use object DNs for greater performance
 3.2.10
