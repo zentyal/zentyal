@@ -32,7 +32,7 @@ use EBox::Types::HostIP;
 use EBox::Types::Action;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
-use EBox::CaptivePortal::Middleware::AuthLDAP;
+use EBox::CaptivePortal::Middleware::AuthFile;
 use EBox::Types::Int;
 
 sub new
@@ -204,7 +204,7 @@ sub syncRows
     # Get current users array
     my $sidFile;
     my $sessions = {};
-    for my $session (@{EBox::CaptivePortal::Middleware::AuthLDAP::currentSessions()}) {
+    for my $session (@{EBox::CaptivePortal::Middleware::AuthFile::currentSessions()}) {
         $sessions->{$session->{sid}} = $session;
     }
 
@@ -269,7 +269,7 @@ sub _kickUser
     my $username= $row->valueByName('user');
 
     # End session
-    EBox::CaptivePortal::Middleware::AuthLDAP::updateSession($sid, $ip, 0);
+    EBox::CaptivePortal::Middleware::AuthFile::updateSession($sid, $ip, 0);
 
     # notify captive daemon
     system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);
@@ -285,9 +285,8 @@ sub _extendUser
     my $sid = $row->valueByName('sid');
     my $ip = $row->valueByName('ip');
     my $username= $row->valueByName('user');
-    my $user = EBox::Global->modInstance('users')->userByUID($username);
 
-    my $quota = $self->parentModule()->{cpldap}->getQuota($user);
+    my $quota = $self->parentModule()->userQuota($username);
     if ($quota == 0) {
         return;
     }

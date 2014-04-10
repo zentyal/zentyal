@@ -52,7 +52,7 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable "+EBox::CaptivePortal::Middleware::AuthLDAP",
+    enable "+EBox::CaptivePortal::Middleware::AuthFile",
         app_name => 'captiveportal';
     $app;
 };

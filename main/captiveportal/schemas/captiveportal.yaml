@@ -4,11 +4,9 @@ depends:
     - objects
     - network
     - firewall
-    - users
 
 enabledepends:
     - firewall
-    - users
 
 models:
     - Interfaces
@@ -16,7 +14,6 @@ models:
     - BWSettings
     - Users
     - CaptiveUser
-    - SecondaryLDAP
     - Exceptions
 
 modeldepends:
