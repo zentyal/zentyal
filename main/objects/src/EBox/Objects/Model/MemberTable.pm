@@ -26,20 +26,21 @@ use warnings;
 
 package EBox::Objects::Model::MemberTable;
 
-use EBox::Objects::Members;
+use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
+use EBox::Objects::Members;
 use EBox::Sudo;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
+use EBox::Validate qw(:all);
 
-use EBox::Exceptions::External;
 
 use Net::IP;
+use TryCatch::Lite;
 
 use base 'EBox::Model::DataTable';
 
@@ -68,9 +69,10 @@ sub ids
 
     my $parentRow = $self->parentRow();
     my $type = $parentRow->elementByName('type');
-    return $self->SUPER::ids() unless defined $type->set();
+    return $self->SUPER::ids() unless (defined $type->set());
 
     my $ipset = $self->_ipset();
+    return [] unless (defined($ipset));
     my $ids = $ipset->{members};
 
     # Filter elements if filter is defined in the parent row
@@ -439,20 +441,25 @@ sub _ipset
     my $parent = $self->parentRow();
     my ($ipsetName, $filterIp, $filterMask) = $parent->valueByName('type');
 
-    my $output = EBox::Sudo::root("ipset list $ipsetName");
+    try {
+        my $output = EBox::Sudo::root("ipset list $ipsetName");
 
-    my $ipset = {};
-    $ipset->{name}       = @{_linesplit(shift @{$output})}[1];
-    $ipset->{type}       = @{_linesplit(shift @{$output})}[1];
-    $ipset->{revision}   = @{_linesplit(shift @{$output})}[1];
-    $ipset->{header}     = @{_linesplit(shift @{$output})}[1];
-    $ipset->{size}       = @{_linesplit(shift @{$output})}[1];
-    $ipset->{references} = @{_linesplit(shift @{$output})}[1];
+        my $ipset = {};
+        $ipset->{name}       = @{_linesplit(shift @{$output})}[1];
+        $ipset->{type}       = @{_linesplit(shift @{$output})}[1];
+        $ipset->{revision}   = @{_linesplit(shift @{$output})}[1];
+        $ipset->{header}     = @{_linesplit(shift @{$output})}[1];
+        $ipset->{size}       = @{_linesplit(shift @{$output})}[1];
+        $ipset->{references} = @{_linesplit(shift @{$output})}[1];
 
-    shift @{$output};
-    $ipset->{members}   = [ map { $_ =~  s/^\s+|\s+$//g; $_ } @{$output} ];
+        shift @{$output};
+        $ipset->{members}   = [ map { $_ =~  s/^\s+|\s+$//g; $_ } @{$output} ];
 
-    return $ipset;
+        return $ipset;
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::debug($e);
+        $self->setMessage(__('You must save changes to see the members of this object'));
+    }
 }
 
 1;
