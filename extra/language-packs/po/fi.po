@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-03-04 21:57+0200\n"
-"Last-Translator: tomis <tomi.suovanen@pp.inet.fi>\n"
+"PO-Revision-Date: 2014-04-08 11:19+0200\n"
+"Last-Translator: timbe1000 <timbe1000@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -23,89 +23,100 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1415
 msgid "disabled"
-msgstr ""
+msgstr "estetty"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Palvelimen osoite"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Sinun pitää antaa ainakin yksi osoite palvelimelle {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "Asiakassovellutuksen varmenne ei voi olla sama kuin palvelimen varmenne"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
+"Tämä paketti ei ole sopiva Zentyalista Zentyaliin määrityspaketti (Pakettia "
+"ei voi purkaa)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Tämä paketti ei ole sopiva Zentyalista Zentyaliin määrityspaketti (Määritys "
+"tiedosto puuttuu)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
+"Tämä paketti ei ole sopiva Zentyalista Zentyaliin määrityspaketti (CA "
+"varmenne puutuu)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Tämä paketti ei ole sopiva Zentyalista Zentyaliin määrityspaketti (Varmenne "
+"puutuu)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Tämä paketti ei ole sopiva Zentyalista Zentyaliin määrityspaketti "
+"(Varmenteen yksityinen avain puutuu)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "CA varmenteen tiedosto puutuu {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "CA varmenteen yksityinen avain puutuu {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Varmenteen puuttuva yksityinen avaintiedosto {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "CA varmenteena syötetty tiedosto ei ole oikea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Asiakasohjelman varmenteena syötetty tiedosto ei ole oikea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Asiakasohjelman yksityis avaimena syötetty tiedosto ei ole oikea"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
-msgstr ""
+msgstr "Asiakasohjelman varmenne ei vastaa CA varmenteena syötettyä tiedostona"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Asiakasohjelman varmenne ei vastaa yksityis avainta varmenne tiedostossa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -113,6 +124,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"VPN asiakasohjelmaa ei saa voi olla määritettynä osoitetta {addr} koska "
+"osoite on localhost osoite"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -120,11 +133,13 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"VPN asiakasohjelmaa ei saa voi olla määritettynä osoitetta {addr} koska "
+"osoite on paikallisen verkkokortin osoite"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "Asiakas {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -200,20 +215,20 @@ msgstr "Poissa käytöstä"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
-msgstr ""
+msgstr "Palvelu"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1945
 #: ../../main/core/src/EBox/SysInfo.pm:489
 msgid "Running"
-msgstr ""
+msgstr "Käynnisä"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:494
 msgid "Stopped"
-msgstr ""
+msgstr "Pysäytetty"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898

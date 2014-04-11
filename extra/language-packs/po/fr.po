@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-03-21 11:35+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2014-04-09 16:41+0200\n"
+"Last-Translator: Ordifuté <christian@ordifute.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -780,16 +780,18 @@ msgstr "Mot de passe du  tunnel Zentyal à Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Refuser les routes proposées par les clients du tunnel Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Si l'option est sélectionnée, le serveur refusera les routes proposées par "
+"les clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr "L'interface écoute sur "
+msgstr "Interface d'écoute"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
 msgid "Redirect gateway"
@@ -801,16 +803,16 @@ msgstr "Faire de Zentyal la passerelle par défaut pour le client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
 msgid "First nameserver"
-msgstr "Premier serveur de nom"
+msgstr "Premier serveur de noms"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
 msgid "Secod nameserver"
-msgstr "Second serveur de nom"
+msgstr "Deuxième serveur de noms"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:434
 msgid "Search domain"
-msgstr "Recherche d'un domaine"
+msgstr "Rechercher un domaine"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:464
@@ -828,7 +830,7 @@ msgstr "Toutes les interfaces réseaux"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr "L'option tunnel de Zentyal à Zentyal requière un mot de passe RIP"
+msgstr "L'option tunnel de Zentyal à Zentyal nécessite un mot de passe RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
 #, perl-brace-format
@@ -847,7 +849,7 @@ msgstr "Un autre serveur écoute sur le même port"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Le port {p}/{pr} est en cours d'utilisation par {mod}"
+msgstr "Le port {p}/{pr} est utilisé par {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
@@ -857,7 +859,7 @@ msgstr "L'interface {iface} n'existe pas"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr "L'interface {iface} n'eest pas configurée"
+msgstr "L'interface {iface} n’est pas configurée"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
@@ -892,7 +894,7 @@ msgstr "L'interface doit être externe, à moins que l'option NAT soit active"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr "{par} n'est pas compatible avec un tunnel Zentya-à-Zentyal"
+msgstr "{par} n'est pas compatible avec un tunnel Zentya à Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
@@ -900,7 +902,7 @@ msgstr "Liste des réseaux diffusés au serveur tunnel."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
+msgstr "Les routes diffusées par l'interface TUN ne sont pas supportées"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
@@ -910,11 +912,11 @@ msgstr "Réseau annoncé"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
-msgstr "Activer"
+msgstr "Activé"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
-msgstr "Télécharger le paquetage client"
+msgstr "Télécharger le logiciel client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
@@ -922,7 +924,7 @@ msgstr "Liste des Clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
-msgstr "Clients RPV (VPN)"
+msgstr "Clients VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:149
 msgid ""
@@ -930,11 +932,11 @@ msgid ""
 "configuration and retry"
 msgstr ""
 "Impossible d'activer le client car il n'est pas complètement configuré; "
-"Veuillez éditer la configuration et réessayez"
+"Veuillez terminer la configuration et réessayer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
-msgstr "Le RIP du mot de passe (RIP password) est obligatoire"
+msgstr "Le mot de passe RIP est obligatoire"
 
 # Un démon ou daemon prononcé /ˈdiːmən/ ou /ˈdeɪmən/, du grec δαιμων) désigne un type de programme informatique, un processus qui s'exécute en arrière-plan plutôt que sous le contrôle direct d'un utilisateur.
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:59
