@@ -427,7 +427,11 @@ sub _addDecisionToRule
     if ($decision eq 'accept') {
         $rule->setDecision($acceptChain);
     } elsif ($decision eq 'deny') {
-        $rule->setDecision('drop');
+        if ($self->_isApplicationRule($row)) {
+            $rule->setDecision('REJECT');
+        } else {
+            $rule->setDecision('drop');
+        }
     } elsif ($decision eq 'log') {
         $rule->setDecision('log');
     }
