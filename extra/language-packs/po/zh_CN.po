@@ -2156,7 +2156,7 @@ msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/users/src/EBox/Users.pm:2546
+#: ../../main/users/src/EBox/Users.pm:2549
 msgid "alias"
 msgstr "别名"
 
@@ -4292,15 +4292,15 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:637
+#: ../../main/users/src/EBox/Users.pm:640
 msgid "Error performing users initialization"
 msgstr "执行用户初始化时发生错误"
 
-#: ../../main/users/src/EBox/Users.pm:794
+#: ../../main/users/src/EBox/Users.pm:797
 msgid "Error while creating users and groups database."
 msgstr "创建用户和组数据库时发生错误"
 
-#: ../../main/users/src/EBox/Users.pm:871
+#: ../../main/users/src/EBox/Users.pm:874
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -4310,35 +4310,35 @@ msgstr ""
 "补发错误：{err}。 {pbeg}在完成补发之前，用户模块和所有依赖它的模块都将无法使"
 "用。下次保存时，将再次尝试补发。{pend}"
 
-#: ../../main/users/src/EBox/Users.pm:1186
+#: ../../main/users/src/EBox/Users.pm:1189
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr "ID 为 '{uid}' 的用户找到 {count} 个（应该只有一个）。"
 
-#: ../../main/users/src/EBox/Users.pm:1419
+#: ../../main/users/src/EBox/Users.pm:1422
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 个 '{name}' 组（应该只有一个）。"
 
-#: ../../main/users/src/EBox/Users.pm:1896
+#: ../../main/users/src/EBox/Users.pm:1899
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/users/src/EBox/Users.pm:1899
+#: ../../main/users/src/EBox/Users.pm:1902
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "用户模板"
 
-#: ../../main/users/src/EBox/Users.pm:1908
+#: ../../main/users/src/EBox/Users.pm:1911
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "LDAP 设置"
 
-#: ../../main/users/src/EBox/Users.pm:1912
+#: ../../main/users/src/EBox/Users.pm:1915
 msgid "Configure mode"
 msgstr "配置模式"
 
-#: ../../main/users/src/EBox/Users.pm:1928
+#: ../../main/users/src/EBox/Users.pm:1931
 #: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
@@ -4367,7 +4367,7 @@ msgstr "配置模式"
 msgid "Password"
 msgstr "密码"
 
-#: ../../main/users/src/EBox/Users.pm:2099
+#: ../../main/users/src/EBox/Users.pm:2102
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -4375,7 +4375,7 @@ msgid ""
 msgstr ""
 "无法恢复用户模块，因为它正以 {mode} 模式运行，而备份是以 {bpMode} 模式制作的"
 
-#: ../../main/users/src/EBox/Users.pm:2116
+#: ../../main/users/src/EBox/Users.pm:2119
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -4384,12 +4384,12 @@ msgstr ""
 "无法恢复，因为 LDAP 用户 {user} 已经存在于  /etc/passwd。请删除（或改名）后重"
 "试。"
 
-#: ../../main/users/src/EBox/Users.pm:2398
-#: ../../main/users/src/EBox/Users.pm:2407
+#: ../../main/users/src/EBox/Users.pm:2401
+#: ../../main/users/src/EBox/Users.pm:2410
 msgid "Users data"
 msgstr "用户数据"
 
-#: ../../main/users/src/EBox/Users.pm:2552
+#: ../../main/users/src/EBox/Users.pm:2555
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "地址 {ip} 已经用于接口 {iface}"

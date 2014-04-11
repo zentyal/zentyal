@@ -2284,7 +2284,7 @@ msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/users/src/EBox/Users.pm:2546
+#: ../../main/users/src/EBox/Users.pm:2549
 msgid "alias"
 msgstr "alias"
 
@@ -4578,15 +4578,15 @@ msgstr ""
 "tiene direcciones IP disponibles. {oh}Configurando los interfaces de red{ch} "
 "y guardando cambios quizá se solucione esta situación"
 
-#: ../../main/users/src/EBox/Users.pm:637
+#: ../../main/users/src/EBox/Users.pm:640
 msgid "Error performing users initialization"
 msgstr "Error inicializando usuarios"
 
-#: ../../main/users/src/EBox/Users.pm:794
+#: ../../main/users/src/EBox/Users.pm:797
 msgid "Error while creating users and groups database."
 msgstr "Error creando base de datos de usuarios y grupos"
 
-#: ../../main/users/src/EBox/Users.pm:871
+#: ../../main/users/src/EBox/Users.pm:874
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -4597,38 +4597,38 @@ msgstr ""
 "el módulo de usuarios y sus dependencias no serán usables. La siguiente vez "
 "que se guarde cambios, se volverá a intentar la reprovisión de nuevo.{pend}"
 
-#: ../../main/users/src/EBox/Users.pm:1186
+#: ../../main/users/src/EBox/Users.pm:1189
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 "Se encontraron {count} resultados para el usuario '{uid}', se esperaba sólo "
 "uno."
 
-#: ../../main/users/src/EBox/Users.pm:1419
+#: ../../main/users/src/EBox/Users.pm:1422
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Encontrados {count} resultados para el grupo '{name}', sólo se esperaba uno."
 
-#: ../../main/users/src/EBox/Users.pm:1896
+#: ../../main/users/src/EBox/Users.pm:1899
 msgid "Manage"
 msgstr "Gestionar"
 
-#: ../../main/users/src/EBox/Users.pm:1899
+#: ../../main/users/src/EBox/Users.pm:1902
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "Plantilla de Usuario"
 
-#: ../../main/users/src/EBox/Users.pm:1908
+#: ../../main/users/src/EBox/Users.pm:1911
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "Opciones de configuración de LDAP."
 
-#: ../../main/users/src/EBox/Users.pm:1912
+#: ../../main/users/src/EBox/Users.pm:1915
 msgid "Configure mode"
 msgstr "Configurar modo"
 
-#: ../../main/users/src/EBox/Users.pm:1928
+#: ../../main/users/src/EBox/Users.pm:1931
 #: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
@@ -4657,7 +4657,7 @@ msgstr "Configurar modo"
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../main/users/src/EBox/Users.pm:2099
+#: ../../main/users/src/EBox/Users.pm:2102
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -4666,7 +4666,7 @@ msgstr ""
 "No es posible restaurar el módulo de usuarios por que se está ejecutando en "
 "modo {mode} y el respaldo se efectuó en modo {bpMode}"
 
-#: ../../main/users/src/EBox/Users.pm:2116
+#: ../../main/users/src/EBox/Users.pm:2119
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -4675,12 +4675,12 @@ msgstr ""
 "No se puede restaurar porque el usuario {user} del LDAP ya existe como "
 "usuario de sistema. Debe borrarse o renombrarse antes de intentar de nuevo."
 
-#: ../../main/users/src/EBox/Users.pm:2398
-#: ../../main/users/src/EBox/Users.pm:2407
+#: ../../main/users/src/EBox/Users.pm:2401
+#: ../../main/users/src/EBox/Users.pm:2410
 msgid "Users data"
 msgstr "Datos de usuario"
 
-#: ../../main/users/src/EBox/Users.pm:2552
+#: ../../main/users/src/EBox/Users.pm:2555
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"

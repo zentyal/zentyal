@@ -2267,7 +2267,7 @@ msgstr "gépnév"
 
 #: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/users/src/EBox/Users.pm:2546
+#: ../../main/users/src/EBox/Users.pm:2549
 msgid "alias"
 msgstr "álnév"
 
@@ -4530,15 +4530,15 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:637
+#: ../../main/users/src/EBox/Users.pm:640
 msgid "Error performing users initialization"
 msgstr "Hiba a felhasználók előkészítése közben"
 
-#: ../../main/users/src/EBox/Users.pm:794
+#: ../../main/users/src/EBox/Users.pm:797
 msgid "Error while creating users and groups database."
 msgstr "Hiba a felhasználók és csoportok adatbázis létrehozásakor."
 
-#: ../../main/users/src/EBox/Users.pm:871
+#: ../../main/users/src/EBox/Users.pm:874
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -4550,35 +4550,35 @@ msgstr ""
 "A változások következő mentésekor az ismételt létrehozás újra meg lesz "
 "kísérelve.{pend}"
 
-#: ../../main/users/src/EBox/Users.pm:1186
+#: ../../main/users/src/EBox/Users.pm:1189
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr "{count} találat „{uid}” felhasználóhoz, de csak egynek kellene lennie."
 
-#: ../../main/users/src/EBox/Users.pm:1419
+#: ../../main/users/src/EBox/Users.pm:1422
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "{count} találat „{name}” csoporthoz, de csak egynek kellene lennie."
 
-#: ../../main/users/src/EBox/Users.pm:1896
+#: ../../main/users/src/EBox/Users.pm:1899
 msgid "Manage"
 msgstr "Kezelés"
 
-#: ../../main/users/src/EBox/Users.pm:1899
+#: ../../main/users/src/EBox/Users.pm:1902
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "Felhasználói sablon"
 
-#: ../../main/users/src/EBox/Users.pm:1908
+#: ../../main/users/src/EBox/Users.pm:1911
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "LDAP beállítások"
 
-#: ../../main/users/src/EBox/Users.pm:1912
+#: ../../main/users/src/EBox/Users.pm:1915
 msgid "Configure mode"
 msgstr "Mód beállítása"
 
-#: ../../main/users/src/EBox/Users.pm:1928
+#: ../../main/users/src/EBox/Users.pm:1931
 #: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
@@ -4607,7 +4607,7 @@ msgstr "Mód beállítása"
 msgid "Password"
 msgstr "Jelszó"
 
-#: ../../main/users/src/EBox/Users.pm:2099
+#: ../../main/users/src/EBox/Users.pm:2102
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -4616,7 +4616,7 @@ msgstr ""
 "A felhasználók modul nem állítható vissza, mert {mode} módban fut, és a "
 "mentés {bpMode} módban készült"
 
-#: ../../main/users/src/EBox/Users.pm:2116
+#: ../../main/users/src/EBox/Users.pm:2119
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -4626,12 +4626,12 @@ msgstr ""
 "rendszerfelhasználóként. Törölje vagy nevezze át ezt a felhasználót, majd "
 "próbálja újra."
 
-#: ../../main/users/src/EBox/Users.pm:2398
-#: ../../main/users/src/EBox/Users.pm:2407
+#: ../../main/users/src/EBox/Users.pm:2401
+#: ../../main/users/src/EBox/Users.pm:2410
 msgid "Users data"
 msgstr "Felhasználói adatok"
 
-#: ../../main/users/src/EBox/Users.pm:2552
+#: ../../main/users/src/EBox/Users.pm:2555
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "A címet ({ip}) már használja a(z) {iface} csatoló"
