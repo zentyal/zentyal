@@ -1,0 +1,10 @@
+class: 'EBox::Ntop'
+
+depends:
+    - network
+
+models:
+    - Interfaces
+
+composites:
+    General: [Interfaces]

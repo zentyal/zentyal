@@ -1,4 +1,6 @@
 HEAD
+	+ RedirectHelper interface to redirect requests from Zentyal
+	  Remote to specific module HTTP applications
 	+ Fix enabled save changes button after installing packages
 	+ Changed CGI base to show correctly referer errors and
 	  generating response errors

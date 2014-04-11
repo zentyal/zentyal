@@ -1,3 +1,6 @@
+HEAD
+	+ Change name to System Monitoring to avoid confussion with new
+	  Networking Monitoring module
 3.4
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

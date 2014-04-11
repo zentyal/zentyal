@@ -280,7 +280,7 @@ sub objectMembers # (object)
     return $object->subModel('members')->members();
 }
 
-# objectIsDynamic
+# Method: objectIsDynamic
 #
 #   TODO
 #
@@ -305,19 +305,18 @@ sub objectIsDynamic
     return (defined $type->set());
 }
 
-# objectAddresses
+# Method: objectAddresses
 #
-#       Return the network addresses of a object
+#       Return the network addresses of an object
 #
 # Parameters:
 #
 #       id - object's id
-#       mask - return alse addresses' mask (named optional, default false)
+#       mask - return addresses' mask as well (named optional, default false)
 #
 # Returns:
 #
-#       array ref - containing an ip, empty array if
-#       there are no addresses in the object
+#       array ref - containing an IP Address, empty array if there are no addresses in the object
 #       In case mask is wanted the elements of the array would be  [ip, mask]
 #
 sub objectAddresses
