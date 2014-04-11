@@ -4,10 +4,10 @@ use warnings;
 package EBox::Samba::AuthKrbHelper;
 
 use EBox;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Global;
 use EBox::Sudo;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::Internal;
 
 use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
 
@@ -58,6 +58,7 @@ sub new
         }
         my $entry = $result->entry(0);
         $principal = $entry->get_value('samAccountName');
+        utf8::decode($principal);
     } elsif (length $params{RID}) {
         my $samba = EBox::Global->modInstance('samba');
         my $ldb = $samba->ldb();
@@ -73,6 +74,7 @@ sub new
         }
         my $entry = $result->entry(0);
         $principal = $entry->get_value('samAccountName');
+        utf8::decode($principal);
     } elsif (length $params{principal}) {
         $principal = $params{principal};
     } else {

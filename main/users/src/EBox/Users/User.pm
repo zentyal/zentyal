@@ -26,31 +26,32 @@ package EBox::Users::User;
 use base 'EBox::Users::InetOrgPerson';
 
 use EBox::Config;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Users;
 use EBox::Users::Group;
 
-use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::LDAP;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::Internal;
-
-use Perl6::Junction qw(any);
-use Error qw(:try);
 use Convert::ASN1;
+use Error qw(:try);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Net::LDAP::Util qw(canonical_dn);
+use Perl6::Junction qw(any);
+use Text::Unidecode qw(unidecode);
 
-use constant MAXUSERLENGTH  => 128;
-use constant MAXPWDLENGTH   => 512;
-use constant SYSMINUID      => 1900;
-use constant MINUID         => 2000;
-use constant MAXUID         => 2**31;
-use constant HOMEPATH       => '/home';
-use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
-use constant QUOTA_LIMIT    => 2097151;
+use constant MAXUSERNAMELENGTH => 104;
+use constant MAXPWDLENGTH      => 512;
+use constant SYSMINUID         => 1900;
+use constant MINUID            => 2000;
+use constant MAXUID            => 2**31;
+use constant HOMEPATH          => '/home';
+use constant QUOTA_PROGRAM     => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_LIMIT       => 2097151;
 
 sub new
 {
@@ -452,16 +453,7 @@ sub create
         $isDisabled = 1;
     }
 
-    unless (_checkUserName($args{uid})) {
-        my $advice = __('To avoid problems, the uid should consist only ' .
-                        'of letters, digits, underscores, spaces, periods, ' .
-                        'dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $args{uid},
-                                            'advice' => $advice
-                                           );
-    }
+    $class->checkUsernameFormat($args{uid});
 
     my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers();
@@ -483,12 +475,6 @@ sub create
                         . 'and you currently have {nUsers}',
                         max => $max_users, nUsers => scalar(@{$real_users})));
         }
-    }
-
-    if (length($args{uid}) > MAXUSERLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Username must not be longer than {maxuserlength} characters",
-                maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
@@ -514,12 +500,19 @@ sub create
     }
 
     my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
+    my $canonicalDN = canonical_dn($dn);
 
-    my @userPwAttrs = getpwnam($args{uid});
+    unless ($canonicalDN) {
+        throw EBox::Exceptions::Internal(__x(q{'{dn}' is not a valid dn}, dn => $dn));
+    }
+
+    my $username = $args{uid};
+    # WARNING: $args{uid} MUST NOT BE used directly to getpwnam function or it will "break" its UTF-8 tags and break
+    # non-ASCII uids. (FIXME: It's not a problem until we remove OpenLDAP)
+    my @userPwAttrs = getpwnam($username);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
-
     my $homedir = _homeDirectory($args{uid});
     if (-e $homedir) {
         EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
@@ -557,7 +550,7 @@ sub create
     my $parentRes = undef;
     my $entry = undef;
     try {
-        $args{dn} = $dn;
+        $args{dn} = $canonicalDN;
         $parentRes = $class->SUPER::create(%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
@@ -603,7 +596,7 @@ sub create
             };
         }
 
-        $res = new EBox::Users::User(dn => $dn);
+        $res = new EBox::Users::User(dn => $canonicalDN);
 
         # Set the user password and kerberos keys
         if (defined $passwd) {
@@ -676,26 +669,79 @@ sub create
     return $res;
 }
 
-sub _checkUserName
+# Method: checkUsernameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a username field.
+#   Performs validations on given name to see whether it matches the user name rules as restricted by the Active
+#   directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
+#   http://technet.microsoft.com/en-us/library/bb726984.aspx
+#   We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
+#   this installation.
+#
+#   FIXME: OpenLDAP doesn't allow non ASCII characters in the krb5PrincipalName field, and thus, Zentyal cannot handle
+#   that kind of users. We block them here until OpenLDAP is removed and we relay only on Samba.
+#
+# Parameters:
+#
+#   username - String
+#
+# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as a username.
+#
+sub checkUsernameFormat
 {
-    my ($name) = @_;
-    if (not EBox::Users::checkNameLimitations($name)) {
-        return undef;
+    my ($class, $username) = @_;
+
+    unless (defined $username) {
+        throw EBox::Exceptions::InvalidArgument("username");
     }
 
-    # windows user names cannot end with a  period
-    if ($name =~ m/\.$/) {
-        return undef;
+    # FIXME: Remove this once OpenLDAP is not used anymore.
+    unless ($username =~ /^[\x00-\x7F]*\z/) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('user name'),
+            value  => $username,
+            advice => __("Zentyal is not able to handle usernames with non-ASCII characters")
+        );
     }
 
-    return 1;
+    # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
+    # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
+    # we follow the documentation on this or the Windows implementation?
+    if ($username =~ /(^$|^\s|\s$|.*[@#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('user name'),
+            value  => $username,
+            advice => __x(
+                "cannot be empty, start or end with a space, and should not have any of the following characters: {chars}",
+                chars => "@#,+\"\\=<>;\/\[\]:\|\*\?")
+        );
+    }
+
+    if ($username =~ m/\.$/) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('user name'),
+            'value' => $username,
+            'advice' => __('cannot end with a period (.)')
+           );
+    }
+
+    if (length ($username) > MAXUSERNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('user name'),
+            'value' => $username,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXUSERNAMELENGTH)
+           );
+    }
 }
 
 sub _homeDirectory
 {
     my ($uid) = @_;
 
-    my $home = HOMEPATH . '/' . $uid;
+    # homeDirectory must be ascii characters
+    my $ascii_uid = unidecode($uid);
+
+    my $home = HOMEPATH . '/' . $ascii_uid;
     return $home;
 }
 

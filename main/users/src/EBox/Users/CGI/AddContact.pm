@@ -20,9 +20,10 @@ package EBox::Users::CGI::AddContact;
 
 use base 'EBox::CGI::ClientPopupBase';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Users;
-use EBox::Gettext;
+use EBox::Users::Contact;
 
 sub new
 {
@@ -57,15 +58,17 @@ sub _process
 
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');
-        my $fullname = "$givenname $surname";
+        my $fullname = EBox::Users::Contact->generatedFullname(givenname => $givenname, surname => $surname);
+        my $description = $self->unsafeParam('description');
+        my $mail = $self->unsafeParam('mail');
 
         my $contact = EBox::Users::Contact->create(
             fullname => $fullname,
             parent => $users->objectFromDN($dn),
             givenname => $givenname,
             surname => $surname,
-            description => $self->param('description'),
-            mail => $self->param('mail'),
+            description => $description,
+            mail => $mail,
         );
 
         $self->{json}->{success} = 1;

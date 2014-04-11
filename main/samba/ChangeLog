@@ -1,3 +1,6 @@
+HEAD
+	+ Encode strings coming from OpenLDAP to handle non-ASCII values correctly
+	+ Share group name validation code with users code
 3.2.15
 	+ Remove the use of method canonicalName for greater performance, use
 	  object DNs instead

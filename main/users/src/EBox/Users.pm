@@ -53,18 +53,17 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
 
-use Digest::SHA;
 use Digest::MD5;
-use Sys::Hostname;
-
+use Digest::SHA;
 use Error qw(:try);
+use Fcntl qw(:flock);
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Sys::Hostname;
 use Time::HiRes;
-use Fcntl qw(:flock);
 
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -452,7 +451,11 @@ sub _migrateTo32
 
     for my $entry ($result->entries) {
         if($entry->get_value('cn') =~ m/rfc2307bis/) {
-            EBox::info("Migrating " . $entry->dn() . " schema");
+            my $dn = $entry->dn();
+            unless (utf8::is_utf8($dn)) {
+                utf8::decode($dn);
+            }
+            EBox::info("Migrating '$dn' schema");
             my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
             defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
 
@@ -1163,7 +1166,9 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            my $chownCmd = "chown -R $quser:$group $qhome";
+            # Samba users may start with a '-' character and that breaks command line execution. Fixed with the '--'
+            # addition.
+            my $chownCmd = "chown -R -- $quser:$group $qhome";
             EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
@@ -1260,6 +1265,9 @@ sub userByUID
 }
 
 # Method: userExists
+#
+#  FIXME: Windows doesn't allow two users that map into the same ASCII only values, for instance 'fóo' and 'foo' are
+#  not allowed at the same time. We don't do such check right now.
 #
 #  Returns:
 #
@@ -2312,41 +2320,6 @@ sub newLDAP
     return  EBox::Ldap->instance();
 }
 
-# common check for user names and group names
-sub checkNameLimitations
-{
-    my ($name) = @_;
-
-    # combination of unix limitations + windows limitation characters are
-    # limited to unix portable file character + space for windows compability
-    # slash not valid as first character (unix limitation)
-    # see http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx
-    if ($name =~ /^[a-zA-Z0-9\._-][a-zA-Z0-9\._[:space:]-]*$/) {
-         return 1;
-     } else {
-         return undef;
-     }
-}
-
-# Method: checkCnLimitations
-#
-#   Return whether the given string is valid for its usage as a cn field.
-#
-# Parameters:
-#
-#   string - The string to check.
-#
-sub checkCnLimitations
-{
-    my ($self, $string) = @_;
-
-    if ($string =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        return 1;
-    } else {
-        return undef;
-    }
-}
-
 #  Nethod: newUserUidNumber
 #
 #  return the uid for a new user
@@ -2609,8 +2582,13 @@ sub checkMailNotInUse
         if ($type eq 'CourierMailAlias') {
             $type = __('alias');
             $name = $entry->get_value('mail');
+            utf8::decode($name);
         } else {
-            $name = $modeledObject ? $modeledObject->name() : $entry->dn();
+            my $dn = $entry->dn();
+            unless (utf8::is_utf8($dn)) {
+                utf8::decode($dn);
+            }
+            $name = $modeledObject ? $modeledObject->name() : $dn;
         }
 
         EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',

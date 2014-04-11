@@ -20,28 +20,26 @@ package EBox::Samba::Provision;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidArgument;
+use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
-use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
-
-use EBox::Users::User;
 use EBox::Users::Group;
-
 use EBox::Users::NamingContext;
+use EBox::Users::User;
 use EBox::Samba::NamingContext;
+use EBox::Validate qw(:all);
 
-use Net::DNS;
-use Net::NTP qw(get_ntp_response);
-use Net::Ping;
-use Net::LDAP;
-use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
+use Error qw(:try);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
+use Net::DNS;
+use Net::LDAP;
+use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
+use Net::NTP qw(get_ntp_response);
+use Net::Ping;
 use Time::HiRes;
-use Error qw(:try);
 
 sub new
 {

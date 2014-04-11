@@ -31,8 +31,9 @@ use EBox::Gettext;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
-use Parse::RecDescent;
+
 use Encode qw(encode decode);
+use Parse::RecDescent;
 
 # Constant: GRAMMAR_SCRIPTS_INI
 #

@@ -73,6 +73,7 @@ sub _ldbDNFromLDAPDN
     }
     my $dn = '';
     if ($relativeDN) {
+        utf8::encode($relativeDN);
         $dn = $relativeDN .  ',';
     }
     $dn .= $self->{ldb}->dn();
@@ -97,6 +98,7 @@ sub _preAddOU
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
     my $name = $entry->get_value('ou');
+    utf8::encode($name);
 
     EBox::debug("Creating OU in LDB '$name'");
     my $ou = EBox::Samba::OU->create(name => $name, parent => $sambaParent);
@@ -109,6 +111,7 @@ sub _preAddOuFailed
     $self->_sambaReady() or
         return;
 
+    my $ldapDN = $entry->dn();
     try {
         my $sambaOU = undef;
         my $objectGUID = $entry->get_value('msdsObjectGUID');
@@ -116,7 +119,7 @@ sub _preAddOuFailed
             $sambaOU = new EBox::Samba::OU(objectGUID => $objectGUID);
         } else {
             # TODO: Stop using ldbDNFromLDAPDN!!
-            my $dn = $self->_ldbDNFromLDAPDN($entry->dn());
+            my $dn = $self->_ldbDNFromLDAPDN($ldapDN);
             $sambaOU = new EBox::Samba::OU(dn => $dn);
         }
         unless ($sambaOU and $sambaOU->exists()) {
@@ -127,7 +130,7 @@ sub _preAddOuFailed
         $sambaOU->deleteObject();
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting OU " . $entry->dn() . ": $error");
+        EBox::error("Error deleting OU '$ldapDN': $error");
     };
 }
 
@@ -188,7 +191,7 @@ sub _preAddUser
     push (@args, description    => $description) if ($description);
     push (@args, mail           => $mail) if ($mail);
 
-    EBox::info("Creating user '$uid'");
+    EBox::info("Creating user '$uid' ($name)");
     my $sambaUser = EBox::Samba::User->create(@args);
     my $uidNumber = $sambaUser->xidNumber();
     unless (defined $uidNumber) {
@@ -296,18 +299,20 @@ sub _preModifyUser
     $self->_sambaReady() or
         return;
 
-    my $dn = $zentyalUser->dn();
+    my $zentyalDN = $zentyalUser->dn();
     my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
     return unless $sambaUser->exists();
 
     # Check if CN has changed. In this case, we have to change the user DN
-    if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
-        my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+    my $zentyalCN = $zentyalUser->get('cn');
+    utf8::encode($zentyalCN);
+    if ($zentyalCN ne $sambaUser->get('cn')) {
+        my $sambaDN = $sambaUser->dn();
+        my $dn = ldap_explode_dn($sambaDN);
         my $rdn = shift (@{$dn});
         foreach my $key (keys %{$rdn}) {
             if ($key == 'CN') {
-                $rdn->{CN} = $zentyalUser->get('cn');
-                utf8::encode($rdn->{CN});
+                $rdn->{CN} = $zentyalCN;
                 last;
             }
         }
@@ -316,10 +321,11 @@ sub _preModifyUser
         my $newrdn = canonical_dn([ $rdn ]);
         my $ldapCon = $sambaUser->_ldap->connection();
         my $entry = $sambaUser->_entry();
+        utf8::encode($newrdn);
         my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
         if ($result->is_error()) {
             if ($result->code() eq LDAP_ALREADY_EXISTS) {
-                my $name = $zentyalUser->get('cn');
+                my $name = $zentyalCN;
                 throw EBox::Exceptions::DataExists(
                     text => __x('User name {x} already exists in the same container.',
                                 x => $name));
@@ -336,7 +342,7 @@ sub _preModifyUser
 
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
-        utf8::encode($displayName);
+    utf8::encode($displayName);
         $sambaUser->set('displayName', $displayName, 1);
     } else {
         $sambaUser->delete('displayName', 1);
@@ -345,9 +351,9 @@ sub _preModifyUser
     my $mail = $zentyalUser->mail();
     my $gn = $zentyalUser->get('givenName');
     utf8::encode($gn);
+    $sambaUser->set('givenName', $gn, 1);
     my $sn = $zentyalUser->get('sn');
     utf8::encode($sn);
-    $sambaUser->set('givenName', $gn, 1);
     $sambaUser->set('sn', $sn, 1);
     if ($description) {
         utf8::encode($description);
@@ -356,6 +362,7 @@ sub _preModifyUser
         $sambaUser->delete('description', 1);
     }
     if ($mail) {
+        utf8::encode($mail);
         $sambaUser->set('mail', $mail, 1);
     } else {
         $sambaUser->delete('mail', 1);
@@ -456,6 +463,7 @@ sub _preAddContactFailed
     $self->_sambaReady() or
         return;
 
+    my $ldapDN = $entry->dn();
     try {
         my $sambaContact = undef;
         my $objectGUID = $entry->get_value('msdsObjectGUID');
@@ -463,7 +471,7 @@ sub _preAddContactFailed
             $sambaContact = new EBox::Samba::Contact(objectGUID => $objectGUID);
         } else {
             # TODO: Stop using ldbDNFromLDAPDN!!
-            my $dn = $self->_ldbDNFromLDAPDN($entry->dn());
+            my $dn = $self->_ldbDNFromLDAPDN($ldapDN);
             $sambaContact = new EBox::Samba::Contact(dn => $dn);
         }
         return unless ($sambaContact and $sambaContact->exists());
@@ -472,7 +480,7 @@ sub _preAddContactFailed
         $sambaContact->deleteObject();
     } otherwise {
         my ($error) = @_;
-        EBox::debug("Error removing contact " . $entry->dn() . ": $error");
+        EBox::debug("Error removing contact '$ldapDN': $error");
     };
 }
 
@@ -489,12 +497,12 @@ sub _modifyContact
         my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
         return unless $sambaContact->exists();
 
-        my $givenName = $zentyalContact->get_value('givenName');
-        my $initials = $zentyalContact->get_value('initials');
-        my $sn = $zentyalContact->get_value('sn');
-        my $displayName = $zentyalContact->get_value('displayName');
-        my $description = $zentyalContact->get_value('description');
-        my $mail = $zentyalContact->get_value('mail');
+        my $givenName = $zentyalContact->get('givenName');
+        my $initials = $zentyalContact->get('initials');
+        my $sn = $zentyalContact->get('sn');
+        my $displayName = $zentyalContact->get('displayName');
+        my $description = $zentyalContact->get('description');
+        my $mail = $zentyalContact->get('mail');
 
         if ($givenName) {
             utf8::encode($givenName);
@@ -527,6 +535,7 @@ sub _modifyContact
             $sambaContact->delete('description', 1);
         }
         if ($mail) {
+            utf8::encode($mail);
             $sambaContact->set('mail', $mail, 1);
         } else {
             $sambaContact->delete('mail', 1);
@@ -659,10 +668,10 @@ sub _preAddGroup
     # The isSecurityGroup flag is not set here given that the zentyalObject doesn't exist yet, we will
     # update it later on the _addGroup callback. Maybe we would move this creation to _addGroup...
     my @args = ();
-    push (@args, name          => $name);
-    push (@args, parent        => $sambaParent);
-    push (@args, 'description' => $description) if ($description);
-    push (@args, 'mail'        => $mail) if ($mail);
+    push (@args, name        => $name);
+    push (@args, parent      => $sambaParent);
+    push (@args, description => $description) if ($description);
+    push (@args, mail        => $mail) if ($mail);
 
     EBox::info("Creating group '$name'");
     my $sambaGroup = EBox::Samba::Group->create(@args);
@@ -681,6 +690,7 @@ sub _preAddGroupFailed
         return;
 
     my $samAccountName = $entry->get_value('cn');
+    utf8::encode($samAccountName);
     try {
         my $sambaGroup = undef;
         my $objectGUID = $entry->get_value('msdsObjectGUID');
@@ -783,6 +793,7 @@ sub _modifyGroup
         }
         my $mail = $zentyalGroup->get('mail');
         if ($mail) {
+            utf8::encode($mail);
             $sambaGroup->set('mail', $mail, $lazy);
         } else {
             $sambaGroup->delete('mail', $lazy);

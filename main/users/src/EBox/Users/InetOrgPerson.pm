@@ -31,6 +31,7 @@ use EBox::Users::Group;
 
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
@@ -38,6 +39,14 @@ use Error qw(:try);
 use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+
+use constant MAXFIRSTNAMELENGTH   =>   64;
+use constant MAXINITIALSLENGTH    =>    6;
+use constant MAXSURNAMELENGTH     =>   64;
+use constant MAXFULLNAMELENGTH    =>   64;
+use constant MAXDISPLAYNAMELENGTH =>  256;
+use constant MAXDESCRIPTIONLENGTH => 1024;
+use constant MAXMAILLENGTH        =>  256;
 
 sub new
 {
@@ -289,21 +298,265 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
-sub generatedFullName
+# Method: generatedFullname
+#
+#   Generates a fullname based on the provided givenname, initials and surname.
+#
+# Parameters:
+#
+#   givenname - String
+#   initials  - String
+#   surname   - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format of the provided fields.
+#
+sub generatedFullname
 {
-    my ($self, %args) = @_;
+    my ($class, %args) = @_;
+
+    unless (%args and ($args{givenname} or $args{initials} or $args{surname})) {
+        throw EBox::Exceptions::MissingArgument('givenname|initials|surname');
+    }
+
     my $fullname = '';
 
     if ($args{givenname}) {
+        $class->checkFirstnameFormat($args{givenname});
         $fullname = $args{givenname} . ' ';
     }
     if ($args{initials}) {
+        $class->checkInitialsFormat($args{initials});
         $fullname .= $args{initials} . '. ';
     }
     if ($args{surname}) {
+        $class->checkSurnameFormat($args{surname});
         $fullname .= $args{surname};
     }
+
+    if (length ($fullname) > MAXFULLNAMELENGTH) {
+        # The join of given name + initials + surname is too long, we truncate the string to the longest length
+        my $truncatedFullname = substr ($fullname, 0, MAXFULLNAMELENGTH);
+        EBox::warn("We had to truncate the generated fullname from '$fullname' to '$truncatedFullname'");
+        $fullname = $truncatedFullname;
+    }
+
+    # Remove leading / trailing spaces.
+    $fullname =~ s/^\s+//;
+    $fullname =~ s/\s+$//;
+
+    try {
+        $class->checkFullnameFormat($fullname);
+    } catch EBox::Exceptions::InvalidData with {
+        my ($exc) = @_;
+        # Throw again the exception but as EBox::Exceptions::Internal because we did something wrong that doesn't pass
+        # the validation and is not the user's fault.
+        throw EBox::Exceptions::Internal($exc);
+    };
+
     return $fullname
+}
+
+# Method: checkFirstnameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a firstname field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   firstname - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as firstname.
+#
+sub checkFirstnameFormat
+{
+    my ($class, $firstname) = @_;
+
+    unless (defined $firstname) {
+        throw EBox::Exceptions::MissingArgument("firstname");
+    }
+
+    if (length ($firstname) > MAXFIRSTNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('first name'),
+            'value' => $firstname,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXFIRSTNAMELENGTH)
+           );
+    }
+
+}
+
+# Method: checkInitialsFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a initials field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   initials - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as initials.
+#
+sub checkInitialsFormat
+{
+    my ($class, $initials) = @_;
+
+    unless (defined $initials) {
+        throw EBox::Exceptions::MissingArgument("initials");
+    }
+
+    if (length ($initials) > MAXINITIALSLENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('initials'),
+            'value' => $initials,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXINITIALSLENGTH)
+           );
+    }
+
+}
+
+# Method: checkSurnameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a surname field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   surname - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as surname.
+#
+sub checkSurnameFormat
+{
+    my ($class, $surname) = @_;
+
+    unless (defined $surname) {
+        throw EBox::Exceptions::MissingArgument("surname");
+    }
+
+    if (length ($surname) > MAXSURNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('surname'),
+            'value' => $surname,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXSURNAMELENGTH)
+           );
+    }
+
+}
+
+# Method: checkFullnameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a fullname field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   fullname - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as fullname.
+#
+sub checkFullnameFormat
+{
+    my ($class, $fullname) = @_;
+
+    unless (defined $fullname) {
+        throw EBox::Exceptions::MissingArgument("fullname");
+    }
+
+    if (length ($fullname) > MAXFULLNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('fullname'),
+            'value' => $fullname,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXFULLNAMELENGTH)
+           );
+    }
+
+}
+
+# Method: checkDisplaynameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a displayname field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   displayname - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as displayname.
+#
+sub checkDisplaynameFormat
+{
+    my ($class, $displayname) = @_;
+
+    unless (defined $displayname) {
+        throw EBox::Exceptions::MissingArgument("displayname");
+    }
+
+    if (length ($displayname) > MAXDISPLAYNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('displayname'),
+            'value' => $displayname,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXDISPLAYNAMELENGTH)
+           );
+    }
+
+}
+
+# Method: checkDescriptionFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a description field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   description - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as description.
+#
+sub checkDescriptionFormat
+{
+    my ($class, $description) = @_;
+
+    unless (defined $description) {
+        throw EBox::Exceptions::MissingArgument("description");
+    }
+
+    if (length ($description) > MAXDESCRIPTIONLENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('description'),
+            'value' => $description,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXDESCRIPTIONLENGTH)
+           );
+    }
+
+}
+
+# Method: checkMailFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a mail field. Right now it just
+#   checks the string lenght restriction.
+#
+# Parameters:
+#
+#   mail - String
+#
+# Throws <EBox::Exceptions::InvalidData> if there is anything wrong with the format to be used as mail.
+#
+sub checkMailFormat
+{
+    my ($class, $mail) = @_;
+
+    unless (defined $mail) {
+        throw EBox::Exceptions::MissingArgument("mail");
+    }
+
+    if (length ($mail) > MAXMAILLENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('mail'),
+            'value' => $mail,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXMAILLENGTH)
+           );
+    }
+
 }
 
 # Method: create
@@ -341,17 +594,36 @@ sub create
     }
 
     my $fullname = $args{fullname};
-    $fullname = $class->generatedFullName(%args) unless ($fullname);
+    $fullname = $class->generatedFullname(%args) unless ($fullname);
+    $class->checkFullnameFormat($fullname);
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');
     push (@attr, cn          => $fullname);
-    push (@attr, givenName   => $args{givenname}) if ($args{givenname});
-    push (@attr, initials    => $args{initials}) if ($args{initials});
-    push (@attr, sn          => $args{surname}) if ($args{surname});
-    push (@attr, displayName => $args{displayname}) if ($args{displayname});
-    push (@attr, description => $args{description}) if ($args{description});
-    push (@attr, mail        => $args{mail}) if ($args{mail});
+    if ($args{givenname}) {
+        $class->checkFirstnameFormat($args{givenname});
+        push (@attr, givenName   => $args{givenname});
+    }
+    if ($args{initials}) {
+        $class->checkInitialsFormat($args{initials});
+        push (@attr, initials    => $args{initials});
+    }
+    if ($args{surname}) {
+        $class->checkSurnameFormat($args{surname});
+        push (@attr, sn          => $args{surname});
+    }
+    if ($args{displayname}) {
+        $class->checkDisplaynameFormat($args{displayname});
+        push (@attr, displayName => $args{displayname});
+    }
+    if ($args{description}) {
+        $class->checkDisplaynameFormat($args{description});
+        push (@attr, description => $args{description});
+    }
+    if ($args{mail}) {
+        $class->checkDisplaynameFormat($args{mail});
+        push (@attr, mail        => $args{mail});
+    }
 
     my $res = undef;
     my $entry = undef;

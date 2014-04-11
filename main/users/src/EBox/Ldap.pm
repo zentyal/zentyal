@@ -25,12 +25,11 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Gettext;
 
+use Apache2::RequestUtil;
+use Error qw(:try);
 use Net::LDAP;
 use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
-
-use Error qw(:try);
-use Apache2::RequestUtil;
 use Time::HiRes;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
@@ -419,7 +418,9 @@ sub usersInBackup
             # in zentyal users are identified by DN, not by objectclass
             # TODO: Review this code, with multiou this may not be true anymore!
             if ($dn =~ /$usersDn$/) {
-                push @users, $entry->get_value('uid');
+                my $uid = $entry->get_value('uid');
+                utf8::decode($uid);
+                push (@users, $uid);
             }
         }
     }

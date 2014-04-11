@@ -213,6 +213,9 @@ sub _entry
 
     if ($self->{entry} and (not $self->{entry}->exists('objectGUID'))) {
         $self->{dn} = $self->{entry}->dn();
+        unless (utf8::is_utf8($self->{dn})) {
+            utf8::decode($self->{dn});
+        }
         delete $self->{entry};
     }
 

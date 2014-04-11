@@ -23,12 +23,11 @@ package EBox::Samba::Model::GPOScriptsShutdown;
 
 use base 'EBox::Samba::Model::GPOScripts';
 
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Samba::GPO;
 use EBox::Samba::GPO::ScriptsComputer;
-
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::Internal;
 
 sub _table
 {

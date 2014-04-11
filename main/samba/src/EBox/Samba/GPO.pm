@@ -31,14 +31,14 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Samba::LDAP::Control::SDFlags;
 
-use Encode qw(encode decode);
-use Parse::RecDescent;
 use Data::UUID;
-use Fcntl;
+use Encode qw(encode decode);
 use Error qw( :try );
+use Fcntl;
 use Net::LDAP::Control;
-use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
+use Parse::RecDescent;
 use Samba::Security::Descriptor;
+use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
 
 use constant STATUS_ENABLED                 => 0x00;
 use constant STATUS_USER_CONF_DISABLED      => 0x01;

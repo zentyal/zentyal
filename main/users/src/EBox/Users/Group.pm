@@ -43,10 +43,10 @@ use Perl6::Junction qw(any);
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-use constant SYSMINGID      => 1900;
-use constant MINGID         => 2000;
-use constant MAXGROUPLENGTH => 128;
-use constant CORE_ATTRS     => ('objectClass', 'mail', 'member', 'description');
+use constant SYSMINGID          => 1900;
+use constant MINGID             => 2000;
+use constant MAXGROUPNAMELENGTH => 64;
+use constant CORE_ATTRS         => ('objectClass', 'mail', 'member', 'description');
 
 sub new
 {
@@ -500,22 +500,7 @@ sub create
         $isInternal = $args{isInternal};
     }
 
-    if (length ($args{name}) > MAXGROUPLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
-    }
-
-    unless (_checkGroupName($args{name})) {
-        my $advice = __('To avoid problems, the group name should consist ' .
-                        'only of letters, digits, underscores, spaces, ' .
-                        'periods, dashs and not start with a dash. They ' .
-                        'could not contain only number, spaces and dots.');
-        throw EBox::Exceptions::InvalidData(
-            'data' => __('group name'),
-            'value' => $args{name},
-            'advice' => $advice
-           );
-    }
+    $class->checkGroupnameFormat($args{name});
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -621,19 +606,68 @@ sub create
     return $res;
 }
 
-sub _checkGroupName
+# Method: checkGroupnameFormat
+#
+#   Checks whether the given argument matches the restrictions to be used as a group name field.
+#   Performs validations on given name to see whether it matches the group name rules as restricted by the Active
+#   directory: See http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx and
+#   http://technet.microsoft.com/en-us/library/bb726984.aspx
+#   We restrict this to AD values, even if SAMBA is not active, because otherwise SAMBA may not be activated later for
+#   this installation.
+#
+# Parameters:
+#
+#   groupname - String
+#
+# Throws <EBox::Exceptions::InvalidArgument> if there is anything wrong with the format to be used as a group name.
+#
+sub checkGroupnameFormat
 {
-    my ($name)= @_;
-    if (not EBox::Users::checkNameLimitations($name)) {
-        return undef;
+    my ($class, $groupname) = @_;
+
+    unless (defined $groupname) {
+        throw EBox::Exceptions::InvalidArgument("groupname");
     }
 
-    # windows group names could not be only numbers, spaces and dots
-    if ($name =~ m/^[[:space:]0-9\.]+$/) {
-        return undef;
+    # FIXME: The characters checked here seems to be accepted on Windows Server 2003 if you remove them from the
+    # pre-Windows 2000 field. Windows offers you to automatically change those characters with the '_' char. Should
+    # we follow the documentation on this or the Windows implementation?
+    if ($groupname =~ /(^$|^\s|\s$|.*[#,\+\"\\=<>;\/\[\]:\|\*\?].*)/) {
+        throw EBox::Exceptions::InvalidData(
+            data   => __('group name'),
+            value  => $groupname,
+            advice => __x(
+                "cannot be empty, start or end with a space, and should not have any of the following characters: {chars}",
+                chars => "#,+\"\\=<>;\/\[\]:\|\*\?")
+        );
     }
 
-    return 1;
+    if ($groupname =~ m/^[[:space:]0-9\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $groupname,
+            'advice' => __('cannot consist solely of numbers, periods (.), or spaces')
+           );
+    }
+
+    if ($groupname =~ m/\.$/) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $groupname,
+            'advice' => __('cannot end with a period (.)')
+           )
+    }
+
+    # Even if in some parts of the documentation states that it can be up to 128 characters, seems like it's really
+    # restricted to 64 characters, but accepts non ASCII ones that require two bytes, so the right thing to do is
+    # follow the windows implementation and count characters not bytes, and leave the limit in 64 characters.
+    if (length ($groupname) > MAXGROUPNAMELENGTH) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('group name'),
+            'value' => $groupname,
+            'advice' => __x('cannot be longer than {limit} characters', limit => MAXGROUPNAMELENGTH)
+           );
+    }
 }
 
 # Method: isSecurityGroup

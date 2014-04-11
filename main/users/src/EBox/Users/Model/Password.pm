@@ -29,8 +29,8 @@ use EBox::Validate qw(:all);
 use EBox::Users::Types::Password;
 use EBox::Exceptions::External;
 
+use Encode qw(encode);
 use File::Temp qw/tempfile/;
-use Encode;
 
 use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
 
@@ -137,6 +137,9 @@ sub _updateSambaPassword
             # Get the entry and the DN
             my $entry = $mesg->entry(0);
             my $sambaUserDN = $entry->dn();
+            unless (utf8::is_utf8($sambaUserDN)) {
+                utf8::decode($sambaUserDN);
+            }
 
             # Change the password in the samba database in first place, this
             # way if the operation fails due to password policy restrictions,
