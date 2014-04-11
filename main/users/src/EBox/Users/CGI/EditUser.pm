@@ -37,8 +37,8 @@ sub new
 sub _process
 {
     my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
+    my $global = EBox::Global->getInstance();
+    my $users  = $global->modInstance('users');
 
     $self->{'title'} = __('Users');
 
@@ -69,6 +69,8 @@ sub _process
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
 
+        my $addMail;
+        my $delMail;
         if ($editable) {
             $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
@@ -98,11 +100,36 @@ sub _process
             } else {
                 $user->delete('description', 1);
             }
+
             my $mail = $self->unsafeParam('mail');
-            if (length ($mail)) {
-                $user->set('mail', $mail, 1);
-            } else {
-                $user->delete('mail', 1);
+            my $oldMail = $user->get('mail');
+            if ($mail) {
+                $mail = lc $mail;
+                if (not $oldMail) {
+                    $addMail = $mail;
+                } elsif  ($mail ne $oldMail) {
+                    $delMail = 1;
+                    $addMail = $mail;
+                }
+            } elsif ($oldMail) {
+                $delMail = 1;
+            }
+
+            my $mailMod = $global->modInstance('mail');
+            if ($delMail) {
+                if ($mailMod->configured()) {
+                    $mailMod->_ldapModImplementation()->delUserAccount($user);
+                } else {
+                    $user->set('mail', '', 1);
+                }
+            }
+            if ($addMail) {
+                if ($mailMod->configured()) {
+                    $mailMod->_ldapModImplementation()->setUserAccount($user, $addMail);
+                } else {
+                    $user->checkMail($addMail);
+                    $user->set('mail', $addMail, 1);
+                }
             }
 
             $user->set('givenname', $givenName, 1);
@@ -128,6 +155,11 @@ sub _process
         $self->{json}->{msg} = __('User updated');
         if ($setText) {
             $self->{json}->{set_text} = $setText;
+        }
+        if ($addMail) {
+            $self->{json}->{mail} = $addMail;
+        } elsif ($delMail) {
+            $self->{json}->{mail} = '';
         }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };

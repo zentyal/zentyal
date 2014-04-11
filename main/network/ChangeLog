@@ -1,4 +1,10 @@
-HEAD
+3.2.6
+	+ Specifiy local address in failover tests to avoid vlan interface problems
+	+ Fix Dynamic DNS with Zentyal Remote as provider when the
+	  registration wizard is done
+3.2.5
+	+ Wait a bit in multigwRoutes to give time to dhcp/pppoe to register addresses
+	+ Don't generate resolvconf file until all interfaces are up
 	+ nameservers() method always return 127.0.0.1 if DNS module is
 	  installed and enabled
 	+ Fixed dhclient configuration

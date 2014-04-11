@@ -1,4 +1,14 @@
-HEAD
+3.2.8
+	+ Better integration between mail addon and mail field
+	+ Avoid error when trying to show a no longer existent mail in queue
+3.2.7
+	+ Fixed bug in LDAP synchronization of mail virtual domains
+	+ Setup mail account on enable for users that already have mail attribute
+3.2.6
+	+ Added and used checkMailNotInUse method
+	+ Don't add mail which already exists when adding group alias
+	+ Postfix max mail size is increased by 36% because of base64 encoding
+3.2.5
 	+ Better integration of group alias addon
 3.2.4
 	+ Added openchange outgoing mail rewriting

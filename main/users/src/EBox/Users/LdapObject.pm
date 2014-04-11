@@ -138,7 +138,6 @@ sub get
 sub set
 {
     my ($self, $attr, $value, $lazy) = @_;
-
     $self->_entry->replace($attr => $value);
     $self->save() unless $lazy;
 }
@@ -435,32 +434,6 @@ sub _usersMod
     return $_usersMod;
 }
 
-# Method canonicalName
-#
-#   Return a string representing the object's canonical name.
-#
-#   Parameters:
-#
-#       excludeRoot - Whether the LDAP root's canonical name should be excluded
-#
-sub canonicalName
-{
-    my ($self, $excludeRoot) = @_;
-
-    my $parent = $self->parent();
-
-    my $canonicalName = '';
-    if ($parent) {
-        unless ($excludeRoot and (not $parent->parent())) {
-            $canonicalName = $parent->canonicalName($excludeRoot) . '/';
-        }
-    }
-
-    $canonicalName .= $self->baseName();
-
-    return $canonicalName;
-}
-
 # Method baseName
 #
 #   Return a string representing the object's base name. Root node doesn't follow the standard naming schema,
@@ -635,5 +608,31 @@ sub relativeDN
     my $ldapMod = $self->_ldapMod();
     return $ldapMod->relativeDN($self->dn());
 }
+
+
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+
+# Method: checkMail
+#
+#   Helper class to check if a mail address is valid and not in use
+sub checkMail
+{
+    my ($class, $address) = @_;
+    EBox::Validate::checkEmailAddress($address, __('Group E-mail'));
+
+    my $global = EBox::Global->getInstance();
+    my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
+    $mod->checkMailNotInUse($address);
+}
+
 
 1;

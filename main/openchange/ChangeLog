@@ -1,3 +1,13 @@
+HEAD
+	+ Conflict with zentyal-zarafa to avoid problems with libmapi.so
+3.2.7
+	+ Prevent OpenChange provision if we don't have access to update the
+	  schema or it's already extended by another OpenChange / Exchange
+	  previous installation.
+3.2.6
+	+ Clean all previous data before enabling the module
+3.2.5
+	+ Fix regression hiding from module status
 3.2.4
 	+ Hide openchange service status from the dashboard and linked it status
 	  to the one from Samba

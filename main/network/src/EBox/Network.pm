@@ -2922,7 +2922,7 @@ sub _generateDDClient
 
     if ($enabled) {
         if ( $row->valueByName('service') eq 'cloud' ) {
-            my $gl = EBox::Global->getInstance(1);
+            my $gl = $self->global();
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
                 if ( $rs->eBoxSubscribed() ) {
@@ -3145,7 +3145,7 @@ sub _disableReversePath
 
 sub _multigwRoutes
 {
-    my ($self) = @_;
+    my ($self, $dynIfaces) = @_;
 
     # Flush the rules
     #
@@ -3236,6 +3236,9 @@ sub _multigwRoutes
     push(@fcmds, '/sbin/iptables -t mangle -X');
     push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark');
     push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --restore-mark');
+    if ($dynIfaces) {
+        sleep 1;
+    }
     EBox::Sudo::silentRoot(@fcmds);
 
     my $defaultRouterMark;
@@ -3373,6 +3376,7 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {
             };
@@ -3430,7 +3434,6 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 
@@ -3448,13 +3451,18 @@ sub _enforceServiceState
 
     EBox::Sudo::silentRoot("ip addr add 127.0.1.1/8 dev lo");
 
+    my $dynIfaces = 0;
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
         my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
+        if ($dhcpIface) {
+            $dynIfaces = 1;
+        }
         if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
                 $iface = "zentyal-ppp-$iface";
+                $dynIfaces = 1;
             }
             push(@ifups, $iface);
         }
@@ -3476,6 +3484,8 @@ sub _enforceServiceState
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
 
+    $self->_generateResolvconfConfig();
+
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
 
@@ -3492,7 +3502,7 @@ sub _enforceServiceState
 
     $self->_generateRoutes();
     $self->_disableReversePath();
-    $self->_multigwRoutes();
+    $self->_multigwRoutes($dynIfaces);
     $self->_cleanupVlanIfaces();
 
     EBox::Sudo::root('/sbin/ip route flush cache');

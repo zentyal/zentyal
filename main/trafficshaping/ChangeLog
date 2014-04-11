@@ -1,4 +1,6 @@
-HEAD
+3.2.4
+	+ Fixed bug that made impossible to add rules
+3.2.3
 	+ Unallow edition of interface in rules until it is supported
 3.2.2
 	+ Added missing EBox::Exceptions uses

@@ -79,6 +79,8 @@ sub _modifyUser
         firstname  => $user->get('givenName'),
         lastname   => $user->get('sn'),
         description => ($user->get('description') or ''),
+        uid         => $user->get('uidNumber'),
+        gid         => $user->get('gidNumber'),
         passwords  => \@passwords,
         ou          => $self->get_ou($user),
     };

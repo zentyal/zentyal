@@ -39,6 +39,7 @@ use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Contact;
 use EBox::Samba::Container;
+use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
@@ -227,6 +228,19 @@ sub initialSetup
                 # The guest user exists, we should set it visible.
                 $ldapGuest->setInternal(0);
             }
+        }
+    }
+    # Upgrade from 3.2.14 to 3.2.15
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.15') < 0)) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $hostname = $sysinfo->hostName();
+        my $dnsAccount = new EBox::Users::User(uid => "dns-$hostname");
+        if ($dnsAccount->exists()) {
+            # This user is deprecated and not synced to OpenLDAP ever since 3.2, it's a bug that it exists after the
+            # upgrade to 3.2
+            EBox::debug("Removing obsolete user dns-$hostname");
+            $dnsAccount->setIgnoredModules(['samba']);
+            $dnsAccount->deleteObject();
         }
     }
 }
@@ -645,10 +659,6 @@ sub enableActions
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
-    # Create directories
-    EBox::info('Creating directories');
-    $self->_createDirectories();
-
     # Load the required OpenLDAP schema updates.
     $self->performLDAPActions();
 }
@@ -939,7 +949,10 @@ sub writeSambaConfig
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
-        push (@array, 'print' => 1) if ($printersModule->isEnabled());
+        if ($printersModule->isEnabled()) {
+            push (@array, 'print' => 1);
+            push (@array, 'printers' => $printersModule->printers());
+        }
     }
 
     push (@array, 'shares' => $self->shares());
@@ -1058,6 +1071,17 @@ sub _setConf
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        # Create directories
+        EBox::info('Creating directories');
+        $self->_createDirectories();
+
+        if (EBox::Global->modExists('openchange')) {
+            my $openchangeMod = EBox::Global->modInstance('openchange');
+            if ($openchangeMod->isProvisioned()) {
+                # Set OpenChange as not provisioned.
+                $openchangeMod->setProvisioned(0);
+            }
+        }
         if ($self->get('need_reprovision')) {
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
@@ -1131,6 +1155,13 @@ sub _antivirusEnabled
 sub _daemons
 {
     return [
+        # s4sync daemon must be stoped before samba4 is stopped to prevent LDB errors to appear on logs
+        # thus, it should be first in this list. When it starts, it waits until Samba daemon is ready, so is
+        # not a problem when we start it first.
+        {
+            name => 'zentyal.s4sync',
+            precondition => \&_s4syncCond,
+        },
         {
             name => 'samba4',
             type => 'init.d',
@@ -1139,10 +1170,6 @@ sub _daemons
         {
             name => 'zentyal.nmbd',
             precondition => \&_nmbdCond,
-        },
-        {
-            name => 'zentyal.s4sync',
-            precondition => \&_s4syncCond,
         },
         {
             name => 'zentyal.sysvol-sync',
@@ -2480,6 +2507,19 @@ sub defaultNamingContext
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
+    return new EBox::Samba::DMD(dn => $dn);
 }
 
 # Method: hiddenSid

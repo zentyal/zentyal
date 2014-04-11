@@ -39,10 +39,17 @@ use File::Basename;
 use YAML::XS;
 
 # Session files dir, +rw for captiveportal & zentyal
-use constant UMASK => 0007; # (Bond, James Bond)
+use constant UMASK => 0007;
 
 # Init logger
 EBox::initLogger('captiveportal-log.conf');
+
+sub new
+{
+    my ($class, @params) = @_;
+    srand();
+    return $class->SUPER::new(@params);
+}
 
 # Method: _savesession
 #
@@ -61,21 +68,12 @@ sub _savesession
     my ($user, $passwd, $ip, $sid, $key) = @_;
 
     if(not defined($sid)) {
-        my $rndStr;
-        for my $i (1..64) {
-            $rndStr .= rand (2**32);
-        }
-
         my $md5 = Digest::MD5->new();
-        $md5->add($rndStr);
+        $md5->add($$ , time() , rand(time) );
         $sid = $md5->hexdigest();
 
-        for my $i (1..64) {
-            $rndStr .= rand (2**32);
-        }
         $md5 = Digest::MD5->new();
-        $md5->add($rndStr);
-
+        $md5->add($$ , time() , rand(time) );
         $key = $md5->hexdigest();
     }
 
@@ -109,7 +107,7 @@ sub _savesession
         $data->{time} = time();
         $data->{user} = $user;
         $data->{ip} = $ip;
-        $data->{mac} = ip_mac($ip);
+        $data->{mac} = uc(ip_mac($ip));
         print $sidFile YAML::XS::Dump($data);
     }
 
@@ -124,7 +122,6 @@ sub _savesession
 sub updateSession
 {
     my ($sid, $ip, $time) = @_;
-
     defined($time) or $time = time();
 
     my $sidFile;
@@ -147,7 +144,7 @@ sub updateSession
         my $data = YAML::XS::Load($sess_info);
         $data->{time} = $time;
         $data->{ip} = $ip;
-        $data->{mac} = ip_mac($ip);
+        $data->{mac} = uc(ip_mac($ip));
         print $sidFile YAML::XS::Dump($data);
     }
 
@@ -210,13 +207,10 @@ sub _checkLdapPassword
         if ($authorized and $groupDN) {
             # we have not finished
             $authorized = 0;
-
-            my $dn = EBox::Ldap::dn();
-            my $userDN = "uid=$user,ou=Users,$dn";
             # check also the group for the user
             my %attrs = (
                 base => $groupDN,
-                filter => "(member=$userDN)",
+                filter => "(member=$bind)",
                 scope => 'base'
             );
             my $result = $ldap->search(%attrs);
@@ -236,7 +230,6 @@ sub _checkLdapPassword
 sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
-
     unless ($self->checkPassword($user, $passwd)) {
         my $ip  = $r->connection->remote_ip();
         EBox::warn("Failed login from: $ip");
@@ -253,7 +246,6 @@ sub authen_cred  # (request, user, password)
 sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_data) = @_;
-
     my $session_key = substr($session_data, 0, 32);
     my $sidFile; # sid file handle
 
@@ -279,6 +271,7 @@ sub authen_ses_key  # (request, session_key)
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
+
 
     if(defined($user)) {
         updateSession($session_key, $r->connection->remote_ip());

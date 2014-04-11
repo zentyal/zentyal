@@ -639,7 +639,8 @@ sub daemon_type
 #   Indicate to ServiceManager if the module must be shown in Module
 #   status configuration.
 #
-#   It must be overridden in rare cases
+#   It must be overridden in rare cases such as the module is not
+#   enabled manually.
 #
 # Returns:
 #

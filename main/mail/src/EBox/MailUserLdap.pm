@@ -60,6 +60,24 @@ sub mailboxesDir
     return DIRVMAIL;
 }
 
+# Method: setupUsers
+#
+#  Set up existent users for working correctly when the module is enabled for
+#  first time
+sub setupUsers
+{
+    my ($self) = @_;
+    my $userMod = EBox::Global->getInstance()->modInstance('users');
+
+    foreach my $user (@{ $userMod->users() }) {
+        my $mail = $user->get('mail');
+        if ($mail) {
+            my ($lhs, $rhs) = split '@', $mail, 2;
+            $self->setUserAccount($user, $lhs, $rhs);
+        }
+    }
+}
+
 # Method: setUserAccount
 #
 #  This method sets a mail account to a user.
@@ -68,21 +86,24 @@ sub mailboxesDir
 # Parameters:
 #
 #               user - user object
-#               lhs - the left hand side of a mail (the foo on foo@bar.baz account)
+#               lhs - Either the left hand side of a mail (the foo on foo@bar.baz account) or
+#                     the full mail account (don't supply rhs in that case)
 #               rhs - the right hand side of a mail (the bar.baz on previous account)
 
 sub setUserAccount
 {
     my ($self, $user, $lhs, $rhs)  = @_;
     my $mail = EBox::Global->modInstance('mail');
-    my $email = $lhs.'@'.$rhs;
+    my $email;
+    if (not $rhs) {
+        $email = $lhs;
+        ($lhs, $rhs) = split '@', $email, 2;
+    } else {
+        $email = $lhs . '@' . $rhs;
+    }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-
-    if ($mail->{malias}->accountExists($email)) {
-        throw EBox::Exceptions::DataExists('data' => __('mail account'),
-                                           'value' => $email);
-    }
+    $mail->checkMailNotInUse($email);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 
