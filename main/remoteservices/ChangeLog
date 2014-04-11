@@ -1,5 +1,9 @@
 3.5
 	+ Set version to 3.5
+	+ Fixed JS regressions on subscribe action
+	+ Disable QA updates until next commercial edition
+	+ EBox::RemoteServices::Subscription::Check::check recovers for
+	  any error raised on users checking
 	+ DisasterRecoveryDomains can notify other models
 	+ Fix remove conf backup after PSGI migration
 	+ Fix overwrite action on remote conf backup

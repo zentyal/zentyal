@@ -1,5 +1,6 @@
 3.5
 	+ Set version to 3.5
+	+ Fixed wrong call when cleaning up a bundled interface
 3.4
 	+ Import current DHCP addresses in first setup and when enabling module
 	+ Don't allow domain names as target of failover tests, usability

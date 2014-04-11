@@ -1133,14 +1133,14 @@ sub _overrideDaemons
     my @daemons = @{$self->_daemonsToDisable()};
 
     my @cmds;
-
     foreach my $daemon (@daemons) {
         my $name = $daemon->{name};
         push (@cmds, "service $name stop");
     }
+    EBox::Sudo::silentRoot(@cmds);
 
+    @cmds = ();
     push (@daemons, @{$self->_daemons()});
-
     foreach my $daemon (@daemons) {
         my $name = $daemon->{name};
         if (($daemon->{type}) and ($daemon->{type} eq 'init.d')) {
@@ -1149,7 +1149,6 @@ sub _overrideDaemons
             push (@cmds, "echo manual > /etc/init/$name.override");
         }
     }
-
     EBox::Sudo::silentRoot(@cmds);
 }
 
