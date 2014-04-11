@@ -27,6 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 
 use TryCatch::Lite;
+no warnings 'experimental::smartmatch';
 use feature "switch";
 
 # Group: Public methods

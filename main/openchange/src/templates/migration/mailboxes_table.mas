@@ -7,6 +7,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 my $nMailboxes = scalar(@mailboxes);
 </%init>
