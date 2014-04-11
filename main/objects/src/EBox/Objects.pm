@@ -170,10 +170,10 @@ sub _setConf
 
             my $m = new Net::Netmask($ip, $mask);
             my $netcidr = $m->base() . '/' . $m->bits();
-            push (@captureFilter, "((not (src $ip or dst $ip)) and (src net $netcidr))");
+            push (@captureFilter, "((src net $netcidr) and (not (src $ip or dst $ip)))");
         }
     }
-    my $captureFilter = join (' and ', @captureFilter);
+    my $captureFilter = join (' or ', @captureFilter);
 
     my $data = [];
     push (@{$data}, interface => 'any');
