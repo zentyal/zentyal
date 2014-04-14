@@ -626,7 +626,6 @@ sub rulesForIface
             $ruleRef->{service} = $row->elementByName('service');
             $ruleRef->{source} = $row->elementByName('source')->subtype();
             $ruleRef->{destination} = $row->elementByName('destination')->subtype();
-            $ruleRef->{application} = $row->elementByName('application')->value();
         }
 
         push ( @rules, $ruleRef );
