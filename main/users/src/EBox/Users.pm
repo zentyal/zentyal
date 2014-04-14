@@ -1312,10 +1312,10 @@ sub users
         scope => 'sub',
     );
 
-    my $result = $self->ldap->search(\%args);
+    my $entries = $self->ldap->pagedSearch(\%args);
 
     my @users = ();
-    foreach my $entry ($result->entries)
+    foreach my $entry (@{ $entries })
     {
         my $user = $self->{userClass}->new(entry => $entry);
         # Include system users?
