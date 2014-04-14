@@ -1,3 +1,5 @@
+HEAD
+	+ Use file based authentication instead of LDAP
 3.4
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

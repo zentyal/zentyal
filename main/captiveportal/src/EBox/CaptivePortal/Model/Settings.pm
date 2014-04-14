@@ -48,14 +48,6 @@ sub _table
     my ($self) = @_;
 
     my @tableHeader = (
-        new EBox::Types::Select(
-            fieldName     => 'group',
-            printableName => __('Group'),
-            populate      => \&populateGroups,
-            editable      => 1,
-            disableCache  => 1,
-            help          => __('Only users in this group will be allowed to login.'),
-            ),
        new EBox::Types::Int(
            fieldName     => 'expiration',
            printableName => __('Expiration time'),
@@ -92,25 +84,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-sub populateGroups
-{
-    my $userMod = EBox::Global->modInstance('users');
-    my @groups = (
-        {
-            value          => '__all__',
-            printableValue => __('All users'),
-        }
-    );
-    push (@groups, map (
-            {
-               value            => $_->name(),
-               printableValue   => $_->name(),
-            }, @{$userMod->securityGroups()}
-         )
-    );
-    return \@groups;
 }
 
 # Method: validateTypedRow

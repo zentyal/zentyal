@@ -19,7 +19,6 @@ package EBox::CaptivePortal;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
-            EBox::LdapModule
             EBox::Events::WatcherProvider
           );
 
@@ -29,15 +28,17 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use TryCatch::Lite;
 use EBox::Sudo;
-use EBox::Ldap;
+use EBox::CaptivePortal::Middleware::AuthFile;
 use EBox::CaptivePortalFirewall;
-use EBox::CaptivePortal::LdapUser;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
-use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
 use constant PERIOD_FILE => CAPTIVE_DIR . 'period';
 use constant CAPTIVE_USER  => 'zentyal-captiveportal';
 use constant CAPTIVE_GROUP => 'zentyal-captiveportal';
@@ -53,25 +54,8 @@ sub _create
         @_
     );
 
-    $self->{cpldap} = new EBox::CaptivePortal::LdapUser();
-
     bless($self, $class);
     return $self;
-}
-
-# Method: actions
-#
-#   Override EBox::Module::Service::actions
-#
-sub actions
-{
-    return [
-        {
-            'action' => __('Add LDAP schemas'),
-            'reason' => __('Zentyal will use this schema to store user sessions info.'),
-            'module' => 'captiveportal'
-        },
-    ];
 }
 
 # Method: menu
@@ -87,20 +71,6 @@ sub menu
                                     'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 226));
-}
-
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    $self->performLDAPActions();
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
 }
 
 # Method: _setConf
@@ -144,27 +114,6 @@ sub _setConf
     $webadminMod->addNginxServer(CAPTIVE_NGINX_FILE);
 
     my $settings = $self->model('Settings');
-    my $sldap = $self->model('SecondaryLDAP');
-    my $usersMod = EBox::Global->modInstance('users');
-
-    # Ldap connection (for auth) config file
-    my @params;
-    my $ldap = $usersMod->ldap();
-    push (@params, ldap_url => $ldap->url());
-    push (@params, ldap_bindstring => $ldap->userBindDN('{USERNAME}'));
-
-    my $group = $settings->groupValue();
-
-    if ($group ne '__all__') {
-        push (@params, ldap_group => $usersMod->groupDn($group));;
-    }
-
-    if ($sldap->enabledValue()) {
-        push (@params, ldap2_url => $sldap->urlValue());
-        push (@params, ldap2_bindstring => $sldap->binddnValue());
-    }
-
-    EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF, "captiveportal/ldap.conf.mas", \@params);
 
     # Write css file
     $self->_writeCSS();
@@ -229,13 +178,6 @@ sub firewallHelper
         return new EBox::CaptivePortalFirewall();
     }
     return undef;
-}
-
-# LdapModule implementation
-sub _ldapModImplementation
-{
-    my ($self) = @_;
-    return $self->{cpldap};
 }
 
 # Function: usesPort
@@ -443,9 +385,7 @@ sub quotaExceeded
         # Quotas disabled, no limit:
         return 0;
     }
-
-    my $user = EBox::Global->modInstance('users')->userByUID($username);
-    my $quota = $self->{cpldap}->getQuota($user);
+    my $quota = $self->userQuota($username);
 
     # No limit
     return 0 if ($quota == 0);
@@ -479,6 +419,190 @@ sub _bwmonitor {
 sub eventWatchers
 {
     return ['CaptivePortalQuota'];
+}
+
+# Method: addUser
+#
+#   Adds a user to the captive portal users file.
+#
+# Parameters:
+#
+#   - username - String the username to add.
+#   - password - String the password to validate the given username.
+#   - fullname - String the fullname of the user.
+#   - quota    - Integer monthly bandwidth usage quota or undef to use the default.
+#
+# Throws:
+#   <EBox::Exceptions::MissingArgument> if username or password arguments are not defined
+#   <EBox::Exceptions::DataExists> if the username already exists
+#   <EBox::Exceptions::InvalidData> if the quota is not an integer
+#
+sub addUser
+{
+    my ($self, $username, $password, $fullname, $quota) = @_;
+
+    unless ($username) {
+        throw EBox::Exceptions::MissingArgument('username');
+    }
+    unless ($password) {
+        throw EBox::Exceptions::MissingArgument('password');
+    }
+
+    if ($quota) {
+        unless ($quota =~ /^\d+$/) {
+            throw EBox::Exceptions::InvalidData(
+                data => 'quota', value => $quota, advice => __('Quota must be an integer'));
+        }
+    }
+
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+
+    if (exists $users->{$username}) {
+        throw EBox::Exceptions::DataExists(data => 'username', value => $username);
+    }
+
+    my $hash = EBox::CaptivePortal::Middleware::AuthFile::hashPassword($password);
+    $users->{$username} = { fullname => $fullname, quota => $quota, hash => $hash };
+    EBox::CaptivePortal::Middleware::AuthFile::writeUsersFile($users);
+}
+
+# Method: listUsers
+#
+#   Lists the valid usernames that will be allowed to use the captive portal.
+#
+# Returns:
+#   Hash reference with this format:
+#
+#   {
+#       'usernameWithCustomQuota' => {
+#           quota    => 10240,
+#       },
+#       'usernameWithDefaultQuota' => {
+#           fullname => 'Foo Bar',
+#       },
+#       ...
+#   }
+#
+sub listUsers
+{
+    my ($self) = @_;
+
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+
+    my $list = {};
+    foreach my $user (keys %{$users}) {
+        my $userHash = {};
+        $userHash->{fullname} = $users->{$user}->{fullname} if (exists $users->{$user}->{fullname});
+        $userHash->{quota} = $users->{$user}->{quota} if (exists $users->{$user}->{quota});
+        $list->{$user} = $userHash;
+    }
+    return $list;
+}
+
+# Method: modifyUser
+#
+#   Modifies user parameters on the captive portal users file
+#
+# Parameters:
+#
+#   - username - String the username to modify.
+#   - args     - Hash dictionary (missing args are not changed):
+#       - password - String the new password to validate the given username (optional).
+#       - fullname - String the new fullname for the user (optional).
+#       - quota    - Integer monthly bandwidth usage quota or undef to use the default.
+#
+# Throws:
+#   <EBox::Exceptions::MissingArgument> if username argument is not defined.
+#   <EBox::Exceptions::DataNotFound> if the given username doesn't exist.
+#
+sub modifyUser
+{
+    my ($self, $username, %args) = @_;
+
+    unless ($username) {
+        throw EBox::Exceptions::MissingArgument('username');
+    }
+
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+
+    my $user = $users->{$username};
+    unless (defined $user) {
+        throw EBox::Exceptions::DataNotFound(data => 'username', value => $username);
+    }
+
+    $user->{fullname} = $args{fullname} if (exists $args{fullname});
+    $user->{quota} = $args{quota} if (exists $args{quota});
+    $user->{hash} = EBox::CaptivePortal::Middleware::AuthFile::hashPassword($args{password}) if (exists $args{password});
+
+    EBox::CaptivePortal::Middleware::AuthFile::writeUsersFile($users);
+}
+
+# Method: removeUser
+#
+#   Removes a user from the captive portal users file
+#
+# Parameters:
+#
+#   - username - String the username to remove.
+#
+# Throws:
+#   <EBox::Exceptions::MissingArgument> if username argument is not defined.
+#   <EBox::Exceptions::DataNotFound> if the given username doesn't exist.
+#
+sub removeUser
+{
+    my ($self, $username) = @_;
+
+    unless ($username) {
+        throw EBox::Exceptions::MissingArgument('username');
+    }
+
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+
+    if (defined $users->{$username}) {
+        delete $users->{$username};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'username', value => $username);
+    }
+
+    EBox::CaptivePortal::Middleware::AuthFile::writeUsersFile($users);
+}
+
+# Method: userQuota
+#
+#   Gets the given user bandwidth quota.
+#
+# Parameters:
+#
+#   - username - String the username to get the quota for.
+#
+# Returns:
+#
+#   Integer the quota for the given username.
+#
+# Throws:
+#   <EBox::Exceptions::MissingArgument> if username argument is not defined.
+#   <EBox::Exceptions::DataNotFound> if the given username doesn't exist.
+#
+sub userQuota
+{
+    my ($self, $username) = @_;
+
+    unless ($username) {
+        throw EBox::Exceptions::MissingArgument('username');
+    }
+
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+
+    if (defined $users->{$username}) {
+        my $model = $self->model('BWSettings');
+        my $defaultQuota = $model->defaultQuotaValue();
+        my $user = $users->{$username};
+
+        return (defined $user->{quota}) ? $user->{quota} : $defaultQuota;
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'username', value => $username);
+    }
 }
 
 1;
