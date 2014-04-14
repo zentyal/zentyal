@@ -40,12 +40,14 @@ use EBox::Exceptions::External;
 
 use EBox::Types::Text;
 use EBox::Types::Union::Text;
+use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::InverseMatchSelect;
 use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 use EBox::Types::InverseMatchUnion;
+use EBox::Firewall::Types::NDPIApplication;
 use EBox::Sudo;
 
 sub new
@@ -70,6 +72,8 @@ sub decision
 
     return \@options;
 }
+
+
 
 # Method: _fieldDescription
 #
@@ -162,17 +166,29 @@ sub _fieldDescription
     }
 
     push (@tableHead,
-            new EBox::Types::InverseMatchSelect(
-                'fieldName' => 'service',
-                'printableName' => __('Service'),
-                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
-                'foreignField' => 'printableName',
-                'foreignNextPageField' => 'configuration',
-                'editable' => 1,
-                'help' => __('If inverse match is ticked, any ' .
-                             'service but the selected one will match this rule')
-
-                ),
+            new EBox::Types::Union(
+              'fieldName' => 'service',
+              'printableName' => __('Service'),
+              'subtypes' => [
+                new EBox::Types::InverseMatchSelect(
+                    'fieldName' => 'ebox_service',
+                    'printableName' => __('Service'),
+                    'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+                    'foreignField' => 'printableName',
+                    'foreignNextPageField' => 'configuration',
+                    'editable' => 1,
+                    'help' => __('If inverse match is ticked, any ' .
+                                 'service but the selected one will match this rule')
+                    ),
+                new EBox::Firewall::Types::NDPIApplication(
+                    'fieldName' => 'ndpi_service',
+                    'printableName' => __('Application'),
+                    'editable' => 1,
+                    'help' => __('If inverse match is ticked, any ' .
+                                 'service but the selected one will match this rule')
+                    ),
+              ],
+            ),
             new EBox::Types::Text(
                 'fieldName' => 'description',
                 'printableName' => __('Description'),
@@ -221,7 +237,7 @@ sub validateTypedRow
     foreach my $addrParam (@addrsParams) {
         if ($params_r->{$addrParam}) {
             my $addrElement = $params_r->{$addrParam};
-            if ($addrElement->inverseMatch()) {
+            if ($addrElement->can('inverseMatch') and $addrElement->inverseMatch()) {
                 my $anyType = $addrParam . '_any';
                 if ($addrElement->selectedType() eq $anyType) {
                     throw EBox::Exceptions::External(
@@ -237,7 +253,7 @@ sub validateTypedRow
     if ($params_r->{service}) {
         my $service = $params_r->{service};
         # don't allow inverse match of any service
-        if ($service->inverseMatch()) {
+        if ($service->can('inverseMatch') and $service->inverseMatch()) {
             my $serviceTable = $self->global()->modInstance('services')->model('ServiceTable');
             my $serviceId = $service->value();
               if ($serviceId eq $serviceTable->serviceForAnyConnectionId('tcp/udp')) {

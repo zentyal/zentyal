@@ -195,14 +195,26 @@ sub _setStructure
 
             pf('-N odrop'),
             pf('-N oaccept'),
+            pf('-N oapplicationglobal'),
+            pf('-A OUTPUT -j oapplicationglobal'),
             pf('-A OUTPUT -m state --state INVALID -j odrop'),
             pf('-A OUTPUT -m state --state ESTABLISHED,RELATED -j oaccept'),
+
             pf('-N idrop'),
             pf('-N iaccept'),
+            pf('-N iapplicationglobal'),
+            pf('-N iapplicationexternal'),
+            pf('-A INPUT -j iapplicationglobal'),
+            pf('-A INPUT -j iapplicationexternal'),
             pf('-A INPUT -m state --state INVALID -j idrop'),
             pf('-A INPUT -m state --state ESTABLISHED,RELATED -j iaccept'),
+
             pf('-N fdrop'),
             pf('-N faccept'),
+            pf('-N fapplicationglobal'),
+            pf('-N fapplicationfwdrules'),
+            pf('-A FORWARD -j fapplicationfwdrules'),
+            pf('-A FORWARD -j fapplicationglobal'),
             pf('-A FORWARD -m state --state INVALID -j fdrop'),
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j faccept'),
 
@@ -773,6 +785,7 @@ sub _iexternalCheckInit
         push(@commands,
             pf("-A iexternalmodules $input -j RETURN"),
             pf("-A iexternal $input -j RETURN"),
+            pf("-A iapplicationexternal $input -j RETURN"),
         );
     }
     foreach my $if (@{_vpnIfaces()}) {
@@ -781,6 +794,7 @@ sub _iexternalCheckInit
         push(@commands,
             pf("-A iexternalmodules $input -j RETURN"),
             pf("-A iexternal $input -j RETURN"),
+            pf("-A iapplicationexternal $input -j RETURN"),
         );
     }
     return \@commands;
@@ -871,6 +885,7 @@ sub _ffwdrules
         my $input = $self->_inputIface($if);
 
         push(@commands, pf("-A ffwdrules $input -j RETURN"));
+        push(@commands, pf("-A fapplicationfwdrules $input -j RETURN"));
     }
     my $iptHelper = new EBox::Firewall::IptablesHelper;
     for my $rule (@{$iptHelper->ExternalToInternalRuleTable()}) {
