@@ -149,11 +149,13 @@ sub validateTypedRow
             if ( defined ( $params->{$target} )) {
                 if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
                     my $srcObjId = $params->{$target}->value();
-                    unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
-                        throw EBox::Exceptions::External(
-                        __x('Object {object} has no members. Please add at ' .
-                            'least one to add rules using this object',
-                            object => $params->{$target}->printableValue()));
+                    unless ($objMod->objectIsDynamic($srcObjId)) {
+                        unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
+                            throw EBox::Exceptions::External(
+                            __x('Object {object} has no members. Please add at ' .
+                                'least one to add rules using this object',
+                                object => $params->{$target}->printableValue()));
+                        }
                     }
                 }
             }
