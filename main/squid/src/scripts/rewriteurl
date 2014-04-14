@@ -1,0 +1,122 @@
+#!/usr/bin/perl
+# Copyright (C) 2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+my $safeSearchPath = '/etc/squid3/safesearch';
+my $edufilterPath = '/etc/squid3/edufilter';
+
+my %substByDomain;
+
+
+sub _dbg
+{
+    my ($msg) = @_;
+    system "echo 'XXX $msg' >> /tmp/log";
+}
+
+# for the moment we read only one line
+sub _readFile
+{
+    my ($path) = @_;
+    my $FH;
+    if (not -r $path) {
+        return undef;
+    }
+
+    my $opened = open($FH, '<', $path);
+    if (not $opened) {
+        return undef;
+    }
+    my $contents = <$FH>;
+    close $FH;
+
+    return $contents;
+}
+
+my $safeSearch = _readFile($safeSearchPath);
+if ($safeSearch) {
+    %substByDomain = (
+        'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
+        'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
+        'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
+       );
+}
+
+my $edufilter     = _readFile($edufilterPath);
+if ($edufilter) {
+    $substByDomain{youtube} =  [qr{([?&])edufilter=[^&]*}, "edufilter=$edufilter"],
+}
+
+$| = 1;
+while (1) {
+    my $line = <>;
+    $line or next;
+    my ($url) = split '\s', $line, 3;
+    $url or next;
+
+    _dbg("URL $url");
+
+    if ($url =~ m{[.][a-zA-Z]+$}) {
+        # filename, we let it pass
+        _dbg("FILENAME $url");
+        print "\n";
+        next;
+    }
+
+    my $response = '';
+    # extract possible domains
+    $url =~ m{^.*?//(.*?)[/?]};
+    my @parts = split('\.', $1);
+    pop @parts; # last portion could not be domain
+    my $domain;
+    foreach my $part (reverse @parts) {
+        if (exists $substByDomain{$part}) {
+            $domain = $part;
+            _dbg("DOMAIN $domain");
+        }
+    }
+
+    if ($domain) {
+        my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
+        my $replaced = $url =~ s/$removeRe/$1$replacement/g;
+        if (not $replaced) {
+            $replacement = '?' . $replacement . '&';
+            $replaced  = $url =~ s/\?/$replacement/;
+            if (not $replaced) {
+                if (not $url =~ m{/$}) {
+                    $url .= '/';
+                }
+                $url .=  $replacement;
+                _dbg('add ?');
+
+            } else {
+                _dbg('replaced ?');
+            }
+
+        } else {
+            _dbg("Replaced previous version of $replacement");
+        }
+
+        $response = $url;
+        _dbg("$url -> $response");
+    }
+
+    print $response, "\n";
+}
+
+1;
