@@ -558,6 +558,7 @@ sub _setAddress
     if (defined($addr)) {
         # Checking correct address
         unless ( $addr->isa('EBox::Types::IPAddr') or
+                 $addr->isa('EBox::Types::IPSet')  or
                  $addr->isa('EBox::Types::HostIP') or
                  $addr->isa('EBox::Types::MACAddr')) {
             throw EBox::Exceptions::InvalidData('data' => 'src',
@@ -596,7 +597,19 @@ sub _setAddress
 
     if (defined($obj)) {
         foreach my $member (@{ $objMembers }) {
-            if ($member->{type} eq 'ipaddr') {
+            if ($member->{type} eq 'ipset') {
+                my $ipsetName = $member->{name};
+                my $rule = '';
+                if (defined $member->{filterip} and defined $member->{filtermask}) {
+                    my $addr = $member->{filterip};
+                    my $mask = $member->{filtermask};
+                    $rule .= " $inverse $flag $addr/$mask";
+                }
+                $flag = 'src' if ($addressType eq 'source');
+                $flag = 'dst' if ($addressType eq 'destination');
+                $rule .= " -m set $inverse --match-set $ipsetName $flag ";
+                push (@{$self->{$addressType}}, $rule);
+            } elsif ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {
                 my $range = $member->{begin} . '-' . $member->{end};
@@ -612,6 +625,18 @@ sub _setAddress
             and defined($addr->ip())) {
             $self->{$addressType} = ["$inverse $flag "
                                      . $addr->printableValue()];
+        } elsif (defined $addr and $addr->isa('EBox::Types::IPSet')) {
+            my $ipsetName = $addr->set();
+            my $filterIp = $addr->filterIp();
+            my $filterMask = $addr->filterMask();
+            my $rule = '';
+            if (defined $filterIp and defined $filterMask) {
+                $rule .= " $inverse $flag $filterIp/$filterMask";
+            }
+            $flag = 'src' if ($addressType eq 'source');
+            $flag = 'dst' if ($addressType eq 'destination');
+            $rule .= " -m set $inverse --match-set $ipsetName $flag ";
+            $self->{$addressType} = [ $rule ];
         } elsif (defined ($addr) and $addr->isa('EBox::Types::MACAddr')) {
             $self->{$addressType} = ["-m mac --mac-source $inverse " .
                 $addr->printableValue()] ;

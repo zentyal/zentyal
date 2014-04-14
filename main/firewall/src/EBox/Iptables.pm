@@ -40,7 +40,7 @@ use EBox::Sudo;
 
 my $statenew = " -m state --state NEW ";
 
-use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp', 'ip_conntrack_tftp');
+use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp', 'ip_conntrack_tftp', 'xt_set');
 use constant SYSLOG_LEVEL => 7;
 
 # Constructor: new

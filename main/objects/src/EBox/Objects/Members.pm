@@ -19,7 +19,11 @@
 #  for each member. Each member contains a hash with this keys:
 #
 #            'name' - member name
-#            'type' - either 'ipaddr' or 'iprange;
+#            'type' - either 'ipset', 'ipaddr' or 'iprange;
+#             ipset type additional keys:
+#               'name' - The name of the ipset
+#               'filterip'
+#               'filtermask'
 #             ipaddr type additional keys:
 #               'ipaddr' - ip/s member (CIDR notation)
 #               'mask'   -  network mask's member
@@ -40,7 +44,7 @@ sub new
     my ($class, $membersList) = @_;
 
     my $self =  $membersList;
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -112,14 +116,23 @@ sub iptablesSrcParams
     my ($self, $useMAC) = @_;
     my @params;
     foreach my $member (@{ $self }) {
-        if ($member->{type} eq 'ipaddr') {
+        if ($member->{type} eq 'ipset') {
+            my $arg = '';
+            if (length $member->{filterip} and length $member->{filtermask}) {
+                my $addr = $member->{filterip};
+                my $mask = $member->{filtermask};
+                $arg .= " --source $addr/$mask ";
+            }
+            $arg .= ' -m set --match-set ' . $member->{name} . ' src ';
+            push (@params, $arg);
+        } elsif ($member->{type} eq 'ipaddr') {
             my $arg =  ' --source ' .  $member->{ipaddr};
             if ($useMAC and $member->{macaddr}) {
                 $arg .= ' -m mac --mac-source ' . $member->{macaddr};
             }
-            push @params, $arg;
+            push (@params, $arg);
         } elsif ($member->{type} eq 'iprange') {
-            push @params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end};
+            push (@params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end});
         }
     }
 
@@ -139,7 +152,16 @@ sub iptablesDstParams
     my ($self) = @_;
     my @params;
     foreach my $member (@{ $self }) {
-        if ($member->{type} eq 'ipaddr') {
+        if ($member->{type} eq 'ipset') {
+            my $arg = '';
+            if (length $member->{filterip} and length $member->{filtermask}) {
+                my $addr = $member->{filterip};
+                my $mask = $member->{filtermask};
+                $arg .= " --destination $addr/$mask ";
+            }
+            $arg .= ' -m set --match-set ' . $member->{name} . ' dst ';
+            push (@params, $arg);
+        } elsif ($member->{type} eq 'ipaddr') {
             push @params,  ' --destination ' .  $member->{ipaddr};
         } elsif ($member->{type} eq 'iprange') {
             push @params, ' -m iprange --dst-range ' . $member->{begin} . '-' . $member->{end};

@@ -1,4 +1,5 @@
 HEAD
+	+ Adding support to ipsets at Iptables Rules
 	+ Added application shaping using nPDI
 3.4.1
 	+ Fixed bug that made impossible to add rules
