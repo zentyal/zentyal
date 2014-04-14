@@ -1,3 +1,6 @@
+HEAD
+	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
+	  it's installed
 3.4.1
 	+ Fixed bug when altering mail address through the edit user form
 	+ Better integration between mail addon and mail field

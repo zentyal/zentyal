@@ -8,6 +8,7 @@ case "$1" in
         # restart module
         service zentyal mail restart || true
 
+        dpkg-trigger --no-await zentyal-usercorner
         dpkg-trigger --no-await zentyal-core
 esac
 
