@@ -187,7 +187,7 @@ sub validateTypedRow
         my $ownId = $params->{id};
         my $ifaceValue = $params->{iface}->value();
 
-        foreach my $id (@{$self->ids()}) {
+        foreach my $id (@{$self->ids()})  {
             next if (defined $ownId and ($id eq $ownId));
 
             my $row = $self->row($id);
@@ -295,7 +295,15 @@ sub _table
                     editable        => 1,
                     cmpContext      => 'port',
                     ),
-                $self->_l7Types(),
+                new EBox::Types::Select(
+                    'fieldName' => 'service_application',
+                    'printableName' => __('Application based service'),
+                    'populate' => \&_serviceApplications,
+                    'editable' => 1,
+                    'help' => __('If inverse match is ticked, any ' .
+                                     'service but the selected one will match this rule'),
+                    'defaultValue' => 'none',
+                   ),
                ],
              editable => 1,
              help => _serviceHelp()
@@ -355,6 +363,7 @@ sub _table
                  ],
               editable => 1,
               ),
+
          new EBox::Types::Select(
              fieldName     => 'priority',
              printableName => __('Priority'),
@@ -415,6 +424,15 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub _serviceApplications
+{
+    return [
+        { value => 'none',           printableValue => __('None') },
+        { value => 'facebook',       printableValue => __('Facebook') },
+
+       ];
 }
 
 ####################################################
@@ -549,52 +567,6 @@ sub _serviceHelp
               'packet to match a service.');
 }
 
-# If l7filter capabilities are not enabled return dummy types which
-# are disabled
-sub _l7Types
-{
-    my ($self) = @_;
-
-    if ($self->parentModule()->l7FilterEnabled()) {
-        return (
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Protocol',
-                    printableName   => __('Application based service'),
-                    foreignModel    => $self->modelGetter('l7-protocols', 'Protocols'),
-                    foreignField    => 'protocol',
-                    editable        => 1,
-                    cmpContext      => 'protocol',
-                    ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Group',
-                    printableName   =>
-                    __('Application based service group'),
-                    foreignModel    =>   $self->modelGetter('l7-protocols', 'Groups'),
-                    foreignField    => 'group',
-                    editable        => 1,
-                    cmpContext      => 'group',
-                    ));
-    } else {
-        return (
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Protocol',
-                    printableName   => __('Application based service'),
-                    options         => [],
-                    editable        => 1,
-                    disabled        => 1,
-                    cmpContext      => 'protocol',
-                    ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Group',
-                    printableName   => __('Application based service group'),
-                    options         => [],
-                    editable        => 1,
-                    disabled        => 1,
-                    cmpContext      => 'group',
-                    ));
-    }
-}
-
 sub _populateFilterType
 {
     my @filters = ();
@@ -654,6 +626,7 @@ sub rulesForIface
             $ruleRef->{service} = $row->elementByName('service');
             $ruleRef->{source} = $row->elementByName('source')->subtype();
             $ruleRef->{destination} = $row->elementByName('destination')->subtype();
+            $ruleRef->{application} = $row->elementByName('application')->value();
         }
 
         push ( @rules, $ruleRef );

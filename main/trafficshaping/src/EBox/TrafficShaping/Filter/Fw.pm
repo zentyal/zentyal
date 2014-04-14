@@ -221,14 +221,9 @@ sub dumpIptablesCommands
                 $ipTablesRule->setReverseService($self->{service}->value());
             }
 
-        } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
-            #$ipTablesRule->setL7Service($self->{service}->value());
+        } elsif ($self->{service}->selectedType() eq 'service_application') {
             $l7Rule = 1;
-
-        } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
-            #$ipTablesRule->setL7GroupedService($self->{service}->value());
-            $l7Rule = 1;
-
+            $ipTablesRule->setNdpiApplication($self->{service}->value());
         }
 
         if ( $l7Rule ) {

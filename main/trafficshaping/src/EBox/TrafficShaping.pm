@@ -959,8 +959,8 @@ sub _buildGConfRules # (iface, regenConfig)
         my $id = delete $ruleRef->{ruleId};
         $ruleRef->{identifier} = $self->_nextMap($id);
         if ($ruleRef->{filterType} eq 'fw') {
-            # Source and destination
-            foreach my $targetName (qw(source destination)) {
+            # Source, destination and application
+            foreach my $targetName (qw(source destination application)) {
                 my $target = delete $ruleRef->{$targetName};
                 if ( $target->isa('EBox::Types::Union::Text')) {
                     $target = undef;

@@ -9,6 +9,7 @@ Package: zentyal-trafficshaping
 Architecture: all
 Replaces: ebox-trafficshaping (<< 2.0.100)
 Pre-Depends: mysql-server
+Breaks: zentyal-l7-protocols
 Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5), zentyal-firewall,
          libtree-perl, libclone-fast-perl, ${misc:Depends}
 Description: Zentyal - Traffic Shaping
