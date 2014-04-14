@@ -192,6 +192,10 @@ sub validateTypedRow
             next if (defined $ownId and ($id eq $ownId));
 
             my $row = $self->row($id);
+            if ($row->valueByName('filterType') ne 'u32') {
+                next;
+            }
+
             my $rowIface = $row->valueByName('iface');
 
             if ($ifaceValue eq ALL_IFACES or $ifaceValue eq $rowIface) {
