@@ -280,8 +280,7 @@ sub objectMembers # (object)
     return $object->subModel('members')->members();
 }
 
-<<<<<<< HEAD
-# objectIsDynamic
+# Method: objectIsDynamic
 #
 #   TODO
 #
