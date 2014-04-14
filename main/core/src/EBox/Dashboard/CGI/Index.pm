@@ -153,7 +153,7 @@ sub masonParameters
     my $showMessage = 1;
     my $rs = EBox::Global->modInstance('remoteservices');
     if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-        $showMessage = 0;
+#        $showMessage = 0;
         # Re-check for changes
         $rs->checkAdMessages();
         my $rsMsg = $rs->adMessages();
@@ -215,26 +215,26 @@ sub _periodicMessages
                       ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
          days => 0,
         },
-        {
-         name => 'backup',
-         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
-         days => 1,
-        },
-        {
-         name => 'ddns',
-         text => __sx('Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
-         days => 7,
-        },
-        {
-         name => 'trial',
-         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
-         days => 23,
-        },
-        {
-         name => 'community',
-         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
-         days => 30,
-        },
+#        {
+#         name => 'backup',
+#         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+#         days => 1,
+#        },
+#        {
+#         name => 'ddns',
+#         text => __sx('Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+#         days => 7,
+#        },
+#        {
+#         name => 'trial',
+#         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
+#         days => 23,
+#        },
+#        {
+#         name => 'community',
+#         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+#         days => 30,
+#        },
     ];
 }
 
