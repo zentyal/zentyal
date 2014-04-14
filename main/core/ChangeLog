@@ -1,4 +1,5 @@
 HEAD
+	+ Added IPSet type
 	+ Fix enabled save changes button after installing packages
 	+ Changed CGI base to show correctly referer errors and
 	  generating response errors
