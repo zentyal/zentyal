@@ -1,4 +1,6 @@
 HEAD
+	+ Added support for addon components when user is in a
+	  non-standard OU
 	+ Better control for edit user quota
 3.2.12
 	+ Fixed bug when altering mail address through the edit user form
