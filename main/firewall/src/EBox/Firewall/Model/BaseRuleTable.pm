@@ -47,6 +47,7 @@ use EBox::Types::InverseMatchSelect;
 use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 use EBox::Types::InverseMatchUnion;
+use EBox::Firewall::Types::NDPIApplication;
 use EBox::Sudo;
 
 sub new
@@ -72,39 +73,7 @@ sub decision
     return \@options;
 }
 
-sub ndpiServices
-{
-    my @services = (
-        { 'value' => 'ndpi_facebook',
-          'printableValue' => __('Facebook') },
-        { 'value' => 'ndpi_twitter',
-          'printableValue' => __('Twitter') },
-        { 'value' => 'ndpi_bittorrent',
-          'printableValue' => __('Bittorrent') },
-        { 'value' => 'ndpi_edonkey',
-          'printableValue' => __('Amule') },
-        { 'value' => 'ndpi_dropbox',
-          'printableValue' => __('Dropbox') },
-        { 'value' => 'ndpi_msn',
-          'printableValue' => __('MSN Messanger') },
-        { 'value' => 'ndpi_unencrypedjabber',
-          'printableValue' => __('GTalk') },
-        { 'value' => 'ndpi_whatsapp',
-          'printableValue' => __('Whatsapp') },
-        { 'value' => 'ndpi_tor',
-          'printableValue' => __('TOR') },
-        { 'value' => 'ndpi_teamviewer',
-          'printableValue' => __('TeamViewer') },
-        { 'value' => 'ndpi_rdp',
-          'printableValue' => __('RDP') },
-        { 'value' => 'ndpi_vmware',
-          'printableValue' => __('LogMeIn') },
-        { 'value' => 'ndpi_vnc',
-          'printableValue' => __('VNC') },
-    );
 
-    return \@services;
-}
 
 # Method: _fieldDescription
 #
@@ -211,10 +180,9 @@ sub _fieldDescription
                     'help' => __('If inverse match is ticked, any ' .
                                  'service but the selected one will match this rule')
                     ),
-                new EBox::Types::Select(
+                new EBox::Firewall::Types::NDPIApplication(
                     'fieldName' => 'ndpi_service',
                     'printableName' => __('Application'),
-                    'populate' => \&ndpiServices,
                     'editable' => 1,
                     'help' => __('If inverse match is ticked, any ' .
                                  'service but the selected one will match this rule')

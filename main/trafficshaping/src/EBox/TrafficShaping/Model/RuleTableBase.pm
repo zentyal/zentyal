@@ -43,6 +43,7 @@ use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
+use EBox::Firewall::Types::NDPIApplication;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
@@ -295,14 +296,12 @@ sub _table
                     editable        => 1,
                     cmpContext      => 'port',
                     ),
-                new EBox::Types::Select(
+                new EBox::Firewall::Types::NDPIApplication(
                     'fieldName' => 'service_application',
                     'printableName' => __('Application based service'),
-                    'populate' => \&_serviceApplications,
                     'editable' => 1,
                     'help' => __('If inverse match is ticked, any ' .
                                      'service but the selected one will match this rule'),
-                    'defaultValue' => 'none',
                    ),
                ],
              editable => 1,
@@ -424,15 +423,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-sub _serviceApplications
-{
-    return [
-        { value => 'none',           printableValue => __('None') },
-        { value => 'facebook',       printableValue => __('Facebook') },
-
-       ];
 }
 
 ####################################################

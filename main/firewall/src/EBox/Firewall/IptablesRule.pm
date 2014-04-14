@@ -107,8 +107,7 @@ sub setService
     }
 
     if (index($service, 'ndpi_') == 0) {
-        my $appService = substr($service, length("ndpi_"));
-        $self->setNdpiApplication($appService, $inverseMatch);
+        $self->setNDPIApplication($service, $inverseMatch);
         return;
     }
 
@@ -167,10 +166,10 @@ sub setService
     }
 }
 
-sub setNdpiApplication
+sub setNDPIApplication
 {
     my ($self, $application) = @_;
-
+    $application =~ s/^ndpi_//;
     my $iptables = "  -m ndpi --$application";
     push (@{$self->{'service'}}, $iptables);
 }

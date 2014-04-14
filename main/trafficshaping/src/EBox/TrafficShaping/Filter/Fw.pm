@@ -209,7 +209,6 @@ sub dumpIptablesCommands
         if (not defined ($self->{service})) {
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
-
         } elsif ($self->{service}->selectedType() eq 'service_port') {
             my $iface = $self->{parent}->getInterface();
             my $network = EBox::Global->modInstance('network');
@@ -218,9 +217,8 @@ sub dumpIptablesCommands
             } else {
                 $ipTablesRule->setReverseService($self->{service}->value());
             }
-
         } elsif ($self->{service}->selectedType() eq 'service_application') {
-            $ipTablesRule->setNdpiApplication($self->{service}->value());
+            $ipTablesRule->setNDPIApplication($self->{service}->value());
         }
 
         # Mark the packet and set the decision to MARK and the table as mangle
