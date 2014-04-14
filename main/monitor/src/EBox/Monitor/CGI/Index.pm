@@ -42,7 +42,7 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Monitoring'),
+    my $self = $class->SUPER::new('title'    => __('System Monitoring'),
                                   'template' => 'monitor/index.mas',
                   @_);
 

@@ -1740,21 +1740,40 @@ sub _setProxyRedirections
 
     my $confFile = SERV_DIR . 'proxy-redirections.conf';
     my $webadminMod = EBox::Global->modInstance('webadmin');
-    if ($self->hasBundle() and (-r REDIR_CONF_FILE)) {
-        try {
-            my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+    if ($self->hasBundle()) {
+        my $redirectionConfs = [];
+        if (-r REDIR_CONF_FILE) {
+            try {
+                my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+                if (@{$redirConf}) {
+                    push(@{$redirectionConfs}, @{$redirConf});
+                }
+            } catch ($e) {
+                # Not proper YAML file
+               EBox::error($e);
+            };
+         }
+        # Read from RedirectHelper modules
+        foreach my $mod (@{EBox::Global->getInstance(1)->modInstancesOfType('EBox::RedirectHelper')}) {
+            if ($mod->isEnabled()) {
+                my $redirConf = $mod->redirectionConf();
+                if (@{$redirConf}) {
+                    push(@{$redirectionConfs}, @{$redirConf});
+                }
+            }
+        }
+        if (@{$redirectionConfs}) {
             my @tmplParams = (
-                redirections => $redirConf,
-               );
+                redirections => $redirectionConfs,
+                );
             EBox::Module::Base::writeConfFileNoCheck(
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
             $webadminMod->addNginxInclude($confFile);
-        } catch ($e) {
-            # Not proper YAML file
-            EBox::error($e);
-        };
+        } else {
+            $webadminMod->removeNginxInclude($confFile);
+        }
     } else {
         # Do nothing if include is already removed
         try {

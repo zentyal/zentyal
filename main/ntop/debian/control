@@ -1,0 +1,20 @@
+Source: zentyal-ntop
+Section: web
+Priority: optional
+Maintainer: Enrique J. Hernández <ejhernandez@zentyal.org>
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
+
+Package: zentyal-ntop
+Architecture: all
+Pre-Depends: mysql-server
+Depends:
+ zentyal-core (>= 3.1), zentyal-firewall, ntopng, redis-server,
+ librrds-perl, liblist-moreutils-perl, ${misc:Depends}
+Description: Zentyal - Network monitoring
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds network monitoring capabilities to your Zentyal installation.

@@ -13,6 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use warnings;
+use strict;
+
 package EBox::Reporter::Base;
 
 # Class: EBox::Reporter::Base
@@ -20,9 +23,6 @@ package EBox::Reporter::Base;
 #      Base class to perform the consolidation and send the result to
 #      the cloud
 #
-
-use warnings;
-use strict;
 
 use EBox;
 use EBox::Config;
@@ -124,12 +124,18 @@ sub timestampField
 #
 #    Every subclass must implement <_consolidate>
 #
+# Returns:
+#
+#    Boolean - some data were consolidated
+#
 sub consolidate
 {
     my ($self) = @_;
 
     my $beginTime = $self->_beginTime();
     my $endTime   = time();
+    my $inTime = ($endTime - $beginTime >= $self->_granularity());
+    return 0 unless ($inTime);
     try {
         # TODO: Do not store all the result in a single var
         my $result = $self->_consolidate($beginTime, $endTime);
@@ -138,6 +144,7 @@ sub consolidate
     } catch ($e) {
         EBox::error("Can't consolidate " . $self->name() . " : $e");
     }
+    return 1;
 }
 
 # Method: send
@@ -195,7 +202,7 @@ sub log
 #
 # Returns:
 #
-#      Int - seconds among logging ops
+#      Int - seconds among <log> operations
 #
 sub logPeriod
 {
@@ -322,6 +329,23 @@ sub _booleanFields
 {
     return [];
 }
+
+
+# Method: _granularity
+#
+#     Determine the granularity for sending report data to Zentyal
+#     Remote
+#
+# Returns:
+#
+#     Int - the maximum granularity in seconds. It defaults to *15*
+#           minutes
+#
+sub _granularity
+{
+    return 15 * 60;
+}
+
 
 # Group: Private methods
 

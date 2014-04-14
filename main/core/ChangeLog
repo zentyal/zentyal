@@ -1,4 +1,6 @@
 HEAD
+	+ RedirectHelper interface to redirect requests from Zentyal
+	  Remote to specific module HTTP applications
 	+ Added IPSet type
 	+ Support for redirection when loading URL in existent dialog
 	+ Added webadmin port tag to haproxy configuration file

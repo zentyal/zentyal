@@ -22,14 +22,14 @@
      proxy_set_header Host $host;
      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
      if ($http_x_ssl_client_used) {
-        rewrite /<% $redir->{url} %>/(.*) /$1 break;
         proxy_pass <% $redir->{target} %>;
+        rewrite /<% $redir->{url} %>(.*) /$1 break;
         break;
      }
      return 404;
   }
 %   if ($redir->{absolute_url_patterns}) {
-%      my $absPatterns = join(' ', @{$redir->{absolute_url_patterns}});  
+%      my $absPatterns = join(' ', @{$redir->{absolute_url_patterns}});
   location ~ <% $absPatterns %> {
      proxy_redirect off;
      proxy_set_header Host $host;
@@ -41,4 +41,36 @@
      return 404;
   }
 %   }
+
+%   if ($redir->{referer_patterns} or $redir->{query_string_patterns}) {
+  location = / {
+     if ($http_x_ssl_client_used) {
+        set $andc S;
+     }
+%      if ($redir->{referer_patterns}) {
+%         foreach my $pattern (@{$redir->{referer_patterns}}) {
+     if ($http_referer ~* "<% $pattern %>") {
+        set $andc "${andc}M";
+     }
+%         }
+%      }
+
+%      if ($redir->{query_string_patterns}) {
+%         foreach my $pattern (@{$redir->{query_string_patterns}}) {
+     if ($query_string ~* "<% $pattern %>") {
+        set $andc "${andc}M";
+     }
+%         }
+%      }
+     if ($andc ~ SM) {
+        proxy_pass <% $redir->{target} %>;
+        break;
+     }
+     # Fallback to named location
+     error_page 418 = @proxy;
+     return 418;
+  }
+
+%   }
+
 % }
