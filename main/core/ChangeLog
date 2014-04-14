@@ -1,4 +1,6 @@
 HEAD
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
 	+ Support for redirection when loading URL in existent dialog
 	+ Fix dashboard UI freeze when widgets were being updated
 	+ More tolerant referer validation so we can access to submodels
