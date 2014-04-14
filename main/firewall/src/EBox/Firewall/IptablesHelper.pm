@@ -65,6 +65,10 @@ sub ToInternetRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($self->_isUnsopportedRule($row)) {
+            next;
+        }
+
         my $appRule = $self->_isApplicationRule($row);
         my $chain = $appRule ? 'fapplicationglobal' : 'fglobal';
         my $rule = new EBox::Firewall::IptablesRule(
@@ -98,6 +102,10 @@ sub ExternalToInternalRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($self->_isUnsopportedRule($row)) {
+            next;
+        }
+
         my $appRule = $self->_isApplicationRule($row);
         my $chain = $appRule ? 'fapplicationfwdrules' : 'ffwdrules';
         my $rule = new EBox::Firewall::IptablesRule(
@@ -130,6 +138,9 @@ sub InternalToEBoxRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($self->_isUnsopportedRule($row)) {
+            next;
+        }
 
         my $appRule = $self->_isApplicationRule($row);
         my $chain = $appRule ? 'iapplicationglobal' : 'iglobal';
@@ -165,6 +176,10 @@ sub ExternalToEBoxRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($self->_isUnsopportedRule($row)) {
+            next;
+        }
+
         my $appRule = $self->_isApplicationRule($row);
         my $chain = $appRule ? 'iapplicationexternal' : 'iexternal';
         my $rule = new EBox::Firewall::IptablesRule(
@@ -199,6 +214,10 @@ sub EBoxOutputRuleTable
     my @rules;
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($self->_isUnsopportedRule($row)) {
+            next;
+        }
+
         my $appRule = $self->_isApplicationRule($row);
         my $chain = $appRule ? 'oapplicationglobal' : 'oglobal';
         my $rule = new EBox::Firewall::IptablesRule(
@@ -279,6 +298,13 @@ sub _isApplicationRule
     my ($self, $row) = @_;
     my $service = $row->valueByName('service');
     return ($service =~ m/^ndpi_/);
+}
+
+sub _isUnsopportedRule
+{
+    my ($self, $row) = @_;
+    my $service = $row->valueByName('service');
+    return ($service eq 'ndpi_unsupported');
 }
 
 sub _addOrigAddressToRule

@@ -614,6 +614,12 @@ sub rulesForIface
 
         if ($filterType eq 'fw') {
             $ruleRef->{service} = $row->elementByName('service');
+
+            # check for unsupported service
+            if ($ruleRef->{service}->value() eq 'ndpi_unsupported') {
+                next;
+            }
+
             $ruleRef->{source} = $row->elementByName('source')->subtype();
             $ruleRef->{destination} = $row->elementByName('destination')->subtype();
         }
