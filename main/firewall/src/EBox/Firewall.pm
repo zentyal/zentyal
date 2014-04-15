@@ -119,7 +119,7 @@ sub initialSetup
         $self->model('EBoxOutputRuleTable')->add(
             decision => 'accept',
             destination =>  { destination_any => undef },
-            service => $any,
+            service => { 'ebox_service' => $any},
         );
 
         # Allow any Internet access from internal networks
@@ -127,7 +127,7 @@ sub initialSetup
             decision => 'accept',
             source => { source_any => undef },
             destination =>  { destination_any => undef },
-            service => $any,
+            service => { 'ebox_service' => $any},
         );
     }
 }
@@ -522,13 +522,9 @@ sub _setService
         EBox::info("Existing rule for $service overrides default rule");
         return undef;
     }
-
-    my %params;
-    $params{'decision'} = $decision;
-    $params{'source_selected'} = 'source_any';
-    $params{'service'} = $serviceId;
-
-    $rulesModel->addRow(%params);
+    $rulesModel->add(decision => $decision,
+                     source => { 'source_any' => 1},
+                     service => { 'ebox_service' => $serviceId});
 
     return 1;
 }
