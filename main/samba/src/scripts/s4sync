@@ -49,6 +49,7 @@ my $ro = 1;
 my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
+my $sambaLdapUser = new EBox::Samba::SambaLdapUser();
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -277,8 +278,12 @@ while (1) {
     foreach my $uniqueID (sort keys %zentyalGroups) {
         my $zentyalGroup = $zentyalGroups{$uniqueID};
         try {
+            my $name = $zentyalGroup->name();
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
+
+            $sambaLdapUser->removeFromShareACLs($name);
+            $sambaLdapUser->removeGroupShare($name);
         } otherwise {
             my ($error) = @_;
             my $dn = $zentyalGroup->dn();
@@ -305,8 +310,11 @@ while (1) {
     foreach my $uniqueID (keys %zentyalUsers) {
         my $zentyalUser = $zentyalUsers{$uniqueID};
         try {
+            my $name = $zentyalUser->get('uid');
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
+
+            $sambaLdapUser->removeFromShareACLs($name);
         } otherwise {
             my ($error) = @_;
             my $dn = $zentyalUser->dn();
