@@ -159,7 +159,6 @@ sub _ndpiServices
         { value => "ndpi_gmail", printableValue => __('GMail') },
         { value => "ndpi_googlemaps", printableValue => __('Google Maps') },
         { value => "ndpi_youtube", printableValue => __('Youtube') },
-        { value => "ndpi_skype", printableValue => __('Skype') },
         { value => "ndpi_google", printableValue => __('Google') },
         { value => "ndpi_dcerpc", printableValue => __('DCE/RPC') },
         { value => "ndpi_netflow", printableValue => __('Netflow') },
@@ -178,7 +177,6 @@ sub _ndpiServices
         { value => "ndpi_webex", printableValue => __('Webex') },
         { value => "ndpi_whatsapp", printableValue => __('WhatsApp') },
         { value => "ndpi_appleicloud", printableValue => __('Apple iCloud') },
-        { value => "ndpi_viber", printableValue => __('Viber') },
         { value => "ndpi_appleitunes", printableValue => __('Apple iTunes') },
         { value => "ndpi_radius", printableValue => __('RADIUS') },
         { value => "ndpi_windowsupdate", printableValue => __('Windows Update') },
@@ -215,7 +213,6 @@ sub _ndpiServices
         { value => "ndpi_amazon", printableValue => __('Amazon') },
         { value => "ndpi_ebay", printableValue => __('eBay') },
         { value => "ndpi_cnn", printableValue => __('CNN website') },
-        { value => "ndpi_dropbox", printableValue => __('Dropbox') },
         { value => "ndpi_skype", printableValue => __('Skype') },
         { value => "ndpi_viber", printableValue => __('Viber') },
         { value => "ndpi_yahoo", printableValue => __('Yahoo') },
@@ -223,7 +220,9 @@ sub _ndpiServices
         { value => "ndpi_unsupported", printableValue => __('LogMeIn') },
     );
 
-    @services = sort { $a->{printableValue} cmp $b->{printableValue}  } @services;
+    @services = sort {
+        (lc $a->{printableValue}) cmp (lc $b->{printableValue})
+    } @services;
 
     return \@services;
 }
