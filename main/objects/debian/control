@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-objects
 Architecture: all
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
+Depends: zentyal-core (>= 3.4.2~poc), zentyal-core (<< 3.5),
          p0f (>= 3.0.6b-1zentyal1), libnet-ip-perl, libnet-netmask-perl,
          ipset, ${misc:Depends}
 Description: Zentyal - Network Objects
