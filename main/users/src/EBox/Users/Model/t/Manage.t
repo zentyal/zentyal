@@ -20,8 +20,6 @@ use Test::More tests => 6;
 
 use EBox::Global::TestStub;
 
-use lib '../../../..';
-
 EBox::Global::TestStub::fake();
 
 my $users = EBox::Global->modInstance('users');
