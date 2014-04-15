@@ -22,7 +22,6 @@ my $edufilterPath = '/etc/squid3/edufilter';
 
 my %substByDomain;
 
-
 sub _dbg
 {
     my ($msg) = @_;
@@ -69,11 +68,9 @@ while (1) {
     my ($url) = split '\s', $line, 3;
     $url or next;
 
-    _dbg("URL $url");
 
     if ($url =~ m{[.][a-zA-Z]+$}) {
         # filename, we let it pass
-        _dbg("FILENAME $url");
         print "\n";
         next;
     }
@@ -87,7 +84,6 @@ while (1) {
     foreach my $part (reverse @parts) {
         if (exists $substByDomain{$part}) {
             $domain = $part;
-            _dbg("DOMAIN $domain");
         }
     }
 
@@ -102,18 +98,14 @@ while (1) {
                     $url .= '/';
                 }
                 $url .=  $replacement;
-                _dbg('add ?');
 
             } else {
-                _dbg('replaced ?');
             }
 
         } else {
-            _dbg("Replaced previous version of $replacement");
         }
 
         $response = $url;
-        _dbg("$url -> $response");
     }
 
     print $response, "\n";
