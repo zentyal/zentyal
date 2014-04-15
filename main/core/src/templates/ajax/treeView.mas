@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/data/js/form.js"></script>
 
 <& .pageTitle, title => $model->pageTitle() &>
+<& .message, model => $model &>
 
 <& .headTitle, title => $model->headTitle() &>
 
@@ -205,3 +206,13 @@ $(function () {
 % }
 </%def>
 
+<%def .message>
+<%args>
+$model
+</%args>
+% my ($msg, $class) = @{ $model->message() };
+% my $id = $model->treeName() . '_msg';
+<div class="<% $class %>">
+<% $msg %>
+</div>
+</%def>
