@@ -1069,7 +1069,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                 # then attaching filters according to members of this object
                 $src = undef;
                 $srcObj =  $rule_ref->{source};
-                #return unless (@{$objs->objectAddresses($srcObj)});
+                return if (not $objs->objectIsDynamic($srcObj) and not @{$objs->objectAddresses($srcObj)});
             }
 
             # The same related to destination
@@ -1089,7 +1089,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                 # then attaching filters according to members of this object
                 $dst = undef;
                 $dstObj =  $rule_ref->{destination} ;
-                return unless (@{$objs->objectAddresses($dstObj)});
+                return if (not $objs->objectIsDynamic($dstObj) and not @{$objs->objectAddresses($dstObj)});
             }
 
             # Set a filter with objects if src or dst are not objects

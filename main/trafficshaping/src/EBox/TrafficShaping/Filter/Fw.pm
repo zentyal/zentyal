@@ -104,7 +104,7 @@ sub new
     }
     if ($args{dstAddr}) {
         if ((not $args{dstAddr}->isa('EBox::Types::IPAddr')) and
-            (not $args{srcAddr}->isa('EBox::Types::IPSet')) and
+            (not $args{dstAddr}->isa('EBox::Types::IPSet')) and
             (not $args{dstAddr}->isa('EBox::Types::IPRange'))) {
             throw EBox::Exceptions::InvalidType('srcAddr', 'EBox::Types::IPAddr EBox::Types::IPSet or EBox::Types::IPRange');
         }
