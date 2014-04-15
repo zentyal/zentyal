@@ -348,6 +348,26 @@ sub actions
            ];
 }
 
+sub _stopRewriteUrl
+{
+    my ($self) = @_;
+   EBox::Sudo::silentRoot('pkill -9 rewriteurl');
+}
+
+sub restartService
+{
+    my ($self, @params) = @_;
+    $self->SUPER::restartService(@params);
+    $self->_stopRewriteUrl();
+}
+
+sub stopService
+{
+    my ($self, @params) = @_;
+    $self->SUPER::stopService(@params);
+    $self->_stopRewriteUrl();
+}
+
 sub _cache_mem
 {
     my $cache_mem = EBox::Config::configkey('cache_mem');
