@@ -34,11 +34,6 @@ use EBox::Gettext;
        <p>
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </p>
-%      if ($dst) {
-         <a  class="btn" href="#" onclick="continueToDst('<% $dst %>'); return false">
-           <% __('Continue to your destination')  %>
-         </a>
-%      }
      </div>
 <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %></div>
 </body>
