@@ -50,9 +50,12 @@ sub _readFile
 my $safeSearch = _readFile($safeSearchPath);
 if ($safeSearch) {
     %substByDomain = (
-        'google' => [qr{([?&])safe=[^&]*}, 'safe=vss'],
-        'bing'   => [qr{([?&])adlt=[^&]*}, 'adlt=strict'],
-        'yahoo'  => [qr{([?&])vm=[^&]*}, 'vm=r'],
+        'google' => {
+                      qr{([?&])safe=[^&]*} => 'safe=vss',
+                      qr{([?&])nord=[^&]*} =>  'nord=1'
+                    },
+        'bing'   => {qr{([?&])adlt=[^&]*} => 'adlt=strict'},
+        'yahoo'  => {qr{([?&])vm=[^&]*} => 'vm=r'},
        );
 }
 
@@ -88,21 +91,18 @@ while (1) {
     }
 
     if ($domain) {
-        my ($removeRe, $replacement) = @{ $substByDomain{$domain} };
-        my $replaced = $url =~ s/$removeRe/$1$replacement/g;
-        if (not $replaced) {
-            $replacement = '?' . $replacement . '&';
-            $replaced  = $url =~ s/\?/$replacement/;
+        while (my ($removeRe, $replacement) = each $substByDomain{$domain}) {
+            my $replaced = $url =~ s/$removeRe/$1$replacement/g;
             if (not $replaced) {
-                if (not $url =~ m{/$}) {
-                    $url .= '/';
+                $replacement = '?' . $replacement . '&';
+                $replaced  = $url =~ s/\?/$replacement/;
+                if (not $replaced) {
+                    if (not $url =~ m{/$}) {
+                        $url .= '/';
+                    }
+                    $url .=  $replacement;
                 }
-                $url .=  $replacement;
-
-            } else {
             }
-
-        } else {
         }
 
         $response = $url;
