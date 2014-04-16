@@ -45,6 +45,7 @@ sub _print
 sub _process
 {
     my $self = shift;
+    return [];
     my @htmlParams = (
         dst => $self->param('dst')
        );

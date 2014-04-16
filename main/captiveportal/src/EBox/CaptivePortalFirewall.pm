@@ -190,7 +190,7 @@ sub _usersRules
     my @rules;
     my $users = $self->{captiveportal}->currentUsers();
     for my $user (@{$users}) {
-        my $r = $self->{captiveportal}->userFirewallRule($user);
+        my $r = $self->{captiveportal}->userFirewallRule($user, $user->{sid});
         push(@rules, { 'rule' => $r, 'chain' => $chain });
     }
     return \@rules;
