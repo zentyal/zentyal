@@ -78,7 +78,7 @@ sub new
 sub _smbHomes
 {
     my $samba = EBox::Global->modInstance('samba');
-    return "\\\\" . $samba->netbios() . "\\homes\\";
+    return "\\\\" . $samba->netbios() . "\\";
 }
 
 sub _smbProfiles
@@ -1123,7 +1123,7 @@ sub updateNetbiosName
         my $username = $entry->get_value('uid');
 
         $ldap->modifyAttribute($dn, 'sambaHomePath',
-                "\\\\$netbios\\homes\\$username");
+                "\\\\$netbios\\$username");
         # XXX Check if we have to add or not, instead of
         # add + [ delete ]
         $ldap->modifyAttribute($dn, 'sambaProfilePath',

@@ -43,6 +43,7 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
+use EBox::Util::Version;
 
 
 use File::Slurp qw(read_file write_file);
@@ -196,6 +197,25 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
+    }
+
+    # Migrate from 2.2 to 2.2.1
+    if (defined ($version) and (EBox::Util::Version::compare($version, '2.2.1') < 0)) {
+        my $netbios = $self->netbios();
+        my $usersMod = EBox::Global->modInstance('users');
+        my $ldap = $usersMod->ldap();
+        my $searchParams = {
+            base => $usersMod->usersDn(),
+            scope => 'one',
+            filter => '(objectClass=sambaSamAccount)',
+            attrs => ['*'],
+        };
+        my $result = $ldap->search($searchParams);
+        foreach my $entry ($result->entries()) {
+            my $username = $entry->get_value('uid');
+            $ldap->modifyAttribute($entry->dn(),
+                'sambaHomePath', "\\\\$netbios\\$username");
+        }
     }
 }
 
