@@ -510,7 +510,7 @@ sub setMessage
     $self->{message} = [$msg, $class];
 }
 
-sub message
+sub popMessageAndClass
 {
     my ($self) = @_;
     my $msg = delete $self->{message};
