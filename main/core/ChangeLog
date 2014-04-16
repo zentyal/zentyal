@@ -1,5 +1,5 @@
 HEAD
-	+ Added setMessage() and message() methos to EBox::Model::TreeView
+	+ Added setMessage() and popMessageAndClass() methos to EBox::Model::TreeView
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
 	+ Support for redirection when loading URL in existent dialog
