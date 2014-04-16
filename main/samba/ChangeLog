@@ -1,4 +1,4 @@
-HEAD
+3.0.24
 	+ Wait for RID set allocation after join a domain before import accounts
 	+ Remove workaround for DNS spn, fixed upstream
 	+ Force a DNS module restart after provision to load the domain zone from
