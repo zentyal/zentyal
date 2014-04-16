@@ -1,3 +1,5 @@
+HEAD
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
 3.2.15
 	+ Remove the use of method canonicalName for greater performance, use
 	  object DNs instead
