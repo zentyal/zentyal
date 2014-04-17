@@ -1,4 +1,8 @@
 HEAD
+	+ Remove the 'homes' part from sambaHomePath ldap attribute. Fixes the
+	  wrong mount point for home drive when a folder with the same name as the
+	  user exists in its home.
+2.2
 	+ Restart apache on first enable to avoid missing model error in
 	  log observer event
 	+ Use always the same string to refer to the NetBIOS computer name
