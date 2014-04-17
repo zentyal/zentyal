@@ -106,11 +106,6 @@ sub setService
         throw EBox::Exceptions::MissingArgument("service");
     }
 
-    if (index($service, 'ndpi_') == 0) {
-        $self->setNDPIApplication($service, $inverseMatch);
-        return;
-    }
-
     my $serviceConf = $self->{'services'}->serviceConfiguration($service);
     unless (defined($serviceConf)) {
         throw EBox::Exceptions::DataNotFound('data' => 'service',
@@ -169,6 +164,10 @@ sub setService
 sub setNDPIApplication
 {
     my ($self, $application) = @_;
+    if ($application eq 'ndpi_none') {
+        return;
+    }
+
     $application =~ s/^ndpi_//;
     my $iptables = "  -m ndpi --$application";
     push (@{$self->{'service'}}, $iptables);

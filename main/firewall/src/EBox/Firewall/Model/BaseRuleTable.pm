@@ -166,37 +166,31 @@ sub _fieldDescription
     }
 
     push (@tableHead,
-            new EBox::Types::Union(
+          new EBox::Types::InverseMatchSelect(
               'fieldName' => 'service',
               'printableName' => __('Service'),
-              'subtypes' => [
-                new EBox::Types::InverseMatchSelect(
-                    'fieldName' => 'ebox_service',
-                    'printableName' => __('Service'),
-                    'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
-                    'foreignField' => 'printableName',
-                    'foreignNextPageField' => 'configuration',
-                    'editable' => 1,
-                    'help' => __('If inverse match is ticked, any ' .
+              'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+              'foreignField' => 'printableName',
+              'foreignNextPageField' => 'configuration',
+              'editable' => 1,
+              'help' => __('If inverse match is ticked, any ' .
                                  'service but the selected one will match this rule')
-                    ),
-                new EBox::Firewall::Types::NDPIApplication(
-                    'fieldName' => 'ndpi_service',
-                    'printableName' => __('Application'),
-                    'editable' => 1,
-                    'help' => __('If inverse match is ticked, any ' .
-                                 'service but the selected one will match this rule')
-                    ),
-              ],
-            ),
-            new EBox::Types::Text(
-                'fieldName' => 'description',
-                'printableName' => __('Description'),
+             ),
+          new EBox::Firewall::Types::NDPIApplication(
+              'fieldName' => 'application',
+              'printableName' => __('Application'),
+              'editable' => 1,
+              'help' => __('If inverse match is ticked, any ' .
+                               'service but the selected one will match this rule')
+                   ),
+          new EBox::Types::Text(
+              'fieldName' => 'description',
+              'printableName' => __('Description'),
                 'size' => '32',
-                'editable' => 1,
-                'optional' => 1,
-                ),
-             );
+              'editable' => 1,
+              'optional' => 1,
+             ),
+         );
 
     return \@tableHead;
 }
