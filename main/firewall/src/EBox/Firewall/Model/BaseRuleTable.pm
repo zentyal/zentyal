@@ -182,6 +182,7 @@ sub _fieldDescription
               'fieldName' => 'application',
               'printableName' => __('Application'),
               'editable' => 1,
+              'defaultValue' => 'ndpi_none',
               'help' => __('If inverse match is ticked, any ' .
                                'service but the selected one will match this rule')
                    ),
