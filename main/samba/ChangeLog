@@ -1,4 +1,4 @@
-HEAD
+2.2.1
 	+ Remove the 'homes' part from sambaHomePath ldap attribute. Fixes the
 	  wrong mount point for home drive when a folder with the same name as the
 	  user exists in its home.
