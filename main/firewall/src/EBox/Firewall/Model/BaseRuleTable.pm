@@ -50,6 +50,8 @@ use EBox::Types::InverseMatchUnion;
 use EBox::Firewall::Types::NDPIApplication;
 use EBox::Sudo;
 
+use Perl6::Junction qw(all);
+
 sub new
 {
     my $class = shift;
@@ -257,6 +259,23 @@ sub validateTypedRow
             }
         }
     }
+
+    my $application = $actual_r->{'application'}->value();
+    if ($application ne 'ndpi_none') {
+        my $serviceId = $actual_r->{service}->value();
+        my $serviceConf  = $self->global()->modInstance('services')->serviceConfiguration($serviceId);
+        foreach my $conf (@{ $serviceConf }) {
+            my $protocol = $conf->{protocol};
+            if ($protocol ne all('tcp', 'udp', 'tcp/udp', 'any')) {
+                throw EBox::Exceptions::External(__x(
+                    "Application option is incompatible with '{service}' because it uses the network protocol {proto}",
+                     service => $actual_r->{service}->printableValue(),
+                     proto => $protocol
+                   ));
+            }
+        }
+    }
+
 }
 
 1;
