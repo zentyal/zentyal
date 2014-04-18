@@ -752,7 +752,8 @@ msgstr "Tillad klient-til-klient forbindelser"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr "Aktiver det for at tillade klient maskiner af denne VPN, at se hinanden"
+msgstr ""
+"Aktiver det for at tillade klient maskiner af denne VPN, at se hinanden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
@@ -1546,8 +1547,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
-"Hvis du ændrer en indstilling, kan du forudsage en service klynge "
-"afbrydelse,"
+"Hvis du ændrer en indstilling, kan du forudsage en service klynge afbrydelse,"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
 msgid "Create a new cluster"
@@ -1581,7 +1581,8 @@ msgstr "ingen fejl"
 #, perl-brace-format
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
-msgstr "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
+msgstr ""
+"\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:158
 #, perl-brace-format
@@ -1611,9 +1612,8 @@ msgid ""
 "security updates."
 msgstr ""
 "Ønsker du at beskytte dit system mod de seneste sikkerhedstrusler, hacking "
-"forsøg og angreb på sikkerhedshuller? Få en af ​​de {oh} Kommercielle "
-"Udgaver {ch} der omfatter IPS-funktionen i de automatiske "
-"sikkerhedsopdateringer."
+"forsøg og angreb på sikkerhedshuller? Få en af ​​de {oh} Kommercielle Udgaver "
+"{ch} der omfatter IPS-funktionen i de automatiske sikkerhedsopdateringer."
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1977,7 +1977,8 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
 msgid "You must enable, at least, a listening port to make this module useful."
-msgstr "Du skal aktivere mindst en lytte port for at gøre dette modul brugbart."
+msgstr ""
+"Du skal aktivere mindst en lytte port for at gøre dette modul brugbart."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
 msgid "HTTP listening port"
