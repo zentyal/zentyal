@@ -1,4 +1,6 @@
 HEAD
+	+ Allow subscription when firewall has been enabled a second time
+	  but changes has not been saved
 	+ EBox::RemoteServices::Subscription::Check::check recovers for
 	  any error raised on users checking
 3.2.5
