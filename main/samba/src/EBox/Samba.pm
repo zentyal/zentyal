@@ -320,6 +320,7 @@ sub _postServiceHook
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
+        my $domainGuestSID = "$domainSID-501";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
@@ -381,10 +382,20 @@ sub _postServiceHook
                 my $ace = new Samba::Security::AccessControlEntry(
                     $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
-                # Add read/write access for Domain Guests
+                # Add read/write access for Domain Guest user
                 my $ace2 = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace2);
+
+                # Add read/write access for Domain Guests group
+                my $ace3 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace3);
+
+                # Add everybody read/write access
+                my $ace4 = new Samba::Security::AccessControlEntry(
+                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace4);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
