@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-04-15 20:41+0200\n"
+"PO-Revision-Date: 2014-04-18 08:58+0200\n"
 "Last-Translator: Snubbi <carl@manjaro.dk>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: da\n"
@@ -169,27 +169,7 @@ msgstr "Klient {name}"
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Slået til\n"
-"#-#-#-#-#  da.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Slået til\n"
-"#-#-#-#-#  da.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Aktiveret\n"
-"#-#-#-#-#  da.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Slået til\n"
-"#-#-#-#-#  da.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Aktiv\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Aktiveret\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Aktiveret\n"
-"#-#-#-#-#  da.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Aktiveret\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Slået til\n"
-"#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Slået til"
+msgstr "Aktiveret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -223,27 +203,7 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Slået fra\n"
-"#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Slået fra"
+msgstr "Slået fra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -457,15 +417,7 @@ msgstr "Navn"
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:164
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Indstillinger\n"
-"#-#-#-#-#  da.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"konfiguration\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Konfiguration\n"
-"#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Konfiguration"
+msgstr "konfiguration"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
@@ -769,11 +721,11 @@ msgstr "Brug en netværksadresse, som ikke anvendes på denne maskine"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
-msgstr ""
+msgstr "Server certifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Klient autorisation ved gængs navn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -781,234 +733,246 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Hvis deaktiveret, vil enhver klient med et certifikat, der genereres af "
+"Zentyal kunne oprette forbindelse. Hvis aktiveret, vil kun certifikater, "
+"hvis gængs navn der begynder med den valgte værdi, vil være i stand til at "
+"oprette forbindelse."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Netværk Adresse Oversættelse"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr ""
+msgstr "Aktiver, hvis denne VPN-server ikke er standard-gateway"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Tillad klient-til-klient forbindelser"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr ""
+msgstr "Aktiver det for at tillade klient maskiner af denne VPN, at se hinanden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Tillad Zentyal-til-Zentyal tunneler"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"
-msgstr ""
+msgstr "Aktiver, hvis denne VPN bruges til at forbinde til en anden Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Zentyal-til-Zentyal tunnel password"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Tilbagevisningsruter skubbet af Zentyal-tunnelklienter"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Når dette er markeret, vil denne server ikke tage nogen rute tilføjet af sin "
+"klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr ""
+msgstr "Interface at lytte på"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Default gateway"
+msgstr "Omdirigere gateway"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "Gør Zentyal til standard gateway for klienten"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "brugernavn"
+msgstr "Hoved navneserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Secod nameserver"
 msgstr "Sekundær navneserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:434
 msgid "Search domain"
-msgstr "Søge domæne"
+msgstr "Søg domæne"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:464
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:312
-#, fuzzy
 msgid "WINS server"
 msgstr "WINS server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr ""
+msgstr "Serverkonfiguration"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
-msgstr ""
+msgstr "Alle netværksinterfaces"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr ""
+msgstr "Zentyal til Zentyal-tunnel indstilling kræver et RIP password"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Porten {port} er allerede i brug af modul {mod}"
+msgstr "VPN-adressen {addr} bruges allerede af interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:348
 msgid "Other server is using the same VPN address, please choose another"
-msgstr ""
+msgstr "Andre server bruger den samme VPN-adresse, så vælg venligst en anden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Andre servere lytter på den samme port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "Porten {port} er allerede i brug af modul {mod}"
+msgstr "Port {p}/{pr} bruges af {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Interface {iface} eksisterer ikke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Interface {iface} er ikke konfigureret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Kan ikke bruge Netværk Adresse Oversættelse, fordi det kræver firewall-"
+"modulet. Modulet er hverken installeret eller aktiveret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Kan ikke bruge Netværk Adresse Oversættelse, fordi det kræver firewall-"
+"modulet aktiveret. Aktiver det og prøv så igen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Mindst en ekstern interface er nødvendig for at oprette forbindelse til "
+"serveren, medmindre Netværk Adresse Oversættelse indstilling er aktiveret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
+"Interfacet skal være et ekstern interface, medmindre Netværk Adresse "
+"Oversættelse indstilling er slået til"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr ""
+msgstr "{par} er ikke kompatibel med Zentyal-til-Zentyal tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
-msgstr ""
+msgstr "Liste over tilføjede netværk til tunnel server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
+msgstr "Tilføjede ruter for klienter over et TUN interface understøttes ikke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
-msgstr ""
+msgstr "Tilføjede Netværk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
-msgstr ""
+msgstr "Aktiver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
-msgstr ""
+msgstr "Upload klient pakke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:104
 msgid "List of Clients"
-msgstr ""
+msgstr "Liste over klienter"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN Klienter"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:149
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Kan ikke aktivere klienten, fordi der ikke er fuldt konfigureret; rediger "
+"venligst konfigurationen og prøv så igen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:183
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP password er obligatorisk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:59
 msgid "Deleted daemons"
-msgstr ""
+msgstr "Slettede dæmoner"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:65
 msgid "daemon"
-msgstr ""
+msgstr "dæmon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
-msgstr "lokal bind9 konfigurationsfil"
+msgstr "Upload konfigurationspakke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "lokal bind9 konfigurationsfil"
+msgstr "Upload klient-konfigurationenspakke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Konfiguration for {zone} zonen"
+msgstr "Upload konfigurationspakke for {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:73
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:118
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "Sådan konfigureres Quagga for at køre ripd og zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:124
 msgid "To configure Quagga to listen on the given interfaces"
-msgstr ""
+msgstr "Sådan konfigureres Quagga til at lytte på de givne interfaces"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:129
 msgid "Main zebra configuration file"
-msgstr ""
+msgstr "Hoved zebra konfigurationsfil"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:135
 msgid "To configure ripd to exchange routes with client to client connections"
 msgstr ""
+"Sådan konfigureres ripd for at udveksle ruter med klient til klient-"
+"forbindelser"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "For at fjerne hele systemet VPN-servere autostart"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -1016,16 +980,18 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
+"Ugyldigt navn {name}. Kun alfabetiske og numeriske '-', '_', '.' tegn er "
+"tilladt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:622
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
-msgstr ""
+msgstr "Kan ikke bruge navnet {n} fordi der er en klient med samme navn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:633
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr ""
+msgstr "Kan ikke bruge navnet {n} fordi der er en server med samme navn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:655
 #, perl-brace-format
@@ -1033,6 +999,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Ugyldigt navn {navn}. Navn, der begynder med præfikset {pf} er reserveret "
+"til intern brug"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
 #, perl-brace-format
@@ -1040,23 +1008,25 @@ msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Ugyldigt navn {name}. En intern dæmon skal have et navn, der begynder med "
+"præfikset {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
-msgstr "Tabellen {table} findes ikke"
+msgstr "Klient {c} findes ikke"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1287
 msgid "Servers"
-msgstr ""
+msgstr "Servere"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1294
 msgid "Clients"
-msgstr ""
+msgstr "Klienter"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 msgid "Common name"
-msgstr ""
+msgstr "Almindeligt navn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
@@ -1066,15 +1036,15 @@ msgstr "Adresse"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 msgid "Connected since"
-msgstr "Forbindelse siden"
+msgstr "Tilsluttet siden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1342
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "Ingen brugere tilsluttet til VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1382
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "OpenVPN dæmoner"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:52
@@ -1126,19 +1096,8 @@ msgstr "Dato"
 #: ../../main/squid/src/EBox/Squid.pm:1141
 #: ../../main/ipsec/src/EBox/IPsec.pm:366
 #: ../../main/mail/src/EBox/Mail.pm:1538
-#, fuzzy
 msgid "Event"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Hændelse\n"
-"#-#-#-#-#  da.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Hændelse\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox-printers 0.12)  #-#-#-#-#\n"
-"Begivenhed"
+msgstr "Begivenhed"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
@@ -1156,54 +1115,54 @@ msgstr "Type"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1484
 msgid "Remote IP"
-msgstr ""
+msgstr "Ekstern IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1485
 msgid "Remote Certificate"
-msgstr ""
+msgstr "Ekstern certifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1490
 #: ../../main/ipsec/src/EBox/IPsec.pm:372
 msgid "Initialization sequence completed"
-msgstr ""
+msgstr "Initialisering sekvens færdig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1492
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Certifikat udstederen ikke er autoriseret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Certifikat fælles navn ikke er autoriseret"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1494
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "Certifikat verifikation mislykkedes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1496
 msgid "Client connection initiated"
-msgstr ""
+msgstr "Klient forbindelse indledt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1497
 msgid "Client connection terminated"
-msgstr ""
+msgstr "Klientforbindelse afbrudt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1499
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "Forbindelse til server indledt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1500
 msgid "Server connection terminated"
-msgstr ""
+msgstr "Server-forbindelse afbrudt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1528
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Du skal sætte insecure_rip_conf til ja eller nej"
 
 #: ../../main/ha/src/EBox/HA.pm:90
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 msgid "High Availability"
-msgstr ""
+msgstr "Høj rådighedsgrad"
 
 #: ../../main/ha/src/EBox/HA.pm:115 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
@@ -1215,23 +1174,16 @@ msgstr "System"
 #: ../../main/ha/src/EBox/HA.pm:146
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klyngestatus"
 
 #: ../../main/ha/src/EBox/HA.pm:164
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "_ Til konfigurer clamd daemon"
+msgstr " Konfigurere korosync dæmon"
 
 #: ../../main/ha/src/EBox/HA.pm:167
-#, fuzzy
 msgid "To start corosync at boot"
-msgstr "Stop eller reboot"
+msgstr "At starte corosync ved opstart"
 
 #: ../../main/ha/src/EBox/HA.pm:1001
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1282,16 +1234,14 @@ msgstr "Ingen"
 #: ../../main/ha/src/EBox/HA.pm:1007
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh} Der er fejl {ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "System opdatering"
+msgstr "Sidst opdateret"
 
 #: ../../main/ha/src/EBox/HA.pm:1018
-#, fuzzy
 msgid "Errors"
 msgstr "Fejl"
 
@@ -1311,13 +1261,12 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/ha/src/EBox/HA.pm:1023
-#, fuzzy
 msgid "not enabled"
-msgstr "Aktiveret"
+msgstr "ikke aktiveret"
 
 #: ../../main/ha/src/EBox/HA.pm:1026
 msgid "Nodes"
-msgstr ""
+msgstr "Knuder"
 
 #: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1330,13 +1279,8 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:53
 #: ../../main/dns/src/templates/edit.mas:18
-#, fuzzy
 msgid "Host name"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Host navn\n"
-"#-#-#-#-#  da.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Værts navn (Hostnavn)"
+msgstr "Værts navn (Hostnavn)"
 
 #: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:185
@@ -1363,26 +1307,25 @@ msgid "IP address"
 msgstr "IP adresse"
 
 #: ../../main/ha/src/EBox/HA.pm:1036
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "Nuværende konfiguration"
+msgstr "Klynge er ikke konfigureret"
 
 #: ../../main/ha/src/EBox/HA.pm:1125
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} har ikke en IP-adresse til brug"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
+"Replikering mislykkedes. Kontroller venligst {logfil} for mere information."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Nuværende konfiguration"
+msgstr "Klynge konfiguration"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1390,58 +1333,51 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Her kan du vise status for din klynge. Hvis du ønsker at få mere information "
+"om de fejl, der vises, skal du gå til {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Navn er for langt. Maksimal længde er {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Navn er for kort. Minimum længde er {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
-msgstr ""
+msgstr "Navnet må kun indeholde bogstaver, tal eller underscore."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "IP {ip} hører ikke til noget interface."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Der er ikke noget permanent interface til at give Web server en IP adresse."
+msgstr "Der er et netværk interface med den givne IP-adresse."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Der er ikke noget permanent interface til at give Web server en IP adresse."
+msgstr "Der er en fast adresse i DHCP med den givne IP-adresse."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Der er ikke noget permanent interface til at give Web server en IP adresse."
+msgstr "Der er et DHCP-område, der omfatter den givne IP-adresse."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "IP adresse"
+msgstr "Flydende IP-adresse"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:250
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "IP adresse"
+msgstr "Flydende IP-adresser"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:254
-#, fuzzy
 msgid "floating IP address"
-msgstr "IP adresse"
+msgstr "flydende IP-adresse"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:121
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1452,170 +1388,116 @@ msgstr "IP adresse"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Prøv igen"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
-msgstr ""
+msgstr "On-line"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Off-line"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Node liste for {name} klynge"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
 #: ../../main/core/src/EBox/SysInfo.pm:335
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
-#, fuzzy
 msgid "Hostname"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Host navn\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Hostnavn"
+msgstr "Værtsnavn (Hostnavn)"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Handlinger"
+msgstr "Replikering"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Slet\n"
-"#-#-#-#-#  da.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Fjern\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Fjern/Slet\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Fjern"
+msgstr "Degradere"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Slet\n"
-"#-#-#-#-#  da.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Fjern\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Fjern/Slet\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Fjern"
+msgstr "Forfremme"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Node liste for klynge"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Denne protokol bruger ikke porte"
+msgstr "Klyngen har ingen noder."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "Node {name} er nu den aktive node"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "Node {name} er nu en passiv node"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klynge navn"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klyngehemmelighed"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Nuværende Udpeget Controller"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"Den nuværende Udpeget Controller udfører operationerne i klyngen. Denne node "
+"kan ændres uden nogen indvirkning i klyngen."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "Tjenesten er aktiveret men kører ikke"
+msgstr "Fejl: {service} service kører ikke"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Funktion\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Handling\n"
-"#-#-#-#-#  da.po (ebox 0.12)  #-#-#-#-#\n"
-"Handling"
+msgstr "Sidste ændring"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Konfigurerede"
+msgstr "Konfigurerede noder"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "noder"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Konfigurerede"
+msgstr "Konfigurerede resurser"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Resurse"
+msgstr "resurser"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1608
@@ -1623,101 +1505,83 @@ msgid "Resource"
 msgstr "Resurse"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
-msgstr "Start"
+msgstr "Started kl."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Denne protokol bruger ikke porte"
+msgstr "Klyngen har ikke nogen resurser defineret."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:147
-#, fuzzy
 msgid "noname"
-msgstr "navn"
+msgstr "ikke nogetnavn"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
-#, fuzzy
 msgid "Cluster host"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klynge vært (host)"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
-#, fuzzy
 msgid "Cluster host port"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klynge vært (host) port"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
-#, fuzzy
 msgid "Choose network interface"
-msgstr "netværk interface"
+msgstr "Vælg netværk interface"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
 msgid "It will be used as communication channel between the cluster members."
 msgstr ""
+"Det vil blive anvendt som kommunikationskanal mellem klyngens medlemmer."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Konfigurere, hvordan denne server vil starte en klynge, eller den vil slutte "
+"sig til en eksisterende"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
+"Hvis du ændrer en indstilling, kan du forudsage en service klynge "
+"afbrydelse,"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Opret mail alias'"
+msgstr "Opret en ny klynge"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Tilføj denne node til en eksisterende klynge"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
-#, fuzzy
 msgid "Floating IP"
-msgstr "IP adresse"
+msgstr "Flydende IP"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:107
-#, fuzzy
 msgid "Cluster error"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"brugernavn\n"
-"#-#-#-#-#  da.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"bruger navn"
+msgstr "Klynge fejl"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
 msgid "Node"
-msgstr ""
+msgstr "Node"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:126
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Denne protokol bruger ikke porte"
+msgstr "Klyngen ikke har nogen fejl."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:140
-#, fuzzy
 msgid "no error"
-msgstr "Fejl"
+msgstr "ingen fejl"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:154
 #, perl-brace-format
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
-msgstr ""
+msgstr "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:158
 #, perl-brace-format
@@ -1726,16 +1590,17 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Der er en ikke-styrede resurse, vi kan ikke håndtere det ved momment. Du "
+"skal indtaste følgende kommando  i en terminal: {command} for at genvinde "
+"kontrollen fra denne resurse"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
-msgstr "IDS alarm rapport"
+msgstr "IPS alarm rapport"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
-msgstr "Indtrængesles Detektions System"
+msgstr "Indtrængen Opdagelse/Forebyggelses-System"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:93
 #, perl-brace-format
@@ -1745,6 +1610,10 @@ msgid ""
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
 msgstr ""
+"Ønsker du at beskytte dit system mod de seneste sikkerhedstrusler, hacking "
+"forsøg og angreb på sikkerhedshuller? Få en af ​​de {oh} Kommercielle "
+"Udgaver {ch} der omfatter IPS-funktionen i de automatiske "
+"sikkerhedsopdateringer."
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1796,6 +1665,7 @@ msgstr "regel"
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
 msgstr ""
+"Vælg det sæt af regler, du vil anvende, når du scanner netværkstrafikken"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
@@ -1806,22 +1676,23 @@ msgstr "Log"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
 msgid "Block"
-msgstr ""
+msgstr "Data"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
-msgstr ""
+msgstr "Log & Data"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
-#, fuzzy
 msgid "Community"
-msgstr "Kommentar"
+msgstr "Community"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:287
 #, perl-brace-format
 msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr ""
+"Advanced Security Updates giver dig mulighed for at bruge dagligt opdaterede "
+"{rules} regler"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
@@ -1881,21 +1752,8 @@ msgstr ""
 #: ../../main/common/src/EBox/NetWrappers.pm:151
 #: ../../main/common/src/EBox/NetWrappers.pm:243
 #: ../../main/common/src/EBox/NetWrappers.pm:284
-#, fuzzy
 msgid "Interface"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  da.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Brugerflade\n"
-"#-#-#-#-#  da.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  da.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  da.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  da.po (ebox-printers 0.12)  #-#-#-#-#\n"
-"Interface"
+msgstr "Interface"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
 #: ../../main/network/src/EBox/Network.pm:4541
@@ -1912,22 +1770,20 @@ msgid "interface"
 msgstr "interface"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
-msgstr "Vælg i hvilke interfaces IDS systemet skal aktiveres"
+msgstr "Vælg i hvilke interfaces IPS systemet skal aktiveres"
 
 #: ../../main/ips/src/EBox/IPS.pm:67
 msgid "IDS/IPS"
-msgstr ""
+msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Status for modul konfiguration"
+msgstr "Tilføj regler til suricata konfiguration"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
 msgid "Enable start of suricata daemon"
-msgstr ""
+msgstr "Aktiver start af suricata dæmon"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
@@ -1981,15 +1837,8 @@ msgstr "Beskrivelse"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
 #: ../../main/firewall/src/EBox/Firewall.pm:766
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
-#, fuzzy
 msgid "Source"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Source/kilde\n"
-"#-#-#-#-#  da.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Kilde\n"
-"#-#-#-#-#  da.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Kilde"
+msgstr "Source/kilde"
 
 #: ../../main/ips/src/EBox/IPS.pm:311
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
@@ -2013,35 +1862,30 @@ msgid "Protocol"
 msgstr "Protokol"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "Alert"
-msgstr "Alarmer"
+msgstr "Alarm"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "System opdatering"
+msgstr "IPS Rule Opdateringer"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Ledig plads"
+msgstr "Fiasko grund"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
-#, fuzzy
 msgid "Success"
-msgstr "Gæste adgang"
+msgstr "Vellykket"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
-#, fuzzy
 msgid "Failure"
-msgstr "fejl"
+msgstr "Mislykkedes"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -2049,6 +1893,8 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"Seneste regel opdatering gør at IDS / IPS-dæmonen skal stoppes. Tjek {log} "
+"for detaljer og regel ændringslog på {url} ({name} regler)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:70
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
@@ -2062,7 +1908,7 @@ msgstr "Indstil webserver port (indkomne)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:93
 msgid "To configure default virtual host."
-msgstr "Konfigurer normal virtuel vært (host)"
+msgstr "Konfigurer standard virtuel vært (host)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:98
 msgid "To configure default SSL virtual host."
@@ -2090,16 +1936,14 @@ msgid "To serve pages over HTTPS."
 msgstr "Web sider gennem HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:138
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Fjern ntps opstartslinks"
+msgstr "Fjern apache2 init script link"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:139
 #: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:335
 #: ../../main/squid/src/EBox/Squid.pm:341 ../../main/ntp/src/EBox/NTP.pm:80
-#, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox vil håndtere start og stop af de forskellige services"
+msgstr "Zentyal vil tage sig af at starte og stoppe services."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:683
 #, perl-brace-format
@@ -2107,6 +1951,8 @@ msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
+"{dir} skal være en mappe for virtuel host konfiguration. Flyt eller fjern "
+"det venligst"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:698
 #, perl-brace-format
@@ -2114,49 +1960,44 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} skal være en mappe for virtuel host dokument root. Flyt eller fjern "
+"det venligst"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:940
-#, fuzzy
 msgid "Web server data"
-msgstr "Web service status"
+msgstr "Web server data"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
-#, fuzzy
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
 "different virtual hosts."
 msgstr ""
-"Zentyal web service tillader dig at udbyde Web sider i ren HTML i "
-"forskellige virtuelle værter (hosts)"
+"Zentyal webserveren giver dig mulighed for at være vært for HTTP-og HTTPS "
+"sider inden for forskellige virtuelle værter (hosts)."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
 msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
+msgstr "Du skal aktivere mindst en lytte port for at gøre dette modul brugbart."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
-#, fuzzy
 msgid "HTTP listening port"
-msgstr "Indkomne port"
+msgstr "HTTP lytteporten"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
-#, fuzzy
 msgid "HTTPS listening port"
-msgstr "Indkomne port"
+msgstr "HTTPS lytteporten"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
-#, fuzzy
 msgid "Listening Ports settings"
-msgstr "Indkomne port"
+msgstr "Lytteporte indstillinger"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
-#, fuzzy
 msgid "Listening Ports configuration"
-msgstr "Nuværende konfiguration"
+msgstr "Lytte Ports konfiguration"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
-#, fuzzy
 msgid "Listening ports configuration settings updated."
-msgstr "Generelle indstillinger"
+msgstr "Lytte Ports konfiguration indstillinger opdateret."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
@@ -2170,9 +2011,8 @@ msgid "Virtual host"
 msgstr "Virtuel vært (host)"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-#, fuzzy
 msgid "You need to enable Listening SSL port."
-msgstr "Indstil webserver port (indkomne)"
+msgstr "Du skal aktivere Lytte SSL-porten."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
 #, perl-brace-format
@@ -2180,24 +2020,26 @@ msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
 "SSL on a virtual host."
 msgstr ""
+"Du skal aktivere {module} på {ohref} Services Certifikater {chref} for at "
+"aktivere SSL på en virtuel vært (host)."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
 "its IP addresses. {noDnsWarning} "
 msgstr ""
-"Virtuel vært {vhost} tilføjet. Et domæne {domain} er blevet oprettet med "
-"mappernavnet {name} -IP adresse {ip}. {noDnsWarning}  "
+"Virtuel vært (host) {vhost} oprettet. Et domæne {domain} er blevet oprettet, "
+"kontroller venligst dets IP-adresser. {noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
 msgstr ""
-"Virtuel vært {vhost} tilføjet. Et domæne {domain} er blevet oprettet med "
-"mappernavnet {name} -IP adresse {ip}. {noDnsWarning}  "
+"Virtuel vært (host) {vhost} tilføjet. Et domæne {domain} er blevet oprettet "
+"med domæmenavnet {name}. Sæt venligst værts-IP-adresse. {noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
 #, fuzzy, perl-brace-format
