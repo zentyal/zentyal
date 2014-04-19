@@ -1,19 +1,9 @@
 class: 'EBox::Samba'
 
 enabledepends:
-    - network
-    - ntp
-    - dns
-    - users
-
-bootdepends:
-    - network
-    - ntp
-    - dns
     - users
 
 models:
-    - GeneralSettings
     - SambaShares
     - SyncShares
     - SambaSharePermissions

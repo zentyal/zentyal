@@ -74,7 +74,7 @@ sub componentNames
 {
     my ($self) = @_;
 
-    my @components = qw(GeneralSettings SambaShares RecycleBin Antivirus);
+    my @components = qw(SambaShares RecycleBin Antivirus);
 
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');

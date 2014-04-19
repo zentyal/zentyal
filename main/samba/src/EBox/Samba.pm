@@ -1224,9 +1224,6 @@ sub menu
                                         separator => 'Office',
                                         order     => 535);
 
-    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GeneralSettings',
-                                      text  => __('Settings'),
-                                      order => 10));
     $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
                                       text  => __('Group Policy Objects'),
                                       order => 20));

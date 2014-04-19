@@ -14,11 +14,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
-# Class: EBox::Samba::Model::GeneralSettings
+
+# Class: EBox::Users::Model::DomainSettings
 #
 #   This model is used to configure file sharing general settings.
 #
-package EBox::Samba::Model::GeneralSettings;
+package EBox::Users::Model::DomainSettings;
 
 use base 'EBox::Model::DataForm';
 

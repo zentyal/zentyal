@@ -1806,6 +1806,18 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
+    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                              text => __('Domain'),
+                                              icon => 'domain',
+                                              separator => 'Office',
+                                              order => 535);
+
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GeneralSettings',
+                                            text  => __('Settings'),
+                                            order => 10));
+    $root->add($domainFolder);
+
+
     my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'icon' => 'users',
                                         'text' => $self->printableName(),
