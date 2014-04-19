@@ -1,6 +1,12 @@
 3.5
 	+ Removed s4sync
 	+ Set version to 3.5
+	+ Override daemons when migrating from previous versions
+	+ Remove the use of method canonicalName for greater performance, use
+	  object DNs instead
+	+ s4sync is stopped before samba daemon to prevent ldb connection errors
+	+ s4sync run timestamp is saved only if it doesn't break with an error at
+	  the end of the work loop
 3.4
 	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
 	  and forced the critical flag to 0 so Samba accepts it

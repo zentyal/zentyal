@@ -20,6 +20,7 @@ use warnings;
 package EBox::Squid::LogHelper;
 use base 'EBox::LogHelper';
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use EBox;

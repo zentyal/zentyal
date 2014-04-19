@@ -527,6 +527,9 @@ sub setupDNS
 sub enableActions
 {
     my ($self) = @_;
+
+    $self->_setAppArmorProfiles();
+
     my $mode = $self->mode();
     $self->_setupForMode();
     if ($mode eq STANDALONE_MODE) {
@@ -2490,5 +2493,29 @@ sub checkMailNotInUse
                                     );
     }
 }
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting slapd apparmor profile');
+    return [
+        {
+          binary => 'usr.sbin.slapd',
+          local  => 1,
+          file   => 'users/apparmor-slapd.local.mas',
+          params => [],
+        }
+    ];
+}
+
 
 1;

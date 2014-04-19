@@ -24,6 +24,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 
+no warnings 'experimental::smartmatch';
 use feature 'switch';
 use Scalar::Util qw(looks_like_number);
 

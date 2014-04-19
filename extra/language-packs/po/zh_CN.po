@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1415
+#: ../../main/mail/src/EBox/Mail.pm:1418
 msgid "disabled"
 msgstr "已禁用"
 
@@ -145,8 +145,8 @@ msgstr "客户端 {name}"
 #: ../../main/core/src/EBox/Model/DataTable.pm:4357
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:217
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:218
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:228
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
@@ -169,7 +169,7 @@ msgstr "已启用"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:119
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:161
 #: ../../main/core/src/EBox/SysInfo.pm:504
@@ -207,7 +207,7 @@ msgstr "服务"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1945
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 #: ../../main/core/src/EBox/SysInfo.pm:489
 msgid "Running"
 msgstr "正在运行"
@@ -367,7 +367,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:170
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:149
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:150
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/ca/src/templates/index.mas:99
@@ -394,9 +394,9 @@ msgstr "名称"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:218
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:199
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:73
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:163
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:164
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "配置"
@@ -974,7 +974,7 @@ msgstr "通用名"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1432
+#: ../../main/mail/src/EBox/Mail.pm:1435
 msgid "Address"
 msgstr "地址"
 
@@ -995,7 +995,7 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/ips/src/EBox/IPS.pm:307 ../../main/ips/src/EBox/IPS.pm:334
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:303
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:99
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:100
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:66
@@ -1006,13 +1006,13 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:763
-#: ../../main/samba/src/EBox/Samba.pm:1599
-#: ../../main/samba/src/EBox/Samba.pm:1619
-#: ../../main/samba/src/EBox/Samba.pm:1630
+#: ../../main/samba/src/EBox/Samba.pm:1604
+#: ../../main/samba/src/EBox/Samba.pm:1624
+#: ../../main/samba/src/EBox/Samba.pm:1635
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:365
-#: ../../main/mail/src/EBox/Mail.pm:1525
+#: ../../main/mail/src/EBox/Mail.pm:1528
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1035,18 +1035,18 @@ msgstr "日期"
 #: ../../main/radius/src/EBox/Radius.pm:340
 #: ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
-#: ../../main/core/src/EBox/AuditLogging.pm:115
-#: ../../main/core/src/EBox/AuditLogging.pm:144
+#: ../../main/core/src/EBox/AuditLogging.pm:116
+#: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1141
 #: ../../main/ipsec/src/EBox/IPsec.pm:366
-#: ../../main/mail/src/EBox/Mail.pm:1535
+#: ../../main/mail/src/EBox/Mail.pm:1538
 msgid "Event"
 msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:1624
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:156
+#: ../../main/samba/src/EBox/Samba.pm:1629
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:157
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:80
@@ -1102,45 +1102,45 @@ msgstr "服务器连接中止"
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "您必须将 insecure_rip_conf 设置为 yes 或者 no"
 
-#: ../../main/ha/src/EBox/HA.pm:89
+#: ../../main/ha/src/EBox/HA.pm:90
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 msgid "High Availability"
 msgstr "高可用"
 
-#: ../../main/ha/src/EBox/HA.pm:114 ../../main/core/src/EBox/SysInfo.pm:112
+#: ../../main/ha/src/EBox/HA.pm:115 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
 #: ../../main/core/src/EBox/HAProxy.pm:298
 #: ../../main/ebackup/src/EBox/EBackup.pm:870
 msgid "System"
 msgstr "系统"
 
-#: ../../main/ha/src/EBox/HA.pm:145
+#: ../../main/ha/src/EBox/HA.pm:146
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
 msgid "Cluster status"
 msgstr "集群状态"
 
-#: ../../main/ha/src/EBox/HA.pm:163
+#: ../../main/ha/src/EBox/HA.pm:164
 msgid "To configure corosync daemon"
 msgstr "配置corosync守护进程"
 
-#: ../../main/ha/src/EBox/HA.pm:166
+#: ../../main/ha/src/EBox/HA.pm:167
 msgid "To start corosync at boot"
 msgstr "在开机时启动 corosync"
 
-#: ../../main/ha/src/EBox/HA.pm:1000
+#: ../../main/ha/src/EBox/HA.pm:1001
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:229
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:269
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:96
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1473
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1936
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1474
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1937
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:112
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:113
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:76
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:77
@@ -1148,7 +1148,7 @@ msgstr "在开机时启动 corosync"
 msgid "Unknown"
 msgstr "未知"
 
-#: ../../main/ha/src/EBox/HA.pm:1000
+#: ../../main/ha/src/EBox/HA.pm:1001
 #: ../../main/users/src/EBox/Users/Model/Master.pm:76
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
@@ -1158,7 +1158,7 @@ msgstr "未知"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:146
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:98
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
@@ -1175,44 +1175,44 @@ msgstr "未知"
 msgid "None"
 msgstr "无"
 
-#: ../../main/ha/src/EBox/HA.pm:1006
+#: ../../main/ha/src/EBox/HA.pm:1007
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
 msgstr "{oh}出错了{ch}"
 
-#: ../../main/ha/src/EBox/HA.pm:1015
+#: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
 msgid "Last update"
 msgstr "最近更新"
 
-#: ../../main/ha/src/EBox/HA.pm:1017
+#: ../../main/ha/src/EBox/HA.pm:1018
 msgid "Errors"
 msgstr "错误"
 
-#: ../../main/ha/src/EBox/HA.pm:1021
+#: ../../main/ha/src/EBox/HA.pm:1022
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:111
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:95
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:96
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:435
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:318
 #: ../../main/network/src/EBox/Network.pm:4470
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1417 ../../main/mail/src/EBox/Mail.pm:1534
+#: ../../main/mail/src/EBox/Mail.pm:1420 ../../main/mail/src/EBox/Mail.pm:1537
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "状态"
 
-#: ../../main/ha/src/EBox/HA.pm:1022
+#: ../../main/ha/src/EBox/HA.pm:1023
 msgid "not enabled"
 msgstr "未启用"
 
-#: ../../main/ha/src/EBox/HA.pm:1025
+#: ../../main/ha/src/EBox/HA.pm:1026
 msgid "Nodes"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA.pm:1027
+#: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
@@ -1226,7 +1226,7 @@ msgstr ""
 msgid "Host name"
 msgstr "主机名"
 
-#: ../../main/ha/src/EBox/HA.pm:1027
+#: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:185
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
@@ -1250,11 +1250,11 @@ msgstr "主机名"
 msgid "IP address"
 msgstr "IP地址"
 
-#: ../../main/ha/src/EBox/HA.pm:1035
+#: ../../main/ha/src/EBox/HA.pm:1036
 msgid "Cluster is not configured"
 msgstr "集群未配置"
 
-#: ../../main/ha/src/EBox/HA.pm:1124
+#: ../../main/ha/src/EBox/HA.pm:1125
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
 msgstr "{iface} 没有 IP 地址可用"
@@ -1445,7 +1445,7 @@ msgid "resources"
 msgstr "资源"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
-#: ../../main/samba/src/EBox/Samba.pm:1603
+#: ../../main/samba/src/EBox/Samba.pm:1608
 msgid "Resource"
 msgstr "资源"
 
@@ -1597,7 +1597,7 @@ msgstr "规则"
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:73
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:75
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:118
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
 msgid "rule"
 msgstr "规则"
@@ -1623,7 +1623,7 @@ msgid "Log & Block"
 msgstr "日志和区块"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
 msgid "Community"
 msgstr "社区"
 
@@ -1774,7 +1774,7 @@ msgstr "说明"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
 #: ../../main/firewall/src/EBox/Firewall.pm:766
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:55
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
 msgid "Source"
 msgstr "源"
 
@@ -2156,7 +2156,7 @@ msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/users/src/EBox/Users.pm:2546
+#: ../../main/users/src/EBox/Users.pm:2549
 msgid "alias"
 msgstr "别名"
 
@@ -2192,7 +2192,7 @@ msgstr "启用透明 DNS 缓存"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1245
+#: ../../main/samba/src/EBox/Samba.pm:1250
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2278,7 +2278,7 @@ msgstr "此域名"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:212
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:251
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:277
-#: ../../main/mail/src/EBox/Mail.pm:1430
+#: ../../main/mail/src/EBox/Mail.pm:1433
 msgid "Custom"
 msgstr "定制"
 
@@ -2417,7 +2417,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:1239
+#: ../../main/samba/src/EBox/Samba.pm:1244
 #: ../../main/squid/src/EBox/Squid.pm:1138
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2556,7 +2556,7 @@ msgstr "IP {ip} 已经被分配给该域的 {name} 主机"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:58
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/dhcp/src/EBox/DHCP.pm:976
-#: ../../main/core/src/EBox/AuditLogging.pm:143
+#: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
 msgstr "IP"
@@ -2658,7 +2658,7 @@ msgstr "未知的恢复模式: {mode}"
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:32
 msgid "user"
 msgstr "用户"
@@ -2768,7 +2768,7 @@ msgid ""
 msgstr "无法添加服务 {srv}，因为它允许访问所有连接"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:175
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:774
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:781
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "对象：{o}"
@@ -2828,7 +2828,7 @@ msgstr "在这里，您可以定义强制入口的基本设置。"
 #: ../../main/radius/src/EBox/Radius/Model/Auth.pm:101
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:82
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:325
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:154
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:155
 msgid "All users"
 msgstr "所有用户"
 
@@ -2893,12 +2893,12 @@ msgstr "月带宽用量(MB)"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:306
 #: ../../main/radius/src/EBox/Radius.pm:341
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
-#: ../../main/core/src/EBox/AuditLogging.pm:112
-#: ../../main/core/src/EBox/AuditLogging.pm:142
+#: ../../main/core/src/EBox/AuditLogging.pm:113
+#: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
-#: ../../main/samba/src/EBox/Samba.pm:1601
-#: ../../main/samba/src/EBox/Samba.pm:1621
-#: ../../main/samba/src/EBox/Samba.pm:1632
+#: ../../main/samba/src/EBox/Samba.pm:1606
+#: ../../main/samba/src/EBox/Samba.pm:1626
+#: ../../main/samba/src/EBox/Samba.pm:1637
 #: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -3007,7 +3007,7 @@ msgid "Interface {if} set to {val} in bandwith monitor module"
 msgstr "在带宽监控模块中，接口 {if} 设置为 {val} "
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1415
+#: ../../main/mail/src/EBox/Mail.pm:1418
 msgid "enabled"
 msgstr "已启用"
 
@@ -3192,18 +3192,18 @@ msgstr "为从日志创建目录"
 msgid "Zentyal needs the directories to record pending slave actions."
 msgstr "Zentyal 需要用这些目录记录挂起的从动作。"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:235
+#: ../../main/usercorner/src/EBox/UserCorner.pm:240
 msgid ""
 "User corner needs that the users module is configured in standalone server "
 "mode"
 msgstr "用户区需要将用户模块配置为独立服务器模式"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:280
+#: ../../main/usercorner/src/EBox/UserCorner.pm:305
 #: ../../main/users/src/EBox/Users.pm:105
 msgid "Users and Computers"
 msgstr "用户和计算机"
 
-#: ../../main/usercorner/src/EBox/UserCorner.pm:366
+#: ../../main/usercorner/src/EBox/UserCorner.pm:388
 msgid "User Corner Web Server"
 msgstr "用户专区 Web 服务器"
 
@@ -3398,7 +3398,7 @@ msgid "Completed"
 msgstr "已完成"
 
 #: ../../main/printers/src/EBox/Printers.pm:373
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:30
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:31
 msgid "Canceled"
 msgstr "已取消"
 
@@ -3511,10 +3511,10 @@ msgstr "带有普通名称{cn} 的证书不能在这个ca中存在"
 
 #: ../../main/ca/src/EBox/CA.pm:1743
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
-#: ../../main/zarafa/src/EBox/Zarafa.pm:766
+#: ../../main/zarafa/src/EBox/Zarafa.pm:767
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1466
+#: ../../main/mail/src/EBox/Mail.pm:1469
 msgid "General"
 msgstr "常用"
 
@@ -3615,8 +3615,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Composite.pm:536
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
-#: ../../main/core/src/EBox/AuditLogging.pm:126
-#: ../../main/samba/src/EBox/Samba.pm:1602
+#: ../../main/core/src/EBox/AuditLogging.pm:127
+#: ../../main/samba/src/EBox/Samba.pm:1607
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3624,7 +3624,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tableBody.mas:329
 #: ../../main/core/src/templates/configureView.mas:38
 #: ../../main/mail/src/templates/groupalias.mas:24
-#: ../../main/mail/src/templates/externalAccounts.mas:166
+#: ../../main/mail/src/templates/externalAccounts.mas:135
 #: ../../main/mail/src/templates/alias.mas:32
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Action"
@@ -3747,7 +3747,7 @@ msgid ""
 msgstr "您必须先创建一个认证机构。请到 {openhref}认证机构{closehref} 创建。"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:117
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:151
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:152
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:408
 #: ../../main/core/src/EBox/View/StackTrace.pm:99
 #: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:317
@@ -3761,7 +3761,7 @@ msgstr "Zentyal"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:82
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
-#: ../../main/core/src/EBox/AuditLogging.pm:113
+#: ../../main/core/src/EBox/AuditLogging.pm:114
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:20
@@ -3866,7 +3866,7 @@ msgstr "变量"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:159
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:210
-#: ../../main/core/src/EBox/AuditLogging.pm:117
+#: ../../main/core/src/EBox/AuditLogging.pm:118
 msgid "Value"
 msgstr "值"
 
@@ -3966,9 +3966,9 @@ msgid "Network"
 msgstr "网络配置"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:1600
-#: ../../main/samba/src/EBox/Samba.pm:1620
-#: ../../main/samba/src/EBox/Samba.pm:1631
+#: ../../main/samba/src/EBox/Samba.pm:1605
+#: ../../main/samba/src/EBox/Samba.pm:1625
+#: ../../main/samba/src/EBox/Samba.pm:1636
 msgid "Client address"
 msgstr "客户端地址"
 
@@ -4292,15 +4292,15 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:637
+#: ../../main/users/src/EBox/Users.pm:640
 msgid "Error performing users initialization"
 msgstr "执行用户初始化时发生错误"
 
-#: ../../main/users/src/EBox/Users.pm:794
+#: ../../main/users/src/EBox/Users.pm:797
 msgid "Error while creating users and groups database."
 msgstr "创建用户和组数据库时发生错误"
 
-#: ../../main/users/src/EBox/Users.pm:871
+#: ../../main/users/src/EBox/Users.pm:874
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -4310,39 +4310,39 @@ msgstr ""
 "补发错误：{err}。 {pbeg}在完成补发之前，用户模块和所有依赖它的模块都将无法使"
 "用。下次保存时，将再次尝试补发。{pend}"
 
-#: ../../main/users/src/EBox/Users.pm:1186
+#: ../../main/users/src/EBox/Users.pm:1189
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr "ID 为 '{uid}' 的用户找到 {count} 个（应该只有一个）。"
 
-#: ../../main/users/src/EBox/Users.pm:1419
+#: ../../main/users/src/EBox/Users.pm:1422
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 个 '{name}' 组（应该只有一个）。"
 
-#: ../../main/users/src/EBox/Users.pm:1896
+#: ../../main/users/src/EBox/Users.pm:1899
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/users/src/EBox/Users.pm:1899
+#: ../../main/users/src/EBox/Users.pm:1902
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "用户模板"
 
-#: ../../main/users/src/EBox/Users.pm:1908
+#: ../../main/users/src/EBox/Users.pm:1911
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "LDAP 设置"
 
-#: ../../main/users/src/EBox/Users.pm:1912
+#: ../../main/users/src/EBox/Users.pm:1915
 msgid "Configure mode"
 msgstr "配置模式"
 
-#: ../../main/users/src/EBox/Users.pm:1928
+#: ../../main/users/src/EBox/Users.pm:1931
 #: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:93
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:94
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:355
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:209
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
@@ -4357,7 +4357,7 @@ msgstr "配置模式"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:184
 #: ../../main/captiveportal/src/templates/login.mas:24
-#: ../../main/users/src/templates/edituser.mas:64
+#: ../../main/users/src/templates/edituser.mas:65
 #: ../../main/users/src/templates/adduser.mas:27
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
@@ -4367,7 +4367,7 @@ msgstr "配置模式"
 msgid "Password"
 msgstr "密码"
 
-#: ../../main/users/src/EBox/Users.pm:2099
+#: ../../main/users/src/EBox/Users.pm:2102
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -4375,7 +4375,7 @@ msgid ""
 msgstr ""
 "无法恢复用户模块，因为它正以 {mode} 模式运行，而备份是以 {bpMode} 模式制作的"
 
-#: ../../main/users/src/EBox/Users.pm:2116
+#: ../../main/users/src/EBox/Users.pm:2119
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -4384,12 +4384,12 @@ msgstr ""
 "无法恢复，因为 LDAP 用户 {user} 已经存在于  /etc/passwd。请删除（或改名）后重"
 "试。"
 
-#: ../../main/users/src/EBox/Users.pm:2398
-#: ../../main/users/src/EBox/Users.pm:2407
+#: ../../main/users/src/EBox/Users.pm:2401
+#: ../../main/users/src/EBox/Users.pm:2410
 msgid "Users data"
 msgstr "用户数据"
 
-#: ../../main/users/src/EBox/Users.pm:2552
+#: ../../main/users/src/EBox/Users.pm:2555
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "地址 {ip} 已经用于接口 {iface}"
@@ -4468,32 +4468,32 @@ msgid "User password and confirm user password does not match"
 msgstr "新密码不匹配"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:42
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:164
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:165
 msgid "Contacts"
 msgstr "联系人"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:67
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:73
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:75
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:48
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:53
 msgid "first name"
 msgstr "名"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:68
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:74
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:49
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "姓"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:69
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:75
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:77
 #, fuzzy
 msgid "display name"
 msgstr "姓"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:70
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:78
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:50
 msgid "description"
 msgstr "说明"
@@ -4509,8 +4509,8 @@ msgstr "联系人已更新"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:110
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:122
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:138
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:150
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:164
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:176
 #: ../../main/users/src/EBox/Users/Group.pm:78
 #: ../../main/users/src/EBox/Users/Group.pm:532
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:44
@@ -4533,7 +4533,7 @@ msgstr "组类型"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:43
 #: ../../main/users/src/EBox/Users/CGI/DeleteOU.pm:42
 #: ../../main/users/src/EBox/Users/CGI/DeleteContact.pm:41
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:157
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:158
 #: ../../main/core/src/EBox/SysInfo.pm:340
 #: ../../main/users/src/templates/editgroup.mas:50
 msgid "Users"
@@ -4543,7 +4543,7 @@ msgstr "用户"
 msgid "quota"
 msgstr "配额"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:77
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:79
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:68
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:56
 #: ../../main/users/src/templates/editgroup.mas:41
@@ -4553,22 +4553,22 @@ msgstr "配额"
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:78
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:80
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
 msgid "password"
 msgstr "密码"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:79
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:81
 msgid "confirm password"
 msgstr "确认密码"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:121
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:142
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:72
 #: ../../main/users/src/EBox/Users/Model/Password.pm:187
 msgid "Passwords do not match."
 msgstr "密码不一致"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:131
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:152
 msgid "User updated"
 msgstr "用户已更新"
 
@@ -4626,7 +4626,7 @@ msgid "Users synchronization"
 msgstr "用户同步"
 
 #: ../../main/users/src/EBox/Users/Composite/Sync.pm:89
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:195
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:196
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
@@ -4644,7 +4644,7 @@ msgstr "创建新用户帐号时，会用到这些设置。"
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:250
-#: ../../main/samba/src/EBox/Samba.pm:2429
+#: ../../main/samba/src/EBox/Samba.pm:2434
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr "找到 {count} 个结果（应该只有一个）。"
@@ -4715,13 +4715,13 @@ msgstr "系统组的 GID {gid} 不对。GID 必须小于 {max}"
 msgid "There was an error updating LDAP:"
 msgstr "更新 LDAP 时出错："
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:664
+#: ../../main/users/src/EBox/Users/LdapObject.pm:638
 #, fuzzy, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr "本容器中已经有一个对象类型 {type}，CN={cn}"
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:678
+#: ../../main/users/src/EBox/Users/LdapObject.pm:652
 #, fuzzy
 msgid "Group E-mail"
 msgstr "E-mail"
@@ -4918,7 +4918,7 @@ msgstr "LDAP 数据库中没找到用户 {x}"
 msgid "Password successfully updated"
 msgstr "密码修改成功"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:38
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:39
 msgid ""
 "Here you can manage Organizational Units, Users, Groups and Contacts. Also "
 "you can see the computers in the domain if using Samba. Please note that "
@@ -4929,19 +4929,19 @@ msgstr ""
 "计算机。请注意，多 OU（部门）支持是不完全的，某些模块的“默认用户和组 OU”可能"
 "只支持用户和组。"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:158
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:159
 msgid "Disabled Users"
 msgstr "已禁用的用户"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:160
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:161
 msgid "Security Groups"
 msgstr "安全组"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:161
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:162
 msgid "Distribution Groups"
 msgstr "通讯组"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:163
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:164
 msgid "Computers"
 msgstr "计算机"
 
@@ -5187,15 +5187,15 @@ msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr "{mod} 模块和的确的用户操作模式（{mode}）不兼容"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:103
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
 msgid "Signatures"
 msgstr "签名"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:109
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:110
 msgid "Database Update Status"
 msgstr "数据库更新状态"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:110
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:111
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:381
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:386
@@ -5203,38 +5203,38 @@ msgstr "数据库更新状态"
 msgid "Antivirus"
 msgstr "防病毒"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:188
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:189
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr "模块启用后，病毒数据库还没更新过。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:190
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:191
 msgid "The last update failed."
 msgstr "最后一次更新失败了。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:191
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:192
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:193
 msgid "Last update successful."
 msgstr "最后一次更新成功。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:194
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:195
 msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr "防病毒模块尚未配置。请先到模块状态部分启用它。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:197
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:198
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr "防病毒模块尚未启用。请先启用它，以了解防病毒状态。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:199
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:200
 #, perl-brace-format
 msgid "Unknown event {event}."
 msgstr "未知事件 {event}。"
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:222
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:223
 #, perl-brace-format
 msgid ""
 "Want to protect your system against scams, spear phishing, frauds and other "
@@ -5290,7 +5290,7 @@ msgid "WebMail UI will be accesible at http://ip/webmail/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
 
 #: ../../main/sogo/src/EBox/SOGO.pm:129
-#: ../../main/webmail/src/EBox/WebMail.pm:375
+#: ../../main/webmail/src/EBox/WebMail.pm:394
 #, perl-brace-format
 msgid ""
 "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
@@ -6193,28 +6193,28 @@ msgid "It cannot be greater than {n} characters"
 msgstr "不能多于 {n} 个字符"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:317
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:752
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:753
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr "无法连接 VPN 服务器 {addr}:{port}/{proto}。请检查防火墙设置"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:92
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:93
 msgid "Email Address"
 msgstr "Email 地址"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:94
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:95
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:106
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:100
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:106
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1972
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1973
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:141
 msgid "Server name"
 msgstr "服务器名"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:99
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:100
 #: ../../main/users/src/templates/edituser.mas:25
 #: ../../main/users/src/templates/adduser.mas:17
 #: ../../main/users/src/templates/editcontact.mas:20
@@ -6223,7 +6223,7 @@ msgstr "服务器名"
 msgid "First name"
 msgstr "名"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:100
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:101
 #: ../../main/users/src/templates/edituser.mas:31
 #: ../../main/users/src/templates/adduser.mas:20
 #: ../../main/users/src/templates/editcontact.mas:20
@@ -6232,42 +6232,42 @@ msgstr "名"
 msgid "Last name"
 msgstr "姓"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:101
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:102
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:171
 msgid "Phone number"
 msgstr "电话号码"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:102
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:103
 msgid "Repeated password"
 msgstr "重复密码"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:105
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:106
 msgid "Introduced passwords do not match"
 msgstr "密码不匹配"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:109
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:110
 msgid "You must agree to the privacy policy to continue"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:165
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:166
 #, perl-brace-format
 msgid "Company \"{company}\" already exists. Please, choose a different name."
 msgstr "公司 {company} 已存在。请换个名字。"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:176
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:177
 #, perl-brace-format
 msgid ""
 "An user with that email is already registered. You can reset your password "
 "at {openhref}here{closehref}."
 msgstr "该 email 已注册。您可以在{openhref}这里{closehref}重置您的密码。"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:185
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:186
 msgid ""
 "Password must have at least 6 characters. Leading or trailing spaces will be "
 "ignored."
 msgstr "密码长度至少6字节（开头、结尾的空格将被忽略）"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:194
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:195
 msgid ""
 "An error ocurred registering the user, please check your Internet connection."
 msgstr "注册用户时发生错误，请检查您的互联网连接。"
@@ -6346,7 +6346,7 @@ msgstr "备份成功"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:460
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1985
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1986
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
 msgid "Configuration backup"
 msgstr "配置备份"
@@ -6373,14 +6373,14 @@ msgstr "请确认您要删除下列远程备份："
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:98
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:107
 #: ../../main/core/src/EBox/Model/TreeView.pm:269
-#: ../../main/core/src/EBox/AuditLogging.pm:124
+#: ../../main/core/src/EBox/AuditLogging.pm:125
 #: ../../main/dns/src/templates/index.mas:41
 #: ../../main/dns/src/templates/edit.mas:43
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/network/src/templates/ifaces.mas:217
 #: ../../main/network/src/templates/ifaces.mas:292
 #: ../../main/core/src/templates/ajax/tableBody.mas:451
-#: ../../main/core/src/templates/ajax/row.mas:96
+#: ../../main/core/src/templates/ajax/row.mas:98
 #: ../../main/core/src/templates/dataInUse.mas:36
 #: ../../main/software/src/templates/ebox.mas:334
 #: ../../main/samba/src/templates/samba.mas:30
@@ -6507,45 +6507,45 @@ msgstr "用户中未发现 {level} 密码"
 msgid "The following users have {level} passwords: {users}."
 msgstr "下列用户有 {level} 密码：{users}。"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:124
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:125
 msgid "Key for web subscription service not found"
 msgstr "未找到网络订阅服务的 key "
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:214
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:215
 msgid "None of the available bundles are valid for this server"
 msgstr "这台服务器没有可用的包"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:215
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:216
 #: ../../main/ca/src/templates/index.mas:132
 #, perl-brace-format
 msgid "Reason: {reason}"
 msgstr "原因是：{reason}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:557
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:558
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "无法联系 {host}。请检查您的 Internet 连接"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:724
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:725
 #, perl-brace-format
 msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr "无法连接 API 服务器 {addr}:{port}/{proto}。请检查 DNS 和防火墙设置"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:838
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:839
 #, perl-brace-format
 msgid "Probably lack of free space: {exc}"
 msgstr "空间可能不够了：{exc}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:124
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:462
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:463
 msgid "Technical Support"
 msgstr "技术支持"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:45
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:483
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:484
 msgid "Your Zentyal Server Account"
 msgstr "您的 Zentyal 服务器帐号"
 
@@ -6566,7 +6566,7 @@ msgid ""
 "Free 30-day trial{ch}."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:185
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:188
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for {edition} is {max} and you "
@@ -6645,14 +6645,14 @@ msgstr "跳过坏的 formed 线：{l}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:104
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:110
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1979
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1980
 msgid "Server edition"
 msgstr "服务器版本"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:114
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:466
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1983
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:467
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
 msgid "Security Updates"
 msgstr "安全升级"
 
@@ -6989,7 +6989,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:199
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1952
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
 msgid "Configuration backup enabled"
 msgstr "配置备份已启用"
 
@@ -6998,7 +6998,7 @@ msgid "Full Disaster Recovery enabled"
 msgstr "完整的灾难恢复已启用"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:219
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2066
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2067
 msgid "No data backup has been done yet"
 msgstr "还没有备份"
 
@@ -7206,154 +7206,154 @@ msgstr ""
 msgid "Zentyal Remote"
 msgstr "Zentyal Remote"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
 msgid "Small Business"
 msgstr "小企业"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:100
 msgid "Professional"
 msgstr "专业版"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:100
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:101
 msgid "Business"
 msgstr "创业版"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:101
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Enterprise Trial"
 msgstr "企业版试用"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:103
 msgid "Enterprise"
 msgstr "企业版"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:103
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:104
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1942
 msgid "Premium"
 msgstr "高级版"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:124
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:125
 msgid "Zentyal Remote Client"
 msgstr "Zentyal Remote 客户端"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:417
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
 msgid "Not subscribed"
 msgstr "未订阅"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:419
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:420
 msgid "Subscribed"
 msgstr "已订阅"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:452
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:453
 msgid "Registration"
 msgstr "注册"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:457
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:458
 msgid "Server Registration"
 msgstr "服务器注册"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:598
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:599
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Remote"
 msgstr "只有当主机订阅到 Zentyal Remote 时，监视器采集的 IP 地址才有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:790
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:791
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "要重新加载包，Zentyal 必须是订阅的"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:795
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:796
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
 msgstr "无法加载包：{reason}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1904
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1905
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1908
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "已禁用 - {oh}启用{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1912
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1913
 msgid "Connected"
 msgstr "已连接"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1916
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1917
 msgid "In process"
 msgstr "进行中"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1919
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1920
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr "未连接。 {oh}检查 VPN 连接{ch} 和 {path} 下的日志文件"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1938
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1939
 msgid "Standard 2 days"
 msgstr "标准 2 天"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1939
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1940
 msgid "Standard 1 day"
 msgstr "标准 1 天"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1940
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
 msgid "Standard 4 hours"
 msgstr "标准 4 小时"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1948
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1949
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- 最后更新：{date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1960
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1961
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- 最后配置备份：{date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1964
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1965
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1967
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1968
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1973
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1974
 msgid "Connection status"
 msgstr "连接状态"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1976
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1977
 msgid "External server name"
 msgstr "外部服务器名"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1982
 msgid "Technical support"
 msgstr "技术支持"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2352
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2353
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr "订阅的主机名仅当该主机已订阅 Zentyal Remote 时有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2381
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2382
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr "UUID 仅当主机订阅到 Zentyal Remote 时有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2415
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2416
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr " Zentyal Remote 域仅当该主机已订阅时才有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2451
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2452
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
 msgstr " Zentyal Remote 动态域仅当该主机已订阅时才有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2480
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2481
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr " Zentyal Remote 证书仅当该主机已订阅时才有效"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2509
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2510
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -7419,7 +7419,7 @@ msgstr "网络诊断工具"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:155
 #: ../../main/squid/src/EBox/Squid.pm:1135
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
@@ -7545,7 +7545,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:144
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:101
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:78
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:79
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
@@ -8408,7 +8408,7 @@ msgid ""
 msgstr "已经存在一条“小包优先”规则在所有接口上"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
-#: ../../main/mail/src/EBox/Mail.pm:1429 ../../main/mail/src/EBox/Mail.pm:1436
+#: ../../main/mail/src/EBox/Mail.pm:1432 ../../main/mail/src/EBox/Mail.pm:1439
 msgid "Filter type"
 msgstr "过滤器类型"
 
@@ -8696,111 +8696,111 @@ msgstr "Roundcube 将使用该数据库存储数据。"
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
 
-#: ../../main/webmail/src/EBox/WebMail.pm:438
+#: ../../main/webmail/src/EBox/WebMail.pm:457
 msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr "您不能禁用 IMAP 和 IMAPS 服务，因为 Webmail 模块正在使用该服务。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:77
+#: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "Add Zarafa LDAP schema"
 msgstr "添加 Zarafa LDAP 模式"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:78
+#: ../../main/zarafa/src/EBox/Zarafa.pm:79
 msgid "Zentyal will need this schema to store Zarafa users."
 msgstr "Zentyal 将需要此模式来存储 Zarafa 用户。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:82
+#: ../../main/zarafa/src/EBox/Zarafa.pm:83
 msgid "Add vmail system user"
 msgstr "添加 vmail 的系统用户"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:83
+#: ../../main/zarafa/src/EBox/Zarafa.pm:84
 msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "Zentyal 在分发邮件到 Zarafa 时要用到它。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:87
+#: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid "Create MySQL Zarafa database"
 msgstr "为 Zarafa 创建 MySQL 数据库"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:88
+#: ../../main/zarafa/src/EBox/Zarafa.pm:89
 msgid "This database will store the data needed by Zarafa."
 msgstr "该数据库将用于存储 Zarafa 数据。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:92
+#: ../../main/zarafa/src/EBox/Zarafa.pm:93
 msgid "Create default SSL key/certificates"
 msgstr "创建默认的 SSL 密钥/证书"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:93
+#: ../../main/zarafa/src/EBox/Zarafa.pm:94
 msgid ""
 "This self-signed default certificates will be used by Zarafa POP3/IMAP "
 "gateway."
 msgstr "这个默认的自签名证书将用于 Zarafa POP3/IMAP 网关。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:97
+#: ../../main/zarafa/src/EBox/Zarafa.pm:98
 msgid "Add zarafa link to www data directory"
 msgstr "将 zarafa 链接到 www 目录"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:98
+#: ../../main/zarafa/src/EBox/Zarafa.pm:99
 msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
 msgstr "可以从 http://ip地址/webaccess/ 和 http://ip地址/webapp/ 访问 Zarafa。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:102
+#: ../../main/zarafa/src/EBox/Zarafa.pm:103
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
 msgstr ""
 "请在系统上安装英文/美国（English/United States）语言环境（如果尚未安装的话）"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:103
+#: ../../main/zarafa/src/EBox/Zarafa.pm:104
 msgid "Zarafa needs this locale to run."
 msgstr "Zarafa 需要该语言环境才能运行。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:122
+#: ../../main/zarafa/src/EBox/Zarafa.pm:123
 msgid "To properly configure Zarafa."
 msgstr "正确配置 Zarafa。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:127
+#: ../../main/zarafa/src/EBox/Zarafa.pm:128
 msgid "To properly configure Zarafa LDAP connection."
 msgstr "正确配置 Zarafa LDAP 连接。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:132
+#: ../../main/zarafa/src/EBox/Zarafa.pm:133
 msgid "To properly configure Zarafa webaccess."
 msgstr "正确配置 Zarafa webaccess。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:137
+#: ../../main/zarafa/src/EBox/Zarafa.pm:138
 msgid "To properly configure Zarafa XMPP integration."
 msgstr "正确配置 Zarafa XMPP 集成。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:142
+#: ../../main/zarafa/src/EBox/Zarafa.pm:143
 msgid "To properly configure Zarafa gateway server."
 msgstr "正确配置 Zarafa 网关服务器。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:147
+#: ../../main/zarafa/src/EBox/Zarafa.pm:148
 msgid "To properly configure Zarafa quota monitoring server."
 msgstr "正确配置 Zarafa 配额监控服务器。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:152
+#: ../../main/zarafa/src/EBox/Zarafa.pm:153
 msgid "To properly configure Zarafa mail delivering server."
 msgstr "正确配置 Zarafa 邮件分发服务器。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:157
+#: ../../main/zarafa/src/EBox/Zarafa.pm:158
 msgid "To properly configure Zarafa ical server."
 msgstr "正确配置 Zarafa ical 服务器。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:162
+#: ../../main/zarafa/src/EBox/Zarafa.pm:163
 msgid "To properly configure Zarafa dagent LMTP delivering server."
 msgstr "正确配置 Zarafa dagent LMTP 分发服务器。"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:243
+#: ../../main/zarafa/src/EBox/Zarafa.pm:244
 msgid "Groupware services (Zarafa)"
 msgstr "群件服务（Zarafa）"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:773
-#: ../../main/mail/src/EBox/Mail.pm:1473
+#: ../../main/zarafa/src/EBox/Zarafa.pm:774
+#: ../../main/mail/src/EBox/Mail.pm:1476
 msgid "Virtual Mail Domains"
 msgstr "虚拟邮件域"
 
-#: ../../main/zarafa/src/EBox/Zarafa.pm:817
+#: ../../main/zarafa/src/EBox/Zarafa.pm:818
 msgid "Zarafa Gateway Server"
 msgstr "Zarafa 网关服务器"
 
@@ -9200,7 +9200,7 @@ msgstr "范围 {from} - {to} 包含 HA 虚拟 IP：“{name}”- {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:176
-#: ../../main/mail/src/EBox/Mail.pm:1527
+#: ../../main/mail/src/EBox/Mail.pm:1530
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -9208,7 +9208,7 @@ msgstr "从"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:182
-#: ../../main/mail/src/EBox/Mail.pm:1528
+#: ../../main/mail/src/EBox/Mail.pm:1531
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -9225,34 +9225,34 @@ msgstr "范围"
 msgid "range"
 msgstr "范围"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:147
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:148
 msgid "Next server"
 msgstr "下一个服务器"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:156
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:157
 msgid "Thin Client server as seen by the clients."
 msgstr "客户端所看到的 Thin Client（瘦客户机）服务器。"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:162
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:163
 msgid "File path"
 msgstr "文件路径"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:165
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:166
 msgid "Thin client file path"
 msgstr "瘦客户端文件路径"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:171
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:172
 msgid "Thin client / External TFTP-Server"
 msgstr "瘦客户机 / 外部 TFTP 服务器"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:177
 #, perl-brace-format
 msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr "您可能想自定义您的瘦客户机选项。这需要包括 {path} 目录下所需的所有文件"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
+#: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:183
 msgid "thin client option"
 msgstr "瘦客户端选项"
 
@@ -9634,30 +9634,30 @@ msgstr "安装完成"
 msgid "Initial configuration wizard"
 msgstr "初始配置指南"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:235
+#: ../../main/core/src/EBox/CGI/Base.pm:252
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
 "输入中包含无效字符。只允许所有字母和数字，以及 / . ? & + : - @ 和空格。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:663
+#: ../../main/core/src/EBox/CGI/Base.pm:683
 msgid ""
 "An internal error has occurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr "发生内部错误。这是一个bug，相关信息可以在日志中找到。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:668
+#: ../../main/core/src/EBox/CGI/Base.pm:688
 msgid ""
 "An unexpected internal error has occurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr "发生不可预知内部错误。这是一个bug，相关信息可以在日志中找到。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:673
+#: ../../main/core/src/EBox/CGI/Base.pm:693
 msgid "Sorry, you have just hit a bug in Zentyal."
 msgstr "不好意思，您刚刚遇到了 Zentyal 的一个 bug。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:677
+#: ../../main/core/src/EBox/CGI/Base.pm:697
 #, perl-brace-format
 msgid ""
 "Please look for the details in the {f} file and take a minute to {oh}submit "
@@ -9666,16 +9666,12 @@ msgstr ""
 "请看一下文件 {f} 中的细节，并花一分钟时间{oh}报告 bug{ch}，这样我们可以以最快"
 "速度解决该问题。 "
 
-#: ../../main/core/src/EBox/CGI/Base.pm:781
+#: ../../main/core/src/EBox/CGI/Base.pm:801
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "因为存在无效参数，你的请求将不予处理。"
 
-#: ../../main/core/src/EBox/CGI/Base.pm:817
-msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
-msgstr "检测到错误的HTTP referer，由于安全原因取消操作。"
-
-#: ../../main/core/src/EBox/CGI/Base.pm:828
+#: ../../main/core/src/EBox/CGI/Base.pm:860
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -9713,7 +9709,8 @@ msgid ""
 msgstr "{rowName} \"{r}\" 的“{f}”字段已由“{x}”改为“{y}”"
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:31
-msgid "Upgrade to Zentyal 3.3"
+#, fuzzy
+msgid "Upgrade to Zentyal 3.4"
 msgstr "升级到 Zentyal 3.3"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
@@ -9983,12 +9980,12 @@ msgstr "模块状态配置"
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "您必须在ebox配置文件中设置变量{variable}"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:680
+#: ../../main/core/src/EBox/MyDBEngine.pm:683
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr "您使用的是切片备份模式，而该备份是用非切片模式制作的"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:688
+#: ../../main/core/src/EBox/MyDBEngine.pm:691
 msgid ""
 "Database dump file not found. Maybe the backup you are trying to restore was "
 "made in sliced mode?"
@@ -10399,7 +10396,7 @@ msgstr "当前密码"
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/jabber/src/templates/jabber.mas:26
 #: ../../main/users/src/templates/editgroup.mas:45
-#: ../../main/users/src/templates/edituser.mas:72
+#: ../../main/users/src/templates/edituser.mas:73
 #: ../../main/users/src/templates/editcontact.mas:23
 #: ../../main/network/src/templates/ifaces.mas:184
 #: ../../main/zarafa/src/templates/zarafa.mas:74
@@ -10507,28 +10504,28 @@ msgid ""
 "{obd}Discard{cb}{cc}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:226
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:220
 #, perl-brace-format
 msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:231
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:225
 #, perl-brace-format
 msgid ""
 "Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
 "up {oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:236
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:230
 #, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:241
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:235
 #, perl-brace-format
 msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
@@ -11185,7 +11182,7 @@ msgstr "报告选项"
 
 #: ../../main/core/src/EBox/Logout/CGI/Index.pm:28
 #: ../../main/core/src/EBox/Html.pm:40
-#: ../../main/core/src/EBox/AuditLogging.pm:149
+#: ../../main/core/src/EBox/AuditLogging.pm:150
 #: ../../main/captiveportal/src/templates/popup.mas:39
 #: ../../main/usercorner/src/templates/headTitle.mas:13
 msgid "Logout"
@@ -11740,25 +11737,25 @@ msgstr "修改的数据正由以下部分使用："
 msgid "Audit Logging"
 msgstr "审计日志"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:111
-#: ../../main/core/src/EBox/AuditLogging.pm:141
+#: ../../main/core/src/EBox/AuditLogging.pm:112
+#: ../../main/core/src/EBox/AuditLogging.pm:142
 msgid "Date/Time"
 msgstr "日期/时间"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:114
+#: ../../main/core/src/EBox/AuditLogging.pm:115
 #: ../../main/core/src/templates/finish.mas:32
 msgid "Section"
 msgstr "部分"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:116
+#: ../../main/core/src/EBox/AuditLogging.pm:117
 msgid "Identifier"
 msgstr "标识符"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:118
+#: ../../main/core/src/EBox/AuditLogging.pm:119
 msgid "Previous value"
 msgstr "先前值"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:122
+#: ../../main/core/src/EBox/AuditLogging.pm:123
 #: ../../main/dns/src/templates/index.mas:34
 #: ../../main/dns/src/templates/edit.mas:35
 #: ../../main/dns/src/templates/edit.mas:58
@@ -11773,31 +11770,31 @@ msgstr "先前值"
 msgid "Add"
 msgstr "添加"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:123
+#: ../../main/core/src/EBox/AuditLogging.pm:124
 msgid "Set"
 msgstr "设置"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:125
+#: ../../main/core/src/EBox/AuditLogging.pm:126
 msgid "Move"
 msgstr "移动"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:129
+#: ../../main/core/src/EBox/AuditLogging.pm:130
 msgid "Configuration changes"
 msgstr "配置变更"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:148
+#: ../../main/core/src/EBox/AuditLogging.pm:149
 msgid "Login"
 msgstr "登录"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:150
+#: ../../main/core/src/EBox/AuditLogging.pm:151
 msgid "Failed login"
 msgstr "登录失败"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:151
+#: ../../main/core/src/EBox/AuditLogging.pm:152
 msgid "Expired session"
 msgstr "已过期会话"
 
-#: ../../main/core/src/EBox/AuditLogging.pm:154
+#: ../../main/core/src/EBox/AuditLogging.pm:155
 msgid "Administrator sessions"
 msgstr "管理员会话"
 
@@ -11814,20 +11811,20 @@ msgstr "{user} 邮箱已被丢弃"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:58
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:68
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:162
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Estimate.pm:60
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:59
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:69
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:163
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Estimate.pm:61
 msgid "Invalid RPC server state"
 msgstr "无效的 RPC 服务器状态"
 
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:143
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:144
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ActivateMailbox.pm:53
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:28
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:29
 msgid "Migrated"
 msgstr "已迁移"
 
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:143
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:144
 msgid "on going"
 msgstr "正在进行"
 
@@ -11956,22 +11953,22 @@ msgstr ""
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:63
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:72
 msgid "Outgoing Mail Domain"
 msgstr "外出邮件域"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:67
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:76
 msgid ""
 "Outgoing mail domain of emails sent from this server will be overwritten "
 "with this one."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:77
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:86
 #, fuzzy, perl-brace-format
 msgid "Configure an {oc} server."
 msgstr "配置DTMF行为"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:93
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:102
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual domain"
@@ -12000,7 +11997,7 @@ msgstr "数据库已取消配置"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:119
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:132
-#: ../../main/openchange/src/EBox/OpenChange.pm:582
+#: ../../main/openchange/src/EBox/OpenChange.pm:604
 msgid "Setup"
 msgstr "建立"
 
@@ -12061,39 +12058,39 @@ msgstr "配置自动发现服务"
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:588
+#: ../../main/openchange/src/EBox/OpenChange.pm:610
 msgid "MailBox Migration"
 msgstr "邮箱迁移"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:715
+#: ../../main/openchange/src/EBox/OpenChange.pm:737
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr "无法在 dns 模块找到预计的域 '{d}'"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:724
+#: ../../main/openchange/src/EBox/OpenChange.pm:746
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr "无法在域 '{d}' 中找到所需的主机记录 '{h}'。<br/>"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:808
+#: ../../main/openchange/src/EBox/OpenChange.pm:830
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "全部备份模块{m}的配置"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:820
+#: ../../main/openchange/src/EBox/OpenChange.pm:842
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "要提供 DHCP 服务，你至少需要一个静态接口"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:849
+#: ../../main/openchange/src/EBox/OpenChange.pm:871
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:870
+#: ../../main/openchange/src/EBox/OpenChange.pm:898
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "外出邮件域"
@@ -12375,7 +12372,7 @@ msgstr "条件"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
 #: ../../main/firewall/src/EBox/Firewall.pm:771
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
 msgid "Decision"
@@ -12663,7 +12660,7 @@ msgid "GPO DN"
 msgstr "组策略对象(GPO)DN(DN)"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:1254
+#: ../../main/samba/src/EBox/Samba.pm:1259
 msgid "File Sharing"
 msgstr "文件共享"
 
@@ -12714,7 +12711,7 @@ msgstr ""
 msgid "The object {x} is a system critical object."
 msgstr "对象 {x} 是一个系统关键对象。"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:359
+#: ../../main/samba/src/EBox/Samba/Group.pm:361
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:193
 #: ../../main/samba/src/EBox/Samba/User.pm:417
 #: ../../main/samba/src/EBox/Samba/User.pm:423
@@ -12723,7 +12720,7 @@ msgstr "对象 {x} 是一个系统关键对象。"
 msgid "account name"
 msgstr "账户名"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:361
+#: ../../main/samba/src/EBox/Samba/Group.pm:363
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr "Windows组名称不能只是空白，数字和点"
 
@@ -13031,7 +13028,7 @@ msgid "File system path"
 msgstr "文件系统路径"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:170
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:171
 #: ../../main/core/src/templates/configurationFiles.mas:24
 msgid "Comment"
 msgstr "注释"
@@ -13304,7 +13301,7 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "添加回收站设置例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:1251
+#: ../../main/samba/src/EBox/Samba.pm:1256
 msgid "Group Policy Links"
 msgstr "组策略链接"
 
@@ -13407,7 +13404,7 @@ msgid "GPO Editor"
 msgstr "GPO 编辑器"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:1248
+#: ../../main/samba/src/EBox/Samba.pm:1253
 msgid "Group Policy Objects"
 msgstr "组策略对象"
 
@@ -13509,7 +13506,7 @@ msgid "User: {u}"
 msgstr "用户：{u}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:327
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:776
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:783
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "组：{g}"
@@ -13579,12 +13576,12 @@ msgid "The object is a critical system object and can not be deleted."
 msgstr "该对象是一个系统关键对象，不能被移除"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:383
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:796
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:797
 #, perl-brace-format
 msgid "The object {x} is a critical system object and can not be deleted."
 msgstr "这个对象 {x} 是系统关键对象从而不能被移除"
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:923
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:924
 msgid "Sharing directory for this group"
 msgstr "该组的共享目录"
 
@@ -13614,86 +13611,86 @@ msgstr "启用扩展属性和 acl。"
 msgid "File sharing (Samba) protocol"
 msgstr "文件共享 (samba) 协议"
 
-#: ../../main/samba/src/EBox/Samba.pm:761
+#: ../../main/samba/src/EBox/Samba.pm:766
 msgid "Filesystem shares"
 msgstr "文件系统共享"
 
-#: ../../main/samba/src/EBox/Samba.pm:1500
+#: ../../main/samba/src/EBox/Samba.pm:1505
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr "只有服务器是林的唯一域控制器情况下才可能恢复"
 
-#: ../../main/samba/src/EBox/Samba.pm:1607
+#: ../../main/samba/src/EBox/Samba.pm:1612
 msgid "Connect"
 msgstr "连接"
 
-#: ../../main/samba/src/EBox/Samba.pm:1608
+#: ../../main/samba/src/EBox/Samba.pm:1613
 msgid "Access to directory"
 msgstr "访问文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:1609
+#: ../../main/samba/src/EBox/Samba.pm:1614
 msgid "Read file"
 msgstr "读文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:1610
+#: ../../main/samba/src/EBox/Samba.pm:1615
 msgid "Write file"
 msgstr "写文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:1611
+#: ../../main/samba/src/EBox/Samba.pm:1616
 msgid "Disconnect"
 msgstr "断开"
 
-#: ../../main/samba/src/EBox/Samba.pm:1612
+#: ../../main/samba/src/EBox/Samba.pm:1617
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "删除"
 
-#: ../../main/samba/src/EBox/Samba.pm:1613
+#: ../../main/samba/src/EBox/Samba.pm:1618
 msgid "Create directory"
 msgstr "建立文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:1614
+#: ../../main/samba/src/EBox/Samba.pm:1619
 msgid "Remove directory"
 msgstr "移除文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:1615
+#: ../../main/samba/src/EBox/Samba.pm:1620
 msgid "Rename"
 msgstr "重命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:1622
-#: ../../main/samba/src/EBox/Samba.pm:1633
+#: ../../main/samba/src/EBox/Samba.pm:1627
+#: ../../main/samba/src/EBox/Samba.pm:1638
 msgid "File name"
 msgstr "文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:1623
-#: ../../main/samba/src/EBox/Samba.pm:1627
+#: ../../main/samba/src/EBox/Samba.pm:1628
+#: ../../main/samba/src/EBox/Samba.pm:1632
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:1634
+#: ../../main/samba/src/EBox/Samba.pm:1639
 msgid "Quarantined file name"
 msgstr "已隔离文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:1635
-#: ../../main/samba/src/EBox/Samba.pm:1638
+#: ../../main/samba/src/EBox/Samba.pm:1640
+#: ../../main/samba/src/EBox/Samba.pm:1643
 msgid "Quarantine"
 msgstr "隔离"
 
-#: ../../main/samba/src/EBox/Samba.pm:1641
+#: ../../main/samba/src/EBox/Samba.pm:1646
 msgid "Samba access"
 msgstr "Samba 权限"
 
-#: ../../main/samba/src/EBox/Samba.pm:1652
+#: ../../main/samba/src/EBox/Samba.pm:1657
 msgid "Samba virus"
 msgstr "Samba 病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:1663
+#: ../../main/samba/src/EBox/Samba.pm:1668
 msgid "Samba quarantine"
 msgstr "Samba 隔离"
 
-#: ../../main/samba/src/EBox/Samba.pm:2213
+#: ../../main/samba/src/EBox/Samba.pm:2218
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -13703,7 +13700,7 @@ msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不�
 #: ../../main/squid/src/EBox/Squid.pm:1150
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:109
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:96
 msgid "HTTP Proxy"
@@ -13836,7 +13833,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1080
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "访问规则"
 
@@ -14087,38 +14084,38 @@ msgid ""
 "date."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
 msgid "Time period"
 msgstr "时间周期"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:51
 msgid "Time period when the rule is applied"
 msgstr "规则应用周期"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:64
 msgid "Network Object"
 msgstr "网络对象"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
 msgid "Users Group"
 msgstr "用户组"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:89
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
 msgstr "允许所有"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:93
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
 msgstr "禁止所有"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:97
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:98
 msgid "Apply Filter Profile"
 msgstr "应用过滤策略"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:119
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:120
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
@@ -14126,12 +14123,12 @@ msgstr ""
 "你可以在此使用用户组或者网络对象来过滤、限制或者允许访问。规则仅在选取的时间"
 "周期内应用。"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:131
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:132
 msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr "组选择不可用，除非你启用 HTTP 代理模块"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:420
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:427
 #, perl-brace-format
 msgid ""
 "AD Error {error_name}: {error_desc}. If you think this error is temporary, "
@@ -14139,19 +14136,19 @@ msgid ""
 msgstr ""
 "AD 错误 {error_name}: {error_desc}。假如你认为这个错误是暂时性的，请稍后重试"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:437
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:444
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr "根据用户组的源地址匹配不适用于透明网桥模式"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:468
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:475
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
 "当存在组规则时，你不能添加一条“允许”或者“属性”规则应用于一个对象或者地址。"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:473
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:480
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
@@ -14159,14 +14156,14 @@ msgstr ""
 "当存在一条“允许”或者“属性”规则应用于一个对象或者地址时，你不能添加一条组规"
 "则。"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:483
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:490
 #, perl-brace-format
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr "同一个{sourceType}的规则({t1})与规则({t2})的时间周期重叠"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:787
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:794
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "应用 '{p}' 属性"
@@ -14650,8 +14647,8 @@ msgstr "跳过透明代理的网址"
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:59
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:69
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:180
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:181
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:182
 msgid "IPsec Connections"
 msgstr "IPsec 连接"
 
@@ -14753,15 +14750,15 @@ msgstr "启用 PFS"
 msgid "Phase 2"
 msgstr "阶段 2"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:102
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:103
 msgid "DataTable Component"
 msgstr "DataTable 组件"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:104
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:105
 msgid "Don't know how to handle this component."
 msgstr "无法处理这个组件。"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:110
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:111
 #: ../../main/software/src/templates/updates.mas:92
 #: ../../main/software/src/templates/ebox.mas:42
 #: ../../main/software/src/templates/ebox.mas:63
@@ -14769,15 +14766,15 @@ msgstr "无法处理这个组件。"
 msgid "Component"
 msgstr "组件"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:159
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:160
 msgid "The type of IPSec VPN."
 msgstr "IPSec VPN 类型"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:182
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:183
 msgid "IPsec connection"
 msgstr "IPsec 连接"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:189
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:190
 msgid ""
 "IPsec connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
@@ -14786,41 +14783,41 @@ msgstr ""
 "IPsec 连接可以在不同的子网间部署安全隧道。这个协议独立于供应商并使 Zentyal可"
 "以和其他安全设备连接。"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:216
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:226
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:217
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
 msgid "Enabled flag"
 msgstr "启用标志"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:219
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:220
 #, perl-brace-format
 msgid ""
 "Cannot be enabled due to errors in the connection configuration: {error}"
 msgstr "无法启用由于连接配置存在错误: {error}"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:229
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:230
 msgid ""
 "Cannot be enabled when creating a new connection, you should edit the "
 "configuration before enabling it"
 msgstr "创建新连接时无法启用，请在开启它之前编辑配置"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:241
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:242
 #: ../../main/ipsec/src/EBox/IPsec.pm:367
 msgid "Connection name"
 msgstr "连接名"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:243
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:244
 msgid "Blank characters are not allowed"
 msgstr "不允许空白字符"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:278
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:279
 msgid "VPN Type"
 msgstr "VPN 类型"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:280
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:281
 msgid "Not supported"
 msgstr "不支持"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:304
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:305
 #, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
@@ -15083,8 +15080,8 @@ msgstr "配置 vsftpd 和 LDAP 认证"
 msgid "FTP"
 msgstr "FTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:85 ../../main/mail/src/EBox/Mail.pm:1400
-#: ../../main/mail/src/EBox/Mail.pm:1560
+#: ../../main/mail/src/EBox/Mail.pm:85 ../../main/mail/src/EBox/Mail.pm:1403
+#: ../../main/mail/src/EBox/Mail.pm:1563
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
@@ -15203,133 +15200,133 @@ msgstr "主机邮件名称"
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "邮件名称与虚拟邮件域名称相同"
 
-#: ../../main/mail/src/EBox/Mail.pm:1346
+#: ../../main/mail/src/EBox/Mail.pm:1349
 msgid "SMTP service"
 msgstr "SMTP 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1353
+#: ../../main/mail/src/EBox/Mail.pm:1356
 msgid "POP3 service"
 msgstr "POP3 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1359
+#: ../../main/mail/src/EBox/Mail.pm:1362
 msgid "POP3S service"
 msgstr "POP3S 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1365
+#: ../../main/mail/src/EBox/Mail.pm:1368
 msgid "IMAP service"
 msgstr "IMAP 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1371
+#: ../../main/mail/src/EBox/Mail.pm:1374
 msgid "IMAPS service"
 msgstr "IMAPS 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1420
+#: ../../main/mail/src/EBox/Mail.pm:1423
 msgid "Mail server's filter"
 msgstr "邮件服务器过滤"
 
-#: ../../main/mail/src/EBox/Mail.pm:1479
+#: ../../main/mail/src/EBox/Mail.pm:1482
 msgid "Greylist"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1485
+#: ../../main/mail/src/EBox/Mail.pm:1488
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "队列管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1511
+#: ../../main/mail/src/EBox/Mail.pm:1514
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "从外部账户邮件检索"
 
-#: ../../main/mail/src/EBox/Mail.pm:1526
+#: ../../main/mail/src/EBox/Mail.pm:1529
 msgid "Message ID"
 msgstr "消息 ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1529
+#: ../../main/mail/src/EBox/Mail.pm:1532
 msgid "From hostname"
 msgstr "来自主机名"
 
-#: ../../main/mail/src/EBox/Mail.pm:1530
+#: ../../main/mail/src/EBox/Mail.pm:1533
 msgid "From host ip"
 msgstr "来自站点ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1531
+#: ../../main/mail/src/EBox/Mail.pm:1534
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "大小 (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1535
 msgid "Relay"
 msgstr "转发"
 
-#: ../../main/mail/src/EBox/Mail.pm:1533
+#: ../../main/mail/src/EBox/Mail.pm:1536
 msgid "Message type"
 msgstr "消息类型"
 
-#: ../../main/mail/src/EBox/Mail.pm:1536
+#: ../../main/mail/src/EBox/Mail.pm:1539
 msgid "Additional Info"
 msgstr "附加信息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1550
 msgid "Successful messages"
 msgstr "成功消息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1548
+#: ../../main/mail/src/EBox/Mail.pm:1551
 msgid "Maximum message size exceeded"
 msgstr "超出消息大小最大值"
 
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1552
 msgid "User quota exceeded"
 msgstr "超出用户配额"
 
-#: ../../main/mail/src/EBox/Mail.pm:1550
+#: ../../main/mail/src/EBox/Mail.pm:1553
 msgid "Relay access denied"
 msgstr "转发访问拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1551
+#: ../../main/mail/src/EBox/Mail.pm:1554
 msgid "Account does not exist"
 msgstr "帐户不存在"
 
-#: ../../main/mail/src/EBox/Mail.pm:1552
+#: ../../main/mail/src/EBox/Mail.pm:1555
 msgid "Host unreachable"
 msgstr "站点不可达"
 
-#: ../../main/mail/src/EBox/Mail.pm:1553
+#: ../../main/mail/src/EBox/Mail.pm:1556
 msgid "Authentication error"
 msgstr "身份验证发生错误"
 
-#: ../../main/mail/src/EBox/Mail.pm:1554
+#: ../../main/mail/src/EBox/Mail.pm:1557
 msgid "Greylisted"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1555
+#: ../../main/mail/src/EBox/Mail.pm:1558
 msgid "Relay rejected by the smarthost"
 msgstr "转发被 smarthost 拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1556
+#: ../../main/mail/src/EBox/Mail.pm:1559
 msgid "Other events"
 msgstr "其他事件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1689 ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1692 ../../main/mail/src/EBox/Mail.pm:1799
 msgid "Mailboxes"
 msgstr "邮件箱"
 
-#: ../../main/mail/src/EBox/Mail.pm:1716
+#: ../../main/mail/src/EBox/Mail.pm:1719
 msgid "Mail SMTP server"
 msgstr "邮件 SMTP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1724
+#: ../../main/mail/src/EBox/Mail.pm:1727
 msgid "Mail POP/IMAP server"
 msgstr "邮件 POP/IMAP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1844
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr "从属配置完成会将邮件域和它的账户删除"
 
-#: ../../main/mail/src/EBox/Mail.pm:1875
+#: ../../main/mail/src/EBox/Mail.pm:1878
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "地址 {ip} 已经用于接口 {iface}"
@@ -15392,7 +15389,7 @@ msgstr "已添加别名 {al}"
 msgid "user mail"
 msgstr "用户邮件"
 
-#: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:63
+#: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:56
 #, perl-brace-format
 msgid "{acc} account removed"
 msgstr "帐户名 {acc} 已移除"
@@ -16027,40 +16024,40 @@ msgstr "邮件别名账户"
 msgid "Cannot connect to {smtp} mail server."
 msgstr "无法连接到 {smtp} 邮件服务器"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:98
+#: ../../main/mail/src/EBox/MailUserLdap.pm:105
 msgid "mail account"
 msgstr "邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:307
+#: ../../main/mail/src/EBox/MailUserLdap.pm:314
 msgid "This group has a mail alias"
 msgstr "这个组有一个邮件别名"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:331
+#: ../../main/mail/src/EBox/MailUserLdap.pm:338
 msgid "This user has a mail account"
 msgstr "这个用户有一个邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:376
+#: ../../main/mail/src/EBox/MailUserLdap.pm:383
 msgid "Mail account"
 msgstr "邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:378
+#: ../../main/mail/src/EBox/MailUserLdap.pm:385
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "建立邮件账户"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:380
+#: ../../main/mail/src/EBox/MailUserLdap.pm:387
 msgid "Mail account settings"
 msgstr "邮件账户设置"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:420
+#: ../../main/mail/src/EBox/MailUserLdap.pm:427
 msgid "Mail alias settings"
 msgstr "邮件别名设置"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:716
+#: ../../main/mail/src/EBox/MailUserLdap.pm:723
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "配置必须是一个整数或者零或者无限配额"
 
-#: ../../main/mail/src/EBox/MailQueue.pm:79
+#: ../../main/mail/src/EBox/MailQueue.pm:80
 msgid "This message is being delivered"
 msgstr "这个消息已传达"
 
@@ -16597,6 +16594,10 @@ msgstr "以用户{user}运行命令'{cmd}'失败"
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:30
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
 msgstr "无法连接到 Zentyal Cloud。请检查你的网络连接。"
+
+#: ../../main/common/src/EBox/Exceptions/WrongHTTPReferer.pm:37
+msgid "Wrong HTTP referer detected, operation cancelled for security reasons"
+msgstr "检测到错误的HTTP referer，由于安全原因取消操作。"
 
 #: ../../main/common/src/EBox/Exceptions/InvalidData.pm:38
 #, perl-brace-format
@@ -17320,7 +17321,7 @@ msgstr "域名列表"
 
 #: ../../main/dns/src/templates/index.mas:41
 #: ../../main/core/src/templates/ajax/tableBody.mas:449
-#: ../../main/core/src/templates/ajax/row.mas:94
+#: ../../main/core/src/templates/ajax/row.mas:96
 #: ../../main/samba/src/templates/editgplink.mas:22
 msgid "Edit"
 msgstr "编辑"
@@ -17682,7 +17683,7 @@ msgid "Optional"
 msgstr "可选"
 
 #: ../../main/users/src/templates/editgroup.mas:63
-#: ../../main/users/src/templates/edituser.mas:85
+#: ../../main/users/src/templates/edituser.mas:86
 msgid "Modules configuration"
 msgstr "模块配置"
 
@@ -17742,29 +17743,29 @@ msgstr "添加 OU"
 msgid "Display name"
 msgstr "显示帮助信息"
 
-#: ../../main/users/src/templates/edituser.mas:57
+#: ../../main/users/src/templates/edituser.mas:58
 msgid "User quota"
 msgstr "用户限额"
 
-#: ../../main/users/src/templates/edituser.mas:60
+#: ../../main/users/src/templates/edituser.mas:61
 msgid "Disabled account"
 msgstr "已禁用帐号"
 
-#: ../../main/users/src/templates/edituser.mas:67
+#: ../../main/users/src/templates/edituser.mas:68
 #: ../../main/users/src/templates/adduser.mas:30
 msgid "Retype password"
 msgstr "重新输入密码"
 
-#: ../../main/users/src/templates/edituser.mas:76
+#: ../../main/users/src/templates/edituser.mas:77
 msgid "User groups"
 msgstr "用户组"
 
-#: ../../main/users/src/templates/edituser.mas:159
-#: ../../main/users/src/templates/edituser.mas:243
+#: ../../main/users/src/templates/edituser.mas:167
+#: ../../main/users/src/templates/edituser.mas:251
 msgid "This user is not a member of any group"
 msgstr "该用户不属于任何组"
 
-#: ../../main/users/src/templates/edituser.mas:228
+#: ../../main/users/src/templates/edituser.mas:236
 #: ../../main/users/src/templates/editcontact.mas:151
 msgid "Add group"
 msgstr "添加组"
@@ -18413,21 +18414,21 @@ msgid ""
 "dashboard."
 msgstr "浏览顶端菜单可用小部件，拖拽到仪表盘。"
 
-#: ../../main/core/src/templates/dashboard/index.mas:35
+#: ../../main/core/src/templates/dashboard/index.mas:43
 msgid "Configure widgets"
 msgstr "配置组件"
 
-#: ../../main/core/src/templates/dashboard/index.mas:38
+#: ../../main/core/src/templates/dashboard/index.mas:46
 #, perl-brace-format
 msgid "The following packages are not properly installed: {packages}."
 msgstr "以下软件包安装不正确：{packages}"
 
-#: ../../main/core/src/templates/dashboard/index.mas:42
+#: ../../main/core/src/templates/dashboard/index.mas:50
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr "到 {ohref} 软件管理 {chref} 得到更多信息。"
 
-#: ../../main/core/src/templates/dashboard/index.mas:46
+#: ../../main/core/src/templates/dashboard/index.mas:54
 #, perl-brace-format
 msgid ""
 "To solve this situation, please try to execute the following command in the "
@@ -18957,19 +18958,19 @@ msgstr "当前文件"
 msgid "configure"
 msgstr "配置"
 
-#: ../../main/core/src/templates/ajax/row.mas:98
+#: ../../main/core/src/templates/ajax/row.mas:100
 msgid "Clone"
 msgstr "克隆"
 
-#: ../../main/core/src/templates/ajax/row.mas:103
+#: ../../main/core/src/templates/ajax/row.mas:105
 msgid "Read-only row: edit disabled"
 msgstr "只读行：禁止编辑"
 
-#: ../../main/core/src/templates/ajax/row.mas:104
+#: ../../main/core/src/templates/ajax/row.mas:106
 msgid "Read-only row: delete disabled"
 msgstr "只读行：禁止删除"
 
-#: ../../main/core/src/templates/ajax/row.mas:106
+#: ../../main/core/src/templates/ajax/row.mas:108
 msgid "Read-only row: clone disabled"
 msgstr "只读行：禁止克隆"
 
@@ -19182,19 +19183,19 @@ msgid "DISCONNECT"
 msgstr "断开连接"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:32
 msgid "name"
 msgstr "名称"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:35
 msgid "status"
 msgstr "状态"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 msgid "date"
 msgstr "日期"
 
@@ -19312,7 +19313,7 @@ msgstr "Zentyal 用户名"
 msgid "Zentyal user password"
 msgstr "Zentyal 用户密码"
 
-#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:32
+#: ../../main/openchange/src/templates/migration/mailboxes_table.mas:33
 msgid "User name conflict"
 msgstr "用户名冲突"
 

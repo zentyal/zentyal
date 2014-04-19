@@ -18,6 +18,7 @@ use warnings;
 
 package EBox::Zarafa;
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::KerberosModule);

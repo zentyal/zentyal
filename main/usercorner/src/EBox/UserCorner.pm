@@ -121,6 +121,8 @@ sub initialSetup
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 
+    my $haproxyMod = $self->global()->modInstance('haproxy');
+
     # Register the service if installing the first time
     unless ($version) {
         my @args = ();
@@ -129,7 +131,6 @@ sub initialSetup
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
-        my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
         $haproxyMod->saveConfigRecursive();
     }
@@ -137,6 +138,10 @@ sub initialSetup
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
+    }
+
+    if ($haproxyMod->changed()) {
+        $haproxyMod->saveConfigRecursive();
     }
 
     if ($self->changed()) {
@@ -263,6 +268,26 @@ sub enableActions
     rename(EBox::Config::conf() . 'configured.tmp', EBox::Config::conf() . 'configured');
 }
 
+# Method: enableService
+#
+#   Override EBox::Module::Service::enableService
+#
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+    if ($self->changed()) {
+        # manage the nginx include file
+        my $webadminMod = $self->global()->modInstance('webadmin');
+        if ($status) {
+            $webadminMod->addNginxServer(USERCORNER_NGINX_FILE);
+        } else {
+            $webadminMod->removeNginxServer(USERCORNER_NGINX_FILE);
+        }
+    }
+}
+
 # Method: menu
 #
 # Show the usercorner menu entry
@@ -339,9 +364,6 @@ sub _setConf
     push (@confFileParams, port  => $self->targetHTTPSPort());
     EBox::Module::Base::writeConfFileNoCheck(
         USERCORNER_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
-
-    my $webadminMod = $self->global()->modInstance('webadmin');
-    $webadminMod->addNginxServer(USERCORNER_NGINX_FILE);
 
     # Write user corner redis file
     $self->{redis}->writeConfigFile(USERCORNER_USER);

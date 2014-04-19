@@ -20,6 +20,7 @@ package EBox::RemoteServices::CGI::Wizard::Subscription;
 
 use base 'EBox::CGI::WizardPage';
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use EBox;
