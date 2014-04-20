@@ -1,4 +1,6 @@
 HEAD
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
 	+ RedirectHelper interface to redirect requests from Zentyal
 	  Remote to specific module HTTP applications
 	+ Added IPSet type
