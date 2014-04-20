@@ -902,7 +902,6 @@ sub writeSambaConfig
     my $hostDomain = $sysinfo->hostDomain();
 
     my @array = ();
-    push (@array, 'fs'          => EBox::Config::configkey('samba_fs'));
     push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);

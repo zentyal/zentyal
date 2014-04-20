@@ -568,7 +568,6 @@ sub provisionDC
 
         $samba->writeSambaConfig();
 
-        my $fs = EBox::Config::configkey('samba_fs');
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $cmd = 'samba-tool domain provision ' .
             " --domain='" . $samba->workgroup() . "'" .
@@ -581,7 +580,6 @@ sub provisionDC
             " --users='" . $usersModule->DEFAULTGROUP() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
-        $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
         EBox::info("Provisioning database '$cmd'");
         $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
