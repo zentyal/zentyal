@@ -50,6 +50,8 @@ use EBox::Types::InverseMatchUnion;
 use EBox::Firewall::Types::NDPIApplication;
 use EBox::Sudo;
 
+use Perl6::Junction qw(all);
+
 sub new
 {
     my $class = shift;
@@ -166,37 +168,30 @@ sub _fieldDescription
     }
 
     push (@tableHead,
-            new EBox::Types::Union(
+          new EBox::Types::InverseMatchSelect(
               'fieldName' => 'service',
               'printableName' => __('Service'),
-              'subtypes' => [
-                new EBox::Types::InverseMatchSelect(
-                    'fieldName' => 'ebox_service',
-                    'printableName' => __('Service'),
-                    'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
-                    'foreignField' => 'printableName',
-                    'foreignNextPageField' => 'configuration',
-                    'editable' => 1,
-                    'help' => __('If inverse match is ticked, any ' .
+              'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
+              'foreignField' => 'printableName',
+              'foreignNextPageField' => 'configuration',
+              'editable' => 1,
+              'help' => __('If inverse match is ticked, any ' .
                                  'service but the selected one will match this rule')
-                    ),
-                new EBox::Firewall::Types::NDPIApplication(
-                    'fieldName' => 'ndpi_service',
-                    'printableName' => __('Application'),
-                    'editable' => 1,
-                    'help' => __('If inverse match is ticked, any ' .
-                                 'service but the selected one will match this rule')
-                    ),
-              ],
-            ),
-            new EBox::Types::Text(
-                'fieldName' => 'description',
-                'printableName' => __('Description'),
+             ),
+          new EBox::Firewall::Types::NDPIApplication(
+              'fieldName' => 'application',
+              'printableName' => __('Application'),
+              'editable' => 1,
+              'defaultValue' => 'ndpi_none',
+             ),
+          new EBox::Types::Text(
+              'fieldName' => 'description',
+              'printableName' => __('Description'),
                 'size' => '32',
-                'editable' => 1,
-                'optional' => 1,
-                ),
-             );
+              'editable' => 1,
+              'optional' => 1,
+             ),
+         );
 
     return \@tableHead;
 }
@@ -263,6 +258,23 @@ sub validateTypedRow
             }
         }
     }
+
+    my $application = $actual_r->{'application'}->value();
+    if ($application ne 'ndpi_none') {
+        my $serviceId = $actual_r->{service}->value();
+        my $serviceConf  = $self->global()->modInstance('services')->serviceConfiguration($serviceId);
+        foreach my $conf (@{ $serviceConf }) {
+            my $protocol = $conf->{protocol};
+            if ($protocol ne all('tcp', 'udp', 'tcp/udp', 'any')) {
+                throw EBox::Exceptions::External(__x(
+                    "Application option is incompatible with '{service}' because it uses the network protocol {proto}",
+                     service => $actual_r->{service}->printableValue(),
+                     proto => $protocol
+                   ));
+            }
+        }
+    }
+
 }
 
 1;

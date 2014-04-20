@@ -224,6 +224,8 @@ sub _ndpiServices
         (lc $a->{printableValue}) cmp (lc $b->{printableValue})
     } @services;
 
+    unshift @services, { value => 'ndpi_none', printableValue => __('None')};
+
     return \@services;
 }
 

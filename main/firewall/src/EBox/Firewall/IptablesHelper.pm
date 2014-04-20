@@ -76,6 +76,7 @@ sub ToInternetRuleTable
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
+        $self->_addApplicationToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'faccept');
         push (@rules, @{$rule->strings()});
     }
@@ -114,6 +115,7 @@ sub ExternalToInternalRuleTable
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'faccept');
+        $self->_addApplicationToRule($rule, $row);
         push (@rules, @{$rule->strings()});
     }
 
@@ -151,6 +153,7 @@ sub InternalToEBoxRuleTable
         }
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
+        $self->_addApplicationToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'iaccept');
         push (@rules, @{$rule->strings()});
     }
@@ -189,6 +192,7 @@ sub ExternalToEBoxRuleTable
         }
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
+        $self->_addApplicationToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'iaccept');
         push (@rules, @{$rule->strings()});
     }
@@ -228,6 +232,7 @@ sub EBoxOutputRuleTable
 
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
+        $self->_addApplicationToRule($rule, $row);
         $self->_addDecisionToRule($rule, $row, 'oaccept');
         push (@rules, @{$rule->strings()});
     }
@@ -296,8 +301,8 @@ sub SNATRules
 sub _isApplicationRule
 {
     my ($self, $row) = @_;
-    my $service = $row->valueByName('service');
-    return ($service =~ m/^ndpi_/);
+    my $service = $row->valueByName('application');
+    return ($service ne 'ndpi_none');
 }
 
 sub _isUnsopportedRule
@@ -389,6 +394,13 @@ sub _addServiceToRule
     my $service = $row->elementByName('service');
     my $inverseMatch = $service->can('inverseMatch') ? $service->inverseMatch() : undef;
     $rule->setService($service->value(), $inverseMatch);
+}
+
+sub _addApplicationToRule
+{
+    my ($self, $rule, $row) = @_;
+    my $app = $row->valueByName('application');
+    $rule->setNDPIApplication($app)
 }
 
 sub _addIfaceToRule
