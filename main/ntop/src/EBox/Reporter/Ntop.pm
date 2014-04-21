@@ -20,6 +20,7 @@ package EBox::Reporter::Ntop;
 
 use base 'EBox::Reporter::Base';
 
+use EBox;
 use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Ntop;
@@ -118,7 +119,8 @@ sub _consolidate
                                                                $beginStr, $endStr);
                 my $err = RRDs::error;
                 if ($err) {
-                    throw EBox::Exceptions::Internal("Error fetching data from $rrdFileName: $err");
+                    EBox::error("Error fetching data from $rrdFileName: $err");
+                    next;
                 }
 
                 my ($app) = $rrdName =~ /^(.*)\.rrd$/;
