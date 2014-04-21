@@ -1,4 +1,5 @@
 HEAD
+	+ Depends on network as p0f require iface configuration
 	+ Added support to dynamic objects using p0f as fingerprinting tool
 3.4
 	+ Set version to 3.4
