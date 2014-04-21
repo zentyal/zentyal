@@ -114,8 +114,8 @@ sub ExternalToInternalRuleTable
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row, 'faccept');
         $self->_addApplicationToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'faccept');
         push (@rules, @{$rule->strings()});
     }
 

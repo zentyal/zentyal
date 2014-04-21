@@ -161,6 +161,7 @@ sub setService
     }
 }
 
+# Warning: this must be called always after setService
 sub setNDPIApplication
 {
     my ($self, $application) = @_;
@@ -170,7 +171,14 @@ sub setNDPIApplication
 
     $application =~ s/^ndpi_//;
     my $iptables = "  -m ndpi --$application";
-    push (@{$self->{'service'}}, $iptables);
+    if (@{ $self->{'service'} }) {
+        foreach my $serviceArg (@{ $self->{'service'} } ) {
+            $serviceArg .= $iptables;
+        }
+    } else {
+        push (@{$self->{'service'}}, $iptables);
+    }
+
 }
 
 # Method: setChain
