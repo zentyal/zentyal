@@ -1,3 +1,6 @@
+HEAD
+	+ Safer way to replace repos in sources.list
+	+ Avoid problems when upgrading with nginx includes from remoteservices
 3.3.9
 	+ Show upgrade message always, no matter the subscription level
 3.3.8
