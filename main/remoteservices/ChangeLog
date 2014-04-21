@@ -1,4 +1,5 @@
 HEAD
+	+ Clarified doc about qa_updates_always_automatic confkey
 	+ EBox::RemoteServices::Subscription::Check::check recovers for
 	  any error raised on users checking
 3.2.5
