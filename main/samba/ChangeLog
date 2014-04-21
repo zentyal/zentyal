@@ -1,3 +1,5 @@
+HEAD
+	+ Added new domainControllers() method
 3.4.1
 	+ Override daemons when migrating from previous versions
 	+ Remove the use of method canonicalName for greater performance, use
