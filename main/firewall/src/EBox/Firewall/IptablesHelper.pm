@@ -114,8 +114,8 @@ sub ExternalToInternalRuleTable
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row, 'faccept');
         $self->_addApplicationToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'faccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -301,15 +301,22 @@ sub SNATRules
 sub _isApplicationRule
 {
     my ($self, $row) = @_;
-    my $service = $row->valueByName('application');
-    return ($service ne 'ndpi_none');
+    my $app = $row->valueByName('application');
+    if (not $app) {
+        return 0;
+    }
+
+    return ($app ne 'ndpi_none');
 }
 
 sub _isUnsopportedRule
 {
     my ($self, $row) = @_;
-    my $service = $row->valueByName('service');
-    return ($service eq 'ndpi_unsupported');
+    my $app = $row->valueByName('application');
+    if (not $app) {
+        return 1;
+    }
+    return ($app eq 'ndpi_unsupported');
 }
 
 sub _addOrigAddressToRule
