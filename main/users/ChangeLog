@@ -1,4 +1,5 @@
 HEAD
+	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
 	+ Added support for addon components when user is in a
