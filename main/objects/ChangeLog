@@ -1,4 +1,5 @@
 HEAD
+	+ Depends on network as p0f require iface configuration
 	+ Send network inventory to Zentyal Remote if it applies
 	+ Added support to dynamic objects using p0f as fingerprinting tool
 3.4
