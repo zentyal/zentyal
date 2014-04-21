@@ -24,6 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Objects::Inventory;
 use EBox::NetWrappers;
+use TryCatch::Lite;
 
 
 # Class: EBox::Reporter::NetInventory
@@ -101,12 +102,16 @@ sub _consolidate
     my $invQuerier = new EBox::Objects::Inventory();
     foreach my $iface (@{$internalIfaces}) {
         my $network = EBox::NetWrappers::to_network_with_mask($net->ifaceNetwork($iface), $net->ifaceNetmask($iface));
-        foreach my $host (@{$invQuerier->queryNetwork($network)}) {
-            push(@retData,
-                 { mac        => $host->{mac},
-                   ip         => $host->{address},
-                   os_flavour => $host->{os_flavour},
-                   os_name    => $host->{os_name} });
+        try {
+            foreach my $host (@{$invQuerier->queryNetwork($network)}) {
+                push(@retData,
+                     { mac        => $host->{mac},
+                       ip         => $host->{address},
+                       os_flavour => $host->{os_flavour},
+                       os_name    => $host->{os_name} });
+            }
+        } catch (EBox::Exceptions::Base $e) {
+            EBox::error($e); # Do not fail miserably if any problem with the network
         }
     }
     return \@retData;
