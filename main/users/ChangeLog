@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
