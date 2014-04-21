@@ -75,8 +75,8 @@ _Description: Error
 Template: zinstaller-remote/error_dr
 Type: note
 _Description: Disaster Recovery
- You can not recover from a disater without a valid Small Business or
- Enterprise edition. Installation of Community edition will continue.
+ You cannot recover from a disaster without a commercial edition. Installation
+ of Community edition will continue.
 
 Template: zinstaller-remote/error_backups
 Type: note
