@@ -1,4 +1,7 @@
-HEAD
+3.4.1
+	+ Set HTTPS env variable to 'On' always for SSL vhosts
+	+ Removed the ssl mod check for ssl vhosts given that we don't use that
+	  module at all
 	+ Migrate previous configuration from 3.3 when upgrading
 	+ When creating domains take into account SLD
 3.4

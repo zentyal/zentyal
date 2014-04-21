@@ -39,8 +39,8 @@ sub _process
 {
     my ($self) = @_;
     $self->{json}->{success} = 0;
-    my $mail = EBox::Global->modInstance('mail');
-
+    my $global = EBox::Global->getInstance();
+    my $mail = $global->modInstance('mail');
 
     $self->_requireParam('user', __('user'));
     my $userDN = $self->unsafeParam('user');
@@ -51,13 +51,6 @@ sub _process
     $self->{json}->{mail} = $usermail;
 
     my $user = new EBox::Users::User(dn => $userDN);
-
-    my $ocEnabled = 0;
-    if (EBox::Global->modExists('openchange')) {
-        my $userOc = EBox::Global->modInstance('openchange')->_ldapModImplementation();
-        $ocEnabled = $userOc->enabled($user);
-    }
-
     $mail->{musers}->delUserAccount($user, $usermail);
 
     $self->{json}->{msg} = __x('{acc} account removed', acc => $usermail);

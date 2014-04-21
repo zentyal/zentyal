@@ -1,6 +1,4 @@
-#!/usr/bin/perl -w
-
-# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,29 +13,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-# A tester to show what it is stored in HTB tree builder
-
 use strict;
 use warnings;
 
-use Test::More skip_all => 'FIXME';
-use Data::Dumper;
-use EBox;
-use EBox::Global;
-use EBox::Global::TestStub;
+package EBox::Exceptions::WrongHTTPReferer;
+use base 'EBox::Exceptions::External';
 
-EBox::Global::TestStub::fake();
+use EBox::Gettext;
 
-my ($iface) = @ARGV;
+# Constructor: new
+#
+#      An exception called when a request  referer is not valid
+#
+# Parameters:
+#
+#      text - the localisated text to show to the user (Default: standard wrong
+#      HTTP referer text)
+#
+sub new
+{
+    my ($class, $msg, @params) = @_;
+    if (not $msg) {
+        $msg = __("Wrong HTTP referer detected, operation cancelled for security reasons");
+    }
 
-$iface = 'eth0' unless defined($iface);
+    my $self = $class->SUPER::new($msg, @params);
+    bless ($self, $class);
+    return $self;
+}
 
-my $ts = EBox::Global->modInstance('trafficshaping');
-$ts->startUp();
-
-my $tcCommands_ref = $ts->{builders}->{$iface}->dumpTcCommands();
-my $ipTablesCommands_ref = $ts->{builders}->{$iface}->dumpIptablesCommands();
-
-print ( Dumper($tcCommands_ref) );
-print ( Dumper($ipTablesCommands_ref) );
+1;
