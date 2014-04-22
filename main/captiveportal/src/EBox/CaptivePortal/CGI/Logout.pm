@@ -19,7 +19,6 @@ package EBox::CaptivePortal::CGI::Logout;
 use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
-#use EBox::CaptivePortal::Middleware::AuthFile;
 
 sub new
 {

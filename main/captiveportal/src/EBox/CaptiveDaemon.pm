@@ -63,14 +63,6 @@ sub new
     return $self;
 }
 
-sub _log
-{
-        my ($msg) = @_;
-#        my $date = `date`;
-#        system "echo $date . ' $msg' >> /tmp/logc";
-        EBox::debug("XXX $msg");
-}
-
 # Method: run
 #
 #   Run the daemon. It never dies
@@ -90,10 +82,6 @@ sub run
     # Create logout file
     system('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
 
-    # # wakeup on new session and logout events
-    # $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
-    # $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
-
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
     $self->_checkChains($captive);
@@ -112,26 +100,17 @@ sub run
     }
 
     # wakeup on new session and logout events
-    my $w1 = $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {
-        _log("XXX SIDS_DIR");
-#        my @users = @{$self->{module}->currentUsers()};
-#        $self->_updateSessions(\@users, $events, $exceededEvent);
-    });
+    my $w1 = $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     if (not $w1) {
-    die $!;
+        die "Cannot create session directory watcher";
     }
-    my $w2 = $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_MODIFY , sub {
-        _log("XXX logout");
-#        my @users = @{$self->{module}->currentUsers()};
-#        $self->_updateSessions(\@users, $events, $exceededEvent);
-     });
-     if (not $w2) {
-     die $!;
-     }
+    my $w2 = $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_MODIFY , sub {});
+    if (not $w2) {
+        die "Cannot create logout file watcher";
+    }
 
 
     my $timeLeft;
-    _log("BEF LOOP");
     while (1) {
         my @users = @{$self->{module}->currentUsers()};
         $self->_updateSessions(\@users, $events, $exceededEvent);
@@ -140,7 +119,6 @@ sub run
         while (time() < $endTime) {
             my $eventsFound = $notifier->poll();
             if ($eventsFound) {
-                _log("EVENT FOUND");
                 last;
             }
             usleep(80);
@@ -160,25 +138,18 @@ sub _updateSessions
     my @removeRules;
     my %sidsFromFWRules = %{ $self->{module}->currentSidsByFWRules() };
 
-                _log("UPDATE SESSIONS");
-
-
-                _log("After lock");
-
     foreach my $user (@{$currentUsers}) {
         my $sid = $user->{sid};
         my $new = (not exists($self->{sessions}->{$sid}));
 
         if ($new) {
             $self->{sessions}->{$sid} = $user;
-            _log("New suer: $user");
             push @rules, @{$self->_addRule($user, $sid)};
 
             # bwmonitor...
             $self->_matchUser($user);
 
             if ($exceededEvent) {
-                    _log("Quota exceeded " . $user->{'user'});
                     $events->sendEvent(
                         message => __x('{user} has logged in captive portal and has quota left',
                                        user => $user->{'user'},
@@ -197,7 +168,6 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  )   {
-            _log("Quota exceeeded " . $user->{user});
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user, $sid)});
 
@@ -261,7 +231,6 @@ sub _updateSessions
                 next;
             }
             $prevRule = $rule;
-            _log("REmove leftover user rule " . $rule->{user});
             push @removeRules, @{ $self->_removeRule($rule, $sid) };
         }
     }
@@ -398,7 +367,6 @@ sub _checkChains
     # remove chains to be sure they are not leftovers
     while(my ($table, $chains_list) = each %{$chains}) {
         foreach my $ch (@{ $chains_list }) {
-
             EBox::Sudo::silentRoot("iptables -t $table -F $ch",
                              "iptables -t $table -X $ch");
         }
@@ -415,7 +383,6 @@ sub _checkChains
 
 EBox::init();
 
-_log('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
 
