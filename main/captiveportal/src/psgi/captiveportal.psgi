@@ -42,10 +42,7 @@ my $app = sub {
     binmode(STDOUT, ':utf8');
 
     my $req = Plack::Request->new($env);
-    my $out =  EBox::CaptivePortal::CGI::Run->run($req);
-    use Data::Dumper;
-    EBox::info("OOO: " . Dumper($out));
-    return $out;
+    return EBox::CaptivePortal::CGI::Run->run($req);
 };
 
 builder {
