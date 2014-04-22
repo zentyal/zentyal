@@ -67,6 +67,22 @@ sub initialSetup
     my ($self, $version) = @_;
 
     $self->_migrateFormKeys();
+
+    if (defined($version)
+            and (EBox::Util::Version::compare($version, '3.2') < 0)) {
+        $self->_migrateOutgoingDomain();
+    }
+}
+
+# Migration of form keys after extracting the rewrite rule for outgoing domain
+# from the provision form.
+#
+sub _migrateOutgoingDomain
+{
+  my ($self) = @_;
+
+  my $oldKeyValue = $self->get('Provision/keys/form');
+  $self->set('Configuration/keys/form', $oldKeyValue);
 }
 
 # Migration of form keys to better names (between development versions)
@@ -360,20 +376,22 @@ sub _writeRewritePolicy
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my $defaultDomain = $sysinfo->hostDomain();
+    if ($self->isProvisioned()) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $defaultDomain = $sysinfo->hostDomain();
 
-    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+        my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 
-    my @rewriteParams;
-    push @rewriteParams, ('defaultDomain' => $defaultDomain);
-    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+        my @rewriteParams;
+        push @rewriteParams, ('defaultDomain' => $defaultDomain);
+        push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-    $self->writeConfFile(REWRITE_POLICY_FILE,
-        'openchange/rewriteDomainPolicy.mas',
-        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+        $self->writeConfFile(REWRITE_POLICY_FILE,
+            'openchange/rewriteDomainPolicy.mas',
+            \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
 
-    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+        EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+    }
 }
 
 # Method: menu
@@ -387,15 +405,19 @@ sub menu
     my $separator = 'Communications';
     my $order = 900;
 
-    $root->add(
-        new EBox::Menu::Item(
-            name => 'OpenChange',
-            icon => 'openchange',
-            text => $self->printableName(),
-            separator => $separator,
-            url       => 'OpenChange/View/Provision',
-            order     => $order)
-    );
+    my $folder = new EBox::Menu::Folder(
+        name => 'OpenChange',
+        icon => 'openchange',
+        text => $self->printableName(),
+        separator => $separator,
+        order => $order);
+
+    $folder->add(new EBox::Menu::Item(
+        url       => 'OpenChange/Composite/General',
+        text      => __('Setup'),
+        order     => 0));
+
+    $root->add($folder);
 }
 
 sub _ldapModImplementation
