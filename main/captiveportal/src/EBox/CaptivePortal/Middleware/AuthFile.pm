@@ -155,10 +155,8 @@ sub _logout
 {
     my ($self, $env) = @_;
 
-#    my $ret = $self->SUPER::_logout($env);
-
-        my $ret = $self->app->($env);
-        $self->_cleanSession($env);
+    my $ret = $self->app->($env);
+    $self->_cleanSession($env);
 
     if ((not exists $env->{'plack.cookie.parsed'}) or
         (not exists $env->{'plack.cookie.parsed'}->{ 'plack_session'})) {
@@ -168,27 +166,11 @@ sub _logout
     my $sid = $env->{'plack.cookie.parsed'}->{ 'plack_session'};
     EBox::CaptivePortal::Middleware::AuthFile::removeSession($sid);
 
-        delete $env->{'psgix.session'}->{user_id};
-        delete $env->{'psgix.session'}->{last_time};
-      $env->{'psgix.session.options'}->{'no_store'} = 1;
+    $env->{'psgix.session.options'}->{'no_store'} = 1;
 
-
-    use Data::Dumper;
-    EBox::info(Dumper($env));
-
-     EBox::warn("call to logout");
-
-     EBox::warn("before echo");
-
-    # Wakeup captive daemon updating the access time of the Inotify2
     # monitored logout file
-#    my $notifyCmd = 'echo from_authfile > ' . EBox::CaptivePortal->LOGOUT_FILE;
     my $notifyCmd = "echo $sid > " . EBox::CaptivePortal->LOGOUT_FILE;
-    EBox::info("NOTIFY LOGOUT $notifyCmd");
     system($notifyCmd);
-
-
-     EBox::warn("after echo");
 
     return $ret;
 }
@@ -206,11 +188,9 @@ sub call
     my $path = $env->{PATH_INFO};
     $env->{'psgix.session'}{app} = $self->app_name;
 
-    EBox::info("PATH $path");
     if ($path eq '/Login') {
         $self->_login($env);
     } elsif ($path eq '/Logout') {
-        EBox::info("LOGOUT to be called $self");
         $self->_logout($env);
     } elsif ($self->_validateSession($env)) {
         delete $env->{'psgix.session'}{AuthReason};
@@ -252,7 +232,6 @@ sub currentSessions
 {
     my @sessions = ();
     my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
-    EBox::info("beg currentSessions");
     for my $sess_file (glob(EBox::CaptivePortal->SIDS_DIR . '*')) {
         my $sid = basename($sess_file);
         my $session = $store->fetch($sid);
@@ -267,7 +246,6 @@ sub currentSessions
         }
     }
 
-    EBox::info("end currentSessions");
     return \@sessions;
 }
 
@@ -281,38 +259,10 @@ sub removeSession
 
     my $sessionFile =  EBox::CaptivePortal->SIDS_DIR . $sid;
 
-  EBox::info("bef restore remove");
-
      my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
      unless ($store->remove($sid)) {
          throw EBox::Exceptions::External(__x("Couldn't remove session file for {id}", id => $sid));
      }
-    EBox::info("After store remove");
-#    system("chmod a-w " . EBox::CaptivePortal->SIDS_DIR);
-}
-
-# Function: updateSession
-#
-#   Update session time and ip.
-#
-sub updateSessionNotUsed
-{
-        die 'updateSession XXX';
-    my ($sid, $ip, $time) = @_;
-    EBox::info("XXX updateSession $sid");
-    unless (defined ($time)) {
-        $time = time();
-    }
-
-    my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
-    my $session = $store->fetch($sid);
-    unless ($session) {
-        throw EBox::Exceptions::Internal("Session '$sid' doesn't exist");
-    }
-    $session->{last_time} = $time;
-    $session->{ip} = $ip;
-    $session->{mac} = ip_mac($ip);
-    $store->store($sid, $session);
 }
 
 # Function: hashPassword
