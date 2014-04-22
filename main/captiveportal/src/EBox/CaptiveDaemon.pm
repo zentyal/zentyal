@@ -289,7 +289,7 @@ sub _addRule
     # conntrack remove redirect conntrack (this will remove
     # conntrack state for other connections from the same source but it is not
     # important)
-    push (@rules, "conntrack -D -p tcp --src $ip");
+    push (@rules, "conntrack -D conntrack -s $ip");
 
     return \@rules;
 }
@@ -309,7 +309,7 @@ sub _removeRule
     push (@rules, IPTABLES . " -D icaptive $rule");
     # remove conntrack (this will remove conntack state for other connections
     # from the same source but it is not important)
-    push (@rules, "conntrack -D --src $ip");
+    push (@rules, "conntrack -D conntrack -s $ip");
 
     return \@rules;
 }
