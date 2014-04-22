@@ -42,11 +42,14 @@ my $app = sub {
     binmode(STDOUT, ':utf8');
 
     my $req = Plack::Request->new($env);
-    return EBox::CaptivePortal::CGI::Run->run($req);
+    my $out =  EBox::CaptivePortal::CGI::Run->run($req);
+    use Data::Dumper;
+    EBox::info("OOO: " . Dumper($out));
+    return $out;
 };
 
 builder {
-    enable "+EBox::Middleware::UnhandledError";
+#    enable "+EBox::Middleware::UnhandledError";
     enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
         "ReverseProxy";
     enable "Session",

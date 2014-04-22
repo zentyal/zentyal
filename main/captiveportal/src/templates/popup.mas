@@ -9,9 +9,10 @@ use EBox::Gettext;
 <head>
   <title>Zentyal</title>
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
-  <meta http-equiv="refresh" content="<% $interval %>" />
+<!--  <meta http-equiv="refresh" content="<% $interval %>" /> -->
   <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
   <script src="/data/js/jquery.js" type="text/javascript"></script>
+
   <script type="text/javascript">
     function logout() {
         // Set loading
@@ -19,20 +20,26 @@ use EBox::Gettext;
         // Ajax logout
         $.ajax({
              url: '/Logout',
+             method: 'POST',
              complete: function(response) {
-                if (403 == response.status) {
-                    // logout successful, close popup
-                    window.close();
-                    return;
-                }
-                // Error, try without ajax:
-                location.href = "/Logout";
+                    console.log(response);
+                    $('#basura').html(response.responseText);
+//                  window.close();
+//                  if (403 == response.status) {
+//                    // logout successful, close popup
+//                    window.close();
+//                    return;
+//                }
+//                // Error, try without ajax:
+//                location.href = "/Logout";
             }
         });
+      alert('clicked');
     }
   </script>
 </head>
 <body style="margin: 0">
+   <input type='hidden' id='refresh' value='true' />
    <div id="login" class="popup">
        <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
        <p>
@@ -40,6 +47,8 @@ use EBox::Gettext;
        </p>
       <a class="btn" href="#" onclick="logout(); return false"><% __('Logout') %></a>
      </div>
+  <div id='basura'></div>
 </body>
+
 </html>
 
