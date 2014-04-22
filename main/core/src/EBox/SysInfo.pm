@@ -311,7 +311,7 @@ sub generalWidget
 
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
-    unless ($ignore or (not -f LATEST_VESION)) {
+    unless ($ignore or (not -f LATEST_VERSION)) {
         my $url = UPDATES_URL;
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
