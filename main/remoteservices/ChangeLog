@@ -1,4 +1,5 @@
 HEAD
+	+ Modify Squid reporter to handle filter categories
 	+ Now proxy redirections work in Nginx
 	+ reporterd query time is now 5 minutes
 	+ Default reporter granularity is set to 15 minutes

@@ -1,4 +1,7 @@
 HEAD
+	+ LogHelper modified to extract the filter categories from the
+	  dansguardian log
+	+ Use tab delimited log format for dansguardian
 	+ Added force safe search and youtube for school channel
 3.4.1
 	+ Speed up external AD connection using persistence

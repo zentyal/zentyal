@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -62,11 +62,18 @@ sub _consolidate
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
                     . q{rfc931 AS username, remotehost AS ip, domain, event = 'accepted' AS accepted, code,
-                        SUM(bytes) AS bytes, COUNT(event) AS hits},
+                        SUM(bytes) AS bytes, COUNT(event) AS hits, filterCategory as categories},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
           group  => $self->_groupSQLStr() . ', username, ip, domain, accepted, code'
          });
+
+    # Split the categories into an array
+    foreach my $entry (@{$res}) {
+        my @categories = split(/, /, $entry->{categories});
+        $entry->{categories} = \@categories;
+    }
+
     return $res;
 }
 
