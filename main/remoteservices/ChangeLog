@@ -1,4 +1,6 @@
 HEAD
+	+ Allow subscription when firewall has been enabled a second time
+	  but changes has not been saved
 	+ Clarified doc about qa_updates_always_automatic confkey
 	+ EBox::RemoteServices::Subscription::Check::check recovers for
 	  any error raised on users checking
