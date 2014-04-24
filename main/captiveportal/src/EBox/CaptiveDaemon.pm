@@ -168,6 +168,7 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  )   {
+            EBox::CaptivePortal::Middleware::AuthFile::removeSession($sid);
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user, $sid)});
 
