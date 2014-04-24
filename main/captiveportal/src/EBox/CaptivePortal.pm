@@ -565,6 +565,13 @@ sub removeUser
     }
 
     EBox::CaptivePortal::Middleware::AuthFile::writeUsersFile($users);
+
+    # kick the user if it is logged in
+    my $usersModel = $self->model('Users');
+    my $userRowId = $usersModel->findId(user => $username);
+    if ($userRowId) {
+       $usersModel->_kickUser('unused', $userRowId);
+    }
 }
 
 # Method: userQuota

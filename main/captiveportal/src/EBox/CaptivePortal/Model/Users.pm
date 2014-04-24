@@ -34,6 +34,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::CaptivePortal::Middleware::AuthFile;
 use EBox::Types::Int;
+use TryCatch::Lite;
 
 sub new
 {
@@ -269,10 +270,11 @@ sub _kickUser
     my $username= $row->valueByName('user');
 
     # End session
-    EBox::CaptivePortal::Middleware::AuthFile::updateSession($sid, $ip, 0);
-
-    # notify captive daemon
-    system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);
+    try {
+        EBox::CaptivePortal::Middleware::AuthFile::removeSession($sid);
+        # notify captive daemon
+        system('echo $sid > ' . EBox::CaptivePortal->LOGOUT_FILE);
+    } catch {}
 
     $self->setMessage(__x('Closing session for user {user}.', user => $username), 'note');
 }
