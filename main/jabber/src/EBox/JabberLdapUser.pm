@@ -64,6 +64,12 @@ sub _userAddOns
        };
 }
 
+sub noMultipleOUSupportComponent
+{
+    my ($self) = @_;
+    return $self->standardNoMultipleOUSupportComponent(__('Jabber Account'));
+}
+
 sub schemas
 {
     return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]

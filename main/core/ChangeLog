@@ -1,3 +1,7 @@
+HEAD
+	+ Fix typo in general widget
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
 3.5
 	+ Set version to 3.5
 	+ Support for redirection when loading URL in existent dialog

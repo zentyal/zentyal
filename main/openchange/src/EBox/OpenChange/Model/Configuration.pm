@@ -83,8 +83,7 @@ sub _table
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __x('Configure an {oc} server.',
-                                  oc => 'OpenChange Groupware'),
+        help               => __x('Configure an {oc} server.', oc => 'OpenChange Groupware'),
     };
 
     return $dataForm;

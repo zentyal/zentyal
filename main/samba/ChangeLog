@@ -1,3 +1,6 @@
+HEAD
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
+	+ Added new domainControllers() method
 3.5
 	+ Set version to 3.5
 	+ Override daemons when migrating from previous versions

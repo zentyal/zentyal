@@ -87,8 +87,7 @@ sub initialSetup
     #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
 
-    if (defined($version)
-            and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+    if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
     }
 
