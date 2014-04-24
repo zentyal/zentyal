@@ -222,8 +222,8 @@ sub _setConf
     $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
                          [ mode => $mode, rules => $rules ]);
 
-    $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
-                         [ enabled => $self->isEnabled() ]);
+    $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas'
+                         );
 
     $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
                          [ nfQueueNum => $self->nfQueueNum() ]);

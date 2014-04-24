@@ -1,12 +1,8 @@
-<%args>
-    $enabled
-</%args>
 # Default config for Suricata
 
-% my $run = $enabled ? 'yes' : 'no';
 
 # set to yes to start the server in the init.d script
-RUN=<% $run %>
+RUN=NO
 
 # Configuration file to load
 SURCONF=/etc/suricata/suricata-debian.yaml
