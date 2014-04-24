@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Fix typo in general widget
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
