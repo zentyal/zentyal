@@ -1,4 +1,6 @@
 HEAD
+	+ Display message when creating a user which username has more
+	  than 20 characters
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
 	+ Added support for addon components when user is in a
