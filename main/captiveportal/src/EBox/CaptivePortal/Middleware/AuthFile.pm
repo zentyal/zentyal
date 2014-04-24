@@ -155,12 +155,22 @@ sub _logout
 {
     my ($self, $env) = @_;
 
-    my $ret = $self->SUPER::_logout();
+    my $ret = $self->app->($env);
+    $self->_cleanSession($env);
 
-    if($env->{REQUEST_METHOD} eq 'POST') {
-        # Wakeup captive daemon updating the access time of the Inotify2 monitored logout file
-        system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);
+    if ((not exists $env->{'plack.cookie.parsed'}) or
+        (not exists $env->{'plack.cookie.parsed'}->{ 'plack_session'})) {
+        throw EBox::Exceptions::Internal("Not auth plack cookie");
     }
+
+    my $sid = $env->{'plack.cookie.parsed'}->{ 'plack_session'};
+    EBox::CaptivePortal::Middleware::AuthFile::removeSession($sid);
+
+    $env->{'psgix.session.options'}->{'no_store'} = 1;
+
+    # monitored logout file
+    my $notifyCmd = "echo $sid > " . EBox::CaptivePortal->LOGOUT_FILE;
+    system($notifyCmd);
 
     return $ret;
 }
@@ -235,6 +245,7 @@ sub currentSessions
             push (@sessions, \%filteredSession);
         }
     }
+
     return \@sessions;
 }
 
@@ -246,33 +257,12 @@ sub removeSession
 {
     my ($sid) = @_;
 
-    my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
-    unless ($store->remove($sid)) {
-        throw EBox::Exceptions::External(_("Couldn't remove session file"));
-    }
-}
+    my $sessionFile =  EBox::CaptivePortal->SIDS_DIR . $sid;
 
-# Function: updateSession
-#
-#   Update session time and ip.
-#
-sub updateSession
-{
-    my ($sid, $ip, $time) = @_;
-
-    unless (defined ($time)) {
-        $time = time();
-    }
-
-    my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
-    my $session = $store->fetch($sid);
-    unless ($session) {
-        throw EBox::Exceptions::Internal("Session '$sid' doesn't exist");
-    }
-    $session->{last_time} = $time;
-    $session->{ip} = $ip;
-    $session->{mac} = ip_mac($ip);
-    $store->store($sid, $session);
+     my $store = new Plack::Session::Store::File(dir => EBox::CaptivePortal->SIDS_DIR);
+     unless ($store->remove($sid)) {
+         throw EBox::Exceptions::External(__x("Couldn't remove session file for {id}", id => $sid));
+     }
 }
 
 # Function: hashPassword

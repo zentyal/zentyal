@@ -31,7 +31,6 @@ sub new
 sub _process
 {
     my ($self) = @_;
-
     $self->{redirect} = "/Login";
     $self->{errorchain} = "/Logout";
 

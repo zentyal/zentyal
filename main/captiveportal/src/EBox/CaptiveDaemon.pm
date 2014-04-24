@@ -77,14 +77,10 @@ sub run
         throw EBox::Exceptions::External('Unable to create inotify listener');
     }
 
-    $notifier->blocking (0); # set non-block mode
+    $notifier->blocking(0); # set non-block mode
 
     # Create logout file
-    EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
-
-    # wakeup on new session and logout events
-    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
-    $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
+    system('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
@@ -102,6 +98,17 @@ sub run
     } catch {
         $exceededEvent = 0;
     }
+
+    # wakeup on new session and logout events
+    my $w1 = $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
+    if (not $w1) {
+        die "Cannot create session directory watcher";
+    }
+    my $w2 = $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_MODIFY , sub {});
+    if (not $w2) {
+        die "Cannot create logout file watcher";
+    }
+
 
     my $timeLeft;
     while (1) {
@@ -137,7 +144,6 @@ sub _updateSessions
 
         if ($new) {
             $self->{sessions}->{$sid} = $user;
-
             push @rules, @{$self->_addRule($user, $sid)};
 
             # bwmonitor...
@@ -161,8 +167,7 @@ sub _updateSessions
 
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
-        if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
-            EBox::CaptivePortal::Middleware::AuthFile::removeSession($user->{sid});
+        if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  )   {
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user, $sid)});
 
@@ -284,7 +289,7 @@ sub _addRule
     # conntrack remove redirect conntrack (this will remove
     # conntrack state for other connections from the same source but it is not
     # important)
-    push (@rules, "conntrack -D -p tcp --src $ip");
+    push (@rules, "conntrack -D conntrack -s $ip");
 
     return \@rules;
 }
@@ -304,7 +309,7 @@ sub _removeRule
     push (@rules, IPTABLES . " -D icaptive $rule");
     # remove conntrack (this will remove conntack state for other connections
     # from the same source but it is not important)
-    push (@rules, "conntrack -D --src $ip");
+    push (@rules, "conntrack -D conntrack -s $ip");
 
     return \@rules;
 }
@@ -362,7 +367,6 @@ sub _checkChains
     # remove chains to be sure they are not leftovers
     while(my ($table, $chains_list) = each %{$chains}) {
         foreach my $ch (@{ $chains_list }) {
-
             EBox::Sudo::silentRoot("iptables -t $table -F $ch",
                              "iptables -t $table -X $ch");
         }
@@ -379,7 +383,6 @@ sub _checkChains
 
 EBox::init();
 
-EBox::info('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
 
