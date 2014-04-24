@@ -455,8 +455,7 @@ sub addUser
         }
     }
 
-    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
-
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::allUsersFromFile();
     if (exists $users->{$username}) {
         throw EBox::Exceptions::DataExists(data => 'username', value => $username);
     }
@@ -487,7 +486,7 @@ sub listUsers
 {
     my ($self) = @_;
 
-    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::allUsersFromFile();
 
     my $list = {};
     foreach my $user (keys %{$users}) {
@@ -523,7 +522,7 @@ sub modifyUser
         throw EBox::Exceptions::MissingArgument('username');
     }
 
-    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::allUsersFromFile();
 
     my $user = $users->{$username};
     unless (defined $user) {
@@ -557,7 +556,7 @@ sub removeUser
         throw EBox::Exceptions::MissingArgument('username');
     }
 
-    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+    my $users = EBox::CaptivePortal::Middleware::AuthFile::allUsersFromFile();
 
     if (defined $users->{$username}) {
         delete $users->{$username};
@@ -592,12 +591,11 @@ sub userQuota
         throw EBox::Exceptions::MissingArgument('username');
     }
 
-    my $users = EBox::CaptivePortal::Middleware::AuthFile::parseUsersFile();
+    my $user = EBox::CaptivePortal::Middleware::AuthFile::userFromFile($username);
 
-    if (defined $users->{$username}) {
+    if ($user) {
         my $model = $self->model('BWSettings');
         my $defaultQuota = $model->defaultQuotaValue();
-        my $user = $users->{$username};
 
         return (defined $user->{quota}) ? $user->{quota} : $defaultQuota;
     } else {

@@ -131,11 +131,11 @@ sub checkValidUser
 {
     my ($self, $username, $password, $env) = @_;
 
-    my $users = parseUsersFile();
+    my $user = userFromFile($username);
 
     my $isValid = 0;
-    if (defined $users->{$username}) {
-        my $hash = $users->{$username}->{hash};
+    if ($user) {
+        my $hash = $user->{hash};
         $isValid = ((crypt ($password, $hash)) eq $hash);
     }
 
@@ -280,6 +280,69 @@ sub hashPassword
     return (crypt ($password, $salt));
 }
 
+
+
+sub userFromFile
+{
+    my ($username) = @_;
+
+    my $FH;
+    unless (open $FH, USERSFILE) {
+        EBox::error("Cannot open user file " . USERSFILE);
+        return undef;
+    }
+
+    my $user;
+    while (my $line = <$FH>) {
+        chomp $line;
+        unless ($line) {
+            next;
+        }
+        my ($name, $hash, $fullname, $quota) = split("\t", $line);
+        if ($name eq $username) {
+            $user = {  hash => $hash };
+            if ((defined $fullname) and ($fullname ne '')) {
+                $user->{fullname} = $fullname;
+            }
+            if ((defined $quota) and ($quota ne '')) {
+                $user->{quota} = $quota;
+            }
+            last;
+        }
+    }
+
+    unless (close $FH) {
+        throw EBox::Exceptions::Internal('Cannot properly close ' . USERSFILE);
+    }
+
+    return $user;
+}
+
+sub allUsersFromFile
+{
+    my $users = {};
+    my $FH;
+    unless (open $FH, USERSFILE) {
+        return $users;
+    }
+    while (my $line = <$FH>) {
+        chomp $line;
+        unless ($line) {
+            next;
+        }
+        my ($username, $hash, $fullname, $quota) = split("\t", $line);
+        $users->{$username} = {hash => $hash};
+        $users->{$username}->{fullname} = $fullname if ((defined $fullname) and ($fullname ne ''));
+        $users->{$username}->{quota} = $quota if ((defined $quota) and ($quota ne ''));
+    }
+
+    unless (close $FH) {
+        throw EBox::Exceptions::Internal('Cannot properly close ' . USERSFILE);
+    }
+
+    return $users;
+}
+
 # Function: parseUsersFile
 #
 #   Parses the captiveportal users file from disk and returns its content.
@@ -301,7 +364,7 @@ sub hashPassword
 #       }
 #   or {} if the file is not available.
 #
-sub parseUsersFile
+sub parseUsersFileDisabled
 {
     if (defined $_parsedUsers) {
         return $_parsedUsers;
