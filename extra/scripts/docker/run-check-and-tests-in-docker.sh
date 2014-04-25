@@ -4,7 +4,7 @@ set -e
 ZENTYAL_FOLDER=$1
 CONTAINER_NAME="zentyal32"
 
-docker build -t $CONTAINER_NAME $ZENTYAL_FOLDER/extra/scripts/.
+docker build -t $CONTAINER_NAME $ZENTYAL_FOLDER/extra/scripts/docker/.
 
 rm -rf $ZENTYAL_FOLDER/test
 
