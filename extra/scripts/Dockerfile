@@ -11,7 +11,7 @@ RUN echo "deb http://ppa.launchpad.net/zentyal/3.2/ubuntu precise main" >> /etc/
 RUN apt-get update
 
 #Installing basic dependencies
-RUN apt-get install -y --force-yes git sudo libapache2-mod-perl2 libtap-formatter-junit-perl
+RUN apt-get install -y --force-yes git sudo libapache2-mod-perl2 libtap-formatter-junit-perl build-essential devscripts zbuildtools
 
 # Checking out the zentyal repo
 RUN git clone https://github.com/Zentyal/zentyal.git
