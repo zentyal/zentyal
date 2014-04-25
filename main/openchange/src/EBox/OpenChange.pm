@@ -185,16 +185,6 @@ sub _daemons
     return $daemons;
 }
 
-# Method: addModuleStatus
-#
-#   Hides Openchange from the Dashboard.
-#
-# Overrides: <EBox::Module::Service::addModuleStatus>
-#
-sub addModuleStatus
-{
-}
-
 # Method: isRunning
 #
 #   Links Openchange running status to Samba status.
@@ -218,8 +208,7 @@ sub isRunning
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
-    #return $self->isProvisioned();
-    return 0;
+    return $self->isProvisioned();
 }
 
 sub usedFiles
@@ -235,11 +224,11 @@ sub usedFiles
            reason => __('To configure sogo parameters'),
            module => 'openchange'
        },
-#       {
-#           file => OCSMANAGER_CONF_FILE,
-#           reason => __('To configure autodiscovery service'),
-#           module => 'openchange'
-#       }
+       {
+           file => OCSMANAGER_CONF_FILE,
+           reason => __('To configure autodiscovery service'),
+           module => 'openchange'
+       }
       );
 
     return \@files;
@@ -252,7 +241,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-#    $self->_setAutodiscoverConf();
+    $self->_setAutodiscoverConf();
     $self->_writeRewritePolicy();
 }
 
