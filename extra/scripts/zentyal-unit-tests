@@ -43,8 +43,11 @@ done
 
 if [ -n "$MISSINGLIBS" ]
 then
-    echo -e "The following packages are not installed:\n $MISSINGLIBS"
-    echo -e "Installing them..."
+    if [ "$JUNIT" != "yes" ]
+    then
+        echo -e "The following packages are not installed:\n $MISSINGLIBS"
+        echo -e "Installing them..."
+    fi
     export DEBIAN_FRONTEND=noninteractive
     sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
 fi

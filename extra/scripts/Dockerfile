@@ -4,9 +4,9 @@
 #
 FROM ubuntu:12.04
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://ppa.launchpad.net/zentyal/3.2/ubuntu precise main" >> /etc/apt/sources.list
 RUN apt-get update
 
