@@ -1,3 +1,5 @@
+HEAD
+	+ Postfix handles Zentyal distribution groups virtual alias
 3.2.8
 	+ Better integration between mail addon and mail field
 	+ Avoid error when trying to show a no longer existent mail in queue
