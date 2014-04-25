@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-03-27 18:33+0200\n"
-"Last-Translator: FernandoSinesio <fernandosinesio@gmail.com>\n"
+"PO-Revision-Date: 2014-04-22 18:24+0200\n"
+"Last-Translator: fcpimenta <fernandopimenta@dblinkconsult.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -4388,6 +4388,7 @@ msgstr ""
 #, perl-brace-format
 msgid "The server kerberos realm '{x}' does not match AD realm '{y}'."
 msgstr ""
+"O domínio do servidor kerberos '{x}' não coincide com o domínio do AD '{y}'."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:521
 msgid "Error creating computer account for Zentyal server:"
@@ -4617,6 +4618,8 @@ msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "slave {slave}."
 msgstr ""
+"O servidor Mestre tem um domínio diferente, verifique os hostnames. O Mestre "
+"é {master} e o escravo {slave}."
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:319
 #, fuzzy
@@ -4665,9 +4668,8 @@ msgstr "Senha de usuário"
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:69
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:181
 #: ../../main/users/src/templates/wizard/users.mas:69
-#, fuzzy
 msgid "Confirm user password"
-msgstr "confirme a senha"
+msgstr "Confirme a senha"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:73
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:132
@@ -13650,21 +13652,25 @@ msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
+"A floresta do AD contém mais de um domínio. O Samba suporta apenas um "
+"domínio por floresta."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:837
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
-msgstr ""
+msgstr "O controlador de domínio especificado {x} é inalcançável."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:856
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
+"O domínio local kerberos {x} deve coincidir com o domínio do servidor de AD "
+"{y}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:865
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
-msgstr ""
+msgstr "O domínio local {x} deve coincidir com o domínio do servidor de AD {y}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:900
 #, perl-brace-format
@@ -13672,6 +13678,8 @@ msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
+"O DC {x} não pode ser resolvido para o seu endereço IP. Por favor, verifique "
+"o nome do servidor especificado e o servidor de DNS."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:926
 #, perl-brace-format
@@ -13679,29 +13687,37 @@ msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
+"O servidor de AD especificado está registrado no DNS local como {x}, o que "
+"coincide com o nome de host local."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:947
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
+"O nível funcional da floresta deve ser Windows Server 2003 ou maior. Por "
+"favor, aumente o nível funcional de sua floresta."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:953
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
+"O nível funcional do domínio deve ser Windows Server 2003 ou maior. Por "
+"favor, aumente o nível funcional do seu domínio."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:980
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
+"O domínio ao qual você está tentando se juntar possui relações de confiança "
+"definidas. Essa funcionalidade não é suportada pelo Samba atualmente."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1013
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
-msgstr "Você não deve prefixar o domínio com www."
+msgstr "Não foi possível obter a hora do servidor de AD {x} via NTP."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1065
 #, fuzzy, perl-brace-format
@@ -13714,13 +13730,15 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1111
 msgid "Could not determine the netbios domain name."
-msgstr ""
+msgstr "Não foi possível determinar o nome netbios do domínio."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1115
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
+"O nome netbios {x} não foi encontrado. Por favor, verifique o valor "
+"especificado."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:419
 #, fuzzy
@@ -13978,7 +13996,7 @@ msgstr "Realm"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:135
 msgid "Domain controller FQDN"
-msgstr "Nome do domínio"
+msgstr "FQDN do controlador de domínio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:140
 msgid "Domain DNS server IP"
@@ -13990,7 +14008,7 @@ msgstr "Conta do administrador"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:158
 msgid "NetBIOS domain name"
-msgstr "Nome NetBIOS do computador"
+msgstr "Nome NetBIOS do domínio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:164
 msgid "Site"
