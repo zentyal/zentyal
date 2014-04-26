@@ -27,7 +27,7 @@ use EBox::Config;
 use EBox::SysInfo;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {

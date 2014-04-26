@@ -21,6 +21,7 @@ package EBox::OpenChange::Model::Provision;
 use base 'EBox::Model::DataForm';
 
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::MailUserLdap;
 use EBox::Samba::User;
@@ -29,7 +30,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -88,7 +89,7 @@ sub _table
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
             printableName => __('Enable OpenChange account for all existing users'),
-            defaultValue  => 1,
+            defaultValue  => 0,
             editable      => 1)
         );
 # TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
@@ -100,43 +101,28 @@ sub _table
 #        );
     }
 
-    push (@tableDesc, new EBox::Types::Select(
-        fieldName     => 'outgoingDomain',
-        printableName => __('Outgoing Mail Domain'),
-        foreignModel  => $self->modelGetter('mail', 'VDomains'),
-        foreignField  => 'vdomain',
-        editable      => ($self->parentModule->isProvisioned() ? 0 : 1),
-        hidden        => ($self->parentModule->isProvisioned() ? 1 : 0))
-    );
-
     my $customActions = [
-#        new EBox::Types::MultiStateAction(
-#            acquirer => \&_acquireProvisioned,
-#            model => $self,
-#            states => {
-#                provisioned => {
-#                    name => 'deprovision',
-#                    printableValue => __('Unconfigure'),
-#                    handler => \&_doDeprovision,
-#                    message => __('Database unconfigured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#                notProvisioned => {
-#                    name => 'provision',
-#                    printableValue => __('Setup'),
-#                    handler => \&_doProvision,
-#                    message => __('Database configured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#            }
-#        ),
-        new EBox::Types::Action(
-            name           => 'provision',
-            printableValue => __('Setup'),
-            model          => $self,
-            handler        => \&_doProvision,
-            message        => __('Database configured'),
-            enabled        => sub { not $self->parentModule->isProvisioned() },
+        new EBox::Types::MultiStateAction(
+            acquirer => \&_acquireProvisioned,
+            model => $self,
+            states => {
+                provisioned => {
+                    name => 'deprovision',
+                    printableValue => __('Unconfigure'),
+                    handler => \&_doDeprovision,
+                    message => __('Database unconfigured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { $self->parentModule->isProvisioned() },
+                },
+                notProvisioned => {
+                    name => 'provision',
+                    printableValue => __('Setup'),
+                    handler => \&_doProvision,
+                    message => __('Database configured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { not $self->parentModule->isProvisioned() },
+                },
+            }
         ),
     ];
 
@@ -359,6 +345,8 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
@@ -369,6 +357,21 @@ sub _doProvision
     unless ($organizationName) {
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
     }
+    my $vdomains = $global->modInstance('mail')->model('VDomains')->size();
+    if ($vdomains == 0) {
+        throw EBox::Exceptions::External(
+            __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               )
+           );
+    }
+
+    my $configuration = $openchange->model('Configuration');
+    if (not $configuration->_rowStored()) {
+        my $defaultOutgoing = $configuration->value('outgoingDomain');
+        $configuration->setValue('outgoingDomain', $defaultOutgoing);
+    }
 
     foreach my $organization (@{$self->{organizations}}) {
         if ($organization->name() eq $organizationName) {
@@ -378,8 +381,7 @@ sub _doProvision
     }
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  "--firstorg='$organizationName' ";
+        my $cmd = "openchange_provision --firstorg='$organizationName' ";
 
         if ($additionalInstallation) {
             $cmd .= ' --additional ';
@@ -392,9 +394,10 @@ sub _doProvision
 
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+        my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
-        $cmd = '/opt/samba4/sbin/openchange_provision ' .
-               "--openchangedb " .
+        $cmd = "openchange_provision --openchangedb " .
+               "--openchangedb-uri='$openchangeConnectionString' ".
                "--firstorg='$organizationName'";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
@@ -405,14 +408,24 @@ sub _doProvision
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    };
-    $self->global->modChange('mail');
-    $self->global->modChange('samba');
-    $self->global->modChange('openchange');
+    }
+
+    # Mark mail as changed to make dovecot listen IMAP protocol at least
+    # on localhost
+    $global->modChange('mail');
+    # Mark samba as changed to write smb.conf
+    $global->modChange('samba');
+    # Mark webadmin as changed so we are sure nginx configuration is
+    # refreshed with the new includes
+    $global->modChange('webadmin');
+    if ($openchange->_rpcProxyEnabled()) {
+        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
+        $global->modChange('webserver');
+        $global->modChange('haproxy');
+    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -426,8 +439,7 @@ sub _doProvision
                 next unless $ldbUser;
                 my $samAccountName = $ldbUser->get('samAccountName');
 
-                my $critical = $ldbUser->get('isCriticalSystemObject');
-                next if (defined $critical and $critical eq 'TRUE');
+                next if ($ldbUser->isCritical());
 
                 # Skip users with already defined mailbox
                 my $mailbox = $ldapUser->get('mailbox');
@@ -442,55 +454,64 @@ sub _doProvision
                 # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
                 unless (defined $ac and $ac == 0) {
-                    my $cmd = "/opt/samba4/sbin/openchange_newuser ";
+                    my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
                     my $output = EBox::Sudo::root($cmd);
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } otherwise {
-                my $error = shift;
+            } catch ($error) {
                 EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
-            };
+            }
         }
     }
 }
 
-#sub _doDeprovision
-#{
-#    my ($self, $action, $id, %params) = @_;
-#
-#    my $organizationName = $params{organizationname};
-#
-#    try {
-#        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-#                  '--deprovision ' .
-#                  "--firstorg='$organizationName' ";
-#        my $output = EBox::Sudo::root($cmd);
-#        $output = join('', @{$output});
-#
-#        $cmd = 'rm -rf /opt/samba4/private/openchange.ldb';
-#        my $output2 = EBox::Sudo::root($cmd);
-#        $output .= "\n" . join('', @{$output2});
-#
-#        # Drop SOGo database and db user. To avoid error if it does not exists,
-#        # the user is created and granted harmless privileges before drop it
-#        my $db = EBox::DBEngineFactory::DBEngine();
-#        my $dbName = $self->parentModule->_sogoDbName();
-#        my $dbUser = $self->parentModule->_sogoDbUser();
-#        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
-#        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
-#        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
-#
-#        $self->parentModule->setProvisioned(0);
-#        EBox::info("Openchange deprovisioned:\n$output");
-#        $self->setMessage($action->message(), 'note');
-#    } catch ($error) {
-#        throw EBox::Exceptions::External("Error deprovisioninig: $error");
-#        $self->parentModule->setProvisioned(1);
-#    }
-#}
+sub _doDeprovision
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $organizationName = $params{provisionedorganizationname};
+
+    try {
+        my $cmd = 'openchange_provision --deprovision ' .
+                  "--firstorg='$organizationName' ";
+        my $output = EBox::Sudo::root($cmd);
+        $output = join('', @{$output});
+
+        if ($self->parentModule->isProvisionedWithMySQL()) {
+            # It removes the file with mysql password and the user from mysql
+            EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                             'remove-database');
+        }
+
+        # Drop SOGo database and db user. To avoid error if it does not exists,
+        # the user is created and granted harmless privileges before drop it
+        my $db = EBox::DBEngineFactory::DBEngine();
+        my $dbName = $self->parentModule->_sogoDbName();
+        my $dbUser = $self->parentModule->_sogoDbUser();
+        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
+        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
+        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
+
+        $self->parentModule->setProvisioned(0);
+
+        $self->global->modChange('mail');
+        $self->global->modChange('samba');
+        $self->global->modChange('openchange');
+
+        $self->reloadTable();
+        EBox::info("Openchange deprovisioned:\n$output");
+        $self->setMessage($action->message(), 'note');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
+        $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
+    } catch ($error) {
+        throw EBox::Exceptions::External("Error deprovisioninig: $error");
+        $self->parentModule->setProvisioned(1);
+    }
+}
 
 1;

@@ -148,6 +148,26 @@ sub validateTypedRow
                                                     ));
             }
         }
+
+        # Check HA floating IP overlapping
+        my $global = EBox::Global->getInstance();
+        if ($global->modExists('ha') and $global->modInstance('ha')->isEnabled()) {
+            my $ha = $global->modInstance('ha');
+            my $floatingIPs = $ha->floatingIPs();
+            foreach my $floatingIPAddr (@{$floatingIPs}) {
+                my $floatingIP = new Net::IP($floatingIPAddr->{address});
+                unless ( $floatingIP->overlaps($range) == $IP_NO_OVERLAP ) {
+                    throw EBox::Exceptions::External(__x('Range {from}-{to} includes '
+                                                          . 'the HA floating IP: '
+                                                          . '"{name}" - {IP}',
+                                                          from => $from,
+                                                          to   => $to,
+                                                          name => $floatingIPAddr->{name},
+                                                          IP => $floatingIPAddr->{address}
+                                                         ));
+                }
+            }
+        }
     }
 }
 

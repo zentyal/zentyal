@@ -6,56 +6,32 @@
 use EBox::Gettext;
 </%init>
 <div id='error_addGPOLinkForm' class='error' style='display:none'></div>
-<form action='/Samba/AddGPLink' method='POST' id='addGPLinkForm'>
+<form action='/Samba/AddGPLink' method='POST' id='addGPLinkForm' class="formDiv">
     <input type="hidden" name="dn" value="<% $dn %>">
-	<table class='formTable'>
-		<tr>
-			<td  class='tright'>
-				<span class="ftitle">
-					<% __('Group Policy Object') %>:
-				</span>
-			</td>
-			<td>
-                <select name="gpoDN">
+	<div>
+		<label><% __('Group Policy Object') %></label>
+        <select name="gpoDN">
 % foreach my $gpo (@{$gpos}) {
 %   my $value = $gpo->get('distinguishedName');
 %   my $printableValue = $gpo->get('displayName');
                     <& .option, value => $value, printableValue => $printableValue &>
 % }
-                </select>
-			</td>
-		</tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'>
-                    <% __('Link enabled') %>:
-                </span>
-            </td>
-            <td>
-                <input name='linkEnabled' type='checkbox' checked/>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class='ftitle'>
-                    <% __('Enforced') %>:
-                </span>
-            </td>
-            <td>
-                <input name='enforced' type='checkbox' />
-            </td>
-        </tr>
-		<tr>
-			<td></td>
-			<td>
-				<input class='inputButton' type='submit' name='add'
+        </select>
+    </div>
+    <div>
+        <label><% __('Link enabled') %></label>
+        <input name='linkEnabled' type='checkbox' checked/>
+    </div>
+    <div>
+        <label><% __('Enforced') %></label>
+        <input name='enforced' type='checkbox' />
+    </div>
+	<div>
+    	<input class='inputButton' type='submit' name='add'
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>"/>
-
-			</td>
-		</tr>
-	</table>
-	</form>
+    </div>
+</form>
 
 <script>
 jQuery(function() {

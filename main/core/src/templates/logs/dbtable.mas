@@ -14,6 +14,7 @@
 use EBox::Gettext;
 </%init>
 <br />
+<div class='dataTableDiv'>
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
@@ -54,6 +55,7 @@ the table definition
 % }
 	</tbody>
 </table>
+</div>
 
 <form action='Index' method='POST'>
 <div style="display:none;">

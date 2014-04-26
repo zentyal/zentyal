@@ -42,7 +42,7 @@ use EBox::Users::Group;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAXGROUPLENGTH     => 128;
 use constant GROUPTYPESYSTEM    => 0x00000001;
@@ -215,16 +215,15 @@ sub addToZentyal
 
         $zentyalGroup = EBox::Users::Group->create(@params);
         $self->_linkWithUsersObject($zentyalGroup);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("Group $name already in Zentyal database");
         $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
         unless ($zentyalGroup) {
             EBox::error("The group $name exists in Zentyal but is not linked with Samba!");
         }
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error loading group '$name': $error");
-    };
+    }
 
     if ($zentyalGroup and $zentyalGroup->exists()) {
         $self->_membersToZentyal($zentyalGroup);
@@ -311,10 +310,9 @@ sub _membersToZentyal
             EBox::info("Removing member '$zentyalMemberDN' from Zentyal group '$gid'");
             try {
                 $zentyalGroup->removeMember($zentyalMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error removing member '$zentyalMemberDN' from Zentyal group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -344,10 +342,9 @@ sub _membersToZentyal
             }
             try {
                 $zentyalGroup->addMember($zentyalMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding member '$sambaMemberDN' to Zentyal group '$gid': $error");
-            };
+            }
         }
     }
 

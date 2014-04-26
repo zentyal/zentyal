@@ -47,7 +47,7 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 
-use Error qw( :try );
+use TryCatch::Lite;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;
@@ -58,6 +58,7 @@ use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
 use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
+use constant DOVECOT_SQL_CONFFILE     =>  '/etc/dovecot/dovecot-sql.conf';
 use constant MAILINIT                 => 'postfix';
 use constant BYTES                    => '1048576';
 use constant DOVECOT_SERVICE          => 'dovecot';
@@ -199,6 +200,11 @@ sub usedFiles
               'module' => 'mail'
             },
             {
+              'file' => DOVECOT_SQL_CONFFILE,
+              'reason' =>  __('To configure dovecot to have a master password'),
+              'module' => 'mail'
+            },
+            {
               'file' => SASL_PASSWD_FILE,
               'reason' => __('To configure smart host authentication'),
               'module' => 'mail'
@@ -241,9 +247,8 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
     }
 }
 
@@ -312,8 +317,8 @@ sub enableActions
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
-    } otherwise {
-    };
+    } catch {
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -608,8 +613,10 @@ sub _setDovecotConf
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my $openchange = 0;
+    my $openchangeMod;
+
     if ($self->global->modExists('openchange')) {
-        my $openchangeMod = $self->global->modInstance('openchange');
+        $openchangeMod = $self->global->modInstance('openchange');
         if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
             $openchange = 1;
         }
@@ -639,6 +646,12 @@ sub _setDovecotConf
     push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
     push (@params, zentyalROPwd => $roPwd);
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+
+    if ($openchange) {
+        @params = ();
+        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params);
+    }
 }
 
 sub _getDovecotAntispamPluginConf
@@ -1858,7 +1871,7 @@ sub checkMailNotInUse
     # TODO: check vdomain alias mapping to the other domains?
     $self->global()->modInstance('users')->checkMailNotInUse($mail);
 
-    # if the external aliases has been already saved to LDAP it will be caught
+   # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
     if ($self->model('ExternalAliases')->aliasInUse($mail)) {
         throw EBox::Exceptions::External(

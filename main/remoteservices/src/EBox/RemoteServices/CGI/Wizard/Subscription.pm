@@ -28,7 +28,8 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::RemoteServices::RESTClient;
 use EBox::Validate;
-use Error qw(:try);
+use SOAP::Lite;
+use TryCatch::Lite;
 use Sys::Hostname;
 
 # Group: Constants
@@ -58,9 +59,9 @@ sub _masonParameters
     try {
         $res = join('', @{EBox::Sudo::command('curl --connect-timeout 5 ' . PROMO_AVAILABLE)});
         chomp($res);
-    } otherwise {
+    } catch {
         EBox::error("Could not retrieve subscription promo status: $res");
-    };
+    }
 
     my $promo = ($res eq '1');
 
@@ -149,8 +150,7 @@ sub _register
         $result = $restClient->POST('/v1/community/users/',
                                     query => { %{$registeringData},
                                                password => $self->param('password') });
-    } catch EBox::Exceptions::External with {
-        my ($exc) = @_;
+    } catch (EBox::Exceptions::External $exc) {
         my $error = $restClient->last_error();
         EBox::error('Error registering user: ' . $exc->stringify());
         my $errorData = $error->data();
@@ -190,9 +190,9 @@ sub _register
             }
         }
         throw EBox::Exceptions::External($errorText);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__('An error ocurred registering the user, please check your Internet connection.'));
-    };
+    }
 
     return $registeringData;
 }

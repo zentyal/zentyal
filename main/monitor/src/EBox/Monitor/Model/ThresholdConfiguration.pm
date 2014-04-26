@@ -60,7 +60,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants
 use constant RESOLUTION => EBox::Monitor::Configuration::QueryInterval();

@@ -34,10 +34,9 @@ use EBox::Exceptions::LDAP;
 use EBox::Global;
 use EBox::Users::OU;
 
+use TryCatch::Lite;
 use Net::LDAP::Util qw(canonical_dn);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-
-use Error qw(:try);
 
 # Method: mainObjectClass
 #
@@ -88,12 +87,11 @@ sub addToZentyal
     try {
         my $zentyalOU = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
         $self->_linkWithUsersObject($zentyalOU);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    };
+    }
 }
 
 sub updateZentyal
@@ -147,9 +145,7 @@ sub create
             };
         }
         $res = new EBox::Samba::OU(dn => $dn);
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -157,7 +153,7 @@ sub create
         }
         $res = undef;
         throw $error;
-    };
+    }
     return $res;
 }
 

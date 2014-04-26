@@ -18,16 +18,28 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule
+            EBox::HAProxy::ServiceBase EBox::VDomainModule);
 
-use EBox::Gettext;
 use EBox::Config;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::External;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Menu::Item;
+use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::OpenChange::VDomainsLdap;
+use EBox::Samba qw(PRIVATE_DIR);
+use EBox::Sudo;
+use EBox::Util::Certificate;
 
+use TryCatch::Lite;
 use String::Random;
+use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
@@ -40,7 +52,13 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
+use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
+use constant RPCPROXY_PORT           => 62081;
+use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
+
+use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
+use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR . 'mapistore/master.password';
 
 # Method: _create
 #
@@ -66,7 +84,27 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
+
+    if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+        $self->_migrateOutgoingDomain();
+    }
+
+    if ($self->changed()) {
+        $self->saveConfigRecursive();
+    }
+}
+
+# Migration of form keys after extracting the rewrite rule for outgoing domain
+# from the provision form.
+#
+sub _migrateOutgoingDomain
+{
+  my ($self) = @_;
+
+  my $oldKeyValue = $self->get('Provision/keys/form');
+  $self->set('Configuration/keys/form', $oldKeyValue);
 }
 
 # Migration of form keys to better names (between development versions)
@@ -127,19 +165,13 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
-        my $global = $self->global();
-        # Mark mail as changed to make dovecot listen IMAP protocol at least
-        # on localhost
-        my $mail = $global->modInstance('mail');
-        $mail->setAsChanged();
-
-        # Mark samba as changed to write smb.conf
-        my $samba = $global->modInstance('samba');
-        $samba->setAsChanged();
-
-        # Mark webadmin as changed so we are sure nginx configuration is
-        # refreshed with the new includes
-        $global->modInstance('webadmin')->setAsChanged();
+        # manage the nginx include file
+        my $webadmin = $self->global()->modInstance('webadmin');
+        if ($status) {
+            $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
+        } else {
+            $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
+        }
     }
 }
 
@@ -156,27 +188,29 @@ sub _daemonsToDisable
     return $daemons;
 }
 
+# Method: _daemons
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     my ($self) = @_;
     my $daemons = [
         {
-            name => 'zentyal.ocsmanager',
-            type => 'upstart',
+            name         => 'zentyal.ocsmanager',
+            type         => 'upstart',
             precondition => sub { return $self->_autodiscoverEnabled() },
-           }
-       ];
-    return $daemons;
-}
+        },
+        {
+            name         => 'zentyal.zoc-migrate',
+            type         => 'upstart',
+            precondition => sub { return $self->isProvisioned() },
+        },
+    ];
 
-# Method: addModuleStatus
-#
-#   Hides Openchange from the Dashboard.
-#
-# Overrides: <EBox::Module::Service::addModuleStatus>
-#
-sub addModuleStatus
-{
+    return $daemons;
 }
 
 # Method: isRunning
@@ -202,29 +236,43 @@ sub isRunning
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
-    #return $self->isProvisioned();
-    return 0;
+    return $self->isProvisioned();
+}
+
+sub _rpcProxyEnabled
+{
+    my ($self) = @_;
+    if (not $self->isProvisioned() or not $self->isEnabled()) {
+        return 0;
+    }
+
+    my $rpcpSettings = $self->model('RPCProxy');
+    return $rpcpSettings->enabled();
 }
 
 sub usedFiles
 {
-    my @files = (
-        {
-            file => SOGO_DEFAULT_FILE,
-            reason => __('To configure sogo daemon'),
-            module => 'openchange'
-       },
-       {
-           file => SOGO_CONF_FILE,
-           reason => __('To configure sogo parameters'),
-           module => 'openchange'
-       },
-#       {
-#           file => OCSMANAGER_CONF_FILE,
-#           reason => __('To configure autodiscovery service'),
-#           module => 'openchange'
-#       }
-      );
+    my @files = ();
+    push (@files, {
+        file => SOGO_DEFAULT_FILE,
+        reason => __('To configure sogo daemon'),
+        module => 'openchange'
+       });
+    push (@files, {
+        file => SOGO_CONF_FILE,
+        reason => __('To configure sogo parameters'),
+        module => 'openchange'
+       });
+    push (@files, {
+       file => OCSMANAGER_CONF_FILE,
+       reason => __('To configure autodiscovery service'),
+       module => 'openchange'
+      });
+    push (@files, {
+        file => RPCPROXY_STOCK_CONF_FILE,
+        reason => __('Remove RPC Proxy stock file to avoid interference'),
+        module => 'openchange'
+       });
 
     return \@files;
 }
@@ -236,8 +284,51 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-#    $self->_setAutodiscoverConf();
+    $self->_setAutodiscoverConf();
+
+    $self->_setRPCProxyConf();
+    $self->_clearDownloadableCert();
+
     $self->_writeRewritePolicy();
+
+    # FIXME: this may cause unexpected samba restarts during save changes, etc
+    #$self->_writeCronFile();
+
+    $self->_setupActiveSync();
+}
+
+sub _setupActiveSync
+{
+    my ($self) = @_;
+
+    my $enabled = (-f '/etc/apache2/conf-enabled/zentyal-activesync.conf');
+    my $enable = $self->_activesyncEnabled();
+    if ($enable) {
+        EBox::Sudo::root('a2enconf zentyal-activesync');
+    } else {
+        EBox::Sudo::silentRoot('a2disconf zentyal-activesync');
+    }
+    if ($enabled xor $enable) {
+        my $global = $self->global();
+        $global->modChange('webserver');
+        if ($global->modExists('sogo')) {
+            $global->addModuleToPostSave('sogo');
+        }
+    }
+}
+
+sub _writeCronFile
+{
+    my ($self) = @_;
+
+    my $cronfile = '/etc/cron.d/zentyal-openchange';
+    if ($self->isEnabled()) {
+        my $checkScript = '/usr/share/zentyal-openchange/check_oc.py';
+        my $crontab = "* * * * * root $checkScript || /sbin/restart samba-ad-dc";
+        EBox::Sudo::root("echo '$crontab' > $cronfile");
+    } else {
+        EBox::Sudo::root("rm -f $cronfile");
+    }
 }
 
 sub _writeSOGoDefaultFile
@@ -337,8 +428,7 @@ sub _setAutodiscoverConf
                          { uid => 0, gid => 0, mode => '640' }
                         );
 
-    # manage the nginx include file
-    my $webadmin = $global->modInstance('webadmin');
+
     if ($self->isEnabled()) {
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
@@ -350,30 +440,144 @@ sub _setAutodiscoverConf
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
-        $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
-    } else {
-        $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
     }
+}
+
+sub internalVHosts
+{
+    my ($self) = @_;
+    if ($self->_rpcProxyEnabled) {
+        return [ $self->_rpcProxyConfFile() ];
+    }
+
+    return [];
+}
+
+sub _rpcProxyConfFile
+{
+    my ($self) = @_;
+    return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
+}
+
+sub _setRPCProxyConf
+{
+    my ($self) = @_;
+
+    # remove stock rpcproxy.conf file because it could interfere
+    EBox::Sudo::root('rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+
+    if ($self->_rpcProxyEnabled()) {
+        my $rpcProxyConfFile = $self->_rpcProxyConfFile();
+        my @params = (
+            rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
+            port   => RPCPROXY_PORT
+           );
+
+        $self->writeConfFile(
+            $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+             \@params);
+
+        my @cmds;
+        push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+        EBox::Sudo::root(@cmds);
+    }
+}
+
+sub _rpcProxyCertificate
+{
+    return EBox::Config::conf() . 'openchange/ssl/ssl.pem';
+}
+
+sub _createRPCProxyCertificate
+{
+    my ($self) = @_;
+    my $issuer;
+    try {
+        $issuer = $self->_rpcProxyHosts()->[0];
+    } catch($ex) {
+        EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
+    };
+    if (not $issuer) {
+        EBox::error("Not found issuer. Certificate for RPC proxy will left untouched");
+        return;
+    }
+
+    my $certPath = $self->_rpcProxyCertificate();
+    if (EBox::Sudo::fileTest('-r', $certPath) and ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath))) {
+        # correct, nothing to do besides updating download version
+        $self->_updateDownloadableCert();
+        return undef;
+    }
+
+    my $certDir = dirname($certPath);
+    my $parentCertDir = dirname($certDir);
+    EBox::Sudo::root("rm -rf '$certDir'",
+                     # create parent dir if it does not exists
+                     "mkdir -p -m775 '$parentCertDir'",
+                    );
+    if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
+        my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
+        if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
+            # reuse webadmin certificate if issuer == fqdn
+            my $webadminCertDir = dirname($webadminCert);
+            EBox::Sudo::root("cp -r $webadminCertDir $certDir");
+            $self->_updateDownloadableCert();
+            return;
+        }
+    }
+
+    # create certificate
+    my $RSA_LENGTH = 1024;
+    my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
+    my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
+    my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
+    $self->_updateDownloadableCert();
+}
+
+sub _clearDownloadableCert
+{
+    my ($self) = @_;
+
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
+    EBox::Sudo::root("rm -f $downloadPath");
+}
+
+sub _updateDownloadableCert
+{
+    my ($self) = @_;
+    my $certPath = $self->_rpcProxyCertificate();
+    $certPath =~ s/pem$/cert/;
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
+    EBox::Sudo::root("cp '$certPath' '$downloadPath'",
+                     "chown ebox.ebox '$downloadPath'"
+                    );
 }
 
 sub _writeRewritePolicy
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my $defaultDomain = $sysinfo->hostDomain();
+    if ($self->isProvisioned()) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $defaultDomain = $sysinfo->hostDomain();
 
-    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+        my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        if (not $rewriteDomain) {
+            $rewriteDomain = $defaultDomain;
+        }
 
-    my @rewriteParams;
-    push @rewriteParams, ('defaultDomain' => $defaultDomain);
-    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+        my @rewriteParams;
+        push @rewriteParams, ('defaultDomain' => $defaultDomain);
+        push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-    $self->writeConfFile(REWRITE_POLICY_FILE,
-        'openchange/rewriteDomainPolicy.mas',
-        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+        $self->writeConfFile(REWRITE_POLICY_FILE,
+            'openchange/rewriteDomainPolicy.mas',
+            \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
 
-    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+        EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+    }
 }
 
 # Method: menu
@@ -387,15 +591,26 @@ sub menu
     my $separator = 'Communications';
     my $order = 900;
 
-    $root->add(
-        new EBox::Menu::Item(
-            name => 'OpenChange',
-            icon => 'openchange',
-            text => $self->printableName(),
-            separator => $separator,
-            url       => 'OpenChange/View/Provision',
-            order     => $order)
-    );
+    my $folder = new EBox::Menu::Folder(
+        name => 'OpenChange',
+        icon => 'openchange',
+        text => $self->printableName(),
+        separator => $separator,
+        order => $order);
+
+    $folder->add(new EBox::Menu::Item(
+        url       => 'OpenChange/Composite/General',
+        text      => __('Setup'),
+        order     => 0));
+
+    if ($self->isProvisioned()) {
+        $folder->add(new EBox::Menu::Item(
+            url       => 'OpenChange/Migration/Connect',
+            text      => __('MailBox Migration'),
+            order     => 1));
+    }
+
+    $root->add($folder);
 }
 
 sub _ldapModImplementation
@@ -434,7 +649,7 @@ sub _setupSOGoDatabase
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
-    $db->enableInnoDBIfNeeded();
+    $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
@@ -604,6 +819,242 @@ sub organizations
     }
 
     return $list;
+}
+sub _rpcProxyHostForDomain
+{
+    my ($self, $domain) = @_;
+    my $dns = $self->global()->modInstance('dns');
+    my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
+    if (not $domainExists) {
+        throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
+                                             dom => $domain,
+                                             oh => '<a href="/DNS/Composite/Global">',
+                                             ch => '</a>'
+                                            ));
+    }
+    my @hosts = @{ $dns->getHostnames($domain)  };
+
+    my @ips;
+    my $network = $self->global()->modInstance('network');
+    my @extIfaces  = @{ $network->ExternalIfaces() };
+    if (not @extIfaces) {
+        throw EBox::Exceptions::External (__('System needs at least one external interface'));
+    }
+    foreach my $iface (@extIfaces) {
+        my $addresses = $network->ifaceAddresses($iface);
+        push @ips, map { $_->{address} } @{  $addresses };
+    }
+
+    my $matchedHost;
+    my $matchedHostMatchs = 0;
+    foreach my $host (@hosts) {
+        my $matchs = 0;
+        foreach my $hostIp (@{ $host->{ip} }) {
+            foreach my $ip (@ips) {
+                if ($hostIp eq $ip) {
+                    $matchs += 1;
+                    last;
+                }
+            }
+            if ($matchs > $matchedHostMatchs) {
+                $matchedHost = $host->{name};
+                $matchedHostMatchs = $matchs;
+                if (@ips == $matchedHostMatchs) {
+                    last;
+                }
+            }
+        }
+    }
+
+    if (not $matchedHost) {
+        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your external IP addresses',
+                                              dom => $domain,
+                                              oh => '<a href="/DNS/Composite/Global">',
+                                              ch => '</a>'
+                                             ));
+    }
+    return $matchedHost . '.' . $domain;
+}
+
+sub _activesyncEnabled
+{
+    my ($self) = @_;
+    return $self->model('Configuration')->value('activesync');
+}
+
+sub _rpcProxyDomain
+{
+    my ($self) = @_;
+    return $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+}
+
+sub _rpcProxyHosts
+{
+    my ($self) = @_;
+    my @hosts;
+    my $domain = $self->_rpcProxyDomain();
+    if (not $domain) {
+        throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
+    }
+    push @hosts, $self->_rpcProxyHostForDomain($domain);
+    return \@hosts;
+}
+
+sub HAProxyInternalService
+{
+    my ($self) = @_;
+    my $RPCProxyModel = $self->model('RPCProxy');
+    if (not $self->_rpcProxyEnabled()) {
+        return [];
+    }
+
+    my $hosts;
+    try {
+        $hosts = $self->_rpcProxyHosts();
+    } catch ($ex) {
+        EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
+    };
+    if (not $hosts) {
+        return [];
+    }
+
+    my @services;
+    if ($RPCProxyModel->httpsEnabled()) {
+        my $rpcpService = {
+            name => 'oc_rpcproxy_https',
+            port => 443,
+            printableName => 'OpenChange RPCProxy',
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            hosts    => $hosts,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            pathSSLCert => $self->_rpcProxyCertificate(),
+            isSSL   => 1,
+        };
+        push @services, $rpcpService;
+    }
+
+    if ($RPCProxyModel->httpEnabled()) {
+        my $httpRpcpService = {
+            name => 'oc_rpcproxy_http',
+            port => 80,
+            printableName => 'OpenChange RPCProxy',
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            hosts    => $hosts,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            isSSL   => 0,
+        };
+        push @services, $httpRpcpService;
+    }
+
+    return \@services;
+}
+
+sub HAProxyPreSetConf
+{
+    my ($self) = @_;
+    if ($self->_rpcProxyEnabled()) {
+        # the certificate must be in place before harpoxy restarts
+        $self->_createRPCProxyCertificate();
+    }
+}
+
+sub _vdomainModImplementation
+{
+    my ($self) = @_;
+    return EBox::OpenChange::VDomainsLdap->new($self);
+}
+
+# Method: _getPassword
+#
+#   Read a password file (one line, contents chomped) as root
+#
+sub _getPassword
+{
+    my ($self, $path, $target) = @_;
+
+    try {
+        my ($pwd) = @{EBox::Sudo::root("cat \"$path\"")};
+        $pwd =~ s/[\n\r]//g;
+        return $pwd;
+    } catch($ex) {
+        EBox::error("Error trying to read $path '$ex'");
+        throw EBox::Exceptions::Internal("Could not open $path to get $target password.");
+    };
+}
+
+# Method: getImapMasterPassword
+#
+#   We can login as any user on imap server with this, the first time
+#   this method is called a new password will be generated and put it
+#   on a file inside samba private directory (SOGo will look for this
+#   password there)
+#
+# Returns:
+#
+#   Password to use as master password for imap server. We can login
+#   as any user with this.
+#
+sub getImapMasterPassword
+{
+    my ($self) = @_;
+
+    unless (EBox::Sudo::fileTest('-e', OPENCHANGE_IMAP_PASSWD_FILE)) {
+        # Generate password file
+        EBox::debug("Generating imap master password file");
+        my $parentDir = dirname(OPENCHANGE_IMAP_PASSWD_FILE);
+        EBox::Sudo::root("mkdir -p -m700 '$parentDir'");
+        my $generator = new String::Random();
+        my $pass = $generator->randregex('\w\w\w\w\w\w\w\w');
+        EBox::Module::Base::writeFile(OPENCHANGE_IMAP_PASSWD_FILE,
+            "$pass", { mode => '0640', uid => 'root', gid => 'ebox' });
+    }
+
+    return $self->_getPassword(OPENCHANGE_IMAP_PASSWD_FILE, "Imap master");
+}
+
+# Method: isProvisionedWithMySQL
+#
+#   Since Zentyal 3.4 MySQL backends are the default ones but on previous
+#   versions they didn't exist.
+#
+# Returns:
+#
+#   Whether OpenChange module has been provisioned using MySQL backends or not.
+#
+sub isProvisionedWithMySQL
+{
+    my ($self) = @_;
+
+    return ($self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE));
+}
+
+# Method: connectionString
+#
+#   Get a connection string to be used for the different configurable backends of
+#   OpenChange: named properties, openchangedb and indexing.
+#
+#   Currently MySQL is used as backend, the first time this method is called an
+#   openchange user will be created
+#
+# Returns:
+#
+#   string with the following format schema://user:password@host/table, schema will
+#   be, normally, mysql (because is the only one supported right now)
+#
+sub connectionString
+{
+    my ($self) = @_;
+
+    unless (-e OPENCHANGE_MYSQL_PASSWD_FILE) {
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+                'generate-database');
+    }
+
+    my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
+
+    return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
 1;

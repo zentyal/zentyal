@@ -1,22 +1,30 @@
 <%args>
 $title
 $favicon => '/favicon.ico'
+$folder => ''
 </%args>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title><% $title %></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
-<link href="/data/css/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link rel="shortcut icon" href="<% $favicon %>" />
-<script type="text/javascript" src="/data/js/jquery.js">//</script>
-<script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
-<script type="text/javascript" src="/data/js/jquery.jstree.js">//</script> <!-- FIXME: include only when needed -->
-<script type="text/javascript" src="/data/js/common.js">//</script>
-<script type="text/javascript" src="/data/js/progress.js">//</script>
-<script type="text/javascript" src="/data/js/dialog.js">//</script>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title><% $title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
+    <link href="/data/css/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="<% $favicon %>" />
+    <script type="text/javascript" src="/data/js/jquery.js">//</script>
+    <script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
+    <script type="text/javascript" src="/data/js/jquery.jstree.js">//</script> <!-- FIXME: include only when needed -->
+    <script type="text/javascript" src="/data/js/common.js">//</script>
+    <script type="text/javascript" src="/data/js/progress.js">//</script>
+    <script type="text/javascript" src="/data/js/dialog.js">//</script>
+    <script type="text/javascript" src="/data/js/table-helper.js">//</script>
+    <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
+    <script type="text/javascript" src="/data/js/help.js">//</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
+% if ($folder) {
+<body id="<% $folder %>">
+% } else {
 <body>
+% }

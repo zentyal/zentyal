@@ -23,7 +23,7 @@ package EBox::SysInfo::Model::AdminUser;
 
 use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Types::Password;
@@ -104,22 +104,23 @@ sub _doChangePassword
     }
 
     unless (defined ($newpwd1) and defined ($newpwd2)) {
-        throw EBox::Exceptions::DataMissing(data => __('New password'));
+        throw EBox::Exceptions::DataMissing(data => __('New password'), silent => 1);
     }
 
     unless ($newpwd1 eq $newpwd2) {
-        throw EBox::Exceptions::External(__('New passwords do not match.'));
+        throw EBox::Exceptions::External(__('New passwords do not match.'), silent => 1);
     }
 
     unless (length ($newpwd1) > 5) {
-        throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
+        throw EBox::Exceptions::External(__('The password must be at least 6 characters long'),
+                                         silent => 1);
     }
 
-    unless (EBox::Auth->checkValidUser($username, $curpwd)) {
-        throw EBox::Exceptions::External(__('Incorrect current password.'));
+    unless (EBox::Middleware::AuthPAM->checkValidUser($username, $curpwd)) {
+        throw EBox::Exceptions::External(__('Incorrect current password.'), silent => 1);
     }
 
-    EBox::Auth->setPassword($username, $newpwd1);
+    EBox::Middleware::AuthPAM->setPassword($username, $newpwd1);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username);
 

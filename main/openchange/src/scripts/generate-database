@@ -1,0 +1,20 @@
+#!/bin/bash
+
+PASSWD_FILE='/var/lib/zentyal/conf/openchange/mysql.passwd'
+
+if [ -s $PASSWD_FILE ]; then
+    PASSWD=`cat $PASSWD_FILE`
+else
+    mkdir -p `dirname $PASSWD_FILE`
+    PASSWD=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
+    echo -n $PASSWD > $PASSWD_FILE
+    chmod 0600 $PASSWD
+    chown ebox:adm $PASSWD
+fi
+
+echo "DROP DATABASE IF EXISTS openchange;
+CREATE DATABASE openchange;
+GRANT ALL ON openchange.* TO 'openchange'@'localhost' IDENTIFIED BY \"$PASSWD\";
+FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
+
+exit 0

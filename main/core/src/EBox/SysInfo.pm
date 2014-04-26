@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,16 +20,16 @@ package EBox::SysInfo;
 
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
-use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Html;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
@@ -39,6 +39,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
+use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Util::Software;
 use EBox::Exceptions::Internal;
@@ -71,6 +72,11 @@ sub initialSetup
         $state->{lastMessageTime} = time();
         $state->{closedMessages} = {};
         $self->set_state($state);
+    }
+
+    # Migrate from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateConfKeys();
     }
 }
 
@@ -113,6 +119,12 @@ sub menu
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
+
+    if (EBox::Config::boolean('debug')) {
+        $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Debug',
+                                          'text' => __('Debug'),
+                                          'order' => 55));
+    }
 
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                                       'text' => __('Halt/Reboot'),
@@ -165,6 +177,14 @@ sub _setConf
     }
 }
 
+# Method: fqdn
+#
+#    Return the fully qualified domain name (hostname + domain)
+#
+# Returns:
+#
+#    String - the fully qualified domain name
+#
 sub fqdn
 {
     my ($self) = @_;
@@ -176,6 +196,14 @@ sub fqdn
     return $fqdn;
 }
 
+# Method: hostName
+#
+#    Return the hostname without domain
+#
+# Returns:
+#
+#    String - the hostname
+#
 sub hostName
 {
     my ($self) = @_;
@@ -283,7 +311,7 @@ sub generalWidget
 
     my $version = $self->version();
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
-    unless ($ignore) {
+    unless ($ignore or (not -f LATEST_VERSION)) {
         my $url = UPDATES_URL;
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
@@ -343,16 +371,11 @@ sub linksWidget
     my @params = (
         rsPackage => $global->modExists('remoteservices'),
         softwarePackage => $global->modExists('software'),
+        community => $global->communityEdition(),
+        registered => ($global->edition() eq 'basic'),
     );
 
-    my $html;
-    my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
-                                         out_method => sub { $html .= $_[0] });
-    my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
-       );
-    $interp->exec($component, @params);
-
+    my $html = EBox::Html::makeHtml('dashboard/links-widget.mas', @params);
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
@@ -434,9 +457,9 @@ sub _restartAllServices
                 ($name eq 'firewall');
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed ne "") {
         throw EBox::Exceptions::Internal("The following modules " .
@@ -448,8 +471,8 @@ sub _restartAllServices
     try {
         EBox::Sudo::root('service rsyslog restart',
                          'service cron restart');
-    } catch EBox::Exceptions::Internal with {
-    };
+    } catch (EBox::Exceptions::Internal $e) {
+    }
 }
 
 my $_dashboardStatusStrings;
@@ -487,5 +510,21 @@ sub dashboardStatusStrings
     return $_dashboardStatusStrings;
 }
 
+# Migrate conf keys
+#   - rs_verify_servers => rest_verify_servers
+sub _migrateConfKeys
+{
+    my ($self) = @_;
+
+    my $rsConfFile = EBox::Config::etc() . 'remoteservices.conf';
+    if (-e $rsConfFile) {
+        my $output = EBox::Sudo::command("grep 'rs_verify_servers' $rsConfFile | cut -f2 -d'=' | sed 's/ //g'");
+        chomp($output->[0]);
+        EBox::info('Migrating rs_verify_servers = ' . $output->[0]);
+        my $verifyServers = $output->[0];
+        my $coreConfFile = EBox::Config::etc() . 'core.conf';
+        EBox::Sudo::root("sed -i 's/rest_verify_servers.*\$/rest_verify_servers = $verifyServers/' $coreConfFile");
+    }
+}
 
 1;

@@ -8,11 +8,9 @@ use EBox::Gettext;
 use EBox::Global;
 use Error qw(:try);
 
-if (scalar @ARGV == 3) {
-    my $arch = $ARGV[0];
-    my $fat  = $ARGV[1];
-    my $chroot = ($fat ? "fat-$arch" : $arch);
-    my $apps = $ARGV[2];
+if (scalar @ARGV == 2) {
+    my $chroot = $ARGV[0];
+    my $apps = $ARGV[3];
     if ( -f "/opt/ltsp/images/$chroot.img" ) {
         EBox::init();
 
@@ -28,7 +26,7 @@ if (scalar @ARGV == 3) {
                   . "&& chroot $CHROOT_DIR apt-get update "
                   . "&& chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
                   . "&& umount /opt/ltsp/$chroot/proc "
-                  . "&& ltsp-update-image --arch $chroot";
+                  . "&& ltsp-update-image --arch $chroot";  # --arch is actually the chroot name
 
         try {
             # TODO: add more messages to ltsp.log (with timestamps)
@@ -45,5 +43,5 @@ if (scalar @ARGV == 3) {
         print "/opt/ltsp/images/$chroot.img does not exist.\n";
     }
 } else {
-    print "Usage: install-local-applications arch fat? apps\n";
+    print "Usage: install-local-applications chroot apps\n";
 }

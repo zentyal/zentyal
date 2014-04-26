@@ -4,104 +4,116 @@
     $main_color
     $loginin_padding_style
 </%args>
-
-#login {
-    margin: 0px auto 20px auto;
-    min-width: 400px;
-    border: 10px solid <% $main_color %>;
-    padding: <% $loginin_padding_style %>;
-    background: #fff;
-    text-align: left;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
-    text-align: center;
-}
-
-#login.popup {
-    min-width: 0;
-    margin: 5px;
-    padding: 15px 10px;
-}
-
-#login.popuplaunch {
-    max-width: 400px;
-    text-align: center;
-}
-
-fieldset#loginfieldset {
-    border: none;
-    padding-left: 15%;
-}
-
-fieldset#loginfieldset label {
-    float: left;
-    width: 88px;
-    font-size: 14px;
-    line-height: 24px;
-}
-
-#reason {
-    text-align: left;
-    font-weight: normal;
-    border-bottom: 1px solid #fa601d;
-    border-top: 1px solid #fa601d;
-    padding: 5px;
-    font-size: 11px;
-    margin: 0 0 4px 0px;
-    background: #fdddd9;
-    color: #484554;
-    max-width: 250;
-}
-
-#capsWarning, #ieWarning, #ffWarning {
-    text-align: left;
-    font-weight: normal;
-    border-bottom: 1px solid #fa601d;
-    border-top: 1px solid #fa601d;
-    padding: 5px;
-    font-size: 11px;
-    margin: 0 0 4px 0px;
-    background: #dfef7a;
-    color: #484554;
-    max-width: 250;
-}
-
 body {
     background-color: <% $body_background_color %>;
     color: #000000;
     font-family: Verdana, sans-serif;
     behavior: url(/data/js/csshover.htc);
-    margin-top: 90px;
+    margin: 0px;
+    padding: 0px;
 }
-
-td#logotd {
-    padding-right: 25px;
+#login {
+    margin: 0px auto 20px auto;
+    min-width: 400px;
+    padding: 20px 50px 50px;
+    background: #fafafa;
+    text-align: left;
+    border-radius: 0px 0px 20px 20px;
+    -moz-border-radius: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px #ddd;
+    width: 40%;
+    min-width:500px;
 }
-
-td.labeltd {
-    min-width: 88px;
-    font-size: 14px;
+h1{
+    color: #999;
+    text-transform:uppercase;
+    font-weight: 100;
+    font-size: 30px;
+}
+p{
+    color: #666;
+}
+p a{
+    color: <% $main_color %>;
+}
+label{
+    color: #666666;
+    display:block;
+    font-size: 12px;
     line-height: 24px;
+    margin: 10px 0 0;
+    min-width: 100%;
+    text-align: left;
+}
+input{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    color: #555555;
+    display:block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    transition: box-shadow 0.5s;
+    width: 100%;
+}
+input:focus{
+    box-shadow: 0px 0px 5px #999;
+    transition: box-shadow 0.5s;
+}
+.btn{
+    background-color: #69BE28;
+    border-color: #46962D;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px 2px 2px 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transition: background-color 0.5s ease 0s;
+    display: inline-block;
+}
+#login.popup, 
+#login.popuplaunch {
+    max-width: 400px;
+    text-align: center;
+}
+#reason {
+    text-align: left;
+    font-weight: normal;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    background: #ffe1e1;
+    color: #bc2b1d;
+}
+#capsWarning, #ieWarning, #ffWarning {
+    text-align: left;
+    font-weight: normal;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    background: #e2f2f5;
+    color: #0087a5;
 }
 
 #footer {
-    text-align: center;
+    bottom: 20px;
+    color: #888888;
     font-size: 11px;
-    color: #888;
+    text-align: center;
+    width: 100%;
 }
-
-#footer a {
+#footer a, #footer a:active{
     text-decoration: underline;
     color: #888;
 }
-
-#footer a:active {
-    text-decoration: underline;
-    color: #888;
-}
-
 #footer a:hover {
     text-decoration: none;
-    background: #888;
-    color: #fff;
 }

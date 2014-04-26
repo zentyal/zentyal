@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 16;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use lib '../../..';
 
@@ -35,9 +35,8 @@ is ($redisMock->get('bar'), 'this is a string');
 
 my $redis = EBox::Config::Redis->instance(customRedis => $redisMock);
 
-$redis->{redis}->__send_command('set', 'raw-foo', 'rawvalue');
-$redis->{redis}->__send_command('get', 'raw-foo');
-is ($redis->{redis}->__read_response(), 'rawvalue', 'set & get using lowest-level API');
+$redis->{redis}->__run_cmd('set', 0, 0, 0, 'raw-foo', 'rawvalue');
+is ($redis->{redis}->__run_cmd('get', 0, 0, 0, 'raw-foo'), 'rawvalue', 'set & get using lowest-level API');
 
 $redis->_redis_call('set', 'raw-bar', 666);
 is ($redis->_redis_call('get', 'raw-bar'), 666, 'set & get using API without cache');
@@ -88,15 +87,15 @@ ok ($redis->{redis}->exec(), 'successful low-level exec after multi');
 try {
     $redis->{redis}->exec();
     fail('exec without multi not allowed');
-} otherwise {
+} catch {
     pass('exec without multi not allowed');
-};
+}
 
 try {
     $redis->{redis}->discard();
     fail('discard without begin not allowed');
-} otherwise {
+} catch {
     pass('discard without begin not allowed');
-};
+}
 
 1;

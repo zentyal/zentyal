@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Monitor::Configuration;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -80,9 +80,8 @@ sub masonParameters
 
     try {
         $measuredData = $mon->allMeasuredData();
-    } catch EBox::Exceptions::Internal with {
-        my $ex = shift;
-        my $error = $ex->text();
+    } catch (EBox::Exceptions::Internal $e) {
+        my $error = $e->text();
 
         if ($error =~ m/Need to save changes/ and $global->unsaved()) {
             $msg = __x('You must save the changes in module status to see monitor graphs '
@@ -93,18 +92,17 @@ sub masonParameters
                        closehref => qq{</em></a>});
             $msgClass = 'note';
         } else {
-            $msg = __x('{p}An error has happened reading RRD files: {strong}{error}{estrong}.{ep}'
+            $msg = __x('{p}An error has happened reading RRD files: {error}.{ep}'
                        . '{p}Retry to check if it is fixed.{ep}'
                        . '{p}If not, this can be easily fixed by starting over again removing '
                        . 'the {dir} content and launching this command: {cmd}.{ep}'
                        . 'Take into account your monitor data will be lost.',
-                       error => $error, p => '<p>', ep => '</ep>',
-                       strong => '<strong>', estrong => '</strong>',
+                       error => "<strong>$error</strong>", p => '<p>', ep => '</ep>',
                        dir => EBox::Monitor::Configuration::RRD_BASE_DIR,
                        cmd => 'sudo service monitor restart');
             $msgClass = 'warning';
         }
-    };
+    }
 
     if ($msg) {
             $self->setTemplate('/msg.mas');

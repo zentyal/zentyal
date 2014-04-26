@@ -1,0 +1,128 @@
+<%doc>
+  Configuration for cluster membership and voting tool.
+
+  interfaces - Array the interfaces (rings) where the server is listening to perform the quorum.
+               An array of hashes where the keys are:
+               iface   - the interface name
+               netAddr - the network address for this interface
+  transport - String indicating if the transport method.
+              Possible values: 'udpu' and 'udp'
+  multicastConf - Hash with the multicast configuration with the following keys:
+                  addr - the multicast addr
+                  port - the multicast receiver port
+                  expected_votes - the number of expected votes to reach the quorum
+  nodes - Array the node that are members of the cluster.
+          An array of hashes where the keys are:
+          addr - the IP address
+          name - the name          
+</%doc>
+<%args>
+    @interfaces
+    $transport => 'udpu'
+    %multicastConf => ()
+    @nodes => ()
+</%args>
+# This file has been configured by Zentyal
+# Please read the corosync.conf.5 manual page
+
+totem {
+        version: 2
+
+        # How long before declaring a token lost (ms)
+        token: 3000
+
+        # How many token retransmits before forming a new configuration
+        token_retransmits_before_loss_const: 10
+
+        # How long to wait for join messages in the membership protocol (ms)
+        join: 60
+
+        # How long to wait for consensus to be achieved before starting a new round of membership configuration (ms)
+        consensus: 3600
+
+        # Turn off the virtual synchrony filter
+        vsftype: none
+
+        # Number of messages that may be sent by one processor on receipt of the token
+        max_messages: 20
+
+        # Limit generated nodeids to 31-bits (positive signed integers)
+        clear_node_high_bit: yes
+
+        crypto_hash: sha1
+        crypto_cipher: aes256
+
+        # How many threads to use for encryption/decryption
+        threads: 0
+
+        # Optionally assign a fixed node id (integer)
+        # nodeid: 1234
+
+        # This specifies the mode of redundant ring, which may be none, active, or passive.
+        rrp_mode: none
+
+% my $ringNumber = 0;
+% foreach my $iface (@interfaces) {
+        interface {
+                # The following values need to be set based on your environment 
+                ringnumber: <% $ringNumber %>
+                bindnetaddr: <% $iface->{netAddr} %>
+%    if ($multicastConf{addr}) {
+                mcastaddr: <% $multicastConf{addr} %>
+                mcastport: <% $multicastConf{port} %>
+%    }
+        }
+%    $ringNumber++;
+% }
+         transport: <% $transport %>
+}
+
+% unless ($multicastConf{addr}) {
+nodelist {
+%   foreach my $node (@nodes) {
+        node {
+           ring0_addr: <% $node->{addr} %>
+           name: <% $node->{name} %>
+           nodeid: <% $node->{nodeid} %>
+        }
+%   }
+}
+% }
+
+amf {
+        mode: disabled
+}
+
+quorum {
+        # Quorum for the Pacemaker Cluster Resource Manager
+        provider: corosync_votequorum
+% if ($multicastConf{expected_votes}) {
+        expected_votes: <% $multicastConf{expected_votes} %>
+%    if ($multicastConf{expected_votes} == 2) {
+        two_node: 1
+%    }
+% }
+% elsif (scalar(@nodes) == 2) {
+        two_node: 1
+% }
+}
+
+aisexec {
+        user:   root
+        group:  root
+}
+
+logging {
+        fileline: off
+        to_stderr: yes
+        to_logfile: no
+        to_syslog: yes
+        syslog_facility: daemon
+        debug: off
+        timestamp: on
+        logger_subsys {
+                subsys: AMF
+                debug: off
+                tags: enter|leave|trace1|trace2|trace3|trace4|trace6
+        }
+}

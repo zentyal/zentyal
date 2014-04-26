@@ -26,7 +26,7 @@ use EBox::Exceptions::Internal;
 
 use Time::Local;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub datasets
 {

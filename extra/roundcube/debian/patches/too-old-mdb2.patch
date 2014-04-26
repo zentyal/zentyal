@@ -1,0 +1,14 @@
+Don't use disable_smart_seqname which is not present in our version of MDB2.
+
+--- roundcube-0.2~stable/program/include/rcube_mdb2.php	2008-10-14 14:49:44.000000000 +0200
++++ roundcube-0.2~stable-patched/program/include/rcube_mdb2.php	2009-03-11 11:16:43.000000000 +0100
+@@ -86,7 +86,8 @@
+         'portability' => MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+ 
+     if ($this->db_provider == 'pgsql') {
+-      $db_options['disable_smart_seqname'] = true;
++    // commented out due toa php-mdb2-driver-pgsql < 1.5.0a in debian 
++    //  $db_options['disable_smart_seqname'] = true;
+       $db_options['seqname_format'] = '%s';
+     }
+ 

@@ -1,9 +1,12 @@
-3.2.2
+3.4
+	+ Set version to 3.4
 	+ Fix regression in rsync method (contribution by billfarrow)
-3.2.1
+3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Hide password field for rsync method
 	+ Added missing EBox::Exceptions uses
 	+ Add date to duplicity-command.log
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.4

@@ -1,0 +1,131 @@
+# translation of debconf messages for Roundcube to Swedish
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Roundcube package.
+#
+# Martin Bagge <brother@bsnet.se>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2009-02-23 01:41+0100\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
+"Language-Team: swedish <debian-l10n-swedish@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "Webservrar som ska ställas in automatiskt:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"Roundcube kan köras på alla webbservrar som stödje PHP, dock kan bara Apache "
+"2 och lighttpd ställas in automatiskt."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr ""
+"Ange den eller de webbservrar som ska ställas in automatiskt för RoundCube."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "Ska webbservern/-servrarna startas om nu?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr "För att aktivera de nya inställningarna måste webbservern startas om."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "IMAP-värd/-ar som ska användas med RoundCube:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "Ange den/de IMAP-server/-servrar som ska användas med RoundCube:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"Om detta fält lämnas tomt kommer en textruta att visas vid inloggningsrutan. "
+"Ange en mellanslagsseparerad lista med värdar för att visa en "
+"rullgardinsmeny. Genom att endast ange en värd kommer endast denna att kunna "
+"användas."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"För att använda säker anslutning (SSL) ang värdnamnet i formen 'ssl://"
+"värdnamn:933'."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "Standardspråk:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "Ange standardspråk för RoundCube."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr "Detta språk kan ändras för varje användare i deras egna inställingar."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"Tänk på att standardspråket kommer att användas för inloggningsrutan och "
+"första gången en användare ansluter."

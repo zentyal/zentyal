@@ -44,7 +44,7 @@ use EBox::Sudo;
 
 # Core modules
 use File::Basename;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -130,20 +130,16 @@ sub isEqualTo
             EBox::Sudo::silentRoot("diff -q $path $tmpPath");
             # diff return value 0; they are equal
             $equal = 1;
-        }
-        otherwise {
+        } catch {
             # diff command failed, we assume they are different (cannot find
             # a reliable documentation of diff command's return values)
             $equal = 0;
-
-        };
+        }
 
         return $equal;
-    }
-    elsif ($uploadFile) {
+    } elsif ($uploadFile) {
         return 0
-    }
-    elsif ($removeFile) {
+    } elsif ($removeFile) {
         return 0;
     }
 
@@ -624,11 +620,10 @@ sub _moveToPath
     EBox::Sudo::root("mv '$tmpPath' '$path'");
     try {
         EBox::Sudo::root("chown $user.$group '$path'");
-    }  otherwise {
-        my $ex = shift;
+    } catch ($e) {
         EBox::Sudo::root("rm -f '$path'");
-        $ex->throw();
-    };
+        $e->throw();
+    }
 }
 
 1;

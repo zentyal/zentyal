@@ -25,7 +25,7 @@ use EBox::Users;
 use EBox::Types::Action;
 use Net::LDAP::Util qw( ldap_explode_dn );
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _tree
 {
@@ -62,6 +62,8 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
+    } elsif ($parentMetadata->{dn} =~ /^ou=Domain Controllers,/i) {
+        return $self->_sambaDomainControllers();
     } elsif ($parentMetadata->{dn} =~ /^ou=Computers,/i) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
@@ -93,13 +95,16 @@ sub childNodes
             my $hostname = Sys::Hostname::hostname();
             next if ($printableName =~ /^(\w+)-$hostname$/);
 
-            my $fullname = $child->fullname();
-            if ($fullname) {
-                $printableName .= " ($fullname)";
+            my $displayname = $child->displayname();
+            if ($displayname) {
+                $printableName .= " ($displayname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
-            $printableName = $child->fullname();
+            $printableName = $child->displayname();
+            unless ($printableName) {
+                $printableName = $child->fullname();
+            }
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             next if ($child->isInternal());
@@ -121,6 +126,29 @@ sub childNodes
     }
 
     return \@childNodes;
+}
+
+sub _sambaDomainControllers
+{
+    my ($self) = @_;
+
+    return [] unless EBox::Global->modExists('samba');
+
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isEnabled();
+
+    # As the samba module is not a dependency of users, check if the function
+    # exists in the samba module because we can not force versions.
+    return [] unless EBox::Samba->can('domainControllers');
+
+    my @computers;
+    foreach my $computer (@{$samba->domainControllers()}) {
+        my $dn = $computer->dn();
+        my $printableName = $computer->name();
+        push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
+    }
+
+    return \@computers;
 }
 
 sub _sambaComputers

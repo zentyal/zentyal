@@ -27,7 +27,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::CaptivePortalFirewall;
@@ -37,18 +37,21 @@ use EBox::Exceptions::External;
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
-use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
 use constant PERIOD_FILE => CAPTIVE_DIR . 'period';
 use constant CAPTIVE_USER  => 'zentyal-captiveportal';
 use constant CAPTIVE_GROUP => 'zentyal-captiveportal';
+use constant CAPTIVE_UPSTART_NAME => 'zentyal.captiveportal-uwsgi';
+use constant CAPTIVE_NGINX_FILE => CAPTIVE_DIR . 'captiveportal-nginx.conf';
 
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'captiveportal',
-                                      printableName => __('Captive Portal'),
-                                      @_);
+    my $self = $class->SUPER::_create(
+        name          => 'captiveportal',
+        printableName => __('Captive Portal'),
+        @_
+    );
 
     $self->{cpldap} = new EBox::CaptivePortal::LdapUser();
 
@@ -100,21 +103,49 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+# Method: _setConf
+#
+#  Override <EBox::Module::Service::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
+
+    my $permissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+    my $socketPath = '/run/zentyal-' . $self->name();
+    my $socketName = 'captiveportal.sock';
+    my $upstartFileTemplate = 'core/upstart-uwsgi.mas';
+    my $upstartFile = '/etc/init/' . CAPTIVE_UPSTART_NAME . '.conf';
+    my @confFileParams = ();
+    push (@confFileParams, socketpath => $socketPath);
+    push (@confFileParams, socketname => $socketName);
+    push (@confFileParams, script => EBox::Config::psgi() . 'captiveportal.psgi');
+    push (@confFileParams, module => $self->printableName());
+    push (@confFileParams, user   => CAPTIVE_USER);
+    push (@confFileParams, group  => CAPTIVE_GROUP);
+    EBox::Module::Base::writeConfFileNoCheck(
+        $upstartFile, $upstartFileTemplate, \@confFileParams, $permissions);
+
+    my $nginxFileTemplate = 'captiveportal/nginx.conf.mas';
+    @confFileParams = ();
+    push (@confFileParams, socket   => "$socketPath/$socketName");
+    push (@confFileParams, port     => $self->httpPort());
+    push (@confFileParams, sslport  => $self->httpsPort());
+    push (@confFileParams, confdir  => CAPTIVE_DIR);
+    EBox::Module::Base::writeConfFileNoCheck(
+        CAPTIVE_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    $webadminMod->addNginxServer(CAPTIVE_NGINX_FILE);
+
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');
     my $usersMod = EBox::Global->modInstance('users');
-
-
-    # Apache conf file
-    EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
-        "captiveportal/captiveportal-apache2.conf.mas",
-        [
-            http_port => $settings->http_portValue(),
-            https_port => $settings->https_portValue(),
-        ]);
 
     # Ldap connection (for auth) config file
     my @params;
@@ -133,9 +164,7 @@ sub _setConf
         push (@params, ldap2_bindstring => $sldap->binddnValue());
     }
 
-    EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF,
-        "captiveportal/ldap.conf.mas",
-        \@params);
+    EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF, "captiveportal/ldap.conf.mas", \@params);
 
     # Write css file
     $self->_writeCSS();
@@ -162,16 +191,20 @@ sub _writeCSS
                                              { mode => '0644' });
 }
 
+# Method: _daemons
+#
+#  Override <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     my ($self) = @_;
 
     return [
         {
-            'name' => 'zentyal.apache2-captiveportal'
+            name => CAPTIVE_UPSTART_NAME
         },
         {
-            'name' => 'zentyal.captived'
+            name => 'zentyal.captived'
         },
     ];
 }
@@ -198,7 +231,7 @@ sub firewallHelper
     return undef;
 }
 
-# LdapModule implmentation
+# LdapModule implementation
 sub _ldapModImplementation
 {
     my ($self) = @_;
@@ -213,13 +246,19 @@ sub usesPort # (protocol, port, iface)
 {
     my ($self, $protocol, $port, $iface) = @_;
 
-    ($protocol eq 'tcp') or return undef;
-    ($self->isEnabled()) or return undef;
+    unless ($protocol eq 'tcp') {
+        return undef;
+    }
+    unless ($self->isEnabled()) {
+        return undef;
+    }
 
-    my $model = $self->model('Settings');
-
-    ($port eq $model->http_portValue()) and return 1;
-    ($port eq $model->https_portValue()) and return 1;
+    if ($port eq $self->httpPort()) {
+        return 1;
+    }
+    if ($port eq $self->httpsPort()) {
+        return 1;
+    }
 
     return undef;
 }
@@ -274,6 +313,20 @@ sub ifaces
 
 # Session manage methods:
 
+# Function: sessionExpired
+#
+#   returns 1 if the session has expired
+#
+# Parameters:
+#   time - session time value
+#
+sub sessionExpired
+{
+    my ($self, $time) = @_;
+
+    return time() > ($time + $self->expirationTime() + 30);
+}
+
 # Function: currentUsers
 #
 #   Current logged in users array:
@@ -289,6 +342,8 @@ sub ifaces
 #          mac  => 'XX:XX:XX:XX:XX:XX', (optional, if known)
 #          sid  => 'session id',
 #          time => X,                   (last session update timestamp)
+#          quotaExtension => X,
+#          bwusage => X,
 #      },
 #      ...
 #   ]
@@ -371,20 +426,6 @@ sub exceptionsFirewallRules
     return \@rules;
 }
 
-# Function: sessionExpired
-#
-#   returns 1 if the session has expired
-#
-# Parameters:
-#   time - session time value
-#
-sub sessionExpired
-{
-    my ($self, $time) = @_;
-
-    return time() > ($time + $self->expirationTime() + 30);
-}
-
 # Function: quotaExceeded
 #
 #   returns 1 if user has exceeded his quota
@@ -413,19 +454,6 @@ sub quotaExceeded
 
     # check quota
     return $bwusage > $quota;
-}
-
-# Function: removeSession
-#
-#   Removes the session file for the given session id
-#
-sub removeSession
-{
-    my ($self, $sid) = @_;
-
-    unless (unlink(SIDS_DIR . $sid)) {
-        throw EBox::Exceptions::External(_("Couldn't remove session file"));
-    }
 }
 
 sub _writePeriodFile

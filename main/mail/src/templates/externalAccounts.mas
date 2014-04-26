@@ -21,7 +21,7 @@ my %printableName = (
 
 
 </%shared>
-<h3><% __('Mail retrieval from external accounts') %></h3>
+<h4><% __('Mail retrieval from external accounts') %></h4>
 % if (not $params->{externalRetrievalEnabled} ){
 <div class='warning'>
 <% __x(q{Mail retrieval from external accounts service is not enabled; until you {ub}enable it{ue} your changes won't have any effect.},
@@ -44,7 +44,7 @@ my %printableName = (
   </button>
 <& .accountsTable,
    params  => $params,
-   show    => @externalAccounts > 0
+   show    => (@externalAccounts > 0)
 &>
 <script>
 $(function() {
@@ -131,47 +131,16 @@ $(function() {
 <%def .accountsTable>
 <%args>
 $params
-$show
 </%args>
 <%init>
 my @tableOrder = qw(externalAccount server protocol port keep fetchall);
-##   my @rows;
-##
-##   foreach my $account (@externalAccounts) {
-##       my @accountRow;
-##       foreach my $field (@tableOrder) {
-##           if (($field eq 'keep') or ($field eq'fetchall')) {
-##             if ($account->{$field}) {
-##                push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
-##             } else {
-##                push @accountRow, q{<div class='tcenter'><img src="/data/images/deny-active.gif" alt="no"/></div>};
-##             }
-##           } else {
-##             push @accountRow, $account->{$field};
-##           }
-##       }
-##       # push action element
-##       my $link = '/Mail/DelExternalAccount';
-##       $link .= '?user='  . $params->{'user'}->dn();
-##       $link .='&account=' . $account->{externalAccount};
-##       push @accountRow, [
-##           {
-##              url => $link,
-##              text => __('Delete external account'),
-##              icon => '/data/images/delete.gif',
-##           }
-##
-##        ];
-##
-##       push @rows, \@accountRow;
-##   }
 my @columnTitles = map {
    $printableName{$_}
 } @tableOrder;
 my $actionTitle = __('Action');
 </%init>
 <br/><br/>
-<table id='userMailExternalAccountsTable' class='dataTable' <% $show ? '' : 'style="displa:none"'%> >
+<table id='userMailExternalAccountsTable' class='dataTable' >
 <thead>
 %  foreach my $title (@columnTitles) {
    <th class ='tleft'><% $title %></th>

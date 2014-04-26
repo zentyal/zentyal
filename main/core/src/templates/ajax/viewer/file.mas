@@ -23,7 +23,9 @@ my $download = $showPath && $data->allowDownload();
 % } else {
   <span></span>
 % }
+% if ($data->editable()) {
    <a href="#" onClick="Zentyal.TableHelper.markFileToRemove('<% $id %>'); return false"><% __('Remove') %></a>
+% }
 </div>
 
 % } elsif ($data->model()->isa('EBox::Model::DataTable')) {

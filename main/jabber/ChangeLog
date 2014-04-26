@@ -1,8 +1,14 @@
 HEAD
 	+ Added noMultipleOUSupportComponent support
 	+ Fixed jabber-ldap script
-3.2.1
+3.4
+	+ Set version to 3.4
 	+ Corrected getJabberAdmins to properly provide array of admins uid's
+	+ Using STARTTLS instead of SSL by default
+3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Delete migration code from old versions
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.4

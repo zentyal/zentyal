@@ -1,8 +1,10 @@
-3.2.2
+3.4
+	+ Set version to 3.4
 	+ Clearer error when calling objectMembers with a invalid object id
-3.2.1
+3.3
 	+ Added missing EBox::Exceptions uses
 	+ Only unroll member ip range addresses in the addresses() method
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.1

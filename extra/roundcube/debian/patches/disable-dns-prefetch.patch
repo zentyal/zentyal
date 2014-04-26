@@ -1,0 +1,20 @@
+Disable DNS prefetching to solve CVE-2010-0464.
+
+Index: b/program/include/rcube_html_page.php
+===================================================================
+--- a/program/include/rcube_html_page.php	2009-06-22 18:20:34.000000000 +0200
++++ b/program/include/rcube_html_page.php	2010-07-17 17:33:25.000000000 +0200
+@@ -165,6 +165,13 @@
+             $__page_header.= $this->charset . '" />'."\n";
+         }
+ 
++        // add hint to disable DNS prefetching
++        if (!headers_sent()) {
++            header('X-DNS-Prefetch-Control: off');
++        } else {
++            $__page_header.= '<meta http-equiv="x-dns-prefetch-control" content="off" />'."\n";
++        }
++
+         // definition of the code to be placed in the document header and footer
+         if (is_array($this->script_files['head'])) {
+             foreach ($this->script_files['head'] as $file) {

@@ -19,9 +19,9 @@
 <ul class='tabs'>
 %  foreach my $if (@ifaces) {
 %     if($if->{'name'} eq $selected) {
-	<li><span class='current'><% $if->{'alias'} %></span></li>
+        <li><span class='current'><% $if->{'alias'} %></span></li>
 %     } else {
-	<li><a href='Ifaces?iface=<% $if->{'name'} %>'><% $if->{'alias'} %></a></li>
+        <li><a href='Ifaces?iface=<% $if->{'name'} %>'><% $if->{'alias'} %></a></li>
 %     }
 %  }
 </ul>

@@ -1,8 +1,14 @@
-zenbuntu-core (3.2.2) precise; urgency=low
+zenbuntu-core (3.4) saucy; urgency=low
 
-  * Added man-db dependency
+  * Bump version to 3.4
 
- -- José A. Calvo <jacalvo@zentyal.com>  Fri, 13 Dec 2013 16:23:49 +0100
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 23 Dec 2013 16:02:43 +0100
+
+zenbuntu-core (3.3) precise; urgency=low
+
+  * Added man-db as dependency
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 20 Oct 2013 20:46:04 +0200
 
 zenbuntu-core (3.2.1) precise; urgency=low
 

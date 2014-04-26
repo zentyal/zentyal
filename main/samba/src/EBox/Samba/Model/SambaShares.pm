@@ -41,7 +41,7 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr',
@@ -121,6 +121,12 @@ sub _table
             editable      => 1,
             defaultValue  => 0,
             help          => __('This share will not require authentication.')),
+        new EBox::Types::Boolean(
+            fieldName     => 'recursive_acls',
+            printableName => __('Apply ACLs recursively'),
+            editable      => 1,
+            defaultValue  => 1,
+            help          => __('ACL changes replace all permissions on subfolders of this share.')),
         new EBox::Types::HasMany(
             fieldName     => 'access',
             printableName => __('Access control'),
@@ -503,9 +509,9 @@ sub _checkSystemShareMountOptions
     my $type;
     try {
         $type = $fs->type($mountPoint);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__x('Error getting filesystem format in {m}', m => $mountPoint));
-    };
+    }
     foreach my $filter (FILTER_FS_TYPES) {
         if ($type =~ /^$filter/) {
             throw EBox::Exceptions::External(
@@ -516,9 +522,9 @@ sub _checkSystemShareMountOptions
     my $options;
     try {
         $options = $fs->options($mountPoint);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
-    };
+    }
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(

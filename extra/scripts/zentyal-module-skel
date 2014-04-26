@@ -11,7 +11,8 @@ fi
 
 MODULENAME=$1
 DESTDIR=$2
-DIST=precise
+DIST=saucy
+VERSION=3.4
 
 PKGNAME=$(basename $DESTDIR)
 
@@ -19,7 +20,7 @@ mkdir -p $DESTDIR/schemas
 mkdir -p $DESTDIR/src/EBox/$MODULENAME/Model
 mkdir -p $DESTDIR/stubs
 mkdir -p $DESTDIR/src/scripts
-mkdir -p $DESTDIR/debian/$DIST
+mkdir -p $DESTDIR/debian
 
 cat >$DESTDIR/schemas/$PKGNAME.yaml <<EOF
 class: EBox::$MODULENAME
@@ -225,7 +226,7 @@ text = "<% \$text %>"
 EOF
 
 
-cat >$DESTDIR/debian/$DIST/zentyal-$PKGNAME.postrm <<EOF
+cat >$DESTDIR/debian/zentyal-$PKGNAME.postrm <<EOF
 #!/bin/bash
 
 set -e
@@ -244,7 +245,7 @@ esac
 exit 0
 EOF
 
-cat >$DESTDIR/debian/$DIST/zentyal-$PKGNAME.postinst <<EOF
+cat >$DESTDIR/debian/zentyal-$PKGNAME.postinst <<EOF
 #!/bin/bash
 
 set -e
@@ -263,21 +264,22 @@ exit 0
 EOF
 
 
-cat >$DESTDIR/debian/$DIST/rules <<EOF
+cat >$DESTDIR/debian/rules <<EOF
 #!/usr/bin/make -f
 
 include /usr/share/zbuildtools/1/rules/zentyal.mk
 EOF
 
-cat >$DESTDIR/debian/$DIST/changelog <<EOF
-zentyal-$PKGNAME (3.0) precise; urgency=low
+cat >$DESTDIR/debian/changelog <<EOF
+zentyal-$PKGNAME ($VERSION~1) $DIST; urgency=low
 
   * New upstream release
 
  -- YOURNAME <youremail@yourdomain>  Fri, 25 Jan 2013 02:53:07 +0100
+
 EOF
 
-cat >$DESTDIR/debian/$DIST/control <<EOF
+cat >$DESTDIR/debian/control <<EOF
 Source: zentyal-$PKGNAME
 Section: web
 Priority: optional
@@ -288,7 +290,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zentyal-$PKGNAME
 Architecture: all
-Depends: zentyal-core (>= 3.0), \${misc:Depends}
+Depends: zentyal-core (>= $VERSION~1), \${misc:Depends}
 Description: Zentyal - $MODULENAME module
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -299,8 +301,8 @@ Description: Zentyal - $MODULENAME module
 EOF
 
 cat >$DESTDIR/ChangeLog <<EOF
-3.0
+$VERSION
 	+ Initial release
 EOF
 
-echo 7 > $DESTDIR/debian/$DIST/compat
+echo 7 > $DESTDIR/debian/compat

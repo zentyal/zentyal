@@ -5,6 +5,7 @@
     @brokenPackages
     $softwareInstalled => 0
     $message => undef
+    $crashreport => undef
 </%args>
 <%init>
 use utf8;
@@ -18,25 +19,16 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
-% if ($message) {
-<script type="text/javascript">
-function closeNotification() {
-  $('notification_container').hide();
-  var url = '/SysInfo/CloseNotification';
-  $.ajax({url: url, data: { message: '<% $message->{name} %>' } });
-}
-
+% if ($crashreport) {
+<script type="text/javascript"  src="/data/js/crashreport.js">//</script>
+<div id="notification_container" class='warning'>
+<span id="notification_text"><% $crashreport %></span>
+</div>
+% } elsif ($message) {
+<script>
 function releaseUpgrade(title) {
       Zentyal.Dialog.showURL('/ReleaseUpgrade', {
           title: title,
-          close: function() { window.location.reload(); }
-      });
-}
-
-function upgradeInstructions(title, html) {
-      Zentyal.Dialog.showHTML(html, {
-          title: title,
-          width: 500,
           close: function() { window.location.reload(); }
       });
 }

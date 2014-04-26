@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -50,12 +50,12 @@ sub masonParameters
     my $params = [];
     try {
         my $request = {
-                command => 0,
+                command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS(),
         };
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $response = $rpc->send_command($request);
         if ($response->{code} == 0) {
-            my $server = $response->{server};
+            my $server = $response->{remote};
             my $serverIP = $server;
             if (EBox::Validate::checkIP($server)) {
                 $server = 'Exchange server';
@@ -67,11 +67,11 @@ sub masonParameters
             push (@{$params}, server => '---');
             push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
         }
-    } otherwise {
+    } catch {
         # TODO Broken connection
         push (@{$params}, server => '---');
         push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
-    };
+    }
 
     return $params;
 }

@@ -4,15 +4,17 @@
 
    Parameters:
 
-   vHostName - String with the virtual host name
-   hostname - String with the server host name
-   sslportNumber - String with the HTTPS listen port
-   sslSupport - [disabled|allowssl|forcessl]
+   vHostName     - String with the virtual host name
+   hostname      - String with the server host name
+   publicSSLPort - String with the HTTPS listen port
+   sslPort       - String with the HTTPS internal port
+   sslSupport    - [disabled|allowssl|forcessl]
 </%doc>
 <%args>
   $vHostName
   $hostname
-  $sslportNumber
+  $publicSSLPort
+  $sslPort
   $sslSupport
 </%args>
 <%init>
@@ -23,22 +25,18 @@
   my $etcPath = EBox::WebServer::PlatformPath::ConfDirPath();
 </%init>
 % if ($sslSupport ne 'disabled') {
-<IfModule mod_ssl.c>
-<VirtualHost *:<% $sslportNumber %>>
+<VirtualHost *:<% $sslPort %>>
         ServerAdmin webmaster@<% $hostname %>
 
-        ServerName <% $vHostName %>
+        ServerName <% $vHostName %>:<% $publicSSLPort %>
         DocumentRoot <% $docRoot %>/<% $vHostName %>
+
+        SetEnv HTTPS On
 
         ErrorLog /var/log/apache2/<% $vHostName %>-error.log
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
         # Custom configuration goes in this file
-        Include <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
-
-        # SSL
-        SSLEngine on
-        SSLCertificateFile    /etc/apache2/ssl/ssl.pem
+        IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 </VirtualHost>
-</IfModule>
 % }

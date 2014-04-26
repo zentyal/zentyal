@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,8 +38,10 @@ use File::Basename;
 use EBox::Logs::SlicedBackup;
 use EBox::Util::SQLTypes;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Data::Dumper;
+
+use constant MYSQL_CUSTOM_CONF => '/etc/mysql/conf.d/zentyal.cnf';
 
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
 
@@ -54,6 +56,65 @@ sub new
     $self->{logs} = EBox::Global->getInstance(1)->modInstance('logs');
 
     return $self;
+}
+
+# Method: updateMysqlConf
+#
+#   Checks the server status and writes down the MySQL Zentyal conf file.
+#   Using the zentyal.cnf.mas the innodb parameter is set here
+#   It also restarts the mysql daemon
+#
+sub updateMysqlConf
+{
+    my ($self) = @_;
+
+    # If the database has already enabled the innoDB engine, we won't disable it
+    my $nextInnoDbValue = $self->_innoDbEnabled ? 1 : $self->_enableInnoDB();
+
+    my @confParams;
+    push @confParams, (enableInnoDB => $nextInnoDbValue);
+
+    if ($self->_innoDbValueHasChanged($nextInnoDbValue)) {
+        EBox::Module::Base::writeConfFileNoCheck(MYSQL_CUSTOM_CONF, 'core/zentyal.cnf.mas', \@confParams);
+        EBox::Sudo::rootWithoutException('restart mysql');
+    }
+}
+
+# Method: _innoDbEnabled
+#
+#   Returns true if the InnoDB engine is already enabled
+#
+sub _innoDbEnabled
+{
+    my ($self) = @_;
+
+    return (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q YES") == 0);
+}
+
+# Method: _enableInnoDB
+#
+#   Returns true if we should turn on the innodb mysql engine
+#
+sub _enableInnoDB
+{
+    my ($self) = @_;
+
+    return (EBox::Global->modExists('openchange')
+            or EBox::Global->modExists('sogo')
+            or EBox::Global->modExists('webmail'));
+}
+
+# Method: _innoDbValueHasChanged
+#
+#   Returns true if the $nextInnoDbValue is different than the current one
+#
+sub _innoDbValueHasChanged
+{
+    my ($self, $nextValue) = @_;
+
+    my $nextOptionValue = $nextValue ? "on" : "off";
+
+    return (system ("grep -q \"^innodb = $nextOptionValue\$\" " . MYSQL_CUSTOM_CONF) != 0);
 }
 
 # Method: _dbname
@@ -94,6 +155,7 @@ sub _dbpass
 
     unless ($self->{dbpass}) {
         my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        chomp ($pass);
         $self->{dbpass} = $pass;
     }
 
@@ -120,8 +182,11 @@ sub _connect
 
     return if ($self->{'dbh'});
 
-    my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
-                           $self->_dbpass(), { RaiseError => 1, mysql_enable_utf8 => 1});
+    my $dbh;
+    try {
+        $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
+                           $self->_dbpass(), { RaiseError => 1, mysql_enable_utf8 => 1, mysql_auto_reconnect => 1});
+    } catch {};
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
@@ -137,15 +202,17 @@ sub _connect
 #
 sub _disconnect
 {
-    my ($self) = @_;
+    my ($self, $skipException) = @_;
 
     $self->{'sthinsert'}->finish() if ($self->{'sthinsert'});
     if ($self->{'dbh'}) {
         $self->{'dbh'}->disconnect();
         $self->{'dbh'} = undef;
     } else {
-        throw EBox::Exceptions::Internal(
-            'There wasn\'t a database connection, check if database exists\n');
+        unless ($skipException) {
+            throw EBox::Exceptions::Internal(
+                'There wasn\'t a database connection, check if database exists\n');
+        }
     }
 }
 
@@ -300,10 +367,9 @@ sub _multiInsertBadEncoding
     foreach my $valuesToInsert (@{ $values_r }) {
         try {
             $self->unbufferedInsert($table, $valuesToInsert );
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
-        };
+        } catch ($e) {
+            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $e")
+        }
     }
 }
 
@@ -701,20 +767,23 @@ sub restoreDBDump
     try {
         my $superuser = _dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
-    } otherwise {
+    } catch ($e) {
         # left file were it was before
-        my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
-    } finally {
+    } catch ($e) {
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");
-    };
+        $e->throw();
+    }
+    # undo ownership and file move
+    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+    EBox::Sudo::root("mv $tmpFile $file");
 
     if ($onlySchema) {
         EBox::info('Database schema dump for ' . _dbname() . ' restored' );
@@ -764,20 +833,6 @@ sub commandAsSuperuser
     EBox::Sudo::root($cmd);
 }
 
-# Method: enableInnoDBIfNeeded
-#
-#   Enable InnoDB if it's not enabled already
-#
-sub enableInnoDBIfNeeded
-{
-    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
-        EBox::Sudo::root(
-            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
-            "restart mysql"
-        );
-    }
-}
-
 sub _superuserTmpFile
 {
     my ($create) = @_;
@@ -799,7 +854,7 @@ sub _superuserTmpFile
 sub DESTROY
 {
     my ($self) = @_;
-    $self->_disconnect() if (defined($self));
+    $self->_disconnect(1) if (defined($self));
 }
 
 1;

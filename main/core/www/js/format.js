@@ -103,6 +103,16 @@ function getTimeDiffSuffix(pos) {
     }
 }
 
+// 8.toTimeDiffString()
+// Example: 3700.toTimeDiffString() => 1 h 1 m 40 s
+Number.prototype.toTimeDiffString = function() {
+    var d = this;
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    return ((h > 0 ? h + " h " : "") + (m > 0 ? + m + " m " : (s > 0 ? "0 m " : "")) + (s > 0 ? + s + " s" : ""));
+};
+
 function getBytesPerSec(bps, axis) {
     return getBytesFormatter(bps, axis) + '/s';
 }

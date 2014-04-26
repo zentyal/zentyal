@@ -86,6 +86,7 @@ sub enableLog
     my ($self, $enable) = @_;
 
     $self->set_bool('logging', $enable);
+    $self->global()->addModuleToPostSave('audit');
 }
 
 sub isEnabled

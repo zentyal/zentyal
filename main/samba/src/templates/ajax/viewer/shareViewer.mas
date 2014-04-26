@@ -13,7 +13,7 @@ $data
 % }
 % if (defined($data->printableValue())) {
 <span><% $type %>: <% $data->printableValue() %></span>
- <% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
 % }
 % else {
 <span>--</span>

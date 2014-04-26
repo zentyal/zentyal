@@ -1,23 +1,29 @@
-3.2.6
+3.4
+	+ Fix nsupdate error after domain rename
+	+ Adapted apparmor configuration to Saucy
+	+ Avoid lame servers message
+	+ Use proper dlz library for bind9.9
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Take in account virtual interfaces too when getting addresses
 	  for a new domain
-3.2.5
+3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Lowercase LDB domains for comparision
 	+ Update TXT _kerberos record on domain rename
 	+ Added missing EBox::Exceptions uses
 	+ Read DNS zones from samba database while provisioning
-3.2.4
+	+ Enable sortlist option by default in /etc/zentyal/dns.conf
+	+ Delete migration code from old versions
 	+ Fix set of dynamic attribute in domain table when samba module is enabled
 	  again
 	+ Do not write reverse zone files if generate_reverse_zones is false
 	+ Do not set localhost as primary resolver if users module is configured
 	  in external AD mode. In this case, the AD DNS server must be used.
-3.2.3
 	+ Added network as enabledepend, needed by the resolvconf management
-3.2.2
 	+ Enable resolvconf updates when starting and stopping bind9 daemon
-3.2.1
 	+ Enforce include of 127.0.0.1 in DNS resolvers when enabling
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.5
@@ -299,10 +305,10 @@
 0.9
 	+ Added Polish translation
 	+ Added Aragonese translation
-	+ Added German    translation
+	+ Added German translation
 
 0.8.99
-        * Add DNS server functionality
+	* Add DNS server functionality
 0.7.1
 	* Allow TCP queries
 	* Use of ebox-sudoers-friendly

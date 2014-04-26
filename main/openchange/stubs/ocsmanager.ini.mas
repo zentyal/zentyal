@@ -21,8 +21,8 @@ error_email_from = <% $adminMail %>
 # auth = file
 #auth = ldap
 auth = ldap
-mapistore_root = /opt/samba4/private
-mapistore_data = /opt/samba4/private/mapistore
+mapistore_root = /var/lib/samba/private
+mapistore_data = /var/lib/samba/mapistore
 debug = no
 
 [auth:file]

@@ -79,8 +79,8 @@ Zentyal.Wizard.Software.loadPage = function(index) {
         Zentyal.Wizard.Software.setLoading(false);
         if ( index == Zentyal.Wizard.Software.pages.length-1 ) {
             var finishString = Zentyal.Wizard.Software.gettext('Finish');
-            $('#wizard-next1')[0].value = finishString;
-            $('#wizard-next2')[0].value = finishString;
+            $('#wizard-next1').val(finishString);
+            $('#wizard-next2').val(finishString);
         }
     };
 

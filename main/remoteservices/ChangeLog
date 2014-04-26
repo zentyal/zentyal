@@ -1,18 +1,36 @@
 HEAD
+	+ Clarified doc about qa_updates_always_automatic confkey
+3.4.1
+	+ Fixed JS regressions on subscribe action
+	+ Disable QA updates until next commercial edition
 	+ EBox::RemoteServices::Subscription::Check::check recovers for
 	  any error raised on users checking
-3.2.5
 	+ DisasterRecoveryDomains can notify other models
+	+ Fix remove conf backup after PSGI migration
+	+ Fix overwrite action on remote conf backup
+3.4
+	+ Port proxy redirections to Nginx from Apache
+	+ Use the new PortObserver to report a change in the webadmin
+	  listening port
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Updated to use the new haproxy API.
+	+ Move run-pending-ops script to core
+	+ Move EBox::RemoteServices::RESTClient and RESTResult to core
+	  and uses it as base in specific behaviour
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Remove Disaster Recovery menu entry as it is managed by
 	  cloud-prof module
 	+ Fix restore remote backup with spaces in the backup name
 	+ Fix: Do not subscribe to the newsletter in the wizard if the
 	  user requires so
-3.2.4
 	+ On initial setup, do only reload bundle and restart the service
 	  if the server is registered
 	+ Fix warning on last inside an eval on automatic-conf-backup script
-3.2.3
+3.3
+	+ Hide close button on subscription progress dialog
+	+ Adapted to new AJAX update of save changes button
+	+ Switch from Error to TryCatch for exception handling
 	+ Adapted to new AJAX update of save changes button
 	+ Update support information due to offer 2013
 	+ Update messages in info models
@@ -26,18 +44,18 @@ HEAD
 	+ Widget recovers from latestRemoteConfBackup connection errors
 	+ Fix reset URL in subscription wizard error
 	+ Pinning kernels so they are updated with QA updates active
-3.2.2
 	+ Added missing EBox::Exceptions uses
 	+ Remove cron jobs when unregistering
 	+ Use latest REST Remote API to register a free account
-3.2.1
 	+ Missing use when restarting monitor using VPN as communication
 	  layer
 	+ Set proper trial link when a community account is registered
 	+ Use IPS module to know the number of IDS/IPS rules
 	+ Honor system-wide defined HTTP Proxy in REST client
+	+ Set version to 3.3
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.9

@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Sudo;
 use EBox::Util::SQL;
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $restart = 1;
 if ($ARGV[0] eq '--no-restart') {
@@ -56,15 +56,12 @@ if ($version) {
 }
 
 try {
-    if ($restart) {
-        $module->save();
-    } else {
-        $module->saveConfig();
-    }
+    $module->saveConfigRecursive();
+    $module->save() if ($restart);
     $module->redis->commit();
-} otherwise {
+} catch {
     $module->redis->rollback();
     EBox::warn("Restart for $modname failed");
-};
+}
 
 exit 0;

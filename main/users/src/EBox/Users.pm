@@ -57,7 +57,7 @@ use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
@@ -395,21 +395,21 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
+    # Upgrade from previous versions
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        # Perform the migration to 3.4
+        $self->_migrateTo34();
     }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 }
 
-# Migration to 3.2
+# Migration to 3.4
 #
-#  * Migrate current OpenLDAP schema to the new one in 3.2
+# * Fixed displayName value to match cn if not set already.
 #
-sub _migrateTo32
+sub _migrateTo34
 {
     my ($self) = @_;
 
@@ -417,78 +417,18 @@ sub _migrateTo32
 
     my $ldap = $self->ldap;
 
-    # LDAP Backup.
-    my $backupDir = EBox::Config::conf . "backup-users-upgrade-to-32-" . time();
-    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($backupDir);
-
-    # Load the new Zentyal LDAP schema tree.
-    EBox::info("Loading zentyal-users/zentyal.ldif");
-    $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
-
-    EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
-    # Create a new dump to apply manual changes.
-    my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
-    mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($tempBackupDir);
-
-    # Change all existing objects to use the new ZentyalDistributionGroup
-    EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
-    # Change the schema to use the new ZentyalDistributionGroup for members
-    EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
-    # Restore this modified backup.
-    my $ignoreUserInitialization = 1;
-    $self->restoreConfig($tempBackupDir, $ignoreUserInitialization);
-
-    # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
-    my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
-
-    my %args = (
-        base => 'cn=schema,cn=config',
-        filter => "(objectClass=olcSchemaConfig)",
-        scope => 'sub',
-    );
-    my $result = $ldap->search(\%args);
-
-    for my $entry ($result->entries) {
-        if($entry->get_value('cn') =~ m/rfc2307bis/) {
-            EBox::info("Migrating " . $entry->dn() . " schema");
-            my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
-            defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
-
-            if (not $ldif->eof()) {
-                my $newEntry = $ldif->read_entry();
-                if ($ldif->error()) {
-                    throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
-                }
-                $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
-                my $updateResult = $entry->update($ldap->connection());
-                if ($updateResult->is_error()) {
-                    EBox::error($updateResult->error());
-                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
-                }
-                if (not $ldif->eof()) {
-                    EBox::error("Found unexpected entries in $newSchema");
-                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
-                }
-                $ldif->done();
-            }
+    my $users = $self->users(1);
+    foreach my $user (@{$users}) {
+        unless ($user->displayname()) {
+            $user->set('displayName', $user->fullname());
         }
     }
 
-    # Add all users as members of __USERS__ so appear as members on LDAP and not just members because the gid is the one
-    # for __USERS__.
-    my $usersGroup = new EBox::Users::Group(gid => DEFAULTGROUP);
-    foreach my $user (@{$usersGroup->usersNotIn(1)}) {
-        $usersGroup->addMember($user, 1);
+    foreach my $contact (@{$self->contacts()}) {
+        unless ($contact->displayname()) {
+            $contact->set('displayName', $contact->fullname());
+        }
     }
-    $usersGroup->save();
-
-    foreach my $user (@{$self->users(1)}) {
-        $user->add('objectClass', 'shadowAccount');
-    }
-
-    $self->_overrideDaemons() if $self->configured();
 }
 
 sub _checkEnableIPs
@@ -532,9 +472,9 @@ sub setupKerberos
     EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
-    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'service heidmal-kdc stop || true');
     push (@cmds, 'stop zentyal.heimdal-kdc || true');
-    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'service kpasswdd stop || true');
     push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
@@ -647,7 +587,7 @@ sub _internalServerEnableActions
 
     # Stop slapd daemon
     EBox::Sudo::root(
-        'invoke-rc.d slapd stop || true',
+        'service slapd stop || true',
         'stop ebox.slapd        || true',
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
@@ -692,11 +632,10 @@ sub _internalServerEnableActions
     EBox::info('Performing first LDAP actions');
     try {
         $self->performLDAPActions();
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error performing users initialization: $error");
+    } catch ($e) {
+        EBox::error("Error performing users initialization: $e");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
-    };
+    }
 
     # Setup kerberos realm and DNS
     $self->setupKerberos();
@@ -850,15 +789,12 @@ sub _loadLDAP
             'chown -R openldap.openldap ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             "rm -f $LDIF_CONFIG $LDIF_DB",
         );
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        EBox::error('Trying to setup ldap failed, exit value: ' .
-                $exception->exitValue());
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error('Trying to setup ldap failed, exit value: ' .  $e->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
-    } otherwise {
-        my $error = shift;
-        EBox::error("Trying to setup ldap failed: $error");
-    };
+    } catch ($e) {
+        EBox::error("Trying to setup ldap failed: $e");
+    }
     EBox::debug('Setup LDAP done');
 }
 
@@ -929,18 +865,15 @@ sub _setConfInternal
 
         try {
             $self->reprovision();
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($e) {
             $self->set('need_reprovision', 1);
             throw EBox::Exceptions::External(__x(
 'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
-               err => "$ex",
+               err => "$e",
                pbeg => '<p>',
                pend => '</p>'
             ));
-        };
-
-
+        }
     }
 
     my $ldap = $self->ldap;
@@ -981,7 +914,9 @@ sub _setConfInternal
 
         push(@params, 'cloudsync_enabled' => 1);
     }
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
+
+    # TODO: No users sync in 3.4, reenable in 4.0
+    #$self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -1177,10 +1112,11 @@ sub initUser
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd force-reload');
-        } otherwise {};
+            EBox::Sudo::root('service nscd force-reload');
+        } catch {
+        }
    }
 }
 
@@ -1737,7 +1673,7 @@ sub notifyModsLdapUserBase
     }
 
     # Save user corner operations for slave-sync daemon
-    if ($self->isUserCorner) {
+    if ($self->isUserCorner()) {
         my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
         mkdir ($dir) unless (-d $dir);
 
@@ -1799,14 +1735,13 @@ sub isUserCorner
 {
     my ($self) = @_;
 
-    my $auth_type = undef;
-    try {
-        my $r = Apache2::RequestUtil->request();
-        $auth_type = $r->auth_type;
-    } catch Error with {};
-
-    return (defined $auth_type and
-            $auth_type eq 'EBox::UserCorner::Auth');
+    my $global = EBox::Global->modInstance('global');
+    my $appName = $global->appName();
+    if (defined $appName) {
+        return ($appName eq 'usercorner');
+    } else {
+        return 0;
+    }
 }
 
 # Method: defaultUserModels
@@ -1965,11 +1900,12 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/UserTemplate',
             'text' => __('User Template'), order => 30));
-        if ($self->mode() eq STANDALONE_MODE) {
-            $folder->add(new EBox::Menu::Item(
-                'url'  => 'Users/Composite/Sync',
-                'text' => __('Synchronization'), order => 40));
-        }
+# TODO: re-enable this in Zentyal 4.0 for Cloud Sync
+#        if ($self->mode() eq STANDALONE_MODE) {
+#            $folder->add(new EBox::Menu::Item(
+#                'url'  => 'Users/Composite/Sync',
+#                'text' => __('Synchronization'), order => 40));
+#        }
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Composite/Settings',
             'text' => __('LDAP Settings'), order => 50));
@@ -2623,7 +2559,6 @@ sub checkMailNotInUse
                                         ),
                                     );
     }
-
 }
 
 1;

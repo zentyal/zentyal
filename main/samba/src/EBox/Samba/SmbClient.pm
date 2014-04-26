@@ -25,7 +25,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
 use Samba::Credentials;
 use Samba::LoadParm;
@@ -65,11 +65,10 @@ sub new
             if ($try > 1) {
                 EBox::info("Connection to Samba SMB successful after $try tries.");
             }
-        } otherwise {
-            my ($ex) = @_;
-            EBox::warn("Error connecting with SMB server: $ex, retrying ($try attempts)");
+        } catch ($e) {
+            EBox::warn("Error connecting with SMB server: $e, retrying ($try attempts)");
             sleep 1;
-        };
+        }
     }
     if (not $ok) {
         throw EBox::Exceptions::External("Error connecting with SMB server after $maxTries tries.");

@@ -1,0 +1,181 @@
+<%args>
+$model
+$row
+$movable => 0
+
+$checkAllControls
+
+$withoutActions
+$actions
+$page
+$changeView
+</%args>
+<%init>
+use EBox::Gettext;
+
+my @trClass = qw(border);
+my $addRowMoveHandle;
+if ($row->disabled()) {
+    push (@trClass, 'ui-state-disabled');
+}
+
+if ($row->readOnly()) {
+    push @trClass, 'readOnly';
+} elsif ($movable) {
+    push @trClass, 'movableRow';
+    $addRowMoveHandle = 1;
+}
+
+my $rowId = $row->id();
+</%init>
+<tr class='<% "@trClass" %>' id="<% $rowId %>">
+%      foreach my $td (@{$row->elements()})      {
+<%perl>
+          next unless ($td->HTMLViewer());
+
+          my @viewerParams = (data => $td);
+          if ($td->isa('EBox::Types::Boolean')) {
+              my $checkAllId = $checkAllControls->{$td->fieldName()};
+              push  @viewerParams, (checkAllId => $checkAllId);
+          }
+</%perl>
+        <td class='tcenter'>
+%          if ($addRowMoveHandle) {
+           <span class='moveRowHandle'></span>
+%              $addRowMoveHandle = 0;
+%         }
+          <&
+            $td->HTMLViewer(),
+             @viewerParams
+          &>
+        </td>
+%    }
+
+% unless ((defined $withoutActions) and $withoutActions) {
+<& SELF:actionCell, model => $model,
+                    actions => $actions,
+
+                    row => $row,
+
+                    changeView => $changeView,
+                    page => $page
+                    &>
+% }
+</tr>
+<%method actionCell>
+<%doc>
+    Print the action cell for the row
+
+    Parameters:
+        $model - model of the table
+        $actions
+        $row   - the row printed
+        $changeView
+        $page  - table's page
+</%doc>
+<%args>
+$model
+$actions
+
+$row
+$changeView
+$page
+</%args>
+        <td class='tcenter'
+            id='actionsCell_<%
+                              $row->{id}
+                            %>'>
+<%perl>
+      my $rowReadOnly = $row->readOnly();
+
+      my $disabled = '';
+      my ($edit, $edit_msg);
+      my ($delete, $delete_msg);
+      my ($clone, $clone_msg);
+      if (not $rowReadOnly) {
+          $edit = 'edit';
+          $edit_msg = __('Edit');
+          $delete = 'delete';
+          $delete_msg = __('Delete');
+          $clone = 'clone';
+          $clone_msg = __('Clone');
+      } else {
+          $disabled = 'disabled';
+          $edit = 'edit-inactive';
+          $delete = 'delete-inactive';
+          $edit_msg = __('Read-only row: edit disabled');
+          $delete_msg = __('Read-only row: delete disabled');
+          $clone = 'clone-inactive';
+          $clone_msg = __('Read-only row: clone disabled');
+      }
+
+      my $table = $model->table();
+      my $onlyCustomActions = $table->{'onlyCustomActions'};
+</%perl>
+<& /ajax/customActions.mas, model => $model, id => $row->{id}, origin => 'row' &>
+
+%    unless ((defined $onlyCustomActions) and $onlyCustomActions)
+%    {
+%      if ($actions->{'del'})
+%      {
+          <button
+              <%
+                $disabled
+              %>
+              type='button'
+              name='del'
+              value="Del"
+              title="<% $delete_msg %>"
+              alt="Del"
+              class='btn-only-icon btn-delete'
+              onClick="<%
+                          $model->deleteActionClickedJS($row->{id}, $page)
+                       %>"
+          ><% $delete_msg %></button>
+
+%      }
+%      if ($changeView and $actions->{'editField'})   {
+          <button
+              <%
+                $disabled
+              %>
+              type='button'
+              name='edit'
+              value="edit"
+              title="<% $edit_msg %>"
+              class='btn-only-icon btn-edit'
+              onClick="<%
+                       $model->showChangeRowFormJS(
+                             changeType => 'changeEdit',
+                             editId => $row->{'id'},
+                             page => $page,
+                             isFilter => 0)
+                       %>"
+          ><% $edit_msg %></button>
+%      }
+
+%      if ($actions->{'clone'})
+%      {
+          <button
+              <%
+                $disabled
+              %>
+              type='button'
+              name='clone'
+              value="Clone"
+              title="<% $clone_msg  %>"
+              alt="Clone"
+              class='btn-only-icon btn-clone'
+              onClick="<%
+                       $model->showChangeRowFormJS(
+                             changeType => 'changeClone',
+                             editId => $row->{'id'},
+                             page => $page,
+                             isFilter => 0)
+                       %>"
+          ><% $clone_msg  %></button>
+
+%      }
+%    }
+        </td>
+</%method>

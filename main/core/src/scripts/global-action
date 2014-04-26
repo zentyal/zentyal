@@ -8,7 +8,8 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
 
-use Error qw(:try);
+use Scalar::Util qw(blessed);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -38,18 +39,20 @@ try {
     } elsif ($action eq 'revokeAllModules') {
         $global->revokeAllModules(@callParams);
     }
-} otherwise {
-    my $ex = shift @_;
-
+} catch ($ex) {
     if ($progress) {
-        my $errorTxt = $ex->text();
-        if (EBox::Config::boolean('debug')) {
+        my $errorTxt = blessed($ex) ? $ex->text() : $ex;
+        if (EBox::Config::boolean('debug') and blessed($ex)) {
             $errorTxt .= "\n" . $ex->stacktrace();
         }
         $progress->setAsFinished(1, $errorTxt);
     }
-
-    $ex->throw();
-};
+    if (blessed($ex)) {
+        $ex->throw();
+    } else {
+        # Exception with a die
+        EBox::Exceptions::Internal->throw("$ex");
+    }
+}
 
 1;

@@ -48,7 +48,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 
@@ -132,13 +132,10 @@ sub initialSetup
                                          policy => { allow => undef });
     }
 
-    # Upgrade from 3.0
-    if (defined ($version)) {
-        if (EBox::Util::Version::compare($version, '3.1') < 0) {
-            $self->_overrideDaemons() if $self->configured();
-        }
-        if (EBox::Util::Version::compare($version, '3.2.7') < 0) {
-            $self->_fixPermCatList();
+    foreach my $name ('squid', 'logs') {
+        my $mod = $self->global()->modInstance($name);
+        if ($mod and $mod->changed()) {
+            $mod->saveConfigRecursive();
         }
     }
 }
@@ -163,10 +160,9 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } otherwise {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -745,11 +741,10 @@ sub _checkSquidFile
 
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools
@@ -1337,25 +1332,6 @@ sub authenticationMode
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;
-    }
-}
-
-# Group: Private methods
-
-# Allow dansguardian user read categorised files
-sub _fixPermCatList
-{
-    my ($self) = @_;
-
-    my $catListModel = $self->model('CategorizedLists');
-    foreach my $listId (@{$catListModel->ids()}) {
-        my $path = $catListModel->row($listId)->elementByName('fileList')->archiveContentsDir();
-        try {
-            EBox::Sudo::root("find '$path' -type d | xargs chmod o+x");
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
-            EBox::error($exc);  # Do not fail on exceptions
-        };
     }
 }
 

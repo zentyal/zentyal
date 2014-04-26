@@ -8,7 +8,7 @@ use EBox::Backup;
 use EBox::Global;
 use EBox::ProgressIndicator;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use Getopt::Long;
 
@@ -69,7 +69,7 @@ if ($bugReport) {
 
 if ($progressId) {
     my $progress = EBox::ProgressIndicator->retrieve($progressId);
-    
+ 
     # put  progress indicator param
     $params{progress} = $progress;
 }
@@ -101,20 +101,13 @@ try {
         my $reportFile = EBox::Backup->makeBugReport();
         print "Bug report stored into file $reportFile\n";
     }
+} catch ($e) {
+    if (exists $params{progress}) {
+        $params{progress}->setAsFinished(1, $e->text);
+    }
 
+    $e->throw();
 }
-otherwise {
-  my $ex = shift @_;
-
-  if (exists $params{progress}) {
-    $params{progress}->setAsFinished(1, $ex->text);
-  }
-
-
-  $ex->throw();
-};
-
-
 
 sub usage
 {

@@ -1,0 +1,63 @@
+<%doc>
+   Template to set the nginx configuration file for the Usercorner
+
+Parameters:
+
+    socket - String The uwsgi socket where all request should be forwarded.
+    bindaddress - String the bind address.
+    port - Int the listening port.
+
+# FIXME: unhardcode paths passing them as args...
+</%doc>
+<%args>
+    $socket
+    $bindaddress
+    $port
+</%args>
+    server {
+        listen <% $bindaddress %>:<% $port %>;
+
+        access_log /var/log/zentyal/access.log;
+
+        root /usr/share/zentyal/www;
+
+        # First attempt to serve request as file, then
+        # as directory, then fall back to proxy.
+        try_files $uri @proxy;
+
+        error_page 502 /errors/502.html;
+        location = /errors/502.html {
+           root /usr/share/zentyal/www;
+        }
+
+        location /data/ {
+            root /usr/share/zentyal/www;
+            rewrite  ^/data/(.*)$  /$1  break;
+            return   403;
+        }
+
+        location /dynamic-data/ {
+            root /var/lib/zentyal/dynamicwww/;
+            rewrite  ^/dynamic-data/(.*)$  /$1  break;
+            return   403;
+        }
+
+        location @proxy {
+            uwsgi_pass unix://<% $socket %>;
+
+            uwsgi_param QUERY_STRING $query_string;
+            uwsgi_param REQUEST_METHOD $request_method;
+            uwsgi_param CONTENT_TYPE $content_type;
+            uwsgi_param CONTENT_LENGTH $content_length;
+            uwsgi_param REQUEST_URI $request_uri;
+            uwsgi_param PATH_INFO $document_uri;
+            uwsgi_param DOCUMENT_ROOT $document_root;
+            uwsgi_param SERVER_PROTOCOL $server_protocol;
+            uwsgi_param REMOTE_ADDR $remote_addr;
+            uwsgi_param REMOTE_PORT $remote_port;
+            uwsgi_param SERVER_ADDR $server_addr;
+            uwsgi_param SERVER_PORT $server_port;
+            uwsgi_param SERVER_NAME $server_name;
+            uwsgi_param HTTP_X_FORWARDED_PROTO https;
+        }
+    }

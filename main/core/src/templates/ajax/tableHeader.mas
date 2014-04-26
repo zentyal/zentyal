@@ -1,9 +1,10 @@
 <%args>
-	@data
-	$dataTable
-	$hasChanged
-	$tpages => 0
-	$model
+    @data
+    $dataTable
+    $hasChanged
+    $tpages => 0
+    $model
+    $user
 </%args>
 <%init>
 use EBox::Gettext;
@@ -16,21 +17,22 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 <!-- "tableBody.mas" -->
 <div id="hiddenDiv" class="hidden"></div>
 
-<div class="help">
+<div class="help" style="display:none">
 <% $dataTable->{'help'} %>
 </div>
 
 
-	<div id='error_<% $dataTable->{'tableName'} %>'></div>
+    <div id='<% $dataTable->{'tableName'} %>_error'></div>
 
-	<div id="<% $dataTable->{'tableName'} %>">
-	
-		<& /ajax/tableBody.mas, 
-						'data' => \@data,
-						'dataTable' => $dataTable,
-						'model' => $model,
-						'hasChanged' => $hasChanged,
-						'tpages' => $tpages
-						&>
+    <div id="<% $dataTable->{'tableName'} %>">
 
-	</div>
+        <& /ajax/tableBody.mas,
+            'data'       => \@data,
+            'dataTable'  => $dataTable,
+            'model'      => $model,
+            'user'       => $user,
+            'hasChanged' => $hasChanged,
+            'tpages'     => $tpages
+        &>
+
+    </div>

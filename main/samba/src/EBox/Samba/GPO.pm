@@ -35,7 +35,7 @@ use Encode qw(encode decode);
 use Parse::RecDescent;
 use Data::UUID;
 use Fcntl;
-use Error qw( :try );
+use TryCatch::Lite;
 use Net::LDAP::Control;
 use Samba::Smb qw(NTCREATEX_DISP_OVERWRITE_IF FILE_ATTRIBUTE_NORMAL);
 use Samba::Security::Descriptor;
@@ -115,11 +115,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|displayName");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|displayName");
+        }
     }
     return $self;
 }
@@ -427,11 +425,10 @@ sub create
         my $fd = $smb->open("$path\\GPT.INI", $openParams);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $createdGPO->deleteObject();
-        throw $error;
-    };
+        $e->throw();
+    }
 
     return $createdGPO;
 }

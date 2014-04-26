@@ -172,27 +172,4 @@ sub JohnHomeDirPath
     return EBox::Config::home() . '.john/';
 }
 
-# Method: JournalOpsDirPath
-#
-#      Return the directory path for the REST operations that cannot
-#      be completed
-#
-#      If the directory does not exist, then create it
-#
-# Returns:
-#
-#      String - the journal ops dir path
-#
-sub JournalOpsDirPath
-{
-    my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-    return unless ( $rs->eBoxSubscribed() );
-    my $dir = EBox::Config::conf() . 'remoteservices/subscription/' . $rs->eBoxCommonName() . '/ops-journal/';
-
-    unless ( -d $dir ) {
-        mkdir($dir, 0700);
-    }
-    return $dir;
-}
-
 1;

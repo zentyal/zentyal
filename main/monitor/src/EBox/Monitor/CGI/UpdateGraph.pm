@@ -117,7 +117,7 @@ sub masonParameters
 
 # Method: _header
 #
-#     Print our own header to set javascript MIME type
+#     Dumps our own header to set javascript MIME type
 #
 # Overrides:
 #
@@ -127,9 +127,10 @@ sub _header
 {
     my ($self) = @_;
 
-    print($self->cgi()->header(-charset => 'utf-8',
-                               -type    => 'application/javascript'));
+    my $response = $self->response();
+    $response->content_type('application/javascript; charset=utf-8');
 
+    return '';
 }
 
 1;

@@ -21,7 +21,8 @@ package EBox::RemoteServices;
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::WebAdmin::PortObserver);
 
 # Class: EBox::RemoteServices
 #
@@ -66,7 +67,8 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
-use Error qw(:try);
+use EBox::WebAdmin::PSGI;
+use TryCatch::Lite;
 use File::Slurp;
 use JSON::XS;
 use Net::DNS;
@@ -135,10 +137,29 @@ sub proxyDomain
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->hasBundle()) {
         return $self->_confKeys()->{realm};
     }
     return undef;
+}
+
+# Method: caDomain
+#
+#   Returns CA organizational name from Zentyal Remote
+#
+# Returns:
+#
+#   String - the CA organizational name from Zentyal Remote
+#            Empty string if it does not have a bundle.
+#
+sub caDomain
+{
+    my ($self) = @_;
+
+    if ($self->hasBundle()) {
+        return $self->_confKeys()->{caDomain};
+    }
+    return "";
 }
 
 # Method: _setConf
@@ -584,16 +605,14 @@ sub monitorGathererIPAddresses
         if (EBox::Config::boolean('monitoring_inside_vpn')) {
             try {
                 $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-            } catch EBox::Exceptions::Base with {
-                ;
-            };
+            } catch (EBox::Exceptions::Base $e) {
+            }
         } else {
             try {
                 # TODO: Do not hardcode
                 $monGatherers = ['mon.' . $self->cloudDomain()];
-            } catch EBox::Exceptions::External with {
-                ;
-            };
+            } catch (EBox::Exceptions::External $e) {
+            }
         }
     }
     return $monGatherers;
@@ -623,7 +642,8 @@ sub controlPanelURL
         if ($cloudDomain ne 'cloud.zentyal.com') {
             $url = "www.$cloudDomain";
         }
-    } otherwise {};
+    } catch {
+    }
 
     return "https://${url}/";
 }
@@ -769,20 +789,19 @@ sub reloadBundle
         } else {
             throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
         }
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         $retVal = 0;
-    } catch EBox::RemoteServices::Exceptions::NotCapable with {
-        my ($exc) = @_;
-
-        print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+    } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
+        print STDERR __x('Cannot reload the bundle: {reason}', reason => $e->text()) . "\n";
         # Send the event to ZC
-        my $evt = new EBox::Event(message     => $exc->text(),
+        my $evt = new EBox::Event(message     => $e->text(),
                                   source      => 'not-capable',
                                   level       => 'fatal',
                                   dispatchTo  => [ 'ControlCenter' ]);
         my $evts = $self->global()->modInstance('events');
         $evts->sendEvent(event => $evt);
-    };
+    }
+
     return $retVal;
 }
 
@@ -836,9 +855,9 @@ sub subscriptionLevel
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{level};
-    } otherwise {
+    } catch {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -870,9 +889,9 @@ sub subscriptionCodename
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{codename};
-    } otherwise {
+    } catch {
         $ret = '';
-    };
+    }
     return $ret;
 }
 
@@ -904,9 +923,9 @@ sub technicalSupport
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{technical_support};
-    } otherwise {
+    } catch {
         $ret = -2;
-    };
+    }
     return $ret;
 }
 
@@ -936,9 +955,9 @@ sub renovationDate
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
-    } otherwise {
+    } catch {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -1034,9 +1053,9 @@ sub securityUpdatesAddOn
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{security_updates};
-    } otherwise {
+    } catch {
         $ret = 0;
-    };
+    }
     return $ret;
 }
 
@@ -1086,9 +1105,9 @@ sub addOnAvailable
             $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
         }
         $ret = (exists $subsDetails->{cap}->{$addOn});
-    } otherwise {
+    } catch {
         $ret = undef;
-    };
+    }
     return $ret;
 }
 
@@ -1124,9 +1143,9 @@ sub addOnDetails
             my $detail = $self->_getCapabilityDetail($addOn, $force);
             $ret = $detail;
         }
-    } otherwise {
+    } catch {
         $ret = {};
-    };
+    }
     return $ret;
 }
 
@@ -1347,27 +1366,24 @@ sub latestRemoteConfBackup
     return $bakService->latestRemoteConfBackup();
 }
 
-# Method: reportAdminPort
+# Method: adminPortChanged
 #
-#     Report to Zentyal Cloud for a new TCP port for the Zentyal
+#     Report to Zentyal Remote for a new TCP port for the Zentyal
 #     server admin interface.
 #
-#     It will do so only if the server is connected to Zentyal Cloud
+#     It will do so only if the server is connected to Zentyal Remote
 #
 # Parameters:
 #
 #     port - Int the new TCP port
 #
-# Exceptions:
+# Overrides:
 #
-#     <EBox::Exceptions::InvalidData> - if the given port is not a
-#     valid port
+#     <EBox::WebAdmin::PortObserver::adminPortChanged>
 #
-sub reportAdminPort
+sub adminPortChanged
 {
     my ($self, $port) = @_;
-
-    EBox::Validate::checkPort($port, "$port is not a valid port");
 
     my $state = $self->get_state();
 
@@ -1402,7 +1418,7 @@ sub DDNSServerIP
         if ( $hostname ) {
             try {
                 $ret = $self->queryInternalNS($hostname, 'random');
-            } otherwise { };
+            } catch { };
         }
     }
     return $ret;
@@ -1656,15 +1672,15 @@ sub checkAdMessages
 
 # Group: Private methods
 
-# Configure the SOAP server
+# Configure the SOAP server and Remote Access
 #
 # if subscribed and has bundle
-# 1. Write soap-loc.mas template
-# 2. Write the SSLCACertificatePath directory
-# 3. Add include in zentyal-apache configuration
+# 1. Add /soap and /ebox PSGI sub applications
+# 2. Write the SSLCACertificatePath directory for SSL validation
+# 3. Save webadmin module
 # elsif not subscribed
 # 1. Remove SSLCACertificatePath directory
-# 2. Remove include in zentyal-webadmin configuration
+# 2. Remove /soap and /ebox PSGI sub applications
 #
 sub _confSOAPService
 {
@@ -1674,30 +1690,37 @@ sub _confSOAPService
     my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
-        if ( $self->hasBundle() ) {
-            my @tmplParams = (
-                (soapHandler      => WS_DISPATCHER),
-                (caDomain         => $self->_confKeys()->{caDomain}),
-                (allowedClientCNs => $self->_allowedClientCNRegexp()),
-               );
-            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
-            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
-
-            $webAdminMod->addApacheInclude($confFile);
-            $webAdminMod->addNginxInclude($confSSLFile);
+        if ($self->hasBundle()) {
+            try {
+                EBox::WebAdmin::PSGI::addSubApp(url => '/soap',
+                                                appName => 'EBox::RemoteServices::WSDispatcher::psgiApp',
+                                                validation => 1,
+                                                validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
+                                                userId => 'remote');
+            } catch (EBox::Exceptions::DataExists $e) {}
+            try {
+                EBox::WebAdmin::PSGI::addSubApp(url => '/ebox',
+                                                appName => 'EBox::RemoteServices::RemoteAccess::psgiApp',
+                                                validation => 1,
+                                                validateFunc => 'EBox::RemoteServices::RemoteAccess::validate',
+                                                userId => 'remote_user');
+            } catch (EBox::Exceptions::DataExists $e) {}
+            # Write the SSL validation
+            File::Slurp::write_file(SERV_DIR . 'ssl-auth.json',
+                                    JSON::XS->new()->encode({'caDomain' => $self->_confKeys()->{caDomain},
+                                                             'allowedClientCNRegexp' => $self->_allowedClientCNRegexp()}));
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
-        # Do nothing if CA or include are already removed
+        # Do nothing if CA or the sub-apps are already removed
         try {
-            $webAdminMod->removeApacheInclude($confFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
-            $webAdminMod->removeNginxInclude($confSSLFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
+            EBox::WebAdmin::PSGI::removeSubApp('/soap');
+            EBox::WebAdmin::PSGI::removeSubApp('/ebox');
             $webAdminMod->removeCA($self->_caCertPath('force'));
-        } catch EBox::Exceptions::Internal with { ; };
+        } catch (EBox::Exceptions::Internal $e) {
+        } catch (EBox::Exceptions::DataNotFound $e) {
+        }
+        unlink(SERV_DIR . 'ssl-auth.json');
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();
@@ -1707,9 +1730,9 @@ sub _confSOAPService
 #
 # if subscribed and has bundle and remoteservices_redirections.conf is written
 # 1. Write proxy-redirections.conf.mas template
-# 2. Add include in zentyal-apache configuration
+# 2. Add include in nginx configuration from webadmin module
 # elsif not subscribed
-# 1. Remove include in zentyal-apache configuration
+# 1. Remove include in nginx configuration from webadmin module
 #
 sub _setProxyRedirections
 {
@@ -1717,7 +1740,7 @@ sub _setProxyRedirections
 
     my $confFile = SERV_DIR . 'proxy-redirections.conf';
     my $webadminMod = EBox::Global->modInstance('webadmin');
-    if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
+    if ($self->hasBundle() and (-r REDIR_CONF_FILE)) {
         try {
             my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
             my @tmplParams = (
@@ -1727,18 +1750,18 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            $webadminMod->addApacheInclude($confFile);
-        } otherwise {
+            $webadminMod->addNginxInclude($confFile);
+        } catch ($e) {
             # Not proper YAML file
-            my ($exc) = @_;
-            EBox::error($exc);
+            EBox::error($e);
         };
     } else {
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            $webadminMod->removeApacheInclude($confFile);
-        } catch EBox::Exceptions::Internal with { ; };
+            $webadminMod->removeNginxInclude($confFile);
+        } catch (EBox::Exceptions::Internal $e) {
+        }
     }
     # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
@@ -1756,10 +1779,9 @@ sub _establishVPNConnection
             my $authConnection = new EBox::RemoteServices::Connection();
             $authConnection->create();
             $authConnection->connect();
-        } catch EBox::Exceptions::External with {
-            my ($exc) = @_;
-            EBox::error("Cannot contact to Zentyal Remote: $exc");
-        };
+        } catch (EBox::Exceptions::External $e) {
+            EBox::error("Cannot contact to Zentyal Remote: $e");
+        }
     }
 }
 
@@ -1931,9 +1953,9 @@ sub _ccConnectionWidget
         my $date;
         try {
             $date = $self->latestRemoteConfBackup();
-        } otherwise {
+        } catch {
             $date = 'unknown';
-        };
+        }
         if ( $date ne 'unknown' ) {
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
@@ -1980,14 +2002,13 @@ sub _getSubscriptionDetails
         my $details;
         try {
             $details = $cap->subscriptionDetails();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the new state
             # Get cached data
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{level}) {
-                $exc->throw();
+                $e->throw();
             }
-        };
+        }
 
         if ( defined($details) ) {
             $state->{subscription} = {
@@ -2004,7 +2025,8 @@ sub _getSubscriptionDetails
                 $capList = $cap->list();
                 my %capList = map { $_ => 1 } @{$capList};
                 $state->{subscription}->{cap} = \%capList;
-            } catch EBox::Exceptions::Internal with { ; };
+            } catch (EBox::Exceptions::Internal $e) {
+            }
             $self->set_state($state);
         }
     }
@@ -2023,14 +2045,13 @@ sub _getCapabilityDetail
         my $detail;
         try {
             $detail = $cap->detail($capName);
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the current state
             # Get cached data if any, if there is not, then raise the exception
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
-                $exc->throw();
+                $e->throw();
             }
-        };
+        }
         $state->{subscription}->{cap_detail}->{$capName} = $detail;
         $self->set_state($state);
     }
@@ -2058,7 +2079,7 @@ sub _latestBackup
     return $latest;
 }
 
-# Report the Zentyal server TCP admin port to Zentyal Cloud
+# Report the Zentyal server TCP admin port to Zentyal Remote
 sub _reportAdminPort
 {
     my ($self) = @_;
@@ -2066,7 +2087,7 @@ sub _reportAdminPort
     my $gl = EBox::Global->getInstance(1);
     my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($webAdminMod->port());
+    $self->adminPortChanged($webAdminMod->listeningPort());
 }
 
 # Method: extraSudoerUsers
@@ -2141,23 +2162,21 @@ sub restoreConfig
     # cases, the server password has been modified and the backed one
     # is not valid anymore
     my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->eBoxSubscribed()) {
         try {
             # For hackers!
             EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
             my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
             # If matches, then skip to restore the server-info.json
             $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
-        } otherwise {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
             $backupSubscribed = 0;
-        } finally {
-            EBox::Sudo::root('rm -f /tmp/server-info.json');
-        };
+        }
+        EBox::Sudo::root('rm -f /tmp/server-info.json');
     }
 
     if ($backupSubscribed) {
@@ -2170,13 +2189,12 @@ sub restoreConfig
                         "chown ebox.adm '$subscriptionDir'",
                         "chown -R ebox.ebox $subscriptionDir/*");
             EBox::Sudo::root(@cmds);
-        } otherwise {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
-        };
+        }
     }
 
     # Mark as changed to make all things work again

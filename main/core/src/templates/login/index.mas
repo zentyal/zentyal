@@ -52,7 +52,7 @@ function checkBrowser() {
   <div class="warning" id="ffWarning" style="display: none">
                 <% __x('Warning: You are using a browser which is not {url}, the only one officially supported. Please, take into consideration that you might face some issues while navigating on Zentyal UI.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
   </div>
-   <form name='login'   action='/LOGIN' method='post'>
+   <form name='login'   action='/Login/Index' method='post'>
             <label class="labeltd"><% __('Username') %></label>
             <input  class='inputTextLogin' type='text'
                     name='credential_0'

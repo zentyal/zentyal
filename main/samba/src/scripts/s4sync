@@ -25,9 +25,9 @@ use EBox::Users::Group;
 use EBox::Users::User;
 
 use Data::Dumper;
-use Error qw(:try);
 use File::Slurp;
 use Time::gmtime;
+use TryCatch::Lite;
 
 sub getTimestamp
 {
@@ -138,19 +138,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $ou->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating OU '$dn': $error");
-                };
+                }
             }
             delete $zentyalOUs{$uniqueID};
         } else {
             try {
                 $ou->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding OU '$dn': $error");
-            };
+            }
         }
     }
 
@@ -176,19 +174,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaUser->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating user '$dn': $error");
-                };
+                }
             }
             delete $zentyalUsers{$uniqueID};
         } else {
             try {
                 $sambaUser->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding user '$dn': $error");
-            };
+            }
         }
     }
 
@@ -205,19 +201,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaContact->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating contact '$dn': $error");
-                };
+                }
             }
             delete $zentyalContacts{$uniqueID};
         } else {
             try {
                 $sambaContact->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding contact '$dn': $error");
-            };
+            }
         }
     }
 
@@ -233,10 +227,9 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaGroup->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating group '$dn': $error");
-                };
+                }
             }
             delete $zentyalGroups{$uniqueID};
         } else {
@@ -254,10 +247,9 @@ while (1) {
 
             try {
                 $sambaGroup->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding group '$dn': $error");
-            };
+            }
         }
     }
 
@@ -279,11 +271,10 @@ while (1) {
         try {
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+        } catch ($error) {
             my $dn = $zentyalGroup->dn();
             EBox::error("Error deleting group '$dn': $error");
-        };
+        }
     }
 
     # The contacts in the %zentyalContacts hash contain Zentyal contacts
@@ -293,8 +284,7 @@ while (1) {
         try {
             $zentyalContact->setIgnoredModules(['samba']);
             $zentyalContact->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+        } catch ($error) {
             my $dn = $zentyalContact->dn();
             EBox::error("Error deleting contact '$dn': $error");
         };
@@ -307,11 +297,10 @@ while (1) {
         try {
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+        } catch ($error) {
             my $dn = $zentyalUser->dn();
             EBox::error("Error deleting user '$dn': $error");
-        };
+        }
     }
 
     # In the hash %zentyalOUs are the linked OUs that does not exists in samba.
@@ -344,11 +333,10 @@ while (1) {
         try {
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject();
-        } otherwise {
-            my ($error) = @_;
+        } catch ($error) {
             my $dn = $zentyalOU->dn();
             EBox::error("Error removing OU '$dn': $error");
-        };
+        }
     }
 
     # Once we got a full loop execution, store the timestamp. Doing it as the

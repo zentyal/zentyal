@@ -1,0 +1,15 @@
+Use packaged libjs-jquery-ui.
+
+Index: roundcube/plugins/jqueryui/jqueryui.php
+===================================================================
+--- roundcube.orig/plugins/jqueryui/jqueryui.php	2013-06-04 22:55:57.757216447 +0200
++++ roundcube/plugins/jqueryui/jqueryui.php	2013-06-04 22:55:57.749216420 +0200
+@@ -21,7 +21,7 @@
+         $this->load_config();
+ 
+         // include UI scripts
+-        $this->include_script("js/jquery-ui-$version.custom.min.js");
++        $this->include_script("js/jquery-ui.min.js");
+ 
+         // include UI stylesheet
+         $skin = $rcmail->config->get('skin');

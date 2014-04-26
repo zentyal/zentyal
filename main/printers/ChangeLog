@@ -1,5 +1,13 @@
-3.2.1
+3.4
+	+ Skip internal groups in printer ACL model
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Implement printers() method to retrieve users permissions
+3.3
+	+ Rename 'Printer Sharing' to 'Printers'
+	+ Switch from Error to TryCatch for exception handling
+	+ Delete migration code from old versions
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.3

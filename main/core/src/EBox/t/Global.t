@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,23 +16,26 @@
 use strict;
 use warnings;
 
-use Test::More (tests => 59);
+package EBox::Global::Test;
+
+use parent 'Test::Class';
+
+use Test::More;
 use Test::MockObject;
 use Test::Exception;
 
-use lib  '../..';
-
 use EBox::Global::TestStub;
 
-use_ok('EBox::Global');
+sub setUpConfiguration : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+}
 
-EBox::Global::TestStub::fake();
+sub global_use_ok : Test(startup => 1) {
+    use_ok('EBox::Global');
+}
 
-sortOneModuleByDependenciesTest();
-sortTwoModulesByDependenciesTest();
-sortModulesByDependenciesTest();
-
-sub sortModulesByDependenciesTest
+sub sortModulesByDependenciesTest : Test(42)
 {
     # caution! method does not resolve cyclic dependencies
     diag 'Testing sortModulesByDependencies with 40 modules';
@@ -53,7 +56,7 @@ sub sortModulesByDependenciesTest
     _checkSortModulesByDependencies(\%modDependencies);
 }
 
-sub sortOneModuleByDependenciesTest
+sub sortOneModuleByDependenciesTest : Test(4)
 {
     my @modules;
     my $dependenciesMethod = 'dependencies';
@@ -62,13 +65,13 @@ sub sortOneModuleByDependenciesTest
     my %modDependencies = (0 => []);
     _checkSortModulesByDependencies(\%modDependencies);
 
-    diag 'Testing sortModulesByDependencies with one module with unsolved dpendnecies';
+    diag 'Testing sortModulesByDependencies with one module with unsolved dependencies';
     %modDependencies = (0 => [1]);
 
     _checkSortModulesByDependencies(\%modDependencies);
 }
 
-sub sortTwoModulesByDependenciesTest
+sub sortTwoModulesByDependenciesTest : Test(12)
 {
     my @modules;
     my $dependenciesMethod = 'dependencies';
@@ -153,4 +156,30 @@ sub _checkSortModulesByDependencies
     }
 }
 
+sub test_addModuleToSave : Test(7)
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+
+    is_deeply($global->get_list('post_save_modules'), [], 'Empty post_save');
+    lives_ok {
+        $global->addModuleToPostSave('dns');
+    } 'Adding a module to post-save process';
+    is_deeply($global->get_list('post_save_modules'), ['dns'], 'A module in post_save');
+    lives_ok {
+        $global->addModuleToPostSave('module');
+    } 'Adding another module to post-save process';
+    is_deeply($global->get_list('post_save_modules'), ['dns', 'module'], 'Two modules in post_save');
+    lives_ok {
+        $global->addModuleToPostSave('module');
+    } 'Adding the same module to post-save process';
+    is_deeply($global->get_list('post_save_modules'), ['dns', 'module'], 'The same two modules in post_save');
+    $global->unset('post_save_modules');
+}
+
 1;
+
+END {
+    EBox::Global::Test->runtests();
+}

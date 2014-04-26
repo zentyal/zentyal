@@ -1,10 +1,16 @@
-3.2.3
+3.4
+	+ Added portUsedByService method
+	+ Updated to use the new haproxy API
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Fixed crash when editing view in Summarized Report
 	+ Added EBox::Iptables::executeModuleRules to be able to execute
-3.2.2
 	+ Removed code made dead by new managament of DHCP nameservers
-3.2.1
+	+ Select text clearer for interfaces which have virtual interfaces
+3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.7

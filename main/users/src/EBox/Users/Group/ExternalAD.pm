@@ -22,7 +22,7 @@ use EBox::Gettext;
 use EBox::Exceptions::UnwillingToPerform;
 
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {

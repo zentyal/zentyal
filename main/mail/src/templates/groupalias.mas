@@ -70,7 +70,7 @@ $(function(){
       if (ev.groupEmpty) {
           $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
       } else if (!ev.usersWithMail) {
-          $(this).show().text('<% __('Group aliases cannot be created because any user has mail account') %>');
+          $(this).show().text('<% __('Group aliases cannot be created because no user has mail account') %>');
       } else {
           $(this).hide();
       }
@@ -142,12 +142,15 @@ $group
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
+                                    <div class="inline-input">
                                         <input id='mailCreateAlias_lhs' type='text' class='inputText' name='lhs'>
+                                        <span>@</span>
                                         <select name="rhs" enabled>
 %                                       foreach my $vd (@vdomains) {
                                                 <option value= <% $vd %> > <% __($vd) %> </option>
 %                                       }
                                         </select>
+                                      </div>
                                 </td>
                                 <td class='tcenter'>
                                         <input id='mailCreateAlias_submit'

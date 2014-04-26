@@ -30,7 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -64,11 +64,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|samAccountName|sid");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|samAccountName|sid");
+        }
     }
     return $self;
 }

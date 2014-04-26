@@ -34,7 +34,7 @@ use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use Error qw( :try );
+use TryCatch::Lite;
 use Perl6::Junction qw( any );
 use EBox::Sudo;
 
@@ -357,10 +357,10 @@ sub _setRemoteServices
             try {
                 if ( $rsMod->hasBundle() ) {
                     my %vpnSettings = %{$rsMod->vpnSettings()};
-                    push(@commands,
-                         pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                              . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
-                        );
+                    push (@commands,
+                        pf("-A ointernal $statenew -p $vpnSettings{protocol} "
+                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
+                    );
                 }
 
                 # Allow communications between ns and API
@@ -377,13 +377,13 @@ sub _setRemoteServices
                 push(@commands,
                      pf("-A ointernal $statenew -p tcp -d $APIEndPoint --dport 443 -j oaccept || true")
                     );
-            } catch EBox::Exceptions::External with {
+            } catch (EBox::Exceptions::External $e) {
                 # Cannot contact eBox CC, no DNS?
                 my ($exc) = @_;
                 my $msg = "Cannot contact Zentyal Remote: $exc";
                 EBox::error($msg);
                 $gl->addSaveMessage($msg);
-            };
+            }
         }
     }
     return \@commands;
@@ -666,10 +666,10 @@ sub _executeModuleRules
     foreach my $mod (@mods) {
         try {
             $self->executeModuleRules($mod, \%enabledRules);
-        } otherwise {
+        } catch {
             EBox::error('Error executing firewall rules for module ' . $mod->name());
             push(@failedMods, $mod->name());
-        };
+        }
     }
 
     if (@failedMods) {

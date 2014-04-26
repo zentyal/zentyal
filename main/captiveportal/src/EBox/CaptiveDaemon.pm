@@ -25,18 +25,20 @@ use warnings;
 # this daemons is only in charge of new logins and logouts / expired sessions
 package EBox::CaptiveDaemon;
 
-use EBox::Config;
-use EBox::Global;
 use EBox::CaptivePortal;
-use EBox::Sudo;
-use Error qw(:try);
+use EBox::CaptivePortal::Middleware::AuthLDAP;
+use EBox::Config;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Sudo;
 use EBox::Util::Lock;
 use EBox::Iptables;
+
 use Linux::Inotify2;
-use EBox::Gettext;
 use Time::HiRes qw(usleep);
+use TryCatch::Lite;
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -97,9 +99,9 @@ sub run
             $exceededEvent =
                 $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
         }
-    } otherwise {
+    } catch {
         $exceededEvent = 0;
-    };
+    }
 
     my $timeLeft;
     while (1) {
@@ -160,7 +162,7 @@ sub _updateSessions
         # Check for expiration or quota exceeded
         my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
-            $self->{module}->removeSession($user->{sid});
+            EBox::CaptivePortal::Middleware::AuthLDAP::removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@removeRules, @{$self->_removeRule($user, $sid)});
 
@@ -234,7 +236,8 @@ sub _updateSessions
         try {
             EBox::Util::Lock::lock('firewall');
             $lockedFw = 1;
-        } otherwise {};
+        } catch {
+        }
 
         if ($lockedFw) {
             try {
@@ -251,9 +254,11 @@ sub _updateSessions
                         EBox::debug("Cannot execute captive portal fw rule: $rule");
                     }
                 }
-            } finally {
+            } catch ($e) {
                 EBox::Util::Lock::unlock('firewall');
-            };
+                $e->throw();
+            }
+            EBox::Util::Lock::unlock('firewall');
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
             push @{ $self->{pendingRules} }, @rules, @removeRules;
@@ -312,7 +317,9 @@ sub _matchUser
     if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
         try {
             $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
-        } catch EBox::Exceptions::DataExists with {}; # already in
+        } catch (EBox::Exceptions::DataExists $e) {
+            # already in
+        }
     }
 }
 
@@ -339,7 +346,7 @@ sub _checkChains
         foreach my $ch (@{ $chains_list }) {
             try {
                 EBox::Sudo::root("iptables -t $table -nL $ch");
-            } otherwise {
+            } catch {
                 $chainsInPlace = 0;
             }
         }

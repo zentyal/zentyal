@@ -34,7 +34,7 @@ use EBox::ProgressIndicator;
 use EBox::Sudo;
 
 use Digest::MD5;
-use Error qw(:try);
+use TryCatch::Lite;
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
 use AptPkg::Cache;
@@ -233,10 +233,10 @@ sub updatePkgList
     try {
         EBox::Sudo::root($cmd);
         return 1;
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         EBox::error("Error updating package list");
         return 0;
-    };
+    }
 }
 
 sub _packageListFile
@@ -416,13 +416,12 @@ sub _packageDepends
     my $output;
     try {
         $output = EBox::Sudo::root($aptCmd);
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
+    } catch (EBox::Exceptions::Command $e) {
         my $aptError;
-        foreach my $line (@{ $ex->error() }) {
+        foreach my $line (@{ $e->error() }) {
             if ($line =~ m/^E: (.*)$/) {
                 # was an apt error, reformatting
-                foreach my $line (@{ $ex->output() }) {
+                foreach my $line (@{ $e->output() }) {
                     if ($line =~ m/\.\.\.$/) {
                         # current action line, ignoring
                         next;
@@ -435,9 +434,9 @@ sub _packageDepends
         if ($aptError) {
             throw EBox::Exceptions::External($aptError);
         } else {
-            $ex->throw();
+            $e->throw();
         }
-    };
+    }
 
     my @packages = grep {
     $_ =~ m/
@@ -462,16 +461,15 @@ sub _isAptReady
     my $unreadyMsg;
     try {
         EBox::Sudo::root($testCmd);
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $stderr = join '', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $stderr = join '', @{ $e->error() };
         if ($stderr =~ m/Unable to lock the administration directory/) {
             $unreadyMsg = __('Cannot use software package manager. Probably is currently being used by another process. You can either wait or kill the process.');
         } else {
             $unreadyMsg = __x('Cannot use software package manager. Error output: {err}',
                               err => $stderr);
         }
-    };
+    }
 
     if ($unreadyMsg) {
         throw EBox::Exceptions::External($unreadyMsg);
@@ -1042,7 +1040,7 @@ sub _installCronFile
 
 # Method: firstTimeMenu
 #
-#   Prints first time menu instead of Zentyal default menu.
+#   Returns first time menu instead of Zentyal default menu.
 #   This method is intended to be used by first time wizard pages
 #
 # Params:
@@ -1058,37 +1056,53 @@ sub firstTimeMenu
 
     my $dr = EBox::Global::disasterRecovery();
 
-    print "<div id='menu'><ul id='nav'>\n";
+    my $output = '';
 
-    print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
+    $output .= "<div id='menu'><ul id='nav'>\n";
+
+    $output .= "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
     if ($dr) {
-        $self->_printMenuItem(__('Choose Backup'), 0, $current);
+        $output .= $self->_dumpMenuItem(__('Choose Backup'), 0, $current);
     } else {
-        $self->_printMenuItem(__('Package Selection'), 0, $current);
+        $output .= $self->_dumpMenuItem(__('Package Selection'), 0, $current);
     }
-    $self->_printMenuItem(__('Confirmation'), 1, $current);
-    $self->_printMenuItem(__('Installation'), 2, $current);
+    $output .= $self->_dumpMenuItem(__('Confirmation'), 1, $current);
+    $output .= $self->_dumpMenuItem(__('Installation'), 2, $current);
     if ($dr) {
-        $self->_printMenuItem(__('Restore Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 3, $current);
     } else {
-        $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
     }
-    $self->_printMenuItem(__('Save Changes'), 4, $current);
-    $self->_printMenuItem(__('Finish'), 5, $current);
+    $output .= $self->_dumpMenuItem(__('Save Changes'), 4, $current);
+    $output .= $self->_dumpMenuItem(__('Finish'), 5, $current);
 
-    print "</ul></div>\n";
+    $output .= "</ul></div>\n";
+    $output .= <<END_SCRIPT;
+<script>
+\$(function() {
+   // ping the server each 60s
+   var ping_server = function() {
+        \$.getJSON('/SysInfo/HasUnsavedChanges',  function(response){});
+         setTimeout(ping_server, 60000);
+   };
+  setTimeout(ping_server, 60000);
+});
+</script>
+END_SCRIPT
+
+    return $output;
 }
 
-# Method: _printMenuItem
+# Method: _dumpMenuItem
 #
-#   Print a menu item for the firstTimeMenu
+#   Dumps a menu item for the firstTimeMenu
 #
 # Params:
 #   index - This item index inside the list
 #   current - Current item index
 #
-sub _printMenuItem
+sub _dumpMenuItem
 {
     my ($self, $text, $index, $current) = @_;
 
@@ -1102,7 +1116,7 @@ sub _printMenuItem
     else {
     }
 
-    print "<li><div style='$style'>$text</div></li>\n";
+    return "<li><div style='$style'>$text</div></li>\n";
 }
 
 # Is it QA the exclusive source?

@@ -1,25 +1,43 @@
-3.2.8
+HEAD
+	+ Restart usercorner on installation / upgrade time so the new code is
+	  available there too
+	+ Fixed external mail retrieval configuration form from user corner
+3.4.2
+	+ Fixed some errors on user mail account edition
 	+ Better integration between mail addon and mail field
 	+ Avoid error when trying to show a no longer existent mail in queue
-3.2.7
 	+ Fixed bug in LDAP synchronization of mail virtual domains
+3.4.1
+	+ Removed free access to dovecot from localhost, now we have a
+	  master password
+	+ Avoid unsaved changes after running initialSetup
 	+ Setup mail account on enable for users that already have mail attribute
-3.2.6
+3.4
+	+ Added and used checkMailNotInUse method
+	+ Added _delVDomainAbort to LdapVDomain base to give the
+	  opportunity to abort vdomain removals
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 	+ Added and used checkMailNotInUse method
 	+ Don't add mail which already exists when adding group alias
+	+ Better integration with openchange account addon
+	+ Remove openchange account when removing mail account
 	+ Postfix max mail size is increased by 36% because of base64 encoding
-3.2.5
 	+ Better integration of group alias addon
-3.2.4
 	+ Added openchange outgoing mail rewriting
-3.2.3
+	+ Added sieve_dir plugin parameter
 	+ Nopass dovecot policy enabled only when Openchange provisioned
-3.2.2
+3.3
+	+ Allow to use vdomains table when module is unconfigured
+	+ Dovecot passdb reordering and typo
+	+ Switch from Error to TryCatch for exception handling
 	+ Added required code to integrate with OpenChange
 	+ Added missing EBox::Exceptions uses
-3.2.1
+	+ Delete migration code from old versions
 	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification
+	+ Set version to 3.3
+	+ Add openchange compatibility
 3.2
 	+ Set version to 3.2
 3.1.7

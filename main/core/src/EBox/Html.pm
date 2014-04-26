@@ -108,7 +108,7 @@ sub menu
         $mod->menu($root);
     }
 
-    return $root->html;
+    return EBox::Html::makeHtml($root->htmlParams());
 }
 
 # Method: footer
@@ -132,9 +132,9 @@ sub footer
 #
 #   string - containg the html code for the header page
 #
-sub header # (title)
+sub header
 {
-    my ($title) = @_;
+    my ($title, $folder) = @_;
 
     my $serverName = __('Zentyal');
     my $global = EBox::Global->getInstance();
@@ -152,21 +152,25 @@ sub header # (title)
     }
 
     my $favicon = $global->theme()->{'favicon'};
-    my $html = makeHtml('header.mas', title => $title, favicon => $favicon );
+    my $html = makeHtml('header.mas', title => $title, favicon => $favicon, folder => $folder);
     return $html;
 
 }
 
+my $output;
+my $interp;
 sub makeHtml
 {
     my ($filename, @params) = @_;
 
     my $filePath = EBox::Config::templates . "/$filename";
 
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
-    my $comp = $interp->make_component(comp_file => $filePath);
+    $output = '';
+    if (not $interp) {
+        $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
+    }
 
+    my $comp = $interp->make_component(comp_file => $filePath);
     $interp->exec($comp, @params);
     return $output;
 }
@@ -175,9 +179,9 @@ sub _htmlVersion
 {
     my $version = EBox::Config::version();
 
-    unless (EBox::Global->communityEdition()) {
-        $version .= ' <em>Service Pack 1</em>';
-    }
+#    unless (EBox::Global->communityEdition()) {
+#        $version .= ' <em>Service Pack 1</em>';
+#    }
 
     return $version;
 }

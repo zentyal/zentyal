@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
-use Error qw(:try);
+use TryCatch::Lite;
 use Params::Validate;
 use Perl6::Junction;
 use File::Temp qw(tempfile);
@@ -95,7 +95,7 @@ sub command # (command)
     my ($cmd) = @_;
     validate_pos(@_, 1);
 
-    my $procname = $ENV{script} ? "$0 $ENV{script}" : @ARGV ? "$0 @ARGV" : $0;
+    my $procname = _procname();
     EBox::debug("$procname (pid: $$) - $cmd");
     my @output = `$cmd 2> $STDERR_FILE`;
 
@@ -123,8 +123,8 @@ sub _commandError
         throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
     }
 
-    my $exitValue =  $childError >>  8;
-    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
+    my $exitValue = $childError >>  8;
+    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error, exitValue => $exitValue);
 }
 
 # Procedure: root
@@ -171,13 +171,21 @@ sub silentRoot
     _root(0, @_);
 }
 
+sub _procname
+{
+    # FIXME: We should stop using $ENV at some point...
+    my $url = $ENV{PATH_INFO};
+    $url =~ s/^\///s if ($url);
+    return $url ? "$0 $url" : @ARGV ? "$0 @ARGV" : $0;
+}
+
 sub _root
 {
     my ($wantError, @cmds) = @_;
 
     unshift (@cmds, 'set -e') if (@cmds > 1);
     my $commands = join("\n", @cmds);
-    my $procname = $ENV{script} ? "$0 $ENV{script}" : @ARGV ? "$0 @ARGV" : $0;
+    my $procname = _procname();
     EBox::debug("$procname (pid: $$) - $commands");
 
     # Create a tempfile to run commands afterwards
@@ -250,11 +258,9 @@ sub rootWithoutException
     my $output;
     try {
         $output =  root($cmd);
+    } catch (EBox::Exceptions::Sudo::Command $e) { # ignore failed commands
+        $output = $e->output();
     }
-    catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
-        my $ex = shift @_;
-        $output = $ex->output();
-    };
 
     return $output;
 }
@@ -306,10 +312,9 @@ sub stat
 
     try {
         $statOutput = root($statCmd);
-    }
-    catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         $statOutput = undef;
-    };
+    }
 
     return undef if !defined $statOutput;
 

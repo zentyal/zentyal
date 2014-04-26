@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in
+	configure)
+
+        /usr/share/zentyal/initial-setup trafficshaping $2
+
+        # restart module
+        service zentyal trafficshaping restart || true
+
+        dpkg-trigger --no-await zentyal-core
+		;;
+esac
+
+exit 0

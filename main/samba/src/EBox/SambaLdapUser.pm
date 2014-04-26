@@ -22,8 +22,7 @@ use base qw(EBox::LdapUserBase);
 
 use MIME::Base64;
 use Encode;
-use Error qw(:try);
-use Net::LDAP qw(LDAP_ALREADY_EXISTS);
+use TryCatch::Lite;
 use Net::LDAP::Util qw(canonical_dn ldap_explode_dn);
 
 use EBox::Exceptions::External;
@@ -125,10 +124,9 @@ sub _preAddOuFailed
 
         EBox::info("Aborted OU creation, removing from samba");
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _delOU
@@ -149,10 +147,9 @@ sub _delOU
 
     try {
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
-    };
+    }
 }
 
 # Method: _preAddUser
@@ -219,10 +216,9 @@ sub _preAddUserFailed
 
         EBox::info("Aborted User creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::info("Error removing samba user $uid: $error");
-    };
+    }
 }
 
 # Method: _addUser
@@ -286,8 +282,8 @@ sub _addUserFailed
         return unless $sambaUser->exists();
         EBox::info("Aborted user creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-    };
+    } catch {
+    }
 }
 
 sub _preModifyUser
@@ -318,7 +314,7 @@ sub _preModifyUser
         my $entry = $sambaUser->_entry();
         my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
         if ($result->is_error()) {
-            if ($result->code() eq LDAP_ALREADY_EXISTS) {
+            if ($result->code() eq Net::LDAP::Constant::LDAP_ALREADY_EXISTS) {
                 my $name = $zentyalUser->get('cn');
                 throw EBox::Exceptions::DataExists(
                     text => __x('User name {x} already exists in the same container.',
@@ -329,17 +325,15 @@ sub _preModifyUser
                 result =>   $result,
                 opArgs   => "New RDN: $newrdn");
         }
-
-        $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
-        return unless $sambaUser->exists();
     }
 
+    my $lazy = 1;
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
         utf8::encode($displayName);
-        $sambaUser->set('displayName', $displayName, 1);
+        $sambaUser->set('displayName', $displayName, $lazy);
     } else {
-        $sambaUser->delete('displayName', 1);
+        $sambaUser->delete('displayName', $lazy);
     }
     my $description = $zentyalUser->description();
     my $mail = $zentyalUser->mail();
@@ -347,30 +341,31 @@ sub _preModifyUser
     utf8::encode($gn);
     my $sn = $zentyalUser->get('sn');
     utf8::encode($sn);
-    $sambaUser->set('givenName', $gn, 1);
-    $sambaUser->set('sn', $sn, 1);
+    $sambaUser->set('givenName', $gn, $lazy);
+    $sambaUser->set('sn', $sn, $lazy);
     if ($description) {
         utf8::encode($description);
-        $sambaUser->set('description', $description, 1);
+        $sambaUser->set('description', $description, $lazy);
     } else {
-        $sambaUser->delete('description', 1);
+        $sambaUser->delete('description', $lazy);
     }
     if ($mail) {
-        $sambaUser->set('mail', $mail, 1);
+        $sambaUser->set('mail', $mail, $lazy);
     } else {
-        $sambaUser->delete('mail', 1);
+        $sambaUser->delete('mail', $lazy);
+    }
+    if ($zentyalUser->isDisabled()) {
+        $sambaUser->setAccountEnabled(0, $lazy);
+    } else {
+        $sambaUser->setAccountEnabled(1, $lazy);
     }
     if (defined($zentyalPwd)) {
-        $sambaUser->changePassword($zentyalPwd, 1);
+        $sambaUser->changePassword($zentyalPwd, $lazy);
     } else {
         my $keys = $zentyalUser->kerberosKeys();
         $sambaUser->setCredentials($keys);
     }
-    if ($zentyalUser->isDisabled()) {
-        $sambaUser->setAccountEnabled(0);
-    } else {
-        $sambaUser->setAccountEnabled(1);
-    }
+    $sambaUser->save();
 }
 
 sub _delUser
@@ -410,10 +405,9 @@ sub _delUser
                 }
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting user: $error");
-    };
+    }
 }
 
 # Method: _preAddContact
@@ -470,10 +464,9 @@ sub _preAddContactFailed
 
         EBox::info("Aborted Contact creation, removing from samba");
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::debug("Error removing contact " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _modifyContact
@@ -532,10 +525,9 @@ sub _modifyContact
             $sambaContact->delete('mail', 1);
         }
         $sambaContact->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying contact: $error");
-    };
+    }
 }
 
 sub _delContact
@@ -556,10 +548,9 @@ sub _delContact
     EBox::debug("Deleting contact '$dn' from samba");
     try {
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting contact: $error");
-    };
+    }
 }
 
 sub _membersToSamba
@@ -606,10 +597,9 @@ sub _membersToSamba
             EBox::info("Removing member '$sambaMemberDN' from Samba group '$gid'");
             try {
                 $sambaGroup->removeMember($sambaMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error removing member '$sambaMemberDN' from Samba group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -631,10 +621,9 @@ sub _membersToSamba
             }
             try {
                 $sambaGroup->addMember($sambaMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding member '$sambaMemberDN' to Samba group '$gid': $error");
-            };
+            }
         }
     }
     unless ($lazy) {
@@ -694,10 +683,9 @@ sub _preAddGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 # Method: _addGroup
@@ -749,10 +737,9 @@ sub _addGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 sub _modifyGroup
@@ -788,10 +775,9 @@ sub _modifyGroup
             $sambaGroup->delete('mail', $lazy);
         }
         $sambaGroup->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying group: $error");
-    };
+    }
 }
 
 sub _delGroup
@@ -837,10 +823,9 @@ sub _delGroup
         if ($self->_groupShareEnabled($zentyalGroup)) {
             $self->removeGroupShare($zentyalGroup);
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting group: $error");
-    };
+    }
 }
 
 # User and group addons

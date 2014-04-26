@@ -33,7 +33,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Users::User;
-use Error qw( :try );
+use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
 
@@ -181,6 +181,16 @@ sub delUserAccount
     push (@cmds, "/bin/rm -rf $sieveDir");
 
     EBox::Sudo::root(@cmds);
+
+    # disable openchange account if exists. We don't implement and observer
+    # notifier interface bz only one module is to be notifier
+    if ($self->openchangeAccountEnabled($user)) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        my $userOc = $openchange->_ldapModImplementation();
+        if ($userOc->enabled($user)) {
+            $userOc->setAccountEnabled($user, 0);
+        }
+    }
 }
 
 # Method: userAccount
@@ -275,9 +285,9 @@ sub _addUser
 
     try {
         $self->setUserAccount($user, lc($user->name()), $vdomain);
-    } otherwise {
+    } catch {
        EBox::info("Creation of email account for $user failed");
-    };
+    }
 }
 
 sub _delGroup
@@ -823,7 +833,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/authldap.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
         EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
 
@@ -868,5 +877,20 @@ sub hiddenOUs
 {
     return [ 'postfix' ];
 }
+
+sub openchangeAccountEnabled
+{
+    my ($self, $user) = @_;
+    if (EBox::Global->modExists('openchange')) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        if ($openchange->configured() and $openchange->isProvisioned()) {
+            my $userOc = $openchange->_ldapModImplementation();
+            return $userOc->enabled($user);
+        }
+    }
+    return 0;
+}
+
+
 
 1;

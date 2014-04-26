@@ -26,9 +26,10 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
+use Time::HiRes qw(usleep);
 use EBox;
 
 use constant NTPCONFFILE => '/etc/ntp.conf';
@@ -65,15 +66,6 @@ sub appArmorProfiles
                 'params' => \@params,
             }
            ];
-}
-
-sub isRunning
-{
-    my ($self) = @_;
-    # return undef if service is not enabled
-    # otherwise it might be misleading if time synchronization is set
-    ($self->isEnabled()) or return undef;
-    return EBox::Service::running('ebox.ntpd');
 }
 
 # Method: actions
@@ -146,11 +138,7 @@ sub initialSetup
             $fw->setInternalService($serviceName, 'accept');
         }
         $fw->saveConfigRecursive();
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
+        $self->saveConfigRecursive();
     }
 }
 
@@ -163,9 +151,9 @@ sub _syncDate
         return unless $exserver;
         try {
             EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             EBox::warn("Couldn't execute ntpdate $exserver");
-        };
+        }
     }
 }
 
@@ -175,9 +163,19 @@ sub _preSetConf
 
     try {
         $self->_stopService();
-        sleep 2;
+        # wait for ntpd daemon stop
+        my $tries = 4000;
+        while ($self->isRunning()) {
+            usleep(1000);
+            $tries -= 1;
+            if ($tries == 0) {
+                EBox::error("Cannot stop zentyal ntp daemon");
+                last;
+            }
+        }
         $self->_syncDate();
-    } otherwise {};
+    } catch {
+    }
 }
 
 #  Method: _daemons

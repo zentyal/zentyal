@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2010-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,7 +17,6 @@ use strict;
 use warnings;
 
 package EBox::Mail::Model::ExternalAccounts;
-
 use base 'EBox::Model::DataTable';
 
 #
@@ -26,18 +25,17 @@ use base 'EBox::Model::DataTable';
 #
 
 use EBox;
-use EBox::Gettext;
-use EBox::Types::Password;
-use EBox::Types::MailAddress;
-use EBox::Types::Host;
-use EBox::Types::Select;
-use EBox::Types::Port;
-use EBox::Global;
-use EBox::Validate;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
-
-use Apache2::RequestUtil;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Types::Host;
+use EBox::Types::MailAddress;
+use EBox::Types::Password;
+use EBox::Types::Port;
+use EBox::Types::Select;
+use EBox::Users::User;
+use EBox::Validate;
 
 sub new
 {
@@ -49,6 +47,44 @@ sub new
    bless($self, $class);
 
    return $self;
+}
+
+sub precondition
+{
+    my ($self) = @_;
+
+    my $usercornerMod = EBox::Global->modInstance('usercorner');
+    unless (defined $usercornerMod) {
+        $self->{preconditionFail} = 'notUserCorner';
+        return undef;
+    }
+
+    unless ($usercornerMod->editableMode()) {
+        $self->{preconditionFail} = 'nonEditableMode';
+        return undef;
+    }
+
+    unless (defined $self->_userAccount()) {
+        $self->{preconditionFail} = 'notEmailAccount';
+        return undef;
+    }
+
+    return 1;
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notUserCorner') {
+        return __('This form is only available from the User Corner application.');
+    }
+    if ($self->{preconditionFail} eq 'nonEditableMode') {
+        return __('Password change is only available in master or standalone servers. You need to change your password from the user corner of your master server.');
+    }
+    if ($self->{preconditionFail} eq 'notEmailAccount') {
+        return __('Cannot retrieve mail from external accounts because you do not have a email account in a local mail domain');
+    }
 }
 
 # Method: pageTitle
@@ -128,13 +164,11 @@ sub _table
         tableName          => 'ExternalAccounts',
         printableTableName => __('External mail accounts'),
         printableRowName    => __('external mail account'),
-#                         'defaultController' =>
-#             '/Mail/Controller/ExternalAccounts',
         defaultActions     => ['add', 'editField', 'del', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         help               => __('Fetching mail is done every 10 minutes'),
-        modelDomain        => 'mail',
+        modelDomain        => 'Mail',
 
     };
 
@@ -172,11 +206,15 @@ sub _mailProtocols
 sub _user
 {
     my ($self) = @_;
-    my $request = Apache2::RequestUtil->request();
-    my $user = $request->user();
-    my $usersMod = EBox::Global->modInstance('users');
 
-    return $usersMod->userByUID($user);
+    my $usercornerMod = EBox::Global->modInstance('usercorner');
+    my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
+    my $zentyalUser = new EBox::Users::User(uid => $user);
+    unless ($zentyalUser->exists()) {
+        throw EBox::Exceptions::External(
+            __x('User {x} not found in LDAP database'), x => $user);
+    }
+    return $zentyalUser;
 }
 
 sub _userExternalAccounts
@@ -379,20 +417,6 @@ sub _elementsToParamsForFetchmailLdapCall
     }
 
     return \@callParams;
-}
-
-sub precondition
-{
-    my ($self) = @_;
-    my $account = $self->_userAccount();
-    return defined $account;
-}
-
-sub preconditionFailMsg
-{
-    return
-__('Cannot retrieve mail from external accounts because you do not have a email account in a local mail domain')
-        ;
 }
 
 # Method: _checkRowExist

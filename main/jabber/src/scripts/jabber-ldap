@@ -5,7 +5,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Users;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -27,7 +27,7 @@ sub update
             $user->set('jabberAdmin', 'FALSE', 1);
             try {
                 $user->save();
-            } otherwise {
+            } catch {
                 warn "Error updating user: $username\n";
             }
         } else {

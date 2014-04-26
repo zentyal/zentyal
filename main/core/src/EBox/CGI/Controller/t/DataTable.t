@@ -29,6 +29,8 @@ use EBox::Test::CGI;
 use EBox::Model::DataTable::Test;
 use EBox::Types::Text;
 
+use Plack::Request;
+
 use_ok('EBox::CGI::Controller::DataTable');
 
 EBox::TestStub::fake();
@@ -65,17 +67,18 @@ removeRowTest();
 
 sub addRowTest
 {
-    my $cgi = new CGI({
-        action => 'add',
-        tablename => 'test',
-        directory => '/conf/fakeModule/DataTable',
-        field1 => 'Foo',
-    });
-    $ENV{HTTP_HOST} = '192.168.1.1';
-    $ENV{HTTP_REFERER} = "https://$ENV{HTTP_HOST}/fakeModule/View/DataTable";
+    my $env = {};
+    $env->{HTTP_HOST} = '192.168.1.1';
+    $env->{HTTP_REFERER} = "https://$env->{HTTP_HOST}/fakeModule/View/DataTable";
+    my $req = Plack::Request->new($env);
+    my $parameters = $req->parameters();
+    $parameters->set('action', 'add');
+    $parameters->set('tablename', 'test');
+    $parameters->set('directory', '/conf/fakeModule/DataTable');
+    $parameters->set('field1', 'Foo');
     my $controller = new EBox::CGI::Controller::DataTable(
         tableModel => $model,
-        cgi => $cgi
+        request => $req
     );
     isa_ok($controller, 'EBox::CGI::Controller::DataTable');
 
@@ -87,18 +90,18 @@ sub addRowTest
 
 sub removeRowTest
 {
-    my $cgi = new CGI({
-        action => 'del',
-        tablename => 'test',
-        directory => '/conf/fakeModule/DataTable',
-        id => $rowId,
-    });
-
-    $ENV{HTTP_HOST} = '192.168.1.1';
-    $ENV{HTTP_REFERER} = "https://$ENV{HTTP_HOST}/fakeModule/View/DataTable";
+    my $env = {};
+    $env->{HTTP_HOST} = '192.168.1.1';
+    $env->{HTTP_REFERER} = "https://$env->{HTTP_HOST}/fakeModule/View/DataTable";
+    my $req = Plack::Request->new($env);
+    my $parameters = $req->parameters();
+    $parameters->set('action', 'del');
+    $parameters->set('tablename', 'test');
+    $parameters->set('directory', '/conf/fakeModule/DataTable');
+    $parameters->set('id', $rowId);
     my $controller = new EBox::CGI::Controller::DataTable(
         tableModel => $model,
-        cgi => $cgi
+        request => $req
     );
     isa_ok($controller, 'EBox::CGI::Controller::DataTable');
 

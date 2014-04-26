@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,7 +32,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;
@@ -505,7 +505,7 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self, $childrenObjectClass) = @_;
+    my ($self, $childrenObjectClass, $customFilter) = @_;
 
     return [] unless $self->isContainer();
     my $filter;
@@ -513,6 +513,9 @@ sub children
         $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
     } else {
         $filter = '(!(objectclass=organizationalRole))';
+    }
+    if ($customFilter) {
+        $filter = '(&' . $filter . "($customFilter))";
     }
 
     # All children except for organizationalRole objects which are only used
@@ -609,7 +612,6 @@ sub relativeDN
     return $ldapMod->relativeDN($self->dn());
 }
 
-
 # Method: printableType
 #
 #   Override in subclasses to return the printable type name.
@@ -620,6 +622,26 @@ sub printableType
     return ref($self);
 }
 
+# Method: checkCN
+#
+#  Check if the given CN is correct.
+#  The default implementation just checks that there is no other object with
+#  the same CN in the container
+sub checkCN
+{
+    my ($class, $container, $cn)= @_;
+    my @children = @{ $container->children(undef, "cn=$cn") };
+    if (@children) {
+        my ($sameCN) = @children;
+        my $type = $sameCN->printableType();
+        throw EBox::Exceptions::External(
+            __x("There is already an object of type {type} with CN={cn} in this container",
+                type => $type,
+                cn => $cn
+               )
+           );
+    }
+}
 
 # Method: checkMail
 #
@@ -633,6 +655,5 @@ sub checkMail
     my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
     $mod->checkMailNotInUse($address);
 }
-
 
 1;

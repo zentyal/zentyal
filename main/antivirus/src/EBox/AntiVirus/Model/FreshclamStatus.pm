@@ -35,7 +35,7 @@ use EBox::Types::Boolean;
 
 use ClamAV::XS;
 use Date::Calc;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';
@@ -132,9 +132,9 @@ sub _content
     my $state;
     try {
         $state = $antivirus->freshclamState();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         $state = { date => undef };
-    };
+    }
 
     my $date       = delete $state->{date};
     my $logDate = 0;
@@ -152,11 +152,10 @@ sub _content
         $logDate = $self->_lastUpdateDate();
         try {
             $nSig = ClamAV::XS::signatures();
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error($ex);
+        } catch ($e) {
+            EBox::error($e);
             $nSig = -1;
-        };
+        }
     }
     else {
         $date  = time();
@@ -169,11 +168,10 @@ sub _content
             $logDate = $self->_lastUpdateDate();
             try {
                 $nSig = ClamAV::XS::signatures();
-            } otherwise {
-                my ($ex) = @_;
-                EBox::error($ex);
+            } catch ($e) {
+                EBox::error($e);
                 $nSig = -1;
-            };
+            }
         }
     }
 

@@ -42,7 +42,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);
@@ -56,7 +56,6 @@ use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
 use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
-use constant BIND9INIT            => "/etc/init.d/bind9";
 use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
 
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
@@ -571,17 +570,6 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
-
-    # Upgrade from 3.2.1 to 3.2.2
-    if (defined $version and EBox::Util::Version::compare($version, '3.2.2') < 0) {
-        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.conf');
-        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.override');
     }
 
     # Execute initial-setup script to create SQL tables
@@ -1570,14 +1558,13 @@ sub _launchNSupdate
     my ($self, $fh) = @_;
 
     my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-    if ( $self->_isNamedListening() ) {
+    if ($self->_isNamedListening()) {
         try {
             EBox::Sudo::root($cmd);
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error("nsupdate error: $ex");
+        } catch ($e) {
+            EBox::error("nsupdate error: $e");
             $fh->unlink_on_destroy(0); # For debug purposes
-        };
+        }
     } else {
         $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
         push(@{$self->{nsupdateCmds}}, $cmd);
@@ -1927,6 +1914,7 @@ sub hostDomainChangedDone
                 my $dataElement = $txtRow->elementByName('txt_data');
                 $dataElement->setValue($newDomainName);
                 $txtRow->store();
+                $self->st_unset(DELETED_RR_KEY);
                 last;
             }
         }

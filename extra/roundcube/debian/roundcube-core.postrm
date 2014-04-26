@@ -1,0 +1,107 @@
+#!/bin/sh
+# postrm script for roundcube
+#
+# see: dh_installdeb(1)
+
+set -e
+
+if [ -f /usr/share/debconf/confmodule ]; then
+        . /usr/share/debconf/confmodule
+fi
+if [ -f /usr/share/dbconfig-common/dpkg/postrm ]; then
+        . /usr/share/dbconfig-common/dpkg/postrm 
+        dbc_go roundcube $@
+fi
+
+lighttpd_remove() {
+	if [ -f /etc/lighttpd/conf-available/50-roundcube.conf ] ; then
+		rm -f /etc/lighttpd/conf-available/50-roundcube.conf
+		if [ ! -x /usr/sbin/lighty-disable-mod ] ; then
+			lighty-disable-mod roundcube
+		fi
+	fi
+}
+
+[ ! -e /usr/share/apache2/apache2-maintscript-helper ] || \
+    . /usr/share/apache2/apache2-maintscript-helper
+apache_remove() {
+        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+            apache2_invoke disconf roundcube.conf
+	    if [ -d /etc/apache2/conf-available ] && [ -e /etc/apache2/conf-available/roundcube.conf ]; then
+                rm /etc/apache2/conf-available/roundcube.conf
+	    fi
+        elif  dpkg-query -f '${Version}'  -W 'apache2.2-common' > /dev/null 2>&1 ; then
+            # Old Apache
+	    if [ -d /etc/apache2/conf.d ] && [ -e /etc/apache2/conf.d/roundcube.conf ]; then
+                rm /etc/apache2/conf.d/roundcube.conf
+	    fi
+        fi
+}
+
+
+case "$1" in
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+    
+    remove)
+
+	# Handling web server reconfiguration
+	db_get roundcube/reconfigure-webserver
+        webservers="$RET"
+        restart=""
+        
+        for webserver in $webservers; do
+            webserver=${webserver%,}
+        
+            case "$webserver" in
+                apache2)
+		    apache_remove
+		    ;;
+		lighttpd)
+		    lighttpd_remove
+		    ;;
+            esac
+
+            test -x /usr/sbin/$webserver || continue
+            restart="$restart $webserver"
+
+        done
+        
+        db_get roundcube/restart-webserver
+        res="$RET"
+        db_stop || true
+        if [ "$res" = "true" ]; then
+            for webserver in $restart; do
+                webserver=${webserver%,}
+                # Redirection of 3 is needed because Debconf uses it and it might
+                # be inherited by webserver. See bug #446324.
+                if [ -x /usr/sbin/invoke-rc.d ]; then
+                    invoke-rc.d $webserver reload 3>/dev/null || true
+                else
+                    /etc/init.d/$webserver reload 3>/dev/null || true
+                fi
+            done
+        fi
+    ;;
+
+    purge)
+        rm -f /etc/roundcube/debian-db.php
+        if which ucf >/dev/null 2>&1; then
+                ucf --purge /etc/roundcube/debian-db.php
+		ucf --purge /etc/roundcube/main.inc.php
+        fi
+	rm -f /etc/roundcube/main.inc.php
+	rm -rf /var/log/roundcube
+	rm -rf /var/lib/roundcube
+    ;;
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
+
+

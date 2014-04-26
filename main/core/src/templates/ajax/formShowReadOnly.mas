@@ -1,0 +1,28 @@
+<%doc>
+This template is for the edit div of EBox::Model::DataForm::Readonly
+</%doc>
+<%flags>
+inherit =>  '/ajax/changeRowForm.mas'
+</%flags>
+<%args>
+$model
+$formData
+</%args>
+<div id='<% $model->table()->{tableName} %>_message'></div>
+<& SELF:editForm,
+   model     => $model,
+   formData => $formData
+&>
+
+<%doc>
+  Method: buttons
+
+      Dont show any button
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+</%method>

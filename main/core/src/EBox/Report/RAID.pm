@@ -23,7 +23,7 @@ use EBox;
 use EBox::Sudo;
 
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PROC_MDSTAT => '/proc/mdstat';
 # see t/testdata fpr examples of mdstat files

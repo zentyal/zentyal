@@ -1,8 +1,12 @@
-3.2.1
+3.4
+	+ Set version to 3.4
+3.3
+	+ Delete migration code from old versions
 	+ Log helper changes: only check no-via lines, this avoid
 	  duplicate lines but made us lose the 'TLS tunnel' MAC and 'user
 	  not found' event. Also best treatment of MAC addresses, thanks
 	  to Gianluca Carlesso for his code for this
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.2

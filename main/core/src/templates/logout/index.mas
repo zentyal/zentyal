@@ -13,7 +13,7 @@ use EBox::Gettext;
    <% __('Do you really want to close the session?') %>
 </div>
 % }
-<form action='/Logout/Logout' style="margin-top:20px;">
+<form action='/Logout/Logout' style="margin-top:20px;" method='post'>
 % if ($unsaved eq 'yes'){
 <div> <% __('Discard current changes') %> <& /input/checkbox.mas, name=> 'revokeConfig' &><div>
 % }

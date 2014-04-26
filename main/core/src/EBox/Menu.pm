@@ -23,7 +23,7 @@ use EBox::Menu::Root;
 use EBox::CGI::Run;
 
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use Storable qw(store);
 
 sub _addWord
@@ -59,9 +59,9 @@ sub getKeywords
                     _addWord($keywords, $word, $item->{id});
                 }
             }
-        } otherwise {
+        } catch {
             EBox::debug('No model found for ' . $item->{'url'} . "\n");
-        };
+        }
     }
     if ($item->items()) {
         for my $i (@{$item->items()}) {

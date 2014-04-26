@@ -3,7 +3,7 @@ $data
 </%args>
 % if ( defined ( $data->printableValue() )) {
 <span><% $data->printableValue() %></span>
- <%$data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
 % }
 % else {
 <span>--</span>

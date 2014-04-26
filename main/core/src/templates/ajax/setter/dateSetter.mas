@@ -59,7 +59,7 @@ for (my $year=1990; $year<2030; $year++) {
 
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="inline-input <% $cssClass %>">
     <& /input/select.mas,
         'name'      => $id . '_day' ,
         'options'   => \@days,

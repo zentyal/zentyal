@@ -7,6 +7,9 @@ create_db()
 {
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
+    # Restart mysql so it loads the zentyal.cnf file
+    service mysql restart
+
     # Do not disable innodb if there are other databases previous to the
     # creation of the Zentyal one
     lines=$(echo "show databases" | mysql --defaults-file=/etc/mysql/debian.cnf | wc -l)
@@ -15,6 +18,18 @@ create_db()
         sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf
     fi
 
+    # If password file exists, but login is incorrect
+    # Delete password file and database user, so we create them again
+    if [ -s $PASSWD_FILE ]
+    then
+        PASSWD=`cat $PASSWD_FILE`
+        if ! mysql -u $db_name -p$PASSWD -e 'exit'; then
+            mysql --defaults-file=/etc/mysql/debian.cnf -e "DROP USER '$db_user'@'localhost'"
+            rm -rf $PASSWD_FILE
+        fi
+    fi
+
+    # If there is no password file, create a new one
     if [ -s $PASSWD_FILE ]
     then
         PASSWD=`cat $PASSWD_FILE`
@@ -24,11 +39,13 @@ create_db()
         chmod 400 $PASSWD_FILE
     fi
 
+    # Create zentyal database and populate it
+    # Also create zentyal user (and change root password so it has the zentyal one)
     echo "Creating the $db_name database"
-    echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-          GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";
-          UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';
-          FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';" | mysql --defaults-file=/etc/mysql/debian.cnf
+    echo "FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
 }

@@ -31,7 +31,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::Exceptions::Lock;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PING_PATTERN => '7a6661696c6f76657274657374';
 use constant PING_PATTERN_TEXT => 'zfailovertest';
@@ -245,10 +245,10 @@ sub run
                 try {
                     $module->regenGatewaysFailover();
                     $done = 1;
-                } catch EBox::Exceptions::Lock with {
+                } catch (EBox::Exceptions::Lock $e) {
                     sleep 5;
                     $timeout -= 5;
-                };
+                }
                 if ($done) {
                     last;
                 }
@@ -384,11 +384,15 @@ sub _runTest
     my $result;
     if (($type eq 'gw_ping') or ($type eq 'host_ping')) {
         $result = system("ping -W5 -c1 -I $localAddress -p" . PING_PATTERN . " $host");
-    } elsif ($type eq 'dns') {
-        $result = system("host -W 5 $host");
     } elsif ($type eq 'http') {
         my $command = "wget $host --bind-address=$localAddress --tries=1 -T 5 -O /dev/null";
         $result = system($command);
+    } elsif ($type eq 'dns') {
+        # DEPRECATED test type, we mantain here just for backwards compability
+        $result = system("host -W 5 $host");
+    } else {
+        EBox::error("Invalid type of failover test: $type");
+        return 0;
     }
 
     return $result == 0;

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc test-net-ldap soap-lite string-shellquote string-random"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards chart date-calc test-net-ldap soap-lite string-shellquote trycatch-lite string-random text-dhcpleases class-singleton xml-libxml plack"
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter trafficshaping"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha trafficshaping"
 
-while getopts ":vjsc" opt; do
+while getopts ":vjscf" opt; do
     case $opt in
     v)
         VERBOSE="yes"
@@ -26,20 +26,26 @@ while getopts ":vjsc" opt; do
         COVERAGE="yes"
         shift $((OPTIND-1))
         ;;
+    f)
+        FAST="yes"
+        shift $((OPTIND-1))
+        ;;
     esac
 done
 
 MISSINGLIBS=""
 
-# TODO: Improve this
-for i in $PERLLIBS
-do
-    pkg="lib$i-perl"
-    if ! dpkg -s $pkg >/dev/null 2>&1
-    then
-        MISSINGLIBS="$MISSINGLIBS $pkg"
-    fi
-done
+if [ "$FAST" != "yes" ]; then
+    # TODO: Improve this
+    for i in $PERLLIBS
+    do
+        pkg="lib$i-perl"
+        if ! dpkg -s $pkg >/dev/null 2>&1
+        then
+            MISSINGLIBS="$MISSINGLIBS $pkg"
+        fi
+    done
+fi
 
 if [ -n "$MISSINGLIBS" ]
 then

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+### Actions to be executed when installing the module for the first time ###
+mkdir /var/lib/zentyal/conf/ha || true
+chown ebox:ebox /var/lib/zentyal/conf/ha
+
+exit 0

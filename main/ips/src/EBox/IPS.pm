@@ -25,7 +25,7 @@ package EBox::IPS;
 
 use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Service;
@@ -112,7 +112,7 @@ sub enabledIfaces
     foreach my $row (@{$ifacesModel->enabledRows()}) {
         my $iface = $ifacesModel->row($row)->valueByName('iface');
         my $method = $net->ifaceMethod($iface);
-        next if ($method eq 'notset' or $method eq 'trunk');
+        next if (($method eq 'notset') or ($method eq 'trunk') or ($method eq 'bundled'));
         push (@ifaces, $iface);
     }
 
@@ -548,22 +548,6 @@ sub firewallHelper
     return undef;
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Perform the migration from old ids if installing for the first time
-    unless ($version) {
-        $self->_migrateTo32();
-    }
-}
-
 # Group: Private methods
 
 # Send failure event when a failure attempt happens
@@ -581,27 +565,6 @@ sub _sendFailureEvent
                 level      => 'warn');
         }
     }
-}
-
-# Migration to 3.2
-#
-#  * Migrate redis keys from ids to ips
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    my $redis = $self->redis();
-    my @keys = $redis->_keys('ids/*');
-    foreach my $key (@keys) {
-        my $value = $redis->get($key);
-        my $newkey = $key;
-        $newkey =~ s{^ids}{ips};
-        $redis->set($newkey, $value);
-    }
-    $redis->unset(@keys);
-
-    $self->_overrideDaemons() if $self->configured();
 }
 
 1;

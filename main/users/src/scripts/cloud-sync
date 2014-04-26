@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Util::Lock;
 
 use MIME::Base64;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant IGNORE => ['zentyal-cloud'];
 use constant LOCK_NAME => 'zentyal-cloud-sync';
@@ -136,7 +136,7 @@ for my $ruser (@{$rusers}) {
 
             EBox::Users::User->create(%user);
         }
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
 }
@@ -208,9 +208,9 @@ for my $rgroup (@{$rgroups}) {
             }
         }
         $lgroup->save() if ($changed);
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
-    };
+    }
 }
 
 

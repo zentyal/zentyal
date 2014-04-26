@@ -39,8 +39,8 @@ sub _process
 {
     my ($self) = @_;
     $self->{json}->{success} = 0;
-    my $mail = EBox::Global->modInstance('mail');
-
+    my $global = EBox::Global->getInstance();
+    my $mail = $global->modInstance('mail');
 
     $self->_requireParam('user', __('user'));
     my $userDN = $self->unsafeParam('user');
@@ -52,8 +52,10 @@ sub _process
 
     my $user = new EBox::Users::User(dn => $userDN);
     $mail->{musers}->delUserAccount($user, $usermail);
+
     $self->{json}->{msg} = __x('{acc} account removed', acc => $usermail);
     $self->{json}->{mail} = '';
+    $self->{json}->{ocEnabled} = 0;
     $self->{json}->{success} = 1;
 }
 

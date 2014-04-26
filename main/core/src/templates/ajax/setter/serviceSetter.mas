@@ -10,7 +10,7 @@ my $protocolsJS = $data->protocolsJS();
 </%init>
 <!-- Store a list with protocols which needs a port -->
 
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="inline-input <% $cssClass %>">
 	<& /input/select.mas,
 			'name'     => $id . '_protocol' ,
 			'value'    => $data->protocol(),
@@ -20,7 +20,7 @@ my $protocolsJS = $data->protocolsJS();
                         'disabled' => $disabled
 	&>
 	<span id="<% $id . '_portText' %>" style="display:none;">
-	  <%__('port')%>
+	  <span><%__('port')%></span>
 	  <input type="text" class="inputText"
 		 value="<% $data->port() %>"
 		 size="5" id ="<% $id . '_port' %>"

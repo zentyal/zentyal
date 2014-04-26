@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,12 +23,16 @@
 #      The possible components should be subclasses of:
 #
 #      - <EBox::Model::DataTable>
+#      - <EBox::Model::DataForm>
 #      - <EBox::Model::Composite>
+#      - <EBox::Model::Template>
 #
 #      The possible layout that it will implemented are the following:
 #
 #      - top-bottom - the components will be shown from top to the
 #      bottom in the given order
+#      - left-right - the components will be shown from left to
+#      right in the given order
 #      - tabbed     - the components will be shown in a tab way
 #
 
@@ -48,7 +52,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 
 # Other modules uses
-use Error qw(:try);
+use TryCatch::Lite;
 
 #################
 # Dependencies
@@ -56,7 +60,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 
 # Constants
-use constant LAYOUTS => qw(top-bottom tabbed);
+use constant LAYOUTS => qw(top-bottom left-right tabbed);
 
 # Group: Public methods
 
@@ -93,8 +97,9 @@ sub new
 # Returns:
 #
 #      array ref - containing the components which this composite
-#      comprises. The elements are <EBox::Model::DataTable> or
-#      <EBox::Model::Composite>.
+#      comprises. The elements are instances of classes which inherit
+#      from <EBox::Model::Component> such as <EBox::Model::DataTable>
+#      or <EBox::Model::Composite>.
 #
 sub components
 {
@@ -172,11 +177,10 @@ sub models
 
     my @models = ();
     foreach my $component (@{$self->components()}) {
-        # FIXME: Both should inherit from some EBox::Model::Base
-        if ($component->isa('EBox::Model::DataTable') or $component->isa('EBox::Model::TreeView')) {
+        if ($component->isa('EBox::Model::Base') and (ref($component) ne 'EBox::Model::Base')) {
             push (@models, $component);
             next;
-        } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
+        } elsif ($recursive and $component->isa('EBox::Model::Composite')) {
             push (@models, @{$component->models($recursive)});
         }
     }
@@ -194,6 +198,8 @@ sub models
 #      are:
 #
 #      - top-bottom - the elements will be shown sequentially
+#
+#      - left-right - the elements will be shown from left to right
 #
 #      - tabbed - every element will be shown in a tab
 #
@@ -236,6 +242,26 @@ sub layout
     my ($self) = @_;
 
     return $self->{layout};
+}
+
+# Method: width
+#
+#      Get the component width from the composite
+#
+# Returns:
+#
+#      String - indicating the indicated component width
+#       This value will be inserted this way: <... style='width=<% $width %>;'>
+#
+sub width
+{
+    my ($self, $name) = @_;
+
+    if ($self->layout() eq 'left-right') {
+        return $self->{widths}->{$name};
+    }
+
+    return '100%';
 }
 
 # Method: name
@@ -467,7 +493,7 @@ sub menuNamespace
 #
 #      Accessor to the URLs where the actions are published to
 #      run. In a composite type, two actions are possible:
-#      - view - show the composite type within the whole eBox menu
+#      - view - show the composite type within the whole Zentyal menu
 #      - changeView - show the composite type isolated. I.e. the HTML
 #                     dumped from the composite Viewer
 #
@@ -548,7 +574,7 @@ sub Viewer
 #
 #       layout - String define the layout of the corresponding views
 #       of the models. It can be one of the following: 'top-bottom' or
-#       'tabbed' *(Optional)* Default value: 'top-bottom'
+#       or 'left-right' or 'tabbed' *(Optional)* Default value: 'top-bottom'
 #
 #       name - String the composite's name *(Optional)* Default value:
 #       class name
@@ -638,6 +664,20 @@ sub _setDescription
     }
 
     $self->{actions} = $description->{actions};
+
+    if (exists($description->{widths})) {
+        if ($self->{layout} ne 'left-right') {
+            throw EBox::Exceptions::InvalidData(
+                    data  => 'layout',
+                    value => $self->{layout},
+                    advice => __x('You cannot set the width property if the ' .
+                                  'composite has not a: {left_right} layout',
+                        left_right => 'left-right')
+                    );
+        }
+
+        $self->{widths} = delete($description->{widths});
+    }
 
     # Set the Composite actions, do not ovewrite the user-defined actions
     $self->_setDefaultActions();
@@ -844,9 +884,11 @@ sub clone
 
             $comp->clone($compSrcDir, $compDstDir);
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir, 1);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir, 1);
 }
 
 1;

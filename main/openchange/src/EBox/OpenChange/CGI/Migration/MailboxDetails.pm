@@ -31,6 +31,8 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 
+use TryCatch::Lite;
+
 # Group: Public methods
 
 sub new
