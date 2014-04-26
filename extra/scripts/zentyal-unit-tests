@@ -53,7 +53,8 @@ INCLUDES=$(find . -name src|grep -v captiveportal|sed 's/.\//-I /'|xargs)
 
 # Create the modules directory
 CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
-rm -f $CONF_DIR/*
+sudo rm -f $CONF_DIR/*
+sudo rm -r $CONF_DIR
 export ZENTYAL_MODULES_SCHEMAS
 
 test -d $CONF_DIR || mkdir $CONF_DIR
