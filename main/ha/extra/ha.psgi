@@ -19,6 +19,7 @@ use warnings;
 # This a pure-raw PSGI application using Plack directly
 # TODO: Use a proper web framework is a must here
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 use EBox;
 use EBox::HA::Server::Auth;

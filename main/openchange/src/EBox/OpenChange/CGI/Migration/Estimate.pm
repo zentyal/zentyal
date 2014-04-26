@@ -26,6 +26,7 @@ package EBox::OpenChange::CGI::Migration::Estimate;
 
 use base 'EBox::CGI::Base';
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use EBox::OpenChange::MigrationRPCClient;

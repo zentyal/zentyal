@@ -23,6 +23,7 @@ package EBox::RemoteServices::Subscription;
 
 use base 'EBox::RemoteServices::Base';
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use EBox::Config;

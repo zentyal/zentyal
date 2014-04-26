@@ -30,6 +30,7 @@ use base qw(EBox::Module::Service
 #      services offered
 #
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use Data::UUID;

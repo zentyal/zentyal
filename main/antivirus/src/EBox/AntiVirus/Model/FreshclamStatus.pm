@@ -21,6 +21,7 @@ package EBox::AntiVirus::Model::FreshclamStatus;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 
+no warnings 'experimental::smartmatch';
 use feature 'switch';
 
 use EBox::Config;

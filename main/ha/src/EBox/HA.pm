@@ -30,6 +30,7 @@ package EBox::HA;
 use base qw(EBox::Module::Service
             EBox::WebAdmin::PortObserver);
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use Data::Dumper;

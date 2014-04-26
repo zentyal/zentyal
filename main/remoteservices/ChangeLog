@@ -1,6 +1,7 @@
 HEAD
 	+ Clarified doc about qa_updates_always_automatic confkey
-3.4.1
+3.5
+	+ Set version to 3.5
 	+ Fixed JS regressions on subscribe action
 	+ Disable QA updates until next commercial edition
 	+ EBox::RemoteServices::Subscription::Check::check recovers for

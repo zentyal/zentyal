@@ -1,8 +1,8 @@
 HEAD
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
-3.4.2
 	+ Added new domainControllers() method
-3.4.1
+3.5
+	+ Set version to 3.5
 	+ Override daemons when migrating from previous versions
 	+ Remove the use of method canonicalName for greater performance, use
 	  object DNs instead

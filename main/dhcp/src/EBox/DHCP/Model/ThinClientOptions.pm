@@ -32,6 +32,7 @@ package EBox::DHCP::Model::ThinClientOptions;
 
 use base 'EBox::Model::DataForm';
 
+no warnings 'experimental::smartmatch';
 use feature 'switch';
 
 use EBox::DHCP;

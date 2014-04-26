@@ -1,5 +1,7 @@
 HEAD
 	+ Use different openssl output files to avoid any overlap
+3.5
+	+ Set version to 3.5
 3.4
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
