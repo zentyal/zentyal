@@ -1,4 +1,5 @@
 HEAD
+	+ Added zentyal-sogo icon
 	+ EBox::WebServer::removeNginxInclude does not longer throws
 	  a exception if the path to remove is not included
 	+ Updated nginx to server static files directly always so apache shouldn't
