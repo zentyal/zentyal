@@ -30,8 +30,6 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 
-use TryCatch::Lite;
-
 # Method: new
 #
 #   Constructor, instantiate new model
