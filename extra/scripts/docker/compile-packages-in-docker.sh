@@ -3,7 +3,7 @@ set -e
 
 ZENTYAL_FOLDER=$1
 USER_FOLDER=$HOME
-CONTAINER_NAME="zentyal34"
+CONTAINER_NAME="zentyal35"
 
 docker build -t $CONTAINER_NAME $ZENTYAL_FOLDER/extra/scripts/docker/.
 

@@ -2,12 +2,12 @@
 #
 # To execute it install docker and then run 'docker build .'
 #
-FROM ubuntu:13.10
+FROM ubuntu:14.04
 
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.zentyal.org/zentyal/ 3.4 main extra" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
+RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
 RUN apt-get update
 
 #Installing basic dependencies
@@ -15,8 +15,8 @@ RUN apt-get install -y --force-yes git sudo libapache2-mod-perl2 libtap-formatte
 
 # Checking out the zentyal repo
 RUN git clone https://github.com/Zentyal/zentyal.git
-RUN cd zentyal && git checkout 3.4
-RUN cd zentyal && git pull origin 3.4
+RUN cd zentyal && git checkout master
+RUN cd zentyal && git pull origin master
 
 #Install the zentyal deps
 RUN /zentyal/extra/scripts/zentyal-syntax-check --installdeps --path=/zentyal  --release=precise
