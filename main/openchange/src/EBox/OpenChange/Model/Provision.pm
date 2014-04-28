@@ -24,7 +24,7 @@ use EBox::DBEngineFactory;
 use EBox::Gettext;
 use EBox::MailUserLdap;
 use EBox::Samba::User;
-use EBox::Types::MultiStateAction;
+use EBox::Types::Action;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
@@ -123,6 +123,14 @@ sub _table
 #                },
 #            }
 #        ),
+        new EBox::Types::Action(
+            name           => 'provision',
+            printableValue => __('Setup'),
+            model          => $self,
+            handler        => \&_doProvision,
+            message        => __('Database configured'),
+            enabled        => sub { not $self->parentModule->isProvisioned() },
+        ),
     ];
 
 
