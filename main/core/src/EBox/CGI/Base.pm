@@ -357,12 +357,12 @@ sub run
         my ($protocol, $port);
         my $url;
         my $host = $request->env->{HTTP_HOST};
-        if ($> == getpwnam('ebox')) {
+        if ($referer) {
             my $parsedURL = new URI($referer);
             $protocol = $parsedURL->scheme();
             $port = $parsedURL->port();
             $url = "$protocol://${host}";
-            if ($port) {
+            if ($port and not ($host =~ /:/)) {
                 $url .= ":$port";
             }
             $url .= "/$self->{redirect}";
