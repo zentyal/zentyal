@@ -4,9 +4,9 @@
 #
 FROM ubuntu:13.10
 
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
-RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu saucy main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu saucy-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://de.archive.ubuntu.com/ubuntu saucy-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://archive.zentyal.org/zentyal/ 3.4 main extra" >> /etc/apt/sources.list
 RUN apt-get update
 
