@@ -1,4 +1,4 @@
-HEAD
+3.2.10
 	+ Added zentyal-sogo icon
 	+ EBox::WebServer::removeNginxInclude does not longer throws
 	  a exception if the path to remove is not included
