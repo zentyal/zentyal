@@ -262,7 +262,9 @@ sub _setupActiveSync
         my $global = $self->global();
         $global->modChange('webserver');
         if ($global->modExists('sogo')) {
-            $global->addModuleToPostSave('sogo');
+            my @postSaveModules = @{$global->get_list('post_save_modules')};
+            push (@postSaveModules, 'sogo');
+            $global->set('post_save_modules', \@postSaveModules);
         }
     }
 }
