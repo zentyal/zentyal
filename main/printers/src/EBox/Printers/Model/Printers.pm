@@ -24,6 +24,7 @@ use EBox::View::Customizer;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use Net::CUPS;
+use EBox::Validate;
 
 # Constructor: new
 #
@@ -237,13 +238,36 @@ sub preconditionFailMsg
 sub _configureMessage
 {
     my ($self) = @_;
+    my $global = $self->global(1); # RO bz we want to check enforced interfaces
 
+    my $HOST    = 'localhost';
     my $CUPS_PORT = 631;
-    my $URL = "https://localhost:$CUPS_PORT/admin";
+    my $request = $global->request();
+    my $clientAddress =  $request->address();
+    if ($clientAddress) {
+        my $cidrAddr = $clientAddress . '/32';
+        EBox::debug("cidr addr  $cidrAddr");
+        my $networkMod = $global->modInstance('network');
+        foreach my $iface (@{$networkMod->allIfaces()}) {
+            my $host = $networkMod->ifaceAddress($iface);
+            my $mask = $networkMod->ifaceNetmask($iface);
+            (defined($host) and defined($mask)) or next;
+
+            EBox::Validate::checkIPNetmask($clientAddress, $mask) or next;
+            if (EBox::Validate::isIPInNetwork($host,$mask,$cidrAddr)) {
+                $HOST = $host;
+                last;
+            }
+        }
+    }
+    my $URL = "https://$HOST:$CUPS_PORT/admin";
+
     my $message = __x('To add or manage printers you have to use the {open_href}CUPS Web Interface{close_href}',
                       open_href => "<a href='$URL' target='_blank' id='cups_url'>",
                       close_href => '</a>');
-    $message .= "<script>document.getElementById('cups_url').href='https://' + document.domain + ':$CUPS_PORT/admin';</script>";
+    if ($HOST eq 'localhost') {
+        $message .= "<script>document.getElementById('cups_url').href='https://' + document.domain + ':$CUPS_PORT/admin';</script>";
+    }
 
     return $message;
 }
