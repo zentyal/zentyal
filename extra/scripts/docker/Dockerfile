@@ -42,11 +42,9 @@ ADD  main/bwmonitor/debian/precise/control /tmp/main/bwmonitor/debian/precise/co
 ADD  main/jabber/debian/precise/control /tmp/main/jabber/debian/precise/control
 ADD  main/mail/debian/precise/control /tmp/main/mail/debian/precise/control
 ADD  main/trafficshaping/debian/precise/control /tmp/main/trafficshaping/debian/precise/control
-ADD  main/openchange/debian/precise/control /tmp/main/openchange/debian/precise/control
 ADD  main/core/debian/precise/control /tmp/main/core/debian/precise/control
 ADD  main/monitor/debian/precise/control /tmp/main/monitor/debian/precise/control
 ADD  main/openvpn/debian/precise/control /tmp/main/openvpn/debian/precise/control
-ADD  main/sogo/debian/precise/control /tmp/main/sogo/debian/precise/control
 ADD  main/l7-protocols/debian/precise/control /tmp/main/l7-protocols/debian/precise/control
 ADD  main/squid/debian/precise/control /tmp/main/squid/debian/precise/control
 ADD  main/samba/debian/precise/control /tmp/main/samba/debian/precise/control
@@ -59,8 +57,11 @@ ADD  main/webmail/debian/precise/control /tmp/main/webmail/debian/precise/contro
 ADD  main/common/debian/precise/control /tmp/main/common/debian/precise/control
 ADD  main/radius/debian/precise/control /tmp/main/radius/debian/precise/control
 ADD  main/ips/debian/precise/control /tmp/main/ips/debian/precise/control
+ADD  main/ids/debian/precise/control /tmp/main/ids/debian/precise/control
 ADD  main/network/debian/precise/control /tmp/main/network/debian/precise/control
 ADD  main/remoteservices/debian/precise/control /tmp/main/remoteservices/debian/precise/control
+ADD  main/ltsp/debian/precise/control /tmp/main/ltsp/debian/precise/control
+ADD  main/virt/debian/precise/control /tmp/main/virt/debian/precise/control
 
 #Install the zentyal deps
 RUN /tmp/zentyal-syntax-check --installdeps --path=/tmp  --release=precise
