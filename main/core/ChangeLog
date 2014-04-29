@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed incorrect URLs with double ports in redirects
 3.4.2
 	+ Fix typo in general widget
 	+ Updated nginx to server static files directly always so apache shouldn't
