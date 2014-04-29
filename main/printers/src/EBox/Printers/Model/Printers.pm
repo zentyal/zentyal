@@ -246,7 +246,6 @@ sub _configureMessage
     my $clientAddress =  $request->address();
     if ($clientAddress) {
         my $cidrAddr = $clientAddress . '/32';
-        EBox::debug("cidr addr  $cidrAddr");
         my $networkMod = $global->modInstance('network');
         foreach my $iface (@{$networkMod->allIfaces()}) {
             my $host = $networkMod->ifaceAddress($iface);
