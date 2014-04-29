@@ -283,6 +283,7 @@ sub _postServiceHook
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
+        my $domainGuestSID = "$domainSID-501";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
@@ -345,10 +346,20 @@ sub _postServiceHook
                 my $ace = new Samba::Security::AccessControlEntry(
                     $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
-                # Add read/write access for Domain Guests
+                # Add read/write access for Domain Guest user
                 my $ace2 = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace2);
+
+                # Add read/write access for Domain Guests group
+                my $ace3 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace3);
+
+                # Add everybody read/write access
+                my $ace4 = new Samba::Security::AccessControlEntry(
+                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace4);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
@@ -2270,21 +2281,68 @@ sub gpos
     return $gpos;
 }
 
-sub computers
+# Method: domainControllers
+#
+#   Query the domain controllers by searching in 'Domain Controllers' OU
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Samba::Computer class
+#
+sub domainControllers
 {
-    my ($self, $system) = @_;
+    my ($self) = @_;
 
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
-    my %args = (
-        base => $self->ldb()->dn(),
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "OU=Domain Controllers,$baseDN",
         filter => 'objectClass=computer',
         scope => 'sub',
-        control => [$sort],
-    );
+        control => [ $sort ],
+    };
 
-    my $result = $self->ldb->search(\%args);
+    my $result = $ldb->search($args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Samba::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: computers
+#
+#   Query the computers joined to the domain by searching in the computers
+#   container
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Samba::Computer class
+#
+sub computers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "CN=Computers,$baseDN",,
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [ $sort ],
+    };
+
+    my $result = $self->ldb->search($args);
 
     my @computers;
     foreach my $entry ($result->entries()) {
