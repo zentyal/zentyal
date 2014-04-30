@@ -20,6 +20,7 @@ package EBox::CORE::Service::Test;
 
 use base 'Test::Class';
 
+use Test::More skip_all => 'FIXME';
 use Test::Exception;
 use Test::Deep;
 use EBox::Global::TestStub;
