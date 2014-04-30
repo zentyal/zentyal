@@ -80,7 +80,8 @@ sub run
     $notifier->blocking(0); # set non-block mode
 
     # Create logout file
-    system('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
+    EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE,
+                     'chown zentyal-captiveportal.zentyal-captiveportal ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     my $global = EBox::Global->getInstance(1);
     my $captive = $global->modInstance('captiveportal');
