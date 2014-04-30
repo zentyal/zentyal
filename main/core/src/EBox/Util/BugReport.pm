@@ -20,7 +20,7 @@ package EBox::Util::BugReport;
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
-use JSON::RPC::Client;
+use JSON::RPC::Legacy::Client;
 use MIME::Base64;
 use File::Slurp;
 use TryCatch::Lite;
@@ -54,7 +54,7 @@ sub send
     my $version = `dpkg -s zentyal-core|grep ^Version:`;
     ($version) =~ /^Version: (\d+\.\d+)/;
 
-    my $client = new JSON::RPC::Client;
+    my $client = new JSON::RPC::Legacy::Client;
 
     my $title = 'Bug report from Zentyal Server';
     my $callobj = {
