@@ -24,7 +24,6 @@ ADD main/captiveportal/extra/captiveportal-log.conf /tmp/main/captiveportal/extr
 
 #ADD control files to check the dependencies
 ADD  main/firewall/debian/control /tmp/main/firewall/debian/control
-ADD  main/ftp/debian/control /tmp/main/ftp/debian/control
 ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
 ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
@@ -46,7 +45,6 @@ ADD  main/core/debian/control /tmp/main/core/debian/control
 ADD  main/monitor/debian/control /tmp/main/monitor/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
 ADD  main/sogo/debian/control /tmp/main/sogo/debian/control
-ADD  main/l7-protocols/debian/control /tmp/main/l7-protocols/debian/control
 ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control
