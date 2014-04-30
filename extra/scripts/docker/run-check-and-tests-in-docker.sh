@@ -15,5 +15,5 @@ sudo rm -rf $ZENTYAL_FOLDER/test
 
 
 echo " == RUNNING UNIT TESTS == "
-docker run -u="testUser" -v $ZENTYAL_FOLDER:/zentyal-repo:rw --rm $CONTAINER_NAME /zentyal-repo/extra/scripts/zentyal-unit-tests -js common > $ZENTYAL_FOLDER/test_results.xml
+docker run -u="testUser" -v $ZENTYAL_FOLDER:/zentyal-repo:rw --rm $CONTAINER_NAME /zentyal-repo/extra/scripts/zentyal-unit-tests -js ALL > $ZENTYAL_FOLDER/test_results.xml
 
