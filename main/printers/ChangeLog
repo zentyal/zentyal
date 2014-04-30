@@ -1,4 +1,5 @@
 3.5
+	+ Use IP address on CUPS admin URL to avoid bad request errors
 	+ Set version to 3.5
 3.4
 	+ Skip internal groups in printer ACL model
