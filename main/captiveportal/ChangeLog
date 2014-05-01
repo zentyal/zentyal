@@ -1,4 +1,5 @@
 HEAD
+	+ Stop captive portal on firewall restart
 	+ Added noMultipleOUSupportComponent support
 3.2.3
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
