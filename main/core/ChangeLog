@@ -1,3 +1,5 @@
+HEAD
+	+ Enable InnoDB engine when there are only 4 previous databases
 3.2.10
 	+ Added zentyal-sogo icon
 	+ EBox::WebServer::removeNginxInclude does not longer throws
