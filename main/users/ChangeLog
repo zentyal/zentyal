@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed error when editing user email address when mail module is
+	  not installed
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
 	+ Added support for addon components when user is in a
