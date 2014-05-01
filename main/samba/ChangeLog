@@ -1,3 +1,6 @@
+HEAD
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
+	+ Added new domainControllers() method
 3.5
 	+ Removed samba_fs option from samba.conf, always use s3fs
 	+ Removed s4sync

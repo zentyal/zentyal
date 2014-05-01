@@ -1,4 +1,8 @@
 3.5
+	+ Fixed incorrect URLs with double ports in redirects
+	+ Fix typo in general widget
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
 	+ Set version to 3.5
 	+ Support for redirection when loading URL in existent dialog
 	+ Added webadmin port tag to haproxy configuration file

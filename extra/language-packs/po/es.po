@@ -165,7 +165,6 @@ msgstr "Cliente {name}"
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
-#: ../../main/zarafa/src/templates/zarafa.mas:22
 #: ../../main/core/src/templates/enable.mas:19
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
@@ -186,20 +185,17 @@ msgstr "Habilitado"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:161
 #: ../../main/core/src/EBox/SysInfo.pm:504
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:220
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:100
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:118
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:194
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:268
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:530
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
-#: ../../main/zarafa/src/templates/zarafa.mas:18
+#: ../../main/users/src/templates/edituser.mas:263
 #: ../../main/core/src/templates/enable.mas:19
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
@@ -212,7 +208,7 @@ msgstr "Deshabilitado"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:197
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:286
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
@@ -410,7 +406,6 @@ msgstr "Nombre"
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:190
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:225
-#: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:39
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:218
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:199
@@ -1071,9 +1066,9 @@ msgstr "Demonios OpenVPN"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:763
-#: ../../main/samba/src/EBox/Samba.pm:1604
-#: ../../main/samba/src/EBox/Samba.pm:1624
+#: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
+#: ../../main/samba/src/EBox/Samba.pm:1646
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:365
@@ -1110,7 +1105,7 @@ msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:1629
+#: ../../main/samba/src/EBox/Samba.pm:1640
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:157
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1530,7 +1525,7 @@ msgid "resources"
 msgstr "recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
-#: ../../main/samba/src/EBox/Samba.pm:1608
+#: ../../main/samba/src/EBox/Samba.pm:1619
 msgid "Resource"
 msgstr "Recurso"
 
@@ -1695,7 +1690,7 @@ msgstr "Reglas"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:67
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:182
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:129
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:407
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:411
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:165
@@ -1786,7 +1781,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:4293
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:413
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:852
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:279
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:283
 #: ../../main/trafficshaping/src/EBox/TC.pm:107
 #: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
 #: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
@@ -1834,7 +1829,7 @@ msgstr "Activar la ejecución del demonio de suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:360
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:364
 msgid "Priority"
 msgstr "Prioridad"
 
@@ -1875,7 +1870,7 @@ msgstr "Descripción"
 #: ../../main/ips/src/EBox/IPS.pm:310
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:416
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:305
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:309
 #: ../../main/core/src/EBox/Events.pm:437
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:46
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
@@ -1889,7 +1884,7 @@ msgstr "Origen"
 
 #: ../../main/ips/src/EBox/IPS.pm:311
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:336
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
 #: ../../main/firewall/src/EBox/Firewall.pm:767
@@ -1902,8 +1897,6 @@ msgstr "Destino"
 #: ../../main/firewall/src/EBox/Firewall.pm:768
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/GroupProtocols.pm:64
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Protocols.pm:50
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "Protocolo"
@@ -2054,7 +2047,6 @@ msgstr "Nombre del virtual host"
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:131
 msgid "Virtual host"
 msgstr "Host virtual"
 
@@ -2106,19 +2098,16 @@ msgstr "Host virtual {vhost} añadido."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:119
 msgid "Allow SSL"
 msgstr "Permitir SSL"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:286
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:120
 msgid "Force SSL"
 msgstr "Forzar conexión SSL"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:310
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:153
 msgid "SSL support"
 msgstr "Soporte SSL"
 
@@ -2284,7 +2273,7 @@ msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1743
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/users/src/EBox/Users.pm:2549
+#: ../../main/users/src/EBox/Users.pm:2552
 msgid "alias"
 msgstr "alias"
 
@@ -2320,7 +2309,7 @@ msgstr "Habilitar el caché de DNS transparente"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1250
+#: ../../main/samba/src/EBox/Samba.pm:1261
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2569,7 +2558,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:1244
+#: ../../main/samba/src/EBox/Samba.pm:1255
 #: ../../main/squid/src/EBox/Squid.pm:1138
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2733,6 +2722,7 @@ msgstr "El nombre de máquina resolverá a esta lista de direcciones IP."
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:52
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:61
 #: ../../main/captiveportal/src/EBox/CaptivePortal/LdapUser.pm:65
+#: ../../main/captiveportal/src/EBox/CaptivePortal/LdapUser.pm:74
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
 msgid "Captive Portal"
 msgstr "Portal Cautivo"
@@ -2818,7 +2808,6 @@ msgstr "Error desconocido: '{error}'"
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:94
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:103
 #: ../../main/users/src/EBox/Users/User.pm:84
-#: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:42
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:46
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:92
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
@@ -2840,7 +2829,7 @@ msgstr "usuario"
 msgid "User quota set"
 msgstr "Cuota de usuario establecida"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/LdapUser.pm:196
+#: ../../main/captiveportal/src/EBox/CaptivePortal/LdapUser.pm:202
 msgid "Captive portal authorized group. The module will be disabled"
 msgstr "Grupo autorizado en el Portal Cautivo. El módulo será desactivado"
 
@@ -2964,7 +2953,6 @@ msgstr "Servicio: {s}"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:53
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:210
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:277
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:51
 #: ../../main/users/src/templates/addobject.mas:10
 #: ../../main/users/src/templates/adduser.mas:55
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
@@ -3042,8 +3030,8 @@ msgstr "Sin límite"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:62
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:56
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:86
 #: ../../main/captiveportal/src/templates/useraddon.mas:38
+#: ../../main/users/src/templates/edituser.mas:262
 msgid "Limited to"
 msgstr "Limitada a"
 
@@ -3080,9 +3068,9 @@ msgstr "Uso de ancho de banda en el último mes (MB)"
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
-#: ../../main/samba/src/EBox/Samba.pm:1606
-#: ../../main/samba/src/EBox/Samba.pm:1626
+#: ../../main/samba/src/EBox/Samba.pm:1617
 #: ../../main/samba/src/EBox/Samba.pm:1637
+#: ../../main/samba/src/EBox/Samba.pm:1648
 #: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -3286,8 +3274,6 @@ msgstr ""
 "Añadir demás usuarios del sistema a la lista de contactos de los usuarios."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:144
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:163
 msgid "General configuration settings"
 msgstr "Parámetros de configuración general"
 
@@ -3314,6 +3300,7 @@ msgid "Changing the domain name will delete all your current Jabber data."
 msgstr "Cambiar el nombre de dominio borrará todos tus datos de Jabber."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:50
+#: ../../main/jabber/src/EBox/JabberLdapUser.pm:70
 #: ../../main/core/src/EBox/Event/Dispatcher/Jabber.pm:140
 msgid "Jabber Account"
 msgstr "Cuenta Jabber"
@@ -3340,7 +3327,7 @@ msgstr "Servidor Jabber"
 msgid "Jabber account"
 msgstr "Cuenta Jabber"
 
-#: ../../main/jabber/src/EBox/JabberLdapUser.pm:171
+#: ../../main/jabber/src/EBox/JabberLdapUser.pm:177
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -3616,7 +3603,7 @@ msgstr "Completado"
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: ../../main/ca/src/EBox/CA.pm:121 ../../main/ca/src/EBox/CA/CGI/Index.pm:37
+#: ../../main/ca/src/EBox/CA.pm:118 ../../main/ca/src/EBox/CA/CGI/Index.pm:37
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:43
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:42
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:42
@@ -3627,7 +3614,7 @@ msgstr "Cancelado"
 msgid "Certification Authority"
 msgstr "Autoridad de certificación"
 
-#: ../../main/ca/src/EBox/CA.pm:219 ../../main/ca/src/EBox/CA.pm:515
+#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:512
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:100
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
@@ -3641,26 +3628,26 @@ msgstr "Autoridad de certificación"
 msgid "Organization Name"
 msgstr "Nombre de Organización"
 
-#: ../../main/ca/src/EBox/CA.pm:225 ../../main/ca/src/templates/createCA.mas:9
+#: ../../main/ca/src/EBox/CA.pm:222 ../../main/ca/src/templates/createCA.mas:9
 #: ../../main/ca/src/templates/index.mas:41
 msgid "Country code"
 msgstr "Código de país"
 
-#: ../../main/ca/src/EBox/CA.pm:227
+#: ../../main/ca/src/EBox/CA.pm:224
 msgid "The country code must be the 2-characters ISO code"
 msgstr "La código de país debe ser el código ISO de dos caracteres"
 
-#: ../../main/ca/src/EBox/CA.pm:271 ../../main/ca/src/EBox/CA.pm:747
-#: ../../main/ca/src/EBox/CA.pm:1376
+#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:744
+#: ../../main/ca/src/EBox/CA.pm:1373
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Utilizado el máximo de días permitidos {days}: Error de Año 2038"
 
-#: ../../main/ca/src/EBox/CA.pm:362
+#: ../../main/ca/src/EBox/CA.pm:359
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "La operación de borrado no puede completarse. Razón: "
 
-#: ../../main/ca/src/EBox/CA.pm:530 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:527 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -3668,9 +3655,9 @@ msgstr ""
 "El certificado CA debe estar revocado o caducado antes de expedir un nuevo "
 "certificado"
 
-#: ../../main/ca/src/EBox/CA.pm:729 ../../main/ca/src/EBox/CA.pm:897
-#: ../../main/ca/src/EBox/CA.pm:1233 ../../main/ca/src/EBox/CA.pm:1303
-#: ../../main/ca/src/EBox/CA.pm:1397
+#: ../../main/ca/src/EBox/CA.pm:726 ../../main/ca/src/EBox/CA.pm:894
+#: ../../main/ca/src/EBox/CA.pm:1230 ../../main/ca/src/EBox/CA.pm:1300
+#: ../../main/ca/src/EBox/CA.pm:1394
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -3687,12 +3674,12 @@ msgstr ""
 msgid "Common Name"
 msgstr "Nombre común"
 
-#: ../../main/ca/src/EBox/CA.pm:910 ../../main/ca/src/EBox/CA.pm:1244
+#: ../../main/ca/src/EBox/CA.pm:907 ../../main/ca/src/EBox/CA.pm:1241
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certificado con nombre común {cn} NO existe"
 
-#: ../../main/ca/src/EBox/CA.pm:914
+#: ../../main/ca/src/EBox/CA.pm:911
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -3701,71 +3688,70 @@ msgstr ""
 "La razón {reason} NO es una opción aplicable.\n"
 "Opciones:"
 
-#: ../../main/ca/src/EBox/CA.pm:1056
+#: ../../main/ca/src/EBox/CA.pm:1053
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "La infraestructura de la autoridad de certificación no está disponible, "
 "créela en primer lugar"
 
-#: ../../main/ca/src/EBox/CA.pm:1153
+#: ../../main/ca/src/EBox/CA.pm:1150
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "No se han pasado ni el nombre común, el nombre distinguido ni el número de "
 "serie"
 
-#: ../../main/ca/src/EBox/CA.pm:1398
+#: ../../main/ca/src/EBox/CA.pm:1395
 msgid "or"
 msgstr "o"
 
-#: ../../main/ca/src/EBox/CA.pm:1399
+#: ../../main/ca/src/EBox/CA.pm:1396
 msgid "Certificate file"
 msgstr "Fichero del certificado"
 
-#: ../../main/ca/src/EBox/CA.pm:1421
+#: ../../main/ca/src/EBox/CA.pm:1418
 msgid "The certificate to renew does NOT exist"
 msgstr "El certificado a renovar NO existe"
 
-#: ../../main/ca/src/EBox/CA.pm:1461
+#: ../../main/ca/src/EBox/CA.pm:1458
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "El certificado con este nombre común {cn} NO existe en esta CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1743
+#: ../../main/ca/src/EBox/CA.pm:1740
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
-#: ../../main/zarafa/src/EBox/Zarafa.pm:767
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
 #: ../../main/mail/src/EBox/Mail.pm:1469
 msgid "General"
 msgstr "General"
 
-#: ../../main/ca/src/EBox/CA.pm:1746
+#: ../../main/ca/src/EBox/CA.pm:1743
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:319
 msgid "Services Certificates"
 msgstr "Certificados para los servicios"
 
-#: ../../main/ca/src/EBox/CA.pm:1859
+#: ../../main/ca/src/EBox/CA.pm:1856
 msgid "Not created"
 msgstr "No creada"
 
-#: ../../main/ca/src/EBox/CA.pm:1861
+#: ../../main/ca/src/EBox/CA.pm:1858
 msgid "Available"
 msgstr "Disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1863
+#: ../../main/ca/src/EBox/CA.pm:1860
 msgid "Created but not available"
 msgstr "Creada pero no disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1889
+#: ../../main/ca/src/EBox/CA.pm:1886
 msgid "The field cannot contain only blank characters"
 msgstr "El campo no puede contener solo caracteres en blanco"
 
-#: ../../main/ca/src/EBox/CA.pm:1912
+#: ../../main/ca/src/EBox/CA.pm:1909
 msgid "String"
 msgstr "Cadena de texto"
 
-#: ../../main/ca/src/EBox/CA.pm:1917
+#: ../../main/ca/src/EBox/CA.pm:1914
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -3773,53 +3759,53 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanúmericos "
 "ASCII, además de los no alfanúmericos: .?&+:\\@ y espacios, están permitidos."
 
-#: ../../main/ca/src/EBox/CA.pm:2436
+#: ../../main/ca/src/EBox/CA.pm:2433
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Imposible firmar. Contraseña del CA incorrecta o la clave privada del CA ha "
 "desaparecido."
 
-#: ../../main/ca/src/EBox/CA.pm:2438
+#: ../../main/ca/src/EBox/CA.pm:2435
 msgid "Database corruption"
 msgstr "Base de datos corrupta"
 
-#: ../../main/ca/src/EBox/CA.pm:2440
+#: ../../main/ca/src/EBox/CA.pm:2437
 msgid "Identifier duplicated in Database"
 msgstr "Identificador duplicado en la Base de Datos"
 
-#: ../../main/ca/src/EBox/CA.pm:2442
+#: ../../main/ca/src/EBox/CA.pm:2439
 msgid "Certificate already revoked"
 msgstr "El certificado ya se revocó"
 
-#: ../../main/ca/src/EBox/CA.pm:2445
+#: ../../main/ca/src/EBox/CA.pm:2442
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Longitud de un campo ASN1 demasiado extenso. Máximo tamaño de:"
 
-#: ../../main/ca/src/EBox/CA.pm:2447
+#: ../../main/ca/src/EBox/CA.pm:2444
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Error desconocido. Se ofrece la salida de OpenSSL:"
 
-#: ../../main/ca/src/EBox/CA.pm:2514 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2511 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 "La fecha de caducidad del certificado es mayor que la del certificado de la "
 "CA"
 
-#: ../../main/ca/src/EBox/CA.pm:2535
+#: ../../main/ca/src/EBox/CA.pm:2532
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr "valor alternativo de tipo {type}"
 
-#: ../../main/ca/src/EBox/CA.pm:2552
+#: ../../main/ca/src/EBox/CA.pm:2549
 msgid "Subject alternative type"
 msgstr "Nombre alternativo"
 
-#: ../../main/ca/src/EBox/CA.pm:2554
+#: ../../main/ca/src/EBox/CA.pm:2551
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "Sólo {dns}, {ip} y {email} son nombres alternativos válidos"
 
-#: ../../main/ca/src/EBox/CA.pm:2598
+#: ../../main/ca/src/EBox/CA.pm:2595
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"
@@ -3844,7 +3830,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:1607
+#: ../../main/samba/src/EBox/Samba.pm:1618
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4215,9 +4201,9 @@ msgid "Network"
 msgstr "Red"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:1605
-#: ../../main/samba/src/EBox/Samba.pm:1625
+#: ../../main/samba/src/EBox/Samba.pm:1616
 #: ../../main/samba/src/EBox/Samba.pm:1636
+#: ../../main/samba/src/EBox/Samba.pm:1647
 msgid "Client address"
 msgstr "Dirección del cliente"
 
@@ -4482,6 +4468,10 @@ msgstr ""
 "puede causar problemas con la autenticación por kerberos, por favor, "
 "sincronice ambos relojes con una fuente externa NTP e inténtelo de nuevo."
 
+#: ../../main/users/src/EBox/LdapUserBase.pm:391
+msgid "This addon applies only to users in the default 'Users' container"
+msgstr ""
+
 #: ../../main/users/src/EBox/Users.pm:271
 msgid ""
 "Your LDAP database will be populated with some basic organizational units"
@@ -4610,25 +4600,25 @@ msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Encontrados {count} resultados para el grupo '{name}', sólo se esperaba uno."
 
-#: ../../main/users/src/EBox/Users.pm:1899
+#: ../../main/users/src/EBox/Users.pm:1902
 msgid "Manage"
 msgstr "Gestionar"
 
-#: ../../main/users/src/EBox/Users.pm:1902
+#: ../../main/users/src/EBox/Users.pm:1905
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "Plantilla de Usuario"
 
-#: ../../main/users/src/EBox/Users.pm:1911
+#: ../../main/users/src/EBox/Users.pm:1914
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "Opciones de configuración de LDAP."
 
-#: ../../main/users/src/EBox/Users.pm:1915
+#: ../../main/users/src/EBox/Users.pm:1918
 msgid "Configure mode"
 msgstr "Configurar modo"
 
-#: ../../main/users/src/EBox/Users.pm:1931
+#: ../../main/users/src/EBox/Users.pm:1934
 #: ../../main/users/src/EBox/Users/Model/Password.pm:95
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
@@ -4643,11 +4633,11 @@ msgstr "Configurar modo"
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:108
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:90
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:184
 #: ../../main/captiveportal/src/templates/login.mas:24
-#: ../../main/users/src/templates/edituser.mas:65
+#: ../../main/users/src/templates/edituser.mas:66
 #: ../../main/users/src/templates/adduser.mas:27
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
@@ -4657,7 +4647,7 @@ msgstr "Configurar modo"
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../main/users/src/EBox/Users.pm:2102
+#: ../../main/users/src/EBox/Users.pm:2105
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -4666,7 +4656,7 @@ msgstr ""
 "No es posible restaurar el módulo de usuarios por que se está ejecutando en "
 "modo {mode} y el respaldo se efectuó en modo {bpMode}"
 
-#: ../../main/users/src/EBox/Users.pm:2119
+#: ../../main/users/src/EBox/Users.pm:2122
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -4675,12 +4665,12 @@ msgstr ""
 "No se puede restaurar porque el usuario {user} del LDAP ya existe como "
 "usuario de sistema. Debe borrarse o renombrarse antes de intentar de nuevo."
 
-#: ../../main/users/src/EBox/Users.pm:2401
-#: ../../main/users/src/EBox/Users.pm:2410
+#: ../../main/users/src/EBox/Users.pm:2404
+#: ../../main/users/src/EBox/Users.pm:2413
 msgid "Users data"
 msgstr "Datos de usuario"
 
-#: ../../main/users/src/EBox/Users.pm:2555
+#: ../../main/users/src/EBox/Users.pm:2558
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"
@@ -4766,31 +4756,31 @@ msgid "User password and confirm user password does not match"
 msgstr "Las contraseñas introducidas no coinciden"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:42
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:165
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:190
 msgid "Contacts"
 msgstr "Contactos"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:67
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:75
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:85
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:48
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:53
 msgid "first name"
 msgstr "Nombre de pila"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:68
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:86
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:49
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "apellido"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:69
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:77
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:87
 msgid "display name"
 msgstr "nombre a mostrar"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:70
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:78
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:88
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:50
 msgid "description"
 msgstr "Descripción"
@@ -4806,14 +4796,13 @@ msgstr "Contacto actualizado"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:110
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:122
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:164
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:176
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:174
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:186
 #: ../../main/users/src/EBox/Users/Group.pm:78
 #: ../../main/users/src/EBox/Users/Group.pm:532
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:76
 msgid "group"
 msgstr "grupo"
 
@@ -4830,17 +4819,13 @@ msgstr "Tipo de grupo"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:43
 #: ../../main/users/src/EBox/Users/CGI/DeleteOU.pm:42
 #: ../../main/users/src/EBox/Users/CGI/DeleteContact.pm:41
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:158
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:183
 #: ../../main/core/src/EBox/SysInfo.pm:340
 #: ../../main/users/src/templates/editgroup.mas:50
 msgid "Users"
 msgstr "Usuarios"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:69
-msgid "quota"
-msgstr "cuota"
-
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:79
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:89
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:68
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:56
 #: ../../main/users/src/templates/editgroup.mas:41
@@ -4850,22 +4835,22 @@ msgstr "cuota"
 msgid "E-Mail"
 msgstr "Correo electrónico"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:80
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:90
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
 msgid "password"
 msgstr "contraseña"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:81
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:91
 msgid "confirm password"
 msgstr "confirmar contraseña"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:142
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:152
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:72
 #: ../../main/users/src/EBox/Users/Model/Password.pm:187
 msgid "Passwords do not match."
 msgstr "Las contraseñas no coinciden"
 
-#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:152
+#: ../../main/users/src/EBox/Users/CGI/EditUser.pm:162
 msgid "User updated"
 msgstr "Usuario actualizado"
 
@@ -4930,7 +4915,7 @@ msgid "Users synchronization"
 msgstr "Sincronización de usuarios"
 
 #: ../../main/users/src/EBox/Users/Composite/Sync.pm:89
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:196
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:221
 msgid ""
 "You must enable the module Users in the module status section in order to "
 "use it."
@@ -4952,7 +4937,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:250
-#: ../../main/samba/src/EBox/Samba.pm:2434
+#: ../../main/samba/src/EBox/Samba.pm:2492
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr "Encontrados {count} resultados, sólo se esperaba uno."
@@ -5197,11 +5182,13 @@ msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "La contraseña no debe ser más larga de {maxPwdLength} caracteres"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:61
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."
 msgstr ""
 "Este formulario sólo está disponible desde la aplicación Rincón del Usuario."
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:64
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:83
 msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
@@ -5246,6 +5233,7 @@ msgid "Could not change password: {x}"
 msgstr "No es posible cambiar la contraseña: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:198
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:215
 #, perl-brace-format
 msgid "User {x} not found in LDAP database"
 msgstr "El usuario {x} no encontrado en la base de datos LDAP"
@@ -5267,19 +5255,19 @@ msgstr ""
 "algunos módulos solo funcionarán con los usuarios y grupos definidos en el "
 "OU por defecto."
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:159
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:184
 msgid "Disabled Users"
 msgstr "Usuarios deshabilitados"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:161
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:186
 msgid "Security Groups"
 msgstr "Grupo de seguridad"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:162
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:187
 msgid "Distribution Groups"
 msgstr "Grupo de Distribución"
 
-#: ../../main/users/src/EBox/Users/Model/Manage.pm:164
+#: ../../main/users/src/EBox/Users/Model/Manage.pm:189
 msgid "Computers"
 msgstr "Equipos"
 
@@ -8068,8 +8056,8 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:310
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:341
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:314
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:345
 #: ../../main/core/src/EBox/Types/Service.pm:183
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:113
@@ -8088,7 +8076,7 @@ msgid "Any"
 msgstr "Cualquiera"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:102
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:313
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:317
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:80
@@ -8096,7 +8084,7 @@ msgid "Source IP"
 msgstr "IP Origen"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:107
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:325
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:329
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:287
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:124
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:84
@@ -8104,14 +8092,14 @@ msgid "Source object"
 msgstr "Objeto origen"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:130
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:344
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:348
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:299
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination IP"
 msgstr "IP Destino"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:135
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:349
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:353
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:151
 msgid "Destination object"
 msgstr "Objeto destino"
@@ -8170,7 +8158,7 @@ msgid "Auto"
 msgstr "Atomático"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:187
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:282
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:286
 msgid "Interface connected to this gateway"
 msgstr "Interfaz conectada a esta puerta de enlace"
 
@@ -8866,7 +8854,6 @@ msgstr "{ip} se solapa con la dirección u otro miembro de objeto"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:88
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:93
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
-#: ../../main/l7-protocols/src/EBox/L7Protocols.pm:71
 msgid "Traffic Shaping"
 msgstr "Moldeado de tráfico"
 
@@ -9029,14 +9016,14 @@ msgstr ""
 msgid "If service is any, some source or destination should be provided"
 msgstr "Si el servicio es cualquiera, se debe indicar algún origen o destino"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:198
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:202
 #, perl-brace-format
 msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
 msgstr "Ya existe una regla de \"priorizar paquetes pequeños\" para '{iface}'"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:204
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:208
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
@@ -9044,12 +9031,12 @@ msgstr ""
 "Ya existe una regla de \"priorizar paquetes pequeños\" para todas las "
 "interfaces"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
 #: ../../main/mail/src/EBox/Mail.pm:1432 ../../main/mail/src/EBox/Mail.pm:1439
 msgid "Filter type"
 msgstr "Tipo de filtro"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:275
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:279
 msgid ""
 "Priorization of small control packages will affect small ACK, SYN, FIN and "
 "RST control packages"
@@ -9057,24 +9044,24 @@ msgstr ""
 "Priorizar pequeños paquetes de control afectara a los paquetes de control "
 "ACK, SYN, FIN y RST"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:291
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:295
 msgid "Port based service"
 msgstr "Servicio basado en puerto"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:364
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:368
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Prioridad más baja: 7 Prioridad más alta: 0"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:368
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:372
 msgid "Guaranteed Rate"
 msgstr "Tasa garantizada"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:371
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:385
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:375
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:389
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:373
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:377
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -9082,15 +9069,15 @@ msgstr ""
 "Tenga en cuenta que la suma de todas las tasas garantizadas no puede superar "
 "el total de su ancho de banda. 0 significa tasa no garantizada."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:380
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:384
 msgid "Limited Rate"
 msgstr "Tasa limitada"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:387
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:391
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr "El tráfico no superará esta tasa. 0 significa tasa ilimitada."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:402
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:406
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
@@ -9098,12 +9085,12 @@ msgstr ""
 "Tenga en cuenta que si la interfaz es interna, el flujo del tráfico procede "
 "desde Internet para el interior y el tráfico exterior es a la inversa"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:436
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:440
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "Borrar {num} reglas de {modelName}"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:487
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:491
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -9116,7 +9103,7 @@ msgstr ""
 "mantener la misma proporción que existía antes y {removeNum} se han borrado "
 "porque su tasa garantizada resultante era menor que la mínima permitida"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:546
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:550
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
@@ -9127,25 +9114,25 @@ msgstr ""
 "son más lentos pero más eficaces, ya que comprueban el contenido de "
 "cualquier paquete para comprobar si coincide con un servicio."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:562
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:581
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:566
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:585
 msgid "Application based service"
 msgstr "Servicio basado en aplicación"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:571
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:589
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:575
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:593
 msgid "Application based service group"
 msgstr "Grupo de servicios basados en aplicación"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:604
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:608
 msgid "Based on Firewall"
 msgstr "Basadas en Cortafuegos"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:608
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:612
 msgid "Prioritize small control packets"
 msgstr "Priorizar pequeños paquetes de control"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:623
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:627
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:209
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:217
 msgid "All"
@@ -9362,366 +9349,6 @@ msgid ""
 msgstr ""
 "No puede deshabilitar IMAP e IMAPS a la vez porque están siendo usados por "
 "el modulo webmail"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:78
-msgid "Add Zarafa LDAP schema"
-msgstr "Añadir esquema LDAP de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:79
-msgid "Zentyal will need this schema to store Zarafa users."
-msgstr "Zentyal necesitará este esquema para almacenar los usuarios de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:83
-msgid "Add vmail system user"
-msgstr "Añadir usuario del sistema vmail"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:84
-msgid "Zentyal will need this to deliver mail to Zarafa."
-msgstr "Zentyal necesitará esto para entegar correo a Zarafa."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:88
-msgid "Create MySQL Zarafa database"
-msgstr "Crear base de datos MySQL para Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:89
-msgid "This database will store the data needed by Zarafa."
-msgstr "Esta base de datos almacenará los datos necesitados por Zarafa."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:93
-msgid "Create default SSL key/certificates"
-msgstr "Crear claves y certificados SSL por defecto"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:94
-msgid ""
-"This self-signed default certificates will be used by Zarafa POP3/IMAP "
-"gateway."
-msgstr ""
-"Este certificado auto-firmado se usará para la pasarela POP3/IMAP de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:98
-msgid "Add zarafa link to www data directory"
-msgstr "Añadir enlace de zarafa al directorio de datos www."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:99
-msgid "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
-msgstr "Zarafa estará accesible en http://ip/webaccess/ y http://ip/webapp/."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:103
-msgid ""
-"Install English/United States locale on the system if it is not already "
-"installed"
-msgstr "Instalar locale English/US en el sistema si no se encuentra instalada"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:104
-msgid "Zarafa needs this locale to run."
-msgstr "Zarafa necesita esta locale para funcionar."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:123
-msgid "To properly configure Zarafa."
-msgstr "Configurar adecuadamente Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:128
-msgid "To properly configure Zarafa LDAP connection."
-msgstr "Configurar adecuadamente conexión entre Zarafa y LDAP"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:133
-msgid "To properly configure Zarafa webaccess."
-msgstr "Configurar adecuadamente acceso web de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:138
-msgid "To properly configure Zarafa XMPP integration."
-msgstr "Para configurar adecuadamente conexión entre Zarafa y XMPP."
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:143
-msgid "To properly configure Zarafa gateway server."
-msgstr "Configurar adecuadamente servidor de pasarelas de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:148
-msgid "To properly configure Zarafa quota monitoring server."
-msgstr "Configurar adecuadamente monitorizador de quotas de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:153
-msgid "To properly configure Zarafa mail delivering server."
-msgstr "Configurar adecuadamente servidor de entrega de correo de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:158
-msgid "To properly configure Zarafa ical server."
-msgstr "Configurar adecuadamente servidor ical de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:163
-msgid "To properly configure Zarafa dagent LMTP delivering server."
-msgstr "Configurar adecuadamente servidor de entrega LMTP dagent de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:244
-msgid "Groupware services (Zarafa)"
-msgstr "Servicio de Groupware (Zarafa)"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:774
-#: ../../main/mail/src/EBox/Mail.pm:1476
-msgid "Virtual Mail Domains"
-msgstr "Dominios virtuales de correo"
-
-#: ../../main/zarafa/src/EBox/Zarafa.pm:818
-msgid "Zarafa Gateway Server"
-msgstr "Servidor de pasarelas de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:82
-msgid "Zarafa account options set"
-msgstr "Opciones de cuenta de Zarafa establecidas"
-
-#: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:86
-msgid "Zarafa account enabled"
-msgstr "Cuenta de Zarafa habilitada"
-
-#: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:101
-msgid "Zarafa account disabled"
-msgstr "Cuenta de Zarafa deshabilitada"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:40
-msgid "Groupware (Zarafa)"
-msgstr "Groupware (Zarafa)"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:42
-msgid ""
-"You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
-"the new version at http://zentyal_ip/webapp."
-msgstr ""
-"Se puede acceder la interfaz web de Zarafa en http://zentyal_ip/webaccess y "
-"la versión para móviles en http://zentyal_ip/webaccess-mobile."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:94
-msgid "Enable Outlook Access"
-msgstr "Habilitar el acceso de Outlook"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:97
-msgid "Enable SOAP connections for Outlook access."
-msgstr "Habilitar las conexiones SOAP para el acceso de Outlook."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:101
-msgid "Enable Instant Messaging integration"
-msgstr "Activar integración con la Mensajería Instantánea"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:104
-msgid "Enable Instant Messaging integration Zarafa Webapp."
-msgstr "Activar la integración con la Mensajería Instantánea en Zarafa Webapp"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:108
-msgid "Enable Spell Checking"
-msgstr "Activar corrector ortográfico"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:111
-msgid "Enable spell checking on Zarafa Webaccess."
-msgstr "Activar correcto ortográfico en la interfaz web de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:115
-msgid "Enable Active Sync"
-msgstr "Habilitar Active Sync"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:119
-msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
-msgstr ""
-"Habilitar Active Sync (Protocolo de sincronización de Microsoft Exchange)"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
-msgid "Enable Single Sign-On (Kerberos)"
-msgstr "Habilitar Single Sign-On (Kerberos)"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:127
-msgid "Enable only Single Sign-On on the Webaccess interface."
-msgstr "Activar Single Sing On en la interfaz 'Webaccess'."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:137
-msgid ""
-"Enable Zarafa access only on this virtual host under /webaccess and /webapp."
-msgstr ""
-"Habilitar acceso a Zarafa únicamente en este virtual host bajo /webaccess y /"
-"webaccess-mobile."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:149
-msgid "General Zarafa server configuration settings updated."
-msgstr "Configuración general del servidor de Zarafa actualizada."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:191
-msgid ""
-"The deleted virtual host was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"El virtual host borrado estaba seleccionado para Zarafa. Quizá quiera "
-"seleccionar otro ahora."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:43
-msgid "Groupware Account"
-msgstr "Cuenta de Groupware"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:49
-msgid "Groupware Contact"
-msgstr "Contacto de Groupware"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:50
-msgid "Enable contact in the addressbook even if it has not Zarafa account."
-msgstr ""
-"Habilitar el contacto en la lista de contactos aunque la cuenta esté "
-"deshabilitada."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:56
-msgid "Enable POP3 Access"
-msgstr "Habilitar pasarela POP3"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:62
-msgid "Enable IMAP Access"
-msgstr "Habilitar pasarela IMAP"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:70
-msgid "Zarafa"
-msgstr "Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:96
-#, perl-brace-format
-msgid ""
-"To enable Zarafa {service} gateway you must disable {service} mail retrieval "
-"service. You can do it at {ohref}Mail General Configuration{chref}."
-msgstr ""
-"Para activar la pasarela {service} de Zarafa se debe desactivar el servicio "
-"{service} de correo. Se puede hacer en {ohref}Configuración general de Correo"
-"{chref}."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:130
-#, perl-brace-format
-msgid ""
-"To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
-"domain. You can do it at {ohref}Virtual Mail Domains{chref}."
-msgstr ""
-"Para activar las pasarelas IMAP y POP3 de Zarafa se necesita al menos un "
-"dominio virtual de correo. Se puede añadir uno en {ohref}Dominios Virtuales "
-"de Correo{chref}."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:152
-msgid "Enable POP3 gateway"
-msgstr "Habilitar pasarela POP3"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:158
-msgid "Enable POP3S gateway"
-msgstr "Habilitar pasarela POP3S"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:164
-msgid "Enable IMAP gateway"
-msgstr "Habilitar pasarela IMAP"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:170
-msgid "Enable IMAPS gateway"
-msgstr "Habilitar pasarela IMAPS"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:176
-msgid "Enable iCAL gateway"
-msgstr "Habilitar pasarela iCAL"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:182
-msgid "Enable iCAL SSL gateway"
-msgstr "Habilitar pasarela iCAL SSL"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:192
-msgid "Zarafa gateways configuration settings"
-msgstr "Configuración de pasarelas de Zarafa"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:197
-msgid "Zarafa gateways configuration settings updated."
-msgstr "Configuración de pasarelas de Zarafa actualizada."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:200
-msgid ""
-"Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
-"protocols."
-msgstr ""
-"Las pasarelas de Zarafa permiten acceso a los buzones de los usuarios usando "
-"protocolos POP3 e IMAP."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:74
-#, perl-brace-format
-msgid ""
-"To configure Zarafa you must have at least one virtual mail domain. You can "
-"define one at {ohref}Virtual Domains{chref}."
-msgstr ""
-"Para configurar Zarafa se debe tener al menos un dominio virtual de correo. "
-"Se puede definir uno en {ohref}Dominios Virtuales{chref}."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:106
-msgid ""
-"The deleted virtual domain was selected for Zarafa. Maybe you want to select "
-"another one now."
-msgstr ""
-"El dominio virtual borrado estaba seleccionado para Zarafa. Quizá quiera "
-"seleccionar otro ahora."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:156
-#: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:49
-#: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:67
-msgid "Virtual domain"
-msgstr "Dominio virtual"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:163
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:76
-msgid "List of Domains"
-msgstr "Lista de Dominios"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:167
-msgid "Select the virtual mail domain to be used for Zarafa."
-msgstr "Selecciona el dominio virtual de correo que será usado por Zarafa."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:169
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
-#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:65
-#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:114
-msgid "virtual domain"
-msgstr "domino virtual"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:76
-#: ../../main/mail/src/templates/alias.mas:202
-msgid "Maximum mailbox size"
-msgstr "Tamaño máximo de buzón"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:78
-msgid "When a mailbox reaches this size futher messages will be rejected."
-msgstr ""
-"Cuando un buzón alcance este tamaño los mensajes posteriores serán "
-"rechazados."
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:82
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
-#: ../../main/mail/src/templates/createaccount.mas:54
-msgid "Unlimited size"
-msgstr "Tamaño ilimitado"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:97
-msgid "Warn user over"
-msgstr "Avisar al usuario por encima de"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:109
-msgid "Stop user sending mails over"
-msgstr "Dejar de enviar correos por encima de"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:123
-msgid "Quota configuration settings"
-msgstr "Configuración de cuota"
-
-#: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:128
-msgid "Zarafa server quota configuration settings updated."
-msgstr "Configuración de quota de Zarafa actualizada."
-
-#: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:72
-msgid "Zarafa account"
-msgstr "Cuenta de Zarafa"
-
-#: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:314
-msgid ""
-"This user has a Zarafa account (if the user is currently connected it will "
-"continue connected until Zarafa authorization is again required)."
-msgstr ""
-"Este usuario tiene una cuenta de Zarafa. Si el usuario está correctamente "
-"conectado, continuará conectado hasta que Zarafa le requiera autenticarse de "
-"nuevo."
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:98
 #, perl-brace-format
@@ -10536,8 +10163,6 @@ msgid "Enable service"
 msgstr "Habilita el servicio"
 
 #: ../../main/core/src/EBox/Util/Nmap.pm:61
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/GroupProtocols.pm:84
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Protocols.pm:69
 msgid "protocol"
 msgstr "protocolo"
 
@@ -11185,10 +10810,9 @@ msgstr "Contraseña actual"
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/jabber/src/templates/jabber.mas:26
 #: ../../main/users/src/templates/editgroup.mas:45
-#: ../../main/users/src/templates/edituser.mas:73
+#: ../../main/users/src/templates/edituser.mas:74
 #: ../../main/users/src/templates/editcontact.mas:23
 #: ../../main/network/src/templates/ifaces.mas:184
-#: ../../main/zarafa/src/templates/zarafa.mas:74
 #: ../../main/core/src/templates/enable.mas:23
 #: ../../main/core/src/templates/dataInUse.mas:33
 #: ../../main/core/src/templates/dataInUse.mas:38
@@ -12796,16 +12420,16 @@ msgstr ""
 "saliente {oc}"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:44
+#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:38
 msgid "OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:61
+#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:55
 #, perl-brace-format
 msgid "You can access the {oh}OpenChange Webmail{ch}"
 msgstr "Puedes acceder al {oh}Correo Web de OpenChange{ch}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:66
+#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:60
 msgid ""
 "OpenChange webmail is enabled but you still need to complete the OpenChange "
 "module setup."
@@ -12814,15 +12438,16 @@ msgstr ""
 "del módulo OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:66
 msgid "OpenChange Account"
 msgstr "Cuenta de OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:86
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:92
 #, perl-brace-format
 msgid "Unknown value for {control}: {x}"
 msgstr "Valor desconocido para {control}: {x}"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:149
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:155
 msgid "This user has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
 
@@ -12890,7 +12515,7 @@ msgstr ""
 msgid "Configure an {oc} server."
 msgstr "Configurar un servidor {oc}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:102
+#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:101
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual domain"
@@ -12921,7 +12546,7 @@ msgstr "Base de datos sin configurar"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:119
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:132
-#: ../../main/openchange/src/EBox/OpenChange.pm:604
+#: ../../main/openchange/src/EBox/OpenChange.pm:603
 msgid "Setup"
 msgstr "Puesta en marcha"
 
@@ -12974,32 +12599,32 @@ msgstr ""
 msgid "Enable OpenChange account"
 msgstr "Activar cuenta de OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:259
+#: ../../main/openchange/src/EBox/OpenChange.pm:258
 msgid "To configure sogo daemon"
 msgstr "Para configurar el demonio sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:264
+#: ../../main/openchange/src/EBox/OpenChange.pm:263
 msgid "To configure sogo parameters"
 msgstr "Para configurar los parámetros sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:269
+#: ../../main/openchange/src/EBox/OpenChange.pm:268
 msgid "To configure autodiscovery service"
 msgstr "Para configurar el servicio de descubrimiento automático"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:274
+#: ../../main/openchange/src/EBox/OpenChange.pm:273
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr "Borra el fichero stock de RPC proxy para evitar interferencias"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:610
+#: ../../main/openchange/src/EBox/OpenChange.pm:609
 msgid "MailBox Migration"
 msgstr "Migración de Buzones"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:737
+#: ../../main/openchange/src/EBox/OpenChange.pm:736
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr "El dominio esperado '{d}' no se pudo encontrar en el módulo DNS."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:746
+#: ../../main/openchange/src/EBox/OpenChange.pm:745
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
@@ -13008,24 +12633,24 @@ msgstr ""
 ">Puede añadirlo en la {ohref} página de nombres de máquinas del dominio {d}"
 "{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:830
+#: ../../main/openchange/src/EBox/OpenChange.pm:829
 #, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Dominio {dom} no configurado en el {oh}módulo de DNS{ch}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:842
+#: ../../main/openchange/src/EBox/OpenChange.pm:841
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "Se necesita al menos una interfaz interna y otra externa"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:871
+#: ../../main/openchange/src/EBox/OpenChange.pm:870
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr "No se puede encontrar esta máquina en el {oh}dominio DNS {dom}{ch}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:898
+#: ../../main/openchange/src/EBox/OpenChange.pm:897
 msgid "No outgoing mail domain configured"
 msgstr "No hay dominio de correo saliente configurado"
 
@@ -13623,7 +13248,7 @@ msgid "GPO DN"
 msgstr "GPO DN"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:1259
+#: ../../main/samba/src/EBox/Samba.pm:1270
 msgid "File Sharing"
 msgstr "Compartición de Ficheros"
 
@@ -14325,7 +13950,7 @@ msgstr ""
 "Añade excepciones a las opciones por defecto de la Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:1256
+#: ../../main/samba/src/EBox/Samba.pm:1267
 msgid "Group Policy Links"
 msgstr "Enlaces para Políticas de Grupo"
 
@@ -14429,7 +14054,7 @@ msgid "GPO Editor"
 msgstr "Editor de GPO"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:1253
+#: ../../main/samba/src/EBox/Samba.pm:1264
 msgid "Group Policy Objects"
 msgstr "Objetos de política de grupo (GPO)"
 
@@ -14495,7 +14120,6 @@ msgstr ""
 "'samba_fs' al valor 's3fs' en /etc/zentyal/samba.conf"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:99
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:104
 msgid "Read only"
 msgstr "Sólo lectura"
 
@@ -14646,11 +14270,11 @@ msgstr "Para activar atributos extendidos y ACL."
 msgid "File sharing (Samba) protocol"
 msgstr "Protocolo de compartición de ficheros (Samba)"
 
-#: ../../main/samba/src/EBox/Samba.pm:766
+#: ../../main/samba/src/EBox/Samba.pm:777
 msgid "Filesystem shares"
 msgstr "Carpetas compartidas del sistemas de ficheros"
 
-#: ../../main/samba/src/EBox/Samba.pm:1505
+#: ../../main/samba/src/EBox/Samba.pm:1516
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -14658,76 +14282,76 @@ msgstr ""
 "Solo se puede restaurar si el servidor es el único controlador de dominio "
 "del bosque"
 
-#: ../../main/samba/src/EBox/Samba.pm:1612
+#: ../../main/samba/src/EBox/Samba.pm:1623
 msgid "Connect"
 msgstr "Conexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:1613
+#: ../../main/samba/src/EBox/Samba.pm:1624
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1614
+#: ../../main/samba/src/EBox/Samba.pm:1625
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1615
+#: ../../main/samba/src/EBox/Samba.pm:1626
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1616
+#: ../../main/samba/src/EBox/Samba.pm:1627
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:1617
+#: ../../main/samba/src/EBox/Samba.pm:1628
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1618
+#: ../../main/samba/src/EBox/Samba.pm:1629
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1619
+#: ../../main/samba/src/EBox/Samba.pm:1630
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:1620
+#: ../../main/samba/src/EBox/Samba.pm:1631
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../../main/samba/src/EBox/Samba.pm:1627
 #: ../../main/samba/src/EBox/Samba.pm:1638
+#: ../../main/samba/src/EBox/Samba.pm:1649
 msgid "File name"
 msgstr "Nombre de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:1628
-#: ../../main/samba/src/EBox/Samba.pm:1632
+#: ../../main/samba/src/EBox/Samba.pm:1639
+#: ../../main/samba/src/EBox/Samba.pm:1643
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1639
+#: ../../main/samba/src/EBox/Samba.pm:1650
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:1640
-#: ../../main/samba/src/EBox/Samba.pm:1643
+#: ../../main/samba/src/EBox/Samba.pm:1651
+#: ../../main/samba/src/EBox/Samba.pm:1654
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:1646
+#: ../../main/samba/src/EBox/Samba.pm:1657
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1657
+#: ../../main/samba/src/EBox/Samba.pm:1668
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:1668
+#: ../../main/samba/src/EBox/Samba.pm:1679
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:2218
+#: ../../main/samba/src/EBox/Samba.pm:2229
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -15100,6 +14724,10 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:42
 msgid "Transparent Proxy"
 msgstr "Proxy Transparente"
+
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
+msgid "Enable Single Sign-On (Kerberos)"
+msgstr "Habilitar Single Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:62
 msgid "Ad Blocking"
@@ -16120,92 +15748,6 @@ msgstr "Conexión terminada"
 msgid "IPsec"
 msgstr "IPsec"
 
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:91
-msgid ""
-"Your configuration doesn't allow anonymous neither authenticated FTP access."
-msgstr ""
-"Su configuración no permite ni acceso anónimo ni usuarios FTP autenticados"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:108
-msgid "Read/Write"
-msgstr "Lectura/escritura"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:131
-msgid "Anonymous access"
-msgstr "Acceso anónimo"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:135
-msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Activa el acceso FTP anónimo al directorio /srv/ftp."
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:139
-msgid "Personal directories"
-msgstr "Directorios personales"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:142
-msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Activa el acceso FTP de cada usuario autenticado a su directorio /home"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-msgid "Restrict to personal directories"
-msgstr "Restringe a los directorios personales"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:149
-msgid ""
-"Restrict access to each user home directory. Take into account that this "
-"restriction can be circumvented under some conditions."
-msgstr ""
-"Restringe el acceso al directorio home de cada usuario. Tenga en cuenta que "
-"esta restricción puede ser eludida bajo ciertas condiciones."
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:157
-msgid "Enable FTP SSL support for authenticated users."
-msgstr "Activa el soporte SSL para los usuarios autenticados en FTP."
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:164
-msgid "FTP Server"
-msgstr "Servidor FTP"
-
-#: ../../main/ftp/src/EBox/FTP/Model/Options.pm:168
-msgid ""
-"The anonymous directory is /srv/ftp, make sure that the files you create "
-"there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
-"you also want to grant write permissions you need to create a subdirectory "
-"with write permissions for everybody, for example: sudo mkdir /srv/ftp/"
-"incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
-"able to rename or delete files in any case."
-msgstr ""
-"El directorio anónimo es /srv/ftp, Asegúrese de que los archivos que cree en "
-"él tienen permisos de lectura para todos (chmod o+r /srv/ftp/*). Si también "
-"desea conceder permisos de escritura, deberá crear un subdirectorio con "
-"permisos de escritura para todos los usuarios, por ejemplo: mkdir /srv/ftp/"
-"incoming ; chmod o+rwx /srv/ftp/incoming. Los usuarios que accedan de manera "
-"anónima no podrán renombrar o borrar ficheros en ningún caso."
-
-#: ../../main/ftp/src/EBox/FTP.pm:75
-msgid "Zentyal FTP Server"
-msgstr "Servidor FTP de Zentyal"
-
-#: ../../main/ftp/src/EBox/FTP.pm:113
-msgid "Generate SSL certificates"
-msgstr "Genera certificados SSL"
-
-#: ../../main/ftp/src/EBox/FTP.pm:114
-msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr "Zentyal firmará los certificados SSL para el servicio de FTP."
-
-#: ../../main/ftp/src/EBox/FTP.pm:132
-msgid "To configure vsftpd."
-msgstr "Para Configurar vsftpd"
-
-#: ../../main/ftp/src/EBox/FTP.pm:136
-msgid "To configure vsftpd with LDAP authentication."
-msgstr "Para Configurar vsftpd con autenticación LDAP"
-
-#: ../../main/ftp/src/EBox/FTP.pm:179
-msgid "FTP"
-msgstr "FTP"
-
 #: ../../main/mail/src/EBox/Mail.pm:85 ../../main/mail/src/EBox/Mail.pm:1403
 #: ../../main/mail/src/EBox/Mail.pm:1563
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -16352,6 +15894,10 @@ msgstr "servicio IMAPS"
 msgid "Mail server's filter"
 msgstr "Filtro del servidor de correo"
 
+#: ../../main/mail/src/EBox/Mail.pm:1476
+msgid "Virtual Mail Domains"
+msgstr "Dominios virtuales de correo"
+
 #: ../../main/mail/src/EBox/Mail.pm:1482
 msgid "Greylist"
 msgstr "Lista gris"
@@ -16470,6 +16016,13 @@ msgstr "Dominio virtual de correo"
 msgid "Invalid virtual mail domain"
 msgstr "Dominio virtual de correo no válido"
 
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
+#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:65
+#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:114
+msgid "virtual domain"
+msgstr "domino virtual"
+
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:51
 #: ../../main/mail/src/templates/alias.mas:12
 msgid "Mail address"
@@ -16488,7 +16041,7 @@ msgstr "ID de la cola"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:423
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:83
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
 msgid "External account"
@@ -16572,7 +16125,7 @@ msgstr "Cuenta de correo local"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:120
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:97
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
 msgstr "Servidor de correo"
 
@@ -16668,6 +16221,10 @@ msgstr "Alias de dominios virtuales"
 msgid "External accounts aliases"
 msgstr "Alias de cuentas externas"
 
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:76
+msgid "List of Domains"
+msgstr "Lista de Dominios"
+
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:87
 msgid "Virtual domain added. You must save changes to use this domain"
 msgstr "Dominio virtual añadido. Debes guardar cambios para usar este dominio"
@@ -16700,43 +16257,43 @@ msgstr ""
 "No se puede añadir el domino virtual {vd} porque aparece como dominio "
 "externo en la cuenta referenciada por el alias {al}"
 
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:66
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:127
-msgid "External mail accounts"
-msgstr "Cuenta de correo externa"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
-msgid "external mail account"
-msgstr "cuenta de correo externa"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:134
-msgid "Fetching mail is done every 10 minutes"
-msgstr "La recogida del correo se realiza cada 10 minutos"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:156
-msgid "Secure POP3"
-msgstr "POP3 seguro"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:164
-msgid "Secure IMAP"
-msgstr "IMAP seguro"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:276
-msgid "External account added"
-msgstr "Cuenta externa añadida"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:304
-#, perl-brace-format
-msgid "External account {ac} removed"
-msgstr "Cuenta externa {ac} eliminada"
-
-#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:396
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:86
 msgid ""
 "Cannot retrieve mail from external accounts because you do not have a email "
 "account in a local mail domain"
 msgstr ""
 "No se puede recuperar correo de cuentas externas porque no tiene una cuenta "
 "en un dominio de correo local"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:104
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:165
+msgid "External mail accounts"
+msgstr "Cuenta de correo externa"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:166
+msgid "external mail account"
+msgstr "cuenta de correo externa"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:170
+msgid "Fetching mail is done every 10 minutes"
+msgstr "La recogida del correo se realiza cada 10 minutos"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:192
+msgid "Secure POP3"
+msgstr "POP3 seguro"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:200
+msgid "Secure IMAP"
+msgstr "IMAP seguro"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:312
+msgid "External account added"
+msgstr "Cuenta externa añadida"
+
+#: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:340
+#, perl-brace-format
+msgid "External account {ac} removed"
+msgstr "Cuenta externa {ac} eliminada"
 
 #: ../../main/mail/src/EBox/Mail/Model/TrafficGraph.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:50
@@ -16870,6 +16427,12 @@ msgstr ""
 "Cuando un buzón de correo alcanza este tamaño, los correos serán rechazados. "
 "El valor puede ser sobreescrito."
 
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
+#: ../../main/mail/src/templates/createaccount.mas:54
+msgid "Unlimited size"
+msgstr "Tamaño ilimitado"
+
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:168
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:187
 msgid "limited to"
@@ -16949,6 +16512,11 @@ msgstr ""
 "No contar con un nombre de máquina cualificado puede provocar que algunos "
 "servidores de correo rechacen el correo y a respuestas incorrectas de "
 "usuarios del sistema"
+
+#: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:49
+#: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:67
+msgid "Virtual domain"
+msgstr "Dominio virtual"
 
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:73
 msgid "Sent messages"
@@ -17905,38 +17473,6 @@ msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."
 
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/GroupProtocols.pm:76
-msgid "Layer 7 grouped protocols"
-msgstr "Protocolos de nivel 7 agrupados"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:58
-msgid "protocols"
-msgstr "protocolos"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:68
-msgid "Application content based grouped protocols"
-msgstr "Grupo de servicios basados en aplicación"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:69
-msgid "List of groups"
-msgstr "Lista de grupos"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:94
-msgid ""
-"Here you can modify and create new groups of application content based "
-"protocols"
-msgstr ""
-"Aquí se pueden crear o modificar nuevos grupos de protocolos basados en "
-"aplicación"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Protocols.pm:61
-msgid "Layer 7 protocols"
-msgstr "Protocolos de nivel 7"
-
-#: ../../main/l7-protocols/src/EBox/L7Protocols.pm:49
-msgid "Application Protocols"
-msgstr "Protocolos de Aplicación"
-
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:40
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:41
 msgid "NTP"
@@ -18669,12 +18205,10 @@ msgid "Enter"
 msgstr "Entrar"
 
 #: ../../main/jabber/src/templates/jabber.mas:14
-#: ../../main/zarafa/src/templates/zarafa.mas:13
 msgid "User account"
 msgstr "Cuenta de usuario"
 
 #: ../../main/jabber/src/templates/jabber.mas:20
-#: ../../main/zarafa/src/templates/zarafa.mas:28
 msgid "Administration rights"
 msgstr "Privilegios de administrador"
 
@@ -18977,7 +18511,7 @@ msgid "Optional"
 msgstr "Opcional"
 
 #: ../../main/users/src/templates/editgroup.mas:63
-#: ../../main/users/src/templates/edituser.mas:86
+#: ../../main/users/src/templates/edituser.mas:87
 msgid "Modules configuration"
 msgstr "Configuración del estado de los módulos"
 
@@ -19042,25 +18576,25 @@ msgstr "Nombre en pantalla"
 msgid "User quota"
 msgstr "Cuota de usuario"
 
-#: ../../main/users/src/templates/edituser.mas:61
+#: ../../main/users/src/templates/edituser.mas:62
 msgid "Disabled account"
 msgstr "Cuenta deshabilitada"
 
-#: ../../main/users/src/templates/edituser.mas:68
+#: ../../main/users/src/templates/edituser.mas:69
 #: ../../main/users/src/templates/adduser.mas:30
 msgid "Retype password"
 msgstr "Confirme contraseña"
 
-#: ../../main/users/src/templates/edituser.mas:77
+#: ../../main/users/src/templates/edituser.mas:78
 msgid "User groups"
 msgstr "Grupos del usuario"
 
-#: ../../main/users/src/templates/edituser.mas:167
-#: ../../main/users/src/templates/edituser.mas:251
+#: ../../main/users/src/templates/edituser.mas:168
+#: ../../main/users/src/templates/edituser.mas:252
 msgid "This user is not a member of any group"
 msgstr "Este usuario no es miembro de ningún grupo"
 
-#: ../../main/users/src/templates/edituser.mas:236
+#: ../../main/users/src/templates/edituser.mas:237
 #: ../../main/users/src/templates/editcontact.mas:151
 msgid "Add group"
 msgstr "Añadir grupo"
@@ -19623,43 +19157,6 @@ msgstr "Lista de VLANs"
 #: ../../main/network/src/templates/ifaces.mas:229
 msgid "Virtual Interfaces"
 msgstr "Interfaces Virtuales"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:34
-msgid "Enable POP3 access"
-msgstr "Habilitar pasarela POP3"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:40
-msgid "Enable IMAP access"
-msgstr "Habilitar pasarela IMAP"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:46
-msgid "Auto accept meeting requests"
-msgstr "Aceptar peticiones de reunión automáticamente"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:52
-msgid "Decline meetings requests with conflicting times"
-msgstr "Declinar peticiones de reuniones con horarios en conflicto"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:59
-msgid "Decline recurring meeting requests"
-msgstr "Declinar peticiones de reuniones recurrentes"
-
-# Sugiero el cambio de la palabra cogerá por la palabra obtendrá 
-#: ../../main/zarafa/src/templates/zarafa.mas:60
-msgid "Zarafa takes quota settings from mail account settings."
-msgstr "Zarafa obtendrá la configuración de cuota de la cofiguración de correo"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:68
-msgid "Groupware contact"
-msgstr "Contacto de Groupware"
-
-#: ../../main/zarafa/src/templates/zarafa.mas:110
-msgid ""
-"The following settings will take effect only when the Zarafa module is "
-"enabled."
-msgstr ""
-"Las siguientes opciones sólo tendrán efecto cuando el módulo de Zarafa esté "
-"habilitado"
 
 #: ../../main/core/src/templates/login/index.mas:44
 #, perl-brace-format
@@ -21493,10 +20990,6 @@ msgstr "Proporcionado por"
 msgid "Days of the week"
 msgstr "Días de la semana"
 
-#: ../../main/ftp/stubs/vsftpd.conf.mas:73
-msgid "Welcome to Zentyal FTP service."
-msgstr "Bienvenido al servicio FTP de Zentyal."
-
 #: ../../main/mail/src/templates/groupalias.mas:22
 #: ../../main/mail/src/templates/alias.mas:30
 msgid "Mail alias"
@@ -21569,6 +21062,10 @@ msgstr "Cuota personalizada"
 #: ../../main/mail/src/templates/alias.mas:193
 msgid "Quota type"
 msgstr "Tipo de cuota"
+
+#: ../../main/mail/src/templates/alias.mas:202
+msgid "Maximum mailbox size"
+msgstr "Tamaño máximo de buzón"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
@@ -21670,6 +21167,396 @@ msgid ""
 msgstr ""
 "¿Quieres monitorizar y gestionar tus servidores y escritorios de forma "
 "remota? ¡Obtén una de las ediciones comerciales(ch}!"
+
+#~ msgid "quota"
+#~ msgstr "cuota"
+
+#~ msgid "Add Zarafa LDAP schema"
+#~ msgstr "Añadir esquema LDAP de Zarafa"
+
+#~ msgid "Zentyal will need this schema to store Zarafa users."
+#~ msgstr ""
+#~ "Zentyal necesitará este esquema para almacenar los usuarios de Zarafa"
+
+#~ msgid "Add vmail system user"
+#~ msgstr "Añadir usuario del sistema vmail"
+
+#~ msgid "Zentyal will need this to deliver mail to Zarafa."
+#~ msgstr "Zentyal necesitará esto para entegar correo a Zarafa."
+
+#~ msgid "Create MySQL Zarafa database"
+#~ msgstr "Crear base de datos MySQL para Zarafa"
+
+#~ msgid "This database will store the data needed by Zarafa."
+#~ msgstr "Esta base de datos almacenará los datos necesitados por Zarafa."
+
+#~ msgid "Create default SSL key/certificates"
+#~ msgstr "Crear claves y certificados SSL por defecto"
+
+#~ msgid ""
+#~ "This self-signed default certificates will be used by Zarafa POP3/IMAP "
+#~ "gateway."
+#~ msgstr ""
+#~ "Este certificado auto-firmado se usará para la pasarela POP3/IMAP de "
+#~ "Zarafa"
+
+#~ msgid "Add zarafa link to www data directory"
+#~ msgstr "Añadir enlace de zarafa al directorio de datos www."
+
+#~ msgid ""
+#~ "Zarafa will be accesible at http://ip/webaccess/ and http://ip/webapp/."
+#~ msgstr ""
+#~ "Zarafa estará accesible en http://ip/webaccess/ y http://ip/webapp/."
+
+#~ msgid ""
+#~ "Install English/United States locale on the system if it is not already "
+#~ "installed"
+#~ msgstr ""
+#~ "Instalar locale English/US en el sistema si no se encuentra instalada"
+
+#~ msgid "Zarafa needs this locale to run."
+#~ msgstr "Zarafa necesita esta locale para funcionar."
+
+#~ msgid "To properly configure Zarafa."
+#~ msgstr "Configurar adecuadamente Zarafa"
+
+#~ msgid "To properly configure Zarafa LDAP connection."
+#~ msgstr "Configurar adecuadamente conexión entre Zarafa y LDAP"
+
+#~ msgid "To properly configure Zarafa webaccess."
+#~ msgstr "Configurar adecuadamente acceso web de Zarafa"
+
+#~ msgid "To properly configure Zarafa XMPP integration."
+#~ msgstr "Para configurar adecuadamente conexión entre Zarafa y XMPP."
+
+#~ msgid "To properly configure Zarafa gateway server."
+#~ msgstr "Configurar adecuadamente servidor de pasarelas de Zarafa"
+
+#~ msgid "To properly configure Zarafa quota monitoring server."
+#~ msgstr "Configurar adecuadamente monitorizador de quotas de Zarafa"
+
+#~ msgid "To properly configure Zarafa mail delivering server."
+#~ msgstr "Configurar adecuadamente servidor de entrega de correo de Zarafa"
+
+#~ msgid "To properly configure Zarafa ical server."
+#~ msgstr "Configurar adecuadamente servidor ical de Zarafa"
+
+#~ msgid "To properly configure Zarafa dagent LMTP delivering server."
+#~ msgstr "Configurar adecuadamente servidor de entrega LMTP dagent de Zarafa"
+
+#~ msgid "Groupware services (Zarafa)"
+#~ msgstr "Servicio de Groupware (Zarafa)"
+
+#~ msgid "Zarafa Gateway Server"
+#~ msgstr "Servidor de pasarelas de Zarafa"
+
+#~ msgid "Zarafa account options set"
+#~ msgstr "Opciones de cuenta de Zarafa establecidas"
+
+#~ msgid "Zarafa account enabled"
+#~ msgstr "Cuenta de Zarafa habilitada"
+
+#~ msgid "Zarafa account disabled"
+#~ msgstr "Cuenta de Zarafa deshabilitada"
+
+#~ msgid "Groupware (Zarafa)"
+#~ msgstr "Groupware (Zarafa)"
+
+#~ msgid ""
+#~ "You can access the Zarafa web interface at http://zentyal_ip/webaccess "
+#~ "and the new version at http://zentyal_ip/webapp."
+#~ msgstr ""
+#~ "Se puede acceder la interfaz web de Zarafa en http://zentyal_ip/webaccess "
+#~ "y la versión para móviles en http://zentyal_ip/webaccess-mobile."
+
+#~ msgid "Enable Outlook Access"
+#~ msgstr "Habilitar el acceso de Outlook"
+
+#~ msgid "Enable SOAP connections for Outlook access."
+#~ msgstr "Habilitar las conexiones SOAP para el acceso de Outlook."
+
+#~ msgid "Enable Instant Messaging integration"
+#~ msgstr "Activar integración con la Mensajería Instantánea"
+
+#~ msgid "Enable Instant Messaging integration Zarafa Webapp."
+#~ msgstr ""
+#~ "Activar la integración con la Mensajería Instantánea en Zarafa Webapp"
+
+#~ msgid "Enable Spell Checking"
+#~ msgstr "Activar corrector ortográfico"
+
+#~ msgid "Enable spell checking on Zarafa Webaccess."
+#~ msgstr "Activar correcto ortográfico en la interfaz web de Zarafa"
+
+#~ msgid "Enable Active Sync"
+#~ msgstr "Habilitar Active Sync"
+
+#~ msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
+#~ msgstr ""
+#~ "Habilitar Active Sync (Protocolo de sincronización de Microsoft Exchange)"
+
+#~ msgid "Enable only Single Sign-On on the Webaccess interface."
+#~ msgstr "Activar Single Sing On en la interfaz 'Webaccess'."
+
+#~ msgid ""
+#~ "Enable Zarafa access only on this virtual host under /webaccess and /"
+#~ "webapp."
+#~ msgstr ""
+#~ "Habilitar acceso a Zarafa únicamente en este virtual host bajo /webaccess "
+#~ "y /webaccess-mobile."
+
+#~ msgid "General Zarafa server configuration settings updated."
+#~ msgstr "Configuración general del servidor de Zarafa actualizada."
+
+#~ msgid ""
+#~ "The deleted virtual host was selected for Zarafa. Maybe you want to "
+#~ "select another one now."
+#~ msgstr ""
+#~ "El virtual host borrado estaba seleccionado para Zarafa. Quizá quiera "
+#~ "seleccionar otro ahora."
+
+#~ msgid "Groupware Account"
+#~ msgstr "Cuenta de Groupware"
+
+#~ msgid "Groupware Contact"
+#~ msgstr "Contacto de Groupware"
+
+#~ msgid "Enable contact in the addressbook even if it has not Zarafa account."
+#~ msgstr ""
+#~ "Habilitar el contacto en la lista de contactos aunque la cuenta esté "
+#~ "deshabilitada."
+
+#~ msgid "Enable POP3 Access"
+#~ msgstr "Habilitar pasarela POP3"
+
+#~ msgid "Enable IMAP Access"
+#~ msgstr "Habilitar pasarela IMAP"
+
+#~ msgid "Zarafa"
+#~ msgstr "Zarafa"
+
+#~ msgid ""
+#~ "To enable Zarafa {service} gateway you must disable {service} mail "
+#~ "retrieval service. You can do it at {ohref}Mail General Configuration"
+#~ "{chref}."
+#~ msgstr ""
+#~ "Para activar la pasarela {service} de Zarafa se debe desactivar el "
+#~ "servicio {service} de correo. Se puede hacer en {ohref}Configuración "
+#~ "general de Correo{chref}."
+
+#~ msgid ""
+#~ "To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
+#~ "domain. You can do it at {ohref}Virtual Mail Domains{chref}."
+#~ msgstr ""
+#~ "Para activar las pasarelas IMAP y POP3 de Zarafa se necesita al menos un "
+#~ "dominio virtual de correo. Se puede añadir uno en {ohref}Dominios "
+#~ "Virtuales de Correo{chref}."
+
+#~ msgid "Enable POP3 gateway"
+#~ msgstr "Habilitar pasarela POP3"
+
+#~ msgid "Enable POP3S gateway"
+#~ msgstr "Habilitar pasarela POP3S"
+
+#~ msgid "Enable IMAP gateway"
+#~ msgstr "Habilitar pasarela IMAP"
+
+#~ msgid "Enable IMAPS gateway"
+#~ msgstr "Habilitar pasarela IMAPS"
+
+#~ msgid "Enable iCAL gateway"
+#~ msgstr "Habilitar pasarela iCAL"
+
+#~ msgid "Enable iCAL SSL gateway"
+#~ msgstr "Habilitar pasarela iCAL SSL"
+
+#~ msgid "Zarafa gateways configuration settings"
+#~ msgstr "Configuración de pasarelas de Zarafa"
+
+#~ msgid "Zarafa gateways configuration settings updated."
+#~ msgstr "Configuración de pasarelas de Zarafa actualizada."
+
+#~ msgid ""
+#~ "Zarafa gateways allow access to users mailboxes using POP3 and IMAP "
+#~ "protocols."
+#~ msgstr ""
+#~ "Las pasarelas de Zarafa permiten acceso a los buzones de los usuarios "
+#~ "usando protocolos POP3 e IMAP."
+
+#~ msgid ""
+#~ "To configure Zarafa you must have at least one virtual mail domain. You "
+#~ "can define one at {ohref}Virtual Domains{chref}."
+#~ msgstr ""
+#~ "Para configurar Zarafa se debe tener al menos un dominio virtual de "
+#~ "correo. Se puede definir uno en {ohref}Dominios Virtuales{chref}."
+
+#~ msgid ""
+#~ "The deleted virtual domain was selected for Zarafa. Maybe you want to "
+#~ "select another one now."
+#~ msgstr ""
+#~ "El dominio virtual borrado estaba seleccionado para Zarafa. Quizá quiera "
+#~ "seleccionar otro ahora."
+
+#~ msgid "Select the virtual mail domain to be used for Zarafa."
+#~ msgstr "Selecciona el dominio virtual de correo que será usado por Zarafa."
+
+#~ msgid "When a mailbox reaches this size futher messages will be rejected."
+#~ msgstr ""
+#~ "Cuando un buzón alcance este tamaño los mensajes posteriores serán "
+#~ "rechazados."
+
+#~ msgid "Warn user over"
+#~ msgstr "Avisar al usuario por encima de"
+
+#~ msgid "Stop user sending mails over"
+#~ msgstr "Dejar de enviar correos por encima de"
+
+#~ msgid "Quota configuration settings"
+#~ msgstr "Configuración de cuota"
+
+#~ msgid "Zarafa server quota configuration settings updated."
+#~ msgstr "Configuración de quota de Zarafa actualizada."
+
+#~ msgid "Zarafa account"
+#~ msgstr "Cuenta de Zarafa"
+
+#~ msgid ""
+#~ "This user has a Zarafa account (if the user is currently connected it "
+#~ "will continue connected until Zarafa authorization is again required)."
+#~ msgstr ""
+#~ "Este usuario tiene una cuenta de Zarafa. Si el usuario está correctamente "
+#~ "conectado, continuará conectado hasta que Zarafa le requiera autenticarse "
+#~ "de nuevo."
+
+#~ msgid ""
+#~ "Your configuration doesn't allow anonymous neither authenticated FTP "
+#~ "access."
+#~ msgstr ""
+#~ "Su configuración no permite ni acceso anónimo ni usuarios FTP autenticados"
+
+#~ msgid "Read/Write"
+#~ msgstr "Lectura/escritura"
+
+#~ msgid "Anonymous access"
+#~ msgstr "Acceso anónimo"
+
+#~ msgid "Enable anonymous FTP access to the /srv/ftp directory."
+#~ msgstr "Activa el acceso FTP anónimo al directorio /srv/ftp."
+
+#~ msgid "Personal directories"
+#~ msgstr "Directorios personales"
+
+#~ msgid "Enable authenticated FTP access to each user home directory."
+#~ msgstr ""
+#~ "Activa el acceso FTP de cada usuario autenticado a su directorio /home"
+
+#~ msgid "Restrict to personal directories"
+#~ msgstr "Restringe a los directorios personales"
+
+#~ msgid ""
+#~ "Restrict access to each user home directory. Take into account that this "
+#~ "restriction can be circumvented under some conditions."
+#~ msgstr ""
+#~ "Restringe el acceso al directorio home de cada usuario. Tenga en cuenta "
+#~ "que esta restricción puede ser eludida bajo ciertas condiciones."
+
+#~ msgid "Enable FTP SSL support for authenticated users."
+#~ msgstr "Activa el soporte SSL para los usuarios autenticados en FTP."
+
+#~ msgid "FTP Server"
+#~ msgstr "Servidor FTP"
+
+#~ msgid ""
+#~ "The anonymous directory is /srv/ftp, make sure that the files you create "
+#~ "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
+#~ "you also want to grant write permissions you need to create a "
+#~ "subdirectory with write permissions for everybody, for example: sudo "
+#~ "mkdir /srv/ftp/incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous "
+#~ "access won't be able to rename or delete files in any case."
+#~ msgstr ""
+#~ "El directorio anónimo es /srv/ftp, Asegúrese de que los archivos que cree "
+#~ "en él tienen permisos de lectura para todos (chmod o+r /srv/ftp/*). Si "
+#~ "también desea conceder permisos de escritura, deberá crear un "
+#~ "subdirectorio con permisos de escritura para todos los usuarios, por "
+#~ "ejemplo: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming. Los "
+#~ "usuarios que accedan de manera anónima no podrán renombrar o borrar "
+#~ "ficheros en ningún caso."
+
+#~ msgid "Zentyal FTP Server"
+#~ msgstr "Servidor FTP de Zentyal"
+
+#~ msgid "Generate SSL certificates"
+#~ msgstr "Genera certificados SSL"
+
+#~ msgid "Zentyal will self-signed SSL certificates for FTP service."
+#~ msgstr "Zentyal firmará los certificados SSL para el servicio de FTP."
+
+#~ msgid "To configure vsftpd."
+#~ msgstr "Para Configurar vsftpd"
+
+#~ msgid "To configure vsftpd with LDAP authentication."
+#~ msgstr "Para Configurar vsftpd con autenticación LDAP"
+
+#~ msgid "FTP"
+#~ msgstr "FTP"
+
+#~ msgid "Layer 7 grouped protocols"
+#~ msgstr "Protocolos de nivel 7 agrupados"
+
+#~ msgid "protocols"
+#~ msgstr "protocolos"
+
+#~ msgid "Application content based grouped protocols"
+#~ msgstr "Grupo de servicios basados en aplicación"
+
+#~ msgid "List of groups"
+#~ msgstr "Lista de grupos"
+
+#~ msgid ""
+#~ "Here you can modify and create new groups of application content based "
+#~ "protocols"
+#~ msgstr ""
+#~ "Aquí se pueden crear o modificar nuevos grupos de protocolos basados en "
+#~ "aplicación"
+
+#~ msgid "Layer 7 protocols"
+#~ msgstr "Protocolos de nivel 7"
+
+#~ msgid "Application Protocols"
+#~ msgstr "Protocolos de Aplicación"
+
+#~ msgid "Enable POP3 access"
+#~ msgstr "Habilitar pasarela POP3"
+
+#~ msgid "Enable IMAP access"
+#~ msgstr "Habilitar pasarela IMAP"
+
+#~ msgid "Auto accept meeting requests"
+#~ msgstr "Aceptar peticiones de reunión automáticamente"
+
+#~ msgid "Decline meetings requests with conflicting times"
+#~ msgstr "Declinar peticiones de reuniones con horarios en conflicto"
+
+#~ msgid "Decline recurring meeting requests"
+#~ msgstr "Declinar peticiones de reuniones recurrentes"
+
+# Sugiero el cambio de la palabra cogerá por la palabra obtendrá 
+#~ msgid "Zarafa takes quota settings from mail account settings."
+#~ msgstr ""
+#~ "Zarafa obtendrá la configuración de cuota de la cofiguración de correo"
+
+#~ msgid "Groupware contact"
+#~ msgstr "Contacto de Groupware"
+
+#~ msgid ""
+#~ "The following settings will take effect only when the Zarafa module is "
+#~ "enabled."
+#~ msgstr ""
+#~ "Las siguientes opciones sólo tendrán efecto cuando el módulo de Zarafa "
+#~ "esté habilitado"
+
+#~ msgid "Welcome to Zentyal FTP service."
+#~ msgstr "Bienvenido al servicio FTP de Zentyal."
 
 #~ msgid "Failed to update: {err}."
 #~ msgstr "Fallo al actualizar: {err}"
