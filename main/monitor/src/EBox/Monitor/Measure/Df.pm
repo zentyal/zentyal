@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,7 +18,7 @@
 #     This measure collects the file system usage information as it
 #     does "df" tool.
 #
-#     Only mounted partitions will be shown
+#     Only mounted partitions will be shown.
 #
 
 use strict;
@@ -47,7 +47,10 @@ sub new
 
 # Method: _description
 #
-#       Gives the description for the measure
+#       Gives the description for the measure.
+#
+#       Each partition is a plugin instance and the types for each
+#       instance are used, free and reserved.
 #
 # Returns:
 #
@@ -60,8 +63,7 @@ sub _description
     # this doesn't return fs mounted under /media
     my $fileSysS = EBox::FileSystem::partitionsFileSystems(1);
 
-    my (@typeInstances, %printableTypeInstances) = ((),());
-    my @printableLabels = ();
+    my (@pluginInstances, %printableInstances) = ((),());
     foreach my $fileSys (keys %{$fileSysS}) {
         if ($fileSysS->{$fileSys}->{type} eq 'nfs') {
             next;
@@ -69,8 +71,8 @@ sub _description
 
         my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
         if ($mountPoint eq '/') {
-            push(@typeInstances, 'root');
-            $printableTypeInstances{'root'} = '/';
+            push(@pluginInstances, 'root');
+            $printableInstances{'root'} = __x('Disk usage in {partition}', partition => '/');
         } else {
             my @options = split ',', $fileSysS->{$fileSys}->{options};
             my $roFs = 0;
@@ -86,22 +88,23 @@ sub _description
 
             $mountPoint =~ s:/:-:g;
             $mountPoint = substr($mountPoint, 1);
-            push(@typeInstances, $mountPoint);
-            $printableTypeInstances{$mountPoint} = $fileSysS->{$fileSys}->{mountPoint};
+            push(@pluginInstances, $mountPoint);
+            $printableInstances{$mountPoint} = __x('Disk usage in {partition}',
+                                                   partition => $fileSysS->{$fileSys}->{mountPoint});
         }
-        push(@printableLabels, __x('used in {partition}',
-                                   partition => $fileSysS->{$fileSys}->{mountPoint}));
-        push(@printableLabels, __x('free in {partition}',
-                                   partition => $fileSysS->{$fileSys}->{mountPoint}));
     }
 
     return {
         printableName   => __('File system usage'),
         help            => __('Collect the mounted file system usage information as "df" command does'),
-        dataSources     => [ 'used', 'free' ],
-        printableLabels => \@printableLabels,
-        printableTypeInstances => \%printableTypeInstances,
-        typeInstances   => \@typeInstances,
+        instances       => \@pluginInstances,
+        printableInstances => \%printableInstances,
+        types           => [ 'df_complex' ],
+        printableTypeInstances => { free     => __('free'),
+                                    used     => __('used'),
+                                    reserved => __('reserved') },
+        typeInstances   => [qw(free used reserved)],
+        printableLabels => [__('free'), __('used'), __('reserved')],
         type            => 'byte',
     };
 }
