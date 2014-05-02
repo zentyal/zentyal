@@ -1,4 +1,4 @@
-HEAD
+3.2.13
 	+ Fixed error when editing user email address when mail module is
 	  not installed
 	+ Using paged serch in EBox::Users::users() method
