@@ -622,7 +622,7 @@ sub Types
 #         Default value: lc(name)
 #
 #         printableName - String the measure's localisated name
-#         +(Optional)* Default value: empty string
+#         *(Optional)* Default value: empty string
 #
 #         help - String the localisated help which may give an
 #         explanation about the measure and measurement

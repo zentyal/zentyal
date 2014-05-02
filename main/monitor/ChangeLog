@@ -1,4 +1,6 @@
 HEAD
+	+ Show disk usage again including reserved space after changing to
+	  collectd 5.1
 	+ Change name to System Monitoring to avoid confussion with new
 	  Networking Monitoring module
 3.4
