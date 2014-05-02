@@ -65,13 +65,19 @@ if ($edufilter) {
 }
 
 $| = 1;
+_dbg("Bef loop");
 while (1) {
     my $line = <>;
-    $line or next;
+    _dbg("|$line|");
+    if (not $line) {
+        print "\n";
+        next;
+    }
     my ($url) = split '\s', $line, 3;
-    $url or next;
-
-
+    if (not $url) {
+        print "\n";
+        next;
+    }
     if ($url =~ m{[.][a-zA-Z]+$}) {
         # filename, we let it pass
         print "\n";
@@ -105,10 +111,11 @@ while (1) {
             }
         }
 
-        $response = $url;
+        _dbg("$domain -> $url");
+        print $url, "\n";
+    } else {
+        print "\n";
     }
-
-    print $response, "\n";
 }
 
 1;
