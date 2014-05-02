@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -1799,7 +1799,7 @@ msgid "Priority"
 msgstr "Приоритет"
 
 #: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:59
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
@@ -3431,47 +3431,47 @@ msgstr ""
 "не очень хорошая идея. Если ни один из интерфейсов не выбран, CUPS веб-"
 "сервер будет ожидать сигнал только на localhost"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:53
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:54
 #, fuzzy
 msgid "Printer name"
 msgstr "Принтер"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:65
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:66
 #, fuzzy
 msgid "Location"
 msgstr "Действие"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:71
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
 msgstr "Гостевой доступ"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:74
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:75
 #, fuzzy
 msgid "This printer will not require authentication."
 msgstr "Этот общий ресурс не требует аутентификации."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:78
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
 msgstr "Контроль доступа"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:87
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:88
 #, fuzzy
 msgid "Printer permissions"
 msgstr "Разрешения"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:92
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:93
 msgid "printer"
 msgstr "принтер"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:95
 #, fuzzy
 msgid "Here you can define the access control list for your printers."
 msgstr ""
 "На этой странице вы можете установить основные настройки Captive Portal."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:218
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, fuzzy, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
@@ -3480,7 +3480,7 @@ msgstr ""
 "До настройки принтеров Вам необходимо включить модуль в разделе{openref}"
 "Статус Модуля{closeref}  и после этого сохранить изменения."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:228
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "the printing service. If you wish to enable this feature, add the Zentyal "
@@ -3488,7 +3488,7 @@ msgid ""
 "samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba.conf"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:243
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:264
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"

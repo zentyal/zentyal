@@ -1923,7 +1923,7 @@ msgid "Priority"
 msgstr "Prioritate"
 
 #: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:59
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
@@ -3607,12 +3607,12 @@ msgstr ""
 "bună ca acesta să asculte pe interfeţele externe. Dacă nu selectaţi nici o "
 "interfaţă, va asculta numai pe localhost."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:53
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:54
 #, fuzzy
 msgid "Printer name"
 msgstr "Imprimantă"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:65
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:66
 #, fuzzy
 msgid "Location"
 msgstr ""
@@ -3627,36 +3627,36 @@ msgstr ""
 "#-#-#-#-#  ro.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "Acţiune"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:71
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:74
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:75
 #, fuzzy
 msgid "This printer will not require authentication."
 msgstr "Autentificare SMTP"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:78
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:87
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:88
 #, fuzzy
 msgid "Printer permissions"
 msgstr "Partajare imprimante"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:92
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:93
 #, fuzzy
 msgid "printer"
 msgstr "Imprimantă"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:95
 msgid "Here you can define the access control list for your printers."
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:218
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, fuzzy, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
@@ -3666,7 +3666,7 @@ msgstr ""
 "secţiunea {openref}Stare Module{closeref} şi apoi înregistrarea "
 "modificărilor."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:228
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "the printing service. If you wish to enable this feature, add the Zentyal "
@@ -3674,7 +3674,7 @@ msgid ""
 "samba config key 'samba_fs' to 's3fs' in /etc/zentyal/samba.conf"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:243
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:264
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
