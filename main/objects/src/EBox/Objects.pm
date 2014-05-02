@@ -107,16 +107,26 @@ sub menu
     $root->add($folder);
 }
 
+# Method: usedFiles
+#
+# Overrides:
+#
+#  <EBox::Module::Service::usedFiles>
+#
 sub usedFiles
 {
-    # TODO
-    return [];
-}
-
-sub actions
-{
-    # TODO
-    return [];
+    return [
+        {
+            'file'   => P0F_DEFAULT_FILE,
+            'reason' => __('To set up the configuration settings for p0f daemon'),
+            'module' => 'objects',
+        },
+        {
+            'file'   => P0F_CONFIG_FILE,
+            'reason' => __('To set up the fingerprint database for p0f daemon'),
+            'module' => 'objects',
+        },
+    ];
 }
 
 sub _snifferCond
