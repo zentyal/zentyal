@@ -1,4 +1,5 @@
 HEAD
+	+ Set up QA repository only to commercial versions
 	+ Clarified doc about qa_updates_always_automatic confkey
 3.4.1
 	+ Fixed JS regressions on subscribe action
