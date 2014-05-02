@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-04-22 18:24+0200\n"
-"Last-Translator: fcpimenta <fernandopimenta@dblinkconsult.com.br>\n"
+"PO-Revision-Date: 2014-04-29 15:55+0200\n"
+"Last-Translator: tiagocalisto <ghomah@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1364,7 +1364,6 @@ msgid "There is a DHCP range that includes the given IP address."
 msgstr "Existe uma extensão do DHCP que inclui o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
 msgstr "Endereço IP público"
 
@@ -1478,9 +1477,8 @@ msgid "Error: {service} service is not running"
 msgstr "Erro: o serviço {service} está parado"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Localização"
+msgstr "Ultima modificação"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
 #, fuzzy

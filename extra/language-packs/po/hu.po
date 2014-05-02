@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2013-12-24 04:53+0200\n"
+"PO-Revision-Date: 2014-05-02 02:02+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -1158,9 +1158,8 @@ msgstr "Az insecure_rip_conf paramétert a yes vagy no egyikére kell állítani
 #: ../../main/ha/src/EBox/HA.pm:90
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "Elérhető"
+msgstr "Magas rendelkezésre állás"
 
 #: ../../main/ha/src/EBox/HA.pm:115 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
@@ -1172,18 +1171,16 @@ msgstr "Rendszer"
 #: ../../main/ha/src/EBox/HA.pm:146
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "felhasználónév"
+msgstr "Fürt állapota"
 
 #: ../../main/ha/src/EBox/HA.pm:164
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Sogo démon beállítása"
+msgstr "Corosync démon beállítása"
 
 #: ../../main/ha/src/EBox/HA.pm:167
 msgid "To start corosync at boot"
-msgstr ""
+msgstr "Corosync indítása a rendszerrel"
 
 #: ../../main/ha/src/EBox/HA.pm:1001
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1232,20 +1229,18 @@ msgid "None"
 msgstr "Nincs"
 
 #: ../../main/ha/src/EBox/HA.pm:1007
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "{oh}Vessen rá egy pillantást{ch}"
+msgstr "{oh}Hibák találhatók{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Elmúlt nap"
+msgstr "Utolsó frissítés"
 
 #: ../../main/ha/src/EBox/HA.pm:1018
-#, fuzzy
 msgid "Errors"
-msgstr "Hiba"
+msgstr "Hibák"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1263,13 +1258,12 @@ msgid "Status"
 msgstr "Állapot"
 
 #: ../../main/ha/src/EBox/HA.pm:1023
-#, fuzzy
 msgid "not enabled"
-msgstr "Hivatkozás bekapcsolva"
+msgstr "nincs bekapcsolva"
 
 #: ../../main/ha/src/EBox/HA.pm:1026
 msgid "Nodes"
-msgstr ""
+msgstr "Csomópontok"
 
 #: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1310,14 +1304,13 @@ msgid "IP address"
 msgstr "IP-cím"
 
 #: ../../main/ha/src/EBox/HA.pm:1036
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "A csatoló ({iface}) nincs beállítva"
+msgstr "A fürt nincs beállítva"
 
 #: ../../main/ha/src/EBox/HA.pm:1125
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} eszköznek nincs használható IP-címe"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, fuzzy, perl-brace-format
