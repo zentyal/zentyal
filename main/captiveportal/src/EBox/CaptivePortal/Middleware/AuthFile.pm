@@ -299,7 +299,7 @@ sub userFromFile
             next;
         }
         my ($name, $hash, $fullname, $quota) = split("\t", $line);
-        if ($name eq $username) {
+        if (($name eq $username) and $hash) {
             $user = {  hash => $hash };
             if ((defined $fullname) and ($fullname ne '')) {
                 $user->{fullname} = $fullname;
@@ -331,6 +331,9 @@ sub allUsersFromFile
             next;
         }
         my ($username, $hash, $fullname, $quota) = split("\t", $line);
+        if ((not $username) and (not $hash)) {
+            next;
+        }
         $users->{$username} = {hash => $hash};
         $users->{$username}->{fullname} = $fullname if ((defined $fullname) and ($fullname ne ''));
         $users->{$username}->{quota} = $quota if ((defined $quota) and ($quota ne ''));
@@ -444,7 +447,7 @@ sub writeUsersFile
         $data .= "$user\t$hash\t$fullname\t$quota\n";
     }
 
-    EBox::Module::Base::writeFile(USERSFILE, $data, $defaults)
+    EBox::Module::Base::writeFile(USERSFILE, $data, $defaults);
 }
 
 1;
