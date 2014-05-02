@@ -82,7 +82,7 @@ sub iface_exists
 
 sub list_ifaces
 {
-  return keys %fakeIfaces;
+  return sort keys %fakeIfaces;
 }
 
 sub iface_is_up

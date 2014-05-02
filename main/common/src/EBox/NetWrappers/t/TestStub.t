@@ -45,7 +45,7 @@ sub ifaceTest
 
     EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
 
-    eq_or_diff [EBox::NetWrappers::list_ifaces()], [keys %fakeIfaces ], "Checking list_ifaces()";
+    eq_or_diff [EBox::NetWrappers::list_ifaces()], [sort keys %fakeIfaces ], "Checking list_ifaces()";
 
     ok !EBox::NetWrappers::iface_exists('macacoInterfaz'), 'Testing negative result of iface_exists';
 

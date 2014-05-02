@@ -98,7 +98,7 @@ fi
 
 if [ "$VERBOSE" == "yes" ]
 then
-    $PROVE
+    LANGUAGE=C $PROVE
 else
-    $PROVE 2>/dev/null
+    LANGUAGE=C $PROVE 2>/dev/null
 fi
