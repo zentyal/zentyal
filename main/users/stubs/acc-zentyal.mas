@@ -6,10 +6,10 @@
 # Zentyal LDAP users and groups on the system.
 #
 [zentyal-nokrb]
-nss_passwd=passwd: compat ldap
-nss_group=group: compat ldap
-nss_shadow=shadow: compat ldap
-nss_netgroup=netgroup: compat ldap
+nss_passwd=passwd: compat sss
+nss_group=group: compat sss
+nss_shadow=shadow: compat sss
+nss_netgroup=netgroup: compat sss
 pam_auth=auth    [success=1 default=ignore]  pam_unix.so nullok_secure
          auth    requisite           pam_deny.so
          auth    required            pam_permit.so
@@ -27,10 +27,10 @@ pam_session=session [default=1] pam_permit.so
             session required    pam_mkhomedir.so skel=/etc/skel/ umask=<% $umask %>
 
 [zentyal-krb]
-nss_passwd=passwd: compat ldap
-nss_group=group: compat ldap
-nss_shadow=shadow: compat ldap
-nss_netgroup=netgroup: compat ldap
+nss_passwd=passwd: compat sss
+nss_group=group: compat sss
+nss_shadow=shadow: compat sss
+nss_netgroup=netgroup: compat sss
 pam_auth=auth    [success=2 default=ignore]  pam_krb5.so minimum_uid=2000
          auth    [success=1 default=ignore]  pam_unix.so nullok_secure try_first_pass
          auth    requisite           pam_deny.so
