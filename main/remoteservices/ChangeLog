@@ -1,4 +1,6 @@
 HEAD
+	+ Give support to set monitoring servers on rs_monitoring_servers
+	  conf key
 	+ Set up QA repository only to commercial versions
 	+ Modify Squid reporter to handle filter categories
 	+ Now proxy redirections work in Nginx

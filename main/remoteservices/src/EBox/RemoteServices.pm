@@ -609,8 +609,12 @@ sub monitorGathererIPAddresses
             }
         } else {
             try {
-                # TODO: Do not hardcode
-                $monGatherers = ['mon.' . $self->cloudDomain()];
+                my $confMonGatherers = EBox::Config::configkey('rs_monitoring_servers');
+                if ($confMonGatherers) {
+                    $monGatherers = [ split(/\s+/, $confMonGatherers) ];
+                } else {
+                    $monGatherers = ['mon.' . $self->cloudDomain()];
+                }
             } catch (EBox::Exceptions::External $e) {
             }
         }
