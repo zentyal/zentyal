@@ -43,6 +43,23 @@ sub new
     return $self;
 }
 
+# Method: mountPoints
+#
+#       Get the mount points to monitor its disk usage
+#
+# Returns:
+#
+#       array ref - containing the mount points to monitor
+#                   It excludes nfs, ro and /media mounted file systems.
+#
+sub mountPoints
+{
+    my ($self) = @_;
+
+    # Set by _description
+    return $self->{mountPoints};
+}
+
 # Group: Protected methods
 
 # Method: _description
@@ -60,6 +77,8 @@ sub _description
 {
     my ($self) = @_;
 
+    $self->{mountPoints} = [];
+
     # this doesn't return fs mounted under /media
     my $fileSysS = EBox::FileSystem::partitionsFileSystems(1);
 
@@ -73,6 +92,7 @@ sub _description
         if ($mountPoint eq '/') {
             push(@pluginInstances, 'root');
             $printableInstances{'root'} = __x('Disk usage in {partition}', partition => '/');
+            push(@{$self->{mountPoints}}, '/');
         } else {
             my @options = split ',', $fileSysS->{$fileSys}->{options};
             my $roFs = 0;
@@ -91,6 +111,7 @@ sub _description
             push(@pluginInstances, $mountPoint);
             $printableInstances{$mountPoint} = __x('Disk usage in {partition}',
                                                    partition => $fileSysS->{$fileSys}->{mountPoint});
+            push(@{$self->{mountPoints}}, $fileSysS->{$fileSys}->{mountPoint});
         }
     }
 
