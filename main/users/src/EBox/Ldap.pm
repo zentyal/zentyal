@@ -32,7 +32,7 @@ use Net::LDAP::Util qw(ldap_error_name);
 use TryCatch::Lite;
 use Time::HiRes;
 
-use constant LDAP          => "ldap://127.0.0.1";
+use constant LDAP          => 'ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi';
 use constant CONF_DIR      => '/etc/ldap/slapd.d';
 
 # Singleton variable
