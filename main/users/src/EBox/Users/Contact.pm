@@ -16,11 +16,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Contact
+# Class: EBox::Users::Contact
 #
 #   Samba contact, stored in samba LDAP
 #
-package EBox::Samba::Contact;
+package EBox::Users::Contact;
 
 use base 'EBox::Samba::OrganizationalPerson';
 
@@ -166,7 +166,7 @@ sub create
             };
         }
 
-        $res = new EBox::Samba::Contact(dn => $dn);
+        $res = new EBox::Users::Contact(dn => $dn);
     } catch ($error) {
         EBox::error($error);
 

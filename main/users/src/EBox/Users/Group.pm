@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,15 +16,14 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Group
+# Class: EBox::Users::Group
 #
 #   Samba group, stored in samba LDB
 #
-package EBox::Samba::Group;
+package EBox::Users::Group;
 
 use base qw(
     EBox::Samba::SecurityPrincipal
-    EBox::Users::Group
 );
 
 use EBox::Global;
@@ -39,9 +38,6 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
 
 use EBox::Users::User;
-use EBox::Users::Group;
-
-use EBox::Samba::Contact;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -139,7 +135,7 @@ sub create
 
     # Add the entry
     my $result = $class->_ldap->add($dn, { attrs => $attr });
-    my $createdGroup = new EBox::Samba::Group(dn => $dn);
+    my $createdGroup = new EBox::Users::Group(dn => $dn);
 
     if (defined $args{gidNumber}) {
         $createdGroup->setupGidMapping($args{gidNumber});
@@ -165,8 +161,6 @@ sub _checkAccountName
 #
 #   Whether is a security group or just a distribution group.
 #
-# Override:
-#   EBox::Users::Group::isSecurityGroup
 #
 sub isSecurityGroup
 {
@@ -179,8 +173,6 @@ sub isSecurityGroup
 #
 #   Sets/unsets this group as a security group.
 #
-# Override:
-#   EBox::Users::Group::setSecurityGroup
 #
 sub setSecurityGroup
 {
@@ -720,6 +712,7 @@ sub create
             }
         }
 
+        # FIXME??
         $res = new EBox::Users::Group(dn => $dn);
         unless ($isSystemGroup) {
             $usersMod->reloadNSCD();

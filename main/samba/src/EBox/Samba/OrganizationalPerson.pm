@@ -28,7 +28,7 @@ use EBox::Gettext;
 
 use EBox::Exceptions::UnwillingToPerform;
 
-use EBox::Samba::Group;
+use EBox::Users::Group;
 
 # Method: name
 #
@@ -185,7 +185,8 @@ sub _groups
     my $groups = [];
     if ($result->count > 0) {
         foreach my $entry ($result->sorted('cn')) {
-            push (@{$groups}, new EBox::Samba::Group(entry => $entry));
+            #push (@{$groups}, new EBox::Samba::Group(entry => $entry));
+            push (@{$groups}, new EBox::Users::Group(entry => $entry));
         }
     }
     return $groups;

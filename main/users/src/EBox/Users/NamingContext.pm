@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::NamingContext
+# Class: EBox::Users::NamingContext
 #
 #   Naming context, represents the root of an LDAP tree
 #
 
-package EBox::Samba::NamingContext;
+package EBox::Users::NamingContext;
 use base 'EBox::Samba::LdbObject';
 
 use EBox::Exceptions::Internal;

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Provision;
+package EBox::Users::Provision;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -31,7 +31,6 @@ use EBox::Users::User;
 use EBox::Users::Group;
 
 use EBox::Users::NamingContext;
-use EBox::Samba::NamingContext;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
@@ -380,8 +379,8 @@ sub linkContainer
                 throw EBox::Exceptions::Internal("Unable to parse DN $ldb{dn}");
             }
             my $name = $rdn->{OU};
-            my $parent = new EBox::Samba::NamingContext(dn => canonical_dn($dn));
-            $ldbObject = EBox::Samba::OU->create(name => $name, parent => $parent);
+            my $parent = new EBox::User::NamingContext(dn => canonical_dn($dn));
+            $ldbObject = EBox::Users::OU->create(name => $name, parent => $parent);
             unless (defined $ldbObject and $ldbObject->exists()) {
                 throw EBox::Exceptions::Internal("Unable to create $ldb{dn}");
             }
@@ -628,12 +627,13 @@ sub provisionDC
         # Map defaultContainers
         $self->mapDefaultContainers();
 
+        # FIXME
         # Load all zentyal users and groups into ldb
-        $samba->ldb->ldapOUsToLDB();
-        $samba->ldb->ldapUsersToLdb();
-        $samba->ldb->ldapContactsToLdb();
-        $samba->ldb->ldapServicePrincipalsToLdb();
-        $samba->ldb->ldapGroupsToLdb();
+#        $samba->ldb->ldapOUsToLDB();
+#        $samba->ldb->ldapUsersToLdb();
+#        $samba->ldb->ldapContactsToLdb();
+#        $samba->ldb->ldapServicePrincipalsToLdb();
+#        $samba->ldb->ldapGroupsToLdb();
 
         # Map accounts
         $self->mapAccounts();

@@ -22,7 +22,6 @@ package EBox::Samba;
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::SysInfo::Observer
-            EBox::LdapModule
             EBox::LogObserver
             EBox::SyncFolders::Provider);
 
@@ -35,22 +34,13 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::LDB;
 use EBox::Menu::Item;
-use EBox::Samba::BuiltinDomain;
-use EBox::Samba::Computer;
-use EBox::Samba::Contact;
-use EBox::Samba::Container;
+use EBox::Users::Computer;
 use EBox::Samba::DMD;
 use EBox::Samba::GPO;
-use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
-use EBox::Samba::Model::GeneralSettings;
-use EBox::Samba::NamingContext;
-use EBox::Samba::OU;
-use EBox::Samba::Provision;
+use EBox::Users::Provision;
 use EBox::Samba::SecurityPrincipal;
 use EBox::Samba::SmbClient;
-use EBox::Samba::User;
-use EBox::SambaLdapUser;
 use EBox::SambaLogHelper;
 use EBox::Service;
 use EBox::Sudo;
@@ -568,7 +558,7 @@ sub getProvision
 {
     my ($self) = @_;
     unless (defined $self->{provision}) {
-        $self->{provision} = new EBox::Samba::Provision();
+        $self->{provision} = new EBox::Users::Provision();
     }
     return $self->{provision};
 }
@@ -1317,17 +1307,6 @@ sub drive
 
     my $model = $self->model('GeneralSettings');
     return $model->driveValue();
-}
-
-# Method: _ldapModImplementation
-#
-#   LdapModule implmentation
-#
-sub _ldapModImplementation
-{
-    my $self;
-
-    return new EBox::SambaLdapUser();
 }
 
 sub dumpConfig
@@ -2178,7 +2157,7 @@ sub gpos
 #
 # Returns:
 #
-#   Array reference containing instances of EBox::Samba::Computer class
+#   Array reference containing instances of EBox::Users::Computer class
 #
 sub domainControllers
 {
@@ -2200,7 +2179,7 @@ sub domainControllers
 
     my @computers;
     foreach my $entry ($result->entries()) {
-        my $computer = new EBox::Samba::Computer(entry => $entry);
+        my $computer = new EBox::Users::Computer(entry => $entry);
         next unless $computer->exists();
         push (@computers, $computer);
     }
@@ -2215,7 +2194,7 @@ sub domainControllers
 #
 # Returns:
 #
-#   Array reference containing instances of EBox::Samba::Computer class
+#   Array reference containing instances of EBox::Users::Computer class
 #
 sub computers
 {
@@ -2237,7 +2216,7 @@ sub computers
 
     my @computers;
     foreach my $entry ($result->entries()) {
-        my $computer = new EBox::Samba::Computer(entry => $entry);
+        my $computer = new EBox::Users::Computer(entry => $entry);
         next unless $computer->exists();
         push (@computers, $computer);
     }
@@ -2314,7 +2293,7 @@ sub entryModeledObject
 
     my $object;
     my $anyObjectClasses = any($entry->get_value('objectClass'));
-    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container EBox::Samba::BuiltinDomain);
+    my @entryClasses = qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container EBox::Samba::BuiltinDomain);
     foreach my $class (@entryClasses) {
         if ($class->mainObjectClass eq $anyObjectClasses) {
             return $class->new(entry => $entry);

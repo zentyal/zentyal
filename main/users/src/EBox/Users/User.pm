@@ -16,11 +16,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::User
+# Class: EBox::Users::User
 #
 #   Samba user, stored in samba LDAP
 #
-package EBox::Samba::User;
+package EBox::Users::User;
 
 use base qw(EBox::Samba::SecurityPrincipal);
 
@@ -37,9 +37,6 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 
 use EBox::Samba::Credentials;
-
-use EBox::Users::User;
-use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
 use Encode qw(encode);

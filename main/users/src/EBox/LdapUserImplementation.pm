@@ -68,7 +68,7 @@ sub indexes
 #
 sub hiddenOUs
 {
-    return [ 'Kerberos' ];
+    return [ 'Builtin', 'Kerberos' ];
 }
 
 1;

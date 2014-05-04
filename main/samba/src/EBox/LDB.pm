@@ -19,10 +19,8 @@ use warnings;
 package EBox::LDB;
 use base 'EBox::LDAPBase';
 
-use EBox::Samba::OU;
-use EBox::Samba::User;
-use EBox::Samba::Contact;
-use EBox::Samba::Group;
+use EBox::Users::OU;
+use EBox::Users::Contact;
 use EBox::Samba::DNS::Zone;
 use EBox::Users::User;
 
@@ -395,243 +393,244 @@ sub ldapOUsToLDB
     }
 }
 
-sub ldapUsersToLdb
-{
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal users into samba database');
-    my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('users');
-    my $sambaMod = $global->modInstance('samba');
-
-    my $users = $usersMod->users();
-    foreach my $user (@{$users}) {
-        my $parent = $sambaMod->ldbObjectFromLDAPObject($user->parent);
-        if (not $parent) {
-            my $dn = $user->dn();
-            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
-        }
-        my $samAccountName = $user->get('uid');
-        EBox::debug("Loading user $samAccountName");
-        try {
-            my %args = (
-                name           => scalar ($user->get('cn')),
-                samAccountName => scalar ($samAccountName),
-                parent         => $parent,
-                uidNumber      => scalar ($user->get('uidNumber')),
-                sn             => scalar ($user->get('sn')),
-                givenName      => scalar ($user->get('givenName')),
-                description    => scalar ($user->get('description')),
-                kerberosKeys   => $user->kerberosKeys(),
-            );
-            my $sambaUser = EBox::Samba::User->create(%args);
-            $sambaUser->_linkWithUsersObject($user);
-            unless ($user->isDisabled()) {
-                $sambaUser->setAccountEnabled(1);
-            }
-        } catch (EBox::Exceptions::DataExists $e) {
-            EBox::debug("User $samAccountName already in Samba database");
-            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
-            $sambaUser->setCredentials($user->kerberosKeys());
-            EBox::debug("Password updated for user $samAccountName");
-        } catch ($error) {
-            EBox::error("Error loading user '$samAccountName': $error");
-        }
-    }
-}
-
-sub ldapContactsToLdb
-{
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal contacts into samba database');
-    my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('users');
-    my $sambaMod = $global->modInstance('samba');
-
-    my $contacts = $usersMod->contacts();
-    foreach my $contact (@{$contacts}) {
-        my $parent = $sambaMod->ldbObjectFromLDAPObject($contact->parent);
-        if (not $parent) {
-            my $dn = $contact->dn();
-            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
-        }
-
-        my $parentDN = $parent->dn();
-        my $name = $contact->get('cn');
-        EBox::debug("Loading contact $name on $parentDN");
-        try {
-            my %args = (
-                name        => scalar ($name),
-                parent      => $parent,
-                givenName   => scalar ($contact->get('givenName')),
-                initials    => scalar ($contact->get('initials')),
-                sn          => scalar ($contact->get('sn')),
-                displayName => scalar ($contact->get('displayName')),
-                description => scalar ($contact->get('description')),
-                mail        => $contact->get('mail')
-            );
-            my $sambaContact = EBox::Samba::Contact->create(%args);
-            $sambaContact->_linkWithUsersObject($contact);
-        } catch (EBox::Exceptions::DataExists $e) {
-            EBox::debug("Contact $name already in $parentDN on Samba database");
-        } catch ($error) {
-            EBox::error("Error loading contact '$name' in '$parentDN': $error");
-        }
-    }
-}
-
-sub ldapGroupsToLdb
-{
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal groups into samba database');
-    my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('users');
-    my $sambaMod = $global->modInstance('samba');
-
-    my $groups = $usersMod->groups();
-    foreach my $group (@{$groups}) {
-        my $parent = $sambaMod->ldbObjectFromLDAPObject($group->parent);
-        if (not $parent) {
-            my $dn = $group->dn();
-            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
-        }
-        my $parentDN = $parent->dn();
-        my $name = $group->get('cn');
-        EBox::debug("Loading group $name");
-        my $sambaGroup = undef;
-        try {
-            my %args = (
-                name => $name,
-                parent => $parent,
-                description => scalar ($group->get('description')),
-                isSecurityGroup => $group->isSecurityGroup(),
-            );
-            if ($group->isSecurityGroup()) {
-                $args{gidNumber} = scalar ($group->get('gidNumber'));
-            };
-            $sambaGroup = EBox::Samba::Group->create(%args);
-            $sambaGroup->_linkWithUsersObject($group);
-        } catch (EBox::Exceptions::DataExists $e) {
-            EBox::debug("Group $name already in Samba database");
-        } catch ($e) {
-            EBox::error("Error loading group '$name': $e");
-        }
-        next unless defined $sambaGroup;
-
-        foreach my $member (@{$group->members()}) {
-            try {
-                my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
-                next unless ($smbMember);
-                $sambaGroup->addMember($smbMember, 1);
-            } catch ($error) {
-                EBox::error("Error adding member: $error");
-            }
-        }
-        $sambaGroup->save();
-    }
-}
-
-# Method: ldapServicePrincipalsToLdb
+# FIXME
+#sub ldapUsersToLdb
+#{
+#    my ($self) = @_;
 #
-#   This method import the zentyal module service principals to LDB. The only
-#   modules that create them are mail and proxy:
-#       mail  - IMAP/zentyal.zentyal-domain.lan
-#               POP3/zentyal.zentyal-domain.lan
-#               SMTP/zentyal.zentyal-domain.lan
-#       proxy - HTTP/zentyal.zentyal-domain.lan
+#    EBox::info('Loading Zentyal users into samba database');
+#    my $global = EBox::Global->getInstance();
+#    my $usersMod = $global->modInstance('users');
+#    my $sambaMod = $global->modInstance('samba');
 #
-#   The behaviour here is tricky because Heimdal does not support principal
-#   aliases. In LDAP a principal is created for each SPN, but in
-#   LDB an account {module}-{hostname} is created and all SPNs are added to it.
-#   For example, the mail account create three principal accounts in LDAP
-#   under the Kerberos OU (IMAP, POP3 and SMTP). When imported to LDB, an
-#   account mail-{hostname} is created and the three SPNs are added to this
-#   account.
+#    my $users = $usersMod->users();
+#    foreach my $user (@{$users}) {
+#        my $parent = $sambaMod->ldbObjectFromLDAPObject($user->parent);
+#        if (not $parent) {
+#            my $dn = $user->dn();
+#            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+#        }
+#        my $samAccountName = $user->get('uid');
+#        EBox::debug("Loading user $samAccountName");
+#        try {
+#            my %args = (
+#                name           => scalar ($user->get('cn')),
+#                samAccountName => scalar ($samAccountName),
+#                parent         => $parent,
+#                uidNumber      => scalar ($user->get('uidNumber')),
+#                sn             => scalar ($user->get('sn')),
+#                givenName      => scalar ($user->get('givenName')),
+#                description    => scalar ($user->get('description')),
+#                kerberosKeys   => $user->kerberosKeys(),
+#            );
+#            my $sambaUser = EBox::Samba::User->create(%args);
+#            $sambaUser->_linkWithUsersObject($user);
+#            unless ($user->isDisabled()) {
+#                $sambaUser->setAccountEnabled(1);
+#            }
+#        } catch (EBox::Exceptions::DataExists $e) {
+#            EBox::debug("User $samAccountName already in Samba database");
+#            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+#            $sambaUser->setCredentials($user->kerberosKeys());
+#            EBox::debug("Password updated for user $samAccountName");
+#        } catch ($error) {
+#            EBox::error("Error loading user '$samAccountName': $error");
+#        }
+#    }
+#}
 #
-#   The three different principal accounts in LDAP are linked to the same
-#   account in the SAM database.
+#sub ldapContactsToLdb
+#{
+#    my ($self) = @_;
 #
-sub ldapServicePrincipalsToLdb
-{
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal service principals into samba database');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
-    my $fqdn = $sysinfo->fqdn();
-
-    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
-    my $usersMod = EBox::Global->modInstance('users');
-    my $sambaMod = EBox::Global->modInstance('samba');
-
-    my $ldb = $sambaMod->ldb();
-    my $baseDn = $usersMod->ldap()->dn();
-    my $realm = $usersMod->kerberosRealm();
-    my $ldapKerberosDN = "ou=Kerberos,$baseDn";
-    my $ldapKerberosOU = new EBox::Users::OU(dn => $ldapKerberosDN);
-
-    # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
-    return unless ($ldapKerberosOU and $ldapKerberosOU->exists());
-
-    # At this point, the OU must has been created and linked in LDB
-    my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
-    unless ($ldbKerberosOU and $ldbKerberosOU->exists()) {
-        throw EBox::Exceptions::Internal("Kerberos OU not found in LDB.");
-    }
-
-    foreach my $module (@{$modules}) {
-        my $principals = $module->kerberosServicePrincipals();
-        my $samAccountName = "$principals->{service}-$hostname";
-        try {
-            # First step, create the account
-            my $smbUser = new EBox::Samba::User(samAccountName => $samAccountName);
-            unless ($smbUser->exists()) {
-                # Get the heimdal user to extract the kerberos keys. All service
-                # principals for each module should have the same keys, so take
-                # the first one.
-                my $p = @{$principals->{principals}}[0];
-                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
-                my $user = new EBox::Users::User(dn => $dn, internal => 1);
-                # If the user does not exists the module has not been enabled yet
-                next unless ($user->exists());
-
-                EBox::info("Importing service principal $dn");
-                my %args = (
-                    name           => $samAccountName,
-                    parent         => $ldbKerberosOU,
-                    samAccountName => $samAccountName,
-                    kerberosKeys   => $user->kerberosKeys(),
-                );
-                if (length $user->get('description')) {
-                    $args{description} = $user->get('description');
-                }
-                $smbUser = EBox::Samba::User->create(%args);
-                $smbUser->setCritical(1);
-                $smbUser->setInAdvancedViewOnly(1);
-            }
-            # Second step, add the SPNs to the samba account
-            foreach my $p (@{$principals->{principals}}) {
-                try {
-                    my $spn = "$p/$fqdn";
-                    EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
-                    $smbUser->addSpn($spn);
-                } catch ($error) {
-                    EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
-                }
-            }
-            # Third step, map LDAP principals to the same samba user
-            foreach my $p (@{$principals->{principals}}) {
-                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
-                my $user = new EBox::Users::User(dn => $dn, internal => 1);
-                $smbUser->_linkWithUsersObject($user);
-            }
-        } catch ($error) {
-            EBox::error("Error adding account '$samAccountName': $error");
-        }
-    }
-}
+#    EBox::info('Loading Zentyal contacts into samba database');
+#    my $global = EBox::Global->getInstance();
+#    my $usersMod = $global->modInstance('users');
+#    my $sambaMod = $global->modInstance('samba');
+#
+#    my $contacts = $usersMod->contacts();
+#    foreach my $contact (@{$contacts}) {
+#        my $parent = $sambaMod->ldbObjectFromLDAPObject($contact->parent);
+#        if (not $parent) {
+#            my $dn = $contact->dn();
+#            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+#        }
+#
+#        my $parentDN = $parent->dn();
+#        my $name = $contact->get('cn');
+#        EBox::debug("Loading contact $name on $parentDN");
+#        try {
+#            my %args = (
+#                name        => scalar ($name),
+#                parent      => $parent,
+#                givenName   => scalar ($contact->get('givenName')),
+#                initials    => scalar ($contact->get('initials')),
+#                sn          => scalar ($contact->get('sn')),
+#                displayName => scalar ($contact->get('displayName')),
+#                description => scalar ($contact->get('description')),
+#                mail        => $contact->get('mail')
+#            );
+#            my $sambaContact = EBox::Samba::Contact->create(%args);
+#            $sambaContact->_linkWithUsersObject($contact);
+#        } catch (EBox::Exceptions::DataExists $e) {
+#            EBox::debug("Contact $name already in $parentDN on Samba database");
+#        } catch ($error) {
+#            EBox::error("Error loading contact '$name' in '$parentDN': $error");
+#        }
+#    }
+#}
+#
+#sub ldapGroupsToLdb
+#{
+#    my ($self) = @_;
+#
+#    EBox::info('Loading Zentyal groups into samba database');
+#    my $global = EBox::Global->getInstance();
+#    my $usersMod = $global->modInstance('users');
+#    my $sambaMod = $global->modInstance('samba');
+#
+#    my $groups = $usersMod->groups();
+#    foreach my $group (@{$groups}) {
+#        my $parent = $sambaMod->ldbObjectFromLDAPObject($group->parent);
+#        if (not $parent) {
+#            my $dn = $group->dn();
+#            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+#        }
+#        my $parentDN = $parent->dn();
+#        my $name = $group->get('cn');
+#        EBox::debug("Loading group $name");
+#        my $sambaGroup = undef;
+#        try {
+#            my %args = (
+#                name => $name,
+#                parent => $parent,
+#                description => scalar ($group->get('description')),
+#                isSecurityGroup => $group->isSecurityGroup(),
+#            );
+#            if ($group->isSecurityGroup()) {
+#                $args{gidNumber} = scalar ($group->get('gidNumber'));
+#            };
+#            $sambaGroup = EBox::Samba::Group->create(%args);
+#            $sambaGroup->_linkWithUsersObject($group);
+#        } catch (EBox::Exceptions::DataExists $e) {
+#            EBox::debug("Group $name already in Samba database");
+#        } catch ($e) {
+#            EBox::error("Error loading group '$name': $e");
+#        }
+#        next unless defined $sambaGroup;
+#
+#        foreach my $member (@{$group->members()}) {
+#            try {
+#                my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
+#                next unless ($smbMember);
+#                $sambaGroup->addMember($smbMember, 1);
+#            } catch ($error) {
+#                EBox::error("Error adding member: $error");
+#            }
+#        }
+#        $sambaGroup->save();
+#    }
+#}
+#
+## Method: ldapServicePrincipalsToLdb
+##
+##   This method import the zentyal module service principals to LDB. The only
+##   modules that create them are mail and proxy:
+##       mail  - IMAP/zentyal.zentyal-domain.lan
+##               POP3/zentyal.zentyal-domain.lan
+##               SMTP/zentyal.zentyal-domain.lan
+##       proxy - HTTP/zentyal.zentyal-domain.lan
+##
+##   The behaviour here is tricky because Heimdal does not support principal
+##   aliases. In LDAP a principal is created for each SPN, but in
+##   LDB an account {module}-{hostname} is created and all SPNs are added to it.
+##   For example, the mail account create three principal accounts in LDAP
+##   under the Kerberos OU (IMAP, POP3 and SMTP). When imported to LDB, an
+##   account mail-{hostname} is created and the three SPNs are added to this
+##   account.
+##
+##   The three different principal accounts in LDAP are linked to the same
+##   account in the SAM database.
+##
+#sub ldapServicePrincipalsToLdb
+#{
+#    my ($self) = @_;
+#
+#    EBox::info('Loading Zentyal service principals into samba database');
+#    my $sysinfo = EBox::Global->modInstance('sysinfo');
+#    my $hostname = $sysinfo->hostName();
+#    my $fqdn = $sysinfo->fqdn();
+#
+#    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+#    my $usersMod = EBox::Global->modInstance('users');
+#    my $sambaMod = EBox::Global->modInstance('samba');
+#
+#    my $ldb = $sambaMod->ldb();
+#    my $baseDn = $usersMod->ldap()->dn();
+#    my $realm = $usersMod->kerberosRealm();
+#    my $ldapKerberosDN = "ou=Kerberos,$baseDn";
+#    my $ldapKerberosOU = new EBox::Users::OU(dn => $ldapKerberosDN);
+#
+#    # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
+#    return unless ($ldapKerberosOU and $ldapKerberosOU->exists());
+#
+#    # At this point, the OU must has been created and linked in LDB
+#    my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
+#    unless ($ldbKerberosOU and $ldbKerberosOU->exists()) {
+#        throw EBox::Exceptions::Internal("Kerberos OU not found in LDB.");
+#    }
+#
+#    foreach my $module (@{$modules}) {
+#        my $principals = $module->kerberosServicePrincipals();
+#        my $samAccountName = "$principals->{service}-$hostname";
+#        try {
+#            # First step, create the account
+#            my $smbUser = new EBox::Samba::User(samAccountName => $samAccountName);
+#            unless ($smbUser->exists()) {
+#                # Get the heimdal user to extract the kerberos keys. All service
+#                # principals for each module should have the same keys, so take
+#                # the first one.
+#                my $p = @{$principals->{principals}}[0];
+#                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
+#                my $user = new EBox::Users::User(dn => $dn, internal => 1);
+#                # If the user does not exists the module has not been enabled yet
+#                next unless ($user->exists());
+#
+#                EBox::info("Importing service principal $dn");
+#                my %args = (
+#                    name           => $samAccountName,
+#                    parent         => $ldbKerberosOU,
+#                    samAccountName => $samAccountName,
+#                    kerberosKeys   => $user->kerberosKeys(),
+#                );
+#                if (length $user->get('description')) {
+#                    $args{description} = $user->get('description');
+#                }
+#                $smbUser = EBox::Samba::User->create(%args);
+#                $smbUser->setCritical(1);
+#                $smbUser->setInAdvancedViewOnly(1);
+#            }
+#            # Second step, add the SPNs to the samba account
+#            foreach my $p (@{$principals->{principals}}) {
+#                try {
+#                    my $spn = "$p/$fqdn";
+#                    EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
+#                    $smbUser->addSpn($spn);
+#                } catch ($error) {
+#                    EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
+#                }
+#            }
+#            # Third step, map LDAP principals to the same samba user
+#            foreach my $p (@{$principals->{principals}}) {
+#                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
+#                my $user = new EBox::Users::User(dn => $dn, internal => 1);
+#                $smbUser->_linkWithUsersObject($user);
+#            }
+#        } catch ($error) {
+#            EBox::error("Error adding account '$samAccountName': $error");
+#        }
+#    }
+#}
 
 sub users
 {
@@ -651,7 +650,7 @@ sub users
     };
     my $result = $self->search($params);
     foreach my $entry ($result->sorted('cn')) {
-        my $container = new EBox::Samba::Container(entry => $entry);
+        my $container = new EBox::Users::Container(entry => $entry);
         next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
         push (@containers, $container);
     }
@@ -689,7 +688,7 @@ sub contacts
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('name')) {
-        my $contact = new EBox::Samba::Contact(entry => $entry);
+        my $contact = new EBox::Users::Contact(entry => $entry);
 
         push (@{$list}, $contact);
     }
@@ -709,7 +708,8 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
-        my $group = new EBox::Samba::Group(entry => $entry);
+        #my $group = new EBox::Samba::Group(entry => $entry);
+        my $group = new EBox::Users::Group(entry => $entry);
         push (@{$list}, $group);
     }
 

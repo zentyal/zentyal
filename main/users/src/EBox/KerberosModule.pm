@@ -94,13 +94,14 @@ sub kerberosCreatePrincipals
         EBox::Sudo::root(@cmds);
     }
 
+    # FIXME
     # Import service principals from Zentyal to samba
-    if (EBox::Global->modExists('samba')) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
-            $sambaModule->ldb->ldapServicePrincipalsToLdb();
-        }
-    }
+#    if (EBox::Global->modExists('samba')) {
+#        my $sambaModule = EBox::Global->modInstance('samba');
+#        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+#            $sambaModule->ldb->ldapServicePrincipalsToLdb();
+#        }
+#    }
 }
 
 1;

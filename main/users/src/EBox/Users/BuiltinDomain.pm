@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::BuiltinDomain
+# Class: EBox::Users::BuiltinDomain
 #
 #   builtinDomain, stored in LDB
 #
 
-package EBox::Samba::BuiltinDomain;
+package EBox::Users::BuiltinDomain;
 use base 'EBox::Samba::LdbObject';
 
 use EBox;

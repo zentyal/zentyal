@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Computer
+# Class: EBox::Users::Computer
 #
 #   Samba computer, stored in samba LDAP
 #
 
-package EBox::Samba::Computer;
+package EBox::Users::Computer;
 
 use base 'EBox::Samba::LdbObject';
 

@@ -809,7 +809,7 @@ sub _setConfInternal
     $self->_setupNSSPAM();
 
     # Slaves cron
-    @params = ();
+    my @params;
     push(@params, 'slave_time' => EBox::Config::configkey('slave_time'));
     if ($self->master() eq 'cloud') {
         my $rs = new EBox::Global->modInstance('remoteservices');

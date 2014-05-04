@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Container
+# Class: EBox::Users::Container
 #
 #   container, stored in LDB
 #
 
-package EBox::Samba::Container;
+package EBox::Users::Container;
 use base 'EBox::Samba::LdbObject';
 
 use EBox;
