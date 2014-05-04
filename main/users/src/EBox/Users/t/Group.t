@@ -20,7 +20,7 @@ use Test::More tests => 10;
 use Test::Exception;
 
 use lib '../../..';
-use EBox::Samba::Group;
+use EBox::Users::Group;
 use EBox::TestStub;
 
 
@@ -43,12 +43,12 @@ sub testCheckAccountName
     push @invalid, 'l' x ($maxLen+1);
     foreach my $validName (@valid) {
         lives_ok {
-            EBox::Samba::Group->_checkAccountName($validName, $maxLen);
+            EBox::Users::Group->_checkAccountName($validName, $maxLen);
         } "Checking that $validName is a correct group account name";
     }
     foreach my $invalidName (@invalid) {
         dies_ok {
-            EBox::Samba::Group->_checkAccountName($invalidName, $maxLen);
+            EBox::Users::Group->_checkAccountName($invalidName, $maxLen);
         } "Checking that $invalidName is raises exception as invalid group account name";
     }
 }

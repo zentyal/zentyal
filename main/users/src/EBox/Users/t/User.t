@@ -20,7 +20,7 @@ use Test::More tests => 10;
 use Test::Exception;
 
 use lib '../../..';
-use EBox::Samba::User;
+use EBox::Users::User;
 use EBox::TestStub;
 
 sub testCheckAccountName
@@ -42,12 +42,12 @@ sub testCheckAccountName
     push @invalid, 'l' x ($maxLen+1);
     foreach my $validName (@valid) {
         lives_ok {
-            EBox::Samba::User->_checkAccountName($validName, $maxLen);
+            EBox::Users::User->_checkAccountName($validName, $maxLen);
         } "Checking that $validName is a correct user account name";
     }
     foreach my $invalidName (@invalid) {
         dies_ok {
-            EBox::Samba::User->_checkAccountName($invalidName, $maxLen);
+            EBox::Users::User->_checkAccountName($invalidName, $maxLen);
         } "Checking that $invalidName is raises exception as invalid user account name";
     }
 }
