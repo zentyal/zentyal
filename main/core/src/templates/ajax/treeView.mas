@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/data/js/form.js"></script>
 
 <& .pageTitle, title => $model->pageTitle() &>
+<& .message, model => $model &>
 
 <& .headTitle, title => $model->headTitle() &>
 
@@ -123,6 +124,7 @@ $(function () {
         var nodeType = $.jstree._focused()._get_type(selectedNode);
 
         $('#<% $treeViewerId %>').html('');
+        $('#<% $treeViewerId %>_msg').removeClass().html('');
 
 % foreach my $type (keys %types) {
 %   next unless $types{$type}->{actions}->{edit};
@@ -205,3 +207,14 @@ $(function () {
 % }
 </%def>
 
+<%def .message>
+<%args>
+$model
+</%args>
+<%init>
+my ($msg, $class) = @{ $model->popMessageAndClass() };
+$msg or $msg = '';
+my $id = 'treeviewer_' . $model->treeName() . '_msg';
+</%init>
+<div id='<% $id %>'<% $class ? "class='$class'" : "" %>><% $msg %></div>
+</%def>

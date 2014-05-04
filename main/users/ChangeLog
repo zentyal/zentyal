@@ -1,3 +1,6 @@
+HEAD
+	+ Display message when creating a user which username has more
+	  than 20 characters
 3.2.13
 	+ Fixed error when editing user email address when mail module is
 	  not installed
