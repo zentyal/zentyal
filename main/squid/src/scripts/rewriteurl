@@ -22,12 +22,6 @@ my $edufilterPath = '/etc/squid3/edufilter';
 
 my %substByDomain;
 
-sub _dbg
-{
-    my ($msg) = @_;
-    system "echo 'XXX $msg' >> /tmp/log";
-}
-
 # for the moment we read only one line
 sub _readFile
 {
@@ -67,11 +61,15 @@ if ($edufilter) {
 $| = 1;
 while (1) {
     my $line = <>;
-    $line or next;
+    if (not $line) {
+        print "\n";
+        next;
+    }
     my ($url) = split '\s', $line, 3;
-    $url or next;
-
-
+    if (not $url) {
+        print "\n";
+        next;
+    }
     if ($url =~ m{[.][a-zA-Z]+$}) {
         # filename, we let it pass
         print "\n";
@@ -105,10 +103,10 @@ while (1) {
             }
         }
 
-        $response = $url;
+        print $url, "\n";
+    } else {
+        print "\n";
     }
-
-    print $response, "\n";
 }
 
 1;
