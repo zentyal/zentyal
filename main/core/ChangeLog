@@ -1,4 +1,6 @@
 HEAD
+	+ Active session check does not check subapp authenticated
+	  requests now
 	+ Fixed incorrect URLs with double ports in redirects
 3.4.2
 	+ Fix typo in general widget
