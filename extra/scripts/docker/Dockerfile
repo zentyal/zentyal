@@ -80,4 +80,4 @@ RUN  echo "Europe/Madrid" > /etc/timezone
 RUN  dpkg-reconfigure -f noninteractive tzdata
 
 # Adding empty folder for the repo to be linked
-RUN mkdir -p /zentyal-repo
+VOLUME ["/zentyal-repo"]
