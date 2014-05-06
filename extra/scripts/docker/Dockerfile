@@ -8,10 +8,10 @@ RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise main universe" >> /etc
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu precise-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://ppa.launchpad.net/zentyal/3.0/ubuntu precise main" >> /etc/apt/sources.list
-RUN apt-get update
+RUN apt-get update -y
 
-#Installing basic dependencies
-RUN apt-get install -y --force-yes git sudo libapache2-mod-perl2 libtap-formatter-junit-perl build-essential devscripts zbuildtools
+#Installing basic and build dependencies
+RUN apt-get install -y --force-yes git sudo libapache2-mod-perl2 libtap-formatter-junit-perl build-essential devscripts zbuildtools apt-utils
 
 # ADD zentyal-syntax-check and zentyal-unit-tests
 ADD extra/scripts/zentyal-syntax-check /tmp/zentyal-syntax-check
