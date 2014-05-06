@@ -32,7 +32,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::LDB;
+use EBox::Ldap;
 use EBox::Menu::Item;
 use EBox::Users::Computer;
 use EBox::Samba::DMD;
@@ -1897,14 +1897,14 @@ sub logHelper
 
 # Method: ldb
 #
-#   Provides an EBox::LDB object with the proper settings
+#   Provides an EBox::Ldap object with the proper settings
 #
 sub ldb
 {
     my ($self) = @_;
 
     unless (defined ($self->{ldb})) {
-        $self->{ldb} = EBox::LDB->instance();
+        $self->{ldb} = EBox::Ldap->instance();
     }
     return $self->{ldb};
 }

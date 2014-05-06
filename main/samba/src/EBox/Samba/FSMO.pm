@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Samba::FSMO;
 
-use base 'EBox::LDB';
+use base 'EBox::Ldap';
 
 use EBox::Exceptions::Internal;
 use EBox::Sudo;

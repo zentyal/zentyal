@@ -24,7 +24,7 @@ use EBox::Users::Contact;
 use EBox::Samba::DNS::Zone;
 use EBox::Users::User;
 
-use EBox::LDB::IdMapDb;
+use EBox::Users::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
@@ -94,7 +94,7 @@ sub _new_instance
 #
 # Returns:
 #
-#   object of class <EBox::LDB>
+#   object of class <EBox::Ldap>
 sub instance
 {
     my ($class) = @_;
@@ -136,7 +136,7 @@ sub idmap
     my ($self) = @_;
 
     unless (defined $self->{idmap}) {
-        $self->{idmap} = EBox::LDB::IdMapDb->new();
+        $self->{idmap} = EBox::Users::IdMapDb->new();
     }
     return $self->{idmap};
 }

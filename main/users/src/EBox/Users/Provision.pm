@@ -488,9 +488,9 @@ sub mapAccounts
     my $domainSID = $sambaModule->ldb->domainSID();
 
     # Map unix root account to domain administrator.
-    my $typeUID  = EBox::LDB::IdMapDb::TYPE_UID();
-    my $typeGID  = EBox::LDB::IdMapDb::TYPE_GID();
-    my $typeBOTH = EBox::LDB::IdMapDb::TYPE_BOTH();
+    my $typeUID  = EBox::Users::IdMapDb::TYPE_UID();
+    my $typeGID  = EBox::Users::IdMapDb::TYPE_GID();
+    my $typeBOTH = EBox::Users::IdMapDb::TYPE_BOTH();
     my $domainAdminSID = "$domainSID-500";
     my $domainAdminsSID = "$domainSID-512";
     my $rootUID = 0;
