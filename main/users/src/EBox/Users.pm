@@ -134,6 +134,21 @@ sub _setupForMode
 
 }
 
+# Method: ldb
+#
+#   Provides an EBox::Ldap object with the proper settings
+#
+sub ldb
+{
+    my ($self) = @_;
+
+    unless (defined ($self->{ldb})) {
+        $self->{ldb} = EBox::Ldap->instance();
+    }
+    return $self->{ldb};
+}
+
+
 # Method: ldapClass
 #
 #   Return the LDAP class implementation to use.

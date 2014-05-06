@@ -1895,20 +1895,6 @@ sub logHelper
 #    return \@shares;
 #}
 
-# Method: ldb
-#
-#   Provides an EBox::Ldap object with the proper settings
-#
-sub ldb
-{
-    my ($self) = @_;
-
-    unless (defined ($self->{ldb})) {
-        $self->{ldb} = EBox::Ldap->instance();
-    }
-    return $self->{ldb};
-}
-
 # Method: filesystemShares
 #
 #   This function is used for Disaster Recovery, to get
