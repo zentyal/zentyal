@@ -14,6 +14,7 @@ Architecture: all
 Pre-Depends: slapd
 Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
+         zentyal-samba,
          samba (>= 2:4.1.6), sssd, ldb-tools,
          apache2-utils, libnet-ldap-perl, adduser, quota,
          libquota-perl, liburi-encode-perl, libpam-sss,
