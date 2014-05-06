@@ -133,26 +133,8 @@ sub initialSetup
         $self->setPort($port);
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
-}
-
-# Migration to 3.2
-#
-#  * Create the USERCORNER_LDAP_PASS file.
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    $self->_setupRoLDAPAccess();
 }
 
 sub _setupRoLDAPAccess
@@ -234,6 +216,8 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
+
+    $self->_setupRoLDAPAccess();
 
     # We can assume the listening port is ready available
     my $settings = $self->model('Settings');
