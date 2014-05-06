@@ -16,16 +16,16 @@
 use strict;
 use warnings;
 
-package EBox::Samba::LdbObject::Test;
+package EBox::Users::LdapObject::Test;
 
 use EBox::Global::TestStub;
-use base 'EBox::Test::LDBClass';
+use base 'EBox::Test::LDAPClass';
 
 use Test::More;
 
 sub class
 {
-    'EBox::Samba::LdbObject'
+    'EBox::Users::LdapObject'
 }
 
 sub _objectGUIDToString : Test(1)
@@ -55,5 +55,5 @@ sub _stringToObjectGUID : Test(1)
 1;
 
 END {
-    EBox::Samba::LdbObject::Test->runtests();
+    EBox::Users::LdapObject::Test->runtests();
 }
