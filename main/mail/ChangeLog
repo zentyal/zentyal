@@ -1,4 +1,6 @@
 HEAD
+	+ Postfix handles Zentyal distribution groups virtual alias
+	+ Adapted MailQueue.pm to TryCatch::Lite
 	+ Restart usercorner on installation / upgrade time so the new code is
 	  available there too
 	+ Fixed external mail retrieval configuration form from user corner

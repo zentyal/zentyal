@@ -22,7 +22,7 @@ package EBox::MailQueue;
 use EBox::Config;
 use EBox::Sudo;
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 
 BEGIN {
     use Exporter ();
@@ -191,8 +191,7 @@ sub infoMail
     my @postcatLines;
     try {
         @postcatLines = @{EBox::Sudo::root("/usr/sbin/postcat -q $qid")};
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
+    } catch (EBox::Exceptions::Command $ex) {
         if (qidExists($qid)) {
             $ex->throw();
         } else {

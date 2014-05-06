@@ -1,4 +1,8 @@
-HEAD
+3.5
+	+ Display message when creating a user which username has more
+	  than 20 characters
+	+ Fixed error when editing user email address when mail module is
+	  not installed
 	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
@@ -7,7 +11,6 @@ HEAD
 	+ Better control for edit user quota
 	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
 	  it's installed
-3.5
 	+ Avoid apparmor errors in trusty
 	+ Set version to 3.5
 	+ Fixed bug when altering mail address through the edit user form

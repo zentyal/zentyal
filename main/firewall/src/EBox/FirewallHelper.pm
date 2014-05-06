@@ -300,4 +300,15 @@ sub _inputIface # (iface)
     }
 }
 
+# Method: beforeFwRestart
+#
+#  called before the restart of the firewall when it is enabled
+#
+#  The default implementation does nothing
+#
+sub beforeFwRestart
+{
+}
+
+
 1;
