@@ -557,10 +557,8 @@ sub enableActions
 sub getProvision
 {
     my ($self) = @_;
-    unless (defined $self->{provision}) {
-        $self->{provision} = new EBox::Users::Provision();
-    }
-    return $self->{provision};
+
+    return $self->global()->modInstance('users')->getProvision();
 }
 
 sub isProvisioned

@@ -2492,5 +2492,21 @@ sub appArmorProfiles
     ];
 }
 
+sub getProvision
+{
+    my ($self) = @_;
+
+    unless (defined $self->{provision}) {
+        $self->{provision} = new EBox::Users::Provision();
+    }
+    return $self->{provision};
+}
+
+sub isProvisioned
+{
+    my ($self) = @_;
+
+    return $self->getProvision->isProvisioned();
+}
 
 1;
