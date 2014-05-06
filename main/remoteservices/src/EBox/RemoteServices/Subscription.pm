@@ -565,11 +565,11 @@ sub _openHTTPSConnection
                         "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
                        )
                      );
-            } catch EBox::Exceptions::Sudo::Command with {
+            } catch (EBox::Exceptions::Sudo::Command $e) {
                 throw EBox::Exceptions::External(
                     __x('Cannot contact to {host}. Check your connection to the Internet',
                         host => $site));
-            };
+            }
             my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
             EBox::Sudo::root(
                 EBox::Iptables::pf(
