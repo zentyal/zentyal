@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::LDB;
+package EBox::Ldap;
 use base 'EBox::LDAPBase';
 
 use EBox::Users::OU;
@@ -41,6 +41,7 @@ use Perl6::Junction qw(any);
 use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
+use constant LDAP  => "ldap://127.0.0.1";
 
 # The LDB containers that will be ignored when quering for users stored in LDB
 use constant QUERY_IGNORE_CONTAINERS => (
