@@ -535,7 +535,6 @@ sub addNginxServer
 #      Remove a "server" directive from the nginx configuration. If the
 #      "server" was not in the configuration, it does nothing
 #
-#
 # Parameters:
 #
 #      serverFilePath - String the configuration file path to remove
@@ -556,7 +555,7 @@ sub removeNginxServer
     }
     my @servers = @{$self->_nginxServers(0)};
     my @newServers = grep { $_ ne $serverFilePath } @servers;
-    if ( @newServers == @servers ) {
+    if (@newServers == @servers) {
         return;
     }
     $self->set_list(NGINX_SERVER_KEY, 'string', \@newServers);

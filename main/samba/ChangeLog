@@ -1,4 +1,6 @@
 HEAD
+	+ s4sync: Remove the group share if exists after deleting the group itself
+	+ s4sync: Remove the deleted user or group from shares ACLs
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
 3.4.2
 	+ Added new domainControllers() method

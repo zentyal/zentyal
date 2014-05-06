@@ -1,4 +1,6 @@
 HEAD
+	+ Added setMessage() and popMessageAndClass() methods to TreeView
+	+ Enable InnoDB engine when there are only 4 previous databases
 	+ Active session check does not check subapp authenticated
 	  requests now
 	+ Fixed incorrect URLs with double ports in redirects

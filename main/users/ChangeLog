@@ -1,3 +1,8 @@
+HEAD
+	+ Display message when creating a user which username has more
+	  than 20 characters
+	+ Fixed error when editing user email address when mail module is
+	  not installed
 3.4.2
 	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Using paged serch in EBox::Users::users() method
