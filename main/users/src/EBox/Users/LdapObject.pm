@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::LdbObject;
+package EBox::Users::LdapObject;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -393,7 +393,7 @@ sub deleteObject
     };
     my $result = $self->_ldap->search($searchParam);
     foreach my $entry ($result->entries()) {
-        my $obj = new EBox::Samba::LdbObject(entry => $entry);
+        my $obj = new EBox::Users::LdapObject(entry => $entry);
         $obj->deleteObject();
     }
 
