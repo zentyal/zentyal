@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -103,6 +103,27 @@ sub instance
     }
 
     return $_instance;
+}
+
+sub connected
+{
+    my ($self) = @_;
+    if ($self->{ldap}) {
+        # Workaround to detect if connection is broken and force reconnection
+        my $mesg = $self->{ldap}->search(
+                base   => '',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
+            $self->{ldap}->unbind;
+            return 0;
+        }
+
+        return 1;
+    }
+
+    return 0;
 }
 
 # Method: idmap
@@ -297,101 +318,61 @@ sub domainNetBiosName
     return undef;
 }
 
-sub ldapOUToLDB
+# Method: rootDn
+#
+#       Returns the dn of the priviliged user
+#
+# Returns:
+#
+#       string - eboxdn
+#
+sub rootDn
 {
-    my ($self, $ldapOU) = @_;
-
-    unless ($ldapOU and $ldapOU->isa('EBox::Users::OU')) {
-        throw EBox::Exceptions::MissingArgument('ldapOU');
+    my ($self, $dn) = @_;
+    unless(defined($dn)) {
+        $dn = $self->dn();
     }
-
-    my $global = EBox::Global->getInstance();
-    my $sambaMod = $global->modInstance('samba');
-
-    my $parent = $sambaMod->ldbObjectFromLDAPObject($ldapOU->parent);
-    if (not $parent) {
-        my $dn = $ldapOU->dn();
-        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
-    }
-    my $name = $ldapOU->name();
-    my $parentDN = $parent->dn();
-
-    my $sambaOU = undef;
-    try {
-        $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
-        $sambaOU->_linkWithUsersObject($ldapOU);
-    } catch (EBox::Exceptions::DataExists $e) {
-        EBox::warn("OU $name already in $parentDN on Samba database");
-        $sambaOU = new EBox::Samba::OU(dn => canonical_dn("OU=$name,$parentDN"));
-        if (defined $sambaOU and $sambaOU->exists()) {
-            $sambaOU->_linkWithUsersObject($ldapOU);
-        } else {
-            throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN'");
-        }
-    } catch ($e) {
-        throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN': $e");
-    }
+    return 'cn=zentyal,' . $dn;
 }
 
-# Method: ldapOUsToLDB
+# Method: roRootDn
 #
-#   This method load all LDAP OUs to Samba LDB. The following containers are
-#   already created and linked at provision, so skip them. Their childs must
-#   be imported if exists.
+#       Returns the dn of the read only priviliged user
 #
-#       OU=Users        => Linked to CN=Users
-#       OU=Groups       => Linked to OU=Groups
-#       OU=Computers    => Linked to CN=Computers
-#       OU=Kerberos     => Linked to OU=Kerberos
-#       OU=Builtin      => Linked to CN=Builtin
+# Returns:
 #
-#   The following OUs are internal to zentyal, so them and all of its childs
-#   must be skipped
+#       string - the Dn
 #
-#       OU=postfix
-#       OU=zarafa
-#
-#   NOTE: Must be only called when provisioning as DC to load all LDAP OUs to
-#         LDB
-#
-sub ldapOUsToLDB
+sub roRootDn
 {
-    my ($self, $ldapBaseDN) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('users');
-    my $ldap = $usersMod->ldap();
-    unless (defined $ldapBaseDN) {
-        EBox::info("Loading Zentyal OUs into samba database");
-        $ldapBaseDN = $ldap->dn();
+    my ($self, $dn) = @_;
+    unless(defined($dn)) {
+        $dn = $self->dn();
     }
+    return 'cn=zentyalro,' . $dn;
+}
 
-    my $params = {
-        base => $ldapBaseDN,
-        scope => 'one',
-        filter => '(objectClass=organizationalUnit)',
-        attrs => ['*'],
+# Method: ldapConf
+#
+#       Returns the current configuration for LDAP: 'dn', 'ldapi', 'rootdn'
+#
+# Returns:
+#
+#     hash ref  - holding the keys 'dn', 'ldap', and 'rootdn'
+#
+sub ldapConf
+{
+    my ($self) = @_;
+
+    my $conf = {
+        'dn'     => $self->dn(),
+        'ldap'   => LDAP,
+        'port' => 389,
+        'rootdn' => $self->rootDn(),
     };
-    my $result = $ldap->search($params);
-    foreach my $entry ($result->entries()) {
-        my $name = lc $entry->get_value('ou');
-        my $dn = $entry->dn();
-
-        # Ignore OU=zarafa and OU=postfix and all of its childs
-        if ($name eq any ('zarafa', 'postfix')) {
-            next;
-        }
-
-        # These OUs already exists and are linked
-        unless ($name eq any ('users', 'groups', 'computers', 'kerberos', 'builtin')) {
-            my $ou = new EBox::Users::OU(dn => $dn);
-            $self->ldapOUToLDB($ou);
-        }
-
-        # Query OU childs
-        $self->ldapOUsToLDB($dn);
-    }
+    return $conf;
 }
+
 
 # FIXME
 #sub ldapUsersToLdb
@@ -632,6 +613,23 @@ sub ldapOUsToLDB
 #    }
 #}
 
+# Method: userBindDN
+#
+#  given a plain user name, it return the argument needed to bind to the
+#  directory which that user, normally a DN
+#
+# Parametes:
+#        user - plain username
+#
+# Returns:
+#   DN or other token to use for binding to the directory
+sub userBindDN
+{
+    my ($self, $user) = @_;
+
+    return "uid=$user," . EBox::Users::User::defaultContainer()->dn();
+}
+
 sub users
 {
     my ($self, %params) = @_;
@@ -841,6 +839,29 @@ sub rootDse
     my ($self) = @_;
 
     return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
+}
+
+# FIXME
+sub changeUserPassword
+{
+    my ($self, $dn, $newPasswd, $oldPasswd) = @_;
+
+    $self->connection();
+    my $rootdse = $self->{ldap}->root_dse();
+    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
+        # Update the password using the LDAP extension will update the kerberos keys also
+        # if the smbk5pwd module and its overlay are loaded
+        require Net::LDAP::Extension::SetPassword;
+        my $mesg = $self->{ldap}->set_password(user => $dn,
+                                               oldpasswd => $oldPasswd,
+                                               newpasswd => $newPasswd);
+        $self->_errorOnLdap($mesg, $dn);
+    } else {
+        my $mesg = $self->{ldap}->modify( $dn,
+                        changes => [ delete => [ userPassword => $oldPasswd ],
+                        add     => [ userPassword => $newPasswd ] ]);
+        $self->_errorOnLdap($mesg, $dn);
+    }
 }
 
 1;

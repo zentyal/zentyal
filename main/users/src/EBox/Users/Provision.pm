@@ -487,9 +487,7 @@ sub mapAccounts
     my $sambaModule = EBox::Global->modInstance('samba');
     my $domainSID = $sambaModule->ldb->domainSID();
 
-    # Map unix root account to domain administrator. The accounts are
-    # imported to Zentyal here to avoid s4sync overwrite the uid/gid
-    # mapping
+    # Map unix root account to domain administrator.
     my $typeUID  = EBox::LDB::IdMapDb::TYPE_UID();
     my $typeGID  = EBox::LDB::IdMapDb::TYPE_GID();
     my $typeBOTH = EBox::LDB::IdMapDb::TYPE_BOTH();
