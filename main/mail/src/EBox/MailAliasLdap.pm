@@ -147,6 +147,7 @@ sub addGroupAlias
         }
     }
 
+    $group->{noUpdateAlias} = 1;
     $self->_addmailboxRelatedObject($alias, $group);
 }
 
@@ -155,6 +156,10 @@ sub _addmailboxRelatedObject
     my ($self, $alias, $group) = @_;
 
     return if $self->_mailboxRelatedObjectInGroup($group);
+
+    if ((exists $group->{updateGroupAliases}) and $group->{updateGroupAliases}) {
+        return;
+    }
 
     my $changes = 0;
 
@@ -181,6 +186,10 @@ sub _delmailboxRelatedObject
     my ($self, $alias, $group) = @_;
 
     return unless $self->_mailboxRelatedObjectExists($alias);
+
+    if ((exists $group->{updateGroupAliases}) and $group->{updateGroupAliases}) {
+        return;
+    }
 
     my @classes = $group->get('objectClass');
     @classes = grep { $_ ne 'mailboxRelatedObject'} @classes;
@@ -369,10 +378,17 @@ sub updateGroupAliases
 {
     my ($self, $group) = @_;
 
+    my $noUpdateAlias = delete $group->{noUpdateAlias};
+    if ($noUpdateAlias) {
+        return;
+    }
+
+    $group->{updateGroupAliases} = 1;
     foreach my $alias (@{ $self->groupAliases($group) }) {
         $self->delAlias($alias);
         $self->addGroupAlias($alias, $group);
     }
+    delete $group->{updateGroupAliases};
 }
 
 # Method: addMaildrop
@@ -484,6 +500,7 @@ sub delGroupAlias
     my @aliases = @{$self->groupAliases($group)};
     if (@aliases and not $self->_mailboxRelatedObjectInGroup($group)) {
         $alias = shift @aliases;
+        $group->{noUpdateAlias} = 1;
         $self->_addmailboxRelatedObject($alias, $group);
     }
 }
