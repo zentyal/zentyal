@@ -82,8 +82,8 @@ sub new
     if (length $params{realm}) {
         $realm = $params{realm};
     } else {
-        my $samba = EBox::Global->modInstance('samba');
-        my $gs = $samba->model('GeneralSettings');
+        my $users = EBox::Global->modInstance('users');
+        my $gs = $users->model('DomainSettings');
         $realm = $gs->value('realm');
     }
 

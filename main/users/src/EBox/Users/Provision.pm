@@ -337,9 +337,9 @@ sub provision
     EBox::Sudo::root(@cmds);
 
     my $mode = $samba->mode();
-    if ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
+    if ($mode eq EBox::Users::Model::DomainSettings::MODE_DC()) {
         $self->provisionDC($provisionIP);
-    } elsif ($mode eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
+    } elsif ($mode eq EBox::Users::Model::DomainSettings::MODE_ADC()) {
         $self->provisionADC();
     } else {
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
@@ -412,59 +412,6 @@ sub linkContainer
     }
 }
 
-# Method: mapDefaultContainers
-#
-#   Links the default containers between Samba LDB and LDAP, adding to the
-#   LDAP entry the msdsObjectGUID attribute, which value is the LDB object GUID
-#
-#   The mappings stablished are:
-#
-#           LDAP                                LDB
-#
-#       OU=users,$baseDN                    CN=users,$baseDN
-#       OU=computers,$baseDN                CN=computers,$baseDN
-#       OU=Builtin,$baseDN   (created)      CN=Builtin,$baseDN
-#       OU=groups,$baseDN                   OU=groups,$baseDN       (created)
-#       OU=kerberos,$baseDN                 OU=kerberos,$baseDN     (created)
-#
-sub mapDefaultContainers
-{
-    my ($self) = @_;
-
-    my $usersMod = EBox::Global->modInstance('users');
-    my $sambaMod = EBox::Global->modInstance('samba');
-
-    my $ldbBaseDN = $sambaMod->ldb->dn();
-    my $ldapBaseDN = $usersMod->ldap->dn();
-    my $ldap;
-    my $ldb;
-
-    # Link users container
-    $ldap = {dn => "OU=Users,$ldapBaseDN", create => 0};
-    $ldb  = {dn => "CN=Users,$ldbBaseDN", create => 0};
-    $self->linkContainer($ldb, $ldap);
-
-    # Link computers container
-    $ldap = {dn => "OU=Computers,$ldapBaseDN", create => 0};
-    $ldb  = {dn => "CN=Computers,$ldbBaseDN", create => 0};
-    $self->linkContainer($ldb, $ldap);
-
-    # Link builtin container
-    $ldap = {dn => "OU=Builtin,$ldapBaseDN", create => 1};
-    $ldb  = {dn => "CN=Builtin,$ldbBaseDN", create => 0};
-    $self->linkContainer($ldb, $ldap);
-
-    # Link groups container
-    $ldap = {dn => "OU=Groups,$ldapBaseDN", create => 0};
-    $ldb  = {dn => "OU=Groups,$ldbBaseDN", create => 1};
-    $self->linkContainer($ldb, $ldap);
-
-    # Link kerberos container
-    $ldap = {dn => "OU=Kerberos,$ldapBaseDN", create => 0};
-    $ldb  = {dn => "OU=Kerberos,$ldbBaseDN", create => 1, advanced => 1};
-    $self->linkContainer($ldb, $ldap);
-}
-
 # Method: mapAccounts
 #
 #   Set the mapping between the objectSID and uidNumber/gidNumber for the
@@ -484,8 +431,8 @@ sub mapAccounts
 {
     my ($self) = @_;
 
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $domainSID = $sambaModule->ldb->domainSID();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $domainSID = $usersModule->ldb->domainSID();
 
     # Map unix root account to domain administrator.
     my $typeUID  = EBox::Users::IdMapDb::TYPE_UID();
@@ -497,17 +444,17 @@ sub mapAccounts
     my $admGID = 4;
 
     EBox::info("Mapping domain administrator account");
-    $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    $usersModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
-    $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
+    $usersModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     EBox::info("Mapping domain users group account");
     # FIXME Why is this not working during first intall???
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
+    $usersModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
@@ -515,9 +462,9 @@ sub mapAccounts
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
-    $sambaModule->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    $usersModule->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     EBox::info("Mapping domain guests group account");
-    $sambaModule->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    $usersModule->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
 sub provisionDC
@@ -526,39 +473,6 @@ sub provisionDC
 
     my $samba = EBox::Global->modInstance('samba');
     my $usersModule = EBox::Global->modInstance('users');
-
-    # The OU=Users will be linked to CN=Users, which can not contain OUs. Check
-    # there are not OUs created inside OU=Users.
-    my $ldap = $usersModule->ldap();
-    my $param = {
-        base => "OU=Users," . $ldap->dn(),
-        scope => 'one',
-        filter => '(objectClass=organizationalUnit)',
-        attrs => ['*']
-    };
-    my $result = $ldap->search($param);
-    if ($result->count() > 0) {
-        my $msg = __("There are nested organizational units created inside " .
-                     "the organizational unit 'Users'. This is not " .
-                     "supported and will cause the import of LDAP entries " .
-                     "to samba to fail.");
-        throw EBox::Exceptions::External($msg);
-    }
-    # Same about OU=Computers
-    $param = {
-        base => "OU=Computers," . $ldap->dn(),
-        scope => 'one',
-        filter => '(objectClass=organizationalUnit)',
-        attrs => ['*']
-    };
-    $result = $ldap->search($param);
-    if ($result->count() > 0) {
-        my $msg = __("There are nested organizational units created inside " .
-                     "the organizational unit 'Computers'. This is not " .
-                     "supported and will cause the import of LDAP entries " .
-                     "to samba to fail.");
-        throw EBox::Exceptions::External($msg);
-    }
 
     try {
         $self->setProvisioning(1);
@@ -622,9 +536,6 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $samba->_startService();
 
-        # Map defaultContainers
-        $self->mapDefaultContainers();
-
         # FIXME
         # Load all zentyal users and groups into ldb
 #        $samba->ldb->ldapOUsToLDB();
@@ -634,7 +545,7 @@ sub provisionDC
 #        $samba->ldb->ldapGroupsToLdb();
 
         # Map accounts
-        $self->mapAccounts();
+#        $self->mapAccounts();
 
         # Reset sysvol
         $self->resetSysvolACL();
@@ -1264,7 +1175,8 @@ sub provisionADC
     my ($self) = @_;
 
     my $sambaModule = EBox::Global->modInstance('samba');
-    my $model = $sambaModule->model('GeneralSettings');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $model = $usersModule->model('DomainSettings');
     my $domainToJoin = lc ($model->value('realm'));
     my $dcFQDN = $model->value('dcfqdn');
     my $adDnsServer = $model->value('dnsip');
@@ -1273,7 +1185,6 @@ sub provisionADC
     my $netbiosDomain = $model->value('workgroup');
     my $site = $model->value('site');
 
-    my $usersModule = EBox::Global->modInstance('users');
     my $realm = $usersModule->kerberosRealm();
 
     # Resolve DC FQDN to an IP if needed

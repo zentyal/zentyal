@@ -194,7 +194,7 @@ sub _table
 
     my $dataTable =
     {
-        tableName          => 'GeneralSettings',
+        tableName          => 'DomainSettings',
         pageTitle          => __('Domain'),
         printableTableName => __('Settings'),
         modelDomain        => 'Samba',

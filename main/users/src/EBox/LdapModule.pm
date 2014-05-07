@@ -243,6 +243,9 @@ sub performLDAPActions
 {
     my ($self) = @_;
 
+    # FIXME
+    return;
+
     my $ldapuser = $self->_ldapModImplementation();
     my @schemas = @{ $ldapuser->schemas() };
     for my $schema (@schemas) {

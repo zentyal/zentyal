@@ -161,24 +161,6 @@ sub usedFiles
     ];
 }
 
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    if ($status) {
-        my $throwException = 1;
-        if ($self->{restoringBackup}) {
-            $throwException = 0;
-        }
-        $self->getProvision->checkEnvironment($throwException);
-    }
-
-    $self->SUPER::enableService($status);
-
-    my $dns = EBox::Global->modInstance('dns');
-    $dns->setAsChanged();
-}
-
 # Method: _postServiceHook
 #
 #   Override this method to set the Shares permissions once Samba is reloaded and has the shares configured
@@ -512,9 +494,6 @@ sub enableActions
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-
-    # Load the required OpenLDAP schema updates.
-    $self->performLDAPActions();
 }
 
 sub getProvision
@@ -890,77 +869,13 @@ sub _setupQuarantineDirectory
     EBox::Sudo::silentRoot(@cmds);
 }
 
-sub _createDirectories
-{
-    my ($self) = @_;
-
-    my $zentyalUser = EBox::Config::user();
-    my $group = EBox::Users::DEFAULTGROUP();
-    my $nobody = GUEST_DEFAULT_USER;
-    my $avModel = $self->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
-
-    my @cmds;
-    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
-    push (@cmds, "chmod 770 " . SAMBA_DIR);
-    push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
-
-    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
-    push (@cmds, "chmod 770 " . PROFILES_DIR);
-    push (@cmds, "setfacl -b " . PROFILES_DIR);
-
-    push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
-    push (@cmds, "chmod 770 " . SHARES_DIR);
-    push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
-
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
-    EBox::Sudo::root(@cmds);
-}
-
 sub _setConf
 {
     my ($self) = @_;
 
-    return unless $self->configured() and $self->isEnabled();
-
-    my $prov = $self->getProvision();
-    if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
-        # Create directories
-        EBox::info('Creating directories');
-        $self->_createDirectories();
-
-        if (EBox::Global->modExists('openchange')) {
-            my $openchangeMod = EBox::Global->modInstance('openchange');
-            if ($openchangeMod->isProvisioned()) {
-                # Set OpenChange as not provisioned.
-                $openchangeMod->setProvisioned(0);
-            }
-        }
-        if ($self->get('need_reprovision')) {
-            # Current provision is not useful, change back status to not provisioned.
-            $prov->setProvisioned(0);
-            # The LDB connection needs to be reset so we stop using cached values.
-            $self->ldb()->clearConn()
-        }
-        $prov->provision();
-        $self->unset('need_reprovision');
-    }
-
-    $self->writeSambaConfig();
-
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
-    $self->_createDirectories();
+    $self->global()->modInstance('users')->_createDirectories();
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
@@ -972,7 +887,7 @@ sub _adcMode
 {
     my ($self) = @_;
 
-    my $settings = $self->model('GeneralSettings');
+    my $settings = $self->global()->modInstance('users')->model('DomainSettings');
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
@@ -1179,7 +1094,7 @@ sub netbiosName
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->netbiosNameValue();
 }
 
@@ -1206,7 +1121,7 @@ sub workgroup
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->workgroupValue();
 }
 
@@ -1230,7 +1145,7 @@ sub description
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->descriptionValue();
 }
 
@@ -1242,7 +1157,7 @@ sub roamingProfiles
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->roamingValue();
 }
 
@@ -1254,7 +1169,7 @@ sub mode
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->modeValue();
 }
 
@@ -1266,137 +1181,8 @@ sub drive
 {
     my ($self) = @_;
 
-    my $model = $self->model('GeneralSettings');
+    my $model = $self->global()->modInstance('users')->model('DomainSettings');
     return $model->driveValue();
-}
-
-sub dumpConfig
-{
-    my ($self, $dir, %options) = @_;
-
-    my @cmds;
-
-    my $mirror = EBox::Config::tmp() . "/samba.backup";
-    my $privateDir = PRIVATE_DIR;
-    if (EBox::Sudo::fileTest('-d', $privateDir)) {
-        # Remove previous backup files
-        my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-        my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
-        foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
-            chomp ($bakFile);
-            push (@cmds, "rm '$bakFile'");
-        }
-
-        # Backup private. TDB and LDB files must be backed up using tdbbackup
-        my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
-        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
-        foreach my $dbFile ((@{$ldbFiles}, @{$tdbFiles})) {
-            chomp ($dbFile);
-            push (@cmds, "tdbbackup '$dbFile'");
-            # Preserve file permissions
-            my $st = EBox::Sudo::stat($dbFile);
-            my $uid = $st->uid();
-            my $gid = $st->gid();
-            my $mode = sprintf ("%04o", $st->mode() & 07777);
-            push (@cmds, "chown $uid:$gid $dbFile.bak");
-            push (@cmds, "chmod $mode $dbFile.bak");
-        }
-
-        push (@cmds, "rm -rf $mirror");
-        push (@cmds, "mkdir -p $mirror/private");
-        push (@cmds, "rsync -HAXavz $privateDir/ " .
-                     "--exclude=*.tdb --exclude=*.ldb " .
-                     "--exclude=ldap_priv --exclude=smbd.tmp " .
-                     "--exclude=ldapi $mirror/private");
-        push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
-    }
-
-    # Backup sysvol
-    my $sysvolDir = SYSVOL_DIR;
-    if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
-        push (@cmds, "rm -rf $mirror");
-        push (@cmds, "mkdir -p $mirror/sysvol");
-        push (@cmds, "rsync -HAXavz $sysvolDir/ $mirror/sysvol");
-        push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
-    }
-
-    try {
-        EBox::Sudo::root(@cmds);
-    } catch ($e) {
-        $e->throw();
-    }
-
-    # Backup admin password
-    unless ($options{bug}) {
-        my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-        # Additional domain controllers does not have stashed pwd
-        if (EBox::Sudo::fileTest('-f', $pwdFile)) {
-            EBox::Sudo::root("cp '$pwdFile' $dir");
-        }
-    }
-}
-
-sub restoreConfig
-{
-    my ($self, $dir) = @_;
-
-    my $mode = $self->mode();
-    unless ($mode eq EBox::Samba::Model::GeneralSettings::MODE_DC()) {
-        # Restoring an ADC will corrupt entire domain as sync data
-        # get out of sync.
-        EBox::info(__("Restore is only possible if the server is the unique " .
-                      "domain controller of the forest"));
-        $self->getProvision->setProvisioned(0);
-        return;
-    }
-
-    $self->stopService();
-
-    # Remove private and sysvol
-    my $privateDir = PRIVATE_DIR;
-    my $sysvolDir = SYSVOL_DIR;
-    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
-
-    # Unpack sysvol and private
-    my %dest = ( sysvol => $sysvolDir, private => $privateDir );
-    foreach my $archive (keys %dest) {
-        if (EBox::Sudo::fileTest('-f', "$dir/$archive.tar.bz2")) {
-            my $destdir = dirname($dest{$archive});
-            EBox::Sudo::root("tar jxfp $dir/$archive.tar.bz2 -C $destdir");
-        }
-    }
-
-    # Rename ldb files
-    my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
-    my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
-    foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
-        chomp $bakFile;
-        my $destFile = $bakFile;
-        $destFile =~ s/\.bak$//;
-        EBox::Sudo::root("mv '$bakFile' '$destFile'");
-    }
-    # Hard-link DomainDnsZones and ForestDnsZones partitions
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*FORESTDNSZONES*");
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*DOMAINDNSZONES*");
-    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
-    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
-    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
-
-    # Restore stashed password
-    if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
-        EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
-        EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
-    }
-
-    # Set provisioned flag
-    $self->getProvision->setProvisioned(1);
-
-    $self->restartService();
-
-    $self->getProvision()->resetSysvolACL();
 }
 
 # Method: depends
@@ -2021,7 +1807,7 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    my $settings = $self->model('GeneralSettings');
+    my $settings = $self->global()->modInstance('users')->model('DomainSettings');
     $settings->setValue('netbiosName', $newHostName);
 }
 
@@ -2060,7 +1846,7 @@ sub hostDomainChangedDone
 {
     my ($self, $oldDomainName, $newDomainName) = @_;
 
-    my $settings = $self->model('GeneralSettings');
+    my $settings = $self->global()->modInstance('users')->model('DomainSettings');
     $settings->setValue('realm', uc ($newDomainName));
 
     my @parts = split (/\./, $newDomainName);
