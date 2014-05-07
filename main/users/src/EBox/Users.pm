@@ -341,40 +341,22 @@ sub initialSetup
     # only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
-        my $fw = EBox::Global->modInstance('firewall');
 
-        my $serviceName = 'ldap';
-        unless ($services->serviceExists(name => $serviceName)) {
+        my $serviceName = 'samba';
+        unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'printableName' => 'LDAP',
-                'description' => __('Lightweight Directory Access Protocol'),
+                'printableName' => 'Samba',
+                'description' => __('Domain and File sharing protocols'),
+                'internal' => 1,
                 'readOnly' => 1,
-                'services' => [ { protocol   => 'tcp',
-                                  sourcePort => 'any',
-                                  destinationPort => 389 } ],
+                'services' => $self->_services(),
             );
-
-            $fw->setInternalService($serviceName, 'deny');
         }
 
-        $serviceName = 'kerberos';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
-                'name' => $serviceName,
-                'printableName' => 'Kerberos',
-                'description' => __('Kerberos authentication'),
-                'readOnly' => 1,
-                'services' => [ { protocol   => 'tcp/udp',
-                                  sourcePort => 'any',
-                                  destinationPort => KERBEROS_PORT },
-                                { protocol   => 'tcp/udp',
-                                  sourcePort => 'any',
-                                  destinationPort => KPASSWD_PORT } ]
-            );
-            $fw->setInternalService($serviceName, 'accept');
-        }
-        $fw->saveConfigRecursive();
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setInternalService($serviceName, 'accept');
+        $firewall->saveConfigRecursive();
     }
 
     # Execute initial-setup script
@@ -666,6 +648,7 @@ sub _services
 {
     my ($self) = @_;
 
+    # TODO: separate this in different services?
     return [
             { # kerberos
                 'protocol' => 'tcp/udp',

@@ -161,43 +161,6 @@ sub usedFiles
     ];
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Create default rules and services only if enabling the first time
-    unless ($version) {
-        my $services = EBox::Global->modInstance('services');
-
-        my $serviceName = 'samba';
-        unless($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
-                'name' => $serviceName,
-                'printableName' => 'Samba',
-                'description' => __('File sharing (Samba) protocol'),
-                'internal' => 1,
-                'readOnly' => 1,
-                'services' => $self->_services(),
-            );
-        }
-
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->setInternalService($serviceName, 'accept');
-        $firewall->saveConfigRecursive();
-    }
-
-    # Upgrade from previous versions (daemons have changed)
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_overrideDaemons();
-    }
-}
-
 sub enableService
 {
     my ($self, $status) = @_;
