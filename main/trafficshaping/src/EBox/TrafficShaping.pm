@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -161,7 +161,7 @@ sub _setConf
             my $protocols = $self->{builders}->{$iface}->dumpProtocols();
             if (scalar keys %$protocols) {
                 # Load kernel module
-                $self->_loadL7Module();
+                #$self->_loadL7Module();
 
                 # Write l7 filter configuration
                 my @params = ();

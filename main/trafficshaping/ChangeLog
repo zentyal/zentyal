@@ -1,4 +1,5 @@
 HEAD
+	+ Disable kernel module incompatibility with nPDI
 	+ Added application shaping using nPDI
 	+ Fixed bug that made impossible to add rules
 3.4
