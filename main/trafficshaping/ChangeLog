@@ -1,5 +1,6 @@
 HEAD
 	+ Adding support to ipsets at Iptables Rules
+	+ Disable kernel module incompatibility with nPDI
 	+ Added application shaping using nPDI
 	+ Fixed checking for other u32 rule in the same interface
 3.4.1
