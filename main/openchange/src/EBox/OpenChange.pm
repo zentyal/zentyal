@@ -390,10 +390,10 @@ sub _writeSOGoConfFile
         $baseDN = "ou=Users,$baseDN";
     }
 
-    push (@{$array}, ldapBaseDN => $baseDN);
-    push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
-    push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
-    push (@{$array}, ldapHost => $self->ldap->LDAPI());
+    push (@{$array}, sambaBaseDN => $samba->ldb()->dn());
+    push (@{$array}, sambaBindDN => "CN=Administrator,CN=Users," . $samba->ldb()->dn());
+    push (@{$array}, sambaBindPwd => $samba->administratorPassword());
+    push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $samba->ldb()->url()
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
     $self->writeConfFile(SOGO_CONF_FILE,
