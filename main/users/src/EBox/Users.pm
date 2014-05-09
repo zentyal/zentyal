@@ -94,7 +94,7 @@ use constant STANDALONE_MODE      => 'master';
 use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 
-use constant DEFAULTGROUP   => '__USERS__';
+use constant DEFAULTGROUP   => 'Domain Users';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
@@ -381,9 +381,6 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
-
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
 }
 
 sub _checkEnableIPs
@@ -523,9 +520,6 @@ sub _internalServerEnableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
-
-    # Configure SOAP to listen for new slaves
-    $self->masterConf->setupMaster();
 
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -762,6 +756,8 @@ sub _setConfInternal
 
     return unless $self->configured() and $self->isEnabled();
 
+    $self->global()->modInstance('samba')->writeSambaConfig();
+
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
         # Create directories
@@ -785,7 +781,7 @@ sub _setConfInternal
         $self->unset('need_reprovision');
     }
 
-    $self->writeSambaConfig();
+    $self->global()->modInstance('samba')->writeSambaConfig();
 
     my $ldap = $self->ldap;
     $self->_setupNSSPAM();
@@ -956,6 +952,19 @@ sub _daemons
             name => 'samba-ad-dc',
             precondition => $usingInternalServer
         },
+    ];
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
     ];
 }
 

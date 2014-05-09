@@ -26,13 +26,15 @@ use EBox::Global;
 sub _addUser
 {
     my ($self, $user) = @_;
-    $self->_groupUsersChanged('__USERS__');
+    # FIXME
+    $self->_groupUsersChanged('Domain Users');
 }
 
 sub _delUser
 {
     my ($self, $user) = @_;
-    $self->_groupUsersChanged('__USERS__');
+    # FIXME
+    $self->_groupUsersChanged('Domain Users');
 }
 
 sub _modifyGroup

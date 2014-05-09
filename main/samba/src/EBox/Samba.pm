@@ -309,7 +309,8 @@ sub _postServiceHook
                     my $accountShort = $userType->value();
                     my $sid = undef;
 
-                    if ($accountShort eq '__USERS__') {
+                    # FIXME
+                    if ($accountShort eq 'Domain Users') {
                         $sid = $domainUsersSID;
                         EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
                     } else {
@@ -940,20 +941,6 @@ sub _daemons
         },
     ];
 }
-
-# Method: _daemonsToDisable
-#
-# Overrides:
-#
-#   <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    return [
-        { 'name' => 'smbd', 'type' => 'upstart' },
-    ];
-}
-
 
 # Function: usesPort
 #
