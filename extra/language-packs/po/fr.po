@@ -185,7 +185,7 @@ msgstr "Activé"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:119
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
@@ -220,7 +220,7 @@ msgstr "Service"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1950
 #: ../../main/core/src/EBox/SysInfo.pm:489
 msgid "Running"
 msgstr "En cours d'execution"
@@ -904,7 +904,7 @@ msgid "Advertised Network"
 msgstr "Réseau annoncé"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
 msgstr "Activé"
@@ -1069,7 +1069,7 @@ msgstr "Service OpenVPN"
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
-#: ../../main/firewall/src/EBox/Firewall.pm:763
+#: ../../main/firewall/src/EBox/Firewall.pm:769
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
 #: ../../main/samba/src/EBox/Samba.pm:1646
@@ -1202,8 +1202,8 @@ msgstr "Démarre corosync au début"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:229
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:269
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1474
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1937
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1478
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:113
@@ -1224,7 +1224,7 @@ msgstr "Inconnu"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:146
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:98
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
@@ -1934,7 +1934,7 @@ msgstr "Description"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:766
+#: ../../main/firewall/src/EBox/Firewall.pm:772
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
 msgid "Source"
 msgstr "Source"
@@ -1944,14 +1944,14 @@ msgstr "Source"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
-#: ../../main/firewall/src/EBox/Firewall.pm:767
+#: ../../main/firewall/src/EBox/Firewall.pm:773
 msgid "Destination"
 msgstr "Destination"
 
 #: ../../main/ips/src/EBox/IPS.pm:312
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
-#: ../../main/firewall/src/EBox/Firewall.pm:768
+#: ../../main/firewall/src/EBox/Firewall.pm:774
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
 #: ../../main/mail/src/templates/externalAccounts.mas:18
@@ -3870,7 +3870,7 @@ msgid "General"
 msgstr "Général"
 
 #: ../../main/ca/src/EBox/CA.pm:1743
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:319
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Services des Certificats"
 
@@ -4091,7 +4091,12 @@ msgstr "Le certificat a été créé."
 msgid "The new CA certificate has been issued."
 msgstr "Le nouveau certificat CA a été créé."
 
-#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
+#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:123
+#, fuzzy, perl-brace-format
+msgid "{org} Authority Certificate"
+msgstr "Créer le certificat d'autorité de certification"
+
+#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:134
 msgid "Problems creating Certification Authority has happened"
 msgstr "Un problème durant la création du certificat d'autorité est survenu"
 
@@ -4137,16 +4142,16 @@ msgstr "Zentyal"
 msgid "Module"
 msgstr "Module"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:304
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:305
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
 "Généré le certificat en utilisant le CA avec le nom commun défini au dessus"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:321
 msgid "certificate"
 msgstr "certificat "
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:326
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:327
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
@@ -4154,7 +4159,7 @@ msgstr ""
 "A cet endroit vous devez mettre les certificats de l'Autorité de "
 "Certification (CA) pour ces services sécurisés gérés par Zentyal"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:340
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 #, fuzzy
 msgid "This service does not allow to change the certificate common name"
 msgstr "Le serveur {name} n'a pas de certificat d'assigné"
@@ -5033,6 +5038,14 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
 "nom d'utilisateur"
 
+#: ../../main/users/src/EBox/Users/CGI/AddUser.pm:81
+msgid ""
+"You have created a 20 or more characters username. Please keep in mind that "
+"some Microsoft Client OS's do not support such user lenght. If you plan this "
+"user to be logged in through a Windows Workstation, consider deleting it and "
+"creating it again with a shorter username"
+msgstr ""
+
 #: ../../main/users/src/EBox/Users/CGI/AddOU.pm:49
 #, fuzzy
 msgid "OU name"
@@ -5162,7 +5175,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/LdapObject.pm:286
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:197
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:324
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:325
 msgid "There was an error updating LDAP:"
 msgstr ""
 
@@ -6760,7 +6773,7 @@ msgid "It cannot be greater than {n} characters"
 msgstr "Il ne peut pas contenir plus de {n} caractères"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:317
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:753
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:761
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -6778,7 +6791,7 @@ msgstr "Courriel"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:100
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:106
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1973
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1977
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:141
 msgid "Server name"
 msgstr "Nom du serveur"
@@ -6938,7 +6951,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:460
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1986
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1990
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
 msgid "Configuration backup"
 msgstr "Configuration des sauvegardes"
@@ -7149,12 +7162,12 @@ msgstr ""
 msgid "Reason: {reason}"
 msgstr "Raison : {reason}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:558
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:571
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Contact à {host} impossible. Vérifiez votre connexion à internet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:725
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:733
 #, fuzzy, perl-brace-format
 msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
@@ -7163,7 +7176,7 @@ msgstr ""
 "Impossible de se connecter au serveur WS \"{addr}:{port}/{proto}\". Veuillez "
 "vérifier la résolution des noms et le pare-feu de votre réseau"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:839
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:847
 #, perl-brace-format
 msgid "Probably lack of free space: {exc}"
 msgstr ""
@@ -7285,7 +7298,7 @@ msgstr "Ignore la ligne mal formée: {l}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:104
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:110
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1980
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
 #, fuzzy
 msgid "Server edition"
 msgstr "Création du serveur"
@@ -7293,7 +7306,7 @@ msgstr "Création du serveur"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:114
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:467
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1988
 #, fuzzy
 msgid "Security Updates"
 msgstr "Mise à jour de sécurité"
@@ -7673,7 +7686,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:199
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1957
 msgid "Configuration backup enabled"
 msgstr "Sauvegarde des configurations activées"
 
@@ -7682,7 +7695,7 @@ msgid "Full Disaster Recovery enabled"
 msgstr "Récupération complète après un sinistre activée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:219
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2067
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2071
 msgid "No data backup has been done yet"
 msgstr "Aucune sauvegarde des données n'a été effectuée"
 
@@ -7943,7 +7956,7 @@ msgstr ""
 "Se connecter"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:104
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1942
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 msgid "Premium"
 msgstr "Premium"
 
@@ -7979,84 +7992,84 @@ msgstr ""
 "Le collecteur d'adresses IP est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:791
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:795
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr "Zentyal doit être abonné pour recharger le paquet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:796
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:800
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1905
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1908
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1912
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Désactivé - {oh}Activer{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1913
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1917
 msgid "Connected"
 msgstr "Connecté"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1917
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1921
 #, fuzzy
 msgid "In process"
 msgstr "processus"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1920
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1924
 #, fuzzy, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr "Pas connecté. Vérifier les journaux VPN dans {path}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1939
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
 #, fuzzy
 msgid "Standard 2 days"
 msgstr "Standard"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1940
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1944
 #, fuzzy
 msgid "Standard 1 day"
 msgstr "Standard"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1945
 #, fuzzy
 msgid "Standard 4 hours"
 msgstr "Standard"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1949
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
 #, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "- Dernière mise à jour : {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1961
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1965
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Dernière sauvegarde des configurations : {date}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1965
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1969
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1968
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1972
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1974
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1978
 msgid "Connection status"
 msgstr "Statut de la connexion"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1977
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
 #, fuzzy
 msgid "External server name"
 msgstr "Connexion extrerne au serveur"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1982
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1986
 msgid "Technical support"
 msgstr "Support technique"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2353
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2357
 #, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
@@ -8065,21 +8078,21 @@ msgstr ""
 "Le nom d'hôte souscrit est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2386
 #, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
 "Le nom d'hôte souscrit est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2416
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2420
 #, fuzzy
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
 "Le nom d'hôte souscrit est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2452
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2456
 #, fuzzy
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
@@ -8087,7 +8100,7 @@ msgstr ""
 "Le nom d'hôte souscrit est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2481
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2485
 #, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
@@ -8095,7 +8108,7 @@ msgstr ""
 "Le collecteur d'adresses IP est uniquement disponible si l'hôte est abonné à "
 "Zentyal Cloud"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2510
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2514
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -13233,7 +13246,7 @@ msgstr "Condition"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
-#: ../../main/firewall/src/EBox/Firewall.pm:771
+#: ../../main/firewall/src/EBox/Firewall.pm:777
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
@@ -13247,7 +13260,7 @@ msgstr "Règles ajoutées par les services de Zentyal (mode avancé)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:200
-#: ../../main/firewall/src/EBox/Firewall.pm:599
+#: ../../main/firewall/src/EBox/Firewall.pm:605
 msgid "Packet Filter"
 msgstr "Filtrage de paquets"
 
@@ -13327,7 +13340,7 @@ msgid "List of forwarded ports"
 msgstr "Liste des ports transférés"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:355
-#: ../../main/firewall/src/EBox/Firewall.pm:602
+#: ../../main/firewall/src/EBox/Firewall.pm:608
 msgid "Port Forwarding"
 msgstr "Transfert de ports"
 
@@ -13352,7 +13365,7 @@ msgid "DENY"
 msgstr "REFUSER"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:69
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:782
 msgid "LOG"
 msgstr "LOG"
 
@@ -13402,7 +13415,7 @@ msgid "Source Network Address Translation rules"
 msgstr "Règles de translation de l'adresse réseau source"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
-#: ../../main/firewall/src/EBox/Firewall.pm:604
+#: ../../main/firewall/src/EBox/Firewall.pm:610
 msgid "SNAT"
 msgstr "Translation de l'adresse réseau source (SNAT)"
 
@@ -13415,7 +13428,7 @@ msgid "External networks to Zentyal"
 msgstr "Réseaux externes à Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:52
-#: ../../main/firewall/src/EBox/Firewall.pm:779
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "Firewall"
 msgstr "Pare-feu "
 
@@ -13447,34 +13460,34 @@ msgstr ""
 "fonctionne comme voulu. Normalement, toute connexion sortant est interdite, "
 "uniquement les connexions SSH et HTTPS entrantes sont autorisées"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:297
+#: ../../main/firewall/src/EBox/Firewall.pm:303
 #, fuzzy
 msgid "port redirections"
 msgstr "Options du rapport"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:764
+#: ../../main/firewall/src/EBox/Firewall.pm:770
 msgid "Input interface"
 msgstr "Interface d'entrée"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:765
+#: ../../main/firewall/src/EBox/Firewall.pm:771
 msgid "Output interface"
 msgstr "Interface de sortie"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:769
+#: ../../main/firewall/src/EBox/Firewall.pm:775
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
 msgid "Source port"
 msgstr "Port source"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:770
+#: ../../main/firewall/src/EBox/Firewall.pm:776
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
 msgid "Destination port"
 msgstr "Port de destination"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:782
 msgid "DROP"
 msgstr "ABANDONNER"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:782
 msgid "REDIRECT"
 msgstr "REDIRIGER"
 
@@ -13816,7 +13829,7 @@ msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Le nom Netbios ne peut être plus long que 15 caractères"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:448
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:320
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:321
 #, fuzzy, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "Le nom d'utilisateur existe déjà dans le système"
@@ -14462,18 +14475,18 @@ msgstr "L'adresse VPN {addr} est déjà utilisée par l'interface {iface}"
 msgid "FATAL: Could not connect to samba LDAP server: {error}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:144
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:544
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:145
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:566
 msgid "The object is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:383
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:797
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:384
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:820
 #, perl-brace-format
 msgid "The object {x} is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:924
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:930
 msgid "Sharing directory for this group"
 msgstr "Répertoires partagés pour ce groupe"
 
@@ -17434,6 +17447,8 @@ msgid "Collect the physical memory usage"
 msgstr "Renseigne l'utilisation de la mémoire physique"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:124
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
 msgid "free"
 msgstr "libre"
 
@@ -17446,29 +17461,33 @@ msgid "buffer cache"
 msgstr "cache de mémoire tampon"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:125
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
 msgid "used"
 msgstr "utilisé"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:92
-#, perl-brace-format
-msgid "used in {partition}"
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:112
+#, fuzzy, perl-brace-format
+msgid "Disk usage in {partition}"
 msgstr "espace utilisé dans {partition}"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
-#, perl-brace-format
-msgid "free in {partition}"
-msgstr "espace libre dans {partition}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:99
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:119
 msgid "File system usage"
 msgstr "Espace utilisé dans le système de fichier"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:100
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:120
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
 "Renseigne l'utilisation des système de fichiers montés comme le ferait la "
 "commande \"df\""
+
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:126
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
+#, fuzzy
+msgid "reserved"
+msgstr "Serveur"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -20181,7 +20200,7 @@ msgid "No options"
 msgstr "options"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:252
-#: ../../main/core/src/templates/ajax/treeView.mas:38
+#: ../../main/core/src/templates/ajax/treeView.mas:39
 #: ../../main/software/src/templates/ebox.mas:467
 #, fuzzy
 msgid "Search"
@@ -21591,6 +21610,9 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+
+#~ msgid "free in {partition}"
+#~ msgstr "espace libre dans {partition}"
 
 #~ msgid "quota"
 #~ msgstr "quota"
