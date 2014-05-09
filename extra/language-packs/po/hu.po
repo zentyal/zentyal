@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2014-05-02 02:02+0200\n"
+"PO-Revision-Date: 2014-05-06 16:40+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -1313,18 +1313,15 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} eszköznek nincs használható IP-címe"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
-msgstr ""
-"Hiba a(z) {mod} szolgáltatás újraindításakor. További információkért lásd: "
-"{logs}."
+msgstr "A replikáció meghiúsult.További információkért lásd: {logfile}."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Számítógép beállítása"
+msgstr "Fürt beállítása"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1332,59 +1329,51 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Itt megjelenítheti a fürt állapotát. Ha több információra van szüksége a "
+"hibákkal kapcsolatban, a {logfile} további részleteket tartalmaz."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "A név túl hosszú. A maximális hossz: {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "A név túl rövid. A minimális hossz: {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
-#, fuzzy
 msgid "Name must only contain letters, numbers or underscores."
-msgstr "A név csak betűket, számokat és aláhúzásokat tartalmazhat"
+msgstr "A név csak betűket, számokat és aláhúzásokat tartalmazhat."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "A(z) {ip} IP-cím nem tartozik egy csatolóhoz sem."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Nem található belső statikus csatoló a webszerver IP-címének beállításához."
+msgstr "Már van hálózati csatoló az adott IP-címmel."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Nem található belső statikus csatoló a webszerver IP-címének beállításához."
+msgstr "Már van fix cím a DHCP-ben a megadott IP-címmel."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Nem található belső statikus csatoló a webszerver IP-címének beállításához."
+msgstr "Már van DHCP tartomány, amely tartalmazza az adott IP-címet."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Tartomány IP-címei"
+msgstr "Lebegő IP-cím"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:250
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Tartomány IP-címei"
+msgstr "Lebegő IP-címek"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:254
-#, fuzzy
 msgid "floating IP address"
-msgstr "Tartomány vagy IP-cím"
+msgstr "lebegő IP-cím"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:121
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1399,20 +1388,21 @@ msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:122
 msgid "Retry"
-msgstr ""
+msgstr "Újra"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "On-line"
-msgstr ""
+msgstr "Online"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:131
 msgid "Off-line"
-msgstr ""
+msgstr "Offline"
 
+# t
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:160
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "{name} fürt csomópontjainak listája"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
@@ -1423,97 +1413,88 @@ msgid "Hostname"
 msgstr "Gépnév"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:193
-#, fuzzy
 msgid "Replication"
-msgstr "Alkalmazás"
+msgstr "Replikáció"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:203
-#, fuzzy
 msgid "Demote"
-msgstr "Távoli"
+msgstr "Lefokozás"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Promote"
-msgstr "Távoli"
+msgstr "Előléptetés"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:220
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Fürt csomópontjainak listája"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:225
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:128
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Ez a hónap nem tartalmaz 31 napot."
+msgstr "Ez a fürt nem tartalmaz csomópontokat."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:267
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "{name} mostantól aktív csomópont"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:281
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "{name} mostantól passzív csomópont"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr "felhasználónév"
+msgstr "Fürtnév"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr "felhasználónév"
+msgstr "Fürttitok"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Jelenlegi kijelölt vezérlő"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"A jelenlegi kijelölt vezérlő végzi el a műveleteket a fürtben. Ez a "
+"csomópont a fürt befolyásolása nélkül módosítható."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "A szolgáltatás be van kapcsolva, de nem fut"
+msgstr "Hiba: {service} szolgáltatás nem fut"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Hely"
+msgstr "Utolsó módosítás"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Beállítottak"
+msgstr "Beállított csomópontok"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr "felhasználónév"
+msgstr "csomópontok"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Beállítottak"
+msgstr "Beállított erőforrások"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Erőforrások"
+msgstr "erőforrások"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:106
 #: ../../main/samba/src/EBox/Samba.pm:1619
@@ -1521,83 +1502,74 @@ msgid "Resource"
 msgstr "Erőforrás"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#, fuzzy
 msgid "Started at"
-msgstr "Indítás"
+msgstr "Indítva ekkor:"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:123
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Ez a hónap nem tartalmaz 31 napot."
+msgstr "A fürthöz nincsenek erőforrások definiálva."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:136
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:141
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:147
-#, fuzzy
 msgid "noname"
-msgstr "név"
+msgstr "névtelen"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
-#, fuzzy
 msgid "Cluster host"
-msgstr "felhasználónév"
+msgstr "Fürt gazdagép"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
-#, fuzzy
 msgid "Cluster host port"
-msgstr "felhasználónév"
+msgstr "Fürt gazdagép portja"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
-#, fuzzy
 msgid "Choose network interface"
-msgstr "hálózati csatoló"
+msgstr "Válasszon hálózati csatolót"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
 msgid "It will be used as communication channel between the cluster members."
-msgstr ""
+msgstr "Ez a fürttagok közötti kommunikációs csatornaként kerül felhasználásra."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Állítsa be, hogyan fog ez a szerver fürtöt indítani, vagy meglévőhöz "
+"csatlakozik-e"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
 msgid "If you change any setting, you may suffer a service cluster disruption,"
-msgstr ""
+msgstr "Ha bármely beállítást módosít, a fürt működése megszakadhat."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Új lemez létrehozása"
+msgstr "Új fürt létrehozása"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Csomópont meglévő fürthöz csatlakoztatása"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
-#, fuzzy
 msgid "Floating IP"
-msgstr "Tartomány IP-címei"
+msgstr "Lebegő IP"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:107
-#, fuzzy
 msgid "Cluster error"
-msgstr "felhasználónév"
+msgstr "Fürthiba"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
 msgid "Node"
-msgstr ""
+msgstr "Csomópont"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:126
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Ez a hónap nem tartalmaz 31 napot."
+msgstr "Ez a fürt jelenleg hibátlan."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:140
-#, fuzzy
 msgid "no error"
-msgstr "hibák"
+msgstr "nincs hiba"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:154
 #, perl-brace-format
@@ -1612,6 +1584,8 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Egy kezeletlen erőforrást jelenleg nem lehet irányítani. Írja be a következő "
+"parancsot az erőforrás feletti irányítás visszanyeréséhez: {command}"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -1629,6 +1603,10 @@ msgid ""
 "Commercial Editions{ch} that include the IPS feature in the automatic "
 "security updates."
 msgstr ""
+"Szeretné megvédeni rendszerét a legfrissebb biztonsági fenyegetések, "
+"betörési kísérletek és sebezhetőségek elleni támadások ellen? Szerezze be a "
+"{oh}kereskedelmi változatok{ch} egyikét, amelyekben a behatolásjelző funkció "
+"az automatikus biztonsági frissítések része."
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -1707,6 +1685,8 @@ msgstr "Közösségi"
 #, perl-brace-format
 msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr ""
+"A speciális biztonsági frissítésekkel hozzáférhet a naponta frissített "
+"{rules} szabályokhoz"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
@@ -1990,32 +1970,27 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
 msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
+msgstr "Engedélyeznie kell legalább egy figyelőportot ezen modul használatához."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
-#, fuzzy
 msgid "HTTP listening port"
-msgstr "figyelő port"
+msgstr "HTTP figyelőport"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
-#, fuzzy
 msgid "HTTPS listening port"
-msgstr "figyelő port"
+msgstr "HTTPS figyelőport"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
-#, fuzzy
 msgid "Listening Ports settings"
-msgstr "Figyelő port"
+msgstr "Figyelőport beállításai"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
-#, fuzzy
 msgid "Listening Ports configuration"
-msgstr "Kliens beállítása"
+msgstr "Figyelőportok beállítása"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
-#, fuzzy
 msgid "Listening ports configuration settings updated."
-msgstr "A Zarafa szerver kvótabeállításai frissítve."
+msgstr "A figyelőportok konfigurációs beállításai frissítve."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
@@ -2032,13 +2007,13 @@ msgid "You need to enable Listening SSL port."
 msgstr "Be kell kapcsolnia az SSL figyelőportját."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
 "SSL on a virtual host."
 msgstr ""
-"Az SSL engedélyezéséhez egy virtuális szerveren előbb engedélyeznie kell a "
-"webszervert a {ohref}Szolgáltatások tanúsítványai{chref} alatt."
+"Az SSL engedélyezéséhez egy virtuális szerveren előbb engedélyezni kell a "
+"{module} modult a {ohref}Szolgáltatások tanúsítványai{chref} alatt."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
 #, perl-brace-format
@@ -2140,9 +2115,8 @@ msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
-#, fuzzy
 msgid "User public folder configuration settings updated."
-msgstr "Az általános webszerver-beállítások frissítve."
+msgstr "A felhasználói nyilvános mappák beállításai frissítve."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:134
 #, perl-brace-format
@@ -2169,21 +2143,19 @@ msgstr ""
 "public_html könyvtárban."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
-#, fuzzy
 msgid "User public folder settings"
-msgstr "Felhasználó beállításai"
+msgstr "Felhasználói nyilvános mappák beállításai"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:172
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "User public folder configuration. If you enable user to publish their own "
 "html pages, those should be loaded from {dirName} directory from their home "
 "directories."
 msgstr ""
-"Általános webszerver-beállítások. A figyelőport nem lehet azonos egy másik "
-"szolgáltatáséval. Ha engedélyezi a felhasználóknak egyéni weblapok "
-"közzétételét, a weblapok a felhasználók saját könyvtáraiban lévő {dirName} "
-"könyvtárból töltődnek be."
+"Felhasználói nyilvános mappák beállításai. Ha engedélyezi a felhasználóknak "
+"saját weblapok közzétételét, azok a felhasználók saját könyvtáraiban lévő "
+"{dirName} könyvtárból töltődnek be."
 
 #: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
 #: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1712
@@ -2747,7 +2719,7 @@ msgstr ""
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:64
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:69
 msgid "Your session was not valid anymore"
-msgstr ""
+msgstr "Munkamenete már nem érvényes"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:66
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:66
@@ -2772,7 +2744,7 @@ msgstr "Ki lett jelentkeztetve, mert egy új munkamenet lett megnyitva"
 #: ../../main/core/src/EBox/Login/CGI/Index.pm:77
 #, perl-brace-format
 msgid "Unknown error: '{error}'"
-msgstr ""
+msgstr "Ismeretlen hiba: „{error}”"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:43
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:170
@@ -3320,15 +3292,14 @@ msgid "General configuration"
 msgstr "Általános beállítások"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:129
-#, fuzzy
 msgid ""
 "This module enables a HTTPS server to allow the users to change their own "
 "data like their password. Here you can choose the port where to accept HTTPS "
 "connections."
 msgstr ""
-"Ez a modul lehetővé teszi egy https webszervernek, hogy a felhasználói "
+"Ez a modul lehetővé teszi egy HTTPS szervernek, hogy a felhasználói "
 "megváltoztathassák adataikat, például a jelszavukat. Itt kiválaszthatja a "
-"https kapcsolatok elfogadására használt portot."
+"HTTPS kapcsolatok elfogadására használt portot."
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:97
 msgid "Migrate configured modules"
@@ -4227,6 +4198,8 @@ msgid ""
 "Bandwidth Monitor is not configured to monitor any interface. You can enable "
 "interfaces in the 'Configure interfaces' tab"
 msgstr ""
+"A sávszélesség-figyelő nincs beállítva egy csatoló figyelésére sem. A "
+"csatolókat a \"Csatolók beállítása\" lapon engedélyezheti"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:147
 #, perl-brace-format
@@ -4427,6 +4400,8 @@ msgstr ""
 #: ../../main/users/src/EBox/LdapUserBase.pm:391
 msgid "This addon applies only to users in the default 'Users' container"
 msgstr ""
+"Ez a bővítmény csak az alapértelmezett „Users” konténerben lévő "
+"felhasználókra vonatkozik"
 
 #: ../../main/users/src/EBox/Users.pm:271
 msgid ""
