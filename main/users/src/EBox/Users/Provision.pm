@@ -359,59 +359,6 @@ sub resetSysvolACL
     EBox::Sudo::rootWithoutException($cmd);
 }
 
-sub linkContainer
-{
-    my ($self, $ldb, $ldap) = @_;
-
-    my $usersMod = EBox::Global->modInstance('users');
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my %ldb = %{$ldb};
-    my %ldap = %{$ldap};
-
-    EBox::info("Linking '$ldb{dn}' and '$ldap{dn}'");
-    my $ldapObject = $usersMod->objectFromDN($ldap{dn});
-    my $ldbObject = $sambaMod->objectFromDN($ldb{dn});
-    unless (defined $ldbObject and $ldbObject->exists()) {
-        if ($ldb{create}) {
-            my $dn = ldap_explode_dn($ldb{dn});
-            my $rdn = shift(@{$dn});
-            unless (exists $rdn->{OU}) {
-                throw EBox::Exceptions::Internal("Unable to parse DN $ldb{dn}");
-            }
-            my $name = $rdn->{OU};
-            my $parent = new EBox::User::NamingContext(dn => canonical_dn($dn));
-            $ldbObject = EBox::Users::OU->create(name => $name, parent => $parent);
-            unless (defined $ldbObject and $ldbObject->exists()) {
-                throw EBox::Exceptions::Internal("Unable to create $ldb{dn}");
-            }
-        } else {
-            throw EBox::Exceptions::Internal("Unable to find $ldb{dn} on LDB.");
-        }
-    }
-    unless (defined $ldapObject and $ldapObject->exists()) {
-        if ($ldap{create}) {
-            my $dn = ldap_explode_dn($ldap{dn});
-            my $rdn = shift(@{$dn});
-            unless (exists $rdn->{OU}) {
-                throw EBox::Exceptions::Internal("Unable to parse DN $ldap{dn}");
-            }
-            my $name = $rdn->{OU};
-            my $parent = new EBox::Users::NamingContext(dn => canonical_dn($dn));
-            $ldapObject = EBox::Users::OU->create(name => $name, parent => $parent, ignoreMods=>['samba']);
-            unless (defined $ldapObject and $ldapObject->exists()) {
-                throw EBox::Exceptions::Internal("Unable to create $ldap{dn}");
-            }
-        } else {
-            throw EBox::Exceptions::Internal("Unable to find $ldap{dn} on LDAP.");
-        }
-    }
-    $ldbObject->_linkWithUsersObject($ldapObject);
-    unless ($ldbObject->isa('EBox::Samba::Container') or $ldbObject->isa('EBox::Samba::BuiltinDomain')) {
-        # All objects except EBox::Samba::Container or EBox::Samba::BuiltinDomain can be modified
-        $ldbObject->setCritical($ldb{advanced} ? 1 : 0);
-    }
-}
-
 # Method: mapAccounts
 #
 #   Set the mapping between the objectSID and uidNumber/gidNumber for the
