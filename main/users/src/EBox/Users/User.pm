@@ -129,7 +129,7 @@ sub defaultContainer
 #
 sub uidTag
 {
-    return 'uid';
+    return 'samAccountName';
 }
 
 
@@ -406,6 +406,10 @@ sub create
     unless ($name) {
         $name = $class->generatedFullName(%args);
     }
+    my $displayName = $args{displayName};
+    unless ($displayName) {
+        $displayName = $name;
+    }
 
     my $dn = "CN=$name," .  $args{parent}->dn();
 
@@ -444,7 +448,7 @@ sub create
     push (@attr, givenName   => $args{givenName}) if ($args{givenName});
     push (@attr, initials    => $args{initials}) if ($args{initials});
     push (@attr, sn          => $args{sn}) if ($args{sn});
-    push (@attr, displayName => $args{displayName}) if ($args{displayName});
+    push (@attr, displayName => $displayName);
     push (@attr, description => $args{description}) if ($args{description});
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
@@ -573,7 +577,7 @@ sub _entry
 sub name
 {
     my ($self) = @_;
-    return $self->get('uid');
+    return $self->get('samAccountName');
 }
 
 sub home
