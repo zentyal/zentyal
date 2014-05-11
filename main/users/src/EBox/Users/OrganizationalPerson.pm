@@ -238,14 +238,14 @@ sub generatedFullName
     my ($self, %args) = @_;
     my $fullname = '';
 
-    if ($args{givenname}) {
-        $fullname = $args{givenname} . ' ';
+    if ($args{givenName}) {
+        $fullname = $args{givenName} . ' ';
     }
     if ($args{initials}) {
         $fullname .= $args{initials} . '. ';
     }
-    if ($args{surname}) {
-        $fullname .= $args{surname};
+    if ($args{sn}) {
+        $fullname .= $args{sn};
     }
     return $fullname
 }

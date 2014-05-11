@@ -484,13 +484,7 @@ sub provisionDC
         $samba->_startService();
 
         # FIXME
-        # Load all zentyal users and groups into ldb
-#        $samba->ldb->ldapOUsToLDB();
-#        $samba->ldb->ldapUsersToLdb();
-#        $samba->ldb->ldapContactsToLdb();
 #        $samba->ldb->ldapServicePrincipalsToLdb();
-#        $samba->ldb->ldapGroupsToLdb();
-
         # Map accounts
 #        $self->mapAccounts();
 

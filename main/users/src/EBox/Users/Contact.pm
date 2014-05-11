@@ -103,15 +103,12 @@ sub deleteObject
 
 # Method: create
 #
-# FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
-# because an OrganizationalPerson reconversion to a Contact failed.
-#
 #   Adds a new contact
 #
 # Parameters:
 #
 #   args - Named parameters:
-#       name
+#       name *optional*
 #       givenName
 #       initials
 #       sn
@@ -131,12 +128,15 @@ sub create
     my ($class, %args) = @_;
 
     # Check for required arguments.
-    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
     throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $name = $args{name};
+    unless ($name) {
+        $name = $class->generatedFullName(%args);
+    }
+
     my $dn = "CN=$name," . $args{parent}->dn();
 
     my @attr = ();

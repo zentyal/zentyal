@@ -357,7 +357,7 @@ sub setHomeDrive
 # Parameters:
 #
 #   args - Named parameters:
-#       name
+#       name *optional*
 #       givenName
 #       initials
 #       sn
@@ -379,7 +379,6 @@ sub create
 
     # Check for required arguments.
     throw EBox::Exceptions::MissingArgument('samAccountName') unless ($args{samAccountName});
-    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
     throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
@@ -393,7 +392,21 @@ sub create
         $class->_checkPwdLength($clearPassword);
     }
 
+    my @userPwAttrs = getpwnam ($samAccountName);
+    if (@userPwAttrs) {
+        throw EBox::Exceptions::External(__('Username already exists on the system'));
+    }
+
+    my $homedir = _homeDirectory($samAccountName);
+    if (-e $homedir) {
+        EBox::warn("Home directory $homedir already exists when creating user $samAccountName");
+    }
+
     my $name = $args{name};
+    unless ($name) {
+        $name = $class->generatedFullName(%args);
+    }
+
     my $dn = "CN=$name," .  $args{parent}->dn();
 
     # Check DN is unique (duplicated givenName and surname)
@@ -402,6 +415,27 @@ sub create
     $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
+
+    my $real_users = $usersMod->realUsers();
+
+    my $max_users = 0;
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        if ($usersMod->master() eq 'cloud') {
+            $max_users = $rs->maxCloudUsers();
+        } else {
+            $max_users = $rs->maxUsers();
+        }
+    }
+
+    if ($max_users) {
+        if ( scalar(@{$real_users}) > $max_users ) {
+            throw EBox::Exceptions::External(
+                    __sx('Please note that the maximum number of users for your edition is {max} '
+                        . 'and you currently have {nUsers}',
+                        max => $max_users, nUsers => scalar(@{$real_users})));
+        }
+    }
 
     my @attr = ();
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user']);
@@ -432,7 +466,7 @@ sub create
             };
         }
 
-        $res = new EBox::Samba::User(dn => $dn);
+        $res = new EBox::Users::User(dn => $dn);
 
         # Set the password
         if (defined $args{clearPassword}) {
@@ -494,7 +528,7 @@ sub _checkDnIsUnique
 {
     my ($self, $dn, $name) = @_;
 
-    my $entry = new EBox::Samba::LdbObject(dn => $dn);
+    my $entry = new EBox::Users::LdapObject(dn => $dn);
     if ($entry->exists()) {
         throw EBox::Exceptions::DataExists(
             text => __x('User name {x} already exists in the same container.',
@@ -799,280 +833,6 @@ sub passwordHashes
 
     my @keys = $self->get('krb5Key');
     return \@keys;
-}
-
-# USER CREATION:
-
-# Method: create
-#
-#       Adds a new user.
-#
-# Parameters:
-#
-#   args - Named parameters:
-#       uid    - User name.
-#       parent - Parent container that will hold this new User.
-#       password
-#       fullname
-#       givenname
-#       initials
-#       surname
-#       displayname
-#       description
-#       mail
-#       isDisabled   - boolean: Whether this user should be disabled or not. Default False.
-#       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
-#       uidNumber    - user UID number
-#       isInternal     - Whether this use is internal or not.
-#       ignoreMods   - modules that should not be notified about the user creation
-#       ignoreSlaves - slaves that should not be notified about the user creation
-#
-sub create
-{
-    my ($class, %args) = @_;
-
-    # Check for required arguments.
-    throw EBox::Exceptions::MissingArgument('uid') unless ($args{uid});
-    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
-    throw EBox::Exceptions::InvalidData(
-        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
-
-    my $uid = $args{uid};
-    my $parent = $args{parent};
-    my $isSystemUser = 0;
-    if ($args{isSystemUser}) {
-        $isSystemUser = 1;
-    }
-    my $isDisabled = 0; # All users are enabled by default.
-    if ($args{isDisabled}) {
-        $isDisabled = 1;
-    }
-    my $ignoreMods   = $args{ignoreMods};
-    my $ignoreSlaves = $args{ignoreSlaves};
-
-    unless (_checkUserName($uid)) {
-        my $advice = __('To avoid problems, the uid should consist only ' .
-                        'of letters, digits, underscores, spaces, periods, ' .
-                        'dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $uid,
-                                            'advice' => $advice
-                                           );
-    }
-
-    my $usersMod = EBox::Global->modInstance('users');
-    my $real_users = $usersMod->realUsers();
-
-    my $max_users = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        if ($usersMod->master() eq 'cloud') {
-            $max_users = $rs->maxCloudUsers();
-        } else {
-            $max_users = $rs->maxUsers();
-        }
-    }
-
-    if ($max_users) {
-        if ( scalar(@{$real_users}) > $max_users ) {
-            throw EBox::Exceptions::External(
-                    __sx('Please note that the maximum number of users for your edition is {max} '
-                        . 'and you currently have {nUsers}',
-                        max => $max_users, nUsers => scalar(@{$real_users})));
-        }
-    }
-
-    if (length($uid) > MAXUSERLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Username must not be longer than {maxuserlength} characters",
-                maxuserlength => MAXUSERLENGTH));
-    }
-
-    # Verify user exists
-    my $userExists = $usersMod->userExists($uid);
-    if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $uid));
-    } elsif ($userExists) {
-        throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $uid);
-    }
-    # Verify that a group with the same name does not exists
-    my $groupExists =  $usersMod->groupExists($uid);
-    if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::External(
-            __x(q{A built-in Windows group with the name '{name}' already exists. Users and groups cannot share names},
-               name => $uid)
-           );
-    } elsif ($groupExists) {
-        throw EBox::Exceptions::DataExists(text =>
-            __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $uid)
-           );
-    }
-
-    my $cn = $args{givenname} . ' ' . $args{surname};
-    $class->checkCN($parent, $cn);
-
-    my $dn = 'uid=' . $uid . ',' . $parent->dn();
-
-    my @userPwAttrs = getpwnam($uid);
-    if (@userPwAttrs) {
-        throw EBox::Exceptions::External(__("Username already exists on the system"));
-    }
-
-    my $homedir = _homeDirectory($uid);
-    if (-e $homedir) {
-        EBox::warn("Home directory $homedir already exists when creating user $uid");
-    }
-
-    # Check the password length if specified
-    my $passwd = $args{'password'};
-    if (defined $passwd) {
-        $class->_checkPwdLength($passwd);
-    }
-
-    my $uidNumber = defined $args{uidNumber} ?
-                            $args{uidNumber} :
-                            $class->_newUserUidNumber($isSystemUser);
-    $class->_checkUid($uidNumber, $isSystemUser);
-
-    my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
-    unless ($defaultGroup) {
-        throw EBox::Exceptions::Internal(
-            __x("The default group '{defaultgroup}' cannot be found!", defaultgroup => EBox::Users->DEFAULTGROUP));
-    }
-    if (not $defaultGroup->isSecurityGroup()) {
-        throw EBox::Exceptions::InvalidData(
-            'data' => __('default group'),
-            'value' => $defaultGroup->name(),
-            'advice' => __('Default group must be a security group.'),
-        );
-    }
-    my $gid = $defaultGroup->get('gidNumber');
-
-    my $realm = $usersMod->kerberosRealm();
-    my $quota = $class->defaultQuota();
-
-    my $res = undef;
-    my $parentRes = undef;
-    my $entry = undef;
-    try {
-        $args{dn} = $dn;
-        $parentRes = $class->SUPER::create(%args);
-
-        my $anyObjectClass = any($parentRes->get('objectClass'));
-        my @userExtraObjectClasses = (
-            'posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry', 'shadowAccount'
-        );
-        foreach my $extraObjectClass (@userExtraObjectClasses) {
-            if ($extraObjectClass ne $anyObjectClass) {
-                $parentRes->add('objectClass', $extraObjectClass, 1);
-            }
-        }
-        $parentRes->set('uid', $uid, 1);
-        $parentRes->set('loginShell', $class->_loginShell(), 1);
-        $parentRes->set('uidNumber', $uidNumber, 1);
-        $parentRes->set('gidNumber', $gid, 1);
-        $parentRes->set('homeDirectory', $homedir, 1);
-        $parentRes->set('quota', $quota, 1);
-        if ($isDisabled) {
-            $parentRes->set('shadowExpire', 0, 1);
-        }
-        $parentRes->set('krb5PrincipalName', $uid . '@' . $realm, 1);
-        $parentRes->set('krb5KeyVersionNumber', 0, 1);
-        $parentRes->set('krb5MaxLife', 86400, 1); # TODO
-        $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
-        $parentRes->set('krb5KDCFlags', 126, 1); # TODO
-        $parentRes->set('title', 'internal', 1) if ($args{isInternal});
-
-        # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
-        $entry = $parentRes->_entry();
-        unless ($isSystemUser) {
-            $usersMod->notifyModsPreLdapUserBase(
-                'preAddUser', [$entry, $parent], $ignoreMods, $ignoreSlaves);
-        }
-
-        my $result = $entry->update($class->_ldap->{ldap});
-        if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(
-                    message => __('Error on user LDAP entry creation:'),
-                    result => $result,
-                    opArgs => $class->entryOpChangesInUpdate($entry),
-                   );
-            };
-        }
-
-        $res = new EBox::Users::User(dn => $dn);
-
-        # Set the user password and kerberos keys
-        if (defined $passwd) {
-            $class->_checkPwdLength($passwd);
-            $res->_ldap->changeUserPassword($res->dn(), $passwd);
-            # Force reload of krb5Keys
-            $res->clearCache();
-        }
-        elsif (defined($args{passwords})) {
-            $res->setPasswordFromHashes($args{passwords});
-        }
-
-        # Init user
-        if ($isSystemUser) {
-            if ($uidNumber == 0) {
-                # Special case to handle Samba's Administrator. It's like a regular user but without quotas.
-                $usersMod->reloadNSCD();
-                $usersMod->initUser($res, $passwd);
-
-                # Call modules initialization
-                $usersMod->notifyModsLdapUserBase(
-                    'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
-            }
-        } else {
-            $usersMod->reloadNSCD();
-            $usersMod->initUser($res, $passwd);
-            $res->_setFilesystemQuota($quota);
-
-            # Call modules initialization
-            $usersMod->notifyModsLdapUserBase(
-                'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
-        }
-    } catch ($error) {
-        EBox::error($error);
-
-        # A notified module has thrown an exception. Delete the object from LDAP
-        # Call to parent implementation to avoid notifying modules about deletion
-        # TODO Ideally we should notify the modules for beginTransaction,
-        #      commitTransaction and rollbackTransaction. This will allow modules to
-        #      make some cleanup if the transaction is aborted
-        if (defined $res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase(
-                'addUserFailed', [ $res ], $ignoreMods, $ignoreSlaves);
-            $res->SUPER::deleteObject(@_);
-        } elsif ($parentRes and $parentRes->exists()) {
-            $usersMod->notifyModsPreLdapUserBase(
-                'preAddUserFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
-            $parentRes->deleteObject(@_);
-        }
-        $res = undef;
-        $parentRes = undef;
-        $entry = undef;
-        EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
-        throw $error;
-    }
-
-    if ($res->{core_changed}) {
-        # save() will be take also of saving password if it is changed
-        $res->save();
-    }
-
-    $defaultGroup->setIgnoredModules($ignoreMods);
-    $defaultGroup->setIgnoredSlaves($ignoreSlaves);
-    $defaultGroup->addMember($res, 1);
-    $defaultGroup->save();
-
-    # Return the new created user
-    return $res;
 }
 
 sub _checkUserName
