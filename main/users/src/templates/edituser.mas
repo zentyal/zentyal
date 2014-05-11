@@ -27,7 +27,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
           <label><% __('First name') %></label>
                   <& masterSlaveUserAttr,
                                name => 'givenname',
-                               value => $user->firstname(),
+                               value => $user->givenName(),
                                slave => $slave,
                    &>
           </div>
@@ -45,7 +45,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 
                   <& masterSlaveUserAttr,
                                name => 'displayname',
-                               value=> ($user->displayname() or ''),
+                               value=> ($user->displayName() or ''),
                                slave => $slave,
                    &>
           </div>

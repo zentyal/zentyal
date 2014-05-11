@@ -53,17 +53,13 @@ sub fullname
 sub givenName
 {
     my ($self) = @_;
-    return $self->get('givenName');
-}
 
-sub firstname
-{
-    my ($self) = @_;
-    my $firstname =  $self->get('givenName');
-    if (not $firstname) {
+    my $givenname = $self->get('givenName');
+    if (not $givenname) {
         return '';
     }
-    return $firstname;
+
+    return $givenname;
 }
 
 # Method: initials
@@ -96,12 +92,6 @@ sub surname
 #   Return the display name of this person
 #
 sub displayName
-{
-    my ($self) = @_;
-    return $self->get('displayName');
-}
-
-sub displayname
 {
     my ($self) = @_;
     return $self->get('displayName');

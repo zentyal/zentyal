@@ -98,13 +98,13 @@ sub childNodes
             my $hostname = Sys::Hostname::hostname();
             next if ($printableName =~ /^(\w+)-$hostname$/);
 
-            my $displayname = $child->displayname();
+            my $displayname = $child->displayName();
             if ($displayname) {
                 $printableName .= " ($displayname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
-            $printableName = $child->displayname();
+            $printableName = $child->displayName();
             unless ($printableName) {
                 $printableName = $child->fullname();
             }

@@ -95,7 +95,7 @@ sub _process
             $contact->set('sn', $surname, 1);
 
             $contact->save();
-            $self->{json}->{set_text} = $contact->displayname();
+            $self->{json}->{set_text} = $contact->displayName();
             unless ($self->{json}->{set_text}) {
                 # displayname is not set, fallback to fullname.
                 $self->{json}->{set_text} = $contact->fullname();
