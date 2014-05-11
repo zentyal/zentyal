@@ -62,9 +62,9 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif ($parentMetadata->{dn} =~ /^ou=Domain Controllers,/i) {
+    } elsif ($parentMetadata->{dn} =~ /^OU=Domain Controllers,/i) {
         return $self->_sambaDomainControllers();
-    } elsif ($parentMetadata->{dn} =~ /^ou=Computers,/i) {
+    } elsif ($parentMetadata->{dn} =~ /^CN=Computers,/i) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -80,6 +80,9 @@ sub childNodes
             $type = 'ou';
             $printableName = $child->name();
             next if ($self->_hiddenOU($child->dn()));
+        } elsif ($child->isa('EBox::Users::Container')) {
+            $type = 'container';
+            $printableName = $child->name();
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($child->isInternal());
 

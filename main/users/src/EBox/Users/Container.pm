@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,16 +22,13 @@ use warnings;
 #
 
 package EBox::Users::Container;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Users::LdapObject';
 
 use EBox;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Global;
-use EBox::Users::OU;
-
-use TryCatch::Lite;
 
 # Method: mainObjectClass
 #

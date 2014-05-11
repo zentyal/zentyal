@@ -22,7 +22,7 @@ use warnings;
 #
 package EBox::Users::Contact;
 
-use base 'EBox::Samba::OrganizationalPerson';
+use base 'EBox::Users::OrganizationalPerson';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;

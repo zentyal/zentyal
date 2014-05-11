@@ -40,6 +40,7 @@ use EBox::Users::Contact;
 use EBox::Users::Group;
 use EBox::Users::NamingContext;
 use EBox::Users::OU;
+use EBox::Users::Container;
 use EBox::Users::Slave;
 use EBox::Users::User;
 use EBox::UsersSync::Master;
@@ -140,7 +141,7 @@ sub _setupForMode
         $self->{userClass} = 'EBox::Users::User';
         $self->{contactClass} = 'EBox::Users::Contact';
         $self->{groupClass} = 'EBox::Users::Group';
-        $self->{containerClass} = undef;
+        $self->{containerClass} = 'EBox::Users::Container';
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
@@ -1027,6 +1028,45 @@ sub reloadNSCD
         } catch {
         }
    }
+}
+
+# Method: containers
+#
+#   Returns an array containing all the containers. The array is ordered in a
+#   hierarquical way. Parents before childs.
+#
+# Returns:
+#
+#   array ref - holding the containers. Each member is represented by a
+#   EBox::Users::Container object
+#
+sub containers
+{
+    my ($self, $baseDN) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    unless (defined $baseDN) {
+        $baseDN = $self->ldap->dn();
+    }
+
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my $searchArgs = {
+        base => $baseDN,
+        filter => "objectclass=$objectClass",
+        scope => 'one',
+    };
+
+    my $ous = [];
+    my $result = $self->ldap->search($searchArgs);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: ous

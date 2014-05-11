@@ -16,13 +16,13 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::OrganizationalPerson
+# Class: EBox::Users::OrganizationalPerson
 #
 #   Samba Organization Person, stored in samba LDAP
 #
-package EBox::Samba::OrganizationalPerson;
+package EBox::Users::OrganizationalPerson;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Users::LdapObject';
 
 use EBox::Gettext;
 
@@ -40,6 +40,12 @@ sub name
     return $self->get('cn');
 }
 
+sub fullname
+{
+    my ($self) = @_;
+    return $self->get('cn');
+}
+
 # Method: givenName
 #
 #   Return the given name of this person
@@ -48,6 +54,16 @@ sub givenName
 {
     my ($self) = @_;
     return $self->get('givenName');
+}
+
+sub firstname
+{
+    my ($self) = @_;
+    my $firstname =  $self->get('givenName');
+    if (not $firstname) {
+        return '';
+    }
+    return $firstname;
 }
 
 # Method: initials
@@ -67,7 +83,12 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+
+    my $sn = $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 # Method: displayName
@@ -75,6 +96,12 @@ sub surname
 #   Return the display name of this person
 #
 sub displayName
+{
+    my ($self) = @_;
+    return $self->get('displayName');
+}
+
+sub displayname
 {
     my ($self) = @_;
     return $self->get('displayName');
@@ -215,5 +242,23 @@ sub deleteObject
     shift @_;
     $self->SUPER::deleteObject(@_);
 }
+
+sub generatedFullName
+{
+    my ($self, %args) = @_;
+    my $fullname = '';
+
+    if ($args{givenname}) {
+        $fullname = $args{givenname} . ' ';
+    }
+    if ($args{initials}) {
+        $fullname .= $args{initials} . '. ';
+    }
+    if ($args{surname}) {
+        $fullname .= $args{surname};
+    }
+    return $fullname
+}
+
 
 1;

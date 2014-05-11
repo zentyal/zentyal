@@ -22,7 +22,7 @@ use warnings;
 #   SecurityPrincipal auxiliary class
 #
 package EBox::Samba::SecurityPrincipal;
-use base 'EBox::Samba::OrganizationalPerson';
+use base 'EBox::Users::OrganizationalPerson';
 
 use EBox::Gettext;
 use EBox::Exceptions::DataExists;
