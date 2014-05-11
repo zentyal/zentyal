@@ -83,6 +83,7 @@ sub childNodes
         } elsif ($child->isa('EBox::Users::Container')) {
             $type = 'container';
             $printableName = $child->name();
+            next if ($self->_hiddenContainer($child->dn()));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($child->isInternal());
 
@@ -241,6 +242,25 @@ sub _hiddenOU
     my $name = $e->{OU};
 
     return $self->{ousToHide}->{$name};
+}
+
+sub _hiddenContainer
+{
+    my ($self, $dn) = @_;
+
+    unless ($self->{containersToHide}) {
+        $self->{containersToHide} = { map { $_ => 1 } ('ForeignSecurityPrincipals', 'Program Data', 'System') };
+    }
+
+    # Only hide first level OUs and allow nested OUs matching hidden ones
+    my $dnParts = ldap_explode_dn($dn, reverse => 1);
+    my $e = shift @{$dnParts};
+    while (@{$dnParts} and not defined $e->{CN}) {
+        $e = shift @{$dnParts};
+    };
+    my $name = $e->{CN};
+
+    return $self->{containersToHide}->{$name};
 }
 
 1;
