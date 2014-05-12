@@ -162,7 +162,7 @@ sub get
         return @value;
     } else {
         my $value = $entry->get_value($attr);
-        utf8::decode($value);
+        utf8::decode($value) if defined ($value);
         return $value;
     }
 }
