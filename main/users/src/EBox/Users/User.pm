@@ -604,19 +604,14 @@ sub isInternal
 {
     my ($self) = @_;
 
-    my $title = $self->get('title');
-    return (defined ($title) and ($title eq 'internal'));
+    return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
 sub setInternal
 {
     my ($self, $internal, $lazy) = @_;
 
-    if ($internal) {
-        $self->set('title', 'internal', $lazy);
-    } else {
-        $self->set('title', undef, $lazy);
-    }
+    $self->setInAdvancedViewOnly($internal, $lazy);
 }
 
 # Catch some of the set ops which need special actions

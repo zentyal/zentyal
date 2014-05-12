@@ -663,18 +663,14 @@ sub isInternal
 {
     my ($self) = @_;
 
-    return $self->get('internal');
+    return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
 sub setInternal
 {
     my ($self, $internal, $lazy) = @_;
 
-    if ($internal) {
-        $self->set('internal', 1, $lazy);
-    } else {
-        $self->set('internal', undef, $lazy);
-    }
+    $self->setInAdvancedViewOnly($internal, $lazy);
 }
 
 sub _checkGid
