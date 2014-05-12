@@ -145,7 +145,9 @@ sub changePassword
 
     $passwd = encode('UTF16-LE', "\"$passwd\"");
 
-    # The password will be changed on save
+    # The password will be changed on save, save it also to
+    # notify LDAP user base mods
+    $self->{core_changed_password} = $passwd;
     $self->set('unicodePwd', $passwd, 1);
     try {
         $self->save() unless $lazy;
@@ -209,6 +211,10 @@ sub deleteObject
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
     }
+
+    # Notify users deletion to modules
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Remove the roaming profile directory
     my $samAccountName = $self->get('samAccountName');
@@ -775,22 +781,6 @@ sub _setFilesystemQuota
     }
 }
 
-# Method: changePassword
-#
-#   Configure a new password for the user
-#
-sub changePassword
-{
-    my ($self, $passwd, $lazy) = @_;
-
-    $self->_checkPwdLength($passwd);
-
-    # The password will be changed on save, save it also to
-    # notify LDAP user base mods
-    $self->{core_changed_password} = $passwd;
-    $self->save() unless $lazy;
-}
-
 # Method: setPasswordFromHashes
 #
 #   Configure user password directly from its kerberos hashes
@@ -806,23 +796,6 @@ sub setPasswordFromHashes
     $self->set('userPassword', '{K5KEY}', $lazy);
     $self->set('krb5Key', $passwords, $lazy);
     $self->set('krb5KeyVersionNumber', 1, $lazy);
-}
-
-# Method: deleteObject
-#
-#   Delete the user
-#
-sub deleteObject
-{
-    my ($self) = @_;
-
-    # Notify users deletion to modules
-    my $usersMod = $self->_usersMod();
-    $usersMod->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
-
-    # Call super implementation
-    shift @_;
-    $self->SUPER::deleteObject(@_);
 }
 
 # Method: passwordHashes
@@ -950,22 +923,6 @@ sub _checkUid
                    )
                 );
         }
-    }
-}
-
-sub _checkPwdLength
-{
-    my ($self, $pwd) = @_;
-
-    # Is hashed?
-    if ($pwd =~ /^\{[0-9A-Z]+\}/) {
-        return;
-    }
-
-    if (length($pwd) > MAXPWDLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Password must not be longer than {maxPwdLength} characters",
-            maxPwdLength => MAXPWDLENGTH));
     }
 }
 
