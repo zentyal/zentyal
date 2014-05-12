@@ -37,9 +37,9 @@ use EBox::Menu::Item;
 use EBox::Users::Computer;
 use EBox::Samba::DMD;
 use EBox::Samba::GPO;
-use EBox::Samba::LdbObject;
+use EBox::Users::LdapObject;
 use EBox::Users::Provision;
-use EBox::Samba::SecurityPrincipal;
+use EBox::Users::SecurityPrincipal;
 use EBox::Samba::SmbClient;
 use EBox::SambaLogHelper;
 use EBox::Service;
@@ -314,7 +314,7 @@ sub _postServiceHook
                         $sid = $domainUsersSID;
                         EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
                     } else {
-                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                        my $object = new EBox::Users::SecurityPrincipal(samAccountName => $account);
                         unless ($object->exists()) {
                             next;
                         }
@@ -1955,8 +1955,8 @@ sub ldapObjectFromLDBObject
     unless ($ldbObject) {
         throw EBox::Exceptions::MissingArgument('ldbObject')
     }
-    unless ($ldbObject->isa('EBox::Samba::LdbObject')) {
-        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject');
+    unless ($ldbObject->isa('EBox::Users::LdapObject')) {
+        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Users::LdapObject');
     }
 
     my $usersMod = EBox::Global->modInstance('users');
@@ -2107,7 +2107,7 @@ sub ldbObjectByObjectGUID
         throw EBox::Exceptions::MissingArgument('objectGUID');
     }
 
-    my $baseObject = new EBox::Samba::LdbObject(objectGUID => $objectGUID);
+    my $baseObject = new EBox::Users::LdapObject(objectGUID => $objectGUID);
     if ($baseObject->exists()) {
         my $object = $self->entryModeledObject($baseObject->_entry());
         return $object;
@@ -2132,7 +2132,7 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $baseObject = new EBox::Samba::LdbObject(dn => $dn);
+    my $baseObject = new EBox::Users::LdapObject(dn => $dn);
 
     if ($baseObject->exists()) {
         return $self->entryModeledObject($baseObject->_entry());

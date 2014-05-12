@@ -23,7 +23,7 @@ use warnings;
 package EBox::Users::Group;
 
 use base qw(
-    EBox::Samba::SecurityPrincipal
+    EBox::Users::SecurityPrincipal
 );
 
 use EBox::Global;

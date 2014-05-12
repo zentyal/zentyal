@@ -20,7 +20,7 @@ use warnings;
 #   Directory Management Domain, stored in LDB
 #
 package EBox::Samba::DMD;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Users::LdapObject';
 
 # Method: mainObjectClass
 #

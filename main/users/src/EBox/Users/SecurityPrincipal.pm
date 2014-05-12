@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::SecurityPrincipal
+# Class: EBox::Users::SecurityPrincipal
 #
 #   This class is an abstraction for LDAP objects implementing the
 #   SecurityPrincipal auxiliary class
 #
-package EBox::Samba::SecurityPrincipal;
+package EBox::Users::SecurityPrincipal;
 use base 'EBox::Users::OrganizationalPerson';
 
 use EBox::Gettext;
@@ -200,7 +200,7 @@ sub _checkAccountNotExists
 {
     my ($self, $samAccountName) = @_;
 
-    my $obj = new EBox::Samba::SecurityPrincipal(samAccountName => $samAccountName);
+    my $obj = new EBox::Users::SecurityPrincipal(samAccountName => $samAccountName);
     if ($obj->exists()) {
         my $dn = $obj->dn();
         throw EBox::Exceptions::DataExists(

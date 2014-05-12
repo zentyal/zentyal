@@ -22,7 +22,7 @@ use warnings;
 #
 package EBox::Users::User;
 
-use base qw(EBox::Samba::SecurityPrincipal);
+use base qw(EBox::Users::SecurityPrincipal);
 
 use EBox::Config;
 use EBox::Global;

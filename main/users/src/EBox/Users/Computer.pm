@@ -23,7 +23,7 @@ use warnings;
 
 package EBox::Users::Computer;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Users::LdapObject';
 
 sub name
 {

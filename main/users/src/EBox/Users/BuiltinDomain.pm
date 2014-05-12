@@ -22,7 +22,7 @@ use warnings;
 #
 
 package EBox::Users::BuiltinDomain;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Users::LdapObject';
 
 use EBox;
 use EBox::Exceptions::DataExists;

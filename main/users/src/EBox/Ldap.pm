@@ -292,7 +292,7 @@ sub domainSID
         my $entry = $msg->entry(0);
         # The object is not a SecurityPrincipal but a SamDomainBase. As we only query
         # for the sid, it works.
-        my $object = new EBox::Samba::SecurityPrincipal(entry => $entry);
+        my $object = new EBox::Users::SecurityPrincipal(entry => $entry);
         return $object->sid();
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
@@ -527,7 +527,7 @@ sub users
         };
         $result = $self->search($params);
         foreach my $entry ($result->sorted('samAccountName')) {
-            my $user = new EBox::Samba::User(entry => $entry);
+            my $user = new EBox::Users::User(entry => $entry);
             push (@{$list}, $user);
         }
     }
