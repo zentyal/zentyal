@@ -120,7 +120,7 @@ sub defaultContainer
 {
     my ($package, $ro) = @_;
     my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
-    return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
+    return $usersMod->objectFromDN('CN=Users,' . $usersMod->ldap->dn());
 }
 
 # Method: uidTag
