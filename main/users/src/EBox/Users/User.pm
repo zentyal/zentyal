@@ -595,7 +595,9 @@ sub home
 sub quota
 {
     my ($self) = @_;
-    return $self->get('quota');
+# FIXME
+    return 0;
+#    return $self->get('quota');
 }
 
 sub isInternal
