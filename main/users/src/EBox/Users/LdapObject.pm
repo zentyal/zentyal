@@ -396,8 +396,6 @@ sub deleteObject
         my $obj = new EBox::Users::LdapObject(entry => $entry);
         $obj->deleteObject();
     }
-
-    $self->SUPER::deleteObject();
 }
 
 # Method: save

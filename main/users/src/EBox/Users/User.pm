@@ -143,17 +143,20 @@ sub changePassword
 
     $self->_checkPwdLength($passwd);
 
-    $passwd = encode('UTF16-LE', "\"$passwd\"");
-
-    # The password will be changed on save, save it also to
-    # notify LDAP user base mods
-    $self->{core_changed_password} = $passwd;
-    $self->set('unicodePwd', $passwd, 1);
-    try {
-        $self->save() unless $lazy;
-    } catch ($e) {
-        throw EBox::Exceptions::External("$e");
-    }
+# FIXME
+    my $user = $self->name();
+    EBox::Sudo::root("/usr/share/zentyal-users/samba-setpwd $user $passwd");
+#    $passwd = encode('UTF16-LE', "\"$passwd\"");
+#
+#    # The password will be changed on save, save it also to
+#    # notify LDAP user base mods
+#    $self->{core_changed_password} = $passwd;
+#    $self->set('unicodePwd', $passwd, 1);
+#    try {
+#        $self->save() unless $lazy;
+#    } catch ($e) {
+#        throw EBox::Exceptions::External("$e");
+#    }
 }
 
 # Method: setCredentials
@@ -371,7 +374,7 @@ sub setHomeDrive
 #       description
 #       mail
 #       samAccountName - string with the user name
-#       clearPassword - Clear text password
+#       password - Clear text password
 #       kerberosKeys - Set of kerberos keys
 #       uidNumber - user UID number
 #
@@ -393,9 +396,9 @@ sub create
     $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
     # Check the password length if specified
-    my $clearPassword = $args{'clearPassword'};
-    if (defined $clearPassword) {
-        $class->_checkPwdLength($clearPassword);
+    my $password = $args{'password'};
+    if (defined $password) {
+        $class->_checkPwdLength($password);
     }
 
     my @userPwAttrs = getpwnam ($samAccountName);
@@ -479,8 +482,8 @@ sub create
         $res = new EBox::Users::User(dn => $dn);
 
         # Set the password
-        if (defined $args{clearPassword}) {
-            $res->changePassword($args{clearPassword});
+        if (defined $args{password}) {
+            $res->changePassword($args{password});
             $res->setAccountEnabled(1);
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
@@ -650,15 +653,16 @@ sub save
         }
     }
 
-    if ($self->{set_quota}) {
-        my $quota = $self->get('quota');
-        $self->_checkQuota($quota);
-        $self->_setFilesystemQuota($quota);
-        delete $self->{set_quota};
-    }
+#FIXME
+#    if ($self->{set_quota}) {
+#        my $quota = $self->get('quota');
+#        $self->_checkQuota($quota);
+#        $self->_setFilesystemQuota($quota);
+#        delete $self->{set_quota};
+#    }
 
     if (defined $passwd) {
-        $self->_ldap->changeUserPassword($self->dn(), $passwd);
+        $self->changePassword($passwd, 1);
     }
 
     shift @_;
@@ -699,7 +703,9 @@ sub isSystem
 {
     my ($self) = @_;
 
-    return ($self->get('uidNumber') < MINUID);
+    # FIXME
+    #return ($self->get('uidNumber') < MINUID);
+    return 0;
 }
 
 # Method: isDisabled
