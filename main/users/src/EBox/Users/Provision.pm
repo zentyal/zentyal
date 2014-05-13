@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Users::User;
 use EBox::Users::Group;
 
+use EBox::Users::Model::DomainSettings;
 use EBox::Users::NamingContext;
 
 use Net::DNS;
