@@ -942,7 +942,16 @@ sub blockHTTPPortChange
 #
 sub pathHTTPSSSLCertificate
 {
-    return '/var/lib/zentyal/conf/ssl/ssl.pem';
+    my ($self) = @_;
+    my @certs = ('/var/lib/zentyal/conf/ssl/ssl.pem');
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+#        my $cert = $openchange->autodiscoveryCert();
+#        push @certs, $cert;
+        push @certs, '/etc/postfix/sasl/postfix.pem'; # XXX
+    }
+
+    return \@certs;
 }
 
 # Method: targetIP
