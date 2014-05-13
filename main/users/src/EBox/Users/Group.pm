@@ -101,6 +101,7 @@ sub setupGidMapping
 #       description     - Group's description.
 #       mail            - Group's mail.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
+#       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #
 sub create
@@ -117,6 +118,12 @@ sub create
     if (defined $args{isSecurityGroup}) {
         $isSecurityGroup = $args{isSecurityGroup};
     }
+    my $isSystemGroup = $args{isSystemGroup};
+    if ((not $isSecurityGroup) and $isSystemGroup) {
+        throw EBox::Exceptions::External(
+            __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
+                'the same time.', group => $args{name}));
+    }
 
     my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
 
@@ -125,15 +132,23 @@ sub create
 
     # TODO: We may want to support more than global groups!
     my $groupType = GROUPTYPEGLOBAL;
+    my $gidNumber = $args{gidNumber};
     my $attr = [];
+    if ($isSecurityGroup) {
+        unless (defined $gidNumber) {
+            $gidNumber = $class->_gidForNewGroup($isSystemGroup);
+        }
+        $class->_checkGid($gidNumber, $isSystemGroup);
+        push ($attr, objectClass => ['top', 'group', 'posixAccount']);
+        push ($attr, gidNumber => $gidNumber);
+        $groupType |= GROUPTYPESECURITY;
+    } else {
+        push ($attr, objectClass => ['top', 'group']);
+    }
     push ($attr, cn => $args{name});
-    push ($attr, objectClass    => ['top', 'group']);
     push ($attr, sAMAccountName => $args{name});
     push ($attr, description    => $args{description}) if ($args{description});
     push ($attr, mail           => $args{mail}) if ($args{mail});
-    if ($isSecurityGroup) {
-        $groupType |= GROUPTYPESECURITY;
-    }
 
     $groupType = unpack('l', pack('l', $groupType)); # force 32bit integer
     push ($attr, groupType => $groupType);
@@ -142,8 +157,8 @@ sub create
     my $result = $class->_ldap->add($dn, { attrs => $attr });
     my $createdGroup = new EBox::Users::Group(dn => $dn);
 
-    if (defined $args{gidNumber}) {
-        $createdGroup->setupGidMapping($args{gidNumber});
+    if ($isSecurityGroup) {
+        $createdGroup->setupGidMapping($gidNumber);
     }
 
     # FIXME

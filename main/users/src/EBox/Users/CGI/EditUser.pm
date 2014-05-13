@@ -76,8 +76,7 @@ sub _process
             $quota = $self->param('User_quota_size');
         }
         if (defined $quota) {
-#FIXME
-#            $user->set('quota', $quota, 1);
+            $user->set('quota', $quota, 1);
         }
 
         my $addMail;

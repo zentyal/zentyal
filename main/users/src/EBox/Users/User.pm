@@ -376,6 +376,7 @@ sub setHomeDrive
 #       samAccountName - string with the user name
 #       password - Clear text password
 #       kerberosKeys - Set of kerberos keys
+#       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber - user UID number
 #
 # Returns:
@@ -399,6 +400,10 @@ sub create
     my $password = $args{'password'};
     if (defined $password) {
         $class->_checkPwdLength($password);
+    }
+    my $isSystemUser = 0;
+    if ($args{isSystemUser}) {
+        $isSystemUser = 1;
     }
 
     my @userPwAttrs = getpwnam ($samAccountName);
@@ -449,9 +454,13 @@ sub create
                         max => $max_users, nUsers => scalar(@{$real_users})));
         }
     }
+    my $uidNumber = defined $args{uidNumber} ?
+                            $args{uidNumber} :
+                            $class->_newUserUidNumber($isSystemUser);
+    $class->_checkUid($uidNumber, $isSystemUser);
 
     my @attr = ();
-    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user']);
+    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user', 'posixAccount']);
     push (@attr, cn          => $name);
     push (@attr, name        => $name);
     push (@attr, givenName   => $args{givenName}) if ($args{givenName});
@@ -463,6 +472,7 @@ sub create
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
     # All accounts are, by default Normal and disabled accounts.
     push (@attr, userAccountControl => NORMAL_ACCOUNT | ACCOUNTDISABLE);
+    push (@attr, uidNumber => $uidNumber);
 
     my $res = undef;
     my $entry = undef;
@@ -490,9 +500,7 @@ sub create
             $res->setAccountEnabled(1);
         }
 
-        if (defined $args{uidNumber}) {
-            $res->setupUidMapping($args{uidNumber});
-        }
+        $res->setupUidMapping($uidNumber);
     } catch ($error) {
         EBox::error($error);
 
@@ -598,9 +606,9 @@ sub home
 sub quota
 {
     my ($self) = @_;
-# FIXME
-    return 0;
-#    return $self->get('quota');
+
+    my $quota = $self->get('quota');
+    return (defined ($quota) ? $quota : 0);
 }
 
 sub isInternal
@@ -653,13 +661,12 @@ sub save
         }
     }
 
-#FIXME
-#    if ($self->{set_quota}) {
-#        my $quota = $self->get('quota');
-#        $self->_checkQuota($quota);
-#        $self->_setFilesystemQuota($quota);
-#        delete $self->{set_quota};
-#    }
+    if ($self->{set_quota}) {
+        my $quota = $self->get('quota');
+        $self->_checkQuota($quota);
+        $self->_setFilesystemQuota($quota);
+        delete $self->{set_quota};
+    }
 
     if (defined $passwd) {
         $self->changePassword($passwd, 1);
