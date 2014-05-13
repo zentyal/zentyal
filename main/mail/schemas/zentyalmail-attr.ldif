@@ -1,0 +1,32 @@
+dn: CN=mailHomeDirectory,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.1
+cn: mailHomeDirectory
+name: mailHomeDirectory
+LDAPDisplayName: mailHomeDirectory
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+
+dn: CN=userMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.2
+cn: userMaildirSize
+name: userMaildirSize
+LDAPDisplayName: userMaildirSize
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.9
+oMSyntax: 2
+isSingleValued: TRUE
+
+dn: CN=vddftMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.3
+cn: vddftMaildirSize
+name: vddftMaildirSize
+LDAPDisplayName: vddftMaildirSize
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.9
+oMSyntax: 2
+isSingleValued: TRUE

@@ -685,11 +685,4 @@ sub regenConfig
     }
 }
 
-sub schemas
-{
-    return [
-        EBox::Config::share() . 'zentyal-mailfilter/amavis.ldif',
-        EBox::Config::share() . 'zentyal-mailfilter/eboxfilter.ldif' ];
-}
-
 1;

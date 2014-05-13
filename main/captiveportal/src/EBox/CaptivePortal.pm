@@ -17,11 +17,9 @@ use warnings;
 
 package EBox::CaptivePortal;
 
-use base qw(EBox::Module::Service
+use base qw(EBox::Module::LDAP
             EBox::FirewallObserver
-            EBox::LdapModule
-            EBox::Events::WatcherProvider
-          );
+            EBox::Events::WatcherProvider);
 
 use EBox;
 use EBox::Global;
@@ -87,20 +85,6 @@ sub menu
                                     'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 226));
-}
-
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    $self->performLDAPActions();
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
 }
 
 # Method: _setConf

@@ -36,11 +36,6 @@ sub new
     return $self;
 }
 
-sub schemas
-{
-    return [ EBox::Config::share() . 'zentyal-captiveportal/captiveportal.ldif' ]
-}
-
 sub _userAddOns
 {
     my ($self, $user) = @_;

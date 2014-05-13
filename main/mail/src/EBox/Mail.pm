@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Mail;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
+use base qw(EBox::Module::LDAP EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
             EBox::KerberosModule EBox::SyncFolders::Provider
@@ -307,7 +307,6 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
-    $self->performLDAPActions();
     $self->{musers}->setupUsers();
 
     # Create the kerberos service principal in kerberos,

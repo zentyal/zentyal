@@ -17,8 +17,8 @@ use warnings;
 
 package EBox::Squid;
 
-use base qw(EBox::Module::Service EBox::KerberosModule
-            EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
+use base qw(EBox::Module::LDAP EBox::KerberosModule
+            EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
 
 use EBox::Service;

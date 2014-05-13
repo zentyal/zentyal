@@ -70,11 +70,6 @@ sub noMultipleOUSupportComponent
     return $self->standardNoMultipleOUSupportComponent(__('Jabber Account'));
 }
 
-sub schemas
-{
-    return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
-}
-
 sub isAdmin
 {
     my ($self, $user) = @_;

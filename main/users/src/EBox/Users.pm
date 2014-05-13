@@ -18,8 +18,7 @@ use warnings;
 
 package EBox::Users;
 
-use base qw(EBox::Module::Service
-            EBox::LdapModule
+use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
             EBox::UserCorner::Provider
             EBox::SyncFolders::Provider
@@ -1521,12 +1520,10 @@ sub _modsLdapUserBase
 
         my $mod = EBox::Global->modInstance($name);
 
-        if ($mod->isa('EBox::LdapModule')) {
-            if ($mod->isa('EBox::Module::Service')) {
-                if ($name ne $self->name()) {
-                    $mod->configured() or
-                        next;
-                }
+        if ($mod->isa('EBox::Module::LDAP')) {
+            if ($name ne $self->name()) {
+                $mod->configured() or
+                    next;
             }
             push (@modules, $mod->_ldapModImplementation);
         }
@@ -2414,7 +2411,7 @@ sub reprovision
     my $global = $self->global();
     my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
     foreach my $mod (@mods) {
-        if (not $mod->isa('EBox::LdapModule')) {
+        if (not $mod->isa('EBox::Module::LDAP')) {
             next;
         } elsif ($mod->name() eq $self->name()) {
             # dont reconfigure itself
@@ -2564,7 +2561,7 @@ sub ousToHide
 
     my @ous;
 
-    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::LdapModule')}) {
+    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::Module::LDAP')}) {
         push (@ous, @{$mod->_ldapModImplementation()->hiddenOUs()});
     }
 

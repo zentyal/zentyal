@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Jabber;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::LDAP);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -135,8 +135,6 @@ sub enableActions
 {
     my ($self) = @_;
     $self->checkUsersMode();
-
-    $self->performLDAPActions();
 
     # Execute enable-module script
     $self->SUPER::enableActions();

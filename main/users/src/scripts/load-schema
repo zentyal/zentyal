@@ -1,0 +1,11 @@
+#!/bin/bash
+
+LDIF_TEMPLATE=$1
+
+LDIF_FILE=/var/lib/zentyal/tmp/`basename $LDIF_TEMPLATE`
+
+DOMAIN_TOP_DN=`ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep "^dn:"|cut -d' ' -f2`
+
+cat $LDIF_TEMPLATE | sed "s/DOMAIN_TOP_DN/$DOMAIN_TOP_DN/g" > $LDIF_FILE
+
+ldbmodify -H /var/lib/samba/private/sam.ldb $LDIF_FILE --option="dsdb:schema update allowed"=true

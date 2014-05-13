@@ -1,4 +1,8 @@
-HEAD
+3.5
+	+ Use samba instead of slapd + heimdal
+	+ New EBox::Module::LDAP replacing EBox::LdapModule and using
+	  EBox::Module::Service as base class, schemas are now loaded
+	  in _regenConfig instead of manually in enableActions
 	+ Fix domain controllers shown on the computers OU in Manage model
 	+ Using paged serch in EBox::Users::users() method
 	+ Added EBox::LDAPBase::pagedSearch method
@@ -7,9 +11,6 @@ HEAD
 	+ Better control for edit user quota
 	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
 	  it's installed
-3.5
-	+ Use samba instead of slapd + heimdal
-	+ Set version to 3.5
 	+ Avoid apparmor errors in trusty
 	+ Set version to 3.5
 	+ Fixed bug when altering mail address through the edit user form

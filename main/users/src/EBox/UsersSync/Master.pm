@@ -213,7 +213,7 @@ sub _recreateLDAP
     my $global = EBox::Global->getInstance();
     my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
     foreach my $mod (@mods) {
-        if (not $mod->isa('EBox::LdapModule')) {
+        if (not $mod->isa('EBox::Module::LDAP')) {
             next;
         } elsif ($mod->name() eq $users->name()) {
             # already reconfigured

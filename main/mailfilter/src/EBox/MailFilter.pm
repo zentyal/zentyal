@@ -18,14 +18,11 @@ use warnings;
 
 package EBox::MailFilter;
 
-use base (
-          'EBox::Module::Service',
-          'EBox::VDomainModule',
-          'EBox::LdapModule',
-          'EBox::Mail::FilterProvider',
-          'EBox::FirewallObserver',
-          'EBox::LogObserver',
-         );
+use base qw(EBox::Module::LDAP
+            EBox::VDomainModule
+            EBox::Mail::FilterProvider
+            EBox::FirewallObserver
+            EBox::LogObserver);
 
 use Perl6::Junction qw(all any);
 
@@ -254,8 +251,6 @@ sub enableActions
 {
     my ($self) = @_;
     $self->checkUsersMode();
-
-    $self->performLDAPActions();
 
     $self->_ldapSetup();
 

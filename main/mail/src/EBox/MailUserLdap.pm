@@ -827,29 +827,6 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-sub schemas
-{
-    return [
-        EBox::Config::share() . '/zentyal-mail/authldap.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-    ];
-}
-
-sub acls
-{
-    my ($self) = @_;
-
-    return [ "to attrs=fetchmailAccount " .
-            "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
-            "by * none" ];
-}
-
-sub indexes
-{
-    return ['mail', 'dc'];
-}
-
 # Method: defaultUserModel
 #
 #   Overrides <EBox::UsersAndGrops::LdapUserBase::defaultUserModel>

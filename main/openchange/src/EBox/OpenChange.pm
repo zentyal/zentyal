@@ -18,8 +18,7 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule
-            EBox::HAProxy::ServiceBase EBox::VDomainModule);
+use base qw(EBox::Module::LDAP EBox::HAProxy::ServiceBase EBox::VDomainModule);
 
 use EBox::Config;
 use EBox::DBEngineFactory;

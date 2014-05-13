@@ -243,7 +243,7 @@ sub validateTypedRow
     my @ldapMods = grep {
         my $mod = $_;
         ($mod->name() ne $usersMod->name()) and
-         ($mod->isa('EBox::LdapModule'))
+         ($mod->isa('EBox::Module::LDAP'))
     } @{ $self->global->modInstances() };
 
     unless ($force) {
