@@ -1,4 +1,5 @@
 HEAD
+	+ Enabling mail alias login against Dovecot
 	+ Dovecot uses Samba4 LDAP
 	+ Postfix handles Zentyal distribution groups virtual alias
 	+ Adapted MailQueue.pm to TryCatch::Lite
