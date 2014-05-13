@@ -1,4 +1,5 @@
 3.5
+	+ Add schema extension for AD for system quotas
 	+ Display message when creating a user which username has more
 	  than 20 characters
 	+ Fixed error when editing user email address when mail module is

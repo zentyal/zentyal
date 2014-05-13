@@ -1,0 +1,19 @@
+<%doc>
+  Required classes for quota schema extension
+</%doc>
+<%args>
+  $domain
+</%args>
+dn: CN=systemQuotas,CN=Schema,CN=Configuration,<% $domain %>
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.19937.1.2.1
+cn: systemQuotas
+name: systemQuotas
+ldapDisplayName: systemQuotas
+subClassOf: posixAccount
+objectClassCategory: 3
+mustContain: uidNumber
+mayContain: quota
+defaultObjectCategory: CN=systemQuotas,CN=Schema,CN=Configuration,<% $domain %>
+possSuperiors: top
