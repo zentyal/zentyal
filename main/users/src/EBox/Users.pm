@@ -107,8 +107,11 @@ use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 # Kerberos constants
 use constant KERBEROS_PORT => 88;
 use constant KPASSWD_PORT => 464;
-# FIXME: make it available also in /etc/krb5.conf
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
+use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
+
+# SSSD conf
+use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
 
 use constant OBJECT_EXISTS => 1;
 use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
@@ -326,7 +329,7 @@ sub usedFiles
     my ($self) = @_;
     my @files = ();
     push @files, {
-            'file' => KRB5_CONF_FILE,
+            'file'   => SYSTEM_WIDE_KRB5_CONF_FILE,
             'reason' => __('To set up kerberos authentication'),
             'module' => 'users'
         };
@@ -336,12 +339,18 @@ sub usedFiles
             {
                 'file' => '/etc/nsswitch.conf',
                 'reason' => __('To make NSS use LDAP resolution for user and '.
-                                   'group accounts. Needed for Samba PDC configuration.'),
+                               'group accounts. Needed for Samba PDC configuration.'),
                 'module' => 'users'
             },
             {
                 'file' => '/etc/fstab',
                 'reason' => __('To add quota support to /home partition.'),
+                'module' => 'users'
+            },
+            {
+                'file' => SSSD_CONF_FILE,
+                'reason' => __('To configure System Security Services Daemon to manage remote'
+                               . ' authentication mechanisms'),
                 'module' => 'users'
             },
            );
@@ -761,7 +770,7 @@ sub _setConfInternal
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
         # Create directories
-        EBox::info('Creating directories');
+        EBox::info('FIXME: Creating directories');
 #FIXME:        $self->_createDirectories();
 
         if (EBox::Global->modExists('openchange')) {
@@ -784,6 +793,10 @@ sub _setConfInternal
     $self->global()->modInstance('samba')->writeSambaConfig();
 
     my $ldap = $self->ldap;
+
+    # Link kerberos to be system-wide after provision
+    EBox::Sudo::root('ln -sf ' . KRB5_CONF_FILE . ' ' . SYSTEM_WIDE_KRB5_CONF_FILE);
+
     $self->_setupNSSPAM();
 
     # Slaves cron
@@ -885,6 +898,7 @@ sub kerberosRealm
     return $realm;
 }
 
+# Set up NSS PAM for LDB users
 sub _setupNSSPAM
 {
     my ($self) = @_;
@@ -894,16 +908,34 @@ sub _setupNSSPAM
     push (@array, 'umask' => $umask);
 
     $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-zentyal.mas',
-               \@array);
+                         \@array);
 
-    my $enablePam = $self->model('PAM')->enable_pamValue();
+    my $enablePAM = $self->model('PAM')->enable_pamValue();
+    $self->_setupSSSd();
+
     my $cmd;
-    if ($enablePam) {
+    if ($enablePAM) {
         $cmd = 'auth-client-config -a -p zentyal-krb';
     } else {
         $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
     EBox::Sudo::root($cmd);
+}
+
+# Set up SSS daemon
+sub _setupSSSd
+{
+    my ($self, $defaultShell) = @_;
+
+    # FIXME: Set the default shell if PAM enabled
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my @params = ('fqdn'   => $sysinfo->fqdn(),
+                  'domain' => $sysinfo->hostDomain());
+
+    # SSSd conf file must be owned by root and only rw by him
+    $self->writeConfFile(SSSD_CONF_FILE, 'users/sssd.conf.mas',
+                         \@params,
+                         {'mode' => '0600', uid => 0, gid => 0});
 }
 
 # Method: editableMode
@@ -944,12 +976,16 @@ sub _daemons
     my ($self) = @_;
 
     my $usingInternalServer = sub {
-        return $self->mode() eq STANDALONE_MODE;
+        return ($self->mode() eq STANDALONE_MODE);
     };
 
     return [
         {
             name => 'samba-ad-dc',
+            precondition => $usingInternalServer
+        },
+        {
+            name => 'sssd',
             precondition => $usingInternalServer
         },
     ];

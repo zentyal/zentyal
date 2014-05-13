@@ -1,0 +1,72 @@
+<%doc>
+  Configuration for SSSd to enable NSS and PAM for LDB users and groups
+</%doc>
+<%args>
+  $fqdn
+  $domain
+  $defaultShell => '/bin/bash'
+</%args>
+[sssd]
+    services = nss, pam
+    config_file_version = 2
+    domains = <% $domain %>
+
+[nss]
+    debug_level = 8
+#    filter_users = root
+#    filter_groups = root
+
+
+[pam]
+    debug_level = 8
+
+[domain/<% $domain %>]
+    debug_level = 8
+    enumerate = false
+#    cache_credentials = true
+#    entry_cache_timeout = 60
+
+    id_provider = ad
+    auth_provider = ad
+    chpass_provider = ad
+    access_provider = ad
+
+    dyndns_update = false
+#    dyndns_refresh_interval = 16
+
+    ad_hostname = <% $fqdn %>
+    ad_server = <% $fqdn %>
+    ad_domain = <% $domain %>
+
+#    krb5_realm = KERNEVIL.LAN
+#    krb5_server = lubuntu.kernevil.lan
+#    krb5_kpasswd = lubuntu.kernevil.lan
+
+    ldap_schema = ad
+    ldap_id_mapping = false
+#    ldap_referrals = false
+#    ldap_uri = ldap://localhost:389
+#    ldap_search_base = dc=kernevil,dc=lan
+#    ldap_tls_cacertdir = /usr/local/samba/private/tls
+#    ldap_id_use_start_tls = true
+#    entry_negative_timeout = 1
+#    ldap_user_object_class = user
+#    ldap_user_name = samAccountName
+#    ldap_user_uid_number = uidNumber
+#    ldap_user_gid_number = gidNumber
+#    ldap_user_home_directory = unixHomeDirectory
+#    ldap_user_shell = loginShell
+#    ldap_group_object_class = group
+#    ldap_group_search_base = dc=kernevil,dc=lan
+#    ldap_group_name = cn
+#    ldap_group_member = member
+#    ldap_account_expire_policy = ad
+
+    fallback_homedir = /home/%u
+    default_shell = <% $defaultShell %>
+
+    ldap_sasl_mech = gssapi
+    ldap_sasl_authid = host/<% $fqdn %>
+# FIXME: Remove hardcore path
+    krb5_keytab = /var/lib/samba/private/secrets.keytab
+    ldap_krb5_init_creds = true
