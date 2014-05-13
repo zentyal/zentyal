@@ -1601,6 +1601,9 @@ sub notifyModsLdapUserBase
 {
     my ($self, $signal, $args, $ignored_modules, $ignored_slaves) = @_;
 
+    # FIXME: temporary disabled, until isInDefaultContainer is fixed
+    return;
+
     # convert signal to method name
     my $method = '_' . $signal;
 
@@ -1724,6 +1727,10 @@ sub defaultUserModels
 sub allUserAddOns
 {
     my ($self, $user) = @_;
+
+    # FIXME: disabled until parent issues are fixed
+    return [];
+
     my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};

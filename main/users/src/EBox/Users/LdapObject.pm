@@ -657,7 +657,9 @@ sub baseName
 
     my $parent = $self->parent();
 
-    throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn()) unless ($parent);
+    unless ($parent) {
+        throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn());
+    }
 
     my $dn = $self->dn();
     my $parentDN = $parent->dn();
@@ -705,6 +707,7 @@ sub isInDefaultContainer
     my ($self) = @_;
 
     my $parent = $self->parent();
+    # FIXME: parent is undefined!
     my $defaultContainer = $self->defaultContainer();
     return ($parent->dn() eq $defaultContainer->dn());
 }
