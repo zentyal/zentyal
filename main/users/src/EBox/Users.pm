@@ -739,14 +739,15 @@ sub _setConf
     $self->_setupForMode();
 
     # Setup kerberos config file
-    my $realm = $self->kerberosRealm();
+    # FIXME: This should go now inside external AD?
+#    my $realm = $self->kerberosRealm();
 #    my @params = ('realm' => $realm);
 #    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@params);
 
     if ($self->mode() eq EXTERNAL_AD_MODE) {
         $self->_setConfExternalAD();
     } else {
-        $self->_setConfInternal($realm, $noSlaveSetup);
+        $self->_setConfInternal($noSlaveSetup);
     }
 }
 
@@ -761,7 +762,7 @@ sub _setConfExternalAD
 
 sub _setConfInternal
 {
-    my ($self, $realm, $noSlaveSetup) = @_;
+    my ($self, $noSlaveSetup) = @_;
 
     return unless $self->configured() and $self->isEnabled();
 
