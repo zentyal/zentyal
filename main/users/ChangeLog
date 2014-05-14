@@ -1,4 +1,6 @@
 3.5
+	+ Include PAM + NSS services with SSSd to authenticate LDB users
+	  in the system
 	+ Use samba instead of slapd + heimdal
 	+ New EBox::Module::LDAP replacing EBox::LdapModule and using
 	  EBox::Module::Service as base class, schemas are now loaded
