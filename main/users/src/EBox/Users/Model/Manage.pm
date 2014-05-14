@@ -63,10 +63,10 @@ sub childNodes
         # dont look for childs in computers
         return [];
     } elsif ($parentMetadata->{dn} =~ /^OU=Domain Controllers,/i) {
-        return $self->_sambaDomainControllers();
+        return $self->_domainControllers();
     } elsif ($parentMetadata->{dn} =~ /^CN=Computers,/i) {
         # FIXME: Integrate this better with the rest of the logic.
-        return $self->_sambaComputers();
+        return $self->_computers();
     } else {
         $parentObject = $usersMod->objectFromDN($parentMetadata->{dn});
     }
@@ -132,21 +132,12 @@ sub childNodes
     return \@childNodes;
 }
 
-sub _sambaDomainControllers
+sub _domainControllers
 {
     my ($self) = @_;
 
-    return [] unless EBox::Global->modExists('samba');
-
-    my $samba = EBox::Global->modInstance('samba');
-    return [] unless $samba->isEnabled();
-
-    # As the samba module is not a dependency of users, check if the function
-    # exists in the samba module because we can not force versions.
-    return [] unless EBox::Samba->can('domainControllers');
-
     my @computers;
-    foreach my $computer (@{$samba->domainControllers()}) {
+    foreach my $computer (@{$self->parentModule()->domainControllers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();
         push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
@@ -155,17 +146,12 @@ sub _sambaDomainControllers
     return \@computers;
 }
 
-sub _sambaComputers
+sub _computers
 {
     my ($self) = @_;
 
-    return [] unless EBox::Global->modExists('samba');
-
-    my $samba = EBox::Global->modInstance('samba');
-    return [] unless $samba->isEnabled();
-
     my @computers;
-    foreach my $computer (@{$samba->computers()}) {
+    foreach my $computer (@{$self->parentModule()->computers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();
         push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });

@@ -18,48 +18,38 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::RecordMX;
+package EBox::Users::DNS::RecordTXT;
 
-use base 'EBox::Samba::DNS::Record';
+use base 'EBox::Users::DNS::Record';
 
 sub new
 {
     my $class = shift;
     my %params = @_;
 
-    my $self = $class->SUPER::new(type => 'MX');
+    my $self = $class->SUPER::new(type => 'TXT');
 
     throw EBox::Exceptions::MissingArgument('data')
         unless defined $params{data};
 
     bless ($self, $class);
-    $self->{data} = $self->_decode_DNS_RPC_RECORD_NAME_PREFERENCE($params{data});
+    $self->_decode_DNS_RPC_RECORD_STRING($params{data});
 
     return $self;
 }
 
-sub _decode_DNS_RPC_RECORD_NAME_PREFERENCE
+sub _decode_DNS_RPC_RECORD_STRING
 {
-    my ($self, $blob) = @_;
+    my ($self, $data) = @_;
 
-    my ($preference, $dnsName) = unpack ('n a*', $blob);
-
-    $self->{preference} = $preference;
-    $self->{target} = $self->_decode_DNS_COUNT_NAME($dnsName);
+    $self->{data} = $self->_decode_DNS_COUNT_NAME($data);
 }
 
-sub preference
+sub data
 {
     my ($self) = @_;
 
-    return $self->{preference};
-}
-
-sub target
-{
-    my ($self) = @_;
-
-    return $self->{target};
+    return $self->{data};
 }
 
 1;

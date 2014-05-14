@@ -18,67 +18,31 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::RecordSRV;
+package EBox::Users::DNS::RecordNS;
 
-use base 'EBox::Samba::DNS::Record';
+use base 'EBox::Users::DNS::Record';
 
 sub new
 {
     my $class = shift;
     my %params = @_;
 
-    my $self = $class->SUPER::new(type => 'SRV');
+    my $self = $class->SUPER::new(type => 'NS');
 
     throw EBox::Exceptions::MissingArgument('data')
         unless defined $params{data};
 
     bless ($self, $class);
-    $self->_decode_DNS_RPC_RECORD_SRV($params{data});
+    $self->{data} = $self->_decode_DNS_COUNT_NAME($params{data});
 
     return $self;
 }
 
-sub _decode_DNS_RPC_RECORD_SRV
-{
-    my ($self, $data) = @_;
-
-    my ($priority,
-        $weight,
-        $port,
-        $dnsName) = unpack ('n n n a*', $data);
-
-    $self->{priority} = $priority;
-    $self->{weight} = $weight;
-    $self->{port} = $port;
-    $self->{target} = $self->_decode_DNS_COUNT_NAME($dnsName);
-}
-
-sub priority
+sub nameserver
 {
     my ($self) = @_;
 
-    return $self->{priority};
-}
-
-sub weight
-{
-    my ($self) = @_;
-
-    return $self->{weight};
-}
-
-sub port
-{
-    my ($self) = @_;
-
-    return $self->{port};
-}
-
-sub target
-{
-    my ($self) = @_;
-
-    return $self->{target};
+    return $self->{data};
 }
 
 1;

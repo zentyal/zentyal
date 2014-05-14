@@ -21,7 +21,7 @@ use base 'EBox::LDAPBase';
 
 use EBox::Users::OU;
 use EBox::Users::Contact;
-use EBox::Samba::DNS::Zone;
+use EBox::Users::DNS::Zone;
 use EBox::Users::User;
 
 use EBox::Users::IdMapDb;
@@ -589,8 +589,8 @@ sub securityGroups
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $sambaMod = $global->modInstance('samba');
-    if ((not $sambaMod->isEnabled()) or (not $sambaMod->isProvisioned())) {
+    my $usersMod = $global->modInstance('users');
+    if ((not $usersMod->isEnabled()) or (not $usersMod->isProvisioned())) {
         return [];
     }
 
@@ -625,7 +625,7 @@ sub ous
         $baseDN = $self->dn();
     }
 
-    my $objectClass = EBox::Samba::OU->mainObjectClass();
+    my $objectClass = EBox::Users::OU->mainObjectClass();
     my $args = {
         base => $baseDN,
         filter => "(objectclass=$objectClass)",
@@ -635,7 +635,7 @@ sub ous
     my $ous = [];
     my $result = $self->search($args);
     foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
+        my $ou = EBox::Users::OU->new(entry => $entry);
         push (@{$ous}, $ou);
         my $nested = $self->ous($ou->dn());
         push (@{$ous}, @{$nested});
@@ -679,7 +679,7 @@ sub dnsZones
                 my $name = $entry->get_value('name');
                 next unless defined $name;
                 next if $name eq any @ignoreZones;
-                my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
+                my $zone = new EBox::Users::DNS::Zone(entry => $entry);
                 push (@{$zones}, $zone);
             } else {
                 EBox::debug("Got an empty entry");

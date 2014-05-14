@@ -55,7 +55,7 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    my $state = EBox::Global->modInstance('samba')->get_state();
+    my $state = EBox::Global->modInstance('users')->get_state();
     my $flag = $state->{provisioned};
     my $provisioned = (defined $flag and $flag == 1) ? 1 : 0;
 
@@ -69,15 +69,15 @@ sub setProvisioned
     if ($provisioned != 0 and $provisioned != 1) {
         throw EBox::Exceptions::InvalidArgument('provisioned');
     }
-    my $samba = EBox::Global->modInstance('samba');
-    my $state = $samba->get_state();
+    my $users = EBox::Global->modInstance('users');
+    my $state = $users->get_state();
     $state->{provisioned} = $provisioned;
-    $samba->set_state($state);
+    $users->set_state($state);
 }
 
 sub isProvisioning
 {
-    my $state = EBox::Global->modInstance('samba')->get_state();
+    my $state = EBox::Global->modInstance('users')->get_state();
     my $flag = $state->{provisioning};
     my $provisioning = (defined $flag and $flag == 1) ? 1 : 0;
 
@@ -92,10 +92,10 @@ sub setProvisioning
     if ($provisioning != 0 and $provisioning != 1) {
         throw EBox::Exceptions::InvalidArgument('provisioning');
     }
-    my $samba = EBox::Global->modInstance('samba');
-    my $state = $samba->get_state();
+    my $users = EBox::Global->modInstance('users');
+    my $state = $users->get_state();
     $state->{provisioning} = $provisioning;
-    $samba->set_state($state);
+    $users->set_state($state);
 }
 
 # Method: checkEnvironment
@@ -130,9 +130,8 @@ sub checkEnvironment
     my $realm = $users->kerberosRealm();
 
     # The own domain and the kerberos realm must be equal
-    my $samba = EBox::Global->modInstance('samba');
     unless (lc $hostDomain eq lc $realm) {
-        $samba->enableService(0);
+        $users->enableService(0);
         my $err = __x("The host domain '{d}' has to be the same than the " .
                       "kerberos realm '{r}'", d => $hostDomain, r => $realm);
         if ($throwException) {
@@ -147,7 +146,7 @@ sub checkEnvironment
     my $domainModel = $dns->model('DomainTable');
     my $domainRow = $domainModel->find(domain => $hostDomain);
     unless (defined $domainRow) {
-        $samba->enableService(0);
+        $users->enableService(0);
         my $err = __x("The required domain '{d}' could not be found in the " .
                       "dns module.<br/>" .
                       "You can add it in the {ohref}DNS domains page{chref}",
@@ -166,7 +165,7 @@ sub checkEnvironment
     my $hostsModel = $domainRow->subModel('hostnames');
     my $hostRow = $hostsModel->find(hostname => $hostName);
     unless (defined $hostRow) {
-        $samba->enableService(0);
+        $users->enableService(0);
         my $hostTableUrl = '/DNS/View/HostnameTable?directory=DomainTable/keys/' . $domainRow->id() .
                                                           '/hostnames';
         my $err = __x("The required host record '{h}' could not be found in " .
@@ -185,7 +184,7 @@ sub checkEnvironment
     }
 
     # Get the IP addresses for domain
-    my %domainsIp = %{ $self->_domainsIP($samba, $domainRow, $throwException) };
+    my %domainsIp = %{ $self->_domainsIP($users, $domainRow, $throwException) };
 
     my $hostIPsModel = $hostRow->subModel('ipAddresses');
     # Get the IP address to use for provision, and check that this IP is assigned
@@ -201,7 +200,7 @@ sub checkEnvironment
     }
 
     unless (defined $provisionIP) {
-        $samba->enableService(0);
+        $users->enableService(0);
         my $ipUrl = '/DNS/View/HostIpTable?directory=' .
                     'DomainTable/keys/' . $domainRow->id() .
                     '/hostnames/keys/' .  $hostRow->id() . '/ipAddresses';
@@ -282,16 +281,16 @@ sub setupDNS
     my ($self) = @_;
 
     EBox::info("Setting up DNS");
-    my $samba = EBox::Global->modInstance('samba');
+    my $users = EBox::Global->modInstance('users');
 
-    if (EBox::Sudo::fileTest('-f', $samba->SAMBA_DNS_KEYTAB())) {
+    if (EBox::Sudo::fileTest('-f', $users->SAMBA_DNS_KEYTAB())) {
         my @cmds;
-        push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
-        push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
+        push (@cmds, "chgrp bind " . $users->SAMBA_DNS_KEYTAB());
+        push (@cmds, "chmod g+r " . $users->SAMBA_DNS_KEYTAB());
         EBox::Sudo::root(@cmds);
     }
 
-    # Save and restart DNS to load samba zones stored in LDB
+    # Save and restart DNS to load users zones stored in LDB
     my $dnsMod = EBox::Global->modInstance('dns');
     $dnsMod->setAsChanged();
     $dnsMod->save();
@@ -324,20 +323,20 @@ sub provision
     my $global = EBox::Global->getInstance();
 
     # Stop the service
-    my $samba = $global->modInstance('samba');
-    $samba->stopService();
+    my $users = $global->modInstance('users');
+    $users->stopService();
 
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
-    # Delete samba config file and private folder
+    # Delete users config file and private folder
     my @cmds;
-    push (@cmds, 'rm -f ' . $samba->SAMBACONFFILE());
-    push (@cmds, 'rm -rf ' . $samba->PRIVATE_DIR() . '/*');
-    push (@cmds, 'rm -rf ' . $samba->SYSVOL_DIR() . '/*');
+    push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
+    push (@cmds, 'rm -rf ' . $users->PRIVATE_DIR() . '/*');
+    push (@cmds, 'rm -rf ' . $users->SYSVOL_DIR() . '/*');
     EBox::Sudo::root(@cmds);
 
-    my $mode = $samba->mode();
+    my $mode = $users->dcMode();
     if ($mode eq EBox::Users::Model::DomainSettings::MODE_DC()) {
         $self->provisionDC($provisionIP);
     } elsif ($mode eq EBox::Users::Model::DomainSettings::MODE_ADC()) {
@@ -419,29 +418,28 @@ sub provisionDC
 {
     my ($self, $provisionIP) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
     my $usersModule = EBox::Global->modInstance('users');
 
     try {
         $self->setProvisioning(1);
 
-        $samba->writeSambaConfig();
+        $usersModule->writeSambaConfig();
 
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $cmd = 'samba-tool domain provision ' .
-            " --domain='" . $samba->workgroup() . "'" .
-            " --workgroup='" . $samba->workgroup() . "'" .
+            " --domain='" . $usersModule->workgroup() . "'" .
+            " --workgroup='" . $usersModule->workgroup() . "'" .
             " --realm='" . $usersModule->kerberosRealm() . "'" .
             " --dns-backend=BIND9_DLZ" .
             " --use-xattrs=yes " .
             " --use-rfc2307 " .
-            " --server-role='" . $samba->mode() . "'" .
+            " --server-role='" . $usersModule->dcMode() . "'" .
             " --users='" . $usersModule->DEFAULTGROUP() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
 
         EBox::info("Provisioning database '$cmd'");
-        $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
+        $cmd .= " --adminpass='" . $usersModule->administratorPassword() . "'";
 
         # Use silent root to avoid showing the admin pass in the logs if
         # provision command fails.
@@ -482,10 +480,10 @@ sub provisionDC
         EBox::Sudo::root($cmd);
 
         # Start managed service to let it create the LDAP socket
-        $samba->_startService();
+        $usersModule->_startService();
 
         # FIXME
-#        $samba->ldb->ldapServicePrincipalsToLdb();
+#        $usersModule->ldb->ldapServicePrincipalsToLdb();
         # Map accounts
 #        $self->mapAccounts();
 
@@ -502,8 +500,8 @@ sub rootDseAttributes
     my ($self) = @_;
 
     unless (defined $self->{rootDseAttributes}) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        my $rootDseAttributes = $sambaModule->ldb->ROOT_DSE_ATTRS();
+        my $usersModule = EBox::Global->modInstance('users');
+        my $rootDseAttributes = $usersModule->ldb->ROOT_DSE_ATTRS();
         $self->{rootDseAttributes} = $rootDseAttributes;
     }
     return $self->{rootDseAttributes};
@@ -973,8 +971,8 @@ sub _addForestDnsZonesReplica
     my ($self) = @_;
 
     EBox::info("Adding Forest Dns replica");
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $ldb = $sambaModule->ldb();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $ldb = $usersModule->ldb();
     my $basedn = $ldb->dn();
     my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
@@ -1004,8 +1002,8 @@ sub _addDomainDnsZonesReplica
     my ($self) = @_;
 
     EBox::info("Adding Domain Dns replica");
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $ldb = $sambaModule->ldb();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $ldb = $usersModule->ldb();
     my $basedn = $ldb->dn();
     my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
@@ -1047,8 +1045,8 @@ sub _waitForRidPoolAllocation
     my $maxTries = 300;
     my $sleepSeconds = 0.1;
 
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $ldb = $sambaModule->ldb();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $ldb = $usersModule->ldb();
 
     # Get the server object, contained in the config NC, that represents
     # this DC
@@ -1116,7 +1114,6 @@ sub provisionADC
 {
     my ($self) = @_;
 
-    my $sambaModule = EBox::Global->modInstance('samba');
     my $usersModule = EBox::Global->modInstance('users');
     my $model = $usersModule->model('DomainSettings');
     my $domainToJoin = lc ($model->value('realm'));
@@ -1183,7 +1180,7 @@ sub provisionADC
         EBox::Sudo::root($cmd);
 
         # Write config
-        $sambaModule->writeSambaConfig();
+        $usersModule->writeSambaConfig();
 
         # Join the domain
         EBox::info("Executing domain join");
@@ -1211,7 +1208,7 @@ sub provisionADC
         $self->setupDNS();
 
         # Start managed service to let it create the LDAP socket
-        $sambaModule->_startService();
+        $usersModule->_startService();
 
         $self->_addForestDnsZonesReplica();
         $self->_addDomainDnsZonesReplica();
@@ -1314,7 +1311,7 @@ sub provisionADC
         $self->mapDefaultContainers();
 
         # Load Zentyal service principals into samba
-        $sambaModule->ldb->ldapServicePrincipalsToLdb();
+        $usersModule->ldb->ldapServicePrincipalsToLdb();
 
         # Map accounts
         $self->mapAccounts();

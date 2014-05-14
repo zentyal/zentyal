@@ -202,7 +202,6 @@ sub _groups
     my $groups = [];
     if ($result->count > 0) {
         foreach my $entry ($result->sorted('cn')) {
-            #push (@{$groups}, new EBox::Samba::Group(entry => $entry));
             push (@{$groups}, new EBox::Users::Group(entry => $entry));
         }
     }

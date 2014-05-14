@@ -36,7 +36,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 
-use EBox::Samba::Credentials;
+use EBox::Users::Credentials;
 
 use Perl6::Junction qw(any);
 use Encode qw(encode);
@@ -173,7 +173,7 @@ sub setCredentials
     my ($self, $keys) = @_;
 
     my $pwdSet = 0;
-    my $credentials = new EBox::Samba::Credentials(krb5Keys => $keys);
+    my $credentials = new EBox::Users::Credentials(krb5Keys => $keys);
     if ($credentials->supplementalCredentials()) {
         $self->set('supplementalCredentials', $credentials->supplementalCredentials(), 1);
         $pwdSet = 1;
@@ -221,7 +221,7 @@ sub deleteObject
 
     # Remove the roaming profile directory
     my $samAccountName = $self->get('samAccountName');
-    my $path = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
+    my $path = EBox::Users::PROFILES_DIR() . "/$samAccountName";
     EBox::Sudo::silentRoot("rm -rf '$path'");
 
     # TODO Remove this user from shares ACLs
@@ -306,8 +306,7 @@ sub createRoamingProfileDirectory
     my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
 
     # Create the directory if it does not exist
-    my $samba = EBox::Global->modInstance('samba');
-    my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
+    my $path  = EBox::Users::PROFILES_DIR() . "/$samAccountName";
     my $group = EBox::Users::DEFAULTGROUP();
 
     my @cmds = ();

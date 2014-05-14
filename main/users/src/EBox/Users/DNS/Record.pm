@@ -18,31 +18,45 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::RecordCNAME;
-
-use base 'EBox::Samba::DNS::Record';
+package EBox::Users::DNS::Record;
 
 sub new
 {
-    my $class = shift;
-    my %params = @_;
+    my ($class, %params) = @_;
 
-    my $self = $class->SUPER::new(type => 'CNAME');
+    throw EBox::Exceptions::MissingArgument('type')
+        unless defined $params{type};
 
-    throw EBox::Exceptions::MissingArgument('data')
-        unless defined $params{data};
+    my $self = {};
+    $self->{type} = $params{type};
 
     bless ($self, $class);
-    $self->{data} = $self->_decode_DNS_COUNT_NAME($params{data});
 
     return $self;
 }
 
-sub alias
+sub type
 {
     my ($self) = @_;
 
-    return $self->{data};
+    return $self->{type};
+}
+
+sub _decode_DNS_COUNT_NAME
+{
+    my ($self, $blob) = @_;
+
+    my ($length,
+        $labelCount,
+        $rawName) = unpack ('C C a*', $blob);
+
+    my @labels;
+    for (my $i=1; $i <= $labelCount; $i++) {
+        my ($labelLength, $label) = unpack ("C \@0C/a*", $rawName);
+        push (@labels, $label);
+        $rawName = substr ($rawName, $labelLength+1);
+    }
+    return join ('.', @labels);
 }
 
 1;

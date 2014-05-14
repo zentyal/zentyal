@@ -213,8 +213,8 @@ sub xidNumber
 {
     my ($self) = @_;
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $ldb = $sambaMod->ldb();
+    my $usersMod = EBox::Global->modInstance('users');
+    my $ldb = $usersMod->ldb();
     my $idmap = $ldb->idmap();
 
     my $xidNumber = $idmap->getXidNumberBySID($self->sid());
@@ -222,10 +222,10 @@ sub xidNumber
     unless (defined $xidNumber) {
         # This object lacks an XidNumber, we generate one.
         $xidNumber = $idmap->consumeNextXidNumber();
-        my $object = $sambaMod->entryModeledObject($self->_entry);
-        if ($object->isa('EBox::Samba::User')) {
+        my $object = $usersMod->entryModeledObject($self->_entry);
+        if ($object->isa('EBox::Users::User')) {
             $object->setupUidMapping($xidNumber);
-        } elsif ($object->isa('EBox::Samba::Group')) {
+        } elsif ($object->isa('EBox::Users::Group')) {
             $object->setupGidMapping($xidNumber);
         } else {
             EBox::debug("Unknown object!");

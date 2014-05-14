@@ -18,9 +18,9 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::RecordSOA;
+package EBox::Users::DNS::RecordSOA;
 
-use base 'EBox::Samba::DNS::Record';
+use base 'EBox::Users::DNS::Record';
 
 sub new
 {

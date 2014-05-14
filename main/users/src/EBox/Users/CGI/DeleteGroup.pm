@@ -44,12 +44,8 @@ sub _process
     my $group = new EBox::Users::Group(dn => $dn);
 
     # Forbid deletion of Domain Admins group
-    my $samba = EBox::Global->modInstance('samba');
-    if (defined ($samba)) {
-        my $object = $samba->ldbObjectFromLDAPObject($group);
-        if (defined ($object) and ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-512$/)) {
-            push (@args, 'forbid' => 1);
-        }
+    if ($group->sid() =~ /^S-1-5-21-\d+-\d+-\d+-512$/) {
+        push (@args, 'forbid' => 1);
     }
 
     if ($self->unsafeParam('delgroup')) {
@@ -60,11 +56,11 @@ sub _process
     } else {
         # show confirmation dialog
         my $users = EBox::Global->getInstance()->modInstance('users');
-        push(@args, 'group' => $group);
+        push (@args, 'group' => $group);
         my $editable = $users->editableMode();
-        push(@args, 'slave' => not $editable);
+        push (@args, 'slave' => not $editable);
         my $warns = $users->allWarnings('group', $group);
-        push(@args, warns => $warns);
+        push (@args, warns => $warns);
         $self->{params} = \@args;
     }
 }

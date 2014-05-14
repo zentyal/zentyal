@@ -766,7 +766,7 @@ sub _setConfInternal
 
     return unless $self->configured() and $self->isEnabled();
 
-    $self->global()->modInstance('samba')->writeSambaConfig();
+    $self->writeSambaConfig();
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
@@ -791,7 +791,7 @@ sub _setConfInternal
         $self->unset('need_reprovision');
     }
 
-    $self->global()->modInstance('samba')->writeSambaConfig();
+    $self->writeSambaConfig();
 
     my $ldap = $self->ldap;
 
@@ -1198,16 +1198,16 @@ sub userExists
     if (not $user) {
         return undef;
     }
-    if ($self->global()->modExists('samba')) {
-        # check if it is a reserved user
-        my $samba = $self->global()->modInstance('samba');
-        if (not $samba->isProvisioned()) {
-            return OBJECT_EXISTS;
-        }
-        my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
-        if ($samba->hiddenSid($ldbUser)) {
-            return OBJECT_EXISTS_AND_HIDDEN_SID;
-        }
+
+    # FIXME
+    # check if it is a reserved user
+    my $samba = $self->global()->modInstance('samba');
+    if (not $samba->isProvisioned()) {
+        return OBJECT_EXISTS;
+    }
+    my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
+    if ($samba->hiddenSid($ldbUser)) {
+        return OBJECT_EXISTS_AND_HIDDEN_SID;
     }
 
     return OBJECT_EXISTS;
@@ -1432,6 +1432,7 @@ sub groupExists
         return undef;
     }
 
+    # FIXME
     if ($self->global()->modExists('samba')) {
         # check if it is a reserved user
         my $samba = $self->global()->modInstance('samba');
@@ -2322,6 +2323,19 @@ sub mode
     return $mode;
 }
 
+# Method: dcMode
+#
+#   Returns the configured server mode
+#
+sub dcMode
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->modeValue();
+}
+
+
 # Method: newLDAP
 #
 #  Return a new LDAP object instance of the class requiered by the active mode
@@ -2664,6 +2678,287 @@ sub isProvisioned
     my ($self) = @_;
 
     return $self->getProvision->isProvisioned();
+}
+
+# Method: domainControllers
+#
+#   Query the domain controllers by searching in 'Domain Controllers' OU
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Users::Computer class
+#
+sub domainControllers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "OU=Domain Controllers,$baseDN",
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [ $sort ],
+    };
+
+    my $result = $ldb->search($args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Users::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: computers
+#
+#   Query the computers joined to the domain by searching in the computers
+#   container
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Users::Computer class
+#
+sub computers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "CN=Computers,$baseDN",,
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [ $sort ],
+    };
+
+    my $result = $self->ldb->search($args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Users::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: defaultNetbios
+#
+#   Generates the default netbios server name
+#
+sub defaultNetbios
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+    $hostName = substr($hostName, 0, 15);
+
+    return $hostName;
+}
+
+# Method: defaultWorkgroup
+#
+#   Generates the default workgroup
+#
+sub defaultWorkgroup
+{
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+    my @parts = split (/\./, $realm);
+    my $value = substr($parts[0], 0, 15);
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
+
+    return uc($value);
+}
+
+# Method: defaultDescription
+#
+#   Generates the default server string
+#
+sub defaultDescription
+{
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    return ucfirst($prefix) . ' Server';
+}
+
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $samba = $self->global()->modInstance('samba');
+
+    my $netbiosName = $self->netbiosName();
+    my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
+
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+
+    my @array = ();
+    push (@array, 'prefix'      => $prefix);
+    push (@array, 'workgroup'   => $self->workgroup());
+    push (@array, 'netbiosName' => $netbiosName);
+    push (@array, 'description' => $self->description());
+    push (@array, 'mode'        => 'dc');
+    push (@array, 'realm'       => $realmName);
+    push (@array, 'domain'      => $hostDomain);
+    push (@array, 'roamingProfiles' => $self->roamingProfiles());
+    push (@array, 'profilesPath' => PROFILES_DIR);
+    push (@array, 'sysvolPath'  => SYSVOL_DIR);
+    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
+
+    if (EBox::Global->modExists('printers')) {
+        my $printersModule = EBox::Global->modInstance('printers');
+        if ($printersModule->isEnabled()) {
+            push (@array, 'print' => 1);
+            push (@array, 'printers' => $printersModule->printers());
+        }
+    }
+
+    if ($samba) {
+        push (@array, 'shares' => $samba->shares());
+
+        push (@array, 'antivirus' => $samba->defaultAntivirusSettings());
+        push (@array, 'antivirus_exceptions' => $samba->antivirusExceptions());
+        push (@array, 'antivirus_config' => $samba->antivirusConfig());
+        push (@array, 'recycle' => $samba->defaultRecycleSettings());
+        push (@array, 'recycle_exceptions' => $samba->recycleExceptions());
+        push (@array, 'recycle_config' => $samba->recycleConfig());
+    }
+
+    if (EBox::Global->modExists('openchange')) {
+        my $openchangeModule = EBox::Global->modInstance('openchange');
+        my $openchangeEnabled = $openchangeModule->isEnabled();
+        my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        push (@array, 'openchangeEnabled' => $openchangeEnabled);
+        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+
+        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
+        my $openchangeConnectionString = undef;
+        if ($openchangeProvisionedWithMySQL) {
+            $openchangeConnectionString = $openchangeModule->connectionString();
+        }
+        my $oc = [];
+        push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+        push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+        $self->writeConfFile(OPENCHANGE_CONF_FILE,
+                         'samba/openchange.conf.mas', $oc,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
+    }
+
+    $self->writeConfFile(SAMBACONFFILE,
+                         'samba/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
+
+    if ($samba) {
+        $samba->_writeAntivirusConfig();
+    }
+}
+
+# Method: netbiosName
+#
+#   Returns the configured netbios name
+#
+sub netbiosName
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->netbiosNameValue();
+}
+
+# Method: workgroup
+#
+#   Returns the configured workgroup name
+#
+sub workgroup
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->workgroupValue();
+}
+
+# Method: description
+#
+#   Returns the configured description string
+#
+sub description
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->descriptionValue();
+}
+
+# Method: roamingProfiles
+#
+#   Returns if roaming profiles are enabled
+#
+sub roamingProfiles
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->roamingValue();
+}
+
+# Method: drive
+#
+#   Returns the configured drive letter
+#
+sub drive
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->driveValue();
+}
+
+# Method: administratorPassword
+#
+#   Returns the administrator password
+#
+sub administratorPassword
+{
+    my ($self) = @_;
+
+    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
+
+    my $pass;
+    unless (-f $pwdFile) {
+        my $pass;
+
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+
+        my (undef, undef, $uid, $gid) = getpwnam('ebox');
+        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
+        return $pass;
+    }
+
+    return read_file($pwdFile);
 }
 
 1;

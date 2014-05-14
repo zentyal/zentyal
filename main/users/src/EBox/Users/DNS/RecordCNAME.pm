@@ -18,34 +18,27 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::RecordTXT;
+package EBox::Users::DNS::RecordCNAME;
 
-use base 'EBox::Samba::DNS::Record';
+use base 'EBox::Users::DNS::Record';
 
 sub new
 {
     my $class = shift;
     my %params = @_;
 
-    my $self = $class->SUPER::new(type => 'TXT');
+    my $self = $class->SUPER::new(type => 'CNAME');
 
     throw EBox::Exceptions::MissingArgument('data')
         unless defined $params{data};
 
     bless ($self, $class);
-    $self->_decode_DNS_RPC_RECORD_STRING($params{data});
+    $self->{data} = $self->_decode_DNS_COUNT_NAME($params{data});
 
     return $self;
 }
 
-sub _decode_DNS_RPC_RECORD_STRING
-{
-    my ($self, $data) = @_;
-
-    $self->{data} = $self->_decode_DNS_COUNT_NAME($data);
-}
-
-sub data
+sub alias
 {
     my ($self) = @_;
 

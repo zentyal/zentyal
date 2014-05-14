@@ -18,45 +18,39 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 
-package EBox::Samba::DNS::Record;
+package EBox::Users::DNS::RecordA;
+
+use base 'EBox::Users::DNS::Record';
 
 sub new
 {
-    my ($class, %params) = @_;
+    my $class = shift;
+    my %params = @_;
 
-    throw EBox::Exceptions::MissingArgument('type')
-        unless defined $params{type};
+    my $self = $class->SUPER::new(type => 'A');
 
-    my $self = {};
-    $self->{type} = $params{type};
+    throw EBox::Exceptions::MissingArgument('data')
+        unless defined $params{data};
 
     bless ($self, $class);
+    $self->_decode($params{data});
 
     return $self;
 }
 
-sub type
+sub _decode
+{
+    my ($self, $data) = @_;
+
+    my ($a, $b, $c, $d) = unpack ('C C C C', $data);
+    $self->{address} = "$a.$b.$c.$d";
+}
+
+sub address
 {
     my ($self) = @_;
 
-    return $self->{type};
-}
-
-sub _decode_DNS_COUNT_NAME
-{
-    my ($self, $blob) = @_;
-
-    my ($length,
-        $labelCount,
-        $rawName) = unpack ('C C a*', $blob);
-
-    my @labels;
-    for (my $i=1; $i <= $labelCount; $i++) {
-        my ($labelLength, $label) = unpack ("C \@0C/a*", $rawName);
-        push (@labels, $label);
-        $rawName = substr ($rawName, $labelLength+1);
-    }
-    return join ('.', @labels);
+    return $self->{address};
 }
 
 1;

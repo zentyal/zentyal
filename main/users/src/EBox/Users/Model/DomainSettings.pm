@@ -28,7 +28,6 @@ use EBox::Validate qw(:all);
 use TryCatch::Lite;
 use Encode;
 
-use EBox::Samba;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Boolean;
@@ -157,7 +156,7 @@ sub _table
         new EBox::Types::DomainName(
             fieldName     => 'workgroup',
             printableName => __('NetBIOS domain name'),
-            defaultValue  => EBox::Samba::defaultWorkgroup(),
+            defaultValue  => EBox::Users::defaultWorkgroup(),
             editable      => 1,
         ),
         new EBox::Types::Text(
@@ -169,13 +168,13 @@ sub _table
         new EBox::Types::Text(
             fieldName     => 'netbiosName',
             printableName => __('NetBIOS computer name'),
-            defaultValue  => EBox::Samba::defaultNetbios(),
+            defaultValue  => EBox::Users::defaultNetbios(),
             editable      => 0,
         ),
         new EBox::Types::Text(
             fieldName     => 'description',
             printableName => __('Server description'),
-            defaultValue  => EBox::Samba::defaultDescription(),
+            defaultValue  => EBox::Users::defaultDescription(),
             editable      => 1,
         ),
         new EBox::Types::Boolean(
@@ -209,8 +208,8 @@ sub _table
 
 sub _adcProvisioned
 {
-    my $samba = EBox::Global->modInstance('samba');
-    return ($samba->mode() eq MODE_ADC and $samba->getProvision->isProvisioned());
+    my $users = EBox::Global->modInstance('users');
+    return ($users->dcMode() eq MODE_ADC and $users->getProvision->isProvisioned());
 }
 
 sub updatedRowNotify

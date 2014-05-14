@@ -657,18 +657,18 @@ sub _setConf
 
     my $keytabPath = undef;
     my $sambaZones = undef;
-    if (EBox::Global->modExists('samba')) {
-        my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and (
-            $sambaModule->getProvision->isProvisioned() or
-            $sambaModule->getProvision->isProvisioning())) {
+    if (EBox::Global->modExists('users')) {
+        my $usersModule = EBox::Global->modInstance('users');
+        if ($usersModule->isEnabled() and (
+            $usersModule->getProvision->isProvisioned() or
+            $usersModule->getProvision->isProvisioning())) {
             # Get the zones stored in the samba LDB
-            my $ldb = $sambaModule->ldb();
+            my $ldb = $usersModule->ldb();
             @{$sambaZones} = map { lc $_->name() } @{$ldb->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
-            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
-                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
+            if (EBox::Sudo::fileTest('-f', $usersModule->SAMBA_DNS_KEYTAB())) {
+                $keytabPath = EBox::Users::SAMBA_DNS_KEYTAB();
             }
         }
     }
@@ -699,9 +699,9 @@ sub _setConf
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
 
-        if (EBox::Global->modExists('samba')) {
-            my $samba = EBox::Global->modInstance('samba');
-            my $provision = $samba->getProvision();
+        if (EBox::Global->modExists('users')) {
+            my $users = EBox::Global->modInstance('users');
+            my $provision = $users->getProvision();
             if ($provision->isProvisioning()) {
                 my $sysinfo = EBox::Global->modInstance('sysinfo');
                 my $adDomain = $sysinfo->hostDomain();
@@ -760,7 +760,6 @@ sub _setConf
     my $generateReverseZones = EBox::Config::boolean('generate_reverse_zones');
     if ($generateReverseZones) {
         @inaddrs = @{ $self->_writeReverseFiles() };
-
     }
 
     my @domains = @{$self->domains()};

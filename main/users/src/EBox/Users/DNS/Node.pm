@@ -16,17 +16,17 @@
 use strict;
 use warnings;
 
-package EBox::Samba::DNS::Node;
+package EBox::Users::DNS::Node;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
-use EBox::Samba::DNS::RecordCNAME;
-use EBox::Samba::DNS::RecordSOA;
-use EBox::Samba::DNS::RecordSRV;
-use EBox::Samba::DNS::RecordTXT;
-use EBox::Samba::DNS::RecordNS;
-use EBox::Samba::DNS::RecordMX;
-use EBox::Samba::DNS::RecordA;
+use EBox::Users::DNS::RecordCNAME;
+use EBox::Users::DNS::RecordSOA;
+use EBox::Users::DNS::RecordSRV;
+use EBox::Users::DNS::RecordTXT;
+use EBox::Users::DNS::RecordNS;
+use EBox::Users::DNS::RecordMX;
+use EBox::Users::DNS::RecordA;
 
 use constant DNS_TYPE_A     => 0x0001;
 use constant DNS_TYPE_NS    => 0x0002;
@@ -49,7 +49,7 @@ sub new
         $self->{entry} = $params{entry};
     } else {
         my $dn = $params{dn};
-        my $ldb = EBox::Global->modInstance('samba')->ldb();
+        my $ldb = EBox::Global->modInstance('users')->ldb();
         my $params = {
             base => $dn,
             scope => 'base',
@@ -118,13 +118,13 @@ sub _decodeDnsRecord
         return undef;
     }
 
-    return new EBox::Samba::DNS::RecordCNAME(data => $data) if ($type == DNS_TYPE_CNAME);
-    return new EBox::Samba::DNS::RecordSOA(data => $data) if ($type == DNS_TYPE_SOA);
-    return new EBox::Samba::DNS::RecordSRV(data => $data) if ($type == DNS_TYPE_SRV);
-    return new EBox::Samba::DNS::RecordTXT(data => $data) if ($type == DNS_TYPE_TXT);
-    return new EBox::Samba::DNS::RecordNS(data => $data)  if ($type == DNS_TYPE_NS);
-    return new EBox::Samba::DNS::RecordMX(data => $data)  if ($type == DNS_TYPE_MX);
-    return new EBox::Samba::DNS::RecordA(data => $data)   if ($type == DNS_TYPE_A);
+    return new EBox::Users::DNS::RecordCNAME(data => $data) if ($type == DNS_TYPE_CNAME);
+    return new EBox::Users::DNS::RecordSOA(data => $data) if ($type == DNS_TYPE_SOA);
+    return new EBox::Users::DNS::RecordSRV(data => $data) if ($type == DNS_TYPE_SRV);
+    return new EBox::Users::DNS::RecordTXT(data => $data) if ($type == DNS_TYPE_TXT);
+    return new EBox::Users::DNS::RecordNS(data => $data)  if ($type == DNS_TYPE_NS);
+    return new EBox::Users::DNS::RecordMX(data => $data)  if ($type == DNS_TYPE_MX);
+    return new EBox::Users::DNS::RecordA(data => $data)   if ($type == DNS_TYPE_A);
 
     EBox::warn("Unknown DNS record type '$type' found");
 

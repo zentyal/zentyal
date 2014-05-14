@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Credentials;
+package EBox::Users::Credentials;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;

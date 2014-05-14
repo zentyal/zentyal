@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::Samba::DNS::Zone;
+package EBox::Users::DNS::Zone;
 
 use EBox::Global;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
-use EBox::Samba::DNS::Node;
+use EBox::Users::DNS::Node;
 
 sub new
 {
@@ -36,7 +36,7 @@ sub new
         $self->{entry} = $params{entry};
     } else {
         my $dn = $params{dn};
-        my $ldb = EBox::Global->modInstance('samba')->ldb();
+        my $ldb = EBox::Global->modInstance('users')->ldb();
         my $params = {
             base => $dn,
             scope => 'base',
@@ -72,13 +72,13 @@ sub nodes
     my ($self) = @_;
 
     my $nodes = [];
-    my $ldb = EBox::Global->modInstance('samba')->ldb();
+    my $ldb = EBox::Global->modInstance('users')->ldb();
     my $result = $ldb->search({base => $self->{entry}->dn(),
                               scope => 'sub',
                               filter => '(objectClass=dnsNode)',
                               attrs => ['*']});
     foreach my $entry ($result->entries()) {
-        push (@{$nodes}, new EBox::Samba::DNS::Node(entry => $entry));
+        push (@{$nodes}, new EBox::Users::DNS::Node(entry => $entry));
     }
     return $nodes;
 }
