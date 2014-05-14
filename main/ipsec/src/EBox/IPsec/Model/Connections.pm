@@ -310,4 +310,31 @@ sub preconditionFailMsg
                closehref => '</a>');
 }
 
+sub l2tpCheckDuplicateLocalIP
+{
+    my ($self, $ownId, $tunnelIP) = @_;
+    if (not defined $ownId) {
+        $ownId = '';
+    }
+
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('type') ne 'l2tp') {
+            next;
+        } elsif ($row->id() eq $ownId) {
+            next;
+        }
+
+        my $configuration = $row->elementByName('configuration')->foreignModelInstance();
+        my $settings      = $configuration->componentByName('SettingsL2TP', 1);
+        if ($tunnelIP eq $settings->value('local_ip')) {
+            throw EBox::Exceptions::External(
+                __x('Tunnel IP {ip} is already in use by connection {name}',
+                    ip   => $settings->value('local_ip'),
+                    name => $row->valueByName('name'))
+               );
+        }
+    }
+}
+
 1;
