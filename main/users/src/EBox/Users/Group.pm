@@ -225,7 +225,7 @@ sub printableType
 # Class method: defaultContainer
 #
 #   Parameters:
-#     ro - wether to use the read-only version of the users module
+#     ro - whether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
@@ -233,7 +233,7 @@ sub defaultContainer
 {
     my ($class, $ro) = @_;
     my $ldapMod = $class->_ldapMod();
-    return $ldapMod->objectFromDN('ou=Groups,' . $class->_ldap->dn());
+    return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
 }
 
 # Method: _entry
