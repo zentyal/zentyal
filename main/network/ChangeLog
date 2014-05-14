@@ -1,4 +1,4 @@
-HEAD
+3.0.11
 	+ Do not add /32 mask to default route when deleting routes
 3.0.10
 	+ Fixed bug which made impossible to edit pppoe gateways
