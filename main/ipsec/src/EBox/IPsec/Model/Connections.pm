@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
 use feature "switch";
+use Net::IP;
 
 # Group: Public methods
 
@@ -331,6 +332,35 @@ sub l2tpCheckDuplicateLocalIP
             throw EBox::Exceptions::External(
                 __x('Tunnel IP {ip} is already in use by connection {name}',
                     ip   => $settings->value('local_ip'),
+                    name => $row->valueByName('name'))
+               );
+        }
+    }
+}
+
+sub l2tpCheckDuplicateIPRange
+{
+    my ($self, $ownId, $from, $to) = @_;
+    if (not defined $ownId) {
+        $ownId = '';
+    }
+
+    my $range = new Net::IP("$from-$to");
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('type') ne 'l2tp') {
+            next;
+        } elsif ($row->id() eq $ownId) {
+            next;
+        }
+
+        my $configuration = $row->elementByName('configuration')->foreignModelInstance();
+        my $rangeTable    = $configuration->componentByName('RangeTable', 1);
+        if ($rangeTable->rangeOverlaps($range)) {
+            throw EBox::Exceptions::External(
+                __x('Range {from}-{to} is already in use by connection {name}',
+                    from => $from,
+                    to   => $to,
                     name => $row->valueByName('name'))
                );
         }
