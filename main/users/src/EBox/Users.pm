@@ -911,8 +911,9 @@ sub _setupNSSPAM
     $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-zentyal.mas',
                          \@array);
 
-    my $enablePAM = $self->model('PAM')->enable_pamValue();
-    $self->_setupSSSd();
+    my $PAMModule = $self->model('PAM');
+    my $enablePAM = $PAMModule->enable_pamValue();
+    $self->_setupSSSd($PAMModule->login_shellValue());
 
     my $cmd;
     if ($enablePAM) {
@@ -928,10 +929,11 @@ sub _setupSSSd
 {
     my ($self, $defaultShell) = @_;
 
-    # FIXME: Set the default shell if PAM enabled
     my $sysinfo = $self->global()->modInstance('sysinfo');
     my @params = ('fqdn'   => $sysinfo->fqdn(),
-                  'domain' => $sysinfo->hostDomain());
+                  'domain' => $sysinfo->hostDomain(),
+                  'defaultShell' => $defaultShell,
+                  'keyTab' => SECRETS_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'users/sssd.conf.mas',

@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2010-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,7 +26,6 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
-use EBox::Exceptions::External;
 use File::Basename;
 
 use constant DEFAULT_SHELL => '/bin/bash';
@@ -35,7 +34,7 @@ use constant DEFAULT_SHELL => '/bin/bash';
 
 # Constructor: new
 #
-#      Create a data form
+#      Create the PAM settings form
 #
 # Overrides:
 #
@@ -51,41 +50,18 @@ sub new
     return $self;
 }
 
-# Method: validateTypedRow
+# Function: validShells
 #
-#   Check if mail services are disabled.
+#      Retrieve the valid shells from /etc/shells
 #
-# Overrides:
+# Returns:
 #
-#       <EBox::Model::DataTable::validateTypedRow>
+#      array ref - containing the valid shells in a hash ref with the
+#                  following keys:
 #
-sub validateTypedRow
-{
-    my ($self, $action, $changedParams, $allParams) = @_;
-
-    # Check for incompatibility between PDC and PAM
-    # only on slave servers
-
-    my $mode = $self->parentModule()->mode();
-    return unless $mode eq 'slave';
-
-    return unless EBox::Global->modExists('samba');
-
-    my $samba = EBox::Global->modInstance('samba');
-
-    my $pam = exists $allParams->{enable_pam} ?
-                  $allParams->{enable_pam}->value() :
-                  $changedParams->{enable_pam}->value();
-
-    my $pdc = $samba->pdc();
-
-    if ($pam and $pdc) {
-        throw EBox::Exceptions::External(__x('PAM can not be enabled on slave servers while acting as PDC. You can disable the PDC functionality at {ohref}File sharing options{chref}.',
-ohref => q{<a href='/Samba/Composite/General/'>},
-chref => q{</a>}));
-    }
-}
-
+#                  value - String path to the shell
+#                  printableValue - String the basename from the shell
+#
 sub validShells
 {
     my @shells;
@@ -129,18 +105,16 @@ sub _table
                 )
          );
 
-    unless ( $users->mode eq 'slave' ) {
-        push(@tableDesc,
-                new EBox::Types::Select(
-                    fieldName => 'login_shell',
-                    printableName => __('Default login shell'),
-                    disableCache => 1,
-                    populate => \&validShells,
-                    editable => 1,
-                    help => __('This will apply only to new users from now on.')
-                    )
-            );
-    }
+    push(@tableDesc,
+         new EBox::Types::Select(
+             fieldName => 'login_shell',
+             printableName => __('Default login shell'),
+             disableCache => 1,
+             populate => \&validShells,
+             editable => 1,
+             help => __('This will apply only to new users from now on.')
+            )
+        );
 
     my $dataForm = {
         tableName           => 'PAM',
@@ -157,7 +131,7 @@ sub precondition
 {
     my ($self) = @_;
     my $usersMod = $self->parentModule();
-    return $usersMod->mode() eq $usersMod->STANDALONE_MODE();
+    return ($usersMod->mode() eq $usersMod->STANDALONE_MODE());
 }
 
 1;
