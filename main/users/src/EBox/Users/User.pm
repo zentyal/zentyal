@@ -473,6 +473,11 @@ sub create
     # All accounts are, by default Normal and disabled accounts.
     push (@attr, userAccountControl => NORMAL_ACCOUNT | ACCOUNTDISABLE);
     push (@attr, uidNumber => $uidNumber);
+    # By the moment, set the gidNumber to the gidNumber of Domain Users
+    my $dugidNumber = $class->_domainUsersGidNumber();
+    if ($dugidNumber) {
+        push (@attr, gidNumber => $dugidNumber);
+    }
 
     my $res = undef;
     my $entry = undef;
@@ -934,6 +939,28 @@ sub _checkUid
                 );
         }
     }
+}
+
+# Get the gidNumber from Domain Users
+sub _domainUsersGidNumber
+{
+    my ($class) = @_;
+
+    my $ldap = $class->_ldap();
+    my $domainSID = $ldap->domainSID();
+
+    # FIXME: Remove Magic Numbers
+    my $groupSID = "$domainSID-513";
+    my $result = $ldap->search({ base   => $class->defaultContainer()->dn(),
+                                 filter => "objectSid=$groupSID",
+                                 scope  => 'one',
+                                 attrs  => ['gidNumber']});
+    my $gidNumber;
+    foreach my $entry ($result->entries()) {
+        $gidNumber = $entry->get_value('gidNumber');
+    }
+
+    return $gidNumber;
 }
 
 sub _loginShell

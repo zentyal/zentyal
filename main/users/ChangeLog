@@ -1,4 +1,5 @@
 3.5
+	+ Set gidNumber for new users to Domain Users to have NSS + PAM working
 	+ Set gidNumber based on RID for new groups
 	+ Set gidNumber to Domain Users and Domain Admin for NSS + PAM
 	+ Change default group container to cn=Users as Windows does
