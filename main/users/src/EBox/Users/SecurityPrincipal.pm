@@ -114,6 +114,14 @@ sub _entry
     return $self->{entry};
 }
 
+# Method: sid
+#
+#    Get the objectSID in string representation
+#
+# Returns:
+#
+#    String - the object SID
+#
 sub sid
 {
     my ($self) = @_;

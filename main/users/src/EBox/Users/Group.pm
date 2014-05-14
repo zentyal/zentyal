@@ -138,9 +138,11 @@ sub create
         unless (defined $gidNumber) {
             $gidNumber = $class->_gidForNewGroup($isSystemGroup);
         }
-        $class->_checkGid($gidNumber, $isSystemGroup);
         push ($attr, objectClass => ['top', 'group', 'posixAccount']);
-        push ($attr, gidNumber => $gidNumber);
+        if ($gidNumber) {
+            $class->_checkGid($gidNumber, $isSystemGroup);
+            push ($attr, gidNumber => $gidNumber);
+        }
         $groupType |= GROUPTYPESECURITY;
     } else {
         push ($attr, objectClass => ['top', 'group']);
@@ -158,6 +160,9 @@ sub create
     my $createdGroup = new EBox::Users::Group(dn => $dn);
 
     if ($isSecurityGroup) {
+        my ($rid) = $createdGroup->sid() =~ m/-(\d+)$/;
+        $gidNumber = $createdGroup->unixId($rid);
+        $createdGroup->set('gidNumber', $gidNumber);
         $createdGroup->setupGidMapping($gidNumber);
     }
 
@@ -635,9 +640,7 @@ sub _gidForNewGroup
             throw EBox::Exceptions::Internal(
                 __('Maximum number of groups reached'));
         }
-    } else {
-        $gid = $class->lastGid + 1;
-    }
+    } # else it is undef until objectSID is generated
 
     return $gid;
 }
@@ -648,12 +651,12 @@ sub _gidForNewGroup
 #
 # Parameters:
 #
-#       system - boolan: if true, it returns the last gid for system groups,
+#       system - boolean: if true, it returns the last gid for system groups,
 #       otherwise the last gid for normal groups
 #
 # Returns:
 #
-#       string - last gid
+#       string - last GID
 #
 sub lastGid
 {

@@ -130,7 +130,7 @@ sub consumeNextXidNumber
         EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
     }
 
-    return $xid
+    return $xid;
 }
 
 1;
