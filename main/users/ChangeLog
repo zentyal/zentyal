@@ -1,4 +1,5 @@
 3.5
+	+ Set gidNumber to Domain Users and Domain Admin for NSS + PAM
 	+ Change default group container to cn=Users as Windows does
 	+ Include PAM + NSS services with SSSd to authenticate LDB users
 	  in the system
