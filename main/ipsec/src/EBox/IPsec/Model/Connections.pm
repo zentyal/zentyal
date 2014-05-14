@@ -204,12 +204,17 @@ sub validateTypedRow
         if ($row) {
             # The row is already created. Otherwise is being created so there is no need to do any validation.
             my $conf = $row->elementByName('configuration')->foreignModelInstance();
-
             try {
                 foreach my $model (@{$conf->models(1)}) {
+                    if ($model->isa(' EBox::IPsec::Model::RangeTable')) {
+                        # to avoid problems with checking overlaps IP ranges
+                        next;
+                    }
                     foreach my $rowID (@{$model->enabledRows()}) {
                         my $row = $model->row($rowID);
-                        $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
+                        my $rowElements = $row->hashElements();
+                        $rowElements->{id} = $allFields->{id};
+                        $model->validateTypedRow('update', $rowElements, $rowElements);
                     }
                 }
             } otherwise {
@@ -347,13 +352,14 @@ sub l2tpCheckDuplicateIPRange
 
     my $range = new Net::IP("$from-$to");
     foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-        if ($row->valueByName('type') ne 'l2tp') {
-            next;
-        } elsif ($row->id() eq $ownId) {
+        if ($id eq $ownId) {
             next;
         }
 
+        my $row = $self->row($id);
+        if ($row->valueByName('type') ne 'l2tp') {
+            next;
+        }
         my $configuration = $row->elementByName('configuration')->foreignModelInstance();
         my $rangeTable    = $configuration->componentByName('RangeTable', 1);
         if ($rangeTable->rangeOverlaps($range)) {
