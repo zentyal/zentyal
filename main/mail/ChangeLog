@@ -1,4 +1,6 @@
 HEAD
+	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
+	  namespaces instead
 	+ Postfix handles Zentyal distribution groups virtual alias
 	+ Adapted MailQueue.pm to TryCatch::Lite
 	+ Restart usercorner on installation / upgrade time so the new code is
