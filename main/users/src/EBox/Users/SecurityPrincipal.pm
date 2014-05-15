@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -114,6 +114,14 @@ sub _entry
     return $self->{entry};
 }
 
+# Method: sid
+#
+#    Get the objectSID in string representation
+#
+# Returns:
+#
+#    String - the object SID
+#
 sub sid
 {
     my ($self) = @_;
@@ -233,6 +241,26 @@ sub xidNumber
     }
 
     return $xidNumber;
+}
+
+# Method: unixId
+#
+#    Return a valid unix identifier (uidNumber or gidNumber) based on
+#    the RID
+#
+# Parameters:
+#
+#    rid - String the relative identifier
+#
+# Returns:
+#
+#    Int - the unix valid identifier
+#
+sub unixId
+{
+    my ($self, $rid) = @_;
+    # Let 1000 users for UNIX
+    return 2000 + $rid;
 }
 
 1;

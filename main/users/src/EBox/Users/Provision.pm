@@ -364,7 +364,7 @@ sub resetSysvolACL
 #   Set the mapping between the objectSID and uidNumber/gidNumber for the
 #   following entries by writing these entries in the idmap database.
 #
-#   NOTE: At this point the accounts does not exists yet in LDB, but as the
+#   NOTE: At this point the accounts do not exist yet in LDB, but as the
 #         SIDs are well-known we can stablish the mappings
 #
 #               LDB                         System
@@ -1349,6 +1349,43 @@ sub provisionADC
     EBox::Sudo::rootWithoutException('kdestroy');
 
     $self->setProvisioning(0);
+}
+
+# Method: provisionGIDNumbersDefaultGroups
+#
+#    Set gidNumber to default groups that are required to set up NSS
+#    and PAM.
+#
+#    We will set the gidNumber using a formulae from
+#    <EBox::Users::SecurityPrincipal::unixId>.
+#
+# Parameters:
+#
+#    usersMod - <EBox::Users> module
+#
+sub provisionGIDNumbersDefaultGroups
+{
+    my ($usersMod) = @_;
+
+    my $ldb = $usersMod->ldb();
+    my $domainSID = $ldb->domainSID();
+
+    # FIXME: Do not use magic numbers
+    # Set the gidNumber to Domain Users and Domain Admins
+    foreach my $rid (qw(512 513)) {
+        my $groupSID = "$domainSID-$rid";
+
+        my $result = $ldb->search({ base   => $usersMod->userClass()->defaultContainer()->dn(),
+                                    filter => "objectSid=$groupSID",
+                                    scope  => 'one' });
+        foreach my $entry ($result->entries()) {
+            my $group = $usersMod->entryModeledObject($entry);
+            unless ($group->get('gidNumber')) {
+                $group->set('gidNumber', $group->unixId($rid));
+            }
+            last;
+        }
+    }
 }
 
 1;

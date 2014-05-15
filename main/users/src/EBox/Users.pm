@@ -877,12 +877,16 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled and $self->mode() eq EXTERNAL_AD_MODE) {
-        # Update services keytabs
-        my $ldap = $self->ldap();
-        my @principals = @{ $ldap->externalServicesPrincipals() };
-        if (scalar @principals) {
-            $ldap->initKeyTabs();
+    if ($enabled) {
+        if ($self->mode() eq EXTERNAL_AD_MODE) {
+            # Update services keytabs
+            my $ldap = $self->ldap();
+            my @principals = @{ $ldap->externalServicesPrincipals() };
+            if (scalar @principals) {
+                $ldap->initKeyTabs();
+            }
+        } else {
+            EBox::Users::Provision::provisionGIDNumbersDefaultGroups();
         }
     }
 }
