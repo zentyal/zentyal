@@ -2844,6 +2844,7 @@ sub writeSambaConfig
     }
 
     if (EBox::Global->modExists('openchange')) {
+        # FIXME: move this writing of openchange.conf to zentyal-openchange?
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
@@ -2859,12 +2860,12 @@ sub writeSambaConfig
         push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
         push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
         $self->writeConfFile(OPENCHANGE_CONF_FILE,
-                         'samba/openchange.conf.mas', $oc,
+                         'users/openchange.conf.mas', $oc,
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba/smb.conf.mas', \@array,
+                         'users/smb.conf.mas', \@array,
                          { 'uid' => 'root', 'gid' => 'root', mode => '644' });
 
     if ($samba) {

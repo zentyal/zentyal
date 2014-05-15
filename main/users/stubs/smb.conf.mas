@@ -6,7 +6,7 @@
     $mode
     $realm
     $domain
-    @shares
+    @shares => ()
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
