@@ -92,10 +92,13 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    # FIXME: only if users is provisioned, do it only once
-    # currently this requires a manual restart in the shell,
-    # it's not triggered by enable + save changes
-    $self->_loadSchemas();
+    # FIXME: can this be triggered without users being provisioned?
+    # maybe we should override EBox::Module::LDAP::configured to check
+    # always if users is provisioned?
+    unless ($self->get('schemas_added')) {
+        $self->_loadSchemas();
+        $self->set('schemas_added', 1);
+    }
 
     $self->SUPER::_regenConfig(@_);
 }
