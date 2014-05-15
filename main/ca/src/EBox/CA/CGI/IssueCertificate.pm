@@ -41,19 +41,21 @@ use constant MIN_PASS_LENGTH => 5;
 #       IssueCertificate - The object recently created
 
 sub new
-  {
-
+{
     my $class = shift;
-
     my $self = $class->SUPER::new('title' => __('Certification Authority'),
-				  @_);
+                                  @_);
 
     $self->{chain} = 'CA/Index';
     bless($self, $class);
 
     return $self;
+}
 
-  }
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
 
 # Method: requiredParameters
 #
@@ -63,7 +65,7 @@ sub new
 #
 sub requiredParameters
 {
-    return [];
+    return ['name', 'expiryDays', 'certificate'];
 }
 
 # Method: optionalParameters
@@ -75,7 +77,6 @@ sub requiredParameters
 sub optionalParameters
 {
     return [
-            'name', 'expiryDays', 'certificate',
             'caNeeded', 'caPassphrase', 'reCAPassphrase',
             'countryName', 'stateName', 'localityName',
             'subjectAltName'];
