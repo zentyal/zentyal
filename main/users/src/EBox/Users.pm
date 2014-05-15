@@ -35,6 +35,7 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
+use EBox::Users::Computer;
 use EBox::Users::Contact;
 use EBox::Users::Group;
 use EBox::Users::NamingContext;
@@ -60,6 +61,7 @@ use Digest::MD5;
 use Sys::Hostname;
 
 use TryCatch::Lite;
+use Net::LDAP::Control::Sort;
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
@@ -1008,6 +1010,36 @@ sub _daemonsToDisable
     return [
         { 'name' => 'smbd', 'type' => 'upstart' },
     ];
+}
+
+# Method: _startService
+#
+#   Overrided to ensure proper permissions of the ldap_priv folder, where the
+#   privileged socket that zentyal uses to connect is. This is a special socket
+#   that samba create that allow r/w restricted attributes.
+#   Samba expects the ldap_priv folder to be owned by root and mode 0750, or the
+#   LDAP service won't run.
+#
+#   Here we set the expected permissions before start the daemon.
+#
+sub _startService
+{
+    my ($self) = @_;
+
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
+
+    # User corner needs access to update the user password
+    if (EBox::Global->modExists('usercorner')) {
+        my $usercorner = EBox::Global->modInstance('usercorner');
+        my $userCornerGroup = $usercorner->USERCORNER_GROUP();
+        EBox::Sudo::root("setfacl -m \"g:$userCornerGroup:rx\" " . SAMBA_PRIVILEGED_SOCKET);
+    }
+
+    $self->SUPER::_startService(@_);
 }
 
 # Method: groupDn
