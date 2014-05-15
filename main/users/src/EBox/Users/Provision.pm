@@ -37,6 +37,7 @@ use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Net::Ping;
 use Net::LDAP;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
@@ -487,9 +488,14 @@ sub provisionDC
         # Map accounts
 #        $self->mapAccounts();
 
+        EBox::debug('Creating Groups container');
+        $self->_createGroupsContainer();
+
+        EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
 
         # Reset sysvol
+        EBox::debug('Reset Sysvol');
         $self->resetSysvolACL();
     } catch ($error) {
         $self->setProvisioned(0);
@@ -1383,6 +1389,37 @@ sub provisionGIDNumbersDefaultGroups
             }
             last;
         }
+    }
+}
+
+# Create the Groups Container at top level to improve usability
+# of the module
+sub _createGroupsContainer
+{
+    my ($self) = @_;
+
+    my $usersMod = EBox::Global->getInstance()->modInstance('users');
+    my $ldb = $usersMod->ldb();
+    my $containerName = 'Groups';
+    my $dn = "CN=$containerName," . $ldb->dn();
+
+    my %attr = (objectClass  => ['top', 'container'],
+                cn           => $containerName,
+                name         => $containerName,
+                description  => 'Container to put the user groups',
+                instanceType => 4);
+
+    my $entry = new Net::LDAP::Entry($dn, %attr);
+    my $result = $entry->update($ldb->connection());
+    if ($result->is_error()) {
+        unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
+            my @changes = $entry->changes();
+            throw EBox::Exceptions::LDAP(
+                message => __('Error on group container LDAP entry creation:'),
+                result  => $result,
+                opArgs  => "@changes",
+               );
+        };
     }
 }
 
