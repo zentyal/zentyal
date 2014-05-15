@@ -95,9 +95,11 @@ sub _regenConfig
     # FIXME: can this be triggered without users being provisioned?
     # maybe we should override EBox::Module::LDAP::configured to check
     # always if users is provisioned?
-    unless ($self->get('schemas_added')) {
+    my $state = $self->get_state();
+    unless ($state->{'_schemasAdded'}) {
         $self->_loadSchemas();
-        $self->set('schemas_added', 1);
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
     }
 
     $self->SUPER::_regenConfig(@_);
