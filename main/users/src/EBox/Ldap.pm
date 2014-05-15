@@ -233,35 +233,17 @@ sub dn
 {
     my ($self) = @_;
 
-    if ((defined $self->{dn}) and length ($self->{dn})) {
-        return $self->{dn};
-    }
-
-    my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
-    my $ldifBuffer = join ('', @{$output});
-    EBox::debug($ldifBuffer);
-
-    my $fd;
-    open $fd, '<', \$ldifBuffer;
-
-    my $ldif = Net::LDAP::LDIF->new($fd);
-    if (not $ldif->eof()) {
-        my $entry = $ldif->read_entry();
-        if ($ldif->error()) {
-            EBox::debug("Error msg: " . $ldif->error());
-            EBox::debug("Error lines:\n" . $ldif->error_lines());
-        } elsif (not $ldif->eof()) {
-            EBox::debug("Got more than one entry!");
-        } elsif ($entry) {
-            $self->{dn} = $entry->get_value('defaultNamingContext');
+    unless ($self->{dn}) {
+        my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep ^dn:");
+        my ($dn) = $output->[0] =~ /^dn: (.*)$/;
+        if ($dn) {
+            $self->{dn} = $dn;
         } else {
-            EBox::debug("Got an empty entry");
+            throw EBox::Exceptions::External('Cannot get LDAP dn');
         }
     }
-    $ldif->done();
-    close $fd;
 
-    return defined $self->{dn} ? $self->{dn} : '';
+    return $self->{dn};
 }
 
 #############################################################################
