@@ -82,7 +82,6 @@ use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
-use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
@@ -771,10 +770,6 @@ sub _setConfInternal
 
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
-        # Create directories
-        EBox::info('FIXME: Creating directories');
-#FIXME:        $self->_createDirectories();
-
         if (EBox::Global->modExists('openchange')) {
             my $openchangeMod = EBox::Global->modInstance('openchange');
             if ($openchangeMod->isProvisioned()) {
@@ -830,47 +825,6 @@ sub _setConfInternal
     # commit slaves removal
     EBox::Users::Slave->commitRemovals($self->global());
 }
-
-sub _createDirectories
-{
-    my ($self) = @_;
-
-    my $zentyalUser = EBox::Config::user();
-    my $group = EBox::Users::DEFAULTGROUP();
-    my $nobody = GUEST_DEFAULT_USER;
-    my $avModel = $self->global()->modInstance('samba')->model('AntivirusDefault');
-    my $quarantine = $avModel->QUARANTINE_DIR();
-
-    my @cmds;
-    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    push (@cmds, "chown root " . SAMBA_DIR);
-    push (@cmds, "chgrp '$group' " . SAMBA_DIR);
-    push (@cmds, "chmod 770 " . SAMBA_DIR);
-    push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
-
-    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    push (@cmds, "chown root" . PROFILES_DIR);
-    push (@cmds, "chgrp '$group' " . PROFILES_DIR);
-    push (@cmds, "chmod 770 " . PROFILES_DIR);
-    push (@cmds, "setfacl -b " . PROFILES_DIR);
-
-    push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    push (@cmds, "chown root " . SHARES_DIR);
-    push (@cmds, "chgrp '$group' " . SHARES_DIR);
-    push (@cmds, "chmod 770 " . SHARES_DIR);
-    push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
-
-    push (@cmds, "mkdir -p '$quarantine'");
-    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
-    push (@cmds, "chmod 770 '$quarantine'");
-
-    EBox::Sudo::root(@cmds);
-}
-
 
 sub _postServiceHook
 {

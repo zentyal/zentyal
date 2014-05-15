@@ -774,14 +774,14 @@ sub writeSambaConfig
         }
     }
 
-    push (@array, 'shares' => $samba->shares());
+    push (@array, 'shares' => $self->shares());
 
-    push (@array, 'antivirus' => $samba->defaultAntivirusSettings());
-    push (@array, 'antivirus_exceptions' => $samba->antivirusExceptions());
-    push (@array, 'antivirus_config' => $samba->antivirusConfig());
-    push (@array, 'recycle' => $samba->defaultRecycleSettings());
-    push (@array, 'recycle_exceptions' => $samba->recycleExceptions());
-    push (@array, 'recycle_config' => $samba->recycleConfig());
+    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
+    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push (@array, 'antivirus_config' => $self->antivirusConfig());
+    push (@array, 'recycle' => $self->defaultRecycleSettings());
+    push (@array, 'recycle_exceptions' => $self->recycleExceptions());
+    push (@array, 'recycle_config' => $self->recycleConfig());
 
     $self->_writeAntivirusConfig();
 }
@@ -793,12 +793,52 @@ sub _setConf
 
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
-    $self->global()->modInstance('users')->_createDirectories();
+    $self->_createDirectories();
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
+}
+
+sub _createDirectories
+{
+    my ($self) = @_;
+
+    my $zentyalUser = EBox::Config::user();
+    my $group = EBox::Users::DEFAULTGROUP();
+    my $nobody = GUEST_DEFAULT_USER;
+    my $avModel = $self->model('AntivirusDefault');
+    my $quarantine = $avModel->QUARANTINE_DIR();
+
+    my @cmds;
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root " . SAMBA_DIR);
+    push (@cmds, "chgrp '$group' " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -b " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
+
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root " . PROFILES_DIR);
+    push (@cmds, "chgrp '$group' " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, "setfacl -b " . PROFILES_DIR);
+
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root " . SHARES_DIR);
+    push (@cmds, "chgrp '$group' " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -b " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
+
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _adcMode
