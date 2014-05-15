@@ -39,11 +39,7 @@ use EBox::Gettext;
     server string = <% $description %>
     server role = <% $mode %>
     server role check:inhibit = yes
-% if ($fs eq 's3fs') {
-    server services = s3fs, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
-% } else {
-    server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
-% }
+    server services = -dns
     server signing = auto
 
     log level = 3

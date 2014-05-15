@@ -1013,6 +1013,7 @@ sub _daemonsToDisable
 {
     return [
         { 'name' => 'smbd', 'type' => 'upstart' },
+        { 'name' => 'nmbd', 'type' => 'upstart' },
     ];
 }
 

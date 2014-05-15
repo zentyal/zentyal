@@ -789,13 +789,6 @@ sub _adcMode
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
-sub _nmbdCond
-{
-    my ($self) = @_;
-
-    return (-f SAMBACONFFILE);
-}
-
 sub _sysvolSyncCond
 {
     my ($self) = @_;
@@ -825,9 +818,6 @@ sub _antivirusEnabled
 sub _daemons
 {
     return [
-        {
-            name => 'nmbd',
-        },
         {
             name => 'zentyal.sysvol-sync',
             precondition => \&_sysvolSyncCond,
