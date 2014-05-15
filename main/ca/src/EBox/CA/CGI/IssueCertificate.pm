@@ -63,7 +63,7 @@ sub new
 #
 sub requiredParameters
 {
-    return ['name', 'expiryDays', 'certificate' ];
+    return [];
 }
 
 # Method: optionalParameters
@@ -74,7 +74,9 @@ sub requiredParameters
 #
 sub optionalParameters
 {
-    return ['caNeeded', 'caPassphrase', 'reCAPassphrase',
+    return [
+            'name', 'expiryDays', 'certificate',
+            'caNeeded', 'caPassphrase', 'reCAPassphrase',
             'countryName', 'stateName', 'localityName',
             'subjectAltName'];
 }
@@ -88,6 +90,12 @@ sub optionalParameters
 sub actuate
 {
     my ($self) = @_;
+    if (not @{ $self->params()  }) {
+        return;
+    }
+    foreach my $required ('name', 'expiryDays', 'certificate' ) {
+        $self->_requireParam($required);
+    }
 
     my $ca = EBox::Global->modInstance('ca');
 
