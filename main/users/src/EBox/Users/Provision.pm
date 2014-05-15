@@ -487,6 +487,8 @@ sub provisionDC
         # Map accounts
 #        $self->mapAccounts();
 
+        $self->_hideInternalGroups();
+
         # Reset sysvol
         $self->resetSysvolACL();
     } catch ($error) {
@@ -1381,6 +1383,16 @@ sub provisionGIDNumbersDefaultGroups
             }
             last;
         }
+    }
+}
+
+sub _hideInternalGroups
+{
+    my ($self) = @_;
+
+    foreach my $group (qw(DnsAdmins DnsUpdateProxy)) {
+        my $gr = new EBox::Users::Group(gid => $group);
+        $gr->set('showInAdvancedViewOnly', 'TRUE');
     }
 }
 
