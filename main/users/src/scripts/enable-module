@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Remount filesystem with user_xattr and acl options
+/usr/share/zentyal-users/setup-filesystem
+
 # enable quotas
 /usr/share/zentyal-users/enable-quotas
 

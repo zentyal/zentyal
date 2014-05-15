@@ -56,6 +56,7 @@ use constant RPCPROXY_PORT           => 62081;
 use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
 use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR . 'mapistore/master.password';
 
@@ -274,6 +275,25 @@ sub usedFiles
        });
 
     return \@files;
+}
+
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    push (@array, 'openchangeEnabled' => $self->isEnabled());
+    push (@array, 'openchangeProvisioned' => $self->isProvisioned());
+
+    my $openchangeProvisionedWithMySQL = $self->isProvisionedWithMySQL();
+    my $openchangeConnectionString = undef;
+    if ($openchangeProvisionedWithMySQL) {
+        $openchangeConnectionString = $self->connectionString();
+    }
+    my $oc = [];
+    push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+    push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+    $self->writeConfFile(OPENCHANGE_CONF_FILE, 'users/openchange.conf.mas', $oc,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 }
 
 sub _setConf

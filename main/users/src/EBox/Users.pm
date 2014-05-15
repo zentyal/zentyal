@@ -87,7 +87,6 @@ use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
-use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 
 use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers';
@@ -2836,19 +2835,13 @@ sub writeSambaConfig
 {
     my ($self) = @_;
 
-    my $samba = $self->global()->modInstance('samba');
-
     my $netbiosName = $self->netbiosName();
     my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
-
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
 
     my @array = ();
-    push (@array, 'prefix'      => $prefix);
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
@@ -2858,56 +2851,19 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
-    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
-    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
 
-    if (EBox::Global->modExists('printers')) {
-        my $printersModule = EBox::Global->modInstance('printers');
-        if ($printersModule->isEnabled()) {
-            push (@array, 'print' => 1);
-            push (@array, 'printers' => $printersModule->printers());
-        }
-    }
-
+    my $samba = $self->global()->modInstance('samba');
     if ($samba) {
-        push (@array, 'shares' => $samba->shares());
-
-        push (@array, 'antivirus' => $samba->defaultAntivirusSettings());
-        push (@array, 'antivirus_exceptions' => $samba->antivirusExceptions());
-        push (@array, 'antivirus_config' => $samba->antivirusConfig());
-        push (@array, 'recycle' => $samba->defaultRecycleSettings());
-        push (@array, 'recycle_exceptions' => $samba->recycleExceptions());
-        push (@array, 'recycle_config' => $samba->recycleConfig());
+        $samba->writeSambaConfig();
     }
 
-    if (EBox::Global->modExists('openchange')) {
-        # FIXME: move this writing of openchange.conf to zentyal-openchange?
-        my $openchangeModule = EBox::Global->modInstance('openchange');
-        my $openchangeEnabled = $openchangeModule->isEnabled();
-        my $openchangeProvisioned = $openchangeModule->isProvisioned();
-        push (@array, 'openchangeEnabled' => $openchangeEnabled);
-        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
-
-        my $openchangeProvisionedWithMySQL = $openchangeModule->isProvisionedWithMySQL();
-        my $openchangeConnectionString = undef;
-        if ($openchangeProvisionedWithMySQL) {
-            $openchangeConnectionString = $openchangeModule->connectionString();
-        }
-        my $oc = [];
-        push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
-        push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
-        $self->writeConfFile(OPENCHANGE_CONF_FILE,
-                         'users/openchange.conf.mas', $oc,
-                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        $openchange->writeSambaConfig();
     }
 
-    $self->writeConfFile(SAMBACONFFILE,
-                         'users/smb.conf.mas', \@array,
+    $self->writeConfFile(SAMBACONFFILE, 'users/smb.conf.mas', \@array,
                          { 'uid' => 'root', 'gid' => 'root', mode => '644' });
-
-    if ($samba) {
-        $samba->_writeAntivirusConfig();
-    }
 }
 
 # Method: netbiosName

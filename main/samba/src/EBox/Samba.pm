@@ -452,19 +452,6 @@ sub _waitService
     }
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    # Remount filesystem with user_xattr and acl options
-    EBox::info('Setting up filesystem');
-    EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-}
-
 sub getProvision
 {
     my ($self) = @_;
@@ -766,6 +753,39 @@ sub _setupQuarantineDirectory
     }
     EBox::Sudo::silentRoot(@cmds);
 }
+
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    my @array;
+    push (@array, 'prefix' => $prefix);
+    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
+
+    if (EBox::Global->modExists('printers')) {
+        my $printersModule = EBox::Global->modInstance('printers');
+        if ($printersModule->isEnabled()) {
+            push (@array, 'print' => 1);
+            push (@array, 'printers' => $printersModule->printers());
+        }
+    }
+
+    push (@array, 'shares' => $samba->shares());
+
+    push (@array, 'antivirus' => $samba->defaultAntivirusSettings());
+    push (@array, 'antivirus_exceptions' => $samba->antivirusExceptions());
+    push (@array, 'antivirus_config' => $samba->antivirusConfig());
+    push (@array, 'recycle' => $samba->defaultRecycleSettings());
+    push (@array, 'recycle_exceptions' => $samba->recycleExceptions());
+    push (@array, 'recycle_config' => $samba->recycleConfig());
+
+    $self->_writeAntivirusConfig();
+}
+
 
 sub _setConf
 {
