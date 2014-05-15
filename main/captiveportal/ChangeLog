@@ -1,4 +1,6 @@
 HEAD
+	+ Use a blocking lock to get iptables resource to avoid issues
+	  while firewall module is restarting
 	+ Stop captive portal on firewall restart
 	+ Added noMultipleOUSupportComponent support
 3.2.3
