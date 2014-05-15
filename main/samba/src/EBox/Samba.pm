@@ -805,6 +805,8 @@ sub _createDirectories
 {
     my ($self) = @_;
 
+    return unless $self->global()->modInstance('users')->isProvisioned();
+
     my $zentyalUser = EBox::Config::user();
     my $group = EBox::Users::DEFAULTGROUP();
     my $nobody = GUEST_DEFAULT_USER;
