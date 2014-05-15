@@ -117,7 +117,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __('File Sharing and Domain Services'),
+        printableName => __('File Sharing'),
         @_);
     bless ($self, $class);
     return $self;

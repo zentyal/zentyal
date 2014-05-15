@@ -121,7 +121,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'users',
-                                      printableName => __('Users and Computers'),
+                                      printableName => __('Users, Computers and Domain Services'),
                                       @_);
     bless($self, $class);
     $self->_setupForMode();
