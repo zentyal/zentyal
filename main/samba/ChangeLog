@@ -1,4 +1,6 @@
 HEAD
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
 	+ s4sync: Remove the group share if exists after deleting the group itself
 	+ s4sync: Remove the deleted user or group from shares ACLs
 3.2.16
