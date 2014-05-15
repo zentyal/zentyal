@@ -120,7 +120,7 @@ sub test_wait_lock : Test(3)
         exit(0);
     }
 
-    EBox::Util::AdvisoryLock::lock('block', 1);
+    EBox::Util::AdvisoryLock::lock('block');
     sleep(3);
     EBox::Util::AdvisoryLock::unlock('block');
     waitpid($pid, 0);

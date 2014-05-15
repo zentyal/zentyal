@@ -76,7 +76,7 @@ sub lock
                 alarm(0);
             }; if ($@) {
                 if ($@ eq "Timed out\n") {
-                    throw EBox::Exceptions::Lock("Cannot get lock: $resource");
+                    throw EBox::Exceptions::Lock("$resource after waiting $blockingTime s");
                 }
             }
         } else {
