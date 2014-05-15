@@ -171,6 +171,8 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
+    my $ldb = $self->global()->modInstance('users')->ldb();
+
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
     if ($enabled and ($0 =~ /\/global-action$/)) {
@@ -180,12 +182,12 @@ sub _postServiceHook
         # overwritting already existing per-user settings. Also skip if
         # unmanaged_home_directory config key is defined
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-        unless ($self->mode() eq 'adc') {
+        unless ($self->global()->modInstance('users')->dcMode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
             my $usersMod = $self->global()->modInstance('users');
             my $netbiosName = $usersMod->netbiosName();
             my $realmName = $usersMod->kerberosRealm();
-            my $users = $self->ldb->users();
+            my $users = $ldb->users();
             foreach my $user (@{$users}) {
                 unless ($self->ldapObjectFromLDBObject($user)) {
                     # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
@@ -208,12 +210,12 @@ sub _postServiceHook
             }
         }
 
-        my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
+        my $host = $ldb->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
         }
         my $sambaShares = $self->model('SambaShares');
-        my $domainSID = $self->ldb()->domainSID();
+        my $domainSID = $ldb->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
