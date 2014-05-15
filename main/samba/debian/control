@@ -12,12 +12,12 @@ Package: zentyal-samba
 Architecture: all
 Pre-Depends: mysql-server, samba
 Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0), zentyal-users,
-         rsync, acl, libdate-calc-xs-perl, libnet-dns-perl,
+         rsync, libdate-calc-xs-perl, libnet-dns-perl,
          libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
          libfile-libmagic-perl, libsamba-perl (>= 0.11~1),
          libparse-recdescent-perl, libxs-object-magic-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl,
-         samba-vfs-modules, ${misc:Depends}
+         ${misc:Depends}
 Description: Zentyal - File Sharing
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

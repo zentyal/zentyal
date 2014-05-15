@@ -92,14 +92,15 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    # FIXME: can this be triggered without users being provisioned?
-    # maybe we should override EBox::Module::LDAP::configured to check
-    # always if users is provisioned?
-    my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
+    if ($self->global()->modInstance('users')->isProvisioned()) {
+        my $state = $self->get_state();
+        unless ($state->{'_schemasAdded'}) {
+            $self->_loadSchemas();
+            $state->{'_schemasAdded'} = 1;
+            $self->set_state($state);
+        }
+    } else {
+        $self->global()->addModuleToPostSave($self->name());
     }
 
     $self->SUPER::_regenConfig(@_);
