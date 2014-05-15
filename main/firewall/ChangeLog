@@ -1,4 +1,6 @@
 HEAD
+	+ Use a blocking lock to get iptables resource on restart
+	  and stop to avoid other modules to get it
 	+ Added beforeFwRestart method to firewall helper
 3.2.3
 	+ Fixed crash when editing view in Summarized Report

@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,12 +24,11 @@ use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::LogObserver);
 
-use EBox::Objects;
-use EBox::Global;
-use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataNotFound;
+use EBox::Gettext;
+use EBox::Global;
 use EBox::Firewall::Model::ToInternetRuleTable;
 use EBox::Firewall::Model::InternalToEBoxRuleTable;
 use EBox::Firewall::Model::ExternalToEBoxRuleTable;
@@ -43,7 +42,12 @@ use EBox::Firewall::Model::PacketTrafficGraph;
 use EBox::Firewall::Model::PacketTrafficReportOptions;
 
 use EBox::FirewallLogHelper;
-use EBox::Gettext;
+use EBox::Objects;
+use EBox::Validate qw( :all );
+use EBox::Util::AdvisoryLock;
+
+# Time in sec. to be blocked to work on iptables
+use constant BLOCKED_TIMEOUT => 10;
 
 sub _create
 {
@@ -184,7 +188,9 @@ sub _enforceServiceState
     my ($self) = @_;
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
-    if($self->isEnabled()) {
+
+    EBox::Util::AdvisoryLock::lock('iptables', 1, BLOCKED_TIMEOUT);
+    if ($self->isEnabled()) {
         foreach my $mod (@{ $self->global()->modInstancesOfType('EBox::FirewallObserver') }) {
             my $helper = $mod->firewallHelper();
             if ($helper) {
@@ -195,6 +201,7 @@ sub _enforceServiceState
     } else {
         $ipt->stop();
     }
+    EBox::Util::AdvisoryLock::unlock('iptables');
 }
 
 sub _stopService
@@ -202,8 +209,10 @@ sub _stopService
     my ($self) = @_;
 
     use EBox::Iptables;
+    EBox::Util::AdvisoryLock::lock('iptables', 1, BLOCKED_TIMEOUT);
     my $ipt = new EBox::Iptables;
     $ipt->stop();
+    EBox::Util::AdvisoryLock::unlock('iptables');
 }
 
 # Method: removePortRedirectionsOnIface
@@ -490,11 +499,11 @@ sub _setService
     }
 
     my $model;
-        if ($internal) {
-            $model = 'InternalToEBoxRuleModel';
-        } else {
-            $model = 'ExternalToEBoxRuleModel';
-        }
+    if ($internal) {
+        $model = 'InternalToEBoxRuleModel';
+    } else {
+        $model = 'ExternalToEBoxRuleModel';
+    }
     my $rulesModel = $self->{$model};
 
     # Do not add rule if there is already a rule
