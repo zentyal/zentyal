@@ -1030,13 +1030,6 @@ sub initUser
     if ($mk_home eq 'yes') {
         my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
-            # Wait until user is available
-            # FIXME: we need a faster way
-            for my $tries (1 .. 300) {
-                last if (getpwnam ($user->name()));
-                Time::HiRes::sleep(0.1);
-            }
-
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
             my $group = DEFAULTGROUP;
