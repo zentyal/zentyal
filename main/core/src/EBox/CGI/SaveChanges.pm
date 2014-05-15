@@ -60,33 +60,7 @@ my @commonProgressParams = (
 
 );
 
-#my $jsCloseDialogAndReload = 'Zentyal.Dialog.close(); window.location.reload();
-#return false';
-my $jsCloseDialogAndReload =  <<'END';
-  Zentyal.Dialog.close();
-  var urlParts = window.location.href.split('?');
-  var url = urlParts[0];
-  var i;
-  console.log('urlParts ' + urlParts[0] + ' ' urlParts[1] );
-  var noActionParams = ['directory', 'page', 'pageSize', 'backview'];
-  if (urlParts.length >= 2) {
-     url += '?';
-     var params = urlParts[1].split('&');
-     for (i=0;i < params.length(); i++) {
-         console.log('check ' + param);
-         var par = params[i];
-          for (i=0; i < noActionParams.length; i++) {
-             if (par.indexOf(noActionParams[i] + '=') === 0) {
-                url += params[i] + '&';
-                console.log('match');
-                break;
-             }
-          }
-     }
-  }
-  window.location.replace(url);
-  return false;
-END
+my $jsCloseDialogAndReload = 'Zentyal.Dialog.close(); Zentyal.pageReload(); return false';
 
 my @popupProgressParams = (
         raw => 1,
