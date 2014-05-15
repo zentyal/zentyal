@@ -1359,14 +1359,10 @@ sub provisionADC
 #    We will set the gidNumber using a formulae from
 #    <EBox::Users::SecurityPrincipal::unixId>.
 #
-# Parameters:
-#
-#    usersMod - <EBox::Users> module
 #
 sub provisionGIDNumbersDefaultGroups
 {
-    my ($usersMod) = @_;
-
+    my $usersMod = EBox::Global->modInstance('users');
     my $ldb = $usersMod->ldb();
     my $domainSID = $ldb->domainSID();
 
