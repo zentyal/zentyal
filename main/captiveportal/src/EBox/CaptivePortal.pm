@@ -100,7 +100,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-
 sub _setConf
 {
     my ($self) = @_;
