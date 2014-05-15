@@ -138,9 +138,11 @@ sub create
         unless (defined $gidNumber) {
             $gidNumber = $class->_gidForNewGroup($isSystemGroup);
         }
-        $class->_checkGid($gidNumber, $isSystemGroup);
         push ($attr, objectClass => ['top', 'group', 'posixAccount']);
-        push ($attr, gidNumber => $gidNumber);
+        if ($gidNumber) {
+            $class->_checkGid($gidNumber, $isSystemGroup);
+            push ($attr, gidNumber => $gidNumber);
+        }
         $groupType |= GROUPTYPESECURITY;
     } else {
         push ($attr, objectClass => ['top', 'group']);
@@ -158,6 +160,9 @@ sub create
     my $createdGroup = new EBox::Users::Group(dn => $dn);
 
     if ($isSecurityGroup) {
+        my ($rid) = $createdGroup->sid() =~ m/-(\d+)$/;
+        $gidNumber = $createdGroup->unixId($rid);
+        $createdGroup->set('gidNumber', $gidNumber);
         $createdGroup->setupGidMapping($gidNumber);
     }
 
@@ -225,7 +230,7 @@ sub printableType
 # Class method: defaultContainer
 #
 #   Parameters:
-#     ro - wether to use the read-only version of the users module
+#     ro - whether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
@@ -233,7 +238,7 @@ sub defaultContainer
 {
     my ($class, $ro) = @_;
     my $ldapMod = $class->_ldapMod();
-    return $ldapMod->objectFromDN('ou=Groups,' . $class->_ldap->dn());
+    return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
 }
 
 # Method: _entry
@@ -635,9 +640,7 @@ sub _gidForNewGroup
             throw EBox::Exceptions::Internal(
                 __('Maximum number of groups reached'));
         }
-    } else {
-        $gid = $class->lastGid + 1;
-    }
+    } # else it is undef until objectSID is generated
 
     return $gid;
 }
@@ -648,12 +651,12 @@ sub _gidForNewGroup
 #
 # Parameters:
 #
-#       system - boolan: if true, it returns the last gid for system groups,
+#       system - boolean: if true, it returns the last gid for system groups,
 #       otherwise the last gid for normal groups
 #
 # Returns:
 #
-#       string - last gid
+#       string - last GID
 #
 sub lastGid
 {
