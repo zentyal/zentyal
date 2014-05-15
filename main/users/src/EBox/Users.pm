@@ -1023,29 +1023,33 @@ sub groupDn
 # Init a new user (home and permissions)
 sub initUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user) = @_;
 
     my $mk_home = EBox::Config::configkey('mk_home');
     $mk_home = 'yes' unless $mk_home;
     if ($mk_home eq 'yes') {
         my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
-            my @cmds;
+            # Wait until user is available
+            # FIXME: we need a faster way
+            for my $tries (1 .. 300) {
+                last if (getpwnam ($user->name()));
+                Time::HiRes::sleep(0.1);
+            }
 
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
             my $group = DEFAULTGROUP;
-            push(@cmds, "mkdir -p `dirname $qhome`");
-            push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            EBox::Sudo::root(@cmds);
-
-            my $chownCmd = "chown -R $quser:$group $qhome";
-            EBox::Sudo::root($chownCmd);
+            my @cmds;
+            push (@cmds, "mkdir -p `dirname $qhome`");
+            push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
+            push (@cmds, "chown -R $quser $qhome");
+            push (@cmds, "chgrp -R '$group' $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-            my $chmod = "chmod $perms $qhome";
-            EBox::Sudo::root($chmod);
+            push (@cmds, "chmod $perms $qhome");
+            EBox::Sudo::root(@cmds);
         }
     }
 }
