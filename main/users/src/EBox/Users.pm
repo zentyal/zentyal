@@ -2812,6 +2812,7 @@ sub writeSambaConfig
 
     my $samba = $self->global()->modInstance('samba');
     if ($samba) {
+        push (@array, 'shares' => 1);
         $samba->writeSambaConfig();
     }
 

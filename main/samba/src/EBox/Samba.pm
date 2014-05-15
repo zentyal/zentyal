@@ -95,7 +95,7 @@ use IO::Socket::INET;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
-use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
+use constant SHARESCONFFILE       => '/etc/samba/shares.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
@@ -146,11 +146,6 @@ sub actions
 sub usedFiles
 {
     return [
-        {
-            'file'   => SAMBACONFFILE,
-            'reason' => __('To set up Samba according to your configuration.'),
-            'module' => 'samba',
-        },
         {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
@@ -786,6 +781,9 @@ sub writeSambaConfig
     push (@array, 'recycle_config' => $self->recycleConfig());
 
     $self->_writeAntivirusConfig();
+
+    $self->writeConfFile(SHARESCONFFILE, 'samba/shares.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
 }
 
 
