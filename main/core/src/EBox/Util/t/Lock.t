@@ -18,7 +18,7 @@
 use warnings;
 use strict;
 
-package EBox::Util::AdvisoryLock::Test;
+package EBox::Util::Lock::Test;
 
 use base 'Test::Class';
 
@@ -36,32 +36,32 @@ sub setUpConfiguration : Test(startup)
 
 sub advlock_use_ok : Test(startup => 1)
 {
-    use_ok('EBox::Util::AdvisoryLock') or die;
+    use_ok('EBox::Util::Lock') or die;
 }
 
 sub test_non_blocking_lock_one : Test(3)
 {
     lives_ok {
-        EBox::Util::AdvisoryLock::lock('foobar');
+        EBox::Util::Lock::lock('foobar');
     } 'Non-blocking lock';
 
     lives_ok {
-        EBox::Util::AdvisoryLock::unlock('foobar');
+        EBox::Util::Lock::unlock('foobar');
     } 'Non-blocking unlock';
 
     lives_ok {
-        EBox::Util::AdvisoryLock::unlock('foobar');
+        EBox::Util::Lock::unlock('foobar');
     } 'Unlock something that does not exist more';
 }
 
 sub test_blocking_lock_one : Test(2)
 {
     lives_ok {
-        EBox::Util::AdvisoryLock::lock('foobar', 1);
+        EBox::Util::Lock::lock('foobar', 1);
     } 'Non-blocking lock';
 
     lives_ok {
-        EBox::Util::AdvisoryLock::unlock('foobar');
+        EBox::Util::Lock::unlock('foobar');
     } 'Non-blocking unlock';
 }
 
@@ -72,16 +72,16 @@ sub test_non_blocking_lock_two : Test(2)
         # Child code
         sleep(1);
         throws_ok {
-            EBox::Util::AdvisoryLock::lock('nonblock');  # It dies
+            EBox::Util::Lock::lock('nonblock');  # It dies
         } 'EBox::Exceptions::Lock', 'Locked by parent';
         exit(0);
     }
 
     lives_ok {
-        EBox::Util::AdvisoryLock::lock('nonblock');
+        EBox::Util::Lock::lock('nonblock');
     } 'Non-blocking lock got by parent';
     waitpid($pid, 0);
-    EBox::Util::AdvisoryLock::unlock('nonblock');
+    EBox::Util::Lock::unlock('nonblock');
 }
 
 sub test_blocking_without_time : Test(3)
@@ -91,17 +91,17 @@ sub test_blocking_without_time : Test(3)
         # Child code
         sleep(1);
         my $time = time();
-        EBox::Util::AdvisoryLock::lock('block', 1); # Blocked
+        EBox::Util::Lock::lock('block', 1); # Blocked
         cmp_ok(time - $time, '>=', 1, 'Blocked by at least 1 sec');
-        EBox::Util::AdvisoryLock::unlock('block');
+        EBox::Util::Lock::unlock('block');
         exit(0);
     }
 
     lives_ok {
-        EBox::Util::AdvisoryLock::lock('block', 1);
+        EBox::Util::Lock::lock('block', 1);
     } 'Blocking lock got by parent';
     sleep(2);
-    EBox::Util::AdvisoryLock::unlock('block');
+    EBox::Util::Lock::unlock('block');
     waitpid($pid, 0);
     ok((!$?), 'Child acquired the lock in the end');
 }
@@ -114,15 +114,15 @@ sub test_wait_lock : Test(3)
         sleep(1);
         my $time = time();
         throws_ok {
-            EBox::Util::AdvisoryLock::lock('block', 1, 1); # Blocked
+            EBox::Util::Lock::lock('block', 1, 1); # Blocked
         } 'EBox::Exceptions::Lock', 'Locked by 1s';
         cmp_ok(time - $time, '>=', 1, 'Locked by 1s');
         exit(0);
     }
 
-    EBox::Util::AdvisoryLock::lock('block');
+    EBox::Util::Lock::lock('block');
     sleep(3);
-    EBox::Util::AdvisoryLock::unlock('block');
+    EBox::Util::Lock::unlock('block');
     waitpid($pid, 0);
     ok((!$?), 'Child was unabled to get the lock');
 }
@@ -131,6 +131,6 @@ sub test_wait_lock : Test(3)
 1;
 
 END {
-    EBox::Util::AdvisoryLock::Test->runtests();
+    EBox::Util::Lock::Test->runtests();
 }
 

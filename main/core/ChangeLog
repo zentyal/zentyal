@@ -1,5 +1,5 @@
 HEAD
-	+ Added AdvisoryLock to have exclusive lock with blocking time
+	+ Enhanced Lock to have exclusive lock with blocking timeout
 	+ Added setMessage() and popMessageAndClass() methods to TreeView
 	+ Enable InnoDB engine when there are only 4 previous databases
 3.2.10
