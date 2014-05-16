@@ -203,10 +203,10 @@ sub _setConf
     my $domain = $settings->domainValue();
 
     push(@array, 'ldapHost' => '127.0.0.1');
-    push(@array, 'ldapPort', $ldapconf->{'port'});
+    push(@array, 'ldapPort' => $ldapconf->{'port'});
     push(@array, 'ldapBase' => $ldap->dn());
-    push(@array, 'ldapRoot', $ldapconf->{'rootdn'});
-    push(@array, 'ldapPasswd' => $ldap->getPassword());
+    push(@array, 'ldapRoot' => $users->administratorDN());
+    push(@array, 'ldapPasswd' => $users->administratorPassword());
     push(@array, 'usersDn' => EBox::Users::User->defaultContainer()->dn());
 
     push(@array, 'domain' => $domain);

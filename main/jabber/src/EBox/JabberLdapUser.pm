@@ -45,7 +45,6 @@ sub _userAddOns
 
     return unless ($self->{jabber}->configured());
 
-
     my $active   = $self->hasAccount($user) ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
 
