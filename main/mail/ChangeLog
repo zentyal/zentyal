@@ -1,6 +1,5 @@
 HEAD
-	+ Don't update alias group list when it could trigger problems
-	  with maibox related classes
+	+ Adapt alias management to constraints by mailboxRelatedObject
 	+ Postfix handles Zentyal distribution groups virtual alias
 3.2.8
 	+ Better integration between mail addon and mail field

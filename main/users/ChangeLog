@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt checking of existent mail to mailboxRelatedObject needs
 	+ Display message when creating a user which username has more
 	  than 20 characters
 3.2.13
