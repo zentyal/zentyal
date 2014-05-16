@@ -414,6 +414,7 @@ sub create
     if (-e $homedir) {
         EBox::warn("Home directory $homedir already exists when creating user $samAccountName");
     }
+    my $quota = $class->defaultQuota();
 
     my $name = $args{name};
     unless ($name) {
@@ -477,6 +478,8 @@ sub create
     if ($dugidNumber) {
         push (@attr, gidNumber => $dugidNumber);
     }
+    push (@attr, homeDirectory => $homedir);
+    push (@attr, quota => $quota);
 
     my $res = undef;
     my $entry = undef;
@@ -505,6 +508,26 @@ sub create
         }
 
         $res->setupUidMapping($uidNumber);
+
+        # Init user
+        if ($isSystemUser) {
+            if ($uidNumber == 0) {
+                # Special case to handle Samba's Administrator. It's like a regular user but without quotas.
+                $usersMod->initUser($res);
+
+                # FIXME
+                # Call modules initialization
+#                $usersMod->notifyModsLdapUserBase(
+#                    'addUser', [ $res ], $self->{ignoreMods}, $self->{ignoreSlaves});
+            }
+        } else {
+            $usersMod->initUser($res);
+            $res->_setFilesystemQuota($quota);
+
+            # Call modules initialization
+#            $usersMod->notifyModsLdapUserBase(
+#                'addUser', [ $res ], $self->{ignoreMods}, $self->{ignoreSlaves});
+        }
     } catch ($error) {
         EBox::error($error);
 

@@ -95,7 +95,7 @@ use IO::Socket::INET;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
-use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
+use constant SHARESCONFFILE       => '/etc/samba/shares.conf';
 use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
@@ -117,7 +117,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __('File Sharing and Domain Services'),
+        printableName => __('File Sharing'),
         @_);
     bless ($self, $class);
     return $self;
@@ -147,11 +147,6 @@ sub usedFiles
 {
     return [
         {
-            'file'   => SAMBACONFFILE,
-            'reason' => __('To set up Samba according to your configuration.'),
-            'module' => 'samba',
-        },
-        {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
             'module' => 'samba',
@@ -171,6 +166,8 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
+    my $ldb = $self->global()->modInstance('users')->ldb();
+
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
     if ($enabled and ($0 =~ /\/global-action$/)) {
@@ -180,12 +177,12 @@ sub _postServiceHook
         # overwritting already existing per-user settings. Also skip if
         # unmanaged_home_directory config key is defined
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-        unless ($self->mode() eq 'adc') {
+        unless ($self->global()->modInstance('users')->dcMode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
             my $usersMod = $self->global()->modInstance('users');
             my $netbiosName = $usersMod->netbiosName();
             my $realmName = $usersMod->kerberosRealm();
-            my $users = $self->ldb->users();
+            my $users = $ldb->users();
             foreach my $user (@{$users}) {
                 unless ($self->ldapObjectFromLDBObject($user)) {
                     # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
@@ -208,12 +205,12 @@ sub _postServiceHook
             }
         }
 
-        my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
+        my $host = $ldb->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
         }
         my $sambaShares = $self->model('SambaShares');
-        my $domainSID = $self->ldb()->domainSID();
+        my $domainSID = $ldb->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
@@ -774,16 +771,19 @@ sub writeSambaConfig
         }
     }
 
-    push (@array, 'shares' => $samba->shares());
+    push (@array, 'shares' => $self->shares());
 
-    push (@array, 'antivirus' => $samba->defaultAntivirusSettings());
-    push (@array, 'antivirus_exceptions' => $samba->antivirusExceptions());
-    push (@array, 'antivirus_config' => $samba->antivirusConfig());
-    push (@array, 'recycle' => $samba->defaultRecycleSettings());
-    push (@array, 'recycle_exceptions' => $samba->recycleExceptions());
-    push (@array, 'recycle_config' => $samba->recycleConfig());
+    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
+    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push (@array, 'antivirus_config' => $self->antivirusConfig());
+    push (@array, 'recycle' => $self->defaultRecycleSettings());
+    push (@array, 'recycle_exceptions' => $self->recycleExceptions());
+    push (@array, 'recycle_config' => $self->recycleConfig());
 
     $self->_writeAntivirusConfig();
+
+    $self->writeConfFile(SHARESCONFFILE, 'samba/shares.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
 }
 
 
@@ -793,12 +793,54 @@ sub _setConf
 
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
-    $self->global()->modInstance('users')->_createDirectories();
+    $self->_createDirectories();
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
+}
+
+sub _createDirectories
+{
+    my ($self) = @_;
+
+    return unless $self->global()->modInstance('users')->isProvisioned();
+
+    my $zentyalUser = EBox::Config::user();
+    my $group = EBox::Users::DEFAULTGROUP();
+    my $nobody = GUEST_DEFAULT_USER;
+    my $avModel = $self->model('AntivirusDefault');
+    my $quarantine = $avModel->QUARANTINE_DIR();
+
+    my @cmds;
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, "chown root " . SAMBA_DIR);
+    push (@cmds, "chgrp '$group' " . SAMBA_DIR);
+    push (@cmds, "chmod 770 " . SAMBA_DIR);
+    push (@cmds, "setfacl -b " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
+
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    push (@cmds, "chown root " . PROFILES_DIR);
+    push (@cmds, "chgrp '$group' " . PROFILES_DIR);
+    push (@cmds, "chmod 770 " . PROFILES_DIR);
+    push (@cmds, "setfacl -b " . PROFILES_DIR);
+
+    push (@cmds, 'mkdir -p ' . SHARES_DIR);
+    push (@cmds, "chown root " . SHARES_DIR);
+    push (@cmds, "chgrp '$group' " . SHARES_DIR);
+    push (@cmds, "chmod 770 " . SHARES_DIR);
+    push (@cmds, "setfacl -b " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
+
+    push (@cmds, "mkdir -p '$quarantine'");
+    push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
+    push (@cmds, "chmod 770 '$quarantine'");
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _adcMode

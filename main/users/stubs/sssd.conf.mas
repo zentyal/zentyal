@@ -13,10 +13,8 @@
     domains = <% $domain %>
 
 [nss]
+    entry_negative_timeout = 0
     debug_level = 5
-#    filter_users = root
-#    filter_groups = root
-
 
 [pam]
     debug_level = 5
@@ -24,8 +22,6 @@
 [domain/<% $domain %>]
     debug_level = 5
     enumerate = false
-#    cache_credentials = true
-#    entry_cache_timeout = 60
 
     id_provider = ad
     auth_provider = ad
@@ -33,7 +29,6 @@
     access_provider = ad
 
     dyndns_update = false
-#    dyndns_refresh_interval = 16
 
     ad_hostname = <% $fqdn %>
     ad_server = <% $fqdn %>
@@ -47,6 +42,5 @@
 
     ldap_sasl_mech = gssapi
     ldap_sasl_authid = host/<% $fqdn %>
-# FIXME: Remove hardcore path
     krb5_keytab = <% $keyTab %>
     ldap_krb5_init_creds = true
