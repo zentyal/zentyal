@@ -128,7 +128,6 @@ sub _checkAccountAlias
 sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
-
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
     EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
@@ -157,13 +156,24 @@ sub _addmailboxRelatedObject
 
     return if $self->_mailboxRelatedObjectInGroup($group);
 
-    $group->add('objectClass', 'mailboxRelatedObject', 1);
-    my @currentMail = $group->get('mail');
-    if (not grep { $_ eq $alias  } @currentMail) {
-        $group->add('mail', $alias, 1) ;
+    my $changes = 0;
+
+    my @objectClass = $group->get('objectClass');
+    my $hasClass = grep { $_ eq 'mailboxRelatedObject' } @objectClass;
+    if (not $hasClass) {
+        $group->add('objectClass', 'mailboxRelatedObject', 1);
+        $changes = 1;
     }
 
-    $group->save();
+    my $mail = $group->get('mail');
+    if (not $mail) {
+        $group->add('mail', $alias, 1) ;
+        $changes = 1;
+    }
+
+    if ($changes) {
+        $group->save();
+    }
 }
 
 sub _delmailboxRelatedObject
@@ -173,13 +183,14 @@ sub _delmailboxRelatedObject
     return unless $self->_mailboxRelatedObjectExists($alias);
 
     my @classes = $group->get('objectClass');
-    my @mail = $group->get('mail');
-
-    @classes = grep { $_ ne 'mailboxRelatedObject' } @classes;
-    @mail = grep { $_ ne $alias } @mail;
-
+    @classes = grep { $_ ne 'mailboxRelatedObject'} @classes;
     $group->set('objectClass', \@classes, 1);
-    $group->set('mail', \@mail, 1);
+
+    my $mail = $group->get('mail');
+    if ($mail eq $alias) {
+        $group->delete('mail', 1);
+    }
+
     $group->save();
 }
 
