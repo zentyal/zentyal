@@ -33,7 +33,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
-use EBox::Util::AdvisoryLock;
+use EBox::Util::Lock;
 use EBox::Iptables;
 use Linux::Inotify2;
 use EBox::Gettext;
@@ -233,7 +233,7 @@ sub _updateSessions
         # try to get firewall lock
         my $lockedFw = 0;
         try {
-            EBox::Util::AdvisoryLock::lock('iptables');
+            EBox::Util::Lock::lock('iptables');
             $lockedFw = 1;
         } otherwise {};
 
@@ -253,7 +253,7 @@ sub _updateSessions
                     }
                 }
             } finally {
-                EBox::Util::AdvisoryLock::unlock('iptables');
+                EBox::Util::Lock::unlock('iptables');
             };
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
@@ -337,33 +337,36 @@ sub _checkChains
 
     my $chainsInPlace = 1;
     try {
-        EBox::Util::AdvisoryLock::lock('iptables', 1, BLOCKED_TIMEOUT);
-        while(my ($table, $chains_list) = each %{$chains}) {
-            foreach my $ch (@{ $chains_list }) {
-                try {
-                    EBox::Sudo::root("iptables -t $table -nL $ch");
-                } otherwise {
-                    $chainsInPlace = 0;
-                };
-            }
-            if (not $chainsInPlace) {
-                next;
-            }
-        }
-
-        if (not $chainsInPlace) {
-            # remove chains to be sure they are not leftovers
+        EBox::Util::Lock::lock('iptables', 1, BLOCKED_TIMEOUT);
+        try {
             while(my ($table, $chains_list) = each %{$chains}) {
                 foreach my $ch (@{ $chains_list }) {
-                    EBox::Sudo::silentRoot("iptables -t $table -F $ch",
-                                           "iptables -t $table -X $ch");
+                    try {
+                        EBox::Sudo::root("iptables -t $table -nL $ch");
+                    } otherwise {
+                        $chainsInPlace = 0;
+                    };
+                }
+                if (not $chainsInPlace) {
+                    next;
                 }
             }
 
-            my $iptables = EBox::Iptables->new();
-            $iptables->executeModuleRules($captive);
-            EBox::Util::AdvisoryLock::unlock('iptables');
-        }
+            if (not $chainsInPlace) {
+                # remove chains to be sure they are not leftovers
+                while(my ($table, $chains_list) = each %{$chains}) {
+                    foreach my $ch (@{ $chains_list }) {
+                        EBox::Sudo::silentRoot("iptables -t $table -F $ch",
+                                               "iptables -t $table -X $ch");
+                    }
+                }
+
+                my $iptables = EBox::Iptables->new();
+                $iptables->executeModuleRules($captive);
+            }
+        } finally {
+            EBox::Util::Lock::unlock('iptables');
+        };
     } catch EBox::Exceptions::Lock with {
         EBox::warn('Firewall was restarting and we assume now the chains are in place');
     };

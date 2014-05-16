@@ -44,7 +44,9 @@ use EBox::Firewall::Model::PacketTrafficReportOptions;
 use EBox::FirewallLogHelper;
 use EBox::Objects;
 use EBox::Validate qw( :all );
-use EBox::Util::AdvisoryLock;
+use EBox::Util::Lock;
+
+use Error qw(:try);
 
 # Time in sec. to be blocked to work on iptables
 use constant BLOCKED_TIMEOUT => 10;
@@ -189,19 +191,22 @@ sub _enforceServiceState
     use EBox::Iptables;
     my $ipt = new EBox::Iptables;
 
-    EBox::Util::AdvisoryLock::lock('iptables', 1, BLOCKED_TIMEOUT);
-    if ($self->isEnabled()) {
-        foreach my $mod (@{ $self->global()->modInstancesOfType('EBox::FirewallObserver') }) {
-            my $helper = $mod->firewallHelper();
-            if ($helper) {
-                $helper->beforeFwRestart();
+    EBox::Util::Lock::lock('iptables', 1, BLOCKED_TIMEOUT);
+    try {
+        if ($self->isEnabled()) {
+            foreach my $mod (@{ $self->global()->modInstancesOfType('EBox::FirewallObserver') }) {
+                my $helper = $mod->firewallHelper();
+                if ($helper) {
+                    $helper->beforeFwRestart();
+                }
             }
+            $ipt->start();
+        } else {
+            $ipt->stop();
         }
-        $ipt->start();
-    } else {
-        $ipt->stop();
-    }
-    EBox::Util::AdvisoryLock::unlock('iptables');
+    } finally {
+        EBox::Util::Lock::unlock('iptables');
+    };
 }
 
 sub _stopService
@@ -209,10 +214,13 @@ sub _stopService
     my ($self) = @_;
 
     use EBox::Iptables;
-    EBox::Util::AdvisoryLock::lock('iptables', 1, BLOCKED_TIMEOUT);
-    my $ipt = new EBox::Iptables;
-    $ipt->stop();
-    EBox::Util::AdvisoryLock::unlock('iptables');
+    EBox::Util::Lock::lock('iptables', 1, BLOCKED_TIMEOUT);
+    try {
+        my $ipt = new EBox::Iptables;
+        $ipt->stop();
+    } finally {
+        EBox::Util::Lock::unlock('iptables');
+    };
 }
 
 # Method: removePortRedirectionsOnIface
