@@ -2926,6 +2926,16 @@ sub drive
     return $model->driveValue();
 }
 
+# Method: administratorCN
+#
+#   Returns the administrator CN
+#
+sub administratorCN
+{
+    my ($self) = @_;
+    return $self->ldap()->userBindDN('Administrator');
+}
+
 # Method: administratorPassword
 #
 #   Returns the administrator password

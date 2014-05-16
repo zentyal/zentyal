@@ -99,11 +99,21 @@ sub _regenConfig
             $state->{'_schemasAdded'} = 1;
             $self->set_state($state);
         }
+        unless ($state->{'_ldapSetup'}) {
+            $self->setupLDAP();
+            $state->{'_ldapSetup'} = 1;
+            $self->set_state($state);
+        }
     } else {
         $self->global()->addModuleToPostSave($self->name());
     }
 
+
     $self->SUPER::_regenConfig(@_);
+}
+
+sub setupLDAP
+{
 }
 
 # Method: reprovisionLDAP
