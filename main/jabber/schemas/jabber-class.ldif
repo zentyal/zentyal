@@ -7,7 +7,7 @@ name: userJabberAccount
 ldapDisplayName: userJabberAccount
 subClassOf: posixAccount
 objectClassCategory: 3
-mustContain: jabberUid
-mustContain: jabberAdmin
+mayContain: jabberUid
+mayContain: jabberAdmin
 defaultObjectCategory: CN=userJabberAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 possSuperiors: top
