@@ -2876,6 +2876,33 @@ sub drive
     return $model->driveValue();
 }
 
+# Method: administratorDN
+#
+#     Administrator DN
+#
+# Returns:
+#
+#     String - the DN for the administrator or undef if it does not exist
+#
+sub administratorDN
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $domainAdminSID = $ldb->domainSID() . '-500';
+
+    my $result = $ldb->search({ base   => $self->userClass()->defaultContainer()->dn(),
+                                filter => "objectSid=$domainAdminSID",
+                                scope  => 'one',
+                                attrs  => ['dn']});
+    my @entries = $result->entries();
+    my $dn;
+    if (scalar(@entries) > 0) {
+        $dn = $entries[0]->dn();
+    }
+    return $dn;
+}
+
 # Method: administratorPassword
 #
 #   Returns the administrator password
