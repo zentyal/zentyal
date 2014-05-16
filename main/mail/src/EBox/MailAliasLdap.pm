@@ -59,9 +59,11 @@ sub new
 #
 sub addAlias
 {
-    my ($self, $alias, $maildrop, $id) = @_;
+    my ($self, $alias, $maildrop, $id, $alreadyChecked) = @_;
 
-    $self->_checkAccountAlias($alias, $maildrop);
+    if (not $alreadyChecked) {
+        $self->_checkAccountAlias($alias, $maildrop);
+    }
 
     my $user = $self->_accountUser($maildrop);
     if (not $user) {
@@ -129,7 +131,7 @@ sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 1);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
@@ -140,7 +142,7 @@ sub addGroupAlias
     my $first = 1;
     foreach my $mail (@mailAccounts) {
         if ($first) {
-            $self->addAlias($alias, $mail, $group->get('cn'));
+            $self->addAlias($alias, $mail, $group->get('cn'), 1);
             $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);

@@ -1854,9 +1854,9 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail) =@_;
+    my ($self, $mail, $isAlias) =@_;
     # TODO: check vdomain alias mapping to the other domains?
-    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+    $self->global()->modInstance('users')->checkMailNotInUse($mail, $isAlias);
 
     # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
