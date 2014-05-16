@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-04-23 17:04+0200\n"
+"PO-Revision-Date: 2014-05-13 10:54+0200\n"
 "Last-Translator: Snubbi <carl@manjaro.dk>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: da\n"
@@ -5732,7 +5732,7 @@ msgstr "Informer mail afsender-konto"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Drop silently"
-msgstr ""
+msgstr "Drop lydløst"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
 msgid "Mailfilter's policy"
@@ -5740,11 +5740,11 @@ msgstr "Beskedfilterets regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:62
 msgid "To configure amavis"
-msgstr "At opsætte amavis"
+msgstr "Opsætnig af amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:416
 msgid "Zentyal internal mail filter"
-msgstr "Internt Zentyal besked-filter"
+msgstr "Internt Zentyal mail-filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:429
 msgid "SMTP filter proxy"
@@ -5753,11 +5753,11 @@ msgstr "SMTP proxy filter"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr "Virtuelt post domæne {vd} eksisterer ikke"
+msgstr "Virtuelt mail domæne {vd} eksisterer ikke"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
-msgstr "At opsætte spamassassin dæmonen"
+msgstr "Konfigurering af spamassassin dæmon"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:325
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
@@ -5793,38 +5793,36 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:389
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Konti fra domænet {d} kan ikke træne Bayesian filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
-#, fuzzy
 msgid "External connections"
-msgstr "Externe mail domæner"
+msgstr "Externe forbindelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
-msgstr "Mail filter"
+msgstr "Vedhæftede filer Filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Filter mails ifølge vedhæftede filer. Den gennemsigtige POP proxy kan kun "
+"filtre ved udvidelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FilterReport.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/POPProxyReport.pm:39
-#, fuzzy
 msgid "Mail filter report"
-msgstr "Mailfilter's port"
+msgstr "Mail filter report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FilterReport.pm:40
-#, fuzzy
 msgid "Mail Filter report"
-msgstr "Mailfilter's port"
+msgstr "Mail Filter report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/POPProxyReport.pm:40
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Transparent POP proxy report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:88
 #, perl-brace-format
@@ -5833,10 +5831,13 @@ msgid ""
 "Commercial Editions{closehref} that includes the Antispam feature in the "
 "automatic security updates."
 msgstr ""
+"Ønsker du at holde spam ude af dine mail-servere? Få en af ​​de {openhref} "
+"Kommercielle Editions {closehref} der omfatter Antispam-funktionen i de "
+"automatiske sikkerhedsopdateringer."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:58
 msgid " To configure p3scan"
-msgstr "for at indstille p3skan"
+msgstr "Konfigurering af p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:63
 msgid "To configure renattach"
@@ -5908,12 +5909,10 @@ msgid "Antispam sender policy"
 msgstr "Antispam afsender regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:160
-#, fuzzy
 msgid "Virtual Domains specific policies"
-msgstr "Virtuel domæne liste"
+msgstr "Virtual Domæne specifikke lister"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:166
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Virtuel domæne liste"
 
@@ -5923,6 +5922,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Der er ingen virtuelle mail-domæner, der håndteres af denne server. Du kan "
+"oprette nogle i {openA} virtuelle domæner mail side {closeA}."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
 msgid "The score threshold to mark a message as spam"
@@ -5958,7 +5959,7 @@ msgstr "Tilbagemelding til læresystemet, med meddelelser der når tærsklen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
 msgid "Autolearn spam threshold"
-msgstr "Indlærings spam tærskel"
+msgstr "Selvindlærings spam tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
 msgid ""
@@ -5970,7 +5971,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
 msgid "Autolearn ham threshold"
-msgstr "Indlæring ham tærskel"
+msgstr "Selvindlæring ham tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid ""
@@ -5988,13 +5989,13 @@ msgstr "Antispam konfigurering"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
-"Niveauet for automatisk spam indlæring skal angives, når autoindlæring er "
+"Niveauet for automatisk spam indlæring skal angives, når selvindlæring er "
 "slået til"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:163
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
-"Niveauet for automatisk ham indlæring skal angives, når autoindlæring er "
+"Niveauet for automatisk ham indlæring skal angives, når selvindlæring er "
 "slået til"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:169
@@ -6002,19 +6003,19 @@ msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
-"Spam's selvlærings tærskel kan ikke være lavere end default spam's tærskel"
+"Spam's selvlæringstærskel kan ikke være lavere end standard spam's tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:175
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
-"Ham's selvlærings tærskel kan ikke være større eller lig med default spam "
+"Ham's selvlæringstærskel kan ikke være større eller lig med stadard spam "
 "niveau"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
-msgstr "Eksternt post domæne"
+msgstr "Eksternt mail domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
@@ -6023,18 +6024,18 @@ msgstr "Tillad forbindelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
 msgid "External mail domains"
-msgstr "Eksterne post domæner"
+msgstr "Eksterne mail domæner"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
 msgid "external mail domain"
-msgstr "Eksternt post domæne"
+msgstr "eksternt mail domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
-"Her kan du angive, hvilke eksterne post domæner der kan forbinde sig til "
+"Her kan du angive, hvilke eksterne mail domæner der kan forbinde sig til "
 "mail filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
@@ -6044,7 +6045,7 @@ msgstr "{d} er et internt, virtuelt Zentyal over domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "External mail server"
-msgstr "Ekstern post server"
+msgstr "Ekstern mail server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
 msgid "IP address of the server"
@@ -6052,18 +6053,18 @@ msgstr "Serverens IP-adresse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
 msgid "External mail servers"
-msgstr "Eksterne post servere"
+msgstr "Eksterne mail servere"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
 msgid "external mail server"
-msgstr "Ekstern post server"
+msgstr "ekstern mail server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
-"Her kan du angive, hvilke eksterne post servere der kan forbinde til post-"
+"Her kan du angive, hvilke eksterne mail servere der kan forbinde til post-"
 "filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
@@ -6108,9 +6109,8 @@ msgstr "antal beskeder totalt"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:77
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:57
-#, fuzzy
 msgid "clean messages"
-msgstr "Lært fra mailbox file"
+msgstr "rens beskeder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:50
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:60
@@ -6129,7 +6129,7 @@ msgstr "inficerede beskeder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:96
 msgid "Transparent POP proxy traffic details"
-msgstr "Detaljer for trafik i den gennemsigtigt POP proxy"
+msgstr "Detaljer for trafik i den gennemsigtigte POP proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:120
@@ -6142,7 +6142,7 @@ msgstr "trafik"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
 msgid "Mail sender"
-msgstr "Besked afsender"
+msgstr "Mail afsender"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
@@ -6176,23 +6176,24 @@ msgstr "proces"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:104
 msgid "Filter virus"
-msgstr ""
+msgstr "Filter virus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
-#, fuzzy
 msgid "Filter spam"
-msgstr "filter type"
+msgstr "Filter spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
-#, fuzzy
 msgid "ISP spam subject"
-msgstr "Spam subjekt mærke"
+msgstr "ISP spam emne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Denne indstilling giver dig mulighed for at angive strengen som "
+"internetudbyderen bruger hvis\n"
+"den behandler din e-mail for SPAM."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 msgid "POP Transparent Proxy"
@@ -6203,18 +6204,17 @@ msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"POP transparent proxy skal scanne efter noget for at være brugbar. Hvis du "
+"ikke behøver, hverken antivirus eller spam scanning foreslår vi, at du slår "
+"det fra"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:144
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:152
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:163
-#, fuzzy
 msgid "MIME Type"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME type\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "MIME Type"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
@@ -6226,51 +6226,42 @@ msgstr "Tillad"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:183
-#, fuzzy
 msgid "MIME types"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME type\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "MIME typer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
-#, fuzzy
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
-msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+msgstr ""
+"MIME-typer, der ikke er anført nedenfor er tilladt. MIME-typer anvendes ikke "
+"af POP transparent proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:59
-#, fuzzy
 msgid "File extension"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"fil endelse\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "Fil endelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:136
-#, fuzzy
 msgid "File extensions"
-msgstr "fil endelse"
+msgstr "Fil endelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
-#, fuzzy
 msgid "Extensions which are not listed below are allowed"
-msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+msgstr "Endelser som ikke er nævnt nedenfor er tilladt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
 msgid "Mailbox"
-msgstr "Postkasse"
+msgstr "Mail-boks"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
 msgid "Mailbox contains"
-msgstr "Postkassen indeholder"
+msgstr "Mail-boksen indeholder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
 msgid "Train bayesian spam filter"
-msgstr "Forbeder bayesian spam filter"
+msgstr "Træn Bayesian spam filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Learned from messages"
@@ -6294,70 +6285,62 @@ msgstr "ham"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr "Ugyldig postkasse type: {type}"
+msgstr "Ugyldig mail-boks type: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:50
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:60
-#, fuzzy
 msgid "banned files"
-msgstr "Banned files politik"
+msgstr "Bannede filer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:53
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:82
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:64
 msgid "infected"
-msgstr ""
+msgstr "Inficeret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:56
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:68
 msgid "bad header"
-msgstr "ulovligt sidehoved"
+msgstr "ulovlig header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:72
 msgid "blacklisted"
-msgstr "uønsket"
+msgstr "blacklisted"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:98
 msgid "blacklisted senders"
-msgstr "uønskede afsendere"
+msgstr "blacklisted afsendere"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:103
 msgid "bad message header"
-msgstr "Ugyldigt format på besked-sidehoved"
+msgstr "Ulovlig format på besked-header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:112
 msgid "Filter traffic details"
 msgstr "Detaljer for trafik i filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:45
-#, fuzzy
 msgid "Mail filter graph"
-msgstr "Mail filter"
+msgstr "Mail filter graf"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:93
 msgid "Filter traffic"
 msgstr "Filter trafik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
-#, fuzzy
 msgid "Sender policy"
-msgstr "Bad headers politik"
+msgstr "Afsender regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-#, fuzzy
 msgid "Virtual Domains"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Mail domæne\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuelle domæner"
+msgstr "Virtuelle domæner"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:45
 msgid "POP proxy graph"
-msgstr "POP proxy grafik"
+msgstr "POP proxy graf"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:85
 msgid "Transparent POP proxy traffic"
@@ -6365,29 +6348,27 @@ msgstr "Gennemsigtig POP proxy trafik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
 msgid "Virus policy"
-msgstr "Virus politik"
+msgstr "Virus regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
 msgid "Spam policy"
-msgstr "Spam politik"
+msgstr "Spam regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
 msgid "Bounce policy will be ignored for high-score spam messages"
-msgstr ""
+msgstr "Bounce regelsæt vil blive ignoreret til high-score spam-meddelelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
 msgid "Banned files policy"
-msgstr "Banned files politik"
+msgstr "Bannede filer regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
-#, fuzzy
 msgid "Bad header policy"
-msgstr "Bad headers politik"
+msgstr "Skadelig header regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
-msgstr "Mailfilter's port"
+msgstr "Filter Regelsæt"
 
 #: ../../main/radius/src/EBox/Radius.pm:64
 msgid "Create RADIUS certificates for TTLS"
@@ -6398,11 +6379,12 @@ msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"eBox vil lave de nødvendige certifikater for TTLS i /etc/freeradius/certs/."
+"Zentyal vil oprette de nødvendige certifikater til TTLS i "
+"/etc/freeradius/certs/."
 
 #: ../../main/radius/src/EBox/Radius.pm:70
 msgid "Allow others to read /var/log/freeradius"
-msgstr ""
+msgstr "Tillad andre at læse /var/log/freeradius"
 
 #: ../../main/radius/src/EBox/Radius.pm:71
 msgid ""
