@@ -77,7 +77,7 @@
 {ldap_filter, "(objectClass=userJabberAccount)"}.
 {ldap_rootdn, "<% $ldapRoot %>"}.
 {ldap_password, "<% $ldapPasswd %>"}.
-{ldap_uids, ["jabberUid"]}.
+{ldap_uids, [{"jabberUid", "%u"}]}.
 
 {shaper, normal, {maxrate, 1000}}.
 {shaper, fast, {maxrate, 50000}}.
