@@ -6379,8 +6379,8 @@ msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"Zentyal vil oprette de nødvendige certifikater til TTLS i "
-"/etc/freeradius/certs/."
+"Zentyal vil oprette de nødvendige certifikater til TTLS i /etc/freeradius/"
+"certs/."
 
 #: ../../main/radius/src/EBox/Radius.pm:70
 msgid "Allow others to read /var/log/freeradius"
