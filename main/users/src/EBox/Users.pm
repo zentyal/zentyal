@@ -1623,13 +1623,11 @@ sub notifyModsPreLdapUserBase
 #   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
 #   args - single value or array ref containing signal parameters
 #   ignored_modules - array ref of modnames to ignore (won't be notified)
+#   ignored_slaves -
 #
 sub notifyModsLdapUserBase
 {
     my ($self, $signal, $args, $ignored_modules, $ignored_slaves) = @_;
-
-    # FIXME: temporary disabled, until isInDefaultContainer is fixed
-    return;
 
     # convert signal to method name
     my $method = '_' . $signal;
@@ -1647,7 +1645,7 @@ sub notifyModsLdapUserBase
 
         # TODO catch errors here? Not a good idea. The way to go is
         # to implement full transaction support and rollback if a notified
-        # module throw an exception
+        # module throws an exception
         $mod->$method(@{$args});
     }
 
@@ -1756,7 +1754,7 @@ sub allUserAddOns
     my ($self, $user) = @_;
 
     # FIXME: disabled until parent issues are fixed
-    return [];
+    #return [];
 
     my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 

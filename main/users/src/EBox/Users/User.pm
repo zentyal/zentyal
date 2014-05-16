@@ -520,16 +520,16 @@ sub create
 
                 # FIXME
                 # Call modules initialization
-#                $usersMod->notifyModsLdapUserBase(
-#                    'addUser', [ $res ], $self->{ignoreMods}, $self->{ignoreSlaves});
+               $usersMod->notifyModsLdapUserBase(
+                   'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
             }
         } else {
             $usersMod->initUser($res);
             $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
-#            $usersMod->notifyModsLdapUserBase(
-#                'addUser', [ $res ], $self->{ignoreMods}, $self->{ignoreSlaves});
+           $usersMod->notifyModsLdapUserBase(
+               'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
         }
     } catch ($error) {
         EBox::error($error);
