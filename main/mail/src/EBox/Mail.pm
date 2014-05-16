@@ -307,12 +307,6 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
-    $self->{musers}->setupUsers();
-
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
-
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
@@ -321,6 +315,16 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+sub setupLDAP
+{
+    my ($self) = @_;
+    # Create the kerberos service principal in kerberos,
+    # export the keytab and set the permissions
+#    $self->kerberosCreatePrincipals();
+
+    $self->{musers}->setupUsers();
 }
 
 #  Method: enableModDepends
@@ -407,8 +411,11 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    push (@array, 'bindDN', $users->ldap->roRootDn());
-    push (@array, 'bindPW', $users->ldap->getRoPassword());
+    my $adminDn     = $users->administratorCN();
+    my $adminPasswd = $users->administratorPassword();
+
+    push (@array, 'bindDN', $adminDn);
+    push (@array, 'bindPW', $adminPasswd);
     push (@array, 'hostname' , $self->_fqdn());
     push (@array, 'mailname' , $self->mailname());
     push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
@@ -636,14 +643,12 @@ sub _setDovecotConf
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
-    my $roPwd = $users->ldap->getRoPassword();
-
     # ldap dovecot conf file
     @params = ();
     push (@params, baseDN      => $users->ldap()->dn());
     push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
-    push (@params, zentyalROPwd => $roPwd);
+    push (@params, zentyalRO    => $users->administratorCN());
+    push (@params, zentyalROPwd => $users->administratorPassword());
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 
     if ($openchange) {
