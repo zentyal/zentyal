@@ -20,7 +20,6 @@ package EBox::Module::LDAP;
 use base qw(EBox::Module::Service);
 
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
@@ -50,7 +49,7 @@ sub ldap
     my ($self) = @_;
 
     unless(defined($self->{ldap})) {
-        $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
+        $self->{ldap} = $self->global()->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
 }
