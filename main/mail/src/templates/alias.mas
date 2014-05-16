@@ -119,9 +119,6 @@ $(function() {
             errorDiv: '#error_userMailAlias',
             submitButton: '#userMailCreateAlias_submit',
             success : function (response) {
-                if ('mail' in response) {
-                    Zentyal.MailUserAddon.accountChange(response.mail);
-                }
                 if ('aliases' in response) {
                     refreshAliasList(response.aliases);
                 }
@@ -149,9 +146,6 @@ $(function() {
                 $('#note_userMailAlias').html(response.msg).show();
             } else {
                $('#error_userMailAlias').html(response.error).show();
-            }
-            if ('mail' in response) {
-                    Zentyal.MailUserAddon.accountChange(response.mail);
             }
             if ('aliases' in response) {
                 refreshAliasList(response.aliases);
