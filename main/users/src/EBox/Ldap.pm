@@ -234,6 +234,9 @@ sub dn
     my ($self) = @_;
 
     unless ($self->{dn}) {
+        unless (EBox::Global->modInstance('users')->isProvisioned()) {
+            throw EBox::Exceptions::Internal('Samba is not yet provisioned');
+        }
         my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep ^dn:");
         my ($dn) = $output->[0] =~ /^dn: (.*)$/;
         if ($dn) {
