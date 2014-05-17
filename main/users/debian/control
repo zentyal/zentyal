@@ -16,7 +16,7 @@ Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0),
          expect,
          samba (>= 2:4.1.6), samba-vfs-modules, sssd, ldb-tools,
          apache2-utils, libnet-ldap-perl, adduser, quota, acl,
-         libquota-perl, liburi-encode-perl, libnss-sss, libpam-sss,
+         libquota-perl, liburi-encode-perl, libnss-sss, libpam-sss, sssd-tools,
          libsys-filesystem-perl, libgssapi-perl, auth-client-config,
          libauthen-sasl-perl, libnet-ntp-perl, libnet-dns-perl, libnet-ping-perl,
          libauthen-krb5-easy-perl (>= 0.90-6), libdate-calc-xs-perl, ${misc:Depends}

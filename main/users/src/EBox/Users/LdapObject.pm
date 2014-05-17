@@ -408,8 +408,6 @@ sub deleteObject
 #   This method is only needed if some operation
 #   was used using lazy flag
 #
-#   Override EBox::Users::LdapObject::save
-#
 sub save
 {
     my ($self, $control) = @_;
@@ -710,7 +708,6 @@ sub isInDefaultContainer
     my ($self) = @_;
 
     my $parent = $self->parent();
-    # FIXME: parent is undefined!
     my $defaultContainer = $self->defaultContainer();
     return ($parent->dn() eq $defaultContainer->dn());
 }
@@ -871,6 +868,5 @@ sub checkMail
     my $mod = $global->modExists('mail') ? $global->modInstance('mail') : $global->modInstance('users');
     $mod->checkMailNotInUse($address);
 }
-
 
 1;

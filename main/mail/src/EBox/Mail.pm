@@ -411,7 +411,7 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    my $adminDn     = $users->administratorCN();
+    my $adminDn     = $users->administratorDN();
     my $adminPasswd = $users->administratorPassword();
 
     push (@array, 'bindDN', $adminDn);
@@ -647,7 +647,7 @@ sub _setDovecotConf
     @params = ();
     push (@params, baseDN      => $users->ldap()->dn());
     push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => $users->administratorCN());
+    push (@params, zentyalRO    => $users->administratorDN());
     push (@params, zentyalROPwd => $users->administratorPassword());
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 

@@ -45,7 +45,6 @@ sub _userAddOns
 
     return unless ($self->{jabber}->configured());
 
-
     my $active   = $self->hasAccount($user) ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
 
@@ -116,12 +115,12 @@ sub setHasAccount
         $user->save();
     }
     elsif (not $self->hasAccount($user) and $option) {
-        my @objectclasses = $user->get('objectClass');
-        push (@objectclasses, 'userJabberAccount');
+        # Due to a bug in Samba4 we cannot update an objectClass and its attributes at the same time
+        $user->add('objectClass', 'userJabberAccount');
+        $user->clearCache();
 
-        $user->set('jabberUid', $user->name(), 1);
-        $user->set('jabberAdmin', 'FALSE', 1);
-        $user->set('objectClass', \@objectclasses, 1);
+        $user->add('jabberUid', $user->name(), 1);
+        $user->add('jabberAdmin', 'FALSE', 1);
         $user->save();
     }
 
