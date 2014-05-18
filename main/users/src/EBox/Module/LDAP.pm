@@ -91,24 +91,34 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    if ($self->global()->modInstance('users')->isProvisioned()) {
-        my $state = $self->get_state();
-        unless ($state->{'_schemasAdded'}) {
-            $self->_loadSchemas();
-            $state->{'_schemasAdded'} = 1;
-            $self->set_state($state);
-        }
-        unless ($state->{'_ldapSetup'}) {
-            $self->setupLDAP();
-            $state->{'_ldapSetup'} = 1;
-            $self->set_state($state);
-        }
-    } else {
-        $self->global()->addModuleToPostSave($self->name());
+    my $users = $self->global()->modInstance('users');
+
+    if ($users->isProvisioned()) {
+        $self->_performSetup();
+        $self->SUPER::_regenConfig(@_);
+    } elsif ($self eq $users) {
+        # If not provisioned but we are saving the users
+        # module, let do the provision first
+        $self->SUPER::_regenConfig(@_);
+        $self->_performSetup();
     }
+}
 
+sub _performSetup
+{
+    my ($self) = @_;
 
-    $self->SUPER::_regenConfig(@_);
+    my $state = $self->get_state();
+    unless ($state->{'_schemasAdded'}) {
+        $self->_loadSchemas();
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
+    }
+    unless ($state->{'_ldapSetup'}) {
+        $self->setupLDAP();
+        $state->{'_ldapSetup'} = 1;
+        $self->set_state($state);
+    }
 }
 
 sub setupLDAP
