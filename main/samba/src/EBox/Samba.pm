@@ -1833,19 +1833,6 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
-# Method: dMD
-#
-#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
-#
-sub dMD
-{
-    my ($self) = @_;
-
-    my $ldb = $self->global()->modInstance('users')->ldb();
-    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
-    return new EBox::Samba::DMD(dn => $dn);
-}
-
 # Method: hiddenSid
 #
 #   Check if the specified LDB object belongs to the list of regexps

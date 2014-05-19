@@ -2933,4 +2933,16 @@ sub administratorPassword
     return read_file($pwdFile);
 }
 
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $dn = "CN=Schema,CN=Configuration," . $self->ldb()->dn();
+    return new EBox::Users::DMD(dn => $dn);
+}
+
 1;
