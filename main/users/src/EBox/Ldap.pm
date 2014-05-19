@@ -638,6 +638,10 @@ sub dnsZones
 {
     my ($self) = @_;
 
+    unless ($self->global()->modInstance('users')->isProvisioned()) {
+        return [];
+    }
+
     my $defaultNC = $self->dn();
     my @zonePrefixes = (
         "CN=MicrosoftDNS,DC=DomainDnsZones,$defaultNC",
