@@ -317,58 +317,26 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-
-sub _createZentyalConfContainer
-{
-    my ($self) = @_;
-
-    EBox::debug('XXX');
-    EBox::trace();
-
-    my $usersMod = EBox::Global->getInstance()->modInstance('users');
-    my $ldb = $usersMod->ldb();
-
-    my $containerName = 'zentyal';
-    my $dn = "CN=$containerName,CN=configuration," . $ldb->dn();
-    if ($ldb->existsDN($dn)) {
-        EBox::debug("XXX Zentyal container already exists");
-        return;
-    }
-
-    my %attr = (#objectClass  => ['top', 'container'],
-                objectClass  => ['container'],
-#                cn           => $containerName,
-#                name         => $containerName,
-#                description  => 'Container for Zentyal configuration',
-#                instanceType => 4
-               );
-    $ldb->add($dn, \%attr);
-        EBox::debug("XXX END Zentyal container");
-}
-
-
-
 sub setupLDAP
 {
     my ($self) = @_;
 
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-#    $self->kerberosCreatePrincipals();
-    # add containers for mail configuration
-    # $self->_createZentyalConfContainer();
-
-    # my $ldap = $self->ldap();
-
-    # # XXX this twol ines should be done in users
-    # my $confDN = 'cn=zentyal,cn=configuration,' . $ldap->dn();
-    # $ldap->add($confDN, {objectClass => 'container' });
-
-
-    # my $mailConfDN = 'cn=mail,cn=zentyal,cn=configuration,' . $ldap->dn();
-    # $ldap->add($mailConfDN, {objectClass => 'container' });
-    # $ldap->add("cn=vdomains,$mailConfDN", {objectClass => 'container' });
-    # $ldap->add("cn=alias,$mailConfDN", {objectClass => 'container' });
+    my $ldap = $self->ldap();
+    my $baseDn =  $ldap->dn();
+    my @containers = (
+        'CN=zentyal,CN=configuration,' . $baseDn,
+        'CN=mail,CN=zentyal,CN=configuration,' . $baseDn,
+        $self->{vdomains}->vdomainDn,
+        $self->{malias}->aliasDn,
+     );
+    foreach my $dn (@containers) {
+        if (not $ldap->existsDN($dn)) {
+            $ldap->add($dn, {attr => [
+                'objectClass' => 'top',
+                'objectClass' => 'container'
+               ]});
+        }
+    }
 
     $self->{musers}->setupUsers();
 }
@@ -1874,7 +1842,7 @@ sub reprovisionLDAP
     $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
-    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
+#    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 }
 
 sub slaveSetupWarning

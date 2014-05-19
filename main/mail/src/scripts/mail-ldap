@@ -55,7 +55,7 @@ sub clean
     $vdomain->{ldap}->connection();
     my $ldap = $vdomain->{ldap}->{ldap};
 
-    my $pdn = "ou=postfix, " . $vdomain->{ldap}->dn;
+    my $pdn = "cn=mail,cn=zentyal,cn=configuration" . $vdomain->{ldap}->dn;
     my $adn = $alias->aliasDn;
     my $vdn = $vdomain->vdomainDn;
 
