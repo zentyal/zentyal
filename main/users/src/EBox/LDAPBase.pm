@@ -195,12 +195,13 @@ sub existsDN
 {
     my ($self, $dn) = @_;
 
+    my $ldap = $self->connection();
     my @searchArgs = (
         base => $dn,
         scope => 'base',
         filter => "(objectclass=*)"
        );
-    my $result = $self->{ldap}->search(@searchArgs);
+    my $result = $ldap->search(@searchArgs);
     if ($result->is_error()) {
         if ($result->code() == Net::LDAP::Constant::LDAP_NO_SUCH_OBJECT()) {
             # base does not exists
