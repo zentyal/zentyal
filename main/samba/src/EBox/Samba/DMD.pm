@@ -69,8 +69,8 @@ sub ownedByZentyal
 {
     my ($self) = @_;
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $ldb = $sambaMod->ldb();
+    my $usersMod = EBox::Global->modInstance('users');
+    my $ldb = $usersMod->ldb();
     my $sysinfoMod = EBox::Global->modInstance('sysinfo');
 
     my $schemaRole = $self->get('fSMORoleOwner');

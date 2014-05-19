@@ -789,11 +789,11 @@ sub configurationContainer
 {
     my ($self) = @_;
 
-    my $sambaMod = $self->global->modInstance('samba');
-    unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
+    my $usersMod = $self->global->modInstance('users');
+    unless ($usersMod->isEnabled() and $usersMod->isProvisioned()) {
         return undef;
     }
-    my $defaultNC = $sambaMod->ldb()->dn();
+    my $defaultNC = $usersMod->ldb()->dn();
     my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
 
     my $object = new EBox::OpenChange::ExchConfigurationContainer(dn => $dn);

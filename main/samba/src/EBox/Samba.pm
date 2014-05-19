@@ -1841,7 +1841,7 @@ sub dMD
 {
     my ($self) = @_;
 
-    my $ldb = $self->ldb();
+    my $ldb = $self->global()->modInstance('users')->ldb();
     my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
     return new EBox::Samba::DMD(dn => $dn);
 }
