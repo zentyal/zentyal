@@ -166,7 +166,10 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    my $ldb = $self->global()->modInstance('users')->ldb();
+    my $usersMod = $self->global()->modInstance('users');
+    return unless $usersMod->isProvisioned();
+
+    my $ldb = $usersMod->ldb();
 
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
@@ -179,17 +182,10 @@ sub _postServiceHook
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
         unless ($self->global()->modInstance('users')->dcMode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
-            my $usersMod = $self->global()->modInstance('users');
             my $netbiosName = $usersMod->netbiosName();
             my $realmName = $usersMod->kerberosRealm();
             my $users = $ldb->users();
             foreach my $user (@{$users}) {
-                unless ($self->ldapObjectFromLDBObject($user)) {
-                    # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
-                    EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
-                    next;
-                }
-
                 # Set roaming profiles
                 if ($self->roamingProfiles()) {
                     my $path = "\\\\$netbiosName.$realmName\\profiles";
@@ -1675,55 +1671,6 @@ sub gpos
     }
 
     return $gpos;
-}
-
-# Method: ldapObjectFromLDBObject
-#
-#   Return the perl Object that handles in OpenLDAP the given perl object from Samba or undef if not found.
-#
-sub ldapObjectFromLDBObject
-{
-    my ($self, $ldbObject) = @_;
-
-    unless ($ldbObject) {
-        throw EBox::Exceptions::MissingArgument('ldbObject')
-    }
-    unless ($ldbObject->isa('EBox::Users::LdapObject')) {
-        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Users::LdapObject');
-    }
-
-    my $usersMod = EBox::Global->modInstance('users');
-
-    if ($ldbObject->isa('EBox::Samba::NamingContext')) {
-        return $usersMod->defaultNamingContext();
-    }
-
-    my $objectGUID = $ldbObject->objectGUID();
-    return $self->ldapObjectByObjectGUID($objectGUID);
-}
-
-# Method: ldbObjectFromLDAPObject
-#
-#   Return the perl Object that handles in Samba the given perl object from OpenLDAP or undef if not found.
-#
-sub ldbObjectFromLDAPObject
-{
-    my ($self, $ldapObject) = @_;
-
-    throw EBox::Exceptions::MissingArgument('ldapObject') unless ($ldapObject);
-    throw EBox::Exceptions::InvalidType('ldapObject', 'EBox::Users::LdapObject') unless ($ldapObject->isa('EBox::Users::LdapObject'));
-
-    if ($ldapObject->isa('EBox::Users::NamingContext')) {
-        return $self->defaultNamingContext();
-    }
-
-    my $objectGUID = $ldapObject->get('msdsObjectGUID');
-    if ($objectGUID) {
-        return $self->ldbObjectByObjectGUID($objectGUID);
-    } else {
-        EBox::debug("Unable to find the LDB object for LDAP's DN: " . $ldapObject->dn());
-        return undef;
-    }
 }
 
 # Method: entryModeledObject

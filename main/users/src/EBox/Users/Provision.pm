@@ -1429,7 +1429,9 @@ sub _hideInternalGroups
 
     foreach my $group (qw(DnsAdmins DnsUpdateProxy)) {
         my $gr = new EBox::Users::Group(gid => $group);
-        $gr->set('showInAdvancedViewOnly', 'TRUE');
+        if ($gr->exists()) {
+            $gr->set('showInAdvancedViewOnly', 'TRUE');
+        }
     }
 }
 
