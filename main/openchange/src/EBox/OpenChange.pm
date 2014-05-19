@@ -226,8 +226,8 @@ sub isRunning
     my $running = $self->SUPER::isRunning();
 
     if ($running) {
-        my $sambaMod = $self->global()->modInstance('samba');
-        return $sambaMod->isRunning();
+        my $usersMod = $self->global()->modInstance('users');
+        return $usersMod->isRunning();
     } else {
         return $running;
     }
@@ -372,8 +372,8 @@ sub _writeSOGoConfFile
     my $timezoneModel = $sysinfo->model('TimeZone');
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
-    my $samba = $self->global->modInstance('samba');
-    my $dcHostName = $samba->ldb->rootDse->get_value('dnsHostName');
+    my $users = $self->global->modInstance('users');
+    my $dcHostName = $users->ldb->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
     push (@{$array}, sogoPort => SOGO_PORT);
@@ -406,9 +406,12 @@ sub _writeSOGoConfFile
         $baseDN = "ou=Users,$baseDN";
     }
 
+    my $adminDn     = $users->administratorDN();
+    my $adminPasswd = $users->administratorPassword();
+
     push (@{$array}, ldapBaseDN => $baseDN);
-    push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
-    push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
+    push (@{$array}, ldapBindDN => $adminDn);
+    push (@{$array}, ldapBindPwd => $adminPasswd);
     push (@{$array}, ldapHost => $self->ldap->LDAPI());
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
@@ -422,7 +425,7 @@ sub _setAutodiscoverConf
     my ($self) = @_;
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $samba   = $global->modInstance('samba');
+    my $users   = $global->modInstance('users');
     my $mail    = $global->modInstance('mail');
 
     my $server    = $sysinfo->hostDomain();
@@ -432,8 +435,8 @@ sub _setAutodiscoverConf
     }
     my $confFileParams = [
         bindDn    => 'cn=Administrator',
-        bindPwd   => $samba->administratorPassword(),
-        baseDn    => 'CN=Users,' . $samba->ldb()->dn(),
+        bindPwd   => $users->administratorPassword(),
+        baseDn    => 'CN=Users,' . $users->ldb()->dn(),
         port      => 389,
         adminMail => $adminMail,
     ];
@@ -817,7 +820,7 @@ sub organizations
     my ($self) = @_;
 
     my $list = [];
-    my $sambaMod = $self->global->modInstance('samba');
+    my $usersMod = $self->global->modInstance('users');
     my $configurationContainer = $self->configurationContainer();
 
     return $list unless ($configurationContainer);
@@ -828,7 +831,7 @@ sub organizations
         filter => '(objectclass=msExchOrganizationContainer)',
         attrs => ['*'],
     };
-    my $result = $sambaMod->ldb()->search($params);
+    my $result = $usersMod->ldb()->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $organization = new EBox::OpenChange::ExchOrganizationContainer(entry => $entry);
         push (@{$list}, $organization);
