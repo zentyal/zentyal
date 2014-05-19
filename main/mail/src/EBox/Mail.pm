@@ -327,17 +327,6 @@ sub setupLDAP
     $self->{musers}->setupUsers();
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends
-{
-    my ($self) = @_;
-    my @depends =  ('network', 'users');
-    return \@depends;
-}
-
 # Method: eventDispatchers
 #
 # Overrides:
