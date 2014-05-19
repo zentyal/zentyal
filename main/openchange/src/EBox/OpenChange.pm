@@ -32,7 +32,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
-use EBox::Samba qw(PRIVATE_DIR);
+use EBox::Users;
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
@@ -58,7 +58,7 @@ use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
-use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR . 'mapistore/master.password';
+use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Users::PRIVATE_DIR() . 'mapistore/master.password';
 
 # Method: _create
 #
