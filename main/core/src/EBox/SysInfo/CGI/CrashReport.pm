@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,9 +20,10 @@ package EBox::SysInfo::CGI::CrashReport;
 
 use base qw(EBox::CGI::ClientBase);
 
+use EBox::Gettext;
+use EBox::GlobalImpl;
 use EBox::Validate;
 use EBox::Util::BugReport;
-use EBox::Gettext;
 use Error qw(:try);
 
 my $CRASH_DIR = '/var/crash';
@@ -36,11 +37,15 @@ sub _process
     # FIXME: unhardcode samba if more daemon crashes are watched
 
     if ($action eq 'report') {
+        my $cache = EBox::GlobalImpl::packageCache();
+        my $package = 'samba-' . $cache->{samba}->{CurrentVer}->{VerStr};
         my @files = @{EBox::Sudo::root("ls $CRASH_DIR | grep ^_usr_sbin_samba")};
         foreach my $file (@files) {
+            chomp($file);
             EBox::info("Sending crash report: $file");
-            EBox::Sudo::root("/usr/share/zentyal/crash-report $CRASH_DIR/$file");
+            EBox::Sudo::root("/usr/share/zentyal/crash-report $CRASH_DIR/$file $package");
         }
+        EBox::Sudo::root('rm -f /var/crash/_usr_sbin_samba*');
     } elsif ($action eq 'discard') {
         EBox::Sudo::root('rm -f /var/crash/_usr_sbin_samba*');
     }
