@@ -275,7 +275,7 @@ sub add # (dn, args)
 
     $self->connection();
     my $result =  $self->{ldap}->add($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args, dn => $dn);
     return $result;
 }
 
@@ -566,9 +566,12 @@ sub lastModificationTime
 #
 sub _errorOnLdap
 {
-    my ($class, $result, $args) = @_;
+    my ($class, $result, $args, @addToArgs) = @_;
 
     if ($result->is_error()){
+        while (my ($name, $value) = splice(@addToArgs, 0 ,2) ) {
+            $args->{$name} = $value;
+        }
         throw EBox::Exceptions::LDAP(result => $result, opArgs => $args);
     }
 }
