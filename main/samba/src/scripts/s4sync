@@ -23,6 +23,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
+use EBox::SambaLdapUser;
 
 use Data::Dumper;
 use File::Slurp;
@@ -49,7 +50,7 @@ my $ro = 1;
 my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
-my $sambaLdapUser = new EBox::Samba::SambaLdapUser();
+my $sambaLdapUser = new EBox::SambaLdapUser();
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start

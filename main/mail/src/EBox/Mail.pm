@@ -1867,13 +1867,13 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail) =@_;
+    my ($self, $mail, $onlyCheckLdap) = @_;
     # TODO: check vdomain alias mapping to the other domains?
     $self->global()->modInstance('users')->checkMailNotInUse($mail);
 
    # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
-    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+    if ((not $onlyCheckLdap) and $self->model('ExternalAliases')->aliasInUse($mail)) {
         throw EBox::Exceptions::External(
             __x('Address {addr} is in use as external alias', addr => $mail)
            );
