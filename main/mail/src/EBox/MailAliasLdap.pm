@@ -33,7 +33,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
 
-use constant ALIASDN => 'ou=mailalias,ou=postfix';
+use constant ALIASDN => 'cn=alias,cn=zentyal,cn=configuration';
 
 sub new
 {

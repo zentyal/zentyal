@@ -31,7 +31,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 
-use constant VDOMAINDN     => 'ou=vdomains,ou=postfix';
+use constant VDOMAINDN     => 'cn=vdomains,cn=mail,cn=zentyal,cn=configuration';
 use constant BYTES         => '1048576';
 use constant MAXMGSIZE     => '104857600';
 
