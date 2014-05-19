@@ -638,7 +638,7 @@ sub dnsZones
 {
     my ($self) = @_;
 
-    unless ($self->global()->modInstance('users')->isProvisioned()) {
+    unless (EBox::Global->modInstance('users')->isProvisioned()) {
         return [];
     }
 
