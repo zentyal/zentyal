@@ -24,7 +24,6 @@ use base 'EBox::Users::LdapObject';
 
 use EBox::Gettext;
 use EBox::Sudo;
-use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;

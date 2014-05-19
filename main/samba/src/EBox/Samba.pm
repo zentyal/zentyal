@@ -187,7 +187,7 @@ sub _postServiceHook
             my $users = $ldb->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
+                if ($usersMod->roamingProfiles()) {
                     my $path = "\\\\$netbiosName.$realmName\\profiles";
                     $user->setRoamingProfile(1, $path, 1);
                 } else {
