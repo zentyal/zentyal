@@ -2808,7 +2808,8 @@ sub writeSambaConfig
     }
 
     my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange) {
+    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
+        push (@array, 'openchange' => 1);
         $openchange->writeSambaConfig();
     }
 

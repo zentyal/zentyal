@@ -281,9 +281,6 @@ sub writeSambaConfig
 {
     my ($self) = @_;
 
-    push (@array, 'openchangeEnabled' => $self->isEnabled());
-    push (@array, 'openchangeProvisioned' => $self->isProvisioned());
-
     my $openchangeProvisionedWithMySQL = $self->isProvisionedWithMySQL();
     my $openchangeConnectionString = undef;
     if ($openchangeProvisionedWithMySQL) {
