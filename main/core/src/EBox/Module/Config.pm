@@ -990,7 +990,9 @@ sub searchContents
             }
             if (not exists $matches{$matchUrl}) {
                 $match->{url} = $matchUrl;
+                $match->{link}->[-1]->{link} = $matchUrl;
                 $matches{$matchUrl} = $match;
+
             } else {
                 # XXX not sure what to do about more matches for th same model,
                 # ignoring them for now
@@ -1014,6 +1016,8 @@ sub _keyToSearchMatch
         return undef;
     }
 
+
+
     my @parts = split '/keys/', $dir;
     my $model = shift @parts;
     my $rowId = pop @parts;
@@ -1023,9 +1027,16 @@ sub _keyToSearchMatch
             return undef;
         }
         # simple case, simple model
-        my $printableName = $self->model($model)->printableModelName();
+        my $link = [
+            {
+                title => $self->printableName()
+            },
+            {
+                title => $self->model($model)->printableModelName()
+             }
+           ];
         return {
-            printableName => $printableName,
+            link => $link,
             module => $modName,
             model => $model,
             dir   => undef,
@@ -1069,10 +1080,12 @@ sub _keyToSearchMatch
     # get printable name with breadcrumbs
     my $modelInstance = $global->modInstance($modelModName)->model($model);
     $modelInstance->setDirectory($modelDir);
-    my $printableName = $modelInstance->viewCustomizer()->HTMLTitle();
+    my $link = $modelInstance->viewCustomizer()->HTMLTitle();
+    # add module name
+    unshift @{$link}, {  title => $global->modInstance($modName)->printableName()  };
 
     return {
-        printableName => $printableName,
+        link => $link,
         module => $modName,
         model => $model,
         dir => $modelDir,
