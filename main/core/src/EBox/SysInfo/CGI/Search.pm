@@ -34,20 +34,25 @@ sub new
 
 sub _validateReferer
 {
-        return 1;
+    return 1;
 }
-
 
 sub _process
 {
     my ($self) = @_;
-    my $searchString = $self->param('search');
+    my $searchString = $self->unsafeParam('search');
     if (not $searchString) {
         $self->{chain} = '/Dashboard/Index';
         return;
     }
 
-    my $matches = EBox::Search::search($searchString);
+    my $matches = [];
+    if (length($searchString) < 3) {
+        $self->setError(__('The search term should have a lenght of at least 3 characters'));
+    } else {
+        $matches = EBox::Search::search($searchString);
+    }
+
     $self->{params} = [
          searchString => $searchString,
          matches      => $matches,
