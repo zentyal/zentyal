@@ -1,0 +1,49 @@
+<%args>
+$searchString
+@matches
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Global;
+my $title = __x('Search matches for {oem}{search}{cem}',
+               oem => '<em>',
+               search => $searchString,
+               cem => '</em>'
+           );
+
+</%init>
+<h2><% $title %></h2>
+% if (not @matches) {
+<p><% __('Sorry, your search did not match any data') %></p>
+% } else {
+<& .matchesTable, matches => \@matches &>
+% }
+
+<%def .matchesTable>
+<%args>
+@matches
+</%args>
+<ul>
+% foreach my $match (@matches) {
+<%perl>
+   my $first = 1;
+   my $elementString = '';
+   foreach my $element (@{$match->{linkElements}}) {
+      if ($first) {
+          $first = 0;
+      } else {
+         $elementString .= ' > '; # XXX replace with something better
+      }
+      if ($element->{link}) {
+          $elementString  .= "<a href='" . $element->{link} . "'>";
+          $elementString .=  $element->{title} . "</a>";
+      } else {
+          $elementString = $element->{title};
+      }
+   }
+</%perl>
+<li><% $elementString %></li>
+% }
+</ul>
+</%def>
+

@@ -984,13 +984,13 @@ sub searchContents
         my $match = $self->_keyToSearchMatch($key);
         if ($match ) {
             # TODO: use composites?
-            my $matchUrl = $match->{module} . '/View/' . $match->{model};
+            my $matchUrl = '/' . $match->{module} . '/View/' . $match->{model};
             if ($match->{dir}) {
                 $matchUrl .= '?directory=' . $match->{dir};
             }
             if (not exists $matches{$matchUrl}) {
                 $match->{url} = $matchUrl;
-                $match->{link}->[-1]->{link} = $matchUrl;
+                $match->{linkElements}->[-1]->{link} = $matchUrl;
                 $matches{$matchUrl} = $match;
 
             } else {
@@ -1027,7 +1027,7 @@ sub _keyToSearchMatch
             return undef;
         }
         # simple case, simple model
-        my $link = [
+        my $linkElements = [
             {
                 title => $self->printableName()
             },
@@ -1036,7 +1036,7 @@ sub _keyToSearchMatch
              }
            ];
         return {
-            link => $link,
+            linkElements => $linkElements,
             module => $modName,
             model => $model,
             dir   => undef,
@@ -1080,12 +1080,12 @@ sub _keyToSearchMatch
     # get printable name with breadcrumbs
     my $modelInstance = $global->modInstance($modelModName)->model($model);
     $modelInstance->setDirectory($modelDir);
-    my $link = $modelInstance->viewCustomizer()->HTMLTitle();
+    my $linkElements = $modelInstance->viewCustomizer()->HTMLTitle();
     # add module name
-    unshift @{$link}, {  title => $global->modInstance($modName)->printableName()  };
+    unshift @{$linkElements}, {  title => $global->modInstance($modName)->printableName()  };
 
     return {
-        link => $link,
+        linkElements => $linkElements,
         module => $modName,
         model => $model,
         dir => $modelDir,

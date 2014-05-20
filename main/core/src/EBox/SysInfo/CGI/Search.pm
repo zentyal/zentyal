@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,33 +16,43 @@
 use strict;
 use warnings;
 
-package EBox::SysInfo::CGI::PageNotFound;
-
+package EBox::SysInfo::CGI::Search;
 use base 'EBox::CGI::ClientBase';
 
-# Description: CGI for "page not found error"
-
+use EBox::Search;
 use EBox::Gettext;
 
 sub new
 {
     my $class = shift;
-    my $title = __("Page not found");
-    my $template = 'pageNotFound.mas';
-    my $self = $class->SUPER::new(title => $title, template => $template, @_);
+    my $self = $class->SUPER::new('title'    => __('Search results'),
+            'template' => 'sysinfo/searchResults.mas',
+            @_);
     bless($self, $class);
     return $self;
 }
 
 sub _validateReferer
 {
-    return 1;
+        return 1;
 }
 
-# we do nothing,
-# we can not even validate params because this is a page not found error (any parameter can be in)
+
 sub _process
 {
+    my ($self) = @_;
+    my $searchString = $self->param('search');
+    if (not $searchString) {
+        $self->{chain} = '/Dashboard/Index';
+        return;
+    }
+
+    my $matches = EBox::Search::search($searchString);
+    $self->{params} = [
+         searchString => $searchString,
+         matches      => $matches,
+     ];
 }
+
 
 1;
