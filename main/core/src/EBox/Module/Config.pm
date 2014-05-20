@@ -1015,15 +1015,19 @@ sub _keyToSearchMatch
     }
 
     my @parts = split '/keys/', $dir;
+    my $model = shift @parts;
     my $rowId = pop @parts;
     if (@parts == 0) {
-        EBox::error("Unexpected dir portion: '$dir' from key: '$key'");
-        return undef;
-    } elsif (@parts == 1) {
+        if (not $model or not $rowId) {
+            EBox::error("Unexpected dir portion: '$dir' from key: '$key'");
+            return undef;
+        }
         # simple case, simple model
+        my $printableName = $self->model($model)->printableModelName();
         return {
+            printableName => $printableName,
             module => $modName,
-            model => $parts[0],
+            model => $model,
             dir   => undef,
             rowId => $rowId,
         };
@@ -1032,7 +1036,6 @@ sub _keyToSearchMatch
 # mail/conf/VDomains/keys/vd2/aliases/keys/vdm1
     my $global   = $self->global();
     my $modelModName = $modName;
-    my $model        = shift @parts;
     my $modelDir     = '';
     foreach my $part (@parts) {
         my ($id, $fieldName, $remaining) = split '/', $part;
@@ -1063,7 +1066,13 @@ sub _keyToSearchMatch
         $modelDir .= '/keys/' . $part;
     }
 
+    # get printable name with breadcrumbs
+    my $modelInstance = $global->modInstance($modelModName)->model($model);
+    $modelInstance->setDirectory($modelDir);
+    my $printableName = $modelInstance->viewCustomizer()->HTMLTitle();
+
     return {
+        printableName => $printableName,
         module => $modName,
         model => $model,
         dir => $modelDir,
