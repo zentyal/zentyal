@@ -5052,6 +5052,7 @@ sub _interfaceSearchMatch
     my @matches;
     my $interfaces = $self->get('interfaces');
     while (my ($iface, $attrs) = each %{ $interfaces }) {
+        my $ifDone = 0;
         my @attrs = values %{ $attrs };
         foreach my $attr (@attrs) {
             if (index($attr, $searchString) != -1) {
@@ -5073,8 +5074,14 @@ sub _interfaceSearchMatch
                     linkElements => $linkElements
                 };
                 push @matches, $match;
+
+                $ifDone = 1;
                 last;
             }
+        }
+
+        if ($ifDone) {
+            last;
         }
     }
 
