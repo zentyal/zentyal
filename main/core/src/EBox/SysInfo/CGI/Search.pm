@@ -25,7 +25,7 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title'    => __('Search results'),
+    my $self = $class->SUPER::new('title'    => __('Search'),
             'template' => 'sysinfo/searchResults.mas',
             @_);
     bless($self, $class);

@@ -5,7 +5,7 @@ $searchString
 <%init>
 use EBox::Gettext;
 use EBox::Global;
-my $title = __x('Search matches for {oem}{search}{cem}',
+my $title = __x('Matches for {oem}{search}{cem}',
                oem => '<em>',
                search => $searchString,
                cem => '</em>'
