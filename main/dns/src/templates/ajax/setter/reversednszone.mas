@@ -1,0 +1,46 @@
+<%args>
+    $tableName
+    $data
+    $disabled
+    $cssClass => ''
+</%args>
+<%init>
+    my $id = $tableName;
+    my ($fieldGroup1, $fieldGroup2, $fieldGroup3) = $data->fields();
+    my ($group1, $group2, $group3) = $data->value();
+</%init>
+
+<span id="<% $id %>" class="inline-input <% $cssClass %>">
+% if ($data->editable()) {
+  <span>Mapped network address: </span>
+  <input type="text" class="inputText" value="<% $group1 %>" maxlength="3" size="3" id='<% $id . '_' . $fieldGroup1 %>' name='<% $id . '_' . $fieldGroup3 %>' <% $disabled ? 'disabled' : '' %> />
+  <span>.</span>
+  <input type="text" class="inputText" value="<% $group2 %>" maxlength="3" size="3" id='<% $id . '_' . $fieldGroup2 %>' name='<% $id . '_' . $fieldGroup2 %>' <% $disabled ? 'disabled' : '' %> />
+  <span>.</span>
+  <input type="text" class="inputText" value="<% $group3 %>" maxlength="3" size="3" id='<% $id . '_' . $fieldGroup3 %>' name='<% $id . '_' . $fieldGroup1 %>' <% $disabled ? 'disabled' : '' %> />
+  <span>.</span>
+  <input type="text" class="inputText" value="" maxlength="3" size="3" disabled="disabled" />
+  <br/>
+  <span>Reverse zone name: </span>
+  <input type="text" class="inputText" value="" id='<% $id . '_rzone' %>' disabled="disabled" />
+
+  <script type="text/javascript">
+    $(".inputText").keyup(function(event) {
+        group1 = $("#<% $id . '_' . $fieldGroup1 %>").val();
+        group2 = $("#<% $id . '_' . $fieldGroup2 %>").val();
+        group3 = $("#<% $id . '_' . $fieldGroup3 %>").val();
+        value = '';
+        if (group3.length > 0 && group2.length > 0 && group1.length > 0) {
+            value = group3 + '.' + group2 + '.' + group1 + '.in-addr.arpa';
+        } else if (group2.length > 0 && group1.length > 0) {
+            value = group2 + '.' + group1 + '.in-addr.arpa';
+        } else if (group1.length > 0) {
+            value = group1 + '.in-addr.arpa';
+        }
+        $("#<% $id . '_rzone' %>").val(value);
+    });
+  </script>
+% } else {
+<& $data->HTMLViewer(),data => $data &>
+% }
+</span>
