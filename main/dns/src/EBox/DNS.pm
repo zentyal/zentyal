@@ -694,7 +694,6 @@ sub _setConf
 
     # Hash to store the keys indexed by name, storing the secret
     my %keys = ();
-    my @domainData = ();
     my @domainIds = @{$self->_domainIds()};
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
@@ -710,9 +709,6 @@ sub _setConf
                 }
             }
         }
-
-        # Store the domain data to create the reverse zones
-        push (@domainData, $domdata);
 
         # Add the updater key if the zone is dynamic
         if ($domdata->{dynamic}) {
@@ -756,12 +752,7 @@ sub _setConf
         }
     }
 
-    my @inaddrs;
-    my $generateReverseZones = 0;
-    if ($generateReverseZones) {
-        @inaddrs = @{ $self->_writeReverseFiles() };
-    }
-
+    my $reverseZones = $self->_writeReverseFiles();
     my @domains = @{$self->domains()};
     my @intnets = @{$self->_intnets()};
 
@@ -769,9 +760,8 @@ sub _setConf
     push(@array, 'confDir' => BIND9CONFDIR);
     push(@array, 'dynamicConfDir' => BIND9_UPDATE_ZONES);
     push(@array, 'domains' => \@domains);
-    push(@array, 'generateReverseZones' => $generateReverseZones);
-    push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'reverseZones' => $reverseZones);
     push(@array, 'internalLocalNets' => $self->_internalLocalNets());
     push(@array, 'sambaZones' => $sambaZones);
 
@@ -795,99 +785,46 @@ sub _writeReverseFiles
 {
     my ($self) = @_;
 
-    my $reversedData = $self->_reverseData();
+    my $reverseZonesModel = $self->model('ReverseZones');
+    my $reverseZones = [];
+    foreach my $id (@{$reverseZonesModel->ids()}) {
+        my $row = $reverseZonesModel->row($id);
+        my $zone = $row->printableValueByName('rzone');
+        my $tsigKey = $row->printableValueByName('tsigKey');
+        my $dynamic = $row->valueByName('dynamic');
+        my $primaryNS = $row->valueByName('primaryNameServer');
+        my $hostmaster = $row->valueByName('hostmaster');
+        my $file = ($dynamic ? BIND9_UPDATE_ZONES : BIND9CONFDIR) . "/db.$zone";
+
+        my $zoneData = {
+            rowId               => $id,
+            zone                => $zone,
+            file                => $file,
+            dynamic             => $dynamic,
+            tsigKey             => $tsigKey,
+            primaryNameServer   => $primaryNS,
+            hostmaster          => $hostmaster,
+            ns                  => [],
+            hosts               => [],
+        };
+
+        if ($dynamic and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($zoneData);
+        } else {
+            my $params = [];
+            push (@{$params}, 'rdata' => $zoneData);
+            $self->writeConfFile($file, "dns/dbrev.mas", $params,
+                {uid => 'bind', gid => 'bind', mode => '0640' });
+        }
+
+        # Store to write the zone in named.conf.local
+        push (@{$reverseZones}, $zoneData);
+    }
 
     # Remove the unused reverse files
-    $self->_removeUnusedReverseFiles($reversedData);
+    $self->_removeUnusedReverseFiles($reverseZones);
 
-    my @inaddrs = ();
-    foreach my $group (keys %{ $reversedData }) {
-        my $reversedDataItem = $reversedData->{$group};
-        my $file;
-        if ($reversedDataItem->{dynamic}) {
-            $file = BIND9_UPDATE_ZONES;
-        } else {
-            $file = BIND9CONFDIR;
-        }
-        $file .= "/db." . $group;
-        EBox::debug("reverse zone data : $file");
-        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem);
-        } else {
-            my @params = ();
-            push (@params, 'groupip' => $group);
-            push (@params, 'rdata' => $reversedDataItem);
-            $self->writeConfFile($file, "dns/dbrev.mas", \@params);
-            EBox::Sudo::root("chown bind:bind '$file'");
-        }
-        # Store to write the zone in named.conf.local
-        push (@inaddrs, { ip       => $group,
-                          file     => $file,
-                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
-    }
-
-    return \@inaddrs;
-}
-
-sub _reverseData
-{
-    my ($self) = @_;
-
-    my $reverseData = {};
-    my $domainModel = $self->model('DomainTable');
-    foreach my $domainRowId (@{$domainModel->ids()}) {
-        my $domainRow = $domainModel->row($domainRowId);
-        my $domainName = $domainRow->valueByName('domain');
-        my $dynamic = ($domainRow->valueByName('dynamic') or
-                       $domainRow->valueByName('samba'));
-
-        my $domainNameservers = [];
-        my $nsModel = $domainRow->subModel('nameServers');
-        foreach my $nsRowId (@{$nsModel->ids()}) {
-            my $nsRow = $nsModel->row($nsRowId);
-            my $name = $nsRow->printableValueByName('hostName');
-            push (@{$domainNameservers}, $name);
-        }
-
-        my $hostnamesModel = $domainRow->subModel('hostnames');
-        foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
-            my $hostRow = $hostnamesModel->row($hostnameRowId);
-            my $hostName = $hostRow->valueByName('hostname');
-            my $hostIpAddrsModel = $hostRow->subModel('ipAddresses');
-            foreach my $hostIpRowId (@{$hostIpAddrsModel->ids()}) {
-                my $hostIpRow = $hostIpAddrsModel->row($hostIpRowId);
-                my $ip = $hostIpRow->valueByName('ip');
-                my @reverseIp = reverse split (/\./, $ip);
-                my $hostPart = shift @reverseIp;
-                my $groupPart = join ('.', @reverseIp);
-
-                $reverseData->{$groupPart} = {}
-                    unless exists $reverseData->{$groupPart};
-                if (exists $reverseData->{$groupPart}->{domain} and
-                    $domainName ne $reverseData->{$groupPart}->{domain}) {
-                    my $warn = "Inconsistent DNS configuration detected. " .
-                               "IP group $groupPart is already mapped to domain " .
-                               $reverseData->{$groupPart}->{domain} . ". " .
-                               "The host $hostName.$domainName with IP $ip is not going " .
-                               "to be added to that group";
-                    EBox::warn($warn);
-                    next;
-                }
-
-                $reverseData->{$groupPart}->{dynamic} = $dynamic;
-                $reverseData->{$groupPart}->{tsigKeyName} = $domainName;
-                $reverseData->{$groupPart}->{group} = $groupPart;
-                $reverseData->{$groupPart}->{domain} = $domainName;
-                $reverseData->{$groupPart}->{soa} = $self->NameserverHost();
-                $reverseData->{$groupPart}->{ns} = $domainNameservers;
-                $reverseData->{$groupPart}->{hosts} = []
-                    unless exists $reverseData->{$groupPart}->{hosts};
-                push (@{$reverseData->{$groupPart}->{hosts}},
-                        { name => $hostName, ip => $hostPart });
-            }
-        }
-    }
-    return $reverseData;
+    return $reverseZones;
 }
 
 # Method: menu
@@ -1441,20 +1378,39 @@ sub _updateDynReverseZone
     my ($self, $rdata) = @_;
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    my $zone = $rdata->{'group'} . ".in-addr.arpa";
-    foreach my $host (@{$rdata->{'hosts'}}) {
-        print $fh 'update delete ' . $host->{'ip'} . ".$zone. PTR\n";
-        my $prefix = "";
-        $prefix = $host->{'name'} . '.' if ( $host->{'name'} );
-        print $fh 'update add ' . $host->{'ip'} . ".$zone. 259200 PTR $prefix" . $rdata->{'domain'} . ".\n";
+    my $zone = $rdata->{zone};
+    my $primaryNS = $rdata->{primaryNameServer};
+    my $hostmaster = $rdata->{hostmaster};
+    my @time = localtime();
+    my $serial = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+
+    # Update SOA record
+    print $fh "update add $zone. 259200 SOA $primaryNS. $hostmaster. $serial 8H 2H 4W 1D";
+
+    # Update NS records
+    print $fh "update delete $zone NS\n";
+    foreach my $ns (@{$rdata->{ns}}) {
+        print $fh "update add $zone 259200 NS $ns\n";
     }
+
+    # Update host records
+    foreach my $host (@{$rdata->{hosts}}) {
+        my $ip = $host->{ip};
+        my $name = $host->{name};
+        my $domain = $host->{domain};
+
+        my $prefix = $name ? "$name." : "";
+        print $fh "update delete $ip.$zone. PTR\n";
+        print $fh "update add $ip.$zone. 259200 PTR ${prefix}${domain}.\n";
+    }
+
     # Send the previous commands in batch
-    if ( $fh->tell() > 0 ) {
-        close($fh);
+    if ($fh->tell() > 0) {
+        close ($fh);
         tie my @file, 'Tie::File', $fh->filename();
-        unshift(@file, "zone $zone");
-        push(@file, "send");
-        untie(@file);
+        unshift (@file, "zone $zone");
+        push (@file, "send");
+        untie (@file);
         $self->_launchNSupdate($fh);
     }
 }
@@ -1616,19 +1572,14 @@ sub _removeDomainsFiles
 # Remove no longer used reverse zone files
 sub _removeUnusedReverseFiles
 {
-    my ($self, $reversedData) = @_;
+    my ($self, $reverseZones) = @_;
 
+    my %reverseZones = map { $_->{zone} => $_ } @{$reverseZones};
     my $oldList = $self->st_get_list('inarpa_files');
     my $newList = [];
-    foreach my $group (keys %{ $reversedData }) {
-        my $reversedDataItem = $reversedData->{$group};
-        my $file;
-        if ($reversedDataItem->{dynamic}) {
-            $file = BIND9_UPDATE_ZONES;
-        } else {
-            $file = BIND9CONFDIR;
-        }
-        $file .= "/db." . $group;
+    foreach my $zone (keys %reverseZones) {
+        my $dynamic = $reverseZones{$zone}->{dynamic};
+        my $file = ($dynamic ? BIND9_UPDATE_ZONES : BIND9CONFDIR) . "/db.$zone";
         push (@{$newList}, $file);
     }
 
@@ -1809,6 +1760,8 @@ sub _updateManagedDomainAddresses
         my $hostIpModel = $hostRow->subModel('ipAddresses');
         $self->_updateManagedDomainIPsModel($hostIpModel);
     }
+
+    # TODO Update reverse zones
 }
 
 sub restoreDependencies

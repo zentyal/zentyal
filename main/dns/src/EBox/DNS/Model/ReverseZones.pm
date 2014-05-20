@@ -31,8 +31,10 @@ use EBox::DNS::Types::ReverseDnsZone;
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;
 use EBox::Types::HasMany;
-use EBox::Types::HostIP;
 use EBox::Types::Text;
+use EBox::Types::Union;
+use EBox::Types::Composite;
+use EBox::Types::Select;
 
 use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
@@ -78,6 +80,26 @@ sub addedRowNotify
     $newRow->store();
 }
 
+sub defaultPrimaryNameServer
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
+    return $sysinfo->fqdn();
+}
+
+sub defaultHostMaster
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+
+    return "hostmaster.$domain";
+}
+
 sub _table
 {
     my ($self) = @_;
@@ -90,25 +112,52 @@ sub _table
             unique          => 1,
             editable        => 1
         ),
-#        new EBox::Types::HasMany(
-#            fieldName       => 'rmap',
-#            printableName   => __('Reverse map'),
-#            foreignModel    => 'HostnameTable',
-#            view            => '/DNS/View/HostnameTable',
-#            backView        => '/DNS/View/DomainTable',
-#            size            => '1',
-#        ),
-#        # This field indicates if the domain is static, dynamic or dlz
-#        # Not editable from interface
-#        new EBox::Types::Boolean(
-#            fieldName      => 'dynamic',
-#            printableName  => __('Dynamic domain'),
-#            editable       => 0,
-#            defaultValue   => 0,
-#            hiddenOnSetter => 1,
-#            hiddenOnViewer => 0,
-#            HTMLViewer     => '/dns/ajax/viewer/dynamicDomainViewer.mas'
-#        ),
+        new EBox::Types::Union(
+            fieldName       => 'primaryNameServer',
+            printableName   => __('Primary name server'),
+            unique          => 0,
+            editable        => 1,
+            subtypes        => [
+                new EBox::Types::Text(
+                    fieldName       => 'default',
+                    printableName   => __('Default'),
+                    defaultValue    => sub { $self->defaultPrimaryNameServer() },
+                ),
+                new EBox::Types::DomainName(
+                    fieldName       => 'custom',
+                    printableName   => __('Custom'),
+                    editable        => 1,
+                ),
+            ],
+        ),
+        new EBox::Types::Text(
+            fieldName       => 'hostmaster',
+            printableName   => __('Host master'),
+            size            => '25',
+            unique          => 0,
+            editable        => 1,
+            defaultValue    => sub { $self->defaultHostMaster() },
+        ),
+        new EBox::Types::HasMany(
+            fieldName       => 'hosts',
+            printableName   => __('Hosts'),
+            foreignModel    => 'ReverseHosts',
+            view            => '/DNS/View/ReverseHosts',
+            backView        => '/DNS/View/ReverseZones',
+            size            => '1',
+        ),
+
+        # This field indicates if the domain is static, dynamic or dlz
+        # Not editable from interface
+        new EBox::Types::Boolean(
+            fieldName      => 'dynamic',
+            printableName  => __('Dynamic domain'),
+            editable       => 0,
+            defaultValue   => 0,
+            hiddenOnSetter => 1,
+            hiddenOnViewer => 0,
+            HTMLViewer     => '/dns/ajax/viewer/dynamicDomainViewer.mas'
+        ),
         new EBox::Types::Text(
             fieldName       => 'tsigKey',
             editable        => 0,
@@ -122,13 +171,13 @@ sub _table
 #            defaultValue   => 0,
 #            hidden         => 1,
 #        ),
-#        new EBox::Types::Boolean(
-#            fieldName      => 'samba',
-#            editable       => 0,
-#            optional       => 0,
-#            defaultValue   => 0,
-#            hidden         => 1,
-#        ),
+        new EBox::Types::Boolean(
+            fieldName      => 'samba',
+            editable       => 0,
+            optional       => 0,
+            defaultValue   => 0,
+            hidden         => 1,
+        ),
     ];
 
     # TODO Change help message

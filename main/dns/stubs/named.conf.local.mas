@@ -1,11 +1,10 @@
 <%args>
-    @domains
-    @inaddrs
-    $generateReverseZones
-    @intnets
-    @internalLocalNets => ()
     $confDir
     $dynamicConfDir
+    @domains
+    @intnets
+    $reverseZones
+    @internalLocalNets => ()
     $sambaZones => undef
 </%args>
 <%init>
@@ -59,6 +58,7 @@ dlz "AD DNS Zone" {
 };
 % }
 
+// Direct zones
 % foreach my $dom (@domains) {
 %   next if (defined $sambaZones and
 %            lc ($dom->{name}) eq any @{$sambaZones});
@@ -80,32 +80,31 @@ zone "<% $dom->{name} %>." IN {
 };
 % }
 
-% if ($generateReverseZones) {
-%   foreach my $inaddr (@inaddrs) {
-%       my $zoneName = $inaddr->{'ip'} . ".in-addr.arpa";
-%       next if (defined $sambaZones and
-%                lc ($zoneName) eq any @{$sambaZones});
-
+// Reverse zones
+% foreach my $zoneData (@{$reverseZones}) {
+%   my $zoneName = $zoneData->{zone};
+%   next if (defined $sambaZones and lc ($zoneName) eq any @{$sambaZones});
 zone "<% $zoneName %>" {
     type master;
-    file "<% $inaddr->{'file'} %>";
+    file "<% $zoneData->{file} %>";
     update-policy {
-        // The only allowed dynamic updates are PTR records
-%       foreach my $keyName (@{$inaddr->{'keyNames'}}) {
-        grant <% $keyName %>. subdomain <% $inaddr->{'ip'} %>.in-addr.arpa. PTR TXT;
-%       }
+        // The only allowed dynamic updates are PTR and TXT records
+        grant <% $zoneName %> subdomain <% $zoneName %>. PTR TXT;
+
         // Grant from localhost
         grant local-ddns zonesub any;
     };
 };
-%   }
+% }
 
-%   foreach my $zoneName (@{$rfc1918Zones}) {
-%       next if (defined $sambaZones and
-%                lc ($zoneName) eq any @{$sambaZones});
+// RFC 1918 zones
+% my %reverseZones = map { $_->{zone} => $_ } @{$reverseZones};
+% foreach my $zoneName (@{$rfc1918Zones}) {
+%   $zoneName = lc ($zoneName);
+%   next if (defined $sambaZones and $zoneName eq any @{$sambaZones});
+%   next if (exists $reverseZones{$zoneName});
 zone "<% $zoneName %>" {
     type master;
     file "/etc/bind/db.empty";
 };
-%   }
 % }
