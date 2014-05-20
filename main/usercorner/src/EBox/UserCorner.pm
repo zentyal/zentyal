@@ -288,38 +288,6 @@ sub enableService
     }
 }
 
-# Method: _setConf
-#
-#  Override <EBox::Module::Service::_setConf>
-#
-sub _setConf
-{
-    my ($self) = @_;
-
-    $self->_setupRoLDAPAccess();
-
-    # We can assume the listening port is ready available
-    my $settings = $self->model('Settings');
-
-    # Overwrite the listening port conf file
-    EBox::Module::Base::writeConfFileNoCheck(USERCORNER_APACHE,
-        "usercorner/user-apache2.conf.mas",
-        [ port => $settings->portValue() ],
-    );
-
-    # Write user corner redis file
-    $self->{redis}->writeConfigFile(USERCORNER_USER);
-
-    # As $users->editableMode() can't be called from usercorner, it will check
-    # for the existence of this file
-    my $editableFile = '/var/lib/zentyal-usercorner/editable';
-    if (EBox::Global->modInstance('users')->editableMode()) {
-        EBox::Sudo::root("touch $editableFile");
-    } else {
-        EBox::Sudo::root("rm -f $editableFile");
-    }
-}
-
 # Method: menu
 #
 # Show the usercorner menu entry
@@ -368,6 +336,8 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
+
+    $self->_setupRoLDAPAccess();
 
     my $permissions = {
         uid => 0,
