@@ -1001,8 +1001,11 @@ sub _searchRedisConfKeys
         }
 
         EBox::debug("MATCH $key-> " . $redis->get($key) . " looked: $searchString" );
-        my $modelMatch = $self->_keyToModelMatch($key);
+        my $modelMatch = $self->_keyToModelMatch($key, $searchString);
         if ($modelMatch ) {
+            if ($modelMatch->{hidden}) {
+                next;
+            }
             # TODO: use composites?
             my $modelMatchUrl = '/' . $modelMatch->{module} . '/View/' . $modelMatch->{model};
             if ($modelMatch->{dir}) {
@@ -1030,7 +1033,7 @@ sub _searchRedisConfKeys
 # this only for models, for custom redis this must be overridden
 sub _keyToModelMatch
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $searchString) = @_;
     my ($modName, $dir) = split '/conf/', $key, 2;
     if ((not $modName) or (not $dir) ) {
         EBox::error("Unexpected key format: '$key'");
@@ -1050,6 +1053,10 @@ sub _keyToModelMatch
             return undef;
         }
         # simple case, simple model
+        if ($self->_modelMatchIsHidden($self->model($model), $key, $searchString)) {
+            return { hidden => 1 };
+        }
+
         my $linkElements = [
             {
                 title => $self->printableName()
@@ -1058,6 +1065,7 @@ sub _keyToModelMatch
                 title => $self->model($model)->printableModelName()
              }
            ];
+
         return {
             linkElements => $linkElements,
             module => $modName,
@@ -1103,6 +1111,10 @@ sub _keyToModelMatch
     # get printable name with breadcrumbs
     my $modelInstance = $global->modInstance($modelModName)->model($model);
     $modelInstance->setDirectory($modelDir);
+    if ($self->_modelMatchIsHidden($modelInstance, $key, $searchString)) {
+        return { hidden => 1 };
+    }
+
     my $linkElements = $modelInstance->viewCustomizer()->HTMLTitle();
     # add module name
     unshift @{$linkElements}, {  title => $global->modInstance($modName)->printableName()  };
@@ -1116,5 +1128,32 @@ sub _keyToModelMatch
        };
 }
 
+sub _modelMatchIsHidden
+{
+    my ($self, $modelInstance, $key, $searchString) = @_;
+    my $value = $self->redis->get($key);
+    if ((ref $value) ne 'HASH') {
+        EBox::error("Cannot find hash ref for modelMatch for key $key");
+        return 0;
+    }
+    my $fieldName;
+    while (my ($key, $value) = each %{$value}) {
+        if (index($value, $searchString) != -1) {
+            $fieldName = $key;
+            last;
+        }
+    }
+    if (not $fieldName) {
+        EBox::error("Cannot find field for modelMatch for key $key");
+        return 0;
+    }
+
+    my $field = $modelInstance->fieldHeader($fieldName);
+    if ($field->isa('EBox::Types::Password')) {
+        return 1;
+    }
+
+    return $field->hidden();
+}
 
 1;
