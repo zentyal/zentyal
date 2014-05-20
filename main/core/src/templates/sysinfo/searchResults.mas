@@ -56,10 +56,10 @@ my $title = __x('Matches for {oem}{search}{cem}',
          $elementString .= ' > '; # XXX replace with something better
       }
       if ($element->{link}) {
-          $elementString  .= "<a href='" . $element->{link} . "'>";
+          $elementString .= "<a href='" . $element->{link} . "'>";
           $elementString .=  $element->{title} . "</a>";
       } else {
-          $elementString = $element->{title};
+          $elementString .= $element->{title};
       }
    }
 </%perl>

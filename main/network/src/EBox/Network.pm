@@ -5094,7 +5094,8 @@ sub _interfaceSearchMatch
                     title => $self->printableName(),
                 },
                 {
-                    title => __('Interfaces')
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
                 },
                 {
                     title => $ifName,
@@ -5132,7 +5133,8 @@ sub _vlanSearchMatch
                     title => $self->printableName(),
                 },
                 {
-                    title => __('Interfaces')
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
                 },
                 {
                     title => $vlAttrs->{name},
