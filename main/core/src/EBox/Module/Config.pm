@@ -938,10 +938,19 @@ sub global
     return EBox::Global->getInstance($self->{ro});
 }
 
+
 sub searchContents
 {
     my ($self, $searchString) = @_;
-    my %matches;
+    my ($modelMatches) = $self->_searchRedisConfKeys($searchString);
+    return $modelMatches;
+}
+
+sub _searchRedisConfKeys
+{
+    my ($self, $searchString) = @_;
+    my %modelMatches;
+    my @noModelMatches;
 
     my $redis = $self->redis();
     my @keys = $redis->_keys($self->_key('*'));
@@ -981,30 +990,33 @@ sub searchContents
         }
 
         EBox::debug("MATCH $key-> " . $redis->get($key) . " looked: $searchString" );
-        my $match = $self->_keyToSearchMatch($key);
-        if ($match ) {
+        my $modelMatch = $self->_keyToModelMatch($key);
+        if ($modelMatch ) {
             # TODO: use composites?
-            my $matchUrl = '/' . $match->{module} . '/View/' . $match->{model};
-            if ($match->{dir}) {
-                $matchUrl .= '?directory=' . $match->{dir};
+            my $modelMatchUrl = '/' . $modelMatch->{module} . '/View/' . $modelMatch->{model};
+            if ($modelMatch->{dir}) {
+                $modelMatchUrl .= '?directory=' . $modelMatch->{dir};
             }
-            if (not exists $matches{$matchUrl}) {
-                $match->{url} = $matchUrl;
-                $match->{linkElements}->[-1]->{link} = $matchUrl;
-                $matches{$matchUrl} = $match;
+            if (not exists $modelMatches{$modelMatchUrl}) {
+                $modelMatch->{url} = $modelMatchUrl;
+                $modelMatch->{linkElements}->[-1]->{link} = $modelMatchUrl;
+                $modelMatches{$modelMatchUrl} = $modelMatch;
 
             } else {
                 # XXX not sure what to do about more matches for th same model,
                 # ignoring them for now
             }
+        } else {
+            push @noModelMatches, $key;
         }
     }
 
-    return [values %matches];
+
+    return ([values %modelMatches], \@noModelMatches);
 }
 
 # this only for models, for custom redis this must be overridden
-sub _keyToSearchMatch
+sub _keyToModelMatch
 {
     my ($self, $key) = @_;
     my ($modName, $dir) = split '/conf/', $key, 2;
@@ -1015,8 +1027,6 @@ sub _keyToSearchMatch
         EBox::error("Bad match mod name $modName <-> $key");
         return undef;
     }
-
-
 
     my @parts = split '/keys/', $dir;
     my $model = shift @parts;
