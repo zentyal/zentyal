@@ -18,9 +18,10 @@ models:
     - Services
     - Forwarder
     - Settings
+    - ReverseZones
 
 composites:
-    Global: [Settings, Forwarder, DomainTable]
+    Global: [Settings, Forwarder, DomainTable, ReverseZones]
 
 modeldepends:
     MailExchanger:

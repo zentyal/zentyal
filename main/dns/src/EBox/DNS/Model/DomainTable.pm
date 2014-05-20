@@ -26,7 +26,7 @@ use warnings;
 #
 package EBox::DNS::Model::DomainTable;
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::DNS::Model::ZoneTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -45,11 +45,6 @@ use EBox::Types::Text;
 
 use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
-
-# Dependencies
-use EBox::Util::Random;
-use Digest::HMAC_MD5;
-use MIME::Base64;
 
 # Group: Public methods
 
@@ -446,7 +441,7 @@ sub addedRowNotify
     my ($self, $newRow) = @_;
 
     # Generate the TSIG key
-    my $secret = $self->_generateSecret();
+    my $secret = $self->generateSecret();
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
     my $ipModel = $newRow->subModel('ipAddresses');
@@ -737,19 +732,6 @@ sub syncRows
 }
 
 # Group: Private methods
-
-# Generate the secret key using HMAC-MD5 algorithm
-sub _generateSecret
-{
-    my ($self) = @_;
-
-    my $secret = EBox::Util::Random::generate(64);
-    my $hasher = Digest::HMAC_MD5->new($secret);
-    my $digest = $hasher->digest();
-    my $b64digest = encode_base64($digest);
-    chomp ($b64digest);
-    return $b64digest;
-}
 
 # Method: _getDomainRow
 #
