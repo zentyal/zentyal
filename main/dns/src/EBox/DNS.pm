@@ -757,10 +757,9 @@ sub _setConf
     }
 
     my @inaddrs;
-    my $generateReverseZones = EBox::Config::boolean('generate_reverse_zones');
+    my $generateReverseZones = 0;
     if ($generateReverseZones) {
         @inaddrs = @{ $self->_writeReverseFiles() };
-
     }
 
     my @domains = @{$self->domains()};
