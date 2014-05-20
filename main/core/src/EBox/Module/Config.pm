@@ -1130,6 +1130,8 @@ sub _modelMatchIsHidden
         EBox::error("Cannot find field for modelMatch for key $key");
         return 0;
     }
+    # to avoid problems with union types
+    $fieldName =~ s{_.*$}{};
 
     my $field = $modelInstance->fieldHeader($fieldName);
     if ($field->isa('EBox::Types::Password')) {

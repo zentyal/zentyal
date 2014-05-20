@@ -21,6 +21,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Search;
 use EBox::Gettext;
+use TryCatch::Lite;
 
 sub new
 {
@@ -50,7 +51,11 @@ sub _process
     if (length($searchString) < 3) {
         $self->setError(__('The search term should have a lenght of at least 3 characters'));
     } else {
-        $matches = EBox::Search::search($searchString);
+        try {
+              $matches = EBox::Search::search($searchString);
+        } catch ($ex) {
+            $self->setError("$ex");
+        }
     }
 
     $self->{params} = [
