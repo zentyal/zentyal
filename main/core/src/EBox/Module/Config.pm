@@ -1000,7 +1000,6 @@ sub _searchRedisConfKeys
             next;
         }
 
-        EBox::debug("MATCH $key-> " . $redis->get($key) . " looked: $searchString" );
         my $modelMatch = $self->_keyToModelMatch($key, $searchString);
         if ($modelMatch ) {
             if ($modelMatch->{hidden}) {
@@ -1017,11 +1016,10 @@ sub _searchRedisConfKeys
                 $modelMatches{$modelMatchUrl} = $modelMatch;
 
             } else {
-                # XXX not sure what to do about more matches for the same model,
+                # not sure what to do about more matches for the same model,
                 # ignoring them for now
             }
         } else {
-            EBox::debug("XXX no model match $key");
             push @noModelMatches, $key;
         }
     }
