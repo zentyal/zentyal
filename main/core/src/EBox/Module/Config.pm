@@ -1039,7 +1039,6 @@ sub _keyToModelMatch
         EBox::error("Unexpected key format: '$key'");
         return undef;
     } elsif ($self->name ne $modName) {
-        # XXX maybe we can retire this
         EBox::error("Bad match mod name $modName <-> $key");
         return undef;
     }
@@ -1047,35 +1046,11 @@ sub _keyToModelMatch
     my @parts = split '/keys/', $dir;
     my $model = shift @parts;
     my $rowId = pop @parts;
-    if (@parts == 0) {
-        if (not $model or not $rowId) {
-            # It may be a no-model key
-            return undef;
-        }
-        # simple case, simple model
-        if ($self->_modelMatchIsHidden($self->model($model), $key, $searchString)) {
-            return { hidden => 1 };
-        }
-
-        my $linkElements = [
-            {
-                title => $self->printableName()
-            },
-            {
-                title => $self->model($model)->printableModelName()
-             }
-           ];
-
-        return {
-            linkElements => $linkElements,
-            module => $modName,
-            model => $model,
-            dir   => undef,
-            rowId => $rowId,
-        };
+    if (not $model or not $rowId) {
+        # It may be a no-model key
+        return undef;
     }
 
-# mail/conf/VDomains/keys/vd2/aliases/keys/vdm1
     my $global   = $self->global();
     my $modelModName = $modName;
     my $modelDir     = '';
@@ -1110,12 +1085,22 @@ sub _keyToModelMatch
 
     # get printable name with breadcrumbs
     my $modelInstance = $global->modInstance($modelModName)->model($model);
-    $modelInstance->setDirectory($modelDir);
+    if ($modelDir) {
+        $modelInstance->setDirectory($modelDir);
+    }
+
     if ($self->_modelMatchIsHidden($modelInstance, $key, $searchString)) {
         return { hidden => 1 };
     }
 
-    my $linkElements = $modelInstance->viewCustomizer()->HTMLTitle();
+    my $linkElements;
+    if (@parts == 0) {
+        $linkElements = [
+             {  title => $self->model($model)->printableModelName()    }
+         ];
+    } else {
+        $linkElements = $modelInstance->viewCustomizer()->HTMLTitle();
+    }
     # add module name
     unshift @{$linkElements}, {  title => $global->modInstance($modName)->printableName()  };
 
