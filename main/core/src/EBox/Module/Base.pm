@@ -1201,4 +1201,10 @@ sub recoveryEnabled
     return $model->moduleEnabled($module);
 }
 
+sub searchContents
+{
+    my ($searchString) = @_;
+    return [];
+}
+
 1;

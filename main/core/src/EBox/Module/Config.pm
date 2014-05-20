@@ -938,4 +938,138 @@ sub global
     return EBox::Global->getInstance($self->{ro});
 }
 
+sub searchContents
+{
+    my ($self, $searchString) = @_;
+    my %matches;
+
+    my $redis = $self->redis();
+    my @keys = $redis->_keys($self->_key('*'));
+    if (not @keys) {
+        EBox::warn($self->name() . ' module has not redis conf keys!');
+        return [];
+    }
+    foreach my $key (@keys) {
+        if ($key =~ m{/order$}) {
+            next;
+        } elsif ($key =~ m{/max_id$}) {
+            next;
+        }
+        my $value = $redis->get($key);
+        my $refType = ref $value;
+        # in models we don't have nested list/hash
+        my @allKeyValues;
+        if ($refType eq 'ARRAY') {
+            @allKeyValues = @{ $value };
+        } elsif ($refType eq 'HASH') {
+            @allKeyValues = values %{ $value };
+        } else {
+            if ($value) {
+                @allKeyValues = ($value);
+            }
+
+        }
+        my $valueMatch = 0;
+        foreach my $keyVal (@allKeyValues) {
+            if (index($keyVal, $searchString) != -1) {
+                $valueMatch = 1;
+                last;
+            }
+        }
+        if (not $valueMatch) {
+            next;
+        }
+
+        EBox::debug("MATCH $key-> " . $redis->get($key) . " looked: $searchString" );
+        my $match = $self->_keyToSearchMatch($key);
+        if ($match ) {
+            # TODO: use composites?
+            my $matchUrl = $match->{module} . '/View/' . $match->{model};
+            if ($match->{dir}) {
+                $matchUrl .= '?directory=' . $match->{dir};
+            }
+            if (not exists $matches{$matchUrl}) {
+                $match->{url} = $matchUrl;
+                $matches{$matchUrl} = $match;
+            } else {
+                # XXX not sure what to do about more matches for th same model,
+                # ignoring them for now
+            }
+        }
+    }
+
+    return [values %matches];
+}
+
+# this only for models, for custom redis this must be overridden
+sub _keyToSearchMatch
+{
+    my ($self, $key) = @_;
+    my ($modName, $dir) = split '/conf/', $key, 2;
+    if ((not $modName) or (not $dir) ) {
+        return undef;
+    } elsif ($self->name ne $modName) {
+        # XXX maybe we can retire this
+        EBox::error("Bad match mod name $modName <-> $key");
+        return undef;
+    }
+
+    my @parts = split '/keys/', $dir;
+    my $rowId = pop @parts;
+    if (@parts == 0) {
+        EBox::error("Unexpected dir portion: '$dir' from key: '$key'");
+        return undef;
+    } elsif (@parts == 1) {
+        # simple case, simple model
+        return {
+            module => $modName,
+            model => $parts[0],
+            dir   => undef,
+            rowId => $rowId,
+        };
+    }
+
+# mail/conf/VDomains/keys/vd2/aliases/keys/vdm1
+    my $global   = $self->global();
+    my $modelModName = $modName;
+    my $model        = shift @parts;
+    my $modelDir     = '';
+    foreach my $part (@parts) {
+        my ($id, $fieldName, $remaining) = split '/', $part;
+        if ((not $id) or (not $fieldName) or $remaining) {
+            EBox::error("Unexpected submodel part '$part' from key '$key'");
+            return undef;
+        }
+        my $modelInstance = $global->modInstance($modelModName)->model($model);
+        if ($modelDir) {
+            $modelInstance->setDirectory($modelDir);
+        } else {
+            # init modelDir with the name of the first model
+            $modelDir = $model;
+        }
+        my $field = $modelInstance->fieldHeader($fieldName);
+        my $nextModel = $field->foreignModel();
+        my @nextModelParts = split '/', $field->foreignModel();
+        if (@nextModelParts == 1) {
+            $model = $nextModelParts[0];
+        } elsif (@nextModelParts == 2) {
+            ($modelModName, $model) = @nextModelParts;
+        } else {
+            EBox::error("Unexpected foreingModel '" . $field->foreingModel() . "' from key '$key'");
+            return undef;
+        }
+
+        # increase modelDir
+        $modelDir .= '/keys/' . $part;
+    }
+
+    return {
+        module => $modName,
+        model => $model,
+        dir => $modelDir,
+        rowId => $rowId,
+       };
+}
+
+
 1;
