@@ -5030,4 +5030,55 @@ sub _flagIfUp
     }
 }
 
+sub searchContents
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my ($modelMatches, $noModelMatches) = $self->_searchRedisConfKeys($searchString);
+    foreach my $key (@{ $noModelMatches }) {
+        if ($key eq $self->_key('interfaces')) {
+            push @matches, @{ $self->_interfaceSearchMatch($searchString) };
+        }
+    }
+    push @matches, @{ $modelMatches };
+
+
+    return \@matches;
+}
+
+sub _interfaceSearchMatch
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my $interfaces = $self->get('interfaces');
+    while (my ($iface, $attrs) = each %{ $interfaces }) {
+        my @attrs = values %{ $attrs };
+        foreach my $attr (@attrs) {
+            if (index($attr, $searchString) != -1) {
+                my $ifName = $attrs->{alias} ? $attrs->{alias} : $iface;
+                my $linkElements =  [
+                    {
+                        title => $self->printableName(),
+                    },
+                    {
+                        title => __('Interfaces')
+                    },
+                    {
+                        title => $ifName,
+                        link => "/Network/Ifaces?iface=$iface"
+                    }
+                ];
+                my $match = {
+                    module => 'network',
+                    linkElements => $linkElements
+                };
+                push @matches, $match;
+                last;
+            }
+        }
+    }
+
+    return \@matches;
+}
+
 1;

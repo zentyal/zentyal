@@ -946,6 +946,28 @@ sub searchContents
     return $modelMatches;
 }
 
+sub _allValuesFromKey
+{
+    my ($self, $value) = @_;
+    my $refType = ref $value;
+    my @allKeyValues;
+    if ($refType eq 'ARRAY') {
+        @allKeyValues = @{ $value };
+    } elsif ($refType eq 'HASH') {
+        @allKeyValues = values %{ $value };
+    } else {
+        if ($value) {
+            @allKeyValues = ($value);
+        }
+    }
+
+    @allKeyValues = map {
+        (ref $_) ? @{ $self->_allValuesFromKey($_) } : ($_)
+    } @allKeyValues;
+
+    return \@allKeyValues;
+}
+
 sub _searchRedisConfKeys
 {
     my ($self, $searchString) = @_;
@@ -965,19 +987,8 @@ sub _searchRedisConfKeys
             next;
         }
         my $value = $redis->get($key);
-        my $refType = ref $value;
-        # in models we don't have nested list/hash
-        my @allKeyValues;
-        if ($refType eq 'ARRAY') {
-            @allKeyValues = @{ $value };
-        } elsif ($refType eq 'HASH') {
-            @allKeyValues = values %{ $value };
-        } else {
-            if ($value) {
-                @allKeyValues = ($value);
-            }
+        my @allKeyValues = @{ $self->_allValuesFromKey($value) };
 
-        }
         my $valueMatch = 0;
         foreach my $keyVal (@allKeyValues) {
             if (index($keyVal, $searchString) != -1) {
@@ -1003,10 +1014,11 @@ sub _searchRedisConfKeys
                 $modelMatches{$modelMatchUrl} = $modelMatch;
 
             } else {
-                # XXX not sure what to do about more matches for th same model,
+                # XXX not sure what to do about more matches for the same model,
                 # ignoring them for now
             }
         } else {
+            EBox::debug("XXX no model match $key");
             push @noModelMatches, $key;
         }
     }
@@ -1021,6 +1033,7 @@ sub _keyToModelMatch
     my ($self, $key) = @_;
     my ($modName, $dir) = split '/conf/', $key, 2;
     if ((not $modName) or (not $dir) ) {
+        EBox::error("Unexpected key format: '$key'");
         return undef;
     } elsif ($self->name ne $modName) {
         # XXX maybe we can retire this
@@ -1033,7 +1046,7 @@ sub _keyToModelMatch
     my $rowId = pop @parts;
     if (@parts == 0) {
         if (not $model or not $rowId) {
-            EBox::error("Unexpected dir portion: '$dir' from key: '$key'");
+            # It may be a no-model key
             return undef;
         }
         # simple case, simple model
