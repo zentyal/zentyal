@@ -5060,15 +5060,16 @@ sub _interfaceSearchMatch
     my $interfaces = $self->get('interfaces');
     while (my ($iface, $attrs) = each %{ $interfaces }) {
         my $ifMatch = 0;
+
         while ( my($attrName, $attr) = each %{ $attrs}) {
             if ($attrName eq 'virtual') {
                 while (my ($vname, $vattrs) = each $attr) {
-                    if (index($vname, $searchString) != 1) {
+                    if (index($vname, $searchString) != -1) {
                         $ifMatch = 1;
                         last;
                     }
                     foreach my $vattrVal (values %{ $vattrs }) {
-                        if (index($vattrVal, $searchString) != 1) {
+                        if (index($vattrVal, $searchString) != -1) {
                             $ifMatch = 1;
                             last;
                         }
@@ -5091,18 +5092,17 @@ sub _interfaceSearchMatch
                 },
                 {
                     title => __('Interfaces')
-                   },
+                },
                 {
                     title => $ifName,
                     link => "/Network/Ifaces?iface=$iface"
-                   }
-               ];
+                }
+              ];
             my $match = {
                 module => 'network',
                 linkElements => $linkElements
                };
             push @matches, $match;
-            last;
         }
     }
 
