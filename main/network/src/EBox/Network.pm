@@ -5045,7 +5045,10 @@ sub searchContents
     foreach my $key (@{ $noModelMatches }) {
         if ($key eq $self->_key('interfaces')) {
             push @matches, @{ $self->_interfaceSearchMatch($searchString) };
+        } elsif ($key eq $self->_key('vlans')) {
+            push @matches, @{ $self->_vlanSearchMatch($searchString) };
         }
+
     }
     push @matches, @{ $modelMatches };
 
@@ -5059,32 +5062,32 @@ sub _interfaceSearchMatch
     my @matches;
     my $interfaces = $self->get('interfaces');
     while (my ($iface, $attrs) = each %{ $interfaces }) {
-        my $ifMatch = 0;
+        my $ifMatchs = 0;
 
         while ( my($attrName, $attr) = each %{ $attrs}) {
             if ($attrName eq 'virtual') {
                 while (my ($vname, $vattrs) = each $attr) {
                     if (index($vname, $searchString) != -1) {
-                        $ifMatch = 1;
+                        $ifMatchs = 1;
                         last;
                     }
                     foreach my $vattrVal (values %{ $vattrs }) {
                         if (index($vattrVal, $searchString) != -1) {
-                            $ifMatch = 1;
+                            $ifMatchs = 1;
                             last;
                         }
                     }
-                    if ($ifMatch) {
+                    if ($ifMatchs) {
                         last;
                     }
                 }
             } elsif (index($attr, $searchString) != -1) {
-                $ifMatch = 1;
+                $ifMatchs = 1;
                 last;
             }
         }
 
-        if ($ifMatch) {
+        if ($ifMatchs) {
             my $ifName = $attrs->{alias} ? $attrs->{alias} : $iface;
             my $linkElements =  [
                 {
@@ -5102,6 +5105,44 @@ sub _interfaceSearchMatch
                 module => 'network',
                 linkElements => $linkElements
                };
+            push @matches, $match;
+        }
+    }
+
+    return \@matches;
+}
+
+sub _vlanSearchMatch
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my $vlans = $self->get('vlans');
+    foreach my $vlAttrs (values %{$vlans}) {
+        my $vlanMatchs = 0;
+        foreach my $attrVal (values %{$vlAttrs}) {
+            if (index($attrVal, $searchString) != -1) {
+                $vlanMatchs = 1;
+                last;
+            }
+        }
+
+        if ($vlanMatchs) {
+            my $linkElements =  [
+                {
+                    title => $self->printableName(),
+                },
+                {
+                    title => __('Interfaces')
+                },
+                {
+                    title => $vlAttrs->{name},
+                    link => "/Network/Ifaces?iface=" . $vlAttrs->{name}
+                }
+              ];
+            my $match = {
+                module => 'network',
+                linkElements => $linkElements,
+            };
             push @matches, $match;
         }
     }
