@@ -375,9 +375,6 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
-
-            externalRetrievalEnabled => $externalRetrievalEnabled,
-            externalAccounts => \@externalAccounts,
     );
 
     my $title;
