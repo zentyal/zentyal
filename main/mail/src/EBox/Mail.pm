@@ -428,6 +428,13 @@ sub _setMailConf
     my $adminDn     = $users->administratorDN();
     my $adminPasswd = $users->administratorPassword();
 
+    my $filePermissions = {
+        uid  => getpwnam('dovecot'),
+        gid  => getgrname('dovecot'),
+        mode => '0600',
+        force => 1,
+    };
+
     push (@array, 'bindDN', $adminDn);
     push (@array, 'bindPW', $adminPasswd);
     push (@array, 'hostname' , $self->_fqdn());
@@ -456,14 +463,14 @@ sub _setMailConf
     push (@array, 'greylistAddr', $greylist->address());
     push (@array, 'greylistPort', $greylist->port());
     push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
-    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
+    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array, $filePermissions);
 
     @array = ();
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'fwport', $self->fwport());
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'zarafa', $self->zarafaEnabled());
-    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
+    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array, $filePermissions);
 
     $self->_setHeloChecks();
 
@@ -488,11 +495,7 @@ sub _setMailConf
                           relayHost => $self->relay(),
                           relayAuth => $self->relayAuth(),
                          ],
-                         {
-                          uid  => 0,
-                          gid  => 0,
-                          mode => '0600',
-                         }
+                         $filePermissions
                         );
 
     $self->_setArchivemailConf();
@@ -641,6 +644,13 @@ sub _setDovecotConf
         }
     }
 
+    my $filePermissions = {
+        uid  => getpwnam('postfix'),
+        gid  => getgrnam('postfix'),
+        mode => '0600',
+        force => 1,
+    };
+
     my @params = ();
     push (@params, uid => $uid);
     push (@params, gid => $gid);
@@ -654,20 +664,22 @@ sub _setDovecotConf
     push (@params, gssapiHostname => $gssapiHostname);
     push (@params, openchange => $openchange);
 
-    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
+    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
     # ldap dovecot conf file
     @params = ();
+    push (@params, ldapHost     => "ldap://localhost");
     push (@params, baseDN      => $users->ldap()->dn());
-    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => $users->administratorDN());
-    push (@params, zentyalROPwd => $users->administratorPassword());
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+    push (@params, mailboxesDir => VDOMAINS_MAILBOXES_DIR);
+    push (@params, bindDN       => $users->administratorDN());
+    push (@params, bindDNPwd    => $users->administratorPassword());
+
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $filePermissions);
 
     if ($openchange) {
         @params = ();
         push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params);
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $filePermissions);
     }
 }
 

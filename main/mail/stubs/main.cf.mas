@@ -65,7 +65,7 @@ my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 
 my $ldapServer = 'localhost:' . $ldap->{port};
 </%init>
-
+debug_peer_list=192.168.56.1
 # require helo
 smtpd_delay_reject  = yes
 smtpd_helo_required = yes
@@ -146,8 +146,8 @@ virtual_mailbox_domains = ldap:vmaildomains
 vmaildomains_server_host = <% $ldapServer %>
 vmaildomains_version = 3
 vmaildomains_search_base =  <% $vdomainDN %>
-vmaildomains_query_filter = (&(objectclass=domain)(dc=%s))
-vmaildomains_result_attribute = dc, maildrop
+vmaildomains_query_filter = (&(objectclass=CourierVirtualDomain)(virtualdomain=%s))
+vmaildomains_result_attribute = virtualdomain
 vmaildomains_bind = yes
 vmaildomains_bind_dn = <% $bindDN %>
 vmaildomains_bind_pw = <% $bindPW %>
@@ -170,7 +170,6 @@ smtpd_restriction_classes = submission_recipient_restrictions
 #SASL authentication
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
-smtpd_sasl_local_domain =
 broken_sasl_auth_clients = yes
 smtpd_tls_auth_only = yes
 smtpd_sasl_type = dovecot
