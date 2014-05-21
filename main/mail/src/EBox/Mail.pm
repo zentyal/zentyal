@@ -320,9 +320,23 @@ sub enableActions
 sub setupLDAP
 {
     my ($self) = @_;
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-#    $self->kerberosCreatePrincipals();
+
+    my $ldap = $self->ldap();
+    my $baseDn =  $ldap->dn();
+    my @containers = (
+        'CN=zentyal,CN=configuration,' . $baseDn,
+        'CN=mail,CN=zentyal,CN=configuration,' . $baseDn,
+        $self->{vdomains}->vdomainDn,
+        $self->{malias}->aliasDn,
+     );
+    foreach my $dn (@containers) {
+        if (not $ldap->existsDN($dn)) {
+            $ldap->add($dn, {attr => [
+                'objectClass' => 'top',
+                'objectClass' => 'container'
+               ]});
+        }
+    }
 
     $self->{musers}->setupUsers();
 }
@@ -403,6 +417,16 @@ sub _setMailConf
     my $adminDn     = $users->administratorDN();
     my $adminPasswd = $users->administratorPassword();
 
+    my $filePermissions = {
+        uid => 0,
+        gid => 0,
+#        uid  => scalar getpwnam('postfix'),
+#        gid  => scalar getgrnam('postfix'),
+#        mode => '0660',
+        mode => '0666',
+        force => 1,
+    };
+
     push (@array, 'bindDN', $adminDn);
     push (@array, 'bindPW', $adminPasswd);
     push (@array, 'hostname' , $self->_fqdn());
@@ -423,7 +447,6 @@ sub _setMailConf
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'portfilter', $self->portfilter());
-    push (@array, 'zarafa', $self->zarafaEnabled());
     my $alwaysBcc = $self->_alwaysBcc();
     push (@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
@@ -432,14 +455,14 @@ sub _setMailConf
     push (@array, 'greylistAddr', $greylist->address());
     push (@array, 'greylistPort', $greylist->port());
     push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
-    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
+    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array, $filePermissions);
 
     @array = ();
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'fwport', $self->fwport());
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'zarafa', $self->zarafaEnabled());
-    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
+    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array, $filePermissions);
 
     $self->_setHeloChecks();
 
@@ -464,11 +487,7 @@ sub _setMailConf
                           relayHost => $self->relay(),
                           relayAuth => $self->relayAuth(),
                          ],
-                         {
-                          uid  => 0,
-                          gid  => 0,
-                          mode => '0600',
-                         }
+                         $filePermissions
                         );
 
     $self->_setArchivemailConf();
@@ -617,6 +636,16 @@ sub _setDovecotConf
         }
     }
 
+    my $filePermissions = {
+        udi => 0,
+        gid => 0,
+#        uid  => scalar getpwnam('dovecot'),
+#        gid  => scalar getgrnam('dovecot'),
+#        mode => '0660',
+        mode => '0666',
+        force => 1,
+    };
+
     my @params = ();
     push (@params, uid => $uid);
     push (@params, gid => $gid);
@@ -630,20 +659,22 @@ sub _setDovecotConf
     push (@params, gssapiHostname => $gssapiHostname);
     push (@params, openchange => $openchange);
 
-    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
+    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
     # ldap dovecot conf file
     @params = ();
+    push (@params, ldapHost     => "ldap://localhost");
     push (@params, baseDN      => $users->ldap()->dn());
-    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => $users->administratorDN());
-    push (@params, zentyalROPwd => $users->administratorPassword());
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+    push (@params, mailboxesDir => VDOMAINS_MAILBOXES_DIR);
+    push (@params, bindDN       => $users->administratorDN());
+    push (@params, bindDNPwd    => $users->administratorPassword());
+
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $filePermissions);
 
     if ($openchange) {
         @params = ();
         push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params);
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $filePermissions);
     }
 }
 
@@ -1817,7 +1848,7 @@ sub reprovisionLDAP
     $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
-    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
+#    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 }
 
 sub slaveSetupWarning

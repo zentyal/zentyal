@@ -4,10 +4,12 @@ governsID:  1.3.6.1.4.1.31607.2.1.3.2.1
 cn: usereboxmail
 name: usereboxmail
 LDAPDisplayName: usereboxmail
-subClassOf: user
+subClassOf: top
 objectClassCategory: 3
-mustContain: mailHomeDirectory
+mayContain: mailHomeDirectory
 mayContain: userMaildirSize
+mayContain: mailquota
+mayContain: mailbox
 possSuperiors: top
 
 dn: CN=vdeboxmail,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
@@ -15,18 +17,8 @@ objectClass: classSchema
 governsID:  1.3.6.1.4.1.31607.2.1.3.2.2
 cn: vdeboxmail
 name: vdeboxmail
-LDAPDisplayName: usereboxmail
+LDAPDisplayName: vdeboxmail
 subClassOf: top
 objectClassCategory: 3
 mayContain: vddftMaildirSize
 possSuperiors: top
-
-
-
-
-
-
-
-
-
-

@@ -167,11 +167,8 @@ sub _setupForMode
 sub ldb
 {
     my ($self) = @_;
-
-    unless (defined ($self->{ldb})) {
-        $self->{ldb} = EBox::Ldap->instance();
-    }
-    return $self->{ldb};
+    EBox::debug("ldb() to be deprecated, replace with ldap()");
+    return $self->ldap();
 }
 
 
@@ -2879,7 +2876,6 @@ sub drive
 
 # Method: administratorDN
 #
-#     Administrator DN
 #
 # Returns:
 #

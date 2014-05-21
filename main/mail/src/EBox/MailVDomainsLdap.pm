@@ -31,7 +31,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 
-use constant VDOMAINDN     => 'ou=vdomains,ou=postfix';
+use constant VDOMAINDN     => 'cn=vdomains,cn=mail,cn=zentyal,cn=configuration';
 use constant BYTES         => '1048576';
 use constant MAXMGSIZE     => '104857600';
 
@@ -66,12 +66,13 @@ sub addVDomain
                                            'value' => $vdomain);
     }
 
-    my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
+    my $dn = "cn=$vdomain," . $self->vdomainDn;
     my %attrs = (
                  attr => [
-                          'domainComponent' => $vdomain,
-                          'objectclass'    => 'domain',
-                        'objectclass'     => 'vdeboxmail'
+                          cn            => $vdomain,
+                          virtualdomain => $vdomain,
+                          objectclass   => 'CourierVirtualDomain',
+                          objectclass   => 'vdeboxmail'
                          ]
                 );
 
@@ -124,7 +125,7 @@ sub delVDomain
 
     $self->_cleanVDomain($vdomain);
 
-    my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
+    my $r = $self->{'ldap'}->delete("cn=$vdomain," .
                                     $self->vdomainDn);
 }
 
@@ -172,12 +173,12 @@ sub vdomains
                 base => $self->vdomainDn,
                 filter => 'objectclass=*',
                 scope => 'one',
-                attrs => ['domainComponent']
+                attrs => ['virtualdomain']
                );
 
     my $result = $self->{ldap}->search(\%args);
 
-    my @vdomains = map { $_->get_value('dc')} $result->sorted('domainComponent');
+    my @vdomains = map { $_->get_value('virtualdomain')} $result->sorted('virtualdomain');
 
     return @vdomains;
 }
@@ -190,10 +191,9 @@ sub vdomains
 #
 #     vdomain - The virtual domain name
 sub _updateVDomain
- {
-     my ($self, $vdomain) = @_;
-
-        my @mods = @{$self->_modsVDomainModule()};
+{
+    my ($self, $vdomain) = @_;
+    my @mods = @{$self->_modsVDomainModule()};
 
      foreach my $mod (@mods){
          $mod->_modifyVDomain($vdomain);
@@ -233,7 +233,7 @@ sub vdomainExists
 
     my %attrs = (
                  base => $self->vdomainDn,
-                 filter => "&(objectclass=*)(dc=$vdomain)",
+                 filter => "&(objectclass=*)(virtualdomain=$vdomain)",
                  scope => 'one'
         );
 

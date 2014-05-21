@@ -109,9 +109,12 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    $user->add('objectClass', ['couriermailaccount',
-                               'usereboxmail',
-                               'fetchmailUser'], 1);
+    my $hasClass = grep { lc($_) eq 'usereboxmail' } $user->get('objectClass');
+    if (not $hasClass) {
+        $user->add('objectclass', 'usereboxmail');
+    }
+
+    $user->clearCache();
 
     $user->set('mail', $email, 1);
     $user->set('mailbox', $rhs.'/'.$lhs.'/', 1);
@@ -161,13 +164,12 @@ sub delUserAccount
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
 
-    $user->remove('objectClass', [ 'CourierMailAccount', 'usereboxmail', 'fetchmailUser' ], 1);
+    $user->remove('objectClass', 'usereboxmail', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
     $user->delete('mailquota', 1);
     $user->delete('mailHomeDirectory', 1);
-    $user->delete('fetchmailAccount', 1);
     $user->save();
 
     my @cmds;
@@ -225,9 +227,9 @@ sub userByAccount
 
     my %args = (
                 base => $self->{ldap}->dn(),
-                filter => "&(objectclass=posixAccount)(mail=$account)",
+                filter => "&(objectclass=person)(mail=$account)",
                 scope => 'sub',
-                attrs => ['uid'],
+                attrs => ['samAccountName'],
                );
 
     my $result = $self->{ldap}->search(\%args);
@@ -236,7 +238,7 @@ sub userByAccount
     }
 
     my $entry = $result->entry(0);
-    my $usermail = $entry->get_value('uid');
+    my $usermail = $entry->get_value('samAccountName');
 
     return $usermail;
 }
@@ -373,9 +375,6 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
-
-            externalRetrievalEnabled => $externalRetrievalEnabled,
-            externalAccounts => \@externalAccounts,
     );
 
     my $title;
@@ -457,7 +456,7 @@ sub _accountExists
     my $username = $user->name();
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=couriermailaccount)(uid=$username)",
+                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
                  scope => 'sub'
                 );
 
@@ -483,13 +482,13 @@ sub allAccountsFromVDomain
 
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
+                 filter => "&(objectclass=person)(mail=*@".$vdomain.")",
                  scope => 'sub'
                 );
 
     my $result = $self->{ldap}->search(\%attrs);
 
-    my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
+    my %accounts = map { $_->get_value('samAccountName'), $_->get_value('mail')} $result->sorted('uid');
 
     return \%accounts;
 }
@@ -509,7 +508,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 
