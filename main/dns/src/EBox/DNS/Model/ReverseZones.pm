@@ -146,7 +146,14 @@ sub _table
             backView        => '/DNS/View/ReverseZones',
             size            => '1',
         ),
-
+        new EBox::Types::HasMany(
+            fieldName       => 'nameServers',
+            printableName   => __('Name servers'),
+            foreignModel    => 'ReverseNameServers',
+            view            => '/DNS/View/ReverseNameServers',
+            backView        => '/DNS/View/ReverseZones',
+            size            => '1',
+        ),
         # This field indicates if the domain is static, dynamic or dlz
         # Not editable from interface
         new EBox::Types::Boolean(
