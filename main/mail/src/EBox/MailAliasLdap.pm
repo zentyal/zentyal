@@ -77,7 +77,7 @@ sub addExternalAlias
 {
     my ($self, $vdomain, $alias, $maildrop) = @_;
 
-    $self->_checkAccountAlias($alias, $maildrop);
+    $self->_checkAccountAlias($alias, $maildrop, 1);
 
     my $user = $self->_accountUser($maildrop);
     if ($user) {
@@ -100,10 +100,10 @@ sub _accountUser
 
 sub _checkAccountAlias
 {
-    my ($self, $alias, $maildrop) = @_;
+    my ($self, $alias, $maildrop, $noCheckExternalAliases) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('mail alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, $noCheckExternalAliases);
 
     # Verify maildrop is not an alias
     # (For now it is not allowed alias of aliases)
