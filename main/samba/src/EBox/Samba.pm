@@ -908,7 +908,7 @@ sub recycleConfig
 
     my $conf = {};
     my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
-                'maxsize', 'exclude', 'excludedir', 'noversions');
+                'maxsize', 'exclude', 'excludedir', 'noversions', 'inherit_nt_acl');
 
     foreach my $key (@keys) {
         my $value = EBox::Config::configkey($key);
