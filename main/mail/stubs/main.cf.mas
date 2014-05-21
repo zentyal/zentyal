@@ -24,8 +24,6 @@
         $ipfilter
         $portfilter
 
-        $zarafa
-
         $bccMaps
 
         $greylist
@@ -94,11 +92,6 @@ alias_database = hash:/etc/aliases
 local_recipient_maps = proxy:unix:passwd.byname $alias_maps
 
 relayhost = <% $relay %>
-
-% if ($zarafa) {
-transport_maps = hash:/etc/postfix/transport
-zarafa_destination_recipient_limit = 1
-% }
 
 % if ($relay) {
 smtp_tls_security_level = may

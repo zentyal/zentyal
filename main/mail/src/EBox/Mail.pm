@@ -448,7 +448,6 @@ sub _setMailConf
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'portfilter', $self->portfilter());
-    push (@array, 'zarafa', $self->zarafaEnabled());
     my $alwaysBcc = $self->_alwaysBcc();
     push (@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
