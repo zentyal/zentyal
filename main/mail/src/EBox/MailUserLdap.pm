@@ -109,9 +109,12 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    $user->add('objectClass', ['couriermailaccount',
-                               'usereboxmail',
-                               'fetchmailUser'], 1);
+    my $hasClass = grep { lc($_) eq 'usereboxmail' } $user->get('objectClass');
+    if (not $hasClass) {
+        $user->add('objectclass', 'usereboxmail');
+    }
+
+    $user->clearCache();
 
     $user->set('mail', $email, 1);
     $user->set('mailbox', $rhs.'/'.$lhs.'/', 1);
