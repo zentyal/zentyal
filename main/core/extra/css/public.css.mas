@@ -1230,7 +1230,7 @@ a.minBox, a.maxBox {
     text-decoration: none;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    background-color: #ddd;
+    background-color: #f5f5f5;
     color: #333;
 }
 span.links-register a{
@@ -1243,7 +1243,7 @@ span.links-register a:hover{
     border-color: #006981;
 }
 .links-highlight a:hover{
-    background-color: #ccc;
+    background-color: #ddd;
     border-color: #999;
 }
 
@@ -1260,7 +1260,7 @@ span.links-register a:hover{
 color: #00ADD0;
 font-size: 13px;
 padding: 11px 0px 11px 45px;
-background: #f5f5f5;
+background: #fff;
 text-decoration: none;
 display: block;
 margin-bottom: 5px;
@@ -1270,7 +1270,7 @@ border: 1px solid #EEE;
 border-radius: 2px;
 }
 .linksBlock a:hover{
-    background-color: #eee;
+    background-color: #f5f5f5;
     border-color:#ccc;
 }
 .linksBlock a.i-book{
