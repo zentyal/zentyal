@@ -429,9 +429,12 @@ sub _setMailConf
     my $adminPasswd = $users->administratorPassword();
 
     my $filePermissions = {
-        uid  => getpwnam('dovecot'),
-        gid  => getgrname('dovecot'),
-        mode => '0600',
+        uid => 0,
+        gid => 0,
+#        uid  => scalar getpwnam('postfix'),
+#        gid  => scalar getgrnam('postfix'),
+#        mode => '0660',
+        mode => '0666',
         force => 1,
     };
 
@@ -645,9 +648,12 @@ sub _setDovecotConf
     }
 
     my $filePermissions = {
-        uid  => getpwnam('postfix'),
-        gid  => getgrnam('postfix'),
-        mode => '0600',
+        udi => 0,
+        gid => 0,
+#        uid  => scalar getpwnam('dovecot'),
+#        gid  => scalar getgrnam('dovecot'),
+#        mode => '0660',
+        mode => '0666',
         force => 1,
     };
 

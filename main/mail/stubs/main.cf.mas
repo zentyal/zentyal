@@ -136,7 +136,7 @@ virtual_mailbox_maps= ldap:ldapvirtualmap
 ldapvirtualmap_server_host = <% $ldapServer %>
 ldapvirtualmap_version = 3
 ldapvirtualmap_search_base = <% $baseDN %>
-ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
+ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=person))
 ldapvirtualmap_result_attribute = mailbox
 ldapvirtualmap_bind = yes
 ldapvirtualmap_bind_dn = <% $bindDN %>
