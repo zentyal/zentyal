@@ -312,8 +312,7 @@ sub addMaildrop
                                                           'value' => $alias);
     }
 
-    my $dn = "mail=$alias, " . $self->aliasDn();
-
+    my $dn = "cn=$alias," . $self->aliasDn();
     my %attrs = (
         changes => [
             add => [ 'maildrop' => $maildrop ]
@@ -342,8 +341,7 @@ sub delMaildrop
                                                           'value' => $alias);
     }
 
-    my $dn = "mail=$alias, " . $self->aliasDn();
-
+    my $dn = "cn=$alias, " . $self->aliasDn();
     #if is the last maildrop delete the alias account
     my @mlist = @{$self->accountListByAliasGroup($alias)};
     my %attrs;
@@ -379,7 +377,7 @@ sub delAlias
 
     # We Should warn about users whose mail account belong to this vdomain.
 
-    my $r = $self->{'ldap'}->delete("mail=$alias, " . $self->aliasDn);
+    my $r = $self->{'ldap'}->delete("cn=$alias, " . $self->aliasDn);
 }
 
 # Method: delGrouopAlias
