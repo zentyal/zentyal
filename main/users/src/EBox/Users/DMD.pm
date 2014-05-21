@@ -15,11 +15,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::DMD
+# Class: EBox::Users::DMD
 #
 #   Directory Management Domain, stored in LDB
 #
-package EBox::Samba::DMD;
+package EBox::Users::DMD;
 use base 'EBox::Users::LdapObject';
 
 # Method: mainObjectClass

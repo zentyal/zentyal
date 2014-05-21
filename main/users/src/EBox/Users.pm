@@ -55,6 +55,7 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
 use EBox::Users::Provision;
+use EBox::Users::DMD;
 
 use Digest::SHA;
 use Digest::MD5;

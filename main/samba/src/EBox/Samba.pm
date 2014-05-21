@@ -34,7 +34,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Menu::Item;
-use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Users::LdapObject;
 use EBox::Users::Provision;
