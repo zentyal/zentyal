@@ -41,7 +41,7 @@ attributeID:   1.3.6.1.4.1.10018.1.1.4
 cn: maildrop
 name: maildrop
 lDAPDisplayName: maildrop
-description: RFC822 Mailbox - mail alia
+description: RFC822 Mailbox - mail alias
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: FALSE
