@@ -6,18 +6,20 @@ $searchString
 use EBox::Gettext;
 use EBox::Global;
 my $title = __x('Matches for {oem}{search}{cem}',
-               oem => '<em>',
+               oem => '<em class="green">',
                search => $searchString,
                cem => '</em>'
            );
 
 </%init>
-<h2><% $title %></h2>
+<div id="searchresults" class="item-block">
+<h3><% $title %></h3>
 % if (not @matches) {
 <p><% __('Sorry, your search did not match any data') %></p>
 % } else {
 <& .matchesTable, matches => \@matches &>
 % }
+</div>
 
 <%def .matchesTable>
 <%args>
@@ -67,4 +69,3 @@ my $title = __x('Matches for {oem}{search}{cem}',
 % }
 </ul>
 </%def>
-

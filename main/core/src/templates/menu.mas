@@ -5,12 +5,14 @@ $currentUrl => ''
 $copyright_footer
 </%args>
 <div id='menu'>
-    <ul id='nav'>
-        <li class="menuSearch">
-           <form action='/SysInfo/Search'>
-               <input name='search' id='menusearch' type='text'/>
-           </form>
-        </li>
+
+<div class="menusearch">
+  <form action='/SysInfo/Search'>
+     <input name="search" id="menusearch" type="text" placeholder="<% __('Search') %>"/>
+     <input type="submit" name="search" />
+  </form>
+</div>
+<ul id='nav'>
 % foreach my $item (@items) {
         <% $item->html($current, $currentUrl) %>
 % }
