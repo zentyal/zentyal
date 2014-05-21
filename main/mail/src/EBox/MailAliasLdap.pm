@@ -432,7 +432,7 @@ sub accountAlias
 
     my %args = (
         base => $self->aliasDn,
-        filter => "&(userid=$mail)(maildrop=$mail)",
+        filter => "&(mailsource=$mail)(maildrop=$mail)",
         scope => 'one',
         attrs => ['mail']
     );
@@ -463,7 +463,7 @@ sub groupAccountAlias
 
     my %args = (
         base => $self->aliasDn,
-        filter => "&(!(userid=$mail))(maildrop=$mail)",
+        filter => "&(!(mailsource=$mail))(maildrop=$mail)",
         scope => 'one',
         attrs => ['mail']
     );
