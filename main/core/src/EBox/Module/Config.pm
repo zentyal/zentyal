@@ -973,7 +973,7 @@ sub _searchRedisConfKeys
 {
     my ($self, $searchString) = @_;
     my %modelMatches;
-    my @noModelMatches;
+    my %noModelMatches;
 
     my $redis = $self->redis();
     my @keys = $redis->_keys($self->_key('*'));
@@ -1020,12 +1020,12 @@ sub _searchRedisConfKeys
                 # ignoring them for now
             }
         } else {
-            push @noModelMatches, $key;
+            $noModelMatches{$key} = 1;
         }
     }
 
 
-    return ([values %modelMatches], \@noModelMatches);
+    return ([values %modelMatches], [keys %noModelMatches]);
 }
 
 # this only for models, for custom redis this must be overridden
