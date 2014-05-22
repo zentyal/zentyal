@@ -1,3 +1,5 @@
+HEAD
+	+ Webmail depends on Zentyal Mail module
 3.2.3
 	+ Module manages Roundcube htaccess. Max upload file size is now got from
 	  the mail module. Also added a default timezone to avoid Roundcube warning
