@@ -978,7 +978,6 @@ sub _searchRedisConfKeys
     my $redis = $self->redis();
     my @keys = $redis->_keys($self->_key('*'));
     if (not @keys) {
-        EBox::warn($self->name() . ' module has not redis conf keys!');
         return [];
     }
     foreach my $key (@keys) {
