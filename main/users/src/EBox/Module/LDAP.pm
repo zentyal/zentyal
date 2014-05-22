@@ -111,6 +111,7 @@ sub _performSetup
         $self->_loadSchemas();
         $state->{'_schemasAdded'} = 1;
         $self->set_state($state);
+        $self->global()->addModuleToPostSave('users');
     }
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
