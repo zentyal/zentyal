@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression in page not found CGI which displayed always a
+	  invalid referer error
 	+ Included the package field in crash report
 3.4.3
 	+ Fix MIME type for returning JSON (application/json)
