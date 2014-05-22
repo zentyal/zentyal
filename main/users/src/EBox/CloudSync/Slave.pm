@@ -21,7 +21,7 @@ package EBox::CloudSync::Slave;
 use base 'EBox::Users::Slave';
 
 use EBox::Global;
-use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Users::User;
 
 use Error qw(:try);
@@ -60,7 +60,9 @@ sub _addUser
     };
 
     my $uid = $user->get('uid');
-    $self->RESTClient->POST("/v1/users/users/$uid", query => $userinfo, retry => 1);
+    try {
+        $self->RESTClient->POST("/v1/users/users/$uid", query => $userinfo, retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
 
     return 0;
 }
@@ -86,7 +88,9 @@ sub _modifyUser
     };
 
     my $uid = $user->get('uid');
-    $self->RESTClient->PUT("/v1/users/users/$uid", query => $userinfo, retry => 1);
+    try {
+        $self->RESTClient->PUT("/v1/users/users/$uid", query => $userinfo, retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
 
     return 0;
 }
@@ -98,7 +102,9 @@ sub _delUser
     return if ($user->isInternal());
 
     my $uid = $user->get('uid');
-    $self->RESTClient->DELETE("/v1/users/users/$uid", retry => 1);
+    try {
+        $self->RESTClient->DELETE("/v1/users/users/$uid", retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
     return 0;
 }
 
@@ -116,7 +122,9 @@ sub _addGroup
     };
 
     my $name = $group->name();
-    $self->RESTClient->POST("/v1/users/groups/$name", query => $groupinfo, retry => 1);
+    try {
+        $self->RESTClient->POST("/v1/users/groups/$name", query => $groupinfo, retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
 
     return 0;
 }
@@ -138,7 +146,9 @@ sub _modifyGroup
     };
 
     my $name = $group->get('cn');
-    $self->RESTClient->PUT("/v1/users/groups/$name", query => $groupinfo, retry => 1);
+    try {
+        $self->RESTClient->PUT("/v1/users/groups/$name", query => $groupinfo, retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
 
     return 0;
 }
@@ -150,7 +160,10 @@ sub _delGroup
     return if (not $group->isSecurityGroup() or $group->isInternal());
 
     my $name = $group->get('cn');
-    $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);
+    try {
+        $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);
+    } catch EBox::Exceptions::Internal with {}; # RESTClient will retry
+
     return 0;
 }
 
