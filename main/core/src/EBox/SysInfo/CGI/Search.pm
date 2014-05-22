@@ -43,7 +43,12 @@ sub _process
     my ($self) = @_;
     my $searchString = $self->unsafeParam('search');
     if (not $searchString) {
-        $self->{chain} = '/Dashboard/Index';
+        $self->setError(__('No search term'));
+        $self->{params} = [
+            searchString => __('None'),
+            matches      => [],
+           ];
+
         return;
     }
 
