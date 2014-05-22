@@ -184,7 +184,7 @@ sub delUserAccount
 
     # disable openchange account if exists. We don't implement and observer
     # notifier interface bz only one module is to be notifier
-    if ($self->openchangeAccountEnabled($user)) {
+    if ((not $user->isSystem()) and ($self->openchangeAccountEnabled($user))) {
         my $openchange =  EBox::Global->modInstance('openchange');
         my $userOc = $openchange->_ldapModImplementation();
         if ($userOc->enabled($user)) {
