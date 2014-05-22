@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed regression in page not found CGI which displayed always a
+	  invalid referer error
 3.4.3
 	+ Fix MIME type for returning JSON (application/json)
 	+ Added setMessage() and popMessageAndClass() methods to TreeView

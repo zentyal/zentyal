@@ -40,4 +40,10 @@ sub _process
 {
 }
 
+# this is to be able to display this page wtih any parameter and this page is
+# safe because it only displays text
+sub _validateReferer
+{
+    return 1;
+}
 1;
