@@ -28,6 +28,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
+use TryCatch::Lite;
 
 sub _create
 {
@@ -1133,7 +1134,19 @@ sub _modelMatchIsHidden
     # to avoid problems with union types
     $fieldName =~ s{_.*$}{};
 
-    my $field = $modelInstance->fieldHeader($fieldName);
+    my $field;
+    try {
+        $field = $modelInstance->fieldHeader($fieldName);
+    } catch ($ex) {
+        EBox::error("When looking for field $fieldName in model " .
+                        $modelInstance->name() . ': ' . $ex
+                   );
+    }
+
+    if (not $field) {
+        # forbid, for be in the safe side
+        return 1;
+    }
     if ($field->isa('EBox::Types::Password')) {
         return 1;
     }
