@@ -1065,7 +1065,7 @@ msgstr "OpenVPN daemons"
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
-#: ../../main/firewall/src/EBox/Firewall.pm:769
+#: ../../main/firewall/src/EBox/Firewall.pm:772
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
 #: ../../main/samba/src/EBox/Samba.pm:1646
@@ -1846,7 +1846,7 @@ msgstr "Omschrijving"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:772
+#: ../../main/firewall/src/EBox/Firewall.pm:775
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
 msgid "Source"
 msgstr "Bron"
@@ -1858,14 +1858,14 @@ msgstr "Bron"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
-#: ../../main/firewall/src/EBox/Firewall.pm:773
+#: ../../main/firewall/src/EBox/Firewall.pm:776
 msgid "Destination"
 msgstr "Bestemming"
 
 #: ../../main/ips/src/EBox/IPS.pm:312
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
-#: ../../main/firewall/src/EBox/Firewall.pm:774
+#: ../../main/firewall/src/EBox/Firewall.pm:777
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
 #: ../../main/mail/src/templates/externalAccounts.mas:18
@@ -8066,22 +8066,22 @@ msgstr ""
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:552
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:553
 #, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:570
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:579
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:571
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:580
 #, fuzzy
 msgid "Gateway name"
 msgstr "Naam gebruiker"
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:572
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:573
 msgid "Gateways names cannot begin or end with '-'"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:581
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:582
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
@@ -12643,7 +12643,7 @@ msgstr "Voorwaarde"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
-#: ../../main/firewall/src/EBox/Firewall.pm:777
+#: ../../main/firewall/src/EBox/Firewall.pm:780
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
@@ -12657,7 +12657,7 @@ msgstr "Regels toegevoegd door Zentyal services (Geavanceerd)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:200
-#: ../../main/firewall/src/EBox/Firewall.pm:605
+#: ../../main/firewall/src/EBox/Firewall.pm:608
 msgid "Packet Filter"
 msgstr "Pakket filter"
 
@@ -12735,7 +12735,7 @@ msgid "List of forwarded ports"
 msgstr "Lijst van doorgestuurde poorten"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:355
-#: ../../main/firewall/src/EBox/Firewall.pm:608
+#: ../../main/firewall/src/EBox/Firewall.pm:611
 msgid "Port Forwarding"
 msgstr "Poort doorsturen"
 
@@ -12760,7 +12760,7 @@ msgid "DENY"
 msgstr "BLOKKEREN"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:69
-#: ../../main/firewall/src/EBox/Firewall.pm:782
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "LOG"
 msgstr "LOG"
 
@@ -12810,7 +12810,7 @@ msgid "Source Network Address Translation rules"
 msgstr "Bron Netwerk Adres Vertaling regels (NAT)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
-#: ../../main/firewall/src/EBox/Firewall.pm:610
+#: ../../main/firewall/src/EBox/Firewall.pm:613
 msgid "SNAT"
 msgstr "SNAT"
 
@@ -12823,7 +12823,7 @@ msgid "External networks to Zentyal"
 msgstr "Externe netwerken richting Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:52
-#: ../../main/firewall/src/EBox/Firewall.pm:785
+#: ../../main/firewall/src/EBox/Firewall.pm:788
 msgid "Firewall"
 msgstr "Firewall"
 
@@ -12855,34 +12855,34 @@ msgstr ""
 "behoren. Gebruikelijk zijn alle uitgaande verbindingen geblokkeerd en alleen "
 "binnenkomende SSH en HTTPS verbindingen zijn toegestaan."
 
-#: ../../main/firewall/src/EBox/Firewall.pm:303
+#: ../../main/firewall/src/EBox/Firewall.pm:306
 #, fuzzy
 msgid "port redirections"
 msgstr "Omschrijving"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:770
+#: ../../main/firewall/src/EBox/Firewall.pm:773
 msgid "Input interface"
 msgstr "Inkomende adapter"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:771
+#: ../../main/firewall/src/EBox/Firewall.pm:774
 msgid "Output interface"
 msgstr "Uitgaande adapter"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:775
+#: ../../main/firewall/src/EBox/Firewall.pm:778
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
 msgid "Source port"
 msgstr "Bron poort"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:779
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
 msgid "Destination port"
 msgstr "Bestemming poort"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:782
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "DROP"
 msgstr "VERBREKEN"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:782
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "REDIRECT"
 msgstr "OMLEIDEN"
 
