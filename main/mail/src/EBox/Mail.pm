@@ -57,8 +57,7 @@ use constant MAILMASTERCONFFILE       => '/etc/postfix/master.cf';
 use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
-#use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
-use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf.ext';
+use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
 use constant DOVECOT_SQL_CONFFILE     =>  '/etc/dovecot/dovecot-sql.conf';
 use constant MAILINIT                 => 'postfix';
 use constant BYTES                    => '1048576';
@@ -432,10 +431,7 @@ sub _setMailConf
     my $filePermissions = {
         uid => 0,
         gid => 0,
-#        uid  => scalar getpwnam('postfix'),
-#        gid  => scalar getgrnam('postfix'),
-#        mode => '0660',
-        mode => '0666',
+        mode => '0644',
         force => 1,
     };
 
@@ -649,12 +645,9 @@ sub _setDovecotConf
     }
 
     my $filePermissions = {
-        udi => 0,
+        uid => 0,
         gid => 0,
-#        uid  => scalar getpwnam('dovecot'),
-#        gid  => scalar getgrnam('dovecot'),
-#        mode => '0660',
-        mode => '0666',
+        mode => '0644',
         force => 1,
     };
 

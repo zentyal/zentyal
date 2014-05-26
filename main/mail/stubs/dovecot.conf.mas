@@ -66,8 +66,6 @@ service auth {
   }
 }
 
-
-
 service lmtp {
     unix_listener /var/spool/postfix/private/dovecot-lmtp {
         group = postfix
@@ -208,10 +206,10 @@ plugin {
   quota = maildir:User quota
   quota_rule = *:storage=0
 
-  sieve = <% $mailboxesDir %>/%d/%u/sieve-script
+  sieve = <% $mailboxesDir %>/%Ld/%Ln/sieve-script
   sieve_global_path = <% $mailboxesDir %>/default.sieve
-  sieve_storage = <% $mailboxesDir %>/%d/%u
-  sieve_dir     = <% $mailboxesDir %>/%d/%u
+  sieve_storage = <% $mailboxesDir %>/%Ld/%Ln
+  sieve_dir     = <% $mailboxesDir %>/%Ld/%Ln
 
   autocreate = Trash
   autocreate2 = Spam
