@@ -67,7 +67,6 @@ Zentyal.pageReload = function() {
             }
         }
     }
-    console.log('DDD window.location.url=' + url);
     window.location.replace(url);
 };
 
