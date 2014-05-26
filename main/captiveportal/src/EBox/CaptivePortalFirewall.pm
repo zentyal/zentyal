@@ -212,6 +212,11 @@ sub _exceptionsRules
 sub beforeFwRestart
 {
     my ($self) = @_;
+    if ($self->{captiveportal}->needsSaveAfterConfig()) {
+        # not really started and damoen file not configured, no need to stop
+        return;
+    }
+
     $self->{captiveportal}->stopService();
 }
 

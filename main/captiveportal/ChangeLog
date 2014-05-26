@@ -1,4 +1,6 @@
 HEAD
+	+ Don't stop captive portal on firewall start if it was just enabled
+	+ Use silentRoot in rules recheck
 	+ Stop captive portal on firewall restart
 	+ Added noMultipleOUSupportComponent support
 3.2.3

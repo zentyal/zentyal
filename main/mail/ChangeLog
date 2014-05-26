@@ -1,5 +1,6 @@
 HEAD
 	+ Adapt alias management to constraints by mailboxRelatedObject
+	+ Fixed bug triggered when adding external aliases
 	+ Postfix handles Zentyal distribution groups virtual alias
 3.2.8
 	+ Better integration between mail addon and mail field

@@ -105,7 +105,7 @@ sub _checkAccountAlias
     my ($self, $alias, $maildrop) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('mail alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 1);
 
     # Verify maildrop is not an alias
     # (For now it is not allowed alias of aliases)

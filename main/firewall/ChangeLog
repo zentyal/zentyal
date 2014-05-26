@@ -1,4 +1,5 @@
 HEAD
+	+ beforeFwRestart don't called on stopped or unconfigured modules
 	+ Added beforeFwRestart method to firewall helper
 3.2.3
 	+ Fixed crash when editing view in Summarized Report
