@@ -1,4 +1,5 @@
 HEAD
+	+ Update innoDB enabling condition after Mysql upgrade
 	+ Disable Single Sign-On on webapp as it is not working and undocumented
 	+ Make Single Sign-On work on webaccess using only a virtual host
 3.0.3
