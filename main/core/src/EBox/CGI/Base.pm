@@ -682,6 +682,13 @@ sub paramsAsHash
     return \%params;
 }
 
+# Method: redirectOnNoParams
+#
+# If this method return a true value, it will be used as path to redirection in
+# case the CGI has no parameters. This is needed in some CGIs to avoid accidentally
+# call them on page reloads
+#
+# By defualt it returns undef and thus has not effect
 sub redirectOnNoParams
 {
     return undef;
