@@ -45,8 +45,6 @@ Zentyal.refreshSaveChangesButton = function() {
     );
 };
 
-
-
 Zentyal.pageReload = function() {
     var url,
     urlParts = window.location.href.split('?');
