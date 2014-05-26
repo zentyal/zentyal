@@ -58,6 +58,12 @@ service auth {
     user = postfix
     group = postfix
   }
+
+  unix_listener auth-master {
+    group = ebox
+    mode = 0600
+    user = ebox
+  }
 }
 
 
