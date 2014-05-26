@@ -360,10 +360,11 @@ sub _userAddOns
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
-    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
-    my @externalAccounts = map {
-        $mail->{fetchmail}->externalAccountRowValues($_)
-     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+    # fetchmail disabled
+    # my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    # my @externalAccounts = map {
+    #     $mail->{fetchmail}->externalAccountRowValues($_)
+    #  } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
     my @paramsList = (
             user        => $user,
