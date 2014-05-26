@@ -1,8 +1,7 @@
-HEAD
+3.5
 	+ Restart usercorner on installation / upgrade time so the new code is
 	  available there too
 	+ Fixed external mail retrieval configuration form from user corner
-3.5.1
 	+ Set version to 3.5
 	+ Fixed some errors on user mail account edition
 	+ Better integration between mail addon and mail field
