@@ -308,6 +308,8 @@ sub writeConf
 sub daemonMustRun
 {
     my ($self) = @_;
+    # disabled for now
+    return 0;
 
     if (not $self->isEnabled()) {
         return 0;
