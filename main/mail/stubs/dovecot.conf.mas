@@ -16,9 +16,6 @@
     $gssapiHostname
 </%args>
 <%init>
-# sieve dir is also hoem directory for compability
-# with previous versions of this module
-my $sieveDir = "$mailboxesDir/sieve";
 my @protocolsReduced;
 if ($protocols{pop3} or $protocols{pop3s}) {
     push @protocolsReduced, 'pop3';
@@ -126,7 +123,7 @@ first_valid_gid = <% $firstValidGid %>
 ## Maildir-specific settings
 ##
 mail_location = maildir:<% $mailboxesDir %>/%$
-mail_home     = <% $sieveDir %>/%d/%u
+mail_home     = <% $mailboxesDir %>/%d/%u
 ##
 ## mbox-specific settings
 ##
