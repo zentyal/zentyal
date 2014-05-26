@@ -1,3 +1,5 @@
+HEAD
+	+ ClusterStatus creation issued at model constructor
 3.4.1
 	+ Fixed wrong calls to ClusterStatus constructor
 3.4

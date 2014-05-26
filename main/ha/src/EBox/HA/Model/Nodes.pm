@@ -111,6 +111,10 @@ sub row
     my $node = $self->{list}->node($id);
     my $name = $node->{name};
 
+    if (not defined ($self->{clusterStatus})) {
+        $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
+    }
+
     my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());
     $row->setId($id);
     $row->setModel($self);
