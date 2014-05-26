@@ -66,6 +66,9 @@ my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 my $ldapServer = 'localhost:' . $ldap->{port};
 </%init>
 debug_peer_list=192.168.56.1
+smtpd_tls_received_header = yes
+smtpd_tls_loglevel = 3
+
 # require helo
 smtpd_delay_reject  = yes
 smtpd_helo_required = yes
@@ -160,32 +163,32 @@ virtual_gid_maps = static:<% $gidvmail %>
 smtpd_use_tls = yes
 smtpd_tls_key_file  = <% $keyFile  %>
 smtpd_tls_cert_file = <% $certFile %>
-smtpd_tls_loglevel = 0
+#smtpd_tls_loglevel = 0
 
 # recipient restrictions
 smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
 submission_recipient_restrictions = <% $submissionRecipientRestrictions %>
 smtpd_restriction_classes = submission_recipient_restrictions
 
-#SASL authentication
+# SASL authentication
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
-broken_sasl_auth_clients = yes
-smtpd_tls_auth_only = yes
+#smtpd_tls_auth_only = yes
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_local_domain =  $myorigin
+broken_sasl_auth_clients = yes
 
-smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
-smtpd_sender_login_maps = ldap:senderlogin
-senderlogin_server_host = <% $ldapServer %>
-senderlogin_version = 3
-senderlogin_search_base = <% $baseDN %>
-senderlogin_query_filter = (&(mail=%s)(objectClass=CourierMailAccount))
-senderlogin_result_attribute = mail
-senderlogin_bind = yes
-senderlogin_bind_dn = <% $bindDN %>
-senderlogin_bind_pw = <% $bindPW %>
+#smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
+#smtpd_sender_login_maps = ldap:senderlogin
+#senderlogin_server_host = <% $ldapServer %>
+#senderlogin_version = 3
+#senderlogin_search_base = <% $baseDN %>
+#senderlogin_query_filter = (&(mail=%s)(objectClass=user))
+#senderlogin_result_attribute = mail
+#senderlogin_bind = yes
+#senderlogin_bind_dn = <% $bindDN %>
+#senderlogin_bind_pw = <% $bindPW %>
 
 
 % if ($filter) {
