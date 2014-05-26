@@ -458,7 +458,6 @@ sub _setMailConf
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'fwport', $self->fwport());
     push (@array, 'ipfilter', $self->ipfilter());
-    push (@array, 'zarafa', $self->zarafaEnabled());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array, $filePermissions);
 
     $self->_setHeloChecks();
@@ -495,51 +494,7 @@ sub _setMailConf
     EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     #}
 
-    my $zarafaEnabled = $self->zarafaEnabled();
-    my @zarafaDomains = ();
-    @zarafaDomains = $self->zarafaDomains() if $zarafaEnabled;
-
-    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomains => @zarafaDomains);
-
-    $self->_setZarafaConf($zarafaEnabled, @zarafaDomains);
-}
-
-sub zarafaEnabled
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('zarafa') ) {
-        my $zarafa = $gl->modInstance('zarafa');
-        return $zarafa->isEnabled();
-    }
-    return 0;
-}
-
-sub zarafaDomains
-{
-    my $gl = EBox::Global->getInstance();
-    my $zarafa = $gl->modInstance('zarafa');
-    my @domains = @{$zarafa->model('VMailDomains')->vdomains()};
-    return @domains;
-}
-
-sub _setZarafaConf
-{
-    my ($self, $enabled, @domains) = @_;
-
-    if (not $enabled) {
-        EBox::Sudo::root('rm -f ' . TRANSPORT_FILE . ' ' . TRANSPORT_FILE . '.db');
-        return;
-    }
-
-    $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
-                         [
-                             domains => \@domains,
-                         ],
-                         { uid => 0, gid => 0, mode => '0600', },
-                        );
-    EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
+#    $self->{fetchmail}->writeConf();
 }
 
 sub _alwaysBcc

@@ -693,7 +693,6 @@ sub setMaildirQuotaUsesDefault
         $user->set('mailquota', $defaultQuota, 1);
     }
     $user->save();
-    $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
 
 #  Method: setMaildirQuota
@@ -725,7 +724,6 @@ sub setMaildirQuota
     }
 
     $user->set('mailquota', $quota);
-    $self->setUserZarafaQuota($user, $quota);
 }
 
 #  Method: regenMaildirQuotas
@@ -761,49 +759,6 @@ sub regenMaildirQuotas
             $self->setMaildirQuota($user, $defaultQuota);
         }
     }
-}
-
-# FIXME make a listener-observer for this new code and move it to zentyal-zarafa
-sub _userZarafaAccount
-{
-    my ($self, $user) = @_;
-
-    return $user->get('zarafaAccount');
-}
-
-sub setUserZarafaQuota
-{
-    my ($self, $user, $quota) = @_;
-
-    my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaEnabled();
-    return unless $self->_userZarafaAccount($user);
-
-    my $gl = EBox::Global->getInstance();
-    my $zarafa = $gl->modInstance('zarafa');
-    my $warn = $zarafa->model('Quota')->warnQuotaValue();
-    my $soft = $zarafa->model('Quota')->softQuotaValue();
-
-    my $quota_warn = int($quota * $warn / 100);
-    my $quota_soft = int($quota * $soft / 100);
-
-    $user->set('zarafaQuotaWarn', $quota_warn, 1);
-    $user->set('zarafaQuotaSoft', $quota_soft, 1);
-    $user->set('zarafaQuotaHard', $quota, 1);
-    $user->save();
-}
-
-sub setUserZarafaQuotaDefault
-{
-    my ($self, $user, $isDefault) = @_;
-
-    my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaEnabled();
-    return unless $self->_userZarafaAccount($user);
-
-    my $userMaildirSizeValue = $isDefault ? 0 : 1;
-    $user->set('zarafaQuotaOverride', $userMaildirSizeValue, 1);
-    $user->save();
 }
 
 # Method: gidvmail
