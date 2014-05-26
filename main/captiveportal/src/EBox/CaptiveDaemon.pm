@@ -39,7 +39,7 @@ use Linux::Inotify2;
 use EBox::Gettext;
 use Time::HiRes qw(usleep);
 
- constant BLOCKED_TIMEOUT => 10;  # sec
+use constant BLOCKED_TIMEOUT => 10;  # sec
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
 
