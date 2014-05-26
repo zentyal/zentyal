@@ -595,6 +595,14 @@ sub _setDovecotConf
         force => 1,
     };
 
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
+
     my @params = ();
     push (@params, uid => $uid);
     push (@params, gid => $gid);
@@ -618,12 +626,12 @@ sub _setDovecotConf
     push (@params, bindDN       => $users->administratorDN());
     push (@params, bindDNPwd    => $users->administratorPassword());
 
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $filePermissions);
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
 
     if ($openchange) {
         @params = ();
         push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $filePermissions);
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
     }
 }
 
