@@ -140,11 +140,7 @@ sub filter
         ($src =~ m{/EventDaemon\.pm$}) or
         ($src =~ m{/Logout/}) or
         ($src =~ m{/Notificate\.pm$}) or
-        ($src =~ m{/Certificates\.pm$}) or
-        ($src =~ m{/CrashReport\.pm$}) or
-        ($src =~ m{/CreateReport\.pm$}) or
-        ($src =~ m{/CGI/Log\.pm$}) or
-        ($src =~ m{/BugReport\.pm$})) {
+        ($src =~ m{/Certificates\.pm$})) {
         return 1;
     }
 
