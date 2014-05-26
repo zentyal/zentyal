@@ -308,9 +308,6 @@ sub writeConf
 sub daemonMustRun
 {
     my ($self) = @_;
-    # disabled for now
-    return 0;
-
     if (not $self->isEnabled()) {
         return 0;
     }
@@ -322,6 +319,8 @@ sub daemonMustRun
 sub isEnabled
 {
     my ($self) = @_;
+    # disabled for now
+    return 0;
 
     my $retrievalServices = EBox::Global->modInstance('mail')->model('RetrievalServices');
     return $retrievalServices->row()->valueByName('fetchmail');
