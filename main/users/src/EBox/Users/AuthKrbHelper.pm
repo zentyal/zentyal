@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::AuthKrbHelper;
+package EBox::Users::AuthKrbHelper;
 
 use EBox;
 use EBox::Global;

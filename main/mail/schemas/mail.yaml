@@ -1,5 +1,8 @@
 class: 'EBox::Mail'
 
+enabledepends:
+    - users
+
 depends:
     - users
     - network

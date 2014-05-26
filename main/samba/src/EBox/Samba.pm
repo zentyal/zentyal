@@ -34,7 +34,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Menu::Item;
-use EBox::Samba::DMD;
 use EBox::Samba::GPO;
 use EBox::Users::LdapObject;
 use EBox::Users::Provision;
@@ -187,7 +186,7 @@ sub _postServiceHook
             my $users = $ldb->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
+                if ($usersMod->roamingProfiles()) {
                     my $path = "\\\\$netbiosName.$realmName\\profiles";
                     $user->setRoamingProfile(1, $path, 1);
                 } else {
@@ -1831,19 +1830,6 @@ sub defaultNamingContext
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
-}
-
-# Method: dMD
-#
-#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
-#
-sub dMD
-{
-    my ($self) = @_;
-
-    my $ldb = $self->ldb();
-    my $dn = "CN=Schema,CN=Configuration," . $ldb->dn();
-    return new EBox::Samba::DMD(dn => $dn);
 }
 
 # Method: hiddenSid

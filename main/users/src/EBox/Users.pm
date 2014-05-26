@@ -55,6 +55,7 @@ use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
 use EBox::Users::Provision;
+use EBox::Users::DMD;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -2805,7 +2806,8 @@ sub writeSambaConfig
     }
 
     my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange) {
+    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
+        push (@array, 'openchange' => 1);
         $openchange->writeSambaConfig();
     }
 
@@ -2926,6 +2928,18 @@ sub administratorPassword
     }
 
     return read_file($pwdFile);
+}
+
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $dn = "CN=Schema,CN=Configuration," . $self->ldb()->dn();
+    return new EBox::Users::DMD(dn => $dn);
 }
 
 1;

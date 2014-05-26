@@ -9,11 +9,9 @@
     $profilesPath
     $sysvolPath
 
-    $openchangeEnabled => undef
-    $openchangeProvisioned => undef
-
     $print => 0
     $shares => 0
+    $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -38,7 +36,7 @@ use EBox::Gettext;
     disable spoolss = yes
 % }
 
-% if ($openchangeEnabled and $openchangeProvisioned) {
+% if ($openchange) {
     include = /etc/samba/openchange.conf
 % }
 
