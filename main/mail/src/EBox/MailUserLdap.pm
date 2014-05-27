@@ -152,7 +152,8 @@ sub delUserAccount
 
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
-    foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
+    my @aliases = $mail->{malias}->userAliases($user);
+    foreach my $alias (@aliases) {
                 $mail->{malias}->delAlias($alias);
             }
 
@@ -355,7 +356,7 @@ sub _userAddOns
     return undef unless ($mail->configured());
 
     my $usermail = $self->userAccount($user);
-    my @aliases = $mail->{malias}->accountAlias($usermail);
+    my @aliases = $mail->{malias}->userAliases($user);
     my @vdomains =  $mail->{vdomains}->vdomains();
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);

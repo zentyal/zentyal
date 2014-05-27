@@ -136,7 +136,7 @@ useraliases_server_host = <% $ldapServer %>
 useraliases_version = 3
 useraliases_search_base = <% $baseDN %>
 useraliases_query_filter = (&(otherMailbox=%s)(objectClass=user))
-useraliases_result_attribute = otherMailbox
+useraliases_result_attribute = mail
 useraliases_bind = yes
 useraliases_bind_dn = <% $bindDN %>
 useraliases_bind_pw = <% $bindPW %>

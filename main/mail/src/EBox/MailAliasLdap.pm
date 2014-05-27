@@ -32,6 +32,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
+use EBox::Users::User;
 
 use constant ALIASDN => 'cn=alias,cn=mail,cn=zentyal,cn=configuration';
 
@@ -47,7 +48,7 @@ sub new
     return $self;
 }
 
-# Method: addAlias
+# Method: addUserAlias
 #
 #     Creates a new mail alias to an account.
 #
@@ -57,21 +58,44 @@ sub new
 #     maildrop - The mail account(s) to send all mail
 #     id - the username or groupname
 #
-sub addAlias
+sub addUserAlias
 {
     my ($self, $alias, $maildrop, $id) = @_;
 
     $self->_checkAccountAlias($alias, $maildrop);
 
-    my $user = $self->_accountUser($maildrop);
-    if (not $user) {
+    my $userName = $self->_accountUser($maildrop);
+    if (not $userName) {
         throw EBox::Exceptions::External(
                __x('{ac} is not a internal account', ac => $maildrop)
                                         );
     }
+    my $user = EBox::Users::User->new(samAccountName => $userName);
 
-    $self->_addCouriermailAliasLdapElement($id, $alias, $maildrop);
+    my @otherMailbox = $user->get('otherMailbox');
+    push @otherMailbox, $alias;
+    $user->set('otherMailbox', \@otherMailbox);
 }
+
+# Method: delUserAlias
+#
+#     Removes a mail alias from the user
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
+sub delUserAlias
+{
+    my ($self, $user, $alias) = @_;
+    $user->deleteValues('otherMailbox' => $alias);
+}
+
+sub userAliases
+{
+    my ($self, $user) = @_;
+    return $user->get('otherMailbox');
+}
+
 
 sub addExternalAlias
 {
@@ -141,7 +165,7 @@ sub addGroupAlias
     my $first = 1;
     foreach my $mail (@mailAccounts) {
         if ($first) {
-            $self->addAlias($alias, $mail, $group->get('cn'));
+            $self->_addCouriermailAliasLdapElement($alias, $mail, $group->get('cn'));
             $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);
@@ -413,37 +437,6 @@ sub delAliasesFromVDomain
     foreach (@aliases) {
         $self->delAlias($_);
     }
-}
-
-# Method: accountAlias
-#
-#     This method returns all mail alias accounts that have a mail account of
-#     a user
-#
-# Parameters:
-#
-#     mail - The mail account
-#
-sub accountAlias
-{
-    my ($self, $mail) = @_;
-
-    my %args = (
-        base => $self->aliasDn,
-        filter => "&(mailsource=$mail)(maildrop=$mail)",
-        scope => 'one',
-        attrs => ['mail']
-    );
-
-    my $result = $self->{ldap}->search(\%args);
-
-    my @malias = ();
-    foreach my $alias ($result->sorted('mail'))
-    {
-        @malias = (@malias, $alias->get_value('mail'));
-    }
-
-    return @malias;
 }
 
 # Method: groupAccountAlias
