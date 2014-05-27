@@ -119,9 +119,10 @@ virtual_mailbox_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 
-# Virtual Aliases
+# Aliases
 virtual_alias_domains = $virtual_alias_maps
-virtual_alias_maps = ldap:valiases
+
+virtual_alias_maps = ldap:valiases, ldap:useraliases
 valiases_server_host = <% $ldapServer %>
 valiases_version = 3
 valiases_search_base = <% $aliasDN %>
@@ -130,6 +131,15 @@ valiases_result_attribute = maildrop
 valiases_bind = yes
 valiases_bind_dn = <% $bindDN %>
 valiases_bind_pw = <% $bindPW %>
+
+useraliases_server_host = <% $ldapServer %>
+useraliases_version = 3
+useraliases_search_base = <% $baseDN %>
+useraliases_query_filter = (&(otherMailbox=%s)(objectClass=user))
+useraliases_result_attribute = otherMailbox
+useraliases_bind = yes
+useraliases_bind_dn = <% $bindDN %>
+useraliases_bind_pw = <% $bindPW %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
