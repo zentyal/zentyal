@@ -56,7 +56,7 @@ sub _process
     my $user = EBox::Users::User->new(dn => $userDN);
 
     my $alias = $lhs."@".$rhs;
-    $mail->{malias}->addUserAlias($alias, $maildrop, $maildrop);
+    $mail->{malias}->addUserAlias($user, $alias);
 
     $self->{json}->{msg} = __x('Added alias {al}', al => $alias);
     $self->{json}->{aliases} = [ $mail->{malias}->userAliases($user) ];

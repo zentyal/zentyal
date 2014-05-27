@@ -54,23 +54,17 @@ sub new
 #
 # Parameters:
 #
+#     user  - The user object
 #     alias - The mail alias account to create
 #     maildrop - The mail account(s) to send all mail
-#     id - the username or groupname
 #
 sub addUserAlias
 {
-    my ($self, $alias, $maildrop, $id) = @_;
+    my ($self, $user, $alias) = @_;
 
+    my $maildrop = $user->get('mail');
     $self->_checkAccountAlias($alias, $maildrop);
 
-    my $userName = $self->_accountUser($maildrop);
-    if (not $userName) {
-        throw EBox::Exceptions::External(
-               __x('{ac} is not a internal account', ac => $maildrop)
-                                        );
-    }
-    my $user = EBox::Users::User->new(samAccountName => $userName);
 
     my @otherMailbox = $user->get('otherMailbox');
     push @otherMailbox, $alias;
@@ -83,6 +77,7 @@ sub addUserAlias
 #
 # Parameters:
 #
+#     user  - The user object
 #     alias - The mail alias account to create
 sub delUserAlias
 {
@@ -90,6 +85,10 @@ sub delUserAlias
     $user->deleteValues('otherMailbox' => $alias);
 }
 
+# Method: userAliases
+#
+#   Returns:
+#     list with the user aliases
 sub userAliases
 {
     my ($self, $user) = @_;
