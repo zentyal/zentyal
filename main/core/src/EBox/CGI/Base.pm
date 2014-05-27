@@ -688,7 +688,7 @@ sub paramsAsHash
 # case the CGI has no parameters. This is needed in some CGIs to avoid accidentally
 # call them on page reloads
 #
-# By defualt it returns undef and thus has not effect
+# By default it returns undef and thus has not effect
 sub redirectOnNoParams
 {
     return undef;
