@@ -38,12 +38,12 @@ sub _process
 
     if ($action eq 'report') {
         my $cache = EBox::GlobalImpl::packageCache();
-        my $package = 'samba-' . $cache->{samba}->{CurrentVer}->{VerStr};
+        my $package = 'samba ' . $cache->{samba}->{CurrentVer}->{VerStr};
         my @files = @{EBox::Sudo::root("ls $CRASH_DIR | grep ^_usr_sbin_samba")};
         foreach my $file (@files) {
             chomp($file);
             EBox::info("Sending crash report: $file");
-            EBox::Sudo::root("/usr/share/zentyal/crash-report $CRASH_DIR/$file $package");
+            EBox::Sudo::root("/usr/share/zentyal/crash-report $CRASH_DIR/$file '$package'");
         }
         EBox::Sudo::root('rm -f /var/crash/_usr_sbin_samba*');
     } elsif ($action eq 'discard') {
