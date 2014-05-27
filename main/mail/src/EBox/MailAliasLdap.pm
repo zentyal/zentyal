@@ -131,7 +131,7 @@ sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 1);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 0, 1);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
