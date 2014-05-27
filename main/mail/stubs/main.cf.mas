@@ -179,16 +179,16 @@ smtpd_sasl_path = private/auth
 smtpd_sasl_local_domain =  $myorigin
 broken_sasl_auth_clients = yes
 
-#smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
-#smtpd_sender_login_maps = ldap:senderlogin
-#senderlogin_server_host = <% $ldapServer %>
-#senderlogin_version = 3
-#senderlogin_search_base = <% $baseDN %>
-#senderlogin_query_filter = (&(mail=%s)(objectClass=user))
-#senderlogin_result_attribute = mail
-#senderlogin_bind = yes
-#senderlogin_bind_dn = <% $bindDN %>
-#senderlogin_bind_pw = <% $bindPW %>
+smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
+smtpd_sender_login_maps = ldap:senderlogin
+senderlogin_server_host = <% $ldapServer %>
+senderlogin_version = 3
+senderlogin_search_base = <% $baseDN %>
+senderlogin_query_filter = (&(|(mail=%s)(otherMailbox=%s))(objectClass=user))
+senderlogin_result_attribute = mail, otherMailbox
+senderlogin_bind = yes
+senderlogin_bind_dn = <% $bindDN %>
+senderlogin_bind_pw = <% $bindPW %>
 
 
 % if ($filter) {
