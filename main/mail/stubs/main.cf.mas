@@ -121,7 +121,7 @@ inet_interfaces = all
 
 # Virtual Aliases
 virtual_alias_domains = $virtual_alias_maps
-virtual_alias_maps = ldap:valiases
+virtual_alias_maps = ldap:valiases,ldap:groupaliases
 valiases_server_host = <% $ldapServer %>
 valiases_version = 3
 valiases_search_base = <% $aliasDN %>
@@ -130,6 +130,17 @@ valiases_result_attribute = maildrop
 valiases_bind = yes
 valiases_bind_dn = <% $bindDN %>
 valiases_bind_pw = <% $bindPW %>
+
+# Distribution Groups Aliases
+groupaliases_server_host = <% $ldapServer %>
+groupaliases_version = 3
+groupaliases_search_base = <% $baseDN %>
+groupaliases_query_filter = (&(mail=%s)(objectClass=zentyalDistributionGroup))
+groupaliases_leaf_result_attribute = mail
+groupaliases_special_result_attribute = member
+groupaliases_bind = yes
+groupaliases_bind_dn = <% $bindDN %>
+groupaliases_bind_pw = <% $bindPW %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1

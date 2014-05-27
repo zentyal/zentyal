@@ -1,6 +1,7 @@
-HEAD
-	+ Use different openssl output files to avoid any overlap
 3.5
+	+ Allow wildcard certificate in service certificates
+	+ Better CN for CA certificate
+	+ Use different openssl output files to avoid any overlap
 	+ Set version to 3.5
 3.4
 	+ Migrated to use Plack / PSGI API instead of the CGI one

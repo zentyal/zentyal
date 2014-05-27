@@ -291,11 +291,12 @@ sub _table
                                 editable      => 0,
                                 allowUnsafeChars => 1,
                                ),
-       new EBox::Types::DomainName(
+       new EBox::Types::Text(
                                 fieldName     => 'cn',
                                 printableName => __('Common Name'),
-                                unique        => 0,
-                                editable      => 1,
+                                unique           => 0,
+                                editable         => 1,
+                                allowUnsafeChars => 1,
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'enable',
@@ -342,6 +343,11 @@ sub validateTypedRow
             }
         }
     }
+
+    my $commonName = $actual_r->{cn}->value();
+    # remove first asterisk to allow wildcard names
+    $commonName =~ s/^\*\.//;
+    EBox::Validate::checkDomainName($commonName, $actual_r->{cn}->printableName());
 }
 
 sub updatedRowNotify

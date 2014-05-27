@@ -1,7 +1,7 @@
-HEAD
+3.5
+	+ Stop captive portal on firewall restart
 	+ Added noMultipleOUSupportComponent support
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
-3.5
 	+ Set version to 3.5
 3.4
 	+ Migrated to use Plack as the application server instead of mod_perl
