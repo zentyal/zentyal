@@ -206,6 +206,8 @@ sub _performSetup
         $self->global()->addModuleToPostSave('users');
     }
 
+    # XXX samba needs to be restarted to use the added schemas. Use a better
+    # solution when it is available
     $self->global()->modInstance('users')->restartService();
 
     unless ($state->{'_ldapSetup'}) {
