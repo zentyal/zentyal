@@ -185,9 +185,9 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
     $self->SUPER::enableService($status);
 }
 
-sub _ldapSetup
+sub setupLDAP
 {
-    # learn account feautre disabled by now
+    # learn account feature disabled by now
     # my $users = EBox::Global->modInstance('users');
 
     # my $container = EBox::Users::User->defaultContainer();
@@ -240,8 +240,30 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
+#    $self->global()->modInstance('users')->setAsChanged(1);
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+sub _performSetup
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    unless ($state->{'_schemasAdded'}) {
+        $self->_loadSchemas();
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
+        $self->global()->addModuleToPostSave('users');
+    }
+
+    $self->global()->modInstance('users')->restartService();
+
+    unless ($state->{'_ldapSetup'}) {
+        $self->setupLDAP();
+        $state->{'_ldapSetup'} = 1;
+        $self->set_state($state);
+    }
 }
 
 # Method: reprovisionLDAP

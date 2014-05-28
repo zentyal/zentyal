@@ -645,9 +645,10 @@ sub resetVDomain
                        defined $value;
                      } @delAttrs;
 
-    my %delAttrs = ( delete => \@delAttrs );
-
-    $ldap->modify($dn, \%delAttrs );
+    if (@delAttrs) {
+        my %delAttrs = ( delete => \@delAttrs );
+        $ldap->modify($dn, \%delAttrs );
+    }
 
     # remove ham/spam ocntrol accounts
     $self->setSpamAccount($vdomain, 0);
