@@ -341,6 +341,19 @@ sub setupLDAP
     $self->{musers}->setupUsers();
 }
 
+sub depends
+{
+    my ($self) = @_;
+    my @depends = @{ $self->SUPER::depends() };
+
+    my $mailfilter =  $self->global->modInstance('mailfilter');
+    if ($mailfilter and $mailfilter->configured()) {
+        push @depends, 'mailfilter';
+    }
+
+    return \@depends;
+}
+
 # Method: eventDispatchers
 #
 # Overrides:

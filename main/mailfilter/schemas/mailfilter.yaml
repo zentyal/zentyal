@@ -6,7 +6,6 @@ enabledepends:
 
 depends:
     - users
-    - mail
     - antivirus
 
 models:
