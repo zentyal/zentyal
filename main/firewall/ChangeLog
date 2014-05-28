@@ -1,4 +1,8 @@
 3.5
+	+ Added beforeFwRestart method to firewall helper
+	+ Fixed crash when editing view in Summarized Report
+	+ Added EBox::Iptables::executeModuleRules to be able to execute
+	  rules from a given module calling this new method
 	+ Set version to 3.5
 3.4
 	+ Added portUsedByService method

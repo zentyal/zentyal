@@ -36,7 +36,6 @@ sub new
     return $self;
 }
 
-
 # User and group addons
 
 # Method: _groupShareEnabled
@@ -49,9 +48,8 @@ sub new
 #
 sub _groupShareEnabled
 {
-    my ($self, $zentyalGroup) = @_;
+    my ($self, $groupName) = @_;
 
-    my $groupName = $zentyalGroup->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
     foreach my $id (@{$sharesModel->ids()}) {
         my $row = $sharesModel->row($id);
@@ -71,10 +69,10 @@ sub setGroupShare
         throw EBox::Exceptions::External("A name should be provided for the share.");
     }
 
-    my $oldName = $self->_groupShareEnabled($group);
+    my $groupName = $group->name();
+    my $oldName = $self->_groupShareEnabled($groupName);
     return if ($oldName and $oldName eq $shareName);
 
-    my $groupName = $group->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
 
     # Create or rename the share for the group
@@ -106,9 +104,8 @@ sub setGroupShare
 
 sub removeGroupShare
 {
-    my ($self, $zentyalGroup) = @_;
+    my ($self, $groupName) = @_;
 
-    my $groupName = $zentyalGroup->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
     my $row = $sharesModel->findValue(groupShare => $groupName);
     $sharesModel->removeRow($row->id()) if $row;
@@ -122,7 +119,8 @@ sub _groupAddOns
                    $self->{samba}->isEnabled() and
                    $self->{samba}->isProvisioned());
 
-    my $share = $self->_groupShareEnabled($zentyalGroup);
+    my $groupName = $zentyalGroup->name();
+    my $share = $self->_groupShareEnabled($groupName);
     my $args =  {
         'groupname' => $zentyalGroup->dn(),
         'share'     => $share,
