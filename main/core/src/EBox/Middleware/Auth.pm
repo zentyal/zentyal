@@ -93,14 +93,24 @@ sub _global
 #
 #       Check whether a script session is already opened or not
 #
+# Parameters:
+#
+#       env - Hash ref the PSGI enviroment dictionary.
+#
 # Returns:
 #
 #       Boolean - indicate if a script session is already opened
 #
 sub _actionScriptSession
 {
+    my ($self, $env) = @_;
 
-    my ($self) = @_;
+    # This is a request from a subapp?
+    if ((exists $env->{'zentyal'}) and (exists $env->{'zentyal'}->{'webadminsubapp'})
+        and ($env->{PATH_INFO} =~ /^$env->{'zentyal'}->{'webadminsubapp'}/)) {
+        # Let the requests from the auth subapp to go
+        return 0;
+    }
 
     # The script session filehandle
     my $scriptSessionFile;
@@ -168,7 +178,7 @@ sub _validateSession {
         $global = $self->_global();
     }
 
-    if ($self->_actionScriptSession()) {
+    if ($self->_actionScriptSession($env)) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
         $self->_cleanSession($env);
     } elsif (not $expired) {
@@ -227,7 +237,7 @@ sub _login
         my $user_id;
 
         my $log = EBox->logger();
-        if ($self->_actionScriptSession()) {
+        if ($self->_actionScriptSession($env)) {
             $log->warn('Failed login since a script session is opened');
             $env->{'psgix.session'}{AuthReason} = 'Script active';
             return $self->app->($env);

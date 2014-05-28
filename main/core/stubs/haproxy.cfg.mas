@@ -29,14 +29,20 @@ defaults
   option forwardfor
   # This option may fix the problem with the proxy headers not reaching the server, but it may be a performance problem...
   # option http-server-close
-%   foreach my $portNumber (keys %{$ports}) {
+%   while (my ($portNumber, $serviceConf) =  each %{$ports}) {
+%    my $isWebadmin = grep {$_->{name} eq 'webadminHAProxyId'} @{$serviceConf->{services}};
+%    if ($isWebadmin) {
+%# Tag webadmin port so the desktop launcher can find the port used by webadmin
+
+# webadmin port <% $portNumber %>
+%    }
 <& .frontend, port => $portNumber,
-              conf => $ports->{$portNumber},
+              conf => $serviceConf,
               caFile =>  $caFile,
               bindaddress => $bindaddress
 &>
 <& .backend,  port => $portNumber,
-              conf => $ports->{$portNumber},
+              conf => $serviceConf,
               dumpedServices => $dumpedServices
 &>
 %   }

@@ -1,4 +1,20 @@
 HEAD
+	+ Display message when creating a user which username has more
+	  than 20 characters
+	+ Fixed error when editing user email address when mail module is
+	  not installed
+3.4.2
+	+ Fix domain controllers shown on the computers OU in Manage model
+	+ Using paged serch in EBox::Users::users() method
+	+ Added EBox::LDAPBase::pagedSearch method
+	+ Added support for addon components when user is in a
+	  non-standard OU
+	+ Better control for edit user quota
+	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
+	  it's installed
+3.4.1
+	+ Fixed bug when altering mail address through the edit user form
+	+ Better integration between mail addon and mail field
 	+ Remove method canonicalName and use object DNs for greater performance
 	+ Migrate previous configuration from 3.3 when upgrading
 3.4

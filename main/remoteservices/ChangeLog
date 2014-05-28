@@ -1,5 +1,16 @@
 HEAD
+	+ Save HAProxy module when adding/removing CA for SSL validation
+	+ Allow subscription when firewall has been enabled a second time
+	  but changes has not been saved
+	+ Give support to set monitoring servers on rs_monitoring_servers
+	  conf key
+	+ Set up QA repository only to commercial versions
+	+ Clarified doc about qa_updates_always_automatic confkey
+3.4.1
+	+ Fixed JS regressions on subscribe action
 	+ Disable QA updates until next commercial edition
+	+ EBox::RemoteServices::Subscription::Check::check recovers for
+	  any error raised on users checking
 	+ DisasterRecoveryDomains can notify other models
 	+ Fix remove conf backup after PSGI migration
 	+ Fix overwrite action on remote conf backup

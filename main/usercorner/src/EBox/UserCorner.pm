@@ -337,6 +337,8 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_setupRoLDAPAccess();
+
     my $permissions = {
         uid => 0,
         gid => 0,

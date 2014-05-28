@@ -4,7 +4,7 @@ PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mockti
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha trafficshaping"
 
 while getopts ":vjscf" opt; do
     case $opt in
@@ -49,8 +49,11 @@ fi
 
 if [ -n "$MISSINGLIBS" ]
 then
-    echo -e "The following packages are not installed:\n $MISSINGLIBS"
-    echo -e "Installing them..."
+    if [ "$JUNIT" != "yes" ]
+    then
+        echo -e "The following packages are not installed:\n $MISSINGLIBS"
+        echo -e "Installing them..."
+    fi
     export DEBIAN_FRONTEND=noninteractive
     sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
 fi
@@ -62,8 +65,12 @@ INCLUDES=$(find . -name src|sed 's/.\//-I /'|xargs)
 
 # Create the modules directory
 CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
-rm -f $CONF_DIR/*
+sudo rm -f $CONF_DIR/*
+sudo rm -r $CONF_DIR
 export ZENTYAL_MODULES_SCHEMAS
+
+#Temporary fix to permissions problems with this folder
+sudo chmod 777 /var/lib/zentyal/tmp
 
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
@@ -91,7 +98,7 @@ fi
 
 if [ "$VERBOSE" == "yes" ]
 then
-    $PROVE
+    LANGUAGE=C $PROVE
 else
-    $PROVE 2>/dev/null
+    LANGUAGE=C $PROVE 2>/dev/null
 fi

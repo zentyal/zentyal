@@ -2003,7 +2003,7 @@ sub setIfaceBonded
         $self->_routersReachableIfChange($name);
         $self->_checkStatic($name, $force);
     } elsif ($oldm eq 'bundled' and $self->ifaceBond($name) ne $bond) {
-        $self->BondledCleanUp($name);
+        $self->BundledCleanUp($name);
     }
 
     my $global = EBox::Global->getInstance();

@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed checking for other u32 rule in the same interface
+3.4.1
+	+ Fixed bug that made impossible to add rules
 3.4
 	+ Unallow edition of interface in rules until it is supported
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

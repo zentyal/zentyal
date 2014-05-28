@@ -42,11 +42,15 @@ sub call
             $env->{'psgix.session.options'}->{change_id}++;
             $env->{'psgix.session'}{last_time} = time();
             $env->{'psgix.session'}{user_id} = $subApp->{userId};
+            $env->{'zentyal'}->{'webadminsubapp'} = $subApp->{url};
         } else {
             # Do logout
             if (exists $env->{'psgix.session'}) {
                 delete $env->{'psgix.session'}{user_id};
                 delete $env->{'psgix.session'}{last_time};
+            }
+            if (exists $env->{'zentyal'}) {
+                delete $env->{'zentyal'}->{'webadminsubapp'};
             }
         }
     }

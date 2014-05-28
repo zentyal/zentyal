@@ -29,6 +29,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::WrongHTTPReferer;
 use EBox::Util::GPG;
 
 use CGI;
@@ -136,7 +137,12 @@ sub _msg
 sub _body
 {
     my ($self) = @_;
-    return unless (defined $self->{template});
+    if (not defined $self->{template}) {
+        return;
+    } elsif ($self->{wrongReferer}) {
+        delete $self->{wrongReferer};
+        return;
+    }
 
     my $filename = $self->{template};
     if (-f (EBox::Config::templates() . "/$filename.custom")) {
@@ -156,6 +162,16 @@ sub _footer
 {
 }
 
+sub _openDivContent
+{
+    return  "<div id=\"content\">\n";
+}
+
+sub _closeDivContent
+{
+    return  "</div>\n";
+}
+
 sub _print
 {
     my ($self) = @_;
@@ -166,30 +182,31 @@ sub _print
         return;
     }
 
-    my $header = $self->_header;
-    my $top = $self->_top;
-    my $menu = $self->_menu;
-    my $title = $self->_title;
-    my $error = $self->_error;
-    my $msg = $self->_msg;
-    my $body = $self->_body;
-    my $footer = $self->_footer;
-
     my $output = '';
-    $output .= $header if ($header);
-    $output .= $top if ($top);
-    $output .= $menu if ($menu);
-    $output .= "<div id=\"content\">\n";
-    $output .= $title if ($title);
-    $output .= $error if ($error);
-    $output .= $msg if ($msg);
-    $output .= $body if ($body);
-    $output .= "</div>\n";
-    $output .= $footer if ($footer);
+    my @printMethods = qw(
+                             _header
+                             _top
+                             _menu
+                             _openDivContent
+                             _title
+                             _error
+                             _msg
+                             _body
+                             _closeDivContent
+                             _footer
+                        ) ;
+    foreach my $method (@printMethods) {
+        try {
+            my $sectionOutput = $self->$method();
+            $output .= $sectionOutput if $sectionOutput;
+        } catch (EBox::Exceptions::External $e) {
+            EBox::error("Error printing method section $method");
+            $output .= $self->_format_error("$e");
+        };
+    }
 
     my $response = $self->response();
     $response->body($output);
-
 }
 
 # alternative print for request runs in popup
@@ -288,6 +305,9 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
+        } catch (EBox::Exceptions::WrongHTTPReferer $e) {
+            $self->setErrorFromException($e);
+            $self->{wrongReferer} = 1;
         } catch (EBox::Exceptions::External $e) {
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
@@ -337,12 +357,12 @@ sub run
         my ($protocol, $port);
         my $url;
         my $host = $request->env->{HTTP_HOST};
-        if ($> == getpwnam('ebox')) {
+        if ($referer) {
             my $parsedURL = new URI($referer);
             $protocol = $parsedURL->scheme();
             $port = $parsedURL->port();
             $url = "$protocol://${host}";
-            if ($port) {
+            if ($port and not ($host =~ /:/)) {
                 $url .= ":$port";
             }
             $url .= "/$self->{redirect}";
@@ -826,7 +846,7 @@ sub _validateReferer
         }
     }
 
-    throw EBox::Exceptions::External(__("Wrong HTTP referer detected, operation cancelled for security reasons"));
+    throw EBox::Exceptions::WrongHTTPReferer();
 }
 
 sub _validateRequiredParams
@@ -1000,7 +1020,7 @@ sub JSONReply
     my ($self, $data_r) = @_;
 
     my $response = $self->response();
-    $response->content_type('application/JSON; charset=utf-8');
+    $response->content_type('application/json; charset=utf-8');
 
     my $error = $self->{error};
     if ($error and not $data_r->{error}) {

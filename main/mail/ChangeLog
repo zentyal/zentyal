@@ -1,4 +1,15 @@
 HEAD
+	+ Don't try to check openchange accounts on removing system users
+	+ Fixed bug triggered when adding external aliases
+	+ Postfix handles Zentyal distribution groups virtual alias
+	+ Adapted MailQueue.pm to TryCatch::Lite
+	+ Restart usercorner on installation / upgrade time so the new code is
+	  available there too
+	+ Fixed external mail retrieval configuration form from user corner
+3.4.2
+	+ Fixed some errors on user mail account edition
+	+ Better integration between mail addon and mail field
+	+ Avoid error when trying to show a no longer existent mail in queue
 	+ Fixed bug in LDAP synchronization of mail virtual domains
 3.4.1
 	+ Removed free access to dovecot from localhost, now we have a

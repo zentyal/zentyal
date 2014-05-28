@@ -23,6 +23,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
+use EBox::SambaLdapUser;
 
 use Data::Dumper;
 use File::Slurp;
@@ -49,6 +50,7 @@ my $ro = 1;
 my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
+my $sambaLdapUser = new EBox::SambaLdapUser();
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -202,7 +204,6 @@ while (1) {
                 try {
                     $sambaContact->updateZentyal();
                 } catch ($error) {
-                    EBox::error("Error updating contact $canonicalName: $error");
                     EBox::error("Error updating contact '$dn': $error");
                 }
             }
@@ -270,8 +271,12 @@ while (1) {
     foreach my $uniqueID (sort keys %zentyalGroups) {
         my $zentyalGroup = $zentyalGroups{$uniqueID};
         try {
+            my $name = $zentyalGroup->name();
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
+
+            $sambaLdapUser->removeFromShareACLs($name);
+            $sambaLdapUser->removeGroupShare($name);
         } catch ($error) {
             my $dn = $zentyalGroup->dn();
             EBox::error("Error deleting group '$dn': $error");
@@ -296,8 +301,11 @@ while (1) {
     foreach my $uniqueID (keys %zentyalUsers) {
         my $zentyalUser = $zentyalUsers{$uniqueID};
         try {
+            my $name = $zentyalUser->get('uid');
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
+
+            $sambaLdapUser->removeFromShareACLs($name);
         } catch ($error) {
             my $dn = $zentyalUser->dn();
             EBox::error("Error deleting user '$dn': $error");

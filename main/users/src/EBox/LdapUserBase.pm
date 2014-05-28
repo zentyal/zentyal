@@ -360,6 +360,45 @@ sub _userAddOns
 {
 
 }
+# Method: noMultipleOUSupportComponent
+#
+# Override this method to return the component to show if this addon is disabled
+# for being in a no-standar OU
+#
+# The default behaviour is to not return any component, thus ignoring silently
+# the addon
+#
+#  See also standardNoMultipleOUSupportComponent for a defualt implementation
+sub noMultipleOUSupportComponent
+{
+    return undef;
+}
+
+# Method: standardNoMultipleOUSupportComponent
+#
+#  Default implementation of a component for noMultipleOUSupportComponent
+#
+#  Parameters:
+#     title -
+#     msg - optional. If not given a default one will be used
+sub standardNoMultipleOUSupportComponent
+{
+    my ($self, $title, $msg) = @_;
+    if ((not $title)) {
+        throw EBox::Exceptions::MissingArgument("Missing title");
+    }
+    if (not $msg) {
+        $msg = __(q{This addon applies only to users in the default 'Users' container});
+    }
+    return {
+        title =>  $title,
+        path => '/users/addonMsg.mas',
+        params => {
+              class => 'warning',
+              msg  => $msg,
+           }
+       };
+}
 
 # Method: _groupAddOns
 #

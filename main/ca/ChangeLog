@@ -1,3 +1,7 @@
+HEAD
+	+ Allow wildcard certificate in service certificates
+	+ Better CN for CA certificate
+	+ Use different openssl output files to avoid any overlap
 3.4
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

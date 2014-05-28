@@ -87,8 +87,7 @@ sub initialSetup
     #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
 
-    if (defined($version)
-            and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+    if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
     }
 
@@ -294,6 +293,28 @@ sub _setConf
 
     # FIXME: this may cause unexpected samba restarts during save changes, etc
     #$self->_writeCronFile();
+
+    $self->_setupActiveSync();
+}
+
+sub _setupActiveSync
+{
+    my ($self) = @_;
+
+    my $enabled = (-f '/etc/apache2/conf-enabled/zentyal-activesync.conf');
+    my $enable = $self->_activesyncEnabled();
+    if ($enable) {
+        EBox::Sudo::root('a2enconf zentyal-activesync');
+    } else {
+        EBox::Sudo::silentRoot('a2disconf zentyal-activesync');
+    }
+    if ($enabled xor $enable) {
+        my $global = $self->global();
+        $global->modChange('webserver');
+        if ($global->modExists('sogo')) {
+            $global->addModuleToPostSave('sogo');
+        }
+    }
 }
 
 sub _writeCronFile
@@ -855,6 +876,12 @@ sub _rpcProxyHostForDomain
     return $matchedHost . '.' . $domain;
 }
 
+sub _activesyncEnabled
+{
+    my ($self) = @_;
+    return $self->model('Configuration')->value('activesync');
+}
+
 sub _rpcProxyDomain
 {
     my ($self) = @_;
@@ -1000,7 +1027,7 @@ sub isProvisionedWithMySQL
 {
     my ($self) = @_;
 
-    return $self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE);
+    return ($self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE));
 }
 
 # Method: connectionString

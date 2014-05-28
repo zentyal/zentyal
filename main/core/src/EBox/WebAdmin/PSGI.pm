@@ -131,7 +131,7 @@ sub subApps
 
 # Function: subApp
 #
-#   Get the sub app that match the criteria set
+#   Get the sub app that matches the criteria set
 #
 # Parameters:
 #

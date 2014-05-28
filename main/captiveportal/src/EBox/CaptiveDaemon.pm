@@ -344,11 +344,8 @@ sub _checkChains
     my $chainsInPlace = 1;
     while(my ($table, $chains_list) = each %{$chains}) {
         foreach my $ch (@{ $chains_list }) {
-            try {
-                EBox::Sudo::root("iptables -t $table -nL $ch");
-            } catch {
-                $chainsInPlace = 0;
-            }
+            EBox::Sudo::silentRoot("iptables -t $table -nL $ch");
+            $chainsInPlace = ($? == 0);
         }
         if (not $chainsInPlace) {
             next;
