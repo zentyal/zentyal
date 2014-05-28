@@ -134,7 +134,7 @@ sub writeConf
 
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-    push @masonParams, (ldapBase         =>  $ldap->dn );
+    push @masonParams, (ldapBase         =>  EBox::MailVDomainsLdap::VDOMAINDN() . ',' . $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
     push @masonParams, (ldapBindDn       =>  $usersMod->administratorDN());
     push @masonParams, (ldapBindPasswd   =>  $usersMod->administratorPassword());
@@ -166,6 +166,7 @@ sub writeConf
                      mode => '0640',
                      uid   => $uid,
                      gid   => $gid,
+                     force => 1,
                     };
 
     EBox::Module::Base::writeConfFileNoCheck(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
