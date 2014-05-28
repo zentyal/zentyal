@@ -1,4 +1,6 @@
 HEAD
+	+ Added redirection on no parameters support to CGIs
+	+ Added and used in save changes process the method Zentyal.reloadTable
 	+ Added setMessage() and popMessageAndClass() methods to TreeView
 	+ Enable InnoDB engine when there are only 4 previous databases
 3.2.10
