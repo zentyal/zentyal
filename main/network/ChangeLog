@@ -1,4 +1,6 @@
 HEAD
+	+ Changed validation of setDHCPAddress, setRealPPPIface and
+	  DHCPCleanUp to allow pseudoterminal interfaces, this is needed for l2tp
 	+ Allow network proxy which is listening on localhost
 3.2.6
 	+ Specifiy local address in failover tests to avoid vlan interface problems
