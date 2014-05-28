@@ -190,7 +190,6 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
-#    $self->global()->modInstance('users')->setAsChanged(1);
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
@@ -408,7 +407,6 @@ sub _ldapModImplementation
 # Returns:
 #
 #  An object implementing EBox::LdapVDomainsBase
-
 sub _vdomainModImplementation
 {
     my ($self) = @_;
