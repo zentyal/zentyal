@@ -29,9 +29,7 @@ sub new
     my ($class, %params) = @_;
     my $self = $class->SUPER::new(%params);
 
-    my @paramNames = qw(smtpFilter  port externalMTAs fwport
-            POPProxy POPProxyPort
-            );
+    my @paramNames = qw(smtpFilter  port externalMTAs fwport);
     foreach my $p (@paramNames) {
         exists $params{$p} or
             throw EBox::Exceptions::MissingArgument("$p");
@@ -59,12 +57,6 @@ sub input
 
     }
 
-    if ($self->{POPProxy}) {
-        my $port = $self->{POPProxyPort};
-        push (@rules,
-                "-m state --state NEW --protocol tcp --dport $port -j iaccept");
-    }
-
     return \@rules;
 }
 
@@ -79,52 +71,6 @@ sub output
             my $fwport = $self->{fwport};
             push (@rules, "--protocol tcp --dport $fwport -j oaccept");
         }
-    }
-
-    return \@rules;
-}
-
-sub prerouting
-{
-    my ($self) = @_;
-
-    # prerouting NAT is only used for POP transaprent proxy
-    if (not $self->{POPProxy}) {
-        return [];
-    }
-
-    # we will redirect all POP conenctions, which came from
-    # a internal interface (no POP proxy for external networks)
-    # and that aren't  aimed to a local POP server
-    # (we do not proxy ourselves)
-    my @rules;
-
-    my $popPort = 110;
-    my $port = $self->{POPProxyPort};
-
-    my $network = EBox::Global->modInstance('network');
-
-    my @internals = @{ $network->InternalIfaces() };
-    my @externals = @{ $network->ExternalIfaces()   };
-
-    my @addrs = map {
-        my @ifAddrs = map {
-            $_->{address}
-        } @{  $network->ifaceAddresses($_) }
-    } (@internals, @externals);
-    push @addrs, '127.0.0.1';
-
-    foreach my $int (@internals) {
-        my $input = $self->_inputIface($int);
-
-        foreach my $addr (@addrs) {
-            push (@rules,
-              "-p tcp $input --destination  $addr --dport $popPort -j RETURN");
-        }
-    }
-    foreach my $int (@internals) {
-        my $input = $self->_inputIface($int);
-        push (@rules, "-p tcp $input --dport $popPort -j REDIRECT --to $port");
     }
 
     return \@rules;
