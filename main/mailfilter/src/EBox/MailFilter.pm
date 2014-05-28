@@ -132,19 +132,6 @@ sub initialSetup
     }
 }
 
-#  mailfilter can be used without mail so this methods reflects that
-sub depends
-{
-    my ($self) = @_;
-    my @depends = ('firewall');
-    my $mail = $self->global()->modInstance('mail');
-    if ($mail and $mail->isEnabled()) {
-        push @depends, 'mail';
-    }
-
-    return \@depends;
-}
-
 sub _serviceRules
 {
     my ($self) = @_;
@@ -255,32 +242,6 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
-}
-
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-#  The mail dependency only exists bz we need the ldap mail data or we will run
-#  in error when seting mail domains options
-sub enableModDepends
-{
-    my ($self) = @_;
-    my @depends = qw(network antivirus);
-
-    my $mail = EBox::Global->modInstance('mail');
-    if ($mail) {
-        if (not $mail->configured()) {
-            push @depends, 'mail';
-        }
-    }
-
-    if ($self->popProxy->isEnabled()) {
-        # requires firewall to do the port redirection
-        push @depends, 'firewall';
-    }
-
-    return \@depends;;
 }
 
 # Method: reprovisionLDAP

@@ -1,6 +1,12 @@
 class: 'EBox::MailFilter'
+enabledepends:
+    - users
+    - mail
+
 depends:
-    - firewall
+    - users
+    - mail
+    - antivirus
 
 models:
     - AmavisConfiguration
