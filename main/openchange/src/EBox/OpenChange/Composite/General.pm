@@ -20,15 +20,9 @@ package EBox::OpenChange::Composite::General;
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
+use EBox::Global;
 
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-    return $self;
-}
-
+# Group: Protected methods
 
 # Method: _description
 #

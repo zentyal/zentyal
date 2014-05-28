@@ -357,12 +357,12 @@ sub run
         my ($protocol, $port);
         my $url;
         my $host = $request->env->{HTTP_HOST};
-        if ($> == getpwnam('ebox')) {
+        if ($referer) {
             my $parsedURL = new URI($referer);
             $protocol = $parsedURL->scheme();
             $port = $parsedURL->port();
             $url = "$protocol://${host}";
-            if ($port) {
+            if ($port and not ($host =~ /:/)) {
                 $url .= ":$port";
             }
             $url .= "/$self->{redirect}";
@@ -1020,7 +1020,7 @@ sub JSONReply
     my ($self, $data_r) = @_;
 
     my $response = $self->response();
-    $response->content_type('application/JSON; charset=utf-8');
+    $response->content_type('application/json; charset=utf-8');
 
     my $error = $self->{error};
     if ($error and not $data_r->{error}) {

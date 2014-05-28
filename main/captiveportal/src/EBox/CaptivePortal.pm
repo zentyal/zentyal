@@ -103,6 +103,22 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+    if ($self->changed()) {
+        # manage the nginx include file
+        my $webadminMod = $self->global()->modInstance('webadmin');
+        if ($status) {
+            $webadminMod->addNginxServer(CAPTIVE_NGINX_FILE);
+        } else {
+            $webadminMod->removeNginxServer(CAPTIVE_NGINX_FILE);
+        }
+    }
+}
+
 # Method: _setConf
 #
 #  Override <EBox::Module::Service::_setConf>
@@ -139,9 +155,6 @@ sub _setConf
     push (@confFileParams, confdir  => CAPTIVE_DIR);
     EBox::Module::Base::writeConfFileNoCheck(
         CAPTIVE_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
-
-    my $webadminMod = $self->global()->modInstance('webadmin');
-    $webadminMod->addNginxServer(CAPTIVE_NGINX_FILE);
 
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');

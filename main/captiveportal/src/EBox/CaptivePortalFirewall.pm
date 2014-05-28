@@ -207,4 +207,17 @@ sub _exceptionsRules
     return \@rules;
 }
 
+# we stop captiveportal to avoid race condition with not-yet added captive
+# portal rules
+sub beforeFwRestart
+{
+    my ($self) = @_;
+    if ($self->{captiveportal}->needsSaveAfterConfig()) {
+        # not really started and daemon file not configured, no need to stop
+        return;
+    }
+
+    $self->{captiveportal}->stopService();
+}
+
 1;

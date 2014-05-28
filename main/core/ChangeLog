@@ -1,4 +1,16 @@
 HEAD
+	+ Fixed regression in page not found CGI which displayed always a
+	  invalid referer error
+	+ Included the package field in crash report
+3.4.3
+	+ Fix MIME type for returning JSON (application/json)
+	+ Added setMessage() and popMessageAndClass() methods to TreeView
+	+ Enable InnoDB engine when there are only 4 previous databases
+	+ Active session check does not check subapp authenticated
+	  requests now
+	+ Fixed incorrect URLs with double ports in redirects
+3.4.2
+	+ Fix typo in general widget
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
 	+ Support for redirection when loading URL in existent dialog

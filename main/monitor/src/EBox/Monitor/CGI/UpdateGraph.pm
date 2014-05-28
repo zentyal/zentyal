@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -91,9 +91,9 @@ sub masonParameters
 
     my $measure = $params->{'measure'};
     my $instance = $params->{'instance'};
-    $instance = undef if ($instance eq '');
+    $instance = undef if (defined($instance) and $instance eq "");
     my $typeInstance = $params->{'typeInstance'};
-    $typeInstance = undef if ($typeInstance eq '');
+    $typeInstance = undef if (defined($typeInstance) and $typeInstance eq "");
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 

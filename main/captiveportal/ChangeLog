@@ -1,4 +1,8 @@
 HEAD
+	+ Writen nginx configuration files on enableModActions
+	+ Don't stop captive portal on firewall start if it was just enabled
+	+ Use silentRoot in rules recheck
+	+ Stop captive portal on firewall restart
 	+ Added noMultipleOUSupportComponent support
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
 3.4

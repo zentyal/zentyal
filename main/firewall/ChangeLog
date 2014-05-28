@@ -1,3 +1,9 @@
+HEAD
+	+ beforeFwRestart don't called on stopped or unconfigured modules
+	+ Added beforeFwRestart method to firewall helper
+	+ Fixed crash when editing view in Summarized Report
+	+ Added EBox::Iptables::executeModuleRules to be able to execute
+	  rules from a given module calling this new method
 3.4
 	+ Added portUsedByService method
 	+ Updated to use the new haproxy API

@@ -56,6 +56,7 @@ sub _setQAUpdates
     # Set the QA Updates if the subscription level is greater than basic
     my $rs = EBox::Global->modInstance('remoteservices');
     return unless ($rs->eBoxSubscribed());
+    return unless (_isCommercialVersion());
     return unless ($rs->subscriptionLevel(1) > 0);
 
     _setQASources();
@@ -130,6 +131,14 @@ sub _ubuntuVersion
 sub _zentyalVersion
 {
     return substr(EBox::Config::version(),0,3);
+}
+
+# Is it a commercial version?
+sub _isCommercialVersion
+{
+    my $zv = _zentyalVersion();
+    # Zentyal Release Policy applies here
+    return (substr($zv, -1) eq '0');
 }
 
 # Get the QA archive to look
