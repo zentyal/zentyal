@@ -117,7 +117,8 @@ sub writeConf
 {
     my ($self) = @_;
 
-    my $ldap = EBox::Global->modInstance('users')->ldap();
+    my $usersMod = EBox::Global->modInstance('users');
+    my $ldap = $usersMod->ldap();
 
     my $antivirus   = EBox::Global->modInstance('antivirus');
     my $mailfilter  = EBox::Global->modInstance('mailfilter');
@@ -135,8 +136,8 @@ sub writeConf
 
     push @masonParams, (ldapBase         =>  $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
-    push @masonParams, (ldapBindPasswd   =>  $ldap->getPassword());
+    push @masonParams, (ldapBindDn       =>  $usersMod->administratorDN());
+    push @masonParams, (ldapBindPasswd   =>  $usersMod->administratorPassword());
 
     push @masonParams, (antivirusActive  => $self->antivirus());
     push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));

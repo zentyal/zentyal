@@ -200,40 +200,41 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
 
 sub _ldapSetup
 {
-    my $users = EBox::Global->modInstance('users');
+    # learn account feautre disabled by now
+    # my $users = EBox::Global->modInstance('users');
 
-    my $container = EBox::Users::User->defaultContainer();
-    my @controlUsers = (
-        {
-            uid => 'spam',
-            givenname => 'Spam',
-            surname  => 'spam',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-        {
-            uid => 'ham',
-            givenname => 'Ham',
-            surname => 'ham',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-    );
+    # my $container = EBox::Users::User->defaultContainer();
+    # my @controlUsers = (
+    #     {
+    #         samAccountName => 'spam',
+    #         givenname => 'Spam',
+    #         surname  => 'spam',
+    #         parent => $container,
+    #         isSystemUser => 1,
+    #         isInternal => 1,
+    #     },
+    #     {
+    #         samAccountName => 'ham',
+    #         givenname => 'Ham',
+    #         surname => 'ham',
+    #         parent => $container,
+    #         isSystemUser => 1,
+    #         isInternal => 1,
+    #     },
+    # );
 
-    foreach my $user_r (@controlUsers) {
-        my $username = $user_r->{uid};
-        my $user = new EBox::Users::User(uid => $username);
-        unless ($user->exists()) {
-            EBox::debug("Creating user '$username'");
-            EBox::Users::User->create(%$user_r);
-        } else {
-            unless ($user->isSystem()) {
-                die $user->name() . " is not a system user as it has to be";
-            }
-        }
-    }
+    # foreach my $user_r (@controlUsers) {
+    #     my $samAcName = $user_r->{samAccountName};
+    #     my $user = new EBox::Users::User(samAccountName => $samAcName);
+    #     unless ($user->exists()) {
+    #         EBox::debug("Creating user '$samAcName'");
+    #         EBox::Users::User->create(%$user_r);
+    #     } else {
+    #         unless ($user->isSystem()) {
+    #             die $user->name() . " is not a system user as it has to be";
+    #         }
+    #     }
+    # }
 
     my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
     my $vdomainMail       = new EBox::MailVDomainsLdap;
@@ -251,8 +252,6 @@ sub enableActions
 {
     my ($self) = @_;
     $self->checkUsersMode();
-
-    $self->_ldapSetup();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
