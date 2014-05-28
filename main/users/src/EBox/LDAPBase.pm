@@ -232,7 +232,7 @@ sub modify
 
     $self->connection();
     my $result = $self->{ldap}->modify($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args, dn => $dn);
     return $result;
 }
 
