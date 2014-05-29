@@ -3673,7 +3673,9 @@ sub _preSetConf
 
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
-    return unless exists $ENV{'USER'};
+    unless ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
+        return;
+    }
 
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
