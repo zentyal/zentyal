@@ -23,7 +23,6 @@ use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Service;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use TryCatch::Lite;
 
