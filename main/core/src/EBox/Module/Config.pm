@@ -1130,16 +1130,34 @@ sub _modelMatchIsHidden
         EBox::error("Cannot find field for modelMatch for key $key");
         return 0;
     }
-    # to avoid problems with union types
-    $fieldName =~ s{_.*$}{};
 
     my $field;
     try {
         $field = $modelInstance->fieldHeader($fieldName);
     } catch ($ex) {
-        EBox::error("When looking for field $fieldName in model " .
-                        $modelInstance->name() . ': ' . $ex
-                   );
+        try {
+            my $realField;
+            # maybe was a union type?.  Change fieldname and look for selected
+            # also no more than one level depth of union is assumed
+            $fieldName =~ s{_.*$}{};
+            # look for selected value
+            while (my ($key, $value) = each %{$value}) {
+                if ($value eq $fieldName) {
+                    if ($key =~ m/^(.*?)_selected$/) {
+                        $realField = $1;
+                    }
+                }
+            }
+            if (not $realField) {
+                $realField = $fieldName;
+            }
+
+            $field = $modelInstance->fieldHeader($realField);
+        } catch ($ex) {
+            EBox::error("When looking for field $fieldName in model " .
+                            $modelInstance->name() . ': ' . $ex
+                           );
+       }
     }
 
     if (not $field) {

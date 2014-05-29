@@ -1,3 +1,5 @@
+HEAD
+	+ Added search for configuration data
 3.4.3
 	+ Fix MIME type for returning JSON (application/json)
 	+ Added setMessage() and popMessageAndClass() methods to TreeView
