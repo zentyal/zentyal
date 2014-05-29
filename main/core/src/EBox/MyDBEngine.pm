@@ -655,7 +655,7 @@ sub backupDB
 
 sub restoreDB
 {
-    my ($self, $dir, $basename, %params) = @_;
+    my ($self, $dir, $basename) = @_;
     my $dumpFile = "$dir/$basename.dump";
     $self->restoreDBDump($dumpFile, 0);
 }
