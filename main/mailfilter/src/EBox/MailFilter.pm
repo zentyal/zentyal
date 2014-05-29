@@ -59,7 +59,7 @@ sub _create
                                       @_);
     bless($self, $class);
 
-    $self->{smtpFilter} = new EBox::MailFilter::Amavis();
+    $self->{smtpFilter} = new EBox::MailFilter::Amavis($self->global());
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
 
     return $self;
