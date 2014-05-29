@@ -959,11 +959,11 @@ sub writeSambaConfig
         my $oc = [];
         push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
         push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
-        push (@{$oc}, 'brokerHost'      => EBox::Config::configkey('oc_broker_host'));
-        push (@{$oc}, 'brokerPort'      => EBox::Config::configkey('oc_broker_port'));
-        push (@{$oc}, 'brokerUser'      => EBox::Config::configkey('oc_broker_user'));
-        push (@{$oc}, 'brokerPass'      => EBox::Config::configkey('oc_broker_pass'));
-        push (@{$oc}, 'brokerVHost'     => EBox::Config::configkey('oc_broker_vhost'));
+        push (@{$oc}, 'brokerHost'      => EBox::Config::configkey('oc_notif_broker_host'));
+        push (@{$oc}, 'brokerPort'      => EBox::Config::configkey('oc_notif_broker_port'));
+        push (@{$oc}, 'brokerUser'      => EBox::Config::configkey('oc_notif_broker_user'));
+        push (@{$oc}, 'brokerPass'      => EBox::Config::configkey('oc_notif_broker_pass'));
+        push (@{$oc}, 'brokerVHost'     => EBox::Config::configkey('oc_notif_broker_vhost'));
         $self->writeConfFile(OPENCHANGE_CONF_FILE,
                          'samba/openchange.conf.mas', $oc,
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
