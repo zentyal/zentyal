@@ -303,6 +303,95 @@ sub addObject
     return $self->model('ObjectTable')->addObject(%params);
 }
 
+# Method: addMemberToObject
+#
+#   Add a member to the given network object
+#
+# Parameters:
+#
+#   id         - object's id
+#   member     - array ref containing the following hash ref in each value:
+#
+#                name        - member's name
+#                address_selected - type of address, can be:
+#                                'ipaddr', 'iprange'
+#
+#                ipaddr  parameters:
+#                   ipaddr_ip   - member's ipaddr
+#                   ipaddr_mask - member's mask
+#                   macaddr     - member's mac address *(optional)*
+#
+#               iprange parameters:
+#                   iprange_begin - begin of the range
+#                   iprange_end   - end of range
+#
+#   Member example:
+#
+#       {
+#           'name'         => 'accounting',
+#           'address_selected' => 'ipaddr',
+#           'ipaddr_ip'    => '192.168.1.3',
+#           'ipaddr_mask'  => '32',
+#           'macaddr'      => '00:00:00:FA:BA:DA'
+#       }
+#
+sub addMemberToObject # (objectId, member)
+{
+    my ($self, $id, $member) = @_;
+
+    if (not $self->objectExists($id)) {
+        return 0;
+    }
+
+    my $object = $self->model('ObjectTable')->row($id);
+    $object->subModel('members')->addRow(%{$member});
+}
+
+# Method: removeObjectMembers
+#
+#   Removes all the members from the given network object
+#
+# Parameters:
+#
+#   id         - object's id
+#
+sub removeObjectMembers # (objectId)
+{
+    my ($self, $objectId) = @_;
+
+    if (not $self->objectExists($objectId)) {
+        return 0;
+    }
+
+    my $membersModel = $self->model('ObjectTable')->row($objectId)->subModel('members');
+    for my $id (@{$membersModel->ids()}) {
+        $membersModel->removeRow($id);
+    }
+}
+
+# Method: removeObjectMember
+#
+#   Removes all the members from the given network object
+#
+# Parameters:
+#
+#   objectId    - object's id
+#   memberId    - member's id
+#
+sub removeObjectMember # (objectId, memberId)
+{
+    my ($self, $objectId, $memberId) = @_;
+
+    if (not $self->objectExists($objectId)) {
+        return 0;
+    }
+
+    my $membersModel = $self->model('ObjectTable')->row($objectId)->subModel('members');
+    if (defined ($membersModel->row($memberId))) {
+        $membersModel->removeRow($memberId);
+    }
+}
+
 # Method: menu
 #
 #       Overrides EBox::Module method.

@@ -131,8 +131,10 @@ sub row
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
         if ($type->fieldName() eq 'status') {
-            my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
-            $element->setValue($nodeInfo{online} ? __('On-line') : __('Off-line'));
+            if ($self->{clusterStatus}->nodeByName($id)) {
+                my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
+                $element->setValue($nodeInfo{online} ? __('On-line') : __('Off-line'));
+            }
         } elsif ($type->fieldName() eq 'replication') {
             if ($errors->{$name}) {
                 $element->setValue($retryHTML);
