@@ -1,4 +1,6 @@
 3.5
+	+ Added Warning in Dashboard when reboot is requierd by software
+	  update
 	+ Fix MIME type for returning JSON (application/json)
 	+ Added setMessage() and popMessageAndClass() methods to TreeView
 	+ Enable InnoDB engine when there are only 4 previous databases
