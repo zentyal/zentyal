@@ -1,4 +1,6 @@
 HEAD
+	+ Add conf file for openchange module, containing broker config for
+	  mapiproxy server
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Added noMultipleOUSupportComponent support
