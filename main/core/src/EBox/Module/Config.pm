@@ -1120,8 +1120,8 @@ sub _modelMatchIsHidden
         return 0;
     }
     my $fieldName;
-    while (my ($key, $value) = each %{$value}) {
-        if (index($value, $searchString) != -1) {
+    while (my ($key, $keyValue) = each %{$value}) {
+        if (index($keyValue, $searchString) != -1) {
             $fieldName = $key;
             last;
         }
@@ -1137,14 +1137,16 @@ sub _modelMatchIsHidden
     } catch ($ex) {
         try {
             my $realField;
-            # maybe was a union type?.  Change fieldname and look for selected
-            # also no more than one level depth of union is assumed
+            # maybe was a union type?.  Change fieldname and look for selected field
+            # Assumption: no more than one level depth of union
             $fieldName =~ s{_.*$}{};
             # look for selected value
-            while (my ($key, $value) = each %{$value}) {
-                if ($value eq $fieldName) {
+            foreach my $key (keys %{ $value }) {
+                my $keyValue = $value->{$key};
+                if ($keyValue eq $fieldName) {
                     if ($key =~ m/^(.*?)_selected$/) {
                         $realField = $1;
+                        last;
                     }
                 }
             }
@@ -1154,9 +1156,9 @@ sub _modelMatchIsHidden
 
             $field = $modelInstance->fieldHeader($realField);
         } catch ($ex) {
-            EBox::error("When looking for field $fieldName in model " .
-                            $modelInstance->name() . ': ' . $ex
-                           );
+            EBox::warn("When looking for field $fieldName in model " .
+                           $modelInstance->name() . ': ' . $ex
+                          );
        }
     }
 
