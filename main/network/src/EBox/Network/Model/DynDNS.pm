@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+## Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -83,6 +83,14 @@ our %SERVICES = (
         web => 'svc.joker.com/nic/checkip',
         web_skip => 'Current IP Address:',
         require_info => 0,
+    },
+    noip => {
+        printableValue => 'no-ip.com',
+        protocol => 'noip',
+        server => 'dynupdate.no-ip.com',
+        use => 'web',
+        web => 'http://ip1.dynupdate.no-ip.com/',
+        require_info => 1,
     },
 );
 
