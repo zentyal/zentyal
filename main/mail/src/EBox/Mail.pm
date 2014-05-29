@@ -689,13 +689,13 @@ sub _getDovecotOpenchangePluginConf
         my $ocModule = $self->global->modInstance('openchange');
         if ($ocModule->isEnabled() and $ocModule->isProvisioned()) {
             $conf->{enabled}    = 1;
-            $conf->{host}       = EBox::Config::configkey('dovecot_oc_plugin_broker_host');
-            $conf->{port}       = EBox::Config::configkey('dovecot_oc_plugin_broker_port');
-            $conf->{user}       = EBox::Config::configkey('dovecot_oc_plugin_broker_user');
-            $conf->{pass}       = EBox::Config::configkey('dovecot_oc_plugin_broker_pass');
-            $conf->{vhost}      = EBox::Config::configkey('dovecot_oc_plugin_broker_vhost');
-            $conf->{exchange}   = EBox::Config::configkey('dovecot_oc_plugin_broker_exchange');
-            $conf->{routing}    = EBox::Config::configkey('dovecot_oc_plugin_broker_routing_key');
+            $conf->{host}       = EBox::Config::configkey('oc_notif_broker_host');
+            $conf->{port}       = EBox::Config::configkey('oc_notif_broker_port');
+            $conf->{user}       = EBox::Config::configkey('oc_notif_broker_user');
+            $conf->{pass}       = EBox::Config::configkey('oc_notif_broker_pass');
+            $conf->{vhost}      = EBox::Config::configkey('oc_notif_broker_vhost');
+            $conf->{exchange}   = EBox::Config::configkey('oc_notif_exchange');
+            $conf->{routing}    = EBox::Config::configkey('oc_notif_new_mail_routing_key');
         }
     }
 
