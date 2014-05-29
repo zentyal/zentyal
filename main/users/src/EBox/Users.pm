@@ -2034,8 +2034,11 @@ sub masterConf
     return $self->{ms};
 }
 
+# FIXME: this should be reimplemnted for new samba ldb. Disalbed until then
 sub dumpConfig
 {
+    return;
+
     my ($self, $dir, %options) = @_;
     my $mode = $self->mode();
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2080,6 +2083,8 @@ sub restoreDependencies
     return [];
 }
 
+# FIXME: this should be reimplemnted for new samba ldb. Disalbed until then
+#
 # Method: restoreBackupPreCheck
 #
 # Check that the backup to be restored mode is compatible.
@@ -2087,6 +2092,8 @@ sub restoreDependencies
 # users in the LDAP data to be loaded and the users in /etc/passwd
 sub restoreBackupPreCheck
 {
+    return;
+
     my ($self, $dir) = @_;
     my $mode = $self->mode();
     my $backupModeFile = $dir . '/' . BACKUP_MODE_FILE;
@@ -2124,8 +2131,11 @@ sub restoreBackupPreCheck
     }
 }
 
+# FIXME: this should be reimplemnted for new samba ldb. Disalbed until then
 sub restoreConfig
 {
+    return;
+
     my ($self, $dir, $ignoreUserInitialization) = @_;
     my $mode = $self->mode();
 
