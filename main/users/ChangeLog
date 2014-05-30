@@ -1,4 +1,4 @@
-HEAD
+3.2.14
 	+ Do not duplicate cloud ops when REST call fails
 	+ Display message when creating a user which username has more
 	  than 20 characters
