@@ -1,3 +1,5 @@
+HEAD
+	+ Load openchange plugin if openchange enabled
 3.4.3
 	+ Don't try to check openchange accounts on removing system users
 	+ Fixed bug triggered when adding external aliases
