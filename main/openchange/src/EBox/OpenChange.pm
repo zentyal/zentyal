@@ -186,6 +186,9 @@ sub _daemonsToDisable
         {
             name => 'openchange-ocsmanager',
             type => 'init.d',
+        },
+        {
+            name => 'ocnotification',
         }
        ];
     return $daemons;
