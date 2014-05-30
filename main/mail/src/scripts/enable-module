@@ -22,8 +22,8 @@ fi
 
 function dovecot {
 # create certificate for dovecot
-test -d /etc/dovecot/ssl || mkdir -p /etc/dovecot/ssl
-if test ! -e /etc/dovecot/ssl/dovecot.pem
+test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
+if test ! -e /etc/dovecot/private/dovecot.pem
 then
     if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
@@ -33,10 +33,10 @@ then
 
     cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
         /etc/ssl/private/ssl-cert-snakeoil.key \
-        > /etc/dovecot/ssl/dovecot.pem
+        > /etc/dovecot/private/dovecot.pem
 
-    chown root:root /etc/dovecot/ssl/dovecot.pem
-    chmod 400 /etc/dovecot/ssl/dovecot.pem
+    chown root:root /etc/dovecot/private/dovecot.pem
+    chmod 400 /etc/dovecot/private/dovecot.pem
 fi
 }
 
