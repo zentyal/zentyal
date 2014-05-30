@@ -244,7 +244,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:197
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
@@ -437,7 +437,7 @@ msgstr "名稱"
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:190
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:225
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:233
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:218
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:199
@@ -1454,7 +1454,7 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:223
 #: ../../main/core/src/EBox/SysInfo.pm:335
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
 msgid "Hostname"
@@ -4417,7 +4417,7 @@ msgid "Error when extracting usage data: {err}"
 msgstr ""
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:203
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:211
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:184
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
@@ -4733,7 +4733,7 @@ msgstr "設置"
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:94
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:355
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:209
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:217
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
@@ -8216,17 +8216,17 @@ msgstr ""
 "您可在新增後重新排序。假如您沒有設定連接埠或是 IP 位址，那麼規則將會符合這些"
 "全部"
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:192
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:200
 msgid "Enable Dynamic DNS"
 msgstr "啟用動態 DNS"
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:229
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:237
 msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:275
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:283
 #, perl-brace-format
 msgid ""
 "You can configure your Dynamic DNS provider here. If your server is already "
@@ -10565,22 +10565,30 @@ msgstr ""
 msgid "No updates"
 msgstr "更新"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:87
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:65
+msgid "Nevertheless some packages require a reboot to be applied"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
 #, fuzzy, perl-brace-format
 msgid "{n} component updates"
 msgstr "系統更新"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:95
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:99
 #, fuzzy, perl-brace-format
 msgid "{n} system updates"
 msgstr "系統更新"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:98
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:102
 #, fuzzy, perl-brace-format
 msgid "({n} security)"
 msgstr "系統更新"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:114
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:107
+msgid "Moreover, some upgraded packages require a reboot to take effect"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Professional, Business or "
@@ -10588,7 +10596,7 @@ msgid ""
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:119
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
