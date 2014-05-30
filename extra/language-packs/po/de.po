@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-04-23 10:37+0200\n"
-"Last-Translator: psifactory <sebbo@psifactory.net>\n"
+"PO-Revision-Date: 2014-05-29 21:22+0200\n"
+"Last-Translator: hofi171 <peter.hofmann87@googlemail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1385,14 +1385,12 @@ msgid "There is a network interface with the given IP address."
 msgstr "Es existiert bereits eine Schnittstelle mit dem Alias {al}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr "Es existiert bereits eine Schnittstelle mit dem Alias {al}"
+msgstr "Die IP Adresse ist bereits einem statischem Eintrag im DHCP zugewiesen."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr "Es existiert bereits eine Schnittstelle mit dem Alias {al}"
+msgstr "Die IP Adresse wird bereits in einem DHCP bereich verwendet."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
 #, fuzzy
@@ -1946,9 +1944,8 @@ msgstr "Gast-Zugriff"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
-#, fuzzy
 msgid "Failure"
-msgstr "Versagen"
+msgstr "Fehlschlag"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -1956,11 +1953,13 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"Durch das letzte Regelupdate wurde der IDS / IPS-Daemon gestoppt. Überprüfen "
+"Sie das {log} für Details und das Regel Änderungslog unter {url} ({name} "
+"rules)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:70
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
 #: ../../main/software/src/templates/ebox.mas:237
-#, fuzzy
 msgid "Web Server"
 msgstr "Webserver"
 
@@ -1994,9 +1993,8 @@ msgid "To fetch home directories from LDAP."
 msgstr "Zum Abrufen der Home-Verzeichnisse vom LDAP"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:133
-#, fuzzy
 msgid "Enable Apache SSL module"
-msgstr "Aktiviere Apache LDAP Benutzer Modul"
+msgstr "Aktiviere Apache SSL Modul"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:135
 msgid "To serve pages over HTTPS."
