@@ -1610,7 +1610,12 @@ sub tableInfo
 sub consolidate
 {
     my ($self) = @_;
-    my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
+    my %vdomains;
+    try {
+        %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
+    } catch {
+        # probably samba was not provisioned, so no vdomains available
+    }
 
     my $table = 'mail_message_traffic';
 
