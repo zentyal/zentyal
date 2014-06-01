@@ -173,7 +173,7 @@ sub _enableActionsInternalAuth
     my ($self) = @_;
     # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
+#FIXME    $self->kerberosCreatePrincipals();
 
 }
 
@@ -645,8 +645,8 @@ sub _writeSquidConf
     if (not $kerberos) {
         my $ldap = $users->ldap();
         push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $ldap->roRootDn());
-        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+        push @writeParam, ('roDn'     => $users->administratorDN());
+        push @writeParam, ('roPasswd' => $users->administratorPassword());
     }
 
     my $mode = $self->authenticationMode();
