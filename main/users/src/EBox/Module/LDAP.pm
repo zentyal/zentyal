@@ -134,6 +134,13 @@ sub setupLDAP
 {
 }
 
+sub setupLDAPDone
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    return $state->{'_schemasAdded'} and $state->{'_ldapSetup'};
+}
+
 # Method: reprovisionLDAP
 #
 #   Reprovision LDAP setup for the module.

@@ -264,6 +264,10 @@ sub _modsVDomainModule
     foreach my $name (@names) {
         my $mod = $global->modInstance($name);
         if ($mod->isa('EBox::VDomainModule') and $mod->configured()) {
+            if (not $mod->setupLDAPDone()) {
+                # no schemas done
+                next;
+            }
             push (@modules, $mod->_vdomainModImplementation);
         }
     }

@@ -194,28 +194,11 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-sub _performSetup
+sub requiredSambaRestartAfterLoadSchemas
 {
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
-        $self->global()->addModuleToPostSave('users');
-    }
-
-    # XXX samba needs to be restarted to use the added schemas. Use a better
-    # solution when it is available
-    $self->global()->modInstance('users')->restartService();
-
-    unless ($state->{'_ldapSetup'}) {
-        $self->setupLDAP();
-        $state->{'_ldapSetup'} = 1;
-        $self->set_state($state);
-    }
+    return 1;
 }
+
 
 # Method: reprovisionLDAP
 #
