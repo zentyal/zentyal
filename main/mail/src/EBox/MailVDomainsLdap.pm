@@ -39,7 +39,8 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{users} = EBox::Global->modInstance('users');
+    $self->{ldap}  = $self->{users}->ldap();
     bless($self, $class);
     return $self;
 }
@@ -167,7 +168,11 @@ sub vdomains
     my ($self) = @_;
 
     my $global = EBox::Global->instance();
-    return () unless $global->modEnabled('mail');
+    if (not $global->modEnabled('mail')) {
+        return ();
+    } elsif (not $self->{users}->getProvision()->isProvisioned()) {
+        return ();
+    }
 
     my %args = (
                 base => $self->vdomainDn,
@@ -252,13 +257,17 @@ sub _modsVDomainModule
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->modInstance('global');
-    my @names = @{$global->modNames};
+    my $global = EBox::Global->getInstance();
+    my @names = @{$global->modNames()};
 
     my @modules;
     foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
-        if ($mod->isa('EBox::VDomainModule')) {
+        my $mod = $global->modInstance($name);
+        if ($mod->isa('EBox::VDomainModule') and $mod->configured()) {
+            if (not $mod->setupLDAPDone()) {
+                # no schemas done
+                next;
+            }
             push (@modules, $mod->_vdomainModImplementation);
         }
     }
@@ -299,7 +308,6 @@ sub allWarnings
 sub regenConfig
 {
     my ($self) = @_;
-
     my $aliasLdap =  new EBox::MailAliasLdap();
 
     my %vdomainsToDelete = map {  $_ => 1 } $self->vdomains();

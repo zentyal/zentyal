@@ -111,8 +111,12 @@ sub _performSetup
         $self->_loadSchemas();
         $state->{'_schemasAdded'} = 1;
         $self->set_state($state);
-        $self->global()->addModuleToPostSave('users');
     }
+
+    if ($self->name () ne 'users') {
+        $self->global()->modInstance('users')->restartService();
+    }
+
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
         $state->{'_ldapSetup'} = 1;
@@ -120,8 +124,20 @@ sub _performSetup
     }
 }
 
+sub requiredSambaRestartAfterLoadSchemas
+{
+    return 0;
+}
+
 sub setupLDAP
 {
+}
+
+sub setupLDAPDone
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    return $state->{'_schemasAdded'} and $state->{'_ldapSetup'};
 }
 
 # Method: reprovisionLDAP
