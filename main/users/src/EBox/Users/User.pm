@@ -84,9 +84,6 @@ sub new
     my $class = shift;
     my %opts = @_;
 
-    my $coreAttrs = ['uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key'];
-    $opts{idField} = 'uid';
-    $opts{coreAttrs} = $coreAttrs;
     my $self = $class->SUPER::new(%opts);
 
     if (defined $opts{uid}) {

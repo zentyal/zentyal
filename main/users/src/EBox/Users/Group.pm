@@ -61,12 +61,13 @@ use constant GROUPTYPESECURITY  => 0x80000000;
 sub new
 {
     my ($class, %params) = @_;
-    # FIXME
-    if ($params{gid}) {
-        $params{dn} = "CN=$params{gid},CN=Users,DC=zentyal-domain,DC=lan";
-        delete $params{gid};
-    }
+
     my $self = $class->SUPER::new(%params);
+
+    if (defined $params{gid}) {
+        $self->{gid} = $params{gid};
+    }
+
     bless ($self, $class);
     return $self;
 }
@@ -268,6 +269,7 @@ sub _entry
             $self->SUPER::_entry();
         }
     }
+
     return $self->{entry};
 }
 
