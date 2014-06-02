@@ -1,4 +1,6 @@
-HEAD
+3.2.17
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
 	+ s4sync: Remove the group share if exists after deleting the group itself
 	+ s4sync: Remove the deleted user or group from shares ACLs
 	+ Grant rwx rights to Domain guest and Everybody on guest shares

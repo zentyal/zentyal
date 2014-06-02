@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed CGI error on page reloads
 	+ Allow wildcard certificate in service certificates
 	+ Better CN for CA certificate
 	+ Use different openssl output files to avoid any overlap

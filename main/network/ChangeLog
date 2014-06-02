@@ -1,4 +1,7 @@
 HEAD
+	+ Changed validation of setDHCPAddress, setRealPPPIface and
+	  DHCPCleanUp to allow pseudoterminal interfaces, this is needed for l2tp
+	+ Allow network proxy which is listening on localhost
 	+ Fixed error which skipped the execution of _preSetConf
 	+ Updated DynDNS server in ddclient configuration
 3.4.1

@@ -1,4 +1,7 @@
 HEAD
+	+ Use a blocking lock to get iptables resource to avoid issues
+	  while firewall module is restarting
+HEAD
 	+ Writen nginx configuration files on enableModActions
 	+ Don't stop captive portal on firewall start if it was just enabled
 	+ Use silentRoot in rules recheck
