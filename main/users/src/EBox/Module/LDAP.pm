@@ -113,11 +113,21 @@ sub _performSetup
         $self->set_state($state);
         $self->global()->addModuleToPostSave('users');
     }
+
+    if ($self->requiredSambaRestartAfterLoadSchemas()) {
+        $self->global()->modInstance('users')->restartService();
+    }
+
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
         $state->{'_ldapSetup'} = 1;
         $self->set_state($state);
     }
+}
+
+sub requiredSambaRestartAfterLoadSchemas
+{
+    return 0;
 }
 
 sub setupLDAP
