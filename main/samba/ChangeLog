@@ -1,4 +1,5 @@
 3.5
+	+ Moved all provision code and samba core management to zentyal-users
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
 	+ Added new domainControllers() method
 	+ Removed samba_fs option from samba.conf, always use s3fs
