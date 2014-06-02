@@ -1,4 +1,5 @@
 3.5
+	+ Remove RSS and Jabber dispatchers
 	+ Added Warning in Dashboard when reboot is requierd by software
 	  update
 	+ Fix MIME type for returning JSON (application/json)
