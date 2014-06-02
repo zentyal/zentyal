@@ -255,39 +255,6 @@ sub containerClass
     return $self->{containerClass};
 }
 
-# Method: depends
-#
-#     Users depends on dns only to ensure proper order during
-#     save changes when reprovisioning (after host/domain change)
-#
-# Overrides:
-#
-#     <EBox::Module::Base::depends>
-#
-sub depends
-{
-    my ($self) = @_;
-
-    my @deps;
-
-    if ($self->get('need_reprovision')) {
-        push (@deps, 'dns');
-    }
-
-    return \@deps;
-}
-
-sub enableModDepends
-{
-    my ($self) = @_;
-    my @depends = ('ntp');
-    my $mode = $self->mode();
-    if ($mode eq STANDALONE_MODE) {
-        push @depends, 'dns';
-    }
-    return \@depends;
-}
-
 # Method: actions
 #
 #       Override EBox::ServiceModule::ServiceInterface::actions
