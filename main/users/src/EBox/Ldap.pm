@@ -374,40 +374,12 @@ sub dumpLdapConfig
     $self->_dumpLdap($dir, 'config');
 }
 
+# FIXME: this method should be rewritten for ldb.bak files
+# for now it returns a empty reference list
 sub usersInBackup
 {
     my ($self, $dir) = @_;
-
-    my @users;
-
-    my $ldifFile = $self->ldifFile($dir, 'data');
-
-    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
-    my $usersDn;
-
-    while (not $ldif->eof()) {
-        my $entry = $ldif->read_entry ( );
-        if ($ldif->error()) {
-           EBox::error("Error reading LDIOF file $ldifFile: " . $ldif->error() .
-                       '. Error lines: ' .  $ldif->error_lines());
-        } else {
-            my $dn = $entry->dn();
-            if (not defined $usersDn) {
-                # first entry, use it to fetch the DN
-                $usersDn = 'ou=Users,' . $dn;
-                next;
-            }
-
-            # in zentyal users are identified by DN, not by objectclass
-            # TODO: Review this code, with multiou this may not be true anymore!
-            if ($dn =~ /$usersDn$/) {
-                push @users, $entry->get_value('uid');
-            }
-        }
-    }
-    $ldif->done();
-
-    return \@users;
+    return [];
 }
 
 sub _slapcatCmd

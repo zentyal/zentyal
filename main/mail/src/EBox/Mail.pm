@@ -1658,8 +1658,10 @@ sub logHelper
     return new EBox::MailLogHelper();
 }
 
+# FIXME: this could not work until LDB samba restore is fixed
 sub restoreConfig
 {
+    return;
     my ($self, $dir) = @_;
 
     # recreate maildirs for accounts if needed
