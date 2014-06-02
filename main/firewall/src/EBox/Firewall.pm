@@ -45,6 +45,7 @@ use EBox::FirewallLogHelper;
 use EBox::Objects;
 use EBox::Validate qw( :all );
 use EBox::Util::Lock;
+use TryCatch::Lite;
 
 use Error qw(:try);
 
