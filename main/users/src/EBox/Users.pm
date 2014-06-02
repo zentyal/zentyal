@@ -1719,9 +1719,6 @@ sub allUserAddOns
 {
     my ($self, $user) = @_;
 
-    # FIXME: disabled until parent issues are fixed
-    #return [];
-
     my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};

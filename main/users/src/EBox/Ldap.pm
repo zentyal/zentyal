@@ -592,27 +592,4 @@ sub rootDse
     return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
-# FIXME
-sub changeUserPassword
-{
-    my ($self, $dn, $newPasswd, $oldPasswd) = @_;
-
-    $self->connection();
-    my $rootdse = $self->{ldap}->root_dse();
-    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
-        # Update the password using the LDAP extension will update the kerberos keys also
-        # if the smbk5pwd module and its overlay are loaded
-        require Net::LDAP::Extension::SetPassword;
-        my $mesg = $self->{ldap}->set_password(user => $dn,
-                                               oldpasswd => $oldPasswd,
-                                               newpasswd => $newPasswd);
-        $self->_errorOnLdap($mesg, $dn);
-    } else {
-        my $mesg = $self->{ldap}->modify( $dn,
-                        changes => [ delete => [ userPassword => $oldPasswd ],
-                        add     => [ userPassword => $newPasswd ] ]);
-        $self->_errorOnLdap($mesg, $dn);
-    }
-}
-
 1;
