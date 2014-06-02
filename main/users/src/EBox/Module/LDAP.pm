@@ -71,13 +71,21 @@ sub _loadSchemas
 {
     my ($self) = @_;
 
-    my $path = EBox::Config::share() . 'zentyal-' . $self->name();
+    my $name = $self->name();
+    my $global = $self->global();
+    my $path = EBox::Config::share() . "zentyal-$name";
 
     foreach my $attr (glob ("$path/*-attr.ldif")) {
         EBox::Sudo::root("/usr/share/zentyal-users/load-schema $attr");
     }
     foreach my $class (glob ("$path/*-class.ldif")) {
         EBox::Sudo::root("/usr/share/zentyal-users/load-schema $class");
+    }
+
+    if ($name eq 'users') {
+        $global->addModuleToPostSave('users');
+    } else {
+        $global->modInstance('users')->_manageService('restart');
     }
 }
 
@@ -111,8 +119,6 @@ sub _performSetup
         $self->_loadSchemas();
         $state->{'_schemasAdded'} = 1;
         $self->set_state($state);
-
-        $self->global()->modInstance('users')->_manageService('restart');
     }
 
     unless ($state->{'_ldapSetup'}) {
