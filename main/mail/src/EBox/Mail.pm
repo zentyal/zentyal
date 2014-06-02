@@ -322,6 +322,42 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+sub _performSetup
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    unless ($state->{'_schemasAdded'}) {
+        $self->_loadSchemas();
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
+        $self->global()->addModuleToPostSave('users');
+    }
+
+    # XXX samba needs to be restarted to use the added schemas. Use a better
+    # solution when it is available
+    $self->global()->modInstance('users')->restartService();
+
+    unless ($state->{'_ldapSetup'}) {
+        $self->setupLDAP();
+        $state->{'_ldapSetup'} = 1;
+        $self->set_state($state);
+    }
+}
+
+sub requiredSambaRestartAfterLoadSchemas
+{
+    my ($self) = @_;
+    if ($self->model('VDomains')->ids()) {
+        #vdomains to add
+        return 1;
+    } elsif ($self->global()->modInstance('users')->users() > 0) {
+        # users to add mail class and attributes
+        return 1;
+    }
+    return 0;
+}
+
 sub setupLDAP
 {
     my ($self) = @_;
