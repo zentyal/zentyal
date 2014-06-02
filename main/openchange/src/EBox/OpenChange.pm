@@ -603,12 +603,13 @@ sub menu
         text      => __('Setup'),
         order     => 0));
 
-    if ($self->isProvisioned()) {
-        $folder->add(new EBox::Menu::Item(
-            url       => 'OpenChange/Migration/Connect',
-            text      => __('MailBox Migration'),
-            order     => 1));
-    }
+TODO: Uncomment when we fix all the issues in the migration and it covers all the cases
+#    if ($self->isProvisioned()) {
+#        $folder->add(new EBox::Menu::Item(
+#            url       => 'OpenChange/Migration/Connect',
+#            text      => __('MailBox Migration'),
+#            order     => 1));
+#    }
 
     $root->add($folder);
 }
