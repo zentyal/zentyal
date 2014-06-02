@@ -606,7 +606,7 @@ sub _setDovecotConf
 
     # main dovecot conf file
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $users = EBox::Global->modInstance('users');
+    my $samba = EBox::Global->modInstance('samba');
 
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
@@ -637,14 +637,13 @@ sub _setDovecotConf
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
-    my $roPwd = $users->ldap->getRoPassword();
-
     # ldap dovecot conf file
     @params = ();
-    push (@params, baseDN      => $users->ldap()->dn());
-    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
-    push (@params, zentyalROPwd => $roPwd);
+    push (@params, ldapHost     => "ldap://localhost");
+    push (@params, baseDN       => "CN=Users," . $samba->ldb()->dn());
+    push (@params, mailboxesDir => VDOMAINS_MAILBOXES_DIR);
+    push (@params, bindDN       => "CN=Administrator,CN=Users," . $samba->ldb()->dn());
+    push (@params, bindDNPwd    => $samba->administratorPassword());
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
 
     if ($openchange) {
