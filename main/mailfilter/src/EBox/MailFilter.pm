@@ -194,12 +194,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-sub requiredSambaRestartAfterLoadSchemas
-{
-    return 1;
-}
-
-
 # Method: reprovisionLDAP
 #
 # Overrides:
