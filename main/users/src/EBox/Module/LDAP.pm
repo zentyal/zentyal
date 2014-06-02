@@ -111,10 +111,8 @@ sub _performSetup
         $self->_loadSchemas();
         $state->{'_schemasAdded'} = 1;
         $self->set_state($state);
-    }
 
-    if ($self->name () ne 'users') {
-        $self->global()->modInstance('users')->restartService();
+        $self->global()->modInstance('users')->_manageService('restart');
     }
 
     unless ($state->{'_ldapSetup'}) {
@@ -122,11 +120,6 @@ sub _performSetup
         $state->{'_ldapSetup'} = 1;
         $self->set_state($state);
     }
-}
-
-sub requiredSambaRestartAfterLoadSchemas
-{
-    return 0;
 }
 
 sub setupLDAP
