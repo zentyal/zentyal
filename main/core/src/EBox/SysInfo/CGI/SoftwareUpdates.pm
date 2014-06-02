@@ -60,7 +60,11 @@ sub _process
 
     my $updatesStr = __('No updates');
     my $updatesType = 'good';
-
+    my $reboot = '/var/run/reboot-required';
+    if (-e $reboot) {
+        $updatesStr.= ' ' . __('Nevertheless some packages require a reboot to be applied');
+        $updatesType = 'warning';
+    }
     if ($qaUpdates) {
         my $msg = $self->_secureMsg();
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
@@ -98,6 +102,9 @@ sub _process
                     $updatesStr .= ' ' . __x('({n} security)', n => $nSecurity);
                 }
                 $updatesStr .= '</a>';
+            }
+            if (-e $reboot) {
+                $updatesStr.= ' ' . __('Moreover, some upgraded packages require a reboot to take effect');
             }
         }
     }

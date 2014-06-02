@@ -124,9 +124,6 @@ sub _setConf
     EBox::Module::Base::writeConfFileNoCheck(
         CAPTIVE_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
 
-    my $webadminMod = $self->global()->modInstance('webadmin');
-    $webadminMod->addNginxServer(CAPTIVE_NGINX_FILE);
-
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');
     my $usersMod = EBox::Global->modInstance('users');

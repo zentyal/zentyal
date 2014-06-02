@@ -1,4 +1,6 @@
 HEAD
+	+ Added No-IP to DynDNS
+	+ Fix get router MAC after latest changes in Net::ARP library
 	+ Updated DynDNS server in ddclient configuration
 3.5
 	+ Set version to 3.5

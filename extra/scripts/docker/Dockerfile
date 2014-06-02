@@ -8,7 +8,6 @@ RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
-RUN apt-get update
 RUN apt-get update -y
 
 #Installing basic and build dependencies
@@ -62,6 +61,7 @@ ADD  main/remoteservices/debian/control /tmp/main/remoteservices/debian/control
 ADD  main/ha/debian/control /tmp/main/ha/debian/control
 
 #Install the zentyal deps
+RUN apt-get update -y
 RUN /tmp/zentyal-syntax-check --installdeps --path=/tmp  --release=precise
 RUN /tmp/zentyal-unit-tests nothing || /bin/true
 

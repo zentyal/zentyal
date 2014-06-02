@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-04-23 17:04+0200\n"
+"PO-Revision-Date: 2014-05-13 10:54+0200\n"
 "Last-Translator: Snubbi <carl@manjaro.dk>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: da\n"
@@ -181,7 +181,7 @@ msgstr "Aktiveret"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:119
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
@@ -205,7 +205,7 @@ msgstr "Slået fra"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:197
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
@@ -216,7 +216,7 @@ msgstr "Service"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1950
 #: ../../main/core/src/EBox/SysInfo.pm:489
 msgid "Running"
 msgstr "Kører"
@@ -403,7 +403,7 @@ msgstr "Navn"
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:190
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:225
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:233
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:218
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:199
@@ -894,7 +894,7 @@ msgid "Advertised Network"
 msgstr "Tilføjede Netværk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:58
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:302
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
 msgstr "Aktiver"
@@ -1057,7 +1057,7 @@ msgstr "OpenVPN dæmoner"
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
-#: ../../main/firewall/src/EBox/Firewall.pm:763
+#: ../../main/firewall/src/EBox/Firewall.pm:772
 #: ../../main/samba/src/EBox/Samba.pm:1615
 #: ../../main/samba/src/EBox/Samba.pm:1635
 #: ../../main/samba/src/EBox/Samba.pm:1646
@@ -1188,8 +1188,8 @@ msgstr "At starte corosync ved opstart"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:229
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:269
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1474
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1937
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1478
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:113
@@ -1210,7 +1210,7 @@ msgstr "Ukendt"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:146
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1903
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:98
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
@@ -1405,7 +1405,7 @@ msgstr "Node liste for {name} klynge"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:181
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:107
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:223
 #: ../../main/core/src/EBox/SysInfo.pm:335
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
 msgid "Hostname"
@@ -1830,7 +1830,7 @@ msgstr "Beskrivelse"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:766
+#: ../../main/firewall/src/EBox/Firewall.pm:775
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
 msgid "Source"
 msgstr "Source/kilde"
@@ -1840,14 +1840,14 @@ msgstr "Source/kilde"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
-#: ../../main/firewall/src/EBox/Firewall.pm:767
+#: ../../main/firewall/src/EBox/Firewall.pm:776
 msgid "Destination"
 msgstr "Destination"
 
 #: ../../main/ips/src/EBox/IPS.pm:312
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
-#: ../../main/firewall/src/EBox/Firewall.pm:768
+#: ../../main/firewall/src/EBox/Firewall.pm:777
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
 #: ../../main/mail/src/templates/externalAccounts.mas:18
@@ -3644,7 +3644,7 @@ msgid "General"
 msgstr "Generelt"
 
 #: ../../main/ca/src/EBox/CA.pm:1743
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:319
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Services Certifikater"
 
@@ -3857,7 +3857,12 @@ msgstr "Certifikatet er blevet udstedt"
 msgid "The new CA certificate has been issued."
 msgstr "Det nye CA certifikat er blevet udstedt"
 
-#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
+#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:123
+#, fuzzy, perl-brace-format
+msgid "{org} Authority Certificate"
+msgstr "Opret Certifikat autoritets certifikat"
+
+#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:134
 msgid "Problems creating Certification Authority has happened"
 msgstr "Der var problemer med at oprette Certification Authority"
 
@@ -3902,15 +3907,15 @@ msgstr "Zentyal"
 msgid "Module"
 msgstr "Modul"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:304
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:305
 msgid "Generate the certificate using CA with the common name set above"
 msgstr "Generer certifikatet, bruger CA med navnet sat ovenfor"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:321
 msgid "certificate"
 msgstr "certifikat"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:326
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:327
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
@@ -3918,7 +3923,7 @@ msgstr ""
 "Her kan du indstille certifikater fra denne CA til de sikre services, der "
 "håndteres af Zentyal"
 
-#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:340
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 msgid "This service does not allow to change the certificate common name"
 msgstr "Denne service tillader ikke at ændre certifikatetnavnet"
 
@@ -4185,7 +4190,7 @@ msgid "Error when extracting usage data: {err}"
 msgstr "Fejl ved udtrækning af brugsdata: {err}"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:203
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:211
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:184
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
@@ -4523,7 +4528,7 @@ msgstr "Konfigurer tilstand"
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:94
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:355
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:209
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:217
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
@@ -4768,6 +4773,14 @@ msgstr "Gruppe opdateret"
 msgid "user name"
 msgstr "brugernavn"
 
+#: ../../main/users/src/EBox/Users/CGI/AddUser.pm:81
+msgid ""
+"You have created a 20 or more characters username. Please keep in mind that "
+"some Microsoft Client OS's do not support such user lenght. If you plan this "
+"user to be logged in through a Windows Workstation, consider deleting it and "
+"creating it again with a shorter username"
+msgstr ""
+
 #: ../../main/users/src/EBox/Users/CGI/AddOU.pm:49
 msgid "OU name"
 msgstr "OU navn"
@@ -4900,7 +4913,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/LdapObject.pm:286
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:197
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:324
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:325
 msgid "There was an error updating LDAP:"
 msgstr "Der opstod en fejl under opdatering af LDAP:"
 
@@ -5719,7 +5732,7 @@ msgstr "Informer mail afsender-konto"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Drop silently"
-msgstr ""
+msgstr "Drop lydløst"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
 msgid "Mailfilter's policy"
@@ -5727,11 +5740,11 @@ msgstr "Beskedfilterets regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:62
 msgid "To configure amavis"
-msgstr "At opsætte amavis"
+msgstr "Opsætnig af amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:416
 msgid "Zentyal internal mail filter"
-msgstr "Internt Zentyal besked-filter"
+msgstr "Internt Zentyal mail-filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:429
 msgid "SMTP filter proxy"
@@ -5740,11 +5753,11 @@ msgstr "SMTP proxy filter"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:587
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr "Virtuelt post domæne {vd} eksisterer ikke"
+msgstr "Virtuelt mail domæne {vd} eksisterer ikke"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
-msgstr "At opsætte spamassassin dæmonen"
+msgstr "Konfigurering af spamassassin dæmon"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:325
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
@@ -5780,38 +5793,36 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:389
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Konti fra domænet {d} kan ikke træne Bayesian filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
-#, fuzzy
 msgid "External connections"
-msgstr "Externe mail domæner"
+msgstr "Externe forbindelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
-#, fuzzy
 msgid "Attached Files Filter"
-msgstr "Mail filter"
+msgstr "Vedhæftede filer Filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:41
 msgid ""
 "Filter mail messages according attached files. The transparent POP proxy "
 "only filters by extension"
 msgstr ""
+"Filter mails ifølge vedhæftede filer. Den gennemsigtige POP proxy kan kun "
+"filtre ved udvidelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FilterReport.pm:39
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/POPProxyReport.pm:39
-#, fuzzy
 msgid "Mail filter report"
-msgstr "Mailfilter's port"
+msgstr "Mail filter report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FilterReport.pm:40
-#, fuzzy
 msgid "Mail Filter report"
-msgstr "Mailfilter's port"
+msgstr "Mail Filter report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/POPProxyReport.pm:40
 msgid "Transparent POP proxy report"
-msgstr ""
+msgstr "Transparent POP proxy report"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:88
 #, perl-brace-format
@@ -5820,10 +5831,13 @@ msgid ""
 "Commercial Editions{closehref} that includes the Antispam feature in the "
 "automatic security updates."
 msgstr ""
+"Ønsker du at holde spam ude af dine mail-servere? Få en af ​​de {openhref} "
+"Kommercielle Editions {closehref} der omfatter Antispam-funktionen i de "
+"automatiske sikkerhedsopdateringer."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:58
 msgid " To configure p3scan"
-msgstr "for at indstille p3skan"
+msgstr "Konfigurering af p3scan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:63
 msgid "To configure renattach"
@@ -5895,12 +5909,10 @@ msgid "Antispam sender policy"
 msgstr "Antispam afsender regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:160
-#, fuzzy
 msgid "Virtual Domains specific policies"
-msgstr "Virtuel domæne liste"
+msgstr "Virtual Domæne specifikke lister"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:166
-#, fuzzy
 msgid "virtual domain policy"
 msgstr "Virtuel domæne liste"
 
@@ -5910,6 +5922,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Der er ingen virtuelle mail-domæner, der håndteres af denne server. Du kan "
+"oprette nogle i {openA} virtuelle domæner mail side {closeA}."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
 msgid "The score threshold to mark a message as spam"
@@ -5945,7 +5959,7 @@ msgstr "Tilbagemelding til læresystemet, med meddelelser der når tærsklen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
 msgid "Autolearn spam threshold"
-msgstr "Indlærings spam tærskel"
+msgstr "Selvindlærings spam tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
 msgid ""
@@ -5957,7 +5971,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
 msgid "Autolearn ham threshold"
-msgstr "Indlæring ham tærskel"
+msgstr "Selvindlæring ham tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid ""
@@ -5975,13 +5989,13 @@ msgstr "Antispam konfigurering"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
-"Niveauet for automatisk spam indlæring skal angives, når autoindlæring er "
+"Niveauet for automatisk spam indlæring skal angives, når selvindlæring er "
 "slået til"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:163
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
-"Niveauet for automatisk ham indlæring skal angives, når autoindlæring er "
+"Niveauet for automatisk ham indlæring skal angives, når selvindlæring er "
 "slået til"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:169
@@ -5989,19 +6003,19 @@ msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
-"Spam's selvlærings tærskel kan ikke være lavere end default spam's tærskel"
+"Spam's selvlæringstærskel kan ikke være lavere end standard spam's tærskel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:175
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
-"Ham's selvlærings tærskel kan ikke være større eller lig med default spam "
+"Ham's selvlæringstærskel kan ikke være større eller lig med stadard spam "
 "niveau"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
-msgstr "Eksternt post domæne"
+msgstr "Eksternt mail domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:76
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:77
@@ -6010,18 +6024,18 @@ msgstr "Tillad forbindelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:84
 msgid "External mail domains"
-msgstr "Eksterne post domæner"
+msgstr "Eksterne mail domæner"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:96
 msgid "external mail domain"
-msgstr "Eksternt post domæne"
+msgstr "eksternt mail domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:97
 msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
-"Her kan du angive, hvilke eksterne post domæner der kan forbinde sig til "
+"Her kan du angive, hvilke eksterne mail domæner der kan forbinde sig til "
 "mail filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:114
@@ -6031,7 +6045,7 @@ msgstr "{d} er et internt, virtuelt Zentyal over domæne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "External mail server"
-msgstr "Ekstern post server"
+msgstr "Ekstern mail server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:73
 msgid "IP address of the server"
@@ -6039,18 +6053,18 @@ msgstr "Serverens IP-adresse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:85
 msgid "External mail servers"
-msgstr "Eksterne post servere"
+msgstr "Eksterne mail servere"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:97
 msgid "external mail server"
-msgstr "Ekstern post server"
+msgstr "ekstern mail server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:98
 msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
-"Her kan du angive, hvilke eksterne post servere der kan forbinde til post-"
+"Her kan du angive, hvilke eksterne mail servere der kan forbinde til post-"
 "filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:140
@@ -6095,9 +6109,8 @@ msgstr "antal beskeder totalt"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:77
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:57
-#, fuzzy
 msgid "clean messages"
-msgstr "Lært fra mailbox file"
+msgstr "rens beskeder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:50
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:60
@@ -6116,7 +6129,7 @@ msgstr "inficerede beskeder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:96
 msgid "Transparent POP proxy traffic details"
-msgstr "Detaljer for trafik i den gennemsigtigt POP proxy"
+msgstr "Detaljer for trafik i den gennemsigtigte POP proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:120
@@ -6129,7 +6142,7 @@ msgstr "trafik"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:61
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:55
 msgid "Mail sender"
-msgstr "Besked afsender"
+msgstr "Mail afsender"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:61
@@ -6163,23 +6176,24 @@ msgstr "proces"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:104
 msgid "Filter virus"
-msgstr ""
+msgstr "Filter virus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
-#, fuzzy
 msgid "Filter spam"
-msgstr "filter type"
+msgstr "Filter spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
-#, fuzzy
 msgid "ISP spam subject"
-msgstr "Spam subjekt mærke"
+msgstr "ISP spam emne"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:85
 msgid ""
 "This option allows you to set the string your ISP uses if\n"
 "it processes your email for SPAM."
 msgstr ""
+"Denne indstilling giver dig mulighed for at angive strengen som "
+"internetudbyderen bruger hvis\n"
+"den behandler din e-mail for SPAM."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 msgid "POP Transparent Proxy"
@@ -6190,18 +6204,17 @@ msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
+"POP transparent proxy skal scanne efter noget for at være brugbar. Hvis du "
+"ikke behøver, hverken antivirus eller spam scanning foreslår vi, at du slår "
+"det fra"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:144
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:152
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:163
-#, fuzzy
 msgid "MIME Type"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME type\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "MIME Type"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
@@ -6213,51 +6226,42 @@ msgstr "Tillad"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:183
-#, fuzzy
 msgid "MIME types"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"MIME type\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "MIME typer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
-#, fuzzy
 msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
-msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+msgstr ""
+"MIME-typer, der ikke er anført nedenfor er tilladt. MIME-typer anvendes ikke "
+"af POP transparent proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:59
-#, fuzzy
 msgid "File extension"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"fil endelse\n"
-"#-#-#-#-#  da.po (ebox-squid 0.12)  #-#-#-#-#\n"
+msgstr "Fil endelse"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:136
-#, fuzzy
 msgid "File extensions"
-msgstr "fil endelse"
+msgstr "Fil endelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:105
-#, fuzzy
 msgid "Extensions which are not listed below are allowed"
-msgstr "{plural} som ikke er nævnt nedenfor er tilladt"
+msgstr "Endelser som ikke er nævnt nedenfor er tilladt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:55
 msgid "Mailbox"
-msgstr "Postkasse"
+msgstr "Mail-boks"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:61
 msgid "Mailbox contains"
-msgstr "Postkassen indeholder"
+msgstr "Mail-boksen indeholder"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:71
 msgid "Train bayesian spam filter"
-msgstr "Forbeder bayesian spam filter"
+msgstr "Træn Bayesian spam filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:76
 msgid "Learned from messages"
@@ -6281,70 +6285,62 @@ msgstr "ham"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamTraining.pm:115
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr "Ugyldig postkasse type: {type}"
+msgstr "Ugyldig mail-boks type: {type}"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:50
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:60
-#, fuzzy
 msgid "banned files"
-msgstr "Banned files politik"
+msgstr "Bannede filer"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:53
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:82
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:64
 msgid "infected"
-msgstr ""
+msgstr "Inficeret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:56
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:68
 msgid "bad header"
-msgstr "ulovligt sidehoved"
+msgstr "ulovlig header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:72
 msgid "blacklisted"
-msgstr "uønsket"
+msgstr "blacklisted"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:98
 msgid "blacklisted senders"
-msgstr "uønskede afsendere"
+msgstr "blacklisted afsendere"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:103
 msgid "bad message header"
-msgstr "Ugyldigt format på besked-sidehoved"
+msgstr "Ulovlig format på besked-header"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:112
 msgid "Filter traffic details"
 msgstr "Detaljer for trafik i filteret"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:45
-#, fuzzy
 msgid "Mail filter graph"
-msgstr "Mail filter"
+msgstr "Mail filter graf"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterGraph.pm:93
 msgid "Filter traffic"
 msgstr "Filter trafik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:70
-#, fuzzy
 msgid "Sender policy"
-msgstr "Bad headers politik"
+msgstr "Afsender regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
-#, fuzzy
 msgid "Virtual Domains"
-msgstr ""
-"#-#-#-#-#  da.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Mail domæne\n"
-"#-#-#-#-#  da.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuelle domæner"
+msgstr "Virtuelle domæner"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:45
 msgid "POP proxy graph"
-msgstr "POP proxy grafik"
+msgstr "POP proxy graf"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyGraph.pm:85
 msgid "Transparent POP proxy traffic"
@@ -6352,29 +6348,27 @@ msgstr "Gennemsigtig POP proxy trafik"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:58
 msgid "Virus policy"
-msgstr "Virus politik"
+msgstr "Virus regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:65
 msgid "Spam policy"
-msgstr "Spam politik"
+msgstr "Spam regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:68
 msgid "Bounce policy will be ignored for high-score spam messages"
-msgstr ""
+msgstr "Bounce regelsæt vil blive ignoreret til high-score spam-meddelelser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:72
 msgid "Banned files policy"
-msgstr "Banned files politik"
+msgstr "Bannede filer regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:78
-#, fuzzy
 msgid "Bad header policy"
-msgstr "Bad headers politik"
+msgstr "Skadelig header regelsæt"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
-#, fuzzy
 msgid "Filter Policies"
-msgstr "Mailfilter's port"
+msgstr "Filter Regelsæt"
 
 #: ../../main/radius/src/EBox/Radius.pm:64
 msgid "Create RADIUS certificates for TTLS"
@@ -6385,11 +6379,12 @@ msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
-"eBox vil lave de nødvendige certifikater for TTLS i /etc/freeradius/certs/."
+"Zentyal vil oprette de nødvendige certifikater til TTLS i /etc/freeradius/"
+"certs/."
 
 #: ../../main/radius/src/EBox/Radius.pm:70
 msgid "Allow others to read /var/log/freeradius"
-msgstr ""
+msgstr "Tillad andre at læse /var/log/freeradius"
 
 #: ../../main/radius/src/EBox/Radius.pm:71
 msgid ""
@@ -6481,7 +6476,7 @@ msgid "It cannot be greater than {n} characters"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:317
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:753
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:761
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -6498,7 +6493,7 @@ msgstr "email-adresse"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:100
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:106
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1973
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1977
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:141
 #, fuzzy
 msgid "Server name"
@@ -6652,7 +6647,7 @@ msgstr "Backup lykkedes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:460
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1986
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1990
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
 msgid "Configuration backup"
 msgstr "Backup af konfiguration"
@@ -6845,19 +6840,19 @@ msgstr ""
 msgid "Reason: {reason}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:558
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:571
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:725
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:733
 #, perl-brace-format
 msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:839
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:847
 #, perl-brace-format
 msgid "Probably lack of free space: {exc}"
 msgstr ""
@@ -6972,7 +6967,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:104
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:110
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1980
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
 #, fuzzy
 msgid "Server edition"
 msgstr "Beskrivelse"
@@ -6980,7 +6975,7 @@ msgstr "Beskrivelse"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:114
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:467
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1984
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1988
 #, fuzzy
 msgid "Security Updates"
 msgstr "Sikkerheds opdatering"
@@ -7352,7 +7347,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:199
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1957
 #, fuzzy
 msgid "Configuration backup enabled"
 msgstr "Backup af konfiguration"
@@ -7362,7 +7357,7 @@ msgid "Full Disaster Recovery enabled"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:219
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2067
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2071
 msgid "No data backup has been done yet"
 msgstr ""
 
@@ -7589,7 +7584,7 @@ msgid "Enterprise"
 msgstr "Enter"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:104
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1942
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 msgid "Premium"
 msgstr ""
 
@@ -7622,106 +7617,106 @@ msgid ""
 "subscribed to Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:791
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:795
 msgid "Zentyal must be subscribed to reload the bundle"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:796
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:800
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1905
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1908
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1912
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1913
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1917
 msgid "Connected"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1917
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1921
 #, fuzzy
 msgid "In process"
 msgstr "proces"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1920
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1924
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1939
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
 msgid "Standard 2 days"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1940
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1944
 msgid "Standard 1 day"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1941
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1945
 msgid "Standard 4 hours"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1949
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
 #, fuzzy, perl-brace-format
 msgid "- Last update: {date}"
 msgstr "Den sidste opdatering fejlede."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1961
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1965
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1965
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1969
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1968
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1972
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1974
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1978
 #, fuzzy
 msgid "Connection status"
 msgstr "Konfiguration og Status"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1977
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
 #, fuzzy
 msgid "External server name"
 msgstr "Ekstern server forbindelse"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1982
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1986
 msgid "Technical support"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2353
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2357
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2382
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2386
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2416
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2420
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2452
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2456
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2481
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2485
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2510
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2514
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -7996,17 +7991,17 @@ msgstr ""
 "nedefter. Du kan ændre rækkefølgen når de er tilføjet. Hvis du ikke sætter "
 "en port eller en IR adresse, vil reglen gælde dem alle."
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:192
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:200
 msgid "Enable Dynamic DNS"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:229
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:237
 msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:275
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:283
 #, perl-brace-format
 msgid ""
 "You can configure your Dynamic DNS provider here. If your server is already "
@@ -8093,22 +8088,22 @@ msgstr ""
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:552
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:553
 #, fuzzy, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
 msgstr "Porten {port} er allerede i brug af modul {mod}"
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:570
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:579
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:571
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:580
 #, fuzzy
 msgid "Gateway name"
 msgstr "Gateway"
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:572
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:573
 msgid "Gateways names cannot begin or end with '-'"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:581
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:582
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
@@ -10411,22 +10406,30 @@ msgstr ""
 msgid "No updates"
 msgstr "opdater"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:87
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:65
+msgid "Nevertheless some packages require a reboot to be applied"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
 #, fuzzy, perl-brace-format
 msgid "{n} component updates"
 msgstr "Sikkerheds opdatering"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:95
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:99
 #, fuzzy, perl-brace-format
 msgid "{n} system updates"
 msgstr "System opdatering"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:98
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:102
 #, fuzzy, perl-brace-format
 msgid "({n} security)"
 msgstr "Sikkerheds opdatering"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:114
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:107
+msgid "Moreover, some upgraded packages require a reboot to take effect"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
 "Warning: These are untested community updates that might harm your system. "
 "In production environments we recommend using the Professional, Business or "
@@ -10434,7 +10437,7 @@ msgid ""
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:119
+#: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
@@ -12841,7 +12844,7 @@ msgstr "Tilstand"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
-#: ../../main/firewall/src/EBox/Firewall.pm:771
+#: ../../main/firewall/src/EBox/Firewall.pm:780
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
@@ -12855,7 +12858,7 @@ msgstr "Regler tilføjet af Zentyal tjenester (avanceret)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:200
-#: ../../main/firewall/src/EBox/Firewall.pm:599
+#: ../../main/firewall/src/EBox/Firewall.pm:608
 msgid "Packet Filter"
 msgstr "Pakke filter"
 
@@ -12937,7 +12940,7 @@ msgid "List of forwarded ports"
 msgstr "Liste med videsendte (forwarded) porte"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:355
-#: ../../main/firewall/src/EBox/Firewall.pm:602
+#: ../../main/firewall/src/EBox/Firewall.pm:611
 msgid "Port Forwarding"
 msgstr ""
 
@@ -12963,7 +12966,7 @@ msgid "DENY"
 msgstr "AFVIS"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:69
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "LOG"
 msgstr ""
 
@@ -13021,7 +13024,7 @@ msgid "Source Network Address Translation rules"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
-#: ../../main/firewall/src/EBox/Firewall.pm:604
+#: ../../main/firewall/src/EBox/Firewall.pm:613
 msgid "SNAT"
 msgstr ""
 
@@ -13036,7 +13039,7 @@ msgid "External networks to Zentyal"
 msgstr "Filtrerings regler for externe netværk til Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:52
-#: ../../main/firewall/src/EBox/Firewall.pm:779
+#: ../../main/firewall/src/EBox/Firewall.pm:788
 msgid "Firewall"
 msgstr "Firewall"
 
@@ -13069,20 +13072,20 @@ msgstr ""
 "forbindelser forbudt, og kun SSH og HTTPS er tilladt af indgående "
 "forbindelser."
 
-#: ../../main/firewall/src/EBox/Firewall.pm:297
+#: ../../main/firewall/src/EBox/Firewall.pm:306
 #, fuzzy
 msgid "port redirections"
 msgstr "Rapport muligheder"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:764
+#: ../../main/firewall/src/EBox/Firewall.pm:773
 msgid "Input interface"
 msgstr "Input interface"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:765
+#: ../../main/firewall/src/EBox/Firewall.pm:774
 msgid "Output interface"
 msgstr "Output interface"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:769
+#: ../../main/firewall/src/EBox/Firewall.pm:778
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
 #, fuzzy
 msgid "Source port"
@@ -13092,16 +13095,16 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-services 0.12)  #-#-#-#-#\n"
 "Source port"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:770
+#: ../../main/firewall/src/EBox/Firewall.pm:779
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
 msgid "Destination port"
 msgstr "Destination port"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "DROP"
 msgstr "DROP"
 
-#: ../../main/firewall/src/EBox/Firewall.pm:776
+#: ../../main/firewall/src/EBox/Firewall.pm:785
 msgid "REDIRECT"
 msgstr "OMDIRIGERE "
 
@@ -13450,7 +13453,7 @@ msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Netbios navn må ikke være mere end 15 karakterer"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:448
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:320
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:321
 #, fuzzy, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "Der er allerede et hostnavn med det samme navn \"{name}\" i domænet"
@@ -14096,18 +14099,18 @@ msgstr "Porten {port} er allerede i brug af modul {mod}"
 msgid "FATAL: Could not connect to samba LDAP server: {error}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:144
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:544
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:145
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:566
 msgid "The object is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:383
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:797
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:384
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:820
 #, perl-brace-format
 msgid "The object {x} is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:924
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:930
 msgid "Sharing directory for this group"
 msgstr "Delt katalog (directory) for denne gruppe"
 
@@ -17016,6 +17019,8 @@ msgid "Collect the physical memory usage"
 msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:124
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
 msgid "free"
 msgstr ""
 
@@ -17028,27 +17033,31 @@ msgid "buffer cache"
 msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:125
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
 msgid "used"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:92
-#, perl-brace-format
-msgid "used in {partition}"
-msgstr ""
-
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:112
 #, perl-brace-format
-msgid "free in {partition}"
+msgid "Disk usage in {partition}"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:99
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:119
 msgid "File system usage"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:100
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:120
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
+
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:126
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
+#, fuzzy
+msgid "reserved"
+msgstr "server"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -19687,7 +19696,7 @@ msgid "No options"
 msgstr "Almindelige muligheder"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:252
-#: ../../main/core/src/templates/ajax/treeView.mas:38
+#: ../../main/core/src/templates/ajax/treeView.mas:39
 #: ../../main/software/src/templates/ebox.mas:467
 msgid "Search"
 msgstr "Søg"
