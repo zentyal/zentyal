@@ -111,10 +111,9 @@ sub _performSetup
         $self->_loadSchemas();
         $state->{'_schemasAdded'} = 1;
         $self->set_state($state);
-        $self->global()->addModuleToPostSave('users');
     }
 
-    if ($self->requiredSambaRestartAfterLoadSchemas()) {
+    if ($self->name () ne 'users') {
         $self->global()->modInstance('users')->restartService();
     }
 
