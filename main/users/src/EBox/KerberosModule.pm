@@ -20,6 +20,7 @@ package EBox::KerberosModule;
 
 use TryCatch::Lite;
 use EBox::Util::Random;
+use EBox::Users::Computer;
 
 sub new
 {
@@ -36,25 +37,6 @@ sub kerberosServicePrincipals
     return [];
 }
 
-sub _principalExists
-{
-    my ($self, $principal) = @_;
-
-    my $usersModule = EBox::Global->modInstance('users');
-    my $ldap = $usersModule->ldap();
-    my $base = 'OU=Kerberos,' . $ldap->dn();
-    my $realm = $usersModule->kerberosRealm();
-    my $args = {
-        base => $base,
-        scope => 'sub',
-        filter => "(krb5PrincipalName=$principal\@$realm)",
-        attrs => [],
-    };
-    my $result = $ldap->search($args);
-    my $count = $result->count();
-    return $count;
-}
-
 sub kerberosCreatePrincipals
 {
     my ($self) = @_;
@@ -63,45 +45,28 @@ sub kerberosCreatePrincipals
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
     my $hostdomain = $sysinfo->hostDomain();
+    my $netbiosName = $users->netbiosName();
+    my $baseDn = $users->ldap()->dn();
+    my $dcDn = 'CN=' . uc ($hostname) . ',OU=Domain Controllers,' . $baseDn;
 
     my $data = $self->kerberosServicePrincipals();
     EBox::Sudo::root("rm -f $data->{keytab}");
 
-    my $pass = EBox::Util::Random::generate(20);
     foreach my $service (@{$data->{principals}}) {
         my $principal = "$service/$hostname.$hostdomain";
 
-        # Create principal if not exists
-        unless ($self->_principalExists($principal) > 0) {
-            my $cmd = 'kadmin -l add ' .
-                      "--password='$pass' " .
-                      "--max-ticket-life='1 day' " .
-                      "--max-renewable-life='1 week' " .
-                      "--attributes='' " .
-                      "--expiration-time=never " .
-                      "--pw-expiration-time=never " .
-                      "--policy=default '$principal'";
-            EBox::info("Creating service principal $principal");
-            EBox::Sudo::root($cmd);
-        }
+        my $dc = new EBox::Users::Computer(dn => $dcDn);
+        $dc->addSpn($principal);
+        $dc->addSpn("$principal/$netbiosName");
 
         # Extract keytab
         my @cmds;
-        push (@cmds, "kadmin -l ext -k '$data->{keytab}' '$principal'");
+        push (@cmds, "samba-tool domain exportkeytab $data->{keytab} --principal=$principal");
         push (@cmds, "chown root:$data->{keytabUser} '$data->{keytab}'");
         push (@cmds, "chmod 440 '$data->{keytab}'");
         EBox::info("Extracting keytab for service $service, principal $principal");
         EBox::Sudo::root(@cmds);
     }
-
-    # FIXME
-    # Import service principals from Zentyal to samba
-#    if (EBox::Global->modExists('samba')) {
-#        my $sambaModule = EBox::Global->modInstance('samba');
-#        if ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
-#            $sambaModule->ldb->ldapServicePrincipalsToLdb();
-#        }
-#    }
 }
 
 1;

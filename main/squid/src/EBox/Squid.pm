@@ -140,20 +140,17 @@ sub initialSetup
     }
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
+sub setupLDAP
 {
     my ($self) = @_;
+
     if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        $self->_enableActionsInternalAuth();
+        # Create the kerberos service principal in kerberos,
+        # export the keytab and set the permissions
+        $self->kerberosCreatePrincipals();
     }
 
     try {
-        # FIXME: this should probably be moved to _setConf
-        # only if users is enabled and needed
         my @lines = ();
         push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
         push (@lines, 'export KRB5_KTNAME');
@@ -163,18 +160,6 @@ sub enableActions
     } catch ($error) {
         EBox::error("Error creating squid default file: $error");
     }
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
-}
-
-sub _enableActionsInternalAuth
-{
-    my ($self) = @_;
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-#FIXME    $self->kerberosCreatePrincipals();
-
 }
 
 # Method: reprovisionLDAP

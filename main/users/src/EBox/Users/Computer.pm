@@ -31,4 +31,24 @@ sub name
     return $self->get('name');
 }
 
+# Method: addSpn
+#
+#   Add a service principal name to this account
+#
+sub addSpn
+{
+    my ($self, $spn, $lazy) = @_;
+
+    my @spns = $self->get('servicePrincipalName');
+
+    # return if spn already present
+    foreach my $s (@spns) {
+        return if (lc ($s) eq lc ($spn));
+    }
+    push (@spns, $spn);
+
+    $self->set('servicePrincipalName', \@spns, $lazy);
+}
+
+
 1;

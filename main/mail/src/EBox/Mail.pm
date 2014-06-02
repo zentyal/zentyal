@@ -326,6 +326,8 @@ sub setupLDAP
 {
     my ($self) = @_;
 
+    $self->kerberosCreatePrincipals();
+
     my $ldap = $self->ldap();
     my $baseDn =  $ldap->dn();
     my @containers = (
