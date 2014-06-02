@@ -109,9 +109,9 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my $hasClass = grep { lc($_) eq 'usereboxmail' } $user->get('objectClass');
+    my $hasClass = grep { lc($_) eq 'userZentyalMail' } $user->get('objectClass');
     if (not $hasClass) {
-        $user->add('objectclass', 'usereboxmail');
+        $user->add('objectclass', 'userZentyalMail');
     }
 
     $user->clearCache();
@@ -165,7 +165,7 @@ sub delUserAccount
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
 
-    $user->remove('objectClass', 'usereboxmail', 1);
+    $user->remove('objectClass', 'userZentyalMail', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);

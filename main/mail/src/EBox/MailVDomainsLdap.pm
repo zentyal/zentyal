@@ -73,7 +73,7 @@ sub addVDomain
                           cn            => $vdomain,
                           virtualdomain => $vdomain,
                           objectclass   => 'CourierVirtualDomain',
-                          objectclass   => 'vdeboxmail'
+                          objectclass   => 'vdZentyalMail'
                          ]
                 );
 

@@ -648,7 +648,7 @@ sub accountExists
 
     my %attrs = (
         base => $users->ldap()->dn(),
-        filter => "&(|(objectclass=usereboxmail)(objectclass=zentyalDistributionGroup))(mail=$alias)",
+        filter => "&(|(objectclass=userZentyalMail)(objectclass=zentyalDistributionGroup))(mail=$alias)",
         scope => 'sub'
     );
 
