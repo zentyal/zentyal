@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# copy ldap.secret
-cp /var/lib/zentyal/conf/ebox-ldap.passwd /etc/ldap.secret
-chmod 600 /etc/ldap.secret
+# Remount filesystem with user_xattr and acl options
+/usr/share/zentyal-users/setup-filesystem
 
 # enable quotas
 /usr/share/zentyal-users/enable-quotas

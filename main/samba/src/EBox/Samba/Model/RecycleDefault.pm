@@ -66,25 +66,4 @@ sub _table
     return $dataTable;
 }
 
-sub precondition
-{
-    my ($self) = @_;
-
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $s3fs = (defined $fs and $fs eq 's3fs');
-
-    return ($s3fs);
-}
-
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __("You are using the new samba 'ntvfs' file server, " .
-              "which is incompatible with vfs plugins such the " .
-              "recycle bin. If you wish to enable this feature, add " .
-              "the Zentyal PPA to your APT sources.list and install " .
-              "our samba4 package, then change the samba config key " .
-              "'samba_fs' to 's3fs' in /etc/zentyal/samba.conf");
-}
 1;

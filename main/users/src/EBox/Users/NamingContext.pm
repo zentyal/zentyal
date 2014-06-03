@@ -39,8 +39,8 @@ sub new
 {
     my ($class, %params) = @_;
 
-    throw EBox::Exceptions::Internal(
-        "A naming context cannot be instanciated from an ldif string") if (defined $params{ldif});
+    (defined $params{ldif}) and
+        throw EBox::Exceptions::Internal("A naming context cannot be instanciated from an ldif string");
 
     my $self = return $class->SUPER::new(%params);
     bless ($self, $class);
@@ -70,7 +70,10 @@ sub baseName
     my ($self) = @_;
 
     my $parent = $self->parent();
-    throw EBox::Exceptions::Internal("A Naming Context cannot have a parent: " . $parent->dn()) if (defined $parent);
+    if ($parent) {
+        throw EBox::Exceptions::Internal("A Naming Context cannot have a parent: " . $parent->dn());
+    }
+
 
     my $dn = $self->dn();
     my $baseName = '';

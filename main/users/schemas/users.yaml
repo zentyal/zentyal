@@ -1,10 +1,17 @@
 class: 'EBox::Users'
 
 enabledepends:
+    - network
     - dns
     - ntp
 
+bootdepends:
+    - network
+    - ntp
+    - dns
+
 models:
+    - DomainSettings
     - Manage
     - Mode
     - Password

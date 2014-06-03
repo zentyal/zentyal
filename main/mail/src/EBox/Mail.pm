@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Mail;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
+use base qw(EBox::Module::LDAP EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
             EBox::KerberosModule EBox::SyncFolders::Provider
@@ -54,6 +54,11 @@ use File::Slurp;
 
 use constant MAILMAINCONFFILE         => '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE       => '/etc/postfix/master.cf';
+use constant VALIASES_CF_FILE         => '/etc/postfix/valiases.cf';
+use constant USERALIASES_CF_FILE      => '/etc/postfix/useraliases.cf';
+use constant MAILBOX_CF_FILE          => '/etc/postfix/mailbox.cf';
+use constant VDOMAINS_CF_FILE         => '/etc/postfix/vdomains.cf';
+use constant LOGIN_CF_FILE            => '/etc/postfix/login.cf';
 use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
@@ -307,13 +312,6 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
-    $self->performLDAPActions();
-    $self->{musers}->setupUsers();
-
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
-
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
@@ -324,14 +322,42 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-sub enableModDepends
+sub setupLDAP
 {
     my ($self) = @_;
-    my @depends =  ('network', 'users');
+
+    $self->kerberosCreatePrincipals();
+
+    my $ldap = $self->ldap();
+    my $baseDn =  $ldap->dn();
+    my @containers = (
+        'CN=zentyal,CN=configuration,' . $baseDn,
+        'CN=mail,CN=zentyal,CN=configuration,' . $baseDn,
+        $self->{vdomains}->vdomainDn,
+        $self->{malias}->aliasDn,
+     );
+    foreach my $dn (@containers) {
+        if (not $ldap->existsDN($dn)) {
+            $ldap->add($dn, {attr => [
+                'objectClass' => 'top',
+                'objectClass' => 'container'
+               ]});
+        }
+    }
+
+    $self->{musers}->setupUsers();
+}
+
+sub depends
+{
+    my ($self) = @_;
+    my @depends = @{ $self->SUPER::depends() };
+
+    my $mailfilter =  $self->global->modInstance('mailfilter');
+    if ($mailfilter and $mailfilter->configured()) {
+        push @depends, 'mailfilter';
+    }
+
     return \@depends;
 }
 
@@ -400,7 +426,7 @@ sub _setMailConf
                       mode => $perm
                      };
 
-    my @array = ();
+
     my $users = EBox::Global->modInstance('users');
 
     my $allowedaddrs = "127.0.0.0/8";
@@ -408,43 +434,88 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    push (@array, 'bindDN', $users->ldap->roRootDn());
-    push (@array, 'bindPW', $users->ldap->getRoPassword());
-    push (@array, 'hostname' , $self->_fqdn());
-    push (@array, 'mailname' , $self->mailname());
-    push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
-    push (@array, 'relay', $self->relay());
-    push (@array, 'relayAuth', $self->relayAuth());
-    push (@array, 'maxmsgsize', int($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
-    push (@array, 'allowed', $allowedaddrs);
-    push (@array, 'aliasDN', $self->{malias}->aliasDn());
-    push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
-    push (@array, 'baseDN', $users->ldap()->dn());
-    push (@array, 'uidvmail', $self->{musers}->uidvmail());
-    push (@array, 'gidvmail', $self->{musers}->gidvmail());
-    push (@array, 'popssl', $self->pop3s());
-    push (@array, 'imapssl', $self->imaps());
-    push (@array, 'ldap', $users->ldap->ldapConf());
-    push (@array, 'filter', $self->service('filter'));
-    push (@array, 'ipfilter', $self->ipfilter());
-    push (@array, 'portfilter', $self->portfilter());
-    push (@array, 'zarafa', $self->zarafaEnabled());
+    my $adminDn     = $users->administratorDN();
+    my $adminPasswd = $users->administratorPassword();
+    my $ldapServer  = 'localhost:' . $self->ldap()->ldapConf()->{port};
+    my $baseDN      =  $users->ldap()->dn();
+    my @ldapCommonParams = (
+        bindDN => $adminDn,
+        bindPW => $adminPasswd,
+        ldapServer => $ldapServer
+    );
+
+    my $filePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
+    my @args = ();
+    push @args, @ldapCommonParams;
+    push @args, ('hostname' => $self->_fqdn());
+    push @args, ('mailname' => $self->mailname());
+
+    push @args, ('relay' => $self->relay());
+    push @args, ('relayAuth' => $self->relayAuth());
+    push @args, ('maxmsgsize' => int($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
+    push @args, ('allowed' => $allowedaddrs);
+
+    push @args, (valiasesCfFile => VALIASES_CF_FILE);
+    push @args, (userAliasesCfFile => USERALIASES_CF_FILE);
+    push @args, (mailboxCfFile  => MAILBOX_CF_FILE);
+    push @args, (vdomainsCfFile => VDOMAINS_CF_FILE);
+    push @args, (loginCfFile => LOGIN_CF_FILE);
+
+    push @args, ('vmaildir' => $self->{musers}->DIRVMAIL);
+    push @args, ('uidvmail' => $self->{musers}->uidvmail());
+    push @args, ('gidvmail' => $self->{musers}->gidvmail());
+    push @args, ('popssl'   => $self->pop3s());
+    push @args, ('imapssl'  => $self->imaps());
+    push @args, ('filter'   => $self->service('filter'));
+    push @args, ('ipfilter' => $self->ipfilter());
+    push @args, ('portfilter' => $self->portfilter());
     my $alwaysBcc = $self->_alwaysBcc();
-    push (@array, 'bccMaps' => $alwaysBcc);
+    push @args, ('bccMaps' => $alwaysBcc);
     # greylist parameters
     my $greylist = $self->greylist();
-    push (@array, 'greylist',     $greylist->isEnabled() );
-    push (@array, 'greylistAddr', $greylist->address());
-    push (@array, 'greylistPort', $greylist->port());
-    push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
-    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
+    push @args, ('greylist' =>     $greylist->isEnabled() );
+    push @args, ('greylistAddr' => $greylist->address());
+    push @args, ('greylistPort' => $greylist->port());
+    push @args, ('openchangeProvisioned' => $self->openchangeProvisioned());
+    $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@args, $filePermissions);
 
-    @array = ();
-    push (@array, 'filter', $self->service('filter'));
-    push (@array, 'fwport', $self->fwport());
-    push (@array, 'ipfilter', $self->ipfilter());
-    push (@array, 'zarafa', $self->zarafaEnabled());
-    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
+    @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('aliasDN' => $self->{malias}->aliasDn());
+    $self->writeConfFile(VALIASES_CF_FILE, 'mail/valiases.cf.mas', \@args, $restrictiveFilePermissions);
+
+    @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('baseDN' => $baseDN);
+    $self->writeConfFile(USERALIASES_CF_FILE, 'mail/userAliases.cf.mas', \@args, $restrictiveFilePermissions);
+
+    @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('baseDN' => $baseDN);
+    $self->writeConfFile(MAILBOX_CF_FILE, 'mail/mailbox.cf.mas', \@args, $restrictiveFilePermissions);
+
+    @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('vdomainDN' => $self->{vdomains}->vdomainDn());
+    $self->writeConfFile(VDOMAINS_CF_FILE, 'mail/vdomains.cf.mas', \@args, $restrictiveFilePermissions);
+
+    @args = ();
+    push @args, ('filter'   => $self->service('filter'));
+    push @args, ('fwport'   => $self->fwport());
+    push @args, ('ipfilter' => $self->ipfilter());
+    $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@args, $filePermissions);
 
     $self->_setHeloChecks();
 
@@ -469,11 +540,7 @@ sub _setMailConf
                           relayHost => $self->relay(),
                           relayAuth => $self->relayAuth(),
                          ],
-                         {
-                          uid  => 0,
-                          gid  => 0,
-                          mode => '0600',
-                         }
+                         $filePermissions
                         );
 
     $self->_setArchivemailConf();
@@ -484,51 +551,7 @@ sub _setMailConf
     EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     #}
 
-    my $zarafaEnabled = $self->zarafaEnabled();
-    my @zarafaDomains = ();
-    @zarafaDomains = $self->zarafaDomains() if $zarafaEnabled;
-
-    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomains => @zarafaDomains);
-
-    $self->_setZarafaConf($zarafaEnabled, @zarafaDomains);
-}
-
-sub zarafaEnabled
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('zarafa') ) {
-        my $zarafa = $gl->modInstance('zarafa');
-        return $zarafa->isEnabled();
-    }
-    return 0;
-}
-
-sub zarafaDomains
-{
-    my $gl = EBox::Global->getInstance();
-    my $zarafa = $gl->modInstance('zarafa');
-    my @domains = @{$zarafa->model('VMailDomains')->vdomains()};
-    return @domains;
-}
-
-sub _setZarafaConf
-{
-    my ($self, $enabled, @domains) = @_;
-
-    if (not $enabled) {
-        EBox::Sudo::root('rm -f ' . TRANSPORT_FILE . ' ' . TRANSPORT_FILE . '.db');
-        return;
-    }
-
-    $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
-                         [
-                             domains => \@domains,
-                         ],
-                         { uid => 0, gid => 0, mode => '0600', },
-                        );
-    EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
+#    $self->{fetchmail}->writeConf();
 }
 
 sub _alwaysBcc
@@ -622,35 +645,49 @@ sub _setDovecotConf
         }
     }
 
+    my $filePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0644',
+        force => 1,
+    };
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
+
     my @params = ();
-    push (@params, uid => $uid);
-    push (@params, gid => $gid);
-    push (@params, protocols => $self->_retrievalProtocols());
-    push (@params, firstValidUid => $uid);
-    push (@params, firstValidGid => $gid);
-    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, postmasterAddress => $self->postmasterAddress(0, 1));
-    push (@params, antispamPlugin => $self->_getDovecotAntispamPluginConf());
-    push (@params, keytabPath => KEYTAB_FILE);
-    push (@params, gssapiHostname => $gssapiHostname);
-    push (@params, openchange => $openchange);
+    push @params, (uid => $uid);
+    push @params, (gid => $gid);
+    push @params, (protocols => $self->_retrievalProtocols());
+    push @params, (firstValidUid => $uid);
+    push @params, (firstValidGid => $gid);
+    push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
+    push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
+    push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
+    push @params, (keytabPath => KEYTAB_FILE);
+    push @params, (gssapiHostname => $gssapiHostname);
+    push @params, (openchange => $openchange);
 
-    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
-
-    my $roPwd = $users->ldap->getRoPassword();
+    $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
     # ldap dovecot conf file
     @params = ();
-    push (@params, baseDN      => $users->ldap()->dn());
-    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
-    push (@params, zentyalROPwd => $roPwd);
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+    push @params, (ldapHost     => "ldap://localhost");
+    push @params, (baseDN      => $users->ldap()->dn());
+    push @params, (mailboxesDir => VDOMAINS_MAILBOXES_DIR);
+    push @params, (bindDN       => $users->administratorDN());
+    push @params, (bindDNPwd    => $users->administratorPassword());
+
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
 
     if ($openchange) {
         @params = ();
-        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
-        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params);
+        push @params, (masterPassword => $openchangeMod->getImapMasterPassword());
+        $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
     }
 }
 
@@ -1725,7 +1762,7 @@ sub certificates
             {
              serviceId => 'Mail POP/IMAP server',
              service =>  __('Mail POP/IMAP server'),
-             path    =>  '/etc/dovecot/ssl/dovecot.pem',
+             path    =>  '/etc/dovecot/private/dovecot.pem',
              user => 'root',
              group => 'root',
              mode => '0400',
@@ -1824,7 +1861,7 @@ sub reprovisionLDAP
     $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
-    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
+#    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
 }
 
 sub slaveSetupWarning
@@ -1867,16 +1904,18 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail) =@_;
+    my ($self, $mail, $noCheckExternalAliases) =@_;
     # TODO: check vdomain alias mapping to the other domains?
     $self->global()->modInstance('users')->checkMailNotInUse($mail);
 
-   # if the external aliases has been already saved to LDAP it will be caught
-    # by the previous check
-    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
-        throw EBox::Exceptions::External(
-            __x('Address {addr} is in use as external alias', addr => $mail)
-           );
+    if (not $noCheckExternalAliases) {
+        # if the external aliases has been already saved to LDAP it will be caught
+        # by the previous check
+        if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+            throw EBox::Exceptions::External(
+                __x('Address {addr} is in use as external alias', addr => $mail)
+               );
+        }
     }
 }
 

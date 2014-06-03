@@ -195,12 +195,13 @@ sub existsDN
 {
     my ($self, $dn) = @_;
 
+    my $ldap = $self->connection();
     my @searchArgs = (
         base => $dn,
         scope => 'base',
         filter => "(objectclass=*)"
        );
-    my $result = $self->{ldap}->search(@searchArgs);
+    my $result = $ldap->search(@searchArgs);
     if ($result->is_error()) {
         if ($result->code() == Net::LDAP::Constant::LDAP_NO_SUCH_OBJECT()) {
             # base does not exists
@@ -231,7 +232,7 @@ sub modify
 
     $self->connection();
     my $result = $self->{ldap}->modify($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args, dn => $dn);
     return $result;
 }
 
@@ -275,7 +276,7 @@ sub add # (dn, args)
 
     $self->connection();
     my $result =  $self->{ldap}->add($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args, dn => $dn);
     return $result;
 }
 
@@ -566,9 +567,12 @@ sub lastModificationTime
 #
 sub _errorOnLdap
 {
-    my ($class, $result, $args) = @_;
+    my ($class, $result, $args, @addToArgs) = @_;
 
     if ($result->is_error()){
+        while (my ($name, $value) = splice(@addToArgs, 0 ,2) ) {
+            $args->{$name} = $value;
+        }
         throw EBox::Exceptions::LDAP(result => $result, opArgs => $args);
     }
 }

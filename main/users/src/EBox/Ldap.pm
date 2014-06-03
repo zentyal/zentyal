@@ -1,5 +1,4 @@
-# Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,24 +19,74 @@ use warnings;
 package EBox::Ldap;
 use base 'EBox::LDAPBase';
 
+use EBox::Users::OU;
+use EBox::Users::Contact;
+use EBox::Users::DNS::Zone;
+use EBox::Users::User;
+
+use EBox::Users::IdMapDb;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 use Net::LDAP;
-use Net::LDAP::LDIF;
-use Net::LDAP::Util qw(ldap_error_name);
+use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 
 use TryCatch::Lite;
+use File::Slurp qw(read_file);
+use Perl6::Junction qw(any);
 use Time::HiRes;
 
-use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
-use constant LDAP          => "ldap://127.0.0.1";
-use constant CONF_DIR      => '/etc/ldap/slapd.d';
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
+use constant LDAP  => "ldap://127.0.0.1";
+
+# The LDB containers that will be ignored when quering for users stored in LDB
+use constant QUERY_IGNORE_CONTAINERS => (
+    'Microsoft Exchange System Objects',
+);
+
+# NOTE: The list of attributes available in the different Windows Server versions
+#       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
+use constant ROOT_DSE_ATTRS => [
+    'configurationNamingContext',
+    'currentTime',
+    'defaultNamingContext',
+    'dnsHostName',
+    'domainControllerFunctionality',
+    'domainFunctionality',
+    'dsServiceName',
+    'forestFunctionality',
+    'highestCommittedUSN',
+    'isGlobalCatalogReady',
+    'isSynchronized',
+    'ldapServiceName',
+    'namingContexts',
+    'rootDomainNamingContext',
+    'schemaNamingContext',
+    'serverName',
+    'subschemaSubentry',
+    'supportedCapabilities',
+    'supportedControl',
+    'supportedLDAPPolicies',
+    'supportedLDAPVersion',
+    'supportedSASLMechanisms',
+];
 
 # Singleton variable
 my $_instance = undef;
+
+sub _new_instance
+{
+    my $class = shift;
+
+    my $self = $class->SUPER::_new_instance();
+    $self->{idamp} = undef;
+    bless ($self, $class);
+    return $self;
+}
 
 # Method: instance
 #
@@ -78,6 +127,20 @@ sub connected
     return 0;
 }
 
+# Method: idmap
+#
+#   Returns an instance of IdMapDb.
+#
+sub idmap
+{
+    my ($self) = @_;
+
+    unless (defined $self->{idmap}) {
+        $self->{idmap} = EBox::Users::IdMapDb->new();
+    }
+    return $self->{idmap};
+}
+
 # Method: connection
 #
 #   Return the Net::LDAP connection used by the module
@@ -93,26 +156,22 @@ sub connection
 {
     my ($self) = @_;
 
-    if (not $self->connected()) {
-        $self->{ldap} = $self->anonymousLdapCon();
-
-        my ($user, $pass, $dn);
-
-        my $usersMod = EBox::Global->modInstance('users');
-        if ($usersMod->isUserCorner()) {
-            my $userCornerMod = EBox::Global->modInstance('usercorner');
-            try {
-                ($user, $pass, $dn) = $userCornerMod->userCredentials();
-            } catch (EBox::Exceptions::Internal $e) {
-                # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
-                $dn = $userCornerMod->roRootDn();
-                $pass = $userCornerMod->getRoPassword();
-            }
-        } else {
-            $dn = $self->rootDn();
-            $pass = $self->getPassword();
+    # Workaround to detect if connection is broken and force reconnection
+    my $reconnect = 0;
+    if (defined $self->{ldap}) {
+        my $mesg = $self->{ldap}->search(
+                base => '',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS') {
+            $self->clearConn();
+            $reconnect = 1;
         }
-        safeBind($self->{ldap}, $dn, $pass);
+    }
+
+    if (not defined $self->{ldap} or $reconnect) {
+        $self->{ldap} = $self->safeConnect();
     }
 
     return $self->{ldap};
@@ -129,129 +188,121 @@ sub url
     return LDAPI;
 }
 
-# Method: anonymousLdapCon
-#
-#       returns a LDAP connection without any binding
-#
-# Returns:
-#
-#       An object of class Net::LDAP
-#
-# Exceptions:
-#
-#       Internal - If connection can't be created
-sub anonymousLdapCon
-{
-    my ($self) = @_;
-    my $ldap = EBox::Ldap::safeConnect(LDAPI);
-    return $ldap;
-}
-
-# Method: getPassword
-#
-#       Returns the password used to connect to the LDAP directory
-#
-# Returns:
-#
-#       string - password
-#
-# Exceptions:
-#
-#       External - If password can't be read
-sub getPassword
+sub safeConnect
 {
     my ($self) = @_;
 
-    unless (defined($self->{password})) {
-        my $path = EBox::Config->conf() . "ldap.passwd";
-        open(PASSWD, $path) or
-            throw EBox::Exceptions::External('Could not get LDAP password');
+    local $SIG{PIPE};
+    $SIG{PIPE} = sub {
+       EBox::warn('SIGPIPE received connecting to samba LDAP');
+    };
 
-        my $pwd = <PASSWD>;
-        close(PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{password} = $pwd;
+    my $error = undef;
+    my $lastError = undef;
+    my $maxTries = 300;
+    for (my $try = 1; $try <= $maxTries; $try++) {
+        my $ldb = Net::LDAP->new(LDAPI);
+        if (defined $ldb) {
+            my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
+            if (defined $dse) {
+                if ($try > 1) {
+                    EBox::info("Connection to Samba LDB successful after $try tries.");
+                }
+                return $ldb;
+            }
+        }
+        $error = $@;
+        EBox::warn("Could not connect to Samba LDB: $error, retrying. ($try attempts)") if (($try == 1) or (($try % 100) == 0));
+        Time::HiRes::sleep(0.1);
     }
-    return $self->{password};
-}
 
-# Method: getRoPassword
-#
-#   Returns the password of the read only privileged user
-#   used to connect to the LDAP directory with read only
-#   permissions
-#
-# Returns:
-#
-#       string - password
-#
-# Exceptions:
-#
-#       External - If password can't be read
-#
-sub getRoPassword
-{
-    my ($self) = @_;
-
-    unless (defined($self->{roPassword})) {
-        my $path = EBox::Config::conf() . 'ldap_ro.passwd';
-        open(PASSWD, $path) or
-            throw EBox::Exceptions::External('Could not get LDAP password');
-
-        my $pwd = <PASSWD>;
-        close(PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{roPassword} = $pwd;
-    }
-    return $self->{roPassword};
+    throw EBox::Exceptions::External(
+        __x(q|FATAL: Could not connect to samba LDAP server: {error}|,
+            error => $error));
 }
 
 # Method: dn
 #
-#       Returns the base DN (Distinguished Name)
+#   Returns the base DN (Distinguished Name)
 #
 # Returns:
 #
-#       string - DN
+#   string - DN
 #
 sub dn
 {
     my ($self) = @_;
 
-    unless (defined $self->{dn}) {
-        my $ldap = $self->anonymousLdapCon();
-        $ldap->bind();
-        my $dse = $ldap->root_dse();
-
-        # get naming Contexts
-        my @contexts = $dse->get_value('namingContexts');
-
-        # FIXME: LDAP tree may have multiple naming Contexts (forest), we don't support it right now, we always pick the
-        # first one we get.
-        if ($#contexts >= 1) {
-            EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
+    unless ($self->{dn}) {
+        my $users = EBox::Global->modInstance('users');
+        unless ($users->isProvisioned() or $users->getProvision()->isProvisioning()) {
+            throw EBox::Exceptions::Internal('Samba is not yet provisioned');
         }
-
-        $self->{dn} = $contexts[0];
+        my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep ^dn:");
+        my ($dn) = $output->[0] =~ /^dn: (.*)$/;
+        if ($dn) {
+            $self->{dn} = $dn;
+        } else {
+            throw EBox::Exceptions::External('Cannot get LDAP dn');
+        }
     }
-    return defined $self->{dn} ? $self->{dn} : '';
+
+    return $self->{dn};
 }
 
-# Method: clearConn
+#############################################################################
+## LDB related functions                                                   ##
+#############################################################################
+
+# Method domainSID
 #
-#       Closes LDAP connection and clears DN cached value
+#   Get the domain SID
 #
-# Override: EBox::LDAPBase::clearConn
+# Returns:
 #
-sub clearConn
+#   string - The SID string of the domain
+#
+sub domainSID
 {
     my ($self) = @_;
 
-    $self->SUPER::clearConn();
+    my $base = $self->dn();
+    my $params = {
+        base => $base,
+        scope => 'base',
+        filter => "(distinguishedName=$base)",
+        attrs => ['objectSid'],
+    };
+    my $msg = $self->search($params);
+    if ($msg->count() == 1) {
+        my $entry = $msg->entry(0);
+        # The object is not a SecurityPrincipal but a SamDomainBase. As we only query
+        # for the sid, it works.
+        my $object = new EBox::Users::SecurityPrincipal(entry => $entry);
+        return $object->sid();
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
+    }
+}
 
-    delete $self->{password};
+sub domainNetBiosName
+{
+    my ($self) = @_;
+
+    my $realm = EBox::Global->modInstance('users')->kerberosRealm();
+    my $params = {
+        base => 'CN=Partitions,CN=Configuration,' . $self->dn(),
+        scope => 'sub',
+        filter => "(&(nETBIOSName=*)(dnsRoot=$realm))",
+        attrs => ['nETBIOSName'],
+    };
+    my $result = $self->search($params);
+    if ($result->count() == 1) {
+        my $entry = $result->entry(0);
+        my $name = $entry->get_value('nETBIOSName');
+        return $name;
+    }
+    return undef;
 }
 
 # Method: rootDn
@@ -279,7 +330,8 @@ sub rootDn
 #
 #       string - the Dn
 #
-sub roRootDn {
+sub roRootDn
+{
     my ($self, $dn) = @_;
     unless(defined($dn)) {
         $dn = $self->dn();
@@ -293,134 +345,19 @@ sub roRootDn {
 #
 # Returns:
 #
-#     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn'
+#     hash ref  - holding the keys 'dn', 'ldap', and 'rootdn'
 #
-sub ldapConf {
+sub ldapConf
+{
     my ($self) = @_;
 
     my $conf = {
         'dn'     => $self->dn(),
-        'ldapi'  => LDAPI,
         'ldap'   => LDAP,
-        'port' => 390,
+        'port' => 389,
         'rootdn' => $self->rootDn(),
     };
     return $conf;
-}
-
-sub stop
-{
-    my ($self) = @_;
-    my $users = EBox::Global->modInstance('users');
-    $users->_manageService('stop');
-    return  $self->refreshLdap();
-}
-
-sub start
-{
-    my ($self) = @_;
-    my $users = EBox::Global->modInstance('users');
-    $users->_manageService('start');
-    return  $self->refreshLdap();
-}
-
-# XXX maybe use clearConn instead?
-sub refreshLdap
-{
-    my ($self) = @_;
-
-    $self->{ldap} = undef;
-    return $self;
-}
-
-sub ldifFile
-{
-    my ($self, $dir, $base) = @_;
-    return "$dir/$base.ldif";
-}
-
-# Method: dumpLdap
-#
-#  dump the LDAP contents to a LDIF file in the given directory. The exact file
-#  path can be retrevied using the method ldifFile
-#
-#    Parameters:
-#       dir - directory in which put the LDIF file
-sub _dumpLdap
-{
-    my ($self, $dir, $type) = @_;
-
-    my $user  = EBox::Config::user();
-    my $group = EBox::Config::group();
-    my $ldifFile = $self->ldifFile($dir, $type);
-
-    my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
-    my $chownCommand = "/bin/chown $user:$group $ldifFile";
-    EBox::Sudo::root(
-                       $slapcatCommand,
-                       $chownCommand
-                    );
-}
-
-sub dumpLdapData
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdap($dir, 'data');
-}
-
-sub dumpLdapConfig
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdap($dir, 'config');
-}
-
-sub usersInBackup
-{
-    my ($self, $dir) = @_;
-
-    my @users;
-
-    my $ldifFile = $self->ldifFile($dir, 'data');
-
-    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
-    my $usersDn;
-
-    while (not $ldif->eof()) {
-        my $entry = $ldif->read_entry ( );
-        if ($ldif->error()) {
-           EBox::error("Error reading LDIOF file $ldifFile: " . $ldif->error() .
-                       '. Error lines: ' .  $ldif->error_lines());
-        } else {
-            my $dn = $entry->dn();
-            if (not defined $usersDn) {
-                # first entry, use it to fetch the DN
-                $usersDn = 'ou=Users,' . $dn;
-                next;
-            }
-
-            # in zentyal users are identified by DN, not by objectclass
-            # TODO: Review this code, with multiou this may not be true anymore!
-            if ($dn =~ /$usersDn$/) {
-                push @users, $entry->get_value('uid');
-            }
-        }
-    }
-    $ldif->done();
-
-    return \@users;
-}
-
-sub _slapcatCmd
-{
-    my ($self, $ldifFile, $type) = @_;
-
-    my $base;
-    if ($type eq 'config') {
-        $base = 'cn=config';
-    } else {
-        $base = $self->dn();
-    }
-    return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
 # Method: userBindDN
@@ -440,86 +377,219 @@ sub userBindDN
     return "uid=$user," . EBox::Users::User::defaultContainer()->dn();
 }
 
-sub safeConnect
+sub users
 {
-    my ($ldapurl) = @_;
-    my $ldap;
+    my ($self, %params) = @_;
 
-    local $SIG{PIPE};
-    $SIG{PIPE} = sub {
-       EBox::warn('SIGPIPE received connecting to LDAP');
+    my $list = [];
+
+    # Query the containers stored in the root DN and skip the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    my $params = {
+        base => $self->dn(),
+        scope => 'one',
+        filter => '(|(objectClass=Container)(objectClass=OrganizationalUnit)(objectClass=msExchSystemObjectsContainer))',
+        attrs => ['*'],
+    };
+    my $result = $self->search($params);
+    foreach my $entry ($result->sorted('cn')) {
+        my $container = new EBox::Users::Container(entry => $entry);
+        next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
+        push (@containers, $container);
+    }
+
+    # Query the users stored in the non ignored containers
+    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
+    foreach my $container (@containers) {
+        $params = {
+            base   => $container->dn(),
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+        $result = $self->search($params);
+        foreach my $entry ($result->sorted('samAccountName')) {
+            my $user = new EBox::Users::User(entry => $entry);
+            push (@{$list}, $user);
+        }
+    }
+
+    return $list;
+}
+
+sub contacts
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=contact)(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('name')) {
+        my $contact = new EBox::Users::Contact(entry => $entry);
+
+        push (@{$list}, $contact);
+    }
+    return $list;
+}
+
+sub groups
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
+        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('samAccountName')) {
+        #my $group = new EBox::Samba::Group(entry => $entry);
+        my $group = new EBox::Users::Group(entry => $entry);
+        push (@{$list}, $group);
+    }
+
+    return $list;
+}
+
+# Method: securityGroups
+#
+#   Returns an array containing all the security groups
+#
+# Returns:
+#
+#    array - holding the groups as EBox::Samba::Group objects
+#
+sub securityGroups
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('users');
+    if ((not $usersMod->isEnabled()) or (not $usersMod->isProvisioned())) {
+        return [];
+    }
+
+    my $allGroups = $self->groups();
+    my @securityGroups = ();
+    foreach my $group (@{$allGroups}) {
+        if ($group->isSecurityGroup()) {
+            push (@securityGroups, $group);
+        }
+    }
+    # sort grups by name
+    @securityGroups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @securityGroups;
+
+    return \@securityGroups;
+}
+
+# Method: ous
+#
+#   Return OUs in samba LDB. It is guaranteed that OUs are returned in a
+#   hierarquical way, parents before childs.
+#
+sub ous
+{
+    my ($self, $baseDN) = @_;
+
+    unless (defined $baseDN) {
+        $baseDN = $self->dn();
+    }
+
+    my $objectClass = EBox::Users::OU->mainObjectClass();
+    my $args = {
+        base => $baseDN,
+        filter => "(objectclass=$objectClass)",
+        scope => 'one',
     };
 
-    my $reconnect;
-    my $connError = undef;
-    my $retries = 50;
-    while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
-        if ((not defined $connError) or ($connError ne $@)) {
-            $connError = $@;
-            EBox::error("Couldn't connect to LDAP server $ldapurl: $connError. Retrying");
+    my $ous = [];
+    my $result = $self->search($args);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
+}
+
+# Method: dnsZones
+#
+#   Returns the DNS zones stored in the samba LDB
+#
+sub dnsZones
+{
+    my ($self) = @_;
+
+    unless (EBox::Global->modInstance('users')->isProvisioned()) {
+        return [];
+    }
+
+    my $defaultNC = $self->dn();
+    my @zonePrefixes = (
+        "CN=MicrosoftDNS,DC=DomainDnsZones,$defaultNC",
+        "CN=MicrosoftDNS,DC=ForestDnsZones,$defaultNC",
+        "CN=MicrosoftDNS,CN=System,$defaultNC");
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my $zones = [];
+
+    foreach my $prefix (@zonePrefixes) {
+        my $output = EBox::Sudo::root(
+            "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
+        my $ldifBuffer = join ('', @{$output});
+        EBox::debug($ldifBuffer);
+
+        my $fd;
+        open $fd, '<', \$ldifBuffer;
+
+        my $ldif = Net::LDAP::LDIF->new($fd);
+        while (not $ldif->eof()) {
+            my $entry = $ldif->read_entry();
+            if ($ldif->error()) {
+                EBox::debug("Error msg: " . $ldif->error());
+                EBox::debug("Error lines:\n" . $ldif->error_lines());
+            } elsif ($entry) {
+                my $name = $entry->get_value('name');
+                next unless defined $name;
+                next if $name eq any @ignoreZones;
+                my $zone = new EBox::Users::DNS::Zone(entry => $entry);
+                push (@{$zones}, $zone);
+            } else {
+                EBox::debug("Got an empty entry");
+            }
         }
-
-        $reconnect = 1;
-
-        my $users = EBox::Global->modInstance('users');
-        $users->_manageService('start');
-
-        Time::HiRes::sleep(0.1);
+        $ldif->done();
+        close $fd
     }
 
-    if (not $ldap) {
-        throw EBox::Exceptions::External(
-            __x(q|FATAL: Couldn't connect to LDAP server {url}: {error}|,
-                url => $ldapurl,
-                error => $connError
-               )
-           );
-    } elsif ($reconnect) {
-        EBox::info('LDAP reconnect successful');
-    }
-
-    return $ldap;
+    return $zones;
 }
 
-sub safeBind
+# Method: rootDse
+#
+#   Returns the root DSE
+#
+sub rootDse
 {
-    my ($ldap, $dn, $password) = @_;
+    my ($self) = @_;
 
-    my $bind = $ldap->bind($dn, password => $password);
-    unless ($bind->{resultCode} == 0) {
-        throw EBox::Exceptions::External(
-            'Couldn\'t bind to LDAP server, result code: ' .
-            $bind->{resultCode});
-    }
-
-    return $bind;
-}
-
-sub changeUserPassword
-{
-    my ($self, $dn, $newPasswd, $oldPasswd) = @_;
-
-    $self->connection();
-    my $rootdse = $self->{ldap}->root_dse();
-    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
-        # Update the password using the LDAP extension will update the kerberos keys also
-        # if the smbk5pwd module and its overlay are loaded
-        require Net::LDAP::Extension::SetPassword;
-        my $mesg = $self->{ldap}->set_password(user => $dn,
-                                               oldpasswd => $oldPasswd,
-                                               newpasswd => $newPasswd);
-        $self->_errorOnLdap($mesg, $dn);
-    } else {
-        my $mesg = $self->{ldap}->modify( $dn,
-                        changes => [ delete => [ userPassword => $oldPasswd ],
-                        add     => [ userPassword => $newPasswd ] ]);
-        $self->_errorOnLdap($mesg, $dn);
-    }
-}
-
-sub connectWithKerberos
-{
-    throw EBox::Exceptions::UnwillingToPerform(reason => 'Internal LDAP does not support this connection method');
+    return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
 1;

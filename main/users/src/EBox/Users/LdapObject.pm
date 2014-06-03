@@ -1,6 +1,4 @@
-#!/usr/bin/perl -w
-
-# Copyright (C) 2012-2014 Zentyal S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,25 +17,24 @@ use warnings;
 
 package EBox::Users::LdapObject;
 
-use EBox::Config;
 use EBox::Global;
-use EBox::Users;
 use EBox::Gettext;
 
-use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
-use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
-use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;
+use Net::LDAP::Control::Relax;
 
 use Perl6::Junction qw(any);
+use TryCatch::Lite;
 
 my $_usersMod; # cached users module
 
@@ -52,18 +49,20 @@ my $_usersMod; # cached users module
 #      ldif - Reads the entry from LDIF
 #  or
 #      entry - Net::LDAP entry for the user
+#  or
+#      objectGUID - The LDB's objectGUID.
 #
 sub new
 {
     my ($class, %params) = @_;
 
+    unless ($params{entry} or $params{dn} or $params{gid} or
+            $params{ldif} or $params{objectGUID}) {
+        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|objectGUID|gid');
+    }
+
     my $self = {};
     bless ($self, $class);
-
-    unless ($params{entry} or $params{dn} or
-            $params{ldif}) {
-        throw EBox::Exceptions::MissingArgument('entry|dn|ldif');
-    }
 
     if ($params{entry}) {
         $self->{entry} = $params{entry};
@@ -72,9 +71,52 @@ sub new
         $self->{entry} = $ldif->read_entry();
     } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
+    } elsif ($params{objectGUID}) {
+        $self->{objectGUID} = $params{objectGUID};
     }
 
     return $self;
+}
+
+# Method: dn
+#
+#   Return DN for this object
+#
+sub dn
+{
+    my ($self) = @_;
+
+    my $entry = $self->_entry();
+    unless ($entry) {
+        my $message = "Got an unexisting LDAP Object!";
+        if (defined $self->{dn}) {
+            $message .= " (" . $self->{dn} . ")";
+        }
+        throw EBox::Exceptions::Internal($message);
+    }
+
+    my $dn = $entry->dn();
+    utf8::decode($dn);
+    return $dn;
+}
+
+# Method: baseDn
+#
+#   Return base DN for this object
+#
+sub baseDn
+{
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+
+    return $dn if ($self->_ldap->dn() eq $dn);
+
+    my ($trash, $basedn) = split(/,/, $dn, 2);
+    return $basedn;
 }
 
 # Method: exists
@@ -120,7 +162,7 @@ sub get
         return @value;
     } else {
         my $value = $entry->get_value($attr);
-        utf8::decode($value);
+        utf8::decode($value) if defined ($value);
         return $value;
     }
 }
@@ -196,16 +238,33 @@ sub deleteValues
     }
 }
 
-# Method: deleteObject
+# Method: remove
 #
-#   Deletes this object from the LDAP
+#   Remove a value from the given attribute, or the whole
+#   attribute if no values left
 #
-sub deleteObject
+#   If an array ref is received as value, all the values will be
+#   deleted at the same time
+#
+# Parameters:
+#
+#   attribute - Attribute name
+#   value(s)  - Value(s) to remove (value or array ref to values)
+#   lazy      - Do not update the entry in LDAP
+#
+sub remove
 {
-    my ($self) = @_;
+    my ($self, $attr, $value, $lazy) = @_;
 
-    $self->_entry->delete();
-    $self->save();
+    # Delete attribute only if it exists
+    if ($attr eq any $self->_entry->attributes) {
+        if (ref ($value) ne 'ARRAY') {
+            $value = [ $value ];
+        }
+
+        $self->_entry->delete($attr, $value);
+        $self->save() unless $lazy;
+    }
 }
 
 # Method: setIgnoredModules
@@ -238,33 +297,108 @@ sub setIgnoredSlaves
     $self->{ignoreSlaves} = $slaves;
 }
 
-# Method: remove
+# Method: objectGUID
 #
-#   Remove a value from the given attribute, or the whole
-#   attribute if no values left
-#
-#   If an array ref is received as value, all the values will be
-#   deleted at the same time
-#
-# Parameters:
-#
-#   attribute - Attribute name
-#   value(s)  - Value(s) to remove (value or array ref to values)
-#   lazy      - Do not update the entry in LDAP
-#
-sub remove
+#   Return the objectGUID attribute existent in any LDB object.
+sub objectGUID
 {
-    my ($self, $attr, $value, $lazy) = @_;
+    my ($self) = @_;
 
-    # Delete attribute only if it exists
-    if ($attr eq any $self->_entry->attributes) {
-        if (ref ($value) ne 'ARRAY') {
-            $value = [ $value ];
-        }
+    my $objectGUID = $self->get('objectGUID');
+    return $self->_objectGUIDToString($objectGUID);
+}
 
-        $self->_entry->delete($attr, $value);
-        $self->save() unless $lazy;
+sub _objectGUIDToString
+{
+    my ($class, $objectGUID) = @_;
+
+    my $unpacked = unpack("H*hex", $objectGUID);
+
+    my $objectGUIDString = substr($unpacked, 6, 2);
+    $objectGUIDString .= substr($unpacked, 4, 2);
+    $objectGUIDString .= substr($unpacked, 2, 2);
+    $objectGUIDString .= substr($unpacked, 0, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 10, 2);
+    $objectGUIDString .= substr($unpacked, 8, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 14, 2);
+    $objectGUIDString .= substr($unpacked, 12, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 16, 4);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 20);
+
+    return $objectGUIDString;
+}
+
+sub _stringToObjectGUID
+{
+    my ($class, $objectGUIDString) = @_;
+
+    my $tmpString = substr($objectGUIDString, 6, 2);
+    $tmpString .= substr($objectGUIDString, 4, 2);
+    $tmpString .= substr($objectGUIDString, 2, 2);
+    $tmpString .= substr($objectGUIDString, 0, 2);
+    $tmpString .= substr($objectGUIDString, 11, 2);
+    $tmpString .= substr($objectGUIDString, 9, 2);
+    $tmpString .= substr($objectGUIDString, 16, 2);
+    $tmpString .= substr($objectGUIDString, 14, 2);
+    $tmpString .= substr($objectGUIDString, 19, 4);
+    $tmpString .= substr($objectGUIDString, 24);
+
+    my $objectGUID = pack("H*", $tmpString);
+
+    return $objectGUID;
+}
+
+# Method: checkObjectErasability
+#
+#   Whether the object can be deleted or not.
+#
+# Return
+#
+#   Boolean - Whether the object can be deleted or not.
+#
+sub checkObjectErasability
+{
+    my ($self) = @_;
+
+    # Refuse to delete critical system objects
+    return not $self->isCritical();
+}
+
+# Method: deleteObject
+#
+#   Deletes this object from the LDAP
+#
+#   Override EBox::Users::LdapObject::deleteObject
+#
+sub deleteObject
+{
+    my ($self) = @_;
+
+    unless ($self->checkObjectErasability()) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $self->dn()));
     }
+
+    # Delete all entry childs or LDAP server will refuse to delete the entry
+    my $searchParam = {
+        base => $self->_entry->dn(),
+        scope => 'one',
+        filter => '(objectClass=*)',
+        attrs => ['*'],
+    };
+    my $result = $self->_ldap->search($searchParam);
+    foreach my $entry ($result->entries()) {
+        my $obj = new EBox::Users::LdapObject(entry => $entry);
+        $obj->deleteObject();
+    }
+
+    $self->_entry->delete();
+    $self->save();
 }
 
 # Method: save
@@ -276,10 +410,11 @@ sub remove
 #
 sub save
 {
-    my ($self) = @_;
+    my ($self, $control) = @_;
     my $entry = $self->_entry;
 
-    my $result = $entry->update($self->_ldap->{ldap});
+    $control = [] unless $control;
+    my $result = $entry->update($self->_ldap->connection(), control => $control);
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
             throw EBox::Exceptions::LDAP(
@@ -309,78 +444,48 @@ sub entryOpChangesInUpdate
     return $args;
 }
 
-# Method: dn
-#
-#   Return DN for this object
-#
-sub dn
-{
-    my ($self) = @_;
-
-    my $entry = $self->_entry();
-    unless ($entry) {
-        my $message = "Got an unexisting LDAP Object!";
-        if (defined $self->{dn}) {
-            $message .= " (" . $self->{dn} . ")";
-        }
-        throw EBox::Exceptions::Internal($message);
-    }
-
-    my $dn = $entry->dn();
-    utf8::decode($dn);
-    return $dn;
-}
-
-# Method: baseDn
-#
-#   Return base DN for this object
-#
-sub baseDn
-{
-    my ($self, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
-
-    return $dn if ($self->_ldap->dn() eq $dn);
-
-    my ($trash, $basedn) = split(/,/, $dn, 2);
-    return $basedn;
-}
-
 # Method: _entry
 #
-#   Return Net::LDAP::Entry entry for the user
+#   Return Net::LDAP::Entry entry for the object
+#
+#   Override EBox::Users::LdapObject::_entry
 #
 sub _entry
 {
     my ($self) = @_;
 
-    if ($self->{entry} and (not $self->{entry}->exists('entryUUID'))) {
+    if ($self->{entry} and (not $self->{entry}->exists('objectGUID'))) {
         $self->{dn} = $self->{entry}->dn();
         delete $self->{entry};
     }
 
     unless ($self->{entry}) {
         my $result = undef;
-        if ($self->{dn}) {
+        my $base = undef;
+        my $filter = undef;
+        my $scope = undef;
+        if ($self->{objectGUID}) {
+            $base = $self->_ldap()->dn();
+            $filter = "(objectGUID=" . $self->{objectGUID} . ")";
+            $scope = 'sub';
+        } elsif ($self->{dn}) {
             my $dn = $self->{dn};
-            my $base = $dn;
-            my $filter = "(objectclass=*)";
-            my $scope = 'base';
-
-            my $attrs = {
-                base => $base,
-                filter => $filter,
-                scope => $scope,
-                attrs => ['*', 'entryUUID'],
-            };
-
-            $result = $self->_ldap->search($attrs);
+            $base = $dn;
+            $filter = "(objectclass=*)";
+            $scope = 'base';
+        } else {
+            return undef;
         }
-        return undef unless defined $result;
+
+        my $attrs = {
+            base   => $base,
+            filter => $filter,
+            scope  => $scope,
+            attrs  => ['*', 'objectGUID', 'unicodePwd', 'supplementalCredentials'],
+        };
+
+        $result = $self->_ldap->search($attrs);
+        return undef unless ($result);
 
         if ($result->count() > 1) {
             throw EBox::Exceptions::Internal(
@@ -406,32 +511,138 @@ sub clearCache
 }
 
 # Class method
+
+# Method: _ldap
+#
+#   Returns the LDAP object
+#
+#   Override EBox::Users::LdapObject::_ldap
+#
 sub _ldap
 {
     my ($class) = @_;
-    return $class->_ldapMod()->ldap();
+
+    return $class->_ldapMod()->ldb();
 }
 
 # Method _ldapMod
 #
 #   Return the Module implementation that calls this method (Either users or samba).
 #
+# Override:
+#   EBox::Users::LdapObject::_ldapMod
+#
 sub _ldapMod
 {
     my ($class) = @_;
 
     return $class->_usersMod();
-
 }
 
-# Method _usersMod
 sub _usersMod
 {
     if (not $_usersMod) {
-        $_usersMod = EBox::Global->modInstance('users');
+        $_usersMod = EBox::Global->modInstance('users')
+    }
+    return $_usersMod;
+}
+
+sub _guidToString
+{
+    my ($self, $guid) = @_;
+
+    return sprintf "%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+           unpack("I", $guid),
+           unpack("S", substr($guid, 4, 2)),
+           unpack("S", substr($guid, 6, 2)),
+           unpack("C", substr($guid, 8, 1)),
+           unpack("C", substr($guid, 9, 1)),
+           unpack("C", substr($guid, 10, 1)),
+           unpack("C", substr($guid, 11, 1)),
+           unpack("C", substr($guid, 12, 1)),
+           unpack("C", substr($guid, 13, 1)),
+           unpack("C", substr($guid, 14, 1)),
+           unpack("C", substr($guid, 15, 1));
+}
+
+sub _stringToGuid
+{
+    my ($self, $guidString) = @_;
+
+    return undef
+        unless $guidString =~ /([0-9,a-z]{8})-([0-9,a-z]{4})-([0-9,a-z]{4})-([0-9,a-z]{2})([0-9,a-z]{2})-([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})/i;
+
+    return pack("I", hex $1) . pack("S", hex $2) . pack("S", hex $3) .
+           pack("C", hex $4) . pack("C", hex $5) . pack("C", hex $6) .
+           pack("C", hex $7) . pack("C", hex $8) . pack("C", hex $9) .
+           pack("C", hex $10) . pack("C", hex $11);
+}
+
+# Method: isCritical
+#
+#   Whether this object is a critical one or not.
+#
+# Return:
+#
+#   Boolean - Whether it's a critical object or not.
+#
+sub isCritical
+{
+    my ($self) = @_;
+
+    my $isCritical = $self->get('isCriticalSystemObject');
+    return ($isCritical and (lc ($isCritical) eq 'true'));
+}
+
+# Method: setCritical
+#
+#   Tags / untags the object as a critical system object.
+#   This method doesn't support the lazy flag because it requires to relax restrictions to apply this change.
+#
+sub setCritical
+{
+    my ($self, $critical) = @_;
+
+    if ($critical) {
+        $self->set('isCriticalSystemObject', 'TRUE', 1);
+    } else {
+        $self->delete('isCriticalSystemObject', 1);
     }
 
-    return $_usersMod;
+    my $relaxOidControl = new Net::LDAP::Control::Relax();
+    # SAMBA requires the critical flag set to 0 to be able to get the Relax control working, however,
+    # Net::LDAP::Control::Relax forces it always to 1 so we need to force it back to 0.
+    $relaxOidControl->{critical} = 0;
+    $self->save($relaxOidControl);
+}
+
+sub isInAdvancedViewOnly
+{
+    my ($self) = @_;
+
+    my $value = $self->get('showInAdvancedViewOnly');
+    if ($value and $value eq "TRUE") {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+sub setInAdvancedViewOnly
+{
+    my ($self, $enable, $lazy) = @_;
+
+    if ($enable) {
+        $self->set('showInAdvancedViewOnly', 'TRUE', 1);
+    } else {
+        $self->delete('showInAdvancedViewOnly', 1);
+    }
+
+    my $relaxOidControl = new Net::LDAP::Control::Relax();
+    # SAMBA requires the critical flag set to 0 to be able to get the Relax control working, however,
+    # Net::LDAP::Control::Relax forces it always to 1 so we need to force it back to 0.
+    $relaxOidControl->{critical} = 0;
+    $self->save($relaxOidControl) unless $lazy;
 }
 
 # Method baseName
@@ -447,7 +658,9 @@ sub baseName
 
     my $parent = $self->parent();
 
-    throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn()) unless ($parent);
+    unless ($parent) {
+        throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn());
+    }
 
     my $dn = $self->dn();
     my $parentDN = $parent->dn();

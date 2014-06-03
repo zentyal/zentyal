@@ -46,31 +46,6 @@ sub new
     return $self;
 }
 
-# Method: confSOAPService
-#
-#   Configure SOAP service to allow Master and Slave queries
-#
-sub confSOAPService
-{
-    my ($self) = @_;
-
-    my $confFile = EBox::Config::conf() . 'users/soap.conf';
-    my $confSSLFile = EBox::Config::conf() . 'users/soap-ssl.conf';
-
-    my @params;
-    push (@params, passwords_file => MASTER_PASSWORDS_FILE);
-
-    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.conf.mas', \@params);
-    EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
-
-    my $webAdminMod = EBox::Global->modInstance('webadmin');
-# FIXME: this method no longer exists!!
-#    $webAdminMod->addApacheInclude($confFile);
-    $webAdminMod->addNginxInclude($confSSLFile);
-
-    $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);
-}
-
 # SERVER METHODS
 
 # Method: getCertificate
@@ -82,65 +57,6 @@ sub getCertificate()
     my ($self) = @_;
 
     return read_file(SSL_DIR . 'ssl.cert');
-}
-
-# Method: setupMaster
-#
-#   Setup master server to allow new slaves connections
-#
-sub setupMaster
-{
-    my ($self, $pass) = @_;
-    defined $pass or
-        $pass = EBox::Util::Random::generate(15);
-
-    my $users = EBox::Global->getInstance()->modInstance('users');
-    my $table = $users->model('SlavePassword');
-
-    my $row = $table->row();
-    $row->elementByName('password')->setValue($pass);
-    $row->store();
-
-    EBox::Sudo::root(
-        'rm -f ' . MASTER_PASSWORDS_FILE,
-        'htpasswd -bc ' . MASTER_PASSWORDS_FILE . ' slave ' . $pass,
-    );
-}
-
-# Method: addSlave
-#
-#   Register a new slave in this master
-#
-#
-sub addSlave
-{
-    my ($self, $host, $port, $cert) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    my $table = $users->model('Slaves');
-
-    EBox::info("Adding a new slave on $host:$port");
-
-    my $changed = $users->changed();
-    my $id = $table->addRow(host => $host, port => $port);
-
-    unless ($changed) {
-        # FIXME do this better when framework available
-        $users->_saveConfig();
-        $users->setAsChanged(0);
-    }
-
-    unless (-d EBox::UsersSync::Slave->SLAVES_CERTS_DIR) {
-        mkdir EBox::UsersSync::Slave->SLAVES_CERTS_DIR;
-    }
-
-    # save slave's cert
-    write_file(EBox::UsersSync::Slave->SLAVES_CERTS_DIR . $id, $cert);
-
-    $users->initialSlaveSync(new EBox::UsersSync::Slave($host, $port, $id));
-
-    # Regenerate slave connection password
-    $self->setupMaster();
 }
 
 # CLIENT METHODS
@@ -297,7 +213,7 @@ sub _recreateLDAP
     my $global = EBox::Global->getInstance();
     my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
     foreach my $mod (@mods) {
-        if (not $mod->isa('EBox::LdapModule')) {
+        if (not $mod->isa('EBox::Module::LDAP')) {
             next;
         } elsif ($mod->name() eq $users->name()) {
             # already reconfigured

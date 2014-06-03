@@ -24,7 +24,6 @@ use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::MailUserLdap;
-use EBox::Samba::User;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Select;
 use EBox::Types::Text;
@@ -149,16 +148,16 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $samba = $self->global->modInstance('samba');
-    unless ($samba->configured()) {
+    my $users = $self->global->modInstance('users');
+    unless ($users->configured()) {
         $self->{preconditionFail} = 'notConfigured';
         return undef;
     }
-    unless ($samba->isProvisioned()) {
+    unless ($users->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
-    my $dmd = $samba->dMD();
+    my $dmd = $users->dMD();
     unless ($dmd->ownedByZentyal()) {
         # Samba is not managing the Schema of the Active Directory.
         unless (defined $self->parentModule->configurationContainer()) {
@@ -176,7 +175,7 @@ sub precondition
     # Check the samba domain is present in the Mail Virtual Domains model
     my $mailModule = $self->global->modInstance('mail');
     my $VDomainsModel = $mailModule->model('VDomains');
-    my $adDomain = $samba->getProvision->getADDomain('localhost');
+    my $adDomain = $users->getProvision->getADDomain('localhost');
     my $adDomainFound = 0;
     foreach my $id (@{$VDomainsModel->ids()}) {
         my $row = $VDomainsModel->row($id);
@@ -209,17 +208,17 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconditionFail} eq 'notConfigured') {
-        my $samba = EBox::Global->modInstance('samba');
+        my $users = EBox::Global->modInstance('users');
         return __x('You must enable the {x} module in the module ' .
                   'status section before provisioning {y} module database.',
-                  x => $samba->printableName(),
+                  x => $users->printableName(),
                   y => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        my $samba = $self->global->modInstance('samba');
+        my $users = $self->global->modInstance('users');
         return __x('You must provision the {x} module database before ' .
                   'provisioning the {y} module database.',
-                  x => $samba->printableName(),
+                  x => $users->printableName(),
                   y => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'schemaNotWritable') {
@@ -233,10 +232,10 @@ sub preconditionFailMsg
                    'database', x => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'vdomainNotFound') {
-        my $samba = $self->global->modInstance('samba');
+        my $users = $self->global->modInstance('users');
         return __x('The virtual domain {x} is not defined. You can add ' .
                    'it in the {ohref}Virtual Domains page{chref}.',
-                   x => $samba->getProvision->getADDomain('localhost'),
+                   x => $users->getProvision->getADDomain('localhost'),
                    ohref => "<a href='/Mail/View/VDomains'>",
                    chref => '</a>');
     }
@@ -416,8 +415,8 @@ sub _doProvision
     # Mark mail as changed to make dovecot listen IMAP protocol at least
     # on localhost
     $global->modChange('mail');
-    # Mark samba as changed to write smb.conf
-    $global->modChange('samba');
+    # Mark users as changed to write smb.conf
+    $global->modChange('users');
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
@@ -429,25 +428,22 @@ sub _doProvision
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
-        my $sambaModule = $self->global->modInstance('samba');
-        my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
         my $usersModule = $self->global->modInstance('users');
+        my $adDomain = $usersModule->getProvision->getADDomain('localhost');
         my $users = $usersModule->users();
-        foreach my $ldapUser (@{$users}) {
+        foreach my $ldbUser (@{$users}) {
             try {
-                my $ldbUser = $sambaModule->ldbObjectFromLDAPObject($ldapUser);
-                next unless $ldbUser;
                 my $samAccountName = $ldbUser->get('samAccountName');
 
                 next if ($ldbUser->isCritical());
 
                 # Skip users with already defined mailbox
-                my $mailbox = $ldapUser->get('mailbox');
+                my $mailbox = $ldbUser->get('mailbox');
                 unless (defined $mailbox and length $mailbox) {
                     EBox::info("Creating user '$samAccountName' mailbox");
                     # Call API to create mailbox in zentyal
-                    $mailUserLdap->setUserAccount($ldapUser,
-                                                  $ldapUser->get('uid'),
+                    $mailUserLdap->setUserAccount($ldbUser,
+                                                  $ldbUser->get('uid'),
                                                   $adDomain);
                 }
 
@@ -462,7 +458,7 @@ sub _doProvision
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
             } catch ($error) {
-                EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
+                EBox::error("Error enabling user " . $ldbUser->name() . ": $error");
                 # Try next user
             }
         }

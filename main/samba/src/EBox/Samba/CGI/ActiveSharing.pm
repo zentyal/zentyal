@@ -25,7 +25,6 @@ use EBox::SambaLdapUser;
 use EBox::Users;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Samba::User;
 
 sub new
 {

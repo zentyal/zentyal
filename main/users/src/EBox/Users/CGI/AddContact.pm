@@ -57,11 +57,13 @@ sub _process
 
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');
+        my $displayname = $self->param('displayname');
 
         my $contact = EBox::Users::Contact->create(
             parent => $users->objectFromDN($dn),
-            givenname => $givenname,
-            surname => $surname,
+            givenName => $givenname,
+            sn => $surname,
+            displayName => $displayname,
             description => $self->param('description'),
             mail => $self->param('mail'),
         );

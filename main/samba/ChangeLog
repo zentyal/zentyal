@@ -1,8 +1,9 @@
 3.5
-	+ s4sync: Remove the group share if exists after deleting the group itself
-	+ s4sync: Remove the deleted user or group from shares ACLs
+	+ Moved all provision code and samba core management to zentyal-users
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
 	+ Added new domainControllers() method
+	+ Removed samba_fs option from samba.conf, always use s3fs
+	+ Removed s4sync
 	+ Set version to 3.5
 	+ Override daemons when migrating from previous versions
 	+ Remove the use of method canonicalName for greater performance, use

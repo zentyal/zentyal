@@ -127,8 +127,8 @@ sub _table
     my @fields = ();
     my @actions = ();
     if ($self->{sambaMod}) {
-        eval 'use EBox::Samba::Group';
-        my $domainUsers = EBox::Samba::Group->new(sid => $self->{domainUsersSID});
+        eval 'use EBox::Users::Group';
+        my $domainUsers = EBox::Users::Group->new(sid => $self->{domainUsersSID});
         my @usersSourceSubtypes = ();
         push (@usersSourceSubtypes,
             new EBox::Types::Select(

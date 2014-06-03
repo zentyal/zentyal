@@ -60,7 +60,7 @@ sub _addUser
         parentDN     => $user->parent()->dn(),
         uid          => scalar($user->get('uid')),
         fullname     => scalar($user->fullname()),
-        givenname    => scalar($user->firstname()),
+        givenname    => scalar($user->givenName()),
         initials     => scalar($user->initials()),
         surname      => scalar($user->surname()),
         isDisabled   => $user->isDisabled(),
@@ -70,7 +70,7 @@ sub _addUser
         passwords    => \@passwords
     );
 
-    my $displayname = $user->displayname();
+    my $displayname = $user->displayName();
     $userinfo{displayname} = $displayname if ($displayname);
     my $description = $user->description();
     $userinfo{description} = $description if ($description);
@@ -100,10 +100,10 @@ sub _modifyUser
     my $userinfo = {
         dn           => scalar($user->dn()),
         fullname     => scalar($user->fullname()),
-        givenname    => scalar($user->firstname()),
+        givenname    => scalar($user->givenName()),
         initials     => scalar($user->initials()),
         surname      => scalar($user->surname()),
-        displayname  => scalar($user->displayname()),
+        displayname  => scalar($user->displayName()),
         description  => scalar($user->description()),
         mail         => scalar($user->mail()),
         isDisabled   => $user->isDisabled(),

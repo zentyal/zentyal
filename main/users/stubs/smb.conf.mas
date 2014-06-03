@@ -1,0 +1,64 @@
+<%args>
+    $workgroup
+    $netbiosName
+    $description
+    $mode
+    $realm
+    $domain
+    $roamingProfiles => 0
+    $profilesPath
+    $sysvolPath
+
+    $print => 0
+    $shares => 0
+    $openchange => 0
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+[global]
+    workgroup = <% $workgroup %>
+    realm = <% $realm %>
+    netbios name = <% $netbiosName %>
+    server string = <% $description %>
+    server role = <% $mode %>
+    server role check:inhibit = yes
+    server services = -dns
+    server signing = auto
+
+    log level = 3
+    log file = /var/log/samba/samba.log
+
+% unless ($print) {
+    load printers = no
+    printcap name = /dev/null
+    show add printer wizard = no
+    disable spoolss = yes
+% }
+
+% if ($openchange) {
+    include = /etc/samba/openchange.conf
+% }
+
+% if ($shares) {
+    include = /etc/samba/shares.conf
+% }
+
+% if ($mode eq 'dc') {
+%   if ($roamingProfiles) {
+[profiles]
+    path = <% $profilesPath %>
+    browseable = no
+    read only = no
+%   }
+
+[netlogon]
+    path = <% $sysvolPath %>/<% $domain %>/scripts
+    browseable = no
+    read only = yes
+
+[sysvol]
+    path = <% $sysvolPath %>
+    read only = no
+% }
+

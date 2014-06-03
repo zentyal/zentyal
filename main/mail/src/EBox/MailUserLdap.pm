@@ -109,9 +109,12 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    $user->add('objectClass', ['couriermailaccount',
-                               'usereboxmail',
-                               'fetchmailUser'], 1);
+    my $hasClass = grep { lc($_) eq 'userZentyalMail' } $user->get('objectClass');
+    if (not $hasClass) {
+        $user->add('objectclass', 'userZentyalMail');
+    }
+
+    $user->clearCache();
 
     $user->set('mail', $email, 1);
     $user->set('mailbox', $rhs.'/'.$lhs.'/', 1);
@@ -149,7 +152,8 @@ sub delUserAccount
 
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
-    foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
+    my @aliases = $mail->{malias}->userAliases($user);
+    foreach my $alias (@aliases) {
                 $mail->{malias}->delAlias($alias);
             }
 
@@ -161,13 +165,12 @@ sub delUserAccount
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
 
-    $user->remove('objectClass', [ 'CourierMailAccount', 'usereboxmail', 'fetchmailUser' ], 1);
+    $user->remove('objectClass', 'userZentyalMail', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
     $user->delete('mailquota', 1);
     $user->delete('mailHomeDirectory', 1);
-    $user->delete('fetchmailAccount', 1);
     $user->save();
 
     my @cmds;
@@ -225,9 +228,9 @@ sub userByAccount
 
     my %args = (
                 base => $self->{ldap}->dn(),
-                filter => "&(objectclass=posixAccount)(mail=$account)",
+                filter => "&(objectclass=person)(mail=$account)",
                 scope => 'sub',
-                attrs => ['uid'],
+                attrs => ['samAccountName'],
                );
 
     my $result = $self->{ldap}->search(\%args);
@@ -236,7 +239,7 @@ sub userByAccount
     }
 
     my $entry = $result->entry(0);
-    my $usermail = $entry->get_value('uid');
+    my $usermail = $entry->get_value('samAccountName');
 
     return $usermail;
 }
@@ -353,15 +356,16 @@ sub _userAddOns
     return undef unless ($mail->configured());
 
     my $usermail = $self->userAccount($user);
-    my @aliases = $mail->{malias}->accountAlias($usermail);
+    my @aliases = $mail->{malias}->userAliases($user);
     my @vdomains =  $mail->{vdomains}->vdomains();
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
-    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
-    my @externalAccounts = map {
-        $mail->{fetchmail}->externalAccountRowValues($_)
-     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+    # fetchmail disabled
+    # my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    # my @externalAccounts = map {
+    #     $mail->{fetchmail}->externalAccountRowValues($_)
+    #  } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
     my @paramsList = (
             user        => $user,
@@ -373,9 +377,6 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
-
-            externalRetrievalEnabled => $externalRetrievalEnabled,
-            externalAccounts => \@externalAccounts,
     );
 
     my $title;
@@ -457,7 +458,7 @@ sub _accountExists
     my $username = $user->name();
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=couriermailaccount)(uid=$username)",
+                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
                  scope => 'sub'
                 );
 
@@ -483,13 +484,13 @@ sub allAccountsFromVDomain
 
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
+                 filter => "&(objectclass=person)(mail=*@".$vdomain.")",
                  scope => 'sub'
                 );
 
     my $result = $self->{ldap}->search(\%attrs);
 
-    my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
+    my %accounts = map { $_->get_value('samAccountName'), $_->get_value('mail')} $result->sorted('uid');
 
     return \%accounts;
 }
@@ -509,7 +510,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 
@@ -693,7 +694,6 @@ sub setMaildirQuotaUsesDefault
         $user->set('mailquota', $defaultQuota, 1);
     }
     $user->save();
-    $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
 
 #  Method: setMaildirQuota
@@ -725,7 +725,6 @@ sub setMaildirQuota
     }
 
     $user->set('mailquota', $quota);
-    $self->setUserZarafaQuota($user, $quota);
 }
 
 #  Method: regenMaildirQuotas
@@ -763,49 +762,6 @@ sub regenMaildirQuotas
     }
 }
 
-# FIXME make a listener-observer for this new code and move it to zentyal-zarafa
-sub _userZarafaAccount
-{
-    my ($self, $user) = @_;
-
-    return $user->get('zarafaAccount');
-}
-
-sub setUserZarafaQuota
-{
-    my ($self, $user, $quota) = @_;
-
-    my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaEnabled();
-    return unless $self->_userZarafaAccount($user);
-
-    my $gl = EBox::Global->getInstance();
-    my $zarafa = $gl->modInstance('zarafa');
-    my $warn = $zarafa->model('Quota')->warnQuotaValue();
-    my $soft = $zarafa->model('Quota')->softQuotaValue();
-
-    my $quota_warn = int($quota * $warn / 100);
-    my $quota_soft = int($quota * $soft / 100);
-
-    $user->set('zarafaQuotaWarn', $quota_warn, 1);
-    $user->set('zarafaQuotaSoft', $quota_soft, 1);
-    $user->set('zarafaQuotaHard', $quota, 1);
-    $user->save();
-}
-
-sub setUserZarafaQuotaDefault
-{
-    my ($self, $user, $isDefault) = @_;
-
-    my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaEnabled();
-    return unless $self->_userZarafaAccount($user);
-
-    my $userMaildirSizeValue = $isDefault ? 0 : 1;
-    $user->set('zarafaQuotaOverride', $userMaildirSizeValue, 1);
-    $user->save();
-}
-
 # Method: gidvmail
 #
 #  This method returns the gid value of ebox user
@@ -825,29 +781,6 @@ sub uidvmail
     my ($self) = @_;
 
     return scalar (getpwnam(EBox::Config::user));
-}
-
-sub schemas
-{
-    return [
-        EBox::Config::share() . '/zentyal-mail/authldap.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
-        EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-    ];
-}
-
-sub acls
-{
-    my ($self) = @_;
-
-    return [ "to attrs=fetchmailAccount " .
-            "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
-            "by * none" ];
-}
-
-sub indexes
-{
-    return ['mail', 'dc'];
 }
 
 # Method: defaultUserModel

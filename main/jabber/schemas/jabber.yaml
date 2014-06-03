@@ -2,6 +2,9 @@ class: 'EBox::Jabber'
 enabledepends:
     - users
 
+depends:
+    - users
+
 models:
     - GeneralSettings
     - JabberUser

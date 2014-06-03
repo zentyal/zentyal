@@ -1,8 +1,9 @@
-HEAD
+3.5
+	+ Depend on zentyal-users instead of zentyal-samba
+	+ Update sogo.conf to use Samba LDAP
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Added noMultipleOUSupportComponent support
-3.5
 	+ Set version to 3.5
 	+ Allow openchange working with old ldb/tdb backends (upgrade from 3.3)
 	+ Allow ActiveSync setup if z-push or sogo-activesync are installed

@@ -62,11 +62,11 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif ($parentMetadata->{dn} =~ /^ou=Domain Controllers,/i) {
-        return $self->_sambaDomainControllers();
-    } elsif ($parentMetadata->{dn} =~ /^ou=Computers,/i) {
+    } elsif ($parentMetadata->{dn} =~ /^OU=Domain Controllers,/i) {
+        return $self->_domainControllers();
+    } elsif ($parentMetadata->{dn} =~ /^CN=Computers,/i) {
         # FIXME: Integrate this better with the rest of the logic.
-        return $self->_sambaComputers();
+        return $self->_computers();
     } else {
         $parentObject = $usersMod->objectFromDN($parentMetadata->{dn});
     }
@@ -80,6 +80,10 @@ sub childNodes
             $type = 'ou';
             $printableName = $child->name();
             next if ($self->_hiddenOU($child->dn()));
+        } elsif ($child->isa('EBox::Users::Container')) {
+            $type = 'container';
+            $printableName = $child->name();
+            next if ($self->_hiddenContainer($child->dn()));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($child->isInternal());
 
@@ -95,13 +99,13 @@ sub childNodes
             my $hostname = Sys::Hostname::hostname();
             next if ($printableName =~ /^(\w+)-$hostname$/);
 
-            my $displayname = $child->displayname();
+            my $displayname = $child->displayName();
             if ($displayname) {
                 $printableName .= " ($displayname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
-            $printableName = $child->displayname();
+            $printableName = $child->displayName();
             unless ($printableName) {
                 $printableName = $child->fullname();
             }
@@ -128,21 +132,12 @@ sub childNodes
     return \@childNodes;
 }
 
-sub _sambaDomainControllers
+sub _domainControllers
 {
     my ($self) = @_;
 
-    return [] unless EBox::Global->modExists('samba');
-
-    my $samba = EBox::Global->modInstance('samba');
-    return [] unless $samba->isEnabled();
-
-    # As the samba module is not a dependency of users, check if the function
-    # exists in the samba module because we can not force versions.
-    return [] unless EBox::Samba->can('domainControllers');
-
     my @computers;
-    foreach my $computer (@{$samba->domainControllers()}) {
+    foreach my $computer (@{$self->parentModule()->domainControllers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();
         push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
@@ -151,17 +146,12 @@ sub _sambaDomainControllers
     return \@computers;
 }
 
-sub _sambaComputers
+sub _computers
 {
     my ($self) = @_;
 
-    return [] unless EBox::Global->modExists('samba');
-
-    my $samba = EBox::Global->modInstance('samba');
-    return [] unless $samba->isEnabled();
-
     my @computers;
-    foreach my $computer (@{$samba->computers()}) {
+    foreach my $computer (@{$self->parentModule()->computers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();
         push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
@@ -203,7 +193,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->configured();
+    return $self->parentModule()->isProvisioned();
 }
 
 # Method: preconditionFailMsg
@@ -218,7 +208,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must enable the module Users in the module status section in order to use it.');
+    return __('You need to enable Users module in the module status section and save changes in order to use it.');
 }
 
 sub _hiddenOU
@@ -238,6 +228,25 @@ sub _hiddenOU
     my $name = $e->{OU};
 
     return $self->{ousToHide}->{$name};
+}
+
+sub _hiddenContainer
+{
+    my ($self, $dn) = @_;
+
+    unless ($self->{containersToHide}) {
+        $self->{containersToHide} = { map { $_ => 1 } ('ForeignSecurityPrincipals', 'Program Data', 'System') };
+    }
+
+    # Only hide first level OUs and allow nested OUs matching hidden ones
+    my $dnParts = ldap_explode_dn($dn, reverse => 1);
+    my $e = shift @{$dnParts};
+    while (@{$dnParts} and not defined $e->{CN}) {
+        $e = shift @{$dnParts};
+    };
+    my $name = $e->{CN};
+
+    return $self->{containersToHide}->{$name};
 }
 
 1;

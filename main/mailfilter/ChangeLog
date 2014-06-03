@@ -1,4 +1,5 @@
 3.5
+	+ Adapted to Samba4 instead of OpenLDAP
 	+ Set version to 3.5
 3.4
 	+ Changed configuration of amavis to avoid only ipv6 in Net::LDAP bug

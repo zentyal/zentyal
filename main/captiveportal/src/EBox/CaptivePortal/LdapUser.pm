@@ -36,11 +36,6 @@ sub new
     return $self;
 }
 
-sub schemas
-{
-    return [ EBox::Config::share() . 'zentyal-captiveportal/captiveportal.ldif' ]
-}
-
 sub _userAddOns
 {
     my ($self, $user) = @_;
@@ -111,12 +106,13 @@ sub setQuota
         $_ eq 'captiveUser'
     } $user->get('objectClass');
     if (not $alreadyHasClass) {
-        $user->add('objectClass', 'captiveUser', 1);
+        # Due to a bug in Samba4 we cannot update an objectClass and its attributes at the same time
+        $user->add('objectClass', 'captiveUser');
+        $user->clearCache();
     }
 
     $user->set('captiveQuotaOverride', $overridden, 1);
     $user->set('captiveQuota', $quota, 1);
-
     $user->save();
 
     return 0;

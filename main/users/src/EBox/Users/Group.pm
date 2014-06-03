@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,46 +18,54 @@ use warnings;
 
 # Class: EBox::Users::Group
 #
-#   Zentyal group, stored in LDAP
+#   Samba group, stored in samba LDB
 #
 package EBox::Users::Group;
 
-use base 'EBox::Users::LdapObject';
+use base qw(
+    EBox::Users::SecurityPrincipal
+);
 
-use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Users;
-use EBox::Users::User;
-use EBox::Validate;
 
 use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
-use EBox::Exceptions::Internal;
 
-use TryCatch::Lite;
-use Perl6::Junction qw(any);
+use EBox::Users::User;
+
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Perl6::Junction qw(any);
+use TryCatch::Lite;
 
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
 use constant CORE_ATTRS     => ('objectClass', 'mail', 'member', 'description');
 
+use constant MAXGROUPLENGTH     => 128;
+use constant GROUPTYPESYSTEM    => 0x00000001;
+use constant GROUPTYPEGLOBAL    => 0x00000002;
+use constant GROUPTYPELOCAL     => 0x00000004;
+use constant GROUPTYPEUNIVERSAL => 0x00000008;
+use constant GROUPTYPEAPPBASIC  => 0x00000010;
+use constant GROUPTYPEAPPQUERY  => 0x00000020;
+use constant GROUPTYPESECURITY  => 0x80000000;
+
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = {};
+    my ($class, %params) = @_;
 
-    if (defined $opts{gid}) {
-        $self->{gid} = $opts{gid};
-    } else {
-        $self = $class->SUPER::new(@_);
+    my $self = $class->SUPER::new(%params);
+
+    if (defined $params{gid}) {
+        $self->{gid} = $params{gid};
     }
 
     bless ($self, $class);
@@ -66,11 +74,153 @@ sub new
 
 # Method: mainObjectClass
 #
-#  Returns:
-#     object class name which will be used to discriminate groups
+# Override:
+#   EBox::Users::Group::mainObjectClass
+#
 sub mainObjectClass
 {
-    return 'zentyalDistributionGroup';
+    return 'group';
+}
+
+sub setupGidMapping
+{
+    my ($self, $gidNumber) = @_;
+
+    my $type = $self->_ldap->idmap->TYPE_GID();
+    $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $gidNumber);
+}
+
+# Method: create
+#
+#   Adds a new Samba group.
+#
+# Parameters:
+#
+#   args - Named parameters:
+#       name            - Group name.
+#       parent          - Parent container that will hold this new Group.
+#       description     - Group's description.
+#       mail            - Group's mail.
+#       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
+#       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
+#       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
+#
+sub create
+{
+    my ($class, %args) = @_;
+
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
+
+    my $isSecurityGroup = 1;
+    if (defined $args{isSecurityGroup}) {
+        $isSecurityGroup = $args{isSecurityGroup};
+    }
+    my $isSystemGroup = $args{isSystemGroup};
+    if ((not $isSecurityGroup) and $isSystemGroup) {
+        throw EBox::Exceptions::External(
+            __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
+                'the same time.', group => $args{name}));
+    }
+
+    my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
+
+    $class->_checkAccountName($args{name}, MAXGROUPLENGTH);
+    $class->_checkAccountNotExists($args{name});
+
+    # TODO: We may want to support more than global groups!
+    my $groupType = GROUPTYPEGLOBAL;
+    my $gidNumber = $args{gidNumber};
+    my $attr = [];
+    if ($isSecurityGroup) {
+        unless (defined $gidNumber) {
+            $gidNumber = $class->_gidForNewGroup($isSystemGroup);
+        }
+        push ($attr, objectClass => ['top', 'group', 'posixAccount']);
+        if ($gidNumber) {
+            $class->_checkGid($gidNumber, $isSystemGroup);
+            push ($attr, gidNumber => $gidNumber);
+        }
+        $groupType |= GROUPTYPESECURITY;
+    } else {
+        push ($attr, objectClass => ['top', 'group']);
+    }
+    push ($attr, cn => $args{name});
+    push ($attr, sAMAccountName => $args{name});
+    push ($attr, description    => $args{description}) if ($args{description});
+    push ($attr, mail           => $args{mail}) if ($args{mail});
+
+    $groupType = unpack('l', pack('l', $groupType)); # force 32bit integer
+    push ($attr, groupType => $groupType);
+
+    # Add the entry
+    my $result = $class->_ldap->add($dn, { attrs => $attr });
+    my $createdGroup = new EBox::Users::Group(dn => $dn);
+
+    if ($isSecurityGroup) {
+        my ($rid) = $createdGroup->sid() =~ m/-(\d+)$/;
+        $gidNumber = $createdGroup->unixId($rid);
+        $createdGroup->set('gidNumber', $gidNumber);
+        $createdGroup->setupGidMapping($gidNumber);
+    }
+
+    # FIXME
+    # Call modules initialization
+    #my $usersMod = EBox::Global->modInstance('users');
+    #$usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $class->{ignoreMods}, $class->{ignoreSlaves});
+
+    return $createdGroup;
+}
+
+sub _checkAccountName
+{
+    my ($self, $name, $maxLength) = @_;
+    $self->SUPER::_checkAccountName($name, $maxLength);
+    if ($name =~ m/^[[:space:]0-9\.]+$/) {
+        throw EBox::Exceptions::InvalidData(
+                'data' => __('account name'),
+                'value' => $name,
+                'advice' =>  __('Windows group names cannot be only spaces, numbers and dots'),
+           );
+    }
+}
+
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+#
+sub isSecurityGroup
+{
+    my ($self) = @_;
+
+    return 1 if ($self->get('groupType') & GROUPTYPESECURITY);
+}
+
+# Method: setSecurityGroup
+#
+#   Sets/unsets this group as a security group.
+#
+#
+sub setSecurityGroup
+{
+    my ($self, $isSecurityGroup, $lazy) = @_;
+
+    return if ($self->isSecurityGroup() == $isSecurityGroup);
+
+    # We do this so we are able to use the groupType value as a 32bit number.
+    my $groupType = ($self->get('groupType') & 0xFFFFFFFF);
+
+    if ($isSecurityGroup) {
+        $groupType |= GROUPTYPESECURITY;
+    } else {
+        $groupType &= ~GROUPTYPESECURITY;
+    }
+
+    $self->set('groupType', $groupType, $lazy);
 }
 
 sub printableType
@@ -81,7 +231,7 @@ sub printableType
 # Class method: defaultContainer
 #
 #   Parameters:
-#     ro - wether to use the read-only version of the users module
+#     ro - whether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
@@ -89,7 +239,7 @@ sub defaultContainer
 {
     my ($class, $ro) = @_;
     my $ldapMod = $class->_ldapMod();
-    return $ldapMod->objectFromDN('ou=Groups,' . $class->_ldap->dn());
+    return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
 }
 
 # Method: _entry
@@ -119,6 +269,7 @@ sub _entry
             $self->SUPER::_entry();
         }
     }
+
     return $self->{entry};
 }
 
@@ -215,8 +366,8 @@ sub members
     }
 
     @members = sort {
-        my $aValue = $a->dn();
-        my $bValue = $b->dn();
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
         (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
     } @members;
 
@@ -449,180 +600,6 @@ sub save
     }
 }
 
-# GROUP CREATION METHODS
-
-# Method: create
-#
-#   Adds a new group.
-#
-# Parameters:
-#
-#   args - Named parameters:
-#       name            - Group name.
-#       parent          - Parent container that will hold this new Group.
-#       description     - Group's description.
-#       mail            - Group's mail
-#       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
-#       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
-#       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
-#       ignoreMods      - Ldap modules to be ignored on addUser notify.
-#       ignoreSlaves    - Slaves to be ignored on addUser notify.
-#       isInternal      - Whether the group should be hidden or not.
-#
-# Exceptions:
-#
-#       TBD the remainder exceptions
-#       <EBox::Exceptions::InvalidData> - thrown if the provided mail is incorrect
-#
-sub create
-{
-    my ($class, %args) = @_;
-
-    # Check for required arguments.
-    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
-    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
-    throw EBox::Exceptions::InvalidData(
-        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
-
-    my $name = $args{name};
-    my $parent = $args{parent};
-    my $isSecurityGroup = 1;
-    if (defined $args{isSecurityGroup}) {
-        $isSecurityGroup = $args{isSecurityGroup};
-    }
-    my $isSystemGroup = $args{isSystemGroup};
-    if ((not $isSecurityGroup) and $isSystemGroup) {
-        throw EBox::Exceptions::External(
-            __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
-                'the same time.', group => $name));
-    }
-    my $isInternal = 0;
-    if (defined $args{isInternal}) {
-        $isInternal = $args{isInternal};
-    }
-    my $ignoreMods   = $args{ignoreMods};
-    my $ignoreSlaves = $args{ignoreSlaves};
-
-    if (length ($name) > MAXGROUPLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
-    }
-
-    unless (_checkGroupName($name)) {
-        my $advice = __('To avoid problems, the group name should consist ' .
-                        'only of letters, digits, underscores, spaces, ' .
-                        'periods, dashs and not start with a dash. They ' .
-                        'could not contain only number, spaces and dots.');
-        throw EBox::Exceptions::InvalidData(
-            'data' => __('group name'),
-            'value' => $name,
-            'advice' => $advice
-           );
-    }
-    my $usersMod = EBox::Global->modInstance('users');
-
-    # Verify group exists
-    my $groupExists = $usersMod->groupExists($name);
-    if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::DataExists( text =>
-                                                __x('The group {name} already exists as built-in Windows group',
-                                                    name => $name));
-    } elsif ($groupExists) {
-        throw EBox::Exceptions::DataExists(
-            'data' => __('group'),
-            'value' => $name);
-    }
-
-    # Verify that a user with the same name does not exists
-    my $userExists = $usersMod->userExists($name);
-    if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::External(
-            __x(q{A built-in Windows user with the name '{name}' already exists. Users and groups cannot share names},
-               name => $name)
-           );
-    } elsif ($userExists) {
-        throw EBox::Exceptions::External(
-            __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $name)
-           );
-    }
-
-    $class->checkCN($parent, $name);
-
-    my $dn = 'cn=' . $name . ',' . $parent->dn();
-
-    my @attr = (
-        'cn'          => $name,
-        'objectclass' => ['zentyalDistributionGroup'],
-    );
-
-    if ($isSecurityGroup) {
-        my $gid = defined $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
-        $class->_checkGid($gid, $isSystemGroup);
-        push (@attr, objectclass => 'posixGroup');
-        push (@attr, gidNumber => $gid);
-    }
-    if ($isInternal) {
-        push (@attr, internal => 1);
-    }
-    push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
-    if (defined $args{mail} and $args{mail}) {
-        $class->checkMail($args{mail});
-        push (@attr, 'mail' => $args{mail});
-    }
-
-    my $res = undef;
-    my $entry = undef;
-    try {
-        # Call modules initialization. The notified modules can modify the entry,
-        # add or delete attributes.
-        $entry = new Net::LDAP::Entry($dn, @attr);
-        $usersMod->notifyModsPreLdapUserBase(
-            'preAddGroup', [$entry, $parent], $ignoreMods, $ignoreSlaves);
-
-        my $changetype =  $entry->changetype();
-        my $changes = [$entry->changes()];
-        my $result = $entry->update($class->_ldap->{ldap});
-        if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(
-                    message => __('Error on group LDAP entry creation:'),
-                    result => $result,
-                    opArgs   => $class->entryOpChangesInUpdate($entry),
-                   );
-            }
-        }
-
-        $res = new EBox::Users::Group(dn => $dn);
-        unless ($isSystemGroup) {
-            $usersMod->reloadNSCD();
-
-            # Call modules initialization
-            $usersMod->notifyModsLdapUserBase('addGroup', $res, $ignoreMods, $ignoreSlaves);
-        }
-    } catch ($error) {
-        EBox::error($error);
-
-        # A notified module has thrown an exception. Delete the object from LDAP
-        # Call to parent implementation to avoid notifying modules about deletion
-        # TODO Ideally we should notify the modules for beginTransaction,
-        #      commitTransaction and rollbackTransaction. This will allow modules to
-        #      make some cleanup if the transaction is aborted
-        if ($res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $ignoreMods, $ignoreSlaves);
-            $res->SUPER::deleteObject(@_);
-        } else {
-            $usersMod->notifyModsPreLdapUserBase(
-                'preAddGroupFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
-        }
-        $res = undef;
-        $entry = undef;
-        throw $error;
-    }
-
-    return $res;
-}
-
 sub _checkGroupName
 {
     my ($name)= @_;
@@ -636,45 +613,6 @@ sub _checkGroupName
     }
 
     return 1;
-}
-
-# Method: isSecurityGroup
-#
-#   Whether is a security group or just a distribution group.
-#
-sub isSecurityGroup
-{
-    my ($self) = @_;
-
-    my $ldap = $self->_usersMod()->ldap();
-
-    return ('posixGroup' eq any(@{$ldap->objectClasses($self->dn())}));
-}
-
-# Method: setSecurityGroup
-#
-#   Sets/unsets this group as a security group.
-#
-#
-sub setSecurityGroup
-{
-    my ($self, $isSecurityGroup, $lazy) = @_;
-
-    if (not ($isSecurityGroup xor $self->isSecurityGroup())) {
-        # Do nothing if the new status matches current status.
-        return;
-    }
-
-    if ($isSecurityGroup) {
-        unless (defined $self->get('gidNumber')) {
-            my $gid = $self->_gidForNewGroup();
-            $self->_checkGid($gid);
-            $self->set('gidNumber', $gid, $lazy);
-        }
-        $self->add('objectClass', 'posixGroup', $lazy);
-    } else {
-        $self->deleteValues('objectClass', ['posixGroup'], $lazy);
-    }
 }
 
 # Method: isSystem
@@ -704,9 +642,7 @@ sub _gidForNewGroup
             throw EBox::Exceptions::Internal(
                 __('Maximum number of groups reached'));
         }
-    } else {
-        $gid = $class->lastGid + 1;
-    }
+    } # else it is undef until objectSID is generated
 
     return $gid;
 }
@@ -717,12 +653,12 @@ sub _gidForNewGroup
 #
 # Parameters:
 #
-#       system - boolan: if true, it returns the last gid for system groups,
+#       system - boolean: if true, it returns the last gid for system groups,
 #       otherwise the last gid for normal groups
 #
 # Returns:
 #
-#       string - last gid
+#       string - last GID
 #
 sub lastGid
 {
@@ -752,18 +688,14 @@ sub isInternal
 {
     my ($self) = @_;
 
-    return $self->get('internal');
+    return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
 sub setInternal
 {
     my ($self, $internal, $lazy) = @_;
 
-    if ($internal) {
-        $self->set('internal', 1, $lazy);
-    } else {
-        $self->set('internal', undef, $lazy);
-    }
+    $self->setInAdvancedViewOnly($internal, $lazy);
 }
 
 sub _checkGid

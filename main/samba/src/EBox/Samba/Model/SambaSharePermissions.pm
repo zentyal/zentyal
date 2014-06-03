@@ -79,7 +79,7 @@ sub populateGroup
 
     my @groups = ();
 
-    push (@groups, { value => '__USERS__', printableValue => __('All users') });
+    push (@groups, { value => 'Domain Users', printableValue => __('All users') });
 
     my $list = $userMod->realGroups();
     foreach my $g (@{$list}) {
@@ -321,7 +321,8 @@ sub filterUserGroupPrintableValue
     if ($selectedType eq 'user') {
         return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
-        if ($value eq '__USERS__') {
+        # FIXME
+        if ($value eq 'Domain Users') {
             return __('All users');
         }
         return __x('Group: {g}', g => $value);

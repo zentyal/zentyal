@@ -43,32 +43,13 @@ sub _delGroupWarning
     return undef;
 }
 
-sub schemas
-{
-    return [
-        EBox::Config::share() . '/zentyal-users/passwords.ldif',
-        EBox::Config::share() . '/zentyal-users/quota.ldif',
-    ];
-}
-
-sub acls
-{
-    my $users = EBox::Global->modInstance('users');
-    return [];
-}
-
-sub indexes
-{
-    return ['uid', 'uidNumber', 'cn', 'ou', 'gidNumber', 'uniqueMember', 'krb5PrincipalName'];
-}
-
 # Method: hiddenOUs
 #
 #   Returns the list of OUs to hide on the UI
 #
 sub hiddenOUs
 {
-    return [ 'Kerberos' ];
+    return [ 'Builtin', 'Kerberos' ];
 }
 
 1;

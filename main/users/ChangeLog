@@ -1,4 +1,15 @@
 3.5
+	+ Use samba instead of slapd + heimdal
+	+ Create a container CN=Groups when provisioning as DC
+	+ Set gidNumber for new users to Domain Users to have NSS + PAM working
+	+ Set gidNumber based on RID for new groups
+	+ Set gidNumber to Domain Users and Domain Admin for NSS + PAM
+	+ Change default group container to cn=Users as Windows does
+	+ Include PAM + NSS services with SSSd to authenticate LDB users
+	  in the system
+	+ New EBox::Module::LDAP replacing EBox::LdapModule and using
+	  EBox::Module::Service as base class, schemas are now loaded
+	  in _regenConfig instead of manually in enableActions
 	+ Display message when creating a user which username has more
 	  than 20 characters
 	+ Fixed error when editing user email address when mail module is

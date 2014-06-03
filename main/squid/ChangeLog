@@ -1,4 +1,5 @@
 3.5
+	+ Adapted to samba4 instead of OpenLDAP
 	+ Set version to 3.5
 	+ Speed up external AD connection using persistence
 	+ Allow dansguardian user to read categories lists files

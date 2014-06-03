@@ -152,7 +152,8 @@ sub _populateGroups
         return [] unless ($userMod->isEnabled());
 
         my @groups;
-        push (@groups, { value => '__USERS__', printableValue => __('All users') });
+        # FIXME
+        push (@groups, { value => 'Domain Users', printableValue => __('All users') });
         foreach my $group (@{$userMod->securityGroups()}) {
             my $groupDN = $group->dn();
             my $baseName = $group->baseName();
@@ -560,7 +561,8 @@ sub rules
                 my $group = $source->value();
                 $rule->{group} = $group;
                 my $users;
-                if ($group eq '__USERS__') {
+                # FIXME
+                if ($group eq 'Domain Users') {
                     $users = $userMod->users();
                 } else {
                     $users = $userMod->objectFromDN($group)->users();
@@ -716,7 +718,8 @@ sub filterProfiles
                 @users = @{$self->_adGroupMembers($group)};
             } else {
                 my $members;
-                if ($group eq '__USERS__') {
+                #FIXME
+                if ($group eq 'Domain Users') {
                     $members = $userMod->users();
                 } else {
                     $members = $userMod->objectFromDN($group)->users();

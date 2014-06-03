@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,13 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Users;
 
-use base qw(EBox::Module::Service
-            EBox::LdapModule
+use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
             EBox::UserCorner::Provider
             EBox::SyncFolders::Provider
@@ -35,10 +35,12 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
+use EBox::Users::Computer;
 use EBox::Users::Contact;
 use EBox::Users::Group;
 use EBox::Users::NamingContext;
 use EBox::Users::OU;
+use EBox::Users::Container;
 use EBox::Users::Slave;
 use EBox::Users::User;
 use EBox::UsersSync::Master;
@@ -52,12 +54,15 @@ use EBox::Exceptions::MissingArgument;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
+use EBox::Users::Provision;
+use EBox::Users::DMD;
 
 use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
 use TryCatch::Lite;
+use Net::LDAP::Control::Sort;
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
@@ -66,6 +71,22 @@ use String::ShellQuote;
 use Time::HiRes;
 use Fcntl qw(:flock);
 
+use constant SAMBA_DIR            => '/home/samba/';
+use constant SAMBATOOL            => '/usr/bin/samba-tool';
+use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
+use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
+use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
+use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
+use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
+use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
+use constant FSTAB_FILE           => '/etc/fstab';
+use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
+use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
+use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
+use constant GUEST_DEFAULT_USER   => 'nobody';
+use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers';
@@ -74,25 +95,24 @@ use constant STANDALONE_MODE      => 'master';
 use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 
-use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
-use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
-use constant DEFAULTGROUP   => '__USERS__';
+use constant DEFAULTGROUP   => 'Domain Users';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
-use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
-use constant LDAP_DATADIR    => '/var/lib/ldap/';
-use constant LDAP_USER     => 'openldap';
-use constant LDAP_GROUP    => 'openldap';
+use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
+use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 
 # Kerberos constants
-use constant KERBEROS_PORT => 8880;
-use constant KPASSWD_PORT => 8464;
-use constant KRB5_CONF_FILE => '/etc/krb5.conf';
-use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
-use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
+use constant KERBEROS_PORT => 88;
+use constant KPASSWD_PORT => 464;
+use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
+use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
+
+# SSSD conf
+use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
 
 use constant OBJECT_EXISTS => 1;
 use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
@@ -124,7 +144,7 @@ sub _setupForMode
         $self->{userClass} = 'EBox::Users::User';
         $self->{contactClass} = 'EBox::Users::Contact';
         $self->{groupClass} = 'EBox::Users::Group';
-        $self->{containerClass} = undef;
+        $self->{containerClass} = 'EBox::Users::Container';
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
@@ -140,6 +160,18 @@ sub _setupForMode
     }
 
 }
+
+# Method: ldb
+#
+#   Provides an EBox::Ldap object with the proper settings
+#
+sub ldb
+{
+    my ($self) = @_;
+    EBox::debug("ldb() to be deprecated, replace with ldap()");
+    return $self->ldap();
+}
+
 
 # Method: ldapClass
 #
@@ -223,39 +255,6 @@ sub containerClass
     return $self->{containerClass};
 }
 
-# Method: depends
-#
-#     Users depends on dns only to ensure proper order during
-#     save changes when reprovisioning (after host/domain change)
-#
-# Overrides:
-#
-#     <EBox::Module::Base::depends>
-#
-sub depends
-{
-    my ($self) = @_;
-
-    my @deps;
-
-    if ($self->get('need_reprovision')) {
-        push (@deps, 'dns');
-    }
-
-    return \@deps;
-}
-
-sub enableModDepends
-{
-    my ($self) = @_;
-    my @depends = ('ntp');
-    my $mode = $self->mode();
-    if ($mode eq STANDALONE_MODE) {
-        push @depends, 'dns';
-    }
-    return \@depends;
-}
-
 # Method: actions
 #
 #       Override EBox::ServiceModule::ServiceInterface::actions
@@ -295,7 +294,7 @@ sub usedFiles
     my ($self) = @_;
     my @files = ();
     push @files, {
-            'file' => KRB5_CONF_FILE,
+            'file'   => SYSTEM_WIDE_KRB5_CONF_FILE,
             'reason' => __('To set up kerberos authentication'),
             'module' => 'users'
         };
@@ -305,12 +304,7 @@ sub usedFiles
             {
                 'file' => '/etc/nsswitch.conf',
                 'reason' => __('To make NSS use LDAP resolution for user and '.
-                                   'group accounts. Needed for Samba PDC configuration.'),
-                'module' => 'users'
-            },
-            {
-                'file' => LIBNSS_LDAPFILE,
-                'reason' => __('To let NSS know how to access LDAP accounts.'),
+                               'group accounts. Needed for Samba PDC configuration.'),
                 'module' => 'users'
             },
             {
@@ -319,25 +313,10 @@ sub usedFiles
                 'module' => 'users'
             },
             {
-                'file' => '/etc/default/slapd',
-                'reason' => __('To make LDAP listen on TCP and Unix sockets.'),
+                'file' => SSSD_CONF_FILE,
+                'reason' => __('To configure System Security Services Daemon to manage remote'
+                               . ' authentication mechanisms'),
                 'module' => 'users'
-            },
-            {
-                'file' => LIBNSS_SECRETFILE,
-                'reason' => __('To copy LDAP admin password generated by ' .
-                                   'Zentyal and allow other modules to access LDAP.'),
-                'module' => 'users'
-            },
-            {
-                'file' => KDC_CONF_FILE,
-                'reason' => __('To set up the kerberos KDC'),
-                'module' => 'users'
-            },
-            {
-                'file' => KDC_DEFAULT_FILE,
-                'reason' => __('To set the KDC configuration'),
-                'module' => 'users',
             },
            );
     }
@@ -359,75 +338,22 @@ sub initialSetup
     # only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
-        my $fw = EBox::Global->modInstance('firewall');
 
-        my $serviceName = 'ldap';
-        unless ($services->serviceExists(name => $serviceName)) {
+        my $serviceName = 'samba';
+        unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'printableName' => 'LDAP',
-                'description' => __('Lightweight Directory Access Protocol'),
+                'printableName' => 'Samba',
+                'description' => __('Domain and File sharing protocols'),
+                'internal' => 1,
                 'readOnly' => 1,
-                'services' => [ { protocol   => 'tcp',
-                                  sourcePort => 'any',
-                                  destinationPort => 390 } ],
+                'services' => $self->_services(),
             );
-
-            $fw->setInternalService($serviceName, 'deny');
         }
 
-        $serviceName = 'kerberos';
-        unless ($services->serviceExists(name => $serviceName)) {
-            $services->addMultipleService(
-                'name' => $serviceName,
-                'printableName' => 'Kerberos',
-                'description' => __('Kerberos authentication'),
-                'readOnly' => 1,
-                'services' => [ { protocol   => 'tcp/udp',
-                                  sourcePort => 'any',
-                                  destinationPort => KERBEROS_PORT },
-                                { protocol   => 'tcp/udp',
-                                  sourcePort => 'any',
-                                  destinationPort => KPASSWD_PORT } ]
-            );
-            $fw->setInternalService($serviceName, 'accept');
-        }
-        $fw->saveConfigRecursive();
-    }
-
-    # Upgrade from previous versions
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        # Perform the migration to 3.4
-        $self->_migrateTo34();
-    }
-
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
-}
-
-# Migration to 3.4
-#
-# * Fixed displayName value to match cn if not set already.
-#
-sub _migrateTo34
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    my $ldap = $self->ldap;
-
-    my $users = $self->users(1);
-    foreach my $user (@{$users}) {
-        unless ($user->displayname()) {
-            $user->set('displayName', $user->fullname());
-        }
-    }
-
-    foreach my $contact (@{$self->contacts()}) {
-        unless ($contact->displayname()) {
-            $contact->set('displayName', $contact->fullname());
-        }
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setInternalService($serviceName, 'accept');
+        $firewall->saveConfigRecursive();
     }
 }
 
@@ -462,31 +388,6 @@ sub _checkEnableIPs
 
         EBox::Exceptions::External->throw($errMsg);
     }
-}
-
-sub setupKerberos
-{
-    my ($self) = @_;
-
-    my $realm = $self->kerberosRealm();
-    EBox::info("Initializing kerberos realm '$realm'");
-
-    my @cmds = ();
-    push (@cmds, 'service heidmal-kdc stop || true');
-    push (@cmds, 'stop zentyal.heimdal-kdc || true');
-    push (@cmds, 'service kpasswdd stop || true');
-    push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
-    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
-    push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
-    push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
-    push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
-    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
-    push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
-    push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-    EBox::Sudo::root(@cmds);
-
-    $self->setupDNS();
 }
 
 sub setupDNS
@@ -588,67 +489,11 @@ sub _internalServerEnableActions
 
     $self->_checkEnableIPs();
 
-    # Stop slapd daemon
-    EBox::Sudo::root(
-        'service slapd stop || true',
-        'stop ebox.slapd        || true',
-        'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
-    );
-
-    my $dn = $self->model('Mode')->dnValue();
-    my $password = $self->_genPassword(EBox::Config::conf() . 'ldap.passwd');
-    my $password_ro = $self->_genPassword(EBox::Config::conf() . 'ldap_ro.passwd');
-    my $opts = [
-        'dn' => $dn,
-        'password' => $password,
-        'password_ro' => $password_ro,
-    ];
-
-    # Prepare ldif files
-    my $LDIF_CONFIG = EBox::Config::tmp() . "slapd-config.ldif";
-    my $LDIF_DB = EBox::Config::tmp() . "slapd-database.ldif";
-
-    EBox::Module::Base::writeConfFileNoCheck($LDIF_CONFIG, "users/config.ldif.mas", $opts);
-    EBox::Module::Base::writeConfFileNoCheck($LDIF_DB, "users/database.ldif.mas", $opts);
-
-    # Preload base LDAP data
-    $self->_loadLDAP($dn, $LDIF_CONFIG, $LDIF_DB);
-    $self->_manageService('start');
-
-    $self->clearLdapConn();
-
-    # Setup NSS (needed if some user is added before save changes)
-    $self->_setConf(1);
-
-    # Create default group
-    my $groupClass = $self->groupClass();
-    my %args = (
-        name => DEFAULTGROUP,
-        parent => $groupClass->defaultContainer(),
-        description => 'All users',
-        isSystemGroup => 1,
-        ignoreMods  => ['samba'],
-    );
-    $groupClass->create(%args);
-
-    # Perform LDAP actions (schemas, indexes, etc)
-    EBox::info('Performing first LDAP actions');
-    try {
-        $self->performLDAPActions();
-    } catch ($e) {
-        EBox::error("Error performing users initialization: $e");
-        throw EBox::Exceptions::External(__('Error performing users initialization'));
-    }
-
-    # Setup kerberos realm and DNS
-    $self->setupKerberos();
+    # Setup DNS
+    $self->setupDNS();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
-
-    # Configure SOAP to listen for new slaves
-    $self->masterConf->confSOAPService();
-    $self->masterConf->setupMaster();
 
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -669,13 +514,18 @@ sub enableService
 {
     my ($self, $status) = @_;
 
+    if ($status) {
+        my $throwException = 1;
+        if ($self->{restoringBackup}) {
+            $throwException = 0;
+        }
+        $self->getProvision->checkEnvironment($throwException);
+    }
+
     $self->SUPER::enableService($status);
 
-    # Set up NSS, modules depending on users may require to retrieve uid/gid
-    # numbers from LDAP
-    if ($status) {
-        $self->_setConf(1);
-    }
+    my $dns = EBox::Global->modInstance('dns');
+    $dns->setAsChanged();
 }
 
 sub _startDaemon
@@ -739,67 +589,84 @@ sub _waitService
 
 sub _services
 {
-    my ($self, $daemon) = @_;
-    my @services = ();
+    my ($self) = @_;
 
-    if ($daemon eq 'ebox.slapd') {
-        # LDAP
-        push (@services, {
-            'protocol' => 'tcp',
-            'sourcePort' => 'any',
-            'destinationPort' => '390',
-            'description' => 'Lightweight Directory Access Protocol',
-        });
-    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
-        # KDC
-        push (@services, {
-            'protocol' => 'tcp/udp',
-            'sourcePort' => 'any',
-            'destinationPort' => KERBEROS_PORT,
-            'description' => 'Kerberos Key Distribution Center',
-        });
-    } elsif ($daemon eq 'zentyal.heimdal-kpasswd') {
-        # KPASSWD
-        push (@services, {
-            'protocol' => 'udp',
-            'sourcePort' => 'any',
-            'destinationPort' => KPASSWD_PORT,
-            'description' => 'Kerberos Password Changing Server',
-        });
-    }
-
-    return \@services;
+    # TODO: separate this in different services?
+    return [
+            { # kerberos
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '88',
+                'description' => 'Kerberos authentication',
+            },
+            { # DCE endpoint resolution
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '135',
+                'description' => 'DCE endpoint resolution',
+            },
+            { # netbios-ns
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '137',
+                'description' => 'NETBIOS name service',
+            },
+            { # netbios-dgm
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '138',
+                'description' => 'NETBIOS datagram service',
+            },
+            { # netbios-ssn
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '139',
+                'description' => 'NETBIOS session service',
+            },
+            { # samba LDAP
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '389',
+                'description' => 'Lightweight Directory Access Protocol',
+            },
+            { # microsoft-ds
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '445',
+                'description' => 'Microsoft directory services',
+            },
+            { # kerberos change/set password
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '464',
+                'description' => 'Kerberos set/change password',
+            },
+            { # LDAP over TLS/SSL
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '636',
+                'description' => 'LDAP over TLS/SSL',
+            },
+            { # unknown???
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '1024',
+            },
+            { # msft-gc
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '3268',
+                'description' => 'Microsoft global catalog',
+            },
+            { # msft-gc-ssl
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '3269',
+                'description' => 'Microsoft global catalog over SSL',
+            },
+        ];
 }
 
-# Load LDAP from config + data files
-sub _loadLDAP
-{
-    my ($self, $dn, $LDIF_CONFIG, $LDIF_DB) = @_;
-    EBox::info('Creating LDAP database...');
-    try {
-        EBox::Sudo::root(
-            # Remove current database (if any)
-            'rm -f /var/lib/heimdal-kdc/m-key',
-            'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-            'mkdir -p ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-            'chmod 750 ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-
-            # Create database (config + structure)
-            'slapadd -F ' . LDAP_CONFDIR . " -b cn=config -l $LDIF_CONFIG",
-            'slapadd -F ' . LDAP_CONFDIR . " -b $dn -l $LDIF_DB",
-
-            # Fix permissions and clean temp files
-            'chown -R openldap.openldap ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-            "rm -f $LDIF_CONFIG $LDIF_DB",
-        );
-    } catch (EBox::Exceptions::Sudo::Command $e) {
-        EBox::error('Trying to setup ldap failed, exit value: ' .  $e->exitValue());
-        throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
-    } catch ($e) {
-        EBox::error("Trying to setup ldap failed: $e");
-    }
-    EBox::debug('Setup LDAP done');
-}
 
 # Generate, store in the given file and return a password
 sub _genPassword
@@ -824,6 +691,23 @@ sub wizardPages
     return [{ page => '/Users/Wizard/Users', order => 300 }];
 }
 
+# Method: _regenConfig
+#
+#   Overrides <EBox::Module::Service::_regenConfig>
+#
+sub _regenConfig
+{
+    my $self = shift;
+
+    return unless $self->configured();
+
+    # Do provision first before adding schemas, overrides
+    # default EBox::Module::LDAP behavior of adding schemas
+    # first and then regenConfig when users already provisioned
+    $self->EBox::Module::Service::_regenConfig(@_);
+    $self->_performSetup();
+}
+
 # Method: _setConf
 #
 #       Override EBox::Module::Service::_setConf
@@ -837,14 +721,15 @@ sub _setConf
     $self->_setupForMode();
 
     # Setup kerberos config file
-    my $realm = $self->kerberosRealm();
-    my @params = ('realm' => $realm);
-    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@params);
+    # FIXME: This should go now inside external AD?
+#    my $realm = $self->kerberosRealm();
+#    my @params = ('realm' => $realm);
+#    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@params);
 
     if ($self->mode() eq EXTERNAL_AD_MODE) {
         $self->_setConfExternalAD();
     } else {
-        $self->_setConfInternal($realm, $noSlaveSetup);
+        $self->_setConfInternal($noSlaveSetup);
     }
 }
 
@@ -859,47 +744,43 @@ sub _setConfExternalAD
 
 sub _setConfInternal
 {
-    my ($self, $realm, $noSlaveSetup) = @_;
-    if ($self->get('need_reprovision')) {
-        $self->unset('need_reprovision');
-        # workaround  a orphan need_reprovision on read-only
-        my $roKey = 'users/ro/need_reprovision';
-        $self->redis->unset($roKey);
+    my ($self, $noSlaveSetup) = @_;
 
-        try {
-            $self->reprovision();
-        } catch ($e) {
-            $self->set('need_reprovision', 1);
-            throw EBox::Exceptions::External(__x(
-'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
-               err => "$e",
-               pbeg => '<p>',
-               pend => '</p>'
-            ));
+    return unless $self->configured() and $self->isEnabled();
+
+    $self->writeSambaConfig();
+
+    my $prov = $self->getProvision();
+    if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        if (EBox::Global->modExists('openchange')) {
+            my $openchangeMod = EBox::Global->modInstance('openchange');
+            if ($openchangeMod->isProvisioned()) {
+                # Set OpenChange as not provisioned.
+                $openchangeMod->setProvisioned(0);
+            }
         }
+        if ($self->get('need_reprovision')) {
+            $self->_cleanModulesForReprovision();
+            # Current provision is not useful, change back status to not provisioned.
+            $prov->setProvisioned(0);
+            # The LDB connection needs to be reset so we stop using cached values.
+            $self->ldb()->clearConn()
+        }
+        $prov->provision();
+        $self->unset('need_reprovision');
     }
 
+    $self->writeSambaConfig();
+
     my $ldap = $self->ldap;
-    EBox::Module::Base::writeFile(LIBNSS_SECRETFILE, $ldap->getPassword(),
-        { mode => '0600', uid => 0, gid => 0 });
 
-    my $dn = $ldap->dn;
-    my $nsspw = $ldap->getRoPassword();
-    my @params;
-    push (@params, 'ldap' => EBox::Ldap::LDAPI);
-    push (@params, 'basedc'    => $dn);
-    push (@params, 'binddn'    => $ldap->roRootDn());
-    push (@params, 'rootbinddn'=> $ldap->rootDn());
-    push (@params, 'bindpw'    => $nsspw);
-    push (@params, 'computersdn' => COMPUTERSDN . ',' . $dn);
-
-    $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
-            \@params);
+    # Link kerberos to be system-wide after provision
+    EBox::Sudo::root('ln -sf ' . KRB5_CONF_FILE . ' ' . SYSTEM_WIDE_KRB5_CONF_FILE);
 
     $self->_setupNSSPAM();
 
     # Slaves cron
-    @params = ();
+    my @params;
     push(@params, 'slave_time' => EBox::Config::configkey('slave_time'));
     if ($self->master() eq 'cloud') {
         my $rs = new EBox::Global->modInstance('remoteservices');
@@ -924,32 +805,24 @@ sub _setConfInternal
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
 
-    # Configure soap service
-    $self->masterConf->confSOAPService();
-
     # commit slaves removal
     EBox::Users::Slave->commitRemovals($self->global());
-
-    my $ldapBase = $self->ldap->dn();
-    @params = ();
-    push (@params, 'ldapBase' => $ldapBase);
-    push (@params, 'realm' => $realm);
-    $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@params);
-
-    @params = ();
-    $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@params);
 }
 
 sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled and $self->mode() eq EXTERNAL_AD_MODE) {
-        # Update services keytabs
-        my $ldap = $self->ldap();
-        my @principals = @{ $ldap->externalServicesPrincipals() };
-        if (scalar @principals) {
-            $ldap->initKeyTabs();
+    if ($enabled) {
+        if ($self->mode() eq EXTERNAL_AD_MODE) {
+            # Update services keytabs
+            my $ldap = $self->ldap();
+            my @principals = @{ $ldap->externalServicesPrincipals() };
+            if (scalar @principals) {
+                $ldap->initKeyTabs();
+            }
+        } else {
+            EBox::Users::Provision::provisionGIDNumbersDefaultGroups();
         }
     }
 }
@@ -971,6 +844,7 @@ sub kerberosRealm
     return $realm;
 }
 
+# Set up NSS PAM for LDB users
 sub _setupNSSPAM
 {
     my ($self) = @_;
@@ -980,16 +854,36 @@ sub _setupNSSPAM
     push (@array, 'umask' => $umask);
 
     $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-zentyal.mas',
-               \@array);
+                         \@array);
 
-    my $enablePam = $self->model('PAM')->enable_pamValue();
+    my $PAMModule = $self->model('PAM');
+    my $enablePAM = $PAMModule->enable_pamValue();
+    $self->_setupSSSd($PAMModule->login_shellValue());
+
     my $cmd;
-    if ($enablePam) {
+    if ($enablePAM) {
         $cmd = 'auth-client-config -a -p zentyal-krb';
     } else {
         $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
     EBox::Sudo::root($cmd);
+}
+
+# Set up SSS daemon
+sub _setupSSSd
+{
+    my ($self, $defaultShell) = @_;
+
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my @params = ('fqdn'   => $sysinfo->fqdn(),
+                  'domain' => $sysinfo->hostDomain(),
+                  'defaultShell' => $defaultShell,
+                  'keyTab' => SECRETS_KEYTAB);
+
+    # SSSd conf file must be owned by root and only rw by him
+    $self->writeConfFile(SSSD_CONF_FILE, 'users/sssd.conf.mas',
+                         \@params,
+                         {'mode' => '0600', uid => 0, gid => 0});
 }
 
 # Method: editableMode
@@ -1030,36 +924,63 @@ sub _daemons
     my ($self) = @_;
 
     my $usingInternalServer = sub {
-        return $self->mode() eq STANDALONE_MODE;
+        return ($self->mode() eq STANDALONE_MODE);
     };
 
     return [
         {
-            name => 'ebox.slapd',
+            name => 'samba-ad-dc',
             precondition => $usingInternalServer
         },
         {
-            name => 'zentyal.heimdal-kdc',
-            precondition => $usingInternalServer
-        },
-        {
-            name => 'zentyal.heimdal-kpasswd',
+            name => 'sssd',
             precondition => $usingInternalServer
         },
     ];
 }
 
-# Method: _enforceServiceState
+# Method: _daemonsToDisable
 #
-#       Override EBox::Module::Service::_enforceServiceState
+# Overrides:
 #
-sub _enforceServiceState
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
+        { 'name' => 'nmbd', 'type' => 'upstart' },
+    ];
+}
+
+# Method: _startService
+#
+#   Overrided to ensure proper permissions of the ldap_priv folder, where the
+#   privileged socket that zentyal uses to connect is. This is a special socket
+#   that samba create that allow r/w restricted attributes.
+#   Samba expects the ldap_priv folder to be owned by root and mode 0750, or the
+#   LDAP service won't run.
+#
+#   Here we set the expected permissions before start the daemon.
+#
+sub _startService
 {
     my ($self) = @_;
-    $self->SUPER::_enforceServiceState();
 
-    # Clear LDAP connection
-    $self->clearLdapConn();
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chgrp $group " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
+    EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
+
+    # User corner needs access to update the user password
+    if (EBox::Global->modExists('usercorner')) {
+        my $usercorner = EBox::Global->modInstance('usercorner');
+        my $userCornerGroup = $usercorner->USERCORNER_GROUP();
+        EBox::Sudo::root("setfacl -m \"g:$userCornerGroup:rx\" " . SAMBA_PRIVILEGED_SOCKET);
+    }
+
+    $self->SUPER::_startService(@_);
 }
 
 # Method: groupDn
@@ -1085,29 +1006,26 @@ sub groupDn
 # Init a new user (home and permissions)
 sub initUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $user) = @_;
 
     my $mk_home = EBox::Config::configkey('mk_home');
     $mk_home = 'yes' unless $mk_home;
     if ($mk_home eq 'yes') {
         my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
-            my @cmds;
-
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
             my $group = DEFAULTGROUP;
-            push(@cmds, "mkdir -p `dirname $qhome`");
-            push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            EBox::Sudo::root(@cmds);
-
-            my $chownCmd = "chown -R $quser:$group $qhome";
-            EBox::Sudo::root($chownCmd);
+            my @cmds;
+            push (@cmds, "mkdir -p `dirname $qhome`");
+            push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
+            push (@cmds, "chown -R $quser $qhome");
+            push (@cmds, "chgrp -R '$group' $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-            my $chmod = "chmod $perms $qhome";
-            EBox::Sudo::root($chmod);
+            push (@cmds, "chmod $perms $qhome");
+            EBox::Sudo::root(@cmds);
         }
     }
 }
@@ -1121,6 +1039,45 @@ sub reloadNSCD
         } catch {
         }
    }
+}
+
+# Method: containers
+#
+#   Returns an array containing all the containers. The array is ordered in a
+#   hierarquical way. Parents before childs.
+#
+# Returns:
+#
+#   array ref - holding the containers. Each member is represented by a
+#   EBox::Users::Container object
+#
+sub containers
+{
+    my ($self, $baseDN) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    unless (defined $baseDN) {
+        $baseDN = $self->ldap->dn();
+    }
+
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my $searchArgs = {
+        base => $baseDN,
+        filter => "objectclass=$objectClass",
+        scope => 'one',
+    };
+
+    my $ous = [];
+    my $result = $self->ldap->search($searchArgs);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: ous
@@ -1211,16 +1168,16 @@ sub userExists
     if (not $user) {
         return undef;
     }
-    if ($self->global()->modExists('samba')) {
-        # check if it is a reserved user
-        my $samba = $self->global()->modInstance('samba');
-        if (not $samba->isProvisioned()) {
-            return OBJECT_EXISTS;
-        }
-        my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
-        if ($samba->hiddenSid($ldbUser)) {
-            return OBJECT_EXISTS_AND_HIDDEN_SID;
-        }
+
+    # FIXME
+    # check if it is a reserved user
+    my $samba = $self->global()->modInstance('samba');
+    if (not $samba->isProvisioned()) {
+        return OBJECT_EXISTS;
+    }
+    my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
+    if ($samba->hiddenSid($ldbUser)) {
+        return OBJECT_EXISTS_AND_HIDDEN_SID;
     }
 
     return OBJECT_EXISTS;
@@ -1445,6 +1402,7 @@ sub groupExists
         return undef;
     }
 
+    # FIXME
     if ($self->global()->modExists('samba')) {
         # check if it is a reserved user
         my $samba = $self->global()->modInstance('samba');
@@ -1575,12 +1533,10 @@ sub _modsLdapUserBase
 
         my $mod = EBox::Global->modInstance($name);
 
-        if ($mod->isa('EBox::LdapModule')) {
-            if ($mod->isa('EBox::Module::Service')) {
-                if ($name ne $self->name()) {
-                    $mod->configured() or
-                        next;
-                }
+        if ($mod->isa('EBox::Module::LDAP')) {
+            if ($name ne $self->name()) {
+                $mod->configured() or
+                    next;
             }
             push (@modules, $mod->_ldapModImplementation);
         }
@@ -1650,6 +1606,7 @@ sub notifyModsPreLdapUserBase
 #   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
 #   args - single value or array ref containing signal parameters
 #   ignored_modules - array ref of modnames to ignore (won't be notified)
+#   ignored_slaves -
 #
 sub notifyModsLdapUserBase
 {
@@ -1671,7 +1628,7 @@ sub notifyModsLdapUserBase
 
         # TODO catch errors here? Not a good idea. The way to go is
         # to implement full transaction support and rollback if a notified
-        # module throw an exception
+        # module throws an exception
         $mod->$method(@{$args});
     }
 
@@ -1778,6 +1735,7 @@ sub defaultUserModels
 sub allUserAddOns
 {
     my ($self, $user) = @_;
+
     my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
@@ -1890,6 +1848,18 @@ sub menu
 
     my $separator = 'Office';
     my $order = 510;
+
+    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                              text => __('Domain'),
+                                              icon => 'domain',
+                                              separator => 'Office',
+                                              order => 535);
+
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Users/View/DomainSettings',
+                                            text  => __('Settings'),
+                                            order => 10));
+    $root->add($domainFolder);
+
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'icon' => 'users',
@@ -2037,6 +2007,7 @@ sub masterConf
 sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
+
     my $mode = $self->mode();
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
     if ($mode ne STANDALONE_MODE) {
@@ -2044,16 +2015,65 @@ sub dumpConfig
         return;
     }
 
-    $self->ldap->dumpLdapConfig($dir);
-    $self->ldap->dumpLdapData($dir);
-    if ($options{bug}) {
-        my $file = $self->ldap->ldifFile($dir, 'data');
-        $self->_removePasswds($file);
+    my @cmds;
+
+    my $mirror = EBox::Config::tmp() . "/samba.backup";
+    my $privateDir = PRIVATE_DIR;
+    if (EBox::Sudo::fileTest('-d', $privateDir)) {
+        # Remove previous backup files
+        my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+        my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+        foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
+            chomp ($bakFile);
+            push (@cmds, "rm '$bakFile'");
+        }
+
+        # Backup private. TDB and LDB files must be backed up using tdbbackup
+        my $ldbFiles = EBox::Sudo::root("find $privateDir -name '*.ldb'");
+        my $tdbFiles = EBox::Sudo::root("find $privateDir -name '*.tdb'");
+        foreach my $dbFile ((@{$ldbFiles}, @{$tdbFiles})) {
+            chomp ($dbFile);
+            push (@cmds, "tdbbackup '$dbFile'");
+            # Preserve file permissions
+            my $st = EBox::Sudo::stat($dbFile);
+            my $uid = $st->uid();
+            my $gid = $st->gid();
+            my $mode = sprintf ("%04o", $st->mode() & 07777);
+            push (@cmds, "chown $uid:$gid $dbFile.bak");
+            push (@cmds, "chmod $mode $dbFile.bak");
+        }
+
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/private");
+        push (@cmds, "rsync -HAXavz $privateDir/ " .
+                     "--exclude=*.tdb --exclude=*.ldb " .
+                     "--exclude=ldap_priv --exclude=smbd.tmp " .
+                     "--exclude=ldapi $mirror/private");
+        push (@cmds, "tar pcjf $dir/private.tar.bz2 --hard-dereference -C $mirror private");
     }
-    else {
-        # Save rootdn passwords
-        copy(EBox::Config::conf() . 'ldap.passwd', $dir);
-        copy(EBox::Config::conf() . 'ldap_ro.passwd', $dir);
+
+    # Backup sysvol
+    my $sysvolDir = SYSVOL_DIR;
+    if (EBox::Sudo::fileTest('-d', $sysvolDir)) {
+        push (@cmds, "rm -rf $mirror");
+        push (@cmds, "mkdir -p $mirror/sysvol");
+        push (@cmds, "rsync -HAXavz $sysvolDir/ $mirror/sysvol");
+        push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
+    }
+
+    try {
+        EBox::Sudo::root(@cmds);
+    } catch ($e) {
+        $e->throw();
+    }
+
+    # Backup admin password
+    unless ($options{bug}) {
+        my $pwdFile = EBox::Config::conf() . 'samba.passwd';
+        # Additional domain controllers does not have stashed pwd
+        if (EBox::Sudo::fileTest('-f', $pwdFile)) {
+            EBox::Sudo::root("cp '$pwdFile' $dir");
+        }
     }
 }
 
@@ -2136,32 +2156,63 @@ sub restoreConfig
         return;
     }
 
-    $self->_manageService('stop');
+    my $modeDC = $self->global()->modInstance('samba')->mode();
+    unless ($modeDC eq EBox::Users::Model::DomainSettings::MODE_DC()) {
+        # Restoring an ADC will corrupt entire domain as sync data
+        # get out of sync.
+        EBox::info(__("Restore is only possible if the server is the unique " .
+                      "domain controller of the forest"));
+        $self->getProvision->setProvisioned(0);
+        return;
+    }
 
-    my $LDIF_CONFIG = $self->ldap->ldifFile($dir, 'config');
-    my $LDIF_DB = $self->ldap->ldifFile($dir, 'data');
+    $self->stopService();
 
-    # retrieve base dn from backup
-    my $fd;
-    open($fd, $LDIF_DB);
-    my $line = <$fd>;
-    chomp($line);
-    my @parts = split(/ /, $line);
-    my $base = $parts[1];
+    # Remove private and sysvol
+    my $privateDir = PRIVATE_DIR;
+    my $sysvolDir = SYSVOL_DIR;
+    EBox::Sudo::root("rm -rf $privateDir $sysvolDir");
 
-    $self->_loadLDAP($base, $LDIF_CONFIG, $LDIF_DB);
+    # Unpack sysvol and private
+    my %dest = ( sysvol => $sysvolDir, private => $privateDir );
+    foreach my $archive (keys %dest) {
+        if (EBox::Sudo::fileTest('-f', "$dir/$archive.tar.bz2")) {
+            my $destdir = dirname($dest{$archive});
+            EBox::Sudo::root("tar jxfp $dir/$archive.tar.bz2 -C $destdir");
+        }
+    }
 
-    # Restore passwords
-    copy($dir . '/ldap.passwd', EBox::Config::conf());
-    copy($dir . '/ldap_ro.passwd', EBox::Config::conf());
-    EBox::debug("Copying $dir/ldap.passwd to " . EBox::Config::conf());
-    chmod(0600, "$dir/ldap.passwd", "$dir/ldap_ro.passwd");
+    # Rename ldb files
+    my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
+    my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
+    foreach my $bakFile ((@{$ldbBakFiles}, @{$tdbBakFiles})) {
+        chomp $bakFile;
+        my $destFile = $bakFile;
+        $destFile =~ s/\.bak$//;
+        EBox::Sudo::root("mv '$bakFile' '$destFile'");
+    }
+    # Hard-link DomainDnsZones and ForestDnsZones partitions
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*FORESTDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/DC*DOMAINDNSZONES*");
+    EBox::Sudo::root("rm -f $privateDir/dns/sam.ldb.d/metadata.tdb");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*FORESTDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/DC*DOMAINDNSZONES* $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("ln $privateDir/sam.ldb.d/metadata.tdb $privateDir/dns/sam.ldb.d/");
+    EBox::Sudo::root("chown root:bind $privateDir/dns/*.ldb");
+    EBox::Sudo::root("chmod 660 $privateDir/dns/*.ldb");
 
-    $self->_manageService('start');
-    $self->clearLdapConn();
+    # Restore stashed password
+    if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
+        EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
+        EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    }
 
-    # Save conf to enable NSS (and/or) PAM
-    $self->_setConf();
+    # Set provisioned flag
+    $self->getProvision->setProvisioned(1);
+
+    $self->restartService();
+
+    $self->getProvision()->resetSysvolACL();
 
     return if $ignoreUserInitialization;
 
@@ -2236,6 +2287,19 @@ sub mode
     }
     return $mode;
 }
+
+# Method: dcMode
+#
+#   Returns the configured server mode
+#
+sub dcMode
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->modeValue();
+}
+
 
 # Method: newLDAP
 #
@@ -2368,7 +2432,7 @@ sub reprovision
     my $global = $self->global();
     my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
     foreach my $mod (@mods) {
-        if (not $mod->isa('EBox::LdapModule')) {
+        if (not $mod->isa('EBox::Module::LDAP')) {
             next;
         } elsif ($mod->name() eq $self->name()) {
             # dont reconfigure itself
@@ -2518,7 +2582,7 @@ sub ousToHide
 
     my @ous;
 
-    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::LdapModule')}) {
+    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::Module::LDAP')}) {
         push (@ous, @{$mod->_ldapModImplementation()->hiddenOUs()});
     }
 
@@ -2538,7 +2602,7 @@ sub checkMailNotInUse
     my $usersMod = $self->global()->modInstance('users');
     my %searchParams = (
         base => $usersMod->ldap()->dn(),
-        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(|(otherMailbox=$addr)(mail=$addr))",
         scope => 'sub'
     );
 
@@ -2564,28 +2628,313 @@ sub checkMailNotInUse
     }
 }
 
-# Method: appArmorProfiles
-#
-#   Overrides to set the own AppArmor profile
-#
-# Overrides:
-#
-#   <EBox::Module::Base::appArmorProfiles>
-#
-sub appArmorProfiles
+sub getProvision
 {
     my ($self) = @_;
 
-    EBox::info('Setting slapd apparmor profile');
-    return [
-        {
-          binary => 'usr.sbin.slapd',
-          local  => 1,
-          file   => 'users/apparmor-slapd.local.mas',
-          params => [],
-        }
-    ];
+    unless (defined $self->{provision}) {
+        $self->{provision} = new EBox::Users::Provision();
+    }
+    return $self->{provision};
 }
 
+sub isProvisioned
+{
+    my ($self) = @_;
+
+    return $self->getProvision->isProvisioned();
+}
+
+# Method: domainControllers
+#
+#   Query the domain controllers by searching in 'Domain Controllers' OU
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Users::Computer class
+#
+sub domainControllers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "OU=Domain Controllers,$baseDN",
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [ $sort ],
+    };
+
+    my $result = $ldb->search($args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Users::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: computers
+#
+#   Query the computers joined to the domain by searching in the computers
+#   container
+#
+# Returns:
+#
+#   Array reference containing instances of EBox::Users::Computer class
+#
+sub computers
+{
+    my ($self) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my $ldb = $self->ldb();
+    my $baseDN = $ldb->dn();
+    my $args = {
+        base => "CN=Computers,$baseDN",,
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [ $sort ],
+    };
+
+    my $result = $self->ldb->search($args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Users::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: defaultNetbios
+#
+#   Generates the default netbios server name
+#
+sub defaultNetbios
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+    $hostName = substr($hostName, 0, 15);
+
+    return $hostName;
+}
+
+# Method: defaultWorkgroup
+#
+#   Generates the default workgroup
+#
+sub defaultWorkgroup
+{
+    my $users = EBox::Global->modInstance('users');
+    my $realm = $users->kerberosRealm();
+    my @parts = split (/\./, $realm);
+    my $value = substr($parts[0], 0, 15);
+    $value = 'ZENTYAL-DOMAIN' unless defined $value;
+
+    return uc($value);
+}
+
+# Method: defaultDescription
+#
+#   Generates the default server string
+#
+sub defaultDescription
+{
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    return ucfirst($prefix) . ' Server';
+}
+
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $netbiosName = $self->netbiosName();
+    my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+
+    my @array = ();
+    push (@array, 'workgroup'   => $self->workgroup());
+    push (@array, 'netbiosName' => $netbiosName);
+    push (@array, 'description' => $self->description());
+    push (@array, 'mode'        => 'dc');
+    push (@array, 'realm'       => $realmName);
+    push (@array, 'domain'      => $hostDomain);
+    push (@array, 'roamingProfiles' => $self->roamingProfiles());
+    push (@array, 'profilesPath' => PROFILES_DIR);
+    push (@array, 'sysvolPath'  => SYSVOL_DIR);
+
+    my $samba = $self->global()->modInstance('samba');
+    if ($samba) {
+        push (@array, 'shares' => 1);
+        $samba->writeSambaConfig();
+    }
+
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
+        push (@array, 'openchange' => 1);
+        $openchange->writeSambaConfig();
+    }
+
+    $self->writeConfFile(SAMBACONFFILE, 'users/smb.conf.mas', \@array,
+                         { 'uid' => 'root', 'gid' => 'root', mode => '644' });
+}
+
+# Method: netbiosName
+#
+#   Returns the configured netbios name
+#
+sub netbiosName
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->netbiosNameValue();
+}
+
+# Method: workgroup
+#
+#   Returns the configured workgroup name
+#
+sub workgroup
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->workgroupValue();
+}
+
+# Method: description
+#
+#   Returns the configured description string
+#
+sub description
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->descriptionValue();
+}
+
+# Method: roamingProfiles
+#
+#   Returns if roaming profiles are enabled
+#
+sub roamingProfiles
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->roamingValue();
+}
+
+# Method: drive
+#
+#   Returns the configured drive letter
+#
+sub drive
+{
+    my ($self) = @_;
+
+    my $model = $self->model('DomainSettings');
+    return $model->driveValue();
+}
+
+# Method: administratorDN
+#
+#
+# Returns:
+#
+#     String - the DN for the administrator or undef if it does not exist
+#
+sub administratorDN
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb();
+    my $domainAdminSID = $ldb->domainSID() . '-500';
+
+    my $result = $ldb->search({ base   => $self->userClass()->defaultContainer()->dn(),
+                                filter => "objectSid=$domainAdminSID",
+                                scope  => 'one',
+                                attrs  => ['dn']});
+    my @entries = $result->entries();
+    my $dn;
+    if (scalar(@entries) > 0) {
+        $dn = $entries[0]->dn();
+    }
+    return $dn;
+}
+
+# Method: administratorPassword
+#
+#   Returns the administrator password
+#
+sub administratorPassword
+{
+    my ($self) = @_;
+
+    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
+
+    my $pass;
+    unless (-f $pwdFile) {
+        my $pass;
+
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+
+        my (undef, undef, $uid, $gid) = getpwnam('ebox');
+        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
+        return $pass;
+    }
+
+    return read_file($pwdFile);
+}
+
+# Method: dMD
+#
+#   Return the Perl Object that holds the Directory Management Domain for this LDB server.
+#
+sub dMD
+{
+    my ($self) = @_;
+
+    my $dn = "CN=Schema,CN=Configuration," . $self->ldb()->dn();
+    return new EBox::Users::DMD(dn => $dn);
+}
+
+sub _cleanModulesForReprovision
+{
+    my ($self) = @_;
+
+    foreach my $mod (@{$self->global()->modInstancesOfType('EBox::Module::LDAP')}) {
+        my $state = $mod->get_state();
+        delete $state->{'_schemasAdded'};
+        delete $state->{'_ldapSetup'};
+        $mod->set_state($state);
+        $mod->setAsChanged(1);
+    }
+}
 
 1;

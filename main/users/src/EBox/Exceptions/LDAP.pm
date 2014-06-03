@@ -52,7 +52,7 @@ sub new
         $exText .= Dumper($opArgs);
     }
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;

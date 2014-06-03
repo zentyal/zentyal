@@ -17,8 +17,8 @@ use warnings;
 
 package EBox::Squid;
 
-use base qw(EBox::Module::Service EBox::KerberosModule
-            EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
+use base qw(EBox::Module::LDAP EBox::KerberosModule
+            EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
 
 use EBox::Service;
@@ -140,20 +140,17 @@ sub initialSetup
     }
 }
 
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
+sub setupLDAP
 {
     my ($self) = @_;
+
     if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        $self->_enableActionsInternalAuth();
+        # Create the kerberos service principal in kerberos,
+        # export the keytab and set the permissions
+        $self->kerberosCreatePrincipals();
     }
 
     try {
-        # FIXME: this should probably be moved to _setConf
-        # only if users is enabled and needed
         my @lines = ();
         push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
         push (@lines, 'export KRB5_KTNAME');
@@ -163,18 +160,6 @@ sub enableActions
     } catch ($error) {
         EBox::error("Error creating squid default file: $error");
     }
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
-}
-
-sub _enableActionsInternalAuth
-{
-    my ($self) = @_;
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
-
 }
 
 # Method: reprovisionLDAP
@@ -645,8 +630,8 @@ sub _writeSquidConf
     if (not $kerberos) {
         my $ldap = $users->ldap();
         push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $ldap->roRootDn());
-        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+        push @writeParam, ('roDn'     => $users->administratorDN());
+        push @writeParam, ('roPasswd' => $users->administratorPassword());
     }
 
     my $mode = $self->authenticationMode();

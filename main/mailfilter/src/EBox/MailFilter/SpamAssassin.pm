@@ -83,6 +83,7 @@ sub _confAttr
 
 sub _learnServiceEnabled
 {
+    return 0; # learn accounts disabled by now
     my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
     my $saLearnService = $vdomainsLdap->learnAccountsExists;
     return $saLearnService;

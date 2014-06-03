@@ -22,7 +22,6 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Users::User;
-use EBox::Samba::User;
 use EBox::OpenChange::LdapUser;
 
 sub new
@@ -49,11 +48,7 @@ sub _process
 
     my $ldapUser = new EBox::Users::User(dn => $userDN);
     unless (defined $ldapUser and $ldapUser->exists()) {
-        throw EBox::Exceptions::Internal("Cannot LDAP instantiate user $userDN");
-    }
-    my $ldbUser = new EBox::Samba::User(samAccountName => $ldapUser->get('uid'));
-    unless (defined $ldbUser and $ldbUser->exists()) {
-        throw EBox::Exceptions::Internal("Cannot LDB instantiate user $userDN");
+        throw EBox::Exceptions::Internal("Cannot instance user $userDN");
     }
 
     if ($self->param('active') eq 'yes') {

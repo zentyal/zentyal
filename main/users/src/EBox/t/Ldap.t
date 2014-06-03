@@ -60,7 +60,7 @@ sub url : Test(1)
     my ($self) = @_;
     my $class = $self->class;
 
-    cmp_ok($class->url(), 'eq', 'ldapi://%2fvar%2frun%2fslapd%2fldapi', "Getting the LDAP's URL");
+    cmp_ok($class->url(), 'eq', 'ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi', "Getting the LDB's URL");
 }
 
 1;

@@ -50,11 +50,11 @@ sub _process
         $self->_requireParamAllowEmpty('description', __('description'));
 
         my %params;
-        $params{uid} = $self->param('username');
+        $params{samAccountName} = $self->param('username');
         $params{parent} = $users->objectFromDN($dn);
 
-        $params{givenname} = $self->param('givenname');
-        $params{surname} = $self->param('surname');
+        $params{givenName} = $self->param('givenname');
+        $params{sn} = $self->param('surname');
 
         $params{password} = $self->unsafeParam('password');
         $params{repassword} = $self->unsafeParam('repassword');

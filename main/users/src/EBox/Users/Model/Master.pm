@@ -189,10 +189,6 @@ sub validateTypedRow
     # do not check if disabled
     return unless ($enabled);
 
-    if ($master ne 'cloud') {
-        $self->_checkSamba();
-    }
-
     my $usersMod = $self->parentModule();
 
     # will the operation destroy current users?
@@ -243,7 +239,7 @@ sub validateTypedRow
     my @ldapMods = grep {
         my $mod = $_;
         ($mod->name() ne $usersMod->name()) and
-         ($mod->isa('EBox::LdapModule'))
+         ($mod->isa('EBox::Module::LDAP'))
     } @{ $self->global->modInstances() };
 
     unless ($force) {
@@ -273,17 +269,6 @@ sub validateTypedRow
     # set webAdmin as changed
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     $webAdminMod->setAsChanged();
-}
-
-sub _checkSamba
-{
-    my $samba = EBox::Global->modInstance('samba');
-    if (not $samba) {
-        return;
-    }
-    if ($samba->configured()) {
-        throw EBox::Exceptions::External(__('Cannot synchronize users with other Zentyal if Samba is either in use or provisioned'));
-    }
 }
 
 sub master

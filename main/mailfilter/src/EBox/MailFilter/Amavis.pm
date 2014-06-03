@@ -23,7 +23,6 @@ use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Service;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use TryCatch::Lite;
 
@@ -46,12 +45,19 @@ use constant {
 
 sub new
 {
-    my $class = shift @_;
+    my ($class, $global) = @_;
 
     my $self = {};
     bless $self, $class;
+    $self->{global} = $global;
 
     return $self;
+}
+
+sub global
+{
+    my ($self) = @_;
+    return $self->{global};
 }
 
 sub usedFiles
@@ -117,10 +123,11 @@ sub writeConf
 {
     my ($self) = @_;
 
-    my $ldap = EBox::Global->modInstance('users')->ldap();
+    my $usersMod = $self->global()->modInstance('users');
+    my $ldap = $usersMod->ldap();
 
-    my $antivirus   = EBox::Global->modInstance('antivirus');
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $antivirus   = $self->global()->modInstance('antivirus');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
     my $antispam   = $mailfilter->antispam();
 
     my @masonParams;
@@ -133,10 +140,10 @@ sub writeConf
 
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-    push @masonParams, (ldapBase         =>  $ldap->dn );
+    push @masonParams, (ldapBase         =>  EBox::MailVDomainsLdap::VDOMAINDN() . ',' . $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
-    push @masonParams, (ldapBindPasswd   =>  $ldap->getPassword());
+    push @masonParams, (ldapBindDn       =>  $usersMod->administratorDN());
+    push @masonParams, (ldapBindPasswd   =>  $usersMod->administratorPassword());
 
     push @masonParams, (antivirusActive  => $self->antivirus());
     push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));
@@ -165,6 +172,7 @@ sub writeConf
                      mode => '0640',
                      uid   => $uid,
                      gid   => $gid,
+                     force => 1,
                     };
 
     EBox::Module::Base::writeConfFileNoCheck(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
@@ -214,7 +222,7 @@ sub _confAttr
     my ($self, $attr) = @_;
 
     if (not $self->{configuration}) {
-        my $mailfilter = EBox::Global->modInstance('mailfilter');
+        my $mailfilter = $self->global()->modInstance('mailfilter');
         $self->{configuration}     = $mailfilter->model('AmavisConfiguration');
     }
 
@@ -266,8 +274,10 @@ sub _localDomains
 {
     my ($self) = @_;
 
-    my @vdomains =   EBox::MailVDomainsLdap->new->vdomains();
+    my @vdomains =  EBox::MailVDomainsLdap->new->vdomains();
     push @vdomains, @{ $self->externalDomains() };
+    push @vdomains, $self->global()->modInstance('sysinfo')->hostDomain();
+    push @vdomains, $self->global()->modInstance('sysinfo')->fqdn();
 
     return [@vdomains];
 }
@@ -283,7 +293,7 @@ sub allowedExternalMTAs
 {
     my ($self) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
     my $externalMTA = $mailfilter->model('ExternalMTA');
     return $externalMTA->allowed();
 }
@@ -292,7 +302,7 @@ sub externalDomains
 {
     my ($self) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
     my $externalDomain = $mailfilter->model('ExternalDomain');
     return $externalDomain->allowed();
 }
@@ -301,7 +311,7 @@ sub adminAddress
 {
     my ($self) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
     my $amavisConfiguration = $mailfilter->model('AmavisConfiguration');
     return $amavisConfiguration->notificationAddress();
 }
@@ -310,7 +320,7 @@ sub bannedFilesRegexes
 {
     my ($self) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
 
     my @bannedRegexes;
 
@@ -349,7 +359,7 @@ sub filterPolicy
 {
     my ($self, $ftype) = @_;
 
-    my $mailfilter  = EBox::Global->modInstance('mailfilter');
+    my $mailfilter  = $self->global()->modInstance('mailfilter');
     my $model = $mailfilter->model('AmavisPolicy');
 
     my $methodValue = $ftype . 'Value';
@@ -402,7 +412,7 @@ sub mailFilter
     my $name = $self->mailFilterName;
     my $active;
 
-    my $module = EBox::Global->modInstance('mailfilter');
+    my $module = $self->global()->modInstance('mailfilter');
     if (not $module->isEnabled()) {
         $active = 0;
     }  else {
@@ -441,7 +451,7 @@ sub summary
 
     $enabled or return;
 
-    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    my $mailfilter = $self->global()->modInstance('mailfilter');
 
     my $antispam = new EBox::Dashboard::ModuleStatus(
             module        => 'mailfilter',

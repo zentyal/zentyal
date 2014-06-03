@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::Users::User;
 
 sub new
 {
@@ -52,11 +53,13 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
+    my $user = EBox::Users::User->new(dn => $userDN);
+
     my $alias = $lhs."@".$rhs;
-    $mail->{malias}->addAlias($alias, $maildrop, $maildrop);
+    $mail->{malias}->addUserAlias($user, $alias);
 
     $self->{json}->{msg} = __x('Added alias {al}', al => $alias);
-    $self->{json}->{aliases} = [ $mail->{malias}->accountAlias($maildrop) ];
+    $self->{json}->{aliases} = [ $mail->{malias}->userAliases($user) ];
     $self->{json}->{success} = 1;
 }
 

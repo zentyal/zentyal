@@ -118,6 +118,7 @@ sub _updateSambaPassword
 {
     my ($self, $user, $currentPassword, $newPassword) = @_;
 
+    # FIXME
     if (EBox::Global->modExists('samba')) {
         my $samba = EBox::Global->modInstance('samba');
         if ($samba->configured()) {

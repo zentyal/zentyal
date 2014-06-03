@@ -94,7 +94,7 @@ sub _process
         $self->_requireParam('adduser', __('user'));
         my @users = $self->unsafeParam('adduser');
         foreach my $uid (@users) {
-            $group->addMember(EBox::Users::User->new(uid => $uid));
+            $group->addMember(EBox::Users::User->new(samAccountName => $uid));
         }
         $self->{json}->{success}  = 1;
     } elsif ($self->param('deluserfromgroup')) {

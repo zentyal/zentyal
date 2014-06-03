@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+
+set user [lindex $argv 0]
+set pass [lindex $argv 1]
+
+spawn samba-tool user setpassword $user
+expect "New Password: "
+send "$pass\n"
+expect "Changed password OK\n"
+
