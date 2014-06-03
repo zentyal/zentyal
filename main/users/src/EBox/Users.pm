@@ -691,6 +691,23 @@ sub wizardPages
     return [{ page => '/Users/Wizard/Users', order => 300 }];
 }
 
+# Method: _regenConfig
+#
+#   Overrides <EBox::Module::Service::_regenConfig>
+#
+sub _regenConfig
+{
+    my $self = shift;
+
+    return unless $self->configured();
+
+    # Do provision first before adding schemas, overrides
+    # default EBox::Module::LDAP behavior of adding schemas
+    # first and then regenConfig when users already provisioned
+    $self->EBox::Module::Service::_regenConfig(@_);
+    $self->_performSetup();
+}
+
 # Method: _setConf
 #
 #       Override EBox::Module::Service::_setConf

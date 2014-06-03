@@ -102,11 +102,6 @@ sub _regenConfig
     if ($self->global()->modInstance('users')->isProvisioned()) {
         $self->_performSetup();
         $self->SUPER::_regenConfig(@_);
-    } elsif ($self->name() eq 'users') {
-        # If not provisioned but we are saving the users
-        # module, let do the provision first
-        $self->SUPER::_regenConfig(@_);
-        $self->_performSetup();
     }
 }
 
