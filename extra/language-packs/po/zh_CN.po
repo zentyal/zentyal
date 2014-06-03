@@ -1725,7 +1725,7 @@ msgid "Priority"
 msgstr "优先级"
 
 #: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:59
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
@@ -3268,41 +3268,41 @@ msgstr ""
 "选择 CUPS 服务器要监听的接口。在外部接口上监听，不是一个好主意。如果不选，它"
 "会只监听 localhost"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:53
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:54
 msgid "Printer name"
 msgstr "打印机名"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:65
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:66
 msgid "Location"
 msgstr "位置"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:71
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
 msgstr "来宾访问"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:74
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:75
 msgid "This printer will not require authentication."
 msgstr "该打印机将不需要认证。"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:78
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
 msgstr "访问控制"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:87
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:88
 msgid "Printer permissions"
 msgstr "打印机权限"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:92
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:93
 msgid "printer"
 msgstr "打印机"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:95
 msgid "Here you can define the access control list for your printers."
 msgstr "在这里，您可以定义打印机的访问控制列表。"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:218
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
@@ -3311,7 +3311,7 @@ msgstr ""
 "配置打印机的 ACL 之前，您需要在 {openref}模块状态{closeref} 部分启用该模块，"
 "并保存更改。"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:228
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "the printing service. If you wish to enable this feature, add the Zentyal "
@@ -3322,7 +3322,7 @@ msgstr ""
 "能，请添加 Zentyal PPA 到 APT 的 sources.list，然后安装我们的 samba4 包，然后"
 "在  /etc/zentyal/samba.conf 中，把 'samba_fs' 的值改为 's3fs' "
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:243
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:264
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"

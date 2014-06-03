@@ -1792,7 +1792,7 @@ msgid "Priority"
 msgstr "Prioridade"
 
 #: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:59
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
@@ -3402,7 +3402,7 @@ msgstr "Nome da impressora"
 msgid "Location"
 msgstr "Localização"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:71
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
 msgstr "Acesso de convidado"
@@ -3411,7 +3411,7 @@ msgstr "Acesso de convidado"
 msgid "This printer will not require authentication."
 msgstr "Esta impressora não necessitará de autenticação."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:78
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
 msgstr "Controlo de acesso"
@@ -3420,7 +3420,7 @@ msgstr "Controlo de acesso"
 msgid "Printer permissions"
 msgstr "Permissões da impressora"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:92
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:93
 msgid "printer"
 msgstr "impressora"
 
@@ -3428,7 +3428,7 @@ msgstr "impressora"
 msgid "Here you can define the access control list for your printers."
 msgstr "Aqui pode definir a lista de controlo de acessos para as impressoras."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:218
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, fuzzy, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
@@ -3437,7 +3437,7 @@ msgstr ""
 "Antes de configurar impressoras necessita de activar o módulo na secção "
 "{openref}Estado do Módulo{closeref} e gravar as alterações"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:228
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "the printing service. If you wish to enable this feature, add the Zentyal "
@@ -3450,7 +3450,7 @@ msgstr ""
 "samba4, depois mude a chave de configuração do samba 'samba_fs' para 's3fs' "
 "no /etc/zentyal/samba.conf"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:243
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:264
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"

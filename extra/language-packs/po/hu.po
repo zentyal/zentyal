@@ -1158,9 +1158,8 @@ msgstr "Az insecure_rip_conf paramétert a yes vagy no egyikére kell állítani
 #: ../../main/ha/src/EBox/HA.pm:90
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
-#, fuzzy
 msgid "High Availability"
-msgstr "Elérhető"
+msgstr "Magas rendelkezésre állás"
 
 #: ../../main/ha/src/EBox/HA.pm:115 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
@@ -1172,18 +1171,16 @@ msgstr "Rendszer"
 #: ../../main/ha/src/EBox/HA.pm:146
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "felhasználónév"
+msgstr "Fürt állapota"
 
 #: ../../main/ha/src/EBox/HA.pm:164
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Sogo démon beállítása"
+msgstr "Corosync démon beállítása"
 
 #: ../../main/ha/src/EBox/HA.pm:167
 msgid "To start corosync at boot"
-msgstr ""
+msgstr "Corosync indítása a rendszerrel"
 
 #: ../../main/ha/src/EBox/HA.pm:1001
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1232,20 +1229,18 @@ msgid "None"
 msgstr "Nincs"
 
 #: ../../main/ha/src/EBox/HA.pm:1007
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "{oh}Vessen rá egy pillantást{ch}"
+msgstr "{oh}Hibák találhatók{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1016
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Elmúlt nap"
+msgstr "Utolsó frissítés"
 
 #: ../../main/ha/src/EBox/HA.pm:1018
-#, fuzzy
 msgid "Errors"
-msgstr "Hiba"
+msgstr "Hibák"
 
 #: ../../main/ha/src/EBox/HA.pm:1022
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:177
@@ -1263,13 +1258,12 @@ msgid "Status"
 msgstr "Állapot"
 
 #: ../../main/ha/src/EBox/HA.pm:1023
-#, fuzzy
 msgid "not enabled"
-msgstr "Hivatkozás bekapcsolva"
+msgstr "nincs bekapcsolva"
 
 #: ../../main/ha/src/EBox/HA.pm:1026
 msgid "Nodes"
-msgstr ""
+msgstr "Csomópontok"
 
 #: ../../main/ha/src/EBox/HA.pm:1028
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1310,14 +1304,13 @@ msgid "IP address"
 msgstr "IP-cím"
 
 #: ../../main/ha/src/EBox/HA.pm:1036
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "A csatoló ({iface}) nincs beállítva"
+msgstr "A fürt nincs beállítva"
 
 #: ../../main/ha/src/EBox/HA.pm:1125
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} eszköznek nincs használható IP-címe"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
@@ -1795,7 +1788,7 @@ msgid "Priority"
 msgstr "Prioritás"
 
 #: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:59
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
@@ -3422,41 +3415,41 @@ msgstr ""
 "figyelembe, hogy külső csatolón figyelni nem biztonságos. Ha semmi sincs "
 "kiválasztva, akkor csak a localhoston figyel."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:53
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:54
 msgid "Printer name"
 msgstr "Nyomtató neve"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:65
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:66
 msgid "Location"
 msgstr "Hely"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:71
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:72
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
 msgstr "Vendég hozzáférés"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:74
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:75
 msgid "This printer will not require authentication."
 msgstr "Ez a nyomtató nem igényel hitelesítést."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:78
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
 msgstr "Hozzáférés-felület"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:87
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:88
 msgid "Printer permissions"
 msgstr "Nyomtatójogosultságok"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:92
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:93
 msgid "printer"
 msgstr "nyomtató"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:95
 msgid "Here you can define the access control list for your printers."
 msgstr "Itt lehet a nyomtatók hozzáférés-felületi listáit megadni."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:218
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
@@ -3466,7 +3459,7 @@ msgstr ""
 "{openref}Modulállapot{closeref} oldalon, majd el kell mentenie a "
 "beállításokat."
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:228
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
 msgid ""
 "You are using the new samba 'ntvfs' file server, which is incompatible with "
 "the printing service. If you wish to enable this feature, add the Zentyal "
@@ -3479,7 +3472,7 @@ msgstr ""
 "samba4 csomagunkat, majd módosítsa a „samba_fs” samba konfigurációs kulcsot "
 "az „s3fs” értékre a /etc/zentyal/samba.conf fájlban"
 
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:243
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:264
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web Interface"
