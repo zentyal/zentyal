@@ -443,7 +443,7 @@ sub _doProvision
                     EBox::info("Creating user '$samAccountName' mailbox");
                     # Call API to create mailbox in zentyal
                     $mailUserLdap->setUserAccount($ldbUser,
-                                                  $ldbUser->get('uid'),
+                                                  $ldbUser->get('samAccountName'),
                                                   $adDomain);
                 }
 
