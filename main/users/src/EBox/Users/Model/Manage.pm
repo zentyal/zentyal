@@ -193,7 +193,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->configured();
+    return $self->parentModule()->isProvisioned();
 }
 
 # Method: preconditionFailMsg
@@ -208,7 +208,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must enable the module Users in the module status section in order to use it.');
+    return __('You need to enable Users module in the module status section and save changes in order to use it.');
 }
 
 sub _hiddenOU
