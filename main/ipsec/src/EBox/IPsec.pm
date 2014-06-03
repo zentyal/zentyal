@@ -264,8 +264,8 @@ sub _setXL2TPDConf
     my $validationGroup = $users->validationGroup();
 
     if ($validationGroup) {
-        my $samba = $global->modInstance('samba');
-        $workgroup = $samba->workgroup();
+        my $users = $global->modInstance('users');
+        $workgroup = $users->workgroup();
     } else {
         $self->_setXL2TPDUsers();
     }
