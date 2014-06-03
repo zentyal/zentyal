@@ -85,7 +85,7 @@ sub _loadSchemas
     if ($name eq 'users') {
         $global->addModuleToPostSave('users');
     } else {
-        $global->modInstance('users')->_manageService('restart');
+        $global->modInstance('users')->restartService();
     }
 }
 
