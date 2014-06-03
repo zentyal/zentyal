@@ -946,9 +946,9 @@ sub pathHTTPSSSLCertificate
     my @certs = ('/var/lib/zentyal/conf/ssl/ssl.pem');
     my $openchange = $self->global()->modInstance('openchange');
     if ($openchange) {
-#        my $cert = $openchange->autodiscoveryCert();
-#        push @certs, $cert;
-        push @certs, '/etc/postfix/sasl/postfix.pem'; # XXX
+        my $cert = $openchange->autodiscoveryCerts();
+        push @certs, @{ $cert };
+
     }
 
     return \@certs;

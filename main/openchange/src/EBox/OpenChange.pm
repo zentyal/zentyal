@@ -233,6 +233,14 @@ sub isRunning
     }
 }
 
+sub autodiscoveryCerts
+{
+    my ($self) = @_;
+    my @certs;
+    push @certs, '/etc/postfix/sasl/postfix.pem'; # XXX
+    return \@certs;
+}
+
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
