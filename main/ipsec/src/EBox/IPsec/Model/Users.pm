@@ -31,16 +31,16 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    if ($self->global()->modExists('samba')) {
-        $self->{sambaMod} = $self->global()->modInstance('samba');
+    if ($self->global()->modExists('users')) {
+        $self->{usersMod} = $self->global()->modInstance('users');
     }
 
-    if ($self->{sambaMod} and $self->{sambaMod}->isEnabled() and $self->{sambaMod}->isProvisioned()) {
-        my $domainSID = $self->{sambaMod}->ldb()->domainSID();
+    if ($self->{usersMod} and $self->{usersMod}->isEnabled() and $self->{usersMod}->isProvisioned()) {
+        my $domainSID = $self->{usersMod}->ldb()->domainSID();
         $self->{domainUsersSID} = "$domainSID-513";
     } else {
         # Samba is not available.
-        delete $self->{sambaMod};
+        delete $self->{usersMod};
     }
 
     bless($self, $class);
@@ -75,7 +75,7 @@ sub validationGroup
 {
     my ($self) = @_;
 
-    unless ($self->{sambaMod}) {
+    unless ($self->{usersMod}) {
         return undef;
     }
 
@@ -93,17 +93,17 @@ sub validationGroup
 #
 sub _populateGroups
 {
-    my $sambaMod = undef;
-    if (EBox::Global->modExists('samba')) {
-        $sambaMod = EBox::Global->modInstance('samba');
+    my $usersMod = undef;
+    if (EBox::Global->modExists('users')) {
+        $usersMod = EBox::Global->modInstance('users');
     }
 
-    unless ($sambaMod and $sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
+    unless ($usersMod and $usersMod->isEnabled() and $usersMod->isProvisioned()) {
         return [];
     }
 
     my @securityGroups;
-    foreach my $group (@{$sambaMod->ldb()->securityGroups()}) {
+    foreach my $group (@{$usersMod->ldb()->securityGroups()}) {
         my $name = $group->name();
         push (@securityGroups, {
             value => $name,
@@ -126,7 +126,7 @@ sub _table
 
     my @fields = ();
     my @actions = ();
-    if ($self->{sambaMod}) {
+    if ($self->{usersMod}) {
         eval 'use EBox::Users::Group';
         my $domainUsers = EBox::Users::Group->new(sid => $self->{domainUsersSID});
         my @usersSourceSubtypes = ();
