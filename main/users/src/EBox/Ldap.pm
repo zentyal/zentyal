@@ -305,40 +305,6 @@ sub domainNetBiosName
     return undef;
 }
 
-# Method: rootDn
-#
-#       Returns the dn of the priviliged user
-#
-# Returns:
-#
-#       string - eboxdn
-#
-sub rootDn
-{
-    my ($self, $dn) = @_;
-    unless(defined($dn)) {
-        $dn = $self->dn();
-    }
-    return 'cn=zentyal,' . $dn;
-}
-
-# Method: roRootDn
-#
-#       Returns the dn of the read only priviliged user
-#
-# Returns:
-#
-#       string - the Dn
-#
-sub roRootDn
-{
-    my ($self, $dn) = @_;
-    unless(defined($dn)) {
-        $dn = $self->dn();
-    }
-    return 'cn=zentyalro,' . $dn;
-}
-
 # Method: ldapConf
 #
 #       Returns the current configuration for LDAP: 'dn', 'ldapi', 'rootdn'
@@ -355,8 +321,9 @@ sub ldapConf
         'dn'     => $self->dn(),
         'ldap'   => LDAP,
         'port' => 389,
-        'rootdn' => $self->rootDn(),
+        'rootdn' => EBox::Global->modInstance('users')->administratorDN(),
     };
+
     return $conf;
 }
 

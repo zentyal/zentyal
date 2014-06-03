@@ -258,7 +258,7 @@ sub _setLDAP
     push (@params, url => $url);
     push (@params, dn => $ldapConf->{'dn'});
     push (@params, rootdn => $ldapConf->{'rootdn'});
-    push (@params, password => $ldap->getPassword());
+    push (@params, password => $users->administratorPassword());
 
     $self->writeConfFile(LDAPCONFFILE, "radius/ldap.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });

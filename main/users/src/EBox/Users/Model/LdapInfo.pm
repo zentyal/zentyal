@@ -45,15 +45,14 @@ sub _table
             fieldName => 'rootDn',
             printableName => __('Root DN'),
         ),
-#FIXME
-#        new EBox::Types::Text (
-#            fieldName => 'password',
-#            printableName => __('Password'),
-#        ),
         new EBox::Types::Text (
-            fieldName => 'roRootDn',
-            printableName => __('Read-only root DN'),
+            fieldName => 'password',
+            printableName => __('Password'),
         ),
+#        new EBox::Types::Text (
+#            fieldName => 'roRootDn',
+#            printableName => __('Read-only root DN'),
+#        ),
 #        new EBox::Types::Text (
 #            fieldName => 'roPassword',
 #            printableName => __('Read-only password'),
@@ -101,13 +100,12 @@ sub _content
 
     %info = (
         dn => $ldap->dn(),
-        rootDn => $ldap->rootDn(),
-#FIXME
-#        password => $ldap->getPassword(),
-       );
+        rootDn => $users->administratorDN(),
+        password => $users->administratorPassword(),
+    );
 
     if ($mode ne $users->EXTERNAL_AD_MODE) {
-        $info{roRootDn}  = $ldap->roRootDn();
+#        $info{roRootDn}  = $ldap->roRootDn();
 #        $info{roPassword} = $ldap->getRoPassword();
         $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
         $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();

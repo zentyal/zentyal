@@ -532,8 +532,8 @@ sub _setUserDir
         my $ldap = $usersMod->ldap();
         my $ldapServer = '127.0.0.1';
         my $ldapPort   = $ldap->ldapConf()->{port};
-        my $rootDN = $ldap->rootDn();
-        my $ldapPass = $ldap->getPassword();
+        my $rootDN = $usersMod->administratorDN();
+        my $ldapPass = $usersMod->administratorPassword();
         eval 'use EBox::Users::User';
         my $usersDN = EBox::Users::User->defaultContainer()->dn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
