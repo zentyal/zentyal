@@ -1,5 +1,5 @@
 HEAD
-    + Implement replicationExcludeKeys() to avoid webadmin service replication
+	+ Implement replicationExcludeKeys() to avoid webadmin service replication
 3.4
 	+ Added portUsedByService method
 	+ Updated to use the new haproxy API
