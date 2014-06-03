@@ -23,13 +23,13 @@ package EBox::CloudSync::Slave::Test;
 use base 'EBox::Test::LDAPClass';
 
 use EBox::Global::TestStub;
-use EBox::Ldap;
 use EBox::Module::Config::TestStub;
 
 use Net::LDAP::Entry;
 use Test::Exception;
 use Test::MockObject;
 use Test::MockObject::Extends;
+use Test::MockModule;
 use Test::More;
 
 sub class
@@ -40,7 +40,6 @@ sub class
 sub setUpConfiguration : Test(startup)
 {
     EBox::Global::TestStub::fake();
-    *EBox::Ldap::dn = sub { return 'dc=example,dc=com'; };
 }
 
 sub clearConfiguration : Test(shutdown)
@@ -51,6 +50,14 @@ sub clearConfiguration : Test(shutdown)
 sub cloudsync_slave_use_ok : Test(startup => 1)
 {
     use_ok('EBox::CloudSync::Slave') or die;
+}
+
+sub mock_ldap_dn : Test(setup)
+{
+    my ($self) = @_;
+
+    $self->{mock_ldap} = new Test::MockModule('EBox::Ldap');
+    $self->{mock_ldap}->mock('dn', sub { return 'dc=example,dc=com'; });
 }
 
 sub _mockRESTClient
@@ -111,6 +118,7 @@ sub _getTestUser
     my @args = ();
     push (@args, objectClass => [qw(posixAccount passwordHolder systemQuotas krb5Principal krb5KDCEntry shadowAccount)]);
     push (@args, uid         => $name);
+    push (@args, samAccountName => $name);
     push (@args, givenName   => $params{firstname}) if (exists $params{firstname});
     push (@args, sn          => $params{lastname}) if (exists $params{lastname});
     push (@args, description => $params{description}) if (exists $params{description});
@@ -275,8 +283,10 @@ sub _getTestGroup
             push (@members, $self->_getTestUser($userName, ou => 'ou=Users'));
         }
     }
-    *EBox::Users::Group::users = sub { return \@members; };
-    return new EBox::Users::Group(entry => $newGroupEntry);
+    my $group = new EBox::Users::Group(entry => $newGroupEntry);
+    $group = new Test::MockObject::Extends($group);
+    $group->mock('users', sub { return \@members; });
+    return $group;
 }
 
 sub test_add_group :  Test(15)
@@ -295,7 +305,7 @@ sub test_add_group :  Test(15)
     my $slave = $self->{slave};
     $slave->mock('RESTClient', sub { return $mockedRESTClient });
 
-    *EBox::Users::Group::isSecurityGroup = sub { return 1; };
+    $newGroup->mock('isSecurityGroup', sub { return 1; });
     lives_ok {
         $slave->_addGroup($newGroup);
     } 'No problem calling _addGroup';
@@ -324,7 +334,7 @@ sub test_add_group :  Test(15)
     # Tag group as non internal
     $newGroup->setInternal(0, 1);
     # Tag group as not being a security group
-    *EBox::Users::Group::isSecurityGroup = sub { return 0; };
+    $newGroup->mock('isSecurityGroup', sub { return 0; });
     # Reset previous results
     delete $mockedRESTClient->{result}->{POST};
 
@@ -354,7 +364,7 @@ sub test_modify_group :  Test(15)
     my $slave = $self->{slave};
     $slave->mock('RESTClient', sub { return $mockedRESTClient });
 
-    *EBox::Users::Group::isSecurityGroup = sub { return 1; };
+    $newGroup->mock('isSecurityGroup', sub { return 1; });
     lives_ok {
         $slave->_modifyGroup($newGroup);
     } 'No problem calling _modifyGroup';
@@ -366,7 +376,7 @@ sub test_modify_group :  Test(15)
     my @postResults = @{$mockedRESTClient->{result}->{PUT}};
     cmp_ok(scalar @postResults, '==', 1, "Number of PUT is correct");
     cmp_ok($postResults[0]->{path}, 'eq', '/v1/users/groups/' . $name, "The end point is correct");
-    is_deeply($postResults[0]->{params}->{query}, \%expectedOutput, "Modification of group is correct");
+    is_deeply($postResults[0]->{params}->{query}, \%expectedOutput, "Group modification is correct");
 
     # Tag group as internal
     $newGroup->setInternal(1, 1);
@@ -383,7 +393,7 @@ sub test_modify_group :  Test(15)
     # Tag group as non internal
     $newGroup->setInternal(0, 1);
     # Tag group as not being a security group
-    *EBox::Users::Group::isSecurityGroup = sub { return 0; };
+    $newGroup->mock('isSecurityGroup', sub { return 0; });
 
     lives_ok {
         $slave->_modifyGroup($newGroup);
@@ -403,7 +413,7 @@ sub test_del_group :  Test(14)
     my $slave = $self->{slave};
     $slave->mock('RESTClient', sub { return $mockedRESTClient });
 
-    *EBox::Users::Group::isSecurityGroup = sub { return 1; };
+    $newGroup->mock('isSecurityGroup', sub { return 1; });
     lives_ok {
         $slave->_delGroup($newGroup);
     } 'No problem calling _delGroup';
@@ -431,7 +441,7 @@ sub test_del_group :  Test(14)
     # Tag group as non internal
     $newGroup->setInternal(0, 1);
     # Tag group as not being a security group
-    *EBox::Users::Group::isSecurityGroup = sub { return 0; };
+    $newGroup->mock('isSecurityGroup', sub { return 0; });
 
     lives_ok {
         $slave->_delGroup($newGroup);
