@@ -835,7 +835,8 @@ sub _createDirectories
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
 
-    EBox::Sudo::root(@cmds);
+    # FIXME: change to root() when sssd problems with Domain Users are fixed
+    EBox::Sudo::rootWithoutException(@cmds);
 }
 
 sub _adcMode
