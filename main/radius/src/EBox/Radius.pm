@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::Radius;
 
-use base qw(EBox::Module::LDAP EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -177,6 +177,21 @@ sub _daemons
             'pidfiles' => ['/var/run/freeradius/freeradius.pid'],
         }
     ];
+}
+
+# Method: _regenConfig
+#
+#   Overrides <EBox::Module::Service::_regenConfig>
+#
+sub _regenConfig
+{
+    my $self = shift;
+
+    return unless $self->configured();
+
+    if ($self->global()->modInstance('users')->isProvisioned()) {
+        $self->SUPER::_regenConfig(@_);
+    }
 }
 
 # Method: _setConf
