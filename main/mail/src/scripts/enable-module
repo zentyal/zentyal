@@ -21,8 +21,20 @@ fi
 }
 
 function dovecot {
-# create certificate for dovecot
+
 test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
+
+if test -e  /etc/dovecot/private/dovecot.pem
+then
+  if test  -e /etc/dovecot/dovecot.pem
+  then
+       # we need to have certicate and key in the same pem
+       cp  /etc/dovecot/private/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp
+       cat /etc/dovecot/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp >  /etc/dovecot/private/dovecot.pem
+       rm /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
+  fi
+fi
+
 if test ! -e /etc/dovecot/private/dovecot.pem
 then
     if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
@@ -37,6 +49,7 @@ then
 
     chown root:root /etc/dovecot/private/dovecot.pem
     chmod 400 /etc/dovecot/private/dovecot.pem
+eluif
 fi
 }
 
