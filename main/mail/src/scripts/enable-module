@@ -49,7 +49,6 @@ then
 
     chown root:root /etc/dovecot/private/dovecot.pem
     chmod 400 /etc/dovecot/private/dovecot.pem
-eluif
 fi
 }
 
