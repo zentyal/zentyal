@@ -442,10 +442,6 @@ body {
     behavior: url(/data/js/csshover.htc);
 }
 
-body#OpenChange {
-    background-image: url("/images/technology-preview.png");
-}
-
 h1 {
     display: inline;
     color: <% $main_color %>;

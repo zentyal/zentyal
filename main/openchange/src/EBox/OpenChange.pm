@@ -619,12 +619,12 @@ sub menu
         text      => __('Setup'),
         order     => 0));
 
-    if ($self->isProvisioned()) {
-        $folder->add(new EBox::Menu::Item(
-            url       => 'OpenChange/Migration/Connect',
-            text      => __('MailBox Migration'),
-            order     => 1));
-    }
+#    if ($self->isProvisioned()) {
+#        $folder->add(new EBox::Menu::Item(
+#            url       => 'OpenChange/Migration/Connect',
+#            text      => __('MailBox Migration'),
+#            order     => 1));
+#    }
 
     $root->add($folder);
 }
