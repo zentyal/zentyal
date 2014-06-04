@@ -512,6 +512,11 @@ sub _setMailConf
     $self->writeConfFile(VDOMAINS_CF_FILE, 'mail/vdomains.cf.mas', \@args, $restrictiveFilePermissions);
 
     @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('baseDN' => $baseDN);
+    $self->writeConfFile(LOGIN_CF_FILE, 'mail/login.cf.mas', \@args, $restrictiveFilePermissions);
+
+    @args = ();
     push @args, ('filter'   => $self->service('filter'));
     push @args, ('fwport'   => $self->fwport());
     push @args, ('ipfilter' => $self->ipfilter());
