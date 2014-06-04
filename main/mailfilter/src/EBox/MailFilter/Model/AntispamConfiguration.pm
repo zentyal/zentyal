@@ -150,8 +150,6 @@ sub _checkThresholds
     my $autolearnSpamThreshold = _attrValue('autolearnSpamThreshold', $params_r, $actual_r);
     my $autolearnHamThreshold = _attrValue('autolearnHamThreshold', $params_r, $actual_r);
 
-    EBox::debug("THTH $spamThreshold $autolearnSpamThreshold $autolearnHamThreshold");
-
     if (not $autolearnSpamThreshold) {
         throw EBox::Exceptions::External(
            __('You must define autolearn spam threshold when autolearn option is active')

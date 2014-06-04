@@ -63,10 +63,6 @@ $submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetwork
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
 </%init>
-debug_peer_list=192.168.56.1
-smtpd_tls_received_header = yes
-smtpd_tls_loglevel = 3
-
 # require helo
 smtpd_delay_reject  = yes
 smtpd_helo_required = yes

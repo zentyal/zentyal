@@ -42,11 +42,8 @@ protocols = none
 auth_mechanisms = gssapi plain
 auth_krb5_keytab = <% $keytabPath %>
 auth_gssapi_hostname = <% $gssapiHostname %>
-%#auth_debug = no
-%#auth_verbose = no
-%# DDD
-auth_debug = yes
-auth_verbose = yes
+auth_debug = no
+auth_verbose = no
 
 
 service auth {
@@ -127,10 +124,7 @@ mail_gid=<% $gid %>
 ##
 ## Mail processes
 ##
-
-# DDD
-# mail_debug = no
-mail_debug = yes
+mail_debug = no
 
 mail_uid = ebox
 mail_gid = ebox
