@@ -195,7 +195,7 @@ sub _postServiceHook
 
                 # Mount user home on network drive
                 my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->setHomeDrive($usersMod->drive(), $drivePath, 1) unless $unmanagedHomes;
                 $user->save();
             }
         }
