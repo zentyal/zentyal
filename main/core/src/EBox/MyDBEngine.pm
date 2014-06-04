@@ -35,7 +35,6 @@ use EBox::FileSystem;
 use File::Slurp;
 use File::Copy;
 use File::Basename;
-use EBox::Logs::SlicedBackup;
 use EBox::Util::SQLTypes;
 
 use TryCatch::Lite;
@@ -650,50 +649,15 @@ sub setTimezone
 sub backupDB
 {
     my ($self, $dir, $basename, %args) = @_;
-    my $slicedMode;
-    if (exists $args{slicedMode}) {
-        $slicedMode = delete  $args{slicedMode};
-    } else {
-        $slicedMode = EBox::Logs::SlicedBackup::slicedMode();
-    }
-
-    if ($slicedMode) {
-        EBox::Logs::SlicedBackup::slicedBackup($self, $dir, %args);
-    } else {
-        my $file = "$dir/$basename.dump";
-        $self->dumpDB($file, 0);
-    }
+    my $file = "$dir/$basename.dump";
+    $self->dumpDB($file, 0);
 }
 
 sub restoreDB
 {
-    my ($self, $dir, $basename, %params) = @_;
-    my $slicedMode;
-    if (exists $params{slicedMode}) {
-        $slicedMode = delete $params{slicedMode};
-    } else {
-        $slicedMode = EBox::Logs::SlicedBackup::slicedMode();
-    }
-
-    my $noSlicesDumpFile = "$dir/$basename.dump";
-
-    if ($slicedMode) {
-        if (-e $noSlicesDumpFile) {
-            throw EBox::Exceptions::External(
-  __('You are using sliced backup mode and this backup was made in no-sliced mode')
-                                            );
-        }
-
-        EBox::Logs::SlicedBackup::slicedRestore($self, $dir, %params);
-    } else {
-        if (not -e $noSlicesDumpFile) {
-            throw EBox::Exceptions::External(
-  __('Database dump file not found. Maybe the backup you are trying to restore was made in sliced mode?')
-                                            );
-        }
-
-        $self->restoreDBDump($noSlicesDumpFile, 0);
-    }
+    my ($self, $dir, $basename) = @_;
+    my $dumpFile = "$dir/$basename.dump";
+    $self->restoreDBDump($dumpFile, 0);
 }
 
 # Method: dumpDB
@@ -726,23 +690,6 @@ sub  dumpDB
     # give file to ebox and move to real desitnation
     EBox::Sudo::root("chown ebox.ebox $tmpFile");
     File::Copy::move($tmpFile, $outputFile);
-
-    $self->_mangleDumpFile($outputFile);
-}
-
-sub _mangleDumpFile
-{
-    my ($self, $file) = @_;
-
-    # TODO: check if this works with MySQL
-    my @linesToComment = (
-                          'DROP TABLE public.' .
-                            EBox::Logs::SlicedBackup::backupSlicesDBTable(),
-                         );
-    foreach my $line (@linesToComment) {
-        my $sed = qq{sed -i s/'$line'/'-- $line'/ $file};
-        EBox::Sudo::command($sed);
-    }
 }
 
 # Method: restoreDB
