@@ -563,7 +563,7 @@ sub _vdomainsListChanged
     my $smtpFilter = $mf->smtpFilter();
     # only the smtp filter needs to renerate its config
     if ($smtpFilter->isEnabled()) {
-        $mf->setAsChanged();
+        EBox::Global->addModuleToPostSave('mailfilter');
     }
 }
 
