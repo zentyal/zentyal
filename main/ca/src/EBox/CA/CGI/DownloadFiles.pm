@@ -100,11 +100,11 @@ sub _process
     my ($linkPrivate, $linkPublic, $linkCert, $linkP12);
     if ( $metaDataCert->{"isCACert"} ) {
         $linkPublic = "ca-public-key.pem";
-        $linkCert = "ca-cert.pem";
+        $linkCert = "ca-cert.crt";
     } else {
         $linkPrivate = $self->{cn} . "-private-key.pem";
         $linkPublic  = $self->{cn} . "-public-key.pem";
-        $linkCert    = $self->{cn} . "-cert.pem";
+        $linkCert    = $self->{cn} . "-cert.crt";
         $linkP12     = $self->{cn} . ".p12";
     }
 
