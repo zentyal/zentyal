@@ -90,9 +90,9 @@ sub _process
 
     my $zipfile;
     if ( $metaDataCert->{"isCACert"} ) {
-        $zipfile = EBox::Config->tmp() . "CA-key-and-cert.tar.gz";
+        $zipfile = EBox::Config->tmp() . "CA-key-and-cert.zip";
     } else {
-        $zipfile = EBox::Config->tmp() . "keys-and-cert-" . $self->{cn} . ".tar.gz";
+        $zipfile = EBox::Config->tmp() . "keys-and-cert-" . $self->{cn} . ".zip";
     }
 
     unlink($zipfile);
@@ -115,19 +115,26 @@ sub _process
     link($files->{p12}, EBox::Config->tmp() . $linkP12)
         if ($linkP12);
 
-    my $tarArgs = qq{'$zipfile' };
-    $tarArgs .= qq{'$linkPrivate' } if ( $linkPrivate );
-    $tarArgs .= qq{'$linkPublic' '$linkCert'};
-    $tarArgs .= qq{ '$linkP12'} if ( $linkP12 );
-    # -h to dump what links point to
-    my $ret = system('tar -C ' . EBox::Config->tmp() . ' -czhf ' . $tarArgs);
+    my $zipArgs = qq{'$zipfile'};
+    my @toRemove;
+    foreach my $file ($linkPrivate, $linkPublic, $linkCert, $linkP12) {
+        if (not $file) {
+            next;
+        }
+        my $path =  EBox::Config::tmp() . $file;
+        push @toRemove, $path;
+        $zipArgs .= qq{ '$path'};
+    }
 
-    unlink(EBox::Config->tmp() . $linkPrivate) if ($linkPrivate);
-    unlink(EBox::Config->tmp() . $linkPublic);
-    unlink(EBox::Config->tmp() . $linkCert);
-    unlink(EBox::Config->tmp() . $linkP12) if ($linkP12);
+    my $cmd = "/usr/bin/zip -j $zipArgs";
+    my $ret = system($cmd);
+    my $perror = $!;
+    unlink @toRemove;
+
     if ($ret != 0) {
-        throw EBox::Exceptions::External(__("Error creating file") . ": $!");
+        throw EBox::Exceptions::External(
+            __x("Error creating archive file for  certificates: {err}", err => $perror)
+           );
     }
 
     # Setting the file

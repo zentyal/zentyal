@@ -1,4 +1,5 @@
 HEAD
+	+ Download files as zip archive
 	+ Use different openssl output files to avoid any overlap
 3.4
 	+ Migrated to use Plack / PSGI API instead of the CGI one
