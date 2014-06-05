@@ -15,7 +15,7 @@ Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0), zentyal-users,
          rsync, libdate-calc-xs-perl, libnet-dns-perl,
          libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
          libfile-libmagic-perl,
-         libparse-recdescent-perl, libxs-object-magic-perl,
+         libparse-recdescent-perl,
          libdata-hexdumper-perl, libsys-filesystem-perl,
          ${misc:Depends}
 Description: Zentyal - File Sharing
