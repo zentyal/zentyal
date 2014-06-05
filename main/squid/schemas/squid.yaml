@@ -3,6 +3,7 @@ class: 'EBox::Squid'
 depends:
     - objects
     - network
+    - users
 
 enabledepends:
     - firewall
