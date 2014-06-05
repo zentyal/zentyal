@@ -381,7 +381,7 @@ sub _doProvision
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        throw EBox::Exceptions::External(__('No Certfoication authority ready. Create or renew it'));
+        throw EBox::Exceptions::External(__('No Certification authority ready. Create or renew it'));
     }
 
     my $configuration = $openchange->model('Configuration');
