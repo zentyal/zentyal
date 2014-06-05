@@ -19,7 +19,8 @@ use warnings;
 package EBox::OpenChange;
 
 use base qw(EBox::Module::Service EBox::LdapModule
-            EBox::HAProxy::ServiceBase EBox::VDomainModule);
+            EBox::HAProxy::ServiceBase EBox::VDomainModule
+            EBox::CA::Observer);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -237,7 +238,6 @@ sub isRunning
 
 sub autodiscoveryCerts
 {
-#    return []; # XXX
     my ($self) = @_;
     my @certs;
     if ($self->isEnabled() and $self->isProvisioned()) {
@@ -430,10 +430,8 @@ sub _setAutodiscoverConf
     my $samba   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
     my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-#    my $server    = $sysinfo->hostDomain();
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
-#        $adminMail = 'postmaster@' . $server;
         $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
@@ -457,7 +455,6 @@ sub _setAutodiscoverConf
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
         my $incParams = [
-#            server => $server
             server => $domain
            ];
         $self->writeConfFile(OCSMANAGER_INC_FILE,
@@ -471,9 +468,13 @@ sub _setAutodiscoverConf
 sub _setAutodiscoveryCerts
 {
     my ($self, $domain) = @_;
-#    return; #DDD
 
     my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        EBox::error("Cannot create autodiscovery certificates because there is not usable CA");
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
 
     my $autodiscoverCN = 'autodiscover.' . $domain;
     if (not  $ca->getCertificateMetadata(cn => $autodiscoverCN)) {
@@ -483,41 +484,27 @@ sub _setAutodiscoveryCerts
         $ca->issueCertificate(commonName => $domain);
     }
 
+    my $metadata;
 
-    my $autodiscoverCrt = $ca->getCertificateMetadata(cn => $autodiscoverCN)->{path};
-    my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
-    EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
+    $metadata = $ca->getCertificateMetadata(cn => $autodiscoverCN);
+    if ($metadata->{state} eq 'V') {
+        my $autodiscoverCrt = $metadata->{path};
+        my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
+        EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
+    } else {
+        EBox::error("Certificate '$autodiscoverCN' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
 
-    my $domainCrt = $ca->getCertificateMetadata(cn => $domain)->{path};
-    my $domainKey = $ca->getKeys($domain)->{privateKey};
-    EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
-
-    # my $p12Autodiscover = $ca->getP12KeyStore($autodiscoverCN);
-    # EBox::Sudo::root("cp $p12Autodiscover " . OCSMANAGER_AUTODISCOVER_PEM);
-    # my $p12Domain = $ca->getP12KeyStore($domain);
-    # EBox::Sudo::root("cp $p12Domain " . OCSMANAGER_DOMAIN_PEM);
-
-
-
-
-    # my $tmpFile = EBox::Config::tmp() . 'ocscert.tmp';
-    # my $tmpKey  = EBox::Config::tmp() . 'ocskey.tmp';
-    # my @commonOptions = (
-    #                                      days          => 360,
-    #                                      caKeyPassword => '',
-
-    #                                     );
-
-
-    # $ca->issueCertificate(commonName => 'autodiscover.' . $domain, certFile =>  $tmpFile,  privateKey => $tmpKey, @commonOptions);
-    # EBox::Sudo::root("cat '$tmpFile' '$tmpKey' >". OCSMANAGER_AUTODISCOVER_PEM);
-    # EBox::Sudo::root("rm -f '$tmpFile' '$tmpKey'");
-
-    # $tmpFile .= '1';
-    # $tmpKey .= '1';
-    # $ca->issueCertificate(commonName =>  $domain, certFile => $tmpFile, privateKey => $tmpKey, @commonOptions);
-    # EBox::Sudo::root("cat '$tmpFile' '$tmpKey' >". OCSMANAGER_DOMAIN_PEM);
-    # EBox::Sudo::root("rm -f '$tmpFile' '$tmpKey'");
+    $metadata =  $ca->getCertificateMetadata(cn => $domain);
+    if ($metadata->{state} eq 'V') {
+        my $domainCrt = $metadata->{path};
+        my $domainKey = $ca->getKeys($domain)->{privateKey};
+        EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
+    } else {
+        EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
+    }
 }
 
 sub internalVHosts
@@ -1132,6 +1119,37 @@ sub connectionString
     my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
 
     return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
+sub certificateRenewed
+{
+    my ($self, $commonName, $isCACert) = @_;
+    $self->_certificateChanges($commonName, $isCACert);
+}
+
+sub freeCertificate
+{
+    my ($self, $commonName) = @_;
+    $self->_certificateChanges($commonName);
+}
+
+sub _certificateChanges
+{
+    my ($self, $commonName, $isCACert) = @_;
+    if ($isCACert) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
+
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+    if ($commonName eq $domain) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
+    } elsif ($commonName eq ('autodiscover.' . $domain)) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
 }
 
 1;

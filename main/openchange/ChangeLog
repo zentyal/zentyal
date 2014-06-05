@@ -1,4 +1,5 @@
 HEAD
+	+ Better certificate management for autodiscovery
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Added noMultipleOUSupportComponent support
