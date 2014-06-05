@@ -23,7 +23,7 @@ error_email_from = <% $adminMail %>
 auth = ldap
 mapistore_root = /var/lib/samba/private
 mapistore_data = /var/lib/samba/mapistore
-debug = yes
+debug = no
 
 [auth:file]
 #file =
