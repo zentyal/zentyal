@@ -135,7 +135,7 @@ sub isEnabled
     my ($self) = @_;
 
     my $mailfilter = EBox::Global->modInstance('mailfilter');
-    return $mailfilter->antispamNeeded();
+    return  $mailfilter->isEnabled() and $mailfilter->antispamNeeded();
 }
 
 sub setVDomainService
@@ -159,10 +159,12 @@ sub vdomainService
 sub isRunning
 {
     my ($self)= @_;
-    if ($self->_learnServiceEnabled) {
-        return EBox::Service::running(SA_LEARN_SERVICE);
+    if (EBox::Service::running(SA_LEARN_SERVICE)) {
+        return 1;
     }
-    return 1;
+
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    return $mailfilter->smtpFilter()->isRunning();
 }
 
 sub writeConf
