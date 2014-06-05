@@ -623,6 +623,12 @@ sub isInternal
 {
     my ($self) = @_;
 
+    # FIXME: whitelist Guest account, do this better removing
+    #        isCriticalSystemObject check
+    if ($self->sid() =~ /^S-1-5-21-.*-501$/) {
+        return 0;
+    }
+
     return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 

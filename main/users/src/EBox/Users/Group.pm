@@ -688,6 +688,12 @@ sub isInternal
 {
     my ($self) = @_;
 
+    # FIXME: whitelist Domain Admins, do this better removing
+    #        isCriticalSystemObject check
+    if ($self->sid() =~ /^S-1-5-21-.*-512$/) {
+        return 0;
+    }
+
     return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
