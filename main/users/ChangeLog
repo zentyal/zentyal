@@ -1,4 +1,5 @@
 3.5
+	+ Do not duplicate cloud ops when REST call fails
 	+ Use samba instead of slapd + heimdal
 	+ Create a container CN=Groups when provisioning as DC
 	+ Set gidNumber for new users to Domain Users to have NSS + PAM working

@@ -50,6 +50,11 @@ sub new
     return $self;
 }
 
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
+
 # Method: requiredParameters
 #
 # Overrides:

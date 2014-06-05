@@ -45,6 +45,29 @@ Zentyal.refreshSaveChangesButton = function() {
     );
 };
 
+Zentyal.pageReload = function() {
+    var url,
+    urlParts = window.location.href.split('?');
+    url = urlParts[0];
+    if (urlParts.length >= 2) {
+        var i,
+        params,
+        noActionParams = ['directory', 'page', 'pageSize', 'backview'];
+        url += '?';
+        params = urlParts[1].split('&');
+        for (i=0;i < params.length; i++) {
+            var par = params[i];
+            for (i=0; i < noActionParams.length; i++) {
+                if (par.indexOf(noActionParams[i] + '=') === 0) {
+                    url += params[i] + '&';
+                    break;
+                }
+            }
+        }
+    }
+    window.location.replace(url);
+};
+
 Zentyal.setSaveChangesButton = function(changed) {
     var className = changed ?  'changed' : 'notchanged';
     $('#changes_menu').removeClass().addClass(className);

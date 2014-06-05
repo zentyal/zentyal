@@ -1,3 +1,6 @@
+HEAD
+	+ Don't try to check openchange accounts on removing system users
+	+ Fixed bug triggered when adding external aliases
 3.5
 	+ Adapted to OpenLDAP removal
 	+ Postfix handles Zentyal distribution groups virtual alias

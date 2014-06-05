@@ -788,10 +788,31 @@ sub paramsAsHash
     return \%params;
 }
 
+# Method: redirectOnNoParams
+#
+# If this method return a true value, it will be used as path to redirection in
+# case the CGI has no parameters. This is needed in some CGIs to avoid accidentally
+# call them on page reloads
+#
+# By default it returns undef and thus has not effect
+sub redirectOnNoParams
+{
+    return undef;
+}
+
 sub _validateParams
 {
     my ($self) = @_;
     my $params_r    = $self->params();
+    if (not @{$params_r }) {
+        my $redirect = $self->redirectOnNoParams();
+        if ($redirect) {
+            # no check becuase we will redirect
+            $self->{redirect} = $redirect;
+            return 1;
+        }
+    }
+
     $params_r       = $self->_validateRequiredParams($params_r);
     $params_r       = $self->_validateOptionalParams($params_r);
 

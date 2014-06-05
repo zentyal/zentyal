@@ -1,4 +1,5 @@
 3.5
+	+ Implement replicationExcludeKeys() to avoid webadmin service replication
 	+ Set version to 3.5
 3.4
 	+ Added portUsedByService method

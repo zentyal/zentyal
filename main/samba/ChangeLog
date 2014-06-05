@@ -1,4 +1,6 @@
 3.5
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
 	+ Moved all provision code and samba core management to zentyal-users
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
 	+ Added new domainControllers() method

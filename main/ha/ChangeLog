@@ -1,4 +1,6 @@
 3.5
+	+ Added integration with firewall
+	+ ClusterStatus creation issued at model constructor
 	+ Set version to 3.5
 3.4.1
 	+ Fixed wrong calls to ClusterStatus constructor

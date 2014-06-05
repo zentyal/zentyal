@@ -207,12 +207,14 @@ sub _postServiceHook
         my $sambaShares = $self->model('SambaShares');
         my $domainSID = $ldb->domainSID();
         my $domainAdminSID = "$domainSID-500";
+        my $domainAdminsSID = "$domainSID-512";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
         my $domainGuestSID = "$domainSID-501";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
-        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
+        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID,
+            $domainAdminsSID, $systemSID);
         my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
         my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
         my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
@@ -674,7 +676,7 @@ sub recycleConfig
 
     my $conf = {};
     my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
-                'maxsize', 'exclude', 'excludedir', 'noversions');
+                'maxsize', 'exclude', 'excludedir', 'noversions', 'inherit_nt_acl');
 
     foreach my $key (@keys) {
         my $value = EBox::Config::configkey($key);
