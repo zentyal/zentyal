@@ -2156,7 +2156,7 @@ sub restoreConfig
         return;
     }
 
-    my $modeDC = $self->global()->modInstance('samba')->mode();
+    my $modeDC = $self->dcMode();
     unless ($modeDC eq EBox::Users::Model::DomainSettings::MODE_DC()) {
         # Restoring an ADC will corrupt entire domain as sync data
         # get out of sync.
