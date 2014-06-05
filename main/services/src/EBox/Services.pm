@@ -635,4 +635,26 @@ sub menu
     $root->add($folder);
 }
 
+# Method: replicationExcludeKeys
+#
+#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#
+sub replicationExcludeKeys
+{
+    my ($self) = @_;
+
+    my $keyRow = $self->model('ServiceTable')->find(name => 'zentyal_webadmin');
+    my $rowString = 'ServiceTable/keys/' . $keyRow->id . '/configuration/';
+
+    my @keys;
+
+    push(@keys, $rowString . 'order');
+    foreach my $key (@{ $keyRow->subModel('configuration')->ids() }) {
+        push(@keys, $rowString . 'keys/' . $key);
+    }
+
+    return \@keys;
+}
+
+
 1;
