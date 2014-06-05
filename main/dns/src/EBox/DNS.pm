@@ -732,19 +732,6 @@ sub _setConf
         if ($domdata->{samba}) {
             my $sambaDomData = $self->_completeDomain($domainId);
             delete $sambaDomData->{'nameServers'};
-
-            my $newSRV = [];
-            foreach my $srvRR ( @{$sambaDomData->{'srv'}} ) {
-                push (@{$newSRV}, $srvRR) unless $srvRR->{readOnly};
-            }
-            $sambaDomData->{srv} = $newSRV;
-
-            my $newTXT = [];
-            foreach my $txtRR ( @{$sambaDomData->{'txt'}} ) {
-                push (@{$newTXT}, $txtRR) unless $txtRR->{readOnly};
-            }
-            $sambaDomData->{txt} = $newTXT;
-
             $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
