@@ -51,6 +51,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_AUTODISCOVER_PEM => '/etc/ocsmanager/autodiscover.pem';
+use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant RPCPROXY_PORT           => 62081;
@@ -235,9 +237,17 @@ sub isRunning
 
 sub autodiscoveryCerts
 {
+#    return []; # XXX
     my ($self) = @_;
     my @certs;
-    push @certs, '/etc/postfix/sasl/postfix.pem'; # XXX
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_AUTODISCOVER_PEM)) {
+            push @certs, OCSMANAGER_AUTODISCOVER_PEM;
+        }
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
+            push @certs, OCSMANAGER_DOMAIN_PEM;
+        }
+    }
     return \@certs;
 }
 
@@ -292,6 +302,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+
     $self->_setAutodiscoverConf();
 
     $self->_setRPCProxyConf();
@@ -412,15 +423,18 @@ sub _writeSOGoConfFile
 sub _setAutodiscoverConf
 {
     my ($self) = @_;
+
+
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     my $samba   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
-
-    my $server    = $sysinfo->hostDomain();
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+#    my $server    = $sysinfo->hostDomain();
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
-        $adminMail = 'postmaster@' . $server;
+#        $adminMail = 'postmaster@' . $server;
+        $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
         bindDn    => 'cn=Administrator',
@@ -438,10 +452,13 @@ sub _setAutodiscoverConf
 
 
     if ($self->isEnabled()) {
+        $self->_setAutodiscoveryCerts($domain);
+
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
         my $incParams = [
-            server => $server
+#            server => $server
+            server => $domain
            ];
         $self->writeConfFile(OCSMANAGER_INC_FILE,
                              "openchange/ocsmanager.nginx.mas",
@@ -449,6 +466,58 @@ sub _setAutodiscoverConf
                              { uid => 0, gid => 0, mode => '644' }
                         );
     }
+}
+
+sub _setAutodiscoveryCerts
+{
+    my ($self, $domain) = @_;
+#    return; #DDD
+
+    my $ca = $self->global()->modInstance('ca');
+
+    my $autodiscoverCN = 'autodiscover.' . $domain;
+    if (not  $ca->getCertificateMetadata(cn => $autodiscoverCN)) {
+        $ca->issueCertificate(commonName => $autodiscoverCN);
+    }
+    if (not $ca->getCertificateMetadata(cn => $domain)) {
+        $ca->issueCertificate(commonName => $domain);
+    }
+
+
+    my $autodiscoverCrt = $ca->getCertificateMetadata(cn => $autodiscoverCN)->{path};
+    my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
+    EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
+
+    my $domainCrt = $ca->getCertificateMetadata(cn => $domain)->{path};
+    my $domainKey = $ca->getKeys($domain)->{privateKey};
+    EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
+
+    # my $p12Autodiscover = $ca->getP12KeyStore($autodiscoverCN);
+    # EBox::Sudo::root("cp $p12Autodiscover " . OCSMANAGER_AUTODISCOVER_PEM);
+    # my $p12Domain = $ca->getP12KeyStore($domain);
+    # EBox::Sudo::root("cp $p12Domain " . OCSMANAGER_DOMAIN_PEM);
+
+
+
+
+    # my $tmpFile = EBox::Config::tmp() . 'ocscert.tmp';
+    # my $tmpKey  = EBox::Config::tmp() . 'ocskey.tmp';
+    # my @commonOptions = (
+    #                                      days          => 360,
+    #                                      caKeyPassword => '',
+
+    #                                     );
+
+
+    # $ca->issueCertificate(commonName => 'autodiscover.' . $domain, certFile =>  $tmpFile,  privateKey => $tmpKey, @commonOptions);
+    # EBox::Sudo::root("cat '$tmpFile' '$tmpKey' >". OCSMANAGER_AUTODISCOVER_PEM);
+    # EBox::Sudo::root("rm -f '$tmpFile' '$tmpKey'");
+
+    # $tmpFile .= '1';
+    # $tmpKey .= '1';
+    # $ca->issueCertificate(commonName =>  $domain, certFile => $tmpFile, privateKey => $tmpKey, @commonOptions);
+    # EBox::Sudo::root("cat '$tmpFile' '$tmpKey' >". OCSMANAGER_DOMAIN_PEM);
+    # EBox::Sudo::root("rm -f '$tmpFile' '$tmpKey'");
 }
 
 sub internalVHosts
