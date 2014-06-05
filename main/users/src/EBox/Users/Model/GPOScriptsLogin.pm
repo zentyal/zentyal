@@ -17,16 +17,16 @@ use strict;
 use warnings;
 
 #
-# Class: EBox::Samba::Model::GPOScriptsLogin
+# Class: EBox::Users::Model::GPOScriptsLogin
 #
-package EBox::Samba::Model::GPOScriptsLogin;
+package EBox::Users::Model::GPOScriptsLogin;
 
-use base 'EBox::Samba::Model::GPOScripts';
+use base 'EBox::Users::Model::GPOScripts';
 
 use EBox::Gettext;
-use EBox::Samba::GPO;
-use EBox::Samba::GPO::ScriptsUser;
-use EBox::Samba::GPOIdMapper;
+use EBox::Users::GPO;
+use EBox::Users::GPO::ScriptsUser;
+use EBox::Users::GPOIdMapper;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
@@ -47,8 +47,8 @@ sub _scriptPath
     my ($self, $basename) = @_;
 
     my $gpoId = $self->parentRow()->id();
-    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
-    my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+    my $gpoDN = EBox::Users::GPOIdMapper::idToDn($gpoId);
+    my $gpo = new EBox::Users::GPO(dn => $gpoDN);
     my $path = $gpo->path();
     return "$path/User/Scripts/Logon/$basename";
 }
@@ -81,8 +81,8 @@ sub ids
     my @ids;
 
     my $gpoId = $parentRow->id();
-    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
-    my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
+    my $gpoDN = EBox::Users::GPOIdMapper::idToDn($gpoId);
+    my $extension = new EBox::Users::GPO::ScriptsUser(dn => $gpoDN);
 
     my $data = $extension->read();
 
@@ -114,8 +114,8 @@ sub row
     my $data = $self->{data};
     unless (defined $data) {
         my $gpoId = $self->parentRow()->id();
-        my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
-        my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
+        my $gpoDN = EBox::Users::GPOIdMapper::idToDn($gpoId);
+        my $extension = new EBox::Users::GPO::ScriptsUser(dn => $gpoDN);
         $data = $extension->read();
     }
 
@@ -153,8 +153,8 @@ sub addTypedRow
 
     # Write extension
     my $gpoId = $self->parentRow()->id();
-    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
-    my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
+    my $gpoDN = EBox::Users::GPOIdMapper::idToDn($gpoId);
+    my $extension = new EBox::Users::GPO::ScriptsUser(dn => $gpoDN);
     my $data = $self->{data};
     unless (defined $data) {
         my $data = $extension->read();
@@ -192,8 +192,8 @@ sub removeRow
     my $name = $e->userPath();
 
     my $gpoId = $self->parentRow()->id();
-    my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
-    my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
+    my $gpoDN = EBox::Users::GPOIdMapper::idToDn($gpoId);
+    my $extension = new EBox::Users::GPO::ScriptsUser(dn => $gpoDN);
     my $data = $self->{data};
     unless (defined $data) {
         my $data = $extension->read();

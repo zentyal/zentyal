@@ -16,20 +16,20 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Types::SmbFile
+# Class: EBox::Users::Types::SmbFile
 
-package EBox::Samba::Types::SmbFile;
+package EBox::Users::Types::SmbFile;
 
 use base 'EBox::Types::File';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
-use EBox::Samba::SmbClient;
+use EBox::Users::SmbClient;
 
 # Constructor: new
 #
-#     Create a new <EBox::Samba::Types::SmbFile> instance
+#     Create a new <EBox::Users::Types::SmbFile> instance
 #
 # Overrides:
 #
@@ -42,7 +42,7 @@ use EBox::Samba::SmbClient;
 #
 # Returns:
 #
-#     <EBox::Samba::Types::File> - the file type instance
+#     <EBox::Users::Types::File> - the file type instance
 #
 sub new
 {
@@ -85,7 +85,7 @@ sub _moveToPath
     my $host = $self->host();
     my $service = $self->service();
 
-    my $smb = new EBox::Samba::SmbClient(target => $host, service => $service,
+    my $smb = new EBox::Users::SmbClient(target => $host, service => $service,
         RID => 500);
     $smb->copy_file_to_smb($tmpPath, $path);
 }

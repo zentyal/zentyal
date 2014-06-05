@@ -17,16 +17,16 @@ use strict;
 use warnings;
 
 #
-# Class: EBox::Samba::Model::GPOScripts
+# Class: EBox::Users::Model::GPOScripts
 #
-package EBox::Samba::Model::GPOScripts;
+package EBox::Users::Model::GPOScripts;
 
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
-use EBox::Samba::Types::SmbFile;
+use EBox::Users::Types::SmbFile;
 use EBox::Exceptions::Internal;
 
 # Method: _table
@@ -53,7 +53,7 @@ sub _table
             optional       => 1,
             hiddenOnSetter => 0,
             hiddenOnViewer => 0),
-        new EBox::Samba::Types::SmbFile(
+        new EBox::Users::Types::SmbFile(
             fieldName      => 'script',
             printableName  => __('File'),
             unique         => 1,

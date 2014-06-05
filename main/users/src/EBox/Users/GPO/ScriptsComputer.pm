@@ -16,33 +16,32 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Composite::GPO;
-
-use base qw (EBox::Model::Composite);
-
-use EBox::Gettext;
-
-# Group: Protected methods
-
-# Method: _description
 #
-# Overrides:
+# Class: EBox::Users::GPO::ScriptsComputer
 #
-#   <EBox::Model::Composite::_description>
-#
-sub _description
+package EBox::Users::GPO::ScriptsComputer;
+
+use base 'EBox::Users::GPO::Scripts';
+
+sub _scope
 {
-    my $description = {
-        layout          => 'top-bottom',
-        name            => 'GPO',
-        pageTitle       => __('Group Policy Editor'),
-        compositeDomain => 'Samba',
-        help            => __('Here you can edit the Group Policy Object, ' .
-                              'which can be linked to a Site, Domain, or ' .
-                              'Organizational Unit in the Active Directory')
-    };
+    my ($self) = @_;
 
-    return $description;
+    return 'MACHINE';
+}
+
+sub toolExtensionGUID
+{
+    my ($self) = @_;
+
+    return '{40B6664F-4972-11D1-A7CA-0000F87571E3}';
+}
+
+sub clientSideExtensionGUID
+{
+    my ($self) = @_;
+
+    return '{42B5FAAE-6536-11D2-AE5A-0000F87571E3}';
 }
 
 1;

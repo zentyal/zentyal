@@ -17,18 +17,18 @@ use strict;
 use warnings;
 
 #
-# Class: EBox::Samba::GPO::Scripts
+# Class: EBox::Users::GPO::Scripts
 #
 #   This is the base class for GPO: Scripts Extension Encoding, documented
 #   in MS-GPOSCR (http://msdn.microsoft.com/en-us/library/cc232812.aspx)
 #
 
-package EBox::Samba::GPO::Scripts;
+package EBox::Users::GPO::Scripts;
 
-use base 'EBox::Samba::GPO::Extension';
+use base 'EBox::Users::GPO::Extension';
 
 use EBox::Gettext;
-use EBox::Samba::SmbClient;
+use EBox::Users::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Parse::RecDescent;
@@ -263,7 +263,7 @@ sub read
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
 
-    my $smb = new EBox::Samba::SmbClient(
+    my $smb = new EBox::Users::SmbClient(
         target => $host, service => 'sysvol', RID => 500);
 
     # If the gpoFilesystemPath does not exists, it means that sysvol has not
@@ -331,7 +331,7 @@ sub write
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
 
-    my $smb = new EBox::Samba::SmbClient(
+    my $smb = new EBox::Users::SmbClient(
         target => $host, service => 'sysvol', RID => 500);
 
     # Create folder hierachy if not exists

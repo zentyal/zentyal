@@ -16,10 +16,10 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOSoftware
+# Class: EBox::Users::Model::GPOSoftware
 #
 #
-package EBox::Samba::Model::GPOSoftware;
+package EBox::Users::Model::GPOSoftware;
 
 use base 'EBox::Model::DataTable';
 

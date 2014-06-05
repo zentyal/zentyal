@@ -43,6 +43,7 @@ use EBox::Users::OU;
 use EBox::Users::Container;
 use EBox::Users::Slave;
 use EBox::Users::User;
+use EBox::Users::GPO;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
@@ -1858,6 +1859,14 @@ sub menu
     $domainFolder->add(new EBox::Menu::Item(url   => 'Users/View/DomainSettings',
                                             text  => __('Settings'),
                                             order => 10));
+
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Users/View/GPOs',
+                                            text  => __('Group Policy Objects'),
+                                            order => 20));
+    $domainFolder->add(new EBox::Menu::Item(url   => 'Users/Tree/GPOLinks',
+                                            text  => __('Group Policy Links'),
+                                            order => 30));
+
     $root->add($domainFolder);
 
 
@@ -2923,6 +2932,35 @@ sub dMD
     my $dn = "CN=Schema,CN=Configuration," . $self->ldb()->dn();
     return new EBox::Users::DMD(dn => $dn);
 }
+
+# Method: gpos
+#
+#   Returns the Domain GPOs
+#
+# Returns:
+#
+#   Array ref containing instances of EBox::Users::GPO
+#
+sub gpos
+{
+    my ($self) = @_;
+
+    my $gpos = [];
+    my $defaultNC = $self->ldb->dn();
+    my $params = {
+        base => "CN=Policies,CN=System,$defaultNC",
+        scope => 'one',
+        filter => '(objectClass=GroupPolicyContainer)',
+        attrs => ['*']
+    };
+    my $result = $self->ldb->search($params);
+    foreach my $entry ($result->entries()) {
+        push (@{$gpos}, new EBox::Users::GPO(entry => $entry));
+    }
+
+    return $gpos;
+}
+
 
 sub _cleanModulesForReprovision
 {

@@ -420,7 +420,6 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
-        #my $group = new EBox::Samba::Group(entry => $entry);
         my $group = new EBox::Users::Group(entry => $entry);
         push (@{$list}, $group);
     }
@@ -434,7 +433,7 @@ sub groups
 #
 # Returns:
 #
-#    array - holding the groups as EBox::Samba::Group objects
+#    array - holding the groups as EBox::Users::Group objects
 #
 sub securityGroups
 {

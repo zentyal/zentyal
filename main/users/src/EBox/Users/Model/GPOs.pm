@@ -16,9 +16,9 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Model::GPOs;
+package EBox::Users::Model::GPOs;
 
-# Class: EBox::Samba::Model::GPOs
+# Class: EBox::Users::Model::GPOs
 #
 #     Manage the GPOs from Samba LDB. The changes are applied
 #     inmmediately.
@@ -34,8 +34,8 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::Samba::GPO;
-use EBox::Samba::GPOIdMapper;
+use EBox::Users::GPO;
+use EBox::Users::GPOIdMapper;
 
 # Method: _table
 #
@@ -91,7 +91,7 @@ sub ids
         return [];
     }
 
-    my @list = map { EBox::Samba::GPOIdMapper::dnToId($_->dn()) } @{$samba->gpos()};
+    my @list = map { EBox::Users::GPOIdMapper::dnToId($_->dn()) } @{$samba->gpos()};
 
     return \@list;
 }
@@ -105,9 +105,9 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $dn = EBox::Samba::GPOIdMapper::idToDn($id);
+    my $dn = EBox::Users::GPOIdMapper::idToDn($id);
 
-    my $gpo = new EBox::Samba::GPO(dn => $dn);
+    my $gpo = new EBox::Users::GPO(dn => $dn);
     if ($gpo->exists()) {
         my $displayName = $gpo->get('displayName');
         my $status = $gpo->status();
@@ -130,10 +130,10 @@ sub row
 sub _populateStatus
 {
     my $status = [];
-    push (@{$status}, {value => EBox::Samba::GPO::STATUS_ENABLED, printableValue => __('Enabled')});
-    push (@{$status}, {value => EBox::Samba::GPO::STATUS_USER_CONF_DISABLED, printableValue => __('User configuration disabled')});
-    push (@{$status}, {value => EBox::Samba::GPO::STATUS_COMPUTER_CONF_DISABLED, printableValue => __('Computer configuration disabled')});
-    push (@{$status}, {value => EBox::Samba::GPO::STATUS_ALL_DISABLED, printableValue => __('All settings disabled')});
+    push (@{$status}, {value => EBox::Users::GPO::STATUS_ENABLED, printableValue => __('Enabled')});
+    push (@{$status}, {value => EBox::Users::GPO::STATUS_USER_CONF_DISABLED, printableValue => __('User configuration disabled')});
+    push (@{$status}, {value => EBox::Users::GPO::STATUS_COMPUTER_CONF_DISABLED, printableValue => __('Computer configuration disabled')});
+    push (@{$status}, {value => EBox::Users::GPO::STATUS_ALL_DISABLED, printableValue => __('All settings disabled')});
     return $status;
 }
 
@@ -153,11 +153,11 @@ sub addTypedRow
     my $name = $params_r->{name}->value();
     my $status = $params_r->{status}->value();
 
-    my $gpo = EBox::Samba::GPO->create($name, $status);
+    my $gpo = EBox::Users::GPO->create($name, $status);
     $self->setMessage(__('GPO successfully created'));
 
     # Return the ID of the added row
-    return EBox::Samba::GPOIdMapper::dnToId($gpo->dn());
+    return EBox::Users::GPOIdMapper::dnToId($gpo->dn());
 }
 
 sub removeRow
@@ -180,8 +180,8 @@ sub removeRow
                 x => $row->id()));
     }
 
-    my $dn = EBox::Samba::GPOIdMapper::idToDn($id);
-    my $gpo = new EBox::Samba::GPO(dn => $dn);
+    my $dn = EBox::Users::GPOIdMapper::idToDn($id);
+    my $gpo = new EBox::Users::GPO(dn => $dn);
     my $gpoName = $gpo->get('displayName');
     $gpo->deleteObject();
 
@@ -192,8 +192,8 @@ sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    my $dn = EBox::Samba::GPOIdMapper::idToDn($id);
-    my $gpo = new EBox::Samba::GPO(dn => $dn);
+    my $dn = EBox::Users::GPOIdMapper::idToDn($id);
+    my $gpo = new EBox::Users::GPO(dn => $dn);
     unless ($gpo->exists()) {
         throw EBox::Exceptions::External(__x('GPO {dn} not found', dn => $dn));
     }
@@ -226,8 +226,8 @@ sub _checkRowExist
 {
     my ($self, $id) = @_;
 
-    my $dn = EBox::Samba::GPOIdMapper::idToDn($id);
-    my $gpo = new EBox::Samba::GPO(dn => $dn);
+    my $dn = EBox::Users::GPOIdMapper::idToDn($id);
+    my $gpo = new EBox::Users::GPO(dn => $dn);
     return $gpo->exists();
 }
 

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::SmbClient;
+package EBox::Users::SmbClient;
 use base 'Samba::Smb';
 
 use EBox::Exceptions::Internal;

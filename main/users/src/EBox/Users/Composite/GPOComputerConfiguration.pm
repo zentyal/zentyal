@@ -16,27 +16,33 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOSoftwareUser
-#
-#
-package EBox::Samba::Model::GPOSoftwareUser;
+package EBox::Users::Composite::GPOComputerConfiguration;
 
-use base 'EBox::Samba::Model::GPOSoftware';
+use base qw (EBox::Model::Composite);
 
-# Method: _table
+use EBox::Gettext;
+
+# Group: Protected methods
+
+# Method: _description
 #
 # Overrides:
 #
-#   <EBox::Model::DataTable::_table>
+#   <EBox::Model::Composite::_description>
 #
-sub _table
+sub _description
 {
-    my ($self) = @_;
+    my $description = {
+        layout          => 'tabbed',
+        name            => 'GPOComputerConfiguration',
+        headTitle       => __('Computer Configuration'),
+        compositeDomain => 'Samba',
+        help            => __('Here you can set policies that are applied to ' .
+                              'computers, regardless of who logs on to the ' .
+                              'computers.')
+    };
 
-    my $dataTable = $self->SUPER::_table();
-    $dataTable->{tableName} = 'GPOSoftwareUser';
-
-    return $dataTable;
+    return $description;
 }
 
 1;

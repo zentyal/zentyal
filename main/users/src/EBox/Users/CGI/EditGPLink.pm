@@ -16,18 +16,18 @@
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::EditGPLink;
+package EBox::Users::CGI::EditGPLink;
 
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use EBox::Samba::GPO;
+use EBox::Users::GPO;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/samba/editgplink.mas', @_);
+    my $self = $class->SUPER::new('template' => '/users/editgplink.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -64,14 +64,14 @@ sub _process
         $enforced = $self->param('enforced') ? 1 : 0;
         $linkEnabled = $self->param('linkEnabled') ? 1 : 0;
 
-        my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+        my $gpo = new EBox::Users::GPO(dn => $gpoDN);
         unless ($gpo->exists()) {
             throw EBox::Exceptions::Internal("GPO $gpoDN does not exists");
         }
         $gpo->editLink($containerDN, $linkIndex, $linkEnabled, $enforced);
 
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = '/Samba/Tree/GPOLinks';
+        $self->{json}->{redirect} = '/Users/Tree/GPOLinks';
     }
 }
 

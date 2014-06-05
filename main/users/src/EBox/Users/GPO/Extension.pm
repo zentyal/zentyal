@@ -17,11 +17,11 @@ use strict;
 use warnings;
 
 #
-# Class: EBox::Samba::GPO::Extension
+# Class: EBox::Users::GPO::Extension
 #
 #   This is the base class for GPO Extensions to the GPO core protocol
 #
-package EBox::Samba::GPO::Extension;
+package EBox::Users::GPO::Extension;
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -35,7 +35,7 @@ sub new
     unless ($params{dn}) {
         throw EBox::Exceptions::MissingArgument('GPO DN');
     }
-    my $gpo = new EBox::Samba::GPO(dn => $params{dn});
+    my $gpo = new EBox::Users::GPO(dn => $params{dn});
     unless ($gpo->exists()) {
         throw EBox::Exceptions::Internal(__x('GPO {x} not found.',
             x => $params{dn}));

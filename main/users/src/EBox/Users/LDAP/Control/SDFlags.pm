@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::LDAP::Control::SDFlags;
+package EBox::Users::LDAP::Control::SDFlags;
 
 use Net::LDAP::Control;
 use Convert::ASN1;
@@ -24,7 +24,7 @@ use Convert::ASN1;
 use base 'Net::LDAP::Control';
 
 BEGIN {
-    EBox::Samba::LDAP::Control::SDFlags->register('1.2.840.113556.1.4.801');
+    EBox::Users::LDAP::Control::SDFlags->register('1.2.840.113556.1.4.801');
 };
 
 sub init

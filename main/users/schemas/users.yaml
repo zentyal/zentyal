@@ -21,10 +21,24 @@ models:
     - Slaves
     - Master
     - SlavePassword
+    - GPOs
+    - GPOSoftwareComputer
+    - GPOSoftwareUser
+    - GPOScriptsStartup
+    - GPOScriptsShutdown
+    - GPOScriptsLogin
+    - GPOScriptsLogoff
+    - GPOLinks
 
 composites:
     Settings: [LdapInfo, PAM]
     Sync: [Master, SlavePassword, Slaves]
     UserTemplate: []
+    GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
+    GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
+    GPO: [GPOComputerConfiguration, GPOUserConfiguration]
+
+foreign:
+    GPOs: [GPO]
 
 # NOTE: UserTemplate composite components are dynamic in componentNames()

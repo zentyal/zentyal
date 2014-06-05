@@ -16,19 +16,19 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::GPO
+# Class: EBox::Users::GPO
 #
-package EBox::Samba::GPO;
+package EBox::Users::GPO;
 
 use base 'EBox::Users::LdapObject';
 
 use EBox::Gettext;
 use EBox::Sudo;
-use EBox::Samba::SmbClient;
+use EBox::Users::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
-use EBox::Samba::LDAP::Control::SDFlags;
+use EBox::Users::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
 use Parse::RecDescent;
@@ -190,7 +190,7 @@ sub deleteObject
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
 
-    my $smb = new EBox::Samba::SmbClient(
+    my $smb = new EBox::Users::SmbClient(
         target => $host, service => 'sysvol', RID => 500);
 
     # TODO: Remove all links to this GPO in the domain
@@ -261,7 +261,7 @@ sub ntSecurityDescriptor
 {
     my ($self) = @_;
 
-    my $control = new EBox::Samba::LDAP::Control::SDFlags(
+    my $control = new EBox::Users::LDAP::Control::SDFlags(
         flags => (SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL),
         critical => 1);
     unless ($control->valid()) {
@@ -393,14 +393,14 @@ sub create
 
     # At this point, we can instantiate the created GPO. If anything goes
     # wrong after, we can delete the object from LDAP
-    my $createdGPO = new EBox::Samba::GPO(dn => $gpoDN);
+    my $createdGPO = new EBox::Users::GPO(dn => $gpoDN);
 
     # Create the GPT in the sysvol share
     try {
         my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
         $gptContent = encode('UTF-8', $gptContent);
 
-        my $smb = new EBox::Samba::SmbClient(
+        my $smb = new EBox::Users::SmbClient(
             target => $host, service => 'sysvol', RID => 500);
 
         my $path = "\\$dnsDomain\\Policies\\$gpoName";
@@ -479,7 +479,7 @@ sub extensionUpdate
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
 
-    my $smb = new EBox::Samba::SmbClient(
+    my $smb = new EBox::Users::SmbClient(
         target => $host, service => 'sysvol', RID => 500);
 
     # Read version number in the GPT.INI and increment it

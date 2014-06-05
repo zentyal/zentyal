@@ -16,9 +16,9 @@
 use strict;
 use warnings;
 
-package EBox::Samba::GPOIdMapper;
+package EBox::Users::GPOIdMapper;
 
-# Package: EBox::Samba::GPOIdMapper
+# Package: EBox::Users::GPOIdMapper
 #
 #    GPO identifier mapper from DN to a valid HTML identifier and vice
 #    versa.

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Model::GPOLinks;
+package EBox::Users::Model::GPOLinks;
 
 use base 'EBox::Model::TreeView';
 
@@ -159,12 +159,12 @@ sub _gpLinks
             my ($gpoDN, $gpLinkOptions) = split (/;/, $link);
             $gpoDN =~ s/ldap:\/\///ig;
             # Query GPO name
-            my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+            my $gpo = new EBox::Users::GPO(dn => $gpoDN);
             next unless ($gpo->exists());
 
             my $gpoDisplayName = $gpo->get('displayName');
-            my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED());
-            my $linkEnabled = not ($gpLinkOptions & EBox::Samba::GPO::LINK_DISABLED());
+            my $enforced = ($gpLinkOptions & EBox::Users::GPO::LINK_ENFORCED());
+            my $linkEnabled = not ($gpLinkOptions & EBox::Users::GPO::LINK_DISABLED());
             push (@{$gpLinks}, { metadata => { containerDN => $dn,
                                                linkIndex => $index,
                                                gpoDisplayName => $gpoDisplayName,

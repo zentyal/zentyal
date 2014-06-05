@@ -16,18 +16,18 @@
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::DeleteGPLink;
+package EBox::Users::CGI::DeleteGPLink;
 
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use EBox::Samba::GPO;
+use EBox::Users::GPO;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/samba/delgplink.mas', @_);
+    my $self = $class->SUPER::new('template' => '/users/delgplink.mas', @_);
     bless ($self, $class);
     return $self;
 }
@@ -52,13 +52,13 @@ sub _process
 
     if ($self->param('del')) {
         $self->{json} = { success => 0 };
-        my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+        my $gpo = new EBox::Users::GPO(dn => $gpoDN);
         unless ($gpo->exists()) {
             throw EBox::Exceptions::Internal("GPO $gpoDN does not exists");
         }
         $gpo->unlink($containerDN, $linkIndex);
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = '/Samba/Tree/GPOLinks';
+        $self->{json}->{redirect} = '/Users/Tree/GPOLinks';
     }
 }
 

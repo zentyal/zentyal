@@ -153,7 +153,7 @@ sub removeGroup
 #
 # Returns:
 #
-#   array ref of EBox::Samba::Group objects
+#   array ref of EBox::Users::Group objects
 #
 sub groups
 {

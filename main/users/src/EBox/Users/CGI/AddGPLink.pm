@@ -16,18 +16,18 @@
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::AddGPLink;
+package EBox::Users::CGI::AddGPLink;
 
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use EBox::Samba::GPO;
+use EBox::Users::GPO;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/samba/addgplink.mas', @_);
+    my $self = $class->SUPER::new('template' => '/users/addgplink.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -39,8 +39,8 @@ sub _process
     $self->_requireParam('dn', 'Container DN');
     my $containerDN = $self->unsafeParam('dn');
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $gpos = $sambaMod->gpos();
+    my $usersMod = EBox::Global->modInstance('users');
+    my $gpos = $usersMod->gpos();
 
     my $params = [];
     push (@{$params}, dn => $containerDN);
@@ -54,14 +54,14 @@ sub _process
         my $linkEnabled = $self->param('linkEnabled') ? 1 : 0;
         my $enforced = $self->param('enforced') ? 1 : 0;
 
-        my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+        my $gpo = new EBox::Users::GPO(dn => $gpoDN);
         unless ($gpo->exists()) {
             throw EBox::Exceptions::Internal("GPO $gpoDN does not exists");
         }
         $gpo->link($containerDN, $linkEnabled, $enforced);
 
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = '/Samba/Tree/GPOLinks';
+        $self->{json}->{redirect} = '/Users/Tree/GPOLinks';
     }
 }
 

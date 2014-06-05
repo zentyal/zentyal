@@ -110,7 +110,7 @@ sub userCorner
 # Method: _updateSambaPassword
 #
 #   Here we changed the user password in the samba database if it is
-#   installed. We cannot use the EBox::Samba::User class because it
+#   installed. We cannot use the EBox::Users::User class because it
 #   connects to samba LDAP using the privileged LDAP socket, and user
 #   corner must not connect using it for security reasons.
 #

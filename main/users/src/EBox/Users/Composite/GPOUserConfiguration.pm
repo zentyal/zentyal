@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Composite::GPOUserConfiguration;
+package EBox::Users::Composite::GPOUserConfiguration;
 
 use base qw (EBox::Model::Composite);
 

@@ -16,27 +16,32 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOSoftwareComputer
 #
+# Class: EBox::Users::GPO::ScriptsUser
 #
-package EBox::Samba::Model::GPOSoftwareComputer;
+package EBox::Users::GPO::ScriptsUser;
 
-use base 'EBox::Samba::Model::GPOSoftware';
+use base 'EBox::Users::GPO::Scripts';
 
-# Method: _table
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::_table>
-#
-sub _table
+sub _scope
 {
     my ($self) = @_;
 
-    my $dataTable = $self->SUPER::_table();
-    $dataTable->{tableName} = 'GPOSoftwareComputer';
+    return 'USER';
+}
 
-    return $dataTable;
+sub toolExtensionGUID
+{
+    my ($self) = @_;
+
+    return '{40B66650-4972-11D1-A7CA-0000F87571E3}';
+}
+
+sub clientSideExtensionGUID
+{
+    my ($self) = @_;
+
+    return '{42B5FAAE-6536-11D2-AE5A-0000F87571E3}';
 }
 
 1;
