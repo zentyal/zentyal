@@ -196,7 +196,7 @@ sub _table
         tableName          => 'DomainSettings',
         pageTitle          => __('Domain'),
         printableTableName => __('Settings'),
-        modelDomain        => 'Samba',
+        modelDomain        => 'Users',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHead,
         confirmationDialog => { submit => \&confirmReprovision },
