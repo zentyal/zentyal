@@ -96,20 +96,12 @@ sub _daemons
     my ($self) = @_;
 
     my @daemons = ();
-    push (@daemons, {
+    push @daemons, {
         'name' => 'ipsec',
         'type' => 'init.d',
         'pidfiles' => ['/var/run/pluto/pluto.pid'],
-    });
-
-    foreach my $tunnel (@{ $self->tunnels() }) {
-        if ($tunnel->{type} eq 'l2tp') {
-            push (@daemons, {
-                'name' => "zentyal-xl2tpd." . $tunnel->{name},
-                'type' => 'upstart',
-            });
-        }
-    }
+    };
+    push @daemons, @{ $self->model('Connections')->l2tpDaemons()};
 
     return \@daemons;
 }
@@ -260,7 +252,7 @@ sub _setXL2TPDConf
     # Clean all upstart and configuration files, the current ones will be regenerated
     EBox::Sudo::silentRoot(
         "rm -rf /etc/init/zentyal-xl2tpd.*.conf",
-        "rm -rf /etc/ppp/zentyal-options.xl2tpd.*",
+        "rm -rf /etc/ppp/zentyal-xl2tpd.*",
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
 
@@ -281,25 +273,25 @@ sub _setXL2TPDConf
         mode => '644',
     };
 
-    foreach my $tunnel (@{ $self->tunnels() }) {
+    foreach my $tunnel (@{ $self->model('Connections')->l2tpDaemons() }) {
         my @params = ();
-        if ($tunnel->{'type'} eq 'l2tp') {
-            if ($validationGroup) {
-                push (@params, group => "$workgroup\\\\$validationGroup");
-                push (@params, chap => 0);
-            } else {
-                push (@params, group => undef);
-                push (@params, chap => 1);
-            }
-            push (@params, tunnel => $tunnel);
 
-            $self->writeConfFile(
-                "/etc/xl2tpd/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
-            $self->writeConfFile(
-                "/etc/ppp/zentyal-options.xl2tpd.$tunnel->{name}", "ipsec/options.xl2tpd.mas", \@params, $permissions);
-            $self->writeConfFile(
-                "/etc/init/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+        if ($validationGroup) {
+            push (@params, group => "$workgroup\\\\$validationGroup");
+            push (@params, chap => 0);
+        } else {
+            push (@params, group => undef);
+            push (@params, chap => 1);
         }
+        push (@params, tunnel => $tunnel);
+
+        $self->writeConfFile(
+            "/etc/xl2tpd/$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
+        $self->writeConfFile(
+            "/etc/ppp/$tunnel->{name}.options", "ipsec/options.xl2tpd.mas", \@params, $permissions);
+        $self->writeConfFile(
+            "/etc/init/$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+
     }
 }
 

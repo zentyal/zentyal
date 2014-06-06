@@ -34,12 +34,13 @@ use Net::IP;
 
 sub tunnels
 {
-    my ($self) = @_;
+    my ($self, $includeDisabled) = @_;
 
     my $network = $self->global()->modInstance('network');
     my @tunnels;
+    my $rowIds = $includeDisabled ? $self->ids() : $self->enabledRows();
 
-    foreach my $id (@{$self->enabledRows()}) {
+    foreach my $id (@{$rowIds}) {
         my $row = $self->row($id);
         my $conf = $row->elementByName('configuration')->foreignModelInstance();
         my $type = $row->valueByName('type');
@@ -114,6 +115,7 @@ sub tunnels
                 );
             }
         }
+        $settings{'enabled'} = $row->valueByName('enabled');
         $settings{'name'} = $row->valueByName('name');
         $settings{'type'} = $type;
         $settings{'comment'} =  $row->valueByName('comment');
@@ -122,6 +124,26 @@ sub tunnels
     }
 
     return \@tunnels;
+}
+
+sub l2tpDaemons
+{
+    my ($self) = @_;
+    my @daemons = map {
+        my $tunnel = $_;
+        if ($tunnel->{type} ne 'l2tp') {
+            ()
+        } else {
+            $tunnel->{name} = 'zentyal-xl2tpd.' . $tunnel->{name};
+            $tunnel->{type} = 'upstart';
+            $tunnel->{precondition} = sub {
+                return $tunnel->{enabled};
+            };
+            ($tunnel)
+        }
+    } @{ $self->tunnels(1) };
+
+    return \@daemons;
 }
 
 # Group: Private methods
