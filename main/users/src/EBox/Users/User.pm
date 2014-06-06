@@ -224,7 +224,7 @@ sub deleteObject
     # TODO Remove this user from shares ACLs
 
     # Remove from SSSd cache
-    EBox::Sudo::root("sss_cache -u '$samAccountName'");
+    EBox::Sudo::rootWithoutException("sss_cache -u '$samAccountName'");
 
     # Call super implementation
     $self->SUPER::deleteObject(@params);
