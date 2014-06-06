@@ -1,4 +1,4 @@
-HEAD
+3.4.4
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Added noMultipleOUSupportComponent support
