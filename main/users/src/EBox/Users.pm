@@ -1484,7 +1484,7 @@ sub securityGroups
     return [] if (not $self->isEnabled());
 
     my %args = (
-        base => $self->ldap->dn()
+        base => $self->ldap->dn(),
         filter => '(&(objectclass=group)(objectclass=posixAccount))',
         scope => 'sub',
     );
