@@ -167,6 +167,26 @@ sub get
     }
 }
 
+# Method: hasValue
+#
+#   Check if a value is defined on a multi-value attribute
+#
+#   Parameters:
+#
+#       attribute - Attribute name to read
+#       value     - Value to check for existence
+#
+sub hasValue
+{
+    my ($self, $attr, $value) = @_;
+
+    foreach my $val ($self->get($attr)) {
+        return 1 if ($val eq $value);
+    }
+
+    return 0;
+}
+
 # Method: set
 #
 #   Set an user attribute.

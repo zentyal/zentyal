@@ -1,4 +1,5 @@
 3.5
+	+ Added EBox::Users::User::hasValue to check if a certain value is present
 	+ Do not duplicate cloud ops when REST call fails
 	+ Use samba instead of slapd + heimdal
 	+ Create a container CN=Groups when provisioning as DC
