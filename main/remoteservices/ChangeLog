@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Save HAProxy module when adding/removing CA for SSL validation
 	+ Allow subscription when firewall has been enabled a second time
 	  but changes has not been saved
