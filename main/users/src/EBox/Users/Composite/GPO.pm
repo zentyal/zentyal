@@ -36,7 +36,7 @@ sub _description
         layout          => 'top-bottom',
         name            => 'GPO',
         pageTitle       => __('Group Policy Editor'),
-        compositeDomain => 'Samba',
+        compositeDomain => 'Users',
         help            => __('Here you can edit the Group Policy Object, ' .
                               'which can be linked to a Site, Domain, or ' .
                               'Organizational Unit in the Active Directory')

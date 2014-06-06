@@ -30,7 +30,7 @@ sub _tree
 
     return {
         treeName => 'GPOLinks',
-        modelDomain => 'Samba',
+        modelDomain => 'Users',
         pageTitle => __('Group Policy Links'),
         defaultActions => [ 'add', 'delete' ],
         #TODO help =>  __(''),

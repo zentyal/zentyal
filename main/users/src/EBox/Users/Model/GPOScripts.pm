@@ -87,7 +87,7 @@ sub _table
         whithoutActions     => 0,
         tableDescription    => $tableDesc,
         sortedBy            => 'type',
-        modelDomain         => 'Samba',
+        modelDomain         => 'Users',
     };
 
     return $dataTable;

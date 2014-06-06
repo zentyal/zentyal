@@ -35,7 +35,7 @@ sub _description
     my $description = {
         layout          => 'tabbed',
         name            => 'GPOUserConfiguration',
-        compositeDomain => 'Samba',
+        compositeDomain => 'Users',
         headTitle       => __('User Configuration'),
         help            => __('Here you can set the policies that apply to ' .
                               'users, regardless of which computer they log ' .

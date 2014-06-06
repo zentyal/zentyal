@@ -60,8 +60,8 @@ sub _table
                                  printableName => __('GPO Editor'),
                                  foreignModel => 'samba/GPO',
                                  foreignModelIsComposite => 1,
-                                 view => '/Samba/Composite/GPO',
-                                 backView => '/Samba/View/GPOs')
+                                 view => '/Users/Composite/GPO',
+                                 backView => '/Users/View/GPOs')
     ];
 
     my $dataTable = {
@@ -71,7 +71,7 @@ sub _table
         tableDescription    => $tableDesc,
         printableRowName    => __('group policy object'),
         sortedBy            => 'name',
-        modelDomain         => 'Samba',
+        modelDomain         => 'Users',
     };
 
     return $dataTable;

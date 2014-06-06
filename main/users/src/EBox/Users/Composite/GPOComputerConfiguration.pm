@@ -36,7 +36,7 @@ sub _description
         layout          => 'tabbed',
         name            => 'GPOComputerConfiguration',
         headTitle       => __('Computer Configuration'),
-        compositeDomain => 'Samba',
+        compositeDomain => 'Users',
         help            => __('Here you can set policies that are applied to ' .
                               'computers, regardless of who logs on to the ' .
                               'computers.')

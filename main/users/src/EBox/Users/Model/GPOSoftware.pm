@@ -64,7 +64,7 @@ sub _table
         printableRowName    => __('software package'),
         sortedBy            => 'name',
         withoutActions      => 0,
-        modelDomain         => 'Samba',
+        modelDomain         => 'Users',
     };
 
     return $dataTable;
