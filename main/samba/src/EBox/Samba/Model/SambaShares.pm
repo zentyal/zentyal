@@ -426,9 +426,9 @@ sub _guestAccountEnabled
 {
     my ($self) = @_;
 
-    my $domainSid = $self->parentModule->ldb->domainSID();
+    my $domainSid = EBox::Global->modInstance('users')->ldb->domainSID();
     my $domainGuestSid = "$domainSid-501";
-    my $user = new EBox::Samba::User(sid => $domainGuestSid);
+    my $user = new EBox::Users::User(sid => $domainGuestSid);
     return $user->isAccountEnabled();
 }
 
