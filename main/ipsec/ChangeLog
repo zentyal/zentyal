@@ -1,4 +1,5 @@
 HEAD
+	+ Better management of l2tp daemons
 	+ Added validation for IPs in L2TP configuration
 3.2.1
 	+ Added precondition check for existing 'external' interface.
