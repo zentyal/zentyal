@@ -66,6 +66,7 @@ use TryCatch::Lite;
 use Net::LDAP::Control::Sort;
 use File::Copy;
 use File::Slurp;
+use File::Basename;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
@@ -95,6 +96,7 @@ use constant AD_COMPUTERSDN => 'cn=Computers';
 use constant STANDALONE_MODE      => 'master';
 use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
+use constant BACKUP_USERS_FILE    => 'userlist.bak';
 
 use constant DEFAULTGROUP   => 'Domain Users';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
@@ -2028,6 +2030,13 @@ sub dumpConfig
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
+        # Export the list of users to a file. On restore this list will be
+        # loaded to check no users exists in /etc/passwd with same name as
+        # any user backed up
+        my $users = $self->users();
+        my @users = map { $_->get('samAccountName') } @{$users};
+        File::Slurp::write_file($dir . '/' . BACKUP_USERS_FILE, join("\n", @users));
+
         # Remove previous backup files
         my $ldbBakFiles = EBox::Sudo::root("find $privateDir -name '*.ldb.bak'");
         my $tdbBakFiles = EBox::Sudo::root("find $privateDir -name '*.tdb.bak'");
@@ -2142,12 +2151,18 @@ sub restoreBackupPreCheck
         return;
     }
 
-    my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
-
-    my @usersToRestore = @{ $self->ldap->usersInBackup($dir) };
-    foreach my $user (@usersToRestore) {
-        if (exists $etcPasswdUsers{$user}) {
-            throw EBox::Exceptions::External(__x('Cannot restore because LDAP user {user} already exists as /etc/passwd user. Delete or rename this user and try again', user => $user));
+    my $userListFile = $dir . '/' . BACKUP_USERS_FILE;
+    if (EBox::Sudo::fileTest('-f', $userListFile)) {
+        my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
+        my @usersToRestore = File::Slurp::read_file($userListFile);
+        foreach my $user (@usersToRestore) {
+            chomp $user;
+            if (exists $etcPasswdUsers{$user}) {
+                throw EBox::Exceptions::External(
+                    __x('Cannot restore because LDAP user {user} already ' .
+                        'exists as /etc/passwd user. Delete or rename this ' .
+                        'user and try again', user => $user));
+            }
         }
     }
 }

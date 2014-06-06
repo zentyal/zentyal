@@ -22,8 +22,6 @@ models:
     - Master
     - SlavePassword
     - GPOs
-    - GPOSoftwareComputer
-    - GPOSoftwareUser
     - GPOScriptsStartup
     - GPOScriptsShutdown
     - GPOScriptsLogin
