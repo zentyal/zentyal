@@ -354,21 +354,5 @@ sub _fetchSecondaryNS
     return $nsTwo;
 }
 
-sub checkConfigurationIsComplete
-{
-    my ($self) = @_;
-    my @fields = @{ $self->table()->{tableDescription} };
-    foreach my $field (@fields) {
-        if ($field->optional()) {
-            next;
-        }
-        if (not $self->value($field->fieldName())) {
-            throw EBox::Exceptions::External(
-                __x('Configuration no complete, {field} not set',
-                     field => $field->printableName()
-                    )
-               );
-        }
-    }
-}
+
 1;
