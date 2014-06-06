@@ -111,6 +111,15 @@ sub initialSetup
     }
 }
 
+# Method: setupLDAP
+#
+# Overrides: <EBox::Module::LDAP::setupLDAP>
+#
+sub setupLDAP
+{
+    EBox::Sudo::root('/usr/share/zentyal-jabber/jabber-ldap update');
+}
+
 sub _services
 {
     return [
@@ -135,9 +144,6 @@ sub enableActions
 {
     my ($self) = @_;
     $self->checkUsersMode();
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
 }
 
 #  Method: _daemons
