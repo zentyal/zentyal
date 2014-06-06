@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Changed validation of setDHCPAddress, setRealPPPIface and
 	  DHCPCleanUp to allow pseudoterminal interfaces, this is needed for l2tp
 	+ Allow network proxy which is listening on localhost
