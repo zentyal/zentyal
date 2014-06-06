@@ -66,10 +66,11 @@ sub validateTypedRow
             );
         }
 
-        my $ownId = exists $changedFields->{id} ? $changedFields->{id} : '';
+        my $parentId = $self->parentRow()->id();
+        my $rangeId = exists $changedFields->{id} ? $changedFields->{id} : '';
         my $dir = $self->directory();
         try {
-            $self->parentModule()->model('Connections')->l2tpCheckDuplicateIPRange($ownId, $from, $to);
+            $self->parentModule()->model('Connections')->l2tpCheckDuplicateIPRange($parentId, $rangeId, $from, $to);
         } finally {
             $self->setDirectory($dir);
         };
@@ -233,8 +234,14 @@ sub viewCustomizer
 
 sub rangeOverlaps
 {
-    my ($self, $range) = @_;
+    my ($self, $range, $skipId) = @_;
+    $skipId or $skipId = '';
+
     foreach my $id (@{ $self->ids() }) {
+        if ($id eq $skipId) {
+            next;
+        }
+
         my $row = $self->row($id);
         my $rowRange = new Net::IP($row->valueByName('from') . '-' . $row->valueByName('to'));
         if (not $rowRange) {

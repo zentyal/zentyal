@@ -319,58 +319,81 @@ sub preconditionFailMsg
 sub l2tpCheckDuplicateLocalIP
 {
     my ($self, $ownId, $tunnelIP) = @_;
-    if (not defined $ownId) {
-        $ownId = '';
-    }
-
-    foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-        if ($row->valueByName('type') ne 'l2tp') {
-            next;
-        } elsif ($row->id() eq $ownId) {
-            next;
-        }
-
-        my $configuration = $row->elementByName('configuration')->foreignModelInstance();
-        my $settings      = $configuration->componentByName('SettingsL2TP', 1);
-        if ($tunnelIP eq $settings->value('local_ip')) {
-            throw EBox::Exceptions::External(
-                __x('Tunnel IP {ip} is already in use by connection {name}',
-                    ip   => $settings->value('local_ip'),
-                    name => $row->valueByName('name'))
-               );
-        }
-    }
+    $self->_checkDuplicates($ownId, tunnelIP => $tunnelIP);
 }
 
 sub l2tpCheckDuplicateIPRange
 {
-    my ($self, $ownId, $from, $to) = @_;
-    if (not defined $ownId) {
-        $ownId = '';
-    }
+    my ($self, $ownId, $rangeId, $from, $to) = @_;
+    $self->_checkDuplicates($ownId, range => "$from - $to", rangeOwnId => $rangeId);
+}
 
-    my $range = new Net::IP("$from-$to");
-    foreach my $id (@{ $self->ids() }) {
-        if ($id eq $ownId) {
-            next;
-        }
+sub _checkDuplicates
+{
+  my ($self, $ownId, %args) = @_;
+  my $range;
+  if ($args{tunnelIP}) {
+      $range = new Net::IP($args{tunnelIP});
+  } elsif ($args{range}) {
+      $range = new Net::IP($args{range});
+  } else {
+      throw EBox::Exceptions::MissingArgument('tunnel or range');
+  }
 
-        my $row = $self->row($id);
-        if ($row->valueByName('type') ne 'l2tp') {
-            next;
-        }
-        my $configuration = $row->elementByName('configuration')->foreignModelInstance();
-        my $rangeTable    = $configuration->componentByName('RangeTable', 1);
-        if ($rangeTable->rangeOverlaps($range)) {
-            throw EBox::Exceptions::External(
-                __x('Range {from}-{to} is already in use by connection {name}',
-                    from => $from,
-                    to   => $to,
-                    name => $row->valueByName('name'))
-               );
-        }
-    }
+  if (not defined $ownId) {
+      $ownId = '';
+  }
+
+  foreach my $id (@{ $self->ids() }) {
+      my $row = $self->row($id);
+      if ($row->valueByName('type') ne 'l2tp') {
+          next;
+      }
+
+      my $configuration = $row->elementByName('configuration')->foreignModelInstance();
+
+      my $settings      = $configuration->componentByName('SettingsL2TP', 1);
+      my $localIP    =   $settings->value('local_ip');
+      if ($range->overlaps( Net::IP->new($localIP))) {
+          if ($args{tunnelIP} and ($id ne $ownId)) {
+              throw EBox::Exceptions::External(
+                  __x('Tunnel IP {ip} is already in use by connection {name}',
+                      ip   => $localIP,
+                      name => $row->valueByName('name'))
+                 );
+          } elsif ($args{range}) {
+              throw EBox::Exceptions::External(
+                  __x('The range overlaps with tunnel IP {ip} used  by connection {name}',
+                      ip   => $localIP,
+                      name => $row->valueByName('name'))
+                 );
+          }
+      }
+
+      my $rangeTableOwnId = '';
+      if ($args{range} and ($id eq $ownId)) {
+          $rangeTableOwnId = $args{rangeOwnId};
+      }
+      my $rangeTable    = $configuration->componentByName('RangeTable', 1);
+      if ($rangeTable->rangeOverlaps($range, $rangeTableOwnId)) {
+          if ($args{tunnelIP}) {
+              throw EBox::Exceptions::External(
+                  __x('Tunnel IP {ip} is already in use by range in connection {name}',
+                      ip => $args{tunnelIP},
+                      name => $row->valueByName('name'))
+                 );
+          } elsif ($args{range}) {
+              throw EBox::Exceptions::External(
+                  __x('Range {range} is already in use by connection {name}',
+                      range => $args{range},
+                      name => $row->valueByName('name'))
+                 );
+          } else {
+              die "Should not be reached";
+          }
+
+      }
+  }
 }
 
 1;
