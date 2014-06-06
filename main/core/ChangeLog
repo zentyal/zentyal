@@ -1,4 +1,4 @@
-HEAD
+3.4.4
 	+ Enhanced Lock to have exclusive lock with blocking timeout
 	+ Added redirection on no parameters support to CGIs
 	+ Added and used in save changes process the method Zentyal.reloadTable
