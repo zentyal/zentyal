@@ -140,8 +140,8 @@ sub _process
                 }
             }
 
-            $user->set('givenname', $givenName, 1);
-            $user->set('sn', $surname, 1);
+            $user->set('givenname', $givenName, 1) if ($givenName);
+            $user->set('sn', $surname, 1) if ($surname);
             $user->setDisabled($disabled);
 
             # Change password if not empty
