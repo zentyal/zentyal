@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-05-28 20:57+0200\n"
-"Last-Translator: downas <jpkk69@gmail.com>\n"
+"PO-Revision-Date: 2014-06-03 12:20+0200\n"
+"Last-Translator: NSilva <filipovik@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -43,15 +43,14 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Esta configuração Zentyal-para-Zentyal não é válida. (Não é possível "
-"descompactar)"
+"Este pacote Zentyal-para-Zentyal não é válido. (Não é possível descompactar)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Esta configuração Zentyal-para-Zentyal não é válida. (Não foi encontrado o "
+"Este pacote Zentyal-para-Zentyal não é válida. (Não foi encontrado o "
 "ficheiro de configuração do servidor)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
@@ -59,7 +58,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Esta configuração Zentyal-para-Zentyal não é válida. (Não foi encontrado o "
+"Este pacote Zentyal-para-Zentyal não é válido. (Não foi encontrado o "
 "certificado CA)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
@@ -67,7 +66,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Esta configuração Zentyal-para-Zentyal não é válida. (Não foi encontrado o "
+"Este pacote Zentyal-para-Zentyal não é válido. (Não foi encontrado o "
 "certificado)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
@@ -75,18 +74,18 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Esta configuração Zentyal-para-Zentyal não é válida. (Não foi encontrado o "
+"Este pacote Zentyal-para-Zentyal não é válido. (Não foi encontrado o "
 "certificado da chave privada)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "O certificado CA não existe {p}"
+msgstr "O ficheiro do certificado CA não existe {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "O certificado de cliente não existe {p}"
+msgstr "O ficheiro do certificado de cliente não existe {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
@@ -95,22 +94,23 @@ msgstr "A chave privada não existe {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "O certificado de CA fornecido não é válido"
+msgstr "O ficheiro do certificado de CA fornecido não é válido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "O certificado de cliente fornecido não é válido"
+msgstr "O ficheiro fornecido como certificado de cliente não é válido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "A chave privada de cliente não é válida"
+msgstr "O ficheiro fornecido como chave privada de cliente não é válido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
-"O certificado de cliente fornecido não é compatível com o certificado CA"
+"O ficheiro fornecido como certificado de cliente não corresponde com o "
+"ficheiro do certificado CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
@@ -233,11 +233,11 @@ msgstr "Parado"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
 msgid "Daemon status"
-msgstr "Estado da rotina"
+msgstr "Estado do serviço"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr "Objectivo da ligação"
+msgstr "Destino da ligação"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
@@ -253,7 +253,7 @@ msgstr "Inactivo"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr "O porto {p}/{pro} já se encontra em uso"
+msgstr "A porta {p}/{pro} já está em uso"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
@@ -281,8 +281,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
-"Não é possível obter chave do servidor {name} porque não tem certificado "
-"atribuído"
+"Não é possível obter a chave do servidor {name} porque não tem um "
+"certificado atribuído"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
 #, perl-brace-format
@@ -290,8 +290,8 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
-"O servido VPN {name} não pode ser configurado, não foi encontrado qualquer "
-"endereço IP para o interface {iface}"
+"O servido VPN {name} não pode ser configurado, não foi encontrado o endereço "
+"IP para o interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
@@ -313,7 +313,7 @@ msgstr "Todos os interfaces externos"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 msgid "Not found"
-msgstr "Não foi encontrado"
+msgstr "Não encontrado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
@@ -360,11 +360,11 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar} Você pode adicionar aqui as redes que você deseja disponibilizar "
-"para os clientes que se conectarem com esta VPN.{closepar}{openpar} "
-"Tipicamente, você vai permitir acesso á sua LAN anunciando este endereço de "
-"rede aqui. {closepar}{openpar}Se um endereço de rede anunciado for o mesmo "
-"do endereço de rede da VPN, a rede anunciada será ignorada.{closepar}"
+"{openpar} Pode adicionar aqui as redes que deseja disponibilizar para os "
+"clientes que se conectarem a esta VPN.{closepar}{openpar} Tipicamente, vai "
+"permitir acesso á sua LAN anunciando este endereço de rede. "
+"{closepar}{openpar}Se um endereço de rede anunciado for o mesmo do endereço "
+"de rede da VPN, a rede anunciada será ignorada.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -447,9 +447,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Necessita de um certificado CA válido para utilizar o servidor VPN."
-"{closepar}{openpar} Vá ao {openhref} módulo de autoridade de certificação"
-"{closehref} e renove-o."
+"{openpar}Necessita de um certificado CA válido para correr o servidor "
+"VPN.{closepar}{openpar} Vá ao módulo {openhref} de autoridade de "
+"certificação{closehref} e renove-o."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -458,8 +458,8 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Necessita de criar um certificado CA para usar o servidor VPN."
-"{closepar}{openpar}Vá para o {openhref}módulo módulo de autoridade de "
+"{openpar}Necessita de criar um certificado CA para usar o servidor "
+"VPN.{closepar}{openpar}Vá ao  {openhref}módulo de autoridade de "
 "certificação{closehref} e crie-o."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
@@ -484,7 +484,7 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
-"{act} não é possível porque não existem certificados disponíveis, vá para o "
+"{act} não é possível porque não existem certificados disponíveis, vá ao "
 "módulo de autoridade de certificados e emita novos certificados."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
@@ -607,7 +607,7 @@ msgstr "Programa de instalação para Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 msgid "Connection strategy"
-msgstr "Estratégia da ligação"
+msgstr "Estratégia de ligação"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -627,7 +627,7 @@ msgstr "Endereço de servidor adicional (opcional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr "Endereço de servidor adicional (opcional)"
+msgstr "Segundo endereço de servidor adicional (opcional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -731,9 +731,9 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
-"Se estiver desligado qualquer cliente com um certificado gerado pela Zentyal "
-"pode ligar-se. Quando activo só certificados em que o nome comum começa com "
-"o valor definido podem ligar-se"
+"Se desactivado, qualquer cliente com um certificado gerado pelo Zentyal "
+"pode-se ligar. Quando activo só certificados em que o nome comum começa com "
+"o valor definido podem ligar-se."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
@@ -741,7 +741,7 @@ msgstr "Tradução de Endereços de Rede (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Activar se o servidor VPN não é usado como gateway por defeito."
+msgstr "Activar se o servidor VPN não é usado como o gateway por defeito."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -765,13 +765,13 @@ msgstr "Palavra-passe do túnel Zentyal para Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr "Rejeitar rotas pedidas pelos clientes de túnel Zentyal"
+msgstr "Rejeitar rotas submetidas pelos clientes do túnel Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
-"Quando selecionado este servidor não terá qualquer rota solicitada pelo seu "
+"Quando selecionado este servidor não tomará qualquer rota anunciada pelo seu "
 "cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
@@ -828,22 +828,22 @@ msgstr "Outro servidor já está a usar o endereço VPN, escolha outro"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr "Outro servidor está a escutar o mesmo porta"
+msgstr "Outro servidor está a escutar a mesma porta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr "a porta {p}/{pr} já está a ser usada por {mod}"
+msgstr "A porta {p}/{pr} já está a ser usada por {mod}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr "A interface {iface} não exite"
+msgstr "A interface {iface} não existe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr "A interface {iface} não está configurado"
+msgstr "A interface {iface} não está configurada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
@@ -883,7 +883,7 @@ msgstr "{par} não é compatível com túnel Zentyal-a-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
-msgstr "Lista das redes publicadas ao servidor de túnel"
+msgstr "Lista das redes publicadas para o servidor de túnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
@@ -1367,7 +1367,6 @@ msgid "There is a DHCP range that includes the given IP address."
 msgstr "Existe uma área no DHCP que inclui o endereço IP indicado."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
 msgstr "Endereço IP Flutuante"
 
@@ -1582,6 +1581,7 @@ msgstr "Sem erros"
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 msgstr ""
+"\"{initialCommandPart} nome_do_recurso {node} nome_do_nó_onde_está_o_recurso\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:158
 #, perl-brace-format
@@ -1891,6 +1891,9 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"Ultima actualização da regra provocou a paragem do serviço IDS/IPS. "
+"Verificque o {log} para os detalhes da alteração da regra, em {url} ({name} "
+"rules)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:70
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
@@ -1955,6 +1958,8 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} deve ser uma directoria para a raíz dos documentos do cliente virtual. "
+"Por favor, mova-a ou remova-a"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:940
 msgid "Web server data"
@@ -2290,6 +2295,8 @@ msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"O servidor enviará primeiro inquéritos aos encarregados, e se não respondido "
+"tentará responder ele mesmo."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
 msgid "forwarder"
@@ -2486,6 +2493,11 @@ msgid ""
 "record. Moreover, the same IP addresses have been assigned to this new "
 "domain. You can always rename it or create alias for it."
 msgstr ""
+"Dominio adicionado. O nome do cliente {nshost} foi adicionado a este "
+"dominio, com estes endereços IP {ips}, este nome de cliente foi também "
+"definido como registo de servidor de nomes. Adicionalmente, o mesmo endereço "
+"IP foi assignado a este novo dominio. Pode sempre renomar ou criar um aliás "
+"para ele."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:535
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
@@ -2541,6 +2553,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Aqui pode adicionar dominios para este servidor de DNS. Cada dominio deve "
+"ter nomes diferentes com aliases (registos A e CNAME) e outros registos "
+"especiais (MX, NS, TXT, e SRV)."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
 #, perl-brace-format
@@ -2577,9 +2592,8 @@ msgid "If you select the Domain, then you are choosing the zone"
 msgstr "Se selecionar o domínio, está a escolher a zona"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
-#, fuzzy
 msgid "Custom owner"
-msgstr "Consulta personalizada"
+msgstr "Proprietário personalizado"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
@@ -2630,6 +2644,8 @@ msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
+"Esta é uma lista de aliases de nomes de anfitriões. Todos eles serão "
+"resolvidos para a lista de endereços IP do anfitrião."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:85
 #, perl-brace-format
@@ -2755,7 +2771,6 @@ msgid "user"
 msgstr "utilizador"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:59
-#, fuzzy
 msgid "User quota set"
 msgstr "Quota de utilizador definida"
 
@@ -3060,6 +3075,8 @@ msgstr "Não existem utilizadores ligados"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:191
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
+"Um portal cativo deve ser activado para se poder visualizar a lista de "
+"utilizadores actuais."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:277
 #, perl-brace-format
@@ -3081,7 +3098,7 @@ msgstr "DN Bind"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:70
 #, perl-brace-format
 msgid "Bind DN pattern. {x} will be replaced with the username"
-msgstr ""
+msgstr "Vinculação de padrão DN. {x} será substituído pelo nome de utilizador"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:81
 msgid "Secondary LDAP"
@@ -3197,6 +3214,8 @@ msgstr "Ativar lista partilhada"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:173
 msgid "Populate users contact list with the other system users."
 msgstr ""
+"Povoar a lista de contactos do utilizador com os outros utilizadores do "
+"sistema."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 msgid "General configuration settings"
@@ -3212,6 +3231,9 @@ msgid ""
 "servers to send messages to your users, make sure they can resolve the same "
 "domain."
 msgstr ""
+"Certifique-se que os clientes conseguem resolver o dominio do Jabber. Se "
+"pretende que outros servidores enviem mensagens para os seus utilizadores, "
+"certifique-se que conseguem resolver o mesmo dominio."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:211
 msgid "Domain change confirmation"
@@ -3429,12 +3451,12 @@ msgid "Here you can define the access control list for your printers."
 msgstr "Aqui pode definir a lista de controlo de acessos para as impressoras."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"Antes de configurar impressoras necessita de activar o módulo na secção "
+"Antes de configurar ACLs para as impressoras necessita de activar o módulo "
 "{openref}Estado do Módulo{closeref} e gravar as alterações"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:229
@@ -3710,15 +3732,15 @@ msgid "Value for subject alternative of type {type}"
 msgstr "Valor para assunto alternativo do tipo {type}"
 
 #: ../../main/ca/src/EBox/CA.pm:2549
-#, fuzzy
 msgid "Subject alternative type"
-msgstr "Tipo do assunto alternativo"
+msgstr "Categoria de assunto alternativo"
 
 #: ../../main/ca/src/EBox/CA.pm:2551
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
-"Apenas {dns}, {ip} e {email} são nome válidos para alernativas de assunto "
+"Apenas {dns}, {ip} e {email} são alternativas de assunto válidas para "
+"categorias de nomes"
 
 #: ../../main/ca/src/EBox/CA.pm:2595
 #, perl-brace-format
@@ -3982,18 +4004,21 @@ msgid ""
 "The port where the UPS is connected to (UPS on serial ports cannot be "
 "autodected)"
 msgstr ""
+"A porta onde a UPS está conectada (UPS nas portas de série não podem ser "
+"auto-detectadas)"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:112
 msgid "The UPS serial number, used to distingish between USB units"
 msgstr ""
+"O número de série da UPS será utilizado para a distinguir das unidades USB"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:126
 msgid "Attached UPSs"
-msgstr ""
+msgstr "UPS's ligadas"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:131
 msgid "List of locally attached UPS."
-msgstr ""
+msgstr "Lista das UPS's ligadas localmente."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:147
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:193
@@ -4001,6 +4026,8 @@ msgid ""
 "The UPS service is not running. Ensure that changes are saved and the module "
 "enabled."
 msgstr ""
+"O serviço UPS não está a correr. Garanta que as alterações estão gravadas e "
+"o módulo activo."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:155
 msgid "Variable"
@@ -4014,7 +4041,7 @@ msgstr "Valor"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:165
 msgid "UPS Variables"
-msgstr ""
+msgstr "Variáveis UPS"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:170
 msgid "variable"
@@ -4034,9 +4061,13 @@ msgid ""
 "monitoring port connected will be the server and the rest of them will be "
 "the clients."
 msgstr ""
+"O modo standalone endereça uma configuração apenas local, com uma UPS a "
+"proteger o sistema local. Se pretende proteger mais do que um servidor, terá "
+"que configurar modos servidor/cliete. A caixa Zentyal que possui a porta de "
+"monitorização da UPS ligada será o servidor e as restantes serão os "
+"clientes."
 
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:64
-#, fuzzy
 msgid "Standalone"
 msgstr "Servidor único"
 
@@ -4052,9 +4083,10 @@ msgid ""
 "Setting {s} successfully updated. It may take some seconds to reflect the "
 "change."
 msgstr ""
+"Configuração {s} actualizada com sucesso. Poderá demorar alguns segundos "
+"para que as alterações tenham efeito."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:201
-#, fuzzy
 msgid "Setting"
 msgstr "Definições"
 
@@ -4063,9 +4095,8 @@ msgid "UPS Settings"
 msgstr "Definições UPS"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:222
-#, fuzzy
 msgid "setting"
-msgstr "Definições"
+msgstr "definição"
 
 #: ../../main/nut/src/EBox/NUT.pm:47 ../../main/core/src/EBox/SysInfo.pm:135
 #: ../../main/core/src/EBox/Logs.pm:702 ../../main/core/src/EBox/Events.pm:137
@@ -4074,9 +4105,8 @@ msgid "Maintenance"
 msgstr "Manutenção"
 
 #: ../../main/nut/src/EBox/NUT.pm:70
-#, fuzzy
 msgid "To configure the NUT daemon mode."
-msgstr "Para configurar a música quando em espera"
+msgstr "Para configurar o modo do serviço NUT."
 
 #: ../../main/nut/src/EBox/NUT.pm:73
 msgid "To configure the UPS's drivers."
@@ -4087,9 +4117,8 @@ msgid "To configure the NUT daemon"
 msgstr "Para configurar os clientes RADIUS"
 
 #: ../../main/nut/src/EBox/NUT.pm:79
-#, fuzzy
 msgid "To configure the authorized NUT daemon users"
-msgstr "Para configurar os utilizadores cumuns SIP e IAX"
+msgstr "Para configurar os utilizadores autenticados pelo serviço NUT"
 
 #: ../../main/nut/src/EBox/NUT.pm:82
 msgid "To configure the NUT client"
@@ -4117,19 +4146,16 @@ msgid "Client address"
 msgstr "Endereço do cliente"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:307
-#, fuzzy
 msgid "External recv"
 msgstr "Interface externo"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:308
-#, fuzzy
 msgid "External sent"
 msgstr "Envio externo"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:309
-#, fuzzy
 msgid "Internal recv"
-msgstr "Interno"
+msgstr "Interface interno"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:310
 msgid "Internal sent"
@@ -4162,25 +4188,29 @@ msgstr "Utilização de largura de banda na última hora"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "There is no data to show yet, the values are updated every 10 minutes"
 msgstr ""
+"Não existem ainda dados para exibir, os valores serão actualizados a cada 10 "
+"minutos"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:91
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "Utilização de largura de banda para cada cliente conectado."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:106
 msgid "Bandwidth Monitor must be enabled in order to get data."
-msgstr ""
+msgstr "Monitor de largura de banda deve estar activado para obter dados."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:114
 msgid ""
 "Bandwidth Monitor is not configured to monitor any interface. You can enable "
 "interfaces in the 'Configure interfaces' tab"
 msgstr ""
+"O monitor de largura de banda não está configurada para nenhum interface. "
+"Não pode activar interfaces no separador 'Configurar interfaces'"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:147
 #, perl-brace-format
 msgid "Error when extracting usage data: {err}"
-msgstr ""
+msgstr "Erro ao extrair dados de utilização: {err}"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:211

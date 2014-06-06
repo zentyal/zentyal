@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2014-05-29 14:24+0200\n"
+"PO-Revision-Date: 2014-06-05 16:34+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -7441,6 +7441,10 @@ msgid ""
 "stored in a safe remote location and can be easily restored in case of a "
 "disaster? Get one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+"Szeretné biztosítani, hogy üzletileg kritikus adatai és rendszerbeállításai "
+"biztonságos, távoli helyen legyenek tárolva, és egyszerűen visszaállíthatók "
+"legyenek katasztrófa esetén? Szerezze be az egyik {oh}kereskedelmi "
+"változatot{ch}!"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
 msgid "Allow remote access to Zentyal support"
@@ -7564,38 +7568,37 @@ msgstr "Szolgáltatásiszint-megállapodás"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:155
 #, perl-brace-format
 msgid "{oh}On-line Support Platform{ch}"
-msgstr ""
+msgstr "{oh}Online támogatási platform{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:158
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:163
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}"
 msgstr ""
+"{os}{oh}Online támogatási platform{ch}, csevegés és kérésre telefonos "
+"támogatás{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:168
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat, Phone{cs}"
 msgstr ""
+"{os}{oh}Online támogatási platform{ch}, csevegés, telefonos támogatás{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
-#, fuzzy
 msgid "2 Business Days"
-msgstr "Kisvállalati"
+msgstr "2 munkanap"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
-#, fuzzy
 msgid "1 Business Day"
-msgstr "Kisvállalati"
+msgstr "1 munkanap"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:179
-#, fuzzy
 msgid "4 hours"
-msgstr "óra"
+msgstr "4 óra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:180
-#, fuzzy
 msgid "1 hour"
-msgstr "óra"
+msgstr "1 óra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:198
 #, perl-brace-format
@@ -7605,6 +7608,11 @@ msgid ""
 "it fully supported for an {oh}affordable monthly fee{ch} through your local "
 "Authorized Partner."
 msgstr ""
+"A Zentyal egy teljes felszereltségű Linux szerver, amelyet ingyenesen "
+"használhat felhőalapú szolgáltatások, technikai támogatás vagy "
+"minőségbiztosított frissítések nélkül, vagy beszerezhet hozzá teljes "
+"támogatást is {oh}megfizethető havi díjért{ch} a helyi felhatalmazott "
+"partneren keresztül."
 
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:118
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:131
@@ -7621,9 +7629,8 @@ msgid "Professional"
 msgstr "Professzionális"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:101
-#, fuzzy
 msgid "Business"
-msgstr "Kisvállalati"
+msgstr "Vállalati"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Enterprise Trial"
@@ -7697,19 +7704,16 @@ msgstr ""
 "{path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
-#, fuzzy
 msgid "Standard 2 days"
-msgstr "Standard"
+msgstr "Standard 2 nap"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1944
-#, fuzzy
 msgid "Standard 1 day"
-msgstr "Standard"
+msgstr "Standard 1 nap"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1945
-#, fuzzy
 msgid "Standard 4 hours"
-msgstr "Standard"
+msgstr "Standard 4 óra"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1953
 #, perl-brace-format
@@ -7724,12 +7728,12 @@ msgstr "– Utolsó biztonsági mentés a beállításokról: {date}"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1969
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
-msgstr ""
+msgstr "Nincs regisztrálva – {oh}Regisztráljon most{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1972
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
-msgstr ""
+msgstr "Nincs – {oh}Regisztráljon ingyenesen{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1978
 msgid "Connection status"
@@ -7779,7 +7783,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2514
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
-msgstr ""
+msgstr "Ez a Zentyal Server {edition} kiadása."
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:301
@@ -7822,12 +7826,11 @@ msgstr "bridge"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:128
 msgid "bond"
-msgstr ""
+msgstr "bond"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:139
-#, fuzzy
 msgid "bonding mode"
-msgstr "Mód beállítása"
+msgstr "bond mód"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:166
 msgid ""
@@ -8059,6 +8062,10 @@ msgid ""
 "or get one of the {oh}Commercial Editions{ch} to obtain zentyal.me subdomain "
 "for your server."
 msgstr ""
+"Itt beállíthatja a dinamikus DNS szolgáltatóját. Ha szervere már "
+"regisztrálva van, akkor a szolgáltatója a Zentyal. {ohf}Regisztrálja "
+"szerverét ingyenesen{ch}, vagy szerezze be az egyik {oh}kereskedelmi "
+"változatot{ch} a zentyal.me altartomány beszerzéséhez a szerveréhez."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:163
 msgid "Auto"
@@ -8189,9 +8196,8 @@ msgid "Test type"
 msgstr "Teszttípus"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
-msgstr "Egyéni IP-cím"
+msgstr "Gép IP-címe"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:99
 msgid "Number of probes"
@@ -8651,9 +8657,8 @@ msgid "Objects"
 msgstr "Objektumok"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
-#, fuzzy
 msgid "network object"
-msgstr "Hálózati objektum"
+msgstr "hálózati objektum"
 
 #: ../../main/objects/src/EBox/Objects.pm:178
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:117
@@ -8736,7 +8741,7 @@ msgstr "A(z) {ip} fedi a címet, vagy másik objektum tagját"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:93
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:119
 msgid "Traffic Shaping"
-msgstr "Forgalomszűrés"
+msgstr "Forgalomszabályozás"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:121
 msgid "Add iptables rules to mangle table"
@@ -8875,6 +8880,8 @@ msgid ""
 "Changing rules interface is not supported. Remove the rule and add another "
 "for the desired interface"
 msgstr ""
+"A szabályhoz tartozó csatoló módosítása nem támogatott. Távolítsa el a "
+"szabályt, és vegyen fel egy másikat a kívánt csatolóhoz."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:130
 msgid "Guaranteed rate"
@@ -9197,9 +9204,8 @@ msgid "To configure Roundcube webmail."
 msgstr "A Roundcube webmail beállítása."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:319
-#, fuzzy
 msgid "To customize PHP for the webmail."
-msgstr "A hangposta beállítása."
+msgstr "A PHP testreszabása a webmailhez."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:324
 msgid "To configure managesieve Roundcube webmail plugin."
@@ -9391,9 +9397,10 @@ msgstr ""
 "címet tartalmaz: {fixedIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
-msgstr "A(z) {from}-{to} tartomány tartalmazza az alagút IP-címet: {localIP}"
+msgstr ""
+"A(z) {from}-{to} tartomány tartalmazza a HA lebegő IP-címét: „{name}” – {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:176
@@ -9944,7 +9951,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:31
 msgid "Upgrade to Zentyal 3.4"
-msgstr ""
+msgstr "Frissítés a Zentyal 3.4-re"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -10012,9 +10019,8 @@ msgid "Revoking changes"
 msgstr "Változtatások visszavonása"
 
 #: ../../main/core/src/EBox/RESTClient.pm:399
-#, fuzzy
 msgid "User and password do not match."
-msgstr "Az új jelszavak nem egyeznek."
+msgstr "A felhasználó és jelszó nem egyeznek."
 
 #: ../../main/core/src/EBox/WebAdmin.pm:65
 msgid "Zentyal Webadmin"
@@ -10266,14 +10272,14 @@ msgid "Show technical details"
 msgstr "Technikai részletek megjelenítése"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:121
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are some software packages which are not correctly installed: {pack}."
-msgstr "A következő szoftvercsomagok nincsenek megfelelően telepítve: {pack}"
+msgstr "A következő szoftvercsomagok nincsenek megfelelően telepítve: {pack}."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:123
 msgid "You should reinstall them and retry your operation."
-msgstr ""
+msgstr "Telepítse újra ezeket, és próbálja újra a műveletet."
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:130
 msgid "Report the problem"
@@ -10303,7 +10309,6 @@ msgid "Email (you will receive updates on the report)"
 msgstr "E-mail cím (értesítéseket fog kapni a hibajelentésről)"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:133
-#, fuzzy
 msgid "Describe in English what you were doing"
 msgstr "Írja le angolul, hogy mit csinált"
 
@@ -10322,9 +10327,8 @@ msgid "To do a manual report, please follow these instructions:"
 msgstr "A kézi hibajelentéshez kövesse az alábbi utasításokat:"
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:141
-#, fuzzy
 msgid "Create a new ticket in the Zentyal bug tracker by clicking "
-msgstr "Új hibajegy létrehozásához a Zentyal tracen kattintson "
+msgstr "Új hibajegy létrehozásához a Zentyal hibakövetőn kattintson "
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:143
 #: ../../main/core/src/EBox/View/StackTrace.pm:147
@@ -10416,6 +10420,9 @@ msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
 msgstr ""
+"Vegye figyelembe, hogy a módosítások mentésének megkezdése után saját "
+"kezűleg kell módosítania az URL-t a webes adminisztrációs felület ismételt "
+"megjelenítéséhez."
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:104
 msgid "Administration interface TCP port"
@@ -10432,7 +10439,7 @@ msgstr "Az oldal nem található"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
-msgstr ""
+msgstr "Törött csomagok vannak telepítve, javítsa ezeket a frissítés előtt"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:61
 msgid "No updates"
@@ -10441,6 +10448,7 @@ msgstr "Nincs frissítés"
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:65
 msgid "Nevertheless some packages require a reboot to be applied"
 msgstr ""
+"Ezzel együtt néhány csomag frissítésének befejezéséhez újraindítás szükséges"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
 #, perl-brace-format
@@ -10460,6 +10468,8 @@ msgstr "({n} biztonsági)"
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:107
 msgid "Moreover, some upgraded packages require a reboot to take effect"
 msgstr ""
+"Ezen túl néhány frissített csomag a frissítés életbe léptetéséhez "
+"újraindítást igényel"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
@@ -10468,6 +10478,11 @@ msgid ""
 "Premium Editions: commercial Zentyal Server editions fully supported by "
 "Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
+"Figyelmeztetés: Ezek nem tesztelt közösségi frissítések, amelyek árthatnak "
+"rendszerének. Éles környezetekben a Professional, Business vagy Premium "
+"változatok használatát javasoljuk: a kereskedelmi Zentyal Server "
+"változatokat teljes mértékben támogatja a Zentyal S.L. és a "
+"Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:126
 #: ../../main/software/src/templates/updateNote.mas:11
@@ -10475,6 +10490,8 @@ msgid ""
 "Your commercial server edition guarantees that these are quality assured "
 "software updates and will be automatically applied to your system."
 msgstr ""
+"A kereskedelmi szerverváltozat garantálja, hogy ezek minőségbiztosított "
+"szoftverfrissítések, és automatikusan alkalmazásra kerülnek a rendszerén."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:45
 msgid "module name"
@@ -10783,6 +10800,11 @@ msgid ""
 "do not contain any sensible information. {oc}{obs}Submit crash report{cb} "
 "{obd}Discard{cb}{cc}"
 msgstr ""
+"Hibajelentés található! Kattintson a gombra, ha a következő fájlokat "
+"szeretné névtelenül elküldeni a probléma megoldásának elősegítéséhez: {p}. "
+"Noha a Zentyal nem fog visszaélni ezekkel az információkkal, tekintse át a "
+"fájlokat, hogy meggyőződhessen, nem tartalmaznak érzékeny adatokat. "
+"{oc}{obs}Hibajelentés beküldése{cb} {obd}Elvetés{cb}{cc}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:220
 #, perl-brace-format
@@ -10790,6 +10812,8 @@ msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
+"Szeretne távoli konfigurációmentést a Zentyal szerveréről? {oh}Állítsa be "
+"itt{ch} INGYENESEN!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:225
 #, perl-brace-format
@@ -10797,6 +10821,8 @@ msgid ""
 "Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
 "up {oh}here{ch} for FREE!"
 msgstr ""
+"Szeretne olyan altartományt használni, mint a <i>szerverem.zentyal.me</i>? "
+"{oh}Állítsa be itt{ch} INGYENESEN!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:230
 #, perl-brace-format
@@ -10804,6 +10830,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
+"Érdekli egy kereskedelmi Zentyal szerver változat? {oh}Szerezzen be{ch} egy "
+"INGYENES 30 napos próbaverziót!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:235
 #, perl-brace-format
@@ -10811,33 +10839,32 @@ msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
 "involved in the {oh}Community{ch}!"
 msgstr ""
+"Elégedett Zentyal szerver felhasználó? Szeretné támogatni a projektet? "
+"Vegyen részt a {oh}közösség{ch} munkájában!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/ConfigureWidgets.pm:30
 msgid "Configure Widgets"
 msgstr "Felületi elemek beállítása"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:203
-#, fuzzy
 msgid "Default for Non-SSL"
-msgstr "Alapértelmezett felhasználói megkülönböztető név"
+msgstr "Alapértelmezett nem SSL-hez"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:205
 msgid "Make this service the default for the non-SSL traffic"
-msgstr ""
+msgstr "Legyen ez a szolgáltatás alapértelmezett a nem SSL forgalomhoz"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:232
-#, fuzzy
 msgid "Default for SSL"
-msgstr "Alapértelmezett felhasználói megkülönböztető név"
+msgstr "Alapértelmezett SSL-hez"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:234
 msgid "Make this service the default for the SSL traffic"
-msgstr ""
+msgstr "Legyen ez a szolgáltatás alapértelmezett az SSL forgalomhoz"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:252
-#, fuzzy
 msgid "Zentyal Administration port and other reverse proxy service ports"
-msgstr "Zentyal adminisztrációs webszerver"
+msgstr "Zentyal adminisztrációs port és más fordított proxy szolgáltatásportok"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
@@ -10847,62 +10874,55 @@ msgstr "szolgáltatás"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:259
 msgid "Here you may configure the services to be served from the reverse proxy"
-msgstr ""
+msgstr "Itt beállíthatók a fordított proxyról kiszolgálandó szolgáltatások"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
-#, fuzzy
 msgid "This service does not let change the HTTP port."
-msgstr ""
-"Ez a szolgáltatás nem engedélyezi a tanúsítvány általános nevének módosítását"
+msgstr "Ez a szolgáltatás nem engedélyezi a HTTP port módosítását"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:288
-#, fuzzy
 msgid "This service does not let change the HTTPS port."
-msgstr ""
-"Ez a szolgáltatás nem engedélyezi a tanúsítvány általános nevének módosítását"
+msgstr "Ez a szolgáltatás nem engedélyezi a HTTPS port módosítását"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:298
-#, fuzzy
 msgid "This service cannot have both ports disabled."
-msgstr "A „bármely” szolgáltatásnak nem lehet inverze"
+msgstr "Ehhez a szolgáltatáshoz nem lehet mindkét portot letiltani."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:345
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
 "Certificates page{chref}"
 msgstr ""
-"Az SSL engedélyezéséhez egy virtuális szerveren előbb engedélyeznie kell a "
-"webszervert a {ohref}Szolgáltatások tanúsítványai{chref} alatt."
+"Engedélyeznie kell a(z) {module} tanúsítványát a {ohref}Szolgáltatások "
+"tanúsítványai oldalon{chref}."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:353
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
 "Services Certificates{chref}"
 msgstr ""
-"Az SSL engedélyezéséhez egy virtuális szerveren előbb engedélyeznie kell a "
-"webszervert a {ohref}Szolgáltatások tanúsítványai{chref} alatt."
+"Engedélyeznie kell a(z) {serviceName} tanúsítványt a(z) {module} "
+"használatához a {ohref}Szolgáltatások tanúsítványai{ oldalonchref}."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:365
-#, fuzzy
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr ""
-"A naplók visszaállítása érdekében telepíteni és engedélyezni kell a naplózás "
-"modult"
+"Az SSL port engedélyezéséhez telepíteni és engedélyezni kell a CA modult."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:436
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
 "or free it and retry."
 msgstr ""
-"A(z) {p} portot egy másik szolgáltatás használja. Válasszon másik portot, "
-"vagy szabadítsa ezt fel, és próbálja újra."
+"A Zentyal már be van állítva a(z) port használatára ehhez: {use}. Válasszon "
+"másik portot, vagy szabadítsa ezt fel, és próbálja újra."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:459
 msgid "Unmanaged instance of haproxy"
-msgstr ""
+msgstr "A haproxy nem menedzselt példánya"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:463
 #, perl-brace-format
@@ -10915,27 +10935,32 @@ msgstr ""
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:658
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
-msgstr ""
+msgstr "Nem használható ugyanaz a portszám a HTTP és a HTTPS forgalomhoz is."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:699
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
-msgstr "A(z) {port} portot már használja a(z) {mod} modul"
+msgstr "A(z) {port} portot már használja a(z) {row} HTTPS használatával."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:720
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
-msgstr "A(z) {port} portot már használja a(z) {mod} modul"
+msgstr ""
+"A(z) {port} portot már használja a(z) {row} alapértelmezett "
+"szolgáltatásként."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:761
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
-msgstr "A(z) {port} portot már használja a(z) {mod} modul"
+msgstr ""
+"A(z) {port} portot már használja a(z) {row} egyszerű HTTP használatával."
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:782
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
-msgstr "A(z) {port} portot már használja a(z) {mod} modul"
+msgstr ""
+"A(z) {port} portot már használja a(z) {row} alapértelmezett SSL "
+"szolgáltatásként."
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:124
 #, perl-brace-format
@@ -10997,6 +11022,11 @@ msgid ""
 "or Premium Editions{ch}: commercial Zentyal server editions fully supported "
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
+"Figyelmeztetés: Ezek nem tesztelt közösségi frissítések, amelyek árthatnak "
+"rendszerének. Éles környezetekben a {oh}Professional, Business vagy "
+"Premium{ch} változatok használatát javasoljuk: a kereskedelmi Zentyal Server "
+"változatokat teljes mértékben támogatja a Zentyal S.L. és a "
+"Canonical/Ubuntu."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:240
 msgid "Security software updates"
@@ -11389,6 +11419,9 @@ msgid ""
 "Want to know what is your system status and usage? Get one of the {oh}"
 "Commercial Editions{ch} to create regular system reports."
 msgstr ""
+"Szeretné ismerni a rendszere állapotát és kihasználtságát? Szerezze be az "
+"egyik {oh}kereskedelmi változatot{ch} rendszeres rendszerjelentések "
+"készítéséhez."
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:100
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:395
@@ -11619,6 +11652,9 @@ msgid ""
 "Want to receive an alert when something has gone wrong in your system? Get "
 "one of the {oh}Commercial Editions{ch} to enable all automatic alerts."
 msgstr ""
+"Szeretne értesítést kapni, amikor probléma lép fel a rendszerén? Szerezze be "
+"az egyik {oh}kereskedelmi változatot{ch} az összes automatikus értesítés "
+"bekapcsolásához."
 
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:114
 msgid "Administrator Account"
@@ -11942,24 +11978,22 @@ msgid "Try to back up again as the created backup is corrupted"
 msgstr "Próbálja meg újra a mentést, mert a létrejött biztonsági mentés sérült"
 
 #: ../../main/core/src/EBox/HAProxy.pm:53
-#, fuzzy
 msgid "Reverse Proxy"
-msgstr "Transzparens proxy"
+msgstr "Fordított proxy"
 
 #: ../../main/core/src/EBox/HAProxy.pm:164
 #, perl-brace-format
 msgid "Port {port} must be configured as SSL for {service}"
-msgstr ""
+msgstr "A(z) {port} számú portot SSL-ként kell beállítani ehhez: {service}"
 
 #: ../../main/core/src/EBox/HAProxy.pm:171
 #, perl-brace-format
 msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr ""
+msgstr "A(z) {port} számú portot NEM SSL-ként kell beállítani ehhez: {service}"
 
 #: ../../main/core/src/EBox/HAProxy.pm:304
-#, fuzzy
 msgid "HTTP Services"
-msgstr "Szolgáltatások"
+msgstr "HTTP szolgáltatások"
 
 #: ../../main/core/src/EBox/HAProxy.pm:393
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
@@ -12062,6 +12096,8 @@ msgid ""
 "You cannot set the width property if the composite has not a: {left_right} "
 "layout"
 msgstr ""
+"Nem állíthatja be a szélesség tulajdonságot, ha a felület nem {left_right} "
+"elrendezésű"
 
 #: ../../main/core/src/EBox/Model/TreeView.pm:268
 #: ../../main/core/src/templates/ajax/tableBody.mas:385
@@ -12153,6 +12189,7 @@ msgstr "Rendszergazdai munkamenetek"
 #: ../../main/openchange/src/EBox/Downloader/CGI/RPCCert.pm:48
 msgid "Cannot create certificate for RPC Proxy with the current configuration"
 msgstr ""
+"Nem hozható létre tanúsítvány az RPC proxyhoz a jelenlegi beállításokkal"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:53
 #, perl-brace-format
@@ -12229,11 +12266,13 @@ msgid "OpenChange account disabled"
 msgstr "OpenChange fiók kikapcsolva"
 
 #: ../../main/openchange/src/EBox/OpenChange/VDomainsLdap.pm:43
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The virtual mail domain {dom} cannot be removed because it is {oc} outgoing "
 "domain"
-msgstr "A virtuális levelezőtartomány neve nem lehet azonos a levelezőnévvel"
+msgstr ""
+"A virtuális levelezőtartomány neve ({dom}) nem távolítható el, mert az egy "
+"{oc} kimenő tartomány"
 
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:38
 msgid "OpenChange"
@@ -12242,13 +12281,15 @@ msgstr "OpenChange"
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:55
 #, perl-brace-format
 msgid "You can access the {oh}OpenChange Webmail{ch}"
-msgstr ""
+msgstr "Elérheti az {oh}OpenChange webmailt{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:60
 msgid ""
 "OpenChange webmail is enabled but you still need to complete the OpenChange "
 "module setup."
 msgstr ""
+"Az OpenChange webmail engedélyezett, de még be kell fejezni az OpenChange "
+"modul beállítását."
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:66
@@ -12256,31 +12297,29 @@ msgid "OpenChange Account"
 msgstr "OpenChange fiók"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:92
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unknown value for {control}: {x}"
-msgstr "Az msExchUserAccountControl értéke ismeretlen: {x}"
+msgstr "A(z) {control} értéke ismeretlen: {x}"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:155
 msgid "This user has a openchange account."
 msgstr "Ennek a felhasználónak van OpenChange fiókja."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:60
-#, fuzzy
 msgid "Certificate"
-msgstr "tanúsítvány"
+msgstr "Tanúsítvány"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:69
 msgid "Access without SSL"
-msgstr ""
+msgstr "Elérés SSL nélkül"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:75
 msgid "Access with SSL"
-msgstr ""
+msgstr "Elérés SSL-lel"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:83
-#, fuzzy
 msgid "HTTP/HTTPS proxy access"
-msgstr "HTTP proxy hozzáférési szabályok"
+msgstr "HTTP/HTTPS proxy elérése"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:87
 #, perl-brace-format
@@ -12288,13 +12327,15 @@ msgid ""
 "Setup access to {oc} through HTTP/HTTPS. Remember HTTPS access requires you "
 "import Zentyal certificate into your {win} account"
 msgstr ""
+"Állítsa be a(z) {oc} elérését HTTP/HTTPS-en keresztül. Ne feledje, hogy a "
+"HTTPS hozzáféréshez importálnia kell a Zentyal tanúsítványát a(z) {win} "
+"fiókjába."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:99
-#, fuzzy
 msgid "Web Server module needs to be installed and enabled to use RPC proxy"
 msgstr ""
-"A Zentyal antivirus modulnak telepítve és bekapcsolva kell lennie ezen "
-"szolgáltatás használatához"
+"A webszerver modulnak telepítve és bekapcsolva kell lennie az RPC proxy "
+"használatához"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:107
 #, perl-brace-format
@@ -12302,27 +12343,30 @@ msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
 "{ch}"
 msgstr ""
+"Nem használható az RPC proxy, mert nem található ez a gépnév a {oh}DNS "
+"modulban{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:113
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
-msgstr ""
+msgstr "Nem használható az RPC proxy, mert nem található ez a gépnév: {err}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:72
-#, fuzzy
 msgid "Outgoing Mail Domain"
-msgstr "Virtuális levelezőtartományok"
+msgstr "Kimenő levelezőtartomány"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:76
 msgid ""
 "Outgoing mail domain of emails sent from this server will be overwritten "
 "with this one."
 msgstr ""
+"A jelen szerverről küldött e-mailek kimenő levelezőtartománya felül lesz "
+"írva ezzel."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:86
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configure an {oc} server."
-msgstr "PPTP szerver beállítása."
+msgstr "{oc} szerver beállítása."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:101
 #, perl-brace-format
@@ -12330,6 +12374,8 @@ msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual domain"
 "{oc}"
 msgstr ""
+"Az OpenChange beállításához először {oh}létre kell hoznia egy virtuális "
+"levelezőtartományt{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 msgid "New One"
@@ -12340,19 +12386,16 @@ msgid "Existing One"
 msgstr "Meglévő"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:91
-#, fuzzy
 msgid "Enable OpenChange account for all existing users"
-msgstr "OpenChange fiók bekapcsolása"
+msgstr "OpenChange fiók bekapcsolása minden meglévő felhasználóhoz"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:111
-#, fuzzy
 msgid "Unconfigure"
-msgstr "beállítás"
+msgstr "Beállítás törlése"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:113
-#, fuzzy
 msgid "Database unconfigured"
-msgstr "Adatbázis beállítva"
+msgstr "Adatbázis beállításai törölve"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:119
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:132
@@ -12400,6 +12443,8 @@ msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual domain"
 "{oc}"
 msgstr ""
+"Az OpenChange létesítéséhez először {oh}létre kell hoznia egy virtuális "
+"levelezőtartományt{oc}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 msgid "Enable OpenChange account"
@@ -12420,6 +12465,8 @@ msgstr "Az automatikus feltérképezési szolgáltatás beállítása"
 #: ../../main/openchange/src/EBox/OpenChange.pm:273
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
+"Távolítsa el az RPC proxy alapértelmezett fájlját az interferencia "
+"elkerüléséhez"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:609
 msgid "MailBox Migration"
@@ -12438,14 +12485,13 @@ msgstr ""
 "A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban.<br/>"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:829
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
-msgstr "{m} modul beállításainak kiírása"
+msgstr "A(z) {dom} tartomány nincs beállítva a {oh}DNS modulban{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:841
-#, fuzzy
 msgid "System needs at least one external interface"
-msgstr "Legalább egy belső és egy külső csatoló szükséges"
+msgstr "A rendszernek legalább egy külső csatolóra van szüksége"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:870
 #, perl-brace-format
@@ -12453,15 +12499,16 @@ msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
+"Nem található egyetlen gép sem a külső IP-címeinek megfelelő {oh}{dom} DNS "
+"tartományban{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:897
-#, fuzzy
 msgid "No outgoing mail domain configured"
-msgstr "Virtuális levelezőtartományok"
+msgstr "Nincs beállítva kimenő levelezőtartomány"
 
 #: ../../main/software/src/EBox/Software.pm:59
 msgid "Software Management"
-msgstr "Szoftvermenedzsment"
+msgstr "Szoftverkezelés"
 
 #: ../../main/software/src/EBox/Software.pm:467
 msgid ""
@@ -12499,8 +12546,8 @@ msgstr "Rendszerfrissítések"
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
-"A szoftvermenedzsment jelenleg zárolva van a(z) {locker} által. Próbálja "
-"újra később."
+"A szoftverkezelés jelenleg zárolva van a(z) {locker} által. Próbálja újra "
+"később."
 
 #: ../../main/software/src/EBox/Software.pm:1063
 msgid "Installation steps"
@@ -12565,7 +12612,7 @@ msgstr "Nincsenek frissítendő csomagok"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:216
 msgid "actions done"
-msgstr "műveletek befejezve"
+msgstr "művelet befejezve"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:217
 #, perl-brace-format
@@ -12645,7 +12692,7 @@ msgstr "A kijelölt csomag és függőségeinek eltávolítása"
 
 #: ../../main/software/src/EBox/Software/CGI/Config.pm:30
 msgid "Software management settings"
-msgstr "Szoftvermenedzsment beállítások"
+msgstr "Szoftverkezelés beállításai"
 
 #: ../../main/software/src/EBox/Software/CGI/Config.pm:40
 msgid "Automatic software updates"
@@ -12694,7 +12741,7 @@ msgstr "Jelentés a tűzfal csomagforgalmáról"
 #: ../../main/firewall/src/EBox/Firewall/Model/RulesWithInterface.pm:46
 #, perl-brace-format
 msgid "{iface} (including {vifaces})"
-msgstr ""
+msgstr "{iface} (beleértve: {vifaces})"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:64
 msgid "Traffic coming out from Zentyal"
@@ -12966,9 +13013,8 @@ msgstr ""
 "csak a bejövő SSH és HTTPS kapcsolatok vannak engedélyezve."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:306
-#, fuzzy
 msgid "port redirections"
-msgstr "Jelentések beállításai"
+msgstr "portátirányítások"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:773
 msgid "Input interface"
@@ -13174,30 +13220,30 @@ msgstr ""
 "(z) {ohref}{d}tartomány gépnevei oldalon{chref} veheti fel."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:208
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for host {host}.<br/"
 ">Ensure that you have at least a IP address assigned to an interface, and "
 "this IP has to be assigned to the domain {dom} and to the hostname {host}."
 "<br/>You can add it in the {ohref}IP addresses page for {host}{chref}"
 msgstr ""
-"A Samba nem állítható be, ha nincsenek beállítva belső IP-címek a(z) {host} "
-"géphez.<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy belső "
-"csatolóhoz, és ezt az IP-t a(z) {dom} tartományhoz és {host} gépnévhez kell "
+"A Samba nem állítható be, ha nincsenek beállítva IP-címek a(z) {host} "
+"géphez.<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy csatolóhoz, és "
+"ezt az IP-t a(z) {dom} tartományhoz és {host} gépnévhez kell "
 "rendelni.<br/>Ezt a(z) {ohref}{host} IP-címei oldalon{chref} veheti fel"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:258
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/"
 ">Ensure that you have at least a IP address assigned to an interface, and "
 "this IP has to be assigned to the domain {dom} and to the local hostname.<br/"
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
-"A Samba nem állítható be, ha nincsenek beállítva belső IP-címek a(z) {dom} "
-"tartományhoz<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy belső "
+"A Samba nem állítható be, ha nincsenek beállítva IP-címek a(z) {dom} "
+"tartományhoz<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy "
 "csatolóhoz, és ezt az IP-t a(z) {dom} tartományhoz és a helyi gépnévhez kell "
-"rendelni<br/>Ezt a(z) {ohref}{dom} IP-címei oldalon{chref} társíthatja"
+"rendelni<br/>Ezt a(z) {ohref}{dom} IP-címei oldalon{chref} veheti fel"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:307
 #, perl-brace-format
@@ -13374,9 +13420,9 @@ msgstr "A Windows felhasználónevek nem tartalmazhatják a „@” karaktert."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:448
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:321
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "User name {x} already exists in the same container."
-msgstr "A felhasználónév már létezik a rendszerben"
+msgstr "A felhasználónév ({x}) már létezik ugyanabban a konténerben"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:45
 msgid "Script type"
@@ -13505,6 +13551,9 @@ msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
+"A tartományi vendég fiókot be kell kapcsolni a megosztások vendégek általi "
+"eléréséhez. Ezt a {oh}felhasználók és csoportok kezelése{ch} oldalon teheti "
+"meg."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:455
 #, perl-brace-format
@@ -13557,8 +13606,8 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
 "This is required for permissions to work properly."
 msgstr ""
-"A csatolási pontot  ({mountPoint}) a „user_xattr” beállítással kell "
-"csatolni. Ez a jogosultságok megfelelő működéséhez szükséges."
+"A csatolási pontot ({mountPoint}) a „user_xattr” beállítással kell csatolni. "
+"Ez a jogosultságok megfelelő működéséhez szükséges."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
 msgid "Sync all with Zentyal Cloud"
@@ -14012,15 +14061,14 @@ msgstr "VÉGZETES: Nem lehet csatlakozni a samba LDAP kiszolgálóhoz: {error}"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:145
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:566
-#, fuzzy
 msgid "The object is a critical system object and can not be deleted."
-msgstr "Ez egy rendszerszinten kritikus objektum és nem távolítható el."
+msgstr "Ez egy rendszerszinten kritikus objektum és nem törölhető."
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:384
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:820
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The object {x} is a critical system object and can not be deleted."
-msgstr "Ez egy rendszerszinten kritikus objektum és nem távolítható el."
+msgstr "A(z) {x} egy rendszerszinten kritikus objektum és nem törölhető."
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:930
 msgid "Sharing directory for this group"
@@ -14280,6 +14328,8 @@ msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
+"Ez a közösségi változat. Szerezze be az egyik teljesen támogatott "
+"{oh}kereskedelmi változatot{ch} az automatikus biztonsági frissítésekhez."
 
 #: ../../main/squid/src/EBox/Squid.pm:1080
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
@@ -14332,9 +14382,11 @@ msgid ""
 "Commercial Editions{ch} that will keep your Content Filtering rules always "
 "up-to-date."
 msgstr ""
+"El szeretné kerülni a rosszindulatú programok, adathalászat és botok által "
+"jelentett fenyegetéseket? Szerezze be az egyik {oh}kereskedelmi verziót{ch}, "
+"amely mindig naprakészen fogja tartani a tartalomszűrési szabályait."
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not an archive file"
 msgstr "A megadott fájl nem egy archívum"
 
@@ -14542,6 +14594,9 @@ msgid ""
 "Commercial editions{ch} that will keep your Ad blocking rules always up-to-"
 "date."
 msgstr ""
+"El szeretné távolítani a reklámokat a felhasználói által látogatott "
+"weboldalakról? Szerezze be az egyik {oh}kereskedelmi változatot{ch}, amely "
+"mindig naprakészen tartja a reklámblokkolási szabályokat."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
 msgid "Time period"
@@ -14596,6 +14651,8 @@ msgid ""
 "AD Error {error_name}: {error_desc}. If you think this error is temporary, "
 "please try again later"
 msgstr ""
+"AD hiba {error_name}: {error_desc}. Ha ez a hiba átmeneti lehet, akkor "
+"próbálja újra később"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:444
 msgid ""
@@ -14610,7 +14667,7 @@ msgid ""
 "you have group rules"
 msgstr ""
 "Nem vehet fel „Allow” vagy „Profile” szabályt egy objektumhoz vagy "
-"tetszőleges címhez, ha csoportszabályokat használ "
+"tetszőleges címhez, ha csoportszabályokat használ"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:480
 msgid ""
@@ -14732,10 +14789,11 @@ msgid "Cache Exemptions"
 msgstr "Gyorsítótár kivételek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
-#, fuzzy
 msgid ""
 "You can exempt some addresses from caching. It will include the subdomains."
-msgstr "Itt adhatók meg a gyorsítótárból kizárt címek"
+msgstr ""
+"Itt adhatók meg a gyorsítótárból kizárt címek. Ez az altartományokat is "
+"tartalmazza."
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:42
 msgid "Squid traffic requests graph"
@@ -15115,9 +15173,9 @@ msgid "Filtering settings changed"
 msgstr "A szűrés beállításai módosítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:42
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain '{domain}' could not be resolved."
-msgstr "A várt „{d}” tartomány nem található a DNS modulban."
+msgstr "A(z) „{domain}” tartomány nem oldható fel."
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 msgid "Skip Transparent Proxy"
@@ -15128,11 +15186,12 @@ msgid "Transparent Proxy Exemptions"
 msgstr "Transzparens proxy kivételek"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
-#, fuzzy
 msgid ""
 "You can exempt some addresses from transparent proxy. The domains will be "
 "resolved at saving changes process."
-msgstr "Itt adhatók meg a transzparens proxy alól kivett címek"
+msgstr ""
+"Itt adhatók meg a transzparens proxy alól kivett címek. A tartományok a "
+"módosítások mentési folyamata során kerülnek feloldásra."
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
@@ -15580,9 +15639,8 @@ msgid "To configure dovecot to authenticate against LDAP"
 msgstr "A Dovecot hitelesítésének beállítása LDAP használatához"
 
 #: ../../main/mail/src/EBox/Mail.pm:204
-#, fuzzy
 msgid "To configure dovecot to have a master password"
-msgstr "A Dovecot hitelesítésének beállítása LDAP használatához"
+msgstr "A Dovecot beállítása mesterjelszó használatához"
 
 #: ../../main/mail/src/EBox/Mail.pm:209
 msgid "To configure smart host authentication"
@@ -15770,9 +15828,9 @@ msgstr ""
 "beállítás befejezésekor"
 
 #: ../../main/mail/src/EBox/Mail.pm:1878
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {addr} is in use as external alias"
-msgstr "A címet ({ip}) már használja a(z) {iface} csatoló"
+msgstr "A címet ({addr}) már használatban van külső álnévként"
 
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:42
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:167
@@ -16696,6 +16754,10 @@ msgid ""
 "removing the {dir} content and launching this command: {cmd}.{ep}Take into "
 "account your monitor data will be lost."
 msgstr ""
+"{p}Hiba történt az RRD fájlok olvasásakor: {error}.{ep}{p}Próbálja újra, "
+"hátha már megjavult.{ep}{p}Ha nem, akkor egyszerűen megoldhatja a {dir} "
+"tartalmának törlésével, és a következő parancs futtatásával: {cmd}.{ep}Vegye "
+"figyelembe, hogy a megfigyelési adatai ekkor elvesznek."
 
 #: ../../main/monitor/src/EBox/Monitor/Configuration.pm:123
 msgid "Last hour"
@@ -16919,9 +16981,9 @@ msgstr "használt"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disk usage in {partition}"
-msgstr "használatban: {partition}"
+msgstr "Lemezhasználat itt: {partition}"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:119
 msgid "File system usage"
@@ -16936,9 +16998,8 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:126
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
-#, fuzzy
 msgid "reserved"
-msgstr "szerver"
+msgstr "fenntartott"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -17294,14 +17355,13 @@ msgid "Cannot restore to {d}: {dd} is not a directory"
 msgstr "Nem lehet visszaállítani erre: {d}: {dd} nem könyvtár"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:198
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '{cmd}' to refresh "
 "backup's information."
 msgstr ""
-"Nem találhatók biztonsági mentések. Talán törölve lettek? Adja ki az „/etc/"
-"init.d/zentyal ebackup restart” parancsot a mentési információk "
-"frissítéséhez."
+"Nem találhatók biztonsági mentések. Talán törölve lettek? Adja ki az „{cmd}” "
+"parancsot a mentési információk frissítéséhez."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:502
 msgid ""
@@ -17876,7 +17936,7 @@ msgstr ""
 
 #: ../../main/ha/src/templates/metadata.mas:14
 msgid "Leave Cluster"
-msgstr ""
+msgstr "Fürt elhagyása"
 
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
@@ -18317,9 +18377,8 @@ msgstr "Szervezeti egység hozzáadása"
 
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/editcontact.mas:20
-#, fuzzy
 msgid "Display name"
-msgstr "Súgó megjegyzések megjelenítése"
+msgstr "Megjelenő név"
 
 #: ../../main/users/src/templates/edituser.mas:58
 msgid "User quota"
@@ -18569,122 +18628,110 @@ msgid ""
 "Introduce Professional, Business or Premium credentials, or {ohb}register"
 "{ch} a FREE account!"
 msgstr ""
+"Adja meg Professional, Business vagy Premium hitelesítési adatait, vagy "
+"{ohb}regisztráljon{ch} INGYENES fiókot!"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:140
-#, fuzzy
 msgid "Register this server"
-msgstr "Szerver regisztrációja"
+msgstr "Regisztrálja ezt a szervert"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:142
-#, fuzzy
 msgid "Your Zentyal account"
-msgstr "Az Ön Zentyal szerver fiókja"
+msgstr "Az Ön Zentyal fiókja"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:145
-#, fuzzy
 msgid "Register with an existing account"
-msgstr "A(z) {ac} nem külső postafiók"
+msgstr "Regisztráció meglévő fiókkal"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:149
-#, fuzzy
 msgid "Create a Zentyal account"
-msgstr "Postafiók létrehozása"
+msgstr "Zentyal fiók létrehozása"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:159
 #: ../../main/software/src/templates/ebox.mas:268
-#, fuzzy
 msgid "Email"
 msgstr "E-mail"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:163
-#, fuzzy
 msgid "Company"
-msgstr "Komponens"
+msgstr "Cég"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:166
-#, fuzzy
 msgid "Position"
-msgstr "Feltétel"
+msgstr "Beosztás"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:168
 msgid "Senior Manager (CEO, Owner, COO...)"
-msgstr ""
+msgstr "Rangidős vezető (vezérigazgató, tulajdonos, igazgató…)"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:168
-#, fuzzy
 msgid "IT Manager"
-msgstr "Kezelés"
+msgstr "IT vezető"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:168
 msgid "Network Technician or System Administrator"
-msgstr ""
+msgstr "Hálózati szakértő vagy rendszergazda"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:174
-#, fuzzy
 msgid "Sector"
-msgstr "Szakasz"
+msgstr "Szektor"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
-#, fuzzy
 msgid "Public Administration"
-msgstr "Zentyal adminisztráció"
+msgstr "Közigazgatás"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
 msgid "Health Care"
-msgstr ""
+msgstr "Egészségügy"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
-#, fuzzy
 msgid "Education"
-msgstr "Hely"
+msgstr "Oktatás"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
-#, fuzzy
 msgid "IT"
-msgstr "K"
+msgstr "IT"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:180
-#, fuzzy
 msgid "Country"
-msgstr "Országkód"
+msgstr "Ország"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:190
-#, fuzzy
 msgid "Repeat password"
 msgstr "Jelszó megerősítése"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:193
 msgid "Required fields"
-msgstr ""
+msgstr "Kötelező mezők"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:197
 msgid ""
 "Send me the Zentyal Newsletter to receive news and exclusive promotions in "
 "my inbox"
 msgstr ""
+"Feliratkozom a Zentyal hírlevélre, hogy értesülhessek a hírekről és exkluzív "
+"promóciókról"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:202
 #, perl-brace-format
 msgid "I have read and agree to the {oh}Privacy Policy{ch}"
-msgstr ""
+msgstr "Elolvastam és elfogadom az {oh}adatvédelmi irányelveket{ch}"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:221
-#, fuzzy
 msgid "Register your Zentyal server for FREE and get these benefits"
-msgstr "Regisztrálja Zentyal szerverét"
+msgstr "Regisztrálja Zentyal szerverét INGYENESEN a következő előnyökért"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
-#, fuzzy
 msgid "Configuration <strong>backup in the cloud</strong>"
-msgstr "A beállítások biztonsági mentéseinek listája"
+msgstr "Beállítások <strong>biztonsági mentése a felhőbe</strong>"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
 msgid "<strong>zentyal.me subdomain</strong> for your server"
-msgstr ""
+msgstr "<strong>zentyal.me altartomány</strong> a szerverének"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
 msgid "And much more coming soon!"
-msgstr ""
+msgstr "Hamarosan még több!"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:19
 msgid "Choose configuration backup to restore"
@@ -18851,7 +18898,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:38
 msgid "Bonding Mode"
-msgstr ""
+msgstr "Bonding mód"
 
 #: ../../main/network/src/templates/ifaces.mas:40
 #: ../../main/network/src/templates/ifaces.mas:41
@@ -18862,9 +18909,8 @@ msgstr "Statikus"
 
 #: ../../main/network/src/templates/ifaces.mas:61
 #: ../../main/network/src/templates/ifaces.mas:62
-#, fuzzy
 msgid "Broadcast"
-msgstr "Broadcast cím"
+msgstr "Broadcast"
 
 #: ../../main/network/src/templates/ifaces.mas:88
 #: ../../main/network/src/templates/ifaces.mas:89
@@ -18879,7 +18925,7 @@ msgstr "Bridged"
 #: ../../main/network/src/templates/ifaces.mas:100
 #: ../../main/network/src/templates/ifaces.mas:101
 msgid "Bundled"
-msgstr ""
+msgstr "Bundled"
 
 #: ../../main/network/src/templates/ifaces.mas:105
 #: ../../main/network/src/templates/ifaces.mas:106
@@ -18903,9 +18949,8 @@ msgid "Bridge"
 msgstr "Bridge"
 
 #: ../../main/network/src/templates/ifaces.mas:166
-#, fuzzy
 msgid "Bonding"
-msgstr "betöltés"
+msgstr "Bonding"
 
 #: ../../main/network/src/templates/ifaces.mas:190
 msgid "VLAN List"
@@ -19018,16 +19063,15 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Test the Commercial for 30 days"
-msgstr ""
+msgstr "Próbálja ki 30 napig a kereskedelmi változatot"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Free Commercial Trial"
-msgstr ""
+msgstr "Ingyenes kereskedelmi próbaváltozat"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
-#, fuzzy
 msgid "Official Community documentation in English and Spanish."
-msgstr "Hivatalos dokumentáció angolul és spanyolul."
+msgstr "Hivatalos közösségi dokumentáció angolul és spanyolul."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Documentation"
@@ -19050,60 +19094,55 @@ msgid "Report a bug"
 msgstr "Hiba bejelentése"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:64
-#, fuzzy
 msgid "Fully supported Zentyal Server editions"
-msgstr "Nincs regisztrált Zentyal szerver"
+msgstr "Teljesen támogatott Zentyal szerverváltozatok"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:64
-#, fuzzy
 msgid "Commercial Editions"
-msgstr "Általános beállítások"
+msgstr "Kereskedelmi változatok"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:66
 #: ../../main/core/src/templates/dashboard/links-widget.mas:84
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
 msgstr ""
+"Tanulja meg az összes Zentyal alapú hálózati szolgáltatás használatát éles "
+"környezetekben."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:66
 #: ../../main/core/src/templates/dashboard/links-widget.mas:84
 msgid "Certified Training"
-msgstr ""
+msgstr "Tanúsított képzés"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
-#, fuzzy
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
-msgstr "Hivatalos dokumentáció angolul és spanyolul."
+msgstr "„Zentyal hálózati rendszergazdáknak” könyv angolul és spanyolul."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "Official Manual"
-msgstr ""
+msgstr "Hivatalos kézikönyv"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
-#, fuzzy
 msgid "Contact our Support Team"
-msgstr "Névjegy frissítve"
+msgstr "Lépjen kapcsolatba támogatói csapatunkkal"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
-#, fuzzy
 msgid "Contact Support"
-msgstr "Névjegy frissítve"
+msgstr "Terméktámogatás"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:86
 msgid "Official documentation in English and Spanish."
 msgstr "Hivatalos dokumentáció angolul és spanyolul."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:86
-#, fuzzy
 msgid "Official Documentation "
-msgstr "Dokumentáció"
+msgstr "Hivatalos dokumentáció"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:102
-#, fuzzy
 msgid "Install Zentyal Cloud Client"
-msgstr "Minden szinkronizálása a Zentyal Clouddal"
+msgstr "A Zentyal Cloud kliens telepítése"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:104
 #, perl-brace-format
@@ -19112,22 +19151,25 @@ msgid ""
 "Please open a console and execute the following command:{br}{opre}sudo apt-"
 "get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 msgstr ""
+"{op}Telepítenie kell néhány hiányzó csomagot a szervere regisztrálásához. "
+"Nyisson meg egy konzolt, és adja ki a következő parancsot: {br}{opre}sudo "
+"apt-get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:113
-#, fuzzy
 msgid "Register your server"
-msgstr "Szerver regisztrációja"
+msgstr "Regisztrálja szerverét"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:114
 msgid ""
 "Gain access to benefits such as free remote configuration backup and zentyal."
 "me subdomains!"
 msgstr ""
+"Érje el az ingyenes távoli konfigurációmentést és a zentyal.me "
+"altartományokat!"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:114
-#, fuzzy
 msgid "Register for Free!"
-msgstr "Szerver regisztrációja"
+msgstr "Regisztráljon ingyenesen!"
 
 #: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
@@ -19391,6 +19433,9 @@ msgid ""
 "on daily basis and stored automatically if any configuration changes are "
 "detected. You may check all your configuration backups {ohref}here{chref}."
 msgstr ""
+"Köszönjük, hogy regisztrálta szerverét! A konfiguráció mentése naponta kerül "
+"ellenőrzésre, és változások észlelése esetén automatikusan tárolásra kerül. "
+"Az összes konfigurációmentés {ohref}itt{chref} ellenőrizhető."
 
 #: ../../main/core/src/templates/backup.mas:16
 #, perl-brace-format
@@ -19399,6 +19444,9 @@ msgid ""
 "following benefits: Remote configuration backup, customized zentyal.me "
 "subdomain, recorded webinars, whitepapers, trials and much more coming!"
 msgstr ""
+"{ohref}Regisztrálja{chref} ingyenesen Zentyal szerverét! Ezáltal a "
+"következőket érheti el: távoli konfigurációmentés, testre szabott zentyal.me "
+"altartomány, rögzített előadások, tanulmányok, próbaverziók és még sok más!"
 
 #: ../../main/core/src/templates/backup.mas:30
 #, perl-brace-format
@@ -19746,6 +19794,7 @@ msgstr "Fiók állapota"
 #, perl-brace-format
 msgid "{oc} account could not enabled until the user has an email account"
 msgstr ""
+"A(z) {oc} fiók nem engedélyezhető amíg a felhasználónak van e-mail fiókja"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
 msgid "Migration finished!"
@@ -19839,11 +19888,12 @@ msgid "start migration"
 msgstr "migráció kezdése"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:10
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must provision the {x} module database before being able to use the "
 "migration."
-msgstr "A(z) {name} modult be kell kapcsolni a találkozók beállításához"
+msgstr ""
+"A(z) {name} modul adatbázisát létre kell hozni a migráció használatához."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:20
 msgid ""
@@ -19852,6 +19902,10 @@ msgid ""
 "exist in Zentyal and its OpenChange account to be enabled prior the process "
 "starts."
 msgstr ""
+"A jelen technológiai előnézet részeként biztosított migrációs funkciók "
+"egyszerre csak egy felhasználó migrálását teszik lehetővé. Minden "
+"migráláshoz a felhasználónak léteznie kell a Zentyalban és az OpenChange "
+"fiókjának engedélyezve kell lennie a folyamat elindítása előtt. "
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
 msgid "Select origin server"
@@ -19882,37 +19936,36 @@ msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
+"Vagy egy teljes jogosultságú felhasználóra van szükség az Exchange-ben, aki "
+"hozzáfér az összes postafiókhoz, vagy a migrálandó felhasználó hitelesítési "
+"adataira."
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
-#, fuzzy
 msgid "Origin user"
-msgstr "Eredeti felhasználónév"
+msgstr "Eredeti felhasználó"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:31
-#, fuzzy
 msgid "Origin user password"
-msgstr "Eredeti jelszó"
+msgstr "Eredeti felhasználó jelszava"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid "Credential for local server"
 msgstr "Hitelesítési adatok a helyi szerverhez"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
 msgstr ""
-"Rendszergazda profilú felhasználó és jelszó szükséges a szerver eléréséhez"
+"Szükség van azon Zentyal felhasználó nevére és jelszavára, amelyre migrálni "
+"szeretne"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
-#, fuzzy
 msgid "Zentyal user name"
-msgstr "Helyi felhasználónév"
+msgstr "Zentyal felhasználó neve"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:36
-#, fuzzy
 msgid "Zentyal user password"
-msgstr "Zentyal Cloud jelszó"
+msgstr "Zentyal felhasználó jelszava"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:33
 msgid "User name conflict"
@@ -20119,53 +20172,49 @@ msgstr "Szerver szerepei"
 #: ../../main/software/src/templates/ebox.mas:161
 #: ../../main/software/src/templates/ebox.mas:180
 #: ../../main/software/src/templates/ebox.mas:200
-#, fuzzy
 msgid "More info"
-msgstr "Szerverinformációk"
+msgstr "További információk"
 
 #: ../../main/software/src/templates/ebox.mas:160
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infrastruktúra"
 
 #: ../../main/software/src/templates/ebox.mas:179
-#, fuzzy
 msgid "Office"
-msgstr "forgalom"
+msgstr "Iroda"
 
 #: ../../main/software/src/templates/ebox.mas:199
-#, fuzzy
 msgid "Communications"
-msgstr "Általános beállítások"
+msgstr "Kommunikáció"
 
 #: ../../main/software/src/templates/ebox.mas:208
-#, fuzzy
 msgid "Zentyal Gateway features"
-msgstr "Zarafa átjárószerver"
+msgstr "Zarafa átjárófunkciók"
 
 #: ../../main/software/src/templates/ebox.mas:210
-#, fuzzy
 msgid "Transparent Caching"
-msgstr "Transzparens proxy"
+msgstr "Transzparens gyorsítótárazás"
 
 #: ../../main/software/src/templates/ebox.mas:210
-#, fuzzy
 msgid "Faster Internet connection!"
-msgstr "Külső szerverkapcsolat"
+msgstr "Gyorsabb internetkapcsolat"
 
 #: ../../main/software/src/templates/ebox.mas:210
 msgid ""
 "When your users visit the same web pages, data will be downloaded only once. "
 "This increases browsing speed and reduces bandwidth usage."
 msgstr ""
+"Amikor felhasználói ugyanazokat a weboldalakat látogatják meg, az adatok "
+"csak egyszer kerülnek letöltésre. Ez növeli a böngészési sebességet, és "
+"csökkenti a sávszélesség-használatot."
 
 #: ../../main/software/src/templates/ebox.mas:213
-#, fuzzy
 msgid "Traffic Shaping and QoS"
-msgstr "Forgalomszűrés"
+msgstr "Forgalomszabályozás és QoS"
 
 #: ../../main/software/src/templates/ebox.mas:213
 msgid "Business class critical traffic!"
-msgstr ""
+msgstr "Első osztályon utazó kritikus forgalom!"
 
 #: ../../main/software/src/templates/ebox.mas:213
 msgid ""
@@ -20173,16 +20222,18 @@ msgid ""
 "traffic is always served properly, regardless of the network load. Moreover, "
 "you can avoid P2P or large downloads that consume all your bandwidth."
 msgstr ""
+"Priorizáljon egyes forgalomtípusokat vagy felhasználókat, így biztosítva "
+"hogy a legkritikusabb forgalom mindig megfelelően van kiszolgálva a hálózat "
+"terhelésétől függetlenül. Ezen kívül elkerülheti a P2P forgalmat vagy a nagy "
+"letöltéseket, amelyek az összes sávszélességet elfogyasztják."
 
 #: ../../main/software/src/templates/ebox.mas:216
-#, fuzzy
 msgid "Load Balancing and Availability"
-msgstr "Elérhető"
+msgstr "Terheléselosztás és elérhetőség"
 
 #: ../../main/software/src/templates/ebox.mas:216
-#, fuzzy
 msgid "Always connected!"
-msgstr "Kapcsolat engedélyezve"
+msgstr "Mindig kapcsolatban!"
 
 #: ../../main/software/src/templates/ebox.mas:216
 msgid ""
@@ -20669,11 +20720,13 @@ msgstr "Levelezőálnév"
 
 #: ../../main/mail/src/templates/groupalias.mas:66
 msgid "Group aliases cannot be created for a group without users"
-msgstr ""
+msgstr "Nem hozhatók létre csoportálnevek felhasználók nélküli csoportokhoz"
 
 #: ../../main/mail/src/templates/groupalias.mas:67
 msgid "Group aliases cannot be created because no user has mail account"
 msgstr ""
+"Nem hozhatók létre csoportálnevek, mert egyik felhasználónak sincs "
+"postafiókja"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"
