@@ -204,30 +204,7 @@ sub validateTypedRow
         if ($row) {
             # The row is already created. Otherwise is being created so there is no need to do any validation.
             my $conf = $row->elementByName('configuration')->foreignModelInstance();
-            try {
-                foreach my $model (@{$conf->models(1)}) {
-                    if ($model->isa(' EBox::IPsec::Model::RangeTable')) {
-                        # to avoid problems with checking overlaps IP ranges
-                        next;
-                    }
-                    foreach my $rowID (@{$model->enabledRows()}) {
-                        my $row = $model->row($rowID);
-                        my $rowElements = $row->hashElements();
-                        $rowElements->{id} = $allFields->{id};
-                        $model->validateTypedRow('update', $rowElements, $rowElements);
-                    }
-                }
-            } otherwise {
-                my $error = shift;
-                throw EBox::Exceptions::InvalidData(
-                    data => __('Enabled flag'),
-                    value => __('Enabled'),
-                    advice => __x(
-                        'Cannot be enabled due to errors in the connection configuration: {error}',
-                        error => $error
-                    )
-                );
-            };
+            $conf->checkConfigurationIsComplete();
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),
