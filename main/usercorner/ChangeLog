@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Synchronize LDAP password in each restart to avoid problems if
 	  the password changes
 3.4.1
