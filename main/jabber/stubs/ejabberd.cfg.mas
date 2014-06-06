@@ -145,8 +145,8 @@
 % if ($sharedroster) {
   {mod_shared_roster_ldap, [
     {ldap_filter, ""},
-    {ldap_rfilter, "(objectClass=posixGroup)"},
-    {ldap_gfilter, "(&(objectClass=posixGroup)(cn=%g))"},
+    {ldap_rfilter, "(objectClass=group)"},
+    {ldap_gfilter, "(&(objectClass=group)(cn=%g))"},
     {ldap_ufilter, "(&(jabberUid=%u)(objectClass=userJabberAccount))"},
     {ldap_groupattr, "cn"},
     {ldap_groupdesc, "description"},

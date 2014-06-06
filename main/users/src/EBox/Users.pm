@@ -1484,16 +1484,15 @@ sub securityGroups
     return [] if (not $self->isEnabled());
 
     my %args = (
-        base => $self->ldap->dn(),
-        filter => '(&(objectclass=zentyalDistributionGroup)(objectclass=posixGroup))',
+        base => $self->ldap->dn()
+        filter => '(&(objectclass=group)(objectclass=posixAccount))',
         scope => 'sub',
     );
 
     my $result = $self->ldap->search(\%args);
 
     my @groups = ();
-    foreach my $entry ($result->entries())
-    {
+    foreach my $entry ($result->entries()) {
         my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
