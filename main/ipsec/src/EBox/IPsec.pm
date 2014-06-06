@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::IPsec::FirewallHelper;
 use EBox::IPsec::LogHelper;
 use EBox::NetWrappers qw();
-
+use Error qw(:try);
 use File::Slurp;
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
@@ -83,6 +83,48 @@ sub usedFiles
 
     return \@conf_files;
 
+}
+
+# overriden to stop deleted daemons
+sub _manageService
+{
+    my ($self, @params) = @_;
+    my $state = $self->get_state();
+    if ($state->{deleted_daemons}) {
+        my @deleted = @{ delete $state->{deleted_daemons} };
+        foreach my $daemon (@deleted) {
+            try {
+                EBox::Sudo::root("/sbin/stop '$daemon'")
+            } otherwise {
+                # we assume that it was already stopped
+            };
+        }
+        $self->set_state($state);
+    }
+
+    return $self->SUPER::_manageService(@params);
+}
+
+sub addDeletedDaemon
+{
+    my ($self, @daemons) = @_;
+    my $state = $self->get_state();
+    if (not $state->{deleted_daemons}) {
+        $state->{deleted_daemons} = [];
+    }
+
+    push @{ $state->{deleted_daemons} }, @daemons;
+    $self->set_state($state);
+}
+
+# overriden to put old l2tp daemons in deleted daemons list
+sub aroundRestoreConfig
+{
+    my ($self, @options) = @_;
+    my @deleted = map {
+        $_->{name}
+    } @{ $self->model('Connections')->l2tpDaemons() };
+    $self->SUPER::restoreConfig(@options);
 }
 
 # Method: _daemons

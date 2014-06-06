@@ -30,6 +30,7 @@ use Error qw(:try);
 use feature "switch";
 use Net::IP;
 
+use constant L2TP_PREFIX => 'zentyal-xl2tpd.';
 # Group: Public methods
 
 sub tunnels
@@ -38,11 +39,24 @@ sub tunnels
 
     my $network = $self->global()->modInstance('network');
     my @tunnels;
-    my $rowIds = $includeDisabled ? $self->ids() : $self->enabledRows();
 
-    foreach my $id (@{$rowIds}) {
+    foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        my $enabled = $row->valueByName('enabled');
         my $conf = $row->elementByName('configuration')->foreignModelInstance();
+        if (not $enabled) {
+            if (not $includeDisabled) {
+                next;
+            }
+            my $configured;
+            try {
+                $conf->checkConfigurationIsComplete();
+                $configured = 1;
+            } otherwise {};
+            if (not $configured) {
+                next;
+            }
+        }
         my $type = $row->valueByName('type');
         my @confComponents;
 
@@ -115,7 +129,7 @@ sub tunnels
                 );
             }
         }
-        $settings{'enabled'} = $row->valueByName('enabled');
+        $settings{'enabled'} = $enabled;
         $settings{'name'} = $row->valueByName('name');
         $settings{'type'} = $type;
         $settings{'comment'} =  $row->valueByName('comment');
@@ -134,7 +148,7 @@ sub l2tpDaemons
         if ($tunnel->{type} ne 'l2tp') {
             ()
         } else {
-            $tunnel->{name} = 'zentyal-xl2tpd.' . $tunnel->{name};
+            $tunnel->{name} = L2TP_PREFIX . $tunnel->{name};
             $tunnel->{type} = 'upstart';
             $tunnel->{precondition} = sub {
                 return $tunnel->{enabled};
@@ -315,6 +329,15 @@ sub preconditionFailMsg
                closehref => '</a>');
 }
 
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    if ($row->valueByName('type') eq 'l2tp') {
+        my $name = L2TP_PREFIX . $row->valueByName('name');
+        $self->parentModule()->addDeletedDaemon($name);
+    }
+}
+
 sub l2tpCheckDuplicateLocalIP
 {
     my ($self, $ownId, $tunnelIP) = @_;
@@ -351,9 +374,9 @@ sub _checkDuplicates
 
       my $configuration = $row->elementByName('configuration')->foreignModelInstance();
 
-      my $settings      = $configuration->componentByName('SettingsL2TP', 1);
-      my $localIP    =   $settings->value('local_ip');
-      if ($range->overlaps( Net::IP->new($localIP))) {
+      my $settings = $configuration->componentByName('SettingsL2TP', 1);
+      my $localIP  = $settings->value('local_ip');
+      if ($localIP and $range->overlaps( Net::IP->new($localIP))) {
           if ($args{tunnelIP} and ($id ne $ownId)) {
               throw EBox::Exceptions::External(
                   __x('Tunnel IP {ip} is already in use by connection {name}',
@@ -387,10 +410,7 @@ sub _checkDuplicates
                       range => $args{range},
                       name => $row->valueByName('name'))
                  );
-          } else {
-              die "Should not be reached";
           }
-
       }
   }
 }
