@@ -10,7 +10,7 @@
 use EBox::Gettext;
 </%init>
 <div id='error_editGPOLinkForm' class='error' style='display:none'></div>
-<form action='/Samba/EditGPLink' method='POST' id='editGPLinkForm' class="formDiv">
+<form action='/Users/EditGPLink' method='POST' id='editGPLinkForm' class="formDiv">
     <input type="hidden" name="containerDN" value="<% $containerDN %>">
     <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
     <input type="hidden" name="linkIndex" value="<% $linkIndex %>">

@@ -1,0 +1,108 @@
+<%args>
+    $params
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& .group, params => $params &>
+
+<%def .group>
+<%args>
+$params
+</%args>
+    <div class='help'>
+        <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
+    </div>
+
+    <& .sambaDisabled, $params &>
+
+   <div id='note_sambaGroupShare' class='note' style='display:none'></div>
+   <div id='error_sambaGroupShare' class='error' style='display:none'></div>
+   <form action='/Users/ActiveSharing' method='post' id='sambaGroupShare'>
+    <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
+%           if (length($params->{'sharename'}) > 12) {
+                <div class='warning'>
+                <%   __("This resource name is longer than 12 characters.") %>
+                </div>
+%           }
+    <span class="ftitle"><% __('Directory name')%>:</span>
+    <input  type="text"
+            name="sharename"
+            class="inputText"
+            value="<% $params->{'share'} %>">
+        <div id='sambaGroupShare_enabled' <% ($params->{'share'}) ? "" : "style='display:none'" %> >
+            <input class='inputButton' type='submit' name='namechange' id='namechange_sambaGroupShare'
+                value="<% __('Change') %>"
+                 alt="<% __('Change') %>" />
+            <input class='inputButton' type='submit' name='remove'  id='remove_sambaGroupShare'
+                value="<% __('Delete') %>"
+                 alt="<% __('Delete') %>" />
+         </div>
+
+        <div id='sambaGroupShare_disabled' <% ($params->{'share'}) ?  "style='display:none'" : "" %>>
+            <input class='inputButton' type='submit' name='add' id='add_sambaGroupShare'
+                value="<% __('Add') %>"
+                 alt="<% __('Add') %>" />
+        </form>
+<script>
+"use strict";
+$(function(){
+    var submitShareChanges = function(action) {
+        var form = $('#sambaGroupShare');
+        var data = form.serialize();
+        data += '&' + action + '=1';
+        Zentyal.Form.submit(form, {
+          data: data,
+          noteDiv: '#note_sambaGroupShare',
+          errorDiv: '#error_sambaGroupShare',
+          submitButton: '#add_sambaGroupShare, #namechange_sambaGroupShare, #remove_sambaGroupShare',
+          success: function(response) {
+               var enabled= response.share === 1;
+               $('#sambaGroupShare_enabled').toggle(enabled);
+               $('#sambaGroupShare_disabled').toggle(!enabled);
+          }
+        });
+    };
+
+    $('#add_sambaGroupShare').on('click', function(event) {
+        event.preventDefault();
+        submitShareChanges('add');
+    });
+
+    $('#namechange_sambaGroupShare').on('click', function(event) {
+        event.preventDefault();
+        submitShareChanges('namechange');
+    });
+
+    $('#remove_sambaGroupShare').on('click', function(event) {
+        event.preventDefault();
+        submitShareChanges('remove');
+    });
+});
+</script>
+</%def>
+
+<%def .sambaDisabled>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+
+my $mod = __('file sharing module');
+</%init>
+<& .modWarn, mod => $mod &>
+</%def>
+
+
+<%def .modWarn>
+<%args>
+$mod
+</%args>
+<div class='warning'>
+<% __x(
+       q{The following settings will take effect only when the {mod} is enabled},
+    mod => $mod,
+    )
+%>
+</div>
+</%def>
+

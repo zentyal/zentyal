@@ -42,7 +42,7 @@ use TryCatch::Lite;
 #
 # Returns:
 #
-#     <EBox::Samba::Model::SambaShareConfiguration> - the newly created object
+#     <EBox::Users::Model::SambaShareConfiguration> - the newly created object
 #     instance
 #
 sub new

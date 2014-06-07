@@ -58,7 +58,7 @@ sub _table
                                 populate      => \&_populateStatus),
         new EBox::Types::HasMany(fieldName  => 'edit',
                                  printableName => __('GPO Editor'),
-                                 foreignModel => 'samba/GPO',
+                                 foreignModel => 'users/GPO',
                                  foreignModelIsComposite => 1,
                                  view => '/Users/Composite/GPO',
                                  backView => '/Users/View/GPOs')

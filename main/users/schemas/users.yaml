@@ -26,6 +26,14 @@ models:
     - GPOScriptsLogin
     - GPOScriptsLogoff
     - GPOLinks
+    - SambaShares
+    - SyncShares
+    - SambaSharePermissions
+    - SambaDeletedShares
+    - AntivirusDefault
+    - AntivirusExceptions
+    - RecycleDefault
+    - RecycleExceptions
 
 composites:
     Settings: [LdapInfo, PAM]
@@ -34,8 +42,18 @@ composites:
     GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
     GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
     GPO: [GPOComputerConfiguration, GPOUserConfiguration]
+    RecycleBin: [RecycleDefault, RecycleExceptions]
+    Antivirus: [AntivirusDefault, AntivirusExceptions]
+    General: [SambaShares, RecycleBin, Antivirus]
+
+modeldepends:
+    AntivirusExceptions:
+        users/SambaShares: [share]
+    RecycleExceptions:
+        users/SambaShares: [share]
 
 foreign:
     GPOs: [GPO]
+    SambaShares: [SambaSharePermissions]
 
 # NOTE: UserTemplate composite components are dynamic in componentNames()

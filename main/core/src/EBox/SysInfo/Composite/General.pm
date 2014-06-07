@@ -31,7 +31,7 @@ use EBox::Global;
 #
 # Returns:
 #
-#   <EBox::Samba::Model::General> - a
+#   <EBox::Users::Model::General> - a
 #       general events composite
 #
 sub new

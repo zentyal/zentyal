@@ -13,7 +13,7 @@ use EBox::Gettext;
            'be deleted.', x => $containerDN) %>
 </div>
 
-<form action='/Samba/DeleteGPLink' method='POST' id='deleteGPLinkForm'>
+<form action='/Users/DeleteGPLink' method='POST' id='deleteGPLinkForm'>
     <input type="hidden" name="containerDN" value="<% $containerDN %>">
     <input type="hidden" name="linkIndex" value="<% $linkIndex %>">
     <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
