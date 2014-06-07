@@ -41,7 +41,7 @@ sub clearConfiguration : Test(shutdown)
 
 sub test_one_level_of_dependencies : Test
 {
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
     is_deeply($users->enableModDependsRecursive(), [qw(ntp network dns)]);
 }
 

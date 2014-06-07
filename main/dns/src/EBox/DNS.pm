@@ -630,10 +630,10 @@ sub _preSetConf
     my ($self) = @_;
 
     my $runResolvConf = 1;
-    if ($self->global->modExists('users')) {
-        my $usersModule = $self->global->modInstance('users');
+    if ($self->global->modExists('samba')) {
+        my $usersModule = $self->global->modInstance('samba');
         my $mode = $usersModule->mode();
-        if ($mode eq EBox::Users::EXTERNAL_AD_MODE()) {
+        if ($mode eq EBox::Samba::EXTERNAL_AD_MODE()) {
             $runResolvConf = 0;
         }
     }
@@ -657,8 +657,8 @@ sub _setConf
 
     my $keytabPath = undef;
     my $sambaZones = undef;
-    if (EBox::Global->modExists('users')) {
-        my $usersModule = EBox::Global->modInstance('users');
+    if (EBox::Global->modExists('samba')) {
+        my $usersModule = EBox::Global->modInstance('samba');
         if ($usersModule->isEnabled() and (
             $usersModule->getProvision->isProvisioned() or
             $usersModule->getProvision->isProvisioning())) {
@@ -668,7 +668,7 @@ sub _setConf
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $usersModule->SAMBA_DNS_KEYTAB())) {
-                $keytabPath = EBox::Users::SAMBA_DNS_KEYTAB();
+                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
         }
     }
@@ -699,8 +699,8 @@ sub _setConf
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
 
-        if (EBox::Global->modExists('users')) {
-            my $users = EBox::Global->modInstance('users');
+        if (EBox::Global->modExists('samba')) {
+            my $users = EBox::Global->modInstance('samba');
             my $provision = $users->getProvision();
             if ($provision->isProvisioning()) {
                 my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -948,10 +948,10 @@ sub _postServiceHook
             delete $self->{nsupdateCmds};
         }
 
-        if (EBox::Global->modExists('users')) {
-            my $usersModule = EBox::Global->modInstance('users');
+        if (EBox::Global->modExists('samba')) {
+            my $usersModule = EBox::Global->modInstance('samba');
             my $mode = $usersModule->mode();
-            if ($mode eq EBox::Users::EXTERNAL_AD_MODE() and
+            if ($mode eq EBox::Samba::EXTERNAL_AD_MODE() and
                 EBox::Sudo::fileTest('-f', '/var/run/resolvconf/interface/lo.named')) {
                 EBox::Sudo::root('resolvconf -d lo.named');
             }

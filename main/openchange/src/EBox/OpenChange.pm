@@ -32,7 +32,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
-use EBox::Users;
+use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
@@ -58,7 +58,7 @@ use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
-use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Users::PRIVATE_DIR() . 'mapistore/master.password';
+use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
 
 # Method: _create
 #
@@ -226,7 +226,7 @@ sub isRunning
     my $running = $self->SUPER::isRunning();
 
     if ($running) {
-        my $usersMod = $self->global()->modInstance('users');
+        my $usersMod = $self->global()->modInstance('samba');
         return $usersMod->isRunning();
     } else {
         return $running;
@@ -289,7 +289,7 @@ sub writeSambaConfig
     my $oc = [];
     push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
     push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
-    $self->writeConfFile(OPENCHANGE_CONF_FILE, 'users/openchange.conf.mas', $oc,
+    $self->writeConfFile(OPENCHANGE_CONF_FILE, 'samba/openchange.conf.mas', $oc,
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 }
 
@@ -372,7 +372,7 @@ sub _writeSOGoConfFile
     my $timezoneModel = $sysinfo->model('TimeZone');
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
-    my $users = $self->global->modInstance('users');
+    my $users = $self->global->modInstance('samba');
     my $dcHostName = $users->ldb->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
@@ -422,7 +422,7 @@ sub _setAutodiscoverConf
     my ($self) = @_;
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $users   = $global->modInstance('users');
+    my $users   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
 
     my $server    = $sysinfo->hostDomain();
@@ -789,7 +789,7 @@ sub configurationContainer
 {
     my ($self) = @_;
 
-    my $usersMod = $self->global->modInstance('users');
+    my $usersMod = $self->global->modInstance('samba');
     unless ($usersMod->isEnabled() and $usersMod->isProvisioned()) {
         return undef;
     }
@@ -817,7 +817,7 @@ sub organizations
     my ($self) = @_;
 
     my $list = [];
-    my $usersMod = $self->global->modInstance('users');
+    my $usersMod = $self->global->modInstance('samba');
     my $configurationContainer = $self->configurationContainer();
 
     return $list unless ($configurationContainer);

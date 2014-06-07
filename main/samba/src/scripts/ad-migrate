@@ -1,0 +1,196 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2013 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::Samba::SysvolSync;
+use EBox::Samba::FSMO;
+
+use Net::Ping;
+use Net::DNS;
+use TryCatch::Lite;
+
+##
+##  Init Zentyal framework
+##
+EBox::init();
+
+##
+##  Warn and ask for confirmation
+##
+print "WARNING: This script will transfer all FSMO roles from the current owners to\n";
+print "         the local server.\n";
+print "         After all roles has been successfully transferred, you can shutdown\n";
+print "         the other domain controllers.\n";
+print "Do you want to continue [Y/n]? ";
+my $answer = <STDIN>;
+chomp $answer;
+unless ($answer eq 'Y') {
+    print "Aborted.\n";
+    exit 0;
+}
+
+##
+##  Instance modules
+##
+my $sysinfo = EBox::Global->modInstance('sysinfo');
+my $sambaModule = EBox::Global->modInstance('samba');
+
+##
+##  Check mode is ADC
+##
+print "\nChecking server mode...\n";
+my $mode = $sambaModule->mode();
+unless ($mode eq 'adc') {
+    print "ERROR: This server is not an additional domain controller.\n";
+    exit 1;
+}
+
+##
+##  Check server is joined to the domain
+##
+print "\nChecking if server is provisioned...\n";
+my $provision = $sambaModule->getProvision();
+unless ($provision->isProvisioned()) {
+    print "ERROR: Before running this script, the server must be joined to the domain.\n";
+    print "       Configure the server as an 'Additional domain controller' in the Zentyal\n";
+    print "       control panel, then run again.\n";
+    exit 1;
+}
+
+##
+##  Transfer sysvol share
+##
+print "\nSynchronizing sysvol share...\n";
+my $synchronizer = new EBox::Samba::SysvolSync();
+my $syncRet = $synchronizer->sync();
+if ($syncRet) {
+    print "ERROR: The sysvol share could not be synchronized. Check Zentyal log for details.\n";
+    exit 1;
+}
+
+##
+##  Transfer FSMO roles
+##
+my $ldb = $sambaModule->ldb();
+my $rootDse = $ldb->rootDse();
+my $dsServiceName = $rootDse->get_value('dsServiceName');
+my $fsmo = new EBox::Samba::FSMO();
+
+print "\nTransferring FSMO roles...\n";
+
+my $schemaMaster = $fsmo->getSchemaMaster();
+unless ($dsServiceName =~/$schemaMaster/i) {
+    try {
+        print "Transferring Schema Master role from owner: $schemaMaster\n";
+        if ($fsmo->isRoleOwnerOnline($schemaMaster)) {
+            $fsmo->transferSchemaMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferSchemaMaster(1);
+            }
+        }
+    } catch ($error) {
+        print "ERROR: $error\n";
+    }
+}
+
+my $domainNamingMaster = $fsmo->getDomainNamingMaster();
+unless ($dsServiceName =~/$domainNamingMaster/i) {
+    try {
+        print "Transferring Domain Naming Master role from owner: $domainNamingMaster\n";
+        if ($fsmo->isRoleOwnerOnline($domainNamingMaster)) {
+            $fsmo->transferDomainNamingMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferDomainNamingMaster(1);
+            }
+        }
+    } catch ($error) {
+        print "ERROR: $error\n";
+    }
+}
+
+my $pdcEmulationMaster = $fsmo->getPdcEmulationMaster();
+unless ($dsServiceName =~/$pdcEmulationMaster/i) {
+    try {
+        print "Transferring PDC Emulation Master role from owner: $pdcEmulationMaster\n";
+        if ($fsmo->isRoleOwnerOnline($pdcEmulationMaster)) {
+            $fsmo->transferPdcEmulationMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferPdcEmulationMaster(1);
+            }
+        }
+    } catch ($error) {
+        print "ERROR: $error\n";
+    }
+}
+
+
+my $ridAllocationMaster = $fsmo->getRidAllocationMaster();
+unless ($dsServiceName =~/$ridAllocationMaster/i) {
+    try {
+        print "Transferring RID Allocation Master role from owner: $ridAllocationMaster\n";
+        if ($fsmo->isRoleOwnerOnline($ridAllocationMaster)) {
+            $fsmo->transferRidAllocationMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferRidAllocationMaster(1);
+            }
+        }
+    } catch ($error) {
+        print "ERROR: $error\n";
+    }
+}
+
+my $infrastructureMaster = $fsmo->getInfrastructureMaster();
+unless ($dsServiceName =~/$infrastructureMaster/i) {
+    try {
+        print "Transferring Infrastructure Master role from owner: $infrastructureMaster\n";
+        if ($fsmo->isRoleOwnerOnline($infrastructureMaster)) {
+            $fsmo->transferInfrastructureMaster(0);
+        } else {
+            print "Current owner seems to be offline. Seize the role [Y/n]? ";
+            my $answer = <STDIN>;
+            chomp $answer;
+            if ($answer eq 'Y') {
+                $fsmo->transferInfrastructureMaster(1);
+            }
+        }
+    } catch ($error) {
+        print "ERROR: $error\n";
+    }
+}
+
+print "Migrated successfully!\n";
+

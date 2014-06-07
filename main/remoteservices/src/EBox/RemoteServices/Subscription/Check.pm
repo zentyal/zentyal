@@ -174,8 +174,8 @@ sub _usersCheck
 {
     my ($self, $gl, $details) = @_;
 
-    if ( $gl->modExists('users') ) {
-        my $usersMod = $gl->modInstance('users');
+    if ( $gl->modExists('samba') ) {
+        my $usersMod = $gl->modInstance('samba');
         my $rsMod = $gl->modInstance('remoteservices');
         if ($usersMod->isEnabled()) {
             # This check must be done if the server is master or Zentyal Cloud is

@@ -1,11 +1,10 @@
 class: 'EBox::MailFilter'
 enabledepends:
-    - users
     - mail
     - antivirus
 
 depends:
-    - users
+    - mail
     - antivirus
 
 models:

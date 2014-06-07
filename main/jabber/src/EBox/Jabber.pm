@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 use TryCatch::Lite;
 
@@ -199,7 +199,7 @@ sub _setConf
     my $jabuid = (getpwnam('ejabberd'))[2];
     my $jabgid = (getpwnam('ejabberd'))[3];
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
 
@@ -213,7 +213,7 @@ sub _setConf
     push(@array, 'ldapBase' => $ldap->dn());
     push(@array, 'ldapRoot' => $users->administratorDN());
     push(@array, 'ldapPasswd' => $users->administratorPassword());
-    push(@array, 'usersDn' => EBox::Users::User->defaultContainer()->dn());
+    push(@array, 'usersDn' => EBox::Samba::User->defaultContainer()->dn());
 
     push(@array, 'domain' => $domain);
     push(@array, 'ssl' => $settings->sslValue());

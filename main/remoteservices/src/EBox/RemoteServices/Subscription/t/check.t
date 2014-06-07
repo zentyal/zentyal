@@ -91,7 +91,7 @@ sub test_no_users: Test(2)
            'No problem without users module');
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 0; } ]);
 
     cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
@@ -103,7 +103,7 @@ sub test_no_limit: Test(2)
     my ($self) = @_;
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 240]; }]);
 
@@ -118,7 +118,7 @@ sub test_prof: Test(4)
     my ($self) = @_;
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 240]; } ]);
 
@@ -129,7 +129,7 @@ sub test_prof: Test(4)
     cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 20] } ]);
     cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
@@ -142,7 +142,7 @@ sub test_busi: Test(4)
     my ($self) = @_;
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 240]; } ]);
 
@@ -153,7 +153,7 @@ sub test_busi: Test(4)
     cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 50]; } ]);
     cmp_ok($self->{checker}->check($self->{det}->{busi}), '==', 1,
@@ -167,7 +167,7 @@ sub test_prem: Test(4)
     my ($self) = @_;
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 440]; } ]);
 
@@ -178,7 +178,7 @@ sub test_prem: Test(4)
     cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 140]; } ]);
     cmp_ok($self->{checker}->check($self->{det}->{prem}), '==', 1,
@@ -191,7 +191,7 @@ sub test_check_from_cloud: Test(4)
     my ($self) = @_;
 
     EBox::TestStubs::fakeModule(
-        name => 'users',
+        name => 'samba',
         subs => [ 'isEnabled' => sub { return 1; },
                   'realUsers' => sub { return [('user') x 440]; } ]);
     $self->{cap_getter_ins}->mock('list', sub { ['disaster-recovery'] });

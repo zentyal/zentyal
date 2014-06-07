@@ -4,13 +4,13 @@ use strict;
 use warnings;
 
 use EBox::Global;
-use EBox::Users;
+use EBox::Samba;
 use TryCatch::Lite;
 
 EBox::init();
 
 my $global = EBox::Global->getInstance();
-my $users = $global->modInstance('users');
+my $users = $global->modInstance('samba');
 
 sub update
 {

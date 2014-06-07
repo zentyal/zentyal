@@ -19,8 +19,8 @@ use warnings;
 package EBox::Mail;
 
 use base qw(EBox::Module::LDAP EBox::ObjectsObserver
-            EBox::UserCorner::Provider EBox::FirewallObserver
-            EBox::LogObserver EBox::Report::DiskUsageProvider
+            EBox::FirewallObserver EBox::LogObserver
+            EBox::Report::DiskUsageProvider
             EBox::KerberosModule EBox::SyncFolders::Provider
             EBox::Events::DispatcherProvider);
 
@@ -427,7 +427,7 @@ sub _setMailConf
                      };
 
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
 
     my $allowedaddrs = "127.0.0.0/8";
     foreach my $addr (@{ $self->allowedAddresses }) {
@@ -634,7 +634,7 @@ sub _setDovecotConf
 
     # main dovecot conf file
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
 
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
@@ -1904,14 +1904,14 @@ sub openchangeProvisioned
 #   check if a mail address is not used by the system and throw exception if it
 #   is already used
 #
-#  This method should be called in preference of EBox::Users::checkMailNotInUse
+#  This method should be called in preference of EBox::Samba::checkMailNotInUse
 #  since it check some extra situations which arises with the mail module.
 #  Do NOT call both
 sub checkMailNotInUse
 {
     my ($self, $mail, $noCheckExternalAliases) =@_;
     # TODO: check vdomain alias mapping to the other domains?
-    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+    $self->global()->modInstance('samba')->checkMailNotInUse($mail);
 
     if (not $noCheckExternalAliases) {
         # if the external aliases has been already saved to LDAP it will be caught

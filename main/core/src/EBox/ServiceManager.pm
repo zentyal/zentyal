@@ -214,14 +214,10 @@ sub modulesInFirstInstallOrder
     my @mods;
     my @rawMods = @{$self->_dependencyTree()};
 
-    # first install samba must go just after users
     my @modsInHold;
-    my ($usersSeen, $sambaSeen, $firewallSeen, $logsSeen, $auditSeen, $bwMonitorSeen);
+    my ($sambaSeen, $firewallSeen, $logsSeen, $auditSeen);
     foreach my $mod (@rawMods) {
-        if ($mod eq 'users') {
-            $usersSeen = 1;
-            push @mods, 'users';
-        } elsif ($mod eq 'samba') {
+        if ($mod eq 'samba') {
             $sambaSeen = 1;
             push @mods, 'samba';
             push @mods, @modsInHold;
@@ -235,10 +231,7 @@ sub modulesInFirstInstallOrder
         } elsif ($mod eq 'audit') {
             # we will add the module later
             $auditSeen = 1;
-        } elsif ($mod eq 'bwmonitor') {
-            # we will add the module later afer logs
-            $bwMonitorSeen = 1;
-        } elsif ($usersSeen and not $sambaSeen) {
+        } elsif (not $sambaSeen) {
             push @modsInHold, $mod;
         } else {
             push @mods, $mod;
@@ -250,10 +243,6 @@ sub modulesInFirstInstallOrder
     if ($logsSeen) {
         # added in the last to receive all new logobservers
         push @mods, 'logs';
-    }
-    if ($bwMonitorSeen) {
-        # after logs, to respect its dependency
-        push @mods, 'bwmonitor';
     }
     if ($auditSeen) {
         # after logs, to respect its dependency

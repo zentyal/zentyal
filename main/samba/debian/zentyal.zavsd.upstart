@@ -1,0 +1,5 @@
+description "Zentyal Antivirus for Samba"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+exec /usr/share/zentyal-samba/zavsd
+respawn

@@ -42,7 +42,7 @@ use TryCatch::Lite;
 #
 # Returns:
 #
-#     <EBox::Users::Model::SambaShareConfiguration> - the newly created object
+#     <EBox::Samba::Model::SambaShareConfiguration> - the newly created object
 #     instance
 #
 sub new
@@ -57,7 +57,7 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('users');
+    my $userMod = EBox::Global->modInstance('samba');
     my @users = ();
     my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
@@ -71,7 +71,7 @@ sub populateUser
 
 sub populateGroup
 {
-    my $userMod = EBox::Global->modInstance('users');
+    my $userMod = EBox::Global->modInstance('samba');
     my @groups = ();
     my $list = $userMod->securityGroups();
     foreach my $g (@{$list}) {

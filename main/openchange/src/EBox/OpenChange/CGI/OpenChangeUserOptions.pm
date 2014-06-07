@@ -21,7 +21,7 @@ use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::OpenChange::LdapUser;
 
 sub new
@@ -46,7 +46,7 @@ sub _process
     my $userDN = $self->unsafeParam('user');
     $self->{json}->{userDN} = $userDN;
 
-    my $ldapUser = new EBox::Users::User(dn => $userDN);
+    my $ldapUser = new EBox::Samba::User(dn => $userDN);
     unless (defined $ldapUser and $ldapUser->exists()) {
         throw EBox::Exceptions::Internal("Cannot instance user $userDN");
     }

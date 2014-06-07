@@ -535,7 +535,7 @@ sub _configureAuthenticationMode
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $ad = $self->global()->modInstance('users')->ldap();
+        my $ad = $self->global()->modInstance('samba')->ldap();
         $ad->initKeyTabs();
     }
 }
@@ -609,7 +609,7 @@ sub _writeSquidConf
 
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $users = $global->modInstance('users');
+    my $users = $global->modInstance('samba');
     my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
@@ -636,7 +636,7 @@ sub _writeSquidConf
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $externalAD = $self->global()->modInstance('users')->ldap();
+        my $externalAD = $self->global()->modInstance('samba')->ldap();
         my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
             SQUID_ZCONF_FILE);
@@ -667,7 +667,7 @@ sub _writeSquidExternalConf
     my $globalRO = EBox::Global->getInstance(1);
     my $global  = $self->global();
     my $network = $global->modInstance('network');
-    my $users   = $global->modInstance('users');
+    my $users   = $global->modInstance('samba');
     my $sysinfo = $global->modInstance('sysinfo');
     my $generalSettings = $self->model('GeneralSettings');
 
@@ -934,7 +934,7 @@ sub writeDgGroups
     my $generalSettings = $self->model('GeneralSettings');
     my $realm = '';
     if ($generalSettings->kerberosValue()) {
-        my $users = $self->global()->modInstance('users');
+        my $users = $self->global()->modInstance('samba');
         $realm = '@' . $users->kerberosRealm();
     }
 
@@ -1308,7 +1308,7 @@ sub _commercialMsg
 sub authenticationMode
 {
     my ($self) = @_;
-    my $users = $self->global()->modInstance('users');
+    my $users = $self->global()->modInstance('samba');
     my $usersMode = $users->mode();
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;

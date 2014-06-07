@@ -99,7 +99,7 @@ sub getGroup
 sub _groups
 {
     my @groups = ( { value => ALL_ID, printableValue => __('All users') });
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
     return \@groups unless ($users->configured());
 
     my @sortedGroups = sort { $a->name() cmp $b->name() } @{$users->securityGroups()};

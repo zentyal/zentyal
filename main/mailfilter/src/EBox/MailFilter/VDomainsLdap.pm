@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
@@ -39,7 +39,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} =  EBox::Global->modInstance('users')->ldap();
+    $self->{ldap} =  EBox::Global->modInstance('samba')->ldap();
     bless($self, $class);
     return $self;
 }
@@ -329,8 +329,8 @@ sub _addVDomain
         #             );
         # $ldap->modify($dn, \%attrs );
 
-        use EBox::Users::LdapObject;
-        my $ob = EBox::Users::LdapObject->new(dn => $dn);
+        use EBox::Samba::LdapObject;
+        my $ob = EBox::Samba::LdapObject->new(dn => $dn);
         $ob->add(domainMailPortion => "\@$vdomain");
     }
 
@@ -348,7 +348,7 @@ sub spamAccount
 {
     return undef;
     # my ($self, $vdomain) = @_;
-    # my $usersMod = EBox::Global->modInstance('users');
+    # my $usersMod = EBox::Global->modInstance('samba');
     # my $user = $usersMod->userByUID('spam');
     # return $self->_hasAccount($vdomain, $user);
 }
@@ -364,7 +364,7 @@ sub hamAccount
 {
     return undef;
     # my ($self, $vdomain) = @_;
-    # my $usersMod = EBox::Global->modInstance('users');
+    # my $usersMod = EBox::Global->modInstance('samba');
     # my $user = $usersMod->userByUID('ham');
     # return $self->_hasAccount($vdomain, $user);
 }
@@ -447,7 +447,7 @@ sub setSpamAccount
 {
     # Learn accounts disabled by now
     # my ($self, $vdomain, $active) = @_;
-    # my $usersMod = EBox::Global->modInstance('users');
+    # my $usersMod = EBox::Global->modInstance('samba');
     # my $user = $usersMod->userByUID('spam');
     # $self->_setAccount($vdomain, $user, $active);
 }
@@ -456,7 +456,7 @@ sub setHamAccount
 {
     # Learn accounts disabled by now
     # my ($self, $vdomain, $active) = @_;
-    # my $usersMod = EBox::Global->modInstance('users');
+    # my $usersMod = EBox::Global->modInstance('samba');
     # my $user = $usersMod->userByUID('ham');
     # $self->_setAccount($vdomain, $user, $active);
 }

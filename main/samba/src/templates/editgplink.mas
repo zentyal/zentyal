@@ -1,0 +1,61 @@
+<%args>
+    $containerDN
+    $gpoDN
+    $gpoDisplayName
+    $linkIndex
+    $linkEnabled
+    $enforced
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div id='error_editGPOLinkForm' class='error' style='display:none'></div>
+<form action='/Samba/EditGPLink' method='POST' id='editGPLinkForm' class="formDiv">
+    <input type="hidden" name="containerDN" value="<% $containerDN %>">
+    <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
+    <input type="hidden" name="linkIndex" value="<% $linkIndex %>">
+	<div>
+		<label><% __('Group Policy Object') %></label>
+		<% $gpoDisplayName %>
+    </div>
+    <div>
+        <label><% __('Link enabled') %></label>
+% my $isEnabled = ($linkEnabled ? 'checked' : '');
+        <input name='linkEnabled' type='checkbox' <% $isEnabled %>/>
+    </div>
+        <label><% __('Enforced') %></label>
+% my $isEnforced = ($enforced ? 'checked' : '');
+            <input name='enforced' type='checkbox' <% $isEnforced %>/>
+    <div class="form-buttons">
+        <input class='inputButton' type='submit' name='edit'
+					   value="<% __('Edit') %>"
+					   alt="<% __('Edit') %>"/>
+    </div>
+</form>
+<script>
+jQuery(function() {
+   jQuery('#editGPLinkForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#editGPLinkForm', { extraData: { edit: 1} });
+    });
+});
+</script>
+
+<%def .option>
+<%args>
+$value
+$selected => 0
+$printableValue => undef
+$disabled => 0
+</%args>
+<%init>
+if (!defined $printableValue) {
+   $printableValue = $value;
+}
+my $selectedAttr = $selected ? 'selected="selected"' : '';
+my $disabledAttr = $disabled ? 'disabled="disabled"' : '';
+</%init>
+<option value="<% $value | h %>" <% $selectedAttr %> <% $disabledAttr %> >
+<% $printableValue %>
+</option>
+</%def>

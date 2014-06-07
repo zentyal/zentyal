@@ -1,0 +1,62 @@
+<%args>
+	$dn
+    $gpos
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div id='error_addGPOLinkForm' class='error' style='display:none'></div>
+<form action='/Samba/AddGPLink' method='POST' id='addGPLinkForm' class="formDiv">
+    <input type="hidden" name="dn" value="<% $dn %>">
+	<div>
+		<label><% __('Group Policy Object') %></label>
+        <select name="gpoDN">
+% foreach my $gpo (@{$gpos}) {
+%   my $value = $gpo->get('distinguishedName');
+%   my $printableValue = $gpo->get('displayName');
+                    <& .option, value => $value, printableValue => $printableValue &>
+% }
+        </select>
+    </div>
+    <div>
+        <label><% __('Link enabled') %></label>
+        <input name='linkEnabled' type='checkbox' checked/>
+    </div>
+    <div>
+        <label><% __('Enforced') %></label>
+        <input name='enforced' type='checkbox' />
+    </div>
+	<div>
+    	<input class='inputButton' type='submit' name='add'
+					   value="<% __('Add') %>"
+					   alt="<% __('Add') %>"/>
+    </div>
+</form>
+
+<script>
+jQuery(function() {
+   jQuery('#addGPLinkForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addGPLinkForm', { extraData: { add: 1} });
+    });
+});
+</script>
+
+<%def .option>
+<%args>
+$value
+$selected => 0
+$printableValue => undef
+$disabled => 0
+</%args>
+<%init>
+if (!defined $printableValue) {
+   $printableValue = $value;
+}
+my $selectedAttr = $selected ? 'selected="selected"' : '';
+my $disabledAttr = $disabled ? 'disabled="disabled"' : '';
+</%init>
+<option value="<% $value | h %>" <% $selectedAttr %> <% $disabledAttr %> >
+<% $printableValue %>
+</option>
+</%def>

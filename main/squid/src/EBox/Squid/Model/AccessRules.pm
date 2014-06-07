@@ -148,7 +148,7 @@ sub _populateGroups
         }
         return $self->_populateGroupsFromExternalAD();
     } else {
-        my $userMod = $self->global()->modInstance('users');
+        my $userMod = $self->global()->modInstance('samba');
         return [] unless ($userMod->isEnabled());
 
         my @groups;
@@ -171,7 +171,7 @@ sub _adLdap
     unless (defined $self->{adLdap}) {
         my $squid = $self->parentModule();
         my $keytab = $squid->KEYTAB_FILE();
-        $self->{adLdap} = $self->global()->modInstance('users')->ldap()->connectWithKerberos($keytab);
+        $self->{adLdap} = $self->global()->modInstance('samba')->ldap()->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};
@@ -535,7 +535,7 @@ sub rules
     my ($self) = @_;
 
     my $objectMod = $self->global()->modInstance('objects');
-    my $userMod = $self->global()->modInstance('users');
+    my $userMod = $self->global()->modInstance('samba');
     my $usersEnabled = $userMod->isEnabled();
 
     # we dont use row ids to make rule id shorter bz squid limitations with id length
@@ -662,7 +662,7 @@ sub filterProfiles
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
-    my $userMod = $self->global()->modInstance('users');
+    my $userMod = $self->global()->modInstance('samba');
 
     my @profiles;
     foreach my $id (@{$self->ids()}) {

@@ -184,7 +184,7 @@ sub disableModDepends
 #
 #    Example:
 #
-#       [ 'firewall', 'users' ]
+#       [ 'firewall', 'samba' ]
 #
 sub enableModDepends
 {
@@ -253,7 +253,7 @@ sub enableModDependsRecursive
 #
 #    Example:
 #
-#       [ 'firewall', 'users' ]
+#       [ 'firewall', 'samba' ]
 #
 sub bootDepends
 {
