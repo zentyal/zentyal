@@ -39,7 +39,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{users} = EBox::Global->modInstance('users');
+    $self->{users} = EBox::Global->modInstance('samba');
     $self->{ldap}  = $self->{users}->ldap();
     bless($self, $class);
     return $self;

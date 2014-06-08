@@ -34,7 +34,7 @@ use EBox::Types::MailAddress;
 use EBox::Types::Password;
 use EBox::Types::Port;
 use EBox::Types::Select;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Validate;
 
 sub new
@@ -209,7 +209,7 @@ sub _user
 
     my $usercornerMod = EBox::Global->modInstance('usercorner');
     my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
-    my $zentyalUser = new EBox::Users::User(uid => $user);
+    my $zentyalUser = new EBox::Samba::User(uid => $user);
     unless ($zentyalUser->exists()) {
         throw EBox::Exceptions::External(
             __x('User {x} not found in LDAP database'), x => $user);

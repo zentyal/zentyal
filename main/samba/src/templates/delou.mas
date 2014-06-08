@@ -1,0 +1,44 @@
+<%args>
+    $dn
+    $slave => 1
+    $forbid => 0
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a OU in a slave.') %>
+</div>
+% } else {
+<h3><% __("Delete Organizational Unit") %></h3>
+% if ($forbid) {
+<div class='warning'><% __x('This organizational unit cannot be deleted') %></div>
+% } else {
+<div id='delOuForm_error' class='error' style='display:none'></div>
+<div class='note'>
+        <% __('This operation will cause the removal of the OU and all objects inside it, including users, groups, etc.') %>
+</div>
+% }
+
+<br />
+<form action='/Samba/DeleteOU' method='POST' id='delOuForm'>
+                <input type="hidden" name="dn" value="<% $dn %>" />
+% unless ($forbid) {
+                <input class='inputButton' type='submit' name='delou'
+                       value="<% __('Delete Organizational Unit') %>"
+                       alt="<% __('Delete Organizational Unit') %>" />
+% }
+                <& /input/dialogCancel.mas &>
+</form>
+
+<script>
+$(function() {
+   $('#delOuForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delOuForm', { extraData: {delou: 1} });
+    });
+});
+</script>
+% }

@@ -5,11 +5,11 @@ enabledepends:
     - webserver
 
 bootdepends:
-    - users
+    - samba
     - mail
 
 depends:
-    - users
+    - samba
     - mail
     - dns
 

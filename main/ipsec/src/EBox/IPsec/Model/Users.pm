@@ -31,8 +31,8 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    if ($self->global()->modExists('users')) {
-        $self->{usersMod} = $self->global()->modInstance('users');
+    if ($self->global()->modExists('samba')) {
+        $self->{usersMod} = $self->global()->modInstance('samba');
     }
 
     if ($self->{usersMod} and $self->{usersMod}->isEnabled() and $self->{usersMod}->isProvisioned()) {
@@ -94,8 +94,8 @@ sub validationGroup
 sub _populateGroups
 {
     my $usersMod = undef;
-    if (EBox::Global->modExists('users')) {
-        $usersMod = EBox::Global->modInstance('users');
+    if (EBox::Global->modExists('samba')) {
+        $usersMod = EBox::Global->modInstance('samba');
     }
 
     unless ($usersMod and $usersMod->isEnabled() and $usersMod->isProvisioned()) {
@@ -127,8 +127,8 @@ sub _table
     my @fields = ();
     my @actions = ();
     if ($self->{usersMod}) {
-        eval 'use EBox::Users::Group';
-        my $domainUsers = EBox::Users::Group->new(sid => $self->{domainUsersSID});
+        eval 'use EBox::Samba::Group';
+        my $domainUsers = EBox::Samba::Group->new(sid => $self->{domainUsersSID});
         my @usersSourceSubtypes = ();
         push (@usersSourceSubtypes,
             new EBox::Types::Select(

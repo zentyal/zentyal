@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Exceptions::External;
 
 sub new
@@ -48,7 +48,7 @@ sub _process
     $self->_requireParam('alias', __('mail alias'));
     my $alias = $self->param('alias');
 
-    my $user = EBox::Users::User->new(dn =>  $userDN);
+    my $user = EBox::Samba::User->new(dn =>  $userDN);
     $mail->{malias}->delUserAlias($user, $alias);
 
     my $maildrop = $mail->{musers}->userAccount($user);

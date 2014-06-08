@@ -664,8 +664,8 @@ sub syncRows
 
     my %sambaZones;
     my $usersEnabled = 0;
-    if ($global->modExists('users')) {
-        my $users = $global->modInstance('users');
+    if ($global->modExists('samba')) {
+        my $users = $global->modInstance('samba');
         if ($users->isEnabled() and
             $users->getProvision->isProvisioned())
         {

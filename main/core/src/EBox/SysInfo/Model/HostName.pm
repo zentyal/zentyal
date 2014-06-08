@@ -79,7 +79,7 @@ sub _table
 
                   # TODO: implement this in a cooler way with SysInfo::Observer so more modules
                   #       can warn about the hostname change if needed
-                  if (EBox::Global->modExists('users') and EBox::Global->modInstance('users')->isEnabled()) {
+                  if (EBox::Global->modExists('samba') and EBox::Global->modInstance('samba')->isEnabled()) {
                       $msg = __x('WARNING: As the Users module is already installed and configured, if you change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure you want to continue?', new => $newHostname . '.' . $newHostdomain);
                   }
 

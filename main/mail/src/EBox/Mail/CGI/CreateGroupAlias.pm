@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Users::Group;
+use EBox::Samba::Group;
 
 sub new
 {
@@ -49,7 +49,7 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
-    my $group = new EBox::Users::Group(dn => $groupDN);
+    my $group = new EBox::Samba::Group(dn => $groupDN);
 
     my $mail = EBox::Global->modInstance('mail');
     if ($mail->{musers}->usersWithMailInGroup($group) == 0) {

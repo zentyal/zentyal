@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -53,7 +53,7 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
-    my $user = EBox::Users::User->new(dn => $userDN);
+    my $user = EBox::Samba::User->new(dn => $userDN);
 
     my $alias = $lhs."@".$rhs;
     $mail->{malias}->addUserAlias($user, $alias);

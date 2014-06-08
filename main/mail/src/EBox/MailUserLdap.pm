@@ -32,7 +32,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
@@ -45,7 +45,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
 
     bless($self, $class);
     return $self;
@@ -67,7 +67,7 @@ sub mailboxesDir
 sub setupUsers
 {
     my ($self) = @_;
-    my $userMod = EBox::Global->getInstance()->modInstance('users');
+    my $userMod = EBox::Global->getInstance()->modInstance('samba');
 
     foreach my $user (@{ $userMod->users() }) {
         my $mail = $user->get('mail');
@@ -259,7 +259,7 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::Users::User(uid => $uid);
+        my $user = new EBox::Samba::User(uid => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});
@@ -268,7 +268,7 @@ sub delAccountsFromVDomain   #vdomain
 
 # Method: _addUser
 #
-#   Overrides <EBox::Users::LdapUserBase> to create a default mail
+#   Overrides <EBox::Samba::LdapUserBase> to create a default mail
 #   account user@domain if the admin has enabled the auto email account creation
 #   feature
 sub _addUser
@@ -516,7 +516,7 @@ sub usersWithMailInGroup
 
     my $result = $self->{ldap}->search(\%args);
 
-    my $usersMod = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('samba');
     my @mailusers;
     foreach my $entry ($result->entries()) {
         my $object = $usersMod->entryModeledObject($entry);
@@ -750,7 +750,7 @@ sub regenMaildirQuotas
     $mail->set_int('prevMailboxSize', $defaultQuota);
     $mail->_saveConfig();
 
-    my $usersMod = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('samba');
 
     foreach my $user (@{$usersMod->users()}) {
         my $username = $user->name();

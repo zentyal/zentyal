@@ -411,7 +411,7 @@ sub viewCustomizer
             my $msg = __x('Domain guest account should be enabled for guest ' .
                           'access to shares. You can enable it in the ' .
                           '{oh}users and groups manager{ch}.',
-                          oh => "<a href='/Users/Tree/Manage'>",
+                          oh => "<a href='/Samba/Tree/Manage'>",
                           ch => "</a>");
             $customizer->setPermanentMessage($msg, 'warning');
             last;
@@ -426,9 +426,9 @@ sub _guestAccountEnabled
 {
     my ($self) = @_;
 
-    my $domainSid = EBox::Global->modInstance('users')->ldb->domainSID();
+    my $domainSid = EBox::Global->modInstance('samba')->ldb->domainSID();
     my $domainGuestSid = "$domainSid-501";
-    my $user = new EBox::Users::User(sid => $domainGuestSid);
+    my $user = new EBox::Samba::User(sid => $domainGuestSid);
     return $user->isAccountEnabled();
 }
 

@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -45,7 +45,7 @@ sub _process
     $self->_requireParam('quotaType');
     my $quotaType = $self->param('quotaType');
 
-    my $user = new EBox::Users::User(dn => $userDN);
+    my $user = new EBox::Samba::User(dn => $userDN);
     my $mail = EBox::Global->modInstance('mail');
     if ($quotaType eq 'noQuota') {
         $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);

@@ -21,7 +21,7 @@ use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -44,7 +44,7 @@ sub _process
     $self->_requireParam('account', __('External mail account'));
     my $account = $self->unsafeParam('account');
 
-    my $user = new EBox::Users::User(dn => $userDN);
+    my $user = new EBox::Samba::User(dn => $userDN);
     $mail->{fetchmail}->removeExternalAccount($user, $account);
 
     my @externalAccounts = map {

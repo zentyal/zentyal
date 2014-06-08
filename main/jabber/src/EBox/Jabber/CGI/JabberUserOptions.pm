@@ -44,7 +44,7 @@ sub _process
     my $userDN = $self->unsafeParam('user');
     $self->{json}->{userDN} = $userDN;
 
-    my $user = new EBox::Users::User(dn => $userDN);
+    my $user = new EBox::Samba::User(dn => $userDN);
 
     if ($self->param('active') eq 'yes'){
         $jabberldap->setHasAccount($user, 1);

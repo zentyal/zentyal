@@ -23,7 +23,7 @@ use base qw(EBox::LdapUserBase);
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -71,7 +71,7 @@ sub enabled
     my ($self, $user) = @_;
 
     my $samAccountName = $user->get('samAccountName');
-    my $ldbUser = new EBox::Users::User(samAccountName => $samAccountName);
+    my $ldbUser = new EBox::Samba::User(samAccountName => $samAccountName);
     unless ($ldbUser->exists()) {
         throw EBox::Exceptions::Internal(
             "LDB user '$samAccountName' does not exists");
@@ -97,7 +97,7 @@ sub setAccountEnabled
 {
     my ($self, $ldapUser, $enabled) = @_;
 
-    my $ldbUser = new EBox::Users::User(samAccountName => $ldapUser->get('samAccountName'));
+    my $ldbUser = new EBox::Samba::User(samAccountName => $ldapUser->get('samAccountName'));
     unless (defined $ldbUser and $ldbUser->exists()) {
         throw EBox::Exceptions::Internal("Cannot LDB instantiate user");
     }
@@ -144,7 +144,7 @@ sub _delUserWarning
     return unless ($self->{openchange}->configured());
 
     my $samAccountName = $user->get('samAccountName');
-    my $ldbUser = new EBox::Users::User(samAccountName => $samAccountName);
+    my $ldbUser = new EBox::Samba::User(samAccountName => $samAccountName);
     unless ($ldbUser->exists()) {
         throw EBox::Exceptions::Internal(
             "LDB user '$samAccountName' does not exists");
