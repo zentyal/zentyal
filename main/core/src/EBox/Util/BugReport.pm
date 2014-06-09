@@ -52,7 +52,7 @@ sub send
     my ($author_email, $description) = @_;
 
     my $version = `dpkg -s zentyal-core|grep ^Version:`;
-    ($version) =~ /^Version: (\d+\.\d+)/;
+    ($version) =~ /^Version: (\d+\.\d+).*/;
 
     my $client = new JSON::RPC::Legacy::Client;
 
