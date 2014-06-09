@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Netwrapper::iface_by_address not longer assummes that
+	  interfaces could not share IP addresses
 	+ Updated EBox::Config::TestStub::fake to override EBox::Config::home so
 	  is more easy to use EBox::Users in unit tests
 3.2.2

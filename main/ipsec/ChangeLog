@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed firewall rules for L2TP connections which more than one client
 3.2.1
 	+ Added precondition check for existing 'external' interface.
 	+ Added missing EBox::Exceptions uses

@@ -183,23 +183,23 @@ sub iface_addresses
 #
 #  Search a iface by his address
 #
-#  Assumption/Limitation: It assumes that we have not repeated addresses
-#
 #  Returns:
 #
-#     The iface or undef if there are not any iface with this address
+#     The list of ifaces which have that address
 sub iface_by_address
 {
     my ($addr) = @_;
 
+    my @ifaces;
     foreach my $if (list_ifaces()) {
         my @addresses = iface_addresses($if);
         if ( $addr eq any(@addresses)  ) {
-            return $if;
+            push @ifaces, $if;
+            next;
         }
     }
 
-    return undef;
+    return @ifaces;
 }
 
 # Function: iface_addresses_with_netmask
