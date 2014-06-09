@@ -477,9 +477,9 @@ sub provisionDC
             throw EBox::Exceptions::Internal("Error provisioning database. " .
                     "Output: @{$output}, error:@error");
         }
-        $self->setupDNS();
         $self->setProvisioned(1);
         $self->setupKerberos();
+        $self->setupDNS();
     } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
