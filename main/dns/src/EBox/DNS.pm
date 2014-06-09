@@ -699,18 +699,6 @@ sub _setConf
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
 
-        if (EBox::Global->modExists('samba')) {
-            my $users = EBox::Global->modInstance('samba');
-            my $provision = $users->getProvision();
-            if ($provision->isProvisioning()) {
-                my $sysinfo = EBox::Global->modInstance('sysinfo');
-                my $adDomain = $sysinfo->hostDomain();
-                if (lc $adDomain eq $domdata->{name}) {
-                    next;
-                }
-            }
-        }
-
         # Store the domain data to create the reverse zones
         push (@domainData, $domdata);
 
@@ -943,7 +931,8 @@ sub _postServiceHook
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;
-                unlink($filename) if -f $filename; # Remove the temporary file
+                # Remove the temporary file
+                unlink ($filename) if -f $filename;
             }
             delete $self->{nsupdateCmds};
         }
@@ -1551,25 +1540,18 @@ sub _removeDeletedRR
     }
 }
 
-# Send the nsupdate command or defer to the postservice hook
+# Method: _launchNSupdate
+#
+#   Push deferred nsupdate command to the postservice hook
+#
 sub _launchNSupdate
 {
     my ($self, $fh) = @_;
 
     my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-    if ($self->_isNamedListening()) {
-        try {
-            EBox::Sudo::root($cmd);
-        } catch ($e) {
-            EBox::error("nsupdate error: $e");
-            $fh->unlink_on_destroy(0); # For debug purposes
-        }
-    } else {
-        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-        push(@{$self->{nsupdateCmds}}, $cmd);
-        $fh->unlink_on_destroy(0);
-        EBox::warn('Cannot contact with named, trying in posthook');
-    }
+    $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
+    push (@{$self->{nsupdateCmds}}, $cmd);
+    $fh->unlink_on_destroy(0);
 }
 
 # Check if named is listening
