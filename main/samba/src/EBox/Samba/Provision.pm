@@ -506,6 +506,10 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
+        # Set the uidNumber and gidNumber to specific groups, otherwise sssd
+        # won't be aware of them
+        $self->provisionGIDNumbersDefaultGroups();
+
         # FIXME
 #        $usersModule->ldb->ldapServicePrincipalsToLdb();
         # Map accounts
@@ -1394,23 +1398,33 @@ sub provisionADC
 sub provisionGIDNumbersDefaultGroups
 {
     my $usersMod = EBox::Global->modInstance('samba');
-    my $ldb = $usersMod->ldb();
-    my $domainSID = $ldb->domainSID();
+    my $ldap = $usersMod->ldap();
+    my $domainSid = $ldap->domainSID();
 
-    # FIXME: Do not use magic numbers
     # Set the gidNumber to Domain Users and Domain Admins
+    # Domain users is a well known SID (S-1-5-21-<domain sid>-513)
+    # Domain admins is a well known SID (S-1-5-21-<domain sid>-512)
     foreach my $rid (qw(512 513)) {
-        my $groupSID = "$domainSID-$rid";
+        my $sid = "$domainSid-$rid";
 
-        my $result = $ldb->search({ base   => $usersMod->userClass()->defaultContainer()->dn(),
-                                    filter => "objectSid=$groupSID",
-                                    scope  => 'one' });
-        foreach my $entry ($result->entries()) {
-            my $group = $usersMod->entryModeledObject($entry);
-            unless ($group->get('gidNumber')) {
-                $group->set('gidNumber', $group->unixId($rid));
-            }
-            last;
+        EBox::info("Setting gidNumber for SID $sid");
+
+        my $dse = $ldap->rootDse();
+        my $defaultNC = $dse->get_value('defaultNamingContext');
+
+        my $result = $ldap->search({ base   => $defaultNC,
+                                    filter => "objectSid=$sid",
+                                    scope  => 'sub' });
+        if ($result->count() != 1) {
+            throw EBox::Exceptions::Internal(
+                __x("Unexpected number of entries. Got {x}, expected 1.",
+                    x => $result->count()));
+        }
+
+        my $entry = $result->entry(0);
+        my $group = $usersMod->entryModeledObject($entry);
+        unless ($group->get('gidNumber')) {
+            $group->set('gidNumber', $group->unixId($rid));
         }
     }
 }
