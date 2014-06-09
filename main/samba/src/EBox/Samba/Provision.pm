@@ -297,6 +297,24 @@ sub setupDNS
     $dnsMod->save();
 }
 
+# Method: setupKerberos
+#
+#   Link the provision generated kerberos setup to the system
+#
+sub setupKerberos
+{
+    my ($self) = @_;
+
+    EBox::info("Setting up kerberos");
+    my $provisionGeneratedFile = EBox::Samba::KRB5_CONF_FILE();
+    my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
+    if ($self->isProvisioned()) {
+        EBox::Sudo::root("ln -sf '$provisionGeneratedFile' '$systemFile'");
+    } else {
+        EBox::Sudo::root("rm -f '$systemFile'");
+    }
+}
+
 sub _checkUsersState
 {
     my ($self) = @_;
@@ -458,9 +476,11 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
+        $self->setupKerberos();
     } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
+        $self->setupKerberos();
         $self->setupDNS();
         $self->setProvisioning(0);
         $e->throw();

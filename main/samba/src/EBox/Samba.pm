@@ -852,9 +852,6 @@ sub _setConfInternal
 
     my $ldap = $self->ldap;
 
-    # Link kerberos to be system-wide after provision
-    EBox::Sudo::root('ln -sf ' . KRB5_CONF_FILE . ' ' . SYSTEM_WIDE_KRB5_CONF_FILE);
-
     $self->_setupNSSPAM();
 
     # Slaves cron
