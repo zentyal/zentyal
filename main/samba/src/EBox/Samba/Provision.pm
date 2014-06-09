@@ -348,8 +348,11 @@ sub provision
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
-    # Delete users config file and private folder
+    # Remove SSS caches
     my @cmds;
+    push (@cmds, 'rm -f /var/lib/sss/db/*');
+
+    # Delete users config file and private folder
     push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
     push (@cmds, 'rm -rf ' . $users->PRIVATE_DIR() . '/*');
     push (@cmds, 'rm -rf ' . $users->SYSVOL_DIR() . '/*');
