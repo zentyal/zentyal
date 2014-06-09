@@ -76,29 +76,6 @@ sub setProvisioned
     $users->set_state($state);
 }
 
-sub isProvisioning
-{
-    my $state = EBox::Global->modInstance('samba')->get_state();
-    my $flag = $state->{provisioning};
-    my $provisioning = (defined $flag and $flag == 1) ? 1 : 0;
-
-    return $provisioning;
-
-}
-
-sub setProvisioning
-{
-    my ($self, $provisioning) = @_;
-
-    if ($provisioning != 0 and $provisioning != 1) {
-        throw EBox::Exceptions::InvalidArgument('provisioning');
-    }
-    my $users = EBox::Global->modInstance('samba');
-    my $state = $users->get_state();
-    $state->{provisioning} = $provisioning;
-    $users->set_state($state);
-}
-
 # Method: checkEnvironment
 #
 #   This method ensure that the environment is properly configured for
@@ -443,8 +420,6 @@ sub provisionDC
     my $usersModule = EBox::Global->modInstance('samba');
 
     try {
-        $self->setProvisioning(1);
-
         $usersModule->writeSambaConfig();
 
         my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -482,13 +457,10 @@ sub provisionDC
         $self->setupDNS();
     } catch ($e) {
         $self->setProvisioned(0);
-        $self->setProvisioning(0);
         $self->setupKerberos();
         $self->setupDNS();
-        $self->setProvisioning(0);
         $e->throw();
     }
-    $self->setProvisioning(0);
 
     try {
         # Disable password policy

@@ -658,16 +658,16 @@ sub _setConf
     my $keytabPath = undef;
     my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
-        my $usersModule = EBox::Global->modInstance('samba');
-        if ($usersModule->isEnabled() and (
-            $usersModule->getProvision->isProvisioned() or
-            $usersModule->getProvision->isProvisioning())) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        if ($sambaModule->isEnabled() and
+            $sambaModule->getProvision->isProvisioned())
+        {
             # Get the zones stored in the samba LDB
-            my $ldb = $usersModule->ldb();
-            @{$sambaZones} = map { lc $_->name() } @{$ldb->dnsZones()};
+            my $ldap = $sambaModule->ldap();
+            @{$sambaZones} = map { lc $_->name() } @{$ldap->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
-            if (EBox::Sudo::fileTest('-f', $usersModule->SAMBA_DNS_KEYTAB())) {
+            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
         }
