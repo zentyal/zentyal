@@ -503,6 +503,9 @@ sub provisionDC
                   " --max-pwd-age=365";
         EBox::Sudo::root($cmd);
 
+        # Write SSS daemon configuration
+        $usersModule->_setupNSSPAM();
+
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
@@ -1241,6 +1244,9 @@ sub provisionADC
         }
 
         $self->setupDNS();
+
+        # Write SSS daemon configuration and force a restart
+        $usersModule->_setupNSSPAM();
 
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
