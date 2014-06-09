@@ -105,6 +105,10 @@ sub _manageService
     return $self->SUPER::_manageService(@params);
 }
 
+# Method: addDeletedDaemon
+#
+# add daemon maes to the delete list so in next restart we can
+# do cleanup properly of their init files
 sub addDeletedDaemon
 {
     my ($self, @daemons) = @_;

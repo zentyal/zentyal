@@ -31,8 +31,13 @@ use feature "switch";
 use Net::IP;
 
 use constant L2TP_PREFIX => 'zentyal-xl2tpd.';
-# Group: Public methods
 
+# Method: tunnels
+#
+#  returns all tunnels as hashes which contains their properties
+#
+# Parameters:
+#  includeDisabled - return also the disabled tunnels  (defauls false)
 sub tunnels
 {
     my ($self, $includeDisabled) = @_;
@@ -140,6 +145,9 @@ sub tunnels
     return \@tunnels;
 }
 
+# Method l2tpDaemons
+#
+# return all l2tp daemons in the format required by _daemons method
 sub l2tpDaemons
 {
     my ($self) = @_;
@@ -159,8 +167,6 @@ sub l2tpDaemons
 
     return \@daemons;
 }
-
-# Group: Private methods
 
 sub _populateType
 {
