@@ -76,29 +76,6 @@ sub setProvisioned
     $users->set_state($state);
 }
 
-sub isProvisioning
-{
-    my $state = EBox::Global->modInstance('samba')->get_state();
-    my $flag = $state->{provisioning};
-    my $provisioning = (defined $flag and $flag == 1) ? 1 : 0;
-
-    return $provisioning;
-
-}
-
-sub setProvisioning
-{
-    my ($self, $provisioning) = @_;
-
-    if ($provisioning != 0 and $provisioning != 1) {
-        throw EBox::Exceptions::InvalidArgument('provisioning');
-    }
-    my $users = EBox::Global->modInstance('samba');
-    my $state = $users->get_state();
-    $state->{provisioning} = $provisioning;
-    $users->set_state($state);
-}
-
 # Method: checkEnvironment
 #
 #   This method ensure that the environment is properly configured for
@@ -297,6 +274,24 @@ sub setupDNS
     $dnsMod->save();
 }
 
+# Method: setupKerberos
+#
+#   Link the provision generated kerberos setup to the system
+#
+sub setupKerberos
+{
+    my ($self) = @_;
+
+    EBox::info("Setting up kerberos");
+    my $provisionGeneratedFile = EBox::Samba::KRB5_CONF_FILE();
+    my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
+    if ($self->isProvisioned()) {
+        EBox::Sudo::root("ln -sf '$provisionGeneratedFile' '$systemFile'");
+    } else {
+        EBox::Sudo::root("rm -f '$systemFile'");
+    }
+}
+
 sub _checkUsersState
 {
     my ($self) = @_;
@@ -330,8 +325,11 @@ sub provision
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
 
-    # Delete users config file and private folder
+    # Remove SSS caches
     my @cmds;
+    push (@cmds, 'rm -f /var/lib/sss/db/*');
+
+    # Delete users config file and private folder
     push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
     push (@cmds, 'rm -rf ' . $users->PRIVATE_DIR() . '/*');
     push (@cmds, 'rm -rf ' . $users->SYSVOL_DIR() . '/*');
@@ -422,8 +420,6 @@ sub provisionDC
     my $usersModule = EBox::Global->modInstance('samba');
 
     try {
-        $self->setProvisioning(1);
-
         $usersModule->writeSambaConfig();
 
         my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -456,16 +452,15 @@ sub provisionDC
             throw EBox::Exceptions::Internal("Error provisioning database. " .
                     "Output: @{$output}, error:@error");
         }
-        $self->setupDNS();
         $self->setProvisioned(1);
+        $self->setupKerberos();
+        $self->setupDNS();
     } catch ($e) {
         $self->setProvisioned(0);
-        $self->setProvisioning(0);
+        $self->setupKerberos();
         $self->setupDNS();
-        $self->setProvisioning(0);
         $e->throw();
     }
-    $self->setProvisioning(0);
 
     try {
         # Disable password policy
@@ -480,8 +475,15 @@ sub provisionDC
                   " --max-pwd-age=365";
         EBox::Sudo::root($cmd);
 
+        # Write SSS daemon configuration
+        $usersModule->_setupNSSPAM();
+
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
+
+        # Set the uidNumber and gidNumber to specific groups, otherwise sssd
+        # won't be aware of them
+        $self->provisionGIDNumbersDefaultGroups();
 
         # FIXME
 #        $usersModule->ldb->ldapServicePrincipalsToLdb();
@@ -1215,6 +1217,9 @@ sub provisionADC
 
         $self->setupDNS();
 
+        # Write SSS daemon configuration and force a restart
+        $usersModule->_setupNSSPAM();
+
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
@@ -1371,23 +1376,33 @@ sub provisionADC
 sub provisionGIDNumbersDefaultGroups
 {
     my $usersMod = EBox::Global->modInstance('samba');
-    my $ldb = $usersMod->ldb();
-    my $domainSID = $ldb->domainSID();
+    my $ldap = $usersMod->ldap();
+    my $domainSid = $ldap->domainSID();
 
-    # FIXME: Do not use magic numbers
     # Set the gidNumber to Domain Users and Domain Admins
+    # Domain users is a well known SID (S-1-5-21-<domain sid>-513)
+    # Domain admins is a well known SID (S-1-5-21-<domain sid>-512)
     foreach my $rid (qw(512 513)) {
-        my $groupSID = "$domainSID-$rid";
+        my $sid = "$domainSid-$rid";
 
-        my $result = $ldb->search({ base   => $usersMod->userClass()->defaultContainer()->dn(),
-                                    filter => "objectSid=$groupSID",
-                                    scope  => 'one' });
-        foreach my $entry ($result->entries()) {
-            my $group = $usersMod->entryModeledObject($entry);
-            unless ($group->get('gidNumber')) {
-                $group->set('gidNumber', $group->unixId($rid));
-            }
-            last;
+        EBox::info("Setting gidNumber for SID $sid");
+
+        my $dse = $ldap->rootDse();
+        my $defaultNC = $dse->get_value('defaultNamingContext');
+
+        my $result = $ldap->search({ base   => $defaultNC,
+                                    filter => "objectSid=$sid",
+                                    scope  => 'sub' });
+        if ($result->count() != 1) {
+            throw EBox::Exceptions::Internal(
+                __x("Unexpected number of entries. Got {x}, expected 1.",
+                    x => $result->count()));
+        }
+
+        my $entry = $result->entry(0);
+        my $group = $usersMod->entryModeledObject($entry);
+        unless ($group->get('gidNumber')) {
+            $group->set('gidNumber', $group->unixId($rid));
         }
     }
 }

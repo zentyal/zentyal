@@ -118,6 +118,7 @@ use Samba::Smb qw(
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
 use IO::Socket::INET;
+use IO::Socket::UNIX;
 
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -851,9 +852,6 @@ sub _setConfInternal
 
     my $ldap = $self->ldap;
 
-    # Link kerberos to be system-wide after provision
-    EBox::Sudo::root('ln -sf ' . KRB5_CONF_FILE . ' ' . SYSTEM_WIDE_KRB5_CONF_FILE);
-
     $self->_setupNSSPAM();
 
     # Slaves cron
@@ -925,12 +923,7 @@ sub _createDirectories
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
 
-    # FIXME: remove try when sssd problems with Domain Users are fixed
-    try {
-        EBox::Sudo::root(@cmds);
-    } catch ($e) {
-        EBox::error("Error creating directories: $e");
-    }
+    EBox::Sudo::root(@cmds);
 }
 
 sub _adcMode
@@ -1381,6 +1374,21 @@ sub _startService
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
     $self->SUPER::_startService(@_);
+
+    if ($self->mode() eq STANDALONE_MODE) {
+        # Wait for sss to open the NSS pipe
+        my $tries = 300;
+        my $sleep = 0.1;
+        my $socket = undef;
+        while (not defined $socket and $tries > 0) {
+            $socket = new IO::Socket::UNIX(
+                Type => SOCK_STREAM,
+                Peer => '/var/lib/sss/pipes/nss');
+            last if $socket;
+            $tries--;
+            Time::HiRes::sleep($sleep);
+        }
+    }
 }
 
 # Method: groupDn
