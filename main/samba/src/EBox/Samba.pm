@@ -2614,7 +2614,7 @@ sub restoreConfig
     # Set provisioned flag
     $self->getProvision->setProvisioned(1);
 
-    $self->restartService();
+    $self->_startService();
 
     $self->getProvision()->resetSysvolACL();
 
