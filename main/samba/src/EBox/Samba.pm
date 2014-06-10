@@ -800,10 +800,6 @@ sub _setConf
     } else {
         $self->_setConfInternal($noSlaveSetup);
 
-        # Fix permissions on samba dirs. Zentyal user needs access because
-        # the antivirus daemon runs as 'ebox'
-        $self->_createDirectories();
-
         # Remove shares
         $self->model('SambaDeletedShares')->removeDirs();
         # Create shares
@@ -842,15 +838,13 @@ sub _setConfInternal
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
             # The LDB connection needs to be reset so we stop using cached values.
-            $self->ldb()->clearConn()
+            $self->ldap()->clearConn()
         }
         $prov->provision();
         $self->unset('need_reprovision');
     }
 
     $self->writeSambaConfig();
-
-    my $ldap = $self->ldap;
 
     $self->_setupNSSPAM();
 
@@ -983,7 +977,11 @@ sub _sambaPostServiceHook
     my $usersMod = $self->global()->modInstance('samba');
     return unless $usersMod->isProvisioned();
 
-    my $ldb = $usersMod->ldb();
+    # Fix permissions on samba dirs. Zentyal user needs access because
+    # the antivirus daemon runs as 'ebox'
+    $self->_createDirectories();
+
+    my $ldap = $usersMod->ldap();
 
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
@@ -998,7 +996,7 @@ sub _sambaPostServiceHook
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $usersMod->netbiosName();
             my $realmName = $usersMod->kerberosRealm();
-            my $users = $ldb->users();
+            my $users = $ldap->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
                 if ($usersMod->roamingProfiles()) {
@@ -1015,12 +1013,12 @@ sub _sambaPostServiceHook
             }
         }
 
-        my $host = $ldb->rootDse()->get_value('dnsHostName');
+        my $host = $ldap->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
         }
         my $sambaShares = $self->model('SambaShares');
-        my $domainSID = $ldb->domainSID();
+        my $domainSID = $ldap->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $domainAdminsSID = "$domainSID-512";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
@@ -3138,8 +3136,8 @@ sub domainControllers
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
-    my $ldb = $self->ldb();
-    my $baseDN = $ldb->dn();
+    my $ldap = $self->ldap();
+    my $baseDN = $ldap->dn();
     my $args = {
         base => "OU=Domain Controllers,$baseDN",
         filter => 'objectClass=computer',
@@ -3147,7 +3145,7 @@ sub domainControllers
         control => [ $sort ],
     };
 
-    my $result = $ldb->search($args);
+    my $result = $ldap->search($args);
 
     my @computers;
     foreach my $entry ($result->entries()) {
@@ -3175,8 +3173,8 @@ sub computers
     return [] unless $self->isProvisioned();
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
-    my $ldb = $self->ldb();
-    my $baseDN = $ldb->dn();
+    my $ldap = $self->ldap();
+    my $baseDN = $ldap->dn();
     my $args = {
         base => "CN=Computers,$baseDN",,
         filter => 'objectClass=computer',
@@ -3184,7 +3182,7 @@ sub computers
         control => [ $sort ],
     };
 
-    my $result = $self->ldb->search($args);
+    my $result = $self->ldap->search($args);
 
     my @computers;
     foreach my $entry ($result->entries()) {
@@ -3372,10 +3370,10 @@ sub administratorDN
 {
     my ($self) = @_;
 
-    my $ldb = $self->ldb();
-    my $domainAdminSID = $ldb->domainSID() . '-500';
+    my $ldap = $self->ldap();
+    my $domainAdminSID = $ldap->domainSID() . '-500';
 
-    my $result = $ldb->search({ base   => $self->userClass()->defaultContainer()->dn(),
+    my $result = $ldap->search({ base   => $self->userClass()->defaultContainer()->dn(),
                                 filter => "objectSid=$domainAdminSID",
                                 scope  => 'one',
                                 attrs  => ['dn']});
@@ -3424,7 +3422,7 @@ sub dMD
 {
     my ($self) = @_;
 
-    my $dn = "CN=Schema,CN=Configuration," . $self->ldb()->dn();
+    my $dn = "CN=Schema,CN=Configuration," . $self->ldap()->dn();
     return new EBox::Samba::DMD(dn => $dn);
 }
 
@@ -3441,14 +3439,14 @@ sub gpos
     my ($self) = @_;
 
     my $gpos = [];
-    my $defaultNC = $self->ldb->dn();
+    my $defaultNC = $self->ldap->dn();
     my $params = {
         base => "CN=Policies,CN=System,$defaultNC",
         scope => 'one',
         filter => '(objectClass=GroupPolicyContainer)',
         attrs => ['*']
     };
-    my $result = $self->ldb->search($params);
+    my $result = $self->ldap->search($params);
     foreach my $entry ($result->entries()) {
         push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
     }
@@ -3688,7 +3686,7 @@ sub _setupQuarantineDirectory
     push (@cmds, "setfacl -R -m u:$nobodyUser:rwx g:adm:rwx '$quarantine'");
 
     # Grant access to domain admins
-    my $domainAdminsSid = $self->ldb->domainSID() . '-512';
+    my $domainAdminsSid = $self->ldap->domainSID() . '-512';
     my $domainAdminsGroup = new EBox::Samba::Group(sid => $domainAdminsSid);
     if ($domainAdminsGroup->exists()) {
         my @domainAdmins = $domainAdminsGroup->get('member');
