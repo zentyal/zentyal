@@ -955,32 +955,25 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
-        if ($self->mode() eq EXTERNAL_AD_MODE) {
-            # Update services keytabs
-            my $ldap = $self->ldap();
-            my @principals = @{ $ldap->externalServicesPrincipals() };
-            if (scalar @principals) {
-                $ldap->initKeyTabs();
-            }
-        } else {
-            $self->_sambaPostServiceHook();
+    return unless $enabled;
+
+    if ($self->mode() eq EXTERNAL_AD_MODE) {
+        # Update services keytabs
+        my $ldap = $self->ldap();
+        my @principals = @{ $ldap->externalServicesPrincipals() };
+        if (scalar @principals) {
+            $ldap->initKeyTabs();
         }
+        return;
     }
-}
 
-sub _sambaPostServiceHook
-{
-    my ($self, $enabled) = @_;
-
-    my $usersMod = $self->global()->modInstance('samba');
-    return unless $usersMod->isProvisioned();
+    return unless $self->isProvisioned();
 
     # Fix permissions on samba dirs. Zentyal user needs access because
     # the antivirus daemon runs as 'ebox'
     $self->_createDirectories();
 
-    my $ldap = $usersMod->ldap();
+    my $ldap = $self->ldap();
 
     # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
     # prevent that we execute this code with every service restart or on server boot delaying such processes.
@@ -993,12 +986,12 @@ sub _sambaPostServiceHook
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
         unless ($self->global()->modInstance('samba')->dcMode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
-            my $netbiosName = $usersMod->netbiosName();
-            my $realmName = $usersMod->kerberosRealm();
+            my $netbiosName = $self->netbiosName();
+            my $realmName = $self->kerberosRealm();
             my $users = $ldap->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($usersMod->roamingProfiles()) {
+                if ($self->roamingProfiles()) {
                     my $path = "\\\\$netbiosName.$realmName\\profiles";
                     $user->setRoamingProfile(1, $path, 1);
                 } else {
@@ -1007,7 +1000,7 @@ sub _sambaPostServiceHook
 
                 # Mount user home on network drive
                 my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($usersMod->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
                 $user->save();
             }
         }
@@ -3073,9 +3066,9 @@ sub ousToHide
 sub checkMailNotInUse
 {
     my ($self, $addr) = @_;
-    my $usersMod = $self->global()->modInstance('samba');
+
     my %searchParams = (
-        base => $usersMod->ldap()->dn(),
+        base => $self->ldap()->dn(),
         filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(|(otherMailbox=$addr)(mail=$addr))",
         scope => 'sub'
     );
@@ -3083,7 +3076,7 @@ sub checkMailNotInUse
     my $result = $self->{'ldap'}->search(\%searchParams);
     if ($result->count() > 0) {
         my $entry = $result->entry(0);
-        my $modeledObject = $usersMod->entryModeledObject($entry);
+        my $modeledObject = $self->entryModeledObject($entry);
         my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
         my $name;
         if ($type eq 'CourierMailAlias') {
@@ -3825,8 +3818,7 @@ sub userShares
 
     my $userProfilesPath = PROFILES_DIR;
 
-    my $usersMod = EBox::Global->modInstance('samba');
-    my $users = $usersMod->users();
+    my $users = $self->users();
 
     my $shares = [];
     foreach my $user (@{$users}) {
