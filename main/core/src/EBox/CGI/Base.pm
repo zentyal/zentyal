@@ -199,6 +199,10 @@ sub _print
         try {
             my $sectionOutput = $self->$method();
             $output .= $sectionOutput if $sectionOutput;
+        } catch (EBox::Exceptions::Internal $e) {
+            my $response = $self->response();
+            $response->redirect('/SysInfo/ComponentNotFound');
+            return;
         } catch (EBox::Exceptions::External $e) {
             EBox::error("Error printing method section $method");
             $output .= $self->_format_error("$e");
