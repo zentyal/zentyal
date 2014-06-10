@@ -29,7 +29,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Control::Paged;
