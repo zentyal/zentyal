@@ -1,3 +1,5 @@
+HEAD
+	+ Remove bad usage of Error package
 3.4.1
 	+ Use a blocking lock to get iptables resource on restart
 	  and stop to avoid other modules to get it
