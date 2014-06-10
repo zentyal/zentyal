@@ -1267,6 +1267,8 @@ sub provisionADC
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
 
+        $self->setProvisioned(1);
+        $self->setupKerberos();
         $self->setupDNS();
 
         # Write SSS daemon configuration and force a restart
@@ -1378,10 +1380,9 @@ sub provisionADC
         # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
-        # Set provisioned flag
-        $self->setProvisioned(1);
     } catch ($e) {
         $self->setProvisioned(0);
+        $self->setupKerberos();
         $self->setupDNS();
 
         if (defined $dnsFile and -f $dnsFile) {
