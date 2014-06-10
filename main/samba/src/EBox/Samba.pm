@@ -846,8 +846,6 @@ sub _setConfInternal
 
     $self->writeSambaConfig();
 
-    my $ldap = $self->ldap;
-
     $self->_setupNSSPAM();
 
     # Slaves cron
