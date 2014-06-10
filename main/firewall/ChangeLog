@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Remove bad usage of Error package
 3.4.1
 	+ Use a blocking lock to get iptables resource on restart
