@@ -800,10 +800,6 @@ sub _setConf
     } else {
         $self->_setConfInternal($noSlaveSetup);
 
-        # Fix permissions on samba dirs. Zentyal user needs access because
-        # the antivirus daemon runs as 'ebox'
-        $self->_createDirectories();
-
         # Remove shares
         $self->model('SambaDeletedShares')->removeDirs();
         # Create shares
@@ -982,6 +978,10 @@ sub _sambaPostServiceHook
 
     my $usersMod = $self->global()->modInstance('samba');
     return unless $usersMod->isProvisioned();
+
+    # Fix permissions on samba dirs. Zentyal user needs access because
+    # the antivirus daemon runs as 'ebox'
+    $self->_createDirectories();
 
     my $ldb = $usersMod->ldb();
 
