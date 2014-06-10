@@ -361,56 +361,113 @@ sub resetSysvolACL
 # Method: mapAccounts
 #
 #   Set the mapping between the objectSID and uidNumber/gidNumber for the
-#   following entries by writing these entries in the idmap database.
+#   following accounts:
 #
-#   NOTE: At this point the accounts do not exist yet in LDB, but as the
-#         SIDs are well-known we can stablish the mappings
+#       - Administrator
+#       - Guest
+#       - Domain Admins
+#       - Domain Users
+#       - Domain Guests
+#       - Builtin\Administrators
 #
-#               LDB                         System
-#       User  'Administrator'   =>      User  'root'
-#       Group 'Domain Admins'   =>      Group 'adm'
-#       Group 'Domain Users'    =>      Group '__USERS__'
-#       User  'Guest'           =>      User  'nobody'
-#       Group 'Domain Guests'   =>      Group 'nogroup'
+#    Will made the accounts available to unix after setting up NSS.
 #
 sub mapAccounts
 {
     my ($self) = @_;
 
-    my $usersModule = EBox::Global->modInstance('samba');
-    my $domainSID = $usersModule->ldap->domainSID();
+    my $samba = EBox::Global->modInstance('samba');
+    my $ldap = $samba->ldap();
+    my $domainSid = $ldap->domainSID();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
 
-    # Map unix root account to domain administrator.
-    my $typeUID  = EBox::Samba::IdMapDb::TYPE_UID();
-    my $typeGID  = EBox::Samba::IdMapDb::TYPE_GID();
-    my $typeBOTH = EBox::Samba::IdMapDb::TYPE_BOTH();
-    my $domainAdminSID = "$domainSID-500";
-    my $domainAdminsSID = "$domainSID-512";
-    my $rootUID = 0;
-    my $admGID = 4;
+    # Domain admins is a well known SID (S-1-5-21-<domain sid>-512)
+    # Domain users is a well known SID (S-1-5-21-<domain sid>-513)
+    # Domain guests is a well knwon SID (S-1-5-21-<domain sid>-514)
+    foreach my $rid (qw(512 513 514)) {
+        try {
+            my $sid = "$domainSid-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $group = new EBox::Samba::Group(entry => $entry);
+            unless ($group->get('gidNumber')) {
+                my $id = $group->unixId($rid);
+                EBox::info("Setting gidNumber $id for SID $sid");
+                $group->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 
-    EBox::info("Mapping domain administrator account");
-    $usersModule->ldap->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    # Builtin\Administrators is a well known SID S-1-5-32-544
+    foreach my $rid (qw(544)) {
+        try {
+            my $sid = "S-1-5-32-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $group = new EBox::Samba::Group(entry => $entry);
+            unless ($group->get('gidNumber')) {
+                my $id = $group->unixId($rid);
+                EBox::info("Setting gidNumber for SID $sid");
+                $group->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 
-    EBox::info("Mapping domain administrators group account");
-    $usersModule->ldap->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
-
-    EBox::info("Mapping domain users group account");
-    # FIXME Why is this not working during first intall???
-    #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
-    my $usersGID = 1901;
-    my $domainUsersSID = "$domainSID-513";
-    $usersModule->ldap->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
-
-    # Map domain guest account to nobody user
-    my $guestSID = "$domainSID-501";
-    my $guestGroupSID = "$domainSID-514";
-    my $uid = 65534;
-    my $gid = 65534;
-    EBox::info("Mapping domain guest account");
-    $usersModule->ldap->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-    EBox::info("Mapping domain guests group account");
-    $usersModule->ldap->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    # Administrator is a well known SID (S-1-5-21-<domain sid>-500)
+    # Guest is a well known SID (S-1-5-21-<domain sid>-501)
+    my $userMaps = {
+        500 => new EBox::Samba::Group(sid => "$domainSid-512"),
+        501 => new EBox::Samba::Group(sid => "$domainSid-514"),
+    };
+    foreach my $rid (keys %{$userMaps}) {
+        try {
+            my $sid = "$domainSid-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $user = new EBox::Samba::User(entry => $entry);
+            unless ($user->get('uidNumber')) {
+                my $id = $user->unixId($rid);
+                EBox::info("Setting uidNumber $id for SID $sid");
+                $user->set('uidNumber', $id);
+            }
+            unless ($user->get('gidNumber')) {
+                my $id = $userMaps->{$rid}->get('gidNumber');
+                EBox::info("Setting gidNumber $id for SID $sid");
+                $user->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 }
 
 sub provisionDC
