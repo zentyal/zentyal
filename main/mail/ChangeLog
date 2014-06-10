@@ -1,6 +1,7 @@
-HEAD
-	+ Fix groupaliases.cf parameter stub
 3.5
+	+ Workaround in members table against losing of directory
+	parameter/attribute
+	+ Fix groupaliases.cf parameter stub
 	+ Adapt alias management to constraints by mailboxRelatedObject
 	+ Changed amavis submision service to avoid rewriting rules
 	+ Reorganized mail configuration

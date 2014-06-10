@@ -1,4 +1,5 @@
 3.5
+	+  Workaround in pageTitle() method against losing of directory parameter/attribute
 	+ Enable sortlist by default in /etc/zentyal/dns.conf
 	+ EBox::DNS::Types::Hostname always return lowercase values
 	+ Adapted to OpenLDAP removal
