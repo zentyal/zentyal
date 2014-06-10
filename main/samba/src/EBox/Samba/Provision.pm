@@ -378,7 +378,7 @@ sub mapAccounts
     my ($self) = @_;
 
     my $usersModule = EBox::Global->modInstance('samba');
-    my $domainSID = $usersModule->ldb->domainSID();
+    my $domainSID = $usersModule->ldap->domainSID();
 
     # Map unix root account to domain administrator.
     my $typeUID  = EBox::Samba::IdMapDb::TYPE_UID();
@@ -390,17 +390,17 @@ sub mapAccounts
     my $admGID = 4;
 
     EBox::info("Mapping domain administrator account");
-    $usersModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    $usersModule->ldap->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
-    $usersModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
+    $usersModule->ldap->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     EBox::info("Mapping domain users group account");
     # FIXME Why is this not working during first intall???
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    $usersModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
+    $usersModule->ldap->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
@@ -408,9 +408,9 @@ sub mapAccounts
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
-    $usersModule->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
+    $usersModule->ldap->idmap->setupNameMapping($guestSID, $typeUID, $uid);
     EBox::info("Mapping domain guests group account");
-    $usersModule->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    $usersModule->ldap->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
 }
 
 sub provisionDC
@@ -486,7 +486,7 @@ sub provisionDC
         $self->provisionGIDNumbersDefaultGroups();
 
         # FIXME
-#        $usersModule->ldb->ldapServicePrincipalsToLdb();
+#        $usersModule->ldap->ldapServicePrincipalsToLdb();
         # Map accounts
 #        $self->mapAccounts();
 
@@ -511,7 +511,7 @@ sub rootDseAttributes
 
     unless (defined $self->{rootDseAttributes}) {
         my $usersModule = EBox::Global->modInstance('samba');
-        my $rootDseAttributes = $usersModule->ldb->ROOT_DSE_ATTRS();
+        my $rootDseAttributes = $usersModule->ldap->ROOT_DSE_ATTRS();
         $self->{rootDseAttributes} = $rootDseAttributes;
     }
     return $self->{rootDseAttributes};
@@ -982,9 +982,9 @@ sub _addForestDnsZonesReplica
 
     EBox::info("Adding Forest Dns replica");
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
-    my $basedn = $ldb->dn();
-    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+    my $ldap = $usersModule->ldap();
+    my $basedn = $ldap->dn();
+    my $dsServiceName = $ldap->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -992,7 +992,7 @@ sub _addForestDnsZonesReplica
         filter => "(nCName=DC=ForestDnsZones,$basedn)",
         attrs => ['*'],
     };
-    my $result = $ldb->search($params);
+    my $result = $ldap->search($params);
     unless ($result->count() == 1) {
         EBox::error("Could not found ForestDnsZones partition.");
         return;
@@ -1003,7 +1003,7 @@ sub _addForestDnsZonesReplica
         return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
-    $entry->update($ldb->connection());
+    $entry->update($ldap->connection());
 }
 
 # FIXME Workaround for samba bug #9200
@@ -1013,9 +1013,9 @@ sub _addDomainDnsZonesReplica
 
     EBox::info("Adding Domain Dns replica");
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
-    my $basedn = $ldb->dn();
-    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+    my $ldap = $usersModule->ldap();
+    my $basedn = $ldap->dn();
+    my $dsServiceName = $ldap->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -1023,7 +1023,7 @@ sub _addDomainDnsZonesReplica
         filter => "(nCName=DC=DomainDnsZones,$basedn)",
         attrs => ['*'],
     };
-    my $result = $ldb->search($params);
+    my $result = $ldap->search($params);
     unless ($result->count() == 1) {
         EBox::error("Could not found DomainDnsZones partition.");
         return;
@@ -1034,7 +1034,7 @@ sub _addDomainDnsZonesReplica
         return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
-    $entry->update($ldb->connection());
+    $entry->update($ldap->connection());
 }
 
 # Method: _waitForRidSetAllocation
@@ -1056,12 +1056,12 @@ sub _waitForRidPoolAllocation
     my $sleepSeconds = 0.1;
 
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
+    my $ldap = $usersModule->ldap();
 
     # Get the server object, contained in the config NC, that represents
     # this DC
-    my $serverNameDN = $ldb->rootDse->get_value('serverName');
-    my $result = $ldb->search({
+    my $serverNameDN = $ldap->rootDse->get_value('serverName');
+    my $result = $ldap->search({
         base => $serverNameDN,
         scope => 'base',
         filter => '(objectClass=*)',
@@ -1077,7 +1077,7 @@ sub _waitForRidPoolAllocation
     # Get the domain controller object representing this DC
     my $serverReferenceDN = $serverObject->get_value('serverReference');
     while (not $allocated and $maxTries > 0) {
-        $result = $ldb->search({
+        $result = $ldap->search({
             base => $serverReferenceDN,
             scope => 'base',
             filter => '(objectClass=*)',
@@ -1093,7 +1093,7 @@ sub _waitForRidPoolAllocation
         # Get the list of references to RID set objects managing RID allocation
         my @ridSetReferencesDNs = $dcObject->get_value('rIDSetReferences');
         foreach my $ridSetReferenceDN (@ridSetReferencesDNs) {
-            $result = $ldb->search({
+            $result = $ldap->search({
                 base => $ridSetReferenceDN,
                 scope => 'base',
                 filter => '(objectClass=*)',
@@ -1324,7 +1324,7 @@ sub provisionADC
         $self->mapDefaultContainers();
 
         # Load Zentyal service principals into samba
-        $usersModule->ldb->ldapServicePrincipalsToLdb();
+        $usersModule->ldap->ldapServicePrincipalsToLdb();
 
         # Map accounts
         $self->mapAccounts();
@@ -1414,9 +1414,9 @@ sub _createGroupsContainer
     my ($self) = @_;
 
     my $usersMod = EBox::Global->getInstance()->modInstance('samba');
-    my $ldb = $usersMod->ldb();
+    my $ldap = $usersMod->ldap();
     my $containerName = 'Groups';
-    my $dn = "CN=$containerName," . $ldb->dn();
+    my $dn = "CN=$containerName," . $ldap->dn();
 
     my %attr = (objectClass  => ['top', 'container'],
                 cn           => $containerName,
@@ -1425,7 +1425,7 @@ sub _createGroupsContainer
                 instanceType => 4);
 
     my $entry = new Net::LDAP::Entry($dn, %attr);
-    my $result = $entry->update($ldb->connection());
+    my $result = $entry->update($ldap->connection());
     if ($result->is_error()) {
         unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
             my @changes = $entry->changes();
