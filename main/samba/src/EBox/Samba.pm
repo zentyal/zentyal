@@ -964,7 +964,6 @@ sub _postServiceHook
                 $ldap->initKeyTabs();
             }
         } else {
-            EBox::Samba::Provision::provisionGIDNumbersDefaultGroups();
             $self->_sambaPostServiceHook();
         }
     }

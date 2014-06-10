@@ -361,56 +361,113 @@ sub resetSysvolACL
 # Method: mapAccounts
 #
 #   Set the mapping between the objectSID and uidNumber/gidNumber for the
-#   following entries by writing these entries in the idmap database.
+#   following accounts:
 #
-#   NOTE: At this point the accounts do not exist yet in LDB, but as the
-#         SIDs are well-known we can stablish the mappings
+#       - Administrator
+#       - Guest
+#       - Domain Admins
+#       - Domain Users
+#       - Domain Guests
+#       - Builtin\Administrators
 #
-#               LDB                         System
-#       User  'Administrator'   =>      User  'root'
-#       Group 'Domain Admins'   =>      Group 'adm'
-#       Group 'Domain Users'    =>      Group '__USERS__'
-#       User  'Guest'           =>      User  'nobody'
-#       Group 'Domain Guests'   =>      Group 'nogroup'
+#    Will made the accounts available to unix after setting up NSS.
 #
 sub mapAccounts
 {
     my ($self) = @_;
 
-    my $usersModule = EBox::Global->modInstance('samba');
-    my $domainSID = $usersModule->ldb->domainSID();
+    my $samba = EBox::Global->modInstance('samba');
+    my $ldap = $samba->ldap();
+    my $domainSid = $ldap->domainSID();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
 
-    # Map unix root account to domain administrator.
-    my $typeUID  = EBox::Samba::IdMapDb::TYPE_UID();
-    my $typeGID  = EBox::Samba::IdMapDb::TYPE_GID();
-    my $typeBOTH = EBox::Samba::IdMapDb::TYPE_BOTH();
-    my $domainAdminSID = "$domainSID-500";
-    my $domainAdminsSID = "$domainSID-512";
-    my $rootUID = 0;
-    my $admGID = 4;
+    # Domain admins is a well known SID (S-1-5-21-<domain sid>-512)
+    # Domain users is a well known SID (S-1-5-21-<domain sid>-513)
+    # Domain guests is a well knwon SID (S-1-5-21-<domain sid>-514)
+    foreach my $rid (qw(512 513 514)) {
+        try {
+            my $sid = "$domainSid-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $group = new EBox::Samba::Group(entry => $entry);
+            unless ($group->get('gidNumber')) {
+                my $id = $group->unixId($rid);
+                EBox::info("Setting gidNumber $id for SID $sid");
+                $group->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 
-    EBox::info("Mapping domain administrator account");
-    $usersModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
+    # Builtin\Administrators is a well known SID S-1-5-32-544
+    foreach my $rid (qw(544)) {
+        try {
+            my $sid = "S-1-5-32-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $group = new EBox::Samba::Group(entry => $entry);
+            unless ($group->get('gidNumber')) {
+                my $id = $group->unixId($rid);
+                EBox::info("Setting gidNumber for SID $sid");
+                $group->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 
-    EBox::info("Mapping domain administrators group account");
-    $usersModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
-
-    EBox::info("Mapping domain users group account");
-    # FIXME Why is this not working during first intall???
-    #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
-    my $usersGID = 1901;
-    my $domainUsersSID = "$domainSID-513";
-    $usersModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
-
-    # Map domain guest account to nobody user
-    my $guestSID = "$domainSID-501";
-    my $guestGroupSID = "$domainSID-514";
-    my $uid = 65534;
-    my $gid = 65534;
-    EBox::info("Mapping domain guest account");
-    $usersModule->ldb->idmap->setupNameMapping($guestSID, $typeUID, $uid);
-    EBox::info("Mapping domain guests group account");
-    $usersModule->ldb->idmap->setupNameMapping($guestGroupSID, $typeGID, $gid);
+    # Administrator is a well known SID (S-1-5-21-<domain sid>-500)
+    # Guest is a well known SID (S-1-5-21-<domain sid>-501)
+    my $userMaps = {
+        500 => new EBox::Samba::Group(sid => "$domainSid-512"),
+        501 => new EBox::Samba::Group(sid => "$domainSid-514"),
+    };
+    foreach my $rid (keys %{$userMaps}) {
+        try {
+            my $sid = "$domainSid-$rid";
+            my $result = $ldap->search({ base   => $defaultNC,
+                                         filter => "objectSid=$sid",
+                                         scope  => 'sub' });
+            if ($result->count() != 1) {
+                throw EBox::Exceptions::Internal(
+                    __x("Unexpected number of entries. Got {x}, expected 1.",
+                        x => $result->count()));
+            }
+            my $entry = $result->entry(0);
+            my $user = new EBox::Samba::User(entry => $entry);
+            unless ($user->get('uidNumber')) {
+                my $id = $user->unixId($rid);
+                EBox::info("Setting uidNumber $id for SID $sid");
+                $user->set('uidNumber', $id);
+            }
+            unless ($user->get('gidNumber')) {
+                my $id = $userMaps->{$rid}->get('gidNumber');
+                EBox::info("Setting gidNumber $id for SID $sid");
+                $user->set('gidNumber', $id);
+            }
+        } catch ($e) {
+            EBox::error($e);
+            next;
+        }
+    }
 }
 
 sub provisionDC
@@ -481,14 +538,11 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
-        # Set the uidNumber and gidNumber to specific groups, otherwise sssd
-        # won't be aware of them
-        $self->provisionGIDNumbersDefaultGroups();
+        # FIXME Load Zentyal service principals into samba
+        # $usersModule->ldap->ldapServicePrincipalsToLdb();
 
-        # FIXME
-#        $usersModule->ldb->ldapServicePrincipalsToLdb();
-        # Map accounts
-#        $self->mapAccounts();
+        # Map accounts (SID -> Unix UID/GID numbers)
+        $self->mapAccounts();
 
         EBox::debug('Creating Groups container');
         $self->_createGroupsContainer();
@@ -511,7 +565,7 @@ sub rootDseAttributes
 
     unless (defined $self->{rootDseAttributes}) {
         my $usersModule = EBox::Global->modInstance('samba');
-        my $rootDseAttributes = $usersModule->ldb->ROOT_DSE_ATTRS();
+        my $rootDseAttributes = $usersModule->ldap->ROOT_DSE_ATTRS();
         $self->{rootDseAttributes} = $rootDseAttributes;
     }
     return $self->{rootDseAttributes};
@@ -982,9 +1036,9 @@ sub _addForestDnsZonesReplica
 
     EBox::info("Adding Forest Dns replica");
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
-    my $basedn = $ldb->dn();
-    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+    my $ldap = $usersModule->ldap();
+    my $basedn = $ldap->dn();
+    my $dsServiceName = $ldap->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -992,7 +1046,7 @@ sub _addForestDnsZonesReplica
         filter => "(nCName=DC=ForestDnsZones,$basedn)",
         attrs => ['*'],
     };
-    my $result = $ldb->search($params);
+    my $result = $ldap->search($params);
     unless ($result->count() == 1) {
         EBox::error("Could not found ForestDnsZones partition.");
         return;
@@ -1003,7 +1057,7 @@ sub _addForestDnsZonesReplica
         return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
-    $entry->update($ldb->connection());
+    $entry->update($ldap->connection());
 }
 
 # FIXME Workaround for samba bug #9200
@@ -1013,9 +1067,9 @@ sub _addDomainDnsZonesReplica
 
     EBox::info("Adding Domain Dns replica");
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
-    my $basedn = $ldb->dn();
-    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+    my $ldap = $usersModule->ldap();
+    my $basedn = $ldap->dn();
+    my $dsServiceName = $ldap->rootDse->get_value('dsServiceName');
 
     my $params = {
         base => "CN=Partitions,CN=Configuration,$basedn",
@@ -1023,7 +1077,7 @@ sub _addDomainDnsZonesReplica
         filter => "(nCName=DC=DomainDnsZones,$basedn)",
         attrs => ['*'],
     };
-    my $result = $ldb->search($params);
+    my $result = $ldap->search($params);
     unless ($result->count() == 1) {
         EBox::error("Could not found DomainDnsZones partition.");
         return;
@@ -1034,7 +1088,7 @@ sub _addDomainDnsZonesReplica
         return if (lc $replica eq lc $dsServiceName);
     }
     $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
-    $entry->update($ldb->connection());
+    $entry->update($ldap->connection());
 }
 
 # Method: _waitForRidSetAllocation
@@ -1056,12 +1110,12 @@ sub _waitForRidPoolAllocation
     my $sleepSeconds = 0.1;
 
     my $usersModule = EBox::Global->modInstance('samba');
-    my $ldb = $usersModule->ldb();
+    my $ldap = $usersModule->ldap();
 
     # Get the server object, contained in the config NC, that represents
     # this DC
-    my $serverNameDN = $ldb->rootDse->get_value('serverName');
-    my $result = $ldb->search({
+    my $serverNameDN = $ldap->rootDse->get_value('serverName');
+    my $result = $ldap->search({
         base => $serverNameDN,
         scope => 'base',
         filter => '(objectClass=*)',
@@ -1077,7 +1131,7 @@ sub _waitForRidPoolAllocation
     # Get the domain controller object representing this DC
     my $serverReferenceDN = $serverObject->get_value('serverReference');
     while (not $allocated and $maxTries > 0) {
-        $result = $ldb->search({
+        $result = $ldap->search({
             base => $serverReferenceDN,
             scope => 'base',
             filter => '(objectClass=*)',
@@ -1093,7 +1147,7 @@ sub _waitForRidPoolAllocation
         # Get the list of references to RID set objects managing RID allocation
         my @ridSetReferencesDNs = $dcObject->get_value('rIDSetReferences');
         foreach my $ridSetReferenceDN (@ridSetReferencesDNs) {
-            $result = $ldb->search({
+            $result = $ldap->search({
                 base => $ridSetReferenceDN,
                 scope => 'base',
                 filter => '(objectClass=*)',
@@ -1169,8 +1223,6 @@ sub provisionADC
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     try {
-        $self->setProvisioning(1);
-
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
@@ -1215,6 +1267,8 @@ sub provisionADC
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
 
+        $self->setProvisioned(1);
+        $self->setupKerberos();
         $self->setupDNS();
 
         # Write SSS daemon configuration and force a restart
@@ -1237,103 +1291,20 @@ sub provisionADC
             " --password='$adPwd' ";
         EBox::Sudo::rootWithoutException($cmd);
 
-        # Purge ous, users, contacts and groups
-        EBox::info("Purging the Zentyal LDAP to import Samba users");
-        my $ous = $usersModule->ous();
-        my $users = $usersModule->users();
-        my $contacts = $usersModule->contacts();
-        my $groups = $usersModule->groups();
-        foreach my $zentyalUser (@{$users}) {
-            $zentyalUser->setIgnoredModules(['samba']);
-            $zentyalUser->deleteObject();
-        }
-        foreach my $zentyalContact (@{$contacts}) {
-            $zentyalContact->setIgnoredModules(['samba']);
-            $zentyalContact->deleteObject();
-        }
-        foreach my $zentyalGroup (@{$groups}) {
-            $zentyalGroup->setIgnoredModules(['samba']);
-            $zentyalGroup->deleteObject();
-        }
-        foreach my $zentyalOU (reverse @{$ous}) {
-            # Do not remove any OU under these bases, won't be synced to LDB
-            #   (zarafa module) OU=zarafa,$baseDN
-            #   (mail module)   OU=postfix,$baseDN
-            # Do not remove this OUs (will be mapped), but remove any child
-            #   (users module)  OU=users
-            #   (users module)  OU=groups
-            #   (users module)  OU=computers
-            #   (users module)  OU=Kerberos
-            my $dn = ldap_explode_dn($zentyalOU->dn(), reverse => 1);
-            my $rdn;
-            do {
-                $rdn = shift (@{$dn});
-            } while (scalar @{$dn} and not defined $rdn->{OU});
-            my $ouName = lc $rdn->{OU};
+        # FIXME Load Zentyal service principals into samba
+        #$usersModule->ldap->ldapServicePrincipalsToLdb();
 
-            # Skip removal of any OU under OU=zarafa and OU=postfix
-            next if (grep { $_ eq $ouName } @{
-                [ 'postfix', 'zarafa' ]
-            });
-
-            # Skip the removal of kerberos, users, groups and computers, but
-            # remove any OU inside them
-            next if (grep { $_ eq $ouName } @{
-                [ 'kerberos', 'users', 'groups', 'computers' ]
-            } and not scalar @{$dn});
-
-            # As we iterate the array in reverse order, we should not remove
-            # a parent before a child, but just in case, check for object
-            # before delete
-            $zentyalOU->clearCache();
-            $zentyalOU->setIgnoredModules(['samba']);
-            $zentyalOU->deleteObject() if $zentyalOU->exists();
-        }
-        # Special cases that should be deleted from LDAP are those not
-        # returned from the users() or groups() functions
-        #   - Administrator user
-        #   - Domain Admins group
-        #   - Guest user
-        for my $gid (('Domain Admins')) {
-            my $zGroup = new EBox::Samba::Group(gid => $gid);
-            if ($zGroup->exists()) {
-                $zGroup->setIgnoredModules(['samba']);
-                $zGroup->deleteObject();
-            }
-        }
-        for my $uid (('Administrator', 'Guest')) {
-            my $zUser = new EBox::Samba::User(uid => $uid);
-            if ($zUser->exists()) {
-                $zUser->setIgnoredModules(['samba']);
-                $zUser->deleteObject();
-            }
-        }
-        # Clear the link from __USERS__ group, otherwise it will be deleted
-        # by s4sync
-        my $group = new EBox::Samba::Group(gid => EBox::Samba::DEFAULTGROUP());
-        if ($group->exists()) {
-            my $link = $group->get('msdsObjectGUID');
-            if (defined $link) {
-                $group->delete('msdsObjectGUID', 1);
-                $group->deleteValues('objectClass', 'zentyalSambaLink', 1);
-                $group->save();
-            }
-        }
-
-        # Map defaultContainers
-        $self->mapDefaultContainers();
-
-        # Load Zentyal service principals into samba
-        $usersModule->ldb->ldapServicePrincipalsToLdb();
-
-        # Map accounts
+        # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
-        # Set provisioned flag
-        $self->setProvisioned(1);
+        EBox::debug('Creating Groups container');
+        $self->_createGroupsContainer();
+
+        EBox::debug('Hide internal groups');
+        $self->_hideInternalGroups();
     } catch ($e) {
         $self->setProvisioned(0);
-        $self->setProvisioning(0);
+        $self->setupKerberos();
         $self->setupDNS();
 
         if (defined $dnsFile and -f $dnsFile) {
@@ -1354,69 +1325,40 @@ sub provisionADC
                          'resolvconf -d zentyal.temp');
         unlink $dnsFile;
     }
-    # Remote stashed password
+    # Remove stashed password
     if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
         unlink $adminAccountPwdFile;
     }
     # Destroy cached tickets
     EBox::Sudo::rootWithoutException('kdestroy');
-
-    $self->setProvisioning(0);
 }
 
-# Method: provisionGIDNumbersDefaultGroups
+# Method: _createGroupsContainer
 #
-#    Set gidNumber to default groups that are required to set up NSS
-#    and PAM.
+#   Create the Groups Container at top level to improve usability
+#   of the module if it does not exists
 #
-#    We will set the gidNumber using a formulae from
-#    <EBox::Samba::SecurityPrincipal::unixId>.
-#
-#
-sub provisionGIDNumbersDefaultGroups
-{
-    my $usersMod = EBox::Global->modInstance('samba');
-    my $ldap = $usersMod->ldap();
-    my $domainSid = $ldap->domainSID();
-
-    # Set the gidNumber to Domain Users and Domain Admins
-    # Domain users is a well known SID (S-1-5-21-<domain sid>-513)
-    # Domain admins is a well known SID (S-1-5-21-<domain sid>-512)
-    foreach my $rid (qw(512 513)) {
-        my $sid = "$domainSid-$rid";
-
-        EBox::info("Setting gidNumber for SID $sid");
-
-        my $dse = $ldap->rootDse();
-        my $defaultNC = $dse->get_value('defaultNamingContext');
-
-        my $result = $ldap->search({ base   => $defaultNC,
-                                    filter => "objectSid=$sid",
-                                    scope  => 'sub' });
-        if ($result->count() != 1) {
-            throw EBox::Exceptions::Internal(
-                __x("Unexpected number of entries. Got {x}, expected 1.",
-                    x => $result->count()));
-        }
-
-        my $entry = $result->entry(0);
-        my $group = $usersMod->entryModeledObject($entry);
-        unless ($group->get('gidNumber')) {
-            $group->set('gidNumber', $group->unixId($rid));
-        }
-    }
-}
-
-# Create the Groups Container at top level to improve usability
-# of the module
 sub _createGroupsContainer
 {
     my ($self) = @_;
 
+    EBox::info("Creating default groups container");
+
     my $usersMod = EBox::Global->getInstance()->modInstance('samba');
-    my $ldb = $usersMod->ldb();
+    my $ldap = $usersMod->ldap();
     my $containerName = 'Groups';
-    my $dn = "CN=$containerName," . $ldb->dn();
+    my $dn = "CN=$containerName," . $ldap->dn();
+
+    my $param = {
+        base => $ldap->dn(),
+        scope => 'one',
+        filter => '(objectClass=container)',
+    };
+    my $result = $ldap->search($param);
+    if ($result->count() > 0) {
+        EBox::info("Groups container already exists, skip creation");
+        return;
+    }
 
     my %attr = (objectClass  => ['top', 'container'],
                 cn           => $containerName,
@@ -1425,7 +1367,7 @@ sub _createGroupsContainer
                 instanceType => 4);
 
     my $entry = new Net::LDAP::Entry($dn, %attr);
-    my $result = $entry->update($ldb->connection());
+    $result = $entry->update($ldap->connection());
     if ($result->is_error()) {
         unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
             my @changes = $entry->changes();
