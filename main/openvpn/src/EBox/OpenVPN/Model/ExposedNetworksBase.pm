@@ -66,7 +66,16 @@ sub _tableHead
 sub pageTitle
 {
     my ($self) = @_;
-    return $self->parentRow()->printableValueByName('name');
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('name');
 }
 
 # Method: networks

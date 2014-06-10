@@ -24,7 +24,6 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
-
 use EBox::Types::DomainName;
 use EBox::Sudo;
 
@@ -158,7 +157,15 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('hostname');
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('hostname');
 }
 
 # Group: Protected methods
