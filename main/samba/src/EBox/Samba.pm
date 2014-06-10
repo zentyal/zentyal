@@ -136,7 +136,7 @@ use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
-use constant GUEST_DEFAULT_USER   => 'nobody';
+use constant GUEST_DEFAULT_USER   => 'Guest';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -1044,8 +1044,7 @@ sub _sambaPostServiceHook
             }
 
             my $state = $self->get_state();
-            if (not ((defined $state->{shares_set_rights}) and
-                     ($state->{shares_set_rights}->{$shareName}))) {
+            unless (defined $state->{shares_set_rights} and $state->{shares_set_rights}->{$shareName}) {
                 # share permissions didn't change, nothing needs to be done for this share.
                 next;
             }

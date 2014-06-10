@@ -196,7 +196,7 @@ sub tagShareRightsReset
 
         EBox::info("Tagging share '$shareName' as requiring a permission reset");
         # Store in redis that we should set acls, given the permission changed.
-        my $sambaMod = EBox::Global->modInstance('samba');
+        my $sambaMod = $self->parentModule();
         my $state = $sambaMod->get_state();
         unless (defined $state->{shares_set_rights}) {
             $state->{shares_set_rights} = {};
