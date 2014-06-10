@@ -15,7 +15,8 @@
 
 # Class: EBox::Types::Host
 #
-#      A specialised text type to represent either a host IP address or a host name.
+#   A specialised text type to represent either a host IP address or a
+#   host name.
 #
 use strict;
 use warnings;
@@ -42,11 +43,9 @@ use Net::IP;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(
-            @_,
-            );
+    my $self = $class->SUPER::new(@_);
     $self->{'type'} = 'host';
-    bless($self, $class);
+    bless ($self, $class);
     return $self;
 }
 
