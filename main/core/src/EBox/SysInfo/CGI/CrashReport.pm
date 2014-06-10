@@ -24,7 +24,6 @@ use EBox::Gettext;
 use EBox::GlobalImpl;
 use EBox::Validate;
 use EBox::Util::BugReport;
-use Error qw(:try);
 
 my $CRASH_DIR = '/var/crash';
 
