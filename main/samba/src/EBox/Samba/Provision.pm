@@ -1223,8 +1223,6 @@ sub provisionADC
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     try {
-        $self->setProvisioning(1);
-
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
@@ -1384,7 +1382,6 @@ sub provisionADC
         $self->setProvisioned(1);
     } catch ($e) {
         $self->setProvisioned(0);
-        $self->setProvisioning(0);
         $self->setupDNS();
 
         if (defined $dnsFile and -f $dnsFile) {
