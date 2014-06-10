@@ -538,14 +538,11 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
-        # Set the uidNumber and gidNumber to specific groups, otherwise sssd
-        # won't be aware of them
-        $self->provisionGIDNumbersDefaultGroups();
+        # FIXME Load Zentyal service principals into samba
+        # $usersModule->ldap->ldapServicePrincipalsToLdb();
 
-        # FIXME
-#        $usersModule->ldap->ldapServicePrincipalsToLdb();
-        # Map accounts
-#        $self->mapAccounts();
+        # Map accounts (SID -> Unix UID/GID numbers)
+        $self->mapAccounts();
 
         EBox::debug('Creating Groups container');
         $self->_createGroupsContainer();
@@ -1380,10 +1377,7 @@ sub provisionADC
         # Map defaultContainers
         $self->mapDefaultContainers();
 
-        # Load Zentyal service principals into samba
-        $usersModule->ldap->ldapServicePrincipalsToLdb();
-
-        # Map accounts
+        # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
         # Set provisioned flag
