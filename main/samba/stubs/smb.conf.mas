@@ -25,6 +25,7 @@ use EBox::Gettext;
     server role check:inhibit = yes
     server services = -dns
     server signing = auto
+    dsdb:schema update allowed = yes
 
     log level = 3
     log file = /var/log/samba/samba.log
