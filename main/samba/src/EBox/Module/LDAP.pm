@@ -23,6 +23,17 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
+
+use EBox::Samba::FSMO;
+use EBox::Samba::AuthKrbHelper;
+use Net::LDAP;
+use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
+use Net::LDAP::LDIF;
+use File::Temp;
+use File::Slurp;
+use Authen::SASL;
 
 use TryCatch::Lite;
 
@@ -62,30 +73,131 @@ sub clearLdapConn
     $self->{ldap} = undef;
 }
 
+sub _connectToSchemaMaster
+{
+    my ($self) = @_;
+
+    my $fsmo = new EBox::Samba::FSMO();
+    my $ntdsOwner = $fsmo->getSchemaMaster();
+    my $ntdsParts = ldap_explode_dn($ntdsOwner);
+    shift @{$ntdsParts};
+    my $serverOwner = canonical_dn($ntdsParts);
+
+    my $params = {
+        base => $serverOwner,
+        scope => 'base',
+        filter => '(objectClass=*)',
+        attrs => ['dnsHostName'],
+    };
+    my $result = $self->ldap->search($params);
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal(
+            __x("Error on search: Expected one entry, got {x}.\n",
+                x => $result->count()));
+    }
+    my $entry = $result->entry(0);
+    my $dnsOwner = $entry->get_value('dnsHostName');
+
+    my $masterLdap = new Net::LDAP($dnsOwner);
+    unless ($masterLdap) {
+        throw EBox::Exceptions::Internal(
+            __x('Error connectiong to schema master role owner ({x})',
+                x => $dnsOwner));
+    }
+
+    # Bind with schema operator privilege
+    my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
+    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
+    unless ($sasl) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup SASL object: {x}",
+                x => $@));
+    }
+
+    # Check GSSAPI support
+    my $dse = $masterLdap->root_dse(attrs => ['defaultNamingContext', '*']);
+    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
+        throw EBox::Exceptions::External(
+            __("AD LDAP server does not support GSSAPI"));
+    }
+
+    # Finally bind to LDAP using our SASL object
+    my $masterBind = $masterLdap->bind(sasl => $sasl);
+    if ($masterBind->is_error()) {
+        throw EBox::Exceptions::LDAP(
+            message => __('Error binding to schama master LDAP:'),
+            result => $masterBind);
+    }
+
+    return $masterLdap;
+}
+
+sub _sendSchemaUpdate
+{
+    my ($self, $masterLdap, $ldifTemplate) = @_;
+
+    unless (defined $masterLdap) {
+        throw EBox::Exceptions::MissingArgument('masterLdap');
+    }
+    unless (defined $ldifTemplate) {
+        throw EBox::Exceptions::MissingArgument('ldifTemplate');
+    }
+
+    # Mangle LDIF
+    my $defaultNC = $self->ldap->dn();
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    my $ldifFile = $fh->filename();
+    my $buffer = File::Slurp::read_file($ldifTemplate);
+    $buffer =~ s/DOMAIN_TOP_DN/$defaultNC/g;
+    File::Slurp::write_file($ldifFile, $buffer);
+
+    # Send update
+    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'die');
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry();
+        if ($ldif->error()) {
+            throw EBox::Exceptions::Internal(
+                __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
+                    x => $ldif->error(), y => $ldif->error_lines()));
+        } else {
+            # Skip if already extended
+            my $dn = $entry->dn();
+            # Skip checking the update schema cache sent to root DSE
+            if ($dn ne '') {
+                my $result = $masterLdap->search(
+                    base => $dn,
+                    scope => 'base',
+                    filter => '(objectClass=*)');
+                next if ($result->count() > 0);
+            }
+
+            # Send the entry
+            my $msg = $entry->update($masterLdap);
+            if ($msg->is_error()) {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error sending schama update:'),
+                    result => $msg);
+            }
+        }
+    }
+    $ldif->done();
+}
+
 # Method: _loadSchemas
 #
 #  Load the *.ldif schemas contained in the module package
-#
 #
 sub _loadSchemas
 {
     my ($self) = @_;
 
+    # Locate and connect to schema master
+    my $masterLdap = $self->_connectToSchemaMaster();
+
     my $name = $self->name();
-    my $global = $self->global();
     my $path = EBox::Config::share() . "zentyal-$name";
-
-    foreach my $attr (glob ("$path/*-attr.ldif")) {
-        EBox::Sudo::root("/usr/share/zentyal-samba/load-schema $attr");
-    }
-    foreach my $class (glob ("$path/*-class.ldif")) {
-        EBox::Sudo::root("/usr/share/zentyal-samba/load-schema $class");
-    }
-
-    if ($name eq 'samba') {
-        $global->addModuleToPostSave('samba');
-    } else {
-        $global->modInstance('samba')->restartService();
+    foreach my $ldif (glob ("$path/*.ldif")) {
+        $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 }
 

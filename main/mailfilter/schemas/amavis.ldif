@@ -9,6 +9,7 @@ description: Virus lover
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn:  CN=amavisBannedFilesLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -21,6 +22,7 @@ description: Banned Files Lover
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBypassVirusChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -33,6 +35,7 @@ description: Bypass Virus Check
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBypassSpamChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -45,6 +48,7 @@ description: Bypass Spam Check
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamTagLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -57,6 +61,7 @@ description: Spam Tag Level
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamTag2Level,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -69,6 +74,7 @@ description: Spam Tag2 Level
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamKillLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -81,6 +87,7 @@ description: Spam Kill Level
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamModifiesSubj,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -93,6 +100,7 @@ description: Modifies Subject on spam
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisWhitelistSender,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -105,6 +113,7 @@ description: White List Sender
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBlacklistSender,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -117,6 +126,7 @@ description: Black List Sender
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -129,6 +139,7 @@ description: Spam Quarantine to
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -141,6 +152,7 @@ description: Spam Lover
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBadHeaderLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -153,6 +165,7 @@ description: Bad Header Lover
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBypassBannedChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -165,6 +178,7 @@ description: Bypass Banned Files Check
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBypassHeaderChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -177,6 +191,7 @@ description: Bypass Header Check
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisVirusQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -189,6 +204,7 @@ description: Virus quarantine location
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBannedQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -201,6 +217,7 @@ description: Banned Files quarantine location
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBadHeaderQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -213,6 +230,7 @@ description: Bad Header quarantine location
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisLocal,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -225,6 +243,7 @@ description: Is user considered loca
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisMessageSizeLimit,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -237,6 +256,7 @@ description: Message size limit
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisWarnVirusRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -249,6 +269,7 @@ description: Notify virus recipients
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisWarnBannedRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -261,6 +282,7 @@ description: Notify banned file recipient
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisWarnBadHeaderRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -273,6 +295,7 @@ description: Notify bad header recipients
 attributeSyntax: 2.5.5.8
 oMSyntax: 1
 isSingleValued: TRUE
+-
 
 dn: CN=amavisVirusAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -285,6 +308,7 @@ description: Virus admin
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisNewVirusAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -297,6 +321,7 @@ description: New virus admin
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -309,6 +334,7 @@ description: Spam admin
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBannedAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -321,6 +347,7 @@ description: Banned file admin
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBadHeaderAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -333,6 +360,7 @@ description: Bad header admin
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisBannedRuleNames,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -345,6 +373,7 @@ description: Banned rule names
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamDsnCutoffLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -357,6 +386,7 @@ description: Spam DSN Cutoff Level
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamQuarantineCutoffLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -369,6 +399,7 @@ description: Spam Quarantine Cutoff Level
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamSubjectTag,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -381,6 +412,7 @@ description: Spam Subject Tag
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
 
 dn: CN=amavisSpamSubjectTag2,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: top
@@ -393,3 +425,63 @@ description: Spam Subject Tag2
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
 isSingleValued: TRUE
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+dn: CN=amavisAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.15312.2.2.2.1
+cn: amavisAccount
+name: amavisAccount
+LDAPDisplayName: amavisAccount
+subClassOf: top
+objectClassCategory: 3
+mayContain: amavisVirusLover
+mayContain: amavisBypassVirusChecks
+mayContain: amavisSpamLover
+mayContain: amavisBypassSpamChecks
+mayContain: amavisBannedFilesLover
+mayContain: amavisBypassBannedChecks
+mayContain: amavisBadHeaderLover
+mayContain: amavisBypassHeaderChecks
+mayContain: amavisSpamTagLevel
+mayContain: amavisSpamTag2Level
+mayContain: amavisSpamKillLevel
+mayContain: amavisWhitelistSender
+mayContain: amavisBlacklistSender
+mayContain: amavisSpamQuarantineTo
+mayContain: amavisVirusQuarantineTo
+mayContain: amavisBannedQuarantineTo
+mayContain: amavisBadHeaderQuarantineTo
+mayContain: amavisSpamModifiesSubj
+mayContain: amavisLocal
+mayContain: amavisMessageSizeLimit
+mayContain: amavisWarnVirusRecip
+mayContain: amavisWarnBannedRecip
+mayContain: amavisWarnBadHeaderRecip
+mayContain: amavisVirusAdmin
+mayContain: amavisNewVirusAdmin
+mayContain: amavisSpamAdmin
+mayContain: amavisBannedAdmin
+mayContain: amavisBadHeaderAdmin
+mayContain: amavisBannedRuleNames
+mayContain: amavisSpamDsnCutoffLevel
+mayContain: amavisSpamQuarantineCutoffLevel
+mayContain: amavisSpamSubjectTag
+mayContain: amavisSpamSubjectTag2
+mayContain: cn
+mayContain: description
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
