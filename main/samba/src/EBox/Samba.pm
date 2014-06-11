@@ -3822,7 +3822,7 @@ sub userShares
 
     my $shares = [];
     foreach my $user (@{$users}) {
-        my $userProfilePath = $userProfilesPath . "/" . $user->get('uid');
+        my $userProfilePath = $userProfilesPath . "/" . $user->get('samAccountName');
 
         my $userShareInfo = {
             'user' => $user->name(),

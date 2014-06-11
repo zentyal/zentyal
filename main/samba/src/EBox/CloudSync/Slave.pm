@@ -49,7 +49,7 @@ sub _addUser
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
-        name        => $user->get('uid'),
+        name        => $user->get('samAccountName'),
         firstname   => $user->get('givenName'),
         lastname    => $user->get('sn'),
         description => ($user->get('description') or ''),
@@ -59,7 +59,7 @@ sub _addUser
         ou          => $self->get_ou($user),
     };
 
-    my $uid = $user->get('uid');
+    my $uid = $user->get('samAccountName');
     try {
         $self->RESTClient->POST("/v1/users/users/$uid", query => $userinfo, retry => 1);
     } catch (EBox::Exceptions::Internal $e) {
@@ -88,7 +88,7 @@ sub _modifyUser
         ou          => $self->get_ou($user),
     };
 
-    my $uid = $user->get('uid');
+    my $uid = $user->get('samAccountName');
     try {
         $self->RESTClient->PUT("/v1/users/users/$uid", query => $userinfo, retry => 1);
     } catch (EBox::Exceptions::Internal $e) {
@@ -103,7 +103,7 @@ sub _delUser
 
     return if ($user->isInternal());
 
-    my $uid = $user->get('uid');
+    my $uid = $user->get('samAccountName');
     try {
         $self->RESTClient->DELETE("/v1/users/users/$uid", retry => 1);
     } catch (EBox::Exceptions::Internal $e) {

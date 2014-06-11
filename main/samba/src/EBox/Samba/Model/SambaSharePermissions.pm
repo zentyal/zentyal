@@ -66,7 +66,7 @@ sub populateUser
     my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
-        $gr->{value} = $u->get('uid');
+        $gr->{value} = $u->get('samAccountName');
         $gr->{printableValue} = $u->name();
         push (@users, $gr);
     }

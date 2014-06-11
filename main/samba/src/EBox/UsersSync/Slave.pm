@@ -58,7 +58,7 @@ sub _addUser
     my @passwords = map { MIME::Base64::encode($_) } @{$user->passwordHashes()};
     my %userinfo = (
         parentDN     => $user->parent()->dn(),
-        uid          => scalar($user->get('uid')),
+        uid          => scalar($user->get('samAccountName')),
         fullname     => scalar($user->fullname()),
         givenname    => scalar($user->givenName()),
         initials     => scalar($user->initials()),
