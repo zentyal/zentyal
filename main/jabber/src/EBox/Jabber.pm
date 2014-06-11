@@ -224,7 +224,6 @@ sub _setConf
     push(@array, 'muc' => $settings->mucValue());
     push(@array, 'stun' => $settings->stunValue());
     push(@array, 'proxy' => $settings->proxyValue());
-    push(@array, 'zarafa' => $self->zarafaEnabled());
     push(@array, 'sharedroster' => $settings->sharedrosterValue());
     push(@array, 'vcard' => $settings->vcardValue());
 
@@ -235,19 +234,6 @@ sub _setConf
     if ($self->_domainChanged($domain)) {
         $self->_clearDatabase();
     }
-}
-
-sub zarafaEnabled
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('zarafa') ) {
-        my $zarafa = $gl->modInstance('zarafa');
-        my $jabber = $zarafa->model('GeneralSettings')->jabberValue();
-        return ($zarafa->isEnabled() and $jabber);
-    }
-    return 0;
 }
 
 # Method: menu
