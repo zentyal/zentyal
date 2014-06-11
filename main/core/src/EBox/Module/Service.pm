@@ -184,7 +184,7 @@ sub disableModDepends
 #
 #    Example:
 #
-#       [ 'firewall', 'users' ]
+#       [ 'firewall', 'samba' ]
 #
 sub enableModDepends
 {
@@ -253,7 +253,7 @@ sub enableModDependsRecursive
 #
 #    Example:
 #
-#       [ 'firewall', 'users' ]
+#       [ 'firewall', 'samba' ]
 #
 sub bootDepends
 {
@@ -867,11 +867,13 @@ sub _startService
 #                    observer, then it performs the firewall restart
 #                    after stopping the module.
 #
+#   temporaryStopped - *optional* mark as stopped from commandline
+#
 sub stopService
 {
     my ($self, %params) = @_;
 
-    $self->setTemporaryStopped(1);
+    $self->setTemporaryStopped(1) if $params{temporaryStopped};
     my $global   = $self->global();
     if ($self->isa('EBox::FirewallObserver')) {
         my $fwHelper = $self->firewallHelper();

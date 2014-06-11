@@ -527,15 +527,15 @@ sub _setUserDir
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module
-    if ($publicFolder->enableDirValue() and $gl->modExists('users')) {
-        my $usersMod = $gl->modInstance('users');
+    if ($publicFolder->enableDirValue() and $gl->modExists('samba')) {
+        my $usersMod = $gl->modInstance('samba');
         my $ldap = $usersMod->ldap();
         my $ldapServer = '127.0.0.1';
         my $ldapPort   = $ldap->ldapConf()->{port};
         my $rootDN = $usersMod->administratorDN();
         my $ldapPass = $usersMod->administratorPassword();
-        eval 'use EBox::Users::User';
-        my $usersDN = EBox::Users::User->defaultContainer()->dn();
+        eval 'use EBox::Samba::User';
+        my $usersDN = EBox::Samba::User->defaultContainer()->dn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
                              [
@@ -574,7 +574,7 @@ sub _setUserDir
                 $e->throw();
             }
         }
-        if ($gl->modExists('users')) {
+        if ($gl->modExists('samba')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
             } catch (EBox::Exceptions::Sudo::Command $e) {

@@ -61,7 +61,7 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('users');
+    my $userMod = EBox::Global->modInstance('samba');
     my @users = ();
     my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
@@ -75,7 +75,7 @@ sub populateUser
 
 sub populateGroup
 {
-    my $userMod = EBox::Global->modInstance('users');
+    my $userMod = EBox::Global->modInstance('samba');
 
     my @groups = ();
 

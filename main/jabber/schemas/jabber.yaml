@@ -1,9 +1,9 @@
 class: 'EBox::Jabber'
 enabledepends:
-    - users
+    - samba
 
 depends:
-    - users
+    - samba
 
 models:
     - GeneralSettings

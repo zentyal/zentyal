@@ -123,7 +123,7 @@ sub writeConf
 {
     my ($self) = @_;
 
-    my $usersMod = $self->global()->modInstance('users');
+    my $usersMod = $self->global()->modInstance('samba');
     my $ldap = $usersMod->ldap();
 
     my $antivirus   = $self->global()->modInstance('antivirus');

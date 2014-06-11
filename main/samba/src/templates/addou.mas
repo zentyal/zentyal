@@ -1,0 +1,29 @@
+<%args>
+	$dn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h4><% __('Add Organizational Unit') %></h4>
+    <div id='addOuForm_error' class='error' style='display:none'></div>
+        <form action='/Samba/AddOU' method='POST' id='addOuForm' class='formDiv'>
+        <input type="hidden" name="dn" value="<% $dn %>">
+    <div>
+                <label><% __('Name') %></label>
+                <input type='text' class='inputText' name='ou'>
+        </div>
+        <div>
+                <input class='inputButton' type='submit' name='add'
+                                           value="<% __('Add') %>"
+                                           alt="<% __('Add') %>"/>
+        </div>
+   </form>
+
+<script>
+$(function() {
+   $('#addOuForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addOuForm', { extraData: { add: 1} });
+    });
+});
+</script>

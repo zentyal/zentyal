@@ -148,7 +148,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $users = $self->global->modInstance('users');
+    my $users = $self->global->modInstance('samba');
     unless ($users->configured()) {
         $self->{preconditionFail} = 'notConfigured';
         return undef;
@@ -208,14 +208,14 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconditionFail} eq 'notConfigured') {
-        my $users = EBox::Global->modInstance('users');
+        my $users = EBox::Global->modInstance('samba');
         return __x('You must enable the {x} module in the module ' .
                   'status section before provisioning {y} module database.',
                   x => $users->printableName(),
                   y => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        my $users = $self->global->modInstance('users');
+        my $users = $self->global->modInstance('samba');
         return __x('You must provision the {x} module database before ' .
                   'provisioning the {y} module database.',
                   x => $users->printableName(),
@@ -232,7 +232,7 @@ sub preconditionFailMsg
                    'database', x => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'vdomainNotFound') {
-        my $users = $self->global->modInstance('users');
+        my $users = $self->global->modInstance('samba');
         return __x('The virtual domain {x} is not defined. You can add ' .
                    'it in the {ohref}Virtual Domains page{chref}.',
                    x => $users->getProvision->getADDomain('localhost'),
@@ -416,7 +416,7 @@ sub _doProvision
     # on localhost
     $global->modChange('mail');
     # Mark users as changed to write smb.conf
-    $global->modChange('users');
+    $global->modChange('samba');
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
@@ -428,7 +428,7 @@ sub _doProvision
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
-        my $usersModule = $self->global->modInstance('users');
+        my $usersModule = $self->global->modInstance('samba');
         my $adDomain = $usersModule->getProvision->getADDomain('localhost');
         my $users = $usersModule->users();
         foreach my $ldbUser (@{$users}) {

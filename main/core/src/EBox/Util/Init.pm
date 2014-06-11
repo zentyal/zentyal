@@ -110,7 +110,7 @@ sub stop
 
 sub moduleAction
 {
-    my ($modname, $action, $actionName) = @_;
+    my ($modname, $action, $actionName, %opts) = @_;
     my $mod = checkModule($modname); #exits if module is not manageable
 
     # Do not restart webadmin if we are run under zentyal-software
@@ -126,7 +126,7 @@ sub moduleAction
     my $redis = $mod->redis();
     try {
         $redis->begin() if ($redisTrans);
-        $mod->$action(restartModules => 1);
+        $mod->$action(restartModules => 1, %opts);
         $redis->commit() if ($redisTrans);
         $success = 0;
     } catch (EBox::Exceptions::Base $e) {
@@ -266,7 +266,7 @@ sub moduleRestart
 sub moduleStop
 {
     my ($modname) = @_;
-    moduleAction($modname, 'stopService', 'stop');
+    moduleAction($modname, 'stopService', 'stop', temporaryStopped => 1);
 }
 
 1;

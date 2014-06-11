@@ -32,7 +32,7 @@ use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 use constant ALIASDN => 'cn=alias,cn=mail,cn=zentyal,cn=configuration';
 
@@ -41,7 +41,7 @@ sub new
     my $class = shift;
     my $self  = {};
 
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
 
     bless($self, $class);
 
@@ -644,7 +644,7 @@ sub accountExists
 {
     my ($self, $alias) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
 
     my %attrs = (
         base => $users->ldap()->dn(),

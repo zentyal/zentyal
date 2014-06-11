@@ -44,7 +44,7 @@ sub _process
         my $data = '';
 
         my $servers = [];
-        my $users = EBox::Global->modInstance('users');
+        my $users = EBox::Global->modInstance('samba');
         my $ldb = $users->ldb();
         my $rootDN = $ldb->dn();
         my $defaultNC = $ldb->rootDse->get_value('defaultNamingContext');

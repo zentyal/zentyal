@@ -24,7 +24,7 @@ use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Validate;
 
 sub new
@@ -61,7 +61,7 @@ sub _process
         $params{$name} = $self->unsafeParam($name);
     }
 
-    my $userObject = new EBox::Users::User(dn => $userDN);
+    my $userObject = new EBox::Samba::User(dn => $userDN);
     $params{user} = $userObject;
 
     if (not $validProtocols{$params{mailProtocol}}) {

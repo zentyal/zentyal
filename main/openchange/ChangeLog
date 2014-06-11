@@ -1,4 +1,5 @@
 3.5
+	+ Fixed wrong references to nginx error pages on ocsmanager conf
 	+ Depend on zentyal-users instead of zentyal-samba
 	+ Update sogo.conf to use Samba LDAP
 	+ Extracted vdomain selection for outgoing mail to a new configuration

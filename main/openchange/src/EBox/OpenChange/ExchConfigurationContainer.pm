@@ -22,7 +22,7 @@ use warnings;
 #
 
 package EBox::OpenChange::ExchConfigurationContainer;
-use base 'EBox::Users::Container';
+use base 'EBox::Samba::Container';
 
 # Method: mainObjectClass
 #
