@@ -210,7 +210,7 @@ sub validateTypedRow
 
     if (exists $changedFields->{wins_server}) {
         if ($changedFields->{wins_server}->selectedType() eq 'zentyal_wins') {
-            my $usersMod = $global->modInstance('users');
+            my $usersMod = $global->modInstance('samba');
             unless ($usersMod->isEnabled()) {
                 throw EBox::Exceptions::External(
                     __('Samba module must be enabled to be able to select Zentyal as WINS server')
@@ -259,7 +259,7 @@ sub _table
     );
 
     my @winsSubtypes = ();
-    if ($global->modExists('users') and $global->modInstance('users')->isEnabled()) {
+    if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
         push (@winsSubtypes,
             new EBox::Types::Union::Text(
                 fieldName => 'zentyal_wins',

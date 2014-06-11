@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use Net::LDAP;
-use EBox::Users::AuthKrbHelper;
+use EBox::Samba::AuthKrbHelper;
 use Authen::SASL;
 
 use TryCatch::Lite;
@@ -49,7 +49,7 @@ sub _process
         $self->_requireParam('server', __('Server'));
         my $server = $self->unsafeParam('server');
 
-        my $krbHelper = new EBox::Users::AuthKrbHelper(RID => 500);
+        my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
 
         # Set up a SASL object
         my $sasl = new Authen::SASL(mechanism => 'GSSAPI');

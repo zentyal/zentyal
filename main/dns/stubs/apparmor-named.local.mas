@@ -2,7 +2,7 @@
 # For more details, please see /etc/apparmor.d/local/README.
 
 /etc/ldap/ldap.conf r,
-/run/slapd/ldapi rw,
+/etc/samba/shares.conf r,
 
 /dev/urandom rw,
 

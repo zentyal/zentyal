@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 use TryCatch::Lite;
 
@@ -111,6 +111,15 @@ sub initialSetup
     }
 }
 
+# Method: setupLDAP
+#
+# Overrides: <EBox::Module::LDAP::setupLDAP>
+#
+sub setupLDAP
+{
+    EBox::Sudo::root('/usr/share/zentyal-jabber/jabber-ldap update');
+}
+
 sub _services
 {
     return [
@@ -135,9 +144,6 @@ sub enableActions
 {
     my ($self) = @_;
     $self->checkUsersMode();
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
 }
 
 #  Method: _daemons
@@ -193,7 +199,7 @@ sub _setConf
     my $jabuid = (getpwnam('ejabberd'))[2];
     my $jabgid = (getpwnam('ejabberd'))[3];
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
 
@@ -207,7 +213,7 @@ sub _setConf
     push(@array, 'ldapBase' => $ldap->dn());
     push(@array, 'ldapRoot' => $users->administratorDN());
     push(@array, 'ldapPasswd' => $users->administratorPassword());
-    push(@array, 'usersDn' => EBox::Users::User->defaultContainer()->dn());
+    push(@array, 'usersDn' => EBox::Samba::User->defaultContainer()->dn());
 
     push(@array, 'domain' => $domain);
     push(@array, 'ssl' => $settings->sslValue());

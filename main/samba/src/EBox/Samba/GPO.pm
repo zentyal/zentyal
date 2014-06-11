@@ -20,7 +20,7 @@ use warnings;
 #
 package EBox::Samba::GPO;
 
-use base 'EBox::Users::LdapObject';
+use base 'EBox::Samba::LdapObject';
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -179,7 +179,7 @@ sub _entry
 #
 # Overrides:
 #
-#   EBox::Users::LdapObject::deleteObject
+#   EBox::Samba::LdapObject::deleteObject
 #
 sub deleteObject
 {
@@ -581,7 +581,7 @@ sub link
     my $gpoDN = $self->dn();
 
     # Instantiate container object
-    my $container = new EBox::Users::LdapObject(dn => $containerDN);
+    my $container = new EBox::Samba::LdapObject(dn => $containerDN);
     unless ($container->exists()) {
         throw EBox::Exceptions::Internal(
             "Container $containerDN not found.");
@@ -627,7 +627,7 @@ sub unlink
     my ($self, $containerDN, $linkIndex) = @_;
 
     # Instance the container and get the gpLink attribute
-    my $container = new EBox::Users::LdapObject(dn => $containerDN);
+    my $container = new EBox::Samba::LdapObject(dn => $containerDN);
     unless ($container->exists()) {
         throw EBox::Exceptions::Internal(
             "Container $containerDN does not exists");
@@ -668,7 +668,7 @@ sub editLink
     my ($self, $containerDN, $linkIndex, $linkEnabled, $enforced) = @_;
 
     # Instance the container and get the gpLink attribute
-    my $container = new EBox::Users::LdapObject(dn => $containerDN);
+    my $container = new EBox::Samba::LdapObject(dn => $containerDN);
     unless ($container->exists()) {
         throw EBox::Exceptions::Internal(
             "Container $containerDN does not exists");

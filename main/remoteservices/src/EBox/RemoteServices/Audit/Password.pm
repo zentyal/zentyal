@@ -144,8 +144,8 @@ sub nUsers
 
     # LDAP users
     my $gl = EBox::Global->getInstance(1);
-    if ( $gl->modExists('users') ) {
-        my $usersMod = $gl->modInstance('users');
+    if ( $gl->modExists('samba') ) {
+        my $usersMod = $gl->modInstance('samba');
         if ( $usersMod->isEnabled() and ($usersMod->mode() eq 'master') ) {
             push(@users, @{$usersMod->users()});
         }
@@ -188,8 +188,8 @@ sub additionalInfo
     } else {
         # Check against our LDAP
         my $gl = EBox::Global->getInstance(1);
-        if ( $gl->modExists('users') ) {
-            my $usersMod = $gl->modInstance('users');
+        if ( $gl->modExists('samba') ) {
+            my $usersMod = $gl->modInstance('samba');
             if ( $usersMod->isEnabled() and ($usersMod->mode() eq 'master') ) {
                 my $userInfo = $usersMod->userInfo($username);
                 my $email = defined($userInfo->{mail}) ? $userInfo->{mail} : '';
@@ -235,8 +235,8 @@ sub _ldapUserFiles
 
     my $files = undef;
     my $gl = EBox::Global->getInstance(1);
-    if ( $gl->modExists('users') ) {
-        my $usersMod = $gl->modInstance('users');
+    if ( $gl->modExists('samba') ) {
+        my $usersMod = $gl->modInstance('samba');
         if ( $usersMod->isEnabled() and ($usersMod->mode() eq 'master') ) {
             if ( $recreate ) {
                 my $passListFile = LDAP_USERS_PASS_LIST;

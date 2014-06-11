@@ -84,7 +84,7 @@ sub validateTypedRow
 
     if (exists $changedFields->{enableDir} and
         $changedFields->{enableDir}->value())  {
-        my $users = EBox::Global->modInstance('users');
+        my $users = EBox::Global->modInstance('samba');
         if (not $users) {
             throw EBox::Exceptions::External(
                 __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')

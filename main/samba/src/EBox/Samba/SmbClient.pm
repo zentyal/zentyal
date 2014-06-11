@@ -23,7 +23,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
-use EBox::Users::AuthKrbHelper;
+use EBox::Samba::AuthKrbHelper;
 
 use TryCatch::Lite;
 use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
@@ -46,7 +46,7 @@ sub new
         throw EBox::Exceptions::MissingArgument('service');
     }
 
-    my $krbHelper = new EBox::Users::AuthKrbHelper(%params);
+    my $krbHelper = new EBox::Samba::AuthKrbHelper(%params);
 
     my $lp = new Samba::LoadParm();
     $lp->load_default();

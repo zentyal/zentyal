@@ -39,7 +39,7 @@ use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Version;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
@@ -138,9 +138,9 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
 sub setupLDAP
 {
     # learn account feature disabled by now
-    # my $users = EBox::Global->modInstance('users');
+    # my $users = EBox::Global->modInstance('samba');
 
-    # my $container = EBox::Users::User->defaultContainer();
+    # my $container = EBox::Samba::User->defaultContainer();
     # my @controlUsers = (
     #     {
     #         samAccountName => 'spam',
@@ -162,10 +162,10 @@ sub setupLDAP
 
     # foreach my $user_r (@controlUsers) {
     #     my $samAcName = $user_r->{samAccountName};
-    #     my $user = new EBox::Users::User(samAccountName => $samAcName);
+    #     my $user = new EBox::Samba::User(samAccountName => $samAcName);
     #     unless ($user->exists()) {
     #         EBox::debug("Creating user '$samAcName'");
-    #         EBox::Users::User->create(%$user_r);
+    #         EBox::Samba::User->create(%$user_r);
     #     } else {
     #         unless ($user->isSystem()) {
     #             die $user->name() . " is not a system user as it has to be";

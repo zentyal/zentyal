@@ -97,7 +97,7 @@ sub _table
                       pageTitle          => undef,
                     };
 
-      return $dataTable;
+    return $dataTable;
 }
 
 sub syncRows

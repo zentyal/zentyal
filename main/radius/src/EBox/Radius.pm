@@ -189,7 +189,7 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    if ($self->global()->modInstance('users')->isProvisioned()) {
+    if ($self->global()->modInstance('samba')->isProvisioned()) {
         $self->SUPER::_regenConfig(@_);
     }
 }
@@ -264,7 +264,7 @@ sub _setLDAP
     my $port;
     my @params = ();
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
 
     my $ldap = EBox::Ldap->instance();
     my $ldapConf = $ldap->ldapConf();

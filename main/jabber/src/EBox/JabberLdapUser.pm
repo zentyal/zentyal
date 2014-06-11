@@ -25,8 +25,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::Users;
-use EBox::Users::User;
+use EBox::Samba;
+use EBox::Samba::User;
 use EBox::Model::Manager;
 
 sub new
@@ -132,8 +132,8 @@ sub getJabberAdmins
     my $self = shift;
 
     my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $usersContainer = EBox::Users::User->defaultContainer();
+    my $users = $global->modInstance('samba');
+    my $usersContainer = EBox::Samba::User->defaultContainer();
     my @admins = ();
 
     $users->{ldap}->connection();
@@ -143,7 +143,7 @@ sub getJabberAdmins
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {
-        push (@admins, new EBox::Users::User(entry => $entry));
+        push (@admins, new EBox::Samba::User(entry => $entry));
     }
 
     return \@admins;
