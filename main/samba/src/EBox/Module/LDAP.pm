@@ -113,6 +113,13 @@ sub _connectToSchemaMaster
             __x("Unable to setup SASL object: {x}",
                 x => $@));
     }
+    # Workaround for hostname canonicalization
+    my $saslClient = $sasl->client_new('ldap', $dnsOwner);
+    unless ($saslClient) {
+        throw EBox::Exceptions::External(
+            __x("Unable to create SASL client: {x}",
+                x => $@));
+    }
 
     # Check GSSAPI support
     my $dse = $masterLdap->root_dse(attrs => ['defaultNamingContext', '*']);
@@ -122,7 +129,7 @@ sub _connectToSchemaMaster
     }
 
     # Finally bind to LDAP using our SASL object
-    my $masterBind = $masterLdap->bind(sasl => $sasl);
+    my $masterBind = $masterLdap->bind(sasl => $saslClient);
     if ($masterBind->is_error()) {
         throw EBox::Exceptions::LDAP(
             message => __('Error binding to schama master LDAP:'),

@@ -205,6 +205,13 @@ sub connectWithKerberos
             __x("Unable to setup SASL object: {x}",
                 x => $@));
     }
+    # Workaround for hostname canonicalization
+    my $saslClient = $sasl->client_new('ldap', $dc);
+    unless ($saslClient) {
+        throw EBox::Exceptions::External(
+            __x("Unable to create SASL client: {x}",
+                x => $@));
+    }
 
     my $ldap = $self->_dcLDAPConnection();
 
@@ -216,7 +223,7 @@ sub connectWithKerberos
     }
 
     # Finally bind to LDAP using our SASL object
-    my $bindResult = $ldap->bind(sasl => $sasl);
+    my $bindResult = $ldap->bind(sasl => $saslClient);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
             __x("Could not bind to AD LDAP server '{server}'. Error was '{error}'",
