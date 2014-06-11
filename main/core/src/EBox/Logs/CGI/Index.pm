@@ -233,6 +233,7 @@ sub _saveAsEvent
         $params .= "&$key=$value";
     }
 
+    EBox::debug('XXX  ' .  $url . $params );
     $self->setRedirect( $url . $params );
     return;
 
