@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
 
