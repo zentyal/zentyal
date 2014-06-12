@@ -5,7 +5,7 @@
   $fqdn
   $domain
   $defaultShell => '/bin/bash'
-  $keyTab => '/var/lib/samba/private/secrets.keytab'
+  $keyTab => '/etc/krb5.keytab'
 </%args>
 [sssd]
     services = nss, pam

@@ -164,6 +164,7 @@ use constant KERBEROS_PORT => 88;
 use constant KPASSWD_PORT => 464;
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
+use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
 
 # SSSD conf
 use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
@@ -1206,7 +1207,7 @@ sub _setupSSSd
     my @params = ('fqdn'   => $sysinfo->fqdn(),
                   'domain' => $sysinfo->hostDomain(),
                   'defaultShell' => $defaultShell,
-                  'keyTab' => SECRETS_KEYTAB);
+                  'keyTab' => SYSTEM_WIDE_KRB5_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
