@@ -388,6 +388,7 @@ sub createDirs
         # Allow Zentyal user to operate on the share
         my $zentyalUser = EBox::Config::user();
         push (@cmds, "setfacl -m u:$zentyalUser:rwx '$path'");
+        push (@cmds, "setfacl -m d:u:$zentyalUser:rwx '$path'");
 
         EBox::Sudo::root(@cmds);
     }
