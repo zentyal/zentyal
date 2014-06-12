@@ -737,13 +737,7 @@ sub isDisabled
 {
     my ($self) = @_;
 
-    # shadowExpire == 0 means disabled, any other value means enabled even not defined.
-    my $value = $self->get('shadowExpire');
-    if ((defined $value) and ($value eq 0)) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return not $self->isAccountEnabled();
 }
 
 # Method: setDisabled
@@ -754,11 +748,7 @@ sub setDisabled
 {
     my ($self, $status, $lazy) = @_;
 
-    if ($status) {
-        $self->set('shadowExpire', 0, $lazy);
-    } else {
-        $self->delete('shadowExpire', $lazy);
-    }
+    $self->setAccountEnabled(not $status, $lazy);
 }
 
 sub _checkQuota
