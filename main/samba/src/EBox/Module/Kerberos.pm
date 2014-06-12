@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::KerberosModule;
+package EBox::Module::Kerberos;
 
 use TryCatch::Lite;
 use EBox::Util::Random;

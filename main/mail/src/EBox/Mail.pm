@@ -21,7 +21,7 @@ package EBox::Mail;
 use base qw(EBox::Module::LDAP EBox::ObjectsObserver
             EBox::FirewallObserver EBox::LogObserver
             EBox::Report::DiskUsageProvider
-            EBox::KerberosModule EBox::SyncFolders::Provider
+            EBox::Module::Kerberos EBox::SyncFolders::Provider
             EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
