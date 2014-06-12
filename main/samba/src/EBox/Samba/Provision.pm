@@ -335,6 +335,14 @@ sub provision
     push (@cmds, 'rm -rf ' . $users->SYSVOL_DIR() . '/*');
     EBox::Sudo::root(@cmds);
 
+    # Clean redis flags before provision
+    foreach my $mod (@{$global->modInstancesOfType('EBox::Module::LDAP')}) {
+        my $state = $mod->get_state();
+        delete $state->{'_schemasAdded'};
+        delete $state->{'_ldapSetup'};
+        $mod->set_state($state);
+    }
+
     my $mode = $users->dcMode();
     if ($mode eq EBox::Samba::Model::DomainSettings::MODE_DC()) {
         $self->provisionDC($provisionIP);
