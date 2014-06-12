@@ -519,7 +519,6 @@ sub dnsZones
         my $output = EBox::Sudo::root(
             "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
         my $ldifBuffer = join ('', @{$output});
-        EBox::debug($ldifBuffer);
 
         my $fd;
         open $fd, '<', \$ldifBuffer;
