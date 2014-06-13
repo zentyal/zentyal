@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-05-29 21:22+0200\n"
-"Last-Translator: hofi171 <peter.hofmann87@googlemail.com>\n"
+"PO-Revision-Date: 2014-06-12 14:11+0200\n"
+"Last-Translator: thetell <telley.stefan@bluewin.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1205,7 +1205,7 @@ msgstr "Konfiguriere denn corosync Dienst"
 
 #: ../../main/ha/src/EBox/HA.pm:169
 msgid "To start corosync at boot"
-msgstr "Starte corosync nach dem booten "
+msgstr "Starte corosync nach dem starten"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1255,7 +1255,7 @@ msgstr "Keine"
 #: ../../main/ha/src/EBox/HA.pm:1018
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr "Es sind Fehler"
+msgstr "{oh}Es sind Fehler vorhanden{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
@@ -1282,12 +1282,13 @@ msgstr "Status"
 
 #: ../../main/ha/src/EBox/HA.pm:1034
 msgid "not enabled"
-msgstr "aktiviert"
+msgstr "nicht aktiviert"
 
 #: ../../main/ha/src/EBox/HA.pm:1037
 msgid "Nodes"
 msgstr "Knoten"
 
+# Host Name is not dfined as PC or Server. It can be alos a Networkequipment. In this case the Network Name is meant for the equipment. And we use also Hostanem in German.
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
@@ -1300,7 +1301,7 @@ msgstr "Knoten"
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:53
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
-msgstr "Computername"
+msgstr "Hostname"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:191
@@ -1325,14 +1326,13 @@ msgid "IP address"
 msgstr "IP-Adresse"
 
 #: ../../main/ha/src/EBox/HA.pm:1047
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "Die Netzwerkschnittstelle {iface} ist nicht konfiguriert"
+msgstr "Der Cluster ist nicht konfiguriert"
 
 #: ../../main/ha/src/EBox/HA.pm:1136
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} hat keine IP Adresse"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
 #, fuzzy
@@ -1343,13 +1343,14 @@ msgstr "Knoten"
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
+"Replikation ist fehlgeschlagen. Weitere Informationen dazu finden Sie in der "
+"Datei {logfile}. "
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Client Konfiguration"
+msgstr "Cluster Konfiguration"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1361,26 +1362,25 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Der Name ist zu lang. Max. {max} Zeichen erlaubt."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Name ist zu kurz. Min {min} Zeichen erlaubt."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
-msgstr ""
+msgstr "Name darf nur Zahlen, Buchstaben und \"_\" enthalten."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "Die IP-Adresse {ip} ist keiner Schnittstelle zugeordnet."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr "Es existiert bereits eine Schnittstelle mit dem Alias {al}"
+msgstr "Es existiert bereits eine Schnittstelle mit der IP-Adresse {ip}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
 msgid "There is a fixed address in DHCP with the given IP address."
@@ -1389,10 +1389,10 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
 msgid "There is a DHCP range that includes the given IP address."
-msgstr "Die IP Adresse wird bereits in einem DHCP bereich verwendet."
+msgstr "Die IP Adresse wird bereits in einem DHCP Bereich verwendet."
 
+# I do not understand the usage for word "floating" in this text? For me a floating IP-Address might be an DHCP assigned Address?
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
 msgstr "Domäne oder IP-Adresse"
 
@@ -1415,24 +1415,24 @@ msgstr "Domäne oder IP-Adresse"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "wiederholen"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
-msgstr ""
+msgstr "Online"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "Off-line"
-msgstr ""
+msgstr "Offline"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:166
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr "Liste der Knoten des Netzwerks {name}"
+msgstr "Liste der Knoten des Cluster {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:187
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:111
@@ -1443,9 +1443,8 @@ msgid "Hostname"
 msgstr "Hostname"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:199
-#, fuzzy
 msgid "Replication"
-msgstr "Berichtsoptionen"
+msgstr "Replikation"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
 #, fuzzy
@@ -1479,39 +1478,36 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:226
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Liste aller Knoten im Cluster {cluster}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:231
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:132
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Dieses Protokoll verwendet keine Ports"
+msgstr "Dieser Cluster enthält keine Mitglieder"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:273
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "Mitglied {name} ist jetzt das aktive Mitglied"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:287
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "Mitglied {name} is jetzt ein passives Mitglied"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
-#, fuzzy
 msgid "Cluster name"
-msgstr "Benutzername"
+msgstr "Name des Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
-#, fuzzy
 msgid "Cluster secret"
-msgstr "Benutzername"
+msgstr "Cluster Passwort"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
