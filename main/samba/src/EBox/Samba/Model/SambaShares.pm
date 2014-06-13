@@ -27,6 +27,7 @@ use base 'EBox::Model::DataTable';
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::External;
+use EBox::Exceptions::DataInUse;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
@@ -321,7 +322,7 @@ sub removeRow
     while (my $entry = readdir ($dir)) {
         next if ($entry =~ /^\.\.?$/);
         closedir ($dir);
-        throw EBox::Exceptions::External(
+        throw EBox::Exceptions::DataInUse(
          __('The directory is not empty. Are you sure you want to remove it?'));
     }
     closedir ($dir);
