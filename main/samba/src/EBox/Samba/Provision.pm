@@ -347,6 +347,7 @@ sub provision
         delete $state->{'_schemasAdded'};
         delete $state->{'_ldapSetup'};
         $mod->set_state($state);
+        $mod->setAsChanged();
     }
 
     my $mode = $users->dcMode();
