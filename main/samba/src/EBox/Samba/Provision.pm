@@ -432,7 +432,9 @@ sub mapAccounts
             my $entry = $result->entry(0);
             my $group = new EBox::Samba::Group(entry => $entry);
             unless ($group->get('gidNumber')) {
-                my $id = $group->unixId($rid);
+                # Map unix group adm, which has fixed gidNumber 4
+                my $admGid = 4;
+                my $id = $admGid;
                 EBox::info("Setting gidNumber for SID $sid");
                 $group->set('gidNumber', $id);
             }
