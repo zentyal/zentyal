@@ -74,10 +74,8 @@ sub removeDirs
 
     for my $id ( @{$self->ids()}) {
         my $row = $self->row($id);
-        my $path = EBox::Samba::SHARES_DIR();
-        $path .= '/';
-        $path .= $row->elementByName('path')->value();
-        unless ( -d $path ) {
+        my $path = EBox::Samba::SHARES_DIR() . '/' . $row->elementByName('path')->value();
+        unless (-d $path) {
             $self->removeRow($row->id(), 1);
             next;
         }
@@ -102,16 +100,14 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc =
-      (
-       new EBox::Types::Text(
-                               fieldName     => 'path',
-                               printableName => __('path'),
-                               editable      => 1,
-                               unique        => 1,
-                              ),
-
-      );
+    my @tableDesc = (
+        new EBox::Types::Text(
+                              fieldName     => 'path',
+                              printableName => __('path'),
+                              editable      => 1,
+                              unique        => 1,
+                             ),
+    );
 
     my $dataTable = {
                      tableName          => 'SambaDeletedShares',
@@ -123,9 +119,9 @@ sub _table
                      class              => 'dataTable',
                      help               => '',
                      printableRowName   => __('share'),
-                    };
+    };
 
-      return $dataTable;
+    return $dataTable;
 }
 
 1;

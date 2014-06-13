@@ -310,8 +310,7 @@ sub removeRow
         return $self->SUPER::removeRow($id, $force);
     }
 
-    my $path =  $self->parentModule()->SHARES_DIR() . '/' .
-                $row->valueByName('path');
+    my $path = $self->parentModule()->SHARES_DIR() . '/' . $row->valueByName('path');
     unless (-d $path) {
         return $self->SUPER::removeRow($id, $force);
     }
