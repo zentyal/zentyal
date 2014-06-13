@@ -346,8 +346,7 @@ sub deletedRowNotify
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'zentyal');
 
-    my $mgr = EBox::Model::Manager->instance();
-    my $deletedModel = $mgr->model('SambaDeletedShares');
+    my $deletedModel = $self->parentModule->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }
 
@@ -387,11 +386,6 @@ sub createDirs
         # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
         # sure that the share is already created and Samba is reloaded with the new configuration.
         push (@cmds, "mkdir -p '$path'");
-
-        # Allow Zentyal user to operate on the share
-        my $zentyalUser = EBox::Config::user();
-        push (@cmds, "setfacl -m u:$zentyalUser:rwx '$path'");
-        push (@cmds, "setfacl -m d:u:$zentyalUser:rwx '$path'");
 
         EBox::Sudo::root(@cmds);
     }
