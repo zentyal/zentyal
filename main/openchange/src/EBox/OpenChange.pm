@@ -440,7 +440,19 @@ sub _setAutodiscoverConf
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
+
+        $self->_setOAB();
     }
+}
+
+sub _setOAB
+{
+    my ($self) = @_;
+    my $dir = EBox::Config::dynamicwww() . 'openchange/ews';
+    EBox::Sudo::root("mkdir -p '$dir'");
+
+    my $src = EBox::Config::stubs() . 'openchange/oab.xml.mas';
+    EBox::Sudo::root("cp '$src' '$dir/oab.xml'");
 }
 
 sub internalVHosts
