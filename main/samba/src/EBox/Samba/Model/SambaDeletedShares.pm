@@ -75,6 +75,7 @@ sub removeDirs
     for my $id ( @{$self->ids()}) {
         my $row = $self->row($id);
         my $path = EBox::Samba::SHARES_DIR();
+        $path .= '/';
         $path .= $row->elementByName('path')->value();
         unless ( -d $path ) {
             $self->removeRow($row->id(), 1);
