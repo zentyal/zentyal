@@ -55,6 +55,7 @@ sub _ldapModImplementation
 #
 #   Provides an EBox::Ldap object with the proper configuration for the
 #   LDAP setup of this ebox
+#
 sub ldap
 {
     my ($self) = @_;
@@ -179,6 +180,7 @@ sub _sendSchemaUpdate
             }
 
             # Send the entry
+            EBox::info("Sending schema update: " . $entry->dn());
             my $msg = $entry->update($masterLdap);
             if ($msg->is_error()) {
                 throw EBox::Exceptions::LDAP(
