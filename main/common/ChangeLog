@@ -1,4 +1,5 @@
 3.5
+	+ DataInUse exception is external to avoid logging of expected UI behaviors
 	+ Added support for Hebrew translations
 	+ Set version to 3.5
 	+ Added EBox::Exceptions::WrongHTTPReferer
