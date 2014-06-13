@@ -418,28 +418,26 @@ sub mapAccounts
     }
 
     # Builtin\Administrators is a well known SID S-1-5-32-544
-    foreach my $rid (qw(544)) {
-        try {
-            my $sid = "S-1-5-32-$rid";
-            my $result = $ldap->search({ base   => $defaultNC,
-                                         filter => "objectSid=$sid",
-                                         scope  => 'sub' });
-            if ($result->count() != 1) {
-                throw EBox::Exceptions::Internal(
-                    __x("Unexpected number of entries. Got {x}, expected 1.",
-                        x => $result->count()));
-            }
-            my $entry = $result->entry(0);
-            my $group = new EBox::Samba::Group(entry => $entry);
-            unless ($group->get('gidNumber')) {
-                my $id = $group->unixId($rid);
-                EBox::info("Setting gidNumber for SID $sid");
-                $group->set('gidNumber', $id);
-            }
-        } catch ($e) {
-            EBox::error($e);
-            next;
+    try {
+        my $sid = "S-1-5-32-544";
+        my $result = $ldap->search({ base   => $defaultNC,
+                                     filter => "objectSid=$sid",
+                                     scope  => 'sub' });
+        if ($result->count() != 1) {
+            throw EBox::Exceptions::Internal(
+                __x("Unexpected number of entries. Got {x}, expected 1.",
+                    x => $result->count()));
         }
+        my $entry = $result->entry(0);
+        my $group = new EBox::Samba::Group(entry => $entry);
+        unless ($group->get('gidNumber')) {
+            # Map unix group adm, which has fixed gidNumber 4
+            my $admGid = 4;
+            EBox::info("Setting gidNumber for SID $sid");
+            $group->set('gidNumber', $admGid);
+        }
+    } catch ($e) {
+        EBox::error($e);
     }
 
     # Administrator is a well known SID (S-1-5-21-<domain sid>-500)

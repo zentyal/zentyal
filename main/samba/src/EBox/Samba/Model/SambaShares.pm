@@ -26,7 +26,6 @@ use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Config;
-use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
@@ -310,20 +309,22 @@ sub removeRow
         return $self->SUPER::removeRow($id, $force);
     }
 
-    my $path =  $self->parentModule()->SHARES_DIR() . '/' .
-                $row->valueByName('path');
-    unless ( -d $path) {
+    my $path = $self->parentModule()->SHARES_DIR() . '/' . $row->valueByName('path');
+    unless (-d $path) {
         return $self->SUPER::removeRow($id, $force);
     }
 
-    opendir (my $dir, $path);
-    while(my $entry = readdir ($dir)) {
-        next if($entry =~ /^\.\.?$/);
+    my $dir;
+    unless (opendir ($dir, $path)) {
+        throw EBox::Exceptions::Internal("Could not open directory: $!");
+    }
+    while (my $entry = readdir ($dir)) {
+        next if ($entry =~ /^\.\.?$/);
         closedir ($dir);
-        throw EBox::Exceptions::DataInUse(
+        throw EBox::Exceptions::External(
          __('The directory is not empty. Are you sure you want to remove it?'));
     }
-    closedir($dir);
+    closedir ($dir);
 
     return $self->SUPER::removeRow($id, $force);
 }
@@ -343,8 +344,7 @@ sub deletedRowNotify
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'zentyal');
 
-    my $mgr = EBox::Model::Manager->instance();
-    my $deletedModel = $mgr->model('SambaDeletedShares');
+    my $deletedModel = $self->parentModule->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }
 
@@ -384,11 +384,6 @@ sub createDirs
         # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
         # sure that the share is already created and Samba is reloaded with the new configuration.
         push (@cmds, "mkdir -p '$path'");
-
-        # Allow Zentyal user to operate on the share
-        my $zentyalUser = EBox::Config::user();
-        push (@cmds, "setfacl -m u:$zentyalUser:rwx '$path'");
-        push (@cmds, "setfacl -m d:u:$zentyalUser:rwx '$path'");
 
         EBox::Sudo::root(@cmds);
     }
