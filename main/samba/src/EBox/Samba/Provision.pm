@@ -321,6 +321,7 @@ sub provision
     # Stop the service
     my $users = $global->modInstance('samba');
     $users->stopService();
+    $users->clearLdapConn();
 
     # Check environment
     my $provisionIP = $self->checkEnvironment(2);
@@ -328,6 +329,11 @@ sub provision
     # Remove SSS caches
     my @cmds;
     push (@cmds, 'rm -f /var/lib/sss/db/*');
+
+    # Remove extracted keytab
+    my $conf = EBox::Config::conf();
+    my $keytab = "$conf/samba.keytab";
+    push (@cmds, "rm -f '$keytab'");
 
     # Delete users config file and private folder
     push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
