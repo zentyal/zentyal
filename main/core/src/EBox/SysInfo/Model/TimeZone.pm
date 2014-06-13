@@ -17,19 +17,18 @@
 #
 #   This model is used to configure the system time zone
 #
-
 use strict;
 use warnings;
 
 package EBox::SysInfo::Model::TimeZone;
+use base 'EBox::Model::DataForm';
 
 use TryCatch::Lite;
 use File::Slurp;
 
 use EBox::Gettext;
 use EBox::Types::TimeZone;
-
-use base 'EBox::Model::DataForm';
+use DateTime::TimeZone;
 
 use constant TZ_FILE => '/etc/timezone';
 
@@ -71,9 +70,23 @@ sub _getTimezone
     try {
         $tz = read_file(TZ_FILE);
         chomp $tz;
+
+        my %links = DateTime::TimeZone->links;
+        if ((exists $links{$tz}) and $links{$tz}) {
+            my $newZone =  $links{$tz};
+            if ($newZone eq 'UTC') {
+                return 'Etc/UTC';
+            }
+            return $newZone;
+        }
     } catch {
+        $tz = undef;
+    }
+
+    if (not $tz) {
         $tz = 'Etc/UTC';
     }
+
     return $tz;
 }
 
