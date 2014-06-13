@@ -283,10 +283,12 @@ sub setupKerberos
     my ($self) = @_;
 
     EBox::info("Setting up kerberos");
-    my $provisionGeneratedFile = EBox::Samba::KRB5_CONF_FILE();
     my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
     if ($self->isProvisioned()) {
-        EBox::Sudo::root("ln -sf '$provisionGeneratedFile' '$systemFile'");
+        my $samba = EBox::Global->modInstance('samba');
+        my $realm = $samba->kerberosRealm();
+        my @params = ('realm' => $realm);
+        $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
     } else {
         EBox::Sudo::root("rm -f '$systemFile'");
     }

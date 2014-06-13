@@ -789,12 +789,6 @@ sub _setConf
     my ($self, $noSlaveSetup) = @_;
     $self->_setupForMode();
 
-    # Setup kerberos config file
-    # FIXME: This should go now inside external AD?
-#    my $realm = $self->kerberosRealm();
-#    my @params = ('realm' => $realm);
-#    $self->writeConfFile(KRB5_CONF_FILE, 'samba/krb5.conf.mas', \@params);
-
     if ($self->mode() eq EXTERNAL_AD_MODE) {
         $self->_setConfExternalAD();
     } else {
