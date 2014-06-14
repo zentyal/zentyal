@@ -28,6 +28,7 @@ use EBox::Exceptions::LDAP;
 
 use EBox::Samba::FSMO;
 use EBox::Samba::AuthKrbHelper;
+use EBox::Samba::LdapObject;
 use Net::LDAP;
 use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use Net::LDAP::LDIF;
@@ -180,11 +181,11 @@ sub _sendSchemaUpdate
             }
 
             # Send the entry
-            EBox::info("Sending schema update: " . $entry->dn());
+            EBox::info("Sending schema update: $dn");
             my $msg = $entry->update($masterLdap);
             if ($msg->is_error()) {
                 throw EBox::Exceptions::LDAP(
-                    message => __('Error sending schama update:'),
+                    message => __("Error sending schema update: $dn"),
                     result => $msg);
             }
         }
@@ -207,6 +208,32 @@ sub _loadSchemas
     my $path = EBox::Config::share() . "zentyal-$name";
     foreach my $ldif (glob ("$path/*.ldif")) {
         $self->_sendSchemaUpdate($masterLdap, $ldif);
+    }
+
+    my $timeout = 30;
+    my $defaultNC = $self->ldap->dn();
+    # Wait for schemas replicated if we are not the master
+    foreach my $ldif (glob ("$path/*.ldif")) {
+        my @lines = read_file($ldif);
+        foreach my $line (@lines) {
+            my ($dn) = $line =~ /^dn: (.*)/;
+            if ($dn) {
+                $dn =~ s/DOMAIN_TOP_DN/$defaultNC/;
+                EBox::info("Waiting for schema object present: $dn");
+                while (1) {
+                    my $object = new EBox::Samba::LdapObject(dn => $dn);
+                    if ($object->exists()) {
+                        last;
+                    } else {
+                        sleep (1);
+                        $timeout--;
+                        if ($timeout == 0) {
+                            throw EBox::Exceptions::Internal("Schema object $dn not found after 30 seconds");
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
