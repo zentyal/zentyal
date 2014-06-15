@@ -81,7 +81,7 @@ sub populateGroup
 
     push (@groups, { value => $samba->defaultGroup(), printableValue => __('All users') });
 
-    my $list = $userMod->realGroups();
+    my $list = $samba->realGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');
