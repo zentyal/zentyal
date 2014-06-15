@@ -75,11 +75,11 @@ sub populateUser
 
 sub populateGroup
 {
-    my $userMod = EBox::Global->modInstance('samba');
+    my $samba = EBox::Global->modInstance('samba');
 
     my @groups = ();
 
-    push (@groups, { value => 'Domain Users', printableValue => __('All users') });
+    push (@groups, { value => $samba->defaultGroup(), printableValue => __('All users') });
 
     my $list = $userMod->realGroups();
     foreach my $g (@{$list}) {
@@ -321,8 +321,8 @@ sub filterUserGroupPrintableValue
     if ($selectedType eq 'user') {
         return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
-        # FIXME
-        if ($value eq 'Domain Users') {
+        my $samba = EBox::Global->modInstance('samba');
+        if ($value eq $samba->defaultGroup()) {
             return __('All users');
         }
         return __x('Group: {g}', g => $value);

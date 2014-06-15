@@ -288,7 +288,7 @@ sub createRoamingProfileDirectory
 
     # Create the directory if it does not exist
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::Samba::DEFAULTGROUP();
+    my $group = EBox::Global->modInstance('samba')->defaultGroup();
 
     my @cmds = ();
     # Create the directory if it does not exist
@@ -496,10 +496,8 @@ sub create
                 # Special case to handle Samba's Administrator. It's like a regular user but without quotas.
                 $usersMod->initUser($res);
 
-                # FIXME
                 # Call modules initialization
-               $usersMod->notifyModsLdapUserBase(
-                   'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+                $usersMod->notifyModsLdapUserBase('addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
             }
         } else {
             $usersMod->initUser($res);
@@ -704,7 +702,7 @@ sub _groups
 
     my @groups = @{$self->SUPER::_groups(%params)};
 
-    my $defaultGroup = EBox::Samba->DEFAULTGROUP();
+    my $defaultGroup = EBox::Global->modInstance('samba')->defaultGroup();
     my $filteredGroups = [];
     for my $group (@groups) {
         next if ($group->name() eq $defaultGroup and not $params{internal});
@@ -724,9 +722,7 @@ sub isSystem
 {
     my ($self) = @_;
 
-    # FIXME
-    #return ($self->get('uidNumber') < MINUID);
-    return 0;
+    return ($self->get('uidNumber') < MINUID);
 }
 
 # Method: isDisabled

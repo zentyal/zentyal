@@ -36,7 +36,7 @@ sub new
     }
 
     if ($self->{usersMod} and $self->{usersMod}->isEnabled() and $self->{usersMod}->isProvisioned()) {
-        my $domainSID = $self->{usersMod}->ldb()->domainSID();
+        my $domainSID = $self->{usersMod}->ldap()->domainSID();
         $self->{domainUsersSID} = "$domainSID-513";
     } else {
         # Samba is not available.
@@ -103,7 +103,7 @@ sub _populateGroups
     }
 
     my @securityGroups;
-    foreach my $group (@{$usersMod->ldb()->securityGroups()}) {
+    foreach my $group (@{$usersMod->ldap()->securityGroups()}) {
         my $name = $group->name();
         push (@securityGroups, {
             value => $name,

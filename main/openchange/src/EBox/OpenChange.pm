@@ -373,7 +373,7 @@ sub _writeSOGoConfFile
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
     my $users = $self->global->modInstance('samba');
-    my $dcHostName = $users->ldb->rootDse->get_value('dnsHostName');
+    my $dcHostName = $users->ldap()->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
     push (@{$array}, sogoPort => SOGO_PORT);
@@ -406,10 +406,10 @@ sub _writeSOGoConfFile
         $baseDN = "ou=Users,$baseDN";
     }
 
-    push (@{$array}, sambaBaseDN => $users->ldb()->dn());
-    push (@{$array}, sambaBindDN => "CN=Administrator,CN=Users," . $users->ldb()->dn());
+    push (@{$array}, sambaBaseDN => $users->ldap()->dn());
+    push (@{$array}, sambaBindDN => "CN=Administrator,CN=Users," . $users->ldap()->dn());
     push (@{$array}, sambaBindPwd => $users->administratorPassword());
-    push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldb()->url()
+    push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldap()->url()
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
     $self->writeConfFile(SOGO_CONF_FILE,
@@ -433,7 +433,7 @@ sub _setAutodiscoverConf
     my $confFileParams = [
         bindDn    => 'cn=Administrator',
         bindPwd   => $users->administratorPassword(),
-        baseDn    => 'CN=Users,' . $users->ldb()->dn(),
+        baseDn    => 'CN=Users,' . $users->ldap()->dn(),
         port      => 389,
         adminMail => $adminMail,
     ];
@@ -793,7 +793,7 @@ sub configurationContainer
     unless ($usersMod->isEnabled() and $usersMod->isProvisioned()) {
         return undef;
     }
-    my $defaultNC = $usersMod->ldb()->dn();
+    my $defaultNC = $usersMod->ldap()->dn();
     my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
 
     my $object = new EBox::OpenChange::ExchConfigurationContainer(dn => $dn);
@@ -828,7 +828,7 @@ sub organizations
         filter => '(objectclass=msExchOrganizationContainer)',
         attrs => ['*'],
     };
-    my $result = $usersMod->ldb()->search($params);
+    my $result = $usersMod->ldap()->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $organization = new EBox::OpenChange::ExchOrganizationContainer(entry => $entry);
         push (@{$list}, $organization);

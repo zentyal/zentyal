@@ -542,7 +542,7 @@ sub _ldap
 {
     my ($class) = @_;
 
-    return $class->_ldapMod()->ldb();
+    return $class->_ldapMod()->ldap();
 }
 
 # Method _ldapMod

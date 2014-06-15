@@ -45,7 +45,7 @@ sub _process
 
         my $servers = [];
         my $users = EBox::Global->modInstance('samba');
-        my $ldb = $users->ldb();
+        my $ldb = $users->ldap();
         my $rootDN = $ldb->dn();
         my $defaultNC = $ldb->rootDse->get_value('defaultNamingContext');
         my $dnsDomain = join('.', grep(/.+/, split(/,?DC=/, $defaultNC)));

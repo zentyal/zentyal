@@ -167,10 +167,9 @@ sub create
         $createdGroup->setupGidMapping($gidNumber);
     }
 
-    # FIXME
     # Call modules initialization
-    #my $usersMod = EBox::Global->modInstance('samba');
-    #$usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $class->{ignoreMods}, $class->{ignoreSlaves});
+    my $usersMod = EBox::Global->modInstance('samba');
+    $usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $class->{ignoreMods}, $class->{ignoreSlaves});
 
     return $createdGroup;
 }

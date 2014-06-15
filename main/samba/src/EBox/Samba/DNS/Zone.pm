@@ -36,14 +36,14 @@ sub new
         $self->{entry} = $params{entry};
     } else {
         my $dn = $params{dn};
-        my $ldb = EBox::Global->modInstance('samba')->ldb();
+        my $ldap = EBox::Global->modInstance('samba')->ldap();
         my $params = {
             base => $dn,
             scope => 'base',
             filter => '(objectClass=dnsZone)',
             attrs => ['*']
         };
-        my $res = $ldb->search($params);
+        my $res = $ldap->search($params);
         throw EBox::Exceptions::Internal("Zone $dn could not be found")
             unless ($res->count() > 0);
         throw EBox::Exceptions::Internal("Expected only one entry")
@@ -72,8 +72,8 @@ sub nodes
     my ($self) = @_;
 
     my $nodes = [];
-    my $ldb = EBox::Global->modInstance('samba')->ldb();
-    my $result = $ldb->search({base => $self->{entry}->dn(),
+    my $ldap = EBox::Global->modInstance('samba')->ldap();
+    my $result = $ldap->search({base => $self->{entry}->dn(),
                               scope => 'sub',
                               filter => '(objectClass=dnsNode)',
                               attrs => ['*']});

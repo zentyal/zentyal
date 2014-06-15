@@ -70,11 +70,11 @@ sub ownedByZentyal
     my ($self) = @_;
 
     my $usersMod = EBox::Global->modInstance('samba');
-    my $ldb = $usersMod->ldb();
+    my $ldap = $usersMod->ldap();
     my $sysinfoMod = EBox::Global->modInstance('sysinfo');
 
     my $schemaRole = $self->get('fSMORoleOwner');
-    my $rootDN = $ldb->dn();
+    my $rootDN = $ldap->dn();
     my $hostName = $sysinfoMod->hostName();
     my $ownRole = "CN=NTDS Settings,CN=$hostName,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,$rootDN";
     if (lc $schemaRole eq lc $ownRole) {

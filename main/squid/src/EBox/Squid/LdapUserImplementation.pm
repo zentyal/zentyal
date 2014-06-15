@@ -26,15 +26,17 @@ use EBox::Global;
 sub _addUser
 {
     my ($self, $user) = @_;
-    # FIXME
-    $self->_groupUsersChanged('Domain Users');
+
+    my $samba = EBox::Global->modInstance('samba')
+    $self->_groupUsersChanged($samba->defaultGroup());
 }
 
 sub _delUser
 {
     my ($self, $user) = @_;
-    # FIXME
-    $self->_groupUsersChanged('Domain Users');
+
+    my $samba = EBox::Global->modInstance('samba')
+    $self->_groupUsersChanged($samba->defaultGroup());
 }
 
 sub _modifyGroup
