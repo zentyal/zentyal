@@ -216,20 +216,7 @@ sub _setupForMode
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
     }
-
 }
-
-# Method: ldb
-#
-#   Provides an EBox::Ldap object with the proper settings
-#
-sub ldb
-{
-    my ($self) = @_;
-    EBox::debug("ldb() to be deprecated, replace with ldap()");
-    return $self->ldap();
-}
-
 
 # Method: ldapClass
 #

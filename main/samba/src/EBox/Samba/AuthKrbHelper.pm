@@ -46,8 +46,8 @@ sub new
     my $realm = undef;
     if ($params{SID}) {
         my $users = EBox::Global->modInstance('samba');
-        my $ldb = $users->ldb();
-        my $result = $ldb->search({base => $ldb->dn(),
+        my $ldap = $users->ldap();
+        my $result = $ldap->search({base => $ldap->dn(),
                                    scope => 'sub',
                                    filter => "(objectSID=$params{SID})",
                                    attrs => ['samAccountName']});
@@ -60,9 +60,9 @@ sub new
         $principal = $entry->get_value('samAccountName');
     } elsif (length $params{RID}) {
         my $users = EBox::Global->modInstance('samba');
-        my $ldb = $users->ldb();
-        my $sid = $ldb->domainSID() . '-' . $params{RID};
-        my $result = $ldb->search({base => $ldb->dn(),
+        my $ldap = $users->ldap();
+        my $sid = $ldap->domainSID() . '-' . $params{RID};
+        my $result = $ldap->search({base => $ldap->dn(),
                                    scope => 'sub',
                                    filter => "(objectSID=$sid)",
                                    attrs => ['samAccountName']});

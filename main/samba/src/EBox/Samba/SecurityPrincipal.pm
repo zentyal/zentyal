@@ -222,8 +222,8 @@ sub xidNumber
     my ($self) = @_;
 
     my $usersMod = EBox::Global->modInstance('samba');
-    my $ldb = $usersMod->ldb();
-    my $idmap = $ldb->idmap();
+    my $ldap = $usersMod->ldap();
+    my $idmap = $ldap->idmap();
 
     my $xidNumber = $idmap->getXidNumberBySID($self->sid());
 
