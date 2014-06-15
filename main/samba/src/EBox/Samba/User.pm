@@ -140,20 +140,17 @@ sub changePassword
 
     $self->_checkPwdLength($passwd);
 
-# FIXME
-    my $user = $self->name();
-    EBox::Sudo::root("/usr/share/zentyal-samba/samba-setpwd $user $passwd");
-#    $passwd = encode('UTF16-LE', "\"$passwd\"");
-#
-#    # The password will be changed on save, save it also to
-#    # notify LDAP user base mods
-#    $self->{core_changed_password} = $passwd;
-#    $self->set('unicodePwd', $passwd, 1);
-#    try {
-#        $self->save() unless $lazy;
-#    } catch ($e) {
-#        throw EBox::Exceptions::External("$e");
-#    }
+    $passwd = encode('UTF16-LE', "\"$passwd\"");
+
+    # The password will be changed on save, save it also to
+    # notify LDAP user base mods
+    $self->{core_changed_password} = $passwd;
+    $self->set('unicodePwd', $passwd, 1);
+    try {
+        $self->save() unless $lazy;
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
 }
 
 # Method: setCredentials
@@ -678,10 +675,6 @@ sub save
         $self->_checkQuota($quota);
         $self->_setFilesystemQuota($quota);
         delete $self->{set_quota};
-    }
-
-    if (defined $passwd) {
-        $self->changePassword($passwd, 1);
     }
 
     shift @_;
