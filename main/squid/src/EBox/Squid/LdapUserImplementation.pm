@@ -27,7 +27,7 @@ sub _addUser
 {
     my ($self, $user) = @_;
 
-    my $samba = EBox::Global->modInstance('samba')
+    my $samba = EBox::Global->modInstance('samba');
     $self->_groupUsersChanged($samba->defaultGroup());
 }
 
@@ -35,7 +35,7 @@ sub _delUser
 {
     my ($self, $user) = @_;
 
-    my $samba = EBox::Global->modInstance('samba')
+    my $samba = EBox::Global->modInstance('samba');
     $self->_groupUsersChanged($samba->defaultGroup());
 }
 
