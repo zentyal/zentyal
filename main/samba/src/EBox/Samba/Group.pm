@@ -169,7 +169,7 @@ sub create
 
     # Call modules initialization
     my $usersMod = EBox::Global->modInstance('samba');
-    $usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $class->{ignoreMods}, $class->{ignoreSlaves});
+    $usersMod->notifyModsLdapUserBase('addGroup', $createdGroup, $createdGroup->{ignoreMods}, $createdGroup->{ignoreSlaves});
 
     return $createdGroup;
 }
