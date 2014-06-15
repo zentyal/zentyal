@@ -288,7 +288,7 @@ sub createRoamingProfileDirectory
 
     # Create the directory if it does not exist
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::Samba::DEFAULTGROUP();
+    my $group = EBox::Global->modInstance('samba')->defaultGroup();
 
     my @cmds = ();
     # Create the directory if it does not exist
@@ -704,7 +704,7 @@ sub _groups
 
     my @groups = @{$self->SUPER::_groups(%params)};
 
-    my $defaultGroup = EBox::Samba->DEFAULTGROUP();
+    my $defaultGroup = EBox::Global->modInstance('samba')->defaultGroup();
     my $filteredGroups = [];
     for my $group (@groups) {
         next if ($group->name() eq $defaultGroup and not $params{internal});

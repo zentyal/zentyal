@@ -110,7 +110,7 @@ sub childNodes
                 $printableName = $child->fullname();
             }
         } elsif ($child->isa('EBox::Samba::Group')) {
-            next if ($child->name() eq EBox::Samba::DEFAULTGROUP());
+            next if ($child->name() eq $usersMod->defaultGroup());
             next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';

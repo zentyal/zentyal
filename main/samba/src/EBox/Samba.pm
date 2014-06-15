@@ -876,10 +876,10 @@ sub _createDirectories
 {
     my ($self) = @_;
 
-    return unless $self->global()->modInstance('samba')->isProvisioned();
+    return unless $self->isProvisioned();
 
     my $zentyalUser = EBox::Config::user();
-    my $group = EBox::Samba::DEFAULTGROUP();
+    my $group = $self->defaultGroup();
     my $nobody = GUEST_DEFAULT_USER;
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
@@ -1100,8 +1100,7 @@ sub _postServiceHook
                     my $accountShort = $userType->value();
                     my $sid = undef;
 
-                    # FIXME
-                    if ($accountShort eq 'Domain Users') {
+                    if ($accountShort eq $self->defaultGroup()) {
                         $sid = $domainUsersSID;
                         EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
                     } else {
@@ -1406,7 +1405,7 @@ sub initUser
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
-            my $group = DEFAULTGROUP;
+            my $group = $self->defaultGroup();
             my @cmds;
             push (@cmds, "mkdir -p `dirname $qhome`");
             push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
@@ -3912,6 +3911,18 @@ sub shareByFilename
     return undef;
 }
 
+# Method: defaultGroup
+#
+#   Returns the name of the default group
+#
+sub defaultGroup
+{
+    my ($self) = @_;
+
+    # FIXME: i18n
+    return DEFAULTGROUP;
+}
+
 # Method: hiddenSid
 #
 #   Check if the specified LDB object belongs to the list of regexps
@@ -3951,7 +3962,6 @@ sub _sidsToHide
 
     return \@sids;
 }
-
 
 sub _cleanModulesForReprovision
 {
