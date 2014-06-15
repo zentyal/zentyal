@@ -496,10 +496,8 @@ sub create
                 # Special case to handle Samba's Administrator. It's like a regular user but without quotas.
                 $usersMod->initUser($res);
 
-                # FIXME
                 # Call modules initialization
-               $usersMod->notifyModsLdapUserBase(
-                   'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+                $usersMod->notifyModsLdapUserBase('addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
             }
         } else {
             $usersMod->initUser($res);
@@ -724,9 +722,7 @@ sub isSystem
 {
     my ($self) = @_;
 
-    # FIXME
-    #return ($self->get('uidNumber') < MINUID);
-    return 0;
+    return ($self->get('uidNumber') < MINUID);
 }
 
 # Method: isDisabled
