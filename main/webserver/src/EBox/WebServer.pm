@@ -310,7 +310,7 @@ sub setEnable
     my ($self, @params) = @_;
     $self->SUPER::setEnable(@params);
     if ($self->changed ) {
-        $self->global()->modInstance("haproxy")->setAsChanges(1);
+        $self->global()->modInstance("haproxy")->setAsChanged(1);
     }
 }
 
