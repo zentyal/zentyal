@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Samba;
 use EBox::Samba::User;
+use EBox::Samba::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
