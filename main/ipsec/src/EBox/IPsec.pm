@@ -320,9 +320,9 @@ sub firewallHelper
     foreach my $tunnel (@activeTunnels) {
         if ($tunnel->{type} eq 'l2tp') {
             $hasL2TP = 1;
-            my $interface = EBox::NetWrappers::iface_by_address($tunnel->{local_ip});
-            if ($interface) {
-                push (@L2TPInterfaces, $interface);
+            my @interfaces = EBox::NetWrappers::iface_by_address($tunnel->{local_ip});
+            if (@interfaces) {
+                push (@L2TPInterfaces, @interfaces);
             }
         }
         my $subnet = $tunnel->{'right_subnet'};

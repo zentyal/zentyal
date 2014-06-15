@@ -1,3 +1,6 @@
+HEAD
+	+ EBox::Netwrapper::iface_by_address not longer assummes that
+	  interfaces could not share IP addresses
 3.4.3
 	+ Added exception for component not exists
 3.4.2
