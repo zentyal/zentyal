@@ -63,8 +63,8 @@ sub _create
                                       @_);
     bless($self, $class);
 
-    $self->{smtpFilter} = new EBox::MailFilter::Amavis();
-    $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
+    $self->{smtpFilter} = new EBox::MailFilter::Amavis($self);
+    $self->{antispam}  = new EBox::MailFilter::SpamAssassin($self);
     $self->{popProxy}  = new EBox::MailFilter::POPProxy();
 
     return $self;
@@ -391,14 +391,6 @@ sub isRunning
     foreach my $componentName (qw(smtpFilter antispam popProxy)) {
         my $component = $self->$componentName();
         if ($component->isRunning) {
-            return 1;
-        }
-    }
-
-    if ((not $self->smtpFilter()->isEnabled()) and
-        (not $self->popProxy()->isEnabled())) {
-        # none service is enabled but module is -> running = 1
-        if ($self->isEnabled()) {
             return 1;
         }
     }

@@ -235,7 +235,8 @@ sub port
 sub isRunning
 {
     my ($self) = @_;
-    system 'pgrep -f ' . P3SCAN_BIN . '  2>&1 > /dev/null';
+    my $cmd = 'pgrep -f ' . P3SCAN_BIN;
+    `$cmd`;
     return ($? == 0);
 
     #return EBox::Service::running(P3SCAN_SERVICE);
