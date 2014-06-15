@@ -1,4 +1,4 @@
-HEAD
+3.2.9
 	+ Changed amavis submision service to avoid rewriting rules
 	+ Reorganized mail configuration
 	+ Fixed bug triggered when adding external aliases
