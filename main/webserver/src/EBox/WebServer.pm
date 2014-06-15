@@ -304,6 +304,16 @@ sub depends
     return $dependsList;
 }
 
+# overloaded to force haproxy to restart
+sub setEnable
+{
+    my ($self, @params) = @_;
+    $self->SUPER::setEnable(@params);
+    if ($self->changed ) {
+        $self->global()->modInstance("haproxy")->setAsChanged(1);
+    }
+}
+
 # to avoid circular restore dependencies cause by depends override
 sub restoreDependencies
 {
