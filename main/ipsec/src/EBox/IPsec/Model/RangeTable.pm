@@ -35,6 +35,8 @@ use EBox::Types::Text;
 use EBox::Types::HostIP;
 use EBox::Validate;
 use EBox::Exceptions::External;
+use Net::IP;
+use Error qw(:try);
 
 # Method: validateTypedRow
 #
@@ -49,10 +51,11 @@ sub validateTypedRow
 
     if ((exists $changedFields->{from}) or
         (exists $changedFields->{to})) {
-
+        my $from = $allFields->{from}->value();
+        my $to   = $allFields->{to}->value();
         my $newRangeHash = {
-            from => $allFields->{from}->value(),
-            to => $allFields->{to}->value(),
+            from => $from,
+            to   => $to,
         };
         unless (EBox::Validate::isValidRange($newRangeHash->{from}, $newRangeHash->{to})) {
             throw EBox::Exceptions::External(
@@ -62,6 +65,16 @@ sub validateTypedRow
                 )
             );
         }
+
+        my $parentId = $self->parentRow()->id();
+        my $rangeId = exists $changedFields->{id} ? $changedFields->{id} : '';
+        my $dir = $self->directory();
+        try {
+            $self->parentModule()->model('Connections')->l2tpCheckDuplicateIPRange($parentId, $rangeId, $from, $to);
+        } finally {
+            $self->setDirectory($dir);
+        };
+
 
         my $network  = $global->modInstance('network');
         my $dhcp = undef;
@@ -217,6 +230,29 @@ sub viewCustomizer
     $customizer->setHTMLTitle([]);
 
     return $customizer;
+}
+
+sub rangeOverlaps
+{
+    my ($self, $range, $skipId) = @_;
+    $skipId or $skipId = '';
+
+    foreach my $id (@{ $self->ids() }) {
+        if ($id eq $skipId) {
+            next;
+        }
+
+        my $row = $self->row($id);
+        my $rowRange = new Net::IP($row->valueByName('from') . '-' . $row->valueByName('to'));
+        if (not $rowRange) {
+            next;
+        }
+        if ($range->overlaps($rowRange)) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;
