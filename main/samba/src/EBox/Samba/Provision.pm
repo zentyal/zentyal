@@ -881,6 +881,40 @@ sub checkFunctionalLevels
     }
 }
 
+sub checkRfc2307
+{
+    my ($self, $adServerIp, $adUser, $adPwd) = @_;
+
+    throw EBox::Exceptions::MissingArgument('adServerIp')
+        unless (defined $adServerIp and length $adServerIp);
+    throw EBox::Exceptions::MissingArgument('adUser')
+        unless (defined $adUser and length $adUser);
+    throw EBox::Exceptions::MissingArgument('adPwd')
+        unless (defined $adPwd and length $adPwd);
+
+    EBox::info("Checking RFC2307 compliant schema...");
+    my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
+    my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
+    my $schemaNC = $rootDse->get_value('schemaNamingContext');
+
+    my $ldapMsg = $adLdap->search(base => $schemaNC,
+                                  scope => 'one',
+                                  filter => '(&(cn=PosixAccount)(objectClass=classSchema))',
+                                  attrs => ['cn']);
+    if ($ldapMsg->is_error()) {
+        throw EBox::Exceptions::LDAP(
+            message => __('Error querying AD schema:'),
+            result  => $ldapMsg,
+        );
+    }
+    if ($ldapMsg->count() <= 0) {
+        # FIXME Tune the exception message.
+        throw EBox::Exceptions::External(
+            __('The domain schema does not meet RFC 2307. You will need to ' .
+               'upgrade to Windows Server 2003 R2 or greater.'));
+    }
+}
+
 sub checkTrustDomainObjects
 {
     my ($self, $adServerIp, $adUser, $adPwd) = @_;
@@ -1213,6 +1247,9 @@ sub provisionADC
 
     # Check DC functional levels > 2000
     $self->checkFunctionalLevels($adServerIp);
+
+    # Check RFC2307 compliant schema
+    $self->checkRfc2307($adServerIp, $adUser, $adPwd);
 
     # Check local realm matchs remote one
     $self->checkLocalRealmAndDomain($adServerIp);
