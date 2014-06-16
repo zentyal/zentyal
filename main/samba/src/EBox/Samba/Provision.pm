@@ -1312,9 +1312,6 @@ sub provisionADC
         # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
-        EBox::debug('Creating Groups container');
-        $self->_createGroupsContainer();
-
         EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
     } catch ($e) {
@@ -1365,7 +1362,7 @@ sub _createGroupsContainer
     my $dn = "CN=$containerName," . $ldap->dn();
 
     my $param = {
-        base => $ldap->dn(),
+        base => $dn,
         scope => 'one',
         filter => '(objectClass=container)',
     };
