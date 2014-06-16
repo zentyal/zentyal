@@ -737,7 +737,8 @@ sub setDisabled
 {
     my ($self, $status, $lazy) = @_;
 
-    $self->setAccountEnabled(not $status, $lazy);
+    my $enabled = (not $status);
+    $self->setAccountEnabled($enabled, $lazy);
 }
 
 sub _checkQuota
