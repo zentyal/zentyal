@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance();
+my $samba = $global->modInstance('samba');
+
+if (defined ($samba) and $samba->isEnabled()) {
+    # Samba already installed and enabled, nothing to do
+    exit (0);
+}
+
+EBox::Sudo::root('LANG=C DEBIAN_FRONTEND=noninteractive apt-get -o DPkg::Options::="--force-confold" --yes --force-yes --no-install-recommends install zentyal-samba');
+
+# Enable and provision samba after installing it
+$samba = EBox::Global->modInstance('samba');
+$samba->configureModule();
+$global->saveAllModules();
+
+
+# FIXME: real check with active wait
+sleep (30);

@@ -29,6 +29,9 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
+# Install samba if missing and replicate users with s4sync
+/usr/share/zentyal/migrate-users-to-samba
+
 # Stop modules to avoid conflicts in listening ports with haproxy
 for module in usercorner captiveportal webserver
 do
