@@ -51,17 +51,17 @@ def run(target):
 
         additional_deps = ""
         if 'ExecutablePath' in report and re.search('samba', report['ExecutablePath']):
-            try:
                 for pkg_name in ('openchangeserver', 'openchange-rpcproxy', 'openchange-ocsmanager',
                                  'sogo-openchange'):
-                    packaging.get_version(pkg_name)
-                    report.add_package_info(pkg_name)
-                    if additional_deps:
-                        additional_deps += '\n'
-                    additional_deps += report['Package'] + "\n" + report['Dependencies']
-            except ValueError:
-                # Any of previous packages is not installed
-                pass
+                    try:
+                        packaging.get_version(pkg_name)
+                        report.add_package_info(pkg_name)
+                        if additional_deps:
+                            additional_deps += '\n'
+                        additional_deps += report['Package'] + "\n" + report['Dependencies']
+                    except ValueError:
+                        # This package is not installed
+                        pass
 
         # Add executable deps
         report.add_package_info()
