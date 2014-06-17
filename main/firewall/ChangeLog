@@ -1,4 +1,4 @@
-HEAD
+3.2.4
 	+ Use a blocking lock to get iptables resource on restart
 	  and stop to avoid other modules to get it
 	+ beforeFwRestart don't called on stopped or unconfigured modules
