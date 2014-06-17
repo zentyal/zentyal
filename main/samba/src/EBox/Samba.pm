@@ -3318,61 +3318,6 @@ sub drive
     return $model->driveValue();
 }
 
-# Method: administratorDN
-#
-#
-# Returns:
-#
-#     String - the DN for the administrator or undef if it does not exist
-#
-sub administratorDN
-{
-    my ($self) = @_;
-
-    my $ldap = $self->ldap();
-    my $domainAdminSID = $ldap->domainSID() . '-500';
-
-    my $result = $ldap->search({ base   => $self->userClass()->defaultContainer()->dn(),
-                                filter => "objectSid=$domainAdminSID",
-                                scope  => 'one',
-                                attrs  => ['dn']});
-    my @entries = $result->entries();
-    my $dn;
-    if (scalar(@entries) > 0) {
-        $dn = $entries[0]->dn();
-    }
-    return $dn;
-}
-
-# Method: administratorPassword
-#
-#   Returns the administrator password
-#
-sub administratorPassword
-{
-    my ($self) = @_;
-
-    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-
-    my $pass;
-    unless (-f $pwdFile) {
-        my $pass;
-
-        while (1) {
-            $pass = EBox::Util::Random::generate(20);
-            # Check if the password meet the complexity constraints
-            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
-                     $pass =~ /[0-9]+/ and length ($pass) >=8);
-        }
-
-        my (undef, undef, $uid, $gid) = getpwnam('ebox');
-        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
-        return $pass;
-    }
-
-    return read_file($pwdFile);
-}
-
 # Method: dMD
 #
 #   Return the Perl Object that holds the Directory Management Domain for this LDB server.

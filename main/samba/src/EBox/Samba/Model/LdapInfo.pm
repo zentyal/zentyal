@@ -100,8 +100,6 @@ sub _content
 
     %info = (
         dn => $ldap->dn(),
-        rootDn => $users->administratorDN(),
-        password => $users->administratorPassword(),
     );
 
     if ($mode ne $users->EXTERNAL_AD_MODE) {

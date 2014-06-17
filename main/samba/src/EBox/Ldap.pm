@@ -307,11 +307,11 @@ sub domainNetBiosName
 
 # Method: ldapConf
 #
-#       Returns the current configuration for LDAP: 'dn', 'ldapi', 'rootdn'
+#   Returns the current configuration for LDAP: 'dn', 'ldap', 'port'
 #
 # Returns:
 #
-#     hash ref  - holding the keys 'dn', 'ldap', and 'rootdn'
+#   hash ref  - holding the keys 'dn', 'ldap', and 'port'
 #
 sub ldapConf
 {
@@ -321,7 +321,6 @@ sub ldapConf
         'dn'     => $self->dn(),
         'ldap'   => LDAP,
         'port' => 389,
-        'rootdn' => EBox::Global->modInstance('samba')->administratorDN(),
     };
 
     return $conf;
