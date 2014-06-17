@@ -18,7 +18,9 @@ use warnings;
 
 package EBox::Jabber;
 
-use base qw(EBox::Module::LDAP);
+use base qw(
+    EBox::Module::Kerberos
+);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -202,6 +204,7 @@ sub _setConf
     my $users = EBox::Global->modInstance('samba');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
+    my $sysinfo = $self->global->modInstance('sysinfo');
 
     my $settings = $self->model('GeneralSettings');
     my $jabberldap = new EBox::JabberLdapUser;
@@ -211,8 +214,8 @@ sub _setConf
     push(@array, 'ldapHost' => '127.0.0.1');
     push(@array, 'ldapPort' => $ldapconf->{'port'});
     push(@array, 'ldapBase' => $ldap->dn());
-    push(@array, 'ldapRoot' => $users->administratorDN());
-    push(@array, 'ldapPasswd' => $users->administratorPassword());
+    push(@array, 'ldapRoot' => $self->_kerberosServiceAccountDN());
+    push(@array, 'ldapPasswd' => $self->_kerberosServiceAccountPassword());
     push(@array, 'usersDn' => EBox::Samba::User->defaultContainer()->dn());
 
     push(@array, 'domain' => $domain);
@@ -338,6 +341,21 @@ sub killProcesses
     } else {
         system "killall  @kill";
     }
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;
