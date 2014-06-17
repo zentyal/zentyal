@@ -2235,7 +2235,7 @@ sub menu
     $root->add($folder);
 
     $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                    url       => 'Samba/Composite/General',
+                                    url       => 'Samba/Composite/FileSharing',
                                     icon      => 'sharing',
                                     separator => 'Office',
                                     order     => 540));
