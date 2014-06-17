@@ -25,6 +25,7 @@ use base qw(
 use TryCatch::Lite;
 use Net::LDAP;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use File::Slurp;
 use EBox::Gettext;
 use EBox::Util::Random;
 use EBox::Samba::User;
@@ -79,8 +80,8 @@ sub _kerberosKeytab
 
 # Method: _kerberosServiceAccount
 #
-#   Return the name of the account used by the service. By default, it is
-#   zentyal-<module name>, but it can be overrided by the module.
+#   Return the common name of the account used by the service. By default, it
+#   is zentyal-<module name>-<hostname>, but it can be overrided by the module.
 #
 # Return:
 #
@@ -90,8 +91,73 @@ sub _kerberosServiceAccount
 {
     my ($self) = @_;
 
-    my $account = "zentyal-" . $self->name();
+    my $sysinfo = $self->global->modInstance('sysinfo');
+    my $modname = $self->name();
+    my $hostname = $sysinfo->hostName();
+    my $account = "zentyal-$modname-$hostname";
     return $account;
+}
+
+# Method: _kerberosServiceAccountDN
+#
+#   Return the DN of the account used by the service.
+#
+# Return:
+#
+#   The name of the account used by the module.
+#
+sub _kerberosServiceAccountDN
+{
+    my ($self) = @_;
+
+    my $ldap = $self->ldap();
+    my $defaultNC = $ldap->rootDse->get_value('defaultNamingContext');
+    my $cn = $self->_kerberosServiceAccount();
+    return "CN=$cn,CN=Users,$defaultNC";
+}
+
+# Method: _kerberosServiceAccountPassword
+#
+#   Return the password of the account used by the service.
+#
+# Return:
+#
+#   The password of the account used by the module.
+#
+sub _kerberosServiceAccountPassword
+{
+    my ($self) = @_;
+
+    my $account = $self->_kerberosServiceAccount();
+    my $pwdFile = EBox::Config::conf() . $account . ".passwd";
+
+    my $pass;
+    unless (-f $pwdFile) {
+        my $pass;
+
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+
+        # We are generating a new password, set it
+        my $dn = $self->_kerberosServiceAccountDN();
+        my $obj = new EBox::Samba::User(dn => $dn);
+        $obj->changePassword($pass, 0);
+        $obj->setAccountEnabled(1);
+
+        # And stash to file
+        my $zuser = EBox::Config::user();
+        my (undef, undef, $uid, $gid) = getpwnam($zuser);
+        EBox::Module::Base::writeFile($pwdFile, $pass,
+            { mode => '0600', uid => $uid, gid => $gid }
+        );
+        return $pass;
+    }
+
+    return File::Slurp::read_file($pwdFile);
 }
 
 # Method: _kerberosFullSPNs
@@ -110,7 +176,7 @@ sub _kerberosFullSPNs
     my $fqdn = $sysinfo->fqdn();
     my $realm = $samba->kerberosRealm();
     my $spns = [];
-    foreach my $spn (@{$self->_kerberosServicePrincipals}) {
+    foreach my $spn (@{$self->_kerberosServicePrincipals()}) {
         push (@{$spns}, "$spn/$fqdn");
         push (@{$spns}, "$spn/$fqdn\@$realm");
     }
@@ -127,11 +193,9 @@ sub _kerberosCreateServiceAccount
 
     # Create service account
     my $ldap = $self->ldap();
-    my $defaultNC = $ldap->rootDse->get_value('defaultNamingContext');
     my $modname = $self->name();
     my $cn = $self->_kerberosServiceAccount();
-    my $dn = "CN=$cn,CN=Users,$defaultNC";
-    my $obj;
+    my $dn = $self->_kerberosServiceAccountDN();
 
     my $param = {
         base => $dn,
@@ -167,15 +231,11 @@ sub _kerberosCreateServiceAccount
         }
 
         # Set the password
-        my $password = EBox::Util::Random::generate(20);
-        $obj = new EBox::Samba::User(dn => $dn);
-        $obj->changePassword($password, 0);
-        $obj->setAccountEnabled(1);
-    } else {
-        $obj = new EBox::Samba::User(dn => $dn);
+        $self->_kerberosServiceAccountPassword();
     }
 
     # Set the system critical and show in advanced view only flags
+    my $obj = new EBox::Samba::User(dn => $dn);
     $obj->setInAdvancedViewOnly(1, 0);
     $obj->setCritical(1, 0);
 }
@@ -190,9 +250,28 @@ sub _kerberosSetSPNs
 
     my $ldap = $self->ldap();
     my $defaultNC = $ldap->rootDse->get_value('defaultNamingContext');
-    my $account = $self->_kerberosServiceAccount();
-    my $dn = "CN=$account,CN=Users,$defaultNC";
+    my $dn = $self->_kerberosServiceAccountDN();
 
+    # Get the list of expanded SPNs
+    my $spns = $self->_kerberosFullSPNs();
+    return unless scalar @{$spns};
+
+    # Remove SPNs from another accounts
+    foreach my $spn (@{$spns}) {
+        my $param = {
+            base => $defaultNC,
+            scope => 'sub',
+            filter => "(servicePrincipalName=$spn)",
+        };
+        my $result = $ldap->search($param);
+        foreach my $entry ($result->entries()) {
+            next if (lc ($entry->dn()) eq lc ($dn));
+            $entry->delete(servicePrincipalName => [ $spn ]);
+            $entry->update($ldap->connection());
+        }
+    }
+
+    # Add SPNs to the service account
     my $param = {
         base => $dn,
         scope => 'base',
@@ -204,9 +283,6 @@ sub _kerberosSetSPNs
             __x('Unexpected number of LDAP entries found searching for {dn}: Expected one, got {count}',
                 dn => $dn, count => $result->count()));
     }
-
-    my $spns = $self->_kerberosFullSPNs();
-    return unless scalar @{$spns};
 
     my $entry = $result->entry(0);
     $entry->replace(servicePrincipalName => $spns);
