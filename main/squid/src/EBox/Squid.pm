@@ -624,8 +624,8 @@ sub _writeSquidConf
     if (not $kerberos) {
         my $ldap = $users->ldap();
         push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $users->administratorDN());
-        push @writeParam, ('roPasswd' => $users->administratorPassword());
+        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
     }
 
     my $mode = $self->authenticationMode();
