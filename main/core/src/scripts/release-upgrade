@@ -49,21 +49,17 @@ upgrade
 # FIXME: this process needs a lot of refination, this is a temporary workaround
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/zentyal-core.postinst
-apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
-dpkg --configure -a --force-confdef
-
-apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
-
-dpkg --configure -a --force-confdef
-
-apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+for i in `seq 1 3`
+do
+    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+    dpkg --configure -a --force-confdef
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+done
 
 if dpkg --configure -a --force-confdef
 then
     /usr/share/zentyal/global-action --action saveAllModules
-    service zentyal webadmin restart
-    service zentyal haproxy restart
 
     echo; echo "Zentyal upgrade finished!"
 
