@@ -440,8 +440,8 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    my $adminDn     = $users->administratorDN();
-    my $adminPasswd = $users->administratorPassword();
+    my $adminDn     = $self->_kerberosServiceAccountDN();
+    my $adminPasswd = $self->_kerberosServiceAccountPassword();
     my $ldapServer  = 'localhost:' . $self->ldap()->ldapConf()->{port};
     my $baseDN      =  $users->ldap()->dn();
     my @ldapCommonParams = (
@@ -690,8 +690,8 @@ sub _setDovecotConf
     push @params, (ldapHost     => "ldap://localhost");
     push @params, (baseDN      => $users->ldap()->dn());
     push @params, (mailboxesDir => VDOMAINS_MAILBOXES_DIR);
-    push @params, (bindDN       => $users->administratorDN());
-    push @params, (bindDNPwd    => $users->administratorPassword());
+    push @params, (bindDN       => $self->_kerberosServiceAccountDN());
+    push @params, (bindDNPwd    => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
 
