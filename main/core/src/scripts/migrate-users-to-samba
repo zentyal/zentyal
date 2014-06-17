@@ -7,12 +7,23 @@ use EBox;
 use EBox::Global;
 use EBox::Sudo;
 
+my $LDIF_BACKUP_DIR = '/var/lib/zentyal/conf/upgrade-to-3.5';
+
 EBox::init();
 
 my $global = EBox::Global->getInstance();
-my $samba = $global->modInstance('samba');
 
-if (defined ($samba) and $samba->isEnabled()) {
+my $users = $global->modInstance('users');
+unless (defined ($users) and $users->configured()) {
+    # Do nothing if users is not in use
+    exit (0);
+}
+
+# Dump LDIF with all the info required later (uidNumber, gidNumber, etc)
+$users->dumpLdapConfig($LDIF_BACKUP_DIR);
+
+my $samba = $global->modInstance('samba');
+if (defined ($samba) and $samba->configured()) {
     # Samba already installed and enabled, nothing to do
     exit (0);
 }
