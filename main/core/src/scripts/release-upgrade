@@ -46,14 +46,18 @@ sed -i 's/saucy/trusty/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.4/zentyal\13.5/g' /etc/apt/sources.list
 upgrade
 
+# FIXME: this process needs a lot of refination, this is a temporary workaround
 echo; echo "Forcing pending packages installation..."; echo
-#rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
-#sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-users.postinst
+rm -f /var/lib/dpkg/info/zentyal-core.postinst
 apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
 
-#pkill -9 samba
-#pkill -9 smbd
-#service zentyal samba restart
+dpkg --configure -a --force-confdef
+
+apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+
+dpkg --configure -a --force-confdef
+
+apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 
 if dpkg --configure -a --force-confdef
 then

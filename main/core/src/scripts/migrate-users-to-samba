@@ -20,7 +20,8 @@ unless (defined ($users) and $users->configured()) {
 }
 
 # Dump LDIF with all the info required later (uidNumber, gidNumber, etc)
-$users->dumpLdapConfig($LDIF_BACKUP_DIR);
+EBox::Sudo::root("mkdir -p $LDIF_BACKUP_DIR");
+$users->ldap()->dumpLdapData($LDIF_BACKUP_DIR);
 
 my $samba = $global->modInstance('samba');
 if (defined ($samba) and $samba->configured()) {
