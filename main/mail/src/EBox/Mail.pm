@@ -18,11 +18,15 @@ use warnings;
 
 package EBox::Mail;
 
-use base qw(EBox::Module::LDAP EBox::ObjectsObserver
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider
-            EBox::Module::Kerberos EBox::SyncFolders::Provider
-            EBox::Events::DispatcherProvider);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::ObjectsObserver
+    EBox::FirewallObserver
+    EBox::LogObserver
+    EBox::Report::DiskUsageProvider
+    EBox::SyncFolders::Provider
+    EBox::Events::DispatcherProvider
+);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -292,15 +296,19 @@ sub _serviceRules
     ];
 }
 
-sub kerberosServicePrincipals
+sub _kerberosServicePrincipals
 {
-    my ($self) = @_;
+    return [ 'imap', 'smtp', 'pop' ];
+}
 
-    my $data = { service    => 'mail',
-                 principals => [ 'imap', 'smtp', 'pop' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'dovecot' };
-    return $data;
+sub _kerberosKeytab
+{
+    return {
+        path  => KEYTAB_FILE,
+        user  => 'root',
+        group => 'dovecot',
+        mode  => '440',
+    };
 }
 
 # Method: enableActions
@@ -325,8 +333,6 @@ sub enableActions
 sub setupLDAP
 {
     my ($self) = @_;
-
-    $self->kerberosCreatePrincipals();
 
     my $ldap = $self->ldap();
     my $baseDn =  $ldap->dn();
@@ -1861,9 +1867,6 @@ sub reprovisionLDAP
 {
     my ($self) = @_;
     $self->SUPER::reprovisionLDAP();
-
-    # Create new kerberos keytab
-    $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
 #    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');
