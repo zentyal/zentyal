@@ -175,8 +175,12 @@ sub _kerberosFullSPNs
     my $sysinfo = $self->global->modInstance('sysinfo');
     my $fqdn = $sysinfo->fqdn();
     my $realm = $samba->kerberosRealm();
+
+    my $modSPNs = $self->_kerberosServicePrincipals();
+    return [] unless defined $modSPNs;
+
     my $spns = [];
-    foreach my $spn (@{$self->_kerberosServicePrincipals()}) {
+    foreach my $spn (@{$modSPNs}) {
         push (@{$spns}, "$spn/$fqdn");
         push (@{$spns}, "$spn/$fqdn\@$realm");
     }
@@ -248,13 +252,13 @@ sub _kerberosSetSPNs
 {
     my ($self) = @_;
 
-    my $ldap = $self->ldap();
-    my $defaultNC = $ldap->rootDse->get_value('defaultNamingContext');
-    my $dn = $self->_kerberosServiceAccountDN();
-
     # Get the list of expanded SPNs
     my $spns = $self->_kerberosFullSPNs();
     return unless scalar @{$spns};
+
+    my $ldap = $self->ldap();
+    my $defaultNC = $ldap->rootDse->get_value('defaultNamingContext');
+    my $dn = $self->_kerberosServiceAccountDN();
 
     # Remove SPNs from another accounts
     foreach my $spn (@{$spns}) {
@@ -309,6 +313,8 @@ sub _kerberosRefreshKeytab
     my ($self) = @_;
 
     my $info = $self->_kerberosKeytab();
+    return unless defined $info;
+
     my $account = $self->_kerberosServiceAccount();
     my $spns = $self->_kerberosFullSPNs();
 
