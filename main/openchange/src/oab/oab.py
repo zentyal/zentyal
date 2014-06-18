@@ -167,7 +167,8 @@ class OAB:
         # set later
 
         # oParentDN (4 bytes)
-        record[20:24] = struct.pack('<I', offsetByPdn[pdn])[0:4]
+        print rdn + ' pdn: ' + pdn + ' offset ' + str(offsetByPdn[pdn])
+        record[20:24] = self._pack_uint(offsetByPdn[pdn])
 
         # acKey (variable):
         record +=  bytearray(rdn) + b'0'

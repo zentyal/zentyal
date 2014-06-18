@@ -43,30 +43,35 @@ class TestOAB(unittest.TestCase):
                  break
              pdnBytes = pdnPart[begSearch:found] # we not use found +1 bz we are not interested in NUL byte
              pdnLen   =  len(pdnBytes) + 1 # +1 -> NUL
-             pdnOffset += pdnLen
              pdn = str(pdnBytes)
              pdnByOffset[pdnOffset] = pdn
 
+             pdnOffset += pdnLen
              begSearch = found + 1
 
         pprint(pdnByOffset)
 
-        rdnPart = pdnPart[oRoot:]
+        rdnPart = pdnPart[oRoot:] # DDd
+        pprint (rdnPart) # DDD
+
         # checking using prev/next links
         # XXX degenerate tree; tree not checked
         prevLink = 0
         nextLink = oRoot
+
+
         while nextLink != 0:
+            print "RDN with offset " + str(nextLink)
 
-
-            oPrev = self._unpack_uint(rdnPart[nextLink+12:nextLink+16])
+            oPrev = self._unpack_uint(rdnContents[nextLink+12:nextLink+16])
             self.assertTrue(oPrev < rdnContentsSize)
             self.assertTrue(oPrev == prevLink)
 
-            oNext = self._unpack_uint(rdnPart[nextLink+16:nextLink+20])
+            oNext = self._unpack_uint(rdnContents[nextLink+16:nextLink+20])
             self.assertTrue(oNext < rdnContentsSize)
 
-            oParentDN = sef._unpack_uint(rdnPart[nextLink+20:nextLink+24])
+            oParentDN = self._unpack_uint(rdnContents[nextLink+20:nextLink+24])
+            print 'oParentDN ' + str(oParentDN)
             self.assertTrue(oParentDN in pdnByOffset)
 
             prevLink = nextLink
