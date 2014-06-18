@@ -424,6 +424,9 @@ sub _migrateTo35
     # Load schemas and setup LDAP
     $self->_performSetup();
 
+    # Set gidNumbers to Domain Users, etc.
+    $self->getProvision()->mapAccounts();
+
     my $ldifFile = '/var/lib/zentyal/conf/upgrade-to-3.5/data.ldif';
 
     return unless (-f $ldifFile);
