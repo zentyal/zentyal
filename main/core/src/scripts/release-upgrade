@@ -41,6 +41,9 @@ done
 # Stop slapd
 service zentyal users stop
 
+# FIXME: this is for development tests only
+sed -i 's/debs-ppa-3.4/debs-ppa/g' /etc/apt/sources.list
+
 echo; echo "Upgrading from Ubuntu 13.10 to 14.04 with Zentyal 3.5..."; echo
 sed -i 's/saucy/trusty/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.4/zentyal\13.5/g' /etc/apt/sources.list
