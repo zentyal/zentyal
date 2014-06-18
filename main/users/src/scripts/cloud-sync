@@ -87,34 +87,33 @@ for my $ruser (@{$rusers}) {
             if ($luser->isInternal()) {
                 # Ignore any change to this user, it may be removed from cloud at some point...
                 EBox::debug("Got the user '" . $ruser->{name} . "' from Cloud but it's an internal one. Ignoring...");
-                next;
-            }
-            $luser->setIgnoredSlaves(IGNORE);
-
-            # User exists, update fields:
-            $changed |= setIfChanged($luser, 'givenname', $ruser->{firstname}, 1);
-            $changed |= setIfChanged($luser, 'sn', $ruser->{lastname}, 1);
-            $changed |= setIfChanged($luser, 'cn', $ruser->{firstname} . ' ' . $ruser->{lastname}, 1);
-            $changed |= setIfChanged($luser, 'gidNumber', $ruser->{gid}, 1);
-            $changed |= setIfChanged($luser, 'uidNumber', $ruser->{uid}, 1);
-            if ($ruser->{description}) {
-                $changed |= setIfChanged($luser, 'description', $ruser->{description}, 1);
             } else {
-                if ($luser->get('description')) {
-                    $luser->delete('description', 1);
+                $luser->setIgnoredSlaves(IGNORE);
+
+                # User exists, update fields:
+                $changed |= setIfChanged($luser, 'givenname', $ruser->{firstname}, 1);
+                $changed |= setIfChanged($luser, 'sn', $ruser->{lastname}, 1);
+                $changed |= setIfChanged($luser, 'cn', $ruser->{firstname} . ' ' . $ruser->{lastname}, 1);
+                $changed |= setIfChanged($luser, 'gidNumber', $ruser->{gid}, 1);
+                $changed |= setIfChanged($luser, 'uidNumber', $ruser->{uid}, 1);
+                if ($ruser->{description}) {
+                    $changed |= setIfChanged($luser, 'description', $ruser->{description}, 1);
+                } else {
+                    if ($luser->get('description')) {
+                        $luser->delete('description', 1);
+                        $changed = 1;
+                    }
+                }
+
+                # Update passwords
+                my @passwords = $luser->get('krb5Key');
+                unless (@{$ruser->{passwords}} ~~ @passwords) {
+                    $luser->setPasswordFromHashes($ruser->{passwords}, 1);
                     $changed = 1;
                 }
+
+                $luser->save() if ($changed);
             }
-
-            # Update passwords
-            my @passwords = $luser->get('krb5Key');
-            unless (@{$ruser->{passwords}} ~~ @passwords) {
-                $luser->setPasswordFromHashes($ruser->{passwords}, 1);
-                $changed = 1;
-            }
-
-            $luser->save() if ($changed);
-
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
             my %user;
@@ -174,40 +173,39 @@ for my $rgroup (@{$rgroups}) {
         if ($lgroup and $lgroup->isInternal()) {
             # Ignore any change to this group, it may be removed from cloud at some point...
             EBox::debug("Got the group '" . $rgroup->{name} . "' from Cloud but it's an internal one. Ignoring...");
-            next;
-        }
+        } else {
+            unless ($lgroup) {
+                EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
 
-        unless ($lgroup) {
-            EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
+                my %args = (
+                        name          => $rgroup->{name},
+                        description   => $rgroup->{description},
+                        gidNumber     => $rgroup->{gid},
+                        isSystemGroup => 0,
+                        ignoreSlaves  => IGNORE,
+                        parent        => $users->objectFromDN($rgroup->{ou} . ',' . $users->ldap->dn()),
+                        );
 
-            my %args = (
-                name          => $rgroup->{name},
-                description   => $rgroup->{description},
-                gidNumber     => $rgroup->{gid},
-                isSystemGroup => 0,
-                ignoreSlaves  => IGNORE,
-                parent        => $users->objectFromDN($rgroup->{ou} . ',' . $users->ldap->dn()),
-            );
-
-            $lgroup = EBox::Users::Group->create(%args);
-        }
-
-        # Update group info
-        $lgroup->setIgnoredSlaves(IGNORE);
-        my $changed = 0;
-
-        $changed |= setIfChanged($lgroup, 'gidNumber', $rgroup->{gid}, 1);
-
-        # Check members and resync if different:
-        my @lmembers = map { $_->get('uid') } @{$lgroup->users()};
-        unless (@{$rgroup->{members}} ~~ @lmembers) {
-            $lgroup->removeAllMembers(1);
-            $changed = 1;
-            foreach my $user (@{$rgroup->{members}}) {
-                $lgroup->addMember($users->userByUID($user), 1);
+                $lgroup = EBox::Users::Group->create(%args);
             }
+
+            # Update group info
+            $lgroup->setIgnoredSlaves(IGNORE);
+            my $changed = 0;
+
+            $changed |= setIfChanged($lgroup, 'gidNumber', $rgroup->{gid}, 1);
+
+            # Check members and resync if different:
+            my @lmembers = map { $_->get('uid') } @{$lgroup->users()};
+            unless (@{$rgroup->{members}} ~~ @lmembers) {
+                $lgroup->removeAllMembers(1);
+                $changed = 1;
+                foreach my $user (@{$rgroup->{members}}) {
+                    $lgroup->addMember($users->userByUID($user), 1);
+                }
+            }
+            $lgroup->save() if ($changed);
         }
-        $lgroup->save() if ($changed);
     } otherwise {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
     };
