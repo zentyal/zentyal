@@ -409,6 +409,63 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
+        $self->_migrateTo35();
+    }
+}
+
+sub _migrateTo35
+{
+    my ($self) = @_;
+
+    return unless ($self->configured());
+
+    # Load schemas and setup LDAP
+    $self->_performSetup();
+
+    my $ldifFile = '/var/lib/zentyal/conf/upgrade-to-3.5/data.ldif';
+
+    return unless (-f $ldifFile);
+
+    use Net::LDAP::LDIF;
+    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
+
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry ();
+        if ($ldif->error()) {
+           EBox::error("Error reading LDIF file $ldifFile: " . $ldif->error() .
+                       '. Error lines: ' .  $ldif->error_lines());
+        } else {
+            my $gidNumber = $entry->get_value('gidNumber');
+            my $uid = $entry->get_value('uid');
+            if ($uid) {
+                my $uidNumber = $entry->get_value('uidNumber');
+                if ($uidNumber) {
+                    my $user = new EBox::Samba::User(samAccountName => $uid);
+                    next unless $user->exists();
+                    my @objectclass = $user->get('objectClass');
+                    push (@objectclass, 'systemQuotas');
+                    $user->set('objectClass', \@objectclass);
+                    $user->set('uidNumber', $uidNumber, 1);
+                    $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
+                    for my $attr (qw(quota loginShell homeDirectory)) {
+                        my $value = $entry->get_value($attr);
+                        $user->set($attr, $value, 1) if defined ($value);
+                    }
+                    $user->save();
+                }
+            } elsif (defined $gidNumber) {
+                my $cn = $entry->get_value('cn');
+                if ($cn) {
+                    my $group = new EBox::Samba::Group(gid => $cn);
+                    next unless $group->exists();
+                    $group->set('gidNumber', $gidNumber);
+                }
+            }
+        }
+    }
+    $ldif->done();
 }
 
 sub _checkEnableIPs
