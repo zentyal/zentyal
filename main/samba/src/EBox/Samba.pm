@@ -444,9 +444,11 @@ sub _migrateTo35
                 if ($uidNumber) {
                     my $user = new EBox::Samba::User(samAccountName => $uid);
                     next unless $user->exists();
-                    my @objectclass = $user->get('objectClass');
-                    push (@objectclass, 'systemQuotas');
-                    $user->set('objectClass', \@objectclass);
+                    unless ($user->hasValue('objectClass', 'systemQuotas')) {
+                        my @objectclass = $user->get('objectClass');
+                        push (@objectclass, 'systemQuotas');
+                        $user->set('objectClass', \@objectclass);
+                    }
                     $user->set('uidNumber', $uidNumber, 1);
                     $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
                     for my $attr (qw(quota loginShell homeDirectory)) {
