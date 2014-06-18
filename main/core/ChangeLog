@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Types::DomainName always return lowercase values
+	+ EBox::Types::Host always return lowercase values
 	+ Added helper script to improve crash reports
 3.2.11
 	+ Enhanced Lock to have exclusive lock with blocking timeout
