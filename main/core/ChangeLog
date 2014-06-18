@@ -1,4 +1,4 @@
-HEAD
+3.2.12
 	+ EBox::Types::DomainName always return lowercase values
 	+ EBox::Types::Host always return lowercase values
 	+ Added helper script to improve crash reports
