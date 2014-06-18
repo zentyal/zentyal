@@ -12,17 +12,20 @@ class TestOAB(unittest.TestCase):
         nAccounts = struct.unpack('<I', rdnContents[8:12])
         self.assertTrue(nAccounts > 0)
 
-        print 'rdnContents[12:16] -> '
-        pprint(rdnContents[12:16])
+        print 'rdnContents:'
+        pprint (rdnContents)
 
+ #       print 'rdnContents[12:16] -> '
+ #       pprint(rdnContents[12:16])
+
+        # DDD
         oRootBytes = str(bytearray(rdnContents[12:16]))
         print 'oRootBytes=' + str(type(oRootBytes)) + ' -> '
         pprint(oRootBytes)
+        # DDD
 
-
-#        oRoot = struct.unpack('<I', oRootBytes)[0]
         oRoot = self._unpack_uint(rdnContents[12:16])
-        print 'oRoot= ' + str(type(oRoot)) + ' -> ' + str(oRoot)
+        print 'oRoot= ' + str(type(oRoot)) + ' -> ' + str(oRoot) # DDD
         self.assertTrue(oRoot > 16) # always will be more that 18(size header)
 
 
@@ -37,11 +40,16 @@ class TestOAB(unittest.TestCase):
              found = pdnPart.find(b'\x00', begSearch)
              if found == -1:
                  self.assertTrue(False, msg='Not NUL byte find in pdn search beginning at ' + begSearch)
+                 break
              pdnBytes = pdnPart[begSearch:found] # we not use found +1 bz we are not interested in NUL byte
-             pdnOffset += len(pdnBytes) + 1 # +1 -> NUL
-             pdn = pdnBytes.decode(encoding="utf-8", errors="strict")
-             print "found pdn " + pdn # DDD
+             pdnLen   =  len(pdnBytes) + 1 # +1 -> NUL
+             pdnOffset += pdnLen
+             pdn = str(pdnBytes)
              pdnByOffset[pdnOffset] = pdn
+
+             begSearch = found + 1
+
+        pprint(pdnByOffset)
 
         rdnPart = pdnPart[oRoot:]
         # checking using prev/next links
@@ -49,14 +57,16 @@ class TestOAB(unittest.TestCase):
         prevLink = 0
         nextLink = oRoot
         while nextLink != 0:
-            oPrev = struct.unpack('<I', rdnPart[nextLink+12:nextLink+16])
+
+
+            oPrev = self._unpack_uint(rdnPart[nextLink+12:nextLink+16])
             self.assertTrue(oPrev < rdnContentsSize)
             self.assertTrue(oPrev == prevLink)
 
-            oNext = struct.unpack('<I', rdnPart[nextLink+16:nextLink+20])
+            oNext = self._unpack_uint(rdnPart[nextLink+16:nextLink+20])
             self.assertTrue(oNext < rdnContentsSize)
 
-            oParentDN = struct.unpack('<I', rdnPart[nextLink+20:nextLink+24])
+            oParentDN = sef._unpack_uint(rdnPart[nextLink+20:nextLink+24])
             self.assertTrue(oParentDN in pdnByOffset)
 
             prevLink = nextLink
