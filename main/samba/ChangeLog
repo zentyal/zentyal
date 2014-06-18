@@ -1,4 +1,4 @@
-HEAD
+3.2.18
 	+ EBox::Samba::DNS::Zone always return lowercase zone name
 3.2.17
 	+ Fix members of 'Domain Admins' group not able to delete items from
