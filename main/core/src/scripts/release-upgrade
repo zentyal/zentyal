@@ -55,6 +55,7 @@ rm -f /var/lib/dpkg/info/zentyal-core.postinst
 
 for i in `seq 1 3`
 do
+    rm -f /var/lib/dpkg/info/zentyal-samba.postinst
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     dpkg --configure -a --force-confdef
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
@@ -63,6 +64,9 @@ done
 if dpkg --configure -a --force-confdef
 then
     /usr/share/zentyal/global-action --action saveAllModules
+    start samba-ad-dc
+    /usr/share/zentyal/initial-setup samba 3.4
+    service zentyal samba restart
 
     echo; echo "Zentyal upgrade finished!"
 
