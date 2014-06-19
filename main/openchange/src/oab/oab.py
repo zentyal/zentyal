@@ -112,6 +112,8 @@ class OAB:
             acc = accounts[i]
 
             rdn, pdn = acc['dn'].split(',', 1)
+            rdn = rdn.split('=', 1)[1]
+
             record = self._rdnRecord(rdn, pdn, offsetByPdn, oPrev, oNextBase)
             oPrev = len(contents)
             contents += record
