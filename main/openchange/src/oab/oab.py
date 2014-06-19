@@ -18,6 +18,7 @@ class OAB:
         if (nAccounts == 0):
             raise Exception('Trying to create OAB files without accounts');
         elif (nAccounts  > OAB.MAX_UL_TOT_RECORDS):
+            # XXX remember to do the check fopr attr in individual files
             # XXX removing excessive accounts
             nAccounts = nAccounts[0:OAB.MAX_UL_TOT_RECORDS-1]
 
@@ -90,11 +91,13 @@ class OAB:
         return record
 
     def _rdnFileContents(self, accounts):
+        # TODO : put also rdn for @ mail addresses
         contents = self._rdnHeader(accounts)
 
         pdn = self._rdnPdnRecords(accounts, len(contents))
         pprint(pdn)
         contents += pdn[1]
+        offsetByPdn = pdn[0]
 
         # now we have the offset of the first RDN and we can set oRoot
         print "oRoot len(ciontnts) _> " + str(len(contents))
@@ -107,12 +110,22 @@ class OAB:
         lastAccount = len(accounts) - 1
         for i in range(0, lastAccount +1):
             acc = accounts[i]
-            if i == lastAccount:
-                oNextBase = 0
-            record = self._rdnRecord(acc, pdn[0], oPrev, oNextBase)
+
+            rdn, pdn = acc['dn'].split(',', 1)
+            record = self._rdnRecord(rdn, pdn, offsetByPdn, oPrev, oNextBase)
             oPrev = len(contents)
             contents += record
-            oNextBase = len(contents)
+            if i == lastAccount:
+                oNextBase = 0
+            else:
+                oNextBase = len(contents)
+
+            rdn, pdn = acc['mail'].split('@', 1)
+            rdn += '@'
+            record = self._rdnRecord(rdn, pdn, offsetByPdn, oPrev, oNextBase)
+            oPrev = len(contents)
+            contents += record
+            oNextBase = len(contents) # no effect if last account
 
         return contents
 
@@ -127,8 +140,8 @@ class OAB:
         # TODO
 
         # ulTotRecs (4 bytes)
-        packedNAccounts = struct.pack('<I', len(accounts))
-        header[8:12] = packedNAccounts
+        nEntries = len(accounts)*2 # each account has a dn and mail attrs
+        header[8:12] = self._pack_uint(nEntries)
 
         # oRoot (4 bytes): A 32-bit unsigned integer that specifies the offset of the root RDN2_REC
         # to be calculated and set later
@@ -139,22 +152,23 @@ class OAB:
         offsetByPdn = {}
         records = bytearray();
         for acc in accounts:
-            dn = acc['dn']
-            rdn, pdn = dn.split(',', 1)
-            if pdn in offsetByPdn:
-                continue
-            pdnBytes = bytearray(pdn)
-            pdnBytes.append(0x00);
-            offsetByPdn[pdn] = offset;
-            offset += len(pdnBytes)
-            records += pdnBytes
+            newPdns = []
+            newPdns.append(acc['dn'].split(',', 1)[1])
+            newPdns.append(acc['mail'].split('@', 1)[1])
+
+            for pdn in newPdns:
+                if pdn in offsetByPdn:
+                    break
+                pdnBytes = bytearray(pdn)
+                pdnBytes.append(0x00);
+                offsetByPdn[pdn] = offset;
+                offset += len(pdnBytes)
+                records += pdnBytes
 
         return (offsetByPdn, records)
 
-    def _rdnRecord(self, account, offsetByPdn, oPrev, oNextBase):
+    def _rdnRecord(self, rdn, pdn, offsetByPdn, oPrev, oNextBase):
         record = bytearray(24) # min size, RDN records are variable
-        rdn, pdn = account['dn'].split(',', 1)
-
         # XXX degenerate tree: oLT, rLT -> oPrev, oNext
         # oLT 4b
         record[0:4] = struct.pack('<I', oPrev)[0:4]
@@ -186,6 +200,13 @@ class OAB:
     def _pack_uint(self, uint):
         return struct.pack('<I', uint)
 
+    def _count_attributes(self, accounts, attrs):
+        count = 0
+        for acc in accounts:
+            for attr in attrs:
+                if attr in acc:
+                    count += 1
+        return count
 
     def endClass():
         pass
@@ -200,6 +221,8 @@ def accountsList():
     accounts = []
     basedn =  db.domain_dn()
     res = db.search(base=basedn, scope=ldb.SCOPE_SUBTREE, expression="(|(objectclass=user))(objectclass=group)))")
+
+    # XXX add subnames, alias, office
 
     for entry in res:
         mailAttr =  entry.get('mail')
@@ -225,7 +248,14 @@ def accountsList():
         account['type'] = account_type
         account['samAccountName']= entry.get('samAccountName').get(0)
         account['SendRichInfo'] = 1 # for now always on
-
+        sn =  entry.get('sn')
+        if sn:
+            account['sn'] = sn.get(0)
+        office = entry.get('physicalDeliveryOfficeName')
+        if office:
+            account['office'] = office.get(0)
+        # XXX TODO alias mail otherMailbox?
+        # account['alias']
         accounts.append(account)
 
     return accounts
