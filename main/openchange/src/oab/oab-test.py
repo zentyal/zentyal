@@ -74,11 +74,10 @@ class TestOAB(unittest.TestCase):
             print 'oParentDN ' + str(oParentDN)
             self.assertTrue(oParentDN in pdnByOffset)
 
-            found = rdnContents.find(b'\x00', nextLink+24)
-
-            rdnBytes  =  rdnContents[nextLink+24:found-1]
+            found = rdnContents.find(b'0', nextLink+24)
+            rdnBytes  =  rdnContents[nextLink+24:found]
             rdn = str(rdnBytes)
-            print 'RDN=' + rdn # seems pdn not bad XXX
+            print 'RDN=' + rdn
 
             prevLink = nextLink
             nextLink = oNext
