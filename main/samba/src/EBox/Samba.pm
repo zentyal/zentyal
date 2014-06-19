@@ -410,7 +410,7 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') <= 0)) {
         $self->_migrateTo35();
     }
 }
@@ -421,8 +421,18 @@ sub _migrateTo35
 
     return unless ($self->configured());
 
+
+    # set samba conf to allow schemas updates
+    $self->_setConf();
+    EBox::Service::manage('samba-ad-dc', 'restart');
+
     # Load schemas and setup LDAP
     $self->_performSetup();
+
+    EBox::debug('YYYYYYYYYYYYYYYYYYYYYYyy');
+    EBox::Service::manage('samba-ad-dc', 'restart');
+    EBox::debug('YYzzzzzzzzzzzzzzzzzzz');
+#    $self->restartService();
 
     # Set gidNumbers to Domain Users, etc.
     $self->getProvision()->mapAccounts();
