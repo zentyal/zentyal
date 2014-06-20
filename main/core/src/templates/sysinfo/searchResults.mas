@@ -1,0 +1,71 @@
+<%args>
+$searchString
+@matches
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Global;
+my $title = __x('Matches for {oem}{search}{cem}',
+               oem => '<em class="green">',
+               search => $searchString,
+               cem => '</em>'
+           );
+
+</%init>
+<div id="searchresults" class="item-block">
+<h3><% $title %></h3>
+% if (not @matches) {
+<p><% __('Sorry, your search did not match any data') %></p>
+% } else {
+<& .matchesTable, matches => \@matches &>
+% }
+</div>
+
+<%def .matchesTable>
+<%args>
+@matches
+</%args>
+<%init>
+@matches = sort {
+  my $i = 0;
+  my $res = 0;
+  my $aEl = $a->{linkElements};
+  my $bEl = $b->{linkElements};
+  while ($res == 0) {
+     $res = $aEl->[$i]->{title} cmp $bEl->[$i]->{title};
+      if ($res == 0) {
+         $i += 1;
+         if ($i >= @{$aEl}) {
+            $res = -1;
+         } elsif ($i >= @{$bEl}) {
+            $res = 1;
+         }
+      }
+  }
+  $res;
+
+} @matches;
+</%init>
+<ul>
+% foreach my $match (@matches) {
+<%perl>
+   my $first = 1;
+   my $elementString = '';
+   foreach my $element (@{$match->{linkElements}}) {
+      if ($first) {
+          $first = 0;
+      } else {
+         $elementString .= ' > '; # XXX replace with something better
+      }
+      if ($element->{link}) {
+          $elementString .= "<a href='" . $element->{link} . "'>";
+          $elementString .=  $element->{title} . "</a>";
+      } else {
+          $elementString .= $element->{title};
+      }
+   }
+</%perl>
+<li><% $elementString %></li>
+% }
+</ul>
+</%def>

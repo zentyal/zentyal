@@ -1452,6 +1452,7 @@ sub setIfaceDHCP
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
     $ifaces->{$name}->{method} = 'dhcp';
+    $ifaces->{$name}->{name} = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1582,6 +1583,7 @@ sub setIfaceStatic
     $ifaces->{$name}->{method} = 'static';
     $ifaces->{$name}->{address} = $address;
     $ifaces->{$name}->{netmask} = $netmask;
+    $ifaces->{$name}->{name}    = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1747,6 +1749,7 @@ sub setIfacePPP
     $ifaces->{$name}->{method} = 'ppp';
     $ifaces->{$name}->{ppp_user} = $ppp_user;
     $ifaces->{$name}->{ppp_pass} = $ppp_pass;
+    $ifaces->{$name}->{name}     = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1813,8 +1816,9 @@ sub setIfaceTrunk # (iface, force)
     my $ifaces = $self->get_hash('interfaces');
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
-    $ifaces->{$name}->{method} = 'trunk';
+    $ifaces->{$name}->{method}  = 'trunk';
     $ifaces->{$name}->{changed} = 1;
+    $ifaces->{$name}->{name}    = $name;
     $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'notset') {
@@ -1951,6 +1955,7 @@ sub setIfaceBridged
     $ifaces->{$name}->{method} = 'bridged';
     $ifaces->{$name}->{changed} = 1;
     $ifaces->{$name}->{bridge_id} = $bridge;
+    $ifaces->{$name}->{name} = $name;
     $self->set('interfaces', $ifaces);
 
     # mark bridge as changed
@@ -2058,6 +2063,7 @@ sub setIfaceBonded
     $ifaces->{$name}->{method} = 'bundled';
     $ifaces->{$name}->{changed} = 1;
     $ifaces->{$name}->{bond_id} = $bond;
+    $ifaces->{$name}->{name} = $name;
     $self->set('interfaces', $ifaces);
 
     # mark bond as changed
@@ -2481,6 +2487,7 @@ sub unsetIface # (interface, force)
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
     $ifaces->{$name}->{method} = 'notset';
+    $ifaces->{$name}->{name} = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -5040,6 +5047,121 @@ sub _flagIfUp
         $state->{ifup} = $ifups;
         $self->set_state($state);
     }
+}
+
+sub searchContents
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my ($modelMatches, $noModelMatches) = $self->_searchRedisConfKeys($searchString);
+    foreach my $key (@{ $noModelMatches }) {
+        if ($key eq $self->_key('interfaces')) {
+            push @matches, @{ $self->_interfaceSearchMatch($searchString) };
+        } elsif ($key eq $self->_key('vlans')) {
+            push @matches, @{ $self->_vlanSearchMatch($searchString) };
+        }
+
+    }
+    push @matches, @{ $modelMatches };
+
+
+    return \@matches;
+}
+
+sub _interfaceSearchMatch
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my $interfaces = $self->get('interfaces');
+    while (my ($iface, $attrs) = each %{ $interfaces }) {
+        my $ifMatchs = 0;
+
+        while ( my($attrName, $attr) = each %{ $attrs}) {
+            if ($attrName eq 'virtual') {
+                while (my ($vname, $vattrs) = each $attr) {
+                    if (index($vname, $searchString) != -1) {
+                        $ifMatchs = 1;
+                        last;
+                    }
+                    foreach my $vattrVal (values %{ $vattrs }) {
+                        if (index($vattrVal, $searchString) != -1) {
+                            $ifMatchs = 1;
+                            last;
+                        }
+                    }
+                    if ($ifMatchs) {
+                        last;
+                    }
+                }
+            } elsif (index($attr, $searchString) != -1) {
+                $ifMatchs = 1;
+                last;
+            }
+        }
+
+        if ($ifMatchs) {
+            my $ifName = $attrs->{alias} ? $attrs->{alias} : $iface;
+            my $linkElements =  [
+                {
+                    title => $self->printableName(),
+                },
+                {
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
+                },
+                {
+                    title => $ifName,
+                    link => "/Network/Ifaces?iface=$iface"
+                }
+              ];
+            my $match = {
+                module => 'network',
+                linkElements => $linkElements
+               };
+            push @matches, $match;
+        }
+    }
+
+    return \@matches;
+}
+
+sub _vlanSearchMatch
+{
+    my ($self, $searchString) = @_;
+    my @matches;
+    my $vlans = $self->get('vlans');
+    foreach my $vlAttrs (values %{$vlans}) {
+        my $vlanMatchs = 0;
+        foreach my $attrVal (values %{$vlAttrs}) {
+            if (index($attrVal, $searchString) != -1) {
+                $vlanMatchs = 1;
+                last;
+            }
+        }
+
+        if ($vlanMatchs) {
+            my $linkElements =  [
+                {
+                    title => $self->printableName(),
+                },
+                {
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
+                },
+                {
+                    title => $vlAttrs->{name},
+                    link => "/Network/Ifaces?iface=" . $vlAttrs->{name}
+                }
+              ];
+            my $match = {
+                module => 'network',
+                linkElements => $linkElements,
+            };
+            push @matches, $match;
+        }
+    }
+
+    return \@matches;
 }
 
 1;

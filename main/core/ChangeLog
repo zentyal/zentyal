@@ -1,3 +1,5 @@
+HEAD
+	+ Added search for configuration data
 3.5
 	+ Do not mark services as temporary stopped when shutting down
 	+ Enhanced Lock to have exclusive lock with blocking timeout

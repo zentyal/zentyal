@@ -19,7 +19,6 @@ if (!('Zentyal' in  window)) {
             return nsObject;
         },
         LeftMenu: {},
-        MenuSearch: {}
     };
 }
 
@@ -165,65 +164,6 @@ Zentyal.toggleWithToggler = function(name) {
         element.addClass('minBox');
     }
     element.hide('blind');
-};
-
-// Zentya.MenuSearch namespace
-Zentyal.MenuSearch.hideMenuEntry = function(id) {
-    var i;
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $('#' + id).hide();
-        id = id.substr(0,i);
-    }
-    $('#' + id).hide();
-};
-
-Zentyal.MenuSearch.showMenuEntry = function (id) {
-    var i;
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $('#' + id).show();
-        id = id.substr(0,i);
-    }
-    $('#' + id).show();
-};
-
-Zentyal.MenuSearch.showAllMenuEntries = function() {
-    $('li[id^=menu_]').each(function(index, domElem) {
-        var elem = $(domElem);
-        if (elem.attr('id').lastIndexOf('_')  == 4) {
-            elem.show();
-        } else {
-            elem.hide();
-        }
-    });
-};
-
-Zentyal.MenuSearch.updateMenu = function(results) {
-     $('li[id^=menu_]').each(function(index, elem) {
-            $(elem).hide();
-     });
-     $.each(results,function(index, e) {
-          //show it even if it's already in old_results in case we have
-          //hidden it through a parent menu
-         Zentyal.MenuSearch.showMenuEntry(e);
-    });
-};
-
-Zentyal.MenuSearch.filterMenu = function(event) {
-    var text = $(event.target).val();
-    text = text.toLowerCase();
-    if(text.length >= 3) {
-        var url = '/Menu?search=' + text;
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response) {
-                Zentyal.MenuSearch.updateMenu(response);
-            }
-        });
-    } else {
-        Zentyal.MenuSearch.showAllMenuEntries();
-    }
 };
 
 Zentyal.namespace('HA');
