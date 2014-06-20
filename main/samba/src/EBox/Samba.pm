@@ -134,7 +134,6 @@ use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
-use constant GUEST_DEFAULT_USER   => 'Guest'; # TODO Remove
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -865,7 +864,8 @@ sub _createDirectories
     my $zentyalUser = EBox::Config::user();
     my $group = $self->ldap->domainUsersGroup();
     my $gid = $group->get('gidNumber');
-    my $nobody = GUEST_DEFAULT_USER;
+    my $guest = $self->ldap->domainGuestUser();
+    my $nobodyUid = $guest->get('uidNumber');
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 
@@ -875,7 +875,7 @@ sub _createDirectories
     push (@cmds, "chgrp '+$gid' " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
@@ -889,7 +889,7 @@ sub _createDirectories
     push (@cmds, "chgrp '+$gid' " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
     push (@cmds, "mkdir -p '$quarantine'");
@@ -3634,14 +3634,15 @@ sub _setupQuarantineDirectory
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $nobodyUser  = GUEST_DEFAULT_USER;
+    my $guest       = $self->ldap->domainGuestUser();
+    my $guestUid    = $guest->get('uidNumber');
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$nobodyUser:rwx g:adm:rwx '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$guestUid:rwx g:adm:rwx '$quarantine'");
 
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldap->domainSID() . '-512';
