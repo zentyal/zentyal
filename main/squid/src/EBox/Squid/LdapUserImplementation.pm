@@ -28,7 +28,9 @@ sub _addUser
     my ($self, $user) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
-    $self->_groupUsersChanged($samba->defaultGroup());
+    my $group = $samba->ldap->domainUsersGroup();
+    my $name = $group->get('samAccountName');
+    $self->_groupUsersChanged($name);
 }
 
 sub _delUser
@@ -36,7 +38,9 @@ sub _delUser
     my ($self, $user) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
-    $self->_groupUsersChanged($samba->defaultGroup());
+    my $group = $samba->ldap->domainUsersGroup();
+    my $name = $group->get('samAccountName');
+    $self->_groupUsersChanged($name);
 }
 
 sub _modifyGroup

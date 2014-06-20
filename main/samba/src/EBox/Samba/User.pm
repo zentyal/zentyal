@@ -285,21 +285,23 @@ sub createRoamingProfileDirectory
 
     # Create the directory if it does not exist
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::Global->modInstance('samba')->defaultGroup();
+    my $group = $self->_ldap->domainUsersGroup();
+    my $gid = $group->get('gidNumber');
 
     my @cmds = ();
     # Create the directory if it does not exist
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $samAccountName:$group \'$path\'");
+    push (@cmds, "chown \'$samAccountName\' \'$path\'");
+    push (@cmds, "chgrp \'+$gid\' \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
     my @perms;
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
-    push (@perms, "g:$group:---");
+    push (@perms, "g:$gid:---");
     push (@perms, "u:$samAccountName:rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
@@ -695,13 +697,10 @@ sub _groups
 
     my @groups = @{$self->SUPER::_groups(%params)};
 
-    my $defaultGroup = EBox::Global->modInstance('samba')->defaultGroup();
     my $filteredGroups = [];
     for my $group (@groups) {
-        next if ($group->name() eq $defaultGroup and not $params{internal});
         next if ($group->isInternal() and not $params{internal});
         next if ($group->isSystem() and not $params{system});
-
         push (@{$filteredGroups}, $group);
     }
     return $filteredGroups;

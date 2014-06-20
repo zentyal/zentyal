@@ -134,7 +134,7 @@ use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
-use constant GUEST_DEFAULT_USER   => 'Guest';
+use constant GUEST_DEFAULT_USER   => 'Guest'; # TODO Remove
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -145,7 +145,6 @@ use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 use constant BACKUP_USERS_FILE    => 'userlist.bak';
 
-use constant DEFAULTGROUP   => 'Domain Users';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
@@ -864,7 +863,8 @@ sub _createDirectories
     return unless $self->isProvisioned();
 
     my $zentyalUser = EBox::Config::user();
-    my $group = $self->defaultGroup();
+    my $group = $self->ldap->domainUsersGroup();
+    my $gid = $group->get('gidNumber');
     my $nobody = GUEST_DEFAULT_USER;
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
@@ -872,7 +872,7 @@ sub _createDirectories
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root " . SAMBA_DIR);
-    push (@cmds, "chgrp '$group' " . SAMBA_DIR);
+    push (@cmds, "chgrp '+$gid' " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
@@ -880,13 +880,13 @@ sub _createDirectories
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root " . PROFILES_DIR);
-    push (@cmds, "chgrp '$group' " . PROFILES_DIR);
+    push (@cmds, "chgrp '+$gid' " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
     push (@cmds, "chown root " . SHARES_DIR);
-    push (@cmds, "chgrp '$group' " . SHARES_DIR);
+    push (@cmds, "chgrp '+$gid' " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
@@ -1078,24 +1078,11 @@ sub _postServiceHook
 
                     my $userType = $subRow->elementByName('user_group');
                     my $account = $userType->printableValue();
-                    my $qobject = shell_quote($account);
+                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                    next unless ($object->exists());
 
-                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
-                    # map '__USERS__' to 'Domain Users' SID
-                    my $accountShort = $userType->value();
-                    my $sid = undef;
+                    my $sid = $object->sid();
 
-                    if ($accountShort eq $self->defaultGroup()) {
-                        $sid = $domainUsersSID;
-                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
-                    } else {
-                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                        unless ($object->exists()) {
-                            next;
-                        }
-
-                        $sid = $object->sid();
-                    }
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
@@ -1390,12 +1377,14 @@ sub initUser
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
-            my $group = $self->defaultGroup();
+            my $group = $self->ldap->domainUsersGroup();
+            my $gid = $group->get('gidNumber');
+
             my @cmds;
             push (@cmds, "mkdir -p `dirname $qhome`");
             push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             push (@cmds, "chown -R $quser $qhome");
-            push (@cmds, "chgrp -R '$group' $qhome");
+            push (@cmds, "chgrp -R '+$gid' $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -3894,18 +3883,6 @@ sub shareByFilename
     }
 
     return undef;
-}
-
-# Method: defaultGroup
-#
-#   Returns the name of the default group
-#
-sub defaultGroup
-{
-    my ($self) = @_;
-
-    # FIXME: i18n
-    return DEFAULTGROUP;
 }
 
 # Method: hiddenSid

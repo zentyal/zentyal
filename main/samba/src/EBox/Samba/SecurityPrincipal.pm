@@ -48,7 +48,7 @@ use TryCatch::Lite;
 #  or
 #      samAccountName
 #  or
-#      SID
+#      sid
 #
 sub new
 {

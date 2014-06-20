@@ -557,4 +557,74 @@ sub rootDse
     return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
+# Method: domainAdminsGroup
+#
+#   Return the "Domain Admins" group
+#
+sub domainAdminsGroup
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->domainSID();
+    my $sid = "$domainSid-512";
+    my $obj = new EBox::Samba::Group(sid => $sid);
+    return $obj;
+}
+
+# Method: domainUsersGroup
+#
+#   Return the domain users group
+#
+sub domainUsersGroup
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->domainSID();
+    my $sid = "$domainSid-513";
+    my $obj = new EBox::Samba::Group(sid => $sid);
+    return $obj;
+}
+
+# Method: domainGuestsGroup
+#
+#   Return the domain guests group
+#
+sub domainGuestsGroup
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->domainSID();
+    my $sid = "$domainSid-514";
+    my $obj = new EBox::Samba::Group(sid => $sid);
+    return $obj;
+}
+
+# Method: domainAdminUser
+#
+#   Return the domain admin user
+#
+sub domainAdminUser
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->domainSID();
+    my $sid = "$domainSid-500";
+    my $obj = new EBox::Samba::User(sid => 500);
+    return $obj;
+}
+
+# Method: domainGuestUser
+#
+#   Return the domain guest user
+#
+sub domainGuestUser
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->domainSID();
+    my $sid = "$domainSid-501";
+    my $obj = new EBox::Samba::User(sid => $sid);
+    return $obj;
+}
+
 1;
