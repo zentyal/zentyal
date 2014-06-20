@@ -17,8 +17,9 @@ use strict;
 use warnings;
 
 package EBox::OpenChange;
-
-use base qw(EBox::Module::LDAP EBox::HAProxy::ServiceBase EBox::VDomainModule);
+use base qw(EBox::Module::Service EBox::LdapModule
+            EBox::HAProxy::ServiceBase EBox::VDomainModule
+            EBox::CA::Observer);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -50,6 +51,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_AUTODISCOVER_PEM => '/etc/ocsmanager/autodiscover.pem';
+use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant RPCPROXY_PORT           => 62081;
@@ -233,6 +236,21 @@ sub isRunning
     }
 }
 
+sub autodiscoveryCerts
+{
+    my ($self) = @_;
+    my @certs;
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_AUTODISCOVER_PEM)) {
+            push @certs, OCSMANAGER_AUTODISCOVER_PEM;
+        }
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
+            push @certs, OCSMANAGER_DOMAIN_PEM;
+        }
+    }
+    return \@certs;
+}
+
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
@@ -300,6 +318,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+
     $self->_setAutodiscoverConf();
 
     $self->_setRPCProxyConf();
@@ -420,15 +439,16 @@ sub _writeSOGoConfFile
 sub _setAutodiscoverConf
 {
     my ($self) = @_;
+
+
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     my $users   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
-
-    my $server    = $sysinfo->hostDomain();
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
-        $adminMail = 'postmaster@' . $server;
+        $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
         bindDn    => 'cn=Administrator',
@@ -446,16 +466,60 @@ sub _setAutodiscoverConf
 
 
     if ($self->isEnabled()) {
+        $self->_setAutodiscoveryCerts($domain);
+
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
         my $incParams = [
-            server => $server
+            server => $domain
            ];
         $self->writeConfFile(OCSMANAGER_INC_FILE,
                              "openchange/ocsmanager.nginx.mas",
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
+    }
+}
+
+sub _setAutodiscoveryCerts
+{
+    my ($self, $domain) = @_;
+
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        EBox::error("Cannot create autodiscovery certificates because there is not usable CA");
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
+
+    my $autodiscoverCN = 'autodiscover.' . $domain;
+    if (not  $ca->getCertificateMetadata(cn => $autodiscoverCN)) {
+        $ca->issueCertificate(commonName => $autodiscoverCN);
+    }
+    if (not $ca->getCertificateMetadata(cn => $domain)) {
+        $ca->issueCertificate(commonName => $domain);
+    }
+
+    my $metadata;
+
+    $metadata = $ca->getCertificateMetadata(cn => $autodiscoverCN);
+    if ($metadata->{state} eq 'V') {
+        my $autodiscoverCrt = $metadata->{path};
+        my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
+        EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
+    } else {
+        EBox::error("Certificate '$autodiscoverCN' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
+
+    $metadata =  $ca->getCertificateMetadata(cn => $domain);
+    if ($metadata->{state} eq 'V') {
+        my $domainCrt = $metadata->{path};
+        my $domainKey = $ca->getKeys($domain)->{privateKey};
+        EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
+    } else {
+        EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
     }
 }
 
@@ -1071,6 +1135,37 @@ sub connectionString
     my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
 
     return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
+sub certificateRenewed
+{
+    my ($self, $commonName, $isCACert) = @_;
+    $self->_certificateChanges($commonName, $isCACert);
+}
+
+sub freeCertificate
+{
+    my ($self, $commonName) = @_;
+    $self->_certificateChanges($commonName);
+}
+
+sub _certificateChanges
+{
+    my ($self, $commonName, $isCACert) = @_;
+    if ($isCACert) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
+
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+    if ($commonName eq $domain) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
+    } elsif ($commonName eq ('autodiscover.' . $domain)) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
 }
 
 1;

@@ -190,6 +190,12 @@ sub precondition
         return undef;
     }
 
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        $self->{preconditionFail} = 'noCA';
+        return undef;
+    }
+
     # Check there are not unsaved changes
     if ($self->global->unsaved() and (not $self->parentModule->isProvisioned())) {
         $self->{preconditionFail} = 'unsavedChanges';
@@ -238,6 +244,12 @@ sub preconditionFailMsg
                    x => $users->getProvision->getADDomain('localhost'),
                    ohref => "<a href='/Mail/View/VDomains'>",
                    chref => '</a>');
+    }
+    if ($self->{preconditionFail} eq 'noCA') {
+        return __x('There is not an available Certication Authority. You must {oh}create or renew it',
+                   oh => "<a href='/CA/Index'>",
+                   ch => "</a>"
+                  );
     }
     if ($self->{preconditionFail} eq 'unsavedChanges') {
         return __x('There are unsaved changes. Please save them before '.
@@ -364,6 +376,11 @@ sub _doProvision
                 oc => q{</a>}
                )
            );
+    }
+
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        throw EBox::Exceptions::External(__('No Certification authority ready. Create or renew it'));
     }
 
     my $configuration = $openchange->model('Configuration');

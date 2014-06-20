@@ -1,3 +1,5 @@
+HEAD
+	+ Better certificate management for autodiscovery
 3.5
 	+ Fixed wrong references to nginx error pages on ocsmanager conf
 	+ Depend on zentyal-users instead of zentyal-samba
