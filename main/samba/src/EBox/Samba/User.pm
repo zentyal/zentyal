@@ -469,7 +469,7 @@ sub create
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,
-                    opArgs => $class->entryOpChangesInUpdate($entry),
+                    opArgs => { dn => $dn, @attr },
                 );
             };
         }
