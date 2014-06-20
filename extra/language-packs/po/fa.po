@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-02-27 11:49+0200\n"
-"Last-Translator: securityigi <area51.hrm@gmail.com>\n"
+"PO-Revision-Date: 2014-06-15 14:56+0200\n"
+"Last-Translator: kds4you <kish210@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "آدرس سرورها"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -19543,7 +19543,7 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:48
 msgid "Hide Info"
-msgstr ""
+msgstr "مخفی کردن اطلاعات"
 
 #: ../../main/mail/src/templates/qmanager.mas:57
 msgid "Attempt to deliver all queued mail"
@@ -19551,11 +19551,11 @@ msgstr ""
 
 #: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Remove all messages"
-msgstr ""
+msgstr "حذف تمامی پیغامها"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "شما هیچ پیغامی ندارید یا این سرویس غیر فعال است"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
 #, fuzzy
