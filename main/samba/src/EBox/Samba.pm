@@ -425,14 +425,8 @@ sub _migrateTo35
     # set samba conf to allow schemas updates
     $self->_setConf();
     EBox::Service::manage('samba-ad-dc', 'restart');
-
-    # Load schemas and setup LDAP
     $self->_performSetup();
-
-    EBox::debug('YYYYYYYYYYYYYYYYYYYYYYyy');
     EBox::Service::manage('samba-ad-dc', 'restart');
-    EBox::debug('YYzzzzzzzzzzzzzzzzzzz');
-#    $self->restartService();
 
     # Set gidNumbers to Domain Users, etc.
     $self->getProvision()->mapAccounts();
@@ -457,12 +451,13 @@ sub _migrateTo35
                 if ($uidNumber) {
                     my $user = new EBox::Samba::User(samAccountName => $uid);
                     next unless $user->exists();
+
+                    $user->set('uidNumber', $uidNumber);
                     unless ($user->hasValue('objectClass', 'systemQuotas')) {
                         my @objectclass = $user->get('objectClass');
                         push (@objectclass, 'systemQuotas');
                         $user->set('objectClass', \@objectclass);
                     }
-                    $user->set('uidNumber', $uidNumber, 1);
                     $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
                     for my $attr (qw(quota loginShell homeDirectory)) {
                         my $value = $entry->get_value($attr);
@@ -1412,7 +1407,7 @@ sub _startService
     EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
-    $self->SUPER::_startService(@_);
+    $self->SUPER::_startService();
 
     if ($self->mode() eq STANDALONE_MODE) {
         # Wait for sss to open the NSS pipe
