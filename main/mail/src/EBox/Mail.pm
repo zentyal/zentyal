@@ -45,11 +45,23 @@ use EBox::Service;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
+use EBox::Samba::User;
+use Samba::Security::Descriptor qw(
+    SEC_ACE_TYPE_ACCESS_ALLOWED
+    SEC_ACE_FLAG_CONTAINER_INHERIT
+    SEC_ADS_READ_PROP
+    SEC_ADS_LIST
+    SEC_ADS_LIST_OBJECT
+    SEC_STD_READ_CONTROL
+);
+use Samba::Security::AccessControlEntry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use TryCatch::Lite;
 use Proc::ProcessTable;
@@ -348,6 +360,53 @@ sub setupLDAP
                 'objectClass' => 'top',
                 'objectClass' => 'container'
                ]});
+        }
+    }
+
+    # The configuration partition is readable only for members of 'enterprise
+    # admins' and 'domain admins' groups. The postfix daemon will bind with
+    # the mail service account, so we need to grant read only access to it.
+    # Childs created within the container will inherit the ACE
+    my $user = new EBox::Samba::User(dn => $self->_kerberosServiceAccountDN());
+    my $sid = $user->sid();
+    my $param = {
+        base => "CN=mail,CN=zentyal,CN=Configuration,$baseDn",
+        scope => 'base',
+        filter => '(objectClass=container)',
+        attrs => ['nTSecurityDescriptor'],
+    };
+    my $result = $ldap->search($param);
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Unexpected number of LDAP entries found searching for ' .
+                '{dn}: Expected one, got {count}',
+                dn => $param->{base}, count => $result->count()));
+    }
+
+    my $entry = $result->entry(0);
+    my $sdBlob = $entry->get_value('nTSecurityDescriptor');
+    my $sd = new Samba::Security::Descriptor();
+    $sd->unmarshall($sdBlob, length($sdBlob));
+
+    my $accessMask = SEC_ADS_READ_PROP |
+                     SEC_ADS_LIST |
+                     SEC_ADS_LIST_OBJECT |
+                     SEC_STD_READ_CONTROL;
+    my $ace = new Samba::Security::AccessControlEntry($sid,
+        SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
+        SEC_ACE_FLAG_CONTAINER_INHERIT);
+    $sd->dacl_add($ace);
+    $entry->replace(nTSecurityDescriptor => $sd->marshall);
+    $result = $entry->update($ldap->connection());
+    if ($result->is_error()) {
+        unless ($result->code() == LDAP_LOCAL_ERROR and
+                $result->error() eq 'No attributes to update')
+        {
+            throw EBox::Exceptions::LDAP(
+                message => __('Error on LDAP entry creation:'),
+                result => $result,
+                opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
+            );
         }
     }
 
