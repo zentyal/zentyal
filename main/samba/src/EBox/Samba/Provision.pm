@@ -503,7 +503,6 @@ sub provisionDC
             " --use-xattrs=yes " .
             " --use-rfc2307 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
-            " --users='" . $usersModule->defaultGroup() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
 
