@@ -1,3 +1,5 @@
+HEAD
+	+ Proxying all Exchange Web Services to OCSManager
 3.4.4
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
