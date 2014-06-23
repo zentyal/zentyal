@@ -18,11 +18,13 @@ use warnings;
 
 package EBox::MailFilter;
 
-use base qw(EBox::Module::LDAP
-            EBox::VDomainModule
-            EBox::Mail::FilterProvider
-            EBox::FirewallObserver
-            EBox::LogObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::VDomainModule
+    EBox::Mail::FilterProvider
+    EBox::FirewallObserver
+    EBox::LogObserver
+);
 
 use Perl6::Junction qw(all any);
 
@@ -594,6 +596,21 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;
