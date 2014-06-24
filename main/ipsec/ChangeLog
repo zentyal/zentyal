@@ -1,4 +1,9 @@
 3.5
+	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
+	  zentyal-xl2tp. (credits to Icaro Ribeiro)
+	+ Better management of L2TP daemons
+	+ Added validation for IPs in L2TP configuration
+	+ Fixed firewall rules for L2TP connections which more than one client
 	+ Adapted to OpenLDAP removal
 	+ Set version to 3.5
 3.4

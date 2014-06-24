@@ -133,8 +133,27 @@ sub memValue
     my $value = $self->{'value'};
     if ($value) {
         $value =~ s/\.$//;
+        $value = lc ($value);
     }
     return $value;
+}
+
+sub value
+{
+    my ($self) = @_;
+
+    my $value = $self->SUPER::value();
+    $value = lc ($value) if $value;
+    return $value;
+}
+
+sub printableValue
+{
+    my ($self) = @_;
+
+    my $pvalue = $self->SUPER::printableValue();
+    $pvalue = lc ($pvalue) if $pvalue;
+    return $pvalue;
 }
 
 1;

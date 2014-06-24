@@ -1,6 +1,5 @@
-HEAD
-	+ Save HAProxy module when adding/removing CA for SSL validation
 3.5
+	+ Save HAProxy module when adding/removing CA for SSL validation
 	+ Allow subscription when firewall has been enabled a second time
 	  but changes has not been saved
 	+ Give support to set monitoring servers on rs_monitoring_servers

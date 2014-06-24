@@ -292,13 +292,6 @@ sub isRunning
         }
     }
 
-    if (not $self->smtpFilter()->isEnabled()) {
-        # none service is enabled but module is -> running = 1
-        if ($self->isEnabled()) {
-            return 1;
-        }
-    }
-
     return 0;
 }
 
