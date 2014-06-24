@@ -47,9 +47,10 @@ use TryCatch::Lite;
 # Returns:
 #
 #       An object implementing EBox::LdapUserBase
+#
 sub _ldapModImplementation
 {
-    throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented('_ldapModImplementation', __PACKAGE__);
 }
 
 # Method: ldap
