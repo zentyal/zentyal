@@ -91,6 +91,44 @@ class TestOAB(unittest.TestCase):
         for case in cases:
             self._check_rdn_consistence(case)
 
+    def _check_anr_consistence(self, anr_contents):
+        anr_contents_size = len(anr_contents)
+        nAccounts = self._unpack_uint(anr_contents[8:12])
+        self.assertTrue(nAccounts > 0)
+
+
+        # checking using prev/next links
+        # XXX degenerate tree; tree not checked
+        prevLink = 0
+        nextLink = 16 # 16b headert
+        while nextLink != 0:
+            print "ANR with offset " + str(nextLink)
+
+            oPrev = self._unpack_uint(anr_contents[nextLink+12:nextLink+16])
+            self.assertTrue(oPrev < anr_contents_size)
+            self.assertTrue(oPrev == prevLink)
+
+            oNext = self._unpack_uint(anr_contents[nextLink+16:nextLink+20])
+            self.assertTrue(oNext < anr_contents_size)
+
+            found = anr_contents.find(b'0', nextLink+24)
+            anr_bytes  =  anr_contents[nextLink+24:found]
+            anr = str(anr_bytes)
+            print 'ANR=' + anr
+
+            prevLink = nextLink
+            nextLink = oNext
+
+    def test_anr_consistence(self):
+        cases = [
+            bytearray(b"\x0e\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00#\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00#\x00\x00\x00u20\x0c\x00\x00\x00\'\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x00\'\x00\x00\x00ibubui0\x0c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x00\x00\x00\x00u10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00a0")
+
+            ]
+        for case in cases:
+            self._check_anr_consistence(case)
+
+
+
     def _unpack_uint(self, barray):
         bstr = str(bytearray(barray[0:4]))
         return struct.unpack('<I', bstr)[0]

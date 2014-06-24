@@ -30,6 +30,9 @@ class OAB:
         print 'RDN file:'
         pprint(rdnFileContents)
 
+        anrFileContents = self._anrFileContents(accounts)
+        print 'ANR file:'
+        pprint(anrFileContents)
 
     def _browseFileContents(self, accounts):
             contents = self._browseFileHeader(accounts)
@@ -199,6 +202,68 @@ class OAB:
 
         return record
 
+    def _anrFileContents(self, accounts):
+        contents = self._anrHeader(accounts)
+
+        oPrev = 0;
+        oNextBase = 0
+        lastAccount = len(accounts) - 1
+        for i in range(0, lastAccount +1):
+            acc = accounts[i]
+            if i == lastAccount:
+                oNextBase = 0
+            else:
+                oNextBase = len(contents)
+            for attr in ['displayName', 'sn', 'office', 'alias']:
+                if not(attr in acc):
+                    continue
+
+                attrValue = acc[attr]
+                record    = self._anrRecord(attrValue, oPrev, oNextBase, attr == 'alias')
+                contents += record
+                oPrev = oNextBase
+
+        return contents
+
+    def _anrHeader(self, accounts):
+        header = bytearray(12)
+        # ulVersion (4 bytes):
+        header[0:4] = self._pack_uint(0x0000000E)
+        # ulSerial (4 bytes)
+        # to be calculated later
+        # ulTotRecs (4 bytes):
+        # XXX attr for alias
+        nRecords = self._count_attributes(accounts, ['displayName', 'sn', 'office', 'alias'])
+        header[8:12] = self._pack_uint(nRecords)
+
+        return header
+
+    def _anrRecord(self, attrValue, oPrev, oNextBase, alias):
+        record = bytearray(20) # 20 is only the fixed  bytes
+        # XXX degenerate tree: oLT, oGT -> oPrev, oNext
+        record[0:4] = self._pack_uint(oPrev) #oLt
+        # oGT (4 bytes) , later
+        # iBrowse 3b XX TODO
+        # a/b 1b
+        ab = 0x00
+        if alias:
+            ab = 0x80
+        record[11] = ab
+        record[12:16] = self._pack_uint(oPrev) # oPrev
+        # oNext (4 bytes), later
+        # acKey (variable)
+        record +=  bytearray(attrValue) + b'0'
+
+        oNext = 0
+        if (oNextBase != 0):
+            oNext = oNextBase + len(record)
+        # rLT
+        record[4:8] = self._pack_uint(oNext)
+        # oNext
+        record[16:20] = self._pack_uint(oNext)
+
+        return record
+
     def _pack_uint(self, uint):
         return struct.pack('<I', uint)
 
@@ -249,6 +314,7 @@ def accountsList():
 
         account['type'] = account_type
         account['samAccountName']= entry.get('samAccountName').get(0)
+        account['displayName'] = account['samAccountName']
         account['SendRichInfo'] = 1 # for now always on
         sn =  entry.get('sn')
         if sn:
