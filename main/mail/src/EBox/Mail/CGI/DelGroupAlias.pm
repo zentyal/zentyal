@@ -52,6 +52,7 @@ sub _process
     $mail->{malias}->delGroupAlias($alias, $group);
 
     $self->{json}->{msg} =  __x('Alias {al} removed', al => $alias);
+    $self->{json}->{mail} = $group->get('mail');
     $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }

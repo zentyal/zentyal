@@ -2529,13 +2529,23 @@ sub ousToHide
 #
 #   If mail module is installed its checkMailNotInUse method should be called
 #   instead this one
+#
+# Warning: isAlias is needed for mailboxrelatedStuff which may force to have
+# mail and alias with the same value
 sub checkMailNotInUse
 {
-    my ($self, $addr) = @_;
+    my ($self, $addr, $isAlias) = @_;
     my $usersMod = $self->global()->modInstance('users');
+    my $filter;
+    if ($isAlias) {
+        $filter = "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias))(mail=$addr)";
+    } else {
+        $filter = "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)";
+    }
+
     my %searchParams = (
         base => $usersMod->ldap()->dn(),
-        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        filter => $filter,
         scope => 'sub'
     );
 

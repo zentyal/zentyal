@@ -76,4 +76,16 @@ sub HTMLTitle
     ]);
 }
 
+sub checkConfigurationIsComplete
+{
+    my ($self) = @_;
+    $self->componentByName('SettingsL2TP', 1)->checkConfigurationIsComplete();
+
+    if ($self->componentByName('RangeTable', 1)->size() == 0) {
+        if (not $self->componentByName('UsersSettings', 1)->usersEnabled()) {
+            throw EBox::Exceptions::External(__('No ranges or users defined for the connection'))
+        }
+    }
+}
+
 1;
