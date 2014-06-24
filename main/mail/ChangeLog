@@ -1,3 +1,5 @@
+HEAD
+	+ Adapt alias management to constraints by mailboxRelatedObject
 3.2.9
 	+ Changed amavis submision service to avoid rewriting rules
 	+ Reorganized mail configuration

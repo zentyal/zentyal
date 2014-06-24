@@ -92,6 +92,9 @@ $(function(){
             submitButton: '#mailCreateAlias_submit',
             success : function (response) {
                 $('#mailCreateAlias_lhs').val(' ');
+                 if ('mail' in response) {
+                    $('#editGroupForm input[name="mail"]').val(response.mail);
+                 }
                 refreshAliasList(response.aliases);
             }
   });
@@ -118,7 +121,10 @@ $(function(){
             } else {
                $('#error_mailCreateAlias').html(response.error).show();
             }
-         }
+            if ('mail' in response) {
+                 $('#editGroupForm input[name="mail"]').val(response.mail);
+            }
+          }
       });
   });
 
