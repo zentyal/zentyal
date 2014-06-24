@@ -1,3 +1,5 @@
+HEAD
+	+  Workaround in pageTitle() method against losing of directory parameter/attribute
 3.4
 	+ Fix nsupdate error after domain rename
 	+ Adapted apparmor configuration to Saucy
