@@ -83,6 +83,13 @@ sub childNodes
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($child->isInternal());
 
+            if ($dn =~ m/^CN=krbtgt/i) {
+                if ($usersMod->mode() ne $usersMod->STANDALONE_MODE) {
+                    # hide this user
+                    next;
+                }
+            }
+
             if ($child->isDisabled()) {
                 $type = 'duser';
             } else {
