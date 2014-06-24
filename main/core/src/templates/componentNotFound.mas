@@ -5,12 +5,12 @@ my $eboxHomepageAHref = "<a href='http://www.zentyal.org'>$eboxHomepageName</a> 
 
 my @tipList = (
    __(q{If you typed the page address manually, please check it}),
-   __(q{Maybe a change in the Zentyal configuration or software made no longer available the requested page}),
+   __(q{Maybe the element was removed and the page address is not longer valid}),
    __x(q{If you need more help, you may want visit {homepage} for documentation and mailing lists}, homepage => $eboxHomepageAHref),
 );
 </%init>
 <h4><% __(q{we're sorry}) %></h4>
-<% __('The page cannot be found') %>
+<% __('The request contains a reference to a element which doest not exists') %>
 <ul>
 % foreach my $tip (@tipList) {
   <li><% $tip %></li>

@@ -56,9 +56,11 @@ use constant MAILMAINCONFFILE         => '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE       => '/etc/postfix/master.cf';
 use constant VALIASES_CF_FILE         => '/etc/postfix/valiases.cf';
 use constant USERALIASES_CF_FILE      => '/etc/postfix/useraliases.cf';
+use constant GROUPALIASES_CF_FILE     => '/etc/postfix/groupaliases.cf';
 use constant MAILBOX_CF_FILE          => '/etc/postfix/mailbox.cf';
 use constant VDOMAINS_CF_FILE         => '/etc/postfix/vdomains.cf';
 use constant LOGIN_CF_FILE            => '/etc/postfix/login.cf';
+
 use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
@@ -426,7 +428,6 @@ sub _setMailConf
                       mode => $perm
                      };
 
-
     my $users = EBox::Global->modInstance('samba');
 
     my $allowedaddrs = "127.0.0.0/8";
@@ -469,6 +470,7 @@ sub _setMailConf
 
     push @args, (valiasesCfFile => VALIASES_CF_FILE);
     push @args, (userAliasesCfFile => USERALIASES_CF_FILE);
+    push @args, (groupAliasesCfFile => GROUPALIASES_CF_FILE);
     push @args, (mailboxCfFile  => MAILBOX_CF_FILE);
     push @args, (vdomainsCfFile => VDOMAINS_CF_FILE);
     push @args, (loginCfFile => LOGIN_CF_FILE);
@@ -521,6 +523,11 @@ sub _setMailConf
     push @args, ('fwport'   => $self->fwport());
     push @args, ('ipfilter' => $self->ipfilter());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@args, $filePermissions);
+
+    @args = ();
+    push  @args, @ldapCommonParams;
+    push @args, ('baseDN' => $baseDN);
+    $self->writeConfFile(GROUPALIASES_CF_FILE, 'mail/groupaliases.cf.mas', \@args, $restrictiveFilePermissions);
 
     $self->_setHeloChecks();
 
@@ -680,6 +687,13 @@ sub _setDovecotConf
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas", \@params, $filePermissions);
 
     # ldap dovecot conf file
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
     @params = ();
     push @params, (ldapHost     => "ldap://localhost");
     push @params, (baseDN      => $users->ldap()->dn());
@@ -691,7 +705,7 @@ sub _setDovecotConf
 
     if ($openchange) {
         @params = ();
-        push @params, (masterPassword => $openchangeMod->getImapMasterPassword());
+        push (@params, masterPassword => $openchangeMod->getImapMasterPassword());
         $self->writeConfFile(DOVECOT_SQL_CONFFILE, "mail/dovecot-sql.conf.mas", \@params, $restrictiveFilePermissions);
     }
 }
@@ -1909,19 +1923,19 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail, $noCheckExternalAliases) =@_;
-    # TODO: check vdomain alias mapping to the other domains?
-    $self->global()->modInstance('samba')->checkMailNotInUse($mail);
+    my ($self, $mail, $onlyCheckLdap, $isAlias) = @_;
 
-    if (not $noCheckExternalAliases) {
-        # if the external aliases has been already saved to LDAP it will be caught
-        # by the previous check
-        if ($self->model('ExternalAliases')->aliasInUse($mail)) {
-            throw EBox::Exceptions::External(
+    # TODO: check vdomain alias mapping to the other domains?
+    $self->global()->modInstance('samba')->checkMailNotInUse($mail, $isAlias);
+
+    # if the external aliases has been already saved to LDAP it will be caught
+    # by the previous check
+    if ((not $onlyCheckLdap) and $self->model('ExternalAliases')->aliasInUse($mail)) {
+        throw EBox::Exceptions::External(
                 __x('Address {addr} is in use as external alias', addr => $mail)
-               );
-        }
+        );
     }
 }
+
 
 1;

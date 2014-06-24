@@ -95,7 +95,8 @@ sub _daemon
 sub isEnabled
 {
     my ($self) = @_;
-    return 1;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    return $mailfilter->isEnabled();
 }
 
 # we ignore freshclam running state

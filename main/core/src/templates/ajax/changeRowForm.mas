@@ -45,7 +45,12 @@ $printableRowName => ''
       @formData = values(%presetParams);
   } else {
       @formData = @tableHead;
- }
+  }
+
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if ( not $editid );
+      $action = 'changeEdit' if ( $editid );
+  }
 </%init>
 <& SELF:title, action => $action, printableRowName => $printableRowName &>
 <& SELF:editForm,
