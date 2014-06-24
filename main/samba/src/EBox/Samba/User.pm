@@ -620,9 +620,9 @@ sub isInternal
 {
     my ($self) = @_;
 
-    # FIXME: whitelist Guest account, do this better removing
-    #        isCriticalSystemObject check
-    if ($self->sid() =~ /^S-1-5-21-.*-501$/) {
+    # FIXME: whitelist Guest account, Administrator account
+    # do this better removing isCriticalSystemObject check
+    if ( ($self->sid() =~ /^S-1-5-21-.*-501$/) or ($self->sid() =~ /^S-1-5-21-.*-500$/) ) {
         return 0;
     }
 
