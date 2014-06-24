@@ -203,6 +203,8 @@ sub _setConf
 
     my $users = EBox::Global->modInstance('samba');
     my $ldap = $users->ldap();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
     my $ldapconf = $ldap->ldapConf;
     my $sysinfo = $self->global->modInstance('sysinfo');
 
@@ -216,7 +218,7 @@ sub _setConf
     push(@array, 'ldapBase' => $ldap->dn());
     push(@array, 'ldapRoot' => $self->_kerberosServiceAccountDN());
     push(@array, 'ldapPasswd' => $self->_kerberosServiceAccountPassword());
-    push(@array, 'usersDn' => EBox::Samba::User->defaultContainer()->dn());
+    push(@array, 'usersDn' => $defaultNC);
 
     push(@array, 'domain' => $domain);
     push(@array, 'ssl' => $settings->sslValue());
