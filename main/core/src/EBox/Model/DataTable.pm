@@ -1069,6 +1069,9 @@ sub removeRow
         my $row = $self->row($id);
         $self->validateRowRemoval($row, $force);
 
+        # if there are submodels to remove, remove them recusirvely
+        $self->_removeRowSubModels($row);
+
         # check if there are files to delete
         my $filesToRemove =   $self->filesPathsForRow($row);
         foreach my $file (@{  $filesToRemove }) {
@@ -1103,6 +1106,18 @@ sub removeRow
         $self->_rollbackTransaction();
         $e->throw();
     }
+}
+
+sub _removeRowSubModels
+{
+    my ($self, $row) = @_;
+    foreach my $element (@{ $row->elements()  }) {
+        if ($element->can('foreignModelInstance')) {
+            my $foreignModel = $element->foreignModelInstance();
+            $foreignModel->removeAll(1);
+        }
+    }
+
 }
 
 # Method: removeAll
@@ -1556,6 +1571,7 @@ sub _ids
             my $global = EBox::Global->getInstance();
             my $modChanged = $global->modIsChanged($confmod->name());
             if (not $confmod->isReadOnly() and (@{$ids} and $modChanged)) {
+                # XXX problem here
                 $confmod->set_list($self->{'order'}, 'string', $ids);
             }
         }
@@ -2560,9 +2576,6 @@ sub showPaginationForm
     return 1;
 }
 
-
-
-
 # Method: pageSize
 #
 #     Return the number of rows per page
@@ -3477,6 +3490,12 @@ sub removeIdFromOrder
     my @order = @{ $self->_idsOrderList() };
     for (my $i=0; $i < @order; $i++) {
         if ($id eq $order[$i]) {
+            if (@order == 1) {
+                # if unique element we remove the full list
+                EBox::debug("XXX to remove " . $self->{order});
+                $self->{confmodule}->unset($self->{order});
+                return 0;
+            }
             splice @order, $i, 1;
             $self->_setIdsOrderList(\@order);
             return $i;

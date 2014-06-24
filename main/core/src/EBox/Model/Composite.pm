@@ -891,4 +891,12 @@ sub clone
     $self->setDirectory($origDir, 1);
 }
 
+sub removeAll
+{
+    my ($self, $force) = @_;
+    foreach my $comp (@{ $self->components()  }) {
+        $comp->removeAll($force);
+    }
+}
+
 1;
