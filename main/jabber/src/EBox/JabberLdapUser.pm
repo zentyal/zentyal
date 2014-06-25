@@ -131,18 +131,20 @@ sub getJabberAdmins
 {
     my $self = shift;
 
-    my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('samba');
-    my $usersContainer = EBox::Samba::User->defaultContainer();
     my @admins = ();
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    my $ldap = $samba->ldap();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
 
-    $users->{ldap}->connection();
-    my $ldap = $users->{ldap};
+    my $args = {
+        base => $defaultNC,
+        filter => '(jabberAdmin=TRUE)'
+    };
+    my $mesg = $ldap->search($args);
 
-    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
-    my $mesg = $ldap->search(\%args);
-
-    foreach my $entry ($mesg->entries) {
+    foreach my $entry ($mesg->entries()) {
         push (@admins, new EBox::Samba::User(entry => $entry));
     }
 

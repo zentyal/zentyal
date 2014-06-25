@@ -18,11 +18,15 @@ use warnings;
 
 package EBox::Mail;
 
-use base qw(EBox::Module::LDAP EBox::ObjectsObserver
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider
-            EBox::KerberosModule EBox::SyncFolders::Provider
-            EBox::Events::DispatcherProvider);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::ObjectsObserver
+    EBox::FirewallObserver
+    EBox::LogObserver
+    EBox::Report::DiskUsageProvider
+    EBox::SyncFolders::Provider
+    EBox::Events::DispatcherProvider
+);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -41,11 +45,23 @@ use EBox::Service;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
+use EBox::Samba::User;
+use Samba::Security::Descriptor qw(
+    SEC_ACE_TYPE_ACCESS_ALLOWED
+    SEC_ACE_FLAG_CONTAINER_INHERIT
+    SEC_ADS_READ_PROP
+    SEC_ADS_LIST
+    SEC_ADS_LIST_OBJECT
+    SEC_STD_READ_CONTROL
+);
+use Samba::Security::AccessControlEntry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use TryCatch::Lite;
 use Proc::ProcessTable;
@@ -294,15 +310,19 @@ sub _serviceRules
     ];
 }
 
-sub kerberosServicePrincipals
+sub _kerberosServicePrincipals
 {
-    my ($self) = @_;
+    return [ 'imap', 'smtp', 'pop' ];
+}
 
-    my $data = { service    => 'mail',
-                 principals => [ 'imap', 'smtp', 'pop' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'dovecot' };
-    return $data;
+sub _kerberosKeytab
+{
+    return {
+        path  => KEYTAB_FILE,
+        user  => 'root',
+        group => 'dovecot',
+        mode  => '440',
+    };
 }
 
 # Method: enableActions
@@ -328,8 +348,6 @@ sub setupLDAP
 {
     my ($self) = @_;
 
-    $self->kerberosCreatePrincipals();
-
     my $ldap = $self->ldap();
     my $baseDn =  $ldap->dn();
     my @containers = (
@@ -344,6 +362,53 @@ sub setupLDAP
                 'objectClass' => 'top',
                 'objectClass' => 'container'
                ]});
+        }
+    }
+
+    # The configuration partition is readable only for members of 'enterprise
+    # admins' and 'domain admins' groups. The postfix daemon will bind with
+    # the mail service account, so we need to grant read only access to it.
+    # Childs created within the container will inherit the ACE
+    my $user = new EBox::Samba::User(dn => $self->_kerberosServiceAccountDN());
+    my $sid = $user->sid();
+    my $param = {
+        base => "CN=mail,CN=zentyal,CN=Configuration,$baseDn",
+        scope => 'base',
+        filter => '(objectClass=container)',
+        attrs => ['nTSecurityDescriptor'],
+    };
+    my $result = $ldap->search($param);
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Unexpected number of LDAP entries found searching for ' .
+                '{dn}: Expected one, got {count}',
+                dn => $param->{base}, count => $result->count()));
+    }
+
+    my $entry = $result->entry(0);
+    my $sdBlob = $entry->get_value('nTSecurityDescriptor');
+    my $sd = new Samba::Security::Descriptor();
+    $sd->unmarshall($sdBlob, length($sdBlob));
+
+    my $accessMask = SEC_ADS_READ_PROP |
+                     SEC_ADS_LIST |
+                     SEC_ADS_LIST_OBJECT |
+                     SEC_STD_READ_CONTROL;
+    my $ace = new Samba::Security::AccessControlEntry($sid,
+        SEC_ACE_TYPE_ACCESS_ALLOWED, $accessMask,
+        SEC_ACE_FLAG_CONTAINER_INHERIT);
+    $sd->dacl_add($ace);
+    $entry->replace(nTSecurityDescriptor => $sd->marshall);
+    $result = $entry->update($ldap->connection());
+    if ($result->is_error()) {
+        unless ($result->code() == LDAP_LOCAL_ERROR and
+                $result->error() eq 'No attributes to update')
+        {
+            throw EBox::Exceptions::LDAP(
+                message => __('Error on LDAP entry creation:'),
+                result => $result,
+                opArgs => EBox::Samba::LdapObject->entryOpChangesInUpdate($entry),
+            );
         }
     }
 
@@ -435,8 +500,8 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    my $adminDn     = $users->administratorDN();
-    my $adminPasswd = $users->administratorPassword();
+    my $adminDn     = $self->_kerberosServiceAccountDN();
+    my $adminPasswd = $self->_kerberosServiceAccountPassword();
     my $ldapServer  = 'localhost:' . $self->ldap()->ldapConf()->{port};
     my $baseDN      =  $users->ldap()->dn();
     my @ldapCommonParams = (
@@ -691,8 +756,8 @@ sub _setDovecotConf
     push @params, (ldapHost     => "ldap://localhost");
     push @params, (baseDN      => $users->ldap()->dn());
     push @params, (mailboxesDir => VDOMAINS_MAILBOXES_DIR);
-    push @params, (bindDN       => $users->administratorDN());
-    push @params, (bindDNPwd    => $users->administratorPassword());
+    push @params, (bindDN       => $self->_kerberosServiceAccountDN());
+    push @params, (bindDNPwd    => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
 
@@ -1868,9 +1933,6 @@ sub reprovisionLDAP
 {
     my ($self) = @_;
     $self->SUPER::reprovisionLDAP();
-
-    # Create new kerberos keytab
-    $self->kerberosCreatePrincipals();
 
     # regenerate mail ldap tree
 #    EBox::Sudo::root('/usr/share/zentyal-mail/mail-ldap update');

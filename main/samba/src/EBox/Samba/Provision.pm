@@ -26,6 +26,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Util::Random;
 
 use EBox::Samba::User;
 use EBox::Samba::Group;
@@ -284,13 +285,19 @@ sub setupKerberos
 
     EBox::info("Setting up kerberos");
     my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
+    my $systemKeytab = EBox::Samba::SYSTEM_WIDE_KRB5_KEYTAB();
+    my $provisionGeneratedKeytab = EBox::Samba::SECRETS_KEYTAB();
     if ($self->isProvisioned()) {
+        if (EBox::Sudo::fileTest('-f', $systemKeytab)) {
+            EBox::Sudo::root("mv '$systemKeytab' '$systemKeytab.bak'");
+        }
         my $samba = EBox::Global->modInstance('samba');
         my $realm = $samba->kerberosRealm();
         my @params = ('realm' => $realm);
         $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
+        EBox::Sudo::root("ln -sf '$provisionGeneratedKeytab' '$systemKeytab'");
     } else {
-        EBox::Sudo::root("rm -f '$systemFile'");
+        EBox::Sudo::root("rm -f '$systemKeytab'");
     }
 }
 
@@ -507,7 +514,8 @@ sub provisionDC
             " --host-ip='" . $provisionIP . "'";
 
         EBox::info("Provisioning database '$cmd'");
-        $cmd .= " --adminpass='" . $usersModule->administratorPassword() . "'";
+        my $password = EBox::Util::Random::generate(20);
+        $cmd .= " --adminpass='$password'";
 
         # Use silent root to avoid showing the admin pass in the logs if
         # provision command fails.
@@ -552,9 +560,6 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
-        # FIXME Load Zentyal service principals into samba
-        # $usersModule->ldap->ldapServicePrincipalsToLdb();
-
         # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
@@ -567,6 +572,22 @@ sub provisionDC
         # Reset sysvol
         EBox::debug('Reset Sysvol');
         $self->resetSysvolACL();
+
+        # Set as changed and remove all kerberos modules extracted keytabs
+        my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+        foreach my $mod (@{$kerberosModules}) {
+            $mod->setAsChanged();
+            my @cmds;
+            my $keytab = $mod->_kerberosKeytab();
+            if (defined $keytab) {
+                my $keytabPath = $keytab->{path};
+                push (@cmds, "rm -f '$keytabPath'");
+            }
+            my $account = $mod->_kerberosServiceAccount();
+            my $stashedPwdFile = EBox::Config::conf() . $account . ".passwd";
+            push (@cmds, "rm -f '$stashedPwdFile'");
+            EBox::Sudo::root(@cmds);
+        }
     } catch ($error) {
         $self->setProvisioned(0);
         throw EBox::Exceptions::Internal($error);

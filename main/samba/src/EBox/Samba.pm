@@ -164,6 +164,7 @@ use constant KERBEROS_PORT => 88;
 use constant KPASSWD_PORT => 464;
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
+use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
 
 # SSSD conf
 use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
@@ -1206,7 +1207,7 @@ sub _setupSSSd
     my @params = ('fqdn'   => $sysinfo->fqdn(),
                   'domain' => $sysinfo->hostDomain(),
                   'defaultShell' => $defaultShell,
-                  'keyTab' => SECRETS_KEYTAB);
+                  'keyTab' => SYSTEM_WIDE_KRB5_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
@@ -3315,61 +3316,6 @@ sub drive
 
     my $model = $self->model('DomainSettings');
     return $model->driveValue();
-}
-
-# Method: administratorDN
-#
-#
-# Returns:
-#
-#     String - the DN for the administrator or undef if it does not exist
-#
-sub administratorDN
-{
-    my ($self) = @_;
-
-    my $ldap = $self->ldap();
-    my $domainAdminSID = $ldap->domainSID() . '-500';
-
-    my $result = $ldap->search({ base   => $self->userClass()->defaultContainer()->dn(),
-                                filter => "objectSid=$domainAdminSID",
-                                scope  => 'one',
-                                attrs  => ['dn']});
-    my @entries = $result->entries();
-    my $dn;
-    if (scalar(@entries) > 0) {
-        $dn = $entries[0]->dn();
-    }
-    return $dn;
-}
-
-# Method: administratorPassword
-#
-#   Returns the administrator password
-#
-sub administratorPassword
-{
-    my ($self) = @_;
-
-    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-
-    my $pass;
-    unless (-f $pwdFile) {
-        my $pass;
-
-        while (1) {
-            $pass = EBox::Util::Random::generate(20);
-            # Check if the password meet the complexity constraints
-            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
-                     $pass =~ /[0-9]+/ and length ($pass) >=8);
-        }
-
-        my (undef, undef, $uid, $gid) = getpwnam('ebox');
-        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
-        return $pass;
-    }
-
-    return read_file($pwdFile);
 }
 
 # Method: dMD

@@ -19,9 +19,12 @@ Parameters:
   $dnPass
 </%args>
 <IfModule mod_ldap_userdir.c>
-        LDAPUserDirServer <% $ldapServer %>:<% $ldapPort %>
-        LDAPUserDir public_html
-        LDAPUserDirDNInfo <% $rootDN %> <% $dnPass %>
-        LDAPUserDirBaseDN <% $usersDN %>
-#        LDAPUserDirHomeAttribute homeDirectory
+        LDAPUserDirServer       <% $ldapServer %>:<% $ldapPort %>
+        LDAPUserDir             public_html
+        LDAPUserDirDNInfo       <% $rootDN %> <% $dnPass %>
+        LDAPUserDirBaseDN       <% $usersDN %>
+        LDAPUserDirFilter       (&(samAccountName=%u)(objectClass=posixAccount))
+        LDAPUserDirSearchScope  subtree
+        LDAPUserDirUseTLS       Off
+        LDAPAttributeName       uid samAccountName
 </IfModule>
