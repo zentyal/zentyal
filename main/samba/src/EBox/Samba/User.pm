@@ -240,13 +240,13 @@ sub createRoamingProfileDirectory
 {
     my ($self) = @_;
 
+    my $domainSid       = $self->_ldap->domainSID();
     my $samAccountName  = $self->get('samAccountName');
     my $userSID         = $self->sid();
-    my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
-    my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
+    my $domainAdminsSID = "$domainSid-512";
+    my $domainUsersSID  = "$domainSid-513";
 
     # Create the directory if it does not exist
-    my $samba = EBox::Global->modInstance('samba');
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
     my $group = EBox::Users::DEFAULTGROUP();
 
@@ -274,8 +274,8 @@ sub setRoamingProfile
 {
     my ($self, $enable, $path, $lazy) = @_;
 
-    my $userName = $self->get('samAccountName');
     if ($enable) {
+        my $userName = $self->get('samAccountName');
         $self->createRoamingProfileDirectory();
         $path .= "\\$userName";
         $self->set('profilePath', $path);
