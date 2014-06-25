@@ -514,8 +514,14 @@ sub provisionDC
             " --host-ip='" . $provisionIP . "'";
 
         EBox::info("Provisioning database '$cmd'");
-        my $password = EBox::Util::Random::generate(20);
-        $cmd .= " --adminpass='$password'";
+        my $pass;
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+        $cmd .= " --adminpass='$pass'";
 
         # Use silent root to avoid showing the admin pass in the logs if
         # provision command fails.
