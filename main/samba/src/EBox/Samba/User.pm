@@ -278,9 +278,9 @@ sub setRoamingProfile
         my $userName = $self->get('samAccountName');
         $self->createRoamingProfileDirectory();
         $path .= "\\$userName";
-        $self->set('profilePath', $path);
+        $self->set('profilePath', $path, $lazy);
     } else {
-        $self->delete('profilePath');
+        $self->delete('profilePath', $lazy);
     }
     $self->save() unless $lazy;
 }
