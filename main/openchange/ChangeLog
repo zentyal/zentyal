@@ -1,4 +1,6 @@
 3.5
+	+ Add conf file for openchange module, containing broker config for
+	  mapiproxy server
 	+ Make SOGo shared contacts display their CN
 	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
 	+ Updated SOGo conf
