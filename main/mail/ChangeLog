@@ -1,3 +1,5 @@
+HEAD
+	+ Fix groupaliases.cf parameter stub
 3.5
 	+ Adapt alias management to constraints by mailboxRelatedObject
 	+ Changed amavis submision service to avoid rewriting rules

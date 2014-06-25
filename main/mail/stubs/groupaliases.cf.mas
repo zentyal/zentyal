@@ -4,11 +4,8 @@
         $bindDN
         $bindPW
         $baseDN
-        $ldap
+        $ldapServer
 </%args>
-<%init>
-my $ldapServer = 'localhost:' . $ldap->{port};
-</%init>
 server_host = <% $ldapServer %>
 version = 3
 search_base = <% $baseDN %>
