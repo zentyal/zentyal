@@ -663,13 +663,6 @@ sub _setDovecotConf
         mode => '0644',
         force => 1,
     };
-    my $restrictiveFilePermissions = {
-        uid => 0,
-        gid => 0,
-        mode => '0640',
-        force => 1,
-    };
-
 
     my @params = ();
     push @params, (uid => $uid);
