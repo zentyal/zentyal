@@ -1,4 +1,5 @@
 3.5
+	+ Write broker configuration for mapiproxy server in openchange.conf
 	+ EBox::Samba::DNS::Zone always return lowercase zone name
 	+ Fix members of 'Domain Admins' group not able to delete items from
 	  recycle bin

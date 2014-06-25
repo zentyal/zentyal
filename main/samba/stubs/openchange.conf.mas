@@ -1,11 +1,17 @@
 <%args>
     $openchangeProvisionedWithMySQL => 0
     $openchangeConnectionString => undef
+    $brokerHost
+    $brokerPort
+    $brokerUser
+    $brokerPass
+    $brokerVHost
 </%args>
 [global]
     dcerpc endpoint servers = +epmapper, +mapiproxy
     dcerpc_mapiproxy:server = true
     dcerpc_mapiproxy:interfaces = exchange_emsmdb, exchange_nsp, exchange_ds_rfr
+    dcerpc_mapiproxy:broker = amqp://<% $brokerUser %>:<% $brokerPass %>@<% $brokerHost %>:<% $brokerPort %>/<% $brokerVHost %>
 % if ($openchangeProvisionedWithMySQL == 1 and defined $openchangeConnectionString) {
     mapistore:nprops_backend = <% $openchangeConnectionString %>
     mapistore:indexing_backend = <% $openchangeConnectionString %>
