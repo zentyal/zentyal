@@ -1,3 +1,6 @@
+HEAD
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
 3.2.18
 	+ EBox::Samba::DNS::Zone always return lowercase zone name
 3.2.17

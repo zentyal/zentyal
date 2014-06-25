@@ -292,6 +292,10 @@ sub _postServiceHook
             my $drivePath = "\\\\$netbiosName.$realmName";
             my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
             my $users = $self->ldb->users();
+
+            my $state = $self->get_state();
+            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
+            $self->set_state($state);
             foreach my $user (@{$users}) {
                 unless ($self->ldapObjectFromLDBObject($user)) {
                     # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
@@ -300,10 +304,12 @@ sub _postServiceHook
                 }
 
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
-                    $user->setRoamingProfile(1, $profilesPath, 1);
-                } else {
-                    $user->setRoamingProfile(0, undef, 1);
+                if ($roamingProfilesChanged) {
+                    if ($self->roamingProfiles()) {
+                        $user->setRoamingProfile(1, $profilesPath, 1);
+                    } else {
+                        $user->setRoamingProfile(0, undef, 1);
+                    }
                 }
 
                 # Mount user home on network drive
