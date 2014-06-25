@@ -60,6 +60,9 @@ use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
 use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
 
+use constant OC_NOTIF_SERVICE_CONF_PATH => '/etc/openchange/';
+use constant OC_NOTIF_SERVICE_CONF_FILE => OC_NOTIF_SERVICE_CONF_PATH . 'notification-service.cfg';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -183,6 +186,10 @@ sub _daemonsToDisable
         {
             name => 'openchange-ocsmanager',
             type => 'init.d',
+        },
+        {
+            name => 'ocnotification',
+            type => 'upstart',
         }
        ];
     return $daemons;
@@ -208,6 +215,11 @@ sub _daemons
             type         => 'upstart',
             precondition => sub { return $self->isProvisioned() },
         },
+        {
+            name         => 'ocnotification',
+            type         => 'upstart',
+            precondition => sub { return $self->isProvisioned() },
+        }
     ];
 
     return $daemons;
@@ -301,6 +313,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+    $self->_writeNotificationServiceConf();
 
     $self->_setRPCProxyConf();
     $self->_clearDownloadableCert();
@@ -345,6 +358,28 @@ sub _writeCronFile
     } else {
         EBox::Sudo::root("rm -f $cronfile");
     }
+}
+
+sub _writeNotificationServiceConf
+{
+    my ($self) = @_;
+
+    unless (EBox::Sudo::fileTest('-d', OC_NOTIF_SERVICE_CONF_PATH)) {
+        EBox::Sudo::root("mkdir '" . OC_NOTIF_SERVICE_CONF_PATH . "'");
+    }
+    my $array = [];
+    push (@{$array}, user => EBox::Config::configkey('oc_notif_broker_user'));
+    push (@{$array}, pass => EBox::Config::configkey('oc_notif_broker_pass'));
+    push (@{$array}, host => EBox::Config::configkey('oc_notif_broker_host'));
+    push (@{$array}, port => EBox::Config::configkey('oc_notif_broker_port'));
+    push (@{$array}, vhost => EBox::Config::configkey('oc_notif_broker_vhost'));
+    push (@{$array}, exchange => EBox::Config::configkey('oc_notif_exchange'));
+    push (@{$array}, newMailRouting => EBox::Config::configkey('oc_notif_new_mail_routing_key'));
+    push (@{$array}, newMailQueue   => EBox::Config::configkey('oc_notif_new_mail_queue'));
+
+    $self->writeConfFile(OC_NOTIF_SERVICE_CONF_FILE,
+        'openchange/notification-service.cfg.mas',
+        $array, { uid => 0, gid => 0, mode => '640' });
 }
 
 sub _writeSOGoDefaultFile
