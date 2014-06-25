@@ -1,3 +1,5 @@
+HEAD
+	+ Changed ifup coditions on first time save
 3.5
 	+ Changed validation of setDHCPAddress, setRealPPPIface and
 	  DHCPCleanUp to allow pseudoterminal interfaces, this is needed for l2tp
