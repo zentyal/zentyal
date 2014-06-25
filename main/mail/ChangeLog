@@ -1,4 +1,5 @@
 HEAD
+	+ Load openchange plugin if openchange enabled
 	+ Fix groupaliases.cf parameter stub
 3.5
 	+ Adapt alias management to constraints by mailboxRelatedObject
