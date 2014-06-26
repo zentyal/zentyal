@@ -54,7 +54,11 @@ sub run
     my ($self, $url, $htmlblocks) = @_;
 
     my $redis = EBox::Global->modInstance('global')->redis();
-    $redis->begin();
+
+    # Avoid nested transactions with readonly cgis like CurrentProgress
+    my $readonly = ($url =~ m{^/ReadOnly/});
+
+    $redis->begin() unless $readonly;
 
     try {
         my $effectiveUrl = _urlAlias($url);
@@ -84,7 +88,7 @@ sub run
         $cgi->{originalUrl} = $url;
 
         $cgi->run();
-        $redis->commit();
+        $redis->commit() unless $readonly;
     } otherwise {
         my ($ex) = @_;
 
@@ -93,7 +97,8 @@ sub run
             EBox::error("Exception trying to access $url: $ex");
         }
 
-        $redis->rollback();
+        $redis->rollback() unless $readonly;
+
         $ex->throw();
     };
 }

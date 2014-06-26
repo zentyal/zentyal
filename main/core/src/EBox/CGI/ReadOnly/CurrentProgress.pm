@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::SysInfo::CGI::CurrentProgress;
+package EBox::ReadOnly::CGI::CurrentProgress;
 
 use base 'EBox::CGI::ClientBase';
 
