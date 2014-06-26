@@ -32,14 +32,18 @@ if ($progressId) {
     @callParams = (progress => $progress);
 }
 
+my $global = EBox::Global->getInstance();
+my $redis = $global->redis();
 try {
-    my $global = EBox::Global->getInstance();
+    $redis->begin();
     if ($action eq 'saveAllModules') {
         $global->saveAllModules(@callParams);
     } elsif ($action eq 'revokeAllModules') {
         $global->revokeAllModules(@callParams);
     }
+    $redis->commit();
 } catch ($ex) {
+    $redis->rollback();
     if ($progress) {
         my $errorTxt = blessed($ex) ? $ex->text() : $ex;
         if (EBox::Config::boolean('debug') and blessed($ex)) {

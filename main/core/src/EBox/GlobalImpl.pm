@@ -533,10 +533,14 @@ sub _prepareActionScript
     my $script = EBox::Config::scripts() . 'global-action';
     $script .= " --action $action";
 
-    my $progressIndicator =  EBox::ProgressIndicator->create(
-            executable => $script,
-            totalTicks => $totalTicks,
-            );
+    my $progressIndicator = EBox::ProgressIndicator->create(
+        executable => $script,
+        totalTicks => $totalTicks,
+    );
+
+    # Flush current transaction so the process started by
+    # progress indicator can start its own one
+    $self->redis()->commit();
 
     $progressIndicator->runExecutable();
 
