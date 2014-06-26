@@ -214,15 +214,9 @@ sub modulesInFirstInstallOrder
     my @mods;
     my @rawMods = @{$self->_dependencyTree()};
 
-    my @modsInHold;
-    my ($sambaSeen, $firewallSeen, $logsSeen, $auditSeen);
+    my ($firewallSeen, $logsSeen, $auditSeen);
     foreach my $mod (@rawMods) {
-        if ($mod eq 'samba') {
-            $sambaSeen = 1;
-            push @mods, 'samba';
-            push @mods, @modsInHold;
-            @modsInHold = ();
-        } elsif ($mod eq 'firewall') {
+        if ($mod eq 'firewall') {
             $firewallSeen = 1;
             push @mods, 'firewall';
         } elsif ($mod eq 'logs') {
@@ -231,14 +225,10 @@ sub modulesInFirstInstallOrder
         } elsif ($mod eq 'audit') {
             # we will add the module later
             $auditSeen = 1;
-        } elsif (not $sambaSeen) {
-            push @modsInHold, $mod;
         } else {
             push @mods, $mod;
         }
     }
-
-    push @mods, @modsInHold;
 
     if ($logsSeen) {
         # added in the last to receive all new logobservers
