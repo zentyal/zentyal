@@ -1,4 +1,5 @@
 3.5
+	+ Save changes is now properly done as a single redis transaction
 	+ Assure that all data under a row directory is removed
 	+ EBox::Types::DomainName always return lowercase values
 	+ EBox::Types::Host always return lowercase values
