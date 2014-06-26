@@ -344,6 +344,20 @@ sub provision
     my $keytab = "$conf/samba.keytab";
     push (@cmds, "rm -f '$keytab'");
 
+    # Remove kerberos modules extracted keytabs and stashed passwords
+    my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+    foreach my $mod (@{$kerberosModules}) {
+        my $keytab = $mod->_kerberosKeytab();
+        if (defined $keytab) {
+            my $keytabPath = $keytab->{path};
+            push (@cmds, "rm -f '$keytabPath'");
+        }
+        my $account = $mod->_kerberosServiceAccount();
+        my $stashedPwdFile = EBox::Config::conf() . $account . ".passwd";
+        push (@cmds, "rm -f '$stashedPwdFile'");
+        EBox::Sudo::root(@cmds);
+    }
+
     # Delete users config file and private folder
     push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
     push (@cmds, 'rm -rf ' . $users->PRIVATE_DIR() . '/*');
@@ -579,20 +593,11 @@ sub provisionDC
         EBox::debug('Reset Sysvol');
         $self->resetSysvolACL();
 
-        # Set as changed and remove all kerberos modules extracted keytabs
+        # Set kerberos modules as changed to force them to extract the keytab
+        # and stash new password
         my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
         foreach my $mod (@{$kerberosModules}) {
             $mod->setAsChanged();
-            my @cmds;
-            my $keytab = $mod->_kerberosKeytab();
-            if (defined $keytab) {
-                my $keytabPath = $keytab->{path};
-                push (@cmds, "rm -f '$keytabPath'");
-            }
-            my $account = $mod->_kerberosServiceAccount();
-            my $stashedPwdFile = EBox::Config::conf() . $account . ".passwd";
-            push (@cmds, "rm -f '$stashedPwdFile'");
-            EBox::Sudo::root(@cmds);
         }
     } catch ($error) {
         $self->setProvisioned(0);
@@ -1377,6 +1382,13 @@ sub provisionADC
 
         EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
+
+        # Set kerberos modules as changed to force them to extract the keytab
+        # and stash new password
+        my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+        foreach my $mod (@{$kerberosModules}) {
+            $mod->setAsChanged();
+        }
     } catch ($e) {
         $self->setProvisioned(0);
         $self->setupKerberos();
