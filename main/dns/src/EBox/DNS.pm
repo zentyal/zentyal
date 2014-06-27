@@ -828,6 +828,9 @@ sub _reverseData
         foreach my $hostnameRowId (@{$hostnamesModel->ids()}) {
             my $hostRow = $hostnamesModel->row($hostnameRowId);
             my $hostName = $hostRow->valueByName('hostname');
+            if ( $hostName =~ /^\*/ ) {
+                next;
+            }
             my $hostIpAddrsModel = $hostRow->subModel('ipAddresses');
             foreach my $hostIpRowId (@{$hostIpAddrsModel->ids()}) {
                 my $hostIpRow = $hostIpAddrsModel->row($hostIpRowId);
