@@ -66,34 +66,4 @@ sub componentNames
     return \@components;
 }
 
-# Method: precondition
-#
-# Check if the module is configured
-#
-# Overrides:
-#
-# <EBox::Model::Base::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    return $self->parentModule()->isProvisioned();
-}
-
-# Method: preconditionFailMsg
-#
-# Check if the module is configured
-#
-# Overrides:
-#
-# <EBox::Model::Model::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __('You need to enable Users module in the module status section and save changes in order to use it.');
-}
-
 1;
