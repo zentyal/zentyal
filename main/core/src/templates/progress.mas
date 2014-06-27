@@ -11,7 +11,7 @@ $currentItemCaption => undef
 $itemsLeftMessage   => undef
 $endNote            => undef
 $errorNote          => undef
-$currentItemUrl => '/SysInfo/CurrentProgress'
+$currentItemUrl => '/ReadOnly/CurrentProgress'
 $reloadInterval  => 2
 
 @slides => ()

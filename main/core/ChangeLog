@@ -1,3 +1,7 @@
+HEAD
+	+ Save changes of each module is now always done in transactions
+	+ CurrentProgress CGI moved to the new ReadOnly namespace which is
+	  exempt of redis transactions to avoid nested locking
 3.2.12
 	+ EBox::Types::DomainName always return lowercase values
 	+ EBox::Types::Host always return lowercase values
