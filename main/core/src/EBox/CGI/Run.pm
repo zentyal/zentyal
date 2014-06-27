@@ -56,7 +56,7 @@ sub run
     my $redis = EBox::Global->modInstance('global')->redis();
 
     # Avoid nested transactions with readonly cgis like CurrentProgress
-    my $readonly = ($url =~ m{^/ReadOnly/});
+    my $readonly = ($url =~ m{^/?ReadOnly/});
 
     $redis->begin() unless $readonly;
 
