@@ -939,7 +939,7 @@ sub global
 #
 sub save
 {
-    my ($self) = @_;
+    my $self = shift;
 
     my $redis = $self->redis();
     try {
