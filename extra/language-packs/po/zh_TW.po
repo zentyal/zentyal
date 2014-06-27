@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-01-16 04:43+0200\n"
-"Last-Translator: pesder <pesder@gmail.com>\n"
+"PO-Revision-Date: 2014-06-27 08:12+0200\n"
+"Last-Translator: evenault <evenault@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -21,13 +21,8 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1460
-#, fuzzy
 msgid "disabled"
-msgstr ""
-"#-#-#-#-#  zh_TW.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"已停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"停用"
+msgstr "停用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -40,97 +35,95 @@ msgstr "您必須為伺服器 {name} 提供至少一個位址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
-msgstr "客戶端的憑證不能會伺服器端的相同"
+msgstr "用戶端的憑證不能與伺服器端相同"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
-msgstr ""
+msgstr "這個包裝不是一個Zentyal到Zentyal的設定包裝(無法解開)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
-msgstr ""
+msgstr "這個包裝不是一個Zentyal到Zentyal的設定包裝(缺少伺服器設定)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
-msgstr ""
+msgstr "這個包裝不是一個Zentyal到Zentyal的設定包裝(缺少CA憑證)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
-msgstr ""
+msgstr "這個包裝不是一個Zentyal到Zentyal的設定包裝(缺少認證檔案)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
-msgstr ""
+msgstr "這個包裝不是一個Zentyal到Zentyal的設定包裝(缺少認證私有key)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "不存在的 CA 憑證檔案 {p}"
+msgstr "不存在的 CA 憑證 {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr "不存在的客戶端憑證檔案 {p}"
+msgstr "不存在的用戶端憑證 {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "不存在的憑證私密金鑰檔案 {p}"
+msgstr "不存在的憑證私有key {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr "做為 CA 憑證的檔案無效"
+msgstr "CA 憑證無效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "做為客戶端憑證的檔案無效"
+msgstr "用戶端憑證無效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "做為客戶端私密金鑰的檔案無效"
+msgstr "客戶端私有key無效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
-msgstr "做為客戶端憑證的檔案與 CA 的憑證檔案不符"
+msgstr "用戶端憑證與 CA 的憑證不符"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
-#, fuzzy
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
-msgstr "做為客戶端憑證的檔案與憑證的私密金鑰檔案不符"
+msgstr "用戶端憑證與憑證的私密金鑰不符"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
-msgstr ""
+msgstr "VPN用戶端無法連結到設定的地址{addr}因為這個是本地連結"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
-msgstr ""
+msgstr "VPN用戶端無法連結到設定的地址{addr}因為這個是區域網路介面"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr "客戶端 {name}"
+msgstr "用戶端 {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -156,33 +149,8 @@ msgstr "客戶端 {name}"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  zh_TW.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-zarafa 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (libebox 0.12.99)  #-#-#-#-#\n"
-"啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-ntp 0.12.99)  #-#-#-#-#\n"
-"啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
-"啟動\n"
-"#-#-#-#-#  zh_TW.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"啟動\n"
-"#-#-#-#-#  zh_TW.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"已啟用\n"
-"#-#-#-#-#  zh_TW.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
-"已啟用"
+msgstr "啟用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -212,31 +180,8 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:263
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  zh_TW.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"已停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-zarafa 0.12.99)  #-#-#-#-#\n"
-"已停用\n"
-"#-#-#-#-#  zh_TW.po (libebox 0.12.99)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-ntp 0.12.99)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
-"已停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"禁止\n"
-"#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"停用\n"
-"#-#-#-#-#  zh_TW.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
-"已停用"
+msgstr "停用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -266,6 +211,7 @@ msgstr "已停止"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
+#, fuzzy
 msgid "Daemon status"
 msgstr "伺服程式狀態"
 
@@ -317,20 +263,20 @@ msgid ""
 msgstr "不能取得伺服器 {name} 的金鑰，因為它沒有被分配憑證"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "在介面 {iface} 上找不到 IP 位址"
+msgstr "VPN伺服器{name}無法設定，介面{iface}無法取得IP位址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr "OpenVPN 伺服器不能用於內部服務"
+msgstr "OpenVPN 伺服器無法使用在內部服務"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr "不支援的客戶端類型：{ct}"
+msgstr "不支援的用戶端類型：{ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, perl-brace-format
@@ -339,12 +285,11 @@ msgstr "伺服器 {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "All external interfaces"
-msgstr "所有的外部介面"
+msgstr "所有外部介面"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
-#, fuzzy
 msgid "Not found"
-msgstr "找不到頁面"
+msgstr "找不到"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
@@ -373,12 +318,13 @@ msgstr "VPN 網路介面"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 #, fuzzy
 msgid "List of Advertised Networks"
-msgstr "宣告的網路"
+msgstr "網路廣告列表"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
+#, fuzzy
 msgid "Advertised network"
-msgstr "宣告的網路"
+msgstr "廣告網路"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -440,24 +386,17 @@ msgstr "名稱"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:164
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  zh_TW.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"組態\n"
-"#-#-#-#-#  zh_TW.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"組態\n"
-"#-#-#-#-#  zh_TW.po (ebox-services 0.12.99)  #-#-#-#-#\n"
-"設置\n"
-"#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"設置"
+msgstr "組態"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
+#, fuzzy
 msgid "Advertised networks"
 msgstr "宣告的網路"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
+#, fuzzy
 msgid "Download client bundle"
 msgstr "下載客戶端綁定程式"
 
