@@ -61,9 +61,10 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('samba');
     my @users = ();
-    my $list = $userMod->realUsers();
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
+    my $list = $samba->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $u->get('samAccountName');
@@ -75,10 +76,9 @@ sub populateUser
 
 sub populateGroup
 {
-    my $samba = EBox::Global->modInstance('samba');
-
     my @groups = ();
-
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
     my $domainUsersGroup = $samba->ldap->domainUsersGroup();
     my $domainUsersName = $domainUsersGroup->get('samAccountName');
     push (@groups, { value => $domainUsersName, printableValue => __('All domain users') });
