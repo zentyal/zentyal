@@ -65,7 +65,6 @@ sub addUserAlias
     my $maildrop = $user->get('mail');
     $self->_checkAccountAlias($alias, $maildrop);
 
-
     my @otherMailbox = $user->get('otherMailbox');
     push @otherMailbox, $alias;
     $user->set('otherMailbox', \@otherMailbox);
@@ -151,9 +150,8 @@ sub _checkAccountAlias
 sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
-
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 0, 1);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
@@ -310,10 +308,17 @@ sub updateGroupAliases
 {
     my ($self, $group) = @_;
 
+    my $noUpdateAlias = delete $group->{noUpdateAlias};
+    if ($noUpdateAlias) {
+        return;
+    }
+
+    $group->{updateGroupAliases} = 1;
     foreach my $alias (@{ $self->groupAliases($group) }) {
         $self->delAlias($alias);
         $self->addGroupAlias($alias, $group);
     }
+    delete $group->{updateGroupAliases};
 }
 
 # Method: addMaildrop

@@ -17,9 +17,13 @@ use strict;
 use warnings;
 
 package EBox::OpenChange;
-use base qw(EBox::Module::Service EBox::LdapModule
-            EBox::HAProxy::ServiceBase EBox::VDomainModule
-            EBox::CA::Observer);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::HAProxy::ServiceBase
+    EBox::VDomainModule
+    EBox::CA::Observer
+);
+
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -426,8 +430,8 @@ sub _writeSOGoConfFile
     }
 
     push (@{$array}, sambaBaseDN => $users->ldap()->dn());
-    push (@{$array}, sambaBindDN => "CN=Administrator,CN=Users," . $users->ldap()->dn());
-    push (@{$array}, sambaBindPwd => $users->administratorPassword());
+    push (@{$array}, sambaBindDN => $self->_kerberosServiceAccountDN());
+    push (@{$array}, sambaBindPwd => $self->_kerberosServiceAccountPassword());
     push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldap()->url()
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
@@ -451,8 +455,8 @@ sub _setAutodiscoverConf
         $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
-        bindDn    => 'cn=Administrator',
-        bindPwd   => $users->administratorPassword(),
+        bindDn    => $self->_kerberosServiceAccountDN(),
+        bindPwd   => $self->_kerberosServiceAccountPassword(),
         baseDn    => 'CN=Users,' . $users->ldap()->dn(),
         port      => 389,
         adminMail => $adminMail,
@@ -1166,6 +1170,16 @@ sub _certificateChanges
         $self->setAsChanged(1);
         EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
     }
+}
+
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

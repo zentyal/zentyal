@@ -343,37 +343,6 @@ sub removeMember
     $self->deleteValues('member', [$member->dn()], $lazy);
 }
 
-# Method: members
-#
-#   Return the list of members for this group
-#
-# Returns:
-#
-#   arrary ref of members
-#
-sub members
-{
-    my ($self) = @_;
-
-    my $ldapMod = $self->_ldapMod();
-    my @members = ();
-    for my $memberDN ($self->get('member')) {
-        my $member = $ldapMod->objectFromDN($memberDN);
-        if ($member and $member->exists()) {
-            push (@members, $member);
-        }
-    }
-
-    @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
-}
-
-
 # Method: users
 #
 #   Return the list of members for this group

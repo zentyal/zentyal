@@ -41,14 +41,14 @@ use EBox::Gettext;
 #
 sub new
 {
-        my $class = shift;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'hostname';
-        $self->{'allowUnsafeChars'} = 1;
-        $self->{'help'} = __('A valid domain name or a wildcard (*) value '
-                             . 'must be provided.');
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'hostname';
+    $self->{'allowUnsafeChars'} = 1;
+    $self->{'help'} = __('A valid domain name or a wildcard (*) value '
+                         . 'must be provided.');
+    bless($self, $class);
+    return $self;
 }
 
 # Method: cmp
@@ -105,9 +105,7 @@ sub _paramIsValid
             $self->SUPER::_paramIsValid($params);
         }
     }
-
     return 1;
-
 }
 
 1;

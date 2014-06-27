@@ -1020,7 +1020,7 @@ sub _removeRow
     my ($self, $id) = @_;
 
     my $confmod = $self->{'confmodule'};
-    $confmod->unset("$self->{'directory'}/$id");
+    $confmod->delete_dir("$self->{'directory'}/$id");
     $self->removeIdFromOrder($id);
 }
 

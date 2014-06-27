@@ -79,7 +79,9 @@ sub populateGroup
 
     my @groups = ();
 
-    push (@groups, { value => $samba->defaultGroup(), printableValue => __('All users') });
+    my $domainUsersGroup = $samba->ldap->domainUsersGroup();
+    my $domainUsersName = $domainUsersGroup->get('samAccountName');
+    push (@groups, { value => $domainUsersName, printableValue => __('All domain users') });
 
     my $list = $samba->realGroups();
     foreach my $g (@{$list}) {
@@ -217,7 +219,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Shares'),
-                link  => '/Samba/Composite/General#SambaShares',
+                link  => '/Samba/Composite/FileSharing#SambaShares',
                 },
                 {
                 title => $self->parentRow()->valueByName('share'),
@@ -316,15 +318,13 @@ sub _permissionsHelp
 sub filterUserGroupPrintableValue
 {
     my ($element) = @_;
+
     my $selectedType = $element->selectedType();
     my $value = $element->value();
+
     if ($selectedType eq 'user') {
         return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
-        my $samba = EBox::Global->modInstance('samba');
-        if ($value eq $samba->defaultGroup()) {
-            return __('All users');
-        }
         return __x('Group: {g}', g => $value);
     }
 

@@ -407,7 +407,7 @@ sub _groupAddOns
 
     my $groupEmpty    = 1;
     my $usersWithMail = 0;
-    foreach my $user (@{ $group->members() }) {
+    foreach my $user (@{$group->users()}) {
         $groupEmpty = 0;
         if ($self->userAccount($user)) {
             $usersWithMail = 1;

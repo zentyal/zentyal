@@ -1,4 +1,13 @@
 3.5
+	+ Fixed spurious warnings when loadings ads and loading dashboard
+	+ Assure that all data under a row directory is removed
+	+ EBox::Types::DomainName always return lowercase values
+	+ EBox::Types::Host always return lowercase values
+	+ Added helper script to improve crash reports
+	+ Old timezones supported
+	+ Fixed regression on presetUpdate interface actions
+	+ Error page for component not found
+	+ Included the Dependencies field in crash report
 	+ Do not mark services as temporary stopped when shutting down
 	+ Enhanced Lock to have exclusive lock with blocking timeout
 	+ Added redirection on no parameters support to CGIs

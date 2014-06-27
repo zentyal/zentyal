@@ -47,9 +47,10 @@ use TryCatch::Lite;
 # Returns:
 #
 #       An object implementing EBox::LdapUserBase
+#
 sub _ldapModImplementation
 {
-    throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented('_ldapModImplementation', __PACKAGE__);
 }
 
 # Method: ldap
@@ -195,7 +196,7 @@ sub _sendSchemaUpdate
 
 # Method: _loadSchemas
 #
-#  Load the *.ldif schemas contained in the module package
+#  Load the schema-*.ldif schemas contained in the module package
 #
 sub _loadSchemas
 {
@@ -206,14 +207,14 @@ sub _loadSchemas
 
     my $name = $self->name();
     my $path = EBox::Config::share() . "zentyal-$name";
-    foreach my $ldif (glob ("$path/*.ldif")) {
+    foreach my $ldif (glob ("$path/schema-*.ldif")) {
         $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 
     my $timeout = 30;
     my $defaultNC = $self->ldap->dn();
     # Wait for schemas replicated if we are not the master
-    foreach my $ldif (glob ("$path/*.ldif")) {
+    foreach my $ldif (glob ("$path/schema-*.ldif")) {
         my @lines = read_file($ldif);
         foreach my $line (@lines) {
             my ($dn) = $line =~ /^dn: (.*)/;

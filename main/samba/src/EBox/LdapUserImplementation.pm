@@ -49,7 +49,7 @@ sub _delGroupWarning
 {
     my ($self, $group) = @_;
 
-    if (@{$group->members()}) {
+    if (@{$group->users()}) {
         return (__('This group contains members'));
     }
 

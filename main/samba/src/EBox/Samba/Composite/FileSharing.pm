@@ -16,33 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::Samba::Composite::General;
+package EBox::Samba::Composite::FileSharing;
 
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 
 # Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-# Returns:
-#
-#       <EBox::Samba::Model::General> - a
-#       general events composite
-#
-sub new
-{
-
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-
-}
 
 # Method: _description
 #

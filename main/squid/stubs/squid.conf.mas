@@ -259,9 +259,9 @@ always_direct allow noAuth<% $authId %>
 % }
 
 % if ($filter) {
-cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+cache_peer 127.0.0.1 parent 3129 0 no-query proxy-only login=*:nopassword
 % } else {
-cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+cache_peer 127.0.0.1 parent 3130 0 no-query proxy-only login=*:nopassword
 % }
 
 % if ($realm) {

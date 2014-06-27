@@ -1,4 +1,5 @@
 3.5
+	+ Make Zentyal Ntp server default choice for ntp server in dhcp
 	+ Set version to 3.5
 3.4
 	+ Fixed ThinClientOptions nextServer value for interfaces other than eth0

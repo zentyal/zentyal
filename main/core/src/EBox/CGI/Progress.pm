@@ -165,7 +165,7 @@ sub _slidesFilePath
     my ($pkg) = @_;
 
     my $path = EBox::Config::share() . "$pkg/ads";
-    my $file = "$path/ads_" + EBox::locale();
+    my $file = "$path/ads_" . EBox::locale();
     unless (-f $file) {
         $file =  "$path/ads_" . substr (EBox::locale(), 0, 2);
         unless (-f $file) {

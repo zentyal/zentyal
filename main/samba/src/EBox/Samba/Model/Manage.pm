@@ -87,6 +87,13 @@ sub childNodes
         } elsif ($child->isa('EBox::Samba::User')) {
             next if ($child->isInternal());
 
+            if ($dn =~ m/^CN=krbtgt/i) {
+                if ($usersMod->mode() ne $usersMod->STANDALONE_MODE) {
+                    # hide this user
+                    next;
+                }
+            }
+
             if ($child->isDisabled()) {
                 $type = 'duser';
             } else {
@@ -110,7 +117,6 @@ sub childNodes
                 $printableName = $child->fullname();
             }
         } elsif ($child->isa('EBox::Samba::Group')) {
-            next if ($child->name() eq $usersMod->defaultGroup());
             next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
