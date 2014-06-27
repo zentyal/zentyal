@@ -1,4 +1,5 @@
 HEAD
+	+ Fix code typo in EBox::MailUserLdap::setUserAccount
 	+ Fix groupaliases.cf parameter stub
 3.5
 	+ Adapt alias management to constraints by mailboxRelatedObject
