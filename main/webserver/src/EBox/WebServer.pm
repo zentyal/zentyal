@@ -18,13 +18,26 @@ use warnings;
 
 package EBox::WebServer;
 
-use base qw(
-    EBox::Module::Service
-    EBox::SyncFolders::Provider
-    EBox::HAProxy::ServiceBase
-);
-
 use EBox::Global;
+# NOTE: This hack is to push base class EBox::Module::Kerberos only if samba
+#       package is installed. We should fix this dependency issue in a proper
+#       way.
+if (EBox::Global->modExists('samba')) {
+    use EBox::Module::Kerberos;
+    use EBox::WebServer::LdapUser;
+    use base qw(
+        EBox::Module::Kerberos
+        EBox::SyncFolders::Provider
+        EBox::HAProxy::ServiceBase
+    );
+} else {
+    use base qw(
+        EBox::Module::Service
+        EBox::SyncFolders::Provider
+        EBox::HAProxy::ServiceBase
+    );
+}
+
 use EBox::Gettext;
 use EBox::SyncFolders::Folder;
 use EBox::Service;
@@ -38,20 +51,6 @@ use EBox::WebServer::Composite::General;
 
 use TryCatch::Lite;
 use Perl6::Junction qw(any);
-
-# NOTE: This hack is to push base class EBox::Module::Kerberos only if samba
-#       package is installed. We should fix this dependency issue in a proper
-#       way.
-our @ISA;
-BEGIN {
-    if (EBox::Global->modExists('samba')) {
-        require EBox::Module::Kerberos;
-        require EBox::WebServer::LdapUser;
-        import EBox::Module::Kerberos;
-        import EBox::WebServer::LdapUser;
-        push @ISA, qw( EBox::Module::Kerberos );
-    }
-}
 
 use constant VHOST_PREFIX => 'ebox-';
 use constant CONF_DIR => EBox::WebServer::PlatformPath::ConfDirPath();
