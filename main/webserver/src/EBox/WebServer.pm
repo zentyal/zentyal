@@ -18,7 +18,6 @@ use warnings;
 
 package EBox::WebServer;
 
-
 use base qw(
     EBox::Module::Service
     EBox::SyncFolders::Provider
