@@ -799,11 +799,14 @@ sub _modelHasMultipleInstances
             return 1;
         }
 
-        if (exists $self->{models}->{$module}->{$component}) {
+        if (exists $self->{models}->{$module}->{$component}
+            or exists $self->{composites}->{$module}->{$component}->{parent}) {
             if (exists $self->{models}->{$module}->{$component}->{parent}) {
                 $component = $self->{models}->{$module}->{$component}->{parent};
             } elsif (exists $self->{composites}->{$module}->{$component}->{parent}) {
                 $component = $self->{composites}->{$module}->{$component}->{parent};
+            } else {
+                return 0;
             }
         } else {
             return 0;

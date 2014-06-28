@@ -1,4 +1,6 @@
 3.5
+	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
+	  model is a children whose model parent is its grandfather or older
 	+ Fixed notifyActions by using isIdUsed method and removing
 	  slashes to fetch the observable models
 	+ Fixed spurious warnings when loadings ads and loading dashboard
