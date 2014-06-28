@@ -1179,15 +1179,24 @@ sub warnOnChangeOnId
 
 # Method: isIdUsed
 #
-#    TODO
+#       This method must be overriden in any case you want to
+#       notify you are using a row from another model. This is only
+#       intended for those models that are using 'notifyactions'
+#       in the module schema. In any other case, the framework
+#       is in charge
 #
-#    (POSITIONAL)
+# Positional parameters:
 #
-#    'modelName' - model's name
-#     'id' - row id
+#    modelName - String model's name
+#    id        - String the row id
+#
+# Returns:
+#
+#    Boolean - indicating whether the id from that model is used or not
+#
 sub isIdUsed
 {
-
+    return 0;
 }
 
 # Method: setRow

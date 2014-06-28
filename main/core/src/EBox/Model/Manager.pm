@@ -349,10 +349,12 @@ sub modelsUsingId
 
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
+    $modelName =~ s{^/}{};
+    $modelName =~ s{/$}{};
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-            if ($observerModel->isUsingId($modelName, $rowId)) {
+            if ($observerModel->isIdUsed($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
         }
@@ -701,7 +703,7 @@ sub _setupNotifyActions
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
         my $observerPath = '/' . $moduleName . '/' . $model . '/';
-        foreach my $notifier (@{ $notify->{$model}   }) {
+        foreach my $notifier (@{ $notify->{$model} }) {
             # XXX change when we change the yaml to the more intuitive notifier
             # - >watcher format
             if (not exists $self->{notifyActions}->{$notifier}) {
