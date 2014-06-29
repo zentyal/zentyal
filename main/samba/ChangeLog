@@ -1,4 +1,4 @@
-HEAD
+3.4.3
 	+ EBox::Samba::DNS::Zone always return lowercase zone name
 	+ Fix members of 'Domain Admins' group not able to delete items from
 	  recycle bin
