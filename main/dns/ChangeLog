@@ -1,5 +1,4 @@
 HEAD
-	+ Enable sortlist by default in /etc/zentyal/dns.conf
 	+ EBox::DNS::Types::Hostname always return lowercase values
 3.4
 	+ Fix nsupdate error after domain rename

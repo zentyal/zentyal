@@ -1,6 +1,5 @@
 HEAD
 	+ Make SOGo shared contacts display their CN
-	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
 	+ Updated SOGo conf
 	+ Added autodiscovery of server parameters
 	+ Proxying all Exchange Web Services to OCSManager
