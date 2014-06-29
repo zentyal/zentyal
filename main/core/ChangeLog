@@ -1,4 +1,5 @@
 3.5
+	+ Rethrow properly when exception is a plain string
 	+ Fixed spurious warnings when loadings ads and loading dashboard
 	+ Assure that all data under a row directory is removed
 	+ EBox::Types::DomainName always return lowercase values
