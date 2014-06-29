@@ -3200,7 +3200,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = EBox::Global->modInstance('samba')->kerberosRealm();
+    my $realmName   = $self->kerberosRealm();
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
