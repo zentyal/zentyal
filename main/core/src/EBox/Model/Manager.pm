@@ -465,10 +465,6 @@ sub removeRowsUsingId
             $strToShow .= $modelDep->automaticRemoveMsg($deletedNum);
         }
     }
-    while (my ($modelDepName, $fieldName) = each %{$modelDepHash}) {
-        my $modelDep = $self->model($modelDepName);
-        next unless(defined($modelDep));
-    }
 
     return $strToShow;
 }

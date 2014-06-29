@@ -1,3 +1,6 @@
+HEAD
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
 3.5
 	+ Remove duplicate entries from the custom shell list
 	+ Hide krbtgt user in external AD mode

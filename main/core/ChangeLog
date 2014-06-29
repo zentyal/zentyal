@@ -1,3 +1,6 @@
+HEAD
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
 3.5
 	+ Rethrow properly when exception is a plain string
 	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
