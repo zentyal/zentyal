@@ -1,3 +1,6 @@
+HEAD
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
 3.4.7
 	+ EBox::Types::DomainName always return lowercase values
 	+ EBox::Types::Host always return lowercase values
