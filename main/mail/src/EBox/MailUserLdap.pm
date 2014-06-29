@@ -109,7 +109,8 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my $hasClass = grep { $_ eq 'userZentyalMail' } $user->get('objectClass');
+    my @classes = $user->get('objectClass');
+    my $hasClass = grep { lc ($_) eq lc ('userZentyalMail') } @classes;
     if (not $hasClass) {
         $user->add('objectclass', 'userZentyalMail');
     }

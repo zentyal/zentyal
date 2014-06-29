@@ -37,6 +37,8 @@ use EBox::Validate;
 use EBox::Exceptions::External;
 use Net::IP;
 
+use TryCatch::Lite;
+
 # Method: validateTypedRow
 #
 # Overrides:
@@ -85,7 +87,7 @@ sub validateTypedRow
         my $ipsec = $self->parentModule();
         my $l2tp_settings = $ipsec->model('SettingsL2TP');
         my $localIP = $l2tp_settings->row()->elementByName('local_ip')->value();
-        if (EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
+        if ($localIP and EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
             throw EBox::Exceptions::External(
                 __x('Range {from}-{to} includes the tunnel IP address: {localIP}',
                     from => $newRangeHash->{from},
