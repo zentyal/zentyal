@@ -1,4 +1,4 @@
-HEAD
+3.4.2
 	+ Force haproxy restart if service status changes
 3.4.1
 	+ Set HTTPS env variable to 'On' always for SSL vhosts
