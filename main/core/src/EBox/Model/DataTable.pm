@@ -47,6 +47,7 @@ use TryCatch::Lite;
 use POSIX qw(ceil INT_MAX);
 use Perl6::Junction qw(all any);
 use List::Util;
+use Scalar::Util;
 
 sub new
 {
@@ -824,7 +825,11 @@ sub addTypedRow
         $self->_commitTransaction();
     } catch ($e) {
         $self->_rollbackTransaction();
-        $e->throw();
+        if (Scalar::Util::blessed($e) and $e->isa('EBox::Exceptions::Base')) {
+            $e->throw();
+        } else {
+            die $e;
+        }
     }
 
     return $id;

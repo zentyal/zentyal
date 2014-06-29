@@ -1,4 +1,5 @@
 3.5
+	+ Rethrow properly when exception is a plain string
 	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
 	  model is a children whose model parent is its grandfather or older
 	+ Fixed notifyActions by using isIdUsed method and removing
