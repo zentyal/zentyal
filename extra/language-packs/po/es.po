@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-04-14 09:52+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2014-06-30 18:55+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1155,9 +1155,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "El valor de insecure_rip_conf debe ser 'yes' o 'no'"
 
 #: ../../main/ha/src/EBox/HA.pm:70
-#, fuzzy
 msgid "Rule added by Zentyal HA module"
-msgstr "Reglas añadidas por servicios de Zentyal (Avanzado)"
+msgstr "Regla añadida por el módulo HA de Zentyal"
 
 #: ../../main/ha/src/EBox/HA.pm:92
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
@@ -1318,9 +1317,8 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} no tiene una direccion IP para usar"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr "Nodos"
+msgstr "Nodos HA"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
@@ -3441,9 +3439,9 @@ msgid "The new CA certificate has been issued."
 msgstr "El nuevo certificado ha sido expedido."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{org} Authority Certificate"
-msgstr "Crear Certificado de la Autoridad de Certificación"
+msgstr "Certificado de Autoridad {org}"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:139
 msgid "Problems creating Certification Authority has happened"
@@ -8178,9 +8176,8 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:31
-#, fuzzy
 msgid "Upgrade to Zentyal 3.4"
-msgstr "Actualizar a Zentyal 3.3"
+msgstr "Actualizar a Zentyal 3.4"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -8717,7 +8714,7 @@ msgstr "No hay actualizaciones"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:65
 msgid "Nevertheless some packages require a reboot to be applied"
-msgstr ""
+msgstr "Sin embargo algunos paquetes requieren un reinicio para aplicarse"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
 #, perl-brace-format
@@ -8737,6 +8734,7 @@ msgstr "({n} de seguridad)"
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:107
 msgid "Moreover, some upgraded packages require a reboot to take effect"
 msgstr ""
+"Además, algunos paqeutes actualizados requieren un reinicio para aplicarse"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:121
 msgid ""
@@ -10670,16 +10668,17 @@ msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Dominio {dom} no configurado en el {oh}módulo de DNS{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:857
-#, fuzzy
 msgid "System needs at least one external interface"
-msgstr "Se necesita al menos una interfaz interna y otra externa"
+msgstr "El sistema necesita al menos una interfaz externa"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:886
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
-msgstr "No se puede encontrar esta máquina en el {oh}dominio DNS {dom}{ch}"
+msgstr ""
+"No se puede encontrar ninguna máquina en el {oh}dominio DNS {dom}{ch} que "
+"corresponda con tu dirección IP externa"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:913
 msgid "No outgoing mail domain configured"
@@ -11410,6 +11409,10 @@ msgid ""
 "user to be logged in through a Windows Workstation, consider deleting it and "
 "creating it again with a shorter username"
 msgstr ""
+"Has creado un nombre de usuario de 20 o más caracteres. Por favor, requierda "
+"que algunos Sistemas Operativos de Microsoft no soportan esa longitud, si "
+"el usuario se va a utilizar en sistemas Microsoft, considere borrar y "
+"crearlo de nuevo con un nombre de usuario más corto."
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddOU.pm:49
 msgid "OU name"
@@ -11696,6 +11699,7 @@ msgstr "El modo {mode} no está soportado"
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
+"Numero inesperado de entradas. Se obtuvieron {x} mientras se esperaba 1."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:599
 #, perl-brace-format
@@ -11842,9 +11846,8 @@ msgstr ""
 "valor especificado."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1383
-#, fuzzy
 msgid "Error on group container LDAP entry creation:"
-msgstr "Error en la creación de una entrada de grupo en el LDAP:"
+msgstr "Error creando entrada del contenedor LDAP de grupos:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:391
 msgid "Username already exists on the system"
@@ -12170,13 +12173,12 @@ msgid "Computers"
 msgstr "Equipos"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:211
-#, fuzzy
 msgid ""
 "You need to enable Users module in the module status section and save "
 "changes in order to use it."
 msgstr ""
-"Debes activar el módulo en la sección de estado de los módulos para poder "
-"usarlo."
+"Debes activar el módulo de Usuarios en la sección de estado de los módulos "
+"para poder usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
 msgid "Slave"
@@ -12848,9 +12850,9 @@ msgstr "No es posible adquirir el ticket de kerberos para unirse a LDAP: {x}"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:212
 #: ../../main/samba/src/EBox/Module/LDAP.pm:120
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unable to create SASL client: {x}"
-msgstr "No se pudo configurar el objeto SASL: {x}"
+msgstr "Imposible crear el cliente SASL: {x}"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:258
 msgid "The domain controller must be specified as full qualified domain name"
@@ -12957,29 +12959,31 @@ msgstr "No se puede recuperar la hora del servidor AD {x} usando NTP."
 #: ../../main/samba/src/EBox/LdapUserBase.pm:391
 msgid "This addon applies only to users in the default 'Users' container"
 msgstr ""
+"Este complemento se aplica sólo a los usuarios en el contenedor por defecto "
+"'Usuarios'"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:95
 #, perl-brace-format
 msgid "Error on search: Expected one entry, got {x}.\n"
-msgstr ""
+msgstr "Error en búsqueda: Esperada una entrada, obtenidas {x}. "
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:104
 #, perl-brace-format
 msgid "Error connectiong to schema master role owner ({x})"
-msgstr ""
+msgstr "Error conectando al propietario del rol schema master ({x})"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:135
 msgid "Error binding to schama master LDAP:"
-msgstr ""
+msgstr "Error haciendo LDAP bind al schema master:"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:167
 #, perl-brace-format
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
-msgstr ""
+msgstr "Error cargando LDIF. Mensaje: {x}, Lineas: {y}"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:185
 msgid "Error sending schama update:"
-msgstr ""
+msgstr "Error enviando actualización de schema:"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:326
 #, perl-brace-format
@@ -13029,7 +13033,7 @@ msgstr "No se puede configurar a Zentyal como un esclavo"
 
 #: ../../main/samba/src/EBox/Samba.pm:183
 msgid "Users, Computers and File Sharing"
-msgstr ""
+msgstr "Usuarios, Equipos y Ficheros"
 
 #: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
@@ -13063,7 +13067,6 @@ msgid "Configure PAM."
 msgstr "Configurar PAM."
 
 #: ../../main/samba/src/EBox/Samba.pm:343
-#, fuzzy
 msgid "Zentyal will give LDAP samba system account."
 msgstr ""
 "Zentyal proporcionará una cuenta en el sistema a los usuarios del LDAP."
@@ -13088,16 +13091,15 @@ msgstr "Añadir soporte de quota a la partición /home."
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
-msgstr ""
+msgstr "Configurar SSSD para gestionar mecanismos de autenticación remota"
 
 #: ../../main/samba/src/EBox/Samba.pm:387
 msgid "To enable extended attributes and acls."
 msgstr "Para activar atributos extendidos y ACL."
 
 #: ../../main/samba/src/EBox/Samba.pm:416
-#, fuzzy
 msgid "Domain and File sharing protocols"
-msgstr "Protocolo de compartición de ficheros (Samba)"
+msgstr "Protocolos de dominio y compartición de ficheros"
 
 #: ../../main/samba/src/EBox/Samba.pm:448
 #, perl-brace-format
@@ -13184,9 +13186,8 @@ msgstr ""
 "configurado como un controlador adicional del dominio."
 
 #: ../../main/samba/src/EBox/Samba.pm:2935
-#, fuzzy
 msgid "Users data and Filesystem shares"
-msgstr "Carpetas compartidas del sistemas de ficheros"
+msgstr "Datos de usuarios y comparticiones del sistema de archivos"
 
 #: ../../main/samba/src/EBox/Samba.pm:2944
 msgid "Users data"
@@ -14755,9 +14756,8 @@ msgid "To configure dovecot to authenticate against LDAP"
 msgstr "Configurar dovecot para que valide los usuarios a través de LDAP"
 
 #: ../../main/mail/src/EBox/Mail.pm:209
-#, fuzzy
 msgid "To configure dovecot to have a master password"
-msgstr "Configurar dovecot para que valide los usuarios a través de LDAP"
+msgstr "Configurar dovecot para tener una contraseña maestra"
 
 #: ../../main/mail/src/EBox/Mail.pm:214
 msgid "To configure smart host authentication"
@@ -16094,9 +16094,9 @@ msgstr "usada"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disk usage in {partition}"
-msgstr "usado en {partition}"
+msgstr "Uso de disco en {partition}"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:119
 msgid "File system usage"
@@ -16111,9 +16111,8 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:126
 #: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
-#, fuzzy
 msgid "reserved"
-msgstr "servidor"
+msgstr "reservado"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:59
 #, perl-brace-format
@@ -19641,9 +19640,8 @@ msgid "Modules configuration"
 msgstr "Configuración del estado de los módulos"
 
 #: ../../main/samba/src/templates/editgroup.mas:128
-#, fuzzy
 msgid "This group does not have members"
-msgstr "Este grupo no contiene miembros"
+msgstr "Este grupo no tiene miembros"
 
 #: ../../main/samba/src/templates/editgroup.mas:201
 msgid "Add user"

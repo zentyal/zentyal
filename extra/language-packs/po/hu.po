@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2014-06-05 16:34+0200\n"
+"PO-Revision-Date: 2014-06-29 12:11+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -1148,9 +1148,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Az insecure_rip_conf paramétert a yes vagy no egyikére kell állítania"
 
 #: ../../main/ha/src/EBox/HA.pm:70
-#, fuzzy
 msgid "Rule added by Zentyal HA module"
-msgstr "A Zentyal szolgáltatások által hozzáadott szabályok (speciális)"
+msgstr "A Zentyal HA modul által hozzáadott szabály"
 
 #: ../../main/ha/src/EBox/HA.pm:92
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
@@ -1306,9 +1305,8 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} eszköznek nincs használható IP-címe"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr "Csomópontok"
+msgstr "HA csomópontok"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
@@ -1575,6 +1573,8 @@ msgstr "nincs hiba"
 msgid ""
 "\"{initialCommandPart} resource_name {node} node_name_where_resource_is\""
 msgstr ""
+"\"{initialCommandPart} erőforrás_neve {node} "
+"csomópontnév_ahol_az_erőforrás_van\""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:162
 #, perl-brace-format
@@ -11539,7 +11539,7 @@ msgstr "A(z) {mode} mód nem támogatott"
 #: ../../main/samba/src/EBox/Samba/Provision.pm:459
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
-msgstr ""
+msgstr "Váratlan számú bejegyzés. A várt 1 helyett {x} található."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:599
 #, perl-brace-format
@@ -11681,9 +11681,8 @@ msgid ""
 msgstr "A netBIOS név ({x}) nem található. Ellenőrizze a megadott értéket."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1383
-#, fuzzy
 msgid "Error on group container LDAP entry creation:"
-msgstr "Hiba a csoport LDAP bejegyzésének létrehozásakor:"
+msgstr "Hiba a csoportkonténer LDAP bejegyzésének létrehozásakor:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:391
 msgid "Username already exists on the system"
@@ -12006,11 +12005,12 @@ msgid "Computers"
 msgstr "Számítógépek"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:211
-#, fuzzy
 msgid ""
 "You need to enable Users module in the module status section and save "
 "changes in order to use it."
-msgstr "A modult be kell kapcsolni a Modulállapot oldalon a használathoz."
+msgstr ""
+"A Felhasználók modult be kell kapcsolni a Modulállapot oldalon, és mentenie "
+"kell a beállításait a használathoz."
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
 msgid "Slave"
@@ -12680,9 +12680,9 @@ msgstr "Nem kérhető le Kerberos jegy az LDAP-hoz kapcsolódáshoz: {x}"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:212
 #: ../../main/samba/src/EBox/Module/LDAP.pm:120
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unable to create SASL client: {x}"
-msgstr "Nem állítható be SASL objektum: {x}"
+msgstr "Nem hozható létre SASL kliens: {x}"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:258
 msgid "The domain controller must be specified as full qualified domain name"
@@ -12794,25 +12794,25 @@ msgstr ""
 #: ../../main/samba/src/EBox/Module/LDAP.pm:95
 #, perl-brace-format
 msgid "Error on search: Expected one entry, got {x}.\n"
-msgstr ""
+msgstr "Hiba a kereséskor: A várt egy bejegyzés helyett {x} található.\n"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:104
 #, perl-brace-format
 msgid "Error connectiong to schema master role owner ({x})"
-msgstr ""
+msgstr "Hiba a séma mesterszerep tulajdonosához kapcsolódáskor ({x})"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:135
 msgid "Error binding to schama master LDAP:"
-msgstr ""
+msgstr "Hiba a sémamester LDAP-hoz kapcsolódáskor:"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:167
 #, perl-brace-format
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
-msgstr ""
+msgstr "Hiba az LDIF betöltésekor. Hibaüzenet: {x}, hibás sorok: {y}"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:185
 msgid "Error sending schama update:"
-msgstr ""
+msgstr "Hiba a sémafrissítés küldésekor:"
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:326
 #, perl-brace-format
@@ -12859,7 +12859,7 @@ msgstr "Nem állítható be a Zentyal alárendeltként"
 
 #: ../../main/samba/src/EBox/Samba.pm:183
 msgid "Users, Computers and File Sharing"
-msgstr ""
+msgstr "Felhasználók, számítógépek és fájlmegosztás"
 
 #: ../../main/samba/src/EBox/Samba.pm:328
 msgid ""
@@ -12890,9 +12890,8 @@ msgid "Configure PAM."
 msgstr "PAM beállítása."
 
 #: ../../main/samba/src/EBox/Samba.pm:343
-#, fuzzy
 msgid "Zentyal will give LDAP samba system account."
-msgstr "A Zentyal az LDAP felhasználóknak rendszerfiókot fog adni."
+msgstr "A Zentyal az LDAP felhasználóknak Samba rendszerfiókot fog adni."
 
 #: ../../main/samba/src/EBox/Samba.pm:362
 msgid "To set up kerberos authentication"
@@ -12915,15 +12914,16 @@ msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
 msgstr ""
+"A Rendszerbiztonsági szolgáltatások démon (SSSD) beállításával a távoli "
+"hitelesítési mechanizmusok kezelhetők"
 
 #: ../../main/samba/src/EBox/Samba.pm:387
 msgid "To enable extended attributes and acls."
 msgstr "Kiterjesztett attribútumok és ACL-ek engedélyezése."
 
 #: ../../main/samba/src/EBox/Samba.pm:416
-#, fuzzy
 msgid "Domain and File sharing protocols"
-msgstr "Fájlmegosztó protokoll (Samba)"
+msgstr "Tartomány- és fájlmegosztó protokollok"
 
 #: ../../main/samba/src/EBox/Samba.pm:448
 #, perl-brace-format
@@ -13008,9 +13008,8 @@ msgstr ""
 "tartományvezérlőként van beállítva."
 
 #: ../../main/samba/src/EBox/Samba.pm:2935
-#, fuzzy
 msgid "Users data and Filesystem shares"
-msgstr "Fájlrendszer-megosztások"
+msgstr "Felhasználói adatok és fájlrendszer-megosztások"
 
 #: ../../main/samba/src/EBox/Samba.pm:2944
 msgid "Users data"
