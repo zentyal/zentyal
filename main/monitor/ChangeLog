@@ -1,4 +1,5 @@
 3.5
+	+ Avoid warning flag on smart match experimental feature
 	+ Change version of the perl lib used with collectd
 	+ Show disk usage again including reserved space after changing to
 	  collectd 5.1
