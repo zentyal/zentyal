@@ -1,7 +1,7 @@
-HEAD
+3.5
+	+ Better errors in GPO models when losing parent row
 	+ Setup roaming profiles for each user only when the setting changes
 	  in the UI
-3.5
 	+ Remove duplicate entries from the custom shell list
 	+ Hide krbtgt user in external AD mode
 	+ EBox::Samba::DNS::Zone always return lowercase zone name
