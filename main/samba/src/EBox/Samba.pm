@@ -566,19 +566,25 @@ sub _externalADEnableActions
 sub enableService
 {
     my ($self, $status) = @_;
+    my $mode = $self->mode();
 
     if ($status) {
         my $throwException = 1;
         if ($self->{restoringBackup}) {
             $throwException = 0;
         }
-        $self->getProvision->checkEnvironment($throwException);
+
+        if ($mode eq STANDALONE_MODE) {
+            $self->getProvision->checkEnvironment($throwException);
+        }
     }
 
     $self->SUPER::enableService($status);
 
-    my $dns = EBox::Global->modInstance('dns');
-    $dns->setAsChanged();
+    if ($mode eq STANDALONE_MODE) {
+        my $dns = EBox::Global->modInstance('dns');
+        $dns->setAsChanged();
+    }
 }
 
 sub _startDaemon
@@ -2238,9 +2244,30 @@ sub menu
                                     order     => 540));
 }
 
+
+# Method: enableModDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub enableModDepends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::enableModDepends();
+    return $self->_filterDependsByMode($depends);
+}
+
+# Method: bootDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub bootDepends
+{
+    my ($self)= @_;
+    my $depends = $self->SUPER::bootDepends();
+    return $self->_filterDependsByMode($depends);
+}
+
 # Method: depends
 #
-#     Samba depends on printers only if it exists
+#     Samba depends on printers only if it exists and in standalone mode
 #
 # Overrides:
 #
@@ -2256,7 +2283,24 @@ sub depends
         push (@deps, 'printers');
     }
 
-    return \@deps;
+    return $self->_filterDependsByMode(\@deps);
+}
+
+sub _filterDependsByMode
+{
+    my ($self, $depends) = @_;
+    my $mode = $self->mode();
+    if ($mode eq STANDALONE_MODE) {
+        return $depends;
+    } elsif ($mode eq EXTERNAL_AD_MODE) {
+        my @depends = grep {
+            ($_ ne 'dns') and ($_ ne 'printers')
+        } @{ $depends };
+
+        return \@depends;
+    } else {
+        throw EBox::Exceptions::Internal("Unknown users mode '$mode'");
+    }
 }
 
 # Method: syncJournalDir
