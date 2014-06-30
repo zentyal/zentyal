@@ -360,4 +360,14 @@ sub checkUsersMode
     }
 }
 
+sub cleanForReprovision
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    delete $state->{'_schemasAdded'};
+    delete $state->{'_ldapSetup'};
+    $self->set_state($state);
+    $self->setAsChanged(1);
+}
+
 1;
