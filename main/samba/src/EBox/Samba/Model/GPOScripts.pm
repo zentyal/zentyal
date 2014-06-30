@@ -163,7 +163,7 @@ sub preconditionFailMsg
                   'in the domain root server.');
     }
     if ($self->{preconditionFail} eq 'parentRow') {
-        return __x('Problem with expired session. Please, navigate again to this page from {ohref}GPOs mian page{chref}',
+        return __x('Problem with expired session. Please, navigate again to this page from {ohref}GPOs main page{chref}',
                    ohref => '<a href="/Samba/View/GPOs">',
                    chref => '</a>'
                   )
