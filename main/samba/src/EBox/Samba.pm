@@ -1085,7 +1085,7 @@ sub _postServiceHook
                     my $permissions = $subRow->elementByName('permissions');
 
                     my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->printableValue();
+                    my $account = $userType->value();
                     my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
                     next unless ($object->exists());
 
