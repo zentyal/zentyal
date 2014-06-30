@@ -22,9 +22,9 @@ EBox::init();
 $SIG{PIPE} = 'IGNORE';
 
 sub usage {
-	print "Usage: $0 start|stop|restart\n";
-	print "       $0 <module> start|stop|status|enabled|restart\n";
-	exit 1;
+    print "Usage: $0 start|stop|restart\n";
+    print "       $0 <module> start|stop|status|enabled|restart\n";
+    exit 1;
 }
 
 sub main
@@ -54,6 +54,11 @@ sub main
     } elsif (@ARGV == 2) {
         # action upon one module mode
         my ($modName, $action) = @ARGV;
+
+        if ($modName eq 'users') {
+            print "Module 'users' is deprecated, it has been replaced by the 'samba' module.\n";
+            exit 1;
+        }
 
         given ($action) {
             when (['restart', 'start']) {

@@ -1,4 +1,5 @@
 3.5
+	+ Warning in init.d script about the deprecation of users module
 	+ Fixed spurious warnings when loadings ads and loading dashboard
 	+ Assure that all data under a row directory is removed
 	+ EBox::Types::DomainName always return lowercase values
