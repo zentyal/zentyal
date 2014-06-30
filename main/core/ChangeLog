@@ -1,7 +1,7 @@
-HEAD
+3.5
+	+ Avoid warning flag on smart match experimental feature
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
 	  and EBox::Model::Manager::removeRowsUsingId
-3.5
 	+ Rethrow properly when exception is a plain string
 	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
 	  model is a children whose model parent is its grandfather or older
