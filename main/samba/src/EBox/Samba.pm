@@ -1214,7 +1214,7 @@ sub _setupSSSd
     my @params = ('fqdn'   => $sysinfo->fqdn(),
                   'domain' => $sysinfo->hostDomain(),
                   'defaultShell' => $defaultShell,
-                  'keyTab' => SYSTEM_WIDE_KRB5_KEYTAB);
+                  'keyTab' => SECRETS_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
