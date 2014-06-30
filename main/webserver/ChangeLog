@@ -1,4 +1,5 @@
 3.5
+	+ Remove spurious warning in public folder model
 	+ Force haproxy restart if service status changes
 	+ Set version to 3.5
 	+ Set HTTPS env variable to 'On' always for SSL vhosts
