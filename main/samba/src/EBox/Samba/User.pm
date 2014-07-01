@@ -714,8 +714,11 @@ sub _groups
 sub isSystem
 {
     my ($self) = @_;
-
-    return ($self->get('uidNumber') < MINUID);
+    my $uidNumber = $self->get('uidNumber');
+    if (not defined $uidNumber) {
+       $uidNumber =  0;
+    }
+    return ($uidNumber < MINUID);
 }
 
 # Method: isDisabled
