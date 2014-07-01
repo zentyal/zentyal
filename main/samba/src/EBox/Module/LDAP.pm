@@ -360,6 +360,10 @@ sub checkUsersMode
     }
 }
 
+# Method: cleanForReprovision
+#
+#  Removes configuration from the module so it can be ready to work again after
+#  a samba reprovision
 sub cleanForReprovision
 {
     my ($self) = @_;

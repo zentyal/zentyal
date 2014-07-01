@@ -1087,6 +1087,10 @@ sub _kerberosKeytab
     return undef;
 }
 
+# Method: cleanForReprovision
+#
+# Overriden to remove also status of openchange provision and configuration
+# related with mail virtual domains, because they can change after reprovision
 sub cleanForReprovision
 {
     my ($self) = @_;
