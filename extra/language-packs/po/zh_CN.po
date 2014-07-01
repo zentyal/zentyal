@@ -999,9 +999,9 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3622
-#: ../../main/samba/src/EBox/Samba.pm:3642
-#: ../../main/samba/src/EBox/Samba.pm:3653
+#: ../../main/samba/src/EBox/Samba.pm:3666
+#: ../../main/samba/src/EBox/Samba.pm:3686
+#: ../../main/samba/src/EBox/Samba.pm:3697
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:402
@@ -1038,7 +1038,7 @@ msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3647
+#: ../../main/samba/src/EBox/Samba.pm:3691
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:200
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1129,7 +1129,7 @@ msgstr "在开机时启动 corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:229
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:269
@@ -1149,8 +1149,8 @@ msgstr "未知"
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:145
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:149
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
@@ -1444,7 +1444,7 @@ msgid "resources"
 msgstr "资源"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3626
+#: ../../main/samba/src/EBox/Samba.pm:3670
 msgid "Resource"
 msgstr "资源"
 
@@ -2138,7 +2138,7 @@ msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:3058
+#: ../../main/samba/src/EBox/Samba.pm:3102
 msgid "alias"
 msgstr "别名"
 
@@ -2173,7 +2173,7 @@ msgstr "启用透明 DNS 缓存"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2191
+#: ../../main/samba/src/EBox/Samba.pm:2197
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2398,7 +2398,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:2185
+#: ../../main/samba/src/EBox/Samba.pm:2191
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2734,9 +2734,9 @@ msgstr "如果允许客人访问，任何访问控制都会被禁用。"
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3624
-#: ../../main/samba/src/EBox/Samba.pm:3644
-#: ../../main/samba/src/EBox/Samba.pm:3655
+#: ../../main/samba/src/EBox/Samba.pm:3668
+#: ../../main/samba/src/EBox/Samba.pm:3688
+#: ../../main/samba/src/EBox/Samba.pm:3699
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -3129,7 +3129,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3625
+#: ../../main/samba/src/EBox/Samba.pm:3669
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4390,7 +4390,7 @@ msgstr "密码"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:95
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:106
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:100
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:106
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1980
@@ -4529,7 +4529,7 @@ msgid "Backup successful"
 msgstr "备份成功"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:460
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:462
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1993
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
 msgid "Configuration backup"
@@ -4787,36 +4787,36 @@ msgstr "无法获取服务 URN；{file} 中没找到 key {key}"
 msgid "Value for key {k} not found"
 msgstr "没找到 key {k} 的值"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:268
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:270
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
 msgstr "不存在的备份：{n}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:442
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:444
 msgid "Configuration backup upload corrupted"
 msgstr "配置备份上传失败"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:443
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:445
 msgid "Try the upload again"
 msgstr "重新尝试上传"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:457
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:459
 msgid "Server not found"
 msgstr "服务器没找到"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:464
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:466
 msgid "Some argument is missing"
 msgstr "缺少参数"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:466
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:468
 msgid "Internal Server Error"
 msgstr "内部服务器错误"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:468
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:470
 msgid "Forbidden request"
 msgstr "请求被禁止"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:470
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:472
 msgid "An error has occurred"
 msgstr "发生错误"
 
@@ -4826,7 +4826,7 @@ msgid "Skipping bad formed line: {l}"
 msgstr "跳过坏的 formed 线：{l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:110
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:104
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:110
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1987
@@ -4898,36 +4898,36 @@ msgstr "数据域"
 msgid "Select the data you want to back up."
 msgstr "选择您要备份的数据。"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:108
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
 msgid "External server name (Dynamic DNS)"
 msgstr "外部服务器名（动态 DNS）"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
 msgstr "使用该名称连接到外部 Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:113
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 msgid "Renovation date"
 msgstr "改造日期（Renovation date）"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:117
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Messages"
 msgstr "消息"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:123
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
 msgid "Server info"
 msgstr "服务器信息"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:145
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
 msgid "Not using Zentyal Dynamic DNS service"
 msgstr "不使用 Zentyal 动态 DNS 服务"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
 #, perl-brace-format
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
 msgid "Unlimited"
 msgstr "无限制"
@@ -7659,7 +7659,7 @@ msgstr "在放弃变更时，某些模块报告错误。更多信息在{dir}目�
 msgid "Revoking changes"
 msgstr "撤销变更"
 
-#: ../../main/core/src/EBox/RESTClient.pm:399
+#: ../../main/core/src/EBox/RESTClient.pm:400
 msgid "User and password do not match."
 msgstr "用户名、密码不匹配"
 
@@ -10621,7 +10621,7 @@ msgid "OU name"
 msgstr "OU 名"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2224
+#: ../../main/samba/src/EBox/Samba.pm:2230
 msgid "LDAP Settings"
 msgstr "LDAP 设置"
 
@@ -10661,7 +10661,7 @@ msgid ""
 msgstr "创建新用户帐号时，会用到这些设置。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2215
+#: ../../main/samba/src/EBox/Samba.pm:2221
 msgid "User Template"
 msgstr "用户模板"
 
@@ -10670,7 +10670,7 @@ msgid "Recycle Bin"
 msgstr "回收站"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2234
+#: ../../main/samba/src/EBox/Samba.pm:2240
 msgid "File Sharing"
 msgstr "文件共享"
 
@@ -10746,13 +10746,13 @@ msgstr "系统组的 GID {gid} 不对。GID 必须小于 {max}"
 msgid "There was an error updating LDAP:"
 msgstr "更新 LDAP 时出错："
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:871
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:874
 #, fuzzy, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr "本容器中已经有一个对象类型 {type}，CN={cn}"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:885
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:888
 #, fuzzy
 msgid "Group E-mail"
 msgstr "E-mail"
@@ -10858,7 +10858,7 @@ msgstr ""
 "IP地址分配给内部接口，并且这个IP被分配给域 {dom} 和 本地主机。<br/>你可以在"
 "{dom} {chref} {ohref} IP 地址页面 添加它"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:311
+#: ../../main/samba/src/EBox/Samba/Provision.pm:309
 #, perl-brace-format
 msgid ""
 "Cannot enable Samba because this server is synchronizing its users as slave "
@@ -10868,35 +10868,35 @@ msgstr ""
 "由于这个服务器是通过其他Zentyal主机同步用户的从属从而无法启动Samba服务。<br/>"
 "你可以在{ohref}同步属性{chref}修改其状态"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:382
+#: ../../main/samba/src/EBox/Samba/Provision.pm:380
 #, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "模式 {mode} 不支持"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:434
-#: ../../main/samba/src/EBox/Samba/Provision.pm:458
-#: ../../main/samba/src/EBox/Samba/Provision.pm:487
+#: ../../main/samba/src/EBox/Samba/Provision.pm:432
+#: ../../main/samba/src/EBox/Samba/Provision.pm:456
+#: ../../main/samba/src/EBox/Samba/Provision.pm:485
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:637
+#: ../../main/samba/src/EBox/Samba/Provision.pm:635
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr "无法确定指定的 AD 服务器 {x} 域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:657
+#: ../../main/samba/src/EBox/Samba/Provision.pm:655
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr "无法确定指定的 AD 服务器 {x} 区域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:678
+#: ../../main/samba/src/EBox/Samba/Provision.pm:676
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr "无法绑定至 AD LDAP 服务器 ({x})。请检查提供的凭据。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:727
+#: ../../main/samba/src/EBox/Samba/Provision.pm:725
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -10910,79 +10910,79 @@ msgstr ""
 "至 \"DomainDnsZones\" 或者 \"ForestDnsZones\"并再试一次。 点击链接 {link} 帮"
 "助您如何完成。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:765
+#: ../../main/samba/src/EBox/Samba/Provision.pm:763
 msgid "Could not retrieve the domain information."
 msgstr "无法获取域信息。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:774
+#: ../../main/samba/src/EBox/Samba/Provision.pm:772
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr "这个 AD 林 包含多个域。而Samba 每个林只支持一个域。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:794
+#: ../../main/samba/src/EBox/Samba/Provision.pm:792
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr "指定的域控制器 {x} 不可达。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:813
+#: ../../main/samba/src/EBox/Samba/Provision.pm:811
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr "本地 kerberos 区域 {x} 须与 AD 服务区域 {y} 一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:822
+#: ../../main/samba/src/EBox/Samba/Provision.pm:820
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr "本地域 {x} 须与 AD 服务域 {y} 一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:857
+#: ../../main/samba/src/EBox/Samba/Provision.pm:855
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr "DC {x} 无法解析其 IP 地址。请检查指定的服务器名称和 DNS 服务器。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:883
+#: ../../main/samba/src/EBox/Samba/Provision.pm:881
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr "指定的 AD 服务器已作为 {x} 注册至本地 DNS， 并且和本地主机名一致。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:904
+#: ../../main/samba/src/EBox/Samba/Provision.pm:902
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr "林功能级别必须是 Windows Server 2003 或更高。请提升您的林功能级别。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:910
+#: ../../main/samba/src/EBox/Samba/Provision.pm:908
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr "域功能级别必须是 Windows Server 2003 或更高。请提升您的域功能级别。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:937
+#: ../../main/samba/src/EBox/Samba/Provision.pm:935
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:942
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:971
+#: ../../main/samba/src/EBox/Samba/Provision.pm:969
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr "你试图加入的域已被定义为信任关系。目前并不被 Samba 支持。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1004
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1002
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "无法通过 NTP 从  AD server {x}  检索时间。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1017
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1015
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:596
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -10992,26 +10992,26 @@ msgstr ""
 "与 AD 服务器的时钟差超过两分钟，这可能会导致 Kerberos 身份验证问题。请用一个"
 "外部 NTP 源同步两个时钟，然后再试一次。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1056
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1054
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "指定的站点 {x} 不存在。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1068
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1066
 msgid "Could not determine the site of the specified server"
 msgstr "无法确定指定服务器的站点"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1100
 msgid "Could not determine the netbios domain name."
 msgstr "无法确定 netbios 域名。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1106
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1104
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr "无法找到 netBIOS 名称 {x}。请检查该值。"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1462
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1460
 #, fuzzy
 msgid "Error on group container LDAP entry creation:"
 msgstr "创建 LDAP 组时出差："
@@ -11046,8 +11046,8 @@ msgid "User name {x} already exists in the same container."
 msgstr "容器中已经有一个 {x} 用户"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:647
-#: ../../main/samba/src/EBox/Samba/User.pm:750
-#: ../../main/samba/src/EBox/Samba/User.pm:760
+#: ../../main/samba/src/EBox/Samba/User.pm:753
+#: ../../main/samba/src/EBox/Samba/User.pm:763
 msgid "user quota"
 msgstr "用户配额"
 
@@ -11055,17 +11055,17 @@ msgstr "用户配额"
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr "用户配额必须是一个正整数。要设定无限配额，输入0。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:753
+#: ../../main/samba/src/EBox/Samba/User.pm:756
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr "用户配额必须是一个正整数。要设定无限配额，输入0。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:762
+#: ../../main/samba/src/EBox/Samba/User.pm:765
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr "最大值是 {max} MB"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:781
+#: ../../main/samba/src/EBox/Samba/User.pm:784
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
@@ -11073,21 +11073,21 @@ msgid ""
 msgstr ""
 "无法为 ID 为 {uid} 的用户设置配额 {userQuota}。可能您的文件系统不支持配额？"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:892
+#: ../../main/samba/src/EBox/Samba/User.pm:895
 msgid "Maximum number of system users reached"
 msgstr "用户数已经达到最大值"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:897
+#: ../../main/samba/src/EBox/Samba/User.pm:900
 msgid "Maximum number of users reached"
 msgstr "用户太多了，已经达到最大值"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:914
+#: ../../main/samba/src/EBox/Samba/User.pm:917
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr "用户 UID {uid} 无效。UID 必须大于等于 {min}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:924
+#: ../../main/samba/src/EBox/Samba/User.pm:927
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr "系统用户 UID {uid} 无效。UID 必须小于 {max}"
@@ -11289,7 +11289,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Zentyal Cloud 文件不可用"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2206
+#: ../../main/samba/src/EBox/Samba.pm:2212
 msgid "Users and Computers"
 msgstr "用户和计算机"
 
@@ -11386,7 +11386,7 @@ msgid "exception"
 msgstr "例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2198
+#: ../../main/samba/src/EBox/Samba.pm:2204
 msgid "Group Policy Links"
 msgstr "组策略链接"
 
@@ -11632,7 +11632,7 @@ msgid "GPO Editor"
 msgstr "GPO 编辑器"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2195
+#: ../../main/samba/src/EBox/Samba.pm:2201
 msgid "Group Policy Objects"
 msgstr "组策略对象"
 
@@ -12226,25 +12226,25 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1518
+#: ../../main/samba/src/EBox/Samba.pm:1524
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr "ID 为 '{uid}' 的用户找到 {count} 个（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1747
+#: ../../main/samba/src/EBox/Samba.pm:1753
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 个 '{name}' 组（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2212
+#: ../../main/samba/src/EBox/Samba.pm:2218
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/samba/src/EBox/Samba.pm:2228
+#: ../../main/samba/src/EBox/Samba.pm:2234
 msgid "Configure mode"
 msgstr "配置模式"
 
-#: ../../main/samba/src/EBox/Samba.pm:2487
+#: ../../main/samba/src/EBox/Samba.pm:2531
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -12252,7 +12252,7 @@ msgid ""
 msgstr ""
 "无法恢复用户模块，因为它正以 {mode} 模式运行，而备份是以 {bpMode} 模式制作的"
 
-#: ../../main/samba/src/EBox/Samba.pm:2507
+#: ../../main/samba/src/EBox/Samba.pm:2551
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -12261,104 +12261,104 @@ msgstr ""
 "无法恢复，因为 LDAP 用户 {user} 已经存在于  /etc/passwd。请删除（或改名）后重"
 "试。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2531
+#: ../../main/samba/src/EBox/Samba.pm:2575
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr "只有服务器是林的唯一域控制器情况下才可能恢复"
 
-#: ../../main/samba/src/EBox/Samba.pm:2817
+#: ../../main/samba/src/EBox/Samba.pm:2861
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不能被改变。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2910
+#: ../../main/samba/src/EBox/Samba.pm:2954
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "文件系统共享"
 
-#: ../../main/samba/src/EBox/Samba.pm:2919
+#: ../../main/samba/src/EBox/Samba.pm:2963
 msgid "Users data"
 msgstr "用户数据"
 
-#: ../../main/samba/src/EBox/Samba.pm:3064
+#: ../../main/samba/src/EBox/Samba.pm:3108
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "地址 {ip} 已经用于接口 {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3623
-#: ../../main/samba/src/EBox/Samba.pm:3643
-#: ../../main/samba/src/EBox/Samba.pm:3654
+#: ../../main/samba/src/EBox/Samba.pm:3667
+#: ../../main/samba/src/EBox/Samba.pm:3687
+#: ../../main/samba/src/EBox/Samba.pm:3698
 msgid "Client address"
 msgstr "客户端地址"
 
-#: ../../main/samba/src/EBox/Samba.pm:3630
+#: ../../main/samba/src/EBox/Samba.pm:3674
 msgid "Connect"
 msgstr "连接"
 
-#: ../../main/samba/src/EBox/Samba.pm:3631
+#: ../../main/samba/src/EBox/Samba.pm:3675
 msgid "Access to directory"
 msgstr "访问文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3632
+#: ../../main/samba/src/EBox/Samba.pm:3676
 msgid "Read file"
 msgstr "读文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3633
+#: ../../main/samba/src/EBox/Samba.pm:3677
 msgid "Write file"
 msgstr "写文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3634
+#: ../../main/samba/src/EBox/Samba.pm:3678
 msgid "Disconnect"
 msgstr "断开"
 
-#: ../../main/samba/src/EBox/Samba.pm:3635
+#: ../../main/samba/src/EBox/Samba.pm:3679
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "删除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3636
+#: ../../main/samba/src/EBox/Samba.pm:3680
 msgid "Create directory"
 msgstr "建立文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3637
+#: ../../main/samba/src/EBox/Samba.pm:3681
 msgid "Remove directory"
 msgstr "移除文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3638
+#: ../../main/samba/src/EBox/Samba.pm:3682
 msgid "Rename"
 msgstr "重命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3645
-#: ../../main/samba/src/EBox/Samba.pm:3656
+#: ../../main/samba/src/EBox/Samba.pm:3689
+#: ../../main/samba/src/EBox/Samba.pm:3700
 msgid "File name"
 msgstr "文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3646
-#: ../../main/samba/src/EBox/Samba.pm:3650
+#: ../../main/samba/src/EBox/Samba.pm:3690
+#: ../../main/samba/src/EBox/Samba.pm:3694
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3657
+#: ../../main/samba/src/EBox/Samba.pm:3701
 msgid "Quarantined file name"
 msgstr "已隔离文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3658
-#: ../../main/samba/src/EBox/Samba.pm:3661
+#: ../../main/samba/src/EBox/Samba.pm:3702
+#: ../../main/samba/src/EBox/Samba.pm:3705
 msgid "Quarantine"
 msgstr "隔离"
 
-#: ../../main/samba/src/EBox/Samba.pm:3664
+#: ../../main/samba/src/EBox/Samba.pm:3708
 msgid "Samba access"
 msgstr "Samba 权限"
 
-#: ../../main/samba/src/EBox/Samba.pm:3675
+#: ../../main/samba/src/EBox/Samba.pm:3719
 msgid "Samba virus"
 msgstr "Samba 病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3686
+#: ../../main/samba/src/EBox/Samba.pm:3730
 msgid "Samba quarantine"
 msgstr "Samba 隔离"
 
@@ -15114,7 +15114,7 @@ msgstr "steal"
 msgid "wait"
 msgstr "等待"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:716
+#: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:717
 msgid "value"
 msgstr "值"
 

@@ -997,9 +997,9 @@ msgstr "Δαίμονες OpenVPN"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3622
-#: ../../main/samba/src/EBox/Samba.pm:3642
-#: ../../main/samba/src/EBox/Samba.pm:3653
+#: ../../main/samba/src/EBox/Samba.pm:3666
+#: ../../main/samba/src/EBox/Samba.pm:3686
+#: ../../main/samba/src/EBox/Samba.pm:3697
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:402
@@ -1036,7 +1036,7 @@ msgstr "Γεγονός"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3647
+#: ../../main/samba/src/EBox/Samba.pm:3691
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:200
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1128,7 +1128,7 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:229
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:269
@@ -1148,8 +1148,8 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:145
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:149
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:150
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
@@ -1454,7 +1454,7 @@ msgid "resources"
 msgstr "Πηγή"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3626
+#: ../../main/samba/src/EBox/Samba.pm:3670
 msgid "Resource"
 msgstr "Πηγή"
 
@@ -2141,7 +2141,7 @@ msgstr "Όνομα διακομιστή"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:3058
+#: ../../main/samba/src/EBox/Samba.pm:3102
 msgid "alias"
 msgstr "ψευδώνυμο"
 
@@ -2176,7 +2176,7 @@ msgstr ""
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2191
+#: ../../main/samba/src/EBox/Samba.pm:2197
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2394,7 +2394,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:2185
+#: ../../main/samba/src/EBox/Samba.pm:2191
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2737,9 +2737,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3624
-#: ../../main/samba/src/EBox/Samba.pm:3644
-#: ../../main/samba/src/EBox/Samba.pm:3655
+#: ../../main/samba/src/EBox/Samba.pm:3668
+#: ../../main/samba/src/EBox/Samba.pm:3688
+#: ../../main/samba/src/EBox/Samba.pm:3699
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -3133,7 +3133,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3625
+#: ../../main/samba/src/EBox/Samba.pm:3669
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4443,7 +4443,7 @@ msgstr "Κωδικός"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:95
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:106
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:100
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:101
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:106
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1980
@@ -4592,7 +4592,7 @@ msgid "Backup successful"
 msgstr "Επιτυχημένο αντίγραφο ασφαλείας"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:460
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:462
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1993
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
 msgid "Configuration backup"
@@ -4848,40 +4848,40 @@ msgstr ""
 msgid "Value for key {k} not found"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:268
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:270
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:442
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:444
 #, fuzzy
 msgid "Configuration backup upload corrupted"
 msgstr "Ρύθμιση επαναφοράς"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:443
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:445
 msgid "Try the upload again"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:457
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:459
 #, fuzzy
 msgid "Server not found"
 msgstr "Δεν βρέθηκε"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:464
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:466
 msgid "Some argument is missing"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:466
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:468
 #, fuzzy
 msgid "Internal Server Error"
 msgstr "Εσωτερικό"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:468
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:470
 #, fuzzy
 msgid "Forbidden request"
 msgstr "Φιλτραρισμένες αιτήσεις"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:470
+#: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:472
 msgid "An error has occurred"
 msgstr ""
 
@@ -4891,7 +4891,7 @@ msgid "Skipping bad formed line: {l}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:110
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:104
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:110
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1987
@@ -4968,41 +4968,41 @@ msgstr "όνομα τομέα"
 msgid "Select the data you want to back up."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:108
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
 #, fuzzy
 msgid "External server name (Dynamic DNS)"
 msgstr "Εξωτερικός διακομιστής αλληλογραφίας"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:113
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 #, fuzzy
 msgid "Renovation date"
 msgstr "ενημέρωση επέκτασης"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:117
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 #, fuzzy
 msgid "Messages"
 msgstr "μυνήματα ανεπιθύμητης αλληλογραφίας"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:123
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
 #, fuzzy
 msgid "Server info"
 msgstr "Δεν βρέθηκε"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:145
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
 #, fuzzy
 msgid "Not using Zentyal Dynamic DNS service"
 msgstr "Απομακρυσμένα στο σύννεφο της Zentyal"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
 #, perl-brace-format
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
 msgid "Unlimited"
 msgstr ""
@@ -7696,7 +7696,7 @@ msgstr ""
 msgid "Revoking changes"
 msgstr ""
 
-#: ../../main/core/src/EBox/RESTClient.pm:399
+#: ../../main/core/src/EBox/RESTClient.pm:400
 #, fuzzy
 msgid "User and password do not match."
 msgstr "Οι κωδικοί δεν ταιριάζουν"
@@ -10699,7 +10699,7 @@ msgid "OU name"
 msgstr "Όνομα Χρήστη"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2224
+#: ../../main/samba/src/EBox/Samba.pm:2230
 msgid "LDAP Settings"
 msgstr ""
 
@@ -10742,7 +10742,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2215
+#: ../../main/samba/src/EBox/Samba.pm:2221
 msgid "User Template"
 msgstr ""
 
@@ -10751,7 +10751,7 @@ msgid "Recycle Bin"
 msgstr "Κάδος ανακύκλωσης"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2234
+#: ../../main/samba/src/EBox/Samba.pm:2240
 msgid "File Sharing"
 msgstr ""
 
@@ -10826,13 +10826,13 @@ msgstr ""
 msgid "There was an error updating LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:871
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:874
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:885
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:888
 #, fuzzy
 msgid "Group E-mail"
 msgstr "Ομάδα"
@@ -10927,7 +10927,7 @@ msgid ""
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:311
+#: ../../main/samba/src/EBox/Samba/Provision.pm:309
 #, perl-brace-format
 msgid ""
 "Cannot enable Samba because this server is synchronizing its users as slave "
@@ -10935,35 +10935,35 @@ msgid ""
 "options{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:382
+#: ../../main/samba/src/EBox/Samba/Provision.pm:380
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Ο χρήστης {u} δεν υπάρχει"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:434
-#: ../../main/samba/src/EBox/Samba/Provision.pm:458
-#: ../../main/samba/src/EBox/Samba/Provision.pm:487
+#: ../../main/samba/src/EBox/Samba/Provision.pm:432
+#: ../../main/samba/src/EBox/Samba/Provision.pm:456
+#: ../../main/samba/src/EBox/Samba/Provision.pm:485
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:637
+#: ../../main/samba/src/EBox/Samba/Provision.pm:635
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:657
+#: ../../main/samba/src/EBox/Samba/Provision.pm:655
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:678
+#: ../../main/samba/src/EBox/Samba/Provision.pm:676
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:727
+#: ../../main/samba/src/EBox/Samba/Provision.pm:725
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -10973,79 +10973,79 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:765
+#: ../../main/samba/src/EBox/Samba/Provision.pm:763
 msgid "Could not retrieve the domain information."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:774
+#: ../../main/samba/src/EBox/Samba/Provision.pm:772
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:794
+#: ../../main/samba/src/EBox/Samba/Provision.pm:792
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:813
+#: ../../main/samba/src/EBox/Samba/Provision.pm:811
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:822
+#: ../../main/samba/src/EBox/Samba/Provision.pm:820
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:857
+#: ../../main/samba/src/EBox/Samba/Provision.pm:855
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:883
+#: ../../main/samba/src/EBox/Samba/Provision.pm:881
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:904
+#: ../../main/samba/src/EBox/Samba/Provision.pm:902
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:910
+#: ../../main/samba/src/EBox/Samba/Provision.pm:908
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:937
+#: ../../main/samba/src/EBox/Samba/Provision.pm:935
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:942
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:971
+#: ../../main/samba/src/EBox/Samba/Provision.pm:969
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1004
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1002
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1017
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1015
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:596
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -11053,26 +11053,26 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1056
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1054
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1068
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1066
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1102
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1100
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1106
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1104
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1462
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1460
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -11107,8 +11107,8 @@ msgid "User name {x} already exists in the same container."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:647
-#: ../../main/samba/src/EBox/Samba/User.pm:750
-#: ../../main/samba/src/EBox/Samba/User.pm:760
+#: ../../main/samba/src/EBox/Samba/User.pm:753
+#: ../../main/samba/src/EBox/Samba/User.pm:763
 #, fuzzy
 msgid "user quota"
 msgstr "ποσόστωση"
@@ -11117,38 +11117,38 @@ msgstr "ποσόστωση"
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:753
+#: ../../main/samba/src/EBox/Samba/User.pm:756
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:762
+#: ../../main/samba/src/EBox/Samba/User.pm:765
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:781
+#: ../../main/samba/src/EBox/Samba/User.pm:784
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:892
+#: ../../main/samba/src/EBox/Samba/User.pm:895
 msgid "Maximum number of system users reached"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:897
+#: ../../main/samba/src/EBox/Samba/User.pm:900
 msgid "Maximum number of users reached"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:914
+#: ../../main/samba/src/EBox/Samba/User.pm:917
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:924
+#: ../../main/samba/src/EBox/Samba/User.pm:927
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -11352,7 +11352,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Η πόρτα {p} δεν είναι διαθέσιμη"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2206
+#: ../../main/samba/src/EBox/Samba.pm:2212
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Εισάγετε χρήστη και κωδικό"
@@ -11450,7 +11450,7 @@ msgid "exception"
 msgstr "εξαίρεση"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2198
+#: ../../main/samba/src/EBox/Samba.pm:2204
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Πολιτική Ομάδων"
@@ -11705,7 +11705,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2195
+#: ../../main/samba/src/EBox/Samba.pm:2201
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Πολιτική Ομάδων"
@@ -12303,140 +12303,140 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1518
+#: ../../main/samba/src/EBox/Samba.pm:1524
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1747
+#: ../../main/samba/src/EBox/Samba.pm:1753
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2212
+#: ../../main/samba/src/EBox/Samba.pm:2218
 #, fuzzy
 msgid "Manage"
 msgstr "Μόνο ανάγνωση"
 
-#: ../../main/samba/src/EBox/Samba.pm:2228
+#: ../../main/samba/src/EBox/Samba.pm:2234
 #, fuzzy
 msgid "Configure mode"
 msgstr "Ρυθμίσεις widgets"
 
-#: ../../main/samba/src/EBox/Samba.pm:2487
+#: ../../main/samba/src/EBox/Samba.pm:2531
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2507
+#: ../../main/samba/src/EBox/Samba.pm:2551
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2531
+#: ../../main/samba/src/EBox/Samba.pm:2575
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2817
+#: ../../main/samba/src/EBox/Samba.pm:2861
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2910
+#: ../../main/samba/src/EBox/Samba.pm:2954
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Διαδρομή συστήματος αρχείων"
 
-#: ../../main/samba/src/EBox/Samba.pm:2919
+#: ../../main/samba/src/EBox/Samba.pm:2963
 #, fuzzy
 msgid "Users data"
 msgstr "ποσόστωση"
 
-#: ../../main/samba/src/EBox/Samba.pm:3064
+#: ../../main/samba/src/EBox/Samba.pm:3108
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3623
-#: ../../main/samba/src/EBox/Samba.pm:3643
-#: ../../main/samba/src/EBox/Samba.pm:3654
+#: ../../main/samba/src/EBox/Samba.pm:3667
+#: ../../main/samba/src/EBox/Samba.pm:3687
+#: ../../main/samba/src/EBox/Samba.pm:3698
 msgid "Client address"
 msgstr "Διεύθυνση πελάτη"
 
-#: ../../main/samba/src/EBox/Samba.pm:3630
+#: ../../main/samba/src/EBox/Samba.pm:3674
 msgid "Connect"
 msgstr "Σύνδεση"
 
-#: ../../main/samba/src/EBox/Samba.pm:3631
+#: ../../main/samba/src/EBox/Samba.pm:3675
 msgid "Access to directory"
 msgstr "Πρόσβαση στον κατάλογο"
 
-#: ../../main/samba/src/EBox/Samba.pm:3632
+#: ../../main/samba/src/EBox/Samba.pm:3676
 msgid "Read file"
 msgstr "Ανάγνωση αρχείου"
 
-#: ../../main/samba/src/EBox/Samba.pm:3633
+#: ../../main/samba/src/EBox/Samba.pm:3677
 msgid "Write file"
 msgstr "Εγγραφή αρχείου"
 
-#: ../../main/samba/src/EBox/Samba.pm:3634
+#: ../../main/samba/src/EBox/Samba.pm:3678
 msgid "Disconnect"
 msgstr "Αποσύνδεση"
 
-#: ../../main/samba/src/EBox/Samba.pm:3635
+#: ../../main/samba/src/EBox/Samba.pm:3679
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: ../../main/samba/src/EBox/Samba.pm:3636
+#: ../../main/samba/src/EBox/Samba.pm:3680
 msgid "Create directory"
 msgstr "Δημιουργία καταλόγου"
 
-#: ../../main/samba/src/EBox/Samba.pm:3637
+#: ../../main/samba/src/EBox/Samba.pm:3681
 msgid "Remove directory"
 msgstr "Αφαίρεση καταλόγου"
 
-#: ../../main/samba/src/EBox/Samba.pm:3638
+#: ../../main/samba/src/EBox/Samba.pm:3682
 msgid "Rename"
 msgstr "Μετονομασία"
 
-#: ../../main/samba/src/EBox/Samba.pm:3645
-#: ../../main/samba/src/EBox/Samba.pm:3656
+#: ../../main/samba/src/EBox/Samba.pm:3689
+#: ../../main/samba/src/EBox/Samba.pm:3700
 msgid "File name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3646
-#: ../../main/samba/src/EBox/Samba.pm:3650
+#: ../../main/samba/src/EBox/Samba.pm:3690
+#: ../../main/samba/src/EBox/Samba.pm:3694
 msgid "Virus"
 msgstr "Ιός"
 
-#: ../../main/samba/src/EBox/Samba.pm:3657
+#: ../../main/samba/src/EBox/Samba.pm:3701
 msgid "Quarantined file name"
 msgstr "Όνομα αρχείου καραντίνας"
 
-#: ../../main/samba/src/EBox/Samba.pm:3658
-#: ../../main/samba/src/EBox/Samba.pm:3661
+#: ../../main/samba/src/EBox/Samba.pm:3702
+#: ../../main/samba/src/EBox/Samba.pm:3705
 msgid "Quarantine"
 msgstr "Καραντίνα"
 
-#: ../../main/samba/src/EBox/Samba.pm:3664
+#: ../../main/samba/src/EBox/Samba.pm:3708
 msgid "Samba access"
 msgstr "Πρόσβαση SAMBA"
 
-#: ../../main/samba/src/EBox/Samba.pm:3675
+#: ../../main/samba/src/EBox/Samba.pm:3719
 #, fuzzy
 msgid "Samba virus"
 msgstr "Ιός SAMBA"
 
-#: ../../main/samba/src/EBox/Samba.pm:3686
+#: ../../main/samba/src/EBox/Samba.pm:3730
 msgid "Samba quarantine"
 msgstr "Καραντίνα SAMBA"
 
@@ -15217,7 +15217,7 @@ msgstr ""
 msgid "wait"
 msgstr "αναμονή"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:716
+#: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:717
 msgid "value"
 msgstr "αξία"
 
