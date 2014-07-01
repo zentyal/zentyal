@@ -1,3 +1,5 @@
+HEAD
+	+ Don't let database error to abort halt or shutdown processes
 3.5
 	+ Avoid warning flag on smart match experimental feature
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
