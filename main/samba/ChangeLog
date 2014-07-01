@@ -1,4 +1,6 @@
 3.5
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
 	+ Setup roaming profiles for each user only when the setting changes
 	  in the UI
 	+ Remove duplicate entries from the custom shell list
