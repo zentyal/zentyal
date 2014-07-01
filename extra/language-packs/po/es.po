@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-06-30 18:55+0200\n"
+"PO-Revision-Date: 2014-07-01 08:58+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -592,6 +592,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"El certificado subido y/o la clave privada no son validos. Archivo: {file}, "
+"Error: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -8753,9 +8755,8 @@ msgstr ""
 "garantía de calidad y se aplicarán automáticamente a tu sistema."
 
 #: ../../main/core/src/EBox/SysInfo/CGI/ComponentNotFound.pm:30
-#, fuzzy
 msgid "Element not found"
-msgstr "Servidor no encontrado"
+msgstr "Elemento no encontrado"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:45
 msgid "module name"
@@ -11801,15 +11802,16 @@ msgstr ""
 "favor, aumente el nivel funcional de su bosque."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:937
-#, fuzzy
 msgid "Error querying AD schema:"
-msgstr "Error enviando actualización de schema:"
+msgstr "Error consultando esquema AD:"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:944
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
+"El esquema del dominio no es un estandar RFC 2307. Necesita actualizar a "
+"Windows Server 2003 R2 o siguientes."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:971
 msgid ""
@@ -12572,9 +12574,8 @@ msgstr "Opciones por defecto de la Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:84
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:157
-#, fuzzy
 msgid "All domain users"
-msgstr "Añadir usuario"
+msgstr "Todos los usuarios del dominio"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:101
 msgid "Read only"
@@ -13015,23 +13016,20 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
 #: ../../main/mail/src/EBox/Mail.pm:408
-#, fuzzy
 msgid "Error on LDAP entry creation:"
-msgstr "Error en la creación de entrada de usuario del LDAP:"
+msgstr "Error en la creación de entrada de LDAP:"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
 #: ../../main/mail/src/EBox/Mail.pm:383
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
 "got {count}"
-msgstr ""
-"Numero inesperado de entradas. Se obtuvieron {x} mientras se esperaba 1."
+msgstr "Numero inesperado de entradas para {dn}: Esperada 1, obtenidas {count}"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:299
-#, fuzzy
 msgid "Error on LDAP entry update:"
-msgstr "Error en la creación de entrada de usuario del LDAP:"
+msgstr "Error actualizando entrada LDAP:"
 
 #: ../../main/samba/src/EBox/UsersSync/Master.pm:84
 #, perl-brace-format
@@ -14353,9 +14351,8 @@ msgid "IPsec Connections"
 msgstr "Conexiones IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
-#, fuzzy
 msgid "No ranges or users defined for the connection"
-msgstr "Pre-shared key para la conexión IPsec"
+msgstr "No hay rangos o usuarios definidos par ala conexión"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
@@ -14534,24 +14531,27 @@ msgstr ""
 ">Interfaces{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:389
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
+msgstr ""
+"La dirección del tunnel {ip} ya está siendo usada por la conexión {name}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:395
 #, perl-brace-format
 msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
 msgstr ""
+"El rango se solapa con la dirección del tunel {ip} usada por la conexión "
+"{name}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:410
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
+msgstr "La dirección del túnel {ip} ya está siendo usada por la conexión {name}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:416
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {range} is already in use by connection {name}"
-msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"
+msgstr "El rango {range} está siendo usado por la conexión {name}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:53
 msgid ""
@@ -14624,9 +14624,9 @@ msgid "Pre-shared key for the IPsec connection."
 msgstr "Pre-shared key para la conexión IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuration no complete, {field} not set"
-msgstr "La configuración del respaldo no está completa"
+msgstr "Configuración incompleta, {field} no establecido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:162
@@ -18548,13 +18548,14 @@ msgstr "Página principal de Zentyal"
 
 #: ../../main/core/src/templates/componentNotFound.mas:7
 #: ../../main/core/src/templates/pageNotFound.mas:7
-#, fuzzy
 msgid "If you typed the page address manually, please check it"
-msgstr "Si ha escrito la URL manualmente, por favor compruébela"
+msgstr ""
+"Si has introducido la dirección de la página a mano, por favor compruébala"
 
 #: ../../main/core/src/templates/componentNotFound.mas:8
 msgid "Maybe the element was removed and the page address is not longer valid"
 msgstr ""
+"Quizá el elemento fue borrado y la dirección de la página ya no es válida"
 
 #: ../../main/core/src/templates/componentNotFound.mas:9
 #: ../../main/core/src/templates/pageNotFound.mas:9
@@ -18573,7 +18574,7 @@ msgstr "lo sentimos"
 
 #: ../../main/core/src/templates/componentNotFound.mas:12
 msgid "The request contains a reference to a element which doest not exists"
-msgstr ""
+msgstr "La petición contiene una referencia a un elemento que no existe"
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Item"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-06-29 21:00+0200\n"
+"PO-Revision-Date: 2014-06-30 19:56+0200\n"
 "Last-Translator: thetell <telley.stefan@bluewin.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
@@ -1692,7 +1692,7 @@ msgstr "Regel"
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:252
 msgid ""
 "Select the sets of rules you want apply when scanning the network traffic"
-msgstr ""
+msgstr "Wählen Sie die gewünschten Regeln für den Netzwerk(-verkehr) Scan"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
@@ -1702,9 +1702,8 @@ msgid "Log"
 msgstr "Log"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
-#, fuzzy
 msgid "Block"
-msgstr "Sperre hinzufügen"
+msgstr "Blockieren"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
@@ -1907,7 +1906,7 @@ msgstr "Erfolgreich"
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
 msgid "Failure"
-msgstr "Fehlschlag"
+msgstr "Fehler"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -2235,9 +2234,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Aktualisiere den Bind Dienst dynamisch"
 
 #: ../../main/dns/src/EBox/DNS.pm:532
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Entferne ntp-init-Skript-Links"
+msgstr "Entferne Bind9 Iinit Skript Links"
 
 #: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Override named apparmor profile"
@@ -2739,7 +2737,7 @@ msgstr "Benutzer"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
-msgstr ""
+msgstr "Jabber Konto mit Administrationsrechten aktiviert"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
 msgid "Jabber account enabled"
@@ -3249,14 +3247,12 @@ msgid "Created but not available"
 msgstr "Erzeugt, aber nicht verfügbar"
 
 #: ../../main/ca/src/EBox/CA.pm:1886
-#, fuzzy
 msgid "The field cannot contain only blank characters"
-msgstr "Die Eingabe enthält ungültige Zeichen"
+msgstr "Das Feld kann nicht nur leere Zeichen enthalten"
 
 #: ../../main/ca/src/EBox/CA.pm:1909
-#, fuzzy
 msgid "String"
-msgstr "Streng"
+msgstr "Text"
 
 #: ../../main/ca/src/EBox/CA.pm:1914
 #, fuzzy
@@ -3303,11 +3299,11 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA.pm:2532
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
-msgstr ""
+msgstr "Wert für die Subjekt Alternative vom Typ {type}"
 
 #: ../../main/ca/src/EBox/CA.pm:2549
 msgid "Subject alternative type"
-msgstr ""
+msgstr "Subjekt Alternativetyp"
 
 #: ../../main/ca/src/EBox/CA.pm:2551
 #, fuzzy, perl-brace-format
@@ -3537,65 +3533,67 @@ msgid "This model does not exist."
 msgstr "Benutzer {u} existiert nicht"
 
 #: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:291
-#, fuzzy
 msgid "This driver does not exist."
-msgstr "Benutzer {u} existiert nicht"
+msgstr "Der Treiber existiert nicht."
 
 #: ../../main/nut/src/EBox/NUT/Composite/General.pm:37
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:127
 #: ../../main/nut/src/EBox/NUT.pm:28
 msgid "UPS"
-msgstr ""
+msgstr "UPS"
 
 #: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:37
 msgid "UPS settings and variables"
-msgstr ""
+msgstr "UPS Einstellungen und Variablen"
 
 #: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:39
 msgid ""
 "These are the settings and variables provided by the UPS. The settings are "
 "read-write while the variables are read-only."
 msgstr ""
+"Dies sind die angebotenen Einstellungen und Variablen der UPS. Die "
+"Einstellungen sind veränderbar während die Variablen nur gelesen werden "
+"können."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:70
 msgid "'Label' can not contain spaces"
-msgstr ""
+msgstr "Das Label kann keine Leerzeichen enthalten"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:82
 msgid "The label to identify this UPS in case you define more than one"
-msgstr ""
+msgstr "Das Label zum Identifizieren der UPS, falls mehrere definiert wurden."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:89
-#, fuzzy
 msgid "Optional UPS description"
-msgstr "Optionale Beschreibung für diese Route"
+msgstr "Optionale Beschreibung für diese UPS"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:93
-#, fuzzy
 msgid "Driver"
-msgstr "Laufwerksbuchstabe"
+msgstr "Treiber"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:96
 msgid "The manufacturer of your UPS."
-msgstr ""
+msgstr "Der UPS Hersteller"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:104
 msgid ""
 "The port where the UPS is connected to (UPS on serial ports cannot be "
 "autodected)"
 msgstr ""
+"Der Anschluss mit welchem die UPS verbunden ist (Serielle Anschlüsse können "
+"nicht automatisch erkannt werden)"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:112
 msgid "The UPS serial number, used to distingish between USB units"
-msgstr ""
+msgstr "Die UPS Seriennummer, zum unterscheiden der verschiedenen USB Einheiten"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:126
 msgid "Attached UPSs"
-msgstr ""
+msgstr "Angeschlossene UPS(en)"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:131
 msgid "List of locally attached UPS."
-msgstr ""
+msgstr "Liste der lokal angeschlossenen UPS(en)."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:147
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:193
@@ -3603,10 +3601,12 @@ msgid ""
 "The UPS service is not running. Ensure that changes are saved and the module "
 "enabled."
 msgstr ""
+"Der UPS DIenst läuft nicht. Stellen Sie sicher das die Änderungen "
+"gespeichert und das Modul aktiviert ist."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:155
 msgid "Variable"
-msgstr "verfügbar"
+msgstr "Variable"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:159
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:210
@@ -3617,12 +3617,11 @@ msgstr "Wert"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:165
 msgid "UPS Variables"
-msgstr ""
+msgstr "UPS Variablen"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:170
-#, fuzzy
 msgid "variable"
-msgstr "verfügbar"
+msgstr "Variable"
 
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:40
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:49
@@ -3656,6 +3655,8 @@ msgid ""
 "Setting {s} successfully updated. It may take some seconds to reflect the "
 "change."
 msgstr ""
+"Einstellung {s} erfolgreich gespeichert. Es kann einige Sekunden dauern bis "
+"die Änderung aktiv wird."
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:201
 #, fuzzy
@@ -3663,55 +3664,46 @@ msgid "Setting"
 msgstr "Einstellungen"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:217
-#, fuzzy
 msgid "UPS Settings"
-msgstr "LDAP Einstellungen"
+msgstr "UPS Einstellungen"
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:222
-#, fuzzy
 msgid "setting"
-msgstr "Einstellungen"
+msgstr "Einstellung"
 
 #: ../../main/nut/src/EBox/NUT.pm:47 ../../main/core/src/EBox/SysInfo.pm:135
 #: ../../main/core/src/EBox/Logs.pm:701 ../../main/core/src/EBox/Events.pm:137
 #: ../../main/monitor/src/EBox/Monitor.pm:148
-#, fuzzy
 msgid "Maintenance"
-msgstr "Schnittstelle"
+msgstr "Wartung"
 
 #: ../../main/nut/src/EBox/NUT.pm:70
-#, fuzzy
 msgid "To configure the NUT daemon mode."
-msgstr "Konfigurieren der Wartemusik."
+msgstr "Um den NUT Dienst Modus zu konfigurieren."
 
 #: ../../main/nut/src/EBox/NUT.pm:73
-#, fuzzy
 msgid "To configure the UPS's drivers."
-msgstr "Konfigurieren des Realtime Treibers für den Verzeichnisdienst (LDAP) "
+msgstr "Um den UPS Treiber zu konfigurieren."
 
 #: ../../main/nut/src/EBox/NUT.pm:76
-#, fuzzy
 msgid "To configure the NUT daemon"
-msgstr "RADIUS Clients konfigurieren"
+msgstr "Um den NUT Dienst zu konfigurieren"
 
 #: ../../main/nut/src/EBox/NUT.pm:79
-#, fuzzy
 msgid "To configure the authorized NUT daemon users"
-msgstr "Konfigurieren der allgemeinen SIP und IAX Benutzer "
+msgstr "Um den authorisierten NUT Dienstbenutzer zu konfigurieren"
 
 #: ../../main/nut/src/EBox/NUT.pm:82
-#, fuzzy
 msgid "To configure the NUT client"
-msgstr "RADIUS Clients konfigurieren"
+msgstr "Um den NUT Client zu configurieren"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
-#, fuzzy
 msgid "Signatures"
-msgstr "Status"
+msgstr "Signaturen"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:110
 msgid "Database Update Status"
-msgstr "Status der Antivirus Datenbank-Aktualisierung"
+msgstr "Datenbank Aktualisierungstatus"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:111
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
@@ -3742,12 +3734,16 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
+"Das Antivirus Modul ist nicht konfiguriert. Aktivieren Sie das Modul zuerst "
+"in der Modul Status Sektion"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:198
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr ""
+"Das Antivirus Modul ist nicht aktiviert. Aktivieren Sie dieses zuerst um den "
+"Status zu sehen."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:200
 #, perl-brace-format
