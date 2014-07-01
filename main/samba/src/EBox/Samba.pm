@@ -764,7 +764,10 @@ sub _regenConfig
     # default EBox::Module::LDAP behavior of adding schemas
     # first and then regenConfig when users already provisioned
     $self->EBox::Module::Service::_regenConfig(@_);
-    $self->_performSetup();
+    if ($self->mode() eq STANDALONE_MODE) {
+        $self->_performSetup();
+    }
+
 }
 
 # Method: _setConf
@@ -2187,24 +2190,28 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
-    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
-                                              text => __('Domain'),
-                                              icon => 'domain',
-                                              separator => 'Office',
-                                              order => 535);
+    my $standalone = ($self->mode eq STANDALONE_MODE);
 
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
-                                            text  => __('Settings'),
-                                            order => 10));
+    if ($standalone) {
+        my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                                  text => __('Domain'),
+                                                  icon => 'domain',
+                                                  separator => 'Office',
+                                                  order => 535);
 
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
-                                            text  => __('Group Policy Objects'),
-                                            order => 20));
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
-                                            text  => __('Group Policy Links'),
-                                            order => 30));
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
+                                                text  => __('Settings'),
+                                                order => 10));
 
-    $root->add($domainFolder);
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
+                                                text  => __('Group Policy Objects'),
+                                                order => 20));
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
+                                                text  => __('Group Policy Links'),
+                                                order => 30));
+
+        $root->add($domainFolder);
+    }
 
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
@@ -2216,15 +2223,19 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Tree/Manage',
             'text' => __('Manage'), order => 10));
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/Composite/UserTemplate',
-            'text' => __('User Template'), order => 30));
-# TODO: re-enable this in Zentyal 4.0 for Cloud Sync
-#        if ($self->mode() eq STANDALONE_MODE) {
-#            $folder->add(new EBox::Menu::Item(
-#                'url'  => 'Samba/Composite/Sync',
-#                'text' => __('Synchronization'), order => 40));
-#        }
+
+        if ($standalone) {
+            $folder->add(new EBox::Menu::Item(
+                'url'  => 'Samba/Composite/UserTemplate',
+                'text' => __('User Template'), order => 30));
+            # TODO: re-enable this in Zentyal 4.0 for Cloud Sync
+            #        if ($self->mode() eq STANDALONE_MODE) {
+            #            $folder->add(new EBox::Menu::Item(
+            #                'url'  => 'Samba/Composite/Sync',
+            #                'text' => __('Synchronization'), order => 40));
+            #        }
+        }
+
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/Settings',
             'text' => __('LDAP Settings'), order => 50));
@@ -2237,13 +2248,14 @@ sub menu
     }
     $root->add($folder);
 
-    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                    url       => 'Samba/Composite/FileSharing',
-                                    icon      => 'sharing',
-                                    separator => 'Office',
-                                    order     => 540));
+    if ($standalone) {
+        $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                        url       => 'Samba/Composite/FileSharing',
+                                        icon      => 'sharing',
+                                        separator => 'Office',
+                                        order     => 540));
+    }
 }
-
 
 # Method: enableModDepends
 #
