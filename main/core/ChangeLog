@@ -1,5 +1,13 @@
 3.5
 	+ Warning in init.d script about the deprecation of users module
+	+ Avoid warning flag on smart match experimental feature
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
+	+ Rethrow properly when exception is a plain string
+	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
+	  model is a children whose model parent is its grandfather or older
+	+ Fixed notifyActions by using isIdUsed method and removing
+	  slashes to fetch the observable models
 	+ Fixed spurious warnings when loadings ads and loading dashboard
 	+ Assure that all data under a row directory is removed
 	+ EBox::Types::DomainName always return lowercase values

@@ -186,7 +186,7 @@ sub _sendSchemaUpdate
             my $msg = $entry->update($masterLdap);
             if ($msg->is_error()) {
                 throw EBox::Exceptions::LDAP(
-                    message => __("Error sending schema update: $dn"),
+                    message => "Error sending schema update: $dn",
                     result => $msg);
             }
         }

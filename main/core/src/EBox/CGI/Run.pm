@@ -34,6 +34,7 @@ use EBox::Exceptions::InvalidArgument;
 use TryCatch::Lite;
 use File::Slurp;
 use Perl6::Junction qw(any);
+use Scalar::Util;
 
 use constant URL_ALIAS_FILTER => '/usr/share/zentyal/urls/*.urls';
 
@@ -98,7 +99,11 @@ sub run
         }
 
         $redis->rollback();
-        $ex->throw();
+        if (Scalar::Util::blessed($ex) and $ex->isa('EBox::Exceptions::Base')) {
+            $ex->throw();
+        } else {
+            die $ex;
+        }
     }
 }
 

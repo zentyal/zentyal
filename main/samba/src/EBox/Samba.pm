@@ -968,19 +968,26 @@ sub _postServiceHook
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = $self->kerberosRealm();
+            my $drive = $self->drive();
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
+
+            my $state = $self->get_state();
+            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
+            $self->set_state($state);
             my $users = $ldap->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
-                    my $path = "\\\\$netbiosName.$realmName\\profiles";
-                    $user->setRoamingProfile(1, $path, 1);
-                } else {
-                    $user->setRoamingProfile(0, undef, 1);
+                if ($roamingProfilesChanged) {
+                    if ($self->roamingProfiles()) {
+                        $user->setRoamingProfile(1, $profilesPath, 1);
+                    } else {
+                        $user->setRoamingProfile(0, undef, 1);
+                    }
                 }
 
                 # Mount user home on network drive
-                my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
                 $user->save();
             }
         }
@@ -1078,7 +1085,7 @@ sub _postServiceHook
                     my $permissions = $subRow->elementByName('permissions');
 
                     my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->printableValue();
+                    my $account = $userType->value();
                     my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
                     next unless ($object->exists());
 
@@ -1207,7 +1214,7 @@ sub _setupSSSd
     my @params = ('fqdn'   => $sysinfo->fqdn(),
                   'domain' => $sysinfo->hostDomain(),
                   'defaultShell' => $defaultShell,
-                  'keyTab' => SYSTEM_WIDE_KRB5_KEYTAB);
+                  'keyTab' => SECRETS_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
@@ -3200,7 +3207,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = EBox::Global->modInstance('samba')->kerberosRealm();
+    my $realmName   = $self->kerberosRealm();
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();

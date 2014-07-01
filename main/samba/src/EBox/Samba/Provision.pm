@@ -296,8 +296,6 @@ sub setupKerberos
         my @params = ('realm' => $realm);
         $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
         EBox::Sudo::root("ln -sf '$provisionGeneratedKeytab' '$systemKeytab'");
-    } else {
-        EBox::Sudo::root("rm -f '$systemKeytab'");
     }
 }
 

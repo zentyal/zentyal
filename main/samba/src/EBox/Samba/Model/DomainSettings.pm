@@ -230,6 +230,14 @@ sub updatedRowNotify
         my $sambaMod = $self->parentModule();
         $sambaMod->getProvision->setProvisioned(0);
     }
+
+    my $newRoaming = $row->valueByName('roaming');
+    my $oldRoaming = defined $oldRow ? $oldRow->valueByName('roaming') : $newRoaming;
+    if ($oldRoaming != $newRoaming) {
+        my $state = $self->parentModule->get_state();
+        $state->{_roamingProfilesChanged} = 1;
+        $self->parentModule->set_state($state);
+    }
 }
 
 sub confirmReprovision
