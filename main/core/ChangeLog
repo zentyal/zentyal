@@ -1,3 +1,5 @@
+HEAD
+	+ More warnings on smart match feature removed
 3.5
 	+ Avoid warning flag on smart match experimental feature
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
