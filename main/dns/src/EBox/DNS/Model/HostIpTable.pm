@@ -35,8 +35,6 @@ use EBox::Types::HostIP;
 use EBox::Types::Text;
 use EBox::Exceptions::External;
 
-# Group: Public methods
-
 sub new
 {
     my $class = shift;
@@ -93,10 +91,17 @@ sub validateTypedRow
 sub pageTitle
 {
     my ($self) = @_;
-    return $self->parentRow()->printableValueByName('hostname');
-}
+    my $parentRow = $self->parentRow();
 
-# Group: Protected methods
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('hostname');
+}
 
 # Method: _table
 #
