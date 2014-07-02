@@ -566,19 +566,25 @@ sub _externalADEnableActions
 sub enableService
 {
     my ($self, $status) = @_;
+    my $mode = $self->mode();
 
     if ($status) {
         my $throwException = 1;
         if ($self->{restoringBackup}) {
             $throwException = 0;
         }
-        $self->getProvision->checkEnvironment($throwException);
+
+        if ($mode eq STANDALONE_MODE) {
+            $self->getProvision->checkEnvironment($throwException);
+        }
     }
 
     $self->SUPER::enableService($status);
 
-    my $dns = EBox::Global->modInstance('dns');
-    $dns->setAsChanged();
+    if ($mode eq STANDALONE_MODE) {
+        my $dns = EBox::Global->modInstance('dns');
+        $dns->setAsChanged();
+    }
 }
 
 sub _startDaemon
@@ -968,19 +974,26 @@ sub _postServiceHook
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = $self->kerberosRealm();
+            my $drive = $self->drive();
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
+
+            my $state = $self->get_state();
+            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
+            $self->set_state($state);
             my $users = $ldap->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
-                    my $path = "\\\\$netbiosName.$realmName\\profiles";
-                    $user->setRoamingProfile(1, $path, 1);
-                } else {
-                    $user->setRoamingProfile(0, undef, 1);
+                if ($roamingProfilesChanged) {
+                    if ($self->roamingProfiles()) {
+                        $user->setRoamingProfile(1, $profilesPath, 1);
+                    } else {
+                        $user->setRoamingProfile(0, undef, 1);
+                    }
                 }
 
                 # Mount user home on network drive
-                my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
                 $user->save();
             }
         }
@@ -1078,7 +1091,7 @@ sub _postServiceHook
                     my $permissions = $subRow->elementByName('permissions');
 
                     my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->printableValue();
+                    my $account = $userType->value();
                     my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
                     next unless ($object->exists());
 
@@ -1207,7 +1220,7 @@ sub _setupSSSd
     my @params = ('fqdn'   => $sysinfo->fqdn(),
                   'domain' => $sysinfo->hostDomain(),
                   'defaultShell' => $defaultShell,
-                  'keyTab' => SYSTEM_WIDE_KRB5_KEYTAB);
+                  'keyTab' => SECRETS_KEYTAB);
 
     # SSSd conf file must be owned by root and only rw by him
     $self->writeConfFile(SSSD_CONF_FILE, 'samba/sssd.conf.mas',
@@ -2231,9 +2244,30 @@ sub menu
                                     order     => 540));
 }
 
+
+# Method: enableModDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub enableModDepends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::enableModDepends();
+    return $self->_filterDependsByMode($depends);
+}
+
+# Method: bootDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub bootDepends
+{
+    my ($self)= @_;
+    my $depends = $self->SUPER::bootDepends();
+    return $self->_filterDependsByMode($depends);
+}
+
 # Method: depends
 #
-#     Samba depends on printers only if it exists
+#     Samba depends on printers only if it exists and in standalone mode
 #
 # Overrides:
 #
@@ -2249,7 +2283,24 @@ sub depends
         push (@deps, 'printers');
     }
 
-    return \@deps;
+    return $self->_filterDependsByMode(\@deps);
+}
+
+sub _filterDependsByMode
+{
+    my ($self, $depends) = @_;
+    my $mode = $self->mode();
+    if ($mode eq STANDALONE_MODE) {
+        return $depends;
+    } elsif ($mode eq EXTERNAL_AD_MODE) {
+        my @depends = grep {
+            ($_ ne 'dns') and ($_ ne 'printers')
+        } @{ $depends };
+
+        return \@depends;
+    } else {
+        throw EBox::Exceptions::Internal("Unknown users mode '$mode'");
+    }
 }
 
 # Method: syncJournalDir
@@ -3200,7 +3251,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = EBox::Global->modInstance('samba')->kerberosRealm();
+    my $realmName   = $self->kerberosRealm();
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();

@@ -15,6 +15,7 @@
 use strict;
 use warnings;
 
+no warnings 'experimental::smartmatch';
 use v5.10;
 
 # Class: EBox::RemoteServices::Model::SubscriptionInfo

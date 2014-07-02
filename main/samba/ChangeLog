@@ -1,4 +1,6 @@
 3.5
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
 	+ Remove duplicate entries from the custom shell list
 	+ Hide krbtgt user in external AD mode
 	+ EBox::Samba::DNS::Zone always return lowercase zone name

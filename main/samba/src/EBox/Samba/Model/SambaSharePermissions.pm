@@ -61,9 +61,10 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('samba');
     my @users = ();
-    my $list = $userMod->realUsers();
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
+    my $list = $samba->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $u->get('samAccountName');
@@ -75,10 +76,9 @@ sub populateUser
 
 sub populateGroup
 {
-    my $samba = EBox::Global->modInstance('samba');
-
     my @groups = ();
-
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
     my $domainUsersGroup = $samba->ldap->domainUsersGroup();
     my $domainUsersName = $domainUsersGroup->get('samAccountName');
     push (@groups, { value => $domainUsersName, printableValue => __('All domain users') });
@@ -240,14 +240,44 @@ sub viewCustomizer
 
 sub precondition
 {
-    return not EBox::Config::boolean('unmanaged_acls');
+    my ($self) = @_;
+
+    my $samba = $self->parentModule();
+    unless ($samba->configured()) {
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
+    }
+    unless ($samba->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return undef;
+    }
+    if (EBox::Config::boolean('unmanaged_acls')) {
+        $self->{preconditionFail} = 'unmanagedAcl';
+        return undef;
+    }
+
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return __x('Shares access control lists (ACLs) are in unmanaged mode. To change this mode, edit {file} and restart this module',
-               file => '/etc/zentyal/samba.conf'
-              );
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notConfigured') {
+        return __('You must enable the module in the module ' .
+                'status section in order to use it.');
+    }
+
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __('The domain has not been created yet.');
+    }
+
+    if ($self->{preconditionFail} eq 'unmanagedAcl') {
+        return __x('Shares access control lists (ACLs) are in unmanaged ' .
+                   'mode. To change this mode, edit {file} and restart ' .
+                   'this module', file => '/etc/zentyal/samba.conf');
+    }
+    return undef;
 }
 
 # Group: Protected methods
