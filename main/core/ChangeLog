@@ -2,6 +2,7 @@ HEAD
 	+ Don't let database error to cancel halt or reboot processes
 	+ More warnings on smart match feature removed
 3.5
+	+ Warning in init.d script about the deprecation of users module
 	+ Avoid warning flag on smart match experimental feature
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
 	  and EBox::Model::Manager::removeRowsUsingId
