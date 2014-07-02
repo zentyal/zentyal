@@ -159,6 +159,7 @@ sub _sendSchemaUpdate
     my $ldifFile = $fh->filename();
     my $buffer = File::Slurp::read_file($ldifTemplate);
     $buffer =~ s/DOMAIN_TOP_DN/$defaultNC/g;
+    EBox::debug("Mangled LDIF:\n$buffer\n");
     File::Slurp::write_file($ldifFile, $buffer);
 
     # Send update
