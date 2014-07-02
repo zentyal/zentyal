@@ -322,10 +322,14 @@ sub addMember
     try {
         $self->add('member', $member->dn(), $lazy);
     } catch (EBox::Exceptions::LDAP $e) {
-        if ($e->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+        if ($e->errorName() eq 'LDAP_TYPE_OR_VALUE_EXISTS' or
+            $e->errorName() eq 'LDAP_ALREADY_EXISTS')
+        {
+            EBox::debug("Tried to add already existent member " .
+                        $member->dn() . " from group " . $self->name());
+        } else {
             $e->throw();
         }
-        EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
     }
 }
 
@@ -340,7 +344,18 @@ sub addMember
 sub removeMember
 {
     my ($self, $member, $lazy) = @_;
-    $self->deleteValues('member', [$member->dn()], $lazy);
+    try {
+        $self->deleteValues('member', [$member->dn()], $lazy);
+    } catch (EBox::Exceptions::LDAP $e) {
+        if ($e->errorName() eq 'LDAP_UNWILLING_TO_PERFORM') {
+            # This happens when trying to remove a non-existant member
+            throw EBox::Exceptions::External(
+                __x('The server is unwilling to perform the requested ' .
+                    'operation'));
+        } else {
+            $e->throw();
+        }
+    }
 }
 
 # Method: users

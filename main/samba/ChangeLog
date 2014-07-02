@@ -1,3 +1,6 @@
+HEAD
+	+ Catch error trying to add an already added or delete an already deleted
+	  user to group
 3.5
 	+ Setup roaming profiles for each user only when the setting changes
 	  in the UI
