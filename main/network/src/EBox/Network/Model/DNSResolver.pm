@@ -354,7 +354,7 @@ sub nameservers
     my ($self) = @_;
     my $ids = $self->ids();
 
-    my $nameservers = ();
+    my @nameservers = ();
     if (@{$ids}) {
         for my $id (@{$ids}) {
             if (defined $self->row($id)) {
