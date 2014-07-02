@@ -1,7 +1,6 @@
 class: 'EBox::OpenChange'
 
 enabledepends:
-    - samba
     - mail
     - webserver
 

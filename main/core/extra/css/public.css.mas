@@ -442,10 +442,6 @@ body {
     behavior: url(/data/js/csshover.htc);
 }
 
-body#OpenChange {
-    background-image: url("/images/technology-preview.png");
-}
-
 h1 {
     display: inline;
     color: <% $main_color %>;
@@ -730,20 +726,15 @@ td[class^="icon"] {
 }
 .icon-antivirus { background-image: url("/data/images/package-icons/zentyal-antivirus.png");}
 .icon-asterisk { background-image: url("/data/images/package-icons/zentyal-asterisk.png");}
-.icon-bwmonitor { background-image: url("/data/images/package-icons/zentyal-bwmonitor.png");}
 .icon-ca { background-image: url("/data/images/package-icons/zentyal-ca.png");}
-.icon-captiveportal { background-image: url("/data/images/package-icons/zentyal-captiveportal.png");}
 .icon-dashboard { background-image: url("/data/images/package-icons/zentyal-dashboard.png");}
 .icon-dns { background-image: url("/data/images/package-icons/zentyal-dns.png");}
 .icon-dhcp { background-image: url("/data/images/package-icons/zentyal-dhcp.png");}
 .icon-ebackup { background-image: url("/data/images/package-icons/zentyal-ebackup.png");}
 .icon-firewall { background-image: url("/data/images/package-icons/zentyal-firewall.png");}
-.icon-ftp { background-image: url("/data/images/package-icons/zentyal-ftp.png");}
 .icon-ips { background-image: url("/data/images/package-icons/zentyal-ips.png");}
 .icon-ipsec { background-image: url("/data/images/package-icons/zentyal-ipsec.png");}
 .icon-jabber { background-image: url("/data/images/package-icons/zentyal-jabber.png");}
-.icon-l7-protocols { background-image: url("/data/images/package-icons/zentyal-l7-protocols.png");}
-.icon-ltsp { background-image: url("/data/images/package-icons/zentyal-ltsp.png");}
 .icon-mail { background-image: url("/data/images/package-icons/zentyal-mail.png");}
 .icon-mailfilter { background-image: url("/data/images/package-icons/zentyal-mailfilter.png");}
 .icon-maintenance { background-image: url("/data/images/package-icons/zentyal-maintenance.png");}
@@ -754,12 +745,12 @@ td[class^="icon"] {
 .icon-ntp { background-image: url("/data/images/package-icons/zentyal-ntp.png");}
 .icon-nut { background-image: url("/data/images/package-icons/zentyal-nut.png");}
 .icon-openvpn { background-image: url("/data/images/package-icons/zentyal-openvpn.png");}
-.icon-pptp { background-image: url("/data/images/package-icons/zentyal-pptp.png");}
 .icon-printers { background-image: url("/data/images/package-icons/zentyal-printers.png");}
 .icon-radius { background-image: url("/data/images/package-icons/zentyal-radius.png");}
 .icon-register { background-image: url("/data/images/package-icons/zentyal-register.png");}
 .icon-remoteservices { background-image: url("/data/images/package-icons/zentyal-remoteservices.png");}
 .icon-samba { background-image: url("/data/images/package-icons/zentyal-samba.png");}
+.icon-sharing { background-image: url("/data/images/package-icons/zentyal-sharing.png");}
 .icon-domain { background-image: url("/data/images/package-icons/zentyal-domain.png");}
 .icon-status { background-image: url("/data/images/package-icons/zentyal-mstatus.png");}
 .icon-system { background-image: url("/data/images/package-icons/zentyal-system.png");}
@@ -768,13 +759,9 @@ td[class^="icon"] {
 .icon-squid { background-image: url("/data/images/package-icons/zentyal-squid.png");}
 .icon-trafficshaping { background-image: url("/data/images/package-icons/zentyal-trafficshaping.png");}
 .icon-ups { background-image: url("/data/images/package-icons/zentyal-ups.png");}
-.icon-usercorner { background-image: url("/data/images/package-icons/zentyal-usercorner.png");}
-.icon-users { background-image: url("/data/images/package-icons/zentyal-users.png");}
-.icon-virt { background-image: url("/data/images/package-icons/zentyal-virt.png");}
 .icon-webmail { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
 .icon-sogo { background-image: url("/data/images/package-icons/zentyal-sogo.png");}
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
-.icon-zarafa { background-image: url("/data/images/package-icons/zentyal-zarafa.png");}
 .icon-openchange { background-image: url("/data/images/package-icons/zentyal-openchange.png");}
 .icon-ha { background-image: url("/data/images/package-icons/zentyal-ha.png");}
 

@@ -2,7 +2,7 @@
 
 SOURCES_LIST=/etc/apt/sources.list
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.4 main extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.5 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 

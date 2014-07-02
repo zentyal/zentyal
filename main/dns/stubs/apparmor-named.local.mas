@@ -2,7 +2,7 @@
 # For more details, please see /etc/apparmor.d/local/README.
 
 /etc/ldap/ldap.conf r,
-/run/slapd/ldapi rw,
+/etc/samba/shares.conf r,
 
 /dev/urandom rw,
 
@@ -12,12 +12,8 @@
 /var/lib/samba/private/* rw,
 /var/lib/samba/private/dns/* rw,
 
-/opt/samba4/private/* rw,
-/opt/samba4/private/dns/* rw,
-
 # Access to kerberos keytab
 /var/lib/samba/private/dns.keytab kr,
-/opt/samba4/private/dns.keytab kr,
 
 # Access to kerberos ticket
 /var/tmp/** rw,
@@ -26,35 +22,17 @@
 /var/lib/samba/private/dns/sam.ldb k,
 /var/lib/samba/private/dns/sam.ldb.d/* krw,
 
-/opt/samba4/private/dns/sam.ldb krw,
-/opt/samba4/private/dns/sam.ldb.d/* krw,
-
 /usr/lib/i386-linux-gnu/samba/ldb/*.so m,
 /usr/lib/i386-linux-gnu/samba/bind9/*.so m,
 /usr/lib/i386-linux-gnu/samba/gensec/*.so m,
 /usr/lib/i386-linux-gnu/ldb/modules/ldb/*.so m,
+/usr/lib/i386-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
 
 /usr/lib/x86_64-linux-gnu/samba/ldb/*.so m,
 /usr/lib/x86_64-linux-gnu/samba/bind9/dlz_bind9_9.so m,
 /usr/lib/x86_64-linux-gnu/samba/gensec/*.so m,
 /usr/lib/x86_64-linux-gnu/ldb/modules/ldb/*.so m,
-
-/opt/samba4/lib/ r,
-/opt/samba4/lib/* rm,
-
-/opt/samba4/lib/ldb/ r,
-/opt/samba4/lib/ldb/* rm,
-
-/opt/samba4/lib/bind9/ r,
-/opt/samba4/lib/bind9/* rm,
-
-/opt/samba4/lib/gensec/ r,
-/opt/samba4/lib/gensec/* rm,
-
-/opt/samba4/lib/private/ r,
-/opt/samba4/lib/private/* rm,
-
-/opt/samba4/share/codepages/* r,
+/usr/lib/x86_64-linux-gnu/krb5/plugins/authdata/sssd_pac_plugin.so m,
 
 # RW access to session key, to allow SDLZ driver read it
 /{,var/}run/named/session.key rw,

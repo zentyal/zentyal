@@ -35,8 +35,8 @@ sub new
     my ($class) = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $samba = EBox::Global->modInstance('samba');
-    my $sambaSettings = $samba->model('GeneralSettings');
+    my $users = EBox::Global->modInstance('samba');
+    my $sambaSettings = $users->model('DomainSettings');
 
     # Set kerberos ticket cache path
     my $ccache = EBox::Config::tmp() . 'sysvol-sync.ccache';

@@ -36,6 +36,7 @@ use strict;
 use warnings;
 
 package EBox::Services::Model::ServiceConfigurationTable;
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -49,7 +50,7 @@ use EBox::Sudo;
 
 use Perl6::Junction qw( any );
 
-use base 'EBox::Model::DataTable';
+
 
 sub new
 {
@@ -191,7 +192,15 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('printableName');
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('printableName');
 }
 
 sub validateTypedRow

@@ -48,12 +48,12 @@ isa_ok(EBox::CGI::Run->modelFromUrl('SysInfo/View/Halt'), 'EBox::SysInfo::Model:
 isa_ok(EBox::CGI::Run->_instanceModelCGI('SysInfo/View/Halt', @extraParams), 'EBox::CGI::View::DataTable', 'instance model viewer');
 isa_ok(EBox::CGI::Run->_instanceModelCGI('SysInfo/Controller/Halt', @extraParams), 'EBox::CGI::Controller::DataTable', 'instance datatable controller');
 
-my $users = EBox::Global->modInstance('users');
+my $users = EBox::Global->modInstance('samba');
 my $manager = EBox::Model::Manager->instance();
-ok $manager->_modelExists('users/Manage'), 'tree model exists';
-isa_ok $users->model('Manage'), 'EBox::Users::Model::Manage', 'tree model has correct type';
-isa_ok (EBox::CGI::Run->modelFromUrl('Users/Tree/Manage'), 'EBox::Users::Model::Manage', 'instance tree from url');
-isa_ok(EBox::CGI::Run->_instanceModelCGI('Users/Tree/Manage', @extraParams), 'EBox::CGI::View::Tree', 'instance tree viewer');
+ok $manager->_modelExists('samba/Manage'), 'tree model exists';
+isa_ok $users->model('Manage'), 'EBox::Samba::Model::Manage', 'tree model has correct type';
+isa_ok (EBox::CGI::Run->modelFromUrl('Samba/Tree/Manage'), 'EBox::Samba::Model::Manage', 'instance tree from url');
+isa_ok(EBox::CGI::Run->_instanceModelCGI('Samba/Tree/Manage', @extraParams), 'EBox::CGI::View::Tree', 'instance tree viewer');
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';

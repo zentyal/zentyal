@@ -15,14 +15,13 @@
     $muc
     $stun
     $proxy
-    $zarafa
     $sharedroster
     $vcard
 </%args>
 {hosts, ["<% $domain %>"]}.
 
 % foreach my $admin (@admins) {
-{acl, admin, {user, "<% $admin %>", "<% $domain %>"}}.
+{acl, admin, {user, "<% $admin->get('jabberUid') %>", "<% $domain %>"}}.
 % }
 
 {loglevel, 4}.
@@ -36,9 +35,6 @@
     {shaper, s2s_shaper},
     {max_stanza_size, 131072}
   ]},
-% }
-% if ($zarafa) {
-  {5280, ejabberd_http, [http_bind]},
 % }
 % if ($ssl ne 'disabled') {
   {5223, ejabberd_c2s, [
@@ -63,20 +59,14 @@
 {s2s_use_starttls, true}.
 {s2s_certfile, "/etc/ejabberd/ejabberd.pem"}.
 
-% if ($zarafa) {
-{auth_method, [ldap, external]}.
-{extauth_program, "/usr/share/zentyal-zarafa/ejabberd-extauth.php"}.
-{extauth_cache, 60}.
-{extauth_instances, 10}.
-% } else {
 {auth_method, ldap}.
-% }
 {ldap_servers, ["<% $ldapHost %>"]}.
 {ldap_port, <% $ldapPort %>}.
 {ldap_base, "<% $ldapBase %>"}.
 {ldap_filter, "(objectClass=userJabberAccount)"}.
 {ldap_rootdn, "<% $ldapRoot %>"}.
 {ldap_password, "<% $ldapPasswd %>"}.
+{ldap_uids, [{"jabberUid", "%u"}]}.
 
 {shaper, normal, {maxrate, 1000}}.
 {shaper, fast, {maxrate, 50000}}.
@@ -103,9 +93,6 @@
   {mod_configure, []},
   {mod_admin_extra, []},
   {mod_disco, []},
-% if ($zarafa) {
-  {mod_http_bind, []},
-% }
   {mod_last, []},
 % if ($muc) {
   {mod_muc, [
@@ -144,14 +131,14 @@
 % if ($sharedroster) {
   {mod_shared_roster_ldap, [
     {ldap_filter, ""},
-    {ldap_rfilter, "(objectClass=posixGroup)"},
-    {ldap_gfilter, "(&(objectClass=posixGroup)(cn=%g))"},
-    {ldap_ufilter, "(&(uid=%u)(objectClass=userJabberAccount))"},
+    {ldap_rfilter, "(objectClass=group)"},
+    {ldap_gfilter, "(&(objectClass=group)(cn=%g))"},
+    {ldap_ufilter, "(&(jabberUid=%u)(objectClass=userJabberAccount))"},
     {ldap_groupattr, "cn"},
     {ldap_groupdesc, "description"},
     {ldap_memberattr, "member"},
-    {ldap_memberattr_format, "uid=%u,<% $usersDn %>"},
-    {ldap_useruid, "uid"},
+    {ldap_memberattr_format, "jabberUid=%u,<% $usersDn %>"},
+    {ldap_useruid, "jabberUid"},
     {ldap_userdesc, "cn"}
   ]},
 % }

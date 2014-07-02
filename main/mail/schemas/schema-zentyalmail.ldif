@@ -1,0 +1,82 @@
+dn: CN=mailHomeDirectory,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.1
+cn: mailHomeDirectory
+name: mailHomeDirectory
+LDAPDisplayName: mailHomeDirectory
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn: CN=userMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.2
+cn: userMaildirSize
+name: userMaildirSize
+LDAPDisplayName: userMaildirSize
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.9
+oMSyntax: 2
+isSingleValued: TRUE
+-
+
+dn: CN=vddftMaildirSize,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.31607.2.1.3.1.3
+cn: vddftMaildirSize
+name: vddftMaildirSize
+LDAPDisplayName: vddftMaildirSize
+description: Base directory to mail directory
+attributeSyntax: 2.5.5.9
+oMSyntax: 2
+isSingleValued: TRUE
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+dn: CN=userZentyalMail,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: classSchema
+governsID:  1.3.6.1.4.1.31607.2.1.3.2.1
+cn: userZentyalMail
+name: userZentyalMail
+LDAPDisplayName: userZentyalMail
+subClassOf: top
+objectClassCategory: 3
+mayContain: mailHomeDirectory
+mayContain: userMaildirSize
+mayContain: mailquota
+mayContain: mailbox
+possSuperiors: top
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+dn: CN=vdZentyalMail,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: classSchema
+governsID:  1.3.6.1.4.1.31607.2.1.3.2.2
+cn: vdZentyalMail
+name: vdZentyalMail
+LDAPDisplayName: vdZentyalMail
+subClassOf: top
+objectClassCategory: 3
+mayContain: vddftMaildirSize
+possSuperiors: top
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+# 1.3.6.1.4.1.31607.2.1.3.2.3 OID used by CourierVirtualDomain

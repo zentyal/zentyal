@@ -137,7 +137,7 @@ sub formSubmitted
 
     my $backupFile = $self->_backupFile($date);
 
-    my $url = "/SysInfo/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=$backupFile";
+    my $url = "/SysInfo/Backup?restoreFromFile=1&backupfile=$backupFile";
 
     $self->pushRedirection($url)
 }

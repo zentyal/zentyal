@@ -49,14 +49,14 @@ sub new
         $self->{entry} = $params{entry};
     } else {
         my $dn = $params{dn};
-        my $ldb = EBox::Global->modInstance('samba')->ldb();
+        my $ldap = EBox::Global->modInstance('samba')->ldap();
         my $params = {
             base => $dn,
             scope => 'base',
             filter => '(objectClass=dnsNode)',
             attrs => ['*']
         };
-        my $res = $ldb->search($params);
+        my $res = $ldap->search($params);
         throw EBox::Exceptions::Internal("Node $dn could not be found")
             unless ($res->count() > 0);
         throw EBox::Exceptions::Internal("Expected only one entry")

@@ -21,7 +21,6 @@ my $hasAccount = $params->{mail};
 </div>
 <div id='userMailWithAccountDiv' <% $hasAccount ? '' :  'style="display:none"'%> >
     <& /mail/alias.mas, params => $params &>
-    <& /mail/externalAccounts.mas, params => $params &>
 </div>
 %}
 

@@ -1,7 +1,10 @@
 class: 'EBox::Mail'
 
+enabledepends:
+    - samba
+
 depends:
-    - users
+    - samba
     - network
     - objects
 

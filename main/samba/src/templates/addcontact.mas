@@ -1,0 +1,52 @@
+<%args>
+    $dn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h4 class="icon-contact"><% __('Add Contact') %></h4>
+    <div id='addContactForm_error' class='error' style='display:none'></div>
+    <form action='/Samba/AddContact' method='POST' id='addContactForm' class="formDiv">
+    <input type="hidden" name="dn" value="<% $dn %>">
+            <div class="inline-field">
+                <label>
+                    <% __('First name') %>
+                </label>
+                <input type='text' class='inputText' name='givenname'>
+            </div>
+            <div class="inline-field">
+                <label>
+                    <% __('Last name') %>
+                </label>
+                <input type='text' class='inputText' name='surname'>
+            </div>
+            <div>
+                <label>
+                    <% __('Description') %>
+                    <span class="optional_field">
+                        <% __('Optional') %>
+                    </span>
+                </label>
+                <input type='text' class='inputText' name='description'>
+            </div>
+            <div>
+                <label>
+                    <% __('E-Mail') %>:
+                </label>
+                <input type='text' class='inputText' name='mail'>
+            </div>
+            <div>
+                <input class='inputButton' type='submit' name='add'
+                       value="<% __('Add') %>"
+                       alt="<% __('Add') %>"/>
+            </div>
+    </form>
+
+<script>
+$(function() {
+   $('#addContactForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addContactForm', { extraData: { add: 1} });
+    });
+});
+</script>

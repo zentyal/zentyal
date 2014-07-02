@@ -23,7 +23,6 @@ use warnings;
 
 package EBox::SysInfo::Model::Debug;
 
-use Error qw(:try);
 use File::Slurp;
 
 use EBox::Gettext;

@@ -8,7 +8,6 @@ RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
 RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
-RUN apt-get update
 RUN apt-get update -y
 
 #Installing basic and build dependencies
@@ -21,7 +20,6 @@ ADD extra/scripts/zentyal-unit-tests /tmp/zentyal-unit-tests
 #ADD conf files for check and unit tests
 ADD main/common/conf/zentyal.conf /tmp/main/common/conf/zentyal.conf
 ADD main/common/extra/eboxlog.conf /tmp/main/common/extra/eboxlog.conf
-ADD main/captiveportal/extra/captiveportal-log.conf /tmp/main/captiveportal/extra/captiveportal-log.conf
 
 #ADD control files to check the dependencies
 ADD  main/firewall/debian/control /tmp/main/firewall/debian/control
@@ -29,15 +27,11 @@ ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
 ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
 ADD  main/ntp/debian/control /tmp/main/ntp/debian/control
-ADD  main/captiveportal/debian/control /tmp/main/captiveportal/debian/control
 ADD  main/ipsec/debian/control /tmp/main/ipsec/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
-ADD  main/usercorner/debian/control /tmp/main/usercorner/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
 ADD  main/webserver/debian/control /tmp/main/webserver/debian/control
-ADD  main/users/debian/control /tmp/main/users/debian/control
-ADD  main/bwmonitor/debian/control /tmp/main/bwmonitor/debian/control
 ADD  main/jabber/debian/control /tmp/main/jabber/debian/control
 ADD  main/mail/debian/control /tmp/main/mail/debian/control
 ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
@@ -62,6 +56,7 @@ ADD  main/remoteservices/debian/control /tmp/main/remoteservices/debian/control
 ADD  main/ha/debian/control /tmp/main/ha/debian/control
 
 #Install the zentyal deps
+RUN apt-get update -y
 RUN /tmp/zentyal-syntax-check --installdeps --path=/tmp  --release=precise
 RUN /tmp/zentyal-unit-tests nothing || /bin/true
 

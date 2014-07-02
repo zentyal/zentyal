@@ -17,13 +17,17 @@ use warnings;
 
 package EBox::Radius;
 
-use base qw(EBox::Module::Service EBox::LogObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::LogObserver
+);
 
 use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Ldap;
 use EBox::Radius::LogHelper;
+use EBox::Radius::LdapUser;
 
 use constant USERSCONFFILE => '/etc/freeradius/users';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
@@ -179,6 +183,21 @@ sub _daemons
     ];
 }
 
+# Method: _regenConfig
+#
+#   Overrides <EBox::Module::Service::_regenConfig>
+#
+sub _regenConfig
+{
+    my $self = shift;
+
+    return unless $self->configured();
+
+    if ($self->global()->modInstance('samba')->isProvisioned()) {
+        $self->SUPER::_regenConfig(@_);
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
@@ -249,16 +268,14 @@ sub _setLDAP
     my $port;
     my @params = ();
 
-    my $users = EBox::Global->modInstance('users');
-
-    my $ldap = EBox::Ldap->instance();
+    my $ldap = $self->ldap();
     my $ldapConf = $ldap->ldapConf();
 
-    my $url = $ldapConf->{'ldapi'};
+    my $url = $ldapConf->{'ldap'};
     push (@params, url => $url);
     push (@params, dn => $ldapConf->{'dn'});
-    push (@params, rootdn => $ldapConf->{'rootdn'});
-    push (@params, password => $ldap->getPassword());
+    push (@params, rootdn => $self->_kerberosServiceAccountDN());
+    push (@params, password => $self->_kerberosServiceAccountPassword());
 
     $self->writeConfFile(LDAPCONFFILE, "radius/ldap.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
@@ -358,6 +375,21 @@ sub tableInfo
             'events' => $events,
             'eventcol' => 'event',
            }];
+}
+
+sub _ldapModImplementation
+{
+    return new EBox::Radius::LdapUser();
+}
+
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

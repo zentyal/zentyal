@@ -12,10 +12,23 @@ use EBox::Sudo;
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
-my $users = $global->modInstance('users');
+my $users = $global->modInstance('samba');
 my $vdomain = new EBox::MailVDomainsLdap;
 my $vusers = new EBox::MailUserLdap;
 my $alias = new EBox::MailAliasLdap;
+
+sub _addContainer
+{
+    my ($ldap, $dn) = @_;
+    if (not $ldap->existsDN($dn)) {
+        $ldap->add($dn, {attr => [
+                'objectClass' => 'top',
+                'objectClass' => 'container'
+               ]});
+    } else {
+        warn "$dn already exists";
+    }
+}
 
 sub update
 {
@@ -23,46 +36,26 @@ sub update
     $ldap->connection();
     my $dn;
 
-    $dn = 'ou=postfix,' . $vdomain->{ldap}->dn;
-    if (not $ldap->existsDN($dn)) {
-        $ldap->add($dn, {attr => [
-                'ou' => 'postfix',
-                'objectClass' => 'top',
-                'objectClass' => 'organizationalUnit'
-               ]});
-    } else {
-        warn "$dn already exists";
-    }
+    $dn = 'cn=zentyal,cn=configuration,' . $vdomain->{ldap}->dn;
+    _addContainer($ldap, $dn);
+
+    $dn = 'cn=mail,' . $dn;
+    _addContainer($ldap, $dn);
 
     $dn = $vdomain->vdomainDn();
-    if (not $ldap->existsDN($dn)) {
-        $ldap->add($dn, {attr => [
-            'ou' => 'vdomains',
-            'objectClass' => 'top',
-            'objectClass' => 'organizationalUnit'
-           ]});
-    } else {
-        warn "$dn already exists";
-    }
+    _addContainer($ldap, $dn);
 
     $dn = $alias->aliasDn();
-    if (not $ldap->existsDN($dn)) {
-        $ldap->add($dn, {attr => [
-            'ou'    =>      'mailalias',
-            'objectClass' => 'top',
-            'objectClass' => 'organizationalUnit'
-        ]});
-    }  else {
-        warn "$dn already exists";
-    }
+    _addContainer($ldap, $dn);
 }
+
 
 sub clean
 {
     $vdomain->{ldap}->connection();
     my $ldap = $vdomain->{ldap}->{ldap};
 
-    my $pdn = "ou=postfix, " . $vdomain->{ldap}->dn;
+    my $pdn = "cn=mail,cn=zentyal,cn=configuration" . $vdomain->{ldap}->dn;
     my $adn = $alias->aliasDn;
     my $vdn = $vdomain->vdomainDn;
 

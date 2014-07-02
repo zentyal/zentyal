@@ -29,7 +29,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Control::Paged;
@@ -148,12 +148,14 @@ sub _populateGroups
         }
         return $self->_populateGroupsFromExternalAD();
     } else {
-        my $userMod = $self->global()->modInstance('users');
-        return [] unless ($userMod->isEnabled());
+        my $sambaMod = $self->global()->modInstance('samba');
+        return [] unless ($sambaMod->isEnabled());
 
         my @groups;
-        push (@groups, { value => '__USERS__', printableValue => __('All users') });
-        foreach my $group (@{$userMod->securityGroups()}) {
+        my $domainUsersGroup = $sambaMod->ldap->domainUsersGroup();
+
+        push (@groups, { value => $domainUsersGroup->get('samAccountName'), printableValue => __('All domain users') });
+        foreach my $group (@{$sambaMod->securityGroups()}) {
             my $groupDN = $group->dn();
             my $baseName = $group->baseName();
             push (@groups, { value => $groupDN, printableValue => $baseName });
@@ -170,7 +172,7 @@ sub _adLdap
     unless (defined $self->{adLdap}) {
         my $squid = $self->parentModule();
         my $keytab = $squid->KEYTAB_FILE();
-        $self->{adLdap} = $self->global()->modInstance('users')->ldap()->connectWithKerberos($keytab);
+        $self->{adLdap} = $self->global()->modInstance('samba')->ldap()->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};
@@ -534,8 +536,10 @@ sub rules
     my ($self) = @_;
 
     my $objectMod = $self->global()->modInstance('objects');
-    my $userMod = $self->global()->modInstance('users');
+    my $userMod = $self->global()->modInstance('samba');
     my $usersEnabled = $userMod->isEnabled();
+    my $domainUsersGroup = $usersEnabled ?
+        $userMod->ldap->domainUsersGroup->get('samAccountName') : '';
 
     # we dont use row ids to make rule id shorter bz squid limitations with id length
     my $number = 0;
@@ -560,7 +564,7 @@ sub rules
                 my $group = $source->value();
                 $rule->{group} = $group;
                 my $users;
-                if ($group eq '__USERS__') {
+                if ($group eq $domainUsersGroup) {
                     $users = $userMod->users();
                 } else {
                     $users = $userMod->objectFromDN($group)->users();
@@ -660,7 +664,8 @@ sub filterProfiles
     my %profileIdByRowId = %{ $filterProfilesModel->idByRowId() };
 
     my $objectMod = $self->global()->modInstance('objects');
-    my $userMod = $self->global()->modInstance('users');
+    my $userMod = $self->global()->modInstance('samba');
+    my $domainUsers = $userMod->ldap->domainUsersGroup->get('samAccountName');
 
     my @profiles;
     foreach my $id (@{$self->ids()}) {
@@ -716,7 +721,7 @@ sub filterProfiles
                 @users = @{$self->_adGroupMembers($group)};
             } else {
                 my $members;
-                if ($group eq '__USERS__') {
+                if ($group eq $domainUsers) {
                     $members = $userMod->users();
                 } else {
                     $members = $userMod->objectFromDN($group)->users();

@@ -1,6 +1,6 @@
 class: 'EBox::Radius'
 enabledepends:
-    - users
+    - samba
 
 models:
     - Auth

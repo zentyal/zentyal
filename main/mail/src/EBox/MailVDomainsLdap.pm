@@ -31,7 +31,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 
-use constant VDOMAINDN     => 'ou=vdomains,ou=postfix';
+use constant VDOMAINDN     => 'cn=vdomains,cn=mail,cn=zentyal,cn=configuration';
 use constant BYTES         => '1048576';
 use constant MAXMGSIZE     => '104857600';
 
@@ -39,7 +39,8 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{users} = EBox::Global->modInstance('samba');
+    $self->{ldap}  = $self->{users}->ldap();
     bless($self, $class);
     return $self;
 }
@@ -66,12 +67,13 @@ sub addVDomain
                                            'value' => $vdomain);
     }
 
-    my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
+    my $dn = "cn=$vdomain," . $self->vdomainDn;
     my %attrs = (
                  attr => [
-                          'domainComponent' => $vdomain,
-                          'objectclass'    => 'domain',
-                        'objectclass'     => 'vdeboxmail'
+                          cn            => $vdomain,
+                          virtualdomain => $vdomain,
+                          objectclass   => 'CourierVirtualDomain',
+                          objectclass   => 'vdZentyalMail'
                          ]
                 );
 
@@ -124,7 +126,7 @@ sub delVDomain
 
     $self->_cleanVDomain($vdomain);
 
-    my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
+    my $r = $self->{'ldap'}->delete("cn=$vdomain," .
                                     $self->vdomainDn);
 }
 
@@ -166,18 +168,22 @@ sub vdomains
     my ($self) = @_;
 
     my $global = EBox::Global->instance();
-    return () unless $global->modEnabled('mail');
+    if (not $global->modEnabled('mail')) {
+        return ();
+    } elsif (not $self->{users}->getProvision()->isProvisioned()) {
+        return ();
+    }
 
     my %args = (
                 base => $self->vdomainDn,
                 filter => 'objectclass=*',
                 scope => 'one',
-                attrs => ['domainComponent']
+                attrs => ['virtualdomain']
                );
 
     my $result = $self->{ldap}->search(\%args);
 
-    my @vdomains = map { $_->get_value('dc')} $result->sorted('domainComponent');
+    my @vdomains = map { $_->get_value('virtualdomain')} $result->sorted('virtualdomain');
 
     return @vdomains;
 }
@@ -190,10 +196,9 @@ sub vdomains
 #
 #     vdomain - The virtual domain name
 sub _updateVDomain
- {
-     my ($self, $vdomain) = @_;
-
-        my @mods = @{$self->_modsVDomainModule()};
+{
+    my ($self, $vdomain) = @_;
+    my @mods = @{$self->_modsVDomainModule()};
 
      foreach my $mod (@mods){
          $mod->_modifyVDomain($vdomain);
@@ -233,7 +238,7 @@ sub vdomainExists
 
     my %attrs = (
                  base => $self->vdomainDn,
-                 filter => "&(objectclass=*)(dc=$vdomain)",
+                 filter => "&(objectclass=*)(virtualdomain=$vdomain)",
                  scope => 'one'
         );
 
@@ -252,13 +257,17 @@ sub _modsVDomainModule
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->modInstance('global');
-    my @names = @{$global->modNames};
+    my $global = EBox::Global->getInstance();
+    my @names = @{$global->modNames()};
 
     my @modules;
     foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
-        if ($mod->isa('EBox::VDomainModule')) {
+        my $mod = $global->modInstance($name);
+        if ($mod->isa('EBox::VDomainModule') and $mod->configured()) {
+            if (not $mod->setupLDAPDone()) {
+                # no schemas done
+                next;
+            }
             push (@modules, $mod->_vdomainModImplementation);
         }
     }
@@ -299,7 +308,6 @@ sub allWarnings
 sub regenConfig
 {
     my ($self) = @_;
-
     my $aliasLdap =  new EBox::MailAliasLdap();
 
     my %vdomainsToDelete = map {  $_ => 1 } $self->vdomains();

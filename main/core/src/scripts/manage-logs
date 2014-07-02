@@ -32,8 +32,6 @@ try {
         EBox::Logs::Consolidate->consolidate('all');
     }
 
-    $logs->archiveBackupSlices();
-
     $logs->purge();
 } catch ($e) {
     EBox::Util::Lock::unlock(LOCK_NAME);

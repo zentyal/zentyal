@@ -22,14 +22,14 @@ use warnings;
 #
 
 package EBox::Samba::BuiltinDomain;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
 use EBox;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Global;
-use EBox::Users::OU;
+use EBox::Samba::OU;
 
 use TryCatch::Lite;
 
@@ -58,38 +58,6 @@ sub name
     my ($self) = @_;
 
     return $self->get('cn');
-}
-
-sub addToZentyal
-{
-    my ($self) = @_;
-    my $sambaMod = EBox::Global->getInstance(1)->modInstance('samba');
-
-    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
-    if (not $parent) {
-        my $dn = $self->dn();
-        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
-    }
-
-    my $name = $self->name();
-    my $parentDN = $parent->dn();
-
-    try {
-        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
-        $self->_linkWithUsersObject($ou);
-    } catch (EBox::Exceptions::DataExists $e) {
-        EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } catch ($e) {
-        EBox::error("Error loading OU '$name' in '$parentDN': $e");
-    }
-}
-
-sub updateZentyal
-{
-    my ($self) = @_;
-
-    my $dn = $self->dn();
-    EBox::warn("updateZentyal called in BuiltinDomain $dn. No implemented editables changes in BuiltinDomain");
 }
 
 sub set

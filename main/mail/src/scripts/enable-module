@@ -21,9 +21,21 @@ fi
 }
 
 function dovecot {
-# create certificate for dovecot
-test -d /etc/dovecot/ssl || mkdir -p /etc/dovecot/ssl
-if test ! -e /etc/dovecot/ssl/dovecot.pem
+
+test -d /etc/dovecot/private || mkdir -p /etc/dovecot/private
+
+if test -e  /etc/dovecot/private/dovecot.pem
+then
+  if test  -e /etc/dovecot/dovecot.pem
+  then
+       # we need to have certicate and key in the same pem
+       cp  /etc/dovecot/private/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp
+       cat /etc/dovecot/dovecot.pem  /etc/dovecot/private/dovecot.pem.tmp >  /etc/dovecot/private/dovecot.pem
+       rm /etc/dovecot/private/dovecot.pem.tmp /etc/dovecot/dovecot.pem
+  fi
+fi
+
+if test ! -e /etc/dovecot/private/dovecot.pem
 then
     if test ! -e /etc/ssl/certs/ssl-cert-snakeoil.pem || \
        test ! -e /etc/ssl/private/ssl-cert-snakeoil.key
@@ -33,10 +45,10 @@ then
 
     cat /etc/ssl/certs/ssl-cert-snakeoil.pem \
         /etc/ssl/private/ssl-cert-snakeoil.key \
-        > /etc/dovecot/ssl/dovecot.pem
+        > /etc/dovecot/private/dovecot.pem
 
-    chown root:root /etc/dovecot/ssl/dovecot.pem
-    chmod 400 /etc/dovecot/ssl/dovecot.pem
+    chown root:root /etc/dovecot/private/dovecot.pem
+    chmod 400 /etc/dovecot/private/dovecot.pem
 fi
 }
 
@@ -59,7 +71,7 @@ touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
 newaliases
 
 # populate ldap
-/usr/share/zentyal-mail/mail-ldap update
+#/usr/share/zentyal-mail/mail-ldap update
 
 # set a valid shell for fetchmail user
 chsh -s /bin/sh fetchmail

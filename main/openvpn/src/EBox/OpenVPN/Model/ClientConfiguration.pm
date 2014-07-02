@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -245,11 +245,28 @@ sub _validateCerts
 
     return if ($noChanges);
 
-    EBox::OpenVPN::Client::ValidateCertificate::check(
+    try {
+        EBox::OpenVPN::Client::ValidateCertificate::check(
             $path{caCertificate},
             $path{certificate},
             $path{certificateKey}
-            );
+        );
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my $cmd = $e->cmd();
+        my $fieldName;
+        if ($cmd =~ m/caCertificate/) {
+            $fieldName = 'caCertificate';
+        } elsif ($cmd =~ m/certificateKey/) {
+            $fieldName = 'certificateKey';
+        } else {
+            $fieldName = 'cetificate';
+        }
+        my $type = $self->fieldHeader($fieldName);
+        throw EBox::Exceptions::External(
+            __x('The uploaded certificates and/or private key are not valid. File: {file}, Error: {err}',
+                file => $type->printableName(), err => join (' ', @{$e->error()}))
+        );
+    }
 }
 
 sub _privateFilePath
@@ -295,7 +312,15 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('name');
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('name');
 }
 
 sub _clientName

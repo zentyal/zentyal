@@ -1,4 +1,9 @@
+HEAD
+	+ Avoid warning flag on smart match experimental feature
 3.5
+	+ Removed wrong translatable string in crm_resource command
+	+ Added integration with firewall
+	+ ClusterStatus creation issued at model constructor
 	+ Set version to 3.5
 3.4.1
 	+ Fixed wrong calls to ClusterStatus constructor

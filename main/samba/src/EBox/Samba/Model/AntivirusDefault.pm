@@ -71,31 +71,13 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $s3fs = (defined $fs and $fs eq 's3fs');
-
-    my $avModuleEnabled = 0;
-    if (EBox::Global->modExists('antivirus')) {
-        my $avModule = EBox::Global->modInstance('antivirus');
-        $avModuleEnabled = $avModule->isEnabled();
-    }
-
-    return ($s3fs and $avModuleEnabled);
+    my $avModule = EBox::Global->modInstance('antivirus');
+    return (defined ($avModule) and $avModule->isEnabled());
 }
 
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $s3fs = (defined $fs and $fs eq 's3fs');
-
-    return __("You are using the new samba 'ntvfs' file server, " .
-              "which is incompatible with vfs plugins such the " .
-              "antivirus. If you wish to enable this feature, add " .
-              "the Zentyal PPA to your APT sources.list and install " .
-              "our samba4 package, then change the samba config key " .
-              "'samba_fs' to 's3fs' in /etc/zentyal/samba.conf") unless $s3fs;
 
     return __("Zentyal antivirus module must be installed and enabled to use this feature");
 }

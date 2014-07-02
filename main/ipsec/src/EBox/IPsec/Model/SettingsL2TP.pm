@@ -134,6 +134,9 @@ sub validateTypedRow
         unless ($localIP) {
             throw EBox::Exceptions::External('The Tunnel IP cannot be empty');
         }
+        my $ownId = exists $changedFields->{id} ?  $changedFields->{id} : '';
+        $self->parentModule()->model('Connections')->l2tpCheckDuplicateLocalIP($ownId, $localIP);
+
         my $localIPRangeFound = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
             if (EBox::Validate::isIPInRange(
@@ -210,8 +213,8 @@ sub validateTypedRow
 
     if (exists $changedFields->{wins_server}) {
         if ($changedFields->{wins_server}->selectedType() eq 'zentyal_wins') {
-            my $sambaMod = $global->modInstance('samba');
-            unless ($sambaMod->isEnabled()) {
+            my $usersMod = $global->modInstance('samba');
+            unless ($usersMod->isEnabled()) {
                 throw EBox::Exceptions::External(
                     __('Samba module must be enabled to be able to select Zentyal as WINS server')
                    );
@@ -350,5 +353,6 @@ sub _fetchSecondaryNS
     ($nsTwo) or return undef;
     return $nsTwo;
 }
+
 
 1;

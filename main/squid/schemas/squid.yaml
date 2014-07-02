@@ -3,10 +3,11 @@ class: 'EBox::Squid'
 depends:
     - objects
     - network
+    - samba
 
 enabledepends:
     - firewall
-    - users
+    - samba
 
 models:
     - GeneralSettings

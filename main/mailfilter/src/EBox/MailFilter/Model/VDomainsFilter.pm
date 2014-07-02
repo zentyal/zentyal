@@ -106,44 +106,45 @@ sub _table
                                                                                ),
 
                                             ],
+                           ),
+     # Learn accounts disabled
+#      new EBox::Types::Boolean(
+#                               fieldName => 'learnFromFolder',
+#                               printableName =>
+#                                  __(q{Learn from accounts' Spam IMAP folders}),
+#                               help =>
+# __( 'Every time that a email moved into or out of the IMAP spam folder ' .
+#     'the filter will be trained with it'),
+#                               defaultValue => 0,
+#                               editable => 1,
+#                               # FIXME: remove when dovecot-antispam is fixed
+#                               hidden => 1,
+#                               ),
 
-                               ),
-     new EBox::Types::Boolean(
-                              fieldName => 'learnFromFolder',
-                              printableName =>
-                                 __(q{Learn from accounts' Spam IMAP folders}),
-                              help =>
-__( 'Every time that a email moved into or out of the IMAP spam folder ' .
-    'the filter will be trained with it'),
-                              defaultValue => 0,
-                              editable => 1,
-                              # FIXME: remove when dovecot-antispam is fixed
-                              hidden => 1,
-                             ),
-     new EBox::Types::Boolean(
-                              fieldName     => 'hamAccount',
-                              printableName => __('Learning ham account'),
-                              help => __('An address (ham@domain) will be ' .
-                                'created for this domain, ham messages ' .
-                                'incorrectly classified as spam may be ' .
-                                'forwarded to this addres to train the filter'),
+     # new EBox::Types::Boolean(
+     #                          fieldName     => 'hamAccount',
+     #                          printableName => __('Learning ham account'),
+     #                          help => __('An address (ham@domain) will be ' .
+     #                            'created for this domain, ham messages ' .
+     #                            'incorrectly classified as spam may be ' .
+     #                            'forwarded to this addres to train the filter'),
 
-                              defaultValue => 0,
-                              editable     => 1,
+     #                          defaultValue => 0,
+     #                          editable     => 1,
 
-                             ),
-     new EBox::Types::Boolean(
-                              fieldName     => 'spamAccount',
-                              printableName => __('Learning spam account'),
-                               help => __('An address (spam@domain) will be ' .
-                                'created for this domain, spam messages ' .
-                                'incorrectly classified as ham may be ' .
-                                'forwarded to this addres to train the filter'),
+     #                         ),
+     # new EBox::Types::Boolean(
+     #                          fieldName     => 'spamAccount',
+     #                          printableName => __('Learning spam account'),
+     #                           help => __('An address (spam@domain) will be ' .
+     #                            'created for this domain, spam messages ' .
+     #                            'incorrectly classified as ham may be ' .
+     #                            'forwarded to this addres to train the filter'),
 
-                              defaultValue => 0,
-                              editable     => 1,
+     #                          defaultValue => 0,
+     #                          editable     => 1,
 
-                             ),
+     #                         ),
             new EBox::Types::HasMany (
                                       'fieldName' => 'acl',
                                       'printableName' => __('Antispam sender policy'),
@@ -301,40 +302,43 @@ sub addVDomainSenderACL
 
 sub vdomainAllowedToLearnFromIMAPFolder
 {
-    my ($self, $vdomain) = @_;
-    my $row =  $self->_findRowByVDomain($vdomain);
-    $row or
-        return undef;
+    return undef;
+    # my ($self, $vdomain) = @_;
+    # my $row =  $self->_findRowByVDomain($vdomain);
+    # $row or
+    #     return undef;
 
-    return $row->elementByName('learnFromFolder')->value();
+    # return $row->elementByName('learnFromFolder')->value();
 }
 sub anyAllowedToLearnFromIMAPFolder
 {
-    my ($self) = @_;
-    foreach my $id (@{ $self->ids()  }) {
-        my $row = $self->row($id);
-        if ( $row->elementByName('learnFromFolder')->value()) {
-            return 1;
-        }
-    }
+    return undef;
+    # my ($self) = @_;
+    # foreach my $id (@{ $self->ids()  }) {
+    #     my $row = $self->row($id);
+    #     if ( $row->elementByName('learnFromFolder')->value()) {
+    #         return 1;
+    #     }
+    # }
 
-    return 0;
+    # return 0;
 }
 
 sub _anotherAllowedToLearnFromIMAPFolder
 {
-    my ($self, $vdomain) = @_;
-    foreach my $id (@{ $self->ids()  }) {
-        my $row = $self->row($id);
-        if ( $row->elementByName('learnFromFolder')->value()) {
-            if ($row->valueByName('vdomain') eq $vdomain) {
-                next;
-            }
-            return 1;
-        }
-    }
+    return undef;
+    # my ($self, $vdomain) = @_;
+    # foreach my $id (@{ $self->ids()  }) {
+    #     my $row = $self->row($id);
+    #     if ( $row->elementByName('learnFromFolder')->value()) {
+    #         if ($row->valueByName('vdomain') eq $vdomain) {
+    #             next;
+    #         }
+    #         return 1;
+    #     }
+    # }
 
-    return 0;
+    # return 0;
 }
 
 # Method: headTitle
@@ -346,50 +350,51 @@ sub headTitle
     return undef;
 }
 
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
+# notifiers related with learn form folde so we can avoid them
+# sub addedRowNotify
+# {
+#     my ($self, $row) = @_;
 
-    if ($row->valueByName('learnFromFolder')) {
-        # if this is the first domain with learn form folder mail should be
-        # notified
-        my $vdomain = $row->valueByName('vdomain');
-        if (not $self->_anotherAllowedToLearnFromIMAPFolder($vdomain)) {
-            my $mail = EBox::Global->modInstance('mail');
-            defined $mail and
-                $mail->setAsChanged();
-        }
-    }
+#     if ($row->valueByName('learnFromFolder')) {
+#         # if this is the first domain with learn form folder mail should be
+#         # notified
+#         my $vdomain = $row->valueByName('vdomain');
+#         if (not $self->_anotherAllowedToLearnFromIMAPFolder($vdomain)) {
+#             my $mail = EBox::Global->modInstance('mail');
+#             defined $mail and
+#                 $mail->setAsChanged();
+#         }
+#     }
 
-}
+# }
 
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
+# sub deletedRowNotify
+# {
+#     my ($self, $row) = @_;
 
-    if ($row->valueByName('learnFromFolder')) {
-        # if there are not learnFromFolder elemnts mail should be notified
-        if (not $self->anyAllowedToLearnFromIMAPFolder()) {
-            my $mail = EBox::Global->modInstance('mail');
-            defined $mail and
-                $mail->setAsChanged();
-        }
-    }
+#     if ($row->valueByName('learnFromFolder')) {
+#         # if there are not learnFromFolder elemnts mail should be notified
+#         if (not $self->anyAllowedToLearnFromIMAPFolder()) {
+#             my $mail = EBox::Global->modInstance('mail');
+#             defined $mail and
+#                 $mail->setAsChanged();
+#         }
+#     }
 
-}
+# }
 
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
-    if ($row->isEqualTo($oldRow)) {
-        # no need to notify changes
-        return;
-    }
+# sub updatedRowNotify
+# {
+#     my ($self, $row, $oldRow, $force) = @_;
+#     if ($row->isEqualTo($oldRow)) {
+#         # no need to notify changes
+#         return;
+#     }
 
-    # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
-    # changed but to avoid corner cases we will always notifiy to mail
-    my $mail = EBox::Global->modInstance('mail');
-    $mail->setAsChanged() if defined $mail;
-}
+#     # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
+#     # changed but to avoid corner cases we will always notifiy to mail
+#     my $mail = EBox::Global->modInstance('mail');
+#     $mail->setAsChanged() if defined $mail;
+# }
 
 1;

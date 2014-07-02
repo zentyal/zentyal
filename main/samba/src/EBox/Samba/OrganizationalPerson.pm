@@ -22,7 +22,7 @@ use warnings;
 #
 package EBox::Samba::OrganizationalPerson;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
 use EBox::Gettext;
 
@@ -40,6 +40,12 @@ sub name
     return $self->get('cn');
 }
 
+sub fullname
+{
+    my ($self) = @_;
+    return $self->get('cn');
+}
+
 # Method: givenName
 #
 #   Return the given name of this person
@@ -47,7 +53,13 @@ sub name
 sub givenName
 {
     my ($self) = @_;
-    return $self->get('givenName');
+
+    my $givenname = $self->get('givenName');
+    if (not $givenname) {
+        return '';
+    }
+
+    return $givenname;
 }
 
 # Method: initials
@@ -67,7 +79,12 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+
+    my $sn = $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 # Method: displayName
@@ -151,7 +168,7 @@ sub groups
 #
 # Returns:
 #
-#   array ref of EBox::Users::Group objects
+#   array ref of EBox::Samba::Group objects
 #
 sub groupsNotIn
 {
@@ -214,5 +231,23 @@ sub deleteObject
     shift @_;
     $self->SUPER::deleteObject(@_);
 }
+
+sub generatedFullName
+{
+    my ($self, %args) = @_;
+    my $fullname = '';
+
+    if ($args{givenName}) {
+        $fullname = $args{givenName} . ' ';
+    }
+    if ($args{initials}) {
+        $fullname .= $args{initials} . '. ';
+    }
+    if ($args{sn}) {
+        $fullname .= $args{sn};
+    }
+    return $fullname
+}
+
 
 1;

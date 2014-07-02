@@ -47,7 +47,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
     bless($self, $class);
     return $self;
 }
@@ -308,7 +308,6 @@ sub writeConf
 sub daemonMustRun
 {
     my ($self) = @_;
-
     if (not $self->isEnabled()) {
         return 0;
     }
@@ -320,6 +319,8 @@ sub daemonMustRun
 sub isEnabled
 {
     my ($self) = @_;
+    # disabled for now
+    return 0;
 
     my $retrievalServices = EBox::Global->modInstance('mail')->model('RetrievalServices');
     return $retrievalServices->row()->valueByName('fetchmail');

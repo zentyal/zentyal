@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
@@ -39,7 +39,7 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} =  EBox::Global->modInstance('users')->ldap();
+    $self->{ldap} =  EBox::Global->modInstance('samba')->ldap();
     bless($self, $class);
     return $self;
 }
@@ -308,14 +308,30 @@ sub _addVDomain
     if (not $ldap->isObjectClass($dn, 'vdmailfilter')) {
         my %attrs = (
                      changes => [
-                                 add => [
-                                         objectClass       => 'vdmailfilter',
-                                         domainMailPortion => "\@$vdomain",
-                                        ],
+                                 add => [ objectClass       => 'amavisAccount', ],
                                 ],
                     );
 
-        my $add = $ldap->modify($dn, \%attrs );
+        $ldap->modify($dn, \%attrs );
+
+        %attrs = (
+                     changes => [
+                                 add => [ objectClass       => 'vdmailfilter',  ],
+                                ],
+                    );
+
+        $ldap->modify($dn, \%attrs );
+
+        # %attrs = (
+        #              changes => [
+        #                          add => [ domainMailPortion => "\@$vdomain",  ],
+        #                         ],
+        #             );
+        # $ldap->modify($dn, \%attrs );
+
+        use EBox::Samba::LdapObject;
+        my $ob = EBox::Samba::LdapObject->new(dn => $dn);
+        $ob->add(domainMailPortion => "\@$vdomain");
     }
 
     $self->_vdomainsListChanged();
@@ -330,10 +346,11 @@ sub _addVDomain
 #   the spam account for the vdomain or false if it has not spam account
 sub spamAccount
 {
-    my ($self, $vdomain) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    my $user = $usersMod->userByUID('spam');
-    return $self->_hasAccount($vdomain, $user);
+    return undef;
+    # my ($self, $vdomain) = @_;
+    # my $usersMod = EBox::Global->modInstance('samba');
+    # my $user = $usersMod->userByUID('spam');
+    # return $self->_hasAccount($vdomain, $user);
 }
 
 # Method: hamAccount
@@ -345,24 +362,26 @@ sub spamAccount
 #   the ham account for the vdomain or false if it has not ham account
 sub hamAccount
 {
-    my ($self, $vdomain) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    my $user = $usersMod->userByUID('ham');
-    return $self->_hasAccount($vdomain, $user);
+    return undef;
+    # my ($self, $vdomain) = @_;
+    # my $usersMod = EBox::Global->modInstance('samba');
+    # my $user = $usersMod->userByUID('ham');
+    # return $self->_hasAccount($vdomain, $user);
 }
 
 sub learnAccountsExists
 {
     my ($self) = @_;
-
-    my @vdomains =  $self->vdomains() ;
-    foreach my $vdomain (@vdomains) {
-        if ($self->spamAccount($vdomain) or $self->hamAccount($vdomain)) {
-            return 1;
-        }
-    }
-
     return 0;
+
+    # my @vdomains =  $self->vdomains() ;
+    # foreach my $vdomain (@vdomains) {
+    #     if ($self->spamAccount($vdomain) or $self->hamAccount($vdomain)) {
+    #         return 1;
+    #     }
+    # }
+
+    # return 0;
 }
 
 # Method: learnAccounts
@@ -374,68 +393,72 @@ sub learnAccountsExists
 #   list which the learn accounts for the vdomain
 sub learnAccounts
 {
-    my ($self, $vdomain) = @_;
-    $self->checkVDomainExists($vdomain);
+    return [];
+    # my ($self, $vdomain) = @_;
+    # $self->checkVDomainExists($vdomain);
 
-    my @accounts;
-    my $hamAccount = $self->hamAccount($vdomain);
-    if ($hamAccount) {
-        push @accounts, $hamAccount;
-    }
-    my $spamAccount = $self->spamAccount($vdomain);
-    if ($spamAccount) {
-        push @accounts, $spamAccount;
-    }
+    # my @accounts;
+    # my $hamAccount = $self->hamAccount($vdomain);
+    # if ($hamAccount) {
+    #     push @accounts, $hamAccount;
+    # }
+    # my $spamAccount = $self->spamAccount($vdomain);
+    # if ($spamAccount) {
+    #     push @accounts, $spamAccount;
+    # }
 
-    return \@accounts;
+    # return \@accounts;
 }
 
 sub _hasAccount
 {
     my ($self, $vdomain, $user) = @_;
+    return 0; # learn accounts disabled by now
 
-    return 0 unless ($user);
+    # return 0 unless ($user);
 
-    my $mail         = EBox::Global->modInstance('mail');
-    my $mailUserLdap = $mail->_ldapModImplementation();
-    my $mailAliasLdap = new EBox::MailAliasLdap;
+    # my $mail         = EBox::Global->modInstance('mail');
+    # my $mailUserLdap = $mail->_ldapModImplementation();
+    # my $mailAliasLdap = new EBox::MailAliasLdap;
 
-    my $account = $mailUserLdap->userAccount($user);
-    if (not defined $account) {
-        # control account not defined in any domain
-        return 0;
-    }
+    # my $account = $mailUserLdap->userAccount($user);
+    # if (not defined $account) {
+    #     # control account not defined in any domain
+    #     return 0;
+    # }
 
-    my ($lh, $accountVdomain) = split '@', $account;
+    # my ($lh, $accountVdomain) = split '@', $account;
 
-    if ($vdomain eq $accountVdomain) {
-        # this domain has the control account itseldf
-        return $account;
-    }
+    # if ($vdomain eq $accountVdomain) {
+    #     # this domain has the control account itseldf
+    #     return $account;
+    # }
 
-    my $alias = $user->name() . '@' . $vdomain;
-    if ($mailAliasLdap->aliasExists($alias)) {
-        return $alias;
-    }
+    # my $alias = $user->name() . '@' . $vdomain;
+    # if ($mailAliasLdap->aliasExists($alias)) {
+    #     return $alias;
+    # }
 
-    # neither account itself or alias in this domain
-    return 0;
+    # # neither account itself or alias in this domain
+    # return 0;
 }
 
 sub setSpamAccount
 {
-    my ($self, $vdomain, $active) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    my $user = $usersMod->userByUID('spam');
-    $self->_setAccount($vdomain, $user, $active);
+    # Learn accounts disabled by now
+    # my ($self, $vdomain, $active) = @_;
+    # my $usersMod = EBox::Global->modInstance('samba');
+    # my $user = $usersMod->userByUID('spam');
+    # $self->_setAccount($vdomain, $user, $active);
 }
 
 sub setHamAccount
 {
-    my ($self, $vdomain, $active) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    my $user = $usersMod->userByUID('ham');
-    $self->_setAccount($vdomain, $user, $active);
+    # Learn accounts disabled by now
+    # my ($self, $vdomain, $active) = @_;
+    # my $usersMod = EBox::Global->modInstance('samba');
+    # my $user = $usersMod->userByUID('ham');
+    # $self->_setAccount($vdomain, $user, $active);
 }
 
 sub _setAccount
@@ -472,7 +495,7 @@ sub _addAccount
 
         my $alias = $username . '@' . $vdomain;
         if (not $mailAliasLdap->aliasExists($alias)) {
-            $mailAliasLdap->addAlias($alias, $account, $username);
+            $mailAliasLdap->addUserAlias($user, $alias);
         }
     }
     else {
@@ -540,7 +563,7 @@ sub _vdomainsListChanged
     my $smtpFilter = $mf->smtpFilter();
     # only the smtp filter needs to renerate its config
     if ($smtpFilter->isEnabled()) {
-        $mf->setAsChanged();
+        EBox::Global->addModuleToPostSave('mailfilter');
     }
 }
 
@@ -564,7 +587,7 @@ sub vdomainDn
 {
     my ($self, $vdomain) = @_;
 
-    return "domainComponent=$vdomain," . $self->vdomainTreeDn() ;
+    return "cn=$vdomain," . $self->vdomainTreeDn() ;
 }
 
 sub vdomainTreeDn
@@ -622,9 +645,10 @@ sub resetVDomain
                        defined $value;
                      } @delAttrs;
 
-    my %delAttrs = ( delete => \@delAttrs );
-
-    $ldap->modify($dn, \%delAttrs );
+    if (@delAttrs) {
+        my %delAttrs = ( delete => \@delAttrs );
+        $ldap->modify($dn, \%delAttrs );
+    }
 
     # remove ham/spam ocntrol accounts
     $self->setSpamAccount($vdomain, 0);
@@ -646,15 +670,16 @@ sub regenConfig
         my $antivirus   = $vdRow->elementByName('antivirus')->value();
         my $antispam    = $vdRow->elementByName('antispam')->value();
         my $threshold   = $vdomainsTable->spamThresholdFromRow($vdRow);
-        my $hamAccount  = $vdRow->elementByName('hamAccount')->value();
-        my $spamAccount = $vdRow->elementByName('spamAccount')->value();
+        # learn accounts disabled
+#        my $hamAccount  = $vdRow->elementByName('hamAccount')->value();
+#        my $spamAccount = $vdRow->elementByName('spamAccount')->value();
 
         $self->setAntivirus($vdomain, $antivirus);
         $self->setAntispam($vdomain, $antispam);
         $self->setSpamThreshold($vdomain, $threshold);
 
-        $self->setHamAccount($vdomain, $hamAccount);
-        $self->setSpamAccount($vdomain, $spamAccount);
+        # $self->setHamAccount($vdomain, $hamAccount);
+        # $self->setSpamAccount($vdomain, $spamAccount);
 
         my @whitelist;
         my @blacklist;
@@ -683,13 +708,6 @@ sub regenConfig
     foreach my $vdomain (keys %vdomainsNotConfigured) {
         $self->resetVDomain($vdomain);
     }
-}
-
-sub schemas
-{
-    return [
-        EBox::Config::share() . 'zentyal-mailfilter/amavis.ldif',
-        EBox::Config::share() . 'zentyal-mailfilter/eboxfilter.ldif' ];
 }
 
 1;

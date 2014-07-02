@@ -41,14 +41,14 @@ sub clearConfiguration : Test(shutdown)
 
 sub test_one_level_of_dependencies : Test
 {
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('samba');
     is_deeply($users->enableModDependsRecursive(), [qw(ntp network dns)]);
 }
 
 sub test_two_level_of_dependencies : Test
 {
-    my $captiveportal = EBox::Global->modInstance('captiveportal');
-    is_deeply($captiveportal->enableModDependsRecursive(), [qw(ntp network firewall dns users)]);
+    my $openchange = EBox::Global->modInstance('openchange');
+    is_deeply($openchange->enableModDependsRecursive(), [qw(ntp network firewall dns users mail webserver)]);
 }
 
 

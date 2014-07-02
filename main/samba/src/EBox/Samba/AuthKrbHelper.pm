@@ -45,9 +45,9 @@ sub new
     my $principal = undef;
     my $realm = undef;
     if ($params{SID}) {
-        my $samba = EBox::Global->modInstance('samba');
-        my $ldb = $samba->ldb();
-        my $result = $ldb->search({base => $ldb->dn(),
+        my $users = EBox::Global->modInstance('samba');
+        my $ldap = $users->ldap();
+        my $result = $ldap->search({base => $ldap->dn(),
                                    scope => 'sub',
                                    filter => "(objectSID=$params{SID})",
                                    attrs => ['samAccountName']});
@@ -59,10 +59,10 @@ sub new
         my $entry = $result->entry(0);
         $principal = $entry->get_value('samAccountName');
     } elsif (length $params{RID}) {
-        my $samba = EBox::Global->modInstance('samba');
-        my $ldb = $samba->ldb();
-        my $sid = $ldb->domainSID() . '-' . $params{RID};
-        my $result = $ldb->search({base => $ldb->dn(),
+        my $users = EBox::Global->modInstance('samba');
+        my $ldap = $users->ldap();
+        my $sid = $ldap->domainSID() . '-' . $params{RID};
+        my $result = $ldap->search({base => $ldap->dn(),
                                    scope => 'sub',
                                    filter => "(objectSID=$sid)",
                                    attrs => ['samAccountName']});
@@ -83,8 +83,7 @@ sub new
         $realm = $params{realm};
     } else {
         my $samba = EBox::Global->modInstance('samba');
-        my $gs = $samba->model('GeneralSettings');
-        $realm = $gs->value('realm');
+        $realm = $samba->kerberosRealm();
     }
 
     unless (length $principal) {

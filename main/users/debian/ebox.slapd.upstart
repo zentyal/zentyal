@@ -1,6 +1,0 @@
-pre-start script
-    service slapd stop || true
-end script
-
-exec /usr/sbin/slapd -d 0 -h 'ldap://0.0.0.0:390/ ldapi://%2fvar%2frun%2fslapd%2fldapi/????x-mod=0777' -u openldap -g openldap -F /etc/ldap/slapd.d/
-respawn

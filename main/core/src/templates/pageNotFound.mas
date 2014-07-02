@@ -4,7 +4,7 @@ my $eboxHomepageName = __(q{Zentyal homepage});
 my $eboxHomepageAHref = "<a href='http://www.zentyal.org'>$eboxHomepageName</a> ";
 
 my @tipList = (
-   __(q{If you typed the URL manually, please check it}),
+   __(q{If you typed the page address manually, please check it}),
    __(q{Maybe a change in the Zentyal configuration or software made no longer available the requested page}),
    __x(q{If you need more help, you may want visit {homepage} for documentation and mailing lists}, homepage => $eboxHomepageAHref),
 );

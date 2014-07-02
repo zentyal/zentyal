@@ -50,6 +50,11 @@ sub new
     return $self;
 }
 
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
+
 # Method: requiredParameters
 #
 # Overrides:
@@ -85,6 +90,10 @@ sub optionalParameters
 sub actuate
 {
     my ($self) = @_;
+
+    unless (@{$self->params()}) {
+        return;
+    }
 
     my $gl = EBox::Global->getInstance();
     my $ca = $gl->modInstance('ca');

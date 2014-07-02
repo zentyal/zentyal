@@ -40,7 +40,7 @@ ldap {
 	identity = "<% $rootdn %>"
 	password = "<% $password %>"
 	basedn = "<% $dn %>"
-	filter = "(uid=%{Stripped-User-Name:-%{User-Name}})"
+	filter = "(samAccountName=%{Stripped-User-Name:-%{User-Name}})"
 	#base_filter = "(objectclass=radiusprofile)"
 
 	#  How many connections to keep open to the LDAP server.
@@ -132,7 +132,7 @@ ldap {
 	#  Group membership checking.  Disabled by default.
 	#
 	groupname_attribute = cn
-    groupmembership_filter = "(&(objectClass=posixGroup)(member=%{Stripped-User-Name:-%{User-Name}}))"
+    groupmembership_filter = "(&(objectClass=group)(member=%{Stripped-User-Name:-%{User-Name}}))"
 	groupmembership_attribute = memberOf
 
 	# compare_check_items = yes

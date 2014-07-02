@@ -1,0 +1,39 @@
+<%args>
+	$contact
+	$slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __("Delete contact") %></h3>
+<div id='delContactForm_error' class='error' style='display:none'></div>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a contact in a slave.') %>
+</div>
+% } else {
+<div class='note'>
+    <% __('This operation will cause the removal of the contact and any dependent configuration.') %>
+</div>
+<form action='/Samba/DeleteContact' method='POST' id='delContactForm'>
+<p>
+                <input type="hidden" name="dn" value="<% $contact->dn() %>" />
+                <input class='inputButton' type='submit' name='delcontact'
+                       value="<% __('Delete contact') %>"
+                       alt="<% __('Delete contact') %>" />
+                <& /input/dialogCancel.mas &>
+</p>
+</form>
+
+<script>
+$(function() {
+   $('#delContactForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delContactForm', { extraData: {delcontact: 1} });
+    });
+});
+</script>
+% }
+

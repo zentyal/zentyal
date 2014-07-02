@@ -7,7 +7,7 @@ use EBox::Global;
 use EBox::MailVDomainsLdap;
 use EBox::MailFilter::VDomainsLdap;
 use EBox::Sudo qw(root);
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub update
 {

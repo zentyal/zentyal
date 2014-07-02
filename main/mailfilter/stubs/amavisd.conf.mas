@@ -39,7 +39,6 @@ $adminAddress
 
 $debug => 0
 </%args>
-
 use strict;
 use warnings;
 
@@ -208,7 +207,7 @@ $bindPasswd
 </%args>
 $enable_ldap = 1;
 $default_ldap = {
-  hostname => 'localhost:390',
+  hostname => 'localhost:389',
   base     => <% "'$base'" %>,
   query_filter => <% "'$queryFilter'" %>,
   bind_dn   =>    <% "'$bindDn'" %>,

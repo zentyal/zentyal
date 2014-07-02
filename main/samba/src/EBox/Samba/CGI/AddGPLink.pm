@@ -39,8 +39,8 @@ sub _process
     $self->_requireParam('dn', 'Container DN');
     my $containerDN = $self->unsafeParam('dn');
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $gpos = $sambaMod->gpos();
+    my $usersMod = EBox::Global->modInstance('samba');
+    my $gpos = $usersMod->gpos();
 
     my $params = [];
     push (@{$params}, dn => $containerDN);

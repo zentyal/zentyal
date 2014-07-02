@@ -1,4 +1,8 @@
+HEAD
+	+ Avoid warning flag on smart match experimental feature
 3.5
+	+ Depend on zentyal-samba for Kerberos integration
+	+ Force haproxy restart if service status changes
 	+ Set version to 3.5
 	+ Set HTTPS env variable to 'On' always for SSL vhosts
 	+ Removed the ssl mod check for ssl vhosts given that we don't use that

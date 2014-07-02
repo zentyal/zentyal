@@ -59,7 +59,7 @@ sub _print
     $responseContent->{changed} = $self->modulesChangedStateAsHash();
 
     my $response = $self->response();
-    $response->content_type('application/JSON; charset=utf-8');
+    $response->content_type('application/json; charset=utf-8');
     $response->body(to_json($responseContent));
 }
 
