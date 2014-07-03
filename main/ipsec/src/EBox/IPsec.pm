@@ -105,6 +105,22 @@ sub _manageService
     return $self->SUPER::_manageService(@params);
 }
 
+# Method: depends
+#
+# Overriden to add samba to dependencies if it is installed and enabled
+sub depends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::depends();
+
+    my $samba = $self->global()->modInstance('samba');
+    if ($samba and $samba->isEnabled()) {
+        push @{ $depends }, 'samba';
+    }
+
+    return $depends
+}
+
 # Method: addDeletedDaemon
 #
 # add daemon maes to the delete list so in next restart we can
