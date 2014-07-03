@@ -1,3 +1,6 @@
+HEAD
+	+ Trigger logrotate hourly instead of daily
+	+ Lower samba logs verbose level
 3.2.19
 	+ Setup roaming profiles for each user only when the setting changes
 	  in the UI

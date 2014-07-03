@@ -927,6 +927,16 @@ sub recycleConfig
     return $conf;
 }
 
+sub _setLogrotateHourly
+{
+    my ($self) = @_;
+    my $dailyPath  = '/etc/cron.daily/logrotate';
+    my $hourlyPath = '/etc/cron.hourly/logrotate';
+    if (EBox::Sudo::fileTest('-e', $dailyPath)) {
+        EBox::Sudo::root("mv -f '$dailyPath' '$hourlyPath'");
+    }
+}
+
 sub _writeDnsUpdateList
 {
     my ($self) = @_;
@@ -938,6 +948,7 @@ sub _writeDnsUpdateList
                          'samba/dns_update_list.mas', $array,
                          { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
+
 
 sub writeSambaConfig
 {
@@ -1111,6 +1122,8 @@ sub _setConf
         $prov->provision();
         $self->unset('need_reprovision');
     }
+
+    $self->_setLogrotateHourly();
 
     $self->writeSambaConfig();
 
