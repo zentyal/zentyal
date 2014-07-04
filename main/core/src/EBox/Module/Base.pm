@@ -1176,7 +1176,7 @@ sub global
     return EBox::Global->getInstance();
 }
 
-# Method: backupFilesFromModels
+# Method: backupFilesToArchive
 #
 #  Backup all the given  files in a compressed archive in the given dir
 #  This is used to create backups
