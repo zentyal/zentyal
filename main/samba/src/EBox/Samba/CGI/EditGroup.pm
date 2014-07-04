@@ -104,7 +104,7 @@ sub _process
         $self->_requireParam('deluser', __('user'));
         my @users = $self->unsafeParam('deluser');
         foreach my $us (@users) {
-            $group->removeMember(new EBox::Samba::User(uid => $us));
+            $group->removeMember(new EBox::Samba::User(samAccountName => $us));
         }
         $self->{json}->{success}  = 1;
     } elsif ($self->param('userInfo')) {
