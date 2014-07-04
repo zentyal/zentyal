@@ -1470,7 +1470,7 @@ sub _hideInternalGroups
     my ($self) = @_;
 
     foreach my $group (qw(DnsAdmins DnsUpdateProxy)) {
-        my $gr = new EBox::Samba::Group(gid => $group);
+        my $gr = new EBox::Samba::Group(samAccountName => $group);
         if ($gr->exists()) {
             $gr->set('showInAdvancedViewOnly', 'TRUE');
         }

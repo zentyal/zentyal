@@ -63,11 +63,6 @@ sub new
     my ($class, %params) = @_;
 
     my $self = $class->SUPER::new(%params);
-
-    if (defined $params{gid}) {
-        $self->{gid} = $params{gid};
-    }
-
     bless ($self, $class);
     return $self;
 }
@@ -245,7 +240,7 @@ sub defaultContainer
 #
 #   Return Net::LDAP::Entry entry for the group
 #
-sub _entry
+sub _entryDisabled
 {
     my ($self) = @_;
 

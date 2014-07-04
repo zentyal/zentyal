@@ -1,4 +1,5 @@
 HEAD
+	+ Not longer allowed to create groups using gid parameter
 	+ Catch error trying to add an already added or delete an already deleted
 	  user to group
 	+ Avoid warning flag on smart match experimental feature

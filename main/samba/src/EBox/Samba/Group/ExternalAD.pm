@@ -26,15 +26,10 @@ use TryCatch::Lite;
 
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = {};
+    my ($class, @opts) = @_;
 
-    if (defined $opts{gid}) {
-        $self->{gid} = $opts{gid};
-    } else {
-        $self = $class->SUPER::new(@_);
-    }
+    my $self = $class->SUPER::new(@opts);
+
 
     bless ($self, $class);
     return $self;
