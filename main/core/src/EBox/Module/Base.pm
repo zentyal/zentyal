@@ -490,7 +490,7 @@ sub dumpConfig
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
-
+    $self->restoreFilesFromArchive($dir);
     $self->dumpConfig($dir, @options);
 }
 

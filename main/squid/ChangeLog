@@ -1,3 +1,5 @@
+HEAD
+	+ Remove categorized domains temporally files
 3.5
 	+ Fixed generated rules for blanket domain deny
 	+ Adapted to samba4 instead of OpenLDAP

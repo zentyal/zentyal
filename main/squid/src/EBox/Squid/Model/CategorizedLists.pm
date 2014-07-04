@@ -247,11 +247,4 @@ sub afterRestoreConfig
     $self->_changeInCategorizedLists();
 }
 
-# Overriden because we don't want the framework to backup, restore or manage the
-#  categorized lsit archives. They can be too big and we will manage them specially
-sub filesPaths
-{
-    return [];
-}
-
 1;

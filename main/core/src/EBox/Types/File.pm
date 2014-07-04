@@ -249,17 +249,6 @@ sub toRemove
     return $self->{remove};
 }
 
-sub filesPaths
-{
-    my ($self) = @_;
-    if ($self->exist()) {
-        return [ $self->path() ];
-    }
-    else {
-        return []
-    }
-}
-
 # Method: allowDownload
 #
 #     Check if it is possible to allow download or not from the viewer
