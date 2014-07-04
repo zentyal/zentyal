@@ -1,4 +1,6 @@
 HEAD
+	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
+	  namespaces instead
 	+ Workaround in members table against losing of directory
 	  parameter/attribute
 3.5
