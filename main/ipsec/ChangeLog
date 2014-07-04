@@ -1,3 +1,5 @@
+HEAD
+	+ Add conditional samba dependency to ipsec
 3.2.3
 	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
 	  zentyal-xl2tp. (credits to Icaro Ribeiro)
