@@ -103,7 +103,6 @@ sub aroundRestoreConfig
 
     $self->_load_from_file($dir);
 
-    $self->restoreFilesFromArchive($dir);
 
     $self->restoreConfig($dir, @extraOptions);
 }
@@ -803,62 +802,12 @@ sub _addFileToList
 #    $self->_clearFilesToRemoveLists();
 #}
 
-
-
 sub _filesArchive
 {
     my ($self, $dir) = @_;
     return "$dir/moduleFiles.tar";
 }
 
-# Method: backupFilesFromModels
-#
-#  Backup all the given models' files in a compressed archive in the given dir
-#  This is used to create backups
-#
-#   Parameters:
-#   dir - directory where the archive will be stored
-#   files
-sub backupFilesToArchive
-{
-    my ($self, $dir, $files) = @_;
-
-    my @filesToBackup = @{ $files };
-    @filesToBackup or
-        return;
-
-    my $archive = $self->_filesArchive($dir);
-
-    my $firstFile  = shift @filesToBackup;
-    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --same-owner '$firstFile'";
-    EBox::Sudo::root($archiveCmd);
-
-    # we append the files one per one bz we don't want to overflow the command
-    # line limit. Another approach would be to use a file catalog however I think
-    # that for only a few files (typical situation for now) the append method is better
-    foreach my $file (@filesToBackup) {
-        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$file'";
-        EBox::Sudo::root($archiveCmd);
-    }
-}
-
-# Method: restoreFilesFromArchive
-#
-#  Restore all the files from the  tar archive in backup dir
-#  This is used to restore backups
-#
-#   Parameters:
-#   dir - directory where the archive is stored
-sub restoreFilesFromArchive
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_filesArchive($dir);
-
-    (-f $archive) or return;
-
-    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner";
-    EBox::Sudo::root($restoreCmd);
-}
 
 # Method: replicationExcludeKeys
 #
