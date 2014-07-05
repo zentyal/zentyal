@@ -1,4 +1,4 @@
-HEAD
+3.2.4
 	+ Add conditional samba dependency to ipsec
 3.2.3
 	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
