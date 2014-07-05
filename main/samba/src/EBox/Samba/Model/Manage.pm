@@ -199,7 +199,12 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->isProvisioned();
+    my $users = $self->parentModule();
+    if ($users->mode eq $users->STANDALONE_MODE) {
+        return $users->isProvisioned();
+    } else {
+        return $users->isEnabled();
+    }
 }
 
 # Method: preconditionFailMsg

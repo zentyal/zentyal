@@ -126,7 +126,7 @@ sub precondition
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
-    if ($samba->mode() eq EBox::Samba::Model::DomainSettings::MODE_ADC()) {
+    if ($samba->dcMode() eq EBox::Samba::Model::DomainSettings::MODE_ADC()) {
         $self->{preconditionFail} = 'adcMode';
         return undef;
     }
