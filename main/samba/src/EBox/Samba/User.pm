@@ -692,21 +692,6 @@ sub save
     }
 }
 
-sub _groups
-{
-    my ($self, %params) = @_;
-
-    my @groups = @{$self->SUPER::_groups(%params)};
-
-    my $filteredGroups = [];
-    for my $group (@groups) {
-        next if ($group->isInternal() and not $params{internal});
-        next if ($group->isSystem() and not $params{system});
-        push (@{$filteredGroups}, $group);
-    }
-    return $filteredGroups;
-}
-
 # Method: isSystem
 #
 #   Return 1 if this is a system user, 0 if not
