@@ -1,4 +1,5 @@
 HEAD
+	+ Better errors in GPO models when losing parent row
 	+ Catch error trying to add an already added or delete an already deleted
 	  user to group
 	+ Avoid warning flag on smart match experimental feature
