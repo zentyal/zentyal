@@ -1,4 +1,6 @@
 HEAD
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
 	+ Restored external AD mode
 	+ Better errors in GPO models when losing parent row
 	+ Catch error trying to add an already added or delete an already deleted
