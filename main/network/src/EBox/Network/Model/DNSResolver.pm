@@ -350,7 +350,16 @@ sub nameservers
 {
     my ($self) = @_;
     my $ids = $self->ids();
-    my @nameservers = map { $self->row($_)->valueByName('nameserver') } @{$ids};
+
+    my @nameservers = ();
+    if (@{$ids}) {
+        for my $id (@{$ids}) {
+            if (defined $self->row($id)) {
+                push (@nameservers, $self->row($id)->valueByName('nameserver'));
+            }
+        }
+    }
+
     return \@nameservers;
 }
 

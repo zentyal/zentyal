@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed dashboard links to official manual
 	+ Model backup/revoke/save files are no longer called implicitly
 	+ Remove warning on formSubmitJS
 	+ Don't let database error to cancel halt or reboot processes
