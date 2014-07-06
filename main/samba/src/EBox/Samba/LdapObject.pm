@@ -526,6 +526,9 @@ sub _entry
 sub clearCache
 {
     my ($self) = @_;
+    if (not $self->{dn}) {
+        $self->{dn} = $self->{entry}->dn();
+    }
 
     $self->{entry} = undef;
 }

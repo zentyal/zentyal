@@ -15,6 +15,7 @@
 
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 package EBox::Event::Watcher::Updates;
 # Class: EBox::Event::Watcher::Updates

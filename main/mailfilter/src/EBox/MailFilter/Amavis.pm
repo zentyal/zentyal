@@ -95,7 +95,8 @@ sub _daemon
 sub isEnabled
 {
     my ($self) = @_;
-    return 1;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    return $mailfilter->isEnabled();
 }
 
 # we ignore freshclam running state
@@ -142,8 +143,8 @@ sub writeConf
 
     push @masonParams, (ldapBase         =>  EBox::MailVDomainsLdap::VDOMAINDN() . ',' . $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
-    push @masonParams, (ldapBindDn       =>  $usersMod->administratorDN());
-    push @masonParams, (ldapBindPasswd   =>  $usersMod->administratorPassword());
+    push @masonParams, (ldapBindDn       =>  $mailfilter->_kerberosServiceAccountDN());
+    push @masonParams, (ldapBindPasswd   =>  $mailfilter->_kerberosServiceAccountPassword());
 
     push @masonParams, (antivirusActive  => $self->antivirus());
     push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));

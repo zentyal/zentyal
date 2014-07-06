@@ -1,7 +1,16 @@
 HEAD
+	+ Removed spurious warnings on mail services widget
+	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
+	  namespaces instead
+	+ Workaround in members table against losing of directory
+	  parameter/attribute
+3.5
+	+ Fix groupaliases.cf parameter stub
+	+ Adapt alias management to constraints by mailboxRelatedObject
+	+ Changed amavis submision service to avoid rewriting rules
+	+ Reorganized mail configuration
 	+ Don't try to check openchange accounts on removing system users
 	+ Fixed bug triggered when adding external aliases
-3.5
 	+ Adapted to OpenLDAP removal
 	+ Postfix handles Zentyal distribution groups virtual alias
 	+ Adapted MailQueue.pm to TryCatch::Lite

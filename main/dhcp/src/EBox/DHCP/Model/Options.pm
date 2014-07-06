@@ -367,14 +367,17 @@ sub _table
                                         printableName => __('None'),
                                        ));
 
-    my @ntpSubtypes = ( new EBox::Types::Union::Text(fieldName     => 'none',
-                                                     printableName => __('None')));
+    my @ntpSubtypes;
 
     if ( $gl->modExists('ntp') ) {
-        push(@ntpSubtypes,
+        push (@ntpSubtypes,
              new EBox::Types::Union::Text(fieldName     => 'eboxNTP',
                                           printableName => __('local Zentyal NTP')));
     }
+
+    push (@ntpSubtypes, new EBox::Types::Union::Text(fieldName     => 'none',
+                                                     printableName => __('None')));
+
     push(@ntpSubtypes,
          new EBox::Types::HostIP(fieldName     => 'custom_ntp',
                                  printableName => __('Custom'),

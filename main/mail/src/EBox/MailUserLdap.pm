@@ -109,7 +109,8 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my $hasClass = grep { lc($_) eq 'userZentyalMail' } $user->get('objectClass');
+    my @classes = $user->get('objectClass');
+    my $hasClass = grep { lc ($_) eq lc ('userZentyalMail') } @classes;
     if (not $hasClass) {
         $user->add('objectclass', 'userZentyalMail');
     }
@@ -407,7 +408,7 @@ sub _groupAddOns
 
     my $groupEmpty    = 1;
     my $usersWithMail = 0;
-    foreach my $user (@{ $group->members() }) {
+    foreach my $user (@{$group->users()}) {
         $groupEmpty = 0;
         if ($self->userAccount($user)) {
             $usersWithMail = 1;

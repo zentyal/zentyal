@@ -1,4 +1,28 @@
+HEAD
+	+ The groups and groupsNotIn methods have now the same behaviour
+	  for all EBox::Samba::OrganizationalPerson classes
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
+	+ Restored external AD mode
+	+ Better errors in GPO models when losing parent row
+	+ Catch error trying to add an already added or delete an already deleted
+	  user to group
+	+ Avoid warning flag on smart match experimental feature
 3.5
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
+	+ Remove duplicate entries from the custom shell list
+	+ Hide krbtgt user in external AD mode
+	+ EBox::Samba::DNS::Zone always return lowercase zone name
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
+	+ Added new domainControllers() method
+	+ Override daemons when migrating from previous versions
+	+ Remove the use of method canonicalName for greater performance, use
+	  object DNs instead
+	  the end of the work loop
+	+ Show Administrator account in the UI so it can be handled from Zentyal
 	+ Merge zentyal-users and zentyal-samba in a single package
 	+ Added EBox::Samba::User::hasValue to check if a certain value is present
 	+ Do not duplicate cloud ops when REST call fails

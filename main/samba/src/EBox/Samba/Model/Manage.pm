@@ -34,7 +34,7 @@ sub _tree
     return {
         treeName => 'Manage',
         modelDomain => 'Samba',
-        pageTitle => $self->parentModule()->printableName(),
+        pageTitle => __('Users and Computers'),
         defaultActions => [ 'add', 'delete' ],
         help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba. Please note that multiple OU support is partial, some modules may only work with users and groups in the default Users and Groups OUs.'),
     };
@@ -87,6 +87,13 @@ sub childNodes
         } elsif ($child->isa('EBox::Samba::User')) {
             next if ($child->isInternal());
 
+            if ($dn =~ m/^CN=krbtgt/i) {
+                if ($usersMod->mode() ne $usersMod->STANDALONE_MODE) {
+                    # hide this user
+                    next;
+                }
+            }
+
             if ($child->isDisabled()) {
                 $type = 'duser';
             } else {
@@ -110,7 +117,6 @@ sub childNodes
                 $printableName = $child->fullname();
             }
         } elsif ($child->isa('EBox::Samba::Group')) {
-            next if ($child->name() eq $usersMod->defaultGroup());
             next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
@@ -193,7 +199,12 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->isProvisioned();
+    my $users = $self->parentModule();
+    if ($users->mode eq $users->STANDALONE_MODE) {
+        return $users->isProvisioned();
+    } else {
+        return $users->isEnabled();
+    }
 }
 
 # Method: preconditionFailMsg

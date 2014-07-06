@@ -64,7 +64,9 @@ sub name
 {
     my ($self) = @_;
 
-    return $self->{entry}->get_value('name');
+    my $name = $self->{entry}->get_value('name');
+    $name = lc ($name) if $name;
+    return $name;
 }
 
 sub nodes

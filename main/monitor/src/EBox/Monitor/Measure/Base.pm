@@ -20,6 +20,7 @@ use warnings;
 #
 package EBox::Monitor::Measure::Base;
 
+no warnings 'experimental::smartmatch';
 use feature ":5.10";
 
 use EBox::Global;

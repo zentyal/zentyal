@@ -18,7 +18,11 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::LDAP EBox::HAProxy::ServiceBase EBox::VDomainModule);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::HAProxy::ServiceBase
+    EBox::VDomainModule
+);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -407,8 +411,8 @@ sub _writeSOGoConfFile
     }
 
     push (@{$array}, sambaBaseDN => $users->ldap()->dn());
-    push (@{$array}, sambaBindDN => "CN=Administrator,CN=Users," . $users->ldap()->dn());
-    push (@{$array}, sambaBindPwd => $users->administratorPassword());
+    push (@{$array}, sambaBindDN => $self->_kerberosServiceAccountDN());
+    push (@{$array}, sambaBindPwd => $self->_kerberosServiceAccountPassword());
     push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldap()->url()
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
@@ -431,8 +435,8 @@ sub _setAutodiscoverConf
         $adminMail = 'postmaster@' . $server;
     }
     my $confFileParams = [
-        bindDn    => 'cn=Administrator',
-        bindPwd   => $users->administratorPassword(),
+        bindDn    => $self->_kerberosServiceAccountDN(),
+        bindPwd   => $self->_kerberosServiceAccountPassword(),
         baseDn    => 'CN=Users,' . $users->ldap()->dn(),
         port      => 389,
         adminMail => $adminMail,
@@ -1071,6 +1075,16 @@ sub connectionString
     my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
 
     return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

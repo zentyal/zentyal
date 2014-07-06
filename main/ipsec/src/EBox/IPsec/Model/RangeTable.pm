@@ -35,6 +35,9 @@ use EBox::Types::Text;
 use EBox::Types::HostIP;
 use EBox::Validate;
 use EBox::Exceptions::External;
+use Net::IP;
+
+use TryCatch::Lite;
 
 # Method: validateTypedRow
 #
@@ -49,10 +52,11 @@ sub validateTypedRow
 
     if ((exists $changedFields->{from}) or
         (exists $changedFields->{to})) {
-
+        my $from = $allFields->{from}->value();
+        my $to   = $allFields->{to}->value();
         my $newRangeHash = {
-            from => $allFields->{from}->value(),
-            to => $allFields->{to}->value(),
+            from => $from,
+            to   => $to,
         };
         unless (EBox::Validate::isValidRange($newRangeHash->{from}, $newRangeHash->{to})) {
             throw EBox::Exceptions::External(
@@ -62,6 +66,16 @@ sub validateTypedRow
                 )
             );
         }
+
+        my $parentId = $self->parentRow()->id();
+        my $rangeId = exists $changedFields->{id} ? $changedFields->{id} : '';
+        my $dir = $self->directory();
+        try {
+            $self->parentModule()->model('Connections')->l2tpCheckDuplicateIPRange($parentId, $rangeId, $from, $to);
+        } catch {
+        }
+        $self->setDirectory($dir);
+
 
         my $network  = $global->modInstance('network');
         my $dhcp = undef;
@@ -73,7 +87,7 @@ sub validateTypedRow
         my $ipsec = $self->parentModule();
         my $l2tp_settings = $ipsec->model('SettingsL2TP');
         my $localIP = $l2tp_settings->row()->elementByName('local_ip')->value();
-        if (EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
+        if ($localIP and EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
             throw EBox::Exceptions::External(
                 __x('Range {from}-{to} includes the tunnel IP address: {localIP}',
                     from => $newRangeHash->{from},
@@ -217,6 +231,29 @@ sub viewCustomizer
     $customizer->setHTMLTitle([]);
 
     return $customizer;
+}
+
+sub rangeOverlaps
+{
+    my ($self, $range, $skipId) = @_;
+    $skipId or $skipId = '';
+
+    foreach my $id (@{ $self->ids() }) {
+        if ($id eq $skipId) {
+            next;
+        }
+
+        my $row = $self->row($id);
+        my $rowRange = new Net::IP($row->valueByName('from') . '-' . $row->valueByName('to'));
+        if (not $rowRange) {
+            next;
+        }
+        if ($range->overlaps($rowRange)) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;

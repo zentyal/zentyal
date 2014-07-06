@@ -134,7 +134,6 @@ use constant FSTAB_FILE           => '/etc/fstab';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
-use constant GUEST_DEFAULT_USER   => 'Guest';
 use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 use constant COMPUTERSDN    => 'ou=Computers';
@@ -145,7 +144,6 @@ use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 use constant BACKUP_USERS_FILE    => 'userlist.bak';
 
-use constant DEFAULTGROUP   => 'Domain Users';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
@@ -166,6 +164,7 @@ use constant KERBEROS_PORT => 88;
 use constant KPASSWD_PORT => 464;
 use constant KRB5_CONF_FILE => '/var/lib/samba/private/krb5.conf';
 use constant SYSTEM_WIDE_KRB5_CONF_FILE => '/etc/krb5.conf';
+use constant SYSTEM_WIDE_KRB5_KEYTAB => '/etc/krb5.keytab';
 
 # SSSD conf
 use constant SSSD_CONF_FILE => '/etc/sssd/sssd.conf';
@@ -634,19 +633,25 @@ sub _externalADEnableActions
 sub enableService
 {
     my ($self, $status) = @_;
+    my $mode = $self->mode();
 
     if ($status) {
         my $throwException = 1;
         if ($self->{restoringBackup}) {
             $throwException = 0;
         }
-        $self->getProvision->checkEnvironment($throwException);
+
+        if ($mode eq STANDALONE_MODE) {
+            $self->getProvision->checkEnvironment($throwException);
+        }
     }
 
     $self->SUPER::enableService($status);
 
-    my $dns = EBox::Global->modInstance('dns');
-    $dns->setAsChanged();
+    if ($mode eq STANDALONE_MODE) {
+        my $dns = EBox::Global->modInstance('dns');
+        $dns->setAsChanged();
+    }
 }
 
 sub _startDaemon
@@ -826,7 +831,10 @@ sub _regenConfig
     # default EBox::Module::LDAP behavior of adding schemas
     # first and then regenConfig when users already provisioned
     $self->EBox::Module::Service::_regenConfig(@_);
-    $self->_performSetup();
+    if ($self->mode() eq STANDALONE_MODE) {
+        $self->_performSetup();
+    }
+
 }
 
 # Method: _setConf
@@ -931,32 +939,34 @@ sub _createDirectories
     return unless $self->isProvisioned();
 
     my $zentyalUser = EBox::Config::user();
-    my $group = $self->defaultGroup();
-    my $nobody = GUEST_DEFAULT_USER;
+    my $group = $self->ldap->domainUsersGroup();
+    my $gid = $group->get('gidNumber');
+    my $guest = $self->ldap->domainGuestUser();
+    my $nobodyUid = $guest->get('uidNumber');
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root " . SAMBA_DIR);
-    push (@cmds, "chgrp '$group' " . SAMBA_DIR);
+    push (@cmds, "chgrp '+$gid' " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root " . PROFILES_DIR);
-    push (@cmds, "chgrp '$group' " . PROFILES_DIR);
+    push (@cmds, "chgrp '+$gid' " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
     push (@cmds, "chown root " . SHARES_DIR);
-    push (@cmds, "chgrp '$group' " . SHARES_DIR);
+    push (@cmds, "chgrp '+$gid' " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
     push (@cmds, "mkdir -p '$quarantine'");
@@ -1034,19 +1044,26 @@ sub _postServiceHook
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = $self->kerberosRealm();
+            my $drive = $self->drive();
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
+
+            my $state = $self->get_state();
+            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
+            $self->set_state($state);
             my $users = $ldap->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
-                if ($self->roamingProfiles()) {
-                    my $path = "\\\\$netbiosName.$realmName\\profiles";
-                    $user->setRoamingProfile(1, $path, 1);
-                } else {
-                    $user->setRoamingProfile(0, undef, 1);
+                if ($roamingProfilesChanged) {
+                    if ($self->roamingProfiles()) {
+                        $user->setRoamingProfile(1, $profilesPath, 1);
+                    } else {
+                        $user->setRoamingProfile(0, undef, 1);
+                    }
                 }
 
                 # Mount user home on network drive
-                my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
                 $user->save();
             }
         }
@@ -1144,25 +1161,12 @@ sub _postServiceHook
                     my $permissions = $subRow->elementByName('permissions');
 
                     my $userType = $subRow->elementByName('user_group');
-                    my $account = $userType->printableValue();
-                    my $qobject = shell_quote($account);
+                    my $account = $userType->value();
+                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                    next unless ($object->exists());
 
-                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
-                    # map '__USERS__' to 'Domain Users' SID
-                    my $accountShort = $userType->value();
-                    my $sid = undef;
+                    my $sid = $object->sid();
 
-                    if ($accountShort eq $self->defaultGroup()) {
-                        $sid = $domainUsersSID;
-                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
-                    } else {
-                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                        unless ($object->exists()) {
-                            next;
-                        }
-
-                        $sid = $object->sid();
-                    }
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
@@ -1457,12 +1461,14 @@ sub initUser
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
             my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
-            my $group = $self->defaultGroup();
+            my $group = $self->ldap->domainUsersGroup();
+            my $gid = $group->get('gidNumber');
+
             my @cmds;
             push (@cmds, "mkdir -p `dirname $qhome`");
             push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             push (@cmds, "chown -R $quser $qhome");
-            push (@cmds, "chgrp -R '$group' $qhome");
+            push (@cmds, "chgrp -R '+$gid' $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -2251,24 +2257,28 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
-    my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
-                                              text => __('Domain'),
-                                              icon => 'domain',
-                                              separator => 'Office',
-                                              order => 535);
+    my $standalone = ($self->mode eq STANDALONE_MODE);
 
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
-                                            text  => __('Settings'),
-                                            order => 10));
+    if ($standalone) {
+        my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
+                                                  text => __('Domain'),
+                                                  icon => 'domain',
+                                                  separator => 'Office',
+                                                  order => 535);
 
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
-                                            text  => __('Group Policy Objects'),
-                                            order => 20));
-    $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
-                                            text  => __('Group Policy Links'),
-                                            order => 30));
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
+                                                text  => __('Settings'),
+                                                order => 10));
 
-    $root->add($domainFolder);
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
+                                                text  => __('Group Policy Objects'),
+                                                order => 20));
+        $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
+                                                text  => __('Group Policy Links'),
+                                                order => 30));
+
+        $root->add($domainFolder);
+    }
 
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
@@ -2280,15 +2290,19 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Tree/Manage',
             'text' => __('Manage'), order => 10));
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Samba/Composite/UserTemplate',
-            'text' => __('User Template'), order => 30));
-# TODO: re-enable this in Zentyal 4.0 for Cloud Sync
-#        if ($self->mode() eq STANDALONE_MODE) {
-#            $folder->add(new EBox::Menu::Item(
-#                'url'  => 'Samba/Composite/Sync',
-#                'text' => __('Synchronization'), order => 40));
-#        }
+
+        if ($standalone) {
+            $folder->add(new EBox::Menu::Item(
+                'url'  => 'Samba/Composite/UserTemplate',
+                'text' => __('User Template'), order => 30));
+            # TODO: re-enable this in Zentyal 4.0 for Cloud Sync
+            #        if ($self->mode() eq STANDALONE_MODE) {
+            #            $folder->add(new EBox::Menu::Item(
+            #                'url'  => 'Samba/Composite/Sync',
+            #                'text' => __('Synchronization'), order => 40));
+            #        }
+        }
+
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Composite/Settings',
             'text' => __('LDAP Settings'), order => 50));
@@ -2301,16 +2315,38 @@ sub menu
     }
     $root->add($folder);
 
-    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
-                                    url       => 'Samba/Composite/General',
-                                    icon      => 'sharing',
-                                    separator => 'Office',
-                                    order     => 540));
+    if ($standalone) {
+        $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                        url       => 'Samba/Composite/FileSharing',
+                                        icon      => 'sharing',
+                                        separator => 'Office',
+                                        order     => 540));
+    }
+}
+
+# Method: enableModDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub enableModDepends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::enableModDepends();
+    return $self->_filterDependsByMode($depends);
+}
+
+# Method: bootDepends
+#
+# Overriden to remove dns from dependencies when on standalone mode
+sub bootDepends
+{
+    my ($self)= @_;
+    my $depends = $self->SUPER::bootDepends();
+    return $self->_filterDependsByMode($depends);
 }
 
 # Method: depends
 #
-#     Samba depends on printers only if it exists
+#     Samba depends on printers only if it exists and in standalone mode
 #
 # Overrides:
 #
@@ -2326,7 +2362,24 @@ sub depends
         push (@deps, 'printers');
     }
 
-    return \@deps;
+    return $self->_filterDependsByMode(\@deps);
+}
+
+sub _filterDependsByMode
+{
+    my ($self, $depends) = @_;
+    my $mode = $self->mode();
+    if ($mode eq STANDALONE_MODE) {
+        return $depends;
+    } elsif ($mode eq EXTERNAL_AD_MODE) {
+        my @depends = grep {
+            ($_ ne 'dns') and ($_ ne 'printers')
+        } @{ $depends };
+
+        return \@depends;
+    } else {
+        throw EBox::Exceptions::Internal("Unknown users mode '$mode'");
+    }
 }
 
 # Method: syncJournalDir
@@ -3277,7 +3330,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $netbiosName = $self->netbiosName();
-    my $realmName   = EBox::Global->modInstance('samba')->kerberosRealm();
+    my $realmName   = $self->kerberosRealm();
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
@@ -3393,61 +3446,6 @@ sub drive
 
     my $model = $self->model('DomainSettings');
     return $model->driveValue();
-}
-
-# Method: administratorDN
-#
-#
-# Returns:
-#
-#     String - the DN for the administrator or undef if it does not exist
-#
-sub administratorDN
-{
-    my ($self) = @_;
-
-    my $ldap = $self->ldap();
-    my $domainAdminSID = $ldap->domainSID() . '-500';
-
-    my $result = $ldap->search({ base   => $self->userClass()->defaultContainer()->dn(),
-                                filter => "objectSid=$domainAdminSID",
-                                scope  => 'one',
-                                attrs  => ['dn']});
-    my @entries = $result->entries();
-    my $dn;
-    if (scalar(@entries) > 0) {
-        $dn = $entries[0]->dn();
-    }
-    return $dn;
-}
-
-# Method: administratorPassword
-#
-#   Returns the administrator password
-#
-sub administratorPassword
-{
-    my ($self) = @_;
-
-    my $pwdFile = EBox::Config::conf() . 'samba.passwd';
-
-    my $pass;
-    unless (-f $pwdFile) {
-        my $pass;
-
-        while (1) {
-            $pass = EBox::Util::Random::generate(20);
-            # Check if the password meet the complexity constraints
-            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
-                     $pass =~ /[0-9]+/ and length ($pass) >=8);
-        }
-
-        my (undef, undef, $uid, $gid) = getpwnam('ebox');
-        EBox::Module::Base::writeFile($pwdFile, $pass, { mode => '0600', uid => $uid, gid => $gid });
-        return $pass;
-    }
-
-    return read_file($pwdFile);
 }
 
 # Method: dMD
@@ -3712,14 +3710,15 @@ sub _setupQuarantineDirectory
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $nobodyUser  = GUEST_DEFAULT_USER;
+    my $guest       = $self->ldap->domainGuestUser();
+    my $guestUid    = $guest->get('uidNumber');
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$nobodyUser:rwx g:adm:rwx '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$guestUid:rwx g:adm:rwx '$quarantine'");
 
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldap->domainSID() . '-512';
@@ -3961,18 +3960,6 @@ sub shareByFilename
     }
 
     return undef;
-}
-
-# Method: defaultGroup
-#
-#   Returns the name of the default group
-#
-sub defaultGroup
-{
-    my ($self) = @_;
-
-    # FIXME: i18n
-    return DEFAULTGROUP;
 }
 
 # Method: hiddenSid

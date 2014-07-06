@@ -55,7 +55,7 @@
     SOGoForceExternalLoginWithEmail = YES;
 
     /* IMAP server configuration */
-    NGImap4ConnectionStringSeparator = "/";
+    NGImap4ConnectionStringSeparator = ".";
     SOGoIMAPAclConformsToIMAPExt = NO;
     SOGoMailSpoolPath = /var/spool/sogo;
     SOGoIMAPServer = <% $imapServer %>;
@@ -118,7 +118,10 @@
             baseDN = "<% $sambaBaseDN %>";
             bindDN = "<% $sambaBindDN %>";
             bindPassword = "<% $sambaBindPwd %>";
-            filter = "((NOT isCriticalSystemObject='TRUE') AND (mail=\'*\') AND (objectClass=contact))";
+            filter = "((((objectClass=person) AND (objectClass=contact) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT isCriticalSystemObject='TRUE') AND (NOT showInAdvancedViewOnly='TRUE') AND (NOT uid=Guest)) OR (((objectClass=group) AND (gidNumber>=2000)) AND (NOT isCriticalSystemObject='TRUE') AND (NOT showInAdvancedViewOnly='TRUE')))";
+            mapping = {
+                displayname = ("cn");
+            };
         }
     );
 

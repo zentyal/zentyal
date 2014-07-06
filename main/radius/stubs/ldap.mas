@@ -40,7 +40,7 @@ ldap {
 	identity = "<% $rootdn %>"
 	password = "<% $password %>"
 	basedn = "<% $dn %>"
-	filter = "(uid=%{Stripped-User-Name:-%{User-Name}})"
+	filter = "(samAccountName=%{Stripped-User-Name:-%{User-Name}})"
 	#base_filter = "(objectclass=radiusprofile)"
 
 	#  How many connections to keep open to the LDAP server.

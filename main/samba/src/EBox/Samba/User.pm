@@ -278,28 +278,31 @@ sub createRoamingProfileDirectory
 {
     my ($self) = @_;
 
+    my $domainSid       = $self->_ldap->domainSID();
     my $samAccountName  = $self->get('samAccountName');
     my $userSID         = $self->sid();
-    my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
-    my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
+    my $domainAdminsSID = "$domainSid-512";
+    my $domainUsersSID  = "$domainSid-513";
 
     # Create the directory if it does not exist
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::Global->modInstance('samba')->defaultGroup();
+    my $group = $self->_ldap->domainUsersGroup();
+    my $gid = $group->get('gidNumber');
 
     my @cmds = ();
     # Create the directory if it does not exist
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $samAccountName:$group \'$path\'");
+    push (@cmds, "chown \'$samAccountName\' \'$path\'");
+    push (@cmds, "chgrp \'+$gid\' \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
     my @perms;
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
-    push (@perms, "g:$group:---");
+    push (@perms, "g:$gid:---");
     push (@perms, "u:$samAccountName:rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
@@ -311,13 +314,13 @@ sub setRoamingProfile
 {
     my ($self, $enable, $path, $lazy) = @_;
 
-    my $userName = $self->get('samAccountName');
     if ($enable) {
+        my $userName = $self->get('samAccountName');
         $self->createRoamingProfileDirectory();
         $path .= "\\$userName";
-        $self->set('profilePath', $path);
+        $self->set('profilePath', $path, $lazy);
     } else {
-        $self->delete('profilePath');
+        $self->delete('profilePath', $lazy);
     }
     $self->save() unless $lazy;
 }
@@ -618,9 +621,9 @@ sub isInternal
 {
     my ($self) = @_;
 
-    # FIXME: whitelist Guest account, do this better removing
-    #        isCriticalSystemObject check
-    if ($self->sid() =~ /^S-1-5-21-.*-501$/) {
+    # FIXME: whitelist Guest account, Administrator account
+    # do this better removing isCriticalSystemObject check
+    if ( ($self->sid() =~ /^S-1-5-21-.*-501$/) or ($self->sid() =~ /^S-1-5-21-.*-500$/) ) {
         return 0;
     }
 
@@ -689,24 +692,6 @@ sub save
     }
 }
 
-sub _groups
-{
-    my ($self, %params) = @_;
-
-    my @groups = @{$self->SUPER::_groups(%params)};
-
-    my $defaultGroup = EBox::Global->modInstance('samba')->defaultGroup();
-    my $filteredGroups = [];
-    for my $group (@groups) {
-        next if ($group->name() eq $defaultGroup and not $params{internal});
-        next if ($group->isInternal() and not $params{internal});
-        next if ($group->isSystem() and not $params{system});
-
-        push (@{$filteredGroups}, $group);
-    }
-    return $filteredGroups;
-}
-
 # Method: isSystem
 #
 #   Return 1 if this is a system user, 0 if not
@@ -714,8 +699,11 @@ sub _groups
 sub isSystem
 {
     my ($self) = @_;
-
-    return ($self->get('uidNumber') < MINUID);
+    my $uidNumber = $self->get('uidNumber');
+    if (not defined $uidNumber) {
+       $uidNumber =  0;
+    }
+    return ($uidNumber < MINUID);
 }
 
 # Method: isDisabled

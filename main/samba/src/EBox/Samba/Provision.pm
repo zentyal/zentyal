@@ -26,6 +26,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Util::Random;
 
 use EBox::Samba::User;
 use EBox::Samba::Group;
@@ -284,13 +285,17 @@ sub setupKerberos
 
     EBox::info("Setting up kerberos");
     my $systemFile = EBox::Samba::SYSTEM_WIDE_KRB5_CONF_FILE();
+    my $systemKeytab = EBox::Samba::SYSTEM_WIDE_KRB5_KEYTAB();
+    my $provisionGeneratedKeytab = EBox::Samba::SECRETS_KEYTAB();
     if ($self->isProvisioned()) {
+        if (EBox::Sudo::fileTest('-f', $systemKeytab)) {
+            EBox::Sudo::root("mv '$systemKeytab' '$systemKeytab.bak'");
+        }
         my $samba = EBox::Global->modInstance('samba');
         my $realm = $samba->kerberosRealm();
         my @params = ('realm' => $realm);
         $samba->writeConfFile($systemFile, 'samba/krb5.conf.mas', \@params);
-    } else {
-        EBox::Sudo::root("rm -f '$systemFile'");
+        EBox::Sudo::root("ln -sf '$provisionGeneratedKeytab' '$systemKeytab'");
     }
 }
 
@@ -336,6 +341,20 @@ sub provision
     my $conf = EBox::Config::conf();
     my $keytab = "$conf/samba.keytab";
     push (@cmds, "rm -f '$keytab'");
+
+    # Remove kerberos modules extracted keytabs and stashed passwords
+    my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+    foreach my $mod (@{$kerberosModules}) {
+        my $keytab = $mod->_kerberosKeytab();
+        if (defined $keytab) {
+            my $keytabPath = $keytab->{path};
+            push (@cmds, "rm -f '$keytabPath'");
+        }
+        my $account = $mod->_kerberosServiceAccount();
+        my $stashedPwdFile = EBox::Config::conf() . $account . ".passwd";
+        push (@cmds, "rm -f '$stashedPwdFile'");
+        EBox::Sudo::root(@cmds);
+    }
 
     # Delete users config file and private folder
     push (@cmds, 'rm -f ' . $users->SAMBACONFFILE());
@@ -503,12 +522,18 @@ sub provisionDC
             " --use-xattrs=yes " .
             " --use-rfc2307 " .
             " --server-role='" . $usersModule->dcMode() . "'" .
-            " --users='" . $usersModule->defaultGroup() . "'" .
             " --host-name='" . $sysinfo->hostName() . "'" .
             " --host-ip='" . $provisionIP . "'";
 
         EBox::info("Provisioning database '$cmd'");
-        $cmd .= " --adminpass='" . $usersModule->administratorPassword() . "'";
+        my $pass;
+        while (1) {
+            $pass = EBox::Util::Random::generate(20);
+            # Check if the password meet the complexity constraints
+            last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
+                     $pass =~ /[0-9]+/ and length ($pass) >=8);
+        }
+        $cmd .= " --adminpass='$pass'";
 
         # Use silent root to avoid showing the admin pass in the logs if
         # provision command fails.
@@ -553,9 +578,6 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $usersModule->_startService();
 
-        # FIXME Load Zentyal service principals into samba
-        # $usersModule->ldap->ldapServicePrincipalsToLdb();
-
         # Map accounts (SID -> Unix UID/GID numbers)
         $self->mapAccounts();
 
@@ -568,6 +590,13 @@ sub provisionDC
         # Reset sysvol
         EBox::debug('Reset Sysvol');
         $self->resetSysvolACL();
+
+        # Set kerberos modules as changed to force them to extract the keytab
+        # and stash new password
+        my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+        foreach my $mod (@{$kerberosModules}) {
+            $mod->setAsChanged();
+        }
     } catch ($error) {
         $self->setProvisioned(0);
         throw EBox::Exceptions::Internal($error);
@@ -878,6 +907,40 @@ sub checkFunctionalLevels
         throw EBox::Exceptions::External(
             __('The domain functional level must be Windows Server 2003 ' .
                'or higher. Please raise your domain functional level.'));
+    }
+}
+
+sub checkRfc2307
+{
+    my ($self, $adServerIp, $adUser, $adPwd) = @_;
+
+    throw EBox::Exceptions::MissingArgument('adServerIp')
+        unless (defined $adServerIp and length $adServerIp);
+    throw EBox::Exceptions::MissingArgument('adUser')
+        unless (defined $adUser and length $adUser);
+    throw EBox::Exceptions::MissingArgument('adPwd')
+        unless (defined $adPwd and length $adPwd);
+
+    EBox::info("Checking RFC2307 compliant schema...");
+    my $adLdap = $self->bindToADLdap($adServerIp, $adUser, $adPwd);
+    my $rootDse = $adLdap->root_dse(attrs => $self->rootDseAttributes());
+    my $schemaNC = $rootDse->get_value('schemaNamingContext');
+
+    my $ldapMsg = $adLdap->search(base => $schemaNC,
+                                  scope => 'one',
+                                  filter => '(&(cn=PosixAccount)(objectClass=classSchema))',
+                                  attrs => ['cn']);
+    if ($ldapMsg->is_error()) {
+        throw EBox::Exceptions::LDAP(
+            message => __('Error querying AD schema:'),
+            result  => $ldapMsg,
+        );
+    }
+    if ($ldapMsg->count() <= 0) {
+        # FIXME Tune the exception message.
+        throw EBox::Exceptions::External(
+            __('The domain schema does not meet RFC 2307. You will need to ' .
+               'upgrade to Windows Server 2003 R2 or greater.'));
     }
 }
 
@@ -1214,6 +1277,9 @@ sub provisionADC
     # Check DC functional levels > 2000
     $self->checkFunctionalLevels($adServerIp);
 
+    # Check RFC2307 compliant schema
+    $self->checkRfc2307($adServerIp, $adUser, $adPwd);
+
     # Check local realm matchs remote one
     $self->checkLocalRealmAndDomain($adServerIp);
 
@@ -1314,6 +1380,13 @@ sub provisionADC
 
         EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
+
+        # Set kerberos modules as changed to force them to extract the keytab
+        # and stash new password
+        my $kerberosModules = EBox::Global->modInstancesOfType('EBox::Module::Kerberos');
+        foreach my $mod (@{$kerberosModules}) {
+            $mod->setAsChanged();
+        }
     } catch ($e) {
         $self->setProvisioned(0);
         $self->setupKerberos();

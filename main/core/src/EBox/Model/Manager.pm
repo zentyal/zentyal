@@ -349,10 +349,12 @@ sub modelsUsingId
 
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
+    $modelName =~ s{^/}{};
+    $modelName =~ s{/$}{};
     if (exists $self->{'notifyActions'}->{$modelName}) {
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
-            if ($observerModel->isUsingId($modelName, $rowId)) {
+            if ($observerModel->isIdUsed($modelName, $rowId)) {
                 $models{$observer} = $observerModel->printableContextName();
             }
         }
@@ -462,10 +464,6 @@ sub removeRowsUsingId
         if ($deletedNum > 0) {
             $strToShow .= $modelDep->automaticRemoveMsg($deletedNum);
         }
-    }
-    while (my ($modelDepName, $fieldName) = each %{$modelDepHash}) {
-        my $modelDep = $self->model($modelDepName);
-        next unless(defined($modelDep));
     }
 
     return $strToShow;
@@ -701,7 +699,7 @@ sub _setupNotifyActions
     my $notify = $info->{notifyactions};
     foreach my $model (keys %{$notify}) {
         my $observerPath = '/' . $moduleName . '/' . $model . '/';
-        foreach my $notifier (@{ $notify->{$model}   }) {
+        foreach my $notifier (@{ $notify->{$model} }) {
             # XXX change when we change the yaml to the more intuitive notifier
             # - >watcher format
             if (not exists $self->{notifyActions}->{$notifier}) {
@@ -797,11 +795,14 @@ sub _modelHasMultipleInstances
             return 1;
         }
 
-        if (exists $self->{models}->{$module}->{$component}) {
+        if (exists $self->{models}->{$module}->{$component}
+            or exists $self->{composites}->{$module}->{$component}->{parent}) {
             if (exists $self->{models}->{$module}->{$component}->{parent}) {
                 $component = $self->{models}->{$module}->{$component}->{parent};
             } elsif (exists $self->{composites}->{$module}->{$component}->{parent}) {
                 $component = $self->{composites}->{$module}->{$component}->{parent};
+            } else {
+                return 0;
             }
         } else {
             return 0;
