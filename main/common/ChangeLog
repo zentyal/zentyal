@@ -1,4 +1,5 @@
-HEAD
+3.4.4
+	+ Fix error when using __x function from Gettext
 	+ EBox::Netwrapper::iface_by_address not longer assummes that
 	  interfaces could not share IP addresses
 3.4.3

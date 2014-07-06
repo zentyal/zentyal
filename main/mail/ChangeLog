@@ -1,4 +1,6 @@
-HEAD
+3.4.4
+	+ Adapt alias management to constraints by mailboxRelatedObject
+	+ Changed amavis submision service to avoid rewriting rules
 	+ Reorganized mail configuration
 3.4.3
 	+ Don't try to check openchange accounts on removing system users

@@ -40,7 +40,7 @@ sub new
     my $class = shift;
     my $arg = shift;
 
-    my $error = __x('Missing argument: {data}', data => $arg);
+    my $error = EBox::Gettext::__x('Missing argument: {data}', data => $arg);
 
     local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
