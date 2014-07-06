@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed dashboard links to official manual
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
 	  and EBox::Model::Manager::removeRowsUsingId
 3.2.12
