@@ -61,14 +61,14 @@ sub run
     my $global = EBox::Global->getInstance();
     $global->setRequest($request);
 
-    my $redis = EBox::Global->modInstance('global')->redis();
+    my $url = $self->urlFromRequest($request);
 
     # Avoid nested transactions with readonly cgis like CurrentProgress
     my $readonly = ($url =~ m{^/?ReadOnly/});
 
+    my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin() unless $readonly;
 
-    my $url = $self->urlFromRequest($request);
     try {
         my $effectiveUrl = _urlAlias($url);
         my @extraParams = (request => $request);
