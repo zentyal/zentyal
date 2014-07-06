@@ -62,7 +62,11 @@ sub run
     $global->setRequest($request);
 
     my $redis = EBox::Global->modInstance('global')->redis();
-    $redis->begin();
+
+    # Avoid nested transactions with readonly cgis like CurrentProgress
+    my $readonly = ($url =~ m{^/?ReadOnly/});
+
+    $redis->begin() unless $readonly;
 
     my $url = $self->urlFromRequest($request);
     try {
@@ -90,7 +94,7 @@ sub run
             }
         }
         $handler->run();
-        $redis->commit();
+        $redis->commit() unless $readonly;
         return $handler->response()->finalize();
     } catch ($ex) {
         # Base exceptions are already logged, log the other ones
@@ -98,7 +102,7 @@ sub run
             EBox::error("Exception trying to access $url: $ex");
         }
 
-        $redis->rollback();
+        $redis->rollback() unless $readonly;
         if (Scalar::Util::blessed($ex) and $ex->isa('EBox::Exceptions::Base')) {
             $ex->throw();
         } else {

@@ -27,6 +27,7 @@ use EBox::Types::File;
 use EBox::Config::Redis;
 use EBox::Model::Manager;
 
+use TryCatch::Lite;
 use File::Basename;
 
 sub _create
@@ -826,6 +827,28 @@ sub global
 {
     my ($self) = @_;
     return EBox::Global->getInstance($self->{ro});
+}
+
+# Method: save
+#
+#   Overrides: <EBox::Module::Base::save>
+#
+#   Do all the save process on a single redis transaction, otherwise
+#   there are concurrency problems when executed from global-action
+#
+sub save
+{
+    my $self = shift;
+
+    my $redis = $self->redis();
+    try {
+        $redis->begin();
+        $self->SUPER::save(@_);
+        $redis->commit();
+    } catch ($ex) {
+        $redis->rollback();
+        $ex->throw();
+    }
 }
 
 1;

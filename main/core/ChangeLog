@@ -1,4 +1,7 @@
 HEAD
+	+ Save changes of each module is now always done in transactions
+	+ CurrentProgress CGI moved to the new ReadOnly namespace which is
+	  exempt of redis transactions to avoid nested locking
 	+ Model backup/revoke/save files are no longer called implicitly
 	+ Remove warning on formSubmitJS
 	+ Don't let database error to cancel halt or reboot processes
