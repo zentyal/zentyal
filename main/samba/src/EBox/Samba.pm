@@ -297,7 +297,7 @@ sub _postServiceHook
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
-            if ($roamingProfielsChanged or not $unmanagedHomes) {
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
                 foreach my $user (@{$users}) {
                     unless ($self->ldapObjectFromLDBObject($user)) {
                         # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
