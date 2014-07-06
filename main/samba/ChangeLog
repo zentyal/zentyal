@@ -1,4 +1,5 @@
 HEAD
+	+ Added code for migration from 3.4
 	+ The groups and groupsNotIn methods have now the same behaviour
 	  for all EBox::Samba::OrganizationalPerson classes
 	+ When removing a share the 'has files' check is not longer
