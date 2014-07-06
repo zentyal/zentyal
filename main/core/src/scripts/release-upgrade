@@ -64,7 +64,7 @@ do
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 done
 
-service apache2 stop || true
+service apache2 start || true
 
 if dpkg --configure -a --force-confdef
 then
