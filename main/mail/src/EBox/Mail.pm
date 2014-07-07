@@ -109,7 +109,7 @@ sub _create
                                       @_);
 
     $self->{vdomains} = new EBox::MailVDomainsLdap;
-    $self->{musers} = new EBox::MailUserLdap;
+    $self->{musers} = new EBox::MailUserLdap($self->{vdomains});
     $self->{malias} = new EBox::MailAliasLdap;
     $self->{greylist} = new EBox::Mail::Greylist;
     $self->{fetchmail} = new EBox::Mail::FetchmailLdap;
@@ -412,6 +412,8 @@ sub setupLDAP
         }
     }
 
+    # vdomains should be created to have a correct setupUsers
+    $self->{vdomains}->regenConfig();
     $self->{musers}->setupUsers();
 }
 

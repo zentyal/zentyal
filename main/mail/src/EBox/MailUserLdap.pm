@@ -33,6 +33,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Samba::User;
+use EBox::MailVDomainsLdap;
 use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
@@ -43,9 +44,15 @@ use constant MAX_MAILDIR_BACKUPS => 5;
 
 sub new
 {
-    my $class = shift;
+    my ($class, $vdomainsLdap) = @_;
     my $self  = {};
     $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
+
+    if ($vdomainsLdap) {
+        $self->{vdomains} = $vdomainsLdap;
+    } else {
+        $self->{vdomains} = new EBox::MailVDomainsLdap;
+    }
 
     bless($self, $class);
     return $self;
@@ -72,6 +79,7 @@ sub setupUsers
     foreach my $user (@{ $userMod->users() }) {
         my $mail = $user->get('mail');
         if ($mail) {
+            $user->delete('mail');
             my ($lhs, $rhs) = split '@', $mail, 2;
             $self->setUserAccount($user, $lhs, $rhs);
         }
@@ -105,13 +113,17 @@ sub setUserAccount
     EBox::Validate::checkEmailAddress($email, __('mail account'));
     $mail->checkMailNotInUse($email);
 
+    if (not $self->{vdomains}->vdomainExists($rhs)) {
+        # vdomain not managed by zentyal, just set the mail attribute
+        $user->set('mail', $email);
+        return;
+    }
+
     $self->_checkMaildirNotExists($lhs, $rhs);
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my @classes = $user->get('objectClass');
-    my $hasClass = grep { lc ($_) eq lc ('userZentyalMail') } @classes;
-    if (not $hasClass) {
+    if (not $user->hasObjectClass('userZentyalMail')) {
         $user->add('objectclass', 'userZentyalMail');
     }
 
@@ -647,7 +659,7 @@ sub maildirQuota
 #     get the type of the quota assigned to the user
 #
 #   Parameters:
-#        user - name of the user
+#        user - user object
 #
 #    Returns:
 #       one of this strings:
@@ -680,7 +692,7 @@ sub maildirQuotaType
 #     the default quota
 #
 #   Parameters:
-#        user - name of the user
+#        user - user object
 #        isDefault - wether the user is using the default quota
 sub setMaildirQuotaUsesDefault
 {
@@ -754,8 +766,13 @@ sub regenMaildirQuotas
     my $usersMod = EBox::Global->modInstance('samba');
 
     foreach my $user (@{$usersMod->users()}) {
-        my $username = $user->name();
-        $self->userAccount($user) or next;
+        my $account = $self->userAccount($user);
+        $account or next;
+
+        my ($username, $vdomain) =split '@', $account, 2;
+        if (not $self->{vdomains}->vdomainExists($vdomain)) {
+            next;
+        }
 
         if ($self->maildirQuotaType($user) eq 'default') {
             $self->setMaildirQuota($user, $defaultQuota);
