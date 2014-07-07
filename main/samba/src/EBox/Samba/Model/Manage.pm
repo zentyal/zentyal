@@ -176,14 +176,14 @@ sub nodeTypes
         domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
         ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
-        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => $rw, delete => $rw },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => $rw } },
+        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => 1, delete => $rw },
                                                           actionObjects => { edit => 'User', delete => 'User' } },
-        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
-        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
+        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => 1, delete => $rw } },
+        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => 1, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
-        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => $rw } },
     };
 }
 

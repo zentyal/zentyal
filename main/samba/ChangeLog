@@ -1,4 +1,5 @@
 HEAD
+	+ Display correctly tree elements on external AD mode
 	+ Fixed user creation when remove user from a group in the
 	  EditGroup CGI
 	+ The groups and groupsNotIn methods have now the same behaviour
