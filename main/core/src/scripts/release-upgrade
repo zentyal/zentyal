@@ -47,6 +47,12 @@ sed -i 's/debs-ppa-3.4/debs-ppa-3.5/g' /etc/apt/sources.list
 echo; echo "Upgrading from Ubuntu 13.10 to 14.04 with Zentyal 3.5..."; echo
 sed -i 's/saucy/trusty/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.4/zentyal\13.5/g' /etc/apt/sources.list
+
+# Upgrade some conflictive packages first
+apt-get update
+apt-get install -y --force-yes -o DPkg::Options::="--force-confdef" perl haproxy
+
+# Continue with the rest of the upgrade rest of the upgrade
 upgrade
 
 # FIXME: this process needs a lot of refination, this is a temporary workaround
