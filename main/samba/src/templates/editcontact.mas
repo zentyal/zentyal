@@ -13,7 +13,7 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 my $givenName   = $contact->givenName();
 my $surname     = $contact->surname();
 my $displayName = $contact->displayName();
-my $decription  = $contact->description();
+my $description  = $contact->description();
 my $mail        = $contact->mail();
 </%init>
 
@@ -33,7 +33,7 @@ my $mail        = $contact->mail();
         <label><% __('Display name') %><span class="optional_field"><% $optionalTag %></span></label>
             <& masterSlaveUserAttr, name => 'displayname', value => $displayName, slave => $slave &>
         <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
-%#            <& masterSlaveUserAttr, name => 'description', value => $description, slave => $slave &>
+            <& masterSlaveUserAttr, name => 'description', value => $description, slave => $slave &>
         <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
             <& masterSlaveUserAttr, name => 'mail', value => $mail, slave => $slave &>
 
