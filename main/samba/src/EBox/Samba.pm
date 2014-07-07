@@ -281,9 +281,7 @@ sub _postServiceHook
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
-        # overwritting already existing per-user settings. Also skip if
-        # unmanaged_home_directory config key is defined
-        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        # overwritting already existing per-user settings. 
         unless ($self->mode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
@@ -293,28 +291,33 @@ sub _postServiceHook
             my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
             my $users = $self->ldb->users();
 
+            # Skip if unmanaged_home_directory config key is defined and
+            # no changes made to roaming profiles
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
-            foreach my $user (@{$users}) {
-                unless ($self->ldapObjectFromLDBObject($user)) {
-                    # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
-                    EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
-                    next;
-                }
-
-                # Set roaming profiles
-                if ($roamingProfilesChanged) {
-                    if ($self->roamingProfiles()) {
-                        $user->setRoamingProfile(1, $profilesPath, 1);
-                    } else {
-                        $user->setRoamingProfile(0, undef, 1);
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
+                foreach my $user (@{$users}) {
+                    unless ($self->ldapObjectFromLDBObject($user)) {
+                        # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
+                        EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
+                        next;
                     }
-                }
 
-                # Mount user home on network drive
-                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
-                $user->save();
+                    # Set roaming profiles
+                    if ($roamingProfilesChanged) {
+                        if ($self->roamingProfiles()) {
+                            $user->setRoamingProfile(1, $profilesPath, 1);
+                        } else {
+                            $user->setRoamingProfile(0, undef, 1);
+                        }
+                    }
+
+                    # Mount user home on network drive
+                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
+                    $user->save();
+                }
             }
         }
 
