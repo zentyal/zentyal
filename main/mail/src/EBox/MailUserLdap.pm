@@ -73,14 +73,19 @@ sub mailboxesDir
 #  first time
 sub setupUsers
 {
-    my ($self) = @_;
+    my ($self, $onlyForVDomain) = @_;
     my $userMod = EBox::Global->getInstance()->modInstance('samba');
 
     foreach my $user (@{ $userMod->users() }) {
         my $mail = $user->get('mail');
         if ($mail) {
-            $user->delete('mail');
             my ($lhs, $rhs) = split '@', $mail, 2;
+
+            if ($onlyForVDomain and ($rhs ne $onlyForVDomain)) {
+                next;
+            }
+
+            $user->delete('mail');
             $self->setUserAccount($user, $lhs, $rhs);
         }
     }
