@@ -1502,6 +1502,12 @@ sub dumpConfig
         push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
     }
 
+    # Backup s4sync timestamp
+    my $ts = EBox::Config::home() . '.s4sync_ts';
+    if (EBox::Sudo::fileTest('-f', $ts)) {
+        EBox::Sudo::root("cp '$ts' $dir");
+    }
+
     try {
         EBox::Sudo::root(@cmds);
     } otherwise {
@@ -1574,6 +1580,12 @@ sub restoreConfig
     if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
         EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
         EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    }
+
+    # Restore stashed s4sync timestamp
+    if (EBox::Sudo::fileTest('-f', "$dir/.s4sync_ts")) {
+        EBox::Sudo::root("cp $dir/.s4sync_ts " . EBox::Config::home());
+        EBox::Sudo::root("chmod 0600 $dir/.s4sync_ts");
     }
 
     # Set provisioned flag
