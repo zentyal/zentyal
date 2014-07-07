@@ -88,8 +88,12 @@ sub nextServer
     given ($nextServerSelectedName) {
         when ('nextServerEBox') {
             my $netMod = EBox::Global->modInstance('network');
-            # FIXME: unhardcode this (parentRow() is undefined)
-            my $iface = 'eth0';
+            my $parentRow = $self->parentRow();
+            if (not $parentRow) {
+                EBox::Exceptions::MissingArgument->throw('Directory parameter and attribute lost');
+            }
+
+            my $iface = $parentRow->valueByName('iface');
             return $netMod->ifaceAddress($iface);
         }
         default {
