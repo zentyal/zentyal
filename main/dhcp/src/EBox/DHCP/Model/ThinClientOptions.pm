@@ -88,8 +88,12 @@ sub nextServer
     given ($nextServerSelectedName) {
         when ('nextServerEBox') {
             my $netMod = EBox::Global->modInstance('network');
-            # FIXME: unhardcode this (parentRow() is undefined)
-            my $iface = 'eth0';
+            my $parentRow = $self->parentRow();
+            if (not $parentRow) {
+                EBox::Exceptions::MissingArgument->throw('Directory parameter and attribute lost');
+            }
+
+            my $iface = $parentRow->valueByName('iface');
             return $netMod->ifaceAddress($iface);
         }
         default {
@@ -174,8 +178,19 @@ sub _table
                             ),
     );
 
-    # FIXME: unhardcode this (parentRow() is undefined)
-    my $interface = 'eth0';
+    my $interface;
+    my $parentRow = $self->parentRow();
+    if ($parentRow) {
+        $interface = $parentRow->valueByName('iface');
+    } else {
+        $interface = __('[interface]');
+    }
+
+    my $help =  __x('You may want to customise your thin client options.'
+                      . 'To do so, you may include all the files you require '
+                      . 'under {path} directory',
+                     path => EBox::DHCP->PluginConfDir($interface));
+
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
@@ -184,10 +199,7 @@ sub _table
                     defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     class              => 'dataTable',
-                    help               => __x('You may want to customise your thin client options.'
-                                             . 'To do so, you may include all the files you require '
-                                             . 'under {path} directory',
-                                             path => EBox::DHCP->PluginConfDir($interface)),
+                    help               => $help,
                     sortedBy           => 'hosts',
                     printableRowName   => __('thin client option'),
                    };
