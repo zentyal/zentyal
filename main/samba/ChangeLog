@@ -1,3 +1,5 @@
+HEAD
+	+ Disabled nmbd logging
 3.2.20
 	+ Improve save changes speed avoiding loop in postServiceHook if no changes
 	  made to roaming profiles
