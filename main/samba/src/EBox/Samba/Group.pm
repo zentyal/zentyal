@@ -236,37 +236,6 @@ sub defaultContainer
     return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
 }
 
-# Method: _entry
-#
-#   Return Net::LDAP::Entry entry for the group
-#
-sub _entryDisabled
-{
-    my ($self) = @_;
-
-    unless ($self->{entry}) {
-        if (defined $self->{gid}) {
-            my $result = undef;
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(cn=$self->{gid})",
-                scope => 'sub',
-            };
-            $result = $self->_ldap->search($attrs);
-            if ($result->count() > 1) {
-                throw EBox::Exceptions::Internal(
-                    __x('Found {count} results for, expected only one.',
-                        count => $result->count()));
-            }
-            $self->{entry} = $result->entry(0);
-        } else {
-            $self->SUPER::_entry();
-        }
-    }
-
-    return $self->{entry};
-}
-
 # Method: name
 #
 #   Return group name
