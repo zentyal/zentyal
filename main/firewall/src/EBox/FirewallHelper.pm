@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -302,11 +302,21 @@ sub _inputIface # (iface)
 
 # Method: beforeFwRestart
 #
-#  called before the restart of the firewall when it is enabled
+#  called before firewall module restart when it is enabled
 #
 #  The default implementation does nothing
 #
 sub beforeFwRestart
+{
+}
+
+# Method: afterFwRestart
+#
+#  Called after firewall module restart when it is enabled
+#
+#  The default implementation does nothing
+#
+sub afterFwRestart
 {
 }
 
