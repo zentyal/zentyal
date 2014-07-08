@@ -163,15 +163,15 @@ sub _sendSchemaUpdate
     File::Slurp::write_file($ldifFile, $buffer);
 
     # Send update
-    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'die');
+    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
     while (not $ldif->eof()) {
         my $entry = $ldif->read_entry();
-        if ($ldif->error()) {
+        if ($ldif->error() or not defined $entry) {
             throw EBox::Exceptions::Internal(
                 __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
                     x => $ldif->error(), y => $ldif->error_lines()));
         } else {
-            # Skip if already extended
+            # Check if the entry has been already loaded into schema
             my $dn = $entry->dn();
             # Skip checking the update schema cache sent to root DSE
             if ($dn ne '') {
