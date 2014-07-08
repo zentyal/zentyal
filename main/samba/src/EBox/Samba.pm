@@ -1764,30 +1764,6 @@ sub groupByName
     }
 }
 
-# Method: groupExists
-#
-#  Returns:
-#
-#      bool - whether the group exists or not
-#
-sub groupExists
-{
-    my ($self, $name) = @_;
-    my $group = $self->groupByName($name);
-    if (not $group) {
-        return undef;
-    }
-
-    if (not $self->isProvisioned()) {
-        return OBJECT_EXISTS;
-    }
-    if ($self->hiddenSid($group)) {
-        return OBJECT_EXISTS_AND_HIDDEN_SID;
-    }
-
-    return OBJECT_EXISTS;
-}
-
 # Method: groups
 #
 #       Returns an array containing all the groups
