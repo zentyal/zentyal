@@ -1,3 +1,5 @@
+HEAD
+	+ Added afterFwRestart method to firewall helper
 3.2.4
 	+ Use a blocking lock to get iptables resource on restart
 	  and stop to avoid other modules to get it
