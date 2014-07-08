@@ -3040,7 +3040,6 @@ sub objectFromDN
 #
 #   Return the Perl Object that holds the default Naming Context for this LDAP server.
 #
-#
 sub defaultNamingContext
 {
     my ($self) = @_;
