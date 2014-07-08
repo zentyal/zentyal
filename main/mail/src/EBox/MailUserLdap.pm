@@ -277,7 +277,7 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::Samba::User(uid => $uid);
+        my $user = new EBox::Samba::User(samAccountName => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});

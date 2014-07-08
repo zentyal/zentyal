@@ -209,7 +209,7 @@ sub _user
 
     my $usercornerMod = EBox::Global->modInstance('usercorner');
     my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
-    my $zentyalUser = new EBox::Samba::User(uid => $user);
+    my $zentyalUser = new EBox::Samba::User(samAccountName => $user);
     unless ($zentyalUser->exists()) {
         throw EBox::Exceptions::External(
             __x('User {x} not found in LDAP database'), x => $user);

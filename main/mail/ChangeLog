@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug when removing virtual domain
+	+ Adding a virtual domain now can update old unmanaged accounts
 	+ Fixed errors related with users which has account on a umanaged domain
 	+ Removed spurious warnings on mail services widget
 	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
