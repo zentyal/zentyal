@@ -227,7 +227,7 @@ my @quotaTypeOptions = (
         <input type='text' class='inputText' name='maildirQuota'
                                 id='maildirQuota'
                                 size="15"
-%                               if($params->{'maildirType'} ne 'custom') {
+%                               if((not $params->{'maildirType'}) or ($params->{'maildirType'} ne 'custom')) {
                         disabled
                         value=""
 %                               } else {

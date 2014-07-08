@@ -8,6 +8,22 @@ Zentyal.MailUserAddon.accountChange = function(mail, ocEnabled) {
     $('#userMailWithAccountDiv').toggle(hasAccount);
 
     if (hasAccount) {
+        // check if vdomain is managed
+        var vdManaged = false;
+        var accountVDomain = mail.split('@', 2)[1];
+        var vdomains       = $('#userMail_data').data('vdomains');
+        for (var i=0; i < vdomains.length; i++) {
+            if (accountVDomain === vdomains[i]) {
+                vdManaged = true;
+                break;
+            }
+        }
+
+        console.log(mail + ' -> ' + accountVDomain + ' managed:' + vdManaged);
+
+        $('#userMailManaged').toggle(vdManaged);
+        $('#userMailUnmanaged').toggle(!vdManaged);
+
         $('#userMailDelAccount_mail').val(mail);
         $('#userMailDelAccount_mailLabel').text(mail);
     }

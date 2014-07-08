@@ -166,6 +166,7 @@ sub setUserAccount
 sub delUserAccount
 {
     my ($self, $user, $usermail) = @_;
+    EBox::debug("XXX $user $usermail");
     ($self->_accountExists($user)) or return;
     if (not defined $usermail) {
         $usermail = $self->userAccount($user);
@@ -173,10 +174,11 @@ sub delUserAccount
 
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
-    my @aliases = $mail->{malias}->userAliases($user);
-    foreach my $alias (@aliases) {
-                $mail->{malias}->delAlias($alias);
-            }
+    $user->delete('otherMailbox');
+    # my @aliases = $mail->{malias}->userAliases($user);
+    # foreach my $alias (@aliases) {
+    #     $mail->{malias}->delUserAlias($alias);
+    # }
 
     # Remove mail account from group alias maildrops
     foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
@@ -277,8 +279,6 @@ sub delAccountsFromVDomain   #vdomain
     my ($self, $vdomain) = @_;
 
     my %accs = %{$self->allAccountsFromVDomain($vdomain)};
-
-    my $mail = "";
     while (my ($uid, $mail) = each %accs) {
         my $user = new EBox::Samba::User(samAccountName => $uid);
         $mail = $accs{$uid};
@@ -368,6 +368,18 @@ sub _delUserWarning
     return undef;
 }
 
+sub _managedAccount
+{
+    my ($self, $account, $vdomains) = @_;
+    my ($leftover, $accountVDomain) = split '@', $account, 2;
+    foreach my $vd (@{ $vdomains }) {
+        if ($accountVDomain eq $vd) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 sub _userAddOns
 {
     my ($self, $user) = @_;
@@ -379,6 +391,7 @@ sub _userAddOns
     my $usermail = $self->userAccount($user);
     my @aliases = $mail->{malias}->userAliases($user);
     my @vdomains =  $mail->{vdomains}->vdomains();
+    my $managed = $self->_managedAccount($usermail, \@vdomains);
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
@@ -393,6 +406,7 @@ sub _userAddOns
             mail        => $usermail,
             aliases     => \@aliases,
             vdomains    => \@vdomains,
+            managed     => $managed,
 
             maildirQuotaType => $quotaType,
             maildirQuota => $quota,
