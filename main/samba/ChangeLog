@@ -1,3 +1,6 @@
+HEAD
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
 3.5.1
 	+ Display correctly tree elements on external AD mode
 	+ Fixed user creation when remove user from a group in the
