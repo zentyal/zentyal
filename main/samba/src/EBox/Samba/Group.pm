@@ -254,7 +254,7 @@ sub _entry
             my $result = undef;
             my $attrs = {
                 base => $self->_ldap->dn(),
-                filter => "(cn=$self->{gid})",
+                filter => "(samAccountName=$self->{gid})",
                 scope => 'sub',
             };
             $result = $self->_ldap->search($attrs);
