@@ -260,11 +260,9 @@ sub _performSetup
     my ($self) = @_;
 
     my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
-    }
+    $self->_loadSchemas();
+    $state->{'_schemasAdded'} = 1;
+    $self->set_state($state);
 
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
