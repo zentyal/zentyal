@@ -873,33 +873,33 @@ sub _createDirectories
 
     my $zentyalUser = EBox::Config::user();
     my $group = $self->ldap->domainUsersGroup();
-    my $gid = $group->get('gidNumber');
+    my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
-    my $nobodyUid = $guest->get('uidNumber');
+    my $nobodyUidNumber = $guest->uidNumber();
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root " . SAMBA_DIR);
-    push (@cmds, "chgrp '+$gid' " . SAMBA_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root " . PROFILES_DIR);
-    push (@cmds, "chgrp '+$gid' " . PROFILES_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
     push (@cmds, "chown root " . SHARES_DIR);
-    push (@cmds, "chgrp '+$gid' " . SHARES_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
     push (@cmds, "mkdir -p '$quarantine'");
@@ -1392,16 +1392,14 @@ sub initUser
     if ($mk_home eq 'yes') {
         my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
-            my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
-            my $group = $self->ldap->domainUsersGroup();
-            my $gid = $group->get('gidNumber');
+            my $gidNumber = $user->gidNumber();
+            my $uidNumber = $user->uidNumber();
 
             my @cmds;
             push (@cmds, "mkdir -p `dirname $qhome`");
             push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            push (@cmds, "chown -R $quser $qhome");
-            push (@cmds, "chgrp -R '+$gid' $qhome");
+            push (@cmds, "chown -R +$uidNumber:+$gidNumber $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -3618,14 +3616,14 @@ sub _setupQuarantineDirectory
 
     my $zentyalUser = EBox::Config::user();
     my $guest       = $self->ldap->domainGuestUser();
-    my $guestUid    = $guest->get('uidNumber');
+    my $guestUidNumber = $guest->uidNumber();
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$guestUid:rwx g:adm:rwx '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$guestUidNumber:rwx g:adm:rwx '$quarantine'");
 
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldap->domainSID() . '-512';
