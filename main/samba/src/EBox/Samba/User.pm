@@ -496,8 +496,8 @@ sub create
             $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
-           $usersMod->notifyModsLdapUserBase(
-               'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase(
+                'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
         }
     } catch ($error) {
         EBox::error($error);
