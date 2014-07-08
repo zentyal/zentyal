@@ -984,7 +984,7 @@ sub _postServiceHook
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
-            my $users = $ldap->users();
+            my $users = $self->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
                 if ($roamingProfilesChanged) {
@@ -1436,29 +1436,30 @@ sub containers
 {
     my ($self, $baseDN) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
 
     unless (defined $baseDN) {
         $baseDN = $self->ldap->dn();
     }
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
     my $searchArgs = {
         base => $baseDN,
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=container)",
         scope => 'one',
+        attrs => ['*'],
     };
 
-    my $ous = [];
-    my $result = $self->ldap->search($searchArgs);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
-        my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
+    my @entries = @{$self->ldap->pagedSearch($searchArgs)};
+    foreach my $entry (@entries) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        push (@{$list}, $container);
+        my $nested = $self->containers($container->dn());
+        push (@{$list}, @{$nested});
     }
 
-    return $ous;
+    return $list;
 }
 
 # Method: ous
@@ -1532,80 +1533,76 @@ sub userByUID
     } elsif ($count == 0) {
         return undef;
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return new EBox::Samba::User(entry => $result->entry(0));
     }
-}
-
-# Method: userExists
-#
-#  Returns:
-#
-#      bool - whether the user exists or not
-#
-sub userExists
-{
-    my ($self, $uid) = @_;
-    my $user = $self->userByUID($uid);
-    if (not $user) {
-        return undef;
-    }
-
-    if (not $self->isProvisioned()) {
-        return OBJECT_EXISTS;
-    }
-    if ($self->hiddenSid($user)) {
-        return OBJECT_EXISTS_AND_HIDDEN_SID;
-    }
-
-    return OBJECT_EXISTS;
 }
 
 # Method: users
 #
-#       Returns an array containing all the users (not system users)
+#   Returns an array containing all the users (not system users)
 #
 # Parameters:
-#       system - show system users also (default: false)
+#
+#   system - show system users also (default: false)
 #
 # Returns:
 #
-#       array ref - holding the users. Each user is represented by a
-#       EBox::Samba::User object
+#   array ref - holding the users. Each user is represented by a
+#               EBox::Samba::User object
 #
 sub users
 {
     my ($self, $system) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
 
-    my $objectClass = $self->{userClass}->mainObjectClass();
-    my %args = (
+    return $list if (not $self->isEnabled());
+
+    # Query the containers stored in the root DN and skip the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
-        scope => 'sub',
-    );
-
-    my $entries = $self->ldap->pagedSearch(\%args);
-
-    my @users = ();
-    foreach my $entry (@{ $entries })
-    {
-        my $user = $self->{userClass}->new(entry => $entry);
-        # Include system users?
-        next if (not $system and $user->isSystem());
-
-        push (@users, $user);
+        scope => 'one',
+        filter => '(|(objectClass=container)(objectClass=organizationalUnit)(objectClass=msExchSystemObjectsContainer))',
+        attrs => ['*'],
+    };
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('name');
+            my $bValue = $b->get_value('name');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @entries;
+    foreach my $entry (@entries) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        next if $container->get('cn') eq any EBox::Ldap::QUERY_IGNORE_CONTAINERS();
+        push (@containers, $container);
     }
 
-    # sort by name
-    @users = sort {
-            my $aValue = $a->name();
-            my $bValue = $b->name();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
-    } @users;
+    # Query the users stored in the non ignored containers
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*)))";
+    foreach my $container (@containers) {
+        $params = {
+            base   => $container->dn(),
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+        @entries = @{$self->ldap->pagedSearch($params)};
+        @entries = sort {
+                my $aValue = $a->get_value('samAccountName');
+                my $bValue = $b->get_value('samAccountName');
+                (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+        } @entries;
+        foreach my $entry (@entries) {
+            my $user = new EBox::Samba::User(entry => $entry);
+            next if (not $system and $user->isSystem());
+            push (@{$list}, $user);
+        }
+    }
 
-    return \@users;
+    return $list;
 }
 
 # Method: realUsers
@@ -1655,26 +1652,27 @@ sub contactsByName
 {
     my ($self, $name) = @_;
 
-    my $contactClass = $self->contactClass();
-    my $objectClass = $contactClass->mainObjectClass();
-    my $args = {
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
+
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)(cn=$name))",
         scope => 'sub',
+        filter => "(&(objectclass=contact)(!(isDeleted=*))(cn=$name))",
+        attrs => ['*'],
     };
-
-    my $result = $self->ldap->search($args);
-    my $count = $result->count();
-    return [] if ($count == 0);
-
-    my @contacts = ();
-
-    foreach my $entry (@{$result->entries}) {
-        my $contact = $self->entryModeledObject($entry);
-        push (@contacts, $contact) if ($contact);
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('cn');
+            my $bValue = $b->get_value('cn');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @entries;
+    foreach my $entry (@entries) {
+        my $contact = new EBox::Samba::Contact(entry => $entry);
+        push (@{$list}, $contact);
     }
-
-    return \@contacts;
+    return $list;
 }
 
 # Method: contactExists
@@ -1806,79 +1804,56 @@ sub groups
 
     return [] if (not $self->isEnabled());
 
-    my $groupClass  = $self->groupClass();
-    my $objectClass = $groupClass->mainObjectClass();
-    my %args = (
+    my $list = [];
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
         scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @groups = ();
-    foreach my $entry ($result->entries())  {
-        my $group = $groupClass->new(entry => $entry);
-
-        # Include system users?
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('samAccountName');
+            my $bValue = $b->get_value('samAccountName');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+     } @entries;
+    foreach my $entry (@entries) {
+        my $group = new EBox::Samba::Group(entry => $entry);
         next if (not $system and $group->isSystem());
-
-        push (@groups, $group);
+        push (@{$list}, $group);
     }
-    # sort grups by name
-    @groups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @groups;
 
-    return \@groups;
+    return $list;
 }
 
 # Method: securityGroups
 #
-#       Returns an array containing all the security groups
+#   Returns an array containing all the security groups
 #
-#   Parameters:
-#       system - show system groups (default: false)
+# Parameters:
+#
+#   system - show system groups (default: false)
 #
 # Returns:
 #
-#       array - holding the groups as EBox::Samba::Group objects
+#   array - holding the groups as EBox::Samba::Group objects
 #
 sub securityGroups
 {
     my ($self, $system) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
 
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => '(&(objectclass=group)(objectclass=posixAccount))',
-        scope => 'sub',
-    );
+    return $list if (not $self->isEnabled());
 
-    my $result = $self->ldap->search(\%args);
-
-    my @groups = ();
-    foreach my $entry ($result->entries()) {
-        my $group = new EBox::Samba::Group(entry => $entry);
-
-        # Include system users?
+    my $groups = $self->groups($system);
+    foreach my $group (@{$groups}) {
+        next unless $group->isSecurityGroup();
         next if (not $system and $group->isSystem());
-
-        push (@groups, $group);
+        push (@{$list}, $group);
     }
-    # sort grups by name
-    @groups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @groups;
 
-    return \@groups;
+    return $list;
 }
 
 # Method: _modsLdapUserbase
