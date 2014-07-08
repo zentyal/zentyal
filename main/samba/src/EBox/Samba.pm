@@ -1501,22 +1501,24 @@ sub ous
 
 # Method: userByUID
 #
-# Return the instance of EBox::Samba::User object which represents a given uid or undef if it's not found.
+#   Return the instance of EBox::Samba::User object which represents a given
+#   uid or undef if it's not found. Used by cloud-sync.
 #
-#  Parameters:
-#      uid
+# Parameters:
+#
+#   uid
 #
 sub userByUID
 {
     my ($self, $uid) = @_;
 
-    my $userClass = $self->userClass();
-    my $objectClass = $userClass->mainObjectClass();
-    my $uidTag = $userClass->uidTag();
+    return undef unless ($self->isEnabled());
+
     my $args = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)($uidTag=$uid))",
+        filter => "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(samAccountName=$uid))",
         scope => 'sub',
+        attrs => ['*'],
     };
 
     my $result = $self->ldap->search($args);
