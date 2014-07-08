@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-python /usr/share/zentyal/crash-set-package-info.py "$file"
+python3 /usr/share/zentyal/crash-set-package-info.py "$file"
 
 URL=http://crashreport.zentyal.org/report/
 
