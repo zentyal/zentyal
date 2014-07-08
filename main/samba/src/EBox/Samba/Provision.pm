@@ -32,7 +32,6 @@ use EBox::Samba::User;
 use EBox::Samba::Group;
 
 use EBox::Samba::Model::DomainSettings;
-use EBox::Samba::NamingContext;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
