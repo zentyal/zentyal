@@ -1,4 +1,5 @@
 HEAD
+	+ Fix sssd bug not finding users and groups
 	+ Fixed user creation when remove user from a group in the
 	  EditGroup CGI
 	+ The groups and groupsNotIn methods have now the same behaviour
