@@ -1474,29 +1474,29 @@ sub ous
 {
     my ($self, $baseDN) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
 
     unless (defined $baseDN) {
         $baseDN = $self->ldap->dn();
     }
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
-    my $searchArgs = {
+    my $args = {
         base => $baseDN,
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=organizationalUnit)",
         scope => 'one',
     };
 
-    my $ous = [];
-    my $result = $self->ldap->search($searchArgs);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
+    my @entries = @{$self->ldap->pagedSearch($args)};
+    foreach my $entry (@entries) {
+        my $ou = new EBox::Samba::OU(entry => $entry);
+        push (@{$list}, $ou);
         my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
+        push (@{$list}, @{$nested});
     }
 
-    return $ous;
+    return $list;
 }
 
 # Method: userByUID
