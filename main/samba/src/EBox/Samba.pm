@@ -1739,12 +1739,13 @@ sub groupByName
 {
     my ($self, $name) = @_;
 
-    my $groupClass = $self->groupClass();
-    my $objectClass = $groupClass->mainObjectClass();
+    return undef unless ($self->isEnabled());
+
     my $args = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)(cn=$name))",
+        filter => "(&(objectclass=group)(!(isDeleted=*))(cn=$name))",
         scope => 'sub',
+        attrs => ['*'],
     };
 
     my $result = $self->ldap->search($args);
@@ -1759,7 +1760,7 @@ sub groupByName
     } elsif ($count == 0) {
         return undef;
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return new EBox::Samba::Group(entry => $result->entry(0));
     }
 }
 
