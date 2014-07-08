@@ -70,7 +70,10 @@ sub mailboxesDir
 # Method: setupUsers
 #
 #  Set up existent users for working correctly when the module is enabled for
-#  first time
+#  first time or a new vdomain is added
+#
+#  Parameters:
+#   onlyForVDomain - when set the setup is only done for accounts on this domain
 sub setupUsers
 {
     my ($self, $onlyForVDomain) = @_;
