@@ -1,4 +1,4 @@
-HEAD
+3.2.5
 	+ Stop/start captive portal on firewall restart
 3.2.4
 	+ Use a blocking lock to get iptables resource to avoid issues
