@@ -165,20 +165,19 @@ sub setUserAccount
 #               usermail - the user's mail address (optional)
 sub delUserAccount
 {
-    my ($self, $user, $usermail) = @_;
-    EBox::debug("XXX $user $usermail");
-    ($self->_accountExists($user)) or return;
-    if (not defined $usermail) {
-        $usermail = $self->userAccount($user);
+    my ($self, $user) = @_;
+    my $usermail = $self->userAccount($user);
+    if (not  $usermail) {
+        return;
+    }
+    if (not $self->_accountIsManaged($user)) {
+        $user->delete('mail');
+        return;
     }
 
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
     $user->delete('otherMailbox');
-    # my @aliases = $mail->{malias}->userAliases($user);
-    # foreach my $alias (@aliases) {
-    #     $mail->{malias}->delUserAlias($alias);
-    # }
 
     # Remove mail account from group alias maildrops
     foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
@@ -361,7 +360,7 @@ sub _delUserWarning
 
     my $txt = __('This user has a mail account');
 
-    if ($self->_accountExists($user)) {
+    if ($self->_accountIsManaged($user)) {
         return ($txt);
     }
 
@@ -476,24 +475,24 @@ sub _modifyGroup
     $mail->{malias}->updateGroupAliases($group);
 }
 
-# Method: _accountExists
+# Method: _accountIsManaged
 #
-#  This method returns if a user have a mail account
+#  This method returns if a user has a managed user acocunt
 #
 # Parameters:
 #
 #               user - user object
 # Returns:
 #
-#               bool - true if user have mail account
-sub _accountExists
+#               bool - true if user has a managed mail account
+sub _accountIsManaged
 {
     my ($self, $user) = @_;
 
     my $username = $user->name();
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
+                 filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
                  scope => 'sub'
                 );
 
