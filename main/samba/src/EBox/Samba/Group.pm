@@ -298,6 +298,27 @@ sub mail
     return $self->get('mail');
 }
 
+# Method: gidNumber
+#
+#   This method returns the group's gidNumber, ensuring it is properly set or
+#   throwing an exception otherwise
+#
+sub gidNumber
+{
+    my ($self) = @_;
+
+    my $gidNumber = $self->get('gidNumber');
+    unless ($gidNumber =~ /^[0-9]+$/) {
+        throw EBox::Exceptions::External(
+            __x('The group {x} has not gidNumber set. Get method ' .
+                "returned '{y}'.",
+                x => $self->get('samAccountName'),
+                y => defined ($gidNumber) ? $gidNumber : 'undef'));
+    }
+
+    return $gidNumber;
+}
+
 # Method: removeAllMembers
 #
 #   Remove all members in the group
@@ -607,7 +628,11 @@ sub isSystem
     my ($self) = @_;
 
     if ($self->isSecurityGroup()) {
-        return ($self->get('gidNumber') < MINGID);
+        my $gidNumber = $self->get('gidNumber');
+        if (defined $gidNumber) {
+            return ($gidNumber < MINGID);
+        }
+        return 1;
     } else {
         # System groups are only valid with security groups.
         return undef;
