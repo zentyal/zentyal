@@ -1,3 +1,8 @@
+HEAD
+	+ Remove mail account management logic from edit user form. This field
+	  is now disabled when the mail module is installed, so account management
+	  like create, rename or delete it must be done in the mail module user
+	  addon
 3.5.2
 	+ Fix sssd bug not finding users and groups
 	+ Deprecate _schemasAdded redis key, checking if schema is extended in
