@@ -1,4 +1,4 @@
-HEAD
+3.5.2
 	+ Fix sssd bug not finding users and groups
 	+ Deprecate _schemasAdded redis key, checking if schema is extended in
 	  module _regenConfig
