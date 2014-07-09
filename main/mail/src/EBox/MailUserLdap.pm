@@ -147,7 +147,8 @@ sub setUserAccount
 sub delUserAccount
 {
     my ($self, $user, $usermail) = @_;
-    ($self->_accountExists($user)) or return;
+
+    return unless $self->_accountExists($user);
     if (not defined $usermail) {
         $usermail = $self->userAccount($user);
     }
@@ -459,14 +460,13 @@ sub _accountExists
 {
     my ($self, $user) = @_;
 
-    my $username = $user->name();
-    my %attrs = (
-                 base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
-                 scope => 'sub'
-                );
-
-    my $result = $self->{ldap}->search(\%attrs);
+    my $username = $user->get('samAccountName');
+    my $attrs = {
+        base => $self->{ldap}->dn(),
+        filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
+        scope => 'sub',
+    };
+    my $result = $self->{ldap}->search($attrs);
 
     return ($result->count() > 0);
 }
