@@ -26,10 +26,9 @@ sub _print
 {
     my ($self) = @_;
 
-    my $response = $self->response();
     my $trace = EBox::TraceStorable::retrieveTrace($self->request()->env());
-
     if ($trace) {
+        my $response = $self->response();
         $response->body($trace->as_html());
     } else {
         $self->SUPER::_print();
