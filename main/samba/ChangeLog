@@ -15,7 +15,6 @@ HEAD
 	  dependent on ACLs
 	+ Restored external AD mode
 	+ Better errors in GPO models when losing parent row
->>>>>>> master
 	+ Catch error trying to add an already added or delete an already deleted
 	  user to group
 	+ Avoid warning flag on smart match experimental feature
