@@ -80,8 +80,6 @@ sub _process
             $user->set('quota', $quota, 1);
         }
 
-        my $addMail;
-        my $delMail;
         if ($editable) {
             $self->_requireParamAllowEmpty('givenname', __('first name'));
             $self->_requireParamAllowEmpty('surname', __('last name'));
@@ -111,34 +109,10 @@ sub _process
             }
 
             my $mail = $self->unsafeParam('mail');
-            my $oldMail = $user->get('mail');
-            if ($mail) {
-                $mail = lc $mail;
-                if (not $oldMail) {
-                    $addMail = $mail;
-                } elsif  ($mail ne $oldMail) {
-                    $delMail = 1;
-                    $addMail = $mail;
-                }
-            } elsif ($oldMail) {
-                $delMail = 1;
-            }
-
-            my $mailMod = $global->modInstance('mail');
-            if ($delMail) {
-                if ($mailMod and $mailMod->configured()) {
-                    $mailMod->_ldapModImplementation()->delUserAccount($user);
-                } else {
-                    $user->set('mail', '', 1);
-                }
-            }
-            if ($addMail) {
-                if ($mailMod and $mailMod->configured()) {
-                    $mailMod->_ldapModImplementation()->setUserAccount($user, $addMail);
-                } else {
-                    $user->checkMail($addMail);
-                    $user->set('mail', $addMail, 1);
-                }
+            if (length  ($mail)) {
+                $user->set('mail', $mail, 1);
+            } else {
+                $user->delete('mail', 1);
             }
 
             $user->set('givenname', $givenName, 1) if ($givenName);
@@ -163,11 +137,6 @@ sub _process
         $self->{json}->{msg} = __('User updated');
         if ($setText) {
             $self->{json}->{set_text} = $setText;
-        }
-        if ($addMail) {
-            $self->{json}->{mail} = $addMail;
-        } elsif ($delMail) {
-            $self->{json}->{mail} = '';
         }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
