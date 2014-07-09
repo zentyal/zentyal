@@ -1,4 +1,6 @@
 HEAD
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
 	+ Fixed use of deprecated attributes uid and gid instantiating users and
 	  groups
 3.5.1
