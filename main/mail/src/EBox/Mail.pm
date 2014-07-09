@@ -268,6 +268,10 @@ sub initialSetup
         # TODO: We need a mechanism to notify modules when the hostname
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
+    } elsif (EBox::Util::Version::compare($version, 3.5) == 0) {
+        my $path = EBox::Config::share() . "zentyal-" . $self->name();
+        $path .= '/schema-fetchmail.ldif';
+        $self->_loadSchemasFiles([$path]);
     }
 
     if ($self->changed()) {
