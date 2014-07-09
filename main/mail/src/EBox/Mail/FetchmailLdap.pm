@@ -223,7 +223,7 @@ sub removeExternalAccount
 
     my %attrs = (
         base => $self->{ldap}->dn(),
-        filter => '&(objectclass=fetchmailUser)(uid=' . $username . ')',
+        filter => '&(objectclass=fetchmailUser)(samAccountName=' . $username . ')',
         scope => 'sub'
     );
 
