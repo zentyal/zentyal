@@ -1,4 +1,9 @@
 HEAD
+	+ Fix error in send crash report script
+3.5.1
+	+ Fixed dashboard links to official manual
+	+ Model backup/revoke/save files are no longer called implicitly
+	+ Remove warning on formSubmitJS
 	+ Don't let database error to cancel halt or reboot processes
 	+ More warnings on smart match feature removed
 3.5

@@ -49,8 +49,8 @@ sub _process
     my $dn = $self->unsafeParam('dn');
     my $contact = new EBox::Samba::Contact(dn => $dn);
 
-    my $contactgroups = $contact->groups();
-    my $remaingroups = $contact->groupsNotIn();
+    my $contactgroups = $contact->groups(internal => 0, system => 1);
+    my $remaingroups = $contact->groupsNotIn(internal => 0, system => 1);
 
     my $editable = $usersMod->editableMode();
 

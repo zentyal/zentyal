@@ -1,3 +1,5 @@
+3.5.1
+	+ Added defensive code to DNSResolver to avoid ifaces down after crash
 3.5
 	+ Changed ifup coditions on first time save
 	+ Changed validation of setDHCPAddress, setRealPPPIface and

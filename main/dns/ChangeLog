@@ -1,4 +1,4 @@
-HEAD
+3.5.1
 	+ Workaround in pageTitle() method against losing of directory parameter/attribute
 3.5
 	+ Enable sortlist by default in /etc/zentyal/dns.conf

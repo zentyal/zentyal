@@ -103,7 +103,6 @@ sub aroundRestoreConfig
 
     $self->_load_from_file($dir);
 
-    $self->restoreFilesFromArchive($dir);
 
     $self->restoreConfig($dir, @extraOptions);
 }
@@ -166,8 +165,6 @@ sub aroundDumpConfig
     # dump also state, it will not be restored as default
     $self->_dump_state_to_file($dir);
 
-    $self->backupFilesInArchive($dir);
-
     $self->dumpConfig($dir, @options);
 }
 
@@ -213,8 +210,6 @@ sub revokeConfig
 
     $global->modIsChanged($self->name) or return;
 
-    $self->modelsRevokeConfig();
-
 # Disabled until method si reimplemented
 #    $self->_revokeConfigFiles();
 
@@ -230,8 +225,6 @@ sub _saveConfig
         throw EBox::Exceptions::Internal("tried to save a read-only"
                                          . " module: " . $self->name() . "\n");
     }
-
-    $self->modelsSaveConfig();
 
     $self->_copy_to_ro();
 
@@ -809,115 +802,12 @@ sub _addFileToList
 #    $self->_clearFilesToRemoveLists();
 #}
 
-# Method: modelsSaveConfig
-#
-#    Method called when the conifguraiton of a modules is saved
-sub modelsSaveConfig
-{
-    my ($self) = @_;
-
-#    $self->modelsBackupFiles();
-}
-
-# Method: modelsRevokeConfig
-#
-#    Method called when the conifguraiton of a modules is revoked
-sub modelsRevokeConfig
-{
-    my ($self) = @_;
-
-#    $self->modelsRestoreFiles();
-}
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of all the files contained in the
-#   models
-sub modelsBackupFiles
-{
-    my ($self) = @_;
-
-#    foreach my $model ( @{ $self->models() } ) {
-#        if ($model->can('backupFiles')) {
-#            $model->backupFiles();
-#        }
-#    }
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files in the models , thus
-#  discarding the lasts changes in files
-sub modelsRestoreFiles
-{
-    my ($self) = @_;
-
-#    foreach my $model ( @{ $self->models() } ) {
-#        if ($model->can('restoreFiles')) {
-#            $model->restoreFiles();
-#        }
-#    }
-}
-
 sub _filesArchive
 {
     my ($self, $dir) = @_;
-    return "$dir/modelsFiles.tar";
+    return "$dir/moduleFiles.tar";
 }
 
-# Method: backupFilesInArchive
-#
-#  Backup all the modules' files in a compressed archive in the given dir
-#  This is used to create backups
-#
-#   Parameters:
-#   dir - directory where the archive will be stored
-sub backupFilesInArchive
-{
-    my ($self, $dir) = @_;
-
-    my @filesToBackup;
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('filesPaths')) {
-            push @filesToBackup, @{ $model->filesPaths() };
-        }
-    }
-
-    @filesToBackup or
-        return;
-
-    my $archive = $self->_filesArchive($dir);
-
-    my $firstFile  = shift @filesToBackup;
-    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";
-    EBox::Sudo::root($archiveCmd);
-
-    # we append the files one per one bz we don't want to overflow the command
-    # line limit. Another approach would be to use a file catalog however I think
-    # that for only a few files (typical situation for now) the append method is better
-    foreach my $file (@filesToBackup) {
-        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$file'";
-        EBox::Sudo::root($archiveCmd);
-    }
-}
-
-# Method: restoreFilesFromArchive
-#
-#  Restore all the module's file from the compressed archive in the given dir
-#  This is used to restore backups
-#
-#   Parameters:
-#   dir - directory where the archive is stored
-sub restoreFilesFromArchive
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_filesArchive($dir);
-
-    (-f $archive) or return;
-
-    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner";
-    EBox::Sudo::root($restoreCmd);
-}
 
 # Method: replicationExcludeKeys
 #

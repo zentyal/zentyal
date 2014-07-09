@@ -311,21 +311,12 @@ sub removeRow
     }
 
     my $path = $self->parentModule()->SHARES_DIR() . '/' . $row->valueByName('path');
-    unless (-d $path) {
-        return $self->SUPER::removeRow($id, $force);
-    }
-
-    my $dir;
-    unless (opendir ($dir, $path)) {
-        throw EBox::Exceptions::Internal("Could not open directory: $!");
-    }
-    while (my $entry = readdir ($dir)) {
-        next if ($entry =~ /^\.\.?$/);
-        closedir ($dir);
+    EBox::Sudo::silentRoot("ls $path/*");
+    my $hasFiles = ($? == 0);
+    if ($hasFiles) {
         throw EBox::Exceptions::DataInUse(
          __('The directory is not empty. Are you sure you want to remove it?'));
     }
-    closedir ($dir);
 
     return $self->SUPER::removeRow($id, $force);
 }

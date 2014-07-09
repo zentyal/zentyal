@@ -148,12 +148,12 @@ msgstr "Klientas {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:182
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:199
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:195
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:224
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:388
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Model/DataTable.pm:4371
@@ -172,8 +172,8 @@ msgstr "Įjungta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:177
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -183,8 +183,8 @@ msgstr "Įjungta"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:220
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -207,7 +207,7 @@ msgstr "Išjungtas"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
@@ -436,8 +436,8 @@ msgstr "serveris"
 #, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref} certification authority module"
-"{closehref} and renew it.{closepar}"
+"{openpar}Please, go to the {openhref} certification authority "
+"module{closehref} and renew it.{closepar}"
 msgstr ""
 "{openpar} Jums reikalingas galiojantis CA sertifikatas norint naudotis šiuo "
 "moduliu.{closepar}{openpar}Eikite{openhref} sertifikatų modulį {closehref} "
@@ -447,8 +447,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref}certification authority module"
-"{closehref} and create it.{closepar}"
+"{openpar}Please, go to the {openhref}certification authority "
+"module{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Turite sukurti CA sertifikatą norėdami naudotis šiuo moduliu."
 "{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} ir "
@@ -942,7 +942,7 @@ msgstr "Įkelti konfigūracijos paketą"
 msgid "Upload client configuration bundle"
 msgstr "Įkelti konfigūracijos paketą"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
 #, fuzzy, perl-brace-format
 msgid "Upload configuration bundle for {na}"
 msgstr "Įkelti konfigūracijos paketą"
@@ -1275,7 +1275,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:214
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4328
 #: ../../main/network/src/EBox/Network.pm:4349
@@ -1288,8 +1288,8 @@ msgstr "Pavadinimas"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:191
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:92
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:98
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:65
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
@@ -1329,8 +1329,8 @@ msgid "Replication failed. Please check {logfile} for more information."
 msgstr "Klaidos perkaunant servisą {mod}. Daugiau {logs}."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:183
 #, fuzzy
 msgid "Cluster configuration"
 msgstr "Kliento konfigūracija"
@@ -1467,14 +1467,14 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:161
 #, fuzzy
 msgid "Cluster name"
 msgstr "vartotojo vardas"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
 #, fuzzy
 msgid "Cluster secret"
 msgstr "vartotojo vardas"
@@ -1543,41 +1543,41 @@ msgstr "Šis sąrašas neturi kategorijų"
 msgid "noname"
 msgstr "pavadinimas"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
 #, fuzzy
 msgid "Cluster host"
 msgstr "vartotojo vardas"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
 #, fuzzy
 msgid "Cluster host port"
 msgstr "vartotojo vardas"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
 #, fuzzy
 msgid "Choose network interface"
 msgstr "tinklo sąsaja"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:175
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:177
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 #, fuzzy
 msgid "Create a new cluster"
 msgstr "Sukurti naują diską"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
 msgstr ""
 
@@ -1712,8 +1712,8 @@ msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:119
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
@@ -1869,7 +1869,7 @@ msgstr "paskirtis"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/firewall/src/EBox/Firewall.pm:793
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "Protokolas"
@@ -1987,31 +1987,31 @@ msgstr ""
 "Zentyal web servisas leidžia talpinti web puslapius HTML formate be "
 "virtualių vardų."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
 msgid "You must enable, at least, a listening port to make this module useful."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
 #, fuzzy
 msgid "HTTP listening port"
 msgstr "klausymosi jungtis"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
 #, fuzzy
 msgid "HTTPS listening port"
 msgstr "klausymosi jungtis"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
 #, fuzzy
 msgid "Listening Ports settings"
 msgstr "Klausančioji prieiga"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
 #, fuzzy
 msgid "Listening Ports configuration"
 msgstr "Kliento konfigūracija"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
 #, fuzzy
 msgid "Listening ports configuration settings updated."
 msgstr "Zarada kvotos serverio nustatymai atnaujinti."
@@ -2241,7 +2241,7 @@ msgid "hostname"
 msgstr "vardas"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
 #: ../../main/samba/src/EBox/Samba.pm:3102
 msgid "alias"
 msgstr "aliasas"
@@ -2255,7 +2255,7 @@ msgstr "Mašina su vardu {host} jau užregistruota šiame Zentyal"
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr "Turi būti pateikta galiojanti vardų sritis arba žvaigždutė (*)."
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:68
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
@@ -2265,7 +2265,7 @@ msgstr "Turi būti pateikta galiojanti vardų sritis arba žvaigždutė (*)."
 msgid "IP Address"
 msgstr "IP Adresas"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:91
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr ""
 
@@ -2356,14 +2356,14 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:215
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:150
 msgid "This domain"
 msgstr "Ši sritis"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
@@ -2426,8 +2426,8 @@ msgid ""
 msgstr "Yra aliasas tokiu vardu \"{name}\" \"{hostname}\" kažkurioje srityje"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:192
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:180
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:190
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:187
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
 #: ../../main/dns/src/templates/edit.mas:51
 #: ../../main/dns/src/templates/edit.mas:66
@@ -2469,7 +2469,7 @@ msgstr ""
 "omenyje mx.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Jei pasirinkote \"Pritaikytas\", tuomet turi būti pilnas vardų srities "
@@ -2580,15 +2580,15 @@ msgstr ""
 msgid "Last name server cannot be removed"
 msgstr "Paskutinio serverio vardo negalima ištrinti"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:234
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
 msgstr "Vardų serveriai"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:240
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:248
 msgid "It manages the name server (NS) records for this domain"
 msgstr "Jis tvarko vardų serverio (NS) įrašus šiai sričiai"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:241
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:249
 msgid "name server record"
 msgstr "vardų serverio įrašas"
 
@@ -2627,7 +2627,7 @@ msgstr ""
 msgid "{txt} record"
 msgstr "{txt} įrašas"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:70
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -2635,12 +2635,12 @@ msgstr ""
 "Alternatyvus vardas negali būti vardų srities serverio vardas \"{ns}\". "
 "Naudokite mazgo vardą vietoj"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:83
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:82
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Yra mazgo vardas su tuo pačiu vardu \"{name}\" toje pačioje srityje"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:93
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -2649,27 +2649,27 @@ msgstr ""
 "Yra aliasas {hostname} vardui su tuo pačiu pavadinimu \"{name}\" toje "
 "pačioje srityje"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:196
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:203
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:85
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:83
 #, fuzzy, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr "Yra mazgo vardas su tuo pačiu vardu \"{name}\" toje pačioje srityje"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:112
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:127
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:134
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
 #: ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
 msgstr "IP"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:133
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:138
 msgid "The host name will be resolved to this list of IP addresses."
 msgstr ""
 
@@ -2998,11 +2998,11 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:246
 #, perl-brace-format
 msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
+"To add or manage printers you have to use the {open_href}CUPS Web "
+"Interface{close_href}"
 msgstr ""
-"Įkelti ar tvarkyti spausdintuvus turite naudoti {open_href}CUPS Web Sąsają"
-"{close_href}"
+"Įkelti ar tvarkyti spausdintuvus turite naudoti {open_href}CUPS Web "
+"Sąsają{close_href}"
 
 #: ../../main/printers/src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
@@ -3728,41 +3728,34 @@ msgstr "Disable {app} profile for {bin} binary"
 msgid "Antivirus DB updates"
 msgstr "Antiviruso namatytieji nustatymai"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:38
+#: ../../main/sogo/src/EBox/SOGO.pm:53
 #, fuzzy
 msgid "OpenChange Webmail"
 msgstr "Keisti"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:103
-#, fuzzy
-msgid "Create MySQL webmail database."
-msgstr "Sukurti MySQL Roundcube web pašto duombazę."
+#: ../../main/sogo/src/EBox/SOGO.pm:118
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
 
-#: ../../main/sogo/src/EBox/SOGO.pm:104
+#: ../../main/sogo/src/EBox/SOGO.pm:119
 #, fuzzy
-msgid "This database will store the data needed by the webmail service."
-msgstr "Ši duomenų bazė saugos duomenis reikalingus Zarafa."
-
-#: ../../main/sogo/src/EBox/SOGO.pm:108
-#: ../../main/webmail/src/EBox/WebMail.pm:352
-msgid "Add webmail link to www data directory."
-msgstr "Įkelti web pašto nuorodą į www duomenų katalogą."
-
-#: ../../main/sogo/src/EBox/SOGO.pm:109
-#, fuzzy
-msgid "WebMail UI will be accesible at http://ip/webmail/."
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Web paštas bus prieinamas adresu http://ip/webmail/."
 
-#: ../../main/sogo/src/EBox/SOGO.pm:129
-#: ../../main/webmail/src/EBox/WebMail.pm:394
-#, perl-brace-format
+#: ../../main/sogo/src/EBox/SOGO.pm:139
+#, fuzzy, perl-brace-format
 msgid ""
-"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
-"service. You can enable it at {openurl}Mail -> General{closeurl}."
+"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+"Zentyal mail service. You can enable it at {openurl}Mail -> "
+"General{closeurl}."
 msgstr ""
 "Web pašto moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
-"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> Bendra"
-"{closeurl}."
+"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> "
+"Bendra{closeurl}."
+
+#: ../../main/sogo/src/EBox/SOGO.pm:164
+msgid "To make SOGo webmail available"
+msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -4881,8 +4874,8 @@ msgstr "Serveris {s} nerastas per DNS serverį {d}. Priežastis: {r}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:359
 #, perl-brace-format
 msgid ""
-"Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe"
-"{eurl} again"
+"Credentials file '{path}' not found. Please, {ourl}unsubscribe and "
+"subscribe{eurl} again"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:365
@@ -6038,8 +6031,8 @@ msgid ""
 "By enabling this feature, your traffic will be balanced amongst your "
 "gateways. That is, every new connection will be sent by a different gateway. "
 "You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"the weight parameter of the gateway. You can change that value {openref}"
+"here{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
 "Įjungdami šią galimybę jusų srautas bus paskirstytas tarp vartų. Kiekvienas "
@@ -7143,8 +7136,8 @@ msgstr "dažnis"
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
-"your interface configuration to match, at {openhref}Network->Interfaces"
-"{closehref}"
+"your interface configuration to match, at {openhref}Network-"
+">Interfaces{closehref}"
 msgstr ""
 "Srauto ribojimas naudojamas kai Zentyal veikia vartų režimu. Tą pasiekti "
 "jums reikalinga bent viena vidinė sąsają ir bent viena išorinę sąsaja "
@@ -7307,9 +7300,23 @@ msgstr "Sukurti MySQL Roundcube web pašto duombazę."
 msgid "This database will store the data needed by Roundcube."
 msgstr "Ši duomenų bazė saugos duomenis reikalingus Roundcube."
 
+#: ../../main/webmail/src/EBox/WebMail.pm:352
+msgid "Add webmail link to www data directory."
+msgstr "Įkelti web pašto nuorodą į www duomenų katalogą."
+
 #: ../../main/webmail/src/EBox/WebMail.pm:353
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Web paštas bus prieinamas adresu http://ip/webmail/."
+
+#: ../../main/webmail/src/EBox/WebMail.pm:394
+#, perl-brace-format
+msgid ""
+"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
+"service. You can enable it at {openurl}Mail -> General{closeurl}."
+msgstr ""
+"Web pašto moduliui reikalingas įjungtas IMAP ar IMAPS servisas norint "
+"naudoti Zentyal pašto servisą. Galite įjungti {openurl}Paštas -> "
+"Bendra{closeurl}."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:457
 msgid ""
@@ -8328,8 +8335,8 @@ msgstr "Nežinoma atstatymo būsena: {mode}"
 #: ../../main/core/src/EBox/Module/Service.pm:442
 #, perl-brace-format
 msgid ""
-"{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
-"{ch} section, otherwise your changes won't have any effect."
+"{mod} module is disabled. Don't forget to enable it on the {oh}Module "
+"Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
 "{mod} modulis išjungtas. Nepamirškite įjungti {oh}Modulio Statusas{ch} "
 "sekcijoje, kitu atveju jūsų pakeitimai neturės jokio efekto."
@@ -8944,63 +8951,63 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "Konfigūruoti valdiklius"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:186
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
 msgid "HTTP port"
 msgstr "HTTP jungtis"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:203
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
 #, fuzzy
 msgid "Default for Non-SSL"
 msgstr "Numatyta vartotojo kvota"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:205
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
 msgid "Make this service the default for the non-SSL traffic"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:215
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
 msgid "HTTPS port"
 msgstr "HTTPS jungtis"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:232
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
 #, fuzzy
 msgid "Default for SSL"
 msgstr "Numatyta vartotojo kvota"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:234
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
 msgid "Make this service the default for the SSL traffic"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:252
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
 #, fuzzy
 msgid "Zentyal Administration port and other reverse proxy service ports"
 msgstr "Zentyal Administravimo Web serveris"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
 msgid "service"
 msgstr "servisas"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:259
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
 msgid "Here you may configure the services to be served from the reverse proxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
 #, fuzzy
 msgid "This service does not let change the HTTP port."
 msgstr "Šis servisas neleidžia pakeisti sertifikato bendrą vardą"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:288
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
 #, fuzzy
 msgid "This service does not let change the HTTPS port."
 msgstr "Šis servisas neleidžia pakeisti sertifikato bendrą vardą"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:298
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
 #, fuzzy
 msgid "This service cannot have both ports disabled."
 msgstr "'bet kuris servisas' nagali turėti atvrikštinio sutapimo"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:345
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:346
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
@@ -9009,7 +9016,7 @@ msgstr ""
 "Turite įjungti Web Serverį {ohref}Servisų Sertifikatai{chref} norint įjungti "
 "SSL ant virtualaus mazgo."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:353
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:354
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
@@ -9018,11 +9025,11 @@ msgstr ""
 "Turite įjungti Web Serverį {ohref}Servisų Sertifikatai{chref} norint įjungti "
 "SSL ant virtualaus mazgo."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:365
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:366
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:436
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:437
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
@@ -9031,11 +9038,11 @@ msgstr ""
 "Zentyal jau sukonfigūruotas klausytis {p} jungties kito serviso. Pasirinkite "
 "kitą jungtį arba įveskite ir bandykite vėl."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:459
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:460
 msgid "Unmanaged instance of haproxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:463
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:464
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -9044,26 +9051,26 @@ msgstr ""
 "Jungtis {p} jau naudojama programos '{pr}'. Pasirinkite kita jungtį ir "
 "bandykite dar kartą."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:658
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:659
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:699
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:700
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
 msgstr "Jungtis {port} jau naudojamas modulio {mod}"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:720
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:721
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
 msgstr "Jungtis {port} jau naudojamas modulio {mod}"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:761
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:762
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
 msgstr "Jungtis {port} jau naudojamas modulio {mod}"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:782
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:783
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
 msgstr "Jungtis {port} jau naudojamas modulio {mod}"
@@ -9104,21 +9111,21 @@ msgstr "Laisva vieta"
 msgid "Check if any disk partition has no storage space left"
 msgstr "Patikrinti ar visuose skirsniuose pakanka laisvos vietos"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:185
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr "Yra {nSecUpdates} saugumo atnaujinimų. Paveikti paketai : {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:198
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr "Papildomai, yra {nUpdates}. Pakeičiami paketai yra: {packages}."
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:203
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:204
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
 msgid ""
@@ -9128,11 +9135,11 @@ msgid ""
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:240
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:241
 msgid "Security software updates"
 msgstr "Programų saugumo atnaujinimai"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:255
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:256
 msgid "Check if there is any security software update."
 msgstr "Patikrinti ar yra programų saugumo atnaujinimų."
 
@@ -10325,8 +10332,8 @@ msgstr "{pkg} turi būti įdiegtas kad naudoti šią galimybę"
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:107
 #, perl-brace-format
 msgid ""
-"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
-"{ch}"
+"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
+"module{ch}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:113
@@ -10353,8 +10360,8 @@ msgstr "Konfigūruoti PPTP serverį."
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:100
 #, perl-brace-format
 msgid ""
-"To configure OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To configure OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
@@ -10424,8 +10431,8 @@ msgstr "Nėra neišsaugotų pakeitimų šioje sesijoje."
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
 #, perl-brace-format
 msgid ""
-"To provision OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To provision OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
@@ -11010,12 +11017,12 @@ msgid "Output interface"
 msgstr "Išvesties sąsaja"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:794
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:150
 msgid "Source port"
 msgstr "Šaltinio prieiga"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:795
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:156
 msgid "Destination port"
 msgstr "Tikslo prieiga"
 
@@ -11345,18 +11352,23 @@ msgstr ""
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:611
+#: ../../main/samba/src/EBox/Samba/Group.pm:353
+#, fuzzy
+msgid "The server is unwilling to perform the requested operation"
+msgstr "Kitas serveris klausosi ant tos pačios jungties"
+
+#: ../../main/samba/src/EBox/Samba/Group.pm:626
 msgid "Maximum number of groups reached"
 msgstr "Maksimaliai grupių kiekis pasiektas"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:682
+#: ../../main/samba/src/EBox/Samba/Group.pm:697
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "Neteisingas GID {gid} grupei. GID turi būti lygus arba didesnis nei {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:690
+#: ../../main/samba/src/EBox/Samba/Group.pm:705
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
@@ -13825,12 +13837,12 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is "
-"disabled. If you want to filter virus, first {openhref}activate the module"
-"{closehref} and come back here"
+"disabled. If you want to filter virus, first {openhref}activate the "
+"module{closehref} and come back here"
 msgstr ""
 "Jūs negalite aktyvuoti antiviruso filtro, nes antiviruso modulis išjungtas. "
-"Jei norite filtruoti virusus pirmiausiai {openhref}aktyvuokite šį modulį"
-"{closehref} ir vėliau ateikite čia"
+"Jei norite filtruoti virusus pirmiausiai {openhref}aktyvuokite šį "
+"modulį{closehref} ir vėliau ateikite čia"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:69
 #, perl-brace-format
@@ -15476,16 +15488,16 @@ msgstr "Kvota gali būti tik teigiamas skaičius arba nulis neribotai kvotai"
 msgid "This message is being delivered"
 msgstr "Šis laiškas pristatomas"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:151
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:152
 msgid "This field is usually set to any"
 msgstr "Šis laukas dažniausiai žymimas kaip bet koks"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:169
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:170
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Serviso konfigūracija"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:213
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
 msgid ""
 "If you want a service for any connections on this protocol, use the "
@@ -15591,9 +15603,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
-"Turite išsaugoti pakeitimus modulio statusuose {openhref}Saugoti pakeitimus"
-"{closehref} norint pamatyti stebėjimo grafikus. Jei tai atlikote turite "
-"palaukti keletą minučių kol surinks stebėjimo duomenis"
+"Turite išsaugoti pakeitimus modulio statusuose {openhref}Saugoti "
+"pakeitimus{closehref} norint pamatyti stebėjimo grafikus. Jei tai atlikote "
+"turite palaukti keletą minučių kol surinks stebėjimo duomenis"
 
 #: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:95
 #, perl-brace-format
@@ -16974,8 +16986,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to revoke and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "Sertifikatas kurio bendras vardas {cn} jūs bandėte atšaukti yra naudojamas "
 "kai kurių modulių, prašome patvritinti ar tikrai norite atšaukti ir palikti "
@@ -17008,8 +17020,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to renew and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "Sertikatas kurio bendras vardas {cn} kurį jūs bandėte atnaujinti yra "
 "naudojamas kitų modulių, prašome patvirtinti ar tikrai norite atnaujinti ir "
@@ -17165,8 +17177,8 @@ msgstr "- Paskutinė kopija: {date}"
 #: ../../main/remoteservices/src/templates/register_button.mas:14
 #, perl-brace-format
 msgid ""
-"Introduce Professional, Business or Premium credentials, or {ohb}register"
-"{ch} a FREE account!"
+"Introduce Professional, Business or Premium credentials, or {ohb}"
+"register{ch} a FREE account!"
 msgstr ""
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:140
@@ -18027,8 +18039,9 @@ msgid ""
 "Module Status{closeref} section will be ignored in both backup and restore "
 "operations."
 msgstr ""
-"Tie moduliai kurie buvo neįjungti pirmą kartą {openref}Modulių Statusas"
-"{closeref} pasirinkime bus ignoruojami kopijos ir atstatymo operacijose."
+"Tie moduliai kurie buvo neįjungti pirmą kartą {openref}Modulių "
+"Statusas{closeref} pasirinkime bus ignoruojami kopijos ir atstatymo "
+"operacijose."
 
 #: ../../main/core/src/templates/backup.mas:31
 msgid "Backup the Current State"
@@ -19742,6 +19755,18 @@ msgid ""
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Create MySQL webmail database."
+#~ msgstr "Sukurti MySQL Roundcube web pašto duombazę."
+
+#, fuzzy
+#~ msgid "This database will store the data needed by the webmail service."
+#~ msgstr "Ši duomenų bazė saugos duomenis reikalingus Zarafa."
+
+#, fuzzy
+#~ msgid "WebMail UI will be accesible at http://ip/webmail/."
+#~ msgstr "Web paštas bus prieinamas adresu http://ip/webmail/."
+
 #~ msgid "Password management"
 #~ msgstr "Slaptažodžių tvarkymas"
 
@@ -20317,8 +20342,8 @@ msgstr ""
 #~ "settings{chref}."
 #~ msgstr ""
 #~ "Įjungti {service} pašto gavimo servisą turite išjungti {service} vartus "
-#~ "Zarafa. Galite atlikti {ohref}Zarafa vartų konfigūracijos nustatymuose"
-#~ "{chref}."
+#~ "Zarafa. Galite atlikti {ohref}Zarafa vartų konfigūracijos "
+#~ "nustatymuose{chref}."
 
 #~ msgid "{ac} is not a internal account"
 #~ msgstr "{ac} yra ne vidinė paskyra"
@@ -20519,12 +20544,12 @@ msgstr ""
 
 #~ msgid ""
 #~ "To enable Zarafa {service} gateway you must disable {service} mail "
-#~ "retrieval service. You can do it at {ohref}Mail General Configuration"
-#~ "{chref}."
+#~ "retrieval service. You can do it at {ohref}Mail General "
+#~ "Configuration{chref}."
 #~ msgstr ""
 #~ "Įjungti Zarafa {service} vartus jūs turite išjungti {service} pašto "
-#~ "gavimo servisą. Galite atlikti tai {ohref}Pašto Pagrindiniai nustatymai"
-#~ "{chref}"
+#~ "gavimo servisą. Galite atlikti tai {ohref}Pašto Pagrindiniai "
+#~ "nustatymai{chref}"
 
 #~ msgid ""
 #~ "To enable Zarafa POP3 and IMAP gateways you need at least one virtual "
@@ -21013,8 +21038,8 @@ msgstr ""
 #~ "Module Status{closeref} section and enable it prior to try to start any "
 #~ "machine."
 #~ msgstr ""
-#~ "Virtualių Mašinų modulis neįjungtas, eikite {openref}Modulio Statusas"
-#~ "{closeref} sekciją ir įjunkite prieš bandant startuoti."
+#~ "Virtualių Mašinų modulis neįjungtas, eikite {openref}Modulio "
+#~ "Statusas{closeref} sekciją ir įjunkite prieš bandant startuoti."
 
 #~ msgid ""
 #~ "Virtual machines cannot be started if there are pending unsaved changes "
@@ -23464,8 +23489,8 @@ msgstr ""
 #~ "There are not network objects in the system. You can create them in the "
 #~ "{openurl}Object's page{closeurl}"
 #~ msgstr ""
-#~ "Nėra tinklo objektų sistemoje. Galite sukurti {openurl}Objektų puslapyje"
-#~ "{closeurl}"
+#~ "Nėra tinklo objektų sistemoje. Galite sukurti {openurl}Objektų "
+#~ "puslapyje{closeurl}"
 
 #~ msgid "Community Resources"
 #~ msgstr "Bendruomenės resursai"

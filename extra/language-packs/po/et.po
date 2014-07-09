@@ -137,12 +137,12 @@ msgstr "Klient {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:182
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:199
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:195
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:224
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:388
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Model/DataTable.pm:4371
@@ -163,8 +163,8 @@ msgstr "Lubatud"
 # kui tõlkida 'keelatud', siis tundub, et lävi on range. vt liides
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:177
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -174,8 +174,8 @@ msgstr "Lubatud"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:220
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -223,7 +223,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
@@ -456,23 +456,23 @@ msgstr "server"
 #, fuzzy, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref} certification authority module"
-"{closehref} and renew it.{closepar}"
+"{openpar}Please, go to the {openhref} certification authority "
+"module{closehref} and renew it.{closepar}"
 msgstr ""
 "{openpar}Sa pead selle mooduli kasutamiseks looma SK sertifikaadi. {closepar}"
-"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse moodulisse"
-"{closehref} ning loo see.{closepar}"
+"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse "
+"moodulisse{closehref} ning loo see.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, fuzzy, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref}certification authority module"
-"{closehref} and create it.{closepar}"
+"{openpar}Please, go to the {openhref}certification authority "
+"module{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Sa pead selle mooduli kasutamiseks looma SK sertifikaadi. {closepar}"
-"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse moodulisse"
-"{closehref} ning loo see.{closepar}"
+"{openpar}Palun mine selleks {openhref}Sertifitseerimiskeskuse "
+"moodulisse{closehref} ning loo see.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -533,12 +533,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}OpenVPN servereid saab seadistada lihtsa ühenduse loomiseks "
-"kontorite või kasutajatega.{closepar}{openpar}Klõpsa {openit}seadistamisele"
-"{closeit}, et määrata VPN parameetreid.{closepar}{openpar}{openit}"
-"Propageeritud võrgud{closeit} lubavad sul seadistada seda milliseid võrke "
-"tahad teha kaugkasutajatele kättesaadavaks.{openpar}Kui seadistamine on "
-"lõppenud, saad oma operatsioonisüsteemi jaoks alla laadida failikomplekti, "
-"mida klientides kasutada."
+"kontorite või kasutajatega.{closepar}{openpar}Klõpsa {openit}"
+"seadistamisele{closeit}, et määrata VPN parameetreid.{closepar}{openpar}"
+"{openit}Propageeritud võrgud{closeit} lubavad sul seadistada seda milliseid "
+"võrke tahad teha kaugkasutajatele kättesaadavaks.{openpar}Kui seadistamine "
+"on lõppenud, saad oma operatsioonisüsteemi jaoks alla laadida "
+"failikomplekti, mida klientides kasutada."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
@@ -993,7 +993,7 @@ msgstr "Laadi seadistuste komplekt üles"
 msgid "Upload client configuration bundle"
 msgstr "Laadi seadistuste komplekt üles"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
 #, fuzzy, perl-brace-format
 msgid "Upload configuration bundle for {na}"
 msgstr "Laadi seadistuste komplekt üles"
@@ -1337,7 +1337,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:214
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4328
 #: ../../main/network/src/EBox/Network.pm:4349
@@ -1350,8 +1350,8 @@ msgstr "Masinanimi"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:191
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:92
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:98
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:65
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
@@ -1391,8 +1391,8 @@ msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:183
 #, fuzzy
 msgid "Cluster configuration"
 msgstr "Kliendi seadistamine"
@@ -1528,14 +1528,14 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:161
 #, fuzzy
 msgid "Cluster name"
 msgstr "kasutajanimi"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
 #, fuzzy
 msgid "Cluster secret"
 msgstr "kasutajanimi"
@@ -1624,41 +1624,41 @@ msgstr "Sellel loendil ei ole kategooriat"
 msgid "noname"
 msgstr "nimi"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
 #, fuzzy
 msgid "Cluster host"
 msgstr "kasutajanimi"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
 #, fuzzy
 msgid "Cluster host port"
 msgstr "kasutajanimi"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
 #, fuzzy
 msgid "Choose network interface"
 msgstr "võrguliides"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:175
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:177
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 #, fuzzy
 msgid "Create a new cluster"
 msgstr "E-posti aliaste loomine"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
 msgstr ""
 
@@ -1794,8 +1794,8 @@ msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:119
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
@@ -1961,7 +1961,7 @@ msgstr "Sihtkoht"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/firewall/src/EBox/Firewall.pm:793
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "Protokoll"
@@ -2094,31 +2094,31 @@ msgstr ""
 "eBoxi veebiteenus lubab sul majutada veebilehti HTML avatekstis erinevates "
 "virtuaalhostides"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
 msgid "You must enable, at least, a listening port to make this module useful."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
 #, fuzzy
 msgid "HTTP listening port"
 msgstr "pordi kuulamine"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
 #, fuzzy
 msgid "HTTPS listening port"
 msgstr "pordi kuulamine"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
 #, fuzzy
 msgid "Listening Ports settings"
 msgstr "Kuulatav port"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
 #, fuzzy
 msgid "Listening Ports configuration"
 msgstr "Kliendi seadistamine"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
 #, fuzzy
 msgid "Listening ports configuration settings updated."
 msgstr "Üldine seadistamine"
@@ -2358,7 +2358,7 @@ msgid "hostname"
 msgstr "Masinanimi"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
 #: ../../main/samba/src/EBox/Samba.pm:3102
 msgid "alias"
 msgstr "alias"
@@ -2372,7 +2372,7 @@ msgstr "Masin nimega {host} on juba selles eBoxis registreeritud"
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:68
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
@@ -2382,7 +2382,7 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP aadress"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:91
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr ""
 
@@ -2473,7 +2473,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:215
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:150
 msgid "This domain"
 msgstr "See domeen"
@@ -2482,7 +2482,7 @@ msgstr "See domeen"
 # mulle see kohandatud ei meeldi eriti, kui muudad vaata üle ka teised 'custom' asjad
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
@@ -2545,8 +2545,8 @@ msgstr ""
 "Samas domeenis on juba masinal \"{hostname}\" samasugune alias \"{name}\""
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:192
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:180
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:190
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:187
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
 #: ../../main/dns/src/templates/edit.mas:51
 #: ../../main/dns/src/templates/edit.mas:66
@@ -2586,7 +2586,7 @@ msgstr ""
 "{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Kui sa valid \"Kohandatud\", peaks see olema täielik domeeninimi (FQDN)"
@@ -2701,15 +2701,15 @@ msgstr ""
 msgid "Last name server cannot be removed"
 msgstr "nimeserveri kirje"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:234
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
 msgstr "Nimeserverid"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:240
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:248
 msgid "It manages the name server (NS) records for this domain"
 msgstr "See haldab domeeni jaoks nimeserveri (NS) kirjeid"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:241
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:249
 msgid "name server record"
 msgstr "nimeserveri kirje"
 
@@ -2750,7 +2750,7 @@ msgid "{txt} record"
 msgstr ""
 
 # masinanimi ja masina nimi ?
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:70
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
@@ -2759,13 +2759,13 @@ msgstr ""
 "masinanime"
 
 # paremat sõnastust äkki?
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:83
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:82
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "Samas domeenis on juba olemas selline masinanimi \"{name}\""
 
 #  
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:93
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
@@ -2774,28 +2774,28 @@ msgstr ""
 "Samas domeenis on juba olemas alias nimega \"{name}\" mis kuulub "
 "masinanimele {hostname}"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:196
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:203
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
 
 # paremat sõnastust äkki?
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:85
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:83
 #, fuzzy, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr "Samas domeenis on juba olemas selline masinanimi \"{name}\""
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:112
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:127
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:134
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
 #: ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
 msgstr "IP"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:133
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:138
 msgid "The host name will be resolved to this list of IP addresses."
 msgstr ""
 
@@ -3164,8 +3164,8 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:246
 #, perl-brace-format
 msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
+"To add or manage printers you have to use the {open_href}CUPS Web "
+"Interface{close_href}"
 msgstr ""
 
 #: ../../main/printers/src/EBox/Printers.pm:56
@@ -3953,42 +3953,35 @@ msgstr ""
 msgid "Antivirus DB updates"
 msgstr "Viirusetõrje vaikimisi seadistused"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:38
+#: ../../main/sogo/src/EBox/SOGO.pm:53
 #, fuzzy
 msgid "OpenChange Webmail"
 msgstr "Muuda"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:103
-#, fuzzy
-msgid "Create MySQL webmail database."
-msgstr "PostgreSQL Roundcube'i webmaili andmebaasi loomine"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:104
-#, fuzzy
-msgid "This database will store the data needed by the webmail service."
-msgstr "Selles andmebaasis hoitakse Roundcube'i jaoks vajalikke andmeid."
-
-#: ../../main/sogo/src/EBox/SOGO.pm:108
-#: ../../main/webmail/src/EBox/WebMail.pm:352
-msgid "Add webmail link to www data directory."
-msgstr "www andmete kataloogile webmaili lingi lisamine."
+#: ../../main/sogo/src/EBox/SOGO.pm:118
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
 
 # ei tea kas "webmail" on vaja aadressis tõlkida või mitte
-#: ../../main/sogo/src/EBox/SOGO.pm:109
+#: ../../main/sogo/src/EBox/SOGO.pm:119
 #, fuzzy
-msgid "WebMail UI will be accesible at http://ip/webmail/."
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Webmail on kättesaadav aadressil http://ip/webmail/"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:129
-#: ../../main/webmail/src/EBox/WebMail.pm:394
+#: ../../main/sogo/src/EBox/SOGO.pm:139
 #, fuzzy, perl-brace-format
 msgid ""
-"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
-"service. You can enable it at {openurl}Mail -> General{closeurl}."
+"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+"Zentyal mail service. You can enable it at {openurl}Mail -> "
+"General{closeurl}."
 msgstr ""
 "Kui kasutad eBoxi e-posti teenust, peab webmaili mooduli IMAP või IMAPS "
 "teenus olema lubatud. Seda on võimalik lubada, minnes {openurl}E-post -> "
 "Üldine{closeurl}."
+
+#: ../../main/sogo/src/EBox/SOGO.pm:164
+msgid "To make SOGo webmail available"
+msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -5153,8 +5146,8 @@ msgstr "Serverit {s} ei leitud DNS serveri {d} kaudu"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:359
 #, perl-brace-format
 msgid ""
-"Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe"
-"{eurl} again"
+"Credentials file '{path}' not found. Please, {ourl}unsubscribe and "
+"subscribe{eurl} again"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:365
@@ -6302,8 +6295,8 @@ msgid ""
 "By enabling this feature, your traffic will be balanced amongst your "
 "gateways. That is, every new connection will be sent by a different gateway. "
 "You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"the weight parameter of the gateway. You can change that value {openref}"
+"here{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
 "Valikut lubades tasakaalustatakse võrguliiklus lüüside vahel. Iga uus loodav "
@@ -7465,8 +7458,8 @@ msgstr "kiirus"
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
-"your interface configuration to match, at {openhref}Network->Interfaces"
-"{closehref}"
+"your interface configuration to match, at {openhref}Network-"
+">Interfaces{closehref}"
 msgstr ""
 "Liikluse kujundamist rakendatakse siis, kui eBox käitub lüüsina. Selle jaoks "
 "vajad sa vähemalt ühte sisemist ja välist liidest. Oma liideste seadistusi "
@@ -7643,10 +7636,24 @@ msgstr "PostgreSQL Roundcube'i webmaili andmebaasi loomine"
 msgid "This database will store the data needed by Roundcube."
 msgstr "Selles andmebaasis hoitakse Roundcube'i jaoks vajalikke andmeid."
 
+#: ../../main/webmail/src/EBox/WebMail.pm:352
+msgid "Add webmail link to www data directory."
+msgstr "www andmete kataloogile webmaili lingi lisamine."
+
 # ei tea kas "webmail" on vaja aadressis tõlkida või mitte
 #: ../../main/webmail/src/EBox/WebMail.pm:353
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "Webmail on kättesaadav aadressil http://ip/webmail/"
+
+#: ../../main/webmail/src/EBox/WebMail.pm:394
+#, fuzzy, perl-brace-format
+msgid ""
+"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
+"service. You can enable it at {openurl}Mail -> General{closeurl}."
+msgstr ""
+"Kui kasutad eBoxi e-posti teenust, peab webmaili mooduli IMAP või IMAPS "
+"teenus olema lubatud. Seda on võimalik lubada, minnes {openurl}E-post -> "
+"Üldine{closeurl}."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:457
 msgid ""
@@ -8744,8 +8751,8 @@ msgstr "Tundmatu taastamisrežiim: {mode}"
 #: ../../main/core/src/EBox/Module/Service.pm:442
 #, perl-brace-format
 msgid ""
-"{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
-"{ch} section, otherwise your changes won't have any effect."
+"{mod} module is disabled. Don't forget to enable it on the {oh}Module "
+"Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
@@ -9369,35 +9376,35 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "Vidinate seadistamine"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:186
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
 #, fuzzy
 msgid "HTTP port"
 msgstr "suvaline TCP port"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:203
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
 #, fuzzy
 msgid "Default for Non-SSL"
 msgstr "Vaikimisi kvoot"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:205
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
 msgid "Make this service the default for the non-SSL traffic"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:215
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
 #, fuzzy
 msgid "HTTPS port"
 msgstr "suvaline TCP port"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:232
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
 #, fuzzy
 msgid "Default for SSL"
 msgstr "Vaikimisi kvoot"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:234
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
 msgid "Make this service the default for the SSL traffic"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:252
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
 #, fuzzy
 msgid "Zentyal Administration port and other reverse proxy service ports"
 msgstr ""
@@ -9406,86 +9413,86 @@ msgstr ""
 "#-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#\n"
 "eBoxi veebiserver"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
 msgid "service"
 msgstr "teenus"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:259
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
 msgid "Here you may configure the services to be served from the reverse proxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
 #, fuzzy
 msgid "This service does not let change the HTTP port."
 msgstr "Serverile {name} ei ole sertifikaati omistatud"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:288
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
 #, fuzzy
 msgid "This service does not let change the HTTPS port."
 msgstr "Serverile {name} ei ole sertifikaati omistatud"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:298
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
 msgid "This service cannot have both ports disabled."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:345
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:346
 #, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
 "Certificates page{chref}"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:353
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:354
 #, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
 "Services Certificates{chref}"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:365
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:366
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:436
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:437
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
 "or free it and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:459
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:460
 msgid "Unmanaged instance of haproxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:463
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:464
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:658
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:659
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:699
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:700
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:720
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:721
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:761
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:762
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:782
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:783
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
@@ -9525,21 +9532,21 @@ msgstr "Kettakasutuse jälgija"
 msgid "Check if any disk partition has no storage space left"
 msgstr "Kontrolli, kas mõnel kettapartitsioonil ei ole vaba ruumi"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:185
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:198
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:203
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:204
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
 msgid ""
@@ -9549,12 +9556,12 @@ msgid ""
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:240
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:241
 #, fuzzy
 msgid "Security software updates"
 msgstr "Tarkvara automaatne uuendamine"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:255
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:256
 msgid "Check if there is any security software update."
 msgstr ""
 
@@ -10777,8 +10784,8 @@ msgstr "{pkg} peab olema selle funktsiooni kasutamiseks paigaldatud"
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:107
 #, perl-brace-format
 msgid ""
-"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
-"{ch}"
+"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
+"module{ch}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:113
@@ -10805,8 +10812,8 @@ msgstr "DTMFi käitumise seadistamiseks."
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:100
 #, perl-brace-format
 msgid ""
-"To configure OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To configure OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
@@ -10879,8 +10886,8 @@ msgstr "Sellel sessioonil ei ole salvestamata muudatusi."
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
 #, perl-brace-format
 msgid ""
-"To provision OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To provision OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
@@ -11506,12 +11513,12 @@ msgid "Output interface"
 msgstr "Väljundliides"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:794
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:150
 msgid "Source port"
 msgstr "Lähteport"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:795
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:156
 msgid "Destination port"
 msgstr "Sihtport"
 
@@ -11856,18 +11863,23 @@ msgstr ""
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:611
+#: ../../main/samba/src/EBox/Samba/Group.pm:353
+#, fuzzy
+msgid "The server is unwilling to perform the requested operation"
+msgstr "Teine server kuulab samal pordil"
+
+#: ../../main/samba/src/EBox/Samba/Group.pm:626
 #, fuzzy
 msgid "Maximum number of groups reached"
 msgstr "Maksimaalne filtri gruppide arv on täis"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:682
+#: ../../main/samba/src/EBox/Samba/Group.pm:697
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "Grupi GID {gid} on vigane. GID peab olema võrdne või suurem kui {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:690
+#: ../../main/samba/src/EBox/Samba/Group.pm:705
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "Systeemi grupi GID {gid} on vigane. GID peab olema väiksem kui {max}"
@@ -12358,8 +12370,9 @@ msgid ""
 "you to share an existing directory within your file system"
 msgstr ""
 "{openit}eBoxi samba kataloog{closeit} valimisel luuakse jagatav kataloogi "
-"automaatselt asukohta /home/samba/shares {br}{openit}Failisüsteemi asukoht"
-"{closeit} valimisel lubatakse jagada failisüsteemis olemasolevat kataloogi."
+"automaatselt asukohta /home/samba/shares {br}{openit}Failisüsteemi "
+"asukoht{closeit} valimisel lubatakse jagada failisüsteemis olemasolevat "
+"kataloogi."
 
 #  
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:471
@@ -14428,8 +14441,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is "
-"disabled. If you want to filter virus, first {openhref}activate the module"
-"{closehref} and come back here"
+"disabled. If you want to filter virus, first {openhref}activate the "
+"module{closehref} and come back here"
 msgstr ""
 "Sa ei saa aktiveerida viirusetõrje filtrit, kuna viirusetõrje moodul on "
 "keelatud. Kui sa soovid filtreerida viirust, siis esmalt {openhref}aktiveeri "
@@ -16152,16 +16165,16 @@ msgstr ""
 msgid "This message is being delivered"
 msgstr "Seda sõnumit toimetakse kohale"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:151
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:152
 msgid "This field is usually set to any"
 msgstr "See väli on tavaliselt määratud suvaliseks"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:169
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:170
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Teenuse seadistamine"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:213
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
 msgid ""
 "If you want a service for any connections on this protocol, use the "
@@ -16278,9 +16291,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
-"Monitooringu graafikute nägemiseks peab {openhref}muudatused salvestama"
-"{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, et jõutaks "
-"koguda esimesed monitooringuandmed."
+"Monitooringu graafikute nägemiseks peab {openhref}muudatused "
+"salvestama{closehref}. Juhul kui oled seda juba teinud, oota paar sekundit, "
+"et jõutaks koguda esimesed monitooringuandmed."
 
 #: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:95
 #, perl-brace-format
@@ -17713,8 +17726,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to revoke and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "Tühistatavat sertifikaati üldise nimega {cn} kasutatakse ka teiste moodulite "
 "poolt, palun kinnita, et soovid seda tühistada ja muuta teenus(ed) "
@@ -17741,15 +17754,15 @@ msgid ""
 "leave the service(s) unstable or disabled"
 msgstr ""
 "See uuendamine võib mõjuda teiste moodulite funktsionaalsusele, seega palun "
-"kinnita, et soovid kogu sertifitseerimiskeskust {on} uuendada ja muuta teenus"
-"(ed) ebastabiilseks või keelatuks"
+"kinnita, et soovid kogu sertifitseerimiskeskust {on} uuendada ja muuta "
+"teenus(ed) ebastabiilseks või keelatuks"
 
 #: ../../main/ca/src/templates/forceRenew.mas:52
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to renew and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "Uuendatavat sertifikaati üldise nimega {cn} kasutatakse ka teiste moodulite "
 "poolt, palun kinnita, et soovid seda uuendada ja muuta teenus(ed) "
@@ -17913,8 +17926,8 @@ msgstr "Olematu varundus: {n}"
 #: ../../main/remoteservices/src/templates/register_button.mas:14
 #, perl-brace-format
 msgid ""
-"Introduce Professional, Business or Premium credentials, or {ohb}register"
-"{ch} a FREE account!"
+"Introduce Professional, Business or Premium credentials, or {ohb}"
+"register{ch} a FREE account!"
 msgstr ""
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:140
@@ -20631,6 +20644,19 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Create MySQL webmail database."
+#~ msgstr "PostgreSQL Roundcube'i webmaili andmebaasi loomine"
+
+#, fuzzy
+#~ msgid "This database will store the data needed by the webmail service."
+#~ msgstr "Selles andmebaasis hoitakse Roundcube'i jaoks vajalikke andmeid."
+
+# ei tea kas "webmail" on vaja aadressis tõlkida või mitte
+#, fuzzy
+#~ msgid "WebMail UI will be accesible at http://ip/webmail/."
+#~ msgstr "Webmail on kättesaadav aadressil http://ip/webmail/"
 
 #~ msgid "Password management"
 #~ msgstr "Parooli haldamine"

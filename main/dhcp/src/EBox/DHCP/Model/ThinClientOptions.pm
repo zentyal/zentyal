@@ -44,7 +44,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
-use EBox::Types::File;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Host;

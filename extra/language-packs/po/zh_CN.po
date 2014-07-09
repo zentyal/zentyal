@@ -132,12 +132,12 @@ msgstr "客户端 {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:182
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:199
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:195
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:224
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:388
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Model/DataTable.pm:4371
@@ -156,8 +156,8 @@ msgstr "已启用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:177
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:194
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -167,8 +167,8 @@ msgstr "已启用"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:191
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:220
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -191,7 +191,7 @@ msgstr "禁用"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
@@ -417,8 +417,8 @@ msgstr "服务器"
 #, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref} certification authority module"
-"{closehref} and renew it.{closepar}"
+"{openpar}Please, go to the {openhref} certification authority "
+"module{closehref} and renew it.{closepar}"
 msgstr ""
 "{openpar}你需要一个有效的 CA 证书来运行 VPN 服务器。 {closepar}{openpar}请前"
 "往{openhref}认证中心模块{closehref}更新它。{closepar}"
@@ -427,8 +427,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
-"{openpar}Please, go to the {openhref}certification authority module"
-"{closehref} and create it.{closepar}"
+"{openpar}Please, go to the {openhref}certification authority "
+"module{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}您需要创建一个 CA 证书来运行 VPN 服务器。 {closepar}{openpar}请前往"
 "{openhref}认证中心模块{closehref}创建它。{closepar}"
@@ -890,7 +890,7 @@ msgstr "上传配置文件"
 msgid "Upload client configuration bundle"
 msgstr "上传客户端配置文件"
 
-#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:126
+#: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:134
 #, perl-brace-format
 msgid "Upload configuration bundle for {na}"
 msgstr "上传{na}的配置文件"
@@ -1211,7 +1211,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:214
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4328
 #: ../../main/network/src/EBox/Network.pm:4349
@@ -1224,8 +1224,8 @@ msgstr "主机名"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:191
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:92
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:98
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:65
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
@@ -1264,8 +1264,8 @@ msgid "Replication failed. Please check {logfile} for more information."
 msgstr "{mod} 服务重启失败。更多信息，请查看 {logs}。"
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:133
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:182
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:183
 msgid "Cluster configuration"
 msgstr "集群配置"
 
@@ -1392,13 +1392,13 @@ msgstr "{name} 当前是非活动节点"
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:160
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:161
 msgid "Cluster name"
 msgstr "集群名称"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:153
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
 msgid "Cluster secret"
 msgstr "集群密码"
 
@@ -1463,37 +1463,37 @@ msgstr "这个月不是 31 天。"
 msgid "noname"
 msgstr "名称"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:140
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
 msgid "Cluster host"
 msgstr "集群主机"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:146
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
 msgid "Cluster host port"
 msgstr "集群主机端口"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:168
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
 msgid "Choose network interface"
 msgstr "选择网络接口"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:170
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
 msgstr "它将被用作集群成员之间的通信信道。"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:174
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:175
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr "配置此服务器将如何启动一个群集，或加入到现有的集群中"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:176
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:177
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr "修改任何设置，都有可能导致集群中断"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:197
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
 msgid "Create a new cluster"
 msgstr "创建一个集群"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
 msgstr "将该节点加入一个现有的集群"
 
@@ -1626,8 +1626,8 @@ msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
 msgstr "高级安全更新授权你使用日常更新规则{rules}"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:119
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
@@ -1780,7 +1780,7 @@ msgstr "目的"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/firewall/src/EBox/Firewall.pm:793
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:144
 #: ../../main/mail/src/templates/externalAccounts.mas:18
 msgid "Protocol"
 msgstr "协议"
@@ -1892,31 +1892,31 @@ msgid ""
 "different virtual hosts."
 msgstr "Zentyal网络服务器允许HTTP和HTTPS页面在不同的虚拟主机。"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:65
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
 msgid "You must enable, at least, a listening port to make this module useful."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:173
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
 #, fuzzy
 msgid "HTTP listening port"
 msgstr "监听端口"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:190
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
 #, fuzzy
 msgid "HTTPS listening port"
 msgstr "监听端口"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:209
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
 #, fuzzy
 msgid "Listening Ports settings"
 msgstr "会议列表"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:213
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
 #, fuzzy
 msgid "Listening Ports configuration"
 msgstr "客户端配置"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:215
+#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
 #, fuzzy
 msgid "Listening ports configuration settings updated."
 msgstr "Zarafa 服务器限额配置已更新。"
@@ -2137,7 +2137,7 @@ msgid "hostname"
 msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
 #: ../../main/samba/src/EBox/Samba.pm:3102
 msgid "alias"
 msgstr "别名"
@@ -2151,7 +2151,7 @@ msgstr "这个域名{y}中已存在一个与{x}相同的主机名"
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr "需要提供一个不合法的域名或者一个通配符(*)"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:68
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
@@ -2161,7 +2161,7 @@ msgstr "需要提供一个不合法的域名或者一个通配符(*)"
 msgid "IP Address"
 msgstr "IP地址"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:91
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
 msgstr "该域名将被解析为这个 IP 地址列表。"
 
@@ -2244,14 +2244,14 @@ msgstr "如果您选择“定制”，需要输入完整域名"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:176
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:195
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:215
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:150
 msgid "This domain"
 msgstr "此域名"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:223
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
@@ -2310,8 +2310,8 @@ msgid ""
 msgstr "在这个域中，\"{hostname}\"已有一个\"{name}\"的别名"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:192
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:180
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:190
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:187
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
 #: ../../main/dns/src/templates/edit.mas:51
 #: ../../main/dns/src/templates/edit.mas:66
@@ -2350,7 +2350,7 @@ msgid ""
 msgstr "主机名不是正式域名(FQDN). 是否是mx.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:189
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:209
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:217
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr "如果您选择\"定制\"，需要输入正式域名"
 
@@ -2457,15 +2457,15 @@ msgstr "给出的主机名不是完整域名(FQDN)。你的意思是否是 ns {n
 msgid "Last name server cannot be removed"
 msgstr "最后的域名服务器不允许移除"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:234
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
 msgstr "域名服务器"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:240
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:248
 msgid "It manages the name server (NS) records for this domain"
 msgstr "它管理该域的域名服务器(NS)记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:241
+#: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:249
 msgid "name server record"
 msgstr "域名服务器（NS）记录"
 
@@ -2502,45 +2502,45 @@ msgstr "它管理此域的 TXT 记录。这些对 SPF 或 DKIM 反垃圾邮件�
 msgid "{txt} record"
 msgstr "{txt} 记录"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:70
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr "别名不能作为域名服务器主机名“{ns}”。请使用主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:83
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:82
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr "该域名有一个与“{name}”同名的主机名"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:93
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:92
 #, perl-brace-format
 msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr "该域中已经有一个别名 {hostname}，主机名“{name}”相同"
 
-#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:196
+#: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:203
 msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr "这是主机名的别名列表。所有记录都将被解析为主机的IP地址列表。"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:85
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:83
 #, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr "IP {ip} 已经被分配给该域的 {name} 主机"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:112
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:127
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:134
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
 #: ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
 msgstr "IP"
 
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:133
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:138
 msgid "The host name will be resolved to this list of IP addresses."
 msgstr "该主机名将被解析到这个列表中的 IP 地址。"
 
@@ -2852,8 +2852,8 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:246
 #, perl-brace-format
 msgid ""
-"To add or manage printers you have to use the {open_href}CUPS Web Interface"
-"{close_href}"
+"To add or manage printers you have to use the {open_href}CUPS Web "
+"Interface{close_href}"
 msgstr "要添加或者管理打印机，您必须使用 {open_href}CUPS Web 界面{close_href}"
 
 #: ../../main/printers/src/EBox/Printers.pm:56
@@ -3545,40 +3545,33 @@ msgstr "禁用二进制 {bin} 的 {app} 配置文件"
 msgid "Antivirus DB updates"
 msgstr "防病毒数据库更新"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:38
+#: ../../main/sogo/src/EBox/SOGO.pm:53
 #, fuzzy
 msgid "OpenChange Webmail"
 msgstr "OpenChange"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:103
-#, fuzzy
-msgid "Create MySQL webmail database."
-msgstr "创建 Roundcube webmail 的  MySQL 数据库。"
+#: ../../main/sogo/src/EBox/SOGO.pm:118
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
 
-#: ../../main/sogo/src/EBox/SOGO.pm:104
+#: ../../main/sogo/src/EBox/SOGO.pm:119
 #, fuzzy
-msgid "This database will store the data needed by the webmail service."
-msgstr "该数据库将用于存储 Zarafa 数据。"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:108
-#: ../../main/webmail/src/EBox/WebMail.pm:352
-msgid "Add webmail link to www data directory."
-msgstr "将 webmail 链接到 www 目录。"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:109
-#, fuzzy
-msgid "WebMail UI will be accesible at http://ip/webmail/."
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
 
-#: ../../main/sogo/src/EBox/SOGO.pm:129
-#: ../../main/webmail/src/EBox/WebMail.pm:394
-#, perl-brace-format
+#: ../../main/sogo/src/EBox/SOGO.pm:139
+#, fuzzy, perl-brace-format
 msgid ""
-"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
-"service. You can enable it at {openurl}Mail -> General{closeurl}."
+"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+"Zentyal mail service. You can enable it at {openurl}Mail -> "
+"General{closeurl}."
 msgstr ""
 "要使用 Zentyal 的邮件服务，Webmail 模块需要启用 IMAP 或 IMAPS 服务。您可以在 "
 "{openurl}邮件 ->常规{closeurl}那里启用该服务。"
+
+#: ../../main/sogo/src/EBox/SOGO.pm:164
+msgid "To make SOGo webmail available"
+msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -4648,8 +4641,8 @@ msgstr "DNS 服务器 {d} 上未找到服务器 {s}。原因是：{r}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:359
 #, perl-brace-format
 msgid ""
-"Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe"
-"{eurl} again"
+"Credentials file '{path}' not found. Please, {ourl}unsubscribe and "
+"subscribe{eurl} again"
 msgstr "找不到证书文件 {path}。请{ourl}退订并重新订阅{eurl}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:365
@@ -5712,8 +5705,8 @@ msgid ""
 "By enabling this feature, your traffic will be balanced amongst your "
 "gateways. That is, every new connection will be sent by a different gateway. "
 "You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
+"the weight parameter of the gateway. You can change that value {openref}"
+"here{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
 "启用这个功能后，网络流量将实现在所有网关间的均衡。也就是说，每一个新的连接将"
@@ -6762,8 +6755,8 @@ msgstr "速率"
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
-"your interface configuration to match, at {openhref}Network->Interfaces"
-"{closehref}"
+"your interface configuration to match, at {openhref}Network-"
+">Interfaces{closehref}"
 msgstr ""
 "当 Zentyal 被用作网关时，流量整形有效。为此，你至少需要一个内部接口和一个外部"
 "接口。请到 {openhref}网络 ->接口{closehref} 检查接口配置是否满足需求"
@@ -6917,9 +6910,22 @@ msgstr "创建 Roundcube webmail 的  MySQL 数据库。"
 msgid "This database will store the data needed by Roundcube."
 msgstr "Roundcube 将使用该数据库存储数据。"
 
+#: ../../main/webmail/src/EBox/WebMail.pm:352
+msgid "Add webmail link to www data directory."
+msgstr "将 webmail 链接到 www 目录。"
+
 #: ../../main/webmail/src/EBox/WebMail.pm:353
 msgid "Webmail will be accesible at http://ip/webmail/."
 msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
+
+#: ../../main/webmail/src/EBox/WebMail.pm:394
+#, perl-brace-format
+msgid ""
+"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
+"service. You can enable it at {openurl}Mail -> General{closeurl}."
+msgstr ""
+"要使用 Zentyal 的邮件服务，Webmail 模块需要启用 IMAP 或 IMAPS 服务。您可以在 "
+"{openurl}邮件 ->常规{closeurl}那里启用该服务。"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:457
 msgid ""
@@ -7882,8 +7888,8 @@ msgstr "未知的恢复模式: {mode}"
 #: ../../main/core/src/EBox/Module/Service.pm:442
 #, perl-brace-format
 msgid ""
-"{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
-"{ch} section, otherwise your changes won't have any effect."
+"{mod} module is disabled. Don't forget to enable it on the {oh}Module "
+"Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
 "{mod} 模块已被禁用。请到 {oh}模块状态{ch} 部分启用它，否则您的修改不会生效。"
 
@@ -8468,78 +8474,78 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "配置组件"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:186
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
 msgid "HTTP port"
 msgstr "HTTP 端口"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:203
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
 msgid "Default for Non-SSL"
 msgstr "默认为 Non-SSL"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:205
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
 msgid "Make this service the default for the non-SSL traffic"
 msgstr "使这个服务默认为 non-SSL 流量"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:215
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
 msgid "HTTPS port"
 msgstr "HTTPS 端口"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:232
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
 msgid "Default for SSL"
 msgstr "默认为 SSL"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:234
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
 msgid "Make this service the default for the SSL traffic"
 msgstr "使这个服务默认为 SSL 流量"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:252
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
 msgid "Zentyal Administration port and other reverse proxy service ports"
 msgstr "Zentyal 管理端口和其他反向代理服务端口"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
 msgid "service"
 msgstr "服务"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:259
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
 msgid "Here you may configure the services to be served from the reverse proxy"
 msgstr "在这里，您可以配置反向代理服务"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
 #, fuzzy
 msgid "This service does not let change the HTTP port."
 msgstr "该服务不允许修改 http 端口"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:288
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
 #, fuzzy
 msgid "This service does not let change the HTTPS port."
 msgstr "该服务不允许修改 http 端口"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:298
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
 msgid "This service cannot have both ports disabled."
 msgstr "该服务不能把两个端口都禁用。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:345
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:346
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
 "Certificates page{chref}"
 msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:353
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:354
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
 "Services Certificates{chref}"
 msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:365
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:366
 #, fuzzy
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr "要能够恢复日志，你需要安装并启用日志模块"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:436
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:437
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
@@ -8548,37 +8554,37 @@ msgstr ""
 "Zentyal 已经把端口 {p} 分配给另一个服务。请重选一个端口，或释放该端口，然后重"
 "试。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:459
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:460
 msgid "Unmanaged instance of haproxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:463
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:464
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr "端口 {p} 已被 {pr} 使用。选择另一个端口或释放它，然后重试。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:658
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:659
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:699
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:700
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
 msgstr "端口 {port} 已被 {mod} 模块使用"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:720
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:721
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
 msgstr "{port} 端口已经被其他服务占用了。"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:761
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:762
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
 msgstr "端口 {port} 已被 {mod} 模块使用"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:782
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:783
 #, fuzzy, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
 msgstr "{port} 端口已经被其他服务占用了。"
@@ -8618,21 +8624,21 @@ msgstr "空闲存储空间"
 msgid "Check if any disk partition has no storage space left"
 msgstr "检查磁盘分区是否没有剩余空间"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:184
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:185
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr "有 {nSecUpdates} 个安全更新。涉及到的软件包为：{packages}。"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:197
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:198
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr "另外，还有 {nUpdates} 个更新。可以升级的软件包为：{packages}。"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:203
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:204
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
 msgid ""
@@ -8642,11 +8648,11 @@ msgid ""
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:240
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:241
 msgid "Security software updates"
 msgstr "安全更新"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:255
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:256
 msgid "Check if there is any security software update."
 msgstr "检查是否有安全更新。"
 
@@ -9773,8 +9779,8 @@ msgstr "要使用这项功能必须安装 Zentyal 反病毒模块并启用"
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:107
 #, perl-brace-format
 msgid ""
-"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module"
-"{ch}"
+"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
+"module{ch}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:113
@@ -9800,8 +9806,8 @@ msgstr "配置DTMF行为"
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:100
 #, perl-brace-format
 msgid ""
-"To configure OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To configure OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
@@ -9863,8 +9869,8 @@ msgstr "有尚未保存的变更。请先保存。"
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
 #, perl-brace-format
 msgid ""
-"To provision OpenChange you need first to {oh}create a mail virtual domain"
-"{oc}"
+"To provision OpenChange you need first to {oh}create a mail virtual "
+"domain{oc}"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
@@ -10413,12 +10419,12 @@ msgid "Output interface"
 msgstr "输出的网络接口"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:794
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:149
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:150
 msgid "Source port"
 msgstr "源端口"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:795
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:155
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:156
 msgid "Destination port"
 msgstr "目的端口"
 
@@ -10727,17 +10733,22 @@ msgstr "Windows组名称不能只是空白，数字和点"
 msgid "Found {count} results for, expected only one."
 msgstr "找到 {count} 个结果（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:611
+#: ../../main/samba/src/EBox/Samba/Group.pm:353
+#, fuzzy
+msgid "The server is unwilling to perform the requested operation"
+msgstr "其他服务器正在使用同一端口"
+
+#: ../../main/samba/src/EBox/Samba/Group.pm:626
 msgid "Maximum number of groups reached"
 msgstr "组的数量太多了，已经达到最大值"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:682
+#: ../../main/samba/src/EBox/Samba/Group.pm:697
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "GID {gid} 不正确。GID 必须大于等于 {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:690
+#: ../../main/samba/src/EBox/Samba/Group.pm:705
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "系统组的 GID {gid} 不对。GID 必须小于 {max}"
@@ -13135,8 +13146,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is "
-"disabled. If you want to filter virus, first {openhref}activate the module"
-"{closehref} and come back here"
+"disabled. If you want to filter virus, first {openhref}activate the "
+"module{closehref} and come back here"
 msgstr ""
 "你不能激活病毒过滤因为杀毒模块被禁用。如果你想过滤病毒，请先{openhref}激活模"
 "块{closehref}然后回来"
@@ -14720,16 +14731,16 @@ msgstr "配置必须是一个整数或者零或者无限配额"
 msgid "This message is being delivered"
 msgstr "这个消息已传达"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:151
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:152
 msgid "This field is usually set to any"
 msgstr "这个字段通常被设置为任意"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:169
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:170
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "服务配置"
 
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:213
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
 msgid ""
 "If you want a service for any connections on this protocol, use the "
@@ -16151,8 +16162,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to revoke and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "你试图吊销的证书的通用名称 {cn} 正在被一些模块使用，请确认你很肯定吊销证书认"
 "证并无视服务不稳定或者不可用"
@@ -16183,8 +16194,8 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
+"by some module, please confirm you are sure to renew and leave the "
+"service(s) unstable or disabled"
 msgstr ""
 "你试图重建的证书的通用名称 {cn} 正在被一些模块使用，请确认你很肯定吊销证书认"
 "证并无视服务不稳定或者不可用"
@@ -16334,8 +16345,8 @@ msgstr "恢复备份：{desc}"
 #: ../../main/remoteservices/src/templates/register_button.mas:14
 #, perl-brace-format
 msgid ""
-"Introduce Professional, Business or Premium credentials, or {ohb}register"
-"{ch} a FREE account!"
+"Introduce Professional, Business or Premium credentials, or {ohb}"
+"register{ch} a FREE account!"
 msgstr ""
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:140
@@ -18778,6 +18789,18 @@ msgid ""
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Create MySQL webmail database."
+#~ msgstr "创建 Roundcube webmail 的  MySQL 数据库。"
+
+#, fuzzy
+#~ msgid "This database will store the data needed by the webmail service."
+#~ msgstr "该数据库将用于存储 Zarafa 数据。"
+
+#, fuzzy
+#~ msgid "WebMail UI will be accesible at http://ip/webmail/."
+#~ msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
+
 #~ msgid ""
 #~ "Cannot be enabled due to errors in the connection configuration: {error}"
 #~ msgstr "无法启用由于连接配置存在错误: {error}"
@@ -19699,8 +19722,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "To enable Zarafa {service} gateway you must disable {service} mail "
-#~ "retrieval service. You can do it at {ohref}Mail General Configuration"
-#~ "{chref}."
+#~ "retrieval service. You can do it at {ohref}Mail General "
+#~ "Configuration{chref}."
 #~ msgstr ""
 #~ "要启用 Zarafa {service} 网关，您必须禁用 {service} 邮件检索服务。您可以前"
 #~ "往 {ohref}邮件一般配置{chref} 进行配置。"
