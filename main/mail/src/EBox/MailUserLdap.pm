@@ -109,10 +109,10 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my @classes = $user->get('objectClass');
-    my $hasClass = grep { lc ($_) eq lc ('userZentyalMail') } @classes;
-    if (not $hasClass) {
-        $user->add('objectclass', 'userZentyalMail');
+    foreach my $class (qw(userZentyalMail fetchmailUser)) {
+        if (not $user->hasObjectClass($class)) {
+            $user->add('objectclass', $class)
+        }
     }
 
     $user->clearCache();
@@ -167,15 +167,16 @@ sub delUserAccount
     my $mailbox = $user->get('mailbox');
 
     $user->remove('objectClass', 'userZentyalMail', 1);
+    $user->remove('objectClass', 'fectchmailUser', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
     $user->delete('mailquota', 1);
     $user->delete('mailHomeDirectory', 1);
+    $user->delete('fetchmailAccount', 1);
     $user->save();
 
     my @cmds;
-
     # Here we remove mail directorie of user account.
     push (@cmds, '/bin/rm -rf ' . DIRVMAIL . $mailbox);
 
@@ -362,11 +363,10 @@ sub _userAddOns
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
-    # fetchmail disabled
-    # my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
-    # my @externalAccounts = map {
-    #     $mail->{fetchmail}->externalAccountRowValues($_)
-    #  } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
     my @paramsList = (
             user        => $user,
@@ -378,6 +378,9 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
+
+            externalRetrievalEnabled => $externalRetrievalEnabled,
+            externalAccounts => \@externalAccounts,
     );
 
     my $title;
