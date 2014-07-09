@@ -269,13 +269,27 @@ sub initialSetup
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     } elsif (EBox::Util::Version::compare($version, 3.5) == 0) {
-        my $path = EBox::Config::share() . "zentyal-" . $self->name();
-        $path .= '/schema-fetchmail.ldif';
-        $self->_loadSchemasFiles([$path]);
+        $self->_migrateToFetchmail();
     }
 
     if ($self->changed()) {
         $self->saveConfigRecursive();
+    }
+}
+
+sub _migrateToFetchmail
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    $path .= '/schema-fetchmail.ldif';
+    $self->_loadSchemasFiles([$path]);
+
+    my $userMod = $self->global()->modInstance('samba');
+    foreach my $user (@{ $userMod->users() }) {
+        if ($user->hasObjectClass('userZentyalMail') and not $user->hasObjectClass('fetchmailUser')) {
+            $user->add('objectClass', 'fetchmailUser');
+        }
     }
 }
 
