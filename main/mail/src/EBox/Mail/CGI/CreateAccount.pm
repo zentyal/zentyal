@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Mail::CGI::CreateAccount;
 
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;

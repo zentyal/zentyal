@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::AddExternalAccount;
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
