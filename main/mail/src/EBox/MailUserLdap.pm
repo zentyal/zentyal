@@ -167,7 +167,7 @@ sub delUserAccount
     my $mailbox = $user->get('mailbox');
 
     $user->remove('objectClass', 'userZentyalMail', 1);
-    $user->remove('objectClass', 'fectchmailUser', 1);
+    $user->remove('objectClass', 'fetchmailUser', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
@@ -462,7 +462,7 @@ sub _accountExists
     my $username = $user->name();
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
+                 filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
                  scope => 'sub'
                 );
 
