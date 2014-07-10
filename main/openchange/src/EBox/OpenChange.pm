@@ -471,11 +471,11 @@ sub _setAutodiscoverConf
                         );
 
 
-    if ($self->isEnabled()) {
-        $self->_setAutodiscoveryCerts($domain);
+    my $confDir = EBox::Config::conf() . 'openchange';
+    EBox::Sudo::root("mkdir -p '$confDir'");
 
-        my $confDir = EBox::Config::conf() . 'openchange';
-        EBox::Sudo::root("mkdir -p '$confDir'");
+    if ($self->_autodiscoverEnabled()) {
+        $self->_setAutodiscoveryCerts($domain);
         my $incParams = [
             server => $domain
            ];
@@ -484,6 +484,10 @@ sub _setAutodiscoverConf
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
+    } else {
+        # ocsmanager include should be empty to not to do nothing
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_INC_FILE,
+                         'touch ' . OCSMANAGER_INC_FILE);
     }
 }
 
