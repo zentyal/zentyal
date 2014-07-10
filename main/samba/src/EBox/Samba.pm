@@ -475,6 +475,8 @@ sub _migrateTo35
         }
     }
     $ldif->done();
+
+    $self->getProvision()->mapAccounts();
 }
 
 sub _checkEnableIPs
