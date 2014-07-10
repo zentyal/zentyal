@@ -1,3 +1,5 @@
+HEAD
+	+ Clean for reprovision responsability moved to each module
 3.5.2
 	+ Fix sssd bug not finding users and groups
 	+ Deprecate _schemasAdded redis key, checking if schema is extended in
