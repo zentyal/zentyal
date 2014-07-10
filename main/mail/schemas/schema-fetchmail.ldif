@@ -10,6 +10,12 @@ oMSyntax: 22
 isSingleValued: FALSE
 -
 
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
 dn: CN=fetchmailUser,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
 objectClass: classSchema
 governsID: 1.3.6.1.4.1.31607.2.1.3.2.4
