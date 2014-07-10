@@ -467,7 +467,7 @@ sub _migrateTo35
             } elsif (defined $gidNumber) {
                 my $cn = $entry->get_value('cn');
                 if ($cn) {
-                    my $group = new EBox::Samba::Group(gid => $cn);
+                    my $group = new EBox::Samba::Group(samAccountName => $cn);
                     next unless $group->exists();
                     $group->set('gidNumber', $gidNumber);
                 }
