@@ -63,11 +63,6 @@ sub new
     my ($class, %params) = @_;
 
     my $self = $class->SUPER::new(%params);
-
-    if (defined $params{gid}) {
-        $self->{gid} = $params{gid};
-    }
-
     bless ($self, $class);
     return $self;
 }
@@ -239,37 +234,6 @@ sub defaultContainer
     my ($class, $ro) = @_;
     my $ldapMod = $class->_ldapMod();
     return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
-}
-
-# Method: _entry
-#
-#   Return Net::LDAP::Entry entry for the group
-#
-sub _entry
-{
-    my ($self) = @_;
-
-    unless ($self->{entry}) {
-        if (defined $self->{gid}) {
-            my $result = undef;
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(samAccountName=$self->{gid})",
-                scope => 'sub',
-            };
-            $result = $self->_ldap->search($attrs);
-            if ($result->count() > 1) {
-                throw EBox::Exceptions::Internal(
-                    __x('Found {count} results for, expected only one.',
-                        count => $result->count()));
-            }
-            $self->{entry} = $result->entry(0);
-        } else {
-            $self->SUPER::_entry();
-        }
-    }
-
-    return $self->{entry};
 }
 
 # Method: name

@@ -112,7 +112,7 @@ sub _process
         my @groups = $self->unsafeParam('addgroup');
 
         foreach my $gr (@groups) {
-            my $group = new EBox::Samba::Group(gid => $gr);
+            my $group = new EBox::Samba::Group(samAccountName => $gr);
             $contact->addGroup($group);
         }
 
@@ -124,7 +124,7 @@ sub _process
 
         my @groups = $self->unsafeParam('delgroup');
         foreach my $gr (@groups){
-            my $group = new EBox::Samba::Group(gid => $gr);
+            my $group = new EBox::Samba::Group(samAccountName => $gr);
             $contact->removeGroup($group);
         }
 
