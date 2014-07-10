@@ -183,8 +183,16 @@ sub removeRow
 sub pageTitle
 {
     my ($self) = @_;
+    my $parentRow = $self->parentRow();
 
-    return $self->parentRow()->printableValueByName('domain');
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('domain');
 }
 
 # Group: Protected methods

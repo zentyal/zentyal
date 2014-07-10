@@ -112,7 +112,11 @@ sub row
     # Try to retrieve cached data
     my $data = $self->{data};
     unless (defined $data) {
-        my $gpoId = $self->parentRow()->id();
+        my $parentRow  = $self->parentRow();
+        if (not $parentRow) {
+            return undef;
+        }
+        my $gpoId = $parentRow->id();
         my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
         my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
         $data = $extension->read();

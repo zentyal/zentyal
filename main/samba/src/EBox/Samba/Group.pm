@@ -254,7 +254,7 @@ sub _entry
             my $result = undef;
             my $attrs = {
                 base => $self->_ldap->dn(),
-                filter => "(cn=$self->{gid})",
+                filter => "(samAccountName=$self->{gid})",
                 scope => 'sub',
             };
             $result = $self->_ldap->search($attrs);
@@ -298,6 +298,27 @@ sub mail
     return $self->get('mail');
 }
 
+# Method: gidNumber
+#
+#   This method returns the group's gidNumber, ensuring it is properly set or
+#   throwing an exception otherwise
+#
+sub gidNumber
+{
+    my ($self) = @_;
+
+    my $gidNumber = $self->get('gidNumber');
+    unless ($gidNumber =~ /^[0-9]+$/) {
+        throw EBox::Exceptions::External(
+            __x('The group {x} has not gidNumber set. Get method ' .
+                "returned '{y}'.",
+                x => $self->get('samAccountName'),
+                y => defined ($gidNumber) ? $gidNumber : 'undef'));
+    }
+
+    return $gidNumber;
+}
+
 # Method: removeAllMembers
 #
 #   Remove all members in the group
@@ -322,10 +343,14 @@ sub addMember
     try {
         $self->add('member', $member->dn(), $lazy);
     } catch (EBox::Exceptions::LDAP $e) {
-        if ($e->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+        if ($e->errorName() eq 'LDAP_TYPE_OR_VALUE_EXISTS' or
+            $e->errorName() eq 'LDAP_ALREADY_EXISTS')
+        {
+            EBox::debug("Tried to add already existent member " .
+                        $member->dn() . " from group " . $self->name());
+        } else {
             $e->throw();
         }
-        EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
     }
 }
 
@@ -340,7 +365,18 @@ sub addMember
 sub removeMember
 {
     my ($self, $member, $lazy) = @_;
-    $self->deleteValues('member', [$member->dn()], $lazy);
+    try {
+        $self->deleteValues('member', [$member->dn()], $lazy);
+    } catch (EBox::Exceptions::LDAP $e) {
+        if ($e->errorName() eq 'LDAP_UNWILLING_TO_PERFORM') {
+            # This happens when trying to remove a non-existant member
+            throw EBox::Exceptions::External(
+                __x('The server is unwilling to perform the requested ' .
+                    'operation'));
+        } else {
+            $e->throw();
+        }
+    }
 }
 
 # Method: users
@@ -592,7 +628,11 @@ sub isSystem
     my ($self) = @_;
 
     if ($self->isSecurityGroup()) {
-        return ($self->get('gidNumber') < MINGID);
+        my $gidNumber = $self->get('gidNumber');
+        if (defined $gidNumber) {
+            return ($gidNumber < MINGID);
+        }
+        return 1;
     } else {
         # System groups are only valid with security groups.
         return undef;

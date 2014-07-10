@@ -1,3 +1,22 @@
+3.5.2
+	+ Fix sssd bug not finding users and groups
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
+	+ Fixed use of deprecated attributes uid and gid instantiating users and
+	  groups
+3.5.1
+	+ Display correctly tree elements on external AD mode
+	+ Fixed user creation when remove user from a group in the
+	  EditGroup CGI
+	+ The groups and groupsNotIn methods have now the same behaviour
+	  for all EBox::Samba::OrganizationalPerson classes
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
+	+ Restored external AD mode
+	+ Better errors in GPO models when losing parent row
+	+ Catch error trying to add an already added or delete an already deleted
+	  user to group
+	+ Avoid warning flag on smart match experimental feature
 3.5
 	+ Setup roaming profiles for each user only when the setting changes
 	  in the UI

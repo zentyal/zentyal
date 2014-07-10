@@ -139,6 +139,7 @@ sub _makeSquidDomainFiles
             "cat '$tmpFile' | uniq -i > '$dstFile'",  # to remove duplicates
             "sed -e s/^././ -i '$dstFile'", # the first chracter is a blank
                                             # character
+            "rm -f $tmpFile"
            );
     }
 }

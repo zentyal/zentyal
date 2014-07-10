@@ -58,7 +58,8 @@ sub tunnels
             try {
                 $conf->checkConfigurationIsComplete();
                 $configured = 1;
-            } otherwise {};
+            } catch {
+            }
             if (not $configured) {
                 next;
             }

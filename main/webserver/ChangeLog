@@ -1,3 +1,6 @@
+3.5.1
+	+ Remove spurious warning in public folder model
+	+ Avoid warning flag on smart match experimental feature
 3.5
 	+ Depend on zentyal-samba for Kerberos integration
 	+ Force haproxy restart if service status changes

@@ -90,7 +90,7 @@ sub popMessage
 
 sub _doHalt
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action) = @_;
     $self->_updateHaltInProgress();
     if ($haltInProgress) {
         return;
@@ -103,7 +103,7 @@ sub _doHalt
 
 sub _doReboot
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action) = @_;
     $self->_updateHaltInProgress();
     if ($haltInProgress) {
         return;
@@ -132,12 +132,20 @@ sub _prepareSystemForHalt
     my $actionName = $action->name();
     my $actionMsg  = $action->message();
 
-    my $audit = $self->global()->modInstance('audit');
-    $audit->logShutdown($actionName);
+    try {
+        my $audit = $self->global()->modInstance('audit');
+        $audit->logShutdown($actionName);
+    } catch ($ex) {
+        EBox::error("Error logging halt/reboot: $ex");
+    }
 
-    # flush db
-    my $dbEngine = EBox::DBEngineFactory::DBEngine();
-    $dbEngine->multiInsert();
+    try {
+        # flush db
+        my $dbEngine = EBox::DBEngineFactory::DBEngine();
+        $dbEngine->multiInsert();
+    } catch ($ex)  {
+        EBox::error("Error when flushing database before halt/reboot: $ex");
+    }
 
     EBox::info($actionMsg);
     $self->setMessage($actionMsg, 'note');
