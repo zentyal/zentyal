@@ -1,4 +1,7 @@
 HEAD
+	+ Do not abort and throw exception on the first error setting ACLs on
+	  shares. Now the process will continue and will throw an exception at
+	  the end.
 	+ Backup/restore s4sync timestamp
 	+ Disabled nmbd logging
 3.2.20
