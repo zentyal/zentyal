@@ -56,9 +56,9 @@ sub new
 {
     my ($class, %params) = @_;
 
-    unless ($params{entry} or $params{dn} or $params{gid} or
+    unless ($params{entry} or $params{dn}  or
             $params{ldif} or $params{objectGUID}) {
-        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|objectGUID|gid');
+        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|objectGUID');
     }
 
     my $self = {};

@@ -1,6 +1,16 @@
 HEAD
 	+ Added EBox::module::LDAP::_loadSchemasFiles
 	+ Added EBox::Samba::LdapObject::hasObjectClass
+	+ Instance groups using gid parameter is no longer allowed
+	+ Clean for reprovision responsability moved to each module
+3.5.2
+	+ Fix sssd bug not finding users and groups
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
+	+ Fixed use of deprecated attributes uid and gid instantiating users and
+	  groups
+3.5.1
+	+ Display correctly tree elements on external AD mode
 	+ Fixed user creation when remove user from a group in the
 	  EditGroup CGI
 	+ The groups and groupsNotIn methods have now the same behaviour

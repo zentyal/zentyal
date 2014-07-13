@@ -1,5 +1,6 @@
 HEAD
 	+ Added fetchmail again
+3.5.1
 	+ Removed spurious warnings on mail services widget
 	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
 	  namespaces instead

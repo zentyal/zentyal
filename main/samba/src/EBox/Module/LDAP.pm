@@ -163,15 +163,15 @@ sub _sendSchemaUpdate
     File::Slurp::write_file($ldifFile, $buffer);
 
     # Send update
-    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'die');
+    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
     while (not $ldif->eof()) {
         my $entry = $ldif->read_entry();
-        if ($ldif->error()) {
+        if ($ldif->error() or not defined $entry) {
             throw EBox::Exceptions::Internal(
                 __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
                     x => $ldif->error(), y => $ldif->error_lines()));
         } else {
-            # Skip if already extended
+            # Check if the entry has been already loaded into schema
             my $dn = $entry->dn();
             # Skip checking the update schema cache sent to root DSE
             if ($dn ne '') {
@@ -266,11 +266,9 @@ sub _performSetup
     my ($self) = @_;
 
     my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
-    }
+    $self->_loadSchemas();
+    $state->{'_schemasAdded'} = 1;
+    $self->set_state($state);
 
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
@@ -365,6 +363,20 @@ sub checkUsersMode
             mode => $users->model('Mode')->modePrintableName,
         ));
     }
+}
+
+# Method: cleanForReprovision
+#
+#  Removes configuration from the module so it can be ready to work again after
+#  a samba reprovision
+sub cleanForReprovision
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    delete $state->{'_schemasAdded'};
+    delete $state->{'_ldapSetup'};
+    $self->set_state($state);
+    $self->setAsChanged(1);
 }
 
 1;

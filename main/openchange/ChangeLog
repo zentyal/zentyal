@@ -1,4 +1,6 @@
 HEAD
+	+ Force to provision again after samba reprovision
+3.5.1
 	+ Fixed issue with Sieve separator parameter at sogo configuration
 3.5
 	+ Zentyal users removed from "only contacts" addressbook at sogo webUI

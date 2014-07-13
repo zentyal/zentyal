@@ -63,11 +63,6 @@ sub new
     my ($class, %params) = @_;
 
     my $self = $class->SUPER::new(%params);
-
-    if (defined $params{gid}) {
-        $self->{gid} = $params{gid};
-    }
-
     bless ($self, $class);
     return $self;
 }
@@ -241,37 +236,6 @@ sub defaultContainer
     return $ldapMod->objectFromDN('cn=Users,' . $class->_ldap->dn());
 }
 
-# Method: _entry
-#
-#   Return Net::LDAP::Entry entry for the group
-#
-sub _entry
-{
-    my ($self) = @_;
-
-    unless ($self->{entry}) {
-        if (defined $self->{gid}) {
-            my $result = undef;
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(cn=$self->{gid})",
-                scope => 'sub',
-            };
-            $result = $self->_ldap->search($attrs);
-            if ($result->count() > 1) {
-                throw EBox::Exceptions::Internal(
-                    __x('Found {count} results for, expected only one.',
-                        count => $result->count()));
-            }
-            $self->{entry} = $result->entry(0);
-        } else {
-            $self->SUPER::_entry();
-        }
-    }
-
-    return $self->{entry};
-}
-
 # Method: name
 #
 #   Return group name
@@ -296,6 +260,27 @@ sub mail
 {
     my ($self) = @_;
     return $self->get('mail');
+}
+
+# Method: gidNumber
+#
+#   This method returns the group's gidNumber, ensuring it is properly set or
+#   throwing an exception otherwise
+#
+sub gidNumber
+{
+    my ($self) = @_;
+
+    my $gidNumber = $self->get('gidNumber');
+    unless ($gidNumber =~ /^[0-9]+$/) {
+        throw EBox::Exceptions::External(
+            __x('The group {x} has not gidNumber set. Get method ' .
+                "returned '{y}'.",
+                x => $self->get('samAccountName'),
+                y => defined ($gidNumber) ? $gidNumber : 'undef'));
+    }
+
+    return $gidNumber;
 }
 
 # Method: removeAllMembers
@@ -607,7 +592,11 @@ sub isSystem
     my ($self) = @_;
 
     if ($self->isSecurityGroup()) {
-        return ($self->get('gidNumber') < MINGID);
+        my $gidNumber = $self->get('gidNumber');
+        if (defined $gidNumber) {
+            return ($gidNumber < MINGID);
+        }
+        return 1;
     } else {
         # System groups are only valid with security groups.
         return undef;

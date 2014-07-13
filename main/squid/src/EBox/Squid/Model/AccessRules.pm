@@ -420,7 +420,8 @@ sub _ADException
     if ($self->{adLdap}) {
         try {
             $self->{adLdap}->disconnect();
-        } otherwise {};
+        } catch {
+        }
     }
     delete $self->{adLdap};
     delete $self->{defaultNC};
