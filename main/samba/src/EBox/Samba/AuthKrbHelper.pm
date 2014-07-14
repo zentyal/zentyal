@@ -44,6 +44,7 @@ sub new
 
     my $principal = undef;
     my $realm = undef;
+    my $keytab = undef;
     if ($params{SID}) {
         my $users = EBox::Global->modInstance('samba');
         my $ldap = $users->ldap();
@@ -86,6 +87,12 @@ sub new
         $realm = $samba->kerberosRealm();
     }
 
+    if (length $params{keytab}) {
+        $keytab = $params{keytab};
+    } else {
+        $keytab = EBox::Config::conf() . 'samba.keytab';
+    }
+
     unless (length $principal) {
         throw EBox::Exceptions::Internal("Empty principal name");
     }
@@ -105,7 +112,7 @@ sub new
     $singleton->{principal} = $targetPrincipal;
     $singleton->{realm} = $realm;
     $singleton->{password} = $params{password};
-    $singleton->{keytab} = EBox::Config::conf() . 'samba.keytab';
+    $singleton->{keytab} = $keytab;
     bless ($singleton, $class);
 
     if ($singleton->{password}) {
