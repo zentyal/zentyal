@@ -8,7 +8,7 @@ $disabled
 % my $disableAttr = $disabled ? 'disabled' : '';
 
 % if ($data->editable()) {
-%    if ( $data->size() < 40 ) { 
+%    if ( $data->size() < 40 ) {
 <input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
  size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' <% $disableAttr %> />
 %    } else {
@@ -19,7 +19,11 @@ $disabled
 %    }
 <% $data->trailingText() %>
 % } else {
-<input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
+<%perl>
+my $val = $data->value();
+$val =~ s/\"/&quot;/g;  # Double quote is the single required escape to do
+</%perl>
+<input type="hidden"  value="<% $val %>" id='<% $id %>' name='<% $id %>' />
 <% $data->printableValue() %>
 <% $data->trailingText() %>
 %}
