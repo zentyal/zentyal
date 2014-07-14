@@ -409,7 +409,7 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') <= 0)) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
         $self->_migrateTo35();
     }
 }
