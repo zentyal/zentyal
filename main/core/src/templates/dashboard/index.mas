@@ -35,7 +35,7 @@ function releaseUpgrade(title) {
 </script>
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
-<a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
+<!-- <a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a> -->
 </div>
 % }
 
