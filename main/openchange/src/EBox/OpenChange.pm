@@ -1094,6 +1094,7 @@ sub _kerberosKeytab
 sub cleanForReprovision
 {
     my ($self) = @_;
+
     my $state = $self->get_state();
     delete $state->{'_schemasAdded'};
     delete $state->{'_ldapSetup'};
@@ -1111,6 +1112,26 @@ sub cleanForReprovision
     EBox::Sudo::root("rm -rf '$certDir'");
 
     $self->setAsChanged(1);
+}
+
+sub _dropSOGODB
+{
+    my ($self) = @_;
+
+    if ($self->isProvisionedWithMySQL()) {
+        # It removes the file with mysql password and the user from mysql
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+              'remove-database');
+    }
+
+    # Drop SOGo database and db user. To avoid error if it does not exists,
+    # the user is created and granted harmless privileges before drop it
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $dbName = $self->_sogoDbName();
+    my $dbUser = $self->_sogoDbUser();
+    $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
+    $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
+    $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 }
 
 1;

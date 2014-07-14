@@ -42,9 +42,7 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
 
-    $self->{global} = EBox::Global->getInstance();
-    $self->{openchangeMod} = $self->{global}->modInstance('openchange');
-    $self->{organizations} = $self->{openchangeMod}->organizations();
+    $self->{openchangeMod} = $self->global()->modInstance('openchange');
 
     return $self;
 }
@@ -245,6 +243,16 @@ sub preconditionFailMsg
     }
 }
 
+sub organizations
+{
+    my ($self) = @_;
+    if (not exists $self->{_organizations}) {
+        $self->{_organizations} = $self->{openchangeMod}->organizations();
+    }
+
+    return $self->{_organizations};
+}
+
 sub viewCustomizer
 {
     my ($self) = @_;
@@ -275,7 +283,7 @@ sub _defaultOrganizationName
 
     my $default = 'First Organization';
 
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $default) {
             # The default organization name is already used, return empty string
             return '';
@@ -289,7 +297,7 @@ sub _existingOrganizationNames
     my ($self) = @_;
 
     my @existingOrganizations = ();
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         push (@existingOrganizations, {value => $organization->name(), printableValue => $organization->name()});
     }
     return \@existingOrganizations;
@@ -372,7 +380,7 @@ sub _doProvision
         $configuration->setValue('outgoingDomain', $defaultOutgoing);
     }
 
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {
             # The selected organization already exists.
             $additionalInstallation = 1;
@@ -477,21 +485,7 @@ sub _doDeprovision
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        if ($self->parentModule->isProvisionedWithMySQL()) {
-            # It removes the file with mysql password and the user from mysql
-            EBox::Sudo::root(EBox::Config::scripts('openchange') .
-                             'remove-database');
-        }
-
-        # Drop SOGo database and db user. To avoid error if it does not exists,
-        # the user is created and granted harmless privileges before drop it
-        my $db = EBox::DBEngineFactory::DBEngine();
-        my $dbName = $self->parentModule->_sogoDbName();
-        my $dbUser = $self->parentModule->_sogoDbUser();
-        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
-        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
-        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
-
+        $self->parentModule->_dropSOGODB();
         $self->parentModule->setProvisioned(0);
 
         $self->global->modChange('mail');
