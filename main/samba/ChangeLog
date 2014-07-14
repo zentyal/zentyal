@@ -1,4 +1,5 @@
 HEAD
+	+ SysvolSync script now uses AuthKrbHelper
 	+ Instance groups using gid parameter is no longer allowed
 3.5.2
 	+ Fix sssd bug not finding users and groups
