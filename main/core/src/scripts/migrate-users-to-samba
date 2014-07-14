@@ -38,4 +38,4 @@ $global->saveAllModules();
 
 
 # FIXME: real check with active wait
-sleep (30);
+sleep (60);
