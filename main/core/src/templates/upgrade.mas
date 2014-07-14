@@ -55,7 +55,7 @@ use EBox::Gettext;
 </div>
 
 % if (@removedModules) {
-<div class="warning">
+<div class="error">
 <p>The upgrade process will remove the following modules as they are no longer part of Zentyal 3.5 officially maintained modules (data related to these modules will be deleted):</p>
 <ul>
 % foreach my $module (@removedModules) {
