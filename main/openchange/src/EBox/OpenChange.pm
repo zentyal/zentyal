@@ -1087,30 +1087,4 @@ sub _kerberosKeytab
     return undef;
 }
 
-# Method: cleanForReprovision
-#
-# Overriden to remove also status of openchange provision and configuration
-# related with mail virtual domains, because they can change after reprovision
-sub cleanForReprovision
-{
-    my ($self) = @_;
-    my $state = $self->get_state();
-    delete $state->{'_schemasAdded'};
-    delete $state->{'_ldapSetup'};
-    delete $state->{'Provision'};
-    delete $state->{'isProvisioned'};
-    $self->set_state($state);
-
-    my @modelsToClean = qw(Provision RPCProxy Configuration);
-    foreach my $name (@modelsToClean) {
-        $self->model($name)->removeAll(1);
-    }
-
-    # remove rpcproxy certificates
-    my $certDir = dirname($self->_rpcProxyCertificate());
-    EBox::Sudo::root("rm -rf '$certDir'");
-
-    $self->setAsChanged(1);
-}
-
 1;

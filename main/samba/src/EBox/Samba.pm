@@ -3891,7 +3891,11 @@ sub _cleanModulesForReprovision
     my ($self) = @_;
 
     foreach my $mod (@{$self->global()->modInstancesOfType('EBox::Module::LDAP')}) {
-        $mod->cleanForReprovision();
+        my $state = $mod->get_state();
+        delete $state->{'_schemasAdded'};
+        delete $state->{'_ldapSetup'};
+        $mod->set_state($state);
+        $mod->setAsChanged(1);
     }
 }
 
