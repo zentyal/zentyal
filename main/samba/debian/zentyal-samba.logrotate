@@ -1,4 +1,4 @@
-/var/log/zentyal/samba-antivirus.log
+/var/log/zentyal/samba-antivirus.log /var/log/zentyal/samba-sysvolsync.log
 {
         rotate 7
         size 10M
