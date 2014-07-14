@@ -1,3 +1,5 @@
+HEAD
+	+ Code typo fix: removed otherwise
 3.4.1
 	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
 	  zentyal-xl2tp. (credits to Icaro Ribeiro)
