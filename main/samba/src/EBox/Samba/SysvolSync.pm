@@ -21,14 +21,13 @@ use warnings;
 package EBox::Samba::SysvolSync;
 
 use EBox::Global;
-use EBox::Util::Random;
+use EBox::Samba::AuthKrbHelper;
 
 use TryCatch::Lite;
 use Net::Ping;
 use Net::DNS;
 use Time::HiRes;
 use POSIX;
-use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
 
 my $LOGFILE = '/var/log/zentyal/samba-sysvolsync.log';
 
@@ -51,9 +50,7 @@ sub new
 
     my $self = {
         keytab => $keytab,
-        adUser => $sambaSettings->adminAccountValue(),
         destination => $sysinfo->fqdn(),
-        hasTicket => 0,
         debug => $params{debug},
     };
 
@@ -64,39 +61,6 @@ sub new
     $self->{source} = $self->checkSource($source);
 
     return $self;
-}
-
-sub extractKeytab
-{
-    my ($self, $keytab, $adminUser) = @_;
-
-    my $ok = 1;
-    my $zentyalUser = EBox::Config::user();
-    my @cmds;
-    push (@cmds, "rm -f $keytab");
-    push (@cmds, "samba-tool domain exportkeytab $keytab " .
-                 "--principal='$adminUser'");
-    push (@cmds, "chown '$zentyalUser' '$keytab'");
-    push (@cmds, "chmod 400 '$keytab'");
-
-    try {
-        my $ret = kdestroy();
-        unless (defined $ret and $ret == 1) {
-            $self->logevent('ERROR', "kdestroy: " . kerror());
-        }
-        $self->logevent('DEBUG', "Extracting keytab");
-        EBox::Sudo::root(@cmds);
-        $ok = kinit($keytab, $adminUser);
-        if (defined $ok and $ok == 1) {
-            $self->logevent('INFO', "Got ticket");
-        } else {
-            $self->logevent('ERROR', "kinit error: " . kerror());
-        }
-    } catch ($error) {
-        $self->logevent('ERROR', "Could not extract keytab: $error");
-        $ok = undef;
-    }
-    return $ok;
 }
 
 sub sourceReachable
@@ -146,6 +110,7 @@ sub sync
 
     my $source = $self->{source};
     my $destination = $self->{destination};
+    my $keytab = $self->{keytab};
     unless (defined $source and length $source) {
         $self->logevent('ERROR', "Source not defined");
         return;
@@ -154,18 +119,21 @@ sub sync
         $self->logevent('ERROR', "Destination not defined");
         return;
     }
+    unless (defined $keytab and length $keytab) {
+        $self->logevent('ERROR', "keytab not defined");
+        return;
+    }
 
     # Try to ping the DC
     return unless ($self->sourceReachable());
 
-    # Check if ticket is expired
-    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adUser});
-
     # Get ticket
-    while (not $self->{hasTicket}) {
-        $self->logevent('WARN', "No ticket or expired");
-        $self->{hasTicket} = $self->extractKeytab($self->{keytab}, $self->{adUser});
-        sleep (2);
+    my $krbHelper = undef;
+    try {
+        $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500, keytab => $keytab);
+    } catch ($e) {
+        $self->logevent('ERROR', "Could not get ticket: $e");
+        return;
     }
 
     # Sync share
@@ -195,6 +163,7 @@ sub sync
         }
         return $code;
     }
+    $self->logevent('INFO', "Synced from $source");
 
     return 0;
 }
@@ -210,6 +179,10 @@ sub debug
     return $self->{debug};
 }
 
+# Method: logevent
+#
+#   Writes a message to log file
+#
 sub logevent
 {
     my ($self, $type, $msg) = @_;
@@ -242,14 +215,6 @@ sub run
     }
 
     $self->logevent('INFO', "Samba sysvol synchronizer script stopped");
-}
-
-sub DESTROY
-{
-    my ($self) = @_;
-
-    $self->logevent('DEBUG', "Destroying Kerberos ticket");
-    kdestroy();
 }
 
 if ($0 eq __FILE__) {
