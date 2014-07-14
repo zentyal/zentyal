@@ -29,6 +29,7 @@ sub new
     my $class = shift;
     my $title = __("Page not found");
     my $template = 'pageNotFound.mas';
+    EBox::debug("XXXXXXXXXXXXXXXXXX");
     my $self = $class->SUPER::new(title => $title, template => $template, @_);
     bless($self, $class);
     return $self;
@@ -38,6 +39,8 @@ sub new
 # we can not even validate params because this is a page not found error (any parameter can be in)
 sub _process
 {
+    my ($self) = @_;
+
 }
 
 # this is to be able to display this page wtih any parameter and this page is
