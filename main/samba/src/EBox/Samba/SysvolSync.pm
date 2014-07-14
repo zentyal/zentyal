@@ -149,20 +149,22 @@ sub sync
     system ($cmd);
     if ($? == -1) {
         $self->logevent('ERROR', "Failed to execute: $!");
+        $krbHelper->destroy();
         return -1;
     } elsif ($? & 127) {
         my $signal = ($? & 127);
         $self->logevent('ERROR', "Child died with signal $signal");
+        $krbHelper->destroy();
         return $signal;
     } else {
         my $code = ($? >> 8);
         unless ($code == 0) {
             $self->logevent('INFO', "child exited with value $code");
-            # Maybe user pwd has changed an we need to export keytab again
-            $self->{hasTicket} = 0;
+            $krbHelper->destroy();
+            return $code;
         }
-        return $code;
     }
+    $krbHelper->destroy();
     $self->logevent('INFO', "Synced from $source");
 
     return 0;
