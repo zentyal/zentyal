@@ -15,7 +15,7 @@ use EBox::Gettext;
             dataType: 'json',
             success: function(response) {
                 $('#output').html(response.output);
-                if (aboutToFinish) {
+                if (aboutToFinish || response.finished) {
                     $('#webadmin_ko').hide();
                     $('#ajax_loader_upgrade').hide();
                     $('#finished').show();
