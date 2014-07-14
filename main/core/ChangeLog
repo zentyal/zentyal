@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted release-upgrade script for the 3.5 upgrade and show button
 	+ Remove duplicated code in EBox::Model::DataTable::removeRow
 	  and EBox::Model::Manager::removeRowsUsingId
 3.4.7
