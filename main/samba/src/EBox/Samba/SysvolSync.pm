@@ -26,13 +26,16 @@ use EBox::Util::Random;
 use TryCatch::Lite;
 use Net::Ping;
 use Net::DNS;
+use Time::HiRes;
+use POSIX;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
 
-use constant DEBUG => 0;
+my $LOGFILE = '/var/log/zentyal/samba-sysvolsync.log';
 
 sub new
 {
-    my ($class) = @_;
+    my $class = shift;
+    my %params = @_;
 
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $users = EBox::Global->modInstance('samba');
@@ -51,6 +54,7 @@ sub new
         adUser => $sambaSettings->adminAccountValue(),
         destination => $sysinfo->fqdn(),
         hasTicket => 0,
+        debug => $params{debug},
     };
 
     bless ($self, $class);
@@ -78,18 +82,18 @@ sub extractKeytab
     try {
         my $ret = kdestroy();
         unless (defined $ret and $ret == 1) {
-            EBox::error("kdestroy: " . kerror());
+            $self->logevent('ERROR', "kdestroy: " . kerror());
         }
-        EBox::debug("Extracting keytab");
+        $self->logevent('DEBUG', "Extracting keytab");
         EBox::Sudo::root(@cmds);
         $ok = kinit($keytab, $adminUser);
         if (defined $ok and $ok == 1) {
-            EBox::info("Got ticket");
+            $self->logevent('INFO', "Got ticket");
         } else {
-            EBox::error("kinit error: " . kerror());
+            $self->logevent('ERROR', "kinit error: " . kerror());
         }
     } catch ($error) {
-        EBox::error("Could not extract keytab: $error");
+        $self->logevent('ERROR', "Could not extract keytab: $error");
         $ok = undef;
     }
     return $ok;
@@ -129,7 +133,7 @@ sub checkSource
         if (length $answer) {
             $source = $answer;
         } else {
-            EBox::error("Could not reverse resolve DC IP $source to the FQDN");
+            $self->logevent('ERROR', "Could not reverse resolve DC IP $source to the FQDN");
             return undef;
         }
     }
@@ -138,16 +142,16 @@ sub checkSource
 
 sub sync
 {
-    my ($self, $debug) = @_;
+    my ($self) = @_;
 
     my $source = $self->{source};
     my $destination = $self->{destination};
     unless (defined $source and length $source) {
-        EBox::error("Source not defined");
+        $self->logevent('ERROR', "Source not defined");
         return;
     }
     unless (defined $destination and length $destination) {
-        EBox::error("Destination not defined");
+        $self->logevent('ERROR', "Destination not defined");
         return;
     }
 
@@ -159,37 +163,65 @@ sub sync
 
     # Get ticket
     while (not $self->{hasTicket}) {
-        EBox::info("No ticket or expired");
+        $self->logevent('WARN', "No ticket or expired");
         $self->{hasTicket} = $self->extractKeytab($self->{keytab}, $self->{adUser});
         sleep (2);
     }
 
     # Sync share
     my $cmd = "net rpc share migrate files sysvol " .
-              "-k --destination=$destination -S $source --acls";
-    if ($debug) {
-        $cmd .= " -v -d6 >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
+              "-k --destination=$destination -S $source --acls ";
+    if ($self->debug()) {
+        $cmd .= " -v -d6 ";
     }
+    $cmd .= " >> $LOGFILE 2>&1";
 
-    EBox::info("Synchronizing sysvol share from $source");
+    $self->logevent('INFO', "Synchronizing sysvol share from $source");
+    $self->logevent('DEBUG', "Executing $cmd");
     system ($cmd);
     if ($? == -1) {
-        EBox::error("failed to execute: $!");
+        $self->logevent('ERROR', "Failed to execute: $!");
         return -1;
     } elsif ($? & 127) {
         my $signal = ($? & 127);
-        EBox::error("child died with signal $signal");
+        $self->logevent('ERROR', "Child died with signal $signal");
         return $signal;
     } else {
         my $code = ($? >> 8);
         unless ($code == 0) {
-            EBox::info("child exited with value $code");
+            $self->logevent('INFO', "child exited with value $code");
             # Maybe user pwd has changed an we need to export keytab again
             $self->{hasTicket} = 0;
         }
         return $code;
     }
+
     return 0;
+}
+
+# Method: debug
+#
+#   Return true if debug enabled
+#
+sub debug
+{
+    my ($self) = @_;
+
+    return $self->{debug};
+}
+
+sub logevent
+{
+    my ($self, $type, $msg) = @_;
+
+    return if ($type eq 'DEBUG' and not $self->debug());
+
+    open (my $log, '>>', $LOGFILE);
+    my ($x,$y) = Time::HiRes::gettimeofday();
+    $y = sprintf("%06d", $y / 1000);
+    my $timestamp = POSIX::strftime("%Y-%m-%d %H:%M:%S", localtime ($x)) . ".$y";
+    print $log "$timestamp $type> $msg\n";
+    close ($LOGFILE);
 }
 
 # Method: run
@@ -200,17 +232,24 @@ sub run
 {
     my ($self, $interval, $random) = @_;
 
-    EBox::info("Samba sysvol synchronizer script started");
+    $self->logevent('INFO', "Samba sysvol synchronizer script started");
 
     while (1) {
-        my $randomSleep = (DEBUG ? (3) : ($interval + int (rand ($random))));
-        EBox::debug("Sleeping for $randomSleep seconds");
+        my $randomSleep = $interval + int (rand ($random));
+        $self->logevent('DEBUG', "Sleeping for $randomSleep seconds");
         sleep ($randomSleep);
-        $self->sync(DEBUG);
+        $self->sync();
     }
 
+    $self->logevent('INFO', "Samba sysvol synchronizer script stopped");
+}
+
+sub DESTROY
+{
+    my ($self) = @_;
+
+    $self->logevent('DEBUG', "Destroying Kerberos ticket");
     kdestroy();
-    EBox::info("Samba sysvol synchronizer script stopped");
 }
 
 if ($0 eq __FILE__) {
