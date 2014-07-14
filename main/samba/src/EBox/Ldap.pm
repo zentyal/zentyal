@@ -345,85 +345,35 @@ sub userBindDN
 
 sub users
 {
-    my ($self, %params) = @_;
+    my ($self, $system) = @_;
 
-    my $list = [];
-
-    # Query the containers stored in the root DN and skip the ignored ones
-    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
-    # subclasses of 'Container'.
-    my @containers;
-    my $params = {
-        base => $self->dn(),
-        scope => 'one',
-        filter => '(|(objectClass=Container)(objectClass=OrganizationalUnit)(objectClass=msExchSystemObjectsContainer))',
-        attrs => ['*'],
-    };
-    my $result = $self->search($params);
-    foreach my $entry ($result->sorted('cn')) {
-        my $container = new EBox::Samba::Container(entry => $entry);
-        next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
-        push (@containers, $container);
-    }
-
-    # Query the users stored in the non ignored containers
-    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
-    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
-    foreach my $container (@containers) {
-        $params = {
-            base   => $container->dn(),
-            scope  => 'sub',
-            filter => $filter,
-            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
-        };
-        $result = $self->search($params);
-        foreach my $entry ($result->sorted('samAccountName')) {
-            my $user = new EBox::Samba::User(entry => $entry);
-            push (@{$list}, $user);
-        }
-    }
-
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::users to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->users();
 }
 
 sub contacts
 {
     my ($self) = @_;
 
-    my $params = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => '(&(objectclass=contact)(!(isDeleted=*)))',
-        attrs => ['*'],
-    };
-    my $result = $self->search($params);
-    my $list = [];
-    foreach my $entry ($result->sorted('name')) {
-        my $contact = new EBox::Samba::Contact(entry => $entry);
-
-        push (@{$list}, $contact);
-    }
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::contacts to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('contacts');
+    return $samba->contacts();
 }
 
 sub groups
 {
     my ($self) = @_;
 
-    my $params = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => '(&(objectclass=group)(!(isDeleted=*)))',
-        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-    };
-    my $result = $self->search($params);
-    my $list = [];
-    foreach my $entry ($result->sorted('samAccountName')) {
-        my $group = new EBox::Samba::Group(entry => $entry);
-        push (@{$list}, $group);
-    }
-
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::groups to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->groups();
 }
 
 # Method: securityGroups
@@ -438,28 +388,11 @@ sub securityGroups
 {
     my ($self) = @_;
 
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::securityGroups to be deprecated");
     my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('samba');
-    if ((not $usersMod->isEnabled()) or (not $usersMod->isProvisioned())) {
-        return [];
-    }
-
-    my $allGroups = $self->groups();
-    my @securityGroups = ();
-    foreach my $group (@{$allGroups}) {
-        if ($group->isSecurityGroup()) {
-            push (@securityGroups, $group);
-        }
-    }
-    # sort grups by name
-    @securityGroups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @securityGroups;
-
-    return \@securityGroups;
+    my $samba = $global->modInstance('samba');
+    return $samba->securityGroups();
 }
 
 # Method: ous
@@ -471,27 +404,11 @@ sub ous
 {
     my ($self, $baseDN) = @_;
 
-    unless (defined $baseDN) {
-        $baseDN = $self->dn();
-    }
-
-    my $objectClass = EBox::Samba::OU->mainObjectClass();
-    my $args = {
-        base => $baseDN,
-        filter => "(objectclass=$objectClass)",
-        scope => 'one',
-    };
-
-    my $ous = [];
-    my $result = $self->search($args);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
-        my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
-    }
-
-    return $ous;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::ous to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->ous($baseDN);
 }
 
 # Method: dnsZones
