@@ -585,6 +585,8 @@ sub provisionDC
 
         EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
+        EBox::debug('Hide internal users');
+        $self->_hideInternalUsers();
 
         # Reset sysvol
         EBox::debug('Reset Sysvol');
@@ -1379,6 +1381,8 @@ sub provisionADC
 
         EBox::debug('Hide internal groups');
         $self->_hideInternalGroups();
+        EBox::debug('Hide internal users');
+        $self->_hideInternalUsers();
 
         # Set kerberos modules as changed to force them to extract the keytab
         # and stash new password
@@ -1473,6 +1477,21 @@ sub _hideInternalGroups
         if ($gr->exists()) {
             $gr->set('showInAdvancedViewOnly', 'TRUE');
         }
+    }
+}
+
+sub _hideInternalUsers
+{
+    my ($self) = @_;
+
+    # Samba does not set the dns-<hostname> user as system critical when
+    # joining a domain
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $dnsUser = "dns-$hostname";
+    my $user = new EBox::Samba::User(samAccountName => $dnsUser);
+    if ($user->exists()) {
+        $user->setCritical(1);
     }
 }
 
