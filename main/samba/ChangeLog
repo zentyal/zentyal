@@ -1,4 +1,5 @@
 HEAD
+	+ Hide the dns-hostname account after join a domain
 	+ Remove mail account management logic from edit user form. This field
 	  is now disabled when the mail module is installed, so account management
 	  like create, rename or delete it must be done in the mail module user
