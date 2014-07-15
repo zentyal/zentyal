@@ -107,7 +107,8 @@ sub _process
                 $user->delete('description', 1);
             }
 
-            unless ($global->modExists('mail')) {
+            my $mailMod = $global->modInstance('mail');
+            if ((not $mailMod) or (not $mailMod->configured())) {
                 $self->_requireParamAllowEmpty('mail', __('E-Mail'));
                 my $mail = $self->unsafeParam('mail');
                 if (length  ($mail)) {

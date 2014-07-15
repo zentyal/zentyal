@@ -16,10 +16,15 @@ my $optionalTag = $slave ? '' :  __('Optional');
 my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 
 my $global = EBox::Global->getInstance();
-my $mailModInstalled = $global->modExists('mail');
+my $mailMod = $global->modInstance('mail');
+my $mailModEnabled = ($mailMod and $mailMod->configured());
+#my $mailModEnabled = 0;
+
+#if ($mailMod) {
+#    $mailModEnabled = $mailMod->configured();
+#}
+my $mailValue = ($user->mail() or '');
 </%init>
-
-
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
 <div id='editUserForm_message' class='note' style='display:none'></div>
@@ -63,15 +68,19 @@ my $mailModInstalled = $global->modExists('mail');
                                slave => $slave,
                    &>
           </div>
+
           <div>
           <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
+%           if ($mailModEnabled) {
+                   <% $mailValue ? $mailValue : '<em>' . __('Not mail account set') . '</em>'  %>
+%           } else {
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                id   => 'user_attrs_mail',
-                               value => ($user->mail() or ''),
-                               disabled => $mailModInstalled,
+                               value => $mailValue,
                                slave => $slave,
                    &>
+%           }
           </div>
           <div>
           <label><% __('User quota') %> (MB)</label>
@@ -177,12 +186,15 @@ $(function() {
                 var selected = tree.jstree("get_selected")[0];
                 tree.jstree("set_text", selected, response.set_text);
             }
+<%doc>
+%#  Seesms we can remove it
             if ('mail' in response) {
                if ('MailUserAddon' in Zentyal) {
                    Zentyal.MailUserAddon.accountChange(response.mail);
                    $('#note_userMailCreateDelAccount, #error_userMailCreateDelAccount').html('').hide();
                }
             }
+</%doc>
         }
    });
 
