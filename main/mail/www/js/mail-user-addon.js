@@ -19,7 +19,6 @@ Zentyal.MailUserAddon.accountChange = function(mail, ocEnabled) {
             }
         }
 
-        console.log(mail + ' -> ' + accountVDomain + ' managed:' + vdManaged);
 
         $('#userMailManaged').toggle(vdManaged);
         $('#userMailUnmanaged').toggle(!vdManaged);
