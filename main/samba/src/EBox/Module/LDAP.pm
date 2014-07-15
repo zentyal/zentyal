@@ -204,7 +204,7 @@ sub _loadSchemas
     my ($self) = @_;
     my $path = EBox::Config::share() . "zentyal-" . $self->name();
     my @schemas = glob ("$path/schema-*.ldif");
-    $self->_loadSchemas(\@schemas);
+    $self->_loadSchemasFiles(\@schemas);
 }
 
 sub _loadSchemasFiles
