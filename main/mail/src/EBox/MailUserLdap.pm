@@ -514,7 +514,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
+        filter => "(&(objectclass=userZentyalMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 
