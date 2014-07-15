@@ -485,7 +485,7 @@ sub _doDeprovision
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        $self->parentModule->_dropSOGODB();
+        $self->parentModule->dropSOGODB();
         $self->parentModule->setProvisioned(0);
 
         $self->global->modChange('mail');

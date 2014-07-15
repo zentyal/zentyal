@@ -1102,6 +1102,8 @@ sub cleanForReprovision
     delete $state->{'isProvisioned'};
     $self->set_state($state);
 
+    $self->dropSOGODB();
+
     my @modelsToClean = qw(Provision RPCProxy Configuration);
     foreach my $name (@modelsToClean) {
         $self->model($name)->removeAll(1);
@@ -1114,7 +1116,7 @@ sub cleanForReprovision
     $self->setAsChanged(1);
 }
 
-sub _dropSOGODB
+sub dropSOGODB
 {
     my ($self) = @_;
 
