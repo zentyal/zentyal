@@ -18,11 +18,6 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 my $global = EBox::Global->getInstance();
 my $mailMod = $global->modInstance('mail');
 my $mailModEnabled = ($mailMod and $mailMod->configured());
-#my $mailModEnabled = 0;
-
-#if ($mailMod) {
-#    $mailModEnabled = $mailMod->configured();
-#}
 my $mailValue = ($user->mail() or '');
 </%init>
 <div id="edit_user">
