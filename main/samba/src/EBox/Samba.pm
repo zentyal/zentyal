@@ -408,6 +408,75 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
+        $self->_migrateTo35();
+    }
+}
+
+sub _migrateTo35
+{
+    my ($self) = @_;
+
+    return unless ($self->configured());
+
+
+    # set samba conf to allow schemas updates
+    $self->_setConf();
+    EBox::Service::manage('samba-ad-dc', 'restart');
+    $self->_performSetup();
+    EBox::Service::manage('samba-ad-dc', 'restart');
+
+    # Set gidNumbers to Domain Users, etc.
+    $self->getProvision()->mapAccounts();
+
+    my $ldifFile = '/var/lib/zentyal/conf/upgrade-to-3.5/data.ldif';
+
+    return unless (-f $ldifFile);
+
+    use Net::LDAP::LDIF;
+    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
+
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry ();
+        if ($ldif->error()) {
+           EBox::error("Error reading LDIF file $ldifFile: " . $ldif->error() .
+                       '. Error lines: ' .  $ldif->error_lines());
+        } else {
+            my $gidNumber = $entry->get_value('gidNumber');
+            my $uid = $entry->get_value('uid');
+            if ($uid) {
+                my $uidNumber = $entry->get_value('uidNumber');
+                if ($uidNumber) {
+                    my $user = new EBox::Samba::User(samAccountName => $uid);
+                    next unless $user->exists();
+
+                    $user->set('uidNumber', $uidNumber);
+                    unless ($user->hasValue('objectClass', 'systemQuotas')) {
+                        my @objectclass = $user->get('objectClass');
+                        push (@objectclass, 'systemQuotas');
+                        $user->set('objectClass', \@objectclass);
+                    }
+                    $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
+                    for my $attr (qw(quota loginShell homeDirectory)) {
+                        my $value = $entry->get_value($attr);
+                        $user->set($attr, $value, 1) if defined ($value);
+                    }
+                    $user->save();
+                }
+            } elsif (defined $gidNumber) {
+                my $cn = $entry->get_value('cn');
+                if ($cn) {
+                    my $group = new EBox::Samba::Group(samAccountName => $cn);
+                    next unless $group->exists();
+                    $group->set('gidNumber', $gidNumber);
+                }
+            }
+        }
+    }
+    $ldif->done();
+
+    $self->getProvision()->mapAccounts();
 }
 
 sub _checkEnableIPs
@@ -1344,7 +1413,7 @@ sub _startService
     EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
-    $self->SUPER::_startService(@_);
+    $self->SUPER::_startService();
 
     if ($self->mode() eq STANDALONE_MODE) {
         # Wait for sss to open the NSS pipe
@@ -3891,7 +3960,11 @@ sub _cleanModulesForReprovision
     my ($self) = @_;
 
     foreach my $mod (@{$self->global()->modInstancesOfType('EBox::Module::LDAP')}) {
-        $mod->cleanForReprovision();
+        my $state = $mod->get_state();
+        delete $state->{'_schemasAdded'};
+        delete $state->{'_ldapSetup'};
+        $mod->set_state($state);
+        $mod->setAsChanged(1);
     }
 }
 
