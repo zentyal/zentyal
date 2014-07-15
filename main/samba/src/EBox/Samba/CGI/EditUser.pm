@@ -111,10 +111,16 @@ sub _process
             if ((not $mailMod) or (not $mailMod->configured())) {
                 $self->_requireParamAllowEmpty('mail', __('E-Mail'));
                 my $mail = $self->unsafeParam('mail');
+                if ($mailMod) {
+                    $mailMod->checkMailNotInUse($mail, owner => $user);
+                } else {
+                    $users->checkMailNotInUse($mail, owner => $user);
+                }
+                #$user->delete('mail', 1);
                 if (length  ($mail)) {
                     $user->set('mail', $mail, 1);
-                } else {
-                    $user->delete('mail', 1);
+                 } else {
+                     $user->delete('mail', 1);
                 }
             }
 

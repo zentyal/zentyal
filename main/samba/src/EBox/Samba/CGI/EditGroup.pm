@@ -41,7 +41,8 @@ sub _process
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('samba');
+    my $global   = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('samba');
 
     my @args = ();
 
@@ -80,6 +81,12 @@ sub _process
         }
         my $mail = $self->unsafeParam('mail');
         if (length ($mail) and ($mail ne $group->get('mail'))) {
+            my $mailMod = $global->modInstance('mail');
+            if ($mailMod) {
+                $mailMod->checkMailNotInUse($mail, owner => $group);
+            } else {
+                $usersMod->checkMailNotInUse($mail, owner => $group);
+            }
             $group->checkMail($mail);
             $group->set('mail', $mail, 1);
         } else {

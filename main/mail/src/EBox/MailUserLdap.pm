@@ -103,7 +103,7 @@ sub setUserAccount
     }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-    $mail->checkMailNotInUse($email);
+    $mail->checkMailNotInUse($email, owner => $user);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 

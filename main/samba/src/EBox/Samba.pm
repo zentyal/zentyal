@@ -3116,17 +3116,16 @@ sub ousToHide
 #   instead this one
 sub checkMailNotInUse
 {
-    my ($self, $addr) = @_;
+    my ($self, $addr, %params) = @_;
 
     my %searchParams = (
         base => $self->ldap()->dn(),
-        filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(|(otherMailbox=$addr)(mail=$addr))",
+        filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=group))(|(otherMailbox=$addr)(mail=$addr))",
         scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%searchParams);
-    if ($result->count() > 0) {
-        my $entry = $result->entry(0);
+    foreach my $entry ($result->entries()) {
         my $modeledObject = $self->entryModeledObject($entry);
         my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
         my $name;
@@ -3137,12 +3136,18 @@ sub checkMailNotInUse
             $name = $modeledObject ? $modeledObject->name() : $entry->dn();
         }
 
-        EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
+        my $ownAddress = 0;
+        if ($params{owner}) {
+            $ownAddress = $entry->dn() eq $params{owner}->dn();
+        }
+        if (not $ownAddress) {
+            EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
                                               addr => $addr,
                                               type => $type,
                                               name => $name,
                                         ),
                                     );
+        }
     }
 }
 
