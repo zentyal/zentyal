@@ -80,14 +80,11 @@ sub _process
             $user->set('quota', $quota, 1);
         }
 
-        my $addMail;
-        my $delMail;
         if ($editable) {
             $self->_requireParamAllowEmpty('givenname', __('first name'));
             $self->_requireParamAllowEmpty('surname', __('last name'));
             $self->_requireParamAllowEmpty('displayname', __('display name'));
             $self->_requireParamAllowEmpty('description', __('description'));
-            $self->_requireParamAllowEmpty('mail', __('E-Mail'));
             $self->_requireParamAllowEmpty('password', __('password'));
             $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
@@ -110,40 +107,19 @@ sub _process
                 $user->delete('description', 1);
             }
 
-            my $mail = $self->unsafeParam('mail');
-            my $oldMail = $user->get('mail');
-            if ($mail) {
-                $mail = lc $mail;
-                if (not $oldMail) {
-                    $addMail = $mail;
-                } elsif  ($mail ne $oldMail) {
-                    $delMail = 1;
-                    $addMail = $mail;
-                }
-            } elsif ($oldMail) {
-                $delMail = 1;
-            }
-
-            my $mailMod = $global->modInstance('mail');
-            if ($delMail) {
-                if ($mailMod and $mailMod->configured()) {
-                    $mailMod->_ldapModImplementation()->delUserAccount($user);
+            unless ($global->modExists('mail')) {
+                $self->_requireParamAllowEmpty('mail', __('E-Mail'));
+                my $mail = $self->unsafeParam('mail');
+                if (length  ($mail)) {
+                    $user->set('mail', $mail, 1);
                 } else {
-                    $user->set('mail', '', 1);
-                }
-            }
-            if ($addMail) {
-                if ($mailMod and $mailMod->configured()) {
-                    $mailMod->_ldapModImplementation()->setUserAccount($user, $addMail);
-                } else {
-                    $user->checkMail($addMail);
-                    $user->set('mail', $addMail, 1);
+                    $user->delete('mail', 1);
                 }
             }
 
             $user->set('givenname', $givenName, 1) if ($givenName);
             $user->set('sn', $surname, 1) if ($surname);
-            $user->setDisabled($disabled);
+            $user->setDisabled($disabled, 1);
 
             # Change password if not empty
             my $password = $self->unsafeParam('password');
@@ -163,11 +139,6 @@ sub _process
         $self->{json}->{msg} = __('User updated');
         if ($setText) {
             $self->{json}->{set_text} = $setText;
-        }
-        if ($addMail) {
-            $self->{json}->{mail} = $addMail;
-        } elsif ($delMail) {
-            $self->{json}->{mail} = '';
         }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
