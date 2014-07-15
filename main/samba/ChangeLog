@@ -1,8 +1,8 @@
 HEAD
 	+ Added EBox::module::LDAP::_loadSchemasFiles
 	+ Added EBox::Samba::LdapObject::hasObjectClass
+	+ Added code for migration from 3.4
 	+ Instance groups using gid parameter is no longer allowed
-	+ Clean for reprovision responsability moved to each module
 3.5.2
 	+ Fix sssd bug not finding users and groups
 	+ Deprecate _schemasAdded redis key, checking if schema is extended in
