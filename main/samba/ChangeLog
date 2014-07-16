@@ -1,4 +1,6 @@
 HEAD
+	+ Added EBox::module::LDAP::_loadSchemasFiles
+	+ Added EBox::Samba::LdapObject::hasObjectClass
 	+ Hide the dns-hostname account after join a domain
 	+ Remove mail account management logic from edit user form. This field
 	  is now disabled when the mail module is installed, so account management

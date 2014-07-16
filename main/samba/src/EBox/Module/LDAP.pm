@@ -202,20 +202,26 @@ sub _sendSchemaUpdate
 sub _loadSchemas
 {
     my ($self) = @_;
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    my @schemas = glob ("$path/schema-*.ldif");
+    $self->_loadSchemasFiles(\@schemas);
+}
 
+sub _loadSchemasFiles
+{
+    my ($self, $schemas_r) = @_;
+    my @schemas = @{ $schemas_r };
     # Locate and connect to schema master
     my $masterLdap = $self->_connectToSchemaMaster();
 
-    my $name = $self->name();
-    my $path = EBox::Config::share() . "zentyal-$name";
-    foreach my $ldif (glob ("$path/schema-*.ldif")) {
+    foreach my $ldif (@schemas) {
         $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 
     my $timeout = 30;
     my $defaultNC = $self->ldap->dn();
     # Wait for schemas replicated if we are not the master
-    foreach my $ldif (glob ("$path/schema-*.ldif")) {
+    foreach my $ldif (@schemas) {
         my @lines = read_file($ldif);
         foreach my $line (@lines) {
             my ($dn) = $line =~ /^dn: (.*)/;
