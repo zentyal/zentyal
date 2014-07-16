@@ -70,7 +70,11 @@ sub _process
         $self->_requireParam('type', __('type'));
 
         my $type = $self->param('type');
-        $group->setSecurityGroup(($type eq 'security'), 1);
+        my $isSecurityGroup = ($type eq 'security') ? 1 : 0;
+        my $wasSecurityGroup = $group->isSecurityGroup();
+        if ($isSecurityGroup != $wasSecurityGroup) {
+            $group->setSecurityGroup($isSecurityGroup, 1);
+        }
 
         my $description = $self->unsafeParam('description');
         if (length ($description)) {
@@ -79,16 +83,18 @@ sub _process
             $group->delete('description', 1);
         }
         my $mail = $self->unsafeParam('mail');
-        if (length ($mail) and ($mail ne $group->get('mail'))) {
-            $group->checkMail($mail);
-            $group->set('mail', $mail, 1);
+        if ($mail) {
+            if ($mail ne $group->get('mail')) {
+                $group->checkMail($mail);
+                $group->set('mail', $mail, 1);
+            }
         } else {
             $group->delete('mail', 1);
         }
         $group->save();
 
         $self->{json}->{success}  = 1;
-        $self->{json}->{type} = ($type eq 'security') ? 'group' : 'dgroup';
+        $self->{json}->{type} = $isSecurityGroup ? 'group' : 'dgroup';
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };
