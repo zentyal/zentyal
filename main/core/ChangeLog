@@ -1,4 +1,5 @@
 HEAD
+	+ pathHTTPSSSLCertificate always returns a list
 	+ Fix some warnings in log
 	+ Fix error in send crash report script
 3.5.1
