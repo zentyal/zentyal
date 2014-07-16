@@ -141,12 +141,14 @@ sub setUserAccount
 #
 # Parameters:
 #
-#               user - user object
-#               usermail - the user's mail address (optional)
+#   user - user object
+#   usermail - the user's mail address (optional)
+#
 sub delUserAccount
 {
     my ($self, $user, $usermail) = @_;
-    ($self->_accountExists($user)) or return;
+
+    return unless $self->_accountExists($user);
     if (not defined $usermail) {
         $usermail = $self->userAccount($user);
     }
@@ -155,8 +157,8 @@ sub delUserAccount
     # First we remove all mail aliases asociated with the user account.
     my @aliases = $mail->{malias}->userAliases($user);
     foreach my $alias (@aliases) {
-                $mail->{malias}->delAlias($alias);
-            }
+        $mail->{malias}->delAlias($alias);
+    }
 
     # Remove mail account from group alias maildrops
     foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
@@ -447,28 +449,27 @@ sub _modifyGroup
 
 # Method: _accountExists
 #
-#  This method returns if a user have a mail account
+#   This method returns if a user have a mail account
 #
 # Parameters:
 #
-#               user - user object
+#   user - user object
+#
 # Returns:
 #
-#               bool - true if user have mail account
+#   bool - true if user have mail account
+#
 sub _accountExists
 {
     my ($self, $user) = @_;
-
-    my $username = $user->name();
-    my %attrs = (
-                 base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
-                 scope => 'sub'
-                );
-
-    my $result = $self->{ldap}->search(\%attrs);
-
-    return ($result->count > 0);
+    my $username = $user->get('samAccountName');
+    my $attrs = {
+        base => $self->{ldap}->dn(),
+        filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
+        scope => 'sub',
+    };
+    my $result = $self->{ldap}->search($attrs);
+    return ($result->count() > 0);
 }
 
 # Method: allAccountFromVDomain
