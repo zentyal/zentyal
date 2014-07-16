@@ -56,6 +56,7 @@ upgrade
 echo; echo "Forcing pending packages installation..."; echo
 rm -f /var/lib/dpkg/info/zentyal-core.postinst
 rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
+rm -f /var/lib/dpkg/info/suricata.postinst
 
 service apache2 stop || true
 
