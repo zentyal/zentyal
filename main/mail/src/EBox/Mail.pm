@@ -268,7 +268,7 @@ sub initialSetup
         # TODO: We need a mechanism to notify modules when the hostname
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
-    } elsif (EBox::Util::Version::compare($version, 3.5.2) < 0) {
+    } elsif (EBox::Util::Version::compare($version, '3.5.2') < 0) {
         $self->_migrateToFetchmail();
     }
 
