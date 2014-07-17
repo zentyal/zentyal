@@ -67,7 +67,9 @@ my $mailValue = ($user->mail() or '');
           <div>
           <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
 %           if ($mailModEnabled) {
+                <div id="user_attrs_mail_ro">
                    <% $mailValue ? $mailValue : '<em>' . __('Not mail account set') . '</em>'  %>
+                </div>
 %           } else {
                   <& masterSlaveUserAttr,
                                name => 'mail',
