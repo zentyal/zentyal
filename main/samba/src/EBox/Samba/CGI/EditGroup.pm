@@ -71,8 +71,7 @@ sub _process
 
         my $type = $self->param('type');
         my $isSecurityGroup = ($type eq 'security') ? 1 : 0;
-        my $wasSecurityGroup = $group->isSecurityGroup();
-        if ($isSecurityGroup != $wasSecurityGroup) {
+        if ($isSecurityGroup != $group->isSecurityGroup()) {
             $group->setSecurityGroup($isSecurityGroup, 1);
         }
 
