@@ -73,6 +73,7 @@ then
     start samba-ad-dc
     /usr/share/zentyal/initial-setup samba 3.4
     service zentyal samba restart
+    service zentyal webadmin restart
 
     echo; echo "Zentyal upgrade finished!"
 else
