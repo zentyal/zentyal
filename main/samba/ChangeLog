@@ -1,4 +1,5 @@
 HEAD
+	+ openchange.conf named properties config uses splitted params
 	+ Added EBox::module::LDAP::_loadSchemasFiles
 	+ Added EBox::Samba::LdapObject::hasObjectClass
 	+ Hide the dns-hostname account after join a domain
