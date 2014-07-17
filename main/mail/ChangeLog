@@ -1,4 +1,5 @@
 HEAD
+	+ Added migration code to handle new Dovecot certs
 	+ Added fetchmail again
 	+ Fix _accountExists ldap search filter
 3.5.1
