@@ -307,10 +307,17 @@ sub writeSambaConfig
 
     my $openchangeProvisionedWithMySQL = $self->isProvisionedWithMySQL();
     my $openchangeConnectionString = undef;
+    my $oc = [];
     if ($openchangeProvisionedWithMySQL) {
         $openchangeConnectionString = $self->connectionString();
+        # format of connection string: "mysql://user:password@localhost/db_name
+        my ($mysqlUser, $mysqlPass, $mysqlHost, $mysqlDb) =
+            $openchangeConnectionString =~ /mysql:\/\/(\w+):(\w+)\@(\w+)\/(\w+)/;
+        push (@{$oc}, 'openchangeNamedpropsMysqlUser' => $mysqlUser);
+        push (@{$oc}, 'openchangeNamedpropsMysqlPass' => $mysqlPass);
+        push (@{$oc}, 'openchangeNamedpropsMysqlHost' => $mysqlHost);
+        push (@{$oc}, 'openchangeNamedpropsMysqlDb' => $mysqlDb);
     }
-    my $oc = [];
     push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
     push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
     $self->writeConfFile(OPENCHANGE_CONF_FILE, 'samba/openchange.conf.mas', $oc,
