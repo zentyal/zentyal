@@ -54,7 +54,7 @@ upgrade
 
 # FIXME: this process needs a lot of refination, this is a temporary workaround
 echo; echo "Forcing pending packages installation..."; echo
-for i in zentyal-core freeradius-ldap suricata rabbitmq-server zentyal-samba
+for i in zentyal-core freeradius-ldap suricata rabbitmq-server haproxy
 do
     rm -f /var/lib/dpkg/info/${i}.postinst
 done
