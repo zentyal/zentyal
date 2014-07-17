@@ -559,11 +559,6 @@ sub rules
                 next unless ($usersEnabled);
                 my $group = $source->value();
                 $rule->{group} = $group;
-                my $users = $userMod->objectFromDN($group)->users();
-                if (not @{$users}) {
-                    # ignore rules for empty groups
-                    next;
-                }
             } elsif ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
                 $rule->{adDN} = $source->value();
             }
