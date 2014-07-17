@@ -54,9 +54,10 @@ upgrade
 
 # FIXME: this process needs a lot of refination, this is a temporary workaround
 echo; echo "Forcing pending packages installation..."; echo
-rm -f /var/lib/dpkg/info/zentyal-core.postinst
-rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
-rm -f /var/lib/dpkg/info/suricata.postinst
+for i in zentyal-core freeradius-ldap suricata rabbitmq-server
+do
+    rm -f /var/lib/dpkg/info/${i}.postinst
+done
 
 service apache2 stop || true
 
