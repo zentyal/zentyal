@@ -190,8 +190,11 @@ sub _checkAccountName
 sub isSecurityGroup
 {
     my ($self) = @_;
-
-    return 1 if ($self->get('groupType') & GROUPTYPESECURITY);
+    if ($self->get('groupType') & GROUPTYPESECURITY) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 # Method: setSecurityGroup

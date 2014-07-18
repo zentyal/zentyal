@@ -1,4 +1,9 @@
 HEAD
+	+ Fixed bug which could delete the group mail account after a
+	  group edit
+	+ openchange.conf named properties config uses splitted params
+	+ Added EBox::module::LDAP::_loadSchemasFiles
+	+ Added EBox::Samba::LdapObject::hasObjectClass
 	+ Hide the dns-hostname account after join a domain
 	+ Remove mail account management logic from edit user form. This field
 	  is now disabled when the mail module is installed, so account management

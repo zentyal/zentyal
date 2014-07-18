@@ -1,4 +1,5 @@
 HEAD
+	+ openchange.conf named properties config uses splitted params
 	+ Better certificate management for autodiscovery
 3.5.1
 	+ Fixed issue with Sieve separator parameter at sogo configuration
