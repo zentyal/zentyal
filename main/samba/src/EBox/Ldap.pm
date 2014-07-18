@@ -37,7 +37,7 @@ use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 
 use TryCatch::Lite;
 use File::Slurp qw(read_file);
-use Perl6::Junction qw(any);
+use File::Temp;
 use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
@@ -238,9 +238,33 @@ sub dn
         unless ($users->isProvisioned()) {
             throw EBox::Exceptions::Internal('Samba is not yet provisioned');
         }
-        my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep ^dn:");
-        my ($dn) = $output->[0] =~ /^dn: (.*)$/;
-        if ($dn) {
+
+        my $tmp = new File::Temp(DIR => EBox::Config::tmp(),
+                                 TEMPLATE => 'dnsZonesXXXXXX',
+                                 SUFFIX => '.ldif');
+        $tmp->unlink_on_destroy(1);
+        my $ldifFile = $tmp->filename();
+
+        my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb " .
+                  "-s base 'dn' " .
+                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+        EBox::Sudo::root($cmd);
+
+        my $dn = undef;
+        my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
+        while (not $ldif->eof()) {
+            my $entry = $ldif->read_entry();
+            if ($ldif->error() or not defined $entry) {
+                throw EBox::Exceptions::Internal(
+                __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
+                    x => $ldif->error(), y => $ldif->error_lines()));
+            } else {
+                $dn = $entry->dn();
+            }
+        }
+        $ldif->done();
+
+        if (defined $dn and length $dn) {
             $self->{dn} = $dn;
         } else {
             throw EBox::Exceptions::External('Cannot get LDAP dn');
@@ -428,35 +452,43 @@ sub dnsZones
         "CN=MicrosoftDNS,DC=DomainDnsZones,$defaultNC",
         "CN=MicrosoftDNS,DC=ForestDnsZones,$defaultNC",
         "CN=MicrosoftDNS,CN=System,$defaultNC");
-    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors', '..InProgress');
     my $zones = [];
 
     foreach my $prefix (@zonePrefixes) {
-        my $output = EBox::Sudo::root(
-            "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
-        my $ldifBuffer = join ('', @{$output});
+        my $tmp = new File::Temp(DIR => EBox::Config::tmp(),
+                                 TEMPLATE => 'dnsZonesXXXXXX',
+                                 SUFFIX => '.ldif');
+        $tmp->unlink_on_destroy(1);
+        my $ldifFile = $tmp->filename();
+        my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb -s one " .
+                  "-b '$prefix' '(objectClass=dnsZone)' " .
+                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+        EBox::Sudo::root($cmd);
 
-        my $fd;
-        open $fd, '<', \$ldifBuffer;
-
-        my $ldif = Net::LDAP::LDIF->new($fd);
+        my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
         while (not $ldif->eof()) {
             my $entry = $ldif->read_entry();
-            if ($ldif->error()) {
-                EBox::debug("Error msg: " . $ldif->error());
-                EBox::debug("Error lines:\n" . $ldif->error_lines());
-            } elsif ($entry) {
-                my $name = $entry->get_value('name');
-                next unless defined $name;
-                next if $name eq any @ignoreZones;
-                my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
-                push (@{$zones}, $zone);
+            if ($ldif->error() or not defined $entry) {
+                throw EBox::Exceptions::Internal(
+                __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
+                    x => $ldif->error(), y => $ldif->error_lines()));
             } else {
-                EBox::debug("Got an empty entry");
+                my $name = $entry->get_value('name');
+                next unless defined $name and length $name;
+
+                my $skip = 0;
+                foreach my $skipPrefix (@ignoreZones) {
+                    $skip = 1 if ($name =~ m/^$skipPrefix/);
+                }
+
+                unless ($skip) {
+                    my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
+                    push (@{$zones}, $zone);
+                }
             }
         }
         $ldif->done();
-        close $fd
     }
 
     return $zones;

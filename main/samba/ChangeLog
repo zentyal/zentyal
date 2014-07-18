@@ -1,4 +1,5 @@
 HEAD
+	+ Improve the LDIF files parsing created by output of ldbsearch command
 	+ Added EBox::module::LDAP::_loadSchemasFiles
 	+ Added EBox::Samba::LdapObject::hasObjectClass
 	+ Hide the dns-hostname account after join a domain
