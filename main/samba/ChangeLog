@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug which could delete the group mail account after a
+	  group edit
 	+ openchange.conf named properties config uses splitted params
 	+ Added EBox::module::LDAP::_loadSchemasFiles
 	+ Added EBox::Samba::LdapObject::hasObjectClass
