@@ -217,11 +217,12 @@ sub blockHTTPPortChange
 #
 # Returns:
 #
-#   string - The full path to the SSL certificate file to use by HAProxy or undef.
+#   array of strings - The full paths to the SSL certificates files to use by
+#   HAProxy or empty list.
 #
 sub pathHTTPSSSLCertificate
 {
-    return undef;
+    return [];
 }
 
 # Method: caServiceIdForHTTPS

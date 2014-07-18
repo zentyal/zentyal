@@ -758,16 +758,20 @@ sub certificates
 {
     my ($self) = @_;
 
-    return [
+    my @certificates = map {
+        my $path = $_;
         {
             serviceId =>  'zentyal_' . $self->name(),
             service   =>  $self->printableName(),
-            path      =>  $self->pathHTTPSSSLCertificate(),
+            path      =>  $path,
             user      => 'root',
             group     => 'root',
             mode      => '0400',
-        },
-    ];
+        }
+    } @{ $self->pathHTTPSSSLCertificate() };
+
+
+    return \@certificates;
 }
 
 # Get CN and subjAltNames on the existing certificate
@@ -1020,7 +1024,7 @@ sub targetVHostDomains
 #
 sub pathHTTPSSSLCertificate
 {
-    return '/etc/apache2/ssl/ssl.pem';
+    return ['/etc/apache2/ssl/ssl.pem'];
 }
 
 # Method: targetIP

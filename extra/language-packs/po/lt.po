@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "disabled"
 msgstr "išjungta"
 
@@ -197,7 +197,7 @@ msgstr "Įjungta"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:275
+#: ../../main/samba/src/templates/edituser.mas:280
 msgid "Disabled"
 msgstr "Išjungtas"
 
@@ -1026,7 +1026,7 @@ msgstr "Bendras vardas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1566
 msgid "Address"
 msgstr "Adresas"
 
@@ -1056,13 +1056,13 @@ msgstr "OpenVPN tarnybos"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3629
-#: ../../main/samba/src/EBox/Samba.pm:3649
-#: ../../main/samba/src/EBox/Samba.pm:3660
+#: ../../main/samba/src/EBox/Samba.pm:3698
+#: ../../main/samba/src/EBox/Samba.pm:3718
+#: ../../main/samba/src/EBox/Samba.pm:3729
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1642
+#: ../../main/mail/src/EBox/Mail.pm:1659
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1089,13 +1089,13 @@ msgstr "Data"
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1120
 #: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1652
+#: ../../main/mail/src/EBox/Mail.pm:1669
 msgid "Event"
 msgstr "Įvykis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3654
+#: ../../main/samba/src/EBox/Samba.pm:3723
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1256,7 +1256,7 @@ msgstr "Klaida"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4482
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1534 ../../main/mail/src/EBox/Mail.pm:1651
+#: ../../main/mail/src/EBox/Mail.pm:1551 ../../main/mail/src/EBox/Mail.pm:1668
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1522,7 +1522,7 @@ msgid "resources"
 msgstr "Resursai"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3633
+#: ../../main/samba/src/EBox/Samba.pm:3702
 msgid "Resource"
 msgstr "Resursas"
 
@@ -1833,7 +1833,7 @@ msgstr "Prioritetas"
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:47
+#: ../../main/samba/src/templates/edituser.mas:50
 #: ../../main/samba/src/templates/adduser.mas:23
 #: ../../main/samba/src/templates/editcontact.mas:30
 #: ../../main/samba/src/templates/addcontact.mas:21
@@ -2242,7 +2242,7 @@ msgstr "vardas"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3065
+#: ../../main/samba/src/EBox/Samba.pm:3134
 msgid "alias"
 msgstr "aliasas"
 
@@ -2277,7 +2277,7 @@ msgstr "Įjungti permatomą DNS kešą"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2155
+#: ../../main/samba/src/EBox/Samba.pm:2224
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2371,7 +2371,7 @@ msgstr "Ši sritis"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
-#: ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1564
 msgid "Custom"
 msgstr "Papildomas"
 
@@ -2518,7 +2518,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:2149
+#: ../../main/samba/src/EBox/Samba.pm:2218
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2873,9 +2873,9 @@ msgstr "Bet kokia priėjimo kontroli išjungiama jei svečio prieiga leidžiama.
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3631
-#: ../../main/samba/src/EBox/Samba.pm:3651
-#: ../../main/samba/src/EBox/Samba.pm:3662
+#: ../../main/samba/src/EBox/Samba.pm:3700
+#: ../../main/samba/src/EBox/Samba.pm:3720
+#: ../../main/samba/src/EBox/Samba.pm:3731
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -2884,7 +2884,7 @@ msgstr "Bet kokia priėjimo kontroli išjungiama jei svečio prieiga leidžiama.
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:179
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#: ../../main/samba/src/templates/edituser.mas:21
+#: ../../main/samba/src/templates/edituser.mas:24
 msgid "User"
 msgstr "Vartotojas"
 
@@ -3083,7 +3083,7 @@ msgstr "Sertifikatų Autorizatoriai"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:357
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:369
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3183,7 +3183,7 @@ msgstr "Sertifikatas su šiuo bendru vardu {cn} neegzistuoja šiame SA"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1583
+#: ../../main/mail/src/EBox/Mail.pm:1600
 msgid "General"
 msgstr "Bendra"
 
@@ -3289,7 +3289,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3632
+#: ../../main/samba/src/EBox/Samba.pm:3701
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3349,9 +3349,10 @@ msgstr "Sertifikatas buvo atnaujintas"
 msgid "The new CA certificate has been renewed"
 msgstr "Naujas SA sertifikatas buvo atnaujintas"
 
-#: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:130
-msgid "Error creating file"
-msgstr "Klaida kuriant failą"
+#: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
+#, perl-brace-format
+msgid "Error creating archive file for  certificates: {err}"
+msgstr ""
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:60
 msgid "The certificate has NOT been revoked."
@@ -4592,7 +4593,7 @@ msgstr "Pašto adresas"
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
 #: ../../main/network/src/templates/ifaces.mas:180
 #: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/samba/src/templates/edituser.mas:68
+#: ../../main/samba/src/templates/edituser.mas:72
 #: ../../main/samba/src/templates/adduser.mas:27
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 msgid "Password"
@@ -4610,7 +4611,7 @@ msgstr "Serverio vardas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:100
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:152
-#: ../../main/samba/src/templates/edituser.mas:27
+#: ../../main/samba/src/templates/edituser.mas:30
 #: ../../main/samba/src/templates/adduser.mas:17
 #: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:11
@@ -4619,7 +4620,7 @@ msgstr "Vardas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:101
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:155
-#: ../../main/samba/src/templates/edituser.mas:33
+#: ../../main/samba/src/templates/edituser.mas:36
 #: ../../main/samba/src/templates/adduser.mas:20
 #: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:16
@@ -5891,7 +5892,7 @@ msgid "user name"
 msgstr "vartotojo vardas"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 msgid "password"
 msgstr "slaptažodis"
 
@@ -7003,7 +7004,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
-#: ../../main/mail/src/EBox/Mail.pm:1546 ../../main/mail/src/EBox/Mail.pm:1553
+#: ../../main/mail/src/EBox/Mail.pm:1563 ../../main/mail/src/EBox/Mail.pm:1570
 msgid "Filter type"
 msgstr "Filtro tipas"
 
@@ -7400,7 +7401,7 @@ msgstr ""
 "Norint aptranauti IP adresus tinklo sąsajoje, privaloma nustatyti bent "
 "diapozoną ar fiksuotus adresus."
 
-#: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:105
+#: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:122
 msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
@@ -7492,7 +7493,7 @@ msgstr "Diapazonas {from} - {to} apima sąsają su IP adresais: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1644
+#: ../../main/mail/src/EBox/Mail.pm:1661
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -7500,7 +7501,7 @@ msgstr "Nuo"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1645
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -8550,10 +8551,6 @@ msgstr "Administravimo sąsajos TCP prievadas"
 msgid "Upgrading"
 msgstr "Atnaujina"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/PageNotFound.pm:30
-msgid "Page not found"
-msgstr "Puslapis nerastas"
-
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
 msgstr ""
@@ -8808,7 +8805,7 @@ msgstr "Naujas slaptažodis"
 #: ../../main/openchange/src/templates/openchange.mas:24
 #: ../../main/samba/src/templates/editgroup.mas:46
 #: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:77
+#: ../../main/samba/src/templates/edituser.mas:81
 #: ../../main/samba/src/templates/editcontact.mas:35
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
@@ -9959,7 +9956,7 @@ msgstr "Servisai"
 msgid "port"
 msgstr "portas"
 
-#: ../../main/core/src/EBox/HAProxy.pm:492
+#: ../../main/core/src/EBox/HAProxy.pm:493
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal Administravimo Web serveris"
 
@@ -10390,7 +10387,7 @@ msgstr "Nekonfigūruoti"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:131
-#: ../../main/openchange/src/EBox/OpenChange.pm:623
+#: ../../main/openchange/src/EBox/OpenChange.pm:700
 msgid "Setup"
 msgstr ""
 
@@ -10407,14 +10404,14 @@ msgstr ""
 msgid "Setup an OpenChange Groupware server."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:212
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:218
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr "Turite įjungti Vartotojų modulį modulių srityje norėdami panaudoti jį."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, fuzzy, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -10423,71 +10420,83 @@ msgstr ""
 "Nėra virtualios vardų srities valdomos šio serverio. Galite sukurti {openA}"
 "Virtualaus adreso puslapis{closeA}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:243
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:249
+#, perl-brace-format
+msgid ""
+"There is not an available Certication Authority. You must {oh}create or "
+"renew it"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:255
 #, fuzzy
 msgid "There are unsaved changes. Please save them before provision"
 msgstr "Nėra neišsaugotų pakeitimų šioje sesijoje."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:374
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:383
+#, fuzzy
+msgid "No Certification authority ready. Create or renew it"
+msgstr "Sukruti Sertifikavimo autorizatoriaus sertifikatą"
+
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 #, fuzzy
 msgid "Enable OpenChange account"
 msgstr "Failų dalybos paskyra"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:262
+#: ../../main/openchange/src/EBox/OpenChange.pm:282
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr " Clamd tarnybos konfigūravimas"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:267
+#: ../../main/openchange/src/EBox/OpenChange.pm:287
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Konfigūruoti pašto pavadinimą"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:272
+#: ../../main/openchange/src/EBox/OpenChange.pm:292
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Konfigūruoti dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:277
+#: ../../main/openchange/src/EBox/OpenChange.pm:297
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:756
+#: ../../main/openchange/src/EBox/OpenChange.pm:833
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:765
+#: ../../main/openchange/src/EBox/OpenChange.pm:842
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:849
+#: ../../main/openchange/src/EBox/OpenChange.pm:926
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Iškraunama modulio {m} konfigūracin"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:861
+#: ../../main/openchange/src/EBox/OpenChange.pm:938
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "Jūms reikalinga bent viena vidinė sąsają ir bent viena išorinę sąsaja"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:890
+#: ../../main/openchange/src/EBox/OpenChange.pm:967
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:917
+#: ../../main/openchange/src/EBox/OpenChange.pm:994
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "Virtualios pašto vardų sritys"
@@ -11100,7 +11109,7 @@ msgid "Contacts"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:84
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:50
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:53
 #, fuzzy
@@ -11108,20 +11117,20 @@ msgid "first name"
 msgstr "Vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:85
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:51
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "Pavardė"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
 #, fuzzy
 msgid "display name"
 msgstr "Pavardė"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 #, fuzzy
 msgid "description"
@@ -11140,8 +11149,8 @@ msgstr "Kitos grupės"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:175
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:187
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:146
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:158
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
 #: ../../main/samba/src/EBox/Samba/Group.pm:222
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
@@ -11158,27 +11167,27 @@ msgstr "grupės pavadinimas"
 msgid "group type"
 msgstr "grupės pavadinimas"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+msgid "confirm password"
+msgstr "Patvirtinti slaptažodį"
+
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:56
 #: ../../main/samba/src/templates/editgroup.mas:42
-#: ../../main/samba/src/templates/edituser.mas:53
+#: ../../main/samba/src/templates/edituser.mas:56
 #: ../../main/samba/src/templates/editcontact.mas:31
 #: ../../main/samba/src/templates/addcontact.mas:28
 #, fuzzy
 msgid "E-Mail"
 msgstr "Paštas"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
-msgid "confirm password"
-msgstr "Patvirtinti slaptažodį"
-
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:153
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:129
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "Slaptažodžiai nesutampa"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:163
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:139
 #, fuzzy
 msgid "User updated"
 msgstr "vartotojo kvota"
@@ -11244,7 +11253,7 @@ msgid "OU name"
 msgstr "Vartotojas"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2193
+#: ../../main/samba/src/EBox/Samba.pm:2262
 msgid "LDAP Settings"
 msgstr "LDAP nustatymai"
 
@@ -11287,7 +11296,7 @@ msgid ""
 msgstr "Šios konfigūracijos opcijos naudojamos kai kuriamas naujas vartotojas"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2182
+#: ../../main/samba/src/EBox/Samba.pm:2251
 msgid "User Template"
 msgstr "Vartotojo šablonas"
 
@@ -11296,7 +11305,7 @@ msgid "Recycle Bin"
 msgstr "Šiukšlių dėžė"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2204
+#: ../../main/samba/src/EBox/Samba.pm:2273
 msgid "File Sharing"
 msgstr "Bylų dalinimasis"
 
@@ -11316,7 +11325,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:227
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:403
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
 #: ../../main/samba/src/EBox/Samba/User.pm:208
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
@@ -11369,12 +11378,12 @@ msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Neteisingas GID {gid} sisteminei grupei. GID turi būti mažesnis nei {max}"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:441
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:451
 #, fuzzy
 msgid "There was an error updating LDAP:"
 msgstr "Kalida atnaujinat LDAP: "
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:512
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:522
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:107
 #: ../../main/samba/src/EBox/Samba/User.pm:577
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
@@ -11383,13 +11392,13 @@ msgstr "Kalida atnaujinat LDAP: "
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:874
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:884
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:888
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:898
 #, fuzzy
 msgid "Group E-mail"
 msgstr "Web Paštas"
@@ -11505,23 +11514,23 @@ msgstr "Vartotojas {u} neegzistuoja"
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:634
+#: ../../main/samba/src/EBox/Samba/Provision.pm:636
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:654
+#: ../../main/samba/src/EBox/Samba/Provision.pm:656
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:675
+#: ../../main/samba/src/EBox/Samba/Provision.pm:677
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:724
+#: ../../main/samba/src/EBox/Samba/Provision.pm:726
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -11531,80 +11540,80 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:762
+#: ../../main/samba/src/EBox/Samba/Provision.pm:764
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "Nenaudokite prefikso sričiai su www."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:771
+#: ../../main/samba/src/EBox/Samba/Provision.pm:773
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:791
+#: ../../main/samba/src/EBox/Samba/Provision.pm:793
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:810
+#: ../../main/samba/src/EBox/Samba/Provision.pm:812
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:819
+#: ../../main/samba/src/EBox/Samba/Provision.pm:821
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:854
+#: ../../main/samba/src/EBox/Samba/Provision.pm:856
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:880
+#: ../../main/samba/src/EBox/Samba/Provision.pm:882
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:901
+#: ../../main/samba/src/EBox/Samba/Provision.pm:903
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:907
+#: ../../main/samba/src/EBox/Samba/Provision.pm:909
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:934
+#: ../../main/samba/src/EBox/Samba/Provision.pm:936
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:941
+#: ../../main/samba/src/EBox/Samba/Provision.pm:943
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:968
+#: ../../main/samba/src/EBox/Samba/Provision.pm:970
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1001
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1003
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Nenaudokite prefikso sričiai su www."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1014
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1016
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:596
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -11612,26 +11621,26 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1053
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1055
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "Sertifikatas {cn} neegzistuoja"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1065
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1067
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1099
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1101
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1103
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1105
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1459
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1463
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -11936,7 +11945,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Jungtis {p} negalima"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2171
+#: ../../main/samba/src/EBox/Samba.pm:2240
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Vartotojai ir grupės"
@@ -12037,7 +12046,7 @@ msgid "exception"
 msgstr "išimtys"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2162
+#: ../../main/samba/src/EBox/Samba.pm:2231
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Grupių strategijos"
@@ -12221,7 +12230,7 @@ msgid "Default user quota"
 msgstr "Numatyta vartotojo kvota"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:274
+#: ../../main/samba/src/templates/edituser.mas:279
 msgid "Limited to"
 msgstr "Ribota iki"
 
@@ -12292,7 +12301,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2159
+#: ../../main/samba/src/EBox/Samba.pm:2228
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Grupių strategijos"
@@ -12634,7 +12643,7 @@ msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
 msgid "This group contains members"
 msgstr "Ši grupė turi vartotojų"
 
-#: ../../main/samba/src/EBox/LdapUserImplementation.pm:160
+#: ../../main/samba/src/EBox/LdapUserImplementation.pm:162
 msgid "Sharing directory for this group"
 msgstr "Dalinimosi katalogas šiai grupei"
 
@@ -12759,19 +12768,19 @@ msgstr ""
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:355
+#: ../../main/samba/src/EBox/Module/LDAP.pm:361
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:408
+#: ../../main/mail/src/EBox/Mail.pm:426
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:383
+#: ../../main/mail/src/EBox/Mail.pm:401
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -12884,7 +12893,7 @@ msgstr ""
 msgid "Domain and File sharing protocols"
 msgstr "Failų dalinimosi (Samba) protokolas"
 
-#: ../../main/samba/src/EBox/Samba.pm:432
+#: ../../main/samba/src/EBox/Samba.pm:501
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -12893,7 +12902,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:436
+#: ../../main/samba/src/EBox/Samba.pm:505
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -12901,27 +12910,27 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1528
+#: ../../main/samba/src/EBox/Samba.pm:1597
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1755
+#: ../../main/samba/src/EBox/Samba.pm:1824
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2177
+#: ../../main/samba/src/EBox/Samba.pm:2246
 #, fuzzy
 msgid "Manage"
 msgstr "Tik valdyti"
 
-#: ../../main/samba/src/EBox/Samba.pm:2197
+#: ../../main/samba/src/EBox/Samba.pm:2266
 #, fuzzy
 msgid "Configure mode"
 msgstr "Sukonfigūruoti"
 
-#: ../../main/samba/src/EBox/Samba.pm:2495
+#: ../../main/samba/src/EBox/Samba.pm:2564
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -12930,7 +12939,7 @@ msgstr ""
 "Jūs naudojate dalinį duomenų atsarginės kopijos būseną o ši atsarginė kopija "
 "atlikta ne daliniu atsarginės kopijos principu"
 
-#: ../../main/samba/src/EBox/Samba.pm:2515
+#: ../../main/samba/src/EBox/Samba.pm:2584
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -12939,105 +12948,105 @@ msgstr ""
 "Nepavyko atstatyti nes LDAP vartotojas {user} jau egzistuoja /etc/passwd "
 "vartotoju. Ištrinkite arba pervadinkite šį vartotoją ir bandykite dar kartą"
 
-#: ../../main/samba/src/EBox/Samba.pm:2539
+#: ../../main/samba/src/EBox/Samba.pm:2608
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2825
+#: ../../main/samba/src/EBox/Samba.pm:2894
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2918
+#: ../../main/samba/src/EBox/Samba.pm:2987
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Failų sistemos panaudojimas"
 
-#: ../../main/samba/src/EBox/Samba.pm:2927
+#: ../../main/samba/src/EBox/Samba.pm:2996
 #, fuzzy
 msgid "Users data"
 msgstr "vartotojo kvota"
 
-#: ../../main/samba/src/EBox/Samba.pm:3071
+#: ../../main/samba/src/EBox/Samba.pm:3140
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3630
-#: ../../main/samba/src/EBox/Samba.pm:3650
-#: ../../main/samba/src/EBox/Samba.pm:3661
+#: ../../main/samba/src/EBox/Samba.pm:3699
+#: ../../main/samba/src/EBox/Samba.pm:3719
+#: ../../main/samba/src/EBox/Samba.pm:3730
 msgid "Client address"
 msgstr "kliento adresas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3637
+#: ../../main/samba/src/EBox/Samba.pm:3706
 msgid "Connect"
 msgstr "Prisijungti"
 
-#: ../../main/samba/src/EBox/Samba.pm:3638
+#: ../../main/samba/src/EBox/Samba.pm:3707
 msgid "Access to directory"
 msgstr "Prieiti prie katalogo"
 
-#: ../../main/samba/src/EBox/Samba.pm:3639
+#: ../../main/samba/src/EBox/Samba.pm:3708
 msgid "Read file"
 msgstr "skaityti failą"
 
-#: ../../main/samba/src/EBox/Samba.pm:3640
+#: ../../main/samba/src/EBox/Samba.pm:3709
 msgid "Write file"
 msgstr "Rašyti failą"
 
-#: ../../main/samba/src/EBox/Samba.pm:3641
+#: ../../main/samba/src/EBox/Samba.pm:3710
 msgid "Disconnect"
 msgstr "Atsijungti"
 
-#: ../../main/samba/src/EBox/Samba.pm:3642
+#: ../../main/samba/src/EBox/Samba.pm:3711
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Pašalinti"
 
-#: ../../main/samba/src/EBox/Samba.pm:3643
+#: ../../main/samba/src/EBox/Samba.pm:3712
 msgid "Create directory"
 msgstr "sukurti katalogą"
 
-#: ../../main/samba/src/EBox/Samba.pm:3644
+#: ../../main/samba/src/EBox/Samba.pm:3713
 msgid "Remove directory"
 msgstr "Ištrinti katalogą"
 
-#: ../../main/samba/src/EBox/Samba.pm:3645
+#: ../../main/samba/src/EBox/Samba.pm:3714
 msgid "Rename"
 msgstr "Pervadinti"
 
-#: ../../main/samba/src/EBox/Samba.pm:3652
-#: ../../main/samba/src/EBox/Samba.pm:3663
+#: ../../main/samba/src/EBox/Samba.pm:3721
+#: ../../main/samba/src/EBox/Samba.pm:3732
 msgid "File name"
 msgstr "Failo vardas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3653
-#: ../../main/samba/src/EBox/Samba.pm:3657
+#: ../../main/samba/src/EBox/Samba.pm:3722
+#: ../../main/samba/src/EBox/Samba.pm:3726
 msgid "Virus"
 msgstr "Virusas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3664
+#: ../../main/samba/src/EBox/Samba.pm:3733
 msgid "Quarantined file name"
 msgstr "Karantino failo vardas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3665
-#: ../../main/samba/src/EBox/Samba.pm:3668
+#: ../../main/samba/src/EBox/Samba.pm:3734
+#: ../../main/samba/src/EBox/Samba.pm:3737
 msgid "Quarantine"
 msgstr "Karantinas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3671
+#: ../../main/samba/src/EBox/Samba.pm:3740
 msgid "Samba access"
 msgstr "Samba prieiga"
 
-#: ../../main/samba/src/EBox/Samba.pm:3682
+#: ../../main/samba/src/EBox/Samba.pm:3751
 msgid "Samba virus"
 msgstr "Samba virusas"
 
-#: ../../main/samba/src/EBox/Samba.pm:3693
+#: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Samba quarantine"
 msgstr "Samba karantinas"
 
@@ -14469,8 +14478,8 @@ msgstr "Prisijungimas nutrauktas"
 msgid "IPsec"
 msgstr "IPsec"
 
-#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1517
-#: ../../main/mail/src/EBox/Mail.pm:1677
+#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1534
+#: ../../main/mail/src/EBox/Mail.pm:1694
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
@@ -14555,27 +14564,27 @@ msgstr "Konfigūruoti pašto transportą"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Konfigūruoti dovecot autentifikacijai per LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:283
+#: ../../main/mail/src/EBox/Mail.pm:301
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "Išeinantis Paštas (SMTP protokolas)."
 
-#: ../../main/mail/src/EBox/Mail.pm:292
+#: ../../main/mail/src/EBox/Mail.pm:310
 msgid "Incoming Mail"
 msgstr "Įeinantis Paštas"
 
-#: ../../main/mail/src/EBox/Mail.pm:293
+#: ../../main/mail/src/EBox/Mail.pm:311
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "POP, IMAP ir SIEVE protokolai"
 
-#: ../../main/mail/src/EBox/Mail.pm:302
+#: ../../main/mail/src/EBox/Mail.pm:320
 msgid "Mail Submission"
 msgstr "Pašto Pateikimas"
 
-#: ../../main/mail/src/EBox/Mail.pm:303
+#: ../../main/mail/src/EBox/Mail.pm:321
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "Išeinantis Paštas ( pateikimo protokolas)."
 
-#: ../../main/mail/src/EBox/Mail.pm:878
+#: ../../main/mail/src/EBox/Mail.pm:896
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -14583,154 +14592,154 @@ msgstr ""
 "Negaliu panaudoti mazgo vardo kaip pašto vardo nes jis nėra pilnai "
 "kvalifikuotas vardas. Prašome nurodykite papildomą serverio pašto vardą"
 
-#: ../../main/mail/src/EBox/Mail.pm:883
+#: ../../main/mail/src/EBox/Mail.pm:901
 msgid "The mail name must be a fully qualified name"
 msgstr "Pašto vardas turi būti pilnai kvalifikuotas vardas"
 
-#: ../../main/mail/src/EBox/Mail.pm:887 ../../main/mail/src/EBox/Mail.pm:898
-#: ../../main/mail/src/EBox/Mail.pm:906
+#: ../../main/mail/src/EBox/Mail.pm:905 ../../main/mail/src/EBox/Mail.pm:916
+#: ../../main/mail/src/EBox/Mail.pm:924
 msgid "Host mail name"
 msgstr "mazgo pašto vardas"
 
-#: ../../main/mail/src/EBox/Mail.pm:901
+#: ../../main/mail/src/EBox/Mail.pm:919
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Pašto vardas ir virtuali pašto sritis yra tokios pačios"
 
-#: ../../main/mail/src/EBox/Mail.pm:1463
+#: ../../main/mail/src/EBox/Mail.pm:1480
 msgid "SMTP service"
 msgstr "SMTP servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1470
+#: ../../main/mail/src/EBox/Mail.pm:1487
 msgid "POP3 service"
 msgstr "POP3 servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1476
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "POP3S service"
 msgstr "POP3S servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1482
+#: ../../main/mail/src/EBox/Mail.pm:1499
 msgid "IMAP service"
 msgstr "IMAP servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1488
+#: ../../main/mail/src/EBox/Mail.pm:1505
 msgid "IMAPS service"
 msgstr "IMAPS servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "enabled"
 msgstr "įjungta"
 
-#: ../../main/mail/src/EBox/Mail.pm:1537
+#: ../../main/mail/src/EBox/Mail.pm:1554
 msgid "Mail server's filter"
 msgstr "Pašto serverio filtrai"
 
-#: ../../main/mail/src/EBox/Mail.pm:1590
+#: ../../main/mail/src/EBox/Mail.pm:1607
 msgid "Virtual Mail Domains"
 msgstr "Virtualios pašto vardų sritys"
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "Greylist"
 msgstr "Greylist"
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1619
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Užklausų Tvarkymas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1628
+#: ../../main/mail/src/EBox/Mail.pm:1645
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Laiškų gavimas iš išorinės dėžutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1643
+#: ../../main/mail/src/EBox/Mail.pm:1660
 msgid "Message ID"
 msgstr "Žinutės ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1646
+#: ../../main/mail/src/EBox/Mail.pm:1663
 msgid "From hostname"
 msgstr "Iš vardo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1647
+#: ../../main/mail/src/EBox/Mail.pm:1664
 msgid "From host ip"
 msgstr "Iš ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1648
+#: ../../main/mail/src/EBox/Mail.pm:1665
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Dydis (bitais)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1649
+#: ../../main/mail/src/EBox/Mail.pm:1666
 msgid "Relay"
 msgstr "Perdavimas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1650
+#: ../../main/mail/src/EBox/Mail.pm:1667
 msgid "Message type"
 msgstr "Žinutės tipas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1653
+#: ../../main/mail/src/EBox/Mail.pm:1670
 msgid "Additional Info"
 msgstr "Papildoma informacija"
 
-#: ../../main/mail/src/EBox/Mail.pm:1664
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "Successful messages"
 msgstr "Sėkmingos žinutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1665
+#: ../../main/mail/src/EBox/Mail.pm:1682
 msgid "Maximum message size exceeded"
 msgstr "Pasiektas maksimalus laiško dydis"
 
-#: ../../main/mail/src/EBox/Mail.pm:1666
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "User quota exceeded"
 msgstr "Pasiekta vartotojo kvota"
 
-#: ../../main/mail/src/EBox/Mail.pm:1667
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Relay access denied"
 msgstr "Perdavimo prieiga draudžiama"
 
-#: ../../main/mail/src/EBox/Mail.pm:1668
+#: ../../main/mail/src/EBox/Mail.pm:1685
 msgid "Account does not exist"
 msgstr "Paskyra neegzistuoja"
 
-#: ../../main/mail/src/EBox/Mail.pm:1669
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Host unreachable"
 msgstr "Mazgas nepasiekiamas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1670
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Authentication error"
 msgstr "Autentifikacijos klaida"
 
-#: ../../main/mail/src/EBox/Mail.pm:1671
+#: ../../main/mail/src/EBox/Mail.pm:1688
 msgid "Greylisted"
 msgstr "Užlaikytas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1672
+#: ../../main/mail/src/EBox/Mail.pm:1689
 msgid "Relay rejected by the smarthost"
 msgstr "Perdavimas atmestas pagal smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1673
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "Other events"
 msgstr "Kiti įvykiai"
 
-#: ../../main/mail/src/EBox/Mail.pm:1806 ../../main/mail/src/EBox/Mail.pm:1913
+#: ../../main/mail/src/EBox/Mail.pm:1823 ../../main/mail/src/EBox/Mail.pm:1930
 msgid "Mailboxes"
 msgstr "Dėžutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1833
+#: ../../main/mail/src/EBox/Mail.pm:1850
 msgid "Mail SMTP server"
 msgstr "Pašto SMTP serveris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1858
 msgid "Mail POP/IMAP server"
 msgstr "Pašto POP/IMAP serveris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1955
+#: ../../main/mail/src/EBox/Mail.pm:1972
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1990
+#: ../../main/mail/src/EBox/Mail.pm:2007
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
@@ -14768,7 +14777,7 @@ msgid "Queue ID"
 msgstr "Užklausos ID"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:424
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:423
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -14850,40 +14859,40 @@ msgstr "Išorinės pašto dėžutės"
 msgid "External account {acc} removed"
 msgstr "Išorinė paskyra {ac} pašalinta"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:116
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:117
 #, fuzzy
 msgid "Local email account"
 msgstr "pašto paskyra"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:120
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:121
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
 msgstr "Pašto serveris"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:121
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:122
 #, fuzzy
 msgid "Mail server port"
 msgstr "Pašto serveris"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:359
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:358
 msgid "External retrieval service"
 msgstr "Išorinis siuntimo servisas"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:430
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:437
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:429
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:436
 msgid "External account username"
 msgstr "išorinės paskyros vardas"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:432
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:431
 msgid "No spaces allowed"
 msgstr "Tarpai neleidžiami"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:448
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:447
 msgid "Character \"'\" is forbidden for external"
 msgstr "Simbolis \"'\" neleidžiamas išorei"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:458
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:457
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
 msgstr ""
@@ -15083,10 +15092,24 @@ msgid "Secure IMAPS service enabled"
 msgstr "Saugus IMAPS servisas įjungtas"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:83
+msgid "Retrieve mail for external accounts"
+msgstr "Atsisiųsti laiškus iš išorinės paskyros"
+
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
+msgid ""
+"This allow users to retrieve mail for external accounts, the mail would be "
+"delivered to their local account. External account can be configured in the "
+"user's corner."
+msgstr ""
+"Tai leis vartotojams parsisiųsti paštą iš išorinių dėžučių, paštas bus "
+"pristatytas į lokalią paskyra. Išorinė paskyra gali būti sukonfigūruota "
+"vartotojo kampe."
+
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
 msgstr "Tvarkyti filtrų skriptus"
 
-#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
@@ -15094,7 +15117,7 @@ msgstr ""
 "Šis servisas leidžia vartotojui tvarkyti savo pašto filtrus iš lokalaus "
 "kliento kuris šneka ManageSieve protokolu"
 
-#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:93
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:100
 msgid "Mail retrieval services"
 msgstr "Pašto gavimo servisas"
 
@@ -15476,32 +15499,32 @@ msgstr "Nepavyko prisijungti prie {smtp} serverio."
 msgid "mail account"
 msgstr "pašto paskyra"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:318
+#: ../../main/mail/src/EBox/MailUserLdap.pm:321
 msgid "This group has a mail alias"
 msgstr "Ši grupė turi pašto aliasą"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:342
+#: ../../main/mail/src/EBox/MailUserLdap.pm:345
 msgid "This user has a mail account"
 msgstr "Šis vartotojas turi pašto paskyrą"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:385
+#: ../../main/mail/src/EBox/MailUserLdap.pm:390
 msgid "Mail account"
 msgstr "Pašto paskyra"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:387
+#: ../../main/mail/src/EBox/MailUserLdap.pm:392
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Sukurti pašto paskyrą"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:389
+#: ../../main/mail/src/EBox/MailUserLdap.pm:394
 msgid "Mail account settings"
 msgstr "Pašo paskyros nustatymai"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:429
+#: ../../main/mail/src/EBox/MailUserLdap.pm:434
 msgid "Mail alias settings"
 msgstr "Pašto aliaso nustatymai"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:724
+#: ../../main/mail/src/EBox/MailUserLdap.pm:728
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr "Kvota gali būti tik teigiamas skaičius arba nulis neribotai kvotai"
 
@@ -18223,12 +18246,10 @@ msgid "View all"
 msgstr "Peržiūrėti"
 
 #: ../../main/core/src/templates/componentNotFound.mas:3
-#: ../../main/core/src/templates/pageNotFound.mas:3
 msgid "Zentyal homepage"
 msgstr "Zentyal namų puslapis"
 
 #: ../../main/core/src/templates/componentNotFound.mas:7
-#: ../../main/core/src/templates/pageNotFound.mas:7
 #, fuzzy
 msgid "If you typed the page address manually, please check it"
 msgstr "Jei surinkote nuorodą rankomis, prašome patikrinkite"
@@ -18238,7 +18259,12 @@ msgid "Maybe the element was removed and the page address is not longer valid"
 msgstr ""
 
 #: ../../main/core/src/templates/componentNotFound.mas:9
-#: ../../main/core/src/templates/pageNotFound.mas:9
+msgid ""
+"It can be also a parameters cache error, in this case you can navigate again "
+"to the page using the left menu"
+msgstr ""
+
+#: ../../main/core/src/templates/componentNotFound.mas:10
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
@@ -18247,12 +18273,11 @@ msgstr ""
 "Jei norite daugiau pagalbos, galite apsilankyti {homepage} dokumentacijos ar "
 "pašto konferencijos"
 
-#: ../../main/core/src/templates/componentNotFound.mas:12
-#: ../../main/core/src/templates/pageNotFound.mas:12
+#: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "we're sorry"
 msgstr "apgailestaujame"
 
-#: ../../main/core/src/templates/componentNotFound.mas:12
+#: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "The request contains a reference to a element which doest not exists"
 msgstr ""
 
@@ -18390,18 +18415,6 @@ msgstr "Branduolio versija"
 #, fuzzy
 msgid "Save changes?"
 msgstr "Išsaugoti pakeitimus"
-
-#: ../../main/core/src/templates/pageNotFound.mas:8
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr ""
-"Gal būt pakeitimas Zentyal konfigūracijoje ar programoje padarė daugiau "
-"neprienamu"
-
-#: ../../main/core/src/templates/pageNotFound.mas:12
-msgid "The page cannot be found"
-msgstr "Puslapis nerastas"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
@@ -19342,7 +19355,7 @@ msgstr ""
 "šią grupę."
 
 #: ../../main/samba/src/templates/editgroup.mas:64
-#: ../../main/samba/src/templates/edituser.mas:91
+#: ../../main/samba/src/templates/edituser.mas:95
 #, fuzzy
 msgid "Modules configuration"
 msgstr "Modulių statusų konfigūravimas"
@@ -19442,37 +19455,37 @@ msgstr ""
 msgid "Add Organizational Unit"
 msgstr "Organizacijos Pavadinimas"
 
-#: ../../main/samba/src/templates/edituser.mas:40
+#: ../../main/samba/src/templates/edituser.mas:43
 #: ../../main/samba/src/templates/editcontact.mas:29
 #, fuzzy
 msgid "Display name"
 msgstr "Pavardė"
 
-#: ../../main/samba/src/templates/edituser.mas:60
+#: ../../main/samba/src/templates/edituser.mas:64
 msgid "User quota"
 msgstr "vartotojo kvota"
 
-#: ../../main/samba/src/templates/edituser.mas:64
+#: ../../main/samba/src/templates/edituser.mas:68
 #, fuzzy
 msgid "Disabled account"
 msgstr "Jabber paskyra"
 
-#: ../../main/samba/src/templates/edituser.mas:71
+#: ../../main/samba/src/templates/edituser.mas:75
 #: ../../main/samba/src/templates/adduser.mas:30
 msgid "Retype password"
 msgstr "Įveskite dar kartą"
 
-#: ../../main/samba/src/templates/edituser.mas:82
+#: ../../main/samba/src/templates/edituser.mas:86
 msgid "User groups"
 msgstr "Vartotojo grupės"
 
-#: ../../main/samba/src/templates/edituser.mas:172
-#: ../../main/samba/src/templates/edituser.mas:256
+#: ../../main/samba/src/templates/edituser.mas:177
+#: ../../main/samba/src/templates/edituser.mas:261
 #, fuzzy
 msgid "This user is not a member of any group"
 msgstr "Vartotojai ne grupėje"
 
-#: ../../main/samba/src/templates/edituser.mas:241
+#: ../../main/samba/src/templates/edituser.mas:246
 #: ../../main/samba/src/templates/editcontact.mas:162
 #, fuzzy
 msgid "Add group"
@@ -19695,14 +19708,14 @@ msgid ""
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:30
+#: ../../main/mail/src/templates/account.mas:31
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:33
+#: ../../main/mail/src/templates/account.mas:34
 msgid "Click here to create a new mail virtual domain"
 msgstr "Spauskite čia sukurti naują virtualią pašto sritį"
 
@@ -19772,6 +19785,22 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+
+#~ msgid "Error creating file"
+#~ msgstr "Klaida kuriant failą"
+
+#~ msgid "Page not found"
+#~ msgstr "Puslapis nerastas"
+
+#~ msgid ""
+#~ "Maybe a change in the Zentyal configuration or software made no longer "
+#~ "available the requested page"
+#~ msgstr ""
+#~ "Gal būt pakeitimas Zentyal konfigūracijoje ar programoje padarė daugiau "
+#~ "neprienamu"
+
+#~ msgid "The page cannot be found"
+#~ msgstr "Puslapis nerastas"
 
 #, fuzzy
 #~ msgid "Create MySQL webmail database."
@@ -20341,18 +20370,6 @@ msgstr ""
 
 #~ msgid "To set up Samba according to your configuration."
 #~ msgstr "Nustatyti Samba pagal jūsų konfigūraciją."
-
-#~ msgid "Retrieve mail for external accounts"
-#~ msgstr "Atsisiųsti laiškus iš išorinės paskyros"
-
-#~ msgid ""
-#~ "This allow users to retrieve mail for external accounts, the mail would "
-#~ "be delivered to their local account. External account can be configured "
-#~ "in the user's corner."
-#~ msgstr ""
-#~ "Tai leis vartotojams parsisiųsti paštą iš išorinių dėžučių, paštas bus "
-#~ "pristatytas į lokalią paskyra. Išorinė paskyra gali būti sukonfigūruota "
-#~ "vartotojo kampe."
 
 #~ msgid ""
 #~ "To enable {service} mail retrieval service you must disable {service} "

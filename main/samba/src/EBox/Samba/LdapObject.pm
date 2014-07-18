@@ -187,6 +187,16 @@ sub hasValue
     return 0;
 }
 
+sub hasObjectClass
+{
+    my ($self, $objectClass) = @_;
+    $objectClass = lc $objectClass;
+    foreach my $oc ($self->get('objectClass')) {
+        return 1 if ((lc $oc) eq $objectClass);
+    }
+    return 0;
+}
+
 # Method: set
 #
 #   Set an user attribute.

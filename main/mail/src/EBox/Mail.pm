@@ -108,11 +108,11 @@ sub _create
                                       printableName => __('Mail'),
                                       @_);
 
-    $self->{vdomains} = new EBox::MailVDomainsLdap;
-    $self->{musers} = new EBox::MailUserLdap;
-    $self->{malias} = new EBox::MailAliasLdap;
-    $self->{greylist} = new EBox::Mail::Greylist;
-    $self->{fetchmail} = new EBox::Mail::FetchmailLdap;
+    $self->{vdomains} = new EBox::MailVDomainsLdap();
+    $self->{musers} = new EBox::MailUserLdap();
+    $self->{malias} = new EBox::MailAliasLdap();
+    $self->{greylist} = new EBox::Mail::Greylist();
+    $self->{fetchmail} = new EBox::Mail::FetchmailLdap($self);
 
     bless($self, $class);
     return $self;
@@ -268,10 +268,28 @@ sub initialSetup
         # TODO: We need a mechanism to notify modules when the hostname
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
+    } elsif (EBox::Util::Version::compare($version, '3.5.2') < 0) {
+        $self->_migrateToFetchmail();
     }
 
     if ($self->changed()) {
         $self->saveConfigRecursive();
+    }
+}
+
+sub _migrateToFetchmail
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    $path .= '/schema-fetchmail.ldif';
+    $self->_loadSchemasFiles([$path]);
+
+    my $userMod = $self->global()->modInstance('samba');
+    foreach my $user (@{ $userMod->users() }) {
+        if ($user->hasObjectClass('userZentyalMail') and not $user->hasObjectClass('fetchmailUser')) {
+            $user->add('objectClass', 'fetchmailUser');
+        }
     }
 }
 
@@ -628,7 +646,7 @@ sub _setMailConf
     EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     #}
 
-#    $self->{fetchmail}->writeConf();
+    $self->{fetchmail}->writeConf();
 }
 
 sub _alwaysBcc
@@ -1034,7 +1052,6 @@ sub _daemons
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
-#    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
     push(@{$daemons}, $greylist_daemon);
 
     return $daemons;
@@ -1490,7 +1507,7 @@ sub mailServicesWidget
                                    enabled => $self->imaps
                                              );
     my $greylist = $self->greylist()->serviceWidget();
-#    my $fetchmailWidget = $self->{fetchmail}->serviceWidget();
+    my $fetchmailWidget = $self->{fetchmail}->serviceWidget();
 
     $section->add($smtp);
     $section->add($pop);
@@ -1498,7 +1515,7 @@ sub mailServicesWidget
     $section->add($imap);
     $section->add($imaps);
     $section->add($greylist);
-#    $section->add($fetchmailWidget);
+    $section->add($fetchmailWidget);
 
     my $filterSection = $self->_filterDashboardSection();
     $widget->add($filterSection);
