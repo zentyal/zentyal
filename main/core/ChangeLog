@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed typo in create-db script, also removed useless output
+	+ Fixed mysql commands executed with wrong parameters or credentials
 	+ Fix some warnings in log
 	+ Fix error in send crash report script
 3.5.1
