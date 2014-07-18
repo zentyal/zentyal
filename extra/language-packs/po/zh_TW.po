@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "disabled"
 msgstr "停用"
 
@@ -178,7 +178,7 @@ msgstr "啟用"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:275
+#: ../../main/samba/src/templates/edituser.mas:280
 msgid "Disabled"
 msgstr "停用"
 
@@ -998,7 +998,7 @@ msgstr "一般名稱"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1566
 msgid "Address"
 msgstr "位址"
 
@@ -1033,13 +1033,13 @@ msgstr "OpenVPN 伺服程式"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3629
-#: ../../main/samba/src/EBox/Samba.pm:3649
-#: ../../main/samba/src/EBox/Samba.pm:3660
+#: ../../main/samba/src/EBox/Samba.pm:3698
+#: ../../main/samba/src/EBox/Samba.pm:3718
+#: ../../main/samba/src/EBox/Samba.pm:3729
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1642
+#: ../../main/mail/src/EBox/Mail.pm:1659
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1066,13 +1066,13 @@ msgstr "日期"
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1120
 #: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1652
+#: ../../main/mail/src/EBox/Mail.pm:1669
 msgid "Event"
 msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3654
+#: ../../main/samba/src/EBox/Samba.pm:3723
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1231,7 +1231,7 @@ msgstr "錯誤"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4482
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1534 ../../main/mail/src/EBox/Mail.pm:1651
+#: ../../main/mail/src/EBox/Mail.pm:1551 ../../main/mail/src/EBox/Mail.pm:1668
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1496,7 +1496,7 @@ msgid "resources"
 msgstr "所有來源"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3633
+#: ../../main/samba/src/EBox/Samba.pm:3702
 msgid "Resource"
 msgstr ""
 
@@ -1809,7 +1809,7 @@ msgstr "優先順序"
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:47
+#: ../../main/samba/src/templates/edituser.mas:50
 #: ../../main/samba/src/templates/adduser.mas:23
 #: ../../main/samba/src/templates/editcontact.mas:30
 #: ../../main/samba/src/templates/addcontact.mas:21
@@ -2262,7 +2262,7 @@ msgstr "主機名稱"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3065
+#: ../../main/samba/src/EBox/Samba.pm:3134
 msgid "alias"
 msgstr "別名"
 
@@ -2297,7 +2297,7 @@ msgstr ""
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2155
+#: ../../main/samba/src/EBox/Samba.pm:2224
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2393,7 +2393,7 @@ msgstr "此網域"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
-#: ../../main/mail/src/EBox/Mail.pm:1547
+#: ../../main/mail/src/EBox/Mail.pm:1564
 #, fuzzy
 msgid "Custom"
 msgstr ""
@@ -2535,7 +2535,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:2149
+#: ../../main/samba/src/EBox/Samba.pm:2218
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2913,9 +2913,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3631
-#: ../../main/samba/src/EBox/Samba.pm:3651
-#: ../../main/samba/src/EBox/Samba.pm:3662
+#: ../../main/samba/src/EBox/Samba.pm:3700
+#: ../../main/samba/src/EBox/Samba.pm:3720
+#: ../../main/samba/src/EBox/Samba.pm:3731
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -2924,7 +2924,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:179
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#: ../../main/samba/src/templates/edituser.mas:21
+#: ../../main/samba/src/templates/edituser.mas:24
 msgid "User"
 msgstr "使用者"
 
@@ -3120,7 +3120,7 @@ msgstr "憑證機構"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:357
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:369
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3217,7 +3217,7 @@ msgstr "憑證有一般名稱{cn}的並不在這個 CA 中"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1583
+#: ../../main/mail/src/EBox/Mail.pm:1600
 msgid "General"
 msgstr "一般"
 
@@ -3323,7 +3323,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3632
+#: ../../main/samba/src/EBox/Samba.pm:3701
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3384,9 +3384,10 @@ msgstr "該憑證已經換新"
 msgid "The new CA certificate has been renewed"
 msgstr "新的 CA 憑證已經換新"
 
-#: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:130
-msgid "Error creating file"
-msgstr "建立檔案時發生錯誤"
+#: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
+#, perl-brace-format
+msgid "Error creating archive file for  certificates: {err}"
+msgstr ""
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:60
 msgid "The certificate has NOT been revoked."
@@ -4680,7 +4681,7 @@ msgstr "郵件位址"
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
 #: ../../main/network/src/templates/ifaces.mas:180
 #: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/samba/src/templates/edituser.mas:68
+#: ../../main/samba/src/templates/edituser.mas:72
 #: ../../main/samba/src/templates/adduser.mas:27
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 msgid "Password"
@@ -4699,7 +4700,7 @@ msgstr "伺服器 {name}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:100
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:152
-#: ../../main/samba/src/templates/edituser.mas:27
+#: ../../main/samba/src/templates/edituser.mas:30
 #: ../../main/samba/src/templates/adduser.mas:17
 #: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:11
@@ -4708,7 +4709,7 @@ msgstr "名"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:101
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:155
-#: ../../main/samba/src/templates/edituser.mas:33
+#: ../../main/samba/src/templates/edituser.mas:36
 #: ../../main/samba/src/templates/adduser.mas:20
 #: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:16
@@ -5949,7 +5950,7 @@ msgid "user name"
 msgstr "使用者名稱"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 msgid "password"
 msgstr "密碼"
 
@@ -7093,7 +7094,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
-#: ../../main/mail/src/EBox/Mail.pm:1546 ../../main/mail/src/EBox/Mail.pm:1553
+#: ../../main/mail/src/EBox/Mail.pm:1563 ../../main/mail/src/EBox/Mail.pm:1570
 msgid "Filter type"
 msgstr "過濾器類型"
 
@@ -7483,7 +7484,7 @@ msgid ""
 "least a range or a fixed address."
 msgstr "為了讓服務的 IP 位址在此介面上, 這必須要設定至少一個範圍或是固定位址."
 
-#: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:105
+#: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:122
 msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
@@ -7566,7 +7567,7 @@ msgstr "範圍 {from}-{to} 包括介面的IP位址: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1644
+#: ../../main/mail/src/EBox/Mail.pm:1661
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -7574,7 +7575,7 @@ msgstr "從"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1645
+#: ../../main/mail/src/EBox/Mail.pm:1662
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -8639,10 +8640,6 @@ msgstr ""
 "#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "正在更新"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/PageNotFound.pm:30
-msgid "Page not found"
-msgstr "找不到頁面"
-
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:47
 msgid "You have broken packages installed, fix them before upgrading"
 msgstr ""
@@ -8898,7 +8895,7 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange.mas:24
 #: ../../main/samba/src/templates/editgroup.mas:46
 #: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:77
+#: ../../main/samba/src/templates/edituser.mas:81
 #: ../../main/samba/src/templates/editcontact.mas:35
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
@@ -10049,7 +10046,7 @@ msgstr "服務"
 msgid "port"
 msgstr "連接埠"
 
-#: ../../main/core/src/EBox/HAProxy.pm:492
+#: ../../main/core/src/EBox/HAProxy.pm:493
 #, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr ""
@@ -10524,7 +10521,7 @@ msgstr "DNS 已設置"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:131
-#: ../../main/openchange/src/EBox/OpenChange.pm:623
+#: ../../main/openchange/src/EBox/OpenChange.pm:700
 msgid "Setup"
 msgstr ""
 
@@ -10541,85 +10538,97 @@ msgstr ""
 msgid "Setup an OpenChange Groupware server."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:212
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:218
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:243
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:249
+#, perl-brace-format
+msgid ""
+"There is not an available Certication Authority. You must {oh}create or "
+"renew it"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:255
 #, fuzzy
 msgid "There are unsaved changes. Please save them before provision"
 msgstr "在這個作業階段中沒有未儲存的變更。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:374
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:383
+#, fuzzy
+msgid "No Certification authority ready. Create or renew it"
+msgstr "建立憑證中心的憑證"
+
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 #, fuzzy
 msgid "Enable OpenChange account"
 msgstr "PDC/檔案分享帳號"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:262
+#: ../../main/openchange/src/EBox/OpenChange.pm:282
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "設定 clamd 伺服程式"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:267
+#: ../../main/openchange/src/EBox/OpenChange.pm:287
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "設置 postfix"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:272
+#: ../../main/openchange/src/EBox/OpenChange.pm:292
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "設定 dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:277
+#: ../../main/openchange/src/EBox/OpenChange.pm:297
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:756
+#: ../../main/openchange/src/EBox/OpenChange.pm:833
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:765
+#: ../../main/openchange/src/EBox/OpenChange.pm:842
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:849
+#: ../../main/openchange/src/EBox/OpenChange.pm:926
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "備份模組 {m} 的設置"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:861
+#: ../../main/openchange/src/EBox/OpenChange.pm:938
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "網路介面"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:890
+#: ../../main/openchange/src/EBox/OpenChange.pm:967
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:917
+#: ../../main/openchange/src/EBox/OpenChange.pm:994
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "虛擬郵件網域"
@@ -11241,7 +11250,7 @@ msgid "Contacts"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:84
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:50
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:53
 #, fuzzy
@@ -11249,14 +11258,14 @@ msgid "first name"
 msgstr "名"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:85
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:51
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "姓"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
 #, fuzzy
 msgid "display name"
 msgstr "姓"
@@ -11264,7 +11273,7 @@ msgstr "姓"
 # #-#-#-#-#  zh_TW.po (ebox-services 0.12.99)  #-#-#-#-#
 # Originally it was translated as "註解", which actually means notes, not description.
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 #, fuzzy
 msgid "description"
@@ -11299,8 +11308,8 @@ msgstr "其他群組"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:175
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:187
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:146
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:158
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
 #: ../../main/samba/src/EBox/Samba/Group.pm:222
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
@@ -11317,27 +11326,27 @@ msgstr "群組名稱"
 msgid "group type"
 msgstr "群組名稱"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
+msgid "confirm password"
+msgstr "確認密碼"
+
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:56
 #: ../../main/samba/src/templates/editgroup.mas:42
-#: ../../main/samba/src/templates/edituser.mas:53
+#: ../../main/samba/src/templates/edituser.mas:56
 #: ../../main/samba/src/templates/editcontact.mas:31
 #: ../../main/samba/src/templates/addcontact.mas:28
 #, fuzzy
 msgid "E-Mail"
 msgstr "郵件"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
-msgid "confirm password"
-msgstr "確認密碼"
-
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:153
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:129
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "密碼不符合"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:163
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:139
 #, fuzzy
 msgid "User updated"
 msgstr "使用者額度已滿"
@@ -11403,7 +11412,7 @@ msgid "OU name"
 msgstr "使用者名稱"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2193
+#: ../../main/samba/src/EBox/Samba.pm:2262
 msgid "LDAP Settings"
 msgstr ""
 
@@ -11454,7 +11463,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2182
+#: ../../main/samba/src/EBox/Samba.pm:2251
 #, fuzzy
 msgid "User Template"
 msgstr "使用者名稱"
@@ -11464,7 +11473,7 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2204
+#: ../../main/samba/src/EBox/Samba.pm:2273
 msgid "File Sharing"
 msgstr "檔案分享"
 
@@ -11484,7 +11493,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:227
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:403
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
 #: ../../main/samba/src/EBox/Samba/User.pm:208
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
@@ -11536,11 +11545,11 @@ msgstr "群組的 GID {gid} 不正確. GID 必須等於或大於 {min}"
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "系統群組的 GID {gid} 不正確. GID 必須小於 {max}"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:441
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:451
 msgid "There was an error updating LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:512
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:522
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:107
 #: ../../main/samba/src/EBox/Samba/User.pm:577
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
@@ -11549,13 +11558,13 @@ msgstr ""
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:874
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:884
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:888
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:898
 #, fuzzy
 msgid "Group E-mail"
 msgstr "群組"
@@ -11672,23 +11681,23 @@ msgstr "使用者 {u} 不存在"
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:634
+#: ../../main/samba/src/EBox/Samba/Provision.pm:636
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:654
+#: ../../main/samba/src/EBox/Samba/Provision.pm:656
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:675
+#: ../../main/samba/src/EBox/Samba/Provision.pm:677
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:724
+#: ../../main/samba/src/EBox/Samba/Provision.pm:726
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -11698,80 +11707,80 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:762
+#: ../../main/samba/src/EBox/Samba/Provision.pm:764
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "您不可在網域前加上www"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:771
+#: ../../main/samba/src/EBox/Samba/Provision.pm:773
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:791
+#: ../../main/samba/src/EBox/Samba/Provision.pm:793
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:810
+#: ../../main/samba/src/EBox/Samba/Provision.pm:812
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:819
+#: ../../main/samba/src/EBox/Samba/Provision.pm:821
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:854
+#: ../../main/samba/src/EBox/Samba/Provision.pm:856
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:880
+#: ../../main/samba/src/EBox/Samba/Provision.pm:882
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:901
+#: ../../main/samba/src/EBox/Samba/Provision.pm:903
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:907
+#: ../../main/samba/src/EBox/Samba/Provision.pm:909
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:934
+#: ../../main/samba/src/EBox/Samba/Provision.pm:936
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:941
+#: ../../main/samba/src/EBox/Samba/Provision.pm:943
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:968
+#: ../../main/samba/src/EBox/Samba/Provision.pm:970
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1001
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1003
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "您不可在網域前加上www"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1014
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1016
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:596
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -11779,26 +11788,26 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1053
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1055
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "憑證 {cn} 不存在"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1065
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1067
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1099
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1101
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1103
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1105
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1459
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1463
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -12120,7 +12129,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "連接埠 {p} 無法使用"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2171
+#: ../../main/samba/src/EBox/Samba.pm:2240
 #, fuzzy
 msgid "Users and Computers"
 msgstr "使用者和群組"
@@ -12243,7 +12252,7 @@ msgid "exception"
 msgstr "例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2162
+#: ../../main/samba/src/EBox/Samba.pm:2231
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "物件政策"
@@ -12430,7 +12439,7 @@ msgid "Default user quota"
 msgstr "額度大小"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:274
+#: ../../main/samba/src/templates/edituser.mas:279
 msgid "Limited to"
 msgstr "限制為"
 
@@ -12502,7 +12511,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2159
+#: ../../main/samba/src/EBox/Samba.pm:2228
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "物件政策"
@@ -12850,7 +12859,7 @@ msgstr "連接埠 {port} 已經被 {mod} 模組使用"
 msgid "This group contains members"
 msgstr "這個群組包含使用者"
 
-#: ../../main/samba/src/EBox/LdapUserImplementation.pm:160
+#: ../../main/samba/src/EBox/LdapUserImplementation.pm:162
 msgid "Sharing directory for this group"
 msgstr "分享目錄給這個群組"
 
@@ -12974,19 +12983,19 @@ msgstr ""
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:355
+#: ../../main/samba/src/EBox/Module/LDAP.pm:361
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:408
+#: ../../main/mail/src/EBox/Mail.pm:426
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:383
+#: ../../main/mail/src/EBox/Mail.pm:401
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -13094,7 +13103,7 @@ msgstr ""
 msgid "Domain and File sharing protocols"
 msgstr "檔案分享(Samba)通訊協定"
 
-#: ../../main/samba/src/EBox/Samba.pm:432
+#: ../../main/samba/src/EBox/Samba.pm:501
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -13103,7 +13112,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:436
+#: ../../main/samba/src/EBox/Samba.pm:505
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -13111,139 +13120,139 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1528
+#: ../../main/samba/src/EBox/Samba.pm:1597
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1755
+#: ../../main/samba/src/EBox/Samba.pm:1824
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2177
+#: ../../main/samba/src/EBox/Samba.pm:2246
 #, fuzzy
 msgid "Manage"
 msgstr "唯讀"
 
-#: ../../main/samba/src/EBox/Samba.pm:2197
+#: ../../main/samba/src/EBox/Samba.pm:2266
 #, fuzzy
 msgid "Configure mode"
 msgstr "設置"
 
-#: ../../main/samba/src/EBox/Samba.pm:2495
+#: ../../main/samba/src/EBox/Samba.pm:2564
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2515
+#: ../../main/samba/src/EBox/Samba.pm:2584
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2539
+#: ../../main/samba/src/EBox/Samba.pm:2608
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2825
+#: ../../main/samba/src/EBox/Samba.pm:2894
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2918
+#: ../../main/samba/src/EBox/Samba.pm:2987
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "檔案系統使用量"
 
-#: ../../main/samba/src/EBox/Samba.pm:2927
+#: ../../main/samba/src/EBox/Samba.pm:2996
 #, fuzzy
 msgid "Users data"
 msgstr "使用者額度已滿"
 
-#: ../../main/samba/src/EBox/Samba.pm:3071
+#: ../../main/samba/src/EBox/Samba.pm:3140
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "連接埠 {port} 已經被 {mod} 模組使用"
 
-#: ../../main/samba/src/EBox/Samba.pm:3630
-#: ../../main/samba/src/EBox/Samba.pm:3650
-#: ../../main/samba/src/EBox/Samba.pm:3661
+#: ../../main/samba/src/EBox/Samba.pm:3699
+#: ../../main/samba/src/EBox/Samba.pm:3719
+#: ../../main/samba/src/EBox/Samba.pm:3730
 msgid "Client address"
 msgstr "客戶端位址"
 
-#: ../../main/samba/src/EBox/Samba.pm:3637
+#: ../../main/samba/src/EBox/Samba.pm:3706
 msgid "Connect"
 msgstr "連線"
 
-#: ../../main/samba/src/EBox/Samba.pm:3638
+#: ../../main/samba/src/EBox/Samba.pm:3707
 msgid "Access to directory"
 msgstr "存取目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3639
+#: ../../main/samba/src/EBox/Samba.pm:3708
 msgid "Read file"
 msgstr "讀取檔案"
 
-#: ../../main/samba/src/EBox/Samba.pm:3640
+#: ../../main/samba/src/EBox/Samba.pm:3709
 msgid "Write file"
 msgstr "寫入檔案"
 
-#: ../../main/samba/src/EBox/Samba.pm:3641
+#: ../../main/samba/src/EBox/Samba.pm:3710
 msgid "Disconnect"
 msgstr "中斷連線"
 
-#: ../../main/samba/src/EBox/Samba.pm:3642
+#: ../../main/samba/src/EBox/Samba.pm:3711
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "移除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3643
+#: ../../main/samba/src/EBox/Samba.pm:3712
 msgid "Create directory"
 msgstr "建立目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3644
+#: ../../main/samba/src/EBox/Samba.pm:3713
 msgid "Remove directory"
 msgstr "移除目錄"
 
-#: ../../main/samba/src/EBox/Samba.pm:3645
+#: ../../main/samba/src/EBox/Samba.pm:3714
 msgid "Rename"
 msgstr "重新命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3652
-#: ../../main/samba/src/EBox/Samba.pm:3663
+#: ../../main/samba/src/EBox/Samba.pm:3721
+#: ../../main/samba/src/EBox/Samba.pm:3732
 msgid "File name"
 msgstr "檔案名稱"
 
-#: ../../main/samba/src/EBox/Samba.pm:3653
-#: ../../main/samba/src/EBox/Samba.pm:3657
+#: ../../main/samba/src/EBox/Samba.pm:3722
+#: ../../main/samba/src/EBox/Samba.pm:3726
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3664
+#: ../../main/samba/src/EBox/Samba.pm:3733
 msgid "Quarantined file name"
 msgstr "隔離的檔案名稱"
 
-#: ../../main/samba/src/EBox/Samba.pm:3665
-#: ../../main/samba/src/EBox/Samba.pm:3668
+#: ../../main/samba/src/EBox/Samba.pm:3734
+#: ../../main/samba/src/EBox/Samba.pm:3737
 msgid "Quarantine"
 msgstr "隔離"
 
-#: ../../main/samba/src/EBox/Samba.pm:3671
+#: ../../main/samba/src/EBox/Samba.pm:3740
 msgid "Samba access"
 msgstr "Samba 存取"
 
-#: ../../main/samba/src/EBox/Samba.pm:3682
+#: ../../main/samba/src/EBox/Samba.pm:3751
 msgid "Samba virus"
 msgstr "Samba 防毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3693
+#: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Samba quarantine"
 msgstr "Samba 隔離"
 
@@ -14735,8 +14744,8 @@ msgstr "客戶端連線已結束"
 msgid "IPsec"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1517
-#: ../../main/mail/src/EBox/Mail.pm:1677
+#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1534
+#: ../../main/mail/src/EBox/Mail.pm:1694
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
@@ -14824,187 +14833,187 @@ msgstr "設置 amavis"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "設定 dovecot 來驗證 LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:283
+#: ../../main/mail/src/EBox/Mail.pm:301
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:292
+#: ../../main/mail/src/EBox/Mail.pm:310
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:293
+#: ../../main/mail/src/EBox/Mail.pm:311
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:302
+#: ../../main/mail/src/EBox/Mail.pm:320
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:303
+#: ../../main/mail/src/EBox/Mail.pm:321
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:878
+#: ../../main/mail/src/EBox/Mail.pm:896
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:883
+#: ../../main/mail/src/EBox/Mail.pm:901
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:887 ../../main/mail/src/EBox/Mail.pm:898
-#: ../../main/mail/src/EBox/Mail.pm:906
+#: ../../main/mail/src/EBox/Mail.pm:905 ../../main/mail/src/EBox/Mail.pm:916
+#: ../../main/mail/src/EBox/Mail.pm:924
 #, fuzzy
 msgid "Host mail name"
 msgstr "網域名稱"
 
-#: ../../main/mail/src/EBox/Mail.pm:901
+#: ../../main/mail/src/EBox/Mail.pm:919
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1463
+#: ../../main/mail/src/EBox/Mail.pm:1480
 msgid "SMTP service"
 msgstr "SMTP 服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1470
+#: ../../main/mail/src/EBox/Mail.pm:1487
 msgid "POP3 service"
 msgstr "POP3 服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1476
+#: ../../main/mail/src/EBox/Mail.pm:1493
 msgid "POP3S service"
 msgstr "POP3S 服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1482
+#: ../../main/mail/src/EBox/Mail.pm:1499
 msgid "IMAP service"
 msgstr "IMAP 服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1488
+#: ../../main/mail/src/EBox/Mail.pm:1505
 msgid "IMAPS service"
 msgstr "IMAPS 服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1532
+#: ../../main/mail/src/EBox/Mail.pm:1549
 msgid "enabled"
 msgstr "啟用"
 
-#: ../../main/mail/src/EBox/Mail.pm:1537
+#: ../../main/mail/src/EBox/Mail.pm:1554
 msgid "Mail server's filter"
 msgstr "郵件伺服器的過濾器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1590
+#: ../../main/mail/src/EBox/Mail.pm:1607
 msgid "Virtual Mail Domains"
 msgstr "虛擬郵件網域"
 
-#: ../../main/mail/src/EBox/Mail.pm:1596
+#: ../../main/mail/src/EBox/Mail.pm:1613
 msgid "Greylist"
 msgstr "灰名單"
 
-#: ../../main/mail/src/EBox/Mail.pm:1602
+#: ../../main/mail/src/EBox/Mail.pm:1619
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "佇列管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1628
+#: ../../main/mail/src/EBox/Mail.pm:1645
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 #, fuzzy
 msgid "Mail retrieval from external accounts"
 msgstr "郵件檢索服務"
 
-#: ../../main/mail/src/EBox/Mail.pm:1643
+#: ../../main/mail/src/EBox/Mail.pm:1660
 msgid "Message ID"
 msgstr "郵件 ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1646
+#: ../../main/mail/src/EBox/Mail.pm:1663
 msgid "From hostname"
 msgstr "從主機名稱"
 
-#: ../../main/mail/src/EBox/Mail.pm:1647
+#: ../../main/mail/src/EBox/Mail.pm:1664
 msgid "From host ip"
 msgstr "從主機 IP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1648
+#: ../../main/mail/src/EBox/Mail.pm:1665
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "大小 (位元組)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1649
+#: ../../main/mail/src/EBox/Mail.pm:1666
 msgid "Relay"
 msgstr "Relay"
 
-#: ../../main/mail/src/EBox/Mail.pm:1650
+#: ../../main/mail/src/EBox/Mail.pm:1667
 #, fuzzy
 msgid "Message type"
 msgstr "郵件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1653
+#: ../../main/mail/src/EBox/Mail.pm:1670
 #, fuzzy
 msgid "Additional Info"
 msgstr "新增資訊"
 
-#: ../../main/mail/src/EBox/Mail.pm:1664
+#: ../../main/mail/src/EBox/Mail.pm:1681
 msgid "Successful messages"
 msgstr "完成的郵件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1665
+#: ../../main/mail/src/EBox/Mail.pm:1682
 msgid "Maximum message size exceeded"
 msgstr "超過最大郵件大小"
 
-#: ../../main/mail/src/EBox/Mail.pm:1666
+#: ../../main/mail/src/EBox/Mail.pm:1683
 #, fuzzy
 msgid "User quota exceeded"
 msgstr "使用者額度已滿"
 
-#: ../../main/mail/src/EBox/Mail.pm:1667
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Relay access denied"
 msgstr "禁止 relay 存取"
 
-#: ../../main/mail/src/EBox/Mail.pm:1668
+#: ../../main/mail/src/EBox/Mail.pm:1685
 msgid "Account does not exist"
 msgstr "帳號不存在"
 
-#: ../../main/mail/src/EBox/Mail.pm:1669
+#: ../../main/mail/src/EBox/Mail.pm:1686
 msgid "Host unreachable"
 msgstr "主機無法連線"
 
-#: ../../main/mail/src/EBox/Mail.pm:1670
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "Authentication error"
 msgstr "驗證失敗"
 
-#: ../../main/mail/src/EBox/Mail.pm:1671
+#: ../../main/mail/src/EBox/Mail.pm:1688
 #, fuzzy
 msgid "Greylisted"
 msgstr "灰名單"
 
-#: ../../main/mail/src/EBox/Mail.pm:1672
+#: ../../main/mail/src/EBox/Mail.pm:1689
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1673
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "Other events"
 msgstr "其他事件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1806 ../../main/mail/src/EBox/Mail.pm:1913
+#: ../../main/mail/src/EBox/Mail.pm:1823 ../../main/mail/src/EBox/Mail.pm:1930
 msgid "Mailboxes"
 msgstr "信箱"
 
-#: ../../main/mail/src/EBox/Mail.pm:1833
+#: ../../main/mail/src/EBox/Mail.pm:1850
 msgid "Mail SMTP server"
 msgstr "郵件 SMTP 伺服器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1858
 #, fuzzy
 msgid "Mail POP/IMAP server"
 msgstr "郵件 SMTP 伺服器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1955
+#: ../../main/mail/src/EBox/Mail.pm:1972
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1990
+#: ../../main/mail/src/EBox/Mail.pm:2007
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "連接埠 {port} 已經被 {mod} 模組使用"
@@ -15044,7 +15053,7 @@ msgid "Queue ID"
 msgstr "佇列 ID"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:424
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:423
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -15125,43 +15134,43 @@ msgstr "建立郵件帳號"
 msgid "External account {acc} removed"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:116
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:117
 #, fuzzy
 msgid "Local email account"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:120
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:121
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 #, fuzzy
 msgid "Mail server"
 msgstr "郵件 SMTP 伺服器"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:121
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:122
 #, fuzzy
 msgid "Mail server port"
 msgstr "郵件 SMTP 伺服器"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:359
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:358
 #, fuzzy
 msgid "External retrieval service"
 msgstr "郵件檢索服務"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:430
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:437
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:429
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:436
 #, fuzzy
 msgid "External account username"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:432
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:431
 msgid "No spaces allowed"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:448
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:447
 msgid "Character \"'\" is forbidden for external"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:458
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:457
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
 msgstr ""
@@ -15366,16 +15375,28 @@ msgid "Secure IMAPS service enabled"
 msgstr "IMAPS 服務"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:83
+#, fuzzy
+msgid "Retrieve mail for external accounts"
+msgstr "郵件檢索服務"
+
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
+msgid ""
+"This allow users to retrieve mail for external accounts, the mail would be "
+"delivered to their local account. External account can be configured in the "
+"user's corner."
+msgstr ""
+
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:93
+#: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:100
 msgid "Mail retrieval services"
 msgstr "郵件檢索服務"
 
@@ -15766,32 +15787,32 @@ msgstr "無法連線到 {smtp} 郵件伺服器"
 msgid "mail account"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:318
+#: ../../main/mail/src/EBox/MailUserLdap.pm:321
 msgid "This group has a mail alias"
 msgstr "這個群組是郵件別名"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:342
+#: ../../main/mail/src/EBox/MailUserLdap.pm:345
 msgid "This user has a mail account"
 msgstr "這個使用者是郵件帳號"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:385
+#: ../../main/mail/src/EBox/MailUserLdap.pm:390
 msgid "Mail account"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:387
+#: ../../main/mail/src/EBox/MailUserLdap.pm:392
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "建立郵件帳號"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:389
+#: ../../main/mail/src/EBox/MailUserLdap.pm:394
 msgid "Mail account settings"
 msgstr "郵件帳號設定"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:429
+#: ../../main/mail/src/EBox/MailUserLdap.pm:434
 msgid "Mail alias settings"
 msgstr "郵件別名設定"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:724
+#: ../../main/mail/src/EBox/MailUserLdap.pm:728
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 
@@ -18542,13 +18563,11 @@ msgid "View all"
 msgstr "檢視"
 
 #: ../../main/core/src/templates/componentNotFound.mas:3
-#: ../../main/core/src/templates/pageNotFound.mas:3
 #, fuzzy
 msgid "Zentyal homepage"
 msgstr "eBox的首頁"
 
 #: ../../main/core/src/templates/componentNotFound.mas:7
-#: ../../main/core/src/templates/pageNotFound.mas:7
 #, fuzzy
 msgid "If you typed the page address manually, please check it"
 msgstr "假如您手動輸入網址,請檢查"
@@ -18558,19 +18577,23 @@ msgid "Maybe the element was removed and the page address is not longer valid"
 msgstr ""
 
 #: ../../main/core/src/templates/componentNotFound.mas:9
-#: ../../main/core/src/templates/pageNotFound.mas:9
+msgid ""
+"It can be also a parameters cache error, in this case you can navigate again "
+"to the page using the left menu"
+msgstr ""
+
+#: ../../main/core/src/templates/componentNotFound.mas:10
 #, perl-brace-format
 msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
 msgstr "假如您需要更多幫忙，您可能要參訪 {homepage} 的文件和郵件列表清單"
 
-#: ../../main/core/src/templates/componentNotFound.mas:12
-#: ../../main/core/src/templates/pageNotFound.mas:12
+#: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "we're sorry"
 msgstr "我們很抱歉"
 
-#: ../../main/core/src/templates/componentNotFound.mas:12
+#: ../../main/core/src/templates/componentNotFound.mas:13
 msgid "The request contains a reference to a element which doest not exists"
 msgstr ""
 
@@ -18715,17 +18738,6 @@ msgstr "eBox 版本"
 #, fuzzy
 msgid "Save changes?"
 msgstr "儲存變更"
-
-#: ../../main/core/src/templates/pageNotFound.mas:8
-#, fuzzy
-msgid ""
-"Maybe a change in the Zentyal configuration or software made no longer "
-"available the requested page"
-msgstr "可能改變在 eBox 的設置或是軟體造成沒有提供所需要的網頁"
-
-#: ../../main/core/src/templates/pageNotFound.mas:12
-msgid "The page cannot be found"
-msgstr "此頁面找不到"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
@@ -19673,7 +19685,7 @@ msgid ""
 msgstr "這裡現在沒有使用者。您必須至少有一個  才能正確管理這個群組"
 
 #: ../../main/samba/src/templates/editgroup.mas:64
-#: ../../main/samba/src/templates/edituser.mas:91
+#: ../../main/samba/src/templates/edituser.mas:95
 #, fuzzy
 msgid "Modules configuration"
 msgstr "模組狀態組態"
@@ -19771,38 +19783,38 @@ msgstr ""
 msgid "Add Organizational Unit"
 msgstr "組織名稱"
 
-#: ../../main/samba/src/templates/edituser.mas:40
+#: ../../main/samba/src/templates/edituser.mas:43
 #: ../../main/samba/src/templates/editcontact.mas:29
 #, fuzzy
 msgid "Display name"
 msgstr "姓"
 
-#: ../../main/samba/src/templates/edituser.mas:60
+#: ../../main/samba/src/templates/edituser.mas:64
 #, fuzzy
 msgid "User quota"
 msgstr "使用者額度已滿"
 
-#: ../../main/samba/src/templates/edituser.mas:64
+#: ../../main/samba/src/templates/edituser.mas:68
 #, fuzzy
 msgid "Disabled account"
 msgstr "Jabber 帳號"
 
-#: ../../main/samba/src/templates/edituser.mas:71
+#: ../../main/samba/src/templates/edituser.mas:75
 #: ../../main/samba/src/templates/adduser.mas:30
 msgid "Retype password"
 msgstr "再輸入密碼"
 
-#: ../../main/samba/src/templates/edituser.mas:82
+#: ../../main/samba/src/templates/edituser.mas:86
 msgid "User groups"
 msgstr "使用者群組"
 
-#: ../../main/samba/src/templates/edituser.mas:172
-#: ../../main/samba/src/templates/edituser.mas:256
+#: ../../main/samba/src/templates/edituser.mas:177
+#: ../../main/samba/src/templates/edituser.mas:261
 #, fuzzy
 msgid "This user is not a member of any group"
 msgstr "使用者不在群組中"
 
-#: ../../main/samba/src/templates/edituser.mas:241
+#: ../../main/samba/src/templates/edituser.mas:246
 #: ../../main/samba/src/templates/editcontact.mas:162
 #, fuzzy
 msgid "Add group"
@@ -20032,14 +20044,14 @@ msgid ""
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:30
+#: ../../main/mail/src/templates/account.mas:31
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
 
-#: ../../main/mail/src/templates/account.mas:33
+#: ../../main/mail/src/templates/account.mas:34
 msgid "Click here to create a new mail virtual domain"
 msgstr "點擊這裡來建立新虛擬網域郵件"
 
@@ -20116,6 +20128,21 @@ msgid ""
 "Do you want to monitor and manage your servers and desktops remotely? Get "
 "one of the {oh}Commercial Editions{ch}!"
 msgstr ""
+
+#~ msgid "Error creating file"
+#~ msgstr "建立檔案時發生錯誤"
+
+#~ msgid "Page not found"
+#~ msgstr "找不到頁面"
+
+#, fuzzy
+#~ msgid ""
+#~ "Maybe a change in the Zentyal configuration or software made no longer "
+#~ "available the requested page"
+#~ msgstr "可能改變在 eBox 的設置或是軟體造成沒有提供所需要的網頁"
+
+#~ msgid "The page cannot be found"
+#~ msgstr "此頁面找不到"
 
 #, fuzzy
 #~ msgid "Create MySQL webmail database."
