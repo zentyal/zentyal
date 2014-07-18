@@ -1,4 +1,5 @@
 HEAD
+	+ pathHTTPSSSLCertificate() always returns a list
 	+ Added one more tip to component not found page
 	+ Removed duplicate code for page not found
 	+ Fix some warnings in log
