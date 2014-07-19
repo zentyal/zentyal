@@ -125,7 +125,7 @@ sub _checkAccountAlias
     my ($self, $alias, $maildrop, $noCheckExternalAliases) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('mail alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, $noCheckExternalAliases);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, onlyCheckLdap => $noCheckExternalAliases);
 
     # Verify maildrop is not an alias
     # (For now it is not allowed alias of aliases)
@@ -151,7 +151,7 @@ sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 0, 1);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 

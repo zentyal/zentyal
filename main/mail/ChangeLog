@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed group mail alias creation
+	+ Fixed problems with checking mail address duplicates
 	+ Added fetchmail again
 	+ Fix _accountExists ldap search filter
 3.5.1

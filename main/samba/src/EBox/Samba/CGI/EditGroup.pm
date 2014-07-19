@@ -41,7 +41,8 @@ sub _process
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('samba');
+    my $global   = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('samba');
 
     my @args = ();
 

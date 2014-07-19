@@ -103,7 +103,7 @@ sub setUserAccount
     }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-    $mail->checkMailNotInUse($email);
+    $mail->checkMailNotInUse($email, owner => $user);
 
     $self->_checkMaildirNotExists($lhs, $rhs);
 
@@ -515,7 +515,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
+        filter => "(&(objectclass=userZentyalMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 
