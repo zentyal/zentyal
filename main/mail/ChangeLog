@@ -2,6 +2,11 @@ HEAD
 	+ Fixed bug when removing virtual domain
 	+ Adding a virtual domain now can update old unmanaged accounts
 	+ Fixed errors related with users which has account on a umanaged domain
+	+ Fixed group mail alias creation
+	+ Fixed problems with checking mail address duplicates
+	+ Added fetchmail again
+	+ Fix _accountExists ldap search filter
+3.5.1
 	+ Removed spurious warnings on mail services widget
 	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
 	  namespaces instead

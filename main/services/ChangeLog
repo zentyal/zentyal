@@ -1,4 +1,4 @@
-HEAD
+3.5.1
 	+ Workaround in members table against losing of directory parameter/attribute
 3.5
 	+ Implement replicationExcludeKeys() to avoid webadmin service replication

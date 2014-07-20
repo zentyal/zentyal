@@ -1,4 +1,9 @@
 HEAD
+	+ Depends on latest zentyal-samba to make sure openchange.conf
+	  is correct
+	+ openchange.conf named properties config uses splitted params
+	+ Better certificate management for autodiscovery
+3.5.1
 	+ Fixed issue with Sieve separator parameter at sogo configuration
 3.5
 	+ Zentyal users removed from "only contacts" addressbook at sogo webUI

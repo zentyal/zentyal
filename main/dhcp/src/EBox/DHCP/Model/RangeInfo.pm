@@ -116,7 +116,7 @@ sub _content
 
     my $net  = EBox::Global->modInstance('network');
 
-    my $interface = $self->parentRow->valueByName('iface');
+    my $interface = $self->_iface();
     my $ifaceAddr = $net->ifaceAddress($interface);
 
     my $subnet = EBox::NetWrappers::to_network_with_mask(
@@ -132,6 +132,21 @@ sub _content
        subnet          => $subnet,
        available_range => $availableRange,
     };
+}
+
+sub _iface
+{
+    my ($self) = @_;
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 # Method: viewCustomizer

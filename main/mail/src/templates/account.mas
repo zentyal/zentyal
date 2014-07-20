@@ -28,12 +28,19 @@ my $vdomainsJSON = JSON::XS::encode_json($params->{vdomains});
        <& /mail/alias.mas, params => $params &>
    </div>
 </div>
+
 <div id='userMailUnmanaged' <% $unmanagedHidden%> >
    <div class='note'>
        <% __('This user has a mail account which does not belong to any managed mail domain') %>
    </div>
 <div>
 % }
+<div id='userMailWithAccountDiv' <% $hasAccount ? '' :  'style="display:none"'%> >
+    <& /mail/alias.mas, params => $params &>
+    <& /mail/externalAccounts.mas, params => $params &>
+</div>
+%}
+
 
 <%def .noVdomains>
 <%init>

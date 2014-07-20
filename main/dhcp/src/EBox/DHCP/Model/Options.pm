@@ -88,7 +88,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    my $interface = $self->_interface();
+    my $interface = $self->_iface();
 
     # Validate default gateway
     if ( exists $changedFields->{default_gateway} ) {
@@ -179,7 +179,7 @@ sub defaultGateway
     } elsif ( $selectedTypeName eq 'none' ) {
         return '';
     } elsif ( $selectedTypeName eq 'ebox' ) {
-        return $self->{netMod}->ifaceAddress($self->_interface());
+        return $self->{netMod}->ifaceAddress($self->_iface());
     }
 }
 
@@ -249,7 +249,7 @@ sub nameserver
         if ( $selectedType eq 'none' ) {
             return undef;
         } elsif ( $selectedType eq 'eboxDNS' ) {
-            my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
+            my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_iface());
             return $ifaceAddr;
         } else {
             return $row->elementByName('primary_ns')->subtype()->printableValue();
@@ -278,7 +278,7 @@ sub ntpServer
     if ($selectedType eq 'none') {
         return undef;
     } elsif ($selectedType eq 'eboxNTP') {
-        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_iface());
         return $ifaceAddr;
     } elsif ($selectedType eq 'custom_ntp') {
         return $row->valueByName('custom_ntp');
@@ -304,7 +304,7 @@ sub winsServer
     if ($selectedType eq 'none') {
         return undef;
     } elsif ($selectedType eq 'eboxWINS') {
-        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_iface());
         return $ifaceAddr;
     } elsif ($selectedType eq 'custom_wins') {
         return $row->valueByName('custom_wins');
@@ -498,7 +498,7 @@ sub _fetchIfaceAddress
 {
     my ($self) = @_;
 
-    my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
+    my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_iface());
     ($ifaceAddr) or return undef;
     return $ifaceAddr;
 }
@@ -523,11 +523,19 @@ sub _fetchSecondaryNS
     return $nsTwo;
 }
 
-sub _interface
+sub _iface
 {
     my ($self) = @_;
 
-    return $self->parentRow()->valueByName('iface');
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 # Method: viewCustomizer

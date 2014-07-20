@@ -1,4 +1,10 @@
 HEAD
+	+ pathHTTPSSSLCertificate() always returns a list
+	+ Added one more tip to component not found page
+	+ Removed duplicate code for page not found
+	+ Fix some warnings in log
+	+ Fix error in send crash report script
+3.5.1
 	+ Fixed dashboard links to official manual
 	+ Model backup/revoke/save files are no longer called implicitly
 	+ Remove warning on formSubmitJS

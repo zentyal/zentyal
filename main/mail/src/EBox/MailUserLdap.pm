@@ -119,7 +119,7 @@ sub setUserAccount
     }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-    $mail->checkMailNotInUse($email);
+    $mail->checkMailNotInUse($email, owner => $user);
 
     if (not $self->{vdomains}->vdomainExists($rhs)) {
         # vdomain not managed by zentyal, just set the mail attribute
@@ -131,8 +131,10 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    if (not $user->hasObjectClass('userZentyalMail')) {
-        $user->add('objectclass', 'userZentyalMail');
+    foreach my $class (qw(userZentyalMail fetchmailUser)) {
+        if (not $user->hasObjectClass($class)) {
+            $user->add('objectclass', $class)
+        }
     }
 
     $user->clearCache();
@@ -161,8 +163,8 @@ sub setUserAccount
 #
 # Parameters:
 #
-#               user - user object
-#               usermail - the user's mail address (optional)
+#   user - user object
+#
 sub delUserAccount
 {
     my ($self, $user) = @_;
@@ -179,6 +181,7 @@ sub delUserAccount
     # First we remove all mail aliases asociated with the user account.
     $user->delete('otherMailbox');
 
+
     # Remove mail account from group alias maildrops
     foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
         $mail->{malias}->delMaildrop($alias,$usermail);
@@ -188,15 +191,16 @@ sub delUserAccount
     my $mailbox = $user->get('mailbox');
 
     $user->remove('objectClass', 'userZentyalMail', 1);
+    $user->remove('objectClass', 'fetchmailUser', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
     $user->delete('mailquota', 1);
     $user->delete('mailHomeDirectory', 1);
+    $user->delete('fetchmailAccount', 1);
     $user->save();
 
     my @cmds;
-
     # Here we remove mail directorie of user account.
     push (@cmds, '/bin/rm -rf ' . DIRVMAIL . $mailbox);
 
@@ -394,11 +398,10 @@ sub _userAddOns
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
-    # fetchmail disabled
-    # my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
-    # my @externalAccounts = map {
-    #     $mail->{fetchmail}->externalAccountRowValues($_)
-    #  } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
     my @paramsList = (
             user        => $user,
@@ -411,6 +414,9 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
+
+            externalRetrievalEnabled => $externalRetrievalEnabled,
+            externalAccounts => \@externalAccounts,
     );
 
     my $title;
@@ -481,7 +487,8 @@ sub _modifyGroup
 #
 # Parameters:
 #
-#               user - user object
+#   user - user object
+#
 # Returns:
 #
 #               bool - true if user has a managed mail account
@@ -499,6 +506,19 @@ sub _accountIsManaged
     my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
+}
+
+sub _accountExistsToDelete
+{
+    my ($self, $user) = @_;
+    my $username = $user->get('samAccountName');
+    my $attrs = {
+        base => $self->{ldap}->dn(),
+        filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
+        scope => 'sub',
+    };
+    my $result = $self->{ldap}->search($attrs);
+    return ($result->count() > 0);
 }
 
 # Method: allAccountFromVDomain
@@ -544,7 +564,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
+        filter => "(&(objectclass=userZentyalMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 

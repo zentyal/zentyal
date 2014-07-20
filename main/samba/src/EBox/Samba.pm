@@ -408,6 +408,75 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
+        $self->_migrateTo35();
+    }
+}
+
+sub _migrateTo35
+{
+    my ($self) = @_;
+
+    return unless ($self->configured());
+
+
+    # set samba conf to allow schemas updates
+    $self->_setConf();
+    EBox::Service::manage('samba-ad-dc', 'restart');
+    $self->_performSetup();
+    EBox::Service::manage('samba-ad-dc', 'restart');
+
+    # Set gidNumbers to Domain Users, etc.
+    $self->getProvision()->mapAccounts();
+
+    my $ldifFile = '/var/lib/zentyal/conf/upgrade-to-3.5/data.ldif';
+
+    return unless (-f $ldifFile);
+
+    use Net::LDAP::LDIF;
+    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
+
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry ();
+        if ($ldif->error()) {
+           EBox::error("Error reading LDIF file $ldifFile: " . $ldif->error() .
+                       '. Error lines: ' .  $ldif->error_lines());
+        } else {
+            my $gidNumber = $entry->get_value('gidNumber');
+            my $uid = $entry->get_value('uid');
+            if ($uid) {
+                my $uidNumber = $entry->get_value('uidNumber');
+                if ($uidNumber) {
+                    my $user = new EBox::Samba::User(samAccountName => $uid);
+                    next unless $user->exists();
+
+                    $user->set('uidNumber', $uidNumber);
+                    unless ($user->hasValue('objectClass', 'systemQuotas')) {
+                        my @objectclass = $user->get('objectClass');
+                        push (@objectclass, 'systemQuotas');
+                        $user->set('objectClass', \@objectclass);
+                    }
+                    $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
+                    for my $attr (qw(quota loginShell homeDirectory)) {
+                        my $value = $entry->get_value($attr);
+                        $user->set($attr, $value, 1) if defined ($value);
+                    }
+                    $user->save();
+                }
+            } elsif (defined $gidNumber) {
+                my $cn = $entry->get_value('cn');
+                if ($cn) {
+                    my $group = new EBox::Samba::Group(samAccountName => $cn);
+                    next unless $group->exists();
+                    $group->set('gidNumber', $gidNumber);
+                }
+            }
+        }
+    }
+    $ldif->done();
+
+    $self->getProvision()->mapAccounts();
 }
 
 sub _checkEnableIPs
@@ -873,33 +942,33 @@ sub _createDirectories
 
     my $zentyalUser = EBox::Config::user();
     my $group = $self->ldap->domainUsersGroup();
-    my $gid = $group->get('gidNumber');
+    my $gidNumber = $group->gidNumber();
     my $guest = $self->ldap->domainGuestUser();
-    my $nobodyUid = $guest->get('uidNumber');
+    my $nobodyUidNumber = $guest->uidNumber();
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, "chown root " . SAMBA_DIR);
-    push (@cmds, "chgrp '+$gid' " . SAMBA_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
-    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SAMBA_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
     push (@cmds, "chown root " . PROFILES_DIR);
-    push (@cmds, "chgrp '+$gid' " . PROFILES_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
     push (@cmds, "chown root " . SHARES_DIR);
-    push (@cmds, "chgrp '+$gid' " . SHARES_DIR);
+    push (@cmds, "chgrp '+$gidNumber' " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
-    push (@cmds, "setfacl -m u:$nobodyUid:rx " . SHARES_DIR);
+    push (@cmds, "setfacl -m u:$nobodyUidNumber:rx " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SHARES_DIR);
 
     push (@cmds, "mkdir -p '$quarantine'");
@@ -984,7 +1053,7 @@ sub _postServiceHook
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
-            my $users = $ldap->users();
+            my $users = $self->users();
             foreach my $user (@{$users}) {
                 # Set roaming profiles
                 if ($roamingProfilesChanged) {
@@ -1344,7 +1413,7 @@ sub _startService
     EBox::Sudo::root("chmod 0750 " . SAMBA_PRIVILEGED_SOCKET);
     EBox::Sudo::root("setfacl -b " . SAMBA_PRIVILEGED_SOCKET);
 
-    $self->SUPER::_startService(@_);
+    $self->SUPER::_startService();
 
     if ($self->mode() eq STANDALONE_MODE) {
         # Wait for sss to open the NSS pipe
@@ -1392,16 +1461,14 @@ sub initUser
     if ($mk_home eq 'yes') {
         my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
-            my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
-            my $group = $self->ldap->domainUsersGroup();
-            my $gid = $group->get('gidNumber');
+            my $gidNumber = $user->gidNumber();
+            my $uidNumber = $user->uidNumber();
 
             my @cmds;
             push (@cmds, "mkdir -p `dirname $qhome`");
             push (@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            push (@cmds, "chown -R $quser $qhome");
-            push (@cmds, "chgrp -R '+$gid' $qhome");
+            push (@cmds, "chown -R +$uidNumber:+$gidNumber $qhome");
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -1436,29 +1503,30 @@ sub containers
 {
     my ($self, $baseDN) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
 
     unless (defined $baseDN) {
         $baseDN = $self->ldap->dn();
     }
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
     my $searchArgs = {
         base => $baseDN,
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=container)",
         scope => 'one',
+        attrs => ['*'],
     };
 
-    my $ous = [];
-    my $result = $self->ldap->search($searchArgs);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
-        my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
+    my @entries = @{$self->ldap->pagedSearch($searchArgs)};
+    foreach my $entry (@entries) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        push (@{$list}, $container);
+        my $nested = $self->containers($container->dn());
+        push (@{$list}, @{$nested});
     }
 
-    return $ous;
+    return $list;
 }
 
 # Method: ous
@@ -1475,49 +1543,51 @@ sub ous
 {
     my ($self, $baseDN) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
 
     unless (defined $baseDN) {
         $baseDN = $self->ldap->dn();
     }
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
-    my $searchArgs = {
+    my $args = {
         base => $baseDN,
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=organizationalUnit)",
         scope => 'one',
     };
 
-    my $ous = [];
-    my $result = $self->ldap->search($searchArgs);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
+    my @entries = @{$self->ldap->pagedSearch($args)};
+    foreach my $entry (@entries) {
+        my $ou = new EBox::Samba::OU(entry => $entry);
+        push (@{$list}, $ou);
         my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
+        push (@{$list}, @{$nested});
     }
 
-    return $ous;
+    return $list;
 }
 
 # Method: userByUID
 #
-# Return the instance of EBox::Samba::User object which represents a given uid or undef if it's not found.
+#   Return the instance of EBox::Samba::User object which represents a given
+#   uid or undef if it's not found. Used by cloud-sync.
 #
-#  Parameters:
-#      uid
+# Parameters:
+#
+#   uid
 #
 sub userByUID
 {
     my ($self, $uid) = @_;
 
-    my $userClass = $self->userClass();
-    my $objectClass = $userClass->mainObjectClass();
-    my $uidTag = $userClass->uidTag();
+    return undef unless ($self->isEnabled());
+
     my $args = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)($uidTag=$uid))",
+        filter => "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))(samAccountName=$uid))",
         scope => 'sub',
+        attrs => ['*'],
     };
 
     my $result = $self->ldap->search($args);
@@ -1532,80 +1602,76 @@ sub userByUID
     } elsif ($count == 0) {
         return undef;
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return new EBox::Samba::User(entry => $result->entry(0));
     }
-}
-
-# Method: userExists
-#
-#  Returns:
-#
-#      bool - whether the user exists or not
-#
-sub userExists
-{
-    my ($self, $uid) = @_;
-    my $user = $self->userByUID($uid);
-    if (not $user) {
-        return undef;
-    }
-
-    if (not $self->isProvisioned()) {
-        return OBJECT_EXISTS;
-    }
-    if ($self->hiddenSid($user)) {
-        return OBJECT_EXISTS_AND_HIDDEN_SID;
-    }
-
-    return OBJECT_EXISTS;
 }
 
 # Method: users
 #
-#       Returns an array containing all the users (not system users)
+#   Returns an array containing all the users (not system users)
 #
 # Parameters:
-#       system - show system users also (default: false)
+#
+#   system - show system users also (default: false)
 #
 # Returns:
 #
-#       array ref - holding the users. Each user is represented by a
-#       EBox::Samba::User object
+#   array ref - holding the users. Each user is represented by a
+#               EBox::Samba::User object
 #
 sub users
 {
     my ($self, $system) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
 
-    my $objectClass = $self->{userClass}->mainObjectClass();
-    my %args = (
+    return $list if (not $self->isEnabled());
+
+    # Query the containers stored in the root DN and skip the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
-        scope => 'sub',
-    );
-
-    my $entries = $self->ldap->pagedSearch(\%args);
-
-    my @users = ();
-    foreach my $entry (@{ $entries })
-    {
-        my $user = $self->{userClass}->new(entry => $entry);
-        # Include system users?
-        next if (not $system and $user->isSystem());
-
-        push (@users, $user);
+        scope => 'one',
+        filter => '(|(objectClass=container)(objectClass=organizationalUnit)(objectClass=msExchSystemObjectsContainer))',
+        attrs => ['*'],
+    };
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('name');
+            my $bValue = $b->get_value('name');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @entries;
+    foreach my $entry (@entries) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        next if $container->get('cn') eq any EBox::Ldap::QUERY_IGNORE_CONTAINERS();
+        push (@containers, $container);
     }
 
-    # sort by name
-    @users = sort {
-            my $aValue = $a->name();
-            my $bValue = $b->name();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
-    } @users;
+    # Query the users stored in the non ignored containers
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*)))";
+    foreach my $container (@containers) {
+        $params = {
+            base   => $container->dn(),
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+        @entries = @{$self->ldap->pagedSearch($params)};
+        @entries = sort {
+                my $aValue = $a->get_value('samAccountName');
+                my $bValue = $b->get_value('samAccountName');
+                (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+        } @entries;
+        foreach my $entry (@entries) {
+            my $user = new EBox::Samba::User(entry => $entry);
+            next if (not $system and $user->isSystem());
+            push (@{$list}, $user);
+        }
+    }
 
-    return \@users;
+    return $list;
 }
 
 # Method: realUsers
@@ -1655,26 +1721,27 @@ sub contactsByName
 {
     my ($self, $name) = @_;
 
-    my $contactClass = $self->contactClass();
-    my $objectClass = $contactClass->mainObjectClass();
-    my $args = {
+    my $list = [];
+
+    return $list if (not $self->isEnabled());
+
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)(cn=$name))",
         scope => 'sub',
+        filter => "(&(objectclass=contact)(!(isDeleted=*))(cn=$name))",
+        attrs => ['*'],
     };
-
-    my $result = $self->ldap->search($args);
-    my $count = $result->count();
-    return [] if ($count == 0);
-
-    my @contacts = ();
-
-    foreach my $entry (@{$result->entries}) {
-        my $contact = $self->entryModeledObject($entry);
-        push (@contacts, $contact) if ($contact);
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('cn');
+            my $bValue = $b->get_value('cn');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @entries;
+    foreach my $entry (@entries) {
+        my $contact = new EBox::Samba::Contact(entry => $entry);
+        push (@{$list}, $contact);
     }
-
-    return \@contacts;
+    return $list;
 }
 
 # Method: contactExists
@@ -1741,12 +1808,13 @@ sub groupByName
 {
     my ($self, $name) = @_;
 
-    my $groupClass = $self->groupClass();
-    my $objectClass = $groupClass->mainObjectClass();
+    return undef unless ($self->isEnabled());
+
     my $args = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)(cn=$name))",
+        filter => "(&(objectclass=group)(!(isDeleted=*))(cn=$name))",
         scope => 'sub',
+        attrs => ['*'],
     };
 
     my $result = $self->ldap->search($args);
@@ -1761,32 +1829,8 @@ sub groupByName
     } elsif ($count == 0) {
         return undef;
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return new EBox::Samba::Group(entry => $result->entry(0));
     }
-}
-
-# Method: groupExists
-#
-#  Returns:
-#
-#      bool - whether the group exists or not
-#
-sub groupExists
-{
-    my ($self, $name) = @_;
-    my $group = $self->groupByName($name);
-    if (not $group) {
-        return undef;
-    }
-
-    if (not $self->isProvisioned()) {
-        return OBJECT_EXISTS;
-    }
-    if ($self->hiddenSid($group)) {
-        return OBJECT_EXISTS_AND_HIDDEN_SID;
-    }
-
-    return OBJECT_EXISTS;
 }
 
 # Method: groups
@@ -1806,79 +1850,56 @@ sub groups
 
     return [] if (not $self->isEnabled());
 
-    my $groupClass  = $self->groupClass();
-    my $objectClass = $groupClass->mainObjectClass();
-    my %args = (
+    my $list = [];
+    my $params = {
         base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
         scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @groups = ();
-    foreach my $entry ($result->entries())  {
-        my $group = $groupClass->new(entry => $entry);
-
-        # Include system users?
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my @entries = @{$self->ldap->pagedSearch($params)};
+    @entries = sort {
+            my $aValue = $a->get_value('samAccountName');
+            my $bValue = $b->get_value('samAccountName');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+     } @entries;
+    foreach my $entry (@entries) {
+        my $group = new EBox::Samba::Group(entry => $entry);
         next if (not $system and $group->isSystem());
-
-        push (@groups, $group);
+        push (@{$list}, $group);
     }
-    # sort grups by name
-    @groups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @groups;
 
-    return \@groups;
+    return $list;
 }
 
 # Method: securityGroups
 #
-#       Returns an array containing all the security groups
+#   Returns an array containing all the security groups
 #
-#   Parameters:
-#       system - show system groups (default: false)
+# Parameters:
+#
+#   system - show system groups (default: false)
 #
 # Returns:
 #
-#       array - holding the groups as EBox::Samba::Group objects
+#   array - holding the groups as EBox::Samba::Group objects
 #
 sub securityGroups
 {
     my ($self, $system) = @_;
 
-    return [] if (not $self->isEnabled());
+    my $list = [];
 
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => '(&(objectclass=group)(objectclass=posixAccount))',
-        scope => 'sub',
-    );
+    return $list if (not $self->isEnabled());
 
-    my $result = $self->ldap->search(\%args);
-
-    my @groups = ();
-    foreach my $entry ($result->entries()) {
-        my $group = new EBox::Samba::Group(entry => $entry);
-
-        # Include system users?
+    my $groups = $self->groups($system);
+    foreach my $group (@{$groups}) {
+        next unless $group->isSecurityGroup();
         next if (not $system and $group->isSystem());
-
-        push (@groups, $group);
+        push (@{$list}, $group);
     }
-    # sort grups by name
-    @groups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @groups;
 
-    return \@groups;
+    return $list;
 }
 
 # Method: _modsLdapUserbase
@@ -3065,7 +3086,6 @@ sub objectFromDN
 #
 #   Return the Perl Object that holds the default Naming Context for this LDAP server.
 #
-#
 sub defaultNamingContext
 {
     my ($self) = @_;
@@ -3096,17 +3116,16 @@ sub ousToHide
 #   instead this one
 sub checkMailNotInUse
 {
-    my ($self, $addr) = @_;
+    my ($self, $addr, %params) = @_;
 
     my %searchParams = (
         base => $self->ldap()->dn(),
-        filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(|(otherMailbox=$addr)(mail=$addr))",
+        filter => "&(|(objectclass=person)(objectclass=couriermailalias)(objectclass=group))(|(otherMailbox=$addr)(mail=$addr))",
         scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%searchParams);
-    if ($result->count() > 0) {
-        my $entry = $result->entry(0);
+    foreach my $entry ($result->entries()) {
         my $modeledObject = $self->entryModeledObject($entry);
         my $type = $modeledObject ? $modeledObject->printableType() : $entry->get_value('objectClass');
         my $name;
@@ -3117,12 +3136,18 @@ sub checkMailNotInUse
             $name = $modeledObject ? $modeledObject->name() : $entry->dn();
         }
 
-        EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
+        my $ownAddress = 0;
+        if ($params{owner}) {
+            $ownAddress = $entry->dn() eq $params{owner}->dn();
+        }
+        if (not $ownAddress) {
+            EBox::Exceptions::External->throw(__x('Address {addr} is already in use by the {type} {name}',
                                               addr => $addr,
                                               type => $type,
                                               name => $name,
                                         ),
                                     );
+        }
     }
 }
 
@@ -3644,14 +3669,14 @@ sub _setupQuarantineDirectory
 
     my $zentyalUser = EBox::Config::user();
     my $guest       = $self->ldap->domainGuestUser();
-    my $guestUid    = $guest->get('uidNumber');
+    my $guestUidNumber = $guest->uidNumber();
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    push (@cmds, "setfacl -R -m u:$guestUid:rwx g:adm:rwx '$quarantine'");
+    push (@cmds, "setfacl -R -m u:$guestUidNumber:rwx g:adm:rwx '$quarantine'");
 
     # Grant access to domain admins
     my $domainAdminsSid = $self->ldap->domainSID() . '-512';

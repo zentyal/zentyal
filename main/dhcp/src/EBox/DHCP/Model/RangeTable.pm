@@ -83,7 +83,7 @@ sub validateTypedRow
         }
         # Check the range is within the available range
         my $net  = EBox::Global->modInstance('network');
-        my $interface = $self->parentRow()->valueByName('iface');
+        my $interface = $self->_iface();
         my $availableRange = new Net::IP($net->netInitRange($interface) . '-'
                                          . $net->netEndRange($interface));
         unless ( $range->overlaps($availableRange) == $IP_A_IN_B_OVERLAP ) {
@@ -221,6 +221,21 @@ sub _table
                     };
 
     return $dataTable;
+}
+
+sub _iface
+{
+    my ($self) = @_;
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 # Method: viewCustomizer

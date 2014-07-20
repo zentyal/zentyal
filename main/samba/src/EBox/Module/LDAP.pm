@@ -163,15 +163,15 @@ sub _sendSchemaUpdate
     File::Slurp::write_file($ldifFile, $buffer);
 
     # Send update
-    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'die');
+    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
     while (not $ldif->eof()) {
         my $entry = $ldif->read_entry();
-        if ($ldif->error()) {
+        if ($ldif->error() or not defined $entry) {
             throw EBox::Exceptions::Internal(
                 __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
                     x => $ldif->error(), y => $ldif->error_lines()));
         } else {
-            # Skip if already extended
+            # Check if the entry has been already loaded into schema
             my $dn = $entry->dn();
             # Skip checking the update schema cache sent to root DSE
             if ($dn ne '') {
@@ -202,20 +202,26 @@ sub _sendSchemaUpdate
 sub _loadSchemas
 {
     my ($self) = @_;
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    my @schemas = glob ("$path/schema-*.ldif");
+    $self->_loadSchemasFiles(\@schemas);
+}
 
+sub _loadSchemasFiles
+{
+    my ($self, $schemas_r) = @_;
+    my @schemas = @{ $schemas_r };
     # Locate and connect to schema master
     my $masterLdap = $self->_connectToSchemaMaster();
 
-    my $name = $self->name();
-    my $path = EBox::Config::share() . "zentyal-$name";
-    foreach my $ldif (glob ("$path/schema-*.ldif")) {
+    foreach my $ldif (@schemas) {
         $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 
     my $timeout = 30;
     my $defaultNC = $self->ldap->dn();
     # Wait for schemas replicated if we are not the master
-    foreach my $ldif (glob ("$path/schema-*.ldif")) {
+    foreach my $ldif (@schemas) {
         my @lines = read_file($ldif);
         foreach my $line (@lines) {
             my ($dn) = $line =~ /^dn: (.*)/;
@@ -260,11 +266,9 @@ sub _performSetup
     my ($self) = @_;
 
     my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
-    }
+    $self->_loadSchemas();
+    $state->{'_schemasAdded'} = 1;
+    $self->set_state($state);
 
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();
