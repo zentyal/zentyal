@@ -31,6 +31,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
 use TryCatch::Lite;
+use Net::LDAP::Util qw(escape_filter_value);
 
 # Method: new
 #
@@ -82,9 +83,10 @@ sub _entry
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{samAccountName}) {
+            my $value = escape_filter_value($self->{samAccountName});
             my $attrs = {
                 base => $self->_ldap->dn(),
-                filter => "(samAccountName=$self->{samAccountName})",
+                filter => "(samAccountName=$value)",
                 scope => 'sub',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
