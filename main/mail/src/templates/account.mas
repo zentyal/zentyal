@@ -5,8 +5,15 @@
 use EBox::Gettext;
 use JSON::XS;
 my $hasAccount = $params->{mail};
-my $managedHidden   = $params->{managed} ? "" : "style='display:none'";
-my $unmanagedHidden = $params->{managed} ? "style='display:none'" : "";
+my $managedHidden;
+my $unmanagedHidden;
+if ($hasAccount) {
+    $managedHidden   = $params->{managed} ? "" : "style='display:none'";
+    $unmanagedHidden = $params->{managed} ? "style='display:none'" : "";
+} else {
+    $managedHidden   = 0;
+    $unmanagedHidden = 1;
+}
 my $vdomainsJSON = JSON::XS::encode_json($params->{vdomains});
 </%init>
 <div id='userMail_data' data-vdomains='<% $vdomainsJSON %>' />

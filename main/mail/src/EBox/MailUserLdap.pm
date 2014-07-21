@@ -69,14 +69,16 @@ sub mailboxesDir
 
 # Method: setupUsers
 #
-#  Set up existent users for working correctly when the module is enabled for
-#  first time or a new vdomain is added
+#  Set up existent users for working correctly when the given vdomain or with
+#  all vdomains
 #
 #  Parameters:
-#   onlyForVDomain - when set the setup is only done for accounts on this domain
+#
+#  onlyForVDomain - set up users for this vdomain. Omitting it will
+#                    trigger the setup for all vdomains
 sub setupUsers
 {
-    my ($self, $onlyForVDomain) = @_;
+    my ($self, $vdomain) = @_;
     my $userMod = EBox::Global->getInstance()->modInstance('samba');
 
     foreach my $user (@{ $userMod->users() }) {
@@ -84,7 +86,7 @@ sub setupUsers
         if ($mail) {
             my ($lhs, $rhs) = split '@', $mail, 2;
 
-            if ($onlyForVDomain and ($rhs ne $onlyForVDomain)) {
+            if ($vdomain and ($rhs ne $vdomain)) {
                 next;
             }
 
@@ -169,7 +171,7 @@ sub delUserAccount
 {
     my ($self, $user) = @_;
     my $usermail = $self->userAccount($user);
-    if (not  $usermail) {
+    if (not $usermail) {
         return;
     }
     if (not $self->_accountIsManaged($user)) {
@@ -392,9 +394,14 @@ sub _userAddOns
     return undef unless ($mail->configured());
 
     my $usermail = $self->userAccount($user);
-    my @aliases = $mail->{malias}->userAliases($user);
     my @vdomains =  $mail->{vdomains}->vdomains();
-    my $managed = $self->_managedAccount($usermail, \@vdomains);
+    my @aliases;
+    my $managed;
+    if ($usermail) {
+        @aliases = $mail->{malias}->userAliases($user);
+        $managed = $self->_managedAccount($usermail, \@vdomains);
+    }
+
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
@@ -610,7 +617,10 @@ sub _checkMaildirNotExists
     my ($self, $lhs, $vdomain) = @_;
     my $dir = DIRVMAIL . "/$vdomain/$lhs/";
 
+    EBox::debug("XXX checking $dir");
+        EBox::trace();
     if (EBox::Sudo::fileTest('-e', $dir)) {
+
         my $backupDirBase = $dir ;
         $backupDirBase =~ s{/$}{};
         $backupDirBase .= '.bak';

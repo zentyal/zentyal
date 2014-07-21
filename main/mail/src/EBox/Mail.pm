@@ -430,9 +430,8 @@ sub setupLDAP
         }
     }
 
-    # vdomains should be created to have a correct setupUsers
+    # vdomains should be regnenerated to setup user correctly
     $self->{vdomains}->regenConfig();
-    $self->{musers}->setupUsers();
 }
 
 sub depends
