@@ -774,7 +774,7 @@ sub checkAndUpdateClusterConfiguration
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $self->userSecret()},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
         $client->setPort($node->{port});
         try {
@@ -1424,7 +1424,7 @@ sub _join
     my $client = new EBox::RESTClient(
         credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
         server => $peerHost,
-        verifyHostname => 0,
+        verifyPeer => 0,
        );
     $client->setPort($row->valueByName('zentyal_port'));
 
@@ -1562,7 +1562,7 @@ sub _notifyLeave
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $userSecret},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
         $client->setPort($node->{port});
         try {
@@ -1605,7 +1605,7 @@ sub _notifyClusterConfChange
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $clusterSecret},
                 server => $node->{addr},
-                verifyHostname => 0,
+                verifyPeer => 0,
                );
             $client->setPort($node->{port});
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
@@ -1938,7 +1938,7 @@ sub _askForConf
         credentials => {realm => 'Zentyal HA', username => 'zentyal',
                         password => $clusterSecret},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
     $client->setPort($node->{port});
 

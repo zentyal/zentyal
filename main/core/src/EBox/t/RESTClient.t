@@ -33,7 +33,7 @@ use Test::Exception;
 use Test::MockModule;
 use Test::MockObject;
 use Test::MockObject::Extends;
-use Test::More tests => 28;
+use Test::More tests => 30;
 
 sub setUpConfiguration : Test(startup)
 {
@@ -75,6 +75,29 @@ sub test_bad_construction : Test(3)
     throws_ok {
         new EBox::RESTClient(server => 'zentyal.org', scheme => 'trala');
     } 'EBox::Exceptions::InvalidData', 'Invalid scheme argument on constructor';
+}
+
+sub test_verify_opts : Test(2)
+{
+    my ($self) = @_;
+
+    my $cl = new EBox::RESTClient(server => 'graham-coxon.co.uk',
+                                  scheme => 'https',
+                                  verifyHostname => 0);
+
+    $self->{agent}->mock('request', sub { new HTTP::Response(200, 'OK', undef, 'foo') });
+
+    $cl->GET('/ruin');
+    $self->{agent}->called_args_pos_is(2, 2, 'verify_hostname');
+    $self->{agent}->clear();
+
+    my $cl = new EBox::RESTClient(server => 'graham-coxon.co.uk',
+                                  scheme => 'https',
+                                  verifyPeer => 0);
+    $cl->GET('/ruin');
+    $self->{agent}->called_args_pos_is(3, 2, 'SSL_verify_mode');
+    $self->{agent}->clear();
+
 }
 
 sub test_isa_ok : Test(2)
