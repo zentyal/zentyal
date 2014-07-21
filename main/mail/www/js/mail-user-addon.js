@@ -4,7 +4,6 @@ Zentyal.namespace('MailUserAddon');
 
 Zentyal.MailUserAddon.accountChange = function(mail, ocEnabled) {
     var hasAccount = (mail !== '');
-    console.log('XXX mail ' + mail + ' hasAccount:' + hasAccount);
     $('#userMailNoAccountDiv').toggle(!hasAccount);
     $('#userMailWithAccountDiv').toggle(hasAccount);
 

@@ -166,16 +166,13 @@ $(function() {
         errorDiv: '#editUserForm_error',
         submitButton: '#submitEditUserForm',
         success: function(response) {
-             console.log('XXXXXXXXxxx');
             if ('set_text' in response) {
                 var tree =  $("#tree_Manage");
                 var selected = tree.jstree("get_selected")[0];
                 tree.jstree("set_text", selected, response.set_text);
             }
             if ('mail' in response) {
-               console.log('mail in response');
                if ('MailUserAddon' in Zentyal) {
-               console.log('mailuseraddon in response');
                    Zentyal.MailUserAddon.accountChange(response.mail);
                    $('#note_userMailCreateDelAccount, #error_userMailCreateDelAccount').html('').hide();
                }
