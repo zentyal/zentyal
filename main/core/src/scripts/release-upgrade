@@ -56,20 +56,21 @@ upgrade
 echo; echo "Forcing pending packages installation..."; echo
 service apache2 stop || true
 
-for i in `seq 1 5`
+for i in `seq 1 3`
 do
+    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+    rm -f /var/lib/dpkg/info/suricata.prerm
     for pkg in zentyal-core freeradius-ldap suricata rabbitmq-server haproxy zentyal-samba
     do
         rm -f /var/lib/dpkg/info/${pkg}.postinst
     done
-    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     dpkg --configure -a --force-confdef
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 done
 
 service apache2 start || true
 
-if dpkg --configure -a --force-confdef
+if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
     start samba-ad-dc
