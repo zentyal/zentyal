@@ -617,8 +617,6 @@ sub _checkMaildirNotExists
     my ($self, $lhs, $vdomain) = @_;
     my $dir = DIRVMAIL . "/$vdomain/$lhs/";
 
-    EBox::debug("XXX checking $dir");
-        EBox::trace();
     if (EBox::Sudo::fileTest('-e', $dir)) {
 
         my $backupDirBase = $dir ;
