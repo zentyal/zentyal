@@ -66,11 +66,18 @@ use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';
 #                    password - String the password
 #
 #                 (Optional)
+#
 #   scheme - String the valid scheme *(Optional)* Default value: https
+#
 #   uri - String the complete URI (host + scheme). Using this is incompatible
 #         with server and scheme arguments
+#
 #   verifyHostname - Boolean verify hostname when using https scheme.
 #                    *(Optional)* Default value: rest_verify_servers configuration key
+#
+#   verifyPeer - Boolean verify peer certification when using https scheme.
+#                If it is set to false, verifyHostname is not taken into account.
+#                *(Optional)* Default value: true
 #
 sub new
 {
@@ -89,6 +96,11 @@ sub new
     $self->{verifyHostname} = $params{verifyHostname};
     unless (defined($self->{verifyHostname})) {
         $self->{verifyHostname} = EBox::Config::boolean('rest_verify_servers');
+    }
+    if (exists $params{verifyPeer} and (not $params{verifyPeer})) {
+        $self->{verifyPeer} = 0;
+    } else {
+        $self->{verifyPeer} = 1;
     }
 
     unless (defined($params{uri})) {
@@ -269,7 +281,12 @@ sub request {
     my $ua = LWP::UserAgent->new;
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
-    $ua->ssl_opts('verify_hostname' => $self->{verifyHostname});
+    if ($self->{verifyPeer}) {
+        $ua->ssl_opts('verify_hostname' => $self->{verifyHostname});
+    } else {
+        $ua->ssl_opts('verify_hostname' => 0);
+        $ua->ssl_opts('SSL_verify_mode' => IO::Socket::SSL::SSL_VERIFY_NONE);
+    }
     # Set HTTP proxy if it is globally set as environment variable
     $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 
