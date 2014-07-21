@@ -56,7 +56,7 @@ upgrade
 echo; echo "Forcing pending packages installation..."; echo
 service apache2 stop || true
 
-for i in `seq 1 3`
+for i in `seq 1 5`
 do
     for pkg in zentyal-core freeradius-ldap suricata rabbitmq-server haproxy zentyal-samba
     do
@@ -74,8 +74,14 @@ then
     /usr/share/zentyal/global-action --action saveAllModules
     start samba-ad-dc
     /usr/share/zentyal/initial-setup samba 3.4
-    service zentyal samba restart
+    # Restart modules that need to add schemas
+    for i in samba mail jabber mail mailfilter
+    do
+        service zentyal $i restart
+    done
+    # Restart Zentyal UI
     service zentyal webadmin restart
+    service zentyal haproxy restart
 
     echo; echo "Zentyal upgrade finished!"
 else
