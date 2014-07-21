@@ -20,7 +20,7 @@ $params
    <div id='error_sambaGroupShare' class='error' style='display:none'></div>
    <form action='/Samba/ActiveSharing' method='post' id='sambaGroupShare'>
     <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
-%           if (length($params->{'sharename'}) > 12) {
+%           if (defined ($params->{'sharename'}) and length ($params->{'sharename'}) > 12) {
                 <div class='warning'>
                 <%   __("This resource name is longer than 12 characters.") %>
                 </div>
