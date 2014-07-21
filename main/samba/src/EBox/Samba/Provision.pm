@@ -1320,7 +1320,7 @@ sub provisionADC
         (undef, $adminAccountPwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
         EBox::info("Trying to get a kerberos ticket for principal '$principal'");
         write_file($adminAccountPwdFile, $adPwd);
-        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' $principal";
+        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' '$principal'";
         EBox::Sudo::root($cmd);
 
         # Write config
