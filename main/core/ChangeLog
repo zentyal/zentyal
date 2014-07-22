@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed mysql commands executed with wrong parameters or credentials
 	+ Fix isEqualTo types comparision, check for defined return value from cmp
 	+ Added option to disable Peer Verification in EBox::RESTClient
 	+ pathHTTPSSSLCertificate() always returns a list
