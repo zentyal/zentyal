@@ -156,9 +156,7 @@ sub _populateGroups
 
         push (@groups, { value => $domainUsersGroup->get('samAccountName'), printableValue => __('All domain users') });
         foreach my $group (@{$sambaMod->securityGroups()}) {
-            my $groupDN = $group->dn();
-            my $baseName = $group->baseName();
-            push (@groups, { value => $groupDN, printableValue => $baseName });
+            push (@groups, { value => $group->dn(), printableValue => $group->get('samAccountName') });
         }
         return \@groups;
     }

@@ -615,7 +615,9 @@ sub _createRPCProxyCertificate
                      "mkdir -p -m775 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
-        my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
+        # We take the last certificate bz the first ones could be the
+        # autodiscovery certificates
+        my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate()->[-1];
         if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
             # reuse webadmin certificate if issuer == fqdn
             my $webadminCertDir = dirname($webadminCert);

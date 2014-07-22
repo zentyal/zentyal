@@ -270,10 +270,30 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     } elsif (EBox::Util::Version::compare($version, '3.5.2') < 0) {
         $self->_migrateToFetchmail();
+    } elsif (EBox::Util::Version::compare($version, '3.5') < 0) {
+        $self->_chainDovecotCertificate();
     }
 
     if ($self->changed()) {
         $self->saveConfigRecursive();
+    }
+}
+
+sub _chainDovecotCertificate
+{
+    my ($self) = @_;
+
+    my $certFile = '/etc/dovecot/dovecot.pem';
+    my $keyFile = '/etc/dovecot/private/dovecot.pem';
+    my $newCertKey = '/etc/dovecot/zentyal-new-cert.pem';
+
+    if (-e $certFile and -e $keyFile) {
+        my @commands;
+        push (@commands, "cat $certFile $keyFile > $newCertKey");
+        push (@commands, "mv $newCertKey $keyFile");
+        push (@commands, "rm -rf $newCertKey");
+        push (@commands, "rm -rf $certFile");
+        EBox::Sudo::root(@commands);
     }
 }
 

@@ -23,7 +23,7 @@ create_db()
     if [ -s $PASSWD_FILE ]
     then
         PASSWD=`cat $PASSWD_FILE`
-        if ! mysql -u $db_name -p$PASSWD -e 'exit'; then
+        if ! mysql -u$db_user -p$PASSWD -e 'exit' > /dev/null 2>&1; then
             mysql --defaults-file=/etc/mysql/debian.cnf -e "DROP USER '$db_user'@'localhost'"
             rm -rf $PASSWD_FILE
         fi
