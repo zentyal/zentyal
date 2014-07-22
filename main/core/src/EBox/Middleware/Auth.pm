@@ -178,7 +178,6 @@ sub _validateSession {
         $global = $self->_global();
     }
 
-
     if ($self->_actionScriptSession($env)) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
         $self->_cleanSession($env);
