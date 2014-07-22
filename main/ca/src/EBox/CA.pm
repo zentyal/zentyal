@@ -39,6 +39,7 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::InvalidData;
 use EBox;
 use EBox::CA::Certificates;
+use EBox::CA::User;
 use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
@@ -2687,6 +2688,12 @@ sub caExpirationDate
         $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
     }
     return $self->{caExpirationDate};
+}
+
+sub _ldapModImplementation
+{
+    my ($self) = @_;
+    return EBox::CA::User->new($self);
 }
 
 1;

@@ -1,0 +1,171 @@
+<%args>
+$params
+</%args>
+<%shared>
+my $validStateString =  __('Valid');
+my $revokedStateString = __('Revoked');
+my $expiredStateString = __('Expired');
+</%shared>
+<%init>
+my $user = $params->{user};
+my $certificate = $params->{certificate};
+my $caExpirationDays = $params->{caExpirationDays};
+</%init>
+% if (not $certificate) {
+<& .createCertificate, user => $user, caExpirationDays => $caExpirationDays &>
+% }
+<& .certificate, user => $user, cert => $certificate &>
+<script>
+$( function(){
+   var updateCertificate = function(certificate) {
+        var certState;
+        var date;
+        var disable_buttons = false;
+        if (certificate.state == 'V') {
+             certState = '<% $validStateString %>';
+             date = certificate.expiryDate;
+        } else if (certificate.state == 'E') {
+             certState = '<% $expiredStateString %>';
+             disable_buttons = true;
+             date = certificate.expiryDate;
+        } else if (certificate.state == 'R') {
+             certState = '<% $revokedStateString %>';
+             disable_buttons = true;
+             date = certificate.revokeDate;
+        } else {
+            alert('Unknown certificate state ' + certificate.state);
+        }
+        $('#user_certificate_revoke, #user_certificate_download').prop('disabled', disable_buttons);
+        $('#userCertificate_certificate_state').text(certState);
+        $('#userCertificate_certificate_date').text(date);
+   };
+
+   Zentyal.Form.setupAjaxSubmit('#userCertificate_create_form', {
+        noteDiv: '#userCertificate_certificate_note', // bz it will made visible in success
+        errorDiv: '#userCertificate_create_error',
+        submitButton: '#userCertificate_create_form_submit',
+        success : function(response) {
+            if (!response.success) {
+              return;
+            }
+            if (('certificate' in response) && response.certificate) {
+                $('#userCertificate_create').hide();
+                $('#userCertificate_certificate').show();
+                updateCertificate(response.certificate);
+            }
+        }
+    });
+}
+);
+</script>
+
+<%def .createCertificate>
+<%args>
+$user
+$caExpirationDays
+</%args>
+<%init>
+my @issueTable = (
+         [
+           name => 'expiryDays',
+           printableName => __('Days to expire'),
+           value => $caExpirationDays,
+           size => 5,
+           input => 'text'
+          ],
+          [
+            name  => 'user',
+            value => $user->dn(),
+            input => 'hidden',
+          ],
+          [
+              name => 'issue',
+              input => 'hidden',
+              value => 1,
+          ],
+          [
+            value => __('Issue'),
+            id    => 'userCertificate_create_form_submit',
+            name => 'submit',
+            input => 'submit'
+          ]
+);
+</%init>
+<div id='userCertificate_create'>
+  <h3><% __('Issue a user certificate')  %></h3>
+  <div id='userCertificate_create_error' class='error' style='display:none'></div>
+  <div id='userCertificate_create_note' class='note' style='display:none'></div>
+  <form class="formDiv" action="/CA/UserCertificate" method="post" id='userCertificate_create_form'>
+     <& /formTable.mas, rows => \@issueTable &>
+  </form>
+</div>
+</%def>
+
+<%def .certificate>
+<%args>
+$user
+$cert
+</%args>
+<%init>
+my $stateStr = '';
+my $date = '';
+my %buttons = (
+   'revoke' => {
+       id => 'user_certificate_revoke',
+       name => 'revoke',
+       value => __('Revoke')
+    },
+    'download' => {
+       id => 'user_certificate_download',
+       name => 'download',
+       value => __('Download'),
+    },
+    'renew' => {
+       id => 'user_certificate_renew',
+       name => 'renew',
+       value => __('Renew')
+    },
+
+);
+
+if ($cert) {
+   if ($cert->{'state'} eq 'V') {
+     $stateStr = $validStateString;
+     $date = $cert->{expiryDate};
+   } elsif ($cert->{'state'} eq 'E') {
+     $stateStr = $expiredStateString;
+     $date = $cert->{expiryDate};
+     $buttons{revoke}->{disabled} = $buttons{download}->{disabled} = 'disabled';
+   } elsif ($cert->{'state'} eq 'R') {
+     $stateStr = $revokedStateString;
+     $date = $cert->{revokeDate};
+     $buttons{renew}->{value} = __('Reissue');
+     $buttons{revoke}->{disabled} = $buttons{download}->{disabled} = 'disabled';
+   }
+}
+</%init>
+
+<div id='userCertificate_certificate' <% $cert ? '' : "style='display:none'" %> >
+  <div id='userCertificate_certificate_error' class='error' style='display:none'></div>
+  <div id='userCertificate_certificate_note' class='note' style='display:none'></div>
+  <table class='dataTable'>
+    <tr class='tleft'>
+       <td><% __("State") %></td>
+       <td id='userCertificate_certificate_state'><% $stateStr %></td>
+    </tr>
+    <tr class='tleft'>
+       <td><% __("End date") %></td>
+       <td id='userCertificate_certificate_date'><% $date %></td>
+    </tr>
+    <tr class='tcenter'>
+       <form action='/CA/UserCertificate'>
+           <input type='hidden' name='user' value='<% $user->dn() %>' />
+           <td><& /input/submit.mas, %{ $buttons{revoke}} &></td>
+           <td><& /input/submit.mas, %{ $buttons{download}} &></td>
+           <td><& /input/submit.mas, %{ $buttons{renew}} &></td>
+           <td id='userCertificate_certificate_state'><% $date %></td>
+       </form>
+    </tr>
+  </table>
+</div>
+</%def>
