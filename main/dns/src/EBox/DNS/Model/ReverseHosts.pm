@@ -15,15 +15,13 @@
 
 # Class:
 #
-#   EBox::DNS::Model::ReverseHosts;
-#
+#   EBox::DNS::Model::ReverseHosts
 #
 use strict;
 use warnings;
 
 package EBox::DNS::Model::ReverseHosts;
 
-use EBox::DNS::Types::Hostname;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -34,6 +32,7 @@ use EBox::Types::DomainName;
 use EBox::Types::HasMany;
 use EBox::Types::HostIP;
 use EBox::Types::Composite;
+use EBox::DNS::Types::Hostname;
 use EBox::Sudo;
 
 use EBox::Model::Manager;

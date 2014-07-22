@@ -36,7 +36,6 @@ use EBox::Types::Union;
 use EBox::Types::Composite;
 use EBox::Types::Select;
 
-use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
 
 # Group: Public methods

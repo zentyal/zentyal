@@ -20,6 +20,7 @@ models:
     - Settings
     - ReverseZones
     - ReverseHosts
+    - ReverseNameServers
 
 composites:
     Global: [Settings, Forwarder, DomainTable, ReverseZones]
@@ -37,4 +38,4 @@ modeldepends:
 foreign:
     HostnameTable: [HostIpTable, AliasTable]
     DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]
-    ReverseZones: [ReverseHosts]
+    ReverseZones: [ReverseHosts, ReverseNameServers]

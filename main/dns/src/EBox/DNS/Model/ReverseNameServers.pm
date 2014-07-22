@@ -13,16 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: <EBox::DNS::Model::ReverseNameServer>
+# Class:
 #
-#
+#   EBox::DNS::Model::ReverseNameServers
 #
 use strict;
 use warnings;
 
-package EBox::DNS::Model::ReverseNameServer;
+package EBox::DNS::Model::ReverseNameServers;
 
-use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -30,7 +29,10 @@ use EBox::Gettext;
 use EBox::Types::DomainName;
 use EBox::Types::Select;
 use EBox::Types::Union;
+use EBox::Types::Text;
 use EBox::Exceptions::External;
+
+use base 'EBox::Model::DataTable';
 
 # Group: Public methods
 
@@ -168,7 +170,7 @@ sub pageTitle
     my ($self) = @_;
 
     my $parentRow = $self->parentRow();
-    return $parentRow->printableValueByName('domain');
+    return $parentRow->printableValueByName('rzone');
 }
 
 # Group: Protected methods
@@ -196,7 +198,6 @@ sub _table
                     printableName => __('Default'),
                     editable      => 0,
                     unique        => 0,
-                    defaultValue  => sub { $self->parentRow->defaultPrimaryNameServer() },
                 ),
                 new EBox::Types::DomainName(
                     fieldName     => 'custom',
@@ -209,7 +210,7 @@ sub _table
     ];
 
     my $dataTable = {
-        tableName           => 'NameServer',
+        tableName           => 'ReverseNameServers',
         printableTableName  => __('Name servers'),
         automaticRemove     => 1,
         modelDomain         => 'DNS',
@@ -220,6 +221,7 @@ sub _table
         printableRowName    => __('name server record'),
         order               => 1,
         insertPosition      => 'back',
+        HTTPUrlView         => 'DNS/View/ReverseNameServers',
     };
 
     return $dataTable;
