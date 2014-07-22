@@ -1,4 +1,8 @@
-3.4.2
+HEAD
+	+ Roundcube webmail uses again 127.0.0.1 as IMAP server
+3.5
+	+ Webmail depends on Zentyal Mail module
+	+ Set version to 3.5
 	+ Adding migration code
 3.4.1
 	+ Fixed regression disabling OpenChange plugins

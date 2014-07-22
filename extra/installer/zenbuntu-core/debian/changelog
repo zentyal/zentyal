@@ -1,3 +1,15 @@
+zenbuntu-core (3.5.1) trusty; urgency=medium
+
+  * Fix version in plymouth text theme
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 02 Jul 2014 09:24:37 +0200
+
+zenbuntu-core (3.5) trusty; urgency=low
+
+  * Bump version to 3.5
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 30 Mar 2014 04:53:45 +0200
+
 zenbuntu-core (3.4) saucy; urgency=low
 
   * Bump version to 3.4

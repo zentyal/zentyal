@@ -103,14 +103,17 @@ sub usesFilter
 sub squidRulesStubs
 {
     my ($self, $profileId) = @_;
+    my $policy;
     if ($self->value('blanketBlock')) {
-        return [];
+        $policy = 'deny';
+    } else {
+        $policy = 'allow';
     }
 
     my $rule = {
         type => 'http_access',
         acl => '',
-        policy => 'allow',
+        policy => $policy,
     };
     return [ $rule ];
 }

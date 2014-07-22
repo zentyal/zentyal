@@ -1,11 +1,29 @@
 HEAD
+	+ Added migration code to handle new Dovecot certs
+	+ Fixed group mail alias creation
+	+ Fixed problems with checking mail address duplicates
+	+ Added fetchmail again
+	+ Fix _accountExists ldap search filter
+3.5.1
+	+ Removed spurious warnings on mail services widget
+	+ Disabled deprecated autocreate dovecot plugin, using mailbox and
+	  namespaces instead
+	+ Workaround in members table against losing of directory
+	  parameter/attribute
+3.5
+	+ Fix groupaliases.cf parameter stub
+	+ Adapt alias management to constraints by mailboxRelatedObject
+	+ Changed amavis submision service to avoid rewriting rules
+	+ Reorganized mail configuration
+	+ Don't try to check openchange accounts on removing system users
 	+ Fixed bug triggered when adding external aliases
+	+ Adapted to OpenLDAP removal
 	+ Postfix handles Zentyal distribution groups virtual alias
 	+ Adapted MailQueue.pm to TryCatch::Lite
 	+ Restart usercorner on installation / upgrade time so the new code is
 	  available there too
 	+ Fixed external mail retrieval configuration form from user corner
-3.4.2
+	+ Set version to 3.5
 	+ Fixed some errors on user mail account edition
 	+ Better integration between mail addon and mail field
 	+ Avoid error when trying to show a no longer existent mail in queue

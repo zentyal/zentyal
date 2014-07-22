@@ -1,916 +1,865 @@
 HEAD
-	+ s4sync: Remove the group share if exists after deleting the group itself
-	+ s4sync: Remove the deleted user or group from shares ACLs
+	+ Allow unsafe chars on admin account to use for join a domain
+	+ Improve the LDIF files parsing created by output of ldbsearch command
+	+ Fixed problems with checking mail address duplicates
+	+ Fixed bug which could delete the group mail account after a
+	  group edit
+	+ openchange.conf named properties config uses splitted params
+	+ Added EBox::module::LDAP::_loadSchemasFiles
+	+ Added EBox::Samba::LdapObject::hasObjectClass
+	+ Hide the dns-hostname account after join a domain
+	+ Remove mail account management logic from edit user form. This field
+	  is now disabled when the mail module is installed, so account management
+	  like create, rename or delete it must be done in the mail module user
+	  addon
+	+ Added code for migration from 3.4
+	+ Instance groups using gid parameter is no longer allowed
+3.5.2
+	+ Fix sssd bug not finding users and groups
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
+	+ Fixed use of deprecated attributes uid and gid instantiating users and
+	  groups
+3.5.1
+	+ Display correctly tree elements on external AD mode
+	+ Fixed user creation when remove user from a group in the
+	  EditGroup CGI
+	+ The groups and groupsNotIn methods have now the same behaviour
+	  for all EBox::Samba::OrganizationalPerson classes
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
+	+ Restored external AD mode
+	+ Better errors in GPO models when losing parent row
+	+ Catch error trying to add an already added or delete an already deleted
+	  user to group
+	+ Avoid warning flag on smart match experimental feature
+3.5
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
+	+ Remove duplicate entries from the custom shell list
+	+ Hide krbtgt user in external AD mode
+	+ EBox::Samba::DNS::Zone always return lowercase zone name
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
 	+ Grant rwx rights to Domain guest and Everybody on guest shares
-3.4.2
 	+ Added new domainControllers() method
-3.4.1
 	+ Override daemons when migrating from previous versions
 	+ Remove the use of method canonicalName for greater performance, use
 	  object DNs instead
-	+ s4sync is stopped before samba daemon to prevent ldb connection errors
-	+ s4sync run timestamp is saved only if it doesn't break with an error at
 	  the end of the work loop
+	+ Show Administrator account in the UI so it can be handled from Zentyal
+	+ Merge zentyal-users and zentyal-samba in a single package
+	+ Added EBox::Samba::User::hasValue to check if a certain value is present
+	+ Do not duplicate cloud ops when REST call fails
+	+ Use samba instead of slapd + heimdal
+	+ Create a container CN=Groups when provisioning as DC
+	+ Set gidNumber for new users to Domain Users to have NSS + PAM working
+	+ Set gidNumber based on RID for new groups
+	+ Set gidNumber to Domain Users and Domain Admin for NSS + PAM
+	+ Change default group container to cn=Users as Windows does
+	+ Include PAM + NSS services with SSSd to authenticate LDB users
+	  in the system
+	+ New EBox::Module::LDAP replacing EBox::LdapModule and using
+	  EBox::Module::Service as base class, schemas are now loaded
+	  in _regenConfig instead of manually in enableActions
+	+ Display message when creating a user which username has more
+	  than 20 characters
+	+ Fixed error when editing user email address when mail module is
+	  not installed
+	+ Fix domain controllers shown on the computers OU in Manage model
+	+ Using paged serch in EBox::Samba::users() method
+	+ Added EBox::LDAPBase::pagedSearch method
+	+ Added support for addon components when user is in a
+	  non-standard OU
+	+ Better control for edit user quota
+	+ Sent zentyal-usercorner trigger on install / upgrade to restart it if
+	  it's installed
+	+ Avoid apparmor errors in trusty
+	+ Set version to 3.5
+	+ Fixed bug when altering mail address through the edit user form
+	+ Better integration between mail addon and mail field
+	+ Remove method canonicalName and use object DNs for greater performance
+	+ Migrate previous configuration from 3.3 when upgrading
 3.4
-	+ Moved to use Net::LDAP::Control::Relax object to relax LDAP restrictions
-	  and forced the critical flag to 0 so Samba accepts it
-	+ Added EBox::Samba::LdbObject::isCritical method to simplify all checks
-	  of the isCriticalSystemObject attribute
-	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
-	  correctly
-	+ Split openchange configuration into its own config file and set correct
-	  permissions on it
-	+ Remove printers from dependencies list if the module is not installed
-	+ Updated EBox::Samba::Users::setCredentials to stop using the lazy flag
-	  and added a note about why it cannot be used in the method documentation
-	+ Write openchange options to use mysql as backend
-	+ Use new addModuleToPostSave Global interface in Provision class
-	+ Depend on new samba packaging instead of old samba4 one
+	+ Updated EBox::Samba::Model::Password to use
+	  EBox::Usercorner::updateSessionPassword method and the new samba
+	  location
+	+ Stop changing users and contacts' cn field on object edition, allowed to
+	  edit the displayName field, just as Windows does
+	+ Disable OpenLDAP users sync in favor of Samba AD replication
+	+ Avoid warning when checking whether we are in the usercorner
+	+ Updated to use Plack / PSGI instead of mod_perl
+	+ Updated to use the new haproxy API
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Fixed soap.conf for apache 2.4
+	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
-	+ ad-migrate: Detect offline role owner and seize roles
-	+ Fixed setting of printers permissions
-	+ s4sync: Check samba daemon is running
-	+ Ignored and logged as errors the users, contacts and groups in OpenLDAP
-	  that are not linked with Samba objects
-	+ Fix edit Group Policy Link after UI changes
-	+ Fix GPO models UI
-	+ Fix revert resolvconf configuration after joining domain
-	+ Fix delete GPLink: use gPLink attribute name as our checkers are
-	  case sensitive
-	+ Set allow_non_scanned_files = True on samba.conf by default to
-	  avoid issues with antivirus when editing files
-	+ EBox::Samba::LdbObject::setCritical cannot use lazy flag to work
-	  correctly
-	+ Fix NT_STATUS_ACCESS_DENIED opening files quering the DOS attributes
-	  and passing them to open function
-	+ Set OpenChange as not provisioned when Samba is reprovisioned
-	+ Added a way to check whether we are managing the AD schema or not
-	+ Samba provision failures when IPs are not set no longer talk
-	  wrongly about internal interfaces
-	+ Create directories in _setConf to avoid invalid group __USERS__ error
-	+ Clean up openchange section in stub smb.conf file
-	+ Fixed bug in EBox::LDB::users which made the method to not
-	  return users inside Organization Units
-	+ Fix typo in SambaLdapUser that fixes error in change email
-	+ Change user modification hook from _modifyUser to _preModifyUser
-	+ Throw DataExists exception if the user try to rename a user on a
-	  container and already exists
-	+ Check for duplicated DN on user creation and show a proper error, not
-	  an internal exception.
-	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
-	  OpenLDAP. Those users are ignored on EBox::LDB::users method
-	+ Remove group share on group deletion
-	+ Set the setShareRightsReset flag on SambaSharesPermissions row deletion
-	+ Samba log helper is now aware of utf8
-	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
-	  deletion
-	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
-	  defer it until s4sync does the synchronization
-	+ Typo fix in netbios validation
-	+ Check if objects are system critical before deletion
+	+ Add script to update the credentials when mode is external AD
+	+ Added and used checkMailNotInUse method
+	+ Updated cloud sync to ignore any change done in cloud to internal users
+	  or groups
+	+ Fixed EBox::CloudSync::Slave to sync uid and gid numbers on user update
+	  and added unit tests for it
+	+ Added EBox::Samba::Group::setInternal method
+	+ Allow to use lazy flag with EBox::Samba::User::setInternal
+	+ Added unit tests for cloud sync code
+	+ Check available IP addresses when enable module
+	+ Added lock to cloud-sync script
+	+ Better integration of edit groups for mail group aliases
+	+ Update group icon when type of group changes
+	+ Implement _preModifyUser on LdapUserBase
+	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
+	+ Fixed regression in LDAP info page for external AD mode
+	+ Print slave-sync output to zentyal.log instead of stdout
+	+ Fixed excesive restrictive validation of external AD password in wizard
 3.3
-	+ Renamed printableName to File Sharing and Domain Services
-	+ Split settings in two menu entries: Domain and File Sharing
+	+ Forbid to create OUs inside Users, Groups or Computer OUs
+	  because we not support them when Samba is enabled
+	+ Forbid and print specific  error message when trying to put two
+	  objects with the same CN in the same container
 	+ Switch from Error to TryCatch for exception handling
-	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
-				  adc
-	  adc
-	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
-	              when reprovisioning as additional DC
-	+ Do not hide domain guest account
-	+ Fix share guest access, based on domain guest account enabled status
-	+ LDB - Do not return users holding a servicePrincipalName by default
-	+ Provision - Improve the LDAP OUs purge after join domain
-	+ s4sync - Serveral fixes to make it more robust
-	+ OU - Improve creation code
-	+ LDB - Return OUs ordered, parents before childs
-	+ Provision - Link accounts holding zentyal service principals
-	+ Provision - Improve OU loading, skip zentyal internal OUs and linked
-	+ Provision - Link containers at provision stage, creating them if not
-	              exists. Ignore not linked OUs for sync operations.
-	+ Provision - Set kerberos linked OU as visible only in advanced mode
-	+ Provision - Check no OUs are created below OU=Users. This violate the
-	              AD DIT, as OU=Users is linked to CN=Users.
-	+ Do not import accounts while provisioning or joining a domain, rely on
-	  s4sync
-	+ Remove useless chown workaround
-	+ Forbid sharing '/opt'
-	+ Add filesystem format check defining system shares
-	+ Update user CN on user modifications
-	+ Revert case sensitive shares. Use new SMB raw client library feature
-	  per packet case sensitive.
-	+ Throw external exception instead internal if error changing user password
-	+ Show user friendly error creating system shares
-	+ Add precondition to GPO models, do not allow edition if server is ADC
-	+ Fix error in backup or clicking on edit GPO when server is ADC and
-	  sysvol is not yet replicated
-	+ Check if file system share path is a directory
-	+ Fixed unhandled exception when checking filesystem options
+	+ Remove useless warning when deleting a user or group with offer 2013
+	+ Show system but not internal groups in user edition form
+	+ Allow unsafe characters for user and password in external AD mode.
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
+	+ The "sub ous" return the OUs hierarquically ordered
+	+ Check for defined uidNumber and gidNumber creating users and groups
+	+ Revert useless chown workaround
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
+	+ Better error handling when the default group is not found
+	+ Fixed distribution group edition
+	+ Add error, errorText and errorDescription methods to
+	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses
-	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
-	  objectGUID unique id to be 100% sure we match the right objects
-	+ Fixed a typo in a info message
-	+ Depend on the new Samba 4.1.1, also with fixed init script
-	+ Improve GPO models preconditions to avoid cannot connect to samba
-	  LDAP
-	+ Fix regression in unmanaged ACLs option
-	+ Prevent _postServiceHook code execution outside Save Changes
-	+ Fixed openLDAP -> samba integration for users, contacts and groups using
-	  non ascii characters
-	+ Check for acl and user_xattr mount options when adding system shares
-	+ Depend on new samba4 version that fixes 0-byte size problems
-	+ NT SD are now written to hidden and readonly files
-	+ Remove no longer used antivirus options
-	+ Get ldb object in s4sync after the initial wait
-	+ Use resolvconf tool to modify resolv.conf when joining as ADC
-	+ Set zavsd socket mode to 0777
-	+ Fix already defined variable warning
-	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
-	  (Contributed by on-jz)
-	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
-	+ Set case sensitive on a per share basis
-	+ Fix netbios name no being updated when hostname change and samba module
-	  is not enabled
-	+ Disable debug to parse ldbsearch command output when looking for DNS
-	  zones stored in samba
-	+ Open files with minimal access mask to set the security descriptors
-	+ Added new 'Apply ACLs recursively' feature - one checkbox per samba share.
-	  If unchecked, changed ACLs will only be written to top-level share.
-	  Subfolders' ACLs will be left unchanged. Default is checked.
-	  (Contributed by on-jz)
-	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
-	+ Listen on all interfaces to avoid problems when more than one IP address
-	  is configured in the DNS module
-	+ Removed unnecessary FirewallHelper implementation
-	+ Delete unused updateHostnameFields() method
-	+ Mark network module as changed when upgrading from 3.0
-	+ Enforce set of shares ACLs when upgrading from 3.0
-	+ Remove old keytab when exporting new one
-	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
-	  join domain as additional domain controller
+	+ Better error handling when we get a LdapObject that doesn't exists
+	+ Remove undefined warnings on users/group creation
+	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
+	  is installed but disabled
+	+ Add missing use to EBox::Samba::LDAP::ExternalAD
+	+ Force DNS restart when users mode changed
+	+ Force service principals update on _postServiceHook in external AD mode
+	+ Don't use slave cloud sync if not subscribed
+	+ Adapted cloud sync to changes in user modules
+	+ Added childrenObjectClass parameter to EBox::Samba::LdapObject::children
+	+ userExists and groupExists discriminates between shown objects and
+	  objects hid by SID
+	+ Fixed wrong path in ExternalAD::connectWithKerberos
+	+ Update names in tree view when either user or contact is edited
+	+ Fixed wizard error when setting external AD mode
+	+ Fixed EBox::Samba::groupDn method
+	+ In contact edition do not store full name in cn but use
+	  givenname and sn to get fullname.
+	+ Use paginated search when getting children nodes in LdapObject
+	+ UTF8 decode DN when retrieving it from a LDAP object
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
-	+ Ignore container 'Microsoft Exchange System Objects' when quering
-	  users stored in LDB
-	+ Write openchange options to smb.conf if module installed
-	+ Fix precondition on GPOScripts model
-3.2.2
-	+ Added retry mechanism in SmbClient to wait until samba is ready
-	+ Do not try to get domainSID in s4sync if not ready
-	+ Improve retrying log messages in safeConnect
-	+ Setup quarantine directory in postHook instead of setConf
-	+ Don't use Samba's LDB before it's started
-	+ Rewrote a couple of methods to use file access directly instead of LDB
-	  so it doesn't depend on the service running
-	+ Stop starting samba on safeConnect calls
-3.2.1
-	+ Fixed start of samba after reboot
+	+ Fixed cloud-sync script
 3.2
-	+ Migrated the Samba provision status into redis
-	+ Fixed migration of disabled accounts
-	+ Execute the mapping of special accounts method on migration
 	+ Set version to 3.2
-3.1.14
-	+ Fixed provisioning flag also in DC mode
-	+ Do not automatically start service in LDB.pm
-	+ Added missing EBox::Gettext uses
-	+ Prevent member sync between Domain Users and __USERS__ both are handled
-	  automatically.
-3.1.13
-	+ Improve samba daemon startup wait condition
-	+ Improve GPO code to be more robust.
-	+ Set Administrator user as internal when migrating from 3.0
+	+ Add objectClass shadowAccount in 3.0 migration to fix disabled accounts
+3.1.11
+	+ Added migration code to be sure that we have all users added as members
+	  of __USERS__ group on OpenLDAP.
+	+ Fixed user creation to make all users belong to __USERS__ group
+3.1.10
+	+ Do not crash when deleting a group if LDB object does not exist
 	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
-	+ Migrate disabled accounts from 3.0
-3.1.12
-	+ Only set share permissions when there is really a permission change
-	  instead of doing it on every samba restart.
-	+ Fix provisioning flag management on error
-3.1.11
-	+ Added migration code to be executed when upgrading from 3.0
-3.1.10
-	+ Wait until all the samba services are ready before trying to connect
-	+ Removed useless and problematic enforceServiceState override
 3.1.9
-	+ Antivirus daemon unlinks the cache file before creating new one
-	+ Fix user accounts not enabled when created by s4sync
-	+ Wait for RID pool allocation after join domain as DC
-	+ Remove no longer needed workaround for DNS SPN
-	+ Add samba as a DomainDnsZones and ForestDnsZones replica holder
-	  when joining as additional DC (samba bug #9200)
-	+ Fixes for LDAP-LDB OUs synchronization
-	+ Force restart of DNS module while provisioning to reload zones from LDB
-	+ Block until samba LDAP task is listening when restarting module
-	+ New state flag 'provisioning'
-	+ Added 'All users' option to ACL group permissions
-	+ Fix precondition on GPOScripts model
+	+ Fix typo in setSecurityGroup when no GID is set yet
+	+ Show group in slave as read-only
+	+ Show in a slave when the user is not a member of any group
+	+ Check email address for a group is done
+	+ Add group dialog can now set the e-mail
+	+ Master/Slave synchronisation works again
 3.1.8
-	+ Added EBox::LDB::securityGroups to get the list of security groups from
-	  Samba.
-	+ Requested SLAPD to add an index on the msdsObjectGUID field.
-	+ Added support to set permissions recursively.
-	+ Moved the code that sets the share permissions to EBox::Samba to execute
-	  it on EBox::Module::Service::_postServiceHook hook so we are sure samba
-	  is already started with the new configuration.
-	+ Shares are created even if no permissions are assigned nor is a guest
-	  shared. Administrators will always have permissions now, so the share
-	  should exist.
-	+ Fixed zentyal group memberships sync with Samba to handle all supported
-	  members and to sync on group creation, not just on group update.
-	+ Improved the way we sync group memberships from Samba to Zentyal so we
-	  are able to sync nested groups if they are not yet created at that point.
-	+ Allowed nested groups sync with OpenLDAP and reused as much as possible
-	  code from EBox::Users::Group from EBox::Samba::Group.
-	+ Do nothing with shares that are disabled.
-	+ Fixed s4sync when checking for OUs updates.
-	+ Ignore system ACLs for samba shares, use libsamba-perl library instead.
-	+ Disabled custom auth methods for guests, so Kerberos authentication
-	  works. This should be reverted once Guest support is fixed on Samba 4.
-	+ Synced all members of Zentyal Groups, not just users, when provisioning
-	  with Samba.
-	+ Stop creating special users or groups on provision time, s4sync will do
-	  it for us.
-	+ Services principals are copied to Samba before Groups, so we can keep
-	  memberships intact.
-	+ Mark internal users and groups properly when creating them in LDAP
-	+ Filter internal users and groups in ACLs selectors
-	+ Fixed bad usage of OpenLDAP when it should be using LDB.
-	+ Force a trace back printing when an LDB connection is not possible.
-	+ Handled mail field sync for Group, User and Contact.
-	+ Use new libsamba-perl for GPOs
-	+ Fixed mail and given name sync for Contacts.
-	+ Stop s4sync while dumping configuration backup
-	+ Ignore Asterisk Queues OU in s4sync
-	+ Added hiddenSid() method
-	+ Change default description to Zentyal Server instead of File Server
-	+ Don't put duplicate bridge interfaces in smb.conf
-	+ Mapped group 'Domain Users' to '__USERS__' directly.
-	+ Added isInAdvancedViewOnly and renamed setViewInAdvancedOnly to
-	  setInAdvancedViewOnly to match the attribute name.
-	+ Allowed the syncronization of Users, Groups and Contacts tagged as to be
-	  shown only on the Advanced view.
-	+ Allowed sync of users without kerberos credentials (Guest account).
-	+ Linked Kerberos accounts from Samba with their copy in OpenLDAP.
-	+ Removed sync_disabled_users key. We sync all users now.
-	+ Removed the useraddon to enable or disable file sharing per user, you
-	  can now enable or disable a user directly.
-	+ Used text strings to reference userAccountControl flags instead of plain
-	  numbers.
-	+ Syncronized account disabled / enabled between OpenLDAP and Samba.
-	+ Removed deprecated objectClass objects not required anymore because
-	  Windows breaks when creating objects with those unused objectClass.
+	+ Enable upgrade from 3.0 in initialSetup
+	+ Fixed wrong calls to isSystem() in master-slave after API changes
+	+ Fix regression trying to join slave after external AD changes
+	+ Fix regression in slave host address after nginx integration
+	+ Throw DataExists error when adding an OU which already exists
 3.1.7
-	+ When we are going to start a reprovision, we set the provision flag to
-	  false and reset the LDB connection to clear any cached value.
-	+ Handle the case where ou=Groups exist in OpenLDAP and a Windows AD, so
-	  we map both on provision time instead of breaking.
-	+ Fixed wrong call to _linkWithUsersObject in Provision
-	+ DNS is now properly restarted after provision
+	+ Readded memberUid to the fields to index for SLAPD.
+	+ Ignored members that are not valid perl objects to avoid undef entries
+	  on EBox::Samba::Group::members method.
+	+ Rewrites to share more code with samba module.
+	+ Added 'mail' field on zentyalDistributionGroup schema.
+	+ Added E-Mail field for Users and Groups when managing them from the UI.
+	+ Changed E-Mail field to optional for Contacts.
+	+ Updated master-slave sync to use the new User and Group fields.
+	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
+	+ Changed description field to be always input text instead of textarea.
+	+ Warn instead of throw exception if home directory already exists
+	+ Forbid deletion of Domain Admins group
+	+ Forbid deletion of Users, Groups and Computers OUs
+	+ Filter also internal users and groups in membership comboboxes
+	+ Hide Samba objects that should be shown only on Advance view mode
+	+ Added support for disabled accounts
 3.1.6
-	+ Fix Samba provisioning when joining an existing Windows server.
-	+ Fixed s4sync to ignore all sub-OUs for a set of OUs so those tree
-	  branches are not synced with samba or deleted from OpenLDAP by mistake.
-	+ The Administrator user should be hidden.
+	+ Ignored samba module while (re)provisioning on __USERS__ group creation.
+	+ Removed deprecated configuration file keys related with external AD
 3.1.5
-	+ Adapted user-addon to right panel view
-	+ (u|g)idNumber is now generated by Samba directly by default.
-	+ Added support to BuiltinDomain objectClass and synced CN=Builtin,...
-	  container as a LDAP OU.
-	+ Adapted to updatedRowNotify call with no changes in values
-	+ Added menu icon
-	+ Added objectByObjectGUID to retrieve an LDB object from its LDAP
-	  replica.
-	+ Added _linkWithUsersEntry && _linkWithUsersObject and called for every
-	  Samba object created from the users module, so we have a direct link
-	  between objects.
-	+ All LDBObject based objects will have the objectGUID field availble.
-	+ Removed unused method EBox::LDB::existsDN.
-	+ Updated EBox::LDB class to use the new EBox::LDAPBase to share code.
-	+ Updated s4sync to handle OUs and contacts sync.
-	+ Removed configuration key 'treat_contacts_as_users'. We handle now
-	  Contacts and distribution groups natively.
-	+ EBox::Samba::LdbObject inherites from EBox::Users::LdapObject to reuse
-	  as much code as possible.
-	+ Added a special case to map 'Domain Admins' DN from OpenLDAP to LDB.
-	+ Don't allow a share with file system root as path
-	+ Adapt firewall rules to new accept chains
-	+ Add config key to skip writting homeDirectory and homeDrive attribute
-	+ Do not store in samba_access table 4 records each 10s when antivirus
-	  daemon is not running
-	+ Adapted user addon to multi-OU tree view
-	+ Ignored SIDs are now synced to LDAP, but hidden on the interface
-	  according to the regexps in /etc/zentyal/sids-to-hide.regex
-	+ Do not try to start nmbd if smb.conf is not written
-	+ Use krb5 keys on new users when plain password not available
-	+ Removed EBox::Samba::Group::usersNotIn() method. It was not used neither
-	  valid for samba groups.
-	+ New EBox::Samba::computers() to get all objects with computer class
-	+ Implemented security group and distribution group concept from AD.
-	+ Created an OrganizationalPerson object to reuse code between User
-	  accounts and Contacts.
-	+ Added incompatiblity with external AD authentication mode
+	+ Fixed EBox::Samba::LdapObject::canonicalName to propagate the flag to
+	  get or ignore the root's namedContext canonical name.
+	+ The Administrator user is hidden now using the samba module functionality
+	  to hide SIDs instead of hardcoded in the code.
 3.1.4
-	+ Fix SIDs to ignore list, add missing end of line character in regular
-	  expressions
-	+ NetBIOS computer name is now updated before reprovision and after
-	  hostname change
-	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+	+ Remove needReload notification for group addons
+	+ When a new system user is created with uid 0 we also create its home.
+	  This is required by Samba for the Administrator account.
+	+ Added Net::LDAPBase::existsDN method
+	+ Better error control on reprovision, do not clear the
+	  reprovision flg on error
+	+ Fixed code typo in slave setup
+	+ Added menu icon
+	+ Added new userCorner method to password model
+	+ Usercorner uses the ldap_ro credentials to retrieve user DNs.
+	+ preAdd callbacks get a second argument noting the parent when this
+	  new object will be created.
+	+ All LdapObject based objects will have the 'entryUUID' field available.
+	+ Created an EBox::LDAPBase class to share code with the Samba's EBox::LDB
+	  one.
+	+ Reimplemented EBox::Samba::Group::members to retrieve the members of the
+	  group directly instead of searching for the objects that are set as
+	  members of the group.
+	+ Avoid "cannot return outside of a subroutine" warning in cloud-sync
+	+ Added foldable user and group add-ons to dialogs
+	+ Replaced package breaks parameter with depends statement
+	+ Fixed error in the baseName() method for an Ldap Object
+	+ Fixed bug which make delete group dialog to show errors when
+	  there was warnings
+	+ Added a way to use Net::LDAP mock object for unit testing.
+	+ Fixed cloud sync setup when user number is unlimited
+	+ Fixed error in server master form when checking if
+	  controls are editable
+	+ Added a way to retrieve a group by its dn.
+	+ New TreeView to manage users, groups and OUs
+	+ Configuration key multiple_ous removed as this is now enabled by default
+	+ Renamed namespace from UsersAndGroups to Users
+	+ Added support for Contacts handling.
+	+ Added support for external Active Directory authorization
 3.1.3
-	+ Removed deprecated backup domains implementation
-	+ Fix id mapping for users and groups added by the s4sync daemon
+	+ Renamed namespace from UsersAndGroups to Users
+	+ Fixed maximum users check when not using cloud sync
 3.1.2
-	+ Fix hostname change when having Samba installed: was trying to create
-	  again Administrator user, now we just update the credentials, ignore
-	  existing groups
+	+ Remove deprecated backup domain methods
+	+ Fixed password change in user corner when using samba
+	+ Changed reload action to force-reload for nscd init.d daemon
 3.1.1
-	+ Fixed wrong setting of state in EBox::Samba::Provision
+	+ Fixed error message when trying to add a user above the edition maximum
+	+ Migrated SOAP services to use Nginx for SSL.
 3.1
-	+ Replace /home/samba/.provisioned file with a key in redis state
-	+ Depend on zentyal-core 3.1
-3.0.17
-	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
-	  allow join of Windows Vista machines if guest shares are enabled
-	+ New sync_disabled_users option in /etc/zentyal/samba.conf to sync
-	  users with a disabled account in s4sync
+	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed 3.0.X migration code
-	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
-	+ Allow to set "disable_fullaudit" config key in /etc/zentyal/samba.conf
-	  to fully disable recording of samba VFS operations in the system log
-	+ Added Pre-Depends on samba4 to avoid problems with upgrades
-	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Added Pre-Depends on slapd to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.18
+	+ Check for already existent service principals before create them.
+	  Required because squid and zarafa share the HTTP SPN
+3.0.17
+	+ Migration to remove leftover need_reprovision key in redis ro
+	+ Retrieve global instance correctly in UsersSync
 3.0.16
-	+ Workaround with retries for the chown __USERS__ bug
-	+ Hide sync with cloud options in shares list if remoteservices
-	  is not installed
-	+ Setup filesystem now writes a valid fstab file even if the filesystem
-	  does not have any mount option
-	+ Remove idmap_ldb:use_rf2307 option unnecessary with Samba 4.0.5
-	+ Clearer error messages when EBox::LDB::safeConnect fails
-	+ Raise exception if during the provision either the domain
-	  administrator user or the domain administrator group are
-	  incorrectly mapped
-	+ Adapted firewallCaptivePortalExceptions method to API change
-	+ Mark kerberos principal users as internal to be properly filtered
-	+ Delete .provisioned file when purging zentyal-samba
-	+ Avoid not numeric warning in hash size comparation during provision
-	+ Allow user names composed only of digits
-	+ Do not add firewall rules to loopback interface
-	+ Improve checks when upgrading from 3.0.11
+	+ Assure that we don't have a phantom need_reprovision key in
+	  read-only tree
+	+ Check for maximum number of users depending on the edition
+	+ More frequent polling in EBox::Ldap::safeConnect() and
+	  more explicit error when it fails
 3.0.15
-	+ Better check for the incompatibility of Samba with master/slave
-	+ Samba can now be reprovisioned if the hostname or domain changes
-	+ Depend on users module to fix save changes order during reprovision
-	+ Set roaming profile and home drive for new created users if server
-	  is first DC
-	+ Default value of sync option in SambaShares is now 0
+	+ Always mark as changed if it needs LDAP reprovision
+	+ Fixed member removal operation for groups
 3.0.14
-	+ Improve management of DNS zones stored in samba LDAP
-	+ Add classes to decode DNS data from samba LDAP
-	+ Use less costly LDB operations when adding or removing members
-	  from a group
-	+ Added EBox:Samba::LDBObject::deleteValues method
-	+ Fix wrong URL on provision message
-	+ Better error messages when the environment checks for provision fail
-	+ Forbid provision if the server is replicating users either master or slave
+	+ Tentative workaround against home directory chown bug
+	+ Slave setup refactored to reuse common code with reprovision
+	+ Reprovision LDAP for all LDAP based modules
+	+ Don't try to update samba password in user corner when samba is
+	  not configured
+	+ Add operation arguments on LDAP error whenever is possible
+	+ EBox::Samba::User::create() allows now an internal attribute
+	+ Users marked as internal are not displayed on the interface
+	+ New realUsers() method to filter only non-internal ones
 3.0.13
-	+ Integration of new samba 4.0.3 bundled version
-	+ Samba daemon is now managed with init.d to avoid unexpected fork problems
-	+ Reduce dns resolver timeout on provision checks when joining a domain
-	+ Let zentyal manage all samba dependant daemons. Automatic start/stop
-	  is disabled now.
-	+ Add script to transfer FSMO roles to local server, useful to
-	  migrate from Windows to Zentyal
-	+ New FSMO management module
-	+ Import sysvol maintaining ACLs
-	+ Fixed configuration backup problems, stopping the daemon is no longer
-	  needed when backing up and ACLs and dns partitions hard links are
-	  recreated when restoring.
-	+ Remove deprecated code related to printers module
-	+ Remove unnecessary pidfiles declarations for upstart daemons
-	+ Improve provision procedure
-	+ Use clamd socket instead of shared library for antivirus, this is
-	  faster and reduces memory consumption
-	+ Do not create quarantine share if antivirus is not enabled
-	+ Empty text files are created now when a virus is found on a share
-	+ Modified 'size' field in samba_disk_usage and samba_disk_usage_report
-	  tables from INT to BIGINT
+	+ Search in user table now is standard instead of filter only for uid
+	+ A bit more explicit text for EBox::Exceptions::LDAP
+	+ Reload nscd also when creating new groups
 3.0.12
-	+ New advanced 'unmanaged_acls' option in /etc/zentyal/samba.conf to
-	  disable overwriting of ACLs when saving changes
-	+ Notify cloud-prof when installed when changes happen in
-	  SyncShares and SambaShares models
-	+ shareByFilename method now also returns the path and type of the share
-	+ Fix shareByFilename method
-	+ Update Loghelper to the new log formats
-	+ Remove duplicated slash in samba shares and profiles paths
+	+ Fixed typo in exception class name in EBox::Ldap
+	+ Added missing use statement in EBox::Users and
+	  EBox::Samba::LDAPObject classes
 3.0.11
-	+ Fixed EBox::Samba::LdbObject::get in list context
+	+ Dont loop through the group members when adding/removing members
+	+ Added EBox::Exceptions::LDAP
+	+ Allow unsafe characters in commentary field
+	+ Better check for the incompatibility of Samba with master/slave
+	+ Fix modules extending LdapUserBase not notified modifying groups
+	+ Allow domain name change in System -> General reprovisioning LDAP db
+	+ Depend on dns module to fix save changes order during reprovision
 3.0.10
-	+ Decode utf8 data in LdbObject::get() to avoid encoding problems
-	+ Integration with Disaster Recovery service
-	+ Restored backupDomains implementation
-	+ Explicit set of folder name as default value implementation has changed
-	+ Check in group pre-addition whether it already exists as built-in
-	+ Added existsDN method to EBox::LDB
-	+ Grant rx access on privileged ldap socket to allow user corner to
-	  update user passwords
+	+ Use less costly LDAP operations when adding or removing members
+	  from a group
+	+ Added EBox:Users::LdapObject::deleteValues method
+	+ Faster custom row id filter for Users model
+	+ Forbid user synchronization with other zentyals if samba is provisioned
+	+ Display users groups in slave mode
+	+ Avoided hang when the local host is wrongly used as master slave
+	+ Ldap modules should do a slaveSetup when slave mode enabled
 3.0.9
-	+ Improve domain join process updating the joined domain DNS server
-	+ Set kerberos keys when importing users from samba to zentyal
-	+ Fix ACLs for system type shares
+	+ Stop heimdal daemons on enableActions
+	+ Fixed alphabetical order in listing of users and groups
 3.0.8
-	+ Depend on Samba4 RC5
-	+ Fix bug in enforceServiceState causing samba to restart twice while
-	  saving changes
-	+ Set pid file path for nmbd daemon
-	+ Set bootDepends in yaml file
-	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
-	+ Use proper constant in userShares method used by remoteservices module
+	+ Filter in users table no longer matches LDAP dn
+	+ Recover better of no-usercorner journal error in slave-sync
+	+ Added read-only rootDn and password to LDAP settings screen
+	+ Don't allow empty first name in CGIs for user
+	  creation/modification. Otherwise you can get LDAP errors.
+	+ Operator typo fix in EBox::UsersAndGroup::User::_checkQuota
 3.0.7
-	+ Sync passwords to samba also when using kerberos keys
+	+ Fixed LdapObject::get() for list context
+	+ Decode utf8 attributes from LDAP at LdapObject::get()
+	+ Removed unused method _utf8Attrs
+	+ Integration with Disaster Recovery service
+	+ Include /home as disk usage facility
+	+ Fix enable quotas without rebooting when module is enabled.
+	+ Users and groups cannot longer share names because it is incompatible
+	  with AD accounts
+	+ Use upstart to manage heimdal daemons
+	+ Increase the maximum UID number to avoid problems with samba integration
+	+ Fixed bug in group creation which on error could call a method
+	  in a undefined value
+	+ Do not stop openldap daemon when dumping database
+	+ Generate kerberos AES keys to be compatible with active directory in
+	  W2k8 or higher functional levels
+	+ Fixed user quota edition in slave server
+	+ Update user password also in samba ldap when changed from user corner
+	+ Update 'cn' attribute in cloud-sync
 3.0.6
-	+ Added missing use of UnwillingToPerform exception
-	+ Fix bug importing service principals when it is not yet created in
-	  LDAP
-	+ Roaming profiles and drive letter options cannot be set when joining
-	  to an existing domain to avoid overwritting per-user settings
-	+ Use the new LdapUserBase interface methods preAddUser and preAddGroup
-	  to create the user in samba before in zentyal LDAP. The uidNumber or
-	  gidNumber of the Zentyal user is infered from the RID to guarantee
-	  unique value in the domain
-	+ Infer user's uidNumber and group's gidNumber from RID when this is
-	  attribute is not present while synchronizing users. This guarantees
-	  the same value for users and groups in all domain controllers
-	+ Implement new preAdd(User|Group)Failed and add(User|Group)Failed to
-	  remove the object from samba database if something goes wrong
-	+ Do not add disabled accounts to Zentyal in s4sync
+	+ Set userPassword attribute when setting kerberos keys for user
+	+ Fixed delGroup operation on cloud slave
+	+ Include exception message when there is an error notifying a slave
+	+ Fix enable quotas without rebooting when module is enabled
+	+ Delete syncjournal files when slave is removed
 3.0.5
-	+ Enabled optional signed SMB protocol in smb.conf
-	+ Delete users and groups from shares ACL when these are deleted
-	+ Refuse to delete system critical objects
-	+ Added syncFolders information method to allow file syncing
-	+ Implement SysInfo::Observer to disallow host or domain name changes if
-	  module is configured and update the required fields if it is not
-	+ Import sysvol after joining a domain, and add an upstart job to sync it
-	  each 5 to 10 minutes (one way).
-	+ Map root account to domain administrator account
-	+ Reset sysvol ACLs after provision
+	+ Fixed reinstall script to stop samba module, otherwise new slapd
+	  cannot start because the port is taken
+	+ Sync password changes made from cloud to any slave
+	+ When syncing, do not update ldap of unchanged entries
 3.0.4
-	+ Fix netlogon share wrong path
-	+ Depend on samba4 rc2+zentyal2, which include nmbd daemon for netbios
-	  browsing support
+	+ Added missing use of UnwillingToPerform exception
+	+ New methods on LdapUserBase (preAddUser, preAddUserFailed, preAddGroup
+	  and preAddGroupFailed) to notify observers
 3.0.3
-	+ Update smb.conf for samba4 RC2
-	+ During domain join precedure, wait a couple of seconds for samba to start
-	+ Add configkey 'treat_contacts_as_users' to import distribution groups
-	  containing contacts. The mail account name is used to locate an user with
-	  that name and add it to the group.
-	+ Improvements synchronizing group members.
-	+ The 'users' method of EBox::Samba::Group has been renamed to 'members' and
-	  also returns nested groups
-	+ Do not import users and groups after join a domain. The s4sync script will
-	  do the job
-	+ Search for users and groups to synchronize outside CN=Users
-	+ Add more SID's to the list of users and groups to avoid synchronize from
-	  samba
-	+ Improve GeneralSettings fields validation
-	+ Remove duplicated disabled module warning on recycle bin and antivirus
-	  modules
-	+ Added method to GeneralSettings to update hostname-dependent fields
-	+ Tolerate domains ended in .local
+	+ Setup Cloud slave on first save changes
+	+ Synchronize uidNumber in master-slave
+	+ Check master's REALM when adding a new slave
+	+ Fixed some errors on RESTClient after API change
+	+ Updated REST journaling behavior
+	+ Do not show unavailable options in master select
+	+ Added new EBox::Samba::newUserUidNumber() function
+	+ Added check to assure that a no-ldap user has the same uid than
+	  a new user
+	+ Implement SysInfo::Observer to disallow host domain changes after the
+	  kerberos realm has been initialized, and to update the LDAP base DN
+	  if module is not yet configured
+	+ Added LDAP index for ou attribute
+	+ Always write slave-sync script
+	+ Increase default quota value to 500MB
 3.0.2
-	+ Fix samba group members not imported to Zentyal in groups added by
-	  the synchronizer
-	+ Fix s4sync not starting on boot
-	+ Restore DNS setup on domain join failure
-	+ Add a line to /etc/fstab to increase the size of /var/lock to 50MB.
-	  Samba stores there some tdb files (for example to track connections), so
-	  if this fs goes out of space connections can be dropped.
+	+ Added clearCache() to LdapObject and force reload of krb5Keys
+	+ Do not allow user corner password change on slaves
 3.0.1
-	+ Stop daemon before restoring backup and start when finished
-	+ Throw exceptions in checkEnvironment also during first install,
-	  otherwise the module is not disabled if DNS is not properly
-	  configured.
+	+ Do not notify samba about users created while restoring backup. Samba
+	  will restore its users from its own LDB backup.
 3.0
-	+ Add parameter to _checkEnvironment to set the desired error level
-	  (ignore, print on log or throw exception)
-	+ Stop daemon while taking backup to avoid samba daemon modifying files
-	  while being tarred
-	+ Fix share type exceptions on antivirus and recycle bin
-	+ Fix enabling guest access on shares need to save changes twice
-	+ Fix wrong ACL that was denying access to quarantine folder to guest
-	  users
-	+ Fix error creating shares with spaces in the path
-	+ Implemented configuration backup and restore
-	+ Fix checking domain name in General Settings Model
-	+ Fixed some strings
+	+ Write NSS config on enableService, modules depending on users may require
+	  uid/gid numbers from LDAP
+	+ Filter special kerberos and samba users out from the users list
+	+ Added dns as restore depend
+	+ Reviewed registration strings
+2.3.17
+	+ Do not translate the service principal names to upper case
+	+ Set LDAP service as denined by default for internal networks
+	+ Set the managed domain as read only as well as records
+2.3.16
+	+ Fixed PAM when kerberos is enabled
+	+ Fixed addUser operation on slaves
+	+ Catch exceptions thrown by notified modules adding LDAP users and groups
+	  to rollback the operation and delete the object added prior to notification.
+2.3.15
+	+ Fixed password change at user corner
+	+ Change KDC port to 8880 to preserve the classic default for user corner
 2.3.14
-	+ Fix access for domain users to shares when guest access is enabled
-	  on the share
-	+ Setup quarantine directory for zavs and grant access to domain admins only
-	+ Write zavs settings on smb.conf
+	+ Ignore the LDAP error 'no attributes to update' on save
+	+ Instantiate users by uid and groups by gid
+	+ Change kerberos ports from 88/464 to 8888/8464. This avoid conflicts
+	  and management logic of the heimdal daemons. Kerberos records are added
+	  with lower priority over samba ones.
+	+ Respect the optionality of the 'salt' field inside the kerberos keys
+	  in the 'setKerberosKeys' funcion of the User class.
+	+ Do not remove service principals when samba is enabled/disabled. Samba
+	  will import the keys
+	+ Add method to set the user kerberos keys
+	+ Stop samba daemon if module is disabled to ensure that port 88 is free
+	+ Initialize kerberos realm in lowercase to match the host domain
+	+ User template account default options not longer shown in slave servers
+	+ Added users filter by OU
 2.3.13
-	+ Change default domain netbios to match the left-most part of the
-	  host dns domain
-	+ Check environment is properly configured before provision samba
-	+ Generate random administrator password instead of having a default
-	  one for security reasons, to join machines to the domain any user
-	  belonging to the Domain Admins group is enough, so there was no
-	  need to show this password on the interface
-	+ Removed dashboard widgets no longer compatible with samba4
-	+ Depend on samba 4.0 beta 8
-	+ Check provisioned flag and module enabled in s4sync script
-	+ Set the provisioned flag at the end of provision function
-	+ shareByFilename() method is now working with samba4
-	+ Improved DNS management of the Samba internal domain
-	+ Fixed labels on SambaSharePermissions model
-	+ Fix guest access to shares (client do not ask for password)
-	+ Map nobody and nogroup to domain guest and guests accounts
-	+ Add missing use statement on EBox::Samba::User
-	+ Fix updating Zentyal LDAP users kerberos keys from samba users
-	+ Ensure proper permissions on the samba privileged socket
-	+ Check that account names does not exists in the whole domain when
-	  adding users and groups from the LdapModuleBase callbacks
-	+ Do not notify samba module when deleting Zentyal users and groups
-	  through the synchronizer script
-	+ Improve netbios name validation (no dots)
-	+ Validate netbios domain name as netbios name
-	+ Force zentyal-dns dependency version
-	+ Fix bug managing the dns domain when enabling/disabling the module
-	+ Improvements in daemons management to avoid restarting them twice
-	  while saving changes.
+	+ Better password policies for LDAP backend
+	+ Added user synchronization with Zentyal Cloud
+	+ Removed deprecated conf keys (password hashes selection)
+	+ Sync kerberos hashes on master-slave
+	+ Resolve slave hostname during registering
+	+ Fixed framework changes related regression getting redis keys directly
 2.3.12
-	+ Support additional domain controller mode
-	+ Remove user addon to set the user as domain admin. Add it to the
-	  domain admins group instead.
-	+ Sync domain administrator and domain admins accounts to zentyal
-	+ Increase log level from 1 to 3 to trace problems.
-	+ Provision database only when saving changes, not in module
-	  enable.
-	+ Change samba home to /home/samba instead /home/ebox/samba
-	+ Use the privileged LDAP socket to connect to samba LDAP.
-	+ Provision using bind9 DLZ backend.
-	+ Add config key to choose the fileserver to use, 'ntvfs' or 's3fs'
-	+ Removed wrong empty string translations
-	+ Enable printing daemon. Printers ACLs stored in a model within
-	  printers module.
+	+ Ask for the host domain in the wizard instead of the old mode selector
+	+ Fixed user name validation
 2.3.11
-	+ Added modeldepends to yaml schema
-	+ Enable printing daemon. Printers ACLs are now stored in a model within
-	  printers module
-	+ Removed wrong empty string translations
+	+ Remove deprecated reference to AD Sync in wizard
+	+ Check to make sure that quota has been really assigned logs an error
+	  instead of raising an exeception, because some file systems does not
+	  support quotas
+	+ Adapt lastUid and lastGid to the new API and make them compatible
+	  with multiple OUs
 2.3.10
-	+ Fix exception creating shares
-	+ Sync passwords from LDAP to LDB directly from hashes
-2.3.9
-	+ Fields in General Settings can be edited now, with the exception
-	  of domain and computer names
-	+ Added methods to get the paths used by shares, users and groups
-	  to generate disk usage reports
-	+ User addon to enable/disable the account and set the user as
-	  domain administrator
-	+ Group addon to create group shares
-	+ Added method to give captive portal module firewall rules to
-	  allow domain joins
-2.3.8
-	+ Recycle Bin feature is now working with samba4
-	+ Remove unnecessary dns enable depend as users already depend on it
-	+ Integration with samba 4.0 beta2 which uses samba4 for
-	  the Active Directory domain services and the samba3 daemon
-	  for the file sharing and printing services
-	+ Added LogObserver support
-	+ Avoid showing admin password if provision command fails
-	+ Add domain name validation, cannot be equal to host name
-	+ Fix provision bug caused by passwords containing spaces
-	+ Threaded synchronizer script
-	+ Roaming profiles implementation
-	+ Home drive implementation
-	+ Guest access implementation
-	+ Delete directories from disk when shares are removed
-2.3.7
-	+ Fixed problems with provision in fresh install
+	+ Use DataForm::ReadOnly::_content instead of acquirers in LdapInfo
+	+ Delete obsolete daemons and attributes regarding old replication
+	+ Better error control in _loadACLDirectory
 	+ Adapted to new Model management framework
-	+ Store printers in redis using the new JSON config objects
+	+ Adapted Password type to new framework
+	+ Added NTP as enable dependency
+2.3.9
+	+ Heimdal Kerberos integration for SSO features
+	+ Better validation of user names and groups names. Better message
+	  when this validation fails
+	+ Added user() and group methods() to EBox::Users
+	+ Added quota limit check
+	+ Added backup domain for /home
+	+ Adapted ldapvi to changes in port
+	+ Setup master method can now take a custom password
+2.3.8
+	+ Restart apache after changing master configuration
+	+ Removed all files + code cleaning
+	+ Disable user editing in slaves
+2.3.7
+	+ New modifications() method to allow retrieving modifications made to
+	  the LDAP object in the last call to 'save'
+	+ Create users without password and set it after that, needed for samba4
+	+ Removed auth_type warnings
 2.3.6
-	+ Integrate with zentyal DNS
-	+ Fix loop over array reference in funcion usesPort
+	+ Use the new unified tableBody.mas instead of tableBodyWithoutActions.mas
 2.3.5
-	+ New samba4 synchronization based on LDB module and LDIF files
-	+ Depend on samba-zentyal-modules instead of libldb-perl
-	+ Custom build of samba4 is no longer needed
-2.3.4
 	+ Packaging fixes for precise
-	+ Code typo fix in Samba::Model::GeneralSettings::_checkDomainName
+2.3.4
+	+ Updated Standard-Versions to 3.9.2
 2.3.3
-	+ Validate domain admin password in general settings
-	+ Fixed bugs when adding users or groups with spaces
+	+ New master-slave architecture
+	+ Image in initial configuration wizard is shown again
 2.3.2
-	+ Ignore mailfilter users in s4sync
+	+ Added printableName to service and modified description
+	+ Fixed executable permissions in src/scripts
+	+ Added checks for small business subscription
+	+ Bugfix: lastGid method was calling MINUID and SYSMINUID
+	+ Reload nscd before trying to init users and groups
 2.3.1
-	+ Samba4 integration
-	+ Service description is now translatable
-	+ Restore samba-vscan dependency
+	+ Use Digest::SHA instead of Digest::SHA1 and remove libdigest-sha1-perl
+	  dependency which no longer exists on precise
 2.3
-	+ Adapted to new MySQL logs backend
-	+ Remove samba-vscan dependency as it is not yet available for precise
+	+ Commented unused code in cleanUser method
 	+ Replaced autotools with zbuildtools
-	+ Use always the same string to refer to the NetBIOS computer name
-	+ Validation of maximum length of domain name, validation against
-	  reserved words of netbios and domain names
-2.1.7
-	+ Allow non-ascii characters in share names and comments
-2.1.6
-	+ Added config key to set Zentyal folders and default domain prefix
+2.2.5
+	+ Bugfix: ad-sync can now populate groups with more than 1500 users
+	+ Bugfix: do not allow adsync passwords longer than 16 chars to avoid
+	  crash in pwdsync-server that keeps respawning
+	+ Bugfix: mark apache as changed in enableActions to avoid problems adding
+	  users before the new nsswitch conf is available for apache, also do not
+	  allow to add users if module is not really enabled after save changes
+	+ Make sure the default DN does not contains invalid characters
+	+ Do not allow malformed LDAP DNs in Mode
+2.2.4
+	+ Make LDAP ready after enableActions restarting the service to
+	  avoid problems when adding users or groups
+	+ Fixed corruption when adding ldap attributes
+	+ Also disable apparmor in ad-sync mode
+	+ Renamed default adsync username from eboxadsync to adsyncuser
+2.2.3
+	+ Adapt pwdsync user and password offsets to the new hook implementation
+	+ Always ignore ForeignSecurityPrincipals accounts in ad-sync
+	+ Added more debug messages and improved existing ones in ad-sync
+	+ Avoid warnings trying to get userPrincipalName in ad-sync
+	+ Skip machine accounts in ad-sync
+	+ Use paged queries in ad-sync
+	+ Allow to specify custom DN to bind to Windows Server in ad-sync
+	+ Ingore empty users in ad-sync
+2.2.2
+	+ Fixed validation of secret key length in ADSync Options model
+	+ Removed useless validation of AD username in ADSync Options model
+	+ Show different error when adding users from Windows with invalid chars
+	+ Fixed bug managing slapd on ad-sync
+2.2.1
+	+ Do not enable ADSync to avoid launching daemon before configuration
+	+ Also manage slapd daemon on ad-sync setups
+	+ Avoid slave connection to incompatible masters
+	+ Added quota change form on slaves
+	+ Allowed '\' character in ad-sync username
+2.1.14
+	+ Fixed regression in usercorner link
+2.1.13
+	+ Moved apache soap configuration from setConf to enableActions
+	+ Init slave users on enable (now home directories are created)
+	+ Create LDAP indexes during slave enable
+2.1.12
+	+ Users::lastUid() now takes also into account non-ldap users
+	+ Stop old ldap daemons in reinstall script, needed before changing mode
+2.1.11
+	+ Use a safer mode() implementation to avoid recursions with ModelManager
+2.1.10
+	+ Start slapd daemon when a module fails to connect
+	+ Help in wizard is show again if no custom_prefix defined
+2.1.9
+	+ Hide help with link in wizard if custom_prefix defined
 	+ Removed /zentyal prefix from URLs
-	+ Added maximum limits to PDC options
+	+ Disable autocompletion in user form
 	+ Avoid duplicated restart during postinst
+2.1.8
+	+ Include quota schema in slaves LDAP (fixes replication)
+	+ Do not stop slapd daemons after slave enable
+	+ Fixed users and groups retrieval if module is disabled
+	+ Manage slapd daemon in master mode
+	+ Make the optional 'comment' field to also appear as optional on the UI
+	+ Ignore users also in pwdsync-server, not only in the ad-sync script
+2.1.7
+	+ Set submenu items order for integration with the User Corner menu
+	+ Avoid undefined dn warning
+2.1.6
+	+ Fix adsync mode check for zentyal-users cronjob
+	+ Removed bad default value for adsync_dn option
+	+ Update wizard pages with new order option
+	+ Use Unix socket for LDAP connections on standalone and slave without PAM
 2.1.5
-	+ Removed wrong quotes in smb.conf
-	+ Added missing touch and minsize options in /etc/zentyal/samba.conf
-	  for Recycle Bin
+	+ Manage zentyal-users cronjob with configuration keys for sync times
+	  instead of debian/lucid/zentyal-users.cron.d and src/scripts/ad-sync.cron
+	+ Configuration key to not to create homes (usefull on LDAP master servers)
+	+ New ad-sync-info to show info of ADsync configuration
+	+ Allow multiple BDC for ADsync mode with adsync_bdc confkey
+	+ Add ADsync service by default and move port value to a confkey
+	+ userInfo() tolerates missing quota LDAP attribute
+	+ Added captiveportal to the list of modules in the reinstall script
 2.1.4
-	+ Better validation of samba shares paths
-	+ Improve smb.conf template: delete use_client_driver and allow include
-	  per client
-	+ Always depend on samba-vscan
-	+ Use quote column option for periodic and report log consolidation
+	+ Moved redis_port_usercorner key to usercorner.conf in zentyal-usercorner
+	+ Move users/conf/user-eboxlog.conf to usercorner/conf/usercorner-log.conf
 2.1.3
-	+ Now deleted users and groups are removed correctly from printers
-	  permissions lists
-	+ Show group comment if exists as share description
-	+ Fixed SQL in activity report section
-	+ Removed redundant code _dumpSharesTree and _loadSharesTree
+	+ Fixed issues with html html attributes quotation
+	+ Allow to specify a base DN to bind to AD
+	+ Add locking to slave-sync to avoid spawn multiple instances in the
+	  event of not being able to connect to a slave
+	+ Do not modify users and groups in AD sync if attributes are not changed
+	+ Wipe ignored users in AD sync
+	+ Allow contacts synchronization in AD sync
+	+ New checks in AD sync to avoid warnings
+	+ Added update package list command to reinstall script
 2.1.2
-	+ Domain names ending in ".local" are no longer allowed
+	+ Non-editable user fields in slaves no longer appear as editable inputs
+	+ Numeric 0 is accepted as value for LDAP users attributes
+	+ Minor fixes in default quota from user template
+	+ Fixed error when writing ad-sync cron file
+	+ Do not allow to create users if their home directory already exists
 2.1.1
 	+ Quotas are now included in users module
-	+ Bugfix: disabled shares are correctly ignored now
-	+ Bugfix: fixed bad column name in report consolidation
-	+ Renamed internal-backups and quarantine shares from ebox- to zentyal-
-	+ Bug fix: default file sharing quota works properly now
+	+ System users don't require password
+	+ Fixed bug that allowed to create LDAP users whith the same name
+	  than users with UID 0 (like root)
 2.1
-	+ Remove ebox- prefix from helper scripts names
-	+ Use new standard enable-module script
-	+ Replace /etc/ebox/80samba.conf with /etc/zentyal/samba.conf
-	+ Use new initial-setup in postinst and delete old migrations
-	+ Bug fix: Home directory is mapped when accessing from a Windows 7 client
-	+ User quotas are now stored in configuration backup and users directory
-	+ Bug fix: Share size is estimated although some files cannot be read
-	+ Bug fix: Removed permissions are actually removed
-	+ Roaming profiles with correct file attribs
-	+ The files in a group share can be modified by all the members in the
-	  group
-	+ Show forbidden paths in the "Path not allowed" exception text
-	+ Truncate the resource field to avoid overflow error of log database
+	+ Separate usercorner module to the new zentyal-usercorner package
+	+ Remove zentyal- prefix from rejoin-slave and ldapvi scripts
+	+ Move /usr/share/ebox-usersandgroups/ebox-usersandgroups/reinstall
+	  to /usr/share/zentyal-users/reinstall
+	+ Show enableActions for master also in ad-slave mode
+	+ Deleted obsolete migrations and use new initialSetup method
+	+ Added locks to prevent overlapping in ad-sync script
+	+ Fix slave failed operation string on slave hostname
+	+ Replace /etc/ebox/80users.conf with /etc/zentyal/users.conf
+	+ Added indexes for common LDAP attributes
+	+ Replace /var/log/ebox-usercorner with /var/log/zentyal-usercorner
+2.0.10
+	+ Now the AD synchronization can be disabled at any moment and a
+	  server with AD-slave mode can be master for other Zentyal slaves
+	+ New /etc/ebox/ad-sync_ignore.users and ad-sync_ignore.groups files
+	  to ignore users and groups in the AD synchronization process
+	+ Improved zentyal-ldapvi script that works on slave servers
+	+ Creates the default group if not exists during restore
+	+ Added restore backup precheck to assure there are not conflicts between
+	  system users and Zentyal LDAP users (currently only works for masters)
+2.0.9
+	+ Make sure to create the base directory for user homes before create them
+	+ Reconnect to LDAP on backup restore
+	+ Better log messages
+	+ Save configuration files during restore
+	+ Catch possible SIGPIPE on LDAP reconnect
+2.0.8
+	+ Fix Samba PDC on slaves
+	+ Check for incompatibility between Samba PDC and PAM on slaves
+	+ Optimize slave-sync script if there are no pending operations
+	+ Remove useless call to mode() on slave-sync script (faster now)
+	+ Replica LDAP listens in all interfaces
 2.0.7
-	+ Removed printers are ignored during backup restore
-	+ Added backup domain
-	+ Added printers as restore dependency
+	+ Added index add mechanism to LdapModule
+	+ Fixed NSS DN config in masters
 2.0.6
-	+ Check for incompatibility between PDC and PAM on slaves
-	+ Improved performance by adding samba LDAP indexes
-	+ Only set shares ACL if needed
-	+ Set default order for dashboard widgets
+	+ Added zentyal-rejoin-slave to rejoin a slave to its master
+	+ Fixed NSS/PAM in slave machines
 2.0.5
-	+ Only ASCII characters are now allowed for share names and comments
-	+ Bug fix: guest shares also work if PDC not enabled
+	+ Removed wrong hooks implementation
 2.0.4
-	+ Fixed quarantine folder permissions
-	+ Don't ask for password in guest shares
+	+ Fixed infinite recursion when setting up some models on slave servers
+	+ Added support for addUser/delUser hooks
 2.0.3
-	+ Bug fix: guest shares now work on Windows clients
-	+ Fixed log retrieving for quarantine alerts
+	+ Allow LDAP users and groups up to 128 characters
+	+ Show precondition message for user corner on slave servers
+	+ Unconfigure ftp and zarafa in reinstall script
+	+ Do not show adsync debug messages if debug is disabled in config
+	+ Allow more than one dot in usernames
 2.0.2
-	+ Fixed problems in backup restoration
-	+ Bug fix: support users and groups with spaces and so on in ACLs
+	+ Fixed master/slave synchronization issues
+	+ Remove userjournal dir when removing a slave
+	+ Added lock during module enable to avoid initialization problems
+	+ Fixed AD slave synchronization task
 2.0.1
-	+ Bug fix: cups daemon is now started before samba one
-	+ Bug fix: samba can be enabled now if filesystem does not support quotas
-	+ Removed warning due to mix numeric and string values in printer hash.
-	+ New CUPS printers are also stored in redis when editing groups
-	+ Deleted obsolete code regarding external/non-external printers
+	+ Fixed incorrect LDAP binding in some cases
+2.0
+	+ Fixed user journal dir creation on master
+	+ Fixed failed login error on user corner
+	+ Default login_shell under PAM Settings UI instead of 80users.conf
+	+ Replaced /bin/false with /usr/sbin/nologin as default shell
+1.5.10
+	+ Some refactorizations centered in safer LDAP connections and defensive
+	  code
 1.5.9
-	+ Rebranded domain name and description
+	+ More info link added in wizard
 1.5.8
 	+ Zentyal rebrand
-	+ On smb.conf.mas: use client driver = no to allow printer server
-	  to give clients the uploaded drivers.
 1.5.7
-	+ Avoid antivirus scan on large files to fix read problems
-	+ Add a keyconf to Samba listen on external interfaces
-	+ Added more report subsections
+	+ Removed NSS in slave configurations
+	+ Nasty bug page replaced by the new eBox error page
 1.5.6
+	+ Fixed user corner access problems with redis server
+1.5.5
+	+ LDAP master creation optimized and less error-prone
+1.5.4
+	+ Bug fix: adding a user name with spaces no longer fails
+1.5.3
 	+ Move NSS from ebox-samba to ebox-usersandgroups
 	+ Home directories are under /home now
-	+ Shares permissions model now states if the ACL is for a user or a group
-1.5.5
-	+ Bug fix: set proper permissions on guest shares
-	+ Bug fix: avoid parse of non-word characters in vscan log entries
-1.5.4
-	+ Added bridged mode support in firewall helper
-1.5.3
-	+ Bug fix: do not add acl attribute in /etc/fstab when using xfs
+	+ New options to configure shell and home directory umask
+	+ New setup wizard
 1.5.2
-	+ Enforce uniqueness of 'user/group' filed in shares permissions
-	+ Enable full audit feature as it's working again in samba 3.4.6
-	+ Allow guest shares
+	+ Bug fix: fixed dbus init for usercorner
 1.5.1
-	+ Add support for file system ACLs. Modify /etc/fstab
-	  accordingly. Add dependency on acl.
-	+ Bug fix: check if a group has been deleted when configurer printers,
-	  otherwise users end up with a blank screen when granting printer
-	  permissions
-	+ Use the new upstart scripts that the Ubuntu samba packages ships
-	  in Lucid
+	+ Bug fix: fixed nasty bug with the last version of openldap in lucid
+	+ Bug fix: do not call processDir if there are no slaves in slave-sync
+	+ Bug fix: ebox-usersandgroups-reinstall now unconfigures all ldap modules
+	+ Bug fix: updateSchema() returns unless the schema to update is
+	  available
+	+ Bug fix: Set proper owner and permissions when updating a schema
+	+ Bug fix: some problems with the AD synchronization solved
+	+ Bug fix: userscorner title icon
+	+ Bug fix: addUser() now checks if the user already exists as a
+	  system user
+	+ Removed deprecated executable 'import-from-ldif'
+	+ Bug fix: addUser() now checks for password argument
+	+ Bug fix: when restoring we use the new users DN to init users
+1.5
+	+ Bug fix: don't try to contact slaves from within a slave when groups
+	  are updated
+	+ Use built-in EBox::ThirdParty::Apache2::AuthCookie
 1.4.2
-	+ Add missing samba_virus_report table
+	+ Bug fix: fix wrong migration number
 1.4.1
-	+ Restored RecycleBin feature lost when merged breadcrumbs
+	+ Bug fix: surround LDAP migration with a try/catch to make sure the rest
+	  it is run
+	+ Bug fix: do not allow \w with localized characters as LDAP schema does not
+	  allow them for home directory attribute. (Closes #1713)
+1.4
+	+ Allow the master to pass extra parameters in SOAP calls to slaves
+1.3.17
+	+ Bug fix: Set style for login page in user corner
+1.3.16
+	+ Bug fix: keep menu open on LDAP Info
 1.3.15
-	+ Added 'hide files' directive by default in smb.conf.mas
-	+ Bug fix: PDC password policy settings are kept after samba restarts
+	+ Add support for ldaps
+	+ Add support for slaves running Apache in ports different than 443
+	+ Allow to remove slaves from slave list
+	+ Added ebox-usersandgroups-reinstall to easily reset the LDAP mode
+	+ Bug fix: issue with user deletion in French (Closes #1651)
+	+ Bug fix: anonymous connection for getting DN is retried several
+	  times, this fixes a bug when restoring configuration backup
 1.3.14
-	+ Add DefaultUser model to be used in users and groups default user
-	  template. Admins can select if they wish to enable the file sharing
-	  account by default when creating new users.
+	+ Synchronize all the users from the AD and not only from CN=Users
+	+ Add operation name and username on updateGroup
+	+ Add slave notification for group modify and delete
+	+ Change button order to "Add" and "Add and Edit" in Add User
+	  template. If users press return in the form it adds a new user
+	  and stays on the same page.
 1.3.13
-	+ Disable full_audit until fixed in a newer samba version
+	+ Usability enhancements: (Closes #1649)
+		* Create a unique Users And Group Folder
+		* Unify Add User/Edit User in a single page
+		* Unify Add Group/Edit Group in a single page
+		* Two buttons: "Add and Edit" and "Add"
+		* Add breadcrumbs
+	+ Add UserTemplate composite to configure default options that are used when
+	  a new user is created
+	+ Add defaultUserModel to LdapUserBase.pm
+	+ Specify folder for SlaveInfo
+	+ Add menu entry with information about LDAP including password
+	+ Change enableActions to use the new LDAP default structure from Karmic
 1.3.12
-	+ Add breadcrumbs
-1.3.11
-	+ Added report support
+	+ Add EBox::Ldap::lastModificationTime to know when the master LDAP
+	  database was modified for the last time
+	+ Index uid and memberUid to avoid some warnings and improve performance,
+	  plus remove some old code and fix some broken one in that part of the code
+	+ Bugfix: disable edition of users and groups in ad-slave mode
+	+ Don't allow modification of ldap password in Mode model if
+	  it has been autogenerated by the eBox installer
+	+ Add page title
+	+ Separate the Windows AD options in a different model
+	+ Fixed the warning of "Edit User" when there are no users in a slave
+	+ Remove 'optional' from remote in Mode and also useless validateRow
 1.3.10
-	+ bugfix: ignore case when comparing domain and netbios names
-	+ Added support for Recycle Bin in shares
-	+ bugfix: restore Domain Users with GID 513 and not 512.
-	  as this made Domain Admins not work
-	+ Remove unused quota related methods
+	+ Use disableApparmorProfile from EBox::Module::Service twice.
+	  First in enableActions. And also in setConf to avoid issues
+	  if apparmor is installed after users is enabled.
+1.3.9
+	+ Bugfix: return empty array in usedFiles if it's not master mode
+1.3.8
+	+ Bugfix: fixed wrong disable of fields in selecting ad-slave in Mode model
 1.3.7
-	+ Create .V2 profile directories. Windows Vista looks for them.
-	+ remove extendedBackup, data files must be backuped using ebackup
+	+ Synchronization with Windows Active Directory (#1443)
 1.3.6
-	+ bugfix: do not allow netbios names longer than 15 characters
-1.3.4
-	+ bugfix: some samba actions never appeared in the access log
-1.3.3
-	+ bugfix: we dont consults users when users is not configured in EBox::Samba::existsShareResource
-1.3.1
-	+ bugfix: use right number for Domain Computers group
+	+ Use anonymous bind to fetch dn
+1.3.5
+	+ Disable slapd apparmor profile in enableActions
+	+ Reload nscd when adding users and groups
+	+ Bugfix: backup bug report now works again
+	+ Bugfix: slave-sync does not try to real journal dir when not
+	  configured or in slave mode. Journal dir created on
+	  master's setup.
 1.3.0
-	+ bugfix: keep sambaMinPwdLength attribute
+	+ eBox LDAP architecture now supports a master-slave configuration
+	+ bugfix: Update usercorner service when there is a change on the port number
 1.1.30
-	+ bugfix: add user works if quota is disabled
-	+ bugfix: replaced storeElementByName with store to avoid bug when restoring
+	+ Added widget to manage group belonging from Edit User page
+	+ Fixed backup/restore problem with paswords and given/last names
+	+ Changed the way users are stored in LDAP, added givenName in addition
+	  to sn, now cn=givenName+sn instead of cn=uid, this fixes a
+	  incompatibility bug with eGroupware
+	+ In the Edit User interface now Name and Last name are separate
+	fields
+	+ Usercorner web server certificate can be changed via the CA module
 1.1.20
-	+ samba allows the use of internal virtual ifaces now
-	+ bugfix: importFromLdif was calling a maethod that was removed in a previous merge
+	+ New release
 1.1.10
-	+ Only update sambaPaths on users with sambaSamAccount object
-	class
-	+ UI imrpovement: in general setting some fileds are disabled when
-	PDC is not selected
+	+ Make slapd listen only on 127.0.0.1
 1.1
-	+ Bugfix: issue with codepages on shares
-	+ Home drive letter can be changed now from general settings
-	+ Added new PDC model with password settings
-	+ Use the new row() and ids() API
-	+ Windows user's profiles are backed up only in extended backups
-	+ Enable quota support again
-	+ Bugfix: when importing data from ldiff we assure that the
-	default group is created before any group assignment to avoid
-	'group not existent' errors
-
-0.12.101
-	+ Bugfix: set force directory mode and force create mode to 0660 in shares
+	+ Added bind v2 compability needed by squid auth, slapd conf
+	  regenerated and daemon restarted in postinst to commit possibles
+	  changes in configuration
+	+ Added group model
+	+ Use the new ids() and row() API to optimize the management of hundreds of
+	users
+	+ Allow dashes in user and group names
+	+ Initial release of UserCorner which allow users to change their password
+	+ Store multiple password hashes and scrap clear text passwords
 0.12.100
-	+ Admin user method is more robust in face of user's incomplete
-	groups membership
-	+ Bugfix: `printers` method returns an empty list when
-	`ebox-printers` package is not installed
-	+ Add per-user disk quota
+	+ Restore backup is more robust: inexistent users in a group are
+	  ignored
+	+ Make and restore backup more robust: removed slapd.conf
+	  parameters in both slapadd and slapcat invokations, so we can use
+	  the module with sldap with configuration in the directory itself
 0.12.99
 	+ New release
-0.12.6.101
-	+ Bugfix. roaming profiles are not created automatically when they are
-	disabled
-0.12.6.100
-	+ Support for external printers configured with CUPS
-	+ Bugfix. Set users and groups suffix properly in smb.conf
-0.12.5
-	+ Bugfix. Set loginShell when adding users. By default it takes /bin/false
-	but users can change it using /etc/ebox/80samba.conf
-0.12.4
-	+ Bugfix. Check and correct if there is a user or group with a wrong SID.
-	It's possible to run into that scenarion depending when the user/group is
-	created
-	+ Do not delete some domain attributes that are used to store password
-	attributes such us password length, expiration...
-0.12.3
-	+ Add configuration variable to enable/disable quota support
-	  as it might be really slow if we have many users
-0.12.2
-	+ Restore group share names when restoring a backup
 0.12.1
-	+ Leave Logon Home empty, as Logon Home = "" as stated by smb.conf
-	documentation doesn't seem to work
-	+ Make sure  workgroup and netbios names are different
+	+ Bugfix: Remove eBox system users when restoring backup. This solves
+	  an issue restoring backups from 0.12
 0.12
-	+ Add help to model fields
-	+ Fix typo in defaultEnabledValue. Now shares are enabled by default.
-	+ Fix typo in administrator label
-	+ Mark shares strings to translate
-	+ Use eBox OID number in LDAP schemas
-	+ Do not use shares that don't have permission for any user or group
-	+ Remove deprecated printer admin configuration key in smb.conf.mas
-	+ Enable dns proxy in smb.conf.mas
-0.11.103
-	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid
-	  issues with the options cache
-0.11.102
-	+ Extend functinality to add custom shares and not only one per-group:
-		- Any share within the file system
-		- Any share automatically created under /home/samba/shares
-		- Fine-grained access to the share: read-only, read and write,
-		  administrator, per user and per group.
-	+ Set editable attribute to 1 in User field. To comply with
-	  what the type expects and avoid warnings
-
+	+ Use the new EBox::Model::Row api
+	+ Check if there is any added user and show a message
+	  in case there isn't any.
+	+ Restore users reading from ldiff and adding them through
+	  eBox API
+	+ Set password-hash in slapd.conf to make password changes from samba sync
+	  the user password
 0.11.101
 	+ New release
 0.11.100
-	+ Change slapd.conf ownership to module users
-	+ Fix typos
 	+ onInstall() functionality moved to migration script
+	+ Fixed several typos
 0.11.99
-	+ Allow others to read contents from users home directory to
-	publish HTML
+	+ Remove use of Apache::Singleton
+0.11.3
+	+ Check used uid's on every posixAccount object under dc=ebox,
+	  instead of only under ou=Users,dc=ebox. This solves nasty issues
+	  with Samba PDC when adding machines and creating users with
+	  repeated uid
+0.11.2
+	+ Do not generate a new LDAP password if it already exists
+0.11.1
+	+ Fix issue with module naming which prevented backups from being
+	restored
 0.11
-	+ New release
+	+ Initial Ubuntu packaging
+	+ bugfix. fix issue with module naming which prevented backups from being
+	  restored
 0.10.99
-	+ New release
+	+ Create pseudo-model to use the users table with Ajax
 0.10
-	+ Create directory with 0770
-	+ Add users to Domain Users group
+	+ Allow dots in user names
 0.9.100
 	+ New release
 0.9.99
-	+ New release
+	+ Bugfix in EBox::Ldap
 0.9.3
 	+ New release
 0.9.2
-	+ Add ebox backup directory as a shared resource to download/upload
-	  files
-	+ Create smbldap_bind.conf which contains password with mask 0600
-0.9.1
 	+ New release
+0.9.1
+	+ Make OpenLDAP listen on internal interfaces
 0.9
 	+ Added Polish translation
+	+ Added Aragonese translation
+	+ Added Dutch translation
 	+ Added German translation
-	+ Added Dutch  translation
-
 0.8.99
 	+ New release
 0.8.1
-	+ bugfix. Do not mess up home directories when upgrading
 	+ Minor workaround. Create slapd run directory in case it does not
 	  exist
 0.8
-	+ New release
+	+ Fix message
 0.7.99
-	+ Full backup mode stores shared files
-	+ Unlimited i-node quota
-	+ Various bug-fixes
-	+ Portuguese translation
-
+	+ Add extended backup support for LDAP
+	+ Performance tuning to slapd
+	+ Some minor code improvements
+	+ Quota now allows unlimited space and i-nodes number
 0.7.1
-	+ Initial support for PDC
-	+ GUI improvements
-	+ Added update/clean actions to eobx-samba-ldap
-	+ Use EBox::LDAP singleton
-	+ Debian package fixes
-	+ Fetch SID from configuration file
+	+ Add delObjectclass (useful for ldap clean actions)
+	+ Detect and recover when ldap connection is broken (#25)
+	+ Make EBox::Ldap a singleton class
+	+ Initial factoring
 	+ Use of ebox-sudoers-friendly
-
 0.7
-	+ First public release
+	+ New public release
 0.6
-	+ move to client
+	+ Move to client
 	+ API documented using naturaldocs
 	+ Update install
 	+ Update debian scripts
-	+ Enable/disable printer sharing and file sharing independentely
-	+ Use new syntax to define ACLs in slapd.conf
-	+ Implements usesPort
-	+ Add full support for printers
-	+ Several bugfixes
-
+	+ Use new syntax to define ACLs for ldap
+	+ Add function to create system users
+	+ Move ldap db under ebox directory
 0.5.2
 	+ Fix some packaging issues
-
 0.5.1
 	+ Convert module to new menu system
-
 0.5
 	+ Initial release

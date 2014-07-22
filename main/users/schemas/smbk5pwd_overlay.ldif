@@ -1,7 +1,0 @@
-dn: olcOverlay={0}smbk5pwd,olcDatabase={1}hdb,cn=config
-objectClass: olcOverlayConfig
-objectClass: olcSmbK5PwdConfig
-olcOverlay: {0}smbk5pwd
-olcSmbK5PwdEnable: krb5
-olcSmbK5PwdMustChange: 0
-olcSmbK5PwdCanChange: 0

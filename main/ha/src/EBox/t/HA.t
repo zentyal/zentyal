@@ -22,6 +22,7 @@ package EBox::HA::Test;
 
 use parent 'Test::Class';
 
+use Test::More skip_all => 'FIXME';
 use EBox::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::HA::NodeList;
@@ -78,6 +79,26 @@ sub mock_webadmin : Test(setup)
     $self->{global}->{mod_instances_rw}->{webadmin} = $webAdminMod;
 }
 
+sub mock_objects : Test(setup)
+{
+    my ($self) = @_;
+
+    my $objectsMod = $self->{global}->modInstance('objects');
+    $objectsMod = new Test::MockObject::Extends($objectsMod);
+    $self->{objectsMod} = $objectsMod;
+    $self->{global}->{mod_instances_rw}->{objects} = $objectsMod;
+}
+
+sub mock_firewall : Test(setup)
+{
+    my ($self) = @_;
+
+    my $firewallMod = $self->{global}->modInstance('firewall');
+    $firewallMod = new Test::MockObject::Extends($firewallMod);
+    $self->{firewallMod} = $firewallMod;
+    $self->{global}->{mod_instances_rw}->{firewall} = $firewallMod;
+}
+
 sub test_use_ok : Test(startup => 1)
 {
     use_ok('EBox::HA') or die;
@@ -90,7 +111,7 @@ sub test_isa_ok : Test
     isa_ok($self->{mod}, 'EBox::HA');
 }
 
-sub test_cluster_configuration : Test(5)
+sub test_cluster_configuration : Test(6)
 {
     my ($self) = @_;
 
@@ -100,6 +121,14 @@ sub test_cluster_configuration : Test(5)
     lives_ok {
         $mod->_bootstrap('10.1.1.0', 'local');
     } 'Bootstraping the cluster';
+
+
+    # Testing firewall integration
+    ok($self->{objectsMod}->objectExists('haNodes'), 'HA network objects created properly');
+
+    # FIXME:
+    #ok($mod->_firewallRuleCreated(), 'HA firewall rule created');
+
     cmp_deeply($mod->clusterConfiguration(),
                {'name' => 'my cluster',
                 'transport' => 'udpu',

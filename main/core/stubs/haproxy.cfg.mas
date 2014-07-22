@@ -18,6 +18,7 @@ Parameters:
 <%init>
 my $dumpedServices = {};
 </%init>
+
 % if (%{$ports}) {
 global
   tune.ssl.lifetime 300
@@ -27,8 +28,7 @@ defaults
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
-  # This option may fix the problem with the proxy headers not reaching the server, but it may be a performance problem...
-  # option http-server-close
+  option http-tunnel
 %   while (my ($portNumber, $serviceConf) =  each %{$ports}) {
 %    my $isWebadmin = grep {$_->{name} eq 'webadminHAProxyId'} @{$serviceConf->{services}};
 %    if ($isWebadmin) {
@@ -57,19 +57,30 @@ $bindaddress
 frontend ft_zentyal_<% $port %>
   mode http
 % if ($conf->{isSSL}) {
-%       my $certificates = '';
-%       my %certSeen;
-%       foreach my $service (@{$conf->{services}}) {
-%           my $newCrt = 'crt ' . $service->{pathSSLCert};
-%           my $seen = $certSeen{$newCrt};
-%           if ($service->{isDefault}) {
-%                if ($seen) { $certificates =~ s/$newCrt//};
-%                $certificates = "$newCrt $certificates";
-%           } elsif (not $seen) {
-%               $certificates = "$certificates $newCrt";
-%           }
-%           $certSeen{$newCrt} = 1;
-%       }
+<%perl>
+       my $certificates = '';
+       my %certSeen;
+       foreach my $service (@{$conf->{services}}) {
+           my @certs;
+           if (ref $service->{pathSSLCert}) {
+               @certs = @{ $service->{pathSSLCert} };
+           } else {
+               @certs =  ($service->{pathSSLCert});
+           }
+
+           foreach my $crt (@certs) {
+               my $newCrt = 'crt ' . $crt;
+               my $seen = $certSeen{$newCrt};
+               if ($service->{isDefault}) {
+                    if ($seen) { $certificates =~ s/$newCrt//};
+                   $certificates = "$newCrt $certificates";
+               } elsif (not $seen) {
+               $certificates = "$certificates $newCrt";
+               }
+               $certSeen{$newCrt} = 1;
+           }
+       }
+</%perl>
 %       if ($caFile) {
   bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
 %       } else {

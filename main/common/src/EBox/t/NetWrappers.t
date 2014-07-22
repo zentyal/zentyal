@@ -201,7 +201,7 @@ sub iface_by_address_test
     }
 
     while (my ($addr, $expectedIf) = each %testCases) {
-        my $if = EBox::NetWrappers::iface_by_address($addr);
+        my ($if) = EBox::NetWrappers::iface_by_address($addr);
         is $if, $expectedIf, "Checking iface_by_address with address $addr";
     }
 }

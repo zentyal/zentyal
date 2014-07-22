@@ -25,7 +25,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Backup;
 use EBox::Sudo;
-use EBox::Logs::SlicedBackup;
 use File::Slurp;
 use File::Basename;
 use EBox::FileSystem;
@@ -372,12 +371,6 @@ sub _autoExcludesArguments
     # directories excluded to avoid risk of
     # duplicity crash_remoteUrl
     $args .= "--exclude=/proc --exclude=/sys ";
-
-    # exclude sliced backups directory
-    my $slicesDir = EBox::Logs::SlicedBackup::archiveDir();
-    if ($slicesDir) {
-        $args .= "--exclude $slicesDir ";
-    }
 
     # exclude backup directory if we are using 'filesystem' mode
     my $settings = $self->model('RemoteSettings');

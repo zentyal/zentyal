@@ -17,12 +17,12 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelAlias;
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
-use EBox::Users::User;
+use EBox::Samba::User;
 use EBox::Exceptions::External;
 
 sub new
@@ -47,13 +47,14 @@ sub _process
 
     $self->_requireParam('alias', __('mail alias'));
     my $alias = $self->param('alias');
-    $mail->{malias}->delAlias($alias);
 
-    my $user = EBox::Users::User->new(dn =>  $userDN);
+    my $user = EBox::Samba::User->new(dn =>  $userDN);
+    $mail->{malias}->delUserAlias($user, $alias);
+
     my $maildrop = $mail->{musers}->userAccount($user);
 
     $self->{json}->{msg} = __x('Removed alias {al}', al => $alias);
-    $self->{json}->{aliases} = [ $mail->{malias}->accountAlias($maildrop) ];
+    $self->{json}->{aliases} = [ $mail->{malias}->userAliases($user) ];
     $self->{json}->{success} = 1;
 }
 

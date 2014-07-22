@@ -1,17 +1,57 @@
-3.4.3
+HEAD
+	+ Added option to disable Peer Verification in EBox::RESTClient
+	+ pathHTTPSSSLCertificate() always returns a list
+	+ Added one more tip to component not found page
+	+ Removed duplicate code for page not found
+	+ Fix some warnings in log
+	+ Fix error in send crash report script
+3.5.1
+	+ Fixed dashboard links to official manual
+	+ Model backup/revoke/save files are no longer called implicitly
+	+ Remove warning on formSubmitJS
+	+ Don't let database error to cancel halt or reboot processes
+	+ More warnings on smart match feature removed
+3.5
+	+ Avoid warning flag on smart match experimental feature
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
+	+ Rethrow properly when exception is a plain string
+	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
+	  model is a children whose model parent is its grandfather or older
+	+ Fixed notifyActions by using isIdUsed method and removing
+	  slashes to fetch the observable models
+	+ Fixed spurious warnings when loadings ads and loading dashboard
+	+ Assure that all data under a row directory is removed
+	+ EBox::Types::DomainName always return lowercase values
+	+ EBox::Types::Host always return lowercase values
+	+ Added helper script to improve crash reports
+	+ Old timezones supported
+	+ Fixed regression on presetUpdate interface actions
+	+ Error page for component not found
+	+ Included the Dependencies field in crash report
+	+ Do not mark services as temporary stopped when shutting down
+	+ Enhanced Lock to have exclusive lock with blocking timeout
+	+ Added redirection on no parameters support to CGIs
+	+ Added and used in save changes process the method Zentyal.reloadTable
+	+ Fixed regression in page not found CGI which displayed always a
+	  invalid referer error
+	+ Included the package field in crash report
+	+ Remove RSS and Jabber dispatchers
+	+ Added Warning in Dashboard when reboot is requierd by software
+	  update
+	+ Removed deprecated sliced mode backup
 	+ Fix MIME type for returning JSON (application/json)
 	+ Added setMessage() and popMessageAndClass() methods to TreeView
 	+ Enable InnoDB engine when there are only 4 previous databases
 	+ Active session check does not check subapp authenticated
 	  requests now
 	+ Fixed incorrect URLs with double ports in redirects
-3.4.2
 	+ Fix typo in general widget
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
+	+ Set version to 3.5
 	+ Support for redirection when loading URL in existent dialog
 	+ Added webadmin port tag to haproxy configuration file
-3.4.1
 	+ Fix dashboard UI freeze when widgets were being updated
 	+ Add audit to post save when enabling logs
 	+ Fix enabled save changes button after installing packages

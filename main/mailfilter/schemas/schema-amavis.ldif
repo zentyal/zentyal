@@ -1,0 +1,487 @@
+dn: CN=amavisVirusLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.1
+cn: amavisVirusLover
+name: amavisVirusLover
+LDAPDisplayName: amavisVirusLover
+description: Virus lover
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn:  CN=amavisBannedFilesLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.2
+cn: amavisBannedFilesLover
+name: amavisBannedFilesLover
+LDAPDisplayName: amavisBannedFilesLover
+description: Banned Files Lover
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBypassVirusChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.3
+cn: amavisBypassVirusChecks
+name: amavisBypassVirusChecks
+LDAPDisplayName: amavisBypassVirusChecks
+description: Bypass Virus Check
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBypassSpamChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.4
+cn: amavisBypassSpamChecks
+name: amavisBypassSpamChecks
+LDAPDisplayName: amavisBypassSpamChecks
+description: Bypass Spam Check
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamTagLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.5
+cn: amavisSpamTagLevel
+name: amavisSpamTagLevel
+LDAPDisplayName: amavisSpamTagLevel
+description: Spam Tag Level
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamTag2Level,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.6
+cn: amavisSpamTag2Level
+name: amavisSpamTag2Level
+LDAPDisplayName: amavisSpamTag2Level
+description: Spam Tag2 Level
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamKillLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.7
+cn: amavisSpamKillLevel
+name: amavisSpamKillLevel
+LDAPDisplayName: amavisSpamKillLevel
+description: Spam Kill Level
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamModifiesSubj,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.8
+cn: amavisSpamModifiesSubj
+name: amavisSpamModifiesSubj
+LDAPDisplayName: amavisSpamModifiesSubj
+description: Modifies Subject on spam
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisWhitelistSender,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.9
+cn: amavisWhitelistSender
+name: amavisWhitelistSender
+LDAPDisplayName: amavisWhitelistSender
+description: White List Sender
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBlacklistSender,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.10
+cn: amavisBlacklistSender
+name: amavisBlacklistSender
+LDAPDisplayName: amavisBlacklistSender
+description: Black List Sender
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.11
+cn: amavisSpamQuarantineTo
+name: amavisSpamQuarantineTo
+LDAPDisplayName: amavisSpamQuarantineTo
+description: Spam Quarantine to
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.12
+cn: amavisSpamLover
+name: amavisSpamLover
+LDAPDisplayName: amavisSpamLover
+description: Spam Lover
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBadHeaderLover,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.13
+cn: amavisBadHeaderLover
+name: amavisBadHeaderLover
+LDAPDisplayName: amavisBadHeaderLover
+description: Bad Header Lover
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBypassBannedChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.14
+cn: amavisBypassBannedChecks
+name: amavisBypassBannedChecks
+LDAPDisplayName: amavisBypassBannedChecks
+description: Bypass Banned Files Check
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBypassHeaderChecks,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.15
+cn: amavisBypassHeaderChecks
+name: amavisBypassHeaderChecks
+LDAPDisplayName: amavisBypassHeaderChecks
+description: Bypass Header Check
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisVirusQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.16
+cn: amavisVirusQuarantineTo
+name: amavisVirusQuarantineTo
+LDAPDisplayName: amavisVirusQuarantineTo
+description: Virus quarantine location
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBannedQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.17
+cn: amavisBannedQuarantineTo
+name: amavisBannedQuarantineTo
+LDAPDisplayName: amavisBannedQuarantineTo
+description: Banned Files quarantine location
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBadHeaderQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.18
+cn: amavisBadHeaderQuarantineTo
+name: amavisBadHeaderQuarantineTo
+LDAPDisplayName: amavisBadHeaderQuarantineTo
+description: Bad Header quarantine location
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisLocal,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.19
+cn: amavisLocal
+name: amavisLocal
+LDAPDisplayName: amavisLocal
+description: Is user considered loca
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisMessageSizeLimit,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.20
+cn: amavisMessageSizeLimit
+name: amavisMessageSizeLimit
+LDAPDisplayName: amavisMessageSizeLimit
+description: Message size limit
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisWarnVirusRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.21
+cn: amavisWarnVirusRecip
+name: amavisWarnVirusRecip
+LDAPDisplayName: amavisWarnVirusRecip
+description: Notify virus recipients
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisWarnBannedRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.22
+cn: amavisWarnBannedRecip
+name: amavisWarnBannedRecip
+LDAPDisplayName: amavisWarnBannedRecip
+description: Notify banned file recipient
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisWarnBadHeaderRecip,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.23
+cn: amavisWarnBadHeaderRecip
+name: amavisWarnBadHeaderRecip
+LDAPDisplayName: amavisWarnBadHeaderRecip
+description: Notify bad header recipients
+attributeSyntax: 2.5.5.8
+oMSyntax: 1
+isSingleValued: TRUE
+-
+
+dn: CN=amavisVirusAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.24
+cn: amavisVirusAdmin
+name: amavisVirusAdmin
+LDAPDisplayName: amavisVirusAdmin
+description: Virus admin
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisNewVirusAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.25
+cn: amavisNewVirusAdmin
+name: amavisNewVirusAdmin
+LDAPDisplayName: amavisNewVirusAdmin
+description: New virus admin
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.26
+cn: amavisSpamAdmin
+name: amavisSpamAdmin
+LDAPDisplayName: amavisSpamAdmin
+description: Spam admin
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBannedAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.27
+cn: amavisBannedAdmin
+name: amavisBannedAdmin
+LDAPDisplayName: amavisBannedAdmin
+description: Banned file admin
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBadHeaderAdmin,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.28
+cn: amavisBadHeaderAdmin
+name: amavisBadHeaderAdmin
+LDAPDisplayName: amavisBadHeaderAdmin
+description: Bad header admin
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisBannedRuleNames,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.15312.2.2.1.29
+cn: amavisBannedRuleNames
+name: amavisBannedRuleNames
+LDAPDisplayName: amavisBannedRuleNames
+description: Banned rule names
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamDsnCutoffLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.30
+cn: amavisSpamDsnCutoffLevel
+name: amavisSpamDsnCutoffLevel
+LDAPDisplayName: amavisSpamDsnCutoffLevel
+description: Spam DSN Cutoff Level
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamQuarantineCutoffLevel,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.31
+cn: amavisSpamQuarantineCutoffLevel
+name: amavisSpamQuarantineCutoffLevel
+LDAPDisplayName: amavisSpamQuarantineCutoffLevel
+description: Spam Quarantine Cutoff Level
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamSubjectTag,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.32
+cn: amavisSpamSubjectTag
+name: amavisSpamSubjectTag
+LDAPDisplayName: amavisSpamSubjectTag
+description: Spam Subject Tag
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=amavisSpamSubjectTag2,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:  1.3.6.1.4.1.15312.2.2.1.33
+cn: amavisSpamSubjectTag2
+name: amavisSpamSubjectTag2
+LDAPDisplayName: amavisSpamSubjectTag2
+description: Spam Subject Tag2
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+dn: CN=amavisAccount,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.15312.2.2.2.1
+cn: amavisAccount
+name: amavisAccount
+LDAPDisplayName: amavisAccount
+subClassOf: top
+objectClassCategory: 3
+mayContain: amavisVirusLover
+mayContain: amavisBypassVirusChecks
+mayContain: amavisSpamLover
+mayContain: amavisBypassSpamChecks
+mayContain: amavisBannedFilesLover
+mayContain: amavisBypassBannedChecks
+mayContain: amavisBadHeaderLover
+mayContain: amavisBypassHeaderChecks
+mayContain: amavisSpamTagLevel
+mayContain: amavisSpamTag2Level
+mayContain: amavisSpamKillLevel
+mayContain: amavisWhitelistSender
+mayContain: amavisBlacklistSender
+mayContain: amavisSpamQuarantineTo
+mayContain: amavisVirusQuarantineTo
+mayContain: amavisBannedQuarantineTo
+mayContain: amavisBadHeaderQuarantineTo
+mayContain: amavisSpamModifiesSubj
+mayContain: amavisLocal
+mayContain: amavisMessageSizeLimit
+mayContain: amavisWarnVirusRecip
+mayContain: amavisWarnBannedRecip
+mayContain: amavisWarnBadHeaderRecip
+mayContain: amavisVirusAdmin
+mayContain: amavisNewVirusAdmin
+mayContain: amavisSpamAdmin
+mayContain: amavisBannedAdmin
+mayContain: amavisBadHeaderAdmin
+mayContain: amavisBannedRuleNames
+mayContain: amavisSpamDsnCutoffLevel
+mayContain: amavisSpamQuarantineCutoffLevel
+mayContain: amavisSpamSubjectTag
+mayContain: amavisSpamSubjectTag2
+mayContain: cn
+mayContain: description
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+

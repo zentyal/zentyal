@@ -1,0 +1,23 @@
+dn: CN=captiveQuotaOverride,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.31607.2.1.7.1.1
+cn: captiveQuotaOverride
+name: captiveQuotaOverride
+ldapDisplayName: captiveQuotaOverride
+description: Default bandwidth usage quota overrride
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+
+dn: CN=captiveQuota,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID: 1.3.6.1.4.1.31607.2.1.7.1.2
+cn: captiveQuota
+name: captiveQuota
+ldapDisplayName: captiveQuota
+description: Monthly bandwidth usage quota
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE

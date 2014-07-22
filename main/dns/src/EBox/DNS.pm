@@ -630,10 +630,10 @@ sub _preSetConf
     my ($self) = @_;
 
     my $runResolvConf = 1;
-    if ($self->global->modExists('users')) {
-        my $usersModule = $self->global->modInstance('users');
+    if ($self->global->modExists('samba')) {
+        my $usersModule = $self->global->modInstance('samba');
         my $mode = $usersModule->mode();
-        if ($mode eq EBox::Users::EXTERNAL_AD_MODE()) {
+        if ($mode eq EBox::Samba::EXTERNAL_AD_MODE()) {
             $runResolvConf = 0;
         }
     }
@@ -659,12 +659,12 @@ sub _setConf
     my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and (
-            $sambaModule->getProvision->isProvisioned() or
-            $sambaModule->getProvision->isProvisioning())) {
+        if ($sambaModule->isEnabled() and
+            $sambaModule->getProvision->isProvisioned())
+        {
             # Get the zones stored in the samba LDB
-            my $ldb = $sambaModule->ldb();
-            @{$sambaZones} = map { lc $_->name() } @{$ldb->dnsZones()};
+            my $ldap = $sambaModule->ldap();
+            @{$sambaZones} = map { lc $_->name() } @{$ldap->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
@@ -698,18 +698,6 @@ sub _setConf
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
 
-        if (EBox::Global->modExists('samba')) {
-            my $samba = EBox::Global->modInstance('samba');
-            my $provision = $samba->getProvision();
-            if ($provision->isProvisioning()) {
-                my $sysinfo = EBox::Global->modInstance('sysinfo');
-                my $adDomain = $sysinfo->hostDomain();
-                if (lc $adDomain eq $domdata->{name}) {
-                    next;
-                }
-            }
-        }
-
         # Add the updater key if the zone is dynamic
         if ($domdata->{dynamic}) {
             $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
@@ -728,19 +716,6 @@ sub _setConf
         if ($domdata->{samba}) {
             my $sambaDomData = $self->_completeDomain($domainId);
             delete $sambaDomData->{'nameServers'};
-
-            my $newSRV = [];
-            foreach my $srvRR ( @{$sambaDomData->{'srv'}} ) {
-                push (@{$newSRV}, $srvRR) unless $srvRR->{readOnly};
-            }
-            $sambaDomData->{srv} = $newSRV;
-
-            my $newTXT = [];
-            foreach my $txtRR ( @{$sambaDomData->{'txt'}} ) {
-                push (@{$newTXT}, $txtRR) unless $txtRR->{readOnly};
-            }
-            $sambaDomData->{txt} = $newTXT;
-
             $self->_updateDynDirectZone($sambaDomData);
         } elsif ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
@@ -880,15 +855,16 @@ sub _postServiceHook
             foreach my $cmd (@{$self->{nsupdateCmds}}) {
                 EBox::Sudo::root($cmd);
                 my ($filename) = $cmd =~ m:\s(.*?)$:;
-                unlink($filename) if -f $filename; # Remove the temporary file
+                # Remove the temporary file
+                unlink ($filename) if -f $filename;
             }
             delete $self->{nsupdateCmds};
         }
 
-        if (EBox::Global->modExists('users')) {
-            my $usersModule = EBox::Global->modInstance('users');
+        if (EBox::Global->modExists('samba')) {
+            my $usersModule = EBox::Global->modInstance('samba');
             my $mode = $usersModule->mode();
-            if ($mode eq EBox::Users::EXTERNAL_AD_MODE() and
+            if ($mode eq EBox::Samba::EXTERNAL_AD_MODE() and
                 EBox::Sudo::fileTest('-f', '/var/run/resolvconf/interface/lo.named')) {
                 EBox::Sudo::root('resolvconf -d lo.named');
             }
@@ -1507,25 +1483,18 @@ sub _removeDeletedRR
     }
 }
 
-# Send the nsupdate command or defer to the postservice hook
+# Method: _launchNSupdate
+#
+#   Push deferred nsupdate command to the postservice hook
+#
 sub _launchNSupdate
 {
     my ($self, $fh) = @_;
 
     my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-    if ($self->_isNamedListening()) {
-        try {
-            EBox::Sudo::root($cmd);
-        } catch ($e) {
-            EBox::error("nsupdate error: $e");
-            $fh->unlink_on_destroy(0); # For debug purposes
-        }
-    } else {
-        $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
-        push(@{$self->{nsupdateCmds}}, $cmd);
-        $fh->unlink_on_destroy(0);
-        EBox::warn('Cannot contact with named, trying in posthook');
-    }
+    $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
+    push (@{$self->{nsupdateCmds}}, $cmd);
+    $fh->unlink_on_destroy(0);
 }
 
 # Check if named is listening

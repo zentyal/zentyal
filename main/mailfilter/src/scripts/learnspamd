@@ -99,7 +99,7 @@ sub _prepare
 
     my $globalRO       = EBox::Global->getInstance(1);
     my $mail           = $globalRO->modInstance('mail');
-    my $usersMod       = $globalRO->modInstance('users');
+    my $usersMod       = $globalRO->modInstance('samba');
     my $mailUserLdap = $mail->_ldapModImplementation();
 
     my @users = qw(spam ham);

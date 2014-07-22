@@ -385,7 +385,7 @@ sub keywords
 #    Can be overrided in TreeView models but by default shows a modal dialog
 #    with a CGI with "ActionType" as name, for example, if the action is
 #    'edit' and the type is 'user', from the Users module, the CGI URL
-#    will be /Users/EditUser, this can be modified in the actionObjects
+#    will be /Samba/EditUser, this can be modified in the actionObjects
 #    attribute in nodeTypes()
 #
 # Parameters:

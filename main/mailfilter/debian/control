@@ -8,8 +8,8 @@ Standards-Version: 3.9.2
 Package: zentyal-mailfilter
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
-         zentyal-firewall, zentyal-users, zentyal-mail, zentyal-antivirus,
+Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+         zentyal-firewall, zentyal-mail, zentyal-antivirus,
          amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl,
          arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl, ${misc:Depends}
 Description: Zentyal - Mail Filter

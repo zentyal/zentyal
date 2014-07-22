@@ -1,3 +1,7 @@
+3.5
+	+ Workaround in members table against losing of directory parameter/attribute
+	+ Show nicer error when uploading invalid certificates to client configuration
+	+ Set version to 3.5
 3.4
 	+ Log audit working properly for download client bundle
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

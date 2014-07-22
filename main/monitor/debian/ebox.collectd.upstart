@@ -3,6 +3,6 @@ pre-start script
 end script
 respawn
 script
-    export LD_PRELOAD=/usr/lib/libperl.so.5.10
+    export LD_PRELOAD=/usr/lib/libperl.so.5.18
     exec /usr/sbin/collectd -f -C /etc/collectd/collectd.conf
 end script

@@ -1,0 +1,14 @@
+<%args>
+$baseDN
+$bindDN
+$bindPW
+$ldapServer
+</%args>
+server_host = <% $ldapServer %>
+version = 3
+search_base = <% $baseDN %>
+query_filter = (&(mail=%s)(!(quota=-1))(objectClass=person))
+result_attribute = mailbox
+bind = yes
+bind_dn = <% $bindDN %>
+bind_pw = <% $bindPW %>

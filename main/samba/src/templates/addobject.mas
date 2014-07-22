@@ -1,0 +1,42 @@
+<%args>
+    $dn
+    $addGroup
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class="addselector">
+<label><input type="radio" name="object_type" value="user" <% $addGroup ? '' : 'checked' %>><% __('User') %></label>
+<label><input type="radio" name="object_type" value="group" <% $addGroup ? 'checked' : '' %>><% __('Group') %></label>
+<label><input type="radio" name="object_type" value="contact"><% __('Contact') %></label>
+<label><input type="radio" name="object_type" value="ou"><% __('Organizational Unit') %></label>
+</div>
+
+<div id="addform"></div>
+
+<script>
+$(function () {
+    var form = $('#addform');
+    form.load('/Samba/<% $addGroup ? 'AddGroup' : 'AddUser' %>', {dn: '<% $dn %>'});
+
+    $('input[name=object_type]').click(function () {
+        var selectedType = $('input[name=object_type]:checked').val();
+        switch (selectedType) {
+        case 'ou':
+            form.load('/Samba/AddOU', {dn: '<% $dn %>'});
+            break;
+        case 'user':
+            form.load('/Samba/AddUser', {dn: '<% $dn %>'});
+            break;
+        case 'group':
+            form.load('/Samba/AddGroup', {dn: '<% $dn %>'});
+            break;
+        case 'contact':
+            form.load('/Samba/AddContact', {dn: '<% $dn %>'});
+            break;
+        }
+    });
+});
+
+</script>

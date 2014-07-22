@@ -21,11 +21,10 @@ package EBox::Samba::CGI::ActiveSharing;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::SambaLdapUser;
-use EBox::Users;
+use EBox::LdapUserImplementation;
+use EBox::Samba;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Samba::User;
 
 sub new
 {
@@ -39,11 +38,11 @@ sub _group
 {
     my ($self) = @_;
 
-    my $smbldap = new EBox::SambaLdapUser;
+    my $smbldap = new EBox::LdapUserImplementation;
 
     $self->_requireParam('group', __('group'));
     my $groupDN = $self->unsafeParam('group');
-    my $group = new EBox::Users::Group(dn => $groupDN);
+    my $group = new EBox::Samba::Group(dn => $groupDN);
 
     $self->_requireParamAllowEmpty('sharename', __('share name'));
     my $name =  $self->param('sharename');

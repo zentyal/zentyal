@@ -1,0 +1,14 @@
+<%args>
+$ldapServer
+$aliasDN
+$bindDN
+$bindPW
+</%args>
+server_host = <% $ldapServer %>
+version = 3
+search_base = <% $aliasDN %>
+query_filter = (&(|(mail=%s)(mail=@%s))(objectClass=CourierMailAlias))
+result_attribute = maildrop
+bind = yes
+bind_dn = <% $bindDN %>
+bind_pw = <% $bindPW %>

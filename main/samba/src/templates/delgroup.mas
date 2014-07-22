@@ -1,0 +1,54 @@
+<%args>
+    $group
+    $slave => 1
+    $forbid => 0
+    @warns => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('Delete group') %></h3>
+<div id='delGroupForm_error' class='error' style='display:none'></div>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a group in a slave.') %>
+</div>
+% } else {
+% if ($forbid) {
+<div class='warning'><% __x('This group cannot be deleted') %></div>
+% } else {
+<div class='note'>
+        <% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
+%   if (@warns) {
+     <ul>
+%      foreach my $warn(@warns) {
+           <li><% $warn %></li>
+%      }
+     </ul>
+%  }
+</div>
+% }
+<form action='/Samba/DeleteGroup' method='POST' id='delGroupForm'>
+<p>
+                <input type="hidden" name="dn" value="<% $group->dn() %>">
+% unless ($forbid) {
+                <input class='inputButton' type='submit' name='delgroup'
+                       value="<% __('Delete group') %>"
+                       alt="<% __('Delete group') %>">
+% }
+                <& /input/dialogCancel.mas &>
+</p>
+</form>
+
+<script>
+$(function() {
+   $('#delGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delGroupForm', { extraData: {delgroup: 1} });
+    });
+});
+</script>
+% }
+

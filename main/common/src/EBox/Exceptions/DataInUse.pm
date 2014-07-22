@@ -16,14 +16,14 @@
 
 # Class: EBox::Exceptions::DataInUse
 #
-#       Internal exception raised when there is a data in Zentyal which
+#       External exception raised when there is a data in Zentyal which
 #       it is about to be removed which it is being used by another
 #       part of eBox.
 #
 
 package EBox::Exceptions::DataInUse;
 
-use base 'EBox::Exceptions::Internal';
+use base 'EBox::Exceptions::External';
 
 use Log::Log4perl;
 use EBox::Gettext;

@@ -658,23 +658,13 @@ sub syncRows
     }
 
     my %sambaZones;
-    my $sambaEnabled = 0;
     if ($global->modExists('samba')) {
         my $samba = $global->modInstance('samba');
         if ($samba->isEnabled() and
             $samba->getProvision->isProvisioned())
         {
-            $sambaEnabled = 1;
-            my $sambaZones = $samba->ldb->dnsZones();
+            my $sambaZones = $samba->ldap->dnsZones();
             %sambaZones = map { $_->name() => 1 } @{$sambaZones};
-        }
-        elsif($samba->isEnabled() and
-              $samba->getProvision->isProvisioning())
-        {
-            $sambaEnabled = 1;
-            my $sysinfo = EBox::Global->modInstance('sysinfo');
-            my $adDomain = $sysinfo->hostDomain();
-            $sambaZones{$adDomain} = 1;
         }
     }
 
@@ -696,7 +686,7 @@ sub syncRows
         my $domainName = $row->valueByName('domain');
         # If the domain is not marked as stored in LDB and is present in
         # samba zones array, mark
-        if ($sambaEnabled and exists $sambaZones{$domainName})    {
+        if (exists $sambaZones{$domainName}) {
             if (not $sambaElement->value()) {
                 $sambaElement->setValue(1);
                 $rowStore = 1;
@@ -708,9 +698,7 @@ sub syncRows
 
         # If the domain is marked as stored in LDB and is not present in
         # samba zones array, unmark
-        if (not $sambaEnabled or (not exists $sambaZones{$domainName} and
-            $sambaElement->value()))
-        {
+        if (not exists $sambaZones{$domainName} and $sambaElement->value()) {
             $sambaElement->setValue(0);
             $rowStore = 1;
         }

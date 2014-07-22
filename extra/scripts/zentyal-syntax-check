@@ -125,6 +125,9 @@ sub installdeps
     }
 
     system ("sudo apt-get install -y --force-yes --no-install-recommends @deps");
+    if ($?) {
+        exit $?;
+    }
 }
 
 sub filter
@@ -167,20 +170,10 @@ sub _create_system_stuff
         system ("sudo cp common/extra/eboxlog.conf /var/lib/zentyal/conf/");
     }
 
-    unless (-f '/var/lib/zentyal/conf/captiveportal-log.conf') {
-        system ("sudo mkdir -p /var/lib/zentyal/conf");
-        system ("sudo cp captiveportal/extra/captiveportal-log.conf /var/lib/zentyal/conf/");
-    }
-
     unless (-d '/var/log/zentyal') {
         system ("sudo mkdir /var/log/zentyal");
         system ("sudo chmod 750 /var/log/zentyal");
         system ("chown ebox:adm /var/log/zentyal");
-    }
-
-    unless (-d '/var/log/zentyal-captiveportal') {
-        system ("sudo mkdir /var/log/zentyal-captiveportal");
-        system ("sudo chmod 777 /var/log/zentyal-captiveportal");
     }
 
     unless (-d '/var/lib/zentyal/tmp') {

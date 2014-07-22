@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# update current ldap database
-/usr/share/zentyal-jabber/jabber-ldap update
-
-exit 0

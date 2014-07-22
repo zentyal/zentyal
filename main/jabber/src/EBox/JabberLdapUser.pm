@@ -25,8 +25,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::Users;
-use EBox::Users::User;
+use EBox::Samba;
+use EBox::Samba::User;
 use EBox::Model::Manager;
 
 sub new
@@ -44,7 +44,6 @@ sub _userAddOns
     my ($self, $user) = @_;
 
     return unless ($self->{jabber}->configured());
-
 
     my $active   = $self->hasAccount($user) ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
@@ -68,11 +67,6 @@ sub noMultipleOUSupportComponent
 {
     my ($self) = @_;
     return $self->standardNoMultipleOUSupportComponent(__('Jabber Account'));
-}
-
-sub schemas
-{
-    return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
 }
 
 sub isAdmin
@@ -121,12 +115,12 @@ sub setHasAccount
         $user->save();
     }
     elsif (not $self->hasAccount($user) and $option) {
-        my @objectclasses = $user->get('objectClass');
-        push (@objectclasses, 'userJabberAccount');
+        # Due to a bug in Samba4 we cannot update an objectClass and its attributes at the same time
+        $user->add('objectClass', 'userJabberAccount');
+        $user->clearCache();
 
-        $user->set('jabberUid', $user->name(), 1);
-        $user->set('jabberAdmin', 'FALSE', 1);
-        $user->set('objectClass', \@objectclasses, 1);
+        $user->add('jabberUid', $user->name(), 1);
+        $user->add('jabberAdmin', 'FALSE', 1);
         $user->save();
     }
 
@@ -137,19 +131,21 @@ sub getJabberAdmins
 {
     my $self = shift;
 
-    my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $usersContainer = EBox::Users::User->defaultContainer();
     my @admins = ();
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    my $ldap = $samba->ldap();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
 
-    $users->{ldap}->connection();
-    my $ldap = $users->{ldap};
+    my $args = {
+        base => $defaultNC,
+        filter => '(jabberAdmin=TRUE)'
+    };
+    my $mesg = $ldap->search($args);
 
-    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
-    my $mesg = $ldap->search(\%args);
-
-    foreach my $entry ($mesg->entries) {
-        push (@admins, new EBox::Users::User(entry => $entry));
+    foreach my $entry ($mesg->entries()) {
+        push (@admins, new EBox::Samba::User(entry => $entry));
     }
 
     return \@admins;

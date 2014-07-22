@@ -1,3 +1,13 @@
+HEAD
+	+ Make use of VerifyPeer to false on EBox::RESTClient as we
+	  don't verify other HA hosts
+3.5.1
+	+ Avoid warning flag on smart match experimental feature
+3.5
+	+ Removed wrong translatable string in crm_resource command
+	+ Added integration with firewall
+	+ ClusterStatus creation issued at model constructor
+	+ Set version to 3.5
 3.4.1
 	+ Fixed wrong calls to ClusterStatus constructor
 3.4

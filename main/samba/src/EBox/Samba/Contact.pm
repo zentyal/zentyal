@@ -31,7 +31,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 
-use EBox::Users::Contact;
+use EBox::Samba::Contact;
 
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use TryCatch::Lite;
@@ -41,17 +41,74 @@ sub mainObjectClass
     return 'contact';
 }
 
-# Method: create
+sub printableType
+{
+    return __('contact');
+}
+
+# Class method: defaultContainer
 #
-# FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
-# because an OrganizationalPerson reconversion to a Contact failed.
+#   Parameters:
+#     ro - wether to use the read-only version of the users module
+#
+#   Return the default container that will hold Group objects.
+#
+sub defaultContainer
+{
+    my ($class, $ro) = @_;
+    my $usersMod = EBox::Global->getInstance($ro)->modInstance('samba');
+    return $usersMod->objectFromDN('CN=Users,' . $usersMod->ldap->dn());
+}
+
+# Method: save
+#
+#   Saves the contact changes.
+#
+sub save
+{
+    my ($self) = @_;
+
+    my $changetype = $self->_entry->changetype();
+
+    my $hasCoreChanges = $self->{core_changed};
+
+    shift @_;
+    $self->SUPER::save(@_);
+
+    if ($changetype ne 'delete') {
+        if ($hasCoreChanges) {
+
+            my $usersMod = $self->_usersMod();
+            $usersMod->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+        }
+    }
+}
+
+# Method: deleteObject
+#
+#   Delete the contact
+#
+sub deleteObject
+{
+    my ($self) = @_;
+
+    # Notify contact deletion to modules
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+
+    # Call super implementation
+    shift @_;
+    $self->SUPER::deleteObject(@_);
+}
+
+# Method: create
 #
 #   Adds a new contact
 #
 # Parameters:
 #
 #   args - Named parameters:
-#       name
+#       name *optional*
 #       givenName
 #       initials
 #       sn
@@ -71,12 +128,15 @@ sub create
     my ($class, %args) = @_;
 
     # Check for required arguments.
-    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
     throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $name = $args{name};
+    unless ($name) {
+        $name = $class->generatedFullName(%args);
+    }
+
     my $dn = "CN=$name," . $args{parent}->dn();
 
     my @attr = ();
@@ -119,78 +179,6 @@ sub create
     }
 
     return $res;
-}
-
-sub addToZentyal
-{
-    my ($self) = @_;
-
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
-
-    if (not $parent) {
-        my $dn = $self->dn();
-        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
-    }
-    my $name = $self->name();
-    my $givenName = $self->givenName();
-    my $surname = $self->surname();
-    $givenName = '-' unless defined $givenName;
-    $surname = '-' unless defined $surname;
-
-    my $zentyalContact = undef;
-    EBox::info("Adding samba contact '$name' to Zentyal");
-    try {
-        my %args = (
-            parent       => $parent,
-            fullname     => scalar ($name),
-            givenname    => scalar ($givenName),
-            initials     => scalar ($self->initials()),
-            surname      => scalar ($surname),
-            displayname  => scalar ($self->displayName()),
-            description  => scalar ($self->description()),
-            mail         => scalar ($self->mail()),
-            ignoreMods   => ['samba'],
-        );
-
-        my $zentyalContact = EBox::Users::Contact->create(%args);
-        $self->_linkWithUsersObject($zentyalContact);
-    } catch (EBox::Exceptions::DataExists $e) {
-        EBox::debug("Contact $name already in OpenLDAP database");
-    } catch ($e) {
-        EBox::error("Error loading contact '$name': $e");
-    }
-}
-
-sub updateZentyal
-{
-    my ($self) = @_;
-
-    my $name = $self->name();
-    EBox::info("Updating zentyal contact '$name'");
-
-    my $givenName = $self->givenName();
-    my $surname = $self->surname();
-    my $initials = $self->initials();
-    my $displayName = $self->displayName();
-    my $description = $self->description();
-    my $mail = $self->mail();
-    $givenName = '-' unless defined $givenName;
-    $surname = '-' unless defined $surname;
-
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $zentyalContact = $sambaMod->ldapObjectFromLDBObject($self);
-    throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist") unless ($zentyalContact and $zentyalContact->exists());
-
-    $zentyalContact->setIgnoredModules(['samba']);
-    $zentyalContact->set('cn', $name, 1);
-    $zentyalContact->set('givenName', $givenName, 1);
-    $zentyalContact->set('initials', $initials, 1);
-    $zentyalContact->set('sn', $surname, 1);
-    $zentyalContact->set('displayName', $displayName, 1);
-    $zentyalContact->set('description', $description, 1);
-    $zentyalContact->set('mail', $mail, 1);
-    $zentyalContact->save();
 }
 
 1;

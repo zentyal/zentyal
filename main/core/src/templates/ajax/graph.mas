@@ -40,6 +40,7 @@ my $reloadAction = $action eq 'changeList';
 $model
 </%args>
 <%init>
+no warnings 'experimental::smartmatch';
 use feature 'switch';
 
 my $container = $model->name() . 'GraphContainer';

@@ -169,6 +169,7 @@ sub langs
         $langs->{'fa_IR.UTF-8'} = 'فارسی';
         $langs->{'fr_FR.UTF-8'} = 'Français';
         $langs->{'gl_ES.UTF-8'} = 'Galego';
+        $langs->{'he_HE.UTF-8'} = 'עִבְרִית';
         $langs->{'hu_HU.UTF-8'} = 'Magyar';
         $langs->{'it_IT.UTF-8'} = 'Italiano';
         $langs->{'ja_JP.UTF-8'} = '日本語';

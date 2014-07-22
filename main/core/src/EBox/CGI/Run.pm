@@ -34,6 +34,7 @@ use EBox::Exceptions::InvalidArgument;
 use TryCatch::Lite;
 use File::Slurp;
 use Perl6::Junction qw(any);
+use Scalar::Util;
 
 use constant URL_ALIAS_FILTER => '/usr/share/zentyal/urls/*.urls';
 
@@ -81,7 +82,7 @@ sub run
                 my $log = EBox::logger();
                 $log->error("Unable to load CGI: URL=$effectiveUrl CLASS=$classname ERROR: $@");
 
-                my $error_handler = 'EBox::SysInfo::CGI::PageNotFound';
+                my $error_handler = 'EBox::SysInfo::CGI::ComponentNotFound';
                 eval "use $error_handler";
                 $handler = new $error_handler(@extraParams);
             } else {
@@ -98,7 +99,11 @@ sub run
         }
 
         $redis->rollback();
-        $ex->throw();
+        if (Scalar::Util::blessed($ex) and $ex->isa('EBox::Exceptions::Base')) {
+            $ex->throw();
+        } else {
+            die $ex;
+        }
     }
 }
 

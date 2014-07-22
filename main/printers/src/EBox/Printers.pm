@@ -27,7 +27,7 @@ use EBox::Menu::Item;
 use EBox::Sudo;
 use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
-use EBox::Users::Group;
+use EBox::Samba::Group;
 use Net::CUPS::Destination;
 use Net::CUPS;
 use TryCatch::Lite;
@@ -309,7 +309,7 @@ sub printers
             if ($element->selectedType() eq 'user') {
                 push (@users, $element->value());
             } else {
-                my $group = new EBox::Users::Group(gid => $element->value());
+                my $group = new EBox::Samba::Group(gid => $element->value());
                 my @userNames = map { $_->name() } @{$group->users()};
                 push (@users, @userNames);
             }

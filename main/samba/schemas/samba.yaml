@@ -2,18 +2,30 @@ class: 'EBox::Samba'
 
 enabledepends:
     - network
-    - ntp
     - dns
-    - users
+    - ntp
 
 bootdepends:
     - network
     - ntp
     - dns
-    - users
 
 models:
-    - GeneralSettings
+    - DomainSettings
+    - Manage
+    - Mode
+    - LdapInfo
+    - PAM
+    - AccountSettings
+    - Slaves
+    - Master
+    - SlavePassword
+    - GPOs
+    - GPOScriptsStartup
+    - GPOScriptsShutdown
+    - GPOScriptsLogin
+    - GPOScriptsLogoff
+    - GPOLinks
     - SambaShares
     - SyncShares
     - SambaSharePermissions
@@ -22,22 +34,17 @@ models:
     - AntivirusExceptions
     - RecycleDefault
     - RecycleExceptions
-    - GPOs
-    - GPOSoftwareComputer
-    - GPOSoftwareUser
-    - GPOScriptsStartup
-    - GPOScriptsShutdown
-    - GPOScriptsLogin
-    - GPOScriptsLogoff
-    - GPOLinks
 
 composites:
-    RecycleBin: [RecycleDefault, RecycleExceptions]
-    Antivirus: [AntivirusDefault, AntivirusExceptions]
-    General: [SambaShares, RecycleBin, Antivirus]
+    Settings: [LdapInfo, PAM]
+    Sync: [Master, SlavePassword, Slaves]
+    UserTemplate: []
     GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
     GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
     GPO: [GPOComputerConfiguration, GPOUserConfiguration]
+    RecycleBin: [RecycleDefault, RecycleExceptions]
+    Antivirus: [AntivirusDefault, AntivirusExceptions]
+    FileSharing: [SambaShares, RecycleBin, Antivirus]
 
 modeldepends:
     AntivirusExceptions:
@@ -46,5 +53,7 @@ modeldepends:
         samba/SambaShares: [share]
 
 foreign:
-    SambaShares: [SambaSharePermissions]
     GPOs: [GPO]
+    SambaShares: [SambaSharePermissions]
+
+# NOTE: UserTemplate composite components are dynamic in componentNames()

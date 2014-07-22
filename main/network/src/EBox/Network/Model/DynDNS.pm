@@ -84,6 +84,14 @@ our %SERVICES = (
         web_skip => 'Current IP Address:',
         require_info => 0,
     },
+    noip => {
+        printableValue => 'no-ip.com',
+        protocol => 'noip',
+        server => 'dynupdate.no-ip.com',
+        use => 'web',
+        web => 'http://ip1.dynupdate.no-ip.com/',
+        require_info => 1,
+    },
 );
 
 # Dependencies

@@ -22,7 +22,7 @@ use EBox::Global;
 
 EBox::init();
 
-my $users = EBox::Global->getInstance()->modInstance('users');
+my $users = EBox::Global->getInstance()->modInstance('samba');
 my $mail = EBox::Global->getInstance()->modInstance('mail');
 
 my @usersList = $users->users();

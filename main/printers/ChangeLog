@@ -1,5 +1,7 @@
-HEAD
+3.5
+	+ Adapted to OpenLDAP removal
 	+ Use IP address on CUPS admin URL to avoid bad request errors
+	+ Set version to 3.5
 3.4
 	+ Skip internal groups in printer ACL model
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

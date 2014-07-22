@@ -1,0 +1,49 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $user
+    $slave => 1
+    @warns => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><%__('Delete user')%></h3>
+<div id='delUserForm_error' class='error' style='display:none'></div>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a user in a slave.') %>
+</div>
+% } else {
+<div class='note'>
+    <% __('This operation will cause the removal of the user and all its dependent data') %>
+%   if (@warns) {
+     <ul>
+%      foreach my $warn(@warns) {
+           <li><% $warn %></li>
+%      }
+     </ul>
+%   }
+</div>
+<form action='/Samba/DeleteUser' method='POST' id='delUserForm'>
+<p>
+<input type="hidden" name="dn" value="<% $user->dn() %>" />
+            <input class='inputButton' type='submit' id='deluser' name='deluser'
+                   value="<% __('Delete user') %>"
+                   alt="<% __('Delete user') %>" />
+            <& /input/dialogCancel.mas &>
+</p>
+</form>
+
+<script>
+$(function() {
+   $('#deluser').on('click', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
+    });
+});
+</script>
+% }
+

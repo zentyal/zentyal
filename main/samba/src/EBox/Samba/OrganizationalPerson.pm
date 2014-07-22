@@ -22,19 +22,26 @@ use warnings;
 #
 package EBox::Samba::OrganizationalPerson;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
 use EBox::Gettext;
 
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Group;
+use Net::LDAP::Util qw(escape_filter_value canonical_dn);
 
 # Method: name
 #
 #   Return the name of this person
 #
 sub name
+{
+    my ($self) = @_;
+    return $self->get('cn');
+}
+
+sub fullname
 {
     my ($self) = @_;
     return $self->get('cn');
@@ -47,7 +54,13 @@ sub name
 sub givenName
 {
     my ($self) = @_;
-    return $self->get('givenName');
+
+    my $givenname = $self->get('givenName');
+    if (not $givenname) {
+        return '';
+    }
+
+    return $givenname;
 }
 
 # Method: initials
@@ -67,7 +80,12 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+
+    my $sn = $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 # Method: displayName
@@ -151,7 +169,7 @@ sub groups
 #
 # Returns:
 #
-#   array ref of EBox::Users::Group objects
+#   array ref of EBox::Samba::Group objects
 #
 sub groupsNotIn
 {
@@ -166,7 +184,7 @@ sub _groups
 {
     my ($self, %params) = @_;
 
-    my $dn = $self->dn();
+    my $dn = escape_filter_value($self->dn());
     my $filter;
     if ($params{invert}) {
         $filter = "(&(objectclass=group)(!(member=$dn)))";
@@ -185,7 +203,11 @@ sub _groups
     my $groups = [];
     if ($result->count > 0) {
         foreach my $entry ($result->sorted('cn')) {
-            push (@{$groups}, new EBox::Samba::Group(entry => $entry));
+            my $group =  new EBox::Samba::Group(entry => $entry);
+            next if ($group->isInternal() and not $params{internal});
+            next if ($group->isSystem() and not $params{system});
+
+            push (@{$groups}, $group);
         }
     }
     return $groups;
@@ -214,5 +236,23 @@ sub deleteObject
     shift @_;
     $self->SUPER::deleteObject(@_);
 }
+
+sub generatedFullName
+{
+    my ($self, %args) = @_;
+    my $fullname = '';
+
+    if ($args{givenName}) {
+        $fullname = $args{givenName} . ' ';
+    }
+    if ($args{initials}) {
+        $fullname .= $args{initials} . '. ';
+    }
+    if ($args{sn}) {
+        $fullname .= $args{sn};
+    }
+    return $fullname
+}
+
 
 1;

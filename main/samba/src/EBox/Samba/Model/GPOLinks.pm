@@ -41,8 +41,8 @@ sub rootNodes
 {
     my ($self) = @_;
 
-    my $ldb = $self->parentModule->ldb();
-    my $rootDSE = $ldb->rootDse();
+    my $ldap = $self->parentModule->ldap();
+    my $rootDSE = $ldap->rootDse();
     my $rootNC = $rootDSE->get_value('rootDomainNamingContext');
     my $rootDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $rootNC)));
 
@@ -55,11 +55,11 @@ sub _domainList
     my ($self) = @_;
 
     my $domainList = [];
-    my $ldb = $self->parentModule->ldb();
-    my $rootDSE = $ldb->rootDse();
+    my $ldap = $self->parentModule->ldap();
+    my $rootDSE = $ldap->rootDse();
     my $configurationNC = $rootDSE->get_value('ConfigurationNamingContext');
 
-    my $result = $ldb->search({
+    my $result = $ldap->search({
         base => "CN=Partitions,$configurationNC",
         scope => 'one',
         filter => '(NETBIOSName=*)',
@@ -88,11 +88,11 @@ sub _siteList
     my ($self) = @_;
 
     my $siteList = [];
-    my $ldb = $self->parentModule->ldb();
-    my $rootDSE = $ldb->rootDse();
+    my $ldap = $self->parentModule->ldap();
+    my $rootDSE = $ldap->rootDse();
     my $configurationNC = $rootDSE->get_value('ConfigurationNamingContext');
 
-    my $result = $ldb->search({
+    my $result = $ldap->search({
         base => "CN=Sites,$configurationNC",
         scope => 'one',
         filter => "(objectCategory=CN=Site,CN=Schema,$configurationNC)",
@@ -110,12 +110,12 @@ sub _som
     my ($self, $dn) = @_;
 
     my $somList = [];
-    my $ldb = $self->parentModule->ldb();
-    my $rootDSE = $ldb->rootDse();
+    my $ldap = $self->parentModule->ldap();
+    my $rootDSE = $ldap->rootDse();
     my $configurationNC = $rootDSE->get_value('ConfigurationNamingContext');
 
     # Query domain OUs
-    my $result = $ldb->search({
+    my $result = $ldap->search({
         base => $dn,
         scope => 'sub',
         filter => "(objectCategory=CN=Organizational-Unit," .
@@ -142,8 +142,8 @@ sub _gpLinks
     my $gpLinks = [];
 
 # TODO If GPO has been removed and there is a link to a non existant GPO do not die
-    my $ldb = $self->parentModule->ldb();
-    my $result = $ldb->search({
+    my $ldap = $self->parentModule->ldap();
+    my $result = $ldap->search({
         base => $dn,
         scope => 'base',
         filter => '(objectClass=*)',

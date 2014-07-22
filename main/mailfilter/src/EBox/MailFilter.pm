@@ -18,14 +18,13 @@ use warnings;
 
 package EBox::MailFilter;
 
-use base (
-          'EBox::Module::Service',
-          'EBox::VDomainModule',
-          'EBox::LdapModule',
-          'EBox::Mail::FilterProvider',
-          'EBox::FirewallObserver',
-          'EBox::LogObserver',
-         );
+use base qw(
+    EBox::Module::Kerberos
+    EBox::VDomainModule
+    EBox::Mail::FilterProvider
+    EBox::FirewallObserver
+    EBox::LogObserver
+);
 
 use Perl6::Junction qw(all any);
 
@@ -42,11 +41,10 @@ use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Version;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
-use EBox::MailFilter::POPProxy;
 
 use constant SA_LEARN_SCRIPT => '/usr/share/zentyal-mailfilter/saLearn.pl';
 
@@ -63,9 +61,8 @@ sub _create
                                       @_);
     bless($self, $class);
 
-    $self->{smtpFilter} = new EBox::MailFilter::Amavis();
+    $self->{smtpFilter} = new EBox::MailFilter::Amavis($self->global());
     $self->{antispam}  = new EBox::MailFilter::SpamAssassin();
-    $self->{popProxy}  = new EBox::MailFilter::POPProxy();
 
     return $self;
 }
@@ -112,69 +109,8 @@ sub usedFiles
 
     push (@usedFiles, @{EBox::MailFilter::Amavis::usedFiles()});
     push (@usedFiles, EBox::MailFilter::SpamAssassin::usedFiles());
-    push (@usedFiles, EBox::MailFilter::POPProxy::usedFiles());
 
     return \@usedFiles;
-}
-
-# Method: initialSetup
-#
-# Overrides:
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    unless ($version) {
-        # Create default rules and services
-        # only if installing the first time
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->addServiceRules($self->_serviceRules());
-        $firewall->saveConfigRecursive();
-    }
-}
-
-#  mailfilter can be used without mail so this methods reflects that
-sub depends
-{
-    my ($self) = @_;
-    my @depends = ('firewall');
-    my $mail = $self->global()->modInstance('mail');
-    if ($mail and $mail->isEnabled()) {
-        push @depends, 'mail';
-    }
-
-    return \@depends;
-}
-
-sub _serviceRules
-{
-    my ($self) = @_;
-
-    my $popProxyPort = $self->popProxy()->port();
-
-    return [
-             {
-              'name' => 'POP Transparent proxy',
-              'printableName' => __('POP Transparent proxy'),
-              'description' => __('POP Transparent proxy'),
-              'internal' => 1,
-              'protocol' => 'tcp',
-              'sourcePort' => 'any',
-              'destinationPorts' => [ $popProxyPort ],
-              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
-             },
-             {
-              'name' => 'POP3',
-              'description' => __('POP3 protocol'),
-              'internal' => 1,
-              'protocol'   => 'tcp',
-              'sourcePort' => 'any',
-              'destinationPorts' => [ 110 ],
-              'rules' => { 'internet' => 'accept', 'output' => 'accept' },
-             },
-    ];
 }
 
 # Method: enableService
@@ -201,42 +137,43 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
     $self->SUPER::enableService($status);
 }
 
-sub _ldapSetup
+sub setupLDAP
 {
-    my $users = EBox::Global->modInstance('users');
+    # learn account feature disabled by now
+    # my $users = EBox::Global->modInstance('samba');
 
-    my $container = EBox::Users::User->defaultContainer();
-    my @controlUsers = (
-        {
-            uid => 'spam',
-            givenname => 'Spam',
-            surname  => 'spam',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-        {
-            uid => 'ham',
-            givenname => 'Ham',
-            surname => 'ham',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-    );
+    # my $container = EBox::Samba::User->defaultContainer();
+    # my @controlUsers = (
+    #     {
+    #         samAccountName => 'spam',
+    #         givenname => 'Spam',
+    #         surname  => 'spam',
+    #         parent => $container,
+    #         isSystemUser => 1,
+    #         isInternal => 1,
+    #     },
+    #     {
+    #         samAccountName => 'ham',
+    #         givenname => 'Ham',
+    #         surname => 'ham',
+    #         parent => $container,
+    #         isSystemUser => 1,
+    #         isInternal => 1,
+    #     },
+    # );
 
-    foreach my $user_r (@controlUsers) {
-        my $username = $user_r->{uid};
-        my $user = new EBox::Users::User(uid => $username);
-        unless ($user->exists()) {
-            EBox::debug("Creating user '$username'");
-            EBox::Users::User->create(%$user_r);
-        } else {
-            unless ($user->isSystem()) {
-                die $user->name() . " is not a system user as it has to be";
-            }
-        }
-    }
+    # foreach my $user_r (@controlUsers) {
+    #     my $samAcName = $user_r->{samAccountName};
+    #     my $user = new EBox::Samba::User(samAccountName => $samAcName);
+    #     unless ($user->exists()) {
+    #         EBox::debug("Creating user '$samAcName'");
+    #         EBox::Samba::User->create(%$user_r);
+    #     } else {
+    #         unless ($user->isSystem()) {
+    #             die $user->name() . " is not a system user as it has to be";
+    #         }
+    #     }
+    # }
 
     my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
     my $vdomainMail       = new EBox::MailVDomainsLdap;
@@ -255,38 +192,8 @@ sub enableActions
     my ($self) = @_;
     $self->checkUsersMode();
 
-    $self->performLDAPActions();
-
-    $self->_ldapSetup();
-
     # Execute enable-module script
     $self->SUPER::enableActions();
-}
-
-#  Method: enableModDepends
-#
-#   Override EBox::Module::Service::enableModDepends
-#
-#  The mail dependency only exists bz we need the ldap mail data or we will run
-#  in error when seting mail domains options
-sub enableModDepends
-{
-    my ($self) = @_;
-    my @depends = qw(network antivirus);
-
-    my $mail = EBox::Global->modInstance('mail');
-    if ($mail) {
-        if (not $mail->configured()) {
-            push @depends, 'mail';
-        }
-    }
-
-    if ($self->popProxy->isEnabled()) {
-        # requires firewall to do the port redirection
-        push @depends, 'firewall';
-    }
-
-    return \@depends;;
 }
 
 # Method: reprovisionLDAP
@@ -323,26 +230,11 @@ sub antispam
     return $self->{antispam};
 }
 
-#
-# Method: popProxy
-#
-# Returns:
-#   - the popProxy object. This a instance of EBox::MailFilter::POPProxy
-sub popProxy
-{
-    my ($self) = @_;
-    return $self->{popProxy};
-}
-
 sub antispamNeeded
 {
     my ($self) = @_;
 
     if ($self->smtpFilter()->isEnabled() and $self->smtpFilter()->antispam()) {
-        return 1;
-    }
-
-    if ($self->popProxy()->isEnabled() and $self->popProxy()->antispam()) {
         return 1;
     }
 
@@ -360,7 +252,6 @@ sub _setConf
 
     $self->smtpFilter->writeConf();
     $self->antispam()->writeConf();
-#FIXME    $self->popProxy()->writeConf();
 
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     $vdomainsLdap->regenConfig();
@@ -376,7 +267,6 @@ sub _enforceServiceState
 
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
-#FIXME    $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
     EBox::Sudo::root('service postfix restart');
@@ -395,17 +285,9 @@ sub isRunning
 {
     my ($self) = @_;
 
-    foreach my $componentName (qw(smtpFilter antispam popProxy)) {
+    foreach my $componentName (qw(smtpFilter antispam)) {
         my $component = $self->$componentName();
         if ($component->isRunning) {
-            return 1;
-        }
-    }
-
-    if ((not $self->smtpFilter()->isEnabled()) and
-        (not $self->popProxy()->isEnabled())) {
-        # none service is enabled but module is -> running = 1
-        if ($self->isEnabled()) {
             return 1;
         }
     }
@@ -442,7 +324,6 @@ sub _stopService
 
     $self->smtpFilter()->stopService();
     $self->antispam()->stopService();
-#    $self->popProxy()->stopService();
 }
 
 ## firewall method
@@ -451,9 +332,6 @@ sub usesPort
   my ($self, $protocol, $port, $iface) = @_;
 
   if ($self->smtpFilter()->usesPort( $protocol, $port, $iface) ) {
-    return 1;
-  }
-  elsif ($self->popProxy()->usesPort( $protocol, $port, $iface) ) {
     return 1;
   }
 
@@ -474,8 +352,6 @@ sub firewallHelper
                               port            => $self->smtpFilter()->port,
                               fwport          => $self->smtpFilter()->fwport,
                               externalMTAs    => $externalMTAs,
-                              POPProxy        => $self->popProxy->isEnabled(),
-                              POPProxyPort    => $self->popProxy->port,
                                              );
 }
 
@@ -505,7 +381,6 @@ sub _ldapModImplementation
 # Returns:
 #
 #  An object implementing EBox::LdapVDomainsBase
-
 sub _vdomainModImplementation
 {
     my ($self) = @_;
@@ -572,8 +447,6 @@ sub mailFilterWidget
     my ($self,$widget) = @_;
 
     $self->smtpFilter()->summary($widget);
-# FIXME
-#    $self->popProxy()->summary($widget);
 }
 
 sub widgets
@@ -638,44 +511,6 @@ sub _smtpFilterTableInfo
     };
 }
 
-# sub _popProxyTableInfo
-# {
-#     my ($self) = @_;
-
-#     my $titles = {
-#                   'timestamp' => __('Date'),
-
-#                   'address' => __('Account'),
-#                   clientConn => __(q{Client's address}),
-#                   'event' => __('Event'),
-
-#                   mails  => __('Total messages'),
-#                   clean  => __('Clean messages'),
-#                   virus  => __('Virus messages'),
-#                   spam   => __('Spam messages'),
-#                  };
-
-#     my @order = qw( timestamp event address clientConn mails clean virus spam );
-
-#     my $events = {
-#                   'pop3_fetch_ok' =>
-#                         __('POP3 transmission complete'),
-#                   'pop3_fetch_failed' =>
-#                         __('POP3 transmission aborted'),
-#     };
-
-#     return {
-#             'name' => __('POP3 proxy'),
-#             'tablename' => 'mailfilter_pop',
-#             'titles' => $titles,
-#             'order' => \@order,
-#             'filter' => ['timestamp', 'address', 'clientConn'],
-#             'events' => $events,
-#             'eventcol' => 'event',
-#             'consolidate' => $self->_popProxyFilterConsolidationSpec(),
-#     };
-# }
-
 sub logHelper
 {
     my ($self) = @_;
@@ -720,39 +555,6 @@ sub _filterTrafficConsolidationSpec
     return $spec;
 }
 
-sub _popProxyFilterConsolidationSpec
-{
-    my $spec = {
-        filter             => sub {
-            my ( $row) = @_;
-            return $row->{event} eq 'pop3_fetch_ok'
-        },
-        accummulateColumns => {
-            mails  => 0,
-            clean  => 0,
-            virus  => 0,
-            spam   => 0,
-        },
-        consolidateColumns => {
-            mails => {
-                accummulate => 'mails',
-            },
-            clean => {
-                accummulate => 'clean',
-            },
-            virus => {
-                accummulate => 'virus',
-            },
-            spam => {
-                accummulate => 'spam',
-            },
-
-        },
-    };
-
-    return { mailfilter_pop_traffic => $spec };
-}
-
 sub menu
 {
     my ($self, $root) = @_;
@@ -772,14 +574,6 @@ sub menu
                  )
     );
 
-# FIXME: p3scan is disabled, it crashes installation
-#    $folder->add(
-#                 new EBox::Menu::Item(
-#                                      'url' => 'MailFilter/View/POPProxyConfiguration',
-#                                      'text' => __('POP Transparent Proxy')
-#                 )
-#    );
-
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'MailFilter/Composite/Antispam',
@@ -795,6 +589,21 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

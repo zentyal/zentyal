@@ -1,0 +1,138 @@
+3.5
+	+ Writen nginx configuration files on enableModActions
+	+ Don't stop captive portal on firewall start if it was just enabled
+	+ Use silentRoot in rules recheck
+	+ Stop captive portal on firewall restart
+	+ Added noMultipleOUSupportComponent support
+	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
+	+ Set version to 3.5
+3.4
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Fixed CaptivePortalQUota event watcher path
+	+ Fixed restricted login by group
+	+ Don't show iptables error on Captive Daemon if debug is not enabled
+	+ Regenerate, if needed captive, portal rules on startup of captived
+	+ Better synchronization between sessions and iptables rules
+	+ Fixed SID generation code
+	+ Fix missing uses in EBox::CaptivePortal::Model::BWSettings
+3.3
+	+ Fixed regression on restricted authentication to group
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
+	+ Use upstream Apache2::AuthCookie instead of forked version
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.6
+	+ Allow login when accessing an HTTPS page
+3.1.5
+	+ Improved reload icon
+	+ Fixed regression trying to access redis after users API changes
+3.1.4
+	+ User add-on adapted to right panel view
+	+ Added menu icon
+	+ Use MAC address in object exception
+	+ Fixed bug in exceptions firewall rules
+	+ Adapt firewall rules to new accept chains
+	+ Adapted user addon to multi-OU tree view
+	+ Removed no longer necessary jQuery noConflict()
+	+ Updated to use the new API to retrieve groups and users.
+	+ Updated to use the new security group concept.
+	+ Make user authorizarion compatible with external AD mode
+3.1.3
+	+ Fix regression in CGIs package names
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Added missing use sentence to Users Model
+3.1
+	+ Adapted to the new EBox::CGI::Run
+	+ Depend on zentyal-core 3.1
+3.0.3
+	+ Fixed bug which could generate invalid iptable rules when
+	  captive portal listens in more than one interface
+	+ Capture exceptions are now compatible with http proxy
+	  transparent mode
+	+ Capture exceptions are applied to input to the server itself
+3.0.2
+	+ Client popup made more compatible with different browsers
+	+ Removed superfluos firewall rules removal, better management of
+	  firewall lock
+	+ Added 'Continue to destination' link
+	+ Remove conntrac kstate when adding/removing user rules
+	+ More frequent polling for more responsive captive daemon
+	+ Fixed Log4perl configuration and initialization. Log directory
+	  permissions made more restrictive.
+	+ Removed unnecesary and misleading method 'new' from EBox::CaptivePortal::Auth package
+3.0.1
+	+ Adapted to the new utf8 fixes
+	+ Removed superfluos calls to utf8::decode
+	+ Restart module on package install
+	+ Warning and disable action if authotization group is removed
+	+ Fixed regression in authorization restricted by group
+3.0
+	+ Updated 'created by' footer
+2.3.5
+	+ Display type of exception in table view
+	+ Blocking captive daemon watcher to avoid cpu consumption
+2.3.4
+	+ More robust code against errors when getting watcher class
+	+ Improved extend quota icons and some texts
+	+ Improved style of login page
+	+ Added modeldepends to yaml schema
+2.3.3
+	+ Fixed firewall locking problems
+	+ Enable interfaces in bandwith monitor module when needed
+	+ Added service and objects exceptions
+	+ Avoided LDAP errors with user quotas, user quota addon takes into
+	  account whether bandwidth limit is enabled or disabled
+2.3.2
+	+ Adapted to new Model management framework
+2.3.1
+	+ Updated code for new users module
+2.3
+	+ Replaced autotools with zbuildtools
+	+ Fixed non-translatable string in popup window
+	+ Fixed logrotate configuration
+2.1.10
+	+ Fixed UTF8 double-encoding on unexpected error CGI
+	+ Added units to bandwidth quota label
+2.1.9
+	+ Bug report form appears now if captiveportal crashes
+	+ Removed default value for group setting (avoid crashes in user corner)
+	+ Set locale properly in captive portal
+	+ Removed /zentyal prefix from URLs
+	+ Moved model() call out of Users constructor to avoid problems
+	  with configuration backup.
+2.1.8
+	+ Fixed captive portal pages layout and styling
+	+ Always show current users tab and show a precondition message
+	  if module is not enabled
+	+ Added group option to configure authorized users
+2.1.7
+	+ Added a custom action to kick logged users
+2.1.6
+	+ Added useraddon to configure bandwidth limit
+	+ Rotate captiveportal logs
+2.1.5
+	+ Kick users who have exceed bandwidth quota
+	+ Calculate users bandwidth usage based on configured period
+2.1.4
+	+ New secondary LDAP configuration tab (enabled via confkey)
+	+ Added current users tab
+	+ Integrate bwmonitor to control users bandwidth usage
+	+ Removed use of obsolete LogAdmin
+2.1.3
+	+ Added custom style for captive portal css pages
+2.1.2
+	+ Allow a secondary LDAP server for authentication (via config file)
+	+ Better configuration values por apache
+	+ Fixed firewall helper to avoid session loss
+2.1.1
+	+ Increased session grace time to avoid session losses on slow requests
+	+ Do not automatically logout on window close (may cause problems in some browsers)
+2.1
+	+ Initial release

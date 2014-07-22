@@ -2860,7 +2860,7 @@ sub ifaceBroadcast # (interface)
 sub nameservers
 {
     my ($self) = @_;
-    my $users = $self->global()->modInstance('users');
+    my $users = $self->global()->modInstance('samba');
     if ($users and ($users->mode() eq $users->STANDALONE_MODE)) {
         return ['127.0.0.1']
     }
@@ -3673,7 +3673,9 @@ sub _preSetConf
 
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
-    return unless exists $ENV{'USER'};
+    unless ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
+        return;
+    }
 
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
@@ -4049,9 +4051,12 @@ sub gatewayReachable
 sub setDHCPAddress # (interface, ip, mask)
 {
     my ($self, $iface, $ip, $mask) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+    if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
     checkIPNetmask($ip, $mask,  __("IP address"), __('Netmask'));
 
     my $state = $self->get_state();
@@ -4089,7 +4094,8 @@ sub setDHCPGateway # (iface, gateway)
     checkIP($gw, __("IP address"));
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+                                             value => $iface);
+
 
     my $state = $self->get_state();
     $state->{dhcp}->{$iface}->{gateway} = $gw;
@@ -4109,9 +4115,12 @@ sub setDHCPGateway # (iface, gateway)
 sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
 {
     my ($self, $iface, $ppp_iface, $ppp_addr) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+   if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
 
     my $state = $self->get_state();
     $state->{interfaces}->{$iface}->{ppp_iface} = $ppp_iface;
@@ -4134,9 +4143,12 @@ sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
 sub DHCPCleanUp # (interface)
 {
     my ($self, $iface) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+    if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
 
     my $state = $self->get_state();
     delete $state->{dhcp}->{$iface};

@@ -84,7 +84,7 @@ sub validateTypedRow
 
     if (exists $changedFields->{enableDir} and
         $changedFields->{enableDir}->value())  {
-        my $users = EBox::Global->modInstance('users');
+        my $users = EBox::Global->modInstance('samba');
         if (not $users) {
             throw EBox::Exceptions::External(
                 __('Having installed and configured the Users and Groups module is required to allow HTML directories for users.')
@@ -127,7 +127,7 @@ sub DefaultEnableDir
 sub message
 {
     my ($self, $action) = @_;
-    if ($action eq 'update') {
+    if ($action and ($action eq 'update')) {
         my $userstatus = $self->value('enableDir');
         if ($userstatus)  {
             return __('User public folder configuration settings updated.') . '<br>' .

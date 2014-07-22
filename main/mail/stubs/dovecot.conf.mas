@@ -16,9 +16,6 @@
     $gssapiHostname
 </%args>
 <%init>
-# sieve dir is also hoem directory for compability
-# with previous versions of this module
-my $sieveDir = "$mailboxesDir/sieve";
 my @protocolsReduced;
 if ($protocols{pop3} or $protocols{pop3s}) {
     push @protocolsReduced, 'pop3';
@@ -48,24 +45,37 @@ auth_gssapi_hostname = <% $gssapiHostname %>
 auth_debug = no
 auth_verbose = no
 
+
 service auth {
   executable = /usr/lib/dovecot/auth
+
   unix_listener /var/spool/postfix/private/auth {
-    group = postfix
     mode = 0660
+    # Assuming the default Postfix user and group
     user = postfix
+    group = postfix
   }
+
   unix_listener auth-master {
     group = ebox
     mode = 0600
     user = ebox
   }
-  user = dovecot
 }
+
+service lmtp {
+    unix_listener /var/spool/postfix/private/dovecot-lmtp {
+        group = postfix
+        mode = 0666
+        user = postfix
+    }
+}
+
 
 userdb {
     driver = ldap
     args = /etc/dovecot/dovecot-ldap.conf
+    default_fields=uid=<% $uid %> gid=<% $gid %>
 }
 
 passdb {
@@ -93,8 +103,10 @@ log_timestamp = "%Y-%m-%d %H:%M:%S "
 ##
 
 ssl = yes
-ssl_cert =</etc/dovecot/ssl/dovecot.pem
-ssl_key =</etc/dovecot/ssl/dovecot.pem
+#ssl_cert =</etc/dovecot/ssl/dovecot.pem
+#ssl_key =</etc/dovecot/ssl/dovecot.pem
+ssl_cert =</etc/dovecot/private/dovecot.pem
+ssl_key =</etc/dovecot/private/dovecot.pem
 
 verbose_ssl = no
 
@@ -109,14 +121,45 @@ verbose_ssl = no
 mail_uid=<% $uid %>
 mail_gid=<% $gid %>
 
+namespace inbox {
+    inbox=yes
+
+    mailbox Trash {
+        auto = subscribe
+        special_use = \Trash
+    }
+
+    mailbox Drafts {
+        auto = subscribe
+        special_use = \Drafts
+    }
+
+    mailbox Sent {
+        auto = subscribe
+        special_use = \Sent
+    }
+
+    mailbox "Sent Messages" {
+        auto = no
+        special_use = \Sent
+    }
+
+    mailbox Spam {
+        auto = create
+        special_use = \Junk
+    }
+}
+
 ##
 ## Mail processes
 ##
-
 mail_debug = no
 
+mail_uid = ebox
+mail_gid = ebox
 first_valid_uid = <% $firstValidUid %>
 first_valid_gid = <% $firstValidGid %>
+
 
 ##
 ## Mailbox handling optimizations
@@ -125,8 +168,9 @@ first_valid_gid = <% $firstValidGid %>
 ##
 ## Maildir-specific settings
 ##
-mail_location = maildir:<% $mailboxesDir %>/%$
-mail_home     = <% $sieveDir %>/%d/%u
+# bef mail_location = maildir:<% $mailboxesDir %>/%$
+mail_location = maildir:<% $mailboxesDir %>/%d/%u/Maildir
+mail_home     = <% $mailboxesDir %>/%d/%u
 ##
 ## mbox-specific settings
 ##
@@ -185,19 +229,10 @@ plugin {
   quota = maildir:User quota
   quota_rule = *:storage=0
 
-  sieve = <% $sieveDir %>/%d/%u/sieve-script
-  sieve_global_path = <% $sieveDir %>/default.sieve
-  sieve_storage = <% $sieveDir %>/%d/%u
-  sieve_dir     = <% $sieveDir %>/%d/%u
-
-  autocreate = Trash
-  autocreate2 = Spam
-  autocreate3 = Sent
-  autocreate4 = Drafts
-  autosubscribe = Trash
-  autosubscribe2 = Spam
-  autosubscribe3 = Sent
-  autosubscribe4 = Drafts
+  sieve = <% $mailboxesDir %>/%Ld/%Ln/sieve-script
+  sieve_global_path = <% $mailboxesDir %>/default.sieve
+  sieve_storage = <% $mailboxesDir %>/%Ld/%Ln
+  sieve_dir     = <% $mailboxesDir %>/%Ld/%Ln
 
 % if ($antispamPlugin->{enabled} ) {
   <& .antispamPlugin, %{ $antispamPlugin } &>
@@ -218,7 +253,7 @@ my $imapAddress = $imap ? '*' : '127.0.0.1';
 my $imapPort = ($imap or $openchange) ? 143: 0;
 my $imapsAddress = $imaps ? '*' : '127.0.0.1';
 my $imapsPort = ($imaps or $openchange) ? 993: 0;
-my @imapPlugins = qw(quota imap_quota autocreate);
+my @imapPlugins = qw(quota imap_quota);
 push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};
 </%init>
 ##

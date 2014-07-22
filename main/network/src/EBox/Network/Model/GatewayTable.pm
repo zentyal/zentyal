@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -506,20 +506,21 @@ sub gatewaysWithMac
         if ($gw->{'auto'}) {
             $gw->{'mac'} = undef;
         } else {
-            $gw->{'mac'} = _getRouterMac($gw->{'ip'});
+            $gw->{'mac'} = _getRouterMac($gw->{'interface'}, $gw->{'ip'});
         }
     }
 
     return \@gateways;
 }
 
+# Get the router MAC by sending a ping to it and look for the MAC in
+# the ARP table
 sub _getRouterMac
 {
-    my ($ip) = @_;
-    my $macif = '';
+    my ($macif, $ip) = @_;
 
     my $mac;
-    for (0..MAC_FETCH_TRIES) {
+    for (0 .. MAC_FETCH_TRIES) {
         system("ping -c 1 -W 3 $ip  > /dev/null 2> /dev/null");
         $mac = Net::ARP::arp_lookup($macif, $ip);
         return $mac if ($mac ne '00:00:00:00:00:00');

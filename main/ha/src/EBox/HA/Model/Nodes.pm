@@ -111,6 +111,10 @@ sub row
     my $node = $self->{list}->node($id);
     my $name = $node->{name};
 
+    if (not defined ($self->{clusterStatus})) {
+        $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
+    }
+
     my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());
     $row->setId($id);
     $row->setModel($self);
@@ -127,8 +131,10 @@ sub row
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
         if ($type->fieldName() eq 'status') {
-            my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
-            $element->setValue($nodeInfo{online} ? __('On-line') : __('Off-line'));
+            if ($self->{clusterStatus}->nodeByName($id)) {
+                my %nodeInfo = %{ $self->{clusterStatus}->nodeByName($id) };
+                $element->setValue($nodeInfo{online} ? __('On-line') : __('Off-line'));
+            }
         } elsif ($type->fieldName() eq 'replication') {
             if ($errors->{$name}) {
                 $element->setValue($retryHTML);

@@ -1,3 +1,8 @@
+3.5
+	+ Ignore transitional packages also in advanced view
+	+ Added packages involved in a restart requirement after upgrade in
+	  the event
+	+ Set version to 3.5
 3.4
 	+ Don't expire session when first time menu is visible
 	+ When there is no action defined for EBox::Software::CGI::InstallPkgs

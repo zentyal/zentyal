@@ -4,12 +4,12 @@ Zentyal.namespace('SoftwareManagementUI');
 
 Zentyal.SoftwareManagementUI.suites =  {
     'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
-                  'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
+                  'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
     'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
                          'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
-    'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
+    'Office' : [ 'zentyal-printers', 'zentyal-antivirus', 'zentyal-samba', 'zentyal-firewall',
                  'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
-    'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
+    'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-mailfilter', 'zentyal-ca',
                          'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
 };
 

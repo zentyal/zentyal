@@ -27,6 +27,7 @@ foreach my $pkg (@eboxpkgs) {
   next if ($pkg->{name} eq 'zentyal-all');
   next if ($pkg->{name} eq 'zentyal-ids');
   ($pkg->{description} =~ m/Suite/) and next;
+  ($pkg->{description} =~ m/^transitional/) and next;
 
   if ($pkg->{version}) {
      push @advRemovePkgs, $pkg;

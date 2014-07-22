@@ -17,9 +17,13 @@ use warnings;
 
 package EBox::Squid;
 
-use base qw(EBox::Module::Service EBox::KerberosModule
-            EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
-            EBox::Report::DiskUsageProvider EBox::NetworkObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::FirewallObserver
+    EBox::LogObserver
+    EBox::Report::DiskUsageProvider
+    EBox::NetworkObserver
+);
 
 use EBox::Service;
 use EBox::Objects;
@@ -101,17 +105,32 @@ sub _create
     return $self;
 }
 
-sub kerberosServicePrincipals
+sub _kerberosServicePrincipals
 {
-    my ($self) = @_;
+    return [ 'HTTP' ];
+}
 
-    my $data = { service    => 'http',
-                 principals => [ 'HTTP' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy',
-                 module => $self->name()
-                };
-    return $data;
+sub _kerberosKeytab
+{
+    return {
+        path => KEYTAB_FILE,
+        user => 'root',
+        group => 'proxy',
+        mode => '440',
+    };
+}
+
+# Method: _kerberosSetup
+#
+#   Override to skip setup if authentication mode is not internal
+#
+sub _kerberosSetup
+{
+    my $self = shift;
+
+    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
+        $self->SUPER::_kerberosSetup(@_);
+    }
 }
 
 # Method: initialSetup
@@ -138,58 +157,6 @@ sub initialSetup
             $mod->saveConfigRecursive();
         }
     }
-}
-
-# Method: enableActions
-#
-#   Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        $self->_enableActionsInternalAuth();
-    }
-
-    try {
-        # FIXME: this should probably be moved to _setConf
-        # only if users is enabled and needed
-        my @lines = ();
-        push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
-        push (@lines, 'export KRB5_KTNAME');
-        my $lines = join ('\n', @lines);
-        my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
-        EBox::Sudo::root($cmd);
-    } catch ($error) {
-        EBox::error("Error creating squid default file: $error");
-    }
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
-}
-
-sub _enableActionsInternalAuth
-{
-    my ($self) = @_;
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
-
-}
-
-# Method: reprovisionLDAP
-#
-# Overrides:
-#
-#      <EBox::LdapModule::reprovisionLDAP>
-sub reprovisionLDAP
-{
-    my ($self) = @_;
-
-    $self->SUPER::reprovisionLDAP();
-
-    # regenerate kerberos keytab
-    $self->kerberosCreatePrincipals();
 }
 
 # Method: usedFiles
@@ -550,7 +517,7 @@ sub _configureAuthenticationMode
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $ad = $self->global()->modInstance('users')->ldap();
+        my $ad = $self->global()->modInstance('samba')->ldap();
         $ad->initKeyTabs();
     }
 }
@@ -562,6 +529,7 @@ sub _setConf
     my $filter = $self->filterNeeded();
 
     $self->_configureAuthenticationMode();
+    $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
     $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
@@ -611,6 +579,17 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
+sub _writeDefaultConf
+{
+    my ($self) = @_;
+
+    my $vars = [];
+    push (@{$vars}, 'keytab' => KEYTAB_FILE);
+    $self->writeConfFile(SQUID3_DEFAULT_FILE,
+        'squid/squid.default.mas', $vars,
+        { mode => '0644'});
+}
+
 sub _writeSquidConf
 {
     my ($self, $filter) = @_;
@@ -624,7 +603,7 @@ sub _writeSquidConf
 
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $users = $global->modInstance('users');
+    my $users = $global->modInstance('samba');
     my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
@@ -645,13 +624,13 @@ sub _writeSquidConf
     if (not $kerberos) {
         my $ldap = $users->ldap();
         push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $ldap->roRootDn());
-        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
     }
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $externalAD = $self->global()->modInstance('users')->ldap();
+        my $externalAD = $self->global()->modInstance('samba')->ldap();
         my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
             SQUID_ZCONF_FILE);
@@ -682,7 +661,7 @@ sub _writeSquidExternalConf
     my $globalRO = EBox::Global->getInstance(1);
     my $global  = $self->global();
     my $network = $global->modInstance('network');
-    my $users   = $global->modInstance('users');
+    my $users   = $global->modInstance('samba');
     my $sysinfo = $global->modInstance('sysinfo');
     my $generalSettings = $self->model('GeneralSettings');
 
@@ -949,7 +928,7 @@ sub writeDgGroups
     my $generalSettings = $self->model('GeneralSettings');
     my $realm = '';
     if ($generalSettings->kerberosValue()) {
-        my $users = $self->global()->modInstance('users');
+        my $users = $self->global()->modInstance('samba');
         $realm = '@' . $users->kerberosRealm();
     }
 
@@ -1323,7 +1302,7 @@ sub _commercialMsg
 sub authenticationMode
 {
     my ($self) = @_;
-    my $users = $self->global()->modInstance('users');
+    my $users = $self->global()->modInstance('samba');
     my $usersMode = $users->mode();
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;

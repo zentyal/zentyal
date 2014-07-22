@@ -30,6 +30,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::ComponentNotExists;
 
 use Encode;
 use TryCatch::Lite;
@@ -202,7 +203,7 @@ sub parentRow
 
     my $row = $self->{parent}->row($rowId);
     unless ($row) {
-        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
+        throw EBox::Exceptions::ComponentNotExists("Cannot find row with rowId $rowId. Component directory: $dir.");
     }
 
     return $row;

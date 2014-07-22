@@ -17,13 +17,13 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelGroupAlias;
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Users::Group;
+use EBox::Samba::Group;
 
 sub new
 {
@@ -48,10 +48,11 @@ sub _process
     $self->_requireParam('alias', __('group alias mail'));
     my $alias = $self->param('alias');
 
-    my $group = new EBox::Users::Group(dn => $groupDN);
+    my $group = new EBox::Samba::Group(dn => $groupDN);
     $mail->{malias}->delGroupAlias($alias, $group);
 
     $self->{json}->{msg} =  __x('Alias {al} removed', al => $alias);
+    $self->{json}->{mail} = $group->get('mail');
     $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }

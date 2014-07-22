@@ -20,7 +20,7 @@ use warnings;
 #   Directory Management Domain, stored in LDB
 #
 package EBox::Samba::DMD;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
 # Method: mainObjectClass
 #
@@ -69,12 +69,12 @@ sub ownedByZentyal
 {
     my ($self) = @_;
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $ldb = $sambaMod->ldb();
+    my $usersMod = EBox::Global->modInstance('samba');
+    my $ldap = $usersMod->ldap();
     my $sysinfoMod = EBox::Global->modInstance('sysinfo');
 
     my $schemaRole = $self->get('fSMORoleOwner');
-    my $rootDN = $ldb->dn();
+    my $rootDN = $ldap->dn();
     my $hostName = $sysinfoMod->hostName();
     my $ownRole = "CN=NTDS Settings,CN=$hostName,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,$rootDN";
     if (lc $schemaRole eq lc $ownRole) {

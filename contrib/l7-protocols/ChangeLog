@@ -1,0 +1,30 @@
+3.5
+	+ Set version to 3.5
+3.4
+	+ Set version to 3.4
+3.3
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.1
+	+ Added menu icon
+3.1
+	+ Depend on zentyal-core 3.1
+2.3.1
+	+ Adapted to new Model management framework
+2.3
+	+ Replaced autotools with zbuildtools
+2.1.1
+	+ Removed /zentyal prefix from URLs
+2.1
+	+ Replaced populate migration with initialSetup
+1.5.1
+	+ Added l7 filter userspace package dependencies
+1.3.13
+	+ Set menuFolder to keep folder open
+1.1.20
+	+ New release
+1.1.10
+	+ New release
+1.1
+	+ Use new row() and ids() API

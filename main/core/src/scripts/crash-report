@@ -8,6 +8,8 @@ then
     exit 1
 fi
 
+python3 /usr/share/zentyal/crash-set-package-info.py "$file"
+
 URL=http://crashreport.zentyal.org/report/
 
 gzip $file

@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-jabber
 Architecture: all
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5), zentyal-users,
+Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0), zentyal-samba,
          ejabberd, ${misc:Depends}
 Conflicts: jabberd2
 Description: Zentyal - Jabber (Instant Messaging)

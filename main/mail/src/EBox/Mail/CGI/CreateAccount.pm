@@ -18,13 +18,13 @@ use warnings;
 
 package EBox::Mail::CGI::CreateAccount;
 
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -45,7 +45,7 @@ sub _process
     my $userDN = $self->unsafeParam('user');
     $self->{json}->{userDN} = $userDN;
 
-    my $user = new EBox::Users::User(dn => $userDN);
+    my $user = new EBox::Samba::User(dn => $userDN);
     $self->_requireParam('vdomain', __('virtual domain'));
     my $vdomain = $self->param('vdomain');
     $self->_requireParam('lhs', __('Mail address'));

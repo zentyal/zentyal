@@ -13,14 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
-#   EBox::Object::Model::ObjectTable
-#
-#   This class inherits from <EBox::Model::DataTable> and represents the
-#   membembers beloging to an object
-#
-#
 use strict;
 use warnings;
 
@@ -38,6 +30,7 @@ use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::ComponentNotExists;
 
 use Net::IP;
 
@@ -277,8 +270,16 @@ sub addresses
 sub pageTitle
 {
     my ($self) = @_;
+    my $parentRow = $self->parentRow();
 
-    return $self->parentRow()->printableValueByName('name');
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('name');
 }
 
 1;

@@ -1,11 +1,26 @@
 HEAD
+	+ Depends on latest zentyal-samba to make sure openchange.conf
+	  is correct
+	+ openchange.conf named properties config uses splitted params
+	+ Better certificate management for autodiscovery
+3.5.1
+	+ Fixed issue with Sieve separator parameter at sogo configuration
+3.5
+	+ Zentyal users removed from "only contacts" addressbook at sogo webUI
+	+ Make SOGo shared contacts display their CN
+	+ Updated SOGo conf
+	+ Added autodiscovery of server parameters
+	+ Proxying all Exchange Web Services to OCSManager
+	+ Fixed wrong references to nginx error pages on ocsmanager conf
+	+ Depend on zentyal-users instead of zentyal-samba
+	+ Update sogo.conf to use Samba LDAP
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
 	+ Added noMultipleOUSupportComponent support
-3.4.3
+	+ Set version to 3.5
 	+ Allow openchange working with old ldb/tdb backends (upgrade from 3.3)
-3.4.2
 	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
+	+ Remove Migration menu
 3.4.1
 	+ Generate master password for IMAP access
 3.4

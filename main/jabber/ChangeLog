@@ -1,5 +1,7 @@
-HEAD
+3.5
 	+ Added noMultipleOUSupportComponent support
+	+ Adapted to OpenLDAP removal
+	+ Set version to 3.5
 	+ Fixed jabber-ldap script
 3.4
 	+ Set version to 3.4

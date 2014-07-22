@@ -1021,22 +1021,22 @@ sub lastModificationTime
 
     my $lastStamp = $self->st_get_int(TIMESTAMP_KEY);
     $lastStamp = 0 unless defined($lastStamp);
-    if ( $self->modExists('users') ) {
-        my $usersMod = $self->modInstance('ro', 'users');
-        if ( $usersMod->configured() ) {
+    if ($self->modExists('samba')) {
+        my $sambaMod = $self->modInstance('ro', 'samba');
+        if ($sambaMod->configured()) {
             my ($sec, $min, $hour, $mday, $mon, $year) = localtime($lastStamp);
             my $lastStampStr = sprintf('%04d%02d%02d%02d%02d%02dZ',
                                        ($year + 1900, $mon + 1, $mday, $hour,
                                         $min, $sec));
-            my $ldapStamp = $usersMod->ldap()->lastModificationTime($lastStampStr);
-            if ( $ldapStamp > $lastStamp ) {
+            my $ldapStamp = $sambaMod->ldap()->lastModificationTime($lastStampStr);
+            if ($ldapStamp > $lastStamp) {
                 $lastStamp = $ldapStamp;
             }
         }
     }
 
     my $lastFileStamp = $self->configFilesLastModificationTime();
-    if ( $lastFileStamp > $lastStamp ) {
+    if ($lastFileStamp > $lastStamp) {
         $lastStamp = $lastFileStamp;
     }
 

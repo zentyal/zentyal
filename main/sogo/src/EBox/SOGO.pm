@@ -1,4 +1,17 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 use strict;
 use warnings;
@@ -16,6 +29,8 @@ use EBox::Sudo;
 use EBox::WebServer;
 
 use TryCatch::Lite;
+
+use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/zentyal-sogo.conf';
 
 # Group: Protected methods
 
@@ -61,7 +76,7 @@ sub _setConf
         push (@params, hostname => $sysinfoMod->fqdn());
         push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
 
-        $self->writeConfFile("/etc/apache2/conf-available/zentyal-sogo.conf", "sogo/zentyal-sogo.mas", \@params);
+        $self->writeConfFile(SOGO_APACHE_CONF, "sogo/zentyal-sogo.mas", \@params);
         try {
             EBox::Sudo::root("a2enconf zentyal-sogo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
@@ -100,13 +115,8 @@ sub actions
 {
     return [
             {
-             'action' => __('Create MySQL webmail database.'),
-             'reason' => __('This database will store the data needed by the webmail service.'),
-             'module' => 'sogo'
-            },
-            {
-             'action' => __('Add webmail link to www data directory.'),
-             'reason' => __('WebMail UI will be accesible at http://ip/webmail/.'),
+             'action' => __('Enable proxy, proxy_http and headers Apache 2 modules.'),
+             'reason' => __('To make OpenChange Webmail be accesible at http://ip/SOGo/.'),
              'module' => 'sogo'
             },
     ];
@@ -126,7 +136,7 @@ sub enableActions
 
     my $mail = EBox::Global->modInstance('mail');
     unless ($mail->imap() or $mail->imaps()) {
-        throw EBox::Exceptions::External(__x('Webmail module needs IMAP or IMAPS service enabled if ' .
+        throw EBox::Exceptions::External(__x('OpenChange Webmail module needs IMAP or IMAPS service enabled if ' .
                                              'using Zentyal mail service. You can enable it at ' .
                                              '{openurl}Mail -> General{closeurl}.',
                                              openurl => q{<a href='/Mail/Composite/General'>},
@@ -138,6 +148,23 @@ sub enableActions
 
     # Force apache restart
     EBox::Global->modChange('webserver');
+}
+
+# Method: usedFiles
+#
+# Overrides:
+#
+# <EBox::Module::Service::usedFiles>
+#
+sub usedFiles
+{
+    return [
+        {
+            'file'   => SOGO_APACHE_CONF,
+            'reason' => __('To make SOGo webmail available'),
+            'module' => 'sogo'
+        },
+    ];
 }
 
 sub _daemons

@@ -1,0 +1,68 @@
+3.5
+	+ Set version to 3.5
+3.4
+	+ Set version to 3.4
+	+ Show reminder to enable interfaces when there are none enabled and
+	  the usage table is empty
+3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.2
+	+ Interfaces model now has a checkbox to enable/disable all
+3.1.1
+	+ Added menu icon
+3.1
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.1
+	+ Logrotate preserves interface log file
+	+ Adapted to improvement of EBox::Module::Service::isRunning method
+2.3.6
+	+ Move report code to remoteservices
+2.3.5
+	+ Better integration with captive portal; cannot disable
+	  interfaces used by it
+	+ BWUsage recover for invalid IPs (or IPv6 addresses)
+2.3.4
+	+ Adapted to new Model management framework
+2.3.3
+	+ Create tables with MyISAM engine by default
+2.3.2
+	+ Fixed retrieval of IP addressess in SQL queries
+	+ Using tableBody.mas instead of tableBodyWithoutActions.mas in BWUsage.pm
+2.3.1
+	+ Fix bug in report when there is no data to report
+2.3
+	+ Adapted to new MySQL logs backend
+	+ Do not show invalid edit action in BWUsage model
+	+ Replaced autotools with zbuildtools
+2.2.4
+	+ Usage table allows broadcast traffic and fixes regression in 2.2.3
+2.2.3
+	+ Usage table allows no-host IP addresses
+	+ Add logrotate file
+2.2.2
+	+ Fixed bandwidth quota measure for some cases
+2.2.1
+	+ Use BIGINT in SQL table to avoid overflow errors
+	+ Better control of generated upstart and configuration files
+2.1.5
+	+ Do not show decimals in bytes counter
+	+ Include reports for bwmonitor: Top client usage, top user usage
+	  and transport protocol distribution
+	+ Show message if there is no data in the BWUsage model
+2.1.4
+	+ Last hour bandwidth usage table added
+2.1.3
+	+ Fixed crash when zentyal-firewall is not installed depending on it
+2.1.2
+	+ Bugfix: do not crash trying to stop unexistent daemons
+2.1.1
+	+ Force bwmonitor log to enabled
+	+ Changed users bandwidth usage method parameters
+	+ Added index on username for bandwidth usage table
+2.1
+	+ Initial release

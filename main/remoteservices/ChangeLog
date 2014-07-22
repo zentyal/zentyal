@@ -1,11 +1,13 @@
-HEAD
+3.5
+	+ Avoid warning flag on smart match experimental feature
+	+ Save HAProxy module when adding/removing CA for SSL validation
 	+ Allow subscription when firewall has been enabled a second time
 	  but changes has not been saved
 	+ Give support to set monitoring servers on rs_monitoring_servers
 	  conf key
 	+ Set up QA repository only to commercial versions
 	+ Clarified doc about qa_updates_always_automatic confkey
-3.4.1
+	+ Set version to 3.5
 	+ Fixed JS regressions on subscribe action
 	+ Disable QA updates until next commercial edition
 	+ EBox::RemoteServices::Subscription::Check::check recovers for

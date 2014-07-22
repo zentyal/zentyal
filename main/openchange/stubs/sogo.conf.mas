@@ -15,10 +15,10 @@
     $dbHost
     $dbPort
 
-    $ldapBaseDN
-    $ldapBindDN
-    $ldapBindPwd
-    $ldapHost
+    $sambaBaseDN
+    $sambaBindDN
+    $sambaBindPwd
+    $sambaHost
 </%args>
 <%init>
 </%init>
@@ -55,7 +55,7 @@
     SOGoForceExternalLoginWithEmail = YES;
 
     /* IMAP server configuration */
-    NGImap4ConnectionStringSeparator = "/";
+    NGImap4ConnectionStringSeparator = ".";
     SOGoIMAPAclConformsToIMAPExt = NO;
     SOGoMailSpoolPath = /var/spool/sogo;
     SOGoIMAPServer = <% $imapServer %>;
@@ -77,32 +77,51 @@
     /* LDAP authentication */
     SOGoUserSources = (
         {
+            id = sambaLogin;
+            displayName = "SambaLogin";
+            canAuthenticate = YES;
             type = ldap;
             CNFieldName = cn;
-            IDFieldName = uid;
-            UIDFieldName = uid;
-            hostname = "<% $ldapHost %>";
-            baseDN = "ou=Users,<% $ldapBaseDN %>";
-            bindDN = "<% $ldapBindDN %>";
-            bindPassword = "<% $ldapBindPwd %>";
-            canAuthenticate = YES;
-            id = login;
-            isAddressBook = NO;
+            IDFieldName = cn;
+            UIDFieldName = sAMAccountName;
+            hostname = "<% $sambaHost %>";
+            baseDN = "CN=Users,<% $sambaBaseDN %>";
+            bindDN = "<% $sambaBindDN %>";
+            bindPassword = "<% $sambaBindPwd %>";
+            bindFields = (sAMAccountName);
         },
         {
+            id = sambaShared;
+            displayName = "Shared Addressbook";
+            canAuthenticate = NO;
+            isAddressBook = YES;
             type = ldap;
             CNFieldName = cn;
             IDFieldName = mail;
             UIDFieldName = mail;
-            hostname = "<% $ldapHost %>";
-            baseDN = "<% $ldapBaseDN %>";
-            bindDN = "<% $ldapBindDN %>";
-            bindPassword = "<% $ldapBindPwd %>";
-            canAuthenticate = NO;
+            hostname = "<% $sambaHost %>";
+            baseDN = "<% $sambaBaseDN %>";
+            bindDN = "<% $sambaBindDN %>";
+            bindPassword = "<% $sambaBindPwd %>";
+            filter = "((NOT isCriticalSystemObject='TRUE') AND (mail=\'*\') AND (NOT objectClass=contact))";
+        },
+        {
+            id = sambaContacts;
             displayName = "Shared Contacts";
-            id = sharedContacts;
+            canAuthenticate = NO;
             isAddressBook = YES;
-            filter = "((((objectClass=inetOrgPerson) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT internal=1) AND (NOT uid=Guest)) OR (((objectClass=zentyalDistributionGroup) AND (gidNumber>=2000)) AND (NOT internal=1)))";
+            type = ldap;
+            CNFieldName = cn;
+            IDFieldName = mail;
+            UIDFieldName = mail;
+            hostname = "<% $sambaHost %>";
+            baseDN = "<% $sambaBaseDN %>";
+            bindDN = "<% $sambaBindDN %>";
+            bindPassword = "<% $sambaBindPwd %>";
+            filter = "((((objectClass=person) AND (objectClass=contact) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT isCriticalSystemObject='TRUE') AND (NOT showInAdvancedViewOnly='TRUE') AND (NOT uid=Guest)) OR (((objectClass=group) AND (gidNumber>=2000)) AND (NOT isCriticalSystemObject='TRUE') AND (NOT showInAdvancedViewOnly='TRUE')))";
+            mapping = {
+                displayname = ("cn");
+            };
         }
     );
 

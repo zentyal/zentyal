@@ -1,0 +1,154 @@
+dn: CN=mailbox,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.1
+cn: mailbox
+name: mailbox
+lDAPDisplayName: mailbox
+description: The absolute path to the mailbox for a mail account in a non-default locatiom
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=mailquota,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.2
+cn: mailquota
+name: mailquota
+lDAPDisplayName: mailquota
+description: A string that represents the quota on a mailbox
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: TRUE
+-
+
+dn: CN=clearPassword,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.3
+cn: clearPassword
+name: clearPassword
+lDAPDisplayName: clearPassword
+description: A separate text that stores the mail account password in clear text
+attributeSyntax: 2.5.5.10
+oMSyntax: 4
+isSingleValued: FALSE
+-
+
+dn: CN=maildrop,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.4
+cn: maildrop
+name: maildrop
+lDAPDisplayName: maildrop
+description: RFC822 Mailbox - mail alias
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn: CN=mailsource,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.5
+cn: mailsource
+name: mailsource
+lDAPDisplayName: mailsource
+description: Message source
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn: CN=virtualdomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.6
+cn: virtualdomain
+name: virtualdomain
+lDAPDisplayName: virtualdomain
+description: A mail domain
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn: CN=virtualdomainuser,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.7
+cn: virtualdomainuser
+name: virtualdomainuser
+lDAPDisplayName: virtualdomainuser
+description: Mailbox that receives mail for a mail domain
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn: CN=defaultdelivery,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: attributeSchema
+attributeID:   1.3.6.1.4.1.10018.1.1.8
+cn: defaultdelivery
+name: defaultdelivery
+lDAPDisplayName: defaultdelivery
+description: Default mail delivery instructions
+attributeSyntax: 2.5.5.5
+oMSyntax: 22
+isSingleValued: FALSE
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+dn: CN=CourierMailAlias,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.10018.1.2.2
+cn: CourierMailAlias
+name: CourierMailAlias
+lDAPDisplayName: CourierMailAlias
+subClassOf: top
+objectClassCategory: 1
+mustContain: mail
+mustContain: maildrop
+mayContain: mailsource
+mayContain: description
+defaultObjectCategory: CN=CourierMailAlias,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+possSuperiors: top
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-
+
+# governsID is the same that CourierDomailAlias, must change it
+dn: CN=CourierVirtualDomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+objectClass: top
+objectClass: classSchema
+governsID: 1.3.6.1.4.1.31607.2.1.3.2.3
+cn: CourierVirtualDomain
+name: CourierVirtualDomain
+lDAPDisplayName: CourierVirtualDomain
+subClassOf: top
+objectClassCategory: 1
+mustContain: virtualdomain
+mayContain: description
+defaultObjectCategory: CN=CourierVirtualDomain,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
+possSuperiors: top
+-
+
+dn:
+changetype: modify
+replace: schemaupdatenow
+schemaupdatenow: 1
+-

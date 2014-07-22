@@ -25,6 +25,7 @@ package EBox::OpenChange::CGI::Migration::MailboxProgress;
 
 use base 'EBox::CGI::Base';
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use EBox::Gettext;

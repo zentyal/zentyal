@@ -28,6 +28,7 @@
 use strict;
 use warnings;
 
+no warnings 'experimental::smartmatch';
 use feature "switch";
 
 use EBox;

@@ -8,6 +8,7 @@
 <%init>
 use EBox::Gettext;
 use Perl6::Junction qw(any);
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 my $stopped = ($mailbox->{total}->{state} eq any('migrated', 'cancelled', 'copied'));
 </%init>

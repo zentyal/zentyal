@@ -61,12 +61,13 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('users');
     my @users = ();
-    my $list = $userMod->realUsers();
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
+    my $list = $samba->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
-        $gr->{value} = $u->get('uid');
+        $gr->{value} = $u->get('samAccountName');
         $gr->{printableValue} = $u->name();
         push (@users, $gr);
     }
@@ -75,13 +76,14 @@ sub populateUser
 
 sub populateGroup
 {
-    my $userMod = EBox::Global->modInstance('users');
-
     my @groups = ();
+    my $samba = EBox::Global->modInstance('samba');
+    return [] unless $samba->isRunning();
+    my $domainUsersGroup = $samba->ldap->domainUsersGroup();
+    my $domainUsersName = $domainUsersGroup->get('samAccountName');
+    push (@groups, { value => $domainUsersName, printableValue => __('All domain users') });
 
-    push (@groups, { value => '__USERS__', printableValue => __('All users') });
-
-    my $list = $userMod->realGroups();
+    my $list = $samba->realGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');
@@ -217,7 +219,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Shares'),
-                link  => '/Samba/Composite/General#SambaShares',
+                link  => '/Samba/Composite/FileSharing#SambaShares',
                 },
                 {
                 title => $self->parentRow()->valueByName('share'),
@@ -238,14 +240,44 @@ sub viewCustomizer
 
 sub precondition
 {
-    return not EBox::Config::boolean('unmanaged_acls');
+    my ($self) = @_;
+
+    my $samba = $self->parentModule();
+    unless ($samba->configured()) {
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
+    }
+    unless ($samba->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return undef;
+    }
+    if (EBox::Config::boolean('unmanaged_acls')) {
+        $self->{preconditionFail} = 'unmanagedAcl';
+        return undef;
+    }
+
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return __x('Shares access control lists (ACLs) are in unmanaged mode. To change this mode, edit {file} and restart this module',
-               file => '/etc/zentyal/samba.conf'
-              );
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notConfigured') {
+        return __('You must enable the module in the module ' .
+                'status section in order to use it.');
+    }
+
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __('The domain has not been created yet.');
+    }
+
+    if ($self->{preconditionFail} eq 'unmanagedAcl') {
+        return __x('Shares access control lists (ACLs) are in unmanaged ' .
+                   'mode. To change this mode, edit {file} and restart ' .
+                   'this module', file => '/etc/zentyal/samba.conf');
+    }
+    return undef;
 }
 
 # Group: Protected methods
@@ -316,14 +348,13 @@ sub _permissionsHelp
 sub filterUserGroupPrintableValue
 {
     my ($element) = @_;
+
     my $selectedType = $element->selectedType();
     my $value = $element->value();
+
     if ($selectedType eq 'user') {
         return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
-        if ($value eq '__USERS__') {
-            return __('All users');
-        }
         return __x('Group: {g}', g => $value);
     }
 

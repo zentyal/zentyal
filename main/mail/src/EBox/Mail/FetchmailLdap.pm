@@ -18,7 +18,6 @@ use warnings;
 package EBox::Mail::FetchmailLdap;
 
 use EBox::Sudo;
-use EBox::Global;
 use EBox::Ldap;
 use EBox::MailUserLdap;
 use EBox::Dashboard::ModuleStatus;
@@ -45,9 +44,11 @@ use constant {
 
 sub new
 {
-    my $class = shift;
+    my ($class, $mailMod) = @_;
     my $self  = {};
-    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
+    $self->{mailMod} = $mailMod;
+    $self->{ldap}    = $mailMod->ldap();
+
     bless($self, $class);
     return $self;
 }
@@ -222,7 +223,7 @@ sub removeExternalAccount
 
     my %attrs = (
         base => $self->{ldap}->dn(),
-        filter => '&(objectclass=fetchmailUser)(uid=' . $username . ')',
+        filter => '&(objectclass=fetchmailUser)(samAccountName=' . $username . ')',
         scope => 'sub'
     );
 
@@ -266,7 +267,7 @@ sub writeConf
         return;
     }
 
-    my $mail = EBox::Global->modInstance('mail');
+    my $mail = $self->{mailMod};
     my $postmasterAddress =  $mail->postmasterAddress(1, 1);
     my $pollTimeInSeconds =  $mail->fetchmailPollTime() * 60;
 
@@ -308,7 +309,6 @@ sub writeConf
 sub daemonMustRun
 {
     my ($self) = @_;
-
     if (not $self->isEnabled()) {
         return 0;
     }
@@ -321,7 +321,7 @@ sub isEnabled
 {
     my ($self) = @_;
 
-    my $retrievalServices = EBox::Global->modInstance('mail')->model('RetrievalServices');
+    my $retrievalServices = $self->{mailMod}->model('RetrievalServices');
     return $retrievalServices->row()->valueByName('fetchmail');
 
 }

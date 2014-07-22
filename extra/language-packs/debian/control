@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: language-packs-zentyal-all
 Architecture: all
-Depends: language-pack-zentyal-an, language-pack-zentyal-ar, language-pack-zentyal-bg, language-pack-zentyal-bn, language-pack-zentyal-ca, language-pack-zentyal-cs, language-pack-zentyal-da, language-pack-zentyal-de, language-pack-zentyal-el, language-pack-zentyal-es, language-pack-zentyal-et, language-pack-zentyal-eu, language-pack-zentyal-fa, language-pack-zentyal-fi, language-pack-zentyal-fr, language-pack-zentyal-gl, language-pack-zentyal-hu, language-pack-zentyal-id, language-pack-zentyal-it, language-pack-zentyal-ja, language-pack-zentyal-lt, language-pack-zentyal-nb, language-pack-zentyal-nl, language-pack-zentyal-pl, language-pack-zentyal-pt, language-pack-zentyal-pt-br, language-pack-zentyal-ro, language-pack-zentyal-ru, language-pack-zentyal-sk, language-pack-zentyal-sr, language-pack-zentyal-sv, language-pack-zentyal-th, language-pack-zentyal-tr, language-pack-zentyal-uk, language-pack-zentyal-yo, language-pack-zentyal-zh-cn, language-pack-zentyal-zh-tw
+Depends: language-pack-zentyal-an, language-pack-zentyal-ar, language-pack-zentyal-bg, language-pack-zentyal-bn, language-pack-zentyal-ca, language-pack-zentyal-cs, language-pack-zentyal-da, language-pack-zentyal-de, language-pack-zentyal-el, language-pack-zentyal-es, language-pack-zentyal-et, language-pack-zentyal-eu, language-pack-zentyal-fa, language-pack-zentyal-fi, language-pack-zentyal-fr, language-pack-zentyal-gl, language-pack-zentyal-he, language-pack-zentyal-hu, language-pack-zentyal-id, language-pack-zentyal-it, language-pack-zentyal-ja, language-pack-zentyal-lt, language-pack-zentyal-nb, language-pack-zentyal-nl, language-pack-zentyal-pl, language-pack-zentyal-pt, language-pack-zentyal-pt-br, language-pack-zentyal-ro, language-pack-zentyal-ru, language-pack-zentyal-sk, language-pack-zentyal-sr, language-pack-zentyal-sv, language-pack-zentyal-th, language-pack-zentyal-tr, language-pack-zentyal-uk, language-pack-zentyal-yo, language-pack-zentyal-zh-cn, language-pack-zentyal-zh-tw
 Description: Zentyal translations for all supported languages
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -191,6 +191,17 @@ Description: Zentyal translations for language Galician
  single, easy-to-use platform to manage all your network services.
  .
  This package contains translations for the Galician language.
+
+Package: language-pack-zentyal-he
+Architecture: all
+Depends: zentyal-common (>= 3.2), ${misc:Depends}
+Description: Zentyal translations for language Hebrew
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This package contains translations for the Hebrew language.
 
 Package: language-pack-zentyal-hu
 Architecture: all

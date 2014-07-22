@@ -1,6 +1,11 @@
 class: 'EBox::MailFilter'
+enabledepends:
+    - mail
+    - antivirus
+
 depends:
-    - firewall
+    - samba
+    - antivirus
 
 models:
     - AmavisConfiguration
@@ -14,13 +19,9 @@ models:
     - AntispamACL
     - AntispamTraining
     - AntispamVDomainACL
-    - POPProxyConfiguration
     - FilterDetails
     - FilterGraph
     - FilterReportOptions
-    - POPProxyDetails
-    - POPProxyGraph
-    - POPProxyReportOptions
 
 composites:
     Amavis: [AmavisConfiguration, AmavisPolicy, VDomainsFilter, ExternalConnections]
@@ -28,7 +29,6 @@ composites:
     FileFilter: [FileExtensionACL, MIMETypeACL]
     Antispam: [AntispamConfiguration, AntispamACL, AntispamTraining]
     FilterReport: [FilterReportOptions, FilterGraph, FilterDetails]
-    POPProxyReport: [POPProxyReportOptions, POPProxyGraph, POPProxyDetails]
 
 modeldepends:
     VDomainsFilter:

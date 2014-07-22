@@ -1,0 +1,14 @@
+<%args>
+$vdomainDN
+$bindDN
+$bindPW
+$ldapServer
+</%args>
+server_host = <% $ldapServer %>
+version = 3
+search_base =  <% $vdomainDN %>
+query_filter = (&(objectclass=CourierVirtualDomain)(virtualdomain=%s))
+result_attribute = virtualdomain
+bind = yes
+bind_dn = <% $bindDN %>
+bind_pw = <% $bindPW %>

@@ -65,6 +65,10 @@ sub row
 {
     my ($self, $id)  = @_;
 
+    if (not defined ($self->{clusterStatus})) {
+        $self->{clusterStatus} = new EBox::HA::ClusterStatus(ha => $self->parentModule());
+    }
+
     my @errors = @{$self->{clusterStatus}->errors()};
     my %error = %{$errors[$id]};
 
@@ -151,9 +155,7 @@ sub _unamanagedResourcesHelp
 {
     my ($self) = @_;
 
-    my $command = __x("\"{initialCommandPart} resource_name {node} node_name_where_resource_is\"",
-                        initialCommandPart => "sudo crm_resource --cleanup --resource",
-                        node => "--node");
+    my $command = 'sudo crm_resource --cleanup --resource resource_name --node node_name_where_resource_is';
 
     return __x("There is an unmanaged resource, we cannot deal with that by the momment. " .
                "You should type in a terminal the following command: {command} " .

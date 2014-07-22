@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards chart date-calc test-net-ldap soap-lite string-shellquote trycatch-lite string-random text-dhcpleases class-singleton xml-libxml plack"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards chart date-calc test-net-ldap soap-lite string-shellquote trycatch-lite string-random text-dhcpleases class-singleton xml-libxml plack test-sharedfork"
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha trafficshaping"
+MODULES_WITH_TESTS="common core samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha trafficshaping"
 
 while getopts ":vjscf" opt; do
     case $opt in

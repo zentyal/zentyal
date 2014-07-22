@@ -12,20 +12,21 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-common (>= 3.4.2), zentyal-common (<< 3.5),
+Depends: zentyal-common (>= 3.5), zentyal-common (<< 4.0),
          adduser, apport, anacron, cron, curl, dbus, debconf, gpgv,
          haproxy (>= 1.5~dev13), libapt-pkg-perl, libauthen-simple-pam-perl,
          libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-fast-perl,
+         libdatetime-timezone-perl,
          libdbd-mysql-perl, libfile-copy-recursive-perl, libfile-mmagic-perl,
          libfilesys-df-perl, libhttp-date-perl, libjson-perl,
          libjson-rpc-perl, libjson-xs-perl, liblexical-persistence-perl,
-         liblinux-inotify2-perl, libnet-xmpp-perl, libnmap-parser-perl,
+         liblinux-inotify2-perl, libnmap-parser-perl,
          libplack-middleware-reverseproxy-perl,
          libplack-middleware-session-perl, libproc-processtable-perl,
          libredis-perl, libstring-shellquote-perl, libsys-cpuload-perl,
          libsys-cpu-perl, libterm-readline-gnu-perl, libtest-deep-perl,
-         libtime-piece-perl, liburi-encode-perl, libxml-rss-perl,
-         libxml-simple-perl, libyaml-libyaml-perl, mysql-server, nginx, nmap,
+         libtime-piece-perl, liburi-encode-perl,
+         libyaml-libyaml-perl, mysql-server, nginx, nmap,
          openssl, redis-server, update-notifier-common, uwsgi-plugin-psgi,
          ${misc:Depends}
 Description: Zentyal - Core

@@ -24,7 +24,6 @@ use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::MailUserLdap;
-use EBox::Samba::User;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Select;
 use EBox::Types::Text;

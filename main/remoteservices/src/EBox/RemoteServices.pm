@@ -30,6 +30,7 @@ use base qw(EBox::Module::Service
 #      services offered
 #
 
+no warnings 'experimental::smartmatch';
 use feature qw(switch);
 
 use Data::UUID;
@@ -1692,7 +1693,8 @@ sub _confSOAPService
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
     my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
-    my $webAdminMod = EBox::Global->modInstance('webadmin');
+    my $global = EBox::Global->getInstance();  # RW to save it later
+    my $webAdminMod = $global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ($self->hasBundle()) {
             try {
@@ -1726,8 +1728,10 @@ sub _confSOAPService
         }
         unlink(SERV_DIR . 'ssl-auth.json');
     }
-    # We have to save web admin changes to load the CA certificates file for SSL validation.
+    # We have to save webadmin and haproxy changes to load the CA certificates file for SSL validation. What a black magic!
     $webAdminMod->save();
+    my $haProxyMod = $global->modInstance('haproxy');
+    $haProxyMod->save();
 }
 
 # Configure Apache Proxy redirections server

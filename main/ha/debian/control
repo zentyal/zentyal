@@ -8,10 +8,10 @@ Homepage: http://www.zentyal.org/
 
 Package: zentyal-ha
 Architecture: all
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5), zentyal-network,
+Depends: zentyal-core (>= 3.5.2), zentyal-core (<< 4.0), zentyal-network,
          libplack-perl, libtest-deep-perl, libxml-libxml-perl, corosync,
          pacemaker, ${misc:Depends}
-Description: Zentyal - High Availability module
+Description: Zentyal - High Availability
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

@@ -7,12 +7,12 @@ Standards-Version: 3.9.2
 
 Package: zentyal-openchange
 Architecture: all
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
-         zentyal-mail (>= 3.4.1), zentyal-samba, zentyal-webserver,
-         openchangeserver (>= 1:2.0-2~20140205-1~1),
+Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+         zentyal-samba (>= 3.5.3), zentyal-mail, zentyal-webserver,
+         openchangeserver (>= 3:2.0-2~20140606-1~92),
          openchange-rpcproxy, libstring-random-perl,
          openchange-ocsmanager, zoctools,
-         sogo-openchange (>= 2.1.0-zentyal6),
+         sogo-openchange (>= 2.2.5-zentyal1~20140618-1~108),
          libuuid-tiny-perl, libanyevent-perl,
          libanyevent-rabbitmq-perl, libnet-rabbitfoot-perl,
          librabbitmq1, rabbitmq-server, ${misc:Depends}

@@ -55,7 +55,7 @@ sub _scriptPath
 sub _scriptHost
 {
     my ($self) = @_;
-    my $host = $self->parentModule->ldb->rootDse->get_value('dnsHostName');
+    my $host = $self->parentModule->ldap()->rootDse->get_value('dnsHostName');
     unless (defined $host and length $host) {
         throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
@@ -112,7 +112,11 @@ sub row
     # Try to retrieve cached data
     my $data = $self->{data};
     unless (defined $data) {
-        my $gpoId = $self->parentRow()->id();
+        my $parentRow  = $self->parentRow();
+        if (not $parentRow) {
+            return undef;
+        }
+        my $gpoId = $parentRow->id();
         my $gpoDN = EBox::Samba::GPOIdMapper::idToDn($gpoId);
         my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
         $data = $extension->read();

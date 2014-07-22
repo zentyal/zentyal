@@ -1,6 +1,6 @@
-HEAD
+3.5
 	+ Fixed checking for other u32 rule in the same interface
-3.4.1
+	+ Set version to 3.4
 	+ Fixed bug that made impossible to add rules
 3.4
 	+ Unallow edition of interface in rules until it is supported

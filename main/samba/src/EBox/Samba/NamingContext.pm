@@ -22,7 +22,7 @@ use warnings;
 #
 
 package EBox::Samba::NamingContext;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
 use EBox::Exceptions::Internal;
 
@@ -51,7 +51,7 @@ sub new
 #
 #   Return that this NamingContext can hold other objects.
 #
-#   Override <EBox::Samba::LdbObject::isContainer>
+#   Override <EBox::Samba::LdapObject::isContainer>
 #
 sub isContainer
 {
@@ -63,7 +63,7 @@ sub isContainer
 #   Return a string representing the base name of this Naming Context. A naming Object doesn't follow the
 #   usual naming rules.
 #
-#   Override <EBox::Samba::LdbObject::baseName>
+#   Override <EBox::Samba::LdapObject::baseName>
 #
 sub baseName
 {

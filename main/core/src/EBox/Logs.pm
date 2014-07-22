@@ -32,7 +32,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::DBEngineFactory;
 use EBox::Service;
 use EBox::Logs::Consolidate;
-use EBox::Logs::SlicedBackup;
 use EBox::FileSystem;
 use EBox::Util::SQLTypes;
 use EBox::Util::Version;
@@ -900,45 +899,9 @@ sub _thresholdDate
 sub _purgeTable
 {
   my ($self, $table, $timeCol, $thresholdDate) = @_;
-
-  my $finalThreshold;
   my $dbengine = EBox::DBEngineFactory::DBEngine();
-
-  if (EBox::Logs::SlicedBackup::slicedMode()) {
-      $finalThreshold = EBox::Logs::SlicedBackup::limitPurgeThreshold(
-                                                                      $dbengine,
-                                                                      $table,
-                                                                      $thresholdDate,
-
-                                                                     );
-      if (not defined $finalThreshold) {
-          EBox::info("Cannot purge logs of table $table before $thresholdDate because they are unarchived backup slices");
-          return;
-      } elsif ($thresholdDate ne $finalThreshold) {
-          EBox::info("Log purge of table before $thresholdDate has be restricted to records before $finalThreshold because it were not archived backup slices");
-      }
-
-  } else {
-      $finalThreshold = $thresholdDate;
-  }
-
-  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < STR_TO_DATE('$finalThreshold','%a %b %e %T %Y')";
+  my $sqlStatement = "DELETE FROM $table WHERE $timeCol < STR_TO_DATE('$thresholdDate','%a %b %e %T %Y')";
   $dbengine->do($sqlStatement);
 }
-
-sub archiveBackupSlices
-{
-    my ($self, $force) = @_;
-
-    if (not $force) {
-        my $enabled = EBox::Logs::SlicedBackup::slicedMode();
-        $enabled or
-            return;
-    }
-
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-    EBox::Logs::SlicedBackup::archive($dbengine);
-}
-
 
 1;

@@ -1,5 +1,0 @@
-description "Zentyal samba4 to openldap synchronizer"
-author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
-
-exec /usr/share/zentyal-samba/s4sync
-respawn

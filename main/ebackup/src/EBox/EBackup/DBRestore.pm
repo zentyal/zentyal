@@ -54,19 +54,16 @@ sub restoreEBoxLogs
         $e->throw();
     }
 
-    restoreEBoxLogsFromDir($dumpDirTmp, $date);
+    restoreEBoxLogsFromDir($dumpDirTmp);
     EBox::Sudo::root("rm -rf $dumpDirTmp");
 }
 
 sub restoreEBoxLogsFromDir
 {
-    my ($dir, $date) = @_;
-    # convert date to timestamp, needed for sliced restore
-    my $dateEpoch = str2time($date);
-
+    my ($dir) = @_;
     my $dbengine = EBox::DBEngineFactory::DBEngine();
     my $basename = dumpBasename();
-    $dbengine->restoreDB($dir, $basename, toDate => $dateEpoch);
+    $dbengine->restoreDB($dir, $basename);
 }
 
 sub backupDir

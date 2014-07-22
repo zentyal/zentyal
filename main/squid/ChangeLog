@@ -1,4 +1,12 @@
-3.4.1
+HEAD
+	+ Fixed populateGroups() in AccessRules when upgrading from 3.4
+	+ Fixed wrong old-style try-catch
+3.5.1
+	+ Remove categorized domains temporary files
+3.5
+	+ Fixed generated rules for blanket domain deny
+	+ Adapted to samba4 instead of OpenLDAP
+	+ Set version to 3.5
 	+ Speed up external AD connection using persistence
 	+ Allow dansguardian user to read categories lists files
 3.4

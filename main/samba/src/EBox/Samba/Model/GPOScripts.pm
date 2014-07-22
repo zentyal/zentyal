@@ -126,8 +126,12 @@ sub precondition
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
-    if ($samba->mode() eq EBox::Samba::Model::GeneralSettings::MODE_ADC()) {
+    if ($samba->dcMode() eq EBox::Samba::Model::DomainSettings::MODE_ADC()) {
         $self->{preconditionFail} = 'adcMode';
+        return undef;
+    }
+    if (not $self->parentRow()) {
+        $self->{preconditionFail} = 'parentRow';
         return undef;
     }
 
@@ -157,6 +161,12 @@ sub preconditionFailMsg
         return __('This server is an additional domain controller. In order ' .
                   'not to break sysvol replication, GPOs must be modified ' .
                   'in the domain root server.');
+    }
+    if ($self->{preconditionFail} eq 'parentRow') {
+        return __x('Problem with expired session. Please, navigate again to this page from {ohref}GPOs main page{chref}',
+                   ohref => '<a href="/Samba/View/GPOs">',
+                   chref => '</a>'
+                  )
     }
 }
 

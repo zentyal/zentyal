@@ -1,0 +1,8 @@
+<%args>
+    $realm
+</%args>
+[libdefaults]
+    default_realm = <% $realm %>
+    dns_lookup_kdc = true
+    dns_lookup_realm = false
+    rdns = no

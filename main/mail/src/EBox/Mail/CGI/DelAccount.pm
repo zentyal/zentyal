@@ -18,13 +18,13 @@ use warnings;
 
 package EBox::Mail::CGI::DelAccount;
 
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::Users::User;
+use EBox::Samba::User;
 
 sub new
 {
@@ -50,7 +50,7 @@ sub _process
     my $usermail = $self->param('mail');
     $self->{json}->{mail} = $usermail;
 
-    my $user = new EBox::Users::User(dn => $userDN);
+    my $user = new EBox::Samba::User(dn => $userDN);
     $mail->{musers}->delUserAccount($user, $usermail);
 
     $self->{json}->{msg} = __x('{acc} account removed', acc => $usermail);

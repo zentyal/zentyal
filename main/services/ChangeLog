@@ -1,3 +1,8 @@
+3.5.1
+	+ Workaround in members table against losing of directory parameter/attribute
+3.5
+	+ Implement replicationExcludeKeys() to avoid webadmin service replication
+	+ Set version to 3.5
 3.4
 	+ Added portUsedByService method
 	+ Updated to use the new haproxy API

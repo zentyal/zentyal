@@ -82,7 +82,7 @@ sub _table
                                   fieldName => 'fetchmail',
                                   printableName => __('Retrieve mail for external accounts'),
                                   help =>
- __(q{This allow users to retrieve mail for external accounts, the mail would be delivered to their local account. External account can be configured in the user's corner.} ),
+                                      __(q{This allow users to retrieve mail for external accounts, the mail would be delivered to their local account. External account can be configured in the user's corner.} ),
                                   editable => 1,
                                  ),
          new EBox::Types::Boolean(
@@ -149,30 +149,6 @@ sub validateTypedRow
                                           $actual_r->{imap}->value();
     my $imaps = exists $params_r->{imaps} ? $params_r->{imaps}->value() :
                                           $actual_r->{imaps}->value();
-
-    if ($global->modExists('zarafa')) {
-        my $zarafa = $global->modInstance('zarafa');
-        my $gws = $zarafa->model('Gateways');
-
-        my $serviceConflict = undef;
-
-        if ($pop3 and $gws->pop3Value()) {
-            $serviceConflict = 'POP3';
-        } elsif ($pop3s and $gws->pop3sValue()) {
-            $serviceConflict = 'POP3S';
-        } elsif ($imap and $gws->imapValue()) {
-            $serviceConflict = 'IMAP';
-        } elsif ($imaps and $gws->imapsValue()) {
-            $serviceConflict = 'IMAPS';
-        }
-
-        if (defined $serviceConflict) {
-            throw EBox::Exceptions::External(__x('To enable {service} mail retrieval service you must disable {service} gateway for Zarafa. You can do it at {ohref}Zarafa gateways configuration settings{chref}.',
-            service => $serviceConflict,
-            ohref => q{<a href='/Zarafa/Composite/General/'>},
-            chref => q{</a>}));
-        }
-    }
 
     # validate IMAP services changes
     if ((not exists $params_r->{imap}) and (not exists $params_r->{imaps})) {

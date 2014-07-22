@@ -17,9 +17,13 @@ use strict;
 use warnings;
 
 package EBox::OpenChange;
+use base qw(
+    EBox::Module::Kerberos
+    EBox::HAProxy::ServiceBase
+    EBox::VDomainModule
+    EBox::CA::Observer
+);
 
-use base qw(EBox::Module::Service EBox::LdapModule
-            EBox::HAProxy::ServiceBase EBox::VDomainModule);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -33,7 +37,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
-use EBox::Samba qw(PRIVATE_DIR);
+use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
@@ -51,14 +55,17 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_AUTODISCOVER_PEM => '/etc/ocsmanager/autodiscover.pem';
+use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant RPCPROXY_PORT           => 62081;
 use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
-use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR . 'mapistore/master.password';
+use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
 
 # Method: _create
 #
@@ -84,8 +91,10 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
-    $self->_migrateFormKeys();
+
+    if (defined($version) and  (EBox::Util::Version::compare($version, '3.5') < 0)) {
+        $self->_migrateFormKeys();
+    }
 
     if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
@@ -226,11 +235,26 @@ sub isRunning
     my $running = $self->SUPER::isRunning();
 
     if ($running) {
-        my $sambaMod = $self->global()->modInstance('samba');
-        return $sambaMod->isRunning();
+        my $usersMod = $self->global()->modInstance('samba');
+        return $usersMod->isRunning();
     } else {
         return $running;
     }
+}
+
+sub autodiscoveryCerts
+{
+    my ($self) = @_;
+    my @certs;
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_AUTODISCOVER_PEM)) {
+            push @certs, OCSMANAGER_AUTODISCOVER_PEM;
+        }
+        if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
+            push @certs, OCSMANAGER_DOMAIN_PEM;
+        }
+    }
+    return \@certs;
 }
 
 sub _autodiscoverEnabled
@@ -277,6 +301,29 @@ sub usedFiles
     return \@files;
 }
 
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $openchangeProvisionedWithMySQL = $self->isProvisionedWithMySQL();
+    my $openchangeConnectionString = undef;
+    my $oc = [];
+    if ($openchangeProvisionedWithMySQL) {
+        $openchangeConnectionString = $self->connectionString();
+        # format of connection string: "mysql://user:password@localhost/db_name
+        my ($mysqlUser, $mysqlPass, $mysqlHost, $mysqlDb) =
+            $openchangeConnectionString =~ /mysql:\/\/(\w+):(\w+)\@(\w+)\/(\w+)/;
+        push (@{$oc}, 'openchangeNamedpropsMysqlUser' => $mysqlUser);
+        push (@{$oc}, 'openchangeNamedpropsMysqlPass' => $mysqlPass);
+        push (@{$oc}, 'openchangeNamedpropsMysqlHost' => $mysqlHost);
+        push (@{$oc}, 'openchangeNamedpropsMysqlDb' => $mysqlDb);
+    }
+    push (@{$oc}, 'openchangeProvisionedWithMySQL' => $openchangeProvisionedWithMySQL);
+    push (@{$oc}, 'openchangeConnectionString' => $openchangeConnectionString);
+    $self->writeConfFile(OPENCHANGE_CONF_FILE, 'samba/openchange.conf.mas', $oc,
+                         { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -284,6 +331,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+
     $self->_setAutodiscoverConf();
 
     $self->_setRPCProxyConf();
@@ -356,8 +404,8 @@ sub _writeSOGoConfFile
     my $timezoneModel = $sysinfo->model('TimeZone');
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
-    my $samba = $self->global->modInstance('samba');
-    my $dcHostName = $samba->ldb->rootDse->get_value('dnsHostName');
+    my $users = $self->global->modInstance('samba');
+    my $dcHostName = $users->ldap()->rootDse->get_value('dnsHostName');
     my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
     push (@{$array}, sogoPort => SOGO_PORT);
@@ -390,10 +438,10 @@ sub _writeSOGoConfFile
         $baseDN = "ou=Users,$baseDN";
     }
 
-    push (@{$array}, ldapBaseDN => $baseDN);
-    push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
-    push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
-    push (@{$array}, ldapHost => $self->ldap->LDAPI());
+    push (@{$array}, sambaBaseDN => $users->ldap()->dn());
+    push (@{$array}, sambaBindDN => $self->_kerberosServiceAccountDN());
+    push (@{$array}, sambaBindPwd => $self->_kerberosServiceAccountPassword());
+    push (@{$array}, sambaHost => "ldap://127.0.0.1"); #FIXME? not working using $users->ldap()->url()
 
     my (undef, undef, undef, $gid) = getpwnam('sogo');
     $self->writeConfFile(SOGO_CONF_FILE,
@@ -404,20 +452,21 @@ sub _writeSOGoConfFile
 sub _setAutodiscoverConf
 {
     my ($self) = @_;
+
+
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
-    my $samba   = $global->modInstance('samba');
+    my $users   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
-
-    my $server    = $sysinfo->hostDomain();
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
-        $adminMail = 'postmaster@' . $server;
+        $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
-        bindDn    => 'cn=Administrator',
-        bindPwd   => $samba->administratorPassword(),
-        baseDn    => 'CN=Users,' . $samba->ldb()->dn(),
+        bindDn    => $self->_kerberosServiceAccountDN(),
+        bindPwd   => $self->_kerberosServiceAccountPassword(),
+        baseDn    => 'CN=Users,' . $users->ldap()->dn(),
         port      => 389,
         adminMail => $adminMail,
     ];
@@ -429,17 +478,65 @@ sub _setAutodiscoverConf
                         );
 
 
-    if ($self->isEnabled()) {
-        my $confDir = EBox::Config::conf() . 'openchange';
-        EBox::Sudo::root("mkdir -p '$confDir'");
+    my $confDir = EBox::Config::conf() . 'openchange';
+    EBox::Sudo::root("mkdir -p '$confDir'");
+
+    if ($self->_autodiscoverEnabled()) {
+        $self->_setAutodiscoveryCerts($domain);
         my $incParams = [
-            server => $server
+            server => $domain
            ];
         $self->writeConfFile(OCSMANAGER_INC_FILE,
                              "openchange/ocsmanager.nginx.mas",
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
                         );
+    } else {
+        # ocsmanager include should be empty to not to do nothing
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_INC_FILE,
+                         'touch ' . OCSMANAGER_INC_FILE);
+    }
+}
+
+sub _setAutodiscoveryCerts
+{
+    my ($self, $domain) = @_;
+
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        EBox::error("Cannot create autodiscovery certificates because there is not usable CA");
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
+
+    my $autodiscoverCN = 'autodiscover.' . $domain;
+    if (not  $ca->getCertificateMetadata(cn => $autodiscoverCN)) {
+        $ca->issueCertificate(commonName => $autodiscoverCN);
+    }
+    if (not $ca->getCertificateMetadata(cn => $domain)) {
+        $ca->issueCertificate(commonName => $domain);
+    }
+
+    my $metadata;
+
+    $metadata = $ca->getCertificateMetadata(cn => $autodiscoverCN);
+    if ($metadata->{state} eq 'V') {
+        my $autodiscoverCrt = $metadata->{path};
+        my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
+        EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
+    } else {
+        EBox::error("Certificate '$autodiscoverCN' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
+
+    $metadata =  $ca->getCertificateMetadata(cn => $domain);
+    if ($metadata->{state} eq 'V') {
+        my $domainCrt = $metadata->{path};
+        my $domainKey = $ca->getKeys($domain)->{privateKey};
+        EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
+    } else {
+        EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscovery");
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
     }
 }
 
@@ -603,12 +700,12 @@ sub menu
         text      => __('Setup'),
         order     => 0));
 
-    if ($self->isProvisioned()) {
-        $folder->add(new EBox::Menu::Item(
-            url       => 'OpenChange/Migration/Connect',
-            text      => __('MailBox Migration'),
-            order     => 1));
-    }
+#    if ($self->isProvisioned()) {
+#        $folder->add(new EBox::Menu::Item(
+#            url       => 'OpenChange/Migration/Connect',
+#            text      => __('MailBox Migration'),
+#            order     => 1));
+#    }
 
     $root->add($folder);
 }
@@ -773,11 +870,11 @@ sub configurationContainer
 {
     my ($self) = @_;
 
-    my $sambaMod = $self->global->modInstance('samba');
-    unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
+    my $usersMod = $self->global->modInstance('samba');
+    unless ($usersMod->isEnabled() and $usersMod->isProvisioned()) {
         return undef;
     }
-    my $defaultNC = $sambaMod->ldb()->dn();
+    my $defaultNC = $usersMod->ldap()->dn();
     my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
 
     my $object = new EBox::OpenChange::ExchConfigurationContainer(dn => $dn);
@@ -801,7 +898,7 @@ sub organizations
     my ($self) = @_;
 
     my $list = [];
-    my $sambaMod = $self->global->modInstance('samba');
+    my $usersMod = $self->global->modInstance('samba');
     my $configurationContainer = $self->configurationContainer();
 
     return $list unless ($configurationContainer);
@@ -812,7 +909,7 @@ sub organizations
         filter => '(objectclass=msExchOrganizationContainer)',
         attrs => ['*'],
     };
-    my $result = $sambaMod->ldb()->search($params);
+    my $result = $usersMod->ldap()->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $organization = new EBox::OpenChange::ExchOrganizationContainer(entry => $entry);
         push (@{$list}, $organization);
@@ -1055,6 +1152,97 @@ sub connectionString
     my $pwd = $self->_getPassword(OPENCHANGE_MYSQL_PASSWD_FILE, "Openchange MySQL");
 
     return "mysql://openchange:$pwd\@localhost/openchange";
+}
+
+sub certificateRenewed
+{
+    my ($self, $commonName, $isCACert) = @_;
+    $self->_certificateChanges($commonName, $isCACert);
+}
+
+sub freeCertificate
+{
+    my ($self, $commonName) = @_;
+    $self->_certificateChanges($commonName);
+}
+
+sub _certificateChanges
+{
+    my ($self, $commonName, $isCACert) = @_;
+    if ($isCACert) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        return;
+    }
+
+    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+    if ($commonName eq $domain) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
+    } elsif ($commonName eq ('autodiscover.' . $domain)) {
+        $self->setAsChanged(1);
+        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
+    }
+}
+
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
+}
+
+
+# Method: cleanForReprovision
+#
+# Overriden to remove also status of openchange provision and configuration
+# related with mail virtual domains, because they can change after reprovision
+sub cleanForReprovision
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    delete $state->{'_schemasAdded'};
+    delete $state->{'_ldapSetup'};
+    delete $state->{'Provision'};
+    delete $state->{'isProvisioned'};
+    $self->set_state($state);
+
+    $self->dropSOGODB();
+
+    my @modelsToClean = qw(Provision RPCProxy Configuration);
+    foreach my $name (@modelsToClean) {
+        $self->model($name)->removeAll(1);
+    }
+
+    # remove rpcproxy certificates
+    my $certDir = dirname($self->_rpcProxyCertificate());
+    EBox::Sudo::root("rm -rf '$certDir'");
+
+    $self->setAsChanged(1);
+}
+
+sub dropSOGODB
+{
+    my ($self) = @_;
+
+    if ($self->isProvisionedWithMySQL()) {
+        # It removes the file with mysql password and the user from mysql
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+              'remove-database');
+    }
+
+    # Drop SOGo database and db user. To avoid error if it does not exists,
+    # the user is created and granted harmless privileges before drop it
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $dbName = $self->_sogoDbName();
+    my $dbUser = $self->_sogoDbUser();
+    $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
+    $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
+    $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 }
 
 1;

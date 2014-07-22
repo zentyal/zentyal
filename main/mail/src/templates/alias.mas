@@ -7,7 +7,7 @@ use JSON::XS;
 my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
 
-<form action='/Mail/DelAccount' id='userMailDelAccount' method='POST' class="formDiv">
+<form action='/Mail/DelAccount' id='userMailDelAccount' method='POST' class="formDiv" name="deleteaccount">
         <input type="hidden" name="mail" id="userMailDelAccount_mail" value="<% $params->{'mail'} %>">
         <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
         <div>

@@ -1,6 +1,9 @@
-HEAD
+3.5
+	+ Avoid warning flag on smart match experimental feature
+	+ Change version of the perl lib used with collectd
 	+ Show disk usage again including reserved space after changing to
 	  collectd 5.1
+	+ Set version to 3.5
 3.4
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

@@ -192,7 +192,7 @@ sub eventWatchers
 #
 sub eventDispatchers
 {
-    return [ 'Log', 'RSS', 'Jabber' ];
+    return [ 'Log' ];
 }
 
 sub reportDetailsModel
@@ -200,7 +200,7 @@ sub reportDetailsModel
     my ( $self ) = @_;
 
     # Check if it is already cached
-    unless ( exists $self->{EventsDetailsModel} ) {
+    unless (exists $self->{EventsDetailsModel}) {
         $self->{EventsDetailsModel} =
             new EBox::Events::Model::EventsDetails(
                                               confmodule => $self,

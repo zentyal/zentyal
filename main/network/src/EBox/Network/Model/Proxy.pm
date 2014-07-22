@@ -141,7 +141,7 @@ sub validateTypedRow
         if ($server) {
             my $netMod = $self->parentModule();
             my $iface = $netMod->ifaceByAddress($server);
-            if ($iface) {
+            if ($iface and ($iface ne 'lo')) {
                 throw EBox::Exceptions::External(
                     __x('Proxy {addr} is invalid because it is the address of the interface {if}',
                         addr => $server,

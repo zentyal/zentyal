@@ -1,4 +1,0 @@
-<%args>
-</%args>
-# update kerberos keytabs
-perl /usr/share/zentyal-users/update-ad-keytabs

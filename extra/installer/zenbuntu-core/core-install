@@ -2,7 +2,7 @@
 
 SOURCES_LIST=/etc/apt/sources.list
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.4 main extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.5 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -44,12 +44,12 @@ create_repository()
 
 update_if_network()
 {
-    # Check if we can connect to the PPA url
-    if $(wget -T 10 -t 1 $PPA_URL); then
+    # Check if we can connect to the archive url
+    if $(wget -T 10 -t 1 $ARCHIVE_URL); then
         echo "Updating package database from the network..."
         apt-get update
     else
-        echo "Warning: Can't connect to $PPA_URL. Updates won't be installed."
+        echo "Warning: Can't connect to $ARCHIVE_URL. Updates won't be installed."
     fi
 }
 
@@ -81,11 +81,6 @@ gen_locales()
 }
 
 create_repository # Set up local package repository
-
-#if ! grep -q ${PPA_URL} ${SOURCES_LIST}
-#then
-#    echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
-#fi
 
 if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
 then

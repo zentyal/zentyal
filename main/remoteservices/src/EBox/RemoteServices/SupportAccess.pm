@@ -51,8 +51,8 @@ sub setEnabled
             return;
         } else {
             my $uid;
-            if (EBox::Global->modExists('users')) {
-                $uid = EBox::Global->modInstance('users')->newUserUidNumber(1);
+            if (EBox::Global->modExists('samba')) {
+                $uid = EBox::Global->modInstance('samba')->newUserUidNumber(1);
             }
             my $cmd = "useradd $user --create-home " .
                       q{--comment '} . USER_COMMENT . q{'};

@@ -12,11 +12,10 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-squid
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
-         zentyal-firewall, zentyal-users,
+Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+         zentyal-firewall, zentyal-samba,
          squid3, dansguardian, adduser, adzapper, msktutil,
          libdata-hexdumper-perl, ${misc:Depends}
-Breaks: zentyal-openvpn (<< 3.2.1)
 Description: Zentyal - HTTP Proxy (Cache and Filter)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

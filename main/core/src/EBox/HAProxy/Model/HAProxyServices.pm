@@ -15,6 +15,7 @@
 
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 # Class: EBox::HAProxy::Model::HAProxyServices
 #
@@ -330,13 +331,23 @@ sub validateTypedRow
             # SSL certificate checking.
             my $moduleName = $actual_r->{module}->value();
             my $module = EBox::Global->modInstance($moduleName);
-            unless ($module->pathHTTPSSSLCertificate()) {
+            my @certs = @{$module->pathHTTPSSSLCertificate()};
+            if (not @certs) {
                 throw EBox::Exceptions::Internal(
                     'The module {module} cannot be used over SSL because it does not define a certificate.',
                     module => $module->name()
                 );
             }
-            unless (EBox::Sudo::fileTest('-r', $module->pathHTTPSSSLCertificate())) {
+
+            my $readableCerts = 1;
+            foreach my $cert (@certs) {
+                if (not EBox::Sudo::fileTest('-r', $cert)) {
+                    $readableCerts = 0;
+                    last;
+                }
+            }
+
+            unless ($readableCerts) {
                 if (EBox::Global->modExists('ca')) {
                     my $ca = EBox::Global->modInstance('ca');
                     my $certificates = $ca->model('Certificates');

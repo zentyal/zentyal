@@ -188,10 +188,10 @@ sub precondition
         if ($dnsModule->configured() and $dnsModule->isEnabled()) {
             # Do not disable if users module is external AD, Zentyal must use
             # the AD server as primary resolver
-            if ($self->global->modExists('users')) {
-                my $usersModule = EBox::Global->modInstance('users');
+            if ($self->global->modExists('samba')) {
+                my $usersModule = EBox::Global->modInstance('samba');
                 my $mode = $usersModule->mode();
-                if ($mode eq EBox::Users::EXTERNAL_AD_MODE()) {
+                if ($mode eq EBox::Samba::EXTERNAL_AD_MODE()) {
                     return 1;
                 }
             }
@@ -350,7 +350,16 @@ sub nameservers
 {
     my ($self) = @_;
     my $ids = $self->ids();
-    my @nameservers = map { $self->row($_)->valueByName('nameserver') } @{$ids};
+
+    my @nameservers = ();
+    if (@{$ids}) {
+        for my $id (@{$ids}) {
+            if (defined $self->row($id)) {
+                push (@nameservers, $self->row($id)->valueByName('nameserver'));
+            }
+        }
+    }
+
     return \@nameservers;
 }
 

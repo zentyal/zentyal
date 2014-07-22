@@ -197,11 +197,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $modEnabled = $self->parentModule()->isEnabled();
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $s3fs = (defined $fs and $fs eq 's3fs');
-
-    return ($modEnabled and $s3fs);
+    return $self->parentModule()->isEnabled();
 }
 
 # Method: preconditionFailMsg
@@ -214,25 +210,11 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    my $modEnabled = $self->parentModule()->isEnabled();
-    unless ($modEnabled) {
-        return __x('Prior to configure printers ACLs you need to enable '
-                   . 'the module in the {openref}Module Status{closeref} '
-                   . ' section and save changes after that.',
-                   openref => '<a href="/ServiceModule/StatusView">',
-                   closeref => '</a>');
-    }
-
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $s3fs = (defined $fs and $fs eq 's3fs');
-    unless ($s3fs) {
-        return __("You are using the new samba 'ntvfs' file server, " .
-                  "which is incompatible with the printing service. " .
-                  "If you wish to enable this feature, add " .
-                  "the Zentyal PPA to your APT sources.list and install " .
-                  "our samba4 package, then change the samba config key " .
-                  "'samba_fs' to 's3fs' in /etc/zentyal/samba.conf");
-    }
+    return __x('Prior to configure printers ACLs you need to enable '
+               . 'the module in the {openref}Module Status{closeref} '
+               . ' section and save changes after that.',
+               openref => '<a href="/ServiceModule/StatusView">',
+               closeref => '</a>');
 }
 
 sub _configureMessage

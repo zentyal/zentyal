@@ -18,25 +18,23 @@ use warnings;
 
 # Class: EBox::Samba::OU
 #
-#   Organizational Unit, stored in LDB
+#   Organizational Unit, stored in LDAP
 #
 
 package EBox::Samba::OU;
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::LdapObject';
 
-use EBox;
 use EBox::Gettext;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::External;
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::LDAP;
 use EBox::Global;
-use EBox::Users::OU;
+use EBox::Samba;
 
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
+
+use Net::LDAP::Entry;
+use Net::LDAP::Constant;
 use TryCatch::Lite;
-use Net::LDAP::Util qw(canonical_dn);
-use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 # Method: mainObjectClass
 #
@@ -58,6 +56,11 @@ sub isContainer
     return 1;
 }
 
+sub printableType
+{
+    return __('Organization Unit');
+}
+
 # Method: name
 #
 #   Return the name of this OU.
@@ -70,91 +73,163 @@ sub name
     return $self->get('ou');
 }
 
-sub addToZentyal
-{
-    my ($self) = @_;
-    my $sambaMod = EBox::Global->getInstance(1)->modInstance('samba');
-
-    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
-    if (not $parent) {
-        my $dn = $self->dn();
-        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
-    }
-
-    my $name = $self->name();
-    my $parentDN = $parent->dn();
-
-    try {
-        my $zentyalOU = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
-        $self->_linkWithUsersObject($zentyalOU);
-    } catch (EBox::Exceptions::DataExists $e) {
-        EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } catch ($error) {
-        EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    }
-}
-
-sub updateZentyal
-{
-    my ($self) = @_;
-
-    my $dn = $self->dn();
-    EBox::warn("updateZentyal called in OU $dn. No implemented editables changes in OU ");
-}
-
 # Method: create
 #
 #   Add and return a new Organizational Unit.
 #
 #   Throw EBox::Exceptions::InvalidData if a non valid character is detected on $name.
 #   Throw EBox::Exceptions::InvalidType if $parent is not a valid container.
+#   Throw Ebox::Exceptions::DataExists if $name already exists
 #
 # Parameters:
 #
 #   args - Named parameters:
-#       name   - Organizational Unit name
+#       name    - Organizational Unit name
 #       parent - Parent container that will hold this new OU.
 #
 sub create
 {
     my ($class, %args) = @_;
 
-    $args{name} or
-        throw EBox::Exceptions::MissingArgument('name');
+    my $usersMod = EBox::Global->modInstance('samba');
+
     $args{parent} or
         throw EBox::Exceptions::MissingArgument('parent');
-    $args{parent}->isContainer() or
-        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
+    $class->_checkParent($args{parent});
 
-    my @attr;
-    push (@attr, objectClass => ['organizationalUnit']);
-    push (@attr, ou => $args{name});
+    my $name = $args{name};
+    my $parent = $args{parent};
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
-    my $dn = canonical_dn("OU=" . $args{name} . "," . $args{parent}->dn());
-    my $res = undef;
+    my @attrs = (
+            'objectclass' => ['organizationalUnit'],
+            'ou' => $name,
+           );
+
+    my $entry;
+    my $ou;
+    my $dn = "ou=$name," . $parent->dn();
     try {
-        my $entry = new Net::LDAP::Entry($dn, @attr);
-        my $result = $entry->update($class->_ldap->connection());
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attrs);
+        $usersMod->notifyModsPreLdapUserBase(
+            'preAddOU', [$entry, $parent], $ignoreMods, $ignoreSlaves);
+        my $changetype =  $entry->changetype();
+        my $changes = [$entry->changes()];
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
-            unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(
-                    message => __('Error creating entry:'),
-                    result => $result,
-                    opArgs => $class->entryOpChangesInUpdate($entry),
-                );
-            };
+            unless (($result->code == Net::LDAP::Constant::LDAP_LOCAL_ERROR) and
+                    ($result->error eq 'No attributes to update')
+                   ) {
+                        throw EBox::Exceptions::LDAP(
+                            message => __('Error on group LDAP entry creation:'),
+                            result => $result,
+                            opArgs   => $class->entryOpChangesInUpdate($entry),
+                           );
+            }
         }
-        $res = new EBox::Samba::OU(dn => $dn);
+
+        $ou = EBox::Samba::OU->new(dn => $dn);
+        # Call modules initialization
+        $usersMod->notifyModsLdapUserBase('addOU', $ou, $ignoreMods, $ignoreSlaves);
     } catch ($error) {
         EBox::error($error);
 
-        if (defined $res and $res->exists()) {
-            $res->SUPER::deleteObject(@_);
+        # A notified module has thrown an exception. Delete the object from LDAP
+        # Call to parent implementation to avoid notifying modules about deletion
+        # TODO Ideally we should notify the modules for beginTransaction,
+        #      commitTransaction and rollbackTransaction. This will allow modules to
+        #      make some cleanup if the transaction is aborted
+        if ($ou and $ou->exists()) {
+            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $ignoreMods, $ignoreSlaves);
+            $ou->SUPER::deleteObject(@_);
+        } else {
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddOUFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
+            throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
+                                               'value' => $name);
         }
-        $res = undef;
-        throw $error;
+        $ou = undef;
+        $entry = undef;
+        $error->throw();
     }
-    return $res;
+
+    return $ou;
+}
+
+sub _checkParent
+{
+    my ($class, $parent) = @_;
+
+    my $parentDN = $parent->dn();
+    $parent->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => 'Parent should be a container'
+                                           );
+
+    my $baseDN    = $class->_ldap->dn();
+    my @forbidden = qw(ou=Users ou=Groups ou=Computers);
+    foreach my $ouPortion (@forbidden) {
+        my $dn = $ouPortion . ',' . $baseDN;
+        if ($parentDN eq $dn) {
+            throw  EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => __('Creation of OUs inside either Users, Groups or Computer default OUs is not supported')
+                                           );
+        }
+    }
+}
+
+# Method: deleteObject
+#
+#   Delete the OU
+#
+sub deleteObject
+{
+    my ($self, %params) = @_;
+
+    # Notify group deletion to modules
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delOU', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    if (not $params{recursive}) {
+        $self->_deleteObjectAndContents();
+    } else {
+        $self->SUPER::deleteObject(%params);
+    }
+}
+
+sub _deleteObjectAndContents
+{
+    my ($self) = @_;
+    my $usersMod = $self->_usersMod();
+    my $ldap = $self->_ldap->{ldap};
+
+    my $result = $ldap->search(
+        base   => $self->dn(),
+        filter => "(objectclass=*)",
+    );
+    # deeper entries, first in order
+    my @entries = sort { $b->dn =~ tr/,// <=> $a->dn =~ tr/,//} $result->entries();
+    foreach my $entry (@entries) {
+        my $object = $usersMod->entryModeledObject($entry);
+        if ($object) {
+            # call proper method to give opportunity to clean u[
+            $object->deleteObject(recursive => 1);
+        } else {
+            # standard LDAP removal
+            $entry->delete();
+            $entry->update($ldap);
+        }
+    }
+}
+
+sub defaultContainer
+{
+    my $usersMod = EBox::Global->getInstance()->modInstance('samba');
+    return $usersMod->defaultNamingContext();
 }
 
 1;

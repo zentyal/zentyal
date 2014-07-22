@@ -259,9 +259,9 @@ always_direct allow noAuth<% $authId %>
 % }
 
 % if ($filter) {
-cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
+cache_peer 127.0.0.1 parent 3129 0 no-query proxy-only login=*:nopassword
 % } else {
-cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
+cache_peer 127.0.0.1 parent 3130 0 no-query proxy-only login=*:nopassword
 % }
 
 % if ($realm) {
@@ -270,7 +270,7 @@ auth_param negotiate children 10
 auth_param negotiate keep_alive on
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b <% $dn %> -f "(&(uid=%s)(objectclass=posixAccount))" -p 390 -D <% $roDn %> -w <% $roPasswd %> -P
+auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=posixAccount))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
 % }
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED

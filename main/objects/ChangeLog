@@ -1,3 +1,7 @@
+3.5
+	+ Workaround in members table agains lost of directory parameter/attribute
+	+ Improved network object members management
+	+ Set version to 3.5
 3.4
 	+ Set version to 3.4
 	+ Clearer error when calling objectMembers with a invalid object id

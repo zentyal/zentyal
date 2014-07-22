@@ -1,3 +1,9 @@
+libauthen-krb5-easy-perl (0.91-2) trusty; urgency=low
+
+  * Build for trusty
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 29 Mar 2014 12:04:06 +0100
+
 libauthen-krb5-easy-perl (0.91-1) precise; urgency=low
 
   * Add new function klist

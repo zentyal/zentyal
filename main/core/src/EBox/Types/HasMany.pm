@@ -368,62 +368,6 @@ sub _paramIsSet
     return 1;
 }
 
-# Method: filesPaths
-#
-#   Returns:
-#     the paths of the files managed by the submodel and possible rows and sub-submodels
-sub filesPaths
-{
-    my ($self) = @_;
-    my $subModel = $self->foreignModelInstance();
-    if (not $subModel) {
-        return [];
-    }
-
-    if ($subModel->can('filesPaths')) {
-        return $subModel->filesPaths();
-    }
-    else {
-        return []
-    }
-}
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of all the files contained in the
-#   submodel and potentials rows and nested submodels. This backup will used to discard changes if needed
-sub backupFiles
-{
-  my ($self) = @_;
-
-  my $subModel = $self->foreignModelInstance();
-  if (not $subModel) {
-      return;
-  }
-
-  if ($subModel->can('backupFiles')) {
-      return $subModel->backupFiles();
-  }
-
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files, thus discarding last
-#  changes in files
-sub restoreFiles
-{
-  my ($self) = @_;
-
-  my $subModel = $self->foreignModelInstance();
-  if (not $subModel) {
-      return;
-  }
-
-  if ($subModel->can('restoreFiles')) {
-      return $subModel->restoreFiles();
-  }
-}
 
 sub setModel
 {

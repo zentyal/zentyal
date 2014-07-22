@@ -18,7 +18,11 @@ use warnings;
 
 package EBox::WebServer;
 
-use base qw(EBox::Module::Service EBox::SyncFolders::Provider EBox::HAProxy::ServiceBase);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::SyncFolders::Provider
+    EBox::HAProxy::ServiceBase
+);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -31,6 +35,7 @@ use EBox::WebServer::PlatformPath;
 use EBox::WebServer::Model::PublicFolder;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
+use EBox::WebServer::LdapUser;
 
 use TryCatch::Lite;
 use Perl6::Junction qw(any);
@@ -304,6 +309,16 @@ sub depends
     return $dependsList;
 }
 
+# overloaded to force haproxy to restart
+sub setEnable
+{
+    my ($self, @params) = @_;
+    $self->SUPER::setEnable(@params);
+    if ($self->changed ) {
+        $self->global()->modInstance("haproxy")->setAsChanged(1);
+    }
+}
+
 # to avoid circular restore dependencies cause by depends override
 sub restoreDependencies
 {
@@ -527,22 +542,21 @@ sub _setUserDir
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module
-    if ($publicFolder->enableDirValue() and $gl->modExists('users')) {
-        my $usersMod = $gl->modInstance('users');
-        my $ldap = $usersMod->ldap();
+    if ($publicFolder->enableDirValue() and $gl->modExists('samba')) {
+        my $ldap = $self->ldap();
         my $ldapServer = '127.0.0.1';
         my $ldapPort   = $ldap->ldapConf()->{port};
-        my $rootDN = $ldap->rootDn();
-        my $ldapPass = $ldap->getPassword();
-        eval 'use EBox::Users::User';
-        my $usersDN = EBox::Users::User->defaultContainer()->dn();
+        my $rootDN = $self->_kerberosServiceAccountDN();
+        my $ldapPass = $self->_kerberosServiceAccountPassword();
+        my $dse = $ldap->rootDse();
+        my $defaultNC = $dse->get_value('defaultNamingContext');
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
                              [
                                ldapServer => $ldapServer,
                                ldapPort  => $ldapPort,
                                rootDN  => $rootDN,
-                               usersDN => $usersDN,
+                               usersDN => $defaultNC,
                                dnPass  => $ldapPass,
                              ],
                              { 'uid' => 0, 'gid' => 0, mode => '600' }
@@ -574,7 +588,7 @@ sub _setUserDir
                 $e->throw();
             }
         }
-        if ($gl->modExists('users')) {
+        if ($gl->modExists('samba')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
             } catch (EBox::Exceptions::Sudo::Command $e) {
@@ -744,16 +758,20 @@ sub certificates
 {
     my ($self) = @_;
 
-    return [
+    my @certificates = map {
+        my $path = $_;
         {
             serviceId =>  'zentyal_' . $self->name(),
             service   =>  $self->printableName(),
-            path      =>  $self->pathHTTPSSSLCertificate(),
+            path      =>  $path,
             user      => 'root',
             group     => 'root',
             mode      => '0400',
-        },
-    ];
+        }
+    } @{ $self->pathHTTPSSSLCertificate() };
+
+
+    return \@certificates;
 }
 
 # Get CN and subjAltNames on the existing certificate
@@ -1006,7 +1024,7 @@ sub targetVHostDomains
 #
 sub pathHTTPSSSLCertificate
 {
-    return '/etc/apache2/ssl/ssl.pem';
+    return ['/etc/apache2/ssl/ssl.pem'];
 }
 
 # Method: targetIP
@@ -1052,6 +1070,26 @@ sub targetHTTPPort
 sub targetHTTPSPort
 {
     return 62443;
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
+}
+
+sub _ldapModImplementation
+{
+    return new EBox::WebServer::LdapUser();
 }
 
 1;

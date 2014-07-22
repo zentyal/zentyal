@@ -1,0 +1,98 @@
+3.5
+	+ Set version to 3.5
+	+ Fixes related with save changes
+	+ Migrate previous configuration from 3.3 when upgrading
+3.4
+	+ Enable ReverseProxy middleware always
+	+ Added updateSessionPassword method
+	+ User Corner service is now managed by HAProxy Service
+	+ Added necessary saveConfigRecursive after initialSetup
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+3.3
+	+ Remove menu search from usercorner menu
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
+	+ Use upstream Apache2::AuthCookie instead of forked version
+	+ Removed old migration code from 3.0 to 3.2
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.5
+	+ Do not try to migrate from 3.0 if module is not configured
+3.1.4
+	+ Delete unused constants
+3.1.3
+	+ Fixed error message.
+3.1.2
+	+ Added menu icon
+	+ Added  EBox::UserCorner::CGI::Run to fix regressions and to not
+	  load unallowed models
+	+ Connect as the LDAP root user in read only mode to retrieve users DN.
+	+ Added incompatiblity with external AD authentication mode
+3.1.1
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1
+	+ Removed 3.0.X migration code
+	+ Depend on zentyal-core 3.1
+3.0.6
+	+ Fixed undefined variable warning when installing the package for
+	  first time
+3.0.5
+	+ Create user journal directory in correct path. Migrate old
+	  versions with incorrect path.
+3.0.4
+	+ Write to usercorner log with ut8f encoding
+	+ Log correctly request authorization IP, init logger on loading
+	  of user-corner
+	+ Restricted permissions in log directories
+	+ Removed unnecesary and misleading method 'new' from UserCorner::Auth
+3.0.3
+	+ Adapted to the new utf8 fixes
+	+ Removed suprefluos calls to utf8::decode
+3.0.2
+	+ Added and used serviceId field for service certificates
+3.0.1
+	+ User corner is now allowed on slaves, except for password change
+	+ Updated deprecated master/slave API calls
+2.3.4
+	+ Modification of listen port from the UI works again
+2.3.3
+	+ Fixed auth with SID filenames which contain spaces or other
+	  confusing characters
+2.3.2
+	+ Adapted to new Model management framework
+2.3.1
+	+ New translatable printableName for usercorner service
+2.3
+	+ Replaced autotools with zbuildtools
+	+ Fixed logrotate configuration
+2.1.6
+	+ Fixed UTF8 double-encoding on unexpected error CGI
+	+ Set MinSpareServers to 1 to avoid apache warning
+2.1.5
+	+ Bug report form appears now when usercorner crashes
+	+ Set locale properly in user corner
+	+ Better integration with core theme
+	+ Removed /zentyal prefix from URLs
+2.1.4
+	+ Move User Corner inside Users and Groups menu
+	+ Added help
+	+ Rotate usercorner logs
+2.1.3
+	+ Added purge-module script to clean logs directory
+	+ Reuse login/index.mas from zentyal-core customizing the title
+	+ Removed use of obsolete LogAdmin
+2.1.2
+	+ Tuned apache conf for better performance
+	+ Moved redis_port_usercorner key to /etc/zentyal/usercorner.conf
+	+ Move users/conf/user-eboxlog.conf to usercorner/conf/usercorner-log.conf
+2.1.1
+	+ Show title on login screen to avoid confusions
+	+ User corner cannot longer be enabled in a slave server
+	+ Fixed bad ownership of user corner userjournal directory
+2.1
+	+ Rename UserCornerWebServer to UserCorner and merge usersessiondir
+	  and usercornerdir methods in the new unique class
+	+ Initial release
