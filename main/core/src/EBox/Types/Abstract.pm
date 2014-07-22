@@ -586,7 +586,8 @@ sub storer
 sub isEqualTo
 {
     my ($self, $other) = @_;
-    return $self->cmp($other) == 0;
+    my $cmp = $self->cmp($other);
+    return (defined $cmp and $cmp == 0);
 }
 
 # Method: row
