@@ -28,16 +28,15 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 use EBox::Model::Manager;
-use EBox::Types::DomainName;
-use EBox::Types::HasMany;
-use EBox::Types::HostIP;
 use EBox::Types::Composite;
+use EBox::Types::Text;
 use EBox::DNS::Types::Hostname;
-use EBox::Sudo;
 
 use EBox::Model::Manager;
 
 use Net::IP;
+use Data::Validate::IP;
+use Data::Validate::Domain;
 
 use base 'EBox::Model::DataTable';
 
@@ -46,7 +45,6 @@ use base 'EBox::Model::DataTable';
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
@@ -62,27 +60,49 @@ sub new
 #
 # Exceptions:
 #
-#    <EBox::Exceptions::External> - thrown if there is an alias with
-#    the same name for other hostname within the same domain
+#    <EBox::Exceptions::External>
 #
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    return unless (exists $changedFields->{ip});
+    if (exists $changedFields->{name}) {
+        my $name = $changedFields->{name};
+        my $value = $name->value();
+        my $suffix = $value->{suffix};
+        my $prefix = $value->{prefix};
+        my $fullNameOrg = "${prefix}${suffix}";
+        my $fullName = $fullNameOrg;
+        unless ($fullName =~ m/\.in-addr\.arpa$/) {
+            throw EBox::Exceptions::External(
+                __x('The name {x} does not looks like a PTR record.',
+                    x => $fullNameOrg));
+        }
+        # Strip .in-addr.arpa once validated
+        $fullName =~ s/\.in-addr\.arpa$//;
+        # Reverse ip address
+        $fullName = join ('.', reverse (split (/\./, $fullName)));
+        my $validator = new Data::Validate::IP;
+        unless (defined $validator->is_ipv4($fullName)) {
+            throw EBox::Exceptions::External(
+                __x('The name {x} does not looks like a PTR record.',
+                    x => $fullNameOrg));
+        }
+    }
 
-    my $newHostName = $changedFields->{hostname};
-    my $domainModel = $newHostName->row()->model();
-
-    if ($action eq 'update') {
-        # Add toDelete the RRs for this hostname and its aliases
-        my $oldRow  = $self->row($changedFields->{id});
-        my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-            my @toDelete = ();
-            my $oldIp = $oldRow->valueByName('ip');
-            push (@toDelete, "$oldIp");
-            $self->{toDelete} = \@toDelete;
+    if (exists $changedFields->{hostname}) {
+        my $host = $changedFields->{hostname};
+        my $value = $host->value();
+        my $options = {
+            domain_allow_underscore => 1,
+            domain_allow_single_label => 0,
+            domain_private_tld => qr /^[a-zA-Z]+$/,
+        };
+        my $validator = new Data::Validate::Domain(%{$options});
+        unless ($validator->is_domain($value)) {
+            throw EBox::Exceptions::External(
+                __x('The host/domain {x} does not looks like a valid FQDN.',
+                    x => $value));
         }
     }
 }
@@ -95,28 +115,28 @@ sub validateTypedRow
 #
 #   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
+#sub updatedRowNotify
+#{
+#    my ($self, $row, $oldRow, $force) = @_;
+#
+#    # The field is added in validateTypedRow
+#    if (exists $self->{toDelete}) {
+#        foreach my $rr (@{$self->{toDelete}}) {
+#            $self->_addToDelete($rr);
+#        }
+#        delete $self->{toDelete};
+#    }
+#}
 
-    # The field is added in validateTypedRow
-    if (exists $self->{toDelete}) {
-        foreach my $rr (@{$self->{toDelete}}) {
-            $self->_addToDelete($rr);
-        }
-        delete $self->{toDelete};
-    }
-}
-
-sub _getMappedNetwork
+sub _getParentZone
 {
-    my ($self, $group) = @_;
+    my ($self) = @_;
 
     my $parentRow = $self->parentRow();
     return undef unless defined $parentRow;
 
-    my @value = $parentRow->valueByName('rzone');
-    return $value[$group] . ".";
+    my $value = '.' . $parentRow->printableValueByName('rzone');
+    return $value;
 }
 
 # Method: _table
@@ -131,48 +151,31 @@ sub _table
 
     my $tableHead = [
         new EBox::Types::Composite(
-            fieldName       => 'ip',
-            printableName   => __('IP Address'),
+            fieldName       => 'name',
+            HTMLViewer      => '/dns/ajax/viewer/ptrname.mas',
+            printableName   => __('Name'),
             editable        => 1,
             showTypeName    => 0,
             types           => [
                 new EBox::Types::Text(
-                    fieldName       => 'ipgroup1',
+                    fieldName       => 'prefix',
                     printableName   => '',
-                    HTMLViewer      => '',
-                    volatile        => 1,
-                    size            => 3,
-                    acquirer        => sub { $self->_getMappedNetwork(0) },
-                ),
-                new EBox::Types::Text(
-                    fieldName       => 'ipgroup2',
-                    printableName   => '',
-                    volatile        => 1,
-                    HTMLViewer      => '',
-                    size            => 3,
-                    acquirer        => sub { $self->_getMappedNetwork(1) },
-                ),
-                new EBox::Types::Text(
-                    fieldName       => 'ipgroup3',
-                    printableName   => '',
-                    HTMLViewer      => '',
-                    volatile        => 1,
-                    size            => 3,
-                    acquirer        => sub { $self->_getMappedNetwork(2) },
-                ),
-                new EBox::Types::Text(
-                    fieldName       => 'group4',
-                    printableName   => '',
-                    hiddenOnViewer => 0,
                     editable        => 1,
+                    size            => 11,
+                ),
+                new EBox::Types::Text(
+                    fieldName       => 'suffix',
+                    printableName   => '',
                     size            => 3,
-                    unique          => 1,
+                    volatile        => 1,
+                    acquirer        => sub { $self->_getParentZone() },
+                    editable        => 0,
                 ),
             ],
         ),
         new EBox::DNS::Types::Hostname(
             fieldName => 'hostname',
-            printableName => __('Host name'),
+            printableName => __('Host/Domain'),
             size => '20',
             unique => 0,
             editable => 1,
@@ -197,7 +200,6 @@ sub _table
         printableRowName    => __('host map'),
         order               => 1,
         insertPosition      => 'back',
-        HTTPUrlView         => 'DNS/View/ReverseHosts',
     };
 
     return $dataTable;
@@ -212,17 +214,17 @@ sub _table
 #
 #      <EBox::Model::DataTable::deletedRowNotify>
 #
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    # Deleted RRs to account
-    my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-        my $ip= $row->valueByName('ip');
-        $self->_addToDelete($ip);
-    }
-}
+#sub deletedRowNotify
+#{
+#    my ($self, $row) = @_;
+#
+#    # Deleted RRs to account
+#    my $zoneRow = $row->parentRow();
+#    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+#        my $ip= $row->valueByName('ip');
+#        $self->_addToDelete($ip);
+#    }
+#}
 
 # Method: pageTitle
 #
@@ -237,25 +239,42 @@ sub pageTitle
     return $parentRow->printableValueByName('rzone');
 }
 
-sub _addToDelete
-{
-    my ($self, $domain) = @_;
+#sub _addToDelete
+#{
+#    my ($self, $domain) = @_;
+#
+#    my $mod = $self->{confmodule};
+#    my $key = EBox::DNS::DELETED_RR_KEY();
+#    my @list = ();
+#    if ( $mod->st_entry_exists($key) ) {
+#        @list = @{$mod->st_get_list($key)};
+#        foreach my $elem (@list) {
+#            if ($elem eq $domain) {
+#                # domain already added, nothing to do
+#                return;
+#            }
+#        }
+#    }
+#
+#    push (@list, $domain);
+#    $mod->st_set_list($key, 'string', \@list);
+#}
 
-    my $mod = $self->{confmodule};
-    my $key = EBox::DNS::DELETED_RR_KEY();
-    my @list = ();
-    if ( $mod->st_entry_exists($key) ) {
-        @list = @{$mod->st_get_list($key)};
-        foreach my $elem (@list) {
-            if ($elem eq $domain) {
-                # domain already added, nothing to do
-                return;
-            }
-        }
+sub records
+{
+    my ($self) = @_;
+
+    my $records = [];
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $name = $row->valueByName('name');
+        $name = $name->{prefix};
+        my $host = $row->valueByName('hostname');
+        my $record = "$name\tIN\tPTR\t$host.";
+        push (@{$records}, $record);
     }
 
-    push (@list, $domain);
-    $mod->st_set_list($key, 'string', \@list);
+    return $records;
 }
 
 1;

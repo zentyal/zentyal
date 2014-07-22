@@ -1,0 +1,10 @@
+<%args>
+$data
+</%args>
+<%init>
+my $value = $data->value();
+my $prefix = $value->{prefix};
+my $suffix = $value->{suffix};
+my $printableValue = "${prefix}${suffix}";
+</%init>
+<span><% $printableValue %></span>

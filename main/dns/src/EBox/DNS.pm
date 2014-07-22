@@ -771,6 +771,8 @@ sub _writeReverseFiles
         my $hostmaster = $row->valueByName('hostmaster');
         my $file = ($dynamic ? BIND9_UPDATE_ZONES : BIND9CONFDIR) . "/db.$zone";
 
+        my $rhosts = $row->subModel('hosts');
+        my $rns = $row->subModel('nameServers');
         my $zoneData = {
             rowId               => $id,
             zone                => $zone,
@@ -779,8 +781,8 @@ sub _writeReverseFiles
             tsigKey             => $tsigKey,
             primaryNameServer   => $primaryNS,
             hostmaster          => $hostmaster,
-            ns                  => [],
-            hosts               => [],
+            ns                  => $rns->records(),
+            hosts               => $rhosts->records(),
         };
 
         if ($dynamic and -e "${file}.jnl" ) {

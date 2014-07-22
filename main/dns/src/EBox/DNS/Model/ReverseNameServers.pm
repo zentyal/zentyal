@@ -22,6 +22,7 @@ use warnings;
 
 package EBox::DNS::Model::ReverseNameServers;
 
+use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -31,8 +32,7 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Text;
 use EBox::Exceptions::External;
-
-use base 'EBox::Model::DataTable';
+use Data::Validate::Domain;
 
 # Group: Public methods
 
@@ -66,30 +66,19 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    return unless exists $changedFields->{hostName};
-
-    if ($changedFields->{hostName}->selectedType() eq 'custom') {
-        my $val = $changedFields->{hostName}->value();
-        my @parts = split(/\./, $val);
-        unless ( @parts > 2 ) {
-            throw EBox::Exceptions::External(__x('The given host name '
-                                                 . 'is not a fully qualified domain name (FQDN). '
-                                                 . 'Do you mean ns.{name}?',
-                                                 name => $val));
-        }
-    }
-
-    if ($action eq 'update') {
-        # Add toDelete the RRs for this nameserver
-        my $oldRow = $self->row($changedFields->{id});
-        my $zoneRow = $oldRow->parentRow();
-        if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-            my $zone = $zoneRow->valueByName('rzone');
-            my $ns   = $oldRow->printableValueByName('hostName');
-            if ($ns !~ m:\.:g) {
-                $ns = "$ns.$zone";
-            }
-            $self->{toDelete} = "$zone NS $ns";
+    if (exists $changedFields->{ns}) {
+        my $host = $changedFields->{ns};
+        my $value = $host->value();
+        my $options = {
+            domain_allow_underscore => 1,
+            domain_allow_single_label => 0,
+            domain_private_tld => qr /^[a-zA-Z]+$/,
+        };
+        my $validator = new Data::Validate::Domain(%{$options});
+        unless ($validator->is_domain($value)) {
+            throw EBox::Exceptions::External(
+                __x('The host name {x} does not looks like a valid FQDN.',
+                    x => $value));
         }
     }
 }
@@ -102,16 +91,16 @@ sub validateTypedRow
 #
 #   <EBox::Exceptions::DataTable::updatedRowNotify>
 #
-sub updatedRowNotify
-{
-    my ($self, $row, $oldRow, $force) = @_;
-
-    # The field is added in validateTypedRow
-    if (exists $self->{toDelete}) {
-        $self->_addToDelete($self->{toDelete});
-        delete $self->{toDelete};
-    }
-}
+#sub updatedRowNotify
+#{
+#    my ($self, $row, $oldRow, $force) = @_;
+#
+#    # The field is added in validateTypedRow
+#    if (exists $self->{toDelete}) {
+#        $self->_addToDelete($self->{toDelete});
+#        delete $self->{toDelete};
+#    }
+#}
 
 # Method: deletedRowNotify
 #
@@ -121,20 +110,20 @@ sub updatedRowNotify
 #
 #   <EBox::Model::DataTable::deletedRowNotify>
 #
-sub deletedRowNotify
-{
-    my ($self, $row) = @_;
-
-    my $zoneRow = $row->parentRow();
-    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
-        my $zone = $zoneRow->valueByName('rzone');
-        my $ns   = $row->printableValueByName('hostName');
-        if ( $ns !~ m:\.:g ) {
-            $ns = "$ns.$zone";
-        }
-        $self->_addToDelete("$zone NS $ns");
-    }
-}
+#sub deletedRowNotify
+#{
+#    my ($self, $row) = @_;
+#
+#    my $zoneRow = $row->parentRow();
+#    if ($zoneRow->valueByName('dynamic') or $zoneRow->valueByName('samba')) {
+#        my $zone = $zoneRow->valueByName('rzone');
+#        my $ns   = $row->printableValueByName('hostName');
+#        if ( $ns !~ m:\.:g ) {
+#            $ns = "$ns.$zone";
+#        }
+#        $self->_addToDelete("$zone NS $ns");
+#    }
+#}
 
 # Method: removeRow
 #
@@ -144,20 +133,20 @@ sub deletedRowNotify
 #
 #      <EBox::Model::DataTable::removeRow>
 #
-sub removeRow
-{
-    my ($self, $id, $force) = @_;
-
-    # Check there is at least a row
-    my $ids = $self->ids();
-    if ( scalar(@{$ids}) == 1 ) {
-        # Last element to remove
-        throw EBox::Exceptions::External(__('Last name server cannot be removed'));
-    }
-
-    return $self->SUPER::removeRow($id, $force);
-
-}
+#sub removeRow
+#{
+#    my ($self, $id, $force) = @_;
+#
+#    # Check there is at least a row
+#    my $ids = $self->ids();
+#    if ( scalar(@{$ids}) == 1 ) {
+#        # Last element to remove
+#        throw EBox::Exceptions::External(__('Last name server cannot be removed'));
+#    }
+#
+#    return $self->SUPER::removeRow($id, $force);
+#
+#}
 
 # Method: pageTitle
 #
@@ -186,26 +175,11 @@ sub _table
     my ($self) = @_;
 
     my $tableDesc = [
-        new EBox::Types::Union(
-            fieldName     => 'hostName',
-            printableName => __('Host name'),
+        new EBox::Types::Text(
+            fieldName     => 'ns',
+            printableName => __('Name Server'),
             editable      => 1,
             unique        => 1,
-            help          => __('If you choose "Custom", it should be a Fully Qualified Domain Name'),
-            subtypes      => [
-                new EBox::Types::Text(
-                    fieldName     => 'default',
-                    printableName => __('Default'),
-                    editable      => 0,
-                    unique        => 0,
-                ),
-                new EBox::Types::DomainName(
-                    fieldName     => 'custom',
-                    printableName => __('Custom'),
-                    editable      => 1,
-                    unique        => 1,
-                ),
-            ],
         ),
     ];
 
@@ -230,25 +204,41 @@ sub _table
 # Group: Private methods
 
 # Add the RR to the deleted list
-sub _addToDelete
-{
-    my ($self, $domain) = @_;
+#sub _addToDelete
+#{
+#    my ($self, $domain) = @_;
+#
+#    my $mod = $self->{confmodule};
+#    my $key = EBox::DNS::DELETED_RR_KEY();
+#    my @list = ();
+#    if ( $mod->st_entry_exists($key) ) {
+#        @list = @{$mod->st_get_list($key)};
+#        foreach my $elem (@list) {
+#            if ($elem eq $domain) {
+#                # domain already added, nothing to do
+#                return;
+#            }
+#        }
+#    }
+#
+#    push (@list, $domain);
+#    $mod->st_set_list($key, 'string', \@list);
+#}
 
-    my $mod = $self->{confmodule};
-    my $key = EBox::DNS::DELETED_RR_KEY();
-    my @list = ();
-    if ( $mod->st_entry_exists($key) ) {
-        @list = @{$mod->st_get_list($key)};
-        foreach my $elem (@list) {
-            if ($elem eq $domain) {
-                # domain already added, nothing to do
-                return;
-            }
-        }
+sub records
+{
+    my ($self) = @_;
+
+    my $records = [];
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $name = $row->valueByName('ns');
+        my $record = "\tIN\tNS\t$name.";
+        push (@{$records}, $record);
     }
 
-    push (@list, $domain);
-    $mod->st_set_list($key, 'string', \@list);
+    return $records;
 }
+
 
 1;

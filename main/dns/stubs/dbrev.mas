@@ -21,9 +21,9 @@ $ORIGIN <% $zone %>.
             )
 
 % foreach my $ns (@ns) {
-    IN  NS  <% $ns %>.
+<% $ns %>
 % }
 
 % foreach my $host (@hosts) {
-<% $host->{ip} %> IN  PTR <% $host->{name} %>.
+<% $host %>
 % }
