@@ -1,4 +1,5 @@
 HEAD
+	+ Fix isEqualTo types comparision, check for defined return value from cmp
 	+ Added option to disable Peer Verification in EBox::RESTClient
 	+ pathHTTPSSSLCertificate() always returns a list
 	+ Added one more tip to component not found page
