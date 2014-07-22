@@ -240,5 +240,54 @@ sub records
     return $records;
 }
 
+# Method: ids
+#
+# 	Overrided to push the primary name server for the zone, built on-the-fly
+#   based on the value of the primaryNameServer field of the parent zone
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::ids>
+#
+sub ids
+{
+    my ($self) = @_;
+
+    my $primaryId = 'primaryNS';
+    my $ids = [$primaryId, @{$self->SUPER::ids()}];
+    return $ids;
+}
+
+# Method: row
+#
+# 	Overrided to build the primary name server row, built on-the-fly
+#   thanks to the fixed id 'primaryNS'
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::row>
+#
+sub row
+{
+    my ($self, $id) = @_;
+
+    if ($id eq 'primaryNS') {
+        my $row = new EBox::Model::Row(dir => $self->directory(), confmodule => $self->parentModule());
+        $row->setId($id);
+        $row->setModel($self);
+        $row->setReadOnly(1);
+        my $tableDesc = $self->table->{tableDescription};
+        foreach my $type (@{$tableDesc}) {
+            my $element = $type->clone();
+            if ($type->fieldName() eq 'ns') {
+                my $primaryNS = $self->parentRow->valueByName('primaryNameServer');
+                $element->setValue($primaryNS);
+            }
+            $row->addElement($element);
+        }
+        return $row;
+    }
+    return $self->SUPER::row($id);
+}
 
 1;
