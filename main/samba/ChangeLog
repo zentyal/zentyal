@@ -1,4 +1,5 @@
 HEAD
+	+ Added external AD field to LDAP information model
 	+ Allow unsafe chars on admin account to use for join a domain
 	+ Improve the LDIF files parsing created by output of ldbsearch command
 	+ Fixed problems with checking mail address duplicates
