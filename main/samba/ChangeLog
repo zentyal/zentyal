@@ -1,4 +1,6 @@
 HEAD
+	+ Make _ldapModImplementation usable for modules which don't
+	  subclass EBox::Module::LDAP
 	+ Allow unsafe chars on admin account to use for join a domain
 	+ Improve the LDIF files parsing created by output of ldbsearch command
 	+ Fixed problems with checking mail address duplicates

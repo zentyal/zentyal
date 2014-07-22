@@ -1924,7 +1924,7 @@ sub _modsLdapUserBase
 
         my $mod = EBox::Global->modInstance($name);
 
-        if ($mod->isa('EBox::Module::LDAP')) {
+        if ($mod->can('_ldapModImplementation')) {
             if ($name ne $self->name()) {
                 $mod->configured() or
                     next;

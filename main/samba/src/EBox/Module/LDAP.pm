@@ -44,6 +44,10 @@ use TryCatch::Lite;
 #   should override this method to return the implementation
 #   of that interface.
 #
+#   IMPORTANT: It is possible to use this method without subclassing this
+#   module. This is allowed in order to not force samba depndency when only we
+#   want to offer a non-ldap dependent addon
+#
 # Returns:
 #
 #       An object implementing EBox::LdapUserBase
