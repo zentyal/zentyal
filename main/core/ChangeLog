@@ -1,4 +1,5 @@
 HEAD
+	+ When doing a login redirect to the full given URI
 	+ Added option to disable Peer Verification in EBox::RESTClient
 	+ pathHTTPSSSLCertificate() always returns a list
 	+ Added one more tip to component not found page
