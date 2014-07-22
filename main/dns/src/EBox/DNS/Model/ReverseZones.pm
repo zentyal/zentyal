@@ -59,9 +59,40 @@ use EBox::DNS::View::DomainTableCustomizer;
 #    return $customizer;
 #}
 
+# Method: validateTypedRow
+#
+#   Check the given custom name is a Fully Qualified Domain Name (FQDN)
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if (exists $changedFields->{primaryNameServer}) {
+        my $ns = $changedFields->{primaryNameServer};
+        if ($ns->selectedType() eq 'custom') {
+            my $value = $ns->value();
+            my $options = {
+                domain_allow_underscore => 1,
+                domain_allow_single_label => 0,
+                domain_private_tld => qr /^[a-zA-Z]+$/,
+            };
+            my $validator = new Data::Validate::Domain(%{$options});
+            unless ($validator->is_domain($value)) {
+                throw EBox::Exceptions::External(
+                    __x('The host name {x} does not looks like a valid FQDN.',
+                        x => $value));
+            }
+        }
+    }
+}
+
 # Method: addedRowNotify
 #
-#    Override to:
+#    Overrided to:
 #       - Generate the TSIG key
 #
 # Overrides:
