@@ -497,7 +497,9 @@ sub _doDeprovision
     my $organizationName = $params{provisionedorganizationname};
 
     try {
-        my $cmd = 'openchange_provision --deprovision ' .
+        $self->_deprovisionUsers();
+
+        my $cmd = 'openchange_provision --full-deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
@@ -521,4 +523,26 @@ sub _doDeprovision
     }
 }
 
+sub _deprovisionUsers
+{
+    my ($self) = @_;
+    my $usersModule = $self->global->modInstance('samba');
+    my $users = $usersModule->users();
+    foreach my $user (@{$users}) {
+        if (not defined $user->get('msExchUserAccountControl')) {
+            next;
+        }
+
+        my $username = $user->name();
+        $user->delete('mailNickname', 1);
+        $user->delete('homeMDB', 1);
+        $user->delete('homeMTA', 1);
+        $user->delete('legacyExchangeDN', 1);
+        $user->delete('proxyAddresses', 1);
+        $user->delete('msExchUserAccountControl', 1);
+        $user->save();
+    }
+}
+
 1;
+
