@@ -59,7 +59,7 @@ do
     echo; echo "Forcing pending packages installation..."; echo
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     rm -f /var/lib/dpkg/info/suricata.prerm
-    for pkg in zentyal-core freeradius-ldap suricata rabbitmq-server haproxy zentyal-samba
+    for pkg in zentyal-core freeradius-ldap suricata rabbitmq-server zentyal-samba
     do
         rm -f /var/lib/dpkg/info/${pkg}.postinst
     done
@@ -67,11 +67,12 @@ do
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
     if [ $? == 0 ]
     then
+        echo; echo "Nothing more pending to upgrade"; echo
         break
     fi
 done
 
-service zentyal webserver restart
+service apache2 stop
 
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
@@ -85,7 +86,9 @@ then
     done
     # Restart Zentyal UI
     service zentyal webadmin restart
+    service apache2 stop
     service zentyal haproxy restart
+    service zentyal webserver restart
 
     echo; echo "Zentyal upgrade finished!"
 else
