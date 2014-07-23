@@ -52,12 +52,11 @@ dpkg -l | grep perl | cut -d' ' -f3 | xargs apt-get install -y --force-yes -o DP
 # Continue with the rest of the upgrade rest of the upgrade
 upgrade
 
-# FIXME: this process needs a lot of refination, this is a temporary workaround
-echo; echo "Forcing pending packages installation..."; echo
 service apache2 stop || true
 
 for i in `seq 1 3`
 do
+    echo; echo "Forcing pending packages installation..."; echo
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     rm -f /var/lib/dpkg/info/suricata.prerm
     for pkg in zentyal-core freeradius-ldap suricata rabbitmq-server haproxy zentyal-samba
@@ -66,9 +65,13 @@ do
     done
     dpkg --configure -a --force-confdef
     apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+    if [ $? == 0 ]
+    then
+        break
+    fi
 done
 
-service apache2 start || true
+service zentyal webserver restart
 
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
