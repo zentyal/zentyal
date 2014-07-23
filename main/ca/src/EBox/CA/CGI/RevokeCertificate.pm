@@ -40,8 +40,6 @@ sub new
     my $class = shift;
 
     my $self = $class->SUPER::new('title' => __('Certification Authority'), @_);
-
-    $self->{chain} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -52,7 +50,7 @@ sub new
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
     # If it comes from forceRevoke with a cancel button
     if (defined($self->param('cancel'))) {
@@ -64,23 +62,20 @@ sub _process
         return;
     }
 
+    my $jsonReply = $self->param('jsonReply');
+    if ($jsonReply) {
+        $self->{json} = { success => 0 };
+    } else {
+        $self->{chain} = "CA/Index";        
+    }
+
     my $ca = EBox::Global->modInstance('ca');
 
     $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
     $self->_requireParam('reason', __('Reason') );
 
     my $commonName = $self->unsafeParam('commonName');
-    # We have to check it manually
-    if (not defined($commonName) or $commonName eq '') {
-        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
-    }
-    # Only valid chars minus '/' plus '*' --> security risk
-    unless ($commonName =~ m{^[\w .?&+:\-\@\*]*$}) {
-        throw EBox::Exceptions::External(__('The input contains invalid ' .
-                    'characters. All alphanumeric characters, ' .
-                    'plus these non alphanumeric chars: .?&+:-@* ' .
-                    'and spaces are allowed.'));
-    }
+    $ca->checkCommonName($commonName);
 
     # Transform %40 in @
     $commonName =~ s/%40/@/g;
@@ -119,27 +114,46 @@ sub _process
                                                    caKeyPassword => $caPassphrase,
                                                    reason        => $reason);
             }
-        } catch (EBox::Exceptions::DataInUse $e) {
-            $self->{template} = '/ca/forceRevoke.mas';
-            $self->{chain} = undef;
-            my $cert = $ca->getCertificateMetadata( cn => $commonName );
-            push (@array, 'metaDataCert' => $cert);
-            push (@array, 'isCACert'   => $isCACert);
-            push (@array, 'reason'     => $reason);
-            push (@array, 'caPassphrase' => $caPassphrase);
-            $self->{params} = \@array;
+        } catch (EBox::Exceptions::DataInUse $ex) {
+            if ($jsonReply) {
+                $self->{json}->{message} = "$ex";
+            } else {
+                $self->{template} = '/ca/forceRevoke.mas';
+                $self->{chain} = undef;
+                my $cert = $ca->getCertificateMetadata( cn => $commonName );
+                push (@array, 'metaDataCert' => $cert);
+                push (@array, 'isCACert'   => $isCACert);
+                push (@array, 'reason'     => $reason);
+                push (@array, 'caPassphrase' => $caPassphrase);
+                $self->{params} = \@array;
+            }
             $retFromCatch = 1;
         }
     }
 
     if (not $retFromCatch) {
-        my $msg = __("The certificate has been revoked");
-        $msg = __("The CA certificate has been revoked") if ($isCACert);
-        $self->setMsg($msg);
-        # No parameters to send to CA/Index
-        my $request = $self->request();
-        my $parameters = $request->parameters();
-        $parameters->clear();
+        my $msg;
+        if ($isCACert) {
+            $msg = __("The CA certificate has been revoked");
+        } else {
+            $msg = __("The certificate has been revoked"); 
+        }
+
+
+        if ($jsonReply) {
+            $self->{json}->{success} = 1;
+            $self->{json}->{msg} = $msg;
+            my $cert = $ca->getCertificateMetadata(cn => $commonName, dateAsString => 1);
+            delete $cert->{dn};
+            $self->{json}->{certificate} = $cert;
+            $self->{json}->{message} = $msg;
+        } else {
+            $self->setMsg($msg);
+            # No parameters to send to CA/Index
+            my $request = $self->request();
+            my $parameters = $request->parameters();
+            $parameters->clear();
+        }
     }
 }
 

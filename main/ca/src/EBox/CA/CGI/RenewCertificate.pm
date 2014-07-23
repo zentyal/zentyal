@@ -41,16 +41,14 @@ sub new
 
     my $self = $class->SUPER::new('title' => __('Certification Authority'), @_);
 
-    $self->{chain} = "CA/Index";
     bless($self, $class);
-
     return $self;
 }
 
 # Process the HTTP query
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -63,21 +61,27 @@ sub _process
         return;
     }
 
+    my $jsonReply = $self->param('jsonReply');
+    if ($jsonReply) {
+        $self->{json} = { success => 0 };
+    } else {
+        $self->{chain} = "CA/Index";        
+    }
+
     $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
     $self->_requireParam('expireDays', __('Days to expire') );
 
     my $commonName = $self->unsafeParam('commonName');
-    # We have to check it manually
-    if (not defined($commonName) or $commonName eq '') {
-        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    try {
+        $ca->checkCommonName($commonName);
+    } catch ($ex) {
+        if ($jsonReply) {
+            $self->{json}->{message} = "$ex";
+        } else {
+            $ex->throw();
+        }
     }
-    # Only valid chars minus '/' plus '*' --> security risk
-    unless ($commonName =~ m{^[\w .?&+:\-\@\*]*$}) {
-        throw EBox::Exceptions::External(__('The input contains invalid ' .
-                    'characters. All alphanumeric characters, ' .
-                    'plus these non alphanumeric chars: .?&+:-@* ' .
-                    'and spaces are allowed.'));
-    }
+
 
     # Transform %40 in @
     $commonName =~ s/%40/@/g;
@@ -90,9 +94,15 @@ sub _process
     $caPassphrase = undef if ( $caPassphrase eq '' );
 
     unless ($expireDays > 0) {
-        throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
-                                         . 'a positive number',
-                                         days => $expireDays));
+        my $failMsg = __x('Days to expire ({days}) must be '
+                              . 'a positive number',
+                              days => $expireDays);
+        if ($jsonReply) {
+            $self->{json}->{message} = $failMsg;
+            return;
+        } else {
+            throw EBox::Exceptions::External($failMsg);            
+        }
     }
 
     my $retValue;
@@ -119,29 +129,52 @@ sub _process
                                                  caKeyPassword => $caPassphrase,
                                                  days          => $expireDays);
             }
-        } catch (EBox::Exceptions::DataInUse $e) {
-            $self->{template} = '/ca/forceRenew.mas';
-            $self->{chain} = undef;
-            my $cert = $ca->getCertificateMetadata( cn => $commonName );
-            my @array;
-            push (@array, 'metaDataCert' => $cert);
-            push (@array, 'expireDays'   => $expireDays);
-            push (@array, 'caPassphrase' => $caPassphrase);
-            $self->{params} = \@array;
+        } catch (EBox::Exceptions::DataInUse $ex) {
+            if ($jsonReply) {
+                $self->{json}->{message} = "$ex";
+            } else {
+                $self->{template} = '/ca/forceRenew.mas';
+                $self->{chain} = undef;
+                my $cert = $ca->getCertificateMetadata( cn => $commonName );
+                my @array;
+                push (@array, 'metaDataCert' => $cert);
+                push (@array, 'expireDays'   => $expireDays);
+                push (@array, 'caPassphrase' => $caPassphrase);
+                $self->{params} = \@array;
+            }
             $retFromCatch = 1;
         }
     }
 
     if (not $retFromCatch) {
         if (not defined($retValue)) {
-            throw EBox::Exceptions::External(__('The certificate CANNOT be renewed'));
+            my $msg = __('The certificate CANNOT be renewed');
+            if ($jsonReply) {
+                $self->{json}->{success} = 0;
+                $self->{json}->{message} = $msg;
+            } else {
+                throw EBox::Exceptions::External($msg);
+            }
         } else {
-            my $msg = __("The certificate has been renewed");
-            $msg = __("The new CA certificate has been renewed") if ($isCACert);
-            $self->setMsg($msg);
-            my $request = $self->request();
-            my $parameters = $request->parameters();
-            $parameters->clear();
+            my $msg;
+            if ($isCACert) {
+                $msg = __("The new CA certificate has been renewed") if ($isCACert);
+            } else {
+                $msg = __("The certificate has been renewed");
+            }
+
+            if ($jsonReply) {
+                $self->{json}->{success} = 1;
+                $self->{json}->{msg} = $msg;
+                my $cert = $ca->getCertificateMetadata(cn => $commonName, dateAsString => 1);
+                delete $cert->{dn};
+                $self->{json}->{certificate} = $cert;
+            } else {
+                $self->setMsg($msg);
+                my $request = $self->request();
+                my $parameters = $request->parameters();
+                $parameters->clear();
+            }
         }
     }
 }

@@ -102,6 +102,16 @@ sub _userAddOns
 
     my $samAccountName = $user->get('samAccountName');
     my $cert =  $self->{caMod}->getCertificateMetadata(cn => $samAccountName);
+    if ($cert) {
+        if ($cert->{expiryDate}) {
+            $cert->{expiryDate} = _dateToStr($cert->{expiryDate})
+        }
+        if ($cert->{revokeDate}) {
+            $cert->{revokeDate} = _dateToStr($cert->{revokeDate})
+        }
+    }
+
+    my $passwordRequired = $self->{caMod}->passwordRequired();
 
     return {
         title  => $title,
@@ -109,9 +119,20 @@ sub _userAddOns
         params => {
             user => $user,
             certificate => $cert,
-            caExpirationDays => $self->{caMod}->caExpirationDays()
+            caExpirationDays => $self->{caMod}->caExpirationDays(),
+            passwordRequired => $passwordRequired,
+            revokeReasons    => $self->{caMod}->revokeReasons()
            }
        };
+}
+
+sub _dateToStr
+{
+    my ($date) = @_;
+    my $strDate = sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
+                          $date->month(), $date->day(), $date->hours(),
+                          $date->minutes(), $date->seconds()) ;
+    return $strDate;
 }
 
 1;
