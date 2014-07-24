@@ -29,9 +29,6 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 function releaseUpgrade(title) {
       Zentyal.Dialog.showURL('/ReleaseUpgrade', {
           title: title,
-          modal: true,
-          dialogClass: 'no-close',
-          closeOnEscape: false,
           close: function() { window.location.reload(); }
       });
 }
