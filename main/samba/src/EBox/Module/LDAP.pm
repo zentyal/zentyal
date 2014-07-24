@@ -104,7 +104,7 @@ sub _connectToSchemaMaster
     my $masterLdap = new Net::LDAP($dnsOwner);
     unless ($masterLdap) {
         throw EBox::Exceptions::Internal(
-            __x('Error connectiong to schema master role owner ({x})',
+            __x('Error connecting to schema master role owner ({x})',
                 x => $dnsOwner));
     }
 
