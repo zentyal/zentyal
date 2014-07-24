@@ -324,6 +324,12 @@ sub writeSambaConfig
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 }
 
+# Method: _setConf
+#
+# Overrides:
+#
+#       <EBox::Module::Base::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
@@ -931,7 +937,7 @@ sub _rpcProxyHostForDomain
                                              ch => '</a>'
                                             ));
     }
-    my @hosts = @{ $dns->getHostnames($domain)  };
+    my @hosts = @{ $dns->getHostnames($domain) };
 
     my @ips;
     my $network = $self->global()->modInstance('network');
@@ -987,6 +993,8 @@ sub _rpcProxyDomain
     return $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 }
 
+# Return the valid RPC/Proxy hosts.
+# It calculates the hostname and the domain to use.
 sub _rpcProxyHosts
 {
     my ($self) = @_;
@@ -996,9 +1004,18 @@ sub _rpcProxyHosts
         throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
     }
     push @hosts, $self->_rpcProxyHostForDomain($domain);
+    push @hosts, $domain;
     return \@hosts;
 }
 
+# Method: HAProxyInternalService
+#
+#      Set the configuration for Outlook Anywhere (RPC/Proxy) if configured
+#
+# Overrides:
+#
+#      <EBox::HAProxy::ServiceBase::HAProxyInternalService>
+#
 sub HAProxyInternalService
 {
     my ($self) = @_;
