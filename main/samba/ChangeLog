@@ -1,4 +1,6 @@
 HEAD
+	+ Resolve schema master dns name and try to connect to all returned IP
+	  addresses until success
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model
 	+ Allow unsafe chars on admin account to use for join a domain
