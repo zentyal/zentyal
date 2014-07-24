@@ -957,17 +957,17 @@ sub _rpcProxyHostForDomain
     my $matchedHost;
     my $matchedHostMatchs = 0;
     foreach my $host (@hosts) {
-        my $matchs = 0;
+        my $matches = 0;
         foreach my $hostIp (@{ $host->{ip} }) {
             foreach my $ip (@ips) {
                 if ($hostIp eq $ip) {
-                    $matchs += 1;
+                    $matches += 1;
                     last;
                 }
             }
-            if ($matchs > $matchedHostMatchs) {
+            if ($matches > $matchedHostMatchs) {
                 $matchedHost = $host->{name};
-                $matchedHostMatchs = $matchs;
+                $matchedHostMatchs = $matches;
                 if (@ips == $matchedHostMatchs) {
                     last;
                 }
