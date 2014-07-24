@@ -1,4 +1,6 @@
 3.5
+	+ Removed auto start in init.d for suricata, as it is 
+	  launched from upstart
 	+ Set version to 3.5
 3.4
 	+ Ignore bond slaves when looking for enabled interfaces
