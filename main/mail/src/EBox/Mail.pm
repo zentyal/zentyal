@@ -290,7 +290,7 @@ sub _chainDovecotCertificate
     my $keyFile = '/etc/dovecot/private/dovecot.pem';
     my $newCertKey = '/etc/dovecot/zentyal-new-cert.pem';
 
-    if (-e $certFile and -e $keyFile) {
+    if (EBox::Sudo::fileTest('-f', $certFile) and EBox::Sudo::fileTest('-f', $keyFile)) {
         my @commands;
         push (@commands, "cat $certFile $keyFile > $newCertKey");
         push (@commands, "mv $newCertKey $keyFile");
