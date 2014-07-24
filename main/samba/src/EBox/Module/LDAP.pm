@@ -255,7 +255,8 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    if ($self->global()->modInstance('samba')->isProvisioned()) {
+    my $samba = $self->global()->modInstance('samba');
+    if ($samba->isProvisioned() and $samba->isEnabled()) {
         $self->_performSetup();
         $self->SUPER::_regenConfig(@_);
     }
