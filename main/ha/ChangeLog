@@ -1,4 +1,4 @@
-HEAD
+3.5.2
 	+ Make use of VerifyPeer to false on EBox::RESTClient as we
 	  don't verify other HA hosts
 3.5.1
