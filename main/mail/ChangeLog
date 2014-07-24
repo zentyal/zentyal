@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed bug when removing virtual domain
+	+ Adding a virtual domain now can update old unmanaged accounts
+	+ Fixed errors related with users which has account on a umanaged domain
 	+ Added migration code to handle new Dovecot certs
 	+ Fixed group mail alias creation
 	+ Fixed problems with checking mail address duplicates
