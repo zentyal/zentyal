@@ -569,7 +569,10 @@ sub customActionClickedJS
    };
     var acceptMethod = function() {
          $customActionClickedJS;
-         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title : '$savingChangesTitle' });
+         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                         dialogClass: 'no-close',
+                                                         closeOnEscape: false
+                                                        });
      };
     Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
     return false;
