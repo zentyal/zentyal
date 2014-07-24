@@ -309,7 +309,7 @@ sub printers
             if ($element->selectedType() eq 'user') {
                 push (@users, $element->value());
             } else {
-                my $group = new EBox::Samba::Group(gid => $element->value());
+                my $group = new EBox::Samba::Group(samAccountName => $element->value());
                 my @userNames = map { $_->name() } @{$group->users()};
                 push (@users, @userNames);
             }
