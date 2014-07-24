@@ -1,4 +1,4 @@
-HEAD
+3.5.2
 	+ Fixed populateGroups() in AccessRules when upgrading from 3.4
 	+ Fixed wrong old-style try-catch
 3.5.1
