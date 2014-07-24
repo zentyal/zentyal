@@ -338,7 +338,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
-    $self->_setAutodiscoverConf();
+    $self->_setOCSManagerConf();
 
     $self->_setRPCProxyConf();
     $self->_clearDownloadableCert();
@@ -455,10 +455,13 @@ sub _writeSOGoConfFile
         $array, { uid => 0, gid => $gid, mode => '640' });
 }
 
-sub _setAutodiscoverConf
+# Configure OCSManager which is in charge of EWS such as:
+#  * Autodiscover
+#  * Availability (Free/Busy)
+#  * Out of Office
+sub _setOCSManagerConf
 {
     my ($self) = @_;
-
 
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
