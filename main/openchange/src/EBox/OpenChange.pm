@@ -473,11 +473,12 @@ sub _setOCSManagerConf
         $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
-        bindDn    => $self->_kerberosServiceAccountDN(),
-        bindPwd   => $self->_kerberosServiceAccountPassword(),
-        baseDn    => 'CN=Users,' . $users->ldap()->dn(),
-        port      => 389,
-        adminMail => $adminMail,
+        bindDn      => $self->_kerberosServiceAccountDN(),
+        bindPwd     => $self->_kerberosServiceAccountPassword(),
+        baseDn      => 'CN=Users,' . $users->ldap()->dn(),
+        port        => 389,
+        adminMail   => $adminMail,
+        rpcProxySSL => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
     ];
 
     $self->writeConfFile(OCSMANAGER_CONF_FILE,
