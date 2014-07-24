@@ -123,7 +123,6 @@ sub _table
         ),
     ];
 
-
     my $dataForm = {
         tableName          => 'Provision',
         printableTableName => __('Setup'),
@@ -542,6 +541,41 @@ sub _deprovisionUsers
         $user->delete('msExchUserAccountControl', 1);
         $user->save();
     }
+}
+
+sub customActionClickedJS
+{
+    my ($self, $action, $id, $page) = @_;
+    # provision/deprovision
+
+    my $customActionClickedJS = $self->SUPER::customActionClickedJS($action, $id, $page);
+    my $confirmationMsg;
+    my $savingChangesTitle;
+    my $title;
+    if ($action eq 'provision') {
+        $title = __('Provision OpenChange');
+        $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after provision');
+    } elsif ($action eq 'deprovision') {
+        $title = __('Deprovision OpenChange');
+        $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after deprovision');
+    }
+
+    my $jsStr = <<JS;
+    var dialogParams = {
+          title: '$title',
+          message: '$confirmationMsg'
+   };
+    var acceptMethod = function() {
+         $customActionClickedJS;
+         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title : '$savingChangesTitle' });
+     };
+    Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
+    return false;
+JS
+
+    return $jsStr;
 }
 
 1;
