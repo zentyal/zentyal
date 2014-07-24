@@ -160,7 +160,11 @@ sub _connectToSchemaMaster
             __x('Error connecting to schema master role owner ({x})',
                 x => $dnsOwner));
     }
-    my $connectedIp = $masterLdap->socket()->sockhost();
+    my $socket = $masterLdap->socket();
+    my $connectedIp = '';
+    if ($socket->isa('IO::Socket::INET6') or $socket->isa('IO::Socket::INET')) {
+        $connectedIp = $socket->sockhost();
+    }
     my $connectedPort = $masterLdap->port();
     EBox::debug("Connected to schema master: $connectedIp:$connectedPort");
 
