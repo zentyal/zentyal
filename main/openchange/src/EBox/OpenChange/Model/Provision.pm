@@ -498,7 +498,7 @@ sub _doDeprovision
     try {
         $self->_deprovisionUsers();
 
-        my $cmd = 'openchange_provision --full-deprovision ' .
+        my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
