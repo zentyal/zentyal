@@ -519,12 +519,12 @@ sub setupDNS
     EBox::info("Setting up DNS");
 
     # Get the host domain
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $sysinfo = $self->global()->modInstance('sysinfo');
     my $ownDomain = $sysinfo->hostDomain();
     my $hostName = $sysinfo->hostName();
 
     # Create the domain in the DNS module if it does not exists
-    my $dnsMod = EBox::Global->modInstance('dns');
+    my $dnsMod = $self->global()->modInstance('dns');
     my $domainModel = $dnsMod->model('DomainTable');
     my $row = $domainModel->find(domain => $ownDomain);
     if (defined $row) {
@@ -619,7 +619,7 @@ sub _internalServerEnableActions
 
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('webadmin')->setAsChanged();
+    $self->global()->modInstance('webadmin')->setAsChanged();
 }
 
 sub _externalADEnableActions
@@ -651,7 +651,7 @@ sub enableService
     $self->SUPER::enableService($status);
 
     if ($mode eq STANDALONE_MODE) {
-        my $dns = EBox::Global->modInstance('dns');
+        my $dns = $self->global()->modInstance('dns');
         $dns->setAsChanged();
     }
 }
@@ -883,7 +883,7 @@ sub _setConfInternal
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
         if (EBox::Global->modExists('openchange')) {
-            my $openchangeMod = EBox::Global->modInstance('openchange');
+            my $openchangeMod = $self->global()->modInstance('openchange');
             if ($openchangeMod->isProvisioned()) {
                 # Set OpenChange as not provisioned.
                 $openchangeMod->setProvisioned(0);
@@ -997,7 +997,7 @@ sub _antivirusEnabled
 {
     my ($self) = @_;
 
-    my $avModule = EBox::Global->modInstance('antivirus');
+    my $avModule = $self->global()->modInstance('antivirus');
     unless (defined ($avModule) and $avModule->isEnabled()) {
         return 0;
     }
@@ -1253,7 +1253,7 @@ sub kerberosRealm
 {
     my ($self) = @_;
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $sysinfo = $self->global()->modInstance('sysinfo');
     my $realm = uc ($sysinfo->hostDomain());
     return $realm;
 }
@@ -1314,12 +1314,12 @@ sub editableMode
         return 0;
     }
 
-    my $global = EBox::Global->modInstance('global');
+    my $global = $self->global();
     my @names = @{$global->modNames};
 
     my @modules;
     foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
+        my $mod = $global->modInstance($name);
 
         if ($mod->isa('EBox::Samba::SyncProvider')) {
             return 0 unless ($mod->allowUserChanges());
@@ -1913,7 +1913,7 @@ sub _modsLdapUserBase
 {
     my ($self, $ignored_modules) = @_;
 
-    my $global = EBox::Global->modInstance('global');
+    my $global = $self->global();
     my @names = @{$global->modNames};
 
     $ignored_modules or $ignored_modules = [];
@@ -1922,7 +1922,7 @@ sub _modsLdapUserBase
     foreach my $name (@names) {
         next if ($name eq any @{$ignored_modules});
 
-        my $mod = EBox::Global->modInstance($name);
+        my $mod = $global->modInstance($name);
 
         if ($mod->isa('EBox::Module::LDAP')) {
             if ($name ne $self->name()) {
@@ -1944,12 +1944,12 @@ sub allSlaves
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->modInstance('global');
+    my $global = $self->global();
     my @names = @{$global->modNames};
 
     my @modules;
     foreach my $name (@names) {
-        my $mod = EBox::Global->modInstance($name);
+        my $mod = $global->modInstance($name);
 
         if ($mod->isa('EBox::Samba::SyncProvider')) {
             push (@modules, @{$mod->slaves()});
@@ -2137,7 +2137,7 @@ sub allGroupAddOns
 {
     my ($self, $group) = @_;
 
-    my $global = EBox::Global->modInstance('global');
+    my $global = $self->global();
     my @names = @{$global->modNames};
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
@@ -2855,7 +2855,7 @@ sub hostDomainChanged
         $self->set('need_reprovision', 1);
         $self->setAsChanged(1); # for compability with machines with phantom
                                 # need_reprovision in read-only tree
-        EBox::Global->modInstance('webadmin')->setAsChanged();
+        $self->global()->modInstance('webadmin')->setAsChanged();
     }
 }
 
@@ -3099,8 +3099,7 @@ sub ousToHide
     my ($self) = @_;
 
     my @ous;
-
-    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::Module::LDAP')}) {
+    foreach my $mod (@{$self->global()->modInstancesOfType('EBox::Module::LDAP')}) {
         push (@ous, @{$mod->_ldapModImplementation()->hiddenOUs()});
     }
 
@@ -3249,14 +3248,14 @@ sub defaultNetbios
 {
     my ($self) = @_;
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $sysinfo = $self->global()->modInstance('sysinfo');
     my $hostName = $sysinfo->hostName();
     $hostName = substr($hostName, 0, 15);
 
     return $hostName;
 }
 
-# Method: defaultWorkgroup
+# Function: defaultWorkgroup
 #
 #   Generates the default workgroup
 #
@@ -3271,7 +3270,7 @@ sub defaultWorkgroup
     return uc($value);
 }
 
-# Method: defaultDescription
+# Function: defaultDescription
 #
 #   Generates the default server string
 #
@@ -3290,7 +3289,7 @@ sub writeSambaConfig
     my $netbiosName = $self->netbiosName();
     my $realmName   = $self->kerberosRealm();
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $sysinfo = $self->global()->modInstance('sysinfo');
     my $hostDomain = $sysinfo->hostDomain();
 
     my @array = ();
@@ -3324,7 +3323,7 @@ sub writeSambaConfig
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
 
     if (EBox::Global->modExists('printers')) {
-        my $printersModule = EBox::Global->modInstance('printers');
+        my $printersModule = $self->global()->modInstance('printers');
         if ($printersModule->isEnabled()) {
             push (@array, 'print' => 1);
             push (@array, 'printers' => $printersModule->printers());
@@ -3649,9 +3648,10 @@ sub _writeAntivirusConfig
 {
     my ($self) = @_;
 
-    return unless EBox::Global->modExists('antivirus');
+    my $global = $self->global();
+    return unless $global->modExists('antivirus');
 
-    my $avModule = EBox::Global->modInstance('antivirus');
+    my $avModule = $global->modInstance('antivirus');
     my $avModel = $self->model('AntivirusDefault');
 
     my $conf = {};

@@ -71,7 +71,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $avModule = EBox::Global->modInstance('antivirus');
+    my $avModule = $self->global()->modInstance('antivirus');
     return (defined ($avModule) and $avModule->isEnabled());
 }
 
