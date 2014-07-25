@@ -104,6 +104,7 @@ sub _rulesACLs
 {
   my %args = @_;
   my @rules = @{ $args{rules} };
+  my $realm = $args{realm};
   my $authModeExternalAD = $args{authModeExternalAD};
   my %seenACL;
 
@@ -111,17 +112,16 @@ sub _rulesACLs
     my $object = $rule->{object};
     my $group = $rule->{group};
     my $adDN = $rule->{adDN};
-    my ($src, $aclName);
+    my ($aclName, $groupName);
     if ($rule->{any}) {
         # for any object rule, there is not specific acl
     } elsif ($object) {
-        $src = $object;
         $aclName = $objectPrefix . $object;
     } elsif ($group) {
-        $src = $group;
-        $aclName = $groupPrefix . $group;
+        ($groupName) = $group =~ m/^CN=(.*?),/;
+        $groupName =~ s{ }{\\ }g;  # escape group name
+        $aclName = $groupPrefix . $groupName;
     } elsif ($adDN) {
-        $src = $adDN;
         $aclName = $adPrefix . $adDN;
     } else  {
         next;
@@ -136,9 +136,6 @@ sub _rulesACLs
             my $acl = "acl $aclName src";
             _printSplitAcl($acl, $rule->{addresses});
         } elsif ($group) {
-            my ($groupName) = $group =~ m/^CN=(.*?),/;
-            # escape group name
-            $groupName =~ s{ }{\\ }g;
             $m->print("acl $aclName external ldapgroup $groupName\n");
         } elsif ($adDN) {
             my $acl = "acl $aclName external InetGroup";
@@ -186,7 +183,9 @@ $authModeExternalAD
 
     my $group = $rule->{'group'};
     if ($group) {
-        $aclName = $groupPrefix . $group;
+       my ($groupName) = $group =~ m/^CN=(.*?),/;
+        $groupName =~ s{ }{\\ }g;  # escape group name
+        $aclName = $groupPrefix . $groupName;
     }
 
     my $adDN = $rule->{adDN};
@@ -275,10 +274,11 @@ cache_peer 127.0.0.1 parent 3130 0 no-query proxy-only login=*:nopassword
 auth_param negotiate program /usr/lib/squid3/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(userPrincipalName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(samAccountName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
 auth_param basic program /usr/lib/squid3/basic_ldap_auth -v3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=user))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(samAccountName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
 % }
 
 
@@ -329,7 +329,7 @@ external_acl_type InetGroup ipv4 children=5 \
 ##
 ## ACLs from model rules
 ##
-% _rulesACLs(rules => \@rules,  authModeExternalAD => $authModeExternalAD );
+% _rulesACLs(rules => \@rules,  authModeExternalAD => $authModeExternalAD, realm => $realm );
 ##
 ## Access
 ##
