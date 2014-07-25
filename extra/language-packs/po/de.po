@@ -15447,7 +15447,6 @@ msgid "Retrieve mail for external accounts"
 msgstr "E-Mails von externen Mail-Konto abholen"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
-#, fuzzy
 msgid ""
 "This allow users to retrieve mail for external accounts, the mail would be "
 "delivered to their local account. External account can be configured in the "
