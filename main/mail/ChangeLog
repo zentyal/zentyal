@@ -1,3 +1,5 @@
+HEAD
+	+ Migrate mboxes path to Maildir when upgrading from 3.4
 3.5.2
 	+ Fixed bug when removing virtual domain
 	+ Adding a virtual domain now can update old unmanaged accounts

@@ -274,6 +274,7 @@ sub initialSetup
         $self->_migrateToFetchmail();
     }
     if (EBox::Util::Version::compare($version, '3.5') < 0) {
+        $self->_migrateToMaildir();
         $self->_chainDovecotCertificate();
     }
 
@@ -312,6 +313,29 @@ sub _migrateToFetchmail
     foreach my $user (@{ $userMod->users() }) {
         if ($user->hasObjectClass('userZentyalMail') and not $user->hasObjectClass('fetchmailUser')) {
             $user->add('objectClass', 'fetchmailUser');
+        }
+    }
+}
+
+sub _migrateToMaildir
+{
+    my ($self) = @_;
+
+    my $vdomainsTable = $self->model('VDomains');
+
+    foreach my $id (@{$vdomainsTable->ids()}) {
+        my $vdRow = $vdomainsTable->row($id);
+        my $vdomain = $vdRow->elementByName('vdomain')->value();
+
+        my $path = "/var/vmail/$vdomain";
+        foreach my $mboxpath (glob ("$path/*")) {
+            my $maildir = "$mboxpath/Maildir";
+            unless (-d $maildir) {
+                my $tmpdir = "/var/lib/zentyal/tmp/$mboxpath";
+                system ("mkdir -p $tmpdir");
+                system ("mv $mboxpath/* $tmpdir/");
+                system ("mv $tmpdir $maildir");
+            }
         }
     }
 }
