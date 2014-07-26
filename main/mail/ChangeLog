@@ -1,4 +1,4 @@
-HEAD
+3.5.3
 	+ Do not move mailbox to .bak if directory already exist
 	+ Migrate mboxes path to Maildir when upgrading from 3.4
 3.5.2
