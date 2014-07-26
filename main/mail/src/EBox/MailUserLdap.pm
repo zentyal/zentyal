@@ -129,7 +129,8 @@ sub setUserAccount
         return;
     }
 
-    $self->_checkMaildirNotExists($lhs, $rhs);
+    # FIXME: this breaks migration from 3.4
+    #$self->_checkMaildirNotExists($lhs, $rhs);
 
     my $quota = $mail->defaultMailboxQuota();
 
@@ -148,7 +149,10 @@ sub setUserAccount
     $user->set('mailHomeDirectory', DIRVMAIL, 1);
     $user->save();
 
-    $self->_createMaildir($lhs, $rhs);
+    my $dir = DIRVMAIL . "/$rhs/$lhs";
+    unless (EBox::Sudo::fileTest('-e', $dir)) {
+        $self->_createMaildir($lhs, $rhs);
+    }
 
     my @list = $mail->{malias}->listMailGroupsByUser($user);
     foreach my $item(@list) {
@@ -615,7 +619,7 @@ sub checkUserMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = DIRVMAIL . "/$vdomain/$lhs/Maildir";
+    my $dir = DIRVMAIL . "/$vdomain/$lhs";
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
 
