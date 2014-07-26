@@ -615,7 +615,7 @@ sub checkUserMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = DIRVMAIL . "/$vdomain/$lhs/";
+    my $dir = DIRVMAIL . "/$vdomain/$lhs/Maildir";
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
 
