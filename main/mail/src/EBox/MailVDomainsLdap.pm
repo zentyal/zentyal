@@ -218,6 +218,13 @@ sub vdomainDn
     return VDOMAINDN . "," . $self->{ldap}->dn;
 }
 
+sub addressBelongsToAnyVDomain
+{
+    my ($self, $mail) = @_;
+    my ($left, $vdomain) = split ('@', $mail, 2);
+    return $self->vdomainExists($vdomain);
+}
+
 # Method: vdomainExists
 #
 #  This method returns if the virtual domain exists in ldap leaf

@@ -486,37 +486,28 @@ sub _groupAddOns
 {
     my ($self, $group) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-    return unless ($mail->configured());
+    my $mailMod = EBox::Global->modInstance('mail');
+    return unless ($mailMod->configured());
 
     my $mailManaged = 0;
     my $mail = $group->get('mail');
     if ($mail) {
         my ($left, $vdomain) = split('@', $mail, 2);
-        $mailManaged = $mail->{vdomains}->vdomainExists($vdomain);
+        $mailManaged = $mailMod->{vdomains}->vdomainExists($vdomain);
+    } else {
+        $mail = '';
     }
 
-    my $aliases = $mail->{malias}->groupAliases($group);
-    my @vd =  $mail->{vdomains}->vdomains();
-
-    my $groupEmpty    = 1;
-    my $usersWithMail = 0;
-    foreach my $user (@{$group->users()}) {
-        $groupEmpty = 0;
-        if ($self->userAccount($user)) {
-            $usersWithMail = 1;
-            last;
-        }
-    }
+    my $aliases = $mailMod->{malias}->groupAliases($group);
+    my @vd      = $mailMod->{vdomains}->vdomains();
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
-        'service'  => $mail->service(),
-        'groupEmpty' => $groupEmpty,
-        'usersWithMail' => $usersWithMail,
-        'mailManaged'   => $mailManaged
+        'service'  => $mailMod->service(),
+        'mail'         => $mail,
+        'mailManaged' => $mailManaged
     };
 
     return {

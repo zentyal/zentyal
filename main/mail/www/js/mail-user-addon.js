@@ -48,3 +48,11 @@ Zentyal.MailUserAddon.accountChange = function(mail, ocEnabled) {
     user_email_change_event.ocEnabled = ocEnabled;
     $('.user_email_observer').trigger(user_email_change_event);
 };
+
+Zentyal.MailUserAddon.groupAccountChange = function(mail, mailManaged) {
+    var group_email_change_event = jQuery.Event("group_email_change");
+    group_email_change_event.mail = mail;
+    group_email_change_event.mailManaged = mailManaged;
+
+    $('.group_email_observer').trigger(group_email_change_event);
+};

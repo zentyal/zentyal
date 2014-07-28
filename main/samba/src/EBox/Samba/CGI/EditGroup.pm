@@ -120,8 +120,16 @@ sub _process
 
         $self->{json}->{success}  = 1;
         $self->{json}->{type} = $isSecurityGroup ? 'group' : 'dgroup';
-        if ($delMail) {
-            $self->{json}->{deleteMail} = 1;
+        if ($addMail) {
+            $self->{json}->{mail} = $addMail;
+            $self->{json}->{mailManaged} = 0;
+            if ($mailMod) {
+                $self->{json}->{mailManaged}= $mailMod->{vdomains}->addressBelongsToAnyVDomain($addMail);
+            }
+        } elsif ($delMail) {
+            $self->{json}->{mail} = '';
+            $self->{json}->{mailManaged} = 0;
+
         }
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
