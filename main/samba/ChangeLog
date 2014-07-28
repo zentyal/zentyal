@@ -1,3 +1,6 @@
+HEAD
+	+ Show a warning on post save changes dialog if errors happend while
+	  setting shares ACLs
 3.5.3
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model
