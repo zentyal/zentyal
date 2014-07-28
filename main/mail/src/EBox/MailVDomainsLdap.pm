@@ -218,6 +218,10 @@ sub vdomainDn
     return VDOMAINDN . "," . $self->{ldap}->dn;
 }
 
+# Method: addressBelongsToAnyVDomain
+#
+#  returns whether the given account belongs to any of the managed virtual
+#  domains
 sub addressBelongsToAnyVDomain
 {
     my ($self, $mail) = @_;
