@@ -82,19 +82,47 @@ sub _process
         } else {
             $group->delete('description', 1);
         }
+
+        my ($addMail, $delMail);
         my $mail = $self->unsafeParam('mail');
+        my $oldMail = $group->get('mail');
         if ($mail) {
-            if ($mail ne $group->get('mail')) {
-                $group->checkMail($mail);
-                $group->set('mail', $mail, 1);
+            $mail = lc $mail;
+            if (not $oldMail) {
+                $addMail = $mail;
+            } elsif  ($mail ne $oldMail) {
+                $delMail = 1;
+                $addMail = $mail;
             }
-        } else {
-            $group->delete('mail', 1);
+        } elsif ($oldMail) {
+            $delMail = 1;
         }
+
+        my $mailMod = $global->modInstance('mail');
+        if ($delMail) {
+            if ($mailMod and $mailMod->configured()) {
+                $mailMod->_ldapModImplementation()->delGroupAccount($group);
+            } else {
+                $group->delete('mail', 1);
+            }
+        }
+        if ($addMail) {
+            if ($mailMod and $mailMod->configured()) {
+                $mailMod->_ldapModImplementation()->setGroupAccount($group, $addMail);
+            } else {
+                $group->checkMail($addMail);
+                $group->set('mail', $addMail, 1);
+            }
+        }
+
+
         $group->save();
 
         $self->{json}->{success}  = 1;
         $self->{json}->{type} = $isSecurityGroup ? 'group' : 'dgroup';
+        if ($delMail) {
+            $self->{json}->{deleteMail} = 1;
+        }
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };

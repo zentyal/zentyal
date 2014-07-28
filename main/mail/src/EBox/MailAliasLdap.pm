@@ -38,13 +38,19 @@ use constant ALIASDN => 'cn=alias,cn=mail,cn=zentyal,cn=configuration';
 
 sub new
 {
-    my $class = shift;
+    my ($class, $vdomainsLdap) = @_;
     my $self  = {};
 
     $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
 
-    bless($self, $class);
+    if ($vdomainsLdap) {
+        $self->{vdomains} = $vdomainsLdap;
+    } else {
+        $self->{vdomains} = new EBox::MailVDomainsLdap;
+    }
 
+
+    bless($self, $class);
     return $self;
 }
 
@@ -153,21 +159,26 @@ sub addGroupAlias
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
     EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
-    my $mailUserLdap = EBox::MailUserLdap->new();
-
-    my @mailAccounts = map {
-        $mailUserLdap->userAccount($_)
-    } $mailUserLdap->usersWithMailInGroup($group);
-
-    my $first = 1;
-    foreach my $mail (@mailAccounts) {
-        if ($first) {
-            $self->_addCouriermailAliasLdapElement($alias, $mail, $group->get('cn'));
-            $first = 0;
-        } else {
-            $self->addMaildrop($alias, $mail);
-        }
+    my $mail = $group->get('mail');
+    if (not $mail) {
+        throw EBox::Exceptions::External(
+            __x('Cannot create alias because group {name} has not mail acocunt set',
+                mail => $group->name
+               )
+        );
     }
+
+    my ($user, $vdomain) = split('@', $mail, 2);
+    if (not $self->{vdomains}->vdomainExists($vdomain)) {
+        throw EBox::Exceptions::External(__x(
+                                             'Mail domain {d} is not managed by Zentyal',
+                                              d => $vdomain
+                                            )
+                                        );
+    }
+
+    my $id = $group->get('samAccountName');
+    $self->_addCouriermailAliasLdapElement($id, $alias, $mail);
 }
 
 # Method: addVDomainALias
@@ -185,7 +196,7 @@ sub addVDomainAlias
 
     EBox::Validate::checkDomainName($alias, __('Domain alias'));
 
-    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    my $vdomainsLdap =  $self->{vdomains};
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
                                              'Mail domain {d} does not exist',
@@ -222,7 +233,7 @@ sub vdomainAliases
 {
     my ($self, $vdomain) = @_;
 
-    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    my $vdomainsLdap =  $self->{vdomains};
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
                                              'Mail domain {d} does not exist',
@@ -247,7 +258,7 @@ sub vdomainAliases
 sub externalAccountAliases
 {
     my ($self, $vdomain) = @_;
-    my $vdomainsLdap =  EBox::MailVDomainsLdap->new();
+    my $vdomainsLdap =  $self->{vdomains};
     if (not $vdomainsLdap->vdomainExists($vdomain)) {
         throw EBox::Exceptions::External(__x(
                                              'Mail domain {d} does not exist',
@@ -285,40 +296,14 @@ sub _addCouriermailAliasLdapElement
     my $dn = "cn=$alias," . $self->aliasDn();
     my %attrs = (
                  attr => [
-                          'objectclass'           => 'couriermailalias',
-                          'mailsource'                => $id,
-                          'mail'                  => $alias,
-                          'maildrop'              => $maildrop
+                          'objectclass'      => 'couriermailalias',
+                          'mailsource'       => $id,
+                          'mail'             => $alias,
+                          'maildrop'         => $maildrop
                          ]
                 );
 
     my $r = $self->{'ldap'}->add($dn, \%attrs);
-}
-
-# Method: updateGroupAliases
-#
-#     When a change on users of a group this method updates the maildrops of the
-#     mail alias account.
-#
-# Parameters:
-#
-#     group - The group name
-#
-sub updateGroupAliases
-{
-    my ($self, $group) = @_;
-
-    my $noUpdateAlias = delete $group->{noUpdateAlias};
-    if ($noUpdateAlias) {
-        return;
-    }
-
-    $group->{updateGroupAliases} = 1;
-    foreach my $alias (@{ $self->groupAliases($group) }) {
-        $self->delAlias($alias);
-        $self->addGroupAlias($alias, $group);
-    }
-    delete $group->{updateGroupAliases};
 }
 
 # Method: addMaildrop
@@ -415,11 +400,10 @@ sub delAlias
 # Parameters:
 #
 #     alias - The mail alias account to delete
-#     group - The group
 #
 sub delGroupAlias
 {
-    my ($self, $alias, $group) = @_;
+    my ($self, $alias) = @_;
 
     $self->delAlias($alias);
 }
@@ -437,7 +421,6 @@ sub delAliasesFromVDomain
     my ($self, $vdomain) = @_;
 
     my @aliases = @{$self->_allAliasFromVDomain($vdomain)};
-
     foreach (@aliases) {
         $self->delAlias($_);
     }
@@ -564,7 +547,7 @@ sub groupAliases
 {
     my ($self, $group) = @_;
 
-    my $cn = $group->get('cn');
+    my $cn = $group->get('samAccountName');
     my %args = (
         base => $self->aliasDn,
         filter => "&(objectclass=couriermailalias)(mailsource=$cn)",
