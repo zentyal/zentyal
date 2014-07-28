@@ -67,8 +67,24 @@ sub _process
     @pkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @pkgs;
     @pkgs = sort { $a->{description} cmp $b->{description} } @pkgs;
 
+    my @bigpkgs = (
+        { name => 'zentyal-samba', description => 'Domain Controller and File Sharing' },
+        { name => 'zentyal-mail', description => 'Mail and Groupware' }
+    );
+
+    my @mediumpkgs = (
+        { name => 'zentyal-dns', description => 'DNS Server' },
+        { name => 'zentyal-dhcp', description => 'DHCP Server' },
+        { name => 'zentyal-firewall', description => 'Firewall' }
+    );
+
+    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange sogo dns dhcp firewall network objects services ntp);
+
     my @array = ();
-    push(@array, 'eboxpkgs'     => \@pkgs);
+    push(@array, 'bigpkgs'     => \@bigpkgs);
+    push(@array, 'mediumpkgs'  => \@mediumpkgs);
+    push(@array, 'allpkgs'     => \@pkgs);
+    push(@array, 'filterpkgs'     => \%filterpkgs);
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
     push(@array, 'isOffice'     => $software->isInstalled('zentyal-office'));

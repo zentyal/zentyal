@@ -1,5 +1,8 @@
 <%args>
-    @eboxpkgs => ()
+    @bigpkgs => ()
+    @mediumpkgs => ()
+    @allpkgs => ()
+    %filterpkgs => ()
     @brokenPackages => ()
     $updateStatus
     $QAUpdates
@@ -18,7 +21,7 @@ my $popup = $first ? 0 : 1;
 my @advInstallPkgs;
 my @advUpdatePkgs;
 my @advRemovePkgs;
-foreach my $pkg (@eboxpkgs) {
+foreach my $pkg (@allpkgs) {
   next if ($pkg->{name} eq 'zentyal-all');
   next if ($pkg->{name} eq 'zentyal-ids');
   ($pkg->{description} =~ m/Suite/) and next;
@@ -54,7 +57,7 @@ my %titleByAction = (
 
 <script>
 var pkgTable = new Array(
-%   foreach my $pkg (@eboxpkgs) {
+%   foreach my $pkg (@allpkgs) {
 %       my $eboxupg = 'no';
         {"<% __('Component') %>":"<% $pkg->{description} %>",
 %       if ($pkg->{version}) {
@@ -72,7 +75,7 @@ var pkgTable = new Array(
         "<% __('Latest Version') %>":"<% $pkg->{avail} %>",
         "Name": "<% $pkg->{name} %>",
         "Removable": "<% $pkg->{removable} %>"
-%   if ($pkg == $eboxpkgs[-1]) {
+%   if ($pkg == $allpkgs[-1]) {
         }
 %   } else {
         },
@@ -127,25 +130,35 @@ var pkgTable = new Array(
            ofhref => '<a href="http://forum.zentyal.org/" target="_blank">', chref => '</a>') %>
 </div>
 % } else {
-<div id="software" style="padding: 15px 0">
 %# Basic table
-<div id="basic" style="display: none">
+<div id="software" style="display: none">
 % unless ($first) {
-    <a href='#' onclick="$('#basic').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
+    <a href='#' onclick="$('#software').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
 % }
-    <div class="headcontainer">
-    <h3><%__('Server roles')%></h3>
-    </div>
-
     <div id="Install">
       <div id="packages">
-      <h3><% __s('Modules') %></h3>
-%   foreach my $pkg (@eboxpkgs) {
+      <h3><%__('Server roles')%></h3>
+      <ul>
+%   foreach my $pkg (@bigpkgs) {
+         <li id="<% $pkg->{name} %>" class="package package-big" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>-big.png"/>
+            <p><% $pkg->{description} %></p>
+         </li>
+%   }
+%   foreach my $pkg (@mediumpkgs) {
+         <li id="<% $pkg->{name} %>" class="package package-medium" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>-medium.png"/>
+            <p><% $pkg->{description} %></p>
+         </li>
+%   }
+      </ul>
+      <h3><% __s('Additional services') %></h3>
+      <ul>
+%   foreach my $pkg (@allpkgs) {
 %        # Hide some packages (objects+services), virtual, no removables
+%        next if ($filterpkgs{$pkg->{name}});
 %        next if ($pkg->{description} =~ /Suite$/);
 %        next if ($pkg->{description} =~ /^transitional/);
-%        next if ($pkg->{description} eq 'Network Objects');
-%        next if ($pkg->{description} eq 'Network Services');
 %        next if ($pkg->{description} eq 'All Modules');
 %        next unless ($pkg->{removable});
 %        $pkg->{description} =~ s/^Zentyal - //;
@@ -153,20 +166,21 @@ var pkgTable = new Array(
 %        if ($pkg->{version}) {
 %           $class='package_installed';
 %        }
-         <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
-            <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
-                  onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
+         <li id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>.png"
+                 onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' />
             <p><% $pkg->{description} %></p>
-         </div>
+         </li>
 %   }
+      </ul>
 
        </div>
 
-       <div style="text-align: right">
+       <div class="btn-block tright">
 % if ($first) {
-        <button class="btn btn-icon btn-skip" onclick="document.location.href='/Dashboard/Index'"><% __('Skip install') %> </button>
+        <a class="tleft" onclick="document.location.href='/Dashboard/Index'" href="#"><% __('Skip install') %></a>
 % }
-        <button class="btn btn-icon btn-install" onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><% __('Install') %></button>
+        <button class="btn btn-green btn-big" onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><% __('Install') %></button>
 
        </div>
 
@@ -175,7 +189,7 @@ var pkgTable = new Array(
 
 
 <div id="advanced" style="display: none">
-    <a href='#' onclick="$('#advanced').fadeOut(300);$('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
+    <a href='#' onclick="$('#advanced').fadeOut(300);$('#software').fadeIn(300); return false"><% __('View basic mode') %></a>
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
@@ -271,7 +285,7 @@ var pkgTable = new Array(
 <script>
 $(function() {
 % if ($first) {
-   $('#basic').show();
+   $('#software').show();
 % } else {
    $('#advanced').show();
 % }

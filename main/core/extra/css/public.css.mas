@@ -1374,7 +1374,7 @@ border-radius: 2px;
     vertical-align: middle;
 }
 #software .package:after{
-    background: url("data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
+    background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
     border-radius: 25px;
     height: 24px;
     position: absolute;
@@ -1399,7 +1399,7 @@ border-radius: 2px;
 }
 #software .package_selected:after{
     background-color:<% $main_color %>;
-}   
+}
 #software .package_installed:after{
     background-color:#666;
 }
@@ -1430,6 +1430,7 @@ border-radius: 2px;
 #software .package-big p{
     height: 100px;
     font-size: 25px;
+    padding-right: 100px;
 }
 #software .btn-block button{
     margin-right: 0.5%;
@@ -1452,11 +1453,11 @@ border-radius: 2px;
     border-bottom: 1px solid rgb(204, 204, 204);
 }
 #nav.install-steps .step-done{
-    background-image: url(data/images/apply-g.gif);   
+    background-image: url(/data/images/apply-g.gif);
 }
 #nav.install-steps .step-actual{
-    background-image: url(data/images/f.gif);
-    font-weight: bold;  
+    background-image: url(/data/images/f.gif);
+    font-weight: bold;
 }
 
 /*  Installation layout */
