@@ -110,7 +110,7 @@ sub _create
 
     $self->{vdomains} = new EBox::MailVDomainsLdap();
     $self->{musers} = new EBox::MailUserLdap($self->{vdomains});
-    $self->{malias} = new EBox::MailAliasLdap();
+    $self->{malias} = new EBox::MailAliasLdap($self->{vdomains});
     $self->{greylist} = new EBox::Mail::Greylist();
     $self->{fetchmail} = new EBox::Mail::FetchmailLdap($self);
 
