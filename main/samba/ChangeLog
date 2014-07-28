@@ -1,3 +1,5 @@
+HEAD
+	+ Check samAccountName is unique in entire domain adding users and groups
 3.5.3
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model
