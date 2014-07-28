@@ -1,3 +1,5 @@
+HEAD
+	+ Skip schema extensions if module disabled
 3.5.3
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model

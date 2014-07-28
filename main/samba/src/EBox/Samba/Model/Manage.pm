@@ -199,11 +199,11 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $users = $self->parentModule();
-    if ($users->mode eq $users->STANDALONE_MODE) {
-        return $users->isProvisioned();
+    my $samba = $self->parentModule();
+    if ($samba->mode() eq $samba->STANDALONE_MODE()) {
+        return ($samba->isProvisioned() and $samba->isEnabled());
     } else {
-        return $users->isEnabled();
+        return $samba->isEnabled();
     }
 }
 
