@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed wrong instantiation of groups
 3.5
 	+ Adapted to OpenLDAP removal
 	+ Use IP address on CUPS admin URL to avoid bad request errors
