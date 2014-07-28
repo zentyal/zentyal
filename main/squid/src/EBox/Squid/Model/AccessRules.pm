@@ -149,7 +149,7 @@ sub _populateGroups
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $sambaMod = $self->global()->modInstance('samba');
-        return [] unless ($sambaMod->isEnabled());
+        return [] unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned());
 
         my @groups;
         my $domainUsersGroup = $sambaMod->ldap->domainUsersGroup();
