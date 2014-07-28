@@ -119,6 +119,22 @@ sub checkEnvironment
         }
     }
 
+    # The host netbios name must be different than the domain netbios name
+    my $settings = $users->model('DomainSettings');
+    my $domainNetbiosName = $settings->value('workgroup');
+    my $hostNetbiosName = $settings->value('netbiosName');
+    if (uc ($domainNetbiosName) eq uc ($hostNetbiosName)) {
+    $users->enableService(0);
+        my $err = __x("The host netbios name '{x}' has to be the different " .
+                      "than the domain netbios name '{y}'",
+                      x => $hostNetbiosName, y => $domainNetbiosName);
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
+    }
+
     # Check the domain exists in DNS module
     my $dns = EBox::Global->modInstance('dns');
     my $domainModel = $dns->model('DomainTable');

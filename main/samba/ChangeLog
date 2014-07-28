@@ -1,3 +1,5 @@
+HEAD
+	+ provision: Check domain netbios name is not equal to host netbios name
 3.5.3
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model
