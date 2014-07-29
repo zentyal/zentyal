@@ -155,7 +155,7 @@ sub _checkAccountAlias
 #
 sub addGroupAlias
 {
-    my ($self, $alias, $group) = @_;
+    my ($self, $group, $alias) = @_;
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
     EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
 
@@ -304,71 +304,6 @@ sub _addCouriermailAliasLdapElement
                 );
 
     my $r = $self->{'ldap'}->add($dn, \%attrs);
-}
-
-# Method: addMaildrop
-#
-#     This method adds a new maildrop to an existing mail alias account (used on
-#     group mail alias accounts).
-#
-# Parameters:
-#
-#     alias - The mail alias account to create
-#     maildrop - The mail account to add to the alias account
-#
-sub addMaildrop
-{
-    my ($self, $alias, $maildrop) = @_;
-
-    unless ($self->aliasExists($alias)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
-                                                          'value' => $alias);
-    }
-
-    my $dn = "cn=$alias," . $self->aliasDn();
-    my %attrs = (
-        changes => [
-            add => [ 'maildrop' => $maildrop ]
-        ]
-    );
-
-    my $r = $self->{'ldap'}->modify($dn, \%attrs);
-}
-
-# Method: delMaildrop
-#
-#     This method removes a maildrop to an existing mail alias account (used on
-#     group mail alias accounts).
-#
-# Parameters:
-#
-#     alias - The mail alias account to create
-#     maildrop - The mail account to add to the alias account
-#
-sub delMaildrop
-{
-    my ($self, $alias, $maildrop) = @_;
-
-    unless ($self->aliasExists($alias)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('mail alias account'),
-                                                          'value' => $alias);
-    }
-
-    my $dn = "cn=$alias, " . $self->aliasDn();
-    #if is the last maildrop delete the alias account
-    my @mlist = @{$self->accountListByAliasGroup($alias)};
-    my %attrs;
-
-    if (@mlist == 1) {
-        $self->delAlias($alias);
-    } else {
-        %attrs = (
-            changes => [
-                delete => [ 'maildrop'  => $maildrop ]
-            ]
-        );
-        my $r = $self->{'ldap'}->modify($dn, \%attrs);
-    }
 }
 
 # Method: delAlias

@@ -153,14 +153,6 @@ sub setUserAccount
     unless (EBox::Sudo::fileTest('-e', $dir)) {
         $self->_createMaildir($lhs, $rhs);
     }
-
-    my @list = $mail->{malias}->listMailGroupsByUser($user);
-    foreach my $item(@list) {
-        my @aliases = @{ $mail->{malias}->groupAliases($item) };
-        foreach my $alias (@aliases) {
-            $mail->{malias}->addMaildrop($alias, $email);
-        }
-    }
 }
 
 # Method: delUserAccount
@@ -186,12 +178,6 @@ sub delUserAccount
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
     $user->delete('otherMailbox');
-
-
-    # Remove mail account from group alias maildrops
-    foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
-        $mail->{malias}->delMaildrop($alias,$usermail);
-    }
 
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
@@ -304,22 +290,7 @@ sub setGroupAccount
     EBox::Validate::checkEmailAddress($mail, __('mail account'));
     $mailMod->checkMailNotInUse($mail, owner => $group);
 
-    # my ($lhs, $rhs) = split('@', $mail, 2);
-    # if (not $self->{vdomains}->vdomainExists($rhs)) {
-    #     # vdomain not managed by zentyal, just set the mail attribute
-    #     $group->set('mail', $mail);
-    #     return;
-    # }
-
-    # my $oldMail = $group->get('mail');
     $group->set('mail', $mail);
-
-    # my $mailAlias = $mailMod->{malias};
-    # if ($oldMail and $mailAlias->aliasExists($oldMail)) {
-    #     $mailAlias->delAlias($oldMail);
-    # }
-
-    # $mailMod->{malias}->addGroupAlias($mail, $group, 1);
 }
 
 sub delGroupAccount
