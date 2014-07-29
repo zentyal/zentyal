@@ -672,7 +672,7 @@ sub _createMaildir
 
     push (@cmds, "/bin/mkdir -p $vdomainDir");
     push (@cmds, "/bin/chown ebox.ebox $vdomainDir");
-    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir ebox");
+    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir/Maildir ebox");
     push (@cmds, "/bin/chown ebox.ebox -R $userDir");
     EBox::Sudo::root(@cmds);
 }
