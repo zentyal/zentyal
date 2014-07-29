@@ -361,37 +361,6 @@ sub delAliasesFromVDomain
     }
 }
 
-# Method: groupAccountAlias
-#
-#     This method returns all mail group alias accounts that have a mail account
-#     of a user
-#
-# Parameters:
-#
-#     mail - The mail account
-#
-sub groupAccountAlias
-{
-    my ($self, $mail) = @_;
-
-    my %args = (
-        base => $self->aliasDn,
-        filter => "&(!(mailsource=$mail))(maildrop=$mail)",
-        scope => 'one',
-        attrs => ['mail']
-    );
-
-    my $result = $self->{ldap}->search(\%args);
-
-    my @malias = ();
-    foreach my $alias ($result->sorted('mail'))
-    {
-        @malias = (@malias, $alias->get_value('mail'));
-    }
-
-    return @malias;
-}
-
 # Method: accountListByAliasGroup
 #
 #     This method returns an array ref with all maildrops of a group alias account
