@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed possible bad mode instantation when restarting module
 3.2.15
 	+ Adapt checking of existent mail to mailboxRelatedObject needs
 3.2.14
