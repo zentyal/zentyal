@@ -1,4 +1,6 @@
 HEAD
+	+ Do not check for acl and user_xattr filesystem options if filesystem is
+	  btrfs
 	+ Provision: Check domain netbios name is not equal to host netbios name
 	+ Resolve schema master dns name and try to connect to all returned IP
 	  addresses until success
