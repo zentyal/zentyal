@@ -80,13 +80,15 @@ $(function(){
 
   $('#group_alias_ready').on('group_email_change', function(ev) {
        // refresh group alias list if it exists
-       $('#aliasTable tbody').children('.aliasRow').remove();
        $('#note_mailCreateAlias, #error_mailCreateAlias').hide();
        if (ev.mailManaged) {
            $(this).show();
        } else {
            $(this).hide();
        }
+      if (ev.mailChanged) {
+           $('#aliasTable tbody').children('.aliasRow').remove();
+      }
   });
 
 
@@ -147,6 +149,7 @@ $(function(){
   var group_email_change_event = jQuery.Event("group_email_change");
   group_email_change_event.mail = '<%  $params->{mail} %>';
   group_email_change_event.mailManaged = <% $params->{mailManaged} ? 'true' : 'false' %>;
+  group_email_change_event.mailChanged = false;
   $('.group_email_observer').trigger(group_email_change_event);
 });
 
