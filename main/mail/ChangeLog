@@ -1,4 +1,5 @@
-HEAD
+4.0
+	+ Set version to 4.0
 	+ Added migration code to handle new Dovecot certs
 	+ Fixed group mail alias creation
 	+ Fixed problems with checking mail address duplicates

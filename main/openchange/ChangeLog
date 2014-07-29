@@ -1,4 +1,5 @@
-HEAD
+4.0
+	+ Set version to 4.0
 	+ Adapted rcpproxy certificate generation to changes in webadmin certificates
 	+ Depends on latest zentyal-samba to make sure openchange.conf
 	  is correct
