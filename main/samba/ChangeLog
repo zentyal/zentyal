@@ -1,4 +1,6 @@
 HEAD
+	+ Resolve schema master dns name and try to connect to all returned IP
+	  addresses until success
 	+ Skip schema extensions if module disabled
 3.5.3
 	+ Use bash as default shell
