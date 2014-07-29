@@ -1,4 +1,5 @@
 HEAD
+	+ Provision: Check domain netbios name is not equal to host netbios name
 	+ Resolve schema master dns name and try to connect to all returned IP
 	  addresses until success
 	+ Skip schema extensions if module disabled
