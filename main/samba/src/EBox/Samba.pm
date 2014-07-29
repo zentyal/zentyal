@@ -831,12 +831,13 @@ sub _regenConfig
 
     # Do provision first before adding schemas, overrides
     # default EBox::Module::LDAP behavior of adding schemas
-    # first and then regenConfig when users already provisioned
+    # first and then regenConfig
     $self->EBox::Module::Service::_regenConfig(@_);
     if ($self->mode() eq STANDALONE_MODE) {
-        $self->_performSetup();
+        if ($self->isProvisioned() and $self->isEnabled()) {
+            $self->_performSetup();
+        }
     }
-
 }
 
 # Method: _setConf

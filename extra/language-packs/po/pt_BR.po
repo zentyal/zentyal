@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1573
 msgid "disabled"
 msgstr "desabilitado"
 
@@ -196,7 +196,7 @@ msgstr "Habilitado"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:280
+#: ../../main/samba/src/templates/edituser.mas:274
 msgid "Disabled"
 msgstr "Desabilitado"
 
@@ -1029,7 +1029,7 @@ msgstr "Nome comum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1566
+#: ../../main/mail/src/EBox/Mail.pm:1590
 msgid "Address"
 msgstr "Endereço"
 
@@ -1059,13 +1059,13 @@ msgstr "Daemons OpenVPN"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3698
-#: ../../main/samba/src/EBox/Samba.pm:3718
-#: ../../main/samba/src/EBox/Samba.pm:3729
+#: ../../main/samba/src/EBox/Samba.pm:3703
+#: ../../main/samba/src/EBox/Samba.pm:3723
+#: ../../main/samba/src/EBox/Samba.pm:3734
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1659
+#: ../../main/mail/src/EBox/Mail.pm:1683
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1092,13 +1092,13 @@ msgstr "Data"
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1120
 #: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1669
+#: ../../main/mail/src/EBox/Mail.pm:1693
 msgid "Event"
 msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3723
+#: ../../main/samba/src/EBox/Samba.pm:3728
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
@@ -1252,7 +1252,7 @@ msgstr "Erros"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4482
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1551 ../../main/mail/src/EBox/Mail.pm:1668
+#: ../../main/mail/src/EBox/Mail.pm:1575 ../../main/mail/src/EBox/Mail.pm:1692
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1502,7 +1502,7 @@ msgid "resources"
 msgstr "Recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3702
+#: ../../main/samba/src/EBox/Samba.pm:3707
 msgid "Resource"
 msgstr "Recurso"
 
@@ -1792,7 +1792,7 @@ msgstr "Prioridade"
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:68
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/remoteservices/src/templates/Backup/index.mas:86
@@ -1809,7 +1809,7 @@ msgstr "Prioridade"
 #: ../../main/software/src/templates/ebox.mas:101
 #: ../../main/samba/src/templates/addgroup.mas:15
 #: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:50
+#: ../../main/samba/src/templates/edituser.mas:45
 #: ../../main/samba/src/templates/adduser.mas:23
 #: ../../main/samba/src/templates/editcontact.mas:30
 #: ../../main/samba/src/templates/addcontact.mas:21
@@ -1951,7 +1951,7 @@ msgstr ""
 "{dir} deve ser um diretorio para a raíz dos documentos do cliente virtual. "
 "Por favor, mova-o ou remova-o"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:954
+#: ../../main/webserver/src/EBox/WebServer.pm:958
 msgid "Web server data"
 msgstr "dados do servidor Web"
 
@@ -2222,7 +2222,7 @@ msgstr "hostname"
 # alias
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3134
+#: ../../main/samba/src/EBox/Samba.pm:3133
 msgid "alias"
 msgstr "apelido"
 
@@ -2256,7 +2256,7 @@ msgstr "Ativar cache de DNS transparente"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
 #: ../../main/samba/src/EBox/Samba.pm:2224
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
@@ -2351,7 +2351,7 @@ msgstr "Este domínio"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
-#: ../../main/mail/src/EBox/Mail.pm:1564
+#: ../../main/mail/src/EBox/Mail.pm:1588
 msgid "Custom"
 msgstr "Personalizado"
 
@@ -2504,7 +2504,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:142
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:197
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2218
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
@@ -2664,8 +2664,8 @@ msgstr "O nome do host será resolvido a esta lista de endereços IP."
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:43
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:45
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:95
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:104
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:101
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:110
 #: ../../main/samba/src/EBox/Samba/User.pm:106
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:92
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
@@ -2862,9 +2862,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3700
-#: ../../main/samba/src/EBox/Samba.pm:3720
-#: ../../main/samba/src/EBox/Samba.pm:3731
+#: ../../main/samba/src/EBox/Samba.pm:3705
+#: ../../main/samba/src/EBox/Samba.pm:3725
+#: ../../main/samba/src/EBox/Samba.pm:3736
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -2873,7 +2873,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:179
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
-#: ../../main/samba/src/templates/edituser.mas:24
+#: ../../main/samba/src/templates/edituser.mas:19
 msgid "User"
 msgstr "Usuário"
 
@@ -3067,9 +3067,9 @@ msgstr "Autoridade Certificadora"
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:369
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:62
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:71
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:377
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3170,7 +3170,7 @@ msgstr "Certificado com este nome comum {cn} NÃO existe neste CA"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1600
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "General"
 msgstr "Geral"
 
@@ -3278,7 +3278,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3701
+#: ../../main/samba/src/EBox/Samba.pm:3706
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4573,7 +4573,7 @@ msgstr "Endereço de Email"
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:188
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:50
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -4584,7 +4584,7 @@ msgstr "Endereço de Email"
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
 #: ../../main/network/src/templates/ifaces.mas:180
 #: ../../main/core/src/templates/login/index.mas:52
-#: ../../main/samba/src/templates/edituser.mas:72
+#: ../../main/samba/src/templates/edituser.mas:67
 #: ../../main/samba/src/templates/adduser.mas:27
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 msgid "Password"
@@ -4602,7 +4602,7 @@ msgstr "Nome do Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:100
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:152
-#: ../../main/samba/src/templates/edituser.mas:30
+#: ../../main/samba/src/templates/edituser.mas:25
 #: ../../main/samba/src/templates/adduser.mas:17
 #: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:11
@@ -4611,7 +4611,7 @@ msgstr "Primeiro nome"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:101
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:155
-#: ../../main/samba/src/templates/edituser.mas:36
+#: ../../main/samba/src/templates/edituser.mas:31
 #: ../../main/samba/src/templates/adduser.mas:20
 #: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:16
@@ -5849,7 +5849,7 @@ msgid "user name"
 msgstr "nome de usuário"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
 msgid "password"
 msgstr "senha"
 
@@ -6847,7 +6847,7 @@ msgstr ""
 "regra para poder adicionar outra"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:914
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:71
 msgid "type"
 msgstr "tipo"
 
@@ -6985,7 +6985,7 @@ msgid ""
 msgstr "Já existe uma 'priorização de pequenos pacotes' para todas interfaces"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
-#: ../../main/mail/src/EBox/Mail.pm:1563 ../../main/mail/src/EBox/Mail.pm:1570
+#: ../../main/mail/src/EBox/Mail.pm:1587 ../../main/mail/src/EBox/Mail.pm:1594
 msgid "Filter type"
 msgstr "Tipo de filtro"
 
@@ -7477,7 +7477,7 @@ msgstr "Faixa {from}-{to} inclui o endereço IP do túnel: {localIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1661
+#: ../../main/mail/src/EBox/Mail.pm:1685
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -7485,7 +7485,7 @@ msgstr "De"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1662
+#: ../../main/mail/src/EBox/Mail.pm:1686
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -8103,7 +8103,7 @@ msgstr ""
 msgid "Revoking changes"
 msgstr "Revogando alterações"
 
-#: ../../main/core/src/EBox/RESTClient.pm:400
+#: ../../main/core/src/EBox/RESTClient.pm:417
 #, fuzzy
 msgid "User and password do not match."
 msgstr "A nova senha não confere."
@@ -8350,8 +8350,8 @@ msgstr ""
 msgid "Module Status Configuration"
 msgstr "Configuração de estado do Módulo"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:127
-#: ../../main/core/src/EBox/MyDBEngine.pm:141
+#: ../../main/core/src/EBox/MyDBEngine.pm:129
+#: ../../main/core/src/EBox/MyDBEngine.pm:143
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
@@ -8719,7 +8719,7 @@ msgstr "A senha precisa ter no minimo 6 caracteres"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:53
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:152
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:153
 msgid "Administrator password"
 msgstr "Senha do administrador"
 
@@ -8801,7 +8801,7 @@ msgstr "Nova senha"
 #: ../../main/openchange/src/templates/openchange.mas:24
 #: ../../main/samba/src/templates/editgroup.mas:46
 #: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:81
+#: ../../main/samba/src/templates/edituser.mas:76
 #: ../../main/samba/src/templates/editcontact.mas:35
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
@@ -8998,7 +8998,7 @@ msgstr "Este serviço não deixa alterar a porta HTTPS."
 msgid "This service cannot have both ports disabled."
 msgstr "'Qualquer' serviço não pode ter uma correspondência inversa"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:346
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:356
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the certificate for {module} at {ohref}Services "
@@ -9007,7 +9007,7 @@ msgstr ""
 "Você precisa habilitar o servidor web em {ohref}Certificados de "
 "Serviços{chref} para permitir SSL em um host virtual."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:354
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:364
 #, fuzzy, perl-brace-format
 msgid ""
 "You need to enable the {serviceName} certificate for {module} on {ohref}"
@@ -9016,12 +9016,12 @@ msgstr ""
 "Você precisa habilitar o servidor web em {ohref}Certificados de "
 "Serviços{chref} para permitir SSL em um host virtual."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:366
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:376
 msgid "To enable SSL port you need the CA module installed and enabled."
 msgstr ""
 "Para habilitar a porta SSL é necessário o módulo CA instalado e ativado."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:437
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:447
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for {use}. Choose another port "
@@ -9030,11 +9030,11 @@ msgstr ""
 "Zentyal já está configurado para usar a porta {p} para outro serviço. "
 "Escolha outra porta ou libere-á e tente novamente."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:460
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:470
 msgid "Unmanaged instance of haproxy"
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:464
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:474
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -9043,26 +9043,26 @@ msgstr ""
 "Porta {p} já está em uso pelo programa '{pr}'. Escolha outra porta ou a "
 "liberee tente novamente."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:659
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:669
 msgid "Cannot use the same port number for HTTP and HTTPS traffic."
 msgstr ""
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:700
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:710
 #, perl-brace-format
 msgid "Port {port} is already used by {row} using HTTPS."
 msgstr "Porta {port} já é usado por {row} usando HTTPS."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:721
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:731
 #, perl-brace-format
 msgid "Port {port} is already used by {row} as default service."
 msgstr "Porta {port} já é usado por {row} como serviço padrão."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:762
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:772
 #, perl-brace-format
 msgid "Port {port} is already used by {row} using plain HTTP."
 msgstr "Porta {port} já é usado por {row} utilizando HTTP simples."
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:783
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:793
 #, perl-brace-format
 msgid "Port {port} is already used by {row} as default SSL service."
 msgstr "Porta {port} já é usado por {row} como serviço SSL padrão."
@@ -10377,50 +10377,50 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
 #, fuzzy
 msgid "New One"
 msgstr "Novo {name}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:83
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:81
 msgid "Existing One"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:88
 #, fuzzy
 msgid "Enable OpenChange account for all existing users"
 msgstr "Conta de compartilhamento de arquivo"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:108
 #, fuzzy
 msgid "Unconfigure"
 msgstr "Não configurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:112
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:110
 #, fuzzy
 msgid "Database unconfigured"
 msgstr "Não configurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:131
-#: ../../main/openchange/src/EBox/OpenChange.pm:700
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:129
+#: ../../main/openchange/src/EBox/OpenChange.pm:702
 msgid "Setup"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:120
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
 #, fuzzy
 msgid "Database configured"
 msgstr "Não configurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:132
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:130
 msgid "OpenChange Server Provision"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:137
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "Setup an OpenChange Groupware server."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:218
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:216
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -10428,7 +10428,7 @@ msgid ""
 msgstr ""
 "Você deve habilitar o módulo na seção estado dos módulos para usar isto."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:240
 #, fuzzy, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -10437,26 +10437,26 @@ msgstr ""
 "O domínio requerido '{d}' não pôde ser encontrado no módulo dns.<br/>Você "
 "pode adicionar isto no {ohref}DNS domains page{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:249
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:247
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
 "renew it"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:255
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:253
 #, fuzzy
 msgid "There are unsaved changes. Please save them before provision"
 msgstr "Não existem configurações a serem salvas nesta sessão"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:374
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:383
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:391
 #, fuzzy
 msgid "No Certification authority ready. Create or renew it"
 msgstr "Criar certificado da Autoridade Certificadora"
@@ -10485,14 +10485,14 @@ msgstr "Para configurar dovecot"
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:833
+#: ../../main/openchange/src/EBox/OpenChange.pm:835
 #, fuzzy, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 "O domínio requerido '{d}' não pôde ser encontrado no módulo dns.<br/>Você "
 "pode adicionar isto no {ohref}DNS domains page{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:842
+#: ../../main/openchange/src/EBox/OpenChange.pm:844
 #, fuzzy, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
@@ -10500,24 +10500,24 @@ msgstr ""
 "O registro de host requerido '{h}' não foi encontrado no domínio '{d}'.<br/"
 ">Você pode adicionar isto em {ohref}nome de host por domínio {d}{chref}."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:926
+#: ../../main/openchange/src/EBox/OpenChange.pm:928
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Descarregando a configuração do módulo {m}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:938
+#: ../../main/openchange/src/EBox/OpenChange.pm:940
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "Você precisa de ao menos uma interface interna e uma interface externa"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:967
+#: ../../main/openchange/src/EBox/OpenChange.pm:969
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:994
+#: ../../main/openchange/src/EBox/OpenChange.pm:996
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "Domínios de e-mail virtuais"
@@ -11127,7 +11127,7 @@ msgid "Contacts"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:84
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:50
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:53
 #, fuzzy
@@ -11135,20 +11135,20 @@ msgid "first name"
 msgstr "Primeiro nome"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:85
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:51
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:54
 msgid "last name"
 msgstr "último nome"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:70
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:88
 #, fuzzy
 msgid "display name"
 msgstr "último nome"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:71
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:87
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:52
 #, fuzzy
 msgid "description"
@@ -11167,10 +11167,10 @@ msgstr "Outros grupos"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:146
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:158
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:175
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:187
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
-#: ../../main/samba/src/EBox/Samba/Group.pm:222
+#: ../../main/samba/src/EBox/Samba/Group.pm:225
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
 msgid "group"
@@ -11185,27 +11185,27 @@ msgstr "nome do grupo"
 msgid "group type"
 msgstr "nome do grupo"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:89
-msgid "confirm password"
-msgstr "confirme a senha"
-
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:111
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:90
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:70
 #: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:56
 #: ../../main/samba/src/templates/editgroup.mas:42
-#: ../../main/samba/src/templates/edituser.mas:56
+#: ../../main/samba/src/templates/edituser.mas:52
 #: ../../main/samba/src/templates/editcontact.mas:31
 #: ../../main/samba/src/templates/addcontact.mas:28
 #, fuzzy
 msgid "E-Mail"
 msgstr "Correio"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:129
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
+msgid "confirm password"
+msgstr "confirme a senha"
+
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:153
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "Senhas digitadas não são iguais."
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:139
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:163
 #, fuzzy
 msgid "User updated"
 msgstr "Cota do usuário"
@@ -11214,7 +11214,7 @@ msgstr "Cota do usuário"
 msgid "Edit group"
 msgstr "Editar grupo"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:92
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:98
 #, fuzzy
 msgid "Group updated"
 msgstr "{row} atualizada"
@@ -11349,7 +11349,7 @@ msgstr ""
 "Aqui você pode editar a Política de Grupo de Objeto, que pode ser linka para "
 "o Site, Domínio ou Unidade Organizacional da Unidade no Active Directory"
 
-#: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:227
+#: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:226
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
 #: ../../main/samba/src/EBox/Samba/User.pm:208
 #, perl-brace-format
@@ -11364,7 +11364,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:178
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:201
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
 #: ../../main/samba/src/EBox/Samba/User.pm:522
 #: ../../main/samba/src/EBox/Samba/User.pm:528
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
@@ -11377,28 +11377,28 @@ msgstr "nome da conta"
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr "Endereços de rede só podem terminar com um zero"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:277
+#: ../../main/samba/src/EBox/Samba/Group.pm:280
 #, perl-brace-format
 msgid "The group {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:338
+#: ../../main/samba/src/EBox/Samba/Group.pm:341
 #, fuzzy
 msgid "The server is unwilling to perform the requested operation"
 msgstr "Outro servidor está escutando nesta mesma porta"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:615
+#: ../../main/samba/src/EBox/Samba/Group.pm:618
 msgid "Maximum number of groups reached"
 msgstr "Número máximo de grupos atingido"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:686
+#: ../../main/samba/src/EBox/Samba/Group.pm:689
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "GID incorreto {gid} para um grupo. GID deve ser igual ou superior a {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:694
+#: ../../main/samba/src/EBox/Samba/Group.pm:697
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
@@ -11411,7 +11411,7 @@ msgid "There was an error updating LDAP:"
 msgstr "Houve um erro na atualização LDAP: "
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:522
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:107
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
 #: ../../main/samba/src/EBox/Samba/User.pm:577
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
@@ -11450,15 +11450,15 @@ msgid ""
 "supported"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:186
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 msgid "Windows account names cannot end with a dot"
 msgstr "Nomes de contas de usuários Windows não podem terminar com um ponto"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:190
 msgid "Windows account names cannot start with a dash"
 msgstr "Nomes de contas de usuários Windows não podem iniciar com um traço"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:190
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:192
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
@@ -11466,12 +11466,12 @@ msgstr ""
 "Para prevenir problemas, o nome da conta deve possuir somente letras, "
 "digitos, sublinhado, espaços e traços"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:195
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:197
 #, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
 msgstr "Nome da conta não deve ser maior que {maxLength} caracteres"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:215
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:217
 #: ../../main/mail/src/templates/createaccount.mas:19
 msgid "Account name"
 msgstr "Nome da conta"
@@ -12181,11 +12181,11 @@ msgstr "Fazer usuários LDAP terem uma conta do sistema."
 msgid "Default login shell"
 msgstr "Shell de acesso padrão"
 
-#: ../../main/samba/src/EBox/Samba/Model/PAM.pm:118
+#: ../../main/samba/src/EBox/Samba/Model/PAM.pm:119
 msgid "This will apply only to new users from now on."
 msgstr "Isto será aplicado somente para novos usuários a partir de agora."
 
-#: ../../main/samba/src/EBox/Samba/Model/PAM.pm:124
+#: ../../main/samba/src/EBox/Samba/Model/PAM.pm:125
 msgid "PAM settings"
 msgstr "Configurações PAM"
 
@@ -12276,28 +12276,38 @@ msgid "Logon script {x} removed"
 msgstr "Script de logon {x} removido"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:42
+#, fuzzy
+msgid "External Active Directory"
+msgstr "servidor de e-mail externo"
+
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:46
 msgid "Base DN"
 msgstr "DN Base"
 
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:46
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:50
 msgid "Root DN"
 msgstr "Root DN"
 
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:62
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:58
 #, fuzzy
 msgid "Default Users DN"
 msgstr "Quota padrão de usuário."
 
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:66
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:62
 #, fuzzy
 msgid "Default Groups DN"
 msgstr "Grupos DN"
+
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:66
+#, fuzzy
+msgid "Administrative user of external active directory"
+msgstr "Destino precisa ser um diretório relativo"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:72
 msgid "LDAP information"
 msgstr "Informações LDAP"
 
-#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:136
+#: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:140
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
 msgstr ""
@@ -12308,7 +12318,7 @@ msgid "Default user quota"
 msgstr "Quota padrão de usuário."
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:279
+#: ../../main/samba/src/templates/edituser.mas:273
 msgid "Limited to"
 msgstr "Limitado a"
 
@@ -12478,7 +12488,7 @@ msgid "User: {u}"
 msgstr "Usuário: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:358
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:789
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:787
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "Grupo: {g}"
@@ -12644,35 +12654,35 @@ msgstr "IP do DNS"
 msgid "Administrator account"
 msgstr "Conta do administrador"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:158
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:159
 msgid "NetBIOS domain name"
 msgstr "Nome NetBIOS do domínio"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:164
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:165
 msgid "Site"
 msgstr "Site"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:170
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:171
 msgid "NetBIOS computer name"
 msgstr "Nome NetBIOS do computador"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:176
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:177
 msgid "Server description"
 msgstr "Descrição do servidor"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:182
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:183
 msgid "Enable roaming profiles"
 msgstr "Habilitar perfis móveis"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:188
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:189
 msgid "Drive letter"
 msgstr "Letra da unidade"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:203
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:204
 msgid "On this page you can set different general settings for Samba"
 msgstr "Nesta página você pode alterar as configurações gerais do Samba"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:255
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:256
 msgid ""
 "Changing the domain name will cause to reprovision the samba database.\n"
 "\n"
@@ -12685,7 +12695,7 @@ msgstr ""
 "Os usuários e grupo irão ser importados do LDAP do Zentyal, mas você terá "
 "que juntar novamente todos computadores no novo domínio."
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:259
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:260
 msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
@@ -12693,11 +12703,11 @@ msgstr ""
 "Juntar a um domínio irá apagar todos usuários e grupos do Zentyal e importar "
 "o novo domínio."
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:271
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
 msgid "Domain controller"
 msgstr "Controlador de domínio"
 
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:273
 msgid "Additional domain controller"
 msgstr "Controlador de domínio adicional"
 
@@ -12724,6 +12734,12 @@ msgstr "Compartilhando diretório para este grupo"
 #, perl-brace-format
 msgid "FATAL: Could not connect to samba LDAP server: {error}"
 msgstr "FATAL: Não foi possível conectar com o servidor LDAP do samba: {error}"
+
+#: ../../main/samba/src/EBox/Ldap.pm:259 ../../main/samba/src/EBox/Ldap.pm:474
+#: ../../main/samba/src/EBox/Module/LDAP.pm:171
+#, perl-brace-format
+msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
+msgstr ""
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:197
 #, perl-brace-format
@@ -12837,11 +12853,6 @@ msgstr ""
 msgid "Error binding to schama master LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:171
-#, perl-brace-format
-msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
-msgstr ""
-
 #: ../../main/samba/src/EBox/Module/LDAP.pm:361
 #, perl-brace-format
 msgid ""
@@ -12849,13 +12860,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:426
+#: ../../main/mail/src/EBox/Mail.pm:449
 #, fuzzy
 msgid "Error on LDAP entry creation:"
 msgstr "Erro na criação da entrada de pessoa no LDAP"
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:401
+#: ../../main/mail/src/EBox/Mail.pm:424
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -13049,83 +13060,83 @@ msgstr "Utilização do sistema de arquivos"
 msgid "Users data"
 msgstr "Cota do usuário"
 
-#: ../../main/samba/src/EBox/Samba.pm:3140
+#: ../../main/samba/src/EBox/Samba.pm:3144
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "Endereço {ip} já está em uso pela interface {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3699
-#: ../../main/samba/src/EBox/Samba.pm:3719
-#: ../../main/samba/src/EBox/Samba.pm:3730
+#: ../../main/samba/src/EBox/Samba.pm:3704
+#: ../../main/samba/src/EBox/Samba.pm:3724
+#: ../../main/samba/src/EBox/Samba.pm:3735
 msgid "Client address"
 msgstr "Endereço do cliente"
 
-#: ../../main/samba/src/EBox/Samba.pm:3706
+#: ../../main/samba/src/EBox/Samba.pm:3711
 msgid "Connect"
 msgstr "Conectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3707
+#: ../../main/samba/src/EBox/Samba.pm:3712
 msgid "Access to directory"
 msgstr "Controle de acesso"
 
-#: ../../main/samba/src/EBox/Samba.pm:3708
+#: ../../main/samba/src/EBox/Samba.pm:3713
 msgid "Read file"
 msgstr "Ler arquivo"
 
-#: ../../main/samba/src/EBox/Samba.pm:3709
+#: ../../main/samba/src/EBox/Samba.pm:3714
 msgid "Write file"
 msgstr "Gravar arquivo"
 
-#: ../../main/samba/src/EBox/Samba.pm:3710
+#: ../../main/samba/src/EBox/Samba.pm:3715
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3711
+#: ../../main/samba/src/EBox/Samba.pm:3716
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Remover"
 
-#: ../../main/samba/src/EBox/Samba.pm:3712
+#: ../../main/samba/src/EBox/Samba.pm:3717
 msgid "Create directory"
 msgstr "Criar diretório"
 
-#: ../../main/samba/src/EBox/Samba.pm:3713
+#: ../../main/samba/src/EBox/Samba.pm:3718
 msgid "Remove directory"
 msgstr "Remover diretório"
 
-#: ../../main/samba/src/EBox/Samba.pm:3714
+#: ../../main/samba/src/EBox/Samba.pm:3719
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../../main/samba/src/EBox/Samba.pm:3721
-#: ../../main/samba/src/EBox/Samba.pm:3732
+#: ../../main/samba/src/EBox/Samba.pm:3726
+#: ../../main/samba/src/EBox/Samba.pm:3737
 msgid "File name"
 msgstr "Nome do arquivo"
 
-#: ../../main/samba/src/EBox/Samba.pm:3722
-#: ../../main/samba/src/EBox/Samba.pm:3726
+#: ../../main/samba/src/EBox/Samba.pm:3727
+#: ../../main/samba/src/EBox/Samba.pm:3731
 msgid "Virus"
 msgstr "Vírus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3733
+#: ../../main/samba/src/EBox/Samba.pm:3738
 msgid "Quarantined file name"
 msgstr "Nome do arquivo em quarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3734
-#: ../../main/samba/src/EBox/Samba.pm:3737
+#: ../../main/samba/src/EBox/Samba.pm:3739
+#: ../../main/samba/src/EBox/Samba.pm:3742
 msgid "Quarantine"
 msgstr "Quarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3745
 msgid "Samba access"
 msgstr "Acesso Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3751
+#: ../../main/samba/src/EBox/Samba.pm:3756
 msgid "Samba virus"
 msgstr "Vírus Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3762
+#: ../../main/samba/src/EBox/Samba.pm:3767
 msgid "Samba quarantine"
 msgstr "Quarentena do Samba"
 
@@ -13589,21 +13600,21 @@ msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:430
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:428
 #, perl-brace-format
 msgid ""
 "AD Error {error_name}: {error_desc}. If you think this error is temporary, "
 "please try again later"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:447
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:445
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
 "Origem correspondente por grupo de usuário não é compatível com o modo de "
 "proxy transparente"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:478
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:476
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
@@ -13611,7 +13622,7 @@ msgstr ""
 "Você não pode adicionar uma regra 'Permitir' ou 'Perfil' para um objeto ou "
 "endereço se você tem regras de grupo definidas"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:483
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:481
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
@@ -13619,7 +13630,7 @@ msgstr ""
 "Você não pode adicionar uma regra baseada em grupo se você tem regra de "
 "'Permissão' ou 'Perfil' para objetos ou endereços"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:493
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:491
 #, perl-brace-format
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
@@ -13628,12 +13639,12 @@ msgstr ""
 "O período de tempo da regra ({t1}) coincide com período de tempo ({t2}) de "
 "outra regra para o mesmo {sourceType}"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:787
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:785
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "Objeto: {o}"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:800
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:798
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "Aplicar o perfil '{p}'"
@@ -14553,8 +14564,8 @@ msgstr "Conexão terminada"
 msgid "IPsec"
 msgstr "IPsec"
 
-#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1534
-#: ../../main/mail/src/EBox/Mail.pm:1694
+#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1558
+#: ../../main/mail/src/EBox/Mail.pm:1718
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
@@ -14642,27 +14653,27 @@ msgstr "Para configurar os transportes de correio"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Para configurar o dovecot para autenticar no LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:301
+#: ../../main/mail/src/EBox/Mail.pm:324
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "Saída de Correio (protocolo SMTP)."
 
-#: ../../main/mail/src/EBox/Mail.pm:310
+#: ../../main/mail/src/EBox/Mail.pm:333
 msgid "Incoming Mail"
 msgstr "E-mails Recebidos"
 
-#: ../../main/mail/src/EBox/Mail.pm:311
+#: ../../main/mail/src/EBox/Mail.pm:334
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "Protocolos POP, IMAP e SIEVE"
 
-#: ../../main/mail/src/EBox/Mail.pm:320
+#: ../../main/mail/src/EBox/Mail.pm:343
 msgid "Mail Submission"
 msgstr "Envio de E-mails"
 
-#: ../../main/mail/src/EBox/Mail.pm:321
+#: ../../main/mail/src/EBox/Mail.pm:344
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "Saída de Correio (protocolo de submissão)"
 
-#: ../../main/mail/src/EBox/Mail.pm:896
+#: ../../main/mail/src/EBox/Mail.pm:920
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -14671,154 +14682,154 @@ msgstr ""
 "totalmente qualificado. por favor, defina um nome personalizado para o "
 "servidor de e-mail"
 
-#: ../../main/mail/src/EBox/Mail.pm:901
+#: ../../main/mail/src/EBox/Mail.pm:925
 msgid "The mail name must be a fully qualified name"
 msgstr "O nome de e-mail precisa ser um nome totalmente qualificado"
 
-#: ../../main/mail/src/EBox/Mail.pm:905 ../../main/mail/src/EBox/Mail.pm:916
-#: ../../main/mail/src/EBox/Mail.pm:924
+#: ../../main/mail/src/EBox/Mail.pm:929 ../../main/mail/src/EBox/Mail.pm:940
+#: ../../main/mail/src/EBox/Mail.pm:948
 msgid "Host mail name"
 msgstr "Nome do servidor de e-mail"
 
-#: ../../main/mail/src/EBox/Mail.pm:919
+#: ../../main/mail/src/EBox/Mail.pm:943
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "O nome de e-mail e o nome do domínio virtual de e-mail são idênticos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1480
+#: ../../main/mail/src/EBox/Mail.pm:1504
 msgid "SMTP service"
 msgstr "Serviço SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1487
+#: ../../main/mail/src/EBox/Mail.pm:1511
 msgid "POP3 service"
 msgstr "Serviço POP3"
 
-#: ../../main/mail/src/EBox/Mail.pm:1493
+#: ../../main/mail/src/EBox/Mail.pm:1517
 msgid "POP3S service"
 msgstr "Serviço POP3S"
 
-#: ../../main/mail/src/EBox/Mail.pm:1499
+#: ../../main/mail/src/EBox/Mail.pm:1523
 msgid "IMAP service"
 msgstr "Serviço IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1505
+#: ../../main/mail/src/EBox/Mail.pm:1529
 msgid "IMAPS service"
 msgstr "Serviço IMAPS"
 
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1573
 msgid "enabled"
 msgstr "habilitado"
 
-#: ../../main/mail/src/EBox/Mail.pm:1554
+#: ../../main/mail/src/EBox/Mail.pm:1578
 msgid "Mail server's filter"
 msgstr "Filtro do servidor de e-mail"
 
-#: ../../main/mail/src/EBox/Mail.pm:1607
+#: ../../main/mail/src/EBox/Mail.pm:1631
 msgid "Virtual Mail Domains"
 msgstr "Domínios de e-mail virtuais"
 
-#: ../../main/mail/src/EBox/Mail.pm:1613
+#: ../../main/mail/src/EBox/Mail.pm:1637
 msgid "Greylist"
 msgstr "Lista cinza"
 
-#: ../../main/mail/src/EBox/Mail.pm:1619
+#: ../../main/mail/src/EBox/Mail.pm:1643
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Gerência da fila"
 
-#: ../../main/mail/src/EBox/Mail.pm:1645
+#: ../../main/mail/src/EBox/Mail.pm:1669
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Recuperação de e-mail de contas externas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1660
+#: ../../main/mail/src/EBox/Mail.pm:1684
 msgid "Message ID"
 msgstr "ID da mensagem"
 
-#: ../../main/mail/src/EBox/Mail.pm:1663
+#: ../../main/mail/src/EBox/Mail.pm:1687
 msgid "From hostname"
 msgstr "Do servidor"
 
-#: ../../main/mail/src/EBox/Mail.pm:1664
+#: ../../main/mail/src/EBox/Mail.pm:1688
 msgid "From host ip"
 msgstr "Do servidor com o IP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1665
+#: ../../main/mail/src/EBox/Mail.pm:1689
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Tamanho (em bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1666
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "Relay"
 msgstr "Encaminhamento"
 
-#: ../../main/mail/src/EBox/Mail.pm:1667
+#: ../../main/mail/src/EBox/Mail.pm:1691
 msgid "Message type"
 msgstr "Tipo de mensagem"
 
-#: ../../main/mail/src/EBox/Mail.pm:1670
+#: ../../main/mail/src/EBox/Mail.pm:1694
 msgid "Additional Info"
 msgstr "Informação adicional"
 
-#: ../../main/mail/src/EBox/Mail.pm:1681
+#: ../../main/mail/src/EBox/Mail.pm:1705
 msgid "Successful messages"
 msgstr "Mensagens com sucesso"
 
-#: ../../main/mail/src/EBox/Mail.pm:1682
+#: ../../main/mail/src/EBox/Mail.pm:1706
 msgid "Maximum message size exceeded"
 msgstr "Tamanho máximo de mensagem excedido"
 
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1707
 msgid "User quota exceeded"
 msgstr "Cota de usuário excedida"
 
-#: ../../main/mail/src/EBox/Mail.pm:1684
+#: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "Relay access denied"
 msgstr "Acesso ao encaminhamento negado"
 
-#: ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/mail/src/EBox/Mail.pm:1709
 msgid "Account does not exist"
 msgstr "Essa conta não existe"
 
-#: ../../main/mail/src/EBox/Mail.pm:1686
+#: ../../main/mail/src/EBox/Mail.pm:1710
 msgid "Host unreachable"
 msgstr "Host inalcançável"
 
-#: ../../main/mail/src/EBox/Mail.pm:1687
+#: ../../main/mail/src/EBox/Mail.pm:1711
 msgid "Authentication error"
 msgstr "Erro de autenticação"
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1712
 msgid "Greylisted"
 msgstr "Adicionado na lista cinza"
 
-#: ../../main/mail/src/EBox/Mail.pm:1689
+#: ../../main/mail/src/EBox/Mail.pm:1713
 msgid "Relay rejected by the smarthost"
 msgstr "Relay rejeitado pelo smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1690
+#: ../../main/mail/src/EBox/Mail.pm:1714
 msgid "Other events"
 msgstr "Outros eventos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1823 ../../main/mail/src/EBox/Mail.pm:1930
+#: ../../main/mail/src/EBox/Mail.pm:1847 ../../main/mail/src/EBox/Mail.pm:1954
 msgid "Mailboxes"
 msgstr "Caixas de e-mail"
 
-#: ../../main/mail/src/EBox/Mail.pm:1850
+#: ../../main/mail/src/EBox/Mail.pm:1874
 msgid "Mail SMTP server"
 msgstr "Servidor SMTP de correio"
 
-#: ../../main/mail/src/EBox/Mail.pm:1858
+#: ../../main/mail/src/EBox/Mail.pm:1882
 msgid "Mail POP/IMAP server"
 msgstr "Servidor de e-mail tipo POP/IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1972
+#: ../../main/mail/src/EBox/Mail.pm:1996
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2007
+#: ../../main/mail/src/EBox/Mail.pm:2031
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Endereço {ip} já está em uso pela interface {iface}"
@@ -15590,36 +15601,36 @@ msgstr "apelido de conta de correio"
 msgid "Cannot connect to {smtp} mail server."
 msgstr "Não é possível conectar ao servidor de e-mail {smtp}."
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:105
+#: ../../main/mail/src/EBox/MailUserLdap.pm:123
 msgid "mail account"
 msgstr "conta de correio"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:321
+#: ../../main/mail/src/EBox/MailUserLdap.pm:343
 msgid "This group has a mail alias"
 msgstr "Este grupo tem um apelido de Email"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:345
+#: ../../main/mail/src/EBox/MailUserLdap.pm:367
 msgid "This user has a mail account"
 msgstr "Este usuário tem uma conta de e-mail"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:390
+#: ../../main/mail/src/EBox/MailUserLdap.pm:431
 msgid "Mail account"
 msgstr "Conta de e-mail"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:392
+#: ../../main/mail/src/EBox/MailUserLdap.pm:433
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Criar conta de e-mail"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:394
+#: ../../main/mail/src/EBox/MailUserLdap.pm:435
 msgid "Mail account settings"
 msgstr "Configurações de contas de e-mail"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:434
+#: ../../main/mail/src/EBox/MailUserLdap.pm:475
 msgid "Mail alias settings"
 msgstr "Configurações de alias de e-mail"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:728
+#: ../../main/mail/src/EBox/MailUserLdap.pm:785
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "A quota pode somente ser um número positivo ou um zero para quota ilimitada"
@@ -19517,7 +19528,7 @@ msgstr ""
 "administrar adequadamente este grupo"
 
 #: ../../main/samba/src/templates/editgroup.mas:64
-#: ../../main/samba/src/templates/edituser.mas:95
+#: ../../main/samba/src/templates/edituser.mas:90
 #, fuzzy
 msgid "Modules configuration"
 msgstr "Configuração de estado do Módulo"
@@ -19620,37 +19631,37 @@ msgstr ""
 msgid "Add Organizational Unit"
 msgstr "Unidade Organizacional"
 
-#: ../../main/samba/src/templates/edituser.mas:43
+#: ../../main/samba/src/templates/edituser.mas:38
 #: ../../main/samba/src/templates/editcontact.mas:29
 #, fuzzy
 msgid "Display name"
 msgstr "Exibir notas de ajuda"
 
-#: ../../main/samba/src/templates/edituser.mas:64
+#: ../../main/samba/src/templates/edituser.mas:59
 msgid "User quota"
 msgstr "Cota do usuário"
 
-#: ../../main/samba/src/templates/edituser.mas:68
+#: ../../main/samba/src/templates/edituser.mas:63
 #, fuzzy
 msgid "Disabled account"
 msgstr "Conta do Jabber"
 
-#: ../../main/samba/src/templates/edituser.mas:75
+#: ../../main/samba/src/templates/edituser.mas:70
 #: ../../main/samba/src/templates/adduser.mas:30
 msgid "Retype password"
 msgstr "Confirme a senha"
 
-#: ../../main/samba/src/templates/edituser.mas:86
+#: ../../main/samba/src/templates/edituser.mas:81
 msgid "User groups"
 msgstr "Grupos do usuário"
 
-#: ../../main/samba/src/templates/edituser.mas:177
-#: ../../main/samba/src/templates/edituser.mas:261
+#: ../../main/samba/src/templates/edituser.mas:171
+#: ../../main/samba/src/templates/edituser.mas:255
 #, fuzzy
 msgid "This user is not a member of any group"
 msgstr "Usuários fora de grupo"
 
-#: ../../main/samba/src/templates/edituser.mas:246
+#: ../../main/samba/src/templates/edituser.mas:240
 #: ../../main/samba/src/templates/editcontact.mas:162
 #, fuzzy
 msgid "Add group"
@@ -19878,7 +19889,12 @@ msgstr ""
 "\t tamanho do domínio virtual de e-mail do usuário irá ultrapassar a nova "
 "limitação."
 
-#: ../../main/mail/src/templates/account.mas:31
+#: ../../main/mail/src/templates/account.mas:37
+msgid ""
+"This user has a mail account which does not belong to any managed mail domain"
+msgstr ""
+
+#: ../../main/mail/src/templates/account.mas:46
 #, fuzzy
 msgid ""
 "Mail account is unavailable because either there isn't  any mail virtual\n"
@@ -19889,7 +19905,7 @@ msgstr ""
 " domínio criado ou você precisa salvar as alterações para ativar os novos "
 "domínios."
 
-#: ../../main/mail/src/templates/account.mas:34
+#: ../../main/mail/src/templates/account.mas:49
 msgid "Click here to create a new mail virtual domain"
 msgstr "Clique aqui para adicionar um novo domínio virtual de e-mail"
 

@@ -109,7 +109,7 @@ sub _create
                                       @_);
 
     $self->{vdomains} = new EBox::MailVDomainsLdap();
-    $self->{musers} = new EBox::MailUserLdap();
+    $self->{musers} = new EBox::MailUserLdap($self->{vdomains});
     $self->{malias} = new EBox::MailAliasLdap();
     $self->{greylist} = new EBox::Mail::Greylist();
     $self->{fetchmail} = new EBox::Mail::FetchmailLdap($self);
@@ -268,9 +268,13 @@ sub initialSetup
         # TODO: We need a mechanism to notify modules when the hostname
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
-    } elsif (EBox::Util::Version::compare($version, '3.5.2') < 0) {
+    }
+
+    if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
         $self->_migrateToFetchmail();
-    } elsif (EBox::Util::Version::compare($version, '3.5') < 0) {
+    }
+    if (EBox::Util::Version::compare($version, '3.5') < 0) {
+        $self->_migrateToMaildir();
         $self->_chainDovecotCertificate();
     }
 
@@ -287,7 +291,7 @@ sub _chainDovecotCertificate
     my $keyFile = '/etc/dovecot/private/dovecot.pem';
     my $newCertKey = '/etc/dovecot/zentyal-new-cert.pem';
 
-    if (-e $certFile and -e $keyFile) {
+    if (EBox::Sudo::fileTest('-f', $certFile) and EBox::Sudo::fileTest('-f', $keyFile)) {
         my @commands;
         push (@commands, "cat $certFile $keyFile > $newCertKey");
         push (@commands, "mv $newCertKey $keyFile");
@@ -309,6 +313,29 @@ sub _migrateToFetchmail
     foreach my $user (@{ $userMod->users() }) {
         if ($user->hasObjectClass('userZentyalMail') and not $user->hasObjectClass('fetchmailUser')) {
             $user->add('objectClass', 'fetchmailUser');
+        }
+    }
+}
+
+sub _migrateToMaildir
+{
+    my ($self) = @_;
+
+    my $vdomainsTable = $self->model('VDomains');
+
+    foreach my $id (@{$vdomainsTable->ids()}) {
+        my $vdRow = $vdomainsTable->row($id);
+        my $vdomain = $vdRow->elementByName('vdomain')->value();
+
+        my $path = "/var/vmail/$vdomain";
+        foreach my $mboxpath (glob ("$path/*")) {
+            my $maildir = "$mboxpath/Maildir";
+            unless (-d $maildir) {
+                my $tmpdir = "/var/lib/zentyal/tmp/$mboxpath";
+                system ("mkdir -p $tmpdir");
+                system ("mv $mboxpath/* $tmpdir/");
+                system ("mv $tmpdir $maildir");
+            }
         }
     }
 }
@@ -450,7 +477,8 @@ sub setupLDAP
         }
     }
 
-    $self->{musers}->setupUsers();
+    # vdomains should be regnenerated to setup user correctly
+    $self->{vdomains}->regenConfig();
 }
 
 sub depends

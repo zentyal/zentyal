@@ -308,12 +308,13 @@ sub allWarnings
 sub regenConfig
 {
     my ($self) = @_;
-    my $aliasLdap =  new EBox::MailAliasLdap();
 
     my %vdomainsToDelete = map {  $_ => 1 } $self->vdomains();
 
-    my $mf =  EBox::Global->modInstance('mail');
-    my $vdomainsTable = $mf->model('VDomains');
+    my $mailMod =  EBox::Global->modInstance('mail');
+    my $usersLdap = $mailMod->{musers};
+    my $aliasLdap =  $mailMod->{malias};
+    my $vdomainsTable = $mailMod->model('VDomains');
 
     # first sync vdomains
     foreach my $id (@{ $vdomainsTable->ids() }) {
@@ -322,6 +323,7 @@ sub regenConfig
 
         if (not $self->vdomainExists($vdomain)) {
             $self->addVDomain($vdomain);
+            $usersLdap->setupUsers($vdomain);
         }
         delete $vdomainsToDelete{$vdomain};
     }

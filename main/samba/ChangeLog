@@ -1,5 +1,6 @@
 4.0
 	+ Set version to 4.0
+	+ Skip schema extensions if module disabled
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model
 	+ Allow unsafe chars on admin account to use for join a domain

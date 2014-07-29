@@ -51,7 +51,7 @@ sub _process
     $self->{json}->{mail} = $usermail;
 
     my $user = new EBox::Samba::User(dn => $userDN);
-    $mail->{musers}->delUserAccount($user, $usermail);
+    $mail->{musers}->delUserAccount($user);
 
     $self->{json}->{msg} = __x('{acc} account removed', acc => $usermail);
     $self->{json}->{mail} = '';
