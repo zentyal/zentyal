@@ -5,6 +5,7 @@ $baseDn
 $port
 $adminMail
 $rpcProxySSL
+$rpcProxyExternalHostname => undef
 </%args>
 #
 # ocsmanager - Pylons configuration
@@ -80,6 +81,9 @@ basedn = <% $baseDn %>
 [autodiscover:rpcproxy]
 # We assume the autodiscover host and the EWS (Free/Busy) are in the same host
 # external_hostname = hostname
+% if ($rpcProxyExternalHostname) {
+external_hostname = <% $rpcProxyExternalHostname %>
+% }
 # Require SSL to logon. Default value is false
 % if ($rpcProxySSL) {
 ssl = true

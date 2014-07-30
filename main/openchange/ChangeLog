@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted configuration for making Autodiscover works with Outlook Anywhere
 3.5.2
 	+ Adapted rcpproxy certificate generation to changes in webadmin certificates
 	+ Depends on latest zentyal-samba to make sure openchange.conf
