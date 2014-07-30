@@ -1,4 +1,14 @@
-HEAD
+3.2.10
+	+ Adapt alias management to constraints by mailboxRelatedObject
+3.2.9
+	+ Changed amavis submision service to avoid rewriting rules
+	+ Reorganized mail configuration
+	+ Fixed bug triggered when adding external aliases
+	+ Postfix handles Zentyal distribution groups virtual alias
+3.2.8
+	+ Better integration between mail addon and mail field
+	+ Avoid error when trying to show a no longer existent mail in queue
+3.2.7
 	+ Fixed bug in LDAP synchronization of mail virtual domains
 	+ Setup mail account on enable for users that already have mail attribute
 3.2.6

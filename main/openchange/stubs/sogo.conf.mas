@@ -43,7 +43,7 @@
     SOGoLanguage = English;                 // User can override parameter
 
     /* Mail preferences */
-    SOGoAppointmentSendEMailNotifications = NO;
+    SOGoAppointmentSendEMailNotifications = YES;
     SOGoACLsSendEMailNotifications = NO;
 
     /* Database configuration */
@@ -82,13 +82,30 @@
             IDFieldName = uid;
             UIDFieldName = uid;
             hostname = "<% $ldapHost %>";
-            baseDN = "<% $ldapBaseDN %>";
+            baseDN = "ou=Users,<% $ldapBaseDN %>";
             bindDN = "<% $ldapBindDN %>";
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = YES;
-            displayName = "Shared Addresses";
-            id = public;
+            id = login;
+            isAddressBook = NO;
+        },
+        {
+            type = ldap;
+            CNFieldName = cn;
+            IDFieldName = mail;
+            UIDFieldName = mail;
+            hostname = "<% $ldapHost %>";
+            baseDN = "<% $ldapBaseDN %>";
+            bindDN = "<% $ldapBindDN %>";
+            bindPassword = "<% $ldapBindPwd %>";
+            canAuthenticate = NO;
+            displayName = "Shared Contacts";
+            id = sharedContacts;
             isAddressBook = YES;
+            mapping = {
+                displayname = ("cn");
+            };
+            filter = "((((objectClass=inetOrgPerson) AND ((uidNumber>=2000) OR (mail=\'*\'))) AND (NOT internal=1) AND (NOT uid=Guest)) OR (((objectClass=zentyalDistributionGroup) AND (gidNumber>=2000)) AND (NOT internal=1)))";
         }
     );
 

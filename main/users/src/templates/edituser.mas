@@ -46,11 +46,12 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
           <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
+                               id   => 'user_attrs_mail',
                                value => ($user->mail() or ''),
                                slave => $slave,
                    &>
           <label><% __('User quota') %> (MB)</label>
-          <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+          <& .quotaControl, quota => $user->quota() &>
           <label><% __('Disabled account') %></label>
           <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
 %   unless ($slave) {
@@ -95,12 +96,13 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 $name
 $value
 $slave
+$id => undef
 </%args>
 % if ($slave) {
 <% $value %>
- <input type="hidden" name="<% $name %>" value="<% $value %>" />
+ <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
 % } else {
- <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+ <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
 %}
 </%def>
 
@@ -136,6 +138,12 @@ $(function() {
                 var tree =  $("#tree_Manage");
                 var selected = tree.jstree("get_selected")[0];
                 tree.jstree("set_text", selected, response.set_text);
+            }
+            if ('mail' in response) {
+               if ('MailUserAddon' in Zentyal) {
+                   Zentyal.MailUserAddon.accountChange(response.mail);
+                   $('#note_userMailCreateDelAccount, #error_userMailCreateDelAccount').html('').hide();
+               }
             }
         }
    });
@@ -250,4 +258,24 @@ $user
 <div class="note"><% __('This user is not a member of any group') %></div>
 % }
 </ul>
+</%def>
+
+<%def .quotaControl>
+<%args>
+$quota
+</%args>
+
+ <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"   >
+   <option value="quota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
+       <% __('Limited to') %>
+   </option>
+   <option value="quota_disabled" <% ($quota == 0) ? 'selected="selected"' : '' %>  >
+        <% __('Disabled') %>
+    </option>
+</select>
+   <span id="selectValues_User_quota_selected" <% ($quota >= 0) ? 'class="hidden"' : '' %> ></span>
+   <span id='User_quota_selected_quota_size_container' <% ($quota == 0) ? 'class="hidden"' : '' %> >
+    <input type="text" class="inputText " value="<% $quota %>" size="7" id='User_quota_size' name='User_quota_size' style='display:inline-block'  /> Mb
+  </span>
+</span>
 </%def>

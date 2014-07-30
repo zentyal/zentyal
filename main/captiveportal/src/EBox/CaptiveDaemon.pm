@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,7 +22,8 @@ use warnings;
 # access the network.
 #
 # Already logged users rules are created at EBox::CaptivePortalFirewall so
-# this daemons is only in charge of new logins and logouts / expired sessions
+# this daemon is only in charge of new logins and logouts / expired sessions
+#
 package EBox::CaptiveDaemon;
 
 use EBox::Config;
@@ -38,6 +39,7 @@ use Linux::Inotify2;
 use EBox::Gettext;
 use Time::HiRes qw(usleep);
 
+use constant BLOCKED_TIMEOUT => 10;  # sec
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
 
@@ -93,7 +95,7 @@ sub run
     my $exceededEvent = 0;
     my $events = $global->getInstance(1)->modInstance('events');
     try {
-        if ((defined $events)  and ($events->isRunning())) {
+        if ((defined $events) and ($events->isRunning())) {
             $exceededEvent =
                 $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
         }
@@ -119,8 +121,7 @@ sub run
 
 # Method: _updateSessions
 #
-#   Init/finish user sessions and manage
-#   firewall rules for them
+#   Init/finish user sessions and manage firewall rules for them
 #
 sub _updateSessions
 {
@@ -232,7 +233,7 @@ sub _updateSessions
         # try to get firewall lock
         my $lockedFw = 0;
         try {
-            EBox::Util::Lock::lock('firewall');
+            EBox::Util::Lock::lock('iptables');
             $lockedFw = 1;
         } otherwise {};
 
@@ -252,12 +253,12 @@ sub _updateSessions
                     }
                 }
             } finally {
-                EBox::Util::Lock::unlock('firewall');
+                EBox::Util::Lock::unlock('iptables');
             };
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
             push @{ $self->{pendingRules} }, @rules, @removeRules;
-            EBox::error("Captive portal cannot lock firewall, we will try to add pending firewall rules later. Users access could be inconsistent until rules are added");
+            EBox::warn("Captive portal cannot lock firewall, we will try to add pending firewall rules later. Users access could be inconsistent until rules are added");
         }
     }
 }
@@ -326,7 +327,7 @@ sub _unmatchUser
     }
 }
 
-# checks if all chains are in place and put them if dont exists
+# checks if all chains are in place and put them if they don't exist
 sub _checkChains
 {
     my ($self, $captive) = @_;
@@ -335,34 +336,37 @@ sub _checkChains
     my $chains   = $fwHelper->chains();
 
     my $chainsInPlace = 1;
-    while(my ($table, $chains_list) = each %{$chains}) {
-        foreach my $ch (@{ $chains_list }) {
-            try {
-                EBox::Sudo::root("iptables -t $table -nL $ch");
-            } otherwise {
-                $chainsInPlace = 0;
+    try {
+        EBox::Util::Lock::lock('iptables', 1, BLOCKED_TIMEOUT);
+        try {
+            while(my ($table, $chains_list) = each %{$chains}) {
+                foreach my $ch (@{ $chains_list }) {
+                    EBox::Sudo::silentRoot("iptables -t $table -nL $ch");
+                    $chainsInPlace = ($? == 0);
+                }
+                if (not $chainsInPlace) {
+                    next;
+                }
             }
-        }
-        if (not $chainsInPlace) {
-            next;
-        }
-    }
 
-    if ($chainsInPlace) {
-        return;
-    }
+            if (not $chainsInPlace) {
+                # remove chains to be sure they are not leftovers
+                while(my ($table, $chains_list) = each %{$chains}) {
+                    foreach my $ch (@{ $chains_list }) {
+                        EBox::Sudo::silentRoot("iptables -t $table -F $ch",
+                                               "iptables -t $table -X $ch");
+                    }
+                }
 
-    # remove chains to be sure they are not leftovers
-    while(my ($table, $chains_list) = each %{$chains}) {
-        foreach my $ch (@{ $chains_list }) {
-
-            EBox::Sudo::silentRoot("iptables -t $table -F $ch",
-                             "iptables -t $table -X $ch");
-        }
-    }
-
-    my $iptables = EBox::Iptables->new();
-    $iptables->executeModuleRules($captive);
+                my $iptables = EBox::Iptables->new();
+                $iptables->executeModuleRules($captive);
+            }
+        } finally {
+            EBox::Util::Lock::unlock('iptables');
+        };
+    } catch EBox::Exceptions::Lock with {
+        EBox::warn('Firewall was restarting and we assume now the chains are in place');
+    };
 }
 
 

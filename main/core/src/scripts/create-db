@@ -10,7 +10,7 @@ create_db()
     # Do not disable innodb if there are other databases previous to the
     # creation of the Zentyal one
     lines=$(echo "show databases" | mysql --defaults-file=/etc/mysql/debian.cnf | wc -l)
-    if [ $lines -gt 5 ]
+    if [ $lines -gt 4 ]
     then
         sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf
     fi

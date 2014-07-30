@@ -22,7 +22,8 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
 use Error qw(:try);
-use Net::LDAP::Constant qw(LDAP_NO_SUCH_OBJECT);
+use Net::LDAP::Constant qw(LDAP_SUCCESS LDAP_NO_SUCH_OBJECT LDAP_CONTROL_PAGED);
+use Net::LDAP::Control::Paged;
 use POSIX;
 
 sub _new_instance
@@ -85,6 +86,9 @@ sub clearConn
 #
 #       args - arguments to pass to Net::LDAP->search()
 #
+# Returns:
+#   Net::LDAP::Search object with the results of the search
+#
 # Exceptions:
 #
 #       EBox::Exceptions::LDAP - If there is an error during the search
@@ -107,6 +111,70 @@ sub search # (args)
         $self->_errorOnLdap($result, $args);
     }
     return $result;
+}
+
+# Method: pagedSearch
+#
+#  Performs a paginated search in the LDAP directory
+#
+#  Parameters
+#       args - arguments to pass to Net::LDAP->search() .
+#       pageSize - number of result for page (default: 500)
+#
+#  Returns:
+#    reference to a list of Net::LDAP::Entry containing all the entries found
+#
+#   Limitations:
+#     args shoud not contain already a Paged control. It can contain other controls
+#
+# Exceptions:
+#       EBox::Exceptions::LDAP - If there is an error during the search
+#
+sub pagedSearch
+{
+    my ($self, $args, $pageSize) = @_;
+    if (not $pageSize) {
+        $pageSize = 500;
+    }
+
+    my $page = Net::LDAP::Control::Paged->new( size => $pageSize );
+    if (not $args->{control}) {
+        $args->{control} = [];
+    }
+    push @{ $args->{control} }, $page;
+
+    my $cookie;
+    my @entries = ();
+    while (1) {
+        my $result = $self->search($args);
+        if ($result->code() ne LDAP_SUCCESS) {
+            last;
+        }
+
+        push @entries, $result->entries();
+
+        my ($resp) = $result->control( LDAP_CONTROL_PAGED );
+        if (not $resp) {
+            # not found page control
+            last;
+        }
+        $cookie = $resp->cookie;
+        if (not $cookie) {
+            # finished
+            last;
+        }
+
+        $page->cookie($cookie);
+    }
+
+    if ($cookie) {
+        # We had an abnormal exit, so let the server know we do not want any more
+        $page->cookie($cookie);
+        $page->size(0);
+        $self->search($args)
+    }
+
+    return \@entries;
 }
 
 # Method: existsDN

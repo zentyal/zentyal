@@ -50,6 +50,11 @@ sub new
     return $self;
 }
 
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
+
 # Method: requiredParameters
 #
 # Overrides:
@@ -120,7 +125,9 @@ sub actuate
                                              days => $days));
     }
 
-    my $retVal = $ca->createCA( orgName       => $orgName,
+    my $commonName = __x('{org} Authority Certificate', org => $orgName);
+    my $retVal = $ca->createCA( commonName    => $commonName,
+                                orgName       => $orgName,
                                 countryName   => $countryName,
                                 localityName  => $localityName,
                                 stateName     => $stateName,

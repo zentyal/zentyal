@@ -35,7 +35,7 @@ use POSIX qw(setlocale LC_ALL);
 use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
-use Perl6::Junction qw(all);
+use Perl6::Junction qw(all any);
 use File::Temp qw(tempfile);
 use File::Basename;
 use Apache2::Connection;
@@ -682,10 +682,31 @@ sub paramsAsHash
     return \%params;
 }
 
+# Method: redirectOnNoParams
+#
+# If this method return a true value, it will be used as path to redirection in
+# case the CGI has no parameters. This is needed in some CGIs to avoid accidentally
+# call them on page reloads
+#
+# By default it returns undef and thus has not effect
+sub redirectOnNoParams
+{
+    return undef;
+}
+
 sub _validateParams
 {
     my ($self) = @_;
     my $params_r    = $self->params();
+    if (not @{$params_r }) {
+        my $redirect = $self->redirectOnNoParams();
+        if ($redirect) {
+            # no check becuase we will redirect
+            $self->{redirect} = $redirect;
+            return 1;
+        }
+    }
+
     $params_r       = $self->_validateRequiredParams($params_r);
     $params_r       = $self->_validateOptionalParams($params_r);
 
@@ -702,8 +723,20 @@ sub _validateReferer
 {
     my ($self) = @_;
 
-    # Only check if the client sends params
-    unless (@{$self->params()}) {
+    # Only check if the client sends params that can trigger actions
+    # It is assumed that the meaning of the accepted parameters does
+    # no change in CGIs
+    my $hasActionParam = 0;
+    my $noActionParams = any('directory', 'page', 'pageSize', 'backview');
+    foreach my $param (@{ $self->params() }) {
+        if ($param eq $noActionParams) {
+            next;
+        } else {
+            $hasActionParam = 1;
+            last;
+        }
+    }
+    if (not $hasActionParam) {
         return;
     }
 

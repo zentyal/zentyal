@@ -28,19 +28,40 @@ use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
 use feature "switch";
+use Net::IP;
 
-# Group: Public methods
+use constant L2TP_PREFIX => 'zentyal-xl2tpd.';
 
+# Method: tunnels
+#
+#  returns all tunnels as hashes which contains their properties
+#
+# Parameters:
+#  includeDisabled - return also the disabled tunnels  (defauls false)
 sub tunnels
 {
-    my ($self) = @_;
+    my ($self, $includeDisabled) = @_;
 
     my $network = $self->global()->modInstance('network');
     my @tunnels;
 
-    foreach my $id (@{$self->enabledRows()}) {
+    foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        my $enabled = $row->valueByName('enabled');
         my $conf = $row->elementByName('configuration')->foreignModelInstance();
+        if (not $enabled) {
+            if (not $includeDisabled) {
+                next;
+            }
+            my $configured;
+            try {
+                $conf->checkConfigurationIsComplete();
+                $configured = 1;
+            } otherwise {};
+            if (not $configured) {
+                next;
+            }
+        }
         my $type = $row->valueByName('type');
         my @confComponents;
 
@@ -113,6 +134,7 @@ sub tunnels
                 );
             }
         }
+        $settings{'enabled'} = $enabled;
         $settings{'name'} = $row->valueByName('name');
         $settings{'type'} = $type;
         $settings{'comment'} =  $row->valueByName('comment');
@@ -123,7 +145,28 @@ sub tunnels
     return \@tunnels;
 }
 
-# Group: Private methods
+# Method l2tpDaemons
+#
+# return all l2tp daemons in the format required by _daemons method
+sub l2tpDaemons
+{
+    my ($self) = @_;
+    my @daemons = map {
+        my $tunnel = $_;
+        if ($tunnel->{type} ne 'l2tp') {
+            ()
+        } else {
+            $tunnel->{name} = L2TP_PREFIX . $tunnel->{name};
+            $tunnel->{type} = 'upstart';
+            $tunnel->{precondition} = sub {
+                return $tunnel->{enabled};
+            };
+            ($tunnel)
+        }
+    } @{ $self->tunnels(1) };
+
+    return \@daemons;
+}
 
 sub _populateType
 {
@@ -203,25 +246,7 @@ sub validateTypedRow
         if ($row) {
             # The row is already created. Otherwise is being created so there is no need to do any validation.
             my $conf = $row->elementByName('configuration')->foreignModelInstance();
-
-            try {
-                foreach my $model (@{$conf->models(1)}) {
-                    foreach my $rowID (@{$model->enabledRows()}) {
-                        my $row = $model->row($rowID);
-                        $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
-                    }
-                }
-            } otherwise {
-                my $error = shift;
-                throw EBox::Exceptions::InvalidData(
-                    data => __('Enabled flag'),
-                    value => __('Enabled'),
-                    advice => __x(
-                        'Cannot be enabled due to errors in the connection configuration: {error}',
-                        error => $error
-                    )
-                );
-            };
+            $conf->checkConfigurationIsComplete();
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),
@@ -308,6 +333,92 @@ sub preconditionFailMsg
                    . '{openhref}Network->Interfaces{closehref}',
                openhref  => '<a href="/Network/Ifaces">',
                closehref => '</a>');
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    if ($row->valueByName('type') eq 'l2tp') {
+        my $name = L2TP_PREFIX . $row->valueByName('name');
+        $self->parentModule()->addDeletedDaemon($name);
+    }
+}
+
+sub l2tpCheckDuplicateLocalIP
+{
+    my ($self, $ownId, $tunnelIP) = @_;
+    $self->_checkDuplicates($ownId, tunnelIP => $tunnelIP);
+}
+
+sub l2tpCheckDuplicateIPRange
+{
+    my ($self, $ownId, $rangeId, $from, $to) = @_;
+    $self->_checkDuplicates($ownId, range => "$from - $to", rangeOwnId => $rangeId);
+}
+
+sub _checkDuplicates
+{
+  my ($self, $ownId, %args) = @_;
+  my $range;
+  if ($args{tunnelIP}) {
+      $range = new Net::IP($args{tunnelIP});
+  } elsif ($args{range}) {
+      $range = new Net::IP($args{range});
+  } else {
+      throw EBox::Exceptions::MissingArgument('tunnel or range');
+  }
+
+  if (not defined $ownId) {
+      $ownId = '';
+  }
+
+  foreach my $id (@{ $self->ids() }) {
+      my $row = $self->row($id);
+      if ($row->valueByName('type') ne 'l2tp') {
+          next;
+      }
+
+      my $configuration = $row->elementByName('configuration')->foreignModelInstance();
+
+      my $settings = $configuration->componentByName('SettingsL2TP', 1);
+      my $localIP  = $settings->value('local_ip');
+      if ($localIP and $range->overlaps( Net::IP->new($localIP))) {
+          if ($args{tunnelIP} and ($id ne $ownId)) {
+              throw EBox::Exceptions::External(
+                  __x('Tunnel IP {ip} is already in use by connection {name}',
+                      ip   => $localIP,
+                      name => $row->valueByName('name'))
+                 );
+          } elsif ($args{range}) {
+              throw EBox::Exceptions::External(
+                  __x('The range overlaps with tunnel IP {ip} used  by connection {name}',
+                      ip   => $localIP,
+                      name => $row->valueByName('name'))
+                 );
+          }
+      }
+
+      my $rangeTableOwnId = '';
+      if ($args{range} and ($id eq $ownId)) {
+          $rangeTableOwnId = $args{rangeOwnId};
+      }
+      my $rangeTable    = $configuration->componentByName('RangeTable', 1);
+      if ($rangeTable->rangeOverlaps($range, $rangeTableOwnId)) {
+          if ($args{tunnelIP}) {
+              throw EBox::Exceptions::External(
+                  __x('Tunnel IP {ip} is already in use by range in connection {name}',
+                      ip => $args{tunnelIP},
+                      name => $row->valueByName('name'))
+                 );
+          } elsif ($args{range}) {
+              throw EBox::Exceptions::External(
+                  __x('Range {range} is already in use by connection {name}',
+                      range => $args{range},
+                      name => $row->valueByName('name'))
+                 );
+          }
+      }
+  }
 }
 
 1;

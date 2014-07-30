@@ -68,6 +68,12 @@ sub _userAddOns
        };
 }
 
+sub noMultipleOUSupportComponent
+{
+    my ($self) = @_;
+    return $self->standardNoMultipleOUSupportComponent(__('Captive Portal'));
+}
+
 sub isQuotaOverridden
 {
     my ($self, $user) = @_;

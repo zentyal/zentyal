@@ -1,3 +1,8 @@
+3.2.2
+	+ Fixed CGI error on page reloads
+	+ Allow wildcard certificate in service certificates
+	+ Better CN for CA certificate
+	+ Use different openssl output files to avoid any overlap
 3.2.1
 	+ Added missing EBox::Exceptions uses
 3.2

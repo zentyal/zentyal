@@ -1,3 +1,6 @@
+HEAD
+	+ Synchronize LDAP password in each restart to avoid problems if
+	  the password changes
 3.2.1
 	+ Added missing EBox::Exceptions uses
 3.2

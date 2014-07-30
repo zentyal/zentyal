@@ -9,10 +9,23 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
     dialog.html('<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>');
     dialog.dialog({ title: params['title'] });
     dialog.load(url, data, function(html) {
-                    if (typeof(params.load) === 'function')  {
-                        params.load.apply(this);
-                    }
-                });
+        var response;
+        try {
+            response=jQuery.parseJSON(html);
+        } catch (error) {
+            response = null;
+        }
+        if((response !== null) && (typeof response =='object')) {
+            // for now only we are interested in a redirection, i.e we have logged out
+            //  and we must redirect to login
+            if ('redirect' in response) {
+                window.location = response.redirect;
+            }
+        }
+        if (typeof(params.load) === 'function')  {
+            params.load.apply(this);
+        }
+    });
 };
 
 Zentyal.Dialog.showURL = function(url, params) {

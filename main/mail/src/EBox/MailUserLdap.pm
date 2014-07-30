@@ -86,14 +86,21 @@ sub setupUsers
 # Parameters:
 #
 #               user - user object
-#               lhs - the left hand side of a mail (the foo on foo@bar.baz account)
+#               lhs - Either the left hand side of a mail (the foo on foo@bar.baz account) or
+#                     the full mail account (don't supply rhs in that case)
 #               rhs - the right hand side of a mail (the bar.baz on previous account)
 
 sub setUserAccount
 {
     my ($self, $user, $lhs, $rhs)  = @_;
     my $mail = EBox::Global->modInstance('mail');
-    my $email = $lhs.'@'.$rhs;
+    my $email;
+    if (not $rhs) {
+        $email = $lhs;
+        ($lhs, $rhs) = split '@', $email, 2;
+    } else {
+        $email = $lhs . '@' . $rhs;
+    }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
     $mail->checkMailNotInUse($email);

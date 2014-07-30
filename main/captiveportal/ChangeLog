@@ -1,4 +1,13 @@
-HEAD
+3.2.5
+	+ Stop/start captive portal on firewall restart
+3.2.4
+	+ Use a blocking lock to get iptables resource to avoid issues
+	  while firewall module is restarting
+	+ Don't stop captive portal on firewall start if it was just enabled
+	+ Use silentRoot in rules recheck
+	+ Stop captive portal on firewall restart
+	+ Added noMultipleOUSupportComponent support
+3.2.3
 	+ Better packaging for EBox::Event::Watcher::CaptivePortalQuota
 	+ Fixed restricted login by group
 	+ Don't show iptables error on Captive Daemon if debug is not enabled

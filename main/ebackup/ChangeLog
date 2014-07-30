@@ -1,3 +1,6 @@
+3.2.3
+	+ Do not escape bash metacharacters in restore as it is not
+	  required once shell quote is in place
 3.2.2
 	+ Fix regression in rsync method (contribution by billfarrow)
 3.2.1

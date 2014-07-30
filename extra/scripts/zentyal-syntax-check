@@ -107,15 +107,9 @@ sub installdeps
     my @deps;
 
     my %blacklist;
-    if ($BASE_UBUNTU_RELEASE eq 'quantal') {
-        # XXX: these packages doesn't exist in quantal
-        %blacklist = ('libapache2-mod-perl' => 1,
-                      'libtime-piece-perl' => 1);
-    } else {
-        # XXX: these packages doesn't exist in precise
-        %blacklist = ('libapache2-mod-perl' => 1,
-                      'libtime-piece-perl' => 1);
-    }
+    # XXX: these packages doesn't exist in precise
+    %blacklist = ('libapache2-mod-perl' => 1,
+                  'libtime-piece-perl' => 1);
 
     my @lines = `find . -name control|xargs grep perl`;
     foreach my $line (@lines) {
@@ -193,6 +187,7 @@ sub _create_system_stuff
     unless (-d '/var/lib/zentyal/tmp') {
         system ("sudo mkdir -p /var/lib/zentyal/tmp");
         system ("chown ebox:adm /var/lib/zentyal/tmp");
+        system ("sudo chmod 777 /var/lib/zentyal/tmp");
     }
 }
 

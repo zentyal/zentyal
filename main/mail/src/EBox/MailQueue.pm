@@ -22,6 +22,7 @@ package EBox::MailQueue;
 use EBox::Config;
 use EBox::Sudo;
 use EBox::Gettext;
+use Error qw(:try);
 
 BEGIN {
     use Exporter ();
@@ -158,6 +159,19 @@ sub requeueMail
     EBox::Sudo::root("/usr/sbin/postsuper -r $qid");
 }
 
+sub qidExists
+{
+    my ($qid) = @_;
+    foreach my $entry (@{ mailQueueList() }) {
+        if ($entry->{qid} eq $qid) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+
 #
 # Method: infoMail
 #
@@ -174,9 +188,21 @@ sub infoMail
 {
     my ($qid) = @_;
 
+    my @postcatLines;
+    try {
+        @postcatLines = @{EBox::Sudo::root("/usr/sbin/postcat -q $qid")};
+    } catch EBox::Exceptions::Command with {
+        my ($ex) = @_;
+        if (qidExists($qid)) {
+            $ex->throw();
+        } else {
+            @postcatLines = ();
+        }
+    };
+
     my $writeon = 0;
     my @info;
-    foreach (@{EBox::Sudo::root("/usr/sbin/postcat -q $qid")}) {
+    foreach (@postcatLines) {
         chomp;
         if ($writeon) { push(@info, $_);}
         if ($_ =~ m/^\*\*\* MESSAGE CONTENTS.*$/) { $writeon    = 1; }

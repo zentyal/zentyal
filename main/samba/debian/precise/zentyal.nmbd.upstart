@@ -4,4 +4,4 @@ author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
 expect fork
 normal exit 0
 
-exec nmbd -D
+exec nmbd -D -l /dev/null

@@ -16,11 +16,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 use EBox::Global::TestStub;
-
-use lib '../../../..';
 
 EBox::Global::TestStub::fake();
 
@@ -31,8 +29,9 @@ is_deeply $users->ousToHide(), [ 'postfix', 'Builtin', 'Kerberos', 'zarafa' ], '
 my $manage = $users->model('Manage');
 isa_ok $manage, 'EBox::Users::Model::Manage', 'model can be instanced';
 
-isnt $manage->_hiddenOU('Users'), 1, 'Users OU is not hidden';
-is $manage->_hiddenOU('Kerberos'), 1, 'Kerberos OU is hidden';
-is $manage->_hiddenOU('Builtin'), 1, 'Builtin OU is hidden';
+isnt $manage->_hiddenOU('OU=Users,DC=foo,DC=bar'), 1, 'Users OU is not hidden';
+is $manage->_hiddenOU('OU=Kerberos,DC=foo,DC=bar'), 1, 'Kerberos OU is hidden';
+is $manage->_hiddenOU('OU=Builtin,DC=foo,DC=bar'), 1, 'Builtin OU is hidden';
+is $manage->_hiddenOU('OU=Kerberos,OU=foo,DC=bar,DC=baz'), undef, 'Only hide OUs under base DN';
 
 1;

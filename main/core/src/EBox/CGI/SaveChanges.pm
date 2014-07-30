@@ -60,7 +60,8 @@ my @commonProgressParams = (
 
 );
 
-my $jsCloseDialogAndReload =  'Zentyal.Dialog.close(); window.location.reload(); return false';
+my $jsCloseDialogAndReload = 'Zentyal.Dialog.close(); Zentyal.pageReload(); return false';
+
 my @popupProgressParams = (
         raw => 1,
         inModalbox => 1,

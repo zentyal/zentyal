@@ -3685,9 +3685,12 @@ sub gatewayReachable
 sub setDHCPAddress # (interface, ip, mask)
 {
     my ($self, $iface, $ip, $mask) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+    if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
     checkIPNetmask($ip, $mask,  __("IP address"), __('Netmask'));
 
     my $state = $self->get_state();
@@ -3725,7 +3728,8 @@ sub setDHCPGateway # (iface, gateway)
     checkIP($gw, __("IP address"));
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+                                             value => $iface);
+
 
     my $state = $self->get_state();
     $state->{dhcp}->{$iface}->{gateway} = $gw;
@@ -3745,9 +3749,12 @@ sub setDHCPGateway # (iface, gateway)
 sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
 {
     my ($self, $iface, $ppp_iface, $ppp_addr) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+   if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
 
     my $state = $self->get_state();
     $state->{interfaces}->{$iface}->{ppp_iface} = $ppp_iface;
@@ -3770,9 +3777,12 @@ sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
 sub DHCPCleanUp # (interface)
 {
     my ($self, $iface) = @_;
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+
+    if (not $iface =~ m{^/dev/pts/}) {
+        $self->ifaceExists($iface) or
+            throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+                                                 value => $iface);
+    }
 
     my $state = $self->get_state();
     delete $state->{dhcp}->{$iface};

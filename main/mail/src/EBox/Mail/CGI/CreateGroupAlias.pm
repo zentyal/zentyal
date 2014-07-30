@@ -60,6 +60,7 @@ sub _process
     $mail->{malias}->addGroupAlias($newAlias, $group);
 
     $self->{json}->{msg} = __x('Added alias {al}', al => $newAlias);
+    $self->{json}->{mail} = $group->get('mail');
     $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }

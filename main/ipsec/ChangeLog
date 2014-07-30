@@ -1,3 +1,11 @@
+3.2.4
+	+ Add conditional samba dependency to ipsec
+3.2.3
+	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
+	  zentyal-xl2tp. (credits to Icaro Ribeiro)
+3.2.2
+	+ Better management of L2TP daemons
+	+ Added validation for IPs in L2TP configuration
 3.2.1
 	+ Added precondition check for existing 'external' interface.
 	+ Added missing EBox::Exceptions uses

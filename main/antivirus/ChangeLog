@@ -1,4 +1,4 @@
-HEAD
+3.2.3
 	+ Added clamd socket actions to freshclam apparmor profile
 3.2.2
 	+ Make FreshclamStatus model more resilient to errors

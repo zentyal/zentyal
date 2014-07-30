@@ -54,6 +54,12 @@ use File::Slurp;
 
 use constant MAILMAINCONFFILE         => '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE       => '/etc/postfix/master.cf';
+use constant VALIASES_CF_FILE         => '/etc/postfix/valiases.cf';
+use constant GROUPALIASES_CF_FILE      => '/etc/postfix/groupaliases.cf';
+use constant MAILBOX_CF_FILE          => '/etc/postfix/mailbox.cf';
+use constant VDOMAINS_CF_FILE         => '/etc/postfix/vdomains.cf';
+use constant LOGIN_CF_FILE            => '/etc/postfix/login.cf';
+
 use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
 use constant MAIL_ALIAS_FILE          => '/etc/aliases';
 use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
@@ -395,7 +401,6 @@ sub _setMailConf
                       mode => $perm
                      };
 
-    my @array = ();
     my $users = EBox::Global->modInstance('users');
 
     my $allowedaddrs = "127.0.0.0/8";
@@ -403,23 +408,32 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
-    push (@array, 'bindDN', $users->ldap->roRootDn());
-    push (@array, 'bindPW', $users->ldap->getRoPassword());
+    my @ldapCommonParams;
+    push (@ldapCommonParams, 'bindDN', $users->ldap->roRootDn());
+    push (@ldapCommonParams, 'bindPW', $users->ldap->getRoPassword());
+    push (@ldapCommonParams, 'ldap', $users->ldap->ldapConf());
+
+    my $baseDN  =  $users->ldap()->dn();
+
+    my @array = ();
     push (@array, 'hostname' , $self->_fqdn());
     push (@array, 'mailname' , $self->mailname());
-    push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push (@array, 'relay', $self->relay());
     push (@array, 'relayAuth', $self->relayAuth());
     push (@array, 'maxmsgsize', int($self->getMaxMsgSize() * $self->BYTES * BASE64_ENCODING_OVERSIZE));
     push (@array, 'allowed', $allowedaddrs);
-    push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
-    push (@array, 'baseDN', $users->ldap()->dn());
     push (@array, 'uidvmail', $self->{musers}->uidvmail());
     push (@array, 'gidvmail', $self->{musers}->gidvmail());
     push (@array, 'popssl', $self->pop3s());
     push (@array, 'imapssl', $self->imaps());
-    push (@array, 'ldap', $users->ldap->ldapConf());
+
+    push (@array, 'valiasesFile', VALIASES_CF_FILE);
+    push (@array, 'groupaliasesFile', GROUPALIASES_CF_FILE);
+    push (@array, 'mailboxFile', MAILBOX_CF_FILE);
+    push (@array, 'vdomainsFile', VDOMAINS_CF_FILE);
+    push (@array, 'loginFile', LOGIN_CF_FILE);
+
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'portfilter', $self->portfilter());
@@ -433,6 +447,39 @@ sub _setMailConf
     push (@array, 'greylistPort', $greylist->port());
     push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
+
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
+    @array = ();
+    push  @array, @ldapCommonParams;
+    push @array, ('aliasDN' => $self->{malias}->aliasDn());
+    $self->writeConfFile(VALIASES_CF_FILE, 'mail/valiases.cf.mas', \@array, $restrictiveFilePermissions);
+
+    @array = ();
+    push  @array, @ldapCommonParams;
+    push @array, ('baseDN' => $baseDN);
+    $self->writeConfFile(GROUPALIASES_CF_FILE, 'mail/groupaliases.cf.mas', \@array, $restrictiveFilePermissions);
+
+    @array = ();
+    push  @array, @ldapCommonParams;
+    push @array, ('baseDN' => $baseDN);
+    $self->writeConfFile(MAILBOX_CF_FILE, 'mail/mailbox.cf.mas', \@array, $restrictiveFilePermissions);
+
+    @array = ();
+    push  @array, @ldapCommonParams;
+    push @array, ('vdomainDN' => $self->{vdomains}->vdomainDn());
+    $self->writeConfFile(VDOMAINS_CF_FILE, 'mail/vdomains.cf.mas', \@array, $restrictiveFilePermissions);
+
+    @array = ();
+    push  @array, @ldapCommonParams;
+    push @array, ('baseDN' => $baseDN);
+    $self->writeConfFile(LOGIN_CF_FILE, 'mail/login.cf.mas', \@array, $restrictiveFilePermissions);
+
 
     @array = ();
     push (@array, 'filter', $self->service('filter'));
@@ -633,12 +680,19 @@ sub _setDovecotConf
     my $roPwd = $users->ldap->getRoPassword();
 
     # ldap dovecot conf file
+    my $restrictiveFilePermissions = {
+        uid => 0,
+        gid => 0,
+        mode => '0640',
+        force => 1,
+    };
+
     @params = ();
     push (@params, baseDN      => $users->ldap()->dn());
     push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
     push (@params, zentyalROPwd => $roPwd);
-    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
+    $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params, $restrictiveFilePermissions);
 }
 
 sub _getDovecotAntispamPluginConf
@@ -1299,9 +1353,12 @@ sub _checkService
 # LdapModule implmentation
 sub _ldapModImplementation
 {
-    my $self;
+    my ($self) = @_;;
+    if (not $self->{musers}) {
+        $self->{musers} = new EBox::MailUserLdap;
+    }
 
-    return new EBox::MailUserLdap();
+    return $self->{musers};
 }
 
 #  Method: notifyAntispamACL
@@ -1851,13 +1908,14 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail) =@_;
+    my ($self, $mail, $onlyCheckLdap, $isAlias) =@_;
+
     # TODO: check vdomain alias mapping to the other domains?
-    $self->global()->modInstance('users')->checkMailNotInUse($mail);
+    $self->global()->modInstance('users')->checkMailNotInUse($mail, $isAlias);
 
     # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
-    if ($self->model('ExternalAliases')->aliasInUse($mail)) {
+    if ((not $onlyCheckLdap) and $self->model('ExternalAliases')->aliasInUse($mail)) {
         throw EBox::Exceptions::External(
             __x('Address {addr} is in use as external alias', addr => $mail)
            );

@@ -500,4 +500,25 @@ sub _childData
     return \@children;
 }
 
+sub setMessage
+{
+    my ($self, $msg, $class) = @_;
+    if ($msg and not $class) {
+        $class = 'note';
+    }
+
+    $self->{message} = [$msg, $class];
+}
+
+sub popMessageAndClass
+{
+    my ($self) = @_;
+    my $msg = delete $self->{message};
+    if ($msg) {
+        return $msg;
+    } else {
+        return [];
+    }
+}
+
 1;

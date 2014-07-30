@@ -71,6 +71,12 @@ sub _userAddOns
     };
 }
 
+sub noMultipleOUSupportComponent
+{
+    my ($self) = @_;
+    return $self->standardNoMultipleOUSupportComponent(__('OpenChange Account'));
+}
+
 sub enabled
 {
     my ($self, $user) = @_;

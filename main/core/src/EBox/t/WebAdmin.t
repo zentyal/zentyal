@@ -20,7 +20,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 37;
+use Test::More tests => 38;
 use Test::Exception;
 use Test::Deep;
 
@@ -169,9 +169,11 @@ throws_ok {
     $webAdminMod->removeNginxInclude();
 } 'EBox::Exceptions::MissingArgument', 'No file to exclude';
 
-throws_ok {
+lives_ok {
     $webAdminMod->removeNginxInclude($deviantIncludes[0]);
-} 'EBox::Exceptions::Internal', 'No file to remove';
+} 'Trying to remove a no-included file does not trigger error';
+cmp_deeply($webAdminMod->_nginxIncludes(), \@includes,
+           'After the removal of a no-included file nothing is affected');
 
 lives_ok {
     $webAdminMod->removeNginxInclude($_) foreach (@includes);

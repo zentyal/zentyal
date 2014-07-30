@@ -1,3 +1,6 @@
+3.2.7
+	+ Enable sortlist by default in /etc/zentyal/dns.conf
+	+ EBox::DNS::Types::Hostname always return lowercase values
 3.2.6
 	+ Take in account virtual interfaces too when getting addresses
 	  for a new domain

@@ -23,6 +23,7 @@ use base 'EBox::Model::TreeView';
 use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
+use Net::LDAP::Util qw( ldap_explode_dn );
 
 use Error qw(:try);
 
@@ -76,7 +77,7 @@ sub childNodes
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
-            next if ($self->_hiddenOU($child->canonicalName(1)));
+            next if ($self->_hiddenOU($child->dn()));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($child->isInternal());
 
@@ -207,11 +208,19 @@ sub preconditionFailMsg
 
 sub _hiddenOU
 {
-    my ($self, $name) = @_;
+    my ($self, $dn) = @_;
 
     unless ($self->{ousToHide}) {
         $self->{ousToHide} = { map { $_ => 1 } @{$self->parentModule()->ousToHide()} };
     }
+
+    # Only hide first level OUs and allow nested OUs matching hidden ones
+    my $dnParts = ldap_explode_dn($dn, reverse => 1);
+    my $e = shift @{$dnParts};
+    while (@{$dnParts} and not defined $e->{OU}) {
+        $e = shift @{$dnParts};
+    };
+    my $name = $e->{OU};
 
     return $self->{ousToHide}->{$name};
 }

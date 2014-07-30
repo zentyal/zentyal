@@ -1,7 +1,19 @@
+3.2.10
+	+ Redirect all /ews/ requests to OCSManager
+3.2.9
+	+ Make SOGo shared contacts display their CN
+3.2.8
+	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
+	+ Updated SOGo conf
+	+ Added autodiscovery of server parameters
+	+ Added noMultipleOUSupportComponent support
+	+ Conflict with zentyal-zarafa to avoid problems with libmapi.so
 3.2.7
 	+ Prevent OpenChange provision if we don't have access to update the
 	  schema or it's already extended by another OpenChange / Exchange
 	  previous installation.
+	+ Extracted vdomain selection for outgoing mail to a new configuration
+	  model named Configuration
 3.2.6
 	+ Clean all previous data before enabling the module
 3.2.5

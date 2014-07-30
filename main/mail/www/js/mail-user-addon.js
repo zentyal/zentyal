@@ -21,4 +21,7 @@ Zentyal.MailUserAddon.accountChange = function(mail) {
     $('#userMailAddExternalAccount_localmail').val(mail);
     $('#userMailExternalAccountsTable').children().remove();
     $('#note_userMailExternalAccount, #error_userMailExternalAccount').html('').hide();
+
+    // set mail form element
+    $('#user_attrs_mail').val(mail);
 };

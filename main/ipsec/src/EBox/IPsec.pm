@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::IPsec::FirewallHelper;
 use EBox::IPsec::LogHelper;
 use EBox::NetWrappers qw();
-
+use Error qw(:try);
 use File::Slurp;
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
@@ -85,6 +85,68 @@ sub usedFiles
 
 }
 
+# overriden to stop deleted daemons
+sub _manageService
+{
+    my ($self, @params) = @_;
+    my $state = $self->get_state();
+    if ($state->{deleted_daemons}) {
+        my @deleted = @{ delete $state->{deleted_daemons} };
+        foreach my $daemon (@deleted) {
+            try {
+                EBox::Sudo::root("/sbin/stop '$daemon'")
+            } otherwise {
+                # we assume that it was already stopped
+            };
+        }
+        $self->set_state($state);
+    }
+
+    return $self->SUPER::_manageService(@params);
+}
+
+# Method: depends
+#
+# Overriden to add samba to dependencies if it is installed and enabled
+sub depends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::depends();
+
+    my $samba = $self->global()->modInstance('samba');
+    if ($samba and $samba->isEnabled()) {
+        push @{ $depends }, 'samba';
+    }
+
+    return $depends
+}
+
+# Method: addDeletedDaemon
+#
+# add daemon maes to the delete list so in next restart we can
+# do cleanup properly of their init files
+sub addDeletedDaemon
+{
+    my ($self, @daemons) = @_;
+    my $state = $self->get_state();
+    if (not $state->{deleted_daemons}) {
+        $state->{deleted_daemons} = [];
+    }
+
+    push @{ $state->{deleted_daemons} }, @daemons;
+    $self->set_state($state);
+}
+
+# overriden to put old l2tp daemons in deleted daemons list
+sub aroundRestoreConfig
+{
+    my ($self, @options) = @_;
+    my @deleted = map {
+        $_->{name}
+    } @{ $self->model('Connections')->l2tpDaemons() };
+    $self->SUPER::restoreConfig(@options);
+}
+
 # Method: _daemons
 #
 # Overrides:
@@ -96,20 +158,12 @@ sub _daemons
     my ($self) = @_;
 
     my @daemons = ();
-    push (@daemons, {
+    push @daemons, {
         'name' => 'ipsec',
         'type' => 'init.d',
         'pidfiles' => ['/var/run/pluto/pluto.pid'],
-    });
-
-    foreach my $tunnel (@{ $self->tunnels() }) {
-        if ($tunnel->{type} eq 'l2tp') {
-            push (@daemons, {
-                'name' => "zentyal-xl2tpd." . $tunnel->{name},
-                'type' => 'upstart',
-            });
-        }
-    }
+    };
+    push @daemons, @{ $self->model('Connections')->l2tpDaemons()};
 
     return \@daemons;
 }
@@ -260,7 +314,7 @@ sub _setXL2TPDConf
     # Clean all upstart and configuration files, the current ones will be regenerated
     EBox::Sudo::silentRoot(
         "rm -rf /etc/init/zentyal-xl2tpd.*.conf",
-        "rm -rf /etc/ppp/zentyal-options.xl2tpd.*",
+        "rm -rf /etc/ppp/zentyal-xl2tpd.*",
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
 
@@ -281,25 +335,25 @@ sub _setXL2TPDConf
         mode => '644',
     };
 
-    foreach my $tunnel (@{ $self->tunnels() }) {
+    foreach my $tunnel (@{ $self->model('Connections')->l2tpDaemons() }) {
         my @params = ();
-        if ($tunnel->{'type'} eq 'l2tp') {
-            if ($validationGroup) {
-                push (@params, group => "$workgroup\\\\$validationGroup");
-                push (@params, chap => 0);
-            } else {
-                push (@params, group => undef);
-                push (@params, chap => 1);
-            }
-            push (@params, tunnel => $tunnel);
 
-            $self->writeConfFile(
-                "/etc/xl2tpd/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
-            $self->writeConfFile(
-                "/etc/ppp/zentyal-options.xl2tpd.$tunnel->{name}", "ipsec/options.xl2tpd.mas", \@params, $permissions);
-            $self->writeConfFile(
-                "/etc/init/zentyal-xl2tpd.$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+        if ($validationGroup) {
+            push (@params, group => "$workgroup\\\\$validationGroup");
+            push (@params, chap => 0);
+        } else {
+            push (@params, group => undef);
+            push (@params, chap => 1);
         }
+        push (@params, tunnel => $tunnel);
+
+        $self->writeConfFile(
+            "/etc/xl2tpd/$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
+        $self->writeConfFile(
+            "/etc/ppp/$tunnel->{name}.options", "ipsec/options.xl2tpd.mas", \@params, $permissions);
+        $self->writeConfFile(
+            "/etc/init/$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
+
     }
 }
 

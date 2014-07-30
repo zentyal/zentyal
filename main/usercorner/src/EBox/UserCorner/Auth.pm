@@ -234,9 +234,11 @@ sub credentials
     my $r = Apache2::RequestUtil->request();
 
     my $user = $r->user();
+    if (not $user) {
+        throw EBox::Exceptions::DataNotFound(data => 'request', value => 'user');
+    }
 
     my $session_info = EBox::UserCorner::Auth->key($r);
-
     if ($session_info) {
         return _credentials($user, $session_info);
     }

@@ -800,7 +800,7 @@ sub _enableInnoDBIfNeeded
 {
     my ($self) = @_;
 
-    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+    if (system ("echo \"SHOW VARIABLES LIKE 'have_innodb'\" | sudo mysql --defaults-file=/etc/mysql/debian.cnf | grep -q DISABLED") == 0) {
         EBox::Sudo::root(
             "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
             "restart mysql"

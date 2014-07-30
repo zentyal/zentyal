@@ -17,5 +17,5 @@ refuse chap = yes
 refuse pap = yes
 require authentication = yes
 ppp debug = yes
-pppoptfile = /etc/ppp/zentyal-options.xl2tpd.<% $tunnel->{name} %>
+pppoptfile = /etc/ppp/<% $tunnel->{name} %>.options
 length bit = yes

@@ -3,23 +3,22 @@
 <%args>
         $hostname
         $mailname
-        $bindDN
-        $bindPW
-
-        $vdomainDN
 
         $relay
         $relayAuth
 
         $allowed
         $maxmsgsize
-        $aliasDN
         $vmaildir
-        $baseDN
         $uidvmail
         $gidvmail
 
-        $ldap
+        $valiasesFile
+        $groupaliasesFile
+        $mailboxFile
+        $vdomainsFile
+        $loginFile
+
         $filter
         $ipfilter
         $portfilter
@@ -64,8 +63,6 @@ $submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetwork
 
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
-
-my $ldapServer = 'localhost:' . $ldap->{port};
 </%init>
 
 # require helo
@@ -125,39 +122,14 @@ inet_interfaces = all
 
 # Virtual Aliases
 virtual_alias_domains = $virtual_alias_maps
-virtual_alias_maps = ldap:valiases
-valiases_server_host = <% $ldapServer %>
-valiases_version = 3
-valiases_search_base = <% $aliasDN %>
-valiases_query_filter = (&(|(mail=%s)(mail=@%s))(objectClass=CourierMailAlias))
-valiases_result_attribute = maildrop
-valiases_bind = yes
-valiases_bind_dn = <% $bindDN %>
-valiases_bind_pw = <% $bindPW %>
+virtual_alias_maps = ldap:<% $valiasesFile %>,ldap:<% $groupaliasesFile %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
 virtual_transport = dovecot
 virtual_mailbox_base = <% $vmaildir %>
-virtual_mailbox_maps= ldap:ldapvirtualmap
-ldapvirtualmap_server_host = <% $ldapServer %>
-ldapvirtualmap_version = 3
-ldapvirtualmap_search_base = <% $baseDN %>
-ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
-ldapvirtualmap_result_attribute = mailbox
-ldapvirtualmap_bind = yes
-ldapvirtualmap_bind_dn = <% $bindDN %>
-ldapvirtualmap_bind_pw = <% $bindPW %>
-
-virtual_mailbox_domains = ldap:vmaildomains
-vmaildomains_server_host = <% $ldapServer %>
-vmaildomains_version = 3
-vmaildomains_search_base =  <% $vdomainDN %>
-vmaildomains_query_filter = (&(objectclass=domain)(dc=%s))
-vmaildomains_result_attribute = dc, maildrop
-vmaildomains_bind = yes
-vmaildomains_bind_dn = <% $bindDN %>
-vmaildomains_bind_pw = <% $bindPW %>
+virtual_mailbox_maps= ldap:<% $mailboxFile %>
+virtual_mailbox_domains = ldap:<% $vdomainsFile %>
 
 virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
@@ -185,15 +157,8 @@ smtpd_sasl_path = private/auth
 smtpd_sasl_local_domain =  $myorigin
 
 smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
-smtpd_sender_login_maps = ldap:senderlogin
-senderlogin_server_host = <% $ldapServer %>
-senderlogin_version = 3
-senderlogin_search_base = <% $baseDN %>
-senderlogin_query_filter = (&(mail=%s)(objectClass=CourierMailAccount))
-senderlogin_result_attribute = mail
-senderlogin_bind = yes
-senderlogin_bind_dn = <% $bindDN %>
-senderlogin_bind_pw = <% $bindPW %>
+smtpd_sender_login_maps = ldap:<% $loginFile %>
+
 
 
 % if ($filter) {

@@ -21,6 +21,7 @@
 use strict;
 use warnings;
 
+use EBox::Global::TestStub;
 use Test::More tests => 3;
 use Test::Exception;
 use Test::Deep;
@@ -29,16 +30,12 @@ use Data::Dumper;
 use EBox::Global;
 use EBox;
 
-use lib '../..';
-
-diag ( 'Starting EBox::TrafficShaping test' );
-
 BEGIN {
   use_ok ( 'EBox::TrafficShaping' )
     or die;
+  EBox::Global::TestStub::fake();
 }
 
-EBox::init();
 
 my $ts;
 lives_ok {

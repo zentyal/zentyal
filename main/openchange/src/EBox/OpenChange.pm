@@ -67,6 +67,22 @@ sub initialSetup
     my ($self, $version) = @_;
 
     $self->_migrateFormKeys();
+
+    if (defined($version)
+            and (EBox::Util::Version::compare($version, '3.2') < 0)) {
+        $self->_migrateOutgoingDomain();
+    }
+}
+
+# Migration of form keys after extracting the rewrite rule for outgoing domain
+# from the provision form.
+#
+sub _migrateOutgoingDomain
+{
+  my ($self) = @_;
+
+  my $oldKeyValue = $self->get('Provision/keys/form');
+  $self->set('Configuration/keys/form', $oldKeyValue);
 }
 
 # Migration of form keys to better names (between development versions)
@@ -169,16 +185,6 @@ sub _daemons
     return $daemons;
 }
 
-# Method: addModuleStatus
-#
-#   Hides Openchange from the Dashboard.
-#
-# Overrides: <EBox::Module::Service::addModuleStatus>
-#
-sub addModuleStatus
-{
-}
-
 # Method: isRunning
 #
 #   Links Openchange running status to Samba status.
@@ -202,8 +208,7 @@ sub isRunning
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
-    #return $self->isProvisioned();
-    return 0;
+    return $self->isProvisioned();
 }
 
 sub usedFiles
@@ -219,11 +224,11 @@ sub usedFiles
            reason => __('To configure sogo parameters'),
            module => 'openchange'
        },
-#       {
-#           file => OCSMANAGER_CONF_FILE,
-#           reason => __('To configure autodiscovery service'),
-#           module => 'openchange'
-#       }
+       {
+           file => OCSMANAGER_CONF_FILE,
+           reason => __('To configure autodiscovery service'),
+           module => 'openchange'
+       }
       );
 
     return \@files;
@@ -236,8 +241,32 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-#    $self->_setAutodiscoverConf();
+    $self->_setAutodiscoverConf();
     $self->_writeRewritePolicy();
+
+    $self->_setupActiveSync();
+}
+
+sub _setupActiveSync
+{
+    my ($self) = @_;
+
+    my $enabled = (-f '/etc/apache2/conf.d/zentyal-activesync.conf');
+    my $enable = $self->_activesyncEnabled();
+    if ($enable) {
+        EBox::Sudo::root('ln -sf /etc/apache2/conf-available/zentyal-activesync.conf /etc/apache2/conf.d/');
+    } else {
+        EBox::Sudo::root('rm -f /etc/apache2/conf.d/zentyal-activesync.conf');
+    }
+    if ($enabled xor $enable) {
+        my $global = $self->global();
+        $global->modChange('webserver');
+        if ($global->modExists('sogo')) {
+            my @postSaveModules = @{$global->get_list('post_save_modules')};
+            push (@postSaveModules, 'sogo');
+            $global->set('post_save_modules', \@postSaveModules);
+        }
+    }
 }
 
 sub _writeSOGoDefaultFile
@@ -360,20 +389,22 @@ sub _writeRewritePolicy
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my $defaultDomain = $sysinfo->hostDomain();
+    if ($self->isProvisioned()) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $defaultDomain = $sysinfo->hostDomain();
 
-    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+        my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 
-    my @rewriteParams;
-    push @rewriteParams, ('defaultDomain' => $defaultDomain);
-    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+        my @rewriteParams;
+        push @rewriteParams, ('defaultDomain' => $defaultDomain);
+        push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-    $self->writeConfFile(REWRITE_POLICY_FILE,
-        'openchange/rewriteDomainPolicy.mas',
-        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+        $self->writeConfFile(REWRITE_POLICY_FILE,
+            'openchange/rewriteDomainPolicy.mas',
+            \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
 
-    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+        EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+    }
 }
 
 # Method: menu
@@ -387,15 +418,19 @@ sub menu
     my $separator = 'Communications';
     my $order = 900;
 
-    $root->add(
-        new EBox::Menu::Item(
-            name => 'OpenChange',
-            icon => 'openchange',
-            text => $self->printableName(),
-            separator => $separator,
-            url       => 'OpenChange/View/Provision',
-            order     => $order)
-    );
+    my $folder = new EBox::Menu::Folder(
+        name => 'OpenChange',
+        icon => 'openchange',
+        text => $self->printableName(),
+        separator => $separator,
+        order => $order);
+
+    $folder->add(new EBox::Menu::Item(
+        url       => 'OpenChange/Composite/General',
+        text      => __('Setup'),
+        order     => 0));
+
+    $root->add($folder);
 }
 
 sub _ldapModImplementation
@@ -604,6 +639,12 @@ sub organizations
     }
 
     return $list;
+}
+
+sub _activesyncEnabled
+{
+    my ($self) = @_;
+    return $self->model('Configuration')->value('activesync');
 }
 
 1;

@@ -1,4 +1,7 @@
-HEAD
+3.2-sp2
+    + Use Server Password to get the conf backup list
+    + Fix error message when trying to use DR with no commercial edition
+    + Fix parsing of the json when asking for the available server to recover
     + On a registration error, show error returned by remote
     + Update edition messages
     + Fix parsing of the json when asking for the available bundles

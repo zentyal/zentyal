@@ -21,6 +21,7 @@
 use strict;
 use warnings;
 
+use Test::More skip_all => 'FIXME';
 use Data::Dumper;
 use EBox;
 use EBox::Global;

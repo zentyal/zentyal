@@ -1,4 +1,29 @@
-HEAD
+3.2.14
+	+ Escape double quotes in non-editable text fields
+3.2.13
+	+ Fixed dashboard links to official manual
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
+3.2.12
+	+ EBox::Types::DomainName always return lowercase values
+	+ EBox::Types::Host always return lowercase values
+	+ Added helper script to improve crash reports
+3.2.11
+	+ Enhanced Lock to have exclusive lock with blocking timeout
+	+ Added redirection on no parameters support to CGIs
+	+ Added and used in save changes process the method Zentyal.reloadTable
+	+ Added setMessage() and popMessageAndClass() methods to TreeView
+	+ Enable InnoDB engine when there are only 4 previous databases
+3.2.10
+	+ Added zentyal-sogo icon
+	+ EBox::WebServer::removeNginxInclude does not longer throws
+	  a exception if the path to remove is not included
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
+	+ Support for redirection when loading URL in existent dialog
+	+ Fix dashboard UI freeze when widgets were being updated
+	+ More tolerant referer validation so we can access to submodels
+	  with an URL
 	+ Fixed revert of changes in redisvi
 	+ Better input validation in EBox::Conf::Redis::import_dir_from_file
 3.2.9

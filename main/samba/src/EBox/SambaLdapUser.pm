@@ -134,6 +134,7 @@ sub _preAddOuFailed
 sub _delOU
 {
     my ($self, $zentyalOU) = @_;
+
     $self->_sambaReady() or
         return;
 
@@ -393,27 +394,32 @@ sub _delUser
     EBox::debug("Deleting user '$dn' from samba");
     try {
         $sambaUser->deleteObject();
-
-        # Remove user from share ACL's
-        my $shares = $self->{samba}->model('SambaShares');
-        my $sharesIds = $shares->ids();
-        foreach my $shareId (@{$sharesIds}) {
-            my $shareRow = $shares->row($shareId);
-            my $acls = $shareRow->subModel('access');
-            my $aclsIds = $acls->ids();
-            foreach my $aclId (@{$aclsIds}) {
-                my $aclRow = $acls->row($aclId);
-                my $type = $aclRow->elementByName('user_group');
-                if ($type->selectedType() eq 'user' and
-                    $type->printableValue() eq $samAccountName) {
-                    $acls->removeRow($aclId);
-                }
-            }
-        }
+        $self->removeFromShareACLs($samAccountName);
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting user: $error");
     };
+}
+
+sub removeFromShareACLs
+{
+    my ($self, $name) = @_;
+
+    my $shares = $self->{samba}->model('SambaShares');
+    my $sharesIds = $shares->ids();
+    foreach my $shareId (@{$sharesIds}) {
+        my $shareRow = $shares->row($shareId);
+        my $acls = $shareRow->subModel('access');
+        my $aclsIds = $acls->ids();
+        foreach my $aclId (@{$aclsIds}) {
+            my $aclRow = $acls->row($aclId);
+            my $type = $aclRow->elementByName('user_group');
+            if (($type->selectedType() eq 'user' or $type->selectedType() eq 'group') and
+                ($type->printableValue() eq $name)) {
+                $acls->removeRow($aclId);
+            }
+        }
+    }
 }
 
 # Method: _preAddContact
@@ -600,31 +606,32 @@ sub _membersToSamba
     }
 
     foreach my $memberUniqueID (keys %sambaMembers) {
-        my $canonicalName = $sambaMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $zentyalMembers{$memberUniqueID}) {
-            EBox::info("Removing member '$canonicalName' from Samba group '$gid'");
+            my $sambaMember = $sambaMembers{$memberUniqueID};
+            my $sambaMemberDN = $sambaMember->dn();
+            EBox::info("Removing member '$sambaMemberDN' from Samba group '$gid'");
             try {
-                $sambaGroup->removeMember($sambaMembers{$memberUniqueID}, 1);
+                $sambaGroup->removeMember($sambaMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error removing member '$canonicalName' from Samba group '$gid': $error");
+                EBox::error("Error removing member '$sambaMemberDN' from Samba group '$gid': $error");
             };
          }
     }
 
     foreach my $memberUniqueID (keys %zentyalMembers) {
-        my $canonicalName = $zentyalMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $sambaMembers{$memberUniqueID}) {
-            EBox::info("Adding member '$canonicalName' to Samba group '$gid'");
             my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberUniqueID});
+            my $sambaMemberDN = $sambaMember->dn();
+            EBox::info("Adding member '$sambaMemberDN' to Samba group '$gid'");
             unless ($sambaMember and $sambaMember->exists()) {
                 if ($zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Users') or
                     $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Contact') or
                     $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Group')) {
-                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because the member does not exist");
+                    EBox::error("Cannot add member '$sambaMemberDN' to Samba group '$gid' because the member does not exist");
                     next;
                 } else {
-                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because it's not a known object.");
+                    EBox::error("Cannot add member '$sambaMemberDN' to Samba group '$gid' because it's not a known object.");
                     next;
                 }
             }
@@ -632,7 +639,7 @@ sub _membersToSamba
                 $sambaGroup->addMember($sambaMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding member '$canonicalName' to Samba group '$gid': $error");
+                EBox::error("Error adding member '$sambaMemberDN' to Samba group '$gid': $error");
             };
         }
     }
@@ -727,10 +734,10 @@ sub _addGroup
         } elsif ($sambaGroup->isSecurityGroup()) {
             $sambaGroup->setSecurityGroup(0, $lazy);
         }
-        my $sambaMembersDNs = $self->_membersToSamba($sambaGroup, $zentyalGroup, $lazy);
         $sambaGroup->save();
     } else {
-        throw EBox::Exceptions::Internal("Unable to find the samba group for " . $zentyalGroup->canonicalName(1));
+        my $zentyalGroupDN = $zentyalGroup->dn();
+        throw EBox::Exceptions::Internal("Unable to find the samba group for " . $zentyalGroupDN);
     }
 }
 
@@ -796,6 +803,7 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $zentyalGroup) = @_;
+
     $self->_sambaReady() or
         return;
 
@@ -815,26 +823,10 @@ sub _delGroup
     EBox::debug("Deleting group '$dn' from samba");
     try {
         $sambaGroup->deleteObject();
+        $self->removeFromShareACLs($samAccountName);
 
-        # Remove group from shares ACLs
-        my $shares = $self->{samba}->model('SambaShares');
-        my $sharesIds = $shares->ids();
-        foreach my $shareId (@{$sharesIds}) {
-            my $shareRow = $shares->row($shareId);
-            my $acls = $shareRow->subModel('access');
-            my $aclsIds = $acls->ids();
-            foreach my $aclId (@{$aclsIds}) {
-                my $aclRow = $acls->row($aclId);
-                my $type = $aclRow->elementByName('user_group');
-                if ($type->selectedType() eq 'group' and
-                    $type->printableValue() eq $samAccountName) {
-                    $acls->removeRow($aclId);
-                }
-            }
-        }
-
-        if ($self->_groupShareEnabled($zentyalGroup)) {
-            $self->removeGroupShare($zentyalGroup);
+        if ($self->_groupShareEnabled($samAccountName)) {
+            $self->removeGroupShare($samAccountName);
         }
     } otherwise {
         my ($error) = @_;
@@ -854,9 +846,8 @@ sub _delGroup
 #
 sub _groupShareEnabled
 {
-    my ($self, $zentyalGroup) = @_;
+    my ($self, $groupName) = @_;
 
-    my $groupName = $zentyalGroup->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
     foreach my $id (@{$sharesModel->ids()}) {
         my $row = $sharesModel->row($id);
@@ -876,10 +867,10 @@ sub setGroupShare
         throw EBox::Exceptions::External("A name should be provided for the share.");
     }
 
-    my $oldName = $self->_groupShareEnabled($group);
+    my $groupName = $group->name();
+    my $oldName = $self->_groupShareEnabled($groupName);
     return if ($oldName and $oldName eq $shareName);
 
-    my $groupName = $group->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
 
     # Create or rename the share for the group
@@ -911,9 +902,8 @@ sub setGroupShare
 
 sub removeGroupShare
 {
-    my ($self, $zentyalGroup) = @_;
+    my ($self, $groupName) = @_;
 
-    my $groupName = $zentyalGroup->get('cn');
     my $sharesModel = $self->{samba}->model('SambaShares');
     my $row = $sharesModel->findValue(groupShare => $groupName);
     $sharesModel->removeRow($row->id()) if $row;
@@ -927,7 +917,8 @@ sub _groupAddOns
                    $self->{samba}->isEnabled() and
                    $self->{samba}->isProvisioned());
 
-    my $share = $self->_groupShareEnabled($zentyalGroup);
+    my $groupName = $zentyalGroup->name();
+    my $share = $self->_groupShareEnabled($groupName);
     my $args =  {
         'groupname' => $zentyalGroup->dn(),
         'share'     => $share,

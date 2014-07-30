@@ -216,8 +216,8 @@ sub members
     }
 
     @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
+        my $aValue = $a->dn();
+        my $bValue = $b->dn();
         (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
     } @members;
 

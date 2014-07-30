@@ -532,60 +532,68 @@ sub deleteData
 
 # Group: Private methods
 
+sub _fwRulesInPlace
+{
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    my $fw     = $global->modInstance('firewall');
+    if (not $fw) {
+        return 0;
+    }
+    if ((not $fw->isEnabled) or ($fw->needsSaveAfterConfig())) {
+        return 0;
+    }
+
+    EBox::Sudo::silentRoot("iptables -L ointernal");
+    return ($? == 0);
+}
+
 # Open up the HTTPS connections
 sub _openHTTPSConnection
 {
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('firewall') ) {
-        my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
-            eval "use EBox::Iptables";
-            my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
-            my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
-            if ( $matches < 1 ) {
-                my $site = EBox::RemoteServices::Configuration::APIEndPoint();
-                try {
-                    EBox::Sudo::root(
-                        EBox::Iptables::pf(
-                            "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
-                           )
-                         );
-                } catch EBox::Exceptions::Sudo::Command with {
-                    throw EBox::Exceptions::External(
-                        __x('Cannot contact to {host}. Check your connection to the Internet',
-                            host => $site));
-                };
-                my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
+    if ($self->_fwRulesInPlace()) {
+        eval "use EBox::Iptables";
+        my $output = EBox::Sudo::root(EBox::Iptables::pf('-L ointernal'));
+        my $matches = scalar(grep { $_ =~ m/dpt:https/g } @{$output});
+        if ( $matches < 1 ) {
+            my $site = EBox::RemoteServices::Configuration::APIEndPoint();
+            try {
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
-                        "-A ointernal -p udp -d $dnsServer --dport 53 -j oaccept"
+                        "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
                        )
-                    );
-            }
-        }
-    }
-
-}
-
-# Close down HTTPS connections and open up VPN one
-sub _openVPNConnection #(ipaddr, port, protocol)
-{
-    my ($self, $ipAddr, $port, $protocol) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('firewall') ) {
-        my $fw = $gl->modInstance('firewall');
-        if ( $fw->isEnabled() and not $fw->needsSaveAfterConfig()) {
-            eval "use EBox::Iptables";
+                     );
+            } catch EBox::Exceptions::Sudo::Command with {
+                throw EBox::Exceptions::External(
+                    __x('Cannot contact to {host}. Check your connection to the Internet',
+                        host => $site));
+            };
+            my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
             EBox::Sudo::root(
                 EBox::Iptables::pf(
-                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j oaccept"
+                    "-A ointernal -p udp -d $dnsServer --dport 53 -j oaccept"
                    )
                  );
         }
     }
+}
+
+# Close down HTTPS connections and open up VPN one
+sub _openVPNConnection
+{
+    my ($self, $ipAddr, $port, $protocol) = @_;
+
+    if ($self->_fwRulesInPlace) {
+        eval "use EBox::Iptables";
+        EBox::Sudo::root(
+            EBox::Iptables::pf(
+                "-A ointernal -p $protocol -d $ipAddr --dport $port -j oaccept"
+               )
+             );
+    }
+
 }
 
 # Try to install zentyal-cloud-prof package 10 times during 50 minutes

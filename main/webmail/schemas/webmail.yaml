@@ -4,6 +4,9 @@ enabledepends:
     - mail
     - webserver
 
+depends:
+    - mail
+
 models:
     - Options
     - OperationMode

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc test-net-ldap soap-lite string-shellquote string-random"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc test-net-ldap soap-lite string-shellquote string-random test-sharedfork"
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter trafficshaping"
 
 while getopts ":vjsc" opt; do
     case $opt in
@@ -43,8 +43,11 @@ done
 
 if [ -n "$MISSINGLIBS" ]
 then
-    echo -e "The following packages are not installed:\n $MISSINGLIBS"
-    echo -e "Installing them..."
+    if [ "$JUNIT" != "yes" ]
+    then
+        echo -e "The following packages are not installed:\n $MISSINGLIBS"
+        echo -e "Installing them..."
+    fi
     export DEBIAN_FRONTEND=noninteractive
     sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
 fi
@@ -56,8 +59,12 @@ INCLUDES=$(find . -name src|sed 's/.\//-I /'|xargs)
 
 # Create the modules directory
 CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
-rm -f $CONF_DIR/*
+sudo rm -f $CONF_DIR/*
+sudo rm -r $CONF_DIR
 export ZENTYAL_MODULES_SCHEMAS
+
+#Temporary fix to permissions problems with this folder
+sudo chmod 777 /var/lib/zentyal/tmp
 
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;

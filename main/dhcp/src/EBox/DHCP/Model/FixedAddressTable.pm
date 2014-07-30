@@ -260,8 +260,7 @@ sub addresses
         my $row   = $self->row($id);
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
-        # TODO: Restore this when more than one config per interface is possible
-        $addrs{$objId} = { options => {},#$self->_thinClientOptions($iface, $objId),
+        $addrs{$objId} = { options => $self->parentModule()->_thinClientOptions($iface, $objId),
                            members => [] };
 
         foreach my $member (@{$mbs}) {

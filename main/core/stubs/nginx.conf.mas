@@ -103,11 +103,9 @@ http {
 
         root /usr/share/zentyal/www;
 
-        location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to proxy.
-            try_files $uri @proxy;
-        }
+        # First attempt to serve request as file, then
+        # as directory, then fall back to proxy.
+        try_files $uri @proxy;
 
         #error_page 404 /404.html;
 
@@ -122,14 +120,17 @@ http {
         location = /errors/502.html {
            root /usr/share/zentyal/www;
         }
-        location = /js/jquery-1.9.1.js {
-           root /usr/share/zentyal/www;
+
+        location /data/ {
+            root /usr/share/zentyal/www;
+            rewrite  ^/data/(.*)$  /$1  break;
+            return   403;
         }
-        location = /images/ajax-loader.gif {
-           root /usr/share/zentyal/www;
-        }
-        location = /favicon.ico {
-           root /usr/share/zentyal/www;
+
+        location /dynamic-data/ {
+            root /var/lib/zentyal/dynamicwww/;
+            rewrite  ^/dynamic-data/(.*)$  /$1  break;
+            return   403;
         }
 
 
@@ -149,9 +150,6 @@ http {
             proxy_redirect     off;
         }
 
-        location ~ /\.ht {
-           deny all;
-        }
 % foreach my $includeFile (@includes) {
 
         include <% $includeFile %>;

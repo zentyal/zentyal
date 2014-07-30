@@ -71,7 +71,7 @@ then
     if [ -f /tmp/RECOVER_MODE ]
     then
         servers=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
-        echo $servers | sed "s/, /\n/g" | grep : | cut -d\" -f2 | tr ':' '-' | sort > $DATA_DIR/PARSED_SERVERS
+        echo $servers | sed "s/, /\n/g" | grep : | cut -d\" -f2 | sed 's/:/ -/g' | sort > $DATA_DIR/PARSED_SERVERS
         choices=$(cat $DATA_DIR/PARSED_SERVERS | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
 
         db_subst zinstaller-remote/select_hostname_recover CHOICES "$choices"
@@ -150,6 +150,7 @@ then
         QA_USERNAME="$COMPANY-$SERVERNAME"
         UUID=$(get_field "$RESPONSE" uuid)
         QA_PASSWORD=$(echo $UUID | sed 's/-//g')
+        SERVER_PASSWORD=$(get_field "$RESPONSE" password)
 
         echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
         echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
@@ -171,7 +172,7 @@ if [ -f /tmp/RECOVER_MODE ]
 then
     if [ "$EDITION" = "commercial" ]
     then
-        RESPONSE=$(curl -u $UUID:$QA_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
+        RESPONSE=$(curl -u $UUID:$SERVER_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
         if [ $? -eq 0 ] && [ -z "$RESPONSE" ]
         then
             db_input high zinstaller-remote/error_backups

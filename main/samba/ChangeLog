@@ -1,4 +1,28 @@
-HEAD
+3.2.22
+	+ Do not abort and throw exception on the first error setting ACLs on
+	  shares. Now the process will continue and will throw an exception at
+	  the end.
+3.2.21
+	+ Backup/restore s4sync timestamp
+	+ Disabled nmbd logging
+3.2.20
+	+ Improve save changes speed avoiding loop in postServiceHook if no changes
+	  made to roaming profiles
+3.2.19
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
+3.2.18
+	+ EBox::Samba::DNS::Zone always return lowercase zone name
+3.2.17
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
+	+ s4sync: Remove the group share if exists after deleting the group itself
+	+ s4sync: Remove the deleted user or group from shares ACLs
+3.2.16
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
+3.2.15
+	+ Remove the use of method canonicalName for greater performance, use
+	  object DNs instead
 	+ s4sync is stopped before samba daemon to prevent ldb connection errors
 	+ s4sync run timestamp is saved only if it doesn't break with an error at
 	  the end of the work loop

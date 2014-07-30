@@ -28,6 +28,7 @@ use base qw(EBox::Module::Service
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
@@ -281,33 +282,43 @@ sub _postServiceHook
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
-        # overwritting already existing per-user settings. Also skip if
-        # unmanaged_home_directory config key is defined
-        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        # overwritting already existing per-user settings. 
         unless ($self->mode() eq 'adc') {
             EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $drive = $self->drive();
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
             my $users = $self->ldb->users();
-            foreach my $user (@{$users}) {
-                unless ($self->ldapObjectFromLDBObject($user)) {
-                    # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
-                    EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
-                    next;
-                }
 
-                # Set roaming profiles
-                if ($self->roamingProfiles()) {
-                    my $path = "\\\\$netbiosName.$realmName\\profiles";
-                    $user->setRoamingProfile(1, $path, 1);
-                } else {
-                    $user->setRoamingProfile(0, undef, 1);
-                }
+            # Skip if unmanaged_home_directory config key is defined and
+            # no changes made to roaming profiles
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+            my $state = $self->get_state();
+            my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
+            $self->set_state($state);
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
+                foreach my $user (@{$users}) {
+                    unless ($self->ldapObjectFromLDBObject($user)) {
+                        # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
+                        EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
+                        next;
+                    }
 
-                # Mount user home on network drive
-                my $drivePath = "\\\\$netbiosName.$realmName";
-                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
-                $user->save();
+                    # Set roaming profiles
+                    if ($roamingProfilesChanged) {
+                        if ($self->roamingProfiles()) {
+                            $user->setRoamingProfile(1, $profilesPath, 1);
+                        } else {
+                            $user->setRoamingProfile(0, undef, 1);
+                        }
+                    }
+
+                    # Mount user home on network drive
+                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
+                    $user->save();
+                }
             }
         }
 
@@ -318,15 +329,19 @@ sub _postServiceHook
         my $sambaShares = $self->model('SambaShares');
         my $domainSID = $self->ldb()->domainSID();
         my $domainAdminSID = "$domainSID-500";
+        my $domainAdminsSID = "$domainSID-512";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
+        my $domainGuestSID = "$domainSID-501";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
-        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
+        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID,
+            $domainAdminsSID, $systemSID);
         my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
         my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
         my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
         my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+        my $setDescriptorError;
         for my $id (@{$sambaShares->ids()}) {
             my $row = $sambaShares->row($id);
             my $enabled     = $row->valueByName('enabled');
@@ -381,10 +396,20 @@ sub _postServiceHook
                 my $ace = new Samba::Security::AccessControlEntry(
                     $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
-                # Add read/write access for Domain Guests
+                # Add read/write access for Domain Guest user
                 my $ace2 = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                    $domainGuestSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace2);
+
+                # Add read/write access for Domain Guests group
+                my $ace3 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace3);
+
+                # Add everybody read/write access
+                my $ace4 = new Samba::Security::AccessControlEntry(
+                    'S-1-1-0', SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace4);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
@@ -441,8 +466,17 @@ sub _postServiceHook
                              FILE_ATTRIBUTE_HIDDEN |
                              FILE_ATTRIBUTE_READONLY |
                              FILE_ATTRIBUTE_SYSTEM;
-            EBox::debug("Setting NT ACL on file: $relativeSharePath");
-            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+
+            try {
+                EBox::debug("Setting NT ACL on share $shareName");
+                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            } otherwise {
+                my ($ex) = @_;
+                EBox::error(__x("Error setting security descriptor on share '{x}': {y}",
+                    x => $shareName, y => $ex));
+                $setDescriptorError = 1;
+            };
+
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath,
                 attributes => $attributes, recursive => 1);
@@ -453,8 +487,15 @@ sub _postServiceHook
             foreach my $item (@{$shareContentList}) {
                 my $itemName = $item->{name};
                 $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug("Setting NT ACL on file: $itemName");
-                $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                try {
+                    EBox::debug("Setting NT ACL on $shareName/$itemName");
+                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                } otherwise {
+                    my ($ex) = @_;
+                    EBox::error(__x("Error setting security descriptor on file {x}{y}: {z}",
+                        x => $shareName, y => $itemName, z => $ex));
+                    $setDescriptorError = 1;
+                };
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
@@ -469,6 +510,13 @@ sub _postServiceHook
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+
+        # Throw exception if errors setting NT ACLs
+        if ($setDescriptorError) {
+            throw EBox::Exceptions::External(
+                __("There were errors setting ACLs on shares, " .
+                   "please check the zentyal log."));
+        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
@@ -895,7 +943,7 @@ sub recycleConfig
 
     my $conf = {};
     my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
-                'maxsize', 'exclude', 'excludedir', 'noversions');
+                'maxsize', 'exclude', 'excludedir', 'noversions', 'inherit_nt_acl');
 
     foreach my $key (@keys) {
         my $value = EBox::Config::configkey($key);
@@ -1482,6 +1530,12 @@ sub dumpConfig
         push (@cmds, "tar pcjf $dir/sysvol.tar.bz2 --hard-dereference -C $mirror sysvol");
     }
 
+    # Backup s4sync timestamp
+    my $ts = EBox::Config::home() . '.s4sync_ts';
+    if (EBox::Sudo::fileTest('-f', $ts)) {
+        EBox::Sudo::root("cp '$ts' $dir");
+    }
+
     try {
         EBox::Sudo::root(@cmds);
     } otherwise {
@@ -1554,6 +1608,12 @@ sub restoreConfig
     if (EBox::Sudo::fileTest('-f', "$dir/samba.passwd")) {
         EBox::Sudo::root("cp $dir/samba.passwd " . EBox::Config::conf());
         EBox::Sudo::root("chmod 0600 $dir/samba.passwd");
+    }
+
+    # Restore stashed s4sync timestamp
+    if (EBox::Sudo::fileTest('-f', "$dir/.s4sync_ts")) {
+        EBox::Sudo::root("cp $dir/.s4sync_ts " . EBox::Config::home());
+        EBox::Sudo::root("chmod 0600 $dir/.s4sync_ts");
     }
 
     # Set provisioned flag

@@ -1312,10 +1312,10 @@ sub users
         scope => 'sub',
     );
 
-    my $result = $self->ldap->search(\%args);
+    my $entries = $self->ldap->pagedSearch(\%args);
 
     my @users = ();
-    foreach my $entry ($result->entries)
+    foreach my $entry (@{ $entries })
     {
         my $user = $self->{userClass}->new(entry => $entry);
         # Include system users?
@@ -1845,10 +1845,13 @@ sub allUserAddOns
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
-        # Skip modules not support multiple OU, if not default OU
-        next unless ($mod->multipleOUSupport or $defaultOU);
+        my $comp;
+        if ($defaultOU or $mod->multipleOUSupport) {
+            $comp = $mod->_userAddOns($user);
+        } else {
+            $comp  = $mod->noMultipleOUSupportComponent($user);
+        }
 
-        my $comp = $mod->_userAddOns($user);
         if ($comp) {
             $comp->{id} = ref $mod;
             $comp->{id} =~ s/:/_/g;
@@ -2591,13 +2594,23 @@ sub ousToHide
 #
 #   If mail module is installed its checkMailNotInUse method should be called
 #   instead this one
+#
+# Warning: isAlias is needed for mailboxrelatedStuff which may force to have
+# mail and alias with the same value
 sub checkMailNotInUse
 {
-    my ($self, $addr) = @_;
+    my ($self, $addr, $isAlias) = @_;
     my $usersMod = $self->global()->modInstance('users');
+    my $filter;
+    if ($isAlias) {
+        $filter = "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias))(mail=$addr)";
+    } else {
+        $filter = "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)";
+    }
+
     my %searchParams = (
         base => $usersMod->ldap()->dn(),
-        filter => "&(|(objectclass=couriermailaccount)(objectclass=couriermailalias)(objectclass=zentyalDistributionGroup))(mail=$addr)",
+        filter => $filter,
         scope => 'sub'
     );
 

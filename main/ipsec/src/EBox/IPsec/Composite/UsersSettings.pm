@@ -44,4 +44,15 @@ sub _description
       return $description;
 }
 
+sub usersEnabled
+{
+    my ($self) = @_;
+    if ($self->componentByName('Users', 1)->validationGroup()) {
+        return 1;
+    } elsif ($self->componentByName('UsersFile', 1)->size() > 0) {
+        return 1;
+    }
+    return 0;
+}
+
 1;

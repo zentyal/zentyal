@@ -59,9 +59,11 @@ sub new
 #
 sub addAlias
 {
-    my ($self, $alias, $maildrop, $id) = @_;
+    my ($self, $alias, $maildrop, $id, $alreadyChecked) = @_;
 
-    $self->_checkAccountAlias($alias, $maildrop);
+    if (not $alreadyChecked) {
+        $self->_checkAccountAlias($alias, $maildrop);
+    }
 
     my $user = $self->_accountUser($maildrop);
     if (not $user) {
@@ -103,7 +105,7 @@ sub _checkAccountAlias
     my ($self, $alias, $maildrop) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('mail alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 1);
 
     # Verify maildrop is not an alias
     # (For now it is not allowed alias of aliases)
@@ -128,9 +130,8 @@ sub _checkAccountAlias
 sub addGroupAlias
 {
     my ($self, $alias, $group) = @_;
-
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
-    EBox::Global->modInstance('mail')->checkMailNotInUse($alias);
+    EBox::Global->modInstance('mail')->checkMailNotInUse($alias, 0, 1);
 
     my $mailUserLdap = EBox::MailUserLdap->new();
 
@@ -141,13 +142,14 @@ sub addGroupAlias
     my $first = 1;
     foreach my $mail (@mailAccounts) {
         if ($first) {
-            $self->addAlias($alias, $mail, $group->get('cn'));
+            $self->addAlias($alias, $mail, $group->get('cn'), 1);
             $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);
         }
     }
 
+    $group->{noUpdateAlias} = 1;
     $self->_addmailboxRelatedObject($alias, $group);
 }
 
@@ -157,13 +159,28 @@ sub _addmailboxRelatedObject
 
     return if $self->_mailboxRelatedObjectInGroup($group);
 
-    $group->add('objectClass', 'mailboxRelatedObject', 1);
-    my @currentMail = $group->get('mail');
-    if (not grep { $_ eq $alias  } @currentMail) {
-        $group->add('mail', $alias, 1) ;
+    if ((exists $group->{updateGroupAliases}) and $group->{updateGroupAliases}) {
+        return;
     }
 
-    $group->save();
+    my $changes = 0;
+
+    my @objectClass = $group->get('objectClass');
+    my $hasClass = grep { $_ eq 'mailboxRelatedObject' } @objectClass;
+    if (not $hasClass) {
+        $group->add('objectClass', 'mailboxRelatedObject', 1);
+        $changes = 1;
+    }
+
+    my $mail = $group->get('mail');
+    if (not $mail) {
+        $group->add('mail', $alias, 1) ;
+        $changes = 1;
+    }
+
+    if ($changes) {
+        $group->save();
+    }
 }
 
 sub _delmailboxRelatedObject
@@ -172,14 +189,19 @@ sub _delmailboxRelatedObject
 
     return unless $self->_mailboxRelatedObjectExists($alias);
 
+    if ((exists $group->{updateGroupAliases}) and $group->{updateGroupAliases}) {
+        return;
+    }
+
     my @classes = $group->get('objectClass');
-    my @mail = $group->get('mail');
-
-    @classes = grep { $_ ne 'mailboxRelatedObject' } @classes;
-    @mail = grep { $_ ne $alias } @mail;
-
+    @classes = grep { $_ ne 'mailboxRelatedObject'} @classes;
     $group->set('objectClass', \@classes, 1);
-    $group->set('mail', \@mail, 1);
+
+    my $mail = $group->get('mail');
+    if ($mail eq $alias) {
+        $group->delete('mail', 1);
+    }
+
     $group->save();
 }
 
@@ -358,10 +380,17 @@ sub updateGroupAliases
 {
     my ($self, $group) = @_;
 
+    my $noUpdateAlias = delete $group->{noUpdateAlias};
+    if ($noUpdateAlias) {
+        return;
+    }
+
+    $group->{updateGroupAliases} = 1;
     foreach my $alias (@{ $self->groupAliases($group) }) {
         $self->delAlias($alias);
         $self->addGroupAlias($alias, $group);
     }
+    delete $group->{updateGroupAliases};
 }
 
 # Method: addMaildrop
@@ -473,6 +502,7 @@ sub delGroupAlias
     my @aliases = @{$self->groupAliases($group)};
     if (@aliases and not $self->_mailboxRelatedObjectInGroup($group)) {
         $alias = shift @aliases;
+        $group->{noUpdateAlias} = 1;
         $self->_addmailboxRelatedObject($alias, $group);
     }
 }

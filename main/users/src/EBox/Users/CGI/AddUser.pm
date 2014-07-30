@@ -77,6 +77,12 @@ sub _process
         if ($params{group}) {
             $newUser->addGroup(new EBox::Users::Group(dn => $params{group}));
         }
+        if (length($params{uid}) >= 20) {
+            $users->model('Manage')->setMessage(
+                __(q|You have created a 20 or more characters username. Please keep in mind that some Microsoft Client OS's do not support such user lenght. If you plan this user to be logged in through a Windows Workstation, consider deleting it and creating it again with a shorter username|),
+                'warning'
+               );
+        }
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';

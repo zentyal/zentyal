@@ -1,6 +1,14 @@
-HEAD
+3.2.5
+	+ Added afterFwRestart method to firewall helper
+3.2.4
+	+ Use a blocking lock to get iptables resource on restart
+	  and stop to avoid other modules to get it
+	+ beforeFwRestart don't called on stopped or unconfigured modules
+	+ Added beforeFwRestart method to firewall helper
+3.2.3
 	+ Fixed crash when editing view in Summarized Report
 	+ Added EBox::Iptables::executeModuleRules to be able to execute
+	  rules from a given module calling this new method
 3.2.2
 	+ Removed code made dead by new managament of DHCP nameservers
 3.2.1

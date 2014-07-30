@@ -211,17 +211,17 @@ Zentyal.Dashboard.updateValue = function(element, item) {
     if (item.value_type === 'ajax') {
         $.ajax({
                          url: item.ajax_url,
-                         async: false,
                          dataType: 'json',
                          success: function(response) {
                             item.value = response.value;
                             element.removeClass().addClass('summary_value');
                             element.addClass('summary_' + response.type);
+
+                            item.value_type = "ajax_success";
+                            Zentyal.Dashboard.updateValue(element, item);
                          }
                    });
-    }
-
-    if (element.html() != item.value) {
+    } else if (element.html() != item.value) {
         element.html(item.value);
         element.effect('highlight');
     }

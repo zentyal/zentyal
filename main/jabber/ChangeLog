@@ -1,3 +1,6 @@
+HEAD
+	+ Added noMultipleOUSupportComponent support
+	+ Fixed jabber-ldap script
 3.2.1
 	+ Corrected getJabberAdmins to properly provide array of admins uid's
 3.2

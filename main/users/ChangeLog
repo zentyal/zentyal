@@ -1,6 +1,21 @@
 HEAD
 	+ Added necessary preconditions for external AD mode and user
 	  template menu entry hidden in that mode
+	+ Fixed possible bad mode instantation when restarting module
+	+ Adapt checking of existent mail to mailboxRelatedObject needs
+	+ Do not duplicate cloud ops when REST call fails
+	+ Display message when creating a user which username has more
+	  than 20 characters
+	+ Fixed error when editing user email address when mail module is
+	  not installed
+	+ Using paged serch in EBox::Users::users() method
+	+ Added EBox::LDAPBase::pagedSearch method
+	+ Added support for addon components when user is in a
+	  non-standard OU
+	+ Better control for edit user quota
+	+ Fixed bug when altering mail address through the edit user form
+	+ Better integration between mail addon and mail field
+	+ Remove method canonicalName and use object DNs for greater performance
 3.2.10
 	+ Added and used checkMailNotInUse method
 3.2.9

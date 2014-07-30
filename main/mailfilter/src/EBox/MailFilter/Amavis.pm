@@ -89,7 +89,8 @@ sub _daemon
 sub isEnabled
 {
     my ($self) = @_;
-    return 1;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    return $mailfilter->isEnabled();
 }
 
 # we ignore freshclam running state
@@ -133,7 +134,7 @@ sub writeConf
 
     push @masonParams, (allowedExternalMTAs => $self->allowedExternalMTAs);
 
-    push @masonParams, (ldapBase         =>  $ldap->dn );
+    push @masonParams, (ldapBase         =>  EBox::MailVDomainsLdap::VDOMAINDN() . ',' . $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
     push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
     push @masonParams, (ldapBindPasswd   =>  $ldap->getPassword());
@@ -165,6 +166,7 @@ sub writeConf
                      mode => '0640',
                      uid   => $uid,
                      gid   => $gid,
+                     force => 1,
                     };
 
     EBox::Module::Base::writeConfFileNoCheck(AMAVIS_CONF_FILE, '/mailfilter/amavisd.conf.mas', \@masonParams, $fileAttrs);
