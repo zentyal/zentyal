@@ -570,7 +570,7 @@ sub rules
                     # ignore rules for empty groups
                     next;
                 }
-                $rule->{users} = $users;
+                $rule->{users} = [ (map { $_->name() } @{$users}) ];
             } elsif ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
                 $rule->{adDN} = $source->value();
             }
