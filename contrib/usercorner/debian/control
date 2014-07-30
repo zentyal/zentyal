@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-usercorner
 Architecture: all
-Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0), zentyal-users,
+Depends: zentyal-users,
          libauthen-simple-ldap-perl, libcrypt-rijndael-perl, ${misc:Depends}
 Description: Zentyal - User Corner
  Zentyal is a Linux small business server that can act as

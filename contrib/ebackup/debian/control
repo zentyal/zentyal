@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-ebackup
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+Depends: zentyal-core,
          duplicity, libstring-shellquote-perl, libtimedate-perl,
          libdate-calc-xs-perl, cron, ncftp, sshpass, libterm-readkey-perl,
          ntpdate, python-paramiko, ${misc:Depends}

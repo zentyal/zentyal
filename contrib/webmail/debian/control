@@ -7,8 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-webmail
 Architecture: all
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
-         zentyal-webserver, zentyal-mail,
+Depends: zentyal-webserver, zentyal-mail,
          roundcube (>= 0.9.3-zentyal1), roundcube-mysql,
          roundcube-plugins, ${misc:Depends}
 Description: Zentyal - Web Mail Service
