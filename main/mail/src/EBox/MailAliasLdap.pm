@@ -162,7 +162,7 @@ sub addGroupAlias
     my $mail = $group->get('mail');
     if (not $mail) {
         throw EBox::Exceptions::External(
-            __x('Cannot create alias because group {name} has not mail acocunt set',
+            __x('Cannot create alias because group {name} does not mail acocunt set',
                 mail => $group->name
                )
         );
