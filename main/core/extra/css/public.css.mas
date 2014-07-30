@@ -1168,6 +1168,7 @@ a.minBox, a.maxBox {
 }
 #nav li.menuSeparator{
     border-top: none;
+    margin-top: 15px;
 }
 .separator {
     color: white;
@@ -1175,7 +1176,6 @@ a.minBox, a.maxBox {
     font-size: 12px;
     background: #888;
     padding: 10px 18px 10px 10px;
-    margin-top:15px;
     text-transform: uppercase;
 }
 
@@ -1314,96 +1314,154 @@ border-radius: 2px;
     border-radius: 5px;
 }
 
-/* Software styles */
+/***********************************************************************************************
 
-#software .feature {
-      display:inline-block;
-      padding-left:10px;
-      width: 355px;
-      height: 250px;
-}
-#software .image:hover {
-    cursor: pointer;
-}
-#software .close_button {
-    color: #666666;
-    font-size: 2em;
-    height: 25px;
-    line-height: 25px;
-    position: absolute;
-    right: 5px;
-    text-align: center;
-    text-decoration: none;
-    top: 5px;
-    width: 25px;
-}
-#software .close_button{
-    background-color: whitesmoke;
-    color: #333;
-}
+ Insatallation process
+
+ ***********************************************************************************************/
+
+
 #software #packages {
-    margin: 20px 0 10px 0;
-    padding: 10px 0;
+   overflow: hidden;
+}
+#software #packages h3{
+    clear: both;
+    float: left;
+    margin: 30px 0 0 0.5%;
+    width: 100%;
+    font-weight: 100;
+    font-size: 20px;
+}
+#software #packages ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
 }
 #software .package {
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border: 1px solid #cccccc;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 5px #CCCCCC;
-    display: inline-block;
-    height: 100px;
-    margin: 8px;
-    padding: 9px 5px;
-    text-align: center;
-    vertical-align: middle;
-    width: 111px;
-    background-color: white;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    box-shadow: 3px 3px 0px #CCCCCC;
+    float: left;
     position: relative;
+    height: 70px;
+    box-sizing: border-box;
+    width: 19%;
+    margin: 0.5% 0.5%;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    -moz-transition: box-shadow 0.2s, border-color 0.2s;
+    -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package:hover {
-    background: #ECF5DA;
+    border-color: <% $main_color %>;
     cursor: pointer;
+    box-shadow: 0px 0px 0px #CCCCCC;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    -moz-transition: box-shadow 0.2s, border-color 0.2s;
+    -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package img {
+    float: left;
     height: 32px;
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin: 18px;
     width: 32px;
 }
 #software .package p {
-    border-top: 1px dashed #dddddd;
     color: #333333;
     display: table-cell;
-    font-size: 12px;
-    height: 50px;
+    font-size: 13px;
+    height: 68px;
     vertical-align: middle;
-    width: 111px;
 }
-#software .package_selected, #software .package_selected:hover {
-    background: <% $progress_bar_bg_color %>;
+#software .package:after{
+    background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
+    border-radius: 25px;
+    height: 24px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 24px;
+    margin-top: -12px;
+    content: " ";
 }
-#software .selected {
-    border-style:solid;
-    border-width:1px;
-    color:#000000;
-    padding:5px 10px;
-    font-weight:normal;
+
+/* package status */
+
+#software .package_selected,
+#software .package_selected:hover {
+    border-color: <% $main_color %>;
+    box-shadow: 0px 0px 0px #CCCCCC;
 }
-.package_installed:before {
-content: " ";
-position: absolute;
-top: -5px;
-right: -5px;
-border-radius: 13px;
-border: 1px solid #fff;
-height: 22px;
-width: 22px;
-background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !important;
+#software .package_installed,
+#software .package_installed:hover{
+    border-color: #999;
+    box-shadow: 0px 0px 0px #CCCCCC;
 }
-.package_installed.package_selected{
-    background-color: transparent !important;
+#software .package_selected:after{
+    background-color:<% $main_color %>;
 }
+#software .package_installed:after{
+    background-color:#666;
+}
+
+/* package sizes */
+
+#software .package-medium{
+    width: 32.3333%;
+}
+#software .package-medium img{
+    height: 42px;
+    margin: 14px;
+    width: 42px;
+}
+#software .package-medium p{
+    height: 70px;
+    font-size: 20px;
+}
+#software .package-big{
+    width: 49%;
+    height: 100px;
+}
+#software .package-big img{
+    height: 70px;
+    margin: 15px;
+    width: 70px;
+}
+#software .package-big p{
+    height: 100px;
+    font-size: 25px;
+    padding-right: 100px;
+}
+#software .btn-block button{
+    margin-right: 0.5%;
+}
+
+#software .warning {
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+}
+
+/*  Installation steps */
+
+#nav.install-steps li{
+    padding: 15px 10px 15px 30px;
+    background-color: transparent;
+    background-position: 5px center ;
+    background-repeat: no-repeat;
+}
+#nav.install-steps li:last-child{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+#nav.install-steps .step-done{
+    background-image: url(/data/images/apply-g.gif);
+}
+#nav.install-steps .step-actual{
+    background-image: url(/data/images/f.gif);
+    font-weight: bold;
+}
+
+/*  Installation layout */
+
 .headcontainer{
     padding: 10px 0px;
     width:100%;
@@ -1580,6 +1638,14 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 }
 .help p, .note p, .ad p, .error p, .warning p, .adwarning p, .tip p, .emptynote p{
     margin-top: 0px;
+}
+.help p:last-child, .note p:last-child, .ad p:last-child, .error p:last-child, .warning p:last-child, .adwarning p:last-child, .tip p:last-child {
+    margin-bottom: 0;
+}
+.help h4, .note h4, .ad h4, .error h4, .warning h4, .adwarning h4, .tip h4 {
+    margin: 0;
+    padding: 0;
+    color: inherit;
 }
 .emptynote {
     background-color: #FAFAFA;
@@ -2073,6 +2139,15 @@ a.btn-only-icon{
     font-size: 18px !important;
     height: 50px !important;
     line-height: 50px !important;
+}
+
+/*** Buttons space ***/
+
+.btn-block{
+    margin: 20px 0px;
+}
+.btn-block .btn{
+    margin-left: 20px;
 }
 
 /*** DASHBOARD BTN ***/

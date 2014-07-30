@@ -1,3 +1,5 @@
+4.0
+	+ Set version to 4.0
 3.5
 	+ Remove bad usage of Error package
 	+ Use a blocking lock to get iptables resource on restart

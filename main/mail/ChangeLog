@@ -1,7 +1,7 @@
-3.5.3
+4.0
+	+ Set version to 4.0
 	+ Do not move mailbox to .bak if directory already exist
 	+ Migrate mboxes path to Maildir when upgrading from 3.4
-3.5.2
 	+ Fixed bug when removing virtual domain
 	+ Adding a virtual domain now can update old unmanaged accounts
 	+ Fixed errors related with users which has account on a umanaged domain
