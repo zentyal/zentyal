@@ -130,6 +130,19 @@ sub _host
 {
     my ($self) = @_;
     my $hosts = $self->parentModule()->rpcProxyHosts();
+
+    my $ca = $self->parentModule()->global()->modInstance('ca');
+
+    if (@{$hosts} > 1) {
+        # Second value is the domain
+        my $domainCert = $ca->getCertificateMetadata(cn => $hosts->[1]);
+        if ($domainCert and ($domainCert->{state} eq 'V')) {
+            my $matches = grep { $_->{value} eq $hosts->[0] } @{$domainCert->{subjAltNames}};
+            if ($matches == 0) {
+                return $hosts->[1];
+            }
+        }
+    }
     return $hosts->[0];
 }
 
