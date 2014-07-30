@@ -129,8 +129,7 @@ sub preconditionFailMsg
 sub _host
 {
     my ($self) = @_;
-    my $hosts = $self->parentModule()->_rpcProxyHosts();
-    # for now we have only one host
+    my $hosts = $self->parentModule()->rpcProxyHosts();
     return $hosts->[0];
 }
 

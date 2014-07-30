@@ -512,7 +512,7 @@ sub _setOCSManagerConf
     if ($self->_rpcProxyEnabled()) {
         my $externalHostname;
         try {
-            $externalHostname = $self->_rpcProxyHosts()->[0];
+            $externalHostname = $self->rpcProxyHosts()->[0];
             push (@{$confFileParams}, rpcProxyExternalHostname => $externalHostname);
         } catch ($ex) {
             EBox::error("Error getting hostname for RPC proxy: $ex");
@@ -565,10 +565,18 @@ sub _setCerts
     # Used for autodiscover, RPC/Proxy and EWS
     my $domainCert = $ca->getCertificateMetadata(cn => $domain);
     if (not $domainCert or ($domainCert->{state} ne 'V')) {
+        my $rpcProxyHost;
+        try {
+            $rpcProxyHost = $self->_rpcProxyHostForDomain($domain);
+        } catch (EBox::Exceptions::External $ex) {
+            my $hostName = $self->global()->modInstance('sysinfo')->hostName();
+            $rpcProxyHost = "${hostName}.$domain";
+            EBox::warn("Using $rpcProxyHost as RPC proxy host");
+        }
         $ca->issueCertificate(commonName => $domain,
                               endDate    => $caCert->{expiryDate},
                               subjAltNames => [ { type  => 'DNS',
-                                                  value => $self->_rpcProxyHostForDomain($domain) },
+                                                  value =>  $rpcProxyHost },
                                                 { type  => 'DNS',
                                                   value => "autodiscover.${domain}" } ]);
     }
@@ -916,7 +924,7 @@ sub _rpcProxyHostForDomain
 {
     my ($self, $domain) = @_;
     my $dns = $self->global()->modInstance('dns');
-    my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
+    my $domainExists = grep { $_->{name} eq $domain } @{ $dns->domains() };
     if (not $domainExists) {
         throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
                                              dom => $domain,
@@ -980,9 +988,14 @@ sub _rpcProxyDomain
     return $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 }
 
-# Return the valid RPC/Proxy hosts.
-# It calculates the hostname and the domain to use.
-sub _rpcProxyHosts
+# Method: rpcProxyHosts
+#
+# Returns:
+#
+#     Array ref - Return the valid RPC/Proxy hosts.
+#                 It calculates the hostname and the domain to use.
+#
+sub rpcProxyHosts
 {
     my ($self) = @_;
     my @hosts;
@@ -1013,7 +1026,7 @@ sub HAProxyInternalService
 
     my $hosts;
     try {
-        $hosts = $self->_rpcProxyHosts();
+        $hosts = $self->rpcProxyHosts();
     } catch ($ex) {
         EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
     };
