@@ -7,7 +7,7 @@ FROM ubuntu:14.04
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
+RUN echo "deb http://archive.zentyal.org/zentyal/ 4.0 main extra" >> /etc/apt/sources.list
 RUN apt-get update -y
 
 #Installing basic and build dependencies
