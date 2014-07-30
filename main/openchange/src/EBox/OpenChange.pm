@@ -689,6 +689,16 @@ sub _ldapModImplementation
     return new EBox::OpenChange::LdapUser();
 }
 
+# Method: isProvisioned
+#
+#     Return true if the OpenChange is provisioned in Samba + DBs.
+#
+#     It is independent from saving changes state
+#
+# Returns:
+#
+#     Boolean
+#
 sub isProvisioned
 {
     my ($self) = @_;
@@ -701,6 +711,17 @@ sub isProvisioned
     return 0;
 }
 
+# Method: setProvisioned
+#
+#     Set the OpenChange whether OpenChange is provisioned in Samba +
+#     DBs.
+#
+#     It is independent from saving changes state.
+#
+# Parameters:
+#
+#     provisioned - Boolean to set the provisioned state
+#
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
