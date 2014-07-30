@@ -47,12 +47,34 @@ sub new
     return $self;
 }
 
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
+
+sub requiredParameters
+{
+    my ($self) = @_;
+    if ($self->param('cancel')) {
+        return ['cancel'];
+    } else {
+        return ['reason', 'isCACert', 'commonName', 'revoke'];
+    }
+}
+
+sub optionalParameters
+{
+    return ['caPassphrase'];
+}
+
 # Process the HTTP query
 # Templates that come from: forceRevoke.mas and formRevoke.mas
-
-sub _process
+sub actuate
 {
-    my $self = shift;
+    my ($self) = @_;
+    if (not @{ $self->params()}) {
+        return;
+    }
 
     # If it comes from forceRevoke with a cancel button
     if (defined($self->param('cancel'))) {
@@ -65,9 +87,6 @@ sub _process
     }
 
     my $ca = EBox::Global->modInstance('ca');
-
-    $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
-    $self->_requireParam('reason', __('Reason') );
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually

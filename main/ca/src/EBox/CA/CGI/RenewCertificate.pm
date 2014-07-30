@@ -47,13 +47,36 @@ sub new
     return $self;
 }
 
-# Process the HTTP query
-sub _process
+sub redirectOnNoParams
 {
-    my $self = shift;
+    return 'CA/Index';
+}
+
+sub requiredParameters
+{
+    my ($self) = @_;
+    if ($self->param('cancel')) {
+        return ['cancel'];
+    } else {
+        return ['commonName', 'isCACert', 'expireDays', 'renew'];
+    }
+}
+
+sub optionalParameters
+{
+    return ['caPassphrase'];
+}
+
+
+sub actuate
+{
+    my ($self) = @_;
+
+    if (@{ $self->params()} == 0) {
+        return;
+    }
 
     my $ca = EBox::Global->modInstance('ca');
-
     if ($self->param('cancel')) {
         $self->setRedirect( 'CA/Index' );
         $self->setMsg( __("The certificate has NOT been renewed") );
@@ -62,9 +85,6 @@ sub _process
         $parameters->clear();
         return;
     }
-
-    $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
-    $self->_requireParam('expireDays', __('Days to expire') );
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually
