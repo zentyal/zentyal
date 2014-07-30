@@ -937,7 +937,7 @@ sub blockHTTPPortChange
 #
 # Returns:
 #
-#   string - The full path to the SSL certificate file to use by HAProxy.
+#   Array ref - Set of full paths to the SSL certificate files used by HAProxy.
 #
 sub pathHTTPSSSLCertificate
 {

@@ -4,6 +4,8 @@ $bindPwd
 $baseDn
 $port
 $adminMail
+$rpcProxySSL
+$rpcProxyExternalHostname => undef
 </%args>
 #
 # ocsmanager - Pylons configuration
@@ -76,6 +78,18 @@ basedn = <% $baseDn %>
 # execute malicious code after an exception is raised.
 #set debug = false
 
+[autodiscover:rpcproxy]
+# We assume the autodiscover host and the EWS (Free/Busy) are in the same host
+# external_hostname = hostname
+% if ($rpcProxyExternalHostname) {
+external_hostname = <% $rpcProxyExternalHostname %>
+% }
+# Require SSL to logon. Default value is false
+% if ($rpcProxySSL) {
+ssl = true
+% } else {
+ssl = false
+% }
 
 # Logging configuration
 [loggers]
