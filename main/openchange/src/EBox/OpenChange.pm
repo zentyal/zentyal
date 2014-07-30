@@ -1140,6 +1140,24 @@ sub connectionString
     return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
+# EBox::CA::Observer methods
+
+sub certificateRevoked
+{
+    my ($self, $commonName, $isCACert) = @_;
+
+    if ($self->isProvisioned()) {
+        if ($isCACert) {
+            return 1;
+        }
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        if ($commonName eq $domain) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 sub certificateRenewed
 {
     my ($self, $commonName, $isCACert) = @_;
