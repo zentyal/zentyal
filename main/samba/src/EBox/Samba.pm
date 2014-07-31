@@ -1090,6 +1090,7 @@ sub _postServiceHook
         my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
         my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
         my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+        my $setDescriptorError;
         for my $id (@{$sambaShares->ids()}) {
             my $row = $sambaShares->row($id);
             my $enabled     = $row->valueByName('enabled');
@@ -1203,8 +1204,16 @@ sub _postServiceHook
                              FILE_ATTRIBUTE_HIDDEN |
                              FILE_ATTRIBUTE_READONLY |
                              FILE_ATTRIBUTE_SYSTEM;
-            EBox::debug("Setting NT ACL on file: $relativeSharePath");
-            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            try {
+                EBox::debug("Setting NT ACL on file: $relativeSharePath");
+                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            } catch ($ex) {
+                EBox::error(
+                    __x("Error setting security descriptor on share '{x}': {y}",
+                        x => $shareName, y => $ex));
+                $setDescriptorError = 1;
+            }
+
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath,
                 attributes => $attributes, recursive => 1);
@@ -1217,8 +1226,15 @@ sub _postServiceHook
                 foreach my $item (@{$shareContentList}) {
                     my $itemName = $item->{name};
                     $itemName =~ s/^\/\/(.*)/\/$1/s;
-                    EBox::info("Replacing ACLs for $shareName$itemName");
-                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    try {
+                        EBox::debug("Replacing ACLs for $shareName$itemName");
+                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    } catch ($ex) {
+                        EBox::error(
+                            __x("Error setting security descriptor on file {x}{y}: {z}",
+                                x => $shareName, y => $itemName, z => $ex));
+                        $setDescriptorError = 1;
+                    }
                 }
             }
             delete $state->{shares_set_rights}->{$shareName};
@@ -1234,6 +1250,13 @@ sub _postServiceHook
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+
+        # Show warning if error setting ACLs
+        if ($setDescriptorError) {
+            $self->global->addSaveMessage(
+                __("There were errors setting ACLs on samba shares, " .
+                    "please check the zentyal log for details."));
+        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
