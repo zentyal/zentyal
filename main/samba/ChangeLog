@@ -1,4 +1,4 @@
-HEAD
+3.5.4
 	+ Show a warning on post save changes dialog if errors happend while
 	  setting shares ACLs
 	+ Do not check for acl and user_xattr filesystem options if filesystem is
