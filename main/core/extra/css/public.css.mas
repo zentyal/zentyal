@@ -1372,6 +1372,7 @@ border-radius: 2px;
     font-size: 13px;
     height: 68px;
     vertical-align: middle;
+    padding-right: 30px;
 }
 #software .package:after{
     background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);

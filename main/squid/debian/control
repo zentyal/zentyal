@@ -16,7 +16,7 @@ Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-firewall, zentyal-samba,
          squid3, dansguardian, adduser, adzapper, msktutil,
          libdata-hexdumper-perl, ${misc:Depends}
-Description: Zentyal - HTTP Proxy (Cache and Filter)
+Description: Zentyal - HTTP Proxy
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

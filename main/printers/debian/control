@@ -15,7 +15,7 @@ Pre-Depends: mysql-server
 Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-samba,
          cups, libexporter-cluster-perl, libnet-cups-perl, foomatic-db,
          foomatic-db-engine, foomatic-filters, adduser, hplip, ${misc:Depends}
-Description: Zentyal - Printer Sharing Service
+Description: Zentyal - Printers
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
