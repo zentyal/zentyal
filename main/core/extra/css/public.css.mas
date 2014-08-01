@@ -1122,16 +1122,6 @@ a.minBox, a.maxBox {
 .widArrow a:hover {
     background: transparent;
 }
-.field_help {
-    color: #888;
-    clear: both;
-    font-weight: normal;
-}
-.optional_field {
-    color: #00ADD0;
-    font-style: italic;
-    padding-right: 3px;
-}
 .dashboardTable {
     border-collapse: collapse;
     border: 0;
@@ -1431,7 +1421,7 @@ border-radius: 2px;
 #software .package-big p{
     height: 100px;
     font-size: 25px;
-    padding-right: 100px;
+    padding-right: 50px;
 }
 #software .btn-block button{
     margin-right: 0.5%;
@@ -2322,7 +2312,14 @@ form.formDiv fieldset {
     border: none;
     margin: 20px 0px 0px 0px;
 }
-form.formDiv > div {
+form.formDiv fieldset legend{
+    font-size: 1.5em;
+    font-weight: bold
+}
+form.formDiv fieldset legend + div{
+    margin-top: 10px;
+}
+form.formDiv > div, form.formDiv fieldset > div {
     margin-top: 20px;
 }
 .form-buttons{
@@ -2333,13 +2330,8 @@ form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong {
     display: block;
     color: #333;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-weight: bold;
-}
-form.formDiv label .field_help:before {
-    content: "|";
-    font-weight: bold;
-    color: #ff7900;
 }
 form.formDiv input[type="checkbox"]{
     margin-left: 0px;
@@ -2348,16 +2340,16 @@ input[type='password'],
 input[type='text'],
 textarea,
 select {
-    border:1px solid #999;
+    border:1px solid #666;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
-    padding:5px;
+    padding:8px 12px;
     display: block;
     font-size: 14px;
     color: #333;
-    box-shadow: inset 0px 0px 5px #ddd;
-    -moz-box-shadow: inset 0px 0px 5px #ddd;
+    box-shadow: inset 0px 0px 2px #ddd;
+    -moz-box-shadow: inset 0px 0px 2px #ddd;
 }
 input:focus,
 textarea:focus,
@@ -2380,7 +2372,7 @@ select {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    padding:4px 5px 3px;
+    padding:6px 10px 7px;
 }
 .multiselect {
     margin: 2px;
@@ -2428,7 +2420,7 @@ form.formDiv .checkbox-group strong{
 form.formDiv .radio-group label,
 form.formDiv .checkbox-group label{
     font-weight: normal;
-    color: #666;
+    color: #333;
 }
 /* inline stuff */
 form.formDiv .inline-field{
@@ -2451,11 +2443,24 @@ form.formDiv .inline-field{
     font-weight: normal;
     color: #666;
 }
-
 .inline-label{
     display: inline-block !important;
     vertical-align: middle;
 }
+.field_help {
+    color: #666;
+    clear: both;
+    font-weight: normal;
+}
+form.formDiv label .field_help{
+    display:block;
+}
+.optional_field {
+    color: #00ADD0;
+    font-style: italic;
+    padding-left: 3px;
+}
+
 /********************************************************************************
 
 FOLDable SECtIONS
@@ -2545,6 +2550,15 @@ FOLDable SECtIONS
  Installation Wizard
 **********/
 
+.wizard img{
+    float:left;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.wizard form{
+    margin-left: 200px;
+}
 .buttons-group{
     background-color: rgba(0, 0, 0, 0.02);
     border-top: 1px solid #EEEEEE;
@@ -2622,7 +2636,8 @@ h6 {
 }
 
 /****
-NEW BUTTONS STYLES*/
+NEW BUTTONS STYLES
+****/
 
 .btn-block{
     display: block;
@@ -2643,6 +2658,7 @@ NEW BUTTONS STYLES*/
 }
 
 /*** migration layout ***/
+
 .info-block{
     display: inline-block;
     font-size: 1.5em;
