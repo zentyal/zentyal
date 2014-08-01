@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1597
 msgid "disabled"
 msgstr "inhabilitat"
 
@@ -146,7 +146,6 @@ msgstr "Client {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
@@ -180,16 +179,12 @@ msgstr "Habilitat"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:119
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/core/src/EBox/SysInfo.pm:504
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:194
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:268
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:530
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
 #: ../../main/core/src/templates/enable.mas:19
@@ -317,8 +312,6 @@ msgstr "Adreça local"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:912
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:195
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:100
-#: ../../main/radius/src/EBox/Radius.pm:360
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:69
@@ -369,7 +362,6 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:58
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:45
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:202
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:178
@@ -522,7 +514,6 @@ msgstr ""
 "pel sistema operatiu dels seus clients."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:46
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
@@ -577,7 +568,6 @@ msgstr "Configuració del client"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
-#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:125
 msgid "client"
 msgstr "client"
 
@@ -1036,7 +1026,7 @@ msgstr "Nom comú"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1590
+#: ../../main/mail/src/EBox/Mail.pm:1614
 msgid "Address"
 msgstr "Adreça"
 
@@ -1053,28 +1043,24 @@ msgid "OpenVPN daemons"
 msgstr "Dimonis OpenVPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1480
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:52
-#: ../../main/ips/src/EBox/IPS.pm:307 ../../main/ips/src/EBox/IPS.pm:334
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:100
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:415
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FilterDetails.pm:71
-#: ../../main/radius/src/EBox/Radius.pm:356
 #: ../../main/dhcp/src/EBox/DHCP.pm:973
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:788
-#: ../../main/samba/src/EBox/Samba.pm:3703
-#: ../../main/samba/src/EBox/Samba.pm:3723
-#: ../../main/samba/src/EBox/Samba.pm:3734
+#: ../../main/samba/src/EBox/Samba.pm:3704
+#: ../../main/samba/src/EBox/Samba.pm:3724
+#: ../../main/samba/src/EBox/Samba.pm:3735
 #: ../../main/squid/src/EBox/Squid.pm:1113
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1707
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/remoteservices/src/templates/Backup/index.mas:175
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
@@ -1088,28 +1074,23 @@ msgid "Date"
 msgstr "Data"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1481
-#: ../../main/ips/src/EBox/IPS.pm:313 ../../main/ips/src/EBox/IPS.pm:336
 #: ../../main/printers/src/EBox/Printers.pm:367
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/radius/src/EBox/Radius.pm:357
 #: ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1120
 #: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1693
+#: ../../main/mail/src/EBox/Mail.pm:1717
 msgid "Event"
 msgstr "Esdeveniment"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3728
+#: ../../main/samba/src/EBox/Samba.pm:3729
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:80
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/samba/src/templates/addgroup.mas:10
@@ -1176,7 +1157,6 @@ msgstr "Alta disponibilitat"
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
 #: ../../main/core/src/EBox/HAProxy.pm:298
-#: ../../main/ebackup/src/EBox/EBackup.pm:863
 msgid "System"
 msgstr "Sistema"
 
@@ -1207,9 +1187,6 @@ msgstr "Comença corosync al inici"
 #: ../../main/core/src/EBox/Backup.pm:463
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:76
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:77
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:78
 msgid "Unknown"
 msgstr "Desconegut"
 
@@ -1223,7 +1200,6 @@ msgstr "Desconegut"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:145
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:146
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:98
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
@@ -1260,7 +1236,7 @@ msgstr "Errors"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4482
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1575 ../../main/mail/src/EBox/Mail.pm:1692
+#: ../../main/mail/src/EBox/Mail.pm:1599 ../../main/mail/src/EBox/Mail.pm:1716
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1518,7 +1494,7 @@ msgid "resources"
 msgstr "Recurs"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3707
+#: ../../main/samba/src/EBox/Samba.pm:3708
 msgid "Resource"
 msgstr "Recurs"
 
@@ -1608,299 +1584,8 @@ msgid ""
 "control from that resource"
 msgstr ""
 
-#: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-msgid "IPS Alerts report"
-msgstr "Informe d'alertes de l'IPS"
-
-#: ../../main/ips/src/EBox/IPS/Composite/General.pm:81
-msgid "Intrusion Detection/Prevention System"
-msgstr "Sistema de Detecció/Precenció d'Intrusions"
-
-#: ../../main/ips/src/EBox/IPS/Composite/General.pm:93
-#, perl-brace-format
-msgid ""
-"Want to protect your system against the latest security threats, hacking "
-"attempts and attacks on security vulnerabilities? Get  one of the {oh}"
-"Commercial Editions{ch} that include the IPS feature in the automatic "
-"security updates."
-msgstr ""
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
-msgid "number of alerts"
-msgstr "nombre d'alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:58
-msgid "Number of alerts"
-msgstr "Nombre d'alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
-msgid "Alert details"
-msgstr "Detalls de l'alerta"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
-msgid "alerts"
-msgstr "alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:50
-msgid "Alerts chart"
-msgstr "Taula d'alertes"
-
-#: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
-msgid "Alert Graph"
-msgstr "Gràfic de l'alerta"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:245
-#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:324
-msgid "Rules"
-msgstr "Regles"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:251
-#: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:67
-#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:182
-#: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:129
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:411
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:77
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:165
-#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:73
-#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:75
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:119
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
-msgid "rule"
-msgstr "regla"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:252
-msgid ""
-"Select the sets of rules you want apply when scanning the network traffic"
-msgstr ""
-"Seleccioni el conjunt de regles que desitgi aplicar quan s'escanegi el "
-"trànsit de la xarxa"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
-#: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:330
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:132
-msgid "Log"
-msgstr "Registre"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
-msgid "Block"
-msgstr "Bloquejar"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
-msgid "Log & Block"
-msgstr "Registrar i Bloquejar"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
-msgid "Community"
-msgstr "Comunitat"
-
-#: ../../main/ips/src/EBox/IPS/Model/Rules.pm:287
-#, perl-brace-format
-msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
-msgstr ""
-
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:117
-#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
-#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
-#: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
-#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
-#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
-#: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:108
-#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:76
-#: ../../main/network/src/EBox/Network.pm:1213
-#: ../../main/network/src/EBox/Network.pm:1245
-#: ../../main/network/src/EBox/Network.pm:1330
-#: ../../main/network/src/EBox/Network.pm:1369
-#: ../../main/network/src/EBox/Network.pm:1397
-#: ../../main/network/src/EBox/Network.pm:1487
-#: ../../main/network/src/EBox/Network.pm:1687
-#: ../../main/network/src/EBox/Network.pm:1779
-#: ../../main/network/src/EBox/Network.pm:1880
-#: ../../main/network/src/EBox/Network.pm:1886
-#: ../../main/network/src/EBox/Network.pm:1987
-#: ../../main/network/src/EBox/Network.pm:1993
-#: ../../main/network/src/EBox/Network.pm:2445
-#: ../../main/network/src/EBox/Network.pm:2523
-#: ../../main/network/src/EBox/Network.pm:2563
-#: ../../main/network/src/EBox/Network.pm:2590
-#: ../../main/network/src/EBox/Network.pm:2617
-#: ../../main/network/src/EBox/Network.pm:2644
-#: ../../main/network/src/EBox/Network.pm:2671
-#: ../../main/network/src/EBox/Network.pm:2698
-#: ../../main/network/src/EBox/Network.pm:2761
-#: ../../main/network/src/EBox/Network.pm:2806
-#: ../../main/network/src/EBox/Network.pm:2839
-#: ../../main/network/src/EBox/Network.pm:4057
-#: ../../main/network/src/EBox/Network.pm:4096
-#: ../../main/network/src/EBox/Network.pm:4121
-#: ../../main/network/src/EBox/Network.pm:4149
-#: ../../main/network/src/EBox/Network.pm:4171
-#: ../../main/network/src/EBox/Network.pm:4200
-#: ../../main/network/src/EBox/Network.pm:4259
-#: ../../main/network/src/EBox/Network.pm:4282
-#: ../../main/network/src/EBox/Network.pm:4305
-#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:413
-#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:852
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:283
-#: ../../main/trafficshaping/src/EBox/TC.pm:107
-#: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
-#: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
-#: ../../main/dhcp/src/EBox/DHCP.pm:519 ../../main/dhcp/src/EBox/DHCP.pm:615
-#: ../../main/dhcp/src/EBox/DHCP.pm:668 ../../main/dhcp/src/EBox/DHCP.pm:729
-#: ../../main/dhcp/src/EBox/DHCP.pm:974
-#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:124
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
-#: ../../main/common/src/EBox/NetWrappers.pm:121
-#: ../../main/common/src/EBox/NetWrappers.pm:151
-#: ../../main/common/src/EBox/NetWrappers.pm:243
-#: ../../main/common/src/EBox/NetWrappers.pm:284
-msgid "Interface"
-msgstr "Interfície"
-
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
-#: ../../main/network/src/EBox/Network.pm:4553
-#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
-msgid "Interfaces"
-msgstr "Interfícies"
-
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:137
-#: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
-#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
-msgid "interface"
-msgstr "interfície"
-
-#: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-msgid "Select in which interfaces IPS system will be enabled"
-msgstr "Seleccionar en quines interfícies s'activarà el sistema IPS"
-
-#: ../../main/ips/src/EBox/IPS.pm:67
-msgid "IDS/IPS"
-msgstr "IDS/IPS"
-
-#: ../../main/ips/src/EBox/IPS.pm:268
-msgid "Add rules to suricata configuration"
-msgstr "Afegir regles a la configuració del Suricata"
-
-#: ../../main/ips/src/EBox/IPS.pm:273
-msgid "Enable start of suricata daemon"
-msgstr "Habilitar l'execució del dimoni del Suricata"
-
-#: ../../main/ips/src/EBox/IPS.pm:308
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:364
-msgid "Priority"
-msgstr "Prioritat"
-
-#: ../../main/ips/src/EBox/IPS.pm:309
-#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:86
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:205
-#: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:124
-#: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:210
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
-#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
-#: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
-#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
-#: ../../main/remoteservices/src/templates/Backup/index.mas:86
-#: ../../main/remoteservices/src/templates/Backup/index.mas:175
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
-#: ../../main/remoteservices/src/templates/Backup/confirm.mas:49
-#: ../../main/remoteservices/src/templates/disaster.mas:7
-#: ../../main/network/src/templates/ifaces.mas:194
-#: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/backup.mas:40
-#: ../../main/core/src/templates/backup.mas:141
-#: ../../main/core/src/templates/confirm-backup.mas:48
-#: ../../main/software/src/templates/updates.mas:92
-#: ../../main/software/src/templates/ebox.mas:101
-#: ../../main/samba/src/templates/addgroup.mas:15
-#: ../../main/samba/src/templates/editgroup.mas:39
-#: ../../main/samba/src/templates/edituser.mas:45
-#: ../../main/samba/src/templates/adduser.mas:23
-#: ../../main/samba/src/templates/editcontact.mas:30
-#: ../../main/samba/src/templates/addcontact.mas:21
-msgid "Description"
-msgstr "Descripció"
-
-#: ../../main/ips/src/EBox/IPS.pm:310
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:416
-#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:309
-#: ../../main/core/src/EBox/Events.pm:437
-#: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:46
-#: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
-#: ../../main/firewall/src/EBox/Firewall.pm:791
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
-msgid "Source"
-msgstr "Origen"
-
-#: ../../main/ips/src/EBox/IPS.pm:311
-#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
-#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
-#: ../../main/firewall/src/EBox/Firewall.pm:792
-msgid "Destination"
-msgstr "Destí"
-
-#: ../../main/ips/src/EBox/IPS.pm:312
-#: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
-#: ../../main/firewall/src/EBox/Firewall.pm:793
-#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:144
-#: ../../main/mail/src/templates/externalAccounts.mas:18
-msgid "Protocol"
-msgstr "Protocol"
-
-#: ../../main/ips/src/EBox/IPS.pm:320
-msgid "IPS"
-msgstr "IPS"
-
-#: ../../main/ips/src/EBox/IPS.pm:325
-msgid "Alert"
-msgstr "Alerta"
-
-#: ../../main/ips/src/EBox/IPS.pm:332
-msgid "IPS Rule Updates"
-msgstr "Actualitzacions  de les regles de l'IPS"
-
-#: ../../main/ips/src/EBox/IPS.pm:335
-msgid "Failure reason"
-msgstr "Causa de la fallada"
-
-#: ../../main/ips/src/EBox/IPS.pm:339
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
-msgid "Success"
-msgstr "Éxit"
-
-#: ../../main/ips/src/EBox/IPS.pm:339
-#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
-msgid "Failure"
-msgstr "Fallada"
-
-#: ../../main/ips/src/EBox/IPS.pm:518
-#, perl-brace-format
-msgid ""
-"Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
-"details and rule changelog at {url} ({name} rules)"
-msgstr ""
-"L'última actualització de regles fa que el dimoni estigui aturat. Comprovi "
-"{log} per més detalls i els logs de canvis en les regles {url} ({name} rules)"
-
 #: ../../main/webserver/src/EBox/WebServer.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
-#: ../../main/software/src/templates/ebox.mas:238
 msgid "Web Server"
 msgstr "Servidor Web"
 
@@ -2012,7 +1697,6 @@ msgstr "Nom del host virtual"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 msgid "Virtual host"
 msgstr "Host virtual"
 
@@ -2236,7 +1920,7 @@ msgstr "Nom de l'amfitrió"
 
 #: ../../main/dns/src/EBox/DNS.pm:1714
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3133
+#: ../../main/samba/src/EBox/Samba.pm:3134
 msgid "alias"
 msgstr "àlies"
 
@@ -2251,13 +1935,69 @@ msgstr "S'ha de proporcionar un nom de domini vàlid o un comodí (*)"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
-#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 msgid "IP Address"
 msgstr "Adreça IP"
+
+#: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:84
+#: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:124
+#: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:123
+#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:85
+#: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
+#: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:108
+#: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:76
+#: ../../main/network/src/EBox/Network.pm:1213
+#: ../../main/network/src/EBox/Network.pm:1245
+#: ../../main/network/src/EBox/Network.pm:1330
+#: ../../main/network/src/EBox/Network.pm:1369
+#: ../../main/network/src/EBox/Network.pm:1397
+#: ../../main/network/src/EBox/Network.pm:1487
+#: ../../main/network/src/EBox/Network.pm:1687
+#: ../../main/network/src/EBox/Network.pm:1779
+#: ../../main/network/src/EBox/Network.pm:1880
+#: ../../main/network/src/EBox/Network.pm:1886
+#: ../../main/network/src/EBox/Network.pm:1987
+#: ../../main/network/src/EBox/Network.pm:1993
+#: ../../main/network/src/EBox/Network.pm:2445
+#: ../../main/network/src/EBox/Network.pm:2523
+#: ../../main/network/src/EBox/Network.pm:2563
+#: ../../main/network/src/EBox/Network.pm:2590
+#: ../../main/network/src/EBox/Network.pm:2617
+#: ../../main/network/src/EBox/Network.pm:2644
+#: ../../main/network/src/EBox/Network.pm:2671
+#: ../../main/network/src/EBox/Network.pm:2698
+#: ../../main/network/src/EBox/Network.pm:2761
+#: ../../main/network/src/EBox/Network.pm:2806
+#: ../../main/network/src/EBox/Network.pm:2839
+#: ../../main/network/src/EBox/Network.pm:4057
+#: ../../main/network/src/EBox/Network.pm:4096
+#: ../../main/network/src/EBox/Network.pm:4121
+#: ../../main/network/src/EBox/Network.pm:4149
+#: ../../main/network/src/EBox/Network.pm:4171
+#: ../../main/network/src/EBox/Network.pm:4200
+#: ../../main/network/src/EBox/Network.pm:4259
+#: ../../main/network/src/EBox/Network.pm:4282
+#: ../../main/network/src/EBox/Network.pm:4305
+#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:413
+#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:852
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:283
+#: ../../main/trafficshaping/src/EBox/TC.pm:107
+#: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
+#: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
+#: ../../main/dhcp/src/EBox/DHCP.pm:519 ../../main/dhcp/src/EBox/DHCP.pm:615
+#: ../../main/dhcp/src/EBox/DHCP.pm:668 ../../main/dhcp/src/EBox/DHCP.pm:729
+#: ../../main/dhcp/src/EBox/DHCP.pm:974
+#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:124
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
+#: ../../main/common/src/EBox/NetWrappers.pm:121
+#: ../../main/common/src/EBox/NetWrappers.pm:151
+#: ../../main/common/src/EBox/NetWrappers.pm:243
+#: ../../main/common/src/EBox/NetWrappers.pm:284
+msgid "Interface"
+msgstr "Interfície"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
@@ -2268,10 +2008,9 @@ msgid "Enable transparent DNS cache"
 msgstr "Habilita la memòria cau de DNS transparent"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2224
+#: ../../main/samba/src/EBox/Samba.pm:2225
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2315,6 +2054,20 @@ msgstr "Redireccionador"
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
 msgid "Service name"
 msgstr "Nom del servei"
+
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
+#: ../../main/firewall/src/EBox/Firewall.pm:793
+#: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:144
+#: ../../main/mail/src/templates/externalAccounts.mas:18
+msgid "Protocol"
+msgstr "Protocol"
+
+#: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:364
+msgid "Priority"
+msgstr "Prioritat"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 msgid "Lower value is greater priority"
@@ -2363,7 +2116,7 @@ msgstr "Aquest domini"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
-#: ../../main/mail/src/EBox/Mail.pm:1588
+#: ../../main/mail/src/EBox/Mail.pm:1612
 msgid "Custom"
 msgstr "Personalitzat"
 
@@ -2511,7 +2264,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2218
+#: ../../main/samba/src/EBox/Samba.pm:2219
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2680,8 +2433,6 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:41
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:40
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:74
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:32
@@ -2865,20 +2616,17 @@ msgstr ""
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:204
 #: ../../main/printers/src/EBox/Printers.pm:365
-#: ../../main/radius/src/EBox/Radius.pm:358
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3705
-#: ../../main/samba/src/EBox/Samba.pm:3725
-#: ../../main/samba/src/EBox/Samba.pm:3736
+#: ../../main/samba/src/EBox/Samba.pm:3706
+#: ../../main/samba/src/EBox/Samba.pm:3726
+#: ../../main/samba/src/EBox/Samba.pm:3737
 #: ../../main/squid/src/EBox/Squid.pm:1115
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:179
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 #: ../../main/samba/src/templates/edituser.mas:19
@@ -2935,6 +2683,11 @@ msgstr "Escoltar"
 msgid "Select CUPS Interfaces"
 msgstr "Selecciona les Interfícies de CUPS"
 
+#: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
+#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
+msgid "interface"
+msgstr "interfície"
+
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:143
 msgid ""
 "Select in which interfaces the CUPS webserver will listen on. Take into "
@@ -2949,6 +2702,37 @@ msgstr ""
 #, fuzzy
 msgid "Printer name"
 msgstr "Impresora"
+
+#: ../../main/printers/src/EBox/Printers/Model/Printers.pm:60
+#: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:124
+#: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:210
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
+#: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:69
+#: ../../main/samba/src/EBox/Samba/CGI/AddContact.pm:55
+#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
+#: ../../main/remoteservices/src/templates/Backup/index.mas:86
+#: ../../main/remoteservices/src/templates/Backup/index.mas:175
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:39
+#: ../../main/remoteservices/src/templates/Backup/confirm.mas:49
+#: ../../main/remoteservices/src/templates/disaster.mas:7
+#: ../../main/network/src/templates/ifaces.mas:194
+#: ../../main/core/src/templates/finish.mas:32
+#: ../../main/core/src/templates/backup.mas:40
+#: ../../main/core/src/templates/backup.mas:141
+#: ../../main/core/src/templates/confirm-backup.mas:48
+#: ../../main/software/src/templates/updates.mas:92
+#: ../../main/software/src/templates/ebox.mas:99
+#: ../../main/samba/src/templates/addgroup.mas:15
+#: ../../main/samba/src/templates/editgroup.mas:39
+#: ../../main/samba/src/templates/edituser.mas:45
+#: ../../main/samba/src/templates/adduser.mas:23
+#: ../../main/samba/src/templates/editcontact.mas:30
+#: ../../main/samba/src/templates/addcontact.mas:21
+msgid "Description"
+msgstr "Descripció"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:66
 #, fuzzy
@@ -3072,7 +2856,6 @@ msgstr "Cancel·lat"
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:42
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:46
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:43
-#: ../../main/software/src/templates/ebox.mas:241
 msgid "Certification Authority"
 msgstr "Entitat certificadora"
 
@@ -3183,7 +2966,7 @@ msgstr "El certificat amb el nom comú {cn} NO existeix en aquest CA"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm:116
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1624
+#: ../../main/mail/src/EBox/Mail.pm:1648
 msgid "General"
 msgstr "General"
 
@@ -3290,7 +3073,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3706
+#: ../../main/samba/src/EBox/Samba.pm:3707
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3473,183 +3256,6 @@ msgstr ""
 msgid "This service does not allow to change the certificate common name"
 msgstr "Aquest serveri no permet canviar el nom comú del certificat"
 
-#: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:279
-#, fuzzy
-msgid "This manufacturer does not exist."
-msgstr "La interfície {iface} no existeix"
-
-#: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:285
-#, fuzzy
-msgid "This model does not exist."
-msgstr "L'usuari {u} no existeix"
-
-#: ../../main/nut/src/EBox/NUT/Types/DriverPicker.pm:291
-#, fuzzy
-msgid "This driver does not exist."
-msgstr "L'usuari {u} no existeix"
-
-#: ../../main/nut/src/EBox/NUT/Composite/General.pm:37
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:127
-#: ../../main/nut/src/EBox/NUT.pm:28
-msgid "UPS"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:37
-msgid "UPS settings and variables"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Composite/Variables.pm:39
-msgid ""
-"These are the settings and variables provided by the UPS. The settings are "
-"read-write while the variables are read-only."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:70
-msgid "'Label' can not contain spaces"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:82
-msgid "The label to identify this UPS in case you define more than one"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:89
-#, fuzzy
-msgid "Optional UPS description"
-msgstr "Descripció opcional per aquesta ruta"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:93
-#, fuzzy
-msgid "Driver"
-msgstr "unitat"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:96
-msgid "The manufacturer of your UPS."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:104
-msgid ""
-"The port where the UPS is connected to (UPS on serial ports cannot be "
-"autodected)"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:112
-msgid "The UPS serial number, used to distingish between USB units"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:126
-msgid "Attached UPSs"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPS.pm:131
-msgid "List of locally attached UPS."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:147
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:193
-msgid ""
-"The UPS service is not running. Ensure that changes are saved and the module "
-"enabled."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:155
-#, fuzzy
-msgid "Variable"
-msgstr "Disponible"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:159
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:210
-#: ../../main/core/src/EBox/AuditLogging.pm:118
-msgid "Value"
-msgstr "Valor"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:165
-msgid "UPS Variables"
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:170
-#, fuzzy
-msgid "variable"
-msgstr "Disponible"
-
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:40
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:49
-#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:44
-msgid "Mode"
-msgstr "Mode"
-
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:53
-msgid ""
-"Standalone mode addresses a local only configuration, with one UPS "
-"protecting the local system. If you want to protect more than one server, "
-"you have to setup server/client modes. The Zentyal box that has the UPS "
-"monitoring port connected will be the server and the rest of them will be "
-"the clients."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:64
-#, fuzzy
-msgid "Standalone"
-msgstr "Servidor independent"
-
-#: ../../main/nut/src/EBox/NUT/Model/Mode.pm:66
-#: ../../main/radius/src/EBox/Radius.pm:359
-#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:103
-msgid "Client"
-msgstr "Client"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:150
-#, perl-brace-format
-msgid ""
-"Setting {s} successfully updated. It may take some seconds to reflect the "
-"change."
-msgstr ""
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:201
-#, fuzzy
-msgid "Setting"
-msgstr "Configuració"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:217
-#, fuzzy
-msgid "UPS Settings"
-msgstr "Configuració LDAP"
-
-#: ../../main/nut/src/EBox/NUT/Model/UPSSettings.pm:222
-#, fuzzy
-msgid "setting"
-msgstr "Configuració"
-
-#: ../../main/nut/src/EBox/NUT.pm:47 ../../main/core/src/EBox/SysInfo.pm:135
-#: ../../main/core/src/EBox/Logs.pm:701 ../../main/core/src/EBox/Events.pm:137
-#: ../../main/monitor/src/EBox/Monitor.pm:148
-msgid "Maintenance"
-msgstr "Manteniment"
-
-#: ../../main/nut/src/EBox/NUT.pm:70
-#, fuzzy
-msgid "To configure the NUT daemon mode."
-msgstr "Per configurar la música en espera"
-
-#: ../../main/nut/src/EBox/NUT.pm:73
-#, fuzzy
-msgid "To configure the UPS's drivers."
-msgstr "Per configurar el driver de l'LDAP"
-
-#: ../../main/nut/src/EBox/NUT.pm:76
-#, fuzzy
-msgid "To configure the NUT daemon"
-msgstr "Per configurar el dimoni RADIUS."
-
-#: ../../main/nut/src/EBox/NUT.pm:79
-#, fuzzy
-msgid "To configure the authorized NUT daemon users"
-msgstr "Per configurar els usuaris SIP i IAX"
-
-#: ../../main/nut/src/EBox/NUT.pm:82
-#, fuzzy
-msgid "To configure the NUT client"
-msgstr "Per configurar els clients RADIUS."
-
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:104
 msgid "Signatures"
 msgstr "Signatures"
@@ -3728,6 +3334,28 @@ msgstr "Configuració del perfil personalitzat {app} per al binari {bin}"
 #, perl-brace-format
 msgid "Disable {app} profile for {bin} binary"
 msgstr "Inhabilita el perfil de {app} per al binari {bin}"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:416
+#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:309
+#: ../../main/core/src/EBox/Events.pm:437
+#: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:46
+#: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
+#: ../../main/firewall/src/EBox/Firewall.pm:791
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:56
+msgid "Source"
+msgstr "Origen"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
+msgid "Success"
+msgstr "Éxit"
+
+#: ../../main/antivirus/src/EBox/AntiVirus.pm:421
+msgid "Failure"
+msgstr "Fallada"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:424
 #, fuzzy
@@ -4458,110 +4086,6 @@ msgstr "Política de capçalera errònia"
 msgid "Filter Policies"
 msgstr "Polítiques de filtre "
 
-#: ../../main/radius/src/EBox/Radius.pm:68
-msgid "Create RADIUS certificates for TTLS"
-msgstr "Crear certificats RADIUS per TTLS"
-
-#: ../../main/radius/src/EBox/Radius.pm:69
-msgid ""
-"Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
-"certs/."
-msgstr ""
-"Zentyal crearà els certificats necessaris pel TTLS a /etc/freeradius/certs/."
-
-#: ../../main/radius/src/EBox/Radius.pm:74
-msgid "Allow others to read /var/log/freeradius"
-msgstr "Permetre als altres llegir /var/log/freeradius"
-
-#: ../../main/radius/src/EBox/Radius.pm:75
-msgid ""
-"Zentyal will change default permissions on RADIUS log directory to allow to "
-"read the logs."
-msgstr ""
-"Zentyal canviará els permisos per defecte del directori de registres de "
-"RADIUS per poder llegir els registres."
-
-#: ../../main/radius/src/EBox/Radius.pm:94
-msgid "To configure allowed LDAP group."
-msgstr "Per configurar el grup LDAP permès."
-
-#: ../../main/radius/src/EBox/Radius.pm:98
-msgid "To configure RADIUS LDAP module."
-msgstr "Per configurar el mòdul RADIUS LDAP."
-
-#: ../../main/radius/src/EBox/Radius.pm:102
-msgid "To configure RADIUS daemon."
-msgstr "Per configurar el dimoni RADIUS."
-
-#: ../../main/radius/src/EBox/Radius.pm:106
-msgid "To configure RADIUS clients."
-msgstr "Per configurar els clients RADIUS."
-
-#: ../../main/radius/src/EBox/Radius.pm:110
-msgid "To configure RADIUS EAP."
-msgstr "Per configurar el RADIUS EAP."
-
-#: ../../main/radius/src/EBox/Radius.pm:114
-msgid "To configure default RADIUS vhost."
-msgstr "Per configurar el vhost RADIUS per defecte."
-
-#: ../../main/radius/src/EBox/Radius.pm:118
-msgid "To configure RADIUS inner-tunnel vhost."
-msgstr "Per configurar el vhost inner-tunnel RADIUS."
-
-#: ../../main/radius/src/EBox/Radius.pm:143
-msgid "Zentyal RADIUS system"
-msgstr "Sistema RADIUS de Zentyal"
-
-#: ../../main/radius/src/EBox/Radius.pm:337
-#: ../../main/radius/src/EBox/Radius.pm:370
-#: ../../main/radius/src/EBox/Radius/Composite/General.pm:40
-msgid "RADIUS"
-msgstr "RADIUS"
-
-#: ../../main/radius/src/EBox/Radius.pm:361
-msgid "MAC"
-msgstr "MAC"
-
-#: ../../main/radius/src/EBox/Radius.pm:366
-msgid "Login OK"
-msgstr "Inici de sessió OK"
-
-#: ../../main/radius/src/EBox/Radius.pm:367
-msgid "Login incorrect"
-msgstr "Inici de sessió incorrecte"
-
-#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:101
-msgid "All users"
-msgstr "Tots els usuaris"
-
-#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:128
-msgid "Group allowed to authenticate"
-msgstr "Grup autoritzat per autentificar-se"
-
-#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:138
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:87
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:88
-msgid "General configuration"
-msgstr "Configuració general"
-
-#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:142
-msgid "RADIUS server configuration"
-msgstr "Configuració del servidor RADIUS "
-
-#: ../../main/radius/src/EBox/Radius/Model/Auth.pm:144
-msgid "RADIUS server configuration updated"
-msgstr "Configuració del servidor RADIUS actualitzada"
-
-#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:116
-msgid "Shared Secret"
-msgstr "Clau compartida"
-
-#: ../../main/radius/src/EBox/Radius/Model/Clients.pm:124
-msgid "RADIUS Clients"
-msgstr "Clients RADIUS"
-
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
@@ -4593,7 +4117,6 @@ msgstr "Adreça de correu"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:355
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:217
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:118
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:188
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
@@ -4603,7 +4126,6 @@ msgstr "Adreça de correu"
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:184
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:128
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:186
 #: ../../main/network/src/templates/ifaces.mas:180
@@ -4784,7 +4306,6 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:86
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:116
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:138
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:195
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:69
 #: ../../main/core/src/templates/backup.mas:81
 msgid "Restore"
@@ -4806,7 +4327,7 @@ msgstr "Confirmi que vol eliminar aquesta còpia remota:"
 #: ../../main/core/src/templates/ajax/tableBody.mas:465
 #: ../../main/core/src/templates/ajax/row.mas:98
 #: ../../main/core/src/templates/dataInUse.mas:36
-#: ../../main/software/src/templates/ebox.mas:335
+#: ../../main/software/src/templates/ebox.mas:180
 #: ../../main/samba/src/templates/samba.mas:30
 #: ../../main/samba/src/templates/delgplink.mas:20
 #: ../../main/mail/src/templates/groupalias.mas:53
@@ -4907,8 +4428,6 @@ msgid "No domain key found for this service"
 msgstr "La clau de domini per aquest servei no s'ha trobat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:226
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:84
 msgid "system"
 msgstr "sistema"
 
@@ -5348,7 +4867,6 @@ msgstr "mòduls"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:649
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:177
 #: ../../main/core/src/templates/configurationFiles.mas:22
 #: ../../main/core/src/templates/configureView.mas:50
 msgid "File"
@@ -5690,6 +5208,10 @@ msgstr ""
 #, fuzzy
 msgid "Zentyal Remote"
 msgstr "Màquina Zentyal"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
+msgid "Community"
+msgstr "Comunitat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
 msgid "Small Business"
@@ -6062,10 +5584,23 @@ msgstr ""
 "encaminar trànsit explícitament per una passarel·la concreta, utilitzi les "
 "regles de múltiples passarel·les de més avall"
 
+#: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:67
+#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:182
+#: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:129
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:411
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:77
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:165
+#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:73
+#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:75
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:119
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
+msgid "rule"
+msgstr "regla"
+
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:57
 #: ../../main/core/src/EBox/Types/PortRange.pm:141
-#: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:135
-#: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:145
 msgid "any"
 msgstr "qualsevol"
 
@@ -6113,6 +5648,14 @@ msgstr "IP origen"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:84
 msgid "Source object"
 msgstr "Objecte origen"
+
+#: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:340
+#: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
+#: ../../main/firewall/src/EBox/Firewall.pm:792
+msgid "Destination"
+msgstr "Destí"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:130
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:348
@@ -6281,7 +5824,6 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:69
-#: ../../main/software/src/templates/ebox.mas:142
 msgid "Gateway"
 msgstr "Passarel·la"
 
@@ -6728,6 +6270,11 @@ msgstr "Bytes Tx"
 msgid "Rx bytes"
 msgstr "Bytes Rx"
 
+#: ../../main/network/src/EBox/Network.pm:4553
+#: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
+msgid "Interfaces"
+msgstr "Interfícies"
+
 #: ../../main/network/src/EBox/Network.pm:4557
 msgid "Gateways"
 msgstr "Passarel·les"
@@ -6883,6 +6430,10 @@ msgstr "Afegir regles de tc"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:127
 msgid "To implement the traffic shaping rules"
 msgstr "Per implementar les regles de modelat de tràfic"
+
+#: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:324
+msgid "Rules"
+msgstr "Regles"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:326
 msgid "Interface Rates"
@@ -7042,7 +6593,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
-#: ../../main/mail/src/EBox/Mail.pm:1587 ../../main/mail/src/EBox/Mail.pm:1594
+#: ../../main/mail/src/EBox/Mail.pm:1611 ../../main/mail/src/EBox/Mail.pm:1618
 msgid "Filter type"
 msgstr "Tipus de filtre"
 
@@ -7191,184 +6742,6 @@ msgstr "Llista de regles per interfície"
 #: ../../main/trafficshaping/src/EBox/TC.pm:72
 msgid "options"
 msgstr "opcions"
-
-#: ../../main/webmail/src/EBox/WebMail/Composite/Backend.pm:57
-msgid "WebMail backend"
-msgstr "Backend del WebMail"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:51
-msgid "IMAP Server"
-msgstr "Servidor IMAP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:57
-msgid "IMAP connection type"
-msgstr "Tipus de conexió IMAP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:64
-msgid "IMAP server port"
-msgstr "Port del servidor IMAP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:70
-msgid "SMTP Server"
-msgstr "Servidor SMTP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:76
-msgid "SMTP connection type"
-msgstr "Tipus de conexió SMTP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:83
-msgid "SMTP server port"
-msgstr "Port del servidor SMTP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:90
-msgid "SMTP authentication"
-msgstr "Autenticació SMTP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:102
-msgid "Same user and password than IMAP"
-msgstr "El mateix usuari i clau d'accés que l'IMAP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:106
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
-msgid "User and password"
-msgstr "Usuari i contrasenya"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:131
-msgid "Manage sieve enabled in IMAP server"
-msgstr "Usar el sieve activat al servidor IMAP"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:136
-msgid "Manage sieve port"
-msgstr "Usar el port sieve"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:143
-msgid "Manage sieve connection uses TLS"
-msgstr "La conexió sieve usa TLS"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:150
-msgid "External server connection"
-msgstr "Conexió externa al servidor"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:165
-msgid "unencrypted"
-msgstr "sense encriptar"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:169
-msgid "SSL"
-msgstr "SSL"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:173
-msgid "TLS"
-msgstr "TLS"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:275
-msgid ""
-"No need to configure the connection to a remote server because WebMail is "
-"configured to use Zentyal mail service'"
-msgstr ""
-"No és necessari configurar la connexió a un servidor remot perquè el Correu "
-"Web  està configurat per utilitzar el servei de correu de Zentyal"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:53
-msgid "Operation mode"
-msgstr "Mode d'operació"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:77
-msgid "Zentyal mail service"
-msgstr "Servei de correu Zentyal"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:87
-msgid "Remote server"
-msgstr "Servidor remot"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:47
-msgid "Zentyal webmail"
-msgstr "Correu web de Zentyal"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:49
-msgid ""
-"The name of the webmail will be used in the login screen and page titles."
-msgstr ""
-"El nom del webmail es farà servir a la pantalla d'inici i el títol de les "
-"pàgines."
-
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:59
-msgid ""
-"Virtual host where the webmail will be installed. This will disable the "
-"default /webmail url."
-msgstr ""
-"Host virtual on el webmail serà instal·lat. Això desactivarà la url per "
-"defecte /webmail."
-
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:66
-#: ../../main/webmail/src/EBox/WebMail.pm:68
-msgid "Webmail"
-msgstr "Webmail"
-
-#: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:113
-msgid ""
-"The deleted virtual host was selected for Webmail. Maybe you want to select "
-"another one now."
-msgstr ""
-"El host virtual eliminat es va seleccionar pel Webmail. Potser en vol "
-"seleccionar un altre."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:209
-msgid "Neither IMAP nor IMAPS service enabled."
-msgstr "Ni el servei IMAP ni el IMAPS estan activats."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:290
-msgid "To configure Roundcube webmail."
-msgstr "Per configurar el webmail Roundcube."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:295
-#, fuzzy
-msgid "To customize PHP for the webmail."
-msgstr "Per configurar la bustia de veu"
-
-#: ../../main/webmail/src/EBox/WebMail.pm:300
-msgid "To configure managesieve Roundcube webmail plugin."
-msgstr "Per configurar el plugin managesieve del correu web Roundcube."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:307
-msgid "To configure the webmail on the webserver."
-msgstr "Per configurar el webmail al servidor web."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:323
-#, fuzzy
-msgid "Create MySQL Roundcube webmail database."
-msgstr "Crear la base de dades PostgreSQL del correu web Roundcube."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:324
-msgid "This database will store the data needed by Roundcube."
-msgstr ""
-"Aquesta base de dades emmagatzemarà les dades necessàries per Roundcube."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:328
-msgid "Add webmail link to www data directory."
-msgstr "Afegir l'enllaç del correu web al directori de dades www."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:329
-msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr "El correu web serà accessible a http://ip/webmail/."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:370
-#, perl-brace-format
-msgid ""
-"Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
-"service. You can enable it at {openurl}Mail -> General{closeurl}."
-msgstr ""
-"El mòdul Corrreu Web necessita els serveis IMAP o IMAPS activats si es fa "
-"servir el servei de correu de Zentyal. El pot habilitar a {openurl}Correu -> "
-"General{closeurl}."
-
-#: ../../main/webmail/src/EBox/WebMail.pm:433
-msgid ""
-"You cannot disable both IMAP and IMAPS service because they are used by "
-"Webmail module."
-msgstr ""
-"No pot desactivar els dos serveis IMAP i IMAPS perquè estan sent utilitzats "
-"pel mòdul del Correu web."
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:98
 #, perl-brace-format
@@ -7534,7 +6907,7 @@ msgstr "El rang {from} - {to} inclou la interfície amb adreça IP: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1685
+#: ../../main/mail/src/EBox/Mail.pm:1709
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
@@ -7542,7 +6915,7 @@ msgstr "De"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1686
+#: ../../main/mail/src/EBox/Mail.pm:1710
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -8242,6 +7615,11 @@ msgstr ""
 msgid "Halt/Reboot"
 msgstr "Atura / Reinicia"
 
+#: ../../main/core/src/EBox/SysInfo.pm:135
+#: ../../main/core/src/EBox/Logs.pm:701 ../../main/core/src/EBox/Events.pm:137
+msgid "Maintenance"
+msgstr "Manteniment"
+
 #: ../../main/core/src/EBox/SysInfo.pm:142
 #: ../../main/core/src/EBox/Report/CGI/DiskUsage.pm:31
 msgid "Disk Usage"
@@ -8286,7 +7664,6 @@ msgid "Checking updates..."
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo.pm:338
-#: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
 msgstr "Càrrega del sistema"
 
@@ -8729,6 +8106,11 @@ msgstr "Bolcat de configuració per informar d'un error"
 #, fuzzy
 msgid "Invalid email address"
 msgstr "adreça de correu"
+
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:87
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:88
+msgid "General configuration"
+msgstr "Configuració general"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:90
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
@@ -9464,6 +8846,12 @@ msgstr "L'emissor {name} no està configurat per ser habilitat"
 msgid "Log file"
 msgstr "Arxiu de registre"
 
+#: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:330
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:132
+msgid "Log"
+msgstr "Registre"
+
 #: ../../main/core/src/EBox/Logs/CGI/Index.pm:328
 #: ../../main/core/src/EBox/Logs/Composite/SummarizedReport.pm:45
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:166
@@ -9636,8 +9024,6 @@ msgstr "Tancar sessió"
 #: ../../main/core/src/EBox/Events/Model/DiskFreeWatcherConfiguration.pm:136
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:171
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:134
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:77
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:108
 msgid "Events"
 msgstr "Esdeveniments"
 
@@ -9854,9 +9240,6 @@ msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
 #: ../../main/core/src/EBox/Backup.pm:729
-#: ../../main/ebackup/src/EBox/EBackup.pm:71
-#: ../../main/ebackup/src/EBox/EBackup/Composite/Remote.pm:40
-#: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:112
 #: ../../main/network/src/templates/ifaces.mas:58
 #: ../../main/network/src/templates/ifaces.mas:59
 msgid "Backup"
@@ -10009,8 +9392,6 @@ msgid "HTTP Services"
 msgstr "Serveis"
 
 #: ../../main/core/src/EBox/HAProxy.pm:393
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:742
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
 msgid "port"
 msgstr "port"
@@ -10154,6 +9535,10 @@ msgstr "Secció"
 msgid "Identifier"
 msgstr "Identificador"
 
+#: ../../main/core/src/EBox/AuditLogging.pm:118
+msgid "Value"
+msgstr "Valor"
+
 #: ../../main/core/src/EBox/AuditLogging.pm:119
 msgid "Previous value"
 msgstr "Valor anterior"
@@ -10293,7 +9678,7 @@ msgstr "Compte de Jabber"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:58
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:205
-#: ../../main/samba/src/EBox/Module/LDAP.pm:116
+#: ../../main/samba/src/EBox/Module/LDAP.pm:176
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
 msgstr "No es pot configurar l'objecte SASL: {x}"
@@ -10306,7 +9691,7 @@ msgstr "No es pot configurar l'objecte LDAP: {x}"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:73
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:222
-#: ../../main/samba/src/EBox/Module/LDAP.pm:131
+#: ../../main/samba/src/EBox/Module/LDAP.pm:191
 msgid "AD LDAP server does not support GSSAPI"
 msgstr "El server AD LDAP no suporta GSSAPI"
 
@@ -10605,41 +9990,37 @@ msgstr ""
 "La gestió de software actualment està bloquejada per {locker}. Si us plau, "
 "provi-ho més tard"
 
-#: ../../main/software/src/EBox/Software.pm:1063
-msgid "Installation steps"
-msgstr "Passos de la instal.lació"
-
-#: ../../main/software/src/EBox/Software.pm:1066
+#: ../../main/software/src/EBox/Software.pm:1064
 #, fuzzy
 msgid "Choose Backup"
 msgstr "Còpia de seguretat remota"
 
-#: ../../main/software/src/EBox/Software.pm:1068
+#: ../../main/software/src/EBox/Software.pm:1066
 msgid "Package Selection"
 msgstr "Selecció de paquets"
 
-#: ../../main/software/src/EBox/Software.pm:1070
+#: ../../main/software/src/EBox/Software.pm:1068
 msgid "Confirmation"
 msgstr "Confirmació"
 
-#: ../../main/software/src/EBox/Software.pm:1071
+#: ../../main/software/src/EBox/Software.pm:1069
 msgid "Installation"
 msgstr "Instal.lació"
 
-#: ../../main/software/src/EBox/Software.pm:1073
+#: ../../main/software/src/EBox/Software.pm:1071
 #, fuzzy
 msgid "Restore Configuration"
 msgstr "Restablint la còpia de la configuració"
 
-#: ../../main/software/src/EBox/Software.pm:1075
+#: ../../main/software/src/EBox/Software.pm:1073
 msgid "Initial Configuration"
 msgstr "Configuració inicial"
 
-#: ../../main/software/src/EBox/Software.pm:1077
+#: ../../main/software/src/EBox/Software.pm:1075
 msgid "Save Changes"
 msgstr "Guardar els canvis"
 
-#: ../../main/software/src/EBox/Software.pm:1078
+#: ../../main/software/src/EBox/Software.pm:1076
 #: ../../main/core/src/templates/wizard/wizard.mas:26
 msgid "Finish"
 msgstr "Acabar"
@@ -10698,7 +10079,7 @@ msgstr "Instal.lant"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:235
 #: ../../main/software/src/templates/del.mas:30
-#: ../../main/software/src/templates/ebox.mas:49
+#: ../../main/software/src/templates/ebox.mas:47
 msgid "Installing packages"
 msgstr "Instal.lant paquets"
 
@@ -10742,7 +10123,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:272
 #: ../../main/software/src/templates/del.mas:32
-#: ../../main/software/src/templates/ebox.mas:50
+#: ../../main/software/src/templates/ebox.mas:48
 #, fuzzy
 msgid "Removing packages"
 msgstr "Eliminant paquet"
@@ -11319,7 +10700,7 @@ msgid "OU name"
 msgstr "Nom d'usuari"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2262
+#: ../../main/samba/src/EBox/Samba.pm:2263
 msgid "LDAP Settings"
 msgstr "Configuració LDAP"
 
@@ -11366,7 +10747,7 @@ msgstr ""
 "creat."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2251
+#: ../../main/samba/src/EBox/Samba.pm:2252
 msgid "User Template"
 msgstr "Plantilla d'usuari"
 
@@ -11375,7 +10756,7 @@ msgid "Recycle Bin"
 msgstr "Paperera"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2273
+#: ../../main/samba/src/EBox/Samba.pm:2274
 msgid "File Sharing"
 msgstr "Compartició de fitxers"
 
@@ -11535,20 +10916,27 @@ msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:128
+#, fuzzy, perl-brace-format
+msgid ""
+"The host netbios name '{x}' has to be the different than the domain netbios "
+"name '{y}'"
+msgstr "Una màquina amb el nom {host} ja està registrada en aquest Zentyal"
+
+#: ../../main/samba/src/EBox/Samba/Provision.pm:144
 #, perl-brace-format
 msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
 "add it in the {ohref}DNS domains page{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:149
+#: ../../main/samba/src/EBox/Samba/Provision.pm:165
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
 ">You can add it in the {ohref}host names page for domain {d}{chref}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:185
+#: ../../main/samba/src/EBox/Samba/Provision.pm:201
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for host {host}.<br/"
@@ -11557,7 +10945,7 @@ msgid ""
 "<br/>You can add it in the {ohref}IP addresses page for {host}{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:235
+#: ../../main/samba/src/EBox/Samba/Provision.pm:251
 #, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no IP addresses are set for domain {dom}.<br/"
@@ -11566,7 +10954,7 @@ msgid ""
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:308
+#: ../../main/samba/src/EBox/Samba/Provision.pm:324
 #, perl-brace-format
 msgid ""
 "Cannot enable Samba because this server is synchronizing its users as slave "
@@ -11574,35 +10962,35 @@ msgid ""
 "options{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:379
+#: ../../main/samba/src/EBox/Samba/Provision.pm:395
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "L'usuari {u} no existeix"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:431
-#: ../../main/samba/src/EBox/Samba/Provision.pm:455
-#: ../../main/samba/src/EBox/Samba/Provision.pm:484
+#: ../../main/samba/src/EBox/Samba/Provision.pm:447
+#: ../../main/samba/src/EBox/Samba/Provision.pm:471
+#: ../../main/samba/src/EBox/Samba/Provision.pm:500
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:636
+#: ../../main/samba/src/EBox/Samba/Provision.pm:652
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:656
+#: ../../main/samba/src/EBox/Samba/Provision.pm:672
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:677
+#: ../../main/samba/src/EBox/Samba/Provision.pm:693
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:726
+#: ../../main/samba/src/EBox/Samba/Provision.pm:742
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -11612,80 +11000,80 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:764
+#: ../../main/samba/src/EBox/Samba/Provision.pm:780
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "No s'ha d'afegir el prefix www al domini."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:773
+#: ../../main/samba/src/EBox/Samba/Provision.pm:789
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:793
+#: ../../main/samba/src/EBox/Samba/Provision.pm:809
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:812
+#: ../../main/samba/src/EBox/Samba/Provision.pm:828
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:821
+#: ../../main/samba/src/EBox/Samba/Provision.pm:837
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:856
+#: ../../main/samba/src/EBox/Samba/Provision.pm:872
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:882
+#: ../../main/samba/src/EBox/Samba/Provision.pm:898
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:903
+#: ../../main/samba/src/EBox/Samba/Provision.pm:919
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:909
+#: ../../main/samba/src/EBox/Samba/Provision.pm:925
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:936
+#: ../../main/samba/src/EBox/Samba/Provision.pm:952
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:943
+#: ../../main/samba/src/EBox/Samba/Provision.pm:959
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:970
+#: ../../main/samba/src/EBox/Samba/Provision.pm:986
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1003
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1019
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "No s'ha d'afegir el prefix www al domini."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1016
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1032
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:596
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -11693,26 +11081,26 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1055
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1071
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "El certificat {cn} no existeix"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1067
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1083
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1101
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1117
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1105
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1121
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1463
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1479
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -11985,19 +11373,19 @@ msgstr ""
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:519
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:522
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:524
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:527
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:530
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:533
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -12023,7 +11411,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "El port {p} no està disponible"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2240
+#: ../../main/samba/src/EBox/Samba.pm:2241
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Usuaris i grups"
@@ -12126,7 +11514,7 @@ msgid "exception"
 msgstr "excepció"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2231
+#: ../../main/samba/src/EBox/Samba.pm:2232
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Política de Grup"
@@ -12396,7 +11784,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2228
+#: ../../main/samba/src/EBox/Samba.pm:2229
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Política de Grup"
@@ -12594,7 +11982,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:47
 #: ../../main/software/src/templates/updates.mas:92
-#: ../../main/software/src/templates/ebox.mas:101
+#: ../../main/software/src/templates/ebox.mas:99
 msgid "Version"
 msgstr "Versió"
 
@@ -12747,7 +12135,7 @@ msgid "FATAL: Could not connect to samba LDAP server: {error}"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Ldap.pm:259 ../../main/samba/src/EBox/Ldap.pm:474
-#: ../../main/samba/src/EBox/Module/LDAP.pm:171
+#: ../../main/samba/src/EBox/Module/LDAP.pm:231
 #, perl-brace-format
 msgid "Error loading LDIF. Error message: {x}, Error lines: {y}"
 msgstr ""
@@ -12759,7 +12147,7 @@ msgstr ""
 "No disponible l'obtenció del tiquet de Kerberos per enllaçar amb LDAP: {x}"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:212
-#: ../../main/samba/src/EBox/Module/LDAP.pm:123
+#: ../../main/samba/src/EBox/Module/LDAP.pm:183
 #, fuzzy, perl-brace-format
 msgid "Unable to create SASL client: {x}"
 msgstr "No es pot configurar l'objecte SASL: {x}"
@@ -12850,33 +12238,40 @@ msgstr ""
 msgid "This addon applies only to users in the default 'Users' container"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:98
+#: ../../main/samba/src/EBox/Module/LDAP.pm:107
+#, perl-brace-format
+msgid ""
+"DNS query failed: {x} (using nameservers {y}, /etc/resolv.conf was\n"
+"'{z}'"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Module/LDAP.pm:147
 #, perl-brace-format
 msgid "Error on search: Expected one entry, got {x}.\n"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:107
+#: ../../main/samba/src/EBox/Module/LDAP.pm:160
 #, perl-brace-format
-msgid "Error connectiong to schema master role owner ({x})"
+msgid "Error connecting to schema master role owner ({x})"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:138
+#: ../../main/samba/src/EBox/Module/LDAP.pm:198
 msgid "Error binding to schama master LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:361
+#: ../../main/samba/src/EBox/Module/LDAP.pm:422
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:449
+#: ../../main/mail/src/EBox/Mail.pm:473
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:424
+#: ../../main/mail/src/EBox/Mail.pm:448
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -13008,27 +12403,27 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1597
+#: ../../main/samba/src/EBox/Samba.pm:1598
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1824
+#: ../../main/samba/src/EBox/Samba.pm:1825
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2246
+#: ../../main/samba/src/EBox/Samba.pm:2247
 #, fuzzy
 msgid "Manage"
 msgstr "Només gestionar"
 
-#: ../../main/samba/src/EBox/Samba.pm:2266
+#: ../../main/samba/src/EBox/Samba.pm:2267
 #, fuzzy
 msgid "Configure mode"
 msgstr "Configurats"
 
-#: ../../main/samba/src/EBox/Samba.pm:2564
+#: ../../main/samba/src/EBox/Samba.pm:2565
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -13037,7 +12432,7 @@ msgstr ""
 "Està utilitzant el mode de còpia de seguretat per parts i aquesta còpia de "
 "seguretat va ser feta sense el mode per parts"
 
-#: ../../main/samba/src/EBox/Samba.pm:2584
+#: ../../main/samba/src/EBox/Samba.pm:2585
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -13046,105 +12441,105 @@ msgstr ""
 "No es pot restaurar perquè l'usuari LDAP {user} ja existeix com usuari a /"
 "etc/passwd. Elimina o torna a anomenar-lo"
 
-#: ../../main/samba/src/EBox/Samba.pm:2608
+#: ../../main/samba/src/EBox/Samba.pm:2609
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2894
+#: ../../main/samba/src/EBox/Samba.pm:2895
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2987
+#: ../../main/samba/src/EBox/Samba.pm:2988
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Ús del sistema de fitxers"
 
-#: ../../main/samba/src/EBox/Samba.pm:2996
+#: ../../main/samba/src/EBox/Samba.pm:2997
 #, fuzzy
 msgid "Users data"
 msgstr "Quota d'usuari"
 
-#: ../../main/samba/src/EBox/Samba.pm:3144
+#: ../../main/samba/src/EBox/Samba.pm:3145
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "L'adreça VPN {addr} ja està en ús per la interfície {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3704
-#: ../../main/samba/src/EBox/Samba.pm:3724
-#: ../../main/samba/src/EBox/Samba.pm:3735
+#: ../../main/samba/src/EBox/Samba.pm:3705
+#: ../../main/samba/src/EBox/Samba.pm:3725
+#: ../../main/samba/src/EBox/Samba.pm:3736
 msgid "Client address"
 msgstr "Adreça del client"
 
-#: ../../main/samba/src/EBox/Samba.pm:3711
+#: ../../main/samba/src/EBox/Samba.pm:3712
 msgid "Connect"
 msgstr "Connectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3712
+#: ../../main/samba/src/EBox/Samba.pm:3713
 msgid "Access to directory"
 msgstr "Accés al directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3713
+#: ../../main/samba/src/EBox/Samba.pm:3714
 msgid "Read file"
 msgstr "Lectura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3714
+#: ../../main/samba/src/EBox/Samba.pm:3715
 msgid "Write file"
 msgstr "Escriptura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3715
+#: ../../main/samba/src/EBox/Samba.pm:3716
 msgid "Disconnect"
 msgstr "Desconnectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3716
+#: ../../main/samba/src/EBox/Samba.pm:3717
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3717
+#: ../../main/samba/src/EBox/Samba.pm:3718
 msgid "Create directory"
 msgstr "Crear directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3718
+#: ../../main/samba/src/EBox/Samba.pm:3719
 msgid "Remove directory"
 msgstr "Eliminar directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3719
+#: ../../main/samba/src/EBox/Samba.pm:3720
 msgid "Rename"
 msgstr "Canviar el nom"
 
-#: ../../main/samba/src/EBox/Samba.pm:3726
-#: ../../main/samba/src/EBox/Samba.pm:3737
+#: ../../main/samba/src/EBox/Samba.pm:3727
+#: ../../main/samba/src/EBox/Samba.pm:3738
 msgid "File name"
 msgstr "Nom de l'arxiu"
 
-#: ../../main/samba/src/EBox/Samba.pm:3727
-#: ../../main/samba/src/EBox/Samba.pm:3731
+#: ../../main/samba/src/EBox/Samba.pm:3728
+#: ../../main/samba/src/EBox/Samba.pm:3732
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3738
+#: ../../main/samba/src/EBox/Samba.pm:3739
 msgid "Quarantined file name"
 msgstr "Fitxer en quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3739
-#: ../../main/samba/src/EBox/Samba.pm:3742
+#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3743
 msgid "Quarantine"
 msgstr "Quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3745
+#: ../../main/samba/src/EBox/Samba.pm:3746
 msgid "Samba access"
 msgstr "Accessos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3756
+#: ../../main/samba/src/EBox/Samba.pm:3757
 msgid "Samba virus"
 msgstr "Virus a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3768
 msgid "Samba quarantine"
 msgstr "Quarentena de Samba"
 
@@ -14033,7 +13428,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:40
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
 msgid "Threshold"
 msgstr "Llindar"
 
@@ -14314,9 +13708,9 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:133
 #: ../../main/software/src/templates/updates.mas:92
-#: ../../main/software/src/templates/ebox.mas:43
-#: ../../main/software/src/templates/ebox.mas:64
-#: ../../main/software/src/templates/ebox.mas:101
+#: ../../main/software/src/templates/ebox.mas:41
+#: ../../main/software/src/templates/ebox.mas:62
+#: ../../main/software/src/templates/ebox.mas:99
 msgid "Component"
 msgstr "Component"
 
@@ -14592,8 +13986,8 @@ msgstr "Connexió de client finalitzada"
 msgid "IPsec"
 msgstr "IPsec"
 
-#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1558
-#: ../../main/mail/src/EBox/Mail.pm:1718
+#: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1582
+#: ../../main/mail/src/EBox/Mail.pm:1742
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
@@ -14679,27 +14073,27 @@ msgstr "Configurar amavis"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "Configurar dovecot per autentificar contra LDAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:324
+#: ../../main/mail/src/EBox/Mail.pm:348
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr "Correu surtint (protocol SMTP)"
 
-#: ../../main/mail/src/EBox/Mail.pm:333
+#: ../../main/mail/src/EBox/Mail.pm:357
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:334
+#: ../../main/mail/src/EBox/Mail.pm:358
 msgid "POP, IMAP and SIEVE protocols"
 msgstr "Protocols POP, IMAP i SIEVE"
 
-#: ../../main/mail/src/EBox/Mail.pm:343
+#: ../../main/mail/src/EBox/Mail.pm:367
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:344
+#: ../../main/mail/src/EBox/Mail.pm:368
 msgid "Outgoing Mail (Submission protocol)."
 msgstr "Correu sortint (protocol de submisió)."
 
-#: ../../main/mail/src/EBox/Mail.pm:920
+#: ../../main/mail/src/EBox/Mail.pm:944
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -14708,154 +14102,154 @@ msgstr ""
 "no es completament qualificat. Si us plau, defineix un nom personalitzat de "
 "correu del servidor "
 
-#: ../../main/mail/src/EBox/Mail.pm:925
+#: ../../main/mail/src/EBox/Mail.pm:949
 msgid "The mail name must be a fully qualified name"
 msgstr "El nom del correu ha de ser un nom completament qualificat"
 
-#: ../../main/mail/src/EBox/Mail.pm:929 ../../main/mail/src/EBox/Mail.pm:940
-#: ../../main/mail/src/EBox/Mail.pm:948
+#: ../../main/mail/src/EBox/Mail.pm:953 ../../main/mail/src/EBox/Mail.pm:964
+#: ../../main/mail/src/EBox/Mail.pm:972
 msgid "Host mail name"
 msgstr "Nom de correu de l'amfitrió"
 
-#: ../../main/mail/src/EBox/Mail.pm:943
+#: ../../main/mail/src/EBox/Mail.pm:967
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "El nom del correu i el nom del domini virtual de correu són iguals"
 
-#: ../../main/mail/src/EBox/Mail.pm:1504
+#: ../../main/mail/src/EBox/Mail.pm:1528
 msgid "SMTP service"
 msgstr "Servei SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1511
+#: ../../main/mail/src/EBox/Mail.pm:1535
 msgid "POP3 service"
 msgstr "Servei POP3"
 
-#: ../../main/mail/src/EBox/Mail.pm:1517
+#: ../../main/mail/src/EBox/Mail.pm:1541
 msgid "POP3S service"
 msgstr "Servei POP3S"
 
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1547
 msgid "IMAP service"
 msgstr "Servei IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1529
+#: ../../main/mail/src/EBox/Mail.pm:1553
 msgid "IMAPS service"
 msgstr "Servei IMAPS"
 
-#: ../../main/mail/src/EBox/Mail.pm:1573
+#: ../../main/mail/src/EBox/Mail.pm:1597
 msgid "enabled"
 msgstr "Activat"
 
-#: ../../main/mail/src/EBox/Mail.pm:1578
+#: ../../main/mail/src/EBox/Mail.pm:1602
 msgid "Mail server's filter"
 msgstr "Filtre del servidor de correu"
 
-#: ../../main/mail/src/EBox/Mail.pm:1631
+#: ../../main/mail/src/EBox/Mail.pm:1655
 msgid "Virtual Mail Domains"
 msgstr "Dominis virtuals de correu"
 
-#: ../../main/mail/src/EBox/Mail.pm:1637
+#: ../../main/mail/src/EBox/Mail.pm:1661
 msgid "Greylist"
 msgstr "Llista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1643
+#: ../../main/mail/src/EBox/Mail.pm:1667
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Gestió de la Cua"
 
-#: ../../main/mail/src/EBox/Mail.pm:1669
+#: ../../main/mail/src/EBox/Mail.pm:1693
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Obtenció de correu de comptes externs"
 
-#: ../../main/mail/src/EBox/Mail.pm:1684
+#: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "Message ID"
 msgstr "ID del missatge"
 
-#: ../../main/mail/src/EBox/Mail.pm:1687
+#: ../../main/mail/src/EBox/Mail.pm:1711
 msgid "From hostname"
 msgstr "Des de nom d'amfitrió"
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1712
 msgid "From host ip"
 msgstr "IP amfitrió origen"
 
-#: ../../main/mail/src/EBox/Mail.pm:1689
+#: ../../main/mail/src/EBox/Mail.pm:1713
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Mida (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1690
+#: ../../main/mail/src/EBox/Mail.pm:1714
 msgid "Relay"
 msgstr "Retransmissió"
 
-#: ../../main/mail/src/EBox/Mail.pm:1691
+#: ../../main/mail/src/EBox/Mail.pm:1715
 msgid "Message type"
 msgstr "Tipus de missatge"
 
-#: ../../main/mail/src/EBox/Mail.pm:1694
+#: ../../main/mail/src/EBox/Mail.pm:1718
 msgid "Additional Info"
 msgstr "Informació adicional"
 
-#: ../../main/mail/src/EBox/Mail.pm:1705
+#: ../../main/mail/src/EBox/Mail.pm:1729
 msgid "Successful messages"
 msgstr "Missatges exitosos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1706
+#: ../../main/mail/src/EBox/Mail.pm:1730
 msgid "Maximum message size exceeded"
 msgstr "Mida màxima del missatge superat"
 
-#: ../../main/mail/src/EBox/Mail.pm:1707
+#: ../../main/mail/src/EBox/Mail.pm:1731
 msgid "User quota exceeded"
 msgstr "Quota d'usuari superada"
 
-#: ../../main/mail/src/EBox/Mail.pm:1708
+#: ../../main/mail/src/EBox/Mail.pm:1732
 msgid "Relay access denied"
 msgstr "Accés de relleu denegat"
 
-#: ../../main/mail/src/EBox/Mail.pm:1709
+#: ../../main/mail/src/EBox/Mail.pm:1733
 msgid "Account does not exist"
 msgstr "El compte no existeix"
 
-#: ../../main/mail/src/EBox/Mail.pm:1710
+#: ../../main/mail/src/EBox/Mail.pm:1734
 msgid "Host unreachable"
 msgstr "Amfitrió inassolible"
 
-#: ../../main/mail/src/EBox/Mail.pm:1711
+#: ../../main/mail/src/EBox/Mail.pm:1735
 msgid "Authentication error"
 msgstr "Error d'autenticació"
 
-#: ../../main/mail/src/EBox/Mail.pm:1712
+#: ../../main/mail/src/EBox/Mail.pm:1736
 msgid "Greylisted"
 msgstr "Llista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1713
+#: ../../main/mail/src/EBox/Mail.pm:1737
 msgid "Relay rejected by the smarthost"
 msgstr "Retransmisió denegada pel smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1714
+#: ../../main/mail/src/EBox/Mail.pm:1738
 msgid "Other events"
 msgstr "Altres events"
 
-#: ../../main/mail/src/EBox/Mail.pm:1847 ../../main/mail/src/EBox/Mail.pm:1954
+#: ../../main/mail/src/EBox/Mail.pm:1871 ../../main/mail/src/EBox/Mail.pm:1978
 msgid "Mailboxes"
 msgstr "Bústies"
 
-#: ../../main/mail/src/EBox/Mail.pm:1874
+#: ../../main/mail/src/EBox/Mail.pm:1898
 msgid "Mail SMTP server"
 msgstr "Servidor de correu SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1882
+#: ../../main/mail/src/EBox/Mail.pm:1906
 msgid "Mail POP/IMAP server"
 msgstr "Servidor de correu POP/IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1996
+#: ../../main/mail/src/EBox/Mail.pm:2020
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2031
+#: ../../main/mail/src/EBox/Mail.pm:2055
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "L'adreça VPN {addr} ja està en ús per la interfície {iface}"
@@ -15252,6 +14646,10 @@ msgstr ""
 msgid "Smarthost authentication"
 msgstr "Autentificació per al smarthost"
 
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
+msgid "User and password"
+msgstr "Usuari i contrasenya"
+
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
 msgstr "Nom del servidor de correu"
@@ -15628,32 +15026,32 @@ msgstr "No es pot connectar amb el servidor de correu {smtp}."
 msgid "mail account"
 msgstr "compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:343
+#: ../../main/mail/src/EBox/MailUserLdap.pm:347
 msgid "This group has a mail alias"
 msgstr "Aquest grup té un compte àlies de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:367
+#: ../../main/mail/src/EBox/MailUserLdap.pm:371
 msgid "This user has a mail account"
 msgstr "Aquest usuari té un compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:431
+#: ../../main/mail/src/EBox/MailUserLdap.pm:435
 msgid "Mail account"
 msgstr "Compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:433
+#: ../../main/mail/src/EBox/MailUserLdap.pm:437
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Crear un compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:435
+#: ../../main/mail/src/EBox/MailUserLdap.pm:439
 msgid "Mail account settings"
 msgstr "Paràmetres del compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:475
+#: ../../main/mail/src/EBox/MailUserLdap.pm:479
 msgid "Mail alias settings"
 msgstr "Paràmetres de l'àlies de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:785
+#: ../../main/mail/src/EBox/MailUserLdap.pm:789
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "La quota només pot ser un nombre positiu o zero per a una quota il·limitada"
@@ -15757,479 +15155,6 @@ msgstr "Protocol de Transport d'Hipertext"
 #, fuzzy
 msgid "HyperText Transport Protocol over SSL"
 msgstr "Protocol de Transport d'Hipertext"
-
-#: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:133
-#: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:147
-#: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:157
-msgid "not applicable"
-msgstr "no aplicable"
-
-#: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:45
-#: ../../main/monitor/src/EBox/Monitor.pm:79
-msgid "Monitoring"
-msgstr "Monitoratge"
-
-#: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:68
-#, perl-brace-format
-msgid ""
-"You must enable monitor module to see monitor graphs in {openhref}Module "
-"Status{closehref} section."
-msgstr ""
-"Has d'habilitar el mòdul de monitoratge en la secció {openhref}Estat dels "
-"Mòduls{closehref} per poder veure les gràfiques de monitoratge."
-
-#: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:87
-#, perl-brace-format
-msgid ""
-"You must save the changes in module status to see monitor graphs in the "
-"{openhref}Save changes{closehref} section. In case it is already enabled you "
-"must wait for a few seconds to collect the first monitor data"
-msgstr ""
-"Has de desar els canvis en estat dels mòduls per veure les gràfiques de "
-"monitoratge en la secció {openhref}Desar canvis{closehref}. En cas de que ja "
-"s'hagi habilitat, és possible que hagis d'esperar uns pocs segons per "
-"recollir les primeres dades del monitoratge"
-
-#: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:95
-#, perl-brace-format
-msgid ""
-"{p}An error has happened reading RRD files: {error}.{ep}{p}Retry to check if "
-"it is fixed.{ep}{p}If not, this can be easily fixed by starting over again "
-"removing the {dir} content and launching this command: {cmd}.{ep}Take into "
-"account your monitor data will be lost."
-msgstr ""
-
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:123
-msgid "Last hour"
-msgstr "Última hora"
-
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:129
-msgid "Last day"
-msgstr "Últim dia"
-
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:135
-#, fuzzy
-msgid "Last week"
-msgstr "Cognom"
-
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:141
-msgid "Last month"
-msgstr "Últim mes"
-
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:147
-msgid "Last year"
-msgstr "Últim any"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:81
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:112
-msgid "Monitor Watcher"
-msgstr "Observador de Monitor"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:146
-msgid "Measure"
-msgstr "Mesura"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:153
-msgid "Thresholds"
-msgstr "Llindars"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:162
-msgid "Configure monitor watchers"
-msgstr "Configurar observadors de monitoratge"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:163
-msgid "measure"
-msgstr "mesura"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:168
-msgid "Every measure may have several thresholds to monitor"
-msgstr "Cada mesura pot tenir diversos llindars a monitorar"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:150
-msgid "At least a threshold (maximum or minimum) must be set"
-msgstr "S'ha d'establir almenys un llindar (màxim o mínim)"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:155
-msgid "This threshold rule will override the current ones"
-msgstr "Aquesta regla de llindar sobreescriurà les existents"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:217
-#, perl-brace-format
-msgid "It should be a multiple of {interval}"
-msgstr "Hauría de ser un múltiple de {interval}"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
-msgid "Failure minimum"
-msgstr "Mínim per fallar"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:264
-msgid ""
-"Set the lower bound of acceptable values. If unset defaults to negative "
-"infinity."
-msgstr ""
-"Estableix un límit inferior de valors acceptats. Si no s'especifica es pren -"
-"infinit per defecte."
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:269
-msgid "Warning minimum"
-msgstr "Mínim per avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:272
-#, perl-brace-format
-msgid ""
-"If the value is less than this value and greater than {fmin} a warn event is "
-"sent"
-msgstr ""
-"Si el valor és menor que aquest valor i més gran que {fmin} s'enviarà un "
-"esdeveniment d'avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
-msgid "failure minimum"
-msgstr "mínim per fallida"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:278
-msgid "Warning maximum"
-msgstr "Màxim per avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:281
-#, perl-brace-format
-msgid ""
-"If the value is greater than this value and less than {fmax} a warn event is "
-"sent"
-msgstr ""
-"Si el valor és més que aquest valor i menor que {fmax} s'enviarà un "
-"esdeveniment d'avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
-msgid "failure maximum"
-msgstr "màxim per fallida"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:287
-msgid "Failure maximum"
-msgstr "Màxim per fallida"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:290
-msgid ""
-"Set the upper bound of acceptable values. If unset defaults to positive "
-"infinity."
-msgstr ""
-"Estableix un límit superior de valors acceptables. Si no s'especifica es "
-"pren +infinit per defecte."
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:295
-msgid "Invert"
-msgstr "Invertir"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:298
-#, perl-brace-format
-msgid ""
-"If set to true, the range of acceptable values is inverted, i.e. values "
-"between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
-msgstr ""
-"Si s'habilita, el rang de valors acceptables s'inverteix, és a dir, valors "
-"entre {fmin} i {fmax} ({wmin} i {wmax}) no són correctes."
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
-msgid "warning minimum"
-msgstr "mínim per avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
-msgid "warning maximum"
-msgstr "màxim per avís"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:305
-msgid "Send events"
-msgstr "Enviar events"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:307
-msgid ""
-"If set to Always, an event will be dispatched for each value that is out of "
-"the acceptable range."
-msgstr ""
-"Si es configura com a Sempre, s'enviarà un event per cada valor fora de "
-"l'interval acceptable."
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
-msgid "Always"
-msgstr "Sempre"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
-msgid "After a change in event level"
-msgstr "Després d'un canvi en el nivell d'esveniment"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
-msgid "After"
-msgstr "Després"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:331
-msgid "Measure instance"
-msgstr "Exemplar de mesura"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:343
-msgid "Data Source"
-msgstr "Font de dades"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:351
-msgid "Threshold's list"
-msgstr "Llista de llindars"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:357
-#, perl-brace-format
-msgid ""
-"Every check is done with the highest possible resolution: {nSec} seconds"
-msgstr ""
-"Cada comprovació es realitzada amb la màxima resolució possible: {nSec} "
-"segons"
-
-#: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:359
-#, perl-brace-format
-msgid ""
-"Take into account this configuration will be only applied if monitor "
-"{openhref}event watcher is enabled{closehref}"
-msgstr ""
-"Tingui en compte que aquesta resolució només serà aplicada si el {openhref}"
-"esdeveniment de monitoratge és habilitat{closehref}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:55
-msgid "Physical memory usage"
-msgstr "Ús de la memòria física"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:56
-msgid "Collect the physical memory usage"
-msgstr "Recull l'ús de la memòria física"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:124
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
-msgid "free"
-msgstr "lliure"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
-msgid "page cache"
-msgstr "cau de pàgina"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
-msgid "buffer cache"
-msgstr "cau de memòria intermèdia"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Memory.pm:57
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:125
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
-msgid "used"
-msgstr "utilitzada"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:112
-#, fuzzy, perl-brace-format
-msgid "Disk usage in {partition}"
-msgstr "utilitzat en {partition}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:119
-msgid "File system usage"
-msgstr "Ús del sistema de fitxers"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:120
-msgid ""
-"Collect the mounted file system usage information as \"df\" command does"
-msgstr ""
-"Recull la informació dels sistemes de fitxers muntats com ho fa la comanda "
-"\"df\""
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:126
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:128
-#, fuzzy
-msgid "reserved"
-msgstr "servidor"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:59
-#, perl-brace-format
-msgid "CPU {no} usage"
-msgstr "ús de CPU {no}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:65
-msgid "CPU usage"
-msgstr "Ús de la CPU"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:66
-msgid ""
-"Collect the amount of time spent by the CPU in various states, most notably "
-"executing user code, executing system code, waiting for IO operations and "
-"being idle"
-msgstr ""
-"Recull la quantitat de temps emprada per la CPU en diversos estats, sobretot "
-"executant codi d'usuari, de sistema, esperant una operació d'E/S i inactiu"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:73
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
-msgid "idle"
-msgstr "inactiu"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:75
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
-msgid "interrupt"
-msgstr "interrupció"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:76
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83
-msgid "nice"
-msgstr "nice"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:77
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83
-msgid "soft interrupt"
-msgstr "interrupció software"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:78
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83
-msgid "steal"
-msgstr "temps 'robat'"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:80
-#: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:84
-msgid "wait"
-msgstr "espera"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Base.pm:717
-msgid "value"
-msgstr "valor"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:109
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:115
-msgid "temperature"
-msgstr "temperatura"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:127
-msgid "cooling device"
-msgstr "dispositiu de refrigeració"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:129
-msgid "sensor"
-msgstr "sensor"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:131
-#, perl-brace-format
-msgid "Temperature for {what}"
-msgstr "Temperatura de {what}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:137
-msgid "Thermal"
-msgstr "Tèrmic"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Thermal.pm:138
-#, perl-brace-format
-msgid ""
-"Collect thermal information (CPU sensors temperature) if possible from {dir}"
-msgstr ""
-"Recull informació tèrmica (temperatura de sensors de CPU), si és possible, "
-"des de {dir}"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:56
-msgid "Collect the system load that gives a rough overview of the system usage"
-msgstr ""
-"Recollir la càrrega del sistema que dóna una visió molt general de l'ús del "
-"sistema"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:59
-msgid "short term"
-msgstr "a curt termini"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:59
-msgid "mid term"
-msgstr "a mig termini"
-
-#: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:59
-msgid "long term"
-msgstr "a llarg termini"
-
-#: ../../main/monitor/src/EBox/Monitor.pm:110
-#, perl-brace-format
-msgid "{daemon} main configuration file"
-msgstr "Fitxer de configuració principal de {daemon}"
-
-#: ../../main/monitor/src/EBox/Monitor.pm:115
-#, perl-brace-format
-msgid "{daemon} thresholds configuration file"
-msgstr "Fitxer de configuració de llindars de {daemon}"
-
-#: ../../main/monitor/src/EBox/Monitor.pm:120
-#, perl-brace-format
-msgid "{daemon} default configuration file"
-msgstr "Fitxer de configuració per defecte {daemon}"
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:144
-msgid "Monitor"
-msgstr "Monitoratge"
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:161
-msgid "Notify when a certain value has reached a certain threshold"
-msgstr "Notificar quan un valor concret ha arribat a un cert llindar"
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:282
-msgid "All data sources are within range again"
-msgstr "Totes les fonts de dadas són de nou dins del rang"
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:294
-#, perl-brace-format
-msgid "{what} \"{dS}\" is currently {value}."
-msgstr "{what} \"{dS}\" és actualment {value}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:304
-#, fuzzy, perl-brace-format
-msgid ""
-"{what} \"{dS}\" has been {duration} within the {severity} region of "
-"{minBound} and {maxBound}."
-msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:311
-#, perl-brace-format
-msgid "That is within the {severity} region of {minBound} and {maxBound}. "
-msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:322
-#, fuzzy, perl-brace-format
-msgid ""
-"{what} \"{dS}\" has been {duration} above the {severity} threshold of "
-"{bound}. "
-msgstr "Està per sobre del llindar {severity} de {bound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:327
-#, perl-brace-format
-msgid "That is above the {severity} threshold of {bound}. "
-msgstr "Està per sobre del llindar {severity} de {bound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:333
-#, fuzzy, perl-brace-format
-msgid ""
-"{what} \"{dS}\" has been {duration} below the {severity} threshold of "
-"{bound}. "
-msgstr "Està per sota del llindar {severity} de {bound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:338
-#, perl-brace-format
-msgid "That is below the {severity} threshold of {bound}. "
-msgstr "Està per sota del llindar {severity} de {bound}."
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:370
-#, perl-brace-format
-msgid "The following {n} processes are likely causing it:"
-msgstr ""
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:398
-#, perl-brace-format
-msgid "{h}h {m}m {s}s"
-msgstr ""
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:401
-#, perl-brace-format
-msgid "{m}m {s}s"
-msgstr ""
-
-#: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:404
-#, perl-brace-format
-msgid "{s}s"
-msgstr ""
 
 #: ../../main/common/src/EBox/Sudo.pm:291
 #, perl-brace-format
@@ -16381,600 +15306,6 @@ msgstr "Fitxer de configuració NTP"
 #, fuzzy
 msgid "Network Time Protocol"
 msgstr "Eines de Diagnòstic de Xarxa"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:162
-#, fuzzy, perl-brace-format
-msgid "Cannot restore to {d}: {dd} does not exist"
-msgstr "No es pot restablir {d}: {dd} no existeix"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:170
-#, perl-brace-format
-msgid "Cannot restore to {d}: {dd} is not a directory"
-msgstr "No es pot restablir a {d}: {dd} no és un directori"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:197
-#, fuzzy, perl-brace-format
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '{cmd}' to refresh "
-"backup's information."
-msgstr ""
-"No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi '/etc/init."
-"d/ebox ebackup restart' per refrescar la informació de les còpies."
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:495
-msgid ""
-"Could not get backup collection status, check whether the parameters and "
-"passwords are correct"
-msgstr ""
-"No es pot obtenir l'estat de les copies. Comprovi si els paràmetres i les "
-"contrassenyes son correctes"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:631
-msgid ""
-"Another process is updating the collection status. Please, wait and retry"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1117
-#, fuzzy
-msgid "Backup configuration not complete"
-msgstr "Comprovant la compatibilitat de la configuració"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1136
-#, perl-brace-format
-msgid ""
-"Free space in {target} too low. {free} Mb available and backup estimated "
-"size is  {req}"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1154
-#, fuzzy, perl-brace-format
-msgid " {target} exists and is not longer a directory"
-msgstr "L'arxiu existeix i no es un directori"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1201
-#, fuzzy, perl-brace-format
-msgid "{target} is not mounted"
-msgstr "Pàgina no trobada"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:1207
-#, perl-brace-format
-msgid "{mp} is not mounted and {target} is inside it"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Composite/ServicesRestore.pm:40
-msgid "Services Restore"
-msgstr "Restauració de serveis"
-
-#: ../../main/ebackup/src/EBox/EBackup/Composite/RemoteGeneral.pm:40
-msgid "Configuration and Status"
-msgstr "Configuració i estat"
-
-#: ../../main/ebackup/src/EBox/EBackup/DBRestore.pm:50
-#, perl-brace-format
-msgid ""
-"Logs backup data not found in backup for {d}. Maybe you could try another "
-"date?"
-msgstr ""
-"No es troben registres de còpies de seguretat per {d}. Pot probar una altra "
-"data?"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:54
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:128
-#, fuzzy
-msgid "There are no backed up files yet"
-msgstr "No hi ha arxius copiats encara"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:87
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:182
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreLogs.pm:114
-msgid "Backup Date"
-msgstr "Data de la còpia"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:98
-msgid "Restore Zentyal configuration from backup"
-msgstr "Restaura la configuració de Zentyal des de la còpia de seguretat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:105
-msgid "Loads the configuration found in the backup"
-msgstr "Carrega la configuració trobada a la còpia de seguretat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:107
-msgid "Please wait..."
-msgstr "Si us plau, esperi..."
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreConf.pm:159
-#, perl-brace-format
-msgid ""
-"Configuration backup not found in backup for {d}. Maybe you could try "
-"another date?"
-msgstr ""
-"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
-"altra data?"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:102
-msgid "Remote Backup Status : Update process running, retry later"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:107
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:125
-#, fuzzy
-msgid "Remote Backup Status : There are not backed up files yet"
-msgstr "No hi ha arxius copiats encara"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:170
-msgid "Remote Backup Status"
-msgstr "Estat de la còpia remota"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:171
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:184
-msgid "backup"
-msgstr "còpia de seguretat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:123
-msgid "Update file list process running, retry later"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:144
-msgid "There are not backed up files yet"
-msgstr "No hi ha arxius copiats encara"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:193
-msgid "Restore Files"
-msgstr "Recuperar arxius"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:194
-msgid "file restore operation"
-msgstr "procés de recuperació d'arxius"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:202
-msgid ""
-"To restore files just edit the row of the file or directory you want to "
-"restore, select a backup date and click the restore button"
-msgstr ""
-"Per restaurar fitxers, simplement editi la fila de l'arxiu o directori que "
-"vol restaurar, seleccioni una data de opia de seguretat i faci click sobre "
-"el botó restaurar"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:221
-msgid "File already exists if you continue the current will be deleted"
-msgstr "L'arxiu ja existeix, si continua l'actual serà eliminat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:236
-msgid "File restored successfully"
-msgstr "L'arxiu s'ha recuperat correctament"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteFileList.pm:285
-#, perl-brace-format
-msgid "Remote URL to be used with duplicity for manual restores: {url}"
-msgstr ""
-"URL remota per fer servir amb el duplicity per restauracions manuals: {url}"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreLogs.pm:79
-msgid ""
-"To be able to restore logs you need the logs module installed and enabled"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreLogs.pm:83
-msgid "To be able to restore logs you need the logs module enabled"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreLogs.pm:125
-msgid "Restore logs database"
-msgstr "Restaura la base de dades de logs"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteRestoreLogs.pm:132
-msgid "Restores the Zentyal logs found in the selected backup"
-msgstr "Restaura els registres de Zentyal trobats a la còpia seleccionada"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:152
-msgid "Error connecting to backup server. Storage status unknown"
-msgstr ""
-"Error connectant al servidor de còpies de seguretat. Estat de "
-"l'emmagatzemament desconegut"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:168
-msgid "Used storage"
-msgstr "Emmagatzemament utilitzat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:172
-msgid "Available storage"
-msgstr "Emmagatzemament disponible"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:176
-msgid "Total storage"
-msgstr "Emmagatzemament total"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:183
-msgid "Remote Storage Usage"
-msgstr "Ús d'emmagatzemament remot"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:86
-msgid "Exclude or Include"
-msgstr "Excloure o incloure "
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:97
-msgid "Includes and Excludes"
-msgstr "Inclusions i exclusions "
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:98
-msgid "exclude or include"
-msgstr "excloure o incloure"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:108
-#, fuzzy
-msgid ""
-"A file or directory is included or excluded according the first match. A "
-"directory match is applied to all it contents. Anything that is not included "
-"is excluded by default."
-msgstr ""
-"Un arxiu o directori es inclòs o exclòs a partir de la primera coincidència. "
-"Una coincidència de directori s'aplica a tot el seu contingut. Els arxius no "
-"exclosos o inclosos explícitament son inclosos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:121
-msgid "Exclude path"
-msgstr "Ruta d'exclusió"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:125
-msgid "Exclude by regular expression"
-msgstr "Exclòs per l'expressió regular"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:129
-msgid "Include Path"
-msgstr "Ruta a Incloure"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:152
-msgid "add row"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:154
-#, fuzzy
-msgid "edit row"
-msgstr "Editar grup"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:156
-#, fuzzy
-msgid "remove row"
-msgstr "Baixar"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:166
-msgid "exclude path"
-msgstr "Ruta a Excloure"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:179
-msgid "exclude path regular expression"
-msgstr "expressió regular de la ruta a excloure"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:181
-msgid "Incorrect regular expression"
-msgstr "Expressió regular incorrecta "
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:198
-msgid "include path"
-msgstr "ruta inclosa"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:167
-#: ../../main/network/src/templates/wizard/network.mas:40
-#: ../../main/network/src/templates/ifaces.mas:67
-msgid "Method"
-msgstr "Mètode"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:173
-msgid "Host or destination"
-msgstr "Host o destí"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:175
-msgid "If the selected method is file system, only set the target directory"
-msgstr ""
-"Si el mètode seleccionat es sistema d'arxius, només ha d'establir el "
-"directori de destí"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:189
-msgid "Encryption"
-msgstr "Encriptació"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:199
-msgid "Symmetric Key"
-msgstr "Clau simètrica"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:215
-msgid "Full Backup Frequency"
-msgstr "Freqüència de còpia completa "
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:220
-msgid "Only the first time"
-msgstr "Només el primer cop"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:225
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:257
-msgid "Daily"
-msgstr "Cada dia"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:230
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:262
-msgid "Weekly"
-msgstr "Cada setmana"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:236
-msgid "Twice a month"
-msgstr "Dos cops al mes"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:242
-msgid "Monthly"
-msgstr "Cada mes"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:252
-msgid "Incremental Backup Frequency"
-msgstr "Freqüència de la còpia incremental"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:278
-msgid "Backup process starts at"
-msgstr "El procés de còpia comença a les"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:284
-msgid "Keep previous full copies"
-msgstr "Guarda les còpies completes anteriors"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:289
-msgid "maximum number"
-msgstr "número màxim"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:297
-msgid "no older than"
-msgstr "no anterior a"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:310
-msgid "General Configuration"
-msgstr "Configuració general"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:315
-msgid "General backup server configuration updated"
-msgstr "Configuració general de la còpia de seguretat actualitzada."
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:318
-msgid ""
-"Here you have can choose the backup method, configure the frequency and "
-"other options"
-msgstr ""
-"Aquí pot elegir el mode de còpia de seguretat, configurar la freqüència i "
-"altres opcions"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:327
-msgid "on Monday"
-msgstr "el dilluns"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:328
-msgid "on Tuesday"
-msgstr "el dimarts"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:329
-msgid "on Wednesday"
-msgstr "el dimecres"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:330
-msgid "on Thursday"
-msgstr "el dijous"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:331
-msgid "on Friday"
-msgstr "el divendres"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:332
-msgid "on Saturday"
-msgstr "el dissabte"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:333
-msgid "on Sunday"
-msgstr "el diumenge"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:344
-#, perl-brace-format
-msgid "on the {mday}th"
-msgstr "el dia {mday}"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:353
-msgid "on the last day"
-msgstr "l'últim dia"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:509
-msgid "File System"
-msgstr "Sistema de fitxers"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:547
-msgid "1 week"
-msgstr "1 setmana"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:551
-msgid "2 weeks"
-msgstr "2 setmanes"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:555
-msgid "3 weeks"
-msgstr "3 setmanes"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:559
-msgid "1 month"
-msgstr "1 mes"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:563
-msgid "2 months"
-msgstr "2 mesos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:567
-msgid "3 months"
-msgstr "3 mesos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:571
-msgid "4 months"
-msgstr "4 mesos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:575
-msgid "6 months"
-msgstr "6 mesos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:579
-msgid "9 months"
-msgstr "9 mesos"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:583
-msgid "1 year"
-msgstr "1 any"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:587
-msgid "1 year and half"
-msgstr "1 any i mig"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:591
-msgid "2 years"
-msgstr "2 anys"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:595
-msgid "3 years"
-msgstr "3 anys"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:656
-msgid ""
-"You cannot switch encryption options when there are existent backups with "
-"the original encryption options. You must remove previous backup to change "
-"the encryption options"
-msgstr ""
-"No pot canviar els paràmetres d'encriptació si hi ha còpies fetes amb les "
-"opcions originals. Per canviar les opcions ha d'eliminar primer les còpies "
-"anteriors"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:679
-msgid "The target parameter that must be like 'other.host[:port]/some_dir"
-msgstr "El paràmetre de destí ha de ser com 'other.host[:port]/some_dir"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:690
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:705
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:731
-msgid "target"
-msgstr "destí"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:692
-#, fuzzy
-msgid "Correct format is: 'other.host[:port]/some_dir'"
-msgstr "Ha de ser com 'other.host[:port]/some_dir'"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:698
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:740
-msgid "host"
-msgstr "host"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:707
-msgid "Root directory ('/') not allowed in target specification"
-msgstr ""
-"El directori arrel (\"/\") no es permet a l'especificació de la destinació"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:711
-msgid "directory"
-msgstr "directori"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:720
-msgid ""
-"The RSYNC target parameter that must be like 'other.host[:port]/"
-"relative_path' or 'other.host[:port]/absolute_path'"
-msgstr ""
-"El paràmetre de destí de l'RSYNC ha de ser com 'other.host[:port]/"
-"relative_path' o 'other.host[:port]/absolute_path'"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:734
-msgid ""
-"Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
-"absolute_path'"
-msgstr ""
-"Ha de ser com 'other.host[:port]/relative_path' o 'other.host[:port]/"
-"absolute_path'"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:745
-msgid "absolute directory"
-msgstr "directori absolut"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:747
-msgid "relative directory"
-msgstr "directori relatiu"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:757
-msgid ""
-"File system method needs a target parameter that should be a directory path"
-msgstr ""
-"El mètode de sistema d'arxius necessita un paràmetre de destí que ha de ser "
-"la ruta del directori"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:762
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:766
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:775
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:785
-msgid "Directory for backup"
-msgstr "Directori per la còpia de seguretat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:769
-msgid "Cannot use the / directory as target"
-msgstr "No es pot fer servir el directori / com destí"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:778
-msgid "File exists and it is not a directory"
-msgstr "L'arxiu existeix i no es un directori"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:788
-#, perl-brace-format
-msgid "Cannot read parent directory {d}"
-msgstr "No es pot llegir el directori pare {d}"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:802
-msgid ""
-"You must enable incremental backups when you enable 'Only the first time' "
-"full backup frequency"
-msgstr ""
-"Quan s'activa \"només el primer cop\" s'han d'habilitar les còpies "
-"incrementals."
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:822
-msgid "Incremental backup must be more frequent than full backup"
-msgstr ""
-"La còpia incremental ha de tenir major freqüència que la còpia complerta "
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:834
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:843
-msgid "General backup configuration updated."
-msgstr "Configuració general de la còpia de seguretat actualitzada."
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:835
-msgid ""
-"Backup method or target changed; you must save changes to refresh the "
-"backups list"
-msgstr ""
-"Ha canviat el mètode per fer còpies o la destinació. Guardi els canvis per "
-"actualitzar la llista de còpies de seguretat"
-
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:845
-msgid ""
-"SCP method selected. Remember to add your target host to the list of known "
-"hosts by SSH"
-msgstr ""
-"Seleccionat el mètode SCP. Recordi que ha d'afegir el host de destí a la "
-"llista de hosts coneguts per SSH"
-
-#: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:127
-msgid "Notify the result of scheduled backups."
-msgstr "Notificar el resultat de les  còpies programades."
-
-#: ../../main/ebackup/src/EBox/Exceptions/EBackup/BadSymmetricKey.pm:32
-#, fuzzy
-msgid "Incorrect symmetric key"
-msgstr "Clau simètrica"
-
-#: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
-#: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
-msgid "unknown"
-msgstr "Desconegut"
-
-#: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:33
-#, perl-brace-format
-msgid "File {f} not found in backup for {d}, try a later date"
-msgstr "L'arxiu {f} no es troba al backup per {d}, prova una data més actual"
 
 #: ../../main/ha/src/templates/metadata.mas:14
 msgid "Leave Cluster"
@@ -17399,7 +15730,6 @@ msgid "Create a Zentyal account"
 msgstr "Crear un compte de correu"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:159
-#: ../../main/software/src/templates/ebox.mas:269
 #, fuzzy
 msgid "Email"
 msgstr "Webmail"
@@ -17601,6 +15931,11 @@ msgstr "Configurar xarxa per interfícies externes"
 #: ../../main/network/src/templates/wizard/network.mas:33
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr "Ara no pot configurar adreces IP i xarxes per cada interfície"
+
+#: ../../main/network/src/templates/wizard/network.mas:40
+#: ../../main/network/src/templates/ifaces.mas:67
+msgid "Method"
+msgstr "Mètode"
 
 #: ../../main/network/src/templates/wizard/network.mas:40
 msgid "Don't configure"
@@ -18333,7 +16668,7 @@ msgstr "Sense opcions"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/software/src/templates/ebox.mas:468
+#: ../../main/software/src/templates/ebox.mas:313
 msgid "Search"
 msgstr "Cerca"
 
@@ -18876,12 +17211,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/updates.mas:77
-#: ../../main/software/src/templates/ebox.mas:508
+#: ../../main/software/src/templates/ebox.mas:353
 msgid "Package list updated successfully"
 msgstr "Llista de paquets actualitzada correctament"
 
 #: ../../main/software/src/templates/updates.mas:80
-#: ../../main/software/src/templates/ebox.mas:515
+#: ../../main/software/src/templates/ebox.mas:360
 #, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -18902,8 +17237,8 @@ msgstr ""
 
 #: ../../main/software/src/templates/updates.mas:92
 #: ../../main/software/src/templates/updates.mas:139
-#: ../../main/software/src/templates/ebox.mas:66
-#: ../../main/software/src/templates/ebox.mas:329
+#: ../../main/software/src/templates/ebox.mas:64
+#: ../../main/software/src/templates/ebox.mas:174
 msgid "Update"
 msgstr "Actualitzar"
 
@@ -18933,33 +17268,33 @@ msgid "Upgrading system packages"
 msgstr "Instal.lant paquets"
 
 #: ../../main/software/src/templates/updates.mas:140
-#: ../../main/software/src/templates/ebox.mas:446
+#: ../../main/software/src/templates/ebox.mas:291
 msgid "Update list"
 msgstr "Actualitzar la llista"
 
-#: ../../main/software/src/templates/ebox.mas:44
-#: ../../main/software/src/templates/ebox.mas:70
-#: ../../main/software/src/templates/ebox.mas:73
+#: ../../main/software/src/templates/ebox.mas:42
+#: ../../main/software/src/templates/ebox.mas:68
+#: ../../main/software/src/templates/ebox.mas:71
 msgid "Installed Version"
 msgstr "Versió Instal.lada"
 
-#: ../../main/software/src/templates/ebox.mas:45
-#: ../../main/software/src/templates/ebox.mas:74
+#: ../../main/software/src/templates/ebox.mas:43
+#: ../../main/software/src/templates/ebox.mas:72
 msgid "Latest Version"
 msgstr "Última versió"
 
-#: ../../main/software/src/templates/ebox.mas:51
+#: ../../main/software/src/templates/ebox.mas:49
 #, fuzzy
 msgid "Upgrading packages"
 msgstr "Instal.lant paquets"
 
-#: ../../main/software/src/templates/ebox.mas:71
-#: ../../main/software/src/templates/ebox.mas:304
-#: ../../main/software/src/templates/ebox.mas:323
+#: ../../main/software/src/templates/ebox.mas:69
+#: ../../main/software/src/templates/ebox.mas:157
+#: ../../main/software/src/templates/ebox.mas:168
 msgid "Install"
 msgstr "Instal.lar"
 
-#: ../../main/software/src/templates/ebox.mas:95
+#: ../../main/software/src/templates/ebox.mas:93
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
@@ -18967,13 +17302,13 @@ msgstr ""
 "Els següents paquets no s'han instal.lat correctament. No es podràn instal."
 "lar nous mòduls fins que això no es solucioni."
 
-#: ../../main/software/src/templates/ebox.mas:111
+#: ../../main/software/src/templates/ebox.mas:109
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr "Per solucionar aquesta situacó, executie aquesta comanda a la consola:"
 
-#: ../../main/software/src/templates/ebox.mas:116
+#: ../../main/software/src/templates/ebox.mas:114
 #, perl-brace-format
 msgid ""
 "After the above command is finished you can reload this page. If the problem "
@@ -18981,383 +17316,33 @@ msgid ""
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:126
+#: ../../main/software/src/templates/ebox.mas:123
 msgid "View advanced mode"
 msgstr "Veure el mode avançat"
 
-#: ../../main/software/src/templates/ebox.mas:128
+#: ../../main/software/src/templates/ebox.mas:126
 #, fuzzy
 msgid "Server roles"
 msgstr "Port del servidor"
 
-#: ../../main/software/src/templates/ebox.mas:143
-#: ../../main/software/src/templates/ebox.mas:162
-#: ../../main/software/src/templates/ebox.mas:181
-#: ../../main/software/src/templates/ebox.mas:201
+#: ../../main/software/src/templates/ebox.mas:134
 #, fuzzy
-msgid "More info"
-msgstr "Usuari no trobat"
-
-#: ../../main/software/src/templates/ebox.mas:161
-msgid "Infrastructure"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:180
-#, fuzzy
-msgid "Office"
-msgstr "trànsit"
-
-#: ../../main/software/src/templates/ebox.mas:200
-#, fuzzy
-msgid "Communications"
-msgstr "Opcions comunes"
-
-#: ../../main/software/src/templates/ebox.mas:209
-#, fuzzy
-msgid "Zentyal Gateway features"
-msgstr "Servidor de Passarel·les de Zarafa"
-
-#: ../../main/software/src/templates/ebox.mas:211
-#, fuzzy
-msgid "Transparent Caching"
-msgstr "Servidor intermediari Transparent"
-
-#: ../../main/software/src/templates/ebox.mas:211
-#, fuzzy
-msgid "Faster Internet connection!"
-msgstr "Conexió externa al servidor"
-
-#: ../../main/software/src/templates/ebox.mas:211
-msgid ""
-"When your users visit the same web pages, data will be downloaded only once. "
-"This increases browsing speed and reduces bandwidth usage."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:214
-#, fuzzy
-msgid "Traffic Shaping and QoS"
-msgstr "Modelat de tràfic"
-
-#: ../../main/software/src/templates/ebox.mas:214
-msgid "Business class critical traffic!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:214
-msgid ""
-"Prioritize selected traffic or users making sure that the most critical "
-"traffic is always served properly, regardless of the network load. Moreover, "
-"you can avoid P2P or large downloads that consume all your bandwidth."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:217
-#, fuzzy
-msgid "Load Balancing and Availability"
-msgstr "Alta disponibilitat"
-
-#: ../../main/software/src/templates/ebox.mas:217
-#, fuzzy
-msgid "Always connected!"
-msgstr "Connexió permesa"
-
-#: ../../main/software/src/templates/ebox.mas:217
-msgid ""
-"If you have multiple Internet connections, distribute the traffic "
-"transparently and stay connected even if one of the connections is down. You "
-"can also define specific connections for specific traffic, between offices, "
-"etc."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:220
-#, fuzzy
-msgid "Web Content Filter"
-msgstr "Llindar de filtrat de contingut"
-
-#: ../../main/software/src/templates/ebox.mas:220
-msgid "Secure working environment!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:220
-msgid ""
-"Block inappropriate content, restrict access to certain sites or allow "
-"access to specific sites only. Control user browsing and enforce your "
-"organization's Internet usage policy."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:223
-#: ../../main/software/src/templates/ebox.mas:243
-#: ../../main/software/src/templates/ebox.mas:260
-#: ../../main/software/src/templates/ebox.mas:274
-#, fuzzy
-msgid "Full feature list"
-msgstr "Restauració completa"
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid "Configurable network interfaces: Static, DHCP, VLAN, PPPoE, Bridge."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid "Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT)."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid "Advanced Routing: Policy routing, Load balancing, Automatic fail-over."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid ""
-"Traffic Shaping and QoS: Traffic shaping, Application layer (L7) "
-"classification."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid ""
-"Advanced HTTP proxy: Internet cache, Content filtering with antivirus, "
-"Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid ""
-"Captive Portal: Secure authentication, Source, destination and service "
-"exceptions, Secure client filtering, Client idle timeout, Maximum no. of "
-"connections."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:224
-msgid "RADIUS: Network authentication and authorization."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:230
-msgid "Zentyal Infrastructure features"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:232
-#, fuzzy
-msgid "DHCP Server"
-msgstr "Servidor FTP"
-
-#: ../../main/software/src/templates/ebox.mas:232
-#, fuzzy
-msgid "Automatic network configuration!"
-msgstr "Configuració de les actualitzacions automàtiques"
-
-#: ../../main/software/src/templates/ebox.mas:232
-msgid ""
-"Configure all the basic settings as devices are connected to the LAN: IP, "
-"mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases "
-"with PXE."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:235
-#, fuzzy
-msgid "DNS Server"
-msgstr "Servidor SMTP"
-
-#: ../../main/software/src/templates/ebox.mas:235
-msgid "People remember names better!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:235
-msgid ""
-"Assign every server on your network a domain name to ease internal "
-"communications. You can also give domain names to dynamic clients that will "
-"be updated as these change their IP address."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:238
-#, fuzzy
-msgid "Powered by Apache!"
-msgstr "Proporcionat per"
-
-#: ../../main/software/src/templates/ebox.mas:238
-msgid ""
-"Zentyal Server integrates the Apache web server, one of the most popular on "
-"the Internet. This module will help you to deploy all kind of internal web "
-"applications on your network."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:241
-#, fuzzy
-msgid "Create your own certificates!"
-msgstr "Crea certificats"
-
-#: ../../main/software/src/templates/ebox.mas:241
-msgid ""
-"Give your users secure access to internal services such as VPN or mail and "
-"deploy trusted certificates for your Zentyal managed services."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:244
-msgid ""
-"DHCP server: Dynamic and static leases, Integration with DNS, PXE support."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:244
-msgid ""
-"DNS server: DNS cache server, DNS authoritative server, Integration with "
-"DHCP."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:244
-#, fuzzy
-msgid "NTP server: NTP server."
-msgstr "TLS per al servidor SMTP"
-
-#: ../../main/software/src/templates/ebox.mas:244
-msgid ""
-"Certification Authority: Certificate management, Zentyal service integration."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:244
-msgid ""
-"Web server: HTTP and HTTPS support, Multiple virtual hosts, Integration with "
-"DNS."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:244
-msgid "FTP server: Anonymous FTP, Authenticated FTP."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:250
-#, fuzzy
-msgid "Zentyal Office features"
-msgstr "Servidor FTP de Zentyal"
-
-#: ../../main/software/src/templates/ebox.mas:252
-#, fuzzy
-msgid "Directory Service"
+msgid "Additional services"
 msgstr "Llistat de serveis"
 
-#: ../../main/software/src/templates/ebox.mas:252
-msgid "All your users in one place!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:252
-msgid ""
-"Manage users, groups and privileges from a single point. Replicate the "
-"directory over multiple servers for service distribution and high "
-"availability or synchronize against an existing Active Directory."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:255
-#, fuzzy
-msgid "File and Printer Sharing"
-msgstr "Compartició d'impresores"
-
-#: ../../main/software/src/templates/ebox.mas:255
-msgid "Sharing is easy!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:255
-msgid ""
-"Create shared folders and printers over your network and let your users "
-"access them seamlessly from any operating system. Replace your Windows "
-"server with Zentyal without any disruption to your users."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:258
-#, fuzzy
-msgid "Data Backup"
-msgstr "Dades copiades"
-
-#: ../../main/software/src/templates/ebox.mas:258
-msgid "A catastrophe you can prevent!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:258
-msgid ""
-"Hardware or software failures and human errors are common and can cause "
-"irreparable damage. Having a proper procedure to perform, check and restore "
-"configuration and data backups will save you from a disaster."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:261
-msgid ""
-"LDAP Directory server: Central management of users and groups, Master/slave "
-"architecture, Windows Active Directory synchronization."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:261
-msgid ""
-"File sharing: Windows file sharing (CIFS), Primary Domain Controller (PDC), "
-"Advanced password policies, Roaming profiles, Windows 7 support."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:261
-msgid ""
-"Printer sharing: Printer management, Windows printer sharing, IPP support."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:261
-msgid ""
-"Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile "
-"devices synchronization."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:261
-msgid ""
-"Backup: Incremental and full backup, Advanced backup policy, Disaster "
-"recovery."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:267
-msgid "Zentyal Unified Communications features"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:269
-msgid "With your favorite email client!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:269
-msgid ""
-"Zentyal includes a complete email server that is natively compatible with "
-"Microsoft Exchange Server. All the current standars are supported, so your "
-"users can keep using their favorite email clients."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:272
-msgid "Instant Messaging"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:272
-msgid "When email is not enough!"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:272
-msgid ""
-"Allow your users to communicate quickly, efficiently and safely with "
-"colleagues and customers. The XMPP/Jabber protocol used allows the use of "
-"any of the existing clients on most platforms, even on cell phones."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:275
-msgid ""
-"Mail server: SMTP with TLS, POP3-IMAP4 with SSL, Webmail, Server side "
-"filtering (SIEVE), External mail retrieval, Antispam, Antivirus, "
-"Greylisting, Virtual domains, User quota support."
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:275
-msgid "Instant Messaging server: XMPP/Jabber server, Conference rooms.)"
-msgstr ""
-
-#: ../../main/software/src/templates/ebox.mas:282
-#, fuzzy
-msgid "Modules"
-msgstr "Mòdul"
-
-#: ../../main/software/src/templates/ebox.mas:303
+#: ../../main/software/src/templates/ebox.mas:156
 msgid "Skip install"
 msgstr "Ometre la instal.lació"
 
-#: ../../main/software/src/templates/ebox.mas:320
+#: ../../main/software/src/templates/ebox.mas:165
 msgid "View basic mode"
 msgstr "Veure el mode bàsic"
 
-#: ../../main/software/src/templates/ebox.mas:476
+#: ../../main/software/src/templates/ebox.mas:321
 msgid "Select"
 msgstr "Seleccionar"
 
-#: ../../main/software/src/templates/ebox.mas:513
+#: ../../main/software/src/templates/ebox.mas:358
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr ""
@@ -19949,12 +17934,1187 @@ msgstr ""
 "Les següents modificacions només tindran efecte quan el mòdul de correu "
 "estigui habilitat"
 
-#: ../../main/monitor/src/templates/index.mas:25
-#, perl-brace-format
-msgid ""
-"Do you want to monitor and manage your servers and desktops remotely? Get "
-"one of the {oh}Commercial Editions{ch}!"
-msgstr ""
+#~ msgid "IPS Alerts report"
+#~ msgstr "Informe d'alertes de l'IPS"
+
+#~ msgid "Intrusion Detection/Prevention System"
+#~ msgstr "Sistema de Detecció/Precenció d'Intrusions"
+
+#~ msgid "number of alerts"
+#~ msgstr "nombre d'alertes"
+
+#~ msgid "Number of alerts"
+#~ msgstr "Nombre d'alertes"
+
+#~ msgid "Alert details"
+#~ msgstr "Detalls de l'alerta"
+
+#~ msgid "alerts"
+#~ msgstr "alertes"
+
+#~ msgid "Alerts chart"
+#~ msgstr "Taula d'alertes"
+
+#~ msgid "Alert Graph"
+#~ msgstr "Gràfic de l'alerta"
+
+#~ msgid ""
+#~ "Select the sets of rules you want apply when scanning the network traffic"
+#~ msgstr ""
+#~ "Seleccioni el conjunt de regles que desitgi aplicar quan s'escanegi el "
+#~ "trànsit de la xarxa"
+
+#~ msgid "Block"
+#~ msgstr "Bloquejar"
+
+#~ msgid "Log & Block"
+#~ msgstr "Registrar i Bloquejar"
+
+#~ msgid "Select in which interfaces IPS system will be enabled"
+#~ msgstr "Seleccionar en quines interfícies s'activarà el sistema IPS"
+
+#~ msgid "IDS/IPS"
+#~ msgstr "IDS/IPS"
+
+#~ msgid "Add rules to suricata configuration"
+#~ msgstr "Afegir regles a la configuració del Suricata"
+
+#~ msgid "Enable start of suricata daemon"
+#~ msgstr "Habilitar l'execució del dimoni del Suricata"
+
+#~ msgid "IPS"
+#~ msgstr "IPS"
+
+#~ msgid "Alert"
+#~ msgstr "Alerta"
+
+#~ msgid "IPS Rule Updates"
+#~ msgstr "Actualitzacions  de les regles de l'IPS"
+
+#~ msgid "Failure reason"
+#~ msgstr "Causa de la fallada"
+
+#~ msgid ""
+#~ "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
+#~ "details and rule changelog at {url} ({name} rules)"
+#~ msgstr ""
+#~ "L'última actualització de regles fa que el dimoni estigui aturat. "
+#~ "Comprovi {log} per més detalls i els logs de canvis en les regles {url} "
+#~ "({name} rules)"
+
+#, fuzzy
+#~ msgid "This manufacturer does not exist."
+#~ msgstr "La interfície {iface} no existeix"
+
+#, fuzzy
+#~ msgid "This model does not exist."
+#~ msgstr "L'usuari {u} no existeix"
+
+#, fuzzy
+#~ msgid "This driver does not exist."
+#~ msgstr "L'usuari {u} no existeix"
+
+#, fuzzy
+#~ msgid "Optional UPS description"
+#~ msgstr "Descripció opcional per aquesta ruta"
+
+#, fuzzy
+#~ msgid "Driver"
+#~ msgstr "unitat"
+
+#, fuzzy
+#~ msgid "Variable"
+#~ msgstr "Disponible"
+
+#, fuzzy
+#~ msgid "variable"
+#~ msgstr "Disponible"
+
+#~ msgid "Mode"
+#~ msgstr "Mode"
+
+#, fuzzy
+#~ msgid "Standalone"
+#~ msgstr "Servidor independent"
+
+#~ msgid "Client"
+#~ msgstr "Client"
+
+#, fuzzy
+#~ msgid "Setting"
+#~ msgstr "Configuració"
+
+#, fuzzy
+#~ msgid "UPS Settings"
+#~ msgstr "Configuració LDAP"
+
+#, fuzzy
+#~ msgid "setting"
+#~ msgstr "Configuració"
+
+#, fuzzy
+#~ msgid "To configure the NUT daemon mode."
+#~ msgstr "Per configurar la música en espera"
+
+#, fuzzy
+#~ msgid "To configure the UPS's drivers."
+#~ msgstr "Per configurar el driver de l'LDAP"
+
+#, fuzzy
+#~ msgid "To configure the NUT daemon"
+#~ msgstr "Per configurar el dimoni RADIUS."
+
+#, fuzzy
+#~ msgid "To configure the authorized NUT daemon users"
+#~ msgstr "Per configurar els usuaris SIP i IAX"
+
+#, fuzzy
+#~ msgid "To configure the NUT client"
+#~ msgstr "Per configurar els clients RADIUS."
+
+#~ msgid "Create RADIUS certificates for TTLS"
+#~ msgstr "Crear certificats RADIUS per TTLS"
+
+#~ msgid ""
+#~ "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
+#~ "certs/."
+#~ msgstr ""
+#~ "Zentyal crearà els certificats necessaris pel TTLS a /etc/freeradius/"
+#~ "certs/."
+
+#~ msgid "Allow others to read /var/log/freeradius"
+#~ msgstr "Permetre als altres llegir /var/log/freeradius"
+
+#~ msgid ""
+#~ "Zentyal will change default permissions on RADIUS log directory to allow "
+#~ "to read the logs."
+#~ msgstr ""
+#~ "Zentyal canviará els permisos per defecte del directori de registres de "
+#~ "RADIUS per poder llegir els registres."
+
+#~ msgid "To configure allowed LDAP group."
+#~ msgstr "Per configurar el grup LDAP permès."
+
+#~ msgid "To configure RADIUS LDAP module."
+#~ msgstr "Per configurar el mòdul RADIUS LDAP."
+
+#~ msgid "To configure RADIUS daemon."
+#~ msgstr "Per configurar el dimoni RADIUS."
+
+#~ msgid "To configure RADIUS clients."
+#~ msgstr "Per configurar els clients RADIUS."
+
+#~ msgid "To configure RADIUS EAP."
+#~ msgstr "Per configurar el RADIUS EAP."
+
+#~ msgid "To configure default RADIUS vhost."
+#~ msgstr "Per configurar el vhost RADIUS per defecte."
+
+#~ msgid "To configure RADIUS inner-tunnel vhost."
+#~ msgstr "Per configurar el vhost inner-tunnel RADIUS."
+
+#~ msgid "Zentyal RADIUS system"
+#~ msgstr "Sistema RADIUS de Zentyal"
+
+#~ msgid "RADIUS"
+#~ msgstr "RADIUS"
+
+#~ msgid "MAC"
+#~ msgstr "MAC"
+
+#~ msgid "Login OK"
+#~ msgstr "Inici de sessió OK"
+
+#~ msgid "Login incorrect"
+#~ msgstr "Inici de sessió incorrecte"
+
+#~ msgid "All users"
+#~ msgstr "Tots els usuaris"
+
+#~ msgid "Group allowed to authenticate"
+#~ msgstr "Grup autoritzat per autentificar-se"
+
+#~ msgid "RADIUS server configuration"
+#~ msgstr "Configuració del servidor RADIUS "
+
+#~ msgid "RADIUS server configuration updated"
+#~ msgstr "Configuració del servidor RADIUS actualitzada"
+
+#~ msgid "Shared Secret"
+#~ msgstr "Clau compartida"
+
+#~ msgid "RADIUS Clients"
+#~ msgstr "Clients RADIUS"
+
+#~ msgid "WebMail backend"
+#~ msgstr "Backend del WebMail"
+
+#~ msgid "IMAP Server"
+#~ msgstr "Servidor IMAP"
+
+#~ msgid "IMAP connection type"
+#~ msgstr "Tipus de conexió IMAP"
+
+#~ msgid "IMAP server port"
+#~ msgstr "Port del servidor IMAP"
+
+#~ msgid "SMTP Server"
+#~ msgstr "Servidor SMTP"
+
+#~ msgid "SMTP connection type"
+#~ msgstr "Tipus de conexió SMTP"
+
+#~ msgid "SMTP server port"
+#~ msgstr "Port del servidor SMTP"
+
+#~ msgid "SMTP authentication"
+#~ msgstr "Autenticació SMTP"
+
+#~ msgid "Same user and password than IMAP"
+#~ msgstr "El mateix usuari i clau d'accés que l'IMAP"
+
+#~ msgid "Manage sieve enabled in IMAP server"
+#~ msgstr "Usar el sieve activat al servidor IMAP"
+
+#~ msgid "Manage sieve port"
+#~ msgstr "Usar el port sieve"
+
+#~ msgid "Manage sieve connection uses TLS"
+#~ msgstr "La conexió sieve usa TLS"
+
+#~ msgid "External server connection"
+#~ msgstr "Conexió externa al servidor"
+
+#~ msgid "unencrypted"
+#~ msgstr "sense encriptar"
+
+#~ msgid "SSL"
+#~ msgstr "SSL"
+
+#~ msgid "TLS"
+#~ msgstr "TLS"
+
+#~ msgid ""
+#~ "No need to configure the connection to a remote server because WebMail is "
+#~ "configured to use Zentyal mail service'"
+#~ msgstr ""
+#~ "No és necessari configurar la connexió a un servidor remot perquè el "
+#~ "Correu Web  està configurat per utilitzar el servei de correu de Zentyal"
+
+#~ msgid "Operation mode"
+#~ msgstr "Mode d'operació"
+
+#~ msgid "Zentyal mail service"
+#~ msgstr "Servei de correu Zentyal"
+
+#~ msgid "Remote server"
+#~ msgstr "Servidor remot"
+
+#~ msgid "Zentyal webmail"
+#~ msgstr "Correu web de Zentyal"
+
+#~ msgid ""
+#~ "The name of the webmail will be used in the login screen and page titles."
+#~ msgstr ""
+#~ "El nom del webmail es farà servir a la pantalla d'inici i el títol de les "
+#~ "pàgines."
+
+#~ msgid ""
+#~ "Virtual host where the webmail will be installed. This will disable the "
+#~ "default /webmail url."
+#~ msgstr ""
+#~ "Host virtual on el webmail serà instal·lat. Això desactivarà la url per "
+#~ "defecte /webmail."
+
+#~ msgid "Webmail"
+#~ msgstr "Webmail"
+
+#~ msgid ""
+#~ "The deleted virtual host was selected for Webmail. Maybe you want to "
+#~ "select another one now."
+#~ msgstr ""
+#~ "El host virtual eliminat es va seleccionar pel Webmail. Potser en vol "
+#~ "seleccionar un altre."
+
+#~ msgid "Neither IMAP nor IMAPS service enabled."
+#~ msgstr "Ni el servei IMAP ni el IMAPS estan activats."
+
+#~ msgid "To configure Roundcube webmail."
+#~ msgstr "Per configurar el webmail Roundcube."
+
+#, fuzzy
+#~ msgid "To customize PHP for the webmail."
+#~ msgstr "Per configurar la bustia de veu"
+
+#~ msgid "To configure managesieve Roundcube webmail plugin."
+#~ msgstr "Per configurar el plugin managesieve del correu web Roundcube."
+
+#~ msgid "To configure the webmail on the webserver."
+#~ msgstr "Per configurar el webmail al servidor web."
+
+#, fuzzy
+#~ msgid "Create MySQL Roundcube webmail database."
+#~ msgstr "Crear la base de dades PostgreSQL del correu web Roundcube."
+
+#~ msgid "This database will store the data needed by Roundcube."
+#~ msgstr ""
+#~ "Aquesta base de dades emmagatzemarà les dades necessàries per Roundcube."
+
+#~ msgid "Add webmail link to www data directory."
+#~ msgstr "Afegir l'enllaç del correu web al directori de dades www."
+
+#~ msgid "Webmail will be accesible at http://ip/webmail/."
+#~ msgstr "El correu web serà accessible a http://ip/webmail/."
+
+#~ msgid ""
+#~ "Webmail module needs IMAP or IMAPS service enabled if using Zentyal mail "
+#~ "service. You can enable it at {openurl}Mail -> General{closeurl}."
+#~ msgstr ""
+#~ "El mòdul Corrreu Web necessita els serveis IMAP o IMAPS activats si es fa "
+#~ "servir el servei de correu de Zentyal. El pot habilitar a {openurl}Correu "
+#~ "-> General{closeurl}."
+
+#~ msgid ""
+#~ "You cannot disable both IMAP and IMAPS service because they are used by "
+#~ "Webmail module."
+#~ msgstr ""
+#~ "No pot desactivar els dos serveis IMAP i IMAPS perquè estan sent "
+#~ "utilitzats pel mòdul del Correu web."
+
+#~ msgid "Installation steps"
+#~ msgstr "Passos de la instal.lació"
+
+#~ msgid "not applicable"
+#~ msgstr "no aplicable"
+
+#~ msgid "Monitoring"
+#~ msgstr "Monitoratge"
+
+#~ msgid ""
+#~ "You must enable monitor module to see monitor graphs in {openhref}Module "
+#~ "Status{closehref} section."
+#~ msgstr ""
+#~ "Has d'habilitar el mòdul de monitoratge en la secció {openhref}Estat dels "
+#~ "Mòduls{closehref} per poder veure les gràfiques de monitoratge."
+
+#~ msgid ""
+#~ "You must save the changes in module status to see monitor graphs in the "
+#~ "{openhref}Save changes{closehref} section. In case it is already enabled "
+#~ "you must wait for a few seconds to collect the first monitor data"
+#~ msgstr ""
+#~ "Has de desar els canvis en estat dels mòduls per veure les gràfiques de "
+#~ "monitoratge en la secció {openhref}Desar canvis{closehref}. En cas de que "
+#~ "ja s'hagi habilitat, és possible que hagis d'esperar uns pocs segons per "
+#~ "recollir les primeres dades del monitoratge"
+
+#~ msgid "Last hour"
+#~ msgstr "Última hora"
+
+#~ msgid "Last day"
+#~ msgstr "Últim dia"
+
+#, fuzzy
+#~ msgid "Last week"
+#~ msgstr "Cognom"
+
+#~ msgid "Last month"
+#~ msgstr "Últim mes"
+
+#~ msgid "Last year"
+#~ msgstr "Últim any"
+
+#~ msgid "Monitor Watcher"
+#~ msgstr "Observador de Monitor"
+
+#~ msgid "Measure"
+#~ msgstr "Mesura"
+
+#~ msgid "Thresholds"
+#~ msgstr "Llindars"
+
+#~ msgid "Configure monitor watchers"
+#~ msgstr "Configurar observadors de monitoratge"
+
+#~ msgid "measure"
+#~ msgstr "mesura"
+
+#~ msgid "Every measure may have several thresholds to monitor"
+#~ msgstr "Cada mesura pot tenir diversos llindars a monitorar"
+
+#~ msgid "At least a threshold (maximum or minimum) must be set"
+#~ msgstr "S'ha d'establir almenys un llindar (màxim o mínim)"
+
+#~ msgid "This threshold rule will override the current ones"
+#~ msgstr "Aquesta regla de llindar sobreescriurà les existents"
+
+#~ msgid "It should be a multiple of {interval}"
+#~ msgstr "Hauría de ser un múltiple de {interval}"
+
+#~ msgid "Failure minimum"
+#~ msgstr "Mínim per fallar"
+
+#~ msgid ""
+#~ "Set the lower bound of acceptable values. If unset defaults to negative "
+#~ "infinity."
+#~ msgstr ""
+#~ "Estableix un límit inferior de valors acceptats. Si no s'especifica es "
+#~ "pren -infinit per defecte."
+
+#~ msgid "Warning minimum"
+#~ msgstr "Mínim per avís"
+
+#~ msgid ""
+#~ "If the value is less than this value and greater than {fmin} a warn event "
+#~ "is sent"
+#~ msgstr ""
+#~ "Si el valor és menor que aquest valor i més gran que {fmin} s'enviarà un "
+#~ "esdeveniment d'avís"
+
+#~ msgid "failure minimum"
+#~ msgstr "mínim per fallida"
+
+#~ msgid "Warning maximum"
+#~ msgstr "Màxim per avís"
+
+#~ msgid ""
+#~ "If the value is greater than this value and less than {fmax} a warn event "
+#~ "is sent"
+#~ msgstr ""
+#~ "Si el valor és més que aquest valor i menor que {fmax} s'enviarà un "
+#~ "esdeveniment d'avís"
+
+#~ msgid "failure maximum"
+#~ msgstr "màxim per fallida"
+
+#~ msgid "Failure maximum"
+#~ msgstr "Màxim per fallida"
+
+#~ msgid ""
+#~ "Set the upper bound of acceptable values. If unset defaults to positive "
+#~ "infinity."
+#~ msgstr ""
+#~ "Estableix un límit superior de valors acceptables. Si no s'especifica es "
+#~ "pren +infinit per defecte."
+
+#~ msgid "Invert"
+#~ msgstr "Invertir"
+
+#~ msgid ""
+#~ "If set to true, the range of acceptable values is inverted, i.e. values "
+#~ "between {fmin} and {fmax} ({wmin} and {wmax}) are not okay."
+#~ msgstr ""
+#~ "Si s'habilita, el rang de valors acceptables s'inverteix, és a dir, "
+#~ "valors entre {fmin} i {fmax} ({wmin} i {wmax}) no són correctes."
+
+#~ msgid "warning minimum"
+#~ msgstr "mínim per avís"
+
+#~ msgid "warning maximum"
+#~ msgstr "màxim per avís"
+
+#~ msgid "Send events"
+#~ msgstr "Enviar events"
+
+#~ msgid ""
+#~ "If set to Always, an event will be dispatched for each value that is out "
+#~ "of the acceptable range."
+#~ msgstr ""
+#~ "Si es configura com a Sempre, s'enviarà un event per cada valor fora de "
+#~ "l'interval acceptable."
+
+#~ msgid "Always"
+#~ msgstr "Sempre"
+
+#~ msgid "After a change in event level"
+#~ msgstr "Després d'un canvi en el nivell d'esveniment"
+
+#~ msgid "After"
+#~ msgstr "Després"
+
+#~ msgid "Measure instance"
+#~ msgstr "Exemplar de mesura"
+
+#~ msgid "Data Source"
+#~ msgstr "Font de dades"
+
+#~ msgid "Threshold's list"
+#~ msgstr "Llista de llindars"
+
+#~ msgid ""
+#~ "Every check is done with the highest possible resolution: {nSec} seconds"
+#~ msgstr ""
+#~ "Cada comprovació es realitzada amb la màxima resolució possible: {nSec} "
+#~ "segons"
+
+#~ msgid ""
+#~ "Take into account this configuration will be only applied if monitor "
+#~ "{openhref}event watcher is enabled{closehref}"
+#~ msgstr ""
+#~ "Tingui en compte que aquesta resolució només serà aplicada si el "
+#~ "{openhref}esdeveniment de monitoratge és habilitat{closehref}"
+
+#~ msgid "Physical memory usage"
+#~ msgstr "Ús de la memòria física"
+
+#~ msgid "Collect the physical memory usage"
+#~ msgstr "Recull l'ús de la memòria física"
+
+#~ msgid "free"
+#~ msgstr "lliure"
+
+#~ msgid "page cache"
+#~ msgstr "cau de pàgina"
+
+#~ msgid "buffer cache"
+#~ msgstr "cau de memòria intermèdia"
+
+#~ msgid "used"
+#~ msgstr "utilitzada"
+
+#, fuzzy
+#~ msgid "Disk usage in {partition}"
+#~ msgstr "utilitzat en {partition}"
+
+#~ msgid "File system usage"
+#~ msgstr "Ús del sistema de fitxers"
+
+#~ msgid ""
+#~ "Collect the mounted file system usage information as \"df\" command does"
+#~ msgstr ""
+#~ "Recull la informació dels sistemes de fitxers muntats com ho fa la "
+#~ "comanda \"df\""
+
+#, fuzzy
+#~ msgid "reserved"
+#~ msgstr "servidor"
+
+#~ msgid "CPU {no} usage"
+#~ msgstr "ús de CPU {no}"
+
+#~ msgid "CPU usage"
+#~ msgstr "Ús de la CPU"
+
+#~ msgid ""
+#~ "Collect the amount of time spent by the CPU in various states, most "
+#~ "notably executing user code, executing system code, waiting for IO "
+#~ "operations and being idle"
+#~ msgstr ""
+#~ "Recull la quantitat de temps emprada per la CPU en diversos estats, "
+#~ "sobretot executant codi d'usuari, de sistema, esperant una operació d'E/S "
+#~ "i inactiu"
+
+#~ msgid "idle"
+#~ msgstr "inactiu"
+
+#~ msgid "interrupt"
+#~ msgstr "interrupció"
+
+#~ msgid "nice"
+#~ msgstr "nice"
+
+#~ msgid "soft interrupt"
+#~ msgstr "interrupció software"
+
+#~ msgid "steal"
+#~ msgstr "temps 'robat'"
+
+#~ msgid "wait"
+#~ msgstr "espera"
+
+#~ msgid "value"
+#~ msgstr "valor"
+
+#~ msgid "temperature"
+#~ msgstr "temperatura"
+
+#~ msgid "cooling device"
+#~ msgstr "dispositiu de refrigeració"
+
+#~ msgid "sensor"
+#~ msgstr "sensor"
+
+#~ msgid "Temperature for {what}"
+#~ msgstr "Temperatura de {what}"
+
+#~ msgid "Thermal"
+#~ msgstr "Tèrmic"
+
+#~ msgid ""
+#~ "Collect thermal information (CPU sensors temperature) if possible from "
+#~ "{dir}"
+#~ msgstr ""
+#~ "Recull informació tèrmica (temperatura de sensors de CPU), si és "
+#~ "possible, des de {dir}"
+
+#~ msgid ""
+#~ "Collect the system load that gives a rough overview of the system usage"
+#~ msgstr ""
+#~ "Recollir la càrrega del sistema que dóna una visió molt general de l'ús "
+#~ "del sistema"
+
+#~ msgid "short term"
+#~ msgstr "a curt termini"
+
+#~ msgid "mid term"
+#~ msgstr "a mig termini"
+
+#~ msgid "long term"
+#~ msgstr "a llarg termini"
+
+#~ msgid "{daemon} main configuration file"
+#~ msgstr "Fitxer de configuració principal de {daemon}"
+
+#~ msgid "{daemon} thresholds configuration file"
+#~ msgstr "Fitxer de configuració de llindars de {daemon}"
+
+#~ msgid "{daemon} default configuration file"
+#~ msgstr "Fitxer de configuració per defecte {daemon}"
+
+#~ msgid "Monitor"
+#~ msgstr "Monitoratge"
+
+#~ msgid "Notify when a certain value has reached a certain threshold"
+#~ msgstr "Notificar quan un valor concret ha arribat a un cert llindar"
+
+#~ msgid "All data sources are within range again"
+#~ msgstr "Totes les fonts de dadas són de nou dins del rang"
+
+#~ msgid "{what} \"{dS}\" is currently {value}."
+#~ msgstr "{what} \"{dS}\" és actualment {value}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{what} \"{dS}\" has been {duration} within the {severity} region of "
+#~ "{minBound} and {maxBound}."
+#~ msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
+
+#~ msgid "That is within the {severity} region of {minBound} and {maxBound}. "
+#~ msgstr "Està dins de la regió {severity} entre {minBound} i {maxBound}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{what} \"{dS}\" has been {duration} above the {severity} threshold of "
+#~ "{bound}. "
+#~ msgstr "Està per sobre del llindar {severity} de {bound}."
+
+#~ msgid "That is above the {severity} threshold of {bound}. "
+#~ msgstr "Està per sobre del llindar {severity} de {bound}."
+
+#, fuzzy
+#~ msgid ""
+#~ "{what} \"{dS}\" has been {duration} below the {severity} threshold of "
+#~ "{bound}. "
+#~ msgstr "Està per sota del llindar {severity} de {bound}."
+
+#~ msgid "That is below the {severity} threshold of {bound}. "
+#~ msgstr "Està per sota del llindar {severity} de {bound}."
+
+#, fuzzy
+#~ msgid "Cannot restore to {d}: {dd} does not exist"
+#~ msgstr "No es pot restablir {d}: {dd} no existeix"
+
+#~ msgid "Cannot restore to {d}: {dd} is not a directory"
+#~ msgstr "No es pot restablir a {d}: {dd} no és un directori"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '{cmd}' to "
+#~ "refresh backup's information."
+#~ msgstr ""
+#~ "No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi '/etc/"
+#~ "init.d/ebox ebackup restart' per refrescar la informació de les còpies."
+
+#~ msgid ""
+#~ "Could not get backup collection status, check whether the parameters and "
+#~ "passwords are correct"
+#~ msgstr ""
+#~ "No es pot obtenir l'estat de les copies. Comprovi si els paràmetres i les "
+#~ "contrassenyes son correctes"
+
+#, fuzzy
+#~ msgid "Backup configuration not complete"
+#~ msgstr "Comprovant la compatibilitat de la configuració"
+
+#, fuzzy
+#~ msgid " {target} exists and is not longer a directory"
+#~ msgstr "L'arxiu existeix i no es un directori"
+
+#, fuzzy
+#~ msgid "{target} is not mounted"
+#~ msgstr "Pàgina no trobada"
+
+#~ msgid "Services Restore"
+#~ msgstr "Restauració de serveis"
+
+#~ msgid "Configuration and Status"
+#~ msgstr "Configuració i estat"
+
+#~ msgid ""
+#~ "Logs backup data not found in backup for {d}. Maybe you could try another "
+#~ "date?"
+#~ msgstr ""
+#~ "No es troben registres de còpies de seguretat per {d}. Pot probar una "
+#~ "altra data?"
+
+#, fuzzy
+#~ msgid "There are no backed up files yet"
+#~ msgstr "No hi ha arxius copiats encara"
+
+#~ msgid "Backup Date"
+#~ msgstr "Data de la còpia"
+
+#~ msgid "Restore Zentyal configuration from backup"
+#~ msgstr "Restaura la configuració de Zentyal des de la còpia de seguretat"
+
+#~ msgid "Loads the configuration found in the backup"
+#~ msgstr "Carrega la configuració trobada a la còpia de seguretat"
+
+#~ msgid "Please wait..."
+#~ msgstr "Si us plau, esperi..."
+
+#~ msgid ""
+#~ "Configuration backup not found in backup for {d}. Maybe you could try "
+#~ "another date?"
+#~ msgstr ""
+#~ "No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
+#~ "altra data?"
+
+#, fuzzy
+#~ msgid "Remote Backup Status : There are not backed up files yet"
+#~ msgstr "No hi ha arxius copiats encara"
+
+#~ msgid "Remote Backup Status"
+#~ msgstr "Estat de la còpia remota"
+
+#~ msgid "backup"
+#~ msgstr "còpia de seguretat"
+
+#~ msgid "There are not backed up files yet"
+#~ msgstr "No hi ha arxius copiats encara"
+
+#~ msgid "Restore Files"
+#~ msgstr "Recuperar arxius"
+
+#~ msgid "file restore operation"
+#~ msgstr "procés de recuperació d'arxius"
+
+#~ msgid ""
+#~ "To restore files just edit the row of the file or directory you want to "
+#~ "restore, select a backup date and click the restore button"
+#~ msgstr ""
+#~ "Per restaurar fitxers, simplement editi la fila de l'arxiu o directori "
+#~ "que vol restaurar, seleccioni una data de opia de seguretat i faci click "
+#~ "sobre el botó restaurar"
+
+#~ msgid "File already exists if you continue the current will be deleted"
+#~ msgstr "L'arxiu ja existeix, si continua l'actual serà eliminat"
+
+#~ msgid "File restored successfully"
+#~ msgstr "L'arxiu s'ha recuperat correctament"
+
+#~ msgid "Remote URL to be used with duplicity for manual restores: {url}"
+#~ msgstr ""
+#~ "URL remota per fer servir amb el duplicity per restauracions manuals: "
+#~ "{url}"
+
+#~ msgid "Restore logs database"
+#~ msgstr "Restaura la base de dades de logs"
+
+#~ msgid "Restores the Zentyal logs found in the selected backup"
+#~ msgstr "Restaura els registres de Zentyal trobats a la còpia seleccionada"
+
+#~ msgid "Error connecting to backup server. Storage status unknown"
+#~ msgstr ""
+#~ "Error connectant al servidor de còpies de seguretat. Estat de "
+#~ "l'emmagatzemament desconegut"
+
+#~ msgid "Used storage"
+#~ msgstr "Emmagatzemament utilitzat"
+
+#~ msgid "Available storage"
+#~ msgstr "Emmagatzemament disponible"
+
+#~ msgid "Total storage"
+#~ msgstr "Emmagatzemament total"
+
+#~ msgid "Remote Storage Usage"
+#~ msgstr "Ús d'emmagatzemament remot"
+
+#~ msgid "Exclude or Include"
+#~ msgstr "Excloure o incloure "
+
+#~ msgid "Includes and Excludes"
+#~ msgstr "Inclusions i exclusions "
+
+#~ msgid "exclude or include"
+#~ msgstr "excloure o incloure"
+
+#, fuzzy
+#~ msgid ""
+#~ "A file or directory is included or excluded according the first match. A "
+#~ "directory match is applied to all it contents. Anything that is not "
+#~ "included is excluded by default."
+#~ msgstr ""
+#~ "Un arxiu o directori es inclòs o exclòs a partir de la primera "
+#~ "coincidència. Una coincidència de directori s'aplica a tot el seu "
+#~ "contingut. Els arxius no exclosos o inclosos explícitament son inclosos"
+
+#~ msgid "Exclude path"
+#~ msgstr "Ruta d'exclusió"
+
+#~ msgid "Exclude by regular expression"
+#~ msgstr "Exclòs per l'expressió regular"
+
+#~ msgid "Include Path"
+#~ msgstr "Ruta a Incloure"
+
+#, fuzzy
+#~ msgid "edit row"
+#~ msgstr "Editar grup"
+
+#, fuzzy
+#~ msgid "remove row"
+#~ msgstr "Baixar"
+
+#~ msgid "exclude path"
+#~ msgstr "Ruta a Excloure"
+
+#~ msgid "exclude path regular expression"
+#~ msgstr "expressió regular de la ruta a excloure"
+
+#~ msgid "Incorrect regular expression"
+#~ msgstr "Expressió regular incorrecta "
+
+#~ msgid "include path"
+#~ msgstr "ruta inclosa"
+
+#~ msgid "Host or destination"
+#~ msgstr "Host o destí"
+
+#~ msgid "If the selected method is file system, only set the target directory"
+#~ msgstr ""
+#~ "Si el mètode seleccionat es sistema d'arxius, només ha d'establir el "
+#~ "directori de destí"
+
+#~ msgid "Encryption"
+#~ msgstr "Encriptació"
+
+#~ msgid "Symmetric Key"
+#~ msgstr "Clau simètrica"
+
+#~ msgid "Full Backup Frequency"
+#~ msgstr "Freqüència de còpia completa "
+
+#~ msgid "Only the first time"
+#~ msgstr "Només el primer cop"
+
+#~ msgid "Daily"
+#~ msgstr "Cada dia"
+
+#~ msgid "Weekly"
+#~ msgstr "Cada setmana"
+
+#~ msgid "Twice a month"
+#~ msgstr "Dos cops al mes"
+
+#~ msgid "Monthly"
+#~ msgstr "Cada mes"
+
+#~ msgid "Incremental Backup Frequency"
+#~ msgstr "Freqüència de la còpia incremental"
+
+#~ msgid "Backup process starts at"
+#~ msgstr "El procés de còpia comença a les"
+
+#~ msgid "Keep previous full copies"
+#~ msgstr "Guarda les còpies completes anteriors"
+
+#~ msgid "maximum number"
+#~ msgstr "número màxim"
+
+#~ msgid "no older than"
+#~ msgstr "no anterior a"
+
+#~ msgid "General Configuration"
+#~ msgstr "Configuració general"
+
+#~ msgid "General backup server configuration updated"
+#~ msgstr "Configuració general de la còpia de seguretat actualitzada."
+
+#~ msgid ""
+#~ "Here you have can choose the backup method, configure the frequency and "
+#~ "other options"
+#~ msgstr ""
+#~ "Aquí pot elegir el mode de còpia de seguretat, configurar la freqüència i "
+#~ "altres opcions"
+
+#~ msgid "on Monday"
+#~ msgstr "el dilluns"
+
+#~ msgid "on Tuesday"
+#~ msgstr "el dimarts"
+
+#~ msgid "on Wednesday"
+#~ msgstr "el dimecres"
+
+#~ msgid "on Thursday"
+#~ msgstr "el dijous"
+
+#~ msgid "on Friday"
+#~ msgstr "el divendres"
+
+#~ msgid "on Saturday"
+#~ msgstr "el dissabte"
+
+#~ msgid "on Sunday"
+#~ msgstr "el diumenge"
+
+#~ msgid "on the {mday}th"
+#~ msgstr "el dia {mday}"
+
+#~ msgid "on the last day"
+#~ msgstr "l'últim dia"
+
+#~ msgid "File System"
+#~ msgstr "Sistema de fitxers"
+
+#~ msgid "1 week"
+#~ msgstr "1 setmana"
+
+#~ msgid "2 weeks"
+#~ msgstr "2 setmanes"
+
+#~ msgid "3 weeks"
+#~ msgstr "3 setmanes"
+
+#~ msgid "1 month"
+#~ msgstr "1 mes"
+
+#~ msgid "2 months"
+#~ msgstr "2 mesos"
+
+#~ msgid "3 months"
+#~ msgstr "3 mesos"
+
+#~ msgid "4 months"
+#~ msgstr "4 mesos"
+
+#~ msgid "6 months"
+#~ msgstr "6 mesos"
+
+#~ msgid "9 months"
+#~ msgstr "9 mesos"
+
+#~ msgid "1 year"
+#~ msgstr "1 any"
+
+#~ msgid "1 year and half"
+#~ msgstr "1 any i mig"
+
+#~ msgid "2 years"
+#~ msgstr "2 anys"
+
+#~ msgid "3 years"
+#~ msgstr "3 anys"
+
+#~ msgid ""
+#~ "You cannot switch encryption options when there are existent backups with "
+#~ "the original encryption options. You must remove previous backup to "
+#~ "change the encryption options"
+#~ msgstr ""
+#~ "No pot canviar els paràmetres d'encriptació si hi ha còpies fetes amb les "
+#~ "opcions originals. Per canviar les opcions ha d'eliminar primer les "
+#~ "còpies anteriors"
+
+#~ msgid "The target parameter that must be like 'other.host[:port]/some_dir"
+#~ msgstr "El paràmetre de destí ha de ser com 'other.host[:port]/some_dir"
+
+#~ msgid "target"
+#~ msgstr "destí"
+
+#, fuzzy
+#~ msgid "Correct format is: 'other.host[:port]/some_dir'"
+#~ msgstr "Ha de ser com 'other.host[:port]/some_dir'"
+
+#~ msgid "host"
+#~ msgstr "host"
+
+#~ msgid "Root directory ('/') not allowed in target specification"
+#~ msgstr ""
+#~ "El directori arrel (\"/\") no es permet a l'especificació de la destinació"
+
+#~ msgid "directory"
+#~ msgstr "directori"
+
+#~ msgid ""
+#~ "The RSYNC target parameter that must be like 'other.host[:port]/"
+#~ "relative_path' or 'other.host[:port]/absolute_path'"
+#~ msgstr ""
+#~ "El paràmetre de destí de l'RSYNC ha de ser com 'other.host[:port]/"
+#~ "relative_path' o 'other.host[:port]/absolute_path'"
+
+#~ msgid ""
+#~ "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
+#~ "absolute_path'"
+#~ msgstr ""
+#~ "Ha de ser com 'other.host[:port]/relative_path' o 'other.host[:port]/"
+#~ "absolute_path'"
+
+#~ msgid "absolute directory"
+#~ msgstr "directori absolut"
+
+#~ msgid "relative directory"
+#~ msgstr "directori relatiu"
+
+#~ msgid ""
+#~ "File system method needs a target parameter that should be a directory "
+#~ "path"
+#~ msgstr ""
+#~ "El mètode de sistema d'arxius necessita un paràmetre de destí que ha de "
+#~ "ser la ruta del directori"
+
+#~ msgid "Directory for backup"
+#~ msgstr "Directori per la còpia de seguretat"
+
+#~ msgid "Cannot use the / directory as target"
+#~ msgstr "No es pot fer servir el directori / com destí"
+
+#~ msgid "File exists and it is not a directory"
+#~ msgstr "L'arxiu existeix i no es un directori"
+
+#~ msgid "Cannot read parent directory {d}"
+#~ msgstr "No es pot llegir el directori pare {d}"
+
+#~ msgid ""
+#~ "You must enable incremental backups when you enable 'Only the first time' "
+#~ "full backup frequency"
+#~ msgstr ""
+#~ "Quan s'activa \"només el primer cop\" s'han d'habilitar les còpies "
+#~ "incrementals."
+
+#~ msgid "Incremental backup must be more frequent than full backup"
+#~ msgstr ""
+#~ "La còpia incremental ha de tenir major freqüència que la còpia complerta "
+
+#~ msgid "General backup configuration updated."
+#~ msgstr "Configuració general de la còpia de seguretat actualitzada."
+
+#~ msgid ""
+#~ "Backup method or target changed; you must save changes to refresh the "
+#~ "backups list"
+#~ msgstr ""
+#~ "Ha canviat el mètode per fer còpies o la destinació. Guardi els canvis "
+#~ "per actualitzar la llista de còpies de seguretat"
+
+#~ msgid ""
+#~ "SCP method selected. Remember to add your target host to the list of "
+#~ "known hosts by SSH"
+#~ msgstr ""
+#~ "Seleccionat el mètode SCP. Recordi que ha d'afegir el host de destí a la "
+#~ "llista de hosts coneguts per SSH"
+
+#~ msgid "Notify the result of scheduled backups."
+#~ msgstr "Notificar el resultat de les  còpies programades."
+
+#, fuzzy
+#~ msgid "Incorrect symmetric key"
+#~ msgstr "Clau simètrica"
+
+#, fuzzy
+#~ msgid "unknown"
+#~ msgstr "Desconegut"
+
+#~ msgid "File {f} not found in backup for {d}, try a later date"
+#~ msgstr ""
+#~ "L'arxiu {f} no es troba al backup per {d}, prova una data més actual"
+
+#, fuzzy
+#~ msgid "More info"
+#~ msgstr "Usuari no trobat"
+
+#, fuzzy
+#~ msgid "Office"
+#~ msgstr "trànsit"
+
+#, fuzzy
+#~ msgid "Communications"
+#~ msgstr "Opcions comunes"
+
+#, fuzzy
+#~ msgid "Zentyal Gateway features"
+#~ msgstr "Servidor de Passarel·les de Zarafa"
+
+#, fuzzy
+#~ msgid "Transparent Caching"
+#~ msgstr "Servidor intermediari Transparent"
+
+#, fuzzy
+#~ msgid "Faster Internet connection!"
+#~ msgstr "Conexió externa al servidor"
+
+#, fuzzy
+#~ msgid "Traffic Shaping and QoS"
+#~ msgstr "Modelat de tràfic"
+
+#, fuzzy
+#~ msgid "Load Balancing and Availability"
+#~ msgstr "Alta disponibilitat"
+
+#, fuzzy
+#~ msgid "Always connected!"
+#~ msgstr "Connexió permesa"
+
+#, fuzzy
+#~ msgid "Web Content Filter"
+#~ msgstr "Llindar de filtrat de contingut"
+
+#, fuzzy
+#~ msgid "Full feature list"
+#~ msgstr "Restauració completa"
+
+#, fuzzy
+#~ msgid "DHCP Server"
+#~ msgstr "Servidor FTP"
+
+#, fuzzy
+#~ msgid "Automatic network configuration!"
+#~ msgstr "Configuració de les actualitzacions automàtiques"
+
+#, fuzzy
+#~ msgid "DNS Server"
+#~ msgstr "Servidor SMTP"
+
+#, fuzzy
+#~ msgid "Powered by Apache!"
+#~ msgstr "Proporcionat per"
+
+#, fuzzy
+#~ msgid "Create your own certificates!"
+#~ msgstr "Crea certificats"
+
+#, fuzzy
+#~ msgid "NTP server: NTP server."
+#~ msgstr "TLS per al servidor SMTP"
+
+#, fuzzy
+#~ msgid "Zentyal Office features"
+#~ msgstr "Servidor FTP de Zentyal"
+
+#, fuzzy
+#~ msgid "Directory Service"
+#~ msgstr "Llistat de serveis"
+
+#, fuzzy
+#~ msgid "File and Printer Sharing"
+#~ msgstr "Compartició d'impresores"
+
+#, fuzzy
+#~ msgid "Data Backup"
+#~ msgstr "Dades copiades"
+
+#, fuzzy
+#~ msgid "Modules"
+#~ msgstr "Mòdul"
 
 #~ msgid "Error creating file"
 #~ msgstr "Error creant l'arxiu"
