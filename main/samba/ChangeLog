@@ -1,3 +1,5 @@
+HEAD
+	+ Fix migration to preserve group type
 4.0
 	+ Set version to 4.0
 	+ Do not check for acl and user_xattr filesystem options if filesystem is
