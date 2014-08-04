@@ -457,6 +457,7 @@ sub _migrateTo35
                         push (@objectclass, 'systemQuotas');
                         $user->set('objectClass', \@objectclass);
                     }
+
                     $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
                     for my $attr (qw(quota loginShell homeDirectory)) {
                         my $value = $entry->get_value($attr);
@@ -469,7 +470,17 @@ sub _migrateTo35
                 if ($cn) {
                     my $group = new EBox::Samba::Group(samAccountName => $cn);
                     next unless $group->exists();
-                    $group->set('gidNumber', $gidNumber);
+
+                    my $oldGidNumber = $group->get('gidNumber');
+                    if ((not defined $oldGidNumber) or ($gidNumber != $oldGidNumber)) {
+                        $group->set('gidNumber', $gidNumber, 1);
+                    }
+
+                    my @objectClass = $entry->get_value('objectClass');
+                    my $isSecurity = grep  { $_ eq 'posixGroup' } @objectClass;
+                    
+                    $group->setSecurityGroup($isSecurity, 1);
+                    $group->save();
                 }
             }
         }

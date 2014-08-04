@@ -205,7 +205,8 @@ sub isSecurityGroup
 sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
-
+    $isSecurityGroup = $isSecurityGroup ? 1 : 0; # normalize for next
+                                                 # comparation
     return if ($self->isSecurityGroup() == $isSecurityGroup);
 
     # We do this so we are able to use the groupType value as a 32bit number.
