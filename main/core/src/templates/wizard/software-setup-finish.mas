@@ -5,19 +5,13 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
-
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
-
-
-<div class="final_installation">
+<div class="final_installation item-block">
 
   <h4><% __('Congratulations!') %></h4>
-  <h5><% __('Your Zentyal installation has successfully finished!') %></h5>
-
-  <p><% __('Now you can go to the dashboard and start using your brand new Zentyal server.') %></p>
-
-
+  <h5><% __('Your Zentyal installation has successfully finished!') %>
+      <br><br>
+      <% __('Now you can go to the dashboard and start using your brand new Zentyal server.') %></h5>
   <form  method="POST">
     <input style="" class="btn btn-green btn-big" type="submit" name="save" value="<% __('Go to the Dashboard') %>" onclick="window.location='/Dashboard/Index'; return false"/>
   </form>
