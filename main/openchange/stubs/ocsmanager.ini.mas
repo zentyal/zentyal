@@ -6,6 +6,7 @@ $port
 $adminMail
 $rpcProxySSL
 $rpcProxyExternalHostname => undef
+$mailboxesDir
 </%args>
 #
 # ocsmanager - Pylons configuration
@@ -90,6 +91,16 @@ ssl = true
 % } else {
 ssl = false
 % }
+
+# Out of office configuration
+[outofoffice]
+# Path of the sieve script for the user
+#   Expansion variables (example user.name@example.com):
+#       $domain   = example.com
+#       $user     = user.name
+#       $fulluser = user.name@example.com
+sieve_script_path = <% $mailboxesDir %>/$domain/$user/sieve-script
+sieve_script_path_mkdir = true
 
 # Logging configuration
 [loggers]

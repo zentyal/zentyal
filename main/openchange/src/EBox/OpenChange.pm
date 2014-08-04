@@ -508,6 +508,7 @@ sub _setOCSManagerConf
         port        => 389,
         adminMail   => $adminMail,
         rpcProxySSL => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
+        mailboxesDir =>  EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
     ];
     if ($self->_rpcProxyEnabled()) {
         my $externalHostname;
