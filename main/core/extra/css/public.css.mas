@@ -1387,6 +1387,8 @@ border-radius: 2px;
 #software .package_installed:hover{
     border-color: #999;
     box-shadow: 0px 0px 0px #CCCCCC;
+    background-color: #ddd;
+    cursor: default;
 }
 #software .package_selected:after{
     background-color:<% $main_color %>;
@@ -2866,5 +2868,22 @@ td.stopped .done-bar{
 .migration-table td.status{
     min-width: 100px;
 }
+#software .package{
+    width: 24%;
 }
-
+#software .package-big {
+    width: 49%;
+}
+#software .package-medium {
+    width: 32.3333%;
+}
+#software .package p{
+    font-size: 11px;
+}
+#software .package.package-big p{
+    font-size: 20px;
+}
+#software .package.package-medium p{
+    font-size: 16px;
+}
+}
