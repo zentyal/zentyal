@@ -276,6 +276,8 @@ sub initialSetup
     if (EBox::Util::Version::compare($version, '3.5') < 0) {
         $self->_migrateToMaildir();
         $self->_chainDovecotCertificate();
+    }
+    if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
         $self->_migrateAliasTo35();
     }
 
@@ -349,10 +351,12 @@ sub _migrateAliasTo35
     return unless (-f $ldifFile);
 
     my $state = $self->get_state();
-    $self->_loadSchemas();
-    $state->{'_schemasAdded'} = 1;
-    $self->set_state($state);
-    $self->_addConfigurationContainers();
+    if (not $state->{_schemasAdded}) {
+        $self->_loadSchemas();
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
+        $self->_addConfigurationContainers();
+    }
 
     my $usersMods = $self->global()->modInstance('samba');
     my %users = map { my $entry = $_;
