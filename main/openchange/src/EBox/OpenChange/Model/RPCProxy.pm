@@ -94,11 +94,6 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
-    my $parentModule = $self->parentModule();
-    if (not $self->_webserverEnabled()) {
-        $self->{preconditionFailMsg} = __('Web Server module needs to be installed and enabled to use RPC proxy');
-        return 0;
-    }
 
     my $host;
     try {
@@ -131,16 +126,6 @@ sub _host
     return $hosts->[0];
 }
 
-sub _webserverEnabled
-{
-    my ($self) = @_;
-    my $webserver = $self->global()->modInstance('webserver');
-    if (not $webserver) {
-        return 0;
-    }
-    return $webserver->isEnabled();
-}
-
 sub enabled
 {
     my ($self) = @_;
@@ -150,18 +135,14 @@ sub enabled
 sub httpEnabled
 {
     my ($self) = @_;
-    if (not $self->_webserverEnabled()) {
-        return 0;
-    }
+
     return $self->value('http');
 }
 
 sub httpsEnabled
 {
     my ($self) = @_;
-    if (not $self->_webserverEnabled()) {
-        return 0;
-    }
+
     return $self->value('https');
 }
 
@@ -170,7 +151,6 @@ sub formSubmitted
     my ($self, $row, $oldRow) = @_;
     # mark haproxy and webserver as changed if the service has changed
     $self->global()->modInstance('haproxy')->setAsChanged(1);
-    $self->global()->modInstance('webserver')->setAsChanged(1);
 }
 
 1;

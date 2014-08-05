@@ -26,7 +26,6 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
-use EBox::WebServer;
 
 use TryCatch::Lite;
 
@@ -70,11 +69,13 @@ sub _setConf
 
     if ($self->isEnabled()) {
         my $global = $self->global();
-        my $webserverMod = $global->modInstance('webserver');
         my $sysinfoMod = $global->modInstance('sysinfo');
         my @params = ();
         push (@params, hostname => $sysinfoMod->fqdn());
-        push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+        # FIXME: unhardcode this
+        #my $webserverMod = $global->modInstance('webserver');
+        #push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+        push (@params, sslPort  => 62443);
 
         $self->writeConfFile(SOGO_APACHE_CONF, "sogo/zentyal-sogo.mas", \@params);
         try {
@@ -97,8 +98,7 @@ sub _setConf
     }
 
     # Force apache restart to refresh the new sogo configuration
-    my $webserverMod = EBox::Global->modInstance('webserver');
-    $webserverMod->restartService();
+    EBox::Sudo::root('service apache2 restart');
 }
 
 # Group: Public methods
@@ -147,7 +147,7 @@ sub enableActions
     $self->SUPER::enableActions();
 
     # Force apache restart
-    EBox::Global->modChange('webserver');
+    EBox::Sudo::root('service apache2 restart');
 }
 
 # Method: usedFiles

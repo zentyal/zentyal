@@ -446,8 +446,7 @@ sub _doProvision
     # refreshed with the new includes
     $global->modChange('webadmin');
     if ($openchange->_rpcProxyEnabled()) {
-        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
-        $global->modChange('webserver');
+        # Mark haproxy as changed to load the configuration of rpcproxy
         $global->modChange('haproxy');
     }
 

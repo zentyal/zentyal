@@ -455,13 +455,14 @@ sub initialSetup
             $value->{printableName} = $webadminMod->printableName(),
             $value->{description} = $webadminMod->printableName(),
             $redis->set($key, $value);
-        } elsif ($value->{name} eq 'webserver') {
-            # WebServer.
-            my $webserverMod = $self->global()->modInstance('webserver');
-            $value->{name} = 'zentyal_' . $webserverMod->name();
-            $value->{printableName} = $webserverMod->printableName(),
-            $value->{description} = $webserverMod->printableName(),
-            $redis->set($key, $value);
+# FIXME: is this needed?
+#        } elsif ($value->{name} eq 'webserver') {
+#            # WebServer.
+#            my $webserverMod = $self->global()->modInstance('webserver');
+#            $value->{name} = 'zentyal_' . $webserverMod->name();
+#            $value->{printableName} = $webserverMod->printableName(),
+#            $value->{description} = $webserverMod->printableName(),
+#            $redis->set($key, $value);
         }
 
     }

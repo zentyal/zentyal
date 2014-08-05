@@ -343,6 +343,8 @@ sub _setConf
     #$self->_writeCronFile();
 
     $self->_setupActiveSync();
+
+    # TODO: common way to restart apache for rpcproxy and activesync only if there are changes?
 }
 
 sub _setupActiveSync
@@ -358,7 +360,6 @@ sub _setupActiveSync
     }
     if ($enabled xor $enable) {
         my $global = $self->global();
-        $global->modChange('webserver');
         if ($global->modExists('sogo')) {
             $global->addModuleToPostSave('sogo');
         }
@@ -540,16 +541,6 @@ sub _setAutodiscoveryCerts
     }
 }
 
-sub internalVHosts
-{
-    my ($self) = @_;
-    if ($self->_rpcProxyEnabled) {
-        return [ $self->_rpcProxyConfFile() ];
-    }
-
-    return [];
-}
-
 sub _rpcProxyConfFile
 {
     my ($self) = @_;
@@ -560,8 +551,9 @@ sub _setRPCProxyConf
 {
     my ($self) = @_;
 
+    my @cmds;
     # remove stock rpcproxy.conf file because it could interfere
-    EBox::Sudo::root('rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+    push (@cmds, 'rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
 
     if ($self->_rpcProxyEnabled()) {
         my $rpcProxyConfFile = $self->_rpcProxyConfFile();
@@ -574,12 +566,15 @@ sub _setRPCProxyConf
             $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
              \@params);
 
-        my @cmds;
         push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-        EBox::Sudo::root(@cmds);
+        push (@cmds, 'a2ensite zentyaloc-rpcproxy');
+    } else {
+        push (@cmds, 'a2dissite zentyaloc-rpcproxy');
     }
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _rpcProxyCertificate
