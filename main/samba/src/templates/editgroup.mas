@@ -125,6 +125,11 @@ $(function() {
                 var selected = tree.jstree("get_selected")[0];
                 $(selected).attr('rel', response.type);
            }
+           if ('mail' in response) {
+               if ('MailUserAddon' in Zentyal) {
+                   Zentyal.MailUserAddon.groupAccountChange(response.mail, response.mailManaged);
+                }
+           }
         }
    });
 
@@ -158,11 +163,6 @@ $(function() {
          groupEmpty = false;
       }
       groupUsers.insertAfter('#removeUserFromGroup_error');
-
-      var members_change_event = jQuery.Event("group_members_change");
-      members_change_event.groupEmpty    = data.member.length === 0;
-      members_change_event.usersWithMail = data.usersWithMail;
-      $('.group_members_observer').trigger(members_change_event);
   };
 
    var refreshUsers = function () {

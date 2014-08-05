@@ -21,7 +21,7 @@ use base 'EBox::Model::DataTable';
 
 # Class: EBox::Mail::Model::ExternalAliases
 #
-#       This a class used it as a proxy for the extermla cooutns alaises stored in LDAP.
+#       This a class used it as a proxy for the external acounts aliases stored in LDAP.
 #
 use EBox::Global;
 use EBox::Gettext;
