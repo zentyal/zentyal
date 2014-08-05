@@ -24,6 +24,8 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
+use File::Basename;
+
 sub new
 {
     my ($class, %params) = @_;
@@ -62,6 +64,11 @@ sub _process
         throw EBox::Exceptions::External(__('Cannot get the CA certificate as it is not available'));
     }
     $self->SUPER::_process();
+    # Use .crt extension to ease Windows import
+    my ($filename, $directories, $suffix) = fileparse($self->{downfile}, qr/\.[^.]+$/);
+    if ($suffix ne 'crt') {
+        $self->{downfilename} = "${filename}.crt";
+    }
 }
 
 1;

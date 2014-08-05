@@ -1,4 +1,6 @@
 HEAD
+	+ Use .crt when downloading the certificate for RPC/Proxy
+	  to ease Windows importing
 	+ Changes to out-of-office required by upstream openchange changes
 3.5.3
 	+ Notify when OpenChange is using the domain certificate
