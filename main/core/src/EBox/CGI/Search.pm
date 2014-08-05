@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::SysInfo::CGI::Search;
+package EBox::CGI::Search;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Search;

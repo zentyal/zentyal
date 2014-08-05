@@ -7,7 +7,7 @@ $copyright_footer
 <div id='menu'>
 
 <div class="menusearch">
-  <form action='/SysInfo/Search'>
+  <form action='/Search'>
      <input name="search" id="menusearch" type="text" placeholder="<% __('Search') %>"/>
      <input type="submit"/>
   </form>
