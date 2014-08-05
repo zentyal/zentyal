@@ -67,6 +67,10 @@ use MIME::Base64;
 #                            same format than addHost method
 #   readOnly    - (optional)
 #
+# Returns:
+#
+#   String - the identifier for the domain
+#
 # Example:
 #
 #   domain_name => 'subdom.foo.com',
@@ -113,6 +117,7 @@ sub addDomain
 
     }
 
+    return $id;
 }
 
 # Method: addHost
