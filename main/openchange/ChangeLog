@@ -1,3 +1,5 @@
+HEAD
+	+ Changes to out-of-office required by upstream openchange changes
 3.5.3
 	+ Notify when OpenChange is using the domain certificate
 	+ Migrate RPC Proxy certificate to new use our zentyal-ca
