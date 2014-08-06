@@ -244,7 +244,7 @@ sub preconditionFailMsg
                    chref => '</a>');
     }
     if ($self->{preconditionFail} eq 'noCA') {
-        return __x('There is not an available Certication Authority. You must {oh}create or renew it',
+        return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
                    oh => "<a href='/CA/Index'>",
                    ch => "</a>"
                   );

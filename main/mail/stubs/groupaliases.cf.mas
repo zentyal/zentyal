@@ -9,7 +9,7 @@
 server_host = <% $ldapServer %>
 version = 3
 search_base = <% $baseDN %>
-query_filter = (&(mail=%s)(objectClass=zentyalDistributionGroup))
+query_filter = (&(mail=%s)(objectClass=group))
 leaf_result_attribute = mail
 special_result_attribute = member
 bind = yes
