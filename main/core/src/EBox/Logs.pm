@@ -1,5 +1,5 @@
 # Copyright (C) 2005-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Logs;
 
-use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -41,9 +42,8 @@ use POSIX qw(ceil);
 use constant LOG_DAEMON => 'ebox.loggerd';
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
-use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
+use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
-use constant MYSQL_ZENTYAL_DATA_DIR           => '/var/lib/mysql/zentyal';
 
 #       EBox::Module::Service interface
 #
@@ -778,20 +778,6 @@ sub _restoreEnabledLogsModules
     }
 
     return \%enabled;
-}
-
-# Overrides:
-#  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
-#
-sub _facilitiesForDiskUsage
-{
-  my ($self) = @_;
-
-  my $printableName = __('Log messages');
-
-  return {
-          $printableName => [ MYSQL_ZENTYAL_DATA_DIR ],
-         };
 }
 
 # Method: forcePurge

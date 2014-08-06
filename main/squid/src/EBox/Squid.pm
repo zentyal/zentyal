@@ -21,7 +21,6 @@ use base qw(
     EBox::Module::Kerberos
     EBox::FirewallObserver
     EBox::LogObserver
-    EBox::Report::DiskUsageProvider
     EBox::NetworkObserver
 );
 
@@ -1187,19 +1186,6 @@ sub logHelper
 {
     my ($self) = @_;
     return (new EBox::Squid::LogHelper);
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $cachePath          = '/var/spool/squid3';
-    my $cachePrintableName = 'HTTP Proxy cache';
-
-    return { $cachePrintableName => [ $cachePath ] };
-
 }
 
 # Method to return the language to use with DG depending on the locale

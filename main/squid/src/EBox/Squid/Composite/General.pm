@@ -15,13 +15,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # Class: EBox::Squid::Composite::General
-#
-#   This class is used to manage the events module within a single
-#   element whose components
-#   are: <EBox::Events::Model::ConfigurationComposite> and
-#   <EBox::Common::Model::EnableFrom> inside a top-bottom
-#   layout.
-#
 
 use strict;
 use warnings;

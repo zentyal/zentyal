@@ -96,8 +96,7 @@ sub _moduleTest : Test(4)
     EBox::Test::checkModels($mail,
                             qw(SMTPAuth SMTPOptions RetrievalServices
                                ObjectPolicy VDomains ExternalFilter
-                               GreylistConfiguration MailDispatcherConfiguration
-                               )
+                               GreylistConfiguration)
 
                            );
 

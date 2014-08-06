@@ -23,8 +23,7 @@ use base qw(EBox::Module::LDAP
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
-            EBox::Samba::SyncProvider
-            EBox::Report::DiskUsageProvider);
+            EBox::Samba::SyncProvider);
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -3017,20 +3016,6 @@ sub syncFolders
 sub recoveryDomainName
 {
     return __('Users data and Filesystem shares');
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $usersPrintableName  = __(q{Users data});
-    my $usersPath           = '/home';
-
-    return {
-        $usersPrintableName   => [ $usersPath ],
-    };
 }
 
 # Method: entryModeledObject

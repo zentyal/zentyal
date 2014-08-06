@@ -23,9 +23,7 @@ use base qw(
     EBox::ObjectsObserver
     EBox::FirewallObserver
     EBox::LogObserver
-    EBox::Report::DiskUsageProvider
     EBox::SyncFolders::Provider
-    EBox::Events::DispatcherProvider
 );
 
 use EBox::Sudo;
@@ -608,17 +606,6 @@ sub depends
     }
 
     return \@depends;
-}
-
-# Method: eventDispatchers
-#
-# Overrides:
-#
-#      <EBox::Events::DispatcherProvider::eventDispatchers>
-#
-sub eventDispatchers
-{
-    return [ 'Mail' ];
 }
 
 # Method: _getIfacesForAddress
@@ -1973,22 +1960,6 @@ sub restoreConfig
 
 }
 
-sub _storageMailDirs
-{
-    return  (qw(/var/mail /var/vmail));
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $printableName = __('Mailboxes');
-
-    return {$printableName => [ $self->_storageMailDirs() ],};
-}
-
 # Method: certificates
 #
 #   This method is used to tell the CA module which certificates
@@ -2087,6 +2058,11 @@ sub syncFolders
     }
 
     return \@folders;
+}
+
+sub _storageMailDirs
+{
+    return  (qw(/var/mail /var/vmail));
 }
 
 sub recoveryDomainName

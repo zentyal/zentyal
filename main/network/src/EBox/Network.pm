@@ -19,7 +19,7 @@ use warnings;
 
 package EBox::Network;
 
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
+use base qw(EBox::Module::Service);
 
 # Group: Constants
 
@@ -299,17 +299,6 @@ sub wizardPages
         { page => '/Network/Wizard/Ifaces', order => 100 },
         { page => '/Network/Wizard/Network', order => 101 },
     ];
-}
-
-# Method: eventWatchers
-#
-# Overrides:
-#
-#      <EBox::Events::WatcherProvider::eventWatchers>
-#
-sub eventWatchers
-{
-    return [ 'Gateways' ];
 }
 
 # Method: ExternalIfaces

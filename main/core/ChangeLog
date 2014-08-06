@@ -14,6 +14,7 @@
 	+ Removed duplicate code for page not found
 	+ Fix some warnings in log
 	+ Fix error in send crash report script
+	+ Remove all maintenance functionality except logs
 3.5.1
 	+ Fixed dashboard links to official manual
 	+ Model backup/revoke/save files are no longer called implicitly

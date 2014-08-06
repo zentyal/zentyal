@@ -37,10 +37,6 @@ use EBox::Firewall::Model::ExternalToInternalRuleTable;
 use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
-use EBox::Firewall::Model::PacketTrafficDetails;
-use EBox::Firewall::Model::PacketTrafficGraph;
-use EBox::Firewall::Model::PacketTrafficReportOptions;
-
 use EBox::FirewallLogHelper;
 use EBox::Objects;
 use EBox::Validate qw( :all );
@@ -64,9 +60,6 @@ sub _create
     $self->{'ExternalToInternalRuleTable'} = $self->model('ExternalToInternalRuleTable');
     $self->{'EBoxServicesRuleTable'} = $self->model('EBoxServicesRuleTable');
     $self->{'RedirectsTable'} = $self->model('RedirectsTable');
-    $self->{'PacketTrafficDetails'} = $self->model('PacketTrafficDetails');
-    $self->{'PacketTrafficGraph'} = $self->model('PacketTrafficGraph');
-    $self->{'PacketTrafficReportOptions'} = $self->model('PacketTrafficReportOptions');
 
     bless($self, $class);
     return $self;
