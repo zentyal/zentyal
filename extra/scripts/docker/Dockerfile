@@ -31,7 +31,6 @@ ADD  main/ipsec/debian/control /tmp/main/ipsec/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
-ADD  main/webserver/debian/control /tmp/main/webserver/debian/control
 ADD  main/jabber/debian/control /tmp/main/jabber/debian/control
 ADD  main/mail/debian/control /tmp/main/mail/debian/control
 ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
