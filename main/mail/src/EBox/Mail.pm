@@ -108,11 +108,11 @@ sub _create
                                       printableName => __('Mail'),
                                       @_);
 
-    $self->{vdomains} = new EBox::MailVDomainsLdap;
-    $self->{musers} = new EBox::MailUserLdap;
-    $self->{malias} = new EBox::MailAliasLdap;
-    $self->{greylist} = new EBox::Mail::Greylist;
-    $self->{fetchmail} = new EBox::Mail::FetchmailLdap;
+    $self->{vdomains} = new EBox::MailVDomainsLdap();
+    $self->{musers} = new EBox::MailUserLdap($self->{vdomains});
+    $self->{malias} = new EBox::MailAliasLdap($self->{vdomains});
+    $self->{greylist} = new EBox::Mail::Greylist();
+    $self->{fetchmail} = new EBox::Mail::FetchmailLdap($self);
 
     bless($self, $class);
     return $self;
@@ -270,9 +270,181 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
 
+    if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
+        $self->_migrateToFetchmail();
+    }
+    if (EBox::Util::Version::compare($version, '3.5') < 0) {
+        $self->_migrateToMaildir();
+        $self->_chainDovecotCertificate();
+    }
+    if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
+        $self->_migrateAliasTo35();
+    }
+
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }
+}
+
+sub _chainDovecotCertificate
+{
+    my ($self) = @_;
+
+    my $certFile = '/etc/dovecot/dovecot.pem';
+    my $keyFile = '/etc/dovecot/private/dovecot.pem';
+    my $newCertKey = '/etc/dovecot/zentyal-new-cert.pem';
+
+    if (EBox::Sudo::fileTest('-f', $certFile) and EBox::Sudo::fileTest('-f', $keyFile)) {
+        my @commands;
+        push (@commands, "cat $certFile $keyFile > $newCertKey");
+        push (@commands, "mv $newCertKey $keyFile");
+        push (@commands, "rm -rf $newCertKey");
+        push (@commands, "rm -rf $certFile");
+        EBox::Sudo::root(@commands);
+    }
+}
+
+sub _migrateToFetchmail
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    $path .= '/schema-fetchmail.ldif';
+    $self->_loadSchemasFiles([$path]);
+
+    my $userMod = $self->global()->modInstance('samba');
+    foreach my $user (@{ $userMod->users() }) {
+        if ($user->hasObjectClass('userZentyalMail') and not $user->hasObjectClass('fetchmailUser')) {
+            $user->add('objectClass', 'fetchmailUser');
+        }
+    }
+}
+
+sub _migrateToMaildir
+{
+    my ($self) = @_;
+
+    my $vdomainsTable = $self->model('VDomains');
+
+    foreach my $id (@{$vdomainsTable->ids()}) {
+        my $vdRow = $vdomainsTable->row($id);
+        my $vdomain = $vdRow->elementByName('vdomain')->value();
+
+        my $path = "/var/vmail/$vdomain";
+        foreach my $mboxpath (glob ("$path/*")) {
+            my $maildir = "$mboxpath/Maildir";
+            unless (-d $maildir) {
+                my $tmpdir = "/var/lib/zentyal/tmp/$mboxpath";
+                system ("mkdir -p $tmpdir");
+                system ("mv $mboxpath/* $tmpdir/");
+                system ("mv $tmpdir $maildir");
+            }
+        }
+    }
+}
+
+sub _migrateAliasTo35
+{
+    my ($self) = @_;
+    my $ldifFile = '/var/lib/zentyal/conf/upgrade-to-3.5/data.ldif';
+
+    return unless (-f $ldifFile);
+
+    my $state = $self->get_state();
+    if (not $state->{_schemasAdded}) {
+        $self->_loadSchemas();
+        $state->{'_schemasAdded'} = 1;
+        $self->set_state($state);
+        $self->_addConfigurationContainers();
+    }
+
+    my $usersMods = $self->global()->modInstance('samba');
+    my %users = map { my $entry = $_;
+                      my $mail  =  $entry->get('mail');
+                      if ($mail) {
+                          ($mail => $entry)
+                      } else {
+                          ()
+                      }
+                  } @{ $usersMods->users() };
+
+    my %groups = map { my $entry = $_; ($entry->get('cn') => $entry)  } @{ $usersMods->groups() };
+    my $vdomainsModel = $self->model('VDomains');
+
+    eval 'use Net::LDAP::LDIF';
+    my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
+    while (not $ldif->eof()) {
+        my $entry = $ldif->read_entry ();
+        if ($ldif->error()) {
+           EBox::error("Error reading LDIF file $ldifFile: " . $ldif->error() .
+                       '. Error lines: ' .  $ldif->error_lines());
+           next;
+       }
+
+        my $isAlias = grep { $_ eq 'CourierMailAlias'}  $entry->get_value('objectClass');
+        if (not $isAlias) {
+            next;
+        }
+
+        # check that dn is in alias tree
+        my $dn = $entry->dn();
+        if (not ($dn =~ m/,ou=mailalias,ou=postfix,/)) {
+            next;
+        }
+
+        my $alias    = $entry->get_value('mail');
+        my $maildrop = $entry->get_value('maildrop');
+        my $uid      = $entry->get_value('uid');
+        if ((not $alias) or (not $maildrop) or (not $uid)) {
+            EBox::warn("Alias entry with dn $dn has not required attributes. Skipping");
+            next;
+        }
+
+        if ($uid =~ m/@/) {
+            if (not exists $users{$uid}) {
+                EBox::warn("Cannot found user for alias entry $dn with uid $uid. Skipping");
+                next;
+            }
+
+            my $user = $users{$uid};
+            try {
+                $self->{malias}->addUserAlias($user, $alias);
+            } catch ($ex) {
+                EBox::error("Cannot create alias $alias  for user " . $user->name . ". Error: $ex");
+            }
+        } else {
+            if (not exists $groups{$uid}) {
+                EBox::warn("Cannot found group for alias entry $dn with uid $uid. Skipping");
+                next;
+            }
+
+            my $group = $groups{$uid};
+            try {
+                $self->checkMailNotInUse($alias); 
+
+                my $mail =  $group->get('mail');
+                if ($mail) {
+                    # cannot use normal methods because vdomains are not yet
+                    # set in LDAP
+                    my ($left, $vdomain) = split('@', $mail, 2);
+                    if ($vdomainsModel->existsVDomain($vdomain)) {
+                        my $samAccountName = $group->get('samAccountName');
+                        $self->{malias}->_addCouriermailAliasLdapElement($samAccountName, $alias, $mail);
+                    } else {
+                        EBox::warn("Alias $alias cannot be added to group $uid because the group has the address $mail which is unmanaged by Zentyal");
+                    }
+                } else {
+                    # using alias as group address
+                    $group->set('mail', $alias);
+                }
+            } catch ($ex) {
+                EBox::error("Cannot create alias $alias  for group " . $group->name . ". Error: $ex");
+            }
+
+        }
+    }
+
+    $ldif->done();
 }
 
 sub _serviceRules
@@ -347,23 +519,10 @@ sub enableActions
 sub setupLDAP
 {
     my ($self) = @_;
-
     my $ldap = $self->ldap();
     my $baseDn =  $ldap->dn();
-    my @containers = (
-        'CN=zentyal,CN=configuration,' . $baseDn,
-        'CN=mail,CN=zentyal,CN=configuration,' . $baseDn,
-        $self->{vdomains}->vdomainDn,
-        $self->{malias}->aliasDn,
-     );
-    foreach my $dn (@containers) {
-        if (not $ldap->existsDN($dn)) {
-            $ldap->add($dn, {attr => [
-                'objectClass' => 'top',
-                'objectClass' => 'container'
-               ]});
-        }
-    }
+
+    $self->_addConfigurationContainers();
 
     # The configuration partition is readable only for members of 'enterprise
     # admins' and 'domain admins' groups. The postfix daemon will bind with
@@ -412,7 +571,30 @@ sub setupLDAP
         }
     }
 
-    $self->{musers}->setupUsers();
+    # vdomains should be regnenerated to setup user correctly
+    $self->{vdomains}->regenConfig();
+}
+
+sub _addConfigurationContainers
+{
+    my ($self) = @_;
+
+    my $ldap = $self->ldap();
+    my $baseDn =  $ldap->dn();
+    my @containers = (
+        'CN=zentyal,CN=configuration,' . $baseDn,
+        'CN=mail,CN=zentyal,CN=configuration,' . $baseDn,
+        $self->{vdomains}->vdomainDn,
+        $self->{malias}->aliasDn,
+     );
+    foreach my $dn (@containers) {
+        if (not $ldap->existsDN($dn)) {
+            $ldap->add($dn, {attr => [
+                'objectClass' => 'top',
+                'objectClass' => 'container'
+               ]});
+        }
+    }
 }
 
 sub depends
@@ -628,7 +810,7 @@ sub _setMailConf
     EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     #}
 
-#    $self->{fetchmail}->writeConf();
+    $self->{fetchmail}->writeConf();
 }
 
 sub _alwaysBcc
@@ -1034,7 +1216,6 @@ sub _daemons
     ];
 
     my $greylist_daemon = $self->greylist()->daemon();
-#    $greylist_daemon->{'precondition'} = \&isGreylistEnabled;
     push(@{$daemons}, $greylist_daemon);
 
     return $daemons;
@@ -1490,7 +1671,7 @@ sub mailServicesWidget
                                    enabled => $self->imaps
                                              );
     my $greylist = $self->greylist()->serviceWidget();
-#    my $fetchmailWidget = $self->{fetchmail}->serviceWidget();
+    my $fetchmailWidget = $self->{fetchmail}->serviceWidget();
 
     $section->add($smtp);
     $section->add($pop);
@@ -1498,7 +1679,7 @@ sub mailServicesWidget
     $section->add($imap);
     $section->add($imaps);
     $section->add($greylist);
-#    $section->add($fetchmailWidget);
+    $section->add($fetchmailWidget);
 
     my $filterSection = $self->_filterDashboardSection();
     $widget->add($filterSection);
@@ -1978,14 +2159,14 @@ sub openchangeProvisioned
 #  Do NOT call both
 sub checkMailNotInUse
 {
-    my ($self, $mail, $onlyCheckLdap, $isAlias) = @_;
+    my ($self, $mail, %params) = @_;
 
     # TODO: check vdomain alias mapping to the other domains?
-    $self->global()->modInstance('samba')->checkMailNotInUse($mail, $isAlias);
+    $self->global()->modInstance('samba')->checkMailNotInUse($mail, %params);
 
     # if the external aliases has been already saved to LDAP it will be caught
     # by the previous check
-    if ((not $onlyCheckLdap) and $self->model('ExternalAliases')->aliasInUse($mail)) {
+    if ((not $params{onlyCheckLdap}) and $self->model('ExternalAliases')->aliasInUse($mail)) {
         throw EBox::Exceptions::External(
                 __x('Address {addr} is in use as external alias', addr => $mail)
         );

@@ -1,3 +1,7 @@
+4.0
+	+ Set version to 4.0
+	+ Make use of VerifyPeer to false on EBox::RESTClient as we
+	  don't verify other HA hosts
 3.5.1
 	+ Avoid warning flag on smart match experimental feature
 3.5

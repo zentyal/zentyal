@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-webserver
 Architecture: all
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-firewall, zentyal-ca, zentyal-samba, libnet-domain-tld-perl,
          apache2, libapache2-mod-ldap-userdir, ${misc:Depends}
 Description: Zentyal - Web Server

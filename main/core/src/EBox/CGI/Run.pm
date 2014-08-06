@@ -82,7 +82,7 @@ sub run
                 my $log = EBox::logger();
                 $log->error("Unable to load CGI: URL=$effectiveUrl CLASS=$classname ERROR: $@");
 
-                my $error_handler = 'EBox::SysInfo::CGI::PageNotFound';
+                my $error_handler = 'EBox::SysInfo::CGI::ComponentNotFound';
                 eval "use $error_handler";
                 $handler = new $error_handler(@extraParams);
             } else {

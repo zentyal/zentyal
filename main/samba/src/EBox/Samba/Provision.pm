@@ -119,6 +119,22 @@ sub checkEnvironment
         }
     }
 
+    # The host netbios name must be different than the domain netbios name
+    my $settings = $users->model('DomainSettings');
+    my $domainNetbiosName = $settings->value('workgroup');
+    my $hostNetbiosName = $settings->value('netbiosName');
+    if (uc ($domainNetbiosName) eq uc ($hostNetbiosName)) {
+    $users->enableService(0);
+        my $err = __x("The host netbios name '{x}' has to be the different " .
+                      "than the domain netbios name '{y}'",
+                      x => $hostNetbiosName, y => $domainNetbiosName);
+        if ($throwException) {
+            throw EBox::Exceptions::External($err);
+        } else {
+            EBox::warn($err);
+        }
+    }
+
     # Check the domain exists in DNS module
     my $dns = EBox::Global->modInstance('dns');
     my $domainModel = $dns->model('DomainTable');
@@ -1320,7 +1336,7 @@ sub provisionADC
         (undef, $adminAccountPwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
         EBox::info("Trying to get a kerberos ticket for principal '$principal'");
         write_file($adminAccountPwdFile, $adPwd);
-        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' $principal";
+        my $cmd = "kinit -e arcfour-hmac-md5 --password-file='$adminAccountPwdFile' '$principal'";
         EBox::Sudo::root($cmd);
 
         # Write config

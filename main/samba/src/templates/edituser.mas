@@ -14,12 +14,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 my $optionalTag = $slave ? '' :  __('Optional');
 my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
-
-my $global = EBox::Global->getInstance();
-my $mailModInstalled = $global->modExists('mail');
 </%init>
-
-
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
 <div id='editUserForm_message' class='note' style='display:none'></div>
@@ -63,13 +58,13 @@ my $mailModInstalled = $global->modExists('mail');
                                slave => $slave,
                    &>
           </div>
+
           <div>
           <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                id   => 'user_attrs_mail',
                                value => ($user->mail() or ''),
-                               disabled => $mailModInstalled,
                                slave => $slave,
                    &>
           </div>
@@ -134,13 +129,12 @@ $name
 $value
 $slave
 $id => undef
-$disabled => undef
 </%args>
 % if ($slave) {
 <% $value %>
  <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
 % } else {
- <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $disabled ? "disabled='disabled'" : '' %> <% $id ? "id='$id'" : "" %> />
+ <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
 %}
 </%def>
 

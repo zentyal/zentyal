@@ -146,6 +146,7 @@ sub _table
             fieldName     => 'adminAccount',
             printableName => __('Administrator account'),
             editable      => 1,
+            allowUnsafeChars => 1,
         ),
         new EBox::Types::Password(
             fieldName     => 'password',

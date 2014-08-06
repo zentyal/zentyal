@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-firewall, zentyal-dns, zentyal-ntp,
          libsamba-perl (>= 0.11~1), libxs-object-magic-perl,
          libparse-recdescent-perl,

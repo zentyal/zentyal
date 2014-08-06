@@ -149,13 +149,11 @@ sub _populateGroups
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $sambaMod = $self->global()->modInstance('samba');
-        return [] unless ($sambaMod->isEnabled());
+        return [] unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned());
 
         my @groups;
         foreach my $group (@{$sambaMod->securityGroups()}) {
-            my $groupDN = $group->dn();
-            my $baseName = $group->baseName();
-            push (@groups, { value => $groupDN, printableValue => $baseName });
+            push (@groups, { value => $group->dn(), printableValue => $group->get('samAccountName') });
         }
         return \@groups;
     }

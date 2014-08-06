@@ -259,16 +259,22 @@ sub _table
                       enableProperty     => 1,
                      };
 
-      return $dataForm;
-
-  }
-
-# Group: Private methods
+    return $dataForm;
+}
 
 sub _iface
 {
     my ($self) = @_;
-    return $self->parentRow()->valueByName('iface')
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 sub dynamicDomainsIds

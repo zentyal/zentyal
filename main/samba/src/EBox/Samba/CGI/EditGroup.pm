@@ -41,7 +41,8 @@ sub _process
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('samba');
+    my $global   = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('samba');
 
     my @args = ();
 
@@ -70,7 +71,10 @@ sub _process
         $self->_requireParam('type', __('type'));
 
         my $type = $self->param('type');
-        $group->setSecurityGroup(($type eq 'security'), 1);
+        my $isSecurityGroup = ($type eq 'security') ? 1 : 0;
+        if ($isSecurityGroup != $group->isSecurityGroup()) {
+            $group->setSecurityGroup($isSecurityGroup, 1);
+        }
 
         my $description = $self->unsafeParam('description');
         if (length ($description)) {
@@ -78,17 +82,55 @@ sub _process
         } else {
             $group->delete('description', 1);
         }
+
+        my ($addMail, $delMail);
         my $mail = $self->unsafeParam('mail');
-        if (length ($mail) and ($mail ne $group->get('mail'))) {
-            $group->checkMail($mail);
-            $group->set('mail', $mail, 1);
-        } else {
-            $group->delete('mail', 1);
+        my $oldMail = $group->get('mail');
+        if ($mail) {
+            $mail = lc $mail;
+            if (not $oldMail) {
+                $addMail = $mail;
+            } elsif  ($mail ne $oldMail) {
+                $delMail = 1;
+                $addMail = $mail;
+            }
+        } elsif ($oldMail) {
+            $delMail = 1;
         }
+
+        my $mailMod = $global->modInstance('mail');
+        if ($delMail) {
+            if ($mailMod and $mailMod->configured()) {
+                $mailMod->_ldapModImplementation()->delGroupAccount($group);
+            } else {
+                $group->delete('mail', 1);
+            }
+        }
+        if ($addMail) {
+            if ($mailMod and $mailMod->configured()) {
+                $mailMod->_ldapModImplementation()->setGroupAccount($group, $addMail);
+            } else {
+                $group->checkMail($addMail);
+                $group->set('mail', $addMail, 1);
+            }
+        }
+
+
         $group->save();
 
         $self->{json}->{success}  = 1;
-        $self->{json}->{type} = ($type eq 'security') ? 'group' : 'dgroup';
+        $self->{json}->{type} = $isSecurityGroup ? 'group' : 'dgroup';
+        if ($addMail) {
+            $self->{json}->{mail} = $addMail;
+            $self->{json}->{mailManaged} = 0;
+            if ($mailMod) {
+                $self->{json}->{mailManaged}= $mailMod->{vdomains}->addressBelongsToAnyVDomain($addMail);
+            }
+        } elsif ($delMail) {
+            $self->{json}->{mail} = '';
+            $self->{json}->{mailManaged} = 0;
+
+        }
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };

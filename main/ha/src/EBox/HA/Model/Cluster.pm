@@ -100,7 +100,7 @@ sub validateTypedRow
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $allParams->{'secret'}->value() },
                 server => $allParams->{'zentyal_host'}->value(),
-                verifyHostname => 0,
+                verifyPeer => 0,
                );
             $client->setPort($allParams->{'zentyal_port'}->value());
             try {
