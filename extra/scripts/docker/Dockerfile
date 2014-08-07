@@ -64,6 +64,7 @@ ADD  main/remoteservices/debian/precise/control /tmp/main/remoteservices/debian/
 
 
 #Install the zentyal deps
+RUN apt-get update -y
 RUN /tmp/zentyal-syntax-check --installdeps --path=/tmp  --release=precise
 RUN /tmp/zentyal-unit-tests nothing || /bin/true
 
