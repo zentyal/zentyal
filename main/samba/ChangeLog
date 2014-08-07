@@ -1,3 +1,5 @@
+HEAD
+	+ Add dpkg trigger for samba4 package
 3.2.22
 	+ Do not abort and throw exception on the first error setting ACLs on
 	  shares. Now the process will continue and will throw an exception at
