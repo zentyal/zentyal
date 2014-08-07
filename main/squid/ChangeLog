@@ -1,4 +1,5 @@
 HEAD
+	+ Do not lowercase user names if kerberos is used
 	+ Fixed generated rules for blanket domain deny
 3.2.9
 	+ Speed up external AD connection using persistence

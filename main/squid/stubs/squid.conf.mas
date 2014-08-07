@@ -139,8 +139,12 @@ sub _rulesACLs
             # escape user names
             my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
             if ($realm) {
-            @users = map { $_ . '@' . $realm } @users;
-        }
+                # kerberos auth needs realm appended
+                @users = map { $_ . '@' . $realm } @users;
+            } else {
+                # ldap auth need lower case
+                @users = map { lc $_ } @users;
+            }
             my $acl = "acl $aclName proxy_auth";
             _printSplitAcl($acl, \@users);
         } elsif ($adDN) {
