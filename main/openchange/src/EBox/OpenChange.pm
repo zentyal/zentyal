@@ -66,6 +66,8 @@ use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
 use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
 
+use constant APACHE_PORTS_FILE => '/etc/apache2/ports.conf';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -410,6 +412,8 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
+    $self->_setApachePortsConf();
+
     $self->_setOCSManagerConf();
 
     $self->_setRPCProxyConf();
@@ -437,6 +441,18 @@ sub _postServiceHook
     }
 }
 
+sub _setApachePortsConf
+{
+    my ($self) = @_;
+
+    my @params;
+    push (@params, bindAddress => '127.0.0.1');
+    # FIXME: unhardcode this
+    push (@params, port        => 62080);
+    push (@params, sslPort     => 62443);
+
+    $self->writeConfFile(APACHE_PORTS_FILE, "openchange/apache-ports.conf.mas", \@params);
+}
 
 sub _setSOGoApacheConf
 {
