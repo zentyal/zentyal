@@ -422,9 +422,21 @@ sub _setConf
     $self->_setupActiveSync();
 
     $self->_setSOGoApacheConf();
-
-    # TODO: common way to restart apache for rpcproxy, sogo and activesync only if there are changes?
 }
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    # FIXME: only if webmail enabled
+    if ($enabled) {
+        EBox::Sudo::root('service sogo restart');
+        # FIXME: common way to restart apache for rpcproxy, sogo and activesync only if there are changes?
+        #        currently we are doing more than necessary
+        EBox::Sudo::root('service apache2 restart');
+    }
+}
+
 
 sub _setSOGoApacheConf
 {
@@ -677,12 +689,6 @@ sub _setCerts
     }
 }
 
-sub _rpcProxyConfFile
-{
-    my ($self) = @_;
-    return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
-}
-
 sub _setRPCProxyConf
 {
     my ($self) = @_;
@@ -691,17 +697,17 @@ sub _setRPCProxyConf
     # remove stock rpcproxy.conf file because it could interfere
     push (@cmds, 'rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
 
+    my $rpcProxyConfFile = '/etc/apache2/sites-available/zentyaloc-rpcproxy.conf';
+    my @params = (
+        rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
+        port   => RPCPROXY_PORT
+    );
+
+    $self->writeConfFile(
+        $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+         \@params);
+
     if ($self->_rpcProxyEnabled()) {
-        my $rpcProxyConfFile = $self->_rpcProxyConfFile();
-        my @params = (
-            rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
-            port   => RPCPROXY_PORT
-           );
-
-        $self->writeConfFile(
-            $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-             \@params);
-
         push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
