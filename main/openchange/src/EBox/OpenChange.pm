@@ -24,7 +24,6 @@ use base qw(
     EBox::CA::Observer
 );
 
-
 use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
@@ -47,6 +46,7 @@ use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
+use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/zentyal-sogo.conf';
 
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
@@ -184,6 +184,26 @@ sub _migrateCerts
     }
 }
 
+# Method: actions
+#
+#        Explain the actions the module must make to configure the
+#        system. Check overriden method for details
+#
+# Overrides:
+#
+#        <EBox::Module::Service::actions>
+sub actions
+{
+    return [
+            {
+             'action' => __('Enable proxy, proxy_http and headers Apache 2 modules.'),
+             'reason' => __('To make OpenChange Webmail be accesible at http://ip/SOGo/.'),
+             'module' => 'sogo'
+            },
+    ];
+}
+
+
 # Method: enableActions
 #
 # Action to do when openchange module is enabled for first time
@@ -191,8 +211,20 @@ sub _migrateCerts
 sub enableActions
 {
     my ($self) = @_;
+
+    # Execute enable-module script
     $self->SUPER::enableActions();
     $self->_setupDNS();
+
+    # FIXME: move this to the new "Enable Webmail" checkbox
+    #my $mail = EBox::Global->modInstance('mail');
+    #unless ($mail->imap() or $mail->imaps()) {
+    #    throw EBox::Exceptions::External(__x('OpenChange Webmail module needs IMAP or IMAPS service enabled if ' .
+    #                                         'using Zentyal mail service. You can enable it at ' .
+    #                                         '{openurl}Mail -> General{closeurl}.',
+    #                                         openurl => q{<a href='/Mail/Composite/General'>},
+    #                                         closeurl => q{</a>}));
+    #}
 }
 
 # Method: enableService
@@ -223,8 +255,13 @@ sub _daemonsToDisable
         {
             name => 'openchange-ocsmanager',
             type => 'init.d',
+        },
+        {
+            name => 'sogo',
+            type => 'init.d',
+            # FIXME: precondition only if enabled!
         }
-       ];
+    ];
     return $daemons;
 }
 
@@ -311,22 +348,27 @@ sub usedFiles
         file => SOGO_DEFAULT_FILE,
         reason => __('To configure sogo daemon'),
         module => 'openchange'
-       });
+    });
     push (@files, {
         file => SOGO_CONF_FILE,
         reason => __('To configure sogo parameters'),
         module => 'openchange'
-       });
+    });
     push (@files, {
-       file => OCSMANAGER_CONF_FILE,
-       reason => __('To configure autodiscovery service'),
-       module => 'openchange'
-      });
+        file => OCSMANAGER_CONF_FILE,
+        reason => __('To configure autodiscovery service'),
+        module => 'openchange'
+    });
     push (@files, {
         file => RPCPROXY_STOCK_CONF_FILE,
         reason => __('Remove RPC Proxy stock file to avoid interference'),
         module => 'openchange'
-       });
+    });
+    push (@files, {
+        file => SOGO_APACHE_CONF,
+        reason => __('To make SOGo webmail available'),
+        module => 'sogo'
+    });
 
     return \@files;
 }
@@ -379,7 +421,48 @@ sub _setConf
 
     $self->_setupActiveSync();
 
-    # TODO: common way to restart apache for rpcproxy and activesync only if there are changes?
+    $self->_setSOGoApacheConf();
+
+    # TODO: common way to restart apache for rpcproxy, sogo and activesync only if there are changes?
+}
+
+sub _setSOGoApacheConf
+{
+    my ($self) = @_;
+
+    # FIXME: do this only if webmail checkbox is enabled
+    if ($self->isEnabled()) {
+        my $global = $self->global();
+        my $sysinfoMod = $global->modInstance('sysinfo');
+        my @params = ();
+        push (@params, hostname => $sysinfoMod->fqdn());
+        # FIXME: unhardcode this
+        #my $webserverMod = $global->modInstance('webserver');
+        #push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+        push (@params, sslPort  => 62443);
+
+        $self->writeConfFile(SOGO_APACHE_CONF, "openchange/zentyal-sogo.mas", \@params);
+        try {
+            EBox::Sudo::root("a2enconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    } else {
+        try {
+            EBox::Sudo::root("a2disconf zentyal-sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    }
+
+    # Force apache restart to refresh the new sogo configuration
+    EBox::Sudo::root('service apache2 restart');
 }
 
 sub _setupActiveSync

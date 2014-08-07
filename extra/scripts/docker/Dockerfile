@@ -37,7 +37,6 @@ ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
 ADD  main/openchange/debian/control /tmp/main/openchange/debian/control
 ADD  main/core/debian/control /tmp/main/core/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
-ADD  main/sogo/debian/control /tmp/main/sogo/debian/control
 ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control
