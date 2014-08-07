@@ -65,81 +65,45 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    # # Check the given fixed address is not in any user given
-    # # range, it is within the available range and it cannot be the
-    # # interface address
-    # if ( exists ( $changedFields->{ip} )) {
-    #     my $newIP = new Net::IP($changedFields->{ip}->value());
-    #     my $net = EBox::Global->modInstance('network');
-    #     my $dhcp = $self->{confmodule};
-    #     my $netIP = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
-    #                              . $dhcp->endRange($self->{interface}));
-    #     # Check if the ip address is within the network
-    #     unless ( $newIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP ) {
-    #         throw EBox::Exceptions::External(__x('IP address {ip} is not in '
-    #                                              . 'network {net}',
-    #                                              ip => $newIP->print(),
-    #                                              net  => EBox::NetWrappers::to_network_with_mask(
-    #                                                      $net->ifaceNetwork($self->{interface}),
-    #                                                      $net->ifaceNetmask($self->{interface}))
-    #                                             ));
-    #     }
-    #     # Check the ip address is not the interface address
-    #     my $ifaceIP = new Net::IP($net->ifaceAddress($self->{interface}));
-    #     unless ( $newIP->overlaps($ifaceIP) == $IP_NO_OVERLAP ) {
-    #         throw EBox::Exceptions::External(__x('The selected IP is the '
-    #                                              . 'interface IP address: '
-    #                                              . '{ifaceIP}',
-    #                                              ifaceIP => $ifaceIP->print()
-    #                                             ));
-    #     }
-    #     # Check the new IP is not within any given range by RangeTable model
-    #     # FIXME: When #847 is done
-    #     # my $rangeModel = $dhcp->model('RangeTable');
-    #     my $rangeModel = EBox::Model::Manager->instance()->model('/dhcp/RangeTable/'
-    #                                                                   . $self->{interface});
-    #     foreach my $id (@{$rangeModel->ids()}) {
-    #         my $rangeRow = $rangeModel->row($id);
-    #         my $from = $rangeRow->valueByName('from');
-    #         my $to   = $rangeRow->valueByName('to');
-    #         my $range = new Net::IP( $from . '-' . $to);
-    #         unless ( $newIP->overlaps($range) == $IP_NO_OVERLAP ) {
-    #             throw EBox::Exceptions::External(__x('IP address {ip} is in range '
-    #                                                  . "'{range}': {from}-{to}",
-    #                                                  ip => $newIP->print(),
-    #                                                  range => $rangeRow->valueByName('range'),
-    #                                                  from  => $from, to => $to));
-    #         }
-    #     }
-    # }
-    # if ( exists ( $changedFields->{name} )) {
-    #     my $newName = $changedFields->{name}->value();
-    #     # Check remainder FixedAddressTable models uniqueness since
-    #     # the dhcpd.conf may confuse those name repetition
-    #     my @fixedAddressTables = @{EBox::Model::Manager->instance()->model(
-    #          '/dhcp/FixedAddressTable/*'
-    #                                                                          )};
-    #     # Delete the self model
-    #     @fixedAddressTables = grep { $_->index() ne $self->index() }
-    #       @fixedAddressTables;
+    my $objectId = $allFields->{object}->value();
+    my $members = $self->global()->modInstance('objects')->objectMembers($objectId);
 
-    #     my $row = grep { $_->findValue( name => $newName ) }
-    #       @fixedAddressTables;
+    my $iface    = $self->parentRow()->valueByName('iface');
+    my $ifaceIp  = $self->global()->modInstance('network')->ifaceAddresses($iface);
+    my $ranges   = $self->parentModule()->ranges($iface);
+    my $ro       = $self->global()->isReadOnly();
+    foreach my $member (@{ $members }) {
+        # use only IP address member type
+        if ($member->{type} ne 'ipaddr') {
+            next;
+        }
+        if (not $member->{macaddr}) {
+            next;
+        }
 
-    #     if ( $row ) {
-    #         my $i18nAction = '';
-    #         if ( $action eq 'update' ) {
-    #             $i18nAction = __('update');
-    #         } else {
-    #             $i18nAction = __('add');
-    #         }
-    #         throw EBox::Exceptions::External(__x('You cannot {action} a fixed address with a '
-    #                                              . 'name which is already used in other fixed '
-    #                                              . 'address table',
-    #                                              action => $i18nAction));
-    #     }
-
-    # }
+        my $ip = $member->{ip};
+        if ($ip eq $ifaceIp) {
+            throw EBox::Exceptions::External(
+                __x('The object contains the IP address {ip} which is also the address of the interface',  ip => $ip)
+             );
+        }
+        # Check that there is no conflict with the fixed address table
+        my $newIP = Net::IP->new($ip);
+        foreach my $range (@{$ranges}) {
+            my $from  = $range->{from};
+            my $to    = $range->{to};
+            my $rangeIP = new Net::IP( $from . '-' . $to);
+            unless ( $newIP->overlaps($rangeIP) == $IP_NO_OVERLAP ) {
+                throw EBox::Exceptions::External(__x('The object contains an IP address {ip} which also is in the range '
+                                                     . "'{range}': {from}-{to}",
+                                                     ip => $ip,
+                                                     range => $range->{name},
+                                                     from  => $from, 
+                                                     to => $to)
+                                                );
+            }
+        }
+    }
 
 }
 

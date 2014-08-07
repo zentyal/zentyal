@@ -1,3 +1,6 @@
+HEAD
+	+ Forbid the addition of a fixed addresses object which
+	  collides with a range
 3.2.3
 	+ Restored thin client options for VLANs
 3.2.2
