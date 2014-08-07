@@ -1,3 +1,5 @@
+HEAD
+	+ Add dpkg trigger to restart module when samba package is upgraded
 3.5.5
 	+ Adapted to changes in group mail account
 3.5.4
