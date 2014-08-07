@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-l7-protocols
 Architecture: all
-Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0), zentyal-trafficshaping,
+Depends: zentyal-trafficshaping,
          l7-protocols, l7-filter-userspace, ${misc:Depends}
 Description: Zentyal - Layer-7 Filter
  Zentyal is a Linux small business server that can act as

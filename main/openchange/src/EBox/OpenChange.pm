@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -55,7 +55,6 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
-use constant OCSMANAGER_AUTODISCOVER_PEM => '/etc/ocsmanager/autodiscover.pem';
 use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
@@ -98,6 +97,11 @@ sub initialSetup
 
     if (defined($version) and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
         $self->_migrateOutgoingDomain();
+    }
+
+    if (defined($version) and  (EBox::Util::Version::compare($version, '3.5.3') < 0)) {
+        EBox::debug("Migrating from $version");
+        $self->_migrateCerts();
     }
 
     if ($self->changed()) {
@@ -150,6 +154,33 @@ sub _migrateFormKeys
     if ($self->isProvisioned()) {
         # The organization name is only useful if the server is already provisioned.
         $self->set_state($state);
+    }
+}
+
+# Migrate RPC/Proxy certificates to use the proper ones using the CA
+# to make RPC/Proxy and Autodiscover work together
+sub _migrateCerts
+{
+    my ($self) = @_;
+
+    if ($self->isProvisioned()) {
+        try {
+            my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+            my $ca = $self->global()->modInstance('ca');
+            if ($ca->getCertificateMetadata(cn => $domain)) {
+                $ca->revokeCertificate(commonName => $domain,
+                                       reason     => 'superseded',
+                                       force      => 1);
+            }
+            $self->_setCerts($domain);
+        } catch ($ex) {
+            EBox::error("Impossible to migrate certificates: $ex");
+        }
+        # Remove now useless certificate
+        my $oldRPCProxyCert = EBox::Config::conf() . 'openchange/ssl/ssl.pem';
+        foreach my $oldCert (('/etc/ocsmanager/autodiscover.pem', $oldRPCProxyCert)) {
+            EBox::Sudo::silentRoot("rm -rf '$oldCert'");
+        }
     }
 }
 
@@ -210,7 +241,7 @@ sub _daemons
         {
             name         => 'zentyal.ocsmanager',
             type         => 'upstart',
-            precondition => sub { return $self->_autodiscoverEnabled() },
+            precondition => sub { return $self->isProvisioned() },
         },
         {
             name         => 'zentyal.zoc-migrate',
@@ -242,25 +273,24 @@ sub isRunning
     }
 }
 
+# Method: autodiscoveryCerts
+#
+#     Return the list of certificates used by OC Web Services
+#
+# Returns:
+#
+#     Array ref - the path to the certificates
+#
 sub autodiscoveryCerts
 {
     my ($self) = @_;
     my @certs;
     if ($self->isEnabled() and $self->isProvisioned()) {
-        if (EBox::Sudo::fileTest('-r', OCSMANAGER_AUTODISCOVER_PEM)) {
-            push @certs, OCSMANAGER_AUTODISCOVER_PEM;
-        }
         if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
             push @certs, OCSMANAGER_DOMAIN_PEM;
         }
     }
     return \@certs;
-}
-
-sub _autodiscoverEnabled
-{
-    my ($self) = @_;
-    return $self->isProvisioned();
 }
 
 sub _rpcProxyEnabled
@@ -324,6 +354,12 @@ sub writeSambaConfig
                          { 'uid' => 'root', 'gid' => 'ebox', mode => '640' });
 }
 
+# Method: _setConf
+#
+# Overrides:
+#
+#       <EBox::Module::Base::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
@@ -332,10 +368,9 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
-    $self->_setAutodiscoverConf();
+    $self->_setOCSManagerConf();
 
     $self->_setRPCProxyConf();
-    $self->_clearDownloadableCert();
 
     $self->_writeRewritePolicy();
 
@@ -449,10 +484,13 @@ sub _writeSOGoConfFile
         $array, { uid => 0, gid => $gid, mode => '640' });
 }
 
-sub _setAutodiscoverConf
+# Configure OCSManager which is in charge of EWS such as:
+#  * Autodiscover
+#  * Availability (Free/Busy)
+#  * Out of Office
+sub _setOCSManagerConf
 {
     my ($self) = @_;
-
 
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
@@ -464,12 +502,23 @@ sub _setAutodiscoverConf
         $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
-        bindDn    => $self->_kerberosServiceAccountDN(),
-        bindPwd   => $self->_kerberosServiceAccountPassword(),
-        baseDn    => 'CN=Users,' . $users->ldap()->dn(),
-        port      => 389,
-        adminMail => $adminMail,
+        bindDn      => $self->_kerberosServiceAccountDN(),
+        bindPwd     => $self->_kerberosServiceAccountPassword(),
+        baseDn      => 'CN=Users,' . $users->ldap()->dn(),
+        port        => 389,
+        adminMail   => $adminMail,
+        rpcProxySSL => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
+        mailboxesDir =>  EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
     ];
+    if ($self->_rpcProxyEnabled()) {
+        my $externalHostname;
+        try {
+            $externalHostname = $self->rpcProxyHosts()->[0];
+            push (@{$confFileParams}, rpcProxyExternalHostname => $externalHostname);
+        } catch ($ex) {
+            EBox::error("Error getting hostname for RPC proxy: $ex");
+        }
+    }
 
     $self->writeConfFile(OCSMANAGER_CONF_FILE,
                          'openchange/ocsmanager.ini.mas',
@@ -481,8 +530,8 @@ sub _setAutodiscoverConf
     my $confDir = EBox::Config::conf() . 'openchange';
     EBox::Sudo::root("mkdir -p '$confDir'");
 
-    if ($self->_autodiscoverEnabled()) {
-        $self->_setAutodiscoveryCerts($domain);
+    if ($self->isProvisioned()) {
+        $self->_setCerts($domain);
         my $incParams = [
             server => $domain
            ];
@@ -492,50 +541,54 @@ sub _setAutodiscoverConf
                              { uid => 0, gid => 0, mode => '644' }
                         );
     } else {
-        # ocsmanager include should be empty to not to do nothing
+        # ocsmanager include should be empty to do nothing
         EBox::Sudo::root('rm -f ' . OCSMANAGER_INC_FILE,
                          'touch ' . OCSMANAGER_INC_FILE);
     }
 }
 
-sub _setAutodiscoveryCerts
+# Create the required certificates using zentyal-ca to run the following services:
+#   * Autodiscover
+#   * RPC/Proxy
+#   * EWS
+sub _setCerts
 {
     my ($self, $domain) = @_;
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
         EBox::error("Cannot create autodiscovery certificates because there is not usable CA");
-        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        EBox::Sudo::root('rm -rf "' . OCSMANAGER_DOMAIN_PEM . '"');
         return;
     }
 
-    my $autodiscoverCN = 'autodiscover.' . $domain;
-    if (not  $ca->getCertificateMetadata(cn => $autodiscoverCN)) {
-        $ca->issueCertificate(commonName => $autodiscoverCN);
-    }
-    if (not $ca->getCertificateMetadata(cn => $domain)) {
-        $ca->issueCertificate(commonName => $domain);
+    my $caCert = $ca->getCACertificateMetadata();
+    # Used for autodiscover, RPC/Proxy and EWS
+    my $domainCert = $ca->getCertificateMetadata(cn => $domain);
+    if (not $domainCert or ($domainCert->{state} ne 'V')) {
+        my $rpcProxyHost;
+        try {
+            $rpcProxyHost = $self->_rpcProxyHostForDomain($domain);
+        } catch (EBox::Exceptions::External $ex) {
+            my $hostName = $self->global()->modInstance('sysinfo')->hostName();
+            $rpcProxyHost = "${hostName}.$domain";
+            EBox::warn("Using $rpcProxyHost as RPC proxy host");
+        }
+        $ca->issueCertificate(commonName => $domain,
+                              endDate    => $caCert->{expiryDate},
+                              subjAltNames => [ { type  => 'DNS',
+                                                  value =>  $rpcProxyHost },
+                                                { type  => 'DNS',
+                                                  value => "autodiscover.${domain}" } ]);
     }
 
-    my $metadata;
-
-    $metadata = $ca->getCertificateMetadata(cn => $autodiscoverCN);
-    if ($metadata->{state} eq 'V') {
-        my $autodiscoverCrt = $metadata->{path};
-        my $autodiscoverKey = $ca->getKeys($autodiscoverCN)->{privateKey};
-        EBox::Sudo::root("cat $autodiscoverCrt $autodiscoverKey > " . OCSMANAGER_AUTODISCOVER_PEM);
-    } else {
-        EBox::error("Certificate '$autodiscoverCN' not longer valid. Not using it for autodiscovery");
-        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
-    }
-
-    $metadata =  $ca->getCertificateMetadata(cn => $domain);
+    my $metadata =  $ca->getCertificateMetadata(cn => $domain);
     if ($metadata->{state} eq 'V') {
         my $domainCrt = $metadata->{path};
         my $domainKey = $ca->getKeys($domain)->{privateKey};
         EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
     } else {
-        EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscovery");
+        EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscover");
         EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
     }
 }
@@ -580,76 +633,6 @@ sub _setRPCProxyConf
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
         EBox::Sudo::root(@cmds);
     }
-}
-
-sub _rpcProxyCertificate
-{
-    return EBox::Config::conf() . 'openchange/ssl/ssl.pem';
-}
-
-sub _createRPCProxyCertificate
-{
-    my ($self) = @_;
-    my $issuer;
-    try {
-        $issuer = $self->_rpcProxyHosts()->[0];
-    } catch($ex) {
-        EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
-    };
-    if (not $issuer) {
-        EBox::error("Not found issuer. Certificate for RPC proxy will left untouched");
-        return;
-    }
-
-    my $certPath = $self->_rpcProxyCertificate();
-    if (EBox::Sudo::fileTest('-r', $certPath) and ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath))) {
-        # correct, nothing to do besides updating download version
-        $self->_updateDownloadableCert();
-        return undef;
-    }
-
-    my $certDir = dirname($certPath);
-    my $parentCertDir = dirname($certDir);
-    EBox::Sudo::root("rm -rf '$certDir'",
-                     # create parent dir if it does not exists
-                     "mkdir -p -m775 '$parentCertDir'",
-                    );
-    if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
-        my $webadminCert = $self->global()->modInstance('webadmin')->pathHTTPSSSLCertificate();
-        if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
-            # reuse webadmin certificate if issuer == fqdn
-            my $webadminCertDir = dirname($webadminCert);
-            EBox::Sudo::root("cp -r $webadminCertDir $certDir");
-            $self->_updateDownloadableCert();
-            return;
-        }
-    }
-
-    # create certificate
-    my $RSA_LENGTH = 1024;
-    my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
-    my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
-    my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
-    $self->_updateDownloadableCert();
-}
-
-sub _clearDownloadableCert
-{
-    my ($self) = @_;
-
-    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
-    EBox::Sudo::root("rm -f $downloadPath");
-}
-
-sub _updateDownloadableCert
-{
-    my ($self) = @_;
-    my $certPath = $self->_rpcProxyCertificate();
-    $certPath =~ s/pem$/cert/;
-    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.crt';
-    EBox::Sudo::root("cp '$certPath' '$downloadPath'",
-                     "chown ebox.ebox '$downloadPath'"
-                    );
 }
 
 sub _writeRewritePolicy
@@ -715,6 +698,16 @@ sub _ldapModImplementation
     return new EBox::OpenChange::LdapUser();
 }
 
+# Method: isProvisioned
+#
+#     Return true if the OpenChange is provisioned in Samba + DBs.
+#
+#     It is independent from saving changes state
+#
+# Returns:
+#
+#     Boolean
+#
 sub isProvisioned
 {
     my ($self) = @_;
@@ -727,6 +720,17 @@ sub isProvisioned
     return 0;
 }
 
+# Method: setProvisioned
+#
+#     Set the OpenChange whether OpenChange is provisioned in Samba +
+#     DBs.
+#
+#     It is independent from saving changes state.
+#
+# Parameters:
+#
+#     provisioned - Boolean to set the provisioned state
+#
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
@@ -921,7 +925,7 @@ sub _rpcProxyHostForDomain
 {
     my ($self, $domain) = @_;
     my $dns = $self->global()->modInstance('dns');
-    my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
+    my $domainExists = grep { $_->{name} eq $domain } @{ $dns->domains() };
     if (not $domainExists) {
         throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
                                              dom => $domain,
@@ -929,7 +933,7 @@ sub _rpcProxyHostForDomain
                                              ch => '</a>'
                                             ));
     }
-    my @hosts = @{ $dns->getHostnames($domain)  };
+    my @hosts = @{ $dns->getHostnames($domain) };
 
     my @ips;
     my $network = $self->global()->modInstance('network');
@@ -945,17 +949,17 @@ sub _rpcProxyHostForDomain
     my $matchedHost;
     my $matchedHostMatchs = 0;
     foreach my $host (@hosts) {
-        my $matchs = 0;
+        my $matches = 0;
         foreach my $hostIp (@{ $host->{ip} }) {
             foreach my $ip (@ips) {
                 if ($hostIp eq $ip) {
-                    $matchs += 1;
+                    $matches += 1;
                     last;
                 }
             }
-            if ($matchs > $matchedHostMatchs) {
+            if ($matches > $matchedHostMatchs) {
                 $matchedHost = $host->{name};
-                $matchedHostMatchs = $matchs;
+                $matchedHostMatchs = $matches;
                 if (@ips == $matchedHostMatchs) {
                     last;
                 }
@@ -985,7 +989,14 @@ sub _rpcProxyDomain
     return $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
 }
 
-sub _rpcProxyHosts
+# Method: rpcProxyHosts
+#
+# Returns:
+#
+#     Array ref - Return the valid RPC/Proxy hosts.
+#                 It calculates the hostname and the domain to use.
+#
+sub rpcProxyHosts
 {
     my ($self) = @_;
     my @hosts;
@@ -994,9 +1005,18 @@ sub _rpcProxyHosts
         throw EBox::Exceptions::External(__('No outgoing mail domain configured'));
     }
     push @hosts, $self->_rpcProxyHostForDomain($domain);
+    push @hosts, $domain;
     return \@hosts;
 }
 
+# Method: HAProxyInternalService
+#
+#      Set the configuration for Outlook Anywhere (RPC/Proxy) if configured
+#
+# Overrides:
+#
+#      <EBox::HAProxy::ServiceBase::HAProxyInternalService>
+#
 sub HAProxyInternalService
 {
     my ($self) = @_;
@@ -1007,7 +1027,7 @@ sub HAProxyInternalService
 
     my $hosts;
     try {
-        $hosts = $self->_rpcProxyHosts();
+        $hosts = $self->rpcProxyHosts();
     } catch ($ex) {
         EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
     };
@@ -1025,7 +1045,7 @@ sub HAProxyInternalService
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => $self->_rpcProxyCertificate(),
+            pathSSLCert => OCSMANAGER_DOMAIN_PEM,
             isSSL   => 1,
         };
         push @services, $rpcpService;
@@ -1051,9 +1071,10 @@ sub HAProxyInternalService
 sub HAProxyPreSetConf
 {
     my ($self) = @_;
-    if ($self->_rpcProxyEnabled()) {
-        # the certificate must be in place before harpoxy restarts
-        $self->_createRPCProxyCertificate();
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        # the certificate must be in place before haproxy restarts
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        $self->_setCerts($domain)
     }
 }
 
@@ -1154,6 +1175,24 @@ sub connectionString
     return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
+# EBox::CA::Observer methods
+
+sub certificateRevoked
+{
+    my ($self, $commonName, $isCACert) = @_;
+
+    if ($self->isProvisioned()) {
+        if ($isCACert) {
+            return 1;
+        }
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        if ($commonName eq $domain) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 sub certificateRenewed
 {
     my ($self, $commonName, $isCACert) = @_;
@@ -1171,17 +1210,14 @@ sub _certificateChanges
     my ($self, $commonName, $isCACert) = @_;
     if ($isCACert) {
         $self->setAsChanged(1);
-        EBox::Sudo::root('rm -rf ' .  OCSMANAGER_AUTODISCOVER_PEM . ' ' .  OCSMANAGER_DOMAIN_PEM);
+        EBox::Sudo::root('rm -rf "' . OCSMANAGER_DOMAIN_PEM . '"');
         return;
     }
 
-    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+    my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
     if ($commonName eq $domain) {
         $self->setAsChanged(1);
         EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
-    } elsif ($commonName eq ('autodiscover.' . $domain)) {
-        $self->setAsChanged(1);
-        EBox::Sudo::root('rm -f ' . OCSMANAGER_AUTODISCOVER_PEM);
     }
 }
 
@@ -1219,8 +1255,9 @@ sub cleanForReprovision
     }
 
     # remove rpcproxy certificates
-    my $certDir = dirname($self->_rpcProxyCertificate());
-    EBox::Sudo::root("rm -rf '$certDir'");
+    for my $certFile ((OCSMANAGER_DOMAIN_PEM)) {
+        EBox::Sudo::root("rm -f '$certFile'");
+    }
 
     $self->setAsChanged(1);
 }

@@ -7,7 +7,7 @@ FROM ubuntu:14.04
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
+RUN echo "deb http://archive.zentyal.org/zentyal/ 4.0 main extra" >> /etc/apt/sources.list
 RUN apt-get update -y
 
 #Installing basic and build dependencies
@@ -37,20 +37,14 @@ ADD  main/mail/debian/control /tmp/main/mail/debian/control
 ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
 ADD  main/openchange/debian/control /tmp/main/openchange/debian/control
 ADD  main/core/debian/control /tmp/main/core/debian/control
-ADD  main/monitor/debian/control /tmp/main/monitor/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
 ADD  main/sogo/debian/control /tmp/main/sogo/debian/control
 ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control
 ADD  main/ca/debian/control /tmp/main/ca/debian/control
-ADD  main/nut/debian/control /tmp/main/nut/debian/control
 ADD  main/printers/debian/control /tmp/main/printers/debian/control
-ADD  main/ebackup/debian/control /tmp/main/ebackup/debian/control
-ADD  main/webmail/debian/control /tmp/main/webmail/debian/control
 ADD  main/common/debian/control /tmp/main/common/debian/control
-ADD  main/radius/debian/control /tmp/main/radius/debian/control
-ADD  main/ips/debian/control /tmp/main/ips/debian/control
 ADD  main/network/debian/control /tmp/main/network/debian/control
 ADD  main/remoteservices/debian/control /tmp/main/remoteservices/debian/control
 ADD  main/ha/debian/control /tmp/main/ha/debian/control

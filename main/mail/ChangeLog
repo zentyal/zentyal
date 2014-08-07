@@ -1,4 +1,11 @@
-HEAD
+4.0
+	+ Set version to 4.0
+	+ Fixed group mail accounts and their aliases
+	+ Do not move mailbox to .bak if directory already exist
+	+ Migrate mboxes path to Maildir when upgrading from 3.4
+	+ Fixed bug when removing virtual domain
+	+ Adding a virtual domain now can update old unmanaged accounts
+	+ Fixed errors related with users which has account on a umanaged domain
 	+ Added migration code to handle new Dovecot certs
 	+ Fixed group mail alias creation
 	+ Fixed problems with checking mail address duplicates

@@ -5,23 +5,21 @@ my $sysinfo = EBox::Global->modInstance('sysinfo');
 my $hostDomain = $sysinfo->hostDomain();
 </%init>
 <h3><% __('Users and Groups') %></h3>
-<form method="post" action="./Samba/Wizard/Users" style="text-align: center" class="formDiv">
-        <img src="/data/software/images/users.png" />
-        <h4><% __('Select the type of the server') %></h4>
-        <fielset style="margin: 20px auto; display:block; width: 40%; text-align: left">
-          <div class="inline-input">
-              <label class="inline-label" for="standalone">
+<img src="/data/software/images/users.png" />
+<form method="post" action="./Samba/Wizard/Users" class="formDiv">
+        <fieldset>
+        <legend><% __('Select the type of the server') %></legend>
+          <div class="radio-group">
+            <label>
                <input type="radio" name="standalone" id="standaloneRadio" value="1" checked="true" />
                <% __('Standalone server') %>
-              </label>
-          </div>
-          <div>
-            <label for="advanced">
+            </label>
+            <label>
               <input type="radio" name="standalone" id="adRadio" value="0"/> 
               <% __('Connect with external Active Directory server') %>
             </label>
           </div>
-        </fielset>
+        </fieldset>
         <& .standaloneSection, hostDomain => $hostDomain &>
         <& .externalADSection &>
 </form>
@@ -42,48 +40,49 @@ $(function() {
 <%args>
 $hostDomain
 </%args>
-    <fieldset id ='standaloneSection'>
-        <h4>
+    <fieldset id='standaloneSection'>
+        <legend>
             <% __('Select the domain name of the server') %>
-        </h4>
+        </legend>
         <div>
-            <% __('This will be used as the Kerberos authentication realm for your users.') %>
-        </div>
-        <div style="margin: 20px auto; width: 40%; text-align: left">
-            <div>
-                <label for="domain"><% __('Host domain name') %></label>
-                <input type="text" name="domain" id="domain" value="<% $hostDomain %>"/>
-            </div>
+            <label for="domain"><% __('Host domain name') %>
+              <span class="field_help">
+                  <% __('This will be used as the Kerberos authentication realm for your users.') %>
+              </span>
+            </label>
+            <input type="text" name="domain" id="domain" value="<% $hostDomain %>"/>
         </div>
      </fieldset>
 </%def>
 
 <%def .externalADSection>
-    <fieldset id='externalADSection'" style="display: none">
-        <h4>
+    <fieldset id='externalADSection' style="display: none">
+        <legend>
             <% __('Enter your active directory settings') %>
-        </h4>
-        <p>
-            <% __('Both the Active Directory hostname and the own Zentyal server hostname should be DNS resolvable') %><br/>
-            <% __('The administrative user has to have enough permissions to create a computer account in the domain') %>
-        </p>
-        <div style="margin: 20px auto; width: 40%; text-align: left">
-           <div>
-                <label for="dcHostname"><% __('Active Directory hostname') %></label>
-                <input type="text" name="dcHostname" id="dcHostname"/>
-           </div>
-           <div>
-                <label for="dcUser"><% __('Administrative user') %></label>
-                <input type="text" name="dcUser" id="dcUser"/>
-           </div>
-           <div>
-                <label for="dcPassword"><% __('User password') %></label>
-                <input type="password" name="dcPassword" id="dcPassword"/>
-           </div>
-                <label for="dcPassword"><% __('Confirm user password') %></label>
-                <input type="password" name="dcPassword2" id="dcPassword2"/>
-           </div>
+        </legend>
+        <div>
+              <label for="dcHostname"><% __('Active Directory hostname') %>
+                <span class="field_help">
+                    <% __('Both the Active Directory hostname and the own Zentyal server hostname should be DNS resolvable') %>
+                </span>
+              </label>
+              <input type="text" name="dcHostname" id="dcHostname"/>
         </div>
-
+        <div>
+              <label for="dcUser"><% __('Administrative user') %>
+                <span class="field_help">
+                  <% __('The administrative user has to have enough permissions to create a computer account in the domain') %>
+                </span>
+              </label>
+              <input type="text" name="dcUser" id="dcUser"/>
+        </div>
+        <div>
+              <label for="dcPassword"><% __('User password') %></label>
+              <input type="password" name="dcPassword" id="dcPassword"/>
+        </div>
+        <div>
+              <label for="dcPassword"><% __('Confirm user password') %></label>
+              <input type="password" name="dcPassword2" id="dcPassword2"/>
+        </div>
     </fieldset>
 </%def>

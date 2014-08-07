@@ -14,11 +14,6 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 my $optionalTag = $slave ? '' :  __('Optional');
 my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
-
-my $global = EBox::Global->getInstance();
-my $mailMod = $global->modInstance('mail');
-my $mailModEnabled = ($mailMod and $mailMod->configured());
-my $mailValue = ($user->mail() or '');
 </%init>
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
@@ -66,18 +61,12 @@ my $mailValue = ($user->mail() or '');
 
           <div>
           <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
-%           if ($mailModEnabled) {
-                <div id="user_attrs_mail_ro">
-                   <% $mailValue ? $mailValue : '<em>' . __('No mail account set') . '</em>'  %>
-                </div>
-%           } else {
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                id   => 'user_attrs_mail',
-                               value => $mailValue,
+                               value => ($user->mail() or ''),
                                slave => $slave,
                    &>
-%           }
           </div>
           <div>
           <label><% __('User quota') %> (MB)</label>
@@ -140,13 +129,12 @@ $name
 $value
 $slave
 $id => undef
-$disabled => undef
 </%args>
 % if ($slave) {
 <% $value %>
  <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
 % } else {
- <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $disabled ? "disabled='disabled'" : '' %> <% $id ? "id='$id'" : "" %> />
+ <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
 %}
 </%def>
 
@@ -183,15 +171,12 @@ $(function() {
                 var selected = tree.jstree("get_selected")[0];
                 tree.jstree("set_text", selected, response.set_text);
             }
-<%doc>
-%#  Seesms we can remove it
             if ('mail' in response) {
                if ('MailUserAddon' in Zentyal) {
                    Zentyal.MailUserAddon.accountChange(response.mail);
                    $('#note_userMailCreateDelAccount, #error_userMailCreateDelAccount').html('').hide();
                }
             }
-</%doc>
         }
    });
 

@@ -115,6 +115,7 @@ sub _table
              disableCache => 1,
              populate => \&validShells,
              editable => 1,
+             defaultValue => '/bin/bash',
              help => __('This will apply only to new users from now on.')
             )
         );

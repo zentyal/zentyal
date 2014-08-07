@@ -1058,9 +1058,7 @@ sub firstTimeMenu
 
     my $output = '';
 
-    $output .= "<div id='menu'><ul id='nav'>\n";
-
-    $output .= "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
+    $output .= "<div id='menu'><ul id='nav' class='install-steps'>\n";
 
     if ($dr) {
         $output .= $self->_dumpMenuItem(__('Choose Backup'), 0, $current);
@@ -1106,17 +1104,14 @@ sub _dumpMenuItem
 {
     my ($self, $text, $index, $current) = @_;
 
-    my $style = 'padding: 8px 10px 8px 20px;';
-
-    if ( $index < $current ) {
-        $style .= 'background: url("/data/images/apply.gif") left no-repeat;';
-    } elsif ( $index == $current ) {
-        $style .= 'font-weight: bold';
-    }
-    else {
+    my $class = '';
+    if ($index < $current) {
+        $class = 'step-done';
+    } elsif ($index == $current ) {
+        $class = 'step-actual';
     }
 
-    return "<li><div style='$style'>$text</div></li>\n";
+    return "<li class='$class'>$text</li>\n";
 }
 
 # Is it QA the exclusive source?

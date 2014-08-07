@@ -457,6 +457,7 @@ sub _migrateTo35
                         push (@objectclass, 'systemQuotas');
                         $user->set('objectClass', \@objectclass);
                     }
+
                     $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
                     for my $attr (qw(quota loginShell homeDirectory)) {
                         my $value = $entry->get_value($attr);
@@ -469,7 +470,17 @@ sub _migrateTo35
                 if ($cn) {
                     my $group = new EBox::Samba::Group(samAccountName => $cn);
                     next unless $group->exists();
-                    $group->set('gidNumber', $gidNumber);
+
+                    my $oldGidNumber = $group->get('gidNumber');
+                    if ((not defined $oldGidNumber) or ($gidNumber != $oldGidNumber)) {
+                        $group->set('gidNumber', $gidNumber, 1);
+                    }
+
+                    my @objectClass = $entry->get_value('objectClass');
+                    my $isSecurity = grep  { $_ eq 'posixGroup' } @objectClass;
+                    
+                    $group->setSecurityGroup($isSecurity, 1);
+                    $group->save();
                 }
             }
         }
@@ -831,12 +842,13 @@ sub _regenConfig
 
     # Do provision first before adding schemas, overrides
     # default EBox::Module::LDAP behavior of adding schemas
-    # first and then regenConfig when users already provisioned
+    # first and then regenConfig
     $self->EBox::Module::Service::_regenConfig(@_);
     if ($self->mode() eq STANDALONE_MODE) {
-        $self->_performSetup();
+        if ($self->isProvisioned() and $self->isEnabled()) {
+            $self->_performSetup();
+        }
     }
-
 }
 
 # Method: _setConf
@@ -1089,6 +1101,7 @@ sub _postServiceHook
         my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
         my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
         my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+        my $setDescriptorError;
         for my $id (@{$sambaShares->ids()}) {
             my $row = $sambaShares->row($id);
             my $enabled     = $row->valueByName('enabled');
@@ -1202,8 +1215,16 @@ sub _postServiceHook
                              FILE_ATTRIBUTE_HIDDEN |
                              FILE_ATTRIBUTE_READONLY |
                              FILE_ATTRIBUTE_SYSTEM;
-            EBox::debug("Setting NT ACL on file: $relativeSharePath");
-            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            try {
+                EBox::debug("Setting NT ACL on file: $relativeSharePath");
+                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            } catch ($ex) {
+                EBox::error(
+                    __x("Error setting security descriptor on share '{x}': {y}",
+                        x => $shareName, y => $ex));
+                $setDescriptorError = 1;
+            }
+
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath,
                 attributes => $attributes, recursive => 1);
@@ -1216,8 +1237,15 @@ sub _postServiceHook
                 foreach my $item (@{$shareContentList}) {
                     my $itemName = $item->{name};
                     $itemName =~ s/^\/\/(.*)/\/$1/s;
-                    EBox::info("Replacing ACLs for $shareName$itemName");
-                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    try {
+                        EBox::debug("Replacing ACLs for $shareName$itemName");
+                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    } catch ($ex) {
+                        EBox::error(
+                            __x("Error setting security descriptor on file {x}{y}: {z}",
+                                x => $shareName, y => $itemName, z => $ex));
+                        $setDescriptorError = 1;
+                    }
                 }
             }
             delete $state->{shares_set_rights}->{$shareName};
@@ -1233,6 +1261,13 @@ sub _postServiceHook
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+
+        # Show warning if error setting ACLs
+        if ($setDescriptorError) {
+            $self->global->addSaveMessage(
+                __("There were errors setting ACLs on samba shares, " .
+                    "please check the zentyal log for details."));
+        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }

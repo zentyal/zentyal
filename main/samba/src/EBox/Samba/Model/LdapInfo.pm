@@ -38,6 +38,10 @@ sub _table
 
     my @tableDesc = (
         new EBox::Types::Text(
+            fieldName => 'dcHostname',
+            printableName => __('External Active Directory'),
+        ),
+        new EBox::Types::Text(
             fieldName => 'dn',
             printableName => __('Base DN'),
         ),
@@ -49,14 +53,6 @@ sub _table
             fieldName => 'password',
             printableName => __('Password'),
         ),
-#        new EBox::Types::Text (
-#            fieldName => 'roRootDn',
-#            printableName => __('Read-only root DN'),
-#        ),
-#        new EBox::Types::Text (
-#            fieldName => 'roPassword',
-#            printableName => __('Read-only password'),
-#        ),
         new EBox::Types::Text (
             fieldName => 'usersDn',
             printableName => __('Default Users DN'),
@@ -64,6 +60,10 @@ sub _table
         new EBox::Types::Text (
             fieldName => 'groupsDn',
             printableName => __('Default Groups DN'),
+        ),
+        new EBox::Types::Text(
+            fieldName => 'dcUser',
+            printableName => __('Administrative user of external active directory'),
         ),
     );
 
@@ -103,10 +103,14 @@ sub _content
     );
 
     if ($mode ne $users->EXTERNAL_AD_MODE) {
-#        $info{roRootDn}  = $ldap->roRootDn();
-#        $info{roPassword} = $ldap->getRoPassword();
         $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
         $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
+    } elsif ($mode eq $users->EXTERNAL_AD_MODE) {
+        my $modeModel = $users->model('Mode');
+        my $dcHostname = $modeModel->value('dcHostname');
+        my $dcUser     = $modeModel->value('dcUser');
+        $info{dcHostname} = $dcHostname;
+        $info{dcUser}     = $dcUser;
     }
 
     return \%info;
