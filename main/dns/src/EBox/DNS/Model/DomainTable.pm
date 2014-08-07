@@ -45,11 +45,12 @@ use EBox::Types::Text;
 
 use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
+use EBox::Util::Random;
 
 # Dependencies
-use EBox::Util::Random;
 use Digest::HMAC_MD5;
 use MIME::Base64;
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -114,7 +115,6 @@ sub addDomain
         foreach my $host (@{$params->{hostnames}}) {
             $self->addHost($domainName, $host);
         }
-
     }
 
     return $id;
@@ -144,7 +144,7 @@ sub addHost
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    EBox::debug('Adding host record');
+    EBox::debug('Adding host record ' . $host->{name});
     my $domainRow = $self->_getDomainRow($domain);
     my $hostModel = $domainRow->subModel('hostnames');
     my $hostRowId = $hostModel->addRow(hostname => $host->{name},
@@ -156,13 +156,17 @@ sub addHost
     if (@ipAddresses) {
         my $ipModel = $hostRow->subModel('ipAddresses');
         foreach my $ip (@ipAddresses) {
-            EBox::debug('Adding host ip');
-            $ipModel->addRow(ip => $ip);
+            EBox::debug("Adding host ip $ip");
+            try {
+                $ipModel->addRow(ip => $ip);
+            } catch (EBox::Exceptions::External $exc) {
+                EBox::warn("Cannot add $ip to " . $host->{name} . ": $exc. Skipping.");
+            }
         }
     }
     my $aliasModel = $hostRow->subModel('alias');
     foreach my $alias (@{$host->{aliases}}) {
-        EBox::debug('Adding host alias');
+        EBox::debug("Adding host alias $alias");
         $aliasModel->addRow(alias => $alias);
     }
 }
