@@ -207,12 +207,11 @@ sub dumpIptablesCommands
                     destinationAddress => $self->{dstAddr} );
         }
 
-        my $l7Rule = 0;
         if (not defined ($self->{service})) {
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
 
-        } elsif ($self->{service}->selectedType() eq 'service_port') {
+        } else {
             my $iface = $self->{parent}->getInterface();
             my $network = EBox::Global->modInstance('network');
             if ($network->ifaceIsExternal($network->etherIface($iface))) {
@@ -220,61 +219,11 @@ sub dumpIptablesCommands
             } else {
                 $ipTablesRule->setReverseService($self->{service}->value());
             }
-
-        } elsif ($self->{service}->selectedType() eq 'service_l7Protocol') {
-            #$ipTablesRule->setL7Service($self->{service}->value());
-            $l7Rule = 1;
-
-        } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
-            #$ipTablesRule->setL7GroupedService($self->{service}->value());
-            $l7Rule = 1;
-
         }
 
-        if ( $l7Rule ) {
-            # Send unmarked packets to l7filter (NFQUEUE)
-            $ipTablesRule->setTable('mangle');
-            $ipTablesRule->setChain($l7shaperChain);
-
-            my $serviceMod = EBox::Global->modInstance('services');
-            $ipTablesRule->setService($serviceMod->serviceId('any'));
-
-            my $iface = $self->{parent}->getInterface();
-
-            my $trafficshaping = EBox::Global->modInstance('trafficshaping');
-            my $queue = $trafficshaping->ifaceUniqueId($self->{parent}->getInterface());
-
-            $ipTablesRule->setDecision("NFQUEUE --queue-num $queue");
-            push(@ipTablesCommands, @{$ipTablesRule->strings()});
-
-            # Set the mark to remove l7filter mark when the result is
-            # 1 (pending protocol)
-            push(@ipTablesCommands, "-t mangle -I $shaperChain "
-                                    . '-m mark --mark '
-                                    . PENDING_PROTO_MARK . '/' . MARK_MASK
-                                    . ' -j MARK --set-mark 0x0');
-
-            # Set the mark to remove l7filter mark when the result is
-            # 2 (unknown protocol)
-            push(@ipTablesCommands, "-t mangle -I $shaperChain "
-                                    . '-m mark --mark '
-                                    . UNKNOWN_PROTO_MARK . '/' . MARK_MASK
-                                    . ' -j MARK --set-mark 0x0');
-
-            # Set final mark for l7 matched packages (remove outside mask marks)
-            push(@ipTablesCommands, "-t mangle -A $shaperChain " .
-                                    "-m mark --mark $mark/" . MARK_MASK .
-                                    " -j MARK --set-mark $mark");
-
-        } else {
-            # Mark the packet and set the decision to MARK and the table as mangle
-            $ipTablesRule->setMark($mark, MARK_MASK);
-            push(@ipTablesCommands, @{$ipTablesRule->strings()});
-        }
-
-        if ($l7Rule) {
-#            push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
-        }
+        # Mark the packet and set the decision to MARK and the table as mangle
+        $ipTablesRule->setMark($mark, MARK_MASK);
+        push(@ipTablesCommands, @{$ipTablesRule->strings()});
 
     }
     # FIXME Comment out because it messes up with multipath marks
