@@ -123,65 +123,17 @@ sub setReverseService
 
 # Method: setL7Service
 #
-#   Set service for the rule
+# DEPRECATED: do nothing
 #
-# Parameters:
-#
-#   (POSITIONAL)
-#
-#   l7service name
 sub setL7Service
 {
-    my ($self, $service, $inverseMatch) = @_;
-
-    unless (defined($service)) {
-        throw EBox::Exceptions::MissingArgument("service");
-    }
-
-    my $inverse = '';
-    if ($inverseMatch) {
-        $inverse = ' ! ';
-    }
-
-  push (@{$self->{'service'}}, " -m layer7 --l7proto $inverse $service");
 }
 
 # Method: setL7GroupedService
 #
-#   Set a grouped service
-#
-# Parameters:
-#
-#   (POSITIONAL)
-#
-#   l7 grouped service id
-#
+# DEPRECATED: do nothing
 sub setL7GroupedService
 {
-    my ($self, $service, $inverseMatch) = @_;
-
-    unless (defined($service)) {
-        throw EBox::Exceptions::MissingArgument("service");
-    }
-
-    my $inverse = '';
-    if ($inverseMatch) {
-        $inverse = ' ! ';
-    }
-
-    my $l7mod = EBox::Global->modInstance('l7-protocols')->model('Groups');
-    my $row = $l7mod->row($service);
-    unless (defined($row)) {
-        throw EBox::Exceptions::External("group $service does not exist");
-    }
-
-    my @protocols;
-    for my $id (@{$row->subModel('protocols')->ids()}) {
-        my $subRow = $row->subModel('protocols')->row($id);
-        my $ser =  $subRow->valueByName('protocol');
-        push (@{$self->{'service'}}, " -m layer7 --l7proto $inverse $ser");
-    }
-
 }
 
 1;

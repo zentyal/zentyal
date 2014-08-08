@@ -130,6 +130,36 @@ sub actions
        ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if (EBox::Util::Version::compare($version, '3.5.1') < 0) {
+        $self->_removeL5Rules();
+    }
+}
+
+# remove deprecated 
+sub _removeL5Rules
+{
+    my ($self) = @_;
+    my @rulesModels = ($self->model('ExternalRules'), $self->model('InternalRules'));
+    foreach my $model (@rulesModels) {
+        foreach my $id (@{ $model->ids() } ) {
+            my $row = $model->row($id);
+            my $serviceType = $row->elementByName('service')->selectedType();
+            if (($serviceType eq 'service_l7Group') or ($serviceType eq 'service_l7Protocol')) {
+                $model->removeRow($id, 1);
+            } 
+        }
+    }
+}
+
 # Method: isRunning
 #
 # Overrides:

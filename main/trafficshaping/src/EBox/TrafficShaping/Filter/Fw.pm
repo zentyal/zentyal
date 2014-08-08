@@ -314,45 +314,4 @@ sub _extraL7Commands
     return @cmds;
 }
 
-# Method: dumpProtocols
-#
-#       Dump l7 filter protocols and its iptables mark
-#
-# Returns:
-#
-#       hash ref - array containing l7 filter protocols as keys and marks as values
-#
-sub dumpProtocols
-{
-    my ( $self ) = @_;
-
-    my %protocols;
-
-    my $mark = $self->{mark} >> MARK_SHIFT;
-
-    if ( defined ( $self->{service} ) ) {
-
-        if ($self->{service}->selectedType() eq 'service_l7Protocol') {
-            $protocols{$self->{service}->value()} = $mark;
-
-        } elsif ($self->{service}->selectedType() eq 'service_l7Group') {
-
-            my $service = $self->{service}->value();
-            my $l7mod = EBox::Global->modInstance('l7-protocols')->model('Groups');
-            my $row = $l7mod->row($service);
-            unless (defined($row)) {
-                throw EBox::Exceptions::External("group $service does not exist");
-            }
-
-            for my $id (@{$row->subModel('protocols')->ids()}) {
-                my $subRow = $row->subModel('protocols')->row($id);
-                my $ser =  $subRow->valueByName('protocol');
-                $protocols{$ser} = $mark;
-            }
-        }
-    }
-
-    return \%protocols;
-}
-
 1;
