@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-06-13 15:21+0200\n"
-"Last-Translator: arinov <arinov.ilyas@gmail.com>\n"
+"PO-Revision-Date: 2014-08-01 19:22+0200\n"
+"Last-Translator: nickykh <nickykh@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -580,6 +580,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Загруженные сертификаты и / или закрытый ключ не действительны. Файл: "
+"{file}, ошибка: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -693,6 +695,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Нет доступных сертификатов для этого клиента. Пожалуйста, "
+"{ohref}создайте{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -1208,18 +1212,16 @@ msgstr "Ничего"
 #: ../../main/ha/src/EBox/HA.pm:1018
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Есть ошибки{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Последний день"
+msgstr "Последнее обновление"
 
 #: ../../main/ha/src/EBox/HA.pm:1029
-#, fuzzy
 msgid "Errors"
-msgstr "Ошибка"
+msgstr "Ошибки"
 
 #: ../../main/ha/src/EBox/HA.pm:1033
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:183
@@ -1236,9 +1238,8 @@ msgid "Status"
 msgstr "Статус"
 
 #: ../../main/ha/src/EBox/HA.pm:1034
-#, fuzzy
 msgid "not enabled"
-msgstr "включен"
+msgstr "не включен"
 
 #: ../../main/ha/src/EBox/HA.pm:1037
 msgid "Nodes"
@@ -1285,7 +1286,7 @@ msgid "Cluster is not configured"
 msgstr "Кластер не настроен"
 
 #: ../../main/ha/src/EBox/HA.pm:1136
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} does not have IP address to use"
 msgstr "{iface} не имеет IP адреса для использования"
 
@@ -1295,10 +1296,10 @@ msgid "HA Nodes"
 msgstr "Узлы кластера"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
-"Ошибка перезагрузки службы {mod}. Смотрите {logs} для дополнительной "
+"Репликация не удалась. Пожалуйста проверьте {logfile} для дополнительной "
 "информации."
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
@@ -1331,7 +1332,7 @@ msgstr "Имя может содержать только буквы, цифры
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "IP адрес {ip} не принадлежит ни к какому интерфейсу."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
 #, fuzzy
@@ -1522,7 +1523,7 @@ msgstr "имя пользователя"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
 msgid "Choose network interface"
-msgstr "Выбранный сетевой интерфейс"
+msgstr "Выберите сетевой интерфейс"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
@@ -1539,37 +1540,32 @@ msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Создать новый диск"
+msgstr "Создать новый кластер"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:119
-#, fuzzy
 msgid "Floating IP"
 msgstr "динамический IP-адрес"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
-#, fuzzy
 msgid "Cluster error"
-msgstr "Пароль кластера"
+msgstr "Ошибка кластера"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:115
 msgid "Node"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:130
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Этот протокол не использует порты"
+msgstr "Кластер не имеет ошибок"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "no error"
-msgstr "Ошибка"
+msgstr "нет ошибок"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:160
 #, perl-brace-format
@@ -1582,7 +1578,7 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
 msgid "Web Server"
-msgstr "Web сервер"
+msgstr "Веб сервер"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:93
 msgid "To set webserver listening port."
@@ -1661,14 +1657,12 @@ msgid "You must enable, at least, a listening port to make this module useful."
 msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
-#, fuzzy
 msgid "HTTP listening port"
-msgstr "слушать порт"
+msgstr "HTTP порт"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
-#, fuzzy
 msgid "HTTPS listening port"
-msgstr "слушать порт"
+msgstr "HTTPS порт"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
 #, fuzzy
@@ -1687,7 +1681,7 @@ msgstr "Настройки квоты сервера Zarafa изменены."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
-msgstr "Имена виртуальных хостов"
+msgstr "Имя виртуального хоста"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341

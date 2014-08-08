@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-03-28 17:34+0200\n"
-"Last-Translator: vujke <el.vujke@gmail.com>\n"
+"PO-Revision-Date: 2014-08-04 09:05+0200\n"
+"Last-Translator: TomaBgd <toma.ruzic@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -27,7 +27,7 @@ msgstr "онемогућен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Адресе сервера"
+msgstr "Адреса сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -36,22 +36,22 @@ msgstr "Морате дати бар једну адресу за сервер {
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
-msgstr "Сертификат клијента не може бити исти као и сервера"
+msgstr "Сертификат клијента не може бити исти као и од сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
-"Овај пакет није валидан Zentyal-на-Zentyal конфигурациони пакет. (Не могу га "
-"распаковати)"
+"Овај пакет није исправан Zentyal-на-Zentyal конфигурациони пакет. (Не могу "
+"га распаковати)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
-"Овај пакет није валидан Zentyal-на-Zentyal конфигурациони пакет. (недостаје "
+"Овај пакет није исправан Zentyal-на-Zentyal конфигурациони пакет. (Недостаје "
 "конфигурациона датотека сервера)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
@@ -59,7 +59,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
-"Овај пакет није валидан Zentyal-to-Zentyal конфигурациони пакет. (Недостаје "
+"Овај пакет није исправан Zentyal-to-Zentyal конфигурациони пакет. (Недостаје "
 "датотека СА сертификата)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
@@ -67,7 +67,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
-"Овај пакет није валидан Zentyal-на-Zentyal конфигурациони пакет. (недостаје "
+"Овај пакет није исправан Zentyal-на-Zentyal конфигурациони пакет. (Недостаје "
 "датотека сертификата)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
@@ -75,7 +75,7 @@ msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
-"Овај пакет није валидан Zentyal-на-Zentyal конфигурациони пакет. (Недостаје "
+"Овај пакет није исправан Zentyal-на-Zentyal конфигурациони пакет. (Недостаје "
 "датотека приватног кључа)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
@@ -91,7 +91,7 @@ msgstr "Непостојећа датотека сертификата клиј�
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Непостојећа датотека сертификата приватног кључа {p}"
+msgstr "Непостојећа датотека приватног кључа сертификата {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -99,11 +99,11 @@ msgstr "Датотека дата као СА сертификат није ва
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr "Датотека дата као клијентски сертификат није валидна"
+msgstr "Датотека дата као клијентски сертификат није исправна"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "Датотека дата као приватни кључ клијента није валидна"
+msgstr "Датотека дата као приватни кључ клијента није исправна"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
@@ -169,7 +169,7 @@ msgstr "Клијент {name}"
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr "Укључен"
+msgstr "Омогућен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -196,7 +196,7 @@ msgstr "Укључен"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:274
 msgid "Disabled"
-msgstr "Исључен"
+msgstr "Онемогућен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -222,7 +222,7 @@ msgstr "Покренут"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:494
 msgid "Stopped"
-msgstr "Стопиран"
+msgstr "Заустављен"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
@@ -237,7 +237,7 @@ msgstr "Одредиште конекције"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr "VPN адреса интерфејса"
+msgstr "Адреса VPN интерфејса"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
@@ -1369,7 +1369,7 @@ msgstr "Домен или IP адреса"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "У реду"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
@@ -1582,11 +1582,11 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
 msgid "Web Server"
-msgstr ""
+msgstr "Веб сервер"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:93
 msgid "To set webserver listening port."
-msgstr ""
+msgstr "Подесите порт веб сервера."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:98
 msgid "To configure default virtual host."

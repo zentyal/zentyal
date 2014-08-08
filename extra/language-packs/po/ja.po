@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-01-23 08:31+0200\n"
-"Last-Translator: osakanataro <osakanataro@gmail.com>\n"
+"PO-Revision-Date: 2014-08-07 07:46+0200\n"
+"Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -2301,7 +2301,7 @@ msgstr "DNSサーバ"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} レコード"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:595
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
@@ -2365,7 +2365,7 @@ msgstr "カスタムクエリ"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} データ"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:170
 #, fuzzy
@@ -2381,7 +2381,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "{txt} レコード"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
@@ -2655,12 +2655,12 @@ msgstr ""
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:228
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:327
 msgid "Access Control"
-msgstr ""
+msgstr "アクセスコントロール"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:235
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:334
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:248
 #, fuzzy
@@ -2685,7 +2685,7 @@ msgstr ""
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:137
 msgid "Select CUPS Interfaces"
-msgstr ""
+msgstr "CUPインタフェースを選択"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
@@ -2757,7 +2757,7 @@ msgstr "認証エラー"
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Access control"
-msgstr ""
+msgstr "アクセスコントロール"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:88
 #, fuzzy
@@ -2991,7 +2991,7 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA.pm:1858
 msgid "Available"
-msgstr ""
+msgstr "使用可能"
 
 #: ../../main/ca/src/EBox/CA.pm:1860
 msgid "Created but not available"
@@ -3282,7 +3282,7 @@ msgstr ""
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:386
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
 msgid "Antivirus"
-msgstr ""
+msgstr "アンチウィルス"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:189
 msgid ""
@@ -3357,7 +3357,7 @@ msgstr "送信元"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:421
 #, fuzzy
@@ -3694,7 +3694,7 @@ msgstr "迷惑メールフィルタを使用"
 #: ../../main/network/src/templates/ifaces.mas:40
 #: ../../main/network/src/templates/ifaces.mas:41
 msgid "default"
-msgstr ""
+msgstr "デフォルト"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 #, fuzzy
@@ -3933,7 +3933,7 @@ msgstr "ブラックリスト"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:92
 msgid "process"
-msgstr ""
+msgstr "プロセス"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:57
@@ -4438,7 +4438,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "バックアップ削除"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/NoConnection.pm:28
 msgid "Connection error"
@@ -4489,7 +4489,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:292
 msgid "average"
-msgstr ""
+msgstr "平均"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:296
 msgid "weak"
@@ -4681,7 +4681,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "先月に生成されたアラート"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
 #, fuzzy
@@ -4702,7 +4702,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
 msgid "Alerts"
-msgstr ""
+msgstr "警報"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:134
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:167
@@ -4859,7 +4859,7 @@ msgstr "Eメールアドレス"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:342
 msgid "Server Name"
-msgstr ""
+msgstr "サーバ名"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "Choose a name for your server which is a valid subdomain name"
@@ -4896,7 +4896,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:606
 msgid " module"
-msgstr ""
+msgstr "モジュール"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:612
 msgid " and "
@@ -4904,7 +4904,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:612
 msgid " modules"
-msgstr ""
+msgstr "モジュール"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:649
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:58
@@ -5051,12 +5051,12 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:253
 #, perl-brace-format
 msgid "{time} hours - Full Disaster Recovery"
-msgstr ""
+msgstr "{time} 時間 - 完全な障害回復"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:255
 #, perl-brace-format
 msgid "{size} MB"
-msgstr ""
+msgstr "{size} MB"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:258
 msgid "No backup done yet"
@@ -5251,7 +5251,7 @@ msgstr "全てのサービス"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:100
 msgid "Professional"
-msgstr ""
+msgstr "プロフェショナル"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:101
 #, fuzzy
@@ -5271,7 +5271,7 @@ msgstr "入力"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:104
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1949
 msgid "Premium"
-msgstr ""
+msgstr "プレミアム"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:125
 #, fuzzy
@@ -5284,7 +5284,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:420
 msgid "Subscribed"
-msgstr ""
+msgstr "サブスクライブ"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:453
 #, fuzzy
@@ -5332,15 +5332,15 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 msgid "Standard 2 days"
-msgstr ""
+msgstr "標準2日"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1947
 msgid "Standard 1 day"
-msgstr ""
+msgstr "標準1日"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1948
 msgid "Standard 4 hours"
-msgstr ""
+msgstr "標準4時間"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1956
 #, fuzzy, perl-brace-format
@@ -5450,7 +5450,7 @@ msgstr "パスワード"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:122
 msgid "bridge"
-msgstr ""
+msgstr "ブリッジ"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:128
 msgid "bond"
@@ -5963,11 +5963,11 @@ msgstr "ネームサーバ"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:96
 msgid "Proxy port"
-msgstr ""
+msgstr "プロキシポート"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:105
 msgid "Proxy"
-msgstr ""
+msgstr "プロキシ"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:109
 msgid ""
@@ -5995,7 +5995,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:84
 msgid "Search Domain"
-msgstr ""
+msgstr "ドメイン検索"
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:88
 msgid ""
@@ -7633,7 +7633,7 @@ msgstr "システム情報"
 #: ../../main/core/src/EBox/SysInfo.pm:100
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:37
 msgid "Dashboard"
-msgstr ""
+msgstr "ダッシュボード"
 
 #: ../../main/core/src/EBox/SysInfo.pm:105
 #: ../../main/core/src/EBox/SysInfo.pm:246
@@ -7649,7 +7649,7 @@ msgstr "イベント設定"
 #: ../../main/core/src/EBox/SysInfo.pm:125
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
-msgstr ""
+msgstr "デバッグ"
 
 #: ../../main/core/src/EBox/SysInfo.pm:130
 msgid "Halt/Reboot"
@@ -7690,7 +7690,7 @@ msgstr "全ての送信元"
 
 #: ../../main/core/src/EBox/SysInfo.pm:324
 msgid "available"
-msgstr ""
+msgstr "使用可能"
 
 #: ../../main/core/src/EBox/SysInfo.pm:334
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:56
@@ -8165,7 +8165,7 @@ msgstr "Eメールアドレス"
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:87
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:88
 msgid "General configuration"
-msgstr ""
+msgstr "一般的な設定"
 
 #: ../../main/core/src/EBox/SysInfo/Composite/General.pm:90
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
@@ -9046,7 +9046,7 @@ msgstr "1週間"
 
 #: ../../main/core/src/EBox/Logs/Model/OptionsBase.pm:44
 msgid "month"
-msgstr ""
+msgstr "月"
 
 #: ../../main/core/src/EBox/Logs/Model/OptionsBase.pm:79
 msgid "Report time period"
@@ -9638,7 +9638,7 @@ msgstr "設定のみ"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:149
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:151
 msgid "Failed login"
@@ -10085,7 +10085,7 @@ msgstr "ネットワーク設定"
 
 #: ../../main/software/src/EBox/Software.pm:1075
 msgid "Save Changes"
-msgstr ""
+msgstr "変更の保存"
 
 #: ../../main/software/src/EBox/Software.pm:1076
 #: ../../main/core/src/templates/wizard/wizard.mas:26
@@ -10291,11 +10291,11 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT prerouting"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT postrouting"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:93
 #, fuzzy
@@ -10435,7 +10435,7 @@ msgstr "拒否"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:69
 #: ../../main/firewall/src/EBox/Firewall.pm:801
 msgid "LOG"
-msgstr ""
+msgstr "ログ"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:120
 #, fuzzy
@@ -10485,7 +10485,7 @@ msgstr "ネットワークアドレス変換"
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
 #: ../../main/firewall/src/EBox/Firewall.pm:629
 msgid "SNAT"
-msgstr ""
+msgstr "SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:165
 #, fuzzy
@@ -10658,7 +10658,7 @@ msgstr "内容"
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:72
 #: ../../main/samba/src/templates/addgroup.mas:19
 msgid "E-mail"
-msgstr ""
+msgstr "Eメール"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:107
 #, fuzzy
@@ -10773,7 +10773,7 @@ msgstr "ユーザ名"
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
 #: ../../main/samba/src/EBox/Samba.pm:2263
 msgid "LDAP Settings"
-msgstr ""
+msgstr "LDAP設定"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:38
 #, fuzzy
@@ -11276,7 +11276,7 @@ msgstr "パラメタ"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:84
 msgid "Scripts"
-msgstr ""
+msgstr "スクリプト"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:85
 #, fuzzy
@@ -11285,7 +11285,7 @@ msgstr "内容"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:101
 msgid "Batch"
-msgstr ""
+msgstr "バッチ"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:102
 #, fuzzy
@@ -11514,11 +11514,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:54
 msgid "Slave"
-msgstr ""
+msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:67
 msgid "Slaves"
-msgstr ""
+msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:71
 msgid "List of slave servers for users and groups synchronization."
@@ -11526,7 +11526,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:72
 msgid "slave"
-msgstr ""
+msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
 msgid "Enable virus scanning"
@@ -11671,7 +11671,7 @@ msgstr "サーバ {name}"
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:149
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:249
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:154
 msgid "This will be the DN suffix in LDAP tree"
@@ -11716,16 +11716,16 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
 msgid "Logon Scripts"
-msgstr ""
+msgstr "ログオンスクリプト"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:41
 msgid "logon script"
-msgstr ""
+msgstr "ログオンスクリプト"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:175
 #, perl-brace-format
 msgid "Logon script {x} added"
-msgstr ""
+msgstr "ログオンスクリプト {x} の追加"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:217
 #, fuzzy, perl-brace-format
@@ -11739,7 +11739,7 @@ msgstr "外部メールサーバ"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:46
 msgid "Base DN"
-msgstr ""
+msgstr "ベースDN"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:50
 msgid "Root DN"
@@ -11762,7 +11762,7 @@ msgstr "外部メールサーバ"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:72
 msgid "LDAP information"
-msgstr ""
+msgstr "LDAP情報"
 
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:140
 #, fuzzy
@@ -11784,7 +11784,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:58
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:72
 #, fuzzy
@@ -11801,21 +11801,21 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:39
 msgid "Logoff Scripts"
-msgstr ""
+msgstr "ログオフスクリプト"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:40
 msgid "logoff script"
-msgstr ""
+msgstr "ログオフスクリプト"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:174
 #, perl-brace-format
 msgid "Logoff script {x} added"
-msgstr ""
+msgstr "ログオフスクリプト {x} の追加"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:216
 #, perl-brace-format
 msgid "Logoff script {x} removed"
-msgstr ""
+msgstr "ログオフ」スクリプト {x} の削除"
 
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:48
 #, fuzzy
@@ -12076,11 +12076,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:93
 msgid "NetBIOS name field is empty"
-msgstr ""
+msgstr "NetBIOS名フィールドが空です"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:96
 msgid "NetBIOS name is too long"
-msgstr ""
+msgstr "NetBIOS名が長すぎます"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:99
 msgid "NetBIOS names cannot contain dots"
@@ -12129,7 +12129,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:171
 msgid "NetBIOS computer name"
-msgstr ""
+msgstr "NetBIOSコンピュータ名"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:177
 #, fuzzy
@@ -12378,7 +12378,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:180
 msgid "Users, Computers and File Sharing"
-msgstr ""
+msgstr "ユーザ、コンピュータ、及びファイル共有"
 
 #: ../../main/samba/src/EBox/Samba.pm:312
 msgid ""
@@ -12531,7 +12531,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:3713
 msgid "Access to directory"
-msgstr ""
+msgstr "ディレクトリへのアクセス"
 
 #: ../../main/samba/src/EBox/Samba.pm:3714
 msgid "Read file"
@@ -12831,7 +12831,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:48
 msgid "W"
@@ -12847,15 +12847,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Monday"
-msgstr ""
+msgstr "月曜日"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Tuesday"
@@ -12863,7 +12863,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:58
 msgid "Wednesday"
-msgstr ""
+msgstr "水曜日"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:59
 msgid "Thursday"
@@ -12871,15 +12871,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:60
 msgid "Friday"
-msgstr ""
+msgstr "金曜日"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:61
 msgid "Saturday"
-msgstr ""
+msgstr "土曜日"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:62
 msgid "Sunday"
-msgstr ""
+msgstr "日曜日"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:131
 msgid "All time"
@@ -12983,7 +12983,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:62
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Ad ブロック"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:65
 msgid "Remove advertisements from all HTTP traffic"
@@ -12991,7 +12991,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:75
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "キャッシュファイルサイズ (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:138
 msgid ""
@@ -13260,7 +13260,7 @@ msgstr "フィルタされました"
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:69
 msgid "Access requests"
-msgstr ""
+msgstr "アクセスリクエスト"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:110
 msgid "Extension"
@@ -13359,7 +13359,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:158
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:182
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 #, fuzzy
@@ -14807,7 +14807,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:208
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:227
 msgid "days"
-msgstr ""
+msgstr "日"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:218
 msgid "Expiration period for spam mails"
@@ -14880,7 +14880,7 @@ msgstr "メールサービス設定"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:54
 msgid "Aliases"
-msgstr ""
+msgstr "エイリアス"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:65
 msgid "List of Aliases"
@@ -15072,7 +15072,7 @@ msgstr "メールディスパッチャーの設定が更新されました"
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:107
 #, perl-brace-format
 msgid "{ac} is not a external account"
-msgstr ""
+msgstr "{ac} は外部アカウントではありません"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:153
 #, fuzzy
@@ -15444,7 +15444,7 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #: ../../main/ca/src/templates/createCA.mas:13
 #: ../../main/ca/src/templates/index.mas:44
 msgid "City"
-msgstr ""
+msgstr "都市"
 
 #: ../../main/ca/src/templates/createCA.mas:27
 #: ../../main/mail/src/templates/groupalias.mas:153
@@ -15763,7 +15763,7 @@ msgstr "設定のバックアップ"
 #: ../../main/core/src/templates/backup.mas:141
 #: ../../main/core/src/templates/confirm-backup.mas:51
 msgid "Archive size"
-msgstr ""
+msgstr "アーカイブサイズ"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
 #, fuzzy
@@ -15782,7 +15782,7 @@ msgstr "Eメールアドレス"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:133
 msgid "Submit"
-msgstr ""
+msgstr "サブミット"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:137
 #, fuzzy
@@ -16136,7 +16136,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:154
 msgid "Bridge"
-msgstr ""
+msgstr "ブリッジ"
 
 #: ../../main/network/src/templates/ifaces.mas:166
 #, fuzzy
@@ -16582,7 +16582,7 @@ msgstr "パリティアルゴリズム"
 
 #: ../../main/core/src/templates/report/raid.mas:156
 msgid "Bitmap"
-msgstr ""
+msgstr "ビットマップ"
 
 #: ../../main/core/src/templates/report/raid.mas:177
 msgid "Array properties"
@@ -17852,7 +17852,7 @@ msgstr "拒否されました"
 
 #: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
-msgstr ""
+msgstr "アクセスが拒否されました"
 
 #: ../../main/squid/stubs/template.html.mas:134
 #, perl-brace-format
@@ -17881,7 +17881,7 @@ msgstr ""
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
-msgstr ""
+msgstr "曜日"
 
 #: ../../main/mail/src/templates/groupalias.mas:22
 #: ../../main/mail/src/templates/alias.mas:30
