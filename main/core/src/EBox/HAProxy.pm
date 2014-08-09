@@ -99,60 +99,24 @@ sub ports
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    my $services = $self->model('HAProxyServices');
-    my %ports = ();
+    my $webadmin = $self->global()->modInstance('webadmin');
+    my $sslCertPath = $webadmin->pathHTTPSSSLCertificate();
 
-    for my $id (@{$services->enabledRows()}) {
-        my $row = $services->row($id);
-        my $serviceId = $row->valueByName('serviceId');
-        my $module = $global->modInstance($row->valueByName('module'));
-        next unless (defined($module));  # syncRows hasn't be launched
+    my %ports;
 
-        my $enabledPort = $module->isHTTPPortEnabled();
-        my $port = undef;
-        if ($enabledPort) {
-            my $service = {};
-            $service->{name} = $serviceId;
-            $service->{domains} = $module->targetVHostDomains();
-            $service->{targetIP} = $module->targetIP();
-
-            $port = $module->listeningHTTPPort();
-            if (not exists ($ports{$port})) {
-                $ports{$port}->{isSSL} = 0;
-                $ports{$port}->{services} = [];
-            }
-            $service->{isDefault} = $row->valueByName('defaultPort');
-            $service->{targetPort} = $module->targetHTTPPort();
-            push (@{$ports{$port}->{services}}, $service);
-        }
-
-        my $enabledSSLPort = $module->isHTTPSPortEnabled();
-        my $sslPort = undef;
-        if ($enabledSSLPort) {
-            my $service = {};
-            $service->{name} = $serviceId;
-            $service->{domains} = $module->targetVHostDomains();
-            $service->{targetIP} = $module->targetIP();
-
-            $sslPort = $module->listeningHTTPSPort();
-            if (not exists ($ports{$sslPort})) {
-                $ports{$sslPort}->{isSSL} = 1;
-                $ports{$sslPort}->{services} = [];
-            }
-            $service->{isDefault} = $row->valueByName('defaultSSLPort');
-            $service->{pathSSLCert} = $module->pathHTTPSSSLCertificate();
-            $service->{targetPort} = $module->targetHTTPSPort();
-            push (@{$ports{$sslPort}->{services}}, $service);
-        }
-    }
-
-    foreach my $port (keys %ports) {
-        if (scalar @{ $ports{$port}->{services} } == 1) {
-            # Force all services that are alone in a port, to be the default.
-            $ports{$port}->{services}->[0]->{isDefault} = 1;
-        }
-    }
+    # FIXME: unhardcode this
+    $ports{80} = {
+        isSSL => 0,
+        services => [
+            {
+                isDefault => 1,
+                name => 'apache',
+                domains => [],
+                targetIP => '127.0.0.1',
+                targetPort => '62080',
+            },
+        ],
+    };
 
     my @modsServices = @{ $self->_hiddenServices() };
     foreach my $service (@modsServices) {

@@ -57,17 +57,8 @@ sub isHTTPPortEnabled
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->serviceId());
-
-    unless ($moduleRow) {
-        return undef;
-    }
-
-    my $portItem = $moduleRow->elementByName('port');
-    return ($portItem->selectedType() eq 'port_number');
+    # FIXME: implement this properly?
+    return 1;
 }
 
 # Method: listeningHTTPPort
@@ -82,16 +73,8 @@ sub listeningHTTPPort
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance(1);
-    my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->serviceId());
-
-    if ($self->isHTTPPortEnabled()) {
-        return $moduleRow->valueByName('port');
-    } else {
-        return undef;
-    }
+    # FIXME: implement this properly?
+    return 80;
 }
 
 # Method: isHTTPSPortEnabled
@@ -106,17 +89,8 @@ sub isHTTPSPortEnabled
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->serviceId());
-
-    unless ($moduleRow) {
-        return undef;
-    }
-
-    my $sslPortItem = $moduleRow->elementByName('sslPort');
-    return ($sslPortItem->selectedType() eq 'sslPort_number');
+    # FIXME: implement this properly?
+    return 1;
 }
 
 # Method: listeningHTTPSPort
@@ -131,16 +105,8 @@ sub listeningHTTPSPort
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance(1);
-    my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->serviceId());
-
-    if ($self->isHTTPSPortEnabled()) {
-        return $moduleRow->valueByName('sslPort');
-    } else {
-        return undef;
-    }
+    # FIXME: implement this properly?
+    return 443;
 }
 
 # Method: allowServiceDisabling

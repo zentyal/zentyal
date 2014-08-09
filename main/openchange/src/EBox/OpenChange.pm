@@ -464,10 +464,10 @@ sub _setSOGoApacheConf
         my $sysinfoMod = $global->modInstance('sysinfo');
         my @params = ();
         push (@params, hostname => $sysinfoMod->fqdn());
-        # FIXME: unhardcode this
+
+        # FIXME: SSL not working yet
         #my $webserverMod = $global->modInstance('webserver');
         #push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
-        push (@params, sslPort  => 62443);
 
         $self->writeConfFile(SOGO_APACHE_CONF, "openchange/zentyal-sogo.mas", \@params);
         try {

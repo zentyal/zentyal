@@ -1,6 +1,6 @@
 <%args>
   $hostname
-  $sslPort
+  $sslPort => undef
 </%args>
 Alias /SOGo.woa/WebServerResources/ \
       /usr/lib/GNUstep/SOGo/WebServerResources/
