@@ -1526,7 +1526,7 @@ sub gatewayDelete
         next unless ($network->ifaceMethod($iface) eq 'static');
         my $options = $self->_getModel('Options', $iface);
         my $optionsGwName = $options->gatewayName();
-        if ($gwName eq $optionsGwName) {
+        if (defined($optionsGwName) and ($gwName eq $optionsGwName)) {
             return 1;
         }
     }
