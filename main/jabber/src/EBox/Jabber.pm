@@ -250,7 +250,6 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Jabber/Composite/General',
                                     'text' => $self->printableName(),
                                     'icon' => 'jabber',
-                                    'separator' => 'Communications',
                                     'order' => 620));
 }
 

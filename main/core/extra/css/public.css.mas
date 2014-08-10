@@ -1156,17 +1156,10 @@ a.minBox, a.maxBox {
     background-color: whitesmoke;
     padding: 10px;
 }
-#nav li.menuSeparator{
-    border-top: none;
-    margin-top: 15px;
-}
-.separator {
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
+#nav hr {
+    margin: 0px;
+    border: 1px solid #ccc;
     background: #888;
-    padding: 10px 18px 10px 10px;
-    text-transform: uppercase;
 }
 
 .links-highlight a{

@@ -617,8 +617,8 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
                                         'icon' => 'firewall',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 310);
+                                        'tag' => 'main',
+                                        'order' => 7);
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
                                       'text' => __('Packet Filter')));

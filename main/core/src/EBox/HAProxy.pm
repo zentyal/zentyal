@@ -297,12 +297,12 @@ sub menu
             'name' => 'SysInfo',
             'text' => __('System'),
             'order' => 30
-           );
+    );
 
     $system->add(new EBox::Menu::Item(
         url => 'HAProxy/View/HAProxyServices',
         text => __('HTTP Services'),
-        separator => 'Core',
+        tag => 'system',
         order => 60,
     ));
 

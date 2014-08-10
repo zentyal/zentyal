@@ -318,8 +318,7 @@ sub menu # (root)
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'icon' => 'trafficshaping',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 220);
+                                        'order' => 900);
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/Rules',
                                       'text' => __('Rules')));
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/View/InterfaceRate',
