@@ -150,12 +150,19 @@ sub _removeL5Rules
     my ($self) = @_;
     my @rulesModels = ($self->model('ExternalRules'), $self->model('InternalRules'));
     foreach my $model (@rulesModels) {
+        my $dir= $model->directory();
         foreach my $id (@{ $model->ids() } ) {
-            my $row = $model->row($id);
-            my $serviceType = $row->elementByName('service')->selectedType();
-            if (($serviceType eq 'service_l7Group') or ($serviceType eq 'service_l7Protocol')) {
-                $model->removeRow($id, 1);
-            } 
+            my $rowKey    = "$dir/keys/$id";
+            my $rowValues = $self->get_hash($rowKey);
+            my $serviceType = delete $rowValues->{service_selected};
+            if ($serviceType) {
+                if (($serviceType eq 'service_l7Group') or ($serviceType eq 'service_l7Protocol')) {
+                    $model->removeRow($id, 1);
+                }  else {
+                    # remove deprecated key
+                    $self->set_hash($rowKey, $rowValues);
+                }
+            }
         }
     }
 }
