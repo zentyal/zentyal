@@ -22,6 +22,9 @@ package EBox::Search;
 
 use EBox::Config::Redis;
 use EBox::Global;
+use EBox::Menu;
+use TryCatch::Lite;
+use Storable qw(retrieve);
 
 # Assumpiton: only search in conf, RO must be ignored but later we could search
 # in state or in non-redis places
@@ -30,12 +33,35 @@ sub search
     my ($searchString) = @_;
     my @matches;
     my $global = EBox::Global->getInstance();
-    foreach my $mod (@{ $global->modInstances }) {
+    my @modInstances = @{ $global->modInstances() };
+
+    @matches = @{ _menuMatches($searchString, \@modInstances)  };
+    foreach my $mod (@modInstances) {
         push @matches, @{ $mod->searchContents($searchString)};
     }
 
     return \@matches;
 }
 
+sub _menuMatches
+{
+    my ($searchString, $modInstances_r) = @_;
+    my @matches;
+    $searchString = lc $searchString;
+
+    my $file = EBox::Menu->cacheFile();
+    unless (-f $file) {
+        EBox::Menu->regenCache();
+    }
+    my $keywords = retrieve($file);
+    my @searchWords = split(/\W+/, $searchString);
+    foreach my $word (@searchWords) {
+        if (exists $keywords->{$word}) {
+            push @matches, @{ $keywords->{$word} };
+        }
+    }
+
+    return \@matches;
+}
 
 1;

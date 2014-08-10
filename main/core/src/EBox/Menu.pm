@@ -26,46 +26,67 @@ use Encode;
 use TryCatch::Lite;
 use Storable qw(store);
 
-sub _addWord
-{
-    my ($keywords, $word, $id) = @_;
-
-    if (not defined ($keywords->{$word})) {
-        $keywords->{$word} = [];
-    }
-    if (not grep (/^$id$/, @{$keywords->{$word}})) {
-        push(@{$keywords->{$word}}, $id);
-    }
-}
 
 sub getKeywords
 {
-    my ($keywords, $item) = @_;
+    my ($global, $keywords, $item) = @_;
 
-    if (defined ($item->{'text'})) {
-        my $text = $item->{'text'};
-        $text = lc($text);
-        my @words = split('\W+', $text);
-        for my $word (@words) {
-            _addWord($keywords, $word, $item->{id});
-        }
-    }
-    if (defined ($item->{'url'})) {
+    my $url  = $item->{url};
+    my $title;
+    my $modTitle;
+    my $modName;
+    my @words;
+    if ($url) {
         try {
             my $model = EBox::CGI::Run->modelFromUrl($item->{'url'});
             if ($model) {
-                my $words = $model->keywords();
-                for my $word (@{$words}) {
-                    _addWord($keywords, $word, $item->{id});
+                $title = $model->printableModelName();
+                if (not $title) {
+                    $title = $model->tableName();
                 }
+                my $mod = $model->parentModule();
+                $modName = $mod->name();
+                $modTitle = $mod->printableName();
+                push @words, map { lc $_ } @{ $model->keywords() };
+                push @word, split('\W+', lc $model->printableName());
             }
         } catch {
             EBox::debug('No model found for ' . $item->{'url'} . "\n");
+        }        
+    }
+
+    if ($title) {
+        if ($item->{'text'}) {
+            my $text = lc $item->{'text'};
+            push @words, split('\W+', $text);
+        }
+    
+        my $linkElements = [
+            {
+                title => $global->modInstance($modName)->printableName(),
+            },
+            {
+                title => $title,
+                link  => $url,
+            }
+        ];
+
+        my $match = {
+            module => $modName,
+            linkElements => $linkElements,
+        };
+
+        foreach my $word (@words) {
+            if (not exists $keywords->{$word}) {
+                $keywords->{$word} = {};
+            }
+            $keywords->{$word}->{$url} = $match;
         }
     }
+
     if ($item->items()) {
         for my $i (@{$item->items()}) {
-            getKeywords($keywords, $i);
+            getKeywords($global, $keywords, $i);
         }
     }
 }
@@ -87,7 +108,11 @@ sub regenCache
         $mod->menu($root);
     }
 
-    getKeywords($keywords, $root);
+    getKeywords($global, $keywords, $root);
+    # normalize keywords
+    foreach my $keywordValue (values %{$keywords}) {
+        $keywordValue = [values %{ $keywordValue} ];
+    }
 
     my $file = cacheFile();
     store($keywords, $file);

@@ -991,7 +991,7 @@ sub _searchRedisConfKeys
 
         my $valueMatch = 0;
         foreach my $keyVal (@allKeyValues) {
-            if (index($keyVal, $searchString) != -1) {
+            if ($keyVal =~ m/$searchString/i) {
                 $valueMatch = 1;
                 last;
             }
