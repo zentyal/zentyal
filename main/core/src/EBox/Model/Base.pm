@@ -283,4 +283,18 @@ sub permanentMessageType
     return 'note';
 }
 
+# parse string to extract keywords
+sub _extract_keywords
+{
+    my ($self, $str) = @_;
+
+    my @w = ();
+    if(defined($str)) {
+        @w = split('\W+', lc($str));
+        @w = grep { length($_) >= 3 } @w;
+    }
+    return @w;
+}
+
+
 1;

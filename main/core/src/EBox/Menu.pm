@@ -37,22 +37,33 @@ sub getKeywords
     my $modName;
     my @words;
     if ($url) {
+        my $model;
         try {
-            my $model = EBox::CGI::Run->modelFromUrl($item->{'url'});
-            if ($model) {
-                $title = $model->printableModelName();
+            $model = EBox::CGI::Run->modelFromUrl($item->{'url'});
+        }  catch {};
+        if ($model) {
+            $title = $model->pageTitle();
+            if (not $title) {
+                $model->printableName();                
                 if (not $title) {
-                    $title = $model->tableName();
+                    $title = $model->name();
                 }
-                my $mod = $model->parentModule();
-                $modName = $mod->name();
-                $modTitle = $mod->printableName();
-                push @words, map { lc $_ } @{ $model->keywords() };
-                push @word, split('\W+', lc $model->printableName());
             }
-        } catch {
-            EBox::debug('No model found for ' . $item->{'url'} . "\n");
-        }        
+
+            my $mod = $model->parentModule();
+            $modName = $mod->name();
+            $modTitle = $mod->printableName();
+            push @words, map { lc $_ } @{ $model->keywords() };
+        } else {
+            $title = $item->{text};
+            ($modName) = split('/', $url, 2);
+            if ($modName) {
+                $modName = lc $modName;
+                if (not $global->modExists($modName)) {
+                    $modName = '';
+                }
+            }
+        }
     }
 
     if ($title) {
@@ -61,19 +72,24 @@ sub getKeywords
             push @words, split('\W+', $text);
         }
     
-        my $linkElements = [
-            {
-                title => $global->modInstance($modName)->printableName(),
-            },
-            {
-                title => $title,
-                link  => $url,
+        my @linkElements;
+        if ($modName) {
+            my $modTitle =  $global->modInstance($modName)->printableName();
+            if ($modTitle ne $title) {
+                push @linkElements, {
+                                           title => $modTitle,
+                                    };
             }
-        ];
+        }
+
+        push @linkElements, {
+                              title => $title,
+                              link  => $url,
+                            };
 
         my $match = {
             module => $modName,
-            linkElements => $linkElements,
+            linkElements => \@linkElements,
         };
 
         foreach my $word (@words) {
@@ -85,8 +101,8 @@ sub getKeywords
     }
 
     if ($item->items()) {
-        for my $i (@{$item->items()}) {
-            getKeywords($global, $keywords, $i);
+        for my $item (@{$item->items()}) {
+            getKeywords($global, $keywords, $item);
         }
     }
 }
@@ -109,7 +125,7 @@ sub regenCache
     }
 
     getKeywords($global, $keywords, $root);
-    # normalize keywords
+    # convert hashes to lists, since we already have unique elments
     foreach my $keywordValue (values %{$keywords}) {
         $keywordValue = [values %{ $keywordValue} ];
     }

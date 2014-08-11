@@ -26,18 +26,21 @@ use EBox::Menu;
 use TryCatch::Lite;
 use Storable qw(retrieve);
 
-# Assumpiton: only search in conf, RO must be ignored but later we could search
-# in state or in non-redis places
 sub search
 {
     my ($searchString) = @_;
     my @matches;
+    $searchString = lc $searchString;
+
+    @matches = @{ _menuMatches($searchString)  };
+
+    # Assumption: only search in conf, RO must be ignored but later we could search
+    # in state or in non-redis places
     my $global = EBox::Global->getInstance();
     my @modInstances = @{ $global->modInstances() };
-
-    @matches = @{ _menuMatches($searchString, \@modInstances)  };
+    my $searchStringRe = qr/$searchString/i;
     foreach my $mod (@modInstances) {
-        push @matches, @{ $mod->searchContents($searchString)};
+        push @matches, @{ $mod->searchContents($searchStringRe)};
     }
 
     return \@matches;
@@ -45,15 +48,15 @@ sub search
 
 sub _menuMatches
 {
-    my ($searchString, $modInstances_r) = @_;
+    my ($searchString) = @_;
     my @matches;
-    $searchString = lc $searchString;
 
     my $file = EBox::Menu->cacheFile();
     unless (-f $file) {
         EBox::Menu->regenCache();
     }
     my $keywords = retrieve($file);
+
     my @searchWords = split(/\W+/, $searchString);
     foreach my $word (@searchWords) {
         if (exists $keywords->{$word}) {

@@ -1203,7 +1203,7 @@ sub recoveryEnabled
 
 sub searchContents
 {
-    my ($searchString) = @_;
+    my ($searchStringRe) = @_;
     return [];
 }
 

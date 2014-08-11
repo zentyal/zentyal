@@ -942,8 +942,8 @@ sub global
 
 sub searchContents
 {
-    my ($self, $searchString) = @_;
-    my ($modelMatches) = $self->_searchRedisConfKeys($searchString);
+    my ($self, $searchStringRe) = @_;
+    my ($modelMatches) = $self->_searchRedisConfKeys($searchStringRe);
     return $modelMatches;
 }
 
@@ -971,7 +971,7 @@ sub _allValuesFromKey
 
 sub _searchRedisConfKeys
 {
-    my ($self, $searchString) = @_;
+    my ($self, $searchStringRe) = @_;
     my %modelMatches;
     my %noModelMatches;
 
@@ -991,7 +991,7 @@ sub _searchRedisConfKeys
 
         my $valueMatch = 0;
         foreach my $keyVal (@allKeyValues) {
-            if ($keyVal =~ m/$searchString/i) {
+            if ($keyVal =~ m/$searchStringRe/) {
                 $valueMatch = 1;
                 last;
             }
@@ -1000,7 +1000,7 @@ sub _searchRedisConfKeys
             next;
         }
 
-        my $modelMatch = $self->_keyToModelMatch($key, $searchString);
+        my $modelMatch = $self->_keyToModelMatch($key, $searchStringRe);
         if ($modelMatch ) {
             if ($modelMatch->{hidden}) {
                 next;
@@ -1031,7 +1031,7 @@ sub _searchRedisConfKeys
 # this only for models, for custom redis this must be overridden
 sub _keyToModelMatch
 {
-    my ($self, $key, $searchString) = @_;
+    my ($self, $key, $searchStringRe) = @_;
     my ($modName, $dir) = split '/conf/', $key, 2;
     if ((not $modName) or (not $dir) ) {
         EBox::error("Unexpected key format: '$key'");
@@ -1087,7 +1087,7 @@ sub _keyToModelMatch
         $modelInstance->setDirectory($modelDir);
     }
 
-    if ($self->_modelMatchIsHidden($modelInstance, $key, $searchString)) {
+    if ($self->_modelMatchIsHidden($modelInstance, $key, $searchStringRe)) {
         return { hidden => 1 };
     }
 
@@ -1113,7 +1113,7 @@ sub _keyToModelMatch
 
 sub _modelMatchIsHidden
 {
-    my ($self, $modelInstance, $key, $searchString) = @_;
+    my ($self, $modelInstance, $key, $searchStringRe) = @_;
     my $value = $self->redis->get($key);
     if ((ref $value) ne 'HASH') {
         EBox::error("Cannot find hash ref for modelMatch for key $key");
@@ -1121,7 +1121,7 @@ sub _modelMatchIsHidden
     }
     my $fieldName;
     while (my ($key, $keyValue) = each %{$value}) {
-        if (index($keyValue, $searchString) != -1) {
+        if ($keyValue =~ m/$searchStringRe/) {
             $fieldName = $key;
             last;
         }
