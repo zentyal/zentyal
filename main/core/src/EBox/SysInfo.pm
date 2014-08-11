@@ -527,46 +527,4 @@ sub _migrateConfKeys
     }
 }
 
-sub searchContents
-{
-    my ($self, $searchString) = @_;
-    my $matches = $self->SUPER::searchContents($searchString);
-
-    # look if hostname matches
-    my $fqdnMatch = $self->_fqdnSearch($searchString);
-    if ($fqdnMatch) {
-        push @{ $matches }, $fqdnMatch;
-    }
-
-    return $matches;
-}
-
-
-sub _fqdnSearch
-{
-    my ($self, $searchString) = @_;
-    my $model = $self->model('HostName');
-    my $name = $model->hostnameValue();
-    my $domain = $model->hostdomainValue();
-    my $fqdn = $name . '.' . $domain;
-
-    if (index($fqdn, $searchString) == -1) {
-        # no match
-        return undef;
-    }
-
-    my $match = {
-        module => 'sysinfo',
-        linkElements => [
-                 {  title => $self->printableName( )},
-                 {
-                     title => $model->printableModelName(),
-                     link => '/SysInfo/View/HostName',
-                 }
-       ]
-    };
-
-    return $match;
-}
-
 1;
