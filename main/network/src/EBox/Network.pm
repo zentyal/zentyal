@@ -5051,17 +5051,13 @@ sub _flagIfUp
 
 sub searchContents
 {
-    my ($self, $searchString) = @_;
+    my ($self, $searchStringRe) = @_;
     my @matches;
-    my ($modelMatches, $noModelMatches) = $self->_searchRedisConfKeys($searchString);
-    foreach my $key (@{ $noModelMatches }) {
-        if ($key eq $self->_key('interfaces')) {
-            push @matches, @{ $self->_interfaceSearchMatch($searchString) };
-        } elsif ($key eq $self->_key('vlans')) {
-            push @matches, @{ $self->_vlanSearchMatch($searchString) };
-        }
+    my ($modelMatches) = $self->_searchRedisConfKeys($searchStringRe);
 
-    }
+    push @matches, @{ $self->_interfaceSearchMatch($searchStringRe) };
+    push @matches, @{ $self->_vlanSearchMatch($searchStringRe) };
+
     push @matches, @{ $modelMatches };
 
 
@@ -5070,32 +5066,35 @@ sub searchContents
 
 sub _interfaceSearchMatch
 {
-    my ($self, $searchString) = @_;
+    my ($self, $searchStringRe) = @_;
     my @matches;
-    my $interfaces = $self->get('interfaces');
+    my $interfaces = $self->get('interfaces', {});
     while (my ($iface, $attrs) = each %{ $interfaces }) {
         my $ifMatchs = 0;
-
-        while ( my($attrName, $attr) = each %{ $attrs}) {
-            if ($attrName eq 'virtual') {
-                while (my ($vname, $vattrs) = each $attr) {
-                    if (index($vname, $searchString) != -1) {
-                        $ifMatchs = 1;
-                        last;
-                    }
-                    foreach my $vattrVal (values %{ $vattrs }) {
-                        if (index($vattrVal, $searchString) != -1) {
+        if ($iface =~ m/$searchStringRe/) {
+            $ifMatchs = 1;
+        } else {
+            while ( my($attrName, $attr) = each %{ $attrs}) {
+                if ($attrName eq 'virtual') {
+                    while (my ($vname, $vattrs) = each $attr) {
+                        if ($vname =~ m/$searchStringRe/) {
                             $ifMatchs = 1;
                             last;
                         }
+                        foreach my $vattrVal (values %{ $vattrs }) {
+                            if ($vattrVal =~ m/$searchStringRe/) {
+                                $ifMatchs = 1;
+                                last;
+                        }
+                        }
+                        if ($ifMatchs) {
+                            last;
+                        }
                     }
-                    if ($ifMatchs) {
-                        last;
-                    }
+                } elsif ($attr =~ m/$searchStringRe/) {
+                    $ifMatchs = 1;
+                    last;
                 }
-            } elsif (index($attr, $searchString) != -1) {
-                $ifMatchs = 1;
-                last;
             }
         }
 
@@ -5127,13 +5126,13 @@ sub _interfaceSearchMatch
 
 sub _vlanSearchMatch
 {
-    my ($self, $searchString) = @_;
+    my ($self, $searchStringRe) = @_;
     my @matches;
-    my $vlans = $self->get('vlans');
+    my $vlans = $self->get('vlans', {});
     foreach my $vlAttrs (values %{$vlans}) {
         my $vlanMatchs = 0;
         foreach my $attrVal (values %{$vlAttrs}) {
-            if (index($attrVal, $searchString) != -1) {
+            if ($attrVal =~ m/$searchStringRe/) {
                 $vlanMatchs = 1;
                 last;
             }
