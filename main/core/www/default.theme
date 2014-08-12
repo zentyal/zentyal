@@ -8,7 +8,7 @@ body_background_color: "#eee"
 loginin_padding_style: "15px 30px 15px 30px"
 
 # public.css
-header_img_padding: "padding-top: 15px; padding-left: 5px;"
+header_img_padding: "padding-top: 0; padding-left: 0;"
 
 hmenu_bg_color: "#B5D448"
 hmenu_hover_bg_color: "#C5E64E"
@@ -28,7 +28,7 @@ data_table_bg_highlight_hover: "#FFB800"
 
 msg_bg_color: "#06BC06"
 helpbutton_color: "#859E83"
-nav_li_color: "#5E695D"
+nav_li_color: "#333333"
 a_notchanged_hover_color: "#CBF23E"
 
 dashboard_thead_bg_color: "#808000"
