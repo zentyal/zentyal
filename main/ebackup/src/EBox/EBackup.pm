@@ -239,7 +239,6 @@ sub _duplicityRestoreFileCmd
 sub _escapeFile
 {
     my ($self, $file) = @_;
-    $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $file = shell_quote($file);
     return $file;
 }

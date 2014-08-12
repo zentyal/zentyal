@@ -1051,23 +1051,28 @@ sub _postServiceHook
             my $drivePath = "\\\\$netbiosName.$realmName";
             my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
 
+            # Skip if unmanaged_home_directory config key is defined and
+            # no changes made to roaming profiles
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
             my $users = $self->users();
-            foreach my $user (@{$users}) {
-                # Set roaming profiles
-                if ($roamingProfilesChanged) {
-                    if ($self->roamingProfiles()) {
-                        $user->setRoamingProfile(1, $profilesPath, 1);
-                    } else {
-                        $user->setRoamingProfile(0, undef, 1);
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
+                foreach my $user (@{$users}) {
+                    # Set roaming profiles
+                    if ($roamingProfilesChanged) {
+                        if ($self->roamingProfiles()) {
+                            $user->setRoamingProfile(1, $profilesPath, 1);
+                        } else {
+                            $user->setRoamingProfile(0, undef, 1);
+                        }
                     }
-                }
 
-                # Mount user home on network drive
-                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
-                $user->save();
+                    # Mount user home on network drive
+                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
+                    $user->save();
+                }
             }
         }
 
