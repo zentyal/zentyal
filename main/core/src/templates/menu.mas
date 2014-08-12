@@ -20,9 +20,11 @@ $copyright_footer
 % foreach my $item (@{$items{main}}) {
         <% $item->html($current, $currentUrl) %>
 % }
+% if (@{$items{others}}) {
         <hr/>
-% foreach my $item (@{$items{others}}) {
+%  foreach my $item (@{$items{others}}) {
         <% $item->html($current, $currentUrl) %>
+%  }
 % }
 </ul>
     <div id="footer">

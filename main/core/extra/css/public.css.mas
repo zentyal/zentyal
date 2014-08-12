@@ -164,12 +164,15 @@
     background-color: transparent;
 }
 #menusearch {
-    background: #fff url("/data/images/magnifying-glass.png") 150px center no-repeat;
+    background: #fff url("/data/images/magnifying-glass.png") right center no-repeat;
     border: 1px solid #DDD;
     padding: 8px 10px;
-    width: 160px;
-    height:20px;
-    margin-bottom: 0px;
+    width: 100%;
+    margin-bottom: 0;
+    line-height: 20px;
+    box-sizing: border-box;
+    margin-bottom: 13px;
+    box-shadow: none;
 }
 #menusearch:hover, #menusearch:focus {
     border: 1px solid <% $main_color %>;
@@ -611,10 +614,9 @@ TABS options
     background: #fff;
     color:  #787878;
     font-weight: bold;
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    border-radius: 5px 5px 0px 0px;
-
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 #helpbutton {
     height: 20px;
@@ -630,7 +632,7 @@ TABS options
 #confbutton {
     text-align: center;
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 15px;
 }
 
@@ -645,12 +647,25 @@ TABS options
     padding: 0;
     list-style: none;
 }
-#nav { margin-bottom: 0em; }
+#nav { 
+    margin-bottom: 0;
+    line-height: 1em;
+    width: 185px;
+}
 #nav li {
     padding: 0;
     margin: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
     background-color: whitesmoke;
+}
+#nav hr {
+    margin: 0;
+    border: 0;
+    height: 10px;
+    background-color: #eee;
+}
+#nav hr + li{
+    border-top: 0;
 }
 #nav li > ul > li {
     display: none;
@@ -664,13 +679,13 @@ TABS options
 #nav a.despleg:after{
     content: " ";
     height: 100%;
-    width:15px;
+    width: 17px;
     background-image: url('/data/images/unfold.gif');
-    background-position: center center;
+    background-position: left center;
     background-repeat:no-repeat;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 0;
 }
 #nav a.despleg:after{
     background-image: url('/data/images/desc.gif') !important;
@@ -680,7 +695,7 @@ TABS options
     position: relative;
     padding: 10px 20px 10px 4px;
     text-decoration: none;
-    margin: 0px;
+    margin: 0;
     line-height: 120%;
     color: <% $nav_li_color %>;
 }
@@ -695,7 +710,7 @@ TABS options
 #nav li li a {
     display: block;
     padding: 6px;
-    margin:0;
+    margin: 0;
     font-weight: normal;
 }
 #nav li a.current, #nav li a.current:hover {
@@ -707,10 +722,7 @@ TABS options
     background-color: #ccc;
     color: #333;
  }
-#nav {
-    line-height: 1em;
-    width: 180px;
-}
+
 
 /**********************************************************************************************
 
@@ -1156,12 +1168,6 @@ a.minBox, a.maxBox {
     background-color: whitesmoke;
     padding: 10px;
 }
-#nav hr {
-    margin: 0px;
-    border: 1px solid #ccc;
-    background: #888;
-}
-
 .links-highlight a{
     display: block;
     text-align: center;
@@ -1575,11 +1581,11 @@ border-radius: 2px;
 }
 .help, .note, .ad, .error, .warning, .adwarning, .tip, .emptynote{
     padding: 15px 10px 15px 45px;
-    margin: 10px 0px;
+    margin: 15px 0px;
     font-size: 1em;
     min-height: 15px;
     border-width:1px;
-    border-style: dashed;
+    border-style: dotted;
     background-repeat: no-repeat;
     background-position: 10px 12px;
     word-wrap: break-word;
@@ -1796,8 +1802,8 @@ ul.labels-list li .close{
 
 .item-block {
     background-color: white;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-    margin: 10px 0px;
+    /*box-shadow: 0px 0px 2px rgba(0,0,0,0.2);*/
+    margin: 15px 0px;
     padding: 15px;
     position: relative;
     overflow: hidden;
@@ -2399,7 +2405,6 @@ form.formDiv .inline-field{
 .changeRow div span,
 .changeRow div .checkbox {
     display: inline-block;
-    vertical-align: middle;
 }
 .inline-input .checkbox,
 .changeRow div .checkbox{
