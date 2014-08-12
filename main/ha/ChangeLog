@@ -1,3 +1,6 @@
+HEAD
+	+ Increase the timeout time for HA location due to large
+	  replication setup
 3.5.2
 	+ Make use of VerifyPeer to false on EBox::RESTClient as we
 	  don't verify other HA hosts
