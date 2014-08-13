@@ -1,3 +1,6 @@
+HEAD
+	+ Only allow restore from backups from versions with the same two
+	  first version numbers
 3.5.2
 	+ When doing a login redirect to the full given URI
 	+ Fixed mysql commands executed with wrong parameters or credentials
