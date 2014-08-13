@@ -1,12 +1,16 @@
-/*<%args>
+<%args>
     $main_color
+    $main_color_darker
+    $main_color_lighter
     $secondary_color
+    $secondary_color_darker
+    $secondary_color_lighter
     $third_color
+    $third_color_darker
+    $third_color_lighter
     $header_img_padding
     $hmenu_bg_color
     $hmenu_hover_bg_color
-    $remote_svcs_bg_color
-    $remote_svcs_hover_bg_color
     $footer_custom_style
     $data_table_border_color
     $data_table_inner_border_color
@@ -40,7 +44,7 @@
     $data_table_bg_highlight_hover
     $dashboard_thead_bg_color
     $image_note
-</%args>*/
+</%args>
 
 body {
     min-width: 600px;
@@ -55,12 +59,12 @@ body {
 }
 
 h1 {
-    display: inline;
     color: <% $main_color %>;
     font-weight: bold;
     font-size: 30px;
     font-family: Trebuchet MS, Verdana, sans-serif;
-    float: none;
+    margin-top: 0px;
+    margin-bottom: 15px;
 }
 h1 a{
     text-decoration: none;
@@ -73,7 +77,7 @@ h3 {
     font-family: Trebuchet MS, Verdana, sans-serif;
     font-weight: bold;
     color: #666;
-    border-bottom:2px dotted #ccc;
+    border-bottom:1px solid #ccc;
     padding:5px 0px;
     margin:30px 0px 5px 0px;
 }
@@ -120,7 +124,7 @@ Main Layout
     padding:0;
     margin: 0;
     color: transparent;
-    background-color: #ddd;
+    background-color: <% $hmenu_bg_color %>;
     position: fixed;
     top: 0 ;
     width: 100%;
@@ -172,7 +176,7 @@ Header
 }
 #header .version {
     font-size: 12px;
-    color: #999;
+    color: rgba(255,255,255,0.5);
     float: left;
     margin-top: 23px;
 }
@@ -195,7 +199,9 @@ Header
     background-repeat: no-repeat;
     text-decoration: none;
 }
-#hmenu a.only-icon, #hmenu #m, #hmenu #remote_services_link{
+#hmenu a.only-icon,
+#hmenu #m,
+#hmenu #remote_services_link{
     text-indent: 120px;
     overflow: hidden;
     height: 60px;
@@ -203,47 +209,34 @@ Header
     background-position: center center;
 }
 #hmenu a:hover {
-    background-color: #DFDFDF;
+    background-color: <% $hmenu_hover_bg_color %>;
     transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
 }
 #hmenu #remote_services_link{
     background-image: url("/data/images/remote.png");
-    background-color: <% $remote_svcs_hover_bg_color %>;
     display:block;
-    border-top: 1px solid  #A7BE56;
-    border-left: 1px solid  #A7BE56;
-    border-right: 2px solid  #A7BE56;
-    border-bottom: 2px solid  #A7BE56;
-}
-#hmenu #remote_services_link:hover {
-    background-color: <% $remote_svcs_bg_color %>;
 }
 #hmenu #m {
     background-image: url("/data/images/logout.gif");
 }
-#hmenu #m:hover {
-    background-color: white;
-}
 #hmenu #changes_menu {
-    background-color: #ff7900;
+    background-color: <% $secondary_color %>;
     background-image: url("/data/images/save.png");
-    background-position: 10px center;
-    border: 1px solid #c35f00;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+    background-position: 18px center;
+    box-shadow: 0 -2px 0 2px rgba(0, 0, 0, 0.2);
     color: #ffffff;
     display: none;
     font-size: 1.1em;
-    line-height: 1.2;
-    padding: 25px 20px 25px 45px;
+    line-height: 20px;
+    padding: 20px 20px 20px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
 }
 #hmenu #changes_menu:hover {
-    background-color: #c35f00; 
+    background-color: <% $secondary_color_darker %>; 
 }
 
 /****************************************************************************
@@ -314,15 +307,23 @@ DASHBOARD
     float: left;
     margin-top: 10px;
 }
+
 #widget_list {
     float: left;
     min-height: 40px;
     padding: 10px;
 }
+
 #widget_list > .note{
     background-position: 10px center;
     margin: 0;
     padding: 10px 10px 10px 45px;
+}
+#widget_list .widgetTopBackground{
+    background-color: #DDD;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 #widget_list .widgetBarBox{
     margin-top: 5px;
@@ -470,7 +471,7 @@ DASHBOARD
 .dataTable td a:hover {
     background-color: none;
     text-decoration: underline;
-    color: <% $secondary_color %>;
+    color: <% $main_color_lighter %>;
 }
 .dataTable tbody tr {
     background: white;
@@ -637,13 +638,18 @@ TABS options
 .insideTab .item-block{
     background-color: white;
     box-shadow: none;
-    margin: 0px;
-    padding: 0px;
+    margin-left: -15px;
+    margin-right: -15px;
 }
-.insideTab .item-block h3{
-    margin-left:0px;
-    margin-right: 0px;
-    margin-top: 0px;
+.insideTab h3,
+.insideTab .item-block h3  {
+    border-bottom: 0 none;
+    border-top: 1px solid #cccccc;
+    /*margin: 0 -15px;*/
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-top: 12px;
 }
 .selected {
     border-top: 1px solid #787878;
@@ -686,7 +692,9 @@ TABS options
 
 **************************************************************/
 
-#nav, #nav ul, #nav li ul {
+#nav,
+#nav ul,
+#nav .submenu {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -694,46 +702,15 @@ TABS options
 #nav { 
     margin-bottom: 0;
     line-height: 1em;
+    background-color: #fbfbfb;
 }
 #nav li {
     padding: 0;
     margin: 0;
     border-top: 1px solid #eee;
-    background-color: #fbfbfb;
-}
-#nav hr {
-    margin: 0;
-    border: 0;
-    height: 10px;
-    background-color: #eee;
-}
-#nav hr + li{
-    border-top: 0;
-}
-#nav li > ul > li {
-    display: none;
-    padding: 0;
-    margin: 0;
-    border-top: 1px dashed #ccc;
-    background-color: #ddd;
-
-}
-#nav a.navarrow:after,
-#nav a.despleg:after{
-    content: " ";
-    height: 100%;
-    width: 17px;
-    background-image: url('/data/images/unfold.gif');
-    background-position: left center;
-    background-repeat:no-repeat;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-#nav a.despleg:after{
-    background-image: url('/data/images/desc.gif') !important;
 }
 #nav li a {
+    font-weight: normal;
     display: block;
     position: relative;
     padding: 10px 20px 10px 4px;
@@ -751,28 +728,59 @@ TABS options
     -moz-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
 }
-#nav > li > a{
-    font-weight: normal;
+#nav hr {
+    margin: 0;
+    border: 0;
+    height: 10px;
+    background-color: #eee;
 }
-#nav li li a {
+#nav hr + li{
+    border-top: 0;
+}
+
+/* nav submenus and status */
+
+#nav .submenu {
+    background-color: #ddd;
+}
+#nav .submenu li {
+    display: none;
+    border-top: 1px dashed #ccc;
+}
+#nav .submenu li a {
     display: block;
     padding: 6px;
     margin: 0;
     font-weight: normal;
 }
-#nav li a.current, #nav li a.current:hover {
+#nav .submenu li a:hover {
+    background-color: #ccc;
+    color: #333;
+ }
+#nav a.navarrow:after,
+#nav a.despleg:after {
+    content: " ";
+    height: 100%;
+    width: 17px;
+    background-image: url('/data/images/unfold.gif');
+    background-position: left center;
+    background-repeat:no-repeat;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#nav a.despleg:after{
+    background-image: url('/data/images/desc.gif') !important;
+}
+#nav li a.current,
+#nav li a.current:hover {
     background-color: <% $main_color %>;
     color:white;
     font-weight: bold;
 }
-#nav li li a:hover {
-    background-color: #ccc;
-    color: #333;
- }
-#nav li.menuSearch{
-    border-top: none;
-    background-color: transparent;
-}
+
+/* search input */
+
 #menusearch {
     background: #fff url("/data/images/magnifying-glass.png") right center no-repeat;
     border: 1px solid #DDD;
@@ -894,7 +902,7 @@ pre {
     overflow: auto;
 }
 .notchanged {
-    background-color: <% $third_color %>;
+    background-color: <% $main_color_lighter %>;
     display:none;
 }
 a.notchanged:hover {
@@ -973,7 +981,7 @@ TABLE LIST
     margin-bottom: 10px;
 }
 .tableSearch input[type="text"]{
-    height: 28px;
+    height: 30px;
     padding: 0px 5px;
     vertical-align: top;
     float: left;
@@ -1121,8 +1129,8 @@ TABLE LIST
         position: relative;
         z-index: 1;
 }
+
 .widgetTopBackground {
-        background: <% $main_color %>;
         height: 100%;
         width: 100%;
         position: absolute;
@@ -1130,35 +1138,36 @@ TABLE LIST
         top: 0pt;
         z-index: 1;
         border-radius: 5px 5px 0 0;
-}
-.widgetName {
-        position: relative;
-        float: left;
-        z-index: 3;
-        font-size: 14px;
-        font-family: Verdana, sans-serif;
-        font-weight: bold;
-        color: white;
-        padding: 6px 10px;
-}
-a.closeBox {
-        position: relative;
-        float: right;
-        margin-right:5px;
-        margin-top: 5px;
-        overflow:hidden;
-        z-index: 5;
-        background-image:url('/data/images/widget_controls.png');
-        height:15px;
-        width:15px;
+        border-bottom: 1px solid #eeeeee;
+        background-image: url('/data/images/row-handler.gif');
+        background-position: center right;
         background-repeat: no-repeat;
 }
+.widgetName {
+        float: left;
+        z-index: 3;
+        font-size: 1.2em;
+        font-family: Verdana, sans-serif;
+        color: #666;
+        padding: 12px 18px;
+}
 a.closeBox {
-        background-position: -24px 2px;
+        position: absolute;
+        overflow:hidden;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        z-index: 5;
+        height:100%;
+        right: 0px;
+        width:40px;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-image:url('/data/images/widget_controls.png');
+        background-position: center 2px;
 }
 a.closeBox:hover {
-        background-position: -24px -12px;
-        background-color: transparent;
+        background-position: center -38px;
 }
 a.minBox, a.maxBox {
         position: relative;
@@ -1182,7 +1191,7 @@ a.minBox, a.maxBox {
         border-radius: 5px ;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
-        box-shadow: 0px 0px 3px rgba(0,0,0,0.2)
+        box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2)
 }
 .widgetBoxIn {
         padding:10px;
@@ -1230,7 +1239,7 @@ a.minBox, a.maxBox {
 .dashboardTable td a:hover {
     background: none;
     text-decoration: underline;
-    color: <% $secondary_color %>;
+    color: <% $main_color_lighter %>;
 }
 .dashboardTable tr.highlight { background: #E58A22; }
 .dashboardTable + div{
@@ -1241,7 +1250,7 @@ a.minBox, a.maxBox {
     display: block;
     text-align: center;
     font-size: 16px;
-    padding: 15px 0px;
+    padding: 15px;
     border-radius: 2px;
     text-decoration: none;
     margin-bottom: 10px;
@@ -1322,17 +1331,13 @@ border-radius: 2px;
 
  ***********************************************************************************************/
 
-.PackFilter .item-block{
-    width: 44%;
-    margin: 10px 1%;
-    padding: 15px 2%;
-    float: left;
-    height: 300px;
+.PackFilter .half-block{
+    margin-top: 0;
 }
 .PackFilter .item-block h3{
     border-bottom: medium none;
     border-top: 2px dotted #CCCCCC;
-    margin: 15px 0 0 0 ;
+    margin: 15px 0 0 0;
     padding: 15px 0 0 0;
 }
 .PackFilter .item-block .img_a{
@@ -1343,9 +1348,6 @@ border-radius: 2px;
 }
 .PackFilter .item-block img{
     max-width: 100%;
-}
-.PackFilter .item-block .img_a:hover{
-    background-color: whitesmoke;
 }
 
 /***********************************************************************************************
@@ -1779,9 +1781,10 @@ tr:hover .moveRowHandle{
 */
 
 .custom-combobox {
-position: relative;
-display: inline-block;
-width: 80%;
+    position: relative;
+    display: inline-block;
+    width: 80%;
+    vertical-align: bottom;
 }
 .custom-combobox-toggle {
     background-color: #DDD;
@@ -1790,23 +1793,26 @@ width: 80%;
     border-width: 1px 1px 1px 0px !important;
     bottom: 0px;
     height: 28px;
-    margin-left: -3px;
+    position: absolute !important;
+    right: -2px;
     top: 0px;
-    vertical-align: top !important;
 }
 .custom-combobox-input {
     margin: 0px;
     padding: 0px;
-    height: 28px;
+    height: 30px;
     background-image: -moz-linear-gradient(center top , #F5F5F5, #FFFFFF);
     border: 1px solid #999999 !important;
     border-radius: 2px !important;
     -webkit-border-radius:2px !important;
     -moz-border-radius: 2px !important;
-        max-width: 200px;
-    min-width: 120px;
-    padding: 0 0 0 5px;
-    width: 80%;
+    padding: 0 30px 0 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.custom-combobox-add{
+    display: inline-block;
+    margin-left: 5px;
 }
 .ui-autocomplete{
     background-color: #eee !important;
@@ -1827,16 +1833,11 @@ width: 80%;
 }
 .form-block{
     background-color: #FAFAFA;
+    padding: 15px;
     margin: 1%;
-    padding: 1.5%;
-}
-.half-block {
     float: left;
-    width: 45%;
-}
-.full-block{
-    float: left;
-    width: 95%;
+    width: 98%;
+    box-sizing: border-box;
 }
 ul.labels-list {
     padding-left: 0px;
@@ -1850,9 +1851,10 @@ ul.labels-list li{
     font-size: 14px;
     font-weight: bold;
     list-style: none outside none;
-    padding: 5px 40px 5px 10px;
+    padding: 5px 40px 5px 20px;
     position: relative;
-    margin-bottom: 3px;
+    margin: 0 3px 3px 0;
+    float: left;
 }
 ul.labels-list li .close{
     position: absolute;
@@ -1871,8 +1873,8 @@ ul.labels-list li .close{
 
 .item-block {
     background-color: white;
-    /*box-shadow: 0px 0px 2px rgba(0,0,0,0.2);*/
-    margin: 15px 0px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
     padding: 15px;
     position: relative;
     overflow: hidden;
@@ -1887,6 +1889,13 @@ ul.labels-list li .close{
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
     margin: 10px;
+}
+.half-block {
+    box-sizing: border-box;
+    float: left;
+    width: 48%;
+    margin-right: 1%;
+    margin-left: 1%; 
 }
 
 /**************************************************************************************
@@ -1907,8 +1916,7 @@ ul.labels-list li .close{
 .treeViewLeft {
     float: left;
     width: 30%;
-    margin-top: 20px;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 }
 .treeView {
     width: 100%;
@@ -1922,10 +1930,9 @@ ul.labels-list li .close{
     min-height: 100px;
     float: right;
     width: 69%;
-    margin-top: 20px;
     background-color: white ;
     min-height:604px;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 }
 .treeViewNodeViewer h3{
     height: 30px;
@@ -2025,16 +2032,17 @@ add new pop up
 #addform{
     background: none repeat scroll 0 0 #FFFFFF;
     float: left;
-    margin: -0.5em -1em;
-    padding: 4%;
-    width: 50%;
+    padding: 15px;
+    width: 70%;
+    margin: -0.5em -1em -0.5em 1em;
+    box-sizing:border-box;
 }
 #addform h4{
     font-size: 25px;
 }
 .addselector{
     float: left;
-    width: 46%;
+    width: 30%;
 }
 .addselector label{
     display: block;
@@ -2049,9 +2057,18 @@ add new pop up
 DIALOG
 
 ********************************************************************************/
-
+.ui-widget-overlay {
+    background: none repeat scroll 50% 50% #46962d !important;
+    opacity: 0.8 !important;
+}
 .ui-dialog{
     padding:0px !important;
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.ui-dialog .ui-dialog-content{
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 .no-close .ui-dialog-titlebar-close {
     display: none;
@@ -2388,6 +2405,7 @@ select {
     color: #333;
     box-shadow: inset 0px 0px 2px #ddd;
     -moz-box-shadow: inset 0px 0px 2px #ddd;
+    box-sizing:border-box;
 }
 input:focus,
 textarea:focus,
@@ -2464,6 +2482,7 @@ form.formDiv .checkbox-group label{
 form.formDiv .inline-field{
     display: inline-block;
     vertical-align: bottom;
+    max-width: 49%;
 }
 .inline-input input,
 .inline-input select,
@@ -2496,6 +2515,32 @@ form.formDiv label .field_help{
     color: #00ADD0;
     font-style: italic;
     padding-left: 3px;
+}
+
+
+/* form full width */
+
+.form-full-width input[type='password'],
+.form-full-width input[type='text'],
+.form-full-width textarea,
+.form-full-width select {
+    width: 100%;
+}
+
+/* form inline */
+.inline-field-group{
+    overflow: hidden;
+    margin-top: 0px;
+}
+.inline-field-group .inline-field,
+.inline-field-group .field{
+    width: 49%;
+    margin-right: 2%;
+    float: left;
+}
+.inline-field-group .inline-field:last-child,
+.inline-field-group .field:last-child{
+    margin-right: 0;
 }
 
 /********************************************************************************
@@ -2922,37 +2967,54 @@ td.stopped .done-bar{
 .wrapper{
     padding: 10px;
 }
+
+/*****************************
+
+minor corrections
+
+*****************************/
+
+body#Samba{
+    min-width: 960px;
+}
+
+/*****************************
+
+Responsive corrections
+
+*****************************/
+
 @media (max-width: 1100px) {
-.migration-table th:first-child,
-.migration-table td:first-child{
-   max-width: 50px;
-}
-.migration-table td:nth-child(4),
-.migration-table td:nth-child(5),
-.migration-table td:nth-child(6){
-    font-size: 12px;
-}
-.migration-table td.status{
-    min-width: 100px;
-}
-#software .package{
-    width: 24%;
-}
-#software .package-big {
-    width: 49%;
-}
-#software .package-medium {
-    width: 32.3333%;
-}
-#software .package p{
-    font-size: 11px;
-}
-#software .package.package-big p{
-    font-size: 20px;
-}
-#software .package.package-medium p{
-    font-size: 16px;
-}
+    .migration-table th:first-child,
+    .migration-table td:first-child{
+       max-width: 50px;
+    }
+    .migration-table td:nth-child(4),
+    .migration-table td:nth-child(5),
+    .migration-table td:nth-child(6){
+        font-size: 12px;
+    }
+    .migration-table td.status{
+        min-width: 100px;
+    }
+    #software .package{
+        width: 24%;
+    }
+    #software .package-big {
+        width: 49%;
+    }
+    #software .package-medium {
+        width: 32.3333%;
+    }
+    #software .package p{
+        font-size: 11px;
+    }
+    #software .package.package-big p{
+        font-size: 20px;
+    }
+    #software .package.package-medium p{
+        font-size: 16px;
+    }
 }
 @media (max-width: 960px){
     .dashboard{
@@ -2963,9 +3025,15 @@ td.stopped .done-bar{
     }
     #hmenu #changes_menu{
         background-position: center center;
-        height: 70px;
+        height: 60px;
         padding: 0;
         text-indent: 200px;
-        width: 70px;
+        width: 60px;
+    }
+    .half-block{
+        width: 100%;
+    }
+    .form-block.half-block{
+        width: 98%;
     }
 }
