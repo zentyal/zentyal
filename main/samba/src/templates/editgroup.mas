@@ -55,7 +55,7 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
           <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
         </div>
 %   unless ($slave) {
-    <div class="form-button"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
+    <div class="form-buttons"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
                        alt="<% __('Change') %>">
     </div>

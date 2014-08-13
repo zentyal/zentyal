@@ -24,24 +24,24 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
 
-          <div>
-          <label><% __('First name') %></label>
-                  <& masterSlaveUserAttr,
-                               name => 'givenname',
-                               value => $user->givenName(),
-                               slave => $slave,
-                   &>
-          </div>
-          <div>
-          <label><% __('Last name') %></label>
+            <div class="field">
+            <label><% __('First name') %></label>
+                    <& masterSlaveUserAttr,
+                                 name => 'givenname',
+                                 value => $user->givenName(),
+                                 slave => $slave,
+                     &>
+            </div>
+            <div class="field">
+            <label><% __('Last name') %></label>
 
-                  <& masterSlaveUserAttr,
-                               name => 'surname',
-                               value=> $user->surname(),
-                               slave => $slave,
-                   &>
-          </div>
-          <div>
+                    <& masterSlaveUserAttr,
+                                 name => 'surname',
+                                 value=> $user->surname(),
+                                 slave => $slave,
+                     &>
+            </div>
+          <div class="field">
           <label><% __('Display name') %><span class="optional_field"><% $optionalTag %></label>
 
                   <& masterSlaveUserAttr,
@@ -50,8 +50,8 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
                                slave => $slave,
                    &>
           </div>
-          <div>
-          <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
+          <div class="field">
+            <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'description',
                                value=> ($user->description() or ''),
@@ -59,8 +59,8 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
                    &>
           </div>
 
-          <div>
-          <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
+          <div class="field">
+            <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                id   => 'user_attrs_mail',
@@ -68,26 +68,28 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
                                slave => $slave,
                    &>
           </div>
-          <div>
-          <label><% __('User quota') %> (MB)</label>
-          <& .quotaControl, quota => $user->quota(), slave => $slave &>
+          <div class="field">
+            <label><% __('User quota') %> (MB)</label>
+            <& .quotaControl, quota => $user->quota(), slave => $slave &>
           </div>
-          <div>
-          <label>
-            <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %> <% $slave ? "disabled='disabled'" : "" %> >
-            <% __('Disabled account') %>
-          </label>
-          </div>
+          
 %   unless ($slave) {
-          <div>
-            <label><% __('Password') %></label>
-            <input type='password' class='inputText' name='password'>
-          </div>
-          <div>
-            <label><% __('Retype password') %></label>
-            <input type='password' class='inputText' name='repassword'>
-          </div>
+            <div class="field">
+              <label><% __('Password') %></label>
+              <input type='password' class='inputText' name='password'>
+            </div>
+            <div class="field">
+              <label><% __('Retype password') %></label>
+              <input type='password' class='inputText' name='repassword'>
+            </div>
 % }
+          <div class="field">
+            <label >
+              <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %> <% $slave ? "disabled='disabled'" : "" %> >
+              <% __('Disabled account') %>
+            </label>
+          </div>
+
 % if (not $slave) {
           <div>
           <input class='btn btn-submit' id='submitEditUserForm' type='submit' name='user'
@@ -306,7 +308,7 @@ $slave
 % return;
 % }
 
- <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"   >
+ <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"  class="inline-field" >
    <option value="quota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >
        <% __('Limited to') %>
    </option>
