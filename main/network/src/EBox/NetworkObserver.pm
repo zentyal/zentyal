@@ -305,4 +305,48 @@ sub regenGatewaysFailover
 {
 }
 
+# Method: nameserverAdded
+#
+#   Invoked when a new name server is going to be added. It return true if
+#   the addition of the name server is incompatible with your module's
+#   current configuration.
+#
+# Parameteres:
+#
+#   nameserver - name server IP address
+#   iface      - The resolvconf interface name
+#
+# Returns:
+#
+#   boolean - true if module's configuration becomes inconsistent, otherwise
+#             false
+sub nameserverAdded
+{
+    my ($self, $nameserver, $iface) = @_;
+
+    return 0;
+}
+
+# Method: nameserverDelete
+#
+#   Invoked when a name server is going to be removed. It returns true if
+#   the removal of the name server is incompatible with your module's
+#   current configuration.
+#
+# Parameteres:
+#
+#   nameserver - name server IP address
+#   iface      - The resolvconf interface name
+#
+# Returns:
+#
+#   boolean - true if module's configuration becomes inconsistent, otherwise
+#             false
+sub nameserverDelete
+{
+    my ($self, $nameserver, $iface) = @_;
+
+    return 0;
+}
+
 1;
