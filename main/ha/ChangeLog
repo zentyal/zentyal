@@ -1,4 +1,6 @@
 HEAD
+	+ Increase the timeout time for HA location due to large
+	  replication setup
 	+ Wait 1 second less when setting up the cluster
 	+ Floating IP address can be in a virtual interface
 3.5.2
