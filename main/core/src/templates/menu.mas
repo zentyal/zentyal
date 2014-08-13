@@ -5,10 +5,11 @@ $currentUrl => ''
 $copyright_footer
 </%args>
 <div id='menu'>
+    <div class="menuSearch">
+        <input id='menusearch' type='text'/>
+    </div>
     <ul id='nav'>
-        <li class="menuSearch">
-            <input id='menusearch' type='text'/>
-        </li>
+        
 % foreach my $item (@{$items{home}}) {
         <% $item->html($current, $currentUrl) %>
 % }
