@@ -269,7 +269,7 @@ $user
 <form action='/Samba/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' class='btn btn-only-icon btn-add btn-submit' value='<% __('Add group') %>' title='<% __('Add group') %>' style='float: right'/>
+  <input type='submit' id='addGroupSubmit' class='btn btn-only-icon btn-add btn-submit custom-combobox-add' value='<% __('Add group') %>' title='<% __('Add group') %>' />
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>
