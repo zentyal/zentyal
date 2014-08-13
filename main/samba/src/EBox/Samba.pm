@@ -20,6 +20,7 @@ package EBox::Samba;
 
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
+            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
@@ -871,6 +872,8 @@ sub _setConfExternalAD
     # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
+    # Reset LDAP connection
+    $self->clearLdapConn();
 }
 
 sub _setConfInternal
@@ -3995,6 +3998,52 @@ sub _cleanModulesForReprovision
         $mod->set_state($state);
         $mod->setAsChanged(1);
     }
+}
+
+#
+# EBox::NetworkObserver implementation
+#
+
+# Method: nameserverAdded
+#
+#   Overrided to clear LDAP connection if nameserver is added
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverAdded
+#
+sub nameserverAdded
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
+}
+
+# Method: nameserverDelete
+#
+#   Overrided to clear LDAP connection if nameserver is deleted
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverDelete
+#
+sub nameserverDelete
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
 }
 
 1;
