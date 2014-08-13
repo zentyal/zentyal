@@ -237,10 +237,10 @@ sub vifaceAdded # (iface, viface, address, netmask)
 #       false
 #
 sub changeIfaceExternalProperty # (iface, external)
-  {
-        # default empty implementation. Subclasses should override this as
-        # needed.
-  }
+{
+    # default empty implementation. Subclasses should override this as
+    # needed.
+}
 
 # Method: freeIface
 #

@@ -45,7 +45,7 @@ sub _new_instance
     my $class = shift;
 
     my $self = {};
-    bless($self, $class);
+    bless ($self, $class);
     $self->clearConn();
 
     return $self;
@@ -57,15 +57,17 @@ sub _new_instance
 #
 # Returns:
 #
-#   object of class <EBox::LDAP::ExternalAD>
+#   Object of class <EBox::LDAP::ExternalAD>
+#
 sub instance
 {
     my ($self, %opts) = @_;
+
     $opts{dcHostname} or throw EBox::Exceptions::MissingArgument('dcHostname');
     $opts{user}       or throw EBox::Exceptions::MissingArgument('user');
     $opts{password}   or throw EBox::Exceptions::MissingArgument('password');
 
-    unless(defined($_instance)) {
+    unless (defined($_instance)) {
         $_instance = __PACKAGE__->_new_instance();
     };
 
