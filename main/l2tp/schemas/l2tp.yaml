@@ -1,0 +1,12 @@
+class: 'EBox::L2TP'
+enabledepends:
+    - samba
+
+depends:
+    - network
+    - firewall
+
+models:
+    - Connections
+    - ConnectionSettings
+    - RangeTable

@@ -733,7 +733,7 @@ td[class^="icon"] {
 .icon-ebackup { background-image: url("/data/images/package-icons/zentyal-ebackup.png");}
 .icon-firewall { background-image: url("/data/images/package-icons/zentyal-firewall.png");}
 .icon-ips { background-image: url("/data/images/package-icons/zentyal-ips.png");}
-.icon-ipsec { background-image: url("/data/images/package-icons/zentyal-ipsec.png");}
+.icon-l2tp { background-image: url("/data/images/package-icons/zentyal-l2tp.png");}
 .icon-jabber { background-image: url("/data/images/package-icons/zentyal-jabber.png");}
 .icon-mail { background-image: url("/data/images/package-icons/zentyal-mail.png");}
 .icon-mailfilter { background-image: url("/data/images/package-icons/zentyal-mailfilter.png");}
