@@ -1,6 +1,12 @@
 main_color: "#69BE28"
-secondary_color: "rgba(105, 190, 40, 0.3)"
-third_color: "#BBDF39"
+main_color_darker: "#46962D"
+main_color_lighter: "#9fd575"
+secondary_color: "#ff7900"
+secondary_color_darker: "#c35F00"
+secondary_color_lighter: "#f7ad6d"
+third_color: "#00add0"
+third_color_darker: "#008745"
+third_color_lighter: "#4bd0eb"
 
 # login.css
 logo_style: "float: left;"
@@ -10,11 +16,8 @@ loginin_padding_style: "15px 30px 15px 30px"
 # public.css
 header_img_padding: "padding-top: 0; padding-left: 0;"
 
-hmenu_bg_color: "#B5D448"
-hmenu_hover_bg_color: "#C5E64E"
-
-remote_svcs_bg_color: "#BBE03A"
-remote_svcs_hover_bg_color: "#CCE86C"
+hmenu_bg_color: "#46962D"
+hmenu_hover_bg_color: "#69BE28"
 
 footer_custom_style: "text-align: center;"
 
