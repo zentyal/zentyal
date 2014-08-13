@@ -1,4 +1,5 @@
 HEAD
+	+ Wait 1 second less when setting up the cluster
 	+ Floating IP address can be in a virtual interface
 3.5.2
 	+ Make use of VerifyPeer to false on EBox::RESTClient as we

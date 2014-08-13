@@ -1694,7 +1694,7 @@ sub _waitPacemaker
             default { EBox::debug("No parse on $output"); }
         }
         $maxTries--;
-        sleep(1);
+        sleep(1) unless ($ready);
     }
 
     unless ($ready) {
