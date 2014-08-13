@@ -135,6 +135,7 @@ sub test_validate_row_collision_exceptions : Test(5)
     EBox::TestStubs::fakeModule(
             name => 'network',
             subs => [
+                'allIfaces'      => sub { [ 'eth0' ] },
                 'InternalIfaces' => sub { [ 'eth0' ] },
                 'ExternalIfaces' => sub { [] },
                 'ifaceAddresses' => sub { return $fakeNetworkIPs; },
