@@ -120,7 +120,7 @@ Main Layout
     margin:0;
 }
 #header {
-    height: 60px;
+    height: 50px;
     padding:0;
     margin: 0;
     color: transparent;
@@ -169,7 +169,6 @@ Header
 
 #header .logo {
     float: left;
-    margin-left: 20px;
 }
 #header .logo img {
     <% $header_img_padding %>
@@ -178,7 +177,7 @@ Header
     font-size: 12px;
     color: rgba(255,255,255,0.5);
     float: left;
-    margin-top: 23px;
+    margin-top: 18px;
 }
 #hmenu {
     position: absolute;
@@ -190,9 +189,9 @@ Header
     float:left;
     font-size: 11px;
     color: #666;
-    line-height: 60px;
+    line-height: 50px;
     padding: 0;
-    min-width: 60px;
+    min-width: 50px;
     transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
@@ -204,8 +203,8 @@ Header
 #hmenu #remote_services_link{
     text-indent: 120px;
     overflow: hidden;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     background-position: center center;
 }
 #hmenu a:hover {
@@ -230,7 +229,7 @@ Header
     display: none;
     font-size: 1.1em;
     line-height: 20px;
-    padding: 20px 20px 20px 60px;
+    padding: 15px 20px 15px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
