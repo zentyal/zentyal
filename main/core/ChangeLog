@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing use in hasManyViewer.mas
 	+ Only allow restore from backups from versions with the same two
 	  first version numbers
 	+ Escape double quotes in non-editable text fields
