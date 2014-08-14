@@ -1,3 +1,6 @@
+HEAD
+	+ Implement nameserverAdded and nameserverDelete from NetworkObserver to
+	  reset LDAP connection if name servers change in external AD mode
 3.5.6
 	+ Add dpkg trigger to restart module when samba package is upgraded
 	+ Fix ad-migrate script mode check
