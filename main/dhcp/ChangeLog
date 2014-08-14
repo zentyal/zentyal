@@ -1,3 +1,7 @@
+HEAD
+	+ Forbid the addition of a fixed addresses object which
+	  collides with a range
+	+ Restored thin client options for VLANs
 3.5.1
 	+ Added ComponentNotExists error when losing parent row
 3.5

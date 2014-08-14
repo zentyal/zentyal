@@ -1,3 +1,5 @@
+HEAD
+	+ Escape double quotes in non-editable text fields
 3.5.2
 	+ When doing a login redirect to the full given URI
 	+ Fixed mysql commands executed with wrong parameters or credentials
