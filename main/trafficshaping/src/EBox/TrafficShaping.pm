@@ -140,12 +140,12 @@ sub initialSetup
     my ($self, $version) = @_;
 
     if (EBox::Util::Version::compare($version, '3.5.1') < 0) {
-        $self->_removeL5Rules();
+        $self->_removeL7Rules();
     }
 }
 
 # remove deprecated 
-sub _removeL5Rules
+sub _removeL7Rules
 {
     my ($self) = @_;
     my @rulesModels = ($self->model('ExternalRules'), $self->model('InternalRules'));
