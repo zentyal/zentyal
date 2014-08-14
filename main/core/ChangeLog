@@ -1,4 +1,6 @@
 HEAD
+	+ Only allow restore from backups from versions with the same two
+	  first version numbers
 	+ Escape double quotes in non-editable text fields
 3.5.2
 	+ When doing a login redirect to the full given URI
