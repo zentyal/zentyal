@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-07-09 05:49+0200\n"
-"Last-Translator: FabioBastos <fabiobastosphd@gmail.com>\n"
+"PO-Revision-Date: 2014-08-15 07:18+0200\n"
+"Last-Translator: viniciusfcosta <viniciusfcosta@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1289,9 +1289,8 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} não tem endereço IP para usar"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr "Nós"
+msgstr "Nós de Alta Disponibilidade"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
@@ -2860,9 +2859,8 @@ msgid "Country code"
 msgstr "Código do país"
 
 #: ../../main/ca/src/EBox/CA.pm:224
-#, fuzzy
 msgid "The country code must be the 2-characters ISO code"
-msgstr "A senha precisa ter no minimo 6 caracteres"
+msgstr "O código do país deve estar no código ISO 2-caracteres"
 
 #: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:744
 #: ../../main/ca/src/EBox/CA.pm:1373
@@ -3118,7 +3116,7 @@ msgstr "O novo certificado CA foi renovado"
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr ""
+msgstr "Erro ao criar o arquivo para certificados: {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:60
 msgid "The certificate has NOT been revoked."
@@ -3648,6 +3646,9 @@ msgid ""
 "Commercial Editions{closehref} that includes the Antispam feature in the "
 "automatic security updates."
 msgstr ""
+"Quer manter os spams fora dos servidores de e-mail? Obtenha uma das "
+"{openhref}Edições Commerciais{closehref} que incluem a função Antispam nas "
+"atualizações automáticas de segurança."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
@@ -4156,12 +4157,12 @@ msgstr "As novas senhas não conferem"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:110
 msgid "You must agree to the privacy policy to continue"
-msgstr ""
+msgstr "Você precisa concordar com as políticas de privacidade para continuar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:166
 #, perl-brace-format
 msgid "Company \"{company}\" already exists. Please, choose a different name."
-msgstr ""
+msgstr "Empresa \"{company}\" já existe. Por favor, escolha um nome diferente."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:177
 #, perl-brace-format
@@ -4490,6 +4491,8 @@ msgid ""
 "Are you interested in upgrading to one of commercial editions? Get a {ohb}"
 "Free 30-day trial{ch}."
 msgstr ""
+"Você tem interesse em upgrade para uma das versões comerciais? Faça um "
+"{ohb}Teste de 30 dias gratuito{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:188
 #, perl-brace-format
@@ -4497,6 +4500,8 @@ msgid ""
 "Please note that the maximum number of users for {edition} is {max} and you "
 "currently have {nUsers}."
 msgstr ""
+"Favor notar que o número máximo de usuários para {edition} é {max} e você já "
+"tem {nUsers}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:75
 msgid ""
@@ -4657,9 +4662,8 @@ msgid "Renovation date"
 msgstr "Data de renovação"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
-#, fuzzy
 msgid "Messages"
-msgstr "Mensagem"
+msgstr "Mensagens"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
 msgid "Server info"
@@ -4672,7 +4676,7 @@ msgstr "Não utilizar Serviço Zentyal DNS Dinâmico"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
 #, perl-brace-format
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
-msgstr ""
+msgstr "<span>Nenhum - {oh}Registre-se Gratuitamente!{ch}</span>"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:165
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
@@ -5115,38 +5119,36 @@ msgstr "Acordo de Nível de Serviço"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:155
 #, perl-brace-format
 msgid "{oh}On-line Support Platform{ch}"
-msgstr ""
+msgstr "{oh}Plataforma de Suporte On-line{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:158
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:163
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}"
 msgstr ""
+"{os}{oh}Plataforma de Suporte Online{ch}, Telefone e Bate-papo sob "
+"demanda{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:168
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat, Phone{cs}"
-msgstr ""
+msgstr "{os}{oh}Plataforma de Suporte On-line{ch}, Bate-papo, Telefone{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
-#, fuzzy
 msgid "2 Business Days"
-msgstr "Pequenas Empresas"
+msgstr "2 Dias Úteis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
-#, fuzzy
 msgid "1 Business Day"
-msgstr "Pequenas Empresas"
+msgstr "1 Dia Útil"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:179
-#, fuzzy
 msgid "4 hours"
-msgstr "hora"
+msgstr "4 horas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:180
-#, fuzzy
 msgid "1 hour"
-msgstr "hora"
+msgstr "1 hora"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:198
 #, perl-brace-format
@@ -5176,22 +5178,21 @@ msgid "Professional"
 msgstr "Profissional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:101
-#, fuzzy
 msgid "Business"
-msgstr "Pequenas Empresas"
+msgstr "Negócio"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Enterprise Trial"
-msgstr "Teste Enterprise"
+msgstr "Teste Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:103
 msgid "Enterprise"
-msgstr "Enterprise"
+msgstr "Empresa"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:104
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1949
 msgid "Premium"
-msgstr "Premium"
+msgstr "Prêmio"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:125
 msgid "Zentyal Remote Client"
@@ -5199,11 +5200,11 @@ msgstr "Cliente Remoto Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:418
 msgid "Not subscribed"
-msgstr "Não subscrito"
+msgstr "Não inscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:420
 msgid "Subscribed"
-msgstr "Subscrito"
+msgstr "Inscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:453
 msgid "Registration"
@@ -5223,12 +5224,12 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:795
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr "O Zentyal deve estar subscrito para recarregar o pacote"
+msgstr "O Zentyal deve estar inscrito para recarregar o pacote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:800
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
-msgstr "Não pode recarregar o conjunto: {reason}"
+msgstr "Não foi possível recarregar o pacote: {reason}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1912
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1915
@@ -5242,12 +5243,12 @@ msgstr "Conectado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1924
 msgid "In process"
-msgstr "Em progresso"
+msgstr "Em processo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1927
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Não conectado. {oh}Verificar conexões VPN{ch} e os logs em {path}"
+msgstr "Não conectado. {oh}Verifique conexões VPN{ch} e os logs em {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 #, fuzzy
@@ -5277,12 +5278,12 @@ msgstr "- Último backup da configuração: {date}"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1972
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
-msgstr ""
+msgstr "Não registrado - {oh}Registre agora!{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1975
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
-msgstr ""
+msgstr "Nenhum - {oh}Registre Gratuitamente!{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
 msgid "Connection status"
@@ -5328,7 +5329,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2517
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
-msgstr ""
+msgstr "Este é um Zentyal Server edição {edition}."
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:301
@@ -5382,12 +5383,11 @@ msgstr "bridge"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:128
 msgid "bond"
-msgstr ""
+msgstr "vínculo"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:139
-#, fuzzy
 msgid "bonding mode"
-msgstr "Configurados"
+msgstr "modo de vínculo"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:166
 msgid ""
@@ -5792,9 +5792,8 @@ msgid "Test type"
 msgstr "Tipo de Teste"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
-msgstr "Endereço IP personalizado"
+msgstr "Endereço IP do Host"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:99
 msgid "Number of probes"
@@ -6269,7 +6268,6 @@ msgid "Objects"
 msgstr "Objetos"
 
 #: ../../main/objects/src/EBox/Objects.pm:118
-#, fuzzy
 msgid "network object"
 msgstr "Objeto de Rede"
 
