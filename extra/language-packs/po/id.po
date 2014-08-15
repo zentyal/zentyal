@@ -348,11 +348,11 @@ msgid ""
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
 "{openpar}Anda dapat tambahkan disini jaringan-jaringan yang anda inginkan "
-"tersedia bagi klien-klien yang terhubung ke VPN "
-"ini.{closepar}{openpar}Biasanya, anda akan ijinkan akses ke LAN anda dengan "
-"menyebutkan alamat jaringannya disini{closepar}{openpar}Jika sebuah alamat "
-"jaringan yang disebutkan sama dengan alamat jaringan VPN, maka jaringan "
-"tersebut akan diabaikan.{closepar}"
+"tersedia bagi klien-klien yang terhubung ke VPN ini.{closepar}{openpar}"
+"Biasanya, anda akan ijinkan akses ke LAN anda dengan menyebutkan alamat "
+"jaringannya disini{closepar}{openpar}Jika sebuah alamat jaringan yang "
+"disebutkan sama dengan alamat jaringan VPN, maka jaringan tersebut akan "
+"diabaikan.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -698,8 +698,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
-"Tidak ada sertifikat yang tersedia bagi klien ini. Silakan, "
-"{ohref}membuatnya{chref}"
+"Tidak ada sertifikat yang tersedia bagi klien ini. Silakan, {ohref}"
+"membuatnya{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
