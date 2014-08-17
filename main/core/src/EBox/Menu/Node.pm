@@ -21,7 +21,6 @@ package EBox::Menu::Node;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Menu::Separator;
 
 sub new
 {
