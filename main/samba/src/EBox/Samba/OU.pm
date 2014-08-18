@@ -162,7 +162,8 @@ sub create
 sub _checkParent
 {
     my ($class, $parent) = @_;
-    my $parentDN  = $parent->dn();
+
+    my $parentDN = $parent->dn();
     $parent->isContainer() or
         throw EBox::Exceptions::InvalidData(data => 'parent',
                                             value => $parentDN,

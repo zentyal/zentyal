@@ -775,54 +775,6 @@ sub _setComponentDirectory
     $comp->setDirectory($dir);
 }
 
-# Method: filesPaths
-#
-#   Returns:
-#     the paths of the files managed by the composite and all of its nested components
-sub filesPaths
-{
-    my ($self) = @_;
-
-    my @paths;
-    foreach my $comp (@{ $self->components() }) {
-        if ($comp->can('filesPaths')) {
-            push @paths, @{ $comp->filesPaths() };
-        }
-    }
-
-    return \@paths;
-}
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of  all the files contained in the
-#   components. This backup will used to discard cahnges if needed
-sub backupFiles
-{
-    my ($self) = @_;
-
-    foreach my $comp (@{ $self->components() }) {
-        if ($comp->can('backupFiles')) {
-            $comp->backupFiles();
-        }
-    }
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files, thus discarding last
-#  changes in files
-sub restoreFiles
-{
-    my ($self) = @_;
-
-    foreach my $comp (@{ $self->components() }) {
-        if ($comp->can('restoreFiles')) {
-            $comp->restoreFiles();
-        }
-    }
-}
-
 sub pageTitle
 {
     my ($self) = @_;

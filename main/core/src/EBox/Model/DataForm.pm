@@ -756,7 +756,7 @@ sub formSubmitJS
 {
     my ($self, $editId) = @_;
 
-    my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s', '%s')";
+    my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s')";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};

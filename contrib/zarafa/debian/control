@@ -8,8 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-zarafa
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.4), zentyal-core (<< 3.5),
-         zentyal-users, zentyal-mail, zentyal-webserver,
+Depends: zentyal-users, zentyal-mail, zentyal-webserver,
          zarafa, zarafa-webaccess, zarafa-webapp, d-push,
          aspell, libapache2-mod-auth-kerb, ${misc:Depends}
 Description: Zentyal - Groupware (Zarafa)

@@ -8,11 +8,9 @@ ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymo
 if [ "$1" == "configure" ]
 then
     echo 'manual' > /etc/init/lxdm.override
-else
-    # Migration from 3.0
-    rm -f /etc/init/lxdm.override
-    sed -i 's/start on zentyal-lxdm and/start on/' /etc/init/lxdm.conf
 fi
 
-# FIXME: temporary workaround until 100% CPU consumption bug in LXDE is fixed
-ln -sf /bin/true /usr/bin/pcmanfm
+if [ -n "$2" ]
+then
+    rm -f /etc/init/lxdm.override
+fi

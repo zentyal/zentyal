@@ -56,9 +56,9 @@ sub new
 {
     my ($class, %params) = @_;
 
-    unless ($params{entry} or $params{dn} or $params{gid} or
+    unless ($params{entry} or $params{dn}  or
             $params{ldif} or $params{objectGUID}) {
-        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|objectGUID|gid');
+        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|objectGUID');
     }
 
     my $self = {};
@@ -184,6 +184,16 @@ sub hasValue
         return 1 if ($val eq $value);
     }
 
+    return 0;
+}
+
+sub hasObjectClass
+{
+    my ($self, $objectClass) = @_;
+    $objectClass = lc $objectClass;
+    foreach my $oc ($self->get('objectClass')) {
+        return 1 if ((lc $oc) eq $objectClass);
+    }
     return 0;
 }
 
@@ -526,6 +536,9 @@ sub _entry
 sub clearCache
 {
     my ($self) = @_;
+    if (not $self->{dn}) {
+        $self->{dn} = $self->{entry}->dn();
+    }
 
     $self->{entry} = undef;
 }

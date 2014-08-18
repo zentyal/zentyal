@@ -33,6 +33,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Samba::User;
+use EBox::MailVDomainsLdap;
 use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
@@ -43,9 +44,15 @@ use constant MAX_MAILDIR_BACKUPS => 5;
 
 sub new
 {
-    my $class = shift;
+    my ($class, $vdomainsLdap) = @_;
     my $self  = {};
     $self->{ldap} = EBox::Global->modInstance('samba')->ldap();
+
+    if ($vdomainsLdap) {
+        $self->{vdomains} = $vdomainsLdap;
+    } else {
+        $self->{vdomains} = new EBox::MailVDomainsLdap;
+    }
 
     bless($self, $class);
     return $self;
@@ -62,17 +69,28 @@ sub mailboxesDir
 
 # Method: setupUsers
 #
-#  Set up existent users for working correctly when the module is enabled for
-#  first time
+#  Set up existent users for working correctly when the given vdomain or with
+#  all vdomains
+#
+#  Parameters:
+#
+#  onlyForVDomain - set up users for this vdomain. Omitting it will
+#                    trigger the setup for all vdomains
 sub setupUsers
 {
-    my ($self) = @_;
+    my ($self, $vdomain) = @_;
     my $userMod = EBox::Global->getInstance()->modInstance('samba');
 
     foreach my $user (@{ $userMod->users() }) {
         my $mail = $user->get('mail');
         if ($mail) {
             my ($lhs, $rhs) = split '@', $mail, 2;
+
+            if ($vdomain and ($rhs ne $vdomain)) {
+                next;
+            }
+
+            $user->delete('mail');
             $self->setUserAccount($user, $lhs, $rhs);
         }
     }
@@ -103,15 +121,23 @@ sub setUserAccount
     }
 
     EBox::Validate::checkEmailAddress($email, __('mail account'));
-    $mail->checkMailNotInUse($email);
+    $mail->checkMailNotInUse($email, owner => $user);
 
-    $self->_checkMaildirNotExists($lhs, $rhs);
+    if (not $self->{vdomains}->vdomainExists($rhs)) {
+        # vdomain not managed by zentyal, just set the mail attribute
+        $user->set('mail', $email);
+        return;
+    }
+
+    # FIXME: this breaks migration from 3.4
+    #$self->_checkMaildirNotExists($lhs, $rhs);
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my $hasClass = grep { lc($_) eq 'userZentyalMail' } $user->get('objectClass');
-    if (not $hasClass) {
-        $user->add('objectclass', 'userZentyalMail');
+    foreach my $class (qw(userZentyalMail fetchmailUser)) {
+        if (not $user->hasObjectClass($class)) {
+            $user->add('objectclass', $class)
+        }
     }
 
     $user->clearCache();
@@ -123,14 +149,9 @@ sub setUserAccount
     $user->set('mailHomeDirectory', DIRVMAIL, 1);
     $user->save();
 
-    $self->_createMaildir($lhs, $rhs);
-
-    my @list = $mail->{malias}->listMailGroupsByUser($user);
-    foreach my $item(@list) {
-        my @aliases = @{ $mail->{malias}->groupAliases($item) };
-        foreach my $alias (@aliases) {
-            $mail->{malias}->addMaildrop($alias, $email);
-        }
+    my $dir = DIRVMAIL . "/$rhs/$lhs";
+    unless (EBox::Sudo::fileTest('-e', $dir)) {
+        $self->_createMaildir($lhs, $rhs);
     }
 }
 
@@ -140,41 +161,38 @@ sub setUserAccount
 #
 # Parameters:
 #
-#               user - user object
-#               usermail - the user's mail address (optional)
+#   user - user object
+#
 sub delUserAccount
 {
-    my ($self, $user, $usermail) = @_;
-    ($self->_accountExists($user)) or return;
-    if (not defined $usermail) {
-        $usermail = $self->userAccount($user);
+    my ($self, $user) = @_;
+    my $usermail = $self->userAccount($user);
+    if (not $usermail) {
+        return;
+    }
+    if (not $self->_accountIsManaged($user)) {
+        $user->delete('mail');
+        return;
     }
 
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
-    my @aliases = $mail->{malias}->userAliases($user);
-    foreach my $alias (@aliases) {
-                $mail->{malias}->delAlias($alias);
-            }
-
-    # Remove mail account from group alias maildrops
-    foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
-        $mail->{malias}->delMaildrop($alias,$usermail);
-    }
+    $user->delete('otherMailbox');
 
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
 
     $user->remove('objectClass', 'userZentyalMail', 1);
+    $user->remove('objectClass', 'fetchmailUser', 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);
     $user->delete('mailquota', 1);
     $user->delete('mailHomeDirectory', 1);
+    $user->delete('fetchmailAccount', 1);
     $user->save();
 
     my @cmds;
-
     # Here we remove mail directorie of user account.
     push (@cmds, '/bin/rm -rf ' . DIRVMAIL . $mailbox);
 
@@ -256,14 +274,36 @@ sub delAccountsFromVDomain   #vdomain
     my ($self, $vdomain) = @_;
 
     my %accs = %{$self->allAccountsFromVDomain($vdomain)};
-
-    my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::Samba::User(uid => $uid);
+        my $user = new EBox::Samba::User(samAccountName => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});
     }
+}
+
+sub setGroupAccount
+{
+    my ($self, $group, $mail) = @_;
+    my $mailMod = EBox::Global->modInstance('mail');
+
+    EBox::Validate::checkEmailAddress($mail, __('mail account'));
+    $mailMod->checkMailNotInUse($mail, owner => $group);
+
+    $group->set('mail', $mail);
+}
+
+sub delGroupAccount
+{
+    my ($self, $group) = @_;
+
+    my $mailMod = EBox::Global->modInstance('mail');
+    my @groupAliases = @{ $mailMod->{malias}->groupAliases($group) };
+    foreach my $alias (@groupAliases) {
+        $mailMod->{malias}->delAlias($alias);
+    }
+
+    $group->delete('mail');
 }
 
 # Method: _addUser
@@ -300,10 +340,7 @@ sub _delGroup
 
     return unless ($mail->configured());
 
-    my @groupAliases = @{ $mail->{malias}->groupAliases($group) };
-    foreach my $alias (@groupAliases) {
-        $mail->{malias}->delAlias($alias);
-    }
+    $self->delGroupAccount($group);
 }
 
 sub _delGroupWarning
@@ -340,11 +377,23 @@ sub _delUserWarning
 
     my $txt = __('This user has a mail account');
 
-    if ($self->_accountExists($user)) {
+    if ($self->_accountIsManaged($user)) {
         return ($txt);
     }
 
     return undef;
+}
+
+sub _managedAccount
+{
+    my ($self, $account, $vdomains) = @_;
+    my ($leftover, $accountVDomain) = split '@', $account, 2;
+    foreach my $vd (@{ $vdomains }) {
+        if ($accountVDomain eq $vd) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 sub _userAddOns
@@ -356,27 +405,36 @@ sub _userAddOns
     return undef unless ($mail->configured());
 
     my $usermail = $self->userAccount($user);
-    my @aliases = $mail->{malias}->userAliases($user);
     my @vdomains =  $mail->{vdomains}->vdomains();
+    my @aliases;
+    my $managed;
+    if ($usermail) {
+        @aliases = $mail->{malias}->userAliases($user);
+        $managed = $self->_managedAccount($usermail, \@vdomains);
+    }
+
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
-    # fetchmail disabled
-    # my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
-    # my @externalAccounts = map {
-    #     $mail->{fetchmail}->externalAccountRowValues($_)
-    #  } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
     my @paramsList = (
             user        => $user,
             mail        => $usermail,
             aliases     => \@aliases,
             vdomains    => \@vdomains,
+            managed     => $managed,
 
             maildirQuotaType => $quotaType,
             maildirQuota => $quota,
 
             service => $mail->service,
+
+            externalRetrievalEnabled => $externalRetrievalEnabled,
+            externalAccounts => \@externalAccounts,
     );
 
     my $title;
@@ -399,29 +457,28 @@ sub _groupAddOns
 {
     my ($self, $group) = @_;
 
-    return unless (EBox::Global->modInstance('mail')->configured());
+    my $mailMod = EBox::Global->modInstance('mail');
+    return unless ($mailMod->configured());
 
-    my $mail = EBox::Global->modInstance('mail');
-    my $aliases = $mail->{malias}->groupAliases($group);
-    my @vd =  $mail->{vdomains}->vdomains();
-
-    my $groupEmpty    = 1;
-    my $usersWithMail = 0;
-    foreach my $user (@{ $group->members() }) {
-        $groupEmpty = 0;
-        if ($self->userAccount($user)) {
-            $usersWithMail = 1;
-            last;
-        }
+    my $mailManaged = 0;
+    my $mail = $group->get('mail');
+    if ($mail) {
+        my ($left, $vdomain) = split('@', $mail, 2);
+        $mailManaged = $mailMod->{vdomains}->vdomainExists($vdomain);
+    } else {
+        $mail = '';
     }
+
+    my $aliases = $mailMod->{malias}->groupAliases($group);
+    my @vd      = $mailMod->{vdomains}->vdomains();
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
-        'service'  => $mail->service(),
-        'groupEmpty' => $groupEmpty,
-        'usersWithMail' => $usersWithMail,
+        'service'  => $mailMod->service(),
+        'mail'         => $mail,
+        'mailManaged' => $mailManaged
     };
 
     return {
@@ -431,40 +488,54 @@ sub _groupAddOns
        };
 }
 
-sub _modifyGroup
-{
-    my ($self, $group) = @_;
+# sub _modifyGroup
+# {
+#     my ($self, $group) = @_;
 
-    return unless (EBox::Global->modInstance('mail')->configured());
+#     return unless (EBox::Global->modInstance('mail')->configured());
 
-    my $mail = EBox::Global->modInstance('mail');
-    $mail->{malias}->updateGroupAliases($group);
-}
+#     my $mail = EBox::Global->modInstance('mail');
+#     $mail->{malias}->updateGroupAliases($group);
+# }
 
-# Method: _accountExists
+# Method: _accountIsManaged
 #
-#  This method returns if a user have a mail account
+#  This method returns if a user has a managed user acocunt
 #
 # Parameters:
 #
-#               user - user object
+#   user - user object
+#
 # Returns:
 #
-#               bool - true if user have mail account
-sub _accountExists
+#               bool - true if user has a managed mail account
+sub _accountIsManaged
 {
     my ($self, $user) = @_;
 
     my $username = $user->name();
     my %attrs = (
                  base => $self->{ldap}->dn(),
-                 filter => "&(objectclass=userEBoxMail)(samAccountName=$username)",
+                 filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
                  scope => 'sub'
                 );
 
     my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
+}
+
+sub _accountExistsToDelete
+{
+    my ($self, $user) = @_;
+    my $username = $user->get('samAccountName');
+    my $attrs = {
+        base => $self->{ldap}->dn(),
+        filter => "&(objectclass=userZentyalMail)(samAccountName=$username)",
+        scope => 'sub',
+    };
+    my $result = $self->{ldap}->search($attrs);
+    return ($result->count() > 0);
 }
 
 # Method: allAccountFromVDomain
@@ -510,7 +581,7 @@ sub usersWithMailInGroup
     my $groupdn = $group->dn();
     my %args = (
         base => $self->{ldap}->dn(),
-        filter => "(&(objectclass=userEBoxMail)(memberof=$groupdn))",
+        filter => "(&(objectclass=userZentyalMail)(memberof=$groupdn))",
         scope => 'sub',
     );
 
@@ -554,9 +625,10 @@ sub checkUserMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = DIRVMAIL . "/$vdomain/$lhs/";
+    my $dir = DIRVMAIL . "/$vdomain/$lhs";
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
+
         my $backupDirBase = $dir ;
         $backupDirBase =~ s{/$}{};
         $backupDirBase .= '.bak';
@@ -600,7 +672,7 @@ sub _createMaildir
 
     push (@cmds, "/bin/mkdir -p $vdomainDir");
     push (@cmds, "/bin/chown ebox.ebox $vdomainDir");
-    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir ebox");
+    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir/Maildir ebox");
     push (@cmds, "/bin/chown ebox.ebox -R $userDir");
     EBox::Sudo::root(@cmds);
 }
@@ -646,7 +718,7 @@ sub maildirQuota
 #     get the type of the quota assigned to the user
 #
 #   Parameters:
-#        user - name of the user
+#        user - user object
 #
 #    Returns:
 #       one of this strings:
@@ -679,7 +751,7 @@ sub maildirQuotaType
 #     the default quota
 #
 #   Parameters:
-#        user - name of the user
+#        user - user object
 #        isDefault - wether the user is using the default quota
 sub setMaildirQuotaUsesDefault
 {
@@ -753,8 +825,13 @@ sub regenMaildirQuotas
     my $usersMod = EBox::Global->modInstance('samba');
 
     foreach my $user (@{$usersMod->users()}) {
-        my $username = $user->name();
-        $self->userAccount($user) or next;
+        my $account = $self->userAccount($user);
+        $account or next;
+
+        my ($username, $vdomain) =split '@', $account, 2;
+        if (not $self->{vdomains}->vdomainExists($vdomain)) {
+            next;
+        }
 
         if ($self->maildirQuotaType($user) eq 'default') {
             $self->setMaildirQuota($user, $defaultQuota);

@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelGroupAlias;
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -52,6 +52,7 @@ sub _process
     $mail->{malias}->delGroupAlias($alias, $group);
 
     $self->{json}->{msg} =  __x('Alias {al} removed', al => $alias);
+    $self->{json}->{mail} = $group->get('mail');
     $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }

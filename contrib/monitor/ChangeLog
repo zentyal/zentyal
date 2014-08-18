@@ -1,0 +1,162 @@
+3.5
+	+ Avoid warning flag on smart match experimental feature
+	+ Change version of the perl lib used with collectd
+	+ Show disk usage again including reserved space after changing to
+	  collectd 5.1
+	+ Set version to 3.5
+3.4
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Show save changes message advice only when it applies
+	+ Do not show internal errors when possible and suggest an advice
+	  to fix it
+3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Adapted strings to new offering
+	+ Added missing EBox::Exceptions uses
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.4
+	+ Load measure manager on runtime to avoid unneccesary system calls
+	+ Set proper resolution in last week period
+3.1.3
+	+ Remove truncating as we use now proper resolutions
+	+ Set proper resolution (1 point by hour) and time type (datetime)
+	  to last week period
+3.1.2
+	+ Added menu icon
+	+ Removed no longer necessary jQuery noConflict()
+3.1.1
+	+ Ported JS to jQuery and flot
+	+ Fixed graph template so it could be feed with data using decimal
+	 comma, it will convert it to a JS array without problems
+3.1
+	+ Depend on zentyal-core 3.1
+3.0.3
+	+ Fixed bad bread crumb in threshold configuration model
+	+ Remove bad links as well while unregistering
+	+ Fix keep of monitor history after unregistering
+3.0.2
+	+ Avoided infinite recursion incidents when instantiating new
+	  measure objects
+3.0.1
+	+ Fixed measure display when multiple type instances are shown in
+	  the same graph (for instance, Df).
+	+ Fixed RRD links also when RRD link on subscription fails and you
+	  have an extra directory
+	+ Fixed RRD directories on changes of hostname. More resilient
+	  subscription links to RRDs
+3.0
+	+ Reviewed registration strings
+2.3.5
+	+ Fix link removal while stopping the service to avoid the
+	  creation of sporious directories
+2.3.4
+	+ Added support for last week graphs
+	+ Fixed URL in breadcrumbs
+2.3.3
+	+ Implement new EBox::Events::WatcherProvider
+	+ Adapted to new Model management framework
+	+ Perl plugin configuration for collectd 4.10 series
+	+ Set proper permissions in postinst for monitor events
+	+ Added additional info to events from monitor
+2.3.2
+	+ Do not monitorize NFS mounts disk spaces
+2.3.1
+	+ Added message about remote monitoring services
+2.3
+	+ Use 2 decimals in event messages
+	+ Formatting int values to show only 2 decimals, if required
+	+ Show the list of top 10 processes when launching the CPU or
+	  system load alert
+	+ Show duration of the event in the message, if available
+	+ Bugfix: Notification configuration file is written regardless of its
+	  owner and permissions
+	+ Replaced autotools with zbuildtools
+	+ Show the measure name in threshold configuration title
+	+ Updated RRD directory path when hostname is changed
+2.2.1
+	+ Bugfix: Use stringify instead of error when an error in retrieving all
+	  measures data happened
+	+ Include format.js only in the main page instead of every graph
+	+ Boost performance using RRDs bindings for perl instead of rrdtool
+	+ Give support for having a graph per type instance
+	+ Does not show an error in logs when collectd is notifying for a value is
+	  missing for a period of time but a debug message
+2.1.4
+	+ More resilient link creation when subscribing
+	+ Always create monitor conf directory
+2.1.3
+	+ Removed /zentyal prefix from URLs
+2.1.2
+	+ Do not send info events when using persist after if the warn
+	  events was not sent previously
+	+ Added persist after X seconds to send an event when the value is
+	  in the notification area for more than X seconds
+	+ Include conf.d directory only if this exists
+2.1.1
+	+ Monitor is now a submenu of the new Maintenance menu
+	+ Removed unnecessary code from MeasureWatchers::syncRows
+	+ Added missing dependency on rrdtool
+	+ Now adding thresholds is more resilent to lower number of
+	  passed parameters
+	+ Df measure now monitorizes file systems in /media and never
+	  monitorizes read-only filesystems (except root)
+	+ Monitor tolerates missing rrds
+2.1
+	+ Use new standard enable-module script
+	+ Removed unnecesary call to isReadOnly in syncRows
+	+ Use new initial-setup script in postinst
+1.5.6
+	+ Bugfix: Several thresholds for the same measure now works
+	+ Bugfix: Removing a maximum/minimum when updating a threshold
+	  works again
+	+ Added titles with breadcrumbs for threshold configuration and
+	  monitor watchers
+	+ Allow to create thresholds differencing them only in the data
+	  source
+	+ Monitor alerts now shows the gauge measure including several
+	  suffixes and prints only, if required, 3 decimal points
+	+ Bugfix threshold configuration when a measure has been removed
+	+ Add millisecond and bps gauge types
+	+ Add include for more configuration files
+	+ Register measures on demand using a ini file
+1.5.5
+	+ Zentyal rebrand
+1.5.4
+	+ Notify when values return to normal as info event
+	+ Add upstart script in order to workaround a packaging bug in Lucid
+	+ Make notification work again in Lucid
+	+ Bugfix: The notificate passed the classes correctly to event
+	  watcher using escaping
+	+ Disabled collectd.log to avoid infinite growth, syslog is still used
+1.5.3
+	+ Added exception class for threshold overrides
+	+ Bugfix: solved problem when adding thresholds without using a CGI
+1.5.2
+	+ Use init.d script instead of upstart to avoid errors in syslog
+	+ Removed loading of no longer used perl plugin
+1.5.1
+	+ Depends on @remoteservices@ package if the host is subscribed to
+	  eBox Control Center to send them the stats using the appropiate IP
+	  address to send stats to
+1.5
+	+ Add stopped on purpose file to stop the service without sending
+	  an event alerting with this situation
+1.3.12
+	+ Do not log info about disabled measures
+1.3.6
+	+ Bugfix: ignore cooling devices to avoid unexpected exceptions
+	+ Bugfix: Df measure shows free and used correctly, they were
+	swapt
+	+ Bugfix: do not show graph if data has not been collected
+1.3.3
+	+ Bugfix: Do not show graphs if the module is not configured
+1.1.10
+	+ Bugfix: Monitor graph updates don't glitch anymore
+	+ Bugfix: Set a fixed hostname in order not to let collectd daemon
+	to search for hostname on its own
+1.1.0
+	+ Initial release

@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-remoteservices
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0),
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-monitor, zentyal-openvpn, zentyal-software,
          libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl,
          liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-xs-perl,

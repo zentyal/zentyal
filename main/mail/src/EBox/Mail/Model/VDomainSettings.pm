@@ -48,7 +48,7 @@ sub _table
                               fieldName => 'alwaysBcc',
                               printableName =>
                                 __('Send a copy of all mail domains'),
-                              help => 
+                              help =>
  __('The mail will be a Blind Carbon Copy (BCC).'),
                               subtypes => [
                               new EBox::Types::Union::Text(
@@ -102,8 +102,15 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('vdomain');
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
 
+    return $parentRow->printableValueByName('vdomain');
 }
 
 1;

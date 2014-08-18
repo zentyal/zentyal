@@ -25,7 +25,6 @@ use EBox::Global;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
-use List::Util qw(sum);
 use TryCatch::Lite;
 
 # TODO: Currently we can't have more than two dashboards because of
@@ -126,7 +125,15 @@ sub masonParameters
         my $minValue = INT_MAX;
         my $minIndex = 0;
         for my $i (1 .. $NUM_DASHBOARDS) {
-            my $size_i = sum(map { $_->{size} } @{$dashboards[$i - 1]});
+            my $size_i = 0;
+            foreach my $element (@{$dashboards[$i - 1]}) {
+                if ((exists $element->{size}) and $element->{size}) {
+                    # size attr are quoted to avoid problems with js
+                    my $size = $element->{size};
+                    $size =~ tr/'"//d;
+                    $size_i += $size;
+                }
+            }
             if ($size_i < $minValue) {
                 $minValue = $size_i;
                 $minIndex = $i - 1;

@@ -937,11 +937,20 @@ sub blockHTTPPortChange
 #
 # Returns:
 #
-#   string - The full path to the SSL certificate file to use by HAProxy.
+#   Array ref - Set of full paths to the SSL certificate files used by HAProxy.
 #
 sub pathHTTPSSSLCertificate
 {
-    return '/var/lib/zentyal/conf/ssl/ssl.pem';
+    my ($self) = @_;
+    my @certs = ('/var/lib/zentyal/conf/ssl/ssl.pem');
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        my $cert = $openchange->autodiscoveryCerts();
+        push @certs, @{ $cert };
+
+    }
+
+    return \@certs;
 }
 
 # Method: targetIP

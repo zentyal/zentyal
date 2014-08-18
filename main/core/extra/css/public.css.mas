@@ -1151,16 +1151,6 @@ a.minBox, a.maxBox {
 .widArrow a:hover {
     background: transparent;
 }
-.field_help {
-    color: #888;
-    clear: both;
-    font-weight: normal;
-}
-.optional_field {
-    color: #00ADD0;
-    font-style: italic;
-    padding-right: 3px;
-}
 .dashboardTable {
     border-collapse: collapse;
     border: 0;
@@ -1197,6 +1187,7 @@ a.minBox, a.maxBox {
 }
 #nav li.menuSeparator{
     border-top: none;
+    margin-top: 15px;
 }
 .separator {
     color: white;
@@ -1204,7 +1195,6 @@ a.minBox, a.maxBox {
     font-size: 12px;
     background: #888;
     padding: 10px 18px 10px 10px;
-    margin-top:15px;
     text-transform: uppercase;
 }
 
@@ -1343,96 +1333,157 @@ border-radius: 2px;
     border-radius: 5px;
 }
 
-/* Software styles */
+/***********************************************************************************************
 
-#software .feature {
-      display:inline-block;
-      padding-left:10px;
-      width: 355px;
-      height: 250px;
-}
-#software .image:hover {
-    cursor: pointer;
-}
-#software .close_button {
-    color: #666666;
-    font-size: 2em;
-    height: 25px;
-    line-height: 25px;
-    position: absolute;
-    right: 5px;
-    text-align: center;
-    text-decoration: none;
-    top: 5px;
-    width: 25px;
-}
-#software .close_button{
-    background-color: whitesmoke;
-    color: #333;
-}
+ Insatallation process
+
+ ***********************************************************************************************/
+
+
 #software #packages {
-    margin: 20px 0 10px 0;
-    padding: 10px 0;
+   overflow: hidden;
+}
+#software #packages h3{
+    clear: both;
+    float: left;
+    margin: 30px 0 0 0.5%;
+    width: 100%;
+    font-weight: 100;
+    font-size: 20px;
+}
+#software #packages ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
 }
 #software .package {
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border: 1px solid #cccccc;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 5px #CCCCCC;
-    display: inline-block;
-    height: 100px;
-    margin: 8px;
-    padding: 9px 5px;
-    text-align: center;
-    vertical-align: middle;
-    width: 111px;
-    background-color: white;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    box-shadow: 3px 3px 0px #CCCCCC;
+    float: left;
     position: relative;
+    height: 70px;
+    box-sizing: border-box;
+    width: 19%;
+    margin: 0.5% 0.5%;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    -moz-transition: box-shadow 0.2s, border-color 0.2s;
+    -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package:hover {
-    background: #ECF5DA;
+    border-color: <% $main_color %>;
     cursor: pointer;
+    box-shadow: 0px 0px 0px #CCCCCC;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    -moz-transition: box-shadow 0.2s, border-color 0.2s;
+    -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package img {
+    float: left;
     height: 32px;
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin: 18px;
     width: 32px;
 }
 #software .package p {
-    border-top: 1px dashed #dddddd;
     color: #333333;
     display: table-cell;
-    font-size: 12px;
-    height: 50px;
+    font-size: 13px;
+    height: 68px;
     vertical-align: middle;
-    width: 111px;
+    padding-right: 30px;
 }
-#software .package_selected, #software .package_selected:hover {
-    background: <% $progress_bar_bg_color %>;
+#software .package:after{
+    background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
+    border-radius: 25px;
+    height: 24px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 24px;
+    margin-top: -12px;
+    content: " ";
 }
-#software .selected {
-    border-style:solid;
-    border-width:1px;
-    color:#000000;
-    padding:5px 10px;
-    font-weight:normal;
+
+/* package status */
+
+#software .package_selected,
+#software .package_selected:hover {
+    border-color: <% $main_color %>;
+    box-shadow: 0px 0px 0px #CCCCCC;
 }
-.package_installed:before {
-content: " ";
-position: absolute;
-top: -5px;
-right: -5px;
-border-radius: 13px;
-border: 1px solid #fff;
-height: 22px;
-width: 22px;
-background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !important;
+#software .package_installed,
+#software .package_installed:hover{
+    border: none;
+    box-shadow: 0px 0px 0px #CCCCCC;
+    background-color: #ddd;
+    cursor: default;
 }
-.package_installed.package_selected{
-    background-color: transparent !important;
+#software .package_selected:after{
+    background-color:<% $main_color %>;
 }
+#software .package_installed:after{
+    background-color:#666;
+}
+
+/* package sizes */
+
+#software .package-medium{
+    width: 32.3333%;
+}
+#software .package-medium img{
+    height: 42px;
+    margin: 14px;
+    width: 42px;
+}
+#software .package-medium p{
+    height: 70px;
+    font-size: 20px;
+}
+#software .package-big{
+    width: 49%;
+    height: 100px;
+}
+#software .package-big img{
+    height: 70px;
+    margin: 15px;
+    width: 70px;
+}
+#software .package-big p{
+    height: 100px;
+    font-size: 25px;
+    padding-right: 50px;
+}
+#software .btn-block button{
+    margin-right: 0.5%;
+}
+
+#software .warning {
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+}
+
+/*  Installation steps */
+
+#nav.install-steps li{
+    padding: 15px 10px 15px 30px;
+    background-color: transparent;
+    background-position: 5px center ;
+    background-repeat: no-repeat;
+}
+#nav.install-steps li:last-child{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+#nav.install-steps .step-done{
+    background-image: url(/data/images/apply-g.gif);
+}
+#nav.install-steps .step-actual{
+    background-image: url(/data/images/f.gif);
+    font-weight: bold;
+}
+
+/*  Installation layout */
+
 .headcontainer{
     padding: 10px 0px;
     width:100%;
@@ -1463,44 +1514,6 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     text-align: center;
     margin-bottom: 2px;
     margin-top: 0;
-}
-.final_installation {
-    height:450px;
-    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    margin: 10px 0;
-    overflow: hidden;
-    padding: 10px 20px;
-    position: relative;
-}
-.final_installation h4 {
-    font-size: 35px;
-    color: #E1721E;
-    width: 400px;
-}
-.final_installation h5 {
-    font-size: 20px;
-    color: #E1721E;
-    margin: 15px 0px;
-    width: 400px;
-}
-.final_installation p{
-    font-size:14px;
-    width:300px;
-    color:#666;
-    padding-left:5px;
-}
-.final_installation .start_now_boton{
-    font-size: 1.4em;
-    margin-top:20px;
-    background-color:#569724;
-    color:white;
-    border-color:#3C601D;
-    padding:15px 20px;
-    }
-.final_installation .start_now_boton:hover {
-    background-color:#5FAF21;
 }
 .slide_container {
     height:370px;
@@ -1609,6 +1622,14 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 }
 .help p, .note p, .ad p, .error p, .warning p, .adwarning p, .tip p, .emptynote p{
     margin-top: 0px;
+}
+.help p:last-child, .note p:last-child, .ad p:last-child, .error p:last-child, .warning p:last-child, .adwarning p:last-child, .tip p:last-child {
+    margin-bottom: 0;
+}
+.help h4, .note h4, .ad h4, .error h4, .warning h4, .adwarning h4, .tip h4 {
+    margin: 0;
+    padding: 0;
+    color: inherit;
 }
 .emptynote {
     background-color: #FAFAFA;
@@ -2104,6 +2125,15 @@ a.btn-only-icon{
     line-height: 50px !important;
 }
 
+/*** Buttons space ***/
+
+.btn-block{
+    margin: 20px 0px;
+}
+.btn-block .btn{
+    margin-left: 20px;
+}
+
 /*** DASHBOARD BTN ***/
 
 input.btn-dashboard {
@@ -2275,8 +2305,21 @@ form.formDiv fieldset {
     border: none;
     margin: 20px 0px 0px 0px;
 }
-form.formDiv > div {
+form.formDiv fieldset legend{
+    font-size: 1.5em;
+    font-weight: bold
+}
+form.formDiv fieldset legend + div{
+    margin-top: 10px;
+}
+form.formDiv > div,
+form.formDiv fieldset > div,
+form.formDiv .field {
     margin-top: 20px;
+}
+form.formDiv .grey-block{
+    background-color: #f5f5f5;
+    padding: 20px
 }
 .form-buttons{
     margin-top: 20px;
@@ -2286,13 +2329,8 @@ form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong {
     display: block;
     color: #333;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     font-weight: bold;
-}
-form.formDiv label .field_help:before {
-    content: "|";
-    font-weight: bold;
-    color: #ff7900;
 }
 form.formDiv input[type="checkbox"]{
     margin-left: 0px;
@@ -2301,16 +2339,16 @@ input[type='password'],
 input[type='text'],
 textarea,
 select {
-    border:1px solid #999;
+    border:1px solid #666;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
-    padding:5px;
+    padding:8px 12px;
     display: block;
     font-size: 14px;
     color: #333;
-    box-shadow: inset 0px 0px 5px #ddd;
-    -moz-box-shadow: inset 0px 0px 5px #ddd;
+    box-shadow: inset 0px 0px 2px #ddd;
+    -moz-box-shadow: inset 0px 0px 2px #ddd;
 }
 input:focus,
 textarea:focus,
@@ -2333,7 +2371,7 @@ select {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    padding:4px 5px 3px;
+    padding:6px 10px 7px;
 }
 .multiselect {
     margin: 2px;
@@ -2381,7 +2419,7 @@ form.formDiv .checkbox-group strong{
 form.formDiv .radio-group label,
 form.formDiv .checkbox-group label{
     font-weight: normal;
-    color: #666;
+    color: #333;
 }
 /* inline stuff */
 form.formDiv .inline-field{
@@ -2404,11 +2442,24 @@ form.formDiv .inline-field{
     font-weight: normal;
     color: #666;
 }
-
 .inline-label{
     display: inline-block !important;
     vertical-align: middle;
 }
+.field_help {
+    color: #666;
+    clear: both;
+    font-weight: normal;
+}
+form.formDiv label .field_help{
+    display:block;
+}
+.optional_field {
+    color: #00ADD0;
+    font-style: italic;
+    padding-left: 3px;
+}
+
 /********************************************************************************
 
 FOLDable SECtIONS
@@ -2498,6 +2549,71 @@ FOLDable SECtIONS
  Installation Wizard
 **********/
 
+.wizard img{
+    float:left;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.wizard form{
+    margin-left: 200px;
+}
+.iface-wizard {
+    background-color: #f5f5f5;
+    padding: 20px 0px
+}
+.iface-wizard h4 {
+    background-image: url("/data/images/network-interface.png");
+    background-position: 15px 10px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 100%;
+    padding: 15px 20px 15px 60px;
+    vertical-align: top;
+    margin:0px;
+}
+.iface-wizard > div {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: top;
+    border-left: 1px solid rgb(221, 221, 221);
+
+}
+.iface-wizard .radio-group{
+    margin:0px;
+}
+.iface-wizard .radio-group label{
+    margin-top: 5px;
+    font-size: 1.2em;
+}
+.final_installation {
+    height:450px;
+    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
+    background-color: #ddd;
+    margin-top:10px;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 50px;
+}
+.final_installation h4 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #666;
+}
+.final_installation h5 {
+    font-size: 20px;
+    color: #666;
+    margin: 15px 0px;
+    width: 40%;
+    font-weight: 100;
+}
+.final_installation .btn {
+    position: absolute;
+    bottom: 50px;
+}
+/***********/
+
 .buttons-group{
     background-color: rgba(0, 0, 0, 0.02);
     border-top: 1px solid #EEEEEE;
@@ -2575,7 +2691,8 @@ h6 {
 }
 
 /****
-NEW BUTTONS STYLES*/
+NEW BUTTONS STYLES
+****/
 
 .btn-block{
     display: block;
@@ -2596,6 +2713,7 @@ NEW BUTTONS STYLES*/
 }
 
 /*** migration layout ***/
+
 .info-block{
     display: inline-block;
     font-size: 1.5em;
@@ -2779,5 +2897,22 @@ td.stopped .done-bar{
 .migration-table td.status{
     min-width: 100px;
 }
+#software .package{
+    width: 24%;
 }
-
+#software .package-big {
+    width: 49%;
+}
+#software .package-medium {
+    width: 32.3333%;
+}
+#software .package p{
+    font-size: 11px;
+}
+#software .package.package-big p{
+    font-size: 20px;
+}
+#software .package.package-medium p{
+    font-size: 16px;
+}
+}

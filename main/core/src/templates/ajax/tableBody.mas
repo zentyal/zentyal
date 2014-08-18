@@ -99,7 +99,24 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    filter => $filter,
    nIds   => scalar @ids
 &>
-<div id='<% $tableName  %>_editForm' class="dropdownForm"></div>
+<div id='<% $tableName  %>_editForm' class="dropdownForm">
+% if ($action eq 'presetUpdate') {
+<& /ajax/changeRowForm.mas,
+  action => $action,
+  model => $model,
+  editid => $editid,
+  filter => $filter,
+  page => $page,
+  tpages => $tpages,
+  presetParams  => \%presetParams,
+  printableRowName => $printableRowName,
+&>
+<script>
+    $('#<% $tableName %>_top').hide();
+    $('#<% $tableName %>_editForm').show();
+</script>
+% }
+</div>
 
 % if (@ids or length($filter) > 0)  {
 %

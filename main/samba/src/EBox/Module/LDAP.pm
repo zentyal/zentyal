@@ -32,6 +32,7 @@ use EBox::Samba::LdapObject;
 use Net::LDAP;
 use Net::LDAP::Util qw(ldap_explode_dn canonical_dn);
 use Net::LDAP::LDIF;
+use Net::DNS::Resolver;
 use File::Temp;
 use File::Slurp;
 use Authen::SASL;
@@ -47,9 +48,10 @@ use TryCatch::Lite;
 # Returns:
 #
 #       An object implementing EBox::LdapUserBase
+#
 sub _ldapModImplementation
 {
-    throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented('_ldapModImplementation', __PACKAGE__);
 }
 
 # Method: ldap
@@ -75,6 +77,53 @@ sub clearLdapConn
     $self->{ldap} = undef;
 }
 
+# Method: _dnsResolve
+#
+#   Resolve a DNS name to its IP addresses
+#
+# Returns:
+#
+#   array ref - Containing the resolved IP addresses
+#
+sub _dnsResolve
+{
+    my ($self, $dnsName) = @_;
+
+    unless (defined $dnsName and length $dnsName) {
+        throw EBox::Exceptions::MissingArgument('dnsName');
+    }
+
+    my $addresses = [];
+    my $resolver = new Net::DNS::Resolver(config_file => '/etc/resolv.conf');
+    my $reply = $resolver->search($dnsName);
+    if ($reply) {
+        foreach my $rr ($reply->answer()) {
+            next unless $rr->type() eq 'A';
+            push (@{$addresses}, $rr->address());
+        }
+    } else {
+        my $resolvConf = read_file('/etc/resolv.conf');
+        throw EBox::Exceptions::Internal(
+            __x("DNS query failed: {x} (using nameservers {y}, " .
+                "/etc/resolv.conf was\n'{z}'",
+                x => $resolver->errorstring(),
+                y => join(', ', $resolver->nameservers()),
+                z => $resolvConf));
+    }
+
+    my $ipsString = join (', ', @{$addresses});
+    my $nsString = join (', ', $resolver->nameservers());
+    EBox::debug("Name '$dnsName' has been resolved to the following " .
+                "IP addresses [$ipsString], using name servers [$nsString]");
+
+    unless (scalar @{$addresses}) {
+        throw EBox::Exceptions::Internal("Name '$dnsName' could not have ".
+            "been resolved using nameservers [$nsString]");
+    }
+
+    return $addresses;
+}
+
 sub _connectToSchemaMaster
 {
     my ($self) = @_;
@@ -84,6 +133,7 @@ sub _connectToSchemaMaster
     my $ntdsParts = ldap_explode_dn($ntdsOwner);
     shift @{$ntdsParts};
     my $serverOwner = canonical_dn($ntdsParts);
+    EBox::debug("Schema master FSMO role owner is $serverOwner");
 
     my $params = {
         base => $serverOwner,
@@ -99,13 +149,24 @@ sub _connectToSchemaMaster
     }
     my $entry = $result->entry(0);
     my $dnsOwner = $entry->get_value('dnsHostName');
+    EBox::debug("Schema master FSMO role owner name is $dnsOwner");
 
-    my $masterLdap = new Net::LDAP($dnsOwner);
+    EBox::debug("Resolving schema master DNS name $dnsOwner");
+    my $ownerAddresses = $self->_dnsResolve($dnsOwner);
+
+    my $masterLdap = new Net::LDAP($ownerAddresses);
     unless ($masterLdap) {
         throw EBox::Exceptions::Internal(
-            __x('Error connectiong to schema master role owner ({x})',
+            __x('Error connecting to schema master role owner ({x})',
                 x => $dnsOwner));
     }
+    my $socket = $masterLdap->socket();
+    my $connectedIp = '';
+    if ($socket->isa('IO::Socket::INET6') or $socket->isa('IO::Socket::INET')) {
+        $connectedIp = $socket->sockhost();
+    }
+    my $connectedPort = $masterLdap->port();
+    EBox::debug("Connected to schema master: $connectedIp:$connectedPort");
 
     # Bind with schema operator privilege
     my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
@@ -158,18 +219,19 @@ sub _sendSchemaUpdate
     my $ldifFile = $fh->filename();
     my $buffer = File::Slurp::read_file($ldifTemplate);
     $buffer =~ s/DOMAIN_TOP_DN/$defaultNC/g;
+    EBox::debug("Mangled LDIF:\n$buffer\n");
     File::Slurp::write_file($ldifFile, $buffer);
 
     # Send update
-    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'die');
+    my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
     while (not $ldif->eof()) {
         my $entry = $ldif->read_entry();
-        if ($ldif->error()) {
+        if ($ldif->error() or not defined $entry) {
             throw EBox::Exceptions::Internal(
                 __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
                     x => $ldif->error(), y => $ldif->error_lines()));
         } else {
-            # Skip if already extended
+            # Check if the entry has been already loaded into schema
             my $dn = $entry->dn();
             # Skip checking the update schema cache sent to root DSE
             if ($dn ne '') {
@@ -185,7 +247,7 @@ sub _sendSchemaUpdate
             my $msg = $entry->update($masterLdap);
             if ($msg->is_error()) {
                 throw EBox::Exceptions::LDAP(
-                    message => __("Error sending schema update: $dn"),
+                    message => "Error sending schema update: $dn",
                     result => $msg);
             }
         }
@@ -195,25 +257,31 @@ sub _sendSchemaUpdate
 
 # Method: _loadSchemas
 #
-#  Load the *.ldif schemas contained in the module package
+#  Load the schema-*.ldif schemas contained in the module package
 #
 sub _loadSchemas
 {
     my ($self) = @_;
+    my $path = EBox::Config::share() . "zentyal-" . $self->name();
+    my @schemas = glob ("$path/schema-*.ldif");
+    $self->_loadSchemasFiles(\@schemas);
+}
 
+sub _loadSchemasFiles
+{
+    my ($self, $schemas_r) = @_;
+    my @schemas = @{ $schemas_r };
     # Locate and connect to schema master
     my $masterLdap = $self->_connectToSchemaMaster();
 
-    my $name = $self->name();
-    my $path = EBox::Config::share() . "zentyal-$name";
-    foreach my $ldif (glob ("$path/*.ldif")) {
+    foreach my $ldif (@schemas) {
         $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 
     my $timeout = 30;
     my $defaultNC = $self->ldap->dn();
     # Wait for schemas replicated if we are not the master
-    foreach my $ldif (glob ("$path/*.ldif")) {
+    foreach my $ldif (@schemas) {
         my @lines = read_file($ldif);
         foreach my $line (@lines) {
             my ($dn) = $line =~ /^dn: (.*)/;
@@ -247,7 +315,8 @@ sub _regenConfig
 
     return unless $self->configured();
 
-    if ($self->global()->modInstance('samba')->isProvisioned()) {
+    my $samba = $self->global()->modInstance('samba');
+    if ($samba->isProvisioned() and $samba->isEnabled()) {
         $self->_performSetup();
         $self->SUPER::_regenConfig(@_);
     }
@@ -258,11 +327,9 @@ sub _performSetup
     my ($self) = @_;
 
     my $state = $self->get_state();
-    unless ($state->{'_schemasAdded'}) {
-        $self->_loadSchemas();
-        $state->{'_schemasAdded'} = 1;
-        $self->set_state($state);
-    }
+    $self->_loadSchemas();
+    $state->{'_schemasAdded'} = 1;
+    $self->set_state($state);
 
     unless ($state->{'_ldapSetup'}) {
         $self->setupLDAP();

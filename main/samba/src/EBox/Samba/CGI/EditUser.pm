@@ -129,7 +129,7 @@ sub _process
                 if ($mailMod and $mailMod->configured()) {
                     $mailMod->_ldapModImplementation()->delUserAccount($user);
                 } else {
-                    $user->set('mail', '', 1);
+                    $user->delete('mail', 1);
                 }
             }
             if ($addMail) {
@@ -143,7 +143,7 @@ sub _process
 
             $user->set('givenname', $givenName, 1) if ($givenName);
             $user->set('sn', $surname, 1) if ($surname);
-            $user->setDisabled($disabled);
+            $user->setDisabled($disabled, 1);
 
             # Change password if not empty
             my $password = $self->unsafeParam('password');
@@ -176,7 +176,7 @@ sub _process
         my @groups = $self->unsafeParam('addgroup');
 
         foreach my $gr (@groups) {
-            my $group = new EBox::Samba::Group(gid => $gr);
+            my $group = new EBox::Samba::Group(samAccountName => $gr);
             $user->addGroup($group);
         }
 
@@ -188,7 +188,7 @@ sub _process
 
         my @groups = $self->unsafeParam('delgroup');
         foreach my $gr (@groups){
-            my $group = new EBox::Samba::Group(gid => $gr);
+            my $group = new EBox::Samba::Group(samAccountName => $gr);
             $user->removeGroup($group);
         }
 

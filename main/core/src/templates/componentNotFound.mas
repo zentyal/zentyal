@@ -1,0 +1,19 @@
+<%init>
+use EBox::Gettext;
+my $eboxHomepageName = __(q{Zentyal homepage});
+my $eboxHomepageAHref = "<a href='http://www.zentyal.org'>$eboxHomepageName</a> ";
+
+my @tipList = (
+   __(q{If you typed the page address manually, please check it}),
+   __(q{Maybe the element was removed and the page address is not longer valid}),
+   __(q{It can be also a parameters cache error, in this case you can navigate again to the page using the left menu}),
+   __x(q{If you need more help, you may want visit {homepage} for documentation and mailing lists}, homepage => $eboxHomepageAHref),
+);
+</%init>
+<h4><% __(q{we're sorry}) %></h4>
+<% __('The request contains a reference to a element which doest not exists') %>
+<ul>
+% foreach my $tip (@tipList) {
+  <li><% $tip %></li>
+% }
+</ul>

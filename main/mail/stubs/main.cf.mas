@@ -7,6 +7,7 @@
 
     $valiasesCfFile
     $userAliasesCfFile
+    $groupAliasesCfFile
     $mailboxCfFile
     $vdomainsCfFile
     $loginCfFile
@@ -115,7 +116,7 @@ inet_interfaces = all
 
 # Aliases
 virtual_alias_domains = $virtual_alias_maps
-virtual_alias_maps = ldap:<% $valiasesCfFile %>, ldap:<% $userAliasesCfFile %>
+virtual_alias_maps = ldap:<% $valiasesCfFile %>,ldap:<% $userAliasesCfFile %>,ldap:<% $groupAliasesCfFile %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1

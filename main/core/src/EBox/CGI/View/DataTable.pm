@@ -108,6 +108,7 @@ sub _presetUpdate
             $editid = $foundId;
         }
     }
+
     # Not unique or just adding a new unique row
     my $gl = EBox::Global->getInstance();
     my @params;
@@ -117,6 +118,7 @@ sub _presetUpdate
     push(@params, 'presetParams' => $presetParams);
     push(@params, 'editid'       => $editid);
     push(@params, 'page'         => 0);
+    push(@params, 'user' => $self->user());
 
     $self->{'params'} = \@params;
 }
