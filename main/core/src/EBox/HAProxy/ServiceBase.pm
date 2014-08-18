@@ -218,16 +218,15 @@ sub targetVHostDomains
 
 # Method: targetIP
 #
-#   This method must be always overrided by services implementing this interface.
+#   This method needs to be overrided overrided by services implementing this interface if not listening on localhost
 #
 # Returns:
 #
-#   string - IP address where the service is listening, usually 127.0.0.1 .
+#   string - IP address where the service is listening.
 #
 sub targetIP
 {
-    throw EBox::Exceptions::NotImplemented(
-        'All EBox::HAProxy::ServiceBase implementations MUST specify the target IP');
+    return '127.0.0.1';
 }
 
 # Method: targetHTTPPort

@@ -73,6 +73,7 @@ sub updatedRowNotify
     if ($port != $oldPort) {
         my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
         $haProxyMod->updateServicePorts('webadmin', [$port]);
+        $haProxyMod->setAsChanged();
         $self->setMessage(
             __('Take into account you have to manually change the URL once the save changes'
                . ' process is started to see web administration again.'),

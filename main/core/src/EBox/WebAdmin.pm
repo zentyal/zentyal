@@ -878,47 +878,6 @@ sub _migrateTo34
 # Implementation of EBox::HAProxy::ServiceBase
 #
 
-# Method: allowServiceDisabling
-#
-#   Webadmin must be always on so users don't lose access to the web admin UI.
-#
-# Returns:
-#
-#   boolean - Whether this service may be disabled from the reverse proxy.
-#
-sub allowServiceDisabling
-{
-    return 0;
-}
-
-# Method: defaultHTTPSPort
-#
-# Returns:
-#
-#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
-#
-sub defaultHTTPSPort
-{
-    return 443;
-}
-
-# Method: blockHTTPPortChange
-#
-#   Always return True to prevent that webadmin is served without SSL.
-#
-# Returns:
-#
-#   boolean - Whether the port may be customised or not.
-#
-sub blockHTTPPortChange
-{
-    return 1;
-}
-
 # Method: pathHTTPSSSLCertificate
 #
 # Returns:
@@ -937,21 +896,6 @@ sub pathHTTPSSSLCertificate
     }
 
     return \@certs;
-}
-
-# Method: targetIP
-#
-# Returns:
-#
-#   string - IP address where the service is listening, usually 127.0.0.1 .
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::targetIP>
-#
-sub targetIP
-{
-    return '127.0.0.1';
 }
 
 # Method: targetHTTPSPort
@@ -984,7 +928,7 @@ sub HAProxyInternalService
     return [
         {
             name => 'webadmin',
-            port => 443,
+            port => $self->model('AdminPort')->value('port'),
             printableName => __('Zentyal Administration'),
             targetIP => '127.0.0.1',
             targetPort => $self->targetHTTPSPort(),
@@ -996,6 +940,5 @@ sub HAProxyInternalService
         }
     ];
 }
-
 
 1;
