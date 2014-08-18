@@ -412,6 +412,9 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
+    # FIXME
+    $self->_issueWebserverCertificate();
+
     $self->_setApachePortsConf();
 
     $self->_setOCSManagerConf();
@@ -465,9 +468,9 @@ sub _setSOGoApacheConf
         my @params = ();
         push (@params, hostname => $sysinfoMod->fqdn());
 
-        # FIXME: SSL not working yet
-        #my $webserverMod = $global->modInstance('webserver');
-        #push (@params, sslPort  => $webserverMod->listeningHTTPSPort());
+        my $webserverMod = $global->modInstance('webserver');
+        # FIXME: unhardcode this
+        push (@params, sslPort  => 443);
 
         $self->writeConfFile(SOGO_APACHE_CONF, "openchange/zentyal-sogo.mas", \@params);
         try {
@@ -1120,49 +1123,69 @@ sub rpcProxyHosts
 sub HAProxyInternalService
 {
     my ($self) = @_;
-    my $RPCProxyModel = $self->model('RPCProxy');
-    if (not $self->_rpcProxyEnabled()) {
-        return [];
-    }
 
-    my $hosts;
-    try {
-        $hosts = $self->rpcProxyHosts();
-    } catch ($ex) {
-        EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
-    };
-    if (not $hosts) {
-        return [];
-    }
-
-    my @services;
-    if ($RPCProxyModel->httpsEnabled()) {
-        my $rpcpService = {
-            name => 'oc_rpcproxy_https',
+    # FIXME: unhardcode these ports adding options to configure them on the interface
+    my @services = (
+        {
+            port => '80',
+            isDefault => 1,
+            name => 'apache_http',
+            domains => [],
+            targetIP => '127.0.0.1',
+            targetPort => '62080',
+            isSSL => 0,
+        },
+        {
             port => 443,
-            printableName => 'OpenChange RPCProxy',
+            isDefault => 1,
+            pathSSLCert => '/etc/apache2/ssl/ssl.pem',
+            name => 'apache_https',
+            domains => [],
             targetIP => '127.0.0.1',
-            targetPort => RPCPROXY_PORT,
-            hosts    => $hosts,
-            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => OCSMANAGER_DOMAIN_PEM,
-            isSSL   => 1,
-        };
-        push @services, $rpcpService;
-    }
+            targetPort => '62443',
+            isSSL => 1,
+        },
+    );
 
-    if ($RPCProxyModel->httpEnabled()) {
-        my $httpRpcpService = {
-            name => 'oc_rpcproxy_http',
-            port => 80,
-            printableName => 'OpenChange RPCProxy',
-            targetIP => '127.0.0.1',
-            targetPort => RPCPROXY_PORT,
-            hosts    => $hosts,
-            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            isSSL   => 0,
+    my $RPCProxyModel = $self->model('RPCProxy');
+    if ($self->_rpcProxyEnabled()) {
+        my $hosts;
+        try {
+            $hosts = $self->rpcProxyHosts();
+        } catch ($ex) {
+            EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
         };
-        push @services, $httpRpcpService;
+
+        if ($hosts) {
+            if ($RPCProxyModel->httpsEnabled()) {
+                my $rpcpService = {
+                    name => 'oc_rpcproxy_https',
+                    port => 443,
+                    printableName => 'OpenChange RPCProxy',
+                    targetIP => '127.0.0.1',
+                    targetPort => RPCPROXY_PORT,
+                    hosts    => $hosts,
+                    paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+                    pathSSLCert => OCSMANAGER_DOMAIN_PEM,
+                    isSSL   => 1,
+                };
+                push @services, $rpcpService;
+            }
+
+            if ($RPCProxyModel->httpEnabled()) {
+                my $httpRpcpService = {
+                    name => 'oc_rpcproxy_http',
+                    port => 80,
+                    printableName => 'OpenChange RPCProxy',
+                    targetIP => '127.0.0.1',
+                    targetPort => RPCPROXY_PORT,
+                    hosts    => $hosts,
+                    paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+                    isSSL   => 0,
+                };
+                push @services, $httpRpcpService;
+            }
+        }
     }
 
     return \@services;
@@ -1176,6 +1199,37 @@ sub HAProxyPreSetConf
         my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
         $self->_setCerts($domain)
     }
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+        {
+            serviceId =>  'zentyal_webserver',
+            service   =>  __('Web Server'),
+            path      => '/etc/apache2/ssl/ssl.pem',
+            user      => 'root',
+            group     => 'root',
+            mode      => '0400',
+        }
+    ];
 }
 
 sub _vdomainModImplementation
@@ -1380,6 +1434,42 @@ sub dropSOGODB
     $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
+}
+
+# Generate the certificate, issue a new one or renew the existing one
+sub _issueWebserverCertificate
+{
+    my ($self) = @_;
+
+    my $ca = $self->global()->modInstance('ca');
+    return unless defined ($ca);
+
+    my $certificates = $ca->model('Certificates');
+    my $cn = $certificates->cnByService('zentyal_webserver');
+
+    my $caMD = $ca->getCACertificateMetadata();
+    my $certMD = $ca->getCertificateMetadata(cn => $cn);
+
+    # If a certificate exists, check if it can still be used
+    if (defined($certMD)) {
+        my $isStillValid = ($certMD->{state} eq 'V');
+        my $isAvailable = (-f $certMD->{path});
+
+        if ($isStillValid and $isAvailable) {
+            $ca->renewCertificate(
+                commonName => $cn,
+                endDate => $caMD->{expiryDate},
+                #FIXME: subjAltNames => $self->_subjAltNames()
+            );
+            return;
+        }
+    }
+
+    $ca->issueCertificate(
+        commonName => $cn,
+        endDate => $caMD->{expiryDate},
+        #FIXME: subjAltNames => $self->_subjAltNames()
+    );
 }
 
 1;

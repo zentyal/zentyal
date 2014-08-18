@@ -99,24 +99,7 @@ sub ports
 {
     my ($self) = @_;
 
-    my $webadmin = $self->global()->modInstance('webadmin');
-    my $sslCertPath = $webadmin->pathHTTPSSSLCertificate();
-
     my %ports;
-
-    # FIXME: unhardcode this
-    $ports{80} = {
-        isSSL => 0,
-        services => [
-            {
-                isDefault => 1,
-                name => 'apache',
-                domains => [],
-                targetIP => '127.0.0.1',
-                targetPort => '62080',
-            },
-        ],
-    };
 
     my @modsServices = @{ $self->_hiddenServices() };
     foreach my $service (@modsServices) {
@@ -338,48 +321,6 @@ sub updateServicePorts
     }
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    my $redis = $self->redis();
-
-    # Migrate the existing zentyal service definition to follow the new layout handled by HAProxy.
-    my @servicesKeys = $redis->_keys('services/*/ServiceTable/keys/*');
-    foreach my $key (@servicesKeys) {
-        my $value = $redis->get($key);
-        unless (ref $value eq 'HASH') {
-            next;
-        }
-        unless ((defined $value->{internal}) and $value->{internal}) {
-            next;
-        }
-        if ($value->{name} eq 'administration') {
-            # WebAdmin.
-            my $webadminMod = $self->global()->modInstance('webadmin');
-            $value->{name} = 'zentyal_' . $webadminMod->name();
-            $value->{printableName} = $webadminMod->printableName(),
-            $value->{description} = $webadminMod->printableName(),
-            $redis->set($key, $value);
-# FIXME: is this needed?
-#        } elsif ($value->{name} eq 'webserver') {
-#            # WebServer.
-#            my $webserverMod = $self->global()->modInstance('webserver');
-#            $value->{name} = 'zentyal_' . $webserverMod->name();
-#            $value->{printableName} = $webserverMod->printableName(),
-#            $value->{description} = $webserverMod->printableName(),
-#            $redis->set($key, $value);
-        }
-
-    }
-}
-
 # Method: certificates
 #
 #   This method is used to tell the CA module which certificates
@@ -398,20 +339,19 @@ sub initialSetup
 sub certificates
 {
     my ($self) = @_;
-    my $webadmin = $self->global()->modInstance('webadmin');
-    my @certs;
-    foreach my $path (@{ $webadmin->pathHTTPSSSLCertificate()}) {
-        push @certs,   {
-             serviceId =>  'zentyal_' . $webadmin->name(),
-             service =>  __('Zentyal Administration Web Server'),
-             path    =>  $path,
-             user => EBox::Config::user(),
-             group => EBox::Config::group(),
-             mode => '0600',
-         };
-    }
 
-    return \@certs;
+    my $webadmin = $self->global()->modInstance('webadmin');
+
+    return [
+        {
+            serviceId =>  'zentyal_' . $webadmin->name(),
+            service =>  __('Zentyal Administration Web Server'),
+            path    =>  $webadmin->pathHTTPSSSLCertificate()->[0],
+            user => EBox::Config::user(),
+            group => EBox::Config::group(),
+            mode => '0600',
+        }
+    ];
 }
 
 1;
