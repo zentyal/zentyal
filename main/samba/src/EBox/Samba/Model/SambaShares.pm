@@ -512,6 +512,9 @@ sub _checkSystemShareMountOptions
         }
     }
 
+    # BTRFS has acl and extended attributes by default
+    return 1 if ($type =~ m/btrfs/);
+
     my $options;
     try {
         $options = $fs->options($mountPoint);

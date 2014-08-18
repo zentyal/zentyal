@@ -20,6 +20,7 @@ package EBox::Samba;
 
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
+            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
@@ -831,12 +832,13 @@ sub _regenConfig
 
     # Do provision first before adding schemas, overrides
     # default EBox::Module::LDAP behavior of adding schemas
-    # first and then regenConfig when users already provisioned
+    # first and then regenConfig
     $self->EBox::Module::Service::_regenConfig(@_);
     if ($self->mode() eq STANDALONE_MODE) {
-        $self->_performSetup();
+        if ($self->isProvisioned() and $self->isEnabled()) {
+            $self->_performSetup();
+        }
     }
-
 }
 
 # Method: _setConf
@@ -870,6 +872,8 @@ sub _setConfExternalAD
     # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
+    # Reset LDAP connection
+    $self->clearLdapConn();
 }
 
 sub _setConfInternal
@@ -1050,23 +1054,28 @@ sub _postServiceHook
             my $drivePath = "\\\\$netbiosName.$realmName";
             my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
 
+            # Skip if unmanaged_home_directory config key is defined and
+            # no changes made to roaming profiles
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
             my $users = $self->users();
-            foreach my $user (@{$users}) {
-                # Set roaming profiles
-                if ($roamingProfilesChanged) {
-                    if ($self->roamingProfiles()) {
-                        $user->setRoamingProfile(1, $profilesPath, 1);
-                    } else {
-                        $user->setRoamingProfile(0, undef, 1);
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
+                foreach my $user (@{$users}) {
+                    # Set roaming profiles
+                    if ($roamingProfilesChanged) {
+                        if ($self->roamingProfiles()) {
+                            $user->setRoamingProfile(1, $profilesPath, 1);
+                        } else {
+                            $user->setRoamingProfile(0, undef, 1);
+                        }
                     }
-                }
 
-                # Mount user home on network drive
-                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
-                $user->save();
+                    # Mount user home on network drive
+                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
+                    $user->save();
+                }
             }
         }
 
@@ -1089,6 +1098,7 @@ sub _postServiceHook
         my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
         my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
         my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+        my $setDescriptorError;
         for my $id (@{$sambaShares->ids()}) {
             my $row = $sambaShares->row($id);
             my $enabled     = $row->valueByName('enabled');
@@ -1202,8 +1212,16 @@ sub _postServiceHook
                              FILE_ATTRIBUTE_HIDDEN |
                              FILE_ATTRIBUTE_READONLY |
                              FILE_ATTRIBUTE_SYSTEM;
-            EBox::debug("Setting NT ACL on file: $relativeSharePath");
-            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            try {
+                EBox::debug("Setting NT ACL on file: $relativeSharePath");
+                $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
+            } catch ($ex) {
+                EBox::error(
+                    __x("Error setting security descriptor on share '{x}': {y}",
+                        x => $shareName, y => $ex));
+                $setDescriptorError = 1;
+            }
+
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath,
                 attributes => $attributes, recursive => 1);
@@ -1216,8 +1234,15 @@ sub _postServiceHook
                 foreach my $item (@{$shareContentList}) {
                     my $itemName = $item->{name};
                     $itemName =~ s/^\/\/(.*)/\/$1/s;
-                    EBox::info("Replacing ACLs for $shareName$itemName");
-                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    try {
+                        EBox::debug("Replacing ACLs for $shareName$itemName");
+                        $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                    } catch ($ex) {
+                        EBox::error(
+                            __x("Error setting security descriptor on file {x}{y}: {z}",
+                                x => $shareName, y => $itemName, z => $ex));
+                        $setDescriptorError = 1;
+                    }
                 }
             }
             delete $state->{shares_set_rights}->{$shareName};
@@ -1233,6 +1258,13 @@ sub _postServiceHook
         # Write DNS update list
         EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+
+        # Show warning if error setting ACLs
+        if ($setDescriptorError) {
+            $self->global->addSaveMessage(
+                __("There were errors setting ACLs on samba shares, " .
+                    "please check the zentyal log for details."));
+        }
     } else {
         EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
@@ -3971,6 +4003,52 @@ sub _cleanModulesForReprovision
         $mod->set_state($state);
         $mod->setAsChanged(1);
     }
+}
+
+#
+# EBox::NetworkObserver implementation
+#
+
+# Method: nameserverAdded
+#
+#   Overrided to clear LDAP connection if nameserver is added
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverAdded
+#
+sub nameserverAdded
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
+}
+
+# Method: nameserverDelete
+#
+#   Overrided to clear LDAP connection if nameserver is deleted
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverDelete
+#
+sub nameserverDelete
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
 }
 
 1;

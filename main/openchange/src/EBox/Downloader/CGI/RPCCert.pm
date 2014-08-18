@@ -1,4 +1,4 @@
-# Copyright (C) 2013 Zentyal S.L.
+# Copyright (C) 2013-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,8 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
+use File::Basename;
+
 sub new
 {
     my ($class, %params) = @_;
@@ -32,23 +34,41 @@ sub new
     return  $self;
 }
 
+# Method: _path
+#
+# Overrides:
+#
+#     <EBox::Downloader::CGI::Base::_path>
+#
 sub _path
 {
-    return EBox::Config::downloads() . 'rpcproxy.crt';
+    my $ca = EBox::Global->getInstance()->modInstance('ca');
+    my $caMetadata = $ca->getCACertificateMetadata();
+    return $caMetadata->{path};
 }
 
+# Method: _process
+#
+#     Make sure the CA is available
+#
+# Overrides:
+#
+#     <EBox::Downloader::CGI::Base::_process>
+#
 sub _process
 {
     my ($self) = @_;
-    my $openchange = EBox::Global->modInstance('openchange');
-    my $file = $self->_path();
-    if (not -r $file) {
-        $openchange->_createRPCProxyCertificate();
-        if (not -r $file) {
-            throw EBox::Exceptions::External(__('Cannot create certificate for RPC Proxy with the current configuration'));
-        }
+
+    my $ca = EBox::Global->getInstance()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        throw EBox::Exceptions::External(__('Cannot get the CA certificate as it is not available'));
     }
     $self->SUPER::_process();
+    # Use .crt extension to ease Windows import
+    my ($filename, $directories, $suffix) = fileparse($self->{downfile}, qr/\.[^.]+$/);
+    if ($suffix ne 'crt') {
+        $self->{downfilename} = "${filename}.crt";
+    }
 }
 
 1;

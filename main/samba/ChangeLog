@@ -1,5 +1,23 @@
 HEAD
 	+ Fixed module instantiatio with wrong mode
+	+ Improve save changes speed avoiding loop in postServiceHook if no changes
+	  made to roaming profiles
+	+ Implement nameserverAdded and nameserverDelete from NetworkObserver to
+	  reset LDAP connection if name servers change in external AD mode
+3.5.6
+	+ Add dpkg trigger to restart module when samba package is upgraded
+	+ Fix ad-migrate script mode check
+3.5.5
+	+ Adapted to changes in group mail account
+3.5.4
+	+ Show a warning on post save changes dialog if errors happend while
+	  setting shares ACLs
+	+ Do not check for acl and user_xattr filesystem options if filesystem is
+	  btrfs
+	+ Provision: Check domain netbios name is not equal to host netbios name
+	+ Resolve schema master dns name and try to connect to all returned IP
+	  addresses until success
+	+ Skip schema extensions if module disabled
 3.5.3
 	+ Use bash as default shell
 	+ Added external AD field to LDAP information model

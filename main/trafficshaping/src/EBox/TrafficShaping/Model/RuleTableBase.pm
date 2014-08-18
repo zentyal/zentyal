@@ -142,7 +142,6 @@ sub validateTypedRow
     my %targets;
     my $filterType = $params->{filterType}->value();
     if ($filterType eq 'fw') {
-
         # Check objects have members
         my $objMod = $self->global()->modInstance('objects');
         foreach my $target (qw(source destination)) {
@@ -159,19 +158,18 @@ sub validateTypedRow
             }
         }
 
-        my $service = $params->{service}->subtype();
-        if ($service->fieldName() eq 'port') {
-            my $servMod = $self->global()->modInstance('services');
-            # Check if service is any, any source or destination is given
-            if ($service->value() eq 'any'
-               and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
-               and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
+        my $service = $params->{service_port};
+        my $servMod = $self->global()->modInstance('services');
+        # Check if service is any, any source or destination is given
+        if ($service->value() eq 'any'
+            and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
+            and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
 
-                throw EBox::Exceptions::External(
-                    __('If service is any, some source or ' .
+            throw EBox::Exceptions::External(
+                __('If service is any, some source or ' .
                        'destination should be provided'));
 
-            }
+
         }
 
         # Transform objects (Select type) to object identifier to satisfy
@@ -231,7 +229,7 @@ sub validateTypedRow
         push (@ruleArgs, reactivated    => $reactivated);
 
         if ($filterType eq 'fw') {
-            push (@ruleArgs, service        => $params->{service}->value());
+            push (@ruleArgs, service        => $params->{service_port}->value());
             push (@ruleArgs, source         => $targets{source});
             push (@ruleArgs, destination    => $targets{destination});
         }
@@ -285,25 +283,15 @@ sub _table
                     editable => 1,
                     help => __('Interface connected to this gateway')
          ),
-         new EBox::Types::Union(
-            fieldName   => 'service',
-            printableName => __('Service'),
-            subtypes =>
-               [
-                new EBox::Types::Select(
+        new EBox::Types::Select(
                     fieldName       => 'service_port',
-                    printableName   => __('Port based service'),
+                    printableName   => __('Service'),
                     foreignModel    => $self->modelGetter('services', 'ServiceTable'),
                     foreignField    => 'printableName',
                     foreignNextPageField => 'configuration',
                     editable        => 1,
                     cmpContext      => 'port',
-                    ),
-                $self->_l7Types(),
-               ],
-             editable => 1,
-             help => _serviceHelp()
-         ),
+                   ),
          new EBox::Types::Union(
              fieldName     => 'source',
              printableName => __('Source'),
@@ -553,51 +541,6 @@ sub _serviceHelp
               'packet to match a service.');
 }
 
-# If l7filter capabilities are not enabled return dummy types which
-# are disabled
-sub _l7Types
-{
-    my ($self) = @_;
-
-    if ($self->parentModule()->l7FilterEnabled()) {
-        return (
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Protocol',
-                    printableName   => __('Application based service'),
-                    foreignModel    => $self->modelGetter('l7-protocols', 'Protocols'),
-                    foreignField    => 'protocol',
-                    editable        => 1,
-                    cmpContext      => 'protocol',
-                    ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Group',
-                    printableName   =>
-                    __('Application based service group'),
-                    foreignModel    =>   $self->modelGetter('l7-protocols', 'Groups'),
-                    foreignField    => 'group',
-                    editable        => 1,
-                    cmpContext      => 'group',
-                    ));
-    } else {
-        return (
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Protocol',
-                    printableName   => __('Application based service'),
-                    options         => [],
-                    editable        => 1,
-                    disabled        => 1,
-                    cmpContext      => 'protocol',
-                    ),
-                new EBox::Types::Select(
-                    fieldName       => 'service_l7Group',
-                    printableName   => __('Application based service group'),
-                    options         => [],
-                    editable        => 1,
-                    disabled        => 1,
-                    cmpContext      => 'group',
-                    ));
-    }
-}
 
 sub _populateFilterType
 {
@@ -655,7 +598,7 @@ sub rulesForIface
         };
 
         if ($filterType eq 'fw') {
-            $ruleRef->{service} = $row->elementByName('service');
+            $ruleRef->{service} = $row->elementByName('service_port');
             $ruleRef->{source} = $row->elementByName('source')->subtype();
             $ruleRef->{destination} = $row->elementByName('destination')->subtype();
         }
@@ -736,10 +679,10 @@ sub viewCustomizer
 
     my $filterTypeActions = {
         fw => {
-            enable => ['service', 'source', 'destination'],
+            enable => ['service_port', 'source', 'destination'],
         },
         u32 => {
-            disable => ['service', 'source', 'destination'],
+            disable => ['service_port', 'source', 'destination'],
         },
     };
 

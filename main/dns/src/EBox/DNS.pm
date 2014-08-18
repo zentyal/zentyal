@@ -109,13 +109,17 @@ sub appArmorProfiles
 #
 #  Check <EBox::DNS::Model::DomainTable> for details
 #
+# Returns:
+#
+#  String - the identifier for the domain
+#
 sub addDomain
 {
     my ($self, $domainData) = @_;
 
     my $domainModel = $self->model('DomainTable');
 
-    $domainModel->addDomain($domainData);
+    return $domainModel->addDomain($domainData);
 }
 
 # Method: addService

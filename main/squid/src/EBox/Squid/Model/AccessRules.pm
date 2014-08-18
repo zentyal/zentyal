@@ -149,7 +149,7 @@ sub _populateGroups
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $sambaMod = $self->global()->modInstance('samba');
-        return [] unless ($sambaMod->isEnabled());
+        return [] unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned());
 
         my @groups;
         my $domainUsersGroup = $sambaMod->ldap->domainUsersGroup();
@@ -573,10 +573,7 @@ sub rules
                     # ignore rules for empty groups
                     next;
                 }
-                $rule->{users} = [ (map {
-                                          my $name =  $_->name();
-                                          lc $name;
-                                      } @{$users}) ];
+                $rule->{users} = [ (map { $_->name() } @{$users}) ];
             } elsif ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
                 $rule->{adDN} = $source->value();
             }

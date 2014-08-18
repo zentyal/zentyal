@@ -129,7 +129,8 @@ sub setUserAccount
         return;
     }
 
-    $self->_checkMaildirNotExists($lhs, $rhs);
+    # FIXME: this breaks migration from 3.4
+    #$self->_checkMaildirNotExists($lhs, $rhs);
 
     my $quota = $mail->defaultMailboxQuota();
 
@@ -148,14 +149,9 @@ sub setUserAccount
     $user->set('mailHomeDirectory', DIRVMAIL, 1);
     $user->save();
 
-    $self->_createMaildir($lhs, $rhs);
-
-    my @list = $mail->{malias}->listMailGroupsByUser($user);
-    foreach my $item(@list) {
-        my @aliases = @{ $mail->{malias}->groupAliases($item) };
-        foreach my $alias (@aliases) {
-            $mail->{malias}->addMaildrop($alias, $email);
-        }
+    my $dir = DIRVMAIL . "/$rhs/$lhs";
+    unless (EBox::Sudo::fileTest('-e', $dir)) {
+        $self->_createMaildir($lhs, $rhs);
     }
 }
 
@@ -182,12 +178,6 @@ sub delUserAccount
     my $mail = EBox::Global->modInstance('mail');
     # First we remove all mail aliases asociated with the user account.
     $user->delete('otherMailbox');
-
-
-    # Remove mail account from group alias maildrops
-    foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
-        $mail->{malias}->delMaildrop($alias,$usermail);
-    }
 
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
@@ -292,6 +282,30 @@ sub delAccountsFromVDomain   #vdomain
     }
 }
 
+sub setGroupAccount
+{
+    my ($self, $group, $mail) = @_;
+    my $mailMod = EBox::Global->modInstance('mail');
+
+    EBox::Validate::checkEmailAddress($mail, __('mail account'));
+    $mailMod->checkMailNotInUse($mail, owner => $group);
+
+    $group->set('mail', $mail);
+}
+
+sub delGroupAccount
+{
+    my ($self, $group) = @_;
+
+    my $mailMod = EBox::Global->modInstance('mail');
+    my @groupAliases = @{ $mailMod->{malias}->groupAliases($group) };
+    foreach my $alias (@groupAliases) {
+        $mailMod->{malias}->delAlias($alias);
+    }
+
+    $group->delete('mail');
+}
+
 # Method: _addUser
 #
 #   Overrides <EBox::Samba::LdapUserBase> to create a default mail
@@ -326,10 +340,7 @@ sub _delGroup
 
     return unless ($mail->configured());
 
-    my @groupAliases = @{ $mail->{malias}->groupAliases($group) };
-    foreach my $alias (@groupAliases) {
-        $mail->{malias}->delAlias($alias);
-    }
+    $self->delGroupAccount($group);
 }
 
 sub _delGroupWarning
@@ -446,29 +457,28 @@ sub _groupAddOns
 {
     my ($self, $group) = @_;
 
-    return unless (EBox::Global->modInstance('mail')->configured());
+    my $mailMod = EBox::Global->modInstance('mail');
+    return unless ($mailMod->configured());
 
-    my $mail = EBox::Global->modInstance('mail');
-    my $aliases = $mail->{malias}->groupAliases($group);
-    my @vd =  $mail->{vdomains}->vdomains();
-
-    my $groupEmpty    = 1;
-    my $usersWithMail = 0;
-    foreach my $user (@{$group->users()}) {
-        $groupEmpty = 0;
-        if ($self->userAccount($user)) {
-            $usersWithMail = 1;
-            last;
-        }
+    my $mailManaged = 0;
+    my $mail = $group->get('mail');
+    if ($mail) {
+        my ($left, $vdomain) = split('@', $mail, 2);
+        $mailManaged = $mailMod->{vdomains}->vdomainExists($vdomain);
+    } else {
+        $mail = '';
     }
+
+    my $aliases = $mailMod->{malias}->groupAliases($group);
+    my @vd      = $mailMod->{vdomains}->vdomains();
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
-        'service'  => $mail->service(),
-        'groupEmpty' => $groupEmpty,
-        'usersWithMail' => $usersWithMail,
+        'service'  => $mailMod->service(),
+        'mail'         => $mail,
+        'mailManaged' => $mailManaged
     };
 
     return {
@@ -478,15 +488,15 @@ sub _groupAddOns
        };
 }
 
-sub _modifyGroup
-{
-    my ($self, $group) = @_;
+# sub _modifyGroup
+# {
+#     my ($self, $group) = @_;
 
-    return unless (EBox::Global->modInstance('mail')->configured());
+#     return unless (EBox::Global->modInstance('mail')->configured());
 
-    my $mail = EBox::Global->modInstance('mail');
-    $mail->{malias}->updateGroupAliases($group);
-}
+#     my $mail = EBox::Global->modInstance('mail');
+#     $mail->{malias}->updateGroupAliases($group);
+# }
 
 # Method: _accountIsManaged
 #
@@ -615,7 +625,7 @@ sub checkUserMDSize
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
-    my $dir = DIRVMAIL . "/$vdomain/$lhs/";
+    my $dir = DIRVMAIL . "/$vdomain/$lhs";
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
 
@@ -662,7 +672,7 @@ sub _createMaildir
 
     push (@cmds, "/bin/mkdir -p $vdomainDir");
     push (@cmds, "/bin/chown ebox.ebox $vdomainDir");
-    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir ebox");
+    push (@cmds, "/usr/bin/maildirmake.dovecot $userDir/Maildir ebox");
     push (@cmds, "/bin/chown ebox.ebox -R $userDir");
     EBox::Sudo::root(@cmds);
 }

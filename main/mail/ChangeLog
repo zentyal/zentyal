@@ -1,3 +1,10 @@
+HEAD
+	+ Do not allow both keep and fetch all options in external accounts
+3.5.4
+	+ Fixed group mail accounts and their aliases
+3.5.3
+	+ Do not move mailbox to .bak if directory already exist
+	+ Migrate mboxes path to Maildir when upgrading from 3.4
 3.5.2
 	+ Fixed bug when removing virtual domain
 	+ Adding a virtual domain now can update old unmanaged accounts
