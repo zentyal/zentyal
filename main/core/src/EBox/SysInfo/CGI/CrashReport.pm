@@ -49,7 +49,7 @@ sub _process
             foreach my $file (@files) {
                 chomp($file);
                 EBox::info("Sending crash report: $file");
-                EBox::Sudo::root(OC_CRASH_UPLOAD . " $email $CRASH_DIR/$file $CRASHREPORT_SERVER_URL");
+                EBox::Sudo::root('python3 ' . OC_CRASH_UPLOAD . " $email $CRASH_DIR/$file $CRASHREPORT_SERVER_URL");
             }
             EBox::Sudo::root('rm -f /var/crash/_usr_sbin_samba*');
         } else {
