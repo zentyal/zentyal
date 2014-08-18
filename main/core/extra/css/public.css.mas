@@ -159,20 +159,49 @@
     color: #fff;
 }
 <% $additional_footer_style %>
-#nav li.menuSearch{
+
+.menusearch{
     border-top: none;
     background-color: transparent;
+    position: relative;
 }
+
 #menusearch {
-    background: #fff url("/data/images/magnifying-glass.png") 150px center no-repeat;
+    background-color: #fff;
     border: 1px solid #DDD;
-    padding: 8px 10px;
-    width: 160px;
+    padding: 8px 35px 8px 10px;
+    width: 133px;
     height:20px;
     margin-bottom: 0px;
+    box-shadow: none;
 }
 #menusearch:hover, #menusearch:focus {
     border: 1px solid <% $main_color %>;
+}
+.menusearch input[type='submit']{
+    background: url('/data/images/magnifying-glass.png') center center no-repeat transparent;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border: 0px;
+    top: 4px;
+    right: 4px;
+    overflow: hidden;
+    text-indent: 1000px;
+}
+.menusearch input[type='submit']:hover{
+    background-color: #F5F5F5;
+    box-shadow: none;
+    padding: 0px;
+}
+#searchresults ul{
+    margin: 0px 0px 0px 10px;
+    padding: 0px;
+    list-style: none;
+}
+#searchresults ul li{
+    font-size: 1rem;
+    padding: 5px 0px;
 }
 #module_list {
     background: none repeat scroll 0 0 whitesmoke;
@@ -1178,7 +1207,7 @@ a.minBox, a.maxBox {
     text-decoration: none;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    background-color: #ddd;
+    background-color: #f5f5f5;
     color: #333;
 }
 span.links-register a{
@@ -1191,7 +1220,7 @@ span.links-register a:hover{
     border-color: #006981;
 }
 .links-highlight a:hover{
-    background-color: #ccc;
+    background-color: #ddd;
     border-color: #999;
 }
 
@@ -1208,7 +1237,7 @@ span.links-register a:hover{
 color: #00ADD0;
 font-size: 13px;
 padding: 11px 0px 11px 45px;
-background: #f5f5f5;
+background: #fff;
 text-decoration: none;
 display: block;
 margin-bottom: 5px;
@@ -1218,7 +1247,7 @@ border: 1px solid #EEE;
 border-radius: 2px;
 }
 .linksBlock a:hover{
-    background-color: #eee;
+    background-color: #f5f5f5;
     border-color:#ccc;
 }
 .linksBlock a.i-book{

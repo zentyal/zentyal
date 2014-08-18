@@ -4314,17 +4314,6 @@ sub _setIfVolatile
     $self->{volatile} = 1;
 }
 
-sub _parse_words
-{
-    my ($str) = @_;
-
-    my @w = ();
-    if(defined($str)) {
-        @w = split('\W+', lc($str));
-    }
-    return @w;
-}
-
 # Method: keywords
 #
 # Overrides:
@@ -4337,17 +4326,17 @@ sub keywords
 
     my @words = ();
 
-    push(@words, _parse_words($self->pageTitle()));
-    push(@words, _parse_words($self->headTitle()));
-    push(@words, _parse_words($self->printableName()));
-    push(@words, _parse_words($self->printableModelName()));
-    push(@words, _parse_words($self->printableRowName()));
-    push(@words, _parse_words($self->help()));
+    push(@words, $self->_extract_keywords($self->pageTitle()));
+    push(@words, $self->_extract_keywords($self->headTitle()));
+    push(@words, $self->_extract_keywords($self->printableName()));
+    push(@words, $self->_extract_keywords($self->printableModelName()));
+    push(@words, $self->_extract_keywords($self->printableRowName()));
+    push(@words, $self->_extract_keywords($self->help()));
 
     for my $fieldName (@{$self->fields()}) {
         my $field = $self->fieldHeader($fieldName);
-        push(@words, _parse_words($field->printableName()));
-        push(@words, _parse_words($field->help()));
+        push(@words, $self->_extract_keywords($field->printableName()));
+        push(@words, $self->_extract_keywords($field->help()));
     }
     return \@words;
 }
