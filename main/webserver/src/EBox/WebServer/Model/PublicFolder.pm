@@ -127,7 +127,7 @@ sub DefaultEnableDir
 sub message
 {
     my ($self, $action) = @_;
-    if ($action eq 'update') {
+    if ($action and ($action eq 'update')) {
         my $userstatus = $self->value('enableDir');
         if ($userstatus)  {
             return __('User public folder configuration settings updated.') . '<br>' .

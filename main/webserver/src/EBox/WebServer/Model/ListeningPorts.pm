@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 # Class: EBox::WebServer::Model::ListeningPorts
 #

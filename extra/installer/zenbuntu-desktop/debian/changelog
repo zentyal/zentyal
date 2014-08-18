@@ -1,3 +1,9 @@
+zenbuntu-desktop (3.5.1) trusty; urgency=medium
+
+  * Fixed problems with handling of /etc/init/lxdm.conf
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 12 Jul 2014 23:57:35 +0200
+
 zenbuntu-desktop (3.5) trusty; urgency=low
 
   * Bump version to 3.5

@@ -29,6 +29,7 @@ use EBox::Gettext;
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Group;
+use Net::LDAP::Util qw(escape_filter_value canonical_dn);
 
 # Method: name
 #
@@ -183,7 +184,7 @@ sub _groups
 {
     my ($self, %params) = @_;
 
-    my $dn = $self->dn();
+    my $dn = escape_filter_value($self->dn());
     my $filter;
     if ($params{invert}) {
         $filter = "(&(objectclass=group)(!(member=$dn)))";
@@ -202,7 +203,11 @@ sub _groups
     my $groups = [];
     if ($result->count > 0) {
         foreach my $entry ($result->sorted('cn')) {
-            push (@{$groups}, new EBox::Samba::Group(entry => $entry));
+            my $group =  new EBox::Samba::Group(entry => $entry);
+            next if ($group->isInternal() and not $params{internal});
+            next if ($group->isSystem() and not $params{system});
+
+            push (@{$groups}, $group);
         }
     }
     return $groups;

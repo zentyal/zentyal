@@ -18,7 +18,9 @@ use warnings;
 
 package EBox::Jabber;
 
-use base qw(EBox::Module::LDAP);
+use base qw(
+    EBox::Module::Kerberos
+);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -201,7 +203,10 @@ sub _setConf
 
     my $users = EBox::Global->modInstance('samba');
     my $ldap = $users->ldap();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
     my $ldapconf = $ldap->ldapConf;
+    my $sysinfo = $self->global->modInstance('sysinfo');
 
     my $settings = $self->model('GeneralSettings');
     my $jabberldap = new EBox::JabberLdapUser;
@@ -211,9 +216,9 @@ sub _setConf
     push(@array, 'ldapHost' => '127.0.0.1');
     push(@array, 'ldapPort' => $ldapconf->{'port'});
     push(@array, 'ldapBase' => $ldap->dn());
-    push(@array, 'ldapRoot' => $users->administratorDN());
-    push(@array, 'ldapPasswd' => $users->administratorPassword());
-    push(@array, 'usersDn' => EBox::Samba::User->defaultContainer()->dn());
+    push(@array, 'ldapRoot' => $self->_kerberosServiceAccountDN());
+    push(@array, 'ldapPasswd' => $self->_kerberosServiceAccountPassword());
+    push(@array, 'usersDn' => $defaultNC);
 
     push(@array, 'domain' => $domain);
     push(@array, 'ssl' => $settings->sslValue());
@@ -224,7 +229,6 @@ sub _setConf
     push(@array, 'muc' => $settings->mucValue());
     push(@array, 'stun' => $settings->stunValue());
     push(@array, 'proxy' => $settings->proxyValue());
-    push(@array, 'zarafa' => $self->zarafaEnabled());
     push(@array, 'sharedroster' => $settings->sharedrosterValue());
     push(@array, 'vcard' => $settings->vcardValue());
 
@@ -235,19 +239,6 @@ sub _setConf
     if ($self->_domainChanged($domain)) {
         $self->_clearDatabase();
     }
-}
-
-sub zarafaEnabled
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-    if ( $gl->modExists('zarafa') ) {
-        my $zarafa = $gl->modInstance('zarafa');
-        my $jabber = $zarafa->model('GeneralSettings')->jabberValue();
-        return ($zarafa->isEnabled() and $jabber);
-    }
-    return 0;
 }
 
 # Method: menu
@@ -352,6 +343,21 @@ sub killProcesses
     } else {
         system "killall  @kill";
     }
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

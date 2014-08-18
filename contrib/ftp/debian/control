@@ -7,8 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-ftp
 Architecture: all
-Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0),
-         zentyal-network, zentyal-firewall, zentyal-users,
+Depends: zentyal-network, zentyal-firewall, zentyal-users,
          vsftpd (>= 2.3.5-1ubuntu2ppa1), ${misc:Depends}
 Description: Zentyal - FTP
  Zentyal is a Linux small business server that can act as

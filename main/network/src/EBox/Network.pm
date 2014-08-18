@@ -3841,7 +3841,7 @@ sub _enforceServiceState
 
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
-    if ((exists $ENV{USER}) or (exists ($ENV{PLACK_ENV}) and not EBox::Global->first())) {
+    if ((exists $ENV{USER}) or (exists $ENV{PLACK_ENV})) {
         EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .

@@ -17,9 +17,13 @@ use warnings;
 
 package EBox::Squid;
 
-use base qw(EBox::Module::LDAP EBox::KerberosModule
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider EBox::NetworkObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::FirewallObserver
+    EBox::LogObserver
+    EBox::Report::DiskUsageProvider
+    EBox::NetworkObserver
+);
 
 use EBox::Service;
 use EBox::Objects;
@@ -101,17 +105,32 @@ sub _create
     return $self;
 }
 
-sub kerberosServicePrincipals
+sub _kerberosServicePrincipals
 {
-    my ($self) = @_;
+    return [ 'HTTP' ];
+}
 
-    my $data = { service    => 'http',
-                 principals => [ 'HTTP' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy',
-                 module => $self->name()
-                };
-    return $data;
+sub _kerberosKeytab
+{
+    return {
+        path => KEYTAB_FILE,
+        user => 'root',
+        group => 'proxy',
+        mode => '440',
+    };
+}
+
+# Method: _kerberosSetup
+#
+#   Override to skip setup if authentication mode is not internal
+#
+sub _kerberosSetup
+{
+    my $self = shift;
+
+    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
+        $self->SUPER::_kerberosSetup(@_);
+    }
 }
 
 # Method: initialSetup
@@ -138,43 +157,6 @@ sub initialSetup
             $mod->saveConfigRecursive();
         }
     }
-}
-
-sub setupLDAP
-{
-    my ($self) = @_;
-
-    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        # Create the kerberos service principal in kerberos,
-        # export the keytab and set the permissions
-        $self->kerberosCreatePrincipals();
-    }
-
-    try {
-        my @lines = ();
-        push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
-        push (@lines, 'export KRB5_KTNAME');
-        my $lines = join ('\n', @lines);
-        my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
-        EBox::Sudo::root($cmd);
-    } catch ($error) {
-        EBox::error("Error creating squid default file: $error");
-    }
-}
-
-# Method: reprovisionLDAP
-#
-# Overrides:
-#
-#      <EBox::LdapModule::reprovisionLDAP>
-sub reprovisionLDAP
-{
-    my ($self) = @_;
-
-    $self->SUPER::reprovisionLDAP();
-
-    # regenerate kerberos keytab
-    $self->kerberosCreatePrincipals();
 }
 
 # Method: usedFiles
@@ -547,6 +529,7 @@ sub _setConf
     my $filter = $self->filterNeeded();
 
     $self->_configureAuthenticationMode();
+    $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
     $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
@@ -596,6 +579,17 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
+sub _writeDefaultConf
+{
+    my ($self) = @_;
+
+    my $vars = [];
+    push (@{$vars}, 'keytab' => KEYTAB_FILE);
+    $self->writeConfFile(SQUID3_DEFAULT_FILE,
+        'squid/squid.default.mas', $vars,
+        { mode => '0644'});
+}
+
 sub _writeSquidConf
 {
     my ($self, $filter) = @_;
@@ -630,8 +624,8 @@ sub _writeSquidConf
     if (not $kerberos) {
         my $ldap = $users->ldap();
         push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $users->administratorDN());
-        push @writeParam, ('roPasswd' => $users->administratorPassword());
+        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
     }
 
     my $mode = $self->authenticationMode();

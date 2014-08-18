@@ -204,27 +204,6 @@ sub printableValueTest : Test(2)
        'checking printableValue in file with dynamic path';
 }
 
-sub filesPaths : Test(2)
-{
-    my $file = EBox::Types::File->new(
-                                      filePath => $path,
-                                      fieldName => 'fileTest',
-                                     );
-
-    is_deeply(
-              $file->filesPaths(),
-              [],
-     'Checking return value of filesPaths when no file is present '
-             );
-
-    write_file($path, $content);
-    is_deeply (
-               $file->filesPaths(),
-               [ $path ],
-        'Checking return value of filesPaths when file is present '
-              );
-}
-
 sub newFile
 {
     my $file = EBox::Types::File->new(

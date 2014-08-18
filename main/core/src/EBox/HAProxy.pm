@@ -486,16 +486,19 @@ sub certificates
 {
     my ($self) = @_;
     my $webadmin = $self->global()->modInstance('webadmin');
-    return [
-            {
+    my @certs;
+    foreach my $path (@{ $webadmin->pathHTTPSSSLCertificate()}) {
+        push @certs,   {
              serviceId =>  'zentyal_' . $webadmin->name(),
              service =>  __('Zentyal Administration Web Server'),
-             path    =>  $webadmin->pathHTTPSSSLCertificate(),
+             path    =>  $path,
              user => EBox::Config::user(),
              group => EBox::Config::group(),
              mode => '0600',
-            },
-           ];
+         };
+    }
+
+    return \@certs;
 }
 
 1;

@@ -1,4 +1,66 @@
+4.0
+	+ Set version to 4.0
+	+ Fix migration to preserve group type
+	+ Adapted to changes in group mail account
+	+ Show a warning on post save changes dialog if errors happend while
+	  setting shares ACLs
+	+ Do not check for acl and user_xattr filesystem options if filesystem is
+	  btrfs
+	+ Provision: Check domain netbios name is not equal to host netbios name
+	+ Resolve schema master dns name and try to connect to all returned IP
+	  addresses until success
+	+ Skip schema extensions if module disabled
+	+ Use bash as default shell
+	+ Added external AD field to LDAP information model
+	+ Allow unsafe chars on admin account to use for join a domain
+	+ Improve the LDIF files parsing created by output of ldbsearch command
+	+ Fixed problems with checking mail address duplicates
+	+ Fixed bug which could delete the group mail account after a
+	  group edit
+	+ openchange.conf named properties config uses splitted params
+	+ Added EBox::module::LDAP::_loadSchemasFiles
+	+ Added EBox::Samba::LdapObject::hasObjectClass
+	+ Hide the dns-hostname account after join a domain
+	+ Remove mail account management logic from edit user form. This field
+	  is now disabled when the mail module is installed, so account management
+	  like create, rename or delete it must be done in the mail module user
+	  addon
+	+ Added code for migration from 3.4
+	+ Instance groups using gid parameter is no longer allowed
+3.5.2
+	+ Fix sssd bug not finding users and groups
+	+ Deprecate _schemasAdded redis key, checking if schema is extended in
+	  module _regenConfig
+	+ Fixed use of deprecated attributes uid and gid instantiating users and
+	  groups
+3.5.1
+	+ Display correctly tree elements on external AD mode
+	+ Fixed user creation when remove user from a group in the
+	  EditGroup CGI
+	+ The groups and groupsNotIn methods have now the same behaviour
+	  for all EBox::Samba::OrganizationalPerson classes
+	+ When removing a share the 'has files' check is not longer
+	  dependent on ACLs
+	+ Restored external AD mode
+	+ Better errors in GPO models when losing parent row
+	+ Catch error trying to add an already added or delete an already deleted
+	  user to group
+	+ Avoid warning flag on smart match experimental feature
 3.5
+	+ Setup roaming profiles for each user only when the setting changes
+	  in the UI
+	+ Remove duplicate entries from the custom shell list
+	+ Hide krbtgt user in external AD mode
+	+ EBox::Samba::DNS::Zone always return lowercase zone name
+	+ Fix members of 'Domain Admins' group not able to delete items from
+	  recycle bin
+	+ Grant rwx rights to Domain guest and Everybody on guest shares
+	+ Added new domainControllers() method
+	+ Override daemons when migrating from previous versions
+	+ Remove the use of method canonicalName for greater performance, use
+	  object DNs instead
+	  the end of the work loop
+	+ Show Administrator account in the UI so it can be handled from Zentyal
 	+ Merge zentyal-users and zentyal-samba in a single package
 	+ Added EBox::Samba::User::hasValue to check if a certain value is present
 	+ Do not duplicate cloud ops when REST call fails

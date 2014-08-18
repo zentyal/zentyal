@@ -221,7 +221,7 @@ sub deleteObject
     # TODO Remove this user from shares ACLs
 
     # Remove from SSSd cache
-    EBox::Sudo::rootWithoutException("sss_cache -u '$samAccountName'");
+    EBox::Sudo::silentRoot("sss_cache -u '$samAccountName'");
 
     # Call super implementation
     $self->SUPER::deleteObject(@params);
@@ -278,28 +278,27 @@ sub createRoamingProfileDirectory
 {
     my ($self) = @_;
 
+    my $domainSid       = $self->_ldap->domainSID();
     my $samAccountName  = $self->get('samAccountName');
-    my $userSID         = $self->sid();
-    my $domainAdminsSID = $self->_ldap->domainSID() . '-512';
-    my $domainUsersSID  = $self->_ldap->domainSID() . '-513';
 
     # Create the directory if it does not exist
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::Global->modInstance('samba')->defaultGroup();
+    my $gidNumber = $self->gidNumber();
+    my $uidNumber = $self->uidNumber();
 
     my @cmds = ();
     # Create the directory if it does not exist
     push (@cmds, "mkdir -p \'$path\'") unless -d $path;
 
     # Set unix permissions on directory
-    push (@cmds, "chown $samAccountName:$group \'$path\'");
+    push (@cmds, "chown -R $uidNumber:$gidNumber \'$path\'");
     push (@cmds, "chmod 0700 \'$path\'");
 
     # Set native NT permissions on directory
     my @perms;
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
-    push (@perms, "g:$group:---");
+    push (@perms, "g:$gidNumber:---");
     push (@perms, "u:$samAccountName:rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
@@ -311,13 +310,13 @@ sub setRoamingProfile
 {
     my ($self, $enable, $path, $lazy) = @_;
 
-    my $userName = $self->get('samAccountName');
     if ($enable) {
+        my $userName = $self->get('samAccountName');
         $self->createRoamingProfileDirectory();
         $path .= "\\$userName";
-        $self->set('profilePath', $path);
+        $self->set('profilePath', $path, $lazy);
     } else {
-        $self->delete('profilePath');
+        $self->delete('profilePath', $lazy);
     }
     $self->save() unless $lazy;
 }
@@ -451,11 +450,7 @@ sub create
     # All accounts are, by default Normal and disabled accounts.
     push (@attr, userAccountControl => NORMAL_ACCOUNT | ACCOUNTDISABLE);
     push (@attr, uidNumber => $uidNumber);
-    # By the moment, set the gidNumber to the gidNumber of Domain Users
-    my $dugidNumber = $class->_domainUsersGidNumber();
-    if ($dugidNumber) {
-        push (@attr, gidNumber => $dugidNumber);
-    }
+    push (@attr, gidNumber => $class->_domainUsersGidNumber());
     push (@attr, homeDirectory => $homedir);
     push (@attr, quota => $quota);
 
@@ -501,8 +496,8 @@ sub create
             $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
-           $usersMod->notifyModsLdapUserBase(
-               'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase(
+                'addUser', [ $res ], $res->{ignoreMods}, $res->{ignoreSlaves});
         }
     } catch ($error) {
         EBox::error($error);
@@ -573,7 +568,7 @@ sub _entry
             my $result = undef;
             my $attrs = {
                 base => $self->_ldap->dn(),
-                filter => "(uid=$self->{uid})",
+                filter => "(samAccountName=$self->{uid})",
                 scope => 'sub',
             };
             $result = $self->_ldap->search($attrs);
@@ -614,13 +609,56 @@ sub quota
     return (defined ($quota) ? $quota : 0);
 }
 
+# Method: uidNumber
+#
+#   This method returns the user's uidNumber, ensuring it is properly set or
+#   throwing an exception otherwise
+#
+sub uidNumber
+{
+    my ($self) = @_;
+
+    my $uidNumber = $self->get('uidNumber');
+    unless ($uidNumber =~ /^[0-9]+$/) {
+        EBox::trace();
+        throw EBox::Exceptions::External(
+            __x('The user {x} has not uidNumber set. Get method ' .
+                "returned '{y}'.",
+                x => $self->get('samAccountName'),
+                y => defined ($uidNumber) ? $uidNumber : 'undef'));
+    }
+
+    return $uidNumber;
+}
+
+# Method: gidNumber
+#
+#   This method returns the user's gidNumber, ensuring it is properly set or
+#   throwing an exception otherwise
+#
+sub gidNumber
+{
+    my ($self) = @_;
+
+    my $gidNumber = $self->get('gidNumber');
+    unless ($gidNumber =~ /^[0-9]+$/) {
+        throw EBox::Exceptions::External(
+            __x('The user {x} has not gidNumber set. Get method ' .
+                "returned '{y}'.",
+                x => $self->get('samAccountName'),
+                y => defined ($gidNumber) ? $gidNumber : 'undef'));
+    }
+
+    return $gidNumber;
+}
+
 sub isInternal
 {
     my ($self) = @_;
 
-    # FIXME: whitelist Guest account, do this better removing
-    #        isCriticalSystemObject check
-    if ($self->sid() =~ /^S-1-5-21-.*-501$/) {
+    # FIXME: whitelist Guest account, Administrator account
+    # do this better removing isCriticalSystemObject check
+    if ( ($self->sid() =~ /^S-1-5-21-.*-501$/) or ($self->sid() =~ /^S-1-5-21-.*-500$/) ) {
         return 0;
     }
 
@@ -689,33 +727,20 @@ sub save
     }
 }
 
-sub _groups
-{
-    my ($self, %params) = @_;
-
-    my @groups = @{$self->SUPER::_groups(%params)};
-
-    my $defaultGroup = EBox::Global->modInstance('samba')->defaultGroup();
-    my $filteredGroups = [];
-    for my $group (@groups) {
-        next if ($group->name() eq $defaultGroup and not $params{internal});
-        next if ($group->isInternal() and not $params{internal});
-        next if ($group->isSystem() and not $params{system});
-
-        push (@{$filteredGroups}, $group);
-    }
-    return $filteredGroups;
-}
-
 # Method: isSystem
 #
-#   Return 1 if this is a system user, 0 if not
+#   Return 1 if this is a system user, 0 if not.
 #
 sub isSystem
 {
     my ($self) = @_;
 
-    return ($self->get('uidNumber') < MINUID);
+    my $uidNumber = $self->get('uidNumber');
+    if (defined $uidNumber) {
+        return ($uidNumber < MINUID);
+    }
+
+    return 1;
 }
 
 # Method: isDisabled
@@ -857,8 +882,8 @@ sub lastUid
     my ($class, $system) = @_;
 
     my $lastUid = -1;
-    my $usersMod = EBox::Global->modInstance('samba');
-    foreach my $user (@{$usersMod->users($system)}) {
+    my $sambaModule = EBox::Global->modInstance('samba');
+    foreach my $user (@{$sambaModule->users($system)}) {
         my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
@@ -870,11 +895,13 @@ sub lastUid
         }
     }
 
+    my $ret;
     if ($system) {
-        return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
+        $ret = ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
-        return ($lastUid < MINUID ? MINUID : $lastUid);
+        $ret = ($lastUid < MINUID ? MINUID : $lastUid);
     }
+    return $ret;
 }
 
 sub _newUserUidNumber
@@ -936,20 +963,8 @@ sub _domainUsersGidNumber
     my ($class) = @_;
 
     my $ldap = $class->_ldap();
-    my $domainSID = $ldap->domainSID();
-
-    # FIXME: Remove Magic Numbers
-    my $groupSID = "$domainSID-513";
-    my $result = $ldap->search({ base   => $class->defaultContainer()->dn(),
-                                 filter => "objectSid=$groupSID",
-                                 scope  => 'one',
-                                 attrs  => ['gidNumber']});
-    my $gidNumber;
-    foreach my $entry ($result->entries()) {
-        $gidNumber = $entry->get_value('gidNumber');
-    }
-
-    return $gidNumber;
+    my $group = $ldap->domainUsersGroup();
+    return $group->gidNumber();
 }
 
 sub _loginShell

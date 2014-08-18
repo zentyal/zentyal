@@ -38,6 +38,8 @@ use File::Temp;
 use LWP::UserAgent;
 use URI;
 use HTTP::Status;
+
+no warnings 'experimental::smartmatch';
 use v5.10;
 
 # Constants

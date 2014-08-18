@@ -15,7 +15,6 @@
     $muc
     $stun
     $proxy
-    $zarafa
     $sharedroster
     $vcard
 </%args>
@@ -36,9 +35,6 @@
     {shaper, s2s_shaper},
     {max_stanza_size, 131072}
   ]},
-% }
-% if ($zarafa) {
-  {5280, ejabberd_http, [http_bind]},
 % }
 % if ($ssl ne 'disabled') {
   {5223, ejabberd_c2s, [
@@ -63,14 +59,7 @@
 {s2s_use_starttls, true}.
 {s2s_certfile, "/etc/ejabberd/ejabberd.pem"}.
 
-% if ($zarafa) {
-{auth_method, [ldap, external]}.
-{extauth_program, "/usr/share/zentyal-zarafa/ejabberd-extauth.php"}.
-{extauth_cache, 60}.
-{extauth_instances, 10}.
-% } else {
 {auth_method, ldap}.
-% }
 {ldap_servers, ["<% $ldapHost %>"]}.
 {ldap_port, <% $ldapPort %>}.
 {ldap_base, "<% $ldapBase %>"}.
@@ -104,9 +93,6 @@
   {mod_configure, []},
   {mod_admin_extra, []},
   {mod_disco, []},
-% if ($zarafa) {
-  {mod_http_bind, []},
-% }
   {mod_last, []},
 % if ($muc) {
   {mod_muc, [

@@ -6,12 +6,13 @@ use EBox::Gettext;
 use JSON::XS;
 my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
+<script type="text/javascript" src="/data/js/mail-user-addon.js" />
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
-<div id='group_alias_not_ready' class='group_members_observer warning' style='display:none'>
+<div id='group_alias_not_ready' class='group_email_observer warning' style='display:none'>
 </div>
-<div id='group_alias_ready' class='group_members_observer' >
+<div id='group_alias_ready' class='group_email_observer' >
    <div id='error_mailCreateAlias' class='error' style='display:none'></div>
    <div id='note_mailCreateAlias' class='note' style='display:none'></div>
    <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
@@ -66,25 +67,30 @@ $(function(){
     aliasTable.append(tbody);
   };
 
-  $('#group_alias_not_ready').on('group_members_change', function(ev) {
-      if (ev.groupEmpty) {
-          $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
-      } else if (!ev.usersWithMail) {
-          $(this).show().text('<% __('Group aliases cannot be created because no user has mail account') %>');
+
+  $('#group_alias_not_ready').on('group_email_change', function(ev) {
+      if (ev.mail == '') {
+         $(this).show().text('<% __('Group aliases cannot be created for a group without mail account') %>');
+      } else if (! ev.mailManaged) {
+         $(this).show().text('<% __('Group aliases cannot be created for a group without a mail account belonging to a mail domain managed by Zentyal') %>');
       } else {
-          $(this).hide();
+         $(this).hide();
       }
   });
 
-  $('#group_alias_ready').on('group_members_change', function(ev) {
-      if (!ev.groupEmpty && ev.usersWithMail) {
-          $(this).show();
-      } else {
-          $(this).hide();
-          $('#note_mailCreateAlias').html('').hide();
-          refreshAliasList([]);
+  $('#group_alias_ready').on('group_email_change', function(ev) {
+       // refresh group alias list if it exists
+       $('#note_mailCreateAlias, #error_mailCreateAlias').hide();
+       if (ev.mailManaged) {
+           $(this).show();
+       } else {
+           $(this).hide();
+       }
+      if (ev.mailChanged) {
+           $('#aliasTable tbody').children('.aliasRow').remove();
       }
   });
+
 
   Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
             noteDiv: '#note_mailCreateAlias',
@@ -92,6 +98,9 @@ $(function(){
             submitButton: '#mailCreateAlias_submit',
             success : function (response) {
                 $('#mailCreateAlias_lhs').val(' ');
+                 if ('mail' in response) {
+                    $('#editGroupForm input[name="mail"]').val(response.mail);
+                 }
                 refreshAliasList(response.aliases);
             }
   });
@@ -118,16 +127,30 @@ $(function(){
             } else {
                $('#error_mailCreateAlias').html(response.error).show();
             }
-         }
+            if ('mail' in response) {
+                 $('#editGroupForm input[name="mail"]').val(response.mail);
+            }
+          }
       });
   });
 
+   $('#OpenChangeUserOptions_ready').on('group_email_change', function(ev) {
+       if (ev.mail) {
+          $('#OpenChangeUserOptions_active').val(ev.ocEnabled ? 'yes' : 'no');
+          $(this).show();
+       } else {
+          $('#note_OpenChangeUserOptions, #error_OpenChangeUserOptions').html('').hide();
+          $(this).hide();
+      }
+    });
+
   refreshAliasList(<% $aliasesJS %>);
 
-  var members_change_event = jQuery.Event("group_members_change");
-  members_change_event.groupEmpty = <% $params->{groupEmpty} ? 'true' : 'false' %>;
-  members_change_event.usersWithMail =  <% $params->{usersWithMail} ? 'true' : 'false' %>;
-  $('.group_members_observer').trigger(members_change_event);
+  var group_email_change_event = jQuery.Event("group_email_change");
+  group_email_change_event.mail = '<%  $params->{mail} %>';
+  group_email_change_event.mailManaged = <% $params->{mailManaged} ? 'true' : 'false' %>;
+  group_email_change_event.mailChanged = false;
+  $('.group_email_observer').trigger(group_email_change_event);
 });
 
 </script>

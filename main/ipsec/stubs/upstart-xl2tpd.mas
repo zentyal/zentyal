@@ -20,4 +20,4 @@ end script
 
 expect fork
 
-exec /usr/sbin/xl2tpd -p /var/run/xl2tpd/xl2tpd-<% $tunnel->{name} %>.pid -C /var/run/xl2tpd/l2tp-control-<% $tunnel->{name} %> -c /etc/xl2tpd/zentyal-xl2tpd.<% $tunnel->{name} %>.conf
+exec /usr/sbin/xl2tpd -p /var/run/xl2tpd/xl2tpd-<% $tunnel->{name} %>.pid -C /var/run/xl2tpd/l2tp-control-<% $tunnel->{name} %> -c /etc/xl2tpd/<% $tunnel->{name} %>.conf

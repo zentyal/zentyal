@@ -1,6 +1,39 @@
-HEAD
+4.0
 	+ Added search for configuration data
+	+ Improved installation wizards
+	+ Set version to 4.0
+	+ When doing a login redirect to the full given URI
+	+ Fixed mysql commands executed with wrong parameters or credentials
+	+ Fix isEqualTo types comparision, check for defined return value from cmp
+	+ Added option to disable Peer Verification in EBox::RESTClient
+	+ pathHTTPSSSLCertificate() always returns a list
+	+ Added one more tip to component not found page
+	+ Removed duplicate code for page not found
+	+ Fix some warnings in log
+	+ Fix error in send crash report script
+	+ Fixed dashboard links to official manual
+	+ Model backup/revoke/save files are no longer called implicitly
+	+ Remove warning on formSubmitJS
+	+ Don't let database error to cancel halt or reboot processes
+	+ More warnings on smart match feature removed
 3.5
+	+ Avoid warning flag on smart match experimental feature
+	+ Remove duplicated code in EBox::Model::DataTable::removeRow
+	  and EBox::Model::Manager::removeRowsUsingId
+	+ Rethrow properly when exception is a plain string
+	+ Fix EBox::Model::Manager::_modelHasMultipleInstances when the
+	  model is a children whose model parent is its grandfather or older
+	+ Fixed notifyActions by using isIdUsed method and removing
+	  slashes to fetch the observable models
+	+ Fixed spurious warnings when loadings ads and loading dashboard
+	+ Assure that all data under a row directory is removed
+	+ EBox::Types::DomainName always return lowercase values
+	+ EBox::Types::Host always return lowercase values
+	+ Added helper script to improve crash reports
+	+ Old timezones supported
+	+ Fixed regression on presetUpdate interface actions
+	+ Error page for component not found
+	+ Included the Dependencies field in crash report
 	+ Do not mark services as temporary stopped when shutting down
 	+ Enhanced Lock to have exclusive lock with blocking timeout
 	+ Added redirection on no parameters support to CGIs

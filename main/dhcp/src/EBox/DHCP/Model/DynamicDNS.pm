@@ -41,7 +41,7 @@ use TryCatch::Lite;
 
 # Constructor: new
 #
-#     Create the dynamic DNS options to the dhcp server
+#     Create the dynamic DNS options to the DHCP server
 #
 # Overrides:
 #
@@ -63,6 +63,10 @@ sub new
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
+
+    unless (defined($self->{parent})) {
+        $self->{parent} = $self->parentModule()->model('Interfaces');
+    }
 
     return $self;
 }
@@ -131,6 +135,30 @@ sub viewCustomizer
     return $customizer;
 }
 
+# Method: isIdUsed
+#
+#     Override to notify that we are using DNS domains for Dynamic DNS
+#     options
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::isIdUsed>
+#
+sub isIdUsed
+{
+    my ($self, $modelName, $id) = @_;
+
+    return unless ($modelName =~ m:dns/DomainTable:);
+
+    my $modelRow = $self->row();
+    my $dynamicDomain = $modelRow->valueByName('dynamic_domain');
+    my $staticDomain = $modelRow->valueByName('static_domain');
+    if (($id eq $dynamicDomain) or ($id eq $staticDomain)) {
+        return 1;
+    }
+    return 0;
+}
+
 # Method: notifyForeignModelAction
 #
 #     Disable DynamicDNS configuration for this model if the domain is
@@ -154,8 +182,8 @@ sub notifyForeignModelAction
     if ($action eq 'del') {
         my $domainId = $row->id();
         my $modelRow = $self->row();
-        my $dynamicDomain =  $modelRow->valueByName('dynamic_domain');
-        my $staticDomain =  $modelRow->valueByName('static_domain');
+        my $dynamicDomain = $modelRow->valueByName('dynamic_domain');
+        my $staticDomain = $modelRow->valueByName('static_domain');
         if (($domainId eq $dynamicDomain) or ($domainId eq $staticDomain)) {
             # Disable the dynamic DNS feature, in formSubmitted we
             # have to enable again (:-S)
@@ -231,16 +259,22 @@ sub _table
                       enableProperty     => 1,
                      };
 
-      return $dataForm;
-
-  }
-
-# Group: Private methods
+    return $dataForm;
+}
 
 sub _iface
 {
     my ($self) = @_;
-    return $self->parentRow()->valueByName('iface')
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 sub dynamicDomainsIds

@@ -12,10 +12,11 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-common (>= 3.5~1), zentyal-common (<< 4.0),
+Depends: zentyal-common (>= 4.0~1), zentyal-common (<< 4.1),
          adduser, apport, anacron, cron, curl, dbus, debconf, gpgv,
          haproxy (>= 1.5~dev13), libapt-pkg-perl, libauthen-simple-pam-perl,
          libcgi-emulate-psgi-perl, libclass-singleton-perl, libclone-fast-perl,
+         libdatetime-timezone-perl,
          libdbd-mysql-perl, libfile-copy-recursive-perl, libfile-mmagic-perl,
          libfilesys-df-perl, libhttp-date-perl, libjson-perl,
          libjson-rpc-perl, libjson-xs-perl, liblexical-persistence-perl,

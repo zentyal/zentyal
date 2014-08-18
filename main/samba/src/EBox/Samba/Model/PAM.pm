@@ -64,33 +64,36 @@ sub new
 #
 sub validShells
 {
-    my @shells;
+    my %shells;
 
-    push (@shells, { value => DEFAULT_SHELL,
-                    printableValue => basename(DEFAULT_SHELL) });
+    my $defaultPrintableValue = basename(DEFAULT_SHELL);
+    $shells{$defaultPrintableValue} =  { value => DEFAULT_SHELL,
+                                         printableValue => $defaultPrintableValue
+                                        };
 
-    open (my $FH, '<', '/etc/shells') or return \@shells;
+    open (my $FH, '<', '/etc/shells') or return [ values %shells];
 
     foreach my $line (<$FH>) {
         next if $line =~ /^#/;
         next if $line eq DEFAULT_SHELL;
 
         chomp ($line);
-        push (@shells, { value => $line,
-                         printableValue => basename($line) });
+        my $printableValue =  basename($line);
+        $shells{$printableValue} = { value => $line,
+                                     printableValue => $printableValue
+                                    };
     }
     close ($FH);
 
-    return \@shells;
+    return [ values %shells];
 }
 
 # Method: _table
 #
-#	Overrides <EBox::Model::DataForm::_table to change its name
+#       Overrides <EBox::Model::DataForm::_table to change its name
 #
 sub _table
 {
-
     my ($self) = @_;
     my $users = $self->parentModule();
     my @tableDesc = ();
@@ -112,6 +115,7 @@ sub _table
              disableCache => 1,
              populate => \&validShells,
              editable => 1,
+             defaultValue => '/bin/bash',
              help => __('This will apply only to new users from now on.')
             )
         );

@@ -12,17 +12,18 @@ use EBox::Gettext;
 use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
+my $optionalTag = $slave ? '' :  __('Optional');
+my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 </%init>
-
-
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
 <div id='editUserForm_message' class='note' style='display:none'></div>
 <div id='editUserForm_error' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block half-block">
-      <form class="formDiv" action='/Samba/EditUser' method='POST' autocomplete='off' id='editUserForm'>
+      <form class="formDiv" action='/Samba/EditUser' method='POST' autocomplete='off' id='editUserForm' <% $formOnSubmit %>>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
+
           <div>
           <label><% __('First name') %></label>
                   <& masterSlaveUserAttr,
@@ -41,7 +42,7 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                    &>
           </div>
           <div>
-          <label><% __('Display name') %><span class="optional_field"><% __('Optional') %></label>
+          <label><% __('Display name') %><span class="optional_field"><% $optionalTag %></label>
 
                   <& masterSlaveUserAttr,
                                name => 'displayname',
@@ -50,15 +51,16 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                    &>
           </div>
           <div>
-          <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
+          <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'description',
                                value=> ($user->description() or ''),
                                slave => $slave,
                    &>
           </div>
+
           <div>
-          <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
+          <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                id   => 'user_attrs_mail',
@@ -68,11 +70,11 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
           </div>
           <div>
           <label><% __('User quota') %> (MB)</label>
-          <& .quotaControl, quota => $user->quota() &>
+          <& .quotaControl, quota => $user->quota(), slave => $slave &>
           </div>
           <div>
           <label>
-            <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
+            <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %> <% $slave ? "disabled='disabled'" : "" %> >
             <% __('Disabled account') %>
           </label>
           </div>
@@ -86,11 +88,13 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
             <input type='password' class='inputText' name='repassword'>
           </div>
 % }
+% if (not $slave) {
           <div>
           <input class='btn btn-submit' id='submitEditUserForm' type='submit' name='user'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
           </div>
+% }
      </form>
 </div>
 <div id="user_groups" class="form-block half-block">
@@ -291,7 +295,16 @@ $user
 <%def .quotaControl>
 <%args>
 $quota
+$slave
 </%args>
+% if  ($slave) {
+  <& masterSlaveUserAttr,
+        name => 'quota',
+        value => $quota,
+        slave => 1,
+  &>
+% return;
+% }
 
  <select name="User_quota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="User_quota_selected"   >
    <option value="quota_size" <% ($quota > 0) ? 'selected="selected"' : '' %>  >

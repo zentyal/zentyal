@@ -146,6 +146,7 @@ sub _table
             fieldName     => 'adminAccount',
             printableName => __('Administrator account'),
             editable      => 1,
+            allowUnsafeChars => 1,
         ),
         new EBox::Types::Password(
             fieldName     => 'password',
@@ -229,6 +230,14 @@ sub updatedRowNotify
         EBox::debug('Domain rename detected, clearing the provisioned flag');
         my $sambaMod = $self->parentModule();
         $sambaMod->getProvision->setProvisioned(0);
+    }
+
+    my $newRoaming = $row->valueByName('roaming');
+    my $oldRoaming = defined $oldRow ? $oldRow->valueByName('roaming') : $newRoaming;
+    if ($oldRoaming != $newRoaming) {
+        my $state = $self->parentModule->get_state();
+        $state->{_roamingProfilesChanged} = 1;
+        $self->parentModule->set_state($state);
     }
 }
 

@@ -9,6 +9,8 @@
 <%init>
 use EBox::Gettext;
 my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
+my $optionalTag = $slave ? '' :  __('Optional');
+my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 </%init>
 <script type="text/javascript" src="/data/js/form.js" />
 
@@ -22,7 +24,7 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </div>
 % }
 <div class="form-block half-block">
-<form class="formDiv" action='/Samba/EditGroup' method='POST' id='editGroupForm'>
+<form class="formDiv" action='/Samba/EditGroup' method='POST' id='editGroupForm'  <% $formOnSubmit %> >
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
 
@@ -45,11 +47,11 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
             </div>
 % }
         <div>
-          <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
+          <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
           <& .slaveAttr, name => 'description', value => ($group->description() or ''), slave => $slave &>
         </div>
         <div>
-          <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
+          <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
           <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
         </div>
 %   unless ($slave) {
@@ -123,6 +125,11 @@ $(function() {
                 var selected = tree.jstree("get_selected")[0];
                 $(selected).attr('rel', response.type);
            }
+           if ('mail' in response) {
+               if ('MailUserAddon' in Zentyal) {
+                   Zentyal.MailUserAddon.groupAccountChange(response.mail, response.mailManaged);
+                }
+           }
         }
    });
 
@@ -156,11 +163,6 @@ $(function() {
          groupEmpty = false;
       }
       groupUsers.insertAfter('#removeUserFromGroup_error');
-
-      var members_change_event = jQuery.Event("group_members_change");
-      members_change_event.groupEmpty    = data.member.length === 0;
-      members_change_event.usersWithMail = data.usersWithMail;
-      $('.group_members_observer').trigger(members_change_event);
   };
 
    var refreshUsers = function () {

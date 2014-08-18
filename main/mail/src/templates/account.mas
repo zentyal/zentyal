@@ -3,26 +3,46 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use JSON::XS;
 my $hasAccount = $params->{mail};
+my $managedHidden;
+my $unmanagedHidden;
+if ($hasAccount) {
+    $managedHidden   = $params->{managed} ? "" : "style='display:none'";
+    $unmanagedHidden = $params->{managed} ? "style='display:none'" : "";
+} else {
+    $managedHidden   = 0;
+    $unmanagedHidden = 1;
+}
+my $vdomainsJSON = JSON::XS::encode_json($params->{vdomains});
 </%init>
+<div id='userMail_data' data-vdomains='<% $vdomainsJSON %>' />
 % if  (not  @{$ params->{vdomains} } ) {
 <& .noVdomains &>
 % } else {
-% if (not $params->{service} ) {
-     <& /mail/moduleDisabled.mas &>
+%    if (not $params->{service} ) {
+       <& /mail/moduleHidden.mas &>
+%    }
+<div id='userMailManaged' <% $managedHidden %> >
+   <script type="text/javascript" src="/data/js/mail-user-addon.js" />
+
+   <div id='error_userMailCreateDelAccount' class='error' style='display:none'></div>
+   <div id='note_userMailCreateDelAccount' class='note' style='display:none'></div>
+   <div id='userMailNoAccountDiv' <% (not $hasAccount) ? '' :  'style="display:none"'%> >
+       <& /mail/createaccount.mas, params => $params &>
+   </div>
+   <div id='userMailWithAccountDiv' <% $hasAccount ? '' :  'style="display:none"'%> >
+       <& /mail/alias.mas, params => $params &>
+       <& /mail/externalAccounts.mas, params => $params &>
+   </div>
+</div>
+
+<div id='userMailUnmanaged' <% $unmanagedHidden%> >
+   <div class='note'>
+       <% __('This user has a mail account which does not belong to any managed mail domain') %>
+   </div>
+<div>
 % }
-
-<script <script type="text/javascript" src="/data/js/mail-user-addon.js" />
-
-<div id='error_userMailCreateDelAccount' class='error' style='display:none'></div>
-<div id='note_userMailCreateDelAccount' class='note' style='display:none'></div>
-<div id='userMailNoAccountDiv' <% (not $hasAccount) ? '' :  'style="display:none"'%> >
-    <& /mail/createaccount.mas, params => $params &>
-</div>
-<div id='userMailWithAccountDiv' <% $hasAccount ? '' :  'style="display:none"'%> >
-    <& /mail/alias.mas, params => $params &>
-</div>
-%}
 
 <%def .noVdomains>
 <%init>

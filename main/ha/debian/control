@@ -8,7 +8,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zentyal-ha
 Architecture: all
-Depends: zentyal-core (>= 3.5~1), zentyal-core (<< 4.0), zentyal-network,
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-network,
          libplack-perl, libtest-deep-perl, libxml-libxml-perl, corosync,
          pacemaker, ${misc:Depends}
 Description: Zentyal - High Availability

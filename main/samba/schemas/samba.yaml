@@ -44,7 +44,7 @@ composites:
     GPO: [GPOComputerConfiguration, GPOUserConfiguration]
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
-    General: [SambaShares, RecycleBin, Antivirus]
+    FileSharing: [SambaShares, RecycleBin, Antivirus]
 
 modeldepends:
     AntivirusExceptions:

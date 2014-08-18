@@ -1,7 +1,6 @@
 #!/bin/bash
 
 file=$1
-package=$2
 
 if [ -z "$file" ]
 then
@@ -9,10 +8,7 @@ then
     exit 1
 fi
 
-if [ -n "$package" ]; then
-    sed -i "3 a\\
-Package: $package" $file
-fi
+python3 /usr/share/zentyal/crash-set-package-info.py "$file"
 
 URL=http://crashreport.zentyal.org/report/
 

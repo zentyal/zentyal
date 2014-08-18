@@ -75,4 +75,10 @@ sub HTMLTitle
     ]);
 }
 
+sub checkConfigurationIsComplete
+{
+    my ($self) = @_;
+    $self->componentByName('SettingsIPsec', 1)->checkConfigurationIsComplete();
+}
+
 1;

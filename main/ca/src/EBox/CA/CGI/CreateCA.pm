@@ -91,6 +91,10 @@ sub actuate
 {
     my ($self) = @_;
 
+    unless (@{$self->params()}) {
+        return;
+    }
+
     my $gl = EBox::Global->getInstance();
     my $ca = $gl->modInstance('ca');
 

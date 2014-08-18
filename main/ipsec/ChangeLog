@@ -1,4 +1,16 @@
+4.0
+	+ Set version to 4.0
+3.5.2
+	+ Fixed wrong old-style try-catch
+3.5.1
+	+ Add conditional samba dependency to ipsec
 3.5
+	+ Do not crash adding ranges when public IP address is not yet set
+	+ Corrected upstart stub for l2tp as $tunnel->{name} already contained
+	  zentyal-xl2tp. (credits to Icaro Ribeiro)
+	+ Better management of L2TP daemons
+	+ Added validation for IPs in L2TP configuration
+	+ Fixed firewall rules for L2TP connections which more than one client
 	+ Adapted to OpenLDAP removal
 	+ Set version to 3.5
 3.4

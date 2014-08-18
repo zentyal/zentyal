@@ -1,4 +1,10 @@
+4.0
+	+ Set version to 4.0
 3.5
+	+ Fix error when using __x function from Gettext
+	+ EBox::Netwrapper::iface_by_address not longer assummes that
+	  interfaces could not share IP addresses
+	+ Added exception for component not exists
 	+ DataInUse exception is external to avoid logging of expected UI behaviors
 	+ Added support for Hebrew translations
 	+ Set version to 3.5
