@@ -808,25 +808,9 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    my $haproxyMod = $self->global()->modInstance('haproxy');
-    # Register the service if installing the first time
-    unless ($version) {
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHTTPSPort());
-        push (@args, enableSSLPort  => 1);
-        push (@args, defaultSSLPort => 1);
-        push (@args, force          => 1);
-        $haproxyMod->setHAProxyServicePorts(@args);
-    }
-
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrateTo34();
-    }
-
-    if ($haproxyMod->changed()) {
-        $haproxyMod->saveConfigRecursive();
     }
 }
 
@@ -856,7 +840,8 @@ sub _migrateTo34
             push (@args, enableSSLPort  => 1);
             push (@args, defaultSSLPort => 1);
             push (@args, force          => 1);
-            $haproxyMod->setHAProxyServicePorts(@args);
+            # FIXME
+            #$haproxyMod->setHAProxyServicePorts(@args);
         }
 
         my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
@@ -869,7 +854,8 @@ sub _migrateTo34
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
-        $haproxyMod->setHAProxyServicePorts(@args);
+        # FIXME
+        #$haproxyMod->setHAProxyServicePorts(@args);
     }
 
     # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
@@ -982,5 +968,34 @@ sub targetHTTPSPort
 {
     return 61443;
 }
+
+# Method: HAProxyInternalService
+#
+#      Set the configuration for Outlook Anywhere (RPC/Proxy) if configured
+#
+# Overrides:
+#
+#      <EBox::HAProxy::ServiceBase::HAProxyInternalService>
+#
+sub HAProxyInternalService
+{
+    my ($self) = @_;
+
+    return [
+        {
+            name => 'webadmin',
+            port => 443,
+            printableName => __('Zentyal Administration'),
+            targetIP => '127.0.0.1',
+            targetPort => $self->targetHTTPSPort(),
+            hosts => [],
+            paths => [],
+            pathSSLCert => $self->pathHTTPSSSLCertificate(),
+            isSSL => 1,
+            isDefault => 1,
+        }
+    ];
+}
+
 
 1;

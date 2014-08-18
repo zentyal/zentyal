@@ -245,34 +245,6 @@ sub addModuleStatus
 {
 }
 
-# Method: menu
-#
-#       Set HAProxy conf under System menu entry
-#
-# Overrides:
-#
-#       <EBox::Module::menu>
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    my $system = new EBox::Menu::Folder(
-            'name' => 'SysInfo',
-            'text' => __('System'),
-            'order' => 30
-           );
-
-    $system->add(new EBox::Menu::Item(
-        url => 'HAProxy/View/HAProxyServices',
-        text => __('HTTP Services'),
-        separator => 'Core',
-        order => 60,
-    ));
-
-    $root->add($system);
-}
-
 # Method: _enforceServiceState
 #
 #   This method will restart always haproxy.
@@ -305,30 +277,6 @@ sub modsWithHAProxyService
         }
     }
     return \@mods;
-}
-
-# Method: setHAProxyServicePorts
-#
-#   Sets the given ports as the ones to be used for the service module provided.
-#
-# Parameters:
-#
-#   args - Named parameters:
-#       modName        - The module name that handles the service
-#       port           - The port where this service should listen for connections or undef.
-#       enablePort     - Whether this service's non SSL port should be enabled.
-#       defaultPort    - Wehther this service's non SSL port should be the default.
-#       sslPort        - The SSL port where this service should listen for connections or undef.
-#       enableSSLPort  - Whether this service's SSL port should be enabled.
-#       defaultSSLPort - Wehther this service's SSL port should be the default.
-#       force          - Whether this service ports should be used even if are set as used elsewhere.
-#
-sub setHAProxyServicePorts
-{
-    my ($self, %args) = @_;
-
-    my $services = $self->model('HAProxyServices');
-    $services->setServicePorts(%args);
 }
 
 # Method: updateServicePorts
