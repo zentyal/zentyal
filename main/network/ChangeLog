@@ -1,4 +1,5 @@
 HEAD
+	+ Added vlans key as exclude replication key
 	+ Add nameserverDelete and nameserverAdded callbacks to NetworkObserver
 3.5.1
 	+ Added defensive code to DNSResolver to avoid ifaces down after crash
