@@ -132,21 +132,21 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
-                                        'icon' => 'maintenance',
-                                        'text' => __('Maintenance'),
-                                        'separator' => 'Core',
-                                        'order' => 70);
-
-    my $item = new EBox::Menu::Item(
-                    name => 'Events',
-                    text => $self->printableName(),
-                    url  => 'Maintenance/Events',
-                    order => 30,
-    );
-    $folder->add($item);
-
-    $root->add($folder);
+# FIXME: to be removed
+#    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+#                                        'icon' => 'maintenance',
+#                                        'text' => __('Maintenance'),
+#                                        'order' => 70);
+#
+#    my $item = new EBox::Menu::Item(
+#                    name => 'Events',
+#                    text => $self->printableName(),
+#                    url  => 'Maintenance/Events',
+#                    order => 30,
+#    );
+#    $folder->add($item);
+#
+#    $root->add($folder);
 }
 
 # Method: depends

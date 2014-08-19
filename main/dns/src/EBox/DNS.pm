@@ -879,8 +879,8 @@ sub menu
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
                                     'icon' => 'dns',
                                     'url' => 'DNS/Composite/Global',
-                                    'separator' => 'Infrastructure',
-                                    'order' => 420));
+                                    'tag' => 'main',
+                                    'order' => 5));
 }
 
 # Method: keysFile

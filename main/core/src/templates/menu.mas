@@ -1,5 +1,5 @@
 <%args>
-@items
+%items
 $current => 'none'
 $currentUrl => ''
 $copyright_footer
@@ -12,9 +12,24 @@ $copyright_footer
      <input type="submit"/>
   </form>
 </div>
+
 <ul id='nav'>
-% foreach my $item (@items) {
+% foreach my $item (@{$items{home}}) {
         <% $item->html($current, $currentUrl) %>
+% }
+        <hr/>
+% foreach my $item (@{$items{system}}) {
+        <% $item->html($current, $currentUrl) %>
+% }
+        <hr/>
+% foreach my $item (@{$items{main}}) {
+        <% $item->html($current, $currentUrl) %>
+% }
+% if (@{$items{others}}) {
+        <hr/>
+%  foreach my $item (@{$items{others}}) {
+        <% $item->html($current, $currentUrl) %>
+%  }
 % }
 </ul>
     <div id="footer">

@@ -563,7 +563,6 @@ sub menu
                                         'name' => 'MailFilter',
                                         'icon' => 'mailfilter',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Communications',
                                         'order' =>  615
     );
 
