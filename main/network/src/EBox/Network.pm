@@ -4727,11 +4727,13 @@ sub regenGateways
 
 # Method: replicationExcludeKeys
 #
-#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#      Exclude these keys from replication.
+#
+# Overrides: <EBox::Module::Config::replicationExcludeKeys>
 #
 sub replicationExcludeKeys
 {
-    return [ 'interfaces' ];
+    return [ 'interfaces', 'vlans' ];
 }
 
 # Group: Ifup flag methods
