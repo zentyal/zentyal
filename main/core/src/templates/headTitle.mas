@@ -18,6 +18,13 @@ my $finishTitle = __('Save changes?');
       </a>
       <span class="version"><% $version %></span>
       <div id="hmenu">
+        <div class="menusearch">
+          <form action='/Search'>
+             <input name="search" id="menusearch" type="text" placeholder="<% __('Search') %>"/>
+             <input type="submit"/>
+          </form>
+        </div>
+
 % if ( $save ne '' ) {
           <a class="<% $finishClass %>" id="changes_menu" href="#"
           onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">

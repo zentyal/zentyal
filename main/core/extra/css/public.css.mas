@@ -780,34 +780,38 @@ TABS options
 
 /* search input */
 
-#menusearch:hover, #menusearch:focus {
-    border: 1px solid <% $main_color %>;
-}
-
 .menusearch {
     border-top: none;
     background-color: transparent;
     position: relative;
+    float: left;
+    margin-top: 5px;
 }
 
 #menusearch {
-    background-color: #fff;
-    border: 1px solid #DDD;
+    background-color: transparent;
+    color: white;
+    border: 1px solid transparent;
     padding: 8px 35px 8px 10px;
-    width: 133px;
-    height:20px;
-    margin-bottom: 0px;
+    height: 40px;
     box-shadow: none;
+    margin-right: 5px;
+    border-radius: 0;
 }
+
+#menusearch:hover, #menusearch:focus {
+    border: 1px solid <% $main_color %>;
+}
+
 
 .menusearch input[type='submit'] {
     background: url('/data/images/magnifying-glass.png') center center no-repeat transparent;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     position: absolute;
     border: 0px;
-    top: 4px;
-    right: 4px;
+    top: 0px;
+    right: 0px;
     overflow: hidden;
     text-indent: 1000px;
 }

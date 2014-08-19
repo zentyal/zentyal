@@ -6,13 +6,6 @@ $copyright_footer
 </%args>
 <div id='menu'>
 
-<div class="menusearch">
-  <form action='/Search'>
-     <input name="search" id="menusearch" type="text" placeholder="<% __('Search') %>"/>
-     <input type="submit"/>
-  </form>
-</div>
-
 <ul id='nav'>
 % foreach my $item (@{$items{home}}) {
         <% $item->html($current, $currentUrl) %>
