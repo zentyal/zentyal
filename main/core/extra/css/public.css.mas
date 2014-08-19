@@ -59,12 +59,13 @@ body {
 }
 
 h1 {
-    color: <% $main_color %>;
+    color: <% $main_color_darker %>;
     font-weight: bold;
     font-size: 30px;
     font-family: Trebuchet MS, Verdana, sans-serif;
     margin-top: 0px;
     margin-bottom: 15px;
+    margin-right: 40px;
 }
 h1 a{
     text-decoration: none;
@@ -224,12 +225,12 @@ Header
     background-color: <% $secondary_color %>;
     background-image: url("/data/images/save.png");
     background-position: 18px center;
-    box-shadow: 0 -2px 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
     color: #ffffff;
     display: none;
     font-size: 1.1em;
     line-height: 20px;
-    padding: 15px 20px 15px 60px;
+    padding: 20px 20px 20px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
@@ -785,52 +786,67 @@ TABS options
     background-color: transparent;
     position: relative;
     float: left;
-    margin-top: 5px;
+    margin-top: 8px;
+    margin-right: 8px;
 }
 
 #menusearch {
-    background-color: transparent;
     color: white;
-    border: 1px solid transparent;
-    padding: 8px 35px 8px 10px;
-    height: 40px;
+    border: none;
+    padding: 0 0 0 10px;
+    margin-right: 34px;
+    line-height: 34px;
+    height: 34px;
     box-shadow: none;
-    margin-right: 5px;
     border-radius: 0;
 }
 
-#menusearch:hover, #menusearch:focus {
-    border: 1px solid <% $main_color %>;
-}
-
-
 .menusearch input[type='submit'] {
-    background: url('/data/images/magnifying-glass.png') center center no-repeat transparent;
-    width: 40px;
-    height: 40px;
+    background-image: url('/data/images/magnifying-glass-w.png') ;
+    background-position: center center ;
+    background-repeat: no-repeat;
+    width: 34px;
+    height: 34px;
     position: absolute;
-    border: 0px;
-    top: 0px;
-    right: 0px;
+    border-radius: 0;
+    top: 0;
+    right: 0;
     overflow: hidden;
     text-indent: 1000px;
+    border: none;
+    padding: 0;
+   
 }
 
-.menusearch input[type='submit']:hover {
-    background-color: #F5F5F5;
+.menusearch input[type='submit'],
+#menusearch {
+    background-color: rgba(255,255,255,0.1);
+     transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+}
+
+#menusearch:hover, 
+#menusearch:focus,
+.menusearch input[type='submit']:hover,
+.menusearch input[type='submit']:focus {
+    background-color: rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
     box-shadow: none;
-    padding: 0px;
+    border: none;
 }
 
 #searchresults ul {
-    margin: 0px 0px 0px 10px;
-    padding: 0px;
+    margin: 0 0 0 10px;
+    padding: 0;
     list-style: none;
 }
 
 #searchresults ul li {
     font-size: 1rem;
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 
@@ -2444,6 +2460,7 @@ select {
     box-shadow: inset 0px 0px 2px #ddd;
     -moz-box-shadow: inset 0px 0px 2px #ddd;
     box-sizing:border-box;
+    max-width: 100%;
 }
 input:focus,
 textarea:focus,
@@ -2982,6 +2999,7 @@ td.stopped .done-bar{
 }
 
 /* migration blocks*/
+
 .migration-info{
     width: 28%;
     float: right;

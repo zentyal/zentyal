@@ -24,13 +24,6 @@ my $finishTitle = __('Save changes?');
              <input type="submit"/>
           </form>
         </div>
-
-% if ( $save ne '' ) {
-          <a class="<% $finishClass %>" id="changes_menu" href="#"
-          onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">
-              <% $save %>
-          </a>
-% }
 % if ( $remoteServicesURL ne '' ) {
           <a id="remote_services_link" href="<% $remoteServicesURL %>">
             <% __('Zentyal Remote') %>
@@ -43,7 +36,12 @@ my $finishTitle = __('Save changes?');
       <% $logout %>
      </a>
 % }
-
+% if ( $save ne '' ) {
+          <a class="<% $finishClass %>" id="changes_menu" href="#"
+          onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">
+              <% $save %>
+          </a>
+% }
         </div>
       </div>
 <script>
