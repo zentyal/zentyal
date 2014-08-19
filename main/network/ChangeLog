@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed problem in gateway table when gateways go away when
+	  syncing rows
 	+ Added vlans key as exclude replication key
 	+ Add nameserverDelete and nameserverAdded callbacks to NetworkObserver
 3.5.1
