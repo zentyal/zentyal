@@ -668,27 +668,19 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $separator = 'Communications';
     my $order = 900;
 
+    # FIXME: integrate inside software wizard and mail models
     my $folder = new EBox::Menu::Folder(
         name => 'OpenChange',
         icon => 'openchange',
         text => $self->printableName(),
-        separator => $separator,
         order => $order);
 
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/Composite/General',
         text      => __('Setup'),
         order     => 0));
-
-#    if ($self->isProvisioned()) {
-#        $folder->add(new EBox::Menu::Item(
-#            url       => 'OpenChange/Migration/Connect',
-#            text      => __('MailBox Migration'),
-#            order     => 1));
-#    }
 
     $root->add($folder);
 }

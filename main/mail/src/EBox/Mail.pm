@@ -420,7 +420,7 @@ sub _migrateAliasTo35
 
             my $group = $groups{$uid};
             try {
-                $self->checkMailNotInUse($alias); 
+                $self->checkMailNotInUse($alias);
 
                 my $mail =  $group->get('mail');
                 if ($mail) {
@@ -1754,8 +1754,8 @@ sub menu
                                         'name' => 'Mail',
                                         'icon' => 'mail',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Communications',
-                                        'order' => 610
+                                        'tag' => 'main',
+                                        'order' => 4
     );
 
     $folder->add(

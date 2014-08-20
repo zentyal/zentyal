@@ -697,16 +697,11 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
-                                        'text' => __('Maintenance'),
-                                        'icon' => 'maintenance',
-                                        'separator' => 'Core',
-                                        'order' => 70);
-
-    $folder->add(new EBox::Menu::Item('url' => 'Maintenance/Logs',
-                                      'text' => $self->printableName(),
-                                      'order' => 20));
-    $root->add($folder);
+    $root->add(new EBox::Menu::Item('url' => 'Maintenance/Logs',
+                                    'text' => $self->printableName(),
+                                    'icon' => 'logs',
+                                    'tag' => 'system',
+                                    'order' => 70));
 }
 
 # Helper functions

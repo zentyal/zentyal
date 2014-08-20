@@ -126,7 +126,7 @@ sub menu
     $system->add(new EBox::Menu::Item(
         url => $menuURL,
         text => $self->printableName(),
-        separator => 'Core',
+        tag => 'system',
         order => 50,
     ));
 

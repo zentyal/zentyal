@@ -98,18 +98,19 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
                                     'icon' => 'dashboard',
                                     'text' => __('Dashboard'),
-                                    'separator' => 'Core',
-                                    'order' => 10));
+                                    'tag' => 'home',
+                                    'order' => 1));
 
     $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
                                     'text' => __('Module Status'),
                                     'icon' => 'mstatus',
-                                    'separator' => 'Core',
-                                    'order' => 20));
+                                    'tag' => 'system',
+                                    'order' => 10));
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
                                         'icon' => 'system',
                                         'text' => __('System'),
+                                        'tag' => 'system',
                                         'order' => 30);
 
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Composite/General',
@@ -130,21 +131,6 @@ sub menu
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));
     $root->add($system);
-
-    my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
-                                       'text' => __('Maintenance'),
-                                       'icon' => 'maintenance',
-                                       'separator' => 'Core',
-                                       'order' => 70);
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-                                     'order' => 40,
-                                     'text' => __('Disk Usage')));
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/RAID',
-                                     'order' => 50,
-                                     'text' => __('RAID')));
-    $root->add($maint);
 }
 
 # Method: _setConf

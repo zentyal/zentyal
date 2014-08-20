@@ -115,7 +115,7 @@ sub set
 
 # Method: get
 #
-#   Set the value of a key, or the given defaultValue if not exists
+#   Get the value of a key, or the given defaultValue if not exists
 #
 sub get
 {

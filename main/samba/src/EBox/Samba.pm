@@ -478,7 +478,7 @@ sub _migrateTo35
 
                     my @objectClass = $entry->get_value('objectClass');
                     my $isSecurity = grep  { $_ eq 'posixGroup' } @objectClass;
-                    
+
                     $group->setSecurityGroup($isSecurity, 1);
                     $group->save();
                 }
@@ -2243,17 +2243,14 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $separator = 'Office';
-    my $order = 510;
-
     my $standalone = ($self->mode eq STANDALONE_MODE);
 
     if ($standalone) {
         my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
                                                   text => __('Domain'),
                                                   icon => 'domain',
-                                                  separator => 'Office',
-                                                  order => 535);
+                                                  tag => 'main',
+                                                  order => 2);
 
         $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
                                                 text  => __('Settings'),
@@ -2270,11 +2267,11 @@ sub menu
     }
 
 
-    my $folder = new EBox::Menu::Folder('name' => 'Users',
-                                        'icon' => 'samba',
-                                        'text' => __('Users and Computers'),
-                                        'separator' => $separator,
-                                        'order' => $order);
+    my $folder = new EBox::Menu::Folder(name => 'Users',
+                                        icon => 'samba',
+                                        text => __('Users and Computers'),
+                                        tag => 'main',
+                                        order => 1);
     if ($self->configured()) {
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Tree/Manage',
@@ -2299,7 +2296,7 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'       => 'Samba/View/Mode',
             'text'      => __('Configure mode'),
-            'separator' => $separator,
+            'section'   => 3,
             'order'     => 0));
     }
     $root->add($folder);
@@ -2308,8 +2305,8 @@ sub menu
         $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
                                         url       => 'Samba/Composite/FileSharing',
                                         icon      => 'sharing',
-                                        separator => 'Office',
-                                        order     => 540));
+                                        tag       => 'main',
+                                        order     => 3));
     }
 }
 

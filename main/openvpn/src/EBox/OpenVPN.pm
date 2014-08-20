@@ -1277,7 +1277,6 @@ sub menu
                                         'icon' => 'openvpn',
                                         'name' => 'VPN',
                                         'text' => 'VPN',
-                                        'separator' => 'Infrastructure',
                                         'order' => 425
                                        );
 

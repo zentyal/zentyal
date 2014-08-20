@@ -367,12 +367,11 @@ sub keywords
 
     my @words = ();
 
-    push(@words, _parse_words($self->pageTitle()));
-    push(@words, _parse_words($self->headTitle()));
-    push(@words, _parse_words($self->printableName()));
-    push(@words, _parse_words($self->printableModelName()));
-    push(@words, _parse_words($self->printableRowName()));
-    push(@words, _parse_words($self->help()));
+    push(@words, $self->_extract_keywords($self->pageTitle()));
+    push(@words, $self->_extract_keywords($self->headTitle()));
+    push(@words, $self->_extract_keywords($self->printableName()));
+    push(@words, $self->_extract_keywords($self->printableModelName()));
+    push(@words, $self->_extract_keywords($self->help()));
 
     return \@words;
 }

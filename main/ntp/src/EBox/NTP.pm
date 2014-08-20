@@ -274,10 +274,11 @@ sub menu
 {
     my ($self, $root) = @_;
 
+    # FIXME: move to System -> Date/Time
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
                                     'icon' => 'ntp',
                                     'url' => 'NTP/Composite/General',
-                                    'separator' => 'Infrastructure',
+                                    'tag' => 'system',
                                     'order' => 445));
 }
 

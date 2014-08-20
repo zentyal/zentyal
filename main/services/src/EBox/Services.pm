@@ -624,7 +624,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Network',
                                         'icon' => 'network',
                                         'text' => __('Network'),
-                                        'separator' => 'Core',
+                                        'tag' => 'system',
                                         'order' => 40);
 
     my $item = new EBox::Menu::Item('url' => 'Network/Services',
