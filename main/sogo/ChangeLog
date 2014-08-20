@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed http/https wrong redirects using X-Request-Host header
 3.5.1
 	+ Set proper actions and files in module enable action
 3.5

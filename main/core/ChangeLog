@@ -1,4 +1,5 @@
 HEAD
+	+ Pass X-Request-Host on haproxy (needed for SOGo apache conf)
 	+ Added missing use in hasManyViewer.mas
 	+ Only allow restore from backups from versions with the same two
 	  first version numbers
