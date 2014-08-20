@@ -234,7 +234,6 @@ sub menu
     my $item = new EBox::Menu::Item('url' => 'Printers/Composite/General',
                                     'icon' => 'printers',
                                     'text' => $self->printableName(),
-                                    'separator' => 'Office',
                                     'order' => 550);
 
     $root->add($item);

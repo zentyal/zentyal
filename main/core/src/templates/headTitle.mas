@@ -11,14 +11,19 @@ use EBox::Gettext;
 my $logoutTitle = __('Close session');
 my $finishTitle = __('Save changes?');
 </%init>
-<div id="top"></div>
-        <div id="header">
-          <a href="/">
-            <img src="<% $image_title %>" alt="title"/>
-          </a>
-          <span><% $version %></span>
+    <div id="top"></div>
+    <div id="header">
+      <a class="logo" href="/">
+        <img src="<% $image_title %>" alt="title"/>
+      </a>
+      <span class="version"><% $version %></span>
+      <div id="hmenu">
+        <div class="menusearch">
+          <form action='/Search'>
+             <input name="search" id="menusearch" type="text" placeholder="<% __('Search') %>"/>
+             <input type="submit"/>
+          </form>
         </div>
-        <div id="hmenu">
 % if ( $remoteServicesURL ne '' ) {
           <a id="remote_services_link" href="<% $remoteServicesURL %>">
             <% __('Zentyal Remote') %>
@@ -38,6 +43,7 @@ my $finishTitle = __('Save changes?');
           </a>
 % }
         </div>
+      </div>
 <script>
 $(function(){
     Zentyal.refreshSaveChangesButton();

@@ -43,23 +43,22 @@ sub htmlParams
 
     my $comp = 'menu.mas';
 
-    # Add separators
-    my @items;
-    my $currentSeparator = '';
+    # Classify by tags
+    my %items;
+
     foreach my $item (@{$self->items}) {
-        my $itemSeparator = $item->{separator};
-        if ($itemSeparator) {
-            if ($itemSeparator ne $currentSeparator) {
-                push (@items, new EBox::Menu::Separator('text' =>
-                                                        $itemSeparator));
-                $currentSeparator = $itemSeparator;
-            }
+        my $tag = $item->{tag};
+        unless ($tag) {
+            $tag = 'others';
         }
-        push (@items, $item);
+        unless (exists $items{$tag}) {
+            $items{$tag} = [];
+        }
+        push (@{$items{$tag}}, $item);
     }
 
     my @params;
-    push (@params, 'items' => \@items);
+    push (@params, 'items' => \%items);
     push (@params, 'current' => $self->{'current'});
     push (@params, 'currentUrl' => $self->{'currentUrl'});
     push (@params, 'copyright_footer' => $copyright);

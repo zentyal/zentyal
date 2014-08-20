@@ -1733,8 +1733,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'CA',
                                         'text' => $self->printableName(),
                                         'icon' => 'ca',
-                                        'separator' => 'Infrastructure',
-                                        'order' => 422);
+                                        'order' => 10);
 
     $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                       'text' => __('General')));

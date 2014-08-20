@@ -55,7 +55,7 @@ my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
           <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
         </div>
 %   unless ($slave) {
-    <div class="form-button"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
+    <div class="form-buttons"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
                        alt="<% __('Change') %>">
     </div>
@@ -223,7 +223,7 @@ $group
 <form action='/Samba/EditGroup' method='POST' id='addUserToGroup' >
   <select name="adduser" id="adduser">
   </select>
-  <input type='submit' id='addUserToGroupSubmit' class='btn btn-only-icon btn-add' style="float:right;" value='<% __('Add user') %>' title='<% __('Add user') %>' />
+  <input type='submit' id='addUserToGroupSubmit' class='btn btn-only-icon btn-add custom-combobox-add' value='<% __('Add user') %>' title='<% __('Add user') %>' />
   <input type="hidden" name="dn"   value="<% $group->dn() %>"/>
   <input type="hidden" name="addusertogroup" value="1"/>
 </form>
