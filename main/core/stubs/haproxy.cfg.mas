@@ -133,7 +133,7 @@ backend bk_zentyal_<% $serviceNameWithPort %>
 <%args>
 $isSSL
 </%args>
-  http-request set-header X-Request-Host              %[req.hdr(Host)]
+  http-request set-header X-Forwarded-Host            %[req.hdr(Host)]
 % if ($isSSL) {
   http-request set-header X-Forwarded-Proto      https
   http-request set-header X-SSL                       %[ssl_fc]
