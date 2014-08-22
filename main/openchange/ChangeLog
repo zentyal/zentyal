@@ -1,4 +1,5 @@
 HEAD
+	+ Redirect all /ews/ requests to OCSManager
 	+ Use .crt when downloading the certificate for RPC/Proxy
 	  to ease Windows importing
 	+ Changes to out-of-office required by upstream openchange changes

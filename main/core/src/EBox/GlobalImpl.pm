@@ -547,6 +547,13 @@ sub _prepareActionScript
 #
 #      Save changes in all modules
 #
+# Named parameters:
+#
+#      progress -
+#
+#      replicating - Boolean flag to indicate we are saving modules
+#                    from a HA replication
+#
 sub saveAllModules
 {
     my ($self, %options) = @_;

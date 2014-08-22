@@ -45,7 +45,7 @@ sub _new_instance
     my $class = shift;
 
     my $self = {};
-    bless($self, $class);
+    bless ($self, $class);
     $self->clearConn();
 
     return $self;
@@ -57,15 +57,17 @@ sub _new_instance
 #
 # Returns:
 #
-#   object of class <EBox::LDAP::ExternalAD>
+#   Object of class <EBox::LDAP::ExternalAD>
+#
 sub instance
 {
     my ($self, %opts) = @_;
+
     $opts{dcHostname} or throw EBox::Exceptions::MissingArgument('dcHostname');
     $opts{user}       or throw EBox::Exceptions::MissingArgument('user');
     $opts{password}   or throw EBox::Exceptions::MissingArgument('password');
 
-    unless(defined($_instance)) {
+    unless (defined($_instance)) {
         $_instance = __PACKAGE__->_new_instance();
     };
 
@@ -86,6 +88,12 @@ sub dcHostname
 {
     my ($self) = @_;
 
+    unless (defined $self->{dcHostname}) {
+        # clearConn called, reload from model
+        my $samba = EBox::Global->modInstance('samba');
+        my $model = $samba->model('Mode');
+        $self->{dcHostname} = $model->value('dcHostname');
+    }
     return $self->{dcHostname};
 }
 
@@ -98,6 +106,13 @@ sub dcHostname
 sub getPassword
 {
     my ($self) = @_;
+
+    unless (defined $self->{password}) {
+        # clearConn called, reload from model
+        my $samba = EBox::Global->modInstance('samba');
+        my $model = $samba->model('Mode');
+        $self->{password} = $model->value('dcPassword');
+    }
 
     return $self->{password};
 }
@@ -112,10 +127,18 @@ sub _adUser
 {
     my ($self) = @_;
 
-    my $user = $self->{user};
-    $user or throw EBox::Exceptions::Internal('user attribute not defined');
+    unless (defined $self->{user}) {
+        # clearConn called, reload from model
+        my $samba = EBox::Global->modInstance('samba');
+        my $model = $samba->model('Mode');
+        $self->{user} = $model->value('dcUser');
+    }
 
-    return $user;
+    unless (defined $self->{user}) {
+        throw EBox::Exceptions::Internal('user attribute not defined');
+    }
+
+    return $self->{user};
 }
 
 # Method: userBindDN
@@ -138,6 +161,132 @@ sub _dcLDAPConnection
     my ($self) = @_;
 
     my $dc = $self->dcHostname();
+
+    # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
+    # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
+    if (EBox::Validate::checkIP($dc)) {
+        throw EBox::Exceptions::External(
+            __x('The domain controller must be specified as full qualified domain name'));
+    }
+    unless (EBox::Validate::checkDomainName($dc) and scalar (split (/\./, $dc)) > 1) {
+        throw EBox::Exceptions::External(
+            __x('The FQDN {x} does not seem to be valid', x => $dc));
+    }
+
+    # Check DC can be resolved to IP
+    my $global = EBox::Global->getInstance(1);
+    my $network = $global->modInstance('network');
+    my $ns = $network->nameservers();
+    my $resolver = new Net::DNS::Resolver(nameservers => $ns);
+    $resolver->tcp_timeout(5);
+    $resolver->udp_timeout(5);
+    my $dcIpAddress = undef;
+    my $query = $resolver->query($dc, 'A');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq 'A';
+            $dcIpAddress = $rr->address();
+            last;
+        }
+    }
+    unless (defined $dcIpAddress and length $dcIpAddress) {
+        my $url = '/Network/Composite/DNS';
+        throw EBox::Exceptions::External(
+            __x('The domain controller {x} could not be resolved to its IP address. ' .
+                'Please, make sure you are using one of the AD DNS servers as the ' .
+                'primary resolver in the {oh}resolvers list{ch}.',
+                x => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
+    }
+    EBox::info("The DC $dc has been resolved to $dcIpAddress " .
+               "using nameservers [" . join (', ', @{$ns}) . "]");
+
+    # Check DC can be reverse resolved
+    my $dcReverseName = undef;
+    my $targetIP = join ('.', reverse split (/\./, $dcIpAddress)) . ".in-addr.arpa";
+    $query = $resolver->query($targetIP, 'PTR');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq "PTR";
+            $dcReverseName = $rr->ptrdname();
+        }
+    }
+    unless (defined $dcReverseName and length $dcReverseName) {
+        my $url = '/Network/Composite/DNS';
+        throw EBox::Exceptions::External(
+            __x("The IP address '{x}' belonging to the domain controller '{y}' could not be " .
+                'reverse resolved. Please, make sure you are using one of the AD DNS servers as the ' .
+                'primary resolver in the {oh}resolvers list{ch}, and it contains the required reverse zones.',
+                x => $dcIpAddress, y => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
+    }
+
+    # Check the reverse resolved name match the DC name supplied by user
+    unless (lc $dcReverseName eq lc $dc) {
+        throw EBox::Exceptions::External(
+            __x("The AD DNS server has resolved the supplied DC name '{x}' to the IP '{y}', " .
+                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
+                "AD DNS records.", x => $dc, y => $dcIpAddress, z => $dcReverseName));
+
+    }
+
+    # Check DC is reachable
+    my $pinger = new Net::Ping('tcp');
+    $pinger->port_number(88);
+    $pinger->service_check(1);
+    unless ($pinger->ping($dc)) {
+        throw EBox::Exceptions::External(
+            __x('The domain controller {x} is unreachable.',
+                x => $dc));
+    }
+    $pinger->close();
+
+    # Check clock skew between DC and Zentyal
+    $self->_adCheckClockSkew($dc);
+
+    # Check the AD DNS server has an A record for Zentyal
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostFQDN = $sysinfo->fqdn();
+    my $hostIpAddress = undef;
+    $query = $resolver->query($hostFQDN, 'A');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq 'A';
+            $hostIpAddress = $rr->address();
+            last;
+        }
+    }
+    unless (defined $hostIpAddress and length $hostIpAddress) {
+        throw EBox::Exceptions::External(
+            __x("The Zentyal server FQDN '{x}' could not be resolved by the AD DNS server. " .
+                "Please, ensure the A and PTR records for the Zentyal server exists in your AD DNS server.",
+                x => $hostFQDN));
+    }
+
+    # Check the AD DNS server has a PTR record for Zentyal
+    my $hostReverseName = undef;
+    my $hostTargetIP = join ('.', reverse split (/\./, $hostIpAddress)) . ".in-addr.arpa";
+    $query = $resolver->query($hostTargetIP, 'PTR');
+    if ($query) {
+        foreach my $rr ($query->answer()) {
+            next unless $rr->type() eq "PTR";
+            $hostReverseName = $rr->ptrdname();
+        }
+    }
+    unless (defined $hostReverseName and length $hostReverseName) {
+        throw EBox::Exceptions::External(
+            __x("The IP address '{x}' belonging to Zentyal server '{y}' could not be " .
+                "reverse resolved. Please, make sure your AD DNS server has the " .
+                "required PTR records defined.", x => $hostIpAddress, y => $hostFQDN));
+    }
+
+    # Check the reverse resolved name match the DC name supplied by user
+    unless (lc $hostReverseName eq lc $hostFQDN) {
+        throw EBox::Exceptions::External(
+            __x("The AD DNS server has resolved the Zentyal server name '{x}' to the IP '{y}', " .
+                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
+                "AD DNS records.", x => $hostFQDN, y => $hostIpAddress, z => $hostReverseName));
+
+    }
+
     my $ldap = new Net::LDAP($dc);
     unless ($ldap) {
         throw EBox::Exceptions::External(
@@ -243,135 +392,15 @@ sub connectWithKerberos
 sub connection
 {
     my ($self) = @_;
+
     if ($self->connected()) {
         return $self->{ldap};
     }
 
     EBox::info("Setting AD connection");
 
-    my $dc  = $self->dcHostname();
-
-    # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
-    # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
-    if (EBox::Validate::checkIP($dc)) {
-        throw EBox::Exceptions::External(
-            __x('The domain controller must be specified as full qualified domain name'));
-    }
-    unless (EBox::Validate::checkDomainName($dc) and scalar (split (/\./, $dc)) > 1) {
-        throw EBox::Exceptions::External(
-            __x('The FQDN {x} does not seem to be valid', x => $dc));
-    }
-
-    # Check DC can be resolved to IP
-    my $resolver = new Net::DNS::Resolver();
-    $resolver->tcp_timeout(5);
-    $resolver->udp_timeout(5);
-    my $dcIpAddress = undef;
-    my $query = $resolver->query($dc, 'A');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            $dcIpAddress = $rr->address();
-            last;
-        }
-    }
-    unless (defined $dcIpAddress and length $dcIpAddress) {
-        my $url = '/Network/Composite/DNS';
-        throw EBox::Exceptions::External(
-            __x('The domain controller {x} could not be resolved to its IP address. ' .
-                'Please, make sure you are using one of the AD DNS servers as the ' .
-                'primary resolver in the {oh}resolvers list{ch}.',
-                x => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
-    }
-
-    # Check DC can be reverse resolved
-    my $dcReverseName = undef;
-    my $targetIP = join ('.', reverse split (/\./, $dcIpAddress)) . ".in-addr.arpa";
-    $query = $resolver->query($targetIP, 'PTR');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq "PTR";
-            $dcReverseName = $rr->ptrdname();
-        }
-    }
-    unless (defined $dcReverseName and length $dcReverseName) {
-        my $url = '/Network/Composite/DNS';
-        throw EBox::Exceptions::External(
-            __x("The IP address '{x}' belonging to the domain controller '{y}' could not be " .
-                'reverse resolved. Please, make sure you are using one of the AD DNS servers as the ' .
-                'primary resolver in the {oh}resolvers list{ch}, and it contains the required reverse zones.',
-                x => $dcIpAddress, y => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
-    }
-
-    # Check the reverse resolved name match the DC name supplied by user
-    unless (lc $dcReverseName eq lc $dc) {
-        throw EBox::Exceptions::External(
-            __x("The AD DNS server has resolved the supplied DC name '{x}' to the IP '{y}', " .
-                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
-                "AD DNS records.", x => $dc, y => $dcIpAddress, z => $dcReverseName));
-
-    }
-
-    # Check DC is reachable
-    my $pinger = new Net::Ping('tcp');
-    $pinger->port_number(88);
-    $pinger->service_check(1);
-    unless ($pinger->ping($dc)) {
-        throw EBox::Exceptions::External(
-            __x('The domain controller {x} is unreachable.',
-                x => $dc));
-    }
-    $pinger->close();
-
-    # Check clock skew between DC and Zentyal
-    $self->_adCheckClockSkew($dc);
-
-    # Check the AD DNS server has an A record for Zentyal
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostFQDN = $sysinfo->fqdn();
-    my $hostIpAddress = undef;
-    $query = $resolver->query($hostFQDN, 'A');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            $hostIpAddress = $rr->address();
-            last;
-        }
-    }
-    unless (defined $hostIpAddress and length $hostIpAddress) {
-        throw EBox::Exceptions::External(
-            __x("The Zentyal server FQDN '{x}' could not be resolved by the AD DNS server. " .
-                "Please, ensure the A and PTR records for the Zentyal server exists in your AD DNS server.",
-                x => $hostFQDN));
-    }
-
-    # Check the AD DNS server has a PTR record for Zentyal
-    my $hostReverseName = undef;
-    my $hostTargetIP = join ('.', reverse split (/\./, $hostIpAddress)) . ".in-addr.arpa";
-    $query = $resolver->query($hostTargetIP, 'PTR');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq "PTR";
-            $hostReverseName = $rr->ptrdname();
-        }
-    }
-    unless (defined $hostReverseName and length $hostReverseName) {
-        throw EBox::Exceptions::External(
-            __x("The IP address '{x}' belonging to Zentyal server '{y}' could not be " .
-                "reverse resolved. Please, make sure your AD DNS server has the " .
-                "required PTR records defined.", x => $hostIpAddress, y => $hostFQDN));
-    }
-
-    # Check the reverse resolved name match the DC name supplied by user
-    unless (lc $hostReverseName eq lc $hostFQDN) {
-        throw EBox::Exceptions::External(
-            __x("The AD DNS server has resolved the Zentyal server name '{x}' to the IP '{y}', " .
-                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
-                "AD DNS records.", x => $hostFQDN, y => $hostIpAddress, z => $hostReverseName));
-
-    }
-
     # Bind to the AD LDAP
+    my $dc = $self->dcHostname();
     my $ad = $self->_dcLDAPConnection();
     my $adUser = $self->userBindDN($self->_adUser());
     my $bindPwd = $self->getPassword();
@@ -654,12 +683,13 @@ sub clearConn
 {
     my ($self) = @_;
 
+    $self->SUPER::clearConn();
     delete $self->{ldap};
     delete $self->{rootDse};
     delete $self->{dn};
     delete $self->{user};
+    delete $self->{password};
     delete $self->{dcHostname};
-    $self->SUPER::clearConn();
 }
 
 sub roRootDn {

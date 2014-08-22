@@ -85,11 +85,10 @@ sub _checkIPWithinNetworkIface
     my ($self, $ip) = @_;
 
     my $network = $self->parentModule()->global()->modInstance('network');
-    my @staticIfaces = (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
-
+    my @allValidIfaces = grep { $network->ifaceMethod($_) !~ m/notset|trunk|bundled/ } @{$network->allIfaces()};
     my $floatingIPisCorrect = 0;
 
-    foreach my $iface (@staticIfaces) {
+    foreach my $iface (@allValidIfaces) {
         if ( EBox::Validate::isIPInRange($network->netInitRange($iface), $network->netEndRange($iface), $ip) ) {
             $floatingIPisCorrect = 1;
         }

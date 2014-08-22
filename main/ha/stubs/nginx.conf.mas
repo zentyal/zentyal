@@ -7,6 +7,8 @@
   $socket
 </%args>
 location <% $path %> {
+            # Set higher timeout due to large replications
+            proxy_read_timeout 120s;
             uwsgi_pass unix://<% $socket %>;
 
             uwsgi_param QUERY_STRING $query_string;
