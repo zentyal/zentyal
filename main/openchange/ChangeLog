@@ -1,4 +1,5 @@
 4.0
+	+ Remove currently unused migration code
 	+ Set version to 4.0
 	+ Use .crt when downloading the certificate for RPC/Proxy
 	  to ease Windows importing
