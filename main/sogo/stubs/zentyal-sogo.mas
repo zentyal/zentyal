@@ -60,7 +60,8 @@ ProxyPass /sogo http://127.0.0.1:20000/SOGo
 #  RequestHeader set "x-webobjects-remote-user" "%{REMOTE_USER}e"
 
 % if ($sslPort) {
-  RequestHeader set "x-webobjects-server-url" "https://<% $hostname %>:<% $sslPort %>"
+  SetEnvIf Host "(.*):?" FORWARDED_HOST=$1
+  RequestHeader set "x-webobjects-server-url" "https://%{FORWARDED_HOST}e:<% $sslPort %>"
 % } else {
   RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
 % }
