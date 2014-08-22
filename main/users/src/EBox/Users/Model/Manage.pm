@@ -174,8 +174,22 @@ sub nodeTypes
 sub precondition
 {
     my ($self) = @_;
+    my $parentModule = $self->parentModule();
+    if (not $parentModule->configured()) {
+        $self->{preconditionFailMsg} = __('You must enable and save the module Users in the module status section in order to use it.');
+        return 0;
+    }
 
-    return $self->parentModule()->configured();
+    if ($parentModule->mode() ne $parentModule->EXTERNAL_AD_MODE()) {
+        return 1;
+    }
+
+    if ($parentModule->needsSaveAfterConfig()) {
+        $self->{preconditionFailMsg} = __('You must save the module Users in the module status section in order to use it.');
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -189,8 +203,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    return __('You must enable the module Users in the module status section in order to use it.');
+    return $self->{preconditionFailMsg};
 }
 
 sub _hiddenOU

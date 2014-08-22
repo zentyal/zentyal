@@ -1962,10 +1962,11 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Users/Tree/Manage',
             'text' => __('Manage'), order => 10));
-        $folder->add(new EBox::Menu::Item(
-            'url'  => 'Users/Composite/UserTemplate',
-            'text' => __('User Template'), order => 30));
+
         if ($self->mode() eq STANDALONE_MODE) {
+            $folder->add(new EBox::Menu::Item(
+                'url'  => 'Users/Composite/UserTemplate',
+                'text' => __('User Template'), order => 30));
             $folder->add(new EBox::Menu::Item(
                 'url'  => 'Users/Composite/Sync',
                 'text' => __('Synchronization'), order => 40));
