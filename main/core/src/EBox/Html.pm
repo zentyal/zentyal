@@ -138,12 +138,6 @@ sub header
 
     my $serverName = __('Zentyal');
     my $global = EBox::Global->getInstance();
-    if ( $global->modExists('remoteservices') ) {
-        my $remoteServicesMod = $global->modInstance('remoteservices');
-        if ( $remoteServicesMod->eBoxSubscribed() ) {
-            $serverName = $remoteServicesMod->eBoxCommonName();
-        }
-    }
 
     if ($title) {
         $title = "$serverName - $title";
@@ -152,7 +146,7 @@ sub header
     }
 
     my $favicon = $global->theme()->{'favicon'};
-    my $html = makeHtml('header.mas', title => $title, favicon => $favicon, folder => $folder);
+    my $html = makeHtml('header.mas', title => $title, favicon => $favicon, folder => $folder, first => $global->first());
     return $html;
 
 }
