@@ -32,7 +32,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::DBEngineFactory;
 use EBox::Service;
-use EBox::Logs::Consolidate;
 use EBox::FileSystem;
 use EBox::Util::SQLTypes;
 use EBox::Util::Version;
@@ -540,56 +539,6 @@ sub totalRecords
     my $tcount = $tarray[0]{'COUNT(*)'};
 
     return $tcount;
-}
-
-# Method: consolidatedLogForDay
-#
-# Parameters:
-#     table - consolidated table. The suffix '_daily' is added automaticallu
-#     date  - date in format yyyy-mm-dd
-#
-#  Returns:
-#      array reference. Each row will be a hash reference with
-#      column/values as key/values. Remember that it will be always a 'date'
-#      field.
-#      If there is not data it will return a empty array
-sub consolidatedLogForDay
-{
-    my ($self, $table, $date) = @_;
-    $date or
-        throw EBox::Exceptions::MissingArgument('date');
-    $table or
-        throw EBox::Exceptions::MissingArgument('table');
-
-    # put the standard 00:00:00  hour
-    ($date) = split '\s', $date;
-    $date .= ' 00:00:00';
-
-    $table = $table . '_daily';
-
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-
-    # FIXME: what happens with acquirers here?
-    my $sql = "SELECT * FROM $table WHERE date='$date'";
-
-    my @results = @{  $dbengine->query($sql) };
-    return \@results;
-}
-
-# Method: yesterdayDate
-#
-#  Returns:
-#    the yesterday date in string format so it can used in SQL queries and
-#    i nthe consolidatedLogForDay method
-sub yesterdayDate
-{
-    my ($self) = @_;
-    my $yesterdayTs = time()  - 86400; # 86400 seconds in a day
-    my  ($sec,$min,$hour,$mday,$mon,$year) = localtime($yesterdayTs);
-    $year += 1900;
-    $mon  +=1;
-
-    return "$year-$mon-$mday 00:00:00";
 }
 
 sub _addFilter
