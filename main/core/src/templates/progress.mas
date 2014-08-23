@@ -55,7 +55,6 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 <style>
 .carousel.slide{
 position: relative;
-margin-top: 20px;
 background: #46962d;
 overflow: hidden;
 }

@@ -1452,6 +1452,7 @@ border-radius: 2px;
     list-style: none;
 }
 #software .package {
+    overflow: hidden;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 5px;
@@ -1475,9 +1476,10 @@ border-radius: 2px;
     -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package img {
-    float: left;
+    position: absolute;
     height: 32px;
-    margin: 18px;
+    top: 18px;
+    left: 18px;
     width: 32px;
 }
 #software .package p {
@@ -1485,8 +1487,10 @@ border-radius: 2px;
     display: table-cell;
     font-size: 13px;
     height: 68px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 30px 0 60px;
     vertical-align: middle;
-    padding-right: 30px;
 }
 #software .package:after{
     background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
@@ -1528,12 +1532,14 @@ border-radius: 2px;
 }
 #software .package-medium img{
     height: 42px;
-    margin: 14px;
+    top: 14px;
+    left: 14px;
     width: 42px;
 }
 #software .package-medium p{
     height: 70px;
     font-size: 20px;
+    padding-left: 70px;
 }
 #software .package-big{
     width: 49%;
@@ -1541,13 +1547,14 @@ border-radius: 2px;
 }
 #software .package-big img{
     height: 70px;
-    margin: 15px;
+    top: 15px;
+    left: 15px;
     width: 70px;
 }
 #software .package-big p{
     height: 100px;
     font-size: 25px;
-    padding-right: 50px;
+    padding-left: 100px;
 }
 #software .btn-block button{
     margin-right: 0.5%;
@@ -3040,7 +3047,8 @@ Responsive corrections
 
 *****************************/
 
-@media (max-width: 1100px) {
+@media  (max-width: 1200px) {
+
     .migration-table th:first-child,
     .migration-table td:first-child{
        max-width: 50px;
@@ -3054,7 +3062,7 @@ Responsive corrections
         min-width: 100px;
     }
     #software .package{
-        width: 24%;
+        width: 32.3333%;
     }
     #software .package-big {
         width: 49%;
@@ -3072,6 +3080,8 @@ Responsive corrections
         font-size: 16px;
     }
 }
+
+
 @media (max-width: 960px){
     .dashboard{
         width: 100%;
@@ -3091,5 +3101,36 @@ Responsive corrections
     }
     .form-block.half-block{
         width: 98%;
+    }
+    
+    /* INSTALLATION */
+
+    #software .package-big {
+        width: 99%;
+    }
+    .final_installation{
+        background-size: 60%;
+    }
+    .final_installation h4 {
+        font-size: 30px;
+    }
+    .final_installation h5 {
+        font-size: 18px;
+        width: auto;
+    }
+    .final_installation .btn {
+        position: static;
+    }
+}
+
+
+
+@media (max-width: 740px){
+   
+    #software .package,
+    #software .package-big,
+    #software .package-medium {
+        width: 99% ;
+        margin: 5px 0px;
     }
 }
