@@ -53,11 +53,11 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'Settings',
-        'printableTableName' => __('General Settings'),
+        'printableTableName' => 'NTP',
         'modelDomain' => 'NTP',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
-        'help' => __('Here you can enable or disable time synchronization with external servers. You should remember to set up your timezone to have synchronization behaving correctly.'), # FIXME: Add System->General link
+        'help' => __('Here you can enable or disable time synchronization with external servers. You should remember to set up your timezone to have synchronization behaving correctly.'),
     };
 
     return $dataTable;
