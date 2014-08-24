@@ -14,7 +14,7 @@
 use EBox::Gettext;
 </%init>
 <br />
-<div class='dataTableDiv'>
+<div class='table-wrapper'>
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
