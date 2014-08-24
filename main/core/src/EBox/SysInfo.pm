@@ -117,6 +117,10 @@ sub menu
                                       'text' => __('General'),
                                       'order' => 10));
 
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Composite/DateAndTime',
+                                      'text' => __('Date/Time'),
+                                      'order' => 20));
+
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
