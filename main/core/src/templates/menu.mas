@@ -4,7 +4,9 @@ $current => 'none'
 $currentUrl => ''
 $copyright_footer
 </%args>
+
 <div id='menu'>
+<div id="show-menu" title="show menu"></div>
 
 <ul id='nav'>
 % foreach my $item (@{$items{home}}) {
@@ -29,4 +31,8 @@ $copyright_footer
         <% $copyright_footer %>
     </div>
 </div>
-
+<script>
+    $('#show-menu').click( function() {
+        $('#menu').toggleClass('menu-slide', 300);
+    });
+</script>
