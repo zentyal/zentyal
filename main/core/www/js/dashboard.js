@@ -117,10 +117,8 @@ Zentyal.Dashboard.widget = function(m,w,full) {
     }
     str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w.name + top_id + "'>" +
         "<div class='widgetTopBar'>" +
-        "<div class='widgetTopBackground'></div>" +
         "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
         "<div class='widgetName'>" + w.title + "</div>" +
-        "<div style='clear: both;'></div>" +
         "</div>" +
         "</div>";
     return str;
