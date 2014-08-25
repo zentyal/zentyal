@@ -172,7 +172,7 @@ Main Layout
 }
 #menu {
     padding: 15px 0 0 0;
-    margin-bottom: 50px;    
+    margin-bottom: 50px;
     position: absolute;
     top: 60px;
     left: 10px;
@@ -841,7 +841,7 @@ TABS options
     text-indent: 1000px;
     border: none;
     padding: 0;
-   
+
 }
 
 .menusearch input[type='submit'],
@@ -852,7 +852,7 @@ TABS options
     -webkit-transition: background-color 0.3s;
 }
 
-#menusearch:hover, 
+#menusearch:hover,
 #menusearch:focus,
 .menusearch input[type='submit']:hover,
 .menusearch input[type='submit']:focus {
@@ -3113,7 +3113,7 @@ Responsive corrections
     .form-block.half-block{
         width: 98%;
     }
-    
+
     /* INSTALLATION */
 
     #software .package-big {
@@ -3140,7 +3140,7 @@ Responsive corrections
 
 
 @media (max-width: 740px){
-   
+
     #software .package,
     #software .package-big,
     #software .package-medium {

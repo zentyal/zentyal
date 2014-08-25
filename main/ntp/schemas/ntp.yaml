@@ -3,6 +3,3 @@ class: 'EBox::NTP'
 models:
     - Settings
     - Servers
-
-composites:
-    General: [ntp/Settings, ntp/Servers]
