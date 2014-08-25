@@ -139,6 +139,17 @@ sub create
 
     my $dn = "CN=$name," . $args{parent}->dn();
 
+    # Check DN not exists
+    my $msg = $class->_ldap->search({
+        base => $dn,
+        scope => 'base',
+        filter => '(objectClass=*)'});
+    if ($msg->count()) {
+        throw EBox::Exceptions::External(
+            __x("Username '{x}' already exists on the same container",
+                x => $name));
+    }
+
     my @attr = ();
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'contact']);
     push (@attr, cn          => $name);
