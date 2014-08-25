@@ -29,6 +29,7 @@ defaults
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
   option http-tunnel
+  option httpclose
 %   while (my ($portNumber, $serviceConf) =  each %{$ports}) {
 %    my $isWebadmin = grep {$_->{name} eq 'webadminHAProxyId'} @{$serviceConf->{services}};
 %    if ($isWebadmin) {
@@ -132,6 +133,7 @@ backend bk_zentyal_<% $serviceNameWithPort %>
 <%args>
 $isSSL
 </%args>
+  http-request set-header X-Forwarded-Host            %[req.hdr(Host)]
 % if ($isSSL) {
   http-request set-header X-Forwarded-Proto      https
   http-request set-header X-SSL                       %[ssl_fc]
