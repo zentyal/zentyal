@@ -44,7 +44,7 @@ sub getKeywords
         if ($model) {
             $title = $model->pageTitle();
             if (not $title) {
-                $model->printableName();                
+                $model->printableName();
                 if (not $title) {
                     $title = $model->name();
                 }
@@ -71,7 +71,7 @@ sub getKeywords
             my $text = lc $item->{'text'};
             push @words, split('\W+', $text);
         }
-    
+
         my @linkElements;
         if ($modName) {
             my $modTitle =  $global->modInstance($modName)->printableName();
