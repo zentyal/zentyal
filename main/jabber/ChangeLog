@@ -1,3 +1,5 @@
+HEAD
+	+ Hide users addon until schemas are loaded
 3.5
 	+ Added noMultipleOUSupportComponent support
 	+ Adapted to OpenLDAP removal
