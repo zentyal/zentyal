@@ -141,6 +141,35 @@ Main Layout
     left: 210px;
     top: 60px;
 }
+#show-menu{
+    color: #666666;
+    display: none;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    margin: 5px 0;
+    position: relative;
+    text-transform: uppercase;
+    padding-left: 5px;
+    cursor: pointer;
+}
+#show-menu:after,
+#show-menu:before{
+    border-bottom: 4px solid #666;
+    border-top: 4px solid #666;
+    content: " ";
+    height: 3px;
+    margin: 2px 0;
+    position: absolute;
+    right: 5px;
+    width: 25px;
+}
+#show-menu:after{
+    top: 19px;
+}
+#show-menu:before{
+    top: 5px;
+}
 #menu {
     padding: 15px 0 0 0;
     margin-bottom: 50px;
@@ -148,6 +177,8 @@ Main Layout
     top: 60px;
     left: 10px;
     width: 185px;
+    background-color: #eee;
+    z-index: 10;
 }
 #footer {
     color: #888;
@@ -159,7 +190,6 @@ Main Layout
     margin-left: 0px;
     padding: 3px 0px;
     float:left;
-    border-top:3px solid #eee;
 }
 
 /****************************************************************************
@@ -234,6 +264,7 @@ Header
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
+    overflow: hidden;
 }
 #hmenu #changes_menu:hover {
     background-color: <% $secondary_color_darker %>;
@@ -279,14 +310,15 @@ DASHBOARD
     float: left;
 }
 
+#configure_widgets{
+    background-color: #ddd;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
+}
 #module_list {
-    background: none repeat scroll 0 0 whitesmoke;
-    float: left;
-    height: 35px;
-    width: 100%;
+    overflow: hidden;
 }
 #module_list > div {
-    border-right: 1px solid #DDDDDD;
     float: left;
     margin: 0;
 }
@@ -295,38 +327,31 @@ DASHBOARD
     padding: 10px;
     display: block;
     font-size: 11px;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
 }
 #module_list > div:hover {
     background-color:#eee;
 }
-
-#configure_widgets{
-    width: 100%;
-    background-color: white;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-    float: left;
-    margin-top: 10px;
-}
-
 #widget_list {
-    float: left;
     min-height: 40px;
     padding: 10px;
 }
-
 #widget_list > .note{
     background-position: 10px center;
     margin: 0;
-    padding: 10px 10px 10px 45px;
+    padding: 15px 10px 15px 45px;
 }
-#widget_list .widgetTopBackground{
-    background-color: #DDD;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+#widget_list .widgetTopBar{
+    border-bottom:none;
 }
 #widget_list .widgetBarBox{
-    margin-top: 5px;
+    display:inline-block;
+    margin:2px;
+}
+#widget_list .widgetBox{
+    border-radius: 0px;
+    margin:0px;
 }
 #widget_list .widgetPlaceholder{
     display: none;
@@ -426,10 +451,10 @@ DASHBOARD
 
 /* table */
 
-
-.dataTableDiv {
-    width: 100%;
+.table-wrapper {
+    margin-top: 10px;
     overflow: auto;
+    width: 100%;
 }
 .dataTable {
     width: 100%;
@@ -459,6 +484,7 @@ DASHBOARD
 }
 .dataTable td:last-child, .dataTable th:last-child{
     border-right:none;
+    white-space:nowrap;
 }
 .dataTable td a {
     color: #000000;
@@ -683,7 +709,7 @@ TABS options
     text-align: center;
     position: absolute;
     right: 0;
-    top: 15px;
+    top: 0;
 }
 
 /*************************************************************
@@ -815,7 +841,7 @@ TABS options
     text-indent: 1000px;
     border: none;
     padding: 0;
-   
+
 }
 
 .menusearch input[type='submit'],
@@ -826,7 +852,7 @@ TABS options
     -webkit-transition: background-color 0.3s;
 }
 
-#menusearch:hover, 
+#menusearch:hover,
 #menusearch:focus,
 .menusearch input[type='submit']:hover,
 .menusearch input[type='submit']:focus {
@@ -1180,30 +1206,17 @@ TABLE LIST
         z-index: 4;
 }
 .widgetTopBar {
-        position: relative;
-        z-index: 1;
-}
-
-.widgetTopBackground {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        left: 0pt;
-        top: 0pt;
-        z-index: 1;
-        border-radius: 5px 5px 0 0;
         border-bottom: 1px solid #eeeeee;
         background-image: url('/data/images/row-handler.gif');
         background-position: center right;
         background-repeat: no-repeat;
+        position:relative;
 }
 .widgetName {
-        float: left;
-        z-index: 3;
         font-size: 1.2em;
         font-family: Verdana, sans-serif;
         color: #666;
-        padding: 12px 18px;
+        padding: 12px 30px 12px 18px;
 }
 a.closeBox {
         position: absolute;
@@ -1230,26 +1243,18 @@ a.minBox, a.maxBox {
         overflow:hidden;
         z-index: 5;
 }
-.widgetBarBox {
-        display: inline-block;
-        min-width: 100px;
-        margin-left: 5px;
-        margin-right: 5px;
-}
-.widgetBarBox > .widgetBox{
-    margin-bottom:0px;
-}
 .widgetBox {
-        margin-bottom: 15px;
-        background-color:white;
-        border-radius: 5px ;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2)
+    margin-bottom: 15px;
+    background-color:white;
+    border-radius: 5px ;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2)
 }
 .widgetBoxIn {
-        padding:10px;
-
+    padding:10px;
+    background-color:white;
+    border-radius: 0 0 5px 5px;
 }
 .widgetBoxIn > .summarySection {
     margin-bottom:0px;
@@ -1434,7 +1439,9 @@ border-radius: 2px;
 
  ***********************************************************************************************/
 
-
+body.first-install {
+    max-width: 1300px;
+}
 #software #packages {
    overflow: hidden;
 }
@@ -1452,6 +1459,7 @@ border-radius: 2px;
     list-style: none;
 }
 #software .package {
+    overflow: hidden;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 5px;
@@ -1475,9 +1483,10 @@ border-radius: 2px;
     -webkit-transition: box-shadow 0.2s, border-color 0.2s;
 }
 #software .package img {
-    float: left;
+    position: absolute;
     height: 32px;
-    margin: 18px;
+    top: 18px;
+    left: 18px;
     width: 32px;
 }
 #software .package p {
@@ -1485,8 +1494,10 @@ border-radius: 2px;
     display: table-cell;
     font-size: 13px;
     height: 68px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 30px 0 60px;
     vertical-align: middle;
-    padding-right: 30px;
 }
 #software .package:after{
     background: url("/data/images/apply-w.gif") no-repeat scroll center center rgba(0,0,0,0.1);
@@ -1528,12 +1539,14 @@ border-radius: 2px;
 }
 #software .package-medium img{
     height: 42px;
-    margin: 14px;
+    top: 14px;
+    left: 14px;
     width: 42px;
 }
 #software .package-medium p{
     height: 70px;
     font-size: 20px;
+    padding-left: 70px;
 }
 #software .package-big{
     width: 49%;
@@ -1541,13 +1554,14 @@ border-radius: 2px;
 }
 #software .package-big img{
     height: 70px;
-    margin: 15px;
+    top: 15px;
+    left: 15px;
     width: 70px;
 }
 #software .package-big p{
     height: 100px;
     font-size: 25px;
-    padding-right: 50px;
+    padding-left: 100px;
 }
 #software .btn-block button{
     margin-right: 0.5%;
@@ -1616,12 +1630,11 @@ border-radius: 2px;
     border-bottom: 2px solid #ccc;
 }
 .ads {
-    height:400px;
+    min-height:400px;
     overflow: hidden;
     position:relative;
     background: no-repeat bottom right;
-    width: 95%;
-    margin-left: 5%;
+    margin-left: 20px;
 }
 .ads img {
     position: absolute;
@@ -1631,24 +1644,24 @@ border-radius: 2px;
 .ads h2{
     font-size: 30px;
     color: white;
-    text-shadow: 5px 5px 5px rgba(0,0,0,0.2);
-    width: 450px;
+    text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+    max-width: 450px;
 }
 .ads p, .ads li{
     font-size:14px;
     width:350px;
     color:#eee;
     padding-left:5px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
 }
 .ads li{
-    width:300px;
     margin-top:3px;
 }
-.ads_link a{
+.ads a.ads_link {
     padding: 10px 15px;
     background: #FF7900;
     color:white;
-    float:left;
+    display: inline-block;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -1658,7 +1671,7 @@ border-radius: 2px;
     font-weight: bold;
     margin:1px 5px 0px 0px;
 }
-.ads_link a:hover{
+.ads a.ads_link:hover{
     background: #C35F00;
     cursor: pointer;
 }
@@ -1952,6 +1965,11 @@ ul.labels-list li .close{
     margin-left: 1%;
 }
 
+.item-block .bottom-block{
+    margin: 15px -15px 0;
+    padding: 15px 15px 0;
+}
+
 /**************************************************************************************
 
     TREEVIEW
@@ -1965,7 +1983,6 @@ ul.labels-list li .close{
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 0px;
-
 }
 .treeViewLeft {
     float: left;
@@ -2695,6 +2712,7 @@ FOLDable SECtIONS
 }
 .wizard form{
     margin-left: 200px;
+    margin-bottom: 40px;
 }
 .iface-wizard {
     background-color: #f5f5f5;
@@ -2808,7 +2826,7 @@ h6 {
     margin-top: 0px;
 }
 .bottom-block{
-    border-top: 2px dotted #DDDDDD;
+    border-top: 1px solid #DDDDDD;
     display: block;
     margin-top: 10px;
     padding: 10px 0 0;
@@ -3040,7 +3058,8 @@ Responsive corrections
 
 *****************************/
 
-@media (max-width: 1100px) {
+@media  (max-width: 1200px) {
+
     .migration-table th:first-child,
     .migration-table td:first-child{
        max-width: 50px;
@@ -3054,7 +3073,7 @@ Responsive corrections
         min-width: 100px;
     }
     #software .package{
-        width: 24%;
+        width: 32.3333%;
     }
     #software .package-big {
         width: 49%;
@@ -3072,6 +3091,8 @@ Responsive corrections
         font-size: 16px;
     }
 }
+
+
 @media (max-width: 960px){
     .dashboard{
         width: 100%;
@@ -3091,5 +3112,80 @@ Responsive corrections
     }
     .form-block.half-block{
         width: 98%;
+    }
+
+    /* INSTALLATION */
+
+    #software .package-big {
+        width: 99%;
+    }
+    .final_installation{
+        background-size: 60%;
+    }
+    .final_installation h4 {
+        font-size: 30px;
+    }
+    .final_installation h5 {
+        font-size: 18px;
+        width: auto;
+    }
+    .final_installation .btn {
+        position: static;
+    }
+    .ads{
+        background-size: 70%;
+    }
+}
+
+
+
+@media (max-width: 740px){
+
+    #software .package,
+    #software .package-big,
+    #software .package-medium {
+        width: 99% ;
+        margin: 5px 0px;
+    }
+
+    .wizard img{
+        float: none;
+    }
+    .wizard form{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .ads{
+        background-image: none !important;
+    }
+    #menusearch{
+        width: 100px;
+    }
+    #header{
+        position: static;
+    }
+    #show-menu{
+        display: block;
+    }
+    #menu{
+        left: -150px;
+        padding: 0 5px;
+        top: 50px;
+        background-color: #ccc;
+        box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+    #nav hr{
+        background-color: #ccc;
+    }
+    #menu.menu-slide{
+        left: 0px;
+    }
+    #content{
+        left: 60px;
+    }
+}
+@media  (min-width: 740px) {
+    #menu{
+        display: block;
     }
 }
