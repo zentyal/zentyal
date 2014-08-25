@@ -93,8 +93,15 @@ sub syncRows
         }
     }
 
-    my %currentIfaces =
-        map { $self->row($_)->valueByName('interface') => $_ } @{$currentRows};
+    my %currentIfaces = map { 
+        my $rowId = $_;
+        my $row = $self->row($rowId);
+        if ($row) {
+            ($row->valueByName('interface') => $rowId)
+        } else {
+            ()
+        }
+    } @{$currentRows};
 
     my $modified = 0;
 
