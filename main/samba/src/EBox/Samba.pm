@@ -38,6 +38,7 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::LDAP::ExternalAD;
 use EBox::LdapUserImplementation;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
