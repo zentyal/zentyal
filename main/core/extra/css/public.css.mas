@@ -3164,24 +3164,39 @@ Responsive corrections
     #header{
         position: static;
     }
-    #show-menu{
-        display: block;
-    }
     #menu{
-        left: -150px;
-        padding: 0 5px; 
-        top: 50px;
-        background-color: #ccc;
-        box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.2);
-    }
-    #nav hr{
-        background-color: #ccc;
-    }
-    #menu.menu-slide{
         left: 0px;
+        width:55px;
+    }
+    #nav > li {
+        position: relative;
+    }
+    #nav > li > a{
+        white-space: nowrap;
+        width: 55px;
+        padding: 12px 0 !important;
+        overflow: hidden;
+        text-indent:100px;
+    }
+    #nav > li > a.despleg{
+        background-color:#ddd;
+    }
+    #nav a.navarrow:after, #nav a.despleg:after{
+        width: 15px;
+        background-position:center center;
+    }
+    #nav li > a.despleg:after{
+        background-image: url("/data/images/right.gif") !important;
+    }
+    #nav .submenu {
+        left: 100%;
+        position: absolute;
+        top: 0;
+        width: 185px;
+        box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.5);
     }
     #content{
-        left: 60px;
+        left: 65px;
     }
 }
 @media  (min-width: 740px) {

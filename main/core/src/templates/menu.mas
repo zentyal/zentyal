@@ -6,8 +6,6 @@ $copyright_footer
 </%args>
 
 <div id='menu'>
-<div id="show-menu" title="show menu"></div>
-
 <ul id='nav'>
 % foreach my $item (@{$items{home}}) {
         <% $item->html($current, $currentUrl) %>
