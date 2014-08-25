@@ -768,9 +768,9 @@ TABS options
 
 #nav .submenu {
     background-color: #ddd;
+    display: none;
 }
 #nav .submenu li {
-    display: none;
     border-top: 1px dashed #ccc;
 }
 #nav .submenu li a {
