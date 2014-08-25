@@ -133,13 +133,13 @@ Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
 };
 
 Zentyal.LeftMenu._open = function(name, menuAnchor) {
-    $('.menu' + name).next('.submenu').style.display = 'block';
+    $('.' + name + ' .submenu').slideDown(200);
     menuAnchor.addClass('despleg');
     menuAnchor.removeClass('navarrow');
 };
 
 Zentyal.LeftMenu._close = function(name, menuAnchor) {
-    $('.menu' + name).next('.submenu').style.display = 'none';
+    $('.' + name + ' .submenu').slideUp(200);
     menuAnchor.addClass('navarrow');
     menuAnchor.removeClass('despleg');
 };
