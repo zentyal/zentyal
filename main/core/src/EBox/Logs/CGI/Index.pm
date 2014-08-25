@@ -288,7 +288,7 @@ sub _process
 
     $self->{crumbs} = [
         {   title => __('Query Logs'),
-            link => '/Maintenance/Logs'
+            link => '/Logs/Composite/General'
         },
         {   title => __('Full Reports'),
             link => "/Logs/Index?selected=$selected&refresh=1"
@@ -306,7 +306,7 @@ sub _process
 
 sub menuFolder
 {
-    return 'Maintenance';
+    return 'Logs';
 }
 
 # Overrides: EBox::CGI::Base::params

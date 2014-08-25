@@ -646,7 +646,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'Maintenance/Logs',
+    $root->add(new EBox::Menu::Item('url' => 'Logs/Composite/General',
                                     'text' => $self->printableName(),
                                     'icon' => 'logs',
                                     'tag' => 'system',
