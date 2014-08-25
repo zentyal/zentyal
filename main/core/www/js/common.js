@@ -133,21 +133,15 @@ Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
 };
 
 Zentyal.LeftMenu._open = function(name, menuAnchor) {
-    $('.submenu .' + name).each(function(index, e) {
-            e.style.display = 'block';
-                            }
-                      );
+    $('.menu' + name).next('.submenu').style.display = 'block';
     menuAnchor.addClass('despleg');
     menuAnchor.removeClass('navarrow');
 };
 
 Zentyal.LeftMenu._close = function(name, menuAnchor) {
-  $('.submenu .' + name).each(function(index, e) {
-      e.style.display = 'none';
-                             }
-                    );
-  menuAnchor.addClass('navarrow');
-  menuAnchor.removeClass('despleg');
+    $('.menu' + name).next('.submenu').style.display = 'none';
+    menuAnchor.addClass('navarrow');
+    menuAnchor.removeClass('despleg');
 };
 
 // XXX used only in the not-tottaly implemented data table sections feature
