@@ -1,4 +1,5 @@
 HEAD
+	+ Add missing 'use EBox::LDAP::ExternalAD' to Samba.pm
 	+ Improve save changes speed avoiding loop in postServiceHook if no changes
 	  made to roaming profiles
 	+ Implement nameserverAdded and nameserverDelete from NetworkObserver to
