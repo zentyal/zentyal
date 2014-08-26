@@ -941,4 +941,15 @@ sub HAProxyInternalService
     ];
 }
 
+# Method: defaultHTTPSPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+sub defaultHTTPSPort
+{
+    return 443;
+}
+
 1;
