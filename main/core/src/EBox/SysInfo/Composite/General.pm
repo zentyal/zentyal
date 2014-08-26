@@ -62,8 +62,6 @@ sub componentNames
     }
 
     push (@components, 'webadmin/Language',
-                       'sysinfo/TimeZone',
-                       'sysinfo/DateTime',
                        'webadmin/AdminPort',
                        'sysinfo/HostName');
 
