@@ -771,19 +771,19 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $order = 900;
-
-    # FIXME: integrate inside software wizard and mail models
     my $folder = new EBox::Menu::Folder(
-        name => 'OpenChange',
-        icon => 'openchange',
-        text => $self->printableName(),
-        order => $order);
+        'name' => 'Mail',
+        'icon' => 'mail',
+        'text' => __('Mail'),
+        'tag' => 'main',
+        'order' => 4
+    );
 
     $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/Composite/General',
-        text      => __('Setup'),
-        order     => 0));
+        url => 'OpenChange/Composite/General',
+        text => $self->printableName(),
+        order => 40)
+    );
 
     $root->add($folder);
 }

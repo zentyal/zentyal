@@ -17,7 +17,7 @@ Description: Zentyal - Core metapackage
 Package: zentyal-all
 Architecture: all
 Depends: zentyal, zentyal-samba, zentyal-openchange, zentyal-squid,
-         zentyal-trafficshaping, zentyal-mail, zentyal-sogo,
+         zentyal-trafficshaping, zentyal-mail,
          zentyal-jabber, zentyal-mailfilter,
          zentyal-printers, zentyal-antivirus
 Description: Zentyal - All Modules

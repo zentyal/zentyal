@@ -41,7 +41,7 @@ sub _validateReferer
 sub _process
 {
     my ($self) = @_;
-    my $searchString = $self->unsafeParam('search');
+    my $searchString = $self->unsafeParam('searchterm');
     if (not $searchString) {
         $self->setError(__('No search term'));
         $self->{params} = [

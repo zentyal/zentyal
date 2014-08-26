@@ -12,10 +12,8 @@ my $content = ($fqmn . '_content');
 %    $togglerClass = 'maxBox';
 % }
         <a id='<% $content %>_closer' class='closeBox' href='#' onclick="Zentyal.Dashboard.closeWidget('<% $fqmn %>'); return false;" style='display: none;'><span class='hidden'>Close</span></a>
-        <div class='widgetTopBackground'></div>
         <div class='widgetHandle'></div>
         <div class='widgetName'><% $widget->{title} %></div>
-        <div style='clear: both;'></div>
     </div>
     <div class='widgetBoxIn' id='<% $content %>'
 % if (exists($toggled{$content}) && $toggled{$content}) {
