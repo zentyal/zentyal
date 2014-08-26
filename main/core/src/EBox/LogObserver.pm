@@ -84,6 +84,36 @@ sub tableInfo
     throw EBox::Exceptions::NotImplemented;
 }
 
+# Method: reportUrls
+#
+#     return the module's rows for the SelectLog table.
+#
+sub reportUrls
+{
+    my ($self) = @_;
+
+    my @tableInfos;
+    my $ti = $self->tableInfo();
+    if (ref $ti eq 'HASH') {
+        EBox::warn('tableInfo() in ' . $self->name .
+                ' must return a reference to a list of hashes not the hash itself');
+        @tableInfos = ( $ti );
+    } else {
+        @tableInfos = @{ $ti };
+    }
+
+    my @urls;
+    foreach my $tableInfo (@tableInfos) {
+        my $index = $tableInfo->{tablename};
+        my $rawUrl = "/Logs/Index?selected=$index&refresh=1";
+
+        push @urls, { domain => $tableInfo->{name},  raw => $rawUrl, };
+    }
+
+    return \@urls;
+}
+
+
 # Method: humanEventMessage
 #
 #      Given a row with the table description given by
