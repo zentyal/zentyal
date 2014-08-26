@@ -1049,8 +1049,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
                                         'icon' => 'squid',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 210);
+                                        'order' => 800);
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                       'text' => __('General Settings')));

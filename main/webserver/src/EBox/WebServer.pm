@@ -342,7 +342,6 @@ sub menu
       my $item = new EBox::Menu::Item(name  => 'WebServer',
                                       icon  => 'webserver',
                                       text  => $self->printableName(),
-                                      separator => 'Office',
                                       url   => 'WebServer/Composite/General',
                                       order => 570);
       $root->add($item);

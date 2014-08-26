@@ -653,7 +653,7 @@ sub menu
         my $folder = new EBox::Menu::Folder('name' => 'Software',
                                             'icon' => 'software',
                                             'text' => $self->printableName(),
-                                            'separator' => 'Core',
+                                            'tag' => 'system',
                                             'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',

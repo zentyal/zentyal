@@ -8,6 +8,7 @@ use EBox::Gettext;
 </%init>
 
 <div class="PackFilter">
+<div class="half-block">
   <div class="item-block">
 % if ($showImages) {
 	<a class="img_a" href="/Firewall/View/InternalToEBoxRuleTable"><img src="/data/firewall/internal_to_zentyal.png" /></a>
@@ -29,7 +30,8 @@ use EBox::Gettext;
 	</p>
 	<a class="btn btn-icon btn-config" href="/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
 </div>
-
+</div>
+<div class="half-block">
 <div class="item-block">
 % if ($showImages) {
 	<a class="img_a" href="/Firewall/View/ExternalToEBoxRuleTable"><img src="/data/firewall/external_to_zentyal.png" /></a>
@@ -79,6 +81,6 @@ use EBox::Gettext;
 	<a class="btn btn-icon btn-config" href="/Firewall/View/EBoxServicesRuleTable"><% __('Configure rules') %></a>
 </div>
 % }
-
+</div>
 </div>
 

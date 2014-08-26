@@ -165,6 +165,8 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
             error: error,
             complete: complete
     });
+
+    location.hash = "#" + table;
 };
 
 Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersText) {

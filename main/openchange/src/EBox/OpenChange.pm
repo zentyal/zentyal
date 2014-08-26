@@ -668,27 +668,19 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $separator = 'Communications';
-    my $order = 900;
-
     my $folder = new EBox::Menu::Folder(
-        name => 'OpenChange',
-        icon => 'openchange',
-        text => $self->printableName(),
-        separator => $separator,
-        order => $order);
+        'name' => 'Mail',
+        'icon' => 'mail',
+        'text' => __('Mail'),
+        'tag' => 'main',
+        'order' => 4
+    );
 
     $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/Composite/General',
-        text      => __('Setup'),
-        order     => 0));
-
-#    if ($self->isProvisioned()) {
-#        $folder->add(new EBox::Menu::Item(
-#            url       => 'OpenChange/Migration/Connect',
-#            text      => __('MailBox Migration'),
-#            order     => 1));
-#    }
+        url => 'OpenChange/Composite/General',
+        text => $self->printableName(),
+        order => 40)
+    );
 
     $root->add($folder);
 }
