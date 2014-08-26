@@ -18,7 +18,11 @@ use warnings;
 
 package EBox::Printers;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
+use base qw(
+    EBox::Module::Service
+    EBox::FirewallObserver
+    EBox::LogObserver
+);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -33,6 +37,7 @@ use Net::CUPS;
 use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
+use constant SAMBA_PRINTERS_CONF_FILE => '/etc/samba/printers.conf';
 
 sub _create
 {
@@ -169,6 +174,20 @@ sub _setConf
     my ($self) = @_;
 
     $self->_mangleConfFile(CUPSD, addresses => $self->_ifaceAddresses());
+    $self->writeSambaConfig();
+}
+
+# Method: writeSambaConfig
+#
+#   Writes the printers configuration file which will be included from smb.conf
+#
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $params = [];
+    $self->writeConfFile(SAMBA_PRINTERS_CONF_FILE, 'printers/printers.conf.mas',
+                         $params, { mode => '0600', uid => 0, gid => 0});
 }
 
 sub _ifaceAddresses
@@ -292,35 +311,35 @@ sub restoreConfig
 #
 #   array ref - holding hashrefs with name and users
 #
-sub printers
-{
-    my ($self) = @_;
-
-    my @list;
-    my $model = $self->model('Printers');
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $name = $row->valueByName('printer');
-        my $permsModel = $row->subModel('access');
-        my @users;
-        foreach my $id (@{$permsModel->ids()}) {
-            my $row = $permsModel->row($id);
-            my $element = $row->elementByName('user_group');
-            if ($element->selectedType() eq 'user') {
-                push (@users, $element->value());
-            } else {
-                my $group = new EBox::Samba::Group(samAccountName => $element->value());
-                my @userNames = map { $_->name() } @{$group->users()};
-                push (@users, @userNames);
-            }
-        }
-        my %seen;
-        @users = grep { not $seen{$_}++ } @users;
-        push (@list, { name => $name, users => \@users });
-    }
-
-    return \@list;
-}
+#sub printers
+#{
+#    my ($self) = @_;
+#
+#    my @list;
+#    my $model = $self->model('Printers');
+#    foreach my $id (@{$model->ids()}) {
+#        my $row = $model->row($id);
+#        my $name = $row->valueByName('printer');
+#        my $permsModel = $row->subModel('access');
+#        my @users;
+#        foreach my $id (@{$permsModel->ids()}) {
+#            my $row = $permsModel->row($id);
+#            my $element = $row->elementByName('user_group');
+#            if ($element->selectedType() eq 'user') {
+#                push (@users, $element->value());
+#            } else {
+#                my $group = new EBox::Samba::Group(samAccountName => $element->value());
+#                my @userNames = map { $_->name() } @{$group->users()};
+#                push (@users, @userNames);
+#            }
+#        }
+#        my %seen;
+#        @users = grep { not $seen{$_}++ } @users;
+#        push (@list, { name => $name, users => \@users });
+#    }
+#
+#    return \@list;
+#}
 
 
 # Method: networkPrinters

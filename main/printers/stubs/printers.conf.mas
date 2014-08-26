@@ -1,0 +1,42 @@
+<%args>
+
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+[global]
+    load printers = yes
+#    printcap name = /dev/null
+#    show add printer wizard = no
+#    disable spoolss = yes
+
+    rpc_server:spoolss = external
+    rpc_daemon:spoolssd = fork
+    spoolssd:prefork_min_children = 5           # Minimum number of child processes
+    spoolssd:prefork_max_children = 25          # Maximum number of child processes
+    spoolssd:prefork_spawn_rate = 5             # Start (fork) x new childs if one connection comes in (up to prefork_max_children)
+    spoolssd:prefork_max_allowed_clients = 100  # Number of clients, a child process should be responsible for
+    spoolssd:prefork_child_min_life = 60        # Minimum lifetime of a child process (60 seconds
+                                                # is the minimum, even a lower value has been configured)
+
+[printers]
+    comment = All Printers
+    path = /var/spool/samba
+    printable = yes
+    printing = CUPS
+
+% ##   % foreach my $printer (@printers) {
+% ##   %   next unless (length ($printer->{'users'}) > 0);
+% ##   [<% $printer->{'name'} %>]
+% ##    path = /var/spool/samba
+% ##    read only = Yes
+% ##    printable = Yes
+% ##    valid users = <% "@{$printer->{'users'}}" %>
+% ##   %   }
+% ##   % }
+% #
+% ##[print$]
+% ##    comment = Point and Print Printer Drivers
+% ##    path = /var/lib/samba/printers
+% ##    read only = No
+% #
