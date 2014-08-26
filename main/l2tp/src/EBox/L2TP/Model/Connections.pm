@@ -118,9 +118,6 @@ sub tunnels
                         }
                         $settings{'ip_range'} = join (',', @ranges);
                     }
-                    when (/^UsersFile/) {
-                        EBox::debug("UsersFile model is not handled with the tunnel information.");
-                    }
                     default {
                         throw EBox::Exceptions::InvalidData(
                             data => __('DataTable Component'),
@@ -178,8 +175,11 @@ sub _table
     my ($self) = @_;
 
     my $samba = $self->global()->modInstance('samba');
-    my $domainSID = $samba->ldap()->domainSID();
-    my $domainUsers = EBox::Samba::Group->new(sid => "$domainSID-513");
+    my $domainUsers = undef;
+    if ($samba->isProvisioned()) {
+        my $domainSID = $samba->ldap()->domainSID();
+        $domainUsers = EBox::Samba::Group->new(sid => "$domainSID-513")->name();
+    }
 
     my @tableHeader = (
         new EBox::Types::Text(
@@ -210,7 +210,7 @@ sub _table
             editable      => 1,
             optional      => 0,
             disableCache  => 1,
-            defaultValue  => $domainUsers->name(),
+            defaultValue  => $domainUsers,
         ),
         new EBox::Types::Text(
             fieldName => 'comment',

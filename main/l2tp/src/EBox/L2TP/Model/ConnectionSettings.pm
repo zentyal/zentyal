@@ -423,7 +423,7 @@ sub _table
         printableTableName => __('General'),
         defaultActions => [ 'editField', 'changeView' ],
         tableDescription => \@fields,
-        modelDomain => 'IPsec',
+        modelDomain => 'L2TP',
     };
 
     return $dataTable;

@@ -31,7 +31,6 @@ use File::Slurp;
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
 use constant IPSECSECRETSFILE => '/etc/ipsec.secrets';
-use constant CHAPSECRETSFILE => '/etc/ppp/chap-secrets';
 
 # Constructor: _create
 #
@@ -74,14 +73,7 @@ sub usedFiles
         'reason' => __('To configure OpenSwan IPsec passwords.')
     });
 
-    push (@conf_files, {
-        'file' => CHAPSECRETSFILE,
-        'module' => 'ipsec',
-        'reason' => __('To configure L2TP/IPSec users when not using Active Directory validation.')
-    });
-
     return \@conf_files;
-
 }
 
 # overriden to stop deleted daemons
@@ -102,22 +94,6 @@ sub _manageService
     }
 
     return $self->SUPER::_manageService(@params);
-}
-
-# Method: depends
-#
-# Overriden to add samba to dependencies if it is installed and enabled
-sub depends
-{
-    my ($self) = @_;
-    my $depends = $self->SUPER::depends();
-
-    my $samba = $self->global()->modInstance('samba');
-    if ($samba and $samba->isEnabled()) {
-        push @{ $depends }, 'samba';
-    }
-
-    return $depends
 }
 
 # Method: addDeletedDaemon
@@ -261,7 +237,7 @@ sub _setIPsecConf
 
     push (@params, tunnels => $self->tunnels());
 
-    $self->writeConfFile(IPSECCONFFILE, "ipsec/ipsec.conf.mas", \@params,
+    $self->writeConfFile(IPSECCONFFILE, "l2tp/ipsec.conf.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'root', mode => '600' });
 }
 
@@ -273,31 +249,8 @@ sub _setIPsecSecrets
 
     push (@params, tunnels => $self->tunnels());
 
-    $self->writeConfFile(IPSECSECRETSFILE, "ipsec/ipsec.secrets.mas", \@params,
+    $self->writeConfFile(IPSECSECRETSFILE, "l2tp/ipsec.secrets.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'root', mode => '600' });
-}
-
-sub _setXL2TPDUsers
-{
-    my ($self) = @_;
-
-    my $model = $self->model('UsersFile');
-
-    my $l2tpConf = '';
-    foreach my $user (@{$model->getUsers()}) {
-        $user->{ipaddr} = '*' unless $user->{ipaddr};
-        $l2tpConf .= "$user->{user} l2tp $user->{passwd} $user->{ipaddr}\n";
-    }
-    my $file = read_file(CHAPSECRETSFILE);
-    my $mark = '# L2TP_CONFIG - managed by Zentyal. Dont edit this section #';
-    my $endMark = '# END of L2TP_CONFIG section #';
-    if ($file =~ m/$mark/sm) {
-        $file =~ s/$mark.*$endMark/$mark\n$l2tpConf$endMark/sm;
-    } else {
-        $file .= $mark . "\n" . $l2tpConf . $endMark . "\n";
-    }
-
-    write_file(CHAPSECRETSFILE, $file);
 }
 
 sub _setXL2TPDConf
@@ -312,16 +265,8 @@ sub _setXL2TPDConf
         "rm -rf /etc/xl2tpd/zentyal-xl2tpd.*.conf"
     );
 
-    my $workgroup = undef;
-    my $users = $self->model('Users');
-    my $validationGroup = $users->validationGroup();
-
-    if ($validationGroup) {
-        my $users = $global->modInstance('samba');
-        $workgroup = $users->workgroup();
-    } else {
-        $self->_setXL2TPDUsers();
-    }
+    my $users = $global->modInstance('samba');
+    my $workgroup = $users->workgroup();
 
     my $permissions = {
         uid => 'root',
@@ -332,22 +277,16 @@ sub _setXL2TPDConf
     foreach my $tunnel (@{ $self->model('Connections')->l2tpDaemons() }) {
         my @params = ();
 
-        if ($validationGroup) {
-            push (@params, group => "$workgroup\\\\$validationGroup");
-            push (@params, chap => 0);
-        } else {
-            push (@params, group => undef);
-            push (@params, chap => 1);
-        }
+        my $validationGroup = $tunnel->{group};
+        push (@params, group => "$workgroup\\\\$validationGroup");
         push (@params, tunnel => $tunnel);
 
         $self->writeConfFile(
-            "/etc/xl2tpd/$tunnel->{name}.conf", "ipsec/xl2tpd.conf.mas", \@params, $permissions);
+            "/etc/xl2tpd/$tunnel->{name}.conf", "l2tp/xl2tpd.conf.mas", \@params, $permissions);
         $self->writeConfFile(
-            "/etc/ppp/$tunnel->{name}.options", "ipsec/options.xl2tpd.mas", \@params, $permissions);
+            "/etc/ppp/$tunnel->{name}.options", "l2tp/options.xl2tpd.mas", \@params, $permissions);
         $self->writeConfFile(
-            "/etc/init/$tunnel->{name}.conf", "ipsec/upstart-xl2tpd.mas", \@params, $permissions);
-
+            "/etc/init/$tunnel->{name}.conf", "l2tp/upstart-xl2tpd.mas", \@params, $permissions);
     }
 }
 
@@ -379,7 +318,7 @@ sub firewallHelper
         push(@networksNoToMasquerade, $subnet);
     }
 
-    my $firewallHelper = new EBox::IPsec::FirewallHelper(
+    my $firewallHelper = new EBox::L2TP::FirewallHelper(
         service => $enabled,
         networksNoToMasquerade => \@networksNoToMasquerade,
         L2TPInterfaces => \@L2TPInterfaces,
@@ -397,7 +336,7 @@ sub firewallHelper
 sub logHelper
 {
     my ($self, @params) = @_;
-    return EBox::IPsec::LogHelper->new($self, @params);
+    return EBox::L2TP::LogHelper->new($self, @params);
 }
 
 # Method: tableInfo
@@ -426,7 +365,7 @@ sub tableInfo
 
     return [{
             'name'      => $self->printableName(),
-            'tablename' => 'ipsec',
+            'tablename' => 'l2tp',
             'titles'    => $titles,
             'order'     => \@order,
             'timecol'   => 'timestamp',

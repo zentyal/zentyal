@@ -24,7 +24,7 @@ use EBox::Gettext;
 
 use constant TABLE_NAME => 'l2tp';
 
-# Status of the IPsec connections
+# Status of the L2TP connections
 my %status;
 
 # Constructor: new
@@ -33,7 +33,7 @@ my %status;
 #
 # Returns:
 #
-#       <EBox::IPsec::LogHelper>
+#       <EBox::L2TP::LogHelper>
 #
 sub new
 {

@@ -5,6 +5,7 @@ enabledepends:
 depends:
     - network
     - firewall
+    - samba
 
 models:
     - Connections
