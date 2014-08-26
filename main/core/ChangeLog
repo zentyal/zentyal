@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed constructor of EBox::Downloader::CGI::Base
+	+ Fixed constructors of EBox::Downloader::CGI::Base and subclasses
 	+ Added option to disable Peer Verification in EBox::RESTClient
 	+ pathHTTPSSSLCertificate() always returns a list
 	+ Added one more tip to component not found page
