@@ -19,16 +19,12 @@ models:
     - AntispamACL
     - AntispamTraining
     - AntispamVDomainACL
-    - FilterDetails
-    - FilterGraph
-    - FilterReportOptions
 
 composites:
     Amavis: [AmavisConfiguration, AmavisPolicy, VDomainsFilter, ExternalConnections]
     ExternalConnections: [ExternalMTA, ExternalDomain]
     FileFilter: [FileExtensionACL, MIMETypeACL]
     Antispam: [AntispamConfiguration, AntispamACL, AntispamTraining]
-    FilterReport: [FilterReportOptions, FilterGraph, FilterDetails]
 
 modeldepends:
     VDomainsFilter:

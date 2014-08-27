@@ -196,46 +196,14 @@ sub _searchLogs
 
 }
 
-sub _encode_filters {
-        my ($par) = @_;
-
-        my %encoded = map { $par->{$_} =~ s/'/&#39;/g; $_ => $par->{$_}  }
-                        keys %{$par};
-
-        return \%encoded;
-}
-
-# Method called when the user may want to save the query as an event
-# to be notified
-sub _saveAsEvent
+sub _encode_filters
 {
-    my ($self) = @_;
+    my ($par) = @_;
 
-    # Get filters
-    my $hfilters = $self->_paramFilters();
-    my $selected = $self->param('selected');
+    my %encoded = map { $par->{$_} =~ s/'/&#39;/g; $_ => $par->{$_}  }
+    keys %{$par};
 
-    # TODO Use new row/ids API
-    my $manager = EBox::Model::Manager->instance();
-    my $logConfModel = $manager->model('events/LogWatcherConfiguration');
-    my $loggerConfRow = $logConfModel->findValue(domain => $selected);
-    my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};
-
-    my $modelName = "LogWatcherFiltering_$selected";
-    my $url = "Events/View/$modelName";
-    my $params = "?action=presetUpdate&tablename=$modelName&directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
-    while (my ($key, $value) = each %{$hfilters}) {
-        if ( $key eq 'event' and not $value) {
-            $value = 'any';
-        }
-        # Do not pass the empty values ''
-        next unless ( $value );
-        $params .= "&$key=$value";
-    }
-
-    $self->setRedirect( $url . $params );
-    return;
-
+    return \%encoded;
 }
 
 # Function to get the filters from CGI parameters
@@ -311,12 +279,6 @@ sub _process
 
     my $logs = EBox::Global->modInstance('logs');
 
-    # The user may click on saveAsEvent
-    if ( $self->param('saveAsEvent') ) {
-        $self->_saveAsEvent();
-        return;
-    }
-
     my $selected = $self->param('selected');
     if (defined($selected)) {
         $self->_searchLogs($logs, $selected);
@@ -326,7 +288,7 @@ sub _process
 
     $self->{crumbs} = [
         {   title => __('Query Logs'),
-            link => '/Maintenance/Logs'
+            link => '/Logs/Composite/General'
         },
         {   title => __('Full Reports'),
             link => "/Logs/Index?selected=$selected&refresh=1"
@@ -344,7 +306,7 @@ sub _process
 
 sub menuFolder
 {
-    return 'Maintenance';
+    return 'Logs';
 }
 
 # Overrides: EBox::CGI::Base::params

@@ -32,7 +32,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
-use EBox::Logs::Consolidate;
 
 # Core modules
 use TryCatch::Lite;
@@ -72,10 +71,6 @@ sub formSubmitted
     my ($self, $row, $force) = @_;
 
     my $lifeTime = $row->valueByName('lifeTime');
-
-    # we consolidate before to avoid any data loss
-    # FIXME consolidation disabled until we reworked
-    # EBox::Logs::Consolidate->consolidate('all');
 
     my $logs = EBox::Global->modInstance('logs');
     $logs->forcePurge($lifeTime);

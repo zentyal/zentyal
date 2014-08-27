@@ -21,7 +21,6 @@ use base qw(
     EBox::Module::Kerberos
     EBox::FirewallObserver
     EBox::LogObserver
-    EBox::Report::DiskUsageProvider
     EBox::NetworkObserver
 );
 
@@ -1132,74 +1131,13 @@ sub tableInfo
             'filter' => ['url', 'domain', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $self->_consolidateConfiguration(),
            }];
-}
-
-sub _consolidateConfiguration
-{
-    my ($self) = @_;
-
-    my $traffic = {
-                   accummulateColumns => {
-                                          requests => 1,
-                                          accepted => 0,
-                                          accepted_size => 0,
-                                          denied   => 0,
-                                          denied_size => 0,
-                                          filtered => 0,
-                                          filtered_size => 0,
-                                         },
-                   consolidateColumns => {
-                       rfc931 => {},
-                       event => {
-                                 conversor => sub { return 1 },
-                                 accummulate => sub {
-                                     my ($v) = @_;
-                                     return $v;
-                                   },
-                                },
-                       bytes => {
-                                 # size is in Kb
-                                 conversor => sub {
-                                     my ($v)  = @_;
-                                     return sprintf("%i", $v/1024);
-                                 },
-                                 accummulate => sub {
-                                     my ($v, $row) = @_;
-                                     my $event = $row->{event};
-                                     return $event . '_size';
-                                 }
-                                },
-                     },
-                   quote => {
-                             'rfc931' => 1,
-                            }
-                  };
-
-    return {
-            squid_traffic => $traffic,
-
-           };
 }
 
 sub logHelper
 {
     my ($self) = @_;
     return (new EBox::Squid::LogHelper);
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $cachePath          = '/var/spool/squid3';
-    my $cachePrintableName = 'HTTP Proxy cache';
-
-    return { $cachePrintableName => [ $cachePath ] };
-
 }
 
 # Method to return the language to use with DG depending on the locale

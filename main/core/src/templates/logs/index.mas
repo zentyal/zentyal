@@ -22,7 +22,7 @@ use Data::Dumper;
         <form method="POST" action="Index" class="formDiv">
             <div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
             <div>
-        
+
                 <label><% __('Select available full reports') %></label>
                 <select name='selected'>
 %               foreach my $domain (sort keys %logdomains){
@@ -50,7 +50,7 @@ use Data::Dumper;
 
 <div class="item-block">
 <h3><% __('Custom query') %></h3>
-<form action='Index' method='POST' class="formDiv"> 
+<form action='Index' method='POST' class="formDiv">
     <input type='hidden' name='selected' value='<% $selected %>'>
 
     <div class="inline-input">
@@ -200,13 +200,6 @@ use Data::Dumper;
          <input class='inputButton' type='submit' name='search'
                 value="<% __('Search') %>"
                 alt="<% __('Search') %>">
-      </span>
-      <span>
-        <input class='inputButton' type='submit' name='saveAsEvent'
-               value="<% __('Save as event') %>"
-               alt="<% __('Save as event') %>"
-               title="<% __('Save query as an event to be '
-                            . 'notified') %>">
       </span>
 </div>
 
