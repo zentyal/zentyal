@@ -56,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit);
+use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit remoteservices);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
