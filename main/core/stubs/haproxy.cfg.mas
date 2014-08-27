@@ -29,7 +29,7 @@ defaults
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
   option http-tunnel
-  option httpclose
+  option http-server-close
 %   while (my ($portNumber, $serviceConf) =  each %{$ports}) {
 %    my $isWebadmin = grep {$_->{name} eq 'webadminHAProxyId'} @{$serviceConf->{services}};
 %    if ($isWebadmin) {
