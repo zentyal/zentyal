@@ -136,6 +136,7 @@ sub _hiddenServices
     my ($self) = @_;
     my @services;
     foreach my $mod (@{$self->modsWithHAProxyService()}) {
+        next unless $mod->isEnabled();
         my $hidden = $mod->HAProxyInternalService();
         if ($hidden) {
             push @services, @{ $hidden };
