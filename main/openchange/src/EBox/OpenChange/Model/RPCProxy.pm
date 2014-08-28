@@ -161,11 +161,4 @@ sub httpsEnabled
     return $self->value('https');
 }
 
-sub formSubmitted
-{
-    my ($self, $row, $oldRow) = @_;
-    # mark haproxy and webserver as changed if the service has changed
-    $self->global()->modInstance('haproxy')->setAsChanged(1);
-}
-
 1;

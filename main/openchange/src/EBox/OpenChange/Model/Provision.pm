@@ -449,10 +449,6 @@ sub _doProvision
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
-    if ($openchange->_rpcProxyEnabled()) {
-        # Mark haproxy as changed to load the configuration of rpcproxy
-        $global->modChange('haproxy');
-    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();

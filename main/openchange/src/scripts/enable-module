@@ -6,6 +6,11 @@ rm -f /var/lib/samba/private/openchange.ldb
 a2enmod proxy
 a2enmod proxy_http
 a2enmod headers
+
+# FIXME: do it only when enabled in webadmin
+a2enmod ssl
+a2ensite default-ssl
+
 service apache2 restart
 
 exit 0

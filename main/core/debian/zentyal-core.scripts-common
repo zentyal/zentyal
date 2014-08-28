@@ -1,4 +1,4 @@
-PORT=443
+PORT=8443
 
 stop_ebox_processes() {
     stop ebox.redis 2>/dev/null || true
@@ -20,7 +20,8 @@ fetch_ebox_port()
             EBox::init();
 
             my $webadmin = EBox::Global->modInstance('webadmin');
-            print $webadmin->listeningHTTPSPort();
+            #FIXME: print $webadmin->listeningHTTPSPort();
+            print $webadmin->defaultPort();
             exit 0;
             ' 2> /dev/null );
 
@@ -82,26 +83,26 @@ set_ebox_port()
 
     set +e
 
-    ret=$(perl -e '
-            use EBox;
-            use EBox::Global;
-
-            EBox::init();
-            my $port = $ARGV[0];
-            my $global = EBox::Global->getInstance();
-            my $haproxy = $global->modInstance('haproxy');
-            my @args = ();
-            push (@args, modName        => 'webadmin');
-            push (@args, sslPort        => $port);
-            push (@args, enableSSLPort  => 1);
-            push (@args, defaultSSLPort => 1);
-            push (@args, force          => 1);
-            $haproxy->setHAProxyServicePorts(@args);
-            $haproxy->saveConfig();
-            if ($global->modExists('services')) {
-                $global->modInstance('services')->saveConfig();
-            }
-            ' $new_port);
-
-    set -e
+# FIXME: do this without haproxy (like in 3.2)
+#    ret=$(perl -e '
+#            use EBox;
+#            use EBox::Global;
+#
+#            EBox::init();
+#            my $port = $ARGV[0];
+#            my $global = EBox::Global->getInstance();
+#            my @args = ();
+#            push (@args, modName        => 'webadmin');
+#            push (@args, sslPort        => $port);
+#            push (@args, enableSSLPort  => 1);
+#            push (@args, defaultSSLPort => 1);
+#            push (@args, force          => 1);
+#            $haproxy->setHAProxyServicePorts(@args);
+#            $haproxy->saveConfig();
+#            if ($global->modExists('services')) {
+#                $global->modInstance('services')->saveConfig();
+#            }
+#            ' $new_port);
+#
+#    set -e
 }

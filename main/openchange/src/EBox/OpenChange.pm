@@ -19,7 +19,6 @@ use warnings;
 package EBox::OpenChange;
 use base qw(
     EBox::Module::Kerberos
-    EBox::HAProxy::ServiceBase
     EBox::VDomainModule
     EBox::CA::Observer
 );
@@ -58,7 +57,6 @@ use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanage
 use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
-use constant RPCPROXY_PORT           => 62081;
 use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
@@ -443,10 +441,10 @@ sub _setApachePortsConf
     my ($self) = @_;
 
     my @params;
-    push (@params, bindAddress => '127.0.0.1');
-    # FIXME: unhardcode this
-    push (@params, port        => 62080);
-    push (@params, sslPort     => 62443);
+    push (@params, bindAddress => '0.0.0.0');
+    # TODO: unhardcode this
+    push (@params, port        => 80);
+    push (@params, sslPort     => 443);
 
     $self->writeConfFile(APACHE_PORTS_FILE, "openchange/apache-ports.conf.mas", \@params);
 }
@@ -713,7 +711,6 @@ sub _setRPCProxyConf
     my $rpcProxyConfFile = '/etc/apache2/sites-available/zentyaloc-rpcproxy.conf';
     my @params = (
         rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
-        port   => RPCPROXY_PORT
     );
 
     $self->writeConfFile(
@@ -1098,94 +1095,16 @@ sub rpcProxyHosts
     return \@hosts;
 }
 
-# Method: HAProxyInternalService
-#
-#      Set the configuration for Outlook Anywhere (RPC/Proxy) if configured
-#
-# Overrides:
-#
-#      <EBox::HAProxy::ServiceBase::HAProxyInternalService>
-#
-sub HAProxyInternalService
-{
-    my ($self) = @_;
-
-    # FIXME: unhardcode these ports adding options to configure them on the interface
-    my @services = (
-        {
-            port => '80',
-            isDefault => 1,
-            name => 'apache_http',
-            domains => [],
-            targetIP => '127.0.0.1',
-            targetPort => '62080',
-            isSSL => 0,
-        },
-        {
-            port => 443,
-            isDefault => 1,
-            pathSSLCert => '/etc/apache2/ssl/ssl.pem',
-            name => 'apache_https',
-            domains => [],
-            targetIP => '127.0.0.1',
-            targetPort => '62443',
-            isSSL => 1,
-        },
-    );
-
-    my $RPCProxyModel = $self->model('RPCProxy');
-    if ($self->_rpcProxyEnabled()) {
-        my $hosts;
-        try {
-            $hosts = $self->rpcProxyHosts();
-        } catch ($ex) {
-            EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
-        };
-
-        if ($hosts) {
-            if ($RPCProxyModel->httpsEnabled()) {
-                my $rpcpService = {
-                    name => 'oc_rpcproxy_https',
-                    port => 443,
-                    printableName => 'OpenChange RPCProxy',
-                    targetIP => '127.0.0.1',
-                    targetPort => RPCPROXY_PORT,
-                    hosts    => $hosts,
-                    paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-                    pathSSLCert => OCSMANAGER_DOMAIN_PEM,
-                    isSSL   => 1,
-                };
-                push @services, $rpcpService;
-            }
-
-            if ($RPCProxyModel->httpEnabled()) {
-                my $httpRpcpService = {
-                    name => 'oc_rpcproxy_http',
-                    port => 80,
-                    printableName => 'OpenChange RPCProxy',
-                    targetIP => '127.0.0.1',
-                    targetPort => RPCPROXY_PORT,
-                    hosts    => $hosts,
-                    paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-                    isSSL   => 0,
-                };
-                push @services, $httpRpcpService;
-            }
-        }
-    }
-
-    return \@services;
-}
-
-sub HAProxyPreSetConf
-{
-    my ($self) = @_;
-    if ($self->isEnabled() and $self->isProvisioned()) {
-        # the certificate must be in place before haproxy restarts
-        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-        $self->_setCerts($domain)
-    }
-}
+# FIXME
+#sub HAProxyPreSetConf
+#{
+#    my ($self) = @_;
+#    if ($self->isEnabled() and $self->isProvisioned()) {
+#        # the certificate must be in place before haproxy restarts
+#        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+#        $self->_setCerts($domain)
+#    }
+#}
 
 # Method: certificates
 #

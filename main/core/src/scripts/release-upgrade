@@ -29,7 +29,7 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-# Stop modules to avoid conflicts in listening ports with haproxy
+# Stop modules to avoid conflicts in listening ports
 for module in usercorner captiveportal webserver
 do
     service zentyal $module stop > /dev/null 2>&1
@@ -71,7 +71,6 @@ then
     /usr/share/zentyal/global-action --action saveAllModules
     /usr/share/zentyal/initial-setup users 3.3
     service zentyal webadmin restart
-    service zentyal haproxy restart
 
     echo; echo "Zentyal upgrade finished!"
 

@@ -79,7 +79,7 @@ sub _defaultServices
     try {
         $webAdminPort = $webadminMod->listeningHTTPSPort();
     } catch {
-        $webAdminPort = $webadminMod->defaultHTTPSPort();
+        $webAdminPort = $webadminMod->defaultPort();
     }
 
     return [

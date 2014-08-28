@@ -71,9 +71,10 @@ sub updatedRowNotify
     my $port = $row->valueByName('port');
     my $oldPort = $oldRow->valueByName('port');
     if ($port != $oldPort) {
-        my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
-        $haProxyMod->updateServicePorts('webadmin', [$port]);
-        $haProxyMod->setAsChanged();
+# FIXME
+#        my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
+#        $haProxyMod->updateServicePorts('webadmin', [$port]);
+#        $haProxyMod->setAsChanged();
         $self->setMessage(
             __('Take into account you have to manually change the URL once the save changes'
                . ' process is started to see web administration again.'),
@@ -93,7 +94,7 @@ sub _table
         new EBox::Types::Port(
             fieldName      => 'port',
             editable       => 1,
-            defaultValue   => $webadminMod->defaultHTTPSPort()
+            defaultValue   => $webadminMod->defaultPort()
         )
     );
 
