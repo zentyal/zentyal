@@ -1,4 +1,5 @@
 HEAD
+	+ Use http-server-close option to make Outlook clients work
 	+ Pass X-Forwarded-Host on haproxy (needed for SOGo apache conf)
 	+ More robust dashboard against widget and remoteservices errors
 	+ Added missing use in hasManyViewer.mas
