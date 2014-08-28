@@ -17,6 +17,12 @@ use EBox::Gettext;
     printable = yes
     printing = CUPS
 
+[print$]
+    path = /var/lib/samba/printers
+    comment = Printer Drivers
+    browseable = yes
+    writeable = yes
+
 % foreach my $printer (@{$printers}) {
     <& .printerShare,
         printer => $printer
