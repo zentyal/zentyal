@@ -410,6 +410,31 @@ sub internalIpAddresses
     return $ips;
 }
 
+# Method: internalNetworks
+#
+#   Returs a list of internal networks
+#
+# Returns:
+#
+#   array ref - Holding the internal network IP addresses using CIDR
+#
+sub internalNetworks
+{
+    my ($self) = @_;
+
+    my @intNets;
+
+    foreach my $iface (@{$self->InternalIfaces()}) {
+        my $net = $self->ifaceNetwork($iface);
+        if ($net) {
+            my $fullmask = $self->ifaceNetmask($iface);
+            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+            push(@intNets, "$net/$mask");
+        }
+    }
+    return \@intNets;
+}
+
 # Method: ifaceExists
 #
 #   Checks if a given interface exists
