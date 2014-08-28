@@ -232,7 +232,6 @@ sub _mangleConfFile
     $newContents .= <<END;
 # Added by Zentyal, don't modify or add more Listen/SSLListen statements
 Listen localhost:631
-Listen /var/run/cups/cups.sock
 END
     foreach my $address (@{ $params{addresses} }) {
         $newContents .= "SSLListen $address:631\n";
