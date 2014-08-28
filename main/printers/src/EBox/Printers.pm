@@ -336,11 +336,7 @@ sub printers
         foreach my $id (@{$permsModel->ids()}) {
             my $row = $permsModel->row($id);
             my $element = $row->elementByName('user_group');
-            if ($element->selectedType() eq 'user') {
-                push (@{$users}, $element->value());
-            } else {
-                push (@{$users}, "@" . $element->value());
-            }
+            push (@{$users}, $element->value());
         }
         my $printerData = {
             name => $name,

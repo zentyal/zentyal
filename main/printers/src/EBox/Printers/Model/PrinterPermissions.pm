@@ -62,7 +62,7 @@ sub populateUser
     my $list = $sambaMod->realUsers();
     foreach my $u (@{$list}) {
         my $v = {
-            value => $u->get('samAccountName'),
+            value => $u->sid(),
             printableValue => $u->name(),
         };
         push (@users, $v);
@@ -78,7 +78,7 @@ sub populateGroup
     foreach my $g (@{$list}) {
         next if ($g->isInternal());
         my $v = {
-            value => $g->get('samAccountName'),
+            value => $g->sid(),
             printableValue => $g->name(),
         };
         push (@groups, $v);
@@ -245,7 +245,7 @@ sub filterUserGroupPrintableValue
 {
     my ($element) = @_;
     my $selectedType = $element->selectedType();
-    my $value = $element->value();
+    my $value = $element->printableValue();
     if ($selectedType eq 'user') {
         return $value . __(' (user)')
     } elsif ($selectedType eq 'group') {
