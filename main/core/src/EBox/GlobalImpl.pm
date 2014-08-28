@@ -561,8 +561,6 @@ sub saveAllModules
 
     my $progress = $options{progress};
 
-    # TODO: tell events module to stop its watchers
-
     if ($self->first()) {
         # First installation modules enable
         my $mgr = EBox::ServiceManager->new();
@@ -688,8 +686,6 @@ sub saveAllModules
             $failed .= "webadmin ";
         }
     }
-
-    # TODO: tell events module to resume its watchers
 
     while (my $modName = $self->popPostSaveModule()) {
         try {

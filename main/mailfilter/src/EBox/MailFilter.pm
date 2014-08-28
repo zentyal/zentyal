@@ -495,10 +495,6 @@ sub _smtpFilterTableInfo
                   'MTA-BLOCKED' => __('Unable to reinject in the mail server'),
     };
 
-    my $consolidate = {
-                       mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
-                      };
-
     return {
             'name' => __('SMTP filter'),
             'tablename' => 'mailfilter_smtp',
@@ -507,7 +503,6 @@ sub _smtpFilterTableInfo
             'filter' => ['action', 'from_address', 'to_address'],
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $consolidate,
     };
 }
 
@@ -516,43 +511,6 @@ sub logHelper
     my ($self) = @_;
 
     return new EBox::MailFilter::LogHelper();
-}
-
-sub _filterTrafficConsolidationSpec
-{
-    my $spec = {
-        accummulateColumns => {
-            clean => 0,
-            spam => 0,
-            banned => 0,
-            blacklisted => 0,
-            clean  => 0,
-            infected => 0,
-            bad_header => 0,
-        },
-        filter => sub {
-            my ($row) = @_;
-            if ($row->{event} eq 'MTA-BLOCKED') {
-                return 0;
-            }
-            return 1;
-        },
-        consolidateColumns => {
-            event => {
-                conversor => sub { return 1  },
-                accummulate => sub {
-                    my ($v) = @_;
-                    if ($v eq 'BAD-HEADER') {
-                        return 'bad_header';
-                    }
-
-                    return lc $v;
-                },
-            },
-        },
-    };
-
-    return $spec;
 }
 
 sub menu

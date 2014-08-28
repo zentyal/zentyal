@@ -23,9 +23,7 @@ use base qw(
     EBox::ObjectsObserver
     EBox::FirewallObserver
     EBox::LogObserver
-    EBox::Report::DiskUsageProvider
     EBox::SyncFolders::Provider
-    EBox::Events::DispatcherProvider
 );
 
 use EBox::Sudo;
@@ -608,17 +606,6 @@ sub depends
     }
 
     return \@depends;
-}
-
-# Method: eventDispatchers
-#
-# Overrides:
-#
-#      <EBox::Events::DispatcherProvider::eventDispatchers>
-#
-sub eventDispatchers
-{
-    return [ 'Mail' ];
 }
 
 # Method: _getIfacesForAddress
@@ -1863,87 +1850,7 @@ sub tableInfo
             'types' => { 'client_host_ip' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $self->consolidate(),
     }];
-}
-
-sub consolidate
-{
-    my ($self) = @_;
-    my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
-
-    my $table = 'mail_message_traffic';
-
-    my $isAddrInVD = sub {
-        my ($addr) = @_;
-        if (defined $addr) {
-            my ($user, $vd) = split '@', $addr;
-            if (defined($vd) and exists $vdomains{$vd}) {
-                return $vd;
-            }
-        }
-
-        return undef;
-    };
-
-    my $spec=  {
-            consolidateColumns => {
-                quote => {
-                          to_address => 1,
-                          from_address => 1,
-                         },
-                event => {
-                    accummulate => sub {
-                        my ($value, $row) = @_;
-                        if ($value eq 'msgsent') {
-                            my $toAddr = $row->{to_address};
-                            if ($isAddrInVD->($toAddr)) {
-                                return 'received';
-                            }
-
-                            return 'sent';
-
-                        } else {
-                            return 'rejected';
-                        }
-                    },
-                    conversor => sub { return 1  },
-                   }, # end event column
-
-                   from_address => {
-                       destination => 'vdomain',
-                       conversor => sub {
-                           my ($value, $row) = @_;
-                           my $vd;
-                           $vd = $isAddrInVD->($row->{from_address});
-                           if ($vd) {
-                               return $vd;
-                           }
-
-                           $vd = $isAddrInVD->($row->{to_address});
-                           if ($vd) {
-                               return $vd;
-                           }
-
-                           return '-';
-                       }
-                      }, # end from_address column
-            }, # end consoldiateColumns section
-
-           accummulateColumns    => {
-                      sent  => 0,
-                      received  => 0,
-                      rejected  => 0,
-              },
-
-            filter => sub {
-                  my ($row) = @_;
-                  return $row->{event} ne 'other';
-              },
-
-           };
-
-    return {  $table => $spec };
 }
 
 sub logHelper
@@ -1971,22 +1878,6 @@ sub restoreConfig
         }
     }
 
-}
-
-sub _storageMailDirs
-{
-    return  (qw(/var/mail /var/vmail));
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $printableName = __('Mailboxes');
-
-    return {$printableName => [ $self->_storageMailDirs() ],};
 }
 
 # Method: certificates
@@ -2087,6 +1978,11 @@ sub syncFolders
     }
 
     return \@folders;
+}
+
+sub _storageMailDirs
+{
+    return  (qw(/var/mail /var/vmail));
 }
 
 sub recoveryDomainName

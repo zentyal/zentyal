@@ -7,7 +7,6 @@ use EBox;
 use EBox::Config;
 use EBox::Global;
 
-use EBox::Logs::Consolidate;
 use EBox::Util::Lock;
 use TryCatch::Lite;
 
@@ -25,12 +24,6 @@ try {
     my $logs = EBox::Global->getInstance(1)->modInstance('logs');
     defined $logs or
         die 'Cannot instantiate Zentyal logs module';
-
-    unless (EBox::Config::boolean('disable_consolidation')) {
-        # we consolidate before the purge to not lose any data
-        # This is intended for summarised reports
-        EBox::Logs::Consolidate->consolidate('all');
-    }
 
     $logs->purge();
 } catch ($e) {

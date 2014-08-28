@@ -57,25 +57,4 @@ sub _description
     return $description;
 }
 
-sub permanentMessage
-{
-    my ($self) = @_;
-
-    my $events = $self->global()->getInstance()->modInstance('events');
-    unless ($events->isEnabled()) {
-        return __('Events module is not enabled. You have to enable it and also enable the WAN Failover event in order to use this feature.');
-    }
-
-    unless ($events->isEnabledWatcher('EBox::Event::Watcher::Gateways')) {
-        return __('WAN Failover event is not enabled. You have to enable it in order to use this feature');
-    }
-
-    return undef;
-}
-
-sub permanentMessageType
-{
-    return 'warning';
-}
-
 1;

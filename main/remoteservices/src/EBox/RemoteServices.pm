@@ -20,7 +20,6 @@ package EBox::RemoteServices;
 
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
-            EBox::Events::DispatcherProvider
             EBox::FirewallObserver
             EBox::WebAdmin::PortObserver);
 
