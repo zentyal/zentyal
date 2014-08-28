@@ -57,14 +57,15 @@ sub new
 
 sub populateUser
 {
-    my $userMod = EBox::Global->modInstance('samba');
+    my $sambaMod = EBox::Global->modInstance('samba');
     my @users = ();
-    my $list = $userMod->realUsers();
+    my $list = $sambaMod->realUsers();
     foreach my $u (@{$list}) {
-        my $gr = {};
-        $gr->{value} = $u->get('uid');
-        $gr->{printableValue} = $u->name();
-        push (@users, $gr);
+        my $v = {
+            value => $u->get('samAccountName'),
+            printableValue => $u->name(),
+        };
+        push (@users, $v);
     }
     return \@users;
 }
@@ -76,10 +77,11 @@ sub populateGroup
     my $list = $userMod->securityGroups();
     foreach my $g (@{$list}) {
         next if ($g->isInternal());
-        my $gr = {};
-        $gr->{value} = $g->get('cn');
-        $gr->{printableValue} = $g->name();
-        push (@groups, $gr);
+        my $v = {
+            value => $g->get('samAccountName'),
+            printableValue => $g->name(),
+        };
+        push (@groups, $v);
     }
     return \@groups;
 }
