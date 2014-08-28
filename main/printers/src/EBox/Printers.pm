@@ -186,6 +186,7 @@ sub writeSambaConfig
     my ($self) = @_;
 
     my $params = [];
+    push (@{$params}, printers => $self->printers());
     $self->writeConfFile(SAMBA_PRINTERS_CONF_FILE, 'printers/printers.conf.mas',
                          $params, { mode => '0600', uid => 0, gid => 0});
 }
@@ -310,36 +311,41 @@ sub restoreConfig
 #
 #   array ref - holding hashrefs with name and users
 #
-#sub printers
-#{
-#    my ($self) = @_;
-#
-#    my @list;
-#    my $model = $self->model('Printers');
-#    foreach my $id (@{$model->ids()}) {
-#        my $row = $model->row($id);
-#        my $name = $row->valueByName('printer');
-#        my $permsModel = $row->subModel('access');
-#        my @users;
-#        foreach my $id (@{$permsModel->ids()}) {
-#            my $row = $permsModel->row($id);
-#            my $element = $row->elementByName('user_group');
-#            if ($element->selectedType() eq 'user') {
-#                push (@users, $element->value());
-#            } else {
-#                my $group = new EBox::Samba::Group(samAccountName => $element->value());
-#                my @userNames = map { $_->name() } @{$group->users()};
-#                push (@users, @userNames);
-#            }
-#        }
-#        my %seen;
-#        @users = grep { not $seen{$_}++ } @users;
-#        push (@list, { name => $name, users => \@users });
-#    }
-#
-#    return \@list;
-#}
+sub printers
+{
+    my ($self) = @_;
 
+    my $list = [];
+    my $model = $self->model('Printers');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $name = $row->valueByName('printer');
+        my $desc = $row->printableValueByName('description');
+        my $location = $row->printableValueByName('location');
+        my $guest = $row->valueByName('guest');
+        my $permsModel = $row->subModel('access');
+        my $users = [];
+        foreach my $id (@{$permsModel->ids()}) {
+            my $row = $permsModel->row($id);
+            my $element = $row->elementByName('user_group');
+            if ($element->selectedType() eq 'user') {
+                push (@{$users}, $element->value());
+            } else {
+                push (@{$users}, "@" . $element->value());
+            }
+        }
+        my $printerData = {
+            name => $name,
+            description => $desc,
+            location => $location,
+            guest => $guest,
+            users => $users,
+        };
+        push (@{$list}, $printerData);
+    }
+
+    return $list;
+}
 
 # Method: networkPrinters
 #
