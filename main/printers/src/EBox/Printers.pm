@@ -174,6 +174,12 @@ sub _setConf
     my ($self) = @_;
 
     $self->_mangleConfFile(CUPSD, addresses => $self->_ifaceAddresses());
+}
+
+sub _postServiceHook
+{
+    my ($self) = @_;
+
     $self->writeSambaConfig();
 }
 
