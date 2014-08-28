@@ -282,11 +282,6 @@ sub _daemons
             type         => 'upstart',
             precondition => sub { return $self->isProvisioned() },
         },
-        {
-            name         => 'zentyal.zoc-migrate',
-            type         => 'upstart',
-            precondition => sub { return $self->isProvisioned() },
-        },
     ];
 
     return $daemons;
