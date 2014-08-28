@@ -180,6 +180,8 @@ sub _setConf
 # Method: writeSambaConfig
 #
 #   Writes the printers configuration file which will be included from smb.conf
+#   NOTE: This function is called from samba module because the printers.conf
+#         file must exists when samba daemon starts
 #
 sub writeSambaConfig
 {
