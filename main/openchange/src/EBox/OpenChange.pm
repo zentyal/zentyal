@@ -407,7 +407,6 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
-    # FIXME
     $self->_issueWebserverCertificate();
 
     $self->_setApachePortsConf();
@@ -1427,6 +1426,8 @@ sub dropSOGODB
 sub _issueWebserverCertificate
 {
     my ($self) = @_;
+
+    return unless $self->isProvisioned();
 
     my $ca = $self->global()->modInstance('ca');
     return unless defined ($ca);
