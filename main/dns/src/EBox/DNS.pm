@@ -1778,19 +1778,34 @@ sub _updateManagedDomainIPsModel
     my $ifaces = $networkModule->allIfaces();
     my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
-        my $addrs = $networkModule->ifaceAddresses($iface);
-        foreach my $addr (@{$addrs}) {
-            next if $seenAddrs{$addr};
-            $seenAddrs{$addr} = 1;
+        if ($networkModule->ifaceMethod($iface) eq 'notset') {
+            foreach my $id (@{$model->ids()}) {
+                my $row = $model->row($id);
+                next unless defined $row;
 
-            my $ifaceName = $iface;
-            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
-            my $ipRow = $model->find(iface => $ifaceName);
-            next unless defined $ipRow;
+                my $ifaceElement = $row->elementByName('iface');
+                my $ifaceValue = $ifaceElement->value();
+                next unless (defined $ifaceValue and length $ifaceValue);
 
-            my $ipElement = $ipRow->elementByName('ip');
-            $ipElement->setValue($addr->{address});
-            $ipRow->store();
+                if ($ifaceValue eq $iface) {
+                    $model->removeRow($id);
+                }
+            }
+        } else {
+            my $addrs = $networkModule->ifaceAddresses($iface);
+            foreach my $addr (@{$addrs}) {
+                next if $seenAddrs{$addr};
+                $seenAddrs{$addr} = 1;
+
+                my $ifaceName = $iface;
+                $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+                my $ipRow = $model->find(iface => $ifaceName);
+                next unless defined $ipRow;
+
+                my $ipElement = $ipRow->elementByName('ip');
+                $ipElement->setValue($addr->{address});
+                $ipRow->store();
+            }
         }
     }
 }
@@ -1921,6 +1936,13 @@ sub ifaceMethodChanged
     my ($self, $iface, $oldmethod, $newmethod) = @_;
 
     return $self->_checkIfaceUsed($iface);
+}
+
+sub ifaceMethodChangeDone
+{
+    my ($self, $iface) = @_;
+
+    $self->_updateManagedDomainAddresses();
 }
 
 ######################################
