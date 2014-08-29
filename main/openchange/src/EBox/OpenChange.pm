@@ -172,7 +172,7 @@ sub _migrateCerts
                                        reason     => 'superseded',
                                        force      => 1);
             }
-            $self->_setCerts($domain);
+            $self->_setCert($domain);
         } catch ($ex) {
             EBox::error("Impossible to migrate certificates: $ex");
         }
@@ -305,26 +305,6 @@ sub isRunning
     }
 }
 
-# Method: autodiscoveryCerts
-#
-#     Return the list of certificates used by OC Web Services
-#
-# Returns:
-#
-#     Array ref - the path to the certificates
-#
-sub autodiscoveryCerts
-{
-    my ($self) = @_;
-    my @certs;
-    if ($self->isEnabled() and $self->isProvisioned()) {
-        if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
-            push @certs, OCSMANAGER_DOMAIN_PEM;
-        }
-    }
-    return \@certs;
-}
-
 sub _rpcProxyEnabled
 {
     my ($self) = @_;
@@ -405,8 +385,6 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
-    $self->_issueWebserverCertificate();
-
     $self->_setApachePortsConf();
 
     $self->_setOCSManagerConf();
@@ -421,6 +399,8 @@ sub _setConf
     $self->_setupActiveSync();
 
     $self->_setSOGoApacheConf();
+
+    $self->_setDomainCertificate();
 }
 
 sub _postServiceHook
@@ -433,6 +413,17 @@ sub _postServiceHook
         # FIXME: common way to restart apache for rpcproxy, sogo and activesync only if there are changes?
         #        currently we are doing more than necessary
         EBox::Sudo::root('service apache2 restart');
+    }
+}
+
+sub _setDomainCertificate
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        # the certificate must be in place before haproxy restarts
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        $self->_setCert($domain)
     }
 }
 
@@ -658,7 +649,7 @@ sub _setOCSManagerConf
 #   * Autodiscover
 #   * RPC/Proxy
 #   * EWS
-sub _setCerts
+sub _setCert
 {
     my ($self, $domain) = @_;
 
@@ -1095,48 +1086,6 @@ sub rpcProxyHosts
     return \@hosts;
 }
 
-# FIXME
-#sub HAProxyPreSetConf
-#{
-#    my ($self) = @_;
-#    if ($self->isEnabled() and $self->isProvisioned()) {
-#        # the certificate must be in place before haproxy restarts
-#        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-#        $self->_setCerts($domain)
-#    }
-#}
-
-# Method: certificates
-#
-#   This method is used to tell the CA module which certificates
-#   and its properties we want to issue for this service module.
-#
-# Returns:
-#
-#   An array ref of hashes containing the following:
-#
-#       service - name of the service using the certificate
-#       path    - full path to store this certificate
-#       user    - user owner for this certificate file
-#       group   - group owner for this certificate file
-#       mode    - permission mode for this certificate file
-#
-sub certificates
-{
-    my ($self) = @_;
-
-    return [
-        {
-            serviceId =>  'zentyal_webserver',
-            service   =>  __('Web Server'),
-            path      => '/etc/apache2/ssl/ssl.pem',
-            user      => 'root',
-            group     => 'root',
-            mode      => '0400',
-        }
-    ];
-}
-
 sub _vdomainModImplementation
 {
     my ($self) = @_;
@@ -1339,44 +1288,6 @@ sub dropSOGODB
     $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
-}
-
-# Generate the certificate, issue a new one or renew the existing one
-sub _issueWebserverCertificate
-{
-    my ($self) = @_;
-
-    return unless $self->isProvisioned();
-
-    my $ca = $self->global()->modInstance('ca');
-    return unless defined ($ca);
-
-    my $certificates = $ca->model('Certificates');
-    my $cn = $certificates->cnByService('zentyal_webserver');
-
-    my $caMD = $ca->getCACertificateMetadata();
-    my $certMD = $ca->getCertificateMetadata(cn => $cn);
-
-    # If a certificate exists, check if it can still be used
-    if (defined($certMD)) {
-        my $isStillValid = ($certMD->{state} eq 'V');
-        my $isAvailable = (-f $certMD->{path});
-
-        if ($isStillValid and $isAvailable) {
-            $ca->renewCertificate(
-                commonName => $cn,
-                endDate => $caMD->{expiryDate},
-                #FIXME: subjAltNames => $self->_subjAltNames()
-            );
-            return;
-        }
-    }
-
-    $ca->issueCertificate(
-        commonName => $cn,
-        endDate => $caMD->{expiryDate},
-        #FIXME: subjAltNames => $self->_subjAltNames()
-    );
 }
 
 1;

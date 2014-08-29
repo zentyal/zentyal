@@ -32,6 +32,8 @@ Include /etc/apache2/mods-available/env.load
 user  www-data
 group www-data
 
+SSLCertificateFile /etc/ocsmanager/domain.pem
+
 WSGILazyInitialization On
 WSGIPythonPath /usr/lib/openchange/web/rpcproxy
 
