@@ -1,4 +1,5 @@
 HEAD
+	+ Tune OCSManager configuration for autodiscover
 	+ Redirect all /ews/ requests to OCSManager
 	+ Use .crt when downloading the certificate for RPC/Proxy
 	  to ease Windows importing

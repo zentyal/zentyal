@@ -1,4 +1,6 @@
 HEAD
+	+ Refactor and include internalNetworks method used by dns and
+	  openchange modules
 	+ Fixed problem in gateway table when gateways go away when
 	  syncing rows
 	+ Added vlans key as exclude replication key

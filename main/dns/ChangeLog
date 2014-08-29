@@ -1,4 +1,5 @@
 HEAD
+	+ Use refactored internalNetworks from network module
 	+ Do not fail to add a host if an IP address is already used by
 	  other hostname
 	+ Return the identifier in EBox::DNS::addDomain method
