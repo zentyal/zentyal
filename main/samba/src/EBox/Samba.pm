@@ -3336,14 +3336,22 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
-
-    # TODO: put everything together in smb.conf ?
     push (@array, 'shares' => 1);
 
-    my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
-        push (@array, 'openchange' => 1);
-        $openchange->writeSambaConfig();
+    if ($self->global()->modExists('openchange')) {
+        my $openchangeMod = $self->global()->modInstance('openchange');
+        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
+            push (@array, 'openchange' => 1);
+            $openchangeMod->writeSambaConfig();
+        }
+    }
+
+    if ($self->global()->modExists('printers')) {
+        my $printersMod = $self->global()->modInstance('printers');
+        if ($printersMod->isEnabled()) {
+            push (@array, 'print' => 1);
+            $printersMod->writeSambaConfig();
+        }
     }
 
     $self->writeConfFile(SAMBACONFFILE, 'samba/smb.conf.mas', \@array,
@@ -3355,15 +3363,6 @@ sub writeSambaConfig
     push (@array, 'prefix' => $prefix);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
-
-    if (EBox::Global->modExists('printers')) {
-        my $printersModule = EBox::Global->modInstance('printers');
-        if ($printersModule->isEnabled()) {
-            push (@array, 'print' => 1);
-            push (@array, 'printers' => $printersModule->printers());
-        }
-    }
-
     push (@array, 'shares' => $self->shares());
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());

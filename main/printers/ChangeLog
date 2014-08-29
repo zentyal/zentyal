@@ -1,3 +1,7 @@
+HEAD
+	+ Fix missing argument exception adding user entries to printer ACL
+	+ cupsd.conf: Do not listen on unix socket to fix the broken pipe errors
+	  managing printers
 3.5.1
 	+ Fixed wrong instantiation of groups
 3.5
