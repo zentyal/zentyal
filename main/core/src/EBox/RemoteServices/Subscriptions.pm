@@ -34,9 +34,10 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::RESTClient;
 # use EBox::RemoteServices::Configuration;
 # use EBox::RemoteServices::Connection;
-# use EBox::RemoteServices::RESTClient;
+
 # use EBox::RemoteServices::Subscription::Check;
 # use EBox::Sudo;
 # use EBox::Util::Nmap;
@@ -51,7 +52,7 @@ use File::Temp;
 use JSON::XS;
 use HTML::Mason;
 
-use constant URI => 'https://api.cloud.zentyal.com';
+use constant SERVER => 'api.cloud.zentyal.com';
 
 # Group: Public methods
 
@@ -81,20 +82,66 @@ sub new
     $self->{password} = $params{password};
 
     # Set the REST client
-    $self->{restClient} = new EBox::RemoteServices::RESTClient(
+    $self->{restClient} = new EBox::RESTClient(
+        server      => SERVER,
         credentials => { username => $params{username},
                          password => $params{password},
-                         uri      => URI,
-                        });
+                        }
+       );
 
     bless $self, $class;
     return $self;
 }
 
+
+sub subscribeServer
+{
+    my ($self, $name, $uuid) = @_;
+    my $mode = 'new';
+    my $resource = '/v2/subscriptions/subscribe-server/';
+    my $query = "name=$name&subscription_uuid=$uuid&mode=$mode";
+ 
+    return {
+        name => $name,
+        uuid => $uuid,
+        password => 'password',
+    };
+
+   # my $res = $self->{restClient}->PUT('/v2/subscriptions/list/', query => $query);
+    # if (exists $res->{result}) {
+    #     return $res->{result}->{_content};
+    # }
+    # return undef;  
+    
+}
+
 sub list
 {
     my ($self) = @_;
-    return $self->{restClient}->GET('v2/subscriptions/list');
+    my $res = $self->{restClient}->GET('/v2/subscriptions/list/');
+    if (exists $res->{result}) {
+        # TODO check for errors
+        my $list =  decode_json($res->{result}->{_content});
+        if ((ref $list) ne 'ARRAY') {
+            throw EBox::Exceptions::Internal("Subscription list call dont returned a list");
+        } elsif (@{$list} == 0) {
+            throw EBox::Exceptions::Internal("Subscripions list is empty");
+        }
+
+        return $list;
+    }
+    return undef;
+}
+
+# must not be there
+sub auth
+{
+    my ($self) = @_;
+    my $res = $self->{restClient}->GET('/v2/auth/');
+    if (exists $res->{result}) {
+        return decode_json($res->{result}->{_content});
+    }
+    return undef;
 }
 
 1;

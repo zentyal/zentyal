@@ -1,0 +1,52 @@
+<%args>
+$subscriptionLevel
+</%args>
+<%init>
+</%init>
+
+<script type="text/javascript" src="/data/js/form.js"></script>
+<script type="text/javascript" src="/data/js/remoteservices.js"></script>
+
+<div id='no_subscription_div' style='display:none'>
+<h3>bno_subs_div</h3>
+<%perl>
+my @subscription_form_rows = (
+ [  printableName => __('User name'),
+    name => 'username'
+ ],
+ [  printableName => __('Password'),
+    name => 'password'
+ ],
+ [  printableName => __('Server name'),
+    name => 'name'
+ ],
+ [  value => __('Register'),
+    input => 'submit',
+    name => 'register',
+    id => 'subscription_form_submit'
+ ],
+);
+</%perl>
+ <div id='subscription_form_error' class='error'></div>
+ <form id='subscription_form' action='/RemoteServices/SubscribeServer'>
+  <& /formTable.mas, rows => \@subscription_form_rows &>
+ </form>
+</div>
+
+<div id='subscription_slots_div' style='display:none'>
+<h3> sub_slots_div </h3>
+   <div id='subscription_slots_list_note' class='note'></div>
+   <div id='subscription_slots_list_error' class='error'></div>
+   <div id='subscription_slots_list'></div>
+</div>
+
+
+<script>
+$(function() {
+    Zentyal.RemoteServices.setup();
+    Zentyal.RemoteServices.showForLevel(<% $subscriptionLevel %>);
+});
+</script>
+
+
+

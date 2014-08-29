@@ -20,7 +20,6 @@ package EBox::RemoteServices;
 
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
-            EBox::Events::DispatcherProvider
             EBox::FirewallObserver
             EBox::WebAdmin::PortObserver);
 
@@ -50,6 +49,9 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use EBox::RemoteServices::Subscriptions;
+
+use EBox::Menu::Folder;
+use EBox::Menu::Item;
 
 # use Data::UUID;
 # use Date::Calc;
@@ -127,6 +129,10 @@ sub _create
     return $self;
 }
 
+sub subscriptionLevel
+{
+    return -1;
+}
 
 sub username
 {
@@ -175,12 +181,64 @@ sub _userCredentials
     return {username => $username, password => $password };
 }
 
+sub clearCredentials
+{
+    my ($self) = @_;
+    $self->unset('username');
+    $self->unset('password');
+}
+
 sub listSubscriptions
 {
     my ($self) = @_;
     my $cred = $self->_userCredentials();
     my $subscriptions = EBox::RemoteServices::Subscriptions->new(%{$cred});
     return $subscriptions->list();
+}
+
+sub auth
+{
+    my ($self) = @_;
+    my $cred = $self->_userCredentials();
+    my $subscriptions = EBox::RemoteServices::Subscriptions->new(%{$cred});
+    return $subscriptions->auth();
+}
+
+sub eBoxSubscribed
+{
+    # XXX for validate referer
+    return 1;
+}
+
+sub cloudDomain
+{
+    # XXX for validate referer
+    return 'inexistnete.org';
+}
+
+
+# Method: menu
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
+                                        icon => 'register',
+                                        text => __('Registration'),
+                                        separator => 'Core',
+                                        order => 105);
+
+    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Index',
+                                      'text' => __('Server Registration'),
+                                     ));
+
+
+    $root->add($folder);
 }
 
 1;
@@ -494,36 +552,7 @@ sub showModuleStatus
     return 0;
 }
 
-# Method: menu
-#
-# Overrides:
-#
-#       <EBox::Module::menu>
-#
-sub menu
-{
-    my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
-                                        icon => 'register',
-                                        text => __('Registration'),
-                                        separator => 'Core',
-                                        order => 105);
-
-    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
-                                      'text' => __('Server Registration'),
-                                     ));
-
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'RemoteServices/Composite/Technical',
-        'text' => __('Technical Support'),
-       ));
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
-        'text' => __('Security Updates'),
-       ));
-    $root->add($folder);
-}
 
 # Method: widgets
 #

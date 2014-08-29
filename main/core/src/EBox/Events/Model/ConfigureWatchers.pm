@@ -385,7 +385,7 @@ sub acquireURL
 #
 #      <EBox::Model::DataTable::viewCustomizer>
 #
-sub viewCustomizer
+sub viewCustomizerDisabled
 {
     my ($self) = @_;
 
@@ -485,10 +485,10 @@ sub _checkWatcherHidden
 
     my $subscriptionLevel = -1;
 
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $subscriptionLevel = $rs->subscriptionLevel();
-    }
+    # if (EBox::Global->modExists('remoteservices')) {
+    #     my $rs = EBox::Global->modInstance('remoteservices');
+    #     $subscriptionLevel = $rs->subscriptionLevel();
+    # }
     unless ($subscriptionLevel > 0) {
         $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
