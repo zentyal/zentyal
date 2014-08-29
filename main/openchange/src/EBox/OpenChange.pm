@@ -53,7 +53,7 @@ use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
 use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
-use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_APACHE_CONF  => '/etc/apache2/conf-available/zentyal-ocsmanager.conf';
 use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
@@ -227,26 +227,6 @@ sub enableActions
     #}
 }
 
-# Method: enableService
-#
-#   Override EBox::Module::Service::enableService to notify samba
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-    if ($self->changed()) {
-        # manage the nginx include file
-        my $webadmin = $self->global()->modInstance('webadmin');
-        if ($status) {
-            $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
-        } else {
-            $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
-        }
-    }
-}
-
 sub _daemonsToDisable
 {
     my ($self) = @_;
@@ -342,6 +322,11 @@ sub usedFiles
     push (@files, {
         file => SOGO_APACHE_CONF,
         reason => __('To make SOGo webmail available'),
+        module => 'sogo'
+    });
+    push (@files, {
+        file => OCSMANAGER_APACHE_CONF,
+        reason => __('To make autodiscovery service available'),
         module => 'sogo'
     });
 
@@ -628,20 +613,35 @@ sub _setOCSManagerConf
     my $confDir = EBox::Config::conf() . 'openchange';
     EBox::Sudo::root("mkdir -p '$confDir'");
 
-    if ($self->isProvisioned()) {
-        $self->_setCerts($domain);
+    if ($self->isEnabled()) {
+        if ($self->isProvisioned()) {
+            $self->_setCert($domain);
+        }
         my $incParams = [
             server => $domain
-           ];
-        $self->writeConfFile(OCSMANAGER_INC_FILE,
-                             "openchange/ocsmanager.nginx.mas",
+        ];
+        $self->writeConfFile(OCSMANAGER_APACHE_CONF,
+                             "openchange/apache-ocsmanager.conf.mas",
                              $incParams,
                              { uid => 0, gid => 0, mode => '644' }
-                        );
+        );
+        try {
+            EBox::Sudo::root("a2enconf zentyal-ocsmanager");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     } else {
-        # ocsmanager include should be empty to do nothing
-        EBox::Sudo::root('rm -f ' . OCSMANAGER_INC_FILE,
-                         'touch ' . OCSMANAGER_INC_FILE);
+        try {
+            EBox::Sudo::root("a2disconf zentyal-ocsmanager");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     }
 }
 

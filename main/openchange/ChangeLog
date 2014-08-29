@@ -1,4 +1,5 @@
 4.0
+	+ Apache handles now all the OC web services directly without haproxy/nginx
 	+ Remove dependency on deprecated webserver module
 	+ OpenChange -> Setup menu entry moved to Mail -> OpenChange
 	+ Remove currently unused migration code
