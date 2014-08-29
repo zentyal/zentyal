@@ -23,8 +23,8 @@ package EBox::RemoteServices::Subscription;
 
 use base 'EBox::RemoteServices::Base';
 
-no warnings 'experimental::smartmatch';
-use feature qw(switch);
+#no warnings 'experimental::smartmatch';
+#use feature qw(switch);
 
 use EBox::Config;
 use EBox::Exceptions::Command;
@@ -51,15 +51,7 @@ use File::Temp;
 use JSON::XS;
 use HTML::Mason;
 
-# Constants
-use constant {
-    SERV_CONF_DIR => 'remoteservices',
-    SERV_CONF_FILE => 'remoteservices.conf',
-    PROF_PKG       => 'zentyal-cloud-prof',
-    SEC_UPD_PKG    => 'zentyal-security-updates',
-    SYNC_PKG       => 'zfilesync',
-    REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
-};
+use constant URI => 'https://api.cloud.zentyal.com';
 
 # Group: Public methods
 
@@ -78,73 +70,44 @@ sub new
 {
     my ($class, %params) = @_;
 
-    exists $params{user} or
-      throw EBox::Exceptions::MissingArgument('user');
+    exists $params{username} or
+      throw EBox::Exceptions::MissingArgument('username');
     exists $params{password} or
       throw EBox::Exceptions::MissingArgument('password');
 
     my $self = $class->SUPER::new();
 
-    $self->{user} = $params{user};
+    $self->{user} = $params{username};
     $self->{password} = $params{password};
 
     # Set the REST client
     $self->{restClient} = new EBox::RemoteServices::RESTClient(
-        credentials => { username => $params{user},
-                         password => $params{password} });
+        credentials => { username => $params{username},
+                         password => $params{password},
+                         uri      => URI,
+                        });
 
     bless $self, $class;
     return $self;
 }
 
-# Method: serviceUrn
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::serviceUrn>
-#
-sub serviceUrn
+sub subscriptionList
 {
     my ($self) = @_;
+    return $self->{restClient}->GET('v2/subscriptions/list');
 
-    return 'EBox/Services/RegisteredEBoxList';
 }
 
-# Method: serviceHostName
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::serviceHostName>
-#
-sub serviceHostName
-{
-    my $host = EBox::Config::configkeyFromFile('ebox_services_www',
-                                               EBox::Config::etc() . SERV_CONF_FILE );
-    $host or
-      throw EBox::Exceptions::External(
-          __('Key for web subscription service not found')
-         );
+__DATA__
+sub uri
+ {
+        return 
 
-    return $host;
 }
 
-# Method: soapCall
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::soapCall>
-#
-sub soapCall
+sub baseURL
 {
-  my ($self, $method, @params) = @_;
-
-  my $conn = $self->connection();
-
-  return $conn->$method(
-                        user      => $self->{user},
-                        password  => $self->{password},
-                        @params
-                       );
+  return 'https://api.cloud.zentyal.com/v2/subscriptions/';
 }
 
 # Method: subscribeServer
