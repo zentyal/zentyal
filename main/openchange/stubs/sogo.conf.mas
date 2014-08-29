@@ -84,6 +84,7 @@
             hostname = "<% $ldapHost %>";
             baseDN = "ou=Users,<% $ldapBaseDN %>";
             bindDN = "<% $ldapBindDN %>";
+            bindFields = (uid, mail);
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = YES;
             id = login;
