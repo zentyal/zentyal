@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-22 08:57+0200\n"
+"PO-Revision-Date: 2014-08-27 07:59+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -134,9 +134,7 @@ msgstr ""
 msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
-msgstr ""
-"ローカルネットワークインタフェースのアドレスであるため、VPNクライアントは、ア"
-"ドレス{addr}に接続するように設定すべきではありません"
+msgstr "ローカルネットワークインターフェイスのアドレスであるため、VPNクライアントは、アドレス{addr}に接続するように設定すべきではありません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
@@ -234,7 +232,7 @@ msgstr "接続ターゲット"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr "VPNインタフェースアドレス"
+msgstr "VPNインターフェイスアドレス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
@@ -298,7 +296,7 @@ msgstr "サーバ {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "All external interfaces"
-msgstr "全ての外部インタフェース"
+msgstr "全ての外部インターフェイス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 msgid "Not found"
@@ -324,7 +322,7 @@ msgstr "VPNサブネット"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN network interface"
-msgstr "VPNネットワークインタフェース"
+msgstr "VPNネットワークインターフェイス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
@@ -442,9 +440,8 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}あなたは、VPNサーバーを実行するためのCA証明書を作成する必要がありま"
-"す。 {closepar} {openpar}、{openhref} 認証局モジュール{closehref}に移動し、そ"
-"れを作成してください。{closepar}"
+"{openpar}あなたは、VPNサーバを実行するためのCA証明書を作成する必要があります。 {closepar} "
+"{openpar}、{openhref} 認証局モジュール{closehref}に移動し、それを作成してください。{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -454,9 +451,7 @@ msgstr "サーバの作成"
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
-"完全に構成されていないため、サーバーをアクティブ化することはできません。設定"
-"を編集し、再試行してください"
+msgstr "完全に構成されていないため、サーバをアクティブ化することはできません。設定を編集し、再試行してください"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
@@ -490,9 +485,8 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
-"それは既に{state}状態{certName}と呼ばれる証明書を存在するため、{name}と呼ばれ"
-"るサーバを作成できません。 <br/>別の名前を選択するか、{certName} 証明書を再発"
-"行してください"
+"それは既に{state}状態{certName}と呼ばれる証明書を存在するため、{name}と呼ばれるサーバを作成できません。<br/>別の名前を選択す"
+"るか、{certName} 証明書を再発行してください"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -504,13 +498,11 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}あなたは簡単にリモートオフィスやユーザーを接続するためのOpenVPNサー"
-"バを設定することができます。{closepar} {openpar} VPNパラメータを設定するに"
-"は、{openit}の設定{closeit}をクリックしてください。{closepar} {openpar} "
-"{openit}アドバタイズされたネットワーク{closeit }あなたは、リモートのユーザー"
-"がアクセスしたいネットワークを構成することができます。あなたが設定を完了した"
-"ら、{openpar} あなたはあなたのクライアントで使用するオペレーティング·システム"
-"用のファイルバンドルをダウンロードすることができます。"
+"{openpar}あなたは簡単にリモートオフィスやユーザを接続するためのOpenVPNサーバを設定することができます。{closepar} "
+"{openpar} VPNパラメータを設定するには、{openit}の設定{closeit}をクリックしてください。{closepar} "
+"{openpar} {openit}アドバタイズされたネットワーク{closeit "
+"}あなたは、リモートのユーザがアクセスしたいネットワークを構成することができます。あなたが設定を完了したら、{openpar} "
+"あなたはあなたのクライアントで使用するオペレーティング·システム用のファイルバンドルをダウンロードすることができます。"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:46
@@ -608,9 +600,7 @@ msgstr "サーバのアドレス"
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
-msgstr ""
-"これは、サーバーに接続するためにクライアントによって使用されるアドレスです。"
-"通常、これはパブリックIPまたはホスト名になります"
+msgstr "これは、サーバに接続するためにクライアントによって使用されるアドレスです。通常、これはパブリックIPまたはホスト名になります"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
@@ -731,7 +721,7 @@ msgstr "ネットワークアドレス変換"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "このVPNサーバーがデフォルトゲートウェイでない場合は、それを有効にする"
+msgstr "このVPNサーバがデフォルトゲートウェイでない場合は、それを有効にする"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -767,7 +757,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr "受信するインタフェース"
+msgstr "受信するインターフェイス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
 msgid "Redirect gateway"
@@ -802,7 +792,7 @@ msgstr "サーバの構成"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
-msgstr "全ネットワークインタフェース"
+msgstr "全ネットワークインターフェイス"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
@@ -829,12 +819,12 @@ msgstr "ポート {p}/{pr} は{mod}によって使用されています"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr "インタフェース{iface}は存在しません"
+msgstr "インターフェイス{iface}は存在しません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr "インタフェース{iface}は設定されていません"
+msgstr "インターフェイス{iface}は設定されていません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
@@ -858,9 +848,7 @@ msgstr ""
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
-msgstr ""
-"ネットワークアドレス変換オプションが有効になっていない限り、少なくとも一つの"
-"外部インタフェースは、サーバに接続するために必要とされる"
+msgstr "ネットワークアドレス変換オプションが有効になっていない限り、少なくとも一つの外部インターフェイスは、サーバに接続するために必要とされる"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:544
 msgid ""
@@ -881,9 +869,7 @@ msgstr "トンネルサーバにアドバタイズされたネットワークの
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
-"TUNインタフェースを介してクライアント用Advestisedルートはサポートされていませ"
-"ん"
+msgstr "TUNインターフェイスを介してクライアント用Advestisedルートはサポートされていません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
@@ -950,7 +936,7 @@ msgstr "ripdとzebraを動作させるためにQuaggaを設定"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:124
 msgid "To configure Quagga to listen on the given interfaces"
-msgstr "入力したインタフェースに応答するようQuaggaを設定"
+msgstr "入力したインターフェイスに応答するようQuaggaを設定"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:129
 msgid "Main zebra configuration file"
@@ -962,7 +948,7 @@ msgstr "ripdがクライアント間接続と経路を交換するよう設定"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr "システム全体のVPNサーバーの自動起動を削除するには"
+msgstr "システム全体のVPNサーバの自動起動を削除する"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -981,7 +967,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:633
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
-msgstr "同じ名前のサーバーがあるため、名前{n}を使用することはできません"
+msgstr "同じ名前のサーバがあるため、名前{n}を使用することはできません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:655
 #, perl-brace-format
@@ -1030,7 +1016,7 @@ msgstr "接続してから"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1341
 msgid "No users connected to the VPN"
-msgstr "VPNに接続しません、ユーザー"
+msgstr "VPNに接続しているユーザはありません"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1381
 msgid "OpenVPN daemons"
@@ -1575,11 +1561,11 @@ msgstr "Webサーバの受信ポートを設定する。"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:98
 msgid "To configure default virtual host."
-msgstr "デフォルトの仮想ホストを設定するには。"
+msgstr "デフォルトの仮想ホストを設定する。"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:103
 msgid "To configure default SSL virtual host."
-msgstr "デフォルトのSSL仮想ホストを設定するには。"
+msgstr "デフォルトのSSL仮想ホストを設定する。"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:108
 msgid "To configure the per-user public_html directory."
@@ -1738,7 +1724,7 @@ msgstr "SSLサポート"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
 msgid "Virtual hosts"
-msgstr "バーチャルホスト"
+msgstr "仮想ホスト"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
 #, perl-brace-format
@@ -1773,18 +1759,15 @@ msgstr ""
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
-msgstr ""
-"インストールされ、設定ユーザーとグループのモジュールが必要とされているので、 "
-"ユーザー用のHTMLディレクトリを許可しました。"
+msgstr "インストールされ、ユーザとグループのモジュール設定が必要とされているので、ユーザ用のHTMLディレクトリを許可しました。"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:96
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
-"適切に構成ユーザーとグループモジュールは、ユーザーのためのHTMLのディレクトリ"
-"を可能にするために必要とされる。それを設定するためには、少なくとも1つの時間を"
-"有効にしてください。"
+"適切にユーザとグループモジュール設定は、ユーザのためのHTMLのディレクトリを可能にするために必要とされます。それを設定するためには、少なくとも1つの時"
+"間を有効にしてください。"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
@@ -1811,9 +1794,7 @@ msgstr "ユーザ {dirName} 毎に有効化"
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
-msgstr ""
-"ユーザーがホーム上のpublic_htmlディレクトリを使用してWebドキュメントを公開す"
-"ることを許可します。"
+msgstr "ユーザがホーム上のpublic_htmlディレクトリを使用してWebドキュメントを公開することを許可します。"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
 msgid "User public folder settings"
@@ -1842,15 +1823,15 @@ msgstr "ZentyalはBIND9デーモンに必要な環境変数を設定します"
 
 #: ../../main/dns/src/EBox/DNS.pm:496
 msgid "main bind9 configuration file"
-msgstr "メインBIND9の設定ファイル"
+msgstr "BIND9の主設定ファイル"
 
 #: ../../main/dns/src/EBox/DNS.pm:501
 msgid "bind9 options configuration file"
-msgstr "BIND9のオプションの設定ファイル"
+msgstr "BIND9のオプション設定ファイル"
 
 #: ../../main/dns/src/EBox/DNS.pm:506
 msgid "local bind9 configuration file"
-msgstr "地元のBIND9の設定ファイル"
+msgstr "ローカルBIND9の設定ファイル"
 
 #: ../../main/dns/src/EBox/DNS.pm:511
 msgid "Keys configuration file"
@@ -1864,7 +1845,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:528
 msgid "Let the bind daemon to be dynamically updated"
-msgstr "バインドデーモンが動的に更新されるようにしましょう"
+msgstr "BINDデーモンが動的に更新されるようにします"
 
 #: ../../main/dns/src/EBox/DNS.pm:532
 msgid "Remove bind9 init script link"
@@ -1876,7 +1857,7 @@ msgstr "名前のAppArmorのプロファイルを上書きする"
 
 #: ../../main/dns/src/EBox/DNS.pm:539
 msgid "To allow samba daemon load Active Directory zone"
-msgstr "サンバデーモンロードActive Directoryのゾーンを許可するには"
+msgstr "SambaデーモンをロードしActive Directoryのゾーンを許可する"
 
 #: ../../main/dns/src/EBox/DNS.pm:564
 msgid "Domain Name Service"
@@ -2211,9 +2192,8 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
-"最小の設定値が最優先になります。また、最小の設定値はリモートのクライアント(通"
-"常は別のメールサーバ)がドメイン名のMX参照をする際、最初のサーバーに適用されま"
-"す。許可された設定値の間隔は次のものです: ({min}, {max})"
+"最小の設定値が最優先になります。また、最小の設定値はリモートのクライアント(通常は別のメールサーバ)がドメイン名のMX参照をする際、最初のサーバに適用さ"
+"れます。許可された設定値の間隔は次のものです: ({min}, {max})"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:232
 msgid "Mail exchanger record"
@@ -2287,9 +2267,8 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
-"ここでは、このDNSサーバー用のドメインを追加することができます。各ドメインは、"
-"エイリアス（AとCNAME）およびその他の特殊記録（MX、NS、TXTおよびSRV）と異なる"
-"ホスト名を持つことができます。"
+"ここでは、このDNSサーバ用のドメインを追加することができます。各ドメインは、エイリアス（AとCNAME）およびその他の特殊記録（MX、NS、TXTおよ"
+"びSRV）と異なるホスト名を持つことができます。"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:78
 #, perl-brace-format
@@ -2310,7 +2289,7 @@ msgstr "ネームサーバ"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:248
 msgid "It manages the name server (NS) records for this domain"
-msgstr "これは、このドメインのネームサーバー（NS）レコードを管理"
+msgstr "これは、このドメインのネームサーバ（NS）レコードを管理"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:249
 msgid "name server record"
@@ -2454,9 +2433,7 @@ msgstr "他のサーバへの接続"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:138
 msgid ""
 "Users on this server will be able to chat with users in external servers."
-msgstr ""
-"このサーバー上のユーザーが外部サーバーでのユーザーとチャットすることができま"
-"す。"
+msgstr "このサーバ上のユーザが外部サーバでのユーザとチャットすることができます。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:144
 msgid "Enable MUC (Multi User Chat) service"
@@ -2464,9 +2441,7 @@ msgstr "MUC（マルチユーザチャット）サービスを有効にします
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:145
 msgid "Multi User Chat allows to create chat rooms in this server."
-msgstr ""
-"マルチユーザーチャットはこのサーバーにチャットルームを作成することができま"
-"す。"
+msgstr "マルチユーザチャットはこのサーバにチャットルームを作成することができます。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:151
 msgid "Enable STUN service"
@@ -2492,7 +2467,7 @@ msgstr "vCard情報を有効にする"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:166
 msgid "Import users VCard information from LDAP."
-msgstr "LDAPからユーザーをインポートするvCard情報。"
+msgstr "ユーザをvCard情報からLDAPにインポートする。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:172
 msgid "Enable shared roster"
@@ -2500,7 +2475,7 @@ msgstr "共有名簿を有効にする"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:173
 msgid "Populate users contact list with the other system users."
-msgstr "ユーザーは、他のシステムのユーザーとリストを問い合わせて取り込みます。"
+msgstr "他のシステムのユーザとユーザ問い合わせ一覧を取り込みます。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 msgid "General configuration settings"
@@ -2508,7 +2483,7 @@ msgstr "全般的設定"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:186
 msgid "General Jabber server configuration settings updated."
-msgstr "一般的なのJabberサーバーの構成設定を更新しました。"
+msgstr "一般的なのJabberサーバの構成設定を更新しました。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:190
 msgid ""
@@ -2516,9 +2491,8 @@ msgid ""
 "servers to send messages to your users, make sure they can resolve the same "
 "domain."
 msgstr ""
-"クライアントはJabberのドメインを解決できることを確認します。あなたは他のサー"
-"バーがユーザーにメッセージを送信する場合は、それらが同じドメインを解決できる"
-"ことを確認してください。"
+"クライアントはJabberのドメインを解決できることを確認します。あなたは他のサーバがユーザにメッセージを送信する場合は、それらが同じドメインを解決でき"
+"ることを確認してください。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:211
 msgid "Domain change confirmation"
@@ -2526,8 +2500,7 @@ msgstr "ドメイン変更確認"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:212
 msgid "Changing the domain name will delete all your current Jabber data."
-msgstr ""
-"ドメイン名を変更すると、すべてのあなたの現在のJabberのデータが削除されます。"
+msgstr "ドメイン名を変更すると、全てのあなたの現在のJabberのデータが削除されます。"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:50
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:69
@@ -2540,8 +2513,7 @@ msgstr "JabberのLDAPスキーマを追加します。"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:61
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr ""
-"ZentyalはJabberのユーザーを格納するために、このスキーマが必要になります。"
+msgstr "ZentyalはJabberのユーザを格納するために、このスキーマが必要になります。"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:77
 msgid "To properly configure ejabberd."
@@ -2560,9 +2532,7 @@ msgstr "Jabberアカウント"
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
-msgstr ""
-"このユーザーは、ジャバーアカウントを持っている。ユーザーが現在接続している場"
-"合ジャバー認証が再度必要になるまで、それは、接続されていきます。"
+msgstr "このユーザは、Jabberアカウントを持っている。ユーザが現在接続している場合Jabber認証が再度必要になるまで、それは、接続されています。"
 
 #: ../../main/printers/src/EBox/Printers/Composite/General.pm:41
 msgid "Printer Sharing"
@@ -2577,7 +2547,7 @@ msgstr "プリント"
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:133
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:299
 msgid "User/Group"
-msgstr "ユーザー/グループ"
+msgstr "ユーザ/グループ"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:166
 #: ../../main/printers/src/EBox/Printers.pm:41
@@ -2656,7 +2626,7 @@ msgstr "受信"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:137
 msgid "Select CUPS Interfaces"
-msgstr "CUPインタフェースを選択"
+msgstr "CUPインターフェイスを選択"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:148
@@ -2669,9 +2639,8 @@ msgid ""
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
-"CUPSのWebサーバが受信するのはどのインターフェイスが選択します。おそらく外部イ"
-"ンタフェースで待機するのは良いアイデアではありません考慮してください。何も選"
-"択されていない場合は、ローカルホストでのみ受信します"
+"CUPSのWebサーバが受信するのはどのインターフェイスが選択します。おそらく外部インターフェイスで待機するのは良いアイデアではありません考慮してくださ"
+"い。何も選択されていない場合は、ローカルホストでのみ受信します"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:54
 msgid "Printer name"
@@ -2745,17 +2714,14 @@ msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"プリンタ設定する前に、ACLSが必要なモジュールを有効にし、{openref}モジュール状"
-"態{closeref}セクションでその後、変更を保存します。"
+"プリンタ設定する前に、ACLが必要なモジュールを有効にし、{openref}モジュール状態{closeref}セクションでその後、変更を保存します。"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:246
 #, perl-brace-format
 msgid ""
 "To add or manage printers you have to use the {open_href}CUPS Web "
 "Interface{close_href}"
-msgstr ""
-"プリンタを追加したり、管理するには、{open_href}のCUPS Webインターフェイス"
-"{close_href}を使用する必要がありま"
+msgstr "プリンタを追加したり、管理するには、{open_href}のCUPS Webインターフェイス{close_href}を使用する必要があります"
 
 #: ../../main/printers/src/EBox/Printers.pm:56
 msgid "Create spool directory for printers"
@@ -3209,9 +3175,7 @@ msgstr "証明書"
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
-msgstr ""
-"ここでは、Zentyalが管理するもの、安全なサービスのためにこの認証局から証明書を"
-"設定することができる"
+msgstr "ここでは、Zentyalが管理する安全なサービスのために、この認証局から証明書を設定することができる"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 msgid "This service does not allow to change the certificate common name"
@@ -3223,7 +3187,7 @@ msgstr "署名"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:110
 msgid "Database Update Status"
-msgstr "データベースの更新ステータス"
+msgstr "データベースの更新状態"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:111
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:77
@@ -3251,17 +3215,13 @@ msgstr "最後のアップデートに成功。"
 msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
-msgstr ""
-"ウイルス対策モジュールが構成されていません。モジュールステータスセクションで"
-"最初にそれを有効にします。"
+msgstr "ウィルス対策モジュールが構成されていません。モジュール状態セクションで最初にそれを有効にします。"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:198
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
-msgstr ""
-"ウイルス対策モジュールが有効になっていません。アンチウイルスステータスを知る"
-"ことが最初にそれを有効にします。"
+msgstr "ウィルス対策モジュールが有効になっていません。アンチウィルス状態を知ることが最初にそれを有効にします。"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:200
 #, perl-brace-format
@@ -3275,22 +3235,21 @@ msgid ""
 "junk? Get one of the {oh}Commercial Editions{ch} that will keep your "
 "Antvirus database always up-to-date."
 msgstr ""
-"詐欺、スピアフィッシング、詐欺やその他の迷惑に対してあなたのシステムを保護し"
-"てみませんか？最新に必ずウイルス対策データベースを維持します{oh}商用版{ch}の"
-"いずれかを取得します。"
+"詐欺、スピアフィッシング、詐欺やその他の迷惑に対してあなたのシステムを保護してみませんか？最新に必ずアンチウィルス対策データベースを維持する{oh}商用"
+"版{ch}のいずれかを取得します。"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:169
 msgid " To configure clamd daemon"
-msgstr "clamdへデーモンを設定するには"
+msgstr "clamdへデーモンを設定する"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:174
 msgid "To schedule the launch of the updater"
-msgstr "アップデータの立ち上げをスケジュールするには"
+msgstr "アップデータの立ち上げをスケジュールする"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:179
 #, perl-brace-format
 msgid "Custom {app} profile configuration for {bin} binary"
-msgstr "{bin}バイナリ用のカスタム{app}のプロファイル設定"
+msgstr "{bin}バイナリのカスタム{app}のプロファイルを設定する"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:186
 #, perl-brace-format
@@ -3378,9 +3337,7 @@ msgstr "スパムおよびハムシステムユーザを追加します。"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:90
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
-msgstr ""
-"このユーザーは、電子メールアカウントのベイジアンフィルタを訓練するために使用"
-"され"
+msgstr "このユーザは、電子メールアカウントのベイジアンフィルタを訓練するために使用され"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:95
 msgid "Update LDAP"
@@ -3394,9 +3351,7 @@ msgstr "AMaViS用のクラスとフィールドを追加"
 msgid ""
 "Mail server has a custom filter set, unset it before enabling Zentyal Mail "
 "Filter module"
-msgstr ""
-"メールサーバーはZentyalメールフィルタモジュールを有効にする前に、カスタムフィ"
-"ルタセット、アンセットそれを持っている"
+msgstr "メールサーバはZentyalメールフィルタモジュールを有効にする前に、カスタムフィルタセット、アンセットそれを持っている"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:310
 msgid "Cannot proceed because the filter is in use"
@@ -3528,7 +3483,7 @@ msgstr "メール送信アカウントを通知"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:31
 msgid "Drop silently"
-msgstr "静かにドロップ"
+msgstr "何もせすドロップ"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:75
 msgid "Mailfilter's policy"
@@ -3549,7 +3504,7 @@ msgstr "SMTPフィルタプロキシ"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:610
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr "バーチャルメールドメイン {vd} は存在しません"
+msgstr "仮想メールドメイン {vd} は存在しません"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
@@ -3559,7 +3514,7 @@ msgstr "Spamassassinデーモンを設定"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:58
 msgid "Spam threshold"
-msgstr "迷惑メールしきい値"
+msgstr "迷惑メール閾値"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:328
 msgid "It must be a number(decimal point allowed)"
@@ -3567,14 +3522,13 @@ msgstr "数字を入力してください(小数点も利用可能)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:338
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr "迷惑メールのしきい値は学習のしきい値以下に設定してください"
+msgstr "迷惑メールの閾値は学習のしきい値以下に設定してください"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:342
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
-msgstr ""
-"迷惑メールのしきい値は通常メールの学習のしきい値よりも高く設定してください"
+msgstr "迷惑メールの閾値は通常メールの学習のしきい値よりも高く設定してください"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:379
 msgid ""
@@ -3622,9 +3576,8 @@ msgid ""
 "Commercial Editions{closehref} that includes the Antispam feature in the "
 "automatic security updates."
 msgstr ""
-"メールサーバーからスパムを維持したいですか？自動セキュリティアップデートでの"
-"アンチスパム機能が含まれている{openhref}商用版{closehref}のいずれかを取得しま"
-"す。"
+"メールサーバからスパムを維持したいですか？自動セキュリティアップデートでのスパム対策機能が含まれています{openhref}商用版{closehref}"
+"のいずれかを取得します。"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:80
 msgid "Use virus filtering"
@@ -3642,7 +3595,7 @@ msgstr "デフォルト"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:103
 msgid "custom threshold"
-msgstr "カスタムしきい値"
+msgstr "カスタム閾値"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:150
 msgid "Antispam sender policy"
@@ -3667,7 +3620,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:62
 msgid "The score threshold to mark a message as spam"
-msgstr "メッセージを迷惑メールとしてマークするしきい値スコア"
+msgstr "メッセージを迷惑メールとしてマークする閾値スコア"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:66
 msgid "Spam subject tag"
@@ -3695,27 +3648,27 @@ msgstr "自動学習"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
 msgid "Feedback the learning system with messages that reach the threshold"
-msgstr "しきい値に達したメッセージを使って学習システムにフィードバック"
+msgstr "閾値に達したメッセージを使って学習システムにフィードバック"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:94
 msgid "Autolearn spam threshold"
-msgstr "迷惑メールしきい値を自動で学習"
+msgstr "迷惑メールの閾値を自動で学習"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:98
 msgid ""
 "Spam messages with a score equal or greater than this threshold will be "
 "added to the learning system "
-msgstr "このしきい値以上のスパムメッセージが学習システムに追加されます"
+msgstr "この閾値以上のスパムメッセージが学習システムに追加されます"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:102
 msgid "Autolearn ham threshold"
-msgstr "通常メールのしきい値を自動で学習"
+msgstr "通常メールの閾値を自動で学習"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid ""
 "Ham messages with a score below this threshold will be added to the learning "
 "system"
-msgstr "このしきい値を下回るスコアの通常メッセージを学習システムに追加"
+msgstr "この閾値を下回るスコアの通常メッセージを学習システムに追加"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:111
 msgid "Antispam configuration"
@@ -3724,9 +3677,7 @@ msgstr "アンチスパムの設定"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:155
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
-msgstr ""
-"自動学習オプションがアクティブであるときは、自動学習のスパムのしきい値を定義"
-"する必要があります"
+msgstr "自動学習オプションがアクティブであるときは、自動学習でのスパムの閾値を定義する必要があります"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:161
 msgid "You must define autolearn ham threshold when autolearn option is active"
@@ -3738,17 +3689,13 @@ msgstr ""
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
-msgstr ""
-"迷惑メールの学習のしきい値はデフォルトの迷惑メールのしきい値以上に設定してく"
-"ださい"
+msgstr "迷惑メールの学習の閾値はデフォルトの迷惑メールの閾値以上に設定してください"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:173
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
-msgstr ""
-"通常メールの学習のしきい値はデフォルトの迷惑メールのレベルよりも小さく設定し"
-"てください"
+msgstr "通常メールの学習の閾値はデフォルトの迷惑メールのレベルよりも小さく設定してください"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:70
 msgid "External mail domain"
@@ -4040,9 +3987,7 @@ msgstr "フィルタポリシー"
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
-msgstr ""
-"これは、有効なサブドメイン名でなければなりません。文字 - それは、英数字とを含"
-"めることができます"
+msgstr "有効なサブドメイン名でなければなりません。それは、英数字と-文字を含めることができます"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:61
 #, perl-brace-format
@@ -4055,9 +4000,7 @@ msgstr "これは、{n}は文字より大きくすることはできません"
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
-msgstr ""
-"VPNサーバー\"{addr}:{port}/{proto}\"に接続できませんでした。ネットワークファ"
-"イアウォールを確認してください"
+msgstr "VPNサーバ\"{addr}:{port}/{proto}\"に接続できませんでした。ネットワークファイアウォールを確認してください"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:93
 msgid "Email Address"
@@ -4142,8 +4085,7 @@ msgid ""
 "An user with that email is already registered. You can reset your password "
 "at {openhref}here{closehref}."
 msgstr ""
-"そのメールを持つユーザーは既に登録されています。あなたは{openhref}ここ"
-"{closehref}であなたのパスワードをリセットすることができます。"
+"そのメールを持つユーザは既に登録されています。あなたは{openhref}ここ{closehref}であなたのパスワードをリセットすることができます。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:186
 msgid ""
@@ -4156,8 +4098,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:195
 msgid ""
 "An error ocurred registering the user, please check your Internet connection."
-msgstr ""
-"エラーが発生しましたユーザーの登録、インターネット接続を確認してください。"
+msgstr "ユーザの登録でエラーが発生しました、インターネット接続を確認してください。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:74
 msgid "Registering your server"
@@ -4198,7 +4139,7 @@ msgstr "現在の処理"
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:93
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:85
 msgid "operations performed"
-msgstr "実行中の処理"
+msgstr "処理の実行中"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/DisasterRecovery.pm:31
 msgid "Recover from a disaster"
@@ -4338,10 +4279,8 @@ msgid ""
 "You can reset it {ohp}here{closehref}. If you need a new account you can "
 "subscribe {openhref}here{closehref}."
 msgstr ""
-"ユーザー/Eメールアドレスとパスワードが一致しません。あなたのパスワードを忘れ"
-"てしまいましたか？あなたは{ohp}ここ{closehref}でそれをリセットすることができ"
-"ます。  新しいアカウントを必要とする場合は、{openhref}ここ{closehref}で購読す"
-"ることができます。"
+"ユーザ/Eメールアドレスとパスワードが一致しません。あなたのパスワードを忘れてしまいましたか？あなたは{ohp}ここ{closehref}でそれをリセッ"
+"トすることができます。  新しいアカウントを必要とする場合は、{openhref}ここ{closehref}で購読することができます。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:198
 msgid "No ebox-services DNS key found"
@@ -4393,12 +4332,12 @@ msgstr "弱い"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:403
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr "いいえ{level}パスワードは、ユーザーに認められなかった"
+msgstr "いいえ{level}パスワードは、ユーザに認められなかった"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:408
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr "{}のユーザー：次のユーザーが{}レベルのパスワードを持っている。"
+msgstr "次のユーザが{level}のパスワードを持っている。：{users}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:125
 msgid "Key for web subscription service not found"
@@ -4406,13 +4345,13 @@ msgstr "ウェブのサブスクリプションサービスのためのキーが
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:215
 msgid "None of the available bundles are valid for this server"
-msgstr "使用可能なバンドルのいずれも、このサーバーに有効ではありません"
+msgstr "使用可能なバンドルのいずれも、このサーバに有効ではありません"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:216
 #: ../../main/ca/src/templates/index.mas:132
 #, perl-brace-format
 msgid "Reason: {reason}"
-msgstr "理由：{理由}"
+msgstr "理由：{reason}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:571
 #, perl-brace-format
@@ -4425,13 +4364,13 @@ msgid ""
 "Could not connect to API server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
-"APIサーバーの\\ に接続できませんでした。あなたの名前解決とファイアウォール"
-"は、ネットワーク内のチェック"
+"APIサーバの\"{addr}:{port}/{proto}\"に接続できませんでした。あなたのネットワーク内の名前解決とファイアウォールをチェックしてくだ"
+"さい"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:847
 #, perl-brace-format
 msgid "Probably lack of free space: {exc}"
-msgstr "おそらく空き領域の不足：{今まで}"
+msgstr "おそらく空き領域の不足：{exc}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:124
@@ -4473,9 +4412,7 @@ msgstr ""
 msgid ""
 "Please note that the maximum number of users for {edition} is {max} and you "
 "currently have {nUsers}."
-msgstr ""
-"{版}のためのユーザーの最大数は、{最大}とは、現在{nUsers}持っていることに注意"
-"してください。"
+msgstr "{edition}のためのユーザの最大数が{max}であることに注意してください、あなたは、現在{nUsers}を持っています。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:75
 msgid ""
@@ -4492,9 +4429,8 @@ msgid ""
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
-"あり、ユーザ{U}はすでに存在し、それがZentyalによって作成されたていないようで"
-"す。このユーザーの名前を変更または削除するまでは、リモート·サポートへのアクセ"
-"スをセットアップすることは不可能であろう"
+"ユーザ{u}はすでに存在し、それがZentyalによって作成されていないようです。このユーザの名前を変更または削除するまでは、リモートサポートへのアクセ"
+"スをセットアップすることは難しいです"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
 msgid "This server is not able to do this action."
@@ -4503,17 +4439,17 @@ msgstr "このサーバは、このアクションを行うことができませ
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:88
 #, perl-brace-format
 msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
-msgstr "サービスURNを取得できません。キー\\ "
+msgstr "サービスURNを取得できません。キー\"{key}\" は {file}に見つかりません"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:128
 #, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr "キー{K}に対する値が見つかりません"
+msgstr "キー{k}に対する値が見つかりません"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:270
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr "存在しないバックアップ：{N}"
+msgstr "存在しないバックアップ：{n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:444
 msgid "Configuration backup upload corrupted"
@@ -4525,7 +4461,7 @@ msgstr "もう一度アップロードしてみてください"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:459
 msgid "Server not found"
-msgstr "サーバーが見つかりません"
+msgstr "サーバが見つかりません"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:466
 msgid "Some argument is missing"
@@ -4546,7 +4482,7 @@ msgstr "エラーが発生しました"
 #: ../../main/remoteservices/src/EBox/RemoteServices/CSV.pm:75
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr "{1}：悪い形成されたラインのスキップ"
+msgstr "誤った形式のラインをスキップ：{l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:110
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
@@ -4598,7 +4534,7 @@ msgstr "警告レベルの警告"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr "エラー·レベルのアラート"
+msgstr "エラーレベルのアラート"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
@@ -4665,7 +4601,7 @@ msgstr "VPN接続をチェック"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
-msgstr "VPNサーバーが到達可能である"
+msgstr "VPNサーバが到達可能である"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
 msgid "Zentyal Remote VPN Connectivity Check"
@@ -4675,9 +4611,7 @@ msgstr "ZentyalリモートVPN接続をチェック"
 msgid ""
 "It performs the required test to know if the VPN client is able to connect "
 "to the server"
-msgstr ""
-"これは、VPNクライアントがサーバーに接続できるかどうかを知るために必要な試験を"
-"行い、"
+msgstr "これは、VPNクライアントがサーバに接続できるかどうかを知るために必要な試験を行います"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
@@ -4734,9 +4668,8 @@ msgid ""
 "platform (Zentyal Remote) here. Get a {ohf}free account{ch} or use the "
 "credentials of your {oh}Commercial Edition{ch} for full access."
 msgstr ""
-"ここZentyalのリモート監視および管理プラットフォーム（Zentyalリモート）にあな"
-"たのZentyalサーバーを登録します。 {ohf} 無料アカウント{ch}を取得またはフルア"
-"クセスのために{oh}商用版{ch}の資格情報を使用しています。"
+"ここZentyalのリモート監視および管理プラットフォーム（Zentyalリモート）にあなたのZentyalサーバを登録します。 {ohf} "
+"無料アカウント{ch}を取得またはフルアクセスのために{oh}商用版{ch}の資格情報を使用しています。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
 msgid ""
@@ -4744,9 +4677,8 @@ msgid ""
 "can take a while. Please do not touch anything until the registration "
 "process is correctly finished."
 msgstr ""
-"ZentyalリモートにあなたのZentyalサーバーを登録すると、しばらく時間がかかるこ"
-"とを考慮してください。登録プロセスが正常に終了するまでは何も触れないでくださ"
-"い。"
+"ZentyalリモートにあなたのZentyalサーバを登録すると、しばらく時間がかかることを考慮してください。登録プロセスが正常に終了するまでは何も触れ"
+"ないでください。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:305
 msgid ""
@@ -4816,7 +4748,7 @@ msgstr "ファイル"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:666
 #, perl-brace-format
 msgid "Use existing server from {c}"
-msgstr "{C}から既存のサーバーを使用してください"
+msgstr "{c}から既存のサーバを使用してください"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:682
 msgid "Reload available options"
@@ -4907,9 +4839,8 @@ msgid ""
 "45 minutes to install Zentyal Server, upper bound of the backup size and "
 "average download time obtained from the latest Network report statistics."
 msgstr ""
-"災​​害から回復する予想時間については、推定はZentyalサーバー、最新のネットワーク"
-"レポートの統計情報から取得したバックアップのサイズと平均ダウンロード時間の上"
-"限をインストールするには45分で構成されています。"
+"災​​害から回復する予想時間については、推定はZentyalサーバ、最新のネットワークレポートの統計情報から取得したバックアップのサイズと平均ダウンロー"
+"ド時間の上限をインストールするには45分で構成されています。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:199
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1960
@@ -4928,7 +4859,7 @@ msgstr "いいえ、データのバックアップは、まだ行われていな
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:225
 #, perl-brace-format
 msgid "{num} GB, left: {per}"
-msgstr "{num} GBが、左：{per}"
+msgstr "{num} GB、左：{per}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:253
 #, perl-brace-format
@@ -4947,8 +4878,7 @@ msgstr "いいえバックアップはまだ実行されません"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:270
 #, perl-brace-format
 msgid "Install {mod} module to start using Disaster Recovery"
-msgstr ""
-"ディザスタリカバリの使用を開始する{MOD}モジュールをインストールします。"
+msgstr "ディザスタリカバリの使用を開始する{mod}モジュールをインストールします。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:275
 #, perl-brace-format
@@ -4966,9 +4896,8 @@ msgid ""
 "your business critical data at all times! Or start with the {ohf}free "
 "registration{ch} that lets you to store one remote configuration backup."
 msgstr ""
-"すべての回であなたのビジネスクリティカルなデータの可用性を確保するために{oh}"
-"商用版{ch}のいずれかを取得します！それとも、1リモート構成のバックアップを保存"
-"するためにできる{ohf}無料登録{ch}を開始します。"
+"全ての回であなたのビジネスクリティカルなデータの可用性を確保するために{oh}商用版{ch}のいずれかを取得します！それとも、1リモート構成のバックアッ"
+"プを保存するためにできる{ohf}無料登録{ch}を開始します。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:311
 #, perl-brace-format
@@ -4989,9 +4918,7 @@ msgstr "Zentyalサポートへのリモートアクセスを許可する"
 msgid ""
 "Allow Zentyal support engineers to connect to your server from Zentyal "
 "Remote network."
-msgstr ""
-"ZentyalサポートエンジニアがZentyalリモートネットワークからサーバーへの接続を"
-"許可します。"
+msgstr "ZentyalサポートエンジニアがZentyalリモートネットワークからサーバへの接続を許可します。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
 msgid "Allow access from the Internet"
@@ -5003,9 +4930,8 @@ msgid ""
 "Internet to your public IP address. Only use this option if you could not "
 "connect to Zentyal Remote."
 msgstr ""
-"ZentyalサポートエンジニアがあなたのパブリックIPアドレスにインターネットから直"
-"接、サーバーに接続できるようにします。リモートZentyalに接続できませんでした場"
-"合にのみ、このオプションを使用します。"
+"ZentyalサポートエンジニアがあなたのパブリックIPアドレスにインターネットから直接、サーバに接続できるようにします。リモートZentyalに接続で"
+"きませんでした場合にのみ、このオプションを使用します。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
 msgid "Enable Remote Support Access"
@@ -5022,9 +4948,7 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
-msgstr ""
-"任意のアドレスのリモートサポートを可能にするには、{}のクラウドに接続してはい"
-"けません"
+msgstr "任意のアドレスのリモートサポートを可能にするには、{cloud}に接続してはいけません"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
 msgid ""
@@ -5046,12 +4970,10 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
-"リモートサポートを有効にすると、Zentyalのスタッフが自由にコンピュータにアクセ"
-"スできるようになります。\\ nあなたは彼らのシェルオプションに参加する「スク"
-"リーン」コマンドを使用することができます。それを可能にするには、「画面」プロ"
-"グラムのSUIDビットが有効になっています。 '{CMD}'：このオプションは\\ nを、リ"
-"モートセッションに参加「ADM」グループに属するユーザとしてシェルでのログインと"
-"コマンドを使用する無効になっている場合、この変更は元に戻すされている。"
+"リモートサポートを有効にすると、Zentyalのスタッフが自由にコンピュータにアクセスできるようになります。\n"
+"それらのシェルオプションに追加し'screen'コマンドを使用することができます。それを可能にするには、'screen'プログラムのSUIDビットが有効"
+"になっています。このオプションが無効になっているとき、この変更は取り消され ます\n"
+"リモートセッションに参加するには、'adm'グループに属するユーザとしてシェルでのログインしコマンドを使用します。：'{cmd}'"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:190
 msgid ""
@@ -5067,23 +4989,20 @@ msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
-"見つかったすべてのインターフェイスでリッスンデーモンのインスタンスをsshをされ"
-"ていません。サポートへのアクセスは、すべてのインターフェイスでリッスンSSHデー"
-"モンを必要としています。"
+"見つかった全てのインターフェイスでsshデーモンのインスタンスが着信されていません。サポートへのアクセスは、全てのインターフェイスでSSHデーモンの着信"
+"を必要としています。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:200
 #, perl-brace-format
 msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
-msgstr ""
-"{P}：SSHデーモンは、非標準のポート（複数可）をリッスンして発見した。 SSHデー"
-"モンが使用するサポートしているポートを通知していることを確認してください。"
+msgstr "SSHデーモンは、非標準のポート：{p}で着信をしています。SSHデーモンが使用するポートのサポートに通知するようにしてください。"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:78
 #, perl-brace-format
 msgid "Enable access without password from {tool} and Support"
-msgstr "{ツール}とサポートからパスワードなしでアクセスを有効にする"
+msgstr "{tool}とサポートからパスワードなしでアクセスを有効にする"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Web Remote Access Settings"
@@ -5091,7 +5010,7 @@ msgstr "ウェブリモートアクセスの設定"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:92
 msgid "This is only intended for Web Administration User Interface"
-msgstr "これが唯一のWeb管理ユーザインタフェースを対象としています"
+msgstr "これが唯一のWeb管理ユーザインターフェイスを対象としています"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:114
 msgid "Support available via"
@@ -5117,7 +5036,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:168
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat, Phone{cs}"
-msgstr "{os} {oh}オンラインサポートプラットフォーム{ch}、チャット、電話{cs}}"
+msgstr "{os}{oh}オンラインサポートプラットフォーム{ch}、チャット、電話{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "2 Business Days"
@@ -5218,13 +5137,13 @@ msgstr "バンドルを再ロードするサブスクライブされている必
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:800
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
-msgstr "{理由}バンドルを再ロードすることはできません"
+msgstr "バンドルを再ロードすることはできません：{reason}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1912
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1915
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr "無効 -  {ああ} {CH}を有効にします"
+msgstr "無効 - {oh}有効{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1920
 msgid "Connected"
@@ -5237,8 +5156,7 @@ msgstr "プロセスで"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1927
 #, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr ""
-"接続されていません。 {ああ} {パス}でVPN接続{CH}とログを確認してください"
+msgstr "接続されていません。 {oh} VPN接続{ch}と{path}のログを確認してください"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1946
 msgid "Standard 2 days"
@@ -5270,7 +5188,7 @@ msgstr "登録されていません！ - {oh}新規登録{ch}"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1975
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
-msgstr "なし！ - 無料のため{ああ} {CH}登録"
+msgstr "なし！ - {oh}無料登録{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1981
 msgid "Connection status"
@@ -5314,7 +5232,7 @@ msgstr "ホストが加入している場合Zentyalリモート資格情報に�
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2517
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
-msgstr "これはZentyalサーバー{版}版です。"
+msgstr "これはZentyalサーバ{edition}版です。"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:301
@@ -5327,16 +5245,14 @@ msgstr "ゲートウェイ {gw} に到達できません"
 msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
-msgstr ""
-"あなたは、{I}インタフェースを介してZentyalに接続している。あなたが外部として"
-"設定する場合、ファイアウォールはインストール時にあなたをロックします。"
+msgstr "{i}インターフェイスを介してZentyalに接続している。外部として設定する場合、ファイアウォールはインストール時にロックします。"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:41
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:57
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:42
 #: ../../main/network/src/EBox/Network/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr "ネットワークインタフェース"
+msgstr "ネットワークインターフェイス"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:56
 msgid "method"
@@ -5411,12 +5327,12 @@ msgstr "MACアドレス"
 
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:43
 msgid "virtual interface action"
-msgstr "バーチャルインタフェースアクション"
+msgstr "仮想インターフェイスアクション"
 
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:67
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:75
 msgid "virtual interface name"
-msgstr "バーチャルインタフェース名"
+msgstr "仮想インターフェイス名"
 
 #: ../../main/network/src/EBox/Network/CGI/Ifaces.pm:29
 #: ../../main/network/src/EBox/Network.pm:4536
@@ -5467,9 +5383,7 @@ msgstr "ゲートウェイの設定"
 msgid ""
 "Here you can configure all the settings related to the way Zentyal provides "
 "Internet connection for your network"
-msgstr ""
-"ここでは、Zentyalがネットワークにインターネット接続を提供する方法に関連するす"
-"べての設定を行うことができます"
+msgstr "ここでは、Zentyalがネットワークにインターネット接続を提供する方法に関連する全ての設定を行うことができます"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:53
 msgid "Balance Traffic"
@@ -5530,8 +5444,7 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"着信インターフェイスは、パケットを一致させます。あなたがサブネット全体にマッ"
-"チさせたい場合は、そのサブネットのインタフェースを選択することができます"
+"着信インターフェイスは、パケットを一致させます。あなたがサブネット全体にマッチさせたい場合は、そのサブネットのインターフェイスを選択することができます"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
@@ -5641,10 +5554,8 @@ msgid ""
 "or get one of the {oh}Commercial Editions{ch} to obtain zentyal.me subdomain "
 "for your server."
 msgstr ""
-"ここにあなたのダイナミックDNSプロバイダを設定することができます。ご使用のサー"
-"バが既に登録されている場合は、プロバイダがZentyalです。 {ohf}自由にあなたの"
-"サーバーを登録{ch}したり、サーバのzentyal.meサブドメインを取得するために{oh}"
-"商用版{ch}のいずれかを取得します。"
+"ここにあなたのダイナミックDNSプロバイダを設定することができます。ご使用のサーバが既に登録されている場合は、プロバイダがZentyalです。 {ohf"
+"}自由にあなたのサーバを登録{ch}したり、サーバのzentyal.meサブドメインを取得するために{oh}商用版{ch}のいずれかを取得します。"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:163
 msgid "Auto"
@@ -5692,14 +5603,11 @@ msgstr "ゲートウェイ"
 #, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr ""
-"ゲートウェイアドレスは既にローカルインターフェイス{iface}のアドレスです"
+msgstr "ゲートウェイアドレス{ip}は既にローカルインターフェイス{iface}のアドレスです"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:293
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
-msgstr ""
-"は、手動でDHCPまたはPPPoEインターフェイスのゲートウェイを追加することはできま"
-"せん"
+msgstr "手動でDHCPまたはPPPoEインターフェイスのゲートウェイを追加することはできません"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:295
 #, perl-brace-format
@@ -5731,7 +5639,7 @@ msgstr "自動的に追加されたゲートウェイは、手動で削除する
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:553
 #, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "ゲートウェイ'{name}'によって使用されています"
+msgstr "ゲートウェイ'{name}'は{mod}よって使用されています"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:571
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:580
@@ -5740,15 +5648,13 @@ msgstr "ゲートウェイ名"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:573
 msgid "Gateways names cannot begin or end with '-'"
-msgstr "ゲートウェイ名が始まるかで終わることができない ' - '"
+msgstr "ゲートウェイ名が' - 'で開始または終了することはできません"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:582
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
-msgstr ""
-"ゲートウェイ名は小文字のみのASCII英文字、数字、から構成することができます ' "
-"- '"
+msgstr "ゲートウェイ名は小文字のみのASCII英文字、数字と ' - 'から構成することができます"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:70
@@ -5770,7 +5676,7 @@ msgstr "ゲートウェイにPing"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:58
 msgid "Ping to host"
-msgstr "ホストへのPingの"
+msgstr "ホストにPing"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:62
 msgid "HTTP Request"
@@ -5826,7 +5732,7 @@ msgstr "これらのオプションは、すべてのテストに影響します
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:97
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr "Zentyalは名前を解決するために使用するDNSサーバのIPアドレス。"
+msgstr "Zentyalが名前を解決するために使用するDNSサーバのIPアドレス。"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:102
 #: ../../main/network/src/templates/wizard/network.mas:72
@@ -5848,10 +5754,8 @@ msgid ""
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<P>ここでは、Zentyalが使用するネームサーバのリゾルバを追加することができま"
-"す。</ p> <p>は、DHCP経由で構成された任意のネットワークインタフェースを持って"
-"いる場合、これらの設定をオーバーライドすることができることに注意してください"
-"ます。</ p>"
+"<p>ここでは、Zentyalが使用するネームサーバのリゾルバを追加することができます。</p> <p>は、DHCP経由で構成された任意のネットワークイ"
+"ンターフェイスを持っている場合、これらの設定をオーバーライドすることができることに注意してくださいます。</p>"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:220
 #, perl-brace-format
@@ -5890,15 +5794,12 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:131
 msgid "Proxy username and password will be visible by all system users."
-msgstr ""
-"プロキシのユーザー名とパスワードは、すべてのシステムのユーザーが表示されま"
-"す。"
+msgstr "プロキシのユーザ名とパスワードは、すべてのシステムのユーザが表示されます。"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:146
 #, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"プロキシ{addrは}それはインタフェース{場合}のアドレスであるため無効である"
+msgstr "プロキシ{addr}はインターフェイス{if}のアドレスであるため無効である"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:158
 msgid ""
@@ -5925,34 +5826,26 @@ msgstr ""
 msgid ""
 "Gateway {gw} is already defined in the gateway table. Use a multi gateway "
 "rule instead"
-msgstr ""
-"ゲートウェイ{GW}はすでにゲートウェイテーブルに定義されています。代わりに、マ"
-"ルチゲートウェイ·ルールを使用してください"
+msgstr "ゲートウェイ{gw}は既にゲートウェイテーブルに定義されています。代わりに、マルチゲートウェイルールを使用してください"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
 #, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"それはインターフェース{場合}のアドレスであるため、ネットワーク{addrが}が無効"
-"です。"
+msgstr "インターフェイス{if}}のアドレスであるため、ネットワーク{addr}が無効です。"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
 #, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"それはインターフェース{場合}のアドレスであるため、ゲートウェイ{addrが}が無効"
-"です。"
+msgstr "インターフェイス{if}のアドレスであるため、ゲートウェイ{addr}が無効です。"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
 msgid ""
 "Not needed to add a route to {ip} because is reacheable directly by "
 "interface {if}"
-msgstr ""
-"インタフェースによって直接reacheableであるため、{IP}へのルートを追加する必要"
-"がありません{場合}"
+msgstr "インターフェイス{if}による直接到達可能であるため、{ip}へのルートを追加する必要がありません"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/network/src/EBox/Network.pm:116
@@ -5968,7 +5861,7 @@ msgstr "IPまたはネットワークアドレス"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:196
 msgid "Gateway used to reach the above network  address"
-msgstr "ゲートウェイは、上記ネットワークアドレスに到達するために使用"
+msgstr "ゲートウェイは、上記ネットワークアドレスに到達するために使用します"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:204
 msgid "Optional description for this route"
@@ -5997,7 +5890,7 @@ msgstr "静的ルート"
 
 #: ../../main/network/src/EBox/Network.pm:133
 msgid "Add default routers to the default table"
-msgstr "デフォルトルータをデフォルトテーブルに追加"
+msgstr "デフォルトルータをデフォルトテーブルに追加する"
 
 #: ../../main/network/src/EBox/Network.pm:134
 msgid ""
@@ -6021,15 +5914,15 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:146
 msgid "Disable IPv6"
-msgstr "IPv6を無効"
+msgstr "IPv6を無効にする"
 
 #: ../../main/network/src/EBox/Network.pm:147
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
-"Zentyalインターフェイスにasigned v6のアドレスは、いくつかのサービスに問題が発"
-"生する可能性が持つ、まだIPv6をサポートしていません"
+"ZentyalはまだIPv6をサポートしていない、インターフェイスにv6のアドレスを割り当て持つことは、いくつかのサービスで問題が発生する可能性がありま"
+"す"
 
 #: ../../main/network/src/EBox/Network.pm:166
 msgid "Zentyal will set your network configuration"
@@ -6069,7 +5962,7 @@ msgstr "Zentyalは、PPPoEのためのDSLプロバイダの設定が追加され
 
 #: ../../main/network/src/EBox/Network.pm:230
 msgid "Zentyal will set HTTP proxy for all users"
-msgstr "Zentyalは、すべてのユーザーのためにHTTPプロキシを設定します"
+msgstr "Zentyalは、全てのユーザのためにHTTPプロキシを設定します"
 
 #: ../../main/network/src/EBox/Network.pm:233
 msgid "Zentyal will set HTTP proxy for APT"
@@ -6082,7 +5975,7 @@ msgstr "引数は、IPアドレスである必要があります"
 #: ../../main/network/src/EBox/Network.pm:1110
 #: ../../main/network/src/EBox/Network.pm:1114
 msgid "Virtual interface name"
-msgstr "バーチャルインタフェース名"
+msgstr "仮想インターフェイス名"
 
 #: ../../main/network/src/EBox/Network.pm:1113
 #: ../../main/network/src/EBox/Network.pm:1491
@@ -6101,12 +5994,12 @@ msgstr "アドレス {ip} は、インターフェイス {iface}によって既�
 #: ../../main/network/src/EBox/Network.pm:1285
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr "{ら}と呼ばれるインタフェースがすでに存在し"
+msgstr "{al}と呼ばれるインターフェイスが既に存在しています"
 
 #: ../../main/network/src/EBox/Network.pm:1297
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr "エイリアス{ら}とのインタフェースは、すでに存在し"
+msgstr "エイリアス{al}とのインターフェイスは、すでに存在しています"
 
 #: ../../main/network/src/EBox/Network.pm:1305
 msgid ""
@@ -6126,30 +6019,22 @@ msgstr "IP{ip}は既にインターフェイス{iface}に割り当てられて�
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
-msgstr ""
-"インターフェース{場合}はすでに同じネットワーク内のアドレスを持っているので、"
-"アドレス{addrに}を使用することはできません"
+msgstr "インターフェイス{if}は既に同じネットワーク内のアドレスを持っているので、アドレスに{addr}を使用することはできません"
 
 #: ../../main/network/src/EBox/Network.pm:1787
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
-"このインタフェースはトランクモードでは使用できません。VLANのインタフェースで"
-"す。"
+msgstr "このインターフェイスはトランクモードでは使用できません。VLANのインターフェイスです。"
 
 #: ../../main/network/src/EBox/Network.pm:1846
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
-msgstr ""
-"このインタフェースはトランクモードです。設定モードを変更する前にこのトランク"
-"の全てのVLANインタフェースの設定を解除してください。"
+msgstr "このインターフェイスはトランクモードです。設定モードを変更する前にこのトランクの全てのVLANインターフェイスの設定を解除してください。"
 
 #: ../../main/network/src/EBox/Network.pm:2106
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
-"VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
-"があります。"
+msgstr "VLANを追加する前にネットワークインターフェイスはトランクモードになっている必要があります。"
 
 #: ../../main/network/src/EBox/Network.pm:3970
 msgid ""
@@ -6163,8 +6048,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:4035
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
-msgstr ""
-"ゲートウェイ{GW}は静的インタフェースと同じネットワーク内にある必要があります"
+msgstr "ゲートウェイ{gw}は静的インターフェイスと同じネットワーク内にある必要があります"
 
 #: ../../main/network/src/EBox/Network.pm:4038
 #, perl-brace-format
@@ -6213,7 +6097,7 @@ msgstr "Rxのバイト"
 #: ../../main/network/src/EBox/Network.pm:5147
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
 msgid "Interfaces"
-msgstr "インタフェース"
+msgstr "インターフェイス"
 
 #: ../../main/network/src/EBox/Network.pm:4564
 msgid "Gateways"
@@ -6236,9 +6120,7 @@ msgstr "ゲートウェイ {gw} が再接続されています。"
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
-msgstr ""
-"警告：これらの変更が原因の管理インタフェース上で保存されていない変更には適用"
-"されません。"
+msgstr "警告：これらの変更が原因の管理インターフェイス上で保存されていない変更には適用されません。"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:360
 #, perl-brace-format
@@ -6406,9 +6288,7 @@ msgstr "タイプ"
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
-msgstr ""
-"トラフィック整形するためにはインタフェース {iface} が最大バンド幅を持っている"
-"必要ああります"
+msgstr "トラフィック整形するためにはインターフェイス {iface} が最大バンド幅を持っている必要ああります"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:63
 #, perl-brace-format
@@ -6417,10 +6297,9 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Zentyaはゲートウェイとして動作しているときにトラフィック整形を行います。これ"
-"を適用するためには少なくとも内部インターフェイスと外部インターフェイスを一つ"
-"ずつ持っている必要があります。次の場所からインターフェイス設定を確認してくだ"
-"さい。 {openhref}Network->Interfaces{closehref}"
+"Zentyaはゲートウェイとして動作しているときにトラフィック整形を行います。これを適用するためには少なくとも内部インターフェイスと外部インターフェイス"
+"を一つずつ持っている必要があります。次の場所からインターフェイス設定を確認してください。 "
+"{openhref}ネットワーク->インターフェイス{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:72
 #, perl-brace-format
@@ -6430,10 +6309,9 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
-"アップロードレートが外部インタフェースに関連付けられているゲートウェイが存在"
-"するときのみ、トラフィック整形が行われます。これを適用するためには {openhref}"
-"Network->Gateways{closehref} からゲートウェイを作成し、インタフェースが外部"
-"ゲートウェイであるように設定してください。"
+"アップロードレートが外部インターフェイスに関連付けられているゲートウェイが存在するときのみ、トラフィック整形が行われます。これを適用するためには "
+"{openhref}Network->Gateways{closehref} "
+"からゲートウェイを作成し、インターフェイスが外部ゲートウェイであるように設定してください。"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/Rules.pm:100
 msgid ""
@@ -6472,9 +6350,8 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
-"制限するレート {lR} kbit/s を {maxLR}kbit/s より小さくするか、外部インタ"
-"フェースに関連付けられたゲートウェイへのアップロードトラフィック最大値を増加"
-"させる必要があります"
+"制限するレート {lR} kbit/s を {maxLR}kbit/s "
+"より小さくするか、外部インターフェイスに関連付けられたゲートウェイへのアップロードトラフィック最大値を増加させる必要があります"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:431
 #, perl-brace-format
@@ -6528,16 +6405,13 @@ msgstr "どのサービスにおいても、何らかの送信先、送信元を
 msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
-msgstr ""
-"'{IFACE}'に対するルールの既存の '小さなパケットの優先順位付け」は既に存在し"
+msgstr "'{iface}'に対する'小さなパケットの優先順位’のルールは既に存在します"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:208
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
-msgstr ""
-"すべてのインターフェイスのための既存の '小さなパケットの優先順位付け'はすでに"
-"存在し"
+msgstr "全てのインターフェイスのための既存の '小さなパケットの優先順位'は既に存在しています"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
 #: ../../main/mail/src/EBox/Mail.pm:1727 ../../main/mail/src/EBox/Mail.pm:1734
@@ -6590,9 +6464,7 @@ msgstr ""
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
-msgstr ""
-"インターフェースが内蔵されている場合には、トラフィックフローが内側にインター"
-"ネットから来て、外部へは他の方法で回避されることに注意してください"
+msgstr "インターフェイスが内蔵されている場合には、トラフィックフローが内側にインターネットから来て、外部へは他の方法で回避されることに注意してください"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:440
 #, perl-brace-format
@@ -6656,11 +6528,11 @@ msgstr "アップロード"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload rate in Kbits/s through this interface"
-msgstr "このインタフェースを介してキロビット/秒に速度をアップロードする"
+msgstr "このインターフェイスを介してキロビット/秒に速度をアップロードする"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Download rate in Kbits/s through this interface"
-msgstr "このインタフェースを介してキロビット/秒に速度をダウンロード"
+msgstr "このインターフェイスを介してキロビット/秒に速度をダウンロード"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
 msgid "External Interface Rates"
@@ -6678,10 +6550,9 @@ msgid ""
 "your interface configuration to match, at {openhref}Network-"
 ">Interfaces{closehref}"
 msgstr ""
-"Zentyalはゲートウェイとして動作しているときにトラフィック整形を行います。これ"
-"を適用するためには少なくとも内部インターフェイスと外部インターフェイスを一つ"
-"ずつ持っている必要があります。次の場所からインターフェイス設定を確認してくだ"
-"さい。 {openhref}Network->Interfaces{closehref}"
+"Zentyalはゲートウェイとして動作しているときにトラフィック整形を行います。これを適用するためには少なくとも内部インターフェイスと外部インターフェイ"
+"スを一つずつ持っている必要があります。次の場所からインターフェイス設定を確認してください。 "
+"{openhref}ネットワーク->インターフェイス{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InternalRules.pm:51
 msgid "Rules for internal interfaces (download)"
@@ -6707,12 +6578,12 @@ msgstr "Trivial File Transfer Protocol (TFTP)"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:142
 msgid "Dynamic Host Configuration Protocol"
-msgstr "Dynamic Host Configuration Protocol (DHCP)"
+msgstr "ダイナミックホストコンフィギュレーションプロトコル (DHCP)"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:194
 #, perl-brace-format
 msgid "Disable {server} init script"
-msgstr "無効にする{サーバー} initスクリプト"
+msgstr "{server}のinitスクリプトを無効にする"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:348 ../../main/dhcp/src/EBox/DHCP.pm:384
 #: ../../main/dhcp/src/EBox/DHCP.pm:434 ../../main/dhcp/src/EBox/DHCP.pm:480
@@ -6748,9 +6619,8 @@ msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
-"DHCPサービスを設定するにはインタフェースが静的と設定されていなくてはなりませ"
-"ん。そのためには、ネットワークモジュールの{openhref}interfaces "
-"configuration{closehref}を変更してください。"
+"DHCPサービスを設定するにはインターフェイスが静的設定されていなくてはなりません。そのためには、ネットワークモジュールの{openhref}インターフ"
+"ェイス構成{closehref}を変更してください。"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:45
 msgid "DHCP Configuration"
@@ -6760,17 +6630,13 @@ msgstr "DHCPの設定"
 msgid ""
 "In order to serve IP addresses on an interface, it is required to set at "
 "least a range or a fixed address."
-msgstr ""
-"インタフェースにIPアドレスを供給するには、アドレス範囲または固定アドレスが設"
-"定されている必要があります。"
+msgstr "インターフェイスにIPアドレスを供給するには、アドレス範囲または固定アドレスが設定されている必要があります。"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:122
 msgid ""
 "This interface is not enabled. DHCP server will not serve addresses in this "
 "interface"
-msgstr ""
-"このインタフェースは有効になっていません。 DHCPサーバは、このインタフェースの"
-"アドレスを提供しません"
+msgstr "このインターフェイスは有効になっていません。 DHCPサーバは、このインターフェイスのアドレスを提供しません"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/AdvancedOptions.pm:66
 msgid "Advanced options"
@@ -6828,9 +6694,7 @@ msgstr "範囲 {from}-{to} はネットワーク {net} に存在しません"
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:103
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr ""
-"範囲 {from}-{to} は次のIPアドレスを持ったインタフェースを含んでいます: "
-"{ifaceIP}"
+msgstr "範囲 {from}-{to} は次のIPアドレスを持ったインターフェイスを含んでいます: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:154
@@ -6853,7 +6717,7 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
-msgstr "範囲 {from}-{to} はHAのfloating IP: \"{name}\" - {ip}を含んでいます"
+msgstr "範囲 {from}-{to} はHAのfloating IP：\"{name}\" - {IP}を含んでいます"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
@@ -6900,7 +6764,7 @@ msgstr "シンクライアントのファイルパス"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:171
 msgid "Thin client / External TFTP-Server"
-msgstr "シンクライアント/外部TFTP  - サーバー"
+msgstr "シンクライアント/外部TFTP  - サーバ"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
 #, perl-brace-format
@@ -6976,7 +6840,7 @@ msgstr "設定済み"
 msgid ""
 "Setting \"Zentyal\" as default gateway will set the interface IP address as "
 "gateway"
-msgstr "デフォルトゲートウェイとして\\ "
+msgstr "デフォルトゲートウェイとして\"Zentyal\"を設定すると、ゲートウェイとしてインターフェイスのIPアドレスを設定します"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:440
 msgid ""
@@ -6996,7 +6860,7 @@ msgstr "プライマリネームサーバ"
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
-msgstr "\\ "
+msgstr "\"Zentyal DNS\"が存在し、選択した場合は、ZentyalサーバーがキャッシュDNSサーバとして動作します"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:307
@@ -7011,17 +6875,13 @@ msgstr "NTPサーバ"
 msgid ""
 "If \"Zentyal NTP\" is present and selected, Zentyal will be the NTP server "
 "for DHCP clients"
-msgstr ""
-"\"Zentyal NTP\"が存在し、選択した場合は、Zentyalは、DHCPクライアント用のNTP"
-"サーバーになります"
+msgstr "\"Zentyal NTP\"が存在し、選択した場合は、Zentyalは、DHCPクライアント用のNTPサーバになります"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:470
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for DHCP clients"
-msgstr ""
-"\"Zentyalサンバ\"が存在し、選択した場合は、Zentyalは、DHCPクライアント用の"
-"WINSサーバになります"
+msgstr "\"Zentyal Samba\"が選択されて存在する場合は、Zentyalは、DHCPクライアント用のWINSサーバになります"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:477
 msgid "Common options"
@@ -7071,7 +6931,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeInfo.pm:82
 msgid "Interface IP address"
-msgstr "インタフェースIPアドレス"
+msgstr "インターフェイスIPアドレス"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeInfo.pm:86
 msgid "Subnet"
@@ -7087,9 +6947,7 @@ msgstr "DHCP範囲"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:76
 msgid "You need at least one static interface to serve DHCP"
-msgstr ""
-"あなたは、DHCPサービスを提供するために、少なくとも1つの静的インタフェースを必"
-"要とする"
+msgstr "あなたは、DHCPサービスを提供するために、少なくとも1つの静的インターフェイスを必要とする"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:147
 msgid ""
@@ -7101,9 +6959,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
-msgstr ""
-"いいえインタフェースが有効になっていません。 DHCPサーバは、任意のアドレスを提"
-"供することはありません"
+msgstr "いいえインターフェイスが有効になっていません。 DHCPサーバは、任意のアドレスを提供することはありません"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
@@ -7130,9 +6986,7 @@ msgstr "DNSモジュールは、この機能を動作させるために有効に
 #, perl-brace-format
 msgid ""
 "Dynamic DNS feature has been disabled in DHCP module in {iface} interface."
-msgstr ""
-"ダイナミックDNS機能は、{}のifaceインタフェースでDHCPモジュールで無効になって"
-"います。"
+msgstr "ダイナミックDNS機能は、{iface}インターフェイスのDHCPモジュールで無効になっています。"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:221
 msgid ""
@@ -7211,11 +7065,11 @@ msgstr ""
 #: ../../main/core/src/EBox/Types/IPRange.pm:191
 #, perl-brace-format
 msgid "The IP range contained {size} addresses, the maximum is {max} addresses"
-msgstr "{サイズ}のアドレスに含まれるIP範囲は、最大値は{最大}アドレスです"
+msgstr "{size}のアドレスに含まれるIP範囲は、最大値は{max}アドレスです"
 
 #: ../../main/core/src/EBox/Types/Date.pm:244
 msgid "Not a leap year."
-msgstr "未うるう年。"
+msgstr "うるう年以外。"
 
 #: ../../main/core/src/EBox/Types/Date.pm:255
 msgid "This month does not have 31 days."
@@ -7249,9 +7103,7 @@ msgstr "Not"
 #, perl-brace-format
 msgid ""
 "{name} empty. You can add and select a new {name} with the 'add new' button"
-msgstr ""
-"{名前}は空。あなたが追加して、「新規追加」ボタンで新しい{name}を選択すること"
-"ができます"
+msgstr "{name}が指定されていません。'新規追加'ボタンで新しい{name}を追加し、選択することができます"
 
 #: ../../main/core/src/EBox/Types/Select.pm:355
 #, perl-brace-format
@@ -7418,14 +7270,12 @@ msgid "Search"
 msgstr "検索"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:46
-#, fuzzy
 msgid "No search term"
-msgstr "検索行の項"
+msgstr "検索語句なし"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:57
-#, fuzzy
 msgid "The search term should have a lenght of at least 3 characters"
-msgstr "パスワードは最低でも {minLength} 文字含んでいる必要があります"
+msgstr "検索用語は、少なくとも3文字の長さを必要とします"
 
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:167
 msgid ""
@@ -7452,7 +7302,7 @@ msgstr "モジュール変更内容を保存"
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:86
 msgid "Changes saved"
-msgstr "保存された変更"
+msgstr "変更が保存されました"
 
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:87
 #, perl-brace-format
@@ -7718,12 +7568,12 @@ msgstr ""
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
 msgid "Failed to enable {mod}: {err}"
-msgstr "{ERR}：{MOD}の有効化に失敗しました"
+msgstr "{err}：{mod}の有効化に失敗しました"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:81
 #, perl-brace-format
 msgid "Failed to enable: {err}"
-msgstr "有効化に失敗しました：{ERR}"
+msgstr "有効化に失敗しました：{err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/StatusView.pm:34
 msgid "Module Status Configuration"
@@ -7899,9 +7749,7 @@ msgstr "実行バイナリはすでに完了しました"
 msgid ""
 "The language pack for {l} is missing, you can install it by running the "
 "following command: {c}"
-msgstr ""
-"{C}：{1}用の言語パックが欠落している、次のコマンドを実行してインストールする"
-"ことができます"
+msgstr "{言語パック{l}に誤りがある、次のコマンドを実行してインストールすることができます：{c}"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:78
 msgid "Language selection"
@@ -7921,7 +7769,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:104
 msgid "Administration interface TCP port"
-msgstr "管理インタフェースのTCPポート"
+msgstr "管理インターフェイスのTCPポート"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
@@ -7979,9 +7827,7 @@ msgstr ""
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
 "software updates and will be automatically applied to your system."
-msgstr ""
-"あなたの商用サーバーエディションは、これらの品質保証、ソフトウェアアップデー"
-"トで、自動的にシステムに適用されることを保証します。"
+msgstr "あなたの商用サーバエディションは、これらの品質保証、ソフトウェアアップデートで、自動的にシステムに適用されることを保証します。"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/ComponentNotFound.pm:30
 msgid "Element not found"
@@ -8000,14 +7846,12 @@ msgstr "モジュールは正しく再起動されました。"
 msgid ""
 "Service {mod} is locked by another process. Please wait its end and then try "
 "again."
-msgstr ""
-"サービス{modは}別のプロセスによってロックされています。その終了を待ってからも"
-"う一度お試しください。"
+msgstr "サービス{mod}は別のプロセスによってロックされています。その終了を待ってからもう一度お試しください。"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:62
 #, perl-brace-format
 msgid "Error restarting service {mod}. See {logs} for more information."
-msgstr "エラー再起動サービス{モッズ}。詳細については、{ログ}参照してください。"
+msgstr "エラー再起動サービス{mod}。詳細については、{logs}参照してください。"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:198
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:281
@@ -8141,23 +7985,21 @@ msgid ""
 "change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure "
 "you want to continue?"
 msgstr ""
-"警告：ユーザーモジュールがすでにインストールされ、構成されているとして、あな"
-"たは{新しい}にホスト名を変更する場合は、すべてのユーザーデータが失われます。"
-"あなたが継続してもよろしいですか？"
+"警告：ユーザモジュールが既にインストールされて構成されています、もし{new}のホスト名を変更する場合は、全てのユーザデータが失われます。続行してもよろ"
+"しいですか？"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:88
 msgid ""
 "Additionally, using a domain ending in '.local' can conflict with other "
 "protocols like zeroconf and is, in general, discouraged."
 msgstr ""
-"さらに、「.localの」で終わるドメインを使用してZeroconfをして、一般的には、推"
-"奨されてのような他のプロトコルと競合する可能性があります。"
+"さらに、「.local」で終わるドメインを使用してZeroconfをしても、一般的には、推奨されている他のプロトコルと競合する可能性があります。"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:169
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:182
 #, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
-msgstr "長さが{分}と{最大}文字でなければなりません"
+msgstr "長さが{min}と{max}文字でなければなりません"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:180
 msgid "Host domain"
@@ -8242,7 +8084,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:38
 msgid "Enable bug report for daemon crashes"
-msgstr "デーモンがクラッシュしたためにバグレポートを有効にする"
+msgstr "デーモンがクラッシュした際のバグレポートを有効にする"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
 msgid "The date and time was changed successfully."
@@ -8302,11 +8144,9 @@ msgid ""
 "do not contain any sensible information. {oc}{obs}Submit crash report{cb} "
 "{obd}Discard{cb}{cc}"
 msgstr ""
-"クラッシュレポートが見つかりました！ {P}：あなたが問題を修正助けるために匿名"
-"で以下のファイルを送信する場合はボタンをクリックします。 Zentyalがこの情報を"
-"十分に活用しますが、あなたは彼らがどんな賢明な情報が含まれていないことを確認"
-"したい場合は、ファイルを確認してください。 {OC} {} OBS提出クラッシュレポート"
-"{CB} {} OBD破棄{CB} {CC}"
+"クラッシュレポートが見つかりました!あなたが問題の修正を助けるために匿名で以下のファイルを送信する場合はボタンをクリックします：{p}。 "
+"Zentyalがこの情報を十分に活用しますが、あなたの問題となるような情報が含まれていないことを確認したい場合は、ファイルを確認してください。 {oc} "
+"{obs} クラッシュレポート提出{cb} {obd}破棄{cb} {cc}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:227
 #, perl-brace-format
@@ -8354,7 +8194,7 @@ msgstr "HTTPポート"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
 msgid "Default for Non-SSL"
-msgstr "非SSLのデフォルト"
+msgstr "非SSLをデフォルト"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
 msgid "Make this service the default for the non-SSL traffic"
@@ -8366,7 +8206,7 @@ msgstr "HTTPSポート"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
 msgid "Default for SSL"
-msgstr "SSLのデフォルト"
+msgstr "SSLをデフォルト"
 
 #: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
 msgid "Make this service the default for the SSL traffic"
@@ -8480,9 +8320,7 @@ msgstr "パーティション{mp}は利用可能な空き領域が少しある�
 msgid ""
 "The file system {fs}, mounted on {mp}, has {left} space left which is below "
 "than the configured threshold {thres}."
-msgstr ""
-"ファイルシステム {fs}、{mp}にマウントされ、左{left}スペースがあり、設定された"
-"しきい値{thres} は以下の通りでです。"
+msgstr "ファイルシステム {fs}、{mp}にマウントされ、左{left}スペースがあり、設定された閾値{thres} は以下の通りでです。"
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:149
 #, perl-brace-format
@@ -8494,9 +8332,7 @@ msgstr "パーティション{mp}は利用可能な十分なスペースを持�
 msgid ""
 "The file system {fs}, mounted on {mp}, has again enough space available "
 "{left} which is greater than the configured threshold {thres}."
-msgstr ""
-"ファイルシステム{fs}、{mp}にマウントされ、設定されたしきい値{left} より大きい"
-"十分なスペース利用可能な{thres}は持っています。"
+msgstr "ファイルシステム{fs}、{mp}にマウントされ、設定された閾値{left} より大きい十分なスペース利用可能な{thres}は持っています。"
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:190
 msgid "Free storage space"
@@ -8511,9 +8347,7 @@ msgstr "ディスクパーティションに十分な空き容量があるか確
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
-msgstr ""
-"{} nSecUpdatesセキュリティ更新プログラムがあります。影響を受けたパッケージ"
-"は、次のとおりです。{パッケージ}。"
+msgstr "{nSecUpdates}セキュリティ更新プログラムがあります。影響を受けたパッケージは、次のとおりです。{packages}。"
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:198
 #, perl-brace-format
@@ -8533,10 +8367,9 @@ msgid ""
 "or Premium Editions{ch}: commercial Zentyal server editions fully supported "
 "by Zentyal S.L. and Canonical/Ubuntu."
 msgstr ""
-"警告：これらは、あなたのシステムに損害を与える可能性がテストされていないコ"
-"ミュニティの更新です。完全Zentyal SLとCanonicalは/ Ubuntuのでサポートされてい"
-"る商業Zentyalサーバーエディションを：実稼働環境では、{ああ}プロフェッショナ"
-"ル、ビジネス、またはプレミアムエディション{CH}を使用することをお勧めします。"
+"警告：これらは、あなたのシステムに損害を与える可能性がテストされていないコミュニティの更新です。完全Zentyal SLとCanonical/Ubunt"
+"uでサポートされている商業Zentyalサーバエディションを：実稼働環境では、{oh}プロフェッショナル、ビジネス、またはプレミアムエディション{ch}"
+"を使用することをお勧めします。"
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:241
 msgid "Security software updates"
@@ -8560,7 +8393,7 @@ msgstr "Zentyal UIは停止しています"
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/report/raid.mas:223
 msgid "State"
-msgstr "状態"
+msgstr "都道府県名"
 
 #: ../../main/core/src/EBox/Event/Watcher/State.pm:156
 msgid "Check if Zentyal is currently up or down"
@@ -8820,7 +8653,7 @@ msgstr "ログ"
 #: ../../main/core/src/EBox/Logs/Composite/SummarizedReport.pm:45
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:166
 msgid "Query Logs"
-msgstr "クエリログ"
+msgstr "ログ照会"
 
 #: ../../main/core/src/EBox/Logs/CGI/Index.pm:331
 msgid "Full Reports"
@@ -8922,9 +8755,7 @@ msgstr "90日"
 msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
-msgstr ""
-"このログは、そのモジュールによって強制されます。あなただけの{モジュール}モ"
-"ジュールを無効にすることで、それを無効にすることができます"
+msgstr "このログは、そのモジュールによって強制されます。あなただけの{module}モジュールを無効にすることで、それを無効にすることができます"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:254
 msgid ", "
@@ -9262,9 +9093,8 @@ msgid ""
 "incompatible Zentyal version. Only backups done in Zentyal >= {v} can be "
 "restored"
 msgstr ""
-"いいえDebianパッケージリストファイルが見つかりませんでした;おそらくバックアッ"
-"プは互換性のないZentyalバージョンで行われた。 Zentyalで行わのみのバックアップ"
-"が> = {V}は復元することができます"
+"Debianパッケージリストファイルが見つかりませんでした;おそらくバックアップは互換性のないZentyalバージョンで行われた。 "
+"Zentyalでバックアップされた　> = {v}は復元することができます"
 
 #: ../../main/core/src/EBox/Backup.pm:982
 #, perl-brace-format
@@ -9273,9 +9103,9 @@ msgid ""
 "the backup was done in a incompatible Zentyal version. Only backups done in "
 "Zentyal >= {v} can be restored"
 msgstr ""
-"Debianパッケージリストには見つかりませzentyal芯バックアップを形成しない。おそ"
-"らくバックアップは互換性のないZentyalバージョンで行われた。 Zentyalで行わのみ"
-"のバックアップが> = {V}は復元することができます"
+"バックアップには、Debianパッケージリストにはzentyal-"
+"core見つかりません。おそらくバックアップは互換性のないZentyalバージョンで行われた。 Zentyalでバックアップされた > = "
+"{v}は復元することができます"
 
 #: ../../main/core/src/EBox/Backup.pm:999
 #, perl-brace-format
@@ -9284,10 +9114,8 @@ msgid ""
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
-"バックアップを復元することができなかったので、そのZentyalバージョンと現在のシ"
-"ステムのバージョンとの間missmatch。バックアップがZentyalバージョン{BV}で行わ"
-"れていたし、このシステムはZentyalバージョン{WV}以上からバックアップをリストア"
-"できた"
+"バックアップを復元することができなかったので、そのZentyalバージョンと、現在のシステムのバージョンとの間の不一致。バックアップがZentyalバー"
+"ジョン{bv}で行われていたし、このシステムはZentyalバージョン{wv}以上からバックアップをリストアできた"
 
 #: ../../main/core/src/EBox/Backup.pm:1140
 msgid "Installing Zentyal packages in backup..."
@@ -9298,16 +9126,12 @@ msgstr "バックアップにZentyalパッケージをインストールして�
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
-msgstr ""
-"バックアップに存在する以下のモジュールがインストールされていない：{}改造。あ"
-"なたは、復元する前にそれらをインストールする必要があります。"
+msgstr "バックアップに存在する以下のモジュールがインストールされていない：{mods}。あなたは、復元する前にそれらをインストールする必要があります。"
 
 #: ../../main/core/src/EBox/Backup.pm:1384
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
-msgstr ""
-"{ERR}：モジュール{M}を可能にするバックアップ、エラーを復元することはできませ"
-"ん"
+msgstr "バックアップを復元することはできません、モジュール{m}の有効化エラー：{err}"
 
 #: ../../main/core/src/EBox/Backup.pm:1419
 #, perl-brace-format
@@ -9317,7 +9141,7 @@ msgstr "モジュール{m}がバックアップから見つかりません"
 #: ../../main/core/src/EBox/Backup.pm:1427
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
-msgstr "モジュール{M}は除外するとリストが含まれ、両方にあり"
+msgstr "両方を除外するとリストが含まれているモジュール{m}がある"
 
 #: ../../main/core/src/EBox/Backup.pm:1450
 msgid "No modules to restore"
@@ -9347,13 +9171,12 @@ msgstr "リバースプロキシ"
 #: ../../main/core/src/EBox/HAProxy.pm:164
 #, perl-brace-format
 msgid "Port {port} must be configured as SSL for {service}"
-msgstr "ポート{ポートは} {サービス}のSSLとして設定する必要があります"
+msgstr "ポート{port}はSSLの{service}として設定する必要があります"
 
 #: ../../main/core/src/EBox/HAProxy.pm:171
 #, perl-brace-format
 msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr ""
-"ポート{ポートは} {サービス}のためにしないで、SSLとして設定する必要があります"
+msgstr "ポート{port}はSSL以外の{service}として設定する必要があります"
 
 #: ../../main/core/src/EBox/HAProxy.pm:304
 msgid "HTTP Services"
@@ -9426,7 +9249,7 @@ msgstr "{row} が更新されました"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3537
 msgid "Search rows term"
-msgstr "検索行の項"
+msgstr "検索用語"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3539
 msgid "Must be a valid regular expression"
@@ -9439,7 +9262,7 @@ msgstr "ページ 1"
 #: ../../main/core/src/EBox/Model/DataTable.pm:4593
 #, perl-brace-format
 msgid "Page {i} of {n}"
-msgstr "{n}はページ{I}"
+msgstr "ページ {i}/{n}"
 
 #: ../../main/core/src/EBox/Model/Composite.pm:224
 #, perl-brace-format
@@ -9583,7 +9406,7 @@ msgstr "進行しいている"
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ServerList.pm:59
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ServerList.pm:59
 msgid "No servers found"
-msgstr "サーバーが見つかりません"
+msgstr "サーバが見つかりません"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:49
 msgid "Origin user name"
@@ -9717,9 +9540,8 @@ msgid ""
 "and autodiscover requires you to import Zentyal CA certificate into your "
 "{win} account."
 msgstr ""
-"{OA} .Remember HTTPSアクセスや自動検出として知られている、HTTP / HTTPSを介し"
-"て{OC}へのセットアップへのアクセスは、あなたの{}の勝利考慮Zentyal CA証明書を"
-"インポートする必要があります。"
+"HTTP / HTTPSによる{oc}へのセットアップへのアクセスは、{oa}として知られている。 "
+"HTTPSアクセスを覚えて自動検出を使用すると、{win}アカウントにZentyal CA証明書をインポートする必要があります。"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:102
 msgid "Web Server module needs to be installed and enabled to use RPC proxy"
@@ -9732,16 +9554,12 @@ msgstr ""
 msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
 "module{ch}"
-msgstr ""
-"私たちは、このホスト名を見つけることができないため、RPCプロキシを使用できませ"
-"ん{ああ}のDNSモジュール{CH}"
+msgstr "このホスト名を見つけることができないため、{oh}DNSモジュール{ch}のRPCプロキシを使用できません"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:116
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
-msgstr ""
-"{ERR}：私たちはこのホスト名を見つけることができないので、RPCプロキシを使用す"
-"ることはできません"
+msgstr "私たちはこのホスト名を見つけることができないので、RPCプロキシを使用することはできません：{err}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:71
 msgid "Outgoing Mail Domain"
@@ -9751,9 +9569,7 @@ msgstr "発信メールドメイン"
 msgid ""
 "Outgoing mail domain of emails sent from this server will be overwritten "
 "with this one."
-msgstr ""
-"このサーバーから送信された電子メールの送信メールのドメインはこの1つで上書きさ"
-"れます。"
+msgstr "このサーバから送信された電子メールの送信メールのドメインはこの1つで上書きされます。"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:85
 #, perl-brace-format
@@ -9765,9 +9581,7 @@ msgstr "サーバ{oc}を設定します。"
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
-msgstr ""
-"OpenChangeを設定するには、{ああ}メール仮想ドメイン{OC}を作成する最初のを必要"
-"とする"
+msgstr "OpenChangeを設定するには、{oh}メール仮想ドメイン{oc}を作成を最初に必要とする"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
 msgid "New One"
@@ -9801,7 +9615,7 @@ msgstr "データベース構成"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:130
 msgid "OpenChange Server Provision"
-msgstr "OpenChangeサーバーのプロビジョニング"
+msgstr "OpenChangeサーバのプロビジョニング"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "Setup an OpenChange Groupware server."
@@ -9841,9 +9655,7 @@ msgstr "保存されていない変更があります。プロビジョニング
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
-msgstr ""
-"プロビジョニングOpenChangeするには、まず{ああ}メール仮想ドメイン{OC}を作成す"
-"る必要があります"
+msgstr "プロビジョニングOpenChangeするには、まず{oh}メール仮想ドメイン{oc}を作成する必要があります"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:391
 msgid "No Certification authority ready. Create or renew it"
@@ -9872,14 +9684,13 @@ msgstr "干渉を避けるために、RPCプロキシストックファイルを
 #: ../../main/openchange/src/EBox/OpenChange.pm:829
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
-msgstr "期待ドメイン '{D}'はDNSモジュール内に見つかりませんでした"
+msgstr "期待ドメイン '{d}'はDNSモジュール内に見つかりませんでした"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:838
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
-msgstr ""
-"必要なホストレコード '{時間}'は、ドメイン '{D}'に見つかりませんでした。申込み"
+msgstr "必要なホストレコード '{h}'は、ドメイン '{d}'に見つかりませんでした。<br/>"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:922
 #, perl-brace-format
@@ -9895,9 +9706,7 @@ msgstr "システムは、少なくとも一つの外部インターフェイス
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
-msgstr ""
-"あなたの外部IPアドレスに対応する{ああ} DNSドメイン{DOM} {CH}内の任意のホスト"
-"が見つかりません"
+msgstr "あなたの外部IPアドレスに対応する{oh} DNSドメイン{dom} {ch}内の任意のホストが見つかりません"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:997
 msgid "No outgoing mail domain configured"
@@ -9912,14 +9721,12 @@ msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
-"ソフトウェアパッケージマネージャを使用することはできません。おそらく、現在別"
-"のプロセスで使用されている。あなたは待つか、プロセスを強制終了するか。"
+"ソフトウェアパッケージマネージャを使用することはできません。おそらく、現在別のプロセスで使用されている。あなたは待つか、プロセスを強制終了する。"
 
 #: ../../main/software/src/EBox/Software.pm:469
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
-msgstr ""
-"ソフトウェアパッケージマネージャを使用することはできません。エラー出力：{ERR}"
+msgstr "ソフトウェアパッケージマネージャを使用することはできません。出力エラー：{err}"
 
 #: ../../main/software/src/EBox/Software.pm:565
 #, perl-brace-format
@@ -9927,8 +9734,7 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
-"は、Web UIから、QAの更新を使用して自動更新を変更することはできません。 、自動"
-"更新を無効に編集{confに}と{キー}キーを無効にするには。"
+"Web UIから、QAの更新を使用して自動更新を変更することはできません。 自動更新を無効にするには、{conf}と{key}キーを編集してください。"
 
 #: ../../main/software/src/EBox/Software.pm:660
 msgid "Zentyal Components"
@@ -10059,9 +9865,7 @@ msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
-msgstr ""
-"パッケージは正常に削除されました。管理インタフェースが数秒間反応しなくなりま"
-"すが、再起動が完了するまで少々お待ちください"
+msgstr "パッケージは正常に削除されました。管理インターフェイスが数秒間反応しなくなりますが、再起動が完了するまで少々お待ちください"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:261
 #, perl-brace-format
@@ -10270,18 +10074,17 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
-"Zentyal自身のアドレスとの接続の元の送信元アドレスに置き換えます。目的地が復路"
-"を持っているか、制限的なファイアウォール規則を持っていない場合にneccesaryかも"
-"しれない"
+"Zentyal自身のアドレスとの接続元の送信元アドレスに置き換えます。目的地が復路を持っているか、制限的なファイアウォール規則を持っていない場合に必要に"
+"なる可能性があります"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:332
 #, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "{ログ}への新しい転送接続のログ"
+msgstr "{log}への新しい転送接続ログ"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
-msgstr "転送されたポートのリスト"
+msgstr "転送されるポートの一覧"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:355
 #: ../../main/firewall/src/EBox/Firewall.pm:627
@@ -10322,9 +10125,7 @@ msgstr "送信元MAC"
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
-msgstr ""
-"逆マッチがチェックされている場合は、任意のサービスが、選択した1は、このルール"
-"に一致します"
+msgstr "逆引きがチェックされている場合は、選択した１つのサービスがこのルールに一致します"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:228
 #, perl-brace-format
@@ -10349,7 +10150,7 @@ msgstr "発信インターフェイス"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:134
 msgid "Log new forwarded connections"
-msgstr "新しい転送接続のログ"
+msgstr "新しい転送接続ログ"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:155
 msgid "Source Network Address Translation rules"
@@ -10406,11 +10207,11 @@ msgstr "ポートリダイレクト"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:789
 msgid "Input interface"
-msgstr "入力インタフェース"
+msgstr "入力インターフェイス"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:790
 msgid "Output interface"
-msgstr "出力インタフェース"
+msgstr "出力インターフェイス"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:794
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:150
@@ -10616,10 +10417,8 @@ msgid ""
 "user to be logged in through a Windows Workstation, consider deleting it and "
 "creating it again with a shorter username"
 msgstr ""
-"あなたは、20文字以上のユーザー名を作成しました。一部のMicrosoftクライアントOS"
-"のは、ユーザーのlenghtをサポートしていないのでご注意ください。 Windowsのワー"
-"クステーションを介してログインすることが、このユーザーを計画している場合は、"
-"それを削除して、より短いユーザー名で再度作成することを検討"
+"あなたは、20文字以上のユーザ名を作成しました。一部のMicrosoftクライアントOSは、このユーザの長さをサポートしていないのでご注意ください。 W"
+"indowsのワークステーションを介してログインすることが、このユーザが計画している場合は、削除し、短い方のユーザ名で再度作成することを検討してください"
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddOU.pm:49
 msgid "OU name"
@@ -10662,16 +10461,12 @@ msgstr "ユーザ設定"
 msgid ""
 "Here you can set the policies that apply to users, regardless of which "
 "computer they log on to."
-msgstr ""
-"ここでは、関係なく、彼らがにログオンしたコンピュータのユーザーに適用するポリ"
-"シーを設定することができます。"
+msgstr "ここでは、関係なく、彼らがにログオンしたコンピュータのユーザに適用するポリシーを設定することができます。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:44
 msgid ""
 "These configuration options are used when a new user account is created."
-msgstr ""
-"新しいユーザーアカウントが作成されるときにこれらの設定オプションが使用され"
-"る。"
+msgstr "新しいユーザアカウントが作成されるときにこれらの設定オプションが使用される。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
 #: ../../main/samba/src/EBox/Samba.pm:2283
@@ -10715,9 +10510,7 @@ msgstr "オブジェクト{x}は、システムの重要なオブジェクトで
 msgid ""
 "While creating a new group '{group}': A group cannot be a distribution group "
 "and a system group at the same time."
-msgstr ""
-"新しいグループ '{グループ}'の作成中：グループは配布グループと同時に、システム"
-"のグループにすることはできません。"
+msgstr "新しいグループ '{group}'の作成中：グループは配布グループと同時にシステムのグループにすることはできません。"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:178
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
@@ -10771,13 +10564,13 @@ msgstr "LDAPを更新中にエラーが発生しまし："
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
-msgstr "用が見つかり{回数}の結果は、唯一の期待。"
+msgstr "一つだけを期待し、{count}の検索結果"
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:884
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
-msgstr "CN = {CN}とタイプ{タイプ}の目的は、このコンテナ内に既に存在します"
+msgstr "CN = {cn}とタイプ{type}のオブジェクトは、このコンテナ内に既に存在します"
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:898
 msgid "Group E-mail"
@@ -10785,7 +10578,7 @@ msgstr "グループEメール"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:61
 msgid "Organization Unit"
-msgstr "組織名"
+msgstr "担当部署名"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:127
 msgid "Error on group LDAP entry creation:"
@@ -10794,15 +10587,13 @@ msgstr "グループのLDAPエントリ作成上のエラー："
 #: ../../main/samba/src/EBox/Samba/OU.pm:151
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Organizational Unit"
-msgstr "組織名"
+msgstr "組織単位"
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:180
 msgid ""
 "Creation of OUs inside either Users, Groups or Computer default OUs is not "
 "supported"
-msgstr ""
-"どちらユーザー、グループ、またはコンピュータのデフォルトのOU内部の組織単位"
-"（OU）の作成はサポートされていません"
+msgstr "どちらユーザ、グループ、またはコンピュータのデフォルトのOU内部の組織単位（OU）の作成はサポートされていません"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 msgid "Windows account names cannot end with a dot"
@@ -10842,7 +10633,7 @@ msgstr "人のLDAPエントリ作成上のエラー："
 #: ../../main/samba/src/EBox/Samba/Provision.pm:113
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
-msgstr "ホストドメイン '{D}'は '{R}' Kerberosレルムと同じである必要があります"
+msgstr "ホストドメイン '{d}'はKerberosレルム '{r}' と同じである必要があります"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:128
 #, perl-brace-format
@@ -10867,8 +10658,8 @@ msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
 ">You can add it in the {ohref}host names page for domain {d}{chref}."
 msgstr ""
-"必要なホストレコード '{h}'は '{d}'ドメイン内に見つかりませんでした。<br/"
-">{ohref}ドメイン{d} のためホスト名ページ{chref}に追加することができます。"
+"必要なホストレコード '{h}'は "
+"'{d}'ドメイン内に見つかりませんでした。<br/>{chref}ドメイン{d}のためホスト名ページ{ohref}に追加することができます。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:201
 #, perl-brace-format
@@ -10948,10 +10739,9 @@ msgid ""
 "Please, move the zones to the \"DomainDnsZones\" or \"ForestDnsZones\" and "
 "try again. Check {link} for help on how to do that."
 msgstr ""
-"ドメインに参加できませんでした。 {ゾーン}：次のDNSゾーンはメインドメインパー"
-"ティションに格納されています。サーバーがWindows Server 2000からアップグレード"
-"されたときこれは通常起こる、とSamba 4系列は、これらのゾーンを読み取ることがで"
-"きなくなります。 、  \\ "
+"ドメインに参加できませんでした：{zones}。次のDNSゾーンはメインドメインパーティションに格納されています。サーバがWindows Server "
+"2000からアップグレードされたときこれは通常起こり、Samba 4系列は、これらのゾーンを読み取ることができなくなります。DomainDnsZones"
+"またはForestDNSZonesのにゾーンを移動して、もう一度やり直してください。それを行う方法についてのヘルプは{link}を確認してください。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:780
 msgid "Could not retrieve the domain information."
@@ -10988,9 +10778,7 @@ msgstr ""
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
-msgstr ""
-"DC {x}は、そのIPアドレスに解決できませんでした。指定されたサーバー名とDNSサー"
-"バーを確認してください"
+msgstr "DC {x}は、そのIPアドレスに解決できませんでした。指定されたサーバ名とDNSサーバを確認してください"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:898
 #, perl-brace-format
@@ -11033,9 +10821,7 @@ msgstr ""
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
-msgstr ""
-"あなたが参加しようとしているドメインが定義されている信頼関係を持っています。"
-"現時点ではこれはサンバでサポートされていません。"
+msgstr "参加しようとしているドメインが信頼関係を持って定義されています。現時点ではSambaでサポートされていません。"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1019
 #, perl-brace-format
@@ -11060,7 +10846,7 @@ msgstr "指定されたサイト{x}は、ドメイン上に存在しません"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1083
 msgid "Could not determine the site of the specified server"
-msgstr "指定されたサーバーのサイトを判別できませんでした"
+msgstr "指定されたサーバのサイトを判別できませんでした"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1117
 msgid "Could not determine the netbios domain name."
@@ -11078,20 +10864,18 @@ msgstr "グループコンテナのLDAPエントリ作成上のエラー："
 
 #: ../../main/samba/src/EBox/Samba/User.pm:387
 msgid "Username already exists on the system"
-msgstr "ユーザー名は、すでにシステムに存在する"
+msgstr "ユーザ名は、既にシステムに存在する"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:429
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
 "you currently have {nUsers}"
-msgstr ""
-"お使いのエディションのユーザーの最大数は、{最大}であり、あなたが現在{nUsers}"
-"を持っていることに注意してください"
+msgstr "お使いのエディションのユーザの最大数は、{max}であり、現在{nUsers}を持っていることに注意してください"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:524
 msgid "Windows user names cannot be only spaces and dots."
-msgstr "Windowsのユーザー名には、スペースとドットにすることはできません。"
+msgstr "Windowsのユーザ名は、スペースとドットだけにすることはできません。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:530
 msgid "Windows user names cannot contain the \"@\" character."
@@ -11105,21 +10889,17 @@ msgstr "パスワードは {maxPwdLength} 文字を超えてはなりません"
 #: ../../main/samba/src/EBox/Samba/User.pm:553
 #, perl-brace-format
 msgid "User name {x} already exists in the same container."
-msgstr "ユーザー名{x}は既に同じコンテナに存在します。"
+msgstr "ユーザ名{x}は既に同じコンテナに存在します。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:625
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
-msgstr ""
-"ユーザー{x}はuidNumberがセットをしていない。メソッドは '{y}'を返るのを取得し"
-"ます。"
+msgstr "ユーザ{x}はuidNumberが設定されたいません。メソッドは '{y}'を返るのを取得します。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:646
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
-msgstr ""
-"ユーザー{x}のgidNumberが設定されていません。メソッドは '{y}'が返えるのを取得"
-"します。"
+msgstr "ユーザ{x}のgidNumberが設定されていません。メソッドは '{y}'が返えるのを取得します。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:682
 #: ../../main/samba/src/EBox/Samba/User.pm:775
@@ -11129,30 +10909,24 @@ msgstr "ユーザクオーター"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:684
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
-msgstr ""
-"ユーザークォータは、整数でなければなりません。無制限のクォータを設定するに"
-"は、0を入力する。"
+msgstr "ユーザクォータは、整数でなければなりません。無制限のクォータを設定するには、0を入力する。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:778
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
-msgstr ""
-"ユーザークォータは、正の整数でなければなりません。無制限のクォータを設定する"
-"には、0を入力する。"
+msgstr "ユーザクォータは、正の整数でなければなりません。無制限のクォータを設定するには、0を入力する。"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:787
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
-msgstr "最大値は{最大} MBです"
+msgstr "最大値は{max} MBです"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:806
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
-msgstr ""
-"{userQuota}へのuid {UID}のクォータを設定することはできません。たぶんあなたの"
-"ファイルシステムは、クォータをサポートしていません？"
+msgstr "{userQuota}へのuid {uid}のクォータを設定することはできません。たぶんファイルシステムは、クォータをサポートしていません？"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:919
 msgid "Maximum number of system users reached"
@@ -11220,8 +10994,8 @@ msgid ""
 "This server is an additional domain controller. In order not to break sysvol "
 "replication, GPOs must be modified in the domain root server."
 msgstr ""
-"このサーバーは、追加のドメインコントローラです。 SYSVOLのレプリケーションが中"
-"断させないためには、GPOはドメインルートサーバーに変更する必要があります。"
+"このサーバは、追加のドメインコントローラです。 "
+"SYSVOLのレプリケーションが中断させないためには、GPOはドメインルートサーバに変更する必要があります。"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:166
 #, perl-brace-format
@@ -11250,7 +11024,7 @@ msgstr "共有パス"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:104
 msgid "Directory under Zentyal"
-msgstr "Zentyal下のディレクトリ名"
+msgstr "Zentyal下のディレクトリ"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
 msgid "File system path"
@@ -11277,12 +11051,12 @@ msgstr "ACLの変更は、この共有のサブフォルダにすべての権限
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Shares"
-msgstr "株式"
+msgstr "共有"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:152
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
 msgid "share"
-msgstr "シェア"
+msgstr "共有"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:267
 #, perl-brace-format
@@ -11296,7 +11070,7 @@ msgstr "Samba共有の絶対パス"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:285
 #, perl-brace-format
 msgid "Path {p} is not a directory"
-msgstr "パス{P}はディレクトリではありません"
+msgstr "パス{p}はディレクトリではありません"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:292
 msgid "Samba share directory"
@@ -11313,9 +11087,8 @@ msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
-"ドメインゲストアカウントは株式へのゲストアクセスを有効にする必要があります。"
-"あなたは{ああ}ユーザおよびグループマネージャ{CH}でそれを有効にすることができ"
-"ます。"
+"ドメインゲストアカウントは共有へのゲストアクセスを有効にする必要があります。あなたは、{oh}ユーザおよびグループマネージャ{ch}でそれを有効にするこ"
+"とができます。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:448
 #, perl-brace-format
@@ -11324,9 +11097,8 @@ msgid ""
 "directory in {sharesPath} {br}{openit}File system path{closeit} will allow "
 "you to share an existing directory within your file system"
 msgstr ""
-"{openit}Zentyal下のディレクトリ{closeit}は自動的に{sharesPath} {br} {openit}"
-"ファイルシステムのパス{closeit}でshare.directoryを作成し、あなたのファイルシ"
-"ステム内の既存のディレクトリを共有することができます"
+"{openit}Zentyal下のディレクトリ{closeit}は自動的に{sharesPath} {br} {openit}ファイルシステムパス{cl"
+"oseit}でshare.directoryを作成し、あなたのファイルシステム内の既存のディレクトリを共有することができます"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
 msgid ""
@@ -11341,7 +11113,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:506
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
-msgstr "エラー{M}内のファイルシステムフォーマットを取得"
+msgstr "{m}内のファイルシステムフォーマットを取得エラー"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:511
 #, perl-brace-format
@@ -11352,7 +11124,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:522
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
-msgstr "読み込みエラー{M}内のマウントオプション"
+msgstr "{m}内のマウントオプション読み込みエラー"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:527
 #, perl-brace-format
@@ -11360,8 +11132,7 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
-"マウントポイント '{マウントポイントは}' ACL 'オプションでマウントする必要があ"
-"ります。パーミッションが正しく動作するために必要です。"
+"マウントポイント '{mountPoint}' は’acl’オプションでマウントする必要があります。パーミッションが正しく動作するために必要です。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:533
 #, perl-brace-format
@@ -11369,8 +11140,8 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
 "This is required for permissions to work properly."
 msgstr ""
-"マウントポイント '{マウントポイントは}' user_xattrの 'オプションでマウントす"
-"る必要があります。パーミッションが正しく動作するために必要です。"
+"マウントポイント "
+"'{mountPoint}'は、'user_xattr'のオプションでマウントする必要があります。パーミッションが正しく動作するために必要です。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
 msgid "Sync all with Zentyal Cloud"
@@ -11378,7 +11149,7 @@ msgstr "Zentyalクラウドと同期すべて"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:74
 msgid "All shares and user homes will be synchronized using Zentyal Cloud."
-msgstr "すべての共有とユーザーホームはZentyalクラウドを使用して同期されます。"
+msgstr "全ての共有とユーザホームはZentyalクラウドを使用して同期されます。"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:80
 msgid "Cloud Sync"
@@ -11400,10 +11171,8 @@ msgid ""
 "multiple OU support is partial, some modules may only work with users and "
 "groups in the default Users and Groups OUs."
 msgstr ""
-"ここでは、組織単位、ユーザー、グループと連絡先を管理することができます。 "
-"Sambaを使用している場合も、ドメイン内のコンピュータを見ることができます。その"
-"複数のOUのサポートは部分的で、いくつかのモジュールは、デフォルトのユーザーと"
-"グループのOU内のユーザーとグループでも動作しますのでご注意ください。"
+"ここでは、組織単位、ユーザ、グループと連絡先を管理することができます。 Sambaを使用している場合も、ドメイン内のコンピュータを見ることができます。そ"
+"の複数のOUのサポートは部分的で、いくつかのモジュールは、デフォルトのユーザとグループのOU内のユーザとグループでも動作しますのでご注意ください。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:180
 msgid "Disabled Users"
@@ -11439,7 +11208,7 @@ msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:71
 msgid "List of slave servers for users and groups synchronization."
-msgstr "ユーザーとグループの同期のためのスレーブサーバのリスト。"
+msgstr "ユーザとグループの同期のためのスレーブサーバの一覧。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Slaves.pm:72
 msgid "slave"
@@ -11447,7 +11216,7 @@ msgstr "スレーブ"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
 msgid "Enable virus scanning"
-msgstr "ウイルススキャンを有効にする"
+msgstr "ウィルススキャンを有効にする"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:59
 msgid "Antivirus default settings"
@@ -11456,14 +11225,12 @@ msgstr "アンチウィルスのデフォルト設定"
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:82
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
-msgstr ""
-"Zentyalウイルス対策モジュールがインストールされ、この機能を使用するには有効に"
-"する必要があります"
+msgstr "Zentyalウィルス対策モジュールがインストールされ、この機能を使用するには有効にする必要があります"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 msgid "User/Group/Share"
-msgstr "ユーザー/グループ/共有"
+msgstr "ユーザ/グループ/共有"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:84
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:75
@@ -11478,7 +11245,7 @@ msgstr "共有"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:100
 msgid "Samba shares Recycle Bin exceptions"
-msgstr "Sambaの共有は、ビンの例外をリサイクル"
+msgstr "Samba共有でのごみ箱の例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:105
 msgid "Add exceptions to the default Recycle Bin settings"
@@ -11526,11 +11293,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:90
 msgid "Samba shares antivirus exceptions"
-msgstr "Sambaのシェアのウイルス対策の例外"
+msgstr "Samba共有でのウィルス対策の例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:95
 msgid "Add exceptions to the default antivirus settings"
-msgstr "デフォルトのウイルス対策設定に例外を追加"
+msgstr "デフォルトのウィルス対策設定に例外を追加"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:104
 msgid "Enable PAM"
@@ -11538,7 +11305,7 @@ msgstr "PAMを有効にする"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:107
 msgid "Make LDAP users have system account."
-msgstr "LDAPユーザーがシステムアカウントを持っていることを確認します。"
+msgstr "LDAPユーザがシステムアカウントを持っていることを確認します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:114
 msgid "Default login shell"
@@ -11546,7 +11313,7 @@ msgstr "デフォルトのログインシェル"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:119
 msgid "This will apply only to new users from now on."
-msgstr "これは今から新規ユーザーにのみ適用されます。"
+msgstr "これは今から新規ユーザにのみ適用されます。"
 
 #: ../../main/samba/src/EBox/Samba/Model/PAM.pm:125
 msgid "PAM settings"
@@ -11563,17 +11330,13 @@ msgstr ""
 msgid ""
 "Invalid DC hostname {dc}; it must be in the same domain that the Zentyal "
 "server. Current Zentyal server domain is {dom}"
-msgstr ""
-"無効なDCのホスト名{DC};そのZentyalサーバーと同じドメインに存在する必要があり"
-"ます。現在Zentyalサーバードメインは{DOM}"
+msgstr "無効なDCのホスト名{dc}はZentyalサーバと同じドメインに存在する必要があります。現在Zentyalサーバドメインは{dom}です"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:127
 msgid ""
 "The user should not contain a domain. The domain will be automatically "
 "extracted from Active Directory"
-msgstr ""
-"ユーザーは、ドメインを含めることはできません。ドメインが自動的にActive "
-"Directoryから抽出されます"
+msgstr "ユーザは、ドメインを含めることはできません。ドメインが自動的にActive Directoryから抽出されます"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:143
 msgid "Server mode"
@@ -11593,21 +11356,17 @@ msgstr "これは、LDAPツリー内のDN接尾辞になります"
 msgid ""
 "Both the Active Directory hostname and the own Zentyal server hostname "
 "should be DNS resolvable"
-msgstr ""
-"Active Directoryのホスト名と自分のZentyalサーバーのホスト名の両方が、DNSで解"
-"決できる必要があり"
+msgstr "Active Directoryのホスト名と自分のZentyalサーバのホスト名の両方が、DNSで解決できる必要があり"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:165
 msgid "Administrative user of the Active Directory"
-msgstr "アクティブディレクトリの管理ユーザー"
+msgstr "Active Directoryのユーザ管理"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:167
 msgid ""
 "This user has to have enough permissions to create a computer account in the "
 "domain"
-msgstr ""
-"このユーザーは、ドメイン内のコンピュータアカウントを作成するのに十分な権限を"
-"持っている必要があります"
+msgstr "このユーザは、ドメイン内のコンピュータアカウントを作成するのに十分な権限を持っている必要があります"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:191
 msgid "Zentyal Users"
@@ -11686,7 +11445,7 @@ msgstr "デフォルトのユーザクォータ"
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
 #: ../../main/samba/src/templates/edituser.mas:275
 msgid "Limited to"
-msgstr "これらに限定され"
+msgstr "限定する"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:58
 msgid "Mb"
@@ -11698,8 +11457,7 @@ msgstr "デフォルトアカウントの設定"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:77
 msgid "On this page you can configure the default settings for user accounts"
-msgstr ""
-"このページでは、ユーザーアカウントのデフォルト設定を構成することができます"
+msgstr "このページでは、ユーザアカウントのデフォルト設定を構成することができます"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
@@ -11729,8 +11487,7 @@ msgstr "スレーブ接続パスワード"
 
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:58
 msgid "Use this password when connecting a new slave to this server."
-msgstr ""
-"このサーバーに新しいスレーブを接続するときに、このパスワードを使用します。"
+msgstr "このサーバに新しいスレーブを接続するときに、このパスワードを使用します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:39
 msgid "Startup Scripts"
@@ -11748,7 +11505,7 @@ msgstr "スタートアップスクリプト{x}を追加"
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:216
 #, perl-brace-format
 msgid "Startup script {x} removed"
-msgstr "スタートアップスクリプト{X}を削除しました"
+msgstr "スタートアップスクリプト{x}を削除"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:60
 msgid "GPO Editor"
@@ -11834,9 +11591,7 @@ msgstr ""
 msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
-msgstr ""
-"株式アクセス制御リスト（ACL）は非管理モードになっています。このモードでは、編"
-"集{ファイル}を変更して、このモジュールを再起動するには"
+msgstr "共有アクセス制御リスト（ACL）は非管理モードになっています。このモードでは、編集{file}を変更して、このモジュールを再起動する"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:344
 msgid ""
@@ -11867,11 +11622,11 @@ msgstr "Zentyalクラウド"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:100
 msgid "Sync users from"
-msgstr "からの同期のユーザー"
+msgstr "からの同期のユーザ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:102
 msgid "Sync users from the chosen source"
-msgstr "選択したソースからの同期のユーザー"
+msgstr "選択したソースからの同期のユーザ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:107
 msgid "Master host"
@@ -11899,36 +11654,29 @@ msgstr "新しいスレーブ接続のパスワード"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:129
 msgid "Sync users from a master server"
-msgstr "マスターサーバーからの同期のユーザー"
+msgstr "マスターサーバからの同期のユーザ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:133
 msgid "Configure this parameters to synchronize users from a master server"
-msgstr ""
-"マスターサーバーからユーザーを同期させるために、このパラメータを設定します。"
+msgstr "マスターサーバからユーザを同期させるために、このパラメータを設定します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:224
 #, perl-brace-format
 msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "this server {slave}."
-msgstr ""
-"マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスターは{マス"
-"ター}と、このサーバー{奴隷}です。"
+msgstr "マスタサーバが別のレルムを持つ、ホスト名を確認してください。マスターは、{master}と、サーバ{slave}です。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:235
 #, perl-brace-format
 msgid ""
 "Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
 "{current} users created."
-msgstr ""
-"あなたのZentyalクラウドは、最大{max}ユーザーを可能にします。現在、作成した"
-"{current}ユーザーが存在します。"
+msgstr "あなたのZentyalクラウドは、最大{max}ユーザを可能にします。現在、作成した{current}ユーザが存在します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:249
 msgid "CAUTION: this will delete all defined users and import master ones."
-msgstr ""
-"注意：これは、すべての定義されたユーザーと、インポートマスターものを削除しま"
-"す。"
+msgstr "注意：これは、全ての定義されたユーザと、インポートマスターも削除します。"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:39
 msgid "Shutdown Scripts"
@@ -12055,16 +11803,13 @@ msgid ""
 msgstr ""
 "ドメイン名を変更すると、Sambaデータベースの再プロビジョニングになります。\n"
 "\n"
-"このユーザーとグループがZentyal LD​​APからインポートされますが、あなたは新しい"
-"ドメインに全てのコンピュータに参加し直す必要があります。"
+"このユーザとグループがZentyal LD​​APからインポートされますが、あなたは新しいドメインに全てのコンピュータに参加し直す必要があります。"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:260
 msgid ""
 "Joining a domain will delete all your users and groups from Zentyal and "
 "import the domain ones."
-msgstr ""
-"Zentyalからすべてのユーザーとグループを削除し、ドメインのものをインポートし、"
-"ドメインに参加する。"
+msgstr "Zentyalからすべてのユーザとグループを削除し、ドメインのものをインポートし、ドメインに参加する。"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:272
 msgid "Domain controller"
@@ -12095,7 +11840,7 @@ msgstr "このグループのための共有ディレクトリ"
 #: ../../main/samba/src/EBox/Ldap.pm:220
 #, perl-brace-format
 msgid "FATAL: Could not connect to samba LDAP server: {error}"
-msgstr "FATAL：{エラー}：サンバLDAPサーバーに接続できませんでした"
+msgstr "FATAL：Samba LDAPサーバに接続できませんでした：{error}"
 
 #: ../../main/samba/src/EBox/Ldap.pm:259 ../../main/samba/src/EBox/Ldap.pm:474
 #: ../../main/samba/src/EBox/Module/LDAP.pm:231
@@ -12142,10 +11887,8 @@ msgid ""
 "as the primary resolver in the {oh}resolvers list{ch}, and it contains the "
 "required reverse zones."
 msgstr ""
-"IPアドレス '{x}'はドメインコントローラ' {y} 'に属しているが、逆引き解決できま"
-"せんでした。 、必ず{oh}リゾルバ一覧{ch}の一次リゾルバとしてのADのDNSサーバー"
-"のいずれかを使用している、それが必要な逆ゾーンが含まれていることを確認してく"
-"ださい。"
+"IPアドレス '{x}'はドメインコントローラ' {y} 'に属しているが、逆引き解決できませんでした。 、必ず{oh}リゾルバ一覧{ch}の一次リゾル"
+"バとしてのADのDNSサーバのいずれかを使用している、それが必要な逆ゾーンが含まれていることを確認してください。"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:309
 #, perl-brace-format
@@ -12154,9 +11897,8 @@ msgid ""
 "but the reverse resolution of that IP has returned name '{z}'. Please fix "
 "your AD DNS records."
 msgstr ""
-"ADのDNSサーバーは、IP '{y}'に付属するDC名 '{x}'を解決したが、そのIPアドレスの"
-"逆引きは、 '{z}'の名前が返されました。あなたのADのDNSレコードを修正してくださ"
-"い。"
+"ADのDNSサーバは、IP '{y}'に付属するDC名 '{x}'を解決したが、そのIPアドレスの逆引きは、 "
+"'{z}'の名前が返されました。あなたのADのDNSレコードを修正してください。"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:321
 #, perl-brace-format
@@ -12170,9 +11912,8 @@ msgid ""
 "Please, ensure the A and PTR records for the Zentyal server exists in your "
 "AD DNS server."
 msgstr ""
-"ZentyalサーバのFQDN '{x}'はADのDNSサーバーによって解決できませんでした。 "
-"ZentyalサーバがADのDNSサーバに存在するか、AおよびPTRレコードを確認してくださ"
-"い。"
+"ZentyalサーバのFQDN '{x}'はADのDNSサーバによって解決できませんでした。 "
+"ZentyalサーバがADのDNSサーバに存在するか、AおよびPTRレコードを確認してください。"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:360
 #, perl-brace-format
@@ -12206,7 +11947,7 @@ msgstr "サーバのKerberosレルム '{x}'はADレルム' {y} 'と一致しま�
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:528
 msgid "Error creating computer account for Zentyal server:"
-msgstr "Zentyalサーバーのコンピュータアカウントを作成エラー："
+msgstr "Zentyalサーバのコンピュータアカウントを作成エラー："
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:583
 #, perl-brace-format
@@ -12313,9 +12054,7 @@ msgstr "LDAPデータベースは、いくつかの基本的な組織単位が�
 #: ../../main/samba/src/EBox/Samba.pm:313
 msgid ""
 "Zentyal needs this organizational units to add users and groups into them."
-msgstr ""
-"Zentyalはそ​​れらにユーザーとグループを追加するには、この組織単位を必要としま"
-"す。"
+msgstr "Zentyalはそ​​れらにユーザとグループを追加するには、この組織単位を必要とします。"
 
 #: ../../main/samba/src/EBox/Samba.pm:317
 msgid "Create Samba home directory for shares and groups"
@@ -12334,7 +12073,7 @@ msgstr "PAMを設定します。"
 
 #: ../../main/samba/src/EBox/Samba.pm:327
 msgid "Zentyal will give LDAP samba system account."
-msgstr "Zentyalは、LDAPサンバ·システム·アカウントを提供します。"
+msgstr "Zentyalは、LDAP Sambaシステムアカウントを提供します。"
 
 #: ../../main/samba/src/EBox/Samba.pm:346
 msgid "To set up kerberos authentication"
@@ -12344,9 +12083,7 @@ msgstr "Kerberos認証を設定する"
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
-msgstr ""
-"NSSはユーザーアカウントとグループアカウントのLDAP解像度を使用するようにす"
-"る。 SambaのPDCの構成に必要です。"
+msgstr "NSSはユーザアカウントとグループアカウントの解決にLDAPを使用するようにする。 SambaのPDCの構成に必要です。"
 
 #: ../../main/samba/src/EBox/Samba.pm:360
 msgid "To add quota support to /home partition."
@@ -12356,13 +12093,11 @@ msgstr "/homeパーティションにクォータサポートを追加します�
 msgid ""
 "To configure System Security Services Daemon to manage remote authentication "
 "mechanisms"
-msgstr ""
-"リモート認証メカニズムを管理するために、システムセキュリティサービスデーモン"
-"を構成するには"
+msgstr "リモート認証機構を管理するために、システムセキュリティサービスデーモンを設定する"
 
 #: ../../main/samba/src/EBox/Samba.pm:371
 msgid "To enable extended attributes and acls."
-msgstr "拡張属性とACLを有効にするには。"
+msgstr "拡張属性とACLを有効にする。"
 
 #: ../../main/samba/src/EBox/Samba.pm:400
 msgid "Domain and File sharing protocols"
@@ -12376,11 +12111,9 @@ msgid ""
 "you have not received leases. Saving changes if network module has just been "
 "configured or waiting for a lease can solve this situation"
 msgstr ""
-"ご使用のシステムがavailalbe IPアドレスを持っていないため、ユーザーとコン"
-"ピュータのモジュールを有効にすることはできません。あなたは、DHCPインターフェ"
-"イス（{ifacesを}）持っているので、それはあなたがリースを受けていない可能性が"
-"あります。ネットワークモジュールがちょうど構成されている場合、変更を保存する"
-"か、リースを待っていると、このような状況を解決することができます"
+"お使いのシステムが利用できるIPが持っていないため、ユーザとコンピュータのモジュールを有効にすることはできません。DHCPインターフェイス（{iface"
+"s}）を持っているので、それはあなたがリースを受けていない可能性があります。ネットワークモジュールがちょうど構成されている場合、変更を保存するか、リース"
+"待っていることは、このような状況を解決することができます"
 
 #: ../../main/samba/src/EBox/Samba.pm:516
 #, perl-brace-format
@@ -12407,23 +12140,21 @@ msgstr "ファイルのセキュリティ記述子の設定でエラー{x} {y}�
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
-msgstr ""
-"Sambaの共有にACLを設定するエラーが発生しました。詳細はzentyalログをチェックし"
-"てください。"
+msgstr "Sambaの共有でACLの設定でエラーが発生しました。詳細はzentyalログをチェックしてください。"
 
 #: ../../main/samba/src/EBox/Samba.pm:1632
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
-msgstr "'{UID}'ユーザに対する見つかり{回数}の結果は、唯一の期待。"
+msgstr "一つだけを期待したが'{uid}'のユーザで{count}の結果を見つけた。"
 
 #: ../../main/samba/src/EBox/Samba.pm:1859
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
-msgstr "'{名前}'のグループのために見つかり{回数}の結果は1つだけですが期待。"
+msgstr "一つだけを期待し'{name}'のグループで{count}の検索結果"
 
 #: ../../main/samba/src/EBox/Samba.pm:2278
 msgid "Manage"
-msgstr "管理する"
+msgstr "管理"
 
 #: ../../main/samba/src/EBox/Samba.pm:2298
 msgid "Configure mode"
@@ -12434,9 +12165,7 @@ msgstr "モード設定"
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
-msgstr ""
-"モジュールbacuseモード{モード}で実行され、バックアップ、モード{} bpModeてなさ"
-"れたものであり、ユーザーを復元することはできません"
+msgstr "モード{mode}で実行中であり、バックアップがモード {bpMode}で行われたため、ユーザがモジュールを復元することはできません"
 
 #: ../../main/samba/src/EBox/Samba.pm:2616
 #, perl-brace-format
@@ -12444,17 +12173,14 @@ msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
-"LDAPユーザー{ユーザー}がすでに/ etc / passwdにユーザーとして存在しているた"
-"め、リストアすることはできません。削除するか、このユーザーの名前を変更して、"
+"LDAPユーザ{user}が既に/etc/passwdにユーザとして存在しているため、復元することはできません。削除するか、このユーザの名前を変更して、"
 "再試行してください"
 
 #: ../../main/samba/src/EBox/Samba.pm:2640
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
-msgstr ""
-"復元サーバーは、フォレストの一意のドメインコントローラである場合にのみ可能で"
-"ある"
+msgstr "復元サーバは、フォレストの一意のドメインコントローラである場合にのみ可能である"
 
 #: ../../main/samba/src/EBox/Samba.pm:2926
 msgid ""
@@ -12466,7 +12192,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:3019
 msgid "Users data and Filesystem shares"
-msgstr "ユーザーデータとファイルシステムを共有"
+msgstr "ユーザデータとファイルシステムを共有"
 
 #: ../../main/samba/src/EBox/Samba.pm:3028
 msgid "Users data"
@@ -12636,7 +12362,7 @@ msgstr "Dansguardianのログローテーションの設定"
 
 #: ../../main/squid/src/EBox/Squid.pm:262
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr "Dansguardianのウイルス対策スキャナの設定"
+msgstr "Dansguardianのウィルス対策スキャナの設定"
 
 #: ../../main/squid/src/EBox/Squid.pm:267
 msgid "Filter groups per IP"
@@ -12668,7 +12394,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Override squid upstart job"
-msgstr "イカ成り上がり仕事をオーバーライドします"
+msgstr "squidアップスタートジョブをオーバーライドします"
 
 #: ../../main/squid/src/EBox/Squid.pm:307
 msgid "Remove dansguardian init script link"
@@ -12911,8 +12637,8 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
-"この名前のディレクトリが存在arreadyので名{name}を使用することはできません。"
-"{DIR} \\ nは多分未コミットの除去を？"
+"{dir}：{name}という名前があるため、既にこの名前のディレクトリ}を使用することはできません\n"
+"たぶん、コミットされていないのを除去？"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:42
 msgid "Transparent Proxy"
@@ -12920,7 +12646,7 @@ msgstr "透過プロキシ"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr "有効にするシングルサインオン（ケルベロス）"
+msgstr "シングルサインオンを有効にする（Kerberos）"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:62
 msgid "Ad Blocking"
@@ -12938,9 +12664,7 @@ msgstr "キャッシュファイルサイズ (MB)"
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
-msgstr ""
-"透過プロキシは、いくつかのアクセスルールで見つかったユーザーグループの承認ポ"
-"リシーと互換性がありません"
+msgstr "透過プロキシは、いくつかのアクセスルールで見つかったユーザグループの承認ポリシーと互換性がありません"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:147
 msgid "Transparent proxy is incompatible with Kerberos authentication"
@@ -12965,9 +12689,7 @@ msgid ""
 "Want to remove ads from the websites your users browse? Get the {oh}"
 "Commercial editions{ch} that will keep your Ad blocking rules always up-to-"
 "date."
-msgstr ""
-"ユーザーが閲覧するWebサイトから広告を削除したいですか？常に最新のルールをブ"
-"ロックする広告を維持します{ああ}商用版{CH}を取得します。"
+msgstr "ユーザが閲覧するWebサイトから広告を削除したいですか？常に最新のルールをブロックする広告を維持する{oh}商用版{ch}を取得します。"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
 msgid "Time period"
@@ -13026,9 +12748,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:445
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr ""
-"ユーザーグループによるソース·マッチングは、透過プロキシモードと互換性がありま"
-"せん"
+msgstr "ユーザグループによるソース·マッチングは、透過プロキシモードと互換性がありません"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:476
 msgid ""
@@ -13052,9 +12772,7 @@ msgstr ""
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
-msgstr ""
-"ルール（{}時刻t1）の時間周期は、同じ{たsourceType}ため（{時刻t2}）他のルール"
-"の期間と重複する"
+msgstr "ルール時刻（{t1}）の時間周期は、同じ{sourceType}での（{t2}）と他のルールの期間と重複する"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:785
 #, perl-brace-format
@@ -13155,7 +12873,7 @@ msgstr "ドメイン又はURLが更新されました"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:44
 msgid "Exempt address from caching"
-msgstr "キャッシングを免除アドレス"
+msgstr "キャッシングのアドレス免除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
 msgid "Cache Exemptions"
@@ -13297,7 +13015,7 @@ msgstr "最大サイズは無制限"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:155
 msgid "Maximum unthrottled download size for the whole network object."
-msgstr "ネットワーク全体のオブジェクトの最大非スロットルダウンロードサイズ。"
+msgstr "ネットワーク全体のオブジェクトの流量制限なしでの最大ダウンロードサイズ。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:158
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:182
@@ -13312,9 +13030,7 @@ msgstr "最大ダウンロード速度"
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
-msgstr ""
-"最大サイズの後に限定ダウンロード率は、全体のネットワーク·オブジェクトに達して"
-"いる。"
+msgstr "ネットワーク全体のオブジェクトが最大サイズに達した後の限定ダウンロード速度。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:167
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:190
@@ -13331,7 +13047,7 @@ msgstr "クライアントあたりの最大サイズは無制限"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:179
 msgid "Maximum unthrottled download size for each client."
-msgstr "各クライアントの最大非スロットルダウンロードサイズ。"
+msgstr "各クライアントの流量制限なしでの最大ダウンロードサイズ。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "Maximum download rate per client"
@@ -13339,7 +13055,7 @@ msgstr "クライアントあたりの最大ダウンロード速度"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:187
 msgid "Limited download rate after maximum size is reached for each client."
-msgstr "最大サイズの後に限定ダウンロード速度は、各クライアントのために達する。"
+msgstr "各クライアントの最大サイズに達した後の限定ダウンロード速度。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:196
 msgid "Bandwidth Throttling Rules"
@@ -13362,9 +13078,8 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the "
 "module{closehref} and come back here"
 msgstr ""
-"ウイルス対策モジュールが無効になっているので、あなたは、ウイルス対策フィルタ"
-"を有効にすることはできません。あなたがウイルスをフィルタリングしたい場合は、"
-"最初の{openhref}は、モジュール{closehref}を活性化し、ここに戻ってくる"
+"ウィルス対策モジュールが無効になっているので、あなたは、ウィルス対策フィルタを有効にすることはできません。あなたがウィルスをフィルタリングしたい場合は、"
+"最初に、{openhref}モジュールを活性化{closehref}し、ここに戻ってきてください"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:69
 #, perl-brace-format
@@ -13373,10 +13088,8 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
-"ウイルス対策モジュールがインストールされていないので、あなたは、ウイルス対策"
-"フィルタを有効にすることはできません。あなたがウイルスをフィルタリングしたい"
-"場合は、まずそれをインストールしてから、{openhref}モジュール{closehref}を活性"
-"化し、ここに戻ってくる"
+"ウィルス対策モジュールがインストールされていないので、ウィルス対策フィルタを有効にすることはできません。あなたがウィルスをフィルタリングしたい場合は、ま"
+"ずそれをインストールしてから、{openhref}モジュールを活性化{closehref}し、ここに戻ってきてください"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:82
 msgid "Use antivirus"
@@ -13416,7 +13129,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:40
 msgid "Threshold"
-msgstr "しきい値"
+msgstr "閾値"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:43
 msgid "This specifies how strict the content filter is."
@@ -13424,11 +13137,11 @@ msgstr "これは、コンテンツフィルタがどのように厳しい指定
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:49
 msgid "Content filter threshold"
-msgstr "コンテンツフィルタのしきい値"
+msgstr "コンテンツフィルタの閾値"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:55
 msgid "Content filter threshold changed"
-msgstr "コンテンツフィルタのしきい値が変更されました"
+msgstr "コンテンツフィルタの閾値が変更されました"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:66
 msgid "Very permissive"
@@ -13580,7 +13293,7 @@ msgstr "IPsec接続"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
 msgid "No ranges or users defined for the connection"
-msgstr "接続のために定義されていません範囲またはユーザーが"
+msgstr "接続のための範囲またはユーザが定義されていません"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
@@ -13607,9 +13320,7 @@ msgstr "定義された範囲は、任意のローカルネットワークの一
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:77
 msgid ""
 "This is a local network, thus already accessible through local interfaces"
-msgstr ""
-"これは、ローカルインターフェースを介してアクセス可能なので、すでに、ローカル"
-"ネットワークである"
+msgstr "これは、ローカルインターフェイスを介してアクセス可能なので、すでに、ローカルネットワークである"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:83
 msgid "This network is already reachable through a static route"
@@ -13652,7 +13363,7 @@ msgid ""
 "To use the existing system user accounts you will need to activate \"File "
 "sharing\" module to enable the Active Directory"
 msgstr ""
-"既存のシステム·ユーザーを使用するには、Active Directoryを有効にするには\\ "
+"既存のシステム·ユーザアカウントを使用するには、Active Directoryを有効にするには\"ファイル共有\"モジュールを有効にする必要があります"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:175
 msgid "L2TP/IPSec users source"
@@ -13752,9 +13463,8 @@ msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"IPsecは、「外部」としてタグ付けをインターフェイス上に設定することができます。"
-"{openhref}ネットワーク - >インターフェース{closehref}で一致するようにインター"
-"フェイス設定を確認してください"
+"IPsecは、「外部」としてタグ付けをインターフェイス上に設定することができます。{openhref}ネットワーク - "
+">インターフェイス{closehref}で一致するようにインターフェイス設定を確認してください"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
 #, perl-brace-format
@@ -13780,15 +13490,13 @@ msgstr "範囲{range} は{name}の接続によって既に使用されている"
 msgid ""
 "You are using a non fixed IP address as a VPN server address. If the IP "
 "changes it may break the VPN server!"
-msgstr ""
-"あなたは、VPNサーバのアドレスなどの非固定IPアドレスを使用している。 IPが変更"
-"された場合には、VPNサーバーを破損すること！"
+msgstr "あなたは、VPNサーバのアドレスなどの非固定IPアドレスを使用している。 IPが変更された場合には、VPNサーバを破損すること！"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:58
 #, perl-brace-format
 msgid ""
 "The server IP changed and the old value \"{oldIP}\" is not valid anymore."
-msgstr "IPが変更され、サーバーと古い値の\\ "
+msgstr "IPが変更され、サーバと古い値の\"{oldIP}\"はもはや有効ではありません。"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:63
 msgid ""
@@ -13816,9 +13524,7 @@ msgstr "接続するための外部IPでなければなりませんが、それ�
 msgid ""
 "Must be the external IP to connect and it was the addresss of local "
 "interface {if}"
-msgstr ""
-"接続するための外部IPになり、それがローカルインターフェイスのaddresssでしなけ"
-"ればならない{場合}"
+msgstr "接続するための外部IPになり、それがローカルインターフェイス{if}のアドレスでなければならない"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
 msgid "Public IP address"
@@ -13871,9 +13577,7 @@ msgstr "フェーズ1"
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address for the interface "
 "\"{interface}\""
-msgstr ""
-"トンネルIP {localIP}は既にインターフェース\"{interface}\"のための固定アドレス"
-"として使用されます"
+msgstr "トンネルIP {localIP}は既にインターフェイス\"{interface}\"のための固定アドレスとして使用されます"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
 #, perl-brace-format
@@ -13919,7 +13623,7 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
 msgid "IP address assigned to this user within the VPN network."
-msgstr "VPNネットワーク内で、このユーザーに割り当てられたIPアドレス。"
+msgstr "VPNネットワーク内で、このユーザに割り当てられたIPアドレス。"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
 msgid "L2TP/IPSec Users"
@@ -13930,8 +13634,7 @@ msgid ""
 "Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
 "of users defined on Users and Groups."
 msgstr ""
-"ユーザーは、L2TP / IPSecのVPNを使用して接続することを許可。このリストは、ユー"
-"ザーとグループに定義されているユーザの独立したです。"
+"ユーザは、L2TP / IPSecのVPNを使用して接続することを許可。このリストは、ユーザとグループに定義されているユーザの独立したものです。"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:68
 msgid "To configure OpenSwan IPsec."
@@ -13944,8 +13647,7 @@ msgstr "OpenSwanのIPsecパスワードを設定する。"
 #: ../../main/ipsec/src/EBox/IPsec.pm:80
 msgid ""
 "To configure L2TP/IPSec users when not using Active Directory validation."
-msgstr ""
-"Active Directoryの検証を使用しない場合は、L2TP / IPSecユーザを設定するには。"
+msgstr "Active Directoryの検証を使用しない場合は、L2TP / IPSecユーザを設定する。"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:199
 msgid "IPsec based VPN"
@@ -13965,7 +13667,7 @@ msgstr "接続終了"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:462
 msgid "IPsec"
-msgstr "IPsecの"
+msgstr "IPsec"
 
 #: ../../main/mail/src/EBox/Mail.pm:108 ../../main/mail/src/EBox/Mail.pm:1698
 #: ../../main/mail/src/EBox/Mail.pm:1858
@@ -14008,9 +13710,7 @@ msgstr "fetchmailの更新cronジョブを追加します。"
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
 "user add external accounts"
-msgstr ""
-"ユーザーが外部アカウントを追加するときZentyalはfetchmailの設定を更新するcron"
-"ジョブをスケジューリングします"
+msgstr "ユーザが外部アカウントを追加するときZentyalはfetchmailの設定を更新するcronジョブをスケジューリングします"
 
 #: ../../main/mail/src/EBox/Mail.pm:194
 msgid "To configure postfix"
@@ -14076,9 +13776,7 @@ msgstr "送信メール（提出プロトコル）。"
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
-msgstr ""
-"それが完全修飾名ではないため、メール名としてホスト名を使用することはできませ"
-"ん。 、カスタムサーバーメール名を定義してください"
+msgstr "それが完全修飾名ではないため、メール名としてホスト名を使用することはできません。 、カスタムサーバメール名を定義してください"
 
 #: ../../main/mail/src/EBox/Mail.pm:1065
 msgid "The mail name must be a fully qualified name"
@@ -14127,7 +13825,7 @@ msgstr "仮想メールドメイン"
 
 #: ../../main/mail/src/EBox/Mail.pm:1777
 msgid "Greylist"
-msgstr "グレーリスト"
+msgstr "グレイリスト"
 
 #: ../../main/mail/src/EBox/Mail.pm:1783
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
@@ -14246,7 +13944,7 @@ msgstr "無効な仮想メールドメイン"
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:116
 msgid "virtual domain"
-msgstr "バーチャルドメイン"
+msgstr "仮想ドメイン"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:51
 #: ../../main/mail/src/templates/alias.mas:12
@@ -14312,7 +14010,7 @@ msgstr "メールエイリアス"
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:56
 #, perl-brace-format
 msgid "Removed alias {al}"
-msgstr "削除された別名{ら}"
+msgstr "エイリアス{al}を削除しました"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:60
 msgid "Quota must be a amount of MB greter than zero"
@@ -14483,7 +14181,7 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."
-msgstr "このフォームはユーザーコーナーアプリケーションからのみ利用できます。"
+msgstr "このフォームはユーザコーナーアプリケーションからのみ利用できます。"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:83
 msgid ""
@@ -14534,7 +14232,7 @@ msgstr "外部アカウントが追加された"
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:340
 #, perl-brace-format
 msgid "External account {ac} removed"
-msgstr "削除外部アカウント{}交流"
+msgstr "外部アカウント{ac}削除された"
 
 #: ../../main/mail/src/EBox/Mail/Model/TrafficGraph.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:50
@@ -14587,9 +14285,8 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
-"これにより、ユーザーは、メールが自分のローカルアカウントに配信されることにな"
-"ると、外部アカウントのメールを取得することができます。外部アカウントは、ユー"
-"ザーの隅に設定することができます。"
+"これにより、ユーザは、外部アカウントのメールを取得することができ、メールが自分のローカルアカウントに配信されます。外部アカウントは、ユーザコーナーで設定"
+"することができます。"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
@@ -14600,8 +14297,7 @@ msgid ""
 "This service allows to a user to manage his Sieve mail filtering scripts "
 "from a local client which speaks the ManageSieve protocol"
 msgstr ""
-"このサービスは、ManageSieveプロトコルを話すローカルクライアントからの彼のふる"
-"いメールフィルタリングスクリプトを管理するために、ユーザーに可能にする"
+"このサービスを有効にすると、ユーザがManageSieveプロトコルを話すローカルクライアントを振り分けるメールフィルタリングスクリプトを管理する"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:100
 msgid "Mail retrieval services"
@@ -14613,9 +14309,7 @@ msgstr "メール送信のためのスマートホスト"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "The format is host[:port] being port set to 25 if none is supplied"
-msgstr ""
-"何も指定されていない場合は、ポートは25に設定されている：[ポート]フォーマット"
-"は、ホストである"
+msgstr "フォーマットは、ホスト：[ポート]です、何も指定されていない場合はポートは25に設定されています"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:81
 msgid "Smarthost authentication"
@@ -14623,11 +14317,11 @@ msgstr "スマートホスト認証"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
-msgstr "ユーザーとパスワード"
+msgstr "ユーザとパスワード"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
-msgstr "サーバーのメール名"
+msgstr "サーバのメール名"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:128
 msgid "FQDN hostname"
@@ -14657,9 +14351,7 @@ msgstr "最大メールボックスサイズを許可する"
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
-msgstr ""
-"メールボックスがこのサイズに達するとfutherのメッセージは拒否されます。これは"
-"アカウントによってオーバーライドさすることができます"
+msgstr "メールボックスがこのサイズに達するとそれ以上のメッセージは拒否されます。アカウントによって上書きすることができます"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
@@ -14688,7 +14380,7 @@ msgstr "使用しない"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:207
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:226
 msgid "expired in"
-msgstr "に失効"
+msgstr "失効する"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:208
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:227
@@ -14723,14 +14415,13 @@ msgstr "スマートホストポート"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:438
 msgid ""
 "The mailname is set to the server's hostname and the hostname is incorrect"
-msgstr "メール名は、サーバーのホスト名に設定し、ホスト名が誤っているされている"
+msgstr "メール名は、サーバのホスト名を設定し、ホスト名が誤っているされている"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:444
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
-msgstr ""
-"メール名は、サーバーのホスト名に設定され、ホスト名は完全修飾されていません。"
+msgstr "メール名は、サーバのホスト名に設定され、ホスト名は完全修飾されていません。"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:448
 msgid "The selected mailname is not a fully qualified hostname. "
@@ -14740,9 +14431,7 @@ msgstr "選択したメール名は、完全修飾ホスト名ではありませ
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
-msgstr ""
-"完全修飾ホスト名がないと、システム利用者からのメールや不正な​​返信アドレスを拒"
-"否するために、いくつかのメールサーバーにつながる可能性"
+msgstr "完全修飾ホスト名がないと、システム利用者からのメールや不正な​​返信アドレスを拒否するために、いくつかのメールサーバにつながる可能性"
 
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:67
@@ -14771,9 +14460,7 @@ msgstr "仮想ドメインエイリアス"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:75
 msgid "Virtual domain alias added. You must save changes to use this domain"
-msgstr ""
-"バーチャルドメインエイリアスを追加しました。あなたは、このドメインを使用する"
-"ように変更を保存する必要があります"
+msgstr "仮想ドメインエイリアスを追加しました。あなたは、このドメインを使用するように変更を保存する必要があります"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomainAliases.pm:95
 #, perl-brace-format
@@ -14827,9 +14514,7 @@ msgstr "{ac}は、外部アカウントではありません"
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:262
 msgid ""
 "You must enable the mail module in module status section in order to use it."
-msgstr ""
-"あなたはそれを使用するには、モジュールのステータス]セクションで、メールモ"
-"ジュールを有効にする必要があります。"
+msgstr "それを使用するには、モジュールのステータスセクションで、メールモジュールを有効にする必要があります。"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:99
 msgid "Allow relay"
@@ -14839,9 +14524,7 @@ msgstr "リレーを許可"
 msgid ""
 "Tick this to allow the machines within the above object to send mails "
 "through this server."
-msgstr ""
-"上記のオブジェクト内のマシンはこのサーバーを介してメールを送信できるようにす"
-"るには、このチェックを入れ。"
+msgstr "上記のオブジェクト内のマシンがサーバを介してメールを送信できるようにするには、このチェックを入れてください。"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:111
 msgid "Relay policy for network objects"
@@ -14849,7 +14532,7 @@ msgstr "ネットワークオブジェクトのリレーポリシー"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:123
 msgid "object's relay policy"
-msgstr "オブジェクトのリレー方針"
+msgstr "オブジェクトのリレーポリシー"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:124
 msgid "You may allow mail relay per network object"
@@ -14919,31 +14602,29 @@ msgstr "まだメールドメインを作成していません"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:79
 msgid "Greylist duration (seconds)"
-msgstr "グレーリスト時間（秒）"
+msgstr "グレイリスト時間（秒）"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:80
 msgid "During this interval, the mail sender is deferred"
-msgstr "この間、メール送信者は、延期される"
+msgstr "この間、メール送信者は待たされる"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:88
 msgid "Retry window (hours)"
-msgstr "ウィンドウを再試行してください（時間）"
+msgstr "リトライウィンドウ（時間）"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:89
 msgid ""
 "Time that mail sender has to retry to be added before it will be greylisted "
 "again"
-msgstr ""
-"メール送信者は、それが再びグレーリストされる前に追加される再試行する必要があ"
-"ること時間"
+msgstr "メール送信者が持っている時間が、再びグレイリストされる前に追加される再試行する"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:98
 msgid "Entries time to live (days)"
-msgstr "生きるためのエントリー時間（日数）"
+msgstr "エントリー生存時間（日数）"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:99
 msgid "Period till unseen entries will be deleted"
-msgstr "目に見えないエントリまでの期間が削除されます"
+msgstr "見えないエントリが削除されるまでの期間"
 
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:107
 msgid "Greylist configuration"
@@ -14987,9 +14668,7 @@ msgstr "メールドメイン{d}は存在しません"
 msgid ""
 "Cannot use {d} as alias for a mail domain because a domain which this name "
 "already exists"
-msgstr ""
-"この名前が既に存在するドメインため、メールドメインのエイリアスとして{D}を使用"
-"することはできません"
+msgstr "この名前が既に存在するドメインため、メールドメインのエイリアスとして{d}を使用することはできません"
 
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:322
 msgid "mail alias account"
@@ -15159,7 +14838,7 @@ msgstr "要求された処理を実行できません。理由：{r}"
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:43
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr "不足している引数：{データ}"
+msgstr "不足している引数：{data}"
 
 #: ../../main/common/src/EBox/Exceptions/InvalidArgument.pm:44
 #, perl-brace-format
@@ -15227,7 +14906,7 @@ msgstr "設定ファイル {file} を開くことができませんでした。"
 
 #: ../../main/common/src/EBox/Config.pm:181
 msgid "The ebox user has not been set in the config file."
-msgstr "eBoxユーザはまだ設定ファイルを設定していません。"
+msgstr "eBoxユーザはまだconfigファイルに設定されていません。"
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:40
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:41
@@ -15267,7 +14946,7 @@ msgstr "ntpdのAppArmorのプロファイルを上書きする"
 
 #: ../../main/ntp/src/EBox/NTP.pm:86
 msgid "To allow samba clients to synchronize clock with ntp server"
-msgstr "サンバクライアントがNTPサーバとクロックを同期できるようにするには"
+msgstr "SambaクライアントがNTPサーバとクロックを同期できるようにする"
 
 #: ../../main/ntp/src/EBox/NTP.pm:102
 msgid "NTP configuration file"
@@ -15341,8 +15020,8 @@ msgid ""
 "  Authority.\n"
 "Changes take effect immediately."
 msgstr ""
-"このページは、認定する\\ n局の起動時に一度に表示されます。\\ nChangesがすぐに"
-"反映されます。"
+"このページは、認証局の起動時に一度に表示されます。\n"
+"変更はすぐに反映されます。"
 
 #: ../../main/ca/src/templates/createCA.mas:37
 msgid "Create Certification Authority Certificate"
@@ -15368,7 +15047,9 @@ msgstr "証明書を更新"
 msgid ""
 "This operation will resign all the issued user certificates\n"
 "  with the same expiration date"
-msgstr "この操作は、nと同じ有効期限\\すべて発行したユーザ証明書を辞任する"
+msgstr ""
+"この操作は、同じ有効期限を持つ全ての発行された\n"
+"ユーザ証明書を破棄する"
 
 #: ../../main/ca/src/templates/formRenew.mas:45
 #: ../../main/ca/src/templates/formRevoke.mas:29
@@ -15388,9 +15069,7 @@ msgstr "サブジェクトの別名"
 msgid ""
 "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
 "{email}. For instance, {example}"
-msgstr ""
-"カンマで区切って複数の値は、唯一の有効なタイプは次のとおりです。{DNS}、{IP}と"
-"{メール}。たとえば、{例}"
+msgstr "カンマで区切って複数の値は、一つの有効なタイプは次のとおりです。{dns},{ip}と{email}。例えば、{example}"
 
 #: ../../main/ca/src/templates/index.mas:73
 msgid "Issue"
@@ -15530,7 +15209,8 @@ msgid ""
 "This operation will revoke all the issued user certificates\n"
 "    and the CA Certificate."
 msgstr ""
-"この操作は、すべての発行したユーザ証明書\\ nおよびCA証明書を失効します。"
+"この操作は、全ての発行したユーザ証明書\n"
+"およびCA証明書を失効します。"
 
 #: ../../main/ca/src/templates/formRevoke.mas:19
 msgid "Revoke the selected certificate"
@@ -15541,9 +15221,7 @@ msgstr "選択した証明書を無効化"
 msgid ""
 "This feature is only available if you register your server. You can register "
 "it at the {oh}register page{ch}."
-msgstr ""
-"あなたがあなたのサーバーを登録する場合、この機能は使用可能です。あなたは{あ"
-"あ}登録ページ{CH}でそれを登録することができます。"
+msgstr "サーバを登録する場合、この機能は使用可能です。あなたは{oh}登録ページ{ch}でそれを登録することができます"
 
 #: ../../main/remoteservices/src/templates/NoConnection.mas:5
 msgid ""
@@ -15653,7 +15331,7 @@ msgstr "バックアップ一覧"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:122
 msgid "User or Email Address"
-msgstr "ユーザーまたはEメールアドレス"
+msgstr "ユーザまたはEメールアドレス"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:133
 msgid "Submit"
@@ -15674,13 +15352,11 @@ msgstr "バックアップを復元：{desc}"
 msgid ""
 "Introduce Professional, Business or Premium credentials, or {ohb}"
 "register{ch} a FREE account!"
-msgstr ""
-"プロフェッショナル、ビジネスやプレミアム資格、または{OHB}レジスタ{CH}無料アカ"
-"ウントをご紹介！"
+msgstr "プロフェッショナル、ビジネスやプレミアム資格、または{ohb}登録{ch}無料アカウントをご紹介！"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:140
 msgid "Register this server"
-msgstr "このサーバーを登録します"
+msgstr "このサーバを登録します"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:142
 msgid "Your Zentyal account"
@@ -15761,11 +15437,11 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:202
 #, perl-brace-format
 msgid "I have read and agree to the {oh}Privacy Policy{ch}"
-msgstr "私が読んで、{ああ}プライバシーポリシーに同意します{CH}"
+msgstr "私は読んで、{oh}プライバシーポリシーに同意します{ch}"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:221
 msgid "Register your Zentyal server for FREE and get these benefits"
-msgstr "無料でZentyalサーバーを登録すると、これらのメリットを得られます"
+msgstr "無料でZentyalサーバを登録すると、これらのメリットを得られます"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
 msgid "Configuration <strong>backup in the cloud</strong>"
@@ -15800,9 +15476,7 @@ msgstr "修復"
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
-msgstr ""
-"適用しようとしている変更はこのネットワークインタフェースを参照する1つ以上のモ"
-"ジュールに影響します。"
+msgstr "適用しようとしている変更はこのネットワークインターフェイスを参照する1つ以上のモジュールに影響します。"
 
 #: ../../main/network/src/templates/confirmremove.mas:13
 #: ../../main/network/src/templates/confirmVlanDel.mas:11
@@ -15811,9 +15485,8 @@ msgid ""
 "interface will delete the relevant parts of their configuration. Choose "
 "\"Cancel\" if you are not sure about this."
 msgstr ""
-"続行を選択した場合、このネットワークインタフェースを利用する全てのモジュール"
-"は、その構成の関連する部分を削除します。設定状況がよくわからない場合はキャン"
-"セルしてください。"
+"続行を選択した場合、このネットワークインターフェイスを利用する全てのモジュールは、その構成の関連する部分を削除します。設定状況がよくわからない場合はキャ"
+"ンセルしてください。"
 
 #: ../../main/network/src/templates/confirmremove.mas:20
 #: ../../main/network/src/templates/confirm.mas:30
@@ -15866,9 +15539,8 @@ msgid ""
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
-"現在のこのネットワークインタフェースの設定に依存する全てのモジュールはこのイ"
-"ンタフェースに関する設定を消去します。設定状況がよくわからない場合はキャンセ"
-"ルしてください。"
+"現在のこのネットワークインターフェイスの設定に依存する全てのモジュールはこのインターフェイスに関する設定を消去します。設定状況がよくわからない場合はキャ"
+"ンセルしてください。"
 
 #: ../../main/network/src/templates/wizard/network.mas:31
 #: ../../main/network/src/templates/wizard/interfaces.mas:7
@@ -15913,17 +15585,13 @@ msgstr ""
 msgid ""
 "The removal of the vlan interface will affect the configuration of one or "
 "more modules that use references to this network interface."
-msgstr ""
-"VLANインタフェースの削除は、ネットワークインターフェイスへの参照を使用する1つ"
-"または複数のモジュールの構成に影響します。"
+msgstr "VLANインターフェイスの削除は、ネットワークインターフェイスへの参照を使用する1つまたは複数のモジュールの構成に影響します。"
 
 #: ../../main/network/src/templates/ifaces.mas:17
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
-msgstr ""
-"ネットワークインタフェースの設定を変更すると管理ページへの接続が切断されるか"
-"もしれません。"
+msgstr "ネットワークインターフェイスの設定を変更すると管理ページへの接続が切断されるかもしれません。"
 
 #: ../../main/network/src/templates/ifaces.mas:19
 msgid ""
@@ -15931,9 +15599,8 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
-"外部インタフェースとマークされたインタフェースを経由するトラフィックはNAT経由"
-"となります。また、LAN内のユーザ向けのサービスは外部インタフェースでは利用でき"
-"ません。"
+"外部インターフェイスとマークされたインターフェイスを経由するトラフィックはNAT経由となります。また、LAN内のユーザ向けのサービスは外部インターフェイ"
+"スでは利用できません。"
 
 #: ../../main/network/src/templates/ifaces.mas:24
 #, perl-brace-format
@@ -15943,10 +15610,9 @@ msgid ""
 "{openhref}Filtering rules from external networks to Zentyal{closehref} to "
 "allow access to the Zentyal administration port, SSH, ..."
 msgstr ""
-"あなたはこのインタフェースを介してZentyalに接続している。あなたが外部として設"
-"定する場合は、Zentyal管理ポートへのアクセスを許可するように外部ネットワークか"
-"らZentyal {closehref}に{openhref}フィルタリングルールをファイアウォールルール"
-"を追加しない限り、ファイアウォールを使用するとロックアウトされます、SSH、..."
+"あなたはこのインターフェイスを介してZentyalに接続している。あなたが外部として設定する場合は、Zentyal管理ポートへのアクセスを許可するように"
+"外部ネットワークからZentyal {closehref}に{openhref}フィルタリングルールをファイアウォールルールを追加しない限り、ファイアウ"
+"ォールを使用するとロックアウトされます、SSH、..."
 
 #: ../../main/network/src/templates/ifaces.mas:38
 msgid "Bonding Mode"
@@ -16021,9 +15687,7 @@ msgstr "警告: Caps Lockキーが有効です"
 msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
 "Please use {url} instead."
-msgstr ""
-"警告：残念ながら、Internet ExplorerがまだZentyalサポートされていません。代わ"
-"りに{}のURLを使用してください。"
+msgstr "警告：残念ながら、Internet ExplorerがまだZentyalでサポートされていません。代わりに{url}を使用してください。"
 
 #: ../../main/core/src/templates/login/index.mas:46
 #, perl-brace-format
@@ -16032,13 +15696,12 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
-"警告：あなたは{URL}、公式にサポートされているだけではないブラウザを使用してい"
-"る。 、Zentyal UI上でナビゲートしているときにいくつかの問題に直面する可能性が"
-"考慮されてください。"
+"警告：あなたは、公式にサポートされた唯一のブラウザ{url}を使用していない。Zentyal "
+"UI上でナビゲートしているときにいくつかの問題に直面する可能性があります。"
 
 #: ../../main/core/src/templates/login/index.mas:59
 msgid "Enter"
-msgstr "入力"
+msgstr "入る"
 
 #: ../../main/core/src/templates/finish.mas:14
 msgid "The following changes are pending. You can save or discard them."
@@ -16050,9 +15713,8 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
-"以下のモジュールが保存されていない変更を持っていますが、<b>無効</b>になってい"
-"ます。有効にする必要がある場合、それらは{openref}モジュール状態{closeref}にア"
-"クセスしてください。"
+"以下のモジュールの変更がまだ保存されていないため、<b>無効</b>となっています。有効にする必要がある場合、{openref}モジュール状態{clos"
+"eref}にアクセスしてください。"
 
 #: ../../main/core/src/templates/finish.mas:23
 msgid ""
@@ -16068,8 +15730,7 @@ msgid ""
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
 msgstr ""
-"ネットワークインタフェースや管理するポートに変更を加えた場合、管理インタ"
-"フェースにアクセスするURLを手動で変更する必要があるかもしれません。"
+"ネットワークインターフェイスや管理するポートに変更を加えた場合、管理インターフェイスにアクセスするURLを手動で変更する必要があるかもしれません。"
 
 #: ../../main/core/src/templates/finish.mas:46
 msgid "Discarding changes"
@@ -16258,7 +15919,7 @@ msgstr "最初"
 #: ../../main/core/src/templates/ajax/tablePager.mas:58
 #: ../../main/mail/src/templates/qmanager.mas:68
 msgid "prev"
-msgstr "前"
+msgstr "前へ"
 
 #: ../../main/core/src/templates/logs/dbtable.mas:77
 #: ../../main/core/src/templates/logs/dbtable.mas:78
@@ -16278,7 +15939,7 @@ msgstr "の"
 #: ../../main/core/src/templates/ajax/tablePager.mas:63
 #: ../../main/mail/src/templates/qmanager.mas:75
 msgid "next"
-msgstr "次"
+msgstr "次へ"
 
 #: ../../main/core/src/templates/logs/dbtable.mas:89
 #: ../../main/core/src/templates/ajax/tablePager.mas:68
@@ -16514,10 +16175,8 @@ msgid ""
 "following benefits: Remote configuration backup, customized zentyal.me "
 "subdomain, recorded webinars, whitepapers, trials and much more coming!"
 msgstr ""
-"{ohref} 登録{chref} あなたのZentyalサーバーは無料！そして、次のような利点への"
-"アクセスを得る：リモートバックアップ設定、カスタマイズされたzentyal.meサブド"
-"メイン、記録されたWebセミナー、ホワイトペーパー、トライアルなど、ぜひ来てみ"
-"て！"
+"{ohref} 登録{chref} あなたのZentyalサーバは無料！そして、次のような利点へのアクセスを得る：リモートバックアップ設定、カスタマイズ"
+"されたzentyal.meサブドメイン、記録されたWebセミナー、ホワイトペーパー、トライアルなど、ぜひ来てみて！"
 
 #: ../../main/core/src/templates/backup.mas:30
 #, perl-brace-format
@@ -16547,13 +16206,12 @@ msgid ""
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
-"あなたは、ファイル共有モジュール設定されている場合は、管理者権限を持つすべて"
-"のユーザーが共有リソースとしてバックアップディレクトリにアクセスできるように"
-"なります。"
+"あなたは、ファイル共有モジュール設定されている場合は、管理者権限を持つすべてのユーザが共有リソースとしてバックアップディレクトリにアクセスできるようにな"
+"ります。"
 
 #: ../../main/core/src/templates/backup.mas:96
 msgid "Restore Backup from File"
-msgstr "ァイルからのバックアップを復元"
+msgstr "ファイルからのバックアップを復元"
 
 #: ../../main/core/src/templates/backup.mas:97
 msgid ""
@@ -16609,7 +16267,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:205
 msgid "Generate and Download report file"
-msgstr "レポートファイルを生成とダウンロード"
+msgstr "レポートファイルの生成とダウンロード"
 
 #: ../../main/core/src/templates/input/multiSelect.mas:12
 msgid "No options"
@@ -16740,19 +16398,19 @@ msgstr "ロード中..."
 
 #: ../../main/core/src/templates/progress.mas:188
 msgid " of "
-msgstr "の"
+msgstr " / "
 
 #: ../../main/core/src/templates/progress.mas:196
 msgid "The process produced some warning messages:"
-msgstr "プロセスは、いくつかの警告メッセージを生成した。"
+msgstr "プロセスは、いくつかの警告メッセージを生成した："
 
 #: ../../main/core/src/templates/configurationFiles.mas:9
 msgid ""
 "Zentyal detected that some files which need to be overwritten have been\n"
 "modified by you."
 msgstr ""
-"Zentyalが上書きされる必要があるいくつかのファイルがあなたによってnmodified "
-"\\されていることを検出しました。"
+"Zentyalは上書きされる必要があるいくつかのファイルがユーザによって\n"
+"変更されていることを検出しました。"
 
 #: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
@@ -16770,12 +16428,11 @@ msgstr "修正"
 #: ../../main/core/src/templates/configureView.mas:14
 #, perl-brace-format
 msgid "Enabling this module will also enable its dependecies: {deps}"
-msgstr "{depsの}：このモジュールを有効にすると、そのの依存性が有効になります"
+msgstr "{deps}：このモジュールを有効にすると、その依存関係が有効になります"
 
 #: ../../main/core/src/templates/configureView.mas:19
 msgid "The modules' enable process will make some modifications to the system."
-msgstr ""
-"モジュールは、「プロセスは、システムにいくつかの変更を行います有効にします。"
+msgstr "モジュールはプロセスを有効にし、システムにいくつかの変更を行います。"
 
 #: ../../main/core/src/templates/configureView.mas:20
 msgid "Enabling the module will make some modifications to the system."
@@ -16818,9 +16475,7 @@ msgstr "Zentyalインストールが正常に終了しました！"
 msgid ""
 "Now you can go to the dashboard and start using your brand new Zentyal "
 "server."
-msgstr ""
-"これで、ダッシュボードに移動して、あなたのブランドの新しいZentyalサーバーを使"
-"用して起動することができます。"
+msgstr "これで、ダッシュボードに移動して、あなたのブランドの新しいZentyalサーバを使用して起動することができます。"
 
 #: ../../main/core/src/templates/wizard/software-setup-finish.mas:13
 msgid "Go to the Dashboard"
@@ -16842,11 +16497,11 @@ msgstr "現在の変更を破棄"
 #: ../../main/core/src/templates/sysinfo/searchResults.mas:8
 #, perl-brace-format
 msgid "Matches for {oem}{search}{cem}"
-msgstr ""
+msgstr "{oem}{search}{cem}に一致"
 
 #: ../../main/core/src/templates/sysinfo/searchResults.mas:17
 msgid "Sorry, your search did not match any data"
-msgstr ""
+msgstr "残念ながら、任意のデータの検索で一致しませんでした"
 
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Close session"
@@ -16900,7 +16555,7 @@ msgstr "メールボックス"
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 #, perl-brace-format
 msgid "Disconnect from {ip}"
-msgstr "{IP}から切断"
+msgstr "{ip}から切断"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 msgid "DISCONNECT"
@@ -16983,10 +16638,8 @@ msgid ""
 "exist in Zentyal and its OpenChange account to be enabled prior the process "
 "starts."
 msgstr ""
-"このテクノロジプレビューの一部として提供されるマイグレーション機能は、あなた"
-"が一度に1人のユーザーを移行することができます。各移行を有効にするZentyalとそ"
-"のOpenChangeアカウント内に存在するようにユーザーに要求する前に、プロセスが開"
-"始されます。"
+"このテクノロジプレビューの一部として提供されるマイグレーション機能は、あなたが一度に1人のユーザを移行することができます。各移行を有効にするZentya"
+"lとそのOpenChangeアカウント内に存在するようにユーザーに要求する前に、プロセスが開始されます。"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:23
 msgid "Select origin server"
@@ -16996,9 +16649,7 @@ msgstr "オリジナルサーバを選択"
 msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
-msgstr ""
-"このウィザードでは、このzentyalサーバに任意のサーバーからのユーザーデータを移"
-"行するのに役立ちます"
+msgstr "このウィザードでは、このzentyalサーバに任意のサーバからのユーザデータを移行するのに役立ちます"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter origin server name"
@@ -17006,7 +16657,7 @@ msgstr "オリジナルサーバ名を入力してください"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
-msgstr "サーバーの完全修飾ドメイン名またはIPアドレスを入力してください"
+msgstr "サーバの完全修飾ドメイン名またはIPアドレスを入力してください"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Credential for origin server"
@@ -17017,9 +16668,8 @@ msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
-"あなたは、すべてのメールボックスへのアクセスまたは移行されようとしているユー"
-"ザーの資格情報を使用してExchangeの完全な権限を持つユーザーのどちらかが必要で"
-"す"
+"あなたは、すべてのメールボックスへのアクセスまたは移行されようとしているユーザの資格情報を使用してExchangeの完全な権限を持つユーザのどちらかが必"
+"要です"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Origin user"
@@ -17036,7 +16686,7 @@ msgstr "ローカルサーバの資格"
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
-msgstr "あなたがに移行するZentyalユーザーのユーザーとパスワードが必要です"
+msgstr "あなたがに移行するZentyalユーザのユーザとパスワードが必要です"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid "Zentyal user name"
@@ -17112,7 +16762,7 @@ msgstr "Zentyalは、自動QA更新を使用するように設定されている
 
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
-msgstr "自動操作は、開始時間"
+msgstr "自動操作の開始時間"
 
 #: ../../main/software/src/templates/del.mas:70
 msgid "Confirm packages to install"
@@ -17131,13 +16781,13 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
-"ソフトウェアアップデートは自動的に処理されている。予定通り彼らは\\ "
-"nautomaticallyインストールされます"
+"ソフトウェアアップデートは自動的に処理されています。予定通り\n"
+"自動的にインストールされます"
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:353
 msgid "Package list updated successfully"
-msgstr "パッケージリストの更新に成功"
+msgstr "パッケージ一覧の更新に成功"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:360
@@ -17145,8 +16795,7 @@ msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"エラーは、パッケージリストの更新<P>の問題を見るために、コンソールで以下のコマ"
-"ンドを実行してみてください。須藤はapt-getをアップデートします。</ p>"
+"エラーは、パッケージ一覧の更新の問題を見るために、<p>コンソールで以下のコマンドを実行してみてください。sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
@@ -17154,7 +16803,7 @@ msgstr "次のシステムコンポーネントのアップデートが利用可
 
 #: ../../main/software/src/templates/updates.mas:87
 msgid "Community updates are available for the following system components"
-msgstr "コミュニティ最新情報は、次のシステムコンポーネントで使用できます"
+msgstr "コミュニティの更新は、次のシステムコンポーネントで使用できます"
 
 #: ../../main/software/src/templates/updates.mas:92
 #: ../../main/software/src/templates/updates.mas:139
@@ -17165,7 +16814,7 @@ msgstr "アップデート"
 
 #: ../../main/software/src/templates/updates.mas:100
 msgid "Security update"
-msgstr "セキュリティ更新"
+msgstr "セキュリティアップデート"
 
 #: ../../main/software/src/templates/updates.mas:103
 msgid "Zentyal QA update"
@@ -17173,7 +16822,7 @@ msgstr "Zentyal QA更新"
 
 #: ../../main/software/src/templates/updates.mas:125
 msgid "Update all packages"
-msgstr "全てアップデート"
+msgstr "全てパッケージを更新"
 
 #: ../../main/software/src/templates/updates.mas:135
 msgid ""
@@ -17226,8 +16875,7 @@ msgstr ""
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
-msgstr ""
-"この状況を解決するには、コンソールで次のコマンドを実行してみてください。"
+msgstr "この状況を解決するには、コンソールで次のコマンドを実行してみてください："
 
 #: ../../main/software/src/templates/ebox.mas:114
 #, perl-brace-format
@@ -17359,7 +17007,7 @@ msgstr "リンクを有効にする"
 #: ../../main/samba/src/templates/editgplink.mas:19
 #: ../../main/samba/src/templates/addgplink.mas:23
 msgid "Enforced"
-msgstr "強制"
+msgstr "強制(上書き禁止)"
 
 #: ../../main/samba/src/templates/deluser.mas:12
 #: ../../main/samba/src/templates/deluser.mas:29
@@ -17436,7 +17084,7 @@ msgstr "あなたは奴隷でOUを削除することはできません。"
 #: ../../main/samba/src/templates/delou.mas:14
 #: ../../main/samba/src/templates/delou.mas:25
 msgid "Delete Organizational Unit"
-msgstr "組織名を削除"
+msgstr "組織単位を削除"
 
 #: ../../main/samba/src/templates/delou.mas:15
 msgid "This organizational unit cannot be deleted"
@@ -17503,7 +17151,7 @@ msgstr "この操作を行うと、連絡先に関連する構成とともに削
 
 #: ../../main/samba/src/templates/addou.mas:7
 msgid "Add Organizational Unit"
-msgstr "組織名を追加"
+msgstr "組織単位を追加"
 
 #: ../../main/samba/src/templates/edituser.mas:38
 #: ../../main/samba/src/templates/editcontact.mas:29
@@ -17559,7 +17207,7 @@ msgstr "ホストドメイン名"
 
 #: ../../main/samba/src/templates/wizard/users.mas:44
 msgid "This will be used as the Kerberos authentication realm for your users."
-msgstr "これは、ユーザーのKerberos認証領域として使用されます。"
+msgstr "これは、ユーザのKerberos認証領域として使用されます。"
 
 #: ../../main/samba/src/templates/wizard/users.mas:53
 msgid "Enter your active directory settings"
@@ -17686,9 +17334,7 @@ msgstr "仮想ドメインを削除する"
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
-msgstr ""
-"削除しようとしているバーチャルドメインは次のモジュールにデータを含んでいま"
-"す。関連するデータとともに全て削除しますか"
+msgstr "削除しようとしている仮想ドメインは次のモジュールにデータを含んでいます。関連するデータとともに全て削除しますか"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:9
 msgid "Delete external account"
@@ -17707,9 +17353,7 @@ msgstr "既に取り出したメッセージを読む"
 msgid ""
 "Mail retrieval from external accounts service is not enabled; until you {ub}"
 "enable it{ue} your changes won't have any effect."
-msgstr ""
-"外部アカウントサービスからのメール検索が有効になっていません。あなたは{UB}が"
-"それを有効にするまで、{UE}変更は効果がありません。"
+msgstr "外部アカウントサービスからのメールの取得が有効になっていません。あなたは{ub}がそれを有効にするまで、{ue}変更は効果がありません。"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:35
 msgid "The user can change this settings through the user corner"
@@ -17749,15 +17393,13 @@ msgid ""
 "The new maildir size is smaller than the oldest one and the actual\n"
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
-"新しいmaildirのサイズは、最も古いものと新しい制限を上回るだろう、ユーザーの"
-"maildirの実際の\\ n個の\\ tsizeがより小さい。"
+"新しいmaildirのサイズは、最も古いと実際よりも小さく、\n"
+"\tユーザのmaildirの大きさは、新たな制限を上回るだろう。"
 
 #: ../../main/mail/src/templates/account.mas:37
 msgid ""
 "This user has a mail account which does not belong to any managed mail domain"
-msgstr ""
-"このユーザーは、任意の管理対象のメールドメインに属していないメールアカウント"
-"を持ってい"
+msgstr "このユーザは、任意の管理対象のメールドメインに属していないメールアカウントを持ってい"
 
 #: ../../main/mail/src/templates/account.mas:46
 msgid ""
@@ -17765,13 +17407,12 @@ msgid ""
 " domain created or you need to save changes in order to activate the new "
 "domains."
 msgstr ""
-"どちらそこに作成されたすべてのメールの仮想\\ n個のドメインがない場合、または"
-"新しいドメインを活性化するために、変更を保存する必要があるため、メールアカウ"
-"ントは使用できません。"
+"仮想メールではメールアカウントは使用できません\n"
+"ドメインが作成されたか、または新しいドメインを有効にするために、変更を保存する必要があります。"
 
 #: ../../main/mail/src/templates/account.mas:49
 msgid "Click here to create a new mail virtual domain"
-msgstr "新規バーチャルドメインを作成するにはここをクリックしてください"
+msgstr "新規に仮想ドメインを作成するにはここをクリックしてください"
 
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
@@ -17814,16 +17455,16 @@ msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
-"新しいmaildirのサイズは、以下の\\ n個の\\ tusersが新しい制限をsurprassなり、"
-"古いものよりも小さい。"
+"新しいmaildirのサイズは、最も古いものよりも小さくなっている、\n"
+"次のユーザは、新しい制限を上回るだろう。"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
-msgstr "バーチャルメールドメイン"
+msgstr "仮想メールドメイン"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:7
 msgid "Set up the default virtual mail domain"
-msgstr "標準のバーチャルメールドメインを設定"
+msgstr "標準の仮想メールドメインを設定"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:7
 msgid "This will be the domain for your mail accounts"

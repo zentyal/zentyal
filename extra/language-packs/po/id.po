@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-14 06:23+0200\n"
+"PO-Revision-Date: 2014-08-25 06:13+0200\n"
 "Last-Translator: Priyo <psanyoto@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
@@ -474,17 +474,16 @@ msgstr ""
 "modul otoritas sertifikat dan membuat sertifikat baru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
-msgstr "Cabut"
+msgstr "dicabut"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "expired"
-msgstr ""
+msgstr "kedaluarsa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
-msgstr ""
+msgstr "tidak sah"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -493,6 +492,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Tidak dapat membuat sebuah server bernama {name} karena telah ada sertifikat "
+"bernama {certName} dengan status {state}.<br/>Pilih nama lain atau "
+"terbitkan ulang sertifikat {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -1003,7 +1005,7 @@ msgstr ""
 "keperluan internal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:664
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
@@ -1012,17 +1014,17 @@ msgstr ""
 "dimulai dengan awalan {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "Klien {c} tidak ada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1286
 msgid "Servers"
-msgstr "Server"
+msgstr "Server - server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1293
 msgid "Clients"
-msgstr "Klien"
+msgstr "Klien - klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Common name"
@@ -1148,38 +1150,34 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Anda harus mengisi insecure_rip_conf dengan yes atau no"
 
 #: ../../main/ha/src/EBox/HA.pm:70
-#, fuzzy
 msgid "Rule added by Zentyal HA module"
-msgstr ""
-"Aturan-aturan yang ditambahakan oleh layanan-layanan Zentyal (tingkat lanjut)"
+msgstr "Aturan-aturan yang ditambahaan oleh modul HA Zentyal"
 
 #: ../../main/ha/src/EBox/HA.pm:92
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 msgid "High Availability"
-msgstr ""
+msgstr "Ketersediaan Tinggi"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:112
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:180
 #: ../../main/core/src/EBox/HAProxy.pm:298
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: ../../main/ha/src/EBox/HA.pm:148
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "Rumah user"
+msgstr "Status gugusan"
 
 #: ../../main/ha/src/EBox/HA.pm:166
-#, fuzzy
 msgid "To configure corosync daemon"
-msgstr "Untuk mengkonfigurasi daemon clamd"
+msgstr "Untuk mengkonfigurasi daemon corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:169
 msgid "To start corosync at boot"
-msgstr ""
+msgstr "Untuk memulai corosynt saat boot"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
@@ -1226,17 +1224,16 @@ msgstr "Kosong"
 #: ../../main/ha/src/EBox/HA.pm:1018
 #, perl-brace-format
 msgid "{oh}There are errors{ch}"
-msgstr ""
+msgstr "{oh}Ada kesalahan - kesalahan{ch}"
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Pembaharuan sistem"
+msgstr "Pembaruan terakhir"
 
 #: ../../main/ha/src/EBox/HA.pm:1029
 msgid "Errors"
-msgstr ""
+msgstr "Kesalahan - kesalahan"
 
 #: ../../main/ha/src/EBox/HA.pm:1033
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:183
@@ -1253,13 +1250,12 @@ msgid "Status"
 msgstr "Status"
 
 #: ../../main/ha/src/EBox/HA.pm:1034
-#, fuzzy
 msgid "not enabled"
-msgstr "Antispam diaktifkan"
+msgstr "tidak diijinkan"
 
 #: ../../main/ha/src/EBox/HA.pm:1037
 msgid "Nodes"
-msgstr ""
+msgstr "Simpul - simpul"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1298,30 +1294,29 @@ msgid "IP address"
 msgstr "Alamat IP"
 
 #: ../../main/ha/src/EBox/HA.pm:1047
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "Antarmuka {iface} tidak dikonfigurasi"
+msgstr "Gugusan tidak dikonfigurasi"
 
 #: ../../main/ha/src/EBox/HA.pm:1136
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} tidak memiliki alamat IP untuk digunakan"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
 msgid "HA Nodes"
-msgstr ""
+msgstr "Simpul - simpul HA"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
+"Replikasi gagal. Silakan periksa {logfile} untuk keterangan lebih lanjut"
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:183
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Konfigurasi klien"
+msgstr "Konfigurasi gugusan"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1329,52 +1324,52 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Disini anda dapat menunjukan status dari gugusan Anda. Jika anda ingin "
+"informasi lebih lanjut tentang kesalahan - kesalahan yang ditampilkan, "
+"silakan menuju ke {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Nama terlalu panjang. Panjang maksimal adalah {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Nama terlalu pendek. Panjang minimal adalah {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
-msgstr ""
+msgstr "Nama hanya boleh terdiri atas huruf, angka atau tanda garis bawah."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:99
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "{ip} bukan milik antarmuka manapun."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:134
 msgid "There is a network interface with the given IP address."
-msgstr ""
+msgstr "Ada sebuah antarmuka jaringan dengan alamat IP tersebut."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:136
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
+msgstr "Telah ada sebuah alamat yang tetap di DHCP dengan alamat IP tersebut."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:138
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
+msgstr "Telah ada sebuah kisaran DHCP yang berisi alamat IP yang dimaksud."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:241
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Domain atau IP Address"
+msgstr "Alamat IP mengambang"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:250
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Domain atau IP Address"
+msgstr "Alamat - alamat IP mengambang"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:254
-#, fuzzy
 msgid "floating IP address"
-msgstr "Domain atau IP Address"
+msgstr "alamat IP mengambang"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1385,24 +1380,24 @@ msgstr "Domain atau IP Address"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "Coba lagi"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
-msgstr ""
+msgstr "On Line"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "Off-line"
-msgstr ""
+msgstr "Off Line"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:166
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Daftar simpul gugusan {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:187
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:111
@@ -1413,95 +1408,88 @@ msgid "Hostname"
 msgstr "Hostname"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:199
-#, fuzzy
 msgid "Replication"
-msgstr "Aplikasi"
+msgstr "Replikasi"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Demote"
-msgstr "Buang"
+msgstr "Turunkan"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:215
-#, fuzzy
 msgid "Promote"
-msgstr "Buang"
+msgstr "Naikkan"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:226
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Daftar simpul gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:231
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:132
 msgid "The cluster does not have any nodes."
-msgstr ""
+msgstr "Gugusan tidak memiliki simpul sama sekali."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:273
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "Simpul {name} sekarang adalah simpul aktif"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:287
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "Simpul {name} sekarang adalah simpul pasif"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:161
-#, fuzzy
 msgid "Cluster name"
-msgstr "Jaringan lokal"
+msgstr "Nama gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
-#, fuzzy
 msgid "Cluster secret"
-msgstr "Konfigurasi klien"
+msgstr "Rahasia gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Pengendali yang ditunjuk sekarang"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"Pengendali yang ditunjuk sekarang melakukan pengerjaan pada gugusan. Simpul "
+"ini mungkin diubah tanpa berakibat apapun pada gugusan."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
 #, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr ""
+msgstr "Kesalahan: Layanan {service} tidak berjalan"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Aksi"
+msgstr "Perubahan terakhir"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Mengkonfigurasi Aturan-aturan"
+msgstr "Simpul - simpul yang terkonfigurasi"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
 msgid "nodes"
-msgstr ""
+msgstr "simpul - simpul"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Konfigurasi aturan"
+msgstr "Sumberdaya - sumberdaya yang terkonfigurasi"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Sumberdaya"
+msgstr "sumberdaya - sumberdaya"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
 #: ../../main/samba/src/EBox/Samba.pm:3739
@@ -1510,80 +1498,75 @@ msgstr "Sumberdaya"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:114
 msgid "Started at"
-msgstr ""
+msgstr "Dimulai pada"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:127
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Daftar ini bukanlah kategori"
+msgstr "Gugusan tidak memiliki sumberdaya - sumberdaya yang didefinisikan."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:140
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:145
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:151
-#, fuzzy
 msgid "noname"
-msgstr "Ubah nama"
+msgstr "tanpa nama"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
-#, fuzzy
 msgid "Cluster host"
-msgstr "Rumah user"
+msgstr "Host gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
-#, fuzzy
 msgid "Cluster host port"
-msgstr "Rumah user"
+msgstr "Port host gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
-#, fuzzy
 msgid "Choose network interface"
-msgstr "Antarmuka jaringang VPN"
+msgstr "Pilih antarmuka jaringan"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
-msgstr ""
+msgstr "Ini akan digunakan sebagai kanal komunikasi antar anggota gugusan."
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:175
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Mengkonfigurasi bagaimana server ini akan menjalankan sebuah gugusan atau "
+"dia akan bergabung dengan gugusan yang ada"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:177
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
+"Jika Anda mengubah pengaturan apapun, Anda mungkin mendapati gangguan "
+"layanan gugusan,"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Buat akun surat"
+msgstr "Membuat sebuah gugusan baru"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Menggabungkan simpul ini ke dalam gugusan yang ada"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:119
-#, fuzzy
 msgid "Floating IP"
-msgstr "Domain atau IP Address"
+msgstr "IP mengambang"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
-#, fuzzy
 msgid "Cluster error"
-msgstr "Konfigurasi klien"
+msgstr "Kesalahan gugusan"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:115
 msgid "Node"
-msgstr ""
+msgstr "Simpul"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:130
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "User tidak di grup"
+msgstr "Gugusan tidak memiliki kesalahan apapun."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
 msgid "no error"
-msgstr ""
+msgstr "Tidak ada kesalahan"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:160
 #, perl-brace-format
@@ -1592,6 +1575,9 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Terdapat sumberdaya yang tidak terkelola, tidak ada yang bisa kami lakukan "
+"saat ini. Anda sebaiknya mengetikkan perintah: {command} pada sebuah "
+"terminal untuk mengembalikan kendali atas sumberdaya tersebut"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:75
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
@@ -1616,29 +1602,29 @@ msgstr "Untuk mengkonfigurasi direktori public_html setiap pengguna"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:133
 msgid "Enable Apache LDAP user module"
-msgstr "Memungkinkan modul Apache LDAP user"
+msgstr "Mengijinkan modul pengguna Apache LDAP"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:135
 msgid "To fetch home directories from LDAP."
-msgstr ""
+msgstr "Untuk mengambil direktori home dari LDAP."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:138
 msgid "Enable Apache SSL module"
-msgstr ""
+msgstr "Mengijinkan modul Apache SSL"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
 msgid "To serve pages over HTTPS."
-msgstr ""
+msgstr "Untuk melayani halaman - halaman menggunakan HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:143
 msgid "Remove apache2 init script link"
-msgstr ""
+msgstr "Membuang tautan skrip inisialisasi apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:144
 #: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:302
 #: ../../main/squid/src/EBox/Squid.pm:308 ../../main/ntp/src/EBox/NTP.pm:80
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal akan bertindak menjalankan dan menghentikan layanan."
+msgstr "Zentyal akan berhati - hati dalam menjalankan dan menghentikan layanan."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:696
 #, perl-brace-format
@@ -1646,6 +1632,8 @@ msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
+"{dir} haruslah sebuah direktori bagi konfigurasi host virtual. Silakan "
+"memindahkan atau menghapusnya"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:711
 #, perl-brace-format
@@ -1653,50 +1641,48 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} haruslah sebuah direktori bagi akar dokumen host virtual, Silakan "
+"memindahkan atau menghapusnya"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:957
-#, fuzzy
 msgid "Web server data"
-msgstr "Server Web"
+msgstr "Data server web"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
 "different virtual hosts."
 msgstr ""
+"Server web Zentyal mengijinkan anda menyediakan halaman - halaman HTTP dan "
+"HTTPS dengan berbagai host virtual yang berbeda."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
 msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
+msgstr "Anda harus mengijinkan setidaknya sebuah port agar modul ini berguna."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
-#, fuzzy
 msgid "HTTP listening port"
-msgstr "Port yang mendengarkan"
+msgstr "Port HTTP"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
-#, fuzzy
 msgid "HTTPS listening port"
-msgstr "Port yang mendengarkan"
+msgstr "Port HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
-#, fuzzy
 msgid "Listening Ports settings"
-msgstr "Port yang mendengarkan"
+msgstr "Pengaturan Port - port"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
-#, fuzzy
 msgid "Listening Ports configuration"
-msgstr "Konfigurasi klien"
+msgstr "Konfigurasi Port - port"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
-#, fuzzy
 msgid "Listening ports configuration settings updated."
-msgstr "Pengaturan konfigurasi umum"
+msgstr "Pengaturan konfigurasi port - port telah diperbarui."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
-msgstr ""
+msgstr "Nama host virtual"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
@@ -1704,9 +1690,8 @@ msgid "Virtual host"
 msgstr "Host virtual"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-#, fuzzy
 msgid "You need to enable Listening SSL port."
-msgstr "Untuk mensetting port listening webserver"
+msgstr "Anda harus mengijinkan port bagi SSL."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
 #, perl-brace-format
@@ -1714,6 +1699,8 @@ msgid ""
 "You need to enable {module} on {ohref}Services Certificates{chref} to enable "
 "SSL on a virtual host."
 msgstr ""
+"Anda harus mengijinkan {module} pada {ohref}Services Certificates{chref} "
+"untuk mengijinkan SSL pada sebuah host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
 #, perl-brace-format
@@ -1721,6 +1708,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
 "its IP addresses. {noDnsWarning} "
 msgstr ""
+"Host virtual {vhost} telah ditambahkan. Sebuah domain {domain} telah dibuat. "
+"Silakan periksa alamat IP nya. {noDnsWarning}  "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
 #, perl-brace-format
@@ -1728,6 +1717,9 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
 msgstr ""
+"Host virtual {vhost} telah ditambahkan. Sebuah domain {domain} telah dibuat "
+"dengan nama host {name}. Silakan atur alamat IP host tersebut. "
+"{noDnsWarning}  "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
 #, perl-brace-format
@@ -1735,11 +1727,13 @@ msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
 "Please, set the host IP address"
 msgstr ""
+"Virtual host {vhost} telah ditambahkan. Sebuah host {name} telah ditambahkan "
+"ke domain {domain}. Silakan atur alamat IP host tersebut"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Virtual host {vhost} added."
-msgstr "Host virtual"
+msgstr "Host virtual {vhost} telah ditambahkan."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
@@ -1758,7 +1752,7 @@ msgstr "Dukungan SSL"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Host - host virtual"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
 #, perl-brace-format
