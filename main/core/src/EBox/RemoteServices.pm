@@ -42,6 +42,7 @@ use JSON::XS;
 use Net::DNS;
 use POSIX;
 use YAML::XS;
+
 use EBox::Gettext;
 use EBox::Global;
 
@@ -53,8 +54,14 @@ use EBox::RemoteServices::Subscriptions;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 
+use constant SUBSCRIPTION_LEVEL_NONE => -1; # XXX probably change
+use constant SUBSCRIPTION_LEVEL_TRIAL => 'TRIAL';
+#"ZS-PROF-Y1", 
+#"ZS-NODE-PROF-Y5",
+#"ZS-PROF-M", 
+
 # use Data::UUID;
-# use Date::Calc;
+#use Date::Calc;
 # use EBox::Config;
 # use EBox::Dashboard::ModuleStatus;
 # use EBox::Dashboard::Section;
@@ -131,7 +138,13 @@ sub _create
 
 sub subscriptionLevel
 {
-    return -1;
+    my ($self) = @_;
+    my $info = $self->subscriptionInfo();
+    if ((not $info) or (not $info->{'product_code'})) {
+        return SUBSCRIPTION_LEVEL_NONE; # 
+    } 
+
+    return $info->{'product_code'};
 }
 
 sub username
@@ -181,41 +194,241 @@ sub _userCredentials
     return {username => $username, password => $password };
 }
 
+sub refreshSubscriptionInfo
+{
+    my ($self) = @_;
+
+   # TTT TODO: get subscription info using correct method instead of loopiong
+    # on subscription lsit
+    my $subscriptionCred = $self->subscriptionCredendtials();
+    my $uuid = $subscriptionCred->{uuid};
+    use Data::Dumper;
+    my $subscriptions = $self->subscriptions();
+    my $subscriptionsList = $subscriptions->list();
+    my $subscriptionInfo;
+    foreach my $info (@{$subscriptionsList}) {
+        if ($info->{uuid} eq $uuid) {
+            $subscriptionInfo = $info;
+            last;
+        }
+    }
+
+    if (not $subscriptionInfo) {
+        throw EBox::Exceptions::Internal('Cannot found subscription for credentials ' . Dumper($subscriptionCred));
+        $self->clearCredentials();
+    } 
+
+    # END TTT
+
+    $self->setSubscriptionInfo($subscriptionInfo);
+    return $subscriptionInfo;
+}
+
+sub setSubscriptionInfo
+{
+    my ($self, $cred) = @_;
+    $self->set('subscription_info', $cred);
+}
+
+sub subscriptionInfo
+{
+    my ($self) = @_;
+    $self->get('subscription_info');
+}
+
+
+sub setSubscriptionCredentials
+{
+    my ($self, $cred) = @_;
+    $self->set('subscription_credentials', $cred);
+}
+
+sub subscriptionCredendtials
+{
+    my ($self) = @_;
+    $self->get('subscription_credentials');
+}
+
 sub clearCredentials
 {
     my ($self) = @_;
     $self->unset('username');
     $self->unset('password');
+    $self->usert('subscription_credentials');
 }
 
-sub listSubscriptions
+sub subscriptions
 {
     my ($self) = @_;
     my $cred = $self->_userCredentials();
     my $subscriptions = EBox::RemoteServices::Subscriptions->new(%{$cred});
-    return $subscriptions->list();
-}
-
-sub auth
-{
-    my ($self) = @_;
-    my $cred = $self->_userCredentials();
-    my $subscriptions = EBox::RemoteServices::Subscriptions->new(%{$cred});
-    return $subscriptions->auth();
+    return $subscriptions;
 }
 
 sub eBoxSubscribed
 {
-    # XXX for validate referer
-    return 1;
+    my ($self) = @_;
+    my $level = $self->subscriptionLevel();
+    return ($level != SUBSCRIPTION_LEVEL_NONE);
 }
 
 sub cloudDomain
 {
     # XXX for validate referer
-    return 'inexistnete.org';
+    return 'inexistent.org';
 }
 
+
+sub _setConf
+{
+    my ($self) = @_;
+    # TTT refresh subsciption info
+    my $subscriptionInfo = $self->subscriptionInfo();
+    if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
+        $subscriptionInfo = undef;
+    }
+    
+
+    $self->_manageCloudProfPackage($subscriptionInfo);
+}
+
+sub _checkSubscriptionAlive
+{
+    my ($self, $subscriptionInfo) = @_;
+    if (not $subscriptionInfo) {
+         return 0;
+     }
+ 
+    my $start = $subscriptionInfo->{subscription_start};
+    my $end  = subscriptionInfo->{subscription_end};
+    if ((not $start) or (not $end)) {
+        EBox::error("Subscription info has not either start or end date");
+        return 0;
+    }
+
+    my @gmtParts = gmtime();
+    @gmtParts = map {
+        if ($_ == 0) {
+            ('00');
+        } elsif ($_ < 10) {
+            ('0' . $_ )
+        } else {
+            ($_)
+        }
+    } @gmtParts;
+    my ($sec,$min,$hour,$mday,$mon,$year) = @gmtParts;
+    my $gmtime = "$year-$mon-$mday $hour:$min:$sec";
+    return (($gmtime ge $start) and ($gmtime lt $end));
+}
+
+sub _manageCloudProfPackage
+{
+    my ($self, $subscriptionInfo) = @_;
+    if (not $subscriptionInfo) {
+        EBox::debug("TRY TO REMOVE PACKAGE");
+        return;
+    } 
+
+    EBox::debug("TRY TO INSTALL PACKAGE");
+}
+
+# Method: adMessages
+#
+#    Get the adMessages set by <pushAdMessage>
+#
+# Returns:
+#
+#    Hash ref - containing the following keys:
+#
+#       name - 'remoteservices'
+#       text - the text itself
+#
+sub adMessages
+{
+    my ($self, $plain) = @_;
+
+    my $adMessages = $self->get_state()->{ad_messages};
+    my $rsMsg = "";
+    foreach my $adMsgKey (keys(%{$adMessages})) {
+        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
+    }
+    return { name => 'remoteservices', text => $rsMsg };
+}
+
+# Method: checkAdMessages
+#
+#    Check if we have to remove any ad message
+#
+sub checkAdMessages
+{
+    my ($self) = @_;
+    # TTT
+    return;
+
+    if ($self->eBoxSubscribed()) {
+        # Launch our checker to see if the max_users message disappear
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        my $state = $self->get_state();
+        my $maxUsers = $self->addOnDetails('serverusers');
+        my $det = $state->{subscription};
+        $det->{capabilities}->{serverusers} = $maxUsers;
+        $checker->check($det);
+    }
+}
+
+
+#TTT
+sub securityUpdatesAddOn
+{
+    return 0;
+}
+
+# Method: addOnAvailable
+#
+#      Return 1 if addon is available, undef if not
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+sub addOnAvailable
+{
+    my ($self, $addOn, $force) = @_;
+    return 0;
+    # TTT
+    $force = 0 unless defined($force);
+
+    my $ret = undef;
+    try {
+        my $subsDetails = $self->_getSubscriptionDetails($force);
+        if ( not exists $subsDetails->{cap} ) {
+            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
+        }
+        $ret = (exists $subsDetails->{cap}->{$addOn});
+    } catch {
+        $ret = undef;
+    }
+    return $ret;
+}
+
+# Method: usersSyncAvailable
+#
+#   Returns 1 if users syncrhonization is available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub usersSyncAvailable
+{
+    my ($self, $force) = @_;
+
+    return $self->addOnAvailable('cloudusers', $force);
+}
 
 # Method: menu
 #
@@ -242,6 +455,7 @@ sub menu
 }
 
 1;
+
 __DATA__
 
 # Method: proxyDomain
@@ -1094,21 +1308,7 @@ sub maxCloudUsers
     return 0;
 }
 
-# Method: usersSyncAvailable
-#
-#   Returns 1 if users syncrhonization is available
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-sub usersSyncAvailable
-{
-    my ($self, $force) = @_;
 
-    return $self->addOnAvailable('cloudusers', $force);
-}
 
 # Method: filesSyncAvailable
 #
@@ -1171,35 +1371,6 @@ sub disasterRecoveryAvailable
     return ( scalar(keys(%{$ret})) > 0);
 }
 
-# Method: addOnAvailable
-#
-#      Return 1 if addon is available, undef if not
-#
-# Parameters:
-#
-#      addOn - String the add-on name to get the details from
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-sub addOnAvailable
-{
-    my ($self, $addOn, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret = undef;
-    try {
-        my $subsDetails = $self->_getSubscriptionDetails($force);
-        if ( not exists $subsDetails->{cap} ) {
-            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
-        }
-        $ret = (exists $subsDetails->{cap}->{$addOn});
-    } catch {
-        $ret = undef;
-    }
-    return $ret;
-}
 
 # Method: addOnDetails
 #
@@ -1718,28 +1889,6 @@ sub popAdMessage
     return $deletedMsg;
 }
 
-# Method: adMessages
-#
-#    Get the adMessages set by <pushAdMessage>
-#
-# Returns:
-#
-#    Hash ref - containing the following keys:
-#
-#       name - 'remoteservices'
-#       text - the text itself
-#
-sub adMessages
-{
-    my ($self, $plain) = @_;
-
-    my $adMessages = $self->get_state()->{ad_messages};
-    my $rsMsg = "";
-    foreach my $adMsgKey (keys(%{$adMessages})) {
-        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
-    }
-    return { name => 'remoteservices', text => $rsMsg };
-}
 
 # Method: checkAdMessages
 #

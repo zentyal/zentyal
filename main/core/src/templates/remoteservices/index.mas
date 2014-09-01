@@ -2,12 +2,13 @@
 $subscriptionLevel
 </%args>
 <%init>
+    use EBox::Gettext;
 </%init>
 
 <script type="text/javascript" src="/data/js/form.js"></script>
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
-<div id='no_subscription_div' style='display:none'>
+<div id='no_subscription_div' class='subscription_page' style='display:none'>
 <h3>bno_subs_div</h3>
 <%perl>
 my @subscription_form_rows = (
@@ -27,17 +28,36 @@ my @subscription_form_rows = (
  ],
 );
 </%perl>
- <div id='subscription_form_error' class='error'></div>
+ <div id='subscription_form_error' class='error' style='display:none'></div>
  <form id='subscription_form' action='/RemoteServices/SubscribeServer'>
   <& /formTable.mas, rows => \@subscription_form_rows &>
  </form>
 </div>
 
-<div id='subscription_slots_div' style='display:none'>
+<div id='subscription_slots_div' class='subscription_page' style='display:none'>
 <h3> sub_slots_div </h3>
-   <div id='subscription_slots_list_note' class='note'></div>
-   <div id='subscription_slots_list_error' class='error'></div>
-   <div id='subscription_slots_list'></div>
+   <div id='subscription_slots_list_error' class='error' style='display:none'></div>
+   <div id='subscription_slots_list_note' class='note' style='display:none'></div>
+   <table id='subscription_slots_list' class='dataTable'>
+      <thead>
+          <th><% __('Type') %></th>
+          <th><% __('Assigned to') %></th>
+          <th><% __('Start date') %></th>
+          <th><% __('End date') %></th>
+          <th><% __('Actions') %></th>
+       </thead>
+       <tbody>
+       </tbody>
+   </table>
+</div>
+
+<div id='subscription_info_div' class='subscription_page' style='display:none'>
+ <h3 id='subscription_info_title'>info div</h3>
+ <div id='subscription_info_error' class='error' style='display:none'></div>
+ <div id='subscription_info_note' class='note' style='display:none''></div>
+  <form id="subscription_info_form" class="formDiv changeRow">
+   </form>
+
 </div>
 
 

@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Html;
 
 use Cwd qw(realpath);
 use HTTP::Date;
@@ -60,29 +61,27 @@ sub _process
     $remoteServices->setUsername($username);
     $remoteServices->setPassword($password);    
 
-    my $auth = $remoteServices->auth;
+    my $subscriptions     = $remoteServices->subscriptions();
+
+    my $auth = $subscriptions->auth();
     if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
         $self->{json}->{msg} = __('Invalid credentials');
         $remoteServices->clearCredentials();
         return;
     }
 
-
-    my $subscriptions = $remoteServices->listSubscriptions();
-    if (not $subscriptions) {
+    my $subscriptionsList = $subscriptions->list();
+    if (not $subscriptionsList) {
         return;
     }
-    my @rows = map {
-        my $subs = $_;
-        my $row = '<div>';
-        $row .= $subs->{product_label} ;
-        $row .= '</div>' . '<br/>';
-
-    } @{$subscriptions};
+    my $subscriptionsHtml =  EBox::Html::makeHtml('/remoteservices/subscriptionSlotsTbody.mas',
+                                                  serverName => $name,
+                                                  subscriptions => $subscriptionsList,
+                                                 );
 
 
     $self->{json}->{success} = 1;
-    $self->{json}->{subscriptions} = \@rows;
+    $self->{json}->{subscriptions} = $subscriptionsHtml;
     $self->{json}->{name} = $name;
     $self->{json}->{msg} = __x('Subscribing server as name {name}', name => $name);
 }

@@ -1,0 +1,36 @@
+<%args>
+$serverName
+@subscriptions
+</%args>
+<%init>
+use EBox::Gettext;
+my $baseUrl = "/RemoteServices/SetSubscriptionSlot?serverName=$serverName";
+</%init>
+% foreach my $subs (@subscriptions) {
+<& subsTr, subs => $subs, baseUrl => $baseUrl &>
+% }
+<%def subsTr>
+<%args>
+$subs
+$baseUrl
+</%args>
+<%init>
+my $server;
+my $mode;
+if ((not exists $subs->{server}) or (not $subs->{server}->{name})) {
+   $server = '<em>' . __('Free') . '</em>';
+   $mode = 'new';
+} else {
+   $server = $subs->{server}->{name};
+   $mode = 'replace';
+}
+my $url = $baseUrl . '&uuid=' . $subs->{uuid} . '&mode=' . $mode;
+</%init>
+<tr class='border'>
+  <td><% $subs->{product_label} %></td>
+  <td><% $server %></td>
+  <td><% $subs->{'subscription_start'} ? $subs->{'subscription_start'} : '-' %></td>
+  <td><% $subs->{'subscription_end'} ? $subs->{'subscription_end'} : '-' %></td>
+  <td><a href='<% $url %>'><% __('Select') %></a></td>
+</tr>
+</%def>

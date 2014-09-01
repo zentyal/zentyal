@@ -96,8 +96,7 @@ sub new
 
 sub subscribeServer
 {
-    my ($self, $name, $uuid) = @_;
-    my $mode = 'new';
+    my ($self, $name, $uuid, $mode) = @_;
     my $resource = '/v2/subscriptions/subscribe-server/';
     my $query = "name=$name&subscription_uuid=$uuid&mode=$mode";
  
