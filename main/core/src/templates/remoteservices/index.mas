@@ -1,8 +1,16 @@
 <%args>
-$subscriptionLevel
+$subscriptionInfo
 </%args>
 <%init>
-    use EBox::Gettext;
+use EBox::Gettext;
+use JSON::XS;
+
+my $subscriptionJS;
+if ($subscriptionInfo) {
+    $subscriptionJS = JSON::XS::encode_json($subscriptionInfo);
+} else {
+    $subscriptionJS = 'false';
+}
 </%init>
 
 <script type="text/javascript" src="/data/js/form.js"></script>
@@ -56,6 +64,21 @@ my @subscription_form_rows = (
  <div id='subscription_info_error' class='error' style='display:none'></div>
  <div id='subscription_info_note' class='note' style='display:none''></div>
   <form id="subscription_info_form" class="formDiv changeRow">
+<%perl>
+my @fields = (
+      'server_name'        => __('Server name'),
+      'product_label'      => __('Subscription type'),
+      'subscription_begin' => __('Subscription begin'),
+      'subscription_end'   => __('Subscription expiration'),
+);
+</%perl>
+%   while (@fields) {
+%      my ($id, $label) = splice(@fields, 0, 2);
+    <div>
+      <label><% $label %></label>
+      <div id='info_<% $id %>'></div>
+    </div>
+% }
    </form>
 
 </div>
@@ -64,7 +87,7 @@ my @subscription_form_rows = (
 <script>
 $(function() {
     Zentyal.RemoteServices.setup();
-    Zentyal.RemoteServices.showForLevel(<% $subscriptionLevel %>);
+    Zentyal.RemoteServices.showFirstPage(<% $subscriptionJS %>);
 });
 </script>
 

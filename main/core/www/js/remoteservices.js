@@ -42,13 +42,13 @@ Zentyal.RemoteServices.setup = function() {
     });
 };
 
-Zentyal.RemoteServices.showForLevel = function(level) {
-    console.log("DDD level " + level);
-//    if (level == -1) {
+Zentyal.RemoteServices.showFirstPage = function(subscription_info) {
+    if (subscription_info) {
+        Zentyal.RemoteServices.showSubscriptionInfo(subscription_info)
+    } else {
         $('.subscription_page').hide();
         $('#no_subscription_div').show();
-//     }
-
+     }
 };
 
 Zentyal.RemoteServices.listSubscriptionSlots = function(response) {
@@ -71,7 +71,10 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     $('.subscription_page').hide();
 
     $('#subscription_info_title').text(subscription.label);
-
+    $('#info_server_name').text(subscription.server.name);
+    $('#info_product_label').text(subscription.product_label);
+    $('#info_subscription_begin').text(subscription.subscription_begin);
+    $('#info_subscription_end').text(subscription.subscription_end);
 
     $('#subscription_info_div').show();
 };
