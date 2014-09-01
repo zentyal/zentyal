@@ -27,7 +27,7 @@ ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
 ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
 ADD  main/ntp/debian/control /tmp/main/ntp/debian/control
-ADD  main/ipsec/debian/control /tmp/main/ipsec/debian/control
+ADD  main/l2tp/debian/control /tmp/main/l2tp/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
