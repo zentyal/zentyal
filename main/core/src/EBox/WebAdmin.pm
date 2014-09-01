@@ -138,8 +138,6 @@ sub hardRestart
 #
 #     Return the listening port for the webadmin.
 #
-#     Just call <EBox::HAProxy::ServiceBase::listeningHTTPSPort>
-#
 # Returns:
 #
 #     Int - the listening port
@@ -147,7 +145,8 @@ sub hardRestart
 sub listeningPort
 {
     my ($self) = @_;
-    return $self->listeningHTTPSPort();
+
+    return $self->model('AdminPort')->value('port');
 }
 
 sub _stopService
@@ -223,7 +222,7 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (port                => $self->defaultPort());
+    push @confFileParams, (port                => $self->listeningPort());
     push @confFileParams, (tmpdir              => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir      => EBox::Config::conf());
     push @confFileParams, (includes            => $self->_nginxIncludes(1));
@@ -335,7 +334,7 @@ sub _reportAdminPort
     my ($self) = @_;
 
     foreach my $mod (@{$self->global()->modInstancesOfType('EBox::WebAdmin::PortObserver')}) {
-        $mod->adminPortChanged($self->listeningHTTPSPort());
+        $mod->adminPortChanged($self->listeningPort());
     }
 }
 
@@ -799,10 +798,9 @@ sub usesPort
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->listeningHTTPSPort();
+    return $port == $self->listeningPort();
 }
 
-# FIXME: unhardcode this
 sub defaultPort
 {
     return 8443;

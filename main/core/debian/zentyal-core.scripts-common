@@ -20,8 +20,7 @@ fetch_ebox_port()
             EBox::init();
 
             my $webadmin = EBox::Global->modInstance('webadmin');
-            #FIXME: print $webadmin->listeningHTTPSPort();
-            print $webadmin->defaultPort();
+            print $webadmin->listeningPort();
             exit 0;
             ' 2> /dev/null );
 

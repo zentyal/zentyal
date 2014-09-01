@@ -77,7 +77,7 @@ sub _defaultServices
     my $webadminMod = $self->global()->modInstance('webadmin');
     my $webAdminPort;
     try {
-        $webAdminPort = $webadminMod->listeningHTTPSPort();
+        $webAdminPort = $webadminMod->listeningPort();
     } catch {
         $webAdminPort = $webadminMod->defaultPort();
     }
