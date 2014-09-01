@@ -291,8 +291,15 @@ sub _setConf
 {
     my ($self) = @_;
 
-    # we do not refresh it to avoid 'changed' error on save changes
-    my $subscriptionInfo = $self->subscriptionInfo();
+    my $alreadyChanged = $self->changed();
+    my $subscriptionInfo = $self->refreshSubscriptionInfo();
+    
+    if ($self->changed() and not $alreadyChanged) {
+        # changes due to subscription refresh
+        $self->_saveConfig();
+        $self->setAsChanged(0);
+    }
+
     $self->setupSubscription($subscriptionInfo);
 }
 
