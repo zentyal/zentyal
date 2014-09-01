@@ -60,6 +60,9 @@ use constant SUBSCRIPTION_LEVEL_TRIAL => 'TRIAL';
 #"ZS-NODE-PROF-Y5",
 #"ZS-PROF-M", 
 
+use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
+
+
 # use Data::UUID;
 #use Date::Calc;
 # use EBox::Config;
@@ -99,7 +102,6 @@ use constant SUBSCRIPTION_LEVEL_TRIAL => 'TRIAL';
 # use constant RUNNERD_SERVICE     => 'ebox.runnerd';
 # use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
 # use constant COMPANY_KEY         => 'subscribedHostname';
-# use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 # use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 # use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
 # use constant DEFAULT_REMOTE_SITE => 'remote.zentyal.com';
@@ -215,7 +217,7 @@ sub refreshSubscriptionInfo
 
     if (not $subscriptionInfo) {
         throw EBox::Exceptions::Internal('Cannot found subscription for credentials ' . Dumper($subscriptionCred));
-        $self->clearCredentials();
+        $self->unsubscribe();
     } 
 
     # END TTT
@@ -233,6 +235,11 @@ sub setSubscriptionInfo
 sub subscriptionInfo
 {
     my ($self) = @_;
+    if (not $self) {
+    EBox::debug("XXX $self");
+    EBox::trace();
+}
+
     $self->get('subscription_info');
 }
 
@@ -249,12 +256,13 @@ sub subscriptionCredendtials
     $self->get('subscription_credentials');
 }
 
-sub clearCredentials
+sub unsubscribe
 {
     my ($self) = @_;
     $self->unset('username');
     $self->unset('password');
-    $self->usert('subscription_credentials');
+    $self->unset('subscription_credentials');
+    $self->unset('subscription_info');
 }
 
 sub subscriptions
@@ -282,14 +290,53 @@ sub cloudDomain
 sub _setConf
 {
     my ($self) = @_;
-    # TTT refresh subsciption info
+
+    # we do not refresh it to avoid 'changed' error on save changes
     my $subscriptionInfo = $self->subscriptionInfo();
-    if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
+    $self->setupSubscription($subscriptionInfo);
+}
+
+sub setupSubscription
+{
+    my ($self, $subscriptionInfo) = @_;
+    if ($subscriptionInfo and $self->_checkSubscriptionAlive($subscriptionInfo)) {
         $subscriptionInfo = undef;
     }
-    
 
     $self->_manageCloudProfPackage($subscriptionInfo);
+    $self->_writeCronFile($subscriptionInfo);
+}
+
+sub _writeCronFile
+{
+    my ($self, $subscribed) = @_;
+
+    if ($subscribed) {
+        my $hours = $self->st_get_list('rand_hours');
+        unless ( @{$hours} > 0 ) {
+            # Set the random times when scripts must ask for information
+            my @randHours = map
+              { my $r = int(rand(9)) - 2; $r += 24 if ($r < 0); $r }
+                0 .. 10;
+            my @randMins  = map { int(rand(60)) } 0 .. 10;
+            $self->st_set_list('rand_hours', 'int', \@randHours);
+            $self->st_set_list('rand_mins' , 'int',  \@randMins);
+            $hours = \@randHours;
+        }
+
+        my $mins = $self->get_list('rand_mins');
+
+        my @tmplParams = (
+            ( hours => $hours), (mins => $mins)
+           );
+
+        EBox::Module::Base::writeConfFileNoCheck(
+            CRON_FILE,
+            'core/zentyal-remoteservices.cron.mas',
+            \@tmplParams);
+    } else {
+        EBox::Sudo::root("rm -f '" . CRON_FILE . "'");
+    }
 }
 
 sub _checkSubscriptionAlive
@@ -300,7 +347,7 @@ sub _checkSubscriptionAlive
      }
  
     my $start = $subscriptionInfo->{subscription_start};
-    my $end  = subscriptionInfo->{subscription_end};
+    my $end  = $subscriptionInfo->{subscription_end};
     if ((not $start) or (not $end)) {
         EBox::error("Subscription info has not either start or end date");
         return 0;
@@ -2052,37 +2099,7 @@ sub _startupTasks
 }
 
 # Write the cron file
-sub _writeCronFile
-{
-    my ($self) = @_;
 
-    if ($self->eBoxSubscribed()) {
-        my $hours = $self->get_list('rand_hours');
-        unless ( @{$hours} > 0 ) {
-            # Set the random times when scripts must ask for information
-            my @randHours = map
-              { my $r = int(rand(9)) - 2; $r += 24 if ($r < 0); $r }
-                0 .. 10;
-            my @randMins  = map { int(rand(60)) } 0 .. 10;
-            $self->set_list('rand_hours', 'int', \@randHours);
-            $self->set_list('rand_mins' , 'int',  \@randMins);
-            $hours = \@randHours;
-        }
-
-        my $mins = $self->get_list('rand_mins');
-
-        my @tmplParams = (
-            ( hours => $hours), (mins => $mins)
-           );
-
-        EBox::Module::Base::writeConfFileNoCheck(
-            CRON_FILE,
-            'remoteservices/zentyal-remoteservices.cron.mas',
-            \@tmplParams);
-    } elsif (-e CRON_FILE) {
-        EBox::Sudo::root("rm -f '" . CRON_FILE . "'");
-    }
-}
 
 sub _setUpAuditEnvironment
 {
