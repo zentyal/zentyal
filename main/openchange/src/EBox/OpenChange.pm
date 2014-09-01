@@ -616,21 +616,21 @@ sub _setOCSManagerConf
     if ($self->isEnabled()) {
         if ($self->isProvisioned()) {
             $self->_setCert($domain);
-        }
-        my $incParams = [
-            server => $domain
-        ];
-        $self->writeConfFile(OCSMANAGER_APACHE_CONF,
-                             "openchange/apache-ocsmanager.conf.mas",
-                             $incParams,
-                             { uid => 0, gid => 0, mode => '644' }
-        );
-        try {
-            EBox::Sudo::root("a2enconf zentyal-ocsmanager");
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already enabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
+            my $incParams = [
+                server => $domain
+            ];
+            $self->writeConfFile(OCSMANAGER_APACHE_CONF,
+                                "openchange/apache-ocsmanager.conf.mas",
+                                $incParams,
+                                { uid => 0, gid => 0, mode => '644' }
+            );
+            try {
+                EBox::Sudo::root("a2enconf zentyal-ocsmanager");
+            } catch (EBox::Exceptions::Sudo::Command $e) {
+                # Already enabled?
+                if ($e->exitValue() != 1) {
+                    $e->throw();
+                }
             }
         }
     } else {
