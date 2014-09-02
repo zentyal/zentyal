@@ -4,7 +4,7 @@
 Zentyal.namespace('RemoteServices');
 
 Zentyal.RemoteServices.setup = function() {
-//'subscription_form'
+// subscription_form
     Zentyal.Form.setupAjaxSubmit('#subscription_form', {
         noteDiv: '#subscription_slots_list_note', // bz it will made visible in success
         errorDiv: '#subscription_form_error',
@@ -21,8 +21,8 @@ Zentyal.RemoteServices.setup = function() {
 // select slot
     $('#subscription_slots_list').on('click', 'a', function(event) {
         event.preventDefault();
+        $('#subscription_slots_list_note, #subscription_slots_list_error').hide();
         var href = event.target.getAttribute('href');
-        console.log('href ' + href);
         $.ajax({
             url: href,
             // data:,
@@ -40,11 +40,25 @@ Zentyal.RemoteServices.setup = function() {
             }
         });
     });
+
+// unsubscription_form
+    Zentyal.Form.setupAjaxSubmit('#unsubscription_form', {
+        noteDiv: '#subscription_form_info', // bz it will made visible in success
+        errorDiv: '#unsubscription_form_error',
+        submitButton: '#sunubscription_form_submit',
+        success : function(response) {
+            if (!response.success) {
+                return;
+            }
+            Zentyal.refreshSaveChangesButton();
+            Zentyal.RemoteServices.showFirstPage(false);
+        }
+    });
 };
 
 Zentyal.RemoteServices.showFirstPage = function(subscription_info) {
     if (subscription_info) {
-        Zentyal.RemoteServices.showSubscriptionInfo(subscription_info)
+        Zentyal.RemoteServices.showSubscriptionInfo(subscription_info);
     } else {
         $('.subscription_page').hide();
         $('#no_subscription_div').show();
@@ -55,15 +69,11 @@ Zentyal.RemoteServices.listSubscriptionSlots = function(response) {
     var slots_list_body;
 
     $('.subscription_page').hide();    
-    assert('subscriptions' in response);
-    assert(response.subscriptions.length > 0);
 
     slots_list_body = $('#subscription_slots_list tbody');
-    assert(slots_list_body.length > 0);
     slots_list_body.children().remove();
     slots_list_body.append(response.subscriptions);    
 
-    assert(  $('#subscription_slots_div').length > 0);
     $('#subscription_slots_div').show();
 };
 
