@@ -1,4 +1,4 @@
-HEAD
+3.5.3
 	+ Pass X-Forwarded-Host on haproxy (needed for SOGo apache conf)
 	+ More robust dashboard against widget and remoteservices errors
 	+ Added missing use in hasManyViewer.mas
