@@ -50,6 +50,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use EBox::RemoteServices::Subscriptions;
+use EBox::RemoteServices::QAUpdates;
 
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -199,25 +200,30 @@ sub _userCredentials
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
-
-   # TTT TODO: get subscription info using correct method instead of loopiong
-    # on subscription lsit
-    my $subscriptionCred = $self->subscriptionCredendtials();
-    my $uuid = $subscriptionCred->{uuid};
-    use Data::Dumper;
-    my $subscriptions = $self->subscriptions();
-    my $subscriptionsList = $subscriptions->list();
     my $subscriptionInfo;
-    foreach my $info (@{$subscriptionsList}) {
-        if ($info->{uuid} eq $uuid) {
-            $subscriptionInfo = $info;
-            last;
+
+    try {
+       # TTT TODO: get subscription info using correct method instead of loopiong
+        # on subscription lsit
+        my $subscriptionCred = $self->subscriptionCredendtials();
+        my $uuid = $subscriptionCred->{uuid};
+        use Data::Dumper;
+        my $subscriptions = $self->subscriptions();
+        my $subscriptionsList = $subscriptions->list();
+        foreach my $info (@{$subscriptionsList}) {
+            if ($info->{uuid} eq $uuid) {
+                $subscriptionInfo = $info;
+                last;
+            }
         }
+    } catch {
+        EBox::warn("Cannot refresh subscription information, using cached data");
+        $subscriptionInfo = $self->subscriptionInfo();
     }
 
     if (not $subscriptionInfo) {
-        throw EBox::Exceptions::Internal('Cannot found subscription for credentials ' . Dumper($subscriptionCred));
         $self->unsubscribe();
+        return undef;
     } 
 
     # END TTT
@@ -310,6 +316,7 @@ sub setupSubscription
         $subscriptionInfo = undef;
     }
 
+    $self->_setQAUpdates($subscriptionInfo);
     $self->_manageCloudProfPackage($subscriptionInfo);
     $self->_writeCronFile($subscriptionInfo);
 }
@@ -483,6 +490,19 @@ sub usersSyncAvailable
 
     return $self->addOnAvailable('cloudusers', $force);
 }
+
+# Method: _setQAUpdates
+#
+#       Turn the QA Updates ON or OFF depending on the subscription level
+#
+sub _setQAUpdates
+{
+    my ($self, $subscriptionInfo) = @_;
+    my $qaUpdates = EBox::RemoteServices::QAUpdates->new($self);
+    $qaUpdates->set($subscriptionInfo);
+
+}
+
 
 # Method: menu
 #
@@ -2753,15 +2773,6 @@ sub cloudCredentials
 
 }
 
-# Method: _setQAUpdates
-#
-#       Turn the QA Updates ON or OFF depending on the subscription level
-#
-sub _setQAUpdates
-{
-    EBox::RemoteServices::QAUpdates::set();
-
-}
 
 # Update MOTD scripts depending on the subscription status
 sub _updateMotd
