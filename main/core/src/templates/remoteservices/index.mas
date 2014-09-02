@@ -89,7 +89,7 @@ my @fields = (
 </%perl>
 %   while (@fields) {
 %      my ($id, $label) = splice(@fields, 0, 2);
-    <div>
+    <div id='row_info_<% $id %>'>
       <label><% $label %></label>
       <div id='info_<% $id %>'></div>
     </div>

@@ -84,7 +84,12 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     $('#info_server_name').text(subscription.server.name);
     $('#info_product_label').text(subscription.product_label);
     $('#info_subscription_begin').text(subscription.subscription_start);
-    $('#info_subscription_end').text(subscription.subscription_end);
+    if (subscription.subscription_end) {
+        $('#info_subscription_end').text(subscription.subscription_end);
+        $('#row_info_subscription_end').show();
+    } else {
+        $('#row_info_subscription_end').hide();
+    }
 
     $('#subscription_info_div').show();
 };
