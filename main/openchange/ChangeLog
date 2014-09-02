@@ -1,4 +1,4 @@
-HEAD
+3.5.4
 	+ Tune OCSManager configuration for autodiscover
 	+ Redirect all /ews/ requests to OCSManager
 	+ Use .crt when downloading the certificate for RPC/Proxy
