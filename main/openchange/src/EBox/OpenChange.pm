@@ -45,7 +45,7 @@ use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
-use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/zentyal-sogo.conf';
+use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/sogo.conf';
 
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
@@ -440,9 +440,9 @@ sub _setSOGoApacheConf
         # FIXME: unhardcode this
         push (@params, sslPort  => 443);
 
-        $self->writeConfFile(SOGO_APACHE_CONF, "openchange/zentyal-sogo.mas", \@params);
+        $self->writeConfFile(SOGO_APACHE_CONF, "openchange/apache-sogo.mas", \@params);
         try {
-            EBox::Sudo::root("a2enconf zentyal-sogo");
+            EBox::Sudo::root("a2enconf sogo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
             if ($e->exitValue() != 1) {
@@ -451,7 +451,7 @@ sub _setSOGoApacheConf
         }
     } else {
         try {
-            EBox::Sudo::root("a2disconf zentyal-sogo");
+            EBox::Sudo::root("a2disconf sogo");
         } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already disabled?
             if ($e->exitValue() != 1) {
@@ -617,7 +617,7 @@ sub _setOCSManagerConf
         if ($self->isProvisioned()) {
             $self->_setCert($domain);
             my $incParams = [
-                server => $domain
+                domain => $domain
             ];
             $self->writeConfFile(OCSMANAGER_APACHE_CONF,
                                 "openchange/apache-ocsmanager.conf.mas",

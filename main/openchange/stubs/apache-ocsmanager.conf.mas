@@ -1,8 +1,11 @@
 <%args>
-  $server
+  $domain
 </%args>
 
-<VirtualHost autodiscover.zentyal-domain.lan>
+# FIXME: unhardcode port if customized
+<VirtualHost *:443>
+    ServerName autodiscover.<% $domain %>
+
     SSLEngine on
     SSLCertificateFile /etc/ocsmanager/domain.pem
 

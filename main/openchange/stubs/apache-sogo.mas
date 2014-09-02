@@ -2,12 +2,32 @@
   $hostname
   $sslPort => undef
 </%args>
+
+# FIXME: unhardcode ports if customized on UI
+<VirtualHost *:80>
+ServerName <% $hostname %>
+<& .sogoConf, sslPort => $sslPort &>
+</VirtualHost>
+
+<VirtualHost *:443>
+ServerName <% $hostname %>
+SSLEngine on
+# FIXME: replace with Zentyal CA certificate if available
+SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+<& .sogoConf, sslPort => $sslPort &>
+</VirtualHost>
+
+<%def .sogoConf>
+<%args>
+  $sslPort
+</%args>
 Alias /SOGo.woa/WebServerResources/ \
-      /usr/lib/GNUstep/SOGo/WebServerResources/
+    /usr/lib/GNUstep/SOGo/WebServerResources/
 Alias /SOGo/WebServerResources/ \
-      /usr/lib/GNUstep/SOGo/WebServerResources/
+    /usr/lib/GNUstep/SOGo/WebServerResources/
 AliasMatch /SOGo/so/ControlPanel/Products/(.*)/Resources/(.*) \
-           /usr/lib/GNUstep/SOGo/$1.SOGo/Resources/$2
+        /usr/lib/GNUstep/SOGo/$1.SOGo/Resources/$2
 
 <Directory /usr/lib/GNUstep/SOGo/>
     AllowOverride None
@@ -16,13 +36,13 @@ AliasMatch /SOGo/so/ControlPanel/Products/(.*)/Resources/(.*) \
     # Explicitly allow caching of static content to avoid browser specific behavior.
     # A resource's URL MUST change in order to have the client load the new version.
     <IfModule expires_module>
-      ExpiresActive On
-      ExpiresDefault "access plus 1 year"
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
     </IfModule>
 </Directory>
 
 <LocationMatch "^/SOGo/so/ControlPanel/Products/.*UI/Resources/.*\.(jpg|png|gif|css|js)">
-  SetHandler default-handler
+SetHandler default-handler
 </LocationMatch>
 
 ## Uncomment the following to enable proxy-side authentication, you will then
@@ -59,20 +79,21 @@ ProxyPass /sogo http://127.0.0.1:20000/SOGo
 #  RequestHeader set "x-webobjects-remote-user" "%{REMOTE_USER}e"
 
 % if ($sslPort) {
-  SetEnvIf Host "(.*):?" REQUEST_HOST=$1
-  RequestHeader set "x-webobjects-server-url" "https://%{REQUEST_HOST}e:<% $sslPort %>"
+SetEnvIf Host "(.*):?" REQUEST_HOST=$1
+RequestHeader set "x-webobjects-server-url" "https://%{REQUEST_HOST}e:<% $sslPort %>"
 % } else {
-  RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
+RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
 % }
 
-  AddDefaultCharset UTF-8
+AddDefaultCharset UTF-8
 
-  Require all granted
+Require all granted
 </Proxy>
 
 # For apple autoconfiguration
 <IfModule rewrite_module>
-  RewriteEngine On
-  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+RewriteEngine On
+RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
 </IfModule>
+</%def>
 
