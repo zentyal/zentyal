@@ -1,4 +1,4 @@
-HEAD
+3.5.2
 	+ Fixed http/https wrong redirects using X-Forwarded-Host header
 3.5.1
 	+ Set proper actions and files in module enable action
