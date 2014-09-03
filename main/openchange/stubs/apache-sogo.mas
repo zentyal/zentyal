@@ -12,9 +12,7 @@ ServerName <% $hostname %>
 <VirtualHost *:443>
 ServerName <% $hostname %>
 SSLEngine on
-# FIXME: replace with Zentyal CA certificate if available
-SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
-SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+SSLCertificateFile /etc/ocsmanager/domain.pem
 <& .sogoConf, sslPort => $sslPort &>
 </VirtualHost>
 
