@@ -1,6 +1,7 @@
 <%args>
   $hostname
   $sslPort => undef
+  $sslCert => undef
 </%args>
 
 # FIXME: unhardcode ports if customized on UI
@@ -9,12 +10,14 @@ ServerName <% $hostname %>
 <& .sogoConf, sslPort => $sslPort &>
 </VirtualHost>
 
+% if ($sslCert) {
 <VirtualHost *:443>
 ServerName <% $hostname %>
 SSLEngine on
-SSLCertificateFile /etc/ocsmanager/domain.pem
+SSLCertificateFile <% $sslCert %>
 <& .sogoConf, sslPort => $sslPort &>
 </VirtualHost>
+% }
 
 <%def .sogoConf>
 <%args>

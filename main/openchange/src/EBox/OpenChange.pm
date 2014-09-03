@@ -440,6 +440,10 @@ sub _setSOGoApacheConf
         # FIXME: unhardcode this
         push (@params, sslPort  => 443);
 
+        if (-f OCSMANAGER_DOMAIN_PEM) {
+            push (@params, sslCert => OCSMANAGER_DOMAIN_PEM);
+        }
+
         $self->writeConfFile(SOGO_APACHE_CONF, "openchange/apache-sogo.mas", \@params);
         try {
             EBox::Sudo::root("a2enconf sogo");
