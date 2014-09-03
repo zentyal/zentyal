@@ -114,6 +114,15 @@ sub validateTypedRow
     }
 }
 
+sub formSubmitted
+{
+    my ($self, $row, $oldRow) = @_;
+
+    # mark module as changed to ensure apache restart, for
+    # example when enabling sogo-activesync
+    $self->parentModule()->setAsChanged(1);
+}
+
 sub _hideActiveSync
 {
     my ($self) = @_;
