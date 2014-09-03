@@ -502,14 +502,15 @@ sub _setOCSManagerConf
         $adminMail = 'postmaster@' . $domain;
     }
     my $confFileParams = [
-        bindDn       => $self->_kerberosServiceAccountDN(),
-        bindPwd      => $self->_kerberosServiceAccountPassword(),
-        baseDn       => 'CN=Users,' . $users->ldap()->dn(),
-        port         => 389,
-        adminMail    => $adminMail,
-        rpcProxy     => $self->_rpcProxyEnabled(),
-        rpcProxySSL  => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
-        mailboxesDir =>  EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
+        bindDn         => $self->_kerberosServiceAccountDN(),
+        bindPwd        => $self->_kerberosServiceAccountPassword(),
+        baseDn         => 'CN=Users,' . $users->ldap()->dn(),
+        port           => 389,
+        adminMail      => $adminMail,
+        rpcProxy       => $self->_rpcProxyEnabled(),
+        rpcProxySSL    => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
+        mailboxesDir   => EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
+        oofSettingsDir => EBox::Config->conf() . 'openchange/oof',
     ];
     if ($self->_rpcProxyEnabled()) {
         my $externalHostname;

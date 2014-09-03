@@ -1,3 +1,5 @@
+HEAD
+	+ Adapt to changes in Out Of Office implementation in OCSManager
 3.5.4
 	+ Tune OCSManager configuration for autodiscover
 	+ Redirect all /ews/ requests to OCSManager
