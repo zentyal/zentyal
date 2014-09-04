@@ -17,9 +17,9 @@ Description: Zentyal - Core metapackage
 Package: zentyal-all
 Architecture: all
 Depends: zentyal, zentyal-samba, zentyal-openchange, zentyal-squid,
-         zentyal-trafficshaping, zentyal-mail,
-         zentyal-jabber, zentyal-mailfilter,
-         zentyal-printers, zentyal-antivirus
+         zentyal-openvpn, zentyal-trafficshaping, zentyal-mail,
+         zentyal-dhcp, zentyal-ha, zentyal-jabber, zentyal-mailfilter,
+         zentyal-printers, zentyal-antivirus, zentyal-l2tp
 Description: Zentyal - All Modules
  Zentyal is a drop-in replacement for Microsoft Small Business Server and
  Microsoft Exchange Server, that you can set up in less than 30 minutes.
