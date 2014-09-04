@@ -768,7 +768,7 @@ sub menu
     $folder->add(new EBox::Menu::Item(
         url => 'OpenChange/Composite/General',
         text => $self->printableName(),
-        order => 40)
+        order => 3)
     );
 
     $root->add($folder);

@@ -1748,26 +1748,30 @@ sub menu
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/Composite/General',
-                                      'text' => __('General')
+                                      'text' => __('General'),
+                                      'order' => 1,
                  )
     );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/View/VDomains',
-                                      'text' => __('Virtual Mail Domains')
+                                      'text' => __('Virtual Mail Domains'),
+                                      'order' => 2,
                  )
     );
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/View/GreylistConfiguration',
-                                      'text' => __('Greylist')
+                                      'text' => __('Greylist'),
+                                      'order' => 4,
                                      ),
                 );
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/QueueManager',
-                                      'text' => __('Queue Management')
+                                      'text' => __('Queue Management'),
+                                      'order' => 5,
                  )
     );
 
