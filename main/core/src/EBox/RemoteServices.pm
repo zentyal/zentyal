@@ -55,12 +55,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 
-use constant SUBSCRIPTION_LEVEL_NONE => -1; # XXX probably change
-use constant SUBSCRIPTION_LEVEL_TRIAL => 'TRIAL';
-#"ZS-PROF-Y1", 
-#"ZS-NODE-PROF-Y5",
-#"ZS-PROF-M", 
-
+use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
 
@@ -143,11 +138,11 @@ sub subscriptionLevel
 {
     my ($self) = @_;
     my $info = $self->subscriptionInfo();
-    if ((not $info) or (not $info->{'product_code'})) {
+    if ((not $info) or (not $info->{'level'})) {
         return SUBSCRIPTION_LEVEL_NONE; # 
     } 
 
-    return $info->{'product_code'};
+    return $info->{'level'};
 }
 
 sub username
@@ -427,12 +422,25 @@ sub _checkSubscriptionAlive
 sub _manageCloudProfPackage
 {
     my ($self, $subscriptionInfo) = @_;
-    if (not $subscriptionInfo) {
-        EBox::debug("TRY TO REMOVE PACKAGE");
+    my $pkgName = 'zentyal-cloud-prof';
+    if (not $subscriptionInfo or ($subscriptionInfo->{level} > 1)) {
+        system "dpkg -l $pkgName";
+        if ($? == 0 ) {
+            try {
+                EBox::Sudo::root("dpkg -r $pkgName");
+            } catch ($ex) {
+                EBox::error("Error removing package $pkgName: $ex");
+            }
+        }
         return;
     } 
 
-    EBox::debug("TRY TO INSTALL PACKAGE");
+    try {
+        EBox::Sudo::root("apt-get update");
+        EBox::Sudo::root("apt-get install -y --force-yes $pkgName");
+    } catch($ex){
+        EBox::error("Error installing package $pkgName: $ex");
+    }
 }
 
 sub _setRemoteSupportAccessConf
@@ -1028,23 +1036,7 @@ sub eBoxSubscribed
 
 }
 
-# Method: unsubscribe
-#
-#        Delete every data related to the Zentyal subscription and stop any
-#        related service associated with it
-#
-# Returns:
-#
-#        True  - if the Zentyal is subscribed and now it is not
-#
-#        False - if the Zentyal was not subscribed before
-#
-sub unsubscribe
-{
-    my ($self) = @_;
 
-    return $self->model('Subscription')->unsubscribe();
-}
 
 # Method: eBoxCommonName
 #
@@ -1071,29 +1063,6 @@ sub eBoxCommonName
 
 }
 
-# Method: subscriberUsername
-#
-#        The subscriber's user name. It has sense only when
-#        <EBox::RemoteServices::eBoxSubscribed> returns true.
-#
-# Returns:
-#
-#        String - the subscriber user name
-#
-#        undef - if <EBox::RemoteServices::eBoxSubscribed> returns
-#        false
-#
-sub subscriberUsername
-{
-    my ($self) = @_;
-
-    if ( $self->eBoxSubscribed() ) {
-        return $self->model('Subscription')->usernameValue();
-    } else {
-        return undef;
-    }
-
-}
 
 # Method: monitorGathererIPAddresses
 #
@@ -1173,75 +1142,9 @@ sub controlPanelURL
     return "https://${url}/";
 }
 
-# Method: ifaceVPN
-#
-#        Return the virtual VPN interface for the secure connection
-#        between this Zentyal and Zentyal Cloud
-#
-# Return:
-#
-#        String - the interface name
-#
-#        Undef  - If none has been defined yet
-sub ifaceVPN
-{
-    my ($self) = @_;
 
-    my $connection = new EBox::RemoteServices::Connection();
-    my $vpnClient = $connection->vpnClient();
-    if ($vpnClient) {
-        return $vpnClient->iface();
-    } else {
-        # throw EBox::Exceptions::Internal('No VPN client created');
-        return undef;
-    }
-}
 
-# Method: vpnSettings
-#
-#        Return the virtual VPN settings for the secure connection
-#        between this Zentyal and Zentyal Cloud
-#
-# Return:
-#
-#        hash ref - containing the following elements
-#
-#             ipAddr - String the VPN Server IP address
-#             port   - Int the port to connect to
-#             protocol - String the protocol associated to that port
-#
-sub vpnSettings
-{
-    my ($self) = @_;
 
-    my $conn = new EBox::RemoteServices::Connection();
-    my ($ipAddr, $port, $protocol) = @{$conn->vpnLocation()};
-
-    return { ipAddr => $ipAddr,
-             port => $port,
-             protocol => $protocol };
-
-}
-
-# Method: isConnected
-#
-#         Check whether the server is connected to Zentyal Cloud or not
-#
-#         If the server is not subscribed, it returns false too
-#
-# Return:
-#
-#         Boolean - indicating the state
-#
-sub isConnected
-{
-    my ($self) = @_;
-
-    return 0 unless $self->eBoxSubscribed();
-
-    my $conn = new EBox::RemoteServices::Connection();
-    return $conn->isConnected();
-}
 
 # Method: hasBundle
 #
@@ -2132,121 +2035,6 @@ sub checkAdMessages
 
 # Group: Private methods
 
-# Configure the SOAP server and Remote Access
-#
-# if subscribed and has bundle
-# 1. Add /soap and /ebox PSGI sub applications
-# 2. Write the SSLCACertificatePath directory for SSL validation
-# 3. Save webadmin module
-# elsif not subscribed
-# 1. Remove SSLCACertificatePath directory
-# 2. Remove /soap and /ebox PSGI sub applications
-#
-sub _confSOAPService
-{
-    my ($self) = @_;
-
-    my $confFile = SERV_DIR . 'soap-loc.conf';
-    my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
-    my $global = EBox::Global->getInstance();  # RW to save it later
-    my $webAdminMod = $global->modInstance('webadmin');
-    if ($self->eBoxSubscribed()) {
-        if ($self->hasBundle()) {
-            try {
-                EBox::WebAdmin::PSGI::addSubApp(url => '/soap',
-                                                appName => 'EBox::RemoteServices::WSDispatcher::psgiApp',
-                                                validation => 1,
-                                                validateFunc => 'EBox::RemoteServices::WSDispatcher::validate',
-                                                userId => 'remote');
-            } catch (EBox::Exceptions::DataExists $e) {}
-            try {
-                EBox::WebAdmin::PSGI::addSubApp(url => '/ebox',
-                                                appName => 'EBox::RemoteServices::RemoteAccess::psgiApp',
-                                                validation => 1,
-                                                validateFunc => 'EBox::RemoteServices::RemoteAccess::validate',
-                                                userId => 'remote_user');
-            } catch (EBox::Exceptions::DataExists $e) {}
-            # Write the SSL validation
-            File::Slurp::write_file(SERV_DIR . 'ssl-auth.json',
-                                    JSON::XS->new()->encode({'caDomain' => $self->_confKeys()->{caDomain},
-                                                             'allowedClientCNRegexp' => $self->_allowedClientCNRegexp()}));
-            $webAdminMod->addCA($self->_caCertPath());
-        }
-    } else {
-        # Do nothing if CA or the sub-apps are already removed
-        try {
-            EBox::WebAdmin::PSGI::removeSubApp('/soap');
-            EBox::WebAdmin::PSGI::removeSubApp('/ebox');
-            $webAdminMod->removeCA($self->_caCertPath('force'));
-        } catch (EBox::Exceptions::Internal $e) {
-        } catch (EBox::Exceptions::DataNotFound $e) {
-        }
-        unlink(SERV_DIR . 'ssl-auth.json');
-    }
-    # We have to save webadmin and haproxy changes to load the CA certificates file for SSL validation. What a black magic!
-    $webAdminMod->save();
-    my $haProxyMod = $global->modInstance('haproxy');
-    $haProxyMod->save();
-}
-
-# Configure Apache Proxy redirections server
-#
-# if subscribed and has bundle and remoteservices_redirections.conf is written
-# 1. Write proxy-redirections.conf.mas template
-# 2. Add include in nginx configuration from webadmin module
-# elsif not subscribed
-# 1. Remove include in nginx configuration from webadmin module
-#
-sub _setProxyRedirections
-{
-    my ($self) = @_;
-
-    my $confFile = SERV_DIR . 'proxy-redirections.conf';
-    my $webadminMod = EBox::Global->modInstance('webadmin');
-    if ($self->hasBundle() and (-r REDIR_CONF_FILE)) {
-        try {
-            my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
-            my @tmplParams = (
-                redirections => $redirConf,
-               );
-            EBox::Module::Base::writeConfFileNoCheck(
-                $confFile,
-                'remoteservices/proxy-redirections.conf.mas',
-                \@tmplParams);
-            $webadminMod->addNginxInclude($confFile);
-        } catch ($e) {
-            # Not proper YAML file
-            EBox::error($e);
-        };
-    } else {
-        # Do nothing if include is already removed
-        try {
-            unlink($confFile) if (-f $confFile);
-            $webadminMod->removeNginxInclude($confFile);
-        } catch (EBox::Exceptions::Internal $e) {
-        }
-    }
-    # We have to save Apache changes:
-    # From GUI, it is assumed that it is done at the end of the process
-    # From CLI, we have to call it manually in some way. TODO: Find it!
-    # $webadminMod->save();
-}
-
-# Assure the VPN connection with our VPN servers is established
-sub _establishVPNConnection
-{
-    my ($self) = @_;
-
-    if ( $self->_VPNEnabled() ) {
-        try {
-            my $authConnection = new EBox::RemoteServices::Connection();
-            $authConnection->create();
-            $authConnection->connect();
-        } catch (EBox::Exceptions::External $e) {
-            EBox::error("Cannot contact to Zentyal Remote: $e");
-        }
-    }
-}
 
 # Perform the tasks done just after subscribing
 sub _startupTasks
@@ -2555,101 +2343,7 @@ sub clearCache
     $self->set_state($state);
 }
 
-sub staticIfaceAddressChangedDone
-{
-    my ($self) = @_;
-    $self->setAsChanged();
-}
 
-sub ifaceMethodChangeDone
-{
-    my ($self) = @_;
-    $self->setAsChanged();
-}
-
-sub freeIface
-{
-    my ($self) = @_;
-    $self->setAsChanged();
-}
-
-sub freeViface
-{
-    my ($self) = @_;
-    $self->setAsChanged();
-}
-
-sub _vpnClientAdjustLocalAddress
-{
-    my ($self) = @_;
-
-    return unless $self->_VPNEnabled();
-
-    my $conn = new EBox::RemoteServices::Connection();
-    my $vpnClient = $conn->vpnClient();
-    if ( $vpnClient ) {
-        $conn->vpnClientAdjustLocalAddress($vpnClient);
-    }
-}
-
-# This method determines if the VPN must be enabled or not
-# Requisites:
-#   - Be subscribed
-#   - Have the cert bundle
-#   - Allow remote access support or be entitled to remote access
-#
-sub _VPNEnabled
-{
-    my ($self, $force) = @_;
-
-    if ( (not $force) and exists($self->{'_vpnEnabled'}) ) {
-        return $self->{'_vpnEnabled'};
-    }
-
-    my $vpnEnabled = ($self->eBoxSubscribed() and $self->hasBundle());
-    if ( $vpnEnabled ) {
-        $vpnEnabled = $self->_VPNRequired('force');
-    }
-    $self->{'_vpnEnabled'} = $vpnEnabled;
-    return $vpnEnabled;
-}
-
-# This method determines if the VPN is required. That is:
-#   - Allow remote access support or be entitled to remote access
-sub _VPNRequired
-{
-    my ($self, $force) = @_;
-
-    if ( (not $force) and exists($self->{'_vpnRequired'}) ) {
-        return $self->{'_vpnRequired'};
-    }
-
-    my $vpnRequired = $self->model('RemoteSupportAccess')->allowRemoteValue();
-    unless ( $vpnRequired ) {
-        $vpnRequired = ($self->subscriptionLevel('force') > 0);
-    }
-
-    $self->{'_vpnRequired'} = $vpnRequired;
-    return $vpnRequired;
-}
-
-sub firewallHelper
-{
-    my ($self) = @_;
-
-    my $enabled = ($self->eBoxSubscribed() and $self->hasBundle());
-    if (not $enabled) {
-        return undef;
-    }
-
-    my $remoteSupport =  $self->model('RemoteSupportAccess')->allowRemoteValue();
-
-    return EBox::RemoteServices::FirewallHelper->new(
-        remoteSupport => $remoteSupport,
-        vpnInterface => $self->ifaceVPN(),
-        sshRedirect => EBox::RemoteServices::SupportAccess->sshRedirect(),
-       );
-}
 
 # Method: REST
 #
