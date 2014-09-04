@@ -3198,6 +3198,12 @@ Responsive corrections
     #content{
         left: 65px;
     }
+    .first-install #menu {
+        display: none;
+    }
+    .first-install #content {
+        left: 20px;
+    }
 }
 @media  (min-width: 740px) {
     #menu{
