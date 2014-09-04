@@ -182,42 +182,15 @@ sub setPassword
     $self->set('password', $password);
 }
 
-sub _userCredentials
-{
-    my ($self) = @_;
-    my $username = $self->username();
-    if (not $username) {
-        throw EBox::Exceptions::Internal('username');
-    }
-    my $password = $self->password();
-    if (not $password) {
-        throw EBox::Exceptions::Internal('password');        
-    }
-
-    return {username => $username, password => $password };
-}
-
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
     my $subscriptionInfo;
-
     try {
-       # TTT TODO: get subscription info using correct method instead of loopiong
-        # on subscription lsit
-        my $subscriptionCred = $self->subscriptionCredendtials();
-        my $uuid = $subscriptionCred->{uuid};
-        use Data::Dumper;
         my $subscriptions = $self->subscriptions();
-        my $subscriptionsList = $subscriptions->list();
-        foreach my $info (@{$subscriptionsList}) {
-            if ($info->{uuid} eq $uuid) {
-                $subscriptionInfo = $info;
-                last;
-            }
-        }
-    } catch {
-        EBox::warn("Cannot refresh subscription information, using cached data");
+        $subscriptionInfo = $subscriptions->subscriptionInfo();
+    } catch ($ex) {
+        EBox::warn("Cannot refresh subscription information, using cached data: $ex");
         $subscriptionInfo = $self->subscriptionInfo();
     }
 
@@ -225,8 +198,6 @@ sub refreshSubscriptionInfo
         $self->unsubscribe();
         return undef;
     } 
-
-    # END TTT
 
     $self->setSubscriptionInfo($subscriptionInfo);
     return $subscriptionInfo;
@@ -241,14 +212,8 @@ sub setSubscriptionInfo
 sub subscriptionInfo
 {
     my ($self) = @_;
-    if (not $self) {
-    EBox::debug("XXX $self");
-    EBox::trace();
-}
-
     $self->get('subscription_info');
 }
-
 
 sub setSubscriptionCredentials
 {
@@ -256,13 +221,32 @@ sub setSubscriptionCredentials
     $self->set('subscription_credentials', $cred);
 }
 
-sub subscriptionCredendtials
+sub subscriptionCredentials
 {
     my ($self) = @_;
     $self->get('subscription_credentials');
 }
 
+sub subscribe 
+{
+    my ($self, $name, $uuid, $mode) = @_;
+    my $subscriptions = $self->subscriptions();
+    my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
+
+    $self->setSubscriptionCredentials($subscriptionCred);
+    my $subscriptionInfo = $self->refreshSubscriptionInfo();
+    return $subscriptionInfo;
+}
+
 sub unsubscribe
+{
+    my ($self) = @_;
+    my $subscriptions  = $self->subscriptions();
+    $subscriptions->unsubscribeServer();
+    $self->_removeSubscriptionData();
+}
+
+sub _removeSubscriptionData
 {
     my ($self) = @_;
     $self->unset('username');
@@ -274,8 +258,7 @@ sub unsubscribe
 sub subscriptions
 {
     my ($self) = @_;
-    my $cred = $self->_userCredentials();
-    my $subscriptions = EBox::RemoteServices::Subscriptions->new(%{$cred});
+    my $subscriptions = EBox::RemoteServices::Subscriptions->new(remoteservices => $self);
     return $subscriptions;
 }
 
@@ -288,10 +271,13 @@ sub eBoxSubscribed
 
 sub cloudDomain
 {
-    # XXX for validate referer
-    return 'inexistent.org';
+    my ($self) = @_;
+    my $info = $self->subscriptionInfo();
+    if (not $info) {
+        return undef;
+    }
+    return $info->{cloud_domain};
 }
-
 
 sub _setConf
 {
@@ -307,6 +293,7 @@ sub _setConf
     }
 
     $self->setupSubscription($subscriptionInfo);
+    $self->_setRemoteSupportAccessConf();
 }
 
 sub setupSubscription
@@ -319,6 +306,7 @@ sub setupSubscription
     $self->_setQAUpdates($subscriptionInfo);
     $self->_manageCloudProfPackage($subscriptionInfo);
     $self->_writeCronFile($subscriptionInfo);
+
 }
 
 sub _writeCronFile
@@ -392,6 +380,33 @@ sub _manageCloudProfPackage
 
     EBox::debug("TRY TO INSTALL PACKAGE");
 }
+
+sub _setRemoteSupportAccessConf
+{
+    my ($self) = @_;
+
+    my $supportAccess =
+        $self->model('RemoteSupportAccess')->allowRemoteValue();
+    my $fromAnyAddress =
+        $self->model('RemoteSupportAccess')->fromAnyAddressValue();
+
+    if ($supportAccess and (not $fromAnyAddress) and (not $self->eBoxSubscribed() )) {
+        EBox::debug('Cannot restrict access for remote support if Zentyal server is not subscribed');
+        return;
+    }
+
+    EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
+    # TTT
+    if ($self->eBoxSubscribed() and $self->hasBundle()) {
+        my $conn = new EBox::RemoteServices::Connection();
+        my $vpnClient = $conn->vpnClient();
+        if ($vpnClient) {
+            EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
+        }
+    }
+    EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
+}
+
 
 # Method: adMessages
 #
@@ -523,14 +538,171 @@ sub menu
     $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Index',
                                       'text' => __('Server Registration'),
                                      ));
+    $folder->add(new EBox::Menu::Item(
+        'url'  => 'RemoteServices/Composite/Technical',
+        'text' => __('Technical Support'),
+       ));
 
 
     $root->add($folder);
 }
 
+# Method: addModuleStatus
+#
+# Overrides:
+#
+#       <EBox::Module::Service::addModuleStatus>
+#
+sub addModuleStatus
+{
+    my ($self, $section) = @_;
+
+    my $subscriptionStatus = __('Not subscribed');
+    if ( $self->eBoxSubscribed() ) {
+        $subscriptionStatus = __('Subscribed');
+    }
+
+    $section->add(new EBox::Dashboard::ModuleStatus(
+        module        => $self->name(),
+        printableName => $self->printableName(),
+        nobutton      => 1,
+        statusStr     => $subscriptionStatus));
+}
+
+# Method: showModuleStatus
+#
+# Overrides:
+#
+#       <EBox::Module::Service::showModuleStatus>
+#
+sub showModuleStatus
+{
+    return 0;
+}
+
+
+
 1;
 
 __DATA__
+
+# Method: widgets
+#
+# Overrides#
+#    <EBox::Module::Base::widgets>
+#
+sub widgets
+{
+    my ($self) = @_;
+
+    return {
+        'ccConnection' => {
+            'title'   => __('Your Zentyal Server Account'),
+            'widget'  => \&_ccConnectionWidget,
+            'order'  => 4,
+            'default' => 1,
+        }
+       };
+
+}
+
+# Return the Zentyal Cloud connection widget to be shown in the dashboard
+sub _ccConnectionWidget
+{
+    my ($self, $widget) = @_;
+
+    my $section = new EBox::Dashboard::Section('cloud_section');
+    $widget->add($section);
+
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', __('Disabled'));
+
+    my $ASUValue = __x('Disabled - {oh}Enable{ch}',
+                       oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
+                       ch => '</a>');
+    my $supportValue = __x('Disabled - {oh}Enable{ch}',
+                           oh => '<a href="/RemoteServices/Composite/Technical">',
+                           ch => '</a>');
+
+    if ( $self->eBoxSubscribed() ) {
+        $connValue     = __('Connected');
+        $connValueType = 'info';
+        if ( $self->_VPNRequired() ) {
+            if ( not $self->hasBundle() ) {
+                $connValue     = __('In process');
+                $connValueType = 'info';
+            } elsif ( not $self->isConnected() ) {
+                $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
+                                  oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
+                                  ch   => '</a>',
+                                  path => '/var/log/openvpn/');
+                $connValueType = 'error';
+            }
+        } # else. No VPN required, then always connected
+
+        $serverName = $self->eBoxCommonName();
+        my $gl  = EBox::Global->getInstance(1);
+        my $net = $gl->modInstance('network');
+        if ( $net->can('DDNSUsingCloud') and $net->DDNSUsingCloud() ) {
+            $fqdn = $self->dynamicHostname();
+        }
+
+        $subsLevelValue = $self->i18nServerEdition();
+
+        my %i18nSupport = ( '-2' => __('Unknown'),
+                            '-1' => $supportValue,
+                            '0'  => __('Standard 2 days'),
+                            '1'  => __('Standard 1 day'),
+                            '2'  => __('Standard 4 hours'),
+                            '3'  => __('Premium'));
+        $supportValue = $i18nSupport{$self->technicalSupport()};
+
+        if ( $self->securityUpdatesAddOn() ) {
+            $ASUValue = __x('Running');
+            my $date = $self->latestSecurityUpdates();
+            if ( $date ne 'unknown' ) {
+                $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
+            }
+        }
+
+        $DRValue = __x('Configuration backup enabled');
+        my $date;
+        try {
+            $date = $self->latestRemoteConfBackup();
+        } catch {
+            $date = 'unknown';
+        }
+        if ( $date ne 'unknown' ) {
+            $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
+        }
+
+    } else {
+        $connValue      = __sx('Not registered - {oh}Register now!{ch}',
+                               oh => '<a href="/RemoteServices/Composite/General">',
+                               ch => '</a>');
+        $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
+                               oh => '<a href="/RemoteServices/Composite/General">',
+                               ch => '</a>');
+    }
+
+    $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
+    $section->add(new EBox::Dashboard::Value(__('Connection status'),
+                                             $connValue, $connValueType));
+    if ( $fqdn ) {
+        $section->add(new EBox::Dashboard::Value(__('External server name'),
+                                                 $fqdn));
+    }
+    $section->add(new EBox::Dashboard::Value(__('Server edition'),
+                                             $subsLevelValue));
+    $section->add(new EBox::Dashboard::Value(__('Technical support'),
+                                             $supportValue));
+    $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
+                                             $ASUValue));
+    $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
+                                             $DRValue));
+}
+
+
 
 # Method: proxyDomain
 #
@@ -621,30 +793,6 @@ sub initialSetup
     EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 }
 
-sub _setRemoteSupportAccessConf
-{
-    my ($self) = @_;
-
-    my $supportAccess =
-        $self->model('RemoteSupportAccess')->allowRemoteValue();
-    my $fromAnyAddress =
-        $self->model('RemoteSupportAccess')->fromAnyAddressValue();
-
-    if ($supportAccess and (not $fromAnyAddress) and (not $self->eBoxSubscribed() )) {
-        EBox::debug('Cannot restrict access for remote support if Zentyal server is not subscribed');
-        return;
-    }
-
-    EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    if ($self->eBoxSubscribed() and $self->hasBundle()) {
-        my $conn = new EBox::RemoteServices::Connection();
-        my $vpnClient = $conn->vpnClient();
-        if ($vpnClient) {
-            EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
-        }
-    }
-    EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
-}
 
 sub _setInventoryAgentConf
 {
@@ -807,61 +955,6 @@ sub eventDispatchers
 
 # Group: Public methods
 
-# Method: addModuleStatus
-#
-# Overrides:
-#
-#       <EBox::Module::Service::addModuleStatus>
-#
-sub addModuleStatus
-{
-    my ($self, $section) = @_;
-
-    my $subscriptionStatus = __('Not subscribed');
-    if ( $self->eBoxSubscribed() ) {
-        $subscriptionStatus = __('Subscribed');
-    }
-
-    $section->add(new EBox::Dashboard::ModuleStatus(
-        module        => $self->name(),
-        printableName => $self->printableName(),
-        nobutton      => 1,
-        statusStr     => $subscriptionStatus));
-}
-
-# Method: showModuleStatus
-#
-# Overrides:
-#
-#       <EBox::Module::Service::showModuleStatus>
-#
-sub showModuleStatus
-{
-    return 0;
-}
-
-
-
-# Method: widgets
-#
-# Overrides:
-#
-#    <EBox::Module::Base::widgets>
-#
-sub widgets
-{
-    my ($self) = @_;
-
-    return {
-        'ccConnection' => {
-            'title'   => __('Your Zentyal Server Account'),
-            'widget'  => \&_ccConnectionWidget,
-            'order'  => 4,
-            'default' => 1,
-        }
-       };
-
-}
 
 # Method: eBoxSubscribed
 #
@@ -2176,101 +2269,6 @@ sub _caCertPath
     return $self->subscriptionDir($force) . '/cacert.pem';
 }
 
-# Return the Zentyal Cloud connection widget to be shown in the dashboard
-sub _ccConnectionWidget
-{
-    my ($self, $widget) = @_;
-
-    my $section = new EBox::Dashboard::Section('cloud_section');
-    $widget->add($section);
-
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', '', 'info', '', __('Disabled'));
-
-    my $ASUValue = __x('Disabled - {oh}Enable{ch}',
-                       oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
-                       ch => '</a>');
-    my $supportValue = __x('Disabled - {oh}Enable{ch}',
-                           oh => '<a href="/RemoteServices/Composite/Technical">',
-                           ch => '</a>');
-
-    if ( $self->eBoxSubscribed() ) {
-        $connValue     = __('Connected');
-        $connValueType = 'info';
-        if ( $self->_VPNRequired() ) {
-            if ( not $self->hasBundle() ) {
-                $connValue     = __('In process');
-                $connValueType = 'info';
-            } elsif ( not $self->isConnected() ) {
-                $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
-                                  oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
-                                  ch   => '</a>',
-                                  path => '/var/log/openvpn/');
-                $connValueType = 'error';
-            }
-        } # else. No VPN required, then always connected
-
-        $serverName = $self->eBoxCommonName();
-        my $gl  = EBox::Global->getInstance(1);
-        my $net = $gl->modInstance('network');
-        if ( $net->can('DDNSUsingCloud') and $net->DDNSUsingCloud() ) {
-            $fqdn = $self->dynamicHostname();
-        }
-
-        $subsLevelValue = $self->i18nServerEdition();
-
-        my %i18nSupport = ( '-2' => __('Unknown'),
-                            '-1' => $supportValue,
-                            '0'  => __('Standard 2 days'),
-                            '1'  => __('Standard 1 day'),
-                            '2'  => __('Standard 4 hours'),
-                            '3'  => __('Premium'));
-        $supportValue = $i18nSupport{$self->technicalSupport()};
-
-        if ( $self->securityUpdatesAddOn() ) {
-            $ASUValue = __x('Running');
-            my $date = $self->latestSecurityUpdates();
-            if ( $date ne 'unknown' ) {
-                $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
-            }
-        }
-
-        $DRValue = __x('Configuration backup enabled');
-        my $date;
-        try {
-            $date = $self->latestRemoteConfBackup();
-        } catch {
-            $date = 'unknown';
-        }
-        if ( $date ne 'unknown' ) {
-            $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
-        }
-
-    } else {
-        $connValue      = __sx('Not registered - {oh}Register now!{ch}',
-                               oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
-        $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
-                               oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
-    }
-
-    $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
-    $section->add(new EBox::Dashboard::Value(__('Connection status'),
-                                             $connValue, $connValueType));
-    if ( $fqdn ) {
-        $section->add(new EBox::Dashboard::Value(__('External server name'),
-                                                 $fqdn));
-    }
-    $section->add(new EBox::Dashboard::Value(__('Server edition'),
-                                             $subsLevelValue));
-    $section->add(new EBox::Dashboard::Value(__('Technical support'),
-                                             $supportValue));
-    $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
-                                             $ASUValue));
-    $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
-                                             $DRValue));
-}
 
 # Set the subscription details
 # If not subscribed, an exception is raised

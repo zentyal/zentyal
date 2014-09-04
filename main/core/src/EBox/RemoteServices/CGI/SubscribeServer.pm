@@ -25,7 +25,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Html;
 
-use Cwd qw(realpath);
 use HTTP::Date;
 use Plack::Util;
 use Sys::Hostname;
@@ -63,15 +62,27 @@ sub _process
 
     my $subscriptions     = $remoteServices->subscriptions();
 
-    my $auth = $subscriptions->auth();
-    if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
-        $self->{json}->{msg} = __('Invalid credentials');
-        $remoteServices->clearCredentials();
+    try {
+        my $auth = $subscriptions->auth();
+        if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
+            $self->{json}->{error} = __('Invalid credentials');
+            $remoteServices->clearCredentials();
+            return;
+        }
+    } catch($ex) {
+        $self->{json}->{error} = "$ex";
         return;
     }
 
-    my $subscriptionsList = $subscriptions->list();
-    if (not $subscriptionsList) {
+    my $subscriptionsList;
+    try {
+        $subscriptionsList = $subscriptions->list();
+        if ((not $subscriptionsList) or  (@{$subscriptionsList} == 0)) {
+            $self->{json}->{error} = __('No subscriptions available for your account');
+            return;
+        }
+    } catch ($ex) {
+        $self->{json}->{error} = "$ex";
         return;
     }
     my $subscriptionsHtml =  EBox::Html::makeHtml('/remoteservices/subscriptionSlotsTbody.mas',

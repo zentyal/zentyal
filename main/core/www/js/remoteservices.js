@@ -32,6 +32,7 @@ Zentyal.RemoteServices.setup = function() {
                     $('#subscription_slots_list_error').html(response.msg).show();
                     return;
                 }
+                Zentyal.refreshSaveChangesButton();
                 Zentyal.RemoteServices.showSubscriptionInfo(response.subscription);
                 $('#subscription_info_note').html(response.msg).show();
             },

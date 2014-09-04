@@ -7,10 +7,11 @@ use EBox::Gettext;
 my $baseUrl = "/RemoteServices/SetSubscriptionSlot?serverName=$serverName";
 </%init>
 % foreach my $subs (@subscriptions) {
-<& subsTr, subs => $subs, baseUrl => $baseUrl &>
+<& subsTr, serverName => $serverName, subs => $subs, baseUrl => $baseUrl &>
 % }
 <%def subsTr>
 <%args>
+$serverName
 $subs
 $baseUrl
 </%args>
@@ -22,7 +23,11 @@ if ((not exists $subs->{server}) or (not $subs->{server}->{name})) {
    $mode = 'new';
 } else {
    $server = $subs->{server}->{name};
-   $mode = 'replace';
+   if ($server eq $serverName) {
+       $mode = 'associate';
+   } else {
+       $mode = 'overwrite';
+   }
 }
 my $url = $baseUrl . '&uuid=' . $subs->{uuid} . '&mode=' . $mode;
 </%init>

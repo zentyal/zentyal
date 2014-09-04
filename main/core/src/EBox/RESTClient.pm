@@ -24,7 +24,7 @@ package EBox::RESTClient;
 #   Its main feature set is having replay for the failed operations.
 #
 
-no warnings 'experimental::smartmatch';
+#no warnings 'experimental::smartmatch';
 use v5.10;
 
 use EBox;
@@ -337,9 +337,12 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
+        use Data::Dumper;
+        EBox::debug("XXX RESUKLTL:" . Dumper($res));
         return new EBox::RESTClient::Result($res);
     }
     else {
+        EBox::debug("XXX NOT SUCCESS");
         $self->{last_error} = new EBox::RESTClient::Result($res);
         given ($res->code()) {
             when (HTTP_UNAUTHORIZED) {
@@ -363,7 +366,12 @@ sub request {
                 if ($retry) {
                     $self->_storeInJournal($method, $path, $query, $res);
                 }
-                throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
+                use Data::Dumper;
+                EBox::debug("RES " . Dumper($res));
+                EBox::debug("content " . $res->content());
+                throw EBox::Exceptions::Internal($res->code() . " : "
+                . $res->content()); 
+                
             }
         }
 
