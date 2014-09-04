@@ -117,9 +117,10 @@ sub validateTypedRow
 sub formSubmitted
 {
     my ($self, $row, $oldRow) = @_;
-    # mark haproxy changed because a domain change could need a regenaration of
-    # rpcproxy certificate with the new fqdn
-    $self->global()->modInstance('haproxy')->setAsChanged(1);
+
+    # mark module as changed to ensure apache restart, for
+    # example when enabling sogo-activesync
+    $self->parentModule()->setAsChanged(1);
 }
 
 sub _hideActiveSync

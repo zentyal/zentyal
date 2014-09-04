@@ -31,7 +31,7 @@ unless ($webAdminMod->restartOnTrigger()) {
     exit 0;
 }
 
-foreach my $modName (qw(haproxy webadmin logs)) {
+foreach my $modName (qw(webadmin logs)) {
     EBox::Util::Init::moduleRestart($modName);
 }
 

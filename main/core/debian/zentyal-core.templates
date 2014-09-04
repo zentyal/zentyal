@@ -1,6 +1,6 @@
 Template: zentyal-core/port
 Type: string
-Default: 443
+Default: 8443
 _Description: Zentyal HTTPS port:
  Please enter the port which will be used by the Zentyal HTTPS server. Use an
  available port that is not being used by another service.

@@ -1,0 +1,20 @@
+<%doc>
+  ports.conf.mas writes the listening port used by apache virtual host
+  to serve Web pages.
+
+Parameters:
+
+    bindAddress - String - The bind address.
+    port        - Int the port number to listen to Web requests
+    sslPort     - Int the port number to listen to Web requests over SSL
+
+</%doc>
+<%args>
+  $bindAddress
+  $port
+  $sslPort
+</%args>
+Listen <% $bindAddress %>:<% $port %>
+% if ($sslPort) {
+Listen <% $bindAddress %>:<% $sslPort %>
+% }
