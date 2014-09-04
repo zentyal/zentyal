@@ -176,7 +176,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
-                                      printableName => __('Users, Computers and File Sharing'),
+                                      printableName => __('Domain Controller and File Sharing'),
                                       @_);
     bless($self, $class);
     $self->_setupForMode();
