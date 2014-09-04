@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 package EBox::WebAdmin;
-use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
+use base qw(EBox::Module::Service);
 
 use EBox;
 use EBox::Validate qw( checkPort checkCIDR );
@@ -138,8 +138,6 @@ sub hardRestart
 #
 #     Return the listening port for the webadmin.
 #
-#     Just call <EBox::HAProxy::ServiceBase::listeningHTTPSPort>
-#
 # Returns:
 #
 #     Int - the listening port
@@ -147,7 +145,8 @@ sub hardRestart
 sub listeningPort
 {
     my ($self) = @_;
-    return $self->listeningHTTPSPort();
+
+    return $self->model('AdminPort')->value('port');
 }
 
 sub _stopService
@@ -223,13 +222,17 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (bindaddress         => $self->targetIP());
-    push @confFileParams, (port                => $self->targetHTTPSPort());
+    push @confFileParams, (port                => $self->listeningPort());
     push @confFileParams, (tmpdir              => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir      => EBox::Config::conf());
     push @confFileParams, (includes            => $self->_nginxIncludes(1));
     push @confFileParams, (servers             => $self->_nginxServers(1));
     push @confFileParams, (restrictedresources => $self->get_list('restricted_resources') );
+    if (@{$self->_CAs(1)}) {
+        push @confFileParams, (caFile => CA_CERT_FILE);
+    } else {
+        push @confFileParams, (caFile => undef);
+    }
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -331,7 +334,7 @@ sub _reportAdminPort
     my ($self) = @_;
 
     foreach my $mod (@{$self->global()->modInstancesOfType('EBox::WebAdmin::PortObserver')}) {
-        $mod->adminPortChanged($self->listeningHTTPSPort());
+        $mod->adminPortChanged($self->listeningPort());
     }
 }
 
@@ -795,192 +798,12 @@ sub usesPort
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->listeningHTTPSPort();
+    return $port == $self->listeningPort();
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
+sub defaultPort
 {
-    my ($self, $version) = @_;
-
-    my $haproxyMod = $self->global()->modInstance('haproxy');
-    # Register the service if installing the first time
-    unless ($version) {
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHTTPSPort());
-        push (@args, enableSSLPort  => 1);
-        push (@args, defaultSSLPort => 1);
-        push (@args, force          => 1);
-        $haproxyMod->setHAProxyServicePorts(@args);
-    }
-
-    # Upgrade from 3.3
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
-        $self->_migrateTo34();
-    }
-
-    if ($haproxyMod->changed()) {
-        $haproxyMod->saveConfigRecursive();
-    }
-}
-
-# Migration to 3.4
-#
-#  * Migrate redis keys to use haproxy.
-#
-sub _migrateTo34
-{
-    my ($self) = @_;
-
-    my $haproxyMod = $self->global()->modInstance('haproxy');
-    my $redis = $self->redis();
-    my $key = 'webadmin/conf/AdminPort/keys/form';
-    my $value = $redis->get($key);
-    unless ($value) {
-        # Fallback to the 'ro' version.
-        $key = 'webadmin/ro/AdminPort/keys/form';
-        $value = $redis->get($key);
-    }
-    if ($value) {
-        if (defined $value->{port}) {
-            # There are keys to migrate...
-            my @args = ();
-            push (@args, modName        => $self->name);
-            push (@args, sslPort        => $value->{port});
-            push (@args, enableSSLPort  => 1);
-            push (@args, defaultSSLPort => 1);
-            push (@args, force          => 1);
-            $haproxyMod->setHAProxyServicePorts(@args);
-        }
-
-        my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
-        $redis->unset(@keysToRemove);
-    } else {
-        # This case happens when there is no modification on WebAdmin
-        my @args = ();
-        push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHTTPSPort());
-        push (@args, enableSSLPort  => 1);
-        push (@args, defaultSSLPort => 1);
-        push (@args, force          => 1);
-        $haproxyMod->setHAProxyServicePorts(@args);
-    }
-
-    # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
-    my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
-    foreach my $key (@caKeys) {
-        my $value = $redis->get($key);
-        unless (ref $value eq 'HASH') {
-            next;
-        }
-        if ($value->{serviceId} eq 'Zentyal Administration Web Server') {
-            # WebServer.
-            $value->{serviceId} = 'zentyal_' . $self->name();
-            $value->{service} = $self->printableName();
-            $redis->set($key, $value);
-        }
-    }
-}
-
-#
-# Implementation of EBox::HAProxy::ServiceBase
-#
-
-# Method: allowServiceDisabling
-#
-#   Webadmin must be always on so users don't lose access to the web admin UI.
-#
-# Returns:
-#
-#   boolean - Whether this service may be disabled from the reverse proxy.
-#
-sub allowServiceDisabling
-{
-    return 0;
-}
-
-# Method: defaultHTTPSPort
-#
-# Returns:
-#
-#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
-#
-sub defaultHTTPSPort
-{
-    return 443;
-}
-
-# Method: blockHTTPPortChange
-#
-#   Always return True to prevent that webadmin is served without SSL.
-#
-# Returns:
-#
-#   boolean - Whether the port may be customised or not.
-#
-sub blockHTTPPortChange
-{
-    return 1;
-}
-
-# Method: pathHTTPSSSLCertificate
-#
-# Returns:
-#
-#   Array ref - Set of full paths to the SSL certificate files used by HAProxy.
-#
-sub pathHTTPSSSLCertificate
-{
-    my ($self) = @_;
-    my @certs = ('/var/lib/zentyal/conf/ssl/ssl.pem');
-    my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange) {
-        my $cert = $openchange->autodiscoveryCerts();
-        push @certs, @{ $cert };
-
-    }
-
-    return \@certs;
-}
-
-# Method: targetIP
-#
-# Returns:
-#
-#   string - IP address where the service is listening, usually 127.0.0.1 .
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::targetIP>
-#
-sub targetIP
-{
-    return '127.0.0.1';
-}
-
-# Method: targetHTTPSPort
-#
-# Returns:
-#
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
-#
-# Overrides:
-#
-#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
-#
-sub targetHTTPSPort
-{
-    return 61443;
+    return 8443;
 }
 
 1;

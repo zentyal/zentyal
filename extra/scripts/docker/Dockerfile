@@ -31,14 +31,12 @@ ADD  main/l2tp/debian/control /tmp/main/l2tp/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
-ADD  main/webserver/debian/control /tmp/main/webserver/debian/control
 ADD  main/jabber/debian/control /tmp/main/jabber/debian/control
 ADD  main/mail/debian/control /tmp/main/mail/debian/control
 ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
 ADD  main/openchange/debian/control /tmp/main/openchange/debian/control
 ADD  main/core/debian/control /tmp/main/core/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
-ADD  main/sogo/debian/control /tmp/main/sogo/debian/control
 ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control

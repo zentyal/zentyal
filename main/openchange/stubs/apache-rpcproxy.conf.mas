@@ -15,8 +15,6 @@ Parameters:
            Default value: www-data
 </%doc>
 <%args>
-  $bindaddress => '127.0.0.1'
-  $port
   $rpcproxyAuthCacheDir
   $group => 'www-data'
   $user => 'www-data'
@@ -28,32 +26,16 @@ KeepAliveTimeout 120
 MaxKeepAliveRequests 500
 AddDefaultCharset utf-8
 
-PidFile /var/run/apache2/apache2.pid
-
-StartServers 5
-MinSpareServers 5
-MaxSpareServers 10
-MaxClients 150
-MaxRequestsPerChild 0
-
 Include /etc/apache2/mods-available/wsgi.load
 Include /etc/apache2/mods-available/env.load
-
-Listen <% $bindaddress %>:<% $port %>
 
 user  www-data
 group www-data
 
+SSLCertificateFile /etc/ocsmanager/domain.pem
+
 WSGILazyInitialization On
 WSGIPythonPath /usr/lib/openchange/web/rpcproxy
-
-<VirtualHost  *:<% $port %>>
-
-ErrorLog /var/log/apache2/rpcproxy-error.log
-LogLevel warn
-
-LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\" %D" rpcproxy
-CustomLog /var/log/apache2/rpcproxy-access.log rpcproxy
 
 <Directory /usr/lib/openchange/web/rpcproxy/>
 %#  SetEnv RPCPROXY_LOGLEVEL INFO
@@ -68,5 +50,3 @@ CustomLog /var/log/apache2/rpcproxy-access.log rpcproxy
 
 WSGIScriptAlias /rpc/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
 WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
-
-</VirtualHost>

@@ -3,7 +3,6 @@
 
 Parameters:
 
-    bindaddress - String the bind address.
     port - Int the listening port.
     tmpdir - String the path to the WebAdmin temporary directory.
     zentyalconfdir - String the path to the WebAdmin configuration folder.
@@ -17,10 +16,10 @@ Parameters:
 # FIXME: unhardcode paths passing them as args...
 </%doc>
 <%args>
-    $bindaddress
     $port
     $tmpdir
     $zentyalconfdir
+    $caFile
     @includes => ()
     @servers => ()
     @restrictedresources => ()
@@ -72,9 +71,6 @@ http {
     server_tokens off;
     client_max_body_size 50m;
 
-    real_ip_header X-Forwarded-For;
-    set_real_ip_from 127.0.0.1;
-
     server_names_hash_bucket_size 64;
     server_name_in_redirect off;
 
@@ -100,8 +96,38 @@ http {
     gzip_http_version 1.1;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
+    map $ssl_client_s_dn $ssl_client_s_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
+    map $ssl_client_s_dn $ssl_client_s_dn_cn {
+        default           "";
+        ~/CN=(?<CN>[^/]+) $CN;
+    }
+
+    map $ssl_client_i_dn $ssl_client_i_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
     server {
-        listen <% $bindaddress %>:<% $port %>;
+        listen <% $port %>;
+
+        ssl on;
+        ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
+        ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
+% if ($caFile) {
+        ssl_client_certificate <% $caFile %>;
+        ssl_verify_client optional;
+        ssl_verify_depth 1;
+% }
+
+        ssl_session_timeout 5m;
+
+        ssl_protocols SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers HIGH:MEDIUM;
+        ssl_prefer_server_ciphers on;
 
         access_log /var/log/zentyal/access.log;
 

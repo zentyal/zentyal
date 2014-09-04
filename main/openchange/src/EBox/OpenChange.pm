@@ -19,11 +19,9 @@ use warnings;
 package EBox::OpenChange;
 use base qw(
     EBox::Module::Kerberos
-    EBox::HAProxy::ServiceBase
     EBox::VDomainModule
     EBox::CA::Observer
 );
-
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -47,6 +45,7 @@ use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
+use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/sogo.conf';
 
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
@@ -54,17 +53,18 @@ use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
 use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
-use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_APACHE_CONF  => '/etc/apache2/conf-available/zentyal-ocsmanager.conf';
 use constant OCSMANAGER_DOMAIN_PEM => '/etc/ocsmanager/domain.pem';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
-use constant RPCPROXY_PORT           => 62081;
 use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 use constant OPENCHANGE_CONF_FILE => '/etc/samba/openchange.conf';
 use constant OPENCHANGE_MYSQL_PASSWD_FILE => EBox::Config->conf . '/openchange/mysql.passwd';
 use constant OPENCHANGE_IMAP_PASSWD_FILE => EBox::Samba::PRIVATE_DIR() . 'mapistore/master.password';
+
+use constant APACHE_PORTS_FILE => '/etc/apache2/ports.conf';
 
 # Method: _create
 #
@@ -172,7 +172,7 @@ sub _migrateCerts
                                        reason     => 'superseded',
                                        force      => 1);
             }
-            $self->_setCerts($domain);
+            $self->_setCert($domain);
         } catch ($ex) {
             EBox::error("Impossible to migrate certificates: $ex");
         }
@@ -184,6 +184,26 @@ sub _migrateCerts
     }
 }
 
+# Method: actions
+#
+#        Explain the actions the module must make to configure the
+#        system. Check overriden method for details
+#
+# Overrides:
+#
+#        <EBox::Module::Service::actions>
+sub actions
+{
+    return [
+            {
+             'action' => __('Enable proxy, proxy_http and headers Apache 2 modules.'),
+             'reason' => __('To make OpenChange Webmail be accesible at http://ip/SOGo/.'),
+             'module' => 'sogo'
+            },
+    ];
+}
+
+
 # Method: enableActions
 #
 # Action to do when openchange module is enabled for first time
@@ -191,28 +211,20 @@ sub _migrateCerts
 sub enableActions
 {
     my ($self) = @_;
+
+    # Execute enable-module script
     $self->SUPER::enableActions();
     $self->_setupDNS();
-}
 
-# Method: enableService
-#
-#   Override EBox::Module::Service::enableService to notify samba
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-    if ($self->changed()) {
-        # manage the nginx include file
-        my $webadmin = $self->global()->modInstance('webadmin');
-        if ($status) {
-            $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
-        } else {
-            $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
-        }
-    }
+    # FIXME: move this to the new "Enable Webmail" checkbox
+    #my $mail = EBox::Global->modInstance('mail');
+    #unless ($mail->imap() or $mail->imaps()) {
+    #    throw EBox::Exceptions::External(__x('OpenChange Webmail module needs IMAP or IMAPS service enabled if ' .
+    #                                         'using Zentyal mail service. You can enable it at ' .
+    #                                         '{openurl}Mail -> General{closeurl}.',
+    #                                         openurl => q{<a href='/Mail/Composite/General'>},
+    #                                         closeurl => q{</a>}));
+    #}
 }
 
 sub _daemonsToDisable
@@ -223,8 +235,13 @@ sub _daemonsToDisable
         {
             name => 'openchange-ocsmanager',
             type => 'init.d',
+        },
+        {
+            name => 'sogo',
+            type => 'init.d',
+            # FIXME: precondition only if enabled!
         }
-       ];
+    ];
     return $daemons;
 }
 
@@ -240,11 +257,6 @@ sub _daemons
     my $daemons = [
         {
             name         => 'zentyal.ocsmanager',
-            type         => 'upstart',
-            precondition => sub { return $self->isProvisioned() },
-        },
-        {
-            name         => 'zentyal.zoc-migrate',
             type         => 'upstart',
             precondition => sub { return $self->isProvisioned() },
         },
@@ -273,26 +285,6 @@ sub isRunning
     }
 }
 
-# Method: autodiscoveryCerts
-#
-#     Return the list of certificates used by OC Web Services
-#
-# Returns:
-#
-#     Array ref - the path to the certificates
-#
-sub autodiscoveryCerts
-{
-    my ($self) = @_;
-    my @certs;
-    if ($self->isEnabled() and $self->isProvisioned()) {
-        if (EBox::Sudo::fileTest('-r', OCSMANAGER_DOMAIN_PEM)) {
-            push @certs, OCSMANAGER_DOMAIN_PEM;
-        }
-    }
-    return \@certs;
-}
-
 sub _rpcProxyEnabled
 {
     my ($self) = @_;
@@ -311,22 +303,32 @@ sub usedFiles
         file => SOGO_DEFAULT_FILE,
         reason => __('To configure sogo daemon'),
         module => 'openchange'
-       });
+    });
     push (@files, {
         file => SOGO_CONF_FILE,
         reason => __('To configure sogo parameters'),
         module => 'openchange'
-       });
+    });
     push (@files, {
-       file => OCSMANAGER_CONF_FILE,
-       reason => __('To configure autodiscovery service'),
-       module => 'openchange'
-      });
+        file => OCSMANAGER_CONF_FILE,
+        reason => __('To configure autodiscovery service'),
+        module => 'openchange'
+    });
     push (@files, {
         file => RPCPROXY_STOCK_CONF_FILE,
         reason => __('Remove RPC Proxy stock file to avoid interference'),
         module => 'openchange'
-       });
+    });
+    push (@files, {
+        file => SOGO_APACHE_CONF,
+        reason => __('To make SOGo webmail available'),
+        module => 'sogo'
+    });
+    push (@files, {
+        file => OCSMANAGER_APACHE_CONF,
+        reason => __('To make autodiscovery service available'),
+        module => 'sogo'
+    });
 
     return \@files;
 }
@@ -368,6 +370,8 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 
+    $self->_setApachePortsConf();
+
     $self->_setOCSManagerConf();
 
     $self->_setRPCProxyConf();
@@ -378,6 +382,90 @@ sub _setConf
     #$self->_writeCronFile();
 
     $self->_setupActiveSync();
+
+    $self->_setSOGoApacheConf();
+
+    $self->_setDomainCertificate();
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    # FIXME: only if webmail enabled
+    if ($enabled) {
+        EBox::Sudo::root('service sogo restart');
+        # FIXME: common way to restart apache for rpcproxy, sogo and activesync only if there are changes?
+        #        currently we are doing more than necessary
+        EBox::Sudo::root('service apache2 restart');
+    }
+}
+
+sub _setDomainCertificate
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        # the certificate must be in place before haproxy restarts
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        $self->_setCert($domain)
+    }
+}
+
+sub _setApachePortsConf
+{
+    my ($self) = @_;
+
+    my @params;
+    push (@params, bindAddress => '0.0.0.0');
+    # TODO: unhardcode this
+    push (@params, port        => 80);
+    push (@params, sslPort     => 443);
+
+    $self->writeConfFile(APACHE_PORTS_FILE, "openchange/apache-ports.conf.mas", \@params);
+}
+
+sub _setSOGoApacheConf
+{
+    my ($self) = @_;
+
+    # FIXME: do this only if webmail checkbox is enabled
+    if ($self->isEnabled()) {
+        my $global = $self->global();
+        my $sysinfoMod = $global->modInstance('sysinfo');
+        my @params = ();
+        push (@params, hostname => $sysinfoMod->fqdn());
+
+        my $webserverMod = $global->modInstance('webserver');
+        # FIXME: unhardcode this
+        push (@params, sslPort  => 443);
+
+        if (-f OCSMANAGER_DOMAIN_PEM) {
+            push (@params, sslCert => OCSMANAGER_DOMAIN_PEM);
+        }
+
+        $self->writeConfFile(SOGO_APACHE_CONF, "openchange/apache-sogo.mas", \@params);
+        try {
+            EBox::Sudo::root("a2enconf sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already enabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    } else {
+        try {
+            EBox::Sudo::root("a2disconf sogo");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
+    }
+
+    # Force apache restart to refresh the new sogo configuration
+    EBox::Sudo::root('service apache2 restart');
 }
 
 sub _setupActiveSync
@@ -393,7 +481,6 @@ sub _setupActiveSync
     }
     if ($enabled xor $enable) {
         my $global = $self->global();
-        $global->modChange('webserver');
         if ($global->modExists('sogo')) {
             $global->addModuleToPostSave('sogo');
         }
@@ -530,20 +617,35 @@ sub _setOCSManagerConf
     my $confDir = EBox::Config::conf() . 'openchange';
     EBox::Sudo::root("mkdir -p '$confDir'");
 
-    if ($self->isProvisioned()) {
-        $self->_setCerts($domain);
-        my $incParams = [
-            server => $domain
-           ];
-        $self->writeConfFile(OCSMANAGER_INC_FILE,
-                             "openchange/ocsmanager.nginx.mas",
-                             $incParams,
-                             { uid => 0, gid => 0, mode => '644' }
-                        );
+    if ($self->isEnabled()) {
+        if ($self->isProvisioned()) {
+            $self->_setCert($domain);
+            my $incParams = [
+                domain => $domain
+            ];
+            $self->writeConfFile(OCSMANAGER_APACHE_CONF,
+                                "openchange/apache-ocsmanager.conf.mas",
+                                $incParams,
+                                { uid => 0, gid => 0, mode => '644' }
+            );
+            try {
+                EBox::Sudo::root("a2enconf zentyal-ocsmanager");
+            } catch (EBox::Exceptions::Sudo::Command $e) {
+                # Already enabled?
+                if ($e->exitValue() != 1) {
+                    $e->throw();
+                }
+            }
+        }
     } else {
-        # ocsmanager include should be empty to do nothing
-        EBox::Sudo::root('rm -f ' . OCSMANAGER_INC_FILE,
-                         'touch ' . OCSMANAGER_INC_FILE);
+        try {
+            EBox::Sudo::root("a2disconf zentyal-ocsmanager");
+        } catch (EBox::Exceptions::Sudo::Command $e) {
+            # Already disabled?
+            if ($e->exitValue() != 1) {
+                $e->throw();
+            }
+        }
     }
 }
 
@@ -551,7 +653,7 @@ sub _setOCSManagerConf
 #   * Autodiscover
 #   * RPC/Proxy
 #   * EWS
-sub _setCerts
+sub _setCert
 {
     my ($self, $domain) = @_;
 
@@ -593,46 +695,33 @@ sub _setCerts
     }
 }
 
-sub internalVHosts
-{
-    my ($self) = @_;
-    if ($self->_rpcProxyEnabled) {
-        return [ $self->_rpcProxyConfFile() ];
-    }
-
-    return [];
-}
-
-sub _rpcProxyConfFile
-{
-    my ($self) = @_;
-    return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
-}
-
 sub _setRPCProxyConf
 {
     my ($self) = @_;
 
+    my @cmds;
     # remove stock rpcproxy.conf file because it could interfere
-    EBox::Sudo::root('rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+    push (@cmds, 'rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+
+    my $rpcProxyConfFile = '/etc/apache2/sites-available/zentyaloc-rpcproxy.conf';
+    my @params = (
+        rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
+    );
+
+    $self->writeConfFile(
+        $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+         \@params);
 
     if ($self->_rpcProxyEnabled()) {
-        my $rpcProxyConfFile = $self->_rpcProxyConfFile();
-        my @params = (
-            rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
-            port   => RPCPROXY_PORT
-           );
-
-        $self->writeConfFile(
-            $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-             \@params);
-
-        my @cmds;
         push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-        EBox::Sudo::root(@cmds);
+        push (@cmds, 'a2ensite zentyaloc-rpcproxy');
+    } else {
+        push (@cmds, 'a2dissite zentyaloc-rpcproxy');
     }
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _writeRewritePolicy
@@ -999,75 +1088,6 @@ sub rpcProxyHosts
     push @hosts, $self->_rpcProxyHostForDomain($domain);
     push @hosts, $domain;
     return \@hosts;
-}
-
-# Method: HAProxyInternalService
-#
-#      Set the configuration for Outlook Anywhere (RPC/Proxy) if configured
-#
-# Overrides:
-#
-#      <EBox::HAProxy::ServiceBase::HAProxyInternalService>
-#
-sub HAProxyInternalService
-{
-    my ($self) = @_;
-    my $RPCProxyModel = $self->model('RPCProxy');
-    if (not $self->_rpcProxyEnabled()) {
-        return [];
-    }
-
-    my $hosts;
-    try {
-        $hosts = $self->rpcProxyHosts();
-    } catch ($ex) {
-        EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
-    };
-    if (not $hosts) {
-        return [];
-    }
-
-    my @services;
-    if ($RPCProxyModel->httpsEnabled()) {
-        my $rpcpService = {
-            name => 'oc_rpcproxy_https',
-            port => 443,
-            printableName => 'OpenChange RPCProxy',
-            targetIP => '127.0.0.1',
-            targetPort => RPCPROXY_PORT,
-            hosts    => $hosts,
-            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => OCSMANAGER_DOMAIN_PEM,
-            isSSL   => 1,
-        };
-        push @services, $rpcpService;
-    }
-
-    if ($RPCProxyModel->httpEnabled()) {
-        my $httpRpcpService = {
-            name => 'oc_rpcproxy_http',
-            port => 80,
-            printableName => 'OpenChange RPCProxy',
-            targetIP => '127.0.0.1',
-            targetPort => RPCPROXY_PORT,
-            hosts    => $hosts,
-            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            isSSL   => 0,
-        };
-        push @services, $httpRpcpService;
-    }
-
-    return \@services;
-}
-
-sub HAProxyPreSetConf
-{
-    my ($self) = @_;
-    if ($self->isEnabled() and $self->isProvisioned()) {
-        # the certificate must be in place before haproxy restarts
-        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-        $self->_setCerts($domain)
-    }
 }
 
 sub _vdomainModImplementation

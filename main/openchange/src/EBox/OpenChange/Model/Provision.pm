@@ -388,7 +388,11 @@ sub _doProvision
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        throw EBox::Exceptions::External(__('No Certification authority ready. Create or renew it'));
+        # FIXME: create CA with organizationName
+        # FIXME: do this only when provisioning from wizard and not manually from model
+        # TODO: allow to specify optional fields like expiration time
+        my $commonName = __x('{org} Authority Certificate', org => $organizationName);
+        $ca->createCA(commonName => $commonName, orgName => $organizationName);
     }
 
     my $configuration = $openchange->model('Configuration');
@@ -445,11 +449,6 @@ sub _doProvision
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
-    if ($openchange->_rpcProxyEnabled()) {
-        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
-        $global->modChange('webserver');
-        $global->modChange('haproxy');
-    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
