@@ -1167,7 +1167,7 @@ sub _corosyncSetConf
 
         # Update the NodeList
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
-                   port => 443, localNode => 1);
+                   port => 8443, localNode => 1);
         $self->_notifyClusterConfChange($list);
         $self->{restart_required} = 1;
     }
