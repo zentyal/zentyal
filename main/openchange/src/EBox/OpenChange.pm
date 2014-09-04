@@ -766,7 +766,7 @@ sub menu
     );
 
     $folder->add(new EBox::Menu::Item(
-        url => 'OpenChange/Composite/General',
+        url => 'Mail/OpenChange',
         text => $self->printableName(),
         order => 3)
     );
