@@ -232,6 +232,13 @@ sub subscribe
     my ($self, $name, $uuid, $mode) = @_;
     my $subscriptions = $self->subscriptions();
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
+    
+    my $state = $self->get_state();
+    $state->{revokeAction} = {
+        action => 'unsubscribe',
+        params => [$subscriptionCred->{server_uuid}, $subscriptionCred->{password}]
+    };
+    $self->set_state($state);
 
     $self->setSubscriptionCredentials($subscriptionCred);
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
@@ -243,6 +250,17 @@ sub unsubscribe
     my ($self) = @_;
     my $subscriptions  = $self->subscriptions();
     $subscriptions->unsubscribeServer();
+
+    my $state = $self->get_state();
+    my $cred  = $self->subscriptionCredentials();
+    $state->{revokeAction} = {
+        action => 'subscribe',
+        params => [$cred->{name}, $cred->{subscription_uuid}, 'new',
+                   $self->username(), $self->password()
+                  ]
+    };
+    $self->set_state($state);
+
     $self->_removeSubscriptionData();
 }
 
@@ -283,6 +301,10 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
+    my $revokeAction = delete $state->{revokeAction};
+    $self->set_state($state);
+
     my $alreadyChanged = $self->changed();
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     
@@ -295,6 +317,38 @@ sub _setConf
     $self->setupSubscription($subscriptionInfo);
     $self->_setRemoteSupportAccessConf();
 }
+
+# Method: revokeConfig
+#
+#       Dismisses all changes done since the first write or delete operation.
+#
+sub revokeConfig
+{
+    my ($self) = @_;
+    my $state = $self->get_state();
+    my $revokeAction = delete $state->{revokeAction};
+    $self->set_state($state);
+    if ($revokeAction) {
+        try {
+            my $subscriptions = $self->subscriptions();
+            my $action = $revokeAction->{action};
+            if ($action eq 'subscribe') {
+                $subscriptions->subscribeServer(@{$revokeAction->{params}})
+            } elsif ($action eq 'unsubscribe') {
+                $subscriptions->unsubscribeServer(@{$revokeAction->{params}})
+            } else {
+                EBox::error("Unknown pending operation: $action. Skipping");
+            } 
+        } catch ($ex) {
+            EBox::error("Cannot undo " . $revokeAction->{action} . " operation. Please, undo it manually");
+            $ex->throw();
+        }
+    }
+
+
+    $self->SUPER::revokeConfig();
+}
+
 
 sub setupSubscription
 {

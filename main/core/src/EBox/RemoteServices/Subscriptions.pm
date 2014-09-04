@@ -78,9 +78,6 @@ sub new
     my $self = $class->SUPER::new();
     $self->{remoteservices} = $params{remoteservices};
 
-
-    # Set the REST client
-
     bless $self, $class;
     return $self;
 }
@@ -126,19 +123,35 @@ sub _restClient
 
 sub subscribeServer
 {
-    my ($self, $name, $uuid, $mode) = @_;
+    my ($self, $name, $uuid, $mode, @forcedCredentials) = @_;
     my $resource = '/v2/subscriptions/subscribe/';
     my $query = { name => $name, subscription_uuid => $uuid, mode=> $mode};
 
-    my $res = $self->_restClientWithUserCredentials()->POST($resource, query => $query);
+    my $restClient;
+    if (not @forcedCredentials) {
+        $restClient = $self->_restClientWithUserCredentials();
+    } else {
+        $restClient = $self->_restClient(@forcedCredentials);
+    }
+
+
+    my $res = $restClient->POST($resource, query => $query);
     return $res->data();
 }
 
 sub unsubscribeServer
 {
-    my ($self, $name, $uuid, $mode) = @_;
+    my ($self, @forcedCredentials) = @_;
     my $resource = '/v2/subscriptions/unsubscribe/';
-    $self->_restClientWithServerCredentials()->POST($resource);    
+
+    my $restClient;
+    if (not @forcedCredentials) {
+        $restClient = $self->_restClientWithServerCredentials();
+    } else {
+        $restClient = $self->_restClient(@forcedCredentials);
+    }
+
+    $restClient->POST($resource);    
 }
 
 sub list
