@@ -90,6 +90,11 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    unless ($version) {
+        my $firewall = $self->global()->modInstance('firewall');
+        $firewall->setInternalService('HTTPS', 'accept');
+        $firewall->saveConfigRecursive();
+    }
 
     if (defined($version) and  (EBox::Util::Version::compare($version, '3.5') < 0)) {
         $self->_migrateFormKeys();
