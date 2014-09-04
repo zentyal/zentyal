@@ -73,6 +73,8 @@ ProxyPreserveHost On
 ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 ProxyPass /sogo/ http://127.0.0.1:20000/SOGo
 ProxyPass /sogo http://127.0.0.1:20000/SOGo
+ProxyPass /webmail/ http://127.0.0.1:20000/SOGo
+ProxyPass /webmail http://127.0.0.1:20000/SOGo
 
 <Proxy http://127.0.0.1:20000/SOGo>
 ## When using proxy-side autentication, you need to uncomment and
