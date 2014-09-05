@@ -1,3 +1,6 @@
+HEAD
+	+ Revert apache conf change that does not work properly without the
+	  httpclose option in haproxy conf (that breaks Outlook Anwyhere)
 3.5.2
 	+ Fixed http/https wrong redirects using X-Forwarded-Host header
 3.5.1
