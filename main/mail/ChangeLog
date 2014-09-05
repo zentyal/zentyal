@@ -1,5 +1,7 @@
 4.0
 	+ Set version to 4.0
+	+ Fixed some labels which referenced deprecated user corner
+	+ Do not allow both keep and fetch all options in external accounts
 	+ Fixed group mail accounts and their aliases
 	+ Do not move mailbox to .bak if directory already exist
 	+ Migrate mboxes path to Maildir when upgrading from 3.4

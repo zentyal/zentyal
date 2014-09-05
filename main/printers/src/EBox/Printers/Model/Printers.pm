@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -125,6 +126,10 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
+    # If CUPS is not running an empty list will be returned and all printers
+    # will be removed, so only sync rows if CUPS daemon is running.
+    return 0 unless $self->parentModule->isRunning();
+
     my $cupsPrinters = $self->cupsPrinters();
     my %cupsPrinters = map {
         my $printer = $_;
@@ -146,7 +151,8 @@ sub syncRows
         my $loc = $p->getLocation();
         utf8::decode($loc);
 
-        my $existentId = exists $currentPrinters{$printerName} ? $currentPrinters{$printerName} : undef;
+        my $existentId = exists $currentPrinters{$printerName} ?
+            $currentPrinters{$printerName} : undef;
         if ($existentId) {
             my $row = $self->row($existentId);
             if (($row->valueByName('description') ne $desc) or

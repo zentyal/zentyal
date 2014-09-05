@@ -68,7 +68,15 @@ sub masonParameters
     my $widgets = {};
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
-        my $wnames = $mod->widgets();
+        my $wnames;
+        try {
+            $wnames = $mod->widgets();
+        } catch($ex) {
+            EBox::error("Error loading widgets from module $name: $ex");
+        }
+        if (not $wnames) {
+            next;
+        }
         for my $wname (keys (%{$wnames})) {
             my $fullname = "$name:$wname";
             next if exists $widgetsToHide->{$fullname};
@@ -160,11 +168,15 @@ sub masonParameters
     my $showMessage = 1;
     my $rs = EBox::Global->modInstance('remoteservices');
     if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-        $showMessage = 0;
-        # Re-check for changes
-        $rs->checkAdMessages();
-        my $rsMsg = $rs->adMessages();
-        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+        try {
+            # Re-check for changes
+            $rs->checkAdMessages();
+            my $rsMsg = $rs->adMessages();
+            $showMessage = 0;
+            push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+        } catch($ex) {
+            EBox::error("Error loading messages from remoteservices: $ex");
+        }
     }
 
     if ($showMessage) {

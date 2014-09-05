@@ -109,13 +109,17 @@ sub appArmorProfiles
 #
 #  Check <EBox::DNS::Model::DomainTable> for details
 #
+# Returns:
+#
+#  String - the identifier for the domain
+#
 sub addDomain
 {
     my ($self, $domainData) = @_;
 
     my $domainModel = $self->model('DomainTable');
 
-    $domainModel->addDomain($domainData);
+    return $domainModel->addDomain($domainData);
 }
 
 # Method: addService
@@ -968,18 +972,7 @@ sub _internalLocalNets
 {
     my ($self) = @_;
     my $network = $self->global()->modInstance('network');
-    my @localNets = map {
-        my $iface = $_;
-        my $net  = $network->ifaceNetwork($iface);
-        if ($net) {
-            my $fullmask = $network->ifaceNetmask($iface);
-            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
-            ("$net/$mask");
-        } else {
-            ()
-        }
-    } @{ $network->InternalIfaces };
-    return \@localNets;
+    return $network->internalNetworks();
 }
 
 # Method: _domainIpAddresses

@@ -5,6 +5,10 @@
 	+ OpenChange -> Setup menu entry moved to Mail -> OpenChange
 	+ Remove currently unused migration code
 	+ Set version to 4.0
+	+ Enabling SOGo login with user mail address makes possible Z-Push
+	  carddav server synchronization
+	+ Tune OCSManager configuration for autodiscover
+	+ Redirect all /ews/ requests to OCSManager
 	+ Use .crt when downloading the certificate for RPC/Proxy
 	  to ease Windows importing
 	+ Changes to out-of-office required by upstream openchange changes
