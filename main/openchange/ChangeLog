@@ -1,3 +1,6 @@
+HEAD
+	+ Enabling SOGo login with user mail address makes possible Z-Push
+	  carddav server synchronization
 3.5.4
 	+ Tune OCSManager configuration for autodiscover
 	+ Redirect all /ews/ requests to OCSManager
