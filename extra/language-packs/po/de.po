@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-06-30 19:56+0200\n"
-"Last-Translator: thetell <telley.stefan@bluewin.ch>\n"
+"PO-Revision-Date: 2014-08-31 12:26+0200\n"
+"Last-Translator: didi <d.weiss@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -4558,9 +4558,8 @@ msgid "Internal Server Error"
 msgstr "Interne Netzwerke"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:470
-#, fuzzy
 msgid "Forbidden request"
-msgstr "Liste für verbotene Begriffe"
+msgstr "Anfrage unzulässig"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:472
 msgid "An error has occurred"
@@ -15413,6 +15412,9 @@ msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
 "need to enable them go to {openref}Module Status{closeref}."
 msgstr ""
+"Die folgenden Module haben ungesicherte Änderungen, sind jedoch "
+"<b>deaktiviert</b>. Um sie zu aktivieren, gehen Sie zu {openref}Module "
+"Status{closeref}."
 
 #: ../../main/core/src/templates/finish.mas:23
 msgid ""
@@ -15453,6 +15455,8 @@ msgid ""
 "Browse the available widgets in the top menu and drag&drop them to the "
 "dashboard."
 msgstr ""
+"Durchsuchen Sie die im Hauptmenü verfügbaren Widgets und ziehen Sie sie auf "
+"das Dashboard."
 
 #: ../../main/core/src/templates/dashboard/index.mas:43
 msgid "Configure widgets"
@@ -15467,6 +15471,7 @@ msgstr "Die folgenden Pakete sind möglicherweise nicht installiert:"
 #, perl-brace-format
 msgid "Go to {ohref}Software Management{chref} for more information."
 msgstr ""
+"Klicken Sie auf {ohref}Software Management{chref} für weitere Informationen."
 
 #: ../../main/core/src/templates/dashboard/index.mas:54
 #, fuzzy, perl-brace-format
@@ -15479,15 +15484,15 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Test the Commercial for 30 days"
-msgstr ""
+msgstr "Testen Sie die kommerzielle Version 30 Tage."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Free Commercial Trial"
-msgstr ""
+msgstr "Kostenloser Test der kommerziellen Version"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Official Community documentation in English and Spanish."
-msgstr ""
+msgstr "Offizielle Community-Dokumentation auf Englisch und Spanisch."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Documentation"
@@ -15495,7 +15500,7 @@ msgstr "Dokumentation"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:56
 msgid "Community Support Forum to give and get help."
-msgstr ""
+msgstr "Community Supportforum - Hilfe geben und erhalten."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:56
 msgid "Forum"
@@ -15504,6 +15509,7 @@ msgstr "Forum"
 #: ../../main/core/src/templates/dashboard/links-widget.mas:58
 msgid "Help us to improve by reporting any bug you find!"
 msgstr ""
+"Helfen Sie uns, Zentyal zu verbessern, indem Sie gefundene Fehler melden."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:58
 msgid "Report a bug"
@@ -15524,6 +15530,8 @@ msgstr "Gemeinsame Optionen"
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
 msgstr ""
+"Lernen Sie die Nutzung aller Netzwerkdienste von Zentyal in Produktiv-"
+"Umgebungen kennen."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:66
 #: ../../main/core/src/templates/dashboard/links-widget.mas:84
@@ -15533,12 +15541,12 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
-msgstr ""
+msgstr "Buch \"Zentyal for Network Administrators\" auf Englisch und Spanisch."
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "Official Manual"
-msgstr ""
+msgstr "Offizielles Handbuch"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
 #, fuzzy
@@ -15571,6 +15579,10 @@ msgid ""
 "Please open a console and execute the following command:{br}{opre}sudo apt-"
 "get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 msgstr ""
+"{op}Sie müssen noch einige fehlende Pakte installieren, um Ihren Server zu "
+"registrieren. Bitte öffnen Sie ein Konsolenfenster und führen Sie folgendes "
+"Kommando aus:{br}{opre}sudo apt-get install zentyal-software zentyal-"
+"remoteservices{cpre}{cp}"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:113
 #, fuzzy
@@ -16928,7 +16940,7 @@ msgstr "Entferne Organisationseinheit"
 
 #: ../../main/samba/src/templates/delou.mas:15
 msgid "This organizational unit cannot be deleted"
-msgstr "Der Name der Organisation kann nicht gelöscht weden"
+msgstr "Der Name der Organisationseinheit kann nicht gelöscht werden"
 
 #: ../../main/samba/src/templates/delou.mas:18
 msgid ""
@@ -17166,12 +17178,16 @@ msgstr "E-Mail-Alias"
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
 msgstr ""
+"Gruppen Aliase können nicht für Gruppen erstellt werden, die kein Mail-Konto "
+"besitzen"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
 "Group aliases cannot be created for a group without a mail account belonging "
 "to a mail domain managed by Zentyal"
 msgstr ""
+"Gruppen-Aliase können nicht für Gruppen erstellt werden, die kein Mail-Konto "
+"besitzen, das zu einer von Zentyal verwalteten Mail-Domäne gehört."
 
 #: ../../main/mail/src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"

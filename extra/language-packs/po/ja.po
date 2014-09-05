@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-27 07:59+0200\n"
+"PO-Revision-Date: 2014-08-30 15:35+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -7881,9 +7881,8 @@ msgstr "このページでは、別の一般的なシステム設定を行うこ
 
 #: ../../main/core/src/EBox/SysInfo/Composite/DateAndTime.pm:40
 #: ../../main/core/src/EBox/SysInfo/Composite/DateAndTime.pm:41
-#, fuzzy
 msgid "Date and Time"
-msgstr "日時"
+msgstr "日付と時刻"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:42
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:49
@@ -8063,7 +8062,7 @@ msgstr "日付と時刻が正常に変更された。"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:72
 msgid "Date and time"
-msgstr "日時"
+msgstr "日付と時刻"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:86
 msgid ""
