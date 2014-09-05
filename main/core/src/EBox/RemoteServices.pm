@@ -108,6 +108,7 @@ use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 # use constant OCS_CRON_FILE       => '/etc/cron.daily/ocsinventory-agent';
 # use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
 
+use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
@@ -144,6 +145,81 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+#     Perform the required migrations
+#
+# Overrides:
+#
+#     <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if (defined ($version)) {
+        # Upgrading...
+        if ($self->eBoxSubscribed()) {
+            # Restart the service
+            unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
+                $self->restartService();
+            }
+        }
+    }
+
+# TODO see if this continues to make sense
+#    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
+}
+
+
+# Method: isEnabled
+#
+#       Module is always emabled
+#
+# Overrides:
+#
+#       <EBox::Module::Service::isEnabled>
+#
+sub isEnabled
+{
+    my ($self) = @_;
+    return 1;
+}
+
+# Method: wizardPages
+#
+# Overrides:
+#
+#       <EBox::Module::Base::wizardPages>
+#
+sub wizardPages
+{
+    my ($self) = @_;
+
+    return [] if EBox::Config::configkey('hide_subscription_wizard');
+
+    return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
+}
+
+# Method: subscriptionLevel
+#
+#      Get the subscription level
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Int - the subscription level
+#
+#         -1 - no subscribed or impossible to know
+#          0 - basic
+#          5 - sb
+#          8 - trial
+#          10 - enterprise
+#
 sub subscriptionLevel
 {
     my ($self) = @_;
@@ -162,31 +238,7 @@ sub subscriptionLevel
     return $info->{'level'};
 }
 
-# Method: i18nServerEdition
-#
-#     Get the server edition printable name
-#
-# Parameters:
-#
-#     level - Int the level for taking the edition
-#             *(Optional)* Default value: $self->subscriptionLevel()
-#
-# Returns:
-#
-#     String - the printable edition
-#
-sub i18nServerEdition
-{
-    my ($self, $level) = @_;
 
-    $level = $self->subscriptionLevel() unless (defined($level));
-
-    if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
-    } else {
-        return __('Unknown');
-    }
-}
 
 # Method: technicalSupport
 #
@@ -400,6 +452,32 @@ sub cloudDomain
     return $info->{cloud_domain};
 }
 
+# Method: i18nServerEdition
+#
+#     Get the server edition printable name
+#
+# Parameters:
+#
+#     level - Int the level for taking the edition
+#             *(Optional)* Default value: $self->subscriptionLevel()
+#
+# Returns:
+#
+#     String - the printable edition
+#
+sub i18nServerEdition
+{
+    my ($self, $level) = @_;
+
+    $level = $self->subscriptionLevel() unless (defined($level));
+
+    if ( exists($i18nLevels{$level}) ) {
+        return $i18nLevels{$level};
+    } else {
+        return __('Unknown');
+    }
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -423,6 +501,8 @@ sub _setConf
 
 #    TODO: Disabled until reimplmented
 #    $self->_setRemoteSupportAccessConf();
+
+    $self->_updateMotd();
 }
 
 # Method: revokeConfig
@@ -582,6 +662,24 @@ sub _setRemoteSupportAccessConf
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
+# Update MOTD scripts depending on the subscription status
+sub _updateMotd
+{
+    my ($self) = @_;
+
+    my @tmplParams = (
+         (subscribed => $self->eBoxSubscribed())
+        );
+    if ($self->eBoxSubscribed() ) {
+        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
+                                                edition => $self->i18nServerEdition())));
+    }
+    EBox::Module::Base::writeConfFileNoCheck(
+        RELEASE_UPGRADE_MOTD,
+        'core/remoteservices/release-upgrade-motd.mas',
+        \@tmplParams, { mode => '0755' });
+
+}
 
 # Method: adMessages
 #
@@ -691,6 +789,83 @@ sub _setQAUpdates
     my $qaUpdates = EBox::RemoteServices::QAUpdates->new($self);
     $qaUpdates->set($subscriptionInfo);
 
+}
+
+# Method: renovationDate
+#
+#      Get the date when the subscription must be renewed
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      An integer with the following possible values:
+#
+#         -1 : Unknown
+#          0 : Unlimited
+#         >0 : Seconds since epoch when the subscription must be renewed
+#
+sub renovationDate
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
+    } catch {
+        $ret = -1;
+    }
+    return $ret;
+}
+
+# Method: maxUsers
+#
+#   Return the max number of users the server can hold,
+#   depending on the current server edition, 0 for unlimited
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxUsers
+{
+    my ($self, $force) = @_;
+    # TTT where get users?
+    return 0;
+    # unlimited
+    my $max_users = 0;
+
+    if ($self->addOnAvailable('serverusers', $force)) {
+        $max_users = $self->addOnDetails('serverusers', $force)->{max};
+    }
+
+    return $max_users;
+}
+
+
+# Method: maxCloudUsers
+#
+#   Return the max number of users available in Cloud (if enabled)
+#   0 for unlimited or not enabled
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub maxCloudUsers
+{
+    my ($self, $force) = @_;
+    if ($self->usersSyncAvailable($force)) {
+        return $self->addOnDetails('cloudusers', $force)->{max_users};
+    }
+    return 0;
 }
 
 
@@ -864,39 +1039,6 @@ __DATA__
 
 
 
-# Method: proxyDomain
-#
-#   Returns proxy's domain name or undef if service is disabled
-#
-sub proxyDomain
-{
-    my ($self) = @_;
-
-    if ($self->hasBundle()) {
-        return $self->_confKeys()->{realm};
-    }
-    return undef;
-}
-
-# Method: caDomain
-#
-#   Returns CA organizational name from Zentyal Remote
-#
-# Returns:
-#
-#   String - the CA organizational name from Zentyal Remote
-#            Empty string if it does not have a bundle.
-#
-sub caDomain
-{
-    my ($self) = @_;
-
-    if ($self->hasBundle()) {
-        return $self->_confKeys()->{caDomain};
-    }
-    return "";
-}
-
 
 sub _old_setConf
 {
@@ -917,251 +1059,6 @@ sub _old_setConf
 #   $self->_setNETRCFile();
     $self->_startupTasks();
     $self->_updateMotd();
-}
-
-# Method: initialSetup
-#
-#     Perform the required migrations
-#
-# Overrides:
-#
-#     <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    if (defined ($version)) {
-        # Upgrading...
-        if ($self->eBoxSubscribed()) {
-            # Reload bundle without forcing
-            $self->reloadBundle(0);
-            # Restart the service
-            unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
-                $self->restartService();
-            }
-        }
-    }
-
-    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
-}
-
-
-sub _setInventoryAgentConf
-{
-    my ($self) = @_;
-
-    my $toRemove = 0;
-    if ( $self->inventoryEnabled() ) {
-        my $cloud_domain = $self->cloudDomain();
-        EBox::error('Cannot get Zentyal Remote domain name') unless $cloud_domain;
-
-        # Check subscription level
-        if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
-            my $cred = $self->cloudCredentials(); # XXX change if needed
-
-            # UUID Format for login: Hexadecimal without '0x'
-            my $ug = new Data::UUID;
-            my $bin_uuid = $ug->from_string($cred->{uuid});
-            my $hex_uuid = $ug->to_hexstring($bin_uuid);
-            my $user = substr($hex_uuid, 2);      # Remove the '0x'
-            my $pass = $cred->{password};
-
-            # OCS Server url
-            my $ocs_server = 'https://inventory.' . $cloud_domain . '/ocsinventory';
-
-            # Agent configuration
-            my @params = (
-                server    => $ocs_server,
-                user      => $user,
-                password  => $pass,
-               );
-
-            $self->writeConfFile(OCS_CONF_FILE, OCS_CONF_MAS_FILE, \@params);
-
-            # Enable OCS agent periodic execution
-            $self->writeConfFile(OCS_CRON_FILE,
-                                 OCS_CRON_MAS_FILE,
-                                 [], { 'mode' => '0755' } );
-        } else {
-            $toRemove = 1;
-        }
-    } else {
-        $toRemove = 1;
-    }
-
-    if ( $toRemove and (-e OCS_CRON_FILE) ) {
-        # Disable OCS agent periodic execution
-        EBox::Sudo::root('rm -f ' . OCS_CRON_FILE);
-    }
-}
-
-sub _writeCredentials   # ($fh, $host, $user, $pass)
-{
-    my ($fh, $host, $user, $pass) = @_;
-
-    print $fh "machine $host\n";
-    print $fh "login $user\n";
-    print $fh "password $pass\n\n";
-}
-
-
-# Method: _daemons
-#
-# Overrides:
-#
-#       <EBox::Module::Service::_daemons>
-#
-sub _daemons
-{
-    return [
-        {
-            'name'         => RUNNERD_SERVICE,
-            'precondition' => \&runRunnerd,
-        },
-        {
-            'name'         => REPORTERD_SERVICE,
-            'precondition' => \&reportEnabled,
-        },
-       ];
-}
-
-# Method: isEnabled
-#
-#       Module is enabled only when the subscription is done
-#
-# Overrides:
-#
-#       <EBox::Module::Service::isEnabled>
-#
-sub isEnabled
-{
-    my ($self) = @_;
-#    return  $self->eBoxSubscribed();
-    return 1;
-}
-
-# Method: wizardPages
-#
-# Overrides:
-#
-#       <EBox::Module::Base::wizardPages>
-#
-sub wizardPages
-{
-    my ($self) = @_;
-
-    return [] if EBox::Config::configkey('hide_subscription_wizard');
-
-    return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
-}
-
-# Method: eventDispatchers
-#
-# Overrides:
-#
-#      <EBox::Events::DispatcherProvider::eventDispatchers>
-#
-sub eventDispatchers
-{
-    return [ 'ControlCenter' ];
-}
-
-# Group: Public methods
-
-
-# Method: eBoxSubscribed
-#
-#        Test if current Zentyal is subscribed to remote services
-#
-# Returns:
-#
-#        true - if the current Zentyal is subscribed
-#
-#        false - otherwise
-#
-sub eBoxSubscribed
-{
-    my ($self) = @_;
-
-    return $self->model('Subscription')->eBoxSubscribed();
-
-}
-
-
-
-# Method: eBoxCommonName
-#
-#        The common name to be used as unique which is subscribed by
-#        this Zentyal. It has sense only when
-#        <EBox::RemoteServices::eBoxSubscribed> returns true.
-#
-# Returns:
-#
-#        String - the subscribed Zentyal common name
-#
-#        undef - if <EBox::RemoteServices::eBoxSubscribed> returns
-#        false
-#
-sub eBoxCommonName
-{
-    my ($self) = @_;
-
-    if ( $self->eBoxSubscribed() ) {
-        return $self->model('Subscription')->eboxCommonNameValue();
-    } else {
-        return undef;
-    }
-
-}
-
-
-# Method: monitorGathererIPAddresses
-#
-#        Return the monitor gatherer IP adresses
-#
-# Returns:
-#
-#        array ref - the monitor gatherer IP addresses to send stats to
-#
-#                    empty array if it cannot gather the IP addresses properly
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub monitorGathererIPAddresses
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Remote'));
-    }
-
-    my $monGatherers = [];
-
-    if ( $self->monitorEnabled() ) {
-        # If conf key says so, monitoring goes inside the VPN
-        if (EBox::Config::boolean('monitoring_inside_vpn')) {
-            try {
-                $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-            } catch (EBox::Exceptions::Base $e) {
-            }
-        } else {
-            try {
-                my $confMonGatherers = EBox::Config::configkey('rs_monitoring_servers');
-                if ($confMonGatherers) {
-                    $monGatherers = [ split(/\s+/, $confMonGatherers) ];
-                } else {
-                    $monGatherers = ['mon.' . $self->cloudDomain()];
-                }
-            } catch (EBox::Exceptions::External $e) {
-            }
-        }
-    }
-    return $monGatherers;
 }
 
 # Method: controlPanelURL
@@ -1198,258 +1095,7 @@ sub controlPanelURL
 
 
 
-# Method: hasBundle
-#
-#    Return if the module has the load the bundle or not
-#
-#    This state happens when we have subscribed, but we don't have the
-#    bundle yet
-#
-# Returns:
-#
-#    Boolean - whether the bundle has been loaded or not
-#
-sub hasBundle
-{
-    my ($self) = @_;
 
-    return 0 unless $self->eBoxSubscribed();
-
-    return ($self->st_get_bool('has_bundle'));
-}
-
-# Method: reloadBundle
-#
-#    Reload the bundle from Zentyal Cloud using the Web Service
-#    to do so.
-#
-#    This method must be called only from post-installation script,
-#    crontab or installation process.
-#
-# Parameters:
-#
-#    force - Boolean indicating to reload the bundle even if you think
-#            you have the latest version *(Optional)* Default value: False
-#
-# Returns:
-#
-#    1 - if the reload was done successfully
-#
-#    2 - no reload is needed (force is false)
-#
-#    0 - when subscribed, but we cannot reach Zentyal Cloud
-#
-# Exceptions:
-#
-#    <EBox::Exceptions::External> - thrown if the Zentyal is not
-#    subscribed
-#
-sub reloadBundle
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless (defined($force));
-
-    my $retVal = 1;
-    try {
-        if ( $self->eBoxSubscribed() ) {
-            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
-            my $version       = $self->version();
-            my $bundleVersion = $self->bundleVersion();
-            my $bundleGetter  = new EBox::RemoteServices::Bundle();
-            my $bundleContent = $bundleGetter->retrieveBundle($version, $bundleVersion, $force);
-            if ( $bundleContent ) {
-                my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
-                my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
-                $retVal = 1;
-            } else {
-                $retVal = 2;
-            }
-        } else {
-            throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
-        }
-    } catch (EBox::Exceptions::Internal $e) {
-        $retVal = 0;
-    } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
-        print STDERR __x('Cannot reload the bundle: {reason}', reason => $e->text()) . "\n";
-        # Send the event to ZC
-        my $evt = new EBox::Event(message     => $e->text(),
-                                  source      => 'not-capable',
-                                  level       => 'fatal',
-                                  dispatchTo  => [ 'ControlCenter' ]);
-        my $evts = $self->global()->modInstance('events');
-        $evts->sendEvent(event => $evt);
-    }
-
-    return $retVal;
-}
-
-# Method: bundleVersion
-#
-# Returns:
-#
-#      Int - the bundle version if Zentyal is subscribed and with the bundle
-#
-#      0 - otherwise
-#
-sub bundleVersion
-{
-    my ($self) = @_;
-    if ( $self->eBoxSubscribed() ) {
-        my $bundleVersion = $self->_confKeys()->{version};
-        if (not defined $bundleVersion) {
-            return 0;
-        }
-        return $bundleVersion;
-    } else {
-        return 0;
-    }
-}
-
-# Method: subscriptionLevel
-#
-#      Get the subscription level
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Int - the subscription level
-#
-#         -1 - no subscribed or impossible to know
-#          0 - basic
-#          5 - sb
-#          8 - trial
-#          10 - enterprise
-#
-sub subscriptionLevel
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{level};
-    } catch {
-        $ret = -1;
-    }
-    return $ret;
-}
-
-# Method: subscriptionCodename
-#
-#      Get the subscription codename
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      String - the subscription codename
-#
-#         '' - no subscribed or impossible to know
-#         basic
-#         professional
-#         enterprise
-#         trial
-#
-sub subscriptionCodename
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{codename};
-    } catch {
-        $ret = '';
-    }
-    return $ret;
-}
-
-
-# Method: renovationDate
-#
-#      Get the date when the subscription must be renewed
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      An integer with the following possible values:
-#
-#         -1 : Unknown
-#          0 : Unlimited
-#         >0 : Seconds since epoch when the subscription must be renewed
-#
-sub renovationDate
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
-    } catch {
-        $ret = -1;
-    }
-    return $ret;
-}
-
-# Method: maxUsers
-#
-#   Return the max number of users the server can hold,
-#   depending on the current server edition, 0 for unlimited
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-sub maxUsers
-{
-    my ($self, $force) = @_;
-
-    # unlimited
-    my $max_users = 0;
-
-    if ($self->addOnAvailable('serverusers', $force)) {
-        $max_users = $self->addOnDetails('serverusers', $force)->{max};
-    }
-
-    return $max_users;
-}
-
-# Method: maxCloudUsers
-#
-#   Return the max number of users available in Cloud (if enabled)
-#   0 for unlimited or not enabled
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-sub maxCloudUsers
-{
-    my ($self, $force) = @_;
-    if ($self->usersSyncAvailable($force)) {
-        return $self->addOnDetails('cloudusers', $force)->{max_users};
-    }
-    return 0;
-}
 
 
 
@@ -1535,6 +1181,8 @@ sub addOnDetails
 {
     my ($self, $addOn, $force) = @_;
 
+    if ($force) {
+    }
     $force = 0 unless defined($force);
 
     my $ret = {};
@@ -1770,198 +1418,7 @@ sub latestRemoteConfBackup
     return $bakService->latestRemoteConfBackup();
 }
 
-# Method: adminPortChanged
-#
-#     Report to Zentyal Remote for a new TCP port for the Zentyal
-#     server admin interface.
-#
-#     It will do so only if the server is connected to Zentyal Remote
-#
-# Parameters:
-#
-#     port - Int the new TCP port
-#
-# Overrides:
-#
-#     <EBox::WebAdmin::PortObserver::adminPortChanged>
-#
-sub adminPortChanged
-{
-    my ($self, $port) = @_;
 
-    my $state = $self->get_state();
-
-    if ($self->eBoxSubscribed()) {
-        # Check for a change in admin port
-        if ((not $state->{'admin_port'}) or ($state->{'admin_port'} != $port)) {
-            my $adminPortRS = new EBox::RemoteServices::AdminPort();
-            $adminPortRS->setAdminPort($port);
-            $state->{admin_port} = $port;
-            $self->set_state($state);
-        }
-    }
-}
-
-# Method: DDNSServerIP
-#
-#     Get the DynDNS Server IP address if the host is connected
-#
-# Returns:
-#
-#     String - the IP address to use. Empty string if this cannot be got
-#
-sub DDNSServerIP
-{
-    my ($self) = @_;
-
-    my $ret = "";
-
-    if ( $self->eBoxSubscribed() ) {
-        my $hostname = $self->_confKeys()->{dynamicDnsServer};
-
-        if ( $hostname ) {
-            try {
-                $ret = $self->queryInternalNS($hostname, 'random');
-            } catch { };
-        }
-    }
-    return $ret;
-
-}
-
-# Method: dynamicHostname
-#
-#    Get the Dynamic Hostname for the DynDNS service if the server is
-#    connected
-#
-# Returns:
-#
-#    String - the FQDN for the dynamic DNS hostname. Empty string if
-#             the server is not subscribed
-#
-sub dynamicHostname
-{
-    my ($self) = @_;
-
-    my $ret = "";
-
-    if ( $self->eBoxSubscribed() ) {
-        my $domain = $self->dynamicDomain();
-        $ret = $self->eBoxCommonName() . '.' . $domain;
-    }
-    return $ret;
-}
-
-
-
-# Method: subscriptionDir
-#
-#      The subscription directory path
-#
-# Parameters:
-#
-#      force - Boolean indicating to return value stored in the model
-#              even if the server is not subscribed
-#
-# Returns:
-#
-#      String - the path where the bundle is untar'ed and credentials
-#      are stored
-#
-sub subscriptionDir
-{
-    my ($self, $force) = @_;
-    my $cn;
-    $cn = $self->eBoxCommonName();
-    if ( not defined($cn) and $force ) {
-        $cn = $self->model('Subscription')->eboxCommonNameValue();
-    }
-
-    return  SUBS_DIR . $cn;
-}
-
-# Method: reportEnabled
-#
-#     Get if the given server has the report feature enabled
-#
-# Returns:
-#
-#     Boolean
-#
-sub reportEnabled
-{
-    my ($self) = @_;
-
-    return ($self->eBoxSubscribed() and $self->subscriptionLevel() > 0);
-}
-
-# Method: monitorEnabled
-#
-#     Get if the given server has the monitor feature enabled
-#
-# Returns:
-#
-#     Boolean
-#
-sub monitorEnabled
-{
-    my ($self) = @_;
-
-    return $self->reportEnabled();
-}
-
-# Method: inventoryEnabled
-#
-#     Get if the given server has the inventory feature enabled
-#
-# Returns:
-#
-#     Boolean
-#
-sub inventoryEnabled
-{
-    my ($self) = @_;
-
-    return $self->reportEnabled();
-}
-
-# Method: runRunnerd
-#
-#     Get if runnerd daemon should be run.
-#
-#     By default, run if the server is registered. If not, then this
-#     depends on the value set by <ensureRunnerdRunning> method
-#
-# Returns:
-#
-#     Boolean
-#
-sub runRunnerd
-{
-    my ($self) = @_;
-
-    return 1 if ($self->eBoxSubscribed());
-    return $self->get_bool('runnerd_always_running');
-}
-
-# Method: ensureRunnerdRunning
-#
-#     Ensure runnerd is running even when the server is not
-#     registered.
-#
-#     Save changes is required to start/stop runnerd daemon.
-#
-# Parameters:
-#
-#     run - Boolean indicating if runnerd is meant to be run or not
-#
-sub ensureRunnerdRunning
-{
-    my ($self, $run) = @_;
-
-    $run = 0 unless (defined($run));
-    $self->set_bool('runnerd_always_running', $run);
-}
 
 # Method: pushAdMessage
 #
@@ -2055,16 +1512,6 @@ sub _startupTasks
     }
 }
 
-# Write the cron file
-
-
-sub _setUpAuditEnvironment
-{
-    my $johnDir = EBox::RemoteServices::Configuration::JohnHomeDirPath();
-    unless ( -d $johnDir ) {
-        mkdir($johnDir);
-    }
-}
 
 # Return the allowed client CNs regexp
 sub _allowedClientCNRegexp
@@ -2098,13 +1545,6 @@ sub _confKeys
     return $self->{confKeys};
 }
 
-# Return the CA cert path
-sub _caCertPath
-{
-    my ($self, $force) = @_;
-
-    return $self->subscriptionDir($force) . '/cacert.pem';
-}
 
 
 # Set the subscription details
@@ -2200,16 +1640,6 @@ sub _latestBackup
     return $latest;
 }
 
-# Report the Zentyal server TCP admin port to Zentyal Remote
-sub _reportAdminPort
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance(1);
-    my $webAdminMod = $gl->modInstance('webadmin');
-
-    $self->adminPortChanged($webAdminMod->listeningPort());
-}
 
 # Method: extraSudoerUsers
 #
@@ -2340,35 +1770,7 @@ sub clearCache
 
 
 
-# Method: subscribedHostname
 #
-#        Return the hostname within the Zentyal Cloud if
-#        the host is subscribed to it
-#
-# Returns:
-#
-#        String - the subscribed hostname
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub subscribedHostname
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The subscribed hostname is only available if the host is subscribed to Zentyal Remote')
-           );
-    }
-
-    unless ( defined($self->{subscribedHostname}) ) {
-        $self->{subscribedHostname} = EBox::RemoteServices::Cred->new()->subscribedHostname();
-    }
-    return $self->{subscribedHostname};
-}
 
 # Method: subscribedUUID
 #
@@ -2399,94 +1801,9 @@ sub subscribedUUID
     return $self->{subscribedUUID};
 }
 
-# Method: cloudDomain
-#
-#        Return the Zentyal Cloud Domain if the server is subscribed
-#
-# Parameters:
-#
-#        silent - String if the host is not registered, throw a silent
-#                 exception
-#
-# Returns:
-#
-#        String - the Zentyal Cloud Domain
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub cloudDomain
-{
-    my ($self, $silent) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The Zentyal Remote Domain is only available if the host is subscribed'),
-            silent => $silent
-           );
-    }
-
-    unless ( defined($self->{cloudDomain}) ) {
-        # we need to check credError beause this method is used for referer check
-        my $credError = EBox::RemoteServices::Cred->credentialsFileError($self->eBoxCommonName());
-        if ($credError) {
-            return undef;
-        }
-        $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
-    }
-    return $self->{cloudDomain};
-}
-
-# Method: dynamicDomain
-#
-#        Return the Zentyal Cloud Dynamic Domain if the server is
-#        subscribed
-#
-# Returns:
-#
-#        String - the Zentyal Cloud Dynamic Domain
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub dynamicDomain
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The Zentyal Remote Dynamic Domain is only available if the host is subscribed')
-           );
-    }
-
-    unless ( defined($self->{dynamicDomain}) ) {
-        $self->{dynamicDomain} = EBox::RemoteServices::Cred->new()->dynamicDomain();
-    }
-    return $self->{dynamicDomain};
-}
 
 
-# Update MOTD scripts depending on the subscription status
-sub _updateMotd
-{
-    my ($self) = @_;
 
-    my @tmplParams = (
-         (subscribed => $self->eBoxSubscribed())
-        );
-    if ($self->eBoxSubscribed() ) {
-        push(@tmplParams, (editionMsg => __sx('This is a Zentyal Server {edition} edition.',
-                                                edition => $self->i18nServerEdition())));
-    }
-    EBox::Module::Base::writeConfFileNoCheck(
-        RELEASE_UPGRADE_MOTD,
-        'remoteservices/release-upgrade-motd.mas',
-        \@tmplParams, { mode => '0755' });
 
-}
 
 1;
