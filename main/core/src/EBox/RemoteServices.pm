@@ -109,6 +109,16 @@ use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 # use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
 
 
+my %i18nLevels = ( '-1' => __('Unknown'),
+                   '0'  => __('Community'),
+                   '5'  => __('Small Business'),
+                   '6'  => __('Professional'),
+                   '7'  => __('Business'),
+                   '8'  => __('Enterprise Trial'),
+                   '10' => __('Enterprise'),
+                   '20' => __('Premium'));
+
+
 # Constructor: _create
 #
 #        Create an event module
@@ -138,12 +148,84 @@ sub subscriptionLevel
 {
     my ($self) = @_;
     my $info = $self->subscriptionInfo();
+    # TODO TEMPORALLY
+    if ((not $info)) {
+        return SUBSCRIPTION_LEVEL_NONE; 
+    } 
+    return 1;
+    # END TEMPORALLY
+    
     if ((not $info) or (not $info->{'level'})) {
-        return SUBSCRIPTION_LEVEL_NONE; # 
+        return SUBSCRIPTION_LEVEL_NONE; 
     } 
 
     return $info->{'level'};
 }
+
+# Method: i18nServerEdition
+#
+#     Get the server edition printable name
+#
+# Parameters:
+#
+#     level - Int the level for taking the edition
+#             *(Optional)* Default value: $self->subscriptionLevel()
+#
+# Returns:
+#
+#     String - the printable edition
+#
+sub i18nServerEdition
+{
+    my ($self, $level) = @_;
+
+    $level = $self->subscriptionLevel() unless (defined($level));
+
+    if ( exists($i18nLevels{$level}) ) {
+        return $i18nLevels{$level};
+    } else {
+        return __('Unknown');
+    }
+}
+
+# Method: technicalSupport
+#
+#      Get the level of technical support if any
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      An integer with the following possible values:
+#
+#         -2 : Unknown
+#         -1 : no support
+#          0 : Essential Support
+#          1 : Standard Support
+#          2 : Premium Support
+#
+sub technicalSupport
+{
+    my ($self, $force) = @_;
+    my $level = -2;
+    try {
+        my $subscriptionInfo;
+        if ($force) {
+            $subscriptionInfo = $self->refreshSubscriptionInfo();
+        } else {
+            $subscriptionInfo = $self->subscriptionInfo;
+        }
+        $level = $subscriptionInfo->{features}->{technical_support}->{level};
+    } catch ($ex) {
+        EBox::error("Error getting technical support level: $ex");
+    }
+
+    return $level;
+}
+
 
 sub username
 {
@@ -282,6 +364,32 @@ sub eBoxSubscribed
     return ($level != SUBSCRIPTION_LEVEL_NONE);
 }
 
+# Method: eBoxCommonName
+#
+#        The common name to be used as unique which is subscribed by
+#        this Zentyal. It has sense only when
+#        <EBox::RemoteServices::eBoxSubscribed> returns true.
+#
+# Returns:
+#
+#        String - the subscribed Zentyal common name
+#
+#        undef - if <EBox::RemoteServices::eBoxSubscribed> returns
+#        false
+#
+sub eBoxCommonName
+{
+    my ($self) = @_;
+
+    if ( $self->eBoxSubscribed() ) {
+        my $info = $self->subscriptionInfo();
+        return $info->{server}->{name};
+    } else {
+        return undef;
+    }
+
+}
+
 sub cloudDomain
 {
     my ($self) = @_;
@@ -300,17 +408,21 @@ sub _setConf
     my $revokeAction = delete $state->{revokeAction};
     $self->set_state($state);
 
-    my $alreadyChanged = $self->changed();
-    my $subscriptionInfo = $self->refreshSubscriptionInfo();
-    
-    if ($self->changed() and not $alreadyChanged) {
-        # changes due to subscription refresh
-        $self->_saveConfig();
-        $self->setAsChanged(0);
+    my $subscriptionInfo = undef;
+    if (not $self->eBoxSubscribed()) {
+        my $alreadyChanged = $self->changed();
+        $subscriptionInfo = $self->refreshSubscriptionInfo();
+        if ($self->changed() and not $alreadyChanged) {
+            # changes due to subscription refresh
+            $self->_saveConfig();
+            $self->setAsChanged(0);
+        }
     }
 
     $self->setupSubscription($subscriptionInfo);
-    $self->_setRemoteSupportAccessConf();
+
+#    TODO: Disabled until reimplmented
+#    $self->_setRemoteSupportAccessConf();
 }
 
 # Method: revokeConfig
@@ -443,6 +555,7 @@ sub _manageCloudProfPackage
     }
 }
 
+# TODO: reimplemnte
 sub _setRemoteSupportAccessConf
 {
     my ($self) = @_;
@@ -458,14 +571,14 @@ sub _setRemoteSupportAccessConf
     }
 
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    # TTT
-    if ($self->eBoxSubscribed() and $self->hasBundle()) {
-        my $conn = new EBox::RemoteServices::Connection();
-        my $vpnClient = $conn->vpnClient();
-        if ($vpnClient) {
-            EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
-        }
-    }
+    # # TTT
+    # if ($self->eBoxSubscribed() and $self->hasBundle()) {
+    #     my $conn = new EBox::RemoteServices::Connection();
+    #     my $vpnClient = $conn->vpnClient();
+    #     if ($vpnClient) {
+    #         EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
+    #     }
+    # }
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
@@ -600,10 +713,13 @@ sub menu
     $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Index',
                                       'text' => __('Server Registration'),
                                      ));
-    $folder->add(new EBox::Menu::Item(
-        'url'  => 'RemoteServices/Composite/Technical',
-        'text' => __('Technical Support'),
-       ));
+
+
+    # TODO: commented until reimplement
+    # $folder->add(new EBox::Menu::Item(
+    #     'url'  => 'RemoteServices/Composite/Technical',
+    #     'text' => __('Technical Support'),
+    #    ));
 
 
     $root->add($folder);
@@ -641,12 +757,6 @@ sub showModuleStatus
 {
     return 0;
 }
-
-
-
-1;
-
-__DATA__
 
 # Method: widgets
 #
@@ -687,21 +797,6 @@ sub _ccConnectionWidget
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
-        $connValue     = __('Connected');
-        $connValueType = 'info';
-        if ( $self->_VPNRequired() ) {
-            if ( not $self->hasBundle() ) {
-                $connValue     = __('In process');
-                $connValueType = 'info';
-            } elsif ( not $self->isConnected() ) {
-                $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
-                                  oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
-                                  ch   => '</a>',
-                                  path => '/var/log/openvpn/');
-                $connValueType = 'error';
-            }
-        } # else. No VPN required, then always connected
-
         $serverName = $self->eBoxCommonName();
         my $gl  = EBox::Global->getInstance(1);
         my $net = $gl->modInstance('network');
@@ -739,17 +834,13 @@ sub _ccConnectionWidget
         }
 
     } else {
-        $connValue      = __sx('Not registered - {oh}Register now!{ch}',
-                               oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
         $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
     }
 
     $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
-    $section->add(new EBox::Dashboard::Value(__('Connection status'),
-                                             $connValue, $connValueType));
+
     if ( $fqdn ) {
         $section->add(new EBox::Dashboard::Value(__('External server name'),
                                                  $fqdn));
@@ -763,6 +854,13 @@ sub _ccConnectionWidget
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
 }
+
+
+
+
+1;
+
+__DATA__
 
 
 
@@ -799,31 +897,24 @@ sub caDomain
     return "";
 }
 
-# Method: _setConf
-#
-#        Regenerate the configuration for the remote services module
-#
-# Overrides:
-#
-#       <EBox::Module::Service::_setConf>
-#
-sub _setConf
+
+sub _old_setConf
 {
     my ($self) = @_;
 
-    $self->_setProxyRedirections();
-    $self->_confSOAPService();
-    if ($self->eBoxSubscribed()) {
-        $self->_setUpAuditEnvironment();
-        $self->_establishVPNConnection();
-        $self->_vpnClientAdjustLocalAddress();
-        $self->_reportAdminPort();
-    }
+    # $self->_setProxyRedirections();
+    # $self->_confSOAPService();
+    # if ($self->eBoxSubscribed()) {
+    #     $self->_setUpAuditEnvironment();
+    #     $self->_establishVPNConnection();
+    #     $self->_vpnClientAdjustLocalAddress();
+    #     $self->_reportAdminPort();
+    # }
     $self->_writeCronFile();
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
-    $self->_setInventoryAgentConf();
-    $self->_setNETRCFile();
+#    $self->_setInventoryAgentConf();
+#   $self->_setNETRCFile();
     $self->_startupTasks();
     $self->_updateMotd();
 }
@@ -867,7 +958,7 @@ sub _setInventoryAgentConf
 
         # Check subscription level
         if ($cloud_domain and ($self->subscriptionLevel(1) > 0)) {
-            my $cred = $self->cloudCredentials();
+            my $cred = $self->cloudCredentials(); # XXX change if needed
 
             # UUID Format for login: Hexadecimal without '0x'
             my $ug = new Data::UUID;
@@ -914,45 +1005,6 @@ sub _writeCredentials   # ($fh, $host, $user, $pass)
     print $fh "password $pass\n\n";
 }
 
-# Set up .netrc file in user's $HOME
-sub _setNETRCFile
-{
-    my ($self) = @_;
-
-    my $file = EBox::Config::home() . '/.netrc';
-
-    if ($self->eBoxSubscribed()) {
-        my $cred = EBox::RemoteServices::Cred->new();
-        my $cloudDomain = $cred->cloudDomain();
-        my $credentials  = $cred->cloudCredentials();
-
-        my $fileHandle;
-        open($fileHandle, '>', $file);
-        chmod 0700, $fileHandle;
-
-        # Conf backup
-        _writeCredentials($fileHandle,
-                          "confbackup.$cloudDomain",
-                          $credentials->{uuid},
-                          $credentials->{password});
-
-        # Security updates
-
-        # Password: UUID in hexadecimal format (without '0x')
-        my $ug = new Data::UUID;
-        my $bin_uuid = $ug->from_string($credentials->{uuid});
-        my $hex_uuid = $ug->to_hexstring($bin_uuid);
-
-        _writeCredentials($fileHandle,
-                          "security-updates.$cloudDomain",
-                          $cred->subscribedHostname(),
-                          substr($hex_uuid, 2));
-
-        close($fileHandle);
-    } else {
-        unlink($file);
-    }
-}
 
 # Method: _daemons
 #
@@ -1323,39 +1375,6 @@ sub subscriptionCodename
     return $ret;
 }
 
-# Method: technicalSupport
-#
-#      Get the level of technical support if any
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      An integer with the following possible values:
-#
-#         -2 : Unknown
-#         -1 : no support
-#          0 : Essential Support
-#          1 : Standard Support
-#          2 : Premium Support
-#
-sub technicalSupport
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{technical_support};
-    } catch {
-        $ret = -2;
-    }
-    return $ret;
-}
 
 # Method: renovationDate
 #
@@ -1833,31 +1852,7 @@ sub dynamicHostname
     return $ret;
 }
 
-# Method: i18nServerEdition
-#
-#     Get the server edition printable name
-#
-# Parameters:
-#
-#     level - Int the level for taking the edition
-#             *(Optional)* Default value: $self->subscriptionLevel()
-#
-# Returns:
-#
-#     String - the printable edition
-#
-sub i18nServerEdition
-{
-    my ($self, $level) = @_;
 
-    $level = $self->subscriptionLevel() unless (defined($level));
-
-    if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
-    } else {
-        return __('Unknown');
-    }
-}
 
 # Method: subscriptionDir
 #
@@ -2080,7 +2075,7 @@ sub _allowedClientCNRegexp
     my $wwwProxy = $self->_confKeys()->{wwwServiceProxy};
     my ($mmPrefix, $mmRem) = split(/\./, $mmProxy, 2);
     my ($wwwPrefix, $wwwRem) = split(/\./, $wwwProxy, 2);
-    my $nums = '[0-9]+';
+    my $nums = '[0-9]+';x
     return "^(${mmPrefix}$nums.${mmRem}|${wwwPrefix}$nums.${wwwRem})\$";
 }
 
@@ -2345,22 +2340,6 @@ sub clearCache
 
 
 
-# Method: REST
-#
-#   Return the REST client ready to query remote services
-#
-sub REST
-{
-    my ($self) = @_;
-
-    unless ($self->{rest}) {
-        my $cred = new EBox::RemoteServices::Cred();
-        $self->{rest} = $cred->RESTClient();
-    }
-
-    return $self->{rest};
-}
-
 # Method: subscribedHostname
 #
 #        Return the hostname within the Zentyal Cloud if
@@ -2488,35 +2467,6 @@ sub dynamicDomain
         $self->{dynamicDomain} = EBox::RemoteServices::Cred->new()->dynamicDomain();
     }
     return $self->{dynamicDomain};
-}
-
-# Method: cloudCredentials
-#
-#        Return the Zentyal Cloud Credentials if the server is subscribed
-#
-# Returns:
-#
-#        Hash ref - 'uuid' and 'password'
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-sub cloudCredentials
-{
-    my ($self) = @_;
-
-    unless ( $self->eBoxSubscribed() ) {
-        throw EBox::Exceptions::External(
-            __('The Zentyal Remote credentials are only available if the host is subscribed')
-           );
-    }
-    unless ( defined($self->{cloudCredentials}) ) {
-        $self->{cloudCredentials} = EBox::RemoteServices::Cred->new()->cloudCredentials();
-    }
-    return $self->{cloudCredentials};
-
 }
 
 
