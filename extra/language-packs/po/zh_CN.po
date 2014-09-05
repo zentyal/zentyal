@@ -131,17 +131,13 @@ msgstr "客户端 {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:257
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:346
 #: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:255
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
@@ -154,9 +150,6 @@ msgstr "已启用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
@@ -164,8 +157,6 @@ msgstr "已启用"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -185,7 +176,6 @@ msgstr "禁用"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
@@ -335,7 +325,8 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:234
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:185
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:187
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
@@ -345,8 +336,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:184
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:194
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/ca/src/templates/index.mas:99
@@ -364,14 +353,13 @@ msgstr "名称"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:194
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:233
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:81
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:190
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:208
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "配置"
@@ -740,8 +728,8 @@ msgid "Search domain"
 msgstr "搜索域"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:413
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:315
 msgid "WINS server"
 msgstr "WINS 服务器"
 
@@ -973,15 +961,14 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:100
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/l2tp/src/EBox/L2TP.pm:352 ../../main/dhcp/src/EBox/DHCP.pm:973
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:781
 #: ../../main/samba/src/EBox/Samba.pm:3720
 #: ../../main/samba/src/EBox/Samba.pm:3740
 #: ../../main/samba/src/EBox/Samba.pm:3751
 #: ../../main/squid/src/EBox/Squid.pm:1111
-#: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1810
+#: ../../main/mail/src/EBox/Mail.pm:1814
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/remoteservices/src/templates/Backup/index.mas:175
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
@@ -998,19 +985,17 @@ msgstr "日期"
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/dhcp/src/EBox/DHCP.pm:977
+#: ../../main/l2tp/src/EBox/L2TP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1118
-#: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1820
+#: ../../main/mail/src/EBox/Mail.pm:1824
 msgid "Event"
 msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
 #: ../../main/samba/src/EBox/Samba.pm:3745
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/samba/src/templates/addgroup.mas:10
@@ -1027,7 +1012,7 @@ msgid "Remote Certificate"
 msgstr "远程证书"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/ipsec/src/EBox/IPsec.pm:425
+#: ../../main/l2tp/src/EBox/L2TP.pm:359
 msgid "Initialization sequence completed"
 msgstr "初始化顺序完成"
 
@@ -1075,7 +1060,6 @@ msgid "High Availability"
 msgstr "高可用"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/HAProxy.pm:298
 msgid "System"
 msgstr "系统"
 
@@ -1094,6 +1078,7 @@ msgid "To start corosync at boot"
 msgstr "在开机时启动 corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
@@ -1104,12 +1089,13 @@ msgstr "在开机时启动 corosync"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
 msgstr "未知"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:360
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:374
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
@@ -1127,8 +1113,6 @@ msgstr "未知"
 #: ../../main/core/src/EBox/CGI/Search.pm:48
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:260
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:276
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "无"
@@ -1154,7 +1138,7 @@ msgstr "错误"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4484
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1819
+#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1823
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1491,260 +1475,6 @@ msgstr ""
 "当前有一个未管理的资源无法处理，你应该在终端中输入以下命令来恢复其控制："
 "{command}"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:75
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
-msgid "Web Server"
-msgstr "Web 服务器"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:93
-msgid "To set webserver listening port."
-msgstr "设置 Web 服务器监听端口。"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:98
-msgid "To configure default virtual host."
-msgstr "设置默认的虚拟主机。"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:103
-msgid "To configure default SSL virtual host."
-msgstr "设置默认的 SSL 虚拟主机。"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:108
-msgid "To configure the per-user public_html directory."
-msgstr "所做每个用户的 public_html 目录。"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:133
-msgid "Enable Apache LDAP user module"
-msgstr "启用Apache LDAP用户模块"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:135
-msgid "To fetch home directories from LDAP."
-msgstr "从LDAP获取家目录"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:138
-msgid "Enable Apache SSL module"
-msgstr "启用Apache SSL模块"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:140
-msgid "To serve pages over HTTPS."
-msgstr "通过HTTPS服务页面"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:143
-msgid "Remove apache2 init script link"
-msgstr "移除apache2初始化脚本链接"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:144
-#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
-#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal会接管启动和停止服务行为"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:696
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host configuration. Please, move or "
-"remove it"
-msgstr "对于虚拟主机配置，{dir}应该是一个目录。请移走或者删除它"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:711
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host document root. Please, move or "
-"remove it"
-msgstr "对于虚拟主机文档根目录，{dir}应该是一个目录。请移走或者删除它"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:957
-msgid "Web server data"
-msgstr "Web服务器数据"
-
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
-msgid ""
-"The Zentyal webserver allows you to host HTTP and HTTPS pages within "
-"different virtual hosts."
-msgstr "Zentyal网络服务器允许HTTP和HTTPS页面在不同的虚拟主机。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
-msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
-#, fuzzy
-msgid "HTTP listening port"
-msgstr "监听端口"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
-#, fuzzy
-msgid "HTTPS listening port"
-msgstr "监听端口"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
-#, fuzzy
-msgid "Listening Ports settings"
-msgstr "会议列表"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
-#, fuzzy
-msgid "Listening Ports configuration"
-msgstr "客户端配置"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
-#, fuzzy
-msgid "Listening ports configuration settings updated."
-msgstr "Zarafa 服务器限额配置已更新。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host name"
-msgstr "虚拟主机名称"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
-msgid "Virtual host"
-msgstr "虚拟主机"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-msgid "You need to enable Listening SSL port."
-msgstr "您需要启用SSL端口监听。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
-#, fuzzy, perl-brace-format
-msgid ""
-"You need to enable {module} on {ohref}Services Certificates{chref} to enable "
-"SSL on a virtual host."
-msgstr "在一个虚拟主机开启SSL，你需要在{ohref}服务启用{module}。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
-"its IP addresses. {noDnsWarning} "
-msgstr ""
-"虚拟主机{vhost}已添加。一个域{domain}已建立。请检查它的IP地址{noDnsWarning}。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the host "
-"name {name}. Please, set the host IP address. {noDnsWarning} "
-msgstr ""
-"虚拟主机{vhost}已建立。一个主机名称为{name}的域{domain}已建立。请设置主机的IP"
-"地址。{noDnsWarning}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
-"Please, set the host IP address"
-msgstr ""
-"虚拟主机{vhost}已添加。一个主机名称为{name}的域{domain}已建立。请设置主机的IP"
-"地址。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
-#, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "虚拟主机{vhost}已添加。 "
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-msgid "Allow SSL"
-msgstr "允许SSL"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:286
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
-msgid "Force SSL"
-msgstr "强制SSL"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:310
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-msgid "SSL support"
-msgstr "SSL支持"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
-msgid "Virtual hosts"
-msgstr "虚拟主机"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-"虚拟主机是将多个web服务器实例运行在单一物理服务器中的虚拟主机服务中的一种形"
-"式。不同的主机名指向相同的web服务器。如果可行，DNS条目将自动建立。内容必须置"
-"于{docRoot}目录之下。添加任何特定的配置需要放置在{userConf}目录下。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:347
-msgid "Virtual host deleted. The virtual host files will be left in place"
-msgstr "虚拟主机已移除。该虚拟主机的文件将保留"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:365
-#, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it."
-msgstr ""
-"{open} 中的 DNS 模块被禁止了。新增加的映射或域，将不会有任何效果，除非你启用"
-"它。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:90
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr "需要安装并配置好的用户和组的模块来允许用户访问HTML目录。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:96
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"需要一个正确配置的用户和组的模块来允许用户访问HTML目录。请至少开启一次来进行"
-"配置。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
-#, fuzzy
-msgid "User public folder configuration settings updated."
-msgstr "常规Web服务器配置设置已更新。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:134
-#, perl-brace-format
-msgid ""
-"Remember that in order to have UserDir working, you should create the {p} "
-"directory, and to provide www-data execution permissions over the involved /"
-"home/user directories."
-msgstr ""
-"请牢记用户目录能够正常工作之前，您需要创建{p}目录，并确保在/home/user目录之下"
-"提供给www-data可执行权限。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:159
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "开启用户独立 {dirName}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:162
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr "允许用户在他们的家目录下使用public_html目录发布web文档。"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
-#, fuzzy
-msgid "User public folder settings"
-msgstr "用户设置"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:172
-#, fuzzy, perl-brace-format
-msgid ""
-"User public folder configuration. If you enable user to publish their own "
-"html pages, those should be loaded from {dirName} directory from their home "
-"directories."
-msgstr ""
-"常规Web服务器配置。如果您启用用户发布自己的html页面，那么应该从{dirName}加载"
-"各自的主目录。如果您想改变公共端口或者启用/禁用SSL，你可以通过{ohref}系统常规"
-"配置页面{chref}。"
-
 #: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
 #: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1683
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:638
@@ -1784,6 +1514,11 @@ msgstr "使bind监控进程动态更新"
 msgid "Remove bind9 init script link"
 msgstr "移除bind9初始化脚本链接"
 
+#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
+#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "Zentyal会接管启动和停止服务行为"
+
 #: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Override named apparmor profile"
 msgstr "覆盖 named 的apparmor配置"
@@ -1822,10 +1557,9 @@ msgstr "需要提供一个不合法的域名或者一个通配符(*)"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:327
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 msgid "IP Address"
 msgstr "IP地址"
 
@@ -1990,13 +1724,13 @@ msgstr "此域名"
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:354
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:378
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
 #: ../../main/mail/src/EBox/Mail.pm:1715
 msgid "Custom"
 msgstr "定制"
@@ -2286,7 +2020,6 @@ msgstr "该主机名将被解析到这个列表中的 IP 地址。"
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
 #: ../../main/samba/src/EBox/Samba/User.pm:106
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:92
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:45
@@ -2317,6 +2050,14 @@ msgstr "Jabber 帐号已禁用"
 msgid "Jabber"
 msgstr "Jabber"
 
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
+msgid "Allow SSL"
+msgstr "允许SSL"
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
+msgid "Force SSL"
+msgstr "强制SSL"
+
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
 msgstr "Jabber 域"
@@ -2324,6 +2065,10 @@ msgstr "Jabber 域"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:123
 msgid "Domain used to connect to this server."
 msgstr "用来连接到该服务器的域。"
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
+msgid "SSL support"
+msgstr "SSL支持"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
 msgid "SSL connection method to this server."
@@ -2471,7 +2216,6 @@ msgstr "如果允许客人访问，任何访问控制都会被禁用。"
 #: ../../main/samba/src/EBox/Samba.pm:3742
 #: ../../main/samba/src/EBox/Samba.pm:3753
 #: ../../main/squid/src/EBox/Squid.pm:1113
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2789,8 +2533,8 @@ msgstr "带有普通名称{cn} 的证书不能在这个ca中存在"
 
 #: ../../main/ca/src/EBox/CA.pm:1739
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:423
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
 #: ../../main/mail/src/EBox/Mail.pm:1751
 msgid "General"
 msgstr "常用"
@@ -3005,6 +2749,7 @@ msgid "The new CA certificate has been issued."
 msgstr "新的ca认证被发布"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:394
 #, fuzzy, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr "创建认证中心证书"
@@ -3164,34 +2909,6 @@ msgstr "失败"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:426
 msgid "Antivirus DB updates"
 msgstr "防病毒数据库更新"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:53
-#, fuzzy
-msgid "OpenChange Webmail"
-msgstr "OpenChange"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:118
-msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
-
-#: ../../main/sogo/src/EBox/SOGO.pm:119
-#, fuzzy
-msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
-msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:139
-#, fuzzy, perl-brace-format
-msgid ""
-"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
-"Zentyal mail service. You can enable it at {openurl}Mail -> "
-"General{closeurl}."
-msgstr ""
-"要使用 Zentyal 的邮件服务，Webmail 模块需要启用 IMAP 或 IMAPS 服务。您可以在 "
-"{openurl}邮件 ->常规{closeurl}那里启用该服务。"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:164
-msgid "To make SOGo webmail available"
-msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -3786,6 +3503,341 @@ msgstr "错误邮件头策略"
 msgid "Filter Policies"
 msgstr "过滤器策略"
 
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:63
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} 范围有效"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:93
+#, perl-brace-format
+msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
+msgstr "隧道 IP 地址范围 {from}-{to}: {localIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:121
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
+#, perl-brace-format
+msgid ""
+"Range {from}-{to} includes fixed address from the object member \"{name}\": "
+"{fixedIP}"
+msgstr "范围 {from} - {to} 包含对象成员“{name}”的固定地址：{fixedIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:133
+msgid "The defined range is not part of any local network"
+msgstr "定义的范围不是本地网络的一部分"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:155
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr "范围 {newFrom} - {newTo} 与范围 '{range}' 有重叠：{oldFrom} - {oldTo}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:191
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
+#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
+msgid "From"
+msgstr "从"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:197
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
+#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
+msgid "To"
+msgstr "到"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:205
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:201
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
+msgid "Ranges"
+msgstr "范围"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:211
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
+msgid "range"
+msgstr "范围"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
+msgid ""
+"You are using a non fixed IP address as a VPN server address. If the IP "
+"changes it may break the VPN server!"
+msgstr ""
+"你正在使用一个非固定 IP 作为 VPN 服务器地址。该IP改变可能会使 VPN 服务器出现"
+"异常！"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:60
+#, perl-brace-format
+msgid ""
+"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
+msgstr "服务器 IP 已修改，旧值 \"{oldIP}\" 将不再无效。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:65
+msgid ""
+"Your system is not correctly configured. We were not able to find any valid "
+"public IP address."
+msgstr "您的系统未正确配置。我们无法找到任何有效的公共 IP 地址。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:167
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:318
+msgid "Remote Address"
+msgstr "远程地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:168
+msgid "undefined"
+msgstr "未定义"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:169
+msgid "Must be the external IP to connect but it's not defined"
+msgstr "必须连接到一个外部的 IP 却未定义"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:186
+#, perl-brace-format
+msgid ""
+"Must be the external IP to connect and it was the addresss of local "
+"interface {if}"
+msgstr "必须连接到一个外部的 IP 并且它是一个本地接口地址 {if}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:216
+#, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address for the interface "
+"\"{interface}\""
+msgstr "隧道 IP {localIP} 已被用作接口 \"{interface}\" 的固定地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:231
+#, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address from the object "
+"member \"{name}\": {fixedIP}"
+msgstr "隧道 IP {localIP} 已从对象成员 \"{name}\": {fixedIP} 用作固定地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:244
+#, perl-brace-format
+msgid "The Tunnel IP {localIP} is not part of any local network"
+msgstr "隧道 IP {localIP} 不是任何本地网络的一部分"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:261
+#, perl-brace-format
+msgid ""
+"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
+msgstr "范围 {from}-{to} ({name}) 包括了已被选的隧道 IP 地址： {localIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:277
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
+msgid ""
+"DNS module must be enabled to be able to select Zentyal as primary DNS server"
+msgstr "要让 Zentyal 作为主 DNS 服务器的话，必须启用 DNS 模块"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:287
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
+msgid ""
+"Samba module must be enabled to be able to select Zentyal as WINS server"
+msgstr "要将 Zentyal 作为 WINS 服务器的话，必须启用 Samba 模块"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:310
+msgid "Public IP address"
+msgstr "公网 IP 地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:314
+msgid "Zentyal public IP address where clients will connect to."
+msgstr "Zentyal 的公共 IP 地址，用来接受客户端连接。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:323
+msgid "Any address"
+msgstr "任意地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:329
+msgid "Remote endpoint public IP address."
+msgstr "远端端点公共 IP 地址"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:335
+msgid "PSK Shared Secret"
+msgstr "PSK 共享密钥"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:337
+msgid "Pre-shared key for the IPsec connection."
+msgstr "IPsec 连接 Pre-shared 值"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:347
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
+msgid "local Zentyal DNS"
+msgstr "本地 Zentyal DNS"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:368
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
+msgid "local Zentyal"
+msgstr "本地 Zentyal"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:386
+msgid "Tunnel IP"
+msgstr "隧道 IP"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:388
+msgid ""
+"The IP to use for the VPN tunnel on the server side. It must be a free IP "
+"belonging to the local network where the VPN clients will be connected."
+msgstr ""
+"如果服务端 IP 被用作 VPN 隧道。 那么它必须是属于能够被 VPN 客户端连接的本地软"
+"件中的自由 IP。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:396
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
+msgid "Primary nameserver"
+msgstr "主域名服务器"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:399
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
+msgid ""
+"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
+"cache DNS server"
+msgstr ""
+"如果“Zentyal DNS”已存在并被选中，该 Zentyal 服务器将充当缓存 DNS 服务器"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:405
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
+msgid "Secondary nameserver"
+msgstr "辅助域名服务器"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:416
+msgid ""
+"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
+"server for L2TP clients"
+msgstr ""
+"如果 \"Zentyal Samba\" 可用并被选择， Zentyal 将作为 L2TP 客户端的 WINS 服务"
+"器"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:492
+#, fuzzy, perl-brace-format
+msgid "Configuration no complete, {field} not set"
+msgstr "配置备份没完成"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:123
+msgid "DataTable Component"
+msgstr "DataTable 组件"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:125
+msgid "Don't know how to handle this component."
+msgstr "无法处理这个组件。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:131
+#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/ebox.mas:41
+#: ../../main/software/src/templates/ebox.mas:62
+#: ../../main/software/src/templates/ebox.mas:99
+msgid "Component"
+msgstr "组件"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:208
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
+msgid "Users Group"
+msgstr "用户组"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/core/src/templates/configurationFiles.mas:24
+msgid "Comment"
+msgstr "注释"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
+msgid "L2TP"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
+#, fuzzy
+msgid "Connections"
+msgstr "IPsec 连接"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
+#, fuzzy
+msgid "L2TP connection"
+msgstr "IPsec 连接"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
+#, fuzzy
+msgid ""
+"L2TP connections allow to deploy secure tunnels between different "
+"subnetworks. This protocol is vendor independant and will connect Zentyal "
+"with other security devices."
+msgstr ""
+"IPsec 连接可以在不同的子网间部署安全隧道。这个协议独立于供应商并使 Zentyal可"
+"以和其他安全设备连接。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:256
+msgid "Enabled flag"
+msgstr "启用标志"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:259
+msgid ""
+"Cannot be enabled when creating a new connection, you should edit the "
+"configuration before enabling it"
+msgstr "创建新连接时无法启用，请在开启它之前编辑配置"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:271
+#: ../../main/l2tp/src/EBox/L2TP.pm:354
+msgid "Connection name"
+msgstr "连接名"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:273
+msgid "Blank characters are not allowed"
+msgstr "不允许空白字符"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
+#, fuzzy, perl-brace-format
+msgid ""
+"L2TP can only be configured on interfaces tagged as 'external' Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"只有标记为 '外部(external)' 的接口可以设置 IPsec。请在 {openhref} Network -> "
+"Interfaces {closehref} 检查接口配置是否满足条件。"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
+#, fuzzy, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by connection {name}"
+msgstr "地址 {ip} 已经用于接口 {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:357
+#, perl-brace-format
+msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:372
+#, fuzzy, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by range in connection {name}"
+msgstr "地址 {ip} 已经用于接口 {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:378
+#, fuzzy, perl-brace-format
+msgid "Range {range} is already in use by connection {name}"
+msgstr "地址 {ip} 已经用于接口 {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:67
+msgid "To configure OpenSwan IPsec."
+msgstr "配置 OpenSwan IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:73
+msgid "To configure OpenSwan IPsec passwords."
+msgstr "配置 OpenSwan IPsec 密码"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:175
+#, fuzzy
+msgid "L2TP based VPN"
+msgstr "基于 VPN 的 IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:360
+msgid "Stopping completed"
+msgstr "已停止"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:362
+msgid "Connection initiated"
+msgstr "连接初始化完成"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:363
+msgid "Connection terminated"
+msgstr "连接已中止"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
@@ -3818,7 +3870,6 @@ msgstr "Email 地址"
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
@@ -5143,10 +5194,6 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:101
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:138
 #: ../../main/services/src/EBox/Services.pm:88
 msgid "Any"
 msgstr "任意"
@@ -6276,12 +6323,6 @@ msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr "租约时间是指DHCP服务器分配IP的可用期限"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:63
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} 范围有效"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:90
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
@@ -6292,51 +6333,10 @@ msgstr "{from} - {to} 这个范围不在网络 {net} 内"
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "范围 {from} - {to} 包含一个 IP 地址为 {ifaceIP} 的接口"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:154
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr "范围 {newFrom} - {newTo} 与范围 '{range}' 有重叠：{oldFrom} - {oldTo}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:120
-#, perl-brace-format
-msgid ""
-"Range {from}-{to} includes fixed address from the object member \"{name}\": "
-"{fixedIP}"
-msgstr "范围 {from} - {to} 包含对象成员“{name}”的固定地址：{fixedIP}"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "范围 {from} - {to} 包含 HA 虚拟 IP：“{name}”- {IP}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1812
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-msgid "From"
-msgstr "从"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1813
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-msgid "To"
-msgstr "到"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:204
-msgid "Ranges"
-msgstr "范围"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:210
-msgid "range"
-msgstr "范围"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:147
 msgid "Next server"
@@ -6374,39 +6374,17 @@ msgstr "瘦客户端选项"
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} 不在当前网络中"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:209
-msgid ""
-"DNS module must be enabled to be able to select Zentyal as primary DNS server"
-msgstr "要让 Zentyal 作为主 DNS 服务器的话，必须启用 DNS 模块"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:138
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr "要将 Zentyal 作为 NTP 服务器的话，必须启用 NTP 模块"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:219
-msgid ""
-"Samba module must be enabled to be able to select Zentyal as WINS server"
-msgstr "要将 Zentyal 作为 WINS 服务器的话，必须启用 Samba 模块"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:345
 msgid "Zentyal domain"
 msgstr "Zentyal 域"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:247
-msgid "local Zentyal DNS"
-msgstr "本地 Zentyal DNS"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:375
 msgid "local Zentyal NTP"
 msgstr "本地 Zentyal NTP"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:269
-msgid "local Zentyal"
-msgstr "本地 Zentyal"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:405
 msgid "Default gateway"
@@ -6434,24 +6412,6 @@ msgstr ""
 "所选择的域将在那些为完全限定 DNS 查询的客户端上完成（The selected domain "
 "will complete on your clients those DNS queries which are not fully "
 "qualified）"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:298
-msgid "Primary nameserver"
-msgstr "主域名服务器"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:301
-msgid ""
-"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
-"cache DNS server"
-msgstr ""
-"如果“Zentyal DNS”已存在并被选中，该 Zentyal 服务器将充当缓存 DNS 服务器"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:307
-msgid "Secondary nameserver"
-msgstr "辅助域名服务器"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
 msgid "NTP server"
@@ -6835,7 +6795,6 @@ msgstr "升级到 Zentyal 3.3"
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/core/src/templates/headTitle.mas:21
 #: ../../main/software/src/templates/ebox.mas:313
 msgid "Search"
 msgstr "搜索"
@@ -7143,8 +7102,8 @@ msgstr "启用失败：{err}"
 msgid "Module Status Configuration"
 msgstr "模块状态配置"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:129
-#: ../../main/core/src/EBox/MyDBEngine.pm:143
+#: ../../main/core/src/EBox/MyDBEngine.pm:127
+#: ../../main/core/src/EBox/MyDBEngine.pm:141
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr "您必须在ebox配置文件中设置变量{variable}"
@@ -7319,7 +7278,7 @@ msgstr "选择语言"
 msgid "New language selected, save changes to commit"
 msgstr "新语言已选择，请保存以提交"
 
-#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:78
+#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:79
 msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
@@ -7701,121 +7660,6 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "配置组件"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
-msgid "HTTP port"
-msgstr "HTTP 端口"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
-msgid "Default for Non-SSL"
-msgstr "默认为 Non-SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
-msgid "Make this service the default for the non-SSL traffic"
-msgstr "使这个服务默认为 non-SSL 流量"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
-msgid "HTTPS port"
-msgstr "HTTPS 端口"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
-msgid "Default for SSL"
-msgstr "默认为 SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
-msgid "Make this service the default for the SSL traffic"
-msgstr "使这个服务默认为 SSL 流量"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-msgid "Zentyal Administration port and other reverse proxy service ports"
-msgstr "Zentyal 管理端口和其他反向代理服务端口"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
-#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
-msgid "service"
-msgstr "服务"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
-msgid "Here you may configure the services to be served from the reverse proxy"
-msgstr "在这里，您可以配置反向代理服务"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
-#, fuzzy
-msgid "This service does not let change the HTTP port."
-msgstr "该服务不允许修改 http 端口"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
-#, fuzzy
-msgid "This service does not let change the HTTPS port."
-msgstr "该服务不允许修改 http 端口"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
-msgid "This service cannot have both ports disabled."
-msgstr "该服务不能把两个端口都禁用。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:356
-#, fuzzy, perl-brace-format
-msgid ""
-"You need to enable the certificate for {module} at {ohref}Services "
-"Certificates page{chref}"
-msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:364
-#, fuzzy, perl-brace-format
-msgid ""
-"You need to enable the {serviceName} certificate for {module} on {ohref}"
-"Services Certificates{chref}"
-msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:376
-#, fuzzy
-msgid "To enable SSL port you need the CA module installed and enabled."
-msgstr "要能够恢复日志，你需要安装并启用日志模块"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:447
-#, fuzzy, perl-brace-format
-msgid ""
-"Zentyal is already configured to use port {p} for {use}. Choose another port "
-"or free it and retry."
-msgstr ""
-"Zentyal 已经把端口 {p} 分配给另一个服务。请重选一个端口，或释放该端口，然后重"
-"试。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:470
-msgid "Unmanaged instance of haproxy"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:474
-#, perl-brace-format
-msgid ""
-"Port {p} is already in use by program '{pr}'. Choose another port or free it "
-"and retry."
-msgstr "端口 {p} 已被 {pr} 使用。选择另一个端口或释放它，然后重试。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:669
-msgid "Cannot use the same port number for HTTP and HTTPS traffic."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:710
-#, fuzzy, perl-brace-format
-msgid "Port {port} is already used by {row} using HTTPS."
-msgstr "端口 {port} 已被 {mod} 模块使用"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:731
-#, fuzzy, perl-brace-format
-msgid "Port {port} is already used by {row} as default service."
-msgstr "{port} 端口已经被其他服务占用了。"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:772
-#, fuzzy, perl-brace-format
-msgid "Port {port} is already used by {row} using plain HTTP."
-msgstr "端口 {port} 已被 {mod} 模块使用"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:793
-#, fuzzy, perl-brace-format
-msgid "Port {port} is already used by {row} as default SSL service."
-msgstr "{port} 端口已经被其他服务占用了。"
-
 #: ../../main/core/src/EBox/Logs/CGI/Index.pm:290
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:165
 msgid "Query Logs"
@@ -8086,34 +7930,6 @@ msgstr "无法解决模块{topModule}的依赖性：{modName}没有安装"
 #: ../../main/core/src/EBox/Backup.pm:1639
 msgid "Try to back up again as the created backup is corrupted"
 msgstr "由于创建的存档已损坏，请重新创建存档"
-
-#: ../../main/core/src/EBox/HAProxy.pm:53
-msgid "Reverse Proxy"
-msgstr "反向代理"
-
-#: ../../main/core/src/EBox/HAProxy.pm:164
-#, perl-brace-format
-msgid "Port {port} must be configured as SSL for {service}"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy.pm:171
-#, perl-brace-format
-msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy.pm:304
-#, fuzzy
-msgid "HTTP Services"
-msgstr "服务管理"
-
-#: ../../main/core/src/EBox/HAProxy.pm:393
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
-msgid "port"
-msgstr "端口"
-
-#: ../../main/core/src/EBox/HAProxy.pm:493
-msgid "Zentyal Administration Web Server"
-msgstr "Zentyal管理web服务器"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
@@ -8391,19 +8207,14 @@ msgid ""
 "{win} account."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:102
-#, fuzzy
-msgid "Web Server module needs to be installed and enabled to use RPC proxy"
-msgstr "要使用这项功能必须安装 Zentyal 反病毒模块并启用"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:105
 #, perl-brace-format
 msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
 "module{ch}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:111
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
 msgstr ""
@@ -8499,67 +8310,80 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:391
-#, fuzzy
-msgid "No Certification authority ready. Create or renew it"
-msgstr "创建认证中心证书"
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 msgid "Enable OpenChange account"
 msgstr "启用 OpenChange 帐号"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:312
+#: ../../main/openchange/src/EBox/OpenChange.pm:204
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:205
+#, fuzzy
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
+msgstr "请到 http://ip地址/webmail/ 访问您的 Webmail。"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 msgid "To configure sogo daemon"
 msgstr "配置 sogo 服务"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:317
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 msgid "To configure sogo parameters"
 msgstr "配置 sogo 参数"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:322
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 msgid "To configure autodiscovery service"
 msgstr "配置自动发现服务"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:327
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:674
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
+msgid "To make SOGo webmail available"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:334
+#, fuzzy
+msgid "To make autodiscovery service available"
+msgstr "配置自动发现服务"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:768
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1685
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1849
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "邮件"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:829
+#: ../../main/openchange/src/EBox/OpenChange.pm:923
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr "无法在 dns 模块找到预计的域 '{d}'"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:838
+#: ../../main/openchange/src/EBox/OpenChange.pm:932
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr "无法在域 '{d}' 中找到所需的主机记录 '{h}'。<br/>"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:922
+#: ../../main/openchange/src/EBox/OpenChange.pm:1016
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "全部备份模块{m}的配置"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:934
+#: ../../main/openchange/src/EBox/OpenChange.pm:1028
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "要提供 DHCP 服务，你至少需要一个静态接口"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:963
+#: ../../main/openchange/src/EBox/OpenChange.pm:1057
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:997
+#: ../../main/openchange/src/EBox/OpenChange.pm:1091
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "外出邮件域"
@@ -9812,12 +9636,6 @@ msgstr "位于Zentyal下目录"
 msgid "File system path"
 msgstr "文件系统路径"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
-#: ../../main/core/src/templates/configurationFiles.mas:24
-msgid "Comment"
-msgstr "注释"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:123
 msgid "This share will not require authentication."
 msgstr "该共享将无需授权"
@@ -10815,8 +10633,9 @@ msgid "Couldn't configure Zentyal as slave"
 msgstr "无法将 Zentyal 配置为从服务器"
 
 #: ../../main/samba/src/EBox/Samba.pm:179
-msgid "Users, Computers and File Sharing"
-msgstr ""
+#, fuzzy
+msgid "Domain Controller and File Sharing"
+msgstr "文件共享 (samba) 协议"
 
 #: ../../main/samba/src/EBox/Samba.pm:311
 msgid ""
@@ -11450,11 +11269,6 @@ msgstr "规则应用周期"
 msgid "Network Object"
 msgstr "网络对象"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-msgid "Users Group"
-msgstr "用户组"
-
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
@@ -11948,385 +11762,6 @@ msgid ""
 "resolved at saving changes process."
 msgstr "跳过透明代理的网址"
 
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:59
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:69
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:225
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:226
-msgid "IPsec Connections"
-msgstr "IPsec 连接"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
-#, fuzzy
-msgid "No ranges or users defined for the connection"
-msgstr "IPsec 连接 Pre-shared 值"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
-msgid "Authentication"
-msgstr "身份验证"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-msgid "General L2TP/IPSec Settings"
-msgstr "L2TP/IPSec 常用设置"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-msgid "User settings"
-msgstr "用户设置"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, perl-brace-format
-msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr "隧道 IP 地址范围 {from}-{to}: {localIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:132
-msgid "The defined range is not part of any local network"
-msgstr "定义的范围不是本地网络的一部分"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:77
-msgid ""
-"This is a local network, thus already accessible through local interfaces"
-msgstr "这是一个本地网络，因此已经可以访问本地接口"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:83
-msgid "This network is already reachable through a static route"
-msgstr "这个网络已经通过一个静态路由"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:108
-msgid "Local Subnet"
-msgstr "本地子网"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:110
-msgid "Local subnet available through the tunnel."
-msgstr "本地子网可以通过隧道"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:116
-msgid "Remote Subnet"
-msgstr "远程子网"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:118
-msgid "Remote subnet available through the tunnel."
-msgstr "远程子网可以通过隧道"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-msgid "Manual list of users"
-msgstr "手工用户列表"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-msgid "Users Source"
-msgstr "用户源"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-msgid "Selects the provider for the users allowed to use the VPN."
-msgstr "选择可供用户使用 VPN 的提供商"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:166
-msgid "The list of users allowed to connecto to VPN must be handled manually"
-msgstr "允许连接到 VPN 的用户列表必须手动指定"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:167
-msgid ""
-"To use the existing system user accounts you will need to activate \"File "
-"sharing\" module to enable the Active Directory"
-msgstr "你需要激活 \"File sharing\" 模块启用活动目录来使用现有系统用户账户"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:175
-msgid "L2TP/IPSec users source"
-msgstr "L2TP/IPSec 用户资源"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:171
-msgid "ESP Authentication"
-msgstr "ESP 身份验证"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:165
-msgid "ESP Encryption"
-msgstr "ESP 加密"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:177
-msgid "ESP DH Group"
-msgstr "ESP DH 组"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:183
-msgid "ESP Keylife"
-msgstr "ESP Keylife"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:191
-msgid "Enable PFS"
-msgstr "启用 PFS"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:200
-msgid "Phase 2"
-msgstr "阶段 2"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-msgid "DataTable Component"
-msgstr "DataTable 组件"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:127
-msgid "Don't know how to handle this component."
-msgstr "无法处理这个组件。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:133
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:41
-#: ../../main/software/src/templates/ebox.mas:62
-#: ../../main/software/src/templates/ebox.mas:99
-msgid "Component"
-msgstr "组件"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:204
-msgid "The type of IPSec VPN."
-msgstr "IPSec VPN 类型"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
-msgid "IPsec connection"
-msgstr "IPsec 连接"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:234
-msgid ""
-"IPsec connections allow to deploy secure tunnels between different "
-"subnetworks. This protocol is vendor independant and will connect Zentyal "
-"with other security devices."
-msgstr ""
-"IPsec 连接可以在不同的子网间部署安全隧道。这个协议独立于供应商并使 Zentyal可"
-"以和其他安全设备连接。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:254
-msgid "Enabled flag"
-msgstr "启用标志"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:257
-msgid ""
-"Cannot be enabled when creating a new connection, you should edit the "
-"configuration before enabling it"
-msgstr "创建新连接时无法启用，请在开启它之前编辑配置"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
-#: ../../main/ipsec/src/EBox/IPsec.pm:420
-msgid "Connection name"
-msgstr "连接名"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:271
-msgid "Blank characters are not allowed"
-msgstr "不允许空白字符"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-msgid "VPN Type"
-msgstr "VPN 类型"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-msgid "Not supported"
-msgstr "不支持"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:332
-#, perl-brace-format
-msgid ""
-"IPsec can only be configured on interfaces tagged as 'external' Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"只有标记为 '外部(external)' 的接口可以设置 IPsec。请在 {openhref} Network -> "
-"Interfaces {closehref} 检查接口配置是否满足条件。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, fuzzy, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr "地址 {ip} 已经用于接口 {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:396
-#, perl-brace-format
-msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, fuzzy, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr "地址 {ip} 已经用于接口 {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, fuzzy, perl-brace-format
-msgid "Range {range} is already in use by connection {name}"
-msgstr "地址 {ip} 已经用于接口 {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:53
-msgid ""
-"You are using a non fixed IP address as a VPN server address. If the IP "
-"changes it may break the VPN server!"
-msgstr ""
-"你正在使用一个非固定 IP 作为 VPN 服务器地址。该IP改变可能会使 VPN 服务器出现"
-"异常！"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:58
-#, perl-brace-format
-msgid ""
-"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
-msgstr "服务器 IP 已修改，旧值 \"{oldIP}\" 将不再无效。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:63
-msgid ""
-"Your system is not correctly configured. We were not able to find any valid "
-"public IP address."
-msgstr "您的系统未正确配置。我们无法找到任何有效的公共 IP 地址。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:89
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:138
-msgid "Remote Address"
-msgstr "远程地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:90
-msgid "undefined"
-msgstr "未定义"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:91
-msgid "Must be the external IP to connect but it's not defined"
-msgstr "必须连接到一个外部的 IP 却未定义"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:108
-#, perl-brace-format
-msgid ""
-"Must be the external IP to connect and it was the addresss of local "
-"interface {if}"
-msgstr "必须连接到一个外部的 IP 并且它是一个本地接口地址 {if}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
-msgid "Public IP address"
-msgstr "公网 IP 地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:134
-msgid "Zentyal public IP address where clients will connect to."
-msgstr "Zentyal 的公共 IP 地址，用来接受客户端连接。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:143
-msgid "Any address"
-msgstr "任意地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:149
-msgid "Remote endpoint public IP address."
-msgstr "远端端点公共 IP 地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:155
-msgid "PSK Shared Secret"
-msgstr "PSK 共享密钥"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:157
-msgid "Pre-shared key for the IPsec connection."
-msgstr "IPsec 连接 Pre-shared 值"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, fuzzy, perl-brace-format
-msgid "Configuration no complete, {field} not set"
-msgstr "配置备份没完成"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:162
-msgid "IKE Authentication"
-msgstr "IKE 身份认证"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:156
-msgid "IKE Encryption"
-msgstr "IKE 加密"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:168
-msgid "IKE Keylife"
-msgstr "IKE Keylife"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:179
-msgid "Phase 1"
-msgstr "阶段  1"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:148
-#, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address for the interface "
-"\"{interface}\""
-msgstr "隧道 IP {localIP} 已被用作接口 \"{interface}\" 的固定地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
-#, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address from the object "
-"member \"{name}\": {fixedIP}"
-msgstr "隧道 IP {localIP} 已从对象成员 \"{name}\": {fixedIP} 用作固定地址"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:176
-#, perl-brace-format
-msgid "The Tunnel IP {localIP} is not part of any local network"
-msgstr "隧道 IP {localIP} 不是任何本地网络的一部分"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:193
-#, perl-brace-format
-msgid ""
-"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
-msgstr "范围 {from}-{to} ({name}) 包括了已被选的隧道 IP 地址： {localIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:288
-msgid "Tunnel IP"
-msgstr "隧道 IP"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:290
-msgid ""
-"The IP to use for the VPN tunnel on the server side. It must be a free IP "
-"belonging to the local network where the VPN clients will be connected."
-msgstr ""
-"如果服务端 IP 被用作 VPN 隧道。 那么它必须是属于能够被 VPN 客户端连接的本地软"
-"件中的自由 IP。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:318
-msgid ""
-"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
-"server for L2TP clients"
-msgstr ""
-"如果 \"Zentyal Samba\" 可用并被选择， Zentyal 将作为 L2TP 客户端的 WINS 服务"
-"器"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
-msgid "IP address assigned to this user within the VPN network."
-msgstr "分配给拥有 VPN 网络的用户 IP 地址。"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-msgid "L2TP/IPSec Users"
-msgstr "L2TP/IPSec 用户"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-msgid ""
-"Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
-"of users defined on Users and Groups."
-msgstr "用户可以使用L2TP / IPSec VPN连接。这个列表是独立用户定义的用户和组。"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:68
-msgid "To configure OpenSwan IPsec."
-msgstr "配置 OpenSwan IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:74
-msgid "To configure OpenSwan IPsec passwords."
-msgstr "配置 OpenSwan IPsec 密码"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:80
-msgid ""
-"To configure L2TP/IPSec users when not using Active Directory validation."
-msgstr "当不使用Active Directory验证时配置 L2TP/IPSec 用户。"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:199
-msgid "IPsec based VPN"
-msgstr "基于 VPN 的 IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:426
-msgid "Stopping completed"
-msgstr "已停止"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:428
-msgid "Connection initiated"
-msgstr "连接初始化完成"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:429
-msgid "Connection terminated"
-msgstr "连接已中止"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:462
-msgid "IPsec"
-msgstr "IPsec"
-
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
 msgstr "生成邮件别名"
@@ -12472,113 +11907,113 @@ msgstr "已启用"
 msgid "Mail server's filter"
 msgstr "邮件服务器过滤"
 
-#: ../../main/mail/src/EBox/Mail.pm:1758
+#: ../../main/mail/src/EBox/Mail.pm:1759
 msgid "Virtual Mail Domains"
 msgstr "虚拟邮件域"
 
-#: ../../main/mail/src/EBox/Mail.pm:1764
+#: ../../main/mail/src/EBox/Mail.pm:1766
 msgid "Greylist"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1770
+#: ../../main/mail/src/EBox/Mail.pm:1773
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "队列管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1800
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "从外部账户邮件检索"
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1815
 msgid "Message ID"
 msgstr "消息 ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1818
 msgid "From hostname"
 msgstr "来自主机名"
 
-#: ../../main/mail/src/EBox/Mail.pm:1815
+#: ../../main/mail/src/EBox/Mail.pm:1819
 msgid "From host ip"
 msgstr "来自站点ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/mail/src/EBox/Mail.pm:1820
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "大小 (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/mail/src/EBox/Mail.pm:1821
 msgid "Relay"
 msgstr "转发"
 
-#: ../../main/mail/src/EBox/Mail.pm:1818
+#: ../../main/mail/src/EBox/Mail.pm:1822
 msgid "Message type"
 msgstr "消息类型"
 
-#: ../../main/mail/src/EBox/Mail.pm:1821
+#: ../../main/mail/src/EBox/Mail.pm:1825
 msgid "Additional Info"
 msgstr "附加信息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1832
+#: ../../main/mail/src/EBox/Mail.pm:1836
 msgid "Successful messages"
 msgstr "成功消息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1833
+#: ../../main/mail/src/EBox/Mail.pm:1837
 msgid "Maximum message size exceeded"
 msgstr "超出消息大小最大值"
 
-#: ../../main/mail/src/EBox/Mail.pm:1834
+#: ../../main/mail/src/EBox/Mail.pm:1838
 msgid "User quota exceeded"
 msgstr "超出用户配额"
 
-#: ../../main/mail/src/EBox/Mail.pm:1835
+#: ../../main/mail/src/EBox/Mail.pm:1839
 msgid "Relay access denied"
 msgstr "转发访问拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1836
+#: ../../main/mail/src/EBox/Mail.pm:1840
 msgid "Account does not exist"
 msgstr "帐户不存在"
 
-#: ../../main/mail/src/EBox/Mail.pm:1837
+#: ../../main/mail/src/EBox/Mail.pm:1841
 msgid "Host unreachable"
 msgstr "站点不可达"
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1842
 msgid "Authentication error"
 msgstr "身份验证发生错误"
 
-#: ../../main/mail/src/EBox/Mail.pm:1839
+#: ../../main/mail/src/EBox/Mail.pm:1843
 msgid "Greylisted"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1840
+#: ../../main/mail/src/EBox/Mail.pm:1844
 msgid "Relay rejected by the smarthost"
 msgstr "转发被 smarthost 拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1845
 msgid "Other events"
 msgstr "其他事件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1905
+#: ../../main/mail/src/EBox/Mail.pm:1909
 msgid "Mail SMTP server"
 msgstr "邮件 SMTP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1913
+#: ../../main/mail/src/EBox/Mail.pm:1917
 msgid "Mail POP/IMAP server"
 msgstr "邮件 POP/IMAP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1990
+#: ../../main/mail/src/EBox/Mail.pm:1994
 msgid "Mailboxes"
 msgstr "邮件箱"
 
-#: ../../main/mail/src/EBox/Mail.pm:2032
+#: ../../main/mail/src/EBox/Mail.pm:2036
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr "从属配置完成会将邮件域和它的账户删除"
 
-#: ../../main/mail/src/EBox/Mail.pm:2067
+#: ../../main/mail/src/EBox/Mail.pm:2071
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "地址 {ip} 已经用于接口 {iface}"
@@ -12925,6 +12360,10 @@ msgstr "Smarthost 身份验证"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
 msgstr "用户名、密码"
+
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
+msgid "Authentication"
+msgstr "身份验证"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
@@ -13273,6 +12712,11 @@ msgstr "这个字段通常被设置为任意"
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "服务配置"
+
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
+#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
+msgid "service"
+msgstr "服务"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
@@ -14854,6 +14298,10 @@ msgstr "元素没找到。"
 msgid "Add a new one"
 msgstr "新建一个"
 
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
+msgid "port"
+msgstr "端口"
+
 #: ../../main/core/src/templates/ajax/changeRowForm.mas:81
 #, perl-brace-format
 msgid "Adding a new {row}"
@@ -15066,6 +14514,11 @@ msgstr "关闭会话"
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Save changes?"
 msgstr "保存变更吗？"
+
+#: ../../main/core/src/templates/headTitle.mas:21
+#, fuzzy
+msgid "Search..."
+msgstr "搜索"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
@@ -16016,6 +15469,405 @@ msgstr "这将是你的邮件帐户的域"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "下来设置只有在邮件模块被启用后才能生效"
+
+#~ msgid "Web Server"
+#~ msgstr "Web 服务器"
+
+#~ msgid "To set webserver listening port."
+#~ msgstr "设置 Web 服务器监听端口。"
+
+#~ msgid "To configure default virtual host."
+#~ msgstr "设置默认的虚拟主机。"
+
+#~ msgid "To configure default SSL virtual host."
+#~ msgstr "设置默认的 SSL 虚拟主机。"
+
+#~ msgid "To configure the per-user public_html directory."
+#~ msgstr "所做每个用户的 public_html 目录。"
+
+#~ msgid "Enable Apache LDAP user module"
+#~ msgstr "启用Apache LDAP用户模块"
+
+#~ msgid "To fetch home directories from LDAP."
+#~ msgstr "从LDAP获取家目录"
+
+#~ msgid "Enable Apache SSL module"
+#~ msgstr "启用Apache SSL模块"
+
+#~ msgid "To serve pages over HTTPS."
+#~ msgstr "通过HTTPS服务页面"
+
+#~ msgid "Remove apache2 init script link"
+#~ msgstr "移除apache2初始化脚本链接"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host configuration. Please, move "
+#~ "or remove it"
+#~ msgstr "对于虚拟主机配置，{dir}应该是一个目录。请移走或者删除它"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host document root. Please, move "
+#~ "or remove it"
+#~ msgstr "对于虚拟主机文档根目录，{dir}应该是一个目录。请移走或者删除它"
+
+#~ msgid "Web server data"
+#~ msgstr "Web服务器数据"
+
+#~ msgid ""
+#~ "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
+#~ "different virtual hosts."
+#~ msgstr "Zentyal网络服务器允许HTTP和HTTPS页面在不同的虚拟主机。"
+
+#, fuzzy
+#~ msgid "HTTP listening port"
+#~ msgstr "监听端口"
+
+#, fuzzy
+#~ msgid "HTTPS listening port"
+#~ msgstr "监听端口"
+
+#, fuzzy
+#~ msgid "Listening Ports settings"
+#~ msgstr "会议列表"
+
+#, fuzzy
+#~ msgid "Listening Ports configuration"
+#~ msgstr "客户端配置"
+
+#, fuzzy
+#~ msgid "Listening ports configuration settings updated."
+#~ msgstr "Zarafa 服务器限额配置已更新。"
+
+#~ msgid "Virtual host name"
+#~ msgstr "虚拟主机名称"
+
+#~ msgid "Virtual host"
+#~ msgstr "虚拟主机"
+
+#~ msgid "You need to enable Listening SSL port."
+#~ msgstr "您需要启用SSL端口监听。"
+
+#, fuzzy
+#~ msgid ""
+#~ "You need to enable {module} on {ohref}Services Certificates{chref} to "
+#~ "enable SSL on a virtual host."
+#~ msgstr "在一个虚拟主机开启SSL，你需要在{ohref}服务启用{module}。"
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been createdPlease, "
+#~ "check its IP addresses. {noDnsWarning} "
+#~ msgstr ""
+#~ "虚拟主机{vhost}已添加。一个域{domain}已建立。请检查它的IP地址"
+#~ "{noDnsWarning}。"
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been created with the "
+#~ "host name {name}. Please, set the host IP address. {noDnsWarning} "
+#~ msgstr ""
+#~ "虚拟主机{vhost}已建立。一个主机名称为{name}的域{domain}已建立。请设置主机"
+#~ "的IP地址。{noDnsWarning}"
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A host {name} has been added to {domain} "
+#~ "domain. Please, set the host IP address"
+#~ msgstr ""
+#~ "虚拟主机{vhost}已添加。一个主机名称为{name}的域{domain}已建立。请设置主机"
+#~ "的IP地址。"
+
+#~ msgid "Virtual host {vhost} added."
+#~ msgstr "虚拟主机{vhost}已添加。 "
+
+#~ msgid "Virtual hosts"
+#~ msgstr "虚拟主机"
+
+#~ msgid ""
+#~ "Virtual hosts are a form of web hosting service where many instances of "
+#~ "the same web server are hosted on a single physical server. Different "
+#~ "host names point to the same web server. If feasible, the DNS entry is "
+#~ "automatically created. The content must be placed under the {docRoot} "
+#~ "directory. Any particular configuration you want to add must be placed in "
+#~ "the {userConf} directory."
+#~ msgstr ""
+#~ "虚拟主机是将多个web服务器实例运行在单一物理服务器中的虚拟主机服务中的一种"
+#~ "形式。不同的主机名指向相同的web服务器。如果可行，DNS条目将自动建立。内容必"
+#~ "须置于{docRoot}目录之下。添加任何特定的配置需要放置在{userConf}目录下。"
+
+#~ msgid "Virtual host deleted. The virtual host files will be left in place"
+#~ msgstr "虚拟主机已移除。该虚拟主机的文件将保留"
+
+#~ msgid ""
+#~ "{open}The DNS module is disabled. The added mapping or domains will not "
+#~ "have any effect until you enable it."
+#~ msgstr ""
+#~ "{open} 中的 DNS 模块被禁止了。新增加的映射或域，将不会有任何效果，除非你启"
+#~ "用它。"
+
+#~ msgid ""
+#~ "Having installed and configured the Users and Groups module is required "
+#~ "to allow HTML directories for users."
+#~ msgstr "需要安装并配置好的用户和组的模块来允许用户访问HTML目录。"
+
+#~ msgid ""
+#~ "A properly configured Users and Groups module is required to allow HTML "
+#~ "directories for users. To configure it, please enable it at least one "
+#~ "time."
+#~ msgstr ""
+#~ "需要一个正确配置的用户和组的模块来允许用户访问HTML目录。请至少开启一次来进"
+#~ "行配置。"
+
+#, fuzzy
+#~ msgid "User public folder configuration settings updated."
+#~ msgstr "常规Web服务器配置设置已更新。"
+
+#~ msgid ""
+#~ "Remember that in order to have UserDir working, you should create the {p} "
+#~ "directory, and to provide www-data execution permissions over the "
+#~ "involved /home/user directories."
+#~ msgstr ""
+#~ "请牢记用户目录能够正常工作之前，您需要创建{p}目录，并确保在/home/user目录"
+#~ "之下提供给www-data可执行权限。"
+
+#~ msgid "Enable per user {dirName}"
+#~ msgstr "开启用户独立 {dirName}"
+
+#~ msgid ""
+#~ "Allow users to publish web documents using the public_html directory on "
+#~ "their home."
+#~ msgstr "允许用户在他们的家目录下使用public_html目录发布web文档。"
+
+#, fuzzy
+#~ msgid "User public folder settings"
+#~ msgstr "用户设置"
+
+#, fuzzy
+#~ msgid ""
+#~ "User public folder configuration. If you enable user to publish their own "
+#~ "html pages, those should be loaded from {dirName} directory from their "
+#~ "home directories."
+#~ msgstr ""
+#~ "常规Web服务器配置。如果您启用用户发布自己的html页面，那么应该从{dirName}加"
+#~ "载各自的主目录。如果您想改变公共端口或者启用/禁用SSL，你可以通过{ohref}系"
+#~ "统常规配置页面{chref}。"
+
+#, fuzzy
+#~ msgid "OpenChange Webmail"
+#~ msgstr "OpenChange"
+
+#, fuzzy
+#~ msgid ""
+#~ "OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+#~ "Zentyal mail service. You can enable it at {openurl}Mail -> "
+#~ "General{closeurl}."
+#~ msgstr ""
+#~ "要使用 Zentyal 的邮件服务，Webmail 模块需要启用 IMAP 或 IMAPS 服务。您可以"
+#~ "在 {openurl}邮件 ->常规{closeurl}那里启用该服务。"
+
+#~ msgid "HTTP port"
+#~ msgstr "HTTP 端口"
+
+#~ msgid "Default for Non-SSL"
+#~ msgstr "默认为 Non-SSL"
+
+#~ msgid "Make this service the default for the non-SSL traffic"
+#~ msgstr "使这个服务默认为 non-SSL 流量"
+
+#~ msgid "HTTPS port"
+#~ msgstr "HTTPS 端口"
+
+#~ msgid "Default for SSL"
+#~ msgstr "默认为 SSL"
+
+#~ msgid "Make this service the default for the SSL traffic"
+#~ msgstr "使这个服务默认为 SSL 流量"
+
+#~ msgid "Zentyal Administration port and other reverse proxy service ports"
+#~ msgstr "Zentyal 管理端口和其他反向代理服务端口"
+
+#~ msgid ""
+#~ "Here you may configure the services to be served from the reverse proxy"
+#~ msgstr "在这里，您可以配置反向代理服务"
+
+#, fuzzy
+#~ msgid "This service does not let change the HTTP port."
+#~ msgstr "该服务不允许修改 http 端口"
+
+#, fuzzy
+#~ msgid "This service does not let change the HTTPS port."
+#~ msgstr "该服务不允许修改 http 端口"
+
+#~ msgid "This service cannot have both ports disabled."
+#~ msgstr "该服务不能把两个端口都禁用。"
+
+#, fuzzy
+#~ msgid ""
+#~ "You need to enable the certificate for {module} at {ohref}Services "
+#~ "Certificates page{chref}"
+#~ msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
+
+#, fuzzy
+#~ msgid ""
+#~ "You need to enable the {serviceName} certificate for {module} on {ohref}"
+#~ "Services Certificates{chref}"
+#~ msgstr "要启用 SSL，您需要在 {ohref}服务证书{chref} 启用 {module}。"
+
+#, fuzzy
+#~ msgid "To enable SSL port you need the CA module installed and enabled."
+#~ msgstr "要能够恢复日志，你需要安装并启用日志模块"
+
+#, fuzzy
+#~ msgid ""
+#~ "Zentyal is already configured to use port {p} for {use}. Choose another "
+#~ "port or free it and retry."
+#~ msgstr ""
+#~ "Zentyal 已经把端口 {p} 分配给另一个服务。请重选一个端口，或释放该端口，然"
+#~ "后重试。"
+
+#~ msgid ""
+#~ "Port {p} is already in use by program '{pr}'. Choose another port or free "
+#~ "it and retry."
+#~ msgstr "端口 {p} 已被 {pr} 使用。选择另一个端口或释放它，然后重试。"
+
+#, fuzzy
+#~ msgid "Port {port} is already used by {row} using HTTPS."
+#~ msgstr "端口 {port} 已被 {mod} 模块使用"
+
+#, fuzzy
+#~ msgid "Port {port} is already used by {row} as default service."
+#~ msgstr "{port} 端口已经被其他服务占用了。"
+
+#, fuzzy
+#~ msgid "Port {port} is already used by {row} using plain HTTP."
+#~ msgstr "端口 {port} 已被 {mod} 模块使用"
+
+#, fuzzy
+#~ msgid "Port {port} is already used by {row} as default SSL service."
+#~ msgstr "{port} 端口已经被其他服务占用了。"
+
+#~ msgid "Reverse Proxy"
+#~ msgstr "反向代理"
+
+#, fuzzy
+#~ msgid "HTTP Services"
+#~ msgstr "服务管理"
+
+#~ msgid "Zentyal Administration Web Server"
+#~ msgstr "Zentyal管理web服务器"
+
+#, fuzzy
+#~ msgid "Web Server module needs to be installed and enabled to use RPC proxy"
+#~ msgstr "要使用这项功能必须安装 Zentyal 反病毒模块并启用"
+
+#, fuzzy
+#~ msgid "No Certification authority ready. Create or renew it"
+#~ msgstr "创建认证中心证书"
+
+#, fuzzy
+#~ msgid "No ranges or users defined for the connection"
+#~ msgstr "IPsec 连接 Pre-shared 值"
+
+#~ msgid "General L2TP/IPSec Settings"
+#~ msgstr "L2TP/IPSec 常用设置"
+
+#~ msgid "User settings"
+#~ msgstr "用户设置"
+
+#~ msgid ""
+#~ "This is a local network, thus already accessible through local interfaces"
+#~ msgstr "这是一个本地网络，因此已经可以访问本地接口"
+
+#~ msgid "This network is already reachable through a static route"
+#~ msgstr "这个网络已经通过一个静态路由"
+
+#~ msgid "Local Subnet"
+#~ msgstr "本地子网"
+
+#~ msgid "Local subnet available through the tunnel."
+#~ msgstr "本地子网可以通过隧道"
+
+#~ msgid "Remote Subnet"
+#~ msgstr "远程子网"
+
+#~ msgid "Remote subnet available through the tunnel."
+#~ msgstr "远程子网可以通过隧道"
+
+#~ msgid "Manual list of users"
+#~ msgstr "手工用户列表"
+
+#~ msgid "Users Source"
+#~ msgstr "用户源"
+
+#~ msgid "Selects the provider for the users allowed to use the VPN."
+#~ msgstr "选择可供用户使用 VPN 的提供商"
+
+#~ msgid ""
+#~ "The list of users allowed to connecto to VPN must be handled manually"
+#~ msgstr "允许连接到 VPN 的用户列表必须手动指定"
+
+#~ msgid ""
+#~ "To use the existing system user accounts you will need to activate \"File "
+#~ "sharing\" module to enable the Active Directory"
+#~ msgstr "你需要激活 \"File sharing\" 模块启用活动目录来使用现有系统用户账户"
+
+#~ msgid "L2TP/IPSec users source"
+#~ msgstr "L2TP/IPSec 用户资源"
+
+#~ msgid "ESP Authentication"
+#~ msgstr "ESP 身份验证"
+
+#~ msgid "ESP Encryption"
+#~ msgstr "ESP 加密"
+
+#~ msgid "ESP DH Group"
+#~ msgstr "ESP DH 组"
+
+#~ msgid "ESP Keylife"
+#~ msgstr "ESP Keylife"
+
+#~ msgid "Enable PFS"
+#~ msgstr "启用 PFS"
+
+#~ msgid "Phase 2"
+#~ msgstr "阶段 2"
+
+#~ msgid "The type of IPSec VPN."
+#~ msgstr "IPSec VPN 类型"
+
+#~ msgid "VPN Type"
+#~ msgstr "VPN 类型"
+
+#~ msgid "Not supported"
+#~ msgstr "不支持"
+
+#~ msgid "IKE Authentication"
+#~ msgstr "IKE 身份认证"
+
+#~ msgid "IKE Encryption"
+#~ msgstr "IKE 加密"
+
+#~ msgid "IKE Keylife"
+#~ msgstr "IKE Keylife"
+
+#~ msgid "Phase 1"
+#~ msgstr "阶段  1"
+
+#~ msgid "IP address assigned to this user within the VPN network."
+#~ msgstr "分配给拥有 VPN 网络的用户 IP 地址。"
+
+#~ msgid "L2TP/IPSec Users"
+#~ msgstr "L2TP/IPSec 用户"
+
+#~ msgid ""
+#~ "Users allowed to connect using the L2TP/IPSec VPN. This list is "
+#~ "independant of users defined on Users and Groups."
+#~ msgstr ""
+#~ "用户可以使用L2TP / IPSec VPN连接。这个列表是独立用户定义的用户和组。"
+
+#~ msgid ""
+#~ "To configure L2TP/IPSec users when not using Active Directory validation."
+#~ msgstr "当不使用Active Directory验证时配置 L2TP/IPSec 用户。"
+
+#~ msgid "IPsec"
+#~ msgstr "IPsec"
 
 #~ msgid "Mail filter report"
 #~ msgstr "邮件过滤报告"

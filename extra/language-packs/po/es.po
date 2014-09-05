@@ -146,17 +146,13 @@ msgstr "Cliente {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:257
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:346
 #: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:255
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
@@ -169,9 +165,6 @@ msgstr "Habilitado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
@@ -179,8 +172,6 @@ msgstr "Habilitado"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -200,7 +191,6 @@ msgstr "Deshabilitado"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
@@ -355,7 +345,8 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:234
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:185
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:187
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
@@ -365,8 +356,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:184
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:194
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/ca/src/templates/index.mas:99
@@ -384,14 +373,13 @@ msgstr "Nombre"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:194
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:233
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:81
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:190
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:208
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "Configuración"
@@ -791,8 +779,8 @@ msgid "Search domain"
 msgstr "Dominio de búsqueda"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:413
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:315
 msgid "WINS server"
 msgstr "Servidor WINS"
 
@@ -1040,15 +1028,14 @@ msgstr "Demonios OpenVPN"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:100
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/l2tp/src/EBox/L2TP.pm:352 ../../main/dhcp/src/EBox/DHCP.pm:973
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:781
 #: ../../main/samba/src/EBox/Samba.pm:3720
 #: ../../main/samba/src/EBox/Samba.pm:3740
 #: ../../main/samba/src/EBox/Samba.pm:3751
 #: ../../main/squid/src/EBox/Squid.pm:1111
-#: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1810
+#: ../../main/mail/src/EBox/Mail.pm:1814
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/remoteservices/src/templates/Backup/index.mas:175
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
@@ -1065,19 +1052,17 @@ msgstr "Fecha"
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/dhcp/src/EBox/DHCP.pm:977
+#: ../../main/l2tp/src/EBox/L2TP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1118
-#: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1820
+#: ../../main/mail/src/EBox/Mail.pm:1824
 msgid "Event"
 msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
 #: ../../main/samba/src/EBox/Samba.pm:3745
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/samba/src/templates/addgroup.mas:10
@@ -1094,7 +1079,7 @@ msgid "Remote Certificate"
 msgstr "Certificado remoto"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/ipsec/src/EBox/IPsec.pm:425
+#: ../../main/l2tp/src/EBox/L2TP.pm:359
 msgid "Initialization sequence completed"
 msgstr "Secuencia de iniciación completada"
 
@@ -1141,7 +1126,6 @@ msgid "High Availability"
 msgstr "Alta Disponibilidad"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/HAProxy.pm:298
 msgid "System"
 msgstr "Sistema"
 
@@ -1165,6 +1149,7 @@ msgid "To start corosync at boot"
 msgstr "Para iniciar corosync al al iniciar el sistema"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
@@ -1175,12 +1160,13 @@ msgstr "Para iniciar corosync al al iniciar el sistema"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
 msgstr "Desconocido"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:360
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:374
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
@@ -1198,8 +1184,6 @@ msgstr "Desconocido"
 #: ../../main/core/src/EBox/CGI/Search.pm:48
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:260
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:276
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Ninguno"
@@ -1225,7 +1209,7 @@ msgstr "Errores"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4484
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1819
+#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1823
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1592,275 +1576,6 @@ msgstr ""
 "escribir en una terminal el siguiente comando: {command} para recuperar el "
 "control sobre ese recurso."
 
-#: ../../main/webserver/src/EBox/WebServer.pm:75
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
-msgid "Web Server"
-msgstr "Servidor Web"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:93
-msgid "To set webserver listening port."
-msgstr "Configurar el puerto de escucha del servidor web."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:98
-msgid "To configure default virtual host."
-msgstr "Configurar el host virtual por defecto."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:103
-msgid "To configure default SSL virtual host."
-msgstr "Configurar el virtual host SSL por defecto."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:108
-msgid "To configure the per-user public_html directory."
-msgstr "Configurar el directorio public-html por usuario."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:133
-msgid "Enable Apache LDAP user module"
-msgstr "Habilitar módulo de usuarios LDAP del Apache"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:135
-msgid "To fetch home directories from LDAP."
-msgstr "Obtener los directorios home desde el LDAP."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:138
-msgid "Enable Apache SSL module"
-msgstr "Habilitar módulo SSL de Apache"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:140
-msgid "To serve pages over HTTPS."
-msgstr "Servir páginas a través de HTTPS."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:143
-msgid "Remove apache2 init script link"
-msgstr "Borrar enlaces al script de inicio de apache2"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:144
-#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
-#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal se encargará de arrancar y parar los servicios."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:696
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host configuration. Please, move or "
-"remove it"
-msgstr ""
-"{dir} debería ser un directorio para la configuración del dominio virtual. "
-"Por favor, muévalo o bórrelo"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:711
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host document root. Please, move or "
-"remove it"
-msgstr ""
-"{dir} debería ser un directorio para la raíz del dominio virtual. Por favor, "
-"muévalo o bórrelo"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:957
-msgid "Web server data"
-msgstr "Datos del servidor Web"
-
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
-msgid ""
-"The Zentyal webserver allows you to host HTTP and HTTPS pages within "
-"different virtual hosts."
-msgstr ""
-"El servicio web de Zentyal permite hospedar páginas web HTTP y HTTPS dentro "
-"de los diferentes hosts virtuales."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
-msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
-"Debes activar, al menos, un puerto de escucha para hacer este módulo útil."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
-msgid "HTTP listening port"
-msgstr "Puerto de escucha HTTP"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
-msgid "HTTPS listening port"
-msgstr "Puerto de escucha HTTPS"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
-msgid "Listening Ports settings"
-msgstr "Configuración de puertos de escucha"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
-msgid "Listening Ports configuration"
-msgstr "Configuración de puertos de escucha"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
-msgid "Listening ports configuration settings updated."
-msgstr "Configuración de puertos de escucha actualizada."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host name"
-msgstr "Nombre del virtual host"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
-msgid "Virtual host"
-msgstr "Host virtual"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-msgid "You need to enable Listening SSL port."
-msgstr "Necesita habilitar el puerto de escucha SSL."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
-#, perl-brace-format
-msgid ""
-"You need to enable {module} on {ohref}Services Certificates{chref} to enable "
-"SSL on a virtual host."
-msgstr ""
-"Necesitas activar {module} en {ohref}Certificados de los Servicios{chref} "
-"para activar SSL en un host virtual."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
-"its IP addresses. {noDnsWarning} "
-msgstr ""
-"Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado, Por favor, "
-"compruebe sus direcciones IP {noDnsWarning}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the host "
-"name {name}. Please, set the host IP address. {noDnsWarning} "
-msgstr ""
-"Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado con el "
-"nombre de equipo {name}. Por favor, configure la IP del equipo. "
-"{noDnsWarning}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
-#, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
-"Please, set the host IP address"
-msgstr ""
-"Agregado el host virtual {vhost}. Un nombre de equipo {name} ha sido añadido "
-"al dominio {domain}. Por favor, configure la dirección IP del equipo"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
-#, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Host virtual {vhost} añadido."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-msgid "Allow SSL"
-msgstr "Permitir SSL"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:286
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
-msgid "Force SSL"
-msgstr "Forzar conexión SSL"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:310
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-msgid "SSL support"
-msgstr "Soporte SSL"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
-msgid "Virtual hosts"
-msgstr "Hosts virtuales"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
-#, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-"Los hosts virtuales (Virtual Hosts) son una forma de servicio de alojamiento "
-"web, donde muchas instancias del mismo servidor web están alojadas en un "
-"único servidor físico. Diferentes nombres de host apuntan al mismo servidor "
-"web. La entrada de DNS se crea automáticamente si es posible. El contenido "
-"debe ser situado bajo el directorio {docRoot}. Cualquier configuración "
-"específica que se quiera añadir deberá estar en el directorio {userConf}."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:347
-msgid "Virtual host deleted. The virtual host files will be left in place"
-msgstr ""
-"Virtual host borrado. Los ficheros del virtual host se mantendrán en su sitio"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:365
-#, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it."
-msgstr ""
-"{open} El módulo DNS está deshabilitado. Los dominios o mapeos añadidos no "
-"tendrán efecto hasta que se habilite."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:90
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Es necesario tener instalado y configurado el módulo \"Usuarios y Grupos\" "
-"para permitir directorios HTML"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:96
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Es necesario que el módulo \"Usuarios y Grupos\" esté correctamente "
-"configurado para permitir directorios HTML para los usuarios. Para "
-"configurarlo, por favor, habilítelo al menos una vez."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
-msgid "User public folder configuration settings updated."
-msgstr ""
-"La configuración del directorio del usuario público ha sido actualizada."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:134
-#, perl-brace-format
-msgid ""
-"Remember that in order to have UserDir working, you should create the {p} "
-"directory, and to provide www-data execution permissions over the involved /"
-"home/user directories."
-msgstr ""
-"Recuerde que para que UserDir funcione, debe crear el directorio {p} y "
-"asignar permisos de ejecución al usuario www-data sobre los directorios de /"
-"home/usuario implicados."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:159
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Habilitar {dirName} por usuario"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:162
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Permitir a los usuarios publicar documentos web usando el directorio public-"
-"html en su carpeta personal."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
-msgid "User public folder settings"
-msgstr "Configuración de carpeta pública de usuario"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:172
-#, perl-brace-format
-msgid ""
-"User public folder configuration. If you enable user to publish their own "
-"html pages, those should be loaded from {dirName} directory from their home "
-"directories."
-msgstr ""
-"Configuración de carpeta pública de usuario. Si activas esto, los usuarios "
-"pueden publicar sus propias páginas HTML, las páginas deberán ser cargadas "
-"desde el directorio {dirName} en sus directorios de inicio."
-
 #: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
 #: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1683
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:638
@@ -1902,6 +1617,11 @@ msgstr "Permitir que el demonio bind se actualice automáticamente"
 msgid "Remove bind9 init script link"
 msgstr "Borrar enlaces al script de inicio de bind9"
 
+#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
+#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "Zentyal se encargará de arrancar y parar los servicios."
+
 #: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Override named apparmor profile"
 msgstr "Sobreescribir el perfil de apparmor"
@@ -1941,10 +1661,9 @@ msgstr "Se debe proporcionar un nombre de dominio válido o un comodín (*)"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:327
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 msgid "IP Address"
 msgstr "Dirección IP"
 
@@ -2117,13 +1836,13 @@ msgstr "Este dominio"
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:354
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:378
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
 #: ../../main/mail/src/EBox/Mail.pm:1715
 msgid "Custom"
 msgstr "Personalizado"
@@ -2442,7 +2161,6 @@ msgstr "El nombre de máquina resolverá a esta lista de direcciones IP."
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
 #: ../../main/samba/src/EBox/Samba/User.pm:106
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:92
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:45
@@ -2473,6 +2191,14 @@ msgstr "Cuenta Jabber desactivada"
 msgid "Jabber"
 msgstr "Jabber"
 
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
+msgid "Allow SSL"
+msgstr "Permitir SSL"
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
+msgid "Force SSL"
+msgstr "Forzar conexión SSL"
+
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
 msgstr "dominio de Jabber"
@@ -2480,6 +2206,10 @@ msgstr "dominio de Jabber"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:123
 msgid "Domain used to connect to this server."
 msgstr "Dominio usado para conectar a este servidor."
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
+msgid "SSL support"
+msgstr "Soporte SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
 msgid "SSL connection method to this server."
@@ -2638,7 +2368,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3742
 #: ../../main/samba/src/EBox/Samba.pm:3753
 #: ../../main/squid/src/EBox/Squid.pm:1113
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2972,8 +2701,8 @@ msgstr "El certificado con este nombre común {cn} NO existe en esta CA"
 
 #: ../../main/ca/src/EBox/CA.pm:1739
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:423
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
 #: ../../main/mail/src/EBox/Mail.pm:1751
 msgid "General"
 msgstr "General"
@@ -3197,6 +2926,7 @@ msgid "The new CA certificate has been issued."
 msgstr "El nuevo certificado ha sido expedido."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:394
 #, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr "Certificado de Autoridad {org}"
@@ -3370,38 +3100,6 @@ msgstr "Fallo"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:426
 msgid "Antivirus DB updates"
 msgstr "Actualización de la base de datos del antivirus"
-
-# Is a product. Same name.
-#: ../../main/sogo/src/EBox/SOGO.pm:53
-msgid "OpenChange Webmail"
-msgstr "Correo Web de OpenChange"
-
-# Hace referencia a activar o habilitar los modulos antes dichos en el archivo de configuración de Apache "httpd.conf"
-#: ../../main/sogo/src/EBox/SOGO.pm:118
-msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
-"Habilitar los módulos proxy, proxy_http y headers en el servidor Apache"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:119
-#, fuzzy
-msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
-msgstr "Webmail será accesible por http://ip/webmail"
-
-# FALTA la parte de {openurl}Mail -> General{closeurl}
-#: ../../main/sogo/src/EBox/SOGO.pm:139
-#, fuzzy, perl-brace-format
-msgid ""
-"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
-"Zentyal mail service. You can enable it at {openurl}Mail -> "
-"General{closeurl}."
-msgstr ""
-"El módulo Webmail necesita tener habilitado el servicio IMAP o IMAPS para "
-"usar el servicio de correo de Zentyal. Puede habilitarlo en {openurl}Correo -"
-"> General{closeurl}"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:164
-msgid "To make SOGo webmail available"
-msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -4033,6 +3731,370 @@ msgstr "Política de cabecera errónea"
 msgid "Filter Policies"
 msgstr "Políticas de filtrado"
 
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:63
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} es un rango inválido"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:93
+#, perl-brace-format
+msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
+msgstr "El rango {from}-{to} incluye la dirección IP del túnel: {localIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:121
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
+#, perl-brace-format
+msgid ""
+"Range {from}-{to} includes fixed address from the object member \"{name}\": "
+"{fixedIP}"
+msgstr ""
+"El rango {from} - {to} incluye la asignación estática del miembro del objeto "
+"'{name}': {fixedIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:133
+msgid "The defined range is not part of any local network"
+msgstr "El rango definido no forma parte de ninguna red"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:155
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"El rango {newFrom} - {newTo} coincide con el rango '{range}': {oldFrom}-"
+"{oldTo}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:191
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
+#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
+msgid "From"
+msgstr "De"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:197
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
+#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
+msgid "To"
+msgstr "Para"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:205
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:201
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
+msgid "Ranges"
+msgstr "Rangos"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:211
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
+msgid "range"
+msgstr "rango"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
+msgid ""
+"You are using a non fixed IP address as a VPN server address. If the IP "
+"changes it may break the VPN server!"
+msgstr ""
+"Se está usando una IP no fija como dirección del servidor VPN. Si la "
+"dirección IP cambia, es posible que el servidor VPN deje de funcionar."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:60
+#, perl-brace-format
+msgid ""
+"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
+msgstr ""
+"La IP del servidor ha cambiado por lo que el valor \"{oldIP}\" ya no es "
+"válido."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:65
+msgid ""
+"Your system is not correctly configured. We were not able to find any valid "
+"public IP address."
+msgstr ""
+"Tu sistema no está correctamente configurado. No ha sido posible encontrar "
+"ninguna IP pública válida."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:167
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:318
+msgid "Remote Address"
+msgstr "Dirección IP Remota"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:168
+msgid "undefined"
+msgstr "indefinido"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:169
+msgid "Must be the external IP to connect but it's not defined"
+msgstr "Debería ser la IP externa a la que conectar, pero no está definido"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:186
+#, perl-brace-format
+msgid ""
+"Must be the external IP to connect and it was the addresss of local "
+"interface {if}"
+msgstr ""
+"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
+"conectar."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:216
+#, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address for the interface "
+"\"{interface}\""
+msgstr ""
+"La IP del túnel {localIP} ya está siendo usada como una dirección asignada "
+"para la interfaz \"{interface}\""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:231
+#, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address from the object "
+"member \"{name}\": {fixedIP}"
+msgstr ""
+"La IP del túnel {localIP} ya está siendo usada como dirección asignada del "
+"objeto miembro \"{name}\": {fixedIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:244
+#, perl-brace-format
+msgid "The Tunnel IP {localIP} is not part of any local network"
+msgstr "La IP del túnel {localIP} no forma parte de ninguna red local"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:261
+#, perl-brace-format
+msgid ""
+"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
+msgstr ""
+"El rango {from}-{to} ({name}) incluye la dirección IP del túnel : {localIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:277
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
+msgid ""
+"DNS module must be enabled to be able to select Zentyal as primary DNS server"
+msgstr ""
+"El módulo DNS debe estar habilitado para poder seleccionar Zentyal como "
+"servidor de nombres primario"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:287
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
+msgid ""
+"Samba module must be enabled to be able to select Zentyal as WINS server"
+msgstr ""
+"El módulo samba debe estar habilitado para poder seleccionar Zentyal como "
+"servidor WINS"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:310
+msgid "Public IP address"
+msgstr "Dirección IP pública de"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:314
+msgid "Zentyal public IP address where clients will connect to."
+msgstr "Dirección IP pública de Zentyal donde conectarán los clientes."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:323
+msgid "Any address"
+msgstr "Cualquier dirección"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:329
+msgid "Remote endpoint public IP address."
+msgstr "Dirección IP pública del extremo remoto."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:335
+msgid "PSK Shared Secret"
+msgstr "Secreto Compartido PSK"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:337
+msgid "Pre-shared key for the IPsec connection."
+msgstr "Pre-shared key para la conexión IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:347
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
+msgid "local Zentyal DNS"
+msgstr "DNS local de Zentyal"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:368
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
+msgid "local Zentyal"
+msgstr "Zentyal local"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:386
+msgid "Tunnel IP"
+msgstr "IP del túnel"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:388
+msgid ""
+"The IP to use for the VPN tunnel on the server side. It must be a free IP "
+"belonging to the local network where the VPN clients will be connected."
+msgstr ""
+"La IP usada por el túnel VPN en el extremo del servidor. Debe ser una IP "
+"libre que pertenezca a la red local donde conectarán los clientes VPN."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:396
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
+msgid "Primary nameserver"
+msgstr "Servidor de nombres primario"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:399
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
+msgid ""
+"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
+"cache DNS server"
+msgstr ""
+"Si \"Zentyal DNS\" está presente y seleccionado, el servidor Zentyal actuará "
+"como servidor DNS caché"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:405
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
+msgid "Secondary nameserver"
+msgstr "Servidor de nombres secundario"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:416
+msgid ""
+"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
+"server for L2TP clients"
+msgstr ""
+"Si \"Zentyal Samba\" está presente y seleccionado, Zentyal será el servidor "
+"WINS para los clientes DHCP"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:492
+#, perl-brace-format
+msgid "Configuration no complete, {field} not set"
+msgstr "Configuración incompleta, {field} no establecido"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:123
+msgid "DataTable Component"
+msgstr "Componente de la tabla de datos"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:125
+msgid "Don't know how to handle this component."
+msgstr "No es posible determinar como operar con este componente"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:131
+#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/ebox.mas:41
+#: ../../main/software/src/templates/ebox.mas:62
+#: ../../main/software/src/templates/ebox.mas:99
+msgid "Component"
+msgstr "Componente"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:208
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
+msgid "Users Group"
+msgstr "Grupo de Usuarios"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/core/src/templates/configurationFiles.mas:24
+msgid "Comment"
+msgstr "Comentario"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
+msgid "L2TP"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
+#, fuzzy
+msgid "Connections"
+msgstr "Conexiones IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
+#, fuzzy
+msgid "L2TP connection"
+msgstr "conexión IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
+#, fuzzy
+msgid ""
+"L2TP connections allow to deploy secure tunnels between different "
+"subnetworks. This protocol is vendor independant and will connect Zentyal "
+"with other security devices."
+msgstr ""
+"Las conexiones de IPsec permiten desplegar túneles seguros entre diferentes "
+"subredes. Este protocolo es un estándar y permitirá conectar a Zentyal con "
+"otros dispositivos seguros."
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:256
+msgid "Enabled flag"
+msgstr "Marcador habilitado"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:259
+msgid ""
+"Cannot be enabled when creating a new connection, you should edit the "
+"configuration before enabling it"
+msgstr ""
+"No se puede habilitar mientras se crea una nueva conexión, debes editar la "
+"configuración antes de habilitarlo"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:271
+#: ../../main/l2tp/src/EBox/L2TP.pm:354
+msgid "Connection name"
+msgstr "Nombre de conexión"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:273
+msgid "Blank characters are not allowed"
+msgstr "Espacios y caracteres en blanco no permitidos"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
+#, fuzzy, perl-brace-format
+msgid ""
+"L2TP can only be configured on interfaces tagged as 'external' Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"El moldeado de tráfico se aplica cuando Zentyal actúa como una puerta de "
+"enlace. Para conseguirlo, se requiere al menos una interfaz interna y otra "
+"externa. Compruebe que su configuración es correcta en {openhref}Red-"
+">Interfaces{closehref}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
+#, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by connection {name}"
+msgstr ""
+"La dirección del tunnel {ip} ya está siendo usada por la conexión {name}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:357
+#, perl-brace-format
+msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
+msgstr ""
+"El rango se solapa con la dirección del tunel {ip} usada por la conexión "
+"{name}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:372
+#, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by range in connection {name}"
+msgstr ""
+"La dirección del túnel {ip} ya está siendo usada por la conexión {name}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:378
+#, perl-brace-format
+msgid "Range {range} is already in use by connection {name}"
+msgstr "El rango {range} está siendo usado por la conexión {name}"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:67
+msgid "To configure OpenSwan IPsec."
+msgstr "Para configurar OpenSwan IPsec."
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:73
+msgid "To configure OpenSwan IPsec passwords."
+msgstr "Para configurar las contraseñas de OpenSwan IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:175
+#, fuzzy
+msgid "L2TP based VPN"
+msgstr "VPN basada en IPsec"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:360
+msgid "Stopping completed"
+msgstr "Parada completada"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:362
+msgid "Connection initiated"
+msgstr "Conexión iniciada"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:363
+msgid "Connection terminated"
+msgstr "Conexión terminada"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
@@ -4069,7 +4131,6 @@ msgstr "dirección de correo electrónico"
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
@@ -5504,10 +5565,6 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:101
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:138
 #: ../../main/services/src/EBox/Services.pm:88
 msgid "Any"
 msgstr "Cualquiera"
@@ -6755,12 +6812,6 @@ msgstr ""
 "Tiempo de asignación es el tiempo que una dirección IP dada es válida en el "
 "servidor DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:63
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} es un rango inválido"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:90
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
@@ -6772,57 +6823,12 @@ msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr ""
 "El rango {from} - {to} incluye la dirección IP de la interfaz: {ifaceIP}"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:154
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"El rango {newFrom} - {newTo} coincide con el rango '{range}': {oldFrom}-"
-"{oldTo}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:120
-#, perl-brace-format
-msgid ""
-"Range {from}-{to} includes fixed address from the object member \"{name}\": "
-"{fixedIP}"
-msgstr ""
-"El rango {from} - {to} incluye la asignación estática del miembro del objeto "
-"'{name}': {fixedIP}"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr ""
 "El rango {from}-{to} incluye la dirección flotante IP de HA: \"{name}\" - "
 "{IP}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1812
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-msgid "From"
-msgstr "De"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1813
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-msgid "To"
-msgstr "Para"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:204
-msgid "Ranges"
-msgstr "Rangos"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:210
-msgid "range"
-msgstr "rango"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:147
 msgid "Next server"
@@ -6863,45 +6869,19 @@ msgstr "opción de cliente ligero"
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} no se encuentra en la red actual"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:209
-msgid ""
-"DNS module must be enabled to be able to select Zentyal as primary DNS server"
-msgstr ""
-"El módulo DNS debe estar habilitado para poder seleccionar Zentyal como "
-"servidor de nombres primario"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:138
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
 msgstr ""
 "El módulo NTP debe estar habiltado para poder seleccionar Zentyal como "
 "servidor NTP"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:219
-msgid ""
-"Samba module must be enabled to be able to select Zentyal as WINS server"
-msgstr ""
-"El módulo samba debe estar habilitado para poder seleccionar Zentyal como "
-"servidor WINS"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:345
 msgid "Zentyal domain"
 msgstr "Dominio de Zentyal"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:247
-msgid "local Zentyal DNS"
-msgstr "DNS local de Zentyal"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:375
 msgid "local Zentyal NTP"
 msgstr "NTP local de Zentyal"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:269
-msgid "local Zentyal"
-msgstr "Zentyal local"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:405
 msgid "Default gateway"
@@ -6930,25 +6910,6 @@ msgid ""
 msgstr ""
 "El dominio seleccionado completará en tus clientes aquellas peticiones DNS "
 "que no están completamente cualificadas"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:298
-msgid "Primary nameserver"
-msgstr "Servidor de nombres primario"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:301
-msgid ""
-"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
-"cache DNS server"
-msgstr ""
-"Si \"Zentyal DNS\" está presente y seleccionado, el servidor Zentyal actuará "
-"como servidor DNS caché"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:307
-msgid "Secondary nameserver"
-msgstr "Servidor de nombres secundario"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
 msgid "NTP server"
@@ -7363,7 +7324,6 @@ msgstr "Actualizar a Zentyal 3.4"
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/core/src/templates/headTitle.mas:21
 #: ../../main/software/src/templates/ebox.mas:313
 msgid "Search"
 msgstr "Buscar"
@@ -7686,8 +7646,8 @@ msgstr "Fallo al habilitar: {err}"
 msgid "Module Status Configuration"
 msgstr "Configuración del estado de los módulos"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:129
-#: ../../main/core/src/EBox/MyDBEngine.pm:143
+#: ../../main/core/src/EBox/MyDBEngine.pm:127
+#: ../../main/core/src/EBox/MyDBEngine.pm:141
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
@@ -7872,7 +7832,7 @@ msgstr "Selección de idioma"
 msgid "New language selected, save changes to commit"
 msgstr "Nuevo idioma seleccionado, guarde los cambios para aplicar"
 
-#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:78
+#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:79
 msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
@@ -8298,129 +8258,6 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
-msgid "HTTP port"
-msgstr "puerto HTTP"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
-msgid "Default for Non-SSL"
-msgstr "Predeterminado para no-SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
-msgid "Make this service the default for the non-SSL traffic"
-msgstr "Haz este servicio el predeterminado para el tráfico no-SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
-msgid "HTTPS port"
-msgstr "puerto HTTPS"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
-msgid "Default for SSL"
-msgstr "Predeterminado para SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
-msgid "Make this service the default for the SSL traffic"
-msgstr "Haz este servicio el predeterminado para el tráfico SSL"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-msgid "Zentyal Administration port and other reverse proxy service ports"
-msgstr ""
-"Puerto de administración de Zentyal y otros puertos del servicio de proxy "
-"inverso"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
-#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
-msgid "service"
-msgstr "servicio"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
-msgid "Here you may configure the services to be served from the reverse proxy"
-msgstr "Aquí puedes configurar los servicios que gestiona el proxy inverso"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
-msgid "This service does not let change the HTTP port."
-msgstr "Este servicio no permite cambiar el puerto HTTP."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
-msgid "This service does not let change the HTTPS port."
-msgstr "Este servicio no permite cambiar el puerto HTTPS."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
-msgid "This service cannot have both ports disabled."
-msgstr "Este servicio no puede tener ambos puertos deshabilitados."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:356
-#, perl-brace-format
-msgid ""
-"You need to enable the certificate for {module} at {ohref}Services "
-"Certificates page{chref}"
-msgstr ""
-"Necesitas activar el certificado para el módulo {module} en la página {ohref}"
-"Certificados de los Servicios{chref}"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:364
-#, perl-brace-format
-msgid ""
-"You need to enable the {serviceName} certificate for {module} on {ohref}"
-"Services Certificates{chref}"
-msgstr ""
-"Necesitas activar el certificado {serviceName} para el módulo {module} en "
-"{ohref}Certificados de los Servicios{chref}"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:376
-msgid "To enable SSL port you need the CA module installed and enabled."
-msgstr ""
-"Para poder activar el puerto SSL es necesario instalar y activar el módulo "
-"de CA."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:447
-#, perl-brace-format
-msgid ""
-"Zentyal is already configured to use port {p} for {use}. Choose another port "
-"or free it and retry."
-msgstr ""
-"Zentyal ya está configurado para usar el puerto {p} para {use}. Elige otro "
-"puerto o libera este y reintenta."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:470
-msgid "Unmanaged instance of haproxy"
-msgstr "Instancia no gestionada de haproxy"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:474
-#, perl-brace-format
-msgid ""
-"Port {p} is already in use by program '{pr}'. Choose another port or free it "
-"and retry."
-msgstr ""
-"El puerto {p} ya está en uso por el programa '{pr}'. Elige otro puerto o "
-"libera este y reintenta."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:669
-msgid "Cannot use the same port number for HTTP and HTTPS traffic."
-msgstr "No se puede usar el mismo número de puerto para HTTP y HTTPS."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:710
-#, perl-brace-format
-msgid "Port {port} is already used by {row} using HTTPS."
-msgstr "El puerto {port} está siendo usado por {row} usando HTTPS."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:731
-#, perl-brace-format
-msgid "Port {port} is already used by {row} as default service."
-msgstr "El puerto {port} ya está usado por {row} como servicio por defecto."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:772
-#, perl-brace-format
-msgid "Port {port} is already used by {row} using plain HTTP."
-msgstr "El puerto {port} está siendo usado por {row} usando HTTP plano."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:793
-#, perl-brace-format
-msgid "Port {port} is already used by {row} as default SSL service."
-msgstr ""
-"El puerto {port} ya está usado por {row} como servicio SSL por defecto."
-
 #: ../../main/core/src/EBox/Logs/CGI/Index.pm:290
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:165
 msgid "Query Logs"
@@ -8714,33 +8551,6 @@ msgstr ""
 msgid "Try to back up again as the created backup is corrupted"
 msgstr "Intente crear respaldo de nuevo, el respaldo creado es defectuoso"
 
-#: ../../main/core/src/EBox/HAProxy.pm:53
-msgid "Reverse Proxy"
-msgstr "Proxy Inverso"
-
-#: ../../main/core/src/EBox/HAProxy.pm:164
-#, perl-brace-format
-msgid "Port {port} must be configured as SSL for {service}"
-msgstr "El puerto {port} debe configurarse como SSL para {service}"
-
-#: ../../main/core/src/EBox/HAProxy.pm:171
-#, perl-brace-format
-msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr "El puerto {port} debe configurarse como NO SSL para {service}"
-
-#: ../../main/core/src/EBox/HAProxy.pm:304
-msgid "HTTP Services"
-msgstr "Servicios HTTP"
-
-#: ../../main/core/src/EBox/HAProxy.pm:393
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
-msgid "port"
-msgstr "puerto"
-
-#: ../../main/core/src/EBox/HAProxy.pm:493
-msgid "Zentyal Administration Web Server"
-msgstr "Servidor web de administración de Zentyal"
-
 #: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
@@ -9030,13 +8840,7 @@ msgstr ""
 "Configura el acceso a {oc} a través de HTTP/HTTPS. Recuerda que el acceso "
 "por HTTPS exige que importes el certificado de Zentyal en tu cuenta de {win}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:102
-msgid "Web Server module needs to be installed and enabled to use RPC proxy"
-msgstr ""
-"Se necesita instalar y activar el módulo de Servidor Web para usar el proxy "
-"RPC"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:105
 #, perl-brace-format
 msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
@@ -9045,7 +8849,7 @@ msgstr ""
 "No se puede usar el proxy RPC porque no podemos encontrar este nombre de "
 "máquina en el {oh}módulo DNS{ch}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:111
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
 msgstr ""
@@ -9157,44 +8961,59 @@ msgstr ""
 "Para provisionar OpenChange se necesita primero {oh}crear un dominio de "
 "correo virtual{oc}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:391
-#, fuzzy
-msgid "No Certification authority ready. Create or renew it"
-msgstr "Autoridad Certificadora y Redes Privadas Virtuales"
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 msgid "Enable OpenChange account"
 msgstr "Activar cuenta de OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:312
+# Hace referencia a activar o habilitar los modulos antes dichos en el archivo de configuración de Apache "httpd.conf"
+#: ../../main/openchange/src/EBox/OpenChange.pm:204
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
+"Habilitar los módulos proxy, proxy_http y headers en el servidor Apache"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:205
+#, fuzzy
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
+msgstr "Webmail será accesible por http://ip/webmail"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 msgid "To configure sogo daemon"
 msgstr "Para configurar el demonio sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:317
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 msgid "To configure sogo parameters"
 msgstr "Para configurar los parámetros sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:322
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 msgid "To configure autodiscovery service"
 msgstr "Para configurar el servicio de descubrimiento automático"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:327
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr "Borra el fichero stock de RPC proxy para evitar interferencias"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:674
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
+msgid "To make SOGo webmail available"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:334
+#, fuzzy
+msgid "To make autodiscovery service available"
+msgstr "Para configurar el servicio de descubrimiento automático"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:768
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1685
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1849
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Correo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:829
+#: ../../main/openchange/src/EBox/OpenChange.pm:923
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr "El dominio esperado '{d}' no se pudo encontrar en el módulo DNS."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:838
+#: ../../main/openchange/src/EBox/OpenChange.pm:932
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
@@ -9203,16 +9022,16 @@ msgstr ""
 ">Puede añadirlo en la {ohref} página de nombres de máquinas del dominio {d}"
 "{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:922
+#: ../../main/openchange/src/EBox/OpenChange.pm:1016
 #, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Dominio {dom} no configurado en el {oh}módulo de DNS{ch}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:934
+#: ../../main/openchange/src/EBox/OpenChange.pm:1028
 msgid "System needs at least one external interface"
 msgstr "El sistema necesita al menos una interfaz externa"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:963
+#: ../../main/openchange/src/EBox/OpenChange.pm:1057
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
@@ -9221,7 +9040,7 @@ msgstr ""
 "No se puede encontrar ninguna máquina en el {oh}dominio DNS {dom}{ch} que "
 "corresponda con tu dirección IP externa"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:997
+#: ../../main/openchange/src/EBox/OpenChange.pm:1091
 msgid "No outgoing mail domain configured"
 msgstr "No hay dominio de correo saliente configurado"
 
@@ -10570,12 +10389,6 @@ msgstr "Directorio bajo Zentyal"
 msgid "File system path"
 msgstr "Ruta del sistema de ficheros"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
-#: ../../main/core/src/templates/configurationFiles.mas:24
-msgid "Comment"
-msgstr "Comentario"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:123
 msgid "This share will not require authentication."
 msgstr "Este directorio compartido no necesita de autenticación."
@@ -11635,7 +11448,8 @@ msgid "Couldn't configure Zentyal as slave"
 msgstr "No se puede configurar a Zentyal como un esclavo"
 
 #: ../../main/samba/src/EBox/Samba.pm:179
-msgid "Users, Computers and File Sharing"
+#, fuzzy
+msgid "Domain Controller and File Sharing"
 msgstr "Usuarios, Equipos y Ficheros"
 
 #: ../../main/samba/src/EBox/Samba.pm:311
@@ -12317,11 +12131,6 @@ msgstr "Periodo de tiempo en el cual se aplicará esta regla"
 msgid "Network Object"
 msgstr "Objeto de red"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-msgid "Users Group"
-msgstr "Grupo de Usuarios"
-
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
@@ -12850,412 +12659,6 @@ msgstr ""
 "Se puede omitir algunas direcciones del proxy transparente. Los dominios "
 "serán resueltos al guardar cambios."
 
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:59
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:69
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:225
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:226
-msgid "IPsec Connections"
-msgstr "Conexiones IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
-msgid "No ranges or users defined for the connection"
-msgstr "No hay rangos o usuarios definidos par ala conexión"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
-msgid "Authentication"
-msgstr "Autenticación"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-msgid "General L2TP/IPSec Settings"
-msgstr "Configuración General de L2TP/IPSec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-msgid "User settings"
-msgstr "Configuración de usuario"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, perl-brace-format
-msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr "El rango {from}-{to} incluye la dirección IP del túnel: {localIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:132
-msgid "The defined range is not part of any local network"
-msgstr "El rango definido no forma parte de ninguna red"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:77
-msgid ""
-"This is a local network, thus already accessible through local interfaces"
-msgstr ""
-"Es una red local y por lo tanto ya es accesible desde otras redes locales"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:83
-msgid "This network is already reachable through a static route"
-msgstr "Esta red ya es accesible a través de una ruta estática"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:108
-msgid "Local Subnet"
-msgstr "Subed local"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:110
-msgid "Local subnet available through the tunnel."
-msgstr "Subred local disponible a través del túnel."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:116
-msgid "Remote Subnet"
-msgstr "Subred Remota"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:118
-msgid "Remote subnet available through the tunnel."
-msgstr "Subred remota disponible a través del túnel."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-msgid "Manual list of users"
-msgstr "Lista de usuarios manual"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-msgid "Users Source"
-msgstr "Fuente de Usuarios"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-msgid "Selects the provider for the users allowed to use the VPN."
-msgstr "Seleccione el proveedor para los usuarios que puedan usar la VPN"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:166
-msgid "The list of users allowed to connecto to VPN must be handled manually"
-msgstr ""
-"La lista de usuarios autorizados a usar VPN debe ser modificada manualmente"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:167
-msgid ""
-"To use the existing system user accounts you will need to activate \"File "
-"sharing\" module to enable the Active Directory"
-msgstr ""
-"Para usar la lista de usuario del sistema, necesitará activar el módulo de "
-"\"Compartición de Ficheros\", lo que activará Active Directory"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:175
-msgid "L2TP/IPSec users source"
-msgstr "Fuente de usuarios para L2TP/IPSec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:171
-msgid "ESP Authentication"
-msgstr "Autenticación ESP"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:165
-msgid "ESP Encryption"
-msgstr "Cifrado ESP"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:177
-msgid "ESP DH Group"
-msgstr "Grupo ESP DH"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:183
-msgid "ESP Keylife"
-msgstr "Vida de clave ESP"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:191
-msgid "Enable PFS"
-msgstr "Habilitar PFS"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:200
-msgid "Phase 2"
-msgstr "Fase 2"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-msgid "DataTable Component"
-msgstr "Componente de la tabla de datos"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:127
-msgid "Don't know how to handle this component."
-msgstr "No es posible determinar como operar con este componente"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:133
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:41
-#: ../../main/software/src/templates/ebox.mas:62
-#: ../../main/software/src/templates/ebox.mas:99
-msgid "Component"
-msgstr "Componente"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:204
-msgid "The type of IPSec VPN."
-msgstr "El tipo de IPsec VPN"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
-msgid "IPsec connection"
-msgstr "conexión IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:234
-msgid ""
-"IPsec connections allow to deploy secure tunnels between different "
-"subnetworks. This protocol is vendor independant and will connect Zentyal "
-"with other security devices."
-msgstr ""
-"Las conexiones de IPsec permiten desplegar túneles seguros entre diferentes "
-"subredes. Este protocolo es un estándar y permitirá conectar a Zentyal con "
-"otros dispositivos seguros."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:254
-msgid "Enabled flag"
-msgstr "Marcador habilitado"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:257
-msgid ""
-"Cannot be enabled when creating a new connection, you should edit the "
-"configuration before enabling it"
-msgstr ""
-"No se puede habilitar mientras se crea una nueva conexión, debes editar la "
-"configuración antes de habilitarlo"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
-#: ../../main/ipsec/src/EBox/IPsec.pm:420
-msgid "Connection name"
-msgstr "Nombre de conexión"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:271
-msgid "Blank characters are not allowed"
-msgstr "Espacios y caracteres en blanco no permitidos"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-msgid "VPN Type"
-msgstr "Tipo de VPN"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-msgid "Not supported"
-msgstr "No soportado"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:332
-#, perl-brace-format
-msgid ""
-"IPsec can only be configured on interfaces tagged as 'external' Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"El moldeado de tráfico se aplica cuando Zentyal actúa como una puerta de "
-"enlace. Para conseguirlo, se requiere al menos una interfaz interna y otra "
-"externa. Compruebe que su configuración es correcta en {openhref}Red-"
-">Interfaces{closehref}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr ""
-"La dirección del tunnel {ip} ya está siendo usada por la conexión {name}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:396
-#, perl-brace-format
-msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
-msgstr ""
-"El rango se solapa con la dirección del tunel {ip} usada por la conexión "
-"{name}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr ""
-"La dirección del túnel {ip} ya está siendo usada por la conexión {name}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, perl-brace-format
-msgid "Range {range} is already in use by connection {name}"
-msgstr "El rango {range} está siendo usado por la conexión {name}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:53
-msgid ""
-"You are using a non fixed IP address as a VPN server address. If the IP "
-"changes it may break the VPN server!"
-msgstr ""
-"Se está usando una IP no fija como dirección del servidor VPN. Si la "
-"dirección IP cambia, es posible que el servidor VPN deje de funcionar."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:58
-#, perl-brace-format
-msgid ""
-"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
-msgstr ""
-"La IP del servidor ha cambiado por lo que el valor \"{oldIP}\" ya no es "
-"válido."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:63
-msgid ""
-"Your system is not correctly configured. We were not able to find any valid "
-"public IP address."
-msgstr ""
-"Tu sistema no está correctamente configurado. No ha sido posible encontrar "
-"ninguna IP pública válida."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:89
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:138
-msgid "Remote Address"
-msgstr "Dirección IP Remota"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:90
-msgid "undefined"
-msgstr "indefinido"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:91
-msgid "Must be the external IP to connect but it's not defined"
-msgstr "Debería ser la IP externa a la que conectar, pero no está definido"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:108
-#, perl-brace-format
-msgid ""
-"Must be the external IP to connect and it was the addresss of local "
-"interface {if}"
-msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
-msgid "Public IP address"
-msgstr "Dirección IP pública de"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:134
-msgid "Zentyal public IP address where clients will connect to."
-msgstr "Dirección IP pública de Zentyal donde conectarán los clientes."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:143
-msgid "Any address"
-msgstr "Cualquier dirección"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:149
-msgid "Remote endpoint public IP address."
-msgstr "Dirección IP pública del extremo remoto."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:155
-msgid "PSK Shared Secret"
-msgstr "Secreto Compartido PSK"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:157
-msgid "Pre-shared key for the IPsec connection."
-msgstr "Pre-shared key para la conexión IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, perl-brace-format
-msgid "Configuration no complete, {field} not set"
-msgstr "Configuración incompleta, {field} no establecido"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:162
-msgid "IKE Authentication"
-msgstr "Autenticación IKE"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:156
-msgid "IKE Encryption"
-msgstr "Cifrado IKE"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:168
-msgid "IKE Keylife"
-msgstr "IKE Keylife"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:179
-msgid "Phase 1"
-msgstr "Fase 1"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:148
-#, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address for the interface "
-"\"{interface}\""
-msgstr ""
-"La IP del túnel {localIP} ya está siendo usada como una dirección asignada "
-"para la interfaz \"{interface}\""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
-#, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address from the object "
-"member \"{name}\": {fixedIP}"
-msgstr ""
-"La IP del túnel {localIP} ya está siendo usada como dirección asignada del "
-"objeto miembro \"{name}\": {fixedIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:176
-#, perl-brace-format
-msgid "The Tunnel IP {localIP} is not part of any local network"
-msgstr "La IP del túnel {localIP} no forma parte de ninguna red local"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:193
-#, perl-brace-format
-msgid ""
-"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
-msgstr ""
-"El rango {from}-{to} ({name}) incluye la dirección IP del túnel : {localIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:288
-msgid "Tunnel IP"
-msgstr "IP del túnel"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:290
-msgid ""
-"The IP to use for the VPN tunnel on the server side. It must be a free IP "
-"belonging to the local network where the VPN clients will be connected."
-msgstr ""
-"La IP usada por el túnel VPN en el extremo del servidor. Debe ser una IP "
-"libre que pertenezca a la red local donde conectarán los clientes VPN."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:318
-msgid ""
-"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
-"server for L2TP clients"
-msgstr ""
-"Si \"Zentyal Samba\" está presente y seleccionado, Zentyal será el servidor "
-"WINS para los clientes DHCP"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
-msgid "IP address assigned to this user within the VPN network."
-msgstr "Dirección IP asignada al usuario dentro de la red VPN."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-msgid "L2TP/IPSec Users"
-msgstr "Usuarios de L2TP/IPSec"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-msgid ""
-"Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
-"of users defined on Users and Groups."
-msgstr ""
-"Usuarios a los que se permite conectar usando la L2TP/IPSec VPN. Esta lista "
-"es independiente de los usuarios de LDAP definidos en Usuarios y Grupos."
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:68
-msgid "To configure OpenSwan IPsec."
-msgstr "Para configurar OpenSwan IPsec."
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:74
-msgid "To configure OpenSwan IPsec passwords."
-msgstr "Para configurar las contraseñas de OpenSwan IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:80
-msgid ""
-"To configure L2TP/IPSec users when not using Active Directory validation."
-msgstr ""
-"Para configurar los usuarios L2TP/IPSec cuando no se use validación Active "
-"Directory"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:199
-msgid "IPsec based VPN"
-msgstr "VPN basada en IPsec"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:426
-msgid "Stopping completed"
-msgstr "Parada completada"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:428
-msgid "Connection initiated"
-msgstr "Conexión iniciada"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:429
-msgid "Connection terminated"
-msgstr "Conexión terminada"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:462
-msgid "IPsec"
-msgstr "IPsec"
-
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
 msgstr "Generar alias de cuenta de correo"
@@ -13402,107 +12805,107 @@ msgstr "habilitado"
 msgid "Mail server's filter"
 msgstr "Filtro del servidor de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1758
+#: ../../main/mail/src/EBox/Mail.pm:1759
 msgid "Virtual Mail Domains"
 msgstr "Dominios virtuales de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1764
+#: ../../main/mail/src/EBox/Mail.pm:1766
 msgid "Greylist"
 msgstr "Lista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1770
+#: ../../main/mail/src/EBox/Mail.pm:1773
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Gestión de cola"
 
-#: ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1800
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Recuperación de correo de cuentas externas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1815
 msgid "Message ID"
 msgstr "ID del mensaje"
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1818
 msgid "From hostname"
 msgstr "Desde nombre de máquina"
 
-#: ../../main/mail/src/EBox/Mail.pm:1815
+#: ../../main/mail/src/EBox/Mail.pm:1819
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/mail/src/EBox/Mail.pm:1820
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/mail/src/EBox/Mail.pm:1821
 msgid "Relay"
 msgstr "Retransmisión"
 
-#: ../../main/mail/src/EBox/Mail.pm:1818
+#: ../../main/mail/src/EBox/Mail.pm:1822
 msgid "Message type"
 msgstr "Tipo del mensaje"
 
-#: ../../main/mail/src/EBox/Mail.pm:1821
+#: ../../main/mail/src/EBox/Mail.pm:1825
 msgid "Additional Info"
 msgstr "Información adicional"
 
-#: ../../main/mail/src/EBox/Mail.pm:1832
+#: ../../main/mail/src/EBox/Mail.pm:1836
 msgid "Successful messages"
 msgstr "Mensajes exitosos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1833
+#: ../../main/mail/src/EBox/Mail.pm:1837
 msgid "Maximum message size exceeded"
 msgstr "Tamaño máximo de mensaje excedido"
 
-#: ../../main/mail/src/EBox/Mail.pm:1834
+#: ../../main/mail/src/EBox/Mail.pm:1838
 msgid "User quota exceeded"
 msgstr "Cuota de usuario excedida"
 
-#: ../../main/mail/src/EBox/Mail.pm:1835
+#: ../../main/mail/src/EBox/Mail.pm:1839
 msgid "Relay access denied"
 msgstr "Acceso de retransmisión denegado"
 
-#: ../../main/mail/src/EBox/Mail.pm:1836
+#: ../../main/mail/src/EBox/Mail.pm:1840
 msgid "Account does not exist"
 msgstr "La cuenta no existe"
 
-#: ../../main/mail/src/EBox/Mail.pm:1837
+#: ../../main/mail/src/EBox/Mail.pm:1841
 msgid "Host unreachable"
 msgstr "Máquina inalcanzable"
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1842
 msgid "Authentication error"
 msgstr "Error de autenticación"
 
-#: ../../main/mail/src/EBox/Mail.pm:1839
+#: ../../main/mail/src/EBox/Mail.pm:1843
 msgid "Greylisted"
 msgstr "Incorporado a la lista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1840
+#: ../../main/mail/src/EBox/Mail.pm:1844
 msgid "Relay rejected by the smarthost"
 msgstr "Reenvío denegado por el smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1845
 msgid "Other events"
 msgstr "Otros eventos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1905
+#: ../../main/mail/src/EBox/Mail.pm:1909
 msgid "Mail SMTP server"
 msgstr "Servidor de correo SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1913
+#: ../../main/mail/src/EBox/Mail.pm:1917
 msgid "Mail POP/IMAP server"
 msgstr "Servidor de correo POP/IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1990
+#: ../../main/mail/src/EBox/Mail.pm:1994
 msgid "Mailboxes"
 msgstr "Buzones de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:2032
+#: ../../main/mail/src/EBox/Mail.pm:2036
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
@@ -13510,7 +12913,7 @@ msgstr ""
 "Los dominios y cuentas de correo serán borrados cuando la configuración del "
 "esclavo esté completada"
 
-#: ../../main/mail/src/EBox/Mail.pm:2067
+#: ../../main/mail/src/EBox/Mail.pm:2071
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "La dirección {addr} está en uso como alias externo"
@@ -13877,6 +13280,10 @@ msgstr "Autenticación para el \"smarthost\""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
 msgstr "Usuario y contraseña"
+
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
+msgid "Authentication"
+msgstr "Autenticación"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
@@ -14251,6 +13658,11 @@ msgstr "La opción más común para este campo es \"cualquiera\""
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Configuración del servicio"
+
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
+#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
+msgid "service"
+msgstr "servicio"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
@@ -15895,6 +15307,10 @@ msgstr "No hay elementos."
 msgid "Add a new one"
 msgstr "Añadir una"
 
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
+msgid "port"
+msgstr "puerto"
+
 #: ../../main/core/src/templates/ajax/changeRowForm.mas:81
 #, perl-brace-format
 msgid "Adding a new {row}"
@@ -16117,6 +15533,11 @@ msgstr "Cerrar la sesión"
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Save changes?"
 msgstr "¿Desea guardar los cambios?"
+
+#: ../../main/core/src/templates/headTitle.mas:21
+#, fuzzy
+msgid "Search..."
+msgstr "Buscar"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
@@ -17140,6 +16561,447 @@ msgid ""
 msgstr ""
 "Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
 "habilitado"
+
+#~ msgid "Web Server"
+#~ msgstr "Servidor Web"
+
+#~ msgid "To set webserver listening port."
+#~ msgstr "Configurar el puerto de escucha del servidor web."
+
+#~ msgid "To configure default virtual host."
+#~ msgstr "Configurar el host virtual por defecto."
+
+#~ msgid "To configure default SSL virtual host."
+#~ msgstr "Configurar el virtual host SSL por defecto."
+
+#~ msgid "To configure the per-user public_html directory."
+#~ msgstr "Configurar el directorio public-html por usuario."
+
+#~ msgid "Enable Apache LDAP user module"
+#~ msgstr "Habilitar módulo de usuarios LDAP del Apache"
+
+#~ msgid "To fetch home directories from LDAP."
+#~ msgstr "Obtener los directorios home desde el LDAP."
+
+#~ msgid "Enable Apache SSL module"
+#~ msgstr "Habilitar módulo SSL de Apache"
+
+#~ msgid "To serve pages over HTTPS."
+#~ msgstr "Servir páginas a través de HTTPS."
+
+#~ msgid "Remove apache2 init script link"
+#~ msgstr "Borrar enlaces al script de inicio de apache2"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host configuration. Please, move "
+#~ "or remove it"
+#~ msgstr ""
+#~ "{dir} debería ser un directorio para la configuración del dominio "
+#~ "virtual. Por favor, muévalo o bórrelo"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host document root. Please, move "
+#~ "or remove it"
+#~ msgstr ""
+#~ "{dir} debería ser un directorio para la raíz del dominio virtual. Por "
+#~ "favor, muévalo o bórrelo"
+
+#~ msgid "Web server data"
+#~ msgstr "Datos del servidor Web"
+
+#~ msgid ""
+#~ "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
+#~ "different virtual hosts."
+#~ msgstr ""
+#~ "El servicio web de Zentyal permite hospedar páginas web HTTP y HTTPS "
+#~ "dentro de los diferentes hosts virtuales."
+
+#~ msgid ""
+#~ "You must enable, at least, a listening port to make this module useful."
+#~ msgstr ""
+#~ "Debes activar, al menos, un puerto de escucha para hacer este módulo útil."
+
+#~ msgid "HTTP listening port"
+#~ msgstr "Puerto de escucha HTTP"
+
+#~ msgid "HTTPS listening port"
+#~ msgstr "Puerto de escucha HTTPS"
+
+#~ msgid "Listening Ports settings"
+#~ msgstr "Configuración de puertos de escucha"
+
+#~ msgid "Listening Ports configuration"
+#~ msgstr "Configuración de puertos de escucha"
+
+#~ msgid "Listening ports configuration settings updated."
+#~ msgstr "Configuración de puertos de escucha actualizada."
+
+#~ msgid "Virtual host name"
+#~ msgstr "Nombre del virtual host"
+
+#~ msgid "Virtual host"
+#~ msgstr "Host virtual"
+
+#~ msgid "You need to enable Listening SSL port."
+#~ msgstr "Necesita habilitar el puerto de escucha SSL."
+
+#~ msgid ""
+#~ "You need to enable {module} on {ohref}Services Certificates{chref} to "
+#~ "enable SSL on a virtual host."
+#~ msgstr ""
+#~ "Necesitas activar {module} en {ohref}Certificados de los Servicios{chref} "
+#~ "para activar SSL en un host virtual."
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been createdPlease, "
+#~ "check its IP addresses. {noDnsWarning} "
+#~ msgstr ""
+#~ "Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado, Por "
+#~ "favor, compruebe sus direcciones IP {noDnsWarning}"
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been created with the "
+#~ "host name {name}. Please, set the host IP address. {noDnsWarning} "
+#~ msgstr ""
+#~ "Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado con el "
+#~ "nombre de equipo {name}. Por favor, configure la IP del equipo. "
+#~ "{noDnsWarning}"
+
+#~ msgid ""
+#~ "Virtual host {vhost} added. A host {name} has been added to {domain} "
+#~ "domain. Please, set the host IP address"
+#~ msgstr ""
+#~ "Agregado el host virtual {vhost}. Un nombre de equipo {name} ha sido "
+#~ "añadido al dominio {domain}. Por favor, configure la dirección IP del "
+#~ "equipo"
+
+#~ msgid "Virtual host {vhost} added."
+#~ msgstr "Host virtual {vhost} añadido."
+
+#~ msgid "Virtual hosts"
+#~ msgstr "Hosts virtuales"
+
+#~ msgid ""
+#~ "Virtual hosts are a form of web hosting service where many instances of "
+#~ "the same web server are hosted on a single physical server. Different "
+#~ "host names point to the same web server. If feasible, the DNS entry is "
+#~ "automatically created. The content must be placed under the {docRoot} "
+#~ "directory. Any particular configuration you want to add must be placed in "
+#~ "the {userConf} directory."
+#~ msgstr ""
+#~ "Los hosts virtuales (Virtual Hosts) son una forma de servicio de "
+#~ "alojamiento web, donde muchas instancias del mismo servidor web están "
+#~ "alojadas en un único servidor físico. Diferentes nombres de host apuntan "
+#~ "al mismo servidor web. La entrada de DNS se crea automáticamente si es "
+#~ "posible. El contenido debe ser situado bajo el directorio {docRoot}. "
+#~ "Cualquier configuración específica que se quiera añadir deberá estar en "
+#~ "el directorio {userConf}."
+
+#~ msgid "Virtual host deleted. The virtual host files will be left in place"
+#~ msgstr ""
+#~ "Virtual host borrado. Los ficheros del virtual host se mantendrán en su "
+#~ "sitio"
+
+#~ msgid ""
+#~ "{open}The DNS module is disabled. The added mapping or domains will not "
+#~ "have any effect until you enable it."
+#~ msgstr ""
+#~ "{open} El módulo DNS está deshabilitado. Los dominios o mapeos añadidos "
+#~ "no tendrán efecto hasta que se habilite."
+
+#~ msgid ""
+#~ "Having installed and configured the Users and Groups module is required "
+#~ "to allow HTML directories for users."
+#~ msgstr ""
+#~ "Es necesario tener instalado y configurado el módulo \"Usuarios y Grupos"
+#~ "\" para permitir directorios HTML"
+
+#~ msgid ""
+#~ "A properly configured Users and Groups module is required to allow HTML "
+#~ "directories for users. To configure it, please enable it at least one "
+#~ "time."
+#~ msgstr ""
+#~ "Es necesario que el módulo \"Usuarios y Grupos\" esté correctamente "
+#~ "configurado para permitir directorios HTML para los usuarios. Para "
+#~ "configurarlo, por favor, habilítelo al menos una vez."
+
+#~ msgid "User public folder configuration settings updated."
+#~ msgstr ""
+#~ "La configuración del directorio del usuario público ha sido actualizada."
+
+#~ msgid ""
+#~ "Remember that in order to have UserDir working, you should create the {p} "
+#~ "directory, and to provide www-data execution permissions over the "
+#~ "involved /home/user directories."
+#~ msgstr ""
+#~ "Recuerde que para que UserDir funcione, debe crear el directorio {p} y "
+#~ "asignar permisos de ejecución al usuario www-data sobre los directorios "
+#~ "de /home/usuario implicados."
+
+#~ msgid "Enable per user {dirName}"
+#~ msgstr "Habilitar {dirName} por usuario"
+
+#~ msgid ""
+#~ "Allow users to publish web documents using the public_html directory on "
+#~ "their home."
+#~ msgstr ""
+#~ "Permitir a los usuarios publicar documentos web usando el directorio "
+#~ "public-html en su carpeta personal."
+
+#~ msgid "User public folder settings"
+#~ msgstr "Configuración de carpeta pública de usuario"
+
+#~ msgid ""
+#~ "User public folder configuration. If you enable user to publish their own "
+#~ "html pages, those should be loaded from {dirName} directory from their "
+#~ "home directories."
+#~ msgstr ""
+#~ "Configuración de carpeta pública de usuario. Si activas esto, los "
+#~ "usuarios pueden publicar sus propias páginas HTML, las páginas deberán "
+#~ "ser cargadas desde el directorio {dirName} en sus directorios de inicio."
+
+# Is a product. Same name.
+#~ msgid "OpenChange Webmail"
+#~ msgstr "Correo Web de OpenChange"
+
+# FALTA la parte de {openurl}Mail -> General{closeurl}
+#, fuzzy
+#~ msgid ""
+#~ "OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+#~ "Zentyal mail service. You can enable it at {openurl}Mail -> "
+#~ "General{closeurl}."
+#~ msgstr ""
+#~ "El módulo Webmail necesita tener habilitado el servicio IMAP o IMAPS para "
+#~ "usar el servicio de correo de Zentyal. Puede habilitarlo en {openurl}"
+#~ "Correo -> General{closeurl}"
+
+#~ msgid "HTTP port"
+#~ msgstr "puerto HTTP"
+
+#~ msgid "Default for Non-SSL"
+#~ msgstr "Predeterminado para no-SSL"
+
+#~ msgid "Make this service the default for the non-SSL traffic"
+#~ msgstr "Haz este servicio el predeterminado para el tráfico no-SSL"
+
+#~ msgid "HTTPS port"
+#~ msgstr "puerto HTTPS"
+
+#~ msgid "Default for SSL"
+#~ msgstr "Predeterminado para SSL"
+
+#~ msgid "Make this service the default for the SSL traffic"
+#~ msgstr "Haz este servicio el predeterminado para el tráfico SSL"
+
+#~ msgid "Zentyal Administration port and other reverse proxy service ports"
+#~ msgstr ""
+#~ "Puerto de administración de Zentyal y otros puertos del servicio de proxy "
+#~ "inverso"
+
+#~ msgid ""
+#~ "Here you may configure the services to be served from the reverse proxy"
+#~ msgstr "Aquí puedes configurar los servicios que gestiona el proxy inverso"
+
+#~ msgid "This service does not let change the HTTP port."
+#~ msgstr "Este servicio no permite cambiar el puerto HTTP."
+
+#~ msgid "This service does not let change the HTTPS port."
+#~ msgstr "Este servicio no permite cambiar el puerto HTTPS."
+
+#~ msgid "This service cannot have both ports disabled."
+#~ msgstr "Este servicio no puede tener ambos puertos deshabilitados."
+
+#~ msgid ""
+#~ "You need to enable the certificate for {module} at {ohref}Services "
+#~ "Certificates page{chref}"
+#~ msgstr ""
+#~ "Necesitas activar el certificado para el módulo {module} en la página "
+#~ "{ohref}Certificados de los Servicios{chref}"
+
+#~ msgid ""
+#~ "You need to enable the {serviceName} certificate for {module} on {ohref}"
+#~ "Services Certificates{chref}"
+#~ msgstr ""
+#~ "Necesitas activar el certificado {serviceName} para el módulo {module} en "
+#~ "{ohref}Certificados de los Servicios{chref}"
+
+#~ msgid "To enable SSL port you need the CA module installed and enabled."
+#~ msgstr ""
+#~ "Para poder activar el puerto SSL es necesario instalar y activar el "
+#~ "módulo de CA."
+
+#~ msgid ""
+#~ "Zentyal is already configured to use port {p} for {use}. Choose another "
+#~ "port or free it and retry."
+#~ msgstr ""
+#~ "Zentyal ya está configurado para usar el puerto {p} para {use}. Elige "
+#~ "otro puerto o libera este y reintenta."
+
+#~ msgid "Unmanaged instance of haproxy"
+#~ msgstr "Instancia no gestionada de haproxy"
+
+#~ msgid ""
+#~ "Port {p} is already in use by program '{pr}'. Choose another port or free "
+#~ "it and retry."
+#~ msgstr ""
+#~ "El puerto {p} ya está en uso por el programa '{pr}'. Elige otro puerto o "
+#~ "libera este y reintenta."
+
+#~ msgid "Cannot use the same port number for HTTP and HTTPS traffic."
+#~ msgstr "No se puede usar el mismo número de puerto para HTTP y HTTPS."
+
+#~ msgid "Port {port} is already used by {row} using HTTPS."
+#~ msgstr "El puerto {port} está siendo usado por {row} usando HTTPS."
+
+#~ msgid "Port {port} is already used by {row} as default service."
+#~ msgstr "El puerto {port} ya está usado por {row} como servicio por defecto."
+
+#~ msgid "Port {port} is already used by {row} using plain HTTP."
+#~ msgstr "El puerto {port} está siendo usado por {row} usando HTTP plano."
+
+#~ msgid "Port {port} is already used by {row} as default SSL service."
+#~ msgstr ""
+#~ "El puerto {port} ya está usado por {row} como servicio SSL por defecto."
+
+#~ msgid "Reverse Proxy"
+#~ msgstr "Proxy Inverso"
+
+#~ msgid "Port {port} must be configured as SSL for {service}"
+#~ msgstr "El puerto {port} debe configurarse como SSL para {service}"
+
+#~ msgid "Port {port} must be configured as NOT SSL for {service}"
+#~ msgstr "El puerto {port} debe configurarse como NO SSL para {service}"
+
+#~ msgid "HTTP Services"
+#~ msgstr "Servicios HTTP"
+
+#~ msgid "Zentyal Administration Web Server"
+#~ msgstr "Servidor web de administración de Zentyal"
+
+#~ msgid "Web Server module needs to be installed and enabled to use RPC proxy"
+#~ msgstr ""
+#~ "Se necesita instalar y activar el módulo de Servidor Web para usar el "
+#~ "proxy RPC"
+
+#, fuzzy
+#~ msgid "No Certification authority ready. Create or renew it"
+#~ msgstr "Autoridad Certificadora y Redes Privadas Virtuales"
+
+#~ msgid "No ranges or users defined for the connection"
+#~ msgstr "No hay rangos o usuarios definidos par ala conexión"
+
+#~ msgid "General L2TP/IPSec Settings"
+#~ msgstr "Configuración General de L2TP/IPSec"
+
+#~ msgid "User settings"
+#~ msgstr "Configuración de usuario"
+
+#~ msgid ""
+#~ "This is a local network, thus already accessible through local interfaces"
+#~ msgstr ""
+#~ "Es una red local y por lo tanto ya es accesible desde otras redes locales"
+
+#~ msgid "This network is already reachable through a static route"
+#~ msgstr "Esta red ya es accesible a través de una ruta estática"
+
+#~ msgid "Local Subnet"
+#~ msgstr "Subed local"
+
+#~ msgid "Local subnet available through the tunnel."
+#~ msgstr "Subred local disponible a través del túnel."
+
+#~ msgid "Remote Subnet"
+#~ msgstr "Subred Remota"
+
+#~ msgid "Remote subnet available through the tunnel."
+#~ msgstr "Subred remota disponible a través del túnel."
+
+#~ msgid "Manual list of users"
+#~ msgstr "Lista de usuarios manual"
+
+#~ msgid "Users Source"
+#~ msgstr "Fuente de Usuarios"
+
+#~ msgid "Selects the provider for the users allowed to use the VPN."
+#~ msgstr "Seleccione el proveedor para los usuarios que puedan usar la VPN"
+
+#~ msgid ""
+#~ "The list of users allowed to connecto to VPN must be handled manually"
+#~ msgstr ""
+#~ "La lista de usuarios autorizados a usar VPN debe ser modificada "
+#~ "manualmente"
+
+#~ msgid ""
+#~ "To use the existing system user accounts you will need to activate \"File "
+#~ "sharing\" module to enable the Active Directory"
+#~ msgstr ""
+#~ "Para usar la lista de usuario del sistema, necesitará activar el módulo "
+#~ "de \"Compartición de Ficheros\", lo que activará Active Directory"
+
+#~ msgid "L2TP/IPSec users source"
+#~ msgstr "Fuente de usuarios para L2TP/IPSec"
+
+#~ msgid "ESP Authentication"
+#~ msgstr "Autenticación ESP"
+
+#~ msgid "ESP Encryption"
+#~ msgstr "Cifrado ESP"
+
+#~ msgid "ESP DH Group"
+#~ msgstr "Grupo ESP DH"
+
+#~ msgid "ESP Keylife"
+#~ msgstr "Vida de clave ESP"
+
+#~ msgid "Enable PFS"
+#~ msgstr "Habilitar PFS"
+
+#~ msgid "Phase 2"
+#~ msgstr "Fase 2"
+
+#~ msgid "The type of IPSec VPN."
+#~ msgstr "El tipo de IPsec VPN"
+
+#~ msgid "VPN Type"
+#~ msgstr "Tipo de VPN"
+
+#~ msgid "Not supported"
+#~ msgstr "No soportado"
+
+#~ msgid "IKE Authentication"
+#~ msgstr "Autenticación IKE"
+
+#~ msgid "IKE Encryption"
+#~ msgstr "Cifrado IKE"
+
+#~ msgid "IKE Keylife"
+#~ msgstr "IKE Keylife"
+
+#~ msgid "Phase 1"
+#~ msgstr "Fase 1"
+
+#~ msgid "IP address assigned to this user within the VPN network."
+#~ msgstr "Dirección IP asignada al usuario dentro de la red VPN."
+
+#~ msgid "L2TP/IPSec Users"
+#~ msgstr "Usuarios de L2TP/IPSec"
+
+#~ msgid ""
+#~ "Users allowed to connect using the L2TP/IPSec VPN. This list is "
+#~ "independant of users defined on Users and Groups."
+#~ msgstr ""
+#~ "Usuarios a los que se permite conectar usando la L2TP/IPSec VPN. Esta "
+#~ "lista es independiente de los usuarios de LDAP definidos en Usuarios y "
+#~ "Grupos."
+
+#~ msgid ""
+#~ "To configure L2TP/IPSec users when not using Active Directory validation."
+#~ msgstr ""
+#~ "Para configurar los usuarios L2TP/IPSec cuando no se use validación "
+#~ "Active Directory"
+
+#~ msgid "IPsec"
+#~ msgstr "IPsec"
 
 #~ msgid "Mail filter report"
 #~ msgstr "Informe del filtro de correo"

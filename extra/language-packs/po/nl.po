@@ -147,17 +147,13 @@ msgstr "Cliënt {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:183
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:200
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:257
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:346
 #: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:255
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:73
 #: ../../main/jabber/src/templates/jabber.mas:16
 #: ../../main/jabber/src/templates/jabber.mas:17
@@ -170,9 +166,6 @@ msgstr "Ingeschakeld"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:178
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:195
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:284
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
@@ -180,8 +173,6 @@ msgstr "Ingeschakeld"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:189
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:192
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:221
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -201,7 +192,6 @@ msgstr "Uitgeschakeld"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:205
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:290
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:180
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
@@ -356,7 +346,8 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:234
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:185
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:187
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
@@ -366,8 +357,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:184
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:194
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:45
 #: ../../main/dns/src/templates/index.mas:20
 #: ../../main/ca/src/templates/index.mas:99
@@ -385,14 +374,13 @@ msgstr "Naam"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:194
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:233
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
 #: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:81
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:190
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:208
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
 msgstr "Configuratie"
@@ -786,8 +774,8 @@ msgid "Search domain"
 msgstr "Zoek Domein"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:413
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:315
 msgid "WINS server"
 msgstr "WINS server"
 
@@ -1038,15 +1026,14 @@ msgstr "OpenVPN daemons"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:100
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/l2tp/src/EBox/L2TP.pm:352 ../../main/dhcp/src/EBox/DHCP.pm:973
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:781
 #: ../../main/samba/src/EBox/Samba.pm:3720
 #: ../../main/samba/src/EBox/Samba.pm:3740
 #: ../../main/samba/src/EBox/Samba.pm:3751
 #: ../../main/squid/src/EBox/Squid.pm:1111
-#: ../../main/ipsec/src/EBox/IPsec.pm:418
-#: ../../main/mail/src/EBox/Mail.pm:1810
+#: ../../main/mail/src/EBox/Mail.pm:1814
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/remoteservices/src/templates/Backup/index.mas:175
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:38
@@ -1063,19 +1050,17 @@ msgstr "Datum"
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/dhcp/src/EBox/DHCP.pm:977
+#: ../../main/l2tp/src/EBox/L2TP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1118
-#: ../../main/ipsec/src/EBox/IPsec.pm:419
-#: ../../main/mail/src/EBox/Mail.pm:1820
+#: ../../main/mail/src/EBox/Mail.pm:1824
 msgid "Event"
 msgstr "Gebeurtenis"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
 #: ../../main/samba/src/EBox/Samba.pm:3745
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:201
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/samba/src/templates/addgroup.mas:10
@@ -1092,7 +1077,7 @@ msgid "Remote Certificate"
 msgstr "Afgelegen certificaat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/ipsec/src/EBox/IPsec.pm:425
+#: ../../main/l2tp/src/EBox/L2TP.pm:359
 msgid "Initialization sequence completed"
 msgstr "Initialisatie volgorde gereed"
 
@@ -1140,7 +1125,6 @@ msgid "High Availability"
 msgstr "Hoge Beschikbaarheid"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/HAProxy.pm:298
 msgid "System"
 msgstr "Systeem"
 
@@ -1159,6 +1143,7 @@ msgid "To start corosync at boot"
 msgstr "Om corosync te starten bij opstarten"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:167
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
@@ -1169,12 +1154,13 @@ msgstr "Om corosync te starten bij opstarten"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1943
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:218
 #: ../../main/core/src/EBox/Backup.pm:463
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:135
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
 msgstr "Onbekend"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:360
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:374
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:155
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:133
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
@@ -1192,8 +1178,6 @@ msgstr "Onbekend"
 #: ../../main/core/src/EBox/CGI/Search.pm:48
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:260
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:276
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 msgid "None"
 msgstr "Geen"
@@ -1219,7 +1203,7 @@ msgstr "Fouten"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4484
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1819
+#: ../../main/mail/src/EBox/Mail.pm:1702 ../../main/mail/src/EBox/Mail.pm:1823
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1558,284 +1542,6 @@ msgstr ""
 "afhandelen. Tik in de terminal het volgende commando: {command} om de "
 "controle over de bron terug te krijgen."
 
-#: ../../main/webserver/src/EBox/WebServer.pm:75
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
-msgid "Web Server"
-msgstr "Web Server"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:93
-msgid "To set webserver listening port."
-msgstr "Luisterende webserver poort instellen."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:98
-msgid "To configure default virtual host."
-msgstr "Standaard virtuele gastheer instellen."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:103
-msgid "To configure default SSL virtual host."
-msgstr "Standaard SSL virtuele gastheer instellen."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:108
-msgid "To configure the per-user public_html directory."
-msgstr "Gebruikers eigen public_html folder instellen."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:133
-msgid "Enable Apache LDAP user module"
-msgstr "Schakel de Apache LDAP gebruikers module in."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:135
-msgid "To fetch home directories from LDAP."
-msgstr "Haal de profiel mappen op via LDAP."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:138
-msgid "Enable Apache SSL module"
-msgstr "Schakel de Apache SSL module in."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:140
-msgid "To serve pages over HTTPS."
-msgstr "Pagina's aanbieden over HTTPS."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:143
-msgid "Remove apache2 init script link"
-msgstr "Verwijder apache2 init script koppeling"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:144
-#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
-#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyal zorgt voor het starten en stoppen van de services."
-
-#: ../../main/webserver/src/EBox/WebServer.pm:696
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host configuration. Please, move or "
-"remove it"
-msgstr ""
-"{dir} moet een directory voor een virtuele host configuratie zijn. Verplaats "
-"of verwijder de directory"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:711
-#, perl-brace-format
-msgid ""
-"{dir} should be a directory for virtual host document root. Please, move or "
-"remove it"
-msgstr ""
-"{dir} moet een directory voor een virtuele host document root zijn. "
-"Verplaats of verwijder de directory"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:957
-msgid "Web server data"
-msgstr "Webserver data"
-
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
-msgid ""
-"The Zentyal webserver allows you to host HTTP and HTTPS pages within "
-"different virtual hosts."
-msgstr ""
-"De Zentyal web dienst maakt het u mogelijk om HTTP en HTTPS pagina's aan te "
-"bieden binnenin verschillende virtuele gastheren."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:66
-msgid "You must enable, at least, a listening port to make this module useful."
-msgstr ""
-
-# Luisteren op poort
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:174
-#, fuzzy
-msgid "HTTP listening port"
-msgstr "Luisteren op poort"
-
-# Luisteren op poort
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:191
-#, fuzzy
-msgid "HTTPS listening port"
-msgstr "Luisteren op poort"
-
-# Luisteren op poort
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:210
-#, fuzzy
-msgid "Listening Ports settings"
-msgstr "Luisteren op poort"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:214
-#, fuzzy
-msgid "Listening Ports configuration"
-msgstr "Client configuratie"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/ListeningPorts.pm:216
-#, fuzzy
-msgid "Listening ports configuration settings updated."
-msgstr "Algemene configuratie"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
-msgid "Virtual host name"
-msgstr "Virtuele gastheer naam"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:341
-msgid "Virtual host"
-msgstr "Virtuele host"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-#, fuzzy
-msgid "You need to enable Listening SSL port."
-msgstr "Luisterende webserver poort instellen."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
-#, perl-brace-format
-msgid ""
-"You need to enable {module} on {ohref}Services Certificates{chref} to enable "
-"SSL on a virtual host."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:168
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
-"its IP addresses. {noDnsWarning} "
-msgstr ""
-"Virtuele gastheer {vhost} toegevoegd. Het domein {domain} is aangemaakt en "
-"gekoppeld aan {name} - IP adres {ip}."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:176
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A domain {domain} has been created with the host "
-"name {name}. Please, set the host IP address. {noDnsWarning} "
-msgstr ""
-"Virtuele gastheer {vhost} toegevoegd. Het domein {domain} is aangemaakt en "
-"gekoppeld aan {name} - IP adres {ip}."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:198
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
-"Please, set the host IP address"
-msgstr ""
-"Virtuele gastheer {vhost} aangemaakt. De gekoppelde naam - {name} en het IP "
-"adres {ip} is toegevoegd aan het domein {domain}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:206
-#, perl-brace-format
-msgid "Virtual host {vhost} added."
-msgstr "Virtuele gastheer {vhost} aangemaakt."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:285
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-msgid "Allow SSL"
-msgstr "SSL toestaan"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:286
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
-msgid "Force SSL"
-msgstr "SSL verplichten"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:310
-#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-msgid "SSL support"
-msgstr "SSL ondersteuning"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
-msgid "Virtual hosts"
-msgstr "Virtuele gastheren"
-
-# letterlijke vertaling van de eerste zin :
-# Virtuele hosts zijn een vorm van web diensten waar vele veschillende instanties van dezelfde web server aangeboden worden vanop dezelfde fysieke server.
-# doch vind ik dit niet duidelijker 
-#
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:331
-#, fuzzy, perl-brace-format
-msgid ""
-"Virtual hosts are a form of web hosting service where many instances of the "
-"same web server are hosted on a single physical server. Different host names "
-"point to the same web server. If feasible, the DNS entry is automatically "
-"created. The content must be placed under the {docRoot} directory. Any "
-"particular configuration you want to add must be placed in the {userConf} "
-"directory."
-msgstr ""
-"Met behulp van virtuele gastheren is het mogelijk met één fysieke server "
-"meerdere websites te bedienen. Verschillende gastheer namen verwijzen naar "
-"dezelfde webserver. De benodigde DNS tabellen worden indien mogelijk "
-"automatisch aangemaakt. De inhoud moet in de {docRoot} folder geplaatst "
-"worden. Indien gewenst kan specifieke configuratie in de {userConf} folder "
-"geplaatst worden."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:347
-msgid "Virtual host deleted. The virtual host files will be left in place"
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:365
-#, fuzzy, perl-brace-format
-msgid ""
-"{open}The DNS module is disabled. The added mapping or domains will not have "
-"any effect until you enable it."
-msgstr ""
-"{open}De DNS module is uitgeschakeld. De toegevoegde koppeling of domeinen "
-"zullen geen uitwerking hebben totdat u deze inschakelt"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:90
-msgid ""
-"Having installed and configured the Users and Groups module is required to "
-"allow HTML directories for users."
-msgstr ""
-"Het is vereist dat de Gebruikers en Groepen module geïnstalleerd en "
-"geconfigureerd is om HTML folders voor gebruikers toe te staan."
-
-# iets letterlijker:
-# Een correct ingestelde Gebruikers en Groepen module is vereist om HTML folders voor gebruikers tot te staan. Om deze in te stellen, gelieve ze minstens eenmaal in te schakelen.
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:96
-msgid ""
-"A properly configured Users and Groups module is required to allow HTML "
-"directories for users. To configure it, please enable it at least one time."
-msgstr ""
-"Om HTML folders voor gebruikers toe te staan is een correct ingestelde "
-"Gebruikers en Groepen module vereist. Om deze in te stellen, gelieve ze "
-"minstens eenmaal in te schakelen."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:177
-#, fuzzy
-msgid "User public folder configuration settings updated."
-msgstr "Algemene Web server configuratie instellingen bijgewerkt."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:134
-#, perl-brace-format
-msgid ""
-"Remember that in order to have UserDir working, you should create the {p} "
-"directory, and to provide www-data execution permissions over the involved /"
-"home/user directories."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:159
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr "Per gebruiker inschakelen {dirName}"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:162
-msgid ""
-"Allow users to publish web documents using the public_html directory on "
-"their home."
-msgstr ""
-"Gebruikers toestaan om web pagina's via de public_html folder in hun profiel "
-"map te publiceren."
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:168
-#, fuzzy
-msgid "User public folder settings"
-msgstr "Algemene instellingen"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/PublicFolder.pm:172
-#, fuzzy, perl-brace-format
-msgid ""
-"User public folder configuration. If you enable user to publish their own "
-"html pages, those should be loaded from {dirName} directory from their home "
-"directories."
-msgstr ""
-"Algemene Web server configuratie. De ingestelde poort mag niet door een "
-"andere dienst gebruikt worden. Als u gebruikers toestaat om hun eigen web "
-"pagina's te publiceren, dienen deze geladen te worden vanuit de {dirName} "
-"folder in hun profiel map."
-
 #: ../../main/dns/src/EBox/DNS.pm:279 ../../main/dns/src/EBox/DNS.pm:359
 #: ../../main/dns/src/EBox/DNS.pm:387 ../../main/dns/src/EBox/DNS.pm:1683
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:638
@@ -1877,6 +1583,11 @@ msgstr "Laat de bin daemon dynamisch bijgewerkt worden"
 msgid "Remove bind9 init script link"
 msgstr "Verwijder bind9 init script koppeling"
 
+#: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:301
+#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "Zentyal zorgt voor het starten en stoppen van de services."
+
 #: ../../main/dns/src/EBox/DNS.pm:538
 msgid "Override named apparmor profile"
 msgstr "Overschrijf de apparmor profiel naam"
@@ -1915,10 +1626,9 @@ msgstr "Een geldige domein naam of wildcard(*) moet worden ingevuld."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:327
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 msgid "IP Address"
 msgstr "IP Adres"
 
@@ -2092,13 +1802,13 @@ msgstr "Dit domein"
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:354
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:378
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:254
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:280
 #: ../../main/mail/src/EBox/Mail.pm:1715
 msgid "Custom"
 msgstr "Aangepast"
@@ -2416,7 +2126,6 @@ msgstr "De hostnaam zal vertaald worden naar deze lijst van IP-adressen."
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
 #: ../../main/samba/src/EBox/Samba/User.pm:106
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:92
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:45
@@ -2449,6 +2158,14 @@ msgstr "Jabber account"
 msgid "Jabber"
 msgstr "Jabber"
 
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
+msgid "Allow SSL"
+msgstr "SSL toestaan"
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
+msgid "Force SSL"
+msgstr "SSL verplichten"
+
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
 msgstr "Jabber domein"
@@ -2457,6 +2174,10 @@ msgstr "Jabber domein"
 #, fuzzy
 msgid "Domain used to connect to this server."
 msgstr "Verbinding maken met andere servers"
+
+#: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
+msgid "SSL support"
+msgstr "SSL ondersteuning"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
 #, fuzzy
@@ -2609,7 +2330,6 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3742
 #: ../../main/samba/src/EBox/Samba.pm:3753
 #: ../../main/squid/src/EBox/Squid.pm:1113
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2935,8 +2655,8 @@ msgstr "Het Certificaat met algemene naam {cn} bestaat NIET in de CA"
 
 #: ../../main/ca/src/EBox/CA.pm:1739
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:423
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
 #: ../../main/mail/src/EBox/Mail.pm:1751
 msgid "General"
 msgstr "Algemeen"
@@ -3163,6 +2883,7 @@ msgid "The new CA certificate has been issued."
 msgstr "Het nieuwe CA certificaat werd uitgegeven."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:394
 #, fuzzy, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr "Boolean wijzend op een CA Certificaat"
@@ -3330,35 +3051,6 @@ msgstr "Mislukt"
 #, fuzzy
 msgid "Antivirus DB updates"
 msgstr "Algemene instellingen"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:53
-#, fuzzy
-msgid "OpenChange Webmail"
-msgstr "Wijzigen"
-
-#: ../../main/sogo/src/EBox/SOGO.pm:118
-msgid "Enable proxy, proxy_http and headers Apache 2 modules."
-msgstr ""
-
-#: ../../main/sogo/src/EBox/SOGO.pm:119
-#, fuzzy
-msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
-msgstr "Webpost zal beschikbaar zijn via http://ip/webmail/."
-
-#: ../../main/sogo/src/EBox/SOGO.pm:139
-#, fuzzy, perl-brace-format
-msgid ""
-"OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
-"Zentyal mail service. You can enable it at {openurl}Mail -> "
-"General{closeurl}."
-msgstr ""
-"De Webpost module heeft de IMAP of IMAPS dienst nodig als de eBox post "
-"bediening gebruikt wordt. U kan deze activeren via {openurl}Mail -> "
-"General{closeurl}."
-
-#: ../../main/sogo/src/EBox/SOGO.pm:164
-msgid "To make SOGo webmail available"
-msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 #, fuzzy
@@ -3965,6 +3657,355 @@ msgstr ""
 msgid "Filter Policies"
 msgstr "MailFilter systeem"
 
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:63
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} is een ongeldig bereik"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:93
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
+msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:121
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
+#, fuzzy, perl-brace-format
+msgid ""
+"Range {from}-{to} includes fixed address from the object member \"{name}\": "
+"{fixedIP}"
+msgstr "Bereik {from}-{to} bevat vast adres '{name}': {fixedIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:133
+msgid "The defined range is not part of any local network"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:155
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"Bereik {newFrom}-{newTo} overlapt met bereik '{range}': {oldFrom}-{oldTo}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:191
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
+#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
+msgid "From"
+msgstr "Van"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:197
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
+#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
+msgid "To"
+msgstr "Naar"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:205
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:201
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
+msgid "Ranges"
+msgstr "Bereiken"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:211
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
+msgid "range"
+msgstr "bereik"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
+msgid ""
+"You are using a non fixed IP address as a VPN server address. If the IP "
+"changes it may break the VPN server!"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:60
+#, perl-brace-format
+msgid ""
+"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:65
+msgid ""
+"Your system is not correctly configured. We were not able to find any valid "
+"public IP address."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:167
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:318
+#, fuzzy
+msgid "Remote Address"
+msgstr "Extern IP Adres"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:168
+msgid "undefined"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:169
+msgid "Must be the external IP to connect but it's not defined"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:186
+#, perl-brace-format
+msgid ""
+"Must be the external IP to connect and it was the addresss of local "
+"interface {if}"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:216
+#, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address for the interface "
+"\"{interface}\""
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:231
+#, fuzzy, perl-brace-format
+msgid ""
+"The Tunnel IP {localIP} is already used as a fixed address from the object "
+"member \"{name}\": {fixedIP}"
+msgstr "Bereik {from}-{to} bevat vast adres '{name}': {fixedIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:244
+#, perl-brace-format
+msgid "The Tunnel IP {localIP} is not part of any local network"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:261
+#, fuzzy, perl-brace-format
+msgid ""
+"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
+msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:277
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
+#, fuzzy
+msgid ""
+"DNS module must be enabled to be able to select Zentyal as primary DNS server"
+msgstr ""
+"DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
+"worden geselecteerd"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:287
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
+#, fuzzy
+msgid ""
+"Samba module must be enabled to be able to select Zentyal as WINS server"
+msgstr ""
+"DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
+"worden geselecteerd"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:310
+#, fuzzy
+msgid "Public IP address"
+msgstr "Inteface IP adres"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:314
+#, fuzzy
+msgid "Zentyal public IP address where clients will connect to."
+msgstr "Inteface IP adres"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:323
+#, fuzzy
+msgid "Any address"
+msgstr "MAC adres"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:329
+msgid "Remote endpoint public IP address."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:335
+#, fuzzy
+msgid "PSK Shared Secret"
+msgstr "Gedeeld Geheim"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:337
+msgid "Pre-shared key for the IPsec connection."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:347
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
+msgid "local Zentyal DNS"
+msgstr "lokale Zentyal DNS"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:368
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
+msgid "local Zentyal"
+msgstr "lokale Zentyal"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:386
+msgid "Tunnel IP"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:388
+msgid ""
+"The IP to use for the VPN tunnel on the server side. It must be a free IP "
+"belonging to the local network where the VPN clients will be connected."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:396
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
+msgid "Primary nameserver"
+msgstr "Primaire naam server"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:399
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
+msgid ""
+"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
+"cache DNS server"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:405
+#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
+msgid "Secondary nameserver"
+msgstr "Tweede naam server"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:416
+msgid ""
+"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
+"server for L2TP clients"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:492
+#, fuzzy, perl-brace-format
+msgid "Configuration no complete, {field} not set"
+msgstr "Configuratie herstellen"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:123
+#, fuzzy
+msgid "DataTable Component"
+msgstr "Zentyal Componenten"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:125
+msgid "Don't know how to handle this component."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:131
+#: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/ebox.mas:41
+#: ../../main/software/src/templates/ebox.mas:62
+#: ../../main/software/src/templates/ebox.mas:99
+msgid "Component"
+msgstr "Component"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:208
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
+msgid "Users Group"
+msgstr "Gebruikersgroep"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
+#: ../../main/core/src/templates/configurationFiles.mas:24
+msgid "Comment"
+msgstr "Commentaar"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
+msgid "L2TP"
+msgstr ""
+
+# wijze - manier - type
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
+#, fuzzy
+msgid "Connections"
+msgstr "IMAP verbindings wijze"
+
+# wijze - manier - type
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
+#, fuzzy
+msgid "L2TP connection"
+msgstr "IMAP verbindings wijze"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
+msgid ""
+"L2TP connections allow to deploy secure tunnels between different "
+"subnetworks. This protocol is vendor independant and will connect Zentyal "
+"with other security devices."
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:256
+#, fuzzy
+msgid "Enabled flag"
+msgstr "Ingeschakeld"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:259
+msgid ""
+"Cannot be enabled when creating a new connection, you should edit the "
+"configuration before enabling it"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:271
+#: ../../main/l2tp/src/EBox/L2TP.pm:354
+#, fuzzy
+msgid "Connection name"
+msgstr "Verbindings fout"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:273
+#, fuzzy
+msgid "Blank characters are not allowed"
+msgstr "IP adressen zijn niet toegestaan"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
+#, fuzzy, perl-brace-format
+msgid ""
+"L2TP can only be configured on interfaces tagged as 'external' Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
+msgstr ""
+"Netwerk verkeer beheer wordt toegepast als Zentyal als gateway dient. Om dit "
+"te bereiken heeft u minstens 1 interne en 1 externe netwerk adapter nodig. "
+"Controleer uw netwerk adapter configuratie, via {openhref}Netwerk->Netwerk "
+"adapters{closehref}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
+#, fuzzy, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by connection {name}"
+msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:357
+#, perl-brace-format
+msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:372
+#, fuzzy, perl-brace-format
+msgid "Tunnel IP {ip} is already in use by range in connection {name}"
+msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:378
+#, fuzzy, perl-brace-format
+msgid "Range {range} is already in use by connection {name}"
+msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:67
+#, fuzzy
+msgid "To configure OpenSwan IPsec."
+msgstr "Configureer de standaard SIP en IAX gebruikers."
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:73
+#, fuzzy
+msgid "To configure OpenSwan IPsec passwords."
+msgstr "Configureer modules (in- of uitgeschakeld)."
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:175
+msgid "L2TP based VPN"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:360
+#, fuzzy
+msgid "Stopping completed"
+msgstr "Status: {percentage} voltooid."
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:362
+#, fuzzy
+msgid "Connection initiated"
+msgstr "Verbindings fout"
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:363
+#, fuzzy
+msgid "Connection terminated"
+msgstr "Verbindings fout"
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
@@ -4001,7 +4042,6 @@ msgstr "E-mail adres"
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:77
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:128
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
@@ -5416,10 +5456,6 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:101
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:138
 #: ../../main/services/src/EBox/Services.pm:88
 msgid "Any"
 msgstr "Elke"
@@ -6579,12 +6615,6 @@ msgstr ""
 "Uitgave tijd is de tijd waarbij een uitgegeven IP adres geldig is voor de "
 "DHCP server"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:63
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} is een ongeldig bereik"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:90
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
@@ -6595,52 +6625,10 @@ msgstr "Bereik {from}-{to} is niet in het netwerk {net}"
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:154
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"Bereik {newFrom}-{newTo} overlapt met bereik '{range}': {oldFrom}-{oldTo}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:120
-#, fuzzy, perl-brace-format
-msgid ""
-"Range {from}-{to} includes fixed address from the object member \"{name}\": "
-"{fixedIP}"
-msgstr "Bereik {from}-{to} bevat vast adres '{name}': {fixedIP}"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, fuzzy, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
-#: ../../main/mail/src/EBox/Mail.pm:1812
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-msgid "From"
-msgstr "Van"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
-#: ../../main/mail/src/EBox/Mail.pm:1813
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-msgid "To"
-msgstr "Naar"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:204
-msgid "Ranges"
-msgstr "Bereiken"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:210
-msgid "range"
-msgstr "bereik"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:147
 msgid "Next server"
@@ -6681,27 +6669,9 @@ msgstr "thin client optie"
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} bevindt zich niet in het huidige netwerk"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:209
-#, fuzzy
-msgid ""
-"DNS module must be enabled to be able to select Zentyal as primary DNS server"
-msgstr ""
-"DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
-"worden geselecteerd"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:138
 #, fuzzy
 msgid "NTP module must be enabled to be able to select Zentyal as NTP server"
-msgstr ""
-"DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
-"worden geselecteerd"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:219
-#, fuzzy
-msgid ""
-"Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
 "DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
 "worden geselecteerd"
@@ -6710,19 +6680,9 @@ msgstr ""
 msgid "Zentyal domain"
 msgstr "Zentyal domein"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:247
-msgid "local Zentyal DNS"
-msgstr "lokale Zentyal DNS"
-
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:375
 msgid "local Zentyal NTP"
 msgstr "lokale Zentyal NTP"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:269
-msgid "local Zentyal"
-msgstr "lokale Zentyal"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:405
 msgid "Default gateway"
@@ -6749,23 +6709,6 @@ msgid ""
 "The selected domain will complete on your clients those DNS queries which "
 "are not fully qualified"
 msgstr ""
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:298
-msgid "Primary nameserver"
-msgstr "Primaire naam server"
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:301
-msgid ""
-"If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
-"cache DNS server"
-msgstr ""
-
-#: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:307
-msgid "Secondary nameserver"
-msgstr "Tweede naam server"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:459
 msgid "NTP server"
@@ -7165,7 +7108,6 @@ msgstr ""
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
 #: ../../main/core/src/templates/ajax/treeView.mas:39
-#: ../../main/core/src/templates/headTitle.mas:21
 #: ../../main/software/src/templates/ebox.mas:313
 msgid "Search"
 msgstr "Zoeken"
@@ -7489,8 +7431,8 @@ msgstr ""
 msgid "Module Status Configuration"
 msgstr "Module status configuratie"
 
-#: ../../main/core/src/EBox/MyDBEngine.pm:129
-#: ../../main/core/src/EBox/MyDBEngine.pm:143
+#: ../../main/core/src/EBox/MyDBEngine.pm:127
+#: ../../main/core/src/EBox/MyDBEngine.pm:141
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
@@ -7671,7 +7613,7 @@ msgstr "Taalselectie"
 msgid "New language selected, save changes to commit"
 msgstr ""
 
-#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:78
+#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:79
 msgid ""
 "Take into account you have to manually change the URL once the save changes "
 "process is started to see web administration again."
@@ -8074,128 +8016,6 @@ msgstr ""
 msgid "Configure Widgets"
 msgstr "Configuratie herstellen"
 
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:187
-#, fuzzy
-msgid "HTTP port"
-msgstr "ene of andere TCP poort"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:204
-#, fuzzy
-msgid "Default for Non-SSL"
-msgstr "Standaard uitgave tijd"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:206
-msgid "Make this service the default for the non-SSL traffic"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:216
-#, fuzzy
-msgid "HTTPS port"
-msgstr "ene of andere TCP poort"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:233
-#, fuzzy
-msgid "Default for SSL"
-msgstr "Standaard uitgave tijd"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:235
-msgid "Make this service the default for the SSL traffic"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:253
-#, fuzzy
-msgid "Zentyal Administration port and other reverse proxy service ports"
-msgstr "Zentyal Administratie Webserver"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:254
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
-#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
-msgid "service"
-msgstr "dienst"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:260
-msgid "Here you may configure the services to be served from the reverse proxy"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:282
-#, fuzzy
-msgid "This service does not let change the HTTP port."
-msgstr "Deze server kan deze actie niet uitvoeren."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:289
-#, fuzzy
-msgid "This service does not let change the HTTPS port."
-msgstr "Deze server kan deze actie niet uitvoeren."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:299
-#, fuzzy
-msgid "This service cannot have both ports disabled."
-msgstr "'elke service' kan geen omgekeerde regel hebben"
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:356
-#, fuzzy, perl-brace-format
-msgid ""
-"You need to enable the certificate for {module} at {ohref}Services "
-"Certificates page{chref}"
-msgstr ""
-"U heeft een Server Certificaat nodig voor de Web Server module, schakel dit "
-"in via {ohref}Certification Authority -> Service Certificates{chref}."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:364
-#, fuzzy, perl-brace-format
-msgid ""
-"You need to enable the {serviceName} certificate for {module} on {ohref}"
-"Services Certificates{chref}"
-msgstr ""
-"U heeft een Server Certificaat nodig voor de Web Server module, schakel dit "
-"in via {ohref}Certification Authority -> Service Certificates{chref}."
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:376
-msgid "To enable SSL port you need the CA module installed and enabled."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:447
-#, perl-brace-format
-msgid ""
-"Zentyal is already configured to use port {p} for {use}. Choose another port "
-"or free it and retry."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:470
-msgid "Unmanaged instance of haproxy"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:474
-#, perl-brace-format
-msgid ""
-"Port {p} is already in use by program '{pr}'. Choose another port or free it "
-"and retry."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:669
-msgid "Cannot use the same port number for HTTP and HTTPS traffic."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:710
-#, perl-brace-format
-msgid "Port {port} is already used by {row} using HTTPS."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:731
-#, perl-brace-format
-msgid "Port {port} is already used by {row} as default service."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:772
-#, perl-brace-format
-msgid "Port {port} is already used by {row} using plain HTTP."
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:793
-#, perl-brace-format
-msgid "Port {port} is already used by {row} as default SSL service."
-msgstr ""
-
 #: ../../main/core/src/EBox/Logs/CGI/Index.pm:290
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:165
 msgid "Query Logs"
@@ -8481,35 +8301,6 @@ msgstr ""
 #: ../../main/core/src/EBox/Backup.pm:1639
 msgid "Try to back up again as the created backup is corrupted"
 msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy.pm:53
-#, fuzzy
-msgid "Reverse Proxy"
-msgstr "Transparante Proxy"
-
-#: ../../main/core/src/EBox/HAProxy.pm:164
-#, perl-brace-format
-msgid "Port {port} must be configured as SSL for {service}"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy.pm:171
-#, perl-brace-format
-msgid "Port {port} must be configured as NOT SSL for {service}"
-msgstr ""
-
-#: ../../main/core/src/EBox/HAProxy.pm:304
-#, fuzzy
-msgid "HTTP Services"
-msgstr "Diensten"
-
-#: ../../main/core/src/EBox/HAProxy.pm:393
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
-msgid "port"
-msgstr "poort"
-
-#: ../../main/core/src/EBox/HAProxy.pm:493
-msgid "Zentyal Administration Web Server"
-msgstr "Zentyal Administratie Webserver"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
@@ -8802,21 +8593,14 @@ msgid ""
 "{win} account."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:102
-#, fuzzy
-msgid "Web Server module needs to be installed and enabled to use RPC proxy"
-msgstr ""
-"DNS service moet actief zijn om door eBox als primaire DNS server te kunnen "
-"worden geselecteerd"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:105
 #, perl-brace-format
 msgid ""
 "Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
 "module{ch}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:116
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:111
 #, perl-brace-format
 msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
 msgstr ""
@@ -8923,70 +8707,84 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:391
-msgid "No Certification authority ready. Create or renew it"
-msgstr ""
-
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 #, fuzzy
 msgid "Enable OpenChange account"
 msgstr "PDC/bestand sharing account"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:312
+#: ../../main/openchange/src/EBox/OpenChange.pm:204
+msgid "Enable proxy, proxy_http and headers Apache 2 modules."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:205
+#, fuzzy
+msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
+msgstr "Webpost zal beschikbaar zijn via http://ip/webmail/."
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "Configureer de clamd daemon"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:317
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Configureer de freshclam updater"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:322
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Configureer de voicemail."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:327
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:674
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
+msgid "To make SOGo webmail available"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:334
+#, fuzzy
+msgid "To make autodiscovery service available"
+msgstr "Configureer de voicemail."
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:768
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1685
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1849
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Mail"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:829
+#: ../../main/openchange/src/EBox/OpenChange.pm:923
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:838
+#: ../../main/openchange/src/EBox/OpenChange.pm:932
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:922
+#: ../../main/openchange/src/EBox/OpenChange.pm:1016
 #, fuzzy, perl-brace-format
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Configuratie dump van module {m}"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:934
+#: ../../main/openchange/src/EBox/OpenChange.pm:1028
 #, fuzzy
 msgid "System needs at least one external interface"
 msgstr "U hebt op zijn minst 1 interne en 1 externe interface nodig"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:963
+#: ../../main/openchange/src/EBox/OpenChange.pm:1057
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
 "external IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:997
+#: ../../main/openchange/src/EBox/OpenChange.pm:1091
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "virtueel domein"
@@ -10315,12 +10113,6 @@ msgstr "Naam van map onder eBox"
 msgid "File system path"
 msgstr "Pad van bestandssyteem"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
-#: ../../main/core/src/templates/configurationFiles.mas:24
-msgid "Comment"
-msgstr "Commentaar"
-
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:123
 msgid "This share will not require authentication."
 msgstr ""
@@ -11360,8 +11152,9 @@ msgid "Couldn't configure Zentyal as slave"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:179
-msgid "Users, Computers and File Sharing"
-msgstr ""
+#, fuzzy
+msgid "Domain Controller and File Sharing"
+msgstr "Bestanden delen (Samba) protocol"
 
 #: ../../main/samba/src/EBox/Samba.pm:311
 msgid ""
@@ -12028,11 +11821,6 @@ msgstr "Tijdsperiode waarin deze regel wordt toegepast"
 msgid "Network Object"
 msgstr "Netwerk Object"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-msgid "Users Group"
-msgstr "Gebruikersgroep"
-
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
@@ -12558,411 +12346,6 @@ msgid ""
 "resolved at saving changes process."
 msgstr "U kan een aantal adressen vrijstellen van de transparante proxy"
 
-# wijze - manier - type
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:58
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecConf.pm:68
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:59
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:69
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:225
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:226
-#, fuzzy
-msgid "IPsec Connections"
-msgstr "IMAP verbindings wijze"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/IPsecL2TPConf.pm:86
-msgid "No ranges or users defined for the connection"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
-msgid "Authentication"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
-msgid "General L2TP/IPSec Settings"
-msgstr "Algemene Instellingen"
-
-#: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
-msgid "User settings"
-msgstr "Algemene instellingen"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:92
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:132
-msgid "The defined range is not part of any local network"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:77
-msgid ""
-"This is a local network, thus already accessible through local interfaces"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:83
-msgid "This network is already reachable through a static route"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:108
-#, fuzzy
-msgid "Local Subnet"
-msgstr "Lokaal netwerk"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:110
-msgid "Local subnet available through the tunnel."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:116
-#, fuzzy
-msgid "Remote Subnet"
-msgstr "Subnet"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:118
-msgid "Remote subnet available through the tunnel."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-#, fuzzy
-msgid "Manual list of users"
-msgstr "Lijst met servers"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-#, fuzzy
-msgid "Users Source"
-msgstr "Gebruikersgroep"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
-#, fuzzy
-msgid "Selects the provider for the users allowed to use the VPN."
-msgstr "Selecteer de printers waartoe deze gebruiker toegang heeft."
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:166
-msgid "The list of users allowed to connecto to VPN must be handled manually"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:167
-msgid ""
-"To use the existing system user accounts you will need to activate \"File "
-"sharing\" module to enable the Active Directory"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:175
-msgid "L2TP/IPSec users source"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:171
-#, fuzzy
-msgid "ESP Authentication"
-msgstr "SMTP aanmelding"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:165
-#, fuzzy
-msgid "ESP Encryption"
-msgstr "Encryptie"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:177
-msgid "ESP DH Group"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:183
-msgid "ESP Keylife"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:191
-#, fuzzy
-msgid "Enable PFS"
-msgstr "Ingeschakeld"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:200
-msgid "Phase 2"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:125
-#, fuzzy
-msgid "DataTable Component"
-msgstr "Zentyal Componenten"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:127
-msgid "Don't know how to handle this component."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:133
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:41
-#: ../../main/software/src/templates/ebox.mas:62
-#: ../../main/software/src/templates/ebox.mas:99
-msgid "Component"
-msgstr "Component"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:204
-msgid "The type of IPSec VPN."
-msgstr ""
-
-# wijze - manier - type
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
-#, fuzzy
-msgid "IPsec connection"
-msgstr "IMAP verbindings wijze"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:234
-msgid ""
-"IPsec connections allow to deploy secure tunnels between different "
-"subnetworks. This protocol is vendor independant and will connect Zentyal "
-"with other security devices."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:254
-#, fuzzy
-msgid "Enabled flag"
-msgstr "Ingeschakeld"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:257
-msgid ""
-"Cannot be enabled when creating a new connection, you should edit the "
-"configuration before enabling it"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:269
-#: ../../main/ipsec/src/EBox/IPsec.pm:420
-#, fuzzy
-msgid "Connection name"
-msgstr "Verbindings fout"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:271
-#, fuzzy
-msgid "Blank characters are not allowed"
-msgstr "IP adressen zijn niet toegestaan"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:306
-#, fuzzy
-msgid "VPN Type"
-msgstr "Type"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:308
-#, fuzzy
-msgid "Not supported"
-msgstr "SSL ondersteuning"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:332
-#, fuzzy, perl-brace-format
-msgid ""
-"IPsec can only be configured on interfaces tagged as 'external' Check your "
-"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
-msgstr ""
-"Netwerk verkeer beheer wordt toegepast als Zentyal als gateway dient. Om dit "
-"te bereiken heeft u minstens 1 interne en 1 externe netwerk adapter nodig. "
-"Controleer uw netwerk adapter configuratie, via {openhref}Netwerk->Netwerk "
-"adapters{closehref}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:390
-#, fuzzy, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:396
-#, perl-brace-format
-msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:411
-#, fuzzy, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:417
-#, fuzzy, perl-brace-format
-msgid "Range {range} is already in use by connection {name}"
-msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:53
-msgid ""
-"You are using a non fixed IP address as a VPN server address. If the IP "
-"changes it may break the VPN server!"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:58
-#, perl-brace-format
-msgid ""
-"The server IP changed and the old value \"{oldIP}\" is not valid anymore."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:63
-msgid ""
-"Your system is not correctly configured. We were not able to find any valid "
-"public IP address."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:89
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:138
-#, fuzzy
-msgid "Remote Address"
-msgstr "Extern IP Adres"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:90
-msgid "undefined"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:91
-msgid "Must be the external IP to connect but it's not defined"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:108
-#, perl-brace-format
-msgid ""
-"Must be the external IP to connect and it was the addresss of local "
-"interface {if}"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
-#, fuzzy
-msgid "Public IP address"
-msgstr "Inteface IP adres"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:134
-#, fuzzy
-msgid "Zentyal public IP address where clients will connect to."
-msgstr "Inteface IP adres"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:143
-#, fuzzy
-msgid "Any address"
-msgstr "MAC adres"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:149
-msgid "Remote endpoint public IP address."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:155
-#, fuzzy
-msgid "PSK Shared Secret"
-msgstr "Gedeeld Geheim"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:157
-msgid "Pre-shared key for the IPsec connection."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:204
-#, fuzzy, perl-brace-format
-msgid "Configuration no complete, {field} not set"
-msgstr "Configuratie herstellen"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:116
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:162
-#, fuzzy
-msgid "IKE Authentication"
-msgstr "SMTP aanmelding"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:156
-#, fuzzy
-msgid "IKE Encryption"
-msgstr "Encryptie"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:168
-msgid "IKE Keylife"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:179
-msgid "Phase 1"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:148
-#, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address for the interface "
-"\"{interface}\""
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:163
-#, fuzzy, perl-brace-format
-msgid ""
-"The Tunnel IP {localIP} is already used as a fixed address from the object "
-"member \"{name}\": {fixedIP}"
-msgstr "Bereik {from}-{to} bevat vast adres '{name}': {fixedIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:176
-#, perl-brace-format
-msgid "The Tunnel IP {localIP} is not part of any local network"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:193
-#, fuzzy, perl-brace-format
-msgid ""
-"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
-msgstr "Bereik {from}-{to} bevat interface met IP adres: {ifaceIP}"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:288
-msgid "Tunnel IP"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:290
-msgid ""
-"The IP to use for the VPN tunnel on the server side. It must be a free IP "
-"belonging to the local network where the VPN clients will be connected."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:318
-msgid ""
-"If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
-"server for L2TP clients"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
-msgid "IP address assigned to this user within the VPN network."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
-msgid "L2TP/IPSec Users"
-msgstr "Gebruikers"
-
-#: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-msgid ""
-"Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
-"of users defined on Users and Groups."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:68
-#, fuzzy
-msgid "To configure OpenSwan IPsec."
-msgstr "Configureer de standaard SIP en IAX gebruikers."
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:74
-#, fuzzy
-msgid "To configure OpenSwan IPsec passwords."
-msgstr "Configureer modules (in- of uitgeschakeld)."
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:80
-msgid ""
-"To configure L2TP/IPSec users when not using Active Directory validation."
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:199
-msgid "IPsec based VPN"
-msgstr ""
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:426
-#, fuzzy
-msgid "Stopping completed"
-msgstr "Status: {percentage} voltooid."
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:428
-#, fuzzy
-msgid "Connection initiated"
-msgstr "Verbindings fout"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:429
-#, fuzzy
-msgid "Connection terminated"
-msgstr "Verbindings fout"
-
-#: ../../main/ipsec/src/EBox/IPsec.pm:462
-msgid "IPsec"
-msgstr ""
-
 #: ../../main/mail/src/EBox/Mail.pm:148
 msgid "Generate mail aliases"
 msgstr ""
@@ -13107,113 +12490,113 @@ msgstr ""
 msgid "Mail server's filter"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1758
+#: ../../main/mail/src/EBox/Mail.pm:1759
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1764
+#: ../../main/mail/src/EBox/Mail.pm:1766
 msgid "Greylist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1770
+#: ../../main/mail/src/EBox/Mail.pm:1773
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1800
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1815
 msgid "Message ID"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1814
+#: ../../main/mail/src/EBox/Mail.pm:1818
 msgid "From hostname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1815
+#: ../../main/mail/src/EBox/Mail.pm:1819
 msgid "From host ip"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/mail/src/EBox/Mail.pm:1820
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/mail/src/EBox/Mail.pm:1821
 msgid "Relay"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1818
+#: ../../main/mail/src/EBox/Mail.pm:1822
 msgid "Message type"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1821
+#: ../../main/mail/src/EBox/Mail.pm:1825
 msgid "Additional Info"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1832
+#: ../../main/mail/src/EBox/Mail.pm:1836
 msgid "Successful messages"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1833
+#: ../../main/mail/src/EBox/Mail.pm:1837
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1834
+#: ../../main/mail/src/EBox/Mail.pm:1838
 msgid "User quota exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1835
+#: ../../main/mail/src/EBox/Mail.pm:1839
 msgid "Relay access denied"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1836
+#: ../../main/mail/src/EBox/Mail.pm:1840
 msgid "Account does not exist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1837
+#: ../../main/mail/src/EBox/Mail.pm:1841
 msgid "Host unreachable"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1842
 msgid "Authentication error"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1839
+#: ../../main/mail/src/EBox/Mail.pm:1843
 msgid "Greylisted"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1840
+#: ../../main/mail/src/EBox/Mail.pm:1844
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1845
 msgid "Other events"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1905
+#: ../../main/mail/src/EBox/Mail.pm:1909
 msgid "Mail SMTP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1913
+#: ../../main/mail/src/EBox/Mail.pm:1917
 msgid "Mail POP/IMAP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1990
+#: ../../main/mail/src/EBox/Mail.pm:1994
 msgid "Mailboxes"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2032
+#: ../../main/mail/src/EBox/Mail.pm:2036
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2067
+#: ../../main/mail/src/EBox/Mail.pm:2071
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Het VPN adres {addr} wordt al gebruikt door interface {iface}"
@@ -13569,6 +12952,10 @@ msgstr "Smarthost authenticatie"
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:93
 msgid "User and password"
 msgstr "Gebruiker en wachtwoord"
+
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
+msgid "Authentication"
+msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:124
 msgid "Server mailname"
@@ -13928,6 +13315,11 @@ msgstr "Dit veld is gewoonlijk ingesteld op een of ander"
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Service configuratie"
+
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:180
+#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
+msgid "service"
+msgstr "dienst"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:222
 #, perl-brace-format
@@ -15673,6 +15065,10 @@ msgstr "Pagina niet gevonden"
 msgid "Add a new one"
 msgstr "Nieuwe gebruiker toevoegen"
 
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
+msgid "port"
+msgstr "poort"
+
 #: ../../main/core/src/templates/ajax/changeRowForm.mas:81
 #, fuzzy, perl-brace-format
 msgid "Adding a new {row}"
@@ -15905,6 +15301,11 @@ msgstr "eBox versie"
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Save changes?"
 msgstr "Wijzigingen opslaan?"
+
+#: ../../main/core/src/templates/headTitle.mas:21
+#, fuzzy
+msgid "Search..."
+msgstr "Zoeken"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #, fuzzy
@@ -16947,6 +16348,337 @@ msgid ""
 msgstr ""
 "De volgende instellingen worden alleen gebruikt wanneer de mail module is "
 "geactiveerd"
+
+#~ msgid "Web Server"
+#~ msgstr "Web Server"
+
+#~ msgid "To set webserver listening port."
+#~ msgstr "Luisterende webserver poort instellen."
+
+#~ msgid "To configure default virtual host."
+#~ msgstr "Standaard virtuele gastheer instellen."
+
+#~ msgid "To configure default SSL virtual host."
+#~ msgstr "Standaard SSL virtuele gastheer instellen."
+
+#~ msgid "To configure the per-user public_html directory."
+#~ msgstr "Gebruikers eigen public_html folder instellen."
+
+#~ msgid "Enable Apache LDAP user module"
+#~ msgstr "Schakel de Apache LDAP gebruikers module in."
+
+#~ msgid "To fetch home directories from LDAP."
+#~ msgstr "Haal de profiel mappen op via LDAP."
+
+#~ msgid "Enable Apache SSL module"
+#~ msgstr "Schakel de Apache SSL module in."
+
+#~ msgid "To serve pages over HTTPS."
+#~ msgstr "Pagina's aanbieden over HTTPS."
+
+#~ msgid "Remove apache2 init script link"
+#~ msgstr "Verwijder apache2 init script koppeling"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host configuration. Please, move "
+#~ "or remove it"
+#~ msgstr ""
+#~ "{dir} moet een directory voor een virtuele host configuratie zijn. "
+#~ "Verplaats of verwijder de directory"
+
+#~ msgid ""
+#~ "{dir} should be a directory for virtual host document root. Please, move "
+#~ "or remove it"
+#~ msgstr ""
+#~ "{dir} moet een directory voor een virtuele host document root zijn. "
+#~ "Verplaats of verwijder de directory"
+
+#~ msgid "Web server data"
+#~ msgstr "Webserver data"
+
+#~ msgid ""
+#~ "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
+#~ "different virtual hosts."
+#~ msgstr ""
+#~ "De Zentyal web dienst maakt het u mogelijk om HTTP en HTTPS pagina's aan "
+#~ "te bieden binnenin verschillende virtuele gastheren."
+
+# Luisteren op poort
+#, fuzzy
+#~ msgid "HTTP listening port"
+#~ msgstr "Luisteren op poort"
+
+# Luisteren op poort
+#, fuzzy
+#~ msgid "HTTPS listening port"
+#~ msgstr "Luisteren op poort"
+
+# Luisteren op poort
+#, fuzzy
+#~ msgid "Listening Ports settings"
+#~ msgstr "Luisteren op poort"
+
+#, fuzzy
+#~ msgid "Listening Ports configuration"
+#~ msgstr "Client configuratie"
+
+#, fuzzy
+#~ msgid "Listening ports configuration settings updated."
+#~ msgstr "Algemene configuratie"
+
+#~ msgid "Virtual host name"
+#~ msgstr "Virtuele gastheer naam"
+
+#~ msgid "Virtual host"
+#~ msgstr "Virtuele host"
+
+#, fuzzy
+#~ msgid "You need to enable Listening SSL port."
+#~ msgstr "Luisterende webserver poort instellen."
+
+#, fuzzy
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been createdPlease, "
+#~ "check its IP addresses. {noDnsWarning} "
+#~ msgstr ""
+#~ "Virtuele gastheer {vhost} toegevoegd. Het domein {domain} is aangemaakt "
+#~ "en gekoppeld aan {name} - IP adres {ip}."
+
+#, fuzzy
+#~ msgid ""
+#~ "Virtual host {vhost} added. A domain {domain} has been created with the "
+#~ "host name {name}. Please, set the host IP address. {noDnsWarning} "
+#~ msgstr ""
+#~ "Virtuele gastheer {vhost} toegevoegd. Het domein {domain} is aangemaakt "
+#~ "en gekoppeld aan {name} - IP adres {ip}."
+
+#, fuzzy
+#~ msgid ""
+#~ "Virtual host {vhost} added. A host {name} has been added to {domain} "
+#~ "domain. Please, set the host IP address"
+#~ msgstr ""
+#~ "Virtuele gastheer {vhost} aangemaakt. De gekoppelde naam - {name} en het "
+#~ "IP adres {ip} is toegevoegd aan het domein {domain}"
+
+#~ msgid "Virtual host {vhost} added."
+#~ msgstr "Virtuele gastheer {vhost} aangemaakt."
+
+#~ msgid "Virtual hosts"
+#~ msgstr "Virtuele gastheren"
+
+# letterlijke vertaling van de eerste zin :
+# Virtuele hosts zijn een vorm van web diensten waar vele veschillende instanties van dezelfde web server aangeboden worden vanop dezelfde fysieke server.
+# doch vind ik dit niet duidelijker 
+#
+#, fuzzy
+#~ msgid ""
+#~ "Virtual hosts are a form of web hosting service where many instances of "
+#~ "the same web server are hosted on a single physical server. Different "
+#~ "host names point to the same web server. If feasible, the DNS entry is "
+#~ "automatically created. The content must be placed under the {docRoot} "
+#~ "directory. Any particular configuration you want to add must be placed in "
+#~ "the {userConf} directory."
+#~ msgstr ""
+#~ "Met behulp van virtuele gastheren is het mogelijk met één fysieke server "
+#~ "meerdere websites te bedienen. Verschillende gastheer namen verwijzen "
+#~ "naar dezelfde webserver. De benodigde DNS tabellen worden indien mogelijk "
+#~ "automatisch aangemaakt. De inhoud moet in de {docRoot} folder geplaatst "
+#~ "worden. Indien gewenst kan specifieke configuratie in de {userConf} "
+#~ "folder geplaatst worden."
+
+#, fuzzy
+#~ msgid ""
+#~ "{open}The DNS module is disabled. The added mapping or domains will not "
+#~ "have any effect until you enable it."
+#~ msgstr ""
+#~ "{open}De DNS module is uitgeschakeld. De toegevoegde koppeling of "
+#~ "domeinen zullen geen uitwerking hebben totdat u deze inschakelt"
+
+#~ msgid ""
+#~ "Having installed and configured the Users and Groups module is required "
+#~ "to allow HTML directories for users."
+#~ msgstr ""
+#~ "Het is vereist dat de Gebruikers en Groepen module geïnstalleerd en "
+#~ "geconfigureerd is om HTML folders voor gebruikers toe te staan."
+
+# iets letterlijker:
+# Een correct ingestelde Gebruikers en Groepen module is vereist om HTML folders voor gebruikers tot te staan. Om deze in te stellen, gelieve ze minstens eenmaal in te schakelen.
+#~ msgid ""
+#~ "A properly configured Users and Groups module is required to allow HTML "
+#~ "directories for users. To configure it, please enable it at least one "
+#~ "time."
+#~ msgstr ""
+#~ "Om HTML folders voor gebruikers toe te staan is een correct ingestelde "
+#~ "Gebruikers en Groepen module vereist. Om deze in te stellen, gelieve ze "
+#~ "minstens eenmaal in te schakelen."
+
+#, fuzzy
+#~ msgid "User public folder configuration settings updated."
+#~ msgstr "Algemene Web server configuratie instellingen bijgewerkt."
+
+#~ msgid "Enable per user {dirName}"
+#~ msgstr "Per gebruiker inschakelen {dirName}"
+
+#~ msgid ""
+#~ "Allow users to publish web documents using the public_html directory on "
+#~ "their home."
+#~ msgstr ""
+#~ "Gebruikers toestaan om web pagina's via de public_html folder in hun "
+#~ "profiel map te publiceren."
+
+#, fuzzy
+#~ msgid "User public folder settings"
+#~ msgstr "Algemene instellingen"
+
+#, fuzzy
+#~ msgid ""
+#~ "User public folder configuration. If you enable user to publish their own "
+#~ "html pages, those should be loaded from {dirName} directory from their "
+#~ "home directories."
+#~ msgstr ""
+#~ "Algemene Web server configuratie. De ingestelde poort mag niet door een "
+#~ "andere dienst gebruikt worden. Als u gebruikers toestaat om hun eigen web "
+#~ "pagina's te publiceren, dienen deze geladen te worden vanuit de {dirName} "
+#~ "folder in hun profiel map."
+
+#, fuzzy
+#~ msgid "OpenChange Webmail"
+#~ msgstr "Wijzigen"
+
+#, fuzzy
+#~ msgid ""
+#~ "OpenChange Webmail module needs IMAP or IMAPS service enabled if using "
+#~ "Zentyal mail service. You can enable it at {openurl}Mail -> "
+#~ "General{closeurl}."
+#~ msgstr ""
+#~ "De Webpost module heeft de IMAP of IMAPS dienst nodig als de eBox post "
+#~ "bediening gebruikt wordt. U kan deze activeren via {openurl}Mail -> "
+#~ "General{closeurl}."
+
+#, fuzzy
+#~ msgid "HTTP port"
+#~ msgstr "ene of andere TCP poort"
+
+#, fuzzy
+#~ msgid "Default for Non-SSL"
+#~ msgstr "Standaard uitgave tijd"
+
+#, fuzzy
+#~ msgid "HTTPS port"
+#~ msgstr "ene of andere TCP poort"
+
+#, fuzzy
+#~ msgid "Default for SSL"
+#~ msgstr "Standaard uitgave tijd"
+
+#, fuzzy
+#~ msgid "Zentyal Administration port and other reverse proxy service ports"
+#~ msgstr "Zentyal Administratie Webserver"
+
+#, fuzzy
+#~ msgid "This service does not let change the HTTP port."
+#~ msgstr "Deze server kan deze actie niet uitvoeren."
+
+#, fuzzy
+#~ msgid "This service does not let change the HTTPS port."
+#~ msgstr "Deze server kan deze actie niet uitvoeren."
+
+#, fuzzy
+#~ msgid "This service cannot have both ports disabled."
+#~ msgstr "'elke service' kan geen omgekeerde regel hebben"
+
+#, fuzzy
+#~ msgid ""
+#~ "You need to enable the certificate for {module} at {ohref}Services "
+#~ "Certificates page{chref}"
+#~ msgstr ""
+#~ "U heeft een Server Certificaat nodig voor de Web Server module, schakel "
+#~ "dit in via {ohref}Certification Authority -> Service Certificates{chref}."
+
+#, fuzzy
+#~ msgid ""
+#~ "You need to enable the {serviceName} certificate for {module} on {ohref}"
+#~ "Services Certificates{chref}"
+#~ msgstr ""
+#~ "U heeft een Server Certificaat nodig voor de Web Server module, schakel "
+#~ "dit in via {ohref}Certification Authority -> Service Certificates{chref}."
+
+#, fuzzy
+#~ msgid "Reverse Proxy"
+#~ msgstr "Transparante Proxy"
+
+#, fuzzy
+#~ msgid "HTTP Services"
+#~ msgstr "Diensten"
+
+#~ msgid "Zentyal Administration Web Server"
+#~ msgstr "Zentyal Administratie Webserver"
+
+#, fuzzy
+#~ msgid "Web Server module needs to be installed and enabled to use RPC proxy"
+#~ msgstr ""
+#~ "DNS service moet actief zijn om door eBox als primaire DNS server te "
+#~ "kunnen worden geselecteerd"
+
+#, fuzzy
+#~ msgid "General L2TP/IPSec Settings"
+#~ msgstr "Algemene Instellingen"
+
+#, fuzzy
+#~ msgid "User settings"
+#~ msgstr "Algemene instellingen"
+
+#, fuzzy
+#~ msgid "Local Subnet"
+#~ msgstr "Lokaal netwerk"
+
+#, fuzzy
+#~ msgid "Remote Subnet"
+#~ msgstr "Subnet"
+
+#, fuzzy
+#~ msgid "Manual list of users"
+#~ msgstr "Lijst met servers"
+
+#, fuzzy
+#~ msgid "Users Source"
+#~ msgstr "Gebruikersgroep"
+
+#, fuzzy
+#~ msgid "Selects the provider for the users allowed to use the VPN."
+#~ msgstr "Selecteer de printers waartoe deze gebruiker toegang heeft."
+
+#, fuzzy
+#~ msgid "ESP Authentication"
+#~ msgstr "SMTP aanmelding"
+
+#, fuzzy
+#~ msgid "ESP Encryption"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "Enable PFS"
+#~ msgstr "Ingeschakeld"
+
+#, fuzzy
+#~ msgid "VPN Type"
+#~ msgstr "Type"
+
+#, fuzzy
+#~ msgid "Not supported"
+#~ msgstr "SSL ondersteuning"
+
+#, fuzzy
+#~ msgid "IKE Authentication"
+#~ msgstr "SMTP aanmelding"
+
+#, fuzzy
+#~ msgid "IKE Encryption"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "L2TP/IPSec Users"
+#~ msgstr "Gebruikers"
 
 #, fuzzy
 #~ msgid "Mail filter report"
