@@ -48,7 +48,7 @@ use EBox::Gettext;
 
     log level = 3
     log file = /var/log/samba/samba.log
-
+    max log size = 100000
 % unless ($print) {
     load printers = no
     printcap name = /dev/null
