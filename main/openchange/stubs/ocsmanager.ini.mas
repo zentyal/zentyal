@@ -9,7 +9,6 @@ $rpcProxy
 $rpcProxySSL
 $rpcProxyExternalHostname => undef
 $mailboxesDir
-$oofSettingsDir
 </%args>
 #
 # ocsmanager - Pylons configuration
