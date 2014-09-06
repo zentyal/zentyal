@@ -111,15 +111,6 @@ ssl = false
 # managesieve indicates the server to put/get the sieve script
 backend = file
 
-# Temporary directory where OOF settings are stored
-#   Expansion variables (example user.name@example.com):
-#       $domain   = example.com
-#       $user     = user.name
-#       $fulluser = user.name@example.com
-tmp_settings_path = <% $oofSettingsDir %>/$domain/$user/oof-settings
-# If the oof settings directory hierarchy does not exist, it will be created
-tmp_settings_path_mkdir = true
-
 [outofoffice:file]
 # Path of the sieve script for the user
 #   Expansion variables (example user.name@example.com):
