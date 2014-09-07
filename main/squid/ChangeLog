@@ -1,3 +1,6 @@
+3.5.4
+	+ Added dynamical group authorization
+	+ Do not lowercase user names if kerberos is used
 3.5.3
 	+ Fix exception accesing the access rules model when samba not provisioned
 3.5.2

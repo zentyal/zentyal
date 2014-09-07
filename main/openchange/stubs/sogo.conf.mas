@@ -81,14 +81,14 @@
             displayName = "SambaLogin";
             canAuthenticate = YES;
             type = ldap;
-            CNFieldName = cn;
-            IDFieldName = cn;
-            UIDFieldName = sAMAccountName;
+            CNFieldName = mail;
+            IDFieldName = mail;
+            UIDFieldName = mail;
             hostname = "<% $sambaHost %>";
             baseDN = "CN=Users,<% $sambaBaseDN %>";
             bindDN = "<% $sambaBindDN %>";
             bindPassword = "<% $sambaBindPwd %>";
-            bindFields = (sAMAccountName);
+            bindFields = (sAMAccountName, mail);
         },
         {
             id = sambaShared;

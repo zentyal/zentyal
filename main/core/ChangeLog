@@ -2,6 +2,13 @@ HEAD
 	+ Use upload-crash-report.py tool from OpenChange upstream instead
 	  of a custom one
 	+ Optionally submit the email while uploading the crash report
+3.5.3
+	+ Pass X-Forwarded-Host on haproxy (needed for SOGo apache conf)
+	+ More robust dashboard against widget and remoteservices errors
+	+ Added missing use in hasManyViewer.mas
+	+ Only allow restore from backups from versions with the same two
+	  first version numbers
+	+ Escape double quotes in non-editable text fields
 3.5.2
 	+ When doing a login redirect to the full given URI
 	+ Fixed mysql commands executed with wrong parameters or credentials

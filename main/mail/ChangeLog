@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed some labels which referenced deprecated user corner
+	+ Do not allow both keep and fetch all options in external accounts
 3.5.4
 	+ Fixed group mail accounts and their aliases
 3.5.3

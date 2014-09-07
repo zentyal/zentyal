@@ -1,4 +1,10 @@
 HEAD
+	+ Ignore cloud-sync warnings from cron
+3.5.7
+	+ Check DN not exists on the same container creating contacts
+	+ Add missing 'use EBox::LDAP::ExternalAD' to Samba.pm
+	+ Improve save changes speed avoiding loop in postServiceHook if no changes
+	  made to roaming profiles
 	+ Implement nameserverAdded and nameserverDelete from NetworkObserver to
 	  reset LDAP connection if name servers change in external AD mode
 3.5.6

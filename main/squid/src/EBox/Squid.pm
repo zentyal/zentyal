@@ -621,12 +621,10 @@ sub _writeSquidConf
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
 
-    if (not $kerberos) {
-        my $ldap = $users->ldap();
-        push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
-        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
-    }
+    my $ldap = $users->ldap();
+    push @writeParam, ('dn'       => $ldap->dn());
+    push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+    push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {

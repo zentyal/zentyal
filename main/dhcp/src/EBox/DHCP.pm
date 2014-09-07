@@ -677,8 +677,7 @@ sub ranges # (iface)
               { name    => $row->valueByName('name'),
                 from    => $row->valueByName('from'),
                 to      => $row->valueByName('to'),
-                # TODO: Restore this when more than one config per interface is possible
-                options => {}, #$self->_thinClientOptions($iface, $row->valueByName('name'))
+                options => $self->_thinClientOptions($iface, $row->valueByName('name'))
                });
     }
 
@@ -1236,9 +1235,6 @@ sub _ifacesInfo
                 $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
                 $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
             }
-
-            # TODO: Remove this when more than one config per interface is possible
-            $iflist{$iface}->{'options'}  = $self->_thinClientOptions($iface);
         }
     }
 
@@ -1293,19 +1289,19 @@ sub _areThereThinClientOptions
 {
     my ($self, $ifacesInfo) = @_;
 
-# TODO: Restore this when more than one config per interface is possible
-#     foreach my $ifaceInfo (values %{$ifacesInfo}) {
-#         foreach my $range (@{$ifaceInfo->{ranges}}) {
-#             if ( values %{$range->{options}} > 0 ) {
-#                 return 1;
-#             }
-#         }
-#         foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
-#             if ( values %{$objFixed->{options}} > 0 ) {
-#                 return 1;
-#             }
-#         }
-#     }
+    foreach my $ifaceInfo (values %{$ifacesInfo}) {
+        foreach my $range (@{$ifaceInfo->{ranges}}) {
+            if ( values %{$range->{options}} > 0 ) {
+                return 1;
+            }
+        }
+        foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+            if ( values %{$objFixed->{options}} > 0 ) {
+                return 1;
+            }
+        }
+    }
+
     foreach my $ifaceInfo (values %{$ifacesInfo}) {
         if ( values %{$ifaceInfo->{options}} > 0 ) {
             return 1;

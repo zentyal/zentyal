@@ -1,0 +1,68 @@
+<%args>
+$printers => []
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+[global]
+    load printers = no
+    show add printer wizard = no
+
+    rpc_server:spoolss = embedded
+    rpc_daemon:spoolssd = embedded
+
+[printers]
+    comment = All Printers
+    path = /var/spool/samba
+    printable = yes
+    printing = CUPS
+
+[print$]
+    path = /var/lib/samba/printers
+    comment = Printer Drivers
+    browseable = yes
+    writeable = yes
+
+% foreach my $printer (@{$printers}) {
+    <& .printerShare,
+        printer => $printer
+    &>
+% }
+
+% ##[print$]
+% ##    comment = Point and Print Printer Drivers
+% ##    path = /var/lib/samba/printers
+% ##    read only = No
+% #
+
+<%def .printerShare>
+<%args>
+$printer
+</%args>
+<%init>
+# Build the comment string if printer has description or location
+my $comment = '';
+if (length $printer->{description}) {
+    $comment .= $printer->{description};
+}
+if (length $printer->{location}) {
+    $comment .= ' (' . $printer->{location} . ')';
+}
+
+# Skip the printer if it has not users on ACL
+my $skip = (scalar @{$printer->{users}} == 0);
+</%init>
+% if ($skip) {
+# Printer "<% $printer->{name} %>" skipped due to empty ACL
+% } else {
+[<% $printer->{name} %>]
+    path = /var/spool/samba
+    browseable = yes
+    printable = yes
+    printer name = <% $printer->{name} %>
+% if (length $comment) {
+    comment = "<% $comment %>"
+% }
+    valid users = <% "@{$printer->{users}}" %>
+% }
+</%def>

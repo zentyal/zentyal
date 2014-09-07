@@ -972,18 +972,7 @@ sub _internalLocalNets
 {
     my ($self) = @_;
     my $network = $self->global()->modInstance('network');
-    my @localNets = map {
-        my $iface = $_;
-        my $net  = $network->ifaceNetwork($iface);
-        if ($net) {
-            my $fullmask = $network->ifaceNetmask($iface);
-            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
-            ("$net/$mask");
-        } else {
-            ()
-        }
-    } @{ $network->InternalIfaces };
-    return \@localNets;
+    return $network->internalNetworks();
 }
 
 # Method: _domainIpAddresses

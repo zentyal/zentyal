@@ -1,3 +1,5 @@
+HEAD
+	+ Include ntp as module to replicate
 3.5.3
 	+ Increase the timeout time for HA location due to large
 	  replication setup
