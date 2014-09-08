@@ -1,3 +1,7 @@
+HEAD
+	+ Use upload-crash-report.py tool from OpenChange upstream instead
+	  of a custom one
+	+ Optionally submit the email while uploading the crash report
 3.5.3
 	+ Pass X-Forwarded-Host on haproxy (needed for SOGo apache conf)
 	+ More robust dashboard against widget and remoteservices errors
