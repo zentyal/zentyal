@@ -225,11 +225,7 @@ sub _setQARepoConf
 sub _repositoryHostname
 {
     my ($self) = @_;
-    if ( EBox::Config::configkey('qa_updates_repo') ) {
-        return EBox::Config::configkey('qa_updates_repo');
-    } else {
-        return 'qa.' . $self->{remoteservices}->cloudDomain();
-    }
+    return 'qa.' . $self->{remoteservices}->cloudDomain();
 }
 
 # Remove QA updates
