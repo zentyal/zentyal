@@ -635,6 +635,32 @@ sub menu
     $root->add($folder);
 }
 
+# Method: setAdministrationPort
+#
+#       Set administration port on services module
+#
+# Parameters:
+#
+#       port - Int the new port
+#
+sub setAdministrationPort
+{
+    my ($self, $port) = @_;
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+
+    $self->setService(
+            'name' => 'zentyal_' . $webadminMod->name(),
+            'printableName' => $webadminMod->printableName(),
+            'description' => $webadminMod->printableName(),
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => $port,
+            'internal' => 1,
+            'readOnly' => 1
+    );
+}
+
 # Method: replicationExcludeKeys
 #
 #   Overrides: <EBox::Module::Config::replicationExcludeKeys>

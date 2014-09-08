@@ -792,18 +792,82 @@ sub restartOnTrigger
     return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
 }
 
+# FIXME: Doc
 sub usesPort
 {
     my ($self, $proto, $port, $iface) = @_;
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->listeningPort();
+    return ($port == $self->listeningPort());
 }
 
+# FIXME: Doc
 sub defaultPort
 {
     return 8443;
+}
+
+# Method: checkAdminPort
+#
+#      Check the admin port is being in use by another service.
+#
+#      There are two sources: firewall module and netstat output
+#
+# Parameters:
+#
+#      port - Int the new port to set
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the port is being in used by other service
+#
+sub checkAdminPort
+{
+    my ($self, $port) = @_;
+
+    my $global = $self->global();
+    my $fw = $global->modInstance('firewall');
+    if (defined($fw)) {
+        unless ($fw->availablePort('tcp', $port)) {
+            throw EBox::Exceptions::External(__x(
+                'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
+                p => $port
+               ));
+        }
+    }
+
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) =
+          split ('\s+', $line, 7);
+        if ($localAddr =~ m/:$port$/) {
+            my ($pid, $program) = split ('/', $PIDProgram);
+            throw EBox::Exceptions::External(__x(
+                q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
+                p => $port,
+                pr => $program));
+        }
+    }
+
+}
+
+# Method: updateAdminPortService
+#
+#    Update the admin port service used by services module, if available
+#
+# Parameters:
+#
+#    port - Int the new port for the webadmin
+#
+sub updateAdminPortService
+{
+    my ($self, $port) = @_;
+    my $global = $self->global();
+    if ($global->modExists('services')) {
+        my $services = $global->modInstance('services');
+        $services->setAdministrationPort($port);
+    }
 }
 
 1;

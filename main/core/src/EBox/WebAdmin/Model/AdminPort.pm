@@ -43,17 +43,14 @@ sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
 
-    # FIXME
-    #my $webadminModro = EBox::Global->getInstance(1)->modInstance('webadmin');
-    #if (exists $changedValues->{port}) {
-    #    my $actualPort = $webadminModro->listeningPort();
-    #    my $port = $changedValues->{port}->value();
-    #    if ($port != $actualPort) {
-    #        my $haProxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
-    #        my $default = 1;
-    #        $haProxyModel->validateHTTPSPortChange($port, $webadminModro->serviceId, $default);
-    #    }
-    #}
+    my $webadminModro = EBox::Global->getInstance(1)->modInstance('webadmin');
+    if (exists $changedValues->{port}) {
+        my $actualPort = $webadminModro->listeningPort();
+        my $port = $changedValues->{port}->value();
+        if ($port != $actualPort) {
+            $self->parentModule()->checkAdminPort($port);
+        }
+    }
 }
 
 # Method: updatedRowNotify
@@ -71,10 +68,7 @@ sub updatedRowNotify
     my $port = $row->valueByName('port');
     my $oldPort = $oldRow->valueByName('port');
     if ($port != $oldPort) {
-# FIXME
-#        my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
-#        $haProxyMod->updateServicePorts('webadmin', [$port]);
-#        $haProxyMod->setAsChanged();
+        $self->parentModule()->updateAdminPortService($port);
         $self->setMessage(
             __('Take into account you have to manually change the URL once the save changes'
                . ' process is started to see web administration again.'),
