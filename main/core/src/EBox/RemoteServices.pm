@@ -611,7 +611,7 @@ sub _manageCloudProfPackage
 {
     my ($self, $subscriptionInfo) = @_;
     my $pkgName = 'zentyal-cloud-prof';
-    if (not $subscriptionInfo or ($subscriptionInfo->{level} > 1)) {
+    if ((not $subscriptionInfo) or ($subscriptionInfo->{level} < 1)) {
         system "dpkg -l $pkgName";
         if ($? == 0 ) {
             try {
@@ -625,6 +625,11 @@ sub _manageCloudProfPackage
 
     try {
         EBox::Sudo::root("apt-get update");
+    } catch($ex) {
+        EBox::error("Ignoring list update error: $ex");
+    }
+
+    try {
         EBox::Sudo::root("apt-get install -y --force-yes $pkgName");
     } catch($ex){
         EBox::error("Error installing package $pkgName: $ex");
@@ -1103,27 +1108,7 @@ sub securityUpdatesAddOn
     return $ret;
 }
 
-# Method: disasterRecoveryAvailable
-#
-#      Get whether the server has disaster recovery available
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether the server has disaster recovery
-#                available or not
-#
-sub disasterRecoveryAvailable
-{
-    my ($self, $force) = @_;
 
-    my $ret = $self->addOnDetails('disaster-recovery', $force);
-    return ( scalar(keys(%{$ret})) > 0);
-}
 
 
 # Method: addOnDetails
@@ -1402,90 +1387,6 @@ sub extraSudoerUsers
 }
 
 
-
-
-# Method: restoreConfig
-#
-# TODO
-#     Override to try to recover the subscription
-#
-# Overrides:
-#
-#     <EBox::Module::Base::restoreConfig>
-#
-sub restoreConfig
-{
-    my ($self, $dir) = @_;
-
-    $self->clearCache();
-
-    # restore state conf
-    $self->_load_state_from_file($dir);
-
-    my $tarPath = $self->_backupSubsDataTarFileName($dir);
-    # Parse backed up server-info.json to know if we are restoring a
-    # first installed server or a disaster recovery one. In those
-    # cases, the server password has been modified and the backed one
-    # is not valid anymore
-    my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
-    if ($self->eBoxSubscribed()) {
-        try {
-            # For hackers!
-            EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
-            my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
-            # If matches, then skip to restore the server-info.json
-            $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
-        } catch ($e) {
-            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($e);
-            $self->clearCache();
-            $self->st_set_bool('subscribed', 0);
-            $backupSubscribed = 0;
-        }
-        EBox::Sudo::root('rm -f /tmp/server-info.json');
-    }
-
-    if ($backupSubscribed) {
-        # Restore subscription files and ownership
-        my $subscriptionDir = SUBS_DIR;
-        try {
-            my $tarCmd = "tar --extract --file '$tarPath' --directory /";
-            $tarCmd .= " --exclude=server-info.json" if ($excludeServerInfo);
-            my @cmds = ($tarCmd,
-                        "chown ebox.adm '$subscriptionDir'",
-                        "chown -R ebox.ebox $subscriptionDir/*");
-            EBox::Sudo::root(@cmds);
-        } catch ($e) {
-            EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($e);
-            $self->clearCache();
-            $self->st_set_bool('subscribed', 0);
-        }
-    }
-
-    # Mark as changed to make all things work again
-    $self->setAsChanged();
-}
-
-# Method: clearCache
-#
-#     Remove cached information stored in module state
-#
-sub clearCache
-{
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    my @cacheDirs = qw(subscription disaster_recovery);
-    foreach my $dir (@cacheDirs) {
-        delete $state->{$dir};
-    }
-    $self->set_state($state);
-}
-
-
-
-#
 
 # Method: subscribedUUID
 #
