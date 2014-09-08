@@ -356,8 +356,8 @@ sub serviceWidget
     my $widget = new EBox::Dashboard::ModuleStatus(
         module        => 'mail',
         printableName => __('External retrieval service'),
-        running       => $self->running(),
-        enabled       => $self->isEnabled(),
+        running       => ($self->running() ? 1 : 0),
+        enabled       => ($self->isEnabled() ? 1: 0),
        );
 
     return $widget;

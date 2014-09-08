@@ -137,7 +137,7 @@ Zentyal.Dashboard.toggleClose = function () {
 };
 
 Zentyal.Dashboard.closeNotification = function (msg) {
-    $('#notification_container').hide();
+    $('.notification_container').hide();
     $.ajax({
                  url: '/SysInfo/CloseNotification',
                  data: {  message: msg  }
