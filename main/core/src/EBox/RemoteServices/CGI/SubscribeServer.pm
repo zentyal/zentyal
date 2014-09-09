@@ -60,10 +60,10 @@ sub _process
     $remoteServices->setUsername($username);
     $remoteServices->setPassword($password);    
 
-    my $subscriptions     = $remoteServices->subscriptions();
+    my $subscriptions     = $remoteServices->subscriptionsResource();
 
     try {
-        my $auth = $subscriptions->auth();
+        my $auth = $remoteServices->authResource->auth();
         if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
             $self->{json}->{error} = __('Invalid credentials');
             $remoteServices->clearCredentials();

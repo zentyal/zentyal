@@ -50,6 +50,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use EBox::RemoteServices::Subscriptions;
+use EBox::RemoteServices::ConfBackup;
+use EBox::RemoteServices::Auth;
 use EBox::RemoteServices::QAUpdates;
 
 use EBox::Menu::Folder;
@@ -316,7 +318,7 @@ sub refreshSubscriptionInfo
     my ($self) = @_;
     my $subscriptionInfo;
     try {
-        my $subscriptions = $self->subscriptions();
+        my $subscriptions = $self->subscriptionsResource();
         $subscriptionInfo = $subscriptions->subscriptionInfo();
     } catch ($ex) {
         EBox::warn("Cannot refresh subscription information, using cached data: $ex");
@@ -359,7 +361,7 @@ sub subscriptionCredentials
 sub subscribe 
 {
     my ($self, $name, $uuid, $mode) = @_;
-    my $subscriptions = $self->subscriptions();
+    my $subscriptions = $self->subscriptionsResource();
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
     
     my $state = $self->get_state();
@@ -377,7 +379,7 @@ sub subscribe
 sub unsubscribe
 {
     my ($self) = @_;
-    my $subscriptions  = $self->subscriptions();
+    my $subscriptions  = $self->subscriptionsResource();
     $subscriptions->unsubscribeServer();
 
     my $state = $self->get_state();
@@ -402,12 +404,26 @@ sub _removeSubscriptionData
     $self->unset('subscription_info');
 }
 
-sub subscriptions
+sub subscriptionsResource
 {
     my ($self) = @_;
     my $subscriptions = EBox::RemoteServices::Subscriptions->new(remoteservices => $self);
     return $subscriptions;
 }
+
+sub confBackupResource
+{
+    my ($self) = @_;
+    return EBox::RemoteServices::ConfBackup->new(remoteservices => $self);
+}
+
+sub authResource
+{
+    my ($self) = @_;
+    return EBox::RemoteServices::Auth->new(remoteservices => $self);
+}
+
+
 
 sub eBoxSubscribed
 {
@@ -514,7 +530,7 @@ sub revokeConfig
     $self->set_state($state);
     if ($revokeAction) {
         try {
-            my $subscriptions = $self->subscriptions();
+            my $subscriptions = $self->subscriptionsResource();
             my $action = $revokeAction->{action};
             if ($action eq 'subscribe') {
                 $subscriptions->subscribeServer(@{$revokeAction->{params}})
@@ -1405,7 +1421,7 @@ sub extraSudoerUsers
 sub subscribedUUID
 {
     my ($self) = @_;
-  "server_uuid"
+#  "server_uuid"
     my $cred = $self->subscriptionCredentials();
     if ((not $cred or (not exists $cred->{server_uuid})) {
         throw EBox::Exceptions::External(

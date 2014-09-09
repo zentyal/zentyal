@@ -39,10 +39,7 @@ use TryCatch::Lite;
 #
 # Parameters:
 #
-#     user - String the username for auth proposes
-#     password - String the password used for authenticating the user
-#
-#     - Named parameters
+#     - remoteservices (named)
 #
 sub new
 {
