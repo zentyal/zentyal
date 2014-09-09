@@ -20,39 +20,16 @@ use warnings;
 #       Class to manage the Zentyal subscription to Zentyal Cloud
 #
 package EBox::RemoteServices::Subscriptions;
+use base 'EBox::RemoteServices::RESTResource';
 
-use base 'EBox::RemoteServices::Base';
 
-#no warnings 'experimental::smartmatch';
-#use feature qw(switch);
-
-use EBox::Config;
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
-use EBox::Global;
-use EBox::RESTClient;
-# use EBox::RemoteServices::Configuration;
-# use EBox::RemoteServices::Connection;
-
-# use EBox::RemoteServices::Subscription::Check;
-# use EBox::Sudo;
-# use EBox::Util::Nmap;
-
-# use AptPkg::Cache;
-# use Archive::Tar;
-# use Cwd;
 use TryCatch::Lite;
-use File::Copy::Recursive;
-use File::Slurp;
-use File::Temp;
-use JSON::XS;
-use HTML::Mason;
-
-use constant SERVER => 'api.cloud.zentyal.com';
 
 # Group: Public methods
 
@@ -69,56 +46,11 @@ use constant SERVER => 'api.cloud.zentyal.com';
 #
 sub new
 {
-    my ($class, %params) = @_;
+    my ($class, @params) = @_;
 
-    exists $params{remoteservices} or
-      throw EBox::Exceptions::MissingArgument('remoteservices');
-
-
-    my $self = $class->SUPER::new();
-    $self->{remoteservices} = $params{remoteservices};
-
+    my $self = $class->SUPER::new(@params);
     bless $self, $class;
     return $self;
-}
-
-sub _restClientWithUserCredentials
-{
-    my ($self) = @_;
-    my $username = $self->{remoteservices}->username();
-    my $password = $self->{remoteservices}->password();
-
-    return $self->_restClient($username, $password);
-}
-
-sub _restClientWithServerCredentials
-{
-    my ($self) = @_;
-    my $credentials = $self->{remoteservices}->subscriptionCredentials();
-    if (not $credentials) {
-        throw EBox::Exceptions::Internal('No subscribed server credentials');
-    }
-
-    return $self->_restClient($credentials->{server_uuid}, $credentials->{password});
-}
-
-sub _restClient
-{
-    my ($self, $username, $password) = @_;
-    if (not $username) {
-        throw EBox::Exceptions::Internal('username');
-    }
-    if (not $password) {
-        throw EBox::Exceptions::Internal('password');        
-    }
-
-    my $restClient = new EBox::RESTClient(
-        server      => SERVER,
-        credentials => { username => $username,
-                         password => $password,
-                        }
-       );
-    return $restClient;
 }
 
 sub subscribeServer
