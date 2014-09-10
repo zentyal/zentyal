@@ -1,0 +1,229 @@
+<%args>
+  $subscribed
+  @backups
+  $modulesChanged
+</%args>
+<%init>
+use EBox::Gettext;
+use URI;
+</%init>
+<div class="insideTab">
+% if ($subscribed) {
+  <& .backupSection, modulesChanged => $modulesChanged,
+                     subscribed     => $subscribed,
+                     backups => \@backups
+  &>
+  <& .listSection, backups => \@backups &>
+% } else {
+  <& /remoteservices/NoActive.mas &>
+% }
+</div>
+
+<%def .backupSection>
+<%args>
+$modulesChanged
+$subscribed
+@backups
+</%args>
+<%init>
+my $lastBackup = $backups[-1];
+my $restricted = ((not $subscribed) and $lastBackup);
+my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
+
+my @formElements;
+
+if ($restricted) {
+    push @formElements, [
+                         name => 'newName',
+                         id => 'backup_name',
+                         printableName => __('Name'),
+                        ];
+
+} else {
+    push @formElements, [
+                         name => 'name',
+                         id => 'backup_name',
+                         printableName => __('Name'),
+                        ];
+}
+
+my $backupTitle = __('Remote Backup');
+my $backupOnClickJs =<< "ENDJS" ;
+     var name = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/MakeRemoteBackup';
+     var data = 'name=' + name;
+     data += '&description=' + description;
+     data += '&backup=1&popup=1';
+
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     return false
+ENDJS
+if ($restricted) {
+   $backupOnClickJs =<< "ENDJS";
+     var newName = \$('#backup_name').val();
+     var description= \$('#backup_description').val();
+     var title = '$backupTitle: ' + description;
+     var url = '/RemoteServices/Backup/Confirm';
+     var data = 'newName=' + newName;
+     data += '&description=' + description;
+     data += '&name=' + \$('#hidden_name').val();
+     data += '&action=overwrite';
+     data += '&backup=1&popup=1';
+
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     return false
+ENDJS
+}
+
+push @formElements, (
+
+                 [
+                  name => 'description',
+                  id => 'backup_description',
+                  printableName => __('Description'),
+                 ],
+                 [
+                  input => 'submit',
+                  name  => 'backup',
+                  value => __('Back up'),
+                  onclick => $backupOnClickJs,
+                  $modulesChanged ? (disabled => 'disabled') : (),
+                 ]
+
+);
+
+if ($restricted) {
+    my $lastBackupName = $lastBackup->{label};
+    push @formElements, (
+                         # name of the already-done backup
+                         [
+                          id    => 'hidden_name',
+                          input => 'hidden',
+                          name => 'name',
+                          value => $lastBackupName,
+                         ],
+                         # action to confirm
+                         [
+                          id    => 'hidden_action',
+                          input => 'hidden',
+                          name => 'action',
+                          value => 'overwrite',
+                         ],
+                        );
+}
+
+
+</%init>
+<h3><% __('Back up the current configuration state') %></h3>
+<div class='help'>
+
+</div>
+% if ($modulesChanged) {
+  <div class='warning'>
+        <% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
+  </div>
+% }
+
+% if ($restricted) {
+  <div class='warning'>
+%# TODO CHANGe this texr
+        <% __(q{Please note that the Basic Subscription allows you to store only one remote configuration backup. If you make a new configuration backup, the previous backup will be overwritten.}) %>
+  </div>
+% }
+
+<p>
+<form action='<% $formAction %>' method='POST' class="formDiv">
+    <& /formTable.mas, rows => \@formElements &>
+</form>
+</p>
+</%def>
+
+
+<%def .listSection>
+<%args>
+@backups
+</%args>
+<%init>
+
+my $downloadImg  = "/data/images/download.gif";
+my $applyImg = "/data/images/restore.gif";
+my $deleteImg = "/data/images/delete.gif";
+
+my $restoreTitle = __('Restore configuration backup');
+my $downloadTitle = __('Download configuration backup');
+my $deleteTitle = __('Delete configuration backup');
+
+
+my @legendElements = (
+                      {
+                       imgFile => $applyImg,
+                       imgName => __('restore') ,
+                      },
+                      {
+                       imgFile => $downloadImg,
+                       imgName => __('download'),
+                      },
+                      {
+                       imgFile => $deleteImg,
+                       imgName => __('delete')
+                      },
+                     );
+</%init>
+% if (@backups) {
+<h3><% __("Configuration backups' list") %></h3>
+<table class="dataTable" cellspacing="0">
+  <thead>
+    <tr>
+      <th class="tleft"><% __('Company') %></th>
+      <th class="tleft"><% __('Server') %></th>
+      <th class="tleft"><% __('Name') %></th>
+      <th><% __('Date') %></th>
+      <th><% __('Size') %></th>
+      <th class="thOptions"><% __('Actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+<%perl>
+  foreach my $backup (@backups) {
+     my $uri = new URI();
+     $uri->path($backup->{Filename});
+     my $name = $uri->path();
+     my $restoreUrl  = "Confirm?action=restore&name=$name&popup=1";
+     my $restoreData = "name=$name&popup=1";
+     my $restoreJS   = "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false";
+     my $downloadUrl = "DownloadRemoteBackup?name=$name";
+     my $deleteUrl   = "Confirm";
+     my $deleteData  = "action=delete&name=$name&popup=1";
+     my $deleteJS    = "Zentyal.Dialog.showURL('$deleteUrl',  {title:'$deleteTitle', data: '$deleteData'}); return false";
+</%perl>
+    <tr class="border">
+      <td class="tleft"><% $backup->{company}->{description} %></td>
+      <td class="tleft"><% $backup->{server}->{name} %></td>
+      <td class="tleft"><% $backup->{label} %></td>
+      <td class="tcenter"><% $backup->{backup_date} %></td>
+      <td class="tcenter"><% $backup->{size} %></td>
+      <td width="%14" class="tcenter">
+        <button name="restore" class="btn-only-icon btn-restore"
+                value="Restore" title="<% $restoreTitle %>"
+                alt="<% $restoreTitle %>"
+                onclick="<% $restoreJS %>" />
+        <button name="download" class="btn-only-icon btn-download"
+                value="Download" title="<% $downloadTitle %>"
+                alt="<% $downloadTitle %>"
+                onclick="document.location='<% $downloadUrl %>'" />
+        <button name="delete" class="btn-only-icon btn-delete"
+                value="Delete" title="<% $deleteTitle %>"
+                alt="<% $deleteTitle %>"
+                onclick="<% $deleteJS %>" />
+      </td>
+    </tr>
+% }
+  </tbody>
+</table>
+<br>
+<& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
+% }
+</%def>
+
