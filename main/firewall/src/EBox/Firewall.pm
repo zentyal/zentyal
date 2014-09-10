@@ -185,6 +185,7 @@ sub _enforceServiceState
 
     EBox::Util::Lock::lock('iptables', 1, BLOCKED_TIMEOUT);
     try {
+        my @helpers = ();
         if ($self->isEnabled()) {
             foreach my $mod (@{ $self->global()->modInstancesOfType('EBox::FirewallObserver') }) {
                 if (not $mod->configured() and not $mod->isEnabled()) {
@@ -193,9 +194,13 @@ sub _enforceServiceState
                 my $helper = $mod->firewallHelper();
                 if ($helper) {
                     $helper->beforeFwRestart();
+                    push(@helpers, $helper);
                 }
             }
             $ipt->start();
+            foreach my $helper (@helpers) {
+                $helper->afterFwRestart();
+            }
         } else {
             $ipt->stop();
         }

@@ -48,7 +48,6 @@ Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
 my $RECURSIVE_DEPENDENCY_THRESHOLD = 20;
-use constant REQUIRED_ZENTYAL_VERSION => '2.1';
 
 sub new
 {
@@ -486,7 +485,7 @@ sub _printableSize
 
     my @units = qw(KB MB GB);
     foreach my $unit (@units) {
-        $size = sprintf ("%.2f", $size / 1024);
+        $size = sprintf("%.2f", $size / 1024);
         if ($size < 1024) {
             return "$size $unit";
         }
@@ -957,10 +956,10 @@ sub _checkZentyalVersion
 {
     my ($self, $tempDir)=  @_;
     my $file = "$tempDir/eboxbackup/debpackages" ;
+
     if (not -r $file) {
-        throw EBox::Exceptions::External(__x(
-   'No debian packages list file found; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
-         v => REQUIRED_ZENTYAL_VERSION
+        throw EBox::Exceptions::External(__(
+   'No debian packages list file found; probably the backup was done in a incompatible Zentyal version. Only backups done in the actual Zentyal version can be restored',
                                             )
                                         );
     }
@@ -978,27 +977,30 @@ sub _checkZentyalVersion
         throw EBox::Exceptions::Internal("Opening $file: $!");
 
     if (not $zentyalVersion) {
-        throw EBox::Exceptions::External(__x(
-'No zentyal-core found in the debian packages list form the backup; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
-                v => REQUIRED_ZENTYAL_VERSION
+        throw EBox::Exceptions::External(__(
+'No zentyal-core found in the debian packages list form the backup; probably the backup was done in a incompatible Zentyal version. Only backups done in the actual Zentyal version can be restored'
                                            )
                                         );
     }
 
-    my ($major, $minor, $rest) = split '\.', $zentyalVersion;
-    my ($wantedMajor, $wantedMinor, $wantedRest) = split '\.', REQUIRED_ZENTYAL_VERSION;
-    my $versionOk =  0;
-    if ($major > $wantedMajor ) {
-        $versionOk = 1;
-    } elsif (($major == $wantedMajor) and ($minor >= $wantedMinor)) {
-        $versionOk = 1;
+    my ($major, $minor) = split('\.', $zentyalVersion, 3);
+
+    my ($wantedMajor, $wantedMinor);
+    my @dpkgOutput = `dpkg -l zentyal-core`;
+    my @actualParts = split('\s+', $dpkgOutput[-1], 4);
+    my $actualVersion = $actualParts[2];
+    if  ($actualVersion) {
+        ($wantedMajor, $wantedMinor) = split('\.', $actualVersion, 3);
+    } else {
+        throw EBox::Exceptions::Internal("Cannot retrieve actual version from dpkg output: '@dpkgOutput'");
     }
 
+    my $versionOk =  ($major == $wantedMajor) && ($minor == $wantedMinor);
     if (not $versionOk) {
         throw EBox::Exceptions::External(__x(
-'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv} or greater',
+'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
                 bv => $zentyalVersion,
-                wv => REQUIRED_ZENTYAL_VERSION)
+                wv => $actualVersion)
         );
     }
 }

@@ -9,6 +9,14 @@
 	+ Added search for configuration data
 	+ Improved installation wizards
 	+ Set version to 4.0
+	+ Use upload-crash-report.py tool from OpenChange upstream instead
+	  of a custom one
+	+ Optionally submit the email while uploading the crash report
+	+ More robust dashboard against widget and remoteservices errors
+	+ Added missing use in hasManyViewer.mas
+	+ Only allow restore from backups from versions with the same two
+	  first version numbers
+	+ Escape double quotes in non-editable text fields
 	+ When doing a login redirect to the full given URI
 	+ Fixed mysql commands executed with wrong parameters or credentials
 	+ Fix isEqualTo types comparision, check for defined return value from cmp
