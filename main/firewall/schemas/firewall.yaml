@@ -17,9 +17,6 @@ models:
     - EBoxServicesRuleTable
     - RedirectsTable
     - SNAT
-    - PacketTrafficDetails
-    - PacketTrafficGraph
-    - PacketTrafficReportOptions
 
 modeldepends:
     ToInternetRuleTable:
@@ -43,5 +40,3 @@ modeldepends:
         services/ServiceTable: [service]
         objects/ObjectTable: [source_object, destination_object]
 
-composites:
-    PacketTrafficReport: [PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]

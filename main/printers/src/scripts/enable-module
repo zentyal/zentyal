@@ -7,17 +7,18 @@ if [ -f /etc/init/cups.conf ]; then
 fi
 
 # create spool
-if [ ! -d /opt/samba4/var/spool ]; then
-    mkdir /opt/samba4/var/spool
-    chmod 1777 /opt/samba4/var/spool
-#   chown nobody:nogroup /var/spool/samba
-#   chmod a+rwt /var/spool/samba
+if [ ! -d /var/spool/samba ]; then
+    mkdir /var/spool/samba
+    chmod 1777 /var/spool/samba
+    chown -R root:root /var/spool/samba
+    chmod a+rwt /var/spool/samba
 fi
 
-# create drivers folders
-if [ ! -d /opt/samba4/var/print ]; then
-    mkdir -p /opt/samba4/var/print/{COLOR,IA64,W32ALPHA,W32MIPS,W32PPC,W32X86,WIN40,x64}
-#   chown -R root:512 /var/lib/samba/printers
-#   chmod -R g+w /var/lib/samba/printers
+# create printer drivers folders
+if [ ! -d /var/lib/samba/printers ]; then
+    mkdir -p /var/lib/samba/printers/{COLOR,IA64,W32ALPHA,W32MIPS,W32PPC,W32X86,WIN40,x64}
+    chown -R root:root /var/lib/samba/printers
+    chmod -R g+w /var/lib/samba/printers
 fi
 
+exit 0

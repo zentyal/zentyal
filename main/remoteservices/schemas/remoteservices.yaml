@@ -8,7 +8,6 @@ models:
     - DisasterRecoveryDomains
     - QAUpdatesInfo
     - RemoteSupportAccess
-    - ReportsInfo
     - Subscription
     - SubscriptionInfo
     - TechnicalInfo
@@ -16,5 +15,5 @@ models:
 
 composites:
     General: [Subscription, SubscriptionInfos]
-    SubscriptionInfos: [SubscriptionInfo, QAUpdatesInfo, AlertsInfo, ReportsInfo]
+    SubscriptionInfos: [SubscriptionInfo, QAUpdatesInfo, AlertsInfo]
     Technical: [TechnicalInfo, RemoteSupportAccess, AccessSettings, VPNConnectivityCheck]

@@ -14,11 +14,13 @@ $copyright_footer
 % foreach my $item (@{$items{system}}) {
         <% $item->html($current, $currentUrl) %>
 % }
+% if (exists $items{main}) {
         <hr/>
-% foreach my $item (@{$items{main}}) {
+%  foreach my $item (@{$items{main}}) {
         <% $item->html($current, $currentUrl) %>
+%  }
 % }
-% if (@{$items{others}}) {
+% if (exists $items{others}) {
         <hr/>
 %  foreach my $item (@{$items{others}}) {
         <% $item->html($current, $currentUrl) %>

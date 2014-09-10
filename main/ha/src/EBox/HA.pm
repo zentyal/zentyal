@@ -74,7 +74,7 @@ use constant {
     ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
-my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn);
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn ntp);
 my @SINGLE_INSTANCE_MODULES = qw(dhcp);
 
 # Constructor: _create
@@ -1167,7 +1167,7 @@ sub _corosyncSetConf
 
         # Update the NodeList
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
-                   port => 443, localNode => 1);
+                   port => 8443, localNode => 1);
         $self->_notifyClusterConfChange($list);
         $self->{restart_required} = 1;
     }
@@ -1694,7 +1694,7 @@ sub _waitPacemaker
             default { EBox::debug("No parse on $output"); }
         }
         $maxTries--;
-        sleep(1);
+        sleep(1) unless ($ready);
     }
 
     unless ($ready) {

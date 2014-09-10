@@ -56,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit remoteservices);
+use constant CORE_MODULES => qw(sysinfo webadmin global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -547,6 +547,13 @@ sub _prepareActionScript
 #
 #      Save changes in all modules
 #
+# Named parameters:
+#
+#      progress -
+#
+#      replicating - Boolean flag to indicate we are saving modules
+#                    from a HA replication
+#
 sub saveAllModules
 {
     my ($self, %options) = @_;
@@ -560,8 +567,6 @@ sub saveAllModules
     $self->{save_messages} = [];
 
     my $progress = $options{progress};
-
-    # TODO: tell events module to stop its watchers
 
     if ($self->first()) {
         # First installation modules enable
@@ -688,8 +693,6 @@ sub saveAllModules
             $failed .= "webadmin ";
         }
     }
-
-    # TODO: tell events module to resume its watchers
 
     while (my $modName = $self->popPostSaveModule()) {
         try {

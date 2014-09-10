@@ -68,10 +68,10 @@ sub _table
        new EBox::Types::Int(
            'fieldName'     => 'period',
            'printableName' => __('Time between checks'),
-           'trailingText'  => __('seconds'),
-           'defaultValue'  => 30,
+           'trailingText'  => __('minutes'),
+           'defaultValue'  => 1,
            'size'          => 3,
-           'min'           => 10,
+           'min'           => 1,
            'editable'      => 1,
            ),
       );
@@ -88,16 +88,6 @@ sub _table
 
       return $dataTable;
 
-}
-
-# Method: formSubmitted
-#
-#   Overrides <EBox::Model::DataForm::formSubmited>
-#
-sub formSubmitted
-{
-    # Notify period change to events module
-    EBox::Global->getInstance()->modChange('events');
 }
 
 1;

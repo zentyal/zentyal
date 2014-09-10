@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::SysInfo;
 
-use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Config);
 
 use HTML::Entities;
 use Sys::Hostname;
@@ -37,8 +37,6 @@ use EBox::Dashboard::Value;
 use EBox::Dashboard::HTML;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Report::DiskUsage;
-use EBox::Report::RAID;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Util::Software;
@@ -425,13 +423,6 @@ sub toggledElements
 
     my @toggled = keys %{ $toggled };
     return \@toggled;
-}
-
-sub _facilitiesForDiskUsage
-{
-    my ($self, @params) = @_;
-
-    return EBox::Backup->_facilitiesForDiskUsage(@params);
 }
 
 sub _restartAllServices

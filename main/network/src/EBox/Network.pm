@@ -19,7 +19,7 @@ use warnings;
 
 package EBox::Network;
 
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
+use base qw(EBox::Module::Service);
 
 # Group: Constants
 
@@ -42,6 +42,7 @@ use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
 use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
 use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
+use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -259,6 +260,10 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         }
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        $self->_migrateTo40();
+    }
 }
 
 # Method: enableActions
@@ -299,17 +304,6 @@ sub wizardPages
         { page => '/Network/Wizard/Ifaces', order => 100 },
         { page => '/Network/Wizard/Network', order => 101 },
     ];
-}
-
-# Method: eventWatchers
-#
-# Overrides:
-#
-#      <EBox::Events::WatcherProvider::eventWatchers>
-#
-sub eventWatchers
-{
-    return [ 'Gateways' ];
 }
 
 # Method: ExternalIfaces
@@ -408,6 +402,31 @@ sub internalIpAddresses
     }
 
     return $ips;
+}
+
+# Method: internalNetworks
+#
+#   Returs a list of internal networks
+#
+# Returns:
+#
+#   array ref - Holding the internal network IP addresses using CIDR
+#
+sub internalNetworks
+{
+    my ($self) = @_;
+
+    my @intNets;
+
+    foreach my $iface (@{$self->InternalIfaces()}) {
+        my $net = $self->ifaceNetwork($iface);
+        if ($net) {
+            my $fullmask = $self->ifaceNetmask($iface);
+            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+            push(@intNets, "$net/$mask");
+        }
+    }
+    return \@intNets;
 }
 
 # Method: ifaceExists
@@ -3799,6 +3818,7 @@ sub _setConf
     $self->_generatePPPConfig();
     $self->_generateDDClient();
     $self->_generateProxyConfig();
+    $self->_writeFailoverCron();
 }
 
 # Method: _enforceServiceState
@@ -4734,11 +4754,13 @@ sub regenGateways
 
 # Method: replicationExcludeKeys
 #
-#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#      Exclude these keys from replication.
+#
+# Overrides: <EBox::Module::Config::replicationExcludeKeys>
 #
 sub replicationExcludeKeys
 {
-    return [ 'interfaces' ];
+    return [ 'interfaces', 'vlans' ];
 }
 
 # Group: Ifup flag methods
@@ -4819,8 +4841,7 @@ sub _multipathCommand
 
     if (scalar(@gateways) == 0) {
         # If WAN failover is enabled we put the default one
-        my $ev = $self->global()->modInstance('events');
-        if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')) {
+        if ($self->_failoverEnabled()) {
             my $row = $self->model('GatewayTable')->findValue(default => 1);
             unless ($row) {
                 return undef;
@@ -5161,6 +5182,47 @@ sub _vlanSearchMatch
     }
 
     return \@matches;
+}
+
+sub _failoverEnabled
+{
+    my ($self) = @_;
+
+    my $rules = $self->model('WANFailoverRules');
+    return (@{$rules->enabledRows()} > 0);
+}
+
+sub _writeFailoverCron
+{
+    my ($self) = @_;
+
+    my $cronFile = FAILOVER_CRON_FILE;
+
+    if ($self->_failoverEnabled()) {
+        my $failoverOptions = $self->model('WANFailoverOptions');
+        my $minutes = $failoverOptions->value('period');
+        EBox::Module::Base::writeConfFileNoCheck($cronFile, 'network/failover-checker.cron.mas',
+                                                 [ minutes => $minutes ],
+                                                 {
+                                                  uid  => 'root',
+                                                  gid  => 'root',
+                                                  mode =>  '0644'
+                                                 });
+    } else {
+        EBox::Sudo::root("rm -f $cronFile");
+    }
+}
+
+sub _migrateTo40
+{
+    my ($self) = @_;
+
+    # Migrate failover from seconds to minutes
+    my $failoverOptions = $self->model('WANFailoverOptions');
+    my $period = $failoverOptions->value('period');
+    $period = ($period < 60) ? 1 : int($period / 60);
+    $failoverOptions->setValue('period', $period);
+    $self->saveConfig();
 }
 
 1;

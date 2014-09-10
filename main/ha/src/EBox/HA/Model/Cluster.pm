@@ -147,7 +147,7 @@ sub _table
             printableName => __('Cluster host port'),
             hidden        => \&_isBootstraped,
             editable      => 1,
-            defaultValue  => 443,
+            defaultValue  => 8443,
        ),
         new EBox::Types::Text(
             fieldName     => 'secret',

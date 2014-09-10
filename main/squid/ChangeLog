@@ -1,5 +1,7 @@
 4.0
 	+ Set version to 4.0
+	+ Added dynamical group authorization
+	+ Do not lowercase user names if kerberos is used
 	+ Fix exception accesing the access rules model when samba not provisioned
 	+ Fixed populateGroups() in AccessRules when upgrading from 3.4
 	+ Fixed wrong old-style try-catch

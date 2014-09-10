@@ -55,6 +55,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
 use TryCatch::Lite;
 
 # Dependencies
@@ -168,6 +170,63 @@ sub addedRowNotify
         $interfaceElement->setValue("zentyal.$rowId");
         $newRow->store();
     }
+}
+
+sub addTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
+
+    my $ns;
+    if (exists $paramsRef->{nameserver}) {
+        $ns = $paramsRef->{nameserver}->value();
+    }
+
+    my $iface;
+    if (exists $paramsRef->{interface}) {
+        $iface = $paramsRef->{interface}->value();
+    }
+
+    my $global = EBox::Global->getInstance($self->{confmodule}->{ro});
+    my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+    foreach my $mod (@mods) {
+        if ($mod->nameserverAdded($ns, $iface)) {
+            throw EBox::Exceptions::UnwillingToPerform(
+                reason => __x('This action is incompatible with the ' .
+                              'module {mod} configuration',
+                              mod  => $mod->name()));
+        }
+    }
+
+    return $self->SUPER::addTypedRow($paramsRef, %optParams);
+}
+
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    unless (defined ($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove");
+    }
+    if (not $force) {
+        my $row = $self->row($id);
+        unless (defined ($row)) {
+            throw EBox::Exceptions::Internal("Invalid row id $id");
+        }
+        my $ns = $row->valueByName('nameserver');
+        my $iface = $row->valueByName('interface');
+        my $global = EBox::Global->getInstance($self->{confmodule}->{ro});
+        my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+        foreach my $mod (@mods) {
+            if ($mod->nameserverDelete($ns, $iface)) {
+                throw EBox::Exceptions::DataInUse(
+                __x(q|The nameserver '{name}' is being used by {mod}|,
+                    name => $ns, mod  => $mod->name()));
+            }
+        }
+    }
+
+    $self->SUPER::removeRow($id, $force);
 }
 
 # Method: precondition

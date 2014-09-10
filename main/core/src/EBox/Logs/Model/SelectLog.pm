@@ -23,7 +23,6 @@ use base 'EBox::Model::DataTable';
 use TryCatch::Lite;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Logs::Consolidate;
 use EBox::Types::Link;
 
 sub new
