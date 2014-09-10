@@ -60,37 +60,30 @@ use EBox::Menu::Item;
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
+use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
+use EBox::Config;
+
 
 # use Data::UUID;
 #use Date::Calc;
-# use EBox::Config;
-# use EBox::Dashboard::ModuleStatus;
-# use EBox::Dashboard::Section;
-# use EBox::Dashboard::Value;
+
 # use EBox::DBEngineFactory;
 # use EBox::Exceptions::DeprecatedMethod;
 
 # 
 # use EBox::Exceptions::MissingArgument;
 # use EBox::Exceptions::NotConnected;
-# use EBox::Event;
-# use EBox::GlobalImpl;
-# use EBox::Service;
 # use EBox::RemoteServices::AdminPort;
-# use EBox::RemoteServices::Audit::Password;
-# use EBox::RemoteServices::Auth;
-# use EBox::RemoteServices::Backup;
-# use EBox::RemoteServices::Bundle;
 # use EBox::RemoteServices::Capabilities;
 # use EBox::RemoteServices::Connection;
 # use EBox::RemoteServices::Configuration;
-# use EBox::RemoteServices::Cred;
 # use EBox::RemoteServices::Exceptions::NotCapable;
 
 # use EBox::RemoteServices::SupportAccess;
 # use EBox::RemoteServices::FirewallHelper;
-# use EBox::RemoteServices::RESTClient;
-# use EBox::RemoteServices::QAUpdates;
+
 
 
 # # Constants

@@ -55,20 +55,42 @@ sub list
 
 sub add
 {
-    die 'add';
-    my ($self) = @_;
+    my ($self, %params) = @_;
+    my $url = '/v2/confbackup/add/';
+    my $automatic = $params{automatic} ? 'True' : 'False';
+    my $label     = $params{label};
+    my $data      = $params{data};
+
+    my @parts;
+    push @parts, HTTP::Message->new(
+        ['Content-Disposition' => 'form-data; name="automatic"' ],
+        $automatic
+       );
+    push @parts, HTTP::Message->new(
+        ['Content-Disposition' => 'form-data; name="label"' ],
+        $label
+       );
+    push @parts, HTTP::Message->new(
+        ['Content-Disposition' => 'form-data; name="data"; filename="hello.o" Content-Type: application/x-object'],
+        $data
+       );
+
+    $self->_restClientWithServerCredentials()->POST($url, multipart => \@parts);
 }
 
 sub get
 {
     my ($self, $id) = @_;
-    my $url = 'https://api.cloud.zentyal.com/v2/confbackup/get/' . $id . '/';
+    my $url = "/v2/confbackup/get/$id/";
     my $res = $self->_restClientWithServerCredentials()->GET($url);
+    return $res->data();
 }
 
 sub delete
 {
-    die 'delete';
+    my ($self, $id) = @_;
+    my $url = "/v2/confbackup/delete/$id/";
+    $self->_restClientWithServerCredentials()->POST($url);
 }
 
 

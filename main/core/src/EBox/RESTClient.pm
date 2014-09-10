@@ -246,7 +246,7 @@ sub PUT {
 #
 sub POST {
     my ($self, $path, %params) = @_;
-    return $self->request('POST', $path, $params{query}, $params{retry});
+    return $self->request('POST', $path, $params{query}, $params{retry}, %params);
 }
 
 # Method: DELETE
@@ -272,7 +272,7 @@ sub DELETE {
 }
 
 sub request {
-    my ($self, $method, $path, $query, $retry) = @_;
+    my ($self, $method, $path, $query, $retry, %params) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
@@ -296,7 +296,14 @@ sub request {
     }
 
     #build headers
-    if ($query) {
+    if ($params{multipart}) {
+        $req->content_type('multipart/form-data');
+        $req->parts($params{multipart});
+        use Data::Dumper;
+        EBox::debug("XXX multipart");
+       EBox::debug($req->headers_as_string);
+        EBox::debug($req->content);
+    } elsif ($query) {
         given(ref($query)) {
             when('ARRAY' ) {
                 throw EBox::Exceptions::Internal('Cannot send ARRAY ref as query when using GET method')
