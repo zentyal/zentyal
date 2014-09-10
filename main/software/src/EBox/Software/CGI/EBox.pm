@@ -78,7 +78,7 @@ sub _process
         { name => 'zentyal-firewall', description => 'Firewall' }
     );
 
-    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange sogo dns dhcp firewall network objects services ntp);
+    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange dns dhcp firewall network objects services ntp);
 
     my @array = ();
     push(@array, 'bigpkgs'     => \@bigpkgs);

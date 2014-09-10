@@ -61,21 +61,6 @@ try {
     }
     $software->setAutoUpgradePkgNo(scalar(@pkgnames));
 } catch ($e) {
-    # Check if a reboot is required
-    if (-e '/var/run/reboot-required') {
-        my $events = $global->getInstance(1)->modInstance('events');
-        if ((defined $events) and ($events->isRunning())) {
-            my @pkgs = read_file('/var/run/reboot-required.pkgs');
-            chomp (@pkgs);
-            $events->sendEvent(
-                message => __x('A reboot is required in the host to complete the installation of the following packages: {p}',
-                                p => join (' ', @pkgs)),
-                source  => 'reboot-required',
-                level   => 'info'
-            );
-        }
-    }
-
     $software->unlock();
     $e->throw();
 }

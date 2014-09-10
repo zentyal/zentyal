@@ -25,17 +25,12 @@ models:
     - AntiVirus
     - DelayPools
     - CategorizedLists
-    - RequestsGraph
-    - TrafficSizeGraph
-    - TrafficDetails
-    - TrafficReportOptions
 
 composites:
     General: [GeneralSettings, NoCacheDomains, NoAuthDomains, TransparentExceptions]
     FilterSettings: [ContentFilterThreshold, AntiVirus]
     Domains: [DomainFilterSettings, DomainFilter]
     ProfileConfiguration: [FilterSettings, Domains, DomainFilterCategories, MIME, Extensions]
-    TrafficReport: [TrafficReportOptions, RequestsGraph, TrafficSizeGraph, TrafficDetails]
 
 modeldepends:
     AccessRules:

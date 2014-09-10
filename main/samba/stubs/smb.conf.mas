@@ -32,11 +32,8 @@ use EBox::Gettext;
     log level = 3
     log file = /var/log/samba/samba.log
 
-% unless ($print) {
-    load printers = no
-    printcap name = /dev/null
-    show add printer wizard = no
-    disable spoolss = yes
+% if ($print) {
+    include = /etc/samba/printers.conf
 % }
 
 % if ($openchange) {

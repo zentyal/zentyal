@@ -63,7 +63,7 @@ sub ldap
 {
     my ($self) = @_;
 
-    unless(defined($self->{ldap})) {
+    unless (defined($self->{ldap})) {
         $self->{ldap} = $self->global()->modInstance('samba')->newLDAP();
     }
     return $self->{ldap};

@@ -26,7 +26,6 @@ LogLevel debug
 SystemGroup lpadmin
 
 Listen localhost:631
-Listen /var/run/cups/cups.sock
 
 % foreach my $address (@addresses) {
 SSLListen <% $address %>:631

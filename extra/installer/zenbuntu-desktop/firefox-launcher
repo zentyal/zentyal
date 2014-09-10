@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PORT=`grep 'webadmin port' /var/lib/zentyal/conf/haproxy.cfg | sed 's/[^0-9]//g'`
+PORT=`grep listen /var/lib/zentyal/conf/nginx.conf | sed 's/[^0-9]//g'`
+
 
 if [[ $PORT == 443 ]]
 then

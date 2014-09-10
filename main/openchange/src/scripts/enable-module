@@ -2,4 +2,13 @@
 
 rm -f /var/lib/samba/private/openchange.ldb
 
+# Enable apache modules required for SOGo
+a2enmod proxy
+a2enmod proxy_http
+a2enmod headers
+
+a2enmod ssl
+
+service apache2 restart
+
 exit 0

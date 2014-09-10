@@ -20,11 +20,11 @@ package EBox::Samba;
 
 use base qw(EBox::Module::LDAP
             EBox::SysInfo::Observer
+            EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
-            EBox::Samba::SyncProvider
-            EBox::Report::DiskUsageProvider);
+            EBox::Samba::SyncProvider);
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -37,6 +37,7 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::LDAP::ExternalAD;
 use EBox::LdapUserImplementation;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -177,7 +178,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
-                                      printableName => __('Users, Computers and File Sharing'),
+                                      printableName => __('Domain Controller and File Sharing'),
                                       @_);
     bless($self, $class);
     $self->_setupForMode();
@@ -882,6 +883,8 @@ sub _setConfExternalAD
     # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
+    # Reset LDAP connection
+    $self->clearLdapConn();
 }
 
 sub _setConfInternal
@@ -1062,23 +1065,28 @@ sub _postServiceHook
             my $drivePath = "\\\\$netbiosName.$realmName";
             my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
 
+            # Skip if unmanaged_home_directory config key is defined and
+            # no changes made to roaming profiles
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
             my $state = $self->get_state();
             my $roamingProfilesChanged = delete $state->{_roamingProfilesChanged};
             $self->set_state($state);
             my $users = $self->users();
-            foreach my $user (@{$users}) {
-                # Set roaming profiles
-                if ($roamingProfilesChanged) {
-                    if ($self->roamingProfiles()) {
-                        $user->setRoamingProfile(1, $profilesPath, 1);
-                    } else {
-                        $user->setRoamingProfile(0, undef, 1);
+            if ($roamingProfilesChanged or not $unmanagedHomes) {
+                foreach my $user (@{$users}) {
+                    # Set roaming profiles
+                    if ($roamingProfilesChanged) {
+                        if ($self->roamingProfiles()) {
+                            $user->setRoamingProfile(1, $profilesPath, 1);
+                        } else {
+                            $user->setRoamingProfile(0, undef, 1);
+                        }
                     }
-                }
 
-                # Mount user home on network drive
-                $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
-                $user->save();
+                    # Mount user home on network drive
+                    $user->setHomeDrive($drive, $drivePath, 1) unless $unmanagedHomes;
+                    $user->save();
+                }
             }
         }
 
@@ -3019,20 +3027,6 @@ sub recoveryDomainName
     return __('Users data and Filesystem shares');
 }
 
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $usersPrintableName  = __(q{Users data});
-    my $usersPath           = '/home';
-
-    return {
-        $usersPrintableName   => [ $usersPath ],
-    };
-}
-
 # Method: entryModeledObject
 #
 #   Return the Perl Object that handles the given LDAP entry.
@@ -3335,14 +3329,22 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
-
-    # TODO: put everything together in smb.conf ?
     push (@array, 'shares' => 1);
 
-    my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
-        push (@array, 'openchange' => 1);
-        $openchange->writeSambaConfig();
+    if ($self->global()->modExists('openchange')) {
+        my $openchangeMod = $self->global()->modInstance('openchange');
+        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
+            push (@array, 'openchange' => 1);
+            $openchangeMod->writeSambaConfig();
+        }
+    }
+
+    if ($self->global()->modExists('printers')) {
+        my $printersMod = $self->global()->modInstance('printers');
+        if ($printersMod->isEnabled()) {
+            push (@array, 'print' => 1);
+            $printersMod->writeSambaConfig();
+        }
     }
 
     $self->writeConfFile(SAMBACONFFILE, 'samba/smb.conf.mas', \@array,
@@ -3354,15 +3356,6 @@ sub writeSambaConfig
     push (@array, 'prefix' => $prefix);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
-
-    if (EBox::Global->modExists('printers')) {
-        my $printersModule = EBox::Global->modInstance('printers');
-        if ($printersModule->isEnabled()) {
-            push (@array, 'print' => 1);
-            push (@array, 'printers' => $printersModule->printers());
-        }
-    }
-
     push (@array, 'shares' => $self->shares());
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
@@ -4003,6 +3996,52 @@ sub _cleanModulesForReprovision
         $mod->set_state($state);
         $mod->setAsChanged(1);
     }
+}
+
+#
+# EBox::NetworkObserver implementation
+#
+
+# Method: nameserverAdded
+#
+#   Overrided to clear LDAP connection if nameserver is added
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverAdded
+#
+sub nameserverAdded
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
+}
+
+# Method: nameserverDelete
+#
+#   Overrided to clear LDAP connection if nameserver is deleted
+#
+# Overrides:
+#
+#   EBox::NetworkObserver::nameserverDelete
+#
+sub nameserverDelete
+{
+    my ($self, $ns, $iface) = @_;
+
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        $self->clearLdapConn();
+        $self->setAsChanged();
+    }
+
+    return 0;
 }
 
 1;

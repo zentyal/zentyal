@@ -80,6 +80,12 @@ sub _process
 
     $params{keep} = $self->param('keep');
     $params{fetchall} = $self->param('fetchall');
+    if ($params{keep} and $params{fetchall}) {
+        throw EBox::Exceptions::External(
+            __('Keep messages and fetch all mail cannot work together because a implementation limitation')
+           );
+
+    }
 
     my $mail = EBox::Global->modInstance('mail');
     $mail->{fetchmail}->addExternalAccount(%params);

@@ -312,48 +312,6 @@ sub _populateSelectLifeTime
            ];
 }
 
-# Function: acquireEventConfURL
-#
-#      Callback function used to gather the foreign model view URL to
-#      configure the event watcher configuration for this log domain
-#
-# Parameters:
-#
-#      instancedType - <EBox::Types::Abstract> the cell from which the
-#      URL will be obtained
-#
-# Returns:
-#
-#      String - the desired URL
-#
-sub acquireEventConfURL
-{
-    my ($instancedType) = @_;
-
-    my $logDomain = $instancedType->row()->valueByName('domain');
-
-    my $modelManager = EBox::Model::Manager->instance();
-
-    my $logConfModel  = $modelManager->model('/events/LogWatcherConfiguration');
-    my $id  = $logConfModel->findValue(domain => $logDomain);
-    my $loggerConfRow = $logConfModel->row($id);
-    my $filterDirectory = $loggerConfRow->{filters}->{directory};
-
-    my $logFilteringWatcher;
-    try {
-        $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
-    } catch (EBox::Exceptions::DataNotFound $e) {
-        $logFilteringWatcher = undef;
-    }
-
-    if ( $logFilteringWatcher ) {
-        return '/' . $logFilteringWatcher->menuNamespace()
-          . "?directory=$filterDirectory";
-    } else {
-        return '/';
-    }
-}
-
 # Group: Protected methods
 
 # Method:  _table
