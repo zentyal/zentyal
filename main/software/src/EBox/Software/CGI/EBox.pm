@@ -106,7 +106,7 @@ sub _menu
 
     if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
-        return $software->firstTimeMenu(0);
+        return $software->firstTimeMenu(1);
     } else {
         return $self->SUPER::_menu(@_);
     }
