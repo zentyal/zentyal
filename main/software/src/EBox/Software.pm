@@ -1064,13 +1064,13 @@ sub firstTimeMenu
     } else {
         $output .= $self->_dumpMenuItem(__('Package Selection'), 0, $current);
     }
-    $output .= $self->_dumpMenuItem(__('Installation'), 1, $current);
+    $output .= $self->_dumpMenuItem(__('Installation'), 2, $current);
     if ($dr) {
-        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 2, $current);
+        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 3, $current);
     } else {
-        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 2, $current);
+        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
     }
-    $output .= $self->_dumpMenuItem(__('Save Changes'), 3, $current);
+    $output .= $self->_dumpMenuItem(__('Save Changes'), 4, $current);
 
     $output .= "</ul></div>\n";
     $output .= <<END_SCRIPT;

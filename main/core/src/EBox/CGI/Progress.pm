@@ -129,9 +129,9 @@ sub _menu
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and
              ( __('Saving changes') eq $self->{title}) ) {
-            return $software->firstTimeMenu(2);
+            return $software->firstTimeMenu(4);
         } else {
-            return $software->firstTimeMenu(0);
+            return $software->firstTimeMenu(2);
         }
     } else {
         return $self->SUPER::_menu(@_);
