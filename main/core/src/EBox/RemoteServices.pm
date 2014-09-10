@@ -18,10 +18,7 @@ use warnings;
 
 package EBox::RemoteServices;
 
-use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::FirewallObserver
-            EBox::WebAdmin::PortObserver);
+use base qw(EBox::Module::Config);
 
 # Class: EBox::RemoteServices
 #
@@ -280,19 +277,21 @@ sub technicalSupport
     return $level;
 }
 
-
+# FIXME: Missing doc
 sub username
 {
     my ($self) = @_;
     $self->get('username');
 }
 
+# FIXME: Missing doc
 sub password
 {
     my ($self) = @_;
     $self->get('password');
 }
 
+# FIXME: Missing doc
 sub setUsername
 {
     my ($self, $username) = @_;
@@ -303,6 +302,7 @@ sub setUsername
     $self->set('username', $username);
 }
 
+# FIXME: Missing doc
 sub setPassword
 {
     my ($self, $password) = @_;
@@ -313,6 +313,7 @@ sub setPassword
     $self->set('password', $password);
 }
 
+# FIXME: Missing doc
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
@@ -334,30 +335,35 @@ sub refreshSubscriptionInfo
     return $subscriptionInfo;
 }
 
+# FIXME: Missing doc
 sub setSubscriptionInfo
 {
     my ($self, $cred) = @_;
     $self->set('subscription_info', $cred);
 }
 
+# FIXME: Missing doc
 sub subscriptionInfo
 {
     my ($self) = @_;
     $self->get('subscription_info');
 }
 
+# FIXME: Missing doc
 sub setSubscriptionCredentials
 {
     my ($self, $cred) = @_;
     $self->set('subscription_credentials', $cred);
 }
 
+# FIXME: Missing doc
 sub subscriptionCredentials
 {
     my ($self) = @_;
     $self->get('subscription_credentials');
 }
 
+# FIXME: Missing doc
 sub subscribe 
 {
     my ($self, $name, $uuid, $mode) = @_;
@@ -376,6 +382,7 @@ sub subscribe
     return $subscriptionInfo;
 }
 
+# FIXME: Missing doc
 sub unsubscribe
 {
     my ($self) = @_;
@@ -404,6 +411,7 @@ sub _removeSubscriptionData
     $self->unset('subscription_info');
 }
 
+# FIXME: Missing doc
 sub subscriptionsResource
 {
     my ($self) = @_;
@@ -411,12 +419,14 @@ sub subscriptionsResource
     return $subscriptions;
 }
 
+# FIXME: Missing doc
 sub confBackupResource
 {
     my ($self) = @_;
     return EBox::RemoteServices::ConfBackup->new(remoteservices => $self);
 }
 
+# FIXME: Missing doc
 sub authResource
 {
     my ($self) = @_;
@@ -425,6 +435,7 @@ sub authResource
 
 
 
+# FIXME: Missing doc
 sub eBoxSubscribed
 {
     my ($self) = @_;
@@ -458,6 +469,7 @@ sub eBoxCommonName
 
 }
 
+# FIXME: Missing doc
 sub cloudDomain
 {
     my ($self) = @_;
@@ -494,6 +506,7 @@ sub i18nServerEdition
     }
 }
 
+# FIXME: Missing doc
 sub _setConf
 {
     my ($self) = @_;
@@ -550,6 +563,7 @@ sub revokeConfig
 }
 
 
+# FIXME: Missing doc
 sub setupSubscription
 {
     my ($self, $subscriptionInfo) = @_;
