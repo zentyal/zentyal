@@ -127,8 +127,9 @@ sub _menu
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
-        if ( $self->{title} and
-             ( __('Saving changes') eq $self->{title}) ) {
+        my $titleFromParam = $self->param('title');
+        if ( $titleFromParam and
+             ( __('Saving changes') eq $titleFromParam) ) {     
             return $software->firstTimeMenu(4);
         } else {
             return $software->firstTimeMenu(2);

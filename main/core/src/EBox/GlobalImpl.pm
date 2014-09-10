@@ -664,9 +664,6 @@ sub saveAllModules
         }
     }
 
-    # Delete first time installation file (wizard)
-    $self->deleteFirst();
-
     # FIXME - tell the CGI to inform the user that webadmin is restarting
     if ($webadmin) {
         EBox::info("Saving configuration: webadmin");
