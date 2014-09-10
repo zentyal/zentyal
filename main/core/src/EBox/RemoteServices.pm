@@ -149,34 +149,10 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if (defined ($version)) {
-        # Upgrading...
-        if ($self->eBoxSubscribed()) {
-            # Restart the service
-            unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
-                $self->restartService();
-            }
-        }
-    }
-
 # TODO see if this continues to make sense
 #    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 }
 
-
-# Method: isEnabled
-#
-#       Module is always emabled
-#
-# Overrides:
-#
-#       <EBox::Module::Service::isEnabled>
-#
-sub isEnabled
-{
-    my ($self) = @_;
-    return 1;
-}
 
 # Method: wizardPages
 #
@@ -322,7 +298,7 @@ sub refreshSubscriptionInfo
     if (not $subscriptionInfo) {
         $self->unsubscribe();
         return undef;
-    } 
+    }
 
     $self->setSubscriptionInfo($subscriptionInfo);
     return $subscriptionInfo;
@@ -339,7 +315,10 @@ sub setSubscriptionInfo
 sub subscriptionInfo
 {
     my ($self) = @_;
-    $self->get('subscription_info');
+    my $subsInfo = $self->get('subscription_info');
+    my $adMsgs = $self->adMessages();
+    $subsInfo->{messages} = $adMsgs->{text};
+    return $subsInfo;
 }
 
 # FIXME: Missing doc
@@ -357,12 +336,12 @@ sub subscriptionCredentials
 }
 
 # FIXME: Missing doc
-sub subscribe 
+sub subscribe
 {
     my ($self, $name, $uuid, $mode) = @_;
     my $subscriptions = $self->subscriptionsResource();
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
-    
+
     my $state = $self->get_state();
     $state->{revokeAction} = {
         action => 'unsubscribe',
@@ -499,7 +478,14 @@ sub i18nServerEdition
     }
 }
 
-# FIXME: Missing doc
+# Method: _setConf
+#
+#      Do the subscription here.
+#
+# Overrides:
+#
+#      <EBox::Module::Base::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
@@ -607,7 +593,7 @@ sub _checkSubscriptionAlive
     if (not $subscriptionInfo) {
          return 0;
      }
- 
+
     my $start = $subscriptionInfo->{subscription_start};
     my $end  = $subscriptionInfo->{subscription_end};
     if ((not $start) or (not $end)) {

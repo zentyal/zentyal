@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,7 +21,6 @@ use warnings;
 #
 package EBox::RemoteServices::Subscriptions;
 use base 'EBox::RemoteServices::RESTResource';
-
 
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
@@ -50,6 +49,7 @@ sub new
     return $self;
 }
 
+# FIXME: Missing doc
 sub subscribeServer
 {
     my ($self, $name, $uuid, $mode, @forcedCredentials) = @_;
@@ -68,6 +68,7 @@ sub subscribeServer
     return $res->data();
 }
 
+# FIXME: Missing doc
 sub unsubscribeServer
 {
     my ($self, @forcedCredentials) = @_;
@@ -80,9 +81,10 @@ sub unsubscribeServer
         $restClient = $self->_restClient(@forcedCredentials);
     }
 
-    $restClient->POST($resource);    
+    $restClient->POST($resource);
 }
 
+# FIXME: Missing doc
 sub list
 {
     my ($self) = @_;
@@ -90,6 +92,7 @@ sub list
     return $res->data();
 }
 
+# FIXME: Missing doc
 sub subscriptionInfo
 {
     my ($self) = @_;
@@ -98,14 +101,6 @@ sub subscriptionInfo
     my $res = $self->_restClientWithServerCredentials()->GET('/v2/subscriptions/info/');
     use Data::Dumper;
     EBox::debug("XXX res \n". Dumper($res));
-    return $res->data();
-}
-
-# must not be there
-sub auth
-{
-    my ($self) = @_;
-    my $res = $self->_restClientWithUserCredentials()->GET('/v2/auth/');
     return $res->data();
 }
 

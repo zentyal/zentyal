@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -58,9 +58,9 @@ sub _process
 
     my $remoteServices = EBox::Global->getInstance()->modInstance('remoteservices');
     $remoteServices->setUsername($username);
-    $remoteServices->setPassword($password);    
+    $remoteServices->setPassword($password);
 
-    my $subscriptions     = $remoteServices->subscriptionsResource();
+    my $subscriptions = $remoteServices->subscriptionsResource();
 
     try {
         my $auth = $remoteServices->authResource->auth();
@@ -77,7 +77,7 @@ sub _process
     my $subscriptionsList;
     try {
         $subscriptionsList = $subscriptions->list();
-        if ((not $subscriptionsList) or  (@{$subscriptionsList} == 0)) {
+        if ((not $subscriptionsList) or (@{$subscriptionsList} == 0)) {
             $self->{json}->{error} = __('No subscriptions available for your account');
             return;
         }
@@ -85,11 +85,10 @@ sub _process
         $self->{json}->{error} = "$ex";
         return;
     }
-    my $subscriptionsHtml =  EBox::Html::makeHtml('/remoteservices/subscriptionSlotsTbody.mas',
-                                                  serverName => $name,
-                                                  subscriptions => $subscriptionsList,
-                                                 );
-
+    my $subscriptionsHtml = EBox::Html::makeHtml('/remoteservices/subscriptionSlotsTbody.mas',
+                                                 serverName => $name,
+                                                 subscriptions => $subscriptionsList,
+                                                );
 
     $self->{json}->{success} = 1;
     $self->{json}->{subscriptions} = $subscriptionsHtml;

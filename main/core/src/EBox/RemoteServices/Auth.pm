@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,10 +15,8 @@
 use strict;
 use warnings;
 
-
 package EBox::RemoteServices::Auth;
 use base 'EBox::RemoteServices::RESTResource';
-
 
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
@@ -47,6 +45,7 @@ sub new
     return $self;
 }
 
+# FIXME: Missing doc
 sub auth
 {
     my ($self) = @_;

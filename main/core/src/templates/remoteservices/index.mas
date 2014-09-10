@@ -17,10 +17,10 @@ if ($subscriptionInfo) {
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
 <div id='no_subscription_div' class='subscription_page' style='display:none'>
- <h3><% __('Subscribe your server') %></h3>
+ <h3><% __('Register your server') %></h3>
 <%perl>
 my @subscription_form_rows = (
- {  printableName => __('User name'),
+ {  printableName => __('Registration Email Address'),
     name => 'username',
     input => '/input/text.mas',
  },
@@ -55,7 +55,7 @@ my @subscription_form_rows = (
 </div>
 
 <div id='subscription_slots_div' class='subscription_page' style='display:none'>
-   <h3><% __('Choose a subscription slot') %></h3>
+   <h3><% __('Choose a server edition') %></h3>
    <div id='subscription_slots_list_error' class='error' style='display:none'></div>
    <div id='subscription_slots_list_note' class='note' style='display:none'></div>
    <table id='subscription_slots_list' class='dataTable'>
@@ -82,9 +82,10 @@ my @subscription_form_rows = (
 <%perl>
 my @fields = (
       'server_name'        => __('Server name'),
-      'product_label'      => __('Subscription type'),
-      'subscription_begin' => __('Subscription begin'),
-      'subscription_end'   => __('Subscription expiration'),
+      'product_label'      => __('Server edition'),
+      'subscription_begin' => __('Start date'),
+      'subscription_end'   => __('Renovation date'),
+      'messages'           => __('Messages'),
 );
 </%perl>
 %   while (@fields) {
@@ -96,9 +97,9 @@ my @fields = (
 % }
    </form>
     <hr/>
-   <div  id='unsubscription_form_error' class='error' style='display:none'></div>
+   <div id='unsubscription_form_error' class='error' style='display:none'></div>
    <form id='unsubscription_form' action='/RemoteServices/UnsubscribeServer'>
-      <input type='submit' id='unsubscription_form_submit',  value='<%__('Unsubscribe server')%>' />
+      <input type='submit' id='unsubscription_form_submit',  value='<%__('Unregister')%>' />
    </form>
 </div>
 
@@ -109,6 +110,3 @@ $(function() {
     Zentyal.RemoteServices.showFirstPage(<% $subscriptionJS %>);
 });
 </script>
-
-
-

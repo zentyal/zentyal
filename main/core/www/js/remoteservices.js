@@ -91,6 +91,12 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     } else {
         $('#row_info_subscription_end').hide();
     }
+    if (subscription.messages == "") {
+        $('#info_messages').hide();
+    } else {
+        $('#info_messages').text(subscription.messages);
+        $('#info_messages').show();
+    }
 
     $('#subscription_info_div').show();
 };
