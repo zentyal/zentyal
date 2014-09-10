@@ -175,9 +175,8 @@ Main Layout
     margin-bottom: 50px;
     position: absolute;
     top: 60px;
-    left: 10px;
+    left: 0px;
     width: 185px;
-    background-color: #eee;
     z-index: 10;
 }
 #footer {
@@ -728,12 +727,12 @@ TABS options
 #nav {
     margin-bottom: 0;
     line-height: 1em;
-    background-color: #fbfbfb;
 }
 #nav li {
     padding: 0;
     margin: 0;
     border-top: 1px solid #eee;
+    background-color: #fbfbfb
 }
 #nav li a {
     font-weight: normal;
@@ -758,9 +757,11 @@ TABS options
     margin: 0;
     border: 0;
     height: 10px;
-    background-color: #eee;
 }
 #nav hr + li{
+    border-top: 0;
+}
+#nav li:first-child{
     border-top: 0;
 }
 
@@ -884,9 +885,9 @@ TABS options
 
 a[class^="icon"],
 td[class^="icon"] {
-    background-position: 5px center;
+    background-position: 10px center;
     background-repeat: no-repeat;
-    padding: 15px 20px 15px 45px !important;
+    padding: 15px 20px 15px 55px !important;
 }
 .icon-antivirus { background-image: url("/data/images/package-icons/zentyal-antivirus.png");}
 .icon-asterisk { background-image: url("/data/images/package-icons/zentyal-asterisk.png");}
@@ -1249,7 +1250,8 @@ a.minBox, a.maxBox {
     border-radius: 5px ;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2)
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc
 }
 .widgetBoxIn {
     padding:10px;
@@ -1440,7 +1442,7 @@ border-radius: 2px;
  ***********************************************************************************************/
 
 body.first-install {
-    max-width: 1300px;
+    max-width: 1200px;
 }
 #software #packages {
    overflow: hidden;
@@ -1448,7 +1450,7 @@ body.first-install {
 #software #packages h3{
     clear: both;
     float: left;
-    margin: 30px 0 0 0.5%;
+    margin: 20px 0 0 0.5%;
     width: 100%;
     font-weight: 100;
     font-size: 20px;
@@ -1574,16 +1576,112 @@ body.first-install {
 
 /*  Installation steps */
 
-#nav.install-steps li{
-    padding: 15px 10px 15px 30px;
-    background-color: transparent;
-    background-position: 5px center ;
+/**********
+ Installation Wizard
+**********/
+.first-install #header{
+    display:  none;
+}
+.first-install #menu{
+    left: 10px;
+    margin: 0;
+    padding: 0;
+    right: 10px;
+    top: 0;
+    width: auto;
+}
+.first-install #content{
+    left: 10px;
+    width: auto;
+    top: 70px; 
+}
+.wizard img{
+    float:left;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.wizard form{
+    margin-left: 200px;
+    margin-bottom: 40px;
+}
+.iface-wizard {
+    background-color: #f5f5f5;
+    padding: 20px 0px
+}
+.iface-wizard h4 {
+    background-image: url("/data/images/network-interface.png");
+    background-position: 15px 10px;
     background-repeat: no-repeat;
+    display: inline-block;
+    height: 100%;
+    padding: 15px 20px 15px 60px;
+    vertical-align: top;
+    margin:0px;
 }
-#nav.install-steps li:last-child{
-    border-bottom: 1px solid rgb(204, 204, 204);
+.iface-wizard > div {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: top;
+    border-left: 1px solid rgb(221, 221, 221);
+
 }
-#nav.install-steps .step-done{
+.iface-wizard .radio-group{
+    margin:0px;
+}
+.iface-wizard .radio-group label{
+    margin-top: 5px;
+    font-size: 1.2em;
+}
+.final_installation {
+    height:450px;
+    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
+    background-color: #ddd;
+    margin-top:10px;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 50px;
+}
+.final_installation h4 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #666;
+}
+.final_installation h5 {
+    font-size: 20px;
+    color: #666;
+    margin: 15px 0px;
+    width: 40%;
+    font-weight: 100;
+}
+.final_installation .btn {
+    position: absolute;
+    bottom: 50px;
+}
+.first-install #nav.install-steps {
+    overflow: hidden;
+}
+#nav.install-steps li {
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    border-top: 0;
+    border-left: 1px solid #cccccc;
+    box-sizing: border-box;
+    float: left;
+    overflow: hidden;
+    padding: 20px 30px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 25%;
+    background-color: transparent;
+}
+#nav.install-steps li:last-child {
+    border-right: 1px solid #cccccc;
+    border-bottom: 0;
+}
+#nav.install-steps .step-done {
     background-image: url(/data/images/apply-g.gif);
 }
 #nav.install-steps .step-actual{
@@ -1945,6 +2043,7 @@ ul.labels-list li .close{
     padding: 15px;
     position: relative;
     overflow: hidden;
+    border: 1px solid #ccc;
 }
 .item-block h3{
     font-size: 24px;
@@ -2700,74 +2799,7 @@ FOLDable SECtIONS
     font-size: 12px !important;
 }
 
-/**********
- Installation Wizard
-**********/
 
-.wizard img{
-    float:left;
-    float: left;
-    margin-left: 10px;
-    margin-top: 10px;
-}
-.wizard form{
-    margin-left: 200px;
-    margin-bottom: 40px;
-}
-.iface-wizard {
-    background-color: #f5f5f5;
-    padding: 20px 0px
-}
-.iface-wizard h4 {
-    background-image: url("/data/images/network-interface.png");
-    background-position: 15px 10px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 100%;
-    padding: 15px 20px 15px 60px;
-    vertical-align: top;
-    margin:0px;
-}
-.iface-wizard > div {
-    display: inline-block;
-    padding-left: 20px;
-    padding-right: 20px;
-    vertical-align: top;
-    border-left: 1px solid rgb(221, 221, 221);
-
-}
-.iface-wizard .radio-group{
-    margin:0px;
-}
-.iface-wizard .radio-group label{
-    margin-top: 5px;
-    font-size: 1.2em;
-}
-.final_installation {
-    height:450px;
-    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
-    background-color: #ddd;
-    margin-top:10px;
-    overflow: hidden;
-    position: relative;
-    padding: 40px 50px;
-}
-.final_installation h4 {
-    font-size: 50px;
-    font-weight: bold;
-    color: #666;
-}
-.final_installation h5 {
-    font-size: 20px;
-    color: #666;
-    margin: 15px 0px;
-    width: 40%;
-    font-weight: 100;
-}
-.final_installation .btn {
-    position: absolute;
-    bottom: 50px;
-}
 /***********/
 
 .buttons-group{
@@ -3165,7 +3197,6 @@ Responsive corrections
         position: static;
     }
     #menu{
-        left: 0px;
         width:55px;
     }
     #nav > li {
