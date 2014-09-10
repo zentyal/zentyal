@@ -1,4 +1,5 @@
 HEAD
+	+ Increased mail_max_userip_connections to 20 for IMAP protocol
 	+ Fixed values in fetchmail widget status
 	+ Fixed some labels which referenced deprecated user corner
 	+ Do not allow both keep and fetch all options in external accounts
