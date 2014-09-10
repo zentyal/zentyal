@@ -94,7 +94,7 @@ sub _menu
 
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
-        return $software->firstTimeMenu(3);
+        return $software->firstTimeMenu(2);
     } else {
         return $self->SUPER::_menu(@_);
     }

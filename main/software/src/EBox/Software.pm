@@ -1046,7 +1046,6 @@ sub _installCronFile
 # Params:
 #   current - Current page index which means
 #       0 - Package Selection
-#       1 - Confirmation
 #       2 - Installation
 #       3 - Initial Configuration
 #
@@ -1065,15 +1064,13 @@ sub firstTimeMenu
     } else {
         $output .= $self->_dumpMenuItem(__('Package Selection'), 0, $current);
     }
-    $output .= $self->_dumpMenuItem(__('Confirmation'), 1, $current);
-    $output .= $self->_dumpMenuItem(__('Installation'), 2, $current);
+    $output .= $self->_dumpMenuItem(__('Installation'), 1, $current);
     if ($dr) {
-        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 2, $current);
     } else {
-        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 2, $current);
     }
-    $output .= $self->_dumpMenuItem(__('Save Changes'), 4, $current);
-    $output .= $self->_dumpMenuItem(__('Finish'), 5, $current);
+    $output .= $self->_dumpMenuItem(__('Save Changes'), 3, $current);
 
     $output .= "</ul></div>\n";
     $output .= <<END_SCRIPT;
