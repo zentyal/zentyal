@@ -75,7 +75,8 @@ sub add
         $data
        );
 
-    $self->_restClientWithServerCredentials()->POST($url, multipart => \@parts);
+    my $res = $self->_restClientWithServerCredentials()->POST($url, multipart => \@parts);
+    return $res->data();
 }
 
 sub get
@@ -83,7 +84,7 @@ sub get
     my ($self, $id) = @_;
     my $url = "/v2/confbackup/get/$id/";
     my $res = $self->_restClientWithServerCredentials()->GET($url);
-    return $res->data();
+    return $res->rawContent();
 }
 
 sub delete

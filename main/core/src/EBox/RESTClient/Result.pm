@@ -61,6 +61,12 @@ sub as_string
     return $value;
 }
 
+sub rawContent
+{
+    my ($self) = @_;
+    return $self->{result}->content();
+}
+
 # Method: data
 #
 #   Return the result as array or hash ref (it expects a JSON response)
