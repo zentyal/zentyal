@@ -313,6 +313,7 @@ DASHBOARD
     background-color: #ddd;
     border: 1px solid #cccccc;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    margin-bottom: 15px;
 }
 #module_list {
     overflow: hidden;
@@ -665,6 +666,7 @@ TABS options
     box-shadow: none;
     margin-left: -15px;
     margin-right: -15px;
+    border: none;
 }
 .insideTab h3,
 .insideTab .item-block h3  {
@@ -773,6 +775,7 @@ TABS options
 }
 #nav .submenu li {
     border-top: 1px dashed #ccc;
+    background-color: transparent;
 }
 #nav .submenu li a {
     display: block;
@@ -1450,15 +1453,16 @@ body.first-install {
 #software #packages h3{
     clear: both;
     float: left;
-    margin: 20px 0 0 0.5%;
+    margin: 0 0 0 0.5%;
     width: 100%;
     font-weight: 100;
     font-size: 20px;
 }
 #software #packages ul{
-    margin: 0px;
+    margin: 0 0 15px;
     padding: 0px;
     list-style: none;
+    overflow: hidden;
 }
 #software .package {
     overflow: hidden;
@@ -3229,12 +3233,13 @@ Responsive corrections
     #content{
         left: 65px;
     }
-    .first-install #menu {
-        display: none;
-    }
     .first-install #content {
-        left: 20px;
+        left: 10px; 
     }
+    #nav.install-steps li{
+        background-position: 10px center;
+    }
+
 }
 @media  (min-width: 740px) {
     #menu{
