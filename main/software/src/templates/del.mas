@@ -68,6 +68,7 @@ if ($popup) {
 </style>
 % if (not $popup) {
 <h1><% __('Confirm packages to install') %></h1>
+<div class="item-block">
 % }
 <div class="note">
 % if ($action eq 'install') {
@@ -86,13 +87,19 @@ if ($popup) {
     </div>
 % }
 </div>
-
+% if (not $popup) {
+</div>
+% }
 <form name='formPkg' id='formPkg' action='InstallPkgs' method='POST' style='text-align:right;margin-top:10px' >
 %   foreach my $pkg (@packages) {
     <input type='hidden' name='pkg-<% $pkg %>' value='yes'/>
 %   }
     <input type='hidden' name='go' value='yes'/>
     <input type='hidden' name='<% $action %>' value='1' />
-    <input class='inputButton' type='button' name='cancel' <% $cancelOnClick %> value='<% __('Cancel') %>' />
-    <input class='inputButton' <% $okOnClick %> type='button' value='<% __('Ok') %>' />
+    <input class='btn' type='button' name='cancel' <% $cancelOnClick %> value='<% __('Cancel') %>' />
+    <input class='inputButton
+% if (not $popup) {
+btn btn-green
+% }
+    ' <% $okOnClick %> type='button' value='<% __('Continue') %>' />
 </form>

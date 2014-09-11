@@ -31,7 +31,7 @@ use TryCatch::Lite;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => '',
+    my $self = $class->SUPER::new('title' => __('Installation'),
                                   'template' => 'software/del.mas',
                                   @_);
     bless($self, $class);
@@ -76,6 +76,13 @@ sub _process
         $self->showConfirmationPage($action, $packages_r);
     }
 }
+
+# overriden to not print title in the page. We dont want it neither on the popup
+# or a regular page, but we need the title parameter for the browser tab
+sub _title
+{
+}
+
 
 sub _print
 {
