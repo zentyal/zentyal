@@ -1,4 +1,4 @@
-HEAD
+3.5.3
 	+ Fix printers.conf file permissions (600 -> 644)
 3.5.2
 	+ Fix missing argument exception adding user entries to printer ACL
