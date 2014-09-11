@@ -28,19 +28,6 @@ use EBox::Global;
 
 # Group: Public class methods
 
-# Method: DNSServer
-#
-#      Get the standard DNS server for eBox remote services
-#
-# Returns:
-#
-#      String - the IP address for the public DNS server
-#
-sub DNSServer
-{
-    return EBox::Config::configkey('ebox_services_nameserver');
-}
-
 # Method: APIEndPoint
 #
 #      Get the API end point
@@ -57,67 +44,6 @@ sub APIEndPoint
     }
 
     return $rsAPIKey;
-}
-
-# Method: JobsDir
-#
-#      Get where the job management is done
-#
-# Returns:
-#
-#      String - the job management dir path
-#
-sub JobsDir
-{
-
-    return EBox::Config::conf() . 'remoteservices/jobs/';
-
-}
-
-# Method: IncomingJobDir
-#
-#      Get where the job instances are set to be run
-#
-# Returns:
-#
-#      String - the incoming job directory path
-#
-sub IncomingJobDir
-{
-
-    return JobsDir() . 'incoming/';
-
-}
-
-# Method: OutcomingJobDir
-#
-#      Get where the job instances leave its results
-#
-# Returns:
-#
-#      String - the outcoming job directory path
-#
-sub OutcomingJobDir
-{
-
-    return JobsDir() . 'outcoming/';
-
-}
-
-# Method: CronJobPrefix
-#
-#      Return the cron job prefix directory to difference from the
-#      on-demand job instances
-#
-# Returns:
-#
-#      String - the cron job prefix
-#
-sub CronJobPrefix
-{
-
-    return 'cron-';
-
 }
 
 # Method: aptQASourcePath
@@ -157,19 +83,6 @@ sub aptQAPreferencesPath
 sub aptQAConfPath
 {
     return '/etc/apt/apt.conf.d/99zentyal';
-}
-
-# Method: JohnHomeDirPath
-#
-#      Return the path to the John the Ripper home directory
-#
-# Returns:
-#
-#      String - the path
-#
-sub JohnHomeDirPath
-{
-    return EBox::Config::home() . '.john/';
 }
 
 1;

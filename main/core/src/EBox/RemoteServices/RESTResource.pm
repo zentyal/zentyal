@@ -25,10 +25,9 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::RESTClient;
+use EBox::RemoteServices::Configuration;
 
 use TryCatch::Lite;
-
-use constant SERVER => 'api.cloud.zentyal.com';
 
 # Group: Public methods
 
@@ -84,11 +83,11 @@ sub _restClient
         throw EBox::Exceptions::Internal('username');
     }
     if (not $password) {
-        throw EBox::Exceptions::Internal('password');        
+        throw EBox::Exceptions::Internal('password');
     }
 
     my $restClient = new EBox::RESTClient(
-        server      => SERVER,
+        server      => EBox::RemoteServices::Configuration::APIEndPoint(),
         credentials => { username => $username,
                          password => $password,
                         }
