@@ -595,6 +595,33 @@ sub addOnDetails
     return $ret;
 }
 
+# Method: subscribedUUID
+#
+#        Return the server UUID if this is subscribed to Zentyal
+#        Remote
+#
+# Returns:
+#
+#        String - the UUID
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::Internal> - thrown if the host is not
+#        subscribed to Zentyal Remote
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    my $si = $self->subscriptionInfo();
+    unless ($si) {
+        throw EBox::Exceptions::Internal('subscribedUUID cannot be called if there is no subscription info');
+    }
+
+    return $si->{server}->{uuid};
+}
+
+
 # Method: _setConf
 #
 #      Do the subscription here.
@@ -1358,37 +1385,6 @@ sub extraSudoerUsers
     }
 
     return @users;
-}
-
-
-
-# Method: subscribedUUID
-#
-#        Return the server UUID if this is subscribed to Zentyal Cloud
-#
-# Returns:
-#
-#        String - the UUID
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the host is not
-#        subscribed to Zentyal Cloud
-#
-# XXX seemos 9only used by capabilities.pm
-sub subscribedUUID
-{
-    my ($self) = @_;
-#  "server_uuid"
-    my $cred = $self->subscriptionCredentials();
-    if ((not $cred or (not exists $cred->{server_uuid})) {
-        throw EBox::Exceptions::External(
-            __('The UUID is only available if the host is subscribed to Zentyal Remote')
-           );
-    }
-
-
-    return $self->{server_uuid};;
 }
 
 1;
