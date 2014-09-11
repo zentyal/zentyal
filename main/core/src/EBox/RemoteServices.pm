@@ -29,38 +29,39 @@ use base qw(EBox::Module::Config);
 # no warnings 'experimental::smartmatch';
 # use feature qw(switch);
 
+use EBox::Config;
+use EBox::Dashboard::ModuleStatus;
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Menu::Folder;
+use EBox::Menu::Item;
+use EBox::RemoteServices::Subscriptions;
+use EBox::RemoteServices::ConfBackup;
+use EBox::RemoteServices::Auth;
+use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
 use EBox::WebAdmin::PSGI;
-use TryCatch::Lite;
+
+
+use AptPkg::Cache;
 use File::Slurp;
 use JSON::XS;
 use Net::DNS;
 use POSIX;
 use YAML::XS;
+use TryCatch::Lite;
 
-use EBox::Gettext;
-use EBox::Global;
-
-use EBox::Exceptions::External;
-use EBox::Exceptions::Internal;
-
-use EBox::RemoteServices::Subscriptions;
-use EBox::RemoteServices::ConfBackup;
-use EBox::RemoteServices::Auth;
-use EBox::RemoteServices::QAUpdates;
-
-use EBox::Menu::Folder;
-use EBox::Menu::Item;
-
+use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
+use constant PROF_PKG                => 'zentyal-cloud-prof';
+use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
-use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
-
-use EBox::Dashboard::ModuleStatus;
-use EBox::Dashboard::Section;
-use EBox::Dashboard::Value;
-use EBox::Config;
+use constant SYNC_PKG                => 'zfilesync';
 
 
 # use Data::UUID;
@@ -480,6 +481,36 @@ sub i18nServerEdition
     }
 }
 
+# Method: subscriptionCodename
+#
+#      Get the subscription codename
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      String - the subscription codename
+#
+#         '' - no subscribed or impossible to know
+#         basic
+#         professional
+#         business
+#         enterprise
+#         trial
+#
+sub subscriptionCodename
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    # TBD
+    return 'professional';
+}
+
 # Method: _setConf
 #
 #      Do the subscription here.
@@ -621,30 +652,18 @@ sub _checkSubscriptionAlive
 sub _manageCloudProfPackage
 {
     my ($self, $subscriptionInfo) = @_;
-    my $pkgName = 'zentyal-cloud-prof';
+
+    my $installed = $self->_pkgInstalled(PROF_PKG);
     if ((not $subscriptionInfo) or ($subscriptionInfo->{level} < 1)) {
-        system "dpkg -l $pkgName";
-        if ($? == 0 ) {
-            try {
-                EBox::Sudo::root("dpkg -r $pkgName");
-            } catch ($ex) {
-                EBox::error("Error removing package $pkgName: $ex");
-            }
+        unless ($installed) {
+            $self->_downgrade();
         }
         return;
     }
 
-    try {
-        EBox::Sudo::root("apt-get update");
-    } catch($ex) {
-        EBox::error("Ignoring list update error: $ex");
-    }
+    return if ($installed);
 
-    try {
-        EBox::Sudo::root("apt-get install -y --force-yes $pkgName");
-    } catch($ex){
-        EBox::error("Error installing package $pkgName: $ex");
-    }
+    $self->_installProfPkgs();
 }
 
 # TODO: reimplemnte
@@ -880,6 +899,19 @@ sub maxCloudUsers
     return 0;
 }
 
+# Method: filesSyncAvailable
+#
+#   Returns 1 if file synchronisation is available
+#
+sub filesSyncAvailable
+{
+    my ($self, $force) = @_;
+
+    # TBD
+    return 1;
+
+    return $self->addOnAvailable('cloudfiles', $force);
+}
 
 # Method: menu
 #
@@ -1042,8 +1074,84 @@ sub _ccConnectionWidget
                                              $DRValue));
 }
 
+# Check if a package is already installed
+sub _pkgInstalled
+{
+    my ($self, $pkg) = @_;
 
+    my $installed = 0;
+    my $cache = new AptPkg::Cache();
+    if ( $cache->exists($pkg) ) {
+        my $pkg = $cache->get($pkg);
+        $installed = ( $pkg->{SelectedState} == AptPkg::State::Install
+                       and $pkg->{InstState} == AptPkg::State::Ok
+                       and $pkg->{CurrentState} == AptPkg::State::Installed );
+    }
+    return $installed;
+}
 
+# Install professional packages
+sub _installProfPkgs
+{
+    my ($self) = @_;
+
+    my @packages = (PROF_PKG);
+    my $locale = EBox::locale();
+    my ($lang) = $locale =~ m/^(.*?)_/;
+    if ( defined($lang) and ($lang eq 'es') ) {
+        push(@packages, "language-pack-zentyal-prof-$lang");
+    }
+
+    my $gl = $self->global();
+    try {
+        if ( $gl->modExists('software') ) {
+            my $software = $gl->modInstance('software');
+            $software->updatePkgList();
+            for my $pkg (@packages) {
+                my $progress = $software->installPkgs($pkg);
+                while (not $progress->finished() ) {
+                    sleep(9);
+                    EBox::info('Message: ' . $progress->message());
+                    EBox::info("Installing $pkg ( " . $progress->percentage() . '%)');
+                }
+            }
+        } else {
+            EBox::Sudo::root('apt-get update -q');
+            my $cmd = 'apt-get install -q --yes --force-yes --no-install-recommends '
+              . '-o DPkg::Options::="--force-confold"';
+            my $param = "DEBIAN_FRONTEND=noninteractive $cmd " . join(' ', @packages);
+            EBox::info('Installing ' . join(' ', @packages));
+            EBox::Sudo::root($param);
+        }
+    } catch ($e) {
+        EBox::error("Cannot install packages: $e");
+    }
+}
+
+# Downgrade
+sub _downgrade
+{
+    my ($self) = @_;
+
+    # Remove packages if basic subscription or no subscription at all
+
+    # Remove pkgs using at to avoid problems when doing so from Zentyal UI
+    my @pkgs = (PROF_PKG, SYNC_PKG);
+    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
+
+    return unless ( @pkgs > 0 );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    $fh->unlink_on_destroy(0);
+    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
+    close($fh);
+
+    try {
+        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
+    } catch (EBox::Exceptions::Command $e) {
+        EBox::debug($e->stringify());
+    }
+}
 
 1;
 
@@ -1078,17 +1186,6 @@ sub controlPanelURL
     }
 
     return "https://${url}/";
-}
-
-# Method: filesSyncAvailable
-#
-#   Returns 1 if file synchronisation is available
-#
-sub filesSyncAvailable
-{
-    my ($self, $force) = @_;
-
-    return $self->addOnAvailable('cloudfiles', $force);
 }
 
 # Method: securityUpdatesAddOn
@@ -1427,10 +1524,5 @@ sub subscribedUUID
 
     return $self->{server_uuid};;
 }
-
-
-
-
-
 
 1;

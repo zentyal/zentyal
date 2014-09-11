@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -65,6 +65,7 @@ sub _restClientWithUserCredentials
     return $self->_restClient($username, $password);
 }
 
+# FIXME: Missing doc
 sub _restClientWithServerCredentials
 {
     my ($self) = @_;
@@ -76,6 +77,7 @@ sub _restClientWithServerCredentials
     return $self->_restClient($credentials->{server_uuid}, $credentials->{password});
 }
 
+# FIXME: Missing doc
 sub _restClient
 {
     my ($self, $username, $password) = @_;

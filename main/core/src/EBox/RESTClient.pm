@@ -24,7 +24,7 @@ package EBox::RESTClient;
 #   Its main feature set is having replay for the failed operations.
 #
 
-#no warnings 'experimental::smartmatch';
+no warnings 'experimental::smartmatch';
 use v5.10;
 
 use EBox;
