@@ -545,6 +545,56 @@ sub subscriptionCodename
     return 'professional';
 }
 
+# Method: addOnAvailable
+#
+#      Return 1 if addon is available, undef if not
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+#
+sub addOnAvailable
+{
+    my ($self, $addOn) = @_;
+
+    my $subsInfo = $self->subscriptionInfo();
+    my $ret = 0;
+
+    if ($subsInfo) {
+        $ret = (exists $subsInfo->{features}->{$addOn});
+    }
+
+    return $ret;
+}
+
+# Method: addOnDetails
+#
+#      Get the add-on details for a given add-on
+#
+# Parameters:
+#
+#      addOn - String the add-on name to get the details from
+#
+# Returns:
+#
+#      Hash ref - indicating the add-on details
+#                 Empty hash if no add-on is there for this server
+#
+sub addOnDetails
+{
+    my ($self, $addOn, $force) = @_;
+
+    my $subsInfo = $self->subscriptionInfo();
+    my $ret = {};
+
+    if ($subsInfo and exists $subsInfo->{features}->{$addOn}) {
+        $ret = $subsInfo->{features}->{$addOn};
+    }
+
+    return $ret;
+}
+
 # Method: _setConf
 #
 #      Do the subscription here.
@@ -794,38 +844,8 @@ sub checkAdMessages
 #TTT
 sub securityUpdatesAddOn
 {
+    # TODO: Remove calls to this method from other modules
     return 0;
-}
-
-# Method: addOnAvailable
-#
-#      Return 1 if addon is available, undef if not
-#
-# Parameters:
-#
-#      addOn - String the add-on name to get the details from
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-sub addOnAvailable
-{
-    my ($self, $addOn, $force) = @_;
-    return 0;
-    # TTT
-    $force = 0 unless defined($force);
-
-    my $ret = undef;
-    try {
-        my $subsDetails = $self->_getSubscriptionDetails($force);
-        if ( not exists $subsDetails->{cap} ) {
-            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
-        }
-        $ret = (exists $subsDetails->{cap}->{$addOn});
-    } catch {
-        $ret = undef;
-    }
-    return $ret;
 }
 
 # Method: usersSyncAvailable
@@ -856,38 +876,6 @@ sub _setQAUpdates
 
 }
 
-# Method: renovationDate
-#
-#      Get the date when the subscription must be renewed
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      An integer with the following possible values:
-#
-#         -1 : Unknown
-#          0 : Unlimited
-#         >0 : Seconds since epoch when the subscription must be renewed
-#
-sub renovationDate
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
-    } catch {
-        $ret = -1;
-    }
-    return $ret;
-}
-
 # Method: maxUsers
 #
 #   Return the max number of users the server can hold,
@@ -901,13 +889,12 @@ sub renovationDate
 sub maxUsers
 {
     my ($self, $force) = @_;
-    # TTT where get users?
-    return 0;
+
     # unlimited
     my $max_users = 0;
 
-    if ($self->addOnAvailable('serverusers', $force)) {
-        $max_users = $self->addOnDetails('serverusers', $force)->{max};
+    if ($self->addOnAvailable('serverusers')) {
+        $max_users = $self->addOnDetails('serverusers')->{max};
     }
 
     return $max_users;
@@ -940,9 +927,6 @@ sub maxCloudUsers
 sub filesSyncAvailable
 {
     my ($self, $force) = @_;
-
-    # TBD
-    return 1;
 
     return $self->addOnAvailable('cloudfiles', $force);
 }
@@ -1022,7 +1006,7 @@ sub widgets
 
     return {
         'ccConnection' => {
-            'title'   => __('Your Zentyal Server Account'),
+            'title'   => __('Server Information'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -1224,132 +1208,6 @@ sub securityUpdatesAddOn
     return $ret;
 }
 
-
-
-
-# Method: addOnDetails
-#
-#      Get the add-on details for a given add-on
-#
-# Parameters:
-#
-#      addOn - String the add-on name to get the details from
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Hash ref - indicating the add-on details
-#                 Empty hash if no add-on is there for this server
-#
-sub addOnDetails
-{
-    my ($self, $addOn, $force) = @_;
-
-    if ($force) {
-    }
-    $force = 0 unless defined($force);
-
-    my $ret = {};
-    try {
-        my $subsDetails = $self->_getSubscriptionDetails($force);
-        if ( not exists $subsDetails->{cap} ) {
-            $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
-        }
-        if (exists $subsDetails->{cap}->{$addOn}) {
-            my $detail = $self->_getCapabilityDetail($addOn, $force);
-            $ret = $detail;
-        }
-    } catch {
-        $ret = {};
-    }
-    return $ret;
-}
-
-# Method: backupCredentials
-#
-#     This method is *DEPRECATED*
-#
-#     Get the backup credentials if the server is connected to Zentyal
-#     Cloud. If not connected, then the method requires three arguments
-#     to get the information from the public Web Service
-#
-#     There is a cache to store the value that it may be overriden by
-#     setting the force parameter
-#
-# Parameters:
-#
-#       force - Boolean indicating if we have to search for the
-#               credentials to the Zentyal Cloud or not
-#
-#       username - String the customer's name or email address
-#
-#       password - String the customer's password
-#
-#       commonName - String the Zentyal server name
-#
-#       - Named parameters
-#
-# Returns:
-#
-#     hash ref - containing the following key-value pairs
-#
-#           username - String the user name
-#           password - String the password for that user in that server
-#           server   - String the backup server host name
-#           quota    - Int the allowed quota
-#
-sub backupCredentials
-{
-    my ($self, %args) = @_;
-
-    # Disable DR for now
-    throw EBox::Exceptions::DeprecatedMethod();
-}
-
-# Method: setSecurityUpdatesLastTime
-#
-#      Set the security updates has been applied
-#
-# Parameters:
-#
-#      time - Int seconds since epoch
-#             *(Optional)* Default value: time()
-#
-sub setSecurityUpdatesLastTime
-{
-    my ($self, $time) = @_;
-
-    $time = time() unless (defined($time));
-
-    my $state = $self->get_state();
-    $state->{security_updates}->{last_update} = $time;
-    $self->set_state($state);
-}
-
-# Method: latestSecurityUpdates
-#
-#      Get the last time when the security updates were applied
-#
-# Returns:
-#
-#      String - the date in RFC 2822 format
-#
-#      'unknown' - if the date is not available
-#
-sub latestSecurityUpdates
-{
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    if (exists $state->{security_updates}->{last_update}) {
-        my $curr = $state->{security_updates}->{last_update};
-        return POSIX::strftime("%c", localtime($curr));
-    } else {
-        return 'unknown';
-    }
-}
 
 # Method: latestRemoteConfBackup
 #
