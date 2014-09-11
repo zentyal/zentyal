@@ -82,6 +82,7 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     $('.subscription_page').hide();
 
     $('#subscription_info_title').text(subscription.label);
+    $('#info_username').text(subscription.username);
     $('#info_server_name').text(subscription.server.name);
     $('#info_product_label').text(subscription.product_label);
     $('#info_subscription_begin').text(subscription.subscription_start);

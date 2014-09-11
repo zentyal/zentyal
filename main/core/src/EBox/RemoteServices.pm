@@ -354,7 +354,8 @@ sub setSubscriptionInfo
 #                         'description' => 'Even client',
 #                         'uuid' => 'adc203a219034802bbbd91b54314519c'
 #                       },
-#          'remote_domain' => 'cloud.zentyal.com'
+#          'remote_domain' => 'cloud.zentyal.com',
+#          'username' => 'foo@bar.org'
 #        };
 #
 sub subscriptionInfo
@@ -364,7 +365,9 @@ sub subscriptionInfo
     if ($subsInfo) {
         my $adMsgs = $self->adMessages();
         $subsInfo->{messages} = $adMsgs->{text};
+        $subsInfo->{username} = $self->username();
     }
+
     return $subsInfo;
 }
 
@@ -415,6 +418,8 @@ sub subscribe
     $self->global()->addModuleToPostSave('webadmin');
 
     $self->setSubscriptionCredentials($subscriptionCred);
+    # Delete temporary stored password
+    $self->unset('password');
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     return $subscriptionInfo;
 }

@@ -82,6 +82,7 @@ my @subscription_form_rows = (
   <form id="subscription_info_form" class="formDiv changeRow">
 <%perl>
 my @fields = (
+      'username'           => __('Email Address'),
       'server_name'        => __('Server name'),
       'product_label'      => __('Server edition'),
       'subscription_begin' => __('Start date'),
