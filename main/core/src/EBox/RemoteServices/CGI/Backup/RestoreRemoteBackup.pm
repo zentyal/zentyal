@@ -31,8 +31,6 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( @_);
-    $self->{errorchain} = "RemoteServices/Backup/Index";
-    $self->{redirect} = "RemoteServices/Backup/Index";
     bless($self, $class);
     return $self;
 }
@@ -96,11 +94,7 @@ sub showRestoreProgress
 sub _print
 {
     my ($self) = @_;
-    if (not $self->param('popup')) {
-        $self->SUPER::_print();
-    } else {
-        $self->_printPopup();
-    }
+    $self->_printPopup();
 }
 
 1;
