@@ -312,7 +312,46 @@ sub setSubscriptionInfo
     $self->set('subscription_info', $cred);
 }
 
-# FIXME: Missing doc
+# Method: subscriptionInfo
+#
+#     Return the stored subscription information.
+#
+#     It is updated every 24h.
+#
+# Returns:
+#
+#     Hash ref - with all information. I hope the example clarifies it.
+#
+# Example:
+#
+#     {
+#          'subscription_end' => '2023-03-02 23:23:21',
+#          'subscription_start' => '2014-08-07 16:12:00',
+#          'is_server' => bless( do{\(my $o = 1)}, 'JSON::XS::Boolean' ),
+#          'label' => 'Zentyal Professional Edition (host: the-horrors)',
+#          'server' => {
+#                        'uuid' => 'e7e7cd08a1784f5ea601857b671e54b6',
+#                        'name' => 'the-horrors'
+#                      },
+#          'features' => {
+#                          'technical_support' => {
+#                                                   'sla' => 'Two business days',
+#                                                   'level' => 0,
+#                                                   'label' => 'Standard Technical Support 2 days'
+#                                                 }
+#                        },
+#          'subscription_uuid' => 'b996f64e91974abdb3ab825c46dd78d7',
+#          'messages' => '',
+#          'product_code' => 'ZS-PROF-Y1',
+#          'product_label' => 'Small Business Edition server',
+#          'company' => {
+#                         'name' => 'par',
+#                         'description' => 'Even client',
+#                         'uuid' => 'adc203a219034802bbbd91b54314519c'
+#                       },
+#          'remote_domain' => 'cloud.zentyal.com'
+#        };
+#
 sub subscriptionInfo
 {
     my ($self) = @_;
@@ -459,23 +498,18 @@ sub cloudDomain
 #
 #     Get the server edition printable name
 #
-# Parameters:
-#
-#     level - Int the level for taking the edition
-#             *(Optional)* Default value: $self->subscriptionLevel()
-#
 # Returns:
 #
-#     String - the printable edition
+#     String - the printable edition. Unknown if there is no
+#     subscription information
 #
 sub i18nServerEdition
 {
-    my ($self, $level) = @_;
+    my ($self) = @_;
 
-    $level = $self->subscriptionLevel() unless (defined($level));
-
-    if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
+    my $si = $self->subscriptionInfo();
+    if ($si) {
+        return $si->{product_label};
     } else {
         return __('Unknown');
     }
@@ -1005,25 +1039,17 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', '', 'info', '', __('Disabled'));
+    my ($serverName, $edition, $DRValue) =
+      ( __('None'), '', __('Disabled'));
 
-    my $ASUValue = __x('Disabled - {oh}Enable{ch}',
-                       oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
-                       ch => '</a>');
     my $supportValue = __x('Disabled - {oh}Enable{ch}',
                            oh => '<a href="/RemoteServices/Composite/Technical">',
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
         $serverName = $self->eBoxCommonName();
-        my $gl  = EBox::Global->getInstance(1);
-        my $net = $gl->modInstance('network');
-        if ( $net->can('DDNSUsingCloud') and $net->DDNSUsingCloud() ) {
-            $fqdn = $self->dynamicHostname();
-        }
 
-        $subsLevelValue = $self->i18nServerEdition();
+        $edition = $self->i18nServerEdition();
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
@@ -1032,14 +1058,6 @@ sub _ccConnectionWidget
                             '2'  => __('Standard 4 hours'),
                             '3'  => __('Premium'));
         $supportValue = $i18nSupport{$self->technicalSupport()};
-
-        if ( $self->securityUpdatesAddOn() ) {
-            $ASUValue = __x('Running');
-            my $date = $self->latestSecurityUpdates();
-            if ( $date ne 'unknown' ) {
-                $ASUValue .= ' ' . __x('- Last update: {date}', date => $date);
-            }
-        }
 
         $DRValue = __x('Configuration backup enabled');
         my $date;
@@ -1052,24 +1070,14 @@ sub _ccConnectionWidget
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
-    } else {
-        $subsLevelValue = __sx('None - {oh}Register for Free!{ch}',
-                               oh => '<a href="/RemoteServices/Composite/General">',
-                               ch => '</a>');
     }
 
     $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
 
-    if ( $fqdn ) {
-        $section->add(new EBox::Dashboard::Value(__('External server name'),
-                                                 $fqdn));
-    }
     $section->add(new EBox::Dashboard::Value(__('Server edition'),
-                                             $subsLevelValue));
+                                             $edition));
     $section->add(new EBox::Dashboard::Value(__('Technical support'),
                                              $supportValue));
-    $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
-                                             $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
 }
