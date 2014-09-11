@@ -25,20 +25,22 @@
     "title": "Compatibilidad nativa con Microsoft Active Directory®",
     "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server®!" ],
     "items": [
-              "Migra de forma transparente y apaga tus Servidores Windows®",
-              "Soporte a GPO y OU en los m&oacute;dulos m&aacute;s importantes",
-              "Migra a trav&eacute;s de una herramienta f&aacute;cil de usar"
+              "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
+              "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
+              "Compartici&oacute;n de ficheros en entornos Windows® (CIFS)",
+              "Gestiona y/o importa Objetos de Directiva de Grupo (GPOs)"
              ],
     "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
   },
 
   {
-    "title": "Compatibilidad nativa con Microsoft Exchange Server",
+    "title": "Compatibilidad nativa con Microsoft® Exchange Server",
     "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Microsoft Exchange Server!" ],
     "items": [
-              "Tus usuarios de Microsoft Outlook® continuan usando su cliente de correo",
-              "No hace falta instalar un plug-in en el cliente de correo",
-              "&iexcl;Una alternativa &uacute;nica!"
+              "Soporte para Microsoft Outlook® 2003, 2007, 2010, 2013",
+              "&iexcl;No es necesario instalar un plug-in en el cliente de correo!",
+              "Configuraci&oacute;n de Zentyal como principal y/o adicional Servidor Microsoft® Exchange",
+              "Soporte para migraci&oacute;n de buzones de Microsoft Outlook® (Importaci&oacute;n de archivos PST)"
              ],
     "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
   },
@@ -62,10 +64,10 @@
               "Cubre todos los aspectos m&aacute;s relevantes",
               "Buenas pr&aacute;cticas para mantenimiento efectivo y seguro",
               "Gran n&uacute;mero de ejercicios pr&aacute;cticos",
-              "Disponible en ingl&eacute;s y en espa&ntilde;ol",
+              "Disponible en ingl&eacute;s y en espa&ntilde;ol, impreso y como eBook",
               "&iexcl;Se donan todos los beneficios!"
              ],
-    "endText": "&iexcl;Descarga un cap&iacute;tulo de ejemplo en zentyal.com/book !"
+    "endText": "&iexcl;Descarga un cap&iacute;tulo de ejemplo en zentyal.com/book"
   },
 
   {

@@ -23,11 +23,12 @@
 
   {
     "title": "Native compatibility with Microsoft Active Directory®",
-    "paragraphs": [ "Transparent integration in Windows Server® environments" ],
+    "paragraphs": [ "Transparent integration in Windows Server® environments (LDAP, DNS, Kerberos & GPOs sync)" ],
     "items": [
-              "Migrate transparently and turn off your Windows Server®",
-              "GPO and OU support for the most important modules",
-              "Whole migration through an easy-to-use tool"
+              "Join your Windows® clients to the domain and login with domain users",
+              "Single Sign-On (SSO) authentication across all domain",
+              "File sharing in Windows® environments (CIFS)",
+              "Manage and/or import Group Policy Objects (GPOs)"
              ],
     "endText": "Learn more at doc.zentyal.org!"
   },
@@ -36,9 +37,10 @@
     "title": "Native compatibility with Microsoft® Exchange Server",
     "paragraphs": [ "Transparent integration in Microsoft® Exchange environments" ],
     "items": [
-              "Microsoft Outlook® users continue using their email client",
-              "No need to install plug-in on the mail client",
-              "Unique alternative!"
+              "Support for Microsoft Outlook® 2003, 2007, 2010, 2013",
+              "No need to install plug-in on the mail client!",
+              "Provisioning of Zentyal as first and/or additional Microsoft® Exchange Server",
+              "Support for Microsoft Outlook® mailbox migration (PST-file import)"
              ],
     "endText": "Learn more at doc.zentyal.org!"
   },
@@ -65,7 +67,7 @@
               "Available in English and Spanish, printed and eBook", 
               "All benefits donated!"
             ],
-    "endText": "Download a sample chapter at zentyal.com/book !"
+    "endText": "Download a sample chapter at zentyal.com/book"
   },
 
   {
