@@ -7,6 +7,9 @@
 use EBox::Gettext;
 use URI;
 </%init>
+<script type="text/javascript" src="/data/js/dialog.js"></script>
+<script type="text/javascript" src="/data/js/remoteservices.js"></script>
+
 <div class="insideTab">
 % if ($subscribed) {
   <& .backupSection, modulesChanged => $modulesChanged,
@@ -18,6 +21,11 @@ use URI;
   <& /remoteservices/NoActive.mas &>
 % }
 </div>
+<script>
+$(function() {
+   Zentyal.RemoteServices.setupBackupPage();
+});
+</script>
 
 <%def .backupSection>
 <%args>
@@ -31,44 +39,47 @@ my $restricted = ((not $subscribed) and $lastBackup);
 my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
 
 my @formElements;
-
-if ($restricted) {
     push @formElements, [
-                         name => 'newName',
+                         name => 'label',
                          id => 'backup_name',
                          printableName => __('Name'),
                         ];
 
-} else {
-    push @formElements, [
-                         name => 'name',
-                         id => 'backup_name',
-                         printableName => __('Name'),
-                        ];
-}
-
-my $backupTitle = __('Remote Backup');
-my $backupOnClickJs =<< "ENDJS" ;
-     var name = \$('#backup_name').val();
-     var description= \$('#backup_description').val();
-     var title = '$backupTitle: ' + description;
+#if ($restricted) {
+#    push @formElements, [
+#                         name => 'newName',
+#                         id => 'backup_name',
+#                         printableName => __('Name'),
+#                        ];
+#
+#} else {
+#    push @formElements, [
+#                         name => 'label',
+#                         id => 'backup_name',
+#                         printableName => __('Name'),
+#                        ];
+#}
+#
+my $backupTitle = __('Remote Backup: ');
+my $backupOnClickJs;
+if (not $restricted) {
+   $backupOnClickJs =<< "ENDJS" ;
+     var label = \$('#backup_name').val();
+     var title = '$backupTitle' + label;
      var url = '/RemoteServices/Backup/MakeRemoteBackup';
-     var data = 'name=' + name;
-     data += '&description=' + description;
+     var data = 'label=' + label;
      data += '&backup=1&popup=1';
 
      Zentyal.Dialog.showURL(url, {title: title, data: data});
      return false
 ENDJS
-if ($restricted) {
+} else {
    $backupOnClickJs =<< "ENDJS";
      var newName = \$('#backup_name').val();
-     var description= \$('#backup_description').val();
-     var title = '$backupTitle: ' + description;
+     var title = '$backupTitle' + newName;
      var url = '/RemoteServices/Backup/Confirm';
      var data = 'newName=' + newName;
-     data += '&description=' + description;
-     data += '&name=' + \$('#hidden_name').val();
+     data += '&label=' + \$('#hidden_name').val();
      data += '&action=overwrite';
      data += '&backup=1&popup=1';
 
@@ -78,12 +89,6 @@ ENDJS
 }
 
 push @formElements, (
-
-                 [
-                  name => 'description',
-                  id => 'backup_description',
-                  printableName => __('Description'),
-                 ],
                  [
                   input => 'submit',
                   name  => 'backup',
@@ -184,19 +189,14 @@ my @legendElements = (
       <th class="thOptions"><% __('Actions') %></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id='list_backups_tbody' 
+         data-restore-title='<% $restoreTitle  %>'
+         data-delete-title='<% $deleteTitle %>'
+   >
 <%perl>
   foreach my $backup (@backups) {
-     my $uri = new URI();
-     $uri->path($backup->{Filename});
-     my $name = $uri->path();
-     my $restoreUrl  = "Confirm?action=restore&name=$name&popup=1";
-     my $restoreData = "name=$name&popup=1";
-     my $restoreJS   = "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false";
-     my $downloadUrl = "DownloadRemoteBackup?name=$name";
-     my $deleteUrl   = "Confirm";
-     my $deleteData  = "action=delete&name=$name&popup=1";
-     my $deleteJS    = "Zentyal.Dialog.showURL('$deleteUrl',  {title:'$deleteTitle', data: '$deleteData'}); return false";
+     my $uuid        = $backup->{uuid};
+     my $downloadName =  $backup->{server}->{name} . '-' . $backup->{backup_date};
 </%perl>
     <tr class="border">
       <td class="tleft"><% $backup->{company}->{description} %></td>
@@ -207,16 +207,17 @@ my @legendElements = (
       <td width="%14" class="tcenter">
         <button name="restore" class="btn-only-icon btn-restore"
                 value="Restore" title="<% $restoreTitle %>"
-                alt="<% $restoreTitle %>"
-                onclick="<% $restoreJS %>" />
+                alt="<% $restoreTitle %>" 
+                data-uuid="<% $uuid %>"  />
         <button name="download" class="btn-only-icon btn-download"
                 value="Download" title="<% $downloadTitle %>"
-                alt="<% $downloadTitle %>"
-                onclick="document.location='<% $downloadUrl %>'" />
+                data-uuid="<% $uuid %>" data-name="<% $downloadName %>"
+                alt="<% $downloadTitle %>" />
+        
         <button name="delete" class="btn-only-icon btn-delete"
                 value="Delete" title="<% $deleteTitle %>"
                 alt="<% $deleteTitle %>"
-                onclick="<% $deleteJS %>" />
+                data-uuid="<% $uuid %>" />
       </td>
     </tr>
 % }

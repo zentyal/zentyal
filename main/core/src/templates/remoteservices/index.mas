@@ -106,7 +106,7 @@ my @fields = (
 
 <script>
 $(function() {
-    Zentyal.RemoteServices.setup();
+    Zentyal.RemoteServices.setupSubscriptionPage();
     Zentyal.RemoteServices.showFirstPage(<% $subscriptionJS %>);
 });
 </script>

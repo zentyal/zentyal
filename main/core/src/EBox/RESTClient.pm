@@ -24,7 +24,7 @@ package EBox::RESTClient;
 #   Its main feature set is having replay for the failed operations.
 #
 
-no warnings 'experimental::smartmatch';
+#no warnings 'experimental::smartmatch';
 use v5.10;
 
 use EBox;
@@ -301,8 +301,8 @@ sub request {
         $req->parts($params{multipart});
         use Data::Dumper;
         EBox::debug("XXX multipart");
-       EBox::debug($req->headers_as_string);
-        EBox::debug($req->content);
+#       EBox::debug($req->headers_as_string);
+#        EBox::debug($req->content);
     } elsif ($query) {
         given(ref($query)) {
             when('ARRAY' ) {
@@ -345,7 +345,8 @@ sub request {
 
     if ($res->is_success()) {
         use Data::Dumper;
-        EBox::debug("XXX RESUKLTL:" . Dumper($res));
+#        EBox::debug("XXX RESUKLTL:" . Dumper($res));
+        EBox::debug("XXX RESUKLTL:");
         return new EBox::RESTClient::Result($res);
     }
     else {
@@ -373,9 +374,9 @@ sub request {
                 if ($retry) {
                     $self->_storeInJournal($method, $path, $query, $res);
                 }
-                use Data::Dumper;
-                EBox::debug("RES " . Dumper($res));
-                EBox::debug("content " . $res->content());
+#                use Data::Dumper;
+#                EBox::debug("RES " . Dumper($res));
+#                EBox::debug("content " . $res->content());
                 throw EBox::Exceptions::Internal($res->code() . " : "
                 . $res->content()); 
                 

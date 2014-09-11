@@ -3,7 +3,7 @@
 
 Zentyal.namespace('RemoteServices');
 
-Zentyal.RemoteServices.setup = function() {
+Zentyal.RemoteServices.setupSubscriptionPage = function() {
 // subscription_form
     Zentyal.Form.setupAjaxSubmit('#subscription_form', {
         noteDiv: '#subscription_slots_list_note', // bz it will made visible in success
@@ -91,7 +91,7 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     } else {
         $('#row_info_subscription_end').hide();
     }
-    if (subscription.messages == "") {
+    if (subscription.messages === "") {
         $('#info_messages').hide();
     } else {
         $('#info_messages').text(subscription.messages);
@@ -99,4 +99,50 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     }
 
     $('#subscription_info_div').show();
+};
+
+// backup page
+Zentyal.RemoteServices.setupBackupPage = function() {
+    var tbody = $('#list_backups_tbody');
+    tbody.on('click', '.btn-download', function(event) {
+        var uuid, 
+            name, 
+            url;
+        event.preventDefault();
+        uuid =  event.target.getAttribute('data-uuid');
+        name =  event.target.getAttribute('data-name');
+        url = '/RemoteServices/Backup/DownloadRemoteBackup';
+        url += '?uuid=' + uuid;
+        url += '&name=' + name;
+        window.location.replace(url);
+    });
+
+    tbody.on('click', '.btn-restore', function(event) {
+        var uuid, 
+            data,
+            title,
+            url;
+        event.preventDefault();
+        uuid  =  event.target.getAttribute('data-uuid');
+        title = tbody.attr('data-restore-title');
+        url = '/RemoteServices/Backup/Confirm';
+        data = 'uuid=' + uuid;
+        data += '&action=restore&popup=1';
+        Zentyal.Dialog.showURL(url,  {title: title, data: data});
+    });
+
+    tbody.on('click', '.btn-delete', function(event) {
+        var uuid, 
+            name,
+            data,
+            title,
+            url;
+        event.preventDefault();
+        uuid  =  event.target.getAttribute('data-uuid');
+        title = tbody.attr('data-delete-title');
+        url = '/RemoteServices/Backup/Confirm';
+        data = 'uuid=' + uuid;
+        data += '&action=delete&popup=1';
+        Zentyal.Dialog.showURL(url,  {title: title, data: data});
+    });
 };
