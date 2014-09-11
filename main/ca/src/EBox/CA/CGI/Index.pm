@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -59,12 +60,25 @@ sub masonParameters
 
     if ( $ca->isCreated() ) {
         $self->{'template'} = "ca/index.mas";
-        # Update CA DB prior to displaying certificates
-        $ca->updateDB();
+        try {
+            # Update CA DB prior to displaying certificates
+            $ca->updateDB();
+        } catch ($ex) {
+            $self->{template} = '/error.mas';
+            return [error => "$ex"];
+        }
+
         push( @array, 'certs' => $ca->listCertificates() );
 
         # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
-        my $currentState = $ca->currentCACertificateState();
+        my $currentState;
+        try {
+            $currentState  = $ca->currentCACertificateState();
+        } catch ($ex) {
+            $self->{template} = '/error.mas';
+            return [error => "$ex"];   
+        }
+
         if ( $currentState =~ m/[RE]/) {
             push( @array, 'caNeeded' => 1);
         } else {

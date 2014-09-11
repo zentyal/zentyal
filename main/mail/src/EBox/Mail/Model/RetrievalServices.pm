@@ -82,7 +82,7 @@ sub _table
                                   fieldName => 'fetchmail',
                                   printableName => __('Retrieve mail for external accounts'),
                                   help =>
-                                      __(q{This allow users to retrieve mail for external accounts, the mail would be delivered to their local account. External account can be configured in the user's corner.} ),
+                                      __(q{This allow users to retrieve mail for external accounts, the mail would be delivered to their local account. External accounts must be configured for each user.} ),
                                   editable => 1,
                                  ),
          new EBox::Types::Boolean(

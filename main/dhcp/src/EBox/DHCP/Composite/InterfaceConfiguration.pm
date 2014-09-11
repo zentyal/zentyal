@@ -56,16 +56,16 @@ sub HTMLTitle
 {
     my ($self) = @_;
 
-    return ([
-             {
-              title => 'DHCP',
-              link  => '/DHCP/View/Interfaces',
-             },
-             {
-              title => $self->_iface(),
-              link => '',
-             },
-    ]);
+    return [
+        {
+         title => 'DHCP',
+         link  => '/DHCP/View/Interfaces',
+        },
+        {
+         title => $self->_iface(),
+         link => '',
+        },
+    ];
 }
 
 sub hasAddresses
@@ -122,6 +122,17 @@ sub permanentMessage
         return __('This interface is not enabled. DHCP server will not serve addresses in this interface');
     }
     return undef;
+}
+
+sub precondition
+{
+    my ($self) = @_;
+    return $self->parentRow();
+}
+
+sub preconditionFailMsg
+{
+    return __('Mising interface parameter. Please, navigate again to this page starting from the DHCP main page')
 }
 
 1;

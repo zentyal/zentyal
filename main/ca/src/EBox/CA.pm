@@ -743,7 +743,7 @@ sub issueCertificate
             # Warning -> Year 2038 Bug
             # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
             EBox::warn(__x("Days set to the maximum allowed {days}: Year 2038 Bug",
-                        days => $self->{maxDays}));
+                           days => $self->{maxDays}));
         }
     }
 

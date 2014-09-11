@@ -57,7 +57,7 @@ my $sambaModule = EBox::Global->modInstance('samba');
 ##  Check mode is ADC
 ##
 print "\nChecking server mode...\n";
-my $mode = $sambaModule->mode();
+my $mode = $sambaModule->dcMode();
 unless ($mode eq 'adc') {
     print "ERROR: This server is not an additional domain controller.\n";
     exit 1;

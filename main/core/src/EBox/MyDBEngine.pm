@@ -87,7 +87,9 @@ sub _innoDbEnabled
 {
     my ($self) = @_;
 
-    return (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q YES") == 0);
+    EBox::Sudo::silentRoot("mysql --defaults-file=/etc/mysql/debian.cnf -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q YES");
+
+    return ($? == 0);
 }
 
 # Method: _enableInnoDB

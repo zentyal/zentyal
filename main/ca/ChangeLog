@@ -1,5 +1,7 @@
 HEAD
 	+ Added user certificate addon
+	+ Better recovery of errors on index CGI
+3.5.1
 	+ Download files as zip archive
 3.5
 	+ Use 2048 RSA key lengths to increase security

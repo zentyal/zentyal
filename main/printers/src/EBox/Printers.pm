@@ -18,7 +18,11 @@ use warnings;
 
 package EBox::Printers;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
+use base qw(
+    EBox::Module::Service
+    EBox::FirewallObserver
+    EBox::LogObserver
+);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -33,6 +37,7 @@ use Net::CUPS;
 use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
+use constant SAMBA_PRINTERS_CONF_FILE => '/etc/samba/printers.conf';
 
 sub _create
 {
@@ -171,6 +176,29 @@ sub _setConf
     $self->_mangleConfFile(CUPSD, addresses => $self->_ifaceAddresses());
 }
 
+sub _postServiceHook
+{
+    my ($self) = @_;
+
+    $self->writeSambaConfig();
+}
+
+# Method: writeSambaConfig
+#
+#   Writes the printers configuration file which will be included from smb.conf
+#   NOTE: This function is called from samba module because the printers.conf
+#         file must exists when samba daemon starts
+#
+sub writeSambaConfig
+{
+    my ($self) = @_;
+
+    my $params = [];
+    push (@{$params}, printers => $self->printers());
+    $self->writeConfFile(SAMBA_PRINTERS_CONF_FILE, 'printers/printers.conf.mas',
+                         $params, { mode => '0644', uid => 0, gid => 0});
+}
+
 sub _ifaceAddresses
 {
     my ($self) = @_;
@@ -213,7 +241,6 @@ sub _mangleConfFile
     $newContents .= <<END;
 # Added by Zentyal, don't modify or add more Listen/SSLListen statements
 Listen localhost:631
-Listen /var/run/cups/cups.sock
 END
     foreach my $address (@{ $params{addresses} }) {
         $newContents .= "SSLListen $address:631\n";
@@ -296,32 +323,33 @@ sub printers
 {
     my ($self) = @_;
 
-    my @list;
+    my $list = [];
     my $model = $self->model('Printers');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $name = $row->valueByName('printer');
+        my $desc = $row->printableValueByName('description');
+        my $location = $row->printableValueByName('location');
+        my $guest = $row->valueByName('guest');
         my $permsModel = $row->subModel('access');
-        my @users;
+        my $users = [];
         foreach my $id (@{$permsModel->ids()}) {
             my $row = $permsModel->row($id);
             my $element = $row->elementByName('user_group');
-            if ($element->selectedType() eq 'user') {
-                push (@users, $element->value());
-            } else {
-                my $group = new EBox::Samba::Group(gid => $element->value());
-                my @userNames = map { $_->name() } @{$group->users()};
-                push (@users, @userNames);
-            }
+            push (@{$users}, $element->value());
         }
-        my %seen;
-        @users = grep { not $seen{$_}++ } @users;
-        push (@list, { name => $name, users => \@users });
+        my $printerData = {
+            name => $name,
+            description => $desc,
+            location => $location,
+            guest => $guest,
+            users => $users,
+        };
+        push (@{$list}, $printerData);
     }
 
-    return \@list;
+    return $list;
 }
-
 
 # Method: networkPrinters
 #

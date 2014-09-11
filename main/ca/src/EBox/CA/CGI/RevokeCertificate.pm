@@ -85,7 +85,7 @@ sub _process
     my $isCACert = $self->param('isCACert');
     my $reason = $self->param('reason');
     my $caPassphrase = $self->param('caPassphrase');
-    $caPassphrase = undef if ($caPassphrase eq '');
+    $caPassphrase = undef if ($caPassphrase and $caPassphrase eq '');
     my @array = ();
 
     my $retValue;

@@ -4,6 +4,11 @@ $bindPwd
 $baseDn
 $port
 $adminMail
+$intNetworks => ['0.0.0.0/0']
+$rpcProxy
+$rpcProxySSL
+$rpcProxyExternalHostname => undef
+$mailboxesDir
 </%args>
 #
 # ocsmanager - Pylons configuration
@@ -76,6 +81,36 @@ basedn = <% $baseDn %>
 # execute malicious code after an exception is raised.
 #set debug = false
 
+[autodiscover]
+# The client address that is not in these networks. Have RPC/Proxy
+# prioritised. It only works for Outlook 2010 or higher. Delimiter: ,
+# internal_networks = 0.0.0.0/0
+internal_networks = <% join(', ', @{$intNetworks}) %>
+
+[autodiscover:rpcproxy]
+# Enabled RPC/Proxy or not
+enabled = <% $rpcProxy ? 'true' : 'false' %>
+# We assume the autodiscover host and the EWS (Free/Busy) are in the same host
+# external_hostname = hostname
+% if ($rpcProxyExternalHostname) {
+external_hostname = <% $rpcProxyExternalHostname %>
+% }
+# Require SSL to logon. Default value is false
+% if ($rpcProxySSL) {
+ssl = true
+% } else {
+ssl = false
+% }
+
+# Out of office configuration
+[outofoffice]
+# Path of the sieve script for the user
+#   Expansion variables (example user.name@example.com):
+#       $domain   = example.com
+#       $user     = user.name
+#       $fulluser = user.name@example.com
+sieve_script_path = <% $mailboxesDir %>/$domain/$user/sieve-script
+sieve_script_path_mkdir = true
 
 # Logging configuration
 [loggers]

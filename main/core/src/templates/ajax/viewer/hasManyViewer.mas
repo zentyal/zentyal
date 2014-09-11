@@ -1,6 +1,9 @@
 <%args>
 $data
 </%args>
+<%init>
+use EBox::Gettext;
+</%init>
 % my $link = $data->linkToView();
 % if (defined $link) {
 <a class="btn-only-icon btn-config" title="<% __('configure') %>" href="<% $data->linkToView() %>"><% __('configure') %></a>
