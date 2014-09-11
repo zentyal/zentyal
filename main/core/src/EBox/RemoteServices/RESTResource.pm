@@ -95,9 +95,4 @@ sub _restClient
     return $restClient;
 }
 
-sub server
-{
-    return SERVER;
-}
-
 1;
