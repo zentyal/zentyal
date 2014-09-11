@@ -196,7 +196,7 @@ sub writeSambaConfig
     my $params = [];
     push (@{$params}, printers => $self->printers());
     $self->writeConfFile(SAMBA_PRINTERS_CONF_FILE, 'printers/printers.conf.mas',
-                         $params, { mode => '0600', uid => 0, gid => 0});
+                         $params, { mode => '0644', uid => 0, gid => 0});
 }
 
 sub _ifaceAddresses
