@@ -298,7 +298,11 @@ sub refreshSubscriptionInfo
     }
 
     if (not $subscriptionInfo) {
-        $self->unsubscribe();
+        try {
+            $self->unsubscribe();
+        } catch ($ex) {
+            EBox::debug('Already unsubscribed');
+        }
         return undef;
     }
 
@@ -408,7 +412,7 @@ sub subscribe
     $self->set_state($state);
 
     # Mark webadmin as changed to reload composites + themes
-    $self->global()->modInstance('webadmin')->setAsChanged();
+    $self->global()->addModuleToPostSave('webadmin');
 
     $self->setSubscriptionCredentials($subscriptionCred);
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
@@ -433,7 +437,7 @@ sub unsubscribe
     $self->set_state($state);
 
     # Mark webadmin as changed to reload composites + themes
-    $self->global()->modInstance('webadmin')->setAsChanged();
+    $self->global()->addModuleToPostSave('webadmin');
 
     $self->_removeSubscriptionData();
 }
