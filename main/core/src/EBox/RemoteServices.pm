@@ -57,6 +57,7 @@ use POSIX;
 use YAML::XS;
 use TryCatch::Lite;
 
+
 use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
 use constant PROF_PKG                => 'zentyal-cloud-prof';
 use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
@@ -406,6 +407,9 @@ sub subscribe
     };
     $self->set_state($state);
 
+    # Mark webadmin as changed to reload composites + themes
+    $self->global()->modInstance('webadmin')->setAsChanged();
+
     $self->setSubscriptionCredentials($subscriptionCred);
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     return $subscriptionInfo;
@@ -427,6 +431,9 @@ sub unsubscribe
                   ]
     };
     $self->set_state($state);
+
+    # Mark webadmin as changed to reload composites + themes
+    $self->global()->modInstance('webadmin')->setAsChanged();
 
     $self->_removeSubscriptionData();
 }
@@ -997,7 +1004,7 @@ sub menu
                                         separator => 'Core',
                                         order => 105);
 
-    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Index',
+    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
                                       'text' => __('Server Registration'),
                                      ));
 

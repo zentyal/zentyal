@@ -1,10 +1,11 @@
 <%args>
-$subscriptionInfo
+  %context
 </%args>
 <%init>
 use EBox::Gettext;
 use JSON::XS;
 
+my $subscriptionInfo = $context{subscriptionInfo};
 my $subscriptionJS;
 if ($subscriptionInfo) {
     $subscriptionJS = JSON::XS::encode_json($subscriptionInfo);
