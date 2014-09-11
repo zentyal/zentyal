@@ -265,7 +265,7 @@ sub password
 sub setUsername
 {
     my ($self, $username) = @_;
-        # TODO vladiate
+        # TODO validate
     if (not $username) {
         throw EBox::Exceptions::External('username');
     }
@@ -370,11 +370,26 @@ sub setSubscriptionCredentials
     $self->set('subscription_credentials', $cred);
 }
 
-# FIXME: Missing doc
+# Method: subscriptionCredentials
+#
+#      Get the subscription credentials.
+#
+#      Undef if it is not registered.
+#
+# Returns:
+#
+#      Hash ref - with the following keys:
+#
+#         server_uuid - the UUID of the server
+#         subscription_uuid - the UUID of the subscription
+#         name - the server's name
+#         password - the server's password
+#         product_code - whatever
+#
 sub subscriptionCredentials
 {
     my ($self) = @_;
-    $self->get('subscription_credentials');
+    return $self->get('subscription_credentials');
 }
 
 # FIXME: Missing doc
@@ -483,7 +498,16 @@ sub eBoxCommonName
 
 }
 
-# FIXME: Missing doc
+# Method: cloudDomain
+#
+#        Return the Zentyal Cloud Domain if the server is subscribed.
+#
+#        Undef otherwise.
+#
+# Returns:
+#
+#        String - the Zentyal Cloud Domain
+#
 sub cloudDomain
 {
     my ($self) = @_;
@@ -620,7 +644,6 @@ sub subscribedUUID
 
     return $si->{server}->{uuid};
 }
-
 
 # Method: _setConf
 #
