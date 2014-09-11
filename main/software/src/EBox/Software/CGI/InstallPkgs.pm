@@ -31,7 +31,7 @@ use TryCatch::Lite;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => 'Install packages',
+    my $self = $class->SUPER::new('title' => __('Installation'),
                                   'template' => 'software/del.mas',
                                   @_);
     bless($self, $class);

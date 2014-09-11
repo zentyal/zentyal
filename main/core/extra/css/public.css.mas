@@ -1597,7 +1597,7 @@ body.first-install {
 .first-install #content{
     left: 10px;
     width: auto;
-    top: 70px; 
+    top: 70px;
 }
 .wizard img{
     float:left;
@@ -3234,7 +3234,7 @@ Responsive corrections
         left: 65px;
     }
     .first-install #content {
-        left: 10px; 
+        left: 10px;
     }
     #nav.install-steps li{
         background-position: 10px center;
