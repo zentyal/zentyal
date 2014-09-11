@@ -69,7 +69,7 @@ use EBox::Config;
 # use EBox::DBEngineFactory;
 # use EBox::Exceptions::DeprecatedMethod;
 
-# 
+#
 # use EBox::Exceptions::MissingArgument;
 # use EBox::Exceptions::NotConnected;
 # use EBox::RemoteServices::AdminPort;
@@ -194,14 +194,14 @@ sub subscriptionLevel
     my $info = $self->subscriptionInfo();
     # TODO TEMPORALLY
     if ((not $info)) {
-        return SUBSCRIPTION_LEVEL_NONE; 
-    } 
+        return SUBSCRIPTION_LEVEL_NONE;
+    }
     return 1;
     # END TEMPORALLY
-    
+
     if ((not $info) or (not $info->{'level'})) {
-        return SUBSCRIPTION_LEVEL_NONE; 
-    } 
+        return SUBSCRIPTION_LEVEL_NONE;
+    }
 
     return $info->{'level'};
 }
@@ -316,8 +316,10 @@ sub subscriptionInfo
 {
     my ($self) = @_;
     my $subsInfo = $self->get('subscription_info');
-    my $adMsgs = $self->adMessages();
-    $subsInfo->{messages} = $adMsgs->{text};
+    if ($subsInfo) {
+        my $adMsgs = $self->adMessages();
+        $subsInfo->{messages} = $adMsgs->{text};
+    }
     return $subsInfo;
 }
 
@@ -530,7 +532,7 @@ sub revokeConfig
                 $subscriptions->unsubscribeServer(@{$revokeAction->{params}})
             } else {
                 EBox::error("Unknown pending operation: $action. Skipping");
-            } 
+            }
         } catch ($ex) {
             EBox::error("Cannot undo " . $revokeAction->{action} . " operation. Please, undo it manually");
             $ex->throw();
@@ -630,7 +632,7 @@ sub _manageCloudProfPackage
             }
         }
         return;
-    } 
+    }
 
     try {
         EBox::Sudo::root("apt-get update");

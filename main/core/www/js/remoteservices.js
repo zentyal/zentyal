@@ -95,7 +95,7 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
         $('#info_messages').hide();
     } else {
         $('#info_messages').text(subscription.messages);
-        $('#info_messages').show();
+        $('#row_info_messages').show();
     }
 
     $('#subscription_info_div').show();
