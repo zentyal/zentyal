@@ -1,4 +1,4 @@
-HEAD
+3.5.2
 	+ Add /etc/samba/* to allowed to read in apparmor profile
 	+ Use refactored internalNetworks from network module
 	+ Do not fail to add a host if an IP address is already used by
