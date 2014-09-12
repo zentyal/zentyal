@@ -39,10 +39,12 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
-use EBox::RemoteServices::Subscriptions;
-use EBox::RemoteServices::ConfBackup;
 use EBox::RemoteServices::Auth;
+use EBox::RemoteServices::ConfBackup;
+use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::QAUpdates;
+use EBox::RemoteServices::Subscription::Check;
+use EBox::RemoteServices::Subscriptions;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -78,7 +80,6 @@ use constant SYNC_PKG                => 'zfilesync';
 # use EBox::RemoteServices::Capabilities;
 # use EBox::RemoteServices::Connection;
 # use EBox::RemoteServices::Configuration;
-# use EBox::RemoteServices::Exceptions::NotCapable;
 
 # use EBox::RemoteServices::SupportAccess;
 # use EBox::RemoteServices::FirewallHelper;
@@ -428,6 +429,10 @@ sub subscribe
 sub unsubscribe
 {
     my ($self) = @_;
+
+    # Check no other modules required to be subscribed
+    EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
+
     my $subscriptions  = $self->subscriptionsResource();
     $subscriptions->unsubscribeServer();
 
@@ -887,23 +892,62 @@ sub adMessages
 
 # Method: checkAdMessages
 #
-#    Check if we have to remove any ad message
+#    Check if we have to remove any ad message.
 #
 sub checkAdMessages
 {
     my ($self) = @_;
-    # TTT
-    return;
 
     if ($self->eBoxSubscribed()) {
         # Launch our checker to see if the max_users message disappear
         my $checker = new EBox::RemoteServices::Subscription::Check();
-        my $state = $self->get_state();
-        my $maxUsers = $self->addOnDetails('serverusers');
-        my $det = $state->{subscription};
-        $det->{capabilities}->{serverusers} = $maxUsers;
-        $checker->check($det);
+        $checker->check($self->subscriptionInfo());
     }
+}
+
+# Method: pushAdMessage
+#
+#    Push an ad message to be shown in the dashboard
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It will be used to pop it out in <popAdMessage>
+#    msg - String the message itself
+#
+sub pushAdMessage
+{
+    my ($self, $key, $msg) = @_;
+
+    my $state = $self->get_state();
+    $state->{ad_messages}->{$key} = $msg;
+    $self->set_state($state);
+}
+
+# Method: popAdMessage
+#
+#    Pop out an ad message. Opposite to <pushAdMessage>
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It should used to push out in <popAdMessage>
+#
+# Returns:
+#
+#    undef - if there were no message with that key
+#
+#    msg - String the deleted message
+#
+sub popAdMessage
+{
+    my ($self, $key) = @_;
+
+    my $state = $self->get_state();
+    return undef unless(exists($state->{ad_messages}));
+    my $deletedMsg = delete $state->{ad_messages}->{$key};
+    $self->set_state($state);
+    return $deletedMsg;
 }
 
 
@@ -1296,70 +1340,6 @@ sub latestRemoteConfBackup
 
 
 
-# Method: pushAdMessage
-#
-#    Push an ad message to be shown in the dashboard
-#
-# Parameters:
-#
-#    key - String the unique key for this ad message
-#          It will be used to pop it out in <popAdMessage>
-#    msg - String the message itself
-#
-sub pushAdMessage
-{
-    my ($self, $key, $msg) = @_;
-
-    my $state = $self->get_state();
-    $state->{ad_messages}->{$key} = $msg;
-    $self->set_state($state);
-}
-
-# Method: popAdMessage
-#
-#    Pop out an ad message. Opposite to <pushAdMessage>
-#
-# Parameters:
-#
-#    key - String the unique key for this ad message
-#          It should used to push out in <popAdMessage>
-#
-# Returns:
-#
-#    undef - if there were no message with that key
-#
-#    msg - String the deleted message
-#
-sub popAdMessage
-{
-    my ($self, $key) = @_;
-
-    my $state = $self->get_state();
-    return undef unless(exists($state->{ad_messages}));
-    my $deletedMsg = delete $state->{ad_messages}->{$key};
-    $self->set_state($state);
-    return $deletedMsg;
-}
-
-
-# Method: checkAdMessages
-#
-#    Check if we have to remove any ad message
-#
-sub checkAdMessages
-{
-    my ($self) = @_;
-
-    if ($self->eBoxSubscribed()) {
-        # Launch our checker to see if the max_users message disappear
-        my $checker = new EBox::RemoteServices::Subscription::Check();
-        my $state = $self->get_state();
-        my $maxUsers = $self->addOnDetails('serverusers');
-        my $det = $state->{subscription};
-        $det->{capabilities}->{serverusers} = $maxUsers;
-        $checker->check($det);
-    }
-}
 
 
 # Get and cache the cap details
