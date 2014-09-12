@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-30 15:35+0200\n"
+"PO-Revision-Date: 2014-09-06 14:25+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -3907,28 +3907,24 @@ msgstr "コメント"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
 msgid "L2TP"
-msgstr ""
+msgstr "L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
-#, fuzzy
 msgid "Connections"
-msgstr "IPsec接続"
+msgstr "接続"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
-#, fuzzy
 msgid "L2TP connection"
-msgstr "IPsec接続"
+msgstr "L2TP接続"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
-#, fuzzy
 msgid ""
 "L2TP connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
-"IPsec接続は、異なるサブネットワーク間で安全なトンネルを展開することができま"
-"す。このプロトコルは、ベンダーに依存しないで、他のセキュリティデバイスと"
-"Zentyalを接続します。"
+"L2TP接続は、異なるサブネットワーク間で安全なトンネルを展開することができます。このプロトコルは、ベンダーに依存せず、他のセキュリティデバイスとZen"
+"tyalを接続します。"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:256
 msgid "Enabled flag"
@@ -3952,14 +3948,13 @@ msgid "Blank characters are not allowed"
 msgstr "空白文字は使用できません"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"IPsecは、「外部」としてタグ付けをインターフェイス上に設定することができます。"
-"{openhref}ネットワーク - >インターフェイス{closehref}で一致するようにインター"
-"フェイス設定を確認してください"
+"L2TPは、「外部」としてタグ付けをインターフェイス上に設定することができます。{openhref}ネットワーク - "
+">インターフェイス{closehref}で一致するようにインターフェイス設定を確認してください"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
 #, perl-brace-format
@@ -3990,9 +3985,8 @@ msgid "To configure OpenSwan IPsec passwords."
 msgstr "OpenSwanのIPsecパスワードを設定する。"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:175
-#, fuzzy
 msgid "L2TP based VPN"
-msgstr "IPsecをベースのVPN"
+msgstr "L2TPベースのVPN"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:360
 msgid "Stopping completed"
@@ -8827,7 +8821,6 @@ msgid "To make SOGo webmail available"
 msgstr "SOGoウェブメールを使用できるようにする"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:334
-#, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "自動検出サービスを設定する"
 
@@ -11242,9 +11235,8 @@ msgid "Couldn't configure Zentyal as slave"
 msgstr "スレーブとしてZentyalを設定できませんでした"
 
 #: ../../main/samba/src/EBox/Samba.pm:179
-#, fuzzy
 msgid "Domain Controller and File Sharing"
-msgstr "ユーザ、コンピュータ、及びファイル共有"
+msgstr "ドメインコントローラとファイル共有"
 
 #: ../../main/samba/src/EBox/Samba.pm:311
 msgid ""
@@ -15284,9 +15276,8 @@ msgid "Save changes?"
 msgstr "変更を保存しますか？"
 
 #: ../../main/core/src/templates/headTitle.mas:21
-#, fuzzy
 msgid "Search..."
-msgstr "検索"
+msgstr "検索中..."
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
