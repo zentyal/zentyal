@@ -254,12 +254,11 @@ Header
     background-color: <% $secondary_color %>;
     background-image: url("/data/images/save.png");
     background-position: 18px center;
-    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
     color: #ffffff;
     display: none;
     font-size: 1.1em;
     line-height: 20px;
-    padding: 20px 20px 20px 60px;
+    padding: 15px 20px 15px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
@@ -1253,7 +1252,7 @@ a.minBox, a.maxBox {
     border-radius: 5px ;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
     border: 1px solid #ccc
 }
 .widgetBoxIn {
