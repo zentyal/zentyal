@@ -1,4 +1,7 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
+
+# Script to refresh subscription information
+# It should be called internally, not expected its usage by users
 
 use strict;
 use warnings;
@@ -10,19 +13,6 @@ use EBox::Global;
 EBox::init();
 
 my $remoteServices = EBox::Global->modInstance('remoteservices');
-$remoteServices->_lock();
-
-my $alreadyChanged = $remoteServices->changed();
-my $subscriptionInfo = $remoteServices->refreshSubscriptionInfo();
-
-if ($remoteServices->changed() and not $alreadyChanged) {
-    # changes due to subscription refresh
-    $remoteServices->_saveConfig();
-    $remoteServices->setAsChanged(0);
-}
-
-$remoteServices->setupSubscription($subscriptionInfo);
-
-$remoteServices->_unlock();
+$remoteServices->save();
 
 1;

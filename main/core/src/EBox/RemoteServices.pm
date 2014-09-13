@@ -97,12 +97,6 @@ use constant SYNC_PKG                => 'zfilesync';
 # use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
 # use constant DEFAULT_REMOTE_SITE => 'remote.zentyal.com';
 
-# # OCS conf constants
-# use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
-# use constant OCS_CONF_MAS_FILE   => 'remoteservices/ocsinventory-agent.cfg.mas';
-# use constant OCS_CRON_FILE       => '/etc/cron.daily/ocsinventory-agent';
-# use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas';
-
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
@@ -410,6 +404,7 @@ sub subscribe
         action => 'unsubscribe',
         params => [$subscriptionCred->{server_uuid}, $subscriptionCred->{password}]
     };
+    $state->{just_subscribed} = 1;
     $self->set_state($state);
 
     # Mark webadmin as changed to reload composites + themes
@@ -676,6 +671,7 @@ sub _setConf
     my ($self) = @_;
 
     my $state = $self->get_state();
+    my $justSubscribed = delete $state->{just_subscribed};
     my $revokeAction = delete $state->{revokeAction};
     $self->set_state($state);
 
@@ -687,7 +683,7 @@ sub _setConf
         $self->setAsChanged(0);
     }
 
-    $self->setupSubscription($subscriptionInfo);
+    $self->setupSubscription($subscriptionInfo, $justSubscribed);
 
 #    TODO: Disabled until reimplmented
 #    $self->_setRemoteSupportAccessConf();
@@ -730,7 +726,8 @@ sub revokeConfig
 # FIXME: Missing doc
 sub setupSubscription
 {
-    my ($self, $subscriptionInfo) = @_;
+    my ($self, $subscriptionInfo, $justSubscribed) = @_;
+
     if ($subscriptionInfo and $self->_checkSubscriptionAlive($subscriptionInfo)) {
         $subscriptionInfo = undef;
     }
@@ -753,11 +750,11 @@ sub _writeCronFile
                 0 .. 10;
             my @randMins  = map { int(rand(60)) } 0 .. 10;
             $self->st_set_list('rand_hours', 'int', \@randHours);
-            $self->st_set_list('rand_mins' , 'int',  \@randMins);
+            $self->st_set_list('rand_mins' , 'int', \@randMins);
             $hours = \@randHours;
         }
 
-        my $mins = $self->get_list('rand_mins');
+        my $mins = $self->st_get_list('rand_mins');
 
         my @tmplParams = (
             ( hours => $hours), (mins => $mins)
