@@ -105,6 +105,32 @@ sub test_check_ad_messages : Test
     lives_ok { $mockedRSMod->checkAdMessages(); } 'Check ad messages';
 }
 
+sub test_subscription_level : Test(4)
+{
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
+    my $mockedRSMod = new Test::MockObject::Extends($rsMod);
+    $mockedRSMod->set_false('eBoxSubscribed');
+    cmp_ok($mockedRSMod->subscriptionLevel(), '==', -1, 'Not subscribed, then -1');
+    $mockedRSMod->set_true('eBoxSubscribed');
+
+    # Unknown codename, then -1 subscription level
+    $mockedRSMod->mock('subscriptionCodename', sub { 'foobar' });
+    cmp_ok($mockedRSMod->subscriptionLevel(), '==', -1,
+           'Unknown codename returns -1 level');
+
+    # Test two elements of hash
+    $mockedRSMod->mock('subscriptionCodename', sub { 'basic' });
+    cmp_ok($mockedRSMod->subscriptionLevel(), '==', 0,
+           "'basic' codename returns 0 level");
+
+    $mockedRSMod->mock('subscriptionCodename', sub { 'professional' });
+    cmp_ok($mockedRSMod->subscriptionLevel(), '==', 6,
+           "'professional' codename returns 6 level");
+
+}
+
 1;
 
 END {

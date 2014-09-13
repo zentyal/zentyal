@@ -110,9 +110,14 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '5'  => __('Small Business'),
                    '6'  => __('Professional'),
                    '7'  => __('Business'),
-                   '8'  => __('Enterprise Trial'),
+                   '8'  => __('Trial'),
                    '10' => __('Enterprise'),
                    '20' => __('Premium'));
+my %codenameLevels = ( 'basic'        => 0,
+                       'professional' => 6,
+                       'business'     => 7,
+                       'trial'        => 8,
+                       'premium'      => 20 );
 
 
 # Constructor: _create
@@ -174,12 +179,8 @@ sub wizardPages
 
 # Method: subscriptionLevel
 #
-#      Get the subscription level
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
+#      Get the subscription level. This is a way to order editions
+#      within the Zentyal Server realm as Remote side is now deprecated.
 #
 # Returns:
 #
@@ -187,29 +188,24 @@ sub wizardPages
 #
 #         -1 - no subscribed or impossible to know
 #          0 - basic
-#          5 - sb
+#          6 - professional
+#          7 - business
 #          8 - trial
-#          10 - enterprise
+#          20 - premium
 #
 sub subscriptionLevel
 {
     my ($self) = @_;
-    my $info = $self->subscriptionInfo();
-    # TODO TEMPORALLY
-    if ((not $info)) {
+
+    unless ($self->eBoxSubscribed()) {
         return SUBSCRIPTION_LEVEL_NONE;
     }
-    return 1;
-    # END TEMPORALLY
-
-    if ((not $info) or (not $info->{'level'})) {
+    my $codeName = $self->subscriptionCodename();
+    unless (exists $codenameLevels{$codeName}) {
         return SUBSCRIPTION_LEVEL_NONE;
     }
-
-    return $info->{'level'};
+    return $codenameLevels{$codeName};
 }
-
-
 
 # Method: technicalSupport
 #
@@ -233,6 +229,7 @@ sub subscriptionLevel
 sub technicalSupport
 {
     my ($self, $force) = @_;
+
     my $level = -2;
     try {
         my $subscriptionInfo;
@@ -489,8 +486,8 @@ sub authResource
 sub eBoxSubscribed
 {
     my ($self) = @_;
-    my $level = $self->subscriptionLevel();
-    return ($level != SUBSCRIPTION_LEVEL_NONE);
+    my $info = $self->subscriptionInfo();
+    return defined($info);
 }
 
 # Method: eBoxCommonName
@@ -809,7 +806,7 @@ sub _manageCloudProfPackage
     my ($self, $subscriptionInfo) = @_;
 
     my $installed = $self->_pkgInstalled(PROF_PKG);
-    if ((not $subscriptionInfo) or ($subscriptionInfo->{level} < 1)) {
+    if ((not $subscriptionInfo) or ($self->subscriptionLevel() < 1)) {
         unless ($installed) {
             $self->_downgrade();
         }
