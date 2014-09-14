@@ -3296,50 +3296,6 @@ sub _generateDDClient
     my $cmd = EBox::Config::share() . 'zentyal-network/external-ip.pl';
     my @gws = ();
 
-    if ($enabled) {
-        if ( $row->valueByName('service') eq 'cloud' ) {
-            my $gl = $self->global();
-            if ( $gl->modExists('remoteservices') ) {
-                my $rs = $gl->modInstance('remoteservices');
-                if ( $rs->eBoxSubscribed() ) {
-                    # Server subscription credentials as user and pass
-                    my $cred = $rs->cloudCredentials();
-
-                    # UUID for login
-                    $login = $cred->{uuid};
-
-                    # Get DynDNS password
-                    $password = substr($cred->{password},0,20);
-
-                    $hostname = $rs->dynamicHostname();
-                    my $cloud_domain = $rs->cloudDomain();
-                    if ( $cloud_domain ) {
-                        $server = 'ddns.' . $cloud_domain;
-                    } else {
-                        EBox::warn('Zentyal Cloud cannot be used if we cannot '
-                                   . 'get domain name');
-                        $enabled = 0;
-                    }
-                    # Check for multi-output gateways
-                    my $gws = $self->gateways();
-                    if ( scalar(@{$gws}) > 1 ) {
-                        # Multigw scenario, use a domain-like name for subdomains
-                        # One per gateway
-                        @gws = map {
-                                     my $name = $_->{name};
-                                     my $domain = lc $name;
-                                     $domain  =~ s/[^a-z0-9\-]/-/g; # Transform to domains
-                                      { gw => $name ,   domain => $domain }
-                               } @{$gws};
-                    }
-                } else {
-                    EBox::warn('Zentyal Cloud cannot be used if the host is not subscribed');
-                    $enabled = 0;
-                }
-            }
-        }
-    }
-
     $self->writeConfFile(DEFAULT_DDCLIENT_FILE,
                          'network/ddclient.mas',
                          [ enabled => $enabled ]);
