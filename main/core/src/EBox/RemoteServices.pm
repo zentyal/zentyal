@@ -453,6 +453,27 @@ sub _removeSubscriptionData
     $self->unset('subscription_info');
 }
 
+# Method: REST
+#
+#   Return the REST client ready to query remote services.
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if the server is not
+#   subscribed
+#
+sub REST
+{
+    my ($self) = @_;
+
+    unless ($self->{rest}) {
+        my $restRes = new EBox::RemoteServices::RESTResource(remoteservices => $self);
+        $self->{rest} = $restRes->_restClientWithServerCredentials();
+    }
+
+    return $self->{rest};
+}
+
 # FIXME: Missing doc
 sub subscriptionsResource
 {
@@ -577,6 +598,10 @@ sub subscriptionCodename
     my ($self, $force) = @_;
 
     $force = 0 unless defined($force);
+
+    unless ($self->eBoxSubscribed()) {
+        return '';
+    }
 
     # TBD
     return 'professional';
