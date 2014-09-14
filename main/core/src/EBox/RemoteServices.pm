@@ -486,6 +486,27 @@ sub _removeSubscriptionData
     $self->set_state($state);
 }
 
+# Method: REST
+#
+#   Return the REST client ready to query remote services.
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if the server is not
+#   subscribed
+#
+sub REST
+{
+    my ($self) = @_;
+
+    unless ($self->{rest}) {
+        my $restRes = new EBox::RemoteServices::RESTResource(remoteservices => $self);
+        $self->{rest} = $restRes->_restClientWithServerCredentials();
+    }
+
+    return $self->{rest};
+}
+
 # FIXME: Missing doc
 # - userPassword is optional
 sub subscriptionsResource
