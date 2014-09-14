@@ -41,44 +41,6 @@ use TryCatch::Lite;
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';
 
-sub new
-{
-    my $class = shift @_ ;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    return $self;
-}
-
-# Method: viewCustomizer
-#
-#      To display a permanent message
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = $self->SUPER::viewCustomizer();
-
-    my $securityUpdatesAddOn = 0;
-    if ( EBox::Global->modExists('remoteservices') ) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-    }
-
-    unless ( $securityUpdatesAddOn ) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
-    }
-
-    return $customizer;
-
-}
-
 # Group: Protected methods
 
 # Method:  _table
@@ -253,4 +215,3 @@ sub _strToTime
 }
 
 1;
-
