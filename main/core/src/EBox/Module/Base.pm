@@ -1228,7 +1228,7 @@ sub restoreFilesFromArchive
 
 # Method: recoveryEnabled
 #
-#   Helper method to know if thesmodule is configured for
+#   Helper method to know if the module is configured for
 #   disaster recovery synchronization
 #
 # Returns:
@@ -1238,6 +1238,9 @@ sub restoreFilesFromArchive
 sub recoveryEnabled
 {
     my ($self) = @_;
+
+    # TODO: Remove it
+    return 0;
 
     my $module = $self->{name};
 
