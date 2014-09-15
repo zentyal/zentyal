@@ -46,10 +46,11 @@ sub permanentMessage
 {
     my ($self) = @_;
 
-    my $sogo = EBox::Global->modInstance('sogo');
-    unless (defined ($sogo) and $sogo->isEnabled()) {
-        return undef;
-    }
+    # FIXME: add some check when checkbox to enable/disable webmail is added
+    #my $sogo = EBox::Global->modInstance('sogo');
+    #unless (defined ($sogo) and $sogo->isEnabled()) {
+    #    return undef;
+    #}
 
     if ($self->parentModule()->isProvisioned()) {
         my $readyToUseMsg = __x('You can access the {oh}OpenChange Webmail{ch}',
