@@ -216,9 +216,23 @@ sub refreshSubscriptionInfo
     try {
         my $subscriptions = $self->subscriptionsResource();
         $subscriptionInfo = $subscriptions->subscriptionInfo();
+    } catch (EBox::Exceptions::RESTRequest $ex) {
+        if ($ex->code() == 403 ) {
+            # forbidden, the subscripption is not valid anymore
+            EBox::warn("Subscription expired or revoked");
+            $subscriptionInfo = undef;
+        } else {
+            EBox::warn("Cannot refresh subscription information, using cached data: $ex");
+            $subscriptionInfo = $self->subscriptionInfo();
+        }
     } catch ($ex) {
         EBox::warn("Cannot refresh subscription information, using cached data: $ex");
         $subscriptionInfo = $self->subscriptionInfo();
+    }
+
+    if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
+        EBox::warn("Subscription expired");
+        $subscriptionInfo = undef;
     }
 
     if (not $subscriptionInfo) {
@@ -357,7 +371,7 @@ sub unsubscribe
     # Check no other modules required to be subscribed
     EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
 
-    if ($self->user() and $password) {
+    if ($self->username() and $password) {
         my $subscriptions  = $self->subscriptionsResource($password);
         $subscriptions->unsubscribeServer();
 
@@ -372,11 +386,10 @@ sub unsubscribe
         $self->set_state($state);
     }
 
+    $self->_removeSubscriptionData();
 
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');
-
-    $self->_removeSubscriptionData();
 }
 
 sub _removeSubscriptionData
@@ -710,10 +723,6 @@ sub setupSubscription
 {
     my ($self, $subscriptionInfo, $justSubscribed) = @_;
 
-    if ($subscriptionInfo and $self->_checkSubscriptionAlive($subscriptionInfo)) {
-        $subscriptionInfo = undef;
-    }
-
     $self->_setQAUpdates($subscriptionInfo);
     $self->_manageCloudProfPackage($subscriptionInfo);
     $self->_writeCronFile($subscriptionInfo);
@@ -765,18 +774,23 @@ sub _checkSubscriptionAlive
         return 0;
     }
 
-    my @gmtParts = gmtime();
-    @gmtParts = map {
-        if ($_ == 0) {
-            ('00');
-        } elsif ($_ < 10) {
-            ('0' . $_ )
+    my ($sec,$min,$hour,$mday,$mon,$year) = gmtime();
+    $year += 1900;
+    $mon  += 1;
+    # give one day margin
+    if ($mday == 1) {
+        if ($mon == 1) {
+            $mon = 12;
+            $year -= 1;
         } else {
-            ($_)
+            $mon = 1;
         }
-    } @gmtParts;
-    my ($sec,$min,$hour,$mday,$mon,$year) = @gmtParts;
-    my $gmtime = "$year-$mon-$mday $hour:$min:$sec";
+        $mday = 31; # dont care for the comparation if it was a month with 30 days
+    } else {
+        $mday -= 1;
+    }
+
+    my $gmtime = sprintf('%04d-%02d-%02d %02d:%02d:%02d', $year, $mon, $mday, $hour, $min, $sec);
     return (($gmtime ge $start) and ($gmtime lt $end));
 }
 

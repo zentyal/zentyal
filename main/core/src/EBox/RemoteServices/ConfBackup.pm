@@ -72,7 +72,7 @@ sub add
         $label
        );
     push @parts, HTTP::Message->new(
-        ['Content-Disposition' => 'form-data; name="data"; filename="hello.o" Content-Type: application/x-object'],
+        ['Content-Disposition' => 'form-data; name="data"; filename="backup.tar" Content-Type: application/x-object'],
         $data
        );
 

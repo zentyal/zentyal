@@ -70,7 +70,7 @@ sub _restClientWithUserCredentials
         throw EBox::Exceptions::MissingArgument('User password for REST client');
     }
 
-    return $self->_restClient($username, $password);
+    return $self->_restClient($username, $password, 'rc_uc');
 }
 
 # FIXME: Missing doc
@@ -82,18 +82,22 @@ sub _restClientWithServerCredentials
         throw EBox::Exceptions::Internal('No subscribed server credentials');
     }
 
-    return $self->_restClient($credentials->{server_uuid}, $credentials->{password});
+    return $self->_restClient($credentials->{server_uuid}, $credentials->{password}, 'rc_sc');
 }
 
 # FIXME: Missing doc
 sub _restClient
 {
-    my ($self, $username, $password) = @_;
+    my ($self, $username, $password, $id) = @_;
     if (not $username) {
         throw EBox::Exceptions::Internal('username');
     }
     if (not $password) {
         throw EBox::Exceptions::Internal('password');
+    }
+
+    if ((exists $self->{$id}) and $self->{$id}) {
+        return $self->{$id};
     }
 
     my $restClient = new EBox::RESTClient(
@@ -102,7 +106,11 @@ sub _restClient
                          password => $password,
                         }
        );
+
+    $self->{$id} = $restClient;
+    $self->{lastClient} = $restClient;
     return $restClient;
 }
+
 
 1;

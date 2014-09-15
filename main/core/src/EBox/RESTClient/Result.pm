@@ -74,16 +74,16 @@ sub rawContent
 sub data
 {
     my ($self) = @_;
-
-    use Data::Dumper;
-    EBox::debug('RESULT RRR');
-#    EBox::debug(Dumper($self->{result}));
-#    EBox::debug(Dumper($self->{result_json}));
-
     unless ($self->{result_json}) {
         $self->{result_json} = decode_json($self->{result}->decoded_content());
     }
     return $self->{result_json};
+}
+
+sub code
+{
+    my ($self) = @_;
+    return $self->{result}->code();
 }
 
 1;

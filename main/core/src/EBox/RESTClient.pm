@@ -24,7 +24,7 @@ package EBox::RESTClient;
 #   Its main feature set is having replay for the failed operations.
 #
 
-no warnings 'experimental::smartmatch';
+#no warnings 'experimental::smartmatch';
 use v5.10;
 
 use EBox;
@@ -35,6 +35,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::RESTRequest;
 use EBox::RESTClient::Result;
 use EBox::Validate;
 use File::Temp;
@@ -344,45 +345,37 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
-        use Data::Dumper;
-#        EBox::debug("XXX RESUKLTL:" . Dumper($res));
-        EBox::debug("XXX RESUKLTL:");
+        EBox::debug("XXX RESUKLTL: success");
         return new EBox::RESTClient::Result($res);
     }
     else {
-        EBox::debug("XXX NOT SUCCESS");
-        $self->{last_error} = new EBox::RESTClient::Result($res);
-        given ($res->code()) {
-            when (HTTP_UNAUTHORIZED) {
-                throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
-            }
-            when (HTTP_BAD_REQUEST) {
-                my $error = $self->last_error()->data();
-                my $msgError = $error;
-                if (ref($error) eq 'HASH') {
-                    # Flatten the arrays
-                    my @errors;
-                    foreach my $singleErrors (values %{$error}) {
-                        push(@errors, @{$singleErrors});
-                    }
-                    $msgError = join("\n", @errors);
+        my $result = new EBox::RESTClient::Result($res);
+        $self->{last_error} = $result;
+        my $code = $res->code();
+        my $msgError;
+        if ($code == HTTP_UNAUTHORIZED) {
+            $msgError = $self->_invalidCredentialsMsg();
+        } elsif ($code = HTTP_BAD_REQUEST) {
+            my $error = $self->last_error()->data();
+            $msgError = $error;
+            if (ref($error) eq 'HASH') {
+                # Flatten the arrays
+                my @errors;
+                foreach my $singleErrors (values %{$error}) {
+                    push(@errors, @{$singleErrors});
                 }
-                throw EBox::Exceptions::External($msgError);
+                $msgError = join("\n", @errors);
+            }            
+        } else {
+            # Add to the journal unless specified not to do so
+            if ($retry) {
+                $self->_storeInJournal($method, $path, $query, $res);
             }
-            default {
-                # Add to the journal unless specified not to do so
-                if ($retry) {
-                    $self->_storeInJournal($method, $path, $query, $res);
-                }
-#                use Data::Dumper;
-#                EBox::debug("RES " . Dumper($res));
-#                EBox::debug("content " . $res->content());
-                throw EBox::Exceptions::Internal($res->code() . " : "
-                . $res->content()); 
-                
-            }
+            $msgError = $code . ' : ' . $res->content();
         }
 
+        EBox::debug("XXX NOT SUCCESS $code - $msgError");
+        throw EBox::Exceptions::RESTRequest($msgError, result => $result)
     }
 }
 
