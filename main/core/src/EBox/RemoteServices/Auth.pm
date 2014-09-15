@@ -40,7 +40,7 @@ sub new
 {
     my ($class, @params) = @_;
 
-    my $self = $class->SUPER::new(@params);
+    my $self = $class->SUPER::new(@params, requireUserPassword => 1);
     bless $self, $class;
     return $self;
 }

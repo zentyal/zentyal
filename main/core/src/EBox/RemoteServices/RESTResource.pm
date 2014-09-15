@@ -51,7 +51,11 @@ sub new
 
     my $self = {};
     $self->{remoteservices} = $params{remoteservices};
-    $self->{userPassword}   = $params{userPassword};
+    my $userPassword   = $params{userPassword};
+    if ($params{requireUserPassword} and (not $userPassword)) {
+        throw EBox::Exceptions::MissingArgument('userPassword');
+    }
+    $self->{userPassword} = $userPassword;
 
     bless $self, $class;
     return $self;

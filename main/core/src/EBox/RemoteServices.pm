@@ -37,6 +37,7 @@ use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::RemoteServices::Auth;
 use EBox::RemoteServices::ConfBackup;
+use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::QAUpdates;
 use EBox::RemoteServices::Subscription::Check;
@@ -425,13 +426,29 @@ sub confBackupResource
     return EBox::RemoteServices::ConfBackup->new(remoteservices => $self);
 }
 
+# Method: latestRemoteConfBackup
+#
+# Get the last time when a configuration backup (manual or
+# automatic) has been done
+#
+# Returns:
+#
+# String - the date in RFC 2822 format
+#
+# 'unknown' - if the date is not available
+#
+sub latestRemoteConfBackup
+{
+    my ($self) = @_;
+
+    my $bakService = new EBox::RemoteServices::Backup();
+    return $bakService->latestRemoteConfBackup();
+}
+
 # FIXME: Missing doc
 sub authResource
 {
     my ($self, $userPassword) = @_;
-    if (not $userPassword) {
-        throw EBox::Exceptions::MissingArgument('userPassword');
-    }
     return EBox::RemoteServices::Auth->new(remoteservices => $self,
                                            userPassword  => $userPassword);
 }

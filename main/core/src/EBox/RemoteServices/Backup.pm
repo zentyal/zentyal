@@ -266,7 +266,17 @@ sub removeRemoteBackup
     $confBackup->delete($uuid);
 }
 
+sub latestRemoteConfBackup
+{
+    my ($self) = @_;
+    my $confBackup = $self->_confBackupResource();
+    my @list = sort {
+        $b->{sortableDate} <=> $a->{sortableDate}
+    } @{ $confBackup->list() };
 
+    my $last = pop @list;
+    return $last;
+}
 
 sub _confBackupResource
 {
