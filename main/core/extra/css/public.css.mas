@@ -1747,7 +1747,8 @@ body.first-install {
     font-size: 30px;
     color: white;
     text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
-    max-width: 450px;
+    max-width: 50%;
+    margin-top: 40px;
 }
 .ads p,
 .ads li{
