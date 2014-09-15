@@ -102,7 +102,9 @@ sub makeRemoteBackup
 
     my $archive = EBox::Backup->makeBackup(@backupOptions);
 
+    EBox::debug("XXX before send");
     my $res = $self->sendRemoteBackup($archive, $label, $automatic);
+    EBox::debug("XXX after send");
 }
 
 # Method: sendRemoteBackup
@@ -154,7 +156,7 @@ sub _pushConfBackup
     my ($self, $archive, %params) = @_;
 
 #    my $checksum = delete $p{digest};
-    my $confBackup     = $$self->_confBackupResource();
+    my $confBackup     = $self->_confBackupResource();
 
     my $data = File::Slurp::read_file($archive);
     my $res = $confBackup->add(label => $params{label}, data => $data);
