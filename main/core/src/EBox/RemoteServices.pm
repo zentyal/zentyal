@@ -155,22 +155,6 @@ sub initialSetup
 #    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 }
 
-
-# Method: wizardPages
-#
-# Overrides:
-#
-#       <EBox::Module::Base::wizardPages>
-#
-sub wizardPages
-{
-    my ($self) = @_;
-
-    return [] if EBox::Config::configkey('hide_subscription_wizard');
-
-    return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
-}
-
 # Method: subscriptionLevel
 #
 #      Get the subscription level. This is a way to order editions
