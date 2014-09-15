@@ -1,3 +1,5 @@
+HEAD
+	+ Force samba conf rewrite and restart in purge-module if AV is enabled
 3.2.3
 	+ Added clamd socket actions to freshclam apparmor profile
 3.2.2
