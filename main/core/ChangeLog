@@ -1,4 +1,6 @@
 4.0
+	+ Removed subscription from community editions
+	+ Remote services now resides on this package
 	+ Default webadmin port is now 8443
 	+ Remove haproxy which is no longer needed for Outlook Anywhere
 	+ UI is now responsive to different resolutions
