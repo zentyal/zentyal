@@ -232,13 +232,6 @@ sub username
 }
 
 # FIXME: Missing doc
-sub password
-{
-    my ($self) = @_;
-    $self->get('password');
-}
-
-# FIXME: Missing doc
 sub setUsername
 {
     my ($self, $username) = @_;
@@ -247,17 +240,6 @@ sub setUsername
         throw EBox::Exceptions::External('username');
     }
     $self->set('username', $username);
-}
-
-# FIXME: Missing doc
-sub setPassword
-{
-    my ($self, $password) = @_;
-    # TODO VLAIDATE
-    if (not $password) {
-        throw EBox::Exceptions::External('password');
-    }
-    $self->set('password', $password);
 }
 
 # FIXME: Missing doc
@@ -379,8 +361,8 @@ sub subscriptionCredentials
 # FIXME: Missing doc
 sub subscribe
 {
-    my ($self, $name, $uuid, $mode) = @_;
-    my $subscriptions = $self->subscriptionsResource();
+    my ($self, $name, $password, $uuid, $mode) = @_;
+    my $subscriptions = $self->subscriptionsResource($password);
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
 
     my $state = $self->get_state();
@@ -404,23 +386,26 @@ sub subscribe
 # FIXME: Missing doc
 sub unsubscribe
 {
-    my ($self) = @_;
+    my ($self, $password) = @_;
 
     # Check no other modules required to be subscribed
     EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
 
-    my $subscriptions  = $self->subscriptionsResource();
-    $subscriptions->unsubscribeServer();
+    if ($self->user() and $password) {
+        my $subscriptions  = $self->subscriptionsResource($password);
+        $subscriptions->unsubscribeServer();
 
-    my $state = $self->get_state();
-    my $cred  = $self->subscriptionCredentials();
-    $state->{revokeAction} = {
-        action => 'subscribe',
-        params => [$cred->{name}, $cred->{subscription_uuid}, 'new',
-                   $self->username(), $self->password()
-                  ]
-    };
-    $self->set_state($state);
+        my $state = $self->get_state();
+        my $cred  = $self->subscriptionCredentials();
+        $state->{revokeAction} = {
+            action => 'subscribe',
+            params => [$cred->{name}, $cred->{subscription_uuid}, 'new',
+                       $self->username(), $password
+                      ]
+           };
+        $self->set_state($state);
+    }
+
 
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');
@@ -432,7 +417,6 @@ sub _removeSubscriptionData
 {
     my ($self) = @_;
     $self->unset('username');
-    $self->unset('password');
     $self->unset('subscription_credentials');
     $self->unset('subscription_info');
 }
@@ -459,10 +443,13 @@ sub REST
 }
 
 # FIXME: Missing doc
+# - userPassword is optional
 sub subscriptionsResource
 {
-    my ($self) = @_;
-    my $subscriptions = EBox::RemoteServices::Subscriptions->new(remoteservices => $self);
+    my ($self, $userPassword) = @_;
+    my $subscriptions = EBox::RemoteServices::Subscriptions->new(remoteservices => $self,
+                                                                 userPassword   => $userPassword
+                                                                );
     return $subscriptions;
 }
 
@@ -476,8 +463,12 @@ sub confBackupResource
 # FIXME: Missing doc
 sub authResource
 {
-    my ($self) = @_;
-    return EBox::RemoteServices::Auth->new(remoteservices => $self);
+    my ($self, $userPassword) = @_;
+    if (not $userPassword) {
+        throw EBox::Exceptions::MissingArgument('userPassword');
+    }
+    return EBox::RemoteServices::Auth->new(remoteservices => $self,
+                                           userPassword  => $userPassword);
 }
 
 

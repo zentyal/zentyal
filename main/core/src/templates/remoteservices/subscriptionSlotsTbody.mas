@@ -1,10 +1,11 @@
 <%args>
 $serverName
+$password
 @subscriptions
 </%args>
 <%init>
 use EBox::Gettext;
-my $baseUrl = "/RemoteServices/SetSubscriptionSlot?serverName=$serverName";
+my $baseUrl = "/RemoteServices/SetSubscriptionSlot?serverName=$serverName&password=$password";
 </%init>
 % foreach my $subs (@subscriptions) {
 <& subsTr, serverName => $serverName, subs => $subs, baseUrl => $baseUrl &>

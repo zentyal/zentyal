@@ -99,8 +99,6 @@ sub subscriptionInfo
     my $resource = '/v2/subscriptions/info/';
 
     my $res = $self->_restClientWithServerCredentials()->GET('/v2/subscriptions/info/');
-    use Data::Dumper;
-    EBox::debug("XXX res \n". Dumper($res));
     return $res->data();
 }
 

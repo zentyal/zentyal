@@ -51,6 +51,7 @@ sub new
 
     my $self = {};
     $self->{remoteservices} = $params{remoteservices};
+    $self->{userPassword}   = $params{userPassword};
 
     bless $self, $class;
     return $self;
@@ -60,7 +61,10 @@ sub _restClientWithUserCredentials
 {
     my ($self) = @_;
     my $username = $self->{remoteservices}->username();
-    my $password = $self->{remoteservices}->password();
+    my $password = $self->{userPassword};
+    if (not $password) {
+        throw EBox::Exceptions::MissingArgument('User password for REST client');
+    }
 
     return $self->_restClient($username, $password);
 }

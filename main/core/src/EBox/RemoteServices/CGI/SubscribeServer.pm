@@ -58,12 +58,11 @@ sub _process
 
     my $remoteServices = EBox::Global->getInstance()->modInstance('remoteservices');
     $remoteServices->setUsername($username);
-    $remoteServices->setPassword($password);
 
-    my $subscriptions = $remoteServices->subscriptionsResource();
+    my $subscriptions = $remoteServices->subscriptionsResource($password);
 
     try {
-        my $auth = $remoteServices->authResource->auth();
+        my $auth = $remoteServices->authResource($password)->auth();
         if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
             $self->{json}->{error} = __('Invalid credentials');
             $remoteServices->clearCredentials();
@@ -87,6 +86,7 @@ sub _process
     }
     my $subscriptionsHtml = EBox::Html::makeHtml('/remoteservices/subscriptionSlotsTbody.mas',
                                                  serverName => $name,
+                                                 password   => $password,
                                                  subscriptions => $subscriptionsList,
                                                 );
 

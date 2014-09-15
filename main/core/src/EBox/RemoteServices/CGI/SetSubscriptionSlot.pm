@@ -54,13 +54,14 @@ sub _process
     }
 
     my $name = $self->param('serverName');
+    my $password = $self->param('password');
     my $uuid = $self->param('uuid');
     my $mode = $self->param('mode');
     $self->{json}->{name} = $name;
 
     try {
         my $remoteservices   = EBox::Global->getInstance->modInstance('remoteservices');
-        my $subscriptionInfo =  $remoteservices->subscribe($name, $uuid, $mode);
+        my $subscriptionInfo =  $remoteservices->subscribe($name, $password, $uuid, $mode);
 
         $self->{json}->{success} = 1;
         $self->{json}->{msg} = __('You must save changes to enable your subscription');
