@@ -16,18 +16,14 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices;
-
-use base qw(EBox::Module::Config);
-
 # Class: EBox::RemoteServices
 #
 #      RemoteServices module to handle everything related to the remote
 #      services offered
 #
 
-# no warnings 'experimental::smartmatch';
-# use feature qw(switch);
+package EBox::RemoteServices;
+use base qw(EBox::Module::Config);
 
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
@@ -50,7 +46,6 @@ use EBox::Util::Version;
 use EBox::Validate;
 use EBox::WebAdmin::PSGI;
 
-
 use AptPkg::Cache;
 use File::Slurp;
 use JSON::XS;
@@ -66,36 +61,6 @@ use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant SYNC_PKG                => 'zfilesync';
 
-
-# use Data::UUID;
-#use Date::Calc;
-
-# use EBox::DBEngineFactory;
-# use EBox::Exceptions::DeprecatedMethod;
-
-#
-# use EBox::Exceptions::MissingArgument;
-# use EBox::Exceptions::NotConnected;
-# use EBox::RemoteServices::AdminPort;
-# use EBox::RemoteServices::Capabilities;
-# use EBox::RemoteServices::Connection;
-# use EBox::RemoteServices::Configuration;
-
-# use EBox::RemoteServices::SupportAccess;
-# use EBox::RemoteServices::FirewallHelper;
-
-
-
-# # Constants
-# use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
-# use constant SUBS_DIR            => SERV_DIR . 'subscription/';
-# use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
-# use constant RUNNERD_SERVICE     => 'ebox.runnerd';
-# use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
-# use constant COMPANY_KEY         => 'subscribedHostname';
-# use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
-# use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
-# use constant DEFAULT_REMOTE_SITE => 'remote.zentyal.com';
 
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
@@ -1247,157 +1212,6 @@ sub _downgrade
     } catch (EBox::Exceptions::Command $e) {
         EBox::debug($e->stringify());
     }
-}
-
-1;
-
-__DATA__
-
-
-# Method: controlPanelURL
-#
-#        Return the control panel fully qualified URL to access
-#        control panel
-#
-# Returns:
-#
-#        String - the control panel URL
-#
-# Exceptions:
-#
-#        <EBox::Exceptions::External> - thrown if the URL cannot be
-#        found in configuration files
-#
-sub controlPanelURL
-{
-    my ($self) = @_;
-
-    my $url = DEFAULT_REMOTE_SITE;
-    try {
-        my $cloudDomain = $self->cloudDomain('silent');
-        if ($cloudDomain ne 'cloud.zentyal.com') {
-            $url = "www.$cloudDomain";
-        }
-    } catch {
-    }
-
-    return "https://${url}/";
-}
-
-# Method: securityUpdatesAddOn
-#
-#      Get if server has security updates add-on
-#
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating if it has security updates add-on or not
-#
-sub securityUpdatesAddOn
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    my $ret;
-    try {
-        $ret = $self->_getSubscriptionDetails($force)->{security_updates};
-    } catch {
-        $ret = 0;
-    }
-    return $ret;
-}
-
-
-# Method: latestRemoteConfBackup
-#
-#      Get the last time when a configuration backup (manual or
-#      automatic) has been done
-#
-# Returns:
-#
-#      String - the date in RFC 2822 format
-#
-#      'unknown' - if the date is not available
-#
-sub latestRemoteConfBackup
-{
-    my ($self) = @_;
-
-    my $bakService = new EBox::RemoteServices::Backup();
-    return $bakService->latestRemoteConfBackup();
-}
-
-
-
-
-
-# Get and cache the cap details
-sub _getCapabilityDetail
-{
-    my ($self, $capName, $force) = @_;
-
-    my $state = $self->get_state();
-    if ( $force or (not exists $state->{subscription}->{cap_detail}->{$capName}) ) {
-        my $cap = new EBox::RemoteServices::Capabilities();
-        my $detail;
-        try {
-            $detail = $cap->detail($capName);
-        } catch (EBox::Exceptions::Internal $e) {
-            # Impossible to know the current state
-            # Get cached data if any, if there is not, then raise the exception
-            unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
-                $e->throw();
-            }
-        }
-        $state->{subscription}->{cap_detail}->{$capName} = $detail;
-        $self->set_state($state);
-    }
-    return $state->{subscription}->{cap_detail}->{$capName};
-}
-
-# Get the latest backup date
-sub _latestBackup
-{
-    my ($self) = @_;
-
-    my $latest = __('No data backup has been done yet');
-    my $gl = EBox::Global->getInstance();
-    if ($gl->modExists('ebackup')) {
-        my $ebackup = EBox::Global->modInstance('ebackup');
-        my $latestDate = $ebackup->lastBackupDate();
-        if ($latestDate) {
-            $latest = $latestDate;
-        }
-    } else {
-        # Use the conf backup data
-        $latest = $self->latestRemoteConfBackup();
-    }
-
-    return $latest;
-}
-
-
-# Method: extraSudoerUsers
-#
-#  Returns:
-#    list with usernames to add to the system's sudoers users
-sub extraSudoerUsers
-{
-    my ($self) = @_;
-    my @users;
-    my $supportAccess =
-        $self->model('RemoteSupportAccess')->allowRemoteValue();
-    if ($supportAccess) {
-        push @users,
-            EBox::RemoteServices::SupportAccess->remoteAccessUser;
-    }
-
-    return @users;
 }
 
 1;
