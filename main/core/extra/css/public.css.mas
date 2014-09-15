@@ -824,12 +824,16 @@ TABS options
     border: none;
     padding: 0 0 0 10px;
     margin-right: 34px;
-    line-height: 34px;
     height: 34px;
     box-shadow: none;
     border-radius: 0;
 }
-
+#menusearch::-webkit-input-placeholder { /* WebKit browsers */
+    color: rgba(255,255,255,0.5);
+}
+#menusearch:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: rgba(255,255,255,0.5);
+}
 .menusearch input[type='submit'] {
     background-image: url('/data/images/magnifying-glass-w.png') ;
     background-position: center center ;
@@ -844,7 +848,6 @@ TABS options
     text-indent: 1000px;
     border: none;
     padding: 0;
-
 }
 
 .menusearch input[type='submit'],
@@ -853,6 +856,7 @@ TABS options
      transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
+    outline: none;
 }
 
 #menusearch:hover,
@@ -865,6 +869,7 @@ TABS options
     -webkit-transition: background-color 0.3s;
     box-shadow: none;
     border: none;
+    webkit-apperance: none;
 }
 
 #searchresults ul {
@@ -1462,6 +1467,7 @@ body.first-install {
     padding: 0px;
     list-style: none;
     overflow: hidden;
+    width:100%;
 }
 #software .package {
     overflow: hidden;
@@ -1735,7 +1741,7 @@ body.first-install {
     overflow: hidden;
     position:relative;
     background: no-repeat bottom right;
-    margin-left: 20px;
+    margin-left:50px;
 }
 .ads img {
     position: absolute;
