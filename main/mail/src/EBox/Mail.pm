@@ -270,15 +270,17 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
 
-    if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
-        $self->_migrateToFetchmail();
-    }
-    if (EBox::Util::Version::compare($version, '3.5') < 0) {
-        $self->_migrateToMaildir();
-        $self->_chainDovecotCertificate();
-    }
-    if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
-        $self->_migrateAliasTo35();
+    if ($version) {
+        if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
+            $self->_migrateToFetchmail();
+        }
+        if (EBox::Util::Version::compare($version, '3.5') < 0) {
+            $self->_migrateToMaildir();
+            $self->_chainDovecotCertificate();
+        }
+        if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
+            $self->_migrateAliasTo35();
+        }
     }
 
     if ($self->changed()) {
