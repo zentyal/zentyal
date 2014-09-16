@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-09-06 14:25+0200\n"
+"PO-Revision-Date: 2014-09-15 06:31+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -5747,14 +5747,14 @@ msgstr ""
 "います。</p>"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:194
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This action is incompatible with the module {mod} configuration"
-msgstr "透過プロキシは、Kerberos認証と互換性がありません"
+msgstr "このアクションは、モジュールの {mod} 設定と互換性がありません"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:223
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The nameserver '{name}' is being used by {mod}"
-msgstr "ゲートウェイ'{name}'は{mod}よって使用されています"
+msgstr "ネームサーバ'{name}'は {mod}によって使用されている"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:279
 #, perl-brace-format
@@ -6622,13 +6622,10 @@ msgstr ""
 "スのアドレスを提供しません"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:135
-#, fuzzy
 msgid ""
 "Mising interface parameter. Please, navigate again to this page starting "
 "from the DHCP main page"
-msgstr ""
-"期限切れのセッションを通報します。 どうぞ、{ohref} GPOのメインページ{chref}か"
-"らこのページに再び移動してください。"
+msgstr "インタフェースパラメータがありません。DHCPメインページからこのページを起点に再び移動してください。"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/AdvancedOptions.pm:66
 msgid "Advanced options"
@@ -6811,19 +6808,18 @@ msgstr ""
 "目は\"なし\"あるいは空白の項目は任意の項目です。"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:87
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains the IP address {ip} which is also the address of the "
 "interface"
-msgstr ""
-"ゲートウェイアドレス{ip}は既にローカルインターフェイス{iface}のアドレスです"
+msgstr "オブジェクトは、インターフェイスのアドレスであるIPアドレス {ip} が含まれています"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The object contains an IP address {ip} which also is in the range '{range}': "
 "{from}-{to}"
-msgstr "IPアドレス {ip} は範囲 '{range}': {from}-{to} に含まれています"
+msgstr "オブジェクトは、IPアドレス {ip} は範囲 '{range}': {from}-{to} に含まれています"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:171
 msgid "Fixed addresses"
@@ -7284,13 +7280,11 @@ msgid "Zentyal Webadmin"
 msgstr "Zentyal Web管理"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:832
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
-msgstr ""
-"Zentyalは既に{use}でポート{p}を使用するように設定されている。別のポートを選択"
-"するか、それを解放し、再試行してください。"
+msgstr "Zentyalは既に別のサービス用のポート{p}を使用するように設定されている。別のポートを選択するか、それを解放し、再試行してください。"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:845
 #, perl-brace-format
@@ -8109,9 +8103,8 @@ msgid "Optional"
 msgstr "オプション"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:211
-#, fuzzy
 msgid "Email address"
-msgstr "メールアドレス"
+msgstr "Eメールアドレス"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:212
 #, perl-brace-format

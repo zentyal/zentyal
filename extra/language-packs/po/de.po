@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2014-08-31 12:26+0200\n"
-"Last-Translator: didi <d.weiss@web.de>\n"
+"PO-Revision-Date: 2014-09-15 19:08+0200\n"
+"Last-Translator: aserranog <aserranog@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -137,8 +137,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
-"VPN Client sollte nicht konfiguriert sein, zur Adresse {addr} zu verbinden, "
-"da es eine Adresse einer lokalen Netzwerkschnittstelle ist."
+"VPN-Client sollte nicht so konfiguriert, an die Adresse {addr} anschließen "
+"werden, da ist eine Adresse eines lokalen Netzwerkschnittstelle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
@@ -569,6 +569,8 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"Die hochgeladenen Zertifikate und / oder privaten Schlüssel sind nicht "
+"gültig. Datei: {file}, Fehler: {err}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -1348,12 +1350,10 @@ msgid "Floating IP Address"
 msgstr "Domäne oder IP-Adresse"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:249
-#, fuzzy
 msgid "Floating IP addresses"
 msgstr "Domäne oder IP-Adresse"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:253
-#, fuzzy
 msgid "floating IP address"
 msgstr "Domäne oder IP-Adresse"
 
@@ -1412,7 +1412,7 @@ msgstr "Liste aller Knoten im Cluster {cluster}"
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:231
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:132
 msgid "The cluster does not have any nodes."
-msgstr "Dieser Cluster enthält keine Mitglieder"
+msgstr "Dieser Cluster enthält keine Mitglieder."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:273
 #, perl-brace-format
@@ -1441,7 +1441,7 @@ msgstr "Cluster Passwort"
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Aktuelle Ausgewiesene-Controller"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
@@ -1748,12 +1748,10 @@ msgstr ""
 "transparente Modus aktiviert ist."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
 msgstr "Portweiterleitung"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
 msgstr "Portweiterleitung"
 
@@ -1766,7 +1764,6 @@ msgstr ""
 "wird er versuchen die Anfrage selber zu beantworten."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
 msgstr "Portweiterleitung"
 
@@ -2418,7 +2415,6 @@ msgid "Listen"
 msgstr "Lauschen"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:137
-#, fuzzy
 msgid "Select CUPS Interfaces"
 msgstr "CUPS-Schnittstellen auswählen"
 
@@ -2428,14 +2424,13 @@ msgid "interface"
 msgstr "Schnittstelle"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:143
-#, fuzzy
 msgid ""
 "Select in which interfaces the CUPS webserver will listen on. Take into "
 "account that is not probably a good idea to listen on external interfaces. "
 "If none are selected, it will be listening only at localhost"
 msgstr ""
-"Wähle das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, dass "
-"es möglicherweisekeine gute Idee ist, ein externes Netzwerk-Interface "
+"Wählen Sie das Netzwerk-Interface für den CUPS-Webserver aus. Bedenke dabei, "
+"dass es möglicherweisekeine gute Idee ist, ein externes Netzwerk-Interface "
 "auszuwählen. Wenn gar keines ausgewählt ist, wird nur Localhost benutzt."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:55
@@ -2482,9 +2477,8 @@ msgid "Guest access"
 msgstr "Gast-Zugriff"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
-#, fuzzy
 msgid "This printer will not require authentication."
-msgstr "Diese Freigabe erfordert keine Authentifizierung."
+msgstr "Diese Drucker erfordert keine Authentifizierung."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
@@ -2504,13 +2498,13 @@ msgid "Here you can define the access control list for your printers."
 msgstr "Hier können Sie ACL's für ihre Drucker definieren."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Prior to configure printers ACLs you need to enable the module in the "
 "{openref}Module Status{closeref}  section and save changes after that."
 msgstr ""
-"Bevor Sie Drucker konfigurieren, müssen Sie das Modul in der {openref}Modul-"
-"Status{closeref} Sektion aktivieren und die Änderungen speichern."
+"Bevor ACL-Drucker Sie konfigurieren, müssen Sie das Modul in der {openref"
+"}Modul-Status{closeref} Sektion aktivieren und die Änderungen speichern."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:252
 #, perl-brace-format
@@ -2575,7 +2569,6 @@ msgid "Queued"
 msgstr "In die Warteschlange gestellt"
 
 #: ../../main/printers/src/EBox/Printers.pm:399
-#, fuzzy
 msgid "Completed"
 msgstr "Fertiggestellt"
 
@@ -2709,7 +2702,6 @@ msgstr "Allgemein"
 
 #: ../../main/ca/src/EBox/CA.pm:1742
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
-#, fuzzy
 msgid "Services Certificates"
 msgstr "Zertifizierungsdienste"
 
@@ -14518,9 +14510,8 @@ msgid "Education"
 msgstr "Aktion"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:176
-#, fuzzy
 msgid "IT"
-msgstr "T"
+msgstr "IT"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:180
 #, fuzzy
