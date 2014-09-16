@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,7 +15,7 @@
 
 # Class: EBox::IPS
 #
-#      Class description
+#      Module to manage suricata IPS/IDS daemon
 #
 
 use strict;
@@ -28,13 +28,14 @@ use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 use Error qw(:try);
 
 use EBox::Gettext;
-use EBox::Service;
-use EBox::Sudo;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Internal;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
+use EBox::Service;
+use EBox::Sudo;
+
 use List::Util;
 use POSIX;
 
@@ -217,6 +218,11 @@ sub _setConf
     my $mode  = 'accept';
     if ($self->fwPosition() eq 'front') {
         $mode = 'repeat';
+    }
+
+    # Make sure loghelper can read this file
+    if (EBox::Sudo::fileTest('-r', EBox::IPS::LogHelper::SURICATA_LOGFILE)) {
+        EBox::Sudo::root('chmod o+r "' . EBox::IPS::LogHelper::SURICATA_LOGFILE . '"');
     }
 
     $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
