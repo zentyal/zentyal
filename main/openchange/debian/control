@@ -12,7 +12,7 @@ Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-samba, zentyal-mail, zentyal-ca,
          openchangeserver (>= 3:2.0-2~20140606-1~96),
          openchange-rpcproxy, libstring-random-perl,
-         openchange-ocsmanager (>> 3:2.0-2~20140606-1~98),
+         openchange-ocsmanager (>> 3:2.3-zentyal1),
          apache2, zoctools, zip,
          sogo-openchange (>= 2.2.5-zentyal1~20140618-1~108),
          ${misc:Depends}

@@ -601,7 +601,7 @@ sub _setOCSManagerConf
         adminMail    => $adminMail,
         rpcProxy     => $self->_rpcProxyEnabled(),
         rpcProxySSL  => ($self->_rpcProxyEnabled() and $self->model('RPCProxy')->httpsEnabled()),
-        mailboxesDir =>  EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
+        mailboxesDir => EBox::Mail::VDOMAINS_MAILBOXES_DIR(),
     ];
     if ($self->_rpcProxyEnabled()) {
         my $externalHostname;

@@ -104,6 +104,13 @@ ssl = false
 
 # Out of office configuration
 [outofoffice]
+# Set the backend.
+# Possible backends: file, managesieve
+# file makes sieve and OCSManager lives in the same host
+# managesieve indicates the server to put/get the sieve script
+backend = file
+
+[outofoffice:file]
 # Path of the sieve script for the user
 #   Expansion variables (example user.name@example.com):
 #       $domain   = example.com
@@ -111,6 +118,14 @@ ssl = false
 #       $fulluser = user.name@example.com
 sieve_script_path = <% $mailboxesDir %>/$domain/$user/sieve-script
 sieve_script_path_mkdir = true
+
+[outofoffice:managesieve]
+# It requires to have a master password to get into every account
+# server = 127.0.0.1
+# SSL on/off
+# ssl = true
+# Master password
+# secret = secret
 
 # Logging configuration
 [loggers]
