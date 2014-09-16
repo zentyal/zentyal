@@ -80,7 +80,7 @@ Zentyal.RemoteServices.listSubscriptionSlots = function(response) {
 
 Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     $('.subscription_page').hide();
-
+    
     $('#subscription_info_title').text(subscription.label);
     $('#info_username').text(subscription.username);
     $('#info_server_name').text(subscription.server.name);
@@ -92,11 +92,11 @@ Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
     } else {
         $('#row_info_subscription_end').hide();
     }
-    if (subscription.messages === "") {
-        $('#row_info_messages').hide();
-    } else {
+    if (subscription.messages) {
         $('#info_messages').text(subscription.messages);
         $('#row_info_messages').show();
+    } else {
+        $('#row_info_messages').hide();
     }
 
     $('#subscription_info_div').show();
