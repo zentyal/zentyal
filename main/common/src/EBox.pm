@@ -85,6 +85,7 @@ sub debugDump
     my ($msg, $data);
     if (@_ > 1) {
         ($msg, $data) = @_;
+        $msg .= ' ';
     } else {
         ($data) = @_;
         $msg = '';
