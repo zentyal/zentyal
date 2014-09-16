@@ -849,6 +849,8 @@ sub defaultAntivirusSettings
 {
     my ($self) = @_;
 
+    return 0 unless $self->global()->modExists('antivirus');
+
     my $antivirus = $self->model('AntivirusDefault');
     return $antivirus->value('scan');
 }

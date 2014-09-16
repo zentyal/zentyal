@@ -1,4 +1,5 @@
 HEAD
+	+ Disable antivirus vfs if zentyal-antivirus is not installed
 	+ Increased default max log size to 100 MB
 3.2.23
 	+ Add dpkg trigger for samba4 package
