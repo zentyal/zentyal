@@ -14,7 +14,7 @@ Architecture: all
 Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-firewall,
          libdigest-hmac-perl, bind9 (>= 1:9.8.1.dfsg.P1-4ubuntu0.7+zentyal1),
          ${misc:Depends}
-Description: Zentyal - DNS Service
+Description: Zentyal - DNS Server
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

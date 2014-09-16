@@ -63,27 +63,20 @@ sub _process
         }
     }
 
-    my @pkgs = @{$software->listEBoxPkgs()};
-    @pkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @pkgs;
-    @pkgs = sort { $a->{description} cmp $b->{description} } @pkgs;
+    my @allpkgs = @{$software->listEBoxPkgs()};
+    @allpkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @allpkgs;
+    @allpkgs = sort { $a->{description} cmp $b->{description} } @allpkgs;
 
-    my @bigpkgs = (
-        { name => 'zentyal-samba', description => 'Domain Controller and File Sharing' },
-        { name => 'zentyal-mail', description => 'Mail and Groupware' }
-    );
+    my %pkgs = map { $_->{name} => $_ } @allpkgs;
 
-    my @mediumpkgs = (
-        { name => 'zentyal-dns', description => 'DNS Server' },
-        { name => 'zentyal-dhcp', description => 'DHCP Server' },
-        { name => 'zentyal-firewall', description => 'Firewall' }
-    );
-
+    my @bigpkgs = ($pkgs{'zentyal-samba'}, $pkgs{'zentyal-mail'});
+    my @mediumpkgs = ($pkgs{'zentyal-dns'}, $pkgs{'zentyal-dhcp'}, $pkgs{'zentyal-firewall'});
     my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange dns dhcp firewall network objects services ntp);
 
     my @array = ();
     push(@array, 'bigpkgs'     => \@bigpkgs);
     push(@array, 'mediumpkgs'  => \@mediumpkgs);
-    push(@array, 'allpkgs'     => \@pkgs);
+    push(@array, 'allpkgs'     => \@allpkgs);
     push(@array, 'filterpkgs'     => \%filterpkgs);
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
