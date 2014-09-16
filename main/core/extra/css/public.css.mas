@@ -1448,6 +1448,52 @@ border-radius: 2px;
 
  ***********************************************************************************************/
 
+/* first installation spash */
+
+#install-splash{
+    margin: 70px  auto 0 auto;
+    width: 450px;
+    text-align: center;
+    opacity: 0;
+    background-image: url('data/images/spinner.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+#install-splash #splash-content {
+    background-color: #eee;
+}
+
+#install-splash header img{
+    width: 200px
+}
+#install-splash h1{
+    font-size: 45px;
+    margin: 40px 0 30px 0;
+}
+#install-splash h3{
+    font-size: 1.8em;
+    line-height: 140%;
+    border-bottom: none;
+    font-weight: 100
+}
+#install-splash .install-splash-steps{
+    margin: 40px auto;
+}
+#install-splash .install-splash-steps div{
+    display: inline-block;
+    width: 23%;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #777;
+    font-weight: 100;
+}
+#install-splash .btn-green{
+    text-transform: none;
+    font-weight: normal;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
+
 body.first-install {
     max-width: 1200px;
 }
