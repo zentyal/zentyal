@@ -119,7 +119,7 @@ sub menu
                                       'text' => __('Date/Time'),
                                       'order' => 20));
 
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
+    $system->add(new EBox::Menu::Item('url' => 'RemoteServices/Backup/Index',
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
 

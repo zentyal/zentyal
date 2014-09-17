@@ -31,7 +31,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Import/Export Configuration Remotely'),
-                                  'template' => '/backupTabs.mas',
+                                  'template' => '/remoteservices/Backup/index.mas',
                                   @_);
 
     $self->setMenuNamespace('EBox/Backup');
