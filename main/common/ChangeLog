@@ -1,3 +1,6 @@
+HEAD
+	+ Change DataInUse to External exception to avoid be logged as errors in
+	  logs
 3.2.3
 	+ Fix error when using __x function from Gettext
 	+ Updated EBox::Config::TestStub::fake to override EBox::Config::home so
