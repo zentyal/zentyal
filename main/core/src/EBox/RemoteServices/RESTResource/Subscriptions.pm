@@ -15,11 +15,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::RemoteServices::Subscription
+# Class: EBox::RemoteServices::Subscriptions
 #
-#       Class to manage the Zentyal subscription to Zentyal Cloud
+#       Class for Subscriptions REST resource
 #
-package EBox::RemoteServices::Subscriptions;
+package EBox::RemoteServices::RESTResource::Subscriptions;
 use base 'EBox::RemoteServices::RESTResource';
 
 use EBox::Exceptions::Command;

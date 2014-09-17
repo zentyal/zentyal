@@ -35,13 +35,15 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
-use EBox::RemoteServices::Auth;
-use EBox::RemoteServices::ConfBackup;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::QAUpdates;
 use EBox::RemoteServices::Subscription::Check;
-use EBox::RemoteServices::Subscriptions;
+
+use EBox::RemoteServices::RESTResource::Auth;
+use EBox::RemoteServices::RESTResource::ConfBackup;
+use EBox::RemoteServices::RESTResource::Subscriptions;
+
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -426,7 +428,7 @@ sub REST
 sub subscriptionsResource
 {
     my ($self, $userPassword) = @_;
-    my $subscriptions = EBox::RemoteServices::Subscriptions->new(remoteservices => $self,
+    my $subscriptions = EBox::RemoteServices::RESTResource::Subscriptions->new(remoteservices => $self,
                                                                  userPassword   => $userPassword
                                                                 );
     return $subscriptions;
@@ -436,7 +438,7 @@ sub subscriptionsResource
 sub confBackupResource
 {
     my ($self) = @_;
-    return EBox::RemoteServices::ConfBackup->new(remoteservices => $self);
+    return EBox::RemoteServices::RESTResource::ConfBackup->new(remoteservices => $self);
 }
 
 # Method: latestRemoteConfBackup
@@ -462,7 +464,7 @@ sub latestRemoteConfBackup
 sub authResource
 {
     my ($self, $userPassword) = @_;
-    return EBox::RemoteServices::Auth->new(remoteservices => $self,
+    return EBox::RemoteServices::RESTResource::Auth->new(remoteservices => $self,
                                            userPassword  => $userPassword);
 }
 

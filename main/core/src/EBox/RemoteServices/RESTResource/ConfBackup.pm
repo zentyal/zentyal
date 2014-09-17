@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::ConfBackup;
+package EBox::RemoteServices::RESTResource::ConfBackup;
 use base 'EBox::RemoteServices::RESTResource';
 
 

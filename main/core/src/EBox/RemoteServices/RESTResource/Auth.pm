@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::Auth;
+package EBox::RemoteServices::RESTResource::Auth;
 use base 'EBox::RemoteServices::RESTResource';
 
 use EBox::Exceptions::Command;
