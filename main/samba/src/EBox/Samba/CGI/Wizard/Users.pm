@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2013 Zentyal S.L.
+# Copyright (C) 2010-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -37,9 +37,14 @@ sub new
 sub _processWizard
 {
     my ($self) = @_;
-    if ($self->param('standalone')) {
+
+    my $mode = $self->param('mode');
+
+    if ($mode eq 'standalone') {
         $self->_processStandalone();
-    } else {
+    } elsif ($mode eq 'join') {
+        $self->_processJoinADC();
+    } elsif ($mode eq 'external') {
         $self->_processExternalAD();
     }
 }
@@ -47,6 +52,7 @@ sub _processWizard
 sub _processStandalone
 {
     my ($self) = @_;
+
     my $domain = $self->param('domain');
     if ($domain) {
         EBox::info('Setting the host domain');
@@ -60,9 +66,51 @@ sub _processStandalone
     }
 }
 
+sub _processJoinADC
+{
+    my ($self) = @_;
+
+    $self->_requireParam('dcHostname', __('Active Directory hostname'));
+    $self->_requireParam('dcUser', __('Administrative user'));
+    $self->_requireParam('dcPassword', __('User password'));
+    $self->_requireParam('dcPassword2', __('Confirm user password'));
+
+    my $domain = $self->param('realm');
+    my $dcfqdn = $self->param('dcfqdn');
+    my $dnsip = $self->param('dnsip');
+    my $adminAccount = $self->param('adminAccount');
+
+    if ($domain) {
+        EBox::info('Setting the host domain');
+
+        # Write the domain to sysinfo model
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $domainModel = $sysinfo->model('HostName');
+        my $row = $domainModel->row();
+        $row->elementByName('hostdomain')->setValue($domain);
+        $row->store();
+    }
+
+    my $samba = EBox::Global->modInstance('samba');
+    my $settings = $samba->model('DomainSettings');
+
+    $settings->setRow(
+        0, # no force mode
+        mode => $samba->MODE_ADC(),
+        realm => $domain,
+        dcfqdn => $self->param('dcfqdn'),
+        dnsip => $self->param('dnsip'),
+        adminAccount => $self->param('adminAccount'),
+        password => $self->param('password'),
+        workgroup => $self->param('workgroup'),
+        netbiosName => $self->param('netbiosName')
+    );
+}
+
 sub _processExternalAD
 {
     my ($self) = @_;
+
     $self->_requireParam('dcHostname', __('Active Directory hostname'));
     $self->_requireParam('dcUser', __('Administrative user'));
     $self->_requireParam('dcPassword', __('User password'));
@@ -82,7 +130,7 @@ sub _processExternalAD
         dcUser => $self->param('dcUser'),
         dcPassword => $dcPassword,
         dcPassword2 => $dcPassword2
-       );
+    );
 }
 
 1;

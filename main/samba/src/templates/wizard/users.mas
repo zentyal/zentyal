@@ -1,8 +1,9 @@
 <%init>
 use EBox::Gettext;
 use EBox::Config;
-my $sysinfo = EBox::Global->modInstance('sysinfo');
-my $hostDomain = $sysinfo->hostDomain();
+my $samba = EBox::Global->modInstance('samba');
+my $hostDomain = lc($samba->kerberosRealm());
+my $workgroup = $samba->defaultWorkgroup();
 </%init>
 <h3><% __('Users and Groups') %></h3>
 <img src="/data/software/images/users.png" />
@@ -11,26 +12,38 @@ my $hostDomain = $sysinfo->hostDomain();
         <legend><% __('Select the type of the server') %></legend>
           <div class="radio-group">
             <label>
-               <input type="radio" name="standalone" id="standaloneRadio" value="1" checked="true" />
+               <input type="radio" name="mode" id="standaloneRadio" value="standalone" checked="true" />
                <% __('Standalone server') %>
             </label>
             <label>
-              <input type="radio" name="standalone" id="adRadio" value="0"/> 
+              <input type="radio" name="mode" id="joinRadio" value="join"/>
+              <% __('Additional domain controller') %>
+            </label>
+            <label>
+              <input type="radio" name="mode" id="adRadio" value="external"/>
               <% __('Connect with external Active Directory server') %>
             </label>
           </div>
         </fieldset>
         <& .standaloneSection, hostDomain => $hostDomain &>
+        <& .joinSection, hostDomain => $hostDomain, workgroup => $workgroup &>
         <& .externalADSection &>
 </form>
 <script>
 $(function() {
    $('#standaloneRadio').on('click', function (event) {
       $('#standaloneSection').show();
+      $('#joinSection').hide();
+      $('#externalADSection').hide();
+   });
+   $('#joinRadio').on('click', function (event) {
+      $('#standaloneSection').hide();
+      $('#joinSection').show();
       $('#externalADSection').hide();
    });
    $('#adRadio').on('click', function (event) {
       $('#standaloneSection').hide();
+      $('#joinSection').hide();
       $('#externalADSection').show();
    });
 });
@@ -53,6 +66,52 @@ $hostDomain
             <input type="text" name="domain" id="domain" value="<% $hostDomain %>"/>
         </div>
      </fieldset>
+</%def>
+
+<%def .joinSection>
+<%args>
+$hostDomain
+$workgroup
+</%args>
+    <fieldset id='joinSection' style="display: none">
+        <legend>
+            <% __('Enter your existing domain settings') %>
+        </legend>
+        <div>
+            <label for="realm"><% __('Domain name') %>
+              <span class="field_help">
+                  <% __('This is the name of the existing domain you want to join.') %>
+              </span>
+            </label>
+            <input type="text" name="realm" id="realm" value="<% $hostDomain %>"/>
+        </div>
+        <div>
+              <label for="dcfqdn"><% __('Domain controller FQDN') %>
+              </label>
+              <input type="text" name="dcfqdn" id="dcfqdn"/>
+        </div>
+        <div>
+              <label for="dnsip"><% __('Domain DNS server IP') %>
+              </label>
+              <input type="text" name="dnsip" id="dnsip"/>
+        </div>
+        <div>
+              <label for="adminAccount"><% __('Administrator account') %></label>
+              <input type="text" name="adminAccount" id="adminAccount"/>
+        </div>
+        <div>
+              <label for="password"><% __('Administrator password') %></label>
+              <input type="password" name="password" id="password"/>
+        </div>
+        <div>
+              <label for="workgroup"><% __('NetBIOS domain name') %></label>
+              <input type="text" name="workgroup" id="workgroup" value="<% $workgroup %>"/>
+        </div>
+        <div>
+              <label for="workgroup"><% __('NetBIOS domain name') %></label>
+              <input type="text" name="workgroup" id="workgroup"/>
+        </div>
+    </fieldset>
 </%def>
 
 <%def .externalADSection>
