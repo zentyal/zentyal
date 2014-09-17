@@ -1,0 +1,24 @@
+<%args>
+</%args>
+/var/log/cups/*log {
+        daily
+        missingok
+        rotate 7
+        sharedscripts
+        prerotate
+                if [ -e /var/run/cups/cupsd.pid ]; then
+                        stop cups > /dev/null
+                        touch /var/run/cups/cupsd.stopped
+                fi
+        endscript
+        postrotate
+                if [ -e /var/run/cups/cupsd.stopped ]; then
+                        rm /var/run/cups/cupsd.stopped
+                        start cups > /dev/null
+                        sleep 10
+                fi
+        endscript
+        compress
+        notifempty
+        create
+}
