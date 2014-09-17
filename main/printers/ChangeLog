@@ -1,3 +1,5 @@
+HEAD
+	+ Fix cups daemon remaining stopped after log rotation
 3.5.3
 	+ Fix printers.conf file permissions (600 -> 644)
 3.5.2

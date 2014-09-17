@@ -37,6 +37,7 @@ use Net::CUPS;
 use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
+use constant CUPSD_LOGROTATE_CONF => '/etc/logrotate.d/cups-daemon';
 use constant SAMBA_PRINTERS_CONF_FILE => '/etc/samba/printers.conf';
 
 sub _create
@@ -174,6 +175,8 @@ sub _setConf
     my ($self) = @_;
 
     $self->_mangleConfFile(CUPSD, addresses => $self->_ifaceAddresses());
+    $self->writeConfFile(CUPSD_LOGROTATE_CONF,
+        'printers/cups-daemon.logrotate.mas', []);
 }
 
 sub _postServiceHook
