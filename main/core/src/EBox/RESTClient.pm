@@ -345,10 +345,11 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
-        EBox::debug("XXX RESUKLTL: success");
+        EBox::debugDump("XXX SUCCESS:", $res);
         return new EBox::RESTClient::Result($res);
     }
     else {
+        EBox::debugDump('XXX FAIL ' , $res);
         my $result = new EBox::RESTClient::Result($res);
         $self->{last_error} = $result;
         my $code = $res->code();
@@ -356,16 +357,25 @@ sub request {
         if ($code == HTTP_UNAUTHORIZED) {
             $msgError = $self->_invalidCredentialsMsg();
         } elsif ($code = HTTP_BAD_REQUEST) {
-            my $error = $self->last_error()->data();
-            $msgError = $error;
-            if (ref($error) eq 'HASH') {
-                # Flatten the arrays
-                my @errors;
-                foreach my $singleErrors (values %{$error}) {
-                    push(@errors, @{$singleErrors});
+            my $errorJSON;
+            try {
+                  $errorJSON = $result->data();
+            } catch {};
+
+            if ($errorJSON) {
+                $msgError = $errorJSON;
+                if (ref($errorJSON) eq 'HASH') {
+                    # Flatten the arrays
+                    my @errors;
+                    foreach my $singleErrors (values %{$errorJSON}) {
+                        push(@errors, @{$singleErrors});
+                    }
+                    $msgError = join("\n", @errors);
                 }
-                $msgError = join("\n", @errors);
-            }            
+            } else {
+                # no JSON, try to show the error a string
+                $msgError = $result->as_string();
+            }
         } else {
             # Add to the journal unless specified not to do so
             if ($retry) {
