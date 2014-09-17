@@ -40,10 +40,10 @@ if ( $isCACert ) {
 % }
       <input class="inputButton" type="submit"
              name="revokeForce"
-	     value='<% __("Revoke") %>' />
+             value='<% __("Revoke") %>' />
       <input class="inputButton" type="submit"
              name="cancel"
-	     value='<% __("Cancel") %>' />
+             value='<% __("Cancel") %>' />
     </form>
   </p>
 </div>

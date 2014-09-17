@@ -39,6 +39,7 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::InvalidData;
 use EBox;
 use EBox::CA::Certificates;
+use EBox::CA::User;
 use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
@@ -1116,9 +1117,11 @@ sub listCertificates
 #
 # Parameters:
 #
-#       cn - Common Name (Optional)
-#       dn - EBox::CA::DN Distinguished Name (Optional)
+#       cn - Common Name (Optional) 
+#       dn - EBox::CA::DN Distinguished Name(Optional) 
 #       serialNumber - A serial number within CA (Optional)
+#       dateAsString - if true returns the dates as string instead of a  
+#                      Calc::Date object (default: false)
 #
 # Returns:
 #
@@ -1144,7 +1147,7 @@ sub listCertificates
 sub getCertificateMetadata
 {
     my ($self, %args) = @_;
-
+    my $dateAsString = delete $args{dateAsString};
     if (scalar(keys %args) == 0) {
         throw EBox::Exceptions::DataMissing(data =>
                 __("Either common name, distinguished name or serial number has been passed")
@@ -1172,6 +1175,22 @@ sub getCertificateMetadata
     } elsif( defined($serialNumber) ) {
         ($retCert) = grep { $_->{'serialNumber'} eq $serialNumber } @{$listCertsRef};
     }
+
+    if ($dateAsString) {
+        foreach my $field ('expiryDate', 'revokeDate') {
+            if ((not exists $retCert->{$field}) or (not $retCert->{$field})) {
+                next;
+            }
+            
+            my $date = $retCert->{$field};
+            my $strDate = sprintf("%04d-%02d-%02d %02d:%02d:%02d",
+                                  $date->year(), $date->month(), $date->day(), 
+                                  $date->hours(), $date->minutes(), $date->seconds());
+            $retCert->{$field} = $strDate;
+        }
+        
+    }
+
 
     return $retCert;
 }
@@ -2687,6 +2706,30 @@ sub caExpirationDate
         $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
     }
     return $self->{caExpirationDate};
+}
+
+sub checkCommonName
+{
+    my ($self, $commonName) = @_;
+
+    # We have to check it manually
+    if (not defined($commonName) or $commonName eq '') {
+        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    }
+
+    # Only valid chars minus '/' plus '*' --> security risk
+    unless ($commonName =~ m{^[\w .?&+:\-\@\*]*$}) {
+        throw EBox::Exceptions::External(__('The input contains invalid ' .
+                    'characters. All alphanumeric characters, ' .
+                    'plus these non alphanumeric chars: .?&+:-@* ' .
+                    'and spaces are allowed.'));
+    }
+}
+
+sub _ldapModImplementation
+{
+    my ($self) = @_;
+    return EBox::CA::User->new($self);
 }
 
 1;

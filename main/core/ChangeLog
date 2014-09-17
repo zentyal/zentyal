@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed constructors of EBox::Downloader::CGI::Base and subclasses
 	+ Use upload-crash-report.py tool from OpenChange upstream instead
 	  of a custom one
 	+ Optionally submit the email while uploading the crash report

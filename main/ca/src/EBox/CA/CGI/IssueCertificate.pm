@@ -46,7 +46,6 @@ sub new
     my $self = $class->SUPER::new('title' => __('Certification Authority'),
                                   @_);
 
-    $self->{chain} = 'CA/Index';
     bless($self, $class);
 
     return $self;
@@ -65,7 +64,7 @@ sub redirectOnNoParams
 #
 sub requiredParameters
 {
-    return ['name', 'expiryDays', 'certificate'];
+    return ['name', 'expiryDays'];
 }
 
 # Method: optionalParameters
@@ -79,7 +78,7 @@ sub optionalParameters
     return [
             'caNeeded', 'caPassphrase', 'reCAPassphrase',
             'countryName', 'stateName', 'localityName',
-            'subjectAltName'];
+            'subjectAltName', 'certificate'];
 }
 
 # Method: actuate
@@ -94,8 +93,12 @@ sub actuate
     if (not @{ $self->params()  }) {
         return;
     }
-    foreach my $required ('name', 'expiryDays', 'certificate' ) {
-        $self->_requireParam($required);
+
+    my $jsonReply = $self->param('jsonReply');
+    if ($jsonReply) {
+        $self->{json} = { success => 0 };
+    } else {
+        $self->{chain} = "CA/Index";        
     }
 
     my $ca = EBox::Global->modInstance('ca');

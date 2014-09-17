@@ -75,8 +75,14 @@ The input buttons one after one
   }   
 </%init>
 
-<& /input/submit.mas, name => $action, value => $printableAction &>
-<& /input/submit.mas, name => 'cancel', value => __('Cancel') &>
+<& /input/submit.mas, name => $action, 
+                      value => $printableAction,
+                      id => 'certificate_renew_button'
+&>
+<& /input/submit.mas, name => 'cancel', 
+                      value => __('Cancel'),
+                      id => 'certificate_cancel_renew_button' 
+&>
 
 </%method>
 </div>

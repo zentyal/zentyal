@@ -43,10 +43,10 @@ use File::MMagic;
 #      Create a <EBox::Downloader::CGI::Base>
 #
 #
-sub new # (cgi=?)
+sub new
 {
-    my ($class, %params) = @_;
-    my $self = $class->SUPER::new(@_);
+    my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
     bless($self, $class);
     return  $self;
 }

@@ -47,11 +47,10 @@ use Cwd 'abs_path';
 #   <EBox::Exceptions::MissingArgument> - If filename is not passsed
 #   <EBox::Exceptions::Internal> - If file can't be read or is an invalid path
 #
-sub new # (cgi=?)
+sub new
 {
-
-    my ($class, %params) = @_;
-    my $self = $class->SUPER::new(@_);
+    my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
     bless($self, $class);
     return  $self;
 }
