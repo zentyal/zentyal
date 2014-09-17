@@ -31,9 +31,6 @@ my %printableName = (
 %>
 </div>
 % }
-<div class='note'>
-<% __('The user can change this settings through the user corner') %>
-</div>
 <div id='error_userMailExternalAccount' class='error' style='display:none'></div>
 <div id='note_userMailExternalAccount' class='note' style='display:none'></div>
 <& .addAccount, params => $params &>

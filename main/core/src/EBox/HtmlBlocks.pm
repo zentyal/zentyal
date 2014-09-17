@@ -34,11 +34,11 @@ sub new
 
 # Method: title
 #
-#	Returns the html code for the title
+#   Returns the html code for the title
 #
 # Returns:
 #
-#      	string - containg the html code for the title
+#       string - containg the html code for the title
 #
 sub title
 {
@@ -47,11 +47,11 @@ sub title
 
 # Method: titleNoAction
 #
-#	Returns the html code for the title without actions
+#   Returns the html code for the title without actions
 #
 # Returns:
 #
-#      	string - containg the html code for the title
+#       string - containg the html code for the title
 #
 sub titleNoAction
 {
@@ -60,11 +60,11 @@ sub titleNoAction
 
 # Method: menu
 #
-#	Returns the html code for the menu
+#   Returns the html code for the menu
 #
 # Returns:
 #
-#      	string - containg the html code for the menu
+#       string - containg the html code for the menu
 #
 sub menu
 {
@@ -74,11 +74,11 @@ sub menu
 
 # Method: footer
 #
-#	Returns the html code for the footer page
+#   Returns the html code for the footer page
 #
 # Returns:
 #
-#      	string - containg the html code for the footer page
+#       string - containg the html code for the footer page
 #
 sub footer
 {

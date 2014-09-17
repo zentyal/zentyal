@@ -179,20 +179,6 @@ sub menuNamespace
     #FIXME: throw NotImplemented
 }
 
-# Method: help
-#
-#     Get the help message from the model
-#
-# Returns:
-#
-#     String - containing the i18n help message
-#
-sub help
-{
-    my ($self) = @_;
-
-    # FIXME: throw NotImplemented
-}
 
 # Method: modelDomain
 #
@@ -262,17 +248,6 @@ sub _mainController
 }
 
 
-# Method: keywords
-#
-# Overrides:
-#
-#   <EBox::Model::Component::keywords>
-#
-sub keywords
-{
-    # FIXME: throw NotImplemented
-}
-
 sub permanentMessage
 {
     return undef;
@@ -282,5 +257,8 @@ sub permanentMessageType
 {
     return 'note';
 }
+
+
+
 
 1;

@@ -37,10 +37,6 @@ use EBox::Firewall::Model::ExternalToInternalRuleTable;
 use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
-use EBox::Firewall::Model::PacketTrafficDetails;
-use EBox::Firewall::Model::PacketTrafficGraph;
-use EBox::Firewall::Model::PacketTrafficReportOptions;
-
 use EBox::FirewallLogHelper;
 use EBox::Objects;
 use EBox::Validate qw( :all );
@@ -64,9 +60,6 @@ sub _create
     $self->{'ExternalToInternalRuleTable'} = $self->model('ExternalToInternalRuleTable');
     $self->{'EBoxServicesRuleTable'} = $self->model('EBoxServicesRuleTable');
     $self->{'RedirectsTable'} = $self->model('RedirectsTable');
-    $self->{'PacketTrafficDetails'} = $self->model('PacketTrafficDetails');
-    $self->{'PacketTrafficGraph'} = $self->model('PacketTrafficGraph');
-    $self->{'PacketTrafficReportOptions'} = $self->model('PacketTrafficReportOptions');
 
     bless($self, $class);
     return $self;
@@ -622,8 +615,8 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Firewall',
                                         'icon' => 'firewall',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 310);
+                                        'tag' => 'main',
+                                        'order' => 7);
 
     $folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
                                       'text' => __('Packet Filter')));
@@ -817,38 +810,7 @@ sub tableInfo
             'events' => $events,
             'eventcol' => 'event',
             'disabledByDefault' => 1,
-
-            'consolidate' => $self->_consolidate(),
            }];
-}
-
-sub _consolidate
-{
-    my ($self) = @_;
-
-    my $table = 'firewall_packet_traffic';
-    my $spec = {
-                filter      => sub {
-                    my ($row_r) = @_;
-                    return $row_r->{event} eq 'drop'
-                },
-                accummulateColumns => { drop => 0  },
-                consolidateColumns => {
-                                       event   => {
-                                            conversor => sub { return 1 },
-                                            accummulate => sub {
-                                                my ($v) = @_;
-                                                if ($v eq 'drop') {
-                                                    return 'drop';
-                                                }
-
-                                            },
-                                        },
-                                      }
-               };
-
-    return {  $table => $spec };
-
 }
 
 sub logHelper
@@ -857,46 +819,5 @@ sub logHelper
 
     return (new EBox::FirewallLogHelper);
 }
-
-# sub consolidateReportQueries
-# {
-#     return [
-#         {
-#             'target_table' => 'firewall_report',
-#             'query' => {
-#                 'select' => 'event, fw_src AS source, fw_proto AS proto, fw_dpt AS dport, COUNT(event) AS packets',
-#                 'from' => 'firewall',
-#                 'group' => 'event, source, proto, dport'
-#             }
-#         }
-#     ];
-# }
-
-# sub report
-# {
-#     my ($self, $beg, $end, $options) = @_;
-
-#     my $report = {};
-
-#     my $db = EBox::DBEngineFactory::DBEngine();
-
-#     $report->{'dropped_packets'} = $self->runMonthlyQuery($beg, $end, {
-#         'select' => 'event, SUM(packets) AS packets',
-#         'from' => 'firewall_report',
-#         'where' => "event = 'drop'",
-#         'group' => 'event',
-#     }, { 'key' => 'event' } );
-
-#     $report->{'top_dropped_sources'} = $self->runQuery($beg, $end, {
-#         'select' => 'source, SUM(packets) AS packets',
-#         'from' => 'firewall_report',
-#         'where' => "event = 'drop'",
-#         'group' => 'source',
-#         'limit' => $options->{'max_dropped_sources'},
-#         'order' => 'packets DESC'
-#     });
-
-#     return $report;
-# }
 
 1;

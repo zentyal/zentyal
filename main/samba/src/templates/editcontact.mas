@@ -173,7 +173,7 @@ $contact
 <form action='/Samba/EditContact' method='POST' id='addContactToGroup' >
   <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style="float-right" class='btn btn-only-icon btn-add btn-submit'/>
+  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' class='btn btn-only-icon btn-add btn-submit custom-combobox-add'/>
   <input type="hidden" name="dn"   value="<% $contact->dn() %>"/>
   <input type="hidden" name="addgrouptocontact" value="1"/>
 </form>

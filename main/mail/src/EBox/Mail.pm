@@ -23,9 +23,7 @@ use base qw(
     EBox::ObjectsObserver
     EBox::FirewallObserver
     EBox::LogObserver
-    EBox::Report::DiskUsageProvider
     EBox::SyncFolders::Provider
-    EBox::Events::DispatcherProvider
 );
 
 use EBox::Sudo;
@@ -270,15 +268,17 @@ sub initialSetup
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
 
-    if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
-        $self->_migrateToFetchmail();
-    }
-    if (EBox::Util::Version::compare($version, '3.5') < 0) {
-        $self->_migrateToMaildir();
-        $self->_chainDovecotCertificate();
-    }
-    if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
-        $self->_migrateAliasTo35();
+    if ($version) {
+        if (EBox::Util::Version::compare($version, '3.5.2') < 0) {
+            $self->_migrateToFetchmail();
+        }
+        if (EBox::Util::Version::compare($version, '3.5') < 0) {
+            $self->_migrateToMaildir();
+            $self->_chainDovecotCertificate();
+        }
+        if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
+            $self->_migrateAliasTo35();
+        }
     }
 
     if ($self->changed()) {
@@ -420,7 +420,7 @@ sub _migrateAliasTo35
 
             my $group = $groups{$uid};
             try {
-                $self->checkMailNotInUse($alias); 
+                $self->checkMailNotInUse($alias);
 
                 my $mail =  $group->get('mail');
                 if ($mail) {
@@ -608,17 +608,6 @@ sub depends
     }
 
     return \@depends;
-}
-
-# Method: eventDispatchers
-#
-# Overrides:
-#
-#      <EBox::Events::DispatcherProvider::eventDispatchers>
-#
-sub eventDispatchers
-{
-    return [ 'Mail' ];
 }
 
 # Method: _getIfacesForAddress
@@ -1754,33 +1743,37 @@ sub menu
                                         'name' => 'Mail',
                                         'icon' => 'mail',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Communications',
-                                        'order' => 610
+                                        'tag' => 'main',
+                                        'order' => 4
     );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/Composite/General',
-                                      'text' => __('General')
+                                      'text' => __('General'),
+                                      'order' => 1,
                  )
     );
 
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/View/VDomains',
-                                      'text' => __('Virtual Mail Domains')
+                                      'text' => __('Virtual Mail Domains'),
+                                      'order' => 2,
                  )
     );
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/View/GreylistConfiguration',
-                                      'text' => __('Greylist')
+                                      'text' => __('Greylist'),
+                                      'order' => 4,
                                      ),
                 );
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'Mail/QueueManager',
-                                      'text' => __('Queue Management')
+                                      'text' => __('Queue Management'),
+                                      'order' => 5,
                  )
     );
 
@@ -1863,87 +1856,7 @@ sub tableInfo
             'types' => { 'client_host_ip' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $self->consolidate(),
     }];
-}
-
-sub consolidate
-{
-    my ($self) = @_;
-    my %vdomains = map { $_ => 1 } $self->{vdomains}->vdomains();
-
-    my $table = 'mail_message_traffic';
-
-    my $isAddrInVD = sub {
-        my ($addr) = @_;
-        if (defined $addr) {
-            my ($user, $vd) = split '@', $addr;
-            if (defined($vd) and exists $vdomains{$vd}) {
-                return $vd;
-            }
-        }
-
-        return undef;
-    };
-
-    my $spec=  {
-            consolidateColumns => {
-                quote => {
-                          to_address => 1,
-                          from_address => 1,
-                         },
-                event => {
-                    accummulate => sub {
-                        my ($value, $row) = @_;
-                        if ($value eq 'msgsent') {
-                            my $toAddr = $row->{to_address};
-                            if ($isAddrInVD->($toAddr)) {
-                                return 'received';
-                            }
-
-                            return 'sent';
-
-                        } else {
-                            return 'rejected';
-                        }
-                    },
-                    conversor => sub { return 1  },
-                   }, # end event column
-
-                   from_address => {
-                       destination => 'vdomain',
-                       conversor => sub {
-                           my ($value, $row) = @_;
-                           my $vd;
-                           $vd = $isAddrInVD->($row->{from_address});
-                           if ($vd) {
-                               return $vd;
-                           }
-
-                           $vd = $isAddrInVD->($row->{to_address});
-                           if ($vd) {
-                               return $vd;
-                           }
-
-                           return '-';
-                       }
-                      }, # end from_address column
-            }, # end consoldiateColumns section
-
-           accummulateColumns    => {
-                      sent  => 0,
-                      received  => 0,
-                      rejected  => 0,
-              },
-
-            filter => sub {
-                  my ($row) = @_;
-                  return $row->{event} ne 'other';
-              },
-
-           };
-
-    return {  $table => $spec };
 }
 
 sub logHelper
@@ -1971,22 +1884,6 @@ sub restoreConfig
         }
     }
 
-}
-
-sub _storageMailDirs
-{
-    return  (qw(/var/mail /var/vmail));
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $printableName = __('Mailboxes');
-
-    return {$printableName => [ $self->_storageMailDirs() ],};
 }
 
 # Method: certificates
@@ -2087,6 +1984,11 @@ sub syncFolders
     }
 
     return \@folders;
+}
+
+sub _storageMailDirs
+{
+    return  (qw(/var/mail /var/vmail));
 }
 
 sub recoveryDomainName

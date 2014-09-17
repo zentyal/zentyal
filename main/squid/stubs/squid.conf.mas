@@ -105,23 +105,23 @@ sub _rulesACLs
   my %args = @_;
   my @rules = @{ $args{rules} };
   my $realm = $args{realm};
+  my $authModeExternalAD = $args{authModeExternalAD};
   my %seenACL;
 
   foreach my $rule (@rules) {
     my $object = $rule->{object};
     my $group = $rule->{group};
     my $adDN = $rule->{adDN};
-    my ($src, $aclName);
+    my ($aclName, $groupName);
     if ($rule->{any}) {
         # for any object rule, there is not specific acl
     } elsif ($object) {
-        $src = $object;
         $aclName = $objectPrefix . $object;
     } elsif ($group) {
-        $src = $group;
-        $aclName = $groupPrefix . $group;
+        ($groupName) = $group =~ m/^CN=(.*?),/;
+        $groupName =~ s{ }{\\ }g;  # escape group name
+        $aclName = $groupPrefix . $groupName;
     } elsif ($adDN) {
-        $src = $adDN;
         $aclName = $adPrefix . $adDN;
     } else  {
         next;
@@ -136,17 +136,7 @@ sub _rulesACLs
             my $acl = "acl $aclName src";
             _printSplitAcl($acl, $rule->{addresses});
         } elsif ($group) {
-            # escape user names
-            my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-            if ($realm) {
-                # kerberos auth needs realm appended
-                @users = map { $_ . '@' . $realm } @users;
-            } else {
-                # ldap auth need lower case
-                @users = map { lc $_ } @users;
-            }
-            my $acl = "acl $aclName proxy_auth";
-            _printSplitAcl($acl, \@users);
+            $m->print("acl $aclName external ldapgroup $groupName\n");
         } elsif ($adDN) {
             my $acl = "acl $aclName external InetGroup";
             _printSplitAcl($acl, [ $adDN ]);
@@ -179,6 +169,7 @@ sub _rulesACLs
 <%args>
 @rules
 %profilesRulesStubs
+$authModeExternalAD
 </%args>
 % foreach my $rule (@rules) {
 <%perl>
@@ -192,7 +183,9 @@ sub _rulesACLs
 
     my $group = $rule->{'group'};
     if ($group) {
-        $aclName = $groupPrefix . $group;
+       my ($groupName) = $group =~ m/^CN=(.*?),/;
+        $groupName =~ s{ }{\\ }g;  # escape group name
+        $aclName = $groupPrefix . $groupName;
     }
 
     my $adDN = $rule->{adDN};
@@ -211,7 +204,12 @@ sub _rulesACLs
         $policy = 'allow';
     }  else {
         # expand rules stubs
-        my $baseAcls = "$timeAcls $acl ";
+        my $baseAcls;
+        if ($group and not $authModeExternalAD) {
+            $baseAcls = "$timeAcls authorized $acl ";
+        } else {
+            $baseAcls = "$timeAcls $acl ";
+        }
         foreach my $stub (@{$rulesStubs  }) {
             my $ruleStr = $stub->{type};
             $ruleStr .= ' ' . $stub->{policy};
@@ -223,6 +221,10 @@ sub _rulesACLs
         # dont produce normal rules in this case
         next;
     }
+   }
+
+   if ($group and not $authModeExternalAD) {
+      $acl = "authorized $acl";
    }
 </%perl>
 http_access <% $policy %> <% $timeAcls %> <% $acl %>
@@ -272,10 +274,14 @@ cache_peer 127.0.0.1 parent 3130 0 no-query proxy-only login=*:nopassword
 auth_param negotiate program /usr/lib/squid3/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(userPrincipalName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=posixAccount))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
+auth_param basic program /usr/lib/squid3/basic_ldap_auth -v3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=user))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
+external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(samAccountName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
 % }
+
+
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED
 
@@ -323,11 +329,14 @@ external_acl_type InetGroup ipv4 children=5 \
 ##
 ## ACLs from model rules
 ##
-% _rulesACLs(rules => \@rules, realm => $realm );
+% _rulesACLs(rules => \@rules,  authModeExternalAD => $authModeExternalAD, realm => $realm );
 ##
 ## Access
 ##
-<& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
+<& .rulesAccess, rules => \@rules,
+                 authModeExternalAD => $authModeExternalAD,
+                 profilesRulesStubs => $filterProfiles{rulesStubs}
+&>
 
 ##
 ## Default policy

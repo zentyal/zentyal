@@ -759,8 +759,11 @@ sub formSubmitJS
     my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s')";
 
     my $table = $self->table();
-    my $tablename =  $table->{'tableName'};
-    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $tablename = $table->{'tableName'};
+    my $actionUrl = $table->{'actions'}->{'editField'};
+    unless (defined($actionUrl)) {
+        $actionUrl = "";
+    }
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,

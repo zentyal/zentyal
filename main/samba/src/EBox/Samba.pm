@@ -24,8 +24,7 @@ use base qw(EBox::Module::LDAP
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::SyncFolders::Provider
-            EBox::Samba::SyncProvider
-            EBox::Report::DiskUsageProvider);
+            EBox::Samba::SyncProvider);
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -38,6 +37,7 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::LDAP::ExternalAD;
 use EBox::LdapUserImplementation;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -178,7 +178,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'samba',
-                                      printableName => __('Users, Computers and File Sharing'),
+                                      printableName => __('Domain Controller and File Sharing'),
                                       @_);
     bless($self, $class);
     $self->_setupForMode();
@@ -458,6 +458,7 @@ sub _migrateTo35
                         push (@objectclass, 'systemQuotas');
                         $user->set('objectClass', \@objectclass);
                     }
+
                     $user->set('gidNumber', $gidNumber, 1) if (defined $gidNumber);
                     for my $attr (qw(quota loginShell homeDirectory)) {
                         my $value = $entry->get_value($attr);
@@ -470,7 +471,17 @@ sub _migrateTo35
                 if ($cn) {
                     my $group = new EBox::Samba::Group(samAccountName => $cn);
                     next unless $group->exists();
-                    $group->set('gidNumber', $gidNumber);
+
+                    my $oldGidNumber = $group->get('gidNumber');
+                    if ((not defined $oldGidNumber) or ($gidNumber != $oldGidNumber)) {
+                        $group->set('gidNumber', $gidNumber, 1);
+                    }
+
+                    my @objectClass = $entry->get_value('objectClass');
+                    my $isSecurity = grep  { $_ eq 'posixGroup' } @objectClass;
+
+                    $group->setSecurityGroup($isSecurity, 1);
+                    $group->save();
                 }
             }
         }
@@ -2240,17 +2251,14 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $separator = 'Office';
-    my $order = 510;
-
     my $standalone = ($self->mode eq STANDALONE_MODE);
 
     if ($standalone) {
         my $domainFolder = new EBox::Menu::Folder(name => 'Domain',
                                                   text => __('Domain'),
                                                   icon => 'domain',
-                                                  separator => 'Office',
-                                                  order => 535);
+                                                  tag => 'main',
+                                                  order => 2);
 
         $domainFolder->add(new EBox::Menu::Item(url   => 'Samba/View/DomainSettings',
                                                 text  => __('Settings'),
@@ -2267,11 +2275,11 @@ sub menu
     }
 
 
-    my $folder = new EBox::Menu::Folder('name' => 'Users',
-                                        'icon' => 'samba',
-                                        'text' => __('Users and Computers'),
-                                        'separator' => $separator,
-                                        'order' => $order);
+    my $folder = new EBox::Menu::Folder(name => 'Users',
+                                        icon => 'samba',
+                                        text => __('Users and Computers'),
+                                        tag => 'main',
+                                        order => 1);
     if ($self->configured()) {
         $folder->add(new EBox::Menu::Item(
             'url'  => 'Samba/Tree/Manage',
@@ -2296,7 +2304,7 @@ sub menu
         $folder->add(new EBox::Menu::Item(
             'url'       => 'Samba/View/Mode',
             'text'      => __('Configure mode'),
-            'separator' => $separator,
+            'section'   => 3,
             'order'     => 0));
     }
     $root->add($folder);
@@ -2305,8 +2313,8 @@ sub menu
         $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
                                         url       => 'Samba/Composite/FileSharing',
                                         icon      => 'sharing',
-                                        separator => 'Office',
-                                        order     => 540));
+                                        tag       => 'main',
+                                        order     => 3));
     }
 }
 
@@ -3019,20 +3027,6 @@ sub recoveryDomainName
     return __('Users data and Filesystem shares');
 }
 
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $usersPrintableName  = __(q{Users data});
-    my $usersPath           = '/home';
-
-    return {
-        $usersPrintableName   => [ $usersPath ],
-    };
-}
-
 # Method: entryModeledObject
 #
 #   Return the Perl Object that handles the given LDAP entry.
@@ -3334,14 +3328,22 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
-
-    # TODO: put everything together in smb.conf ?
     push (@array, 'shares' => 1);
 
-    my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange and $openchange->isEnabled() and $openchange->isProvisioned()) {
-        push (@array, 'openchange' => 1);
-        $openchange->writeSambaConfig();
+    if ($self->global()->modExists('openchange')) {
+        my $openchangeMod = $self->global()->modInstance('openchange');
+        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
+            push (@array, 'openchange' => 1);
+            $openchangeMod->writeSambaConfig();
+        }
+    }
+
+    if ($self->global()->modExists('printers')) {
+        my $printersMod = $self->global()->modInstance('printers');
+        if ($printersMod->isEnabled()) {
+            push (@array, 'print' => 1);
+            $printersMod->writeSambaConfig();
+        }
     }
 
     $self->writeConfFile(SAMBACONFFILE, 'samba/smb.conf.mas', \@array,
@@ -3353,15 +3355,6 @@ sub writeSambaConfig
     push (@array, 'prefix' => $prefix);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
     push (@array, 'unmanagedAcls' => EBox::Config::boolean('unmanaged_acls'));
-
-    if (EBox::Global->modExists('printers')) {
-        my $printersModule = $self->global()->modInstance('printers');
-        if ($printersModule->isEnabled()) {
-            push (@array, 'print' => 1);
-            push (@array, 'printers' => $printersModule->printers());
-        }
-    }
-
     push (@array, 'shares' => $self->shares());
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());

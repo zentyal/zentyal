@@ -883,8 +883,8 @@ sub menu
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
                                     'icon' => 'dns',
                                     'url' => 'DNS/Composite/Global',
-                                    'separator' => 'Infrastructure',
-                                    'order' => 420));
+                                    'tag' => 'main',
+                                    'order' => 5));
 }
 
 # Method: keysFile
@@ -972,18 +972,7 @@ sub _internalLocalNets
 {
     my ($self) = @_;
     my $network = $self->global()->modInstance('network');
-    my @localNets = map {
-        my $iface = $_;
-        my $net  = $network->ifaceNetwork($iface);
-        if ($net) {
-            my $fullmask = $network->ifaceNetmask($iface);
-            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
-            ("$net/$mask");
-        } else {
-            ()
-        }
-    } @{ $network->InternalIfaces };
-    return \@localNets;
+    return $network->internalNetworks();
 }
 
 # Method: _domainIpAddresses

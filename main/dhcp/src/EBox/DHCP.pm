@@ -265,8 +265,8 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'DHCP/View/Interfaces',
                                     'icon' => 'dhcp',
                                     'text' => $self->printableName(),
-                                    'separator' => 'Infrastructure',
-                                    'order' => 410));
+                                    'tag' => 'main',
+                                    'order' => 6));
 }
 
 # Method: depends

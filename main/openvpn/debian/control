@@ -11,11 +11,11 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-openvpn
 Architecture: all
-Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+Pre-Depends: zentyal-core
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-firewall, zentyal-ca,
          openvpn, zip, quagga, openssl, ${misc:Depends}
-Description: Zentyal - VPN Service
+Description: Zentyal - VPN
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

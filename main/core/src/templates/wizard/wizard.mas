@@ -8,14 +8,14 @@ use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/software-wizard.js">//</script>
 
-<div class="item-block">
+<div class="item-block wizard">
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
 <div>
     <div id="wizardPage0" style="display: none"></div>
     <div id="wizardPage1" style="display: none"></div>
 </div>
 
-<div class="buttons-group">
+<div class="tright bottom-block">
     <img class="loading-gif" src="/data/images/ajax-loader.gif" id="wizard-loading1" />
     <input type="button" id="wizard-skip2" value="<% __('Skip') %>" onclick="Zentyal.Wizard.Software.skipStep()" />
     <input type="button" id="wizard-next2" value="<% __('Next') %>" onclick="Zentyal.Wizard.Software.nextStep()" />

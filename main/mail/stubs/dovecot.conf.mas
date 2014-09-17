@@ -275,6 +275,7 @@ service imap {
 
 protocol imap {
   mail_plugins = <% "@imapPlugins" %>
+  mail_max_userip_connections = 20
 }
 </%def>
 

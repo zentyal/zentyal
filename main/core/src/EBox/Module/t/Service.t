@@ -48,7 +48,7 @@ sub test_one_level_of_dependencies : Test
 sub test_two_level_of_dependencies : Test
 {
     my $openchange = EBox::Global->modInstance('openchange');
-    is_deeply($openchange->enableModDependsRecursive(), [qw(ntp network firewall dns users mail webserver)]);
+    is_deeply($openchange->enableModDependsRecursive(), [qw(ntp network firewall dns users mail)]);
 }
 
 

@@ -1626,13 +1626,6 @@ sub _backupFileById
     return $file;
 }
 
-#  Function: _facilitiesForDiskUsage
-#  Overrides: EBox::Report::DiskUsageProvider::_faciltiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    return { __(q{Backup archives}) => [ backupDir() ] }
-}
-
 # Check the backup contents a non-corrupted data
 sub _checkBackup
 {

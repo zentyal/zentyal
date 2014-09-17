@@ -130,7 +130,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %    }
 %   }
 
-
+<div class="table-wrapper">
 <table id='<% $tableName %>_table'  class='<%  $table->{'class'}  %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
@@ -178,7 +178,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %   }
     </tbody>
 </table>
-
+</div>
 
 <script>
 $(function() {

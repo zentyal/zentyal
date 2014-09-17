@@ -100,9 +100,7 @@ sub _enableInnoDB
 {
     my ($self) = @_;
 
-    return (EBox::Global->modExists('openchange')
-            or EBox::Global->modExists('sogo')
-            or EBox::Global->modExists('webmail'));
+    return EBox::Global->modExists('openchange');
 }
 
 # Method: _innoDbValueHasChanged

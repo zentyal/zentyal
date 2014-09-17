@@ -27,12 +27,11 @@ use EBox::Global;
 
 # Constructor: new
 #
-#   Constructor for the general events composite
+#   Constructor for the general System composite
 #
 # Returns:
 #
-#   <EBox::Samba::Model::General> - a
-#       general events composite
+#   <EBox::SysInfo::Model::General> - the newly create object
 #
 sub new
 {
@@ -63,8 +62,6 @@ sub componentNames
     }
 
     push (@components, 'webadmin/Language',
-                       'sysinfo/TimeZone',
-                       'sysinfo/DateTime',
                        'webadmin/AdminPort',
                        'sysinfo/HostName');
 

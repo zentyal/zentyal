@@ -1,4 +1,5 @@
-HEAD
+4.0
+	+ Set version to 4.0
 	+ Added afterFwRestart method to firewall helper
 3.5
 	+ Remove bad usage of Error package

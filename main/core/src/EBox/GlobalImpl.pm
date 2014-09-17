@@ -56,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit);
+use constant CORE_MODULES => qw(sysinfo webadmin global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -568,8 +568,6 @@ sub saveAllModules
 
     my $progress = $options{progress};
 
-    # TODO: tell events module to stop its watchers
-
     if ($self->first()) {
         # First installation modules enable
         my $mgr = EBox::ServiceManager->new();
@@ -673,9 +671,6 @@ sub saveAllModules
         }
     }
 
-    # Delete first time installation file (wizard)
-    $self->deleteFirst();
-
     # FIXME - tell the CGI to inform the user that webadmin is restarting
     if ($webadmin) {
         EBox::info("Saving configuration: webadmin");
@@ -695,8 +690,6 @@ sub saveAllModules
             $failed .= "webadmin ";
         }
     }
-
-    # TODO: tell events module to resume its watchers
 
     while (my $modName = $self->popPostSaveModule()) {
         try {

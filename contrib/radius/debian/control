@@ -1,0 +1,19 @@
+Source: zentyal-radius
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
+
+Package: zentyal-radius
+Architecture: all
+Pre-Depends: mysql-server
+Depends: zentyal-samba,
+         freeradius, freeradius-ldap, make, ${misc:Depends}
+Description: Zentyal - RADIUS
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module offers RADIUS integration in Zentyal.

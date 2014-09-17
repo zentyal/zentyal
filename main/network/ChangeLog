@@ -1,4 +1,12 @@
-HEAD
+4.0
+	+ WAN failover now uses cron instead of old events module
+	+ Set version to 4.0
+	+ Check external IP against different providers to be more reliable
+	+ Refactor and include internalNetworks method used by dns and
+	  openchange modules
+	+ Fixed problem in gateway table when gateways go away when
+	  syncing rows
+	+ Added vlans key as exclude replication key
 	+ Add nameserverDelete and nameserverAdded callbacks to NetworkObserver
 3.5.1
 	+ Added defensive code to DNSResolver to avoid ifaces down after crash

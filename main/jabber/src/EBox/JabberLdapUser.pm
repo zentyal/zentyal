@@ -43,7 +43,11 @@ sub _userAddOns
 {
     my ($self, $user) = @_;
 
-    return unless ($self->{jabber}->configured());
+    my $jabber = $self->{jabber};
+    return unless $jabber->configured();
+
+    my $state = $jabber->get_state();
+    return unless $state->{_schemasAdded};
 
     my $active   = $self->hasAccount($user) ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
@@ -153,13 +157,16 @@ sub getJabberAdmins
 
 sub _addUser
 {
-   my ($self, $user, $password) = @_;
+    my ($self, $user, $password) = @_;
 
-   unless ($self->{jabber}->configured()) {
-       return;
-   }
-   my $model = $self->{jabber}->model('JabberUser');
-   $self->setHasAccount($user, $model->enabledValue());
+    my $jabber = $self->{jabber};
+    return unless $jabber->configured();
+
+    my $state = $jabber->get_state();
+    return unless $state->{_schemasAdded};
+
+    my $model = $self->{jabber}->model('JabberUser');
+    $self->setHasAccount($user, $model->enabledValue());
 }
 
 sub _delUserWarning

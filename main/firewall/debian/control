@@ -11,8 +11,8 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-firewall
 Architecture: all
-Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0),
+Pre-Depends: zentyal-core
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-network, zentyal-objects, zentyal-services,
          iptables, ${misc:Depends}
 Description: Zentyal - Firewall

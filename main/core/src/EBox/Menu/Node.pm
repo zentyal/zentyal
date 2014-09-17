@@ -21,7 +21,6 @@ package EBox::Menu::Node;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Menu::Separator;
 
 sub new
 {
@@ -31,7 +30,7 @@ sub new
     bless($self, $class);
     $self->{style} = delete $opts{style};
     $self->{icon} = delete $opts{icon};
-    $self->{separator} = delete $opts{separator};
+    $self->{tag} = delete $opts{tag};
     my $order = delete $opts{order};
     if (defined($order)) {
         $self->{order} = $order;

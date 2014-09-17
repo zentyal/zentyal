@@ -1,9 +1,10 @@
-3.5.3
+4.0
+	+ Set version to 4.0
+	+ Include ntp as module to replicate
 	+ Increase the timeout time for HA location due to large
 	  replication setup
 	+ Wait 1 second less when setting up the cluster
 	+ Floating IP address can be in a virtual interface
-3.5.2
 	+ Make use of VerifyPeer to false on EBox::RESTClient as we
 	  don't verify other HA hosts
 3.5.1

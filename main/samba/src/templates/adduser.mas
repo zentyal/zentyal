@@ -10,33 +10,37 @@ use EBox::Global;
 </%init>
 <h4 class="icon-user"><% __('Add User') %></h4>
     <div id='addUserForm_error' class='error' style='display:none'></div>
-        <form action='/Samba/AddUser' method='POST' autocomplete='off' id='addUserForm' class="formDiv">
+        <form action='/Samba/AddUser' method='POST' autocomplete='off' id='addUserForm' class="formDiv form-full-width">
             <input type="hidden" name="dn" value="<% $dn %>">
-            <div>
+            <div class="field">
                 <label><% __('User name')%></label>
                 <input type='text' class='inputText' name='username'>
             </div>
-            <div class="inline-field">
-                <label><% __('First name')%></label>
-                <input type='text' class='inputText' name='givenname'>
+            <div class="inline-field-group">
+                <div class="inline-field">
+                    <label><% __('First name')%></label>
+                    <input type='text' class='inputText' name='givenname'>
+                </div>
+                <div class="inline-field">
+                    <label><% __('Last name')%></label>
+                    <input type='text' class='inputText' name='surname'>
+                </div>
             </div>
-            <div class="inline-field">
-                <label><% __('Last name')%></label>
-                <input type='text' class='inputText' name='surname'>
-            </div>
-            <div>
+            <div class="field">
                 <label><% __('Description') %>
                      <span class="optional_field"><% __('Optional') %></span>
                 </label>
                 <input type='text' class='inputText' name='description'>
             </div>
-            <div class="inline-field">
-                <label ><% __('Password') %></label>
-                <input type='password' class='inputText' name='password'>
-            </div>
-            <div class="inline-field">
-                <label><% __('Retype password') %></label>
-                <input type='password' class='inputText' name='repassword'>
+            <div class="inline-field-group">
+                <div class="inline-field">
+                    <label ><% __('Password') %></label>
+                    <input type='password' class='inputText' name='password'>
+                </div>
+                <div class="inline-field">
+                    <label><% __('Retype password') %></label>
+                    <input type='password' class='inputText' name='repassword'>
+                </div>
             </div>
             <div>
                 <& .groupSelectorLine, groups => \@groups &>

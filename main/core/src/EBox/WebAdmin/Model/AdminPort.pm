@@ -15,9 +15,7 @@
 
 # Class: EBox::WebAdmin::Model::AdminPort
 #
-#   This model is used to configure the interface port. It is just a
-#   view of the model <EBox::HAProxy::Model::HAProxyServices> for
-#   Webadmin service row.
+#   This model is used to configure the interface port.
 #
 use strict;
 use warnings;
@@ -50,9 +48,7 @@ sub validateTypedRow
         my $actualPort = $webadminModro->listeningPort();
         my $port = $changedValues->{port}->value();
         if ($port != $actualPort) {
-            my $haProxyModel = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
-            my $default = 1;
-            $haProxyModel->validateHTTPSPortChange($port, $webadminModro->serviceId, $default);
+            $self->parentModule()->checkAdminPort($port);
         }
     }
 }
@@ -72,8 +68,7 @@ sub updatedRowNotify
     my $port = $row->valueByName('port');
     my $oldPort = $oldRow->valueByName('port');
     if ($port != $oldPort) {
-        my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy');
-        $haProxyMod->updateServicePorts('webadmin', [$port]);
+        $self->parentModule()->updateAdminPortService($port);
         $self->setMessage(
             __('Take into account you have to manually change the URL once the save changes'
                . ' process is started to see web administration again.'),
@@ -90,12 +85,11 @@ sub _table
     my $webadminMod = $self->parentModule();
 
     my @tableHead = (
-        new EBox::Types::Port(fieldName      => 'port',
-                              editable       => 1,
-                              defaultValue   => $webadminMod->defaultHTTPSPort(),
-                              volatile       => 1,
-                              acquirer       => \&_acquirePort,
-                              storer         => \&_storePort)
+        new EBox::Types::Port(
+            fieldName      => 'port',
+            editable       => 1,
+            defaultValue   => $webadminMod->defaultPort()
+        )
     );
 
     my $dataTable =
@@ -108,38 +102,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-# Group: Subroutines
-
-# Get the port
-sub _acquirePort
-{
-    my ($type) = @_;
-
-    my $haProxy = $type->model()->parentModule()->global()->modInstance('haproxy');
-    my $model = $haProxy->model('HAProxyServices');
-    my $haProxySrv = $model->find(module => 'webadmin');
-    if ($haProxySrv) {
-        return $haProxySrv->valueByName('sslPort');
-    }
-    return undef;
-}
-
-# Set the port
-sub _storePort
-{
-    my ($type, $hash) = @_;
-
-    my $haProxy = $type->model()->parentModule()->global()->modInstance('haproxy');
-    my $model = $haProxy->model('HAProxyServices');
-    my $haProxySrv = $model->find(module => 'webadmin');
-    if ($haProxySrv) {
-        $haProxySrv->elementByName('sslPort')->setValue({'sslPort_number' => $type->value()});
-        $haProxySrv->store();
-    } else {
-        EBox::error('HA proxy service for webadmin does not exist');
-    }
 }
 
 1;

@@ -1,4 +1,4 @@
-/var/log/zentyal/error.log /var/log/zentyal/access.log /var/log/zentyal/zentyal.log /var/log/zentyal/redis-server.log /var/log/zentyal/events.log /var/log/zentyal/events.err
+/var/log/zentyal/error.log /var/log/zentyal/access.log /var/log/zentyal/zentyal.log /var/log/zentyal/redis-server.log
 {
         rotate 7
         size 10M

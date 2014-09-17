@@ -8,8 +8,8 @@ Standards-Version: 3.9.2
 Package: zentyal-trafficshaping
 Architecture: all
 Replaces: ebox-trafficshaping (<< 2.0.100)
-Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.5), zentyal-core (<< 4.0), zentyal-firewall,
+Pre-Depends: zentyal-core
+Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-firewall,
          libtree-perl, libclone-fast-perl, ${misc:Depends}
 Description: Zentyal - Traffic Shaping
  Zentyal is a Linux small business server that can act as

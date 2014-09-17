@@ -1,13 +1,21 @@
-HEAD
+4.0
+	+ Adapt to changes in Out Of Office implementation in OCSManager
+	+ Allow to access SOGo also with the /webmail URL
+	+ Apache handles now all the OC web services directly without haproxy/nginx
+	+ Remove dependency on deprecated webserver module
+	+ OpenChange -> Setup menu entry moved to Mail -> OpenChange
+	+ Remove currently unused migration code
+	+ Set version to 4.0
+	+ Enabling SOGo login with user mail address makes possible Z-Push
+	  carddav server synchronization
+	+ Tune OCSManager configuration for autodiscover
 	+ Redirect all /ews/ requests to OCSManager
 	+ Use .crt when downloading the certificate for RPC/Proxy
 	  to ease Windows importing
 	+ Changes to out-of-office required by upstream openchange changes
-3.5.3
 	+ Notify when OpenChange is using the domain certificate
 	+ Migrate RPC Proxy certificate to new use our zentyal-ca
 	+ Adapted configuration for making Autodiscover works with Outlook Anywhere
-3.5.2
 	+ Adapted rcpproxy certificate generation to changes in webadmin certificates
 	+ Depends on latest zentyal-samba to make sure openchange.conf
 	  is correct

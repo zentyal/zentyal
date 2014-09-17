@@ -18,17 +18,12 @@ models:
     - VDomainSettings
     - ExternalFilter
     - MailUser
-    - MailDispatcherConfiguration
     - GreylistConfiguration
     - ExternalAccounts
-    - TrafficGraph
-    - TrafficDetails
-    - TrafficReportOptions
 
 composites:
     ServiceConfiguration: [SMTPOptions, RetrievalServices]
     General: [ServiceConfiguration, ObjectPolicy, ExternalFilter]
-    TrafficReport: [TrafficReportOptions, TrafficGraph, TrafficDetails]
 
 modeldepends:
     ObjectPolicy:

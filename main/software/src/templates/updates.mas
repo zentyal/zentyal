@@ -89,6 +89,7 @@ automatically as scheduled') %>
         <p><%__('Community updates are available for the following system components')%>:</p>
 % }
         <form name='updates' name='updates' action='InstallPkgs' method='post'>
+                <div class="table-wrapper">
                 <table class='dataTable' cellspacing='0'>
                 <thead>
                         <tr>
@@ -150,6 +151,7 @@ automatically as scheduled') %>
                         </tr>
                 </tbody>
                 </table>
+                </div>
                 <div class="note">
                 <% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Upgrade button.") %>
                 </div>

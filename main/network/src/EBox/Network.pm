@@ -19,7 +19,7 @@ use warnings;
 
 package EBox::Network;
 
-use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
+use base qw(EBox::Module::Service);
 
 # Group: Constants
 
@@ -42,6 +42,7 @@ use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
 use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
 use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
 use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
+use constant FAILOVER_CRON_FILE => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -259,6 +260,10 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         }
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        $self->_migrateTo40();
+    }
 }
 
 # Method: enableActions
@@ -299,17 +304,6 @@ sub wizardPages
         { page => '/Network/Wizard/Ifaces', order => 100 },
         { page => '/Network/Wizard/Network', order => 101 },
     ];
-}
-
-# Method: eventWatchers
-#
-# Overrides:
-#
-#      <EBox::Events::WatcherProvider::eventWatchers>
-#
-sub eventWatchers
-{
-    return [ 'Gateways' ];
 }
 
 # Method: ExternalIfaces
@@ -408,6 +402,31 @@ sub internalIpAddresses
     }
 
     return $ips;
+}
+
+# Method: internalNetworks
+#
+#   Returs a list of internal networks
+#
+# Returns:
+#
+#   array ref - Holding the internal network IP addresses using CIDR
+#
+sub internalNetworks
+{
+    my ($self) = @_;
+
+    my @intNets;
+
+    foreach my $iface (@{$self->InternalIfaces()}) {
+        my $net = $self->ifaceNetwork($iface);
+        if ($net) {
+            my $fullmask = $self->ifaceNetmask($iface);
+            my $mask = EBox::NetWrappers::bits_from_mask($fullmask);
+            push(@intNets, "$net/$mask");
+        }
+    }
+    return \@intNets;
 }
 
 # Method: ifaceExists
@@ -1452,6 +1471,7 @@ sub setIfaceDHCP
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
     $ifaces->{$name}->{method} = 'dhcp';
+    $ifaces->{$name}->{name} = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1582,6 +1602,7 @@ sub setIfaceStatic
     $ifaces->{$name}->{method} = 'static';
     $ifaces->{$name}->{address} = $address;
     $ifaces->{$name}->{netmask} = $netmask;
+    $ifaces->{$name}->{name}    = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1747,6 +1768,7 @@ sub setIfacePPP
     $ifaces->{$name}->{method} = 'ppp';
     $ifaces->{$name}->{ppp_user} = $ppp_user;
     $ifaces->{$name}->{ppp_pass} = $ppp_pass;
+    $ifaces->{$name}->{name}     = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -1813,8 +1835,9 @@ sub setIfaceTrunk # (iface, force)
     my $ifaces = $self->get_hash('interfaces');
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
-    $ifaces->{$name}->{method} = 'trunk';
+    $ifaces->{$name}->{method}  = 'trunk';
     $ifaces->{$name}->{changed} = 1;
+    $ifaces->{$name}->{name}    = $name;
     $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'notset') {
@@ -1951,6 +1974,7 @@ sub setIfaceBridged
     $ifaces->{$name}->{method} = 'bridged';
     $ifaces->{$name}->{changed} = 1;
     $ifaces->{$name}->{bridge_id} = $bridge;
+    $ifaces->{$name}->{name} = $name;
     $self->set('interfaces', $ifaces);
 
     # mark bridge as changed
@@ -2058,6 +2082,7 @@ sub setIfaceBonded
     $ifaces->{$name}->{method} = 'bundled';
     $ifaces->{$name}->{changed} = 1;
     $ifaces->{$name}->{bond_id} = $bond;
+    $ifaces->{$name}->{name} = $name;
     $self->set('interfaces', $ifaces);
 
     # mark bond as changed
@@ -2481,6 +2506,7 @@ sub unsetIface # (interface, force)
     delete $ifaces->{$name}->{address};
     delete $ifaces->{$name}->{netmask};
     $ifaces->{$name}->{method} = 'notset';
+    $ifaces->{$name}->{name} = $name;
     $ifaces->{$name}->{changed} = 1;
     $self->set('interfaces', $ifaces);
 
@@ -3792,6 +3818,7 @@ sub _setConf
     $self->_generatePPPConfig();
     $self->_generateDDClient();
     $self->_generateProxyConfig();
+    $self->_writeFailoverCron();
 }
 
 # Method: _enforceServiceState
@@ -4546,7 +4573,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Network',
                                         'icon' => 'network',
                                         'text' => __('Network'),
-                                        'separator' => 'Core',
+                                        'tag' => 'system',
                                         'order' => 40);
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Ifaces',
@@ -4727,11 +4754,13 @@ sub regenGateways
 
 # Method: replicationExcludeKeys
 #
-#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#      Exclude these keys from replication.
+#
+# Overrides: <EBox::Module::Config::replicationExcludeKeys>
 #
 sub replicationExcludeKeys
 {
-    return [ 'interfaces' ];
+    return [ 'interfaces', 'vlans' ];
 }
 
 # Group: Ifup flag methods
@@ -4812,8 +4841,7 @@ sub _multipathCommand
 
     if (scalar(@gateways) == 0) {
         # If WAN failover is enabled we put the default one
-        my $ev = $self->global()->modInstance('events');
-        if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')) {
+        if ($self->_failoverEnabled()) {
             my $row = $self->model('GatewayTable')->findValue(default => 1);
             unless ($row) {
                 return undef;
@@ -5040,6 +5068,161 @@ sub _flagIfUp
         $state->{ifup} = $ifups;
         $self->set_state($state);
     }
+}
+
+sub searchContents
+{
+    my ($self, $searchStringRe) = @_;
+    my @matches;
+    my ($modelMatches) = $self->_searchRedisConfKeys($searchStringRe);
+
+    push @matches, @{ $self->_interfaceSearchMatch($searchStringRe) };
+    push @matches, @{ $self->_vlanSearchMatch($searchStringRe) };
+
+    push @matches, @{ $modelMatches };
+
+
+    return \@matches;
+}
+
+sub _interfaceSearchMatch
+{
+    my ($self, $searchStringRe) = @_;
+    my @matches;
+    my $interfaces = $self->get('interfaces', {});
+    while (my ($iface, $attrs) = each %{ $interfaces }) {
+        my $ifMatchs = 0;
+        if ($iface =~ m/$searchStringRe/) {
+            $ifMatchs = 1;
+        } else {
+            while ( my($attrName, $attr) = each %{ $attrs}) {
+                if ($attrName eq 'virtual') {
+                    while (my ($vname, $vattrs) = each $attr) {
+                        if ($vname =~ m/$searchStringRe/) {
+                            $ifMatchs = 1;
+                            last;
+                        }
+                        foreach my $vattrVal (values %{ $vattrs }) {
+                            if ($vattrVal =~ m/$searchStringRe/) {
+                                $ifMatchs = 1;
+                                last;
+                        }
+                        }
+                        if ($ifMatchs) {
+                            last;
+                        }
+                    }
+                } elsif ($attr =~ m/$searchStringRe/) {
+                    $ifMatchs = 1;
+                    last;
+                }
+            }
+        }
+
+        if ($ifMatchs) {
+            my $ifName = $attrs->{alias} ? $attrs->{alias} : $iface;
+            my $linkElements =  [
+                {
+                    title => $self->printableName(),
+                },
+                {
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
+                },
+                {
+                    title => $ifName,
+                    link => "/Network/Ifaces?iface=$iface"
+                }
+              ];
+            my $match = {
+                module => 'network',
+                linkElements => $linkElements
+               };
+            push @matches, $match;
+        }
+    }
+
+    return \@matches;
+}
+
+sub _vlanSearchMatch
+{
+    my ($self, $searchStringRe) = @_;
+    my @matches;
+    my $vlans = $self->get('vlans', {});
+    foreach my $vlAttrs (values %{$vlans}) {
+        my $vlanMatchs = 0;
+        foreach my $attrVal (values %{$vlAttrs}) {
+            if ($attrVal =~ m/$searchStringRe/) {
+                $vlanMatchs = 1;
+                last;
+            }
+        }
+
+        if ($vlanMatchs) {
+            my $linkElements =  [
+                {
+                    title => $self->printableName(),
+                },
+                {
+                    title => __('Interfaces'),
+                    link => '/Network/Ifaces'
+                },
+                {
+                    title => $vlAttrs->{name},
+                    link => "/Network/Ifaces?iface=" . $vlAttrs->{name}
+                }
+              ];
+            my $match = {
+                module => 'network',
+                linkElements => $linkElements,
+            };
+            push @matches, $match;
+        }
+    }
+
+    return \@matches;
+}
+
+sub _failoverEnabled
+{
+    my ($self) = @_;
+
+    my $rules = $self->model('WANFailoverRules');
+    return (@{$rules->enabledRows()} > 0);
+}
+
+sub _writeFailoverCron
+{
+    my ($self) = @_;
+
+    my $cronFile = FAILOVER_CRON_FILE;
+
+    if ($self->_failoverEnabled()) {
+        my $failoverOptions = $self->model('WANFailoverOptions');
+        my $minutes = $failoverOptions->value('period');
+        EBox::Module::Base::writeConfFileNoCheck($cronFile, 'network/failover-checker.cron.mas',
+                                                 [ minutes => $minutes ],
+                                                 {
+                                                  uid  => 'root',
+                                                  gid  => 'root',
+                                                  mode =>  '0644'
+                                                 });
+    } else {
+        EBox::Sudo::root("rm -f $cronFile");
+    }
+}
+
+sub _migrateTo40
+{
+    my ($self) = @_;
+
+    # Migrate failover from seconds to minutes
+    my $failoverOptions = $self->model('WANFailoverOptions');
+    my $period = $failoverOptions->value('period');
+    $period = ($period < 60) ? 1 : int($period / 60);
+    $failoverOptions->setValue('period', $period);
+    $self->saveConfig();
 }
 
 1;

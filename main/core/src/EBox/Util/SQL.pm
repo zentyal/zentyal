@@ -20,7 +20,6 @@ use warnings;
 package EBox::Util::SQL;
 
 use EBox::DBEngineFactory;
-use EBox::Logs::Consolidate;
 use Perl6::Junction qw(any);
 use File::Basename;
 use File::Slurp;
@@ -30,8 +29,7 @@ use constant SQL_TABLES_DIR => '/var/lib/zentyal/sql-tables/';
 # Method: createCoreTables
 #
 #   This method creates the regular SQL log tables under
-#   /usr/share/zentyal/sql/*.sql and the time-period
-#   tables under /usr/share/zentyal/sql/period/*.sql
+#   /usr/share/zentyal/sql/*.sql
 #
 sub createCoreTables
 {
@@ -41,8 +39,7 @@ sub createCoreTables
 # Method: createModuleTables
 #
 #   This method creates the regular SQL log tables under
-#   /usr/share/zentyal-$module/sql/*.sql and the time-period
-#   tables under /usr/share/zentyal-$module/sql/period/*.sql
+#   /usr/share/zentyal-$module/sql/*.sql
 #
 sub createModuleTables
 {
@@ -59,11 +56,6 @@ sub _createTables
 
     foreach my $sqlfile (glob ("$path/*.sql")) {
         push (@names, _addTable($sqlfile));
-    }
-
-    my @timePeriods = @{ EBox::Logs::Consolidate->timePeriods() };
-    foreach my $sqlfile (glob ("$path/period/*.sql")) {
-        push (@names, _addTable($sqlfile, @timePeriods));
     }
 
     # Write table names file to drop them in purge-module

@@ -1,0 +1,18 @@
+Source: zentyal-asterisk
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
+
+Package: zentyal-asterisk
+Architecture: all
+Pre-Depends: mysql-server
+Depends: zentyal-users, libtext-csv-perl, libdigest-perl, asterisk (>= 1.8), ${misc:Depends}
+Description: Zentyal - VoIP
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module offers Asterisk integration in Zentyal.
