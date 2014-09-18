@@ -1,4 +1,5 @@
 HEAD
+	+ Check samAccountName is unique in entire domain adding users and groups
 	+ Ignore cloud-sync warnings from cron
 3.5.7
 	+ Check DN not exists on the same container creating contacts
