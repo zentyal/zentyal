@@ -68,20 +68,13 @@ my @register_additional_rows = (
  },
  {  printableName => __('Password'),
     name => 'password',
+    id   => 'register_additional_password',
     input => '/input/text.mas',
  },
- {  printableName => __(' Do you want to receive the Zentyal newsletter?'),
-    name => 'newsletter',
-    input => '.cb',
-  },
- {  printableName => __('Do you agree with the privacy policy?'),
-    name => 'confirm_privacy',
-    input => '.cb',
-  },
-  { value => __('Register'),
-    input => '/input/submit.mas',
-    name => 'register',
-    id => 'register_additional_submit'
+ { value => __('Register'),
+   input => '/input/submit.mas',
+   name => 'register',
+   id => 'register_additional_submit'
   },
 );
 </%perl>

@@ -185,6 +185,7 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
                     go_to_register_additional();
                     $('#register_additional_username').val(response.username);
                     $('#register_additional_error').text(response.error).show();
+                    $('#register_additional_password').focus();
                 }
                 return;
             }
