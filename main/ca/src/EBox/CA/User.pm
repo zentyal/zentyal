@@ -83,7 +83,7 @@ sub _userAddOns
             openpar => '<p>', closepar => '</p>');
         return {
             title  => $title,
-            path   => '/msg.mas',
+            path   => '/samba/addonMsg.mas',
             params => { msg => $msg }
            };
     } elsif (not $self->{caMod}->isAvailable()) {
@@ -95,7 +95,7 @@ sub _userAddOns
             openpar => '<p>', closepar => '</p>');
         return {
             title  => $title,
-            path   => '/msg.mas',
+            path   => '/samba/addonMsg.mas',
             params => { msg => $msg }
            };
     }
