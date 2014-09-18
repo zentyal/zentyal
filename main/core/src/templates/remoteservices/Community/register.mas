@@ -1,0 +1,112 @@
+<%args>
+$fqdn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript" src="/data/js/form.js"></script>
+<script type="text/javascript" src="/data/js/remoteservices.js"></script>
+
+<div id='div_register_first_time'>
+    <h3><% __('Register to access backup in the cloud') %></h3>
+   <div id='register_first_time_info' class='note' style='display:none'></div>
+   <div id='register_first_time_error' class='error' style='display:none'></div>
+   <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">
+<%perl>
+my @register_first_time_rows = (
+ {  printableName => __('Registration mail address'),
+    name => 'username',
+    input => '/input/text.mas',
+ },
+ {  printableName => __('Confirm registration mail address'),
+    name => 'username2',
+    input => '/input/text.mas',
+ },
+ {  printableName => __('Do you want to receive the Zentyal newsletter?'),
+    name => 'newsletter',
+    input => '/input/checkbox.mas',
+ },
+ {  printableName => __x('Do you agree with the {oa}privacy policy{ca}',
+                             oa => "<a href='http://www.google.com'>",
+                             ca => '</a>'
+                          ),
+    name => 'confirm_privacy',
+    input => '/input/checkbox.mas',
+ },
+ {  value => __('Register'),
+    input => '/input/submit.mas',
+    name => 'register',
+    id => 'register_first_time_submit'
+ },
+);
+</%perl>
+% foreach my $row (@register_first_time_rows) {
+%    my $printableName = delete $row->{printableName};
+%    my $input         = delete $row->{input};
+      <div>
+        <label><% $printableName  %></label>
+        <& $input, %{ $row } &>
+      </div>
+% }
+      <input type='hidden' name='servername' value='<% $fqdn %>' />
+   </form>
+
+   <a href='#' id='switch_to_register_additional'><% __('I have already registered other server') %></a>
+</div>
+
+<div id='div_register_additional' style='display:none'>
+    <h3><% __('Add this server to access backup in the cloud') %></h3>
+   <div id='register_additional_info' class='note' style='display:none'></div>
+   <div id='register_additional_error' class='error' style='display:none'></div>
+   <form id='register_additional_form' action='/RemoteServices/Community/RegisterAdditionalServer' class="formDiv changeRow">
+<%perl>
+my @register_additional_rows = (
+ {  printableName => __('Mail address'),
+    name => 'username',
+    id => 'register_additional_username',
+    input => '/input/text.mas',
+ },
+ {  printableName => __('Password'),
+    name => 'password',
+    input => '/input/text.mas',
+ },
+ {  printableName => __(' Do you want to receive the Zentyal newsletter?'),
+    name => 'newsletter',
+    input => '.cb',
+  },
+ {  printableName => __('Do you agree with the privacy policy?'),
+    name => 'confirm_privacy',
+    input => '.cb',
+  },
+  { value => __('Register'),
+    input => '/input/submit.mas',
+    name => 'register',
+    id => 'register_additional_submit'
+  },
+);
+</%perl>
+% foreach my $row (@register_additional_rows) {
+%    my $printableName = delete $row->{printableName};
+%    my $input         = delete $row->{input};
+      <div>
+        <label><% $printableName  %></label>
+        <& $input, %{ $row } &>
+      </div>
+% }
+      <input type='hidden' name='servername' value='<% $fqdn %>' />
+   </form>
+
+ <a href='#' id='switch_to_register_first'><% __('Back') %></a>
+</div>
+
+<%def .cb>
+<%args>
+$name
+</%args>
+<input type='checkbox' name='<% $name %>'>
+</%def>
+
+
+<script>
+  Zentyal.RemoteServices.setupCommunityRegisterPage();
+</script>

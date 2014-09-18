@@ -147,3 +147,61 @@ Zentyal.RemoteServices.setupBackupPage = function() {
         Zentyal.Dialog.showURL(url,  {title: title, data: data});
     });
 };
+
+
+Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
+    var div_register_first = $('#div_register_first_time');
+    var div_register_additional = $('#div_register_additional');
+    
+    var go_to_register_first = function() {
+        $('#register_first_time_info, #register_first_time_error, #register_additional_info, #register_additional_error').html('').hide();
+        div_register_first.show();
+        div_register_additional.hide();
+    };
+
+    var go_to_register_additional = function() {
+        $('#register_first_time_info, #register_first_time_error, #register_additional_info, #register_additional_error').html('').hide();
+        div_register_first.hide();
+        div_register_additional.show();
+    };
+
+    $('#switch_to_register_first').on('click', function(event) {
+        event.preventDefault();
+        go_to_register_first();
+    });
+
+    $('#switch_to_register_additional').on('click', function(event) {
+        event.preventDefault();
+        go_to_register_additional();
+    });
+
+    Zentyal.Form.setupAjaxSubmit('#register_first_time_form', {
+        noteDiv: '#register_first_time_note',
+        errorDiv: '#register_first_time_error',
+        submitButton: '#register_first_submit',
+        success : function(response) {
+            if (!response.success) {
+                if (response.duplicate) {
+                    go_to_register_additional();
+                    $('#register_additional_username').val(response.username);
+                    $('#register_additional_error').text(response.error).show();
+                }
+                return;
+            }
+            window.location.replace('/RemoteServices/Backup/Index');
+        }
+    });
+
+    Zentyal.Form.setupAjaxSubmit('#register_additional_form', {
+        noteDiv: '#register_additional_note',
+        errorDiv: '#register_additional_error',
+        submitButton: '#register_first_submit',
+        success : function(response) {
+            if (!response.success) {
+                return;
+            }
+            window.location.replace('/RemoteServices/Backup/Index');
+        }
+    });
+};
+

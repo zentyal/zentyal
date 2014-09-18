@@ -85,6 +85,21 @@ sub _restClientWithServerCredentials
     return $self->_restClient($credentials->{server_uuid}, $credentials->{password}, 'rc_sc');
 }
 
+sub _restClientNoCredentials
+{
+    my ($self) = @_;
+    if (exists $self->{rc_nc}) {
+        return $self->{rc_nc};
+    }
+
+    my $restClient = new EBox::RESTClient(
+        server      => EBox::RemoteServices::Configuration::APIEndPoint(),
+       );
+
+    $self->{rc_nc} = $restClient;
+    return $restClient;
+}
+
 # FIXME: Missing doc
 sub _restClient
 {

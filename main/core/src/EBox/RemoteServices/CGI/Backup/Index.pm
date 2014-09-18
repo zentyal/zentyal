@@ -41,18 +41,18 @@ sub new
 }
 
 
-sub optionalParameters
-{
-    my ($self) = @_;
-
-    return ['selected'];
-}
-
 sub actuate
 {
     my ($self) = @_;
 
     my $remoteservices = EBox::Global->modInstance('remoteservices');
+    my $subscribed = $remoteservices->subscriptionLevel() >= 0;
+    if (not $subscribed) {
+        $self->setChain('RemoteServices/Community/Register');
+        return;
+    }
+
+
     try {
         my $backup = $remoteservices->confBackupResource();
         $self->{backups} =  $backup->list();
@@ -78,7 +78,6 @@ sub masonParameters
     my $remoteservices  = $global->modInstance('remoteservices');
     my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
     push @params, (modulesChanged => $modulesChanged);
-    push @params, (selected => 'remote');
 
     my $subscriptionLevel = $remoteservices->subscriptionLevel();
     my $subscribed =  ($subscriptionLevel >= 0);

@@ -41,6 +41,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::RemoteServices::Subscription::Check;
 
 use EBox::RemoteServices::RESTResource::Auth;
+use EBox::RemoteServices::RESTResource::Community;
 use EBox::RemoteServices::RESTResource::ConfBackup;
 use EBox::RemoteServices::RESTResource::Subscriptions;
 
@@ -62,6 +63,7 @@ use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
 use constant PROF_PKG                => 'zentyal-cloud-prof';
 use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
+use constant SUBSCRIPTION_LEVEL_COMMUNITY => 0;
 use constant SYNC_PKG                => 'zfilesync';
 
 
@@ -143,7 +145,11 @@ sub subscriptionLevel
 {
     my ($self) = @_;
 
-    unless ($self->eBoxSubscribed()) {
+    if (not $self->eBoxSubscribed()) {
+        my $serverCredentials = $self->subscriptionCredentials();
+        if ($serverCredentials and (not defined $serverCredentials->{subscription_uuid})) {
+            return SUBSCRIPTION_LEVEL_COMMUNITY;
+        }
         return SUBSCRIPTION_LEVEL_NONE;
     }
     my $codeName = $self->subscriptionCodename();
@@ -439,6 +445,15 @@ sub confBackupResource
 {
     my ($self) = @_;
     return EBox::RemoteServices::RESTResource::ConfBackup->new(remoteservices => $self);
+}
+
+sub communityResource
+{
+    my ($self, $userPassword) = @_;
+    my $community = EBox::RemoteServices::RESTResource::Community->new(remoteservices => $self,
+                                                                 userPassword   => $userPassword
+                                                                );
+    return $community;
 }
 
 # Method: latestRemoteConfBackup

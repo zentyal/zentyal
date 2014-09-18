@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::CGI::SetSubscriptionSlot;
+package EBox::RemoteServices::CGI::Community::RegisterFirstServer;
 use base qw(EBox::CGI::ClientRawBase);
 
 use EBox::Config;
@@ -25,7 +25,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Html;
 
-use Cwd qw(realpath);
 use HTTP::Date;
 use Plack::Util;
 use Sys::Hostname;
@@ -46,30 +45,41 @@ sub _process
     my ($self) = @_;
     $self->{json} = {success => 0 };
 
-    foreach my $param (qw(uuid mode serverName)) {
-        if (not $self->param($param)) {
-            $self->{json}->{msg} = __x('Missing parameter: {par}', par => $param);
-            return;
-        }
+    my $username  = $self->unsafeParam('username');
+    if (not $username) {
+        $self->{json}->{error} = __('Missing registration mail address');
+        return;
+    } 
+
+    my $password = $self->unsafeParam('password');
+    if (not $password) {
+        $self->{json}->{error} = __('Missing registration password');
+        return;
     }
 
-    my $name = $self->param('serverName');
-    my $password = $self->param('password');
-    my $uuid = $self->param('uuid');
-    my $mode = $self->param('mode');
-    $self->{json}->{name} = $name;
+    my $servername = $self->unsafeParam('servername');
+    if (not $servername) {
+        $self->{json}->{error} = __('Missing server name');
+        return;
+    }
 
+    my $credentials;
     try {
-        my $remoteservices   = EBox::Global->getInstance->modInstance('remoteservices');
-        my $subscriptionInfo =  $remoteservices->subscribe($name, $password, $uuid, $mode);
-
-        $self->{json}->{success} = 1;
-        $self->{json}->{msg} = __('You must save changes to enable your subscription');
-        $self->{json}->{subscription} = $subscriptionInfo;
+        my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
+        $remoteservices->setUsername($username);
+        
+        my $community = $remoteservices->communityResource($password);
+        $credentials = $community->subscribeAdditionalTime($servername);
 
     } catch ($ex) {
         $self->{json}->{error} = "$ex";
+        return;
     }
+
+    $self->{json}->{success} = 1;
+    $self->{json}->{subscribed} = 1;
+    $self->{json}->{name} = $credentials->{name};
+    $self->{json}->{msg} = __x('You can now use backups for server {name}', name => $credentials->{name});
 }
 
 1;
