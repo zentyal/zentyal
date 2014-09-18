@@ -1778,19 +1778,34 @@ sub _updateManagedDomainIPsModel
     my $ifaces = $networkModule->allIfaces();
     my %seenAddrs;
     foreach my $iface (@{$ifaces}) {
-        my $addrs = $networkModule->ifaceAddresses($iface);
-        foreach my $addr (@{$addrs}) {
-            next if $seenAddrs{$addr};
-            $seenAddrs{$addr} = 1;
+        if ($networkModule->ifaceMethod($iface) eq 'notset') {
+            foreach my $id (@{$model->ids()}) {
+                my $row = $model->row($id);
+                next unless defined $row;
 
-            my $ifaceName = $iface;
-            $ifaceName .= ":$addr->{name}" if exists $addr->{name};
-            my $ipRow = $model->find(iface => $ifaceName);
-            next unless defined $ipRow;
+                my $ifaceElement = $row->elementByName('iface');
+                my $ifaceValue = $ifaceElement->value();
+                next unless (defined $ifaceValue and length $ifaceValue);
 
-            my $ipElement = $ipRow->elementByName('ip');
-            $ipElement->setValue($addr->{address});
-            $ipRow->store();
+                if ($ifaceValue eq $iface) {
+                    $model->removeRow($id);
+                }
+            }
+        } else {
+            my $addrs = $networkModule->ifaceAddresses($iface);
+            foreach my $addr (@{$addrs}) {
+                next if $seenAddrs{$addr};
+                $seenAddrs{$addr} = 1;
+
+                my $ifaceName = $iface;
+                $ifaceName .= ":$addr->{name}" if exists $addr->{name};
+                my $ipRow = $model->find(iface => $ifaceName);
+                next unless defined $ipRow;
+
+                my $ipElement = $ipRow->elementByName('ip');
+                $ipElement->setValue($addr->{address});
+                $ipRow->store();
+            }
         }
     }
 }
@@ -1830,6 +1845,58 @@ sub restoreDependencies
     return [];
 }
 
+sub _checkIfaceUsed
+{
+    my ($self, $iface) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+
+    my $domainsModel = $self->model('DomainTable');
+    my $managedRows = $domainsModel->findAllValue(managed => 1);
+
+    foreach my $id (@{$managedRows}) {
+        my $domainRow = $domainsModel->row($id);
+        next unless defined $domainRow;
+
+        # Check if used in domain IP addresses
+        my $domainIpModel = $domainRow->subModel('ipAddresses');
+        foreach my $domainIpRowId (@{$domainIpModel->ids()}) {
+            my $domainIpRow = $domainIpModel->row($domainIpRowId);
+            next unless defined $domainIpRow;
+
+            my $ifaceElement = $domainIpRow->elementByName('iface');
+            my $ifaceValue = $ifaceElement->value();
+            next unless (defined $ifaceValue and length $ifaceValue);
+
+            if ($ifaceValue eq $iface) {
+                return 1;
+            }
+        }
+
+        # Check if used in hostname IP addresses
+        my $hostsModel = $domainRow->subModel('hostnames');
+        my $hostRow = $hostsModel->find(hostname => $hostname);
+        next unless defined $hostRow;
+
+        my $hostIpModel = $hostRow->subModel('ipAddresses');
+        foreach my $hostIpRowId (@{$hostIpModel->ids()}) {
+            my $hostIpRow = $hostIpModel->row($hostIpRowId);
+            next unless defined $hostIpRow;
+
+            my $ifaceElement = $hostIpRow->elementByName('iface');
+            my $ifaceValue = $ifaceElement->value();
+            next unless (defined $ifaceValue and length $ifaceValue);
+
+            if ($ifaceValue eq $iface) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 ######################################
 ##  Network observer implementation ##
 ######################################
@@ -1848,6 +1915,34 @@ sub internalDhcpIfaceAddressChangedDone
     $self->_updateManagedDomainAddresses();
     # TODO Save only if changes done
     $self->save();
+}
+
+sub staticIfaceAddressChanged
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+
+    return $self->_checkIfaceUsed($iface);
+}
+
+sub staticIfaceAddressChangedDone
+{
+    my ($self, $iface, $oldaddr, $oldmask, $newaddr, $newmask) = @_;
+
+    $self->_updateManagedDomainAddresses();
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+
+    return $self->_checkIfaceUsed($iface);
+}
+
+sub ifaceMethodChangeDone
+{
+    my ($self, $iface) = @_;
+
+    $self->_updateManagedDomainAddresses();
 }
 
 ######################################

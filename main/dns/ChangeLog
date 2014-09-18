@@ -1,3 +1,5 @@
+HEAD
+	+ Update managed domain ip addresses on static interfaces change
 3.2.7
 	+ Enable sortlist by default in /etc/zentyal/dns.conf
 	+ EBox::DNS::Types::Hostname always return lowercase values
