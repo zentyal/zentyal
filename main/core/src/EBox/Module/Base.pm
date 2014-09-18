@@ -324,8 +324,6 @@ sub changed
 sub setAsChanged
 {
     my ($self, $newChangedStatus) = @_;
-    $newChangedStatus or
-        $newChangedStatus = 1;
     my $name = $self->name;
     my $global = EBox::Global->getInstance();
 
