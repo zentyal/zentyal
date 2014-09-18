@@ -77,10 +77,7 @@ sub _process
         
         my $community = $remoteservices->communityResource();
         $credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
-        use EBox;
-        EBox::debug("XXXXXXXXXXXXXXXX");
-        EBox::debugDump($credentials);
-        $remoteservices->setSubscriptionCredentials($credentials);
+        $remoteservices->setCommunityRegistration($credentials);
     } catch (EBox::Exceptions::RESTRequest $ex) {
         if ($ex->code == 409) {
             $self->{json}->{duplicate} = 1;

@@ -29,8 +29,6 @@ use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
-use EBox::Exceptions::External;
-use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
@@ -44,6 +42,12 @@ use EBox::RemoteServices::RESTResource::Auth;
 use EBox::RemoteServices::RESTResource::Community;
 use EBox::RemoteServices::RESTResource::ConfBackup;
 use EBox::RemoteServices::RESTResource::Subscriptions;
+
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::RESTRequest;
+use EBox::Exceptions::Command;
 
 use EBox::Sudo;
 use EBox::Util::Version;
@@ -344,6 +348,19 @@ sub subscriptionCredentials
 {
     my ($self) = @_;
     return $self->get('subscription_credentials');
+}
+
+sub setCommunityRegistration
+{
+    my ($self, $cred) = @_;
+    if (not $cred) {
+        throw EBox::Exceptions::MissingArgument('cred');
+    }
+    $self->setSubscriptionCredentials($cred);
+    $self->_saveConfig();
+
+    # it is assumne the only changes are the usernme + subscription credentials
+    $self->setAsChanged(0);
 }
 
 # FIXME: Missing doc
