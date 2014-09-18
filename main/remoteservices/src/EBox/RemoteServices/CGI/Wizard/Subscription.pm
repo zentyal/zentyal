@@ -152,6 +152,10 @@ sub _register
                                     query => { %{$registeringData},
                                                password => $self->param('password') });
     } catch (EBox::Exceptions::External $exc) {
+        my $error;
+        if ($exc->isa('EBox::Exceptions::RESTRequest')) {
+            $error = $exc->result();
+        }
         my $error = $restClient->last_error();
         EBox::error('Error registering user: ' . $exc->stringify());
         my $errorData = $error->data();

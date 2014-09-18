@@ -351,7 +351,6 @@ sub request {
     else {
         EBox::debugDump('XXX FAIL ' , $res);
         my $result = new EBox::RESTClient::Result($res);
-        $self->{last_error} = $result;
         my $code = $res->code();
         my $msgError;
         if ($code == HTTP_UNAUTHORIZED) {
@@ -387,17 +386,6 @@ sub request {
         EBox::debug("XXX NOT SUCCESS $code - $msgError");
         throw EBox::Exceptions::RESTRequest($msgError, result => $result)
     }
-}
-
-# Method: last_error
-#
-#   Return last error result after a failed request
-#
-sub last_error
-{
-    my ($self) = @_;
-
-    return $self->{last_error};
 }
 
 # Method: JournalOpsDirPath
