@@ -77,7 +77,11 @@ sub _process
         
         my $community = $remoteservices->communityResource();
         $credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
-        $remoteservices->setCommunityRegistration($credentials);
+        $remoteservices->setSubscriptionCredentials($credentials);
+
+        my $subscriptions = $remoteservices->subscriptionsResource();
+        my $subscriptionInfo = $subscriptions->subscriptionInfo();
+        $remoteservices->setSubscriptionInfo($subscriptionInfo);
     } catch (EBox::Exceptions::RESTRequest $ex) {
         if ($ex->code == 409) {
             $self->{json}->{duplicate} = 1;
@@ -95,8 +99,6 @@ sub _process
     }
 
     $self->{json}->{success} = 1;
-    $self->{json}->{subscribed} = 1;
-    $self->{json}->{name} = $credentials->{name};
     $self->{json}->{msg} = __x('You can now use backups for server {name}', name => $credentials->{name});
 }
 

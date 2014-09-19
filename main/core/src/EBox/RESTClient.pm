@@ -300,10 +300,6 @@ sub request {
     if ($params{multipart}) {
         $req->content_type('multipart/form-data');
         $req->parts($params{multipart});
-        use Data::Dumper;
-        EBox::debug("XXX multipart");
-#       EBox::debug($req->headers_as_string);
-#        EBox::debug($req->content);
     } elsif ($query) {
         given(ref($query)) {
             when('ARRAY' ) {
@@ -345,7 +341,7 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
-        EBox::debugDump("XXX SUCCESS:", $res);
+#        EBox::debugDump("XXX SUCCESS:", $res);
         return new EBox::RESTClient::Result($res);
     }
     else {

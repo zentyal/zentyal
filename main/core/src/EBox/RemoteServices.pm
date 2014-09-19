@@ -61,10 +61,11 @@ use Net::DNS;
 use POSIX;
 use YAML::XS;
 use TryCatch::Lite;
-
+use Date::Calc;
 
 use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
-use constant PROF_PKG                => 'zentyal-cloud-prof';
+#use constant PROF_PKG                => 'zentyal-cloud-prof';
+use constant PROF_PKG                => 'an'; #XXX change
 use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant SUBSCRIPTION_LEVEL_COMMUNITY => 0;
@@ -225,6 +226,7 @@ sub refreshSubscriptionInfo
 {
     my ($self) = @_;
     my $subscriptionInfo;
+    my $refreshError = 0;
     try {
         my $subscriptions = $self->subscriptionsResource();
         $subscriptionInfo = $subscriptions->subscriptionInfo();
@@ -234,21 +236,26 @@ sub refreshSubscriptionInfo
             EBox::warn("Subscription expired or revoked");
             $subscriptionInfo = undef;
         } else {
-            EBox::warn("Cannot refresh subscription information, using cached data: $ex");
-            $subscriptionInfo = $self->subscriptionInfo();
+            $refreshError = $ex;
         }
     } catch ($ex) {
-        EBox::warn("Cannot refresh subscription information, using cached data: $ex");
-        $subscriptionInfo = $self->subscriptionInfo();
+        $refreshError = $ex;
     }
 
-    if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
-        EBox::warn("Subscription expired");
-        $subscriptionInfo = undef;
+    if ($refreshError) {
+        EBox::warn("Cannot refresh subscription information, using cached data: $refreshError");
+        $subscriptionInfo = $self->subscriptionInfo();
+        if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
+            EBox::warn("Subscription expired");
+            $subscriptionInfo = undef;
+        }    
     }
+
+    EBox::debugDump("sinfo", $subscriptionInfo);
 
     if (not $subscriptionInfo) {
         try {
+            EBox::debug("XXX unsubscribe");
             $self->unsubscribe();
         } catch ($ex) {
             EBox::debug('Already unsubscribed');
@@ -350,33 +357,12 @@ sub subscriptionCredentials
     return $self->get('subscription_credentials');
 }
 
-sub setCommunityRegistration
-{
-    my ($self, $cred) = @_;
-    if (not $cred) {
-        throw EBox::Exceptions::MissingArgument('cred');
-    }
-    $self->setSubscriptionCredentials($cred);
-    $self->_saveConfig();
-
-    # it is assumne the only changes are the usernme + subscription credentials
-    $self->setAsChanged(0);
-}
-
 # FIXME: Missing doc
 sub subscribe
 {
     my ($self, $name, $password, $uuid, $mode) = @_;
     my $subscriptions = $self->subscriptionsResource($password);
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
-
-    my $state = $self->get_state();
-    $state->{revokeAction} = {
-        action => 'unsubscribe',
-        params => [$subscriptionCred->{server_uuid}, $subscriptionCred->{password}]
-    };
-    $state->{just_subscribed} = 1;
-    $self->set_state($state);
 
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');
@@ -423,27 +409,6 @@ sub _removeSubscriptionData
     $self->unset('username');
     $self->unset('subscription_credentials');
     $self->unset('subscription_info');
-}
-
-# Method: REST
-#
-#   Return the REST client ready to query remote services.
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - thrown if the server is not
-#   subscribed
-#
-sub REST
-{
-    my ($self) = @_;
-
-    unless ($self->{rest}) {
-        my $restRes = new EBox::RemoteServices::RESTResource(remoteservices => $self);
-        $self->{rest} = $restRes->_restClientWithServerCredentials();
-    }
-
-    return $self->{rest};
 }
 
 # FIXME: Missing doc
@@ -699,12 +664,17 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $state = $self->get_state();
-    my $justSubscribed = delete $state->{just_subscribed};
-    my $revokeAction = delete $state->{revokeAction};
-    $self->set_state($state);
+    # create dir for remoteservices configuration
+    # for the moment is used only to store lastbackup timestamp
+    my $dir   = EBox::Config::conf() . 'remoteservices';
+    my $user  = EBox::Config::user();
+    my $group = EBox::Config::group();
+    EBox::Sudo::root("mkdir -p '$dir'",
+                     "chown $user.$group '$dir'"
+                    );
+    
 
-    my $alreadyChanged = $self->changed();
+    my $alreadyChanged   = $self->changed();
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     if ($self->changed() and not $alreadyChanged) {
         # changes due to subscription refresh
@@ -712,7 +682,8 @@ sub _setConf
         $self->setAsChanged(0);
     }
 
-    $self->setupSubscription($subscriptionInfo, $justSubscribed);
+    my $subscriptionLevel = $self->subscriptionLevel();
+    $self->setupSubscription($subscriptionInfo, $subscriptionLevel);
 
 #    TODO: Disabled until reimplmented
 #    $self->_setRemoteSupportAccessConf();
@@ -720,46 +691,16 @@ sub _setConf
     $self->_updateMotd();
 }
 
-# Method: revokeConfig
-#
-#       Dismisses all changes done since the first write or delete operation.
-#
-sub revokeConfig
-{
-    my ($self) = @_;
-    my $state = $self->get_state();
-    my $revokeAction = delete $state->{revokeAction};
-    $self->set_state($state);
-    if ($revokeAction) {
-        try {
-            my $subscriptions = $self->subscriptionsResource();
-            my $action = $revokeAction->{action};
-            if ($action eq 'subscribe') {
-                $subscriptions->subscribeServer(@{$revokeAction->{params}})
-            } elsif ($action eq 'unsubscribe') {
-                $subscriptions->unsubscribeServer(@{$revokeAction->{params}})
-            } else {
-                EBox::error("Unknown pending operation: $action. Skipping");
-            }
-        } catch ($ex) {
-            EBox::error("Cannot undo " . $revokeAction->{action} . " operation. Please, undo it manually");
-            $ex->throw();
-        }
-    }
-
-
-    $self->SUPER::revokeConfig();
-}
 
 
 # FIXME: Missing doc
 sub setupSubscription
 {
-    my ($self, $subscriptionInfo, $justSubscribed) = @_;
+    my ($self, $subscriptionInfo, $subscriptionLevel) = @_;
 
     $self->_setQAUpdates($subscriptionInfo);
     $self->_manageCloudProfPackage($subscriptionInfo);
-    $self->_writeCronFile($subscriptionInfo);
+    $self->_writeCronFile($subscriptionLevel >= 0);
 }
 
 sub _writeCronFile
@@ -767,6 +708,9 @@ sub _writeCronFile
     my ($self, $subscribed) = @_;
 
     if ($subscribed) {
+        # the cron file contains automatic-conf-backup and refresh-subscription
+        # which are for all levels
+
         my $hours = $self->st_get_list('rand_hours');
         unless ( @{$hours} > 0 ) {
             # Set the random times when scripts must ask for information
@@ -787,7 +731,7 @@ sub _writeCronFile
 
         EBox::Module::Base::writeConfFileNoCheck(
             CRON_FILE,
-            'core/zentyal-remoteservices.cron.mas',
+            'core/remoteservices/zentyal-remoteservices.cron.mas',
             \@tmplParams);
     } else {
         EBox::Sudo::root("rm -f '" . CRON_FILE . "'");
@@ -801,31 +745,21 @@ sub _checkSubscriptionAlive
          return 0;
      }
 
-    my $start = $subscriptionInfo->{subscription_start};
     my $end  = $subscriptionInfo->{subscription_end};
-    if ((not $start) or (not $end)) {
-        EBox::error("Subscription info has not either start or end date");
-        return 0;
-    }
+    if (not $end) {
+        # subscription without date
+        return;
+    } 
 
     my ($sec,$min,$hour,$mday,$mon,$year) = gmtime();
     $year += 1900;
     $mon  += 1;
-    # give one day margin
-    if ($mday == 1) {
-        if ($mon == 1) {
-            $mon = 12;
-            $year -= 1;
-        } else {
-            $mon = 1;
-        }
-        $mday = 31; # dont care for the comparation if it was a month with 30 days
-    } else {
-        $mday -= 1;
-    }
+    # give five day margin
+    my $margin = 5;
+    ($year, $mon, $mday) = Date::Calc::Add_Delta_Days($year, $mon, $mday, -$margin);
 
     my $gmtime = sprintf('%04d-%02d-%02d %02d:%02d:%02d', $year, $mon, $mday, $hour, $min, $sec);
-    return (($gmtime ge $start) and ($gmtime lt $end));
+    return ($gmtime lt $end);
 }
 
 sub _manageCloudProfPackage

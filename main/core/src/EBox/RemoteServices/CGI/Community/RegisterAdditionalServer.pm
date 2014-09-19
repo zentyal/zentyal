@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::CGI::Community::RegisterFirstServer;
+package EBox::RemoteServices::CGI::Community::RegisterAdditionalServer;
 use base qw(EBox::CGI::ClientRawBase);
 
 use EBox::Config;
@@ -70,15 +70,17 @@ sub _process
         
         my $community = $remoteservices->communityResource($password);
         $credentials = $community->subscribeAdditionalTime($servername);
+        $remoteservices->setSubscriptionCredentials($credentials);
 
+        my $subscriptions = $remoteservices->subscriptionsResource();
+        my $subscriptionInfo = $subscriptions->subscriptionInfo();
+        $remoteservices->setSubscriptionInfo($subscriptionInfo);
     } catch ($ex) {
         $self->{json}->{error} = "$ex";
         return;
     }
 
     $self->{json}->{success} = 1;
-    $self->{json}->{subscribed} = 1;
-    $self->{json}->{name} = $credentials->{name};
     $self->{json}->{msg} = __x('You can now use backups for server {name}', name => $credentials->{name});
 }
 
