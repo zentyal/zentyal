@@ -108,8 +108,8 @@ $workgroup
               <input type="text" name="workgroup" id="workgroup" value="<% $workgroup %>"/>
         </div>
         <div>
-              <label for="workgroup"><% __('NetBIOS domain name') %></label>
-              <input type="text" name="workgroup" id="workgroup"/>
+              <label for="netbiosName"><% __('NetBIOS computer name') %></label>
+              <input type="text" name="netbiosName" id="netbiosName"/>
         </div>
     </fieldset>
 </%def>

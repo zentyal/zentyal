@@ -70,15 +70,21 @@ sub _processJoinADC
 {
     my ($self) = @_;
 
-    $self->_requireParam('dcHostname', __('Active Directory hostname'));
-    $self->_requireParam('dcUser', __('Administrative user'));
-    $self->_requireParam('dcPassword', __('User password'));
-    $self->_requireParam('dcPassword2', __('Confirm user password'));
+    $self->_requireParam('realm', __('Domain Name'));
+    $self->_requireParam('dcfqdn', __('Domain controller FQDN'));
+    $self->_requireParam('dnsip', __('Domain DNS server IP'));
+    $self->_requireParam('adminAccount', __('Administrator account'));
+    $self->_requireParam('password', __('Administrator password'));
+    $self->_requireParam('workgroup', __('NetBIOS domain name'));
+    $self->_requireParam('netbiosName', __('NetBIOS computer name'));
 
     my $domain = $self->param('realm');
     my $dcfqdn = $self->param('dcfqdn');
     my $dnsip = $self->param('dnsip');
     my $adminAccount = $self->param('adminAccount');
+    my $password = $self->param('password');
+    my $workgroup = $self->param('workgroup');
+    my $netbiosName = $self->param('netbiosName');
 
     if ($domain) {
         EBox::info('Setting the host domain');
@@ -92,18 +98,49 @@ sub _processJoinADC
     }
 
     my $samba = EBox::Global->modInstance('samba');
-    my $settings = $samba->model('DomainSettings');
+    my $provision = $samba->getProvision();
 
+    # Resolve DC FQDN to an IP if needed
+    my $adServerIp = $provision->checkAddress($dnsip, $dcfqdn);
+
+    # Check DC is reachable
+    $provision->checkServerReachable($adServerIp);
+
+    # Check DC functional levels > 2000
+    $provision->checkFunctionalLevels($adServerIp);
+
+    # Check RFC2307 compliant schema
+    $provision->checkRfc2307($adServerIp, $adminAccount, $password);
+
+    # Check local realm matchs remote one
+    $provision->checkLocalRealmAndDomain($adServerIp);
+
+    # Check clock skew
+    $provision->checkClockSkew($adServerIp);
+
+    # Check no DNS zones in main domain partition
+    $provision->checkDnsZonesInMainPartition($adServerIp, $adminAccount, $password);
+
+    # Check forest only contains one domain
+    $provision->checkForestDomains($adServerIp, $adminAccount, $password);
+
+    # Check there are not trust relationships between domains or forests
+    $provision->checkTrustDomainObjects($adServerIp, $adminAccount, $password);
+
+    # Check the netbios domain name
+    $provision->checkADNebiosName($adServerIp, $adminAccount, $password, $workgroup);
+
+    my $settings = $samba->model('DomainSettings');
     $settings->setRow(
         0, # no force mode
         mode => $samba->MODE_ADC(),
         realm => $domain,
-        dcfqdn => $self->param('dcfqdn'),
-        dnsip => $self->param('dnsip'),
-        adminAccount => $self->param('adminAccount'),
-        password => $self->param('password'),
-        workgroup => $self->param('workgroup'),
-        netbiosName => $self->param('netbiosName')
+        dcfqdn => $dcfqdn,
+        dnsip => $dnsip,
+        adminAccount => $adminAccount,
+        password => $password,
+        workgroup => $workgroup,
+        netbiosName => $netbiosName
     );
 }
 
