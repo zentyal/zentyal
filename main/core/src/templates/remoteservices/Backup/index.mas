@@ -1,5 +1,5 @@
 <%args>
-  $subscribed
+  $subscriptionLevel
   @backups
   $modulesChanged
 </%args>
@@ -11,9 +11,9 @@ use URI;
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
 <div class="insideTab">
-% if ($subscribed) {
-  <& .backupSection, modulesChanged => $modulesChanged,
-                     subscribed     => $subscribed,
+% if ($subscriptionLevel >= 0) {
+  <& .backupSection, modulesChanged    => $modulesChanged,
+                     subscriptionLevel => $subscriptionLevel,
                      backups => \@backups
   &>
   <& .listSection, backups => \@backups &>
@@ -30,12 +30,12 @@ $(function() {
 <%def .backupSection>
 <%args>
 $modulesChanged
-$subscribed
+$subscriptionLevel
 @backups
 </%args>
 <%init>
 my $lastBackup = $backups[-1];
-my $restricted = ((not $subscribed) and $lastBackup);
+my $restricted = (($subscriptionLevel < 1) and $lastBackup);
 my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
 
 my @formElements;
@@ -74,11 +74,14 @@ if (not $restricted) {
      return false
 ENDJS
 } else {
+   my $uuid =  $lastBackup->{uuid};
    $backupOnClickJs =<< "ENDJS";
      var newName = \$('#backup_name').val();
      var title = '$backupTitle' + newName;
      var url = '/RemoteServices/Backup/Confirm';
-     var data = 'newName=' + newName;
+     var data;
+//     var data = 'newName=' + newName;
+     data = 'uuid=' + $uuid;
      data += '&label=' + \$('#hidden_name').val();
      data += '&action=overwrite';
      data += '&backup=1&popup=1';
@@ -133,8 +136,7 @@ if ($restricted) {
 
 % if ($restricted) {
   <div class='warning'>
-%# TODO CHANGe this texr
-        <% __(q{Please note that the Basic Subscription allows you to store only one remote configuration backup. If you make a new configuration backup, the previous backup will be overwritten.}) %>
+        <% __(q{Please note that the server registration allows you to store only one remote configuration backup. If you make a new configuration backup, the previous backup will be overwritten.}) %>
   </div>
 % }
 

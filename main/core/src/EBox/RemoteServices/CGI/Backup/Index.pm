@@ -91,9 +91,7 @@ sub masonParameters
     push @params, (modulesChanged => $modulesChanged);
 
     my $subscriptionLevel = $remoteservices->subscriptionLevel();
-    my $subscribed =  ($subscriptionLevel >= 0);
-
-    push @params, (subscribed => $subscribed);
+    push @params, (subscriptionLevel => $subscriptionLevel);
 
 
     return \@params;

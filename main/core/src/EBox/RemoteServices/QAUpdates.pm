@@ -24,12 +24,11 @@ use HTML::Mason;
 use File::Slurp;
 use File::Temp;
 
-use EBox::Global;
 use EBox::Config;
 use EBox::Exceptions::Command;
+use EBox::Global;
 use EBox::Module::Base;
 use EBox::RemoteServices::Configuration;
-#use EBox::RemoteServices::Cred;
 use EBox::Sudo;
 use Data::UUID;
 
@@ -37,51 +36,41 @@ use TryCatch::Lite;
 
 # Group: Public methods
 
-sub new
-{
-    my ($class, $remoteservices) = @_;
-    my $self = {remoteservices => $remoteservices };
-    bless $self, $class;
-    return $self;
-    
-}
-
 # Method: set
 #
 #       Turn the QA Updates ON or OFF depending on the subscription level
 #
 sub set
 {
-    my ($self, $subscriptionInfo) = @_;
+    my ($subscriptionLevel) = @_;
     # Downgrade, if necessary
-    $self->_downgrade($subscriptionInfo);
+    _downgrade($subscriptionLevel);
 
-    $self->_setQAUpdates($subscriptionInfo);
+    _setQAUpdates($subscriptionLevel);
 }
 
 # Group: Private methods
 
 sub _setQAUpdates
 {
-    my ($self, $subscriptionInfo) = @_;
+    my ($subscriptionLevel) = @_;    
     # Set the QA Updates if the subscription level is greater than basic
-    if (not $subscriptionInfo) {
+    if ($subscriptionLevel < 1) {
+        return;
+    } elsif (not _isCommercialVersion()) {
         return;
     }
 
-    $self->_setQASources($subscriptionInfo);
-    $self->_setQAAptPubKey();
-    $self->_setQAAptPreferences();
-    $self->_setQARepoConf();
+    _setQASources();
+    _setQAAptPubKey();
+    _setQAAptPreferences();
+    _setQARepoConf();
 
-    my $softwareMod = EBox::Global->getInstance(0)->modInstance('software');
+    my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
-            my $alreadChanged = $softwareMod->changed();
-                $softwareMod->setQAUpdates(1);
-            if (not $alreadChanged) {
-                $softwareMod->save();
-            }
+            $softwareMod->setQAUpdates(1);
+            $softwareMod->save();
         }
     } else {
         EBox::info('No software module installed QA updates should be done by hand');
@@ -91,20 +80,19 @@ sub _setQAUpdates
 # Set the QA source list
 sub _setQASources
 {
-    my ($self, $subscriptionInfo) = @_;
-    my $archive = $self->_archive();
-    my $repositoryHostname = $self->_repositoryHostname();
+    my $archive = _archive();
+    my $repositoryHostname = _repositoryHostname();
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $sourcesFile = EBox::Config::stubs . 'core/remoteservices/qa-sources.mas';
+    my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
-
-    my $user = $subscriptionInfo->{server}->{name};
+    my $cred = EBox::RemoteServices::Cred->new();
+    my $credentials = $cred->cloudCredentials();
+    my $user = $cred->subscribedHostname();
     # Password: UUID in hexadecimal format (without '0x')
-    
     my $ug = new Data::UUID;
-    my $bin_uuid = $ug->from_string($subscriptionInfo->{server}->{uuid});
+    my $bin_uuid = $ug->from_string($credentials->{uuid});
     my $hex_uuid = $ug->to_hexstring($bin_uuid);
     my $pass = substr($hex_uuid, 2);                # Remove the '0x'
 
@@ -130,9 +118,8 @@ sub _setQASources
 }
 
 # Get the ubuntu version
-sub _ubuntuVersionToRemove
+sub _ubuntuVersion
 {
-    my ($self) = @_;
     my @releaseInfo = File::Slurp::read_file('/etc/lsb-release');
     foreach my $line (@releaseInfo) {
         next unless ($line =~ m/^DISTRIB_CODENAME=/ );
@@ -145,19 +132,25 @@ sub _ubuntuVersionToRemove
 # Get the Zentyal version to use in the archive
 sub _zentyalVersion
 {
-    my ($self) = @_;
     return substr(EBox::Config::version(),0,3);
+}
+
+# Is it a commercial version?
+sub _isCommercialVersion
+{
+    my $zv = _zentyalVersion();
+    # Zentyal Release Policy applies here
+    return (substr($zv, -1) eq '0');
 }
 
 # Get the QA archive to look
 # qa_updates_archive conf key has higher precedence
 sub _archive
 {
-    my ($self) = @_;
     if (EBox::Config::configkey('qa_updates_archive')) {
         return EBox::Config::configkey('qa_updates_archive');
     } else {
-        my $zentyalVersion = $self->_zentyalVersion();
+        my $zentyalVersion = _zentyalVersion();
 
         return "zentyal-qa-$zentyalVersion";
     }
@@ -166,29 +159,26 @@ sub _archive
 # Get the suite of archives to set preferences
 sub _suite
 {
-    my ($self) = @_;
     return 'zentyal-qa';
 }
 
 # Set the QA apt repository public key
 sub _setQAAptPubKey
 {
-    my ($self) = @_;
-    my $keyFile = EBox::Config::scripts() . '/zentyal-qa.pub';
+    my $keyFile = EBox::Config::scripts('remoteservices') . '/zentyal-qa.pub';
     EBox::Sudo::root("apt-key add $keyFile");
 }
 
 sub _setQAAptPreferences
 {
-    my ($self) = @_;
     my $preferences = '/etc/apt/preferences';
     my $fromCCPreferences = $preferences . '.zentyal.fromzc'; # file to store CC preferences
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $prefsFile = EBox::Config::stubs . 'core/remoteservices/qa-preferences.mas';
+    my $prefsFile = EBox::Config::stubs . 'remoteservices/qa-preferences.mas';
     my $comp = $interp->make_component(comp_file  => $prefsFile);
-    $interp->exec($comp, ( (archive => $self->_suite()) ));
+    $interp->exec($comp, ( (archive => _suite()) ));
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     my $tmpFile = $fh->filename();
@@ -207,10 +197,9 @@ sub _setQAAptPreferences
 #  * No verify server certificate
 sub _setQARepoConf
 {
-    my ($self) = @_;
-    my $repoHostname = $self->_repositoryHostname();
+    my $repoHostname = _repositoryHostname();
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
-                                             'core//remoteservices/qa-conf.mas',
+                                             '/remoteservices/qa-conf.mas',
                                              [ repoHostname => $repoHostname ],
                                              {
                                                  force => 1,
@@ -224,41 +213,39 @@ sub _setQARepoConf
 # Get the repository hostname
 sub _repositoryHostname
 {
-    my ($self) = @_;
-    return 'qa.' . $self->{remoteservices}->cloudDomain();
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( EBox::Config::configkey('qa_updates_repo') ) {
+        return EBox::Config::configkey('qa_updates_repo');
+    } else {
+        return 'qa.' . $rs->cloudDomain();
+    }
 }
 
 # Remove QA updates
 sub _removeQAUpdates
 {
-    my ($self) = @_;
-    $self->_removeAptQASources();
-    $self->_removeAptPubKey();
-    $self->_removeAptQAPreferences();
-    $self->_removeAptQAConf();
+    _removeAptQASources();
+    _removeAptPubKey();
+    _removeAptQAPreferences();
+    _removeAptQAConf();
 
-    my $softwareMod = EBox::Global->getInstance(0)->modInstance('software');
+    my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
-            my $alreadyChanged = $softwareMod->changed();
             $softwareMod->setQAUpdates(0);
-            if (not $alreadyChanged) {
-                $softwareMod->save();
-            }
+            $softwareMod->save();
         }
     }
 }
 
 sub _removeAptQASources
 {
-    my ($self) = @_;
     my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
     EBox::Sudo::root("rm -f '$path'");
 }
 
 sub _removeAptPubKey
 {
-    my ($self) = @_;
     my $id = 'ebox-qa';
     try {
         EBox::Sudo::root("apt-key del $id");
@@ -269,7 +256,6 @@ sub _removeAptPubKey
 
 sub _removeAptQAPreferences
 {
-    my ($self) = @_;
     my $path = '/etc/apt/preferences.zentyal.fromzc';
     EBox::Sudo::root("rm -f '$path'");
     $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
@@ -278,7 +264,6 @@ sub _removeAptQAPreferences
 
 sub _removeAptQAConf
 {
-    my ($self) = @_;
     my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
     EBox::Sudo::root("rm -f '$path'");
 }
@@ -290,13 +275,13 @@ sub _removeAptQAConf
 #
 sub _downgrade
 {
-    my ($self, $subscribed) = @_;
+    my ($subscriptionLevel) = @_;
     # If Basic subscription or no subscription at all
-    if (not $subscribed) {
+    if ($subscriptionLevel <= 0) {
         if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
             or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
             # Requires to downgrade
-            $self->_removeQAUpdates();
+            _removeQAUpdates();
         }
     }
 }

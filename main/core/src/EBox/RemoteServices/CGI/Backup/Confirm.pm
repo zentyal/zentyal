@@ -54,7 +54,7 @@ sub _setErrorChain
 
 sub requiredParameters
 {
-    return [qw(action uuid)];
+    return ['action'];
 }
 
 sub optionalParameters
@@ -62,6 +62,8 @@ sub optionalParameters
     my @optional = @extraParameters;
     push @optional, 'backup';  # needed for backup overwritten confirmation
     push @optional, 'popup';
+    push @optional, 'uuid';
+    push @optional, 'label';
 
     return \@optional;
 }

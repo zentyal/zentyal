@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::RemoteServices::Backup;
 
-#use Data::Dumper;
+
 use Digest::SHA;
 use TryCatch::Lite;
 use EBox::Backup;
@@ -29,19 +29,10 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
-#use EBox::RemoteServices::Cred;
-#use File::Glob ':globally';
 use File::Slurp;
-#use File::Temp;
-#use LWP::UserAgent;
-#use URI;
-#use HTTP::Status;
 
 
 use v5.10;
-
-# Constants
-#use constant CURL => 'curl';
 
 # Group: Public methods
 

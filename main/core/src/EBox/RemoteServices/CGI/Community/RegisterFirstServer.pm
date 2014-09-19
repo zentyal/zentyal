@@ -70,18 +70,9 @@ sub _process
     }
     my $newsletter = $self->param('newsletter');
 
-    my $credentials;
     try {
         my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
-        $remoteservices->setUsername($username);
-        
-        my $community = $remoteservices->communityResource();
-        $credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
-        $remoteservices->setSubscriptionCredentials($credentials);
-
-        my $subscriptions = $remoteservices->subscriptionsResource();
-        my $subscriptionInfo = $subscriptions->subscriptionInfo();
-        $remoteservices->setSubscriptionInfo($subscriptionInfo);
+        $remoteservices->registerFirstCommunityServer($username, $servername, $newsletter);
     } catch (EBox::Exceptions::RESTRequest $ex) {
         if ($ex->code == 409) {
             $self->{json}->{duplicate} = 1;
@@ -99,7 +90,7 @@ sub _process
     }
 
     $self->{json}->{success} = 1;
-    $self->{json}->{msg} = __x('You can now use backups for server {name}', name => $credentials->{name});
+    $self->{json}->{msg} = __x('You can now use backups for server {name}', name => $servername);
 }
 
 1;

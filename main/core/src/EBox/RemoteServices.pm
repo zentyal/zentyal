@@ -126,9 +126,17 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-# TODO see if this continues to make sense
+# TODO see if this continues to make sense XXX (done now in setconf
 #    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 }
+
+sub commercialEdition
+{
+    # XXX discriminate somehow
+    return 0;
+}
+
+
 
 # Method: subscriptionLevel
 #
@@ -151,12 +159,11 @@ sub subscriptionLevel
     my ($self) = @_;
 
     if (not $self->eBoxSubscribed()) {
-        my $serverCredentials = $self->subscriptionCredentials();
-        if ($serverCredentials and (not defined $serverCredentials->{subscription_uuid})) {
-            return SUBSCRIPTION_LEVEL_COMMUNITY;
-        }
         return SUBSCRIPTION_LEVEL_NONE;
+    } elsif (not $self->commercialEdition()) {
+        return SUBSCRIPTION_LEVEL_COMMUNITY;
     }
+
     my $codeName = $self->subscriptionCodename();
     unless (exists $codenameLevels{$codeName}) {
         return SUBSCRIPTION_LEVEL_NONE;
@@ -207,7 +214,7 @@ sub technicalSupport
 sub username
 {
     my ($self) = @_;
-    $self->get('username');
+    $self->get_state()->{'username'};
 }
 
 # FIXME: Missing doc
@@ -218,7 +225,9 @@ sub setUsername
     if (not $username) {
         throw EBox::Exceptions::External('username');
     }
-    $self->set('username', $username);
+    my $state = $self->get_state();
+    $state->{'username'} = $username;
+    $self->set_state($state);
 }
 
 # FIXME: Missing doc
@@ -271,7 +280,9 @@ sub refreshSubscriptionInfo
 sub setSubscriptionInfo
 {
     my ($self, $cred) = @_;
-    $self->set('subscription_info', $cred);
+    my $state = $self->get_state();
+    $state->{'subscription_info'} =  $cred;
+    $self->set_state($state);
 }
 
 # Method: subscriptionInfo
@@ -318,7 +329,7 @@ sub setSubscriptionInfo
 sub subscriptionInfo
 {
     my ($self) = @_;
-    my $subsInfo = $self->get('subscription_info');
+    my $subsInfo = $self->get_state()->{'subscription_info'};
     if ($subsInfo) {
         my $adMsgs = $self->adMessages();
         $subsInfo->{messages} = $adMsgs->{text};
@@ -332,7 +343,9 @@ sub subscriptionInfo
 sub setSubscriptionCredentials
 {
     my ($self, $cred) = @_;
-    $self->set('subscription_credentials', $cred);
+    my $state = $self->get_state();
+    $state->{'subscription_credentials'} =  $cred;
+    $self->set_state($state);
 }
 
 # Method: subscriptionCredentials
@@ -354,13 +367,17 @@ sub setSubscriptionCredentials
 sub subscriptionCredentials
 {
     my ($self) = @_;
-    return $self->get('subscription_credentials');
+    return $self->get_state()->{'subscription_credentials'};
 }
 
 # FIXME: Missing doc
 sub subscribe
 {
     my ($self, $name, $password, $uuid, $mode) = @_;
+    if (not $self->commercialEdition()) {
+        throw EBox::Exceptions::Internal('Cannot subscribe a community edition');
+    }
+
     my $subscriptions = $self->subscriptionsResource($password);
     my $subscriptionCred = $subscriptions->subscribeServer($name, $uuid, $mode);
 
@@ -368,9 +385,11 @@ sub subscribe
     $self->global()->addModuleToPostSave('webadmin');
 
     $self->setSubscriptionCredentials($subscriptionCred);
-    # Delete temporary stored password
-    $self->unset('password');
+
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
+
+    $self->setAsChanged(1);
+
     return $subscriptionInfo;
 }
 
@@ -378,6 +397,10 @@ sub subscribe
 sub unsubscribe
 {
     my ($self, $password) = @_;
+    if (not $self->commercialEdition()) {
+        throw EBox::Exceptions::Internal('Cannot unsubscribe a community edition');
+    }
+
 
     # Check no other modules required to be subscribed
     EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
@@ -385,30 +408,77 @@ sub unsubscribe
     if ($self->username() and $password) {
         my $subscriptions  = $self->subscriptionsResource($password);
         $subscriptions->unsubscribeServer();
-
-        my $state = $self->get_state();
-        my $cred  = $self->subscriptionCredentials();
-        $state->{revokeAction} = {
-            action => 'subscribe',
-            params => [$cred->{name}, $cred->{subscription_uuid}, 'new',
-                       $self->username(), $password
-                      ]
-           };
-        $self->set_state($state);
     }
 
     $self->_removeSubscriptionData();
 
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');
+
+    $self->setAsChanged(1);
+}
+
+sub registerFirstCommunityServer
+{
+    my ($self, $username, $servername, $newsletter) = @_;
+    if ($self->commercialEdition()) {
+        throw EBox::Exceptions::Internal('Register server is only for community editions');
+    }
+
+
+    $self->setUsername($username);
+    
+    my $community = $self->communityResource();
+    my$credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
+    $self->setSubscriptionCredentials($credentials);
+    
+    my $subscriptions = $self->subscriptionsResource();
+    my $subscriptionInfo = $subscriptions->subscriptionInfo();
+    $self->setSubscriptionInfo($subscriptionInfo);
+
+    $self->setAsChanged(1);
+}
+
+sub registerAdditionalCommunityServer
+{
+    my ($self, $username, $password, $servername) = @_;
+    if ($self->commercialEdition()) {
+        throw EBox::Exceptions::Internal('Register server is only for community editions');
+    }
+
+    $self->setUsername($username);
+        
+    my $community = $self->communityResource($password);
+    my $credentials = $community->subscribeAdditionalTime($servername);
+    $self->setSubscriptionCredentials($credentials);
+
+    my $subscriptions = $self->subscriptionsResource();
+    my $subscriptionInfo = $subscriptions->subscriptionInfo();
+    $self->setSubscriptionInfo($subscriptionInfo);
+
+    $self->setAsChanged(1);
+}
+
+sub unregisterCommunityServer
+{
+    my ($self) = @_;
+    if ($self->commercialEdition()) {
+        throw EBox::Exceptions::Internal('Unregister server is only for community editions');
+    }
+
+    $self->_removeSubscriptionData();
+        
+    $self->setAsChanged(1);
 }
 
 sub _removeSubscriptionData
 {
     my ($self) = @_;
-    $self->unset('username');
-    $self->unset('subscription_credentials');
-    $self->unset('subscription_info');
+    my $state = $self-state();
+    delete $state->{'username'};
+    delete $state->{'subscription_credentials'};
+    delete $state->{'subscription_info'};
+    $self->set_state($state);
 }
 
 # FIXME: Missing doc
@@ -464,8 +534,6 @@ sub authResource
     return EBox::RemoteServices::RESTResource::Auth->new(remoteservices => $self,
                                            userPassword  => $userPassword);
 }
-
-
 
 # FIXME: Missing doc
 sub eBoxSubscribed
@@ -546,10 +614,6 @@ sub i18nServerEdition
 #
 #      Get the subscription codename
 #
-# Parameters:
-#
-#      force - Boolean check against server
-#              *(Optional)* Default value: false
 #
 # Returns:
 #
@@ -564,16 +628,14 @@ sub i18nServerEdition
 #
 sub subscriptionCodename
 {
-    my ($self, $force) = @_;
+    my ($self) = @_;
 
-    $force = 0 unless defined($force);
-
-    unless ($self->eBoxSubscribed()) {
+    my $subscriptionInfo = $self->subscriptionInfo;
+    if ((not $subscriptionInfo) or (not exists $subscriptionInfo->{'codename'})) {
         return '';
     }
 
-    # TBD
-    return 'professional';
+    return $subscriptionInfo->{'codename'};
 }
 
 # Method: addOnAvailable
@@ -674,16 +736,9 @@ sub _setConf
                     );
     
 
-    my $alreadyChanged   = $self->changed();
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
-    if ($self->changed() and not $alreadyChanged) {
-        # changes due to subscription refresh
-        $self->_saveConfig();
-        $self->setAsChanged(0);
-    }
-
     my $subscriptionLevel = $self->subscriptionLevel();
-    $self->setupSubscription($subscriptionInfo, $subscriptionLevel);
+    $self->setupSubscription($subscriptionLevel, $subscriptionInfo);
 
 #    TODO: Disabled until reimplmented
 #    $self->_setRemoteSupportAccessConf();
@@ -696,10 +751,10 @@ sub _setConf
 # FIXME: Missing doc
 sub setupSubscription
 {
-    my ($self, $subscriptionInfo, $subscriptionLevel) = @_;
+    my ($self, $subscriptionLevel, $subscriptionInfo) = @_;
 
-    $self->_setQAUpdates($subscriptionInfo);
-    $self->_manageCloudProfPackage($subscriptionInfo);
+    EBox::RemoteServices::QAUpdates::set($subscriptionLevel);
+    $self->_manageCloudProfPackage($subscriptionLevel);
     $self->_writeCronFile($subscriptionLevel >= 0);
 }
 
@@ -764,19 +819,19 @@ sub _checkSubscriptionAlive
 
 sub _manageCloudProfPackage
 {
-    my ($self, $subscriptionInfo) = @_;
-
+    my ($self, $subscriptionLevel) = @_;
+    EBox::debug("XXX _manageCloudProfPackage $subscriptionLevel");
     my $installed = $self->_pkgInstalled(PROF_PKG);
-    if ((not $subscriptionInfo) or ($self->subscriptionLevel() < 1)) {
-        unless ($installed) {
+    if ($subscriptionLevel < 1) {
+        if ($installed) {
             $self->_downgrade();
         }
         return;
     }
 
-    return if ($installed);
-
-    $self->_installProfPkgs();
+    if (not $installed) {
+        $self->_installProfPkgs();
+    }
 }
 
 # TODO: reimplemnte
@@ -908,14 +963,6 @@ sub popAdMessage
     return $deletedMsg;
 }
 
-
-#TTT
-sub securityUpdatesAddOn
-{
-    # TODO: Remove calls to this method from other modules
-    return 0;
-}
-
 # Method: usersSyncAvailable
 #
 #   Returns 1 if users syncrhonization is available
@@ -930,18 +977,6 @@ sub usersSyncAvailable
     my ($self, $force) = @_;
 
     return $self->addOnAvailable('cloudusers', $force);
-}
-
-# Method: _setQAUpdates
-#
-#       Turn the QA Updates ON or OFF depending on the subscription level
-#
-sub _setQAUpdates
-{
-    my ($self, $subscriptionInfo) = @_;
-    my $qaUpdates = EBox::RemoteServices::QAUpdates->new($self);
-    $qaUpdates->set($subscriptionInfo);
-
 }
 
 # Method: maxUsers
@@ -1003,11 +1038,15 @@ sub filesSyncAvailable
 #
 # Overrides:
 #
-#       <EBox::Module::menu>
+#       <EBox::Module::Base::menu>
 #
 sub menu
 {
     my ($self, $root) = @_;
+        # Subscription menu is only for commercial editions
+    if (not $self->commercialEdition()) {
+        return undef;
+    }
 
     my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
                                         icon => 'register',

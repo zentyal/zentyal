@@ -66,15 +66,7 @@ sub _process
     my $credentials;
     try {
         my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
-        $remoteservices->setUsername($username);
-        
-        my $community = $remoteservices->communityResource($password);
-        $credentials = $community->subscribeAdditionalTime($servername);
-        $remoteservices->setSubscriptionCredentials($credentials);
-
-        my $subscriptions = $remoteservices->subscriptionsResource();
-        my $subscriptionInfo = $subscriptions->subscriptionInfo();
-        $remoteservices->setSubscriptionInfo($subscriptionInfo);
+        $remoteservices->registerAdditionalCommunityServer($username, $password, $servername);
     } catch ($ex) {
         $self->{json}->{error} = "$ex";
         return;
