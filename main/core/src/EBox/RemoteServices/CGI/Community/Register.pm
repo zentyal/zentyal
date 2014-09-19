@@ -35,13 +35,17 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(
-                      'template' => 'remoteservices/Community/register.mas',
+                        template => '/backupTabs.mas',
                       @_);
 
     bless($self, $class);
     return $self;
 }
 
+sub optionalParameters
+{
+    return ['selected'];
+}
 
 sub masonParameters
 {
@@ -52,6 +56,8 @@ sub masonParameters
     my $global = EBox::Global->getInstance();
     my $sysinfo = $global->modInstance('sysinfo');
     push @params, (fqdn => $sysinfo->hostName());
+    push @params,(selected => 'remote');
+    push @params, (registerCommunity => 1);
 
     return \@params;
 }

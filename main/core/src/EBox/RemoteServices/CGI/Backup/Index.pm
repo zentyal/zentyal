@@ -31,7 +31,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Import/Export Configuration Remotely'),
-                                  'template' => '/remoteservices/Backup/index.mas',
+                                  'template' => '/backupTabs.mas',
                                   @_);
 
     $self->setMenuNamespace('EBox/Backup');
@@ -41,6 +41,11 @@ sub new
 }
 
 
+sub optionalParameters
+{
+    return ['selected'];
+}
+
 sub actuate
 {
     my ($self) = @_;
@@ -48,7 +53,13 @@ sub actuate
     my $remoteservices = EBox::Global->modInstance('remoteservices');
     my $subscribed = $remoteservices->subscriptionLevel() >= 0;
     if (not $subscribed) {
-        $self->setChain('RemoteServices/Community/Register');
+        if ($remoteservices->commercialEdition()) {
+            $self->setChain('RemoteServices/NoConnection'); # XXX change for
+                                                            # unregistered CGI
+        } else {
+            $self->setChain('RemoteServices/Community/Register');            
+        }
+
         return;
     }
 
