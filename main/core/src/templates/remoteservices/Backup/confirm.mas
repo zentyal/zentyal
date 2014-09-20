@@ -1,6 +1,7 @@
 <%args>
     $uuid
     $backup
+    $label  => undef
     $actionCGI
     @extraActionParams => ()
     $text    => ''
@@ -21,7 +22,15 @@ if ($popup) {
         my $url = '/RemoteServices/Backup/RestoreRemoteBackup';
         my $data =  'uuid=' . $backup->{uuid};
         $data .= '&ok=1&popup=1';
-        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url', {title:'$title', data: '$data'}); return false"};
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url',
+{title:'$title', data: '$data'}); return false"};
+    } elsif ($actionCGI eq 'OverwriteRemoteBackup') {
+        my $title = __x('Remote backup: {desc}',  desc => $label);
+        my $url = '/RemoteServices/Backup/OverwriteRemoteBackup';
+        my $data =  'uuid=' . $backup->{uuid};
+        $data .= "&label=$label";
+        $data .= '&ok=1&popup=1';
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url',{title:'$title', data: '$data'}); return false"};
     } elsif ($actionCGI eq 'DeleteRemoteBackup') {
         my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
         $url .= 'uuid=' . $backup->{uuid};
@@ -40,6 +49,12 @@ if ($popup) {
                 name => 'uuid',
                 value => $backup->{'uuid'},
             &>
+%        if (defined $label) {
+           <& /input/hidden.mas,
+                name => 'label',
+                value => $label,
+           &>
+%         }
 %                   while (my ($name, $value) = each %extraParams) {
                 <& /input/hidden.mas,
                     name => $name,
@@ -65,7 +80,7 @@ if ($popup) {
 
     <div>
         <label><% __('Archive size') %></label>
-        <span><% $backup->{'printableSize'} %></span>
+        <span><% $backup->{'size'} %></span>
     </div>
     <div class="form-buttons">
         <input class='inputButton' type='submit'

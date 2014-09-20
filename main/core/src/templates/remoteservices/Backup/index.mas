@@ -44,22 +44,6 @@ my @formElements;
                          id => 'backup_name',
                          printableName => __('Name'),
                         ];
-
-#if ($restricted) {
-#    push @formElements, [
-#                         name => 'newName',
-#                         id => 'backup_name',
-#                         printableName => __('Name'),
-#                        ];
-#
-#} else {
-#    push @formElements, [
-#                         name => 'label',
-#                         id => 'backup_name',
-#                         printableName => __('Name'),
-#                        ];
-#}
-#
 my $backupTitle = __('Remote Backup: ');
 my $backupOnClickJs;
 if (not $restricted) {
@@ -80,9 +64,8 @@ ENDJS
      var title = '$backupTitle' + newName;
      var url = '/RemoteServices/Backup/Confirm';
      var data;
-//     var data = 'newName=' + newName;
-     data = 'uuid=' + $uuid;
-     data += '&label=' + \$('#hidden_name').val();
+     data = 'uuid=$uuid';
+     data += '&label=' + \$('#backup_name').val();
      data += '&action=overwrite';
      data += '&backup=1&popup=1';
 

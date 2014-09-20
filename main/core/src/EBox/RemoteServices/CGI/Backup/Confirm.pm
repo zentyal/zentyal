@@ -130,7 +130,8 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    my $uuid = $self->param('uuid');
+    my $uuid   = $self->param('uuid');
+    my $label  = $self->param('label') ;
     my $action = $self->param('action');
     exists $cgiByAction{$action} or
         throw EBox::Exceptions::External(
@@ -143,6 +144,7 @@ sub masonParameters
 
     my @parameters =(
             uuid   => $uuid,
+            label     => $label,
             backup => $backup,
             actionCGI => $actionCGI,
             );

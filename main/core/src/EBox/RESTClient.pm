@@ -298,6 +298,7 @@ sub request {
 
     #build headers
     if ($params{multipart}) {
+        EBox::debug("XXX multipart");
         $req->content_type('multipart/form-data');
         $req->parts($params{multipart});
     } elsif ($query) {
@@ -341,7 +342,7 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
-#        EBox::debugDump("XXX SUCCESS:", $res);
+        EBox::debug("XXX SUCCESS:" . $path);
         return new EBox::RESTClient::Result($res);
     }
     else {

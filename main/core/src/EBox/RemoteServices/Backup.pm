@@ -264,7 +264,7 @@ sub setLatestRemoteConfBackup
     my $remoteservices = EBox::Global->getInstance(1)->modInstance('remoteservices');
     my $state = $remoteservices->get_state();
     $state->{latest_backup_date} = $date;
-    $self->set_state($state);
+    $remoteservices->set_state($state);
 }
 
 sub latestRemoteConfBackup
