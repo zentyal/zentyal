@@ -54,8 +54,7 @@ sub actuate
     my $subscribed = $remoteservices->subscriptionLevel() >= 0;
     if (not $subscribed) {
         if ($remoteservices->commercialEdition()) {
-            $self->setChain('RemoteServices/NoConnection'); # XXX change for
-                                                            # unregistered CGI
+            $self->setChain('RemoteServices/Backup/Unsubscribed');
         } else {
             $self->setChain('RemoteServices/Community/Register');            
         }

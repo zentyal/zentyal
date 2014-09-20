@@ -25,8 +25,11 @@ if (not exists $tabs{$selected}) {
 }
 
 my $component;
+my $unsubscribed      = delete $args{unsubscribed};
 my $registerCommunity = delete $args{registerCommunity};
-if ($registerCommunity) {
+if ($unsubscribed) {
+    $component = 'remoteservices/Backup/unsubscribed.mas';
+} elsif ($registerCommunity) {
     $component = 'remoteservices/Community/register.mas';
 } else {
     $component =  $tabs{$selected}->{component};

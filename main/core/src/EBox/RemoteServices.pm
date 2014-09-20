@@ -136,7 +136,15 @@ sub commercialEdition
     return 1;
 }
 
-
+# we override aroundRestoreconfig to restore also state data (for subscription/registration)
+sub aroundRestoreConfig
+{
+    my ($self, $dir, @extraOptions) = @_;
+    $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
+    $self->_load_state_from_file($dir);
+    # remove last backup date because it is not reliable after backup
+    EBox::RemoteServices::Backup->new()->setLatestRemoteConfBackup(undef);
+}
 
 # Method: subscriptionLevel
 #
@@ -267,7 +275,7 @@ sub refreshSubscriptionInfo
             EBox::debug("XXX unsubscribe");
             $self->unsubscribe();
         } catch ($ex) {
-            EBox::debug('Already unsubscribed');
+            EBox::error("Error unsubscribing $ex");
         }
         return undef;
     }
