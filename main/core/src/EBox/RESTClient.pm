@@ -298,7 +298,6 @@ sub request {
 
     #build headers
     if ($params{multipart}) {
-        EBox::debug("XXX multipart");
         $req->content_type('multipart/form-data');
         $req->parts($params{multipart});
     } elsif ($query) {
@@ -342,11 +341,9 @@ sub request {
     my $res = $ua->request($req);
 
     if ($res->is_success()) {
-        EBox::debug("XXX SUCCESS:" . $path);
         return new EBox::RESTClient::Result($res);
     }
     else {
-        EBox::debugDump('XXX FAIL ' , $res);
         my $result = new EBox::RESTClient::Result($res);
         my $code = $res->code();
         my $msgError;
@@ -371,6 +368,13 @@ sub request {
             } else {
                 # no JSON, try to show the error a string
                 $msgError = $result->as_string();
+
+                # humanize error
+                if ($msgError =~ m/SSL3_GET_SERVER_CERTIFICATE:certificate verify failed/) {
+                    $msgError = __x('The verification of the certificate of server {server} failed. The certificate itself can be invalid, expired or has not yet come into effect. Also check the hour of your system to avoid false expirations',
+                                    server => $self->{uri}->host()
+                                   );
+                }
             }
         } else {
             # Add to the journal unless specified not to do so
@@ -380,7 +384,6 @@ sub request {
             $msgError = $code . ' : ' . $res->content();
         }
 
-        EBox::debug("XXX NOT SUCCESS $code - $msgError");
         throw EBox::Exceptions::RESTRequest($msgError, result => $result)
     }
 }
