@@ -67,9 +67,10 @@ sub masonParameters
     my @params = ();
 
     my $global = EBox::Global->getInstance();
-    my $remoteServices = $global->modInstance('remoteservices');
-    my $subscriptionInfo = $remoteServices->subscriptionInfo();
-    push @params, (context => {subscriptionInfo => $subscriptionInfo});
+    my $remoteservices = $global->modInstance('remoteservices');
+    
+    push @params, (username => $remoteservices->username());
+    push @params, (subscriptionInfo => $remoteservices->subscriptionInfo());
 
     return \@params;
 }

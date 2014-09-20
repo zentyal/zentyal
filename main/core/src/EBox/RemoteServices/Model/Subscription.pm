@@ -49,7 +49,10 @@ sub templateContext
     my ($self) = @_;
 
     my $rs = $self->parentModule();
-    return { subscriptionInfo => $rs->subscriptionInfo() };
+    return { 
+        username         => $rs->username(),
+        subscriptionInfo => $rs->subscriptionInfo(),
+       };
 }
 
 1;

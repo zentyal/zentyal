@@ -133,7 +133,7 @@ sub initialSetup
 sub commercialEdition
 {
     # XXX discriminate somehow
-    return 0;
+    return 1;
 }
 
 

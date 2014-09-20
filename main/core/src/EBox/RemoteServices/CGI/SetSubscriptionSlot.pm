@@ -66,6 +66,7 @@ sub _process
         $self->{json}->{success} = 1;
         $self->{json}->{msg} = __('You must save changes to enable your subscription');
         $self->{json}->{subscription} = $subscriptionInfo;
+        $self->{json}->{username} = $remoteservices->username();
 
     } catch ($ex) {
         $self->{json}->{error} = "$ex";

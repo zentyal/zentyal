@@ -33,7 +33,7 @@ Zentyal.RemoteServices.setupSubscriptionPage = function() {
                     return;
                 }
                 Zentyal.refreshSaveChangesButton();
-                Zentyal.RemoteServices.showSubscriptionInfo(response.subscription);
+                Zentyal.RemoteServices.showSubscriptionInfo(response.subscription, response.username);
                 $('#subscription_info_note').html(response.msg).show();
             },
             error: function(jqXHR) {
@@ -57,9 +57,9 @@ Zentyal.RemoteServices.setupSubscriptionPage = function() {
     });
 };
 
-Zentyal.RemoteServices.showFirstPage = function(subscription_info) {
+Zentyal.RemoteServices.showFirstPage = function(subscription_info, username) {
     if (subscription_info) {
-        Zentyal.RemoteServices.showSubscriptionInfo(subscription_info);
+        Zentyal.RemoteServices.showSubscriptionInfo(subscription_info, username);
     } else {
         $('.subscription_page').hide();
         $('#no_subscription_div').show();
@@ -78,11 +78,11 @@ Zentyal.RemoteServices.listSubscriptionSlots = function(response) {
     $('#subscription_slots_div').show();
 };
 
-Zentyal.RemoteServices.showSubscriptionInfo = function(subscription) {
+Zentyal.RemoteServices.showSubscriptionInfo = function(subscription, username) {
     $('.subscription_page').hide();
     
     $('#subscription_info_title').text(subscription.label);
-    $('#info_username').text(subscription.username);
+    $('#info_username').text(username);
     $('#info_server_name').text(subscription.server.name);
     $('#info_product_label').text(subscription.product_label);
     $('#info_subscription_begin').text(subscription.subscription_start);

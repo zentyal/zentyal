@@ -85,14 +85,17 @@ sub _setQASources
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
+    my $sourcesFile = EBox::Config::stubs . 'core/remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
-    my $cred = EBox::RemoteServices::Cred->new();
-    my $credentials = $cred->cloudCredentials();
-    my $user = $cred->subscribedHostname();
+
+    my $remoteservices = $global->modInstance('remoteservices');
+    my $subscriptionInfo = $remoteservices->subscriptionInfo();
+    my $uuid = $subscriptionInfo->{server}->{uuid};
+    # TODO change the  temporal username for the returned with the subscri[tion level
+    my $user = $subscriptionInfo->{company}->{name} . '-' . $subscriptionInfo->{server}->{name};
     # Password: UUID in hexadecimal format (without '0x')
     my $ug = new Data::UUID;
-    my $bin_uuid = $ug->from_string($credentials->{uuid});
+    my $bin_uuid = $ug->from_string($uuid);
     my $hex_uuid = $ug->to_hexstring($bin_uuid);
     my $pass = substr($hex_uuid, 2);                # Remove the '0x'
 
@@ -165,7 +168,7 @@ sub _suite
 # Set the QA apt repository public key
 sub _setQAAptPubKey
 {
-    my $keyFile = EBox::Config::scripts('remoteservices') . '/zentyal-qa.pub';
+    my $keyFile = EBox::Config::scripts() . '/zentyal-qa.pub';
     EBox::Sudo::root("apt-key add $keyFile");
 }
 
@@ -176,7 +179,7 @@ sub _setQAAptPreferences
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
-    my $prefsFile = EBox::Config::stubs . 'remoteservices/qa-preferences.mas';
+    my $prefsFile = EBox::Config::stubs . 'core/remoteservices/qa-preferences.mas';
     my $comp = $interp->make_component(comp_file  => $prefsFile);
     $interp->exec($comp, ( (archive => _suite()) ));
 
@@ -200,7 +203,7 @@ sub _setQARepoConf
     my ($global) = @_;
     my $repoHostname = _repositoryHostname($global);
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
-                                             '/remoteservices/qa-conf.mas',
+                                             '/core/remoteservices/qa-conf.mas',
                                              [ repoHostname => $repoHostname ],
                                              {
                                                  force => 1,
