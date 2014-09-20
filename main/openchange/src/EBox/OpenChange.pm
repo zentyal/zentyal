@@ -374,9 +374,8 @@ sub _setConf
     my $state = $self->get_state();
     if ($state->{provision_from_wizard}) {
         my $orgName = $state->{provision_from_wizard}->{orgName};
-        my $provision = $self->model('Provision');
-        # FIXME: public method
-        $provision->_doProvision(undef, undef, organizationname_selected => $orgName);
+        my $provisionModel = $self->model('Provision');
+        $provisionModel->provision($orgName);
         delete $state->{provision_from_wizard};
         $self->set_state($state);
     }

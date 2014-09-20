@@ -364,12 +364,31 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
-    my $global     = $self->global();
-    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
+
+    $self->provision($organizationName, $enableUsers, $action);
+}
+
+# Method: provision
+#
+#   Real implementation for _doProvision that can be called also from wizard provision
+#
+# Parameters:
+#
+#   organizationName - name of the organization
+#   enableUsers - *optional* enable OpenChange account for existing users
+#   action - *optional* only useful when called from _doProvision
+#
+sub provision
+{
+    my ($self, $organizationName, $enableUsers, $action) = @_;
+
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
+
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
 
@@ -435,7 +454,7 @@ sub _doProvision
         # Force a form definition reload to load the new provisioned content.
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
-        $self->setMessage($action->message(), 'note');
+        $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
