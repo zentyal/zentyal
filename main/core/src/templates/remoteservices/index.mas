@@ -30,7 +30,7 @@ my @subscription_form_rows = (
  },
  {  printableName => __('Password'),
     name => 'password',
-    input => '/input/text.mas',
+    input => '/input/password.mas',
  },
  {  printableName => __('Server name'),
     name => 'name',

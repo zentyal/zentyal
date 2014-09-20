@@ -69,7 +69,7 @@ my @register_additional_rows = (
  {  printableName => __('Password'),
     name => 'password',
     id   => 'register_additional_password',
-    input => '/input/text.mas',
+    input => '/input/password.mas',
  },
  { value => __('Register'),
    input => '/input/submit.mas',
