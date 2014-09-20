@@ -26,7 +26,6 @@ use File::Temp;
 
 use EBox::Config;
 use EBox::Exceptions::Command;
-use EBox::Global;
 use EBox::Module::Base;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
@@ -42,18 +41,18 @@ use TryCatch::Lite;
 #
 sub set
 {
-    my ($subscriptionLevel) = @_;
+    my ($global, $subscriptionLevel) = @_;
     # Downgrade, if necessary
     _downgrade($subscriptionLevel);
 
-    _setQAUpdates($subscriptionLevel);
+    _setQAUpdates($global, $subscriptionLevel);
 }
 
 # Group: Private methods
 
 sub _setQAUpdates
 {
-    my ($subscriptionLevel) = @_;    
+    my ($global, $subscriptionLevel) = @_;    
     # Set the QA Updates if the subscription level is greater than basic
     if ($subscriptionLevel < 1) {
         return;
@@ -61,12 +60,12 @@ sub _setQAUpdates
         return;
     }
 
-    _setQASources();
+    _setQASources($global);
     _setQAAptPubKey();
     _setQAAptPreferences();
-    _setQARepoConf();
+    _setQARepoConf($global);
 
-    my $softwareMod = EBox::Global->modInstance('software');
+    my $softwareMod = $global->modInstance('software');
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
             $softwareMod->setQAUpdates(1);
@@ -80,8 +79,9 @@ sub _setQAUpdates
 # Set the QA source list
 sub _setQASources
 {
+    my ($global) = @_;
     my $archive = _archive();
-    my $repositoryHostname = _repositoryHostname();
+    my $repositoryHostname = _repositoryHostname($global);
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
@@ -197,7 +197,8 @@ sub _setQAAptPreferences
 #  * No verify server certificate
 sub _setQARepoConf
 {
-    my $repoHostname = _repositoryHostname();
+    my ($global) = @_;
+    my $repoHostname = _repositoryHostname($global);
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
                                              '/remoteservices/qa-conf.mas',
                                              [ repoHostname => $repoHostname ],
@@ -213,7 +214,8 @@ sub _setQARepoConf
 # Get the repository hostname
 sub _repositoryHostname
 {
-    my $rs = EBox::Global->modInstance('remoteservices');
+    my ($global) = @_;
+    my $rs = $global->modInstance('remoteservices');
     if ( EBox::Config::configkey('qa_updates_repo') ) {
         return EBox::Config::configkey('qa_updates_repo');
     } else {

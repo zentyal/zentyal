@@ -130,6 +130,7 @@ sub sendRemoteBackup
                                automatic => $automatic,
                               );
 #                               digest    => $digest);
+        $self->setLatestRemoteConfBackup($res->{backup_date});
     } catch ($e) {
         unlink $archive;
         $e->throw();
@@ -256,16 +257,21 @@ sub removeRemoteBackup
     $confBackup->delete($uuid);
 }
 
+
+sub setLatestRemoteConfBackup
+{
+    my ($self, $date) = @_;
+    my $remoteservices = EBox::Global->getInstance(1)->modInstance('remoteservices');
+    my $state = $remoteservices->get_state();
+    $state->{latest_backup_date} = $date;
+    $self->set_state($state);
+}
+
 sub latestRemoteConfBackup
 {
     my ($self) = @_;
-    my $confBackup = $self->_confBackupResource();
-    my @list = sort {
-        $b->{sortableDate} <=> $a->{sortableDate}
-    } @{ $confBackup->list() };
-
-    my $last = pop @list;
-    return $last;
+    my $remoteservices = EBox::Global->getInstance(1)->modInstance('remoteservices');
+    return $remoteservices->get_state()->{latest_backup_date};
 }
 
 sub _confBackupResource

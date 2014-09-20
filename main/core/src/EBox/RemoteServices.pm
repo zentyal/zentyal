@@ -753,7 +753,7 @@ sub setupSubscription
 {
     my ($self, $subscriptionLevel, $subscriptionInfo) = @_;
 
-    EBox::RemoteServices::QAUpdates::set($subscriptionLevel);
+    EBox::RemoteServices::QAUpdates::set($self->global(), $subscriptionLevel);
     $self->_manageCloudProfPackage($subscriptionLevel);
     $self->_writeCronFile($subscriptionLevel >= 0);
 }
@@ -1130,7 +1130,7 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $edition, $DRValue) =
+    my ($serverName, $edition, $lastBackupValue) =
       ( __('None'), '', __('Disabled'));
 
     my $supportValue = __x('Disabled - {oh}Enable{ch}',
@@ -1150,17 +1150,17 @@ sub _ccConnectionWidget
                             '3'  => __('Premium'));
         $supportValue = $i18nSupport{$self->technicalSupport()};
 
-        $DRValue = __x('Configuration backup enabled');
+        $lastBackupValue = __x('Configuration backup enabled');
         my $date;
         try {
             $date = $self->latestRemoteConfBackup();
+            if (not $date) {
+                $date = __('none');
+            }
         } catch {
-            $date = 'unknown';
-        }
-        if ( $date ne 'unknown' ) {
-            $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
-        }
-
+            $date = __('unknown');
+        };
+        $lastBackupValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
     }
 
     $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
@@ -1170,7 +1170,7 @@ sub _ccConnectionWidget
     $section->add(new EBox::Dashboard::Value(__('Technical support'),
                                              $supportValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
-                                             $DRValue));
+                                             $lastBackupValue));
 }
 
 # Check if a package is already installed
