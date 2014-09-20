@@ -371,6 +371,16 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
+    if ($state->{provision_from_wizard}) {
+        my $orgName = $state->{provision_from_wizard}->{orgName};
+        my $provision = $self->model('Provision');
+        # FIXME: public method
+        $provision->_doProvision(undef, undef, organizationname_selected => $orgName);
+        delete $state->{provision_from_wizard};
+        $self->set_state($state);
+    }
+
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
@@ -1301,5 +1311,18 @@ sub dropSOGODB
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 }
+
+sub wizardPages
+{
+    my ($self) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+    return [] if $samba->_adcMode();
+
+    # TODO: return [] if not virtual mail domain created in the mail wizard
+
+    return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
+}
+
 
 1;
