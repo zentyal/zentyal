@@ -474,10 +474,11 @@ sub unregisterCommunityServer
 sub _removeSubscriptionData
 {
     my ($self) = @_;
-    my $state = $self-state();
+    my $state = $self->get_state();
     delete $state->{'username'};
     delete $state->{'subscription_credentials'};
     delete $state->{'subscription_info'};
+    delete $state->{'latest_backup_date'};
     $self->set_state($state);
 }
 
