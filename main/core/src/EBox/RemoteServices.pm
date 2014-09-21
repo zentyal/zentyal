@@ -268,11 +268,8 @@ sub refreshSubscriptionInfo
         }    
     }
 
-    EBox::debugDump("sinfo", $subscriptionInfo);
-
     if (not $subscriptionInfo) {
         try {
-            EBox::debug("XXX unsubscribe");
             $self->unsubscribe();
         } catch ($ex) {
             EBox::error("Error unsubscribing $ex");
@@ -810,8 +807,8 @@ sub _checkSubscriptionAlive
 
     my $end  = $subscriptionInfo->{subscription_end};
     if (not $end) {
-        # subscription without date
-        return;
+        # subscription without end date
+        return 1;
     } 
 
     my ($sec,$min,$hour,$mday,$mon,$year) = gmtime();
@@ -828,7 +825,6 @@ sub _checkSubscriptionAlive
 sub _manageCloudProfPackage
 {
     my ($self, $subscriptionLevel) = @_;
-    EBox::debug("XXX _manageCloudProfPackage $subscriptionLevel");
     my $installed = $self->_pkgInstalled(PROF_PKG);
     if ($subscriptionLevel < 1) {
         if ($installed) {
@@ -1256,7 +1252,7 @@ sub _downgrade
     try {
         EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
     } catch (EBox::Exceptions::Command $e) {
-        EBox::debug($e->stringify());
+        EBox::error($e->stringify());
     }
 }
 
