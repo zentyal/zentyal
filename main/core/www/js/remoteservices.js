@@ -196,7 +196,7 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
     Zentyal.Form.setupAjaxSubmit('#register_additional_form', {
         noteDiv: '#register_additional_note',
         errorDiv: '#register_additional_error',
-        submitButton: '#register_first_submit',
+        submitButton: '#register_additional_submit',
         success : function(response) {
             if (!response.success) {
                 return;
