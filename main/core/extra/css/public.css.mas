@@ -1449,20 +1449,18 @@ border-radius: 2px;
  ***********************************************************************************************/
 
 /* first installation spash */
-
+.loading-bg{
+    background-image: url('/data/images/spinner.gif');
+    background-repeat: no-repeat;
+    background-position: center center
+}
 #install-splash{
     margin: 70px  auto 0 auto;
     width: 450px;
     text-align: center;
     opacity: 0;
-    background-image: url('data/images/spinner.gif');
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-#install-splash #splash-content {
     background-color: #eee;
 }
-
 #install-splash header img{
     width: 200px
 }
