@@ -58,17 +58,16 @@ sub actuate
         } else {
             $self->setChain('RemoteServices/Community/Register');            
         }
-
         return;
     }
-
 
     try {
         my $backup = $remoteservices->confBackupResource();
         $self->{backups} =  $backup->list();
     } catch ($e) {
         $self->setErrorFromException($e);
-        $self->setChain('RemoteServices/NoConnection');
+        $self->setChain('RemoteServices/Backup/NoConnection');
+        return;
     }
 }
 

@@ -57,7 +57,7 @@ sub masonParameters
     my $sysinfo = $global->modInstance('sysinfo');
     push @params, (fqdn => $sysinfo->hostName());
     push @params,(selected => 'remote');
-    push @params, (registerCommunity => 1);
+    push @params, (component => 'remoteservices/Community/register.mas');
 
     return \@params;
 }

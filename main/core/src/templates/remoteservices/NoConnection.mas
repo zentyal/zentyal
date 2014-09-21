@@ -1,3 +1,6 @@
+<%args>
+$inTab => 0
+</%args>
 <%init>
 use EBox::Gettext;
 
@@ -12,6 +15,9 @@ my @causes = (
     __(q{This server has been removed from your registered ones}),
 );
 </%init>
+% if ($inTab) {
+<div class='insideTab'>
+% }
 <div class="warning">
   <% $text %>
   <list>
@@ -20,3 +26,6 @@ my @causes = (
 % }
   </list>
 </div>
+% if ($inTab) {
+</div>
+% }

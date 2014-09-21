@@ -24,14 +24,8 @@ if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");
 }
 
-my $component;
-my $unsubscribed      = delete $args{unsubscribed};
-my $registerCommunity = delete $args{registerCommunity};
-if ($unsubscribed) {
-    $component = 'remoteservices/Backup/unsubscribed.mas';
-} elsif ($registerCommunity) {
-    $component = 'remoteservices/Community/register.mas';
-} else {
+my $component = delete $args{component};
+if (not $component) {
     $component =  $tabs{$selected}->{component};
 }
 </%init>

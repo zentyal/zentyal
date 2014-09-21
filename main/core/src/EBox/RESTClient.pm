@@ -80,6 +80,13 @@ use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';
 #                If it is set to false, verifyHostname is not taken into account.
 #                *(Optional)* Default value: true
 #
+#   timeout - *(Optional)* Default value
+#
+#   Note about default timeout:
+#    this valeus is chosen to avoid 504 gateway erros from nginx
+#    now the timeout is limiTed by the keepalive_timeout nginx
+#    parameter but if nginx configuration changes it could be
+#    limited by other thing
 sub new
 {
     my ($class, %params) = @_;
@@ -109,6 +116,12 @@ sub new
         $scheme = 'https' unless defined($scheme);
         $self->setScheme($scheme);
         $self->setServer($params{server});
+    }
+
+    if ($params{timeout}) {
+        $self->{timeout} = $params{timeout}
+    } else {
+        $self->{timeout} = 60;
     }
 
     return $self;
@@ -280,6 +293,7 @@ sub request {
 
     # build UA
     my $ua = LWP::UserAgent->new;
+    $ua->timeout($self->{timeout});
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
     if ($self->{verifyPeer}) {

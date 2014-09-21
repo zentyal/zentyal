@@ -263,7 +263,12 @@ sub setLatestRemoteConfBackup
     my ($self, $date) = @_;
     my $remoteservices = EBox::Global->getInstance(1)->modInstance('remoteservices');
     my $state = $remoteservices->get_state();
-    $state->{latest_backup_date} = $date;
+    if ($date) {
+        $state->{latest_backup_date} = $date;
+    } else {
+        delete  $state->{latest_backup_date};
+    }
+
     $remoteservices->set_state($state);
 }
 

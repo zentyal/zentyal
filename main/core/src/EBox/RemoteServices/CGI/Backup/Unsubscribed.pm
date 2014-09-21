@@ -18,19 +18,6 @@ use warnings;
 package EBox::RemoteServices::CGI::Backup::Unsubscribed;
 use base qw(EBox::CGI::ClientBase);
 
-use EBox::Config;
-use EBox::Global;
-use EBox::Gettext;
-use EBox::Exceptions::Internal;
-use EBox::Exceptions::External;
-
-use Cwd qw(realpath);
-use HTTP::Date;
-use Plack::Util;
-use Sys::Hostname;
-use TryCatch::Lite;
-
-
 sub new
 {
     my $class = shift;
@@ -52,11 +39,8 @@ sub masonParameters
     my ($self) = @_;
 
     my @params = ();
-
-    my $global = EBox::Global->getInstance();
-    my $sysinfo = $global->modInstance('sysinfo');
     push @params,(selected => 'remote');
-    push @params, (unsubscribed => 1);
+    push @params, (component =>  'remoteservices/Backup/unsubscribed.mas');
 
     return \@params;
 }

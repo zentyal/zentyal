@@ -433,7 +433,6 @@ sub registerFirstCommunityServer
         throw EBox::Exceptions::Internal('Register server is only for community editions');
     }
 
-
     $self->setUsername($username);
     
     my $community = $self->communityResource();
