@@ -3,16 +3,16 @@ use EBox::Gettext;
 </%init>
 <div id="install-splash">
 	<header>
-		<img src="Zentyal_logo_horizontal.png"></img>
+		<img src="/data/software/images/Zentyal_logo_horizontal.png"></img>
 		<h1><% __('Zentyal Installation') %></h1>
 	</header>
 	<section>
 		<h3><% __x('Thank your for choosing Zentyal, only few steps left to start enjoying it.') %></h3>
 		<div class="install-splash-steps">
-			<div><img src="select-server-installation.png"></img><p><% __('Package Selection') %></p></div>
-			<div><img src="install-server-installation.png"></img><p><% __('Installation') %></p></div>
-			<div><img src="configure-server-installation.png"></img><p><% __('Initial Configuration') %></p></div>
-			<div><img src="save-server-installation.png"></img><p><% __('Save Changes') %></p>
+			<div><img src="/data/software/images/select-server-installation.png"></img><p><% __('Package Selection') %></p></div>
+			<div><img src="/data/software/images/install-server-installation.png"></img><p><% __('Installation') %></p></div>
+			<div><img src="/data/software/images/configure-server-installation.png"></img><p><% __('Initial Configuration') %></p></div>
+			<div><img src="/data/software/images/save-server-installation.png"></img><p><% __('Save Changes') %></p>
 		</div>
 	</section>
 	<a class="btn btn-green btn-big btn-block" href="/Software/EBox"><% __('Continue') %></a>
