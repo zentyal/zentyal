@@ -34,17 +34,14 @@ sub new
 
 sub _menu
 {
-    my ($self) = @_;
-
-    my $software = EBox::Global->modInstance('software');
-    return $software->firstTimeMenu(1);
 }
 
 sub _top
 {
-    my ($self) = @_;
+}
 
-    return $self->_topNoAction();
+sub _title
+{
 }
 
 1;
