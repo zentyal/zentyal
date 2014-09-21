@@ -1315,10 +1315,11 @@ sub wizardPages
 {
     my ($self) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $self->global()->modInstance('samba');
     return [] if $samba->_adcMode();
 
-    # TODO: return [] if not virtual mail domain created in the mail wizard
+    my $mail = $self->global()->modInstance('mail');
+    return [] if ($mail->model('VDomains')->size() == 0);
 
     return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
 }
