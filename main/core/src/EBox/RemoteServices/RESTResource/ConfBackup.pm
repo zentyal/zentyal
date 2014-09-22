@@ -47,13 +47,16 @@ sub new
     return $self;
 }
 
+# FIXME: Missing doc
 sub list
 {
     my ($self) = @_;
+
     my $res = $self->restClientWithServerCredentials()->GET('/v2/confbackup/list/');
     return $res->data();
 }
 
+# FIXME: Missing doc
 sub add
 {
     my ($self, %params) = @_;

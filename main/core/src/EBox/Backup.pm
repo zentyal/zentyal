@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;
+use EBox::Util::FileSize;
 
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
@@ -475,17 +476,7 @@ sub _printableSize
 {
     my ($self, $archive) = @_;
 
-    my $size = (-s $archive);
-
-    my @units = qw(KB MB GB);
-    foreach my $unit (@units) {
-        $size = sprintf("%.2f", $size / 1024);
-        if ($size < 1024) {
-            return "$size $unit";
-        }
-    }
-
-    return $size . ' ' . (pop @units);
+    return EBox::Util::FileSize::printableSize(scalar(-s $archive));
 }
 
 # if not specific files are specified all the fiels are  extracted

@@ -17,15 +17,16 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::CGI::Backup::Index;
+
 use base qw(EBox::CGI::ClientBase);
-
-use TryCatch::Lite;
-
 
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Util::FileSize;
+
+use TryCatch::Lite;
 
 sub new
 {
@@ -79,6 +80,9 @@ sub masonParameters
     my $backups = {};
     if (defined($self->{backups})) {
         $backups = $self->{backups};
+        foreach my $bck (@{$backups}) {
+            $bck->{size} = EBox::Util::FileSize::printableSize($bck->{size});
+        }
     }
 
     push @params, (backups => $backups);
