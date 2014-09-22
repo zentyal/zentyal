@@ -52,7 +52,8 @@ sub set
 
 sub _setQAUpdates
 {
-    my ($global, $subscriptionLevel) = @_;    
+    my ($global, $subscriptionLevel) = @_;
+
     # Set the QA Updates if the subscription level is greater than basic
     if ($subscriptionLevel < 1) {
         return;
@@ -91,7 +92,6 @@ sub _setQASources
     my $remoteservices = $global->modInstance('remoteservices');
     my $subscriptionInfo = $remoteservices->subscriptionInfo();
     my $uuid = $subscriptionInfo->{server}->{uuid};
-    # TODO change the  temporal username for the returned with the subscri[tion level
     my $user = $subscriptionInfo->{company}->{name} . '-' . $subscriptionInfo->{server}->{name};
     # Password: UUID in hexadecimal format (without '0x')
     my $ug = new Data::UUID;
