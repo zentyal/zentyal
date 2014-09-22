@@ -25,6 +25,8 @@ package EBox::RemoteServices::Model::Subscription;
 
 use base 'EBox::Model::Template';
 
+use Sys::Hostname;
+
 # Group: Public methods
 
 # Method: templateName
@@ -49,9 +51,21 @@ sub templateContext
     my ($self) = @_;
 
     my $rs = $self->parentModule();
-    return { 
+
+    my $hostname = $rs->eBoxCommonName();
+    unless (defined($hostname)) {
+        $hostname = Sys::Hostname::hostname();
+        ($hostname) = split( /\./, $hostname); # Remove the latest part of
+                                               # the hostname to make it a
+                                               # valid subdomain name
+        $hostname =~ s/_//g; # Remove underscores as they are not valid
+                             # subdomain values although they are valid hostnames
+    }
+
+    return {
         username         => $rs->username(),
         subscriptionInfo => $rs->subscriptionInfo(),
+        serverName       => $hostname,
        };
 }
 

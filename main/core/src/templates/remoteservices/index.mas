@@ -7,6 +7,7 @@ use JSON::XS;
 
 my $username         = $context{username};
 my $subscriptionInfo = $context{subscriptionInfo};
+my $serverName       = $context{serverName};
 
 my $usernameJS = $username ? "'$username'" : 'false';
 my $subscriptionJS;
@@ -35,6 +36,7 @@ my @subscription_form_rows = (
  {  printableName => __('Server name'),
     name => 'name',
     input => '/input/text.mas',
+    value => $serverName,
  },
  {  value => __('Register'),
     input => '/input/submit.mas',
