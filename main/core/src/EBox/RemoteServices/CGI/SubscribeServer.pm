@@ -24,12 +24,9 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Html;
+use EBox::RemoteServices::Subscription::Validate;
 
-use HTTP::Date;
-use Plack::Util;
-use Sys::Hostname;
 use TryCatch::Lite;
-
 
 sub new
 {
@@ -55,6 +52,8 @@ sub _process
     my $username = $self->param('username');
     my $password = $self->param('password');
     my $name     = $self->param('name');
+
+    EBox::RemoteServices::Subscription::Validate::validateServerName($name);
 
     my $remoteServices = EBox::Global->getInstance()->modInstance('remoteservices');
     $remoteServices->setUsername($username);
