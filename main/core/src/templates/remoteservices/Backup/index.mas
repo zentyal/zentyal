@@ -16,7 +16,7 @@ use URI;
                      subscriptionLevel => $subscriptionLevel,
                      backups => \@backups
   &>
-  <& .listSection, backups => \@backups &>
+  <& .listSection, backups => \@backups, subscriptionLevel => $subscriptionLevel &>
 % } else {
   <& /remoteservices/NoActive.mas &>
 % }
@@ -134,6 +134,7 @@ if ($restricted) {
 <%def .listSection>
 <%args>
 @backups
+$subscriptionLevel
 </%args>
 <%init>
 
@@ -170,6 +171,7 @@ my @legendElements = (
       <th class="tleft"><% __('Name') %></th>
       <th><% __('Date') %></th>
       <th><% __('Size') %></th>
+      <th><% __('Automatic') %></th>
       <th class="thOptions"><% __('Actions') %></th>
     </tr>
   </thead>
@@ -187,6 +189,13 @@ my @legendElements = (
       <td class="tleft"><% $backup->{label} %></td>
       <td class="tcenter"><% $backup->{backup_date} %></td>
       <td class="tcenter"><% $backup->{size} %></td>
+      <td class="tcenter">
+%    if ($backup->{automatic}) {
+          <img alt="__('yes')" src="/data/images/enabled.gif" />
+%    } else {
+          <img alt="__('no)" src="/data/images/disabled.gif" />
+%    }
+        </td>
       <td width="%14" class="tcenter">
         <button name="restore" class="btn-only-icon btn-restore"
                 value="Restore" title="<% $restoreTitle %>"
