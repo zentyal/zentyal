@@ -23,11 +23,9 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
-use EBox::Html;
+use EBox::RemoteServices::Subscription::Validate;
+use EBox::Validate;
 
-use HTTP::Date;
-use Plack::Util;
-use Sys::Hostname;
 use TryCatch::Lite;
 
 
@@ -56,7 +54,7 @@ sub _process
     } elsif ($username ne $username2) {
         $self->{json}->{error} = __('Registation mail address does not match with its confirmation');
         return;
-    } 
+    }
 
     my $servername = $self->unsafeParam('servername');
     if (not $servername) {

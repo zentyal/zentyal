@@ -116,6 +116,7 @@ sub test_subscription_level : Test(5)
     $mockedRSMod->set_true('eBoxSubscribed');
 
     # Unknown codename, then -1 subscription level
+    $mockedRSMod->set_true('commercialEdition');
     $mockedRSMod->mock('subscriptionCodename', sub { 'foobar' });
     cmp_ok($mockedRSMod->subscriptionLevel(), '==', -1,
            'Unknown codename returns -1 level');
@@ -135,6 +136,31 @@ sub test_subscription_level : Test(5)
     $mockedRSMod->mock('subscriptionCodename', sub { 'professional' });
     cmp_ok($mockedRSMod->subscriptionLevel(), '==', 6,
            "'professional' codename returns 6 level");
+
+}
+
+sub test_register_community : Test(6)
+{
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
+    my $mockedRSMod = new Test::MockObject::Extends($rsMod);
+
+    foreach my $method (qw(registerFirstCommunityServer registerAdditionalCommunityServer)) {
+        $mockedRSMod->set_true('commercialEdition');
+        throws_ok {
+            $mockedRSMod->$method('foo', 'bar', 0);
+        } 'EBox::Exceptions::Internal', 'Cannot register a community server in a commercial installation';
+
+        $mockedRSMod->set_false('commercialEdition');
+        throws_ok {
+            $mockedRSMod->$method('foo', 'bar', 0);
+        } 'EBox::Exceptions::InvalidData', 'Community users are email addresses';
+
+        throws_ok {
+            $mockedRSMod->$method('foo@bar.org', '-bar', 0);
+        } 'EBox::Exceptions::InvalidData', 'Invalid server name';
+    }
 
 }
 

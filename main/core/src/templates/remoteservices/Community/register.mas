@@ -27,7 +27,7 @@ my @register_first_time_rows = (
     input => '/input/checkbox.mas',
  },
  {  printableName => __x('Do you agree with the {oa}privacy policy{ca}?',
-                             oa => "<a href='http://www.google.com'>",
+                             oa => "<a href='http://www.zentyal.com/legal/'>",
                              ca => '</a>'
                           ),
     name => 'confirm_privacy',

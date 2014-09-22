@@ -29,6 +29,11 @@ use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::RESTRequest;
+use EBox::Exceptions::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Folder;
@@ -37,18 +42,11 @@ use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::QAUpdates;
 use EBox::RemoteServices::Subscription::Check;
-
 use EBox::RemoteServices::RESTResource::Auth;
 use EBox::RemoteServices::RESTResource::Community;
 use EBox::RemoteServices::RESTResource::ConfBackup;
 use EBox::RemoteServices::RESTResource::Subscriptions;
-
-use EBox::Exceptions::External;
-use EBox::Exceptions::Internal;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::RESTRequest;
-use EBox::Exceptions::Command;
-
+use EBox::RemoteServices::Subscription::Validate;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -430,12 +428,17 @@ sub unsubscribe
     $self->setAsChanged(1);
 }
 
+# FIXME: Missing doc
 sub registerFirstCommunityServer
 {
     my ($self, $username, $servername, $newsletter) = @_;
+
     if ($self->commercialEdition()) {
-        throw EBox::Exceptions::Internal('Register server is only for community editions');
+        throw EBox::Exceptions::Internal('Register community server is only for community editions');
     }
+
+    EBox::Validate::checkEmailAddress($username, __('mail address'));
+    EBox::RemoteServices::Subscription::Validate::validateServerName($servername);
 
     $self->setUsername($username);
 
@@ -450,12 +453,17 @@ sub registerFirstCommunityServer
     $self->setAsChanged(1);
 }
 
+# FIXME: Missing doc
 sub registerAdditionalCommunityServer
 {
     my ($self, $username, $password, $servername) = @_;
+
     if ($self->commercialEdition()) {
-        throw EBox::Exceptions::Internal('Register server is only for community editions');
+        throw EBox::Exceptions::Internal('Register community server is only for community editions');
     }
+
+    EBox::Validate::checkEmailAddress($username, __('mail address'));
+    EBox::RemoteServices::Subscription::Validate::validateServerName($servername);
 
     $self->setUsername($username);
 

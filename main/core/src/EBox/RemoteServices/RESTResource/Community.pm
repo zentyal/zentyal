@@ -54,7 +54,7 @@ sub new
 sub subscribeFirstTime
 {
     my ($self, $user, $name, $newsletter) = @_;
-    $self->_checkUser($user);
+
     $newsletter = $newsletter ? 1 : 0;
 
     my $resource = '/v2/community/register-and-subscribe/';
@@ -78,12 +78,6 @@ sub subscribeAdditionalTime
     my $restClient = $self->restClientWithUserCredentials();
     my $res = $restClient->POST($resource, query => $query);
     return $res->data();
-}
-
-sub _checkUser
-{
-    my ($self, $user) = @_;
-    EBox::Validate::checkEmailAddress($user, __('mail address'));
 }
 
 1;
