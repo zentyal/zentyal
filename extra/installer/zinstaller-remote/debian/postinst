@@ -120,7 +120,7 @@ then
         exit 0
     elif [ $NUM_BUNDLES -eq 1 ]
     then
-        BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
+        BUNDLE_ID=$(head -1 $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
         if grep "Premium" $DATA_DIR/BUNDLE_IDS
         then
             db_input high zinstaller-remote/auth_ok_premium
