@@ -510,7 +510,7 @@ sub REST
 
     unless ($self->{rest}) {
         my $restRes = new EBox::RemoteServices::RESTResource(remoteservices => $self);
-        $self->{rest} = $restRes->_restClientWithServerCredentials();
+        $self->{rest} = $restRes->restClientWithServerCredentials();
     }
 
     return $self->{rest};

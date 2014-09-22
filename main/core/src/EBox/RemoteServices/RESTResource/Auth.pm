@@ -49,7 +49,7 @@ sub new
 sub auth
 {
     my ($self) = @_;
-    my $res = $self->_restClientWithUserCredentials()->GET('/v2/auth/');
+    my $res = $self->restClientWithUserCredentials()->GET('/v2/auth/');
     return $res->data();
 }
 

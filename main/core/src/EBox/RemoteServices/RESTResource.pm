@@ -61,7 +61,15 @@ sub new
     return $self;
 }
 
-sub _restClientWithUserCredentials
+# Method: restClientWithUserCredentials
+#
+#      Return the REST client with user credentials.
+#
+# Returns:
+#
+#      <EBox::RESTClient>
+#
+sub restClientWithUserCredentials
 {
     my ($self) = @_;
     my $username = $self->{remoteservices}->username();
@@ -73,8 +81,15 @@ sub _restClientWithUserCredentials
     return $self->_restClient($username, $password, 'rc_uc');
 }
 
-# FIXME: Missing doc
-sub _restClientWithServerCredentials
+# Method: restClientWithServerCredentials
+#
+#      Return the REST client with server credentials.
+#
+# Returns:
+#
+#      <EBox::RESTClient>
+#
+sub restClientWithServerCredentials
 {
     my ($self) = @_;
     my $credentials = $self->{remoteservices}->subscriptionCredentials();
@@ -85,7 +100,16 @@ sub _restClientWithServerCredentials
     return $self->_restClient($credentials->{server_uuid}, $credentials->{password}, 'rc_sc');
 }
 
-sub _restClientNoCredentials
+
+# Method: restClientNoCredentials
+#
+#      Return the REST client with no credentials.
+#
+# Returns:
+#
+#      <EBox::RESTClient>
+#
+sub restClientNoCredentials
 {
     my ($self) = @_;
     if (exists $self->{rc_nc}) {
@@ -99,6 +123,8 @@ sub _restClientNoCredentials
     $self->{rc_nc} = $restClient;
     return $restClient;
 }
+
+# Group: Private methods
 
 # FIXME: Missing doc
 sub _restClient

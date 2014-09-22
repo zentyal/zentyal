@@ -50,6 +50,7 @@ sub new
     return $self;
 }
 
+# FIXME: Missing doc
 sub subscribeFirstTime
 {
     my ($self, $user, $name, $newsletter) = @_;
@@ -59,12 +60,13 @@ sub subscribeFirstTime
     my $resource = '/v2/community/register-and-subscribe/';
     my $query = { email => $user, newsletter => $newsletter, name => $name};
 
-    my $restClient = $self->_restClientNoCredentials;
+    my $restClient = $self->restClientNoCredentials();
     my $res = $restClient->POST($resource, query => $query);
     return $res->data();
-        
+
 }
 
+# FIXME: Missing doc
 sub subscribeAdditionalTime
 {
     my ($self, $name) = @_;
@@ -73,7 +75,7 @@ sub subscribeAdditionalTime
     my $query = { name => $name};
 
 
-    my $restClient = $self->_restClientWithUserCredentials();
+    my $restClient = $self->restClientWithUserCredentials();
     my $res = $restClient->POST($resource, query => $query);
     return $res->data();
 }

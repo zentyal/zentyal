@@ -50,7 +50,7 @@ sub new
 sub list
 {
     my ($self) = @_;
-    my $res = $self->_restClientWithServerCredentials()->GET('/v2/confbackup/list/');
+    my $res = $self->restClientWithServerCredentials()->GET('/v2/confbackup/list/');
     return $res->data();
 }
 
@@ -76,7 +76,7 @@ sub add
         $data
        );
 
-    my $res = $self->_restClientWithServerCredentials()->POST($url, multipart => \@parts);
+    my $res = $self->restClientWithServerCredentials()->POST($url, multipart => \@parts);
     return $res->data();
 }
 
@@ -84,7 +84,7 @@ sub get
 {
     my ($self, $id) = @_;
     my $url = "/v2/confbackup/get/$id/";
-    my $res = $self->_restClientWithServerCredentials()->GET($url);
+    my $res = $self->restClientWithServerCredentials()->GET($url);
     return $res->rawContent();
 }
 
@@ -92,7 +92,7 @@ sub delete
 {
     my ($self, $id) = @_;
     my $url = "/v2/confbackup/delete/$id/";
-    $self->_restClientWithServerCredentials()->POST($url);
+    $self->restClientWithServerCredentials()->POST($url);
 }
 
 

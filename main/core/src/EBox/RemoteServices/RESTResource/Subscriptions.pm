@@ -58,8 +58,9 @@ sub subscribeServer
 
     my $restClient;
     if (not @forcedCredentials) {
-        $restClient = $self->_restClientWithUserCredentials();
+        $restClient = $self->restClientWithUserCredentials();
     } else {
+        # FIXME: Delete it?
         $restClient = $self->_restClient(@forcedCredentials);
     }
 
@@ -76,8 +77,9 @@ sub unsubscribeServer
 
     my $restClient;
     if (not @forcedCredentials) {
-        $restClient = $self->_restClientWithServerCredentials();
+        $restClient = $self->restClientWithServerCredentials();
     } else {
+        # FIXME: Delete it?
         $restClient = $self->_restClient(@forcedCredentials);
     }
 
@@ -88,7 +90,7 @@ sub unsubscribeServer
 sub list
 {
     my ($self) = @_;
-    my $res = $self->_restClientWithUserCredentials()->GET('/v2/subscriptions/list/');
+    my $res = $self->restClientWithUserCredentials()->GET('/v2/subscriptions/list/');
     return $res->data();
 }
 
@@ -98,7 +100,7 @@ sub subscriptionInfo
     my ($self) = @_;
     my $resource = '/v2/subscriptions/info/';
 
-    my $res = $self->_restClientWithServerCredentials()->GET('/v2/subscriptions/info/');
+    my $res = $self->restClientWithServerCredentials()->GET('/v2/subscriptions/info/');
     return $res->data();
 }
 
