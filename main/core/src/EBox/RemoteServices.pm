@@ -130,9 +130,17 @@ sub initialSetup
 #    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
 }
 
+# Method: commercialEdition
+#
+#     Get whether this installation is a commercial one or not
+#
+# Returns:
+#
+#     Boolean
+#
 sub commercialEdition
 {
-    # XXX discriminate somehow
+    # TODO: discriminate somehow
     return 1;
 }
 
@@ -156,7 +164,7 @@ sub aroundRestoreConfig
 #      Int - the subscription level
 #
 #         -1 - no subscribed or impossible to know
-#          0 - basic
+#          0 - basic/community
 #          6 - professional
 #          7 - business
 #          8 - trial
@@ -265,7 +273,7 @@ sub refreshSubscriptionInfo
         if ($subscriptionInfo and (not $self->_checkSubscriptionAlive($subscriptionInfo))) {
             EBox::warn("Subscription expired");
             $subscriptionInfo = undef;
-        }    
+        }
     }
 
     if (not $subscriptionInfo) {
@@ -431,11 +439,11 @@ sub registerFirstCommunityServer
     }
 
     $self->setUsername($username);
-    
+
     my $community = $self->communityResource();
     my$credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
     $self->setSubscriptionCredentials($credentials);
-    
+
     my $subscriptions = $self->subscriptionsResource();
     my $subscriptionInfo = $subscriptions->subscriptionInfo();
     $self->setSubscriptionInfo($subscriptionInfo);
@@ -451,7 +459,7 @@ sub registerAdditionalCommunityServer
     }
 
     $self->setUsername($username);
-        
+
     my $community = $self->communityResource($password);
     my $credentials = $community->subscribeAdditionalTime($servername);
     $self->setSubscriptionCredentials($credentials);
@@ -463,6 +471,7 @@ sub registerAdditionalCommunityServer
     $self->setAsChanged(1);
 }
 
+# Missing doc
 sub unregisterCommunityServer
 {
     my ($self) = @_;
@@ -471,7 +480,7 @@ sub unregisterCommunityServer
     }
 
     $self->_removeSubscriptionData();
-        
+
     $self->setAsChanged(1);
 }
 
@@ -760,7 +769,7 @@ sub _setConf
     EBox::Sudo::root("mkdir -p '$dir'",
                      "chown $user.$group '$dir'"
                     );
-    
+
 
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     my $subscriptionLevel = $self->subscriptionLevel();
@@ -830,7 +839,7 @@ sub _checkSubscriptionAlive
     if (not $end) {
         # subscription without end date
         return 1;
-    } 
+    }
 
     my ($sec,$min,$hour,$mday,$mon,$year) = gmtime();
     $year += 1900;

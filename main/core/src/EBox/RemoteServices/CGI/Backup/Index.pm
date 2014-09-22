@@ -56,7 +56,7 @@ sub actuate
         if ($remoteservices->commercialEdition()) {
             $self->setChain('RemoteServices/Backup/Unsubscribed');
         } else {
-            $self->setChain('RemoteServices/Community/Register');            
+            $self->setChain('RemoteServices/Community/Register');
         }
         return;
     }

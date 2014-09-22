@@ -105,7 +105,7 @@ sub test_check_ad_messages : Test
     lives_ok { $mockedRSMod->checkAdMessages(); } 'Check ad messages';
 }
 
-sub test_subscription_level : Test(4)
+sub test_subscription_level : Test(5)
 {
     my ($self) = @_;
 
@@ -120,7 +120,14 @@ sub test_subscription_level : Test(4)
     cmp_ok($mockedRSMod->subscriptionLevel(), '==', -1,
            'Unknown codename returns -1 level');
 
+    # Test commercial edition
+    $mockedRSMod->unmock('subscriptionCodename');
+    $mockedRSMod->set_false('commercialEdition');
+    cmp_ok($mockedRSMod->subscriptionLevel(), '==', 0,
+           'Community editions always returns 0 level');
+
     # Test two elements of hash
+    $mockedRSMod->set_true('commercialEdition');
     $mockedRSMod->mock('subscriptionCodename', sub { 'basic' });
     cmp_ok($mockedRSMod->subscriptionLevel(), '==', 0,
            "'basic' codename returns 0 level");
