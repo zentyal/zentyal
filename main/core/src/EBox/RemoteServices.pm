@@ -482,6 +482,7 @@ sub registerAdditionalCommunityServer
 sub unregisterCommunityServer
 {
     my ($self) = @_;
+
     if ($self->commercialEdition()) {
         throw EBox::Exceptions::Internal('Unregister server is only for community editions');
     }

@@ -2,6 +2,8 @@
   $subscriptionLevel
   @backups
   $modulesChanged
+  $commercialEdition
+  $username
 </%args>
 <%init>
 use EBox::Gettext;
@@ -17,6 +19,9 @@ use URI;
                      backups => \@backups
   &>
   <& .listSection, backups => \@backups, subscriptionLevel => $subscriptionLevel &>
+%    unless ($commercialEdition) {
+  <& .unregister, username => $username &>
+%    }
 % } else {
   <& /remoteservices/NoActive.mas &>
 % }
@@ -175,7 +180,7 @@ my @legendElements = (
       <th class="thOptions"><% __('Actions') %></th>
     </tr>
   </thead>
-  <tbody id='list_backups_tbody' 
+  <tbody id='list_backups_tbody'
          data-restore-title='<% $restoreTitle  %>'
          data-delete-title='<% $deleteTitle %>'
    >
@@ -199,13 +204,13 @@ my @legendElements = (
       <td width="%14" class="tcenter">
         <button name="restore" class="btn-only-icon btn-restore"
                 value="Restore" title="<% $restoreTitle %>"
-                alt="<% $restoreTitle %>" 
+                alt="<% $restoreTitle %>"
                 data-uuid="<% $uuid %>"  />
         <button name="download" class="btn-only-icon btn-download"
                 value="Download" title="<% $downloadTitle %>"
                 data-uuid="<% $uuid %>" data-name="<% $downloadName %>"
                 alt="<% $downloadTitle %>" />
-        
+
         <button name="delete" class="btn-only-icon btn-delete"
                 value="Delete" title="<% $deleteTitle %>"
                 alt="<% $deleteTitle %>"
@@ -220,3 +225,17 @@ my @legendElements = (
 % }
 </%def>
 
+<%def .unregister>
+<%args>
+$username
+</%args>
+<h3><% __('Remote backups associated mail') %></h3>
+<div class="note">
+  <% __('The backups of this server are associate with the following email address:') %>
+</div>
+<form action="/RemoteServices/Community/UnRegister" method="POST" class="formDiv">
+  <% $username %>
+  <input type="submit" name="disassociate"
+         value="<% __('Disassociate this server') %>" />
+</form>
+</%def>

@@ -94,7 +94,8 @@ sub masonParameters
 
     my $subscriptionLevel = $remoteservices->subscriptionLevel();
     push @params, (subscriptionLevel => $subscriptionLevel);
-
+    push @params, (commercialEdition => $remoteservices->commercialEdition());
+    push @params, (username => $remoteservices->username());
 
     return \@params;
 }
