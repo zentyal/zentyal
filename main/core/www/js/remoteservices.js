@@ -23,9 +23,12 @@ Zentyal.RemoteServices.setupSubscriptionPage = function() {
         event.preventDefault();
         $('#subscription_slots_list_note, #subscription_slots_list_error').hide();
         var href = event.target.getAttribute('href');
+        // The form is the sibling
+        var selectForm = $( $( event.target ).siblings('form')[0] );
         $.ajax({
+            type: "POST",
             url: href,
-            // data:,
+            data: selectForm.serialize(),
             dataType: 'json',
             success: function(response) {
                 if (!response.success) {

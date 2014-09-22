@@ -5,14 +5,16 @@ $password
 </%args>
 <%init>
 use EBox::Gettext;
-my $baseUrl = "/RemoteServices/SetSubscriptionSlot?serverName=$serverName&password=$password";
+my $baseUrl = '/RemoteServices/SetSubscriptionSlot';
 </%init>
 % foreach my $subs (@subscriptions) {
-<& subsTr, serverName => $serverName, subs => $subs, baseUrl => $baseUrl &>
+<& subsTr, serverName => $serverName, subs => $subs, password => $password, baseUrl => $baseUrl &>
 % }
+
 <%def subsTr>
 <%args>
 $serverName
+$password
 $subs
 $baseUrl
 </%args>
@@ -30,13 +32,20 @@ if ((not exists $subs->{server}) or (not $subs->{server}->{name})) {
        $mode = 'overwrite';
    }
 }
-my $url = $baseUrl . '&uuid=' . $subs->{uuid} . '&mode=' . $mode;
 </%init>
 <tr class='border'>
   <td><% $subs->{product_label} %></td>
   <td><% $server %></td>
   <td><% $subs->{'subscription_start'} ? $subs->{'subscription_start'} : '-' %></td>
   <td><% $subs->{'subscription_end'} ? $subs->{'subscription_end'} : '-' %></td>
-  <td><a href='<% $url %>'><% __('Select') %></a></td>
+  <td>
+    <form id="select_<% $subs->{uuid} %>" style="display: none;">
+      <& /input/hidden.mas, name => 'serverName', value => $serverName &>
+      <& /input/hidden.mas, name => 'password', value => $password &>
+      <& /input/hidden.mas, name => 'uuid', value => $subs->{uuid} &>
+      <& /input/hidden.mas, name => 'mode', value => $mode &>
+    </form>
+    <a href='<% $baseUrl %>'><% __('Select') %></a>
+  </td>
 </tr>
 </%def>

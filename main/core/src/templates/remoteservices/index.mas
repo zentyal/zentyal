@@ -61,7 +61,7 @@ my @subscription_form_rows = (
 </div>
 
 <div id='subscription_slots_div' class='subscription_page' style='display:none'>
-   <h3><% __('Choose a server edition') %></h3>
+   <h3><% __s('Choose a server edition') %></h3>
    <div id='subscription_slots_list_error' class='error' style='display:none'></div>
    <div id='subscription_slots_list_note' class='note' style='display:none'></div>
    <table id='subscription_slots_list' class='dataTable'>
