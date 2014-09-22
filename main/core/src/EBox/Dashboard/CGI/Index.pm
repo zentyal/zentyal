@@ -73,7 +73,7 @@ sub masonParameters
             $wnames = $mod->widgets();
         } catch($ex) {
             EBox::error("Error loading widgets from module $name: $ex");
-        }        
+        }
         if (not $wnames) {
             next;
         }
@@ -166,34 +166,39 @@ sub masonParameters
     }
 
     my $showMessage = 1;
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-        try {
-            # Re-check for changes
-            $rs->checkAdMessages();
-            my $rsMsg = $rs->adMessages();
-            $showMessage = 0;
-            push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-        } catch($ex) {
-            EBox::error("Error loading messages from remoteservices: $ex");
-        }
-    }
+#    my $rs = EBox::Global->modInstance('remoteservices');
+#    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
+#        $showMessage = 0;
+#        # Re-check for changes
+#        $rs->checkAdMessages();
+#        my $rsMsg = $rs->adMessages();
+#        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+#    }
 
-    if ($showMessage) {
-        my $state = $sysinfo->get_state();
-        my $lastTime = $state->{lastMessageTime};
-        my $currentTime = time();
-        my $offset = ($currentTime - $lastTime) / 60 / 24;
-        foreach my $msg (@{_periodicMessages()}) {
-            my $name = $msg->{name};
-            next if ($state->{closedMessages}->{$name});
-            my $text = $msg->{text};
-            if ($offset >= $msg->{days}) {
-                push (@params, 'message' => $msg);
-                last;
-            }
-        }
-    }
+# Show always upgrade message as 3.5 end of life has reached
+
+#    if ($showMessage) {
+#        my $state = $sysinfo->get_state();
+#        my $lastTime = $state->{lastMessageTime};
+#        my $currentTime = time();
+#        my $offset = ($currentTime - $lastTime) / 60 / 24;
+#        foreach my $msg (@{_periodicMessages()}) {
+#            my $name = $msg->{name};
+#            next if ($state->{closedMessages}->{$name});
+#            my $text = $msg->{text};
+#            if ($offset >= $msg->{days}) {
+#                push (@params, 'message' => $msg);
+#                last;
+#            }
+#        }
+#    }
+
+    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_4.0_Announcement';
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 4.0')";
+    my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 4.0{ch} is available! {ob}Upgrade now{cb}',
+                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
+                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
+    push (@params, 'message' => $msg);
 
     if (EBox::Config::boolean('debug')) {
         my $report = $sysinfo->model('Debug')->value('enabled');
@@ -233,18 +238,8 @@ sub _periodicMessages
         $WIZARD_URL = 'https://remote.zentyal.com/register/';
     }
 
-    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_3.4_Announcement';
-    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.4')";
-
     # FIXME: Close the message also when clicking the URL, not only with the close button
     return [
-#        {
-#         name => 'upgrade',
-#         text => __sx('{oh}Zentyal 3.4{ch} is available! {ob}Upgrade now{cb}',
-#                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
-#                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
-#         days => 0,
-#        },
         {
          name => 'backup',
          text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),

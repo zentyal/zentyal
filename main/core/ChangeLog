@@ -1,4 +1,5 @@
 HEAD
+	+ Upgrade button to 4.0 in the dashboard
 	+ Use upload-crash-report.py tool from OpenChange upstream instead
 	  of a custom one
 	+ Optionally submit the email while uploading the crash report
