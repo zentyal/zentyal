@@ -63,9 +63,9 @@ use YAML::XS;
 use TryCatch::Lite;
 use Date::Calc;
 
+use constant COMMERCIAL_EDITION      => EBox::Config::home() . '.commercial-edition';
 use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
-#use constant PROF_PKG                => 'zentyal-cloud-prof';
-use constant PROF_PKG                => 'an'; #XXX change
+use constant PROF_PKG                => 'zentyal-cloud-prof';
 use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant SUBSCRIPTION_LEVEL_COMMUNITY => 0;
@@ -82,7 +82,7 @@ my %i18nLevels = ( '-1' => __('Unknown'),
                    '8'  => __('Trial'),
                    '10' => __('Enterprise'),
                    '20' => __('Premium'));
-my %codenameLevels = ( 'basic'        => 0,
+my %codenameLevels = ( 'basic'        => SUBSCRIPTION_LEVEL_COMMUNITY,
                        'professional' => 6,
                        'business'     => 7,
                        'trial'        => 8,
@@ -140,8 +140,7 @@ sub initialSetup
 #
 sub commercialEdition
 {
-    # TODO: discriminate somehow
-    return 1;
+    return (-e COMMERCIAL_EDITION);
 }
 
 # we override aroundRestoreconfig to restore also state data (for subscription/registration)
