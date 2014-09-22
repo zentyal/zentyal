@@ -9,85 +9,40 @@
   },
 
   {
-    "title": "Register your Zentyal Server for free!",
-    "paragraphs": [ "Register your Zentyal Server for free and gain access to the following benefits:" ],
+    "title": "Commercial Zentyal Editions",
+    "paragraphs": [ "Fully supported hybrid IT infrastructure!" ],
     "items": [
-              "Remote configuration backup",
-              "Customized zentyal.me subdomain",
-              "Recorded webinars",
-              "Whitepapers",
-              "Free trials"
-             ]
-  },
-
-  {
-    "title": "Professional Edition",
-    "paragraphs": [ "For SMBs with less than 25 users!" ],
-    "items": [
-              "Hybrid cloud services: File sharing, User management, Server sync",
-              "Cloud storage space: 5 Gb",
-              "Technical support SLA: 2 business days",
-              "Officially supported by Ubuntu/Canonical"
+              "All features, fully tested and stable",
+              "Commercial updates and upgrades",
+              "Official unlimited commercial support",
+              "Official Cloud services integrated",
+              "Supported for 4 years"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
   },
 
   {
-    "title": "Business Edition",
-    "paragraphs": [ "For SMBs with less than 75 users!" ],
+    "title": "Native compatibility with Microsoft Active Directory®",
+    "paragraphs": [ "Transparent integration in Windows Server® environments (LDAP, DNS, Kerberos & GPOs sync)" ],
     "items": [
-              "Hybrid cloud services: File sharing, User management, Server sync",
-              "Cloud storage space: 15 Gb",
-              "Technical support SLA: 1 business day",
-              "Officially supported by Ubuntu/Canonical"
-             ],
-    "endText": "Ask for a free trial at www.zentyal.com!"
-  },
-
-  {
-    "title": "Premium Edition",
-    "paragraphs": [ "For SMBs with less than 300 users!" ],
-    "items": [
-              "Hybrid cloud services: File sharing, User management, Server sync",
-              "Cloud storage space: 25 Gb",
-              "Technical support SLA: 4 hours",
-              "Officially supported by Ubuntu/Canonical"
-             ],
-    "endText": "Ask for a free trial at www.zentyal.com!"
-  },
-
-  {
-    "title": "Native compatibility with Microsoft Active Directory",
-    "paragraphs": [ "Transparent integration in Windows Server environments" ],
-    "items": [
-              "Migrate transparently and turn off your Windows Servers",
-              "GPO and OU support for the most important modules",
-              "Whole migration through an easy-to-use graphical interface"
+              "Join your Windows® clients to the domain and login with domain users",
+              "Single Sign-On (SSO) authentication across all domain",
+              "File sharing in Windows® environments (CIFS)",
+              "Manage and/or import Group Policy Objects (GPOs)"
              ],
     "endText": "Learn more at doc.zentyal.org!"
   },
 
   {
-    "title": "Native compatibility with Microsoft Exchange Server",
-    "paragraphs": [ "Transparent integration in Microsoft Exchange environments" ],
+    "title": "Native compatibility with Microsoft® Exchange Server",
+    "paragraphs": [ "Transparent integration in Microsoft® Exchange environments" ],
     "items": [
-              "Migrate transparently and turn off your Microsoft Exchange Server",
-              "Your MS Outlook users can continue using their email client",
-              "Unique alternative!"
+              "Support for Microsoft Outlook® 2003, 2007, 2010, 2013",
+              "No need to install plug-in on the mail client!",
+              "Provisioning of Zentyal as first and/or additional Microsoft® Exchange Server",
+              "Support for Microsoft Outlook® mailbox migration (PST-file import)"
              ],
     "endText": "Learn more at doc.zentyal.org!"
-  },
-
-  {
-    "title": "Zentyal Remote",
-    "paragraphs": [ "Remote monitoring and management platform of servers for IT providers!" ],
-    "items": [
-              "Easy and automated maintenance",
-              "Resolve incidents quickly and before they affect your users",
-              "Remote access to Zentyal servers",
-              "Inventory of network devices and software"
-             ],
-    "endText": "Ask for a free trial at www.zentyal.com!"
   },
 
   {
@@ -109,9 +64,10 @@
               "Covers all the relevant aspects",
               "Best practices for safe and effective maintenance",
               "Large number of practical exercises",
-              "Available in both English and Spanish"
+              "Available in English and Spanish, printed and eBook",
+              "All benefits donated!"
             ],
-    "endText": "Download a sample chapter at store.zentyal.com!"
+    "endText": "Download a sample chapter at zentyal.com/book"
   },
 
   {
@@ -119,7 +75,6 @@
     "paragraphs": [ "Interested in delivering Zentyal-based solutions! Gain access to:" ],
     "items": [
               "Support platform",
-              "Remote monitoring and management of servers",
               "Technical and sales training and certification",
               "Managed services portfolio",
               "Sales materials",

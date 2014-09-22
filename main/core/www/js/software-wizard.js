@@ -2,7 +2,6 @@
 
 Zentyal.namespace('Wizard.Software');
 
-Zentyal.Wizard.Software.DURATION = 500;
 Zentyal.Wizard.Software.actualPage = 0;
 Zentyal.Wizard.Software.visible = 0;
 Zentyal.Wizard.Software.firstLoad = true;
@@ -55,7 +54,7 @@ Zentyal.Wizard.Software.loadPage = function(index) {
     Zentyal.Wizard.Software.visible = showedNumber;
 
     if ( index > 0 ) {
-        $("#wizardPage" + hiddenNumber).slideUp(Zentyal.Wizard.Software.DURATION);
+        $("#wizardPage" + hiddenNumber).hide();
     }
 
     // Final stage?
@@ -69,7 +68,7 @@ Zentyal.Wizard.Software.loadPage = function(index) {
 
     var loaded = function(code) {
         var showed = $("#wizardPage" + showedNumber);
-        showed.show(0).html(code).slideDown(Zentyal.Wizard.Software.DURATION);
+        showed.show(0).html(code).show();
         var form = $('#wizardPage' + showedNumber + ' form')[0];
         // avoid automatic form submission (by enter press)
         if ( form ) {

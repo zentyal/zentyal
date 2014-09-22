@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,11 +26,13 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Network;
+use LWP::UserAgent;
 use Pod::Usage;
 
 # Constants
+use constant REQUEST_TIMEOUT => 10;
 my $CHAIN = EBox::Network::CHECKIP_CHAIN();
-my $DST_HOST = 'checkip.dyndns.org';
+my @DST_HOSTS = ('icanhazip.com', 'myexternalip.com/raw', 'checkip.dyndns.org', 'ipecho.net/plain');
 
 if (scalar(@ARGV) != 1 ) {
     pod2usage(-msg => 'Requires a gateway name', -exitval => 1);
@@ -51,15 +53,27 @@ my $marks  = $networkMod->marksForRouters();
 my $gwMark = $marks->{$gwId};
 
 # Add the iptables marks
-my @rules = ("/sbin/iptables -t mangle -F $CHAIN || true",
-             "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
-             "-p tcp --dport 80 " .
-             "-j MARK --set-mark $gwMark ");
+my @rules = ("/sbin/iptables -t mangle -F $CHAIN || true");
+foreach my $dstHost (@DST_HOSTS) {
+    my $host = $dstHost;
+    $host =~ s/\/.*$//g;
+    push(@rules, "/sbin/iptables -t mangle -A $CHAIN -d $host " .
+                 "-p tcp --dport 80 -j MARK --set-mark $gwMark ");
+}
 EBox::Sudo::root(@rules);
 
+my $ua = new LWP::UserAgent(timeout => REQUEST_TIMEOUT,
+                            env_proxy => 1);
+
 # Perform the query as ebox
-my $output = EBox::Sudo::command("/usr/bin/wget http://$DST_HOST -O - -q");
-my ($ip) = $output->[0] =~ m/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
+my $ip;
+foreach my $dstHost (@DST_HOSTS) {
+    my $res = $ua->get("http://$dstHost");
+    if ($res->is_success()) {
+        ($ip) = $res->decoded_content() =~ m/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/x;
+        last if ($ip);
+    }
+}
 
 # Flush the CHECKIP chain
 EBox::Sudo::silentRoot("/sbin/iptables -t mangle -F $CHAIN");

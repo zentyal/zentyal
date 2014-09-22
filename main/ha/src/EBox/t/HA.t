@@ -22,7 +22,8 @@ package EBox::HA::Test;
 
 use parent 'Test::Class';
 
-use Test::More skip_all => 'FIXME';
+use Data::Dumper;
+
 use EBox::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::HA::NodeList;
@@ -228,9 +229,9 @@ sub test_update_cluster_configuration : Test(20)
                                              ]});
     } 'Add a new node';
 
-    cmp_deeply($mod->clusterConfiguration()->{nodes},
-               [{addr => '1.1.1.1', name => 'new', nodeid => 2, port => 443, localNode => 0},
-                $localNode]);
+    cmp_bag($mod->clusterConfiguration()->{nodes},
+            [$localNode,
+             {addr => '1.1.1.1', name => 'new', nodeid => 2, port => 443, localNode => 0}]);
     lives_ok {
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
@@ -267,9 +268,9 @@ sub test_update_cluster_configuration : Test(20)
                                               {addr => '1.1.1.3', name => 'new', nodeid => 2, port => 443},
                                              ]});
     } 'Remove a node';
-    cmp_deeply($mod->clusterConfiguration()->{nodes},
-               [{addr => '1.1.1.3', name => 'new', nodeid => 2, port => 443, localNode => 0},
-                $localNode]);
+    cmp_bag($mod->clusterConfiguration()->{nodes},
+            [{addr => '1.1.1.3', name => 'new', nodeid => 2, port => 443, localNode => 0},
+             $localNode]);
 
 }
 

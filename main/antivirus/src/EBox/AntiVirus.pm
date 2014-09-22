@@ -93,15 +93,17 @@ sub _create
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item('name' => 'AntiVirus',
-                                    'icon' => 'antivirus',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Office',
-                                    'order' => 580,
-                                    'url' => 'AntiVirus/View/FreshclamStatus',
-                                   );
 
-    $root->add($item);
+# TODO: replace model with dashboard widget?
+#    my $item = new EBox::Menu::Item('name' => 'AntiVirus',
+#                                    'icon' => 'antivirus',
+#                                    'text' => $self->printableName(),
+#                                    'separator' => 'Office',
+#                                    'order' => 580,
+#                                    'url' => 'AntiVirus/View/FreshclamStatus',
+#                                   );
+#
+#    $root->add($item);
 }
 
 # Method: enableService

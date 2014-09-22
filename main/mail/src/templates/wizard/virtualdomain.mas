@@ -1,15 +1,17 @@
 <%init>
 use EBox::Gettext;
+my $samba = EBox::Global->modInstance('samba');
+my $domain = lc($samba->kerberosRealm());
 </%init>
 <h3><% __('Virtual mail domain') %></h3>
 <img src="/data/software/images/email.png" />
 <form method="post" action="./Mail/Wizard/VirtualDomain" class="formDiv" style="margin-bottom:20px;">
-	<fieldset>
-	    <legend><% __('Set up the default virtual mail domain') %></legend>
-	    <p><% __('This will be the domain for your mail accounts') %></p>
-	    <div class="inline-input grey-block">
-	    	<label class="inline-label">john.doe@</label>
-	    	<input type="text" name="vdomain" />
-	    </div>
-	</fieldset>
+    <fieldset>
+        <legend><% __('Set up the default virtual mail domain') %></legend>
+        <p><% __('This will be the domain for your mail accounts') %></p>
+        <div class="inline-input grey-block">
+            <label class="inline-label">john.doe@</label>
+            <input type="text" name="vdomain" value="<% $domain %>"/>
+        </div>
+    </fieldset>
 </form>

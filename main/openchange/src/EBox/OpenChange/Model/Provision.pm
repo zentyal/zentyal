@@ -363,12 +363,31 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
-    my $global     = $self->global();
-    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
+
+    $self->provision($organizationName, $enableUsers, $action);
+}
+
+# Method: provision
+#
+#   Real implementation for _doProvision that can be called also from wizard provision
+#
+# Parameters:
+#
+#   organizationName - name of the organization
+#   enableUsers - *optional* enable OpenChange account for existing users
+#   action - *optional* only useful when called from _doProvision
+#
+sub provision
+{
+    my ($self, $organizationName, $enableUsers, $action) = @_;
+
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
+
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
 
@@ -387,7 +406,11 @@ sub _doProvision
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        throw EBox::Exceptions::External(__('No Certification authority ready. Create or renew it'));
+        # FIXME: create CA with organizationName
+        # FIXME: do this only when provisioning from wizard and not manually from model
+        # TODO: allow to specify optional fields like expiration time
+        my $commonName = __x('{org} Authority Certificate', org => $organizationName);
+        $ca->createCA(commonName => $commonName, orgName => $organizationName);
     }
 
     my $configuration = $openchange->model('Configuration');
@@ -430,7 +453,7 @@ sub _doProvision
         # Force a form definition reload to load the new provisioned content.
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
-        $self->setMessage($action->message(), 'note');
+        $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
@@ -444,11 +467,6 @@ sub _doProvision
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
-    if ($openchange->_rpcProxyEnabled()) {
-        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
-        $global->modChange('webserver');
-        $global->modChange('haproxy');
-    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();

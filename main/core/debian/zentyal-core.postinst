@@ -113,9 +113,7 @@ case "$1" in
         # setup core modules
         /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
-        /usr/share/zentyal/initial-setup --no-restart events $2
         /usr/share/zentyal/initial-setup --no-restart webadmin $2
-        /usr/share/zentyal/initial-setup --no-restart haproxy $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
@@ -123,7 +121,7 @@ case "$1" in
         # remove the menu cache
         rm -f $ZENTYAL_HOME/tmp/menucache
 
-        # Call restart script (haproxy, webadmin, logs, events)
+        # Call restart script (webadmin, logs)
         /usr/share/zentyal/restart-trigger
 
         rm -f $ZENTYAL_HOME/dpkg_running

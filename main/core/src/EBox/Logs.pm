@@ -1,5 +1,5 @@
 # Copyright (C) 2005-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Logs;
 
-use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -31,7 +32,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::DBEngineFactory;
 use EBox::Service;
-use EBox::Logs::Consolidate;
 use EBox::FileSystem;
 use EBox::Util::SQLTypes;
 use EBox::Util::Version;
@@ -41,9 +41,8 @@ use POSIX qw(ceil);
 use constant LOG_DAEMON => 'ebox.loggerd';
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
-use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
+use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
-use constant MYSQL_ZENTYAL_DATA_DIR           => '/var/lib/mysql/zentyal';
 
 #       EBox::Module::Service interface
 #
@@ -89,29 +88,6 @@ sub depends
     my $mods = $self->global()->modInstancesOfType('EBox::LogObserver');
     my @names = map ($_->{name}, @$mods);
     return \@names;
-}
-
-# Method: appArmorProfiles
-#
-#   Overrides to set the own AppArmor profile
-#
-# Overrides:
-#
-#   <EBox::Module::Base::appArmorProfiles>
-#
-sub appArmorProfiles
-{
-    my ($self) = @_;
-
-    EBox::info('Setting mysqld apparmor profile');
-    return [
-        {
-         'binary' => 'usr.sbin.mysqld',
-         'local'  => 1,
-         'file'   => 'core/apparmor-mysqld.local.mas',
-         'params' => [],
-        }
-    ];
 }
 
 sub _daemons
@@ -542,56 +518,6 @@ sub totalRecords
     return $tcount;
 }
 
-# Method: consolidatedLogForDay
-#
-# Parameters:
-#     table - consolidated table. The suffix '_daily' is added automaticallu
-#     date  - date in format yyyy-mm-dd
-#
-#  Returns:
-#      array reference. Each row will be a hash reference with
-#      column/values as key/values. Remember that it will be always a 'date'
-#      field.
-#      If there is not data it will return a empty array
-sub consolidatedLogForDay
-{
-    my ($self, $table, $date) = @_;
-    $date or
-        throw EBox::Exceptions::MissingArgument('date');
-    $table or
-        throw EBox::Exceptions::MissingArgument('table');
-
-    # put the standard 00:00:00  hour
-    ($date) = split '\s', $date;
-    $date .= ' 00:00:00';
-
-    $table = $table . '_daily';
-
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-
-    # FIXME: what happens with acquirers here?
-    my $sql = "SELECT * FROM $table WHERE date='$date'";
-
-    my @results = @{  $dbengine->query($sql) };
-    return \@results;
-}
-
-# Method: yesterdayDate
-#
-#  Returns:
-#    the yesterday date in string format so it can used in SQL queries and
-#    i nthe consolidatedLogForDay method
-sub yesterdayDate
-{
-    my ($self) = @_;
-    my $yesterdayTs = time()  - 86400; # 86400 seconds in a day
-    my  ($sec,$min,$hour,$mday,$mon,$year) = localtime($yesterdayTs);
-    $year += 1900;
-    $mon  +=1;
-
-    return "$year-$mon-$mday 00:00:00";
-}
-
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;
@@ -697,16 +623,11 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
-                                        'text' => __('Maintenance'),
-                                        'icon' => 'maintenance',
-                                        'separator' => 'Core',
-                                        'order' => 70);
-
-    $folder->add(new EBox::Menu::Item('url' => 'Maintenance/Logs',
-                                      'text' => $self->printableName(),
-                                      'order' => 20));
-    $root->add($folder);
+    $root->add(new EBox::Menu::Item('url' => 'Logs/Composite/General',
+                                    'text' => $self->printableName(),
+                                    'icon' => 'logs',
+                                    'tag' => 'system',
+                                    'order' => 70));
 }
 
 # Helper functions
@@ -783,20 +704,6 @@ sub _restoreEnabledLogsModules
     }
 
     return \%enabled;
-}
-
-# Overrides:
-#  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
-#
-sub _facilitiesForDiskUsage
-{
-  my ($self) = @_;
-
-  my $printableName = __('Log messages');
-
-  return {
-          $printableName => [ MYSQL_ZENTYAL_DATA_DIR ],
-         };
 }
 
 # Method: forcePurge

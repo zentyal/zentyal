@@ -24,9 +24,13 @@
 
 <p><% $endText %></p>
 
-
+% if (@links) {
+<p>
 % foreach my $link (@links) {
-<div class="ads_link"><a onclick="window.open('<% $link %>')"><% $link %></a></div>
+<a  class="ads_link" onclick="window.open('<% $link %>')"><% $link %></a>
 % }
+</p>
+% }
+
 
 </div>

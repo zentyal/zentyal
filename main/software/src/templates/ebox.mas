@@ -140,13 +140,21 @@ var pkgTable = new Array(
       <h3><%__('Server roles')%></h3>
       <ul>
 %   foreach my $pkg (@bigpkgs) {
-         <li id="<% $pkg->{name} %>" class="package package-big" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+%        my $class;
+%        if ($pkg->{version}) {
+%           $class = 'package_installed';
+%        }
+         <li id="<% $pkg->{name} %>" class="package package-big <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
             <img src="/data/images/package-icons/<% $pkg->{name} %>-big.png"/>
             <p><% $pkg->{description} %></p>
          </li>
 %   }
 %   foreach my $pkg (@mediumpkgs) {
-         <li id="<% $pkg->{name} %>" class="package package-medium" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+%        my $class;
+%        if ($pkg->{version}) {
+%           $class = 'package_installed';
+%        }
+         <li id="<% $pkg->{name} %>" class="package package-medium <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
             <img src="/data/images/package-icons/<% $pkg->{name} %>-medium.png"/>
             <p><% $pkg->{description} %></p>
          </li>
@@ -164,7 +172,7 @@ var pkgTable = new Array(
 %        $pkg->{description} =~ s/^Zentyal - //;
 %        my $class;
 %        if ($pkg->{version}) {
-%           $class='package_installed';
+%           $class = 'package_installed';
 %        }
          <li id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
             <img src="/data/images/package-icons/<% $pkg->{name} %>.png"
@@ -289,10 +297,6 @@ $(function() {
 % } else {
    $('#advanced').show();
 % }
-
-   if ($('#zentyal-remoteservices').length > 0) {
-        Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
-   }
 
    $('#updNumber').html( '<% scalar @advUpdatePkgs %>' );
    // update button status

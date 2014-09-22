@@ -6,24 +6,24 @@ use EBox::Gettext;
 </%init>
 <h4 class="icon-group"><% __('Add Group') %></h4>
     <div id='addGroupForm_error' class='error' style='display:none'></div>
-    <form action='/Samba/AddGroup' method='POST' id='addGroupForm' class="formDiv">
+    <form action='/Samba/AddGroup' method='POST' id='addGroupForm' class="formDiv form-full-width">
     <input type="hidden" name="dn" value="<% $dn %>">
         <div class="checkbox-group">
             <strong><% __('Type') %></strong>
             <label><input type="radio" name="type" value="security" checked><% __('Security Group') %></label>
             <label><input type="radio" name="type" value="distribution"><% __('Distribution Group') %></label>
         </div>
-        <div>
+        <div class="field">
             <label><% __('Group name') %></label>
             <input type='text' class='inputText' name='groupname'>
         </div>
-        <div>
+        <div class="field">
             <label><% __('Description') %>
                 <span class="optional_field"><% __('Optional value') %></span>
             </label>
             <input type='text' class='inputText' name='description'>
         </div>
-        <div>
+        <div class="field">
             <label><% __('E-mail') %>
                 <span class="optional_field"><% __('Optional value') %></span>
             </label>

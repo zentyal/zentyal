@@ -65,6 +65,45 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    my $objectId = $allFields->{object}->value();
+    my $members = $self->global()->modInstance('objects')->objectMembers($objectId);
+
+    my $iface    = $self->parentRow()->valueByName('iface');
+    my $ifaceIp  = $self->global()->modInstance('network')->ifaceAddresses($iface);
+    my $ranges   = $self->parentModule()->ranges($iface);
+    my $ro       = $self->global()->isReadOnly();
+    foreach my $member (@{ $members }) {
+        # use only IP address member type
+        if ($member->{type} ne 'ipaddr') {
+            next;
+        }
+        if (not $member->{macaddr}) {
+            next;
+        }
+
+        my $ip = $member->{ip};
+        if ($ip eq $ifaceIp) {
+            throw EBox::Exceptions::External(
+                __x('The object contains the IP address {ip} which is also the address of the interface',  ip => $ip)
+             );
+        }
+        # Check that there is no conflict with the fixed address table
+        my $newIP = Net::IP->new($ip);
+        foreach my $range (@{$ranges}) {
+            my $from  = $range->{from};
+            my $to    = $range->{to};
+            my $rangeIP = new Net::IP( $from . '-' . $to);
+            unless ( $newIP->overlaps($rangeIP) == $IP_NO_OVERLAP ) {
+                throw EBox::Exceptions::External(__x('The object contains an IP address {ip} which also is in the range '
+                                                     . "'{range}': {from}-{to}",
+                                                     ip => $ip,
+                                                     range => $range->{name},
+                                                     from  => $from,
+                                                     to => $to)
+                                                );
+            }
+        }
+    }
 }
 
 # Method: viewCustomizer
@@ -184,8 +223,7 @@ sub addresses
         my $row   = $self->row($id);
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
-        # TODO: Restore this when more than one config per interface is possible
-        $addrs{$objId} = { options => {},#$self->_thinClientOptions($iface, $objId),
+        $addrs{$objId} = { options => $self->parentModule()->_thinClientOptions($iface, $objId),
                            members => [] };
 
         foreach my $member (@{$mbs}) {

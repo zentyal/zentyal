@@ -53,13 +53,12 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % if (@slides) {
 <script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 <style>
-.carousel.slide{
-position: relative;
-margin-top: 20px;
-background: #46962d;
-overflow: hidden;
+.carousel.slide {
+  position: relative;
+  background: url('/data/software/images/pattern-bg.png') repeat scroll 0 0 #33831a;
+  overflow: hidden;
 }
-.carousel.slide:hover .carousel-control{
+.carousel.slide:hover .carousel-control {
   bottom: 10px;
   -webkit-transition: 0.3s bottom;
   -moz-transition: 0.3s bottom;
@@ -68,7 +67,7 @@ overflow: hidden;
 }
 .carousel-inner {
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   overflow: hidden;
   position: relative;
 }

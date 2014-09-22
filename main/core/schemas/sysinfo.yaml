@@ -10,5 +10,6 @@ models:
 
 composites:
     General: []
+    DateAndTime: []
 
-# NOTE: General composite components are dynamic in componentNames()
+# NOTE: composite components are dynamic in componentNames()

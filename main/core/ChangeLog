@@ -1,6 +1,22 @@
 4.0
+	+ Default webadmin port is now 8443
+	+ Remove haproxy which is no longer needed for Outlook Anywhere
+	+ UI is now responsive to different resolutions
+	+ New System -> Date/Time menu which also includes NTP when available
+	+ New header style
+	+ Search box moved from menu to header
+	+ Menu reorganization and re-style
+	+ Added search for configuration data
 	+ Improved installation wizards
 	+ Set version to 4.0
+	+ Use upload-crash-report.py tool from OpenChange upstream instead
+	  of a custom one
+	+ Optionally submit the email while uploading the crash report
+	+ More robust dashboard against widget and remoteservices errors
+	+ Added missing use in hasManyViewer.mas
+	+ Only allow restore from backups from versions with the same two
+	  first version numbers
+	+ Escape double quotes in non-editable text fields
 	+ When doing a login redirect to the full given URI
 	+ Fixed mysql commands executed with wrong parameters or credentials
 	+ Fix isEqualTo types comparision, check for defined return value from cmp
@@ -10,6 +26,8 @@
 	+ Removed duplicate code for page not found
 	+ Fix some warnings in log
 	+ Fix error in send crash report script
+	+ Remove all maintenance functionality except logs
+	+ Remove no longer needed apparmor custom profile for mysqld
 3.5.1
 	+ Fixed dashboard links to official manual
 	+ Model backup/revoke/save files are no longer called implicitly

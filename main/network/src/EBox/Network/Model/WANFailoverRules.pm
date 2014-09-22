@@ -177,33 +177,4 @@ sub validateTypedRow
     }
 }
 
-sub addedRowNotify
-{
-    my ($self) = @_;
-    $self->_notifiyEvents();
-}
-
-sub deletedRowNotify
-{
-    my ($self) = @_;
-    $self->_notifiyEvents();
-}
-
-sub updatedRowNotify
-{
-    my ($self) = @_;
-    $self->_notifiyEvents();
-}
-
-sub _notifiyEvents
-{
-    my ($self) = @_;
-    # Notify rule change to events module
-    my $events = $self->global()->modInstance('events');
-    if ($events->isEnabled()) {
-        $events->setAsChanged(1);
-    }
-}
-
-
 1;

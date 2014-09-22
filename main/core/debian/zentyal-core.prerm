@@ -2,11 +2,12 @@
 
 set -e
 
-#DEBHELPER#
+case "$1" in
+    remove)
+        service zentyal stop || true
+    ;;
+esac
 
-# FIXME: check if this works properly
-if [ "$1" = remove ] || [ "$1" = purge ]; then
-    service zentyal stop || true
-fi
+#DEBHELPER#
 
 exit 0
