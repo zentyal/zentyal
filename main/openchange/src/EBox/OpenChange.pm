@@ -371,6 +371,15 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
+    if ($state->{provision_from_wizard}) {
+        my $orgName = $state->{provision_from_wizard}->{orgName};
+        my $provisionModel = $self->model('Provision');
+        $provisionModel->provision($orgName);
+        delete $state->{provision_from_wizard};
+        $self->set_state($state);
+    }
+
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
@@ -1301,5 +1310,19 @@ sub dropSOGODB
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 }
+
+sub wizardPages
+{
+    my ($self) = @_;
+
+    my $samba = $self->global()->modInstance('samba');
+    return [] if $samba->_adcMode();
+
+    my $mail = $self->global()->modInstance('mail');
+    return [] if ($mail->model('VDomains')->size() == 0);
+
+    return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
+}
+
 
 1;
