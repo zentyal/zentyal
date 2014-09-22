@@ -8,7 +8,7 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
 <div id='div_register_first_time' class='insideTab'>
-    <h3><% __('Register to access backup in the cloud') %></h3>
+    <h3><% __('Register to store backups in the cloud') %></h3>
    <div id='register_first_time_info' class='note' style='display:none'></div>
    <div id='register_first_time_error' class='error' style='display:none'></div>
    <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">

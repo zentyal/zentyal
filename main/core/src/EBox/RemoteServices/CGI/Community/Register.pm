@@ -35,8 +35,9 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(
-                        template => '/backupTabs.mas',
-                      @_);
+        title    => __('Import/Export Configuration Remotely'),
+        template => '/backupTabs.mas',
+        @_);
 
     bless($self, $class);
     return $self;
@@ -56,7 +57,7 @@ sub masonParameters
     my $global = EBox::Global->getInstance();
     my $sysinfo = $global->modInstance('sysinfo');
     push @params, (fqdn => $sysinfo->hostName());
-    push @params,(selected => 'remote');
+    push @params, (selected => 'remote');
     push @params, (component => 'remoteservices/Community/register.mas');
 
     return \@params;
