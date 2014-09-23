@@ -30,7 +30,7 @@ echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
 echo; echo "Upgrading from Zentyal 3.5 to 4.0..."; echo
-sed -ri 's/zentyal(.)3.4/zentyal\13.5/g' /etc/apt/sources.list
+sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
 upgrade
 
 #service apache2 stop || true
