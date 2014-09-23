@@ -4,6 +4,7 @@
   $modulesChanged
   $commercialEdition
   $username
+  $maxBackups
 </%args>
 <%init>
 use EBox::Gettext;
@@ -16,7 +17,8 @@ use URI;
 % if ($subscriptionLevel >= 0) {
   <& .backupSection, modulesChanged    => $modulesChanged,
                      subscriptionLevel => $subscriptionLevel,
-                     backups => \@backups
+                     backups => \@backups,
+                     maxBackups => $maxBackups
   &>
   <& .listSection, backups => \@backups, subscriptionLevel => $subscriptionLevel &>
 %    unless ($commercialEdition) {
@@ -37,10 +39,11 @@ $(function() {
 $modulesChanged
 $subscriptionLevel
 @backups
+$maxBackups
 </%args>
 <%init>
-my $lastBackup = $backups[-1];
-my $restricted = (($subscriptionLevel < 1) and $lastBackup);
+my $lastBackup = $backups[0];  # TODO: Get the oldest one
+my $restricted = ($maxBackups == scalar(@backups));
 my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
 
 my @formElements;
@@ -110,7 +113,6 @@ if ($restricted) {
                         );
 }
 
-
 </%init>
 <h3><% __('Back up the current configuration state') %></h3>
 <div class='help'>
@@ -124,7 +126,7 @@ if ($restricted) {
 
 % if ($restricted) {
   <div class='warning'>
-        <% __(q{Please note that the server registration allows you to store only one remote configuration backup. If you make a new configuration backup, the previous backup will be overwritten.}) %>
+        <% __(q{Please note that you have reached the maximum number of manual remote configuration backup. If you make a new configuration backup, the oldest backup will be overwritten.}) %>
   </div>
 % }
 

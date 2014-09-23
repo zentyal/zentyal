@@ -96,6 +96,7 @@ sub masonParameters
     push @params, (subscriptionLevel => $subscriptionLevel);
     push @params, (commercialEdition => $remoteservices->commercialEdition());
     push @params, (username => $remoteservices->username());
+    push @params, (maxBackups => $remoteservices->maxConfBackups());
 
     return \@params;
 }

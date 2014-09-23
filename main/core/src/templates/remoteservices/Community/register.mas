@@ -14,11 +14,11 @@ use EBox::Gettext;
    <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">
 <%perl>
 my @register_first_time_rows = (
- {  printableName => __('Registration mail address'),
+ {  printableName => __('Registration e-mail address'),
     name => 'username',
     input => '/input/text.mas',
  },
- {  printableName => __('Confirm registration mail address'),
+ {  printableName => __('Confirm registration e-mail address'),
     name => 'username2',
     input => '/input/text.mas',
  },
@@ -55,13 +55,13 @@ my @register_first_time_rows = (
 </div>
 
 <div id='div_register_additional' style='display:none' class='insideTab'>
-    <h3><% __('Add this server to access backup in the cloud') %></h3>
+    <h3><% __('Add this server to store backups in the cloud') %></h3>
    <div id='register_additional_info' class='note' style='display:none'></div>
    <div id='register_additional_error' class='error' style='display:none'></div>
    <form id='register_additional_form' action='/RemoteServices/Community/RegisterAdditionalServer' class="formDiv changeRow">
 <%perl>
 my @register_additional_rows = (
- {  printableName => __('Mail address'),
+ {  printableName => __('E-Mail address'),
     name => 'username',
     id => 'register_additional_username',
     input => '/input/text.mas',

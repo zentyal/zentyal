@@ -733,7 +733,7 @@ sub addOnAvailable
 #
 sub addOnDetails
 {
-    my ($self, $addOn, $force) = @_;
+    my ($self, $addOn) = @_;
 
     my $subsInfo = $self->subscriptionInfo();
     my $ret = {};
@@ -1074,7 +1074,7 @@ sub maxCloudUsers
 {
     my ($self, $force) = @_;
     if ($self->usersSyncAvailable($force)) {
-        return $self->addOnDetails('cloudusers', $force)->{max_users};
+        return $self->addOnDetails('cloudusers')->{max_users};
     }
     return 0;
 }
@@ -1085,9 +1085,35 @@ sub maxCloudUsers
 #
 sub filesSyncAvailable
 {
-    my ($self, $force) = @_;
+    my ($self) = @_;
 
-    return $self->addOnAvailable('cloudfiles', $force);
+    return $self->addOnAvailable('cloudfiles');
+}
+
+# Method: maxConfBackups
+#
+#   Return the maximum number of configuration backups
+#
+# Returns:
+#
+#   Int - the number of manual configuration backups available
+#
+sub maxConfBackups
+{
+    # TODO: Do it using a capability
+    my ($self) = @_;
+
+    my $ret = 0;
+    if ($self->eBoxSubscribed()) {
+        if ($self->subscriptionLevel() == SUBSCRIPTION_LEVEL_COMMUNITY) {
+            $ret = 3;
+        } else {
+            $ret = 10;
+        }
+    }
+
+    return $ret;
+    # return $self->addOnDetails('confbackups')->{max_manual};
 }
 
 # Method: menu

@@ -25,20 +25,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Html;
 
-use HTTP::Date;
-use Plack::Util;
-use Sys::Hostname;
 use TryCatch::Lite;
 
-
-sub new
-{
-    my ($class, @params) = @_;
-    my $self = $class->SUPER::new(@params);
-
-    bless($self, $class);
-    return $self;
-}
 
 sub _process
 {
@@ -49,7 +37,7 @@ sub _process
     if (not $username) {
         $self->{json}->{error} = __('Missing registration mail address');
         return;
-    } 
+    }
 
     my $password = $self->unsafeParam('password');
     if (not $password) {

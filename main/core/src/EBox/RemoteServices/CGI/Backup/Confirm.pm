@@ -24,6 +24,7 @@ use EBox::RemoteServices::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Util::FileSize;
 
 my @extraParameters = qw(cn user password description newName);
 
@@ -141,11 +142,12 @@ sub masonParameters
     my $actionCGI = $cgiByAction{$action};
 
     my $backup = $self->_backup($action);
+    $backup->{size} = EBox::Util::FileSize::printableSize($backup->{size});
 
     my @parameters =(
-            uuid   => $uuid,
+            uuid      => $uuid,
             label     => $label,
-            backup => $backup,
+            backup    => $backup,
             actionCGI => $actionCGI,
             );
 

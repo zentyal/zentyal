@@ -77,7 +77,6 @@ if ($popup) {
         <label><% __('Date') %></label>
         <span><% $backup->{'backup_date'} %></span>
     </div>
-
     <div>
         <label><% __('Archive size') %></label>
         <span><% $backup->{'size'} %></span>
