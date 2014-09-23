@@ -132,13 +132,22 @@ sub initialSetup
 #
 #     Get whether this installation is a commercial one or not
 #
+# Parameters:
+#
+#     force - Boolean indicating to do the check again
+#
 # Returns:
 #
 #     Boolean
 #
 sub commercialEdition
 {
-    return (-e COMMERCIAL_EDITION);
+    my ($self, $force) = @_;
+
+    unless (exists $self->{commercialEdition} or $force) {
+        $self->{commercialEdition} = (-e COMMERCIAL_EDITION);
+    }
+    return $self->{commercialEdition}
 }
 
 # we override aroundRestoreconfig to restore also state data (for subscription/registration)
@@ -247,6 +256,8 @@ sub setUsername
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
+
+    $self->commercialEdition('force');
     my $subscriptionInfo;
     my $refreshError = 0;
     try {

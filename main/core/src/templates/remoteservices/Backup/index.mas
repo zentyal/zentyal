@@ -172,6 +172,9 @@ my @legendElements = (
 <table class="dataTable" cellspacing="0">
   <thead>
     <tr>
+%    if ($subscriptionLevel > 0) {
+      <th class="tleft"><% __('Company') %></th>
+%    }
       <th class="tleft"><% __('Server') %></th>
       <th class="tleft"><% __('Name') %></th>
       <th><% __('Date') %></th>
@@ -190,6 +193,9 @@ my @legendElements = (
      my $downloadName =  $backup->{server}->{name} . '-' . $backup->{backup_date};
 </%perl>
     <tr class="border">
+%    if ($subscriptionLevel > 0) {
+      <td class="tleft"><% $backup->{company}->{description} %></th>
+%    }
       <td class="tleft"><% $backup->{server}->{name} %></td>
       <td class="tleft"><% $backup->{label} %></td>
       <td class="tcenter"><% $backup->{backup_date} %></td>
