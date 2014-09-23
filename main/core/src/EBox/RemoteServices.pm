@@ -1193,6 +1193,8 @@ sub _ccConnectionWidget
                            oh => '<a href="/RemoteServices/Composite/Technical">',
                            ch => '</a>');
 
+    my $commercialEdition = $self->commercialEdition();
+
     if ( $self->eBoxSubscribed() ) {
         $serverName = $self->eBoxCommonName();
 
@@ -1217,14 +1219,23 @@ sub _ccConnectionWidget
             $date = __('unknown');
         };
         $lastBackupValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
+    } elsif (not $commercialEdition) {
+        $lastBackupValue = __sx('{oh}Register to store your backups in the cloud{ch}',
+                                oh => '<a href="/RemoteServices/Backup/Index">',
+                                ch => '</a>');
     }
 
     $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
 
     $section->add(new EBox::Dashboard::Value(__('Server edition'),
                                              $edition));
-    $section->add(new EBox::Dashboard::Value(__('Technical support'),
-                                             $supportValue));
+    if ($commercialEdition) {
+        $section->add(new EBox::Dashboard::Value(__('Technical support'),
+                                                 $supportValue));
+    } elsif ($self->eBoxSubscribed()) {
+        $section->add(new EBox::Dashboard::Value(__('Registered e-mail'),
+                                                 $self->username()));
+    }
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $lastBackupValue));
 }
