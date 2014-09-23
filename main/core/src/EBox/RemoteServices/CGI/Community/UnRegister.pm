@@ -20,6 +20,7 @@ package EBox::RemoteServices::CGI::Community::UnRegister;
 
 use base qw(EBox::CGI::ClientBase);
 
+use EBox::Gettext;
 use EBox::Global;
 
 sub requiredParameters
@@ -33,8 +34,10 @@ sub actuate
 
     my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
     $remoteservices->unregisterCommunityServer();
-    # TODO: Set a message
-    $self->{redirect} = '/RemoteServices/Backup/Index';
+    $self->setMsg(__('The server has been disassociated'));
+    $self->{chain} = '/RemoteServices/Backup/Index';
+    # Delete all CGI parameters for the chain
+    $self->request()->parameters()->clear();
 }
 
 1;

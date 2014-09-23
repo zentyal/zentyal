@@ -478,7 +478,10 @@ sub registerAdditionalCommunityServer
     $self->setAsChanged(1);
 }
 
-# Missing doc
+# Method: unregisterCommunityServer
+#
+#     Delete all information from a community server.
+#
 sub unregisterCommunityServer
 {
     my ($self) = @_;
