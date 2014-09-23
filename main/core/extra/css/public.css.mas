@@ -1455,18 +1455,18 @@ border-radius: 2px;
     background-position: center center
 }
 #install-splash{
-    margin: 0 auto;
+    margin: -40px auto 0 auto;
     width: 450px;
     text-align: center;
     opacity: 0;
     background-color: #eee;
 }
 #install-splash header img{
-    width: 200px
+    width: 300px
 }
 #install-splash h1{
     font-size: 45px;
-    margin: 40px 0 30px 0;
+    margin: 20px 0 30px 0;
 }
 #install-splash h3{
     font-size: 1.8em;

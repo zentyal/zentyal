@@ -26,7 +26,7 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Zentyal Installation'),
+    my $self = $class->SUPER::new('title' => __('Initial Setup'),
                                   'template' => 'software/welcome.mas', @_);
     bless($self, $class);
     return $self;
