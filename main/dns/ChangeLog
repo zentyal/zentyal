@@ -4,6 +4,7 @@
 	+ Do not fail to add a host if an IP address is already used by
 	  other hostname
 	+ Return the identifier in EBox::DNS::addDomain method
+	+ Add /etc/samba/* to allowed to read in apparmor profile
 3.5.1
 	+ Workaround in pageTitle() method against losing of directory parameter/attribute
 3.5

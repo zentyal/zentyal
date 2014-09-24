@@ -59,6 +59,7 @@ RUN echo 'testUser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 # Give special permissions to some files
 RUN mkdir -p /run/shm/zentyal
 RUN chmod 777 /run/shm/zentyal
+RUN chmod 4755 /usr/bin/sudo
 
 # Configure timezoen so the tests get the date expected
 RUN  echo "Europe/Madrid" > /etc/timezone

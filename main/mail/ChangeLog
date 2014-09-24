@@ -1,4 +1,7 @@
 4.0
+	+ Prepopulate installation wizard by default with the Samba domain
+	+ Fixed bug in initialSetup which triggered migration on fresh install
+	+ Increased mail_max_userip_connections to 20 for IMAP protocol
 	+ Set version to 4.0
 	+ Fixed values in fetchmail widget status
 	+ Fixed some labels which referenced deprecated user corner

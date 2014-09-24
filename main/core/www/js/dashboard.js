@@ -111,7 +111,7 @@ Zentyal.Dashboard.widget = function(m,w,full) {
         top_id = '';
         cursor = 'move';
     } else {
-        opacity = 0.5;
+        opacity = 0.3;
         top_id = '_bar';
         cursor = 'default';
     }

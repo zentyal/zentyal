@@ -15,5 +15,5 @@
     ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
 
     # ocsmanager Exchange Web Services (ews)
-    ProxyPass /ews http://127.0.0.1:5000
+    ProxyPass /ews http://127.0.0.1:5000/ews
 </VirtualHost>

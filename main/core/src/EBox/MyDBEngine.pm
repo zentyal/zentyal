@@ -100,9 +100,7 @@ sub _enableInnoDB
 {
     my ($self) = @_;
 
-    # FIXME: postinst fails when installing the first time
-    #return EBox::Global->modExists('openchange');
-    return 0;
+    return EBox::Global->modExists('openchange');
 }
 
 # Method: _innoDbValueHasChanged

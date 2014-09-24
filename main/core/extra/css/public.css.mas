@@ -175,9 +175,8 @@ Main Layout
     margin-bottom: 50px;
     position: absolute;
     top: 60px;
-    left: 10px;
+    left: 0px;
     width: 185px;
-    background-color: #eee;
     z-index: 10;
 }
 #footer {
@@ -255,12 +254,11 @@ Header
     background-color: <% $secondary_color %>;
     background-image: url("/data/images/save.png");
     background-position: 18px center;
-    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
     color: #ffffff;
     display: none;
     font-size: 1.1em;
     line-height: 20px;
-    padding: 20px 20px 20px 60px;
+    padding: 15px 20px 15px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
@@ -314,6 +312,7 @@ DASHBOARD
     background-color: #ddd;
     border: 1px solid #cccccc;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    margin-bottom: 15px;
 }
 #module_list {
     overflow: hidden;
@@ -666,6 +665,7 @@ TABS options
     box-shadow: none;
     margin-left: -15px;
     margin-right: -15px;
+    border: none;
 }
 .insideTab h3,
 .insideTab .item-block h3  {
@@ -728,12 +728,12 @@ TABS options
 #nav {
     margin-bottom: 0;
     line-height: 1em;
-    background-color: #fbfbfb;
 }
 #nav li {
     padding: 0;
     margin: 0;
     border-top: 1px solid #eee;
+    background-color: #fbfbfb
 }
 #nav li a {
     font-weight: normal;
@@ -758,9 +758,11 @@ TABS options
     margin: 0;
     border: 0;
     height: 10px;
-    background-color: #eee;
 }
 #nav hr + li{
+    border-top: 0;
+}
+#nav li:first-child{
     border-top: 0;
 }
 
@@ -772,6 +774,7 @@ TABS options
 }
 #nav .submenu li {
     border-top: 1px dashed #ccc;
+    background-color: transparent;
 }
 #nav .submenu li a {
     display: block;
@@ -821,12 +824,16 @@ TABS options
     border: none;
     padding: 0 0 0 10px;
     margin-right: 34px;
-    line-height: 34px;
     height: 34px;
     box-shadow: none;
     border-radius: 0;
 }
-
+#menusearch::-webkit-input-placeholder { /* WebKit browsers */
+    color: rgba(255,255,255,0.5);
+}
+#menusearch:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: rgba(255,255,255,0.5);
+}
 .menusearch input[type='submit'] {
     background-image: url('/data/images/magnifying-glass-w.png') ;
     background-position: center center ;
@@ -841,7 +848,6 @@ TABS options
     text-indent: 1000px;
     border: none;
     padding: 0;
-
 }
 
 .menusearch input[type='submit'],
@@ -850,6 +856,7 @@ TABS options
      transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
+    outline: none;
 }
 
 #menusearch:hover,
@@ -862,6 +869,7 @@ TABS options
     -webkit-transition: background-color 0.3s;
     box-shadow: none;
     border: none;
+    webkit-apperance: none;
 }
 
 #searchresults ul {
@@ -884,9 +892,9 @@ TABS options
 
 a[class^="icon"],
 td[class^="icon"] {
-    background-position: 5px center;
+    background-position: 10px center;
     background-repeat: no-repeat;
-    padding: 15px 20px 15px 45px !important;
+    padding: 15px 20px 15px 55px !important;
 }
 .icon-antivirus { background-image: url("/data/images/package-icons/zentyal-antivirus.png");}
 .icon-asterisk { background-image: url("/data/images/package-icons/zentyal-asterisk.png");}
@@ -1249,7 +1257,8 @@ a.minBox, a.maxBox {
     border-radius: 5px ;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2)
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc
 }
 .widgetBoxIn {
     padding:10px;
@@ -1439,8 +1448,52 @@ border-radius: 2px;
 
  ***********************************************************************************************/
 
+/* first installation spash */
+.loading-bg{
+    background-image: url('/data/images/spinner.gif');
+    background-repeat: no-repeat;
+    background-position: center center
+}
+#install-splash{
+    margin: -40px auto 0 auto;
+    width: 450px;
+    text-align: center;
+    opacity: 0;
+    background-color: #eee;
+}
+#install-splash header img{
+    width: 300px
+}
+#install-splash h1{
+    font-size: 45px;
+    margin: 20px 0 30px 0;
+}
+#install-splash h3{
+    font-size: 1.8em;
+    line-height: 140%;
+    border-bottom: none;
+    font-weight: 100
+}
+#install-splash .install-splash-steps{
+    margin: 40px auto;
+}
+#install-splash .install-splash-steps div{
+    display: inline-block;
+    width: 23%;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #777;
+    font-weight: 100;
+}
+#install-splash .btn-green{
+    text-transform: none;
+    font-weight: normal;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
+
 body.first-install {
-    max-width: 1300px;
+    max-width: 1200px;
 }
 #software #packages {
    overflow: hidden;
@@ -1448,15 +1501,17 @@ body.first-install {
 #software #packages h3{
     clear: both;
     float: left;
-    margin: 30px 0 0 0.5%;
+    margin: 0 0 0 0.5%;
     width: 100%;
     font-weight: 100;
     font-size: 20px;
 }
 #software #packages ul{
-    margin: 0px;
+    margin: 0 0 15px;
     padding: 0px;
     list-style: none;
+    overflow: hidden;
+    width:100%;
 }
 #software .package {
     overflow: hidden;
@@ -1574,16 +1629,112 @@ body.first-install {
 
 /*  Installation steps */
 
-#nav.install-steps li{
-    padding: 15px 10px 15px 30px;
-    background-color: transparent;
-    background-position: 5px center ;
+/**********
+ Installation Wizard
+**********/
+.first-install #header{
+    display:  none;
+}
+.first-install #menu{
+    left: 10px;
+    margin: 0;
+    padding: 0;
+    right: 10px;
+    top: 0;
+    width: auto;
+}
+.first-install #content{
+    left: 10px;
+    width: auto;
+    top: 70px;
+}
+.wizard img{
+    float:left;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.wizard form{
+    margin-left: 200px;
+    margin-bottom: 40px;
+}
+.iface-wizard {
+    background-color: #f5f5f5;
+    padding: 20px 0px
+}
+.iface-wizard h4 {
+    background-image: url("/data/images/network-interface.png");
+    background-position: 15px 10px;
     background-repeat: no-repeat;
+    display: inline-block;
+    height: 100%;
+    padding: 15px 20px 15px 60px;
+    vertical-align: top;
+    margin:0px;
 }
-#nav.install-steps li:last-child{
-    border-bottom: 1px solid rgb(204, 204, 204);
+.iface-wizard > div {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: top;
+    border-left: 1px solid rgb(221, 221, 221);
+
 }
-#nav.install-steps .step-done{
+.iface-wizard .radio-group{
+    margin:0px;
+}
+.iface-wizard .radio-group label{
+    margin-top: 5px;
+    font-size: 1.2em;
+}
+.final_installation {
+    height:450px;
+    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
+    background-color: #ddd;
+    margin-top:10px;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 50px;
+}
+.final_installation h4 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #666;
+}
+.final_installation h5 {
+    font-size: 20px;
+    color: #666;
+    margin: 15px 0px;
+    width: 40%;
+    font-weight: 100;
+}
+.final_installation .btn {
+    position: absolute;
+    bottom: 50px;
+}
+.first-install #nav.install-steps {
+    overflow: hidden;
+}
+#nav.install-steps li {
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    border-top: 0;
+    border-left: 1px solid #cccccc;
+    box-sizing: border-box;
+    float: left;
+    overflow: hidden;
+    padding: 20px 30px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 25%;
+    background-color: transparent;
+}
+#nav.install-steps li:last-child {
+    border-right: 1px solid #cccccc;
+    border-bottom: 0;
+}
+#nav.install-steps .step-done {
     background-image: url(/data/images/apply-g.gif);
 }
 #nav.install-steps .step-actual{
@@ -1633,23 +1784,20 @@ body.first-install {
     min-height:400px;
     overflow: hidden;
     position:relative;
-    background: no-repeat bottom right;
-    margin-left: 20px;
-}
-.ads img {
-    position: absolute;
-    right:0px;
-    bottom:0px;
+    background: no-repeat center right;
+    margin-left:80px;
 }
 .ads h2{
     font-size: 30px;
     color: white;
     text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
-    max-width: 450px;
+    max-width: 50%;
+    margin-top: 40px;
 }
-.ads p, .ads li{
-    font-size:14px;
-    width:350px;
+.ads p,
+.ads li{
+    font-size:16px;
+    width:45%;
     color:#eee;
     padding-left:5px;
     text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
@@ -1945,6 +2093,7 @@ ul.labels-list li .close{
     padding: 15px;
     position: relative;
     overflow: hidden;
+    border: 1px solid #ccc;
 }
 .item-block h3{
     font-size: 24px;
@@ -2733,74 +2882,7 @@ FOLDable SECtIONS
     font-size: 12px !important;
 }
 
-/**********
- Installation Wizard
-**********/
 
-.wizard img{
-    float:left;
-    float: left;
-    margin-left: 10px;
-    margin-top: 10px;
-}
-.wizard form{
-    margin-left: 200px;
-    margin-bottom: 40px;
-}
-.iface-wizard {
-    background-color: #f5f5f5;
-    padding: 20px 0px
-}
-.iface-wizard h4 {
-    background-image: url("/data/images/network-interface.png");
-    background-position: 15px 10px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 100%;
-    padding: 15px 20px 15px 60px;
-    vertical-align: top;
-    margin:0px;
-}
-.iface-wizard > div {
-    display: inline-block;
-    padding-left: 20px;
-    padding-right: 20px;
-    vertical-align: top;
-    border-left: 1px solid rgb(221, 221, 221);
-
-}
-.iface-wizard .radio-group{
-    margin:0px;
-}
-.iface-wizard .radio-group label{
-    margin-top: 5px;
-    font-size: 1.2em;
-}
-.final_installation {
-    height:450px;
-    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
-    background-color: #ddd;
-    margin-top:10px;
-    overflow: hidden;
-    position: relative;
-    padding: 40px 50px;
-}
-.final_installation h4 {
-    font-size: 50px;
-    font-weight: bold;
-    color: #666;
-}
-.final_installation h5 {
-    font-size: 20px;
-    color: #666;
-    margin: 15px 0px;
-    width: 40%;
-    font-weight: 100;
-}
-.final_installation .btn {
-    position: absolute;
-    bottom: 50px;
-}
 /***********/
 
 .buttons-group{
@@ -3165,8 +3247,16 @@ Responsive corrections
     .final_installation .btn {
         position: static;
     }
-    .ads{
-        background-size: 70%;
+    .ads {
+        background-size: 45%;
+        background-position: right bottom;
+        margin-left: 30px;
+    }
+    .ads h2 {
+        max-width: none;
+    }
+    .ads li,.ads p{
+      width: 50%
     }
 }
 
@@ -3190,6 +3280,10 @@ Responsive corrections
     }
     .ads{
         background-image: none !important;
+        margin-right: 20px;
+    }
+    .ads li,.ads p{
+      width: auto;
     }
     #menusearch{
         width: 100px;
@@ -3198,7 +3292,6 @@ Responsive corrections
         position: static;
     }
     #menu{
-        left: 0px;
         width:55px;
     }
     #nav > li {
@@ -3231,12 +3324,13 @@ Responsive corrections
     #content{
         left: 65px;
     }
-    .first-install #menu {
-        display: none;
-    }
     .first-install #content {
-        left: 20px;
+        left: 10px;
     }
+    #nav.install-steps li{
+        background-position: 10px center;
+    }
+
 }
 @media  (min-width: 740px) {
     #menu{

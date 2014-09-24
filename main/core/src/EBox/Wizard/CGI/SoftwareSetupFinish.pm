@@ -43,7 +43,6 @@ sub _process
 sub _menu
 {
     my ($self) = @_;
-
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
         return $software->firstTimeMenu(5);
