@@ -29,55 +29,42 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-# Stop modules to avoid conflicts in listening ports with haproxy
-for module in usercorner captiveportal webserver
-do
-    service zentyal $module stop > /dev/null 2>&1
-done
-
-# Copy samba data to new destination and re-create hardlinks
-service zentyal samba stop
-SAMBA_PID=$(cat /var/run/samba/samba.pid)
-kill $SAMBA_PID
-sleep 1
-pkill -9 samba
-pkill -9 smbd
-mkdir -p /var/lib/samba
-cp -r /opt/samba4/private /var/lib/samba/
-cp -r /opt/samba4/var/locks/* /var/lib/samba/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
-ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
-chown -R root:bind /var/lib/samba/private/dns
-chmod -R g+rw /var/lib/samba/private/dns
-service zentyal samba restart
-
-echo; echo "Upgrading from Ubuntu 12.04 to 13.10 with Zentyal 3.4..."; echo
-sed -i 's/precise/saucy/g' /etc/apt/sources.list
-sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
+echo; echo "Upgrading from Zentyal 3.5 to 4.0..."; echo
+sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
 upgrade
 
-echo; echo "Forcing pending packages installation..."; echo
-rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
-sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-users.postinst
-apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+#service apache2 stop || true
 
-pkill -9 samba
-pkill -9 smbd
-service zentyal samba restart
+#for i in `seq 1 3`
+#do
+#    echo; echo "Forcing pending packages installation..."; echo
+#    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+#    for pkg in zentyal-core zentyal-samba
+#    do
+#        rm -f /var/lib/dpkg/info/${pkg}.postinst
+#    done
+#    dpkg --configure -a --force-confdef
+#    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+#    if [ $? == 0 ]
+#    then
+#        echo; echo "Nothing more pending to upgrade"; echo
+#        break
+#    fi
+#done
 
-if dpkg --configure -a --force-confdef
+#service apache2 stop
+
+if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
-    /usr/share/zentyal/initial-setup users 3.3
+    # Restart Zentyal UI
     service zentyal webadmin restart
-    service zentyal haproxy restart
 
     echo; echo "Zentyal upgrade finished!"
-
-    apt-get clean
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
+
+apt-get clean
 
 touch $UPGRADE_FILE

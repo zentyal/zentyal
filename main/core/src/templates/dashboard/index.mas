@@ -36,8 +36,9 @@ function releaseUpgrade(title) {
       });
 }
 </script>
-<div class="notification_container tip'>
-<span class="notification_text"><% $message->{text} %></span>
+<div id="notification_container" class='tip'>
+<span id="notification_text"><% $message->{text} %></span>
+<!-- comment close button for upgrade dialog when 4.0 is out -->
 <a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
 </div>
 % }
