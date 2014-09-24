@@ -2448,9 +2448,6 @@ form.formDiv .grey-block{
     background-color: #f5f5f5;
     padding: 20px
 }
-.form-buttons{
-    margin-top: 20px;
-}
 form.formDiv label,
 form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong {
@@ -2587,6 +2584,14 @@ form.formDiv label .field_help{
     color: #00ADD0;
     font-style: italic;
     padding-left: 3px;
+}
+.form-buttons{
+    margin-top: 20px;
+}
+.form-buttons .btn,
+.form-buttons input[type="submit"] {
+    display:inline-block;
+    margin-right: 10px;
 }
 
 

@@ -8,7 +8,7 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
 <div id='div_register_first_time' class='insideTab'>
-    <h3><% __('Register to store backups in the cloud') %></h3>
+  <h3><% __('Register to store backups in the cloud') %></h3>
    <div id='register_first_time_info' class='note' style='display:none'></div>
    <div id='register_first_time_error' class='error' style='display:none'></div>
    <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">
@@ -22,22 +22,6 @@ my @register_first_time_rows = (
     name => 'username2',
     input => '/input/text.mas',
  },
- {  printableName => __('Do you want to receive the Zentyal newsletter?'),
-    name => 'newsletter',
-    input => '/input/checkbox.mas',
- },
- {  printableName => __x('Do you agree with the {oa}privacy policy{ca}?',
-                             oa => "<a href='http://www.zentyal.com/legal/'>",
-                             ca => '</a>'
-                          ),
-    name => 'confirm_privacy',
-    input => '/input/checkbox.mas',
- },
- {  value => __('Register'),
-    input => '/input/submit.mas',
-    name => 'register',
-    id => 'register_first_time_submit'
- },
 );
 </%perl>
 % foreach my $row (@register_first_time_rows) {
@@ -48,10 +32,31 @@ my @register_first_time_rows = (
         <& $input, %{ $row } &>
       </div>
 % }
+      <div>
+        <label>
+          <input type="checkbox" name="confirm_privacy">
+          <% __x('Do you agree with the {oa}privacy policy{ca}?',
+                             oa => "<a href='http://www.zentyal.com/legal/'>",
+                             ca => '</a>'
+                          ) %>
+          <input type="hidden" name="confirm_privacy">
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="newsletter">
+          <% __('Do you want to receive the Zentyal newsletter?') %>
+          <span class="optional_field"> <% __('Optional') %> </span>
+        <input type="hidden" name="newsletter">
+        </label>
+      </div>
+      <div class="form-buttons">
+        <input type="submit" value="<% __('Register this server') %>" id="register_first_time_submit" name="register">
+      </div>
       <input type='hidden' name='servername' value='<% $fqdn %>' />
    </form>
 
-   <a href='#' id='switch_to_register_additional'><% __('I have already registered other server') %></a>
+   <p><a href='#' id='switch_to_register_additional'><% __('I have already registered other server') %></a></p>
 </div>
 
 <div id='div_register_additional' style='display:none' class='insideTab'>
@@ -71,11 +76,6 @@ my @register_additional_rows = (
     id   => 'register_additional_password',
     input => '/input/password.mas',
  },
- { value => __('Register'),
-   input => '/input/submit.mas',
-   name => 'register',
-   id => 'register_additional_submit'
-  },
 );
 </%perl>
 % foreach my $row (@register_additional_rows) {
@@ -86,10 +86,12 @@ my @register_additional_rows = (
         <& $input, %{ $row } &>
       </div>
 % }
+      <div class="form-buttons">
+        <a href='#' id='switch_to_register_first'><% __('Back') %></a>
+        <input type="submit" class="btn btn-green" value="<% __('Register') %>" id="register_additional_submit" name="register">
+      </div>
       <input type='hidden' name='servername' value='<% $fqdn %>' />
    </form>
-
- <a href='#' id='switch_to_register_first'><% __('Back') %></a>
 </div>
 
 <%def .cb>
