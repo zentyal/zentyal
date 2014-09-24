@@ -45,8 +45,8 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
   </div>
 % }
 <p>
-<form action='Backup' class="formDiv" method='POST'>
-    <div>
+<form action='Backup' class="formDiv inline-form" method='POST'>
+    <div class="field">
         <label><% __('Description') %></label>
         <input type='text' class='inputText' name='description' id='backup_description' size='52' />
     </div>
@@ -110,15 +110,15 @@ ENDJS
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
 
-<div id="<% $id %>">
+<div id="<% $id %>" class="grey-block">
   <form action="/Uploader"
         method="POST"
         enctype="multipart/form-data"
         id="<% $id . '_form' %>"
-        class="formDiv" >
-      <div>
-          <label><% __('Backup file') %></label>
-          <& /input/file.mas,
+        class="formDiv inline-form"
+        style="float:left">
+      <div class="field">
+           <& /input/file.mas,
              name => $id . '_path',
              id   => $id . '_path',
              onchange => $onChange,
@@ -126,12 +126,11 @@ ENDJS
           <span id="<% $id . '_loading'%>"></span>
       </div>
   </form>
-  <form action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
-      <div class="form-buttons">
-            <input type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
-     </div>
+  <form class="force-right" action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
+      <input class="btn-green" type='submit' name='restoreFromFile' value="<% $title %>"
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>  
   </form>
+  </div>
 </%def>
 
 
@@ -238,9 +237,9 @@ my %printableTypeById = (
 
 <%def .reportSection>
 <h3><% __('Configuration Report') %></h3>
-<div class='note'>
+<p>
         <% __('You can generate a file with information about the state of your system. This file can be useful if you want to report a problem or seek for support.')%>
-</div>
+</p>
 
 <form action='Backup' method='POST'>
                 <input type='submit' name='bugreport'

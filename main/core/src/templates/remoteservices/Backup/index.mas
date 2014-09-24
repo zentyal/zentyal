@@ -131,7 +131,7 @@ if ($restricted) {
 % }
 
 <p>
-<form action='<% $formAction %>' method='POST' class="formDiv">
+<form action='<% $formAction %>' method='POST' class="formDiv inline-form">
     <& /formTable.mas, rows => \@formElements &>
 </form>
 </p>
@@ -238,12 +238,12 @@ my @legendElements = (
 $username
 </%args>
 <h3><% __('Remote backups associated mail') %></h3>
-<div class="note">
+<p>
   <% __('The backups of this server are associate with the following email address:') %>
-</div>
-<form action="/RemoteServices/Community/UnRegister" method="POST" class="formDiv">
-  <% $username %>
-  <input type="submit" name="disassociate"
+</p>
+<form action="/RemoteServices/Community/UnRegister" method="POST" class="formDiv grey-block">
+  <span class="btn-text"><% $username %></span>
+  <input type="submit" class="force-right btn-red" name="disassociate"
          value="<% __('Disassociate this server') %>" />
 </form>
 </%def>
