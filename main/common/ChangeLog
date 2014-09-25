@@ -1,4 +1,4 @@
-HEAD
+3.2.4
 	+ Change DataInUse to External exception to avoid be logged as errors in
 	  logs
 3.2.3
