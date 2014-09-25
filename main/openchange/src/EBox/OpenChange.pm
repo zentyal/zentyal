@@ -104,11 +104,6 @@ sub initialSetup
         $self->_migrateOutgoingDomain();
     }
 
-    if (defined($version) and  (EBox::Util::Version::compare($version, '3.5.3') < 0)) {
-        EBox::debug("Migrating from $version");
-        $self->_migrateCerts();
-    }
-
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }
@@ -159,33 +154,6 @@ sub _migrateFormKeys
     if ($self->isProvisioned()) {
         # The organization name is only useful if the server is already provisioned.
         $self->set_state($state);
-    }
-}
-
-# Migrate RPC/Proxy certificates to use the proper ones using the CA
-# to make RPC/Proxy and Autodiscover work together
-sub _migrateCerts
-{
-    my ($self) = @_;
-
-    if ($self->isProvisioned()) {
-        try {
-            my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-            my $ca = $self->global()->modInstance('ca');
-            if ($ca->getCertificateMetadata(cn => $domain)) {
-                $ca->revokeCertificate(commonName => $domain,
-                                       reason     => 'superseded',
-                                       force      => 1);
-            }
-            $self->_setCert($domain);
-        } catch ($ex) {
-            EBox::error("Impossible to migrate certificates: $ex");
-        }
-        # Remove now useless certificate
-        my $oldRPCProxyCert = EBox::Config::conf() . 'openchange/ssl/ssl.pem';
-        foreach my $oldCert (('/etc/ocsmanager/autodiscover.pem', $oldRPCProxyCert)) {
-            EBox::Sudo::silentRoot("rm -rf '$oldCert'");
-        }
     }
 }
 
