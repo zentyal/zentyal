@@ -39,7 +39,8 @@ apt-get purge -y --force-yes haproxy
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
-    # Restart Zentyal UI
+    # Restart regular webserver and Zentyal UI
+    service apache2 restart
     service zentyal webadmin restart
 
     echo; echo "Zentyal upgrade finished!"
