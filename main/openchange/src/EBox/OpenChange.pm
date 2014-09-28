@@ -109,6 +109,14 @@ sub initialSetup
         $self->_migrateCerts();
     }
 
+    # Migration from 3.5 to 4.0
+    if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        EBox::Sudo::silentRoot('a2disconf sogo');
+        EBox::Sudo::silentRoot('a2enmod ssl');
+        EBox::Sudo::silentRoot('service apache2 reload');
+        EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
+    }
+
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }
