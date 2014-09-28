@@ -33,26 +33,8 @@ echo; echo "Upgrading from Zentyal 3.5 to 4.0..."; echo
 sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
 upgrade
 
-#service apache2 stop || true
-
-#for i in `seq 1 3`
-#do
-#    echo; echo "Forcing pending packages installation..."; echo
-#    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
-#    for pkg in zentyal-core zentyal-samba
-#    do
-#        rm -f /var/lib/dpkg/info/${pkg}.postinst
-#    done
-#    dpkg --configure -a --force-confdef
-#    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
-#    if [ $? == 0 ]
-#    then
-#        echo; echo "Nothing more pending to upgrade"; echo
-#        break
-#    fi
-#done
-
-#service apache2 stop
+# Purge haproxy which is no longer needed and conflicts with listening ports
+apt-get purge -y --force-yes haproxy
 
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
