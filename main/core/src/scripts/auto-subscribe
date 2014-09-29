@@ -38,6 +38,11 @@ unless ($mode) {
     $mode = 'new';
 }
 
+unless (($mode eq 'new') or ($mode eq 'associate') or ($mode eq 'overwrite')) {
+    print "Invalid mode: $mode. Choices are: new, associated and overwrite\n";
+    exit(2);
+}
+
 EBox::init();
 
 my $global = EBox::Global->getInstance();
