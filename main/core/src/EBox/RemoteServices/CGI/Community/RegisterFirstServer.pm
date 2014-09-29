@@ -26,6 +26,7 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::RemoteServices::Subscription::Validate;
+use EBox::RemoteServices::Track;
 use EBox::Validate;
 
 use TryCatch::Lite;
@@ -91,6 +92,10 @@ sub _process
         $self->{json}->{duplicate} = 0;
         $self->{json}->{error} = "$ex";
         return;
+    }
+
+    if ($self->param('wizard')) {
+        $self->{json}->{trackURI} = EBox::RemoteServices::Track::trackURL($username, $newsletter);
     }
 
     $self->{json}->{success} = 1;

@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::RemoteServices::Track;
 use EBox::Util::FileSize;
 
 use TryCatch::Lite;
@@ -103,23 +104,11 @@ sub masonParameters
     push @params, (maxBackups => $remoteservices->maxConfBackups());
 
     if ($self->param('first')) {
-        push @params, (trackURI => $self->_track($remoteservices));
+        push @params, (trackURI => EBox::RemoteServices::Track::trackURL($remoteservices->username(),
+                                                                         $self->param('nl')));
     }
 
     return \@params;
-}
-
-# Track the newly created users
-sub _track
-{
-    my ($self, $rs) = @_;
-
-    my $data = { email => $rs->username(),
-                 subscribed_newsletter => $self->param('nl') };
-
-    my $trackURI = new URI(GO_URL);
-    $trackURI->query_form($data);
-    return $trackURI->as_string();
 }
 
 1;

@@ -1,5 +1,11 @@
+<%doc>
+This template is shared between the wizard and the normal page.
+
+Based on wizard parameter to show a document or another one.
+</%doc>
 <%args>
 $fqdn
+$wizard => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -7,12 +13,28 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/form.js"></script>
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
-<div id='div_register_first_time' class='insideTab'>
+% if ($wizard) {
+<h3><% __('Store configuration backups in the cloud') %></h3>
+% }
+
+<div id='div_register_first_time'
+% unless ($wizard) {
+     class='insideTab'
+% }
+     >
+% unless ($wizard) {
   <h3><% __('Store configuration backups in the cloud') %></h3>
+% }
   <p><% __('We need an e-mail address in order to retrieve your backups later.') %></p>
    <div id='register_first_time_info' class='note' style='display:none'></div>
    <div id='register_first_time_error' class='error' style='display:none'></div>
-   <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">
+   <form id='register_first_time_form'
+         action='/RemoteServices/Community/RegisterFirstServer'
+         class="formDiv changeRow"
+% if ($wizard) {
+         style="margin-bottom: 20px;"
+% }
+         >
 <%perl>
 my @register_first_time_rows = (
  {  printableName => __('E-mail address'),
@@ -52,14 +74,31 @@ my @register_first_time_rows = (
       <div class="form-buttons">
         <input type="submit" value="<% __('Backup this server') %>" id="register_first_time_submit" name="register">
       </div>
-      <input type='hidden' name='servername' value='<% $fqdn %>' />
+      <input type="hidden" name="servername" value="<% $fqdn %>" />
+% if ($wizard) {
+      <input type="hidden" name="wizard" value="1" />
+% }
    </form>
 
    <p><a href='#' id='switch_to_register_additional'><% __('I have already configured cloud backup for other server.') %></a></p>
 </div>
 
-<div id='div_register_additional' style='display:none' class='insideTab'>
-    <h3><% __('Add this server to store backups in the cloud') %></h3>
+<div id='div_register_additional' style='display:none'
+% unless ($wizard) {
+     class='insideTab'
+% }
+     >
+% if ($wizard) {
+    <legend>
+% } else {
+    <h3>
+% }
+<% __('Add this server to store configuration backups in the cloud') %>
+% if ($wizard) {
+    </legend>
+% } else {
+    </h3>
+% }
     <p></p>
    <div id='register_additional_info' class='note' style='display:none'></div>
    <div id='register_additional_error' class='error' style='display:none'></div>
@@ -104,5 +143,5 @@ $name
 
 
 <script>
-  Zentyal.RemoteServices.setupCommunityRegisterPage();
+  Zentyal.RemoteServices.setupCommunityRegisterPage(<% $wizard ? 'true' : 'false' %>);
 </script>

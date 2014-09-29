@@ -152,7 +152,7 @@ Zentyal.RemoteServices.setupBackupPage = function() {
 };
 
 
-Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
+Zentyal.RemoteServices.setupCommunityRegisterPage = function(wizard) {
     var div_register_first = $('#div_register_first_time');
     var div_register_additional = $('#div_register_additional');
     
@@ -192,11 +192,30 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
                 }
                 return;
             }
-            var rurl = '/RemoteServices/Backup/Index?first=true';
-            if (response.newsletter) {
-                rurl += '&nl=on';
+            if (wizard) {
+                console.log(response.trackURI);
+                if (response.trackURI) {
+                    var ifr = $(document.createElement('iframe'));
+                    ifr.width(1);
+                    ifr.height(1);
+                    ifr.attr('src', response.trackURI);
+                    ifr.appendTo(document.body);
+                    ifr.load( function() {
+                        setTimeout( function() {
+                            Zentyal.Wizard.submitPage('/Wizard?page=RemoteServices/Wizard/Subscription');
+                        }, 1000);
+                    });
+                } else {
+                    // Load next page
+                    Zentyal.Wizard.submitPage('/Wizard?page=RemoteServices/Wizard/Subscription');
+                }
+            } else {
+                var rurl = '/RemoteServices/Backup/Index?first=true';
+                if (response.newsletter) {
+                    rurl += '&nl=on';
+                }
+                window.location.replace(rurl);
             }
-            window.location.replace(rurl);
         }
     });
 
@@ -208,7 +227,12 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
             if (!response.success) {
                 return;
             }
-            window.location.replace('/RemoteServices/Backup/Index');
+            if (wizard) {
+                // Load next page
+                Zentyal.Wizard.submitPage('/Wizard?page=RemoteServices/Wizard/Subscription');
+            } else {
+                window.location.replace('/RemoteServices/Backup/Index');
+            }
         }
     });
 };

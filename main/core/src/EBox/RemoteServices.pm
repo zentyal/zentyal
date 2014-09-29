@@ -1184,6 +1184,24 @@ sub showModuleStatus
     return 0;
 }
 
+# Method: wizardPages
+#
+# Overrides:
+#
+#       <EBox::Module::Base::wizardPages>
+#
+sub wizardPages
+{
+    my ($self) = @_;
+
+    if (EBox::Config::configkey('hide_subscription_wizard') or $self->commercialEdition('force')) {
+        return [];
+    }
+
+    return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
+}
+
+
 # Method: widgets
 #
 # Overrides#
