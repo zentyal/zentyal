@@ -33,12 +33,13 @@ echo; echo "Upgrading from Zentyal 3.5 to 4.0..."; echo
 sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
 upgrade
 
-# Purge haproxy which is no longer needed and conflicts with listening ports
-apt-get purge -y --force-yes haproxy
-
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
+
+    # Purge all no longer needed running services like haproxy, collectd, etc
+    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+
     # Restart regular webserver and Zentyal UI
     service apache2 restart
     service zentyal webadmin restart
