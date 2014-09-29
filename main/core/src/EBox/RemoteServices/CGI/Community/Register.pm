@@ -18,6 +18,8 @@ use warnings;
 package EBox::RemoteServices::CGI::Community::Register;
 use base qw(EBox::CGI::ClientBase);
 
+# CGI to present the community registration form
+
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;

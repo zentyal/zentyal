@@ -15,11 +15,11 @@ use EBox::Gettext;
    <form id='register_first_time_form' action='/RemoteServices/Community/RegisterFirstServer' class="formDiv changeRow">
 <%perl>
 my @register_first_time_rows = (
- {  printableName => __('e-mail'),
+ {  printableName => __('E-mail address'),
     name => 'username',
     input => '/input/text.mas',
  },
- {  printableName => __('Confirm e-mail'),
+ {  printableName => __('Confirm e-mail address'),
     name => 'username2',
     input => '/input/text.mas',
  },
@@ -35,20 +35,18 @@ my @register_first_time_rows = (
 % }
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="confirm_privacy">
+          <input type="checkbox" name="confirm_privacy" id="confirm_privacy">
           <% __x('Do you agree with the {oa}privacy policy{ca}?',
                              oa => "<a href='http://www.zentyal.com/legal/'>",
                              ca => '</a>'
                           ) %>
-          <input type="hidden" name="confirm_privacy" value="">
         </label>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="newsletter">
+          <input type="checkbox" name="newsletter" id="newsletter">
           <% __('I want to suscribe to Zentyal newsletter') %>
           <span class="optional_field"> <% __('Optional') %> </span>
-        <input type="hidden" name="newsletter">
         </label>
       </div>
       <div class="form-buttons">
@@ -94,7 +92,7 @@ my @register_additional_rows = (
       </div>
       <input type='hidden' name='servername' value='<% $fqdn %>' />
    </form>
-   <p><a href="www.google.com" title="<% __('Restore my password') %>"><% __('Restore my password') %></a></p>
+   <p><a href="FIXME" title="<% __('Reset my password') %>"><% __('Reset my password') %></a></p>
 </div>
 
 <%def .cb>

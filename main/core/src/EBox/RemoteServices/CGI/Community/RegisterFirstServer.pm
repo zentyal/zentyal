@@ -18,6 +18,8 @@ use warnings;
 package EBox::RemoteServices::CGI::Community::RegisterFirstServer;
 use base qw(EBox::CGI::ClientRawBase);
 
+# CGI to register the user
+
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
@@ -27,7 +29,6 @@ use EBox::RemoteServices::Subscription::Validate;
 use EBox::Validate;
 
 use TryCatch::Lite;
-
 
 sub new
 {
@@ -66,7 +67,12 @@ sub _process
         $self->{json}->{error} = __('You must accept the privacy policy to register your server');
         return;
     }
+
     my $newsletter = $self->param('newsletter');
+    if ($newsletter) {
+        $newsletter = 1;  # Cast to boolean
+        $self->{json}->{newsletter} = 1;
+    }
 
     try {
         my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');

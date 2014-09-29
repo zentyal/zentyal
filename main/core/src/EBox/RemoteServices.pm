@@ -454,7 +454,7 @@ sub registerFirstCommunityServer
     $self->setUsername($username);
 
     my $community = $self->communityResource();
-    my$credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
+    my $credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
     $self->setSubscriptionCredentials($credentials);
 
     my $subscriptions = $self->subscriptionsResource();

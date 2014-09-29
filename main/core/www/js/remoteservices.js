@@ -192,7 +192,11 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function() {
                 }
                 return;
             }
-            window.location.replace('/RemoteServices/Backup/Index');
+            var rurl = '/RemoteServices/Backup/Index?first=true';
+            if (response.newsletter) {
+                rurl += '&nl=on';
+            }
+            window.location.replace(rurl);
         }
     });
 

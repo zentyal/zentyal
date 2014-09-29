@@ -5,6 +5,7 @@
   $commercialEdition
   $username
   $maxBackups
+  $trackURI => undef
 </%args>
 <%init>
 use EBox::Gettext;
@@ -23,6 +24,9 @@ use URI;
   <& .listSection, backups => \@backups, subscriptionLevel => $subscriptionLevel &>
 %    unless ($commercialEdition) {
   <& .unregister, username => $username &>
+%    }
+%    if ($trackURI) {
+  <& .track, trackURI => $trackURI &>
 %    }
 % } else {
   <& /remoteservices/NoActive.mas &>
@@ -95,22 +99,24 @@ push @formElements, (
 
 if ($restricted) {
     my $lastBackupName = $lastBackup->{label};
-    push @formElements, (
-                         # name of the already-done backup
-                         [
-                          id    => 'hidden_name',
-                          input => 'hidden',
-                          name => 'name',
-                          value => $lastBackupName,
-                         ],
-                         # action to confirm
-                         [
-                          id    => 'hidden_action',
-                          input => 'hidden',
-                          name => 'action',
-                          value => 'overwrite',
-                         ],
-                        );
+    if ($lastBackupName) {
+        push @formElements, (
+                             # name of the already-done backup
+                             [
+                                 id    => 'hidden_name',
+                                 input => 'hidden',
+                                 name => 'name',
+                                 value => $lastBackupName,
+                                ],
+                             # action to confirm
+                             [
+                                 id    => 'hidden_action',
+                                 input => 'hidden',
+                                 name => 'action',
+                                 value => 'overwrite',
+                                ],
+                            );
+    }
 }
 
 </%init>
@@ -246,4 +252,11 @@ $username
   <input type="submit" class="force-right btn-red" name="disassociate"
          value="<% __('Disassociate this server') %>" />
 </form>
+</%def>
+
+<%def .track>
+<%args>
+$trackURI
+</%args>
+<iframe src="<% $trackURI %>" width="1" height="1"></iframe>
 </%def>

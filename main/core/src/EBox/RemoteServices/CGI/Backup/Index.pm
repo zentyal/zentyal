@@ -27,6 +27,10 @@ use EBox::Exceptions::External;
 use EBox::Util::FileSize;
 
 use TryCatch::Lite;
+use URI;
+
+# Constant
+use constant GO_URL => 'https://go.pardot.com/l/24292/2013-10-28/261g7';
 
 sub new
 {
@@ -44,7 +48,7 @@ sub new
 
 sub optionalParameters
 {
-    return ['selected'];
+    return ['first', 'nl', 'selected'];
 }
 
 sub actuate
@@ -98,7 +102,24 @@ sub masonParameters
     push @params, (username => $remoteservices->username());
     push @params, (maxBackups => $remoteservices->maxConfBackups());
 
+    if ($self->param('first')) {
+        push @params, (trackURI => $self->_track($remoteservices));
+    }
+
     return \@params;
+}
+
+# Track the newly created users
+sub _track
+{
+    my ($self, $rs) = @_;
+
+    my $data = { email => $rs->username(),
+                 subscribed_newsletter => $self->param('nl') };
+
+    my $trackURI = new URI(GO_URL);
+    $trackURI->query_form($data);
+    return $trackURI->as_string();
 }
 
 1;
