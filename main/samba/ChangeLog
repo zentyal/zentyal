@@ -1,3 +1,5 @@
+HEAD
+	+ Do not try to dump config backup if not provisioned
 3.5.8
 	+ Check samAccountName is unique in entire domain adding users and groups
 	+ Ignore cloud-sync warnings from cron
