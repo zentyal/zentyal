@@ -1,19 +1,141 @@
-<%args>
-  $domain
-</%args>
+<%doc>
+    Template to set the apache configuration file for ocsmanager provided
+    service:
+        * Autodiscover (only HTTPs)
+        * EWS (freebusy, outofoffice, etc. only HTTPs)
+        * RPC proxy (HTTP or HTTPs)
 
-# FIXME: unhardcode port if customized
-<VirtualHost *:443>
-    ServerName autodiscover.<% $domain %>
+Parameters:
+
+    group - String the group that must live apache-perl process
+            Default value: www-data
+    user  - String the user that the apache-perl process must be
+            Default value: www-data
+    rpcproxyAuthCacheDir - The directory to use as the auth cache.
+    domains - Array ref containing the configuration for the different
+              virtual domains
+</%doc>
+<%args>
+    $group => 'www-data'
+    $user => 'www-data'
+    $rpcproxyAuthCacheDir
+    $domains => []
+</%args>
+<%init>
+    use EBox::Sudo;
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName = $sysinfo->hostName();
+</%init>
+
+user  <% $user %>
+group <% $group %>
+
+WSGILazyInitialization On
+WSGIPythonPath /usr/lib/openchange/web/rpcproxy
+WSGIScriptAlias /rpc/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+
+% foreach my $item (@{$domains}) {
+<& .domainVHost,
+    httpPort        => 80,
+    httpsPort       => 443,
+    hostname        => $hostName,
+    domain          => $item->{domain},
+    certificate     => $item->{certificate},
+    rpcproxyAuthCacheDir => $rpcproxyAuthCacheDir,
+    autodiscover    => $item->{autodiscover},
+    ews             => $item->{ews},
+    rpcProxyHttp    => $item->{rpcProxyHttp},
+    rpcProxyHttps   => $item->{rpcProxyHttps},
+&>
+% }
+
+<%def .domainVHost>
+<%args>
+    $httpPort => 80
+    $httpsPort => 443
+    $hostname
+    $domain
+    $certificate
+    $rpcproxyAuthCacheDir
+    $autodiscover => 1
+    $ews => 1
+    $rpcProxyHttp => 0
+    $rpcProxyHttps => 0
+</%args>
+% if ($rpcProxyHttp) {
+<VirtualHost *:<% $httpPort %>>
+    ServerName <% $hostname %>.<% $domain %>
+    ServerAlias autodiscover.<% $domain %>
+
+    # HTTPs RPC Proxy (extremely high timeout required by clients)
+    Timeout 300
+    KeepAlive On
+    KeepAliveTimeout 120
+    MaxKeepAliveRequests 500
+    AddDefaultCharset utf-8
+
+    Include /etc/apache2/mods-available/wsgi.load
+    Include /etc/apache2/mods-available/env.load
+
+    <Directory /usr/lib/openchange/web/rpcproxy/>
+        SetEnv RPCPROXY_LOGLEVEL DEBUG
+        SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
+        SetEnv SAMBA_HOST 127.0.0.1
+        WSGIPassAuthorization On
+        WSGIProcessGroup %{GLOBAL}
+        Require all granted
+    </Directory>
+</VirtualHost>
+% }
+
+% if (EBox::Sudo::fileTest('-f', $certificate)) {
+<VirtualHost *:<% $httpsPort %>>
+    ServerName <% $hostname %>.<% $domain %>
+    ServerAlias autodiscover.<% $domain %>
 
     SSLEngine on
-    SSLCertificateFile /etc/ocsmanager/domain.pem
+    SSLCertificateFile <% $certificate %>
 
     ProxyAddHeaders On
 
-    # ocsmanager autodiscover
+% if ($autodiscover) {
+    # Autodiscover
     ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
+% } else {
+    # Autodiscover disabled
+% }
 
-    # ocsmanager Exchange Web Services (ews)
+% if ($ews) {
+    # EWS
     ProxyPass /ews http://127.0.0.1:5000/ews
+% } else {
+    # EWS disabled
+% }
+
+% if ($rpcProxyHttps) {
+    # HTTPs RPC Proxy (extremely high timeout required by clients)
+    Timeout 300
+    KeepAlive On
+    KeepAliveTimeout 120
+    MaxKeepAliveRequests 500
+    AddDefaultCharset utf-8
+
+    Include /etc/apache2/mods-available/wsgi.load
+    Include /etc/apache2/mods-available/env.load
+
+    <Directory /usr/lib/openchange/web/rpcproxy/>
+        SetEnv RPCPROXY_LOGLEVEL DEBUG
+        SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
+        SetEnv SAMBA_HOST 127.0.0.1
+        WSGIPassAuthorization On
+        WSGIProcessGroup %{GLOBAL}
+        Require all granted
+    </Directory>
+% }
 </VirtualHost>
+% } else {
+# HTTPs configuration for domain <% $domain %> skipped due to missing
+# certificate (<% $certificate %>)
+% }
+</%def>

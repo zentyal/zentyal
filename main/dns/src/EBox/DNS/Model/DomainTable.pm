@@ -233,8 +233,40 @@ sub addHostAlias
     my $aliasModel = $hostRow->subModel('alias');
     my @aliases = ref $alias eq 'ARRAY' ? @{ $alias } : ($alias);
     foreach my $alias (@aliases) {
-        EBox::debug('Adding host alias $alias');
-        $aliasModel->addRow(alias => $alias);
+        my $row = $aliasModel->find(alias => $alias);
+        unless (defined $row) {
+            EBox::debug("Adding host '$hostname' alias '$alias'");
+            $aliasModel->addRow(alias => $alias);
+        }
+    }
+}
+
+sub delHostAlias
+{
+    my ($self, $domain, $hostname, $alias) = @_;
+    $domain or
+        throw EBox::Exceptions::MissingArgument('domain');
+    $hostname or
+        throw EBox::Exceptions::MissingArgument('hostname');
+    $alias or
+        throw EBox::Exceptions::MissingArgument('alias');
+
+    my $domainRow = $self->_getDomainRow($domain);
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostname);
+    if (not $hostRow) {
+        throw EBox::Exceptions::DataNotFound(
+            data => $hostname, value => $hostname);
+    }
+
+    my $aliasModel = $hostRow->subModel('alias');
+    my @aliases = ref $alias eq 'ARRAY' ? @{ $alias } : ($alias);
+    foreach my $alias (@aliases) {
+        my $row = $aliasModel->find(alias => $alias);
+        if (defined $row) {
+            EBox::debug("Removing host '$hostname' alias '$alias'");
+            $aliasModel->removeRow($row->id());
+        }
     }
 }
 
@@ -660,78 +692,78 @@ sub _table
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
 #
-sub syncRows
-{
-    my ($self, $currentIds) = @_;
-
-    my %dynamicDomainsIds = ();
-    my $global = $self->global();
-    if ($global->modExists('dhcp')) {
-        my $dhcp = $global->modInstance('dhcp');
-        %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
-    }
-
-    my %sambaZones;
-    if ($global->modExists('samba')) {
-        my $samba = $global->modInstance('samba');
-        if ($samba->isEnabled() and
-            $samba->getProvision->isProvisioned())
-        {
-            my $sambaZones = $samba->ldap->dnsZones();
-            %sambaZones = map { $_->name() => 1 } @{$sambaZones};
-        }
-    }
-
-    my $changed;
-    foreach my $id (@{$currentIds}) {
-        my $newDynValue = undef;
-        my $rowStore = 0;
-        my $row = $self->row($id);
-
-        my $dynamicElement = $row->elementByName('dynamic');
-        my $dynamicValue   = $dynamicElement->value();
-        if ($dynamicValue) {
-            $newDynValue = 0 if (not $dynamicDomainsIds{$id});
-        } else {
-            $newDynValue = 1 if ($dynamicDomainsIds{$id});
-        }
-
-        my $sambaElement = $row->elementByName('samba');
-        my $domainName = $row->valueByName('domain');
-        # If the domain is not marked as stored in LDB and is present in
-        # samba zones array, mark
-        if (exists $sambaZones{$domainName}) {
-            if (not $sambaElement->value()) {
-                $sambaElement->setValue(1);
-                $rowStore = 1;
-            }
-            if (not $dynamicValue) {
-                $newDynValue = 1;
-            }
-        }
-
-        # If the domain is marked as stored in LDB and is not present in
-        # samba zones array, unmark
-        if (not exists $sambaZones{$domainName} and $sambaElement->value()) {
-            $sambaElement->setValue(0);
-            $rowStore = 1;
-        }
-
-        if (defined $newDynValue) {
-            $dynamicElement->setValue($newDynValue);
-            $rowStore = 1;
-        }
-
-        if ($rowStore) {
-            $row->store();
-            $changed = 1;
-        }
-
-        delete $sambaZones{$domainName};
-    }
-
-    return $changed;
-}
+#sub syncRows
+#{
+#    my ($self, $currentIds) = @_;
+#
+#    my %dynamicDomainsIds = ();
+#    my $global = $self->global();
+#    if ($global->modExists('dhcp')) {
+#        my $dhcp = $global->modInstance('dhcp');
+#        %dynamicDomainsIds = %{ $dhcp->dynamicDomainsIds() };
+#    }
+#
+#    my %sambaZones;
+#    if ($global->modExists('samba')) {
+#        my $samba = $global->modInstance('samba');
+#        if ($samba->isEnabled() and
+#            $samba->getProvision->isProvisioned())
+#        {
+#            my $sambaZones = $samba->ldap->dnsZones();
+#            %sambaZones = map { $_->name() => 1 } @{$sambaZones};
+#        }
+#    }
+#
+#    my $changed;
+#    foreach my $id (@{$currentIds}) {
+#        my $newDynValue = undef;
+#        my $rowStore = 0;
+#        my $row = $self->row($id);
+#
+#        my $dynamicElement = $row->elementByName('dynamic');
+#        my $dynamicValue   = $dynamicElement->value();
+#        if ($dynamicValue) {
+#            $newDynValue = 0 if (not $dynamicDomainsIds{$id});
+#        } else {
+#            $newDynValue = 1 if ($dynamicDomainsIds{$id});
+#        }
+#
+#        my $sambaElement = $row->elementByName('samba');
+#        my $domainName = $row->valueByName('domain');
+#        # If the domain is not marked as stored in LDB and is present in
+#        # samba zones array, mark
+#        if (exists $sambaZones{$domainName}) {
+#            if (not $sambaElement->value()) {
+#                $sambaElement->setValue(1);
+#                $rowStore = 1;
+#            }
+#            if (not $dynamicValue) {
+#                $newDynValue = 1;
+#            }
+#        }
+#
+#        # If the domain is marked as stored in LDB and is not present in
+#        # samba zones array, unmark
+#        if (not exists $sambaZones{$domainName} and $sambaElement->value()) {
+#            $sambaElement->setValue(0);
+#            $rowStore = 1;
+#        }
+#
+#        if (defined $newDynValue) {
+#            $dynamicElement->setValue($newDynValue);
+#            $rowStore = 1;
+#        }
+#
+#        if ($rowStore) {
+#            $row->store();
+#            $changed = 1;
+#        }
+#
+#        delete $sambaZones{$domainName};
+#    }
+#
+#    return $changed;
+#}
 
 # Group: Private methods
 

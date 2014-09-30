@@ -5,8 +5,8 @@ $baseDn
 $port
 $adminMail
 $intNetworks => ['0.0.0.0/0']
-$rpcProxy
-$rpcProxySSL
+$rpcProxy => 0
+$rpcProxySSL => 0
 $rpcProxyExternalHostname => undef
 $mailboxesDir
 </%args>
@@ -16,7 +16,7 @@ $mailboxesDir
 # The %(here)s variable will be replaced with the parent directory of this file
 #
 [DEFAULT]
-debug = true
+debug = yes
 email_to = <% $adminMail %>
 smtp_server = localhost
 error_email_from = <% $adminMail %>
@@ -28,7 +28,7 @@ error_email_from = <% $adminMail %>
 auth = ldap
 mapistore_root = /var/lib/samba/private
 mapistore_data = /var/lib/samba/mapistore
-debug = no
+debug = yes
 
 [auth:file]
 #file =

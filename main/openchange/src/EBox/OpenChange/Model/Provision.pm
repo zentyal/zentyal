@@ -171,22 +171,22 @@ sub precondition
     }
 
     # Check the samba domain is present in the Mail Virtual Domains model
-    my $mailModule = $self->global->modInstance('mail');
-    my $VDomainsModel = $mailModule->model('VDomains');
-    my $adDomain = $users->getProvision->getADDomain('localhost');
-    my $adDomainFound = 0;
-    foreach my $id (@{$VDomainsModel->ids()}) {
-        my $row = $VDomainsModel->row($id);
-        my $vdomain = $row->valueByName('vdomain');
-        if (lc $vdomain eq lc $adDomain) {
-            $adDomainFound = 1;
-            last;
-        }
-    }
-    unless ($adDomainFound) {
-        $self->{preconditionFail} = 'vdomainNotFound';
-        return undef;
-    }
+    #my $mailModule = $self->global->modInstance('mail');
+    #my $VDomainsModel = $mailModule->model('VDomains');
+    #my $adDomain = $users->getProvision->getADDomain('localhost');
+    #my $adDomainFound = 0;
+    #foreach my $id (@{$VDomainsModel->ids()}) {
+    #    my $row = $VDomainsModel->row($id);
+    #    my $vdomain = $row->valueByName('vdomain');
+    #    if (lc $vdomain eq lc $adDomain) {
+    #        $adDomainFound = 1;
+    #        last;
+    #    }
+    #}
+    #unless ($adDomainFound) {
+    #    $self->{preconditionFail} = 'vdomainNotFound';
+    #    return undef;
+    #}
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
@@ -414,11 +414,11 @@ sub provision
         $ca->createCA(commonName => $commonName, orgName => $organizationName);
     }
 
-    my $configuration = $openchange->model('Configuration');
-    if (not $configuration->_rowStored()) {
-        my $defaultOutgoing = $configuration->value('outgoingDomain');
-        $configuration->setValue('outgoingDomain', $defaultOutgoing);
-    }
+#    my $configuration = $openchange->model('Configuration');
+#    if (not $configuration->_rowStored()) {
+#        my $defaultOutgoing = $configuration->value('outgoingDomain');
+#        $configuration->setValue('outgoingDomain', $defaultOutgoing);
+#    }
 
     foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {

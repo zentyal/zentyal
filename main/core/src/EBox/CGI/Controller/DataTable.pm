@@ -203,7 +203,6 @@ sub _editField
 
     my $model = $self->{'tableModel'};
     my $force = $self->param('force');
-    my $tableDesc = $model->table()->{'tableDescription'};
 
     my $id = $params{id};
     my $row = $model->row($id);
@@ -218,7 +217,7 @@ sub _editField
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    for my $field (@{$tableDesc}) {
+    foreach my $field (@{$row->elements()}) {
         my $fieldName = $field->fieldName();
 
         if ($inPlace and (not $field->isa('EBox::Types::Basic'))) {
@@ -271,7 +270,7 @@ sub _editField
         return $id;
     }
 
-    foreach my $field (@{$tableDesc}) {
+    foreach my $field (@{$row->elements()}) {
         my $fieldName = $field->{'fieldName'};
         if ($editField ne $fieldName) {
             next;
@@ -301,8 +300,7 @@ sub editBoolean
     my %editParams = (id => $id, $boolField => $value);
     # fill edit params with row fields
     my $row = $model->row($id);
-    my $tableDesc =  $model->table()->{'tableDescription'};
-    for my $field (@{$tableDesc} ) {
+    for my $field (@{$row->elements()}) {
         my $fieldName = $field->fieldName();
         if ($fieldName eq $boolField) {
             next;

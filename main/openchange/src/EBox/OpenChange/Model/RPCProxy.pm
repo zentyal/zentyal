@@ -17,13 +17,11 @@ use strict;
 use warnings;
 
 package EBox::OpenChange::Model::RPCProxy;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
-use EBox::Types::Text;
 use EBox::Types::Link;
-use EBox::Types::Boolean;
-use TryCatch::Lite;
 
 # Method: new
 #
@@ -47,118 +45,28 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc = (
-        EBox::Types::Text->new(
-            fieldName => 'host',
-            printableName => __('Host name'),
-            volatile => 1,
-            filter => sub { return $self->_host },
-            editable => 0,
+    my $tableDesc = [
+        new EBox::Types::Link(
+            fieldName       => 'certificate',
+            printableName   => __('CA Certificate'),
+            volatile        => 1,
+            optionalLabel   => 0,
+            acquirer        => sub { return '/Downloader/RPCCert'; },
+            HTMLViewer      => '/ajax/viewer/downloadLink.mas',
+            HTMLSetter      => '/ajax/viewer/downloadLink.mas',
         ),
-        EBox::Types::Link->new(
-             fieldName => 'certificate',
-             printableName => __('Certificate'),
-             volatile  => 1,
-             optionalLabel => 0,
-             acquirer => sub { return '/Downloader/RPCCert'; },
-             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
-             HTMLSetter     => '/ajax/viewer/downloadLink.mas',
-         ),
-        EBox::Types::Boolean->new(
-            fieldName     => 'http',
-            printableName => __('Access without SSL'),
-            defaultValue  => 0,
-            editable      => 1
-           ),
-        EBox::Types::Boolean->new(
-            fieldName     => 'https',
-            printableName => __('Access with SSL'),
-            defaultValue  => 0,
-            editable      => 1
-           ),
-        );
+    ];
 
     my $dataForm = {
         tableName          => 'RPCProxy',
         printableTableName => __('HTTP/HTTPS proxy access'),
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
-        tableDescription   => \@tableDesc,
-        help               => __x('Setup access to {oc} through HTTP/HTTPS known as {oa}.'
-                                  . 'Remember HTTPS access and autodiscover requires you to '
-                                  . 'import Zentyal CA certificate into your {win} account.',
-                                  'oc' => 'OpenChange', 'oa' => 'Outlook Anywhere',
-                                  'win' => 'Windows'),
+        tableDescription   => $tableDesc,
+        help               => __('FIXME'), # FIXME TODO
     };
 
     return $dataForm;
-}
-
-sub precondition
-{
-    my ($self) = @_;
-
-    my $host;
-    try {
-        $host = $self->_host();
-        if (not $host) {
-            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}',
-                                               oh => '<a href="/DNS/Composite/Global">',
-                                               ch => '</a>'
-                                              );
-        }
-    } catch($ex) {
-        $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name: {err}', err => "$ex");
-        $host = undef;
-    };
-
-    return defined $host;
-}
-
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-    return $self->{preconditionFailMsg};
-}
-
-sub _host
-{
-    my ($self) = @_;
-    my $hosts = $self->parentModule()->rpcProxyHosts();
-
-    my $ca = $self->parentModule()->global()->modInstance('ca');
-
-    if (@{$hosts} > 1) {
-        # Second value is the domain
-        my $domainCert = $ca->getCertificateMetadata(cn => $hosts->[1]);
-        if ($domainCert and ($domainCert->{state} eq 'V')) {
-            my $matches = grep { $_->{value} eq $hosts->[0] } @{$domainCert->{subjAltNames}};
-            if ($matches == 0) {
-                return $hosts->[1];
-            }
-        }
-    }
-    return $hosts->[0];
-}
-
-sub enabled
-{
-    my ($self) = @_;
-    return ($self->httpEnabled() or $self->httpsEnabled());
-}
-
-sub httpEnabled
-{
-    my ($self) = @_;
-
-    return $self->value('http');
-}
-
-sub httpsEnabled
-{
-    my ($self) = @_;
-
-    return $self->value('https');
 }
 
 1;

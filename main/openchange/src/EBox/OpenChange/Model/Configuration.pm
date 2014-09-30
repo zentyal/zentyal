@@ -66,15 +66,15 @@ sub _table
         hidden => \&_hideActiveSync,
     ));
 
-    push (@tableDesc, new EBox::Types::Select(
-        fieldName     => 'outgoingDomain',
-        printableName => __('Outgoing Mail Domain'),
-        foreignModel  => $self->modelGetter('mail', 'VDomains'),
-        foreignField  => 'vdomain',
-        editable      => 1,
-        help          => __('Outgoing mail domain of emails sent from this ' .
-                            'server will be overwritten with this one.'),
-    ));
+    #push (@tableDesc, new EBox::Types::Select(
+    #    fieldName     => 'outgoingDomain',
+    #    printableName => __('Outgoing Mail Domain'),
+    #    foreignModel  => $self->modelGetter('mail', 'VDomains'),
+    #    foreignField  => 'vdomain',
+    #    editable      => 1,
+    #    help          => __('Outgoing mail domain of emails sent from this ' .
+    #                        'server will be overwritten with this one.'),
+    #));
 
     my $dataForm = {
         tableName          => 'Configuration',
@@ -103,16 +103,16 @@ sub preconditionFailMsg
                );
 }
 
-sub validateTypedRow
-{
-    my ($self, $action, $changed, $all) = @_;
-    my $domain = $all->{outgoingDomain}->printableValue();
-    my $openchange = $self->parentModule();
-    if ($openchange->_rpcProxyEnabled()) {
-        # check if there is a host for rpcprpxoy
-        $openchange->_rpcProxyHostForDomain($domain);
-    }
-}
+#sub validateTypedRow
+#{
+#    my ($self, $action, $changed, $all) = @_;
+#    my $domain = $all->{outgoingDomain}->printableValue();
+#    my $openchange = $self->parentModule();
+#    if ($openchange->_rpcProxyEnabled()) {
+#        # check if there is a host for rpcprpxoy
+#        $openchange->_rpcProxyHostForDomain($domain);
+#    }
+#}
 
 sub formSubmitted
 {

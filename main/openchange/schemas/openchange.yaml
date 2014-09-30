@@ -14,10 +14,11 @@ depends:
 
 models:
     - Provision
-    - RPCProxy
+    - Certificates
     - OpenChangeUser
     - Configuration
+    - RPCProxy
 
 composites:
-    General: [Provision, Configuration, RPCProxy]
+    General: [Provision, Certificates, RPCProxy, Configuration]
 
