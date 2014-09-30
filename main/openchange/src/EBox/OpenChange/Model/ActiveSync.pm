@@ -20,16 +20,8 @@ package EBox::OpenChange::Model::ActiveSync;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::DBEngineFactory;
-use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
-use EBox::MailUserLdap;
-use EBox::Types::MultiStateAction;
-use EBox::Types::Select;
-use EBox::Types::Text;
-use EBox::Types::Union;
-
-use TryCatch::Lite;
+use EBox::Types::Boolean;
 
 # Method: new
 #
@@ -41,9 +33,6 @@ sub new
 
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
-
-    $self->{global} = $self->global();
-    $self->{openchangeMod} = $self->parentModule();
 
     return $self;
 }
@@ -63,18 +52,8 @@ sub _table
         printableName => 'ActiveSync',
         editable => 1,
         defaultValue => 0,
-        hidden => \&_hideActiveSync,
+        help => __('FIXME'), # TODO DOC
     ));
-
-    #push (@tableDesc, new EBox::Types::Select(
-    #    fieldName     => 'outgoingDomain',
-    #    printableName => __('Outgoing Mail Domain'),
-    #    foreignModel  => $self->modelGetter('mail', 'VDomains'),
-    #    foreignField  => 'vdomain',
-    #    editable      => 1,
-    #    help          => __('Outgoing mail domain of emails sent from this ' .
-    #                        'server will be overwritten with this one.'),
-    #));
 
     my $dataForm = {
         tableName          => 'ActiveSync',
@@ -82,7 +61,7 @@ sub _table
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __x('Configure an {oc} server.', oc => 'OpenChange Groupware'),
+        help               => __('FIXME'), # TODO DOC
     };
 
     return $dataForm;
@@ -91,47 +70,59 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
-    my $vdomains = $self->global()->modInstance('mail')->model('VDomains')->size();
-    return ($vdomains > 0);
+
+    # Check if packages are installed
+    unless ($self->_packagesInstalled()) {
+        $self->{preconditionFail} = 'nopackages';
+        return 0;
+    }
+
+    # Check there are virtual domains
+    my $oc = $self->parentModule();
+    my $vdomains = $$oc->model('VDomains');
+    my $n = $vdomains->size();
+    unless ($n > 0) {
+        $self->{preconditionFail} = 'nodomains';
+        return 0;
+    }
+
+    return 1;
 }
 
 sub preconditionFailMsg
 {
-    return  __x('To configure OpenChange you need first to {oh}create a mail virtual domain{oc}',
-                oh => q{<a href='/Mail/View/VDomains'>},
-                oc => q{</a>}
-               );
-}
+    my ($self) = @_;
 
-#sub validateTypedRow
-#{
-#    my ($self, $action, $changed, $all) = @_;
-#    my $domain = $all->{outgoingDomain}->printableValue();
-#    my $openchange = $self->parentModule();
-#    if ($openchange->_rpcProxyEnabled()) {
-#        # check if there is a host for rpcprpxoy
-#        $openchange->_rpcProxyHostForDomain($domain);
-#    }
-#}
+    if ($self->{preconditionFail} eq 'nodomains') {
+        return __x('The required packages are not installed.');
+        # TODO DOC Add link to doc
+    }
+
+    if ($self->{preconditionFail} eq 'nodomains') {
+        return  __x('To configure OpenChange you need first to ' .
+                    '{oh}create a mail virtual domain{oc}',
+                    oh => q{<a href='/Mail/View/VDomains'>},
+                    oc => q{</a>});
+    }
+}
 
 sub formSubmitted
 {
     my ($self, $row, $oldRow) = @_;
 
-    # mark module as changed to ensure apache restart, for
-    # example when enabling sogo-activesync
+    # Set module as changed to ensure apache restart
     $self->parentModule()->setAsChanged(1);
 }
 
-sub _hideActiveSync
+sub _packagesInstalled
 {
     my ($self) = @_;
 
     foreach my $pkg (qw(z-push sogo-activesync)) {
-        return 0 if (EBox::GlobalImpl::_packageInstalled($pkg));
+        return 1 if (EBox::GlobalImpl::_packageInstalled($pkg));
     }
 
-    return 1;
+    return 0;
 }
 
 1;
