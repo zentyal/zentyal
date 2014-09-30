@@ -1092,7 +1092,7 @@ sub filesSyncAvailable
 
 # Method: maxConfBackups
 #
-#   Return the maximum number of configuration backups
+#   Return the maximum number of manual configuration backups
 #
 # Returns:
 #
@@ -1100,20 +1100,15 @@ sub filesSyncAvailable
 #
 sub maxConfBackups
 {
-    # TODO: Do it using a capability
     my ($self) = @_;
 
     my $ret = 0;
-    if ($self->eBoxSubscribed()) {
-        if ($self->subscriptionLevel() == SUBSCRIPTION_LEVEL_COMMUNITY) {
-            $ret = 3;
-        } else {
-            $ret = 10;
-        }
-    }
+    my $confBackupDetails = $self->addOnDetails('configuration_backup');
 
+    if ($confBackupDetails) {
+        $ret = $confBackupDetails->{'backup_limit_manual'};
+    }
     return $ret;
-    # return $self->addOnDetails('confbackups')->{max_manual};
 }
 
 # Method: menu
