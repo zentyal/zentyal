@@ -71,31 +71,39 @@ sub _table
             storer          => \&_autodiscoverRecordStorer,
             editable        => \&_autodiscoverIsEditable,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME
+            help            => __('FIXME'), # FIXME DOC
         ),
         new EBox::Types::Boolean(
-            fieldName       => 'http',
+            fieldName       => 'rpcproxy_http',
             printableName   => __('HTTP access without SSL'),
             editable        => 1,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME
+            help            => __('FIXME'), # FIXME DOC
         ),
         new EBox::Types::Boolean(
-            fieldName       => 'https',
+            fieldName       => 'rpcproxy_https',
             printableName   => __('HTTPS access with SSL'),
             editable        => \&_sslRpcProxyIsEditable,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME
+            help            => __('FIXME'), # FIXME DOC
         ),
         new EBox::Types::Boolean(
-            fieldName       => 'webmail',
-            printableName   => __('Webmail enabled'),
+            fieldName       => 'webmail_http',
+            printableName   => __('HTTP Webmail enabled'),
             editable        => 1,
             defaultValue    => 0,
-            HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME
+            HTMLViewer      => '/openchange/ajax/viewer/webmailViewer.mas',
+            help            => __('FIXME'), # FIXME DOC
+        ),
+        new EBox::Types::Boolean(
+            fieldName       => 'webmail_https',
+            printableName   => __('HTTPS webmail enabled'),
+            editable        => 1,
+            defaultValue    => 0,
+            hiddenOnViewer  => 1,
+            help            => __('FIXME'), # FIXME DOC
         ),
     ];
 

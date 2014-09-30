@@ -348,8 +348,6 @@ sub _setConf
     #$self->_writeCronFile();
 
 # TODO    $self->_setupActiveSync();
-
-# TODO    $self->_setSOGoApacheConf();
 }
 
 # TODO: Review, is this really necessary?
@@ -363,7 +361,8 @@ sub _postServiceHook
         my $model = $self->model('VDomains');
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
-            $webmail = $row->valueByName('webmail');
+            $webmail = $row->valueByName('webmail_http');
+            $webmail |= $row->valueByName('webmail_https');
             last if ($webmail);
         }
         if ($webmail) {
@@ -388,49 +387,6 @@ sub _setApachePortsConf
                          'openchange/apache-ports.conf.mas',
                          $params);
 }
-
-#sub _setSOGoApacheConf
-#{
-#    my ($self) = @_;
-#
-#    # FIXME: do this only if webmail checkbox is enabled
-#    if ($self->isEnabled()) {
-#        my $global = $self->global();
-#        my $sysinfoMod = $global->modInstance('sysinfo');
-#        my @params = ();
-#        push (@params, hostname => $sysinfoMod->fqdn());
-#
-#        my $webserverMod = $global->modInstance('webserver');
-#        # FIXME: unhardcode this
-#        push (@params, sslPort  => 443);
-#
-#        if (-f OCSMANAGER_DOMAIN_PEM) {
-#            push (@params, sslCert => OCSMANAGER_DOMAIN_PEM);
-#        }
-#
-#        $self->writeConfFile(SOGO_APACHE_CONF, "openchange/apache-sogo.mas", \@params);
-#        try {
-#            EBox::Sudo::root("a2enconf sogo");
-#        } catch (EBox::Exceptions::Sudo::Command $e) {
-#            # Already enabled?
-#            if ($e->exitValue() != 1) {
-#                $e->throw();
-#            }
-#        }
-#    } else {
-#        try {
-#            EBox::Sudo::root("a2disconf sogo");
-#        } catch (EBox::Exceptions::Sudo::Command $e) {
-#            # Already disabled?
-#            if ($e->exitValue() != 1) {
-#                $e->throw();
-#            }
-#        }
-#    }
-#
-#    # Force apache restart to refresh the new sogo configuration
-#    EBox::Sudo::root('service apache2 restart');
-#}
 
 #sub _setupActiveSync
 #{
@@ -550,8 +506,8 @@ sub _setOCSManagerConf
     my $vdomains = $self->model('VDomains');
     foreach my $id (@{$vdomains->ids()}) {
         my $row = $vdomains->row($id);
-        $rpcProxyHttp |= $row->valueByName('http');
-        $rpcProxyHttps |= $row->valueByName('https');
+        $rpcProxyHttp |= $row->valueByName('rpcproxy_http');
+        $rpcProxyHttps |= $row->valueByName('rpcproxy_https');
     }
 
     my $confFileParams = [
@@ -581,15 +537,21 @@ sub _setOCSManagerConf
             foreach my $id (@{$model->ids()}) {
                 my $row = $model->row($id);
                 my $domain = $row->printableValueByName('vdomain');
+                my $autodiscover = $row->valueByName('autodiscoverRecord');
                 my $certificate = $self->_setCert($domain);
-                my $rpcProxyHttp = $row->valueByName('http');
-                my $rpcProxyHttps = $row->valueByName('https');
-
+                my $rpcProxyHttp = $row->valueByName('rpcproxy_http');
+                my $rpcProxyHttps = $row->valueByName('rpcproxy_https');
+                my $webmailHttp = $row->valueByName('webmail_http');
+                my $webmailHttps = $row->valueByName('webmail_https');
                 my $item = {
                     domain => $domain,
                     certificate => $certificate,
+                    autodiscover => $autodiscover,
+                    ews => $autodiscover,
                     rpcProxyHttp => $rpcProxyHttp,
                     rpcProxyHttps => $rpcProxyHttps,
+                    webmailHttp => $webmailHttp,
+                    webmailHttps => $webmailHttps,
                 };
                 push (@{$domains}, $item);
             }
