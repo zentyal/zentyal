@@ -17,6 +17,7 @@ use warnings;
 
 package EBox::Mail::FetchmailLdap;
 
+use EBox::Config;
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::MailUserLdap;
@@ -32,8 +33,12 @@ use EBox::Validate;
 use EBox::MailVDomainsLdap;
 use EBox::Module::Base;
 use EBox::Service;
+use EBox::Util::Random;
 use File::Slurp;
 use Perl6::Junction qw(any);
+use Crypt::Rijndael;
+use EBox::Module::Base;
+use MIME::Base64;
 
 use constant {
  FETCHMAIL_DN        => 'ou=fetchmail,ou=postfix',
@@ -53,6 +58,30 @@ sub new
     return $self;
 }
 
+sub initialSetup
+{
+    my ($self, $version) = @_;
+    my $file = $self->_masterPasswdFile();
+    my $user  = EBox::Config::user();
+    my $group = EBox::Config::group();
+
+    if (-r $file) {
+        return;
+    }
+
+    if (-e $file) {
+        throw EBox::Exceptions::Internal("File '$file' must be readable by user '$user'");
+    }
+
+    my $pass = EBox::Util::Random::generate(32);
+    my $permissions = {
+                          uid => $user,
+                          gid => $group,
+                          mode => '0700'
+                       };
+    EBox::Module::Base::writeFile($file, $pass, $permissions);
+}
+
 sub _externalAccountString
 {
     my ($self, %params) = @_;
@@ -63,6 +92,58 @@ sub _externalAccountString
     push @values, $self->_optionsStr(%params);
     push @values, $params{password};
     my $str = join ':', @values;
+    $str = $self->_encryptExternalAccountString($str);
+    return $str;
+}
+
+sub _masterPasswdFile
+{
+    return EBox::Config::conf() . 'fetchmail.passwd';
+}
+
+sub _cipher
+{
+    my ($self) = @_;
+
+    my $key;
+    my $file = $self->_masterPasswdFile();
+    if (not -r $file) {
+        throw EBox::Exceptions::Internal("Fetchmail master password file '$file' does not exists or is not readable");
+    }
+    $key =  File::Slurp::read_file($file);
+
+    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC);
+    return $cipher;
+}
+
+sub _encryptExternalAccountString
+{
+    my ($self, $str) = @_;
+    my $cipher = $self->_cipher();
+
+    # encryption data must be multiple of 16
+    my $strSize;
+    {
+        use bytes;
+        $strSize = length($str);
+    }
+    my $mod16 = $strSize % 16;
+    if ($mod16 != 0) {
+        my $padSize = 16 - $mod16;
+        $str .= ':' x $padSize;
+    }
+
+    $str = $cipher->encrypt($str);
+    $str = encode_base64($str);
+    return $str;
+}
+
+sub _decryptExternalAccountString
+{
+    my ($self, $str) = @_;
+    my $cipher = $self->_cipher();
+    $str = decode_base64($str);
+    $str = $cipher->decrypt($str);
     return $str;
 }
 
@@ -87,7 +168,9 @@ sub _optionsStr
 sub _externalAccountHash
 {
     my ($self, $string) = @_;
-    my @parts = split ':', $string, 6;
+    $string = $self->_decryptExternalAccountString($string);
+
+    my @parts = split ':', $string, 7;
 
     my %externalAccount;
     $externalAccount{user}         = $parts[0];
@@ -230,13 +313,14 @@ sub removeExternalAccount
     my $result = $self->{ldap}->search(\%attrs);
     my ($entry) = $result->entries();
     if (not $result->count() > 0) {
-        throw EBox::Exceptions::Internal( "Cannot find user $username" );
+        throw EBox::Exceptions::Internal("Cannot find user $username");
     }
 
     my @fetchmailAccounts = $entry->get_value('fetchmailAccount');
-    foreach my $fetchmailAccount (@fetchmailAccounts) {
-        if ($fetchmailAccount =~ m/^$account:/) {
-            $entry->delete(fetchmailAccount => [$fetchmailAccount]);
+    foreach my $encoded (@fetchmailAccounts) {
+        my $externalAccount = $self->_externalAccountHash($encoded);
+        if ($externalAccount->{user} eq $account) {
+            $entry->delete(fetchmailAccount => [$encoded]);
             $entry->update($self->{ldap}->connection());
             return;
         }

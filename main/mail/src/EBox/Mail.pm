@@ -283,6 +283,8 @@ sub initialSetup
         }
     }
 
+    $self->{fetchmail}->initialSetup($version);
+
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }

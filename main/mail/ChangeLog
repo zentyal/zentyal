@@ -1,4 +1,5 @@
 HEAD
+	+ Encrypt external accounts passwords stored in LDAP
 	+ Fixed periodical removal of Trash and Spam mails
 	+ Fixed bug in initialSetup which triggered migration on fresh install
 	+ Increased mail_max_userip_connections to 20 for IMAP protocol
