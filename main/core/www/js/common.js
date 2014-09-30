@@ -48,6 +48,8 @@ Zentyal.pageReload = function() {
     var url,
     urlParts = window.location.href.split('?');
     url = urlParts[0];
+    // Remove hash part, otherwise it won't reload
+    url = url.replace(window.location.hash, "");
     if (urlParts.length >= 2) {
         var i,
         params,

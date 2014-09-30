@@ -1,0 +1,16 @@
+<%init>
+use EBox::Gettext;
+my $defaultOrg = EBox::Global->modInstance('openchange')->model('Provision')->_defaultOrganizationName();
+</%init>
+<h3><% __('OpenChange') %></h3>
+<img src="/data/software/images/email.png" />
+<form method="post" action="./OpenChange/Wizard/Provision" class="formDiv" style="margin-bottom:20px;">
+    <fieldset>
+        <legend><% __('Set up OpenChange Mail services') %></legend>
+        <p><% __('Enter the name of your organization') %></p>
+        <div class="inline-input grey-block">
+            <label class="inline-label"><% __('Organization Name') %></label>
+            <input type="text" name="orgName" value="<% $defaultOrg %>"/>
+        </div>
+    </fieldset>
+</form>

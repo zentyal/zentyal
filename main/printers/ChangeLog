@@ -1,4 +1,5 @@
 4.0
+	+ Fix cups daemon remaining stopped after log rotation
 	+ Fix printers.conf file permissions (600 -> 644)
 	+ Set version to 4.0
 	+ Fix missing argument exception adding user entries to printer ACL

@@ -254,12 +254,11 @@ Header
     background-color: <% $secondary_color %>;
     background-image: url("/data/images/save.png");
     background-position: 18px center;
-    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
     color: #ffffff;
     display: none;
     font-size: 1.1em;
     line-height: 20px;
-    padding: 20px 20px 20px 60px;
+    padding: 15px 20px 15px 60px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     white-space: nowrap;
@@ -1258,7 +1257,7 @@ a.minBox, a.maxBox {
     border-radius: 5px ;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
     border: 1px solid #ccc
 }
 .widgetBoxIn {
@@ -1448,6 +1447,50 @@ border-radius: 2px;
  Insatallation process
 
  ***********************************************************************************************/
+
+/* first installation spash */
+.loading-bg{
+    background-image: url('/data/images/spinner.gif');
+    background-repeat: no-repeat;
+    background-position: center center
+}
+#install-splash{
+    margin: -40px auto 0 auto;
+    width: 450px;
+    text-align: center;
+    opacity: 0;
+    background-color: #eee;
+}
+#install-splash header img{
+    width: 300px
+}
+#install-splash h1{
+    font-size: 45px;
+    margin: 20px 0 30px 0;
+}
+#install-splash h3{
+    font-size: 1.8em;
+    line-height: 140%;
+    border-bottom: none;
+    font-weight: 100
+}
+#install-splash .install-splash-steps{
+    margin: 40px auto;
+}
+#install-splash .install-splash-steps div{
+    display: inline-block;
+    width: 23%;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #777;
+    font-weight: 100;
+}
+#install-splash .btn-green{
+    text-transform: none;
+    font-weight: normal;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+}
 
 body.first-install {
     max-width: 1200px;
@@ -1741,23 +1784,20 @@ body.first-install {
     min-height:400px;
     overflow: hidden;
     position:relative;
-    background: no-repeat bottom right;
-    margin-left:50px;
-}
-.ads img {
-    position: absolute;
-    right:0px;
-    bottom:0px;
+    background: no-repeat center right;
+    margin-left:80px;
 }
 .ads h2{
     font-size: 30px;
     color: white;
     text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
-    max-width: 450px;
+    max-width: 50%;
+    margin-top: 40px;
 }
-.ads p, .ads li{
-    font-size:14px;
-    width:350px;
+.ads p,
+.ads li{
+    font-size:16px;
+    width:45%;
     color:#eee;
     padding-left:5px;
     text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
@@ -3174,8 +3214,16 @@ Responsive corrections
     .final_installation .btn {
         position: static;
     }
-    .ads{
-        background-size: 70%;
+    .ads {
+        background-size: 45%;
+        background-position: right bottom;
+        margin-left: 30px;
+    }
+    .ads h2 {
+        max-width: none;
+    }
+    .ads li,.ads p{
+      width: 50%
     }
 }
 
@@ -3199,6 +3247,10 @@ Responsive corrections
     }
     .ads{
         background-image: none !important;
+        margin-right: 20px;
+    }
+    .ads li,.ads p{
+      width: auto;
     }
     #menusearch{
         width: 100px;
