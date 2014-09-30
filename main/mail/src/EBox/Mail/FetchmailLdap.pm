@@ -77,7 +77,7 @@ sub initialSetup
     my $permissions = {
                           uid => $user,
                           gid => $group,
-                          mode => '0700'
+                          mode => '0600'
                        };
     EBox::Module::Base::writeFile($file, $pass, $permissions);
 }
@@ -170,7 +170,8 @@ sub _externalAccountHash
     my ($self, $string) = @_;
     $string = $self->_decryptExternalAccountString($string);
 
-    my @parts = split ':', $string, 7;
+    my @parts = split ':', $string, 7; # 7 fields becuase ':' is also the
+                                       # padding character
 
     my %externalAccount;
     $externalAccount{user}         = $parts[0];
@@ -345,6 +346,10 @@ sub writeConf
     my ($self, %params) = @_;
     my $zarafa       = $params{zarafa};
     my @zarafaDomains = $params{zarafaDomains};
+
+    # remove old password file if it exists
+    my $oldFile =  $self->_oldMasterPasswdFile();
+    system "rm -f '$oldFile'";
 
     if (not $self->isEnabled()) {
         EBox::Sudo::root('rm -f ' . FETCHMAIL_CRON_FILE);
@@ -587,7 +592,49 @@ sub externalAccountRowValues
     $values{keep}     = $keep;
     $values{fetchall} = $fetchall;
     return \%values;
+}
 
+
+sub _oldMasterPasswdFile
+{
+    my ($self) = @_;
+    return EBox::Config::conf() . 'old.fetchmail.passwd';
+}
+
+sub revokeConfig
+{
+    my ($self) = @_;
+    # put again old password file if it exists
+    my $oldFile =  $self->_oldMasterPasswdFile();
+    if (-r $oldFile) {
+        my $dst = $self->_masterPasswdFile();
+        system "mv '$oldFile' '$dst'";
+    }
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    my $file = $self->_masterPasswdFile();
+    if (-r $file) {
+        system "cp '$file' '$dir/fetchmail.passwd'";
+    }
+}
+
+sub restoreConfig
+{
+    my ($self, $dir) = @_;
+    my $src = "$dir/fetchmail.passwd";
+    my $dst = $self->_masterPasswdFile();
+    if (not (-r $src)) {
+        return;
+    }
+    if (-r $dst) {
+        my $oldFile =  $self->_oldMasterPasswdFile();
+        system "cp '$dst' '$oldFile'" 
+    }
+
+    system "cp -b '$src' '$dst'";
 }
 
 1;

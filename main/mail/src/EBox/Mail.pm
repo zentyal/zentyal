@@ -659,6 +659,14 @@ sub _getIfacesForAddress
     return \@ifaces;
 }
 
+# overriden to call revokeConfig form fetchmail
+sub revokeConfig
+{
+    my ($self, @params) = @_;
+    $self->SUPER::revokeConfig(@params);
+    $self->{fetchmail}->revokeConfig();
+}
+
 # Method: _setMailConf
 #
 #  This method creates all configuration files from conf data.
@@ -1957,6 +1965,13 @@ sub logHelper
     return new EBox::MailLogHelper();
 }
 
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    $self->{fetchmail}->dumpConfig($dir);
+}
+
+
 sub restoreConfig
 {
     my ($self, $dir) = @_;
@@ -1974,7 +1989,8 @@ sub restoreConfig
             }
         }
     }
-
+    
+    $self->{fetchmail}->restoreConfig($dir);
 }
 
 sub _storageMailDirs
