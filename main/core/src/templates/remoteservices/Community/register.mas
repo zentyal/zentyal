@@ -15,6 +15,7 @@ use EBox::Gettext;
 
 % if ($wizard) {
 <h3><% __('Store configuration backups in the cloud') %></h3>
+<img src="/data/software/images/config-backup.png" />
 % }
 
 <div id='div_register_first_time'
