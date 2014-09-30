@@ -81,9 +81,9 @@
             displayName = "SambaLogin";
             canAuthenticate = YES;
             type = ldap;
-            CNFieldName = mail;
-            IDFieldName = mail;
-            UIDFieldName = mail;
+            CNFieldName = cn;
+            IDFieldName = cn;
+            UIDFieldName = sAMAccountName;
             hostname = "<% $sambaHost %>";
             baseDN = "CN=Users,<% $sambaBaseDN %>";
             bindDN = "<% $sambaBindDN %>";
