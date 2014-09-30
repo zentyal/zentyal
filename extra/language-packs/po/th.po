@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-01-09 06:44+0200\n"
-"Last-Translator: Tawatchai <iempairote@gmail.com>\n"
+"PO-Revision-Date: 2014-09-21 11:00+0200\n"
+"Last-Translator: GoCloudTH <tech@gocloud.co.th>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,16 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "disabled"
-msgstr ""
+msgstr "ไม่สามารถ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "ไอพี เซิฟเวอร์"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "คุณต้องใส่ ไอพี อย่างน้อย 1 ไอพี สำหรับ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -123,7 +123,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "ูผู้ใช้ {ชื่อ}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -143,7 +143,7 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "เปิดใช้งาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -165,7 +165,7 @@ msgstr ""
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:276
 msgid "Disabled"
-msgstr ""
+msgstr "ปิดใช้งาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -183,13 +183,13 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1952
 #: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Running"
-msgstr ""
+msgstr "กำลังทำงาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:475
 msgid "Stopped"
-msgstr ""
+msgstr "หยุดทำงาน"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
