@@ -108,7 +108,7 @@ sub _cipher
     my $key;
     my $file = $self->_masterPasswdFile();
     if (not -r $file) {
-        throw EBox::Exceptions::Internal("Fetchmail master password file '$file' does not exists or is not readable");
+        throw EBox::Exceptions::Internal("Fetchmail master password file '$file' does not exist or is not readable");
     }
     $key =  File::Slurp::read_file($file);
 
