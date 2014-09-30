@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::Model::Configuration;
+package EBox::OpenChange::Model::ActiveSync;
 
 use base 'EBox::Model::DataForm';
 
@@ -77,8 +77,8 @@ sub _table
     #));
 
     my $dataForm = {
-        tableName          => 'Configuration',
-        printableTableName => __('Configuration'),
+        tableName          => 'ActiveSync',
+        printableTableName => __('ActiveSync'),
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,

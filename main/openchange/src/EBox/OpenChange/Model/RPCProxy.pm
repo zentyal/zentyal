@@ -61,7 +61,7 @@ sub _table
         tableName          => 'RPCProxy',
         printableTableName => __('HTTP/HTTPS proxy access'),
         modelDomain        => 'OpenChange',
-        defaultActions     => [ 'editField' ],
+        defaultActions     => [],
         tableDescription   => $tableDesc,
         help               => __('FIXME'), # FIXME TODO
     };

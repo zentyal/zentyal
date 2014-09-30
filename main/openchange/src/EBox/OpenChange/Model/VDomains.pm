@@ -16,17 +16,16 @@
 use strict;
 use warnings;
 
-# Class: EBox::OpenChange::Model::Certificates
+# Class: EBox::OpenChange::Model::VDomains
 #
-#   Helper table to aid the users to configure AutoDiscover and EWS
+#   Helper table to aid the users to configure Virtual Domains
 #
 #   TODO list:
-#   - Show a link to download CA certificate
 #   - Show a link to the SOGo webmail for each virtual domain
 #   - Help strings (Mateo)
 #
 
-package EBox::OpenChange::Model::Certificates;
+package EBox::OpenChange::Model::VDomains;
 
 use base 'EBox::Model::DataTable';
 
@@ -121,8 +120,8 @@ sub _table
     ];
 
     my $dataTable = {
-        tableName           => 'Certificates',
-        printableTableName  => __('Auto Discover and EWS'),
+        tableName           => 'VDomains',
+        printableTableName  => __('Virtual Domains'),
         printableRowName    => __('virtual domain'),
         modelDomain         => 'OpenChange',
         defaultActions      => ['editField', 'changeView'],

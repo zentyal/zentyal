@@ -360,7 +360,7 @@ sub _postServiceHook
     if ($enabled) {
         # Only if webmail enabled
         my $webmail = 0;
-        my $model = $self->model('Certificates');
+        my $model = $self->model('VDomains');
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
             $webmail = $row->valueByName('webmail');
@@ -547,7 +547,7 @@ sub _setOCSManagerConf
 
     my $rpcProxyHttp = 0;
     my $rpcProxyHttps = 0;
-    my $vdomains = $self->model('Certificates');
+    my $vdomains = $self->model('VDomains');
     foreach my $id (@{$vdomains->ids()}) {
         my $row = $vdomains->row($id);
         $rpcProxyHttp |= $row->valueByName('http');
@@ -577,7 +577,7 @@ sub _setOCSManagerConf
         if ($self->isProvisioned()) {
             my $domains = [];
 
-            my $model = $self->model('Certificates');
+            my $model = $self->model('VDomains');
             foreach my $id (@{$model->ids()}) {
                 my $row = $model->row($id);
                 my $domain = $row->printableValueByName('vdomain');
@@ -656,7 +656,7 @@ sub _setCert
     }
 
     my $certPath;
-    my $model = $self->model('Certificates');
+    my $model = $self->model('VDomains');
     my $metadata =  $model->certificate($domain);
     if (defined $metadata) {
         EBox::debug("Certificate for $domain in place");
@@ -997,7 +997,7 @@ sub certificateRevoked
         if ($isCACert) {
             return 1;
         }
-        my $model = $self->model('Certificates');
+        my $model = $self->model('VDomains');
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
             my $vdomain = $row->printableValueByName('vdomain');
@@ -1030,7 +1030,7 @@ sub _certificateChanges
 
     # Remove all certificates used by OCS manager and set module as changed
     # to regenerate them
-    my $model = $self->model('Certificates');
+    my $model = $self->model('VDomains');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $vdomain = $row->printableValueByName('vdomain');
@@ -1075,7 +1075,7 @@ sub cleanForReprovision
     }
 
     # remove rpcproxy certificates
-    my $model = $self->model('Certificates');
+    my $model = $self->model('VDomains');
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $vdomain = $row->printableValueByName('vdomain');
