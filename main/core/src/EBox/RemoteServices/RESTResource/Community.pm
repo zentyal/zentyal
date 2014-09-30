@@ -50,7 +50,29 @@ sub new
     return $self;
 }
 
-# FIXME: Missing doc
+# Method: subscribeFirstTime
+#
+#      Register and subscribe for the first time a community edition.
+#
+# Parameters:
+#
+#      user - String the username
+#
+#      name - String the server's name
+#
+#      newsletter - Boolean indicating if we want to subscribe to the
+#                   newsletter
+#
+# Returns:
+#
+#      Hash ref - containing the following keys:
+#
+#          name - String the server's name
+#          server_uuid - String the server's identifier
+#          subscription_uuid - String the subscription's identifier
+#          product_code - String the product code (Optional)
+#          password - String the generated password for the user
+#
 sub subscribeFirstTime
 {
     my ($self, $user, $name, $newsletter) = @_;
@@ -66,7 +88,24 @@ sub subscribeFirstTime
 
 }
 
-# FIXME: Missing doc
+# Method: subscribeAdditionalTime
+#
+#      Subscribe an additional server
+#
+# Parameters:
+#
+#      name - String the server's name
+#
+# Returns:
+#
+#      Hash ref - containing the following keys:
+#
+#          name - String the server's name
+#          server_uuid - String the server's identifier
+#          subscription_uuid - String the subscription's identifier
+#          product_code - String the product code (Optional)
+#          password - String the generated password for the user
+#
 sub subscribeAdditionalTime
 {
     my ($self, $name) = @_;

@@ -47,7 +47,23 @@ sub new
     return $self;
 }
 
-# FIXME: Missing doc
+# Method: list
+#
+#     List the available configuration backups
+#
+# Returns:
+#
+#     Array ref - with hash refs the following keys:
+#
+#        automatic - Boolean if the backup is automatic
+#        uuid      - String the Backup Universal Unique identifier
+#        label     - String the backup description
+#        size      - Integer the size in bytes
+#        backup_date - String the backup date using YYYY-MM-DD HH:MM:SS format
+#        server    - Hash ref with name and uuid as keys
+#        md5sum    - String the backup's hash using MD5 algorithm
+#        company   - Hash ref with name, uuid and description as keys
+#
 sub list
 {
     my ($self) = @_;
@@ -56,7 +72,24 @@ sub list
     return $res->data();
 }
 
-# FIXME: Missing doc
+# Method: add
+#
+#      Upload a new configuration backup.
+#
+#      TODO: Handle large sizes and digest.
+#
+# Named parameters:
+#
+#      automatic - Boolean indicating if the backup is automatic or not
+#
+#      label - String the backup label
+#
+#      data  - String the file itself
+#
+# Returns:
+#
+#      Hash ref - containing the same keys that <list> returned element.
+#
 sub add
 {
     my ($self, %params) = @_;
@@ -83,6 +116,20 @@ sub add
     return $res->data();
 }
 
+# Method: get
+#
+#      Download a configuration backup.
+#
+#      TODO: Handle large sizes and digest.
+#
+# Parameters:
+#
+#      uuid - String the backup identifier
+#
+# Returns:
+#
+#      String - the raw backup content
+#
 sub get
 {
     my ($self, $id) = @_;
@@ -91,6 +138,14 @@ sub get
     return $res->rawContent();
 }
 
+# Method: delete
+#
+#      Delete a configuration backup.
+#
+# Parameters:
+#
+#      uuid - String the backup identifier
+#
 sub delete
 {
     my ($self, $id) = @_;

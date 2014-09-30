@@ -49,7 +49,28 @@ sub new
     return $self;
 }
 
-# FIXME: Missing doc
+# Method: subscribeServer
+#
+#      Subscribe a server
+#
+# Parameters:
+#
+#      name - String the server's name
+#
+#      uuid - String the subscription's identifier
+#
+#      mode - String the mode. Options: new, associate and overwrite
+#
+# Returns:
+#
+#      Hash ref - containing the following keys:
+#
+#          name - String the server's name
+#          server_uuid - String the server's identifier
+#          subscription_uuid - String the subscription's identifier
+#          product_code - String the product code (Optional)
+#          password - String the generated password for the user
+#
 sub subscribeServer
 {
     my ($self, $name, $uuid, $mode, @forcedCredentials) = @_;
@@ -69,7 +90,12 @@ sub subscribeServer
     return $res->data();
 }
 
-# FIXME: Missing doc
+# Method: unsubscribeServer
+#
+#      Unsubscribe a server.
+#
+#      Using the server's credentials.
+#
 sub unsubscribeServer
 {
     my ($self, @forcedCredentials) = @_;
@@ -86,7 +112,32 @@ sub unsubscribeServer
     $restClient->POST($resource);
 }
 
-# FIXME: Missing doc
+# Method: list
+#
+#      List current subscriptions
+#
+# Returns:
+#
+#      Array ref - of hash refs with the following keys:
+#
+#         label - String the subscription label
+#
+#         subscription_end - String the subscription end with
+#                            YYYY-MM-DD HH:MM:SS format
+#
+#         subscription_start - String the subscription start with
+#                              YYYY-MM-DD HH:MM:SS format
+#
+#         server - Hash ref with the following keys: name and uuid
+#
+#         codename - String the subscription codename
+#
+#         company - Hash ref with the following keys: name, uuid and description
+#
+#         uuid - String the subscription's identifier
+#
+#         product_code - String the product's code
+#
 sub list
 {
     my ($self) = @_;
@@ -94,7 +145,14 @@ sub list
     return $res->data();
 }
 
-# FIXME: Missing doc
+# Method: subscriptionInfo
+#
+#      Get the current subscription information using server credentials.
+#
+# Returns:
+#
+#      Hash ref - what an element of <list> returns
+#
 sub subscriptionInfo
 {
     my ($self) = @_;

@@ -232,18 +232,32 @@ sub technicalSupport
     return $level;
 }
 
-# FIXME: Missing doc
+# Method: username
+#
+#     Get the stored username
+#
+# Returns:
+#
+#     String
+#
 sub username
 {
     my ($self) = @_;
     $self->get_state()->{'username'};
 }
 
-# FIXME: Missing doc
+# Method: setUsername
+#
+#     Set the username
+#
+# Parameters:
+#
+#     username - String
+#
 sub setUsername
 {
     my ($self, $username) = @_;
-        # TODO validate
+    # Validate in server side
     if (not $username) {
         throw EBox::Exceptions::External('username');
     }
@@ -252,7 +266,22 @@ sub setUsername
     $self->set_state($state);
 }
 
-# FIXME: Missing doc
+# Method: refreshSubscriptionInfo
+#
+#     Refresh subscription information.
+#
+#     If the subscription is not valid anymore, then unsubscribe is done.
+#
+#     If we can't contact the server, the cached data is returned.
+#
+# Parameters:
+#
+#     username - String
+#
+# Returns:
+#
+#     Hash ref - what <subscriptionInfo> returns.
+#
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
@@ -293,17 +322,8 @@ sub refreshSubscriptionInfo
         return undef;
     }
 
-    $self->setSubscriptionInfo($subscriptionInfo);
+    $self->_setSubscriptionInfo($subscriptionInfo);
     return $subscriptionInfo;
-}
-
-# FIXME: Missing doc
-sub setSubscriptionInfo
-{
-    my ($self, $cred) = @_;
-    my $state = $self->get_state();
-    $state->{'subscription_info'} =  $cred;
-    $self->set_state($state);
 }
 
 # Method: subscriptionInfo
@@ -360,15 +380,6 @@ sub subscriptionInfo
     return $subsInfo;
 }
 
-# FIXME: Missing doc
-sub setSubscriptionCredentials
-{
-    my ($self, $cred) = @_;
-    my $state = $self->get_state();
-    $state->{'subscription_credentials'} =  $cred;
-    $self->set_state($state);
-}
-
 # Method: subscriptionCredentials
 #
 #      Get the subscription credentials.
@@ -391,7 +402,30 @@ sub subscriptionCredentials
     return $self->get_state()->{'subscription_credentials'};
 }
 
-# FIXME: Missing doc
+# Method: subscribe
+#
+#      Subscribe a server
+#
+# Parameters:
+#
+#      name - String the server's name
+#
+#      password - String the user's password. Use <setUsername> to set
+#                 the user
+#
+#      uuid - String the subscription's identifier to use
+#
+#      mode - String the mode. Options: new, associate and overwrite.
+#
+# Returns:
+#
+#      Hash ref - what <refreshSubscriptionInfo> returns
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if we trying to subscribe
+#      a community edition
+#
 sub subscribe
 {
     my ($self, $name, $password, $uuid, $mode) = @_;
@@ -405,7 +439,7 @@ sub subscribe
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');
 
-    $self->setSubscriptionCredentials($subscriptionCred);
+    $self->_setSubscriptionCredentials($subscriptionCred);
 
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
 
@@ -414,7 +448,20 @@ sub subscribe
     return $subscriptionInfo;
 }
 
-# FIXME: Missing doc
+# Method: unsubscribe
+#
+#      Unsubscribe a server
+#
+# Parameters:
+#
+#      password - String the user's password. Use <setUsername> to set
+#                 the user (Optional)
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if we trying to unsubscribe
+#      a community edition
+#
 sub unsubscribe
 {
     my ($self, $password) = @_;
@@ -439,7 +486,23 @@ sub unsubscribe
     $self->setAsChanged(1);
 }
 
-# FIXME: Missing doc
+# Method: registerFirstCommunityServer
+#
+#      Register a community server for the first time
+#
+# Parameters:
+#
+#      username - String the user's name
+#
+#      servername - String the server's name
+#
+#      newsletter - Boolean the newsletter
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if we trying to subscribe
+#      a commercial edition
+#
 sub registerFirstCommunityServer
 {
     my ($self, $username, $servername, $newsletter) = @_;
@@ -455,16 +518,32 @@ sub registerFirstCommunityServer
 
     my $community = $self->communityResource();
     my $credentials = $community->subscribeFirstTime($username, $servername, $newsletter);
-    $self->setSubscriptionCredentials($credentials);
+    $self->_setSubscriptionCredentials($credentials);
 
     my $subscriptions = $self->subscriptionsResource();
     my $subscriptionInfo = $subscriptions->subscriptionInfo();
-    $self->setSubscriptionInfo($subscriptionInfo);
+    $self->_setSubscriptionInfo($subscriptionInfo);
 
     $self->setAsChanged(1);
 }
 
-# FIXME: Missing doc
+# Method: registerFirstCommunityServer
+#
+#      Register a community server for the first time
+#
+# Parameters:
+#
+#      username - String the user's name
+#
+#      password - String the user's password
+#
+#      servername - String the server's name
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if we trying to register
+#      a commercial edition
+#
 sub registerAdditionalCommunityServer
 {
     my ($self, $username, $password, $servername) = @_;
@@ -480,11 +559,11 @@ sub registerAdditionalCommunityServer
 
     my $community = $self->communityResource($password);
     my $credentials = $community->subscribeAdditionalTime($servername);
-    $self->setSubscriptionCredentials($credentials);
+    $self->_setSubscriptionCredentials($credentials);
 
     my $subscriptions = $self->subscriptionsResource();
     my $subscriptionInfo = $subscriptions->subscriptionInfo();
-    $self->setSubscriptionInfo($subscriptionInfo);
+    $self->_setSubscriptionInfo($subscriptionInfo);
 
     $self->setAsChanged(1);
 }
@@ -492,6 +571,11 @@ sub registerAdditionalCommunityServer
 # Method: unregisterCommunityServer
 #
 #     Delete all information from a community server.
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if we trying to unregister
+#      a commercial edition
 #
 sub unregisterCommunityServer
 {
@@ -538,8 +622,16 @@ sub REST
     return $self->{rest};
 }
 
-# FIXME: Missing doc
-# - userPassword is optional
+# Method: subscriptionsResource
+#
+# Parameters:
+#
+#     userPassword - String (Optional)
+#
+# Returns:
+#
+#     <EBox::RemoteServices::RESTResource::Subscriptions>
+#
 sub subscriptionsResource
 {
     my ($self, $userPassword) = @_;
@@ -549,13 +641,28 @@ sub subscriptionsResource
     return $subscriptions;
 }
 
-# FIXME: Missing doc
+# Method: confBackupResource
+#
+# Returns:
+#
+#     <EBox::RemoteServices::RESTResource::ConfBackup>
+#
 sub confBackupResource
 {
     my ($self) = @_;
     return EBox::RemoteServices::RESTResource::ConfBackup->new(remoteservices => $self);
 }
 
+# Method: communityResource
+#
+# Parameters:
+#
+#     userPassword - String (Optional)
+#
+# Returns:
+#
+#     <EBox::RemoteServices::RESTResource::Community>
+#
 sub communityResource
 {
     my ($self, $userPassword) = @_;
@@ -584,7 +691,16 @@ sub latestRemoteConfBackup
     return $bakService->latestRemoteConfBackup();
 }
 
-# FIXME: Missing doc
+# Method: authResource
+#
+# Parameters:
+#
+#     userPassword - String (Optional)
+#
+# Returns:
+#
+#     <EBox::RemoteServices::RESTResource::Auth>
+#
 sub authResource
 {
     my ($self, $userPassword) = @_;
@@ -592,7 +708,14 @@ sub authResource
                                            userPassword  => $userPassword);
 }
 
-# FIXME: Missing doc
+# Method: eBoxSubscribed
+#
+#     Determine if the server is subscribed/registered.
+#
+# Returns:
+#
+#     Boolean
+#
 sub eBoxSubscribed
 {
     my ($self) = @_;
@@ -795,7 +918,7 @@ sub _setConf
 
     my $subscriptionInfo = $self->refreshSubscriptionInfo();
     my $subscriptionLevel = $self->subscriptionLevel();
-    $self->setupSubscription($subscriptionLevel, $subscriptionInfo);
+    $self->_setupSubscription($subscriptionLevel, $subscriptionInfo);
 
 #    TODO: Disabled until reimplmented
 #    $self->_setRemoteSupportAccessConf();
@@ -805,8 +928,7 @@ sub _setConf
 
 
 
-# FIXME: Missing doc
-sub setupSubscription
+sub _setupSubscription
 {
     my ($self, $subscriptionLevel, $subscriptionInfo) = @_;
 
@@ -1293,6 +1415,22 @@ sub _pkgInstalled
                        and $pkg->{CurrentState} == AptPkg::State::Installed );
     }
     return $installed;
+}
+
+sub _setSubscriptionInfo
+{
+    my ($self, $cred) = @_;
+    my $state = $self->get_state();
+    $state->{'subscription_info'} =  $cred;
+    $self->set_state($state);
+}
+
+sub _setSubscriptionCredentials
+{
+    my ($self, $cred) = @_;
+    my $state = $self->get_state();
+    $state->{'subscription_credentials'} =  $cred;
+    $self->set_state($state);
 }
 
 # Install professional packages

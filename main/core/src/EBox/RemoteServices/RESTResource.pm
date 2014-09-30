@@ -126,7 +126,7 @@ sub restClientNoCredentials
 
 # Group: Private methods
 
-# FIXME: Missing doc
+# Return a <EBox::RESTClient> with proper server and credentials.
 sub _restClient
 {
     my ($self, $username, $password, $id) = @_;

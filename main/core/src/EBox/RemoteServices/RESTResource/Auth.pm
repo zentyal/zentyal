@@ -45,7 +45,21 @@ sub new
     return $self;
 }
 
-# FIXME: Missing doc
+# Method: auth
+#
+#      Check if we are authorised
+#
+# Returns:
+#
+#      Hash ref - containing the following keys:
+#
+#        username - String the username
+#        email    - String the email address
+#        name     - String the full name
+#
+#        company - Hash ref containing the following keys: uuid, name
+#        and description. (Optional)
+#
 sub auth
 {
     my ($self) = @_;
