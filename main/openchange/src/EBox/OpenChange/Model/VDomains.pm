@@ -94,6 +94,7 @@ sub _table
             printableName   => __('Webmail enabled'),
             editable        => 1,
             defaultValue    => 0,
+            HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
             help            => __('FIXME'), # FIXME
         ),
     ];
