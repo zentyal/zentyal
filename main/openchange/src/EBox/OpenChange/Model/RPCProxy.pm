@@ -59,7 +59,7 @@ sub _table
 
     my $dataForm = {
         tableName          => 'RPCProxy',
-        printableTableName => __('HTTP/HTTPS proxy access'),
+        printableTableName => __('HTTP and HTTPS clients access'),
         modelDomain        => 'OpenChange',
         defaultActions     => [],
         tableDescription   => $tableDesc,
