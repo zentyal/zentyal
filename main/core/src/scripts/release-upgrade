@@ -40,9 +40,10 @@ then
     # Purge all no longer needed running services like haproxy, collectd, etc
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
-    # Restart regular webserver and Zentyal UI
+    # Restart regular webserver, Zentyal UI and logs
     service apache2 restart
     service zentyal webadmin restart
+    service zentyal logs restart
 
     echo; echo "Zentyal upgrade finished!"
 else
