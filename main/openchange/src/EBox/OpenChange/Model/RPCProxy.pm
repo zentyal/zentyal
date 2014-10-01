@@ -48,7 +48,7 @@ sub _table
 
     my $tableDesc = [
         new EBox::Types::Text(
-            fieldName       => 'canama',
+            fieldName       => 'caname',
             printableName   => __('CA name'),
             volatile        => 1,
             acquirer        => \&_getCAName,
