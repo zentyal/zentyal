@@ -1,4 +1,6 @@
 HEAD
+	+ Better error message when the root DSE is not found in external
+	  AD mode
 	+ Do not try to dump config backup if not provisioned
 3.5.8
 	+ Check samAccountName is unique in entire domain adding users and groups
