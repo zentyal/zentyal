@@ -484,4 +484,28 @@ sub syncRows
     return $modified;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $v = $mail->model('VDomains');
+    unless (scalar (@{$v->ids()})) {
+        $self->{preconditionFail} = 'novdomains';
+        return 0;
+    }
+
+    return 1;
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'novdomains') {
+        return __x('There are not configured {oh}virtual domains{ch}.',
+                   oh => "<a href=/Mail/View/VDomains>", ch => "</a>");
+    }
+}
+
 1;
