@@ -80,6 +80,41 @@ sub initialSetup
                           mode => '0600'
                        };
     EBox::Module::Base::writeFile($file, $pass, $permissions);
+    
+    my %attrs = (
+            base => $self->{ldap}->dn(),
+            filter => 'objectclass=fetchmailUser',
+            scope => 'sub',
+            attrs => ['fetchmailAccount']
+           );
+
+    my $result = $self->{ldap}->search(\%attrs);
+    if ($result->count() == 0) {
+        # no account migration needed
+        return;
+    }
+
+    foreach my $entry ($result->entries()) {
+        my @externalAccounts = $entry->get_value('fetchmailAccount');
+        if (not @externalAccounts) {
+            next;
+        }
+        @externalAccounts = map {
+            my $account = $_;
+
+            if (($account =~ m{^[^:]}) and (split(':', $account) >= 6)) {
+                $account = $self->_encryptExternalAccountString($account);
+                ($account)
+            } else {
+                my $dn = $entry->dn();
+                EBox::error("External account string in $dn has not old format. Skipping.");
+                ();
+            }
+        } @externalAccounts;
+
+        $entry->replace('fetchmailAccount' => \@externalAccounts);
+        $entry->update($self->{ldap}->connection());
+    }
 }
 
 sub _externalAccountString
@@ -104,6 +139,9 @@ sub _masterPasswdFile
 sub _cipher
 {
     my ($self) = @_;
+    if ($self->{cipher}) {
+        return $self->{cipher};
+    }
 
     my $key;
     my $file = $self->_masterPasswdFile();
@@ -112,8 +150,8 @@ sub _cipher
     }
     $key =  File::Slurp::read_file($file);
 
-    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC);
-    return $cipher;
+    $self->{cipher} = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC);
+    return $self->{cipher};
 }
 
 sub _encryptExternalAccountString
