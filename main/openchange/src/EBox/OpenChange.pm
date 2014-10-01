@@ -500,6 +500,7 @@ sub _setOCSManagerConf
     my $users   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
+    my $hostname = $sysinfo->hostName();
 
     my $rpcProxyHttp = 0;
     my $rpcProxyHttps = 0;
@@ -529,70 +530,95 @@ sub _setOCSManagerConf
                          $confFileParams,
                          { uid => 0, gid => 0, mode => '640' });
 
-    if ($self->isEnabled()) {
-        if ($self->isProvisioned()) {
-            my $domains = [];
+    my @cmds;
+    my $user = 'www-data';
+    my $group = 'www-data';
+    push (@cmds, 'rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+    push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+    push (@cmds, "chown -R $user:$group " . RPCPROXY_AUTH_CACHE_DIR);
+    push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+    push (@cmds, 'a2disconf *zentyal-ocsmanager-* || true');
+    push (@cmds, 'rm -f /etc/apache2/conf-available/*zentyal-ocsmanager-*');
+    EBox::Sudo::root(@cmds);
 
-            my $model = $self->model('VDomains');
-            foreach my $id (@{$model->ids()}) {
-                my $row = $model->row($id);
-                my $domain = $row->printableValueByName('vdomain');
-                my $autodiscover = $row->valueByName('autodiscoverRecord');
-                my $certificate = $self->_setCert($domain);
-                my $rpcProxyHttp = $row->valueByName('rpcproxy_http');
-                my $rpcProxyHttps = $row->valueByName('rpcproxy_https');
-                my $webmailHttp = $row->valueByName('webmail_http');
-                my $webmailHttps = $row->valueByName('webmail_https');
-                my $item = {
-                    domain => $domain,
-                    certificate => $certificate,
-                    autodiscover => $autodiscover,
-                    ews => $autodiscover,
-                    rpcProxyHttp => $rpcProxyHttp,
-                    rpcProxyHttps => $rpcProxyHttps,
-                    webmailHttp => $webmailHttp,
-                    webmailHttps => $webmailHttps,
-                };
-                push (@{$domains}, $item);
-            }
+    if ($self->isEnabled() && $self->isProvisioned()) {
+        my $fid = 100;
+        my $model = $self->model('VDomains');
+        foreach my $id (@{$model->ids()}) {
+            my $row = $model->row($id);
+            my $domain = $row->printableValueByName('vdomain');
+            my $autodiscover = $row->valueByName('autodiscoverRecord');
+            my $rpcProxyHttp = $row->valueByName('rpcproxy_http');
+            my $rpcProxyHttps = $row->valueByName('rpcproxy_https');
+            my $webmailHttp = $row->valueByName('webmail_http');
+            my $webmailHttps = $row->valueByName('webmail_https');
+            my $certificate = $self->_setCert($domain);
 
-            my $user = 'www-data';
-            my $group = 'www-data';
-            my $params = [];
-            push (@{$params}, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
-            push (@{$params}, user => $user);
-            push (@{$params}, group => $group);
-            push (@{$params}, domains => $domains);
-            $self->writeConfFile(APACHE_OCSMANAGER_CONF,
-                                "openchange/apache-ocsmanager.conf.mas",
-                                $params,
-                                { uid => 0, gid => 0, mode => '644' }
-            );
+            if ($webmailHttp or $rpcProxyHttp) {
+                my $params = [];
+                push (@{$params}, user => $user);
+                push (@{$params}, group => $group);
+                push (@{$params}, port => APACHE_OCSMANAGER_PORT_HTTP);
+                push (@{$params}, ssl => 0);
+                push (@{$params}, hostname => $hostname);
+                push (@{$params}, domain => $domain);
+                push (@{$params}, autodiscover => 0);
+                push (@{$params}, ews => 0);
+                push (@{$params}, rpcproxy => $rpcProxyHttp);
+                push (@{$params}, rpcproxyAuthCacheDir =>
+                    RPCPROXY_AUTH_CACHE_DIR);
+                push (@{$params}, webmail => $webmailHttp);
 
-            my @cmds;
-            push (@cmds, 'rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
-            push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
-            push (@cmds, "chown -R $user:$group " . RPCPROXY_AUTH_CACHE_DIR);
-            push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-            EBox::Sudo::root(@cmds);
-
-            try {
-                EBox::Sudo::root("a2enconf zentyal-ocsmanager");
-            } catch (EBox::Exceptions::Sudo::Command $e) {
-                # Already enabled?
-                if ($e->exitValue() != 1) {
-                    $e->throw();
+                my $conf = "${fid}-zentyal-ocsmanager-${domain}";
+                my $file = "/etc/apache2/conf-available/$conf.conf";
+                $self->writeConfFile($file,
+                                     "openchange/apache-ocsmanager.conf.mas",
+                                     $params,
+                                     { uid => 0, gid => 0, mode => '644' });
+                try {
+                    EBox::Sudo::root("a2enconf $conf");
+                } catch (EBox::Exceptions::Sudo::Command $e) {
+                    # Already enabled?
+                    if ($e->exitValue() != 1) {
+                        $e->throw();
+                    }
                 }
             }
-        }
-    } else {
-        try {
-            EBox::Sudo::root('a2disconf zentyal-ocsmanager');
-        } catch (EBox::Exceptions::Sudo::Command $e) {
-            # Already disabled?
-            if ($e->exitValue() != 1) {
-                $e->throw();
+
+            if (EBox::Sudo::fileTest('-f', $certificate)) {
+                my $sslParams = [];
+                push (@{$sslParams}, user => $user);
+                push (@{$sslParams}, group => $group);
+                push (@{$sslParams}, port => APACHE_OCSMANAGER_PORT_HTTPS);
+                push (@{$sslParams}, ssl => 1);
+                push (@{$sslParams}, hostname => $hostname);
+                push (@{$sslParams}, domain => $domain);
+                push (@{$sslParams}, autodiscover => 1);
+                push (@{$sslParams}, ews => 1);
+                push (@{$sslParams}, rpcproxy => $rpcProxyHttps);
+                push (@{$sslParams}, rpcproxyAuthCacheDir =>
+                    RPCPROXY_AUTH_CACHE_DIR);
+                push (@{$sslParams}, webmail => $webmailHttps);
+                push (@{$sslParams}, certificate => $certificate);
+
+                my $conf = "${fid}-zentyal-ocsmanager-${domain}-ssl";
+                my $file = "/etc/apache2/conf-available/$conf.conf";
+
+                $self->writeConfFile($file,
+                                     "openchange/apache-ocsmanager.conf.mas",
+                                     $sslParams,
+                                     { uid => 0, gid => 0, mode => '644' });
+                try {
+                    EBox::Sudo::root("a2enconf $conf");
+                } catch (EBox::Exceptions::Sudo::Command $e) {
+                    # Already enabled?
+                    if ($e->exitValue() != 1) {
+                        $e->throw();
+                    }
+                }
             }
+
+            $fid++;
         }
     }
 }
