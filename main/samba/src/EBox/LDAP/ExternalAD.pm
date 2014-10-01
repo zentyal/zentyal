@@ -469,6 +469,9 @@ sub _adDefaultNC
     my ($self) = @_;
 
     my $dse = $self->_rootDse();
+    if (not $dse) {
+        throw EBox::Exceptions::External(__('Cannot get root DSE, please check your server'));
+    }
 
     return $dse->get_value('defaultNamingContext');
 }
