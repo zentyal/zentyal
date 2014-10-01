@@ -1,4 +1,6 @@
 4.0
+	+ Provision action triggers save changes action
+	+ Fixed deprovision
 	+ OpenChange account is enabled by default for all the new created users
 	+ Adapt to changes in Out Of Office implementation in OCSManager
 	+ Allow to access SOGo also with the /webmail URL
