@@ -22,6 +22,7 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Link;
+use EBox::Types::Text;
 
 # Method: new
 #
@@ -46,6 +47,12 @@ sub _table
     my ($self) = @_;
 
     my $tableDesc = [
+        new EBox::Types::Text(
+            fieldName       => 'canama',
+            printableName   => __('CA name'),
+            volatile        => 1,
+            acquirer        => \&_getCAName,
+        ),
         new EBox::Types::Link(
             fieldName       => 'certificate',
             printableName   => __('CA Certificate'),
@@ -54,6 +61,15 @@ sub _table
             acquirer        => sub { return '/Downloader/RPCCert'; },
             HTMLViewer      => '/ajax/viewer/downloadLink.mas',
             HTMLSetter      => '/ajax/viewer/downloadLink.mas',
+        ),
+        new EBox::Types::Link(
+            fieldName       => 'manage',
+            printableName   => __('Manage certificates'),
+            volatile        => 1,
+            optionalLabel   => 0,
+            acquirer        => sub { return '/CA/Index'; },
+            HTMLViewer      => '/ajax/viewer/linkButton.mas',
+            HTMLSetter      => '/ajax/viewer/linkButton.mas',
         ),
     ];
 
@@ -67,6 +83,45 @@ sub _table
     };
 
     return $dataForm;
+}
+
+sub _getCAName
+{
+    my ($type) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    if ($ca->isAvailable()) {
+        my $metadata = $ca->getCACertificateMetadata();
+        use Data::Dumper;
+        EBox::info(Dumper($metadata));
+        return $metadata->{dn}->attribute('organizationName');
+    }
+    return __('CA not available');
+}
+
+sub precondition
+{
+    my ($self) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        $self->{preconditionFail} = 'canotavailable';
+        return 0;
+    }
+
+    delete $self->{preconditionFail};
+    return 1;
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'canotavailable') {
+        return __('CA not available');
+    }
+
+    return undef;
 }
 
 1;

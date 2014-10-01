@@ -1,0 +1,15 @@
+<%doc>
+   Template to show a link inside a icon
+Parameters:
+
+   data - <EBox::Types::Link> the instanced type which contains the download link
+</%doc>
+<%args>
+$data
+</%args>
+<%init>
+    my $link = $data->linkToView();
+    my $value = $data->printableName();
+    my $disabledClass = $link ? '' : 'btn-disabled';
+</%init>
+<a class="btn btn-icon <% $disabledClass %>" href="<% $link %>"><% $value %></a>
