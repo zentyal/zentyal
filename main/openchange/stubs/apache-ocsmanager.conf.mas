@@ -140,6 +140,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
     ProxyPass /sogo http://127.0.0.1:20000/SOGo
     ProxyPass /webmail/ http://127.0.0.1:20000/SOGo
     ProxyPass /webmail http://127.0.0.1:20000/SOGo
+    ProxyPass /_debug http://127.0.0.1:5000/_debug retry=0
 
     <Proxy http://127.0.0.1:20000/SOGo>
         ## When using proxy-side autentication, you need to uncomment and
