@@ -64,7 +64,6 @@ use Date::Calc;
 use constant COMMERCIAL_EDITION      => EBox::Config::home() . '.commercial-edition';
 use constant CRON_FILE               => '/etc/cron.d/zentyal-remoteservices';
 use constant PROF_PKG                => 'zentyal-cloud-prof';
-use constant REMOVE_PKG_SCRIPT       => EBox::Config::scripts() . 'remove-pkgs';
 use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant SUBSCRIPTION_LEVEL_COMMUNITY => 0;
 use constant SYNC_PKG                => 'zfilesync';
@@ -289,19 +288,22 @@ sub refreshSubscriptionInfo
     $self->commercialEdition('force');
     my $subscriptionInfo;
     my $refreshError = 0;
-    try {
-        my $subscriptions = $self->subscriptionsResource();
-        $subscriptionInfo = $subscriptions->subscriptionInfo();
-    } catch (EBox::Exceptions::RESTRequest $ex) {
-        if ($ex->code() == 403 ) {
-            # forbidden, the subscripption is not valid anymore
-            EBox::warn("Subscription expired or revoked");
-            $subscriptionInfo = undef;
-        } else {
+
+    if ($self->subscriptionCredentials()) {
+        try {
+            my $subscriptions = $self->subscriptionsResource();
+            $subscriptionInfo = $subscriptions->subscriptionInfo();
+        } catch (EBox::Exceptions::RESTRequest $ex) {
+            if ($ex->code() == 403) {
+                # forbidden, the subscription is not valid anymore
+                EBox::warn("Subscription expired or revoked");
+                $subscriptionInfo = undef;
+            } else {
+                $refreshError = $ex;
+            }
+        } catch ($ex) {
             $refreshError = $ex;
         }
-    } catch ($ex) {
-        $refreshError = $ex;
     }
 
     if ($refreshError) {
@@ -1479,20 +1481,30 @@ sub _downgrade
     # Remove packages if basic subscription or no subscription at all
 
     # Remove pkgs using at to avoid problems when doing so from Zentyal UI
-    my @pkgs = (PROF_PKG, SYNC_PKG);
-    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
+    my @packages = (PROF_PKG, SYNC_PKG);
+    @packages = grep { $self->_pkgInstalled($_) } @packages;
 
-    return unless ( @pkgs > 0 );
+    return unless ( @packages > 0 );
 
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    $fh->unlink_on_destroy(0);
-    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
-    close($fh);
-
+    my $gl = $self->global();
     try {
-        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
-    } catch (EBox::Exceptions::Command $e) {
-        EBox::error($e->stringify());
+        if ( $gl->modExists('software') ) {
+            my $software = $gl->modInstance('software');
+            my $progress = $software->removePkgs(@packages);
+            while (not $progress->finished() ) {
+                sleep(9);
+                EBox::info('Message: ' . $progress->message());
+                EBox::info('Uninstalling ' . join(' ', @packages) . ' ( ' . $progress->percentage() . '%)');
+            }
+        } else {
+            my $cmd = 'apt-get remove --purge -q --yes '
+              . '-o DPkg::Options::="--force-confold"';
+            my $param = "DEBIAN_FRONTEND=noninteractive $cmd " . join(' ', @packages);
+            EBox::info('Uninstalling ' . join(' ', @packages));
+            EBox::Sudo::root($param);
+        }
+    } catch ($e) {
+        EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $e->stringify());
     }
 }
 
