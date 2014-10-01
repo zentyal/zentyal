@@ -477,6 +477,7 @@ sub provision
         foreach my $ldbUser (@{$users}) {
             try {
                 my $samAccountName = $ldbUser->get('samAccountName');
+                my $mail = $ldbUser->get('mail');
 
                 next if ($ldbUser->isCritical());
 
@@ -496,6 +497,7 @@ sub provision
                     my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
+                    $cmd .= " --mail '$mail' ";
                     my $output = EBox::Sudo::root($cmd);
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
