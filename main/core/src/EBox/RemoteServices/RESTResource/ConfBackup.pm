@@ -19,6 +19,8 @@ use warnings;
 package EBox::RemoteServices::RESTResource::ConfBackup;
 use base 'EBox::RemoteServices::RESTResource';
 
+no warnings 'experimental::smartmatch';
+use v5.10;
 
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
@@ -26,7 +28,11 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
+use HTTP::Request;
+use HTTP::Status;
+use LWP::UserAgent;
 use TryCatch::Lite;
+use URI;
 
 # Group: Public methods
 
@@ -120,11 +126,13 @@ sub add
 #
 #      Download a configuration backup.
 #
-#      TODO: Handle large sizes and digest.
 #
 # Parameters:
 #
 #      uuid - String the backup identifier
+#
+#      fh - FileHandle if you want to download the file directly to a
+#           file handle (Optional)
 #
 # Returns:
 #
@@ -132,10 +140,46 @@ sub add
 #
 sub get
 {
-    my ($self, $id) = @_;
+    my ($self, $id, $fh) = @_;
     my $url = "/v2/confbackup/get/$id/";
-    my $res = $self->restClientWithServerCredentials()->GET($url);
-    return $res->rawContent();
+    if (defined($fh)) {
+        my $restClient = $self->restClientWithServerCredentials();
+        my $url = new URI($restClient->{server} . $url);
+
+        my $ua = new LWP::UserAgent();
+        $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rest_verify_servers'));
+        my $req = HTTP::Request->new(GET => $url->as_string());
+        $req->authorization_basic($restClient->{credentials}->{username},
+                                  $restClient->{credentials}->{password});
+
+        my $res = $ua->request($req,
+                               sub {
+                                   my ($chunk, $res) = @_;
+                                   print $fh $chunk;
+                               });
+
+        given($res->code()) {
+            when (HTTP::Status::HTTP_NOT_FOUND) {
+                throw EBox::Exceptions::Internal(__('Server not found'));
+            }
+            when (HTTP::Status::HTTP_NO_CONTENT) {
+                throw EBox::Exceptions::DataNotFound(
+                    data => __('Configuration backup'),
+                    value => $id,
+                   );
+            } when (HTTP::Status::HTTP_BAD_REQUEST) {
+                throw EBox::Exceptions::Internal('Bad request');
+            } when (HTTP::Status::HTTP_INTERNAL_SERVER_ERROR) {
+                throw EBox::Exceptions::Internal('Internal Server Error');
+            } when (HTTP::Status::HTTP_FORBIDDEN) {
+                throw EBox::Exceptions::Internal('Forbidden request');
+            }
+        }
+        return undef;
+    } else {
+        my $res = $self->restClientWithServerCredentials()->GET($url);
+        return $res->rawContent();
+    }
 }
 
 # Method: delete

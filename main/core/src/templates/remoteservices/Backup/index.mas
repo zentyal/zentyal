@@ -197,7 +197,7 @@ my @legendElements = (
    >
 <%perl>
   foreach my $backup (@backups) {
-     my $uuid        = $backup->{uuid};
+     my $uuid         = $backup->{uuid};
      my $downloadName =  $backup->{server}->{name} . '-' . $backup->{backup_date};
 </%perl>
     <tr class="border">

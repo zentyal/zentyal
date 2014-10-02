@@ -23,6 +23,7 @@ use base qw(EBox::CGI::ClientRawBase);
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use IO::File;
 use TryCatch::Lite;
 
 
@@ -47,9 +48,9 @@ sub _print
 {
     my ($self) = @_;
     if ( $self->{error} ) {
-        $self->{json}->{
+        $self->{json} = {
             success => 0,
-            error   => $self->{error}
+            error   => $self->{error},
         };
         $self->SUPER::_print;
         return;
@@ -60,13 +61,14 @@ sub _print
 
     my $backup = EBox::Global->modInstance('remoteservices')->confBackupResource();
     my $contents;
+    my $fh = IO::File->new_tmpfile();
     try {
-        $contents = $backup->get($uuid);
+        $contents = $backup->get($uuid, $fh);
     } catch($ex) {
-        $self->{json}->{
+        $self->{json} = {
             success => 0,
             error   => $self->{error}
-        };
+           };
         $self->SUPER::_print;
         return;
     }
@@ -75,7 +77,7 @@ sub _print
     $response->status(200);
     $response->content_type('application/x-tar');
     $response->header('Content-Disposition' => 'attachment; filename="' . "$name.tar" . '"');
-    $response->body($contents);
+    $response->body($fh);
 }
 
 sub requiredParameters
