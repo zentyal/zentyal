@@ -105,7 +105,6 @@ try {
             my $description = $params{description};
             $backupService->sendRemoteBackup($file, $remoteBackupName, $description);
 
-            EBox::debug("XXX after send $progress");
             if ($progress) {
                 $progress->setAsFinished();
             }

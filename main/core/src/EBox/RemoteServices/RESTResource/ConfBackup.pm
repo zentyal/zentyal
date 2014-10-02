@@ -22,9 +22,11 @@ use base 'EBox::RemoteServices::RESTResource';
 no warnings 'experimental::smartmatch';
 use v5.10;
 
+use Digest::MD5 qw(md5_hex);
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
@@ -119,6 +121,15 @@ sub add
        );
 
     my $res = $self->restClientWithServerCredentials()->POST($url, multipart => \@parts);
+    my $checksum = $res->data()->{md5sum};
+    if ($checksum) {
+        my $digest = md5_hex($data);
+        if ($checksum ne $digest) {
+            throw EBox::Exceptions::InvalidData(data   => 'conf backup',
+                                                value  => __('Configuration backup upload corrupted'),
+                                                advice => __('Try the upload again'));
+        }
+    }
     return $res->data();
 }
 
