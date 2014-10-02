@@ -100,7 +100,7 @@ sub _table
         new EBox::Types::Boolean(
             fieldName       => 'webmail_https',
             printableName   => __('HTTPS webmail enabled'),
-            editable        => 1,
+            editable        => \&_sslWebmailIsEditable,
             defaultValue    => 0,
             hiddenOnViewer  => 1,
             help            => __('FIXME'), # FIXME DOC
@@ -272,6 +272,26 @@ sub _autodiscoverIsEditable
 #   RPC over HTTPs can be enabled only if the certificate is in place
 #
 sub _sslRpcProxyIsEditable
+{
+    my ($type) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        return 0;
+    }
+
+    my $self = $type->model();
+    my $row = $type->row();
+    my $vdomain = $row->printableValueByName('vdomain');
+
+    return (defined $self->certificate($vdomain));
+}
+
+# Method: _sslWebmailIsEditable
+#
+#   Webmail using SSL can be enabled only if the certificate is in place
+#
+sub _sslWebmailIsEditable
 {
     my ($type) = @_;
 
