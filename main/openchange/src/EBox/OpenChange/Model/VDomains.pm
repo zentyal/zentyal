@@ -196,8 +196,7 @@ sub _autodiscoverRecordAcquirer
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
 
-    # If the domain is managed by zentyal check the DNS model, otherwise
-    # query DNS
+    # If the domain is managed by zentyal check the DNS model
     my $dns = EBox::Global->modInstance('dns');
     my $dnsDomains = $dns->model('DomainTable');
     my $dnsRow = $dnsDomains->find(domain => $vdomain);
@@ -212,9 +211,6 @@ sub _autodiscoverRecordAcquirer
             my $aliasRow = $aliasModel->find(alias => 'autodiscover');
             $ret = (defined $aliasRow);
         }
-    } else {
-        my $addr = $self->_resolveAutoDiscover("autodiscover.${vdomain}");
-        $ret = (defined $addr and scalar @{$addr});
     }
 
     return $ret;
@@ -370,39 +366,6 @@ sub _doRevoke
     # Set openchange as changed to remove the certificate from ocsmanager
     # folder on save changes
     $self->parentModule()->setAsChanged();
-}
-
-# Method: _resolveAutoDiscover
-#
-#   Resolves the FQDN, following CNAMEs
-#
-# Returns:
-#
-#   Undef if the record does not exists, or a array ref holding the IP
-#   addresses of resolved record. Note the list can be empty.
-#
-sub _resolveAutoDiscover
-{
-    my ($self, $dnsName) = @_;
-
-    my $resolver = new Net::DNS::Resolver(config_file => '/etc/resolv.conf');
-    $resolver->tcp_timeout(1);
-    $resolver->udp_timeout(1);
-
-    my $reply = $resolver->search($dnsName);
-    if ($reply) {
-        my $addresses = [];
-        foreach my $rr ($reply->answer()) {
-            if ($rr->type eq 'CNAME') {
-                push (@{$addresses}, $self->_resolveAutoDiscover($rr->cname));
-            }
-            if ($rr->type() eq 'A') {
-                push (@{$addresses}, $rr->address());
-            }
-        }
-        return $addresses;
-    }
-    return undef;
 }
 
 # Method: _setAutoDiscoverRecord
