@@ -170,6 +170,11 @@ sub _certificateAcquirer
 {
     my ($type) = @_;
 
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        return 0;
+    }
+
     my $self = $type->model();
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
@@ -247,6 +252,11 @@ sub _autodiscoverIsEditable
 {
     my ($type) = @_;
 
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        return 0;
+    }
+
     my $self = $type->model();
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
@@ -269,6 +279,11 @@ sub _sslRpcProxyIsEditable
 {
     my ($type) = @_;
 
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        return 0;
+    }
+
     my $self = $type->model();
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
@@ -284,6 +299,11 @@ sub _sslRpcProxyIsEditable
 sub _acquireIssued
 {
     my ($self, $id) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        return 'nonissued';
+    }
 
     my $row = $self->row($id);
     my $vdomain = $row->printableValueByName('vdomain');
