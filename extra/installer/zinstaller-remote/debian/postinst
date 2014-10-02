@@ -4,6 +4,9 @@
 
 URL=api.cloud.zentyal.com
 
+#FIXME
+echo "10.2.1.17 api.cloud.zentyal.com" >> /etc/hosts
+
 get_field()
 {
     INPUT=$1
