@@ -1,3 +1,4 @@
 base-installer.d usr/lib
 post-base-installer.d usr/lib
 qa-key.pub tmp/zinstaller-remote
+jq usr/bin
