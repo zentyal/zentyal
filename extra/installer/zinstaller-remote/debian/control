@@ -7,8 +7,5 @@ Standards-Version: 3.9.1
 Homepage: http://www.zentyal.org/
 
 Package: zinstaller-remote
-XC-Package-Type: udeb
 Architecture: all
-Depends: ${misc:Depends}, configured-network, curl-udeb
-XB-Installer-Menu-Item: 1866
 Description: Choose Zentyal edition to install

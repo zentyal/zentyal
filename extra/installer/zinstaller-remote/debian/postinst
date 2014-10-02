@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 
 . /usr/share/debconf/confmodule
 
@@ -23,12 +23,13 @@ DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR
 
-db_get netcfg/get_hostname
-SERVERNAME="$RET"
-if [ -z "$SERVERNAME" ]
-then
-    SERVERNAME=$HOSTNAME
-fi
+#db_get netcfg/get_hostname
+#SERVERNAME="$RET"
+#if [ -z "$SERVERNAME" ]
+#then
+#    SERVERNAME=$HOSTNAME
+#fi
+SERVERNAME=$HOSTNAME
 
 while true
 do
