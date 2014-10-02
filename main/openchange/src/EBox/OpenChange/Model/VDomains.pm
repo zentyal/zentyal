@@ -334,6 +334,14 @@ sub _doIssue
 {
     my ($self, $action, $id, %params) = @_;
 
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        throw EBox::Exceptions::External(
+            __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
+                oh => "<a href='/CA/Index'>",
+                ch => "</a>"));
+    }
+
     my $row = $self->row($id);
     my $vdomain = $row->printableValueByName('vdomain');
 
@@ -367,14 +375,6 @@ sub _doIssue
 sub _doRevoke
 {
     my ($self, $action, $id, %params) = @_;
-
-    my $ca = EBox::Global->modInstance('ca');
-    unless ($ca->isAvailable()) {
-        throw EBox::Exceptions::External(
-            __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
-                oh => "<a href='/CA/Index'>",
-                ch => "</a>"));
-    }
 
     my $row = $self->row($id);
     my $vdomain = $row->printableValueByName('vdomain');
@@ -498,6 +498,11 @@ sub precondition
 {
     my ($self) = @_;
 
+    unless ($self->parentModule->isEnabled()) {
+        $self->{preconditionFail} = 'notEnabled';
+        return 0;
+    }
+
     my $mail = EBox::Global->modInstance('mail');
     my $v = $mail->model('VDomains');
     unless (scalar (@{$v->ids()})) {
@@ -511,6 +516,12 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notEnabled') {
+        return __x('You must enable the {x} module before configuring the ' .
+                   'virtual domains. ',
+                   x => $self->parentModule->printableName());
+    }
 
     if ($self->{preconditionFail} eq 'novdomains') {
         return __x('There are not configured {oh}virtual domains{ch}.',
