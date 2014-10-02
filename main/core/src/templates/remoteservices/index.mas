@@ -105,9 +105,12 @@ my @fields = (
    </form>
     <hr/>
    <div id='unsubscription_form_error' class='error' style='display:none'></div>
+<%doc>
+<!-- Use unsubscribe script instead -->
    <form id='unsubscription_form' action='/RemoteServices/UnsubscribeServer'>
       <input type='submit' id='unsubscription_form_submit',  value='<%__('Unregister')%>' />
    </form>
+</%doc>
 </div>
 
 
