@@ -325,7 +325,6 @@ sub _doIssue
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
 
-    my $ca = EBox::Global->modInstance('ca');
     my $caCert = $ca->getCACertificateMetadata();
     $ca->issueCertificate(
         commonName => $vdomain,
@@ -348,6 +347,14 @@ sub _doIssue
 sub _doRevoke
 {
     my ($self, $action, $id, %params) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        throw EBox::Exceptions::External(
+            __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
+                oh => "<a href='/CA/Index'>",
+                ch => "</a>"));
+    }
 
     my $row = $self->row($id);
     my $vdomain = $row->printableValueByName('vdomain');
