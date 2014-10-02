@@ -178,10 +178,31 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function(wizard) {
         go_to_register_additional();
     });
 
+    var submitButtonSelector = '#register_first_submit';
+    var submitAddButtonSelector = '#register_additional_submit';
+    var currentOnClick = "";
+    var next;
+    if (wizard) {
+        submitButtonSelector = '#wizard-next2';
+        submitAddButtonSelector = '#wizard-next2';
+        var next = $(submitButtonSelector);
+        // Remove current onclick and use ours
+        currentOnClick = next.attr('onclick');
+        next.attr('onclick', '').off('click');
+        next.on('click.remoteservices', function(event) {
+            event.preventDefault();
+            var form = $('#register_first_time_form');
+            if (div_register_additional.is(':visible')) {
+                form = $('#register_additional_form');
+            }
+            form.submit();
+        });
+    }
+
     Zentyal.Form.setupAjaxSubmit('#register_first_time_form', {
         noteDiv: '#register_first_time_note',
         errorDiv: '#register_first_time_error',
-        submitButton: '#register_first_submit',
+        submitButton: submitButtonSelector,
         success : function(response) {
             if (!response.success) {
                 if (response.duplicate) {
@@ -193,7 +214,9 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function(wizard) {
                 return;
             }
             if (wizard) {
-                console.log(response.trackURI);
+                // Restore previous onclick
+                next.off('click.remoteservices');
+                next.attr('onclick', currentOnClick).on('click');
                 if (response.trackURI) {
                     var ifr = $(document.createElement('iframe'));
                     ifr.width(1);
@@ -222,7 +245,7 @@ Zentyal.RemoteServices.setupCommunityRegisterPage = function(wizard) {
     Zentyal.Form.setupAjaxSubmit('#register_additional_form', {
         noteDiv: '#register_additional_note',
         errorDiv: '#register_additional_error',
-        submitButton: '#register_additional_submit',
+        submitButton: submitAddButtonSelector,
         success : function(response) {
             if (!response.success) {
                 return;

@@ -15,7 +15,7 @@ my %tabs = (
 		     },
 	    remote => {
 		      component =>  '/remoteservices/Backup/index.mas',
-		      title     =>  __('Remote'),
+		      title     =>  __('Cloud'),
                       url       => '/RemoteServices/Backup/Index?selected=remote',
 		     },
 	   );

@@ -72,9 +72,11 @@ my @register_first_time_rows = (
           <span class="optional_field"> <% __('Optional') %> </span>
         </label>
       </div>
+% unless ($wizard) {
       <div class="form-buttons">
-        <input type="submit" value="<% __('Backup this server') %>" id="register_first_time_submit" name="register">
+        <input type="submit" value="<% __('Accept') %>" id="register_first_time_submit" name="register">
       </div>
+% }
       <input type="hidden" name="servername" value="<% $fqdn %>" />
 % if ($wizard) {
       <input type="hidden" name="wizard" value="1" />
@@ -126,13 +128,20 @@ my @register_additional_rows = (
         <& $input, %{ $row } &>
       </div>
 % }
+% unless ($wizard) {
       <div class="form-buttons">
-        <a href='#' class="btn" id='switch_to_register_first'><% __('Back') %></a>
-        <input type="submit" class="btn btn-green" value="<% __('Backup this server') %>" id="register_additional_submit" name="register">
+        <a href='#' class="btn" id="switch_to_register_first"><% __('Back') %></a>
+        <input type="submit" class="btn btn-green" value="<% __('Accept') %>" id="register_additional_submit" name="register">
       </div>
+% }
       <input type='hidden' name='servername' value='<% $fqdn %>' />
    </form>
-   <p><a href="FIXME" title="<% __('Reset my password') %>"><% __('Reset my password') %></a></p>
+   <p>
+% if ($wizard) {
+     <a href="#" title="<% __('Back') %>" id="switch_to_register_first"><% __('Back') %></a>
+% }
+     <a href="FIXME" title="<% __('Reset my password') %>"><% __('Reset my password') %></a>
+   </p>
 </div>
 
 <%def .cb>
