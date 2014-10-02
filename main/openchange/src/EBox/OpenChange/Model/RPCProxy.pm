@@ -96,7 +96,7 @@ sub _getCAName
         EBox::info(Dumper($metadata));
         return $metadata->{dn}->attribute('organizationName');
     }
-    return __('CA not available');
+    return __('The CA is not available.');
 }
 
 sub precondition
@@ -105,7 +105,7 @@ sub precondition
 
     my $ca = EBox::Global->modInstance('ca');
     unless ($ca->isAvailable()) {
-        $self->{preconditionFail} = 'canotavailable';
+        $self->{preconditionFail} = 'noCA';
         return 0;
     }
 
@@ -117,8 +117,11 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    if ($self->{preconditionFail} eq 'canotavailable') {
-        return __('CA not available');
+    if ($self->{preconditionFail} eq 'noCA') {
+        return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
+                   oh => "<a href='/CA/Index'>",
+                   ch => "</a>"
+                  );
     }
 
     return undef;
