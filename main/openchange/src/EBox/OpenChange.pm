@@ -743,6 +743,27 @@ sub setProvisioned
     $self->set_state($state);
 }
 
+sub restoreConfig
+{
+    my ($self, $dir, @params) = @_;
+
+    $self->stopService();
+
+    $self->SUPER::restoreConfig($dir, @params);
+
+    # import from state only the provision keys
+    my $state = $self->get_state();
+    $self->_load_state_from_file($dir);
+    my $stateFromBackup = $self->get_state();
+    $state->{isProvisioned} = $stateFromBackup->{isProvisioned}; 
+    $state->{Provision}     = $stateFromBackup->{Provision};
+    $self->set_state($state);
+
+    $self->connectionString();
+
+    $self->startService();
+}
+
 sub _setupSOGoDatabase
 {
     my ($self) = @_;
