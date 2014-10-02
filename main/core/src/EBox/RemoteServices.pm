@@ -1244,19 +1244,21 @@ sub maxConfBackups
 sub menu
 {
     my ($self, $root) = @_;
-        # Subscription menu is only for commercial editions
+
+    # Subscription menu is only for commercial editions
     if (not $self->commercialEdition()) {
         return undef;
     }
 
-    my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
-                                        icon => 'register',
-                                        text => __('Registration'),
-                                        separator => 'Core',
-                                        order => 105);
+    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'icon' => 'system',
+                                        'text' => __('System'),
+                                        'tag' => 'system',
+                                        'order' => 30);
 
-    $folder->add(new EBox::Menu::Item('url'  => 'RemoteServices/Composite/General',
-                                      'text' => __('Server Registration'),
+    $system->add(new EBox::Menu::Item('url'   => 'SysInfo/RemoteServices',
+                                      'text'  => __('Server Edition'),
+                                      'order' => 30,
                                      ));
 
 
@@ -1267,7 +1269,7 @@ sub menu
     #    ));
 
 
-    $root->add($folder);
+    $root->add($system);
 }
 
 # Method: addModuleStatus
