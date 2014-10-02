@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,8 +17,8 @@
 #
 # This class is the model to show information about the server subscriptions
 #
-#     - QA updates enabled
-#     - Latest QA update
+#     - Automatic updates enabled
+#     - Latest automatic update
 #
 
 use strict;
@@ -53,17 +53,17 @@ sub _table
       (
        new EBox::Types::Text(
            fieldName     => 'enabled',
-           printableName => __('QA software updates'),
+           printableName => __('Automatic software updates'),
            ),
        new EBox::Types::Text(
            fieldName     => 'latest_date',
-           printableName => __('Latest QA software update'),
+           printableName => __('Latest automatic software update'),
           ),
       );
 
     my $dataForm = {
                     tableName          => 'QAUpdatesInfo',
-                    printableTableName => __('QA software updates'),
+                    printableTableName => __('Automatic software updates'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'changeView' ],
                     tableDescription   => \@tableDesc,
