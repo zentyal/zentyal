@@ -36,7 +36,7 @@ use constant GO_URL => 'https://go.pardot.com/l/24292/2013-10-28/261g7';
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Import/Export Configuration Remotely'),
+    my $self = $class->SUPER::new('title' => __('Configuration Backup'),
                                   'template' => '/backupTabs.mas',
                                   @_);
 

@@ -37,7 +37,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(
-        title    => __('Import/Export Configuration Remotely'),
+        title    => __('Configuration Backup'),
         template => '/backupTabs.mas',
         @_);
 

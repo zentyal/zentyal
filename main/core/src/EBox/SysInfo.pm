@@ -120,7 +120,7 @@ sub menu
                                       'order' => 20));
 
     $system->add(new EBox::Menu::Item('url' => 'RemoteServices/Backup/Index',
-                                      'text' => __('Import/Export Configuration'),
+                                      'text' => __('Configuration Backup'),
                                       'order' => 50));
 
     if (EBox::Config::boolean('debug')) {
