@@ -37,6 +37,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
+use EBox::OpenChange::DBEngine;
 use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
@@ -743,6 +744,20 @@ sub setProvisioned
     $self->set_state($state);
 }
 
+sub _mysqlDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/openchange.dump';
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    my $dumpFile = $self->_mysqlDumpFile($dir);
+    my $dbengine = EBox::OpenChange::DBEngine->new($self);
+    $dbengine->dumpDB($dumpFile);
+}
+
 sub restoreConfig
 {
     my ($self, $dir, @params) = @_;
@@ -759,9 +774,16 @@ sub restoreConfig
     $state->{Provision}     = $stateFromBackup->{Provision};
     $self->set_state($state);
 
-    $self->connectionString();
+    EBox::Sudo::root(EBox::Config::scripts('openchange') .
+          'generate-database');
 
-    $self->startService();
+    my $dumpFile = $self->_mysqlDumpFile($dir);    
+    if (-r $dumpFile) {
+        my $dbengine = EBox::OpenChange::DBEngine->new($self);
+        $dbengine->restoreDBDump($dumpFile);
+    }
+
+    $self->_startService();
 }
 
 sub _setupSOGoDatabase

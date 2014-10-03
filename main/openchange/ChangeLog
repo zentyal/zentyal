@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed backup/restore
 	+ Adapt to changes in Out Of Office implementation in OCSManager
 	+ Enabling SOGo login with user mail address makes possible Z-Push
 	  carddav server synchronization
