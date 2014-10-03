@@ -673,11 +673,11 @@ sub  dumpDB
     defined $onlySchema or
         $onlySchema = 0;
 
-    my $tmpFile = _superuserTmpFile(1);
+    my $tmpFile = $self->_superuserTmpFile(1);
 
-    my $dbname = _dbname();
-    my $dbuser = _dbuser();
-    my $dbpass = _dbpass();
+    my $dbname = $self->_dbname();
+    my $dbuser = $self->_dbuser();
+    my $dbpass = $self->_dbpass();
 
     my $args = "-u$dbuser -p$dbpass";
     if ($onlySchema) {
@@ -708,11 +708,11 @@ sub restoreDBDump
 
     EBox::info('We wil try to restore the database. This will erase your current data' );
 
-    my $tmpFile = _superuserTmpFile(0);
+    my $tmpFile = $self->_superuserTmpFile(0);
     EBox::Sudo::root("mv $file $tmpFile");
 
     try {
-        my $superuser = _dbsuperuser();
+        my $superuser = $self->_dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
     } catch ($e) {
         # left file were it was before
@@ -733,10 +733,10 @@ sub restoreDBDump
     EBox::Sudo::root("mv $tmpFile $file");
 
     if ($onlySchema) {
-        EBox::info('Database schema dump for ' . _dbname() . ' restored' );
+        EBox::info('Database schema dump for ' . $self->_dbname() . ' restored' );
 
     } else {
-        EBox::info('Database dump for ' . _dbname() . ' restored' );
+        EBox::info('Database dump for ' . $self->_dbname() . ' restored' );
     }
 }
 
