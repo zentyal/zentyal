@@ -503,6 +503,11 @@ sub precondition
         return 0;
     }
 
+    unless ($self->parentModule()->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return 0;
+    }
+
     my $mail = EBox::Global->modInstance('mail');
     my $v = $mail->model('VDomains');
     unless (scalar (@{$v->ids()})) {
@@ -520,6 +525,11 @@ sub preconditionFailMsg
     if ($self->{preconditionFail} eq 'notEnabled') {
         return __x('You must enable the {x} module before configuring the ' .
                    'virtual domains. ',
+                   x => $self->parentModule->printableName());
+    }
+
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __x('The {x} module is not provisioned',
                    x => $self->parentModule->printableName());
     }
 

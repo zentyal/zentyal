@@ -109,6 +109,11 @@ sub precondition
         return 0;
     }
 
+    unless ($self->parentModule()->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return 0;
+    }
+
     delete $self->{preconditionFail};
     return 1;
 }
@@ -116,6 +121,11 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __x('The {x} module is not provisioned',
+                   x => $self->parentModule->printableName());
+    }
 
     if ($self->{preconditionFail} eq 'noCA') {
         return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
