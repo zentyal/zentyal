@@ -347,7 +347,7 @@ sub _setConf
     # FIXME: this may cause unexpected samba restarts during save changes, etc
     #$self->_writeCronFile();
 
-# TODO    $self->_setupActiveSync();
+    $self->_setupActiveSync();
 }
 
 # TODO: Review, is this really necessary?
@@ -388,24 +388,24 @@ sub _setApachePortsConf
                          $params);
 }
 
-#sub _setupActiveSync
-#{
-#    my ($self) = @_;
-#
-#    my $enabled = (-f '/etc/apache2/conf-enabled/zentyal-activesync.conf');
-#    my $enable = $self->_activesyncEnabled();
-#    if ($enable) {
-#        EBox::Sudo::root('a2enconf zentyal-activesync');
-#    } else {
-#        EBox::Sudo::silentRoot('a2disconf zentyal-activesync');
-#    }
-#    if ($enabled xor $enable) {
-#        my $global = $self->global();
-#        if ($global->modExists('sogo')) {
-#            $global->addModuleToPostSave('sogo');
-#        }
-#    }
-#}
+sub _setupActiveSync
+{
+    my ($self) = @_;
+
+    my $enabled = (-f '/etc/apache2/conf-enabled/zentyal-activesync.conf');
+    my $enable = $self->model('ActiveSync')->value('activesync');
+    if ($enabled xor $enable) {
+        if ($enable) {
+            EBox::Sudo::root('a2enconf zentyal-activesync');
+        } else {
+            EBox::Sudo::silentRoot('a2disconf zentyal-activesync');
+        }
+        my $global = $self->global();
+        if ($global->modExists('sogo')) {
+            $global->addModuleToPostSave('sogo');
+        }
+    }
+}
 
 sub _writeCronFile
 {
@@ -876,12 +876,6 @@ sub organizations
 
     return $list;
 }
-
-#sub _activesyncEnabled
-#{
-#    my ($self) = @_;
-#    return $self->model('Configuration')->value('activesync');
-#}
 
 # Method: _getPassword
 #

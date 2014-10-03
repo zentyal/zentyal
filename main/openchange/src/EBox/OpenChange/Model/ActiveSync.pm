@@ -79,7 +79,7 @@ sub precondition
 
     # Check there are virtual domains
     my $oc = $self->parentModule();
-    my $vdomains = $$oc->model('VDomains');
+    my $vdomains = $oc->model('VDomains');
     my $n = $vdomains->size();
     unless ($n > 0) {
         $self->{preconditionFail} = 'nodomains';
