@@ -60,9 +60,9 @@ while read company ; read label; read server; read uuid; do
 
     if [ -n "$company" ]
     then
-        echo "$uuid:$company - $label" >> $DATA_DIR/BUNDLE_IDS
+        echo "$uuid:$server:$company - $label" >> $DATA_DIR/BUNDLE_IDS
     else
-        echo "$uuiid:$label" >> $DATA_DIR/BUNDLE_IDS
+        echo "$uiid:$server:$label" >> $DATA_DIR/BUNDLE_IDS
     fi
 done
 
@@ -79,10 +79,7 @@ then
     db_input high zinstaller-remote/auth_ok
     db_go
 else
-    choices=$(cut -d: -f2- $DATA_DIR/BUNDLE_IDS | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
-    echo BEGIN
-    echo "$choices"
-    echo END
+    choices=$(cut -d: -f3- $DATA_DIR/BUNDLE_IDS | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
     db_subst zinstaller-remote/select_bundle CHOICES "$choices"
     db_input high zinstaller-remote/select_bundle
     db_go
@@ -92,10 +89,19 @@ else
     BUNDLE_ID=$(grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f1)
 fi
 
+
+SERVER=`grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | cut -d: -f2 | head -1`
+if [ "$SERVER" == "null" ] ; then
+    MODE=new
+elif [ "$SERVERNAME" == "$SERVER" ] ; then
+    MODE=associate
+else
+    MODE=overwrite
+fi
+
 # Get subscription data
 REQUEST_URL="https://$URL/v2/subscriptions/subscribe/"
-# FIXME: use mode=associate/overwrite when needed
-REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=new"
+REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=$MODE"
 RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
 if [ $? -eq 0 ]
 then
