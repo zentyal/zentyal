@@ -853,12 +853,25 @@ sub _mysqlDumpFile
     return $dir . '/openchange.dump';
 }
 
+sub _sogoDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/sogo.dump';
+}
+
 sub dumpConfig
 {
     my ($self, $dir) = @_;
     my $dumpFile = $self->_mysqlDumpFile($dir);
     my $dbengine = EBox::OpenChange::DBEngine->new($self);
     $dbengine->dumpDB($dumpFile);
+
+    my $sogo = $self->global()->modInstance('sogo');
+    if ($sogo) {
+        $dumpFile = $self->_sogoDumpFile($dir);
+        $dbengine = $sogo->dbengine();
+        $dbengine->dumpDB($dumpFile);
+    }
 }
 
 sub restoreConfig
@@ -884,6 +897,15 @@ sub restoreConfig
     if (-r $dumpFile) {
         my $dbengine = EBox::OpenChange::DBEngine->new($self);
         $dbengine->restoreDBDump($dumpFile);
+    }
+
+    my $sogo = $self->global()->modInstance('sogo');
+    if ($sogo) {
+        $dumpFile = $self->_sogoDumpFile($dir);
+        if (-r $dumpFile) {
+            my $dbengine = $sogo->dbengine();
+            $dbengine->restoreDBDump($dumpFile);
+        }
     }
 
     $self->_startService();

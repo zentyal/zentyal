@@ -118,7 +118,7 @@ sub _innoDbValueHasChanged
 
 # Method: _dbname
 #
-#       This function returns the database name.
+#       This method returns the database name.
 #
 sub _dbname
 {
@@ -132,7 +132,7 @@ sub _dbname
 
 # Method: _dbuser
 #
-#       This function returns the database user.
+#         This method returns the database user.
 #
 sub _dbuser
 {
@@ -146,7 +146,7 @@ sub _dbuser
 
 # Method: _dbpass
 #
-#  This function returns the database user password.
+#         This method returns the database user password.
 #
 sub _dbpass
 {
@@ -161,9 +161,19 @@ sub _dbpass
     return $self->{dbpass};
 }
 
+# Method: _dbhost
+#
+#          This method returns the host used by the database
+#
+#  Default: 127.0.0.1
+sub _dbhost
+{
+    return '127.0.0.1';
+}
+
 # Method: _dbsuperuser
 #
-#  This function returns the database superuser's username
+#          This method returns the database superuser's username
 #
 sub _dbsuperuser
 {
@@ -678,11 +688,14 @@ sub  dumpDB
     my $dbname = $self->_dbname();
     my $dbuser = $self->_dbuser();
     my $dbpass = $self->_dbpass();
+    my $dbhost = $self->_dbhost();
 
     my $args = "-u$dbuser -p$dbpass";
     if ($onlySchema) {
         $args .= ' --no-data';
     }
+    $args .= " -h$dbhost";
+    
     my $dumpCommand = "mysqldump $args $dbname > $tmpFile";
 
     $self->commandAsSuperuser($dumpCommand);
