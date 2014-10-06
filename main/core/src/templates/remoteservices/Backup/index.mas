@@ -46,8 +46,11 @@ $subscriptionLevel
 $maxBackups
 </%args>
 <%init>
-my $lastBackup = $backups[0];  # TODO: Get the oldest one
-my $restricted = ($maxBackups == scalar(@backups));
+my @manualBackups = grep {
+   not ($_->{label} =~ m/^automatic-backup-/)
+} @backups;
+my $lastBackup = $manualBackups[0];  # TODO: Get the oldest one
+my $restricted = (@manualBackups >= $maxBackups);
 my $formAction = $restricted ? 'Confirm' : 'MakeRemoteBackup';
 
 my @formElements;
