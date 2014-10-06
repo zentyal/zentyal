@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::WebServer;
+use EBox::SOGO::DBEngine;
 
 use TryCatch::Lite;
 
@@ -196,6 +197,26 @@ sub initialSetup
         # Force a configuration dump
         $self->save();
     }
+}
+
+sub dbCredentials
+{
+    my ($self) = @_;
+    my $grepCmd = 'grep SOGoProfileURL /etc/sogo/sogo.conf';
+    my $output = EBox::Sudo::root($grepCmd);
+    my $line = $output->[0];
+    my ($user, $passwd, $host) = $line =~ m{mysql://(.*?):(.*?)@(.*?):};
+    return {
+        user   => $user,
+        passwd => $passwd,
+        host   => $host
+       };
+}
+
+sub dbengine
+{
+    my ($self) = @_;
+    return EBox::SOGO::DBEngine->new($self);
 }
 
 1;

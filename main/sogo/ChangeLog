@@ -1,3 +1,5 @@
+HEAD
+	+ Added dbengine for SOGO database
 3.5.3
 	+ Revert apache conf change that does not work properly without the
 	  httpclose option in haproxy conf (that breaks Outlook Anwyhere)
