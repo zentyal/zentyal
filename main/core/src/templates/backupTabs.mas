@@ -16,7 +16,7 @@ my %tabs = (
 	    remote => {
 		      component =>  '/remoteservices/Backup/index.mas',
 		      title     =>  __('Cloud'),
-                      url       => '/RemoteServices/Backup/Index?selected=remote',
+                      url       => '/SysInfo/Cloud/Backup',
 		     },
 	   );
 my @tabsOrder= qw(remote local);
