@@ -132,7 +132,9 @@ sub _table
         #defaultActions     => [ 'editField' ],
         customActions      => $customActions,
         tableDescription   => \@tableDesc,
-        help               => __('Setup an OpenChange Groupware server.'),
+        help               => __('Provision the OpenChange Groupware server. '.
+                                 'This will extend and initialize the '.
+                                 'required values in the LDAP schema.'),
     };
 
     return $dataForm;

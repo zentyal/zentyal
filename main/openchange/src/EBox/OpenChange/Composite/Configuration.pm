@@ -43,4 +43,16 @@ sub _description
     return $description;
 }
 
+sub permanentMessage
+{
+    return __x('{x}® and {y}® are registered trademarks of Microsoft ' .
+               'Corporation, and are registered in the USA and other ' .
+               'countries.', x => 'ActiveSync', y => 'Outlook');
+}
+
+sub permanentMessageType
+{
+    return 'emptynote';
+}
+
 1;

@@ -49,19 +49,21 @@ sub _table
 
     push (@tableDesc, new EBox::Types::Boolean(
         fieldName => 'activesync',
-        printableName => 'ActiveSync',
+        printableName => __('ActiveSync®'),
         editable => 1,
         defaultValue => 0,
-        help => __('FIXME'), # TODO DOC
+        help => __('Enable ActiveSync® support for all the mail domains'),
     ));
 
     my $dataForm = {
         tableName          => 'ActiveSync',
-        printableTableName => __('ActiveSync'),
+        printableTableName => __('ActiveSync®'),
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __('FIXME'), # TODO DOC
+        help               => __('The ActiveSync® gateway, standard ' .
+                                 'protocol for several mobile devices.'),
+
     };
 
     return $dataForm;

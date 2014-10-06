@@ -71,31 +71,36 @@ sub _table
             storer          => \&_autodiscoverRecordStorer,
             editable        => \&_autodiscoverIsEditable,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME DOC
+            help            => __('Enable the Auto Discover service, your ' .
+                                  'MAPI client will automatically find ' .
+                                  'server configuration.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'rpcproxy_http',
-            printableName   => __('HTTP access without SSL'),
+            printableName   => __('Outlook® Anywhere (no SSL)'),
             editable        => 1,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME DOC
+            help            => __('RPC over HTTP access. MAPI/RPC over HTTP, '.
+                                  'non-SSL version.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'rpcproxy_https',
-            printableName   => __('HTTPS access with SSL'),
+            printableName   => __('Outlook® Anywhere (SSL)'),
             editable        => \&_sslRpcProxyIsEditable,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
-            help            => __('FIXME'), # FIXME DOC
+            help            => __('RPC over HTTPS access. MAPI/RPC over ' .
+                                  'HTTP, SSL enabled version.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'webmail_http',
-            printableName   => __('HTTP Webmail enabled'),
+            printableName   => __('HTTP(S) Webmail'),
             editable        => 1,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/webmailViewer.mas',
-            help            => __('FIXME'), # FIXME DOC
+            help            => __('Webmail and groupware platform. non-SSL ' .
+                                  'version.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'webmail_https',
@@ -103,7 +108,8 @@ sub _table
             editable        => \&_sslWebmailIsEditable,
             defaultValue    => 0,
             hiddenOnViewer  => 1,
-            help            => __('FIXME'), # FIXME DOC
+            help            => __('Webmail and groupware platform. SSL ' .
+                                  'enabled version.'),
         ),
     ];
 
@@ -136,7 +142,9 @@ sub _table
         defaultActions      => ['editField', 'changeView'],
         customActions       => $customActions,
         tableDescription    => $tableHead,
-        help                => __('Fixme'), # FIXME
+        help                => __('This table is summary of the attributes ' .
+                                  'and access gateways associated with each ' .
+                                  'virtual mail domain.'),
     };
 
     return $dataTable;

@@ -19,7 +19,7 @@ $data
     $link .= "${host}.${vdomain}/webmail";
 </%init>
 %   if ($enabled) {
-        <a class='btn' href=<% $link %>>Access</a>
+        <a href=<% $link %>>Access webmail</a>
 %   } else {
 		<img src="/data/images/disabled.gif" alt="no"/>
 %   }

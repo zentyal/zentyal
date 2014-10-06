@@ -68,18 +68,20 @@ sub _table
             volatile        => 1,
             optionalLabel   => 0,
             acquirer        => sub { return '/CA/Index'; },
-            HTMLViewer      => '/ajax/viewer/linkButton.mas',
-            HTMLSetter      => '/ajax/viewer/linkButton.mas',
+            HTMLViewer      => '/openchange/ajax/viewer/linkViewer.mas',
+            HTMLSetter      => '/openchange/ajax/viewer/linkViewer.mas',
         ),
     ];
 
     my $dataForm = {
         tableName          => 'RPCProxy',
-        printableTableName => __('HTTP and HTTPS clients access'),
+        printableTableName => __('Outlook® Anywhere access'),
         modelDomain        => 'OpenChange',
         defaultActions     => [],
         tableDescription   => $tableDesc,
-        help               => __('FIXME'), # FIXME TODO
+        help               => __('MAPI clients have to import your CA ' .
+                                 'certificate in order to trust the ' .
+                                 'RPC/MAPI proxy.'),
     };
 
     return $dataForm;
