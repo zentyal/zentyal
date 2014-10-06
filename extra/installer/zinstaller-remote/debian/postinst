@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 . /usr/share/debconf/confmodule
 
@@ -11,14 +11,12 @@ DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR
 
-# FIXME
-#db_get netcfg/get_hostname
-#SERVERNAME="$RET"
-#if [ -z "$SERVERNAME" ]
-#then
-#    SERVERNAME=$HOSTNAME
-#fi
-SERVERNAME=$HOSTNAME
+db_get netcfg/get_hostname
+SERVERNAME="$RET"
+if [ -z "$SERVERNAME" ]
+then
+    SERVERNAME=$HOSTNAME
+fi
 
 # TODO: validate server name (RemoteServices/Subscription/Validate.pm)
 
@@ -91,9 +89,9 @@ fi
 
 
 SERVER=`grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | cut -d: -f2 | head -1`
-if [ "$SERVER" == "null" ] ; then
+if [ "$SERVER" = "null" ] ; then
     MODE=new
-elif [ "$SERVERNAME" == "$SERVER" ] ; then
+elif [ "$SERVERNAME" = "$SERVER" ] ; then
     MODE=associate
 else
     MODE=overwrite
