@@ -55,7 +55,6 @@ use EBox::WebAdmin::PSGI;
 use AptPkg::Cache;
 use File::Slurp;
 use JSON::XS;
-use Net::DNS;
 use POSIX;
 use YAML::XS;
 use TryCatch::Lite;
