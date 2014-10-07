@@ -37,6 +37,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
+use EBox::OpenChange::DBEngine;
 use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
@@ -741,6 +742,70 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+sub _mysqlDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/openchange.dump';
+}
+
+sub _sogoDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/sogo.dump';
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    my $dumpFile = $self->_mysqlDumpFile($dir);
+    my $dbengine = EBox::OpenChange::DBEngine->new($self);
+    $dbengine->dumpDB($dumpFile);
+
+    my $sogo = $self->global()->modInstance('sogo');
+    if ($sogo and $sogo->configured()) {
+        $dumpFile = $self->_sogoDumpFile($dir);
+        $dbengine = $sogo->dbengine();
+        $dbengine->dumpDB($dumpFile);
+    }
+}
+
+sub restoreConfig
+{
+    my ($self, $dir, @params) = @_;
+
+    $self->stopService();
+
+    $self->SUPER::restoreConfig($dir, @params);
+
+    # import from state only the provision keys
+    my $state = $self->get_state();
+    $self->_load_state_from_file($dir);
+    my $stateFromBackup = $self->get_state();
+    $state->{isProvisioned} = $stateFromBackup->{isProvisioned}; 
+    $state->{Provision}     = $stateFromBackup->{Provision};
+    $self->set_state($state);
+
+    EBox::Sudo::root(EBox::Config::scripts('openchange') .
+          'generate-database');
+
+    my $dumpFile = $self->_mysqlDumpFile($dir);    
+    if (-r $dumpFile) {
+        my $dbengine = EBox::OpenChange::DBEngine->new($self);
+        $dbengine->restoreDBDump($dumpFile);
+    }
+
+    my $sogo = $self->global()->modInstance('sogo');
+    if ($sogo and $sogo->configured()) {
+        $dumpFile = $self->_sogoDumpFile($dir);
+        if (-r $dumpFile) {
+            my $dbengine = $sogo->dbengine();
+            $dbengine->restoreDBDump($dumpFile);
+        }
+    }
+
+    $self->_startService();
 }
 
 sub _setupSOGoDatabase

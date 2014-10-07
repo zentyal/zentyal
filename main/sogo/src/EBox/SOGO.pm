@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::WebServer;
+use EBox::SOGO::DBEngine;
 
 use TryCatch::Lite;
 
@@ -196,6 +197,42 @@ sub initialSetup
         # Force a configuration dump
         $self->save();
     }
+}
+
+# Method: dbCredentials
+#
+#   get the credentials used by SOGO data base
+#
+#   Returns:
+#      hash with user, passwd and host fields
+sub dbCredentials
+{
+    my ($self) = @_;
+    my $confFile = '/etc/sogo/sogo.conf';
+    my $grepCmd  = "grep SOGoProfileURL '$confFile'";
+    my $output = EBox::Sudo::root($grepCmd);
+    my $line = $output->[0];
+    my ($user, $passwd, $host) = $line =~ m{mysql://(.*?):(.*?)@(.*?):};
+    if (not $host) {
+        throw EBox::Exceptions::Internal("Cannot found credentials in sogo configuration file $confFile");
+    }
+    return {
+        user   => $user,
+        passwd => $passwd,
+        host   => $host
+       };
+}
+
+# Method: dbengine
+#
+#   return dbengine for SOG database
+#
+#   Returns:
+#      EBox::SOGO::DBEngine 
+sub dbengine
+{
+    my ($self) = @_;
+    return EBox::SOGO::DBEngine->new($self);
 }
 
 1;
