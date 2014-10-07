@@ -123,7 +123,6 @@ sub _table
         ),
     ];
 
-
     my $dataForm = {
         tableName          => 'Provision',
         printableTableName => __('Setup'),
@@ -364,12 +363,31 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
-    my $global     = $self->global();
-    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
+
+    $self->provision($organizationName, $enableUsers, $action);
+}
+
+# Method: provision
+#
+#   Real implementation for _doProvision that can be called also from wizard provision
+#
+# Parameters:
+#
+#   organizationName - name of the organization
+#   enableUsers - *optional* enable OpenChange account for existing users
+#   action - *optional* only useful when called from _doProvision
+#
+sub provision
+{
+    my ($self, $organizationName, $enableUsers, $action) = @_;
+
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
+
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
 
@@ -435,7 +453,7 @@ sub _doProvision
         # Force a form definition reload to load the new provisioned content.
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
-        $self->setMessage($action->message(), 'note');
+        $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
@@ -496,6 +514,8 @@ sub _doDeprovision
     my $organizationName = $params{provisionedorganizationname};
 
     try {
+        $self->_deprovisionUsers();
+
         my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
@@ -520,4 +540,64 @@ sub _doDeprovision
     }
 }
 
+sub _deprovisionUsers
+{
+    my ($self) = @_;
+    my $usersModule = $self->global->modInstance('samba');
+    my $users = $usersModule->users();
+    foreach my $user (@{$users}) {
+        if (not defined $user->get('msExchUserAccountControl')) {
+            next;
+        }
+
+        my $username = $user->name();
+        $user->delete('mailNickname', 1);
+        $user->delete('homeMDB', 1);
+        $user->delete('homeMTA', 1);
+        $user->delete('legacyExchangeDN', 1);
+        $user->delete('proxyAddresses', 1);
+        $user->delete('msExchUserAccountControl', 1);
+        $user->save();
+    }
+}
+
+sub customActionClickedJS
+{
+    my ($self, $action, $id, $page) = @_;
+    # provision/deprovision
+
+    my $customActionClickedJS = $self->SUPER::customActionClickedJS($action, $id, $page);
+    my $confirmationMsg;
+    my $savingChangesTitle;
+    my $title;
+    if ($action eq 'provision') {
+        $title = __('Provision OpenChange');
+        $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after provision');
+    } elsif ($action eq 'deprovision') {
+        $title = __('Deprovision OpenChange');
+        $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after deprovision');
+    }
+
+    my $jsStr = <<JS;
+    var dialogParams = {
+          title: '$title',
+          message: '$confirmationMsg'
+   };
+    var acceptMethod = function() {
+         $customActionClickedJS;
+         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                         dialogClass: 'no-close',
+                                                         closeOnEscape: false
+                                                        });
+     };
+    Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
+    return false;
+JS
+
+    return $jsStr;
+}
+
 1;
+

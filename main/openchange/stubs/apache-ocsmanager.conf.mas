@@ -23,6 +23,5 @@
     ProxyPass /ews/oab.xml !
 
     # ocsmanager Exchange Web Services (ews)
-    ProxyPass /ews http://127.0.0.1:5000
-
+    ProxyPass /ews http://127.0.0.1:5000/ews
 </VirtualHost>

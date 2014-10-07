@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-09-15 06:31+0200\n"
+"PO-Revision-Date: 2014-09-17 01:09+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -8113,6 +8113,8 @@ msgid ""
 "notified about its status, enter your email: {form}{obs}Submit crash "
 "report{cb}"
 msgstr ""
+"クラッシュレポートを提出いただき、ありがとうございます。 "
+"その状態について通知を受けたい場合は、メールアドレスを入力してください：{form}{obs}クラッシュレポートを提出{cb}"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:250
 #, perl-brace-format
@@ -8367,29 +8369,25 @@ msgstr ""
 "十分なディスク容量を準備してから再度行ってください"
 
 #: ../../main/core/src/EBox/Backup.pm:962
-#, fuzzy
 msgid ""
 "No debian packages list file found; probably the backup was done in a "
 "incompatible Zentyal version. Only backups done in the actual Zentyal "
 "version can be restored"
 msgstr ""
-"Debianパッケージリストファイルが見つかりませんでした;おそらくバックアップは互"
-"換性のないZentyalバージョンで行われた。 Zentyalでバックアップされた　> = {v}"
-"は復元することができます"
+"Debianパッケージリストファイルが見つかりませんでした;おそらくバックアップは互換性のないZentyalバージョンで行われた。実際Zentyalバー"
+"ジョンで行われたバックアップのみを復元することができます"
 
 #: ../../main/core/src/EBox/Backup.pm:981
-#, fuzzy
 msgid ""
 "No zentyal-core found in the debian packages list form the backup; probably "
 "the backup was done in a incompatible Zentyal version. Only backups done in "
 "the actual Zentyal version can be restored"
 msgstr ""
-"バックアップには、Debianパッケージリストにはzentyal-core見つかりません。おそ"
-"らくバックアップは互換性のないZentyalバージョンで行われた。 Zentyalでバック"
-"アップされた > = {v}は復元することができます"
+"バックアップには、Debianパッケージリストにはzentyal-core見つかりません。 おそらくバックアップは互換性のないZentyalバージョンで"
+"行われた。実際Zentyalバージョンで行われたバックアップのみを復元することができます"
 
 #: ../../main/core/src/EBox/Backup.pm:1001
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Could not restore the backup because a missmatch between its Zentyal version "
 "and the current system version. Backup was done in Zentyal version {bv} and "
@@ -9817,7 +9815,7 @@ msgid "contact"
 msgstr "連絡"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:149
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Username '{x}' already exists on the same container"
 msgstr "ユーザ名{x}は既に同じコンテナに存在します。"
 
@@ -12778,7 +12776,7 @@ msgstr "メールプロトコル"
 msgid ""
 "Keep messages and fetch all mail cannot work together because a "
 "implementation limitation"
-msgstr ""
+msgstr "メッセージを保持し、実装の制限により一緒に働くことができない全てのメールを取得する"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:99
 #, perl-brace-format
@@ -13053,15 +13051,13 @@ msgid "Retrieve mail for external accounts"
 msgstr "外部アカウントのメールを取得"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
-#, fuzzy
 msgid ""
 "This allow users to retrieve mail for external accounts, the mail would be "
 "delivered to their local account. External accounts must be configured for "
 "each user."
 msgstr ""
-"これにより、ユーザは、外部アカウントのメールを取得することができ、メールが自"
-"分のローカルアカウントに配信されます。外部アカウントは、ユーザコーナーで設定"
-"することができます。"
+"これにより、ユーザは、外部アカウントのメールを取得することができ、メールが自分のローカルアカウントに配信されます。外部アカウントはユーザーごとに設定する"
+"必要があります。"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:90
 msgid "Manage Sieve scripts"
@@ -15611,9 +15607,8 @@ msgid "The following packages will be removed"
 msgstr "次のパッケージが削除されます"
 
 #: ../../main/software/src/templates/del.mas:95
-#, fuzzy
 msgid "Continue"
-msgstr "大陸"
+msgstr "続行"
 
 #: ../../main/software/src/templates/updates.mas:69
 msgid ""

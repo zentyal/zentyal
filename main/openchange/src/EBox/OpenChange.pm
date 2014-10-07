@@ -109,6 +109,14 @@ sub initialSetup
         $self->_migrateCerts();
     }
 
+    # Migration from 3.5 to 4.0
+    if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        EBox::Sudo::silentRoot('a2disconf sogo');
+        EBox::Sudo::silentRoot('a2enmod ssl');
+        EBox::Sudo::silentRoot('service apache2 reload');
+        EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
+    }
+
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }
@@ -370,6 +378,15 @@ sub writeSambaConfig
 sub _setConf
 {
     my ($self) = @_;
+
+    my $state = $self->get_state();
+    if ($state->{provision_from_wizard}) {
+        my $orgName = $state->{provision_from_wizard}->{orgName};
+        my $provisionModel = $self->model('Provision');
+        $provisionModel->provision($orgName);
+        delete $state->{provision_from_wizard};
+        $self->set_state($state);
+    }
 
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
@@ -1314,5 +1331,19 @@ sub dropSOGODB
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 }
+
+sub wizardPages
+{
+    my ($self) = @_;
+
+    my $samba = $self->global()->modInstance('samba');
+    return [] if $samba->_adcMode();
+
+    my $mail = $self->global()->modInstance('mail');
+    return [] if ($mail->model('VDomains')->size() == 0);
+
+    return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
+}
+
 
 1;

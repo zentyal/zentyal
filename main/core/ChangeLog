@@ -1,4 +1,5 @@
 4.0
+	+ Reload after save changes when urls have hash part
 	+ Default webadmin port is now 8443
 	+ Remove haproxy which is no longer needed for Outlook Anywhere
 	+ UI is now responsive to different resolutions
