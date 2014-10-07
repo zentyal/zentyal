@@ -932,7 +932,7 @@ sub _sogoDBEngine
 {
     my ($self) = @_;
     if (not $self->{'_sogoDBengine'}) {
-        $self->{'_sogoDBengine'} = EBox::OpenChange::SOGO::DBEngine();
+        $self->{'_sogoDBengine'} = EBox::OpenChange::SOGO::DBEngine->new();
     }
 
     return $self->{'_sogoDBengine'};
