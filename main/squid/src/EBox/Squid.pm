@@ -699,10 +699,6 @@ sub _writeSquidExternalConf
 
     push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
     push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
-    if ($globalRO->modExists('remoteservices')) {
-        my $rs = $globalRO->modInstance('remoteservices');
-        push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
-    }
 
     $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});

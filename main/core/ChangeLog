@@ -1,4 +1,7 @@
 4.0
+	+ Rename Import/Export Configuration to Configuration Backup
+	+ Removed subscription from community editions
+	+ Remote services now resides on this package
 	+ Reload after save changes when urls have hash part
 	+ Default webadmin port is now 8443
 	+ Remove haproxy which is no longer needed for Outlook Anywhere

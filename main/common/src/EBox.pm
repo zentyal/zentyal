@@ -80,6 +80,22 @@ sub warn
     $Log::Log4perl::caller_depth -=1;
 }
 
+sub debugDump
+{
+    my ($msg, $data);
+    if (@_ > 1) {
+        ($msg, $data) = @_;
+        $msg .= ' ';
+    } else {
+        ($data) = @_;
+        $msg = '';
+    }
+
+    use Data::Dumper;
+    $msg .= Dumper($data);
+    EBox::debug($msg);
+}
+
 sub trace
 {
     my ($msg) = @_;

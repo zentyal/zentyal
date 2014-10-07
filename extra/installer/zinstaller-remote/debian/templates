@@ -5,81 +5,38 @@ _Description: Choose Zentyal edition to install
 Template: zinstaller-remote/user
 Type: string
 _Description: E-mail address:
- If you have a Zentyal account, you can enter your e-mail address now.
- If not, you can continue the installation leaving this blank.
+ Please enter your e-mail address now to validate your commercial edition.
 
 Template: zinstaller-remote/pass
 Type: password
 _Description: Password:
- Please enter the password for your Zentyal account.
+ Please enter the password associated with your e-mail address.
 
 Template: zinstaller-remote/auth_failed
-Type: boolean
+Type: note
 _Description: Authentication failed
- The provided account is not valid. Do you want to try to enter your
- credentials again? If not, Zentyal Community edition will be installed.
-
-Template: zinstaller-remote/auth_ok_community
-Type: note
-_Description: Congratulations!
- Your account has been validated. Zentyal Community edition is going to be
- installed and your server will be automatically registered.
-
-Template: zinstaller-remote/no_register
-Type: note
-_Description: Continue installation
- As your provided credentials were not valid, Zentyal Community edition will be
- installed.
+ The provided account is not valid. Please try again.
 
 Template: zinstaller-remote/select_bundle
 Type: select
 Choices: ${CHOICES}
 _Description: Choose the server to install:
 
-Template: zinstaller-remote/select_hostname_recover
-Type: select
-Choices: ${CHOICES}
-_Description: Choose the server to recover:
-
-Template: zinstaller-remote/auth_ok_profesional
+Template: zinstaller-remote/auth_ok
 Type: note
 _Description: Congratulations!
- Your account has been validated. Zentyal Professional edition is going
- to be installed.
-
-Template: zinstaller-remote/auth_ok_business
-Type: note
-_Description: Congratulations!
- Your account has been validated. Zentyal Business edition is going to be
- installed.
-
-Template: zinstaller-remote/auth_ok_premium
-Type: note
-_Description: Congratulations!
- Your account has been validated. Zentyal Premium edition is going to be
- installed.
+ Your credentials have been validated.
+ Zentyal installation will now continue.
 
 Template: zinstaller-remote/no_bundles
 Type: note
 _Description: Error
  Currently there are no available editions for your account.
- Installation of Community edition will continue.
+ Please contact support.
 
 Template: zinstaller-remote/error_register
 Type: note
 _Description: Error
  A problem ocurred while trying to register your server. Please contact support.
- Community edition will be installed if you want to continue:
  ${ERROR}
 
-Template: zinstaller-remote/error_dr
-Type: note
-_Description: Disaster Recovery
- You cannot recover from a disaster without a commercial edition. Installation
- of Community edition will continue.
-
-Template: zinstaller-remote/error_backups
-Type: note
-_Description: No backups available
- You cannot recover from a disaster if there are no configuration backups
- associated with your account. Regular installation will continue.

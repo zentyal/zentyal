@@ -119,8 +119,8 @@ sub menu
                                       'text' => __('Date/Time'),
                                       'order' => 20));
 
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
-                                      'text' => __('Import/Export Configuration'),
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Cloud/Backup',
+                                      'text' => __('Configuration Backup'),
                                       'order' => 50));
 
     if (EBox::Config::boolean('debug')) {

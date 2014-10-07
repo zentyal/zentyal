@@ -1,9 +1,0 @@
-#!/bin/sh
-
-/usr/share/zentyal-remoteservices/reload-bundle
-/usr/share/zentyal-remoteservices/get-cronjobs
-# Launch inventory agent
-INVENTORY_AGENT=/etc/cron.daily/ocsinventory-agent
-if [ -x $INVENTORY_AGENT ]; then
-    sudo $INVENTORY_AGENT
-fi

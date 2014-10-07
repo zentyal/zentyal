@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;
+use EBox::Util::FileSize;
 
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
@@ -181,12 +182,6 @@ sub _configuredModInstances
             push @configuredModules, $mod;
         }
     }
-# leave aside not configured modules
-#   @modules = grep {
-# #    (not $_->isa('EBox::Module::Service') or
-# #    ($_->configured()))
-#     $_->configured()
-#   } @modules;
 
     return \@configuredModules;
 }
@@ -481,17 +476,7 @@ sub _printableSize
 {
     my ($self, $archive) = @_;
 
-    my $size = (-s $archive);
-
-    my @units = qw(KB MB GB);
-    foreach my $unit (@units) {
-        $size = sprintf("%.2f", $size / 1024);
-        if ($size < 1024) {
-            return "$size $unit";
-        }
-    }
-
-    return $size . ' ' . (pop @units);
+    return EBox::Util::FileSize::printableSize(scalar(-s $archive));
 }
 
 # if not specific files are specified all the fiels are  extracted
@@ -675,11 +660,13 @@ sub prepareMakeBackup
     $makeBackupScript    .=  $scriptParams;
 
     my $global     = EBox::Global->getInstance();
-    # XXX: this could be wrong, we only do backup of the configured modules
-    my $totalTicks = scalar @{ $global->modNames() } + 2; # there are one task for
-    # each module plus two
-    # tasks for writing the
-    # archive  file
+    # there are one task for each configured module plus two tasks for writing
+    # the archive file. A possible aditional task if we have a remote backup
+    my $totalTicks =  2;
+    if ($options{remoteBackup}) {
+        $totalTicks += 1;
+    }
+    $totalTicks += @{ $self->_configuredModInstances() };
 
     my @progressIndicatorParams = (executable => $makeBackupScript,
                                    totalTicks => $totalTicks);
@@ -707,6 +694,7 @@ sub prepareMakeBackup
 #                     private data)
 #      fallbackToRO - fallback to read-only configuration when
 #                     they are not saved changes
+#      noFinishProgress - don't mark progress indicator as finished (default:false)
 #
 #  Returns:
 #         - path to the new backup archive
@@ -726,7 +714,11 @@ sub makeBackup
         $options{fallbackToRO} = 0;
     $options{description} or
         $options{description} = __('Backup');
+    my $finishProgress;
     my $progress = $options{progress};
+    if ($progress) {
+        $finishProgress = not $options{noFinishProgress};
+    }
 
     EBox::info('Backing up configuration');
     if ($progress and not $progress->started()) {
@@ -767,9 +759,13 @@ sub makeBackup
 
         $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
-        $progress->setAsFinished() if $progress;
+        if ($finishProgress) {
+            $progress->setAsFinished();
+        } 
     } catch ($ex) {
-        $progress->setAsFinished(1, $ex->text) if $progress;
+        if ($progress) {
+            $progress->setAsFinished(1, $ex->text);
+        }
         $ex->throw();
     }
 

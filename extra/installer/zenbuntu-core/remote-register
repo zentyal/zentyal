@@ -8,7 +8,8 @@ then
     PASSWORD=`cat $REGISTER_DATA/REGISTER_PASSWORD`
     SERVERNAME=`cat $REGISTER_DATA/REGISTER_SERVERNAME`
     BUNDLE_ID=`cat $REGISTER_DATA/REGISTER_BUNDLE_ID || true`
-    USER=root /usr/share/zentyal-remoteservices/auto-subscribe $USERNAME $PASSWORD $SERVERNAME $BUNDLE_ID
+    MODE=`cat $REGISTER_DATA/REGISTER_MODE`
+    USER=root /usr/share/zentyal/auto-subscribe $USERNAME $PASSWORD $SERVERNAME $BUNDLE_ID $MODE
 
     # restore .first file that gets deleted during the saveAllModules() when subscribing
     touch /var/lib/zentyal/.first

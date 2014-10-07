@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -176,42 +176,6 @@ sub _table
         };
 
     return $dataTable;
-}
-
-# Method: viewCustomizer
-#
-#      Return a custom view customizer to set a permanent message
-#      if needed
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    my $subscriptionLevel = -1;
-
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $subscriptionLevel = $rs->subscriptionLevel();
-    }
-    unless ($subscriptionLevel > 0) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
-    }
-
-    return $customizer;
-}
-
-# Return the commercial message
-sub _commercialMsg
-{
-    return __sx('Want to know what is your system status and usage? Get one of the {oh}Commercial Editions{ch} to create regular system reports.',
-                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

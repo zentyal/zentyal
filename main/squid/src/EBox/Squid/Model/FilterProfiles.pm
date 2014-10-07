@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,56 +32,6 @@ use EBox::Types::HasMany;
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 
 # Group: Public methods
-
-# Constructor: new
-#
-#       Create the new  model
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GroupPolicy> - the recently
-#       created model
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless $self, $class;
-    return $self;
-}
-
-# Method: viewCustomizer
-#
-#      To display a permanent message
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = $self->SUPER::viewCustomizer();
-
-    my $securityUpdatesAddOn = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-    }
-
-    unless ($securityUpdatesAddOn) {
-        $customizer->setPermanentMessage($self->parentModule()->_commercialMsg(), 'ad');
-    }
-
-    return $customizer;
-}
 
 # Method: _table
 #
