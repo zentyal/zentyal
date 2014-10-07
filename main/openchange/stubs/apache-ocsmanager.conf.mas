@@ -14,6 +14,15 @@
     # ocsmanager autodiscover
     ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
 
+    # Serve OAB xml
+    Alias /ews/oab.xml /var/lib/zentyal/dynamicwww/openchange/ews/oab.xml
+    Alias /oab.xml /var/lib/zentyal/dynamicwww/openchange/ews/oab.xml
+    <Directory  /var/lib/zentyal/dynamicwww/openchange/ews/oab.xml    >
+        Require all granted
+     </Directory>
+    ProxyPass /ews/oab.xml !
+
     # ocsmanager Exchange Web Services (ews)
     ProxyPass /ews http://127.0.0.1:5000
+
 </VirtualHost>
