@@ -7,8 +7,6 @@ sed -i "s/.*autologin=.*/autologin=$USER_NAME/" /etc/lxdm/default.conf
 sed -i "s/theme=.*/theme=Zentyal/" /etc/lxdm/default.conf
 sed -i "s/^bg=.*/#bg=disabled/" /etc/lxdm/default.conf
 
-echo "$USER_NAME ALL = NOPASSWD:/usr/share/zenbuntu-desktop/remote-register" >> /etc/sudoers
-
 if ! grep -q zentyal-session /etc/xdg/lxsession/LXDE/autostart
 then
     echo "@/usr/bin/zentyal-session" >> /etc/xdg/lxsession/LXDE/autostart
