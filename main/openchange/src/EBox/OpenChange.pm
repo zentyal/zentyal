@@ -764,7 +764,7 @@ sub dumpConfig
     $dbengine->dumpDB($dumpFile);
 
     my $sogo = $self->global()->modInstance('sogo');
-    if ($sogo) {
+    if ($sogo and $sogo->configured()) {
         $dumpFile = $self->_sogoDumpFile($dir);
         $dbengine = $sogo->dbengine();
         $dbengine->dumpDB($dumpFile);
@@ -797,7 +797,7 @@ sub restoreConfig
     }
 
     my $sogo = $self->global()->modInstance('sogo');
-    if ($sogo) {
+    if ($sogo and $sogo->configured()) {
         $dumpFile = $self->_sogoDumpFile($dir);
         if (-r $dumpFile) {
             my $dbengine = $sogo->dbengine();

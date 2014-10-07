@@ -199,13 +199,23 @@ sub initialSetup
     }
 }
 
+# Method: dbCredentials
+#
+#   get the credentials used by SOGO data base
+#
+#   Returns:
+#      hash with user, passwd and host fields
 sub dbCredentials
 {
     my ($self) = @_;
-    my $grepCmd = 'grep SOGoProfileURL /etc/sogo/sogo.conf';
+    my $confFile = '/etc/sogo/sogo.conf';
+    my $grepCmd  = "grep SOGoProfileURL '$confFile'";
     my $output = EBox::Sudo::root($grepCmd);
     my $line = $output->[0];
     my ($user, $passwd, $host) = $line =~ m{mysql://(.*?):(.*?)@(.*?):};
+    if (not $host) {
+        throw EBox::Exceptions::Internal("Cannot found credentials in sogo configuration file $confFile");
+    }
     return {
         user   => $user,
         passwd => $passwd,
@@ -213,6 +223,12 @@ sub dbCredentials
        };
 }
 
+# Method: dbengine
+#
+#   return dbengine for SOG database
+#
+#   Returns:
+#      EBox::SOGO::DBEngine 
 sub dbengine
 {
     my ($self) = @_;
