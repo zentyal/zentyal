@@ -983,14 +983,14 @@ sub _checkZentyalVersion
                                         );
     }
 
-    my ($major, $minor) = split('\.', $zentyalVersion, 3);
+    my ($major, $minor) = split('[\.~]', $zentyalVersion, 4);
 
     my ($wantedMajor, $wantedMinor);
     my @dpkgOutput = `dpkg -l zentyal-core`;
     my @actualParts = split('\s+', $dpkgOutput[-1], 4);
     my $actualVersion = $actualParts[2];
     if  ($actualVersion) {
-        ($wantedMajor, $wantedMinor) = split('\.', $actualVersion, 3);
+        ($wantedMajor, $wantedMinor) = split('[\.~]', $actualVersion, 3);
     } else {
         throw EBox::Exceptions::Internal("Cannot retrieve actual version from dpkg output: '@dpkgOutput'");
     }
