@@ -1,4 +1,6 @@
 4.0
+	+ Fixed i18n bug in progress dialog
+	+ Updated remoteservices dependencies
 	+ Rename Import/Export Configuration to Configuration Backup
 	+ Removed subscription from community editions
 	+ Remote services now resides on this package
