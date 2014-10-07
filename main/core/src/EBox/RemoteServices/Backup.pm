@@ -148,7 +148,9 @@ sub _pushConfBackup
     my $confBackup     = $self->_confBackupResource();
 
     my $data = File::Slurp::read_file($archive);
-    my $res = $confBackup->add(label => $params{label}, data => $data);
+    my $res = $confBackup->add(label => $params{label},
+                               data => $data,
+                               automatic => $params{automatic});
     return $res;
 }
 
