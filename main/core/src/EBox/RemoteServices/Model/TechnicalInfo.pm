@@ -35,7 +35,6 @@ use v5.10;
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Text;
 use EBox::Types::HTML;
 use POSIX;
@@ -101,10 +100,6 @@ sub _table
 
     my @tableDesc =
       (
-          new EBox::RemoteServices::Types::EBoxCommonName(
-              fieldName     => 'server_name',
-              printableName => __('Server name'),
-             ),
           new EBox::Types::Text(
               fieldName     => 'edition',
               printableName => __('Server edition'),

@@ -33,7 +33,7 @@ use Test::Exception;
 use Test::MockModule;
 use Test::MockObject;
 use Test::MockObject::Extends;
-use Test::More tests => 30;
+use Test::More tests => 31;
 
 sub setUpConfiguration : Test(startup)
 {
@@ -58,7 +58,7 @@ sub setup_agent : Test(setup)
     my ($self) = @_;
     $self->{agent_class} = new Test::MockModule('LWP::UserAgent');
     $self->{agent} = new Test::MockObject();
-    $self->{agent}->set_true('agent', 'ssl_opts', 'proxy');
+    $self->{agent}->set_true('agent', 'ssl_opts', 'proxy', 'timeout');
     $self->{agent_class}->mock('new' => $self->{agent});
 }
 
@@ -88,14 +88,14 @@ sub test_verify_opts : Test(2)
     $self->{agent}->mock('request', sub { new HTTP::Response(200, 'OK', undef, 'foo') });
 
     $cl->GET('/ruin');
-    $self->{agent}->called_args_pos_is(2, 2, 'verify_hostname');
+    $self->{agent}->called_args_pos_is(3, 2, 'verify_hostname');
     $self->{agent}->clear();
 
-    my $cl = new EBox::RESTClient(server => 'graham-coxon.co.uk',
-                                  scheme => 'https',
-                                  verifyPeer => 0);
+    $cl = new EBox::RESTClient(server => 'graham-coxon.co.uk',
+                               scheme => 'https',
+                               verifyPeer => 0);
     $cl->GET('/ruin');
-    $self->{agent}->called_args_pos_is(3, 2, 'SSL_verify_mode');
+    $self->{agent}->called_args_pos_is(4, 2, 'SSL_verify_mode');
     $self->{agent}->clear();
 
 }
@@ -172,7 +172,7 @@ sub test_GET : Test(4)
 
 }
 
-sub test_POST_with_journal : Test(11)
+sub test_POST_with_journal : Test(12)
 {
     my ($self) = @_;
 
@@ -198,8 +198,14 @@ sub test_POST_with_journal : Test(11)
     $cl->set_always('JournalOpsDirPath', $journalDir);
 
     throws_ok {
-        $cl->POST('/tralala', retry => 1);
-    } 'EBox::Exceptions::Internal', '404 Not found';
+        $cl->POST('/tralala');
+    } 'EBox::Exceptions::RESTRequest', '404 Not found';
+
+    $self->{agent}->mock('request', sub { new HTTP::Response(500, 'Internal Server Error', undef, 'bar') });
+
+    throws_ok {
+        $cl->POST('/internal-server-error', retry => 1);
+    } 'EBox::Exceptions::RESTRequest', '500 Internal server error';
 
     opendir(my $dir, $journalDir);
     foreach my $file (readdir($dir)) {
@@ -214,9 +220,9 @@ sub test_POST_with_journal : Test(11)
                    {username => 'user', password => 'password'},
                    'Journaled credentials');
         cmp_ok($op->{method}, 'eq', 'POST', 'Journaled method');
-        cmp_ok($op->{path}, 'eq', '/tralala', 'Journaled path');
+        cmp_ok($op->{path}, 'eq', '/internal-server-error', 'Journaled path');
         ok(exists($op->{query}), 'Journaled query');
-        cmp_ok($op->{res_code}, '==', 404, 'Journaled previous result code');
+        cmp_ok($op->{res_code}, '==', 500, 'Journaled previous result code');
         ok(exists($op->{res_content}), 'Journaled previous result content');
         unlink("$journalDir/$file");
     }
