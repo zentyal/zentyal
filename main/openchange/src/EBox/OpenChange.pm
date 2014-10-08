@@ -570,9 +570,9 @@ sub _writeSOGoConfFile
     push (@{$array}, sieveServer => $sieveServer);
 
     my $sogoDbEngine = $self->_sogoDBEngine();
-    my $dbName = $self->_dbname();
-    my $dbUser = $self->_dbuser();
-    my $dbPass = $self->_dbpass();
+    my $dbName = $sogoDbEngine->_dbname();
+    my $dbUser = $sogoDbEngine->_dbuser();
+    my $dbPass = $sogoDbEngine->_dbpass();
     push (@{$array}, dbName => $dbName);
     push (@{$array}, dbUser => $dbUser);
     push (@{$array}, dbPass => $dbPass);
