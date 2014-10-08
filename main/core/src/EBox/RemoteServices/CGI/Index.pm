@@ -68,11 +68,18 @@ sub masonParameters
 
     my $global = EBox::Global->getInstance();
     my $remoteservices = $global->modInstance('remoteservices');
+    if (not $remoteservices->commercialEdition()) {
+        $self->{template} = '/error.mas';
+        return [error => 'Subscribe server is only available for commercial editions'];
+    }
+    
 
-    push @params, (username => $remoteservices->username());
-    push @params, (subscriptionInfo => $remoteservices->subscriptionInfo());
+    my %context = (username => $remoteservices->username(),
+                   subscriptionInfo => $remoteservices->subscriptionInfo(),
+                   serverName => EBox::Global->modInstance('sysinfo')->hostName(),
+                  );
 
-    return \@params;
+    return [context => \%context];
 }
 
 1;
