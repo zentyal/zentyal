@@ -19,7 +19,7 @@ use warnings;
 package EBox::RemoteServices::RESTResource::ConfBackup;
 use base 'EBox::RemoteServices::RESTResource';
 
-#no warnings 'experimental::smartmatch';
+no warnings 'experimental::smartmatch';
 use v5.10;
 
 use Digest::MD5 qw(md5_hex);

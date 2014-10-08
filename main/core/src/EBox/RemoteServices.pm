@@ -284,6 +284,11 @@ sub refreshSubscriptionInfo
 {
     my ($self) = @_;
 
+    if (not $self->eBoxSubscribed()) {
+        # nothing to refresh
+        return;
+    }
+    
     $self->commercialEdition('force');
     my $subscriptionInfo;
     my $refreshError = 0;
