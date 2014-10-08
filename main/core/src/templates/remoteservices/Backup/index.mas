@@ -15,7 +15,14 @@ use URI;
 <script type="text/javascript" src="/data/js/remoteservices.js"></script>
 
 <div class="insideTab">
+
 % if ($subscriptionLevel >= 0) {
+     <div class='help'>
+       <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
+     </div>
+   <div class='note'>
+        <% __('A configuration backup will be automatically done daily. Also it will be automatically rotated') %>
+   </div>
   <& .backupSection, modulesChanged    => $modulesChanged,
                      subscriptionLevel => $subscriptionLevel,
                      backups => \@backups,
@@ -67,7 +74,7 @@ if (not $restricted) {
      var data = 'label=' + label;
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false
 ENDJS
 } else {
@@ -82,7 +89,7 @@ ENDJS
      data += '&action=overwrite';
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false
 ENDJS
 }
@@ -122,9 +129,7 @@ if ($restricted) {
 
 </%init>
 <h3><% __('Back up the current configuration state') %></h3>
-<div class='help'>
 
-</div>
 % if ($modulesChanged) {
   <div class='warning'>
         <% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
