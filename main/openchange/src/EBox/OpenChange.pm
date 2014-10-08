@@ -863,6 +863,12 @@ sub _sogoDumpFile
 sub dumpConfig
 {
     my ($self, $dir) = @_;
+
+    if (not $self->isProvisioned()) {
+        # if not provisioned, there is no db to dump
+        return;
+    }
+
     # backup openchange database
     my $dumpFile = $self->_mysqlDumpFile($dir);
     my $dbengine = EBox::OpenChange::DBEngine->new($self);
@@ -890,22 +896,24 @@ sub restoreConfig
     $state->{Provision}     = $stateFromBackup->{Provision};
     $self->set_state($state);
 
-    # recreate db
-    EBox::Sudo::root(EBox::Config::scripts('openchange') .
-          'generate-database');
+    if ($self->isProvisioned()) {
+        # recreate db
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+              'generate-database');
 
-    # load openchange database data
-    my $dumpFile = $self->_mysqlDumpFile($dir);    
-    if (-r $dumpFile) {
-        my $dbengine = EBox::OpenChange::DBEngine->new($self);
-        $dbengine->restoreDBDump($dumpFile);
-    }
+        # load openchange database data
+        my $dumpFile = $self->_mysqlDumpFile($dir);    
+        if (-r $dumpFile) {
+            my $dbengine = EBox::OpenChange::DBEngine->new($self);
+            $dbengine->restoreDBDump($dumpFile);
+        }
 
-    # load sogo database data
-    $dumpFile = $self->_sogoDumpFile($dir);
-    if (-r $dumpFile) {
-        my $dbengine = $self->_sogoDBEngine();
-        $dbengine->restoreDBDump($dumpFile);
+        # load sogo database data
+        $dumpFile = $self->_sogoDumpFile($dir);
+        if (-r $dumpFile) {
+            my $dbengine = $self->_sogoDBEngine();
+            $dbengine->restoreDBDump($dumpFile);
+        }
     }
 
     $self->_startService();
