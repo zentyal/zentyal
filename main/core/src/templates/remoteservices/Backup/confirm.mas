@@ -22,15 +22,14 @@ if ($popup) {
         my $url = '/RemoteServices/Backup/RestoreRemoteBackup';
         my $data =  'uuid=' . $backup->{uuid};
         $data .= '&ok=1&popup=1';
-        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url',
-{title:'$title', data: '$data'}); return false"};
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('$url',{title:'$title', data: '$data', showCloseButton: false}); return false"};
     } elsif ($actionCGI eq 'OverwriteRemoteBackup') {
         my $title = __x('Remote backup: {desc}',  desc => $label);
         my $url = '/RemoteServices/Backup/OverwriteRemoteBackup';
         my $data =  'uuid=' . $backup->{uuid};
         $data .= "&label=$label";
         $data .= '&ok=1&popup=1';
-        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url',{title:'$title', data: '$data'}); return false"};
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('$url',{title:'$title', data: '$data', showCloseButton: false}); return false"};
     } elsif ($actionCGI eq 'DeleteRemoteBackup') {
         my $url = '/RemoteServices/Backup/DeleteRemoteBackup?';
         $url .= 'uuid=' . $backup->{uuid};

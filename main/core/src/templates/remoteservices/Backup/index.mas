@@ -67,7 +67,7 @@ if (not $restricted) {
      var data = 'label=' + label;
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false
 ENDJS
 } else {
@@ -82,7 +82,7 @@ ENDJS
      data += '&action=overwrite';
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false
 ENDJS
 }
