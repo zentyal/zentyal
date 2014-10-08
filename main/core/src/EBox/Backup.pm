@@ -414,7 +414,6 @@ sub backupDetails # (id)
     $self->_checkId($id);
 
     my $file = $self->_backupFileById($id);
-
     my $details = $self->backupDetailsFromArchive($file);
     $details->{id} = $id;
 
@@ -445,6 +444,8 @@ sub backupDetailsFromArchive
         throw EBox::Exceptions::MissingArgument('archive');
     defined $self or
         throw EBox::Exceptions::MissingArgument('self');
+
+    $self->_checkBackupFile($archive);
 
     my $backupDetails = {};
 
@@ -915,6 +916,17 @@ sub _checkArchiveType
     }
 }
 
+sub _checkBackupFile
+{
+    my ($self, $path) = @_;
+
+    my $output = EBox::Sudo::root("/usr/bin/file -bi '$path'");
+    my $tarFile = $output->[0] =~ m{^application/x-tar;};
+    if (not $tarFile) {
+        throw EBox::Exceptions::External(__('The file is not a correct backup archive'));
+    }
+}
+
 sub _checkSize
 {
     my ($self, $archive) = @_;
@@ -1130,6 +1142,7 @@ sub restoreBackup
     try {
         _ensureBackupdirExistence();
 
+        $self->_checkBackupFile($file);
         $self->_checkSize($file);
 
         $tempdir = $self->_unpackAndVerify($file, %options);
