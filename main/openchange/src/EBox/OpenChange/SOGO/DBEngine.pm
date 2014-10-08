@@ -20,6 +20,10 @@ package EBox::OpenChange::SOGO::DBEngine;
 use base 'EBox::MyDBEngine';
 
 use EBox::Sudo;
+use EBox::Config;
+use String::Random;
+use EBox::Module::Base;
+use EBox::Exceptions::External;
 
 sub new
 {
