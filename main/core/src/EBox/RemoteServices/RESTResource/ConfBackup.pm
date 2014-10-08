@@ -19,7 +19,7 @@ use warnings;
 package EBox::RemoteServices::RESTResource::ConfBackup;
 use base 'EBox::RemoteServices::RESTResource';
 
-no warnings 'experimental::smartmatch';
+#no warnings 'experimental::smartmatch';
 use v5.10;
 
 use Digest::MD5 qw(md5_hex);
@@ -34,6 +34,7 @@ use HTTP::Request;
 use HTTP::Status;
 use LWP::UserAgent;
 use TryCatch::Lite;
+use Date::Calc;
 use URI;
 
 # Group: Public methods
@@ -77,7 +78,22 @@ sub list
     my ($self) = @_;
 
     my $res = $self->restClientWithServerCredentials()->GET('/v2/confbackup/list/');
-    return $res->data();
+    my @backups = @{ $res->data() };
+    # change GMT time to localtime
+    foreach my $backup (@backups) {
+        my ($date_portion, $time_portion) = split ' ', $backup->{backup_date}, 2;
+        my ($hour, $min, $sec)   = split ':', $time_portion, 3;
+        my ($year, $month, $day) = split '-', $date_portion, 3;
+
+        my $ts = Date::Calc::Date_to_Time($year,$month,$day, $hour,$min,$sec);
+
+        ($year, $month, $day, $hour, $min, $sec) = Date::Calc::Localtime($ts);
+
+        my $dateWithTs = sprintf('%04d-%02d-%02d %02d:%02d:%02d', $year, $month, $day, $hour, $min, $sec);
+        $backup->{backup_date} = $dateWithTs;
+    }
+
+    return \@backups;
 }
 
 # Method: add

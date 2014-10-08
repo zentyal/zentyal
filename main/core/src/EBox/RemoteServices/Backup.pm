@@ -268,7 +268,7 @@ sub setLatestRemoteConfBackup
     if ($date) {
         $state->{latest_backup_date} = $date;
     } else {
-        delete  $state->{latest_backup_date};
+        delete $state->{latest_backup_date};
     }
 
     $remoteservices->set_state($state);
