@@ -1,4 +1,4 @@
-    + Removed cron script for freshclam as it is running as a daemon
+        + Removed cron script for freshclam as it is running as a daemon
 4.0
 	+ Adapt firewall to reduce on remoteservices module
 	+ Set version to 4.0
