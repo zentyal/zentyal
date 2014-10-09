@@ -198,6 +198,7 @@ sub _daemons
             name => FRESHCLAM_INIT,
             type => 'init.d',
             pidfiles => [FRESHCLAMPIDFILE],
+        }
     ];
 }
 
