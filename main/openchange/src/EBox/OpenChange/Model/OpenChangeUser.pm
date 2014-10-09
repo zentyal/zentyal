@@ -32,7 +32,7 @@ sub _table
             fieldName     => 'enabled',
             printableName => __('Enable OpenChange account'),
             editable      => 1,
-            defaultValue  => 0),
+            defaultValue  => 1),
     ];
 
     my $dataTable = {

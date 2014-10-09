@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zinstaller-remote\n"
 "Report-Msgid-Bugs-To: zinstaller-remote@packages.debian.org\n"
-"POT-Creation-Date: 2012-12-20 03:41+0100\n"
+"POT-Creation-Date: 2014-10-02 11:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,13 +32,8 @@ msgstr "Dirección e-mail:"
 #. Type: string
 #. Description
 #: ../templates:2001
-msgid ""
-"If you have a Zentyal account, you can enter your e-mail address now. If "
-"not, you can continue the installation leaving this blank."
-msgstr ""
-"Si tienes una cuenta de Zentyal, puedes introducir tu dirección de correo "
-"ahora. Si no, puedes continuar igualmente la instalación dejando esto en "
-"blanco."
+msgid "Please enter your e-mail address now to validate your commercial edition."
+msgstr "Por favor introduce tu e-mail para validar tu edición comercial."
 
 #. Type: password
 #. Description
@@ -49,148 +44,63 @@ msgstr "Contraseña:"
 #. Type: password
 #. Description
 #: ../templates:3001
-msgid "Please enter the password for your Zentyal account."
-msgstr "Por favor introduce la contraseña de tu cuenta Zentyal."
+msgid "Please enter the password associated with your e-mail address."
+msgstr "Por favor introduce la contraseña asociada a tu correo."
 
-#. Type: boolean
+#. Type: note
 #. Description
 #: ../templates:4001
 msgid "Authentication failed"
 msgstr "Autenticación fallida"
 
-#. Type: boolean
+#. Type: note
 #. Description
 #: ../templates:4001
-msgid ""
-"The provided account is not valid. Do you want to try to enter your "
-"credentials again? If not, Zentyal Community edition will be installed."
-msgstr ""
-"La cuenta proporcionada no es válida. Quieres probar a introducir tus "
-"credenciales de nuevo? Si no, se instalará la edición Community de Zentyal."
+msgid "The provided account is not valid. Please try again."
+msgstr "Los credenciales proporcionados no son válidos. Por favor prueba de nuevo."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Choose the server to install:"
+msgstr "Elige el servidor a instalar:"
 
 #. Type: note
 #. Description
-#. Type: note
-#. Description
-#. Type: note
-#. Description
-#: ../templates:5001 ../templates:9001 ../templates:10001
+#: ../templates:6001
 msgid "Congratulations!"
 msgstr "Enhorabuena!"
 
 #. Type: note
 #. Description
-#: ../templates:5001
-msgid ""
-"Your account has been validated. Zentyal Community edition is going to be "
-"installed and your server will be automatically registered."
-msgstr ""
-"Tu cuenta ha sido validada. Se va a instalar la edición Community de Zentyal "
-"y tu servidor se registrará automáticamente."
+#: ../templates:6001
+msgid "Your credentials have been validated. Zentyal installation will now continue."
+msgstr "Tus credenciales han sido validados. La instalación de Zentyal va a continuar."
 
 #. Type: note
 #. Description
-#: ../templates:6001
-msgid "Continue installation"
-msgstr "Continuar la instalación"
-
 #. Type: note
 #. Description
-#: ../templates:6001
-msgid ""
-"As your provided credentials were not valid, Zentyal Community edition will "
-"be installed."
-msgstr ""
-"Como los credenciales proporcionados no eran válidos, se va a instalar la "
-"edición Community de Zentyal."
+#: ../templates:7001 ../templates:8001
+msgid "Error"
+msgstr "Error"
 
-#. Type: select
+#. Type: note
 #. Description
 #: ../templates:7001
-msgid "Choose the server to install:"
-msgstr "Elige el servidor a instalar:"
+msgid ""
+"Currently there are no available editions for your account. Please contact "
+"support."
+msgstr ""
+"No hay ediciones disponibles para tu cuenta. Por favor contacta con soporte."
 
-#. Type: select
+#. Type: note
 #. Description
 #: ../templates:8001
-msgid "Choose the server to recover:"
-msgstr "Elige el servidor a recuperar:"
-
-#. Type: note
-#. Description
-#: ../templates:9001
-msgid ""
-"Your account has been validated. Zentyal Small Business edition is going to "
-"be installed."
-msgstr ""
-"Tu cuenta ha sido validada. Se va a instalar la edición Small Business de "
-"Zentyal."
-
-#. Type: note
-#. Description
-#: ../templates:10001
-msgid ""
-"Your account has been validated. Zentyal Enterprise edition is going to be "
-"installed."
-msgstr ""
-"Tu cuenta ha sido validada. Se va a instalar la edición Enterprise de "
-"Zentyal."
-
-#. Type: note
-#. Description
-#. Type: note
-#. Description
-#: ../templates:11001 ../templates:12001
-msgid "Error"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../templates:11001
-msgid ""
-"Currently there are no available editions for your account. Installation of "
-"Community edition will continue."
-msgstr ""
-"No hay ediciones disponibles para instalar en tu cuenta. Se instalará la "
-"edición Community."
-
-#. Type: note
-#. Description
-#: ../templates:12001
 msgid ""
 "A problem ocurred while trying to register your server. Please contact "
-"support. Community edition will be installed if you want to continue."
+"support. ${ERROR}"
 msgstr ""
-"Ha ocurrido un problema registrando el servidor. Por favor, contacta con soporte. Se puede continuar con la instalación de la edición Community."
+"Ha ocurrido un problema registrando el servidor. Por favor, contacta con "
+"soporte. ${ERROR}"
 
-#. Type: note
-#. Description
-#: ../templates:13001
-msgid "Disaster Recovery"
-msgstr "Recuperación de Desastre"
-
-#. Type: note
-#. Description
-#: ../templates:13001
-msgid ""
-"You can not recover from a disater without a valid Small Business or "
-"Enterprise edition. Installation of Community edition will continue."
-msgstr ""
-"No puedes recuperarte de un desastre sin una edición Small Business o "
-"Enterprise. Se continuará con la instalación de la edición Community."
-
-#. Type: note
-#. Description
-#: ../templates:14001
-msgid "No backups available"
-msgstr "No hay backups disponibles"
-
-#. Type: note
-#. Description
-#: ../templates:14001
-msgid ""
-"You cannot recover from a disaster if there are no configuration backups "
-"associated with your account. Regular installation will continue."
-msgstr ""
-"No puedes recuperarte de un desastre si no hay backups de configuración "
-"asociados a tu cuenta. Se continuará con una instalación normal."

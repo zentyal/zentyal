@@ -28,6 +28,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
+use TryCatch::Lite;
 
 sub _create
 {
@@ -103,7 +104,6 @@ sub aroundRestoreConfig
 
     $self->_load_from_file($dir);
 
-    $self->restoreFilesFromArchive($dir);
 
     $self->restoreConfig($dir, @extraOptions);
 }
@@ -166,8 +166,6 @@ sub aroundDumpConfig
     # dump also state, it will not be restored as default
     $self->_dump_state_to_file($dir);
 
-    $self->backupFilesInArchive($dir);
-
     $self->dumpConfig($dir, @options);
 }
 
@@ -213,8 +211,6 @@ sub revokeConfig
 
     $global->modIsChanged($self->name) or return;
 
-    $self->modelsRevokeConfig();
-
 # Disabled until method si reimplemented
 #    $self->_revokeConfigFiles();
 
@@ -230,8 +226,6 @@ sub _saveConfig
         throw EBox::Exceptions::Internal("tried to save a read-only"
                                          . " module: " . $self->name() . "\n");
     }
-
-    $self->modelsSaveConfig();
 
     $self->_copy_to_ro();
 
@@ -809,115 +803,12 @@ sub _addFileToList
 #    $self->_clearFilesToRemoveLists();
 #}
 
-# Method: modelsSaveConfig
-#
-#    Method called when the conifguraiton of a modules is saved
-sub modelsSaveConfig
-{
-    my ($self) = @_;
-
-#    $self->modelsBackupFiles();
-}
-
-# Method: modelsRevokeConfig
-#
-#    Method called when the conifguraiton of a modules is revoked
-sub modelsRevokeConfig
-{
-    my ($self) = @_;
-
-#    $self->modelsRestoreFiles();
-}
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of all the files contained in the
-#   models
-sub modelsBackupFiles
-{
-    my ($self) = @_;
-
-#    foreach my $model ( @{ $self->models() } ) {
-#        if ($model->can('backupFiles')) {
-#            $model->backupFiles();
-#        }
-#    }
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files in the models , thus
-#  discarding the lasts changes in files
-sub modelsRestoreFiles
-{
-    my ($self) = @_;
-
-#    foreach my $model ( @{ $self->models() } ) {
-#        if ($model->can('restoreFiles')) {
-#            $model->restoreFiles();
-#        }
-#    }
-}
-
 sub _filesArchive
 {
     my ($self, $dir) = @_;
-    return "$dir/modelsFiles.tar";
+    return "$dir/moduleFiles.tar";
 }
 
-# Method: backupFilesInArchive
-#
-#  Backup all the modules' files in a compressed archive in the given dir
-#  This is used to create backups
-#
-#   Parameters:
-#   dir - directory where the archive will be stored
-sub backupFilesInArchive
-{
-    my ($self, $dir) = @_;
-
-    my @filesToBackup;
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('filesPaths')) {
-            push @filesToBackup, @{ $model->filesPaths() };
-        }
-    }
-
-    @filesToBackup or
-        return;
-
-    my $archive = $self->_filesArchive($dir);
-
-    my $firstFile  = shift @filesToBackup;
-    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";
-    EBox::Sudo::root($archiveCmd);
-
-    # we append the files one per one bz we don't want to overflow the command
-    # line limit. Another approach would be to use a file catalog however I think
-    # that for only a few files (typical situation for now) the append method is better
-    foreach my $file (@filesToBackup) {
-        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$file'";
-        EBox::Sudo::root($archiveCmd);
-    }
-}
-
-# Method: restoreFilesFromArchive
-#
-#  Restore all the module's file from the compressed archive in the given dir
-#  This is used to restore backups
-#
-#   Parameters:
-#   dir - directory where the archive is stored
-sub restoreFilesFromArchive
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_filesArchive($dir);
-
-    (-f $archive) or return;
-
-    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner";
-    EBox::Sudo::root($restoreCmd);
-}
 
 # Method: replicationExcludeKeys
 #
@@ -936,6 +827,240 @@ sub global
 {
     my ($self) = @_;
     return EBox::Global->getInstance($self->{ro});
+}
+
+
+sub searchContents
+{
+    my ($self, $searchStringRe) = @_;
+    my ($modelMatches) = $self->_searchRedisConfKeys($searchStringRe);
+    return $modelMatches;
+}
+
+sub _allValuesFromKey
+{
+    my ($self, $value) = @_;
+    my $refType = ref $value;
+    my @allKeyValues;
+    if ($refType eq 'ARRAY') {
+        @allKeyValues = @{ $value };
+    } elsif ($refType eq 'HASH') {
+        @allKeyValues = values %{ $value };
+    } else {
+        if ($value) {
+            @allKeyValues = ($value);
+        }
+    }
+
+    @allKeyValues = map {
+        (ref $_) ? @{ $self->_allValuesFromKey($_) } : ($_)
+    } @allKeyValues;
+
+    return \@allKeyValues;
+}
+
+sub _searchRedisConfKeys
+{
+    my ($self, $searchStringRe) = @_;
+    my %modelMatches;
+    my %noModelMatches;
+
+    my $redis = $self->redis();
+    my @keys = $redis->_keys($self->_key('*'));
+    if (not @keys) {
+        return [];
+    }
+    foreach my $key (@keys) {
+        if ($key =~ m{/order$}) {
+            next;
+        } elsif ($key =~ m{/max_id$}) {
+            next;
+        }
+        my $value = $redis->get($key);
+        my @allKeyValues = @{ $self->_allValuesFromKey($value) };
+
+        my $valueMatch = 0;
+        foreach my $keyVal (@allKeyValues) {
+            if ($keyVal =~ m/$searchStringRe/) {
+                $valueMatch = 1;
+                last;
+            }
+        }
+        if (not $valueMatch) {
+            next;
+        }
+
+        my $modelMatch = $self->_keyToModelMatch($key, $searchStringRe);
+        if ($modelMatch ) {
+            if ($modelMatch->{hidden}) {
+                next;
+            }
+            # TODO: use composites?
+            my $modelMatchUrl = '/' . $modelMatch->{module} . '/View/' . $modelMatch->{model};
+            if ($modelMatch->{dir}) {
+                $modelMatchUrl .= '?directory=' . $modelMatch->{dir};
+            }
+            if (not exists $modelMatches{$modelMatchUrl}) {
+                $modelMatch->{url} = $modelMatchUrl;
+                $modelMatch->{linkElements}->[-1]->{link} = $modelMatchUrl;
+                $modelMatches{$modelMatchUrl} = $modelMatch;
+
+            } else {
+                # not sure what to do about more matches for the same model,
+                # ignoring them for now
+            }
+        } else {
+            $noModelMatches{$key} = 1;
+        }
+    }
+
+
+    return ([values %modelMatches], [keys %noModelMatches]);
+}
+
+# this only for models, for custom redis this must be overridden
+sub _keyToModelMatch
+{
+    my ($self, $key, $searchStringRe) = @_;
+    my ($modName, $dir) = split '/conf/', $key, 2;
+    if ((not $modName) or (not $dir) ) {
+        EBox::error("Unexpected key format: '$key'");
+        return undef;
+    } elsif ($self->name ne $modName) {
+        EBox::error("Bad match mod name $modName <-> $key");
+        return undef;
+    }
+
+    my @parts = split '/keys/', $dir;
+    my $model = shift @parts;
+    my $rowId = pop @parts;
+    if (not $model or not $rowId) {
+        # It may be a no-model key
+        return undef;
+    }
+
+    my $global   = $self->global();
+    my $modelModName = $modName;
+    my $modelDir     = '';
+    foreach my $part (@parts) {
+        my ($id, $fieldName, $remaining) = split '/', $part;
+        if ((not $id) or (not $fieldName) or $remaining) {
+            EBox::error("Unexpected submodel part '$part' from key '$key'");
+            return undef;
+        }
+        my $modelInstance = $global->modInstance($modelModName)->model($model);
+        if ($modelDir) {
+            $modelInstance->setDirectory($modelDir);
+        } else {
+            # init modelDir with the name of the first model
+            $modelDir = $model;
+        }
+        my $field = $modelInstance->fieldHeader($fieldName);
+        my $nextModel = $field->foreignModel();
+        my @nextModelParts = split '/', $field->foreignModel();
+        if (@nextModelParts == 1) {
+            $model = $nextModelParts[0];
+        } elsif (@nextModelParts == 2) {
+            ($modelModName, $model) = @nextModelParts;
+        } else {
+            EBox::error("Unexpected foreingModel '" . $field->foreingModel() . "' from key '$key'");
+            return undef;
+        }
+
+        # increase modelDir
+        $modelDir .= '/keys/' . $part;
+    }
+
+    # get printable name with breadcrumbs
+    my $modelInstance = $global->modInstance($modelModName)->model($model);
+    if ($modelDir) {
+        $modelInstance->setDirectory($modelDir);
+    }
+
+    if ($self->_modelMatchIsHidden($modelInstance, $key, $searchStringRe)) {
+        return { hidden => 1 };
+    }
+
+    my $linkElements;
+    if (@parts == 0) {
+        $linkElements = [
+             {  title => $self->model($model)->printableModelName()    }
+         ];
+    } else {
+        $linkElements = $modelInstance->viewCustomizer()->HTMLTitle();
+    }
+    # add module name
+    unshift @{$linkElements}, {  title => $global->modInstance($modName)->printableName()  };
+
+    return {
+        linkElements => $linkElements,
+        module => $modName,
+        model => $model,
+        dir => $modelDir,
+        rowId => $rowId,
+       };
+}
+
+sub _modelMatchIsHidden
+{
+    my ($self, $modelInstance, $key, $searchStringRe) = @_;
+    my $value = $self->redis->get($key);
+    if ((ref $value) ne 'HASH') {
+        EBox::error("Cannot find hash ref for modelMatch for key $key");
+        return 0;
+    }
+    my $fieldName;
+    while (my ($key, $keyValue) = each %{$value}) {
+        if ($keyValue =~ m/$searchStringRe/) {
+            $fieldName = $key;
+            last;
+        }
+    }
+    if (not $fieldName) {
+        EBox::error("Cannot find field for modelMatch for key $key");
+        return 0;
+    }
+
+    my $field;
+    try {
+        $field = $modelInstance->fieldHeader($fieldName);
+    } catch ($ex) {
+        try {
+            my $realField;
+            # maybe was a union type?.  Change fieldname and look for selected field
+            # Assumption: no more than one level depth of union
+            $fieldName =~ s{_.*$}{};
+            # look for selected value
+            foreach my $key (keys %{ $value }) {
+                my $keyValue = $value->{$key};
+                if ($keyValue eq $fieldName) {
+                    if ($key =~ m/^(.*?)_selected$/) {
+                        $realField = $1;
+                        last;
+                    }
+                }
+            }
+            if (not $realField) {
+                $realField = $fieldName;
+            }
+
+            $field = $modelInstance->fieldHeader($realField);
+        } catch ($ex) {
+            EBox::warn("When looking for field $fieldName in model " .
+                           $modelInstance->name() . ': ' . $ex
+                          );
+       }
+    }
+
+    if (not $field) {
+        # forbid, for be in the safe side
+        return 1;
+    }
+    if ($field->isa('EBox::Types::Password')) {
+        return 1;
+    }
+
+    return $field->hidden();
 }
 
 1;

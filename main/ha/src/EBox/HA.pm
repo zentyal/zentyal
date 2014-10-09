@@ -74,7 +74,7 @@ use constant {
     ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
-my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn);
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ha ips network objects services squid trafficshaping ca openvpn ntp);
 my @SINGLE_INSTANCE_MODULES = qw(dhcp);
 
 # Constructor: _create
@@ -126,7 +126,7 @@ sub menu
     $system->add(new EBox::Menu::Item(
         url => $menuURL,
         text => $self->printableName(),
-        separator => 'Core',
+        tag => 'system',
         order => 50,
     ));
 
@@ -774,7 +774,7 @@ sub checkAndUpdateClusterConfiguration
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $self->userSecret()},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
         $client->setPort($node->{port});
         try {
@@ -1167,7 +1167,7 @@ sub _corosyncSetConf
 
         # Update the NodeList
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
-                   port => 443, localNode => 1);
+                   port => 8443, localNode => 1);
         $self->_notifyClusterConfChange($list);
         $self->{restart_required} = 1;
     }
@@ -1424,7 +1424,7 @@ sub _join
     my $client = new EBox::RESTClient(
         credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
         server => $peerHost,
-        verifyHostname => 0,
+        verifyPeer => 0,
        );
     $client->setPort($row->valueByName('zentyal_port'));
 
@@ -1562,7 +1562,7 @@ sub _notifyLeave
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $userSecret},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
         $client->setPort($node->{port});
         try {
@@ -1605,7 +1605,7 @@ sub _notifyClusterConfChange
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $clusterSecret},
                 server => $node->{addr},
-                verifyHostname => 0,
+                verifyPeer => 0,
                );
             $client->setPort($node->{port});
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
@@ -1694,7 +1694,7 @@ sub _waitPacemaker
             default { EBox::debug("No parse on $output"); }
         }
         $maxTries--;
-        sleep(1);
+        sleep(1) unless ($ready);
     }
 
     unless ($ready) {
@@ -1938,7 +1938,7 @@ sub _askForConf
         credentials => {realm => 'Zentyal HA', username => 'zentyal',
                         password => $clusterSecret},
             server => $node->{addr},
-            verifyHostname => 0,
+            verifyPeer => 0,
            );
     $client->setPort($node->{port});
 

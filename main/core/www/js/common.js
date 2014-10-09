@@ -19,7 +19,6 @@ if (!('Zentyal' in  window)) {
             return nsObject;
         },
         LeftMenu: {},
-        MenuSearch: {}
     };
 }
 
@@ -49,6 +48,8 @@ Zentyal.pageReload = function() {
     var url,
     urlParts = window.location.href.split('?');
     url = urlParts[0];
+    // Remove hash part, otherwise it won't reload
+    url = url.replace(window.location.hash, "");
     if (urlParts.length >= 2) {
         var i,
         params,
@@ -134,21 +135,15 @@ Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
 };
 
 Zentyal.LeftMenu._open = function(name, menuAnchor) {
-    $('.submenu .' + name).each(function(index, e) {
-            e.style.display = 'block';
-                            }
-                      );
+    $('.' + name + ' .submenu').slideDown(200);
     menuAnchor.addClass('despleg');
     menuAnchor.removeClass('navarrow');
 };
 
 Zentyal.LeftMenu._close = function(name, menuAnchor) {
-  $('.submenu .' + name).each(function(index, e) {
-      e.style.display = 'none';
-                             }
-                    );
-  menuAnchor.addClass('navarrow');
-  menuAnchor.removeClass('despleg');
+    $('.' + name + ' .submenu').slideUp(200);
+    menuAnchor.addClass('navarrow');
+    menuAnchor.removeClass('despleg');
 };
 
 // XXX used only in the not-tottaly implemented data table sections feature
@@ -165,65 +160,6 @@ Zentyal.toggleWithToggler = function(name) {
         element.addClass('minBox');
     }
     element.hide('blind');
-};
-
-// Zentya.MenuSearch namespace
-Zentyal.MenuSearch.hideMenuEntry = function(id) {
-    var i;
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $('#' + id).hide();
-        id = id.substr(0,i);
-    }
-    $('#' + id).hide();
-};
-
-Zentyal.MenuSearch.showMenuEntry = function (id) {
-    var i;
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $('#' + id).show();
-        id = id.substr(0,i);
-    }
-    $('#' + id).show();
-};
-
-Zentyal.MenuSearch.showAllMenuEntries = function() {
-    $('li[id^=menu_]').each(function(index, domElem) {
-        var elem = $(domElem);
-        if (elem.attr('id').lastIndexOf('_')  == 4) {
-            elem.show();
-        } else {
-            elem.hide();
-        }
-    });
-};
-
-Zentyal.MenuSearch.updateMenu = function(results) {
-     $('li[id^=menu_]').each(function(index, elem) {
-            $(elem).hide();
-     });
-     $.each(results,function(index, e) {
-          //show it even if it's already in old_results in case we have
-          //hidden it through a parent menu
-         Zentyal.MenuSearch.showMenuEntry(e);
-    });
-};
-
-Zentyal.MenuSearch.filterMenu = function(event) {
-    var text = $(event.target).val();
-    text = text.toLowerCase();
-    if(text.length >= 3) {
-        var url = '/Menu?search=' + text;
-        $.ajax({
-            url: url,
-            type: 'get',
-            dataType: 'json',
-            success: function(response) {
-                Zentyal.MenuSearch.updateMenu(response);
-            }
-        });
-    } else {
-        Zentyal.MenuSearch.showAllMenuEntries();
-    }
 };
 
 Zentyal.namespace('HA');

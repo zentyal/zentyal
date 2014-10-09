@@ -57,7 +57,6 @@ $(function() {
     });
 
     $('#OpenChangeUserOptions_not_ready').on('user_email_change', function(ev) {
-      console.log("notready callback");
        if (ev.mail) {
           $(this).hide();
        } else {

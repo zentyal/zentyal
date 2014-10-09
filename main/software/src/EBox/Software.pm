@@ -653,7 +653,7 @@ sub menu
         my $folder = new EBox::Menu::Folder('name' => 'Software',
                                             'icon' => 'software',
                                             'text' => $self->printableName(),
-                                            'separator' => 'Core',
+                                            'tag' => 'system',
                                             'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
@@ -1044,38 +1044,25 @@ sub _installCronFile
 #   This method is intended to be used by first time wizard pages
 #
 # Params:
+#
 #   current - Current page index which means
-#       0 - Package Selection
-#       1 - Confirmation
+#       1 - Package Selection
 #       2 - Installation
 #       3 - Initial Configuration
+#       4 - Save Changes
 #
 sub firstTimeMenu
 {
     my ($self, $current) = @_;
 
-    my $dr = EBox::Global::disasterRecovery();
-
     my $output = '';
 
-    $output .= "<div id='menu'><ul id='nav'>\n";
+    $output .= "<div id='menu'><ul id='nav' class='install-steps'>\n";
 
-    $output .= "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
-
-    if ($dr) {
-        $output .= $self->_dumpMenuItem(__('Choose Backup'), 0, $current);
-    } else {
-        $output .= $self->_dumpMenuItem(__('Package Selection'), 0, $current);
-    }
-    $output .= $self->_dumpMenuItem(__('Confirmation'), 1, $current);
+    $output .= $self->_dumpMenuItem(__('Package Selection'), 1, $current);
     $output .= $self->_dumpMenuItem(__('Installation'), 2, $current);
-    if ($dr) {
-        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 3, $current);
-    } else {
-        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
-    }
+    $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
     $output .= $self->_dumpMenuItem(__('Save Changes'), 4, $current);
-    $output .= $self->_dumpMenuItem(__('Finish'), 5, $current);
 
     $output .= "</ul></div>\n";
     $output .= <<END_SCRIPT;
@@ -1106,17 +1093,14 @@ sub _dumpMenuItem
 {
     my ($self, $text, $index, $current) = @_;
 
-    my $style = 'padding: 8px 10px 8px 20px;';
-
-    if ( $index < $current ) {
-        $style .= 'background: url("/data/images/apply.gif") left no-repeat;';
-    } elsif ( $index == $current ) {
-        $style .= 'font-weight: bold';
-    }
-    else {
+    my $class = '';
+    if ($index < $current) {
+        $class = 'step-done';
+    } elsif ($index == $current ) {
+        $class = 'step-actual';
     }
 
-    return "<li><div style='$style'>$text</div></li>\n";
+    return "<li class='$class'>$text</li>\n";
 }
 
 # Is it QA the exclusive source?

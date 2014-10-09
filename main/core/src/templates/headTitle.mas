@@ -2,7 +2,6 @@
     $save => ''
     $logout => ''
     $finishClass => ''
-    $remoteServicesURL => ''
     $image_title
     $version
 </%args>
@@ -11,35 +10,35 @@ use EBox::Gettext;
 my $logoutTitle = __('Close session');
 my $finishTitle = __('Save changes?');
 </%init>
-<div id="top"></div>
-        <div id="header">
-          <a href="/">
-            <img src="<% $image_title %>" alt="title"/>
-          </a>
-          <span><% $version %></span>
+    <div id="top"></div>
+    <div id="header">
+      <a class="logo" href="/">
+        <img src="<% $image_title %>" alt="title"/>
+      </a>
+      <span class="version"><% $version %></span>
+      <div id="hmenu">
+% if ($logout) {
+        <div class="menusearch">
+          <form action='/Search'>
+             <input id="menusearch" name="searchterm" type="text" placeholder="<% __('Search...') %>"/>
+             <input type="submit"/>
+          </form>
         </div>
-        <div id="hmenu">
-% if ( $remoteServicesURL ne '' ) {
-          <a id="remote_services_link" href="<% $remoteServicesURL %>">
-            <% __('Zentyal Remote') %>
-          </a>
-% }
-% if ( $logout ne '' ) {
-%
      <a id="m" href="#"
      onclick="Zentyal.Dialog.showURL('/Logout/Index', { title: '<% $logoutTitle %>'}); return false">
       <% $logout %>
      </a>
 % }
-% if ( $save ne '' ) {
+% if ($save) {
           <a class="<% $finishClass %>" id="changes_menu" href="#"
           onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">
               <% $save %>
           </a>
 % }
         </div>
+      </div>
 <script>
-$(function(){
+$(function() {
     Zentyal.refreshSaveChangesButton();
 });
 </script>

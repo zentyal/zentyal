@@ -21,8 +21,11 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
 % if ($crashreport) {
 <script type="text/javascript"  src="/data/js/crashreport.js">//</script>
-<div id="notification_container" class='warning'>
-<span id="notification_text"><% $crashreport %></span>
+<div class='notification_container warning'>
+<span id="notification_text"><% $crashreport->{ready} %></span>
+</div>
+<div class="notification_container note" style="display:none;">
+<span id="notification_text"><% $crashreport->{ty} %></span>
 </div>
 % } elsif ($message) {
 <script>
@@ -33,8 +36,8 @@ function releaseUpgrade(title) {
       });
 }
 </script>
-<div id="notification_container" class='tip'>
-<span id="notification_text"><% $message->{text} %></span>
+<div class="notification_container tip">
+<span class="notification_text"><% $message->{text} %></span>
 <a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>
 </div>
 % }
@@ -60,13 +63,11 @@ function releaseUpgrade(title) {
 % }
 <div style='clear: right;'/>
 <div class='dashboard' id="dashboard1">
-<br/>
 % foreach my $widget (@dashboard1) {
     <& dashboard/widget.mas, widget => $widget, toggled => \%toggled &>
 % }
 </div>
 <div class='dashboard' id="dashboard2">
-<br/>
 % foreach my $widget (@dashboard2) {
     <& dashboard/widget.mas, widget => $widget, toggled => \%toggled &>
 % }

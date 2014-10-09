@@ -7,7 +7,7 @@ FROM ubuntu:14.04
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://de.archive.ubuntu.com/ubuntu trusty-security main universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.zentyal.org/zentyal/ 3.5 main extra" >> /etc/apt/sources.list
+RUN echo "deb http://archive.zentyal.org/zentyal/ 4.0 main extra" >> /etc/apt/sources.list
 RUN apt-get update -y
 
 #Installing basic and build dependencies
@@ -27,32 +27,23 @@ ADD  main/mailfilter/debian/control /tmp/main/mailfilter/debian/control
 ADD  main/services/debian/control /tmp/main/services/debian/control
 ADD  main/antivirus/debian/control /tmp/main/antivirus/debian/control
 ADD  main/ntp/debian/control /tmp/main/ntp/debian/control
-ADD  main/ipsec/debian/control /tmp/main/ipsec/debian/control
+ADD  main/l2tp/debian/control /tmp/main/l2tp/debian/control
 ADD  main/dhcp/debian/control /tmp/main/dhcp/debian/control
 ADD  main/software/debian/control /tmp/main/software/debian/control
 ADD  main/objects/debian/control /tmp/main/objects/debian/control
-ADD  main/webserver/debian/control /tmp/main/webserver/debian/control
 ADD  main/jabber/debian/control /tmp/main/jabber/debian/control
 ADD  main/mail/debian/control /tmp/main/mail/debian/control
 ADD  main/trafficshaping/debian/control /tmp/main/trafficshaping/debian/control
 ADD  main/openchange/debian/control /tmp/main/openchange/debian/control
 ADD  main/core/debian/control /tmp/main/core/debian/control
-ADD  main/monitor/debian/control /tmp/main/monitor/debian/control
 ADD  main/openvpn/debian/control /tmp/main/openvpn/debian/control
-ADD  main/sogo/debian/control /tmp/main/sogo/debian/control
 ADD  main/squid/debian/control /tmp/main/squid/debian/control
 ADD  main/samba/debian/control /tmp/main/samba/debian/control
 ADD  main/dns/debian/control /tmp/main/dns/debian/control
 ADD  main/ca/debian/control /tmp/main/ca/debian/control
-ADD  main/nut/debian/control /tmp/main/nut/debian/control
 ADD  main/printers/debian/control /tmp/main/printers/debian/control
-ADD  main/ebackup/debian/control /tmp/main/ebackup/debian/control
-ADD  main/webmail/debian/control /tmp/main/webmail/debian/control
 ADD  main/common/debian/control /tmp/main/common/debian/control
-ADD  main/radius/debian/control /tmp/main/radius/debian/control
-ADD  main/ips/debian/control /tmp/main/ips/debian/control
 ADD  main/network/debian/control /tmp/main/network/debian/control
-ADD  main/remoteservices/debian/control /tmp/main/remoteservices/debian/control
 ADD  main/ha/debian/control /tmp/main/ha/debian/control
 
 #Install the zentyal deps
@@ -67,6 +58,7 @@ RUN echo 'testUser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 # Give special permissions to some files
 RUN mkdir -p /run/shm/zentyal
 RUN chmod 777 /run/shm/zentyal
+RUN chmod 4755 /usr/bin/sudo
 
 # Configure timezoen so the tests get the date expected
 RUN  echo "Europe/Madrid" > /etc/timezone

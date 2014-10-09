@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -34,9 +34,11 @@ use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use TryCatch::Lite;
-use Perl6::Junction qw( any );
 use EBox::Sudo;
+
+use Perl6::Junction qw( any );
+use Socket;
+use TryCatch::Lite;
 
 my $statenew = " -m state --state NEW ";
 
@@ -346,39 +348,22 @@ sub _setRemoteServices
     if ( $gl->modExists('remoteservices') ) {
         my $rsMod = $gl->modInstance('remoteservices');
         if ( $rsMod->eBoxSubscribed() ) {
-            if ( $rsMod->hasBundle() ) {
-                my $vpnIface = $rsMod->ifaceVPN();
-                if ( defined($vpnIface) ) {
-                    push(@commands,
-                         pf("-A ointernal $statenew -o $vpnIface -j oaccept")
-                        );
-                }
-            }
             try {
-                if ( $rsMod->hasBundle() ) {
-                    my %vpnSettings = %{$rsMod->vpnSettings()};
-                    push (@commands,
-                        pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
-                    );
-                }
-
-                # Allow communications between ns and API
+                # Allow communications against the API
                 eval "use EBox::RemoteServices::Configuration";
-                my ($dnsServer, $APIEndPoint) = (
-                    EBox::RemoteServices::Configuration->DNSServer(),
-                    EBox::RemoteServices::Configuration->APIEndPoint(),
-                   );
-                # We are assuming just one name server
-                push(@commands,
-                    pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j oaccept || true"),
-                );
-                # Public API servers to connect to
-                push(@commands,
-                     pf("-A ointernal $statenew -p tcp -d $APIEndPoint --dport 443 -j oaccept || true")
-                    );
+                my $APIEndPoint = EBox::RemoteServices::Configuration->APIEndPoint();
+                my ($h, undef, undef, undef, @addrs) = gethostbyname($APIEndPoint);
+                if ($h) {
+                    foreach my $packedIPAddr (@addrs) {
+                        # Public API servers to connect to
+                        my $ipAddr = inet_ntoa($packedIPAddr);
+                        push(@commands,
+                             pf("-A ointernal $statenew -p tcp -d $ipAddr --dport 443 -j oaccept || true")
+                            );
+                    }
+                }
             } catch (EBox::Exceptions::External $e) {
-                # Cannot contact eBox CC, no DNS?
+                # Cannot contact Zentyal Remote, no DNS?
                 my ($exc) = @_;
                 my $msg = "Cannot contact Zentyal Remote: $exc";
                 EBox::error($msg);

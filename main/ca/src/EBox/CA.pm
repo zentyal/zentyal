@@ -742,7 +742,7 @@ sub issueCertificate
             # Warning -> Year 2038 Bug
             # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
             EBox::warn(__x("Days set to the maximum allowed {days}: Year 2038 Bug",
-                        days => $self->{maxDays}));
+                           days => $self->{maxDays}));
         }
     }
 
@@ -1733,8 +1733,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'CA',
                                         'text' => $self->printableName(),
                                         'icon' => 'ca',
-                                        'separator' => 'Infrastructure',
-                                        'order' => 422);
+                                        'order' => 10);
 
     $folder->add(new EBox::Menu::Item('url'  => 'CA/Index',
                                       'text' => __('General')));

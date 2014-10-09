@@ -218,6 +218,17 @@ sub vdomainDn
     return VDOMAINDN . "," . $self->{ldap}->dn;
 }
 
+# Method: addressBelongsToAnyVDomain
+#
+#  returns whether the given account belongs to any of the managed virtual
+#  domains
+sub addressBelongsToAnyVDomain
+{
+    my ($self, $mail) = @_;
+    my ($left, $vdomain) = split ('@', $mail, 2);
+    return $self->vdomainExists($vdomain);
+}
+
 # Method: vdomainExists
 #
 #  This method returns if the virtual domain exists in ldap leaf
@@ -308,12 +319,13 @@ sub allWarnings
 sub regenConfig
 {
     my ($self) = @_;
-    my $aliasLdap =  new EBox::MailAliasLdap();
 
     my %vdomainsToDelete = map {  $_ => 1 } $self->vdomains();
 
-    my $mf =  EBox::Global->modInstance('mail');
-    my $vdomainsTable = $mf->model('VDomains');
+    my $mailMod =  EBox::Global->modInstance('mail');
+    my $usersLdap = $mailMod->{musers};
+    my $aliasLdap =  $mailMod->{malias};
+    my $vdomainsTable = $mailMod->model('VDomains');
 
     # first sync vdomains
     foreach my $id (@{ $vdomainsTable->ids() }) {
@@ -322,6 +334,7 @@ sub regenConfig
 
         if (not $self->vdomainExists($vdomain)) {
             $self->addVDomain($vdomain);
+            $usersLdap->setupUsers($vdomain);
         }
         delete $vdomainsToDelete{$vdomain};
     }

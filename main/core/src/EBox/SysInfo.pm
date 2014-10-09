@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::SysInfo;
 
-use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Config);
 
 use HTML::Entities;
 use Sys::Hostname;
@@ -37,8 +37,6 @@ use EBox::Dashboard::Value;
 use EBox::Dashboard::HTML;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use EBox::Report::DiskUsage;
-use EBox::Report::RAID;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Util::Software;
@@ -98,26 +96,31 @@ sub menu
     $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
                                     'icon' => 'dashboard',
                                     'text' => __('Dashboard'),
-                                    'separator' => 'Core',
-                                    'order' => 10));
+                                    'tag' => 'home',
+                                    'order' => 1));
 
     $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
                                     'text' => __('Module Status'),
                                     'icon' => 'mstatus',
-                                    'separator' => 'Core',
-                                    'order' => 20));
+                                    'tag' => 'system',
+                                    'order' => 10));
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
                                         'icon' => 'system',
                                         'text' => __('System'),
+                                        'tag' => 'system',
                                         'order' => 30);
 
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Composite/General',
                                       'text' => __('General'),
                                       'order' => 10));
 
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
-                                      'text' => __('Import/Export Configuration'),
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Composite/DateAndTime',
+                                      'text' => __('Date/Time'),
+                                      'order' => 20));
+
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Cloud/Backup',
+                                      'text' => __('Configuration Backup'),
                                       'order' => 50));
 
     if (EBox::Config::boolean('debug')) {
@@ -130,21 +133,6 @@ sub menu
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));
     $root->add($system);
-
-    my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
-                                       'text' => __('Maintenance'),
-                                       'icon' => 'maintenance',
-                                       'separator' => 'Core',
-                                       'order' => 70);
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-                                     'order' => 40,
-                                     'text' => __('Disk Usage')));
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/RAID',
-                                     'order' => 50,
-                                     'text' => __('RAID')));
-    $root->add($maint);
 }
 
 # Method: _setConf
@@ -435,13 +423,6 @@ sub toggledElements
 
     my @toggled = keys %{ $toggled };
     return \@toggled;
-}
-
-sub _facilitiesForDiskUsage
-{
-    my ($self, @params) = @_;
-
-    return EBox::Backup->_facilitiesForDiskUsage(@params);
 }
 
 sub _restartAllServices

@@ -34,7 +34,7 @@ sub _tree
     return {
         treeName => 'Manage',
         modelDomain => 'Samba',
-        pageTitle => $self->parentModule()->printableName(),
+        pageTitle => __('Users and Computers'),
         defaultActions => [ 'add', 'delete' ],
         help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba. Please note that multiple OU support is partial, some modules may only work with users and groups in the default Users and Groups OUs.'),
     };
@@ -86,6 +86,13 @@ sub childNodes
             next if ($self->_hiddenContainer($child->dn()));
         } elsif ($child->isa('EBox::Samba::User')) {
             next if ($child->isInternal());
+
+            if ($dn =~ m/^CN=krbtgt/i) {
+                if ($usersMod->mode() ne $usersMod->STANDALONE_MODE) {
+                    # hide this user
+                    next;
+                }
+            }
 
             if ($child->isDisabled()) {
                 $type = 'duser';
@@ -169,14 +176,14 @@ sub nodeTypes
         domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
         ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
-        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => $rw, delete => $rw },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => $rw } },
+        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => 1, delete => $rw },
                                                           actionObjects => { edit => 'User', delete => 'User' } },
-        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
-        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
+        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => 1, delete => $rw } },
+        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => 1, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
-        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => $rw } },
     };
 }
 
@@ -192,7 +199,12 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule()->isProvisioned();
+    my $samba = $self->parentModule();
+    if ($samba->mode() eq $samba->STANDALONE_MODE()) {
+        return ($samba->isProvisioned() and $samba->isEnabled());
+    } else {
+        return $samba->isEnabled();
+    }
 }
 
 # Method: preconditionFailMsg

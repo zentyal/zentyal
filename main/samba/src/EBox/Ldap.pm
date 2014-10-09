@@ -37,7 +37,7 @@ use Net::LDAP::Util qw(ldap_error_name ldap_explode_dn);
 
 use TryCatch::Lite;
 use File::Slurp qw(read_file);
-use Perl6::Junction qw(any);
+use File::Temp;
 use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
@@ -238,9 +238,33 @@ sub dn
         unless ($users->isProvisioned()) {
             throw EBox::Exceptions::Internal('Samba is not yet provisioned');
         }
-        my $output = EBox::Sudo::root("ldbsearch -H /var/lib/samba/private/sam.ldb -s base dn|grep ^dn:");
-        my ($dn) = $output->[0] =~ /^dn: (.*)$/;
-        if ($dn) {
+
+        my $tmp = new File::Temp(DIR => EBox::Config::tmp(),
+                                 TEMPLATE => 'dnsZonesXXXXXX',
+                                 SUFFIX => '.ldif');
+        $tmp->unlink_on_destroy(1);
+        my $ldifFile = $tmp->filename();
+
+        my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb " .
+                  "-s base 'dn' " .
+                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+        EBox::Sudo::root($cmd);
+
+        my $dn = undef;
+        my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
+        while (not $ldif->eof()) {
+            my $entry = $ldif->read_entry();
+            if ($ldif->error() or not defined $entry) {
+                throw EBox::Exceptions::Internal(
+                __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
+                    x => $ldif->error(), y => $ldif->error_lines()));
+            } else {
+                $dn = $entry->dn();
+            }
+        }
+        $ldif->done();
+
+        if (defined $dn and length $dn) {
             $self->{dn} = $dn;
         } else {
             throw EBox::Exceptions::External('Cannot get LDAP dn');
@@ -307,11 +331,11 @@ sub domainNetBiosName
 
 # Method: ldapConf
 #
-#       Returns the current configuration for LDAP: 'dn', 'ldapi', 'rootdn'
+#   Returns the current configuration for LDAP: 'dn', 'ldap', 'port'
 #
 # Returns:
 #
-#     hash ref  - holding the keys 'dn', 'ldap', and 'rootdn'
+#   hash ref  - holding the keys 'dn', 'ldap', and 'port'
 #
 sub ldapConf
 {
@@ -321,7 +345,6 @@ sub ldapConf
         'dn'     => $self->dn(),
         'ldap'   => LDAP,
         'port' => 389,
-        'rootdn' => EBox::Global->modInstance('samba')->administratorDN(),
     };
 
     return $conf;
@@ -346,85 +369,35 @@ sub userBindDN
 
 sub users
 {
-    my ($self, %params) = @_;
+    my ($self, $system) = @_;
 
-    my $list = [];
-
-    # Query the containers stored in the root DN and skip the ignored ones
-    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
-    # subclasses of 'Container'.
-    my @containers;
-    my $params = {
-        base => $self->dn(),
-        scope => 'one',
-        filter => '(|(objectClass=Container)(objectClass=OrganizationalUnit)(objectClass=msExchSystemObjectsContainer))',
-        attrs => ['*'],
-    };
-    my $result = $self->search($params);
-    foreach my $entry ($result->sorted('cn')) {
-        my $container = new EBox::Samba::Container(entry => $entry);
-        next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
-        push (@containers, $container);
-    }
-
-    # Query the users stored in the non ignored containers
-    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
-    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
-    foreach my $container (@containers) {
-        $params = {
-            base   => $container->dn(),
-            scope  => 'sub',
-            filter => $filter,
-            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
-        };
-        $result = $self->search($params);
-        foreach my $entry ($result->sorted('samAccountName')) {
-            my $user = new EBox::Samba::User(entry => $entry);
-            push (@{$list}, $user);
-        }
-    }
-
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::users to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->users();
 }
 
 sub contacts
 {
     my ($self) = @_;
 
-    my $params = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => '(&(objectclass=contact)(!(isDeleted=*)))',
-        attrs => ['*'],
-    };
-    my $result = $self->search($params);
-    my $list = [];
-    foreach my $entry ($result->sorted('name')) {
-        my $contact = new EBox::Samba::Contact(entry => $entry);
-
-        push (@{$list}, $contact);
-    }
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::contacts to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('contacts');
+    return $samba->contacts();
 }
 
 sub groups
 {
     my ($self) = @_;
 
-    my $params = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => '(&(objectclass=group)(!(isDeleted=*)))',
-        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-    };
-    my $result = $self->search($params);
-    my $list = [];
-    foreach my $entry ($result->sorted('samAccountName')) {
-        my $group = new EBox::Samba::Group(entry => $entry);
-        push (@{$list}, $group);
-    }
-
-    return $list;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::groups to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->groups();
 }
 
 # Method: securityGroups
@@ -439,28 +412,11 @@ sub securityGroups
 {
     my ($self) = @_;
 
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::securityGroups to be deprecated");
     my $global = EBox::Global->getInstance();
-    my $usersMod = $global->modInstance('samba');
-    if ((not $usersMod->isEnabled()) or (not $usersMod->isProvisioned())) {
-        return [];
-    }
-
-    my $allGroups = $self->groups();
-    my @securityGroups = ();
-    foreach my $group (@{$allGroups}) {
-        if ($group->isSecurityGroup()) {
-            push (@securityGroups, $group);
-        }
-    }
-    # sort grups by name
-    @securityGroups = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @securityGroups;
-
-    return \@securityGroups;
+    my $samba = $global->modInstance('samba');
+    return $samba->securityGroups();
 }
 
 # Method: ous
@@ -472,27 +428,11 @@ sub ous
 {
     my ($self, $baseDN) = @_;
 
-    unless (defined $baseDN) {
-        $baseDN = $self->dn();
-    }
-
-    my $objectClass = EBox::Samba::OU->mainObjectClass();
-    my $args = {
-        base => $baseDN,
-        filter => "(objectclass=$objectClass)",
-        scope => 'one',
-    };
-
-    my $ous = [];
-    my $result = $self->search($args);
-    foreach my $entry ($result->entries()) {
-        my $ou = EBox::Samba::OU->new(entry => $entry);
-        push (@{$ous}, $ou);
-        my $nested = $self->ous($ou->dn());
-        push (@{$ous}, @{$nested});
-    }
-
-    return $ous;
+    # TODO Remove this method
+    EBox::warn("EBox::Ldap::ous to be deprecated");
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    return $samba->ous($baseDN);
 }
 
 # Method: dnsZones
@@ -512,35 +452,43 @@ sub dnsZones
         "CN=MicrosoftDNS,DC=DomainDnsZones,$defaultNC",
         "CN=MicrosoftDNS,DC=ForestDnsZones,$defaultNC",
         "CN=MicrosoftDNS,CN=System,$defaultNC");
-    my @ignoreZones = ('RootDNSServers', '..TrustAnchors');
+    my @ignoreZones = ('RootDNSServers', '..TrustAnchors', '..InProgress');
     my $zones = [];
 
     foreach my $prefix (@zonePrefixes) {
-        my $output = EBox::Sudo::root(
-            "ldbsearch -H /var/lib/samba/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
-        my $ldifBuffer = join ('', @{$output});
+        my $tmp = new File::Temp(DIR => EBox::Config::tmp(),
+                                 TEMPLATE => 'dnsZonesXXXXXX',
+                                 SUFFIX => '.ldif');
+        $tmp->unlink_on_destroy(1);
+        my $ldifFile = $tmp->filename();
+        my $cmd = "ldbsearch -H /var/lib/samba/private/sam.ldb -s one " .
+                  "-b '$prefix' '(objectClass=dnsZone)' " .
+                  "--debug-stderr 2>/dev/null 1>$ldifFile";
+        EBox::Sudo::root($cmd);
 
-        my $fd;
-        open $fd, '<', \$ldifBuffer;
-
-        my $ldif = Net::LDAP::LDIF->new($fd);
+        my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
         while (not $ldif->eof()) {
             my $entry = $ldif->read_entry();
-            if ($ldif->error()) {
-                EBox::debug("Error msg: " . $ldif->error());
-                EBox::debug("Error lines:\n" . $ldif->error_lines());
-            } elsif ($entry) {
-                my $name = $entry->get_value('name');
-                next unless defined $name;
-                next if $name eq any @ignoreZones;
-                my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
-                push (@{$zones}, $zone);
+            if ($ldif->error() or not defined $entry) {
+                throw EBox::Exceptions::Internal(
+                __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
+                    x => $ldif->error(), y => $ldif->error_lines()));
             } else {
-                EBox::debug("Got an empty entry");
+                my $name = $entry->get_value('name');
+                next unless defined $name and length $name;
+
+                my $skip = 0;
+                foreach my $skipPrefix (@ignoreZones) {
+                    $skip = 1 if ($name =~ m/^$skipPrefix/);
+                }
+
+                unless ($skip) {
+                    my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
+                    push (@{$zones}, $zone);
+                }
             }
         }
         $ldif->done();
-        close $fd
     }
 
     return $zones;

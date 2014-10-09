@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -100,33 +100,6 @@ sub syncRows
     }
 
     return $changed;
-}
-
-# Method: viewCustomizer
-#
-#      To display a permanent message
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = $self->SUPER::viewCustomizer();
-
-    my $securityUpdatesAddOn = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-    }
-
-    unless ($securityUpdatesAddOn) {
-        $customizer->setPermanentMessage($self->parentModule()->_commercialMsg(), 'ad');
-    }
-
-    return $customizer;
 }
 
 sub validateTypedRow
@@ -245,13 +218,6 @@ sub afterRestoreConfig
     $squid->clearPathsToRemove('restoreConfig');
     $squid->clearPathsToRemove('restoreConfigNoPresent');
     $self->_changeInCategorizedLists();
-}
-
-# Overriden because we don't want the framework to backup, restore or manage the
-#  categorized lsit archives. They can be too big and we will manage them specially
-sub filesPaths
-{
-    return [];
 }
 
 1;

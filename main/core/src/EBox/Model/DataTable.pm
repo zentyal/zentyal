@@ -47,6 +47,7 @@ use TryCatch::Lite;
 use POSIX qw(ceil INT_MAX);
 use Perl6::Junction qw(all any);
 use List::Util;
+use Scalar::Util;
 
 sub new
 {
@@ -815,16 +816,14 @@ sub addTypedRow
         $self->addedRowNotify($newRow);
         $self->_notifyManager('add', $newRow);
 
-        # check if there are files to delete if revoked
-        my $filesToRemove =   $self->filesPathsForRow($newRow);
-        foreach my $file (@{  $filesToRemove }) {
-            $self->{confmodule}->addFileToRemoveIfRevoked($file);
-        }
-
         $self->_commitTransaction();
     } catch ($e) {
         $self->_rollbackTransaction();
-        $e->throw();
+        if (Scalar::Util::blessed($e) and $e->isa('EBox::Exceptions::Base')) {
+            $e->throw();
+        } else {
+            die $e;
+        }
     }
 
     return $id;
@@ -1069,12 +1068,6 @@ sub removeRow
         my $row = $self->row($id);
         $self->validateRowRemoval($row, $force);
 
-        # check if there are files to delete
-        my $filesToRemove =   $self->filesPathsForRow($row);
-        foreach my $file (@{  $filesToRemove }) {
-            $self->{confmodule}->addFileToRemoveIfCommitted($file);
-        }
-
         $self->_removeRow($id);
 
         my $userMsg = $self->message('del');
@@ -1179,15 +1172,24 @@ sub warnOnChangeOnId
 
 # Method: isIdUsed
 #
-#    TODO
+#       This method must be overriden in any case you want to
+#       notify you are using a row from another model. This is only
+#       intended for those models that are using 'notifyactions'
+#       in the module schema. In any other case, the framework
+#       is in charge
 #
-#    (POSITIONAL)
+# Positional parameters:
 #
-#    'modelName' - model's name
-#     'id' - row id
+#    modelName - String model's name
+#    id        - String the row id
+#
+# Returns:
+#
+#    Boolean - indicating whether the id from that model is used or not
+#
 sub isIdUsed
 {
-
+    return 0;
 }
 
 # Method: setRow
@@ -2986,66 +2988,6 @@ sub customActionClickedJS
                     $page);
 }
 
-# Method: backupFiles
-#
-#   Make an actual configuration backup of all the files contained in the
-#   datatable and its submodels. This backup will used to discard changes if
-#   needed
-sub backupFiles
-{
-    my ($self) = @_;
-
-    # XXX Disable backupFiles as this is messing with the directories
-    # and making eBox fail
-    return;
-
-    $self->_hasFileFields() or
-        return;
-
-    foreach my $id (@{ $self->ids() }) {
-        $self->row($id)->backupFiles();
-    }
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files, thus discarding last
-#  changes in files
-sub restoreFiles
-{
-    my ($self) = @_;
-
-    # FIXME: Is this no longer needed?
-    # XXX Disable restoreFiles as this is messing with the directories
-    # and making eBox fail
-    return;
-
-    $self->_hasFileFields() or
-        return;
-
-    foreach my $row (@{ $self->ids() } ) {
-        $self->row($row)->restoreFiles();
-    }
-}
-
-#  Method: _hasFileFields
-#
-# Returns:
-#  wether the types in the tableDescription could manage any file
-sub _hasFileFields
-{
-    my ($self) = @_;
-
-    my $tableDesc = $self->table()->{tableDescription};
-    foreach my $header  (  @{ $tableDesc } ) {
-        if ($header->can('filesPaths')) {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
 # Method: reloadTable
 #
 #     This method is intended to reload the information from the table
@@ -4372,17 +4314,6 @@ sub _setIfVolatile
     $self->{volatile} = 1;
 }
 
-sub _parse_words
-{
-    my ($str) = @_;
-
-    my @w = ();
-    if(defined($str)) {
-        @w = split('\W+', lc($str));
-    }
-    return @w;
-}
-
 # Method: keywords
 #
 # Overrides:
@@ -4395,49 +4326,19 @@ sub keywords
 
     my @words = ();
 
-    push(@words, _parse_words($self->pageTitle()));
-    push(@words, _parse_words($self->headTitle()));
-    push(@words, _parse_words($self->printableName()));
-    push(@words, _parse_words($self->printableModelName()));
-    push(@words, _parse_words($self->printableRowName()));
-    push(@words, _parse_words($self->help()));
+    push(@words, $self->_extract_keywords($self->pageTitle()));
+    push(@words, $self->_extract_keywords($self->headTitle()));
+    push(@words, $self->_extract_keywords($self->printableName()));
+    push(@words, $self->_extract_keywords($self->printableModelName()));
+    push(@words, $self->_extract_keywords($self->printableRowName()));
+    push(@words, $self->_extract_keywords($self->help()));
 
     for my $fieldName (@{$self->fields()}) {
         my $field = $self->fieldHeader($fieldName);
-        push(@words, _parse_words($field->printableName()));
-        push(@words, _parse_words($field->help()));
+        push(@words, $self->_extract_keywords($field->printableName()));
+        push(@words, $self->_extract_keywords($field->help()));
     }
     return \@words;
-}
-
-# Method: filesPaths
-#
-#   Returns:
-#     the paths of the files managed by the datatable and its submodels
-sub filesPaths
-{
-    my ($self) = @_;
-
-    $self->_hasFileFields() or
-        return [];
-
-    my @files = map {
-        @{ $self->row($_)->filesPaths() }
-    } @{ $self->ids() };
-
-    return \@files;
-}
-
-#  Method: filesPathsForRow
-#
-#   returns the file paths for a given row.
-#
-#   Warnings:
-#   we need to do this bz we cannot override row's methods for specific models!
-sub filesPathsForRow
-{
-    my ($self, $row) = @_;
-    return $row->filesPaths();
 }
 
 sub _beginTransaction

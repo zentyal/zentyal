@@ -122,6 +122,35 @@ verbose_ssl = no
 mail_uid=<% $uid %>
 mail_gid=<% $gid %>
 
+namespace inbox {
+    inbox=yes
+
+    mailbox Trash {
+        auto = subscribe
+        special_use = \Trash
+    }
+
+    mailbox Drafts {
+        auto = subscribe
+        special_use = \Drafts
+    }
+
+    mailbox Sent {
+        auto = subscribe
+        special_use = \Sent
+    }
+
+    mailbox "Sent Messages" {
+        auto = no
+        special_use = \Sent
+    }
+
+    mailbox Spam {
+        auto = create
+        special_use = \Junk
+    }
+}
+
 ##
 ## Mail processes
 ##
@@ -210,15 +239,6 @@ plugin {
   sieve_storage = <% $mailboxesDir %>/%Ld/%Ln
   sieve_dir     = <% $mailboxesDir %>/%Ld/%Ln
 
-  autocreate = Trash
-  autocreate2 = Spam
-  autocreate3 = Sent
-  autocreate4 = Drafts
-  autosubscribe = Trash
-  autosubscribe2 = Spam
-  autosubscribe3 = Sent
-  autosubscribe4 = Drafts
-
 % if ($antispamPlugin->{enabled} ) {
   <& .antispamPlugin, %{ $antispamPlugin } &>
 % }
@@ -242,7 +262,7 @@ my $imapAddress = $imap ? '*' : '127.0.0.1';
 my $imapPort = ($imap or $openchange) ? 143: 0;
 my $imapsAddress = $imaps ? '*' : '127.0.0.1';
 my $imapsPort = ($imaps or $openchange) ? 993: 0;
-my @imapPlugins = qw(quota imap_quota autocreate);
+my @imapPlugins = qw(quota imap_quota);
 push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};
 </%init>
 ##
@@ -264,6 +284,7 @@ service imap {
 
 protocol imap {
   mail_plugins = <% "@imapPlugins" %>
+  mail_max_userip_connections = 20
 }
 </%def>
 

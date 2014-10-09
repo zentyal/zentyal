@@ -24,6 +24,7 @@ package EBox::RESTClient;
 #   Its main feature set is having replay for the failed operations.
 #
 
+no warnings 'experimental::smartmatch';
 use v5.10;
 
 use EBox;
@@ -34,6 +35,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::RESTRequest;
 use EBox::RESTClient::Result;
 use EBox::Validate;
 use File::Temp;
@@ -65,12 +67,26 @@ use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';
 #                    password - String the password
 #
 #                 (Optional)
+#
 #   scheme - String the valid scheme *(Optional)* Default value: https
+#
 #   uri - String the complete URI (host + scheme). Using this is incompatible
 #         with server and scheme arguments
+#
 #   verifyHostname - Boolean verify hostname when using https scheme.
 #                    *(Optional)* Default value: rest_verify_servers configuration key
 #
+#   verifyPeer - Boolean verify peer certification when using https scheme.
+#                If it is set to false, verifyHostname is not taken into account.
+#                *(Optional)* Default value: true
+#
+#   timeout - *(Optional)* Default value
+#
+#   Note about default timeout:
+#    this valeus is chosen to avoid 504 gateway erros from nginx
+#    now the timeout is limiTed by the keepalive_timeout nginx
+#    parameter but if nginx configuration changes it could be
+#    limited by other thing
 sub new
 {
     my ($class, %params) = @_;
@@ -89,12 +105,23 @@ sub new
     unless (defined($self->{verifyHostname})) {
         $self->{verifyHostname} = EBox::Config::boolean('rest_verify_servers');
     }
+    if (exists $params{verifyPeer} and (not $params{verifyPeer})) {
+        $self->{verifyPeer} = 0;
+    } else {
+        $self->{verifyPeer} = 1;
+    }
 
     unless (defined($params{uri})) {
         my $scheme = $params{scheme};
         $scheme = 'https' unless defined($scheme);
         $self->setScheme($scheme);
         $self->setServer($params{server});
+    }
+
+    if ($params{timeout}) {
+        $self->{timeout} = $params{timeout}
+    } else {
+        $self->{timeout} = 60;
     }
 
     return $self;
@@ -233,7 +260,7 @@ sub PUT {
 #
 sub POST {
     my ($self, $path, %params) = @_;
-    return $self->request('POST', $path, $params{query}, $params{retry});
+    return $self->request('POST', $path, $params{query}, $params{retry}, %params);
 }
 
 # Method: DELETE
@@ -259,16 +286,22 @@ sub DELETE {
 }
 
 sub request {
-    my ($self, $method, $path, $query, $retry) = @_;
+    my ($self, $method, $path, $query, $retry, %params) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
 
     # build UA
     my $ua = LWP::UserAgent->new;
+    $ua->timeout($self->{timeout});
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
-    $ua->ssl_opts('verify_hostname' => $self->{verifyHostname});
+    if ($self->{verifyPeer}) {
+        $ua->ssl_opts('verify_hostname' => $self->{verifyHostname});
+    } else {
+        $ua->ssl_opts('verify_hostname' => 0);
+        $ua->ssl_opts('SSL_verify_mode' => IO::Socket::SSL::SSL_VERIFY_NONE);
+    }
     # Set HTTP proxy if it is globally set as environment variable
     $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 
@@ -278,7 +311,10 @@ sub request {
     }
 
     #build headers
-    if ($query) {
+    if ($params{multipart}) {
+        $req->content_type('multipart/form-data');
+        $req->parts($params{multipart});
+    } elsif ($query) {
         given(ref($query)) {
             when('ARRAY' ) {
                 throw EBox::Exceptions::Internal('Cannot send ARRAY ref as query when using GET method')
@@ -322,45 +358,48 @@ sub request {
         return new EBox::RESTClient::Result($res);
     }
     else {
-        $self->{last_error} = new EBox::RESTClient::Result($res);
-        given ($res->code()) {
-            when (HTTP_UNAUTHORIZED) {
-                throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
-            }
-            when (HTTP_BAD_REQUEST) {
-                my $error = $self->last_error()->data();
-                my $msgError = $error;
-                if (ref($error) eq 'HASH') {
+        my $result = new EBox::RESTClient::Result($res);
+        my $code = $res->code();
+        my $msgError;
+        if ($code == HTTP_UNAUTHORIZED) {
+            $msgError = $self->_invalidCredentialsMsg();
+        } elsif ($code == HTTP_BAD_REQUEST) {
+            my $errorJSON;
+            try {
+                  $errorJSON = $result->data();
+            } catch {};
+
+            if ($errorJSON) {
+                $msgError = $errorJSON;
+                if (ref($errorJSON) eq 'HASH') {
                     # Flatten the arrays
                     my @errors;
-                    foreach my $singleErrors (values %{$error}) {
+                    foreach my $singleErrors (values %{$errorJSON}) {
                         push(@errors, @{$singleErrors});
                     }
                     $msgError = join("\n", @errors);
                 }
-                throw EBox::Exceptions::External($msgError);
-            }
-            default {
-                # Add to the journal unless specified not to do so
-                if ($retry) {
-                    $self->_storeInJournal($method, $path, $query, $res);
+            } else {
+                # no JSON, try to show the error a string
+                $msgError = $result->as_string();
+
+                # humanize error
+                if ($msgError =~ m/SSL3_GET_SERVER_CERTIFICATE:certificate verify failed/) {
+                    $msgError = __x('The verification of the certificate of server {server} failed. The certificate itself can be invalid, expired or has not yet come into effect. Also check the hour of your system to avoid false expirations',
+                                    server => $self->{uri}->host()
+                                   );
                 }
-                throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
             }
+        } else {
+            # Add to the journal unless specified not to do so
+            if ($retry) {
+                $self->_storeInJournal($method, $path, $query, $res);
+            }
+            $msgError = $code . ' : ' . $res->content();
         }
 
+        throw EBox::Exceptions::RESTRequest($msgError, result => $result)
     }
-}
-
-# Method: last_error
-#
-#   Return last error result after a failed request
-#
-sub last_error
-{
-    my ($self) = @_;
-
-    return $self->{last_error};
 }
 
 # Method: JournalOpsDirPath

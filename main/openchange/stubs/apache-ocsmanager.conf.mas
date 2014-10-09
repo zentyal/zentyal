@@ -1,0 +1,19 @@
+<%args>
+  $domain
+</%args>
+
+# FIXME: unhardcode port if customized
+<VirtualHost *:443>
+    ServerName autodiscover.<% $domain %>
+
+    SSLEngine on
+    SSLCertificateFile /etc/ocsmanager/domain.pem
+
+    ProxyAddHeaders On
+
+    # ocsmanager autodiscover
+    ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
+
+    # ocsmanager Exchange Web Services (ews)
+    ProxyPass /ews http://127.0.0.1:5000/ews
+</VirtualHost>

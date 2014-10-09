@@ -15,6 +15,7 @@
 
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 # Class: EBox::HA::NodePromoter
 #

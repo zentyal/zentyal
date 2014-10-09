@@ -46,15 +46,16 @@ sub permanentMessage
 {
     my ($self) = @_;
 
-    my $sogo = EBox::Global->modInstance('sogo');
-    unless (defined ($sogo) and $sogo->isEnabled()) {
-        return undef;
-    }
+    # FIXME: add some check when checkbox to enable/disable webmail is added
+    #my $sogo = EBox::Global->modInstance('sogo');
+    #unless (defined ($sogo) and $sogo->isEnabled()) {
+    #    return undef;
+    #}
 
     if ($self->parentModule()->isProvisioned()) {
         my $readyToUseMsg = __x('You can access the {oh}OpenChange Webmail{ch}',
                                     oh => "<a href='#' target='_blank' id='sogo_url'>", ch => '</a>');
-        $readyToUseMsg .= "<script>document.getElementById('sogo_url').href='http://' + document.domain + '/SOGo';</script>";
+        $readyToUseMsg .= "<script>document.getElementById('sogo_url').href='https://' + document.domain + '/SOGo';</script>";
         return $readyToUseMsg;
     } else {
         return __('OpenChange webmail is enabled but you still need to complete the OpenChange module setup.');

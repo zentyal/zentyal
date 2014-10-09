@@ -49,7 +49,7 @@ sub _delGroupWarning
 {
     my ($self, $group) = @_;
 
-    if (@{$group->members()}) {
+    if (@{$group->users()}) {
         return (__('This group contains members'));
     }
 
@@ -84,7 +84,9 @@ sub _groupShareEnabled
         my $row = $sharesModel->row($id);
         my $shareName  = $row->valueByName('share');
         my $groupShare = $row->valueByName('groupShare');
-        return $shareName if $groupShare eq $groupName;
+        if (length ($groupShare) and ($groupShare eq $groupName)) {
+            return $shareName;
+        }
     }
 
     return undef;

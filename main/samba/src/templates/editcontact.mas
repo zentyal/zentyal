@@ -7,8 +7,15 @@
 <%init>
 use EBox::Gettext;
 use JSON::XS;
-</%init>
+my $optionalTag = $slave ? '' :  __('Optional');
+my $formOnSubmit = $slave ? 'onSubmit="return false"' : '';
 
+my $givenName   = $contact->givenName();
+my $surname     = $contact->surname();
+my $displayName = $contact->displayName();
+my $description  = $contact->description();
+my $mail        = $contact->mail();
+</%init>
 
 <div id="edit_contact">
 
@@ -20,15 +27,15 @@ use JSON::XS;
         <input type="hidden" name="dn" value="<% $contact->dn() %>">
         <input type="hidden" name="edit" value="edit">
         <label><% __('First name') %></label>
-            <input type='text' class='inputText' name='firstname' value="<% $contact->givenName() %>">
+            <& masterSlaveUserAttr, name => 'firstname', value => $givenName, slave => $slave &>
         <label><% __('Last name') %></label>
-            <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
-        <label><% __('Display name') %><span class="optional_field"><% __('Optional') %></span></label>
-            <input type='text' class='inputText' name='displayname' value="<% $contact->displayName() %>">
-        <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
-            <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
-        <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
-            <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
+            <& masterSlaveUserAttr, name => 'surname', value => $surname, slave => $slave &>
+        <label><% __('Display name') %><span class="optional_field"><% $optionalTag %></span></label>
+            <& masterSlaveUserAttr, name => 'displayname', value => $displayName, slave => $slave &>
+        <label><% __('Description') %><span class="optional_field"><% $optionalTag %></span></label>
+            <& masterSlaveUserAttr, name => 'description', value => $description, slave => $slave &>
+        <label><% __('E-Mail') %><span class="optional_field"><% $optionalTag %></span></label>
+            <& masterSlaveUserAttr, name => 'mail', value => $mail, slave => $slave &>
 
 %   unless ($slave) {
         <input class='inputButton' id='submitEditContactForm' type='submit' name='contact'
@@ -156,7 +163,6 @@ $(function() {
    updateGroupsWidgets(<% $groupDataJSON %>);
 });
 </script>
-
 </%def>
 
 <%def .addToGroup>
@@ -167,7 +173,7 @@ $contact
 <form action='/Samba/EditContact' method='POST' id='addContactToGroup' >
   <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style="float-right" class='btn btn-only-icon btn-add btn-submit'/>
+  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' class='btn btn-only-icon btn-add btn-submit custom-combobox-add'/>
   <input type="hidden" name="dn"   value="<% $contact->dn() %>"/>
   <input type="hidden" name="addgrouptocontact" value="1"/>
 </form>
@@ -195,14 +201,20 @@ if (@contactgroups) {
 </ul>
 </%def>
 
-
-
-
-
-
-
-
-
+<%def masterSlaveUserAttr>
+<%args>
+$name
+$value
+$slave
+$id => undef
+</%args>
+% if ($slave) {
+<% $value %>
+ <input type='hidden' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %>  />
+% } else {
+ <input type='text' class='inputText' name='<% $name %>' value='<% $value %>' <% $id ? "id='$id'" : "" %> />
+%}
+</%def>
 
 
 

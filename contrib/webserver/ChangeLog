@@ -1,0 +1,172 @@
+4.0
+	+ Set version to 4.0
+	+ Adapted pathHTTPSSSLCertificate() to always returns a list
+3.5.1
+	+ Remove spurious warning in public folder model
+	+ Avoid warning flag on smart match experimental feature
+3.5
+	+ Depend on zentyal-samba for Kerberos integration
+	+ Force haproxy restart if service status changes
+	+ Set version to 3.5
+	+ Set HTTPS env variable to 'On' always for SSL vhosts
+	+ Removed the ssl mod check for ssl vhosts given that we don't use that
+	  module at all
+	+ Migrate previous configuration from 3.3 when upgrading
+	+ When creating domains take into account SLD
+3.4
+	+ Check, at least, a listening port is mandatory
+	+ Fix when webserver is not listening in HTTP port
+	+ Don't regenerate certificate if it has the same CN that the
+	  virtual host name
+	+ Register in Apache configuration the public port used to reach it so
+	  automatic redirects work behind haproxy
+	+ Modules changed in initialSetup have now its configuration saved
+	+ Added support for internal virtual domains (only for openchange
+	  for now)
+	+ Updated to use the new haproxy API
+	+ Adapt configuration for Apache 2.4
+	+ Set version to 3.4
+3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
+	+ Delete migration code from old versions
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.5
+	+ Override daemons when migrating from 3.0
+3.1.4
+	+ Avoid crash if zentyal-users is not installed
+3.1.3
+	+ Added menu icon
+	+ Adapted to the new user API.
+3.1.2
+	+ Added GUI warning when enabling UserDir, telling about the need of
+	  creating the public_html dir and giving permissions to www-data
+3.1.1
+	+ Remove deprecated backup domains methods
+3.1
+	+ Updated to reflect the Apache -> WebAdmin rename.
+	+ Removed no longer required explicit disabling of apache2 init script
+	  as it is now managed by the framework
+	+ More error checking when creating virtual host directories
+	+ Depend on zentyal-core 3.1
+3.0.3
+	+ Fixed bug when checking hostname aliases on creation of a
+	  virtual host
+	+ When dumping config the no existence of configuration
+	  directories generates a warning instead of a error
+3.0.2
+	+ Integration with Disaster Recovery service
+	+ Fixed error when creating directories for virtual host for hostname
+	+ Add DNS records for virtual hosts but without IP addresses
+3.0.1
+	+ Virtual host for hostname overrides default settings
+	+ Added and used serviceId field for service certificates
+2.3.7
+	+ Disabled temporarily dns host record creation until DNS/kerberos
+	  system allows it again
+2.3.6
+	+ Configuration backup restore no longer crashes
+2.3.5
+	+ Web Server moved from Infrastructure to Office
+	+ Module recovers from missign webserver service
+	+ Backup and restore of vhosts custom configuration directories
+2.3.4
+	+ Avoid 'port in use' error when setting port for first time to
+	  its default value
+	+ Users public HTML directory adapted to changes in LDAP
+	+ Adapted to changes in DNS module
+2.3.3
+	+ Adapted to new Model management framework
+2.3.2
+	+ When creating virtual host DNS records use configured domains first
+2.3.1
+	+ New translatable printableName for the webserver service
+2.3
+	+ Replaced autotools with zbuildtools
+	+ Also check alias names when creating a new virtual host
+2.2.2
+	+ Adapted to new DNS method addAlias
+	+ Renaming of virtual hosts disallowed
+2.2.1
+	+ Fixed certificate path in vhosts
+	+ Fixed link to SysInfo/General
+2.1.4
+	+ Remove startup link on enable to avoid start when disabled
+2.1.3
+	+ Removed /zentyal prefix from URLs
+	+ Bugfix: certificate name is ssl.pem and not apache.pem
+2.1.2
+	+ Generate default SSL certificate for out of the box HTTPS support
+	+ Allow custom CN on Web Server service certificate
+	+ Bugfix: fix all known issues with HTTPS vhosts
+	+ Bugfix: mark ca as restarted after issueCertificate to avoid red button
+	+ Use upstream apache2 init script instead of custom upstart one
+	+ Removed warning when no sites configured
+2.1.1
+	+ Added service certificate CN options
+	+ Restart webserver after all modules which have it as enabledepends
+	  in order to make effective their changes in web configuration
+	+ Implement restoreDependencies to avoid problems when restoring backup
+2.1
+	+ Remove migration and use new initialSetup
+	+ Bugfix: validations of virtual host values are correct now
+	+ Added GLOBAL_CONF_DIR constant for apache conf.d dir
+	+ Change configuration override policy to allow all for /var/www
+	+ Include Virtual host files in the backup domain
+2.0.2
+	+ Bugfix: webserver ssl certificate is reissued instead of renewed if
+	  the file is not found
+2.0.1
+	+ Bugfix: certificate is re-issued if the hostname changes
+	+ Added backup domain
+1.5.5
+	+ Zentyal rebrand
+1.5.4
+	+ Check if usersandgroups is configured instead of samba
+1.5.3
+	+ Enable the port available check using the new method
+	  from services.
+1.5.2
+	+ Bugfix: keep the service internal on port update.
+	+ Temporary disabled the listen port available check.
+1.5.1
+	+ Adds default-ssl vhost and ssl module management.
+	+ Implements SSL integration between ebox-webserver and ebox-ca for
+	  vhosts.
+	+ Bugfix: logs are split up by vhost.
+	+ Bugfix: vhosts DocumentRoot moved to /srv/www/domain.tld to keep
+	  them separated from default vhost.
+1.5
+	+ Bugfix: NameVirtualHost directive in ports.conf and not in every vhost.
+	+ Vhosts ServerAdmin now is root@fqdn.
+	+ Handle default vhost for port, ServerAdmin values and including the
+	  ServerName directive.
+	+ Bugfix: allow non fqdn and topdomains as vhosts.
+1.3.12
+	+ Don't allow to enable public_html directories if samba modules
+	is not configured because in this situation there aren't user home directories
+	+ Add titles and headers
+1.3.6
+	+ Better validation of virtual host names
+	+ Added warning when adding virtual hostames if the DNS module is
+	not enabled
+1.1.20
+	+ New release
+1.1
+	+ Create /var/run/apache2 in upstart script
+0.12.100
+	+ New release
+0.12.99
+	+ New release
+0.12
+	+ Add help field to webserver model
+	+ Bugfix. Do not add a dns domain if the virtual host
+	  is just a host name with no domain
+0.11.102
+	+ Use the new EBox::Model::Row
+0.11.101
+	+ New upstream release
+0.11.99
+	+ First release

@@ -24,8 +24,7 @@ use EBox::Gettext;
 
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
-Readonly::Scalar my $FIRSTTIME_DESTINATION => '/Software/EBox';
-Readonly::Scalar my $RECOVERY_DESTINATION => '/RemoteServices/DisasterRecovery';
+Readonly::Scalar my $FIRSTTIME_DESTINATION => '/Software/Welcome';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -94,10 +93,8 @@ sub _requestDestination
     my ($session) = @_;
 
 
-    # redirect to disaster recovery or software selection on first install
-    if (EBox::Global::disasterRecovery()) {
-        return $RECOVERY_DESTINATION;
-    } elsif (EBox::Global::first() and EBox::Global->modExists('software')) {
+    # redirect to software selection on first install
+    if (EBox::Global::first() and EBox::Global->modExists('software')) {
         return $FIRSTTIME_DESTINATION;
     }
 

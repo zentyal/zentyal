@@ -43,7 +43,11 @@ sub _userAddOns
 {
     my ($self, $user) = @_;
 
-    return unless ($self->{jabber}->configured());
+    my $jabber = $self->{jabber};
+    return unless $jabber->configured();
+
+    my $state = $jabber->get_state();
+    return unless $state->{_schemasAdded};
 
     my $active   = $self->hasAccount($user) ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
@@ -131,18 +135,20 @@ sub getJabberAdmins
 {
     my $self = shift;
 
-    my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('samba');
-    my $usersContainer = EBox::Samba::User->defaultContainer();
     my @admins = ();
+    my $global = EBox::Global->getInstance();
+    my $samba = $global->modInstance('samba');
+    my $ldap = $samba->ldap();
+    my $dse = $ldap->rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
 
-    $users->{ldap}->connection();
-    my $ldap = $users->{ldap};
+    my $args = {
+        base => $defaultNC,
+        filter => '(jabberAdmin=TRUE)'
+    };
+    my $mesg = $ldap->search($args);
 
-    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
-    my $mesg = $ldap->search(\%args);
-
-    foreach my $entry ($mesg->entries) {
+    foreach my $entry ($mesg->entries()) {
         push (@admins, new EBox::Samba::User(entry => $entry));
     }
 
@@ -151,13 +157,16 @@ sub getJabberAdmins
 
 sub _addUser
 {
-   my ($self, $user, $password) = @_;
+    my ($self, $user, $password) = @_;
 
-   unless ($self->{jabber}->configured()) {
-       return;
-   }
-   my $model = $self->{jabber}->model('JabberUser');
-   $self->setHasAccount($user, $model->enabledValue());
+    my $jabber = $self->{jabber};
+    return unless $jabber->configured();
+
+    my $state = $jabber->get_state();
+    return unless $state->{_schemasAdded};
+
+    my $model = $self->{jabber}->model('JabberUser');
+    $self->setHasAccount($user, $model->enabledValue());
 }
 
 sub _delUserWarning

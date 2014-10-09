@@ -9,76 +9,22 @@ Package: zentyal
 Architecture: all
 Depends: zentyal-core, zentyal-software
 Description: Zentyal - Core metapackage
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
+ Zentyal is a drop-in replacement for Microsoft Small Business Server and
+ Microsoft Exchange Server, that you can set up in less than 30 minutes.
  .
  This metapackage installs the Zentyal core and the Software module.
 
 Package: zentyal-all
 Architecture: all
-Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office,
-         zentyal-communication, zentyal-webmail, zentyal-radius,
-         zentyal-ipsec, zentyal-monitor, zentyal-ips, zentyal-nut,
-         zentyal-openchange, zentyal-sogo, zentyal-remoteservices
+Depends: zentyal, zentyal-samba, zentyal-openchange, zentyal-squid,
+         zentyal-openvpn, zentyal-trafficshaping, zentyal-mail,
+         zentyal-dhcp, zentyal-ha, zentyal-jabber, zentyal-mailfilter,
+         zentyal-printers, zentyal-antivirus, zentyal-l2tp
 Description: Zentyal - All Modules
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
+ Zentyal is a drop-in replacement for Microsoft Small Business Server and
+ Microsoft Exchange Server, that you can set up in less than 30 minutes.
  .
  This metapackage installs all Zentyal modules.
-
-Package: zentyal-gateway
-Architecture: all
-Depends: zentyal-squid, zentyal-trafficshaping, zentyal-software
-Description: Zentyal - Gateway Suite
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
- .
- This metapackage installs typical modules to configure Zentyal as a Gateway.
-
-Package: zentyal-infrastructure
-Architecture: all
-Depends: zentyal-dhcp, zentyal-dns, zentyal-openvpn, zentyal-webserver,
-         zentyal-ntp, zentyal-software
-Description: Zentyal - Network Infrastructure Suite
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
- .
- This metapackage installs typical modules to manage the network
- infrastructure with Zentyal.
-
-Package: zentyal-office
-Architecture: all
-Depends: zentyal-samba, zentyal-printers, zentyal-antivirus, zentyal-ebackup,
-         zentyal-software
-Description: Zentyal - Office Suite
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
- .
- This metapackage installs typical modules to configure Zentyal as an Office
- server.
-
-Package: zentyal-communication
-Architecture: all
-Depends: zentyal-mail, zentyal-jabber, zentyal-mailfilter, zentyal-antivirus,
-         zentyal-ebackup, zentyal-software
-Description: Zentyal - Communications Suite
- Zentyal is a Linux small business server that can act as
- a Gateway, Unified Threat Manager, Office Server, Infrastructure
- Manager, Unified Communications Server or a combination of them. One
- single, easy-to-use platform to manage all your network services.
- .
- This metapackage installs typical modules to configure Zentyal as a
- Communication server.
 
 Package: zsupporttools
 Architecture: all

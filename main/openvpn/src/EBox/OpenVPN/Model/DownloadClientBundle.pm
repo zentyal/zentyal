@@ -248,18 +248,6 @@ sub _validateInstaller
     }
 }
 
-# overriden to be able to put the defualt address for server
-sub _defaultRow
-{
-    my ($self) = @_;
-    my $row = $self->SUPER::_defaultRow();
-    my ($serverAddr) = @{ $self->_defaultServerAddr() };
-    if ($serverAddr) {
-        $row->elementByName('addr1')->setValue($serverAddr);
-    }
-    return $row;
-}
-
 sub formSubmitted
 {
     my ($self, $row) =  @_;
@@ -384,16 +372,18 @@ sub preconditionFailMsg
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
-
-        return $self->parentRow()->printableValueByName('name');
-}
-
-sub _defaultServerAddr
-{
     my ($self) = @_;
-    my $server = $self->parentRow()->printableValueByName('name');
-    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server, $self->parentModule()->isReadOnly());
+
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->printableValueByName('name');
 }
 
 sub viewCustomizer

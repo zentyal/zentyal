@@ -326,6 +326,7 @@ sub setAsChanged
     my ($self, $newChangedStatus) = @_;
     defined $newChangedStatus or
         $newChangedStatus = 1;
+
     my $name = $self->name;
     my $global = EBox::Global->getInstance();
 
@@ -490,7 +491,6 @@ sub dumpConfig
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
-
     $self->dumpConfig($dir, @options);
 }
 
@@ -1177,9 +1177,59 @@ sub global
     return EBox::Global->getInstance();
 }
 
+# Method: backupFilesToArchive
+#
+#  Backup all the given  files in a compressed archive in the given dir
+#  This is used to create backups
+#
+#   Parameters:
+#   dir - directory where the archive will be stored
+#   files - array reference with path to be backed up. Paths are taken recursive
+sub backupFilesToArchive
+{
+    my ($self, $dir, $files) = @_;
+
+    my @filesToBackup = @{ $files };
+    @filesToBackup or
+        return;
+
+    my $archive = $self->_filesArchive($dir);
+
+    my $firstFile  = shift @filesToBackup;
+    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --same-owner '$firstFile'";
+    EBox::Sudo::root($archiveCmd);
+
+    # we append the files one per one bz we don't want to overflow the command
+    # line limit. Another approach would be to use a file catalog however I think
+    # that for only a few files (typical situation for now) the append method is better
+    foreach my $file (@filesToBackup) {
+        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$file'";
+        EBox::Sudo::root($archiveCmd);
+    }
+}
+
+# Method: restoreFilesFromArchive
+#
+#  Restore all the files from the  tar archive in backup dir
+#  This is used to restore backups
+#
+#   Parameters:
+#   dir - directory where the archive is stored
+sub restoreFilesFromArchive
+{
+    my ($self, $dir) = @_;
+    my $archive = $self->_filesArchive($dir);
+
+    (-f $archive) or return;
+
+    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner";
+    EBox::Sudo::root($restoreCmd);
+}
+
+
 # Method: recoveryEnabled
 #
-#   Helper method to know if thesmodule is configured for
+#   Helper method to know if the module is configured for
 #   disaster recovery synchronization
 #
 # Returns:
@@ -1190,6 +1240,9 @@ sub recoveryEnabled
 {
     my ($self) = @_;
 
+    # TODO: Remove it
+    return 0;
+
     my $module = $self->{name};
 
     my $rs = EBox::Global->modInstance('remoteservices');
@@ -1199,6 +1252,12 @@ sub recoveryEnabled
 
     my $model = $rs->model('DisasterRecoveryDomains');
     return $model->moduleEnabled($module);
+}
+
+sub searchContents
+{
+    my ($searchStringRe) = @_;
+    return [];
 }
 
 1;

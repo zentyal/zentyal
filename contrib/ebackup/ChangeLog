@@ -1,0 +1,311 @@
+HEAD
+	+ Do not escape bash metacharacters in restore as it is not
+	  required once shell quote is in place
+3.5
+	+ Remove support for sliced backup
+	+ Set version to 3.5
+3.4
+	+ Set version to 3.4
+	+ Fix regression in rsync method (contribution by billfarrow)
+3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Hide password field for rsync method
+	+ Added missing EBox::Exceptions uses
+	+ Add date to duplicity-command.log
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.4
+	+ Exclude / by default for coherency with the rest of modules like
+	  firewall or proxy, and also allow now to include /
+	+ Do not show default excludes like /dev or /proc on the interface,
+	  they now can be customized in /etc/zentyal/ebackup.conf
+	+ Fixed SCP method setting HOME environment in duplicity-wrapper
+3.1.3
+	+ Added menu icon
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Removed code for deprecated cloud method and backup domains
+3.1
+	+ Remove unused Size and Message Types
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.6
+	+ Added preCheckTarget hook
+3.0.5
+	+ Using EBox::FileSystem::mountPointIsMounted when checking if
+	  file system backup target is mounted
+	+ Avoid double utf8 encode when escaping file for commands, this
+	  is neccesary after improved utf8 support in EBox::Sudo
+	+ Make status and file cache work with utf8 characters
+3.0.4
+	+ Remove deprecated code for DR using ebackup
+	+ duplicity-wrapper uses C locale to avoid locale problems
+	+ Removed superfluous module lock in backup-tool
+	+ Removed independent implementation of lock and unlock methods
+	+ Fix small syntax error
+3.0.3
+	+ Removed dependency on events module
+3.0.2
+	+ Fixed code error when checking mount points of file target
+	+ Fixed 'inexistent watcher' error in backup-tool
+	+ Set default niceness of backup process to 10
+3.0.1
+	+ Added python-paramiko dependency which is needed for ssh backend
+2.3.8
+	+ Removed Zentyal Cloud method
+	+ Deleted obsolete Disaster Recovery restore-tool
+2.3.7
+	+ Fixed precondition in bakcup files lists, restore logs and
+	  restore backup models
+	+ Fixed regression in cache of current collection status
+2.3.6
+	+ Move mostly report code to remoteservices
+	+ Fixed executable permissions on update-status script
+	+ Fixed RemoteStatus model precondition when setup is not complete
+	+ Fixed regression when getting collection status
+	+ Fixed wrong call to value() in backup-tool
+2.3.5
+	+ Implement new EBox::Events::WatcherProvider
+	+ Adapted to new Model management framework
+	+ Adapted Message and Size types to new framework
+2.3.4
+	+ Send additional info in backup events
+	+ Initial collection status done in background
+	+ Fixed bug with expiration of file list cache
+	+ Improved precondition message for restore logs model
+	+ Added backup target checks: mounted and size
+2.3.3
+	+ Create tables with MyISAM engine by default
+2.3.2
+	+ Use new unified tableBody.mas in RemoteStatus.pm
+	+ Do not show Zentyal Cloud option if custom_prefix is defined
+	+ Added selectable priority by config file to scheduled backup
+2.3.1
+	+ Do not check for disasterAddon if not subscribed
+	+ Added missing libdate-calc-perl dependency
+	+ Fixed date parsing in restore-tool and configuration cloud backup
+	+ Adapted messages in the UI for new editions
+2.3
+	+ File selections by backup domain are restricted to includes
+	+ Includes from backup domains can be moved in the list; the model
+	  validates if the includes and excludes configuration is coherent
+	  with the backup domains
+	+ Refactored restoreFile method to ease testing of file quoting
+	+ Set a default timeout of 5 minutes for duplicity and allow to
+	  override it with the duplicity_timeout key of ebackup.conf
+	+ Replaced autotools with zbuildtools
+	+ Added pre and post backup process hooks. Thanks to Oliver
+	  (levelml@level-it.de) for his patch proposal for this
+	+ restore-tool detects when the user tries to restore a 2.0.X
+	  backup and refuses to continue
+	+ Added force user, password and server credentials for storage server
+	+ If unconfigured it refuses to generate a cache of the files in
+	  the backup
+	+ Added exception for symmetric key errors. Retry symmetric key in
+	  restore-tool
+	+ Added checking of passwd and shadow files in restore-tool, warn
+	  the user if they have changed
+	+ DR now restores hostname
+	+ Fixed bug with different time zones and files on the cloud
+	+ No restore-tool messages stop the restore process after all
+	  parameters have been asked
+	+ restore-tool: Added restore-all options and more force command
+	  line options. Fixed bug in symmetric-password command line
+	  option. Final message shows administrative interface localhost URL
+	+ restore-tool: fixed dialog when credentials are incorrect;
+	  better exclusion of problematic files to restore
+2.2.2
+	+ Exception in permanent message of remote restore screen is now managed
+	+ Defaults in excludes and includes list are not longer added when
+	  deleting all the rows
+	+ Fixed logrotate configuration
+2.2.1
+	+ Assure that backup-tool get all updated includes/excludes from a
+	  read-only version
+	+ Fixed encoding problems when restoring files
+	+ Better quoting of duplicity command arguments
+	+ Backup domain selections are added to list in the correct order
+	+ Fixed bug when the new and old sizes of the selections are the same
+	+ Backup event is also disabled when module is disabled
+2.1.8
+	+ Added guard against undefined rows in RemoteExcludes model
+	+ Solved problem with automatic inclusions with no-redis
+	  characters in its keys
+	+ Use a permanent warning for 'Cannot connect to cloud' message
+	+ Better validation of target in file system method
+	+ Gentle handling of file not found error when generating cache list
+	+ Use new version 2 of the disaster recovery metadata
+	+ Do not store configuration backup using duplicity
+	+ Restore configuration backup before downloading data
+	+ Fixed regression in restore configuration button
+	+ Support for partial downloads in restore-tool
+	+ Raise error when the path needed to restore a file does not exists
+	+ Fixed encryption detection in restore-tool
+	+ Moved default duplicity cache to /var/cache/zentyal/duplicity
+	+ Reviewed some subscription strings
+2.1.7
+	+ Better integration with core theme
+	+ Removed /zentyal prefix from URLs
+2.1.6
+	+ Fixed revokeAlModules call on read-only global instances when
+	  dumping extra backup data
+2.1.5
+	+ Use show/hide in viewCustomizer to simplify the interface
+	+ Added missing help
+	+ Fixed problem restoring filenames with shell metacharacters
+2.1.4
+	+ Rotate duplicity logs
+2.1.3
+	+ Move Backup menu option inside the System menu
+	+ Better path quoting when restoring files
+2.1.2
+	+ Root directory can be chosen as directory in FTP and SCP
+	+ Files with unsafe chars are shown in the file list and can be restored
+2.1.1
+	+ Removed configuration backup warning as now it is always done
+	+ Removed unnecessary code from syncRows methods
+	+ Report methods in RemoteSettings and BackupDomains now return
+	  non-i18n'ed data
+	+ More control over uncommon errors
+	+ Parse and store backup statistics for further processing
+	+ First date is selected by default on restore-tool
+	+ Bugfix: values from configuration file are checked to assure
+	  that at least making backup is tried once
+	+ Clean temporal directory before doing logs restore
+	+ Better control of extra backup data failures
+	+ Better control of Cloud failed connections
+	+ Duplicity archive dir can be set in configuration file
+	+ backup-tool always create meta and data directories when backing
+	  up to cloud
+	+ remoteUrlParams method does not require user or password parameter
+	  when the backup method is 'file'
+2.1
+	+ Set default value for the keep previous full copies setting
+	+ Replace YAML::Tiny with libyaml written in C through YAML::XS wrapper
+	+ Renamed /usr/share/ebox-ebackup/ebox-remote-ebackup to
+	  /usr/share/zentyal-ebackup/backup-tool
+	+ Removed migrations and use new initial-setup
+	+ Added /var/tmp to default exclude paths
+	+ Remove skip of usercorner in restore-tool, now it is a package
+	+ Replace /etc/ebox/82ebackup.conf with /etc/zentyal/ebackup.conf
+	+ Added 'files included' domain and restore all fields options to
+	  restore-tool
+	+ Using 'cat' command instead of 'tail' to retrieve backup metadata
+	+ Use a geometric progression for timeout values for retrying
+	  connecting to backup servers when there are connectivity problems
+	+ Fixed event message when something goes wrong at first stages
+	+ Fixed bug in checking right method changing
+	+ Added a way to delete orphan metadata files
+2.0.9
+	+ Use new zentyal package names in restore-tool
+	+ Change one of our backup servers fingerprint
+	+ Using the new module name for cloud-prof package
+	+ Store metadata in Disaster Recovery backups
+	+ Autodetect encryption type instead of asking
+	+ Ask for domains to restore right after choosing the date
+	+ Avoid some warnings in restore-tool when executed in a shell
+2.0.8
+	+ Added missing crontab string for monthly full backup
+	+ Fixed wrong crontab string for weekly full backup
+	+ Use software module and ProgressIndicator to install packages
+	+ Fixed problems with pulsating progress bar in restore-tool
+	+ Use fork + exec to launch zenity, fixes argument parsing problems
+	+ Making environment local for installing modules in restore-tool
+	+ Added cleanup operation on failure
+	+ Added backup-cleanup script for manual cleanups
+	+ Properly handle connection errors in RemoteStorage
+2.0.7
+	+ Set label of restore file button to "Restore" instead of "Change"
+	+ Set the volume size to 25 as default for remote system
+	+ Added support for disaster recovery
+	+ Allowed to restore the root directory in
+	  EBox::EBackup::restoreFile
+	+ Method for restore log database from a directory
+	+ Disabled asymmetric encryption method until we can support in in
+	  disaster recovery
+	+ Fixed non-internationalizable strings in RemoteSettings model
+2.0.6
+	+ Using /etc/cron.d instead of ebox crontab for scheduled
+	  backups
+	+ Fixed error in scheduled backups using week days
+2.0.5
+	+ Better error and precondition control when making backups
+	+ Do not spawn a separate process to make the configuration backup
+	+ Warn instead of abort all the backup if there are unsaved changes
+2.0.4
+	+ Fixed incremental backup frequency with full backup frequency is
+	"twice a month"
+2.0.3
+	+ New "twice a month" frecquency for full backup
+2.0.2
+	+ Fixed bug excluding DB slices directory
+2.0.1
+	+ Added support for the sliced backup of the DB
+1.5.3
+	+ Zentyal rebrand
+1.5.2
+	+ Target is now mandatory in any case to decide if the backup configuration
+	is complete.
+	+ Status cache is regenerated when restarting the module and before doing a
+	backup.
+1.5.1
+	+ Removed information about obsolete eBox remote backup
+1.5
+	+ Enable backup event watcher by default
+	+ Improve help message for configuration
+	+ Added eBox Storage from Denver (US)
+	+ Added '/tmp' to default excludes
+	+ Fixed element text in excludes/includes
+	+ Includes/Excludes fixed
+	+ Antichronological order used in versions
+	+ Cache lists regenerated on module restart
+	+ Added automatic exclude of backup directory for file system
+	method
+	+ Better treatment of errors while restoring files form the UI
+	+ Added argument check to ebox-remote-ebackup script
+	+ Improved frequency options
+	+ Improved keep options
+	+ Added backup and restore of logs
+	+ Added restore configuration from backup action
+	+ VolSize option can be changed through configuration file
+	+ Better order of General configuration options
+	+ Bugfix: fixed problem when restoring path with spaces
+	+ Bugfix: all features using duplicity does nothing with
+	default configuration because is incomplete
+1.4
+	+ Bug fix: do not duplicate includes with exclude-regexp
+	+ Add eBox Backup Storage strings
+1.3.15
+	+ Add custom module status section
+1.3.14
+	+ Bug fix: off-by-one error on remote file search
+	+ Bug fix: add lock to avoid overlapping between
+	  backup processes (Closes #1680)
+	+ Added validation of parameters in RemoteSettings and notice
+	about SHH known hosts
+	+ Cannot choose a higher frequency of full backups  than
+	incremental backups
+	+ Added validation of includes and excludes
+	+ Regex exclude bugfix
+	+ Add eBox remote storage servers
+	+ Add file to distribute remote server fingerprints
+	+ Add support for symmetric encryption
+	+ Disable cache of backup status as is useless
+	+ Allow to write destination URLs without relative directory
+1.3.13
+	+ Bug fix: add --force to delete old backup sets
+	+ Bug fix: fix restoring of the first file
+1.3.12
+	+ Add page title
+1.3.10
+	+ Bugfix do not include '/' as it is already used as source directory
+	+ Get rid of former local backup code
+	+ Send events when backup is done
+1.3.7
+	+ Include configuration backup in backup
+1.3.3
+	+ an active event's  watcher is not longer needed for
+	the cron job
+	+ cron job is written on config regeneration

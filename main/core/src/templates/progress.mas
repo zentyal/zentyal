@@ -53,37 +53,31 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
 % if (@slides) {
 <script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 <style>
-.carousel-inner {
-    width: 690px;
-    height: 400px;
-    overflow: hidden;
-}
-
-#slides {
-    width: 6900px;
-}
-.carousel_slide{
-position: relative;
-margin-top: 20px;
-background: #666 url('/data/images/black-texture.png');
-}
-.carousel_slide:hover .carousel-control{
-  display: block;
-}
-
-.carousel-inner {
+.carousel.slide {
+  position: relative;
+  background: url('/data/software/images/pattern-bg.png') repeat scroll 0 0 #33831a;
   overflow: hidden;
+}
+.carousel.slide:hover .carousel-control {
+  bottom: 10px;
+  -webkit-transition: 0.3s bottom;
+  -moz-transition: 0.3s bottom;
+  -o-transition: 0.3s bottom;
+  transition: 0.3s bottom;
+}
+.carousel-inner {
   width: 100%;
+  min-height: 400px;
+  overflow: hidden;
   position: relative;
 }
-
 .carousel-inner > .item {
   display: none;
   position: relative;
-  -webkit-transition: 0.6s ease-in-out left;
-  -moz-transition: 0.6s ease-in-out left;
-  -o-transition: 0.6s ease-in-out left;
-  transition: 0.6s ease-in-out left;
+  -webkit-transition: 0.6s left;
+  -moz-transition: 0.6s left;
+  -o-transition: 0.6s left;
+  transition: 0.6s left;
 }
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
@@ -121,36 +115,35 @@ background: #666 url('/data/images/black-texture.png');
   left: 100%;
 }
 .carousel-control {
-  display: none;
   position: absolute;
-  bottom: 10px;
-  left: 0px;
-  width: 30px;
+  bottom: -100px;
+  left: 10px;
+  width: 40px;
   height: 40px;
-  font-size: 50px;
-  font-weight: 100;
-  line-height: 32px;
-  color: white;
-  text-decoration: none;
-  background-color: #FF7900 ;
-  -webkit-border-radius: 0px 23px 23px 0px;
-  -moz-border-radius: 0px 23px 23px 0px;
-  border-radius: 0px 23px 23px 0px;
+  overflow: hidden;
+  text-indent: 200px;
+  background: rgba(255,255,255,0.6) url('/data/images/r.gif') center center no-repeat; 
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -webkit-transition: 0.6s all;
+  -moz-transition: 0.6s all;
+  -o-transition: 0.6s all;
+  transition: 0.6s all;
 }
 
 .carousel-control.right {
   left: auto;
-  text-align: right;
-  right: 0px;
-    -webkit-border-radius: 23px 0px 0px 23px;
-  -moz-border-radius: 23px 0px 0px 23px;
-  border-radius: 23px 0px 0px 23px;
-
+  right: 10px;
+  background-image: url('/data/images/f.gif'); 
 }
-.carousel-control:hover,
-.carousel-control:focus {
+.carousel-control:hover {
   text-decoration: none;
-  background-color: #C35F00;
+  background-color: rgba(255,255,255,1);
+  -webkit-transition: 0.3s background-color;
+  -moz-transition: 0.3s background-color;
+  -o-transition: 0.3s background-color;
+  transition: 0.3s background-color;
 }
 .carousel-indicators {
   position: absolute;
@@ -173,26 +166,6 @@ background: #666 url('/data/images/black-texture.png');
 }
 .carousel-indicators .active {
   background-color: #fff;
-}
-.carousel-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 15px;
-  background: #333333;
-  background: rgba(0, 0, 0, 0.75);
-}
-.carousel-caption h4,
-.carousel-caption p {
-  color: #ffffff;
-  line-height: 20px;
-}
-.carousel-caption h4 {
-  margin: 0 0 5px;
-}
-.carousel-caption p {
-  margin-bottom: 0;
 }
 .carousel-control.carouselControlDisabled {
   display: none !important;
@@ -319,7 +292,7 @@ $onclick
 <%args>
 @slides
 </%args>
-<div id="carousel" class="carousel_slide">
+<div id="carousel" class="carousel slide">
      <div id='carouselContents' class="carousel-inner">
 % my $first = 1;
 % foreach my $slide (@slides) {

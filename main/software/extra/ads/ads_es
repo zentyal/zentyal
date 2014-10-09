@@ -9,86 +9,40 @@
   },
 
   {
-    "title": "&iexcl;Registra tu Servidor Zentyal de forma gratuita!",
-    "paragraphs": [ "Registra tu Servidor Zentyal de forma gratuita y gana acceso a los siguientes servicios:" ],
+    "title": "Ediciones Comerciales de Zentyal",
+    "paragraphs": [ "&iexcl;Infraestructura TIC h&iacute;brida con soporte completo!" ],
     "items": [
-              "Backup remoto de la configuraci&oacute;n",
-              "Subdominio zentyal.me personalizado",
-              "Webinarios",
-              "Whitepapers",
-              "Trials gratuitos"
-             ]
-  },
-
-  {
-    "title": "Edici&oacute;n Professional",
-    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 25 usuarios!" ],
-    "items": [
-              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
-              "Espacio de almacenamiento en la nube: 5 Gb",
-              "Tiempo m&aacute;ximo de respuesta de soporte: 2 d&iacute;as laborables",
-              "Oficialmente respaldado por Ubuntu/Canonical"
+              "Todas las funcionalidades, completamente testeado y estable",
+              "Actualizaciones comerciales",
+              "Soporte oficial ilimitado",
+              "Servicios oficiales de nube integrados",
+              "Soportadas durante 4 años"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
 
   {
-    "title": "Edici&oacute;n Business",
-    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 75 usuarios!" ],
+    "title": "Compatibilidad nativa con Microsoft Active Directory®",
+    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server®!" ],
     "items": [
-              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
-              "Espacio de almacenamiento en la nube: 15 Gb",
-              "Tiempo m&aacute;ximo de respuesta de soporte: 1 d&iacute;a laborable",
-              "Oficialmente respaldado por Ubuntu/Canonical"
-             ],
-    "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
-  },
-
-  {
-    "title": "Edici&oacute;n Premium",
-    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 300 usuarios!" ],
-    "items": [
-              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
-              "Espacio de almacenamiento en la nube: 25 Gb",
-              "Tiempo m&aacute;ximo de respuesta de soporte: 4 horas",
-              "Oficialmente respaldado por Ubuntu/Canonical"
-             ],
-    "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
-  },
-
-  {
-    "title": "Compatibilidad nativa con Microsoft Active Directory",
-    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server!" ],
-    "items": [
-              "Migra de forma transparente y apaga tus Servidores Windows",
-              "Soporte a GPO y OU en los m&oacute;dulos m&aacute;s importantes",
-              "Migra a trav&eacute;s de una interfaz gr&aacute;fica f&aacute;cil de usar"
+              "Une tus clientes Windows al dominio e inicia sesi&oacute;n con usuarios de dominio",
+              "Autenticaci&oacute;n Single Sign-On (SSO) en todo el dominio",
+              "Compartici&oacute;n de ficheros en entornos Windows® (CIFS)",
+              "Gestiona y/o importa Objetos de Directiva de Grupo (GPOs)"
              ],
     "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
   },
 
   {
-    "title": "Compatibilidad nativa con Microsoft Exchange Server",
+    "title": "Compatibilidad nativa con Microsoft® Exchange Server",
     "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Microsoft Exchange Server!" ],
     "items": [
-              "Migra de forma transparente y apaga tu Microsoft Exchange Server",
-              "Tus usuarios de MS Outlook pueden continuar usando su cliente de correo",
-              "Herramienta de migraci&oacute;n de 3 pasos para Microsoft Exchange Server",
-              "&iexcl;Una alternativa &uacute;nica!"
+              "Soporte para Microsoft Outlook® 2003, 2007, 2010, 2013",
+              "&iexcl;No es necesario instalar un plug-in en el cliente de correo!",
+              "Configuraci&oacute;n de Zentyal como principal y/o adicional Servidor Microsoft® Exchange",
+              "Soporte para migraci&oacute;n de buzones de Microsoft Outlook® (Importaci&oacute;n de archivos PST)"
              ],
     "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
-  },
-
-  {
-    "title": "Zentyal Remote",
-    "paragraphs": [ "&iexcl;Plataforma de monitorizaci&oacute;n y gesti&oacute;n remota de servidores para proveedores TIC!" ],
-    "items": [
-              "Mantenimiento f&aacute;cil y automatizado",
-              "Resuelve incidencias r&aacute;pidamente y antes de que afecten a los usuarios",
-              "Acceso remoto a servidores Zentyal",
-              "Inventariado de equipos y software"
-             ],
-    "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
 
   {
@@ -110,9 +64,10 @@
               "Cubre todos los aspectos m&aacute;s relevantes",
               "Buenas pr&aacute;cticas para mantenimiento efectivo y seguro",
               "Gran n&uacute;mero de ejercicios pr&aacute;cticos",
-              "Disponible en ingl&eacute;s y en espa&ntilde;ol"
+              "Disponible en ingl&eacute;s y en espa&ntilde;ol, impreso y como eBook",
+              "&iexcl;Se donan todos los beneficios!"
              ],
-    "endText": "&iexcl;Descarga un capitulo de ejemplo en store.zentyal.com!"
+    "endText": "&iexcl;Descarga un cap&iacute;tulo de ejemplo en zentyal.com/book"
   },
 
   {
@@ -120,7 +75,6 @@
     "paragraphs": [ "&iquest;Interesado en ofrece soluciones basadas en Zentyal? Obt&eacute;n acceso a:" ],
     "items": [
               "Plataforma de soporte",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota de servidores",
               "Formaci&oacute;n y certificaci&oacute;n t&eacute;cnica y comercial",
               "Portafolio de servicios gestionados",
               "Materiales de venta",

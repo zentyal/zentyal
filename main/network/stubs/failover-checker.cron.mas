@@ -1,0 +1,6 @@
+<%args>
+$minutes
+</%args>
+# Cron file for zentyal-network failover checker
+
+*/<% $minutes %> * * * * root [ -x /usr/share/zentyal-network/failover-checker ] && /usr/share/zentyal-network/failover-checker

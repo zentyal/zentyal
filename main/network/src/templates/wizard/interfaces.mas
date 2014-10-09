@@ -6,28 +6,28 @@ use EBox::Gettext;
 </%init>
 <h3><% __('Network interfaces') %></h3>
 <div id="wizard_error"></div>
-<form method="post" action="./Network/Wizard/Ifaces" style="text-align: center" class="formDiv">
-        <div><img src="/data/images/interfaces.png" /></div>
-        <h4><% __('Configure interface types') %></h4>
-        <div><% __('External interfaces connect to networks that are not under your control (typically the Internet), traffic coming from external networks is not trusted by default, thus, you will not be able to connect to Zentyal administration page through them') %></div>
-        <div style="margin: 10px">
+<img src="/data/images/interfaces.png" />
+<form method="post" action="./Network/Wizard/Ifaces" class="formDiv" style="margin-bottom:20px;">
+    <fieldset>
+        <legend><% __('Configure interface types') %></legend>
+        <p><% __('External interfaces connect to networks that are not under your control (typically the Internet), traffic coming from external networks is not trusted by default, thus, you will not be able to connect to Zentyal administration page through them') %></p>
+        
 % foreach my $iface ( @ifaces ) {
-            <div style="text-align: center; width: 35%; margin: 0 auto">
-            <div style="background-color: whitesmoke; padding:10px 0px;">
-            <span style="font-size: 1.4em; margin-right:10px;"><% $iface %></span> 
-                <label for="<% $iface %>_scopeI" class="inline-field">
+        <div class="iface-wizard">
+            <h4><% $iface %></h4> 
+            <div class="radio-group">
+                <label>
                     <input type="radio" id="<% $iface %>_scopeI" name="<% $iface %>_scope" value="internal" checked="true" />
-                    Internal
+                        Internal
                 </label> 
-                <label for="<% $iface %>_scopeE" class="inline-field">
-                 <input type="radio" id="<% $iface %>_scopeE" name="<% $iface %>_scope" value="external" />
-                External
+                <label>
+                    <input type="radio" id="<% $iface %>_scopeE" name="<% $iface %>_scope" value="external" />
+                        External
                 </label>
             </div>
-            </div>
-% }
-
         </div>
+% }
+    </fieldset>      
 </form>
 <script>
 % foreach my $iface (@ifaces) {
@@ -37,7 +37,7 @@ use EBox::Gettext;
                 if ($('input[name=<% $iface %>_scope]:radio:checked').val() == 'external') {
                     $('#wizard_error').html(data.error).show(500);
                 } else {
-                    $('#wizard_error').hide();
+                    $('#wizard_error').hide(200);
                 }
             }
         });

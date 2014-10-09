@@ -261,8 +261,8 @@ sub serviceWidget
     my $widget = new EBox::Dashboard::ModuleStatus(
                                                 module => 'mail',
                                                 printableName => __('Greylist service'),
-                                                running => $self->isRunning(),
-                                                enabled => $self->isEnabled(),
+                                                running => $self->isRunning() ? 1 : 0,
+                                                enabled => $self->isEnabled() ? 1 : 0,
                                                );
 
     return $widget;

@@ -6,6 +6,7 @@ use warnings;
 use EBox;
 use EBox::Backup;
 use EBox::Global;
+use EBox::Gettext;
 use EBox::ProgressIndicator;
 
 use TryCatch::Lite;
@@ -25,7 +26,7 @@ my $fallbackToRO = 0;
 my $description = undef;
 my $destination = undef;
 
-my $help = 0;;
+my $help = 0;
 
 
 my $optionsOk = GetOptions(
@@ -86,15 +87,27 @@ if ($fallbackToRO) {
     $params{fallbackToRO} = 1;
 }
 
+if ($remoteBackupName) {
+    $params{noFinishProgress} = 1;
+}
+
+my $progress = $params{progress};
 try {
     if (not $bugReport) {
         my $file = EBox::Backup->makeBackup(%params);
         print "Backup stored into file $file\n";
         if ($remoteBackupName and EBox::Global->modExists('remoteservices')) {
+            $progress->setMessage(__('Uploading configuration backup'));
+            $progress->notifyTick();
+
             eval 'use EBox::RemoteServices::Backup';
             my $backupService = EBox::RemoteServices::Backup->new();
             my $description = $params{description};
             $backupService->sendRemoteBackup($file, $remoteBackupName, $description);
+
+            if ($progress) {
+                $progress->setAsFinished();
+            }
         }
     } else {
         # with bug report we ignore all other options
@@ -102,8 +115,8 @@ try {
         print "Bug report stored into file $reportFile\n";
     }
 } catch ($e) {
-    if (exists $params{progress}) {
-        $params{progress}->setAsFinished(1, $e->text);
+    if ($progress) {
+        $progress->setAsFinished(1, $e->text);
     }
 
     $e->throw();

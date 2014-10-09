@@ -84,8 +84,11 @@ sub _table
         modelDomain        => 'OpenChange',
         defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
-        help               => __x('Setup access to {oc} through HTTP/HTTPS. Remember HTTPS access requires you import Zentyal certificate into your {win} account',
-                                  'oc' => 'OpenChange', win => 'Windows'),
+        help               => __x('Setup access to {oc} through HTTP/HTTPS known as {oa}.'
+                                  . 'Remember HTTPS access and autodiscover requires you to '
+                                  . 'import Zentyal CA certificate into your {win} account.',
+                                  'oc' => 'OpenChange', 'oa' => 'Outlook Anywhere',
+                                  'win' => 'Windows'),
     };
 
     return $dataForm;
@@ -94,11 +97,6 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
-    my $parentModule = $self->parentModule();
-    if (not $self->_webserverEnabled()) {
-        $self->{preconditionFailMsg} = __('Web Server module needs to be installed and enabled to use RPC proxy');
-        return 0;
-    }
 
     my $host;
     try {
@@ -126,19 +124,21 @@ sub preconditionFailMsg
 sub _host
 {
     my ($self) = @_;
-    my $hosts = $self->parentModule()->_rpcProxyHosts();
-    # for now we have only one host
-    return $hosts->[0];
-}
+    my $hosts = $self->parentModule()->rpcProxyHosts();
 
-sub _webserverEnabled
-{
-    my ($self) = @_;
-    my $webserver = $self->global()->modInstance('webserver');
-    if (not $webserver) {
-        return 0;
+    my $ca = $self->parentModule()->global()->modInstance('ca');
+
+    if (@{$hosts} > 1) {
+        # Second value is the domain
+        my $domainCert = $ca->getCertificateMetadata(cn => $hosts->[1]);
+        if ($domainCert and ($domainCert->{state} eq 'V')) {
+            my $matches = grep { $_->{value} eq $hosts->[0] } @{$domainCert->{subjAltNames}};
+            if ($matches == 0) {
+                return $hosts->[1];
+            }
+        }
     }
-    return $webserver->isEnabled();
+    return $hosts->[0];
 }
 
 sub enabled
@@ -150,27 +150,15 @@ sub enabled
 sub httpEnabled
 {
     my ($self) = @_;
-    if (not $self->_webserverEnabled()) {
-        return 0;
-    }
+
     return $self->value('http');
 }
 
 sub httpsEnabled
 {
     my ($self) = @_;
-    if (not $self->_webserverEnabled()) {
-        return 0;
-    }
-    return $self->value('https');
-}
 
-sub formSubmitted
-{
-    my ($self, $row, $oldRow) = @_;
-    # mark haproxy and webserver as changed if the service has changed
-    $self->global()->modInstance('haproxy')->setAsChanged(1);
-    $self->global()->modInstance('webserver')->setAsChanged(1);
+    return $self->value('https');
 }
 
 1;

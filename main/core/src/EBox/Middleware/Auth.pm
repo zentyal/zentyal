@@ -315,10 +315,12 @@ sub _redirectToLogin
     my ($self, $env) = @_;
 
     my $ajaxRequest = (exists $env->{HTTP_X_REQUESTED_WITH} and $env->{HTTP_X_REQUESTED_WITH} eq 'XMLHttpRequest');
-    my $path = $env->{PATH_INFO};
+    my $path;
     if ($ajaxRequest and $env->{REQUEST_METHOD} ne 'GET' and exists $env->{HTTP_REFERER}) {
         my $uri = new URI($env->{HTTP_REFERER});
         $path = $uri->path();  # We assume the referer is always another Zentyal page
+    } else {
+        $path = $env->{REQUEST_URI};
     }
 
     # Store in session where we should return after login.

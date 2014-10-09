@@ -149,16 +149,11 @@ sub _populateGroups
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $sambaMod = $self->global()->modInstance('samba');
-        return [] unless ($sambaMod->isEnabled());
+        return [] unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned());
 
         my @groups;
-        my $domainUsersGroup = $sambaMod->ldap->domainUsersGroup();
-
-        push (@groups, { value => $domainUsersGroup->get('samAccountName'), printableValue => __('All domain users') });
         foreach my $group (@{$sambaMod->securityGroups()}) {
-            my $groupDN = $group->dn();
-            my $baseName = $group->baseName();
-            push (@groups, { value => $groupDN, printableValue => $baseName });
+            push (@groups, { value => $group->dn(), printableValue => $group->get('samAccountName') });
         }
         return \@groups;
     }
@@ -420,7 +415,8 @@ sub _ADException
     if ($self->{adLdap}) {
         try {
             $self->{adLdap}->disconnect();
-        } otherwise {};
+        } catch {
+        }
     }
     delete $self->{adLdap};
     delete $self->{defaultNC};
@@ -538,8 +534,6 @@ sub rules
     my $objectMod = $self->global()->modInstance('objects');
     my $userMod = $self->global()->modInstance('samba');
     my $usersEnabled = $userMod->isEnabled();
-    my $domainUsersGroup = $usersEnabled ?
-        $userMod->ldap->domainUsersGroup->get('samAccountName') : '';
 
     # we dont use row ids to make rule id shorter bz squid limitations with id length
     my $number = 0;
@@ -563,21 +557,6 @@ sub rules
                 next unless ($usersEnabled);
                 my $group = $source->value();
                 $rule->{group} = $group;
-                my $users;
-                if ($group eq $domainUsersGroup) {
-                    $users = $userMod->users();
-                } else {
-                    $users = $userMod->objectFromDN($group)->users();
-                }
-
-                if (not @{$users}) {
-                    # ignore rules for empty groups
-                    next;
-                }
-                $rule->{users} = [ (map {
-                                          my $name =  $_->name();
-                                          lc $name;
-                                      } @{$users}) ];
             } elsif ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
                 $rule->{adDN} = $source->value();
             }

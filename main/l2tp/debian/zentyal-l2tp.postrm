@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$1" in
+    remove)
+        dpkg-trigger --no-await zentyal-core
+    ;;
+	purge)
+        /usr/share/zentyal/purge-module l2tp
+    ;;
+esac
+
+exit 0

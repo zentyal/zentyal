@@ -130,6 +130,43 @@ sub actions
        ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    if (EBox::Util::Version::compare($version, '3.5.1') < 0) {
+        $self->_removeL7Rules();
+    }
+}
+
+# remove deprecated 
+sub _removeL7Rules
+{
+    my ($self) = @_;
+    my @rulesModels = ($self->model('ExternalRules'), $self->model('InternalRules'));
+    foreach my $model (@rulesModels) {
+        my $dir= $model->directory();
+        foreach my $id (@{ $model->ids() } ) {
+            my $rowKey    = "$dir/keys/$id";
+            my $rowValues = $self->get_hash($rowKey);
+            my $serviceType = delete $rowValues->{service_selected};
+            if ($serviceType) {
+                if (($serviceType eq 'service_l7Group') or ($serviceType eq 'service_l7Protocol')) {
+                    $model->removeRow($id, 1);
+                }  else {
+                    # remove deprecated key
+                    $self->set_hash($rowKey, $rowValues);
+                }
+            }
+        }
+    }
+}
+
 # Method: isRunning
 #
 # Overrides:
@@ -318,8 +355,7 @@ sub menu # (root)
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'icon' => 'trafficshaping',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 220);
+                                        'order' => 900);
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/Rules',
                                       'text' => __('Rules')));
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/View/InterfaceRate',

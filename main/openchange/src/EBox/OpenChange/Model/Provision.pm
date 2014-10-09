@@ -42,9 +42,7 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless ($self, $class);
 
-    $self->{global} = EBox::Global->getInstance();
-    $self->{openchangeMod} = $self->{global}->modInstance('openchange');
-    $self->{organizations} = $self->{openchangeMod}->organizations();
+    $self->{openchangeMod} = $self->global()->modInstance('openchange');
 
     return $self;
 }
@@ -125,7 +123,6 @@ sub _table
         ),
     ];
 
-
     my $dataForm = {
         tableName          => 'Provision',
         printableTableName => __('Setup'),
@@ -190,6 +187,12 @@ sub precondition
         return undef;
     }
 
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        $self->{preconditionFail} = 'noCA';
+        return undef;
+    }
+
     # Check there are not unsaved changes
     if ($self->global->unsaved() and (not $self->parentModule->isProvisioned())) {
         $self->{preconditionFail} = 'unsavedChanges';
@@ -239,10 +242,26 @@ sub preconditionFailMsg
                    ohref => "<a href='/Mail/View/VDomains'>",
                    chref => '</a>');
     }
+    if ($self->{preconditionFail} eq 'noCA') {
+        return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
+                   oh => "<a href='/CA/Index'>",
+                   ch => "</a>"
+                  );
+    }
     if ($self->{preconditionFail} eq 'unsavedChanges') {
         return __x('There are unsaved changes. Please save them before '.
                    'provision');
     }
+}
+
+sub organizations
+{
+    my ($self) = @_;
+    if (not exists $self->{_organizations}) {
+        $self->{_organizations} = $self->{openchangeMod}->organizations();
+    }
+
+    return $self->{_organizations};
 }
 
 sub viewCustomizer
@@ -275,7 +294,7 @@ sub _defaultOrganizationName
 
     my $default = 'First Organization';
 
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $default) {
             # The default organization name is already used, return empty string
             return '';
@@ -289,7 +308,7 @@ sub _existingOrganizationNames
     my ($self) = @_;
 
     my @existingOrganizations = ();
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         push (@existingOrganizations, {value => $organization->name(), printableValue => $organization->name()});
     }
     return \@existingOrganizations;
@@ -344,12 +363,31 @@ sub _storeOrganizationNameInState
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
-    my $global     = $self->global();
-    my $openchange = $global->modInstance('openchange');
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
+
+    $self->provision($organizationName, $enableUsers, $action);
+}
+
+# Method: provision
+#
+#   Real implementation for _doProvision that can be called also from wizard provision
+#
+# Parameters:
+#
+#   organizationName - name of the organization
+#   enableUsers - *optional* enable OpenChange account for existing users
+#   action - *optional* only useful when called from _doProvision
+#
+sub provision
+{
+    my ($self, $organizationName, $enableUsers, $action) = @_;
+
+    my $global     = $self->global();
+    my $openchange = $global->modInstance('openchange');
+
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
 
@@ -366,13 +404,22 @@ sub _doProvision
            );
     }
 
+    my $ca = $self->global()->modInstance('ca');
+    if (not $ca->isAvailable()) {
+        # FIXME: create CA with organizationName
+        # FIXME: do this only when provisioning from wizard and not manually from model
+        # TODO: allow to specify optional fields like expiration time
+        my $commonName = __x('{org} Authority Certificate', org => $organizationName);
+        $ca->createCA(commonName => $commonName, orgName => $organizationName);
+    }
+
     my $configuration = $openchange->model('Configuration');
     if (not $configuration->_rowStored()) {
         my $defaultOutgoing = $configuration->value('outgoingDomain');
         $configuration->setValue('outgoingDomain', $defaultOutgoing);
     }
 
-    foreach my $organization (@{$self->{organizations}}) {
+    foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {
             # The selected organization already exists.
             $additionalInstallation = 1;
@@ -406,7 +453,7 @@ sub _doProvision
         # Force a form definition reload to load the new provisioned content.
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
-        $self->setMessage($action->message(), 'note');
+        $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
@@ -420,11 +467,6 @@ sub _doProvision
     # Mark webadmin as changed so we are sure nginx configuration is
     # refreshed with the new includes
     $global->modChange('webadmin');
-    if ($openchange->_rpcProxyEnabled()) {
-        # Mark webserver/haproxy as changed to load the configuration of rpcproxy
-        $global->modChange('webserver');
-        $global->modChange('haproxy');
-    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -472,26 +514,14 @@ sub _doDeprovision
     my $organizationName = $params{provisionedorganizationname};
 
     try {
+        $self->_deprovisionUsers();
+
         my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        if ($self->parentModule->isProvisionedWithMySQL()) {
-            # It removes the file with mysql password and the user from mysql
-            EBox::Sudo::root(EBox::Config::scripts('openchange') .
-                             'remove-database');
-        }
-
-        # Drop SOGo database and db user. To avoid error if it does not exists,
-        # the user is created and granted harmless privileges before drop it
-        my $db = EBox::DBEngineFactory::DBEngine();
-        my $dbName = $self->parentModule->_sogoDbName();
-        my $dbUser = $self->parentModule->_sogoDbUser();
-        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
-        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
-        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
-
+        $self->parentModule->dropSOGODB();
         $self->parentModule->setProvisioned(0);
 
         $self->global->modChange('mail');
@@ -510,4 +540,64 @@ sub _doDeprovision
     }
 }
 
+sub _deprovisionUsers
+{
+    my ($self) = @_;
+    my $usersModule = $self->global->modInstance('samba');
+    my $users = $usersModule->users();
+    foreach my $user (@{$users}) {
+        if (not defined $user->get('msExchUserAccountControl')) {
+            next;
+        }
+
+        my $username = $user->name();
+        $user->delete('mailNickname', 1);
+        $user->delete('homeMDB', 1);
+        $user->delete('homeMTA', 1);
+        $user->delete('legacyExchangeDN', 1);
+        $user->delete('proxyAddresses', 1);
+        $user->delete('msExchUserAccountControl', 1);
+        $user->save();
+    }
+}
+
+sub customActionClickedJS
+{
+    my ($self, $action, $id, $page) = @_;
+    # provision/deprovision
+
+    my $customActionClickedJS = $self->SUPER::customActionClickedJS($action, $id, $page);
+    my $confirmationMsg;
+    my $savingChangesTitle;
+    my $title;
+    if ($action eq 'provision') {
+        $title = __('Provision OpenChange');
+        $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after provision');
+    } elsif ($action eq 'deprovision') {
+        $title = __('Deprovision OpenChange');
+        $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
+        $savingChangesTitle = __('Saving changes after deprovision');
+    }
+
+    my $jsStr = <<JS;
+    var dialogParams = {
+          title: '$title',
+          message: '$confirmationMsg'
+   };
+    var acceptMethod = function() {
+         $customActionClickedJS;
+         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                         dialogClass: 'no-close',
+                                                         closeOnEscape: false
+                                                        });
+     };
+    Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
+    return false;
+JS
+
+    return $jsStr;
+}
+
 1;
+

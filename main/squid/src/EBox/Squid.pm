@@ -17,9 +17,12 @@ use warnings;
 
 package EBox::Squid;
 
-use base qw(EBox::Module::LDAP EBox::KerberosModule
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider EBox::NetworkObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::FirewallObserver
+    EBox::LogObserver
+    EBox::NetworkObserver
+);
 
 use EBox::Service;
 use EBox::Objects;
@@ -101,17 +104,32 @@ sub _create
     return $self;
 }
 
-sub kerberosServicePrincipals
+sub _kerberosServicePrincipals
 {
-    my ($self) = @_;
+    return [ 'HTTP' ];
+}
 
-    my $data = { service    => 'http',
-                 principals => [ 'HTTP' ],
-                 keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy',
-                 module => $self->name()
-                };
-    return $data;
+sub _kerberosKeytab
+{
+    return {
+        path => KEYTAB_FILE,
+        user => 'root',
+        group => 'proxy',
+        mode => '440',
+    };
+}
+
+# Method: _kerberosSetup
+#
+#   Override to skip setup if authentication mode is not internal
+#
+sub _kerberosSetup
+{
+    my $self = shift;
+
+    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
+        $self->SUPER::_kerberosSetup(@_);
+    }
 }
 
 # Method: initialSetup
@@ -138,43 +156,6 @@ sub initialSetup
             $mod->saveConfigRecursive();
         }
     }
-}
-
-sub setupLDAP
-{
-    my ($self) = @_;
-
-    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
-        # Create the kerberos service principal in kerberos,
-        # export the keytab and set the permissions
-        $self->kerberosCreatePrincipals();
-    }
-
-    try {
-        my @lines = ();
-        push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
-        push (@lines, 'export KRB5_KTNAME');
-        my $lines = join ('\n', @lines);
-        my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
-        EBox::Sudo::root($cmd);
-    } catch ($error) {
-        EBox::error("Error creating squid default file: $error");
-    }
-}
-
-# Method: reprovisionLDAP
-#
-# Overrides:
-#
-#      <EBox::LdapModule::reprovisionLDAP>
-sub reprovisionLDAP
-{
-    my ($self) = @_;
-
-    $self->SUPER::reprovisionLDAP();
-
-    # regenerate kerberos keytab
-    $self->kerberosCreatePrincipals();
 }
 
 # Method: usedFiles
@@ -547,6 +528,7 @@ sub _setConf
     my $filter = $self->filterNeeded();
 
     $self->_configureAuthenticationMode();
+    $self->_writeDefaultConf();
     $self->_writeSquidConf($filter);
     $self->_writeSquidExternalConf();
     $self->writeConfFile(SQUIDCSSFILE, 'squid/errorpage.css', []);
@@ -596,6 +578,17 @@ sub notifyAntivirusEnabled
     $self->setAsChanged();
 }
 
+sub _writeDefaultConf
+{
+    my ($self) = @_;
+
+    my $vars = [];
+    push (@{$vars}, 'keytab' => KEYTAB_FILE);
+    $self->writeConfFile(SQUID3_DEFAULT_FILE,
+        'squid/squid.default.mas', $vars,
+        { mode => '0644'});
+}
+
 sub _writeSquidConf
 {
     my ($self, $filter) = @_;
@@ -627,12 +620,10 @@ sub _writeSquidConf
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
 
-    if (not $kerberos) {
-        my $ldap = $users->ldap();
-        push @writeParam, ('dn'       => $ldap->dn());
-        push @writeParam, ('roDn'     => $users->administratorDN());
-        push @writeParam, ('roPasswd' => $users->administratorPassword());
-    }
+    my $ldap = $users->ldap();
+    push @writeParam, ('dn'       => $ldap->dn());
+    push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+    push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
@@ -708,10 +699,6 @@ sub _writeSquidExternalConf
 
     push (@{$writeParam}, notCachedDomains => $self->_notCachedDomains());
     push (@{$writeParam}, objectsDelayPools => $self->_objectsDelayPools());
-    if ($globalRO->modExists('remoteservices')) {
-        my $rs = $globalRO->modInstance('remoteservices');
-        push (@{$writeParam}, snmpEnabled => $rs->eBoxSubscribed());
-    }
 
     $self->writeConfFile(SQUID_EXTERNAL_CONF_FILE, 'squid/squid-external.conf.mas',
                          $writeParam, { mode => '0640'});
@@ -1055,8 +1042,7 @@ sub menu
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
                                         'icon' => 'squid',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Gateway',
-                                        'order' => 210);
+                                        'order' => 800);
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                       'text' => __('General Settings')));
@@ -1139,74 +1125,13 @@ sub tableInfo
             'filter' => ['url', 'domain', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $self->_consolidateConfiguration(),
            }];
-}
-
-sub _consolidateConfiguration
-{
-    my ($self) = @_;
-
-    my $traffic = {
-                   accummulateColumns => {
-                                          requests => 1,
-                                          accepted => 0,
-                                          accepted_size => 0,
-                                          denied   => 0,
-                                          denied_size => 0,
-                                          filtered => 0,
-                                          filtered_size => 0,
-                                         },
-                   consolidateColumns => {
-                       rfc931 => {},
-                       event => {
-                                 conversor => sub { return 1 },
-                                 accummulate => sub {
-                                     my ($v) = @_;
-                                     return $v;
-                                   },
-                                },
-                       bytes => {
-                                 # size is in Kb
-                                 conversor => sub {
-                                     my ($v)  = @_;
-                                     return sprintf("%i", $v/1024);
-                                 },
-                                 accummulate => sub {
-                                     my ($v, $row) = @_;
-                                     my $event = $row->{event};
-                                     return $event . '_size';
-                                 }
-                                },
-                     },
-                   quote => {
-                             'rfc931' => 1,
-                            }
-                  };
-
-    return {
-            squid_traffic => $traffic,
-
-           };
 }
 
 sub logHelper
 {
     my ($self) = @_;
     return (new EBox::Squid::LogHelper);
-}
-
-# Overrides:
-#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    my ($self) = @_;
-
-    my $cachePath          = '/var/spool/squid3';
-    my $cachePrintableName = 'HTTP Proxy cache';
-
-    return { $cachePrintableName => [ $cachePath ] };
-
 }
 
 # Method to return the language to use with DG depending on the locale

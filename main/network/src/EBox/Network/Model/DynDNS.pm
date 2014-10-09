@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2009-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -76,14 +76,6 @@ our %SERVICES = (
         web_skip => 'Current IP Address:',
         require_info => 1,
     },
-    cloud => {
-        printableValue => 'Zentyal',
-        protocol => 'dyndns2',
-        use => 'web',
-        web => 'svc.joker.com/nic/checkip',
-        web_skip => 'Current IP Address:',
-        require_info => 0,
-    },
     noip => {
         printableValue => 'no-ip.com',
         protocol => 'noip',
@@ -94,69 +86,7 @@ our %SERVICES = (
     },
 );
 
-# Dependencies
-
 # Group: Public methods
-
-# Constructor: new
-#
-#     Create the DynDNS model
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::Network::Model::DynDNS>
-#
-sub new
-{
-
-      my $class = shift;
-
-      my $self = $class->SUPER::new(@_);
-
-      bless ( $self, $class );
-
-      return $self;
-
-}
-
-# Method: viewCustomizer
-#
-#    Overrides to disable the remainder fields if service selected is
-#    Zentyal Cloud
-#
-# Overrides:
-#
-#    <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-    my $remainderFields = [ qw(username password hostname) ];
-
-    my $serviceAction = {};
-    foreach my $serviceKey (keys %SERVICES) {
-        if ( $SERVICES{$serviceKey}->{require_info} ) {
-            $serviceAction->{$serviceKey} = { enable => $remainderFields };
-        } else {
-            $serviceAction->{$serviceKey} = { disable => $remainderFields };
-        }
-    }
-
-    $customizer->setOnChangeActions( { service => $serviceAction } );
-    unless ( $self->_isSubscribed() ) {
-        $customizer->setPermanentMessage(_message(), 'ad');
-    }
-
-    return $customizer;
-
-}
 
 # Method: validateTypedRow
 #
@@ -255,34 +185,8 @@ sub services
             value => $serviceKey,
             printableValue => $SERVICES{$serviceKey}->{printableValue}
         };
-        if ( $serviceKey eq 'cloud' ) {
-            $providers[-1]->{disabled} = not _isSubscribed();
-        }
     }
     return \@providers;
-}
-
-# Group: Private methods
-
-sub _isSubscribed
-{
-
-    my $gl = EBox::Global->getInstance(1);
-    if ( $gl->modExists('remoteservices') ) {
-        my $rs = $gl->modInstance('remoteservices');
-        if ( $rs->eBoxSubscribed() ) {
-            return 1;
-        }
-    }
-    return 0;
-
-}
-
-sub _message
-{
-    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get one of the {oh}Commercial Editions{ch} to obtain zentyal.me subdomain for your server.",
-                ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
-                oh  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

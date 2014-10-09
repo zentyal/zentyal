@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,41 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Method: permanentMessage
-#
-#     Override to show a message depending on the subscription status
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::permanentMessage>
-#
-sub permanentMessage
-{
-    my ($self) = @_;
-
-    unless ( $self->{advancedSec} ) {
-        my $securityUpdatesAddOn = 0;
-        if ( EBox::Global->modExists('remoteservices') ) {
-            my $rs = EBox::Global->modInstance('remoteservices');
-            $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-        }
-
-        unless ( $securityUpdatesAddOn ) {
-            $self->{permanentMessage} = $self->_commercialMsg();
-        }
-        $self->{advancedSec} = 1;
-    }
-
-    return $self->{permanentMessage};
-}
-
-sub permanentMessageType
-{
-    return 'ad';
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -78,15 +43,6 @@ sub _description
     };
 
     return $description;
-}
-
-# Group: Private methods
-
-# Commercial message
-sub _commercialMsg
-{
-    return __sx('Want to keep spam out of your mail servers? Get one of the {openhref}Commercial Editions{closehref} that includes the Antispam feature in the automatic security updates.',
-                openhref  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', closehref => '</a>');
 }
 
 1;

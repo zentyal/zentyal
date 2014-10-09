@@ -23,46 +23,6 @@ use base qw(EBox::LdapUserBase);
 use EBox::Gettext;
 use EBox::Global;
 
-sub _addUser
-{
-    my ($self, $user) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-    my $group = $samba->ldap->domainUsersGroup();
-    my $name = $group->get('samAccountName');
-    $self->_groupUsersChanged($name);
-}
-
-sub _delUser
-{
-    my ($self, $user) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-    my $group = $samba->ldap->domainUsersGroup();
-    my $name = $group->get('samAccountName');
-    $self->_groupUsersChanged($name);
-}
-
-sub _modifyGroup
-{
-    my ($self, $group) = @_;
-
-    $group = $group->name();
-    $self->_groupUsersChanged($group);
-}
-
-sub _groupUsersChanged
-{
-    my ($self, $group) = @_;
-
-    my $squid = EBox::Global->modInstance('squid');
-    my $rules = $squid->model('AccessRules');
-
-    if ($rules->existsPoliciesForGroup($group)) {
-        $squid->setAsChanged();
-    }
-}
-
 sub _delGroup
 {
     my ($self, $group) = @_;

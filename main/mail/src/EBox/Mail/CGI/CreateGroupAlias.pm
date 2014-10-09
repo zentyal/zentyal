@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::CreateGroupAlias;
-use base 'EBox::CGI::ClientPopupBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -57,7 +57,7 @@ sub _process
     }
 
     my $newAlias = $lhs."@".$rhs;
-    $mail->{malias}->addGroupAlias($newAlias, $group);
+    $mail->{malias}->addGroupAlias($group, $newAlias);
 
     $self->{json}->{msg} = __x('Added alias {al}', al => $newAlias);
     $self->{json}->{mail} = $group->get('mail');

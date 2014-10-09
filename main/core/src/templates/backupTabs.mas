@@ -5,7 +5,7 @@ use EBox::Global;
 my %args = @_;
 
 my $selected = delete $args{selected};
-$selected or $selected = 'local';
+$selected or $selected = 'remote';
 
 my %tabs = (
 	    local => {
@@ -15,19 +15,18 @@ my %tabs = (
 		     },
 	    remote => {
 		      component =>  '/remoteservices/Backup/index.mas',
-		      title     =>  __('Remote'),
-                      url       => '/RemoteServices/Backup/Index?selected=remote',
+		      title     =>  __('Cloud'),
+                      url       => '/SysInfo/Cloud/Backup',
 		     },
 	   );
-my @tabsOrder;
-if ( EBox::Global->modExists('remoteservices') ) {
-    @tabsOrder = qw(local remote);
-} else {
-    @tabsOrder = qw(local);
-}
-
+my @tabsOrder= qw(remote local);
 if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");
+}
+
+my $component = delete $args{component};
+if (not $component) {
+    $component =  $tabs{$selected}->{component};
 }
 </%init>
 <ul class='tabs'>
@@ -40,5 +39,5 @@ if (not exists $tabs{$selected}) {
 % }
 
 </ul>
-<& $tabs{$selected}->{component}, %args &>
+<& $component, %args &>
 

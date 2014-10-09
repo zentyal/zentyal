@@ -23,7 +23,7 @@ ADD_CHANGELO_ENTRY=$1
 if [ -n "$ADD_CHANGELO_ENTRY" ]
 then
     version=`sed -n "/^[0-9]/p" ChangeLog|head -1`
-    dch -b -v "$version" -D 'precise' --force-distribution 'New upstream release'
+    dch -b -v "$version" -D 'trusty' --force-distribution 'New upstream release'
 fi
 
 if [ -z "$KEY_ID" ]; then

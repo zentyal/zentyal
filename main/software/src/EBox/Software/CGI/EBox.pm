@@ -63,12 +63,21 @@ sub _process
         }
     }
 
-    my @pkgs = @{$software->listEBoxPkgs()};
-    @pkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @pkgs;
-    @pkgs = sort { $a->{description} cmp $b->{description} } @pkgs;
+    my @allpkgs = @{$software->listEBoxPkgs()};
+    @allpkgs = map { $_->{description} =~ s/^Zentyal - //; $_ } @allpkgs;
+    @allpkgs = sort { $a->{description} cmp $b->{description} } @allpkgs;
+
+    my %pkgs = map { $_->{name} => $_ } @allpkgs;
+
+    my @bigpkgs = ($pkgs{'zentyal-samba'}, $pkgs{'zentyal-mail'});
+    my @mediumpkgs = ($pkgs{'zentyal-dns'}, $pkgs{'zentyal-dhcp'}, $pkgs{'zentyal-firewall'});
+    my %filterpkgs = map { ("zentyal-$_") => 1 } qw(samba mail openchange dns dhcp firewall network objects services ntp);
 
     my @array = ();
-    push(@array, 'eboxpkgs'     => \@pkgs);
+    push(@array, 'bigpkgs'     => \@bigpkgs);
+    push(@array, 'mediumpkgs'  => \@mediumpkgs);
+    push(@array, 'allpkgs'     => \@allpkgs);
+    push(@array, 'filterpkgs'     => \%filterpkgs);
     push(@array, 'updateStatus' => $software->updateStatus(1));
     push(@array, 'QAUpdates'    => $software->QAUpdates());
     push(@array, 'isOffice'     => $software->isInstalled('zentyal-office'));
@@ -90,7 +99,7 @@ sub _menu
 
     if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
-        return $software->firstTimeMenu(0);
+        return $software->firstTimeMenu(1);
     } else {
         return $self->SUPER::_menu(@_);
     }

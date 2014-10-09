@@ -56,16 +56,16 @@ sub HTMLTitle
 {
     my ($self) = @_;
 
-    return ([
-             {
-              title => 'DHCP',
-              link  => '/DHCP/View/Interfaces',
-             },
-             {
-              title => $self->parentRow()->valueByName('iface'),
-              link => '',
-             },
-    ]);
+    return [
+        {
+         title => 'DHCP',
+         link  => '/DHCP/View/Interfaces',
+        },
+        {
+         title => $self->_iface(),
+         link => '',
+        },
+    ];
 }
 
 sub hasAddresses
@@ -79,7 +79,7 @@ sub hasAddresses
 
     my $fixedAddresses = $self->componentByName('FixedAddressTable');
     my $addr = $fixedAddresses->addresses(
-        $self->interface(),
+        $self->_iface(),
         $self->parentModule()->isReadOnly()
        );
     my $refAddr = ref $addr;
@@ -92,19 +92,47 @@ sub hasAddresses
     return 0;
 }
 
-sub interface
+sub _iface
 {
     my ($self) = @_;
-    return $self->parentRow()->valueByName('iface');
+
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    return $parentRow->valueByName('iface');
 }
 
 sub permanentMessage
 {
     my ($self) = @_;
-    if (not $self->parentRow()->valueByName('enabled')) {
+    my $parentRow = $self->parentRow();
+    if (not $parentRow) {
+        # workaround: sometimes with a logout + apache restart the directory
+        # parameter is lost. (the apache restart removes the last directory used
+        # from the models)
+        EBox::Exceptions::ComponentNotExists->throw('Directory parameter and attribute lost');
+    }
+
+    if (not $parentRow->valueByName('enabled')) {
         return __('This interface is not enabled. DHCP server will not serve addresses in this interface');
     }
     return undef;
+}
+
+sub precondition
+{
+    my ($self) = @_;
+    return $self->parentRow();
+}
+
+sub preconditionFailMsg
+{
+    return __('Mising interface parameter. Please, navigate again to this page starting from the DHCP main page')
 }
 
 1;

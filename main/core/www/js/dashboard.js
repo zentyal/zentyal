@@ -111,16 +111,14 @@ Zentyal.Dashboard.widget = function(m,w,full) {
         top_id = '';
         cursor = 'move';
     } else {
-        opacity = 0.5;
+        opacity = 0.3;
         top_id = '_bar';
         cursor = 'default';
     }
     str = "<div class='widgetBox' style='opacity: " + opacity + ";' id='widget_" + m + ":" + w.name + top_id + "'>" +
         "<div class='widgetTopBar'>" +
-        "<div class='widgetTopBackground'></div>" +
         "<div style='cursor: " + cursor + ";' class='widgetHandle'></div>" +
         "<div class='widgetName'>" + w.title + "</div>" +
-        "<div style='clear: both;'></div>" +
         "</div>" +
         "</div>";
     return str;
@@ -139,7 +137,7 @@ Zentyal.Dashboard.toggleClose = function () {
 };
 
 Zentyal.Dashboard.closeNotification = function (msg) {
-    $('#notification_container').hide();
+    $('.notification_container').hide();
     $.ajax({
                  url: '/SysInfo/CloseNotification',
                  data: {  message: msg  }

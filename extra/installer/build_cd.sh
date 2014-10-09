@@ -40,6 +40,7 @@ then
     # Build zinstaller-remote udeb
     cp -rL zinstaller-remote $TMPDIR/zinstaller-remote
     pushd $TMPDIR/zinstaller-remote
+    [ -f zinstaller-remote/jq ] || ./build-jq.sh
     dpkg-buildpackage
     popd
 fi
@@ -78,6 +79,11 @@ do
         mkdir -p $UDEB_DIR
         rm $UDEB_DIR/*
         cp $TMPDIR/zinstaller-remote*.udeb $UDEB_DIR/
+
+        # FIXME: workaround until https://bugs.launchpad.net/ubuntu/+source/curl/+bug/1312241 is fixed
+        UDEB_DIR=$CD_BUILD_DIR/pool/main/c/curl
+        cp ~/build/curl-udeb_7.35.0-1ubuntu2+ccu1_amd64.udeb $UDEB_DIR/curl-udeb_7.35.0-1ubuntu2_amd64.udeb
+        cp ~/build/libcurl3-udeb_7.35.0-1ubuntu2+ccu1_amd64.udeb $UDEB_DIR/libcurl3-udeb_7.35.0-1ubuntu2_amd64.udeb
     fi
 
     # Add zinstaller-headless udeb

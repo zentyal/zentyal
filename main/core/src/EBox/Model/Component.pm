@@ -143,7 +143,11 @@ sub keywords
     my ($self) = @_;
 
     my $help = $self->help();
-    return [split('\W+', lc($help))];
+    if ($help) {
+        return [ $self->_extract_keywords($help) ];
+    } else {
+        return [];
+    }
 }
 
 # Method: parent
@@ -316,6 +320,19 @@ sub disabledModuleWarning
 sub userCorner
 {
     return 0;
+}
+
+# parse string to extract keywords
+sub _extract_keywords
+{
+    my ($self, $str) = @_;
+
+    my @w = ();
+    if(defined($str)) {
+        @w = split('\W+', lc($str));
+        @w = grep { length($_) >= 3 } @w;
+    }
+    return @w;
 }
 
 1;

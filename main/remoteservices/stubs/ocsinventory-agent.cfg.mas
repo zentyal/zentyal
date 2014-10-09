@@ -1,9 +1,0 @@
-<%args>
-    $server
-    $user
-    $password
-</%args>
-server=<% $server %>
-user=<% $user %>
-password=<% $password %>
-realm="Inventory agent area"

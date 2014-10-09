@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;
+use EBox::Util::FileSize;
 
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
@@ -48,7 +49,6 @@ Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
 my $RECURSIVE_DEPENDENCY_THRESHOLD = 20;
-use constant REQUIRED_ZENTYAL_VERSION => '2.1';
 
 sub new
 {
@@ -182,12 +182,6 @@ sub _configuredModInstances
             push @configuredModules, $mod;
         }
     }
-# leave aside not configured modules
-#   @modules = grep {
-# #    (not $_->isa('EBox::Module::Service') or
-# #    ($_->configured()))
-#     $_->configured()
-#   } @modules;
 
     return \@configuredModules;
 }
@@ -420,7 +414,6 @@ sub backupDetails # (id)
     $self->_checkId($id);
 
     my $file = $self->_backupFileById($id);
-
     my $details = $self->backupDetailsFromArchive($file);
     $details->{id} = $id;
 
@@ -452,6 +445,8 @@ sub backupDetailsFromArchive
     defined $self or
         throw EBox::Exceptions::MissingArgument('self');
 
+    $self->_checkBackupFile($archive);
+
     my $backupDetails = {};
 
     my @details = qw(date description type);
@@ -482,17 +477,7 @@ sub _printableSize
 {
     my ($self, $archive) = @_;
 
-    my $size = (-s $archive);
-
-    my @units = qw(KB MB GB);
-    foreach my $unit (@units) {
-        $size = sprintf ("%.2f", $size / 1024);
-        if ($size < 1024) {
-            return "$size $unit";
-        }
-    }
-
-    return $size . ' ' . (pop @units);
+    return EBox::Util::FileSize::printableSize(scalar(-s $archive));
 }
 
 # if not specific files are specified all the fiels are  extracted
@@ -676,11 +661,13 @@ sub prepareMakeBackup
     $makeBackupScript    .=  $scriptParams;
 
     my $global     = EBox::Global->getInstance();
-    # XXX: this could be wrong, we only do backup of the configured modules
-    my $totalTicks = scalar @{ $global->modNames() } + 2; # there are one task for
-    # each module plus two
-    # tasks for writing the
-    # archive  file
+    # there are one task for each configured module plus two tasks for writing
+    # the archive file. A possible aditional task if we have a remote backup
+    my $totalTicks =  2;
+    if ($options{remoteBackup}) {
+        $totalTicks += 1;
+    }
+    $totalTicks += @{ $self->_configuredModInstances() };
 
     my @progressIndicatorParams = (executable => $makeBackupScript,
                                    totalTicks => $totalTicks);
@@ -708,6 +695,7 @@ sub prepareMakeBackup
 #                     private data)
 #      fallbackToRO - fallback to read-only configuration when
 #                     they are not saved changes
+#      noFinishProgress - don't mark progress indicator as finished (default:false)
 #
 #  Returns:
 #         - path to the new backup archive
@@ -727,7 +715,11 @@ sub makeBackup
         $options{fallbackToRO} = 0;
     $options{description} or
         $options{description} = __('Backup');
+    my $finishProgress;
     my $progress = $options{progress};
+    if ($progress) {
+        $finishProgress = not $options{noFinishProgress};
+    }
 
     EBox::info('Backing up configuration');
     if ($progress and not $progress->started()) {
@@ -768,9 +760,13 @@ sub makeBackup
 
         $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
-        $progress->setAsFinished() if $progress;
+        if ($finishProgress) {
+            $progress->setAsFinished();
+        } 
     } catch ($ex) {
-        $progress->setAsFinished(1, $ex->text) if $progress;
+        if ($progress) {
+            $progress->setAsFinished(1, $ex->text);
+        }
         $ex->throw();
     }
 
@@ -920,6 +916,17 @@ sub _checkArchiveType
     }
 }
 
+sub _checkBackupFile
+{
+    my ($self, $path) = @_;
+
+    my $output = EBox::Sudo::root("/usr/bin/file -bi '$path'");
+    my $tarFile = $output->[0] =~ m{^application/x-tar;};
+    if (not $tarFile) {
+        throw EBox::Exceptions::External(__('The file is not a correct backup archive'));
+    }
+}
+
 sub _checkSize
 {
     my ($self, $archive) = @_;
@@ -957,10 +964,10 @@ sub _checkZentyalVersion
 {
     my ($self, $tempDir)=  @_;
     my $file = "$tempDir/eboxbackup/debpackages" ;
+
     if (not -r $file) {
-        throw EBox::Exceptions::External(__x(
-   'No debian packages list file found; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
-         v => REQUIRED_ZENTYAL_VERSION
+        throw EBox::Exceptions::External(__(
+   'No debian packages list file found; probably the backup was done in a incompatible Zentyal version. Only backups done in the actual Zentyal version can be restored',
                                             )
                                         );
     }
@@ -978,27 +985,30 @@ sub _checkZentyalVersion
         throw EBox::Exceptions::Internal("Opening $file: $!");
 
     if (not $zentyalVersion) {
-        throw EBox::Exceptions::External(__x(
-'No zentyal-core found in the debian packages list form the backup; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
-                v => REQUIRED_ZENTYAL_VERSION
+        throw EBox::Exceptions::External(__(
+'No zentyal-core found in the debian packages list form the backup; probably the backup was done in a incompatible Zentyal version. Only backups done in the actual Zentyal version can be restored'
                                            )
                                         );
     }
 
-    my ($major, $minor, $rest) = split '\.', $zentyalVersion;
-    my ($wantedMajor, $wantedMinor, $wantedRest) = split '\.', REQUIRED_ZENTYAL_VERSION;
-    my $versionOk =  0;
-    if ($major > $wantedMajor ) {
-        $versionOk = 1;
-    } elsif (($major == $wantedMajor) and ($minor >= $wantedMinor)) {
-        $versionOk = 1;
+    my ($major, $minor) = split('\.', $zentyalVersion, 3);
+
+    my ($wantedMajor, $wantedMinor);
+    my @dpkgOutput = `dpkg -l zentyal-core`;
+    my @actualParts = split('\s+', $dpkgOutput[-1], 4);
+    my $actualVersion = $actualParts[2];
+    if  ($actualVersion) {
+        ($wantedMajor, $wantedMinor) = split('\.', $actualVersion, 3);
+    } else {
+        throw EBox::Exceptions::Internal("Cannot retrieve actual version from dpkg output: '@dpkgOutput'");
     }
 
+    my $versionOk =  ($major == $wantedMajor) && ($minor == $wantedMinor);
     if (not $versionOk) {
         throw EBox::Exceptions::External(__x(
-'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv} or greater',
+'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
                 bv => $zentyalVersion,
-                wv => REQUIRED_ZENTYAL_VERSION)
+                wv => $actualVersion)
         );
     }
 }
@@ -1132,6 +1142,7 @@ sub restoreBackup
     try {
         _ensureBackupdirExistence();
 
+        $self->_checkBackupFile($file);
         $self->_checkSize($file);
 
         $tempdir = $self->_unpackAndVerify($file, %options);
@@ -1622,13 +1633,6 @@ sub _backupFileById
     }
 
     return $file;
-}
-
-#  Function: _facilitiesForDiskUsage
-#  Overrides: EBox::Report::DiskUsageProvider::_faciltiesForDiskUsage
-sub _facilitiesForDiskUsage
-{
-    return { __(q{Backup archives}) => [ backupDir() ] }
 }
 
 # Check the backup contents a non-corrupted data

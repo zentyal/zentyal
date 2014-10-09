@@ -1,6 +1,0 @@
-# Site-specific additions and overrides for usr.sbin.mysqld.
-# For more details, please see /etc/apparmor.d/local/README.
-
-/run/slapd/ldapi rw,
-
-/etc/ldap/ldap.conf r,

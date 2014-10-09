@@ -1,4 +1,9 @@
+4.0
+	+ Better recovery of errors on index CGI
+	+ Set version to 4.0
+	+ Download files as zip archive
 3.5
+	+ Use 2048 RSA key lengths to increase security
 	+ Fixed glitch on reloading page after creating CA
 	+ Fixed CGI error on page reloads
 	+ Allow wildcard certificate in service certificates

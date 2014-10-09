@@ -15,6 +15,7 @@
 
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 package EBox::HA::Model::Cluster;
 
@@ -99,7 +100,7 @@ sub validateTypedRow
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $allParams->{'secret'}->value() },
                 server => $allParams->{'zentyal_host'}->value(),
-                verifyHostname => 0,
+                verifyPeer => 0,
                );
             $client->setPort($allParams->{'zentyal_port'}->value());
             try {
@@ -146,7 +147,7 @@ sub _table
             printableName => __('Cluster host port'),
             hidden        => \&_isBootstraped,
             editable      => 1,
-            defaultValue  => 443,
+            defaultValue  => 8443,
        ),
         new EBox::Types::Text(
             fieldName     => 'secret',

@@ -2,7 +2,6 @@
 
 SOURCES_LIST=/etc/apt/sources.list
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.4 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -81,11 +80,6 @@ gen_locales()
 }
 
 create_repository # Set up local package repository
-
-if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
-then
-    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
-fi
 
 # install zentyal core and software
 PACKAGES=zentyal

@@ -1,4 +1,7 @@
-HEAD
+4.0
+    + Allow server subscriptions with several bundles but all of the same type
+    + Set versions and repos to 4.0
+3.5
     + Use Server Password to get the conf backup list
     + Fix error message when trying to use DR with no commercial edition
     + Fixed firefox-launcher

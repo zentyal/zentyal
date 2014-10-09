@@ -1,13 +1,11 @@
 <%args>
-    @eboxpkgs => ()
+    @bigpkgs => ()
+    @mediumpkgs => ()
+    @allpkgs => ()
+    %filterpkgs => ()
     @brokenPackages => ()
     $updateStatus
     $QAUpdates
-    $isOffice
-    $isUtm
-    $isGateway
-    $isInfrastructure
-    $isCommunication
     $updateList
     $updateListError
     $updateListErrorMsg
@@ -23,10 +21,11 @@ my $popup = $first ? 0 : 1;
 my @advInstallPkgs;
 my @advUpdatePkgs;
 my @advRemovePkgs;
-foreach my $pkg (@eboxpkgs) {
+foreach my $pkg (@allpkgs) {
   next if ($pkg->{name} eq 'zentyal-all');
   next if ($pkg->{name} eq 'zentyal-ids');
   ($pkg->{description} =~ m/Suite/) and next;
+  ($pkg->{description} =~ m/^transitional/) and next;
 
   if ($pkg->{version}) {
      push @advRemovePkgs, $pkg;
@@ -58,7 +57,7 @@ my %titleByAction = (
 
 <script>
 var pkgTable = new Array(
-%   foreach my $pkg (@eboxpkgs) {
+%   foreach my $pkg (@allpkgs) {
 %       my $eboxupg = 'no';
         {"<% __('Component') %>":"<% $pkg->{description} %>",
 %       if ($pkg->{version}) {
@@ -76,7 +75,7 @@ var pkgTable = new Array(
         "<% __('Latest Version') %>":"<% $pkg->{avail} %>",
         "Name": "<% $pkg->{name} %>",
         "Removable": "<% $pkg->{removable} %>"
-%   if ($pkg == $eboxpkgs[-1]) {
+%   if ($pkg == $allpkgs[-1]) {
         }
 %   } else {
         },
@@ -131,288 +130,74 @@ var pkgTable = new Array(
            ofhref => '<a href="http://forum.zentyal.org/" target="_blank">', chref => '</a>') %>
 </div>
 % } else {
-<div id="software" style="padding: 15px 0">
 %# Basic table
-<div id="basic" style="display: none">
+<div id="software" style="display: none">
 % unless ($first) {
-    <a href='#' onclick="$('#basic').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
+    <a href='#' onclick="$('#software').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
 % }
-    <div class="headcontainer">
-    <h3><%__('Server roles')%></h3>
-        <div id="Gateway_head" class="head">
-% unless ($isGateway) {
-            <div class="image" id="Gateway_image" onclick="Zentyal.SoftwareManagementUI.tick('Gateway', 1)"; return false">
-                <img src="/data/software/images/icon_gw.png" alt="Zentyal Gateway"/>
-            </div>
-            <div class="image" id="Gateway_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Gateway', 1); return false">
-                <img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
-            </div>
-% } else {
-            <div class="image" id="Gateway_image_tick">
-                <img src="/data/software/images/icon_gw_tick.png" alt="Zentyal Gateway" />
-            </div>
-%}
-            <div class="text">
-                <h3><% __s('Gateway') %></h3>
-                <div>
-                    <a id="Gateway_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Gateway'); return false"><% __s('More info') %></a>
-                </div>
-            </div>
-        </div>
-
-        <div id="Infrastructure_head" class="head">
-% unless ($isInfrastructure) {
-            <div class="image" id="Infrastructure_image" onclick="Zentyal.SoftwareManagementUI.tick('Infrastructure', 1); return false">
-                <img src="/data/software/images/icon_infra.png" alt="Zentyal Infrastructure" />
-            </div>
-            <div class="image" id="Infrastructure_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Infrastructure', 1); return false">
-                <img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
-            </div>
-% } else {
-            <div class="image" id="Infrastructure_image_tick">
-                <img src="/data/software/images/icon_infra_tick.png" alt="Zentyal Infrastructure" />
-            </div>
-% }
-            <div class="text">
-                <h3><% __s('Infrastructure') %></h3>
-                <div>
-                    <a id="Infrastructure_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Infrastructure'); return false"><% __s('More info') %></a>
-                </div>
-            </div>
-        </div>
-
-        <div id="Office_head" class="head">
-% unless (  $isOffice) {
-            <div class="image" id="Office_image" onclick="Zentyal.SoftwareManagementUI.tick('Office', 1); return false">
-                <img src="/data/software/images/icon_office.png" alt="Zentyal Office" />
-            </div>
-            <div class="image" id="Office_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Office', 1); return false">
-                <img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
-            </div>
-% } else {
-            <div class="image" id="Office_image_tick">
-                <img src="/data/software/images/icon_office_tick.png" alt="Zentyal Office" />
-            </div>
-% }
-            <div class="text">
-                <h3><% __s('Office') %></h3>
-                <div>
-                    <a id="Office_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Office'); return false"><% __s('More info') %></a>
-                </div>
-            </div>
-        </div>
-
-        <div id="Communications_head" class="head">
-% unless ($isCommunication) {
-            <div class="image" id="Communications_image"
-                 onclick="Zentyal.SoftwareManagementUI.tick('Communications', 1); return false">
-                <img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
-            </div>
-            <div class="image" id="Communications_image_tick" style="display: none" onclick="Zentyal.SoftwareManagementUI.untick('Communications', 1); return false">
-                <img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
-            </div>
-% } else {
-            <div class="image" id="Communications_image_tick">
-                <img src="/data/software/images/icon_comm_tick.png" alt="Zentyal Unified Communications" />
-            </div>
-%}
-            <div class="text">
-                <h3><% __s('Communications') %></h3>
-                <div>
-                    <a id="Communications_down" href="#" onclick="Zentyal.SoftwareManagementUI.showInfo('Communications'); return false"><% __s('More info') %></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div>
-        <div id="Gateway" class="item-block" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">&#10006;</a>
-            <h3><% __s('Zentyal Gateway features') %></h3>
-            <div class='feature'>
-                <img src='/data/software/images/cache.png' alt='Transparent caching' />
-                <h4><% __s('Transparent Caching') %></h4>
-                <p><strong><% __s('Faster Internet connection!') %></strong><br />
-                <% __s('When your users visit the same web pages, data will be downloaded only once. This increases browsing speed and reduces bandwidth usage.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/qos.png' alt='Traffic control' />
-                <h4><% __s('Traffic Shaping and QoS') %></h4>
-                <p><strong><% __s('Business class critical traffic!') %></strong><br />
-                <% __s('Prioritize selected traffic or users making sure that the most critical traffic is always served properly, regardless of the network load. Moreover, you can avoid P2P or large downloads that consume all your bandwidth.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/loadbalance.png' alt='Load balancing and availability' />
-                <h4><% __s('Load Balancing and Availability') %> </h4>
-                <p><strong><% __s("Always connected!") %></strong><br />
-                <% __s('If you have multiple Internet connections, distribute the traffic transparently and stay connected even if one of the connections is down. You can also define specific connections for specific traffic, between offices, etc.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/filter.png' alt='Content Filter' />
-                <h4><% __s('Web Content Filter') %></h4>
-                <p><strong><% __s("Secure working environment!") %></strong><br />
-                <% __s("Block inappropriate content, restrict access to certain sites or allow access to specific sites only. Control user browsing and enforce your organization's Internet usage policy.") %></p>
-            </div>
-
-            <div class="full-features">
-                <h3><% __s('Full feature list') %></h3>
-                <ul>
-                    <li><% __s('Configurable network interfaces: Static, DHCP, VLAN, PPPoE, Bridge.') %></li>
-                    <li><% __s('Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT).') %></li>
-                    <li><% __s('Advanced Routing: Policy routing, Load balancing, Automatic fail-over.') %></li>
-                    <li><% __s('Traffic Shaping and QoS: Traffic shaping, Application layer (L7) classification.') %></li>
-                    <li><% __s('Advanced HTTP proxy: Internet cache, Content filtering with antivirus, Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker.') %></li>
-                    <li><% __s('Captive Portal: Secure authentication, Source, destination and service exceptions, Secure client filtering, Client idle timeout, Maximum no. of connections.') %></li>
-                    <li><% __s('RADIUS: Network authentication and authorization.') %></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="Infrastructure" class="item-block" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">&#10006;</a>
-            <h3><% __s('Zentyal Infrastructure features') %></h3>
-            <div class='feature'>
-                <img src='/data/software/images/objects.png' alt='DHCP server' />
-                <h4><% __s('DHCP Server') %></h4>
-                <p><strong><% __s('Automatic network configuration!') %></strong><br />
-                <% __s('Configure all the basic settings as devices are connected to the LAN: IP, mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases with PXE.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/dns.png' alt='DNS server' />
-                <h4><% __s('DNS Server') %></h4>
-                <p><strong><% __s('People remember names better!') %></strong><br />
-                <% __s('Assign every server on your network a domain name to ease internal communications. You can also give domain names to dynamic clients that will be updated as these change their IP address.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/www.png' alt='Web Server' />
-                <h4><% __s('Web Server') %></h4>
-                <p><strong><% __s('Powered by Apache!') %></strong><br />
-                <% __s('Zentyal Server integrates the Apache web server, one of the most popular on the Internet. This module will help you to deploy all kind of internal web applications on your network.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/cert.png' alt='Enterprise-grade SSL' />
-                <h4><% __s('Certification Authority') %></h4>
-                <p><strong><% __s('Create your own certificates!') %></strong><br />
-                <% __s('Give your users secure access to internal services such as VPN or mail and deploy trusted certificates for your Zentyal managed services.') %></p>
-            </div>
-            <div class="full-features">
-                <h3><% __s('Full feature list') %></h3>
-                <ul>
-                    <li><% __s('DHCP server: Dynamic and static leases, Integration with DNS, PXE support.') %></li>
-                    <li><% __s('DNS server: DNS cache server, DNS authoritative server, Integration with DHCP.') %></li>
-                    <li><% __s('NTP server: NTP server.') %></li>
-                    <li><% __s('Certification Authority: Certificate management, Zentyal service integration.') %></li>
-                    <li><% __s('Web server: HTTP and HTTPS support, Multiple virtual hosts, Integration with DNS.') %></li>
-                    <li><% __s('FTP server: Anonymous FTP, Authenticated FTP.') %></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="Office" class="item-block" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">&#10006;</a>
-            <h3><% __s('Zentyal Office features') %></h3>
-            <div class='feature'>
-                <img src='/data/software/images/directory.png' alt='Open Directory' />
-                <h4><% __s('Directory Service') %></h4>
-                <p><strong><% __s('All your users in one place!') %></strong><br />
-                <% __s('Manage users, groups and privileges from a single point. Replicate the directory over multiple servers for service distribution and high availability or synchronize against an existing Active Directory.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/sharing.png' alt='File and printer sharing' />
-                <h4><% __s('File and Printer Sharing') %></h4>
-                <p><strong><% __s('Sharing is easy!') %></strong><br />
-                <% __s('Create shared folders and printers over your network and let your users access them seamlessly from any operating system. Replace your Windows server with Zentyal without any disruption to your users.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/backup.png' alt='Data Backup' />
-                <h4><% __s('Data Backup') %></h4>
-                <p><strong><% __s('A catastrophe you can prevent!') %></strong><br />
-                <% __s('Hardware or software failures and human errors are common and can cause irreparable damage. Having a proper procedure to perform, check and restore configuration and data backups will save you from a disaster.') %></p>
-            </div>
-            <div class="full-features">
-                <h3><% __s('Full feature list') %></h3>
-                <ul>
-                    <li><% __s('LDAP Directory server: Central management of users and groups, Master/slave architecture, Windows Active Directory synchronization.') %></li>
-                    <li><% __s('File sharing: Windows file sharing (CIFS), Primary Domain Controller (PDC), Advanced password policies, Roaming profiles, Windows 7 support.') %></li>
-                    <li><% __s('Printer sharing: Printer management, Windows printer sharing, IPP support.') %></li>
-                    <li><% __s('Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile devices synchronization.') %></li>
-                    <li><% __s('Backup: Incremental and full backup, Advanced backup policy, Disaster recovery.') %></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="Communications" class="item-block" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">&#10006;</a>
-            <h3><% __s('Zentyal Unified Communications features') %></h3>
-            <div class='feature'>
-                <img src='/data/software/images/email.png' alt='Email' />
-                <h4><% __s('Email') %></h4>
-                <p><strong><% __s('With your favorite email client!') %></strong><br />
-                <% __s('Zentyal includes a complete email server that is natively compatible with Microsoft Exchange Server. All the current standars are supported, so your users can keep using their favorite email clients.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/im.png' alt='Instant messaging' />
-                <h4><% __s('Instant Messaging') %></h4>
-                <p><strong><% __s('When email is not enough!') %></strong><br />
-                <% __s('Allow your users to communicate quickly, efficiently and safely with colleagues and customers. The XMPP/Jabber protocol used allows the use of any of the existing clients on most platforms, even on cell phones.') %></p>
-            </div>
-            <div class="full-features">
-                <h3><% __s('Full feature list') %></h3>
-                <ul>
-                    <li><% __s('Mail server: SMTP with TLS, POP3-IMAP4 with SSL, Webmail, Server side filtering (SIEVE), External mail retrieval, Antispam, Antivirus, Greylisting, Virtual domains, User quota support.') %></li>
-                    <li><% __s('Instant Messaging server: XMPP/Jabber server, Conference rooms.)') %></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <div id="Install">
       <div id="packages">
-      <h3><% __s('Modules') %></h3>
-%   foreach my $pkg (@eboxpkgs) {
+      <h3><%__('Server roles')%></h3>
+      <ul>
+%   foreach my $pkg (@bigpkgs) {
+%        my $class;
+%        if ($pkg->{version}) {
+%           $class = 'package_installed';
+%        }
+         <li id="<% $pkg->{name} %>" class="package package-big <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>-big.png"/>
+            <p><% $pkg->{description} %></p>
+         </li>
+%   }
+%   foreach my $pkg (@mediumpkgs) {
+%        my $class;
+%        if ($pkg->{version}) {
+%           $class = 'package_installed';
+%        }
+         <li id="<% $pkg->{name} %>" class="package package-medium <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>-medium.png"/>
+            <p><% $pkg->{description} %></p>
+         </li>
+%   }
+      </ul>
+      <h3><% __s('Additional services') %></h3>
+      <ul>
+%   foreach my $pkg (@allpkgs) {
 %        # Hide some packages (objects+services), virtual, no removables
+%        next if ($filterpkgs{$pkg->{name}});
 %        next if ($pkg->{description} =~ /Suite$/);
 %        next if ($pkg->{description} =~ /^transitional/);
-%        next if ($pkg->{description} eq 'Network Objects');
-%        next if ($pkg->{description} eq 'Network Services');
 %        next if ($pkg->{description} eq 'All Modules');
 %        next unless ($pkg->{removable});
 %        $pkg->{description} =~ s/^Zentyal - //;
 %        my $class;
 %        if ($pkg->{version}) {
-%           $class='package_installed';
+%           $class = 'package_installed';
 %        }
-         <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
-            <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
-                  onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
+         <li id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
+            <img src="/data/images/package-icons/<% $pkg->{name} %>.png"
+                 onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' />
             <p><% $pkg->{description} %></p>
-         </div>
+         </li>
 %   }
+      </ul>
 
        </div>
 
-       <div style="text-align: right">
+       <div class="btn-block tright">
 % if ($first) {
-        <button class="btn btn-icon btn-skip" onclick="document.location.href='/Dashboard/Index'"><% __('Skip install') %> </button>
+        <a class="tleft" onclick="document.location.href='/Dashboard/Index'" href="#"><% __('Skip install') %></a>
 % }
-        <button class="btn btn-icon btn-install" onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><% __('Install') %></button>
+        <button class="btn btn-green btn-big" onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><% __('Install') %></button>
 
        </div>
 
-    </div>
-    <div style="display: none">
-        <input type='checkbox' id='Gateway_check'>
-        <input type='checkbox' id='Infrastructure_check'>
-        <input type='checkbox' id='Office_check'>
-        <input type='checkbox' id='Communications_check'>
     </div>
 </div>
 
 
-
-
 <div id="advanced" style="display: none">
-    <a href='#' onclick="$('#advanced').fadeOut(300);$('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
+    <a href='#' onclick="$('#advanced').fadeOut(300);$('#software').fadeIn(300); return false"><% __('View basic mode') %></a>
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
@@ -508,14 +293,10 @@ var pkgTable = new Array(
 <script>
 $(function() {
 % if ($first) {
-   $('#basic').show();
+   $('#software').show();
 % } else {
    $('#advanced').show();
 % }
-
-   if ($('#zentyal-remoteservices').length > 0) {
-        Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
-   }
 
    $('#updNumber').html( '<% scalar @advUpdatePkgs %>' );
    // update button status

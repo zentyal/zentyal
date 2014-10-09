@@ -37,11 +37,13 @@ additionalComponents => \@additionalComponents &>
 <%init>
 my $tableClass =  $m->base_comp->attr('tableClass');
 </%init>
+<div class="table-wrapper">
 <table <% _class($tableClass) %> >
   <& SELF:thead, columnTitles => \@columnTitles &>
   <& SELF:tbody, rows => \@rows, additionalComponents =>
   \@additionalComponents &>
 </table>
+</div>
 </%method>
 
 <%method thead>

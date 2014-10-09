@@ -1,8 +1,34 @@
-3.5
+4.0
 	+ Add conf file for openchange module, containing broker config for
 	  mapiproxy server
+	+ Provision action triggers save changes action
+	+ Fixed deprovision
+	+ OpenChange account is enabled by default for all the new created users
+	+ Adapt to changes in Out Of Office implementation in OCSManager
+	+ Allow to access SOGo also with the /webmail URL
+	+ Apache handles now all the OC web services directly without haproxy/nginx
+	+ Remove dependency on deprecated webserver module
+	+ OpenChange -> Setup menu entry moved to Mail -> OpenChange
+	+ Remove currently unused migration code
+	+ Set version to 4.0
+	+ Tune OCSManager configuration for autodiscover
+	+ Redirect all /ews/ requests to OCSManager
+	+ Use .crt when downloading the certificate for RPC/Proxy
+	  to ease Windows importing
+	+ Changes to out-of-office required by upstream openchange changes
+	+ Notify when OpenChange is using the domain certificate
+	+ Migrate RPC Proxy certificate to new use our zentyal-ca
+	+ Adapted configuration for making Autodiscover works with Outlook Anywhere
+	+ Adapted rcpproxy certificate generation to changes in webadmin certificates
+	+ Depends on latest zentyal-samba to make sure openchange.conf
+	  is correct
+	+ openchange.conf named properties config uses splitted params
+	+ Better certificate management for autodiscovery
+3.5.1
+	+ Fixed issue with Sieve separator parameter at sogo configuration
+3.5
+	+ Zentyal users removed from "only contacts" addressbook at sogo webUI
 	+ Make SOGo shared contacts display their CN
-	+ Allow ActiveSync setup if z-push or sogo-activesync are installed
 	+ Updated SOGo conf
 	+ Added autodiscovery of server parameters
 	+ Proxying all Exchange Web Services to OCSManager

@@ -6,21 +6,23 @@ use EBox::Gettext;
 </%init>
 <h4 class="icon-contact"><% __('Add Contact') %></h4>
     <div id='addContactForm_error' class='error' style='display:none'></div>
-    <form action='/Samba/AddContact' method='POST' id='addContactForm' class="formDiv">
+    <form action='/Samba/AddContact' method='POST' id='addContactForm' class="formDiv form-full-width">
     <input type="hidden" name="dn" value="<% $dn %>">
-            <div class="inline-field">
-                <label>
-                    <% __('First name') %>
-                </label>
-                <input type='text' class='inputText' name='givenname'>
+            <div class="inline-field-group">
+                <div class="inline-field">
+                    <label>
+                        <% __('First name') %>
+                    </label>
+                    <input type='text' class='inputText' name='givenname'>
+                </div>
+                <div class="inline-field">
+                    <label>
+                        <% __('Last name') %>
+                    </label>
+                    <input type='text' class='inputText' name='surname'>
+                </div>
             </div>
-            <div class="inline-field">
-                <label>
-                    <% __('Last name') %>
-                </label>
-                <input type='text' class='inputText' name='surname'>
-            </div>
-            <div>
+            <div class="field">
                 <label>
                     <% __('Description') %>
                     <span class="optional_field">
@@ -29,7 +31,7 @@ use EBox::Gettext;
                 </label>
                 <input type='text' class='inputText' name='description'>
             </div>
-            <div>
+            <div class="field">
                 <label>
                     <% __('E-Mail') %>:
                 </label>

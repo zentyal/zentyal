@@ -18,11 +18,13 @@ use warnings;
 
 package EBox::MailFilter;
 
-use base qw(EBox::Module::LDAP
-            EBox::VDomainModule
-            EBox::Mail::FilterProvider
-            EBox::FirewallObserver
-            EBox::LogObserver);
+use base qw(
+    EBox::Module::Kerberos
+    EBox::VDomainModule
+    EBox::Mail::FilterProvider
+    EBox::FirewallObserver
+    EBox::LogObserver
+);
 
 use Perl6::Junction qw(all any);
 
@@ -493,10 +495,6 @@ sub _smtpFilterTableInfo
                   'MTA-BLOCKED' => __('Unable to reinject in the mail server'),
     };
 
-    my $consolidate = {
-                       mailfilter_smtp_traffic => _filterTrafficConsolidationSpec(),
-                      };
-
     return {
             'name' => __('SMTP filter'),
             'tablename' => 'mailfilter_smtp',
@@ -505,7 +503,6 @@ sub _smtpFilterTableInfo
             'filter' => ['action', 'from_address', 'to_address'],
             'events' => $events,
             'eventcol' => 'event',
-            'consolidate' => $consolidate,
     };
 }
 
@@ -516,43 +513,6 @@ sub logHelper
     return new EBox::MailFilter::LogHelper();
 }
 
-sub _filterTrafficConsolidationSpec
-{
-    my $spec = {
-        accummulateColumns => {
-            clean => 0,
-            spam => 0,
-            banned => 0,
-            blacklisted => 0,
-            clean  => 0,
-            infected => 0,
-            bad_header => 0,
-        },
-        filter => sub {
-            my ($row) = @_;
-            if ($row->{event} eq 'MTA-BLOCKED') {
-                return 0;
-            }
-            return 1;
-        },
-        consolidateColumns => {
-            event => {
-                conversor => sub { return 1  },
-                accummulate => sub {
-                    my ($v) = @_;
-                    if ($v eq 'BAD-HEADER') {
-                        return 'bad_header';
-                    }
-
-                    return lc $v;
-                },
-            },
-        },
-    };
-
-    return $spec;
-}
-
 sub menu
 {
     my ($self, $root) = @_;
@@ -561,7 +521,6 @@ sub menu
                                         'name' => 'MailFilter',
                                         'icon' => 'mailfilter',
                                         'text' => $self->printableName(),
-                                        'separator' => 'Communications',
                                         'order' =>  615
     );
 
@@ -587,6 +546,21 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+# Method: _kerberosServicePrincipals
+#
+#   EBox::Module::Kerberos implementation. We don't create any SPN, just
+#   the service account to bind to LDAP
+#
+sub _kerberosServicePrincipals
+{
+    return undef;
+}
+
+sub _kerberosKeytab
+{
+    return undef;
 }
 
 1;

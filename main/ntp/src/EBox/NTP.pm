@@ -266,19 +266,4 @@ sub _setConf
     $self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 }
 
-# Method: menu
-#
-#       Overrides EBox::Module method.
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    $root->add(new EBox::Menu::Item('text' => $self->printableName(),
-                                    'icon' => 'ntp',
-                                    'url' => 'NTP/Composite/General',
-                                    'separator' => 'Infrastructure',
-                                    'order' => 445));
-}
-
 1;

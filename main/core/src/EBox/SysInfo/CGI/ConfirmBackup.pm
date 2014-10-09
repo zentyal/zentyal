@@ -32,7 +32,6 @@ sub new # (error=?, msg=?, cgi=?)
     my $self = $class->SUPER::new('title' => __('Configuration Backup'),
                                   'template' => '/confirm-backup.mas',
                                   @_);
-    $self->{errorchain} = "SysInfo/Backup";
 
     bless($self, $class);
     return $self;
@@ -71,12 +70,14 @@ sub actuate
 
   foreach my $actionParam (qw(delete restoreFromId restoreFromFile )) {
     if ($self->param($actionParam)) {
-      my $actionSub = $self->can($actionParam . 'Action');
-      my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
-      $self->{params} = [action => $backupAction, actiontext => $backupActionText, backup => $backupDetails];
-      if ($self->param('popup')) {
-          push @{ $self->{params} }, (popup => 1);
-      }
+        try {
+            my $actionSub = $self->can($actionParam . 'Action');
+            my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
+            $self->{params} = [action => $backupAction, actiontext => $backupActionText, backup => $backupDetails, popup => 1];
+        } catch ($ex) {
+            $self->{template} = '/error.mas';
+            $self->{params} =  [error => "$ex"];
+        }
 
       return;
     }
@@ -94,7 +95,6 @@ sub masonParameters
   if (exists $self->{params}) {
     return $self->{params};
   }
-
   return [];
 }
 
@@ -190,11 +190,7 @@ sub setPrintabletype
 sub _print
 {
     my ($self) = @_;
-    if (not $self->param('popup')) {
-        $self->SUPER::_print();
-    } else {
-        $self->_printPopup();
-    }
+    $self->_printPopup();
 }
 
 1;

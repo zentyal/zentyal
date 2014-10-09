@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,7 +25,6 @@ use EBox::Global;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
-use List::Util qw(sum);
 use TryCatch::Lite;
 
 # TODO: Currently we can't have more than two dashboards because of
@@ -69,7 +68,15 @@ sub masonParameters
     my $widgets = {};
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
-        my $wnames = $mod->widgets();
+        my $wnames;
+        try {
+            $wnames = $mod->widgets();
+        } catch($ex) {
+            EBox::error("Error loading widgets from module $name: $ex");
+        }
+        if (not $wnames) {
+            next;
+        }
         for my $wname (keys (%{$wnames})) {
             my $fullname = "$name:$wname";
             next if exists $widgetsToHide->{$fullname};
@@ -126,7 +133,15 @@ sub masonParameters
         my $minValue = INT_MAX;
         my $minIndex = 0;
         for my $i (1 .. $NUM_DASHBOARDS) {
-            my $size_i = sum(map { $_->{size} } @{$dashboards[$i - 1]});
+            my $size_i = 0;
+            foreach my $element (@{$dashboards[$i - 1]}) {
+                if ((exists $element->{size}) and $element->{size}) {
+                    # size attr are quoted to avoid problems with js
+                    my $size = $element->{size};
+                    $size =~ tr/'"//d;
+                    $size_i += $size;
+                }
+            }
             if ($size_i < $minValue) {
                 $minValue = $size_i;
                 $minIndex = $i - 1;
@@ -150,15 +165,20 @@ sub masonParameters
         push(@params, 'softwareInstalled' => 1);
     }
 
-    my $showMessage = 1;
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-        $showMessage = 0;
-        # Re-check for changes
-        $rs->checkAdMessages();
-        my $rsMsg = $rs->adMessages();
-        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-    }
+    # FIXME: disabled messages until new ones are introduced
+    my $showMessage = 0;
+    #my $rs = EBox::Global->modInstance('remoteservices');
+    #if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
+    #    try {
+    #        # Re-check for changes
+    #        $rs->checkAdMessages();
+    #        my $rsMsg = $rs->adMessages();
+    #        $showMessage = 0;
+    #        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+    #    } catch($ex) {
+    #        EBox::error("Error loading messages from remoteservices: $ex");
+    #    }
+    #}
 
     if ($showMessage) {
         my $state = $sysinfo->get_state();
@@ -185,10 +205,21 @@ sub masonParameters
                 my $style = 'margin-top: 10px; margin-bottom: -6px;';
                 my $text = __sx('Crash report found! Click the button if you want to send the following files anonymously to help fixing the issue: {p}. Although Zentyal will make a good use of this information, please review the files if you want to be sure they do not contain any sensible information. {oc}{obs}Submit crash report{cb} {obd}Discard{cb}{cc}',
                                 p  => '/var/crash/_usr_sbin_samba*',
-                                obs => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.report()\">",
+                                obs => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.ready_to_report()\">",
                                 obd => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.discard()\">",
                                 cb => '</button>', oc => '<center>', cc => '</center>');
-                push (@params, 'crashreport' => $text);
+                my $optional = __('Optional');
+                my $email    = __('Email address');
+                my $tyText = __sx('Thank you for willing to submit your crash report. If you want to be notified about '
+                                  . 'its status, enter your email: {form}{obs}Submit crash report{cb}',
+                                 form => '<form class="formDiv" id="submit_crash_form"
+                                          style="margin: 15px 0;">'
+                                         . qq{<label>$email <span class="optional_field">$optional</span></label><input type="text" placeholder="foo\@example.org" name="email" class="inline-field"/>}
+                                         . '</form>',
+                                 obs  => "<button onclick=\"Zentyal.CrashReport.report()\">",
+                                 cb   => '</button>',
+                                 );
+                push (@params, 'crashreport' => {'ready' => $text, 'ty' => $tyText});
             }
         }
     }
@@ -198,10 +229,7 @@ sub masonParameters
 
 sub _periodicMessages
 {
-    my $WIZARD_URL = '/Wizard?page=RemoteServices/Wizard/Subscription';
-    unless (EBox::Global->modExists('remoteservices')) {
-        $WIZARD_URL = 'https://remote.zentyal.com/register/';
-    }
+    my $CONF_BACKUP = '/RemoteServices/Backup/Index';
 
     my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_3.4_Announcement';
     my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.4')";
@@ -217,18 +245,13 @@ sub _periodicMessages
 #        },
         {
          name => 'backup',
-         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$CONF_BACKUP\">", ch => '</a>'),
          days => 1,
-        },
-        {
-         name => 'ddns',
-         text => __sx('Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
-         days => 7,
         },
         {
          name => 'trial',
          text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
-         days => 23,
+         days => 7,
         },
         {
          name => 'community',
