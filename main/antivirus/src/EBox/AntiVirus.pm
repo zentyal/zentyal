@@ -44,7 +44,6 @@ use constant {
 
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
-  FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
   FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
   FRESHCLAM_USER                => 'clamav',
@@ -253,12 +252,6 @@ sub _setConf
 
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
-
-    # Regenerate freshclam cron hourly script
-    $self->writeConfFile(FRESHCLAM_CRON_FILE,
-                         'antivirus/clamav-freshclam.cron.mas',
-                         [ enabled => $self->isEnabled() ]);
-
 }
 
 # Method: freshclamState
