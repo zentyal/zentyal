@@ -52,7 +52,7 @@ body {
     padding:0;
     color: #000000;
     font-size: 12px;
-    font-family: Verdana, sans-serif;
+    font-family: verdana, sans-serif;
     background-color: #eee;
     position: relative;
     behavior: url(/data/js/csshover.htc);
@@ -405,7 +405,7 @@ DASHBOARD
 }
 .summary_value {
     padding: 5px 10px 5px 15px;
-    font-family: Verdana, sans-serif;
+    
     background-color: #F4F4F4;
     line-height:25px;
 }
@@ -454,6 +454,7 @@ DASHBOARD
     margin-top: 10px;
     overflow: auto;
     width: 100%;
+    padding: 2px 0;
 }
 .dataTable {
     width: 100%;
@@ -472,7 +473,7 @@ DASHBOARD
     border-right: <% $data_table_inner_border_color %> 2px solid;
 }
 .dataTable th {
-    font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
+    
     padding: 8px 6px 8px 6px;
     font-weight: bold;
     vertical-align: middle;
@@ -544,7 +545,6 @@ DASHBOARD
 }
 .edit_table_B {
     font-size: 11px;
-    font-family: Verdana, sans-serif;
     background: whiteSmoke;
     border-top: 1px solid #999999;
     border-left: 1px solid #999999;
@@ -1222,7 +1222,7 @@ TABLE LIST
 }
 .widgetName {
         font-size: 1.2em;
-        font-family: Verdana, sans-serif;
+        
         color: #666;
         padding: 12px 30px 12px 18px;
 }
@@ -2309,21 +2309,25 @@ input[type='submit'],
 input[type='button'],
 input[type='image'] {
     background-color: #EEEEEE;
-    border: 1px solid #999999;
+    border: 1px solid #666666;
     border-radius: 2px 2px 2px 2px;
-    color: #333333;
+    color: #000;
     cursor: pointer;
     font-size: 11px;
     font-weight: bold;
-    height: 30px;
+    height: 35px;
     letter-spacing: 1px;
     overflow: hidden;
     text-transform: uppercase;
-    line-height: 28px;
     display: inline-block;
     text-decoration: none;
-    padding: 0px 10px;
-
+    padding: 0px 15px;
+    margin: 0px;
+    box-sizing:border-box;
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+    -moz-transition: background-color 0.2s, box-shadow 0.2s;
 }
 .btn:hover,
 .btn-only-icon:hover,
@@ -2334,8 +2338,10 @@ input[type='button']:hover,
 input[type='image']:hover
 {
     background-color: whitesmoke;
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
-    color:#333;
+    box-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+    -moz-transition: background-color 0.2s, box-shadow 0.2s;
 }
 .btn:disabled, .btn:disabled:hover,
 .btn-only-icon:disabled,.btn-only-icon:disabled:hover,
@@ -2356,20 +2362,10 @@ input[type='image']:disabled, input[type='image']:disabled:hover,
     background-position: 7px center;
     background-repeat: no-repeat;
 }
-a.btn-only-icon,
-a.btn,
-span.btn,
-span.btn-only-icon{
-    height: 28px;
-}
-a.btn-only-icon,
-span.btn-only-icon{
-    width: 28px;
-}
 .btn-only-icon {
     background-position: center center;
     background-repeat: no-repeat;
-    height: 30px;
+    height: 30px !important;
     overflow: hidden;
     padding: 0px !important;
     text-indent: 1000px;
@@ -2381,7 +2377,7 @@ a.btn-only-icon{
     display: inline-block;
 }
 .btn-only-icon.btn-small{
-    height: 20px ;
+    height: 20px !important;
     width: 20px;
 }
 .btn-only-icon.btn-big{
@@ -2400,6 +2396,11 @@ a.btn-only-icon{
     height: 50px !important;
     line-height: 50px !important;
 }
+a.btn,
+span.btn{
+    padding: 10px 15px;
+    vertical-align: bottom;
+}
 
 /*** Buttons space ***/
 
@@ -2414,7 +2415,7 @@ a.btn-only-icon{
 
 input.btn-dashboard {
     font-size: 10px;
-    font-family: Verdana, sans-serif;
+    
     margin: 0px;
     padding: 4px 8px 4px 20px;
     text-transform: none;
@@ -2491,13 +2492,13 @@ input.btn-dashboard {
 /*** BUTTONS COLORS ***/
 
 .btn-blue, .btn-help{
-    background-color: #00ADD0 !important;
-    border-color: #0087A5 !important;
+    background-color: #0087A5 !important;
+    border-color: #014A5A !important;
     color: white !important;
 }
 .btn-blue:hover,
 .btn-help:hover{
-    background-color: #0087A5 !important;
+    background-color: #00ADD0 !important;
     color: white !important;
 }
 .btn-blue:disabled,
@@ -2508,13 +2509,13 @@ input.btn-dashboard {
     color: white !important;
 }
 .btn-red, .treeviewButtons .btn-delete{
-    background-color: #FF5C26 !important;
+    background-color: #D93600 !important;
     border-color: #B22D00 !important;
     color: white !important;
 }
 .btn-red:hover,
 .treeviewButtons .btn-delete:hover{
-    background-color: #D93600 !important;
+    background-color: #FF5C26!important;
     color: white !important;
 }
 .btn-red:disabled,
@@ -2525,12 +2526,12 @@ input.btn-dashboard {
     color : white !important;
 }
 .btn-green{
-    background-color: #69BE28 !important;
-    border-color: #46962D !important;
+    background-color: #46962D !important;
+    border-color: #2B5C1B !important;
     color: white !important;
 }
 .btn-green:hover{
-    background-color: #46962D !important;
+    background-color: #69BE28 !important;
     color: white !important; }
 .btn-green:disabled,
 .btn-red:disabled:hover{
@@ -2538,12 +2539,12 @@ input.btn-dashboard {
     color: white !important;
 }
 .btn-orange{
-    background-color: #FF7900 !important;
-    border-color: #C35F00 !important;
+    background-color: #C35F00 !important;
+    border-color: #7C3E02 !important;
     color: white !important;
 }
 .btn-orange:hover{
-    background-color: #C35F00 !important;
+    background-color: #FF7900 !important;
     color: white !important;
 }
 .btn-orange:disabled,
@@ -2593,13 +2594,7 @@ form.formDiv fieldset > div,
 form.formDiv .field {
     margin-top: 20px;
 }
-form.formDiv .grey-block{
-    background-color: #f5f5f5;
-    padding: 20px
-}
-.form-buttons{
-    margin-top: 20px;
-}
+
 form.formDiv label,
 form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong {
@@ -2627,12 +2622,14 @@ select {
     -moz-box-shadow: inset 0px 0px 2px #ddd;
     box-sizing:border-box;
     max-width: 100%;
+    margin: 0px;
 }
 input:focus,
 textarea:focus,
 select:focus {
     border-color: #46962D;
     box-shadow: 0 0 3px #69BE28;
+    outline: none;
 }
 input:disabled,
 input:disabled,
@@ -2644,7 +2641,7 @@ select:disabled {
 }
 select {
     font-size: 14px;
-    font-family: Verdana, sans-serif;
+    
     border: 1px solid #999999;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -2661,13 +2658,13 @@ select {
 .inputTextError {
     color: #000000;
     font-size: 11px;
-    font-family: Verdana, sans-serif;
+    
 }
 .inputTextError { border: 3px solid red; }
 .inputTextLogin {
     color: #000000;
     font-size: 11px;
-    font-family: Verdana, sans-serif;
+    
 }
 form.formDiv textarea{
     width: 95%;
@@ -2695,7 +2692,8 @@ form.formDiv .checkbox-group strong{
     margin-bottom: 3px;
 }
 form.formDiv .radio-group label,
-form.formDiv .checkbox-group label{
+form.formDiv .checkbox-group label,
+form.formDiv .checkbox label{
     font-weight: normal;
     color: #333;
 }
@@ -2737,7 +2735,14 @@ form.formDiv label .field_help{
     font-style: italic;
     padding-left: 3px;
 }
-
+.form-buttons{
+    margin-top: 20px;
+}
+.form-buttons .btn,
+.form-buttons input[type="submit"] {
+    display:inline-block;
+    margin-right: 10px;
+}
 
 /* form full width */
 
@@ -2749,6 +2754,7 @@ form.formDiv label .field_help{
 }
 
 /* form inline */
+
 .inline-field-group{
     overflow: hidden;
     margin-top: 0px;
@@ -2762,6 +2768,33 @@ form.formDiv label .field_help{
 .inline-field-group .inline-field:last-child,
 .inline-field-group .field:last-child{
     margin-right: 0;
+}
+
+form.formDiv.inline-form label,
+form.formDiv.inline-form .form-buttons,
+form.formDiv.inline-form .field,
+form.formDiv.inline-form input,
+form.formDiv.inline-form > div {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+form.formDiv.inline-form input,
+form.formDiv.inline-form label,
+form.formDiv.inline-form .btn{
+    margin-right:2px;
+}
+
+.grey-block{
+    background-color: #f5f5f5;
+    padding: 20px;
+    overflow:hidden;
+    border:1px solid #ddd;
+}
+
+.btn-text{
+    line-height:35px;
+    font-size:1.2em 
 }
 
 /********************************************************************************

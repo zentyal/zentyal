@@ -229,10 +229,7 @@ sub masonParameters
 
 sub _periodicMessages
 {
-    my $WIZARD_URL = '/Wizard?page=RemoteServices/Wizard/Subscription';
-    unless (EBox::Global->modExists('remoteservices')) {
-        $WIZARD_URL = 'https://remote.zentyal.com/register/';
-    }
+    my $CONF_BACKUP = '/RemoteServices/Backup/Index';
 
     my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_3.4_Announcement';
     my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.4')";
@@ -248,18 +245,13 @@ sub _periodicMessages
 #        },
         {
          name => 'backup',
-         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$CONF_BACKUP\">", ch => '</a>'),
          days => 1,
-        },
-        {
-         name => 'ddns',
-         text => __sx('Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
-         days => 7,
         },
         {
          name => 'trial',
          text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
-         days => 23,
+         days => 7,
         },
         {
          name => 'community',

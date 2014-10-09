@@ -90,28 +90,6 @@ sub mangleConfFile
     # no mangling by default
 }
 
-sub serverAddr
-{
-    my ($class, $server, $globalRW) = @_;
-    $server or
-        throw EBox::Exceptions::MissingArgument('server');
-
-    my $global = EBox::Global->getInstance($globalRW);
-    my $network = $global->modInstance('network');
-    unless ($network->DDNSUsingCloud() and $network->isDDNSEnabled()) {
-        return [];
-    }
-
-    my $rs = $global->modInstance('remoteservices');
-    $rs or return [];
-
-    my $hostname = $rs->dynamicHostname();
-    if ($hostname) {
-        return [$hostname]
-    }
-    return [];
-}
-
 sub confFileExtraParameters
 {
     return ();

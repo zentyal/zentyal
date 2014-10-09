@@ -55,7 +55,7 @@ else {
 % if (not $inputComponent =~ m/hidden\.mas$/ ) {
   <& .div, type => 'warning', content => $warning &>
   <& .div, type => 'note', content => $note &>
-  <div>
+  <div class="field">
     <label>
       <& .labelTd, printableName => $printableName, optional => $ARGS{optional} &>
       <& .span, type => 'field_help', content => $help &>

@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -92,33 +92,6 @@ sub _table
     };
 
     return $dataForm;
-}
-
-# Method: viewCustomizer
-#
-#      To display a permanent message
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = $self->SUPER::viewCustomizer();
-
-    my $securityUpdatesAddOn = 0;
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-    }
-
-    unless ($securityUpdatesAddOn) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
-    }
-
-    return $customizer;
 }
 
 sub validateTypedRow

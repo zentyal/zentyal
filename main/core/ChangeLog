@@ -1,4 +1,11 @@
 4.0
+	+ Better control of error in local backup confirmation dialog
+	+ Fixed i18n bug in progress dialog
+	+ Updated remoteservices dependencies
+	+ Rename Import/Export Configuration to Configuration Backup
+	+ Removed subscription from community editions
+	+ Remote services now resides on this package
+	+ Reload after save changes when urls have hash part
 	+ Default webadmin port is now 8443
 	+ Remove haproxy which is no longer needed for Outlook Anywhere
 	+ UI is now responsive to different resolutions

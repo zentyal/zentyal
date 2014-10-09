@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-04 09:05+0200\n"
-"Last-Translator: TomaBgd <toma.ruzic@gmail.com>\n"
+"PO-Revision-Date: 2014-09-27 23:27+0200\n"
+"Last-Translator: Bojan <bojce@ubuntusrbija.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -2796,7 +2796,7 @@ msgstr ""
 #: ../../main/core/src/templates/configureView.mas:40
 #: ../../main/core/src/templates/configureView.mas:52
 msgid "Reason"
-msgstr ""
+msgstr "Разлог"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:136
 msgid "The certificate has been revoked"
@@ -6469,7 +6469,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:425
 msgid "Configured ones"
-msgstr ""
+msgstr "Конфигурисани"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:431
 msgid ""
@@ -7031,7 +7031,7 @@ msgstr "Статус модула"
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:142
 msgid "Date/Time"
-msgstr ""
+msgstr "Датум/Време"
 
 #: ../../main/core/src/EBox/SysInfo.pm:123
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:37
@@ -7041,7 +7041,7 @@ msgstr "Увези/Извези конфигурацију"
 #: ../../main/core/src/EBox/SysInfo.pm:128
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:45
 msgid "Debug"
-msgstr ""
+msgstr "Отклањање грешака"
 
 #: ../../main/core/src/EBox/SysInfo.pm:133
 msgid "Halt/Reboot"
@@ -7233,7 +7233,7 @@ msgid "Show technical details"
 msgstr ""
 
 #: ../../main/core/src/EBox/View/StackTrace.pm:121
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There are some software packages which are not correctly installed: {pack}."
 msgstr "Следећи програмски пакети нису тренутно инсталирани: {pack}"
@@ -8562,24 +8562,24 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software.pm:1062
 msgid "Package Selection"
-msgstr ""
+msgstr "Одабир пакета"
 
 #: ../../main/software/src/EBox/Software.pm:1063
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:34
 msgid "Installation"
-msgstr ""
+msgstr "Инсталација"
 
 #: ../../main/software/src/EBox/Software.pm:1064
 msgid "Initial Configuration"
-msgstr ""
+msgstr "Почетна конфигурација"
 
 #: ../../main/software/src/EBox/Software.pm:1065
 msgid "Save Changes"
-msgstr ""
+msgstr "Сачувај промене"
 
 #: ../../main/software/src/EBox/Software/CGI/EBox.pm:33
 msgid "Choose Zentyal packages to install"
-msgstr ""
+msgstr "Изабери Zentyal пакете за инсталацију"
 
 #: ../../main/software/src/EBox/Software/CGI/EBox.pm:37
 msgid "Zentyal components"
@@ -8623,7 +8623,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:241
 msgid "Installing"
-msgstr ""
+msgstr "Инсталација"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:242
 #: ../../main/software/src/templates/del.mas:30
@@ -10739,9 +10739,8 @@ msgid "Couldn't configure Zentyal as slave"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:181
-#, fuzzy
 msgid "Domain Controller and File Sharing"
-msgstr "Дељење штампача"
+msgstr "Домен контролер и Дељење докумената"
 
 #: ../../main/samba/src/EBox/Samba.pm:313
 msgid ""
@@ -13137,7 +13136,7 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/report/raid.mas:223
 msgid "State"
-msgstr "Стање"
+msgstr "Држава"
 
 #: ../../main/ca/src/templates/createCA.mas:27
 #: ../../main/mail/src/templates/groupalias.mas:170
@@ -13884,7 +13883,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:49
 msgid "Free Commercial Trial"
-msgstr ""
+msgstr "Бесплатна проба комерцијалне верзије"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Official Community documentation in English and Spanish."
@@ -13900,7 +13899,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:56
 msgid "Forum"
-msgstr ""
+msgstr "Форум"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:58
 msgid "Help us to improve by reporting any bug you find!"
@@ -13908,7 +13907,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:58
 msgid "Report a bug"
-msgstr ""
+msgstr "Пријавите грешку"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:64
 #, fuzzy
@@ -13917,7 +13916,7 @@ msgstr "Ваш Zentyal серверски налог"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:64
 msgid "Commercial Editions"
-msgstr ""
+msgstr "Комерцијална издања"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:66
 #: ../../main/core/src/templates/dashboard/links-widget.mas:84
@@ -13928,7 +13927,7 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/links-widget.mas:66
 #: ../../main/core/src/templates/dashboard/links-widget.mas:84
 msgid "Certified Training"
-msgstr ""
+msgstr "Сертификована обука"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
@@ -13938,7 +13937,7 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/links-widget.mas:67
 #: ../../main/core/src/templates/dashboard/links-widget.mas:77
 msgid "Official Manual"
-msgstr ""
+msgstr "Званични приручник"
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:76
 #, fuzzy
@@ -13984,9 +13983,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/templates/dashboard/links-widget.mas:114
-#, fuzzy
 msgid "Register for Free!"
-msgstr "Регистровање Вашег сервера"
+msgstr "Региструјте бесплатно!"
 
 #: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
@@ -14418,9 +14416,8 @@ msgid "Current file"
 msgstr "Тренутна датотека"
 
 #: ../../main/core/src/templates/ajax/viewer/hasManyViewer.mas:9
-#, fuzzy
 msgid "configure"
-msgstr "Конфигурисање дневника"
+msgstr "конфигуриши"
 
 #: ../../main/core/src/templates/ajax/row.mas:100
 msgid "Clone"
@@ -14556,7 +14553,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/configureView.mas:63
 msgid "Accept"
-msgstr ""
+msgstr "Прихвати"
 
 #: ../../main/core/src/templates/wizard/wizard.mas:20
 msgid "Skip"
@@ -14620,9 +14617,8 @@ msgid "Save changes?"
 msgstr "Сачувај промене?"
 
 #: ../../main/core/src/templates/headTitle.mas:21
-#, fuzzy
 msgid "Search..."
-msgstr "Тражи"
+msgstr "Тражи..."
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 msgid "Depends"
@@ -14930,7 +14926,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/del.mas:95
 msgid "Continue"
-msgstr ""
+msgstr "Настави"
 
 #: ../../main/software/src/templates/updates.mas:69
 msgid ""
@@ -15011,7 +15007,7 @@ msgstr "Надоградња пакета"
 #: ../../main/software/src/templates/ebox.mas:157
 #: ../../main/software/src/templates/ebox.mas:168
 msgid "Install"
-msgstr ""
+msgstr "Инсталација"
 
 #: ../../main/software/src/templates/ebox.mas:93
 msgid ""
@@ -15042,13 +15038,12 @@ msgid "Server roles"
 msgstr "Улоге сервера"
 
 #: ../../main/software/src/templates/ebox.mas:134
-#, fuzzy
 msgid "Additional services"
-msgstr "Сервис базиран на програму"
+msgstr "Додатни сервиси"
 
 #: ../../main/software/src/templates/ebox.mas:156
 msgid "Skip install"
-msgstr ""
+msgstr "Прескочи инсталацију"
 
 #: ../../main/software/src/templates/ebox.mas:165
 msgid "View basic mode"

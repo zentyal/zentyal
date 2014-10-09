@@ -5,6 +5,7 @@ $community       => 1
 $registered      => 0
 </%args>
 <%init>
+$community = 1;
  use EBox::Gettext;
  use EBox::Config;
  my $lang = 'en';
@@ -14,43 +15,7 @@ $registered      => 0
  my $BOOK_URL = "https://store.zentyal.com/training/book-admin-$lang.html?utm_source=zentyal&utm_medium=dashboard&utm_campaign=book_$lang";
  my $EDITIONS_URL = EBox::Config::urlEditions();
 </%init>
-% unless ($rsPackage and $softwarePackage) {
-<script type="text/javascript">
-function installRS(title) {
-    var url= '/Software/InstallPkgs';
-    var data = 'install=yes';
-    data += '&' +  'pkg-zentyal-remoteservices=yes';
-    data += '&popup=1';
-
-    Zentyal.Dialog.showURL(url, {
-        title: title,
-        data: data,
-        close: function() { window.location.reload();  }
-    });
-}
-
-function installSoftware(title, html) {
-   $(html).first().dialog({ title: title });
-}
-</script>
-% }
 % if ($community) {
-<div>
-% if (not $registered) {
-    <span class="links-register links-highlight links-half">
-          <& .subscriptionElement,
-            rsPackage => $rsPackage,
-            softwarePackage => $softwarePackage
-            &>
-        </span>
-        <span class="links-highlight links-half">
-% } else {
-        <span class="links-highlight">
-% }
-              <a target="_blank" href="https://remote.zentyal.com/trial/ent/" title="<% __('Test the Commercial for 30 days') %>">
-                  <% __('Free Commercial Trial') %></a>
-        </span>
-</div>
 <div class="linksBlock">
     <ul>
         <li><a class="i-doc" target="_blank" href="http://doc.zentyal.org/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=documentation"
@@ -114,31 +79,3 @@ function installSoftware(title, html) {
 </div>
 
 % }
-
-<%def .subscriptionElement>
-<%args>
-$rsPackage
-$softwarePackage
-</%args>
-% if ($rsPackage) {
-<a target="_blank"
-    href="/Wizard?page=RemoteServices/Wizard/Subscription"
-% } elsif ($softwarePackage) {
-<a target="_blank" href="#"
-   onclick="installRS('<% __s('Install Zentyal Cloud Client') %>'); return false"
-% } else {
-<%perl>
-my $howtoInstall = __sx('{op}You need to install some missing packages to register your server. Please open a console and execute the following command:{br}{opre}sudo apt-get install zentyal-software zentyal-remoteservices{cpre}{cp}',
-    op => '<p>',
-    cp => '</p>',
-    br => '<br>',
-    opre => '<code>',
-    cpre => '</code>',
-  );
-</%perl>
-<a target="_blank" href="#"
-   onclick="installSoftware('<% __s('Register your server') %>', '<% $howtoInstall %>'); return false"
-% }
-   title="<% __s('Gain access to benefits such as free remote configuration backup and zentyal.me subdomains!') %>">
-               <% __s('Register for Free!') %></a>
-</%def>

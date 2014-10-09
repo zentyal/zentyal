@@ -248,18 +248,6 @@ sub _validateInstaller
     }
 }
 
-# overriden to be able to put the defualt address for server
-sub _defaultRow
-{
-    my ($self) = @_;
-    my $row = $self->SUPER::_defaultRow();
-    my ($serverAddr) = @{ $self->_defaultServerAddr() };
-    if ($serverAddr) {
-        $row->elementByName('addr1')->setValue($serverAddr);
-    }
-    return $row;
-}
-
 sub formSubmitted
 {
     my ($self, $row) =  @_;
@@ -396,13 +384,6 @@ sub pageTitle
     }
 
     return $parentRow->printableValueByName('name');
-}
-
-sub _defaultServerAddr
-{
-    my ($self) = @_;
-    my $server = $self->parentRow()->printableValueByName('name');
-    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server, $self->parentModule()->isReadOnly());
 }
 
 sub viewCustomizer
