@@ -35,9 +35,6 @@ then
     echo zinstaller-headless >> $UDEB_INCLUDE
 fi
 
-# Add https apt method to be able to retrieve from QA updates repo
-echo apt-transport-https > $CD_BUILD_DIR/.disk/base_include
-
 if [ -f $BASE_DIR/DEBUG_MODE ]
 then
     cp $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed $CD_BUILD_DIR/preseed/ubuntu-server-debug.seed

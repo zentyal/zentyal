@@ -363,7 +363,7 @@ sub request {
         my $msgError;
         if ($code == HTTP_UNAUTHORIZED) {
             $msgError = $self->_invalidCredentialsMsg();
-        } elsif ($code = HTTP_BAD_REQUEST) {
+        } elsif ($code == HTTP_BAD_REQUEST) {
             my $errorJSON;
             try {
                   $errorJSON = $result->data();
