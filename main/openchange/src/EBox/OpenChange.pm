@@ -34,6 +34,7 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::OpenChange::VDomainsLdap;
+use EBox::DBEngineFactory;
 use EBox::OpenChange::DBEngine;
 use EBox::OpenChange::SOGO::DBEngine;
 use EBox::Samba;
@@ -923,12 +924,13 @@ sub _setupSOGoDatabase
 {
     my ($self) = @_;
 
-    my $db = $self->_sogoDBEngine();
-    my $dbUser = $db->_dbuser();
-    my $dbPass = $db->_dbpass();
-    my $dbName = $db->_dbname();
+    my $sogoDB = $self->_sogoDBEngine();
+    my $dbUser = $sogoDB->_dbuser();
+    my $dbPass = $sogoDB->_dbpass();
+    my $dbName = $sogoDB->_dbname();
     my $dbHost = '127.0.0.1';
 
+    my $db = EBox::DBEngineFactory::DBEngine();
     $db->updateMysqlConf();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
@@ -1335,9 +1337,11 @@ sub dropSOGODB
 
     # Drop SOGo database and db user. To avoid error if it does not exists,
     # the user is created and granted harmless privileges before drop it
-    my $db = $self->_sogoDBengine();
-    my $dbName = $db->_dbname();
-    my $dbUser = $db->_dbuser();
+    my $sogoDB = $self->_sogoDBengine();
+    my $dbName = $sogoDB->_dbname();
+    my $dbUser = $sogoDB->_dbuser();
+
+    my $db = EBox::DBEngineFactory::DBEngine();
     $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
