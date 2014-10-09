@@ -1,4 +1,6 @@
 4.0
+	+ Added EBox::debugDump method
+	+ Added EBox::Exception::RESTRequest
 	+ Set version to 4.0
 3.5
 	+ Fix error when using __x function from Gettext

@@ -61,6 +61,12 @@ sub as_string
     return $value;
 }
 
+sub rawContent
+{
+    my ($self) = @_;
+    return $self->{result}->content();
+}
+
 # Method: data
 #
 #   Return the result as array or hash ref (it expects a JSON response)
@@ -68,11 +74,16 @@ sub as_string
 sub data
 {
     my ($self) = @_;
-
     unless ($self->{result_json}) {
         $self->{result_json} = decode_json($self->{result}->decoded_content());
     }
     return $self->{result_json};
+}
+
+sub code
+{
+    my ($self) = @_;
+    return $self->{result}->code();
 }
 
 1;

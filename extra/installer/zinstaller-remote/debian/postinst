@@ -4,17 +4,9 @@
 
 URL=api.cloud.zentyal.com
 
-get_field()
-{
-    INPUT=$1
-    FIELD=$2
-    echo $INPUT | tr ',' "\n" | grep "\"$FIELD\"" | cut -d: -f2 | cut -d\" -f2
-}
-
-get_num_field()
-{
-    get_field "$1" "$2" | sed 's/^ //'
-}
+#FIXME
+echo "10.2.1.17 api.cloud.zentyal.com" >> /etc/hosts
+echo "hosts: files" >> /etc/nsswitch.conf
 
 DATA_DIR=/tmp/zinstaller-remote
 
@@ -27,7 +19,9 @@ then
     SERVERNAME=$HOSTNAME
 fi
 
-while [ -z "$EDITION" ]
+# TODO: validate server name (RemoteServices/Subscription/Validate.pm)
+
+while true
 do
     db_input high zinstaller-remote/user
     db_go
@@ -43,166 +37,96 @@ do
     db_get zinstaller-remote/pass
     PASSWORD="$RET"
 
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
-
+    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v2/auth/)
     if [ $? -eq 0 ] && [ "$RESPONSE" != "Authorization Required" ]
     then
-        if [ "$RESPONSE" = "[]" ]
-        then
-            EDITION="community"
-        else
-            EDITION="commercial"
-        fi
         break
     fi
 
     db_input high zinstaller-remote/auth_failed
     db_go
-    db_get zinstaller-remote/auth_failed
-    if [ "$RET" = "false" ]
+done
+
+rm -f $DATA_DIR/BUNDLE_IDS
+
+RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v2/subscriptions/list/)
+echo $RESPONSE | jq -r '.[] | .company["name"], .label, .server["name"], .uuid' |
+while read company ; read label; read server; read uuid; do
+    echo "Label: $company - $label"
+    echo "Server: $server"
+    echo "uuid: $uuid"
+    echo
+
+    if [ -n "$company" ]
     then
-        break
+        echo "$uuid:$server:$company - $label" >> $DATA_DIR/BUNDLE_IDS
+    else
+        echo "$uiid:$server:$label" >> $DATA_DIR/BUNDLE_IDS
     fi
 done
 
-if [ "$EDITION" = "commercial" ]
+NUM_BUNDLES=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | sort | uniq | wc -l)
+if [ $NUM_BUNDLES -eq 0 ]
 then
+    db_input high zinstaller-remote/no_bundles
+    db_go
 
-    if [ -f /tmp/RECOVER_MODE ]
-    then
-        servers=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/servers/)
-        echo $servers | sed "s/, /\n/g" | grep : | cut -d\" -f2 | sed 's/:/ -/g' | sort > $DATA_DIR/PARSED_SERVERS
-        choices=$(cat $DATA_DIR/PARSED_SERVERS | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
-
-        db_subst zinstaller-remote/select_hostname_recover CHOICES "$choices"
-        default=$(grep "$SERVERNAME - " $DATA_DIR/PARSED_SERVERS)
-        if [ -n "$default" ]
-        then
-            db_set zinstaller-remote/select_hostname_recover "$default"
-        fi
-        db_input high zinstaller-remote/select_hostname_recover
-        db_go
-
-        db_get zinstaller-remote/select_hostname_recover
-        SERVERNAME=$(echo $RET | cut -d' ' -f1)
-
-        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k https://$URL/v1/bundle/available/$SERVERNAME/)
-    fi
-
-    rm -f $DATA_DIR/BUNDLE_IDS
-
-    # JSON formatting seems to change, so we remove all new lines
-    RESPONSE=$(echo "$RESPONSE" | tr "\n" ' ')
-
-    echo $RESPONSE | sed "s/},\s*{/\n/g" | while read line
-    do
-        company=$(get_field "$line" company)
-        name=$(get_field "$line" name)
-        id=$(get_num_field "$line" id)
-
-        if [ -n "$id" ] && [ -n "$name" ]
-        then
-            if [ -n "$company" ]
-            then
-                echo "$id:\"$company - $name\"" >> $DATA_DIR/BUNDLE_IDS
-            else
-                echo "$id:\"$name\"" >> $DATA_DIR/BUNDLE_IDS
-            fi
-        fi
-    done
-
-    NUM_BUNDLES=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | sort | uniq | wc -l)
-    if [ $NUM_BUNDLES -eq 0 ]
-    then
-        db_input high zinstaller-remote/no_bundles
-        db_go
-
-        exit 0
-    elif [ $NUM_BUNDLES -eq 1 ]
-    then
-        BUNDLE_ID=$(head -1 $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
-        if grep "Premium" $DATA_DIR/BUNDLE_IDS
-        then
-            db_input high zinstaller-remote/auth_ok_premium
-        elif grep "Business" $DATA_DIR/BUNDLE_IDS
-        then
-            db_input high zinstaller-remote/auth_ok_business
-        else
-            db_input high zinstaller-remote/auth_ok_professional
-        fi
-        db_go
-    else
-        choices=$(cut -d: -f2 $DATA_DIR/BUNDLE_IDS | cut -d\" -f2 | sort | uniq | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
-        db_subst zinstaller-remote/select_bundle CHOICES "$choices"
-        db_input high zinstaller-remote/select_bundle
-        db_go
-
-        db_get zinstaller-remote/select_bundle
-        BUNDLE="$RET"
-        BUNDLE_ID=$(grep "\"$BUNDLE\"" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f1)
-    fi
-
-    # Get subscription data
-    RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-    if [ $? -eq 0 ]
-    then
-        COMPANY=$(get_field "$RESPONSE" company)
-        QA_USERNAME="$COMPANY-$SERVERNAME"
-        UUID=$(get_field "$RESPONSE" uuid)
-        QA_PASSWORD=$(echo $UUID | sed 's/-//g')
-        SERVER_PASSWORD=$(get_field "$RESPONSE" password)
-
-        echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
-        echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
-        touch $DATA_DIR/COMMERCIAL_EDITION
-    else
-        # Repeat getting the error (without -f)
-        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-        echo $RESPONSE
-        echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
-        lines=$(echo $RESPONSE | tr ']' "\n" | cut -d[ -s -f2)
-        db_subst zinstaller-remote/error_register ERROR "$lines"
-        db_input high zinstaller-remote/error_register
-        db_go
-        exit 0
-    fi
-fi
-
-if [ -f /tmp/RECOVER_MODE ]
+    exit 0
+elif [ $NUM_BUNDLES -eq 1 ]
 then
-    if [ "$EDITION" = "commercial" ]
-    then
-        RESPONSE=$(curl -u $UUID:$SERVER_PASSWORD -k https://confbackup.cloud.zentyal.com/conf-backup/meta/all/)
-        if [ $? -eq 0 ] && [ -z "$RESPONSE" ]
-        then
-            db_input high zinstaller-remote/error_backups
-            rm -f /tmp/RECOVER_MODE
-        fi
-    else
-        db_input high zinstaller-remote/error_dr
-        db_go
-        rm -f /tmp/RECOVER_MODE
-    fi
+    BUNDLE_ID=$(head -1 $DATA_DIR/BUNDLE_IDS | cut -d: -f1)
+    db_input high zinstaller-remote/auth_ok
+    db_go
 else
-    if [ "$EDITION" = "community" ]
-    then
-        db_input high zinstaller-remote/auth_ok_community
-        db_go
-    elif [ -z "$EDITION" ]
-    then
-        db_input high zinstaller-remote/no_register
-        db_go
-        exit 0
-    fi
+    choices=$(cut -d: -f3- $DATA_DIR/BUNDLE_IDS | sort | tr "\n" ',' | sed 's/,$//' | sed 's/,/, /g')
+    db_subst zinstaller-remote/select_bundle CHOICES "$choices"
+    db_input high zinstaller-remote/select_bundle
+    db_go
+
+    db_get zinstaller-remote/select_bundle
+    BUNDLE="$RET"
+    BUNDLE_ID=$(grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f1)
 fi
 
-echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
-echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
-echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
 
-if [ $NUM_BUNDLES -gt 1 ]
+SERVER=`grep "$BUNDLE" $DATA_DIR/BUNDLE_IDS | cut -d: -f2 | head -1`
+if [ "$SERVER" = "null" ] ; then
+    MODE=new
+elif [ "$SERVERNAME" = "$SERVER" ] ; then
+    MODE=associate
+else
+    MODE=overwrite
+fi
+
+# Get subscription data
+REQUEST_URL="https://$URL/v2/subscriptions/subscribe/"
+REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=$MODE"
+RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
+if [ $? -eq 0 ]
 then
+    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f2 | cut -d' ' -f1)
+    QA_USERNAME="$COMPANY-$SERVERNAME"
+    QA_PASSWORD=$(echo $RESPONSE | jq -r '.password')
+
+    echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
+    echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
+
+    echo $USERNAME > $DATA_DIR/REGISTER_USERNAME
+    echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
+    echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
     echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
+    echo $MODE > $DATA_DIR/REGISTER_MODE
+
+    touch $DATA_DIR/COMMERCIAL_EDITION
+else
+    # Repeat getting the error (without -f)
+    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
+    echo $RESPONSE
+    echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
+    lines=$(echo $RESPONSE | tr ']' "\n" | cut -d[ -s -f2)
+    db_subst zinstaller-remote/error_register ERROR "$lines"
+    db_input high zinstaller-remote/error_register
+    db_go
 fi
 
 exit 0

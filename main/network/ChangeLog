@@ -1,4 +1,5 @@
 4.0
+	+ Drop Zentyal-provided Dynamic DNS
 	+ WAN failover now uses cron instead of old events module
 	+ Set version to 4.0
 	+ Check external IP against different providers to be more reliable

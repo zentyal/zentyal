@@ -665,16 +665,24 @@ sub setErrorFromException
 
     my $dump = EBox::Config::boolean('dump_exceptions');
     if ($dump) {
-        $self->{error} = $ex->stringify() if $ex->can('stringify');
+        if ($ex->can('stringify')) {
+            $self->{error} = $ex->stringify();
+        } else {
+            $self->{error} = "$ex";
+        }
+
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
         if ($ex->isa('HTML::Mason::Exception')) {
             $self->{error} .= $ex->as_text();
-        } else {
+        } elsif ($ex->can('stacktrace')) {
             $self->{error} .= $ex->stacktrace();
+        } else {
+            $self->{error} .= __('No trace available for this error');
         }
         $self->{error} .= "</pre>\n";
         $self->{error} .= "<br/>\n";
+
         return;
     }
 

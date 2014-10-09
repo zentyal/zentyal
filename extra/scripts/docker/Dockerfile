@@ -44,7 +44,6 @@ ADD  main/ca/debian/control /tmp/main/ca/debian/control
 ADD  main/printers/debian/control /tmp/main/printers/debian/control
 ADD  main/common/debian/control /tmp/main/common/debian/control
 ADD  main/network/debian/control /tmp/main/network/debian/control
-ADD  main/remoteservices/debian/control /tmp/main/remoteservices/debian/control
 ADD  main/ha/debian/control /tmp/main/ha/debian/control
 
 #Install the zentyal deps

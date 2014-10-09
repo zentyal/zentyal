@@ -533,7 +533,7 @@ sub objectClasses
 #
 # Example:
 #
-#     $ldap->lastModificationTime('20091204132422Z') => 1259955547
+#     $ldap->lastModificationTime('20091204132422.0Z') => 1259955547
 #
 sub lastModificationTime
 {
@@ -555,9 +555,9 @@ sub lastModificationTime
     }
     my $lastStamp = $sortedEntries[-1]->get_value('modifyTimestamp');
 
-    # Convert to seconds since epoch
+    # Convert to seconds since epoch lastStamp example: 20140917122427.0Z
     my ($year, $month, $day, $h, $m, $s) =
-      $lastStamp =~ /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/;
+      $lastStamp =~ /^([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/;
     return POSIX::mktime( $s, $m, $h, $day, $month -1, $year - 1900 );
 
 }

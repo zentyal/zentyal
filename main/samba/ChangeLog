@@ -1,4 +1,5 @@
 4.0
+	+ Fixed EBox::LDAPBase::lastModificationTime
 	+ Join as additional domain controller on initial configuration wizard
 	+ Name in Module Status is now "Domain Controller and File Sharing"
 	+ Set version to 4.0
