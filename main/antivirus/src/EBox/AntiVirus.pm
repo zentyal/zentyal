@@ -42,6 +42,8 @@ use constant {
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
   CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
 
+  FRESHCLAM_INIT                => 'clamav-freshclam',
+  FRESHCLAMPIDFILE              => CLAMAV_PID_DIR . 'freshclam.pid',
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
@@ -169,11 +171,6 @@ sub usedFiles
             module => 'antivirus',
         },
         {
-            file => FRESHCLAM_CONF_FILE,
-            reason => __('To schedule the launch of the updater'),
-            module => 'antivirus',
-        },
-        {
             file   => APPARMOR_FRESHCLAM,
             reason => __x('Custom {app} profile configuration '
                           . 'for {bin} binary',
@@ -197,6 +194,10 @@ sub _daemons
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
+        {
+            name => FRESHCLAM_INIT,
+            type => 'init.d',
+            pidfiles => [FRESHCLAMPIDFILE],
     ];
 }
 
