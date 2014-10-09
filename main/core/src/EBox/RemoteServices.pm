@@ -307,7 +307,6 @@ sub refreshSubscriptionInfo
             } else {
                 $self->unregisterCommunityServer();
             }
-
         } catch ($ex) {
             EBox::error("Error unsubscribing $ex");
         }
