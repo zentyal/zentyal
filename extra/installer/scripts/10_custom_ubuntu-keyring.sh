@@ -35,7 +35,7 @@ sudo rm squashfs-root/ubuntu-keyring*.deb
 
 # Add https apt method to be able to retrieve from QA updates repo
 mkdir -p squashfs-root/usr/lib/apt/methods
-sudo cp /usr/lib/apt/methods/https sqashfs-root/usr/lib/apt/methods
+sudo cp /usr/lib/apt/methods/https squashfs-root/usr/lib/apt/methods/
 
 sudo mksquashfs squashfs-root filesystem.squashfs
 mv -f filesystem.squashfs $CD_BUILD_DIR/install/
