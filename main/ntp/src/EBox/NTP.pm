@@ -1,5 +1,5 @@
 # Copyright (C) 2005-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,18 +21,20 @@ package EBox::NTP;
 
 use base qw(EBox::Module::Service);
 
+use EBox;
 use EBox::Objects;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use TryCatch::Lite;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use Time::HiRes qw(usleep);
-use EBox;
+use TryCatch::Lite;
 
-use constant NTPCONFFILE => '/etc/ntp.conf';
+# Constants
+use constant NTPCONFFILE      => '/etc/ntp.conf';
+use constant SAMBA_SOCKET_DIR => '/var/lib/samba/ntp_signd';
 
 sub _create
 {
@@ -57,7 +59,7 @@ sub appArmorProfiles
     my ($self) = @_;
 
     EBox::info('Setting NTP apparmor profile');
-    my @params = ();
+    my @params = (sambaSocketDir => SAMBA_SOCKET_DIR);
     return [
             {
                 'binary' => 'usr.sbin.ntpd',
@@ -262,6 +264,12 @@ sub _setConf
     push(@array, 'active'   => $active);
     push(@array, 'synchronized'  => $synch);
     push(@array, 'servers'  => \@servers);
+
+    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR)
+        and $self->global()->modInstance('samba')->isEnabled()) {
+        EBox::Sudo::root('chgrp ntp "' . SAMBA_SOCKET_DIR . '"');
+        push(@array, 'sambaSocket' => SAMBA_SOCKET_DIR);
+    }
 
     $self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 }
