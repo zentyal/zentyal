@@ -31,9 +31,12 @@ cp -v ../ubuntu-keyring*deb $CD_BUILD_DIR/pool/main/u/ubuntu-keyring
 sudo unsquashfs $CD_BUILD_DIR/install/filesystem.squashfs
 sudo cp ../ubuntu-keyring*.deb squashfs-root/
 sudo chroot squashfs-root sh -c "dpkg -i ubuntu-keyring*.deb"
-# Add https apt method to be able to retrieve from QA updates repo
-sudo chroot squashfs-root sh -c "apt-get install -y --force-yes --no-install-recommends apt-transport-https"
 sudo rm squashfs-root/ubuntu-keyring*.deb
+
+# Add https apt method to be able to retrieve from QA updates repo
+mkdir -p squashfs-root/usr/lib/apt/methods
+sudo cp /usr/lib/apt/methods/https sqashfs-root/usr/lib/apt/methods
+
 sudo mksquashfs squashfs-root filesystem.squashfs
 mv -f filesystem.squashfs $CD_BUILD_DIR/install/
 printf $(sudo du -sx --block-size=1 squashfs-root | cut -f1) > $CD_BUILD_DIR/install/filesystem.size
