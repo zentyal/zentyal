@@ -1044,10 +1044,8 @@ sub _rpcProxyHostForDomain
     my @ips;
     my $network = $self->global()->modInstance('network');
     my @extIfaces  = @{ $network->ExternalIfaces() };
-    if (not @extIfaces) {
-        throw EBox::Exceptions::External (__('System needs at least one external interface'));
-    }
-    foreach my $iface (@extIfaces) {
+    my @intIfaces  = @{ $network->InternalIfaces() };
+    foreach my $iface (@extIfaces, @intIfaces) {
         my $addresses = $network->ifaceAddresses($iface);
         push @ips, map { $_->{address} } @{  $addresses };
     }
@@ -1074,7 +1072,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your external IP addresses',
+        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your interface IP addresses',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'
