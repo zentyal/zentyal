@@ -104,7 +104,7 @@ REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=$MODE"
 RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
 if [ $? -eq 0 ]
 then
-    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f2 | cut -d' ' -f1)
+    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f3 | cut -d' ' -f1)
     QA_USERNAME="$COMPANY-$SERVERNAME"
     QA_PASSWORD=$(echo $RESPONSE | jq -r '.password')
 

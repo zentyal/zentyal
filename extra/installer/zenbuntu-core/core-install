@@ -81,19 +81,9 @@ gen_locales()
 
 create_repository # Set up local package repository
 
-# install zentyal core and software
-PACKAGES=zentyal
-
 update_if_network # apt-get update if we are connected to the internet
 
-REGISTER_DATA=/var/lib/zinstaller-remote
-
-if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
-then
-    PACKAGES="$PACKAGES zentyal-remoteservices"
-fi
-
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes $PACKAGES
+DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
 
 gen_locales
 
@@ -102,7 +92,7 @@ then
     touch /var/lib/zentyal/.disaster-recovery
 fi
 
-if [ -f $REGISTER_DATA/REGISTER_USERNAME ]
+if [ -f /var/lib/zinstaller-remote/REGISTER_USERNAME ]
 then
     plymouth message --text="Registering your server... Please wait."
     /usr/share/zenbuntu-core/remote-register
