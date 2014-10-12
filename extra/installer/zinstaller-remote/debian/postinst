@@ -115,7 +115,8 @@ then
     echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
     echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
     echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
-    echo $MODE > $DATA_DIR/REGISTER_MODE
+    # In second stage we always associate as we've subscribed here already
+    echo associate > $DATA_DIR/REGISTER_MODE
 
     touch $DATA_DIR/COMMERCIAL_EDITION
 else
