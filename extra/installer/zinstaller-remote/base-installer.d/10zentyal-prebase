@@ -42,4 +42,7 @@ Acquire::https::$REPO {
 };
 EOF
 
+mkdir -p /target/var/lib/zentyal/
+touch /target/var/lib/zentyal/.commercial-edition
+
 exit 0
