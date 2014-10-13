@@ -3,7 +3,6 @@
   $sslPort => undef
   $sslCert => undef
 </%args>
-% return; # XXX
 # FIXME: unhardcode ports if customized on UI
 <VirtualHost *:80>
 ServerName <% $hostname %>
