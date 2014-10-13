@@ -686,7 +686,7 @@ sub _setCert
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        EBox::error("Cannot create oepnchange certificate because there is not usable CA");
+        EBox::error("Cannot create openchange certificate because there is not usable CA");
         EBox::Sudo::root('rm -rf "' . OCSMANAGER_DOMAIN_PEM . '"');
         return;
     }
