@@ -1086,7 +1086,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your  IP addresses',
+        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your external IP addresses',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'
