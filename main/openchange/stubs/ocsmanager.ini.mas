@@ -110,7 +110,6 @@ ssl = false
 # file makes sieve and OCSManager lives in the same host
 # managesieve indicates the server to put/get the sieve script
 backend = file
-sieve_script_path = /dev/null
 
 [outofoffice:file]
 # Path of the sieve script for the user
