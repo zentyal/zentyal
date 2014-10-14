@@ -1,4 +1,5 @@
 4.0
+	+ Make webadmin certificate modifiable via CA module
 	+ Better control of error in local backup confirmation dialog
 	+ Fixed i18n bug in progress dialog
 	+ Updated remoteservices dependencies

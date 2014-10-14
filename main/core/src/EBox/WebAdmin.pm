@@ -47,6 +47,7 @@ use constant NGINX_SERVER_KEY => 'nginxServers';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
+use constant CERT_FILE     => EBox::Config::conf() . 'ssl/ssl.pem';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'webadmin_no_restart_on_trigger';
 
 # Constructor: _create
@@ -671,6 +672,25 @@ sub _nginxIncludes
     }
 
     return \@includes;
+}
+
+# Method: certificates
+#
+# Overrides: EBox::Module::Service::certificates
+#
+sub certificates
+{
+    my ($self) = @_;
+    return [
+        {
+            serviceId => 'Zentyal Administration Web Server',
+            service => __('Zentyal Administration Web Server'),
+            path => CERT_FILE,
+            user =>  'root',
+            group => 'root',
+            mode => '0600',
+        },
+     ];
 }
 
 # Method: addCA
