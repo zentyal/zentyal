@@ -44,4 +44,16 @@ sub DBEngine
     return $_instance;
 }
 
+# Function: disconnect
+#
+#   disconenct and destroy the active dbengine
+#   A new call to DBngine will create a new one
+sub disconnect
+{
+    if ($_instance) {
+        # destroying the object forces discconection
+        $_instance = undef;
+    }
+}
+
 1;
