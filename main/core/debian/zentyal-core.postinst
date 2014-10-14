@@ -114,6 +114,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart webadmin $2
+        /usr/share/zentyal/initial-setup  remoteservices $2
 
         dpkg-trigger --no-await zentyal-core
     ;;
