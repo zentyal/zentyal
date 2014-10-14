@@ -73,6 +73,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Common::Model::EnableForm;
 use EBox::Util::Lock;
+use EBox::Util::Version;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
