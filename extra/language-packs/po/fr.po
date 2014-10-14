@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-04-09 16:41+0200\n"
-"Last-Translator: Ordifuté <christian@ordifute.ch>\n"
+"PO-Revision-Date: 2014-10-14 11:20+0200\n"
+"Last-Translator: GuISm0 <chkdsk_guismo@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgid ""
 "CA certificate file)"
 msgstr ""
 "Ce paquet n'est pas un paquet de configuration valide pour un Zentyal à "
-"Zentyal. (Fichier de l'Autorité de Certification manquant)"
+"Zentyal. (Fichier de certification CA manquant)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
@@ -75,7 +75,7 @@ msgid ""
 "certificate private key file)"
 msgstr ""
 "Ce paquet n'est pas un paquet de configuration valide pour un Zentyal à "
-"Zentyal. (Fichier de clés privées pour le certificat manquant)"
+"Zentyal. (Fichier du certificat de(s) clé(s) privée(s) manquant)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -90,9 +90,7 @@ msgstr "Fichier de certificat client inexistant {p}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
-"Fichier de certificat de clé privée inexistant {p} (certificate's private "
-"key file)"
+msgstr "Fichier de(s) clé(s) privée(s) du certificat inexistant {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -203,28 +201,28 @@ msgstr "Service"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1952
 #: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Running"
-msgstr "En cours d'execution"
+msgstr "En cours d'exécution"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:475
 msgid "Stopped"
-msgstr "Stoppé"
+msgstr "Arrêté"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
 msgid "Daemon status"
-msgstr "Status du service"
+msgstr "Statut du service"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
-msgstr "Cible de connection"
+msgstr "Cible de connexion"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:570
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr "adresse de l'interface RPV (VPN)"
+msgstr "adresse de l'interface VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
@@ -234,7 +232,7 @@ msgstr "Non actif"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
 msgid "The port {p}/{pro} is already in use"
-msgstr "Le port {p}/{pro} est en cours d'utilisation"
+msgstr "Le port {p}/{pro} est déjà en cours d'utilisation"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:236
 #, perl-brace-format
@@ -249,12 +247,12 @@ msgstr "Le certificat {cn} a expiré"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:242
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr "Le certificat {cn} a été invalidé"
+msgstr "Le certificat {cn} a été révoqué"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:260
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr "Le serveur {name} n'a pas de certificat d'assigné"
+msgstr "Le serveur {name} n'a pas de certificat assigné"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:281
 #, perl-brace-format
@@ -263,7 +261,7 @@ msgid ""
 "assigned"
 msgstr ""
 "Impossible de trouver la clef du serveur {name}, car il ne possède pas de "
-"certificat"
+"certificat assigné "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
 #, perl-brace-format
@@ -271,7 +269,7 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
-"Le serveur VPN {name} n'a pas pu être configuré, aucune adresse IP trouvée "
+"Le serveur VPN {name} ne peut pas être configuré, aucune adresse IP trouvée "
 "pour l'interface {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
@@ -295,7 +293,7 @@ msgstr "Toutes les interfaces externes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 msgid "Not found"
-msgstr "Ne pas trouvée"
+msgstr "Introuvable"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:907
 msgid "Local address"
@@ -313,20 +311,20 @@ msgstr "Port"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:915
 msgid "VPN subnet"
-msgstr "Sous-réseau RPV (VPN)"
+msgstr "Sous-réseau VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:918
 msgid "VPN network interface"
-msgstr "Interface réseau RPV (VPN)"
+msgstr "Interface réseau VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr "Réseaux diffusés (Advertised networks)"
+msgstr "Liste de réseaux annoncés"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr "Réseau diffusé (Advertised network)"
+msgstr "réseau annoncé"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -338,11 +336,12 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
-"{openpar} Vous pouvez ajouter ici les réseaux que vous ovulez rendre "
+"{openpar} Vous pouvez ajouter ici les réseaux que vous voulez rendre "
 "accessibles aux clients se connectant à ce VPN {closepar} {openpar} "
-"Typiquement, vous allez autoriser l'accès à votre LAN en publiant ici son "
-"adresse réseau{closepar} {openpar} Si l'adresse d'un réseau publiée est la "
-"même que l'adresse réseau VPN, l'adresse annoncée sera ignorée {closepar}  "
+"Typiquement, vous allez autoriser l'accès à votre LAN en publiant son "
+"adresse réseau ici .{closepar} {openpar} Si l'adresse d'un réseau annoncée "
+"est la même que l'adresse réseau VPN, l'adresse annoncée sera ignorée "
+"{closepar}  "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -390,11 +389,11 @@ msgstr "Configuration"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr "Réseaux publiés (Advertised networks)"
+msgstr "Réseaux annoncés (Advertised networks)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
-msgstr "Télécharger le paquetage client (client bundle)"
+msgstr "Télécharger le paquet client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:106
 msgid "List of servers"
@@ -402,7 +401,7 @@ msgstr "Liste des serveurs"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:107
 msgid "VPN servers"
-msgstr "Serveurs RPV (VPN)"
+msgstr "Serveurs VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
@@ -429,8 +428,8 @@ msgid ""
 "module{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Vous devez créer un certificat CA pour utiliser le serveur VPN. "
-"{closepar}{openpar}Veuillez vous rendre {openhref}au module de certificats "
-"d'autorité{closehref} et en créer un.{closepar}"
+"{closepar}{openpar}Veuillez vous rendre {openhref}dans le module de "
+"certificats d'autorité{closehref} et en créer un.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -441,8 +440,8 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Impossible d'activer le serveur car il n'est pas totalement configuré; "
-"Éditez la configuration et essayez de nouveau"
+"Impossible d'activer le serveur car il n'est pas totalement configuré; S'il "
+"vous plait, éditez la configuration et essayez de nouveau"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
@@ -454,8 +453,9 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
-"{act} impossible car il n'y a aucun certificat disponible. Merci d'aller au "
-"module d'autorité de certification et de créer des nouveaux certificats"
+"{act} impossible car il n'y a aucun certificat disponible. Merci de vous "
+"rendre dans le module d'autorité de certification et de créer des nouveaux "
+"certificats"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
@@ -477,7 +477,7 @@ msgid ""
 "{certName} certificate"
 msgstr ""
 "Impossible de créer le serveur (name) car il existe déjà un certificat nommé "
-"(certName) avec  l'état (stat).<br/>Veuillez choisir un autre nom ou "
+"(certName) avec l'état (stat).<br/>Veuillez choisir un autre nom ou "
 "renommer le certificat (certName).  "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
@@ -490,14 +490,15 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}Vous pouvez configurer le serveur \"openVPN\" pour facilement "
-"connecter des bureaux ou utilisateurs distants.{closepar}{openpar} Cliquer "
-"sur {openit}Configuration{closeit} pour définir les paramètres du RPV (VPN)."
-"{closepar}{openpar}{openit}Réseaux diffusés (Advertised networks){closeit} "
-"vous permet de configurer quels réseaux vous désirer rendre accessibles aux "
-"utilisateurs distants.{openpar} Une fois la configuration terminée, vous "
-"pouvez télécharger un paquetage de configuration pour vos utilisateurs "
-"distants."
+"{openpar}Vous pouvez configurer les serveurs \"openVPN\" pour connecter "
+"facilement des bureaux ou utilisateurs distants.{closepar}{openpar} Cliquez "
+"sur {openit}configuration{closeit} pour définir les paramètres "
+"VPN.{closepar}{openpar}{openit}Réseaux annoncés (Advertised "
+"networks){closeit} vous permet de configurer quels réseaux vous désirez "
+"rendre accessible aux utilisateurs distants.{openpar} Une fois la "
+"configuration terminée, vous pouvez télécharger un fichier de configuration "
+"pour votre système d'exploitation qui sera utilisé dans vos applications "
+"clients."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -537,15 +538,15 @@ msgstr "Mot de passe du serveur tunnel"
 # Dans ce contexte c'est un parametre de configuration avec une valeur (ex: 1194, le port par defaut VPN), pas une option booleenne
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr "Port du client"
+msgstr "Port BIND du client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
 msgid "Bind address for client"
-msgstr "Adresse du client"
+msgstr "Adresse BIND pour le client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr "Commande à executer depuis que toutes les routes sont définies"
+msgstr "Commande à executer après que les routes sont définies"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
@@ -568,22 +569,24 @@ msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
 msgstr ""
+"le certification et/ou la clé privée chargé(es) ne sont pas valide(s). "
+"Fichiers: {file}, Error: {err} "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr "Type de clients (Client's type)"
+msgstr "Type de clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr "Ajouter l'installation d'OpenVPN au paquetage"
+msgstr "Ajouter l'installation de l'OpenVPN au paquet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr "Installateur OpenVPN pour pour Microsoft Windows"
+msgstr "l'installateur de l'OpenVPN pour Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 msgid "Connection strategy"
-msgstr "stratégie de connexion"
+msgstr "Stratégie de connexion"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -594,20 +597,20 @@ msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
-"C'est l'adresse qui sera utilisée par les clients pour se connecter à ce "
-"serveur. En résumé, ce sera une IP publique ou un nom d'hôte"
+"Ceci est l'adresse qui sera utilisée par les clients pour se connecter à ce "
+"serveur. En général, ce sera une IP publique ou un nom d'hôte"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
-msgstr "Adresse supplémentaire du serveur (optionnelle)"
+msgstr "Adresse du serveur supplémentaire (optionnelle)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr "Adresse supplémentaire du serveur secondaire (optionnelle)"
+msgstr "Adresse secondaire du serveur supplémentaire (optionnelle)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
-msgstr "Télécharger le paquetage client (client bundle)"
+msgstr "Télécharger le paquet client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
@@ -624,7 +627,7 @@ msgstr "Aléatoire"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr "Bascule (Failover)"
+msgstr "Bascule"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
@@ -635,12 +638,12 @@ msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
-"Impossible de créer un paquetage car le serveur n'est pas complètement "
+"Impossible de créer un paquet car le serveur n'est pas complètement "
 "configuré. Veuillez éditer sa configuration et recommencer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:196
 msgid "Cannot use for the bundle the server's certificate"
-msgstr "Impossible le certificat du serveur pour le paquetage"
+msgstr "Impossible d'utiliser le certificat du serveur pour le paquet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
 msgid ""
@@ -665,7 +668,7 @@ msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
-"Un paquetage client est un fichier qui contient une configuration prête à "
+"Un paquet client est un fichier qui contient une configuration prête à "
 "l'emploi pour vos clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:345
@@ -674,7 +677,7 @@ msgid ""
 "complete the configuration and retry"
 msgstr ""
 "Impossible de créer le paquetage car le serveur n'est pas complètement "
-"configuré. Veuillez compléter sa configuration et recommencer"
+"configuré. Veuillez compléter la configuration et recommencer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:355
 #, perl-brace-format
@@ -1120,9 +1123,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Vous devez définir \"insecure_rip_conf\" à oui ou non"
 
 #: ../../main/ha/src/EBox/HA.pm:70
-#, fuzzy
 msgid "Rule added by Zentyal HA module"
-msgstr "Règles ajoutées par les services de Zentyal (mode avancé)"
+msgstr "Règles ajoutées par le module Haute Disponibilité de Zentyal"
 
 #: ../../main/ha/src/EBox/HA.pm:92
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
@@ -1217,13 +1219,12 @@ msgid "Status"
 msgstr "État"
 
 #: ../../main/ha/src/EBox/HA.pm:1034
-#, fuzzy
 msgid "not enabled"
-msgstr "activé"
+msgstr "non activé"
 
 #: ../../main/ha/src/EBox/HA.pm:1037
 msgid "Nodes"
-msgstr ""
+msgstr "Noeuds"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1262,37 +1263,30 @@ msgid "IP address"
 msgstr "Adresse IP"
 
 #: ../../main/ha/src/EBox/HA.pm:1047
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "L'interface {iface} n'eest pas configurée"
+msgstr "Le cluster n'est pas configuré"
 
 #: ../../main/ha/src/EBox/HA.pm:1136
 #, perl-brace-format
 msgid "{iface} does not have IP address to use"
-msgstr ""
+msgstr "{iface} n'a pas d'adresse IP à utiliser"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Noeuds Haute Disponibilité"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
+"La réplication a échoué. Merci de consulter {log file} pour plus "
+"d'informations"
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:183
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Configuration du client"
+msgstr "Configuration du cluster"
 
 #: ../../main/ha/src/EBox/HA/Composite/Status.pm:44
 #, perl-brace-format
@@ -1300,61 +1294,53 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Ici, vous pouvez afficher le statut de votre cluster. Si vous voulez "
+"afficher plus d'infos concernant les erreurs indiquées, merci d'aller à "
+"{logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "Le nom est trop long. La longueur maximale est {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "Le nom est trop court. La longueur minimale est {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
 msgstr ""
+"Le nom doit uniquement contenir des lettres, des chiffres ou des underscores"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:98
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "L'adresse IP {ip} n'appartient à aucune interface"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:133
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr ""
-"Il n'y a aucune interface statique interne pour définir l'adresse IP du "
-"serveur Web."
+msgstr "Il a une interface de réseau avec l'adresse IP donnée."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:135
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr ""
-"Il n'y a aucune interface statique interne pour définir l'adresse IP du "
-"serveur Web."
+msgstr "Il s'agit d'une adresse fixée en DHCP avec l'adresse IP donnée."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:137
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
-"Il n'y a aucune interface statique interne pour définir l'adresse IP du "
-"serveur Web."
+msgstr "Il y a une plage DHCP qui inclut l'adresse IP donnée."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:240
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Adresses IP du domaine"
+msgstr "Adresses IP dynamique"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:249
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Adresses IP du domaine"
+msgstr "Adresses IP dynamique"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:253
-#, fuzzy
 msgid "floating IP address"
-msgstr "Domaine ou adresse IP"
+msgstr "adresse IP dynamique"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:125
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:102
@@ -1365,168 +1351,116 @@ msgstr "Domaine ou adresse IP"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "Valider"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "Réessayer"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
-msgstr ""
+msgstr "En ligne"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "Off-line"
-msgstr ""
+msgstr "Hors-ligne"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:166
 #, perl-brace-format
 msgid "Node list for {name} cluster"
-msgstr ""
+msgstr "Liste de nœuds du cluster {name}"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:187
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:111
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:223
 #: ../../main/core/src/EBox/SysInfo.pm:323
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
-#, fuzzy
 msgid "Hostname"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'hôte\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Nom de l'hôte"
+msgstr "Nom de l'hôte"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:199
-#, fuzzy
 msgid "Replication"
-msgstr "Application"
+msgstr "Réplication"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Demote"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Enlever\n"
-"#-#-#-#-#  fr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Supprimer\n"
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Enlever\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Supprimer\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Supprimer"
+msgstr "rétrograder"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:215
-#, fuzzy
 msgid "Promote"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Enlever\n"
-"#-#-#-#-#  fr.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Supprimer\n"
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Enlever\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Supprimer\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Supprimer"
+msgstr "Promouvoir"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:226
 msgid "Node list for cluster"
-msgstr ""
+msgstr "Liste de nœuds de cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:231
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:132
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Ce protocole n'utilise pas de port"
+msgstr "Le cluster ne dispose pas de nœuds."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:273
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "Le nœud {name} est maintenant un nœud actif"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:287
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "Le nœud {name} est maintenant un nœud passif"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:62
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:75
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:161
-#, fuzzy
 msgid "Cluster name"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Nom du cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
-#, fuzzy
 msgid "Cluster secret"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Cluster secret"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Actuel contrôleur désigné"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"L'actuel contrôleur désigné effectue une opération dans le cluster. Ce nœud "
+"peut être modifié sans impacter le cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "Le service est activé, mais ne fonctionne pas"
+msgstr "Erreur: Le service {service} est fonctionne pas"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Action"
+msgstr "Dernière modification"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Configuré"
+msgstr "Nœuds configurés"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "nœuds "
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Configuré"
+msgstr "Ressources configurées"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Ressource"
+msgstr "Ressources"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
 #: ../../main/samba/src/EBox/Samba.pm:3732
@@ -1534,67 +1468,53 @@ msgid "Resource"
 msgstr "Ressource"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:114
-#, fuzzy
 msgid "Started at"
-msgstr "Démarrer"
+msgstr "Démarré à"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:127
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Cette liste ne possède pas de catégorie"
+msgstr "Cette liste ne possède pas de ressources définies "
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:140
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:145
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:151
-#, fuzzy
 msgid "noname"
-msgstr "nom"
+msgstr "sans nom"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
-#, fuzzy
 msgid "Cluster host"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "hôte du cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
-#, fuzzy
 msgid "Cluster host port"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Port du hôte cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
-#, fuzzy
 msgid "Choose network interface"
-msgstr "interface réseau"
+msgstr "Choissisez une interface réseau"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
 msgstr ""
+"Ca sera utilisé comme un canal de communication entre les membres du cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:175
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Configurez la façon dont le serveur démarrera le cluster ou il rejoindra un "
+"autre existant"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:177
 msgid "If you change any setting, you may suffer a service cluster disruption,"
 msgstr ""
+"Si vous changez un paramètre, vous devrez subir une interruption de service "
+"cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:198
-#, fuzzy
 msgid "Create a new cluster"
-msgstr "Créer un nouveau disque"
+msgstr "Créer un nouveau cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
@@ -2224,7 +2144,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:83
 #, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
-msgstr "Il existe déjà un hôte dont le nom est '{name}' dans le même domaine"
+msgstr "L'adresse IP est déjà assignée à l'hôte '{name}' dans le même domaine"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
@@ -2313,9 +2233,8 @@ msgstr ""
 "SSL supporter"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
-#, fuzzy
 msgid "SSL connection method to this server."
-msgstr "Aucun utilisateur n'est connecté au RPV (VPN)"
+msgstr "Méthode de connexion SSL à ce serveur"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:137
 msgid "Connect to other servers"
@@ -2336,18 +2255,16 @@ msgid "Multi User Chat allows to create chat rooms in this server."
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:151
-#, fuzzy
 msgid "Enable STUN service"
-msgstr "Activer le service"
+msgstr "Activer le service STUN"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:152
 msgid "STUN service helps Jingle ICE clients behind NAT."
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:158
-#, fuzzy
 msgid "Enable SOCKS5 proxy service"
-msgstr "Activer le service"
+msgstr "Activer le service proxy SOCKS5"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:159
 msgid "SOCKS5 proxy service helps file transfers between clients behind NAT."
@@ -2732,9 +2649,8 @@ msgid "Country code"
 msgstr "Code du pays"
 
 #: ../../main/ca/src/EBox/CA.pm:224
-#, fuzzy
 msgid "The country code must be the 2-characters ISO code"
-msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
+msgstr "Le code du pays doit être d'un minimum de 2 caractères ISO"
 
 #: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:744
 #: ../../main/ca/src/EBox/CA.pm:1373
@@ -2811,12 +2727,12 @@ msgstr "Ficher de certificat"
 
 #: ../../main/ca/src/EBox/CA.pm:1418
 msgid "The certificate to renew does NOT exist"
-msgstr "Le certificat à renouveler n'existe PAS"
+msgstr "Le certificat à renouveler n'existe pas"
 
 #: ../../main/ca/src/EBox/CA.pm:1458
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
-msgstr "Le certificat avec ce nom commun {cn} n'existe PAS dans ce CA"
+msgstr "Le certificat avec ce nom commun {cn} n'existe pas dans ce CA"
 
 #: ../../main/ca/src/EBox/CA.pm:1739
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
@@ -2854,14 +2770,13 @@ msgid "String"
 msgstr "Strict"
 
 #: ../../main/ca/src/EBox/CA.pm:1913
-#, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
 msgstr ""
-"La saisie contient des caractères incorrects. Tous les caractères "
-"alphanumériques, ainsi que ces caractères : .?&+:\\@ et les espaces sont "
-"tolérés."
+"La champs saisi contient des caractères incorrects. Tous les caractères "
+"alphanumériques (ASCII), ainsi que ces caractères : .?&+:\\@ et les espaces "
+"sont tolérés."
 
 #: ../../main/ca/src/EBox/CA.pm:2432
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
@@ -3221,9 +3136,8 @@ msgid "Failure"
 msgstr "échec"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:426
-#, fuzzy
 msgid "Antivirus DB updates"
-msgstr "Paramètres par défaut de l'antivirus"
+msgstr "Mise à jour de la base de données antivirale"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -4086,13 +4000,12 @@ msgid "Secondary nameserver"
 msgstr "Serveur de nom secondaire"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:416
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
 msgstr ""
-"Si le \"Samba Zentyal\" est présent et sélectionné, le serveur Zentyal agira "
-"en tant que serveur WINS pour les clients DHCP"
+"Si \"Samba Zentyal\" est présent et sélectionné, le serveur Zentyal sera le "
+"serveur WINS pour les clients L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:492
 #, fuzzy, perl-brace-format
@@ -4129,17 +4042,15 @@ msgstr "Commentaire"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
 msgid "L2TP"
-msgstr ""
+msgstr "L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
-#, fuzzy
 msgid "Connections"
-msgstr "Connexions IPsec"
+msgstr "Connexions"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
-#, fuzzy
 msgid "L2TP connection"
-msgstr "Connexion IPsec"
+msgstr "Connexion L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
 #, fuzzy
@@ -4163,32 +4074,32 @@ msgid ""
 "Cannot be enabled when creating a new connection, you should edit the "
 "configuration before enabling it"
 msgstr ""
+"Ne peux pas être activé lors d'une création d'une nouvelle connexion, vous "
+"devez modifier la configuration avant  de l'activer"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:271
 #: ../../main/l2tp/src/EBox/L2TP.pm:354
-#, fuzzy
 msgid "Connection name"
-msgstr "Cible de connection"
+msgstr "Nom de la connexion"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:273
-#, fuzzy
 msgid "Blank characters are not allowed"
-msgstr "Adresses IP ne sont pas autorisées"
+msgstr "Les caractères vides ne sont pas autorisées"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"Le lissage de trafic est actif lorsque Zentyal fonctionne en mode "
-"passerelle. Vous devez avoir au moins une interface interne et une externe. "
-"Vérifiez votre configuration dans {openhref} Réseau->Interfaces{closehref}"
+"Le protocole L2TP peut uniquement être configuré sur des interfaces taguées "
+"comme externes. Vérifiez votre configuration d'interface pour correspondre à "
+"{openhref}Réseau->Interfaces{closehref}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr "L'adresse VPN {addr} est déjà utilisée par l'interface {iface}"
+msgstr "Le tunnel IP {ip} est déjà utilisée par la connexion {name}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:357
 #, perl-brace-format
@@ -4196,9 +4107,9 @@ msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
 msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:372
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr "L'adresse VPN {addr} est déjà utilisée par l'interface {iface}"
+msgstr "Le tunnel IP {ip} est déjà utilisée par l'interface {name}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:378
 #, fuzzy, perl-brace-format
@@ -4219,19 +4130,16 @@ msgid "L2TP based VPN"
 msgstr "VPN IPsec"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:360
-#, fuzzy
 msgid "Stopping completed"
-msgstr "Pourcentage effectué"
+msgstr "Le processus d'arrêt est terminé"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:362
-#, fuzzy
 msgid "Connection initiated"
-msgstr "Connexion client initiée"
+msgstr "Connexion initiée"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:363
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Connexion client terminée"
+msgstr "Connexion terminée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:58
 msgid ""
@@ -5718,14 +5626,13 @@ msgid "Balance Traffic"
 msgstr "Équilibrage du trafic"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
 msgstr ""
 "Pour pouvoir utiliser cette fonctionnalité, vous devez avoir au moins deux "
-"passerelles activées. Vous pouvez les ajouter <a href=\"/Network/View/"
-"GatewayTable\">ici</a>."
+"passerelles activées. Vous pouvez les ajouter {oa}ici{ca}."
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:52
 msgid "Traffic balancing"
@@ -13832,7 +13739,7 @@ msgstr "Compte de courrier"
 
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:55
 msgid "Create mail account user@domain"
-msgstr "Créer un compte de courriers utilisateur@domaine"
+msgstr "Créer un compte mail utilisateur@domaine"
 
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:59
 msgid "Default Domain"
@@ -14759,9 +14666,8 @@ msgid "Register your Zentyal server for FREE and get these benefits"
 msgstr "Serveur FTP de Zentyal"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
-#, fuzzy
 msgid "Configuration <strong>backup in the cloud</strong>"
-msgstr "Configuration des sauvegardes"
+msgstr "Configuration <strong> de la sauvegarde dans le cloud</strong>"
 
 #: ../../main/remoteservices/src/templates/wizard/subscription.mas:222
 msgid "<strong>zentyal.me subdomain</strong> for your server"
@@ -16304,13 +16210,13 @@ msgstr "Liste des paquets mise à jour avec succès"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:360
-#, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Erreur pendant la mise à jour de la liste des paquets. Essayez d'exécuter la "
-"commande suivante dans la console pour voir le problème: sudo apt-get update"
+"Erreur pendant la mise à jour de la liste des paquets. Veuillez essayer "
+"d'exécuter la commande suivante dans la console pour afficher le problème: "
+"sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
