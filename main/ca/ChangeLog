@@ -1,4 +1,5 @@
 4.0
+	+ Optional CA fields now have default values to avoid OpenChange problems
 	+ Better recovery of errors on index CGI
 	+ Set version to 4.0
 	+ Download files as zip archive
