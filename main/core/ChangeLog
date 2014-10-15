@@ -1,4 +1,6 @@
 4.0
+	+ Better warning in change hostname confirmation dialog
+	+ Confirmation dialog action recovers correctly from errors
 	+ Make webadmin certificate modifiable via CA module
 	+ Better control of error in local backup confirmation dialog
 	+ Fixed i18n bug in progress dialog

@@ -4535,6 +4535,9 @@ sub confirmationJS
        this.disable = true;
        var specs = $call;
        this.disable = false;
+       if (specs.abort) {
+           return false;
+       }
        if (specs.wantDialog) {
            Zentyal.TableHelper.showConfirmationDialog(specs, function(){
                $goAheadJS
