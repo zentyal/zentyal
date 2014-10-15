@@ -34,7 +34,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Util::Version;
 use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;

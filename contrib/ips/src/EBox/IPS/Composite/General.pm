@@ -29,43 +29,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 
-# Group: Public methods
-
-# Method: permanentMessage
-#
-#     Override to show a message depending on the subscription status
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::permanentMessage>
-#
-sub permanentMessage
-{
-    my ($self) = @_;
-
-    unless ( $self->{advancedSec} ) {
-        my $securityUpdatesAddOn = 0;
-        if ( EBox::Global->modExists('remoteservices') ) {
-            my $rs = EBox::Global->modInstance('remoteservices');
-            $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
-        }
-
-        unless ( $securityUpdatesAddOn ) {
-            $self->{permanentMessage} = $self->_commercialMsg();
-        }
-        $self->{advancedSec} = 1;
-    }
-
-    return $self->{permanentMessage};
-}
-
-sub permanentMessageType
-{
-    return 'ad';
-}
-
-# Group: Protected methods
-
 # Method: _description
 #
 # Overrides:
@@ -84,14 +47,3 @@ sub _description
 
     return $description;
 }
-
-# Group: Private methods
-
-# Commercial message
-sub _commercialMsg
-{
-    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get  one of the {oh}Commercial Editions{ch} that include the IPS feature in the automatic security updates.',
-                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
-}
-
-1;

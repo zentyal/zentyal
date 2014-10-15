@@ -110,22 +110,6 @@ sub _create
     return $self;
 }
 
-# Method: initialSetup
-#
-#     Perform the required migrations
-#
-# Overrides:
-#
-#     <EBox::Module::Base::initialSetup>
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-# TODO see if this continues to make sense XXX (done now in setconf
-#    EBox::Sudo::root('chown -R ebox:adm ' . EBox::Config::conf() . 'remoteservices');
-}
-
 # Method: commercialEdition
 #
 #     Get whether this installation is a commercial one or not
@@ -283,13 +267,6 @@ sub setUsername
 sub refreshSubscriptionInfo
 {
     my ($self) = @_;
-
-    if (not $self->eBoxSubscribed()) {
-        # nothing to refresh
-        return;
-    }
-    
-    $self->commercialEdition('force');
     my $subscriptionInfo;
     my $refreshError = 0;
 
@@ -308,6 +285,10 @@ sub refreshSubscriptionInfo
         } catch ($ex) {
             $refreshError = $ex;
         }
+    } else {
+        $self->_removeSubscriptionData(); # remove any leftover which should not
+                                          # be in first place
+        return;
     }
 
     if ($refreshError) {
@@ -321,7 +302,11 @@ sub refreshSubscriptionInfo
 
     if (not $subscriptionInfo) {
         try {
-            $self->unsubscribe();
+            if ($self->commercialEdition('force')) {
+                $self->unsubscribe();
+            } else {
+                $self->unregisterCommunityServer();
+            }
         } catch ($ex) {
             EBox::error("Error unsubscribing $ex");
         }
