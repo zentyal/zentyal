@@ -1,4 +1,6 @@
 4.0
+	+ RPC proxy is available in web interface when you have only
+	  internal interfaces
 	+ Provision action triggers save changes action
 	+ Fixed deprovision
 	+ OpenChange account is enabled by default for all the new created users
