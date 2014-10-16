@@ -404,6 +404,10 @@ sub initialSetup
                 $row->elementByName('module')->setValue('webadmin');
                 $row->store();
             }
+            if ($row->valueByName('serviceId') eq 'zentyal_webadmin') {
+                $row->elementByName('serviceId')->setValue('Zentyal Administration Web Server');
+                $row->store();
+            }
         }
         $self->saveConfig();
     }
