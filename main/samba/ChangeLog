@@ -1,4 +1,5 @@
 4.0
+	+ Forbid backup restore if the server has not the correct hostname
 	+ Fixed EBox::LDAPBase::lastModificationTime
 	+ Join as additional domain controller on initial configuration wizard
 	+ Name in Module Status is now "Domain Controller and File Sharing"

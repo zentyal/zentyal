@@ -2489,6 +2489,10 @@ sub dumpConfig
 
     my @cmds;
 
+    my $hostname  =  `hostname --fqdn`;
+    chomp $hostname;
+    File::Slurp::write_file("$dir/oldhostname", $hostname);
+
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -2611,6 +2615,24 @@ sub restoreBackupPreCheck
     if ($mode ne STANDALONE_MODE) {
         # nothing more to check
         return;
+    }
+
+    my $oldHostname;
+    my $hostnameFile = "$dir/oldhostname";
+    if (-r $hostnameFile) {
+        $oldHostname = File::Slurp::read_file($hostnameFile);
+    } 
+    if ($oldHostname) {
+        my $hostname  =  `hostname --fqdn`;
+        chomp $hostname;
+        if ($hostname ne $oldHostname) {
+            throw EBox::Exceptions::External(
+                __x('To be able to restore this backup the hostname should be first set to {hn}. Otherwise samba data could not be restored.',
+                    hn => $oldHostname)
+               );
+        }
+    } else {
+        EBox::warn("No hostname stored in backup. Samba restore will fail if you dont have the same hostname that the original server");
     }
 
     my $userListFile = $dir . '/' . BACKUP_USERS_FILE;
