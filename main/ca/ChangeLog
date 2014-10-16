@@ -1,4 +1,6 @@
 4.0
+	+ Protect openchange certificate for manipulation which could rend
+	it invalid
 	+ Better recovery of errors on index CGI
 	+ Set version to 4.0
 	+ Download files as zip archive

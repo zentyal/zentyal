@@ -52,11 +52,11 @@ sub new
 #
 sub genCerts
 {
-    my ($self) = @_;
+    my ($self, $skipCN) = @_;
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        $self->_genCert($srvcert);
+        $self->_genCert($srvcert, $skipCN);
     }
 }
 
@@ -171,7 +171,7 @@ sub srvsCerts
 #
 sub _genCert
 {
-    my ($self, $srvcert) = @_;
+    my ($self, $srvcert, $skipCN) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -182,6 +182,10 @@ sub _genCert
 
     my $cn = $model->cnByService($serviceId);
     return undef unless (defined($cn));
+    if ($cn eq $skipCN) {
+        EBox::debug("Service certificate with CN=$cn is reserved and cannot be generated. Please, choose other CN");
+        return;
+    }
 
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
     if ((not defined($certMD)) or ($certMD->{state} ne 'V')) {
