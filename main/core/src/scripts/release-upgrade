@@ -1,0 +1,69 @@
+#!/bin/bash
+
+UPGRADE_FILE=/var/lib/zentyal/.upgrade-finished
+
+rm -f $UPGRADE_FILE
+
+export DEBIAN_FRONTEND=noninteractive
+
+function upgrade
+{
+    apt-get update
+
+    for i in `seq 1 10`
+    do
+        if apt-get dist-upgrade -y --force-yes --download-only
+        then
+            break
+        else
+            echo "Download failed, retrying in 5 seconds..."
+            sleep 5
+        fi
+    done
+
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+}
+
+sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
+
+echo; echo "Upgrading your current system to the latest packages..."; echo
+upgrade
+
+# Install samba if missing and replicate users with s4sync
+/usr/share/zentyal/migrate-users-to-samba
+
+# Stop slapd
+service zentyal users stop
+
+echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
+sed -i 's/precise/trusty/g' /etc/apt/sources.list
+sed -ri 's/zentyal(.)3.2/zentyal\14.0/g' /etc/apt/sources.list
+upgrade
+
+if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+then
+    /usr/share/zentyal/global-action --action saveAllModules
+    start samba-ad-dc
+    /usr/share/zentyal/initial-setup samba 3.2
+    # Restart modules that need to add schemas
+    for i in samba mail jabber mail mailfilter
+    do
+        service zentyal $i restart
+    done
+
+    # Purge all no longer needed running services like haproxy, collectd, etc
+    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+
+    # Restart regular webserver, Zentyal UI and logs
+    service apache2 restart
+    service zentyal webadmin restart
+    service zentyal logs restart
+
+    echo; echo "Zentyal upgrade finished!"
+else
+    echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
+fi
+
+apt-get clean
+
+touch $UPGRADE_FILE
