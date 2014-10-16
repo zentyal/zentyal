@@ -695,27 +695,34 @@ sub checkboxUnsetAllAction
 sub confirmationDialogAction
 {
     my ($self, %params) = @_;
+    try {
+        my $actionToConfirm = $self->param('actionToConfirm');
+        my %confirmParams = $self->getParams();
+        my $res = $params{model}->_confirmationDialogForAction($actionToConfirm, \%confirmParams);
+        my $msg;
+        my $title = '';
+        if (ref $res) {
+            $msg = $res->{message};
+            $title = $res->{title};
+            defined $title or
+                $title = '';
+            
+        } else {
+            $msg = $res;
+        }
 
-    my $actionToConfirm = $self->param('actionToConfirm');
-    my %confirmParams = $self->getParams();
-    my $res = $params{model}->_confirmationDialogForAction($actionToConfirm, \%confirmParams);
-    my $msg;
-    my $title = '';
-    if (ref $res) {
-        $msg = $res->{message};
-        $title = $res->{title};
-        defined $title or
-            $title = '';
-
-    } else {
-        $msg = $res;
+        $self->{json} = {
+            success => 1,
+            wantDialog => $msg ? 1 : 0,
+            message => $msg,
+            title => $title
+           };
+    } catch ($ex) {
+        $self->{json} = {
+            success => 0,
+            error => "$ex",
+        };
     }
-
-    $self->{json} = {
-        wantDialog => $msg ? 1 : 0,
-        message => $msg,
-        title => $title
-       };
 }
 
 sub setPositionAction

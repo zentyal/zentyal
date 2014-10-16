@@ -113,6 +113,7 @@ sub initialSetup
     if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
         EBox::Sudo::silentRoot('a2disconf sogo');
         EBox::Sudo::silentRoot('a2enmod ssl');
+        EBox::Sudo::silentRoot('a2enmod alias');
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
     }
@@ -408,6 +409,8 @@ sub _setConf
     $self->_setSOGoApacheConf();
 
     $self->_setDomainCertificate();
+
+    $self->_setOAB();
 }
 
 sub _postServiceHook
@@ -684,7 +687,7 @@ sub _setCert
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        EBox::error("Cannot create autodiscovery certificates because there is not usable CA");
+        EBox::error("Cannot create openchange certificate because there is not usable CA");
         EBox::Sudo::root('rm -rf "' . OCSMANAGER_DOMAIN_PEM . '"');
         return;
     }
@@ -747,6 +750,16 @@ sub _setRPCProxyConf
     }
 
     EBox::Sudo::root(@cmds);
+}
+
+sub _setOAB
+{
+    my ($self) = @_;
+    my $dir = EBox::Config::dynamicwww() . 'openchange/ews';
+    EBox::Sudo::root("mkdir -p '$dir'");
+
+    my $src = EBox::Config::stubs() . 'openchange/oab.xml.mas';
+    EBox::Sudo::root("cp '$src' '$dir/oab.xml'");
 }
 
 sub _writeRewritePolicy
@@ -1044,10 +1057,8 @@ sub _rpcProxyHostForDomain
     my @ips;
     my $network = $self->global()->modInstance('network');
     my @extIfaces  = @{ $network->ExternalIfaces() };
-    if (not @extIfaces) {
-        throw EBox::Exceptions::External (__('System needs at least one external interface'));
-    }
-    foreach my $iface (@extIfaces) {
+    my @intIfaces  = @{ $network->InternalIfaces() };
+    foreach my $iface (@extIfaces, @intIfaces) {
         my $addresses = $network->ifaceAddresses($iface);
         push @ips, map { $_->{address} } @{  $addresses };
     }
@@ -1074,7 +1085,7 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your external IP addresses',
+        EBox::Exceptions::External->throw(__x('Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your interface IP addresses',
                                               dom => $domain,
                                               oh => '<a href="/DNS/Composite/Global">',
                                               ch => '</a>'

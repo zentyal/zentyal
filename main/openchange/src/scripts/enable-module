@@ -2,6 +2,8 @@
 
 rm -f /var/lib/samba/private/openchange.ldb
 
+# Enable module needed for ocsmanages
+a2enmod alias
 # Enable apache modules required for SOGo
 a2enmod proxy
 a2enmod proxy_http
