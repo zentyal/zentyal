@@ -4,10 +4,16 @@ use EBox::Config;
 my $samba = EBox::Global->modInstance('samba');
 my $hostDomain = lc($samba->kerberosRealm());
 my $workgroup = $samba->defaultWorkgroup();
+
+my $confirmationTitle = __('Change server local domain?');
+my $confirmationMsg = __x('{op}This action will trigger the change of the actual host name.{cp}', op => '<p>', cp => '</p>');
+$confirmationMsg .= __x('{op}A hostname change will create a new certificate for the web administration connections. This means you will have to reload the page manually once the save change proccess ends.{cp}', op => '<p>', cp => '</p>');
 </%init>
 <h3><% __('Users and Groups') %></h3>
 <img src="/data/software/images/users.png" />
-<form method="post" action="./Samba/Wizard/Users" class="formDiv">
+<form method="post" action="./Samba/Wizard/Users" class="formDiv" 
+      id="ad_wizard_form"
+      data-host-domain="<% $hostDomain %>" >
         <fieldset>
         <legend><% __('Select the type of the server') %></legend>
           <div class="radio-group">
@@ -29,7 +35,9 @@ my $workgroup = $samba->defaultWorkgroup();
         <& .joinSection, hostDomain => $hostDomain, workgroup => $workgroup &>
         <& .externalADSection &>
 </form>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script>
+
 $(function() {
    $('#standaloneRadio').on('click', function (event) {
       $('#standaloneSection').show();
@@ -45,6 +53,44 @@ $(function() {
       $('#standaloneSection').hide();
       $('#joinSection').hide();
       $('#externalADSection').show();
+   });
+
+   $('#wizard-next2').removeAttr('onclick').on('click', function(event) {
+      event.preventDefault();
+   
+      var new_domain, host_domain;
+      var ad_wizard = $('#ad_wizard_form');
+      var in_ad_wizard = ad_wizard.filter(':visible').length > 0;
+      if (!in_ad_wizard) {
+          Zentyal.Wizard.Software.nextStep();
+          return false;
+      }
+   
+      host_domain = ad_wizard.attr('data-host-domain');
+      if ($('#standaloneRadio').val()) {
+          new_domain = $('#domain', ad_wizard).val();
+      } else if ($('#joinRadio').val()) {
+          new_domain = $('#realm', ad_wizard).val();
+      } else {
+          Zentyal.Wizard.Software.nextStep();
+          return false;
+      }
+   
+      if (new_domain == host_domain) {
+          Zentyal.Wizard.Software.nextStep();
+          return false;
+      }
+   
+      var confirmParams = {
+          title  : '<% $confirmationTitle %>',
+          message: '<% $confirmationMsg %>'
+      };
+      var acceptMethod = function () { 
+          Zentyal.Wizard.Software.nextStep();
+       };
+      Zentyal.TableHelper.showConfirmationDialog(confirmParams, acceptMethod);
+   
+      return false;
    });
 });
 </script>
