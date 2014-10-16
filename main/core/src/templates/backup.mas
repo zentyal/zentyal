@@ -2,6 +2,7 @@
   @backups => ()
   $modulesChanged => 1
   $subscribed => undef
+  $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -20,6 +21,11 @@ TODO: check what ad if any we want to shoe
   </div>
 % }
 </%doc>
+% if ($openchange) {
+  <div class='note'>
+    <% __(q{User mail messages are neither backed up or restored. If you want to back up them manually they reside under '/var/vmail'} ) %>
+  </div>
+% }
 <& .backupSection, modulesChanged => $modulesChanged &>
 <& .restoreSection &>
 <& .listSection, backups => \@backups &>
