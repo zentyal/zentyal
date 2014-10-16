@@ -1401,6 +1401,9 @@ sub _daemons
             name => 'zentyal.zavsd',
             precondition => \&_antivirusEnabled,
         },
+        {
+            name => 'zentyal.set-uid-gid-numbers',
+        },
     ];
 }
 
