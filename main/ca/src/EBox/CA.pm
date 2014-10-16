@@ -401,7 +401,7 @@ sub initialSetup
         my $certs = $self->model('Certificates');
         foreach my $row (@{$certs->_rows()}) {
             if ($row->valueByName('module') eq 'haproxy') {
-                $row->setElementValue('module', 'webadmin');
+                $row->elementByName('module')->setValue('webadmin');
                 $row->store();
             }
         }
