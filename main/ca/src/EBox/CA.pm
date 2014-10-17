@@ -2059,9 +2059,9 @@ sub _findCertFile # (commonName)
 # return undef if any error occurs
 sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
 {
-
     my ($self, %args) = @_;
-
+    # remove previous request file with the same name, to avoid errors
+    unlink $args{reqFile};
     # To create the request the distinguished name is needed
     my $cmd = 'req';
     $self->_commonArgs('req', \$cmd);
