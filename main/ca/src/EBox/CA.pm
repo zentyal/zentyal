@@ -399,10 +399,13 @@ sub initialSetup
     # Migrate from 3.5 to 4.0 (old reference to haproxy)
     if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
         my $certs = $self->model('Certificates');
-        foreach my $id (@{$certs->ids()}) {
-            my $row = $certs->row($id);
+        foreach my $row (@{$certs->_rows()}) {
             if ($row->valueByName('module') eq 'haproxy') {
-                $row->setElementValue('module', 'webadmin');
+                $row->elementByName('module')->setValue('webadmin');
+                $row->store();
+            }
+            if ($row->valueByName('serviceId') eq 'zentyal_webadmin') {
+                $row->elementByName('serviceId')->setValue('Zentyal Administration Web Server');
                 $row->store();
             }
         }
@@ -2056,9 +2059,9 @@ sub _findCertFile # (commonName)
 # return undef if any error occurs
 sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
 {
-
     my ($self, %args) = @_;
-
+    # remove previous request file with the same name, to avoid errors
+    unlink $args{reqFile};
     # To create the request the distinguished name is needed
     my $cmd = 'req';
     $self->_commonArgs('req', \$cmd);
