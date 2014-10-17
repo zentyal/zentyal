@@ -37,7 +37,8 @@ service zentyal users stop
 
 echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
-sed -ri 's/zentyal(.)3.2/zentyal\14.0/g' /etc/apt/sources.list
+sed -ri '/zentyal(.)3.2/d' /etc/apt/sources.list
+echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' >> /etc/apt/sources.list
 
 # Upgrade perl packages first
 apt-get update
