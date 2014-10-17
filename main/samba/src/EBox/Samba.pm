@@ -2653,7 +2653,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir, $ignoreUserInitialization) = @_;
+    my ($self, $dir) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2720,18 +2720,6 @@ sub restoreConfig
     $self->_startService();
 
     $self->getProvision()->resetSysvolACL();
-
-    return if $ignoreUserInitialization;
-
-    for my $user (@{$self->users()}) {
-
-        # Init local users
-        $self->initUser($user);
-
-        # Notify modules except samba because its users will be
-        # restored from its own LDB backup
-        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
-    }
 }
 
 sub _removePasswds
