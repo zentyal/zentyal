@@ -38,6 +38,12 @@ service zentyal users stop
 echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.2/zentyal\14.0/g' /etc/apt/sources.list
+
+# Upgrade perl packages first
+apt-get update
+dpkg -l | grep perl | cut -d' ' -f3 | xargs apt-get install -y --force-yes -o DPkg::Options::="--force-confdef"
+
+# Continue with the rest of the upgrade rest of the upgrade
 upgrade
 
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
