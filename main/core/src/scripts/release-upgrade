@@ -47,6 +47,10 @@ dpkg -l | grep perl | cut -d' ' -f3 | xargs apt-get install -y --force-yes -o DP
 # Continue with the rest of the upgrade rest of the upgrade
 upgrade
 
+echo; echo "Forcing pending packages installation..."; echo
+apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+dpkg --configure -a --force-confdef
+
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
