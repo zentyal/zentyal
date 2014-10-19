@@ -47,9 +47,25 @@ dpkg -l | grep perl | cut -d' ' -f3 | xargs apt-get install -y --force-yes -o DP
 # Continue with the rest of the upgrade rest of the upgrade
 upgrade
 
-echo; echo "Forcing pending packages installation..."; echo
-apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
-dpkg --configure -a --force-confdef
+
+for i in `seq 1 3`
+do
+    echo; echo "Forcing pending packages installation..."; echo
+    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+    rm -f /var/lib/dpkg/info/suricata.prerm
+    for pkg in zentyal-core zentyal-samba
+    do
+        rm -f /var/lib/dpkg/info/${pkg}.postinst
+    done
+    dpkg --configure -a --force-confdef
+    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+    if [ $? == 0 ]
+    then
+        echo; echo "Nothing more pending to upgrade"; echo
+        break
+    fi
+done
+
 
 if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
 then
