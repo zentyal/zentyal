@@ -220,8 +220,6 @@ sub validateTypedRow
         unless ($localIP) {
             throw EBox::Exceptions::External('The Tunnel IP cannot be empty');
         }
-        my $ownId = exists $changedFields->{id} ?  $changedFields->{id} : '';
-        $self->parentModule()->model('Connections')->l2tpCheckDuplicateLocalIP($ownId, $localIP);
 
         my $localIPRangeFound = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
