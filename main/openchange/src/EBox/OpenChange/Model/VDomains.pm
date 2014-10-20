@@ -73,7 +73,9 @@ sub _table
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
             help            => __('Enable the Auto Discover service, your ' .
                                   'MAPI client will automatically find ' .
-                                  'server configuration.'),
+                                  'server configuration. To enable this ' .
+                                  'option the domain has to be handled by ' .
+                                  'Zentyal DNS.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'rpcproxy_http',
@@ -91,15 +93,17 @@ sub _table
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
             help            => __('RPC over HTTPS access. MAPI/RPC over ' .
-                                  'HTTP, SSL enabled version.'),
+                                  'HTTP, SSL enabled version. To enable ' .
+                                  'this option you have to "Issue ' .
+                                  'Certificate" first.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'webmail_http',
-            printableName   => __('HTTP(S) Webmail'),
+            printableName   => __('Webmail'),
             editable        => 1,
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/webmailViewer.mas',
-            help            => __('Webmail and groupware platform. non-SSL ' .
+            help            => __('Webmail and groupware platform. Non-SSL ' .
                                   'version.'),
         ),
         new EBox::Types::Boolean(
@@ -109,7 +113,8 @@ sub _table
             defaultValue    => 0,
             hiddenOnViewer  => 1,
             help            => __('Webmail and groupware platform. SSL ' .
-                                  'enabled version.'),
+                                  'enabled version. To enable this option ' .
+                                  'you have to "Issue Certificate" first.'),
         ),
     ];
 
