@@ -16,4 +16,7 @@
 
     # ocsmanager Exchange Web Services (ews)
     ProxyPass /ews http://127.0.0.1:5000/ews
+
+    CustomLog ${APACHE_LOG_DIR}/ocsmanager-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/ocsmanager-error.log
 </VirtualHost>
