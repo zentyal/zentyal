@@ -65,6 +65,18 @@ sub viewCustomizer
             __x('Your system is not correctly configured. We were not able to find any valid public IP address.'),
             'error');
     }
+
+    $custom->setHTMLTitle([
+            {
+            title => __('Connections'),
+            link  => '/L2TP/View/Connections',
+            },
+            {
+            title => $self->parentRow()->valueByName('name'),
+            link  => ''
+            }
+    ]);
+
     return $customizer;
 }
 
