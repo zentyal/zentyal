@@ -66,54 +66,41 @@ sub tunnels
                 next;
             }
         }
-        my @confComponents;
-
-        @confComponents = @{$conf->models(1)};
 
         my %settings;
-        foreach my $component (@confComponents) {
-            if ($component->isa('EBox::Model::DataForm')) {
-                my $elements = $component->row()->elements();
+        my $component = $row->subModel('ConnectionSettings');
+        my $elements = $component->row()->elements();
+        foreach my $element (@{$elements}) {
+            my $fieldName = $element->fieldName();
+            my $fieldValue;
 
-                foreach my $element (@{ $elements }) {
-                    my $fieldName = $element->fieldName();
-                    my $fieldValue;
-
-                    given ($fieldName) {
-                        when (/^right$/) {
-                            if ($element->selectedType() eq 'right_any') {
-                                $fieldValue = '%any';
-                            } else {
-                                # Value returns array with (ip, netmask)
-                                $fieldValue = join ('/', $element->value());
-                            }
-                            $fieldName = 'right_ipaddr'; # this must be the property
-                                                         # value name
-                        }
-                        when (/^primary_ns$/) {
-                            $fieldValue = $component->nameServer(1);
-                        }
-                        when (/^wins_server$/) {
-                            $fieldValue = $component->winsServer();
-                        }
-                        default {
-                            if ($element->value()) {
-                                # Value returns array with (ip, netmask)
-                                $fieldValue = join ('/', $element->value());
-                            } else {
-                                $fieldValue = undef;
-                            }
-                        }
+            given ($fieldName) {
+                when (/^right$/) {
+                    if ($element->selectedType() eq 'right_any') {
+                        $fieldValue = '%any';
+                    } else {
+                        # Value returns array with (ip, netmask)
+                        $fieldValue = join ('/', $element->value());
                     }
-                    $settings{$fieldName} = $fieldValue;
+                    $fieldName = 'right_ipaddr'; # this must be the property
+                                                 # value name
                 }
-            } else {
-                throw EBox::Exceptions::InvalidType(
-                    data => __('Component'),
-                    value => $component->name(),
-                    advice => __('Unknown'),
-                );
+                when (/^primary_ns$/) {
+                    $fieldValue = $component->nameServer(1);
+                }
+                when (/^wins_server$/) {
+                    $fieldValue = $component->winsServer();
+                }
+                default {
+                    if ($element->value()) {
+                        # Value returns array with (ip, netmask)
+                        $fieldValue = join ('/', $element->value());
+                    } else {
+                        $fieldValue = undef;
+                    }
+                }
             }
+            $settings{$fieldName} = $fieldValue;
         }
         $settings{'enabled'} = $enabled;
         $settings{'name'} = $row->valueByName('name');
