@@ -268,10 +268,9 @@ sub validateTypedRow
         my $to   = $allFields->{to}->value();
         if (EBox::Validate::isIPInRange($from, $to, $localIP)) {
             throw EBox::Exceptions::External(
-                __x('Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}',
+                __x('Range {from}-{to} includes the selected tunnel IP address: {localIP}',
                     from => $from,
                     to => $to,
-                    name => $row->valueByName('name'),
                     localIP => $localIP,
                 )
             );
