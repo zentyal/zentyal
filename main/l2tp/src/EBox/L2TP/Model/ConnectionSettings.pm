@@ -66,7 +66,7 @@ sub viewCustomizer
             'error');
     }
 
-    $custom->setHTMLTitle([
+    $customizer->setHTMLTitle([
             {
             title => __('Connections'),
             link  => '/L2TP/View/Connections',
