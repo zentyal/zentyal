@@ -85,8 +85,7 @@ sub validateTypedRow
 
         # Check tunnel IP to be used for the VPN.
         my $ipsec = $self->parentModule();
-        # FIXME!
-        my $l2tp_settings = $ipsec->model('SettingsL2TP');
+        my $l2tp_settings = $ipsec->model('ConnectionSettings');
         my $localIP = $l2tp_settings->row()->elementByName('local_ip')->value();
         if ($localIP and EBox::Validate::isIPInRange($newRangeHash->{from}, $newRangeHash->{to}, $localIP)) {
             throw EBox::Exceptions::External(

@@ -11,3 +11,6 @@ models:
     - Connections
     - ConnectionSettings
     - RangeTable
+
+foreign:
+    - Connections: [RangeTable]
