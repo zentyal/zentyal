@@ -1,4 +1,6 @@
 4.0
+	+ Protect openchange certificate for manipulation which could rend
+	  it invalid
 	+ Optional CA fields now have default values to avoid OpenChange problems
 	+ Remove old request file before generating a new one
 	+ Better recovery of errors on index CGI
