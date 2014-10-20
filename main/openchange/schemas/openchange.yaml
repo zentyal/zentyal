@@ -20,6 +20,6 @@ models:
     - ActiveSync
 
 composites:
+    Disclaimer: []
     Configuration: [VDomains, RPCProxy, ActiveSync]
-    General: [Provision, Configuration]
-
+    General: [Provision, Configuration, Disclaimer]
