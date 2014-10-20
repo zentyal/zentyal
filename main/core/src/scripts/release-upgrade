@@ -39,9 +39,10 @@ echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)3.2/d' /etc/apt/sources.list
 echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' >> /etc/apt/sources.list
-
-# Upgrade perl packages first
 apt-get update
+
+# Upgrade perl packages first and remove conflicting old apache2.2 and samba4 packages
+apt-get remove -y --force-yes -o DPkg::Options::="--force-confdef" apache2.2-common samba4
 dpkg -l | grep perl | cut -d' ' -f3 | xargs apt-get install -y --force-yes -o DPkg::Options::="--force-confdef"
 
 # Continue with the rest of the upgrade rest of the upgrade
