@@ -1,6 +1,6 @@
 <%args>
     $tunnel
-    $chap
+    $chap => 0
 </%args>
 
 [global]

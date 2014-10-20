@@ -68,7 +68,7 @@ sub tunnels
         }
 
         my %settings;
-        my $component = $row->subModel('ConnectionSettings');
+        my $component = $row->subModel('configuration');
         my $elements = $component->row()->elements();
         foreach my $element (@{$elements}) {
             my $fieldName = $element->fieldName();
