@@ -176,29 +176,29 @@ sub masonParameters
 #    }
 
 # Comment this when 4.0 is out to show always upgrade message as 3.5 end of life has reached
-    if ($showMessage) {
-        my $state = $sysinfo->get_state();
-        my $lastTime = $state->{lastMessageTime};
-        my $currentTime = time();
-        my $offset = ($currentTime - $lastTime) / 60 / 24;
-        foreach my $msg (@{_periodicMessages()}) {
-            my $name = $msg->{name};
-            next if ($state->{closedMessages}->{$name});
-            my $text = $msg->{text};
-            if ($offset >= $msg->{days}) {
-                push (@params, 'message' => $msg);
-                last;
-            }
-        }
-    }
+#    if ($showMessage) {
+#        my $state = $sysinfo->get_state();
+#        my $lastTime = $state->{lastMessageTime};
+#        my $currentTime = time();
+#        my $offset = ($currentTime - $lastTime) / 60 / 24;
+#        foreach my $msg (@{_periodicMessages()}) {
+#            my $name = $msg->{name};
+#            next if ($state->{closedMessages}->{$name});
+#            my $text = $msg->{text};
+#            if ($offset >= $msg->{days}) {
+#                push (@params, 'message' => $msg);
+#                last;
+#            }
+#        }
+#    }
 
-# Uncomment this when 4.0 is out to show the upgrade message
-#    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_4.0_Announcement';
-#    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 4.0')";
-#    my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 4.0{ch} is available! {ob}Upgrade now{cb}',
-#                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
-#                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
-#    push (@params, 'message' => $msg);
+    # Show always upgrade button to 4.0 as 3.5 end of life has reached
+    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_4.0_Announcement';
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 4.0')";
+    my $msg = { name => 'upgrade', text =>__sx('{oh}Zentyal 4.0{ch} is available! {ob}Upgrade now{cb}',
+                oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
+                ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>') };
+    push (@params, 'message' => $msg);
 
     if (EBox::Config::boolean('debug')) {
         my $report = $sysinfo->model('Debug')->value('enabled');
