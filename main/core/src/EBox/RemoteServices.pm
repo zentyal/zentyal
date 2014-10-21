@@ -67,7 +67,6 @@ use constant SUBSCRIPTION_LEVEL_NONE => -1;
 use constant SUBSCRIPTION_LEVEL_COMMUNITY => 0;
 use constant SYNC_PKG                => 'zfilesync';
 
-
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
@@ -125,7 +124,7 @@ sub _create
 sub commercialEdition
 {
     my ($self, $force) = @_;
-
+    return 1; # XXXX
     unless (exists $self->{commercialEdition} or $force) {
         $self->{commercialEdition} = (-e COMMERCIAL_EDITION);
     }
@@ -911,9 +910,6 @@ sub _setConf
     my $subscriptionLevel = $self->subscriptionLevel();
     $self->_setupSubscription($subscriptionLevel, $subscriptionInfo);
 
-#    TODO: Disabled until reimplmented
-#    $self->_setRemoteSupportAccessConf();
-
     $self->_updateMotd();
 }
 
@@ -1001,33 +997,6 @@ sub _manageCloudProfPackage
     if (not $installed) {
         $self->_installProfPkgs();
     }
-}
-
-# TODO: reimplemnte
-sub _setRemoteSupportAccessConf
-{
-    my ($self) = @_;
-
-    my $supportAccess =
-        $self->model('RemoteSupportAccess')->allowRemoteValue();
-    my $fromAnyAddress =
-        $self->model('RemoteSupportAccess')->fromAnyAddressValue();
-
-    if ($supportAccess and (not $fromAnyAddress) and (not $self->eBoxSubscribed() )) {
-        EBox::debug('Cannot restrict access for remote support if Zentyal server is not subscribed');
-        return;
-    }
-
-    EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    # # TTT
-    # if ($self->eBoxSubscribed() and $self->hasBundle()) {
-    #     my $conn = new EBox::RemoteServices::Connection();
-    #     my $vpnClient = $conn->vpnClient();
-    #     if ($vpnClient) {
-    #         EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
-    #     }
-    # }
-    EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
 # Update MOTD scripts depending on the subscription status
@@ -1249,14 +1218,6 @@ sub menu
                                       'text'  => __('Server Edition'),
                                       'order' => 30,
                                      ));
-
-
-    # TODO: commented until reimplement
-    # $folder->add(new EBox::Menu::Item(
-    #     'url'  => 'RemoteServices/Composite/Technical',
-    #     'text' => __('Technical Support'),
-    #    ));
-
 
     $root->add($system);
 }
