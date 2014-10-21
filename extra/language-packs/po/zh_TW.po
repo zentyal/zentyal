@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-06-27 08:12+0200\n"
+"PO-Revision-Date: 2014-10-18 01:04+0200\n"
 "Last-Translator: evenault <evenault@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_TW\n"
@@ -189,9 +189,8 @@ msgstr "已停止"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
-#, fuzzy
 msgid "Daemon status"
-msgstr "伺服程式狀態"
+msgstr "程序狀態"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:566
 msgid "Connection target"
@@ -1092,9 +1091,8 @@ msgstr "系統"
 #: ../../main/ha/src/EBox/HA.pm:148
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:75
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:76
-#, fuzzy
 msgid "Cluster status"
-msgstr "使用者名稱"
+msgstr "叢集狀態"
 
 #: ../../main/ha/src/EBox/HA.pm:166
 #, fuzzy
@@ -7644,7 +7642,6 @@ msgid "none"
 msgstr "沒有"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1388
-#, fuzzy
 msgid "unknown"
 msgstr "不明"
 

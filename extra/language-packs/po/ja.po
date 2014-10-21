@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-09-17 01:09+0200\n"
+"PO-Revision-Date: 2014-10-19 03:13+0200\n"
 "Last-Translator: kazuo <kazu.nito@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
@@ -5864,23 +5864,22 @@ msgstr "設定のバックアップ"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:47
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:51
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Missing parameter: {par}"
-msgstr "不足している引数：{data}"
+msgstr "不足しているパラメタ：{par}"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:66
-#, fuzzy
 msgid "Invalid credentials"
-msgstr "無効な引数：{data}"
+msgstr "無効な資格"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:79
 msgid "No subscriptions available for your account"
-msgstr ""
+msgstr "アカウントに利用可能なサブスクリプションがありません"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:95
 #, perl-brace-format
 msgid "Subscribing server as name {name}"
-msgstr ""
+msgstr "名前{name}としての予約しているサーバ"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Index.pm:39
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/Register.pm:40
@@ -5991,68 +5990,61 @@ msgstr "バックアップ削除"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/UnsubscribeServer.pm:52
 msgid "Server unregistered. Save changes to remove all the subscription files"
-msgstr ""
+msgstr "未登録サーバ。全てのサブスクリプションファイルを削除するために変更を保存します"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:28
-#, fuzzy
 msgid "Server unregistered"
-msgstr "サーバ登録"
+msgstr "未登録サーバ"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/NoSubscription.pm:45
 msgid "You server is not registered. Check that you have a valid subscription"
-msgstr ""
+msgstr "サーバが登録されていません。有効なサブスクリプションを持っていることを確認してください"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/SetSubscriptionSlot.pm:67
 msgid "You must save changes to enable your subscription"
-msgstr ""
+msgstr "サブスクリプションを有効にするために変更を保存する必要があります"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:51
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:38
-#, fuzzy
 msgid "Missing registration mail address"
-msgstr "登録メールアドレス"
+msgstr "登録メールアドレスが不足しています"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:54
-#, fuzzy
 msgid "Missing confirmation of mail address"
-msgstr "登録メールアドレス"
+msgstr "メールアドレスがないことを確認しました"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:57
 msgid "Registation mail address does not match with its confirmation"
-msgstr ""
+msgstr "登録メールアドレスは、その確認と一致しません"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:63
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:50
-#, fuzzy
 msgid "Missing server name"
-msgstr "オリジナルサーバ名を入力してください"
+msgstr "サーバ名が不足しています"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:68
-#, fuzzy
 msgid "You must accept the privacy policy to register your server"
-msgstr "続行するにはプライバシーポリシーに同意する必要があります"
+msgstr "サーバに登録するため、プライバシーポリシーに同意する必要があります"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:85
 msgid ""
 "This email is already registered, please use your password to add this "
 "server to your account"
-msgstr ""
+msgstr "このメールは既に登録されています、アカウントにサーバを追加するために、パスワードを使用してください"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterFirstServer.pm:102
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:64
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now use backups for server {name}"
-msgstr "サービスへのトラフィックデータ"
+msgstr "サーバ{name}のバックアップを使用することができます"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/RegisterAdditionalServer.pm:44
-#, fuzzy
 msgid "Missing registration password"
-msgstr "管理者パスワード"
+msgstr "パスワード登録が不足しています"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Community/UnRegister.pm:37
-#, fuzzy
 msgid "The server has been disassociated"
-msgstr "証明書が発行されている。"
+msgstr "サーバが解離されています"
 
 #: ../../main/core/src/EBox/RemoteServices/Composite/Technical.pm:43
 #: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -6079,15 +6071,13 @@ msgstr ""
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:67
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr "これは、{n}は文字より大きくすることはできません"
+msgstr "{n}文字を超えることはできません"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:70
-#, fuzzy
 msgid "It must be a valid domain name"
-msgstr "これは、有効なHTML文字列でなければなりません"
+msgstr "有効なドメイン名でなければなりません"
 
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Validate.pm:74
-#, fuzzy
 msgid "server name"
 msgstr "サーバ名"
 
@@ -6121,9 +6111,8 @@ msgid "Automatic software updates"
 msgstr "自動ソフトウェアアップデート"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:60
-#, fuzzy
 msgid "Latest automatic software update"
-msgstr "自動ソフトウェアアップデート"
+msgstr "最新の自動ソフトウェアアップデート"
 
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:94
 #, perl-brace-format
@@ -6329,9 +6318,8 @@ msgstr ""
 "@ と空白が許可されています。"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:681
-#, fuzzy
 msgid "No trace available for this error"
-msgstr "使用可能なバンドルのいずれも、このサーバに有効ではありません"
+msgstr "このエラーのために利用可能トレースがありません"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:695
 msgid ""
@@ -6511,6 +6499,8 @@ msgid ""
 "certificate itself can be invalid, expired or has not yet come into effect. "
 "Also check the hour of your system to avoid false expirations"
 msgstr ""
+"サーバ {server}の証明書の検証に失敗しました。 証明書自体は、無効とすることができ "
+"期限切れのか、まだ発効をしていません。また、誤った有効期限を避けるために、あなたのシステムの時間をチェックしてください"
 
 #: ../../main/core/src/EBox/RESTClient.pm:438
 msgid "User and password do not match."
@@ -7529,7 +7519,7 @@ msgstr "ビジネス"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:78
 msgid "Trial"
-msgstr ""
+msgstr "トライアル"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
 msgid "Enterprise"
@@ -7550,7 +7540,6 @@ msgid "This is a Zentyal Server {edition} edition."
 msgstr "これはZentyalサーバ{edition}版です。"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1264
-#, fuzzy
 msgid "Server Edition"
 msgstr "サーバエディション"
 
@@ -7563,9 +7552,8 @@ msgid "Subscribed"
 msgstr "サブスクライブ"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1341
-#, fuzzy
 msgid "Server Information"
-msgstr "一般的な情報"
+msgstr "サーバ情報"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1361
 #, perl-brace-format
@@ -7594,7 +7582,6 @@ msgid "none"
 msgstr "なし"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1388
-#, fuzzy
 msgid "unknown"
 msgstr "不明"
 
@@ -7606,7 +7593,7 @@ msgstr "- 最新のconfバックアップ：{date}"
 #: ../../main/core/src/EBox/RemoteServices.pm:1392
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
-msgstr ""
+msgstr "{oh}クラウドでバックアップを保存するために登録します{ch}"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1397
 #: ../../main/core/src/templates/remoteservices/index.mas:35
@@ -7619,7 +7606,6 @@ msgid "Technical support"
 msgstr "技術サポート"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:1405
-#, fuzzy
 msgid "Registered e-mail"
 msgstr "登録"
 
@@ -7692,9 +7678,8 @@ msgstr ""
 "互換性のないバージョンのZentyalを使用しています"
 
 #: ../../main/core/src/EBox/Backup.pm:926
-#, fuzzy
 msgid "The file is not a correct backup archive"
-msgstr "バックアップのアーカイブを作成できませんでした"
+msgstr "ファイルが正しいバックアップアーカイブはありません"
 
 #: ../../main/core/src/EBox/Backup.pm:959
 #, perl-brace-format
@@ -8192,36 +8177,32 @@ msgstr ""
 "必要があります"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:574
-#, fuzzy
 msgid "Provision OpenChange"
-msgstr "OpenChange"
+msgstr "OpenChangeのプロビジョニング"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:575
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
-msgstr ""
+msgstr "OpenChangeのプロビジョニングは、保存されていないコンフィギュレーション変更のコミットをトリガにします"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:576
-#, fuzzy
 msgid "Saving changes after provision"
-msgstr "モジュール変更内容を保存"
+msgstr "プロビジョニング後の保存の変更"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:578
-#, fuzzy
 msgid "Deprovision OpenChange"
-msgstr "OpenChange"
+msgstr "OpenChangeのプロビジョニング解除"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:579
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
-msgstr ""
+msgstr "OpenChangeのプロビジョニング解除は、保存されていないコンフィギュレーション変更のコミットをトリガにします"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:580
-#, fuzzy
 msgid "Saving changes after deprovision"
-msgstr "モジュール変更内容を保存"
+msgstr "プロビジョニング解除後の保存の変更"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
 msgid "Enable OpenChange account"
@@ -8469,7 +8450,7 @@ msgstr "ソフトウェア管理の設定"
 #: ../../main/software/src/EBox/Software/CGI/Welcome.pm:29
 #: ../../main/software/src/templates/welcome.mas:7
 msgid "Initial Setup"
-msgstr ""
+msgstr "初期セットアップ"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:661
 msgid "Firewall failed to add rules for the following modules: "
@@ -8816,7 +8797,6 @@ msgid "Cannot parse {x} file"
 msgstr "{x}はファイルを解析できません"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:73
-#, fuzzy
 msgid "Domain Name"
 msgstr "ドメイン名"
 
@@ -13778,9 +13758,8 @@ msgid "Local"
 msgstr "ローカル"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
-#, fuzzy
 msgid "Cloud"
-msgstr "クラウド同期"
+msgstr "クラウド"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
@@ -14070,25 +14049,21 @@ msgid "Register"
 msgstr "登録"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:62
-#, fuzzy
 msgid "Choose a server edition"
-msgstr "CUPSプリンタサーバポート"
+msgstr "サーバエディションを選択してください"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#, fuzzy
 msgid "Assigned to"
-msgstr "無制限"
+msgstr "に割り当てられている"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 #: ../../main/core/src/templates/remoteservices/index.mas:85
-#, fuzzy
 msgid "Start date"
-msgstr "開始"
+msgstr "開始日"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#, fuzzy
 msgid "End date"
-msgstr "日"
+msgstr "終了日"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:82
 msgid "Email Address"
@@ -14104,7 +14079,7 @@ msgstr "メッセージ"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:25
 msgid "Free"
-msgstr ""
+msgstr "フリー"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
