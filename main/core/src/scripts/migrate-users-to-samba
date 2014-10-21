@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+
+my $LDIF_BACKUP_DIR = '/var/lib/zentyal/conf/upgrade-to-3.5';
+
+EBox::init();
+
+my $global = EBox::Global->getInstance();
+
+my $users = $global->modInstance('users');
+unless (defined ($users) and $users->configured()) {
+    # Do nothing if users is not in use
+    exit (0);
+}
+
+# Dump LDIF with all the info required later (uidNumber, gidNumber, etc)
+EBox::Sudo::root("mkdir -p $LDIF_BACKUP_DIR");
+$users->ldap()->dumpLdapData($LDIF_BACKUP_DIR);
+
+my $samba = $global->modInstance('samba');
+if (defined ($samba) and $samba->configured()) {
+    # Samba already installed and enabled, nothing to do
+    exit (0);
+}
+
+EBox::Sudo::root('LANG=C DEBIAN_FRONTEND=noninteractive apt-get -o DPkg::Options::="--force-confold" --yes --force-yes --no-install-recommends install zentyal-samba');
+
+# Enable and provision samba after installing it
+$samba = EBox::Global->modInstance('samba');
+$samba->configureModule();
+$global->saveAllModules();
+
+
+# FIXME: real check with active wait
+sleep (60);
