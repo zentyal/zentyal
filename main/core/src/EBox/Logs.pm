@@ -76,6 +76,7 @@ sub initialSetup
     # Make sure the MySQL conf file is correct
     my $db = EBox::DBEngineFactory::DBEngine();
     $db->updateMysqlConf();
+    EBox::DBEngineFactory::disconnect();
 }
 
 # Method: depends

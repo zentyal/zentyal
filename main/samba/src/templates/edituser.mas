@@ -163,7 +163,29 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <script>
 "use strict";
 $(function() {
-   Zentyal.Form.setupAjaxSubmit('#editUserForm', {
+   var edit_form =$('#editUserForm');
+   var confirm_edit = function(do_edit) {
+      if (('MailUserAddon' in Zentyal) && Zentyal.MailUserAddon.editFormWillRemoveAccount()) {
+         var confirmParams;
+         var removal = $('#user_attrs_mail').val().trim().length == 0;
+         if (removal) {
+            confirmParams = {
+               title:   '<% __('Remove mail account') %>',
+               message: '<% __('This action removes the mail account and its associated data.')%>'
+            }; 
+         } else {
+            confirmParams = {
+               title:   '<%  __('Replace mail account')  %>',
+               message: '<% __('Replacing the mail account removes all its current data.') %>'
+            }; 
+         }
+         Zentyal.TableHelper.showConfirmationDialog(confirmParams, do_edit);
+      } else {
+         do_edit(); 
+      }
+   };
+
+   var submit_params = {
         noteDiv: '#editUserForm_message',
         errorDiv: '#editUserForm_error',
         submitButton: '#submitEditUserForm',
@@ -180,6 +202,14 @@ $(function() {
                }
             }
         }
+   };
+
+   edit_form.on('submit', function(event) {
+        event.preventDefault();
+        var do_edit = function() {
+             Zentyal.Form.submit(edit_form, submit_params);
+        };
+        confirm_edit(do_edit);
    });
 
    var updateGroupsWidgets = function(data) {

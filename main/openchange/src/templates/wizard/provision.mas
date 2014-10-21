@@ -12,5 +12,25 @@ my $defaultOrg = EBox::Global->modInstance('openchange')->model('Provision')->_d
             <label class="inline-label"><% __('Organization Name') %></label>
             <input type="text" name="orgName" value="<% $defaultOrg %>"/>
         </div>
+
+        <p><a href="#" onclick="$('#ca_fields').slideToggle()"><% __('Certification Authority details') %></a></p>
+        <div id="ca_fields" class="grey-block" style="display: none">
+           <div class="field">
+               <label><% __('Country code') %></label>
+               <input type="text" name="countryName" value="US" size="2" maxlength="2"/>
+           </div>
+           <div class="field">
+               <label><% __('City') %></label>
+               <input type="text" name="localityName" value="Undefined"/>
+           </div>
+           <div class="field">
+               <label><% __('State') %></label>
+               <input type="text" name="stateName" value="Undefined"/>
+           </div>
+           <div class="field">
+               <label><% __('Days to expire') %></label>
+               <input type="text" name="expiryDays" value="3650"/>
+           </div>
+        </div>
     </fieldset>
 </form>

@@ -8,7 +8,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zenbuntu-core
 Architecture: all
-Depends: openssh-server, nano, plymouth-theme-ubuntu-text, acpid, ntp, wget, policykit-1, man-db
+Depends: openssh-server, nano, plymouth-theme-ubuntu-text, acpid, ntp, wget, policykit-1, man-db, apt-transport-https
 Conflicts: zenbuntu-desktop (<< 3.1)
 Description: Zentyal Environment for Ubuntu Server
  This package ships scripts and branding stuff included in

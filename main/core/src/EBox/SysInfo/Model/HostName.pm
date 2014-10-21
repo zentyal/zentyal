@@ -75,19 +75,19 @@ sub _table
                   }
 
                   my $title = __('Change hostname');
-                  my $msg = __x('Are you sure you want to change the hostname to {new}?. You may need to restart all the services or reboot the system to enforce the change', new => $newHostname . '.' . $newHostdomain);
-
+                  my $msg = __x('{op}A hostname change will create a new certificate for the web administration connections. This means you will have to reload the page manually once the save change proccess ends.{cp}', op => '<p>', cp => '</p>');
+                  $msg .= __x('{op}You may need to restart all the services or reboot the system to enforce the change{cp}', op => '<p>', cp => '</p>');
                   # TODO: implement this in a cooler way with SysInfo::Observer so more modules
                   #       can warn about the hostname change if needed
                   if (EBox::Global->modExists('samba') and EBox::Global->modInstance('samba')->isEnabled()) {
-                      $msg = __x('WARNING: As the Users module is already installed and configured, if you change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure you want to continue?', new => $newHostname . '.' . $newHostdomain);
+                      $msg .= __x('{op}As the Users module is already installed and configured, if you change the hostname you will LOSE ALL YOUR USERS DATA.{cp}', op => '<p>', cp => '</p>');
                   }
 
                   if ($newHostdomain =~ m/\.local$/i) {
-                      $msg .= q{<p>};
-                      $msg .= __("Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.");
-                      $msg .= q{</p>}
+                      $msg .= __x("{op}Additionally, using a domain ending in '.local' can conflict with other protocols like zeroconf and is, in general, discouraged.{cp}", op => '<p>', cp => '</p>');
                   }
+
+                  $msg .= __x('{op}Are you sure you want to change the hostname to {new}?.{cp}', new => $newHostname . '.' . $newHostdomain, op => '<p>', cp => '</p>');
                   return  {
                       title => $title,
                       message => $msg,
