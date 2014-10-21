@@ -30,6 +30,7 @@ use EBox::Types::Action;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
+use EBox::Middleware::AuthPAM;
 
 my $ADMIN_GROUP = 'sudo';
 my $LPADMIN_GROUP = 'lpadmin';
@@ -112,28 +113,36 @@ sub _checkRowExist
 sub addTypedRow
 {
     my ($self, $params) = @_;
+    my $id;
 
-    my $user = $params->{username}->value();
+    try {
+        my $user = $params->{username}->value();
 
-    # Create user if not exists
-    system("id $user");
-    if ($?) {
-        EBox::Sudo::root("adduser --disabled-password --gecos '' $user");
+        # Create user if not exists
+        system("id $user");
+        if ($?) {
+            EBox::Sudo::root("adduser --disabled-password --gecos '' $user");
+            
+            my $password = $params->{password}->value();
+            $self->_changePassword($user, $password);
+        }
+        
+        unless ($self->_userIsAdmin($user)) {
+            EBox::Sudo::root("adduser $user $ADMIN_GROUP");
+            my $audit = EBox::Global->modInstance('audit');
+            $audit->logAction('System', 'General', 'addAdmin', $user, 0);
+        }
+        if ((not $self->_userIsInGroup($user, $LPADMIN_GROUP)) and $self->_groupExists($LPADMIN_GROUP)) {
+            EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
+        }
 
-        my $password = $params->{password}->value();
-        $self->_changePassword($user, $password);
+        $self->setMessage($self->message('add'));
+
+        $id = getpwnam($user);
+    } catch ($ex) {
+        EBox::Exceptions::Base::rethrowSilently($ex);
     }
 
-    unless ($self->_userIsAdmin($user)) {
-        EBox::Sudo::root("adduser $user $ADMIN_GROUP");
-        my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('System', 'General', 'addAdmin', $user, 0);
-    }
-    unless ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
-        EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
-    }
-
-    my $id = getpwnam($user);
     return $id;
 }
 
@@ -141,23 +150,27 @@ sub setTypedRow
 {
     my ($self, $id, $params) = @_;
 
-    my $oldRow = $self->row($id);
+    try {
+        my $oldRow = $self->row($id);
 
-    my $user = $params->{username}->value();
-    my $oldName = getpwuid($id);
-
-    if ($user ne $oldName) {
-        EBox::Sudo::root("usermod -l $user $oldName");
-        my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
+        my $user = $params->{username}->value();
+        my $oldName = getpwuid($id);
+        
+        if ($user ne $oldName) {
+            EBox::Sudo::root("usermod -l $user $oldName");
+            my $audit = EBox::Global->modInstance('audit');
+            $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
+        }
+        
+        my $password = $params->{password}->value();
+        if ($password) {
+            $self->_changePassword($user, $password);
+        }
+        
+        $self->SUPER::setTypedRow($id, $params);
+    } catch ($ex) {
+        EBox::Exceptions::Base::rethrowSilently($ex);
     }
-
-    my $password = $params->{password}->value();
-    if ($password) {
-        $self->_changePassword($user, $password);
-    }
-
-    $self->SUPER::setTypedRow($id, $params);
 }
 
 sub removeRow
@@ -179,7 +192,6 @@ sub removeRow
 sub _changePassword
 {
     my ($self, $username, $password) = @_;
-
     unless (defined ($username)) {
         throw EBox::Exceptions::DataMissing(data =>  __('Username'));
     }
@@ -192,7 +204,7 @@ sub _changePassword
         throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
     }
 
-    EBox::Middleware::Auth->setPassword($username, $password);
+    EBox::Middleware::AuthPAM->setPassword($username, $password);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username, 0);
 }
@@ -210,6 +222,13 @@ sub _userIsInGroup
         }
     }
     return 0;
+}
+
+sub _groupExists
+{
+    my ($self, $group) = @_;
+    system "grep '$group' /etc/group";
+    return ($? == 0);
 }
 
 sub _userIsAdmin

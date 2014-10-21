@@ -1,4 +1,5 @@
 4.0
+	+ Fixed ManageAdmins model and offer it in all editions
 	+ Remove excessive top margin for first child fields in forms
 	+ Better warning in change hostname confirmation dialog
 	+ Confirmation dialog action recovers correctly from errors
