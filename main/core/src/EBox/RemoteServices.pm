@@ -124,7 +124,6 @@ sub _create
 sub commercialEdition
 {
     my ($self, $force) = @_;
-    return 1; # XXXX
     unless (exists $self->{commercialEdition} or $force) {
         $self->{commercialEdition} = (-e COMMERCIAL_EDITION);
     }
