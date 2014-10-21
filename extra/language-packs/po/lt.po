@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -169,7 +169,7 @@ msgstr "Įjungta"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/RemoteServices.pm:1359
+#: ../../main/core/src/EBox/RemoteServices.pm:1344
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -1110,7 +1110,7 @@ msgid "High Availability"
 msgstr "Galimas"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/RemoteServices.pm:1259
+#: ../../main/core/src/EBox/RemoteServices.pm:1244
 msgid "System"
 msgstr "Sistema"
 
@@ -1135,9 +1135,9 @@ msgstr "Startuoti persikrovus"
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:133
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:277
 #: ../../main/core/src/EBox/RemoteServices.pm:73
-#: ../../main/core/src/EBox/RemoteServices.pm:795
-#: ../../main/core/src/EBox/RemoteServices.pm:1372
-#: ../../main/core/src/EBox/Backup.pm:458
+#: ../../main/core/src/EBox/RemoteServices.pm:780
+#: ../../main/core/src/EBox/RemoteServices.pm:1357
+#: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
 msgstr "Nežinomas"
@@ -1153,7 +1153,7 @@ msgstr "Nežinomas"
 #: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:140
 #: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1359
+#: ../../main/core/src/EBox/RemoteServices.pm:1344
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
@@ -1181,7 +1181,7 @@ msgstr "Klaida"
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
-#: ../../main/network/src/EBox/Network.pm:4465
+#: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1704 ../../main/mail/src/EBox/Mail.pm:1825
 #: ../../main/core/src/templates/report/raid.mas:100
@@ -1204,8 +1204,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:214
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
-#: ../../main/network/src/EBox/Network.pm:4311
-#: ../../main/network/src/EBox/Network.pm:4332
+#: ../../main/network/src/EBox/Network.pm:4312
+#: ../../main/network/src/EBox/Network.pm:4333
 #: ../../main/dhcp/src/EBox/DHCP.pm:1065
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:53
@@ -1220,12 +1220,12 @@ msgstr "Pavadinimas"
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:65
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:281
-#: ../../main/network/src/EBox/Network.pm:1132
-#: ../../main/network/src/EBox/Network.pm:1510
-#: ../../main/network/src/EBox/Network.pm:4043
-#: ../../main/network/src/EBox/Network.pm:4077
-#: ../../main/network/src/EBox/Network.pm:4112
-#: ../../main/network/src/EBox/Network.pm:4476
+#: ../../main/network/src/EBox/Network.pm:1133
+#: ../../main/network/src/EBox/Network.pm:1511
+#: ../../main/network/src/EBox/Network.pm:4044
+#: ../../main/network/src/EBox/Network.pm:4078
+#: ../../main/network/src/EBox/Network.pm:4113
+#: ../../main/network/src/EBox/Network.pm:4477
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:64
 #: ../../main/dhcp/src/EBox/DHCP.pm:1065
 #: ../../main/network/src/templates/wizard/network.mas:47
@@ -1634,38 +1634,38 @@ msgstr "IP Adresas"
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:190
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:110
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:76
-#: ../../main/network/src/EBox/Network.pm:1232
-#: ../../main/network/src/EBox/Network.pm:1264
-#: ../../main/network/src/EBox/Network.pm:1349
-#: ../../main/network/src/EBox/Network.pm:1388
-#: ../../main/network/src/EBox/Network.pm:1416
-#: ../../main/network/src/EBox/Network.pm:1507
-#: ../../main/network/src/EBox/Network.pm:1708
-#: ../../main/network/src/EBox/Network.pm:1801
-#: ../../main/network/src/EBox/Network.pm:1903
-#: ../../main/network/src/EBox/Network.pm:1909
-#: ../../main/network/src/EBox/Network.pm:2011
-#: ../../main/network/src/EBox/Network.pm:2017
-#: ../../main/network/src/EBox/Network.pm:2470
-#: ../../main/network/src/EBox/Network.pm:2549
-#: ../../main/network/src/EBox/Network.pm:2589
-#: ../../main/network/src/EBox/Network.pm:2616
-#: ../../main/network/src/EBox/Network.pm:2643
-#: ../../main/network/src/EBox/Network.pm:2670
-#: ../../main/network/src/EBox/Network.pm:2697
-#: ../../main/network/src/EBox/Network.pm:2724
-#: ../../main/network/src/EBox/Network.pm:2787
-#: ../../main/network/src/EBox/Network.pm:2832
-#: ../../main/network/src/EBox/Network.pm:2865
-#: ../../main/network/src/EBox/Network.pm:4040
-#: ../../main/network/src/EBox/Network.pm:4079
-#: ../../main/network/src/EBox/Network.pm:4104
-#: ../../main/network/src/EBox/Network.pm:4132
-#: ../../main/network/src/EBox/Network.pm:4154
-#: ../../main/network/src/EBox/Network.pm:4183
-#: ../../main/network/src/EBox/Network.pm:4242
-#: ../../main/network/src/EBox/Network.pm:4265
-#: ../../main/network/src/EBox/Network.pm:4288
+#: ../../main/network/src/EBox/Network.pm:1233
+#: ../../main/network/src/EBox/Network.pm:1265
+#: ../../main/network/src/EBox/Network.pm:1350
+#: ../../main/network/src/EBox/Network.pm:1389
+#: ../../main/network/src/EBox/Network.pm:1417
+#: ../../main/network/src/EBox/Network.pm:1508
+#: ../../main/network/src/EBox/Network.pm:1709
+#: ../../main/network/src/EBox/Network.pm:1802
+#: ../../main/network/src/EBox/Network.pm:1904
+#: ../../main/network/src/EBox/Network.pm:1910
+#: ../../main/network/src/EBox/Network.pm:2012
+#: ../../main/network/src/EBox/Network.pm:2018
+#: ../../main/network/src/EBox/Network.pm:2471
+#: ../../main/network/src/EBox/Network.pm:2550
+#: ../../main/network/src/EBox/Network.pm:2590
+#: ../../main/network/src/EBox/Network.pm:2617
+#: ../../main/network/src/EBox/Network.pm:2644
+#: ../../main/network/src/EBox/Network.pm:2671
+#: ../../main/network/src/EBox/Network.pm:2698
+#: ../../main/network/src/EBox/Network.pm:2725
+#: ../../main/network/src/EBox/Network.pm:2788
+#: ../../main/network/src/EBox/Network.pm:2833
+#: ../../main/network/src/EBox/Network.pm:2866
+#: ../../main/network/src/EBox/Network.pm:4041
+#: ../../main/network/src/EBox/Network.pm:4080
+#: ../../main/network/src/EBox/Network.pm:4105
+#: ../../main/network/src/EBox/Network.pm:4133
+#: ../../main/network/src/EBox/Network.pm:4155
+#: ../../main/network/src/EBox/Network.pm:4184
+#: ../../main/network/src/EBox/Network.pm:4243
+#: ../../main/network/src/EBox/Network.pm:4266
+#: ../../main/network/src/EBox/Network.pm:4289
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:449
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:888
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:281
@@ -1882,7 +1882,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
-#: ../../main/network/src/EBox/Network.pm:4352
+#: ../../main/network/src/EBox/Network.pm:4353
 msgid "host name"
 msgstr "vardas"
 
@@ -2540,7 +2540,7 @@ msgstr "Atšauktas"
 msgid "Certification Authority"
 msgstr "Sertifikatų Autorizatoriai"
 
-#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:512
+#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:528
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
@@ -2556,8 +2556,11 @@ msgstr "Sertifikatų Autorizatoriai"
 msgid "Organization Name"
 msgstr "Organizacijos pavadinimas"
 
-#: ../../main/ca/src/EBox/CA.pm:222 ../../main/ca/src/templates/createCA.mas:9
+#: ../../main/ca/src/EBox/CA.pm:222
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:43
+#: ../../main/ca/src/templates/createCA.mas:9
 #: ../../main/ca/src/templates/index.mas:41
+#: ../../main/openchange/src/templates/wizard/provision.mas:13
 msgid "Country code"
 msgstr "Šalies kodas"
 
@@ -2566,8 +2569,8 @@ msgstr "Šalies kodas"
 msgid "The country code must be the 2-characters ISO code"
 msgstr "Slaptažodis turi būti ne mažiau 6 simbolių ilgio"
 
-#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:744
-#: ../../main/ca/src/EBox/CA.pm:1373
+#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:760
+#: ../../main/ca/src/EBox/CA.pm:1389
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Nustatyta maksimumas leidžiamų dienų {days}: 2038 metų klaida"
@@ -2576,7 +2579,7 @@ msgstr "Nustatyta maksimumas leidžiamų dienų {days}: 2038 metų klaida"
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Pašalinimo operacija nepavyko. Priežastis: "
 
-#: ../../main/ca/src/EBox/CA.pm:527 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:543 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -2584,9 +2587,9 @@ msgstr ""
 "CA sertifikatai turėtų būti atšaukti arba nebegaliojantis prieš kuriant "
 "naujus"
 
-#: ../../main/ca/src/EBox/CA.pm:726 ../../main/ca/src/EBox/CA.pm:894
-#: ../../main/ca/src/EBox/CA.pm:1230 ../../main/ca/src/EBox/CA.pm:1300
-#: ../../main/ca/src/EBox/CA.pm:1394
+#: ../../main/ca/src/EBox/CA.pm:742 ../../main/ca/src/EBox/CA.pm:910
+#: ../../main/ca/src/EBox/CA.pm:1246 ../../main/ca/src/EBox/CA.pm:1316
+#: ../../main/ca/src/EBox/CA.pm:1410
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -2603,12 +2606,12 @@ msgstr ""
 msgid "Common Name"
 msgstr "Bendras pavadinimas"
 
-#: ../../main/ca/src/EBox/CA.pm:907 ../../main/ca/src/EBox/CA.pm:1241
+#: ../../main/ca/src/EBox/CA.pm:923 ../../main/ca/src/EBox/CA.pm:1257
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Sertifikatas su bendru vardu {cn} neegzistuoja"
 
-#: ../../main/ca/src/EBox/CA.pm:911
+#: ../../main/ca/src/EBox/CA.pm:927
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -2617,34 +2620,34 @@ msgstr ""
 "Priežastis {reason} yra netaikoma priežastis.\n"
 " Parinktys:"
 
-#: ../../main/ca/src/EBox/CA.pm:1053
+#: ../../main/ca/src/EBox/CA.pm:1069
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr "Sertifikatų Autorizatorių struktūra neegzistuoja, sukurkite pirma"
 
-#: ../../main/ca/src/EBox/CA.pm:1150
+#: ../../main/ca/src/EBox/CA.pm:1166
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "Arba bendras vardas, išskirtinis vardas arba serijos numeris buvo perduoti"
 
-#: ../../main/ca/src/EBox/CA.pm:1395
+#: ../../main/ca/src/EBox/CA.pm:1411
 msgid "or"
 msgstr "arba"
 
-#: ../../main/ca/src/EBox/CA.pm:1396
+#: ../../main/ca/src/EBox/CA.pm:1412
 msgid "Certificate file"
 msgstr "Sertifikato failas"
 
-#: ../../main/ca/src/EBox/CA.pm:1418
+#: ../../main/ca/src/EBox/CA.pm:1434
 msgid "The certificate to renew does NOT exist"
 msgstr "Sertifikatas atnaujinimui neegzistuoja"
 
-#: ../../main/ca/src/EBox/CA.pm:1458
+#: ../../main/ca/src/EBox/CA.pm:1474
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Sertifikatas su šiuo bendru vardu {cn} neegzistuoja šiame SA"
 
-#: ../../main/ca/src/EBox/CA.pm:1739
+#: ../../main/ca/src/EBox/CA.pm:1755
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:423
 #: ../../main/core/src/EBox/SysInfo.pm:115
@@ -2652,33 +2655,33 @@ msgstr "Sertifikatas su šiuo bendru vardu {cn} neegzistuoja šiame SA"
 msgid "General"
 msgstr "Bendra"
 
-#: ../../main/ca/src/EBox/CA.pm:1742
+#: ../../main/ca/src/EBox/CA.pm:1758
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Sertifikatų servisai"
 
-#: ../../main/ca/src/EBox/CA.pm:1855
+#: ../../main/ca/src/EBox/CA.pm:1871
 msgid "Not created"
 msgstr "Nesukurtas"
 
-#: ../../main/ca/src/EBox/CA.pm:1857
+#: ../../main/ca/src/EBox/CA.pm:1873
 msgid "Available"
 msgstr "Galimas"
 
-#: ../../main/ca/src/EBox/CA.pm:1859
+#: ../../main/ca/src/EBox/CA.pm:1875
 msgid "Created but not available"
 msgstr "Sukurtas bet nepasiekiamas"
 
-#: ../../main/ca/src/EBox/CA.pm:1885
+#: ../../main/ca/src/EBox/CA.pm:1901
 #, fuzzy
 msgid "The field cannot contain only blank characters"
 msgstr "Įvestis turi klaidingus simbolius"
 
-#: ../../main/ca/src/EBox/CA.pm:1908
+#: ../../main/ca/src/EBox/CA.pm:1924
 msgid "String"
 msgstr "Kintamasis"
 
-#: ../../main/ca/src/EBox/CA.pm:1913
+#: ../../main/ca/src/EBox/CA.pm:1929
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2686,51 +2689,51 @@ msgstr ""
 "Laukas turi neleidžiamų simbolių. Visi ASCII alfabeto simboliai, plius "
 "simboliai: .?&+:-@* bei tarpas yra leidžiami."
 
-#: ../../main/ca/src/EBox/CA.pm:2432
+#: ../../main/ca/src/EBox/CA.pm:2448
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Nepavyko pasirašyti. Blogas SA slaptažodis arba SA privatus raktas dingęs?"
 
-#: ../../main/ca/src/EBox/CA.pm:2434
+#: ../../main/ca/src/EBox/CA.pm:2450
 msgid "Database corruption"
 msgstr "Sugadinta duomenų bazė"
 
-#: ../../main/ca/src/EBox/CA.pm:2436
+#: ../../main/ca/src/EBox/CA.pm:2452
 msgid "Identifier duplicated in Database"
 msgstr "Identifikatorius dubliuojasi duomenų bazėje"
 
-#: ../../main/ca/src/EBox/CA.pm:2438
+#: ../../main/ca/src/EBox/CA.pm:2454
 msgid "Certificate already revoked"
 msgstr "Sertifikatas jau atšauktas"
 
-#: ../../main/ca/src/EBox/CA.pm:2441
+#: ../../main/ca/src/EBox/CA.pm:2457
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 lauko ilgis per ilgas: Maksimalus dydis:"
 
-#: ../../main/ca/src/EBox/CA.pm:2443
+#: ../../main/ca/src/EBox/CA.pm:2459
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Nežinoma klaida: Gauta OpenSSL išvestis:"
 
-#: ../../main/ca/src/EBox/CA.pm:2510 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2526 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Galiojimo data vėlesnė nei CA sertifikato galiojimo data"
 
-#: ../../main/ca/src/EBox/CA.pm:2531
+#: ../../main/ca/src/EBox/CA.pm:2547
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2548
+#: ../../main/ca/src/EBox/CA.pm:2564
 #, fuzzy
 msgid "Subject alternative type"
 msgstr "Tema Alternatyvūs pavadinimai"
 
-#: ../../main/ca/src/EBox/CA.pm:2550
+#: ../../main/ca/src/EBox/CA.pm:2566
 #, fuzzy, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "Tik {dns}, {ip} ir {email} yra galimi kaip atlternatyvus vardų tipai"
 
-#: ../../main/ca/src/EBox/CA.pm:2594
+#: ../../main/ca/src/EBox/CA.pm:2610
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Nepavyko paleisti OpenSSL aplinkos. ({errval})"
@@ -2787,10 +2790,12 @@ msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Skaitinė identifikacija Sertifikatų Autorizatorių  sertifikatui"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:67
-#: ../../main/ca/src/templates/createCA.mas:19
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:49
+#: ../../main/ca/src/templates/createCA.mas:22
 #: ../../main/ca/src/templates/formRenew.mas:13
 #: ../../main/ca/src/templates/index.mas:52
 #: ../../main/ca/src/templates/formReissue.mas:13
+#: ../../main/openchange/src/templates/wizard/provision.mas:22
 msgid "Days to expire"
 msgstr "Dienų iki galiojimo"
 
@@ -2865,7 +2870,7 @@ msgid "The new CA certificate has been issued."
 msgstr "Naujas SA sertifikatas buvo išduotas."
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:412
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:411
 #, fuzzy, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr "Sukruti Sertifikavimo autorizatoriaus sertifikatą"
@@ -3495,8 +3500,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Pranešti apie non-spam probleminius pranešimus"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:520
-#: ../../main/core/src/EBox/RemoteServices.pm:561
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
 msgid "mail address"
 msgstr "pašto adresas"
 
@@ -4088,7 +4093,7 @@ msgstr "Vietinis adresas"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:95
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
-#: ../../main/network/src/EBox/Network.pm:4470
+#: ../../main/network/src/EBox/Network.pm:4471
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:81
 #: ../../main/dhcp/src/EBox/DHCP.pm:974 ../../main/dhcp/src/EBox/DHCP.pm:1065
 #: ../../main/network/src/templates/diag.mas:33
@@ -4105,13 +4110,13 @@ msgid "virtual interface name"
 msgstr "virtualios sąsajos vardas"
 
 #: ../../main/network/src/EBox/Network/CGI/Ifaces.pm:29
-#: ../../main/network/src/EBox/Network.pm:4512
+#: ../../main/network/src/EBox/Network.pm:4513
 msgid "Network Interfaces"
 msgstr "Tinklo sąsajos"
 
 #: ../../main/network/src/EBox/Network/CGI/Vlan.pm:42
-#: ../../main/network/src/EBox/Network.pm:2115
-#: ../../main/network/src/EBox/Network.pm:2146
+#: ../../main/network/src/EBox/Network.pm:2116
+#: ../../main/network/src/EBox/Network.pm:2147
 #: ../../main/network/src/templates/ifaces.mas:194
 msgid "VLAN Id"
 msgstr "VLAN Id"
@@ -4611,8 +4616,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
-#: ../../main/network/src/EBox/Network.pm:117
-#: ../../main/network/src/EBox/Network.pm:4531
+#: ../../main/network/src/EBox/Network.pm:118
+#: ../../main/network/src/EBox/Network.pm:4532
 #: ../../main/objects/src/EBox/Objects.pm:406
 #: ../../main/services/src/EBox/Services.pm:626
 msgid "Network"
@@ -4635,7 +4640,7 @@ msgid "Static Routes List"
 msgstr "Statinių maršrutų sąrašas"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:211
-#: ../../main/network/src/EBox/Network.pm:4548
+#: ../../main/network/src/EBox/Network.pm:4549
 msgid "Static Routes"
 msgstr "Statiniai maršrutai"
 
@@ -4649,11 +4654,11 @@ msgstr "Visi vartai turi būti pasiekiami bent viena iš sukonfigūruotų sąsaj
 msgid "static route"
 msgstr "statinis maršrutas"
 
-#: ../../main/network/src/EBox/Network.pm:134
+#: ../../main/network/src/EBox/Network.pm:135
 msgid "Add default routers to the default table"
 msgstr "Įkelti numatytus maršrutus į numatytąją lentelę"
 
-#: ../../main/network/src/EBox/Network.pm:135
+#: ../../main/network/src/EBox/Network.pm:136
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -4661,11 +4666,11 @@ msgstr ""
 "Tai reikalaujama dirbant su daugialypiais vartų nustatymais. Pastaba: "
 "norėdamis gauti sąrašą numatytųjų maršrutų, turite įvykdyti komandą:"
 
-#: ../../main/network/src/EBox/Network.pm:141
+#: ../../main/network/src/EBox/Network.pm:142
 msgid "Enable Zentyal DHCP hook"
 msgstr "Įjungti Zentyal DHCP kablį"
 
-#: ../../main/network/src/EBox/Network.pm:142
+#: ../../main/network/src/EBox/Network.pm:143
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -4673,121 +4678,121 @@ msgstr ""
 "Tai sutvarkųs įkėlimą numatytųjų maršrutų iš DHCP serverio į numatytąją "
 "maršrutų lentelę"
 
-#: ../../main/network/src/EBox/Network.pm:147
+#: ../../main/network/src/EBox/Network.pm:148
 #, fuzzy
 msgid "Disable IPv6"
 msgstr "Išjungtas"
 
-#: ../../main/network/src/EBox/Network.pm:148
+#: ../../main/network/src/EBox/Network.pm:149
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:167
+#: ../../main/network/src/EBox/Network.pm:168
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal nustatys jūsų tinklo konfigūraciją"
 
-#: ../../main/network/src/EBox/Network.pm:172
+#: ../../main/network/src/EBox/Network.pm:173
 #, fuzzy
 msgid "Zentyal will set the order of systems resolvers"
 msgstr "Zentyal saugos jūsų PPPoE slaptažodžius"
 
-#: ../../main/network/src/EBox/Network.pm:177
-#: ../../main/network/src/EBox/Network.pm:182
-#: ../../main/network/src/EBox/Network.pm:187
+#: ../../main/network/src/EBox/Network.pm:178
+#: ../../main/network/src/EBox/Network.pm:183
+#: ../../main/network/src/EBox/Network.pm:188
 #, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
 msgstr "Zentyal nustatys jūsų tinklo konfigūraciją"
 
-#: ../../main/network/src/EBox/Network.pm:192
+#: ../../main/network/src/EBox/Network.pm:193
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal nustatys jūsų DHCP kliento konfiūraciją"
 
-#: ../../main/network/src/EBox/Network.pm:197
-#: ../../main/network/src/EBox/Network.pm:202
+#: ../../main/network/src/EBox/Network.pm:198
+#: ../../main/network/src/EBox/Network.pm:203
 msgid "Zentyal will set your ddclient configuration"
 msgstr "Zentyal nustatys jūsų ddclient konfigūraciją"
 
-#: ../../main/network/src/EBox/Network.pm:207
-#: ../../main/network/src/EBox/Network.pm:212
+#: ../../main/network/src/EBox/Network.pm:208
+#: ../../main/network/src/EBox/Network.pm:213
 msgid "Zentyal will store your PPPoE passwords"
 msgstr "Zentyal saugos jūsų PPPoE slaptažodžius"
 
-#: ../../main/network/src/EBox/Network.pm:217
+#: ../../main/network/src/EBox/Network.pm:218
 #, fuzzy
 msgid "Zentyal will disable IPV6 on this system"
 msgstr "Zentyal LDAP vartotojams duos sistemines paskyras."
 
-#: ../../main/network/src/EBox/Network.pm:224
+#: ../../main/network/src/EBox/Network.pm:225
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
 msgstr "Zentyal įkels DSL tiekėjo konfigūraciją į PPPoE"
 
-#: ../../main/network/src/EBox/Network.pm:231
+#: ../../main/network/src/EBox/Network.pm:232
 msgid "Zentyal will set HTTP proxy for all users"
 msgstr "Zentyal nustatys HTTP proxy visiems vartotojams"
 
-#: ../../main/network/src/EBox/Network.pm:234
+#: ../../main/network/src/EBox/Network.pm:235
 msgid "Zentyal will set HTTP proxy for APT"
 msgstr "Zentyal nustatys HTTP proxy APT repositorijai"
 
-#: ../../main/network/src/EBox/Network.pm:877
+#: ../../main/network/src/EBox/Network.pm:878
 #, fuzzy
 msgid "Argument must be a IP address"
 msgstr "Zentyal viešas IP adresas."
 
-#: ../../main/network/src/EBox/Network.pm:1129
-#: ../../main/network/src/EBox/Network.pm:1133
+#: ../../main/network/src/EBox/Network.pm:1130
+#: ../../main/network/src/EBox/Network.pm:1134
 msgid "Virtual interface name"
 msgstr "Virtualios sąsajos vardas"
 
-#: ../../main/network/src/EBox/Network.pm:1132
-#: ../../main/network/src/EBox/Network.pm:1510
-#: ../../main/network/src/EBox/Network.pm:4043
+#: ../../main/network/src/EBox/Network.pm:1133
+#: ../../main/network/src/EBox/Network.pm:1511
+#: ../../main/network/src/EBox/Network.pm:4044
 #: ../../main/network/src/templates/wizard/network.mas:49
 #: ../../main/network/src/templates/ifaces.mas:128
 #: ../../main/network/src/templates/ifaces.mas:233
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../../main/network/src/EBox/Network.pm:1138
+#: ../../main/network/src/EBox/Network.pm:1139
 #, fuzzy, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
 msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
 
-#: ../../main/network/src/EBox/Network.pm:1304
+#: ../../main/network/src/EBox/Network.pm:1305
 #, perl-brace-format
 msgid "There is already an interface called {al}"
 msgstr "Sasaja jau yra tokiu vardu {al}"
 
-#: ../../main/network/src/EBox/Network.pm:1316
+#: ../../main/network/src/EBox/Network.pm:1317
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
 msgstr "Jau yra sąsaja su tokiu aliasu {al}"
 
-#: ../../main/network/src/EBox/Network.pm:1324
+#: ../../main/network/src/EBox/Network.pm:1325
 msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1535
+#: ../../main/network/src/EBox/Network.pm:1536
 #, fuzzy, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
 msgstr "VPN addresas {addr} jau naudojamas sąsajoje {iface}"
 
-#: ../../main/network/src/EBox/Network.pm:1679
+#: ../../main/network/src/EBox/Network.pm:1680
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
 msgstr "Negalima naudoti vardo {n} nes jau yra klientas su tokiu vardu"
 
-#: ../../main/network/src/EBox/Network.pm:1806
+#: ../../main/network/src/EBox/Network.pm:1807
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "Ši sąsaja negali būti nustatyta trunk būseną, ji yra virtuali sąsaja."
 
-#: ../../main/network/src/EBox/Network.pm:1865
+#: ../../main/network/src/EBox/Network.pm:1866
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -4795,13 +4800,13 @@ msgstr ""
 "Ši sąsaja trunk būsenoje, turėtumėte perkonfigūruoti visas vlan sąsajas "
 "šiame trun prieš keičiant konfigūracijos būseną."
 
-#: ../../main/network/src/EBox/Network.pm:2125
+#: ../../main/network/src/EBox/Network.pm:2126
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Tinklo sąsajos turi būti sujungimo būsenoje prieš įkeliant vlan'us į jas."
 
-#: ../../main/network/src/EBox/Network.pm:3946
+#: ../../main/network/src/EBox/Network.pm:3947
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways or static "
@@ -4811,12 +4816,12 @@ msgstr ""
 "Prašoma operacija padarys vieną iš vartų nepasiekiamu. Prašome išmesti "
 "pradžioje jei šis pakeitimas būtinas."
 
-#: ../../main/network/src/EBox/Network.pm:4011
+#: ../../main/network/src/EBox/Network.pm:4012
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:4014
+#: ../../main/network/src/EBox/Network.pm:4015
 #, fuzzy, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
@@ -4825,55 +4830,55 @@ msgstr ""
 "Vartai {gw} turi būti pasiekiami statinės sąsajos. Šiuo metu pasiekiama tik "
 "{iface} kuri nėra statinė"
 
-#: ../../main/network/src/EBox/Network.pm:4436
+#: ../../main/network/src/EBox/Network.pm:4437
 msgid "down"
 msgstr "išjungti"
 
-#: ../../main/network/src/EBox/Network.pm:4441
+#: ../../main/network/src/EBox/Network.pm:4442
 #: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
 msgstr "į viršų"
 
-#: ../../main/network/src/EBox/Network.pm:4446
+#: ../../main/network/src/EBox/Network.pm:4447
 msgid "external"
 msgstr "išorinis"
 
-#: ../../main/network/src/EBox/Network.pm:4448
+#: ../../main/network/src/EBox/Network.pm:4449
 msgid "internal"
 msgstr "vidinis"
 
-#: ../../main/network/src/EBox/Network.pm:4454
+#: ../../main/network/src/EBox/Network.pm:4455
 msgid "link ok"
 msgstr "ryšys yra"
 
-#: ../../main/network/src/EBox/Network.pm:4456
+#: ../../main/network/src/EBox/Network.pm:4457
 msgid "no link"
 msgstr "nėra ryšio"
 
-#: ../../main/network/src/EBox/Network.pm:4491
+#: ../../main/network/src/EBox/Network.pm:4492
 msgid "Tx bytes"
 msgstr "Tx bitai"
 
-#: ../../main/network/src/EBox/Network.pm:4501
+#: ../../main/network/src/EBox/Network.pm:4502
 msgid "Rx bytes"
 msgstr "Rx bitai"
 
-#: ../../main/network/src/EBox/Network.pm:4536
-#: ../../main/network/src/EBox/Network.pm:5085
-#: ../../main/network/src/EBox/Network.pm:5124
+#: ../../main/network/src/EBox/Network.pm:4537
+#: ../../main/network/src/EBox/Network.pm:5086
+#: ../../main/network/src/EBox/Network.pm:5125
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
 msgid "Interfaces"
 msgstr "Sąsajos"
 
-#: ../../main/network/src/EBox/Network.pm:4540
+#: ../../main/network/src/EBox/Network.pm:4541
 msgid "Gateways"
 msgstr "Vartai"
 
-#: ../../main/network/src/EBox/Network.pm:4552
+#: ../../main/network/src/EBox/Network.pm:4553
 msgid "Dynamic DNS"
 msgstr "Dinaminis DNS"
 
-#: ../../main/network/src/EBox/Network.pm:4556
+#: ../../main/network/src/EBox/Network.pm:4557
 msgid "Tools"
 msgstr "Priemonės"
 
@@ -5849,7 +5854,7 @@ msgstr "Vartotojas nerastas"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1408
+#: ../../main/core/src/EBox/RemoteServices.pm:1393
 msgid "Configuration backup"
 msgstr "Nustatymai atsarginės kopijos"
 
@@ -6237,7 +6242,7 @@ msgid "This is only intended for Web Administration User Interface"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1399
+#: ../../main/core/src/EBox/RemoteServices.pm:1384
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 msgid "Server edition"
 msgstr "Serverio versija"
@@ -6504,7 +6509,11 @@ msgstr "Naujas slaptažodis nesutampa."
 msgid "Zentyal Webadmin"
 msgstr "Zentyal sritis"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:832
+#: ../../main/core/src/EBox/WebAdmin.pm:686
+msgid "Zentyal Administration Web Server"
+msgstr "Zentyal Administravimo Web serveris"
+
+#: ../../main/core/src/EBox/WebAdmin.pm:851
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -6513,7 +6522,7 @@ msgstr ""
 "Zentyal jau sukonfigūruotas klausytis {p} jungties kito serviso. Pasirinkite "
 "kitą jungtį arba įveskite ir bandykite vėl."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:845
+#: ../../main/core/src/EBox/WebAdmin.pm:864
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -6685,12 +6694,12 @@ msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
 msgid "Logs"
 msgstr "Žurnalai"
 
-#: ../../main/core/src/EBox/Logs.pm:419
+#: ../../main/core/src/EBox/Logs.pm:420
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "Lentelė {table} neegzistuoja"
 
-#: ../../main/core/src/EBox/Logs.pm:729
+#: ../../main/core/src/EBox/Logs.pm:730
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "Gyvavimo laiko parametras turi būti teigiamas valandų skaičius"
 
@@ -7018,7 +7027,7 @@ msgstr "Klaidos perkaunant servisą {mod}. Daugiau {logs}."
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:281
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:296
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:149
-#: ../../main/core/src/EBox/Backup.pm:1621
+#: ../../main/core/src/EBox/Backup.pm:1623
 msgid "The input contains invalid characters"
 msgstr "Įvestis turi klaidingus simbolius"
 
@@ -7121,7 +7130,7 @@ msgstr "Slaptažodis turi būti ne mažiau 6 simbolių ilgio"
 #: ../../main/core/src/EBox/SysInfo/Model/Password.pm:53
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:77
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:153
-#: ../../main/samba/src/templates/wizard/users.mas:87
+#: ../../main/samba/src/templates/wizard/users.mas:130
 #, fuzzy
 msgid "Administrator password"
 msgstr "Administratoriaus sesijos"
@@ -7145,10 +7154,19 @@ msgid "Change hostname"
 msgstr "Pakeisti vardą"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
+#: ../../main/samba/src/templates/wizard/users.mas:10
+#, perl-brace-format
+msgid ""
+"{op}A hostname change will create a new certificate for the web "
+"administration connections. This means you will have to reload the page "
+"manually once the save change proccess ends.{cp}"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
 #, fuzzy, perl-brace-format
 msgid ""
-"Are you sure you want to change the hostname to {new}?. You may need to "
-"restart all the services or reboot the system to enforce the change"
+"{op}You may need to restart all the services or reboot the system to enforce "
+"the change{cp}"
 msgstr ""
 "Jūs turėsite restartuoti visus servisus ar perkrauti sistemą kad pritaikyti "
 "vardo pasikeitimą."
@@ -7156,15 +7174,20 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:83
 #, perl-brace-format
 msgid ""
-"WARNING: As the Users module is already installed and configured, if you "
-"change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure "
-"you want to continue?"
+"{op}As the Users module is already installed and configured, if you change "
+"the hostname you will LOSE ALL YOUR USERS DATA.{cp}"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:88
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:87
+#, perl-brace-format
 msgid ""
-"Additionally, using a domain ending in '.local' can conflict with other "
-"protocols like zeroconf and is, in general, discouraged."
+"{op}Additionally, using a domain ending in '.local' can conflict with other "
+"protocols like zeroconf and is, in general, discouraged.{cp}"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:90
+#, perl-brace-format
+msgid "{op}Are you sure you want to change the hostname to {new}?.{cp}"
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:169
@@ -7501,7 +7524,7 @@ msgid "Enterprise"
 msgstr "Enterprise"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:80
-#: ../../main/core/src/EBox/RemoteServices.pm:1377
+#: ../../main/core/src/EBox/RemoteServices.pm:1362
 msgid "Premium"
 msgstr "Premium"
 
@@ -7510,83 +7533,83 @@ msgstr "Premium"
 msgid "Zentyal Remote Client"
 msgstr "Zentyal Debesies klientas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1057
+#: ../../main/core/src/EBox/RemoteServices.pm:1042
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1264
+#: ../../main/core/src/EBox/RemoteServices.pm:1249
 #, fuzzy
 msgid "Server Edition"
 msgstr "Serverio versija"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1289
+#: ../../main/core/src/EBox/RemoteServices.pm:1274
 msgid "Not subscribed"
 msgstr "Neužprenumeruota"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1291
+#: ../../main/core/src/EBox/RemoteServices.pm:1276
 msgid "Subscribed"
 msgstr "Užprenumeruota"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1341
+#: ../../main/core/src/EBox/RemoteServices.pm:1326
 #, fuzzy
 msgid "Server Information"
 msgstr "Bendra informacija"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1361
+#: ../../main/core/src/EBox/RemoteServices.pm:1346
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Išjungta - {oh}Įjungti{ch}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1374
+#: ../../main/core/src/EBox/RemoteServices.pm:1359
 #, fuzzy
 msgid "Standard 2 days"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1375
+#: ../../main/core/src/EBox/RemoteServices.pm:1360
 #, fuzzy
 msgid "Standard 1 day"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1376
+#: ../../main/core/src/EBox/RemoteServices.pm:1361
 #, fuzzy
 msgid "Standard 4 hours"
 msgstr "Standartas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1380
+#: ../../main/core/src/EBox/RemoteServices.pm:1365
 msgid "Configuration backup enabled"
 msgstr "Nustatymai atsarginės kopijos įjungti"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1385
+#: ../../main/core/src/EBox/RemoteServices.pm:1370
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "nėra"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1388
+#: ../../main/core/src/EBox/RemoteServices.pm:1373
 msgid "unknown"
 msgstr "nežinomas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1390
+#: ../../main/core/src/EBox/RemoteServices.pm:1375
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "- Paskutinė konf kopija: {date}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1392
+#: ../../main/core/src/EBox/RemoteServices.pm:1377
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1397
+#: ../../main/core/src/EBox/RemoteServices.pm:1382
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "Serverio vardas"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1402
+#: ../../main/core/src/EBox/RemoteServices.pm:1387
 msgid "Technical support"
 msgstr "Techninė pagalba"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1405
+#: ../../main/core/src/EBox/RemoteServices.pm:1390
 #, fuzzy
 msgid "Registered e-mail"
 msgstr "paskirtis"
@@ -7595,36 +7618,36 @@ msgstr "paskirtis"
 msgid "Save changes"
 msgstr "Išsaugoti pakeitimus"
 
-#: ../../main/core/src/EBox/Backup.pm:99
+#: ../../main/core/src/EBox/Backup.pm:101
 msgid "Creating backup archive"
 msgstr "Kuriamas atsarginės kopijos archyvas"
 
-#: ../../main/core/src/EBox/Backup.pm:141
+#: ../../main/core/src/EBox/Backup.pm:143
 #, perl-brace-format
 msgid "Dumping configuration of module {m}"
 msgstr "Iškraunama modulio {m} konfigūracin"
 
-#: ../../main/core/src/EBox/Backup.pm:502
+#: ../../main/core/src/EBox/Backup.pm:504
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Nepavyko išskleisti prašytos atsarginės kopijos : {files}"
 
-#: ../../main/core/src/EBox/Backup.pm:505
-#: ../../main/core/src/EBox/Backup.pm:1242
+#: ../../main/core/src/EBox/Backup.pm:507
+#: ../../main/core/src/EBox/Backup.pm:1244
 msgid "Could not unpack the backup"
 msgstr "Nepavyko išpakuoti atsarginės kopijos"
 
-#: ../../main/core/src/EBox/Backup.pm:717
+#: ../../main/core/src/EBox/Backup.pm:719
 #: ../../main/network/src/templates/ifaces.mas:58
 #: ../../main/network/src/templates/ifaces.mas:59
 msgid "Backup"
 msgstr "Atsarginė kopija"
 
-#: ../../main/core/src/EBox/Backup.pm:753
+#: ../../main/core/src/EBox/Backup.pm:755
 msgid "Writing backup file to hard disk"
 msgstr "Rašomas atsarginės kopijos failas į kietąjį diską"
 
-#: ../../main/core/src/EBox/Backup.pm:795
+#: ../../main/core/src/EBox/Backup.pm:797
 #, perl-brace-format
 msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
@@ -7633,23 +7656,23 @@ msgstr ""
 "Sekantys moduliai turi neišsaugotų pakeitimų: {mods}. Prieš darant kopiją "
 "išsaugokite arba panaikinkite pakeitimus"
 
-#: ../../main/core/src/EBox/Backup.pm:852
+#: ../../main/core/src/EBox/Backup.pm:854
 msgid "Incorrect or corrupt backup file"
 msgstr "Neteisingas arba sugadintas atsarginės kopijos failas"
 
-#: ../../main/core/src/EBox/Backup.pm:879
+#: ../../main/core/src/EBox/Backup.pm:881
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Atsarginės kopijos failas sugadintas : nepavyko atidaryti archyvo"
 
-#: ../../main/core/src/EBox/Backup.pm:890
+#: ../../main/core/src/EBox/Backup.pm:892
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Atsarginės kopijos failas sugadintas : nepapyko atidaryti kontrolės"
 
-#: ../../main/core/src/EBox/Backup.pm:897
+#: ../../main/core/src/EBox/Backup.pm:899
 msgid "The backup file is corrupt."
 msgstr "Atsarginė kopija sugadinta."
 
-#: ../../main/core/src/EBox/Backup.pm:915
+#: ../../main/core/src/EBox/Backup.pm:917
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible Zentyal version"
@@ -7657,12 +7680,12 @@ msgstr ""
 "Atsarginės kopijos archyvas turi klaidingą tipą. Gal failas sugadintas arba "
 "jūs naudojate nesuderinimą Zentyal versiją"
 
-#: ../../main/core/src/EBox/Backup.pm:926
+#: ../../main/core/src/EBox/Backup.pm:928
 #, fuzzy
 msgid "The file is not a correct backup archive"
 msgstr "Nepavyko sukurti atsarginės kopijos archyvo"
 
-#: ../../main/core/src/EBox/Backup.pm:959
+#: ../../main/core/src/EBox/Backup.pm:961
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -7671,7 +7694,7 @@ msgstr ""
 "Nėra laisvos vietos kietajame diske baigti atsatymo procesą. Reikia {size} "
 "Kb. Atlaisvinkite vietą ir bandykite dar kartą"
 
-#: ../../main/core/src/EBox/Backup.pm:970
+#: ../../main/core/src/EBox/Backup.pm:972
 #, fuzzy
 msgid ""
 "No debian packages list file found; probably the backup was done in a "
@@ -7682,7 +7705,7 @@ msgstr ""
 "nesuderinama Zentyal versija. Tik kopijos darytos su Zentyal >= {v} gali "
 "būti atstatytos"
 
-#: ../../main/core/src/EBox/Backup.pm:989
+#: ../../main/core/src/EBox/Backup.pm:991
 #, fuzzy
 msgid ""
 "No zentyal-core found in the debian packages list form the backup; probably "
@@ -7693,7 +7716,7 @@ msgstr ""
 "daryta su nesuderinama Zentyal versija. Tik kopijos darytos su Zentyal >= "
 "{v} gali būti atstatytos"
 
-#: ../../main/core/src/EBox/Backup.pm:1009
+#: ../../main/core/src/EBox/Backup.pm:1011
 #, fuzzy, perl-brace-format
 msgid ""
 "Could not restore the backup because a missmatch between its Zentyal version "
@@ -7704,12 +7727,12 @@ msgstr ""
 "Kopija daryta su nesuderinama Zentyal versija. Tik kopijos darytos su "
 "Zentyal >= {wv} gali būti atstatytos"
 
-#: ../../main/core/src/EBox/Backup.pm:1151
+#: ../../main/core/src/EBox/Backup.pm:1153
 #, fuzzy
 msgid "Installing Zentyal packages in backup..."
 msgstr "Diegiami paketai"
 
-#: ../../main/core/src/EBox/Backup.pm:1370
+#: ../../main/core/src/EBox/Backup.pm:1372
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
@@ -7718,26 +7741,26 @@ msgstr ""
 "Sekantys moduliai egzistuojantys atsarginėje kopijoje yra neįdiegti : {mods} "
 "Turite įdiegti ir tęsti atstatymą."
 
-#: ../../main/core/src/EBox/Backup.pm:1395
+#: ../../main/core/src/EBox/Backup.pm:1397
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr "Nepavyko atsatyti, klaida įjungiant modulį {m} : {err}"
 
-#: ../../main/core/src/EBox/Backup.pm:1430
+#: ../../main/core/src/EBox/Backup.pm:1432
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "Nėra modulio {m} atsarginėje kopijoje"
 
-#: ../../main/core/src/EBox/Backup.pm:1438
+#: ../../main/core/src/EBox/Backup.pm:1440
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr "Modulis {m} yra abiejuose įtrauktų ir ignoruojamų sarašuose"
 
-#: ../../main/core/src/EBox/Backup.pm:1461
+#: ../../main/core/src/EBox/Backup.pm:1463
 msgid "No modules to restore"
 msgstr "Nėra modulių atstatyti"
 
-#: ../../main/core/src/EBox/Backup.pm:1512
+#: ../../main/core/src/EBox/Backup.pm:1514
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -7746,7 +7769,7 @@ msgstr ""
 "Neišspręsta atsatymo priklausomybė moduliui {topModule} : {modName} "
 "neįdiegtas"
 
-#: ../../main/core/src/EBox/Backup.pm:1650
+#: ../../main/core/src/EBox/Backup.pm:1652
 msgid "Try to back up again as the created backup is corrupted"
 msgstr ""
 
@@ -7822,12 +7845,12 @@ msgstr "Ieškoti vardų srities"
 msgid "Must be a valid regular expression"
 msgstr "ignoruoti kelią pagal regexp išraišką"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4591
+#: ../../main/core/src/EBox/Model/DataTable.pm:4594
 #, fuzzy
 msgid "Page 1"
 msgstr "Puslapis"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4593
+#: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
 msgstr ""
@@ -7949,6 +7972,22 @@ msgstr "Jabber paskyra"
 #, fuzzy
 msgid "OpenChange account disabled"
 msgstr "Jabber paskyra"
+
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:45
+#: ../../main/ca/src/templates/createCA.mas:14
+#: ../../main/ca/src/templates/index.mas:44
+#: ../../main/openchange/src/templates/wizard/provision.mas:16
+msgid "City"
+msgstr "Miestas"
+
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:47
+#: ../../main/ca/src/templates/createCA.mas:18
+#: ../../main/ca/src/templates/index.mas:47
+#: ../../main/ca/src/templates/index.mas:99
+#: ../../main/core/src/templates/report/raid.mas:223
+#: ../../main/openchange/src/templates/wizard/provision.mas:19
+msgid "State"
+msgstr "Būsena"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ServerList.pm:59
 #, fuzzy
@@ -8158,34 +8197,34 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:574
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:573
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "Keisti"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:575
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:574
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:576
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:575
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Saugomi pakeitimai moduliuose"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:578
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:577
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "Keisti"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:579
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:578
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:580
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:579
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Saugomi pakeitimai moduliuose"
@@ -8255,19 +8294,14 @@ msgstr ""
 msgid "Domain {dom} not configured in {oh}DNS module{ch}"
 msgstr "Iškraunama modulio {m} konfigūracin"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:1048
-#, fuzzy
-msgid "System needs at least one external interface"
-msgstr "Jūms reikalinga bent viena vidinė sąsają ir bent viena išorinę sąsaja"
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:1077
+#: ../../main/openchange/src/EBox/OpenChange.pm:1075
 #, perl-brace-format
 msgid ""
 "Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
-"external IP addresses"
+"interface IP addresses"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:1111
+#: ../../main/openchange/src/EBox/OpenChange.pm:1109
 #, fuzzy
 msgid "No outgoing mail domain configured"
 msgstr "Virtualios pašto vardų sritys"
@@ -8802,60 +8836,60 @@ msgstr "Srities vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:74
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:135
-#: ../../main/samba/src/templates/wizard/users.mas:76
+#: ../../main/samba/src/templates/wizard/users.mas:119
 #, fuzzy
 msgid "Domain controller FQDN"
 msgstr "Srities vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:75
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:140
-#: ../../main/samba/src/templates/wizard/users.mas:80
+#: ../../main/samba/src/templates/wizard/users.mas:123
 #, fuzzy
 msgid "Domain DNS server IP"
 msgstr "Vardų sričių serveris"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:76
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:147
-#: ../../main/samba/src/templates/wizard/users.mas:84
+#: ../../main/samba/src/templates/wizard/users.mas:127
 #, fuzzy
 msgid "Administrator account"
 msgstr "Administratoriaus paskyra"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:78
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:159
-#: ../../main/samba/src/templates/wizard/users.mas:90
+#: ../../main/samba/src/templates/wizard/users.mas:133
 #, fuzzy
 msgid "NetBIOS domain name"
 msgstr "NetBIOS kompiuterio vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:79
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:171
-#: ../../main/samba/src/templates/wizard/users.mas:92
+#: ../../main/samba/src/templates/wizard/users.mas:135
 msgid "NetBIOS computer name"
 msgstr "NetBIOS kompiuterio vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:151
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:158
-#: ../../main/samba/src/templates/wizard/users.mas:102
+#: ../../main/samba/src/templates/wizard/users.mas:145
 #, fuzzy
 msgid "Active Directory hostname"
 msgstr "Katalogo vardas"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:152
-#: ../../main/samba/src/templates/wizard/users.mas:108
+#: ../../main/samba/src/templates/wizard/users.mas:151
 #, fuzzy
 msgid "Administrative user"
 msgstr "Administravimo teisės"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:153
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:174
-#: ../../main/samba/src/templates/wizard/users.mas:114
+#: ../../main/samba/src/templates/wizard/users.mas:157
 msgid "User password"
 msgstr "Naudotojo slaptažodis"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:154
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:181
-#: ../../main/samba/src/templates/wizard/users.mas:117
+#: ../../main/samba/src/templates/wizard/users.mas:160
 #, fuzzy
 msgid "Confirm user password"
 msgstr "Patvirtinti slaptažodį"
@@ -9920,7 +9954,7 @@ msgid "This will be the DN suffix in LDAP tree"
 msgstr "Tai bus DN priesaga LDAP medyje"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:159
-#: ../../main/samba/src/templates/wizard/users.mas:103
+#: ../../main/samba/src/templates/wizard/users.mas:146
 msgid ""
 "Both the Active Directory hostname and the own Zentyal server hostname "
 "should be DNS resolvable"
@@ -9941,7 +9975,7 @@ msgid "Zentyal Users"
 msgstr "Zentyal Vartotojai"
 
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:274
-#: ../../main/samba/src/templates/wizard/users.mas:14
+#: ../../main/samba/src/templates/wizard/users.mas:19
 msgid "Standalone server"
 msgstr "Savarankiškas serveris"
 
@@ -10385,7 +10419,7 @@ msgid "Domain controller"
 msgstr "Srities vardas"
 
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:273
-#: ../../main/samba/src/templates/wizard/users.mas:17
+#: ../../main/samba/src/templates/wizard/users.mas:22
 #, fuzzy
 msgid "Additional domain controller"
 msgstr "Srities vardas"
@@ -13056,33 +13090,21 @@ msgid ""
 "enabled."
 msgstr "Sekantys nustatymai bus pritaikyti tik kai pašto modulis įjungtas"
 
-#: ../../main/ca/src/templates/createCA.mas:13
-#: ../../main/ca/src/templates/index.mas:44
-msgid "City"
-msgstr "Miestas"
-
-#: ../../main/ca/src/templates/createCA.mas:16
-#: ../../main/ca/src/templates/index.mas:47
-#: ../../main/ca/src/templates/index.mas:99
-#: ../../main/core/src/templates/report/raid.mas:223
-msgid "State"
-msgstr "Būsena"
-
-#: ../../main/ca/src/templates/createCA.mas:27
+#: ../../main/ca/src/templates/createCA.mas:30
 #: ../../main/mail/src/templates/groupalias.mas:170
 #: ../../main/mail/src/templates/alias.mas:53
 #: ../../main/mail/src/templates/createaccount.mas:33
 msgid "Create"
 msgstr "Sukurti"
 
-#: ../../main/ca/src/templates/createCA.mas:32
+#: ../../main/ca/src/templates/createCA.mas:35
 msgid ""
 "This page only appears once at starting up the Certification\n"
 "  Authority.\n"
 "Changes take effect immediately."
 msgstr ""
 
-#: ../../main/ca/src/templates/createCA.mas:37
+#: ../../main/ca/src/templates/createCA.mas:40
 msgid "Create Certification Authority Certificate"
 msgstr "Sukruti Sertifikavimo autorizatoriaus sertifikatą"
 
@@ -13326,7 +13348,7 @@ msgid "Domain Name Resolution"
 msgstr "Vardų Srities Išrišimas"
 
 #: ../../main/network/src/templates/diag.mas:24
-#: ../../main/samba/src/templates/wizard/users.mas:71
+#: ../../main/samba/src/templates/wizard/users.mas:114
 #: ../../main/mail/src/templates/createaccount.mas:22
 msgid "Domain name"
 msgstr "Srities vardas"
@@ -14871,6 +14893,11 @@ msgstr ""
 msgid "Enter the name of your organization"
 msgstr "Sąsaja kurioje klausyti"
 
+#: ../../main/openchange/src/templates/wizard/provision.mas:11
+#, fuzzy
+msgid "Certification Authority details"
+msgstr "Sertifikatų Autorizatoriai"
+
 #: ../../main/software/src/templates/updateNote.mas:14
 #, perl-brace-format
 msgid ""
@@ -15365,46 +15392,55 @@ msgid "Add group"
 msgstr "Įkelti grupę"
 
 #: ../../main/samba/src/templates/wizard/users.mas:8
+msgid "Change server local domain?"
+msgstr ""
+
+#: ../../main/samba/src/templates/wizard/users.mas:9
+#, perl-brace-format
+msgid "{op}This action will trigger the change of the actual host name.{cp}"
+msgstr ""
+
+#: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
 msgstr "Vartotojai ir grupės"
 
-#: ../../main/samba/src/templates/wizard/users.mas:11
+#: ../../main/samba/src/templates/wizard/users.mas:16
 msgid "Select the type of the server"
 msgstr "Pasirinkite serverio tipą"
 
-#: ../../main/samba/src/templates/wizard/users.mas:20
+#: ../../main/samba/src/templates/wizard/users.mas:25
 msgid "Connect with external Active Directory server"
 msgstr ""
 
-#: ../../main/samba/src/templates/wizard/users.mas:53
+#: ../../main/samba/src/templates/wizard/users.mas:96
 #, fuzzy
 msgid "Select the domain name of the server"
 msgstr "Pasirinkite serverio tipą"
 
-#: ../../main/samba/src/templates/wizard/users.mas:55
+#: ../../main/samba/src/templates/wizard/users.mas:98
 #, fuzzy
 msgid "Host domain name"
 msgstr "mazgo pašto vardas"
 
-#: ../../main/samba/src/templates/wizard/users.mas:56
+#: ../../main/samba/src/templates/wizard/users.mas:99
 msgid "This will be used as the Kerberos authentication realm for your users."
 msgstr ""
 
-#: ../../main/samba/src/templates/wizard/users.mas:69
+#: ../../main/samba/src/templates/wizard/users.mas:112
 #, fuzzy
 msgid "Enter your existing domain settings"
 msgstr "Srauto ribojimo monitoriaus nustatymai"
 
-#: ../../main/samba/src/templates/wizard/users.mas:72
+#: ../../main/samba/src/templates/wizard/users.mas:115
 msgid "This is the name of the existing domain you want to join."
 msgstr ""
 
-#: ../../main/samba/src/templates/wizard/users.mas:100
+#: ../../main/samba/src/templates/wizard/users.mas:143
 #, fuzzy
 msgid "Enter your active directory settings"
 msgstr "Srauto ribojimo monitoriaus nustatymai"
 
-#: ../../main/samba/src/templates/wizard/users.mas:109
+#: ../../main/samba/src/templates/wizard/users.mas:152
 msgid ""
 "The administrative user has to have enough permissions to create a computer "
 "account in the domain"
@@ -15667,6 +15703,19 @@ msgstr "Tai bus sritis jūsų pašto paskyroms"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "Sekantys nustatymai bus pritaikyti tik kai pašto modulis įjungtas"
+
+#, fuzzy
+#~ msgid ""
+#~ "Are you sure you want to change the hostname to {new}?. You may need to "
+#~ "restart all the services or reboot the system to enforce the change"
+#~ msgstr ""
+#~ "Jūs turėsite restartuoti visus servisus ar perkrauti sistemą kad "
+#~ "pritaikyti vardo pasikeitimą."
+
+#, fuzzy
+#~ msgid "System needs at least one external interface"
+#~ msgstr ""
+#~ "Jūms reikalinga bent viena vidinė sąsają ir bent viena išorinę sąsaja"
 
 #~ msgid ""
 #~ "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -16472,9 +16521,6 @@ msgstr "Sekantys nustatymai bus pritaikyti tik kai pašto modulis įjungtas"
 #, fuzzy
 #~ msgid "HTTP Services"
 #~ msgstr "Servisai"
-
-#~ msgid "Zentyal Administration Web Server"
-#~ msgstr "Zentyal Administravimo Web serveris"
 
 #, fuzzy
 #~ msgid "Web Server module needs to be installed and enabled to use RPC proxy"
