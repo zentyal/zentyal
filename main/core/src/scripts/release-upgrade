@@ -21,7 +21,7 @@ function upgrade
         fi
     done
 
-    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 }
 
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
@@ -43,7 +43,7 @@ do
         rm -f /var/lib/dpkg/info/${pkg}.postinst
     done
     dpkg --configure -a --force-confdef
-    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
     if [ $? == 0 ]
     then
         echo; echo "Nothing more pending to upgrade"; echo
@@ -51,7 +51,7 @@ do
     fi
 done
 
-if apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
 
