@@ -57,3 +57,18 @@ Zentyal.MailUserAddon.groupAccountChange = function(mail, mailManaged) {
 
     $('.group_email_observer').trigger(group_email_change_event);
 };
+
+Zentyal.MailUserAddon.editFormWillRemoveAccount = function() {
+    var mail_in_form, mail_in_addon;
+    if ( $('#userMailUnmanaged').filter(':visible').length > 0) {
+        // not managed mail account
+        return false;
+    } else if ($('#userMailNoAccountDiv').filter(':visible').length > 0) {
+        // user has not mail account active
+        return false;
+    }
+
+    mail_in_form = $('#user_attrs_mail').val().trim();
+    mail_in_addon =  $('#userMailDelAccount_mailLabel').text().trim();
+    return mail_in_form != mail_in_addon;
+};
