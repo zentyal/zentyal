@@ -10,4 +10,6 @@ depends:
 models:
     - Connections
     - ConnectionSettings
-    - RangeTable
+
+foreign:
+    Connections: [ConnectionSettings]
