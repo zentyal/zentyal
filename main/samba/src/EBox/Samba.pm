@@ -1384,6 +1384,10 @@ sub _daemons
         return ($self->mode() eq STANDALONE_MODE);
     };
 
+    my $enabledAndProvisioned = sub {
+        return ($self->isEnabled() and $self->isProvisioned());
+    };
+
     return [
         {
             name => 'samba-ad-dc',
@@ -1400,6 +1404,10 @@ sub _daemons
         {
             name => 'zentyal.zavsd',
             precondition => \&_antivirusEnabled,
+        },
+        {
+            name => 'zentyal.set-uid-gid-numbers',
+            precondition => $enabledAndProvisioned,
         },
     ];
 }
