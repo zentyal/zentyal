@@ -112,6 +112,9 @@ sub initialSetup
     # Migration from 3.5 to 4.0
     if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
         EBox::Sudo::silentRoot('a2disconf sogo');
+        EBox::Sudo::silentRoot('a2enmod proxy');
+        EBox::Sudo::silentRoot('a2enmod proxy_http');
+        EBox::Sudo::silentRoot('a2enmod headers');
         EBox::Sudo::silentRoot('a2enmod ssl');
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
@@ -691,7 +694,7 @@ sub certificateCN
     if ($self->isEnabled() and $self->isProvisioned()) {
         my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
         return $domain;
-    }    
+    }
 
     return undef;
 }
