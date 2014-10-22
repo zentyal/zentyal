@@ -1,5 +1,6 @@
 4.0
 	+ Add daemon to check users and groups to have uidNumber and gidNumber
+	+ Add confirmation when removing mail account via the edit user form
 	+ Add hostname change confirmation dialog to wizard
 	+ Fixed EBox::LDAPBase::lastModificationTime
 	+ Join as additional domain controller on initial configuration wizard

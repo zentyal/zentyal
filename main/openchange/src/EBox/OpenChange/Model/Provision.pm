@@ -405,12 +405,11 @@ sub provision
     }
 
     my $ca = $self->global()->modInstance('ca');
-    if (not $ca->isAvailable()) {
-        # FIXME: create CA with organizationName
-        # FIXME: do this only when provisioning from wizard and not manually from model
-        # TODO: allow to specify optional fields like expiration time
+    my $state = $ca->get_state();
+    if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
+        my %args = %{$state->{provision_from_wizard}};
         my $commonName = __x('{org} Authority Certificate', org => $organizationName);
-        $ca->createCA(commonName => $commonName, orgName => $organizationName);
+        $ca->createCA(commonName => $commonName, %args);
     }
 
     my $configuration = $openchange->model('Configuration');

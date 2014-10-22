@@ -113,9 +113,21 @@ sub initialSetup
     if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
         EBox::Sudo::silentRoot('a2disconf sogo');
         EBox::Sudo::silentRoot('a2enmod ssl');
-        EBox::Sudo::silentRoot('a2enmod alias');
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
+
+        # save certificate serial, we assume that the certificate from 4.0< is
+        # valid to not issue a new certifiate
+        my $cn = $self->certificateCN();
+        if ($cn) {
+            my $ca = $self->global()->modInstance('ca');
+            my $domainCert = $ca->getCertificateMetadata(cn => $cn);
+            if ($domainCert) {
+                my $state = $self->get_state();
+                $state->{certificate_serial_number} = $domainCert->{serialNumber};
+                $self->set_state($state);
+            }
+        }
     }
 
     if ($self->changed()) {
@@ -409,8 +421,6 @@ sub _setConf
     $self->_setSOGoApacheConf();
 
     $self->_setDomainCertificate();
-
-    $self->_setOAB();
 }
 
 sub _postServiceHook
@@ -429,11 +439,9 @@ sub _postServiceHook
 sub _setDomainCertificate
 {
     my ($self) = @_;
-
-    if ($self->isEnabled() and $self->isProvisioned()) {
-        # the certificate must be in place before haproxy restarts
-        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-        $self->_setCert($domain)
+    my $cn = $self->certificateCN();
+    if ($cn) {
+        $self->_setCert($cn)
     }
 }
 
@@ -608,7 +616,7 @@ sub _setOCSManagerConf
     my $sysinfo = $global->modInstance('sysinfo');
     my $users   = $global->modInstance('samba');
     my $mail    = $global->modInstance('mail');
-    my $domain =   $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+    my $domain  = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
         $adminMail = 'postmaster@' . $domain;
@@ -647,7 +655,7 @@ sub _setOCSManagerConf
 
     if ($self->isEnabled()) {
         if ($self->isProvisioned()) {
-            $self->_setCert($domain);
+            $self->_setDomainCertificate();
             my $incParams = [
                 domain => $domain
             ];
@@ -677,6 +685,17 @@ sub _setOCSManagerConf
     }
 }
 
+sub certificateCN
+{
+    my ($self) = @_;
+    if ($self->isEnabled() and $self->isProvisioned()) {
+        my $domain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        return $domain;
+    }    
+
+    return undef;
+}
+
 # Create the required certificates using zentyal-ca to run the following services:
 #   * Autodiscover
 #   * RPC/Proxy
@@ -695,7 +714,28 @@ sub _setCert
     my $caCert = $ca->getCACertificateMetadata();
     # Used for autodiscover, RPC/Proxy and EWS
     my $domainCert = $ca->getCertificateMetadata(cn => $domain);
-    if (not $domainCert or ($domainCert->{state} ne 'V')) {
+    my $issueNew = 0;
+    if ($domainCert) {
+        if ($domainCert->{state} ne 'V') {
+            # renew revoked/expired certificate
+            $issueNew = 1;
+        } else {
+            # check if the serial is the same, if not renew
+            my $serial = $self->get_state()->{certificate_serial_number};
+            if (not $serial) {
+                EBox::warn("Not valid certificate serial stored for certificate CN=$domain, renewing the certificate as precaution");
+                $issueNew = 1;
+            } elsif ($serial ne $domainCert->{serialNumber}) {
+                EBox::warn("The certificate with CN=$domain has invalid serial number. Renewing");
+                $issueNew = 1;
+            }
+        }
+    } else {
+        # create new certificate
+        $issueNew = 1;
+    }
+
+    if ($issueNew) {
         my $rpcProxyHost;
         try {
             $rpcProxyHost = $self->_rpcProxyHostForDomain($domain);
@@ -704,22 +744,33 @@ sub _setCert
             $rpcProxyHost = "${hostName}.$domain";
             EBox::warn("Using $rpcProxyHost as RPC proxy host");
         }
-        $ca->issueCertificate(commonName => $domain,
-                              endDate    => $caCert->{expiryDate},
-                              subjAltNames => [ { type  => 'DNS',
-                                                  value =>  $rpcProxyHost },
-                                                { type  => 'DNS',
-                                                  value => "autodiscover.${domain}" } ]);
+        $ca->issueCertificate(
+            commonName => $domain,
+            openchange => 1,
+            endDate    => $caCert->{expiryDate},
+            subjAltNames => [ { type  => 'DNS',
+                                value =>  $rpcProxyHost },
+                              { type  => 'DNS',
+                                value => "autodiscover.${domain}" } ]
+           );
+
+        $domainCert =  $ca->getCertificateMetadata(cn => $domain);
+        # store serial number for future checking
+        my $state = $self->get_state();
+        $state->{certificate_serial_number} = $domainCert->{serialNumber};
+        $self->set_state($state);
     }
 
-    my $metadata =  $ca->getCertificateMetadata(cn => $domain);
-    if ($metadata->{state} eq 'V') {
-        my $domainCrt = $metadata->{path};
+    if ($domainCert->{state} eq 'V') {
+        my $domainCrt = $domainCert->{path};
         my $domainKey = $ca->getKeys($domain)->{privateKey};
         EBox::Sudo::root("cat $domainCrt $domainKey > " . OCSMANAGER_DOMAIN_PEM);
     } else {
         EBox::error("Certificate '$domain' not longer valid. Not using it for autodiscover");
         EBox::Sudo::root('rm -f ' . OCSMANAGER_DOMAIN_PEM);
+        my $state = $self->get_state();
+        delete $state->{certificate_serial_number};
+        $self->set_state($state);
     }
 }
 
@@ -750,16 +801,6 @@ sub _setRPCProxyConf
     }
 
     EBox::Sudo::root(@cmds);
-}
-
-sub _setOAB
-{
-    my ($self) = @_;
-    my $dir = EBox::Config::dynamicwww() . 'openchange/ews';
-    EBox::Sudo::root("mkdir -p '$dir'");
-
-    my $src = EBox::Config::stubs() . 'openchange/oab.xml.mas';
-    EBox::Sudo::root("cp '$src' '$dir/oab.xml'");
 }
 
 sub _writeRewritePolicy

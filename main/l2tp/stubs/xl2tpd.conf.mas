@@ -1,13 +1,13 @@
 <%args>
     $tunnel
-    $chap
+    $chap => 0
 </%args>
 
 [global]
 listen-addr = <% $tunnel->{left_ipaddr} %>
 
 [lns default]
-ip range = <% $tunnel->{ip_range} %>
+ip range = <% $tunnel->{from} %> - <% $tunnel->{to} %>
 local ip = <% $tunnel->{local_ip} %>
 %   if ($chap) {
 require chap = yes
