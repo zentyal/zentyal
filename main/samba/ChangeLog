@@ -1,4 +1,4 @@
-HEAD
+3.5.9
 	+ Do not complain about lack of ACL support with XFS filesystem
 	+ Better error message when the root DSE is not found in external
 	  AD mode
