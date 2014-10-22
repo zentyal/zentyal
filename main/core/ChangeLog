@@ -1,4 +1,5 @@
 4.0
+	+ Pass row argument to editable function handler
 	+ Remove excessive top margin for first child fields in forms
 	+ Better warning in change hostname confirmation dialog
 	+ Confirmation dialog action recovers correctly from errors
