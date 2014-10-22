@@ -131,6 +131,10 @@ sub initialSetup
                 $self->set_state($state);
             }
         }
+
+        my $firewall = $self->global()->modInstance('firewall');
+        $firewall->setInternalService('HTTPS', 'accept');
+        $firewall->saveConfigRecursive();
     }
 
     if ($self->changed()) {
