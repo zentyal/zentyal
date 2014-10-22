@@ -62,9 +62,8 @@ sub _process
 
     try {
         my $auth = $remoteServices->authResource($password)->auth();
-        if ((not exists $auth->{username}) or ($auth->{username} ne $username)) {
+        if (not exists $auth->{username}) {
             $self->{json}->{error} = __('Invalid credentials');
-            $remoteServices->clearCredentials();
             return;
         }
     } catch($ex) {
