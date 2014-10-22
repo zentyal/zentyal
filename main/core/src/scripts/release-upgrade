@@ -74,7 +74,6 @@ then
 
     # Purge all no longer needed running services like haproxy, collectd, etc
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
-    dpkg -l | grep ^rc | grep "zentyal-" | cut -d' ' -f3 |xargs dpkg --purge
 
     # Restart regular webserver, Zentyal UI and logs
     service apache2 restart
