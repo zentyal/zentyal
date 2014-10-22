@@ -40,10 +40,24 @@ sub _processWizard
 
     $self->_requireParam('orgName', __('Organization Name'));
     my $orgName = $self->param('orgName');
+    $self->_requireParam('countryName', __('Country code'));
+    my $countryName = $self->param('countryName');
+    $self->_requireParam('localityName', __('City'));
+    my $localityName = $self->param('localityName');
+    $self->_requireParam('stateName', __('State'));
+    my $stateName = $self->param('stateName');
+    $self->_requireParam('expiryDays', __('Days to expire'));
+    my $expiryDays = $self->param('expiryDays');
 
     my $openchange = EBox::Global->modInstance('openchange');
     my $state = $openchange->get_state();
-    $state->{provision_from_wizard} = { orgName => $orgName };
+    $state->{provision_from_wizard} = {
+        orgName => $orgName,
+        countryName => $countryName,
+        localityName => $localityName,
+        stateName => $stateName,
+        days => $expiryDays
+    };
     $openchange->set_state($state);
 }
 

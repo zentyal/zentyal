@@ -153,7 +153,7 @@ automatically as scheduled') %>
                 </table>
                 </div>
                 <div class="note">
-                <% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Upgrade button.") %>
+                <% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Update button.") %>
                 </div>
                 <input type='hidden' name='upgrade' value="yes"/>
         </form>

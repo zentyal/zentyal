@@ -112,7 +112,7 @@ sub copy_to_dest
 {
     my ($dir) = @_;
 
-    system("cp ../*.* $DEST") and "couldn't copy to repository";
+    system("cp ../*.* $DEST") and die "couldn't copy to repository";
 }
 
 sub generate_rep

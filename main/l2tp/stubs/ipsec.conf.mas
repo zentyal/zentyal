@@ -65,5 +65,5 @@ conn <% $tunnel->{'name'} %>
         leftprotoport=17/1701
         rightprotoport=17/%any
         authby=secret
-        auto=start
+        auto=add
 % }

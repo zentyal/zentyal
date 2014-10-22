@@ -34,6 +34,7 @@ use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
 use File::Basename;
+use File::MMagic;
 
 use TryCatch::Lite;
 use Digest::MD5;
@@ -41,6 +42,7 @@ use EBox::Sudo;
 use POSIX qw(strftime);
 use DirHandle;
 use Perl6::Junction qw(any all);
+
 
 use Filesys::Df;
 
@@ -920,9 +922,9 @@ sub _checkBackupFile
 {
     my ($self, $path) = @_;
 
-    my $output = EBox::Sudo::root("/usr/bin/file -bi '$path'");
-    my $tarFile = $output->[0] =~ m{^application/x-tar;};
-    if (not $tarFile) {
+    my $mm = new File::MMagic();
+    my $mimeType = $mm->checktype_filename($path);
+    if ($mimeType ne 'application/x-gtar') {
         throw EBox::Exceptions::External(__('The file is not a correct backup archive'));
     }
 }

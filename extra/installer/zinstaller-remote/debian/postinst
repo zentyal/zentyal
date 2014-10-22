@@ -104,7 +104,7 @@ REQUEST_PARAMS="name=$SERVERNAME&subscription_uuid=$BUNDLE_ID&mode=$MODE"
 RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "$REQUEST_PARAMS" $REQUEST_URL)
 if [ $? -eq 0 ]
 then
-    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f2 | cut -d' ' -f1)
+    COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f3 | cut -d' ' -f1)
     QA_USERNAME="$COMPANY-$SERVERNAME"
     QA_PASSWORD=$(echo $RESPONSE | jq -r '.password')
 
@@ -115,7 +115,8 @@ then
     echo $PASSWORD > $DATA_DIR/REGISTER_PASSWORD
     echo $SERVERNAME > $DATA_DIR/REGISTER_SERVERNAME
     echo $BUNDLE_ID > $DATA_DIR/REGISTER_BUNDLE_ID
-    echo $MODE > $DATA_DIR/REGISTER_MODE
+    # In second stage we always associate as we've subscribed here already
+    echo associate > $DATA_DIR/REGISTER_MODE
 
     touch $DATA_DIR/COMMERCIAL_EDITION
 else

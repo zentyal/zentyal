@@ -1,5 +1,9 @@
 4.0
 	+ OpenChange users can have mail accounts on different virtual domains
+	+ Recreate openchange certificate if it is not the correct one
+	+ Allow to customize CA attributes on initial configuration wizard
+	+ RPC proxy is available in web interface when you have only
+	  internal interfaces
 	+ Provision action triggers save changes action
 	+ Fixed deprovision
 	+ OpenChange account is enabled by default for all the new created users

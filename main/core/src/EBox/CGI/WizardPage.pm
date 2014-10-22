@@ -174,8 +174,8 @@ sub run
                     $logger->error('Exception: ' . $ex->text());
                     $self->_print_error($ex->text());
                 } else {
-                    $logger->error('Unknown exception');
-                    $self->_print_error('Unknown exception');
+                    $logger->error("$ex");
+                    $self->_print_error("$ex");
                 }
             }
         }

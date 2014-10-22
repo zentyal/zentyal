@@ -111,9 +111,29 @@ sub initialSetup
     # Migration from 3.5 to 4.0
     if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
         EBox::Sudo::silentRoot('a2disconf sogo');
+        EBox::Sudo::silentRoot('a2enmod proxy');
+        EBox::Sudo::silentRoot('a2enmod proxy_http');
+        EBox::Sudo::silentRoot('a2enmod headers');
         EBox::Sudo::silentRoot('a2enmod ssl');
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
+
+        # save certificate serial, we assume that the certificate from 4.0< is
+        # valid to not issue a new certifiate
+        my $cn = $self->certificateCN();
+        if ($cn) {
+            my $ca = $self->global()->modInstance('ca');
+            my $domainCert = $ca->getCertificateMetadata(cn => $cn);
+            if ($domainCert) {
+                my $state = $self->get_state();
+                $state->{certificate_serial_number} = $domainCert->{serialNumber};
+                $self->set_state($state);
+            }
+        }
+
+        my $firewall = $self->global()->modInstance('firewall');
+        $firewall->setInternalService('HTTPS', 'accept');
+        $firewall->saveConfigRecursive();
     }
 
     if ($self->changed()) {
@@ -578,8 +598,7 @@ sub _setOCSManagerConf
                 push (@{$params}, autodiscover => 0);
                 push (@{$params}, ews => 0);
                 push (@{$params}, rpcproxy => $rpcProxyHttp);
-                push (@{$params}, rpcproxyAuthCacheDir =>
-                    RPCPROXY_AUTH_CACHE_DIR);
+                push (@{$params}, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
                 push (@{$params}, webmail => $webmailHttp);
 
                 my $conf = "${fid}-zentyal-ocsmanager-${domain}";

@@ -65,6 +65,18 @@ sub viewCustomizer
             __x('Your system is not correctly configured. We were not able to find any valid public IP address.'),
             'error');
     }
+
+    $customizer->setHTMLTitle([
+            {
+            title => __('Connections'),
+            link  => '/L2TP/View/Connections',
+            },
+            {
+            title => $self->parentRow()->valueByName('name'),
+            link  => ''
+            }
+    ]);
+
     return $customizer;
 }
 
@@ -191,6 +203,24 @@ sub validateTypedRow
         }
     }
 
+    if ((exists $changedFields->{from}) or
+        (exists $changedFields->{to})) {
+        my $from = $allFields->{from}->value();
+        my $to   = $allFields->{to}->value();
+        my $newRangeHash = {
+            from => $from,
+            to   => $to,
+        };
+        unless (EBox::Validate::isValidRange($newRangeHash->{from}, $newRangeHash->{to})) {
+            throw EBox::Exceptions::External(
+                __x('{from} - {to} is an invalid range',
+                    from => $newRangeHash->{from},
+                    to => $$newRangeHash->{to},
+                )
+            );
+        }
+    }
+
     my $dhcp = undef;
     if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         $dhcp = $global->modInstance('dhcp');
@@ -202,8 +232,6 @@ sub validateTypedRow
         unless ($localIP) {
             throw EBox::Exceptions::External('The Tunnel IP cannot be empty');
         }
-        my $ownId = exists $changedFields->{id} ?  $changedFields->{id} : '';
-        $self->parentModule()->model('Connections')->l2tpCheckDuplicateLocalIP($ownId, $localIP);
 
         my $localIPRangeFound = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
@@ -248,24 +276,16 @@ sub validateTypedRow
         }
 
         # Check tunnel IP to be used for the VPN.
-        my $ipsec = $self->parentModule();
-        my $rangeTable = $ipsec->model('RangeTable');
-        foreach my $id (@{$rangeTable->ids()}) {
-            my $row = $rangeTable->row($id);
-            my $existingRangeHash = {
-                from => $row->valueByName('from'),
-                to => $row->valueByName('to'),
-            };
-            if (EBox::Validate::isIPInRange($existingRangeHash->{from}, $existingRangeHash->{to}, $localIP)) {
-                throw EBox::Exceptions::External(
-                    __x('Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}',
-                        from => $existingRangeHash->{from},
-                        to => $existingRangeHash->{to},
-                        name => $row->valueByName('name'),
-                        localIP => $localIP,
-                    )
-                );
-            }
+        my $from = $allFields->{from}->value();
+        my $to   = $allFields->{to}->value();
+        if (EBox::Validate::isIPInRange($from, $to, $localIP)) {
+            throw EBox::Exceptions::External(
+                __x('Range {from}-{to} includes the selected tunnel IP address: {localIP}',
+                    from => $from,
+                    to => $to,
+                    localIP => $localIP,
+                )
+            );
         }
     }
 
@@ -335,6 +355,18 @@ sub _table
             printableName => __('PSK Shared Secret'),
             editable => 1,
             help => __('Pre-shared key for the IPsec connection.'),
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'from',
+            printableName => __('Range start'),
+            unique        => 1,
+            editable      => 1,
+        ),
+        new EBox::Types::HostIP(
+            fieldName     => 'to',
+            printableName => __('Range end'),
+            unique        => 1,
+            editable      => 1,
         ),
     );
 

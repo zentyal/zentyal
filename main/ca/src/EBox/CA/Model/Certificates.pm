@@ -342,6 +342,19 @@ sub validateTypedRow
                    );
             }
         }
+
+        # only do the check with modify services, services newly added should
+        # not have this problem because their certifcate cames in one file not
+        # in our CA database
+        my $openchange = $self->parentModule()->global()->modInstance('openchange');
+        if ($openchange) {
+            my $cn = $openchange->certificateCN();
+            if ($cn and ($cn eq $actual_r->{cn}->value())) {
+                throw EBox::Exceptions::External(
+__x('Cannot use CN {cn} because is reserved for openchange certificate', cn => $cn)
+                   );
+            }
+        }
     }
 
     my $commonName = $actual_r->{cn}->value();
