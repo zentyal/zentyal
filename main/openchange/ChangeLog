@@ -1,4 +1,5 @@
 4.0
+	+ Use separate apache log files for ocsmanager
 	+ Recreate openchange certificate if it is not the correct one
 	+ Allow to customize CA attributes on initial configuration wizard
 	+ RPC proxy is available in web interface when you have only
