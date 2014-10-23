@@ -74,7 +74,7 @@ sub _table
 
     my $master_options = [
         { value => 'none', printableValue => __('None') },
-        { value => 'zentyal', printableValue => __('Other Zentyal Server') },
+        #{ value => 'zentyal', printableValue => __('Other Zentyal Server') },
 
     ];
 
@@ -271,6 +271,14 @@ sub validateTypedRow
     $webAdminMod->setAsChanged();
 }
 
+# Method: master
+#
+# Returns:
+#
+#     String - the master type
+#
+#        Possible values - none, cloud or zentyal
+#
 sub master
 {
     my ($self) = @_;
