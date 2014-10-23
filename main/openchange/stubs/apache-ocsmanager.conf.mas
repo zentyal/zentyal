@@ -162,4 +162,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
         RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
     </IfModule>
 % }
+
+    CustomLog ${APACHE_LOG_DIR}/ocsmanager-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/ocsmanager-error.log
 </VirtualHost>
