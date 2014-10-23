@@ -1,0 +1,21 @@
+<%args>
+    $host
+    $port
+    $user
+    $pass
+    $vhost
+    $exchange
+    $newMailQueue
+    $newMailRouting
+</%args>
+broker_host = "<% $host %>";
+broker_port = <% $port %>;
+broker_user = "<% $user %>";
+broker_pass = "<% $pass %>";
+% if (length $vhost) {
+broker_vhost = "<% $vhost %>";
+% }
+broker_exchange = "<% $exchange %>";
+broker_new_mail_queue = "<% $newMailQueue %>";
+broker_new_mail_routing_key = "<% $newMailRouting %>";
+

@@ -12,8 +12,9 @@ Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          zentyal-samba, zentyal-mail, zentyal-ca,
          openchangeserver (>> 2.3-zentyal1),
          openchange-rpcproxy, libstring-random-perl,
-         openchange-ocsmanager (>= 3:2.3-zentyal1),
-         apache2, zoctools, zip,
+         openchange-ocsmanager (>> 3:2.3-zentyal1),
+         openchange-notification, dovecot-openchange-plugin,
+         apache2, zoctools, zip, rabbitmq-server,
          sogo-openchange (>= 2.2.5-zentyal1~20140618-1~108),
          ${misc:Depends}
 Description: Zentyal - OpenChange Server
