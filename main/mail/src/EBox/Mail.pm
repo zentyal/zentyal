@@ -909,6 +909,7 @@ sub _setDovecotConf
     push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
     push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
+    push @params, (openchangePlugin => $self->_getDovecotOpenchangePluginConf());
     push @params, (keytabPath => KEYTAB_FILE);
     push @params, (gssapiHostname => $gssapiHostname);
     push @params, (openchange => $openchange);
@@ -959,6 +960,31 @@ sub _getDovecotAntispamPluginConf
 
     my $mod = shift @mods;
     return $mod->dovecotAntispamPluginConf();
+}
+
+sub _getDovecotOpenchangePluginConf
+{
+    my ($self) = @_;
+
+    my $conf = {
+        enabled => 0
+    };
+
+    if ($self->global->modExists('openchange')) {
+        my $ocModule = $self->global->modInstance('openchange');
+        if ($ocModule->isEnabled() and $ocModule->isProvisioned()) {
+            $conf->{enabled}    = 1;
+            $conf->{host}       = EBox::Config::configkey('oc_notif_broker_host');
+            $conf->{port}       = EBox::Config::configkey('oc_notif_broker_port');
+            $conf->{user}       = EBox::Config::configkey('oc_notif_broker_user');
+            $conf->{pass}       = EBox::Config::configkey('oc_notif_broker_pass');
+            $conf->{vhost}      = EBox::Config::configkey('oc_notif_broker_vhost');
+            $conf->{exchange}   = EBox::Config::configkey('oc_notif_exchange');
+            $conf->{routing}    = EBox::Config::configkey('oc_notif_new_mail_routing_key');
+        }
+    }
+
+    return $conf;
 }
 
 sub _setArchivemailConf
