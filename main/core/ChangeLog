@@ -1,4 +1,5 @@
 4.0
+	+ sudoers-friendly take user to whatever module which implenents extraSudoerUsers
 	+ Remove excessive top margin for first child fields in forms
 	+ Better warning in change hostname confirmation dialog
 	+ Confirmation dialog action recovers correctly from errors
