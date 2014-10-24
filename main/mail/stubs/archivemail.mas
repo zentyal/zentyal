@@ -4,15 +4,15 @@ $expireDaysTrash
 $expireDaysSpam
 </%args>
 #!/bin/bash
-<& .archiveMail, 
-     mailDir => $mailDir, 
-     folder  => '.Trash', 
-     days    => $expireDaysTrash 
+<& .archiveMail,
+     mailDir => $mailDir,
+     folder  => '.Trash',
+     days    => $expireDaysTrash
 &>
-<& .archiveMail, 
-     mailDir => $mailDir, 
-     folder  => '.Spam', 
-     days    => $expireDaysSpam 
+<& .archiveMail,
+     mailDir => $mailDir,
+     folder  => '.Spam',
+     days    => $expireDaysSpam
 &>
 
 <%def .archiveMail>
@@ -22,7 +22,7 @@ $folder
 $days
 </%args>
 % if ($days) {
-find <% $mailDir%> -type d -name <% $folder %> | xargs -n 1 -r archivemail -d <% $days %> --delete --include-flagged
+find <% $mailDir%> -type d -name <% $folder %> | su ebox -s /bin/bash -c "xargs -n 1 -r archivemail -d <% $days %> --delete --include-flagged"
 
 % }
 </%def>

@@ -10,6 +10,11 @@
 	+ Name in Module Status is now "Domain Controller and File Sharing"
 	+ Set version to 4.0
 	+ Fix migration to preserve group type
+	+ Do not complain about lack of ACL support with XFS filesystem
+	+ Better error message when the root DSE is not found in external
+	  AD mode
+	+ Do not try to dump config backup if not provisioned
+	+ Check samAccountName is unique in entire domain adding users and groups
 	+ Ignore cloud-sync warnings from cron
 	+ Check DN not exists on the same container creating contacts
 	+ Add missing 'use EBox::LDAP::ExternalAD' to Samba.pm

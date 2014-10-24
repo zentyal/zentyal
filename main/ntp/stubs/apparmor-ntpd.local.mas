@@ -1,7 +1,10 @@
+<%args>
+  $sambaSocketDir
+</%args>
 # Site-specific additions and overrides for usr.sbin.ntpd.
 # For more details, please see /etc/apparmor.d/local/README.
 
-/opt/samba4/var/lib/ntp_signd/socket rw,
+<% $sambaSocketDir %>/socket rw,
 
 /etc/ldap/ldap.conf r,
 /run/slapd/ldapi rw,
