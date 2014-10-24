@@ -54,9 +54,9 @@ sub prepareMakeRemoteBackup
     $label or throw EBox::Exceptions::MissingArgument('label');
 
     my @backupOptions = (
-        description => $label,
-        remoteBackup => $label,
-       );
+        description  => $label,
+        remoteBackup => 1,
+    );
 
     return EBox::Backup->prepareMakeBackup(@backupOptions);
 }
@@ -108,7 +108,7 @@ sub makeRemoteBackup
 #      description - String the backup's description
 #
 #      automatic - Boolean indicating whether the backup must be set as
-#                  automatic or not
+#                  automatic or not. Optional. Default value: false
 #
 # Exceptions:
 #
