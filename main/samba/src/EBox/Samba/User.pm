@@ -665,6 +665,10 @@ sub isInternal
     return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
+# Method: isAdministratorOrGuest
+#
+#  Return if the user is Administrator or Guest system users
+#
 sub isAdministratorOrGuest
 {
     my ($self) = @_;
