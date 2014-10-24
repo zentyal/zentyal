@@ -218,6 +218,10 @@ sub addedRowNotify
 
     # Tag this share as needing a reset of rights.
     $self->tagShareRightsReset($row);
+
+    if ($row->valueByName('sync')) {
+        $self->_notifySync();
+    }
 }
 
 # Method: updatedRowNotify
@@ -236,9 +240,8 @@ sub updatedRowNotify
         return;
     }
 
-    my $global = EBox::Global->getInstance();
-    if ( $global->modExists('cloud-prof') ) {
-        $global->modChange('cloud-prof');
+    if ($row->valueByName('sync') xor $oldRow->valueByName('sync')) {
+        $self->_notifySync();
     }
 
     # Tag this share as needing a reset of rights.
@@ -250,6 +253,7 @@ sub updatedRowNotify
 #       Override <EBox::Model::DataTable::validateTypedRow> method
 #
 #   Check if the share path is allowed or not
+#
 sub validateTypedRow
 {
     my ($self, $action, $parms)  = @_;
@@ -332,6 +336,10 @@ sub deletedRowNotify
     my ($self, $row) = @_;
 
     my $path = $row->elementByName('path');
+
+    if ($row->valueByName('sync')) {
+        $self->_notifySync();
+    }
 
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'zentyal');
@@ -535,6 +543,18 @@ sub _checkSystemShareMountOptions
                 "work properly.", mountPoint => $mountPoint));
     }
     return 1;
+}
+
+# Notify when we are synching with ZC to related modules
+sub _notifySync
+{
+    my ($self) = @_;
+
+    my $global = $self->parentModule()->global()->getInstance();
+    if ( $global->modExists('cloud-prof') ) {
+        $global->modChange('cloud-prof');
+    }
+
 }
 
 1;

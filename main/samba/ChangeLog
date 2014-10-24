@@ -1,4 +1,5 @@
 4.0
+	+ Proper notifications when a share is sync'ed with Zentyal Cloud
 	+ Write broker configuration for mapiproxy server in openchange.conf
 	+ Add daemon to check users and groups to have uidNumber and gidNumber
 	+ Add confirmation when removing mail account via the edit user form
