@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Gettext;
 use EBox::Global;
 
-sub requiredParameters
+sub optionalParameters
 {
     return ['disassociate'];
 }
