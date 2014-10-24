@@ -1,0 +1,8 @@
+<%args>
+$data
+</%args>
+%   if ($data->value()) {
+		<img src="/data/images/enabled.gif" alt="yes"/>
+%   } else {
+		<img src="/data/images/disabled.gif" alt="no"/>
+%   }

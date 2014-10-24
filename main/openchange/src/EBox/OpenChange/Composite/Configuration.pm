@@ -16,7 +16,8 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::Composite::General;
+package EBox::OpenChange::Composite::Configuration;
+
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
@@ -35,7 +36,7 @@ sub _description
     my $description = {
         layout          => 'top-bottom',
         name            => 'General',
-        pageTitle       => __('OpenChange'),
+        pageTitle       => __('Configuration'),
         compositeDomain => 'OpenChange',
     };
 

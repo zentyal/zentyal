@@ -233,8 +233,40 @@ sub addHostAlias
     my $aliasModel = $hostRow->subModel('alias');
     my @aliases = ref $alias eq 'ARRAY' ? @{ $alias } : ($alias);
     foreach my $alias (@aliases) {
-        EBox::debug('Adding host alias $alias');
-        $aliasModel->addRow(alias => $alias);
+        my $row = $aliasModel->find(alias => $alias);
+        unless (defined $row) {
+            EBox::debug("Adding host '$hostname' alias '$alias'");
+            $aliasModel->addRow(alias => $alias);
+        }
+    }
+}
+
+sub delHostAlias
+{
+    my ($self, $domain, $hostname, $alias) = @_;
+    $domain or
+        throw EBox::Exceptions::MissingArgument('domain');
+    $hostname or
+        throw EBox::Exceptions::MissingArgument('hostname');
+    $alias or
+        throw EBox::Exceptions::MissingArgument('alias');
+
+    my $domainRow = $self->_getDomainRow($domain);
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostname);
+    if (not $hostRow) {
+        throw EBox::Exceptions::DataNotFound(
+            data => $hostname, value => $hostname);
+    }
+
+    my $aliasModel = $hostRow->subModel('alias');
+    my @aliases = ref $alias eq 'ARRAY' ? @{ $alias } : ($alias);
+    foreach my $alias (@aliases) {
+        my $row = $aliasModel->find(alias => $alias);
+        if (defined $row) {
+            EBox::debug("Removing host '$hostname' alias '$alias'");
+            $aliasModel->removeRow($row->id());
+        }
     }
 }
 

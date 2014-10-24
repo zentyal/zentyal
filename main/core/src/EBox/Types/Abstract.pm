@@ -82,7 +82,7 @@ sub clone
 
     my @suspectedAttrs = qw(model row);
     foreach my $key (keys %{$self}) {
-        if ( $key ne 'model' and $key ne 'row') {
+        if ($key ne 'model' and $key ne 'row') {
             $clonedType->{$key} = Clone::Fast::clone($self->{$key});
         }
     }
@@ -151,7 +151,7 @@ sub editable
         return 0;
     } elsif (ref $self->{'editable'} eq 'CODE') {
         my $editableFunc = $self->{editable};
-        return &$editableFunc();
+        return &$editableFunc($self);
     } else {
         return $self->{'editable'};
     }
@@ -600,6 +600,7 @@ sub isEqualTo
 sub row
 {
     my ($self) =  @_;
+
     return $self->{'row'};
 }
 
