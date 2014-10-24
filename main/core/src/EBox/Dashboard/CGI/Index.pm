@@ -165,20 +165,19 @@ sub masonParameters
         push(@params, 'softwareInstalled' => 1);
     }
 
-    # FIXME: disabled messages until new ones are introduced
     my $showMessage = 0;
-    #my $rs = EBox::Global->modInstance('remoteservices');
-    #if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
-    #    try {
-    #        # Re-check for changes
-    #        $rs->checkAdMessages();
-    #        my $rsMsg = $rs->adMessages();
-    #        $showMessage = 0;
-    #        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
-    #    } catch($ex) {
-    #        EBox::error("Error loading messages from remoteservices: $ex");
-    #    }
-    #}
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
+        try {
+            # Re-check for changes
+            $rs->checkAdMessages();
+            my $rsMsg = $rs->adMessages();
+            $showMessage = 0;
+            push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
+        } catch($ex) {
+            EBox::error("Error loading messages from remoteservices: $ex");
+        }
+    }
 
     if ($showMessage) {
         my $state = $sysinfo->get_state();
