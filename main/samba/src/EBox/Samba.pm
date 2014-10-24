@@ -1738,7 +1738,7 @@ sub realUsers
 {
     my ($self) = @_;
 
-    my @users = grep { not $_->isInternal() } @{$self->users()};
+    my @users = grep { not $_->isInternal() and not $_->isAdministratorOrGuest() } @{$self->users()};
 
     return \@users;
 }

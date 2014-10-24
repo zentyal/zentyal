@@ -1,5 +1,7 @@
 4.0
 	+ Re-enable user synchronization with Zentyal Cloud
+	+ Fix realUsers count to remove Administrator and Guest account from it
+	+ Write broker configuration for mapiproxy server in openchange.conf
 	+ Add daemon to check users and groups to have uidNumber and gidNumber
 	+ Add confirmation when removing mail account via the edit user form
 	+ Add hostname change confirmation dialog to wizard
