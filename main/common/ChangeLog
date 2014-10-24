@@ -1,4 +1,5 @@
 4.0
+	+ Added EBox::Exception::Base::rethrowSilently
 	+ Added EBox::debugDump method
 	+ Added EBox::Exception::RESTRequest
 	+ Set version to 4.0
