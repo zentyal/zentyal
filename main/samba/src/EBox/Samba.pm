@@ -939,7 +939,6 @@ sub _setConfInternal
         push(@params, 'cloudsync_enabled' => 1);
     }
 
-    # TODO: No users sync in 3.4, reenable in 4.0
     $self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
