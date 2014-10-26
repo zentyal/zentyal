@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Synchronise users from Zentyal Server to Zentyal Cloud
 
 use strict;
 use warnings;
@@ -48,6 +50,10 @@ sub _addUser
     return if ($user->isInternal());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
+
+    # Skip users without password
+    return unless (@passwords);
+
     my $userinfo = {
         name        => $user->get('samAccountName'),
         firstname   => $user->get('givenName'),
@@ -78,6 +84,10 @@ sub _modifyUser
     return if ($user->isInternal());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
+
+    # Skip users without password
+    return unless (@passwords);
+
     my $userinfo = {
         firstname  => $user->get('givenName'),
         lastname   => $user->get('sn'),
@@ -102,6 +112,9 @@ sub _delUser
     my ($self, $user) = @_;
 
     return if ($user->isInternal());
+
+    # Skip users without password
+    return unless (@{$user->passwordHashes()});
 
     my $uid = $user->get('samAccountName');
     try {
@@ -173,13 +186,29 @@ sub _delGroup
     return 0;
 }
 
-
+# Method: get_ou
+#
+#      Extract OU from DN removing base DN and the CN.
+#
+#      It also transform CN to ou to match Zentyal Cloud API specifications
+#
+# Parameters:
+#
+#      entry - <EBox::Samba::SecurityPrincipal> the entry
+#
+# Returns:
+#
+#      String - the organizational unit. For instance, ou=Users.
+#
 sub get_ou
 {
     my ($self, $entry) = @_;
     my $tail = ','.$self->{usersMod}->ldap->dn();
     my $ou = $entry->baseDn();
     $ou =~ s/$tail//;
+
+    # Cloud store the organizational units in OU and Samba in CN
+    $ou =~ s/CN\=/ou=/g;
     return $ou;
 }
 
