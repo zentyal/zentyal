@@ -11,7 +11,8 @@ Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-firewall, zentyal-openchange,
          postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common,
          dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap,
-         dovecot-gssapi, dovecot-sqlite, postgrey, fetchmail, archivemail, ${misc:Depends}
+         dovecot-gssapi, dovecot-sqlite, postgrey, fetchmail, archivemail, libcrypt-rijndael-perl,
+         ${misc:Depends}
 Description: Zentyal - Mail and Groupware
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

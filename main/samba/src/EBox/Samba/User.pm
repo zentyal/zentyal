@@ -371,6 +371,7 @@ sub create
 
     my $samAccountName = $args{samAccountName};
     $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
+    $class->_checkAccountNotExists($samAccountName);
 
     # Check the password length if specified
     my $password = $args{'password'};
@@ -407,7 +408,6 @@ sub create
     # Check DN is unique (duplicated givenName and surname)
     $class->_checkDnIsUnique($dn, $name);
 
-    $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('samba');
     my $realm = $usersMod->kerberosRealm();
 

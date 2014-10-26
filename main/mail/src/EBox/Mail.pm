@@ -281,6 +281,8 @@ sub initialSetup
         }
     }
 
+    $self->{fetchmail}->initialSetup($version);
+
     if ($self->changed()) {
         $self->saveConfigRecursive();
     }
@@ -642,6 +644,14 @@ sub _getIfacesForAddress
     }
 
     return \@ifaces;
+}
+
+# overriden to call revokeConfig form fetchmail
+sub revokeConfig
+{
+    my ($self, @params) = @_;
+    $self->SUPER::revokeConfig(@params);
+    $self->{fetchmail}->revokeConfig();
 }
 
 # Method: _setMailConf
@@ -1892,6 +1902,13 @@ sub logHelper
     return new EBox::MailLogHelper();
 }
 
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+    $self->{fetchmail}->dumpConfig($dir);
+}
+
+
 sub restoreConfig
 {
     my ($self, $dir) = @_;
@@ -1909,7 +1926,8 @@ sub restoreConfig
             }
         }
     }
-
+    
+    $self->{fetchmail}->restoreConfig($dir);
 }
 
 # Method: certificates

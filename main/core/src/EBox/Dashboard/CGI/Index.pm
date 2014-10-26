@@ -230,18 +230,8 @@ sub _periodicMessages
 {
     my $CONF_BACKUP = '/RemoteServices/Backup/Index';
 
-    my $RELEASE_ANNOUNCEMENT_URL = 'http://wiki.zentyal.org/wiki/Zentyal_3.4_Announcement';
-    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.4')";
-
     # FIXME: Close the message also when clicking the URL, not only with the close button
     return [
-#        {
-#         name => 'upgrade',
-#         text => __sx('{oh}Zentyal 3.4{ch} is available! {ob}Upgrade now{cb}',
-#                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
-#                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
-#         days => 0,
-#        },
         {
          name => 'backup',
          text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$CONF_BACKUP\">", ch => '</a>'),
