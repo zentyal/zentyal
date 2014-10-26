@@ -818,19 +818,25 @@ sub _setFilesystemQuota
 
 # Method: setPasswordFromHashes
 #
-#   Configure user password directly from its kerberos hashes
+#   Configure user password directly from its kerberos hashes.
+#
+#   It transforms the kerberos keys to Samba credentials (unicodePwd
+#   and suplementalCredentials attributes)
 #
 # Parameters:
 #
 #   passwords - array ref of krb5keys
 #
+#   lazy - boolean this is ignored. See <setCredentials> for details.
+#
 sub setPasswordFromHashes
 {
     my ($self, $passwords, $lazy) = @_;
 
-    $self->set('userPassword', '{K5KEY}', $lazy);
-    $self->set('krb5Key', $passwords, $lazy);
-    $self->set('krb5KeyVersionNumber', 1, $lazy);
+    if (@{$passwords}) {
+        my $krb5keys = $self->decodeKrb5Keys($passwords);
+        $self->setCredentials($krb5keys);
+    }
 }
 
 # Method: passwordHashes
@@ -839,12 +845,44 @@ sub setPasswordFromHashes
 #
 #   [ hash, hash, ... ]
 #
+# Returns:
+#
+#   array ref
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if we cannot get the
+#   password hashes
+#
 sub passwordHashes
 {
     my ($self) = @_;
 
-    my @keys = $self->get('krb5Key');
-    return \@keys;
+    # To get password and credentials we need to use a special measure
+    # by getting the attributes explicitly. This is possible because
+    # we are reading from a special socket provided to do this.
+    my $result = $self->_ldap()->search(
+        { base   => $self->_ldap()->dn(),
+          scope  => 'sub',
+          filter => '(samAccountName=' . $self->name() . ')',
+          attrs  => ['supplementalCredentials', 'unicodePwd']});
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal('Cannot get the passwords for ' . $self->name());
+    }
+    my $entry = $result->pop_entry();
+    my ($unicodePwd, $suppCred) = ($entry->get_value('unicodePwd'),
+                                   $entry->get_value('supplementalCredentials'));
+
+    my $sambaCredentials = new EBox::Samba::Credentials(
+        unicodePwd => $unicodePwd,
+        supplementalCredentials => $suppCred
+       );
+
+    my $krb5Keys = $sambaCredentials->kerberosKeys();
+    # Transform to set it as proper value for krb5Keys in OpenLDAP
+    $krb5Keys = $self->_krb5Keys($krb5Keys);
+
+    return $krb5Keys;
 }
 
 sub _checkUserName
@@ -997,9 +1035,14 @@ sub defaultQuota
     return $value;
 }
 
-# Method: kerberosKeys
+# Method: decodeKrb5Keys
 #
-#     Return the Kerberos key hashes for this user
+#     Return the Kerberos key hashes for this user decoded using
+#     krb5Key.asn file.
+#
+# Parameters:
+#
+#     krb5Keys - Array ref containing the encoded Kerberos 5 keys.
 #
 # Returns:
 #
@@ -1011,9 +1054,9 @@ sub defaultQuota
 #
 #         salt  - String the salt (only valid for 18 and 16 types)
 #
-sub kerberosKeys
+sub decodeKrb5Keys
 {
-    my ($self) = @_;
+    my ($self, $krb5Keys) = @_;
 
     my $keys = [];
 
@@ -1024,8 +1067,7 @@ sub kerberosKeys
     my $asn_key = $asn->find('Key') or
         throw EBox::Exceptions::Internal($asn->error());
 
-    my @aux = $self->get('krb5Key');
-    foreach my $blob (@aux) {
+    foreach my $blob (@{$krb5Keys}) {
         my $key = $asn_key->decode($blob) or
             throw EBox::Exceptions::Internal($asn_key->error());
         push @{$keys}, {
@@ -1038,7 +1080,8 @@ sub kerberosKeys
     return $keys;
 }
 
-sub setKerberosKeys
+# Transform samba credentials to krb5Keys expected by OpenLDAP
+sub _krb5Keys
 {
     my ($self, $keys) = @_;
 
@@ -1090,8 +1133,7 @@ sub setKerberosKeys
         throw EBox::Exceptions::Internal($asn_key->error());
         push (@{$blobs}, $blob);
     }
-    $self->set('krb5Key', $blobs);
-    $self->set('userPassword', '{K5KEY}');
+    return $blobs;
 }
 
 1;
