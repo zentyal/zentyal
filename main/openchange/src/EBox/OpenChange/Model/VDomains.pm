@@ -370,6 +370,7 @@ sub _doIssue
     $ca->issueCertificate(
         commonName => $vdomain,
         endDate    => $caCert->{expiryDate},
+        openchange => 1,
         subjAltNames => [
             { type  => 'DNS', value =>  "${hostname}.${vdomain}" },
             { type  => 'DNS', value => "autodiscover.${vdomain}" }
@@ -379,6 +380,8 @@ sub _doIssue
     # Set openchange as changed to copy the certificate to ocsmanager folder
     # on save changes
     $self->parentModule()->setAsChanged();
+    # set CA as changed, so the certificate will used by services if needed
+    $ca->setAsChanged();
 }
 
 # Method: _doRevoke
@@ -406,6 +409,8 @@ sub _doRevoke
     # Set openchange as changed to remove the certificate from ocsmanager
     # folder on save changes
     $self->parentModule()->setAsChanged();
+    # no need to set CA as changed like when issue the certificate 
+    # because we cannot automatically reissue certificates services
 }
 
 # Method: _setAutoDiscoverRecord

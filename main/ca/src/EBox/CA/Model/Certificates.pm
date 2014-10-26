@@ -342,19 +342,6 @@ sub validateTypedRow
                    );
             }
         }
-
-        # only do the check with modify services, services newly added should
-        # not have this problem because their certifcate cames in one file not
-        # in our CA database
-        my $openchange = $self->parentModule()->global()->modInstance('openchange');
-        if ($openchange) {
-            my $cn = $openchange->certificateCN();
-            if ($cn and ($cn eq $actual_r->{cn}->value())) {
-                throw EBox::Exceptions::External(
-__x('Cannot use CN {cn} because is reserved for openchange certificate', cn => $cn)
-                   );
-            }
-        }
     }
 
     my $commonName = $actual_r->{cn}->value();
@@ -366,6 +353,9 @@ __x('Cannot use CN {cn} because is reserved for openchange certificate', cn => $
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    my $cn = $row->valueByName('cn');
+    $self->_openchangeWarning($cn);
+
     if ($row->isEqualTo($oldRow)) {
         # no need to set module as changed
         return;
@@ -374,6 +364,19 @@ sub updatedRowNotify
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);
     $mod->setAsChanged();
+}
+
+sub _openchangeWarning
+{
+    my ($self, $cn) = @_;
+    my $openchange = $self->parentModule()->global()->modInstance('openchange');
+    if ($openchange and $openchange->certificateIsReserved($cn)) {
+        my $warnMsg = __x('The CN {cn} is reserved by OpenChange and cannot be generated automatically. You can issue it from the {oh}OpenChange virtual domains interface.{ch}', 
+                   cn => $cn,
+                   oh => "<a href='/Mail/OpenChange'>",
+                   ch => '</a>');
+        $self->setMessage($warnMsg, 'warning');
+    }
 }
 
 1;
