@@ -79,6 +79,10 @@ use constant PASSWORD_EXPIRED               => 0x00800000;
 use constant TRUSTED_TO_AUTH_FOR_DELEGATION => 0x01000000;
 use constant PARTIAL_SECRETS_ACCOUNT        => 0x04000000;
 
+# These attributes' changes are notified to LDAP slaves
+use constant CORE_ATTRS => ('samAccountName', 'givenName', 'sn', 'description',
+                            'uidNumber', 'gidNumber', 'unicodePwd', 'supplementalCredentials');
+
 sub new
 {
     my $class = shift;
@@ -194,6 +198,31 @@ sub setCredentials
         critical => 1 );
     $self->save($bypassControl);
 }
+
+# Method: delete
+#
+#      Delete an attribute from the object
+#
+# Parameters:
+#
+#      attr - String the attribute's name
+#
+#      lazy - Boolean to perform the result directly or wait for
+#             <save> method
+#
+sub delete
+{
+    my ($self, $attr, $lazy) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any(CORE_ATTRS)) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::delete(@_);
+}
+
 
 # Method: deleteObject
 #
@@ -339,10 +368,10 @@ sub setHomeDrive
 #
 #   Adds a new user
 #
-# Parameters:
+# Named parameters:
 #
-#   args - Named parameters:
-#       name *optional*
+#       samAccountName
+#       parent
 #       givenName
 #       initials
 #       sn
@@ -354,6 +383,7 @@ sub setHomeDrive
 #       kerberosKeys - Set of kerberos keys
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber - user UID number
+#       ignoreSlaves - Boolean to avoid notifying LDAP slaves
 #
 # Returns:
 #
@@ -478,6 +508,10 @@ sub create
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled(1);
+        }
+
+        if ($args{ignoreSlaves}) {
+            $res->{ignoreSlaves} = $args{ignoreSlaves};
         }
 
         $res->setupUidMapping($uidNumber);
@@ -695,6 +729,11 @@ sub set
         $self->{set_quota} = 1;
     }
 
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any(CORE_ATTRS)) {
+        $self->{core_changed} = 1;
+    }
+
     shift @_;
     $self->SUPER::set(@_);
 }
@@ -726,6 +765,7 @@ sub save
 
     if ($changetype ne 'delete') {
         if ($hasCoreChanges or defined $passwd) {
+            delete $self->{core_changed};
 
             my $usersMod = $self->_usersMod();
             $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});

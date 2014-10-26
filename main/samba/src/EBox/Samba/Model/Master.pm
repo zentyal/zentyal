@@ -140,7 +140,7 @@ sub precondition
 {
     my ($self) = @_;
     my $usersMod = $self->parentModule();
-    return $usersMod->mode() eq $usersMod->STANDALONE_MODE();
+    return ($usersMod->mode() eq $usersMod->STANDALONE_MODE());
 }
 
 # Method: viewCustomizer
@@ -217,7 +217,7 @@ sub validateTypedRow
         my $res = $rest->GET("/v1/users/realm/")->data();
         my $realm = $res->{realm};
 
-        # If cloud is already provisoned destroy local users before sync
+        # If cloud is already provisioned destroy local users before sync
         $destroy = 0 if (not $realm);
 
         if ($realm and ($usersMod->kerberosRealm() ne $realm)) {
