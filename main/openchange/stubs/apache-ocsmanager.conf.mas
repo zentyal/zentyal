@@ -1,21 +1,167 @@
+<%doc>
+    Template to set the apache configuration file for ocsmanager provided
+    service:
+        * Autodiscover (only HTTPs)
+        * EWS (freebusy, outofoffice, etc. only HTTPs)
+        * RPC proxy (HTTP or HTTPs)
+
+Parameters:
+
+    group - String the group that must live apache-perl process
+            Default value: www-data
+    user  - String the user that the apache-perl process must be
+            Default value: www-data
+    rpcproxyAuthCacheDir - The directory to use as the auth cache.
+</%doc>
 <%args>
-  $domain
+    $user => 'www-data'
+    $group => 'www-data'
+    $port
+    $ssl
+    $certificate => undef
+    $hostname
+    $domain
+    $autodiscover
+    $ews
+    $rpcproxy
+    $rpcproxyAuthCacheDir
+    $webmail
 </%args>
 
-# FIXME: unhardcode port if customized
-<VirtualHost *:443>
-    ServerName autodiscover.<% $domain %>
+user  <% $user %>
+group <% $group %>
 
+WSGILazyInitialization On
+WSGIPythonPath /usr/lib/openchange/web/rpcproxy
+WSGIScriptAlias /rpc/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+
+<VirtualHost *:<% $port %>>
+    ServerName <% $hostname %>.<% $domain %>
+    ServerAlias autodiscover.<% $domain %>
+
+% if ($ssl) {
     SSLEngine on
-    SSLCertificateFile /etc/ocsmanager/domain.pem
-
+    SSLCertificateFile <% $certificate %>
     ProxyAddHeaders On
 
-    # ocsmanager autodiscover
+%   if ($autodiscover) {
+    ############################
+    #### Autodiscover begin ####
+    ############################
     ProxyPass /autodiscover http://127.0.0.1:5000/autodiscover
+%   }
 
-    # ocsmanager Exchange Web Services (ews)
+%   if ($ews) {
+    #############
+    #### EWS ####
+    #############
     ProxyPass /ews http://127.0.0.1:5000/ews
+%   }
+% }
+
+% if ($rpcproxy) {
+    #########################
+    #### RPC Proxy begin ####
+    #########################
+    # Extremely high timeout required by clients)
+    Timeout 300
+    KeepAlive On
+    KeepAliveTimeout 120
+    MaxKeepAliveRequests 500
+    AddDefaultCharset utf-8
+
+    Include /etc/apache2/mods-available/wsgi.load
+    Include /etc/apache2/mods-available/env.load
+
+    <Directory /usr/lib/openchange/web/rpcproxy/>
+        SetEnv RPCPROXY_LOGLEVEL DEBUG
+        SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
+        SetEnv SAMBA_HOST 127.0.0.1
+        WSGIPassAuthorization On
+        WSGIProcessGroup %{GLOBAL}
+        Require all granted
+    </Directory>
+% }
+
+% if ($webmail) {
+    ############################
+    #### SOGo webmail begin ####
+    ############################
+    Alias /SOGo.woa/WebServerResources/ \
+        /usr/lib/GNUstep/SOGo/WebServerResources/
+    Alias /SOGo/WebServerResources/ \
+        /usr/lib/GNUstep/SOGo/WebServerResources/
+    AliasMatch /SOGo/so/ControlPanel/Products/(.*)/Resources/(.*) \
+        /usr/lib/GNUstep/SOGo/$1.SOGo/Resources/$2
+
+    <Directory /usr/lib/GNUstep/SOGo/>
+        AllowOverride None
+        Require all granted
+
+        # Explicitly allow caching of static content to avoid browser specific
+        # behavior. A resource URL MUST change in order to have the client
+        # load the new version.
+        <IfModule expires_module>
+            ExpiresActive On
+            ExpiresDefault "access plus 1 year"
+        </IfModule>
+    </Directory>
+
+    <LocationMatch "^/SOGo/so/ControlPanel/Products/.*UI/Resources/.*\.(jpg|png|gif|css|js)">
+        SetHandler default-handler
+    </LocationMatch>
+
+    ## Uncomment the following to enable proxy-side authentication, you will then
+    ## need to set the "SOGoTrustProxyAuthentication" SOGo user default to YES and
+    ## adjust the "x-webobjects-remote-user" proxy header in the "Proxy" section
+    ## below.
+    #<Location /SOGo>
+    #  AuthType XXX
+    #  Require valid-user
+    #  SetEnv proxy-nokeepalive 1
+    #  Allow from all
+    #</Location>
+    ProxyRequests Off
+    SetEnv proxy-nokeepalive 1
+    ProxyPreserveHost On
+
+    # When using CAS, you should uncomment this and install cas-proxy-validate.py
+    # in /usr/lib/cgi-bin to reduce server overloading
+    #
+    # ProxyPass /SOGo/casProxy http://localhost/cgi-bin/cas-proxy-validate.py
+    # <Proxy http://localhost/app/cas-proxy-validate.py>
+    #   Order deny,allow
+    #   Allow from your-cas-host-addr
+    # </Proxy>
+
+    ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
+    ProxyPass /sogo/ http://127.0.0.1:20000/SOGo
+    ProxyPass /sogo http://127.0.0.1:20000/SOGo
+    ProxyPass /webmail/ http://127.0.0.1:20000/SOGo
+    ProxyPass /webmail http://127.0.0.1:20000/SOGo
+    ProxyPass /_debug http://127.0.0.1:5000/_debug retry=0
+
+    <Proxy http://127.0.0.1:20000/SOGo>
+        ## When using proxy-side autentication, you need to uncomment and
+        ## adjust the following line:
+        #  RequestHeader set "x-webobjects-remote-user" "%{REMOTE_USER}e"
+% if ($ssl) {
+        RequestHeader set "x-webobjects-server-url" "https://%{REQUEST_HOST}e:<% $port %>"
+        SetEnvIf Host "(.*):?" REQUEST_HOST=$1
+% } else {
+        RequestHeader set "x-webobjects-server-protocol" "HTTP/1.0"
+% }
+        AddDefaultCharset UTF-8
+        Require all granted
+    </Proxy>
+
+    # For apple autoconfiguration
+    <IfModule rewrite_module>
+        RewriteEngine On
+        RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+    </IfModule>
+% }
 
     CustomLog ${APACHE_LOG_DIR}/ocsmanager-access.log combined
     ErrorLog ${APACHE_LOG_DIR}/ocsmanager-error.log

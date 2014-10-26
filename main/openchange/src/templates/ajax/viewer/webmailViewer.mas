@@ -1,0 +1,25 @@
+<%args>
+$data
+</%args>
+<%init>
+    my $row = $data->row();
+    my $vdomain = $row->printableValueByName('vdomain');
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $host = $sysinfo->hostName();
+
+    my $http = $row->valueByName('webmail_http');
+    my $https = $row->valueByName('webmail_https');
+    my $enabled = ($http or $https);
+
+    my $link = 'http://';
+    if ($https) {
+        $link = 'https://';
+    }
+    $link .= "${host}.${vdomain}/webmail";
+</%init>
+%   if ($enabled) {
+        <a href=<% $link %>>Access webmail</a>
+%   } else {
+		<img src="/data/images/disabled.gif" alt="no"/>
+%   }

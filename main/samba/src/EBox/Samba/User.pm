@@ -401,6 +401,7 @@ sub create
 
     my $samAccountName = $args{samAccountName};
     $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
+    $class->_checkAccountNotExists($samAccountName);
 
     # Check the password length if specified
     my $password = $args{'password'};
@@ -437,7 +438,6 @@ sub create
     # Check DN is unique (duplicated givenName and surname)
     $class->_checkDnIsUnique($dn, $name);
 
-    $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('samba');
     my $realm = $usersMod->kerberosRealm();
 
@@ -699,6 +699,10 @@ sub isInternal
     return ($self->isInAdvancedViewOnly() or $self->get('isCriticalSystemObject'));
 }
 
+# Method: isAdministratorOrGuest
+#
+#  Return if the user is Administrator or Guest system users
+#
 sub isAdministratorOrGuest
 {
     my ($self) = @_;

@@ -2719,10 +2719,11 @@ sub caExpirationDate
 sub _openchangeCertificateCN
 {
     my ($self) = @_;
-    my $openchange = $self->global()->modInstance('openchange');
-    if ($openchange) {
-        return $openchange->certificateCN();
-    }
+# FIXME
+#    my $openchange = $self->global()->modInstance('openchange');
+#    if ($openchange) {
+#        return $openchange->certificateCN();
+#    }
     return undef;
 }
 1;

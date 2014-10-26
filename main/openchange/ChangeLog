@@ -1,4 +1,5 @@
 4.0
+	+ OpenChange users can have mail accounts on different virtual domains
 	+ Add conf file for openchange module, containing broker config for
 	  mapiproxy server
 	+ Use separate apache log files for ocsmanager

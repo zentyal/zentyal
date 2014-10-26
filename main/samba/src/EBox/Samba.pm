@@ -2486,6 +2486,8 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
+    return unless $self->isProvisioned();
+
     my $mode = $self->mode();
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
     if ($mode ne STANDALONE_MODE) {

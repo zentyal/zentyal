@@ -151,4 +151,32 @@ sub log
     $Log::Log4perl::caller_depth -=3;
 }
 
+# Function: rethrowSilently
+#
+#   Throws again the error as a silently exception. Can also be called as
+#   exception object method
+#
+#  Parameters: 
+#         error - the error, can be a ebox ecception, a error object or a
+#                 error string 
+#
+#  Raises:
+#      - an appropiate EBox::Exception with the silently option
+sub rethrowSilently
+{
+    my ($error) = @_;
+    if (not defined $error) {
+        EBox::Exception::MissingArgument('Exception to rethrown');
+    }
+
+    my $class = ref $error;
+    if (not $class) {
+        EBox::Exceptions::External->throw($error, silent => 1);
+    } elsif ($error->isa('EBox::Exceptions::Base')) {
+        $class->throw($error->text, silent => 1);
+    } else {
+        EBox::Exceptions::Internal->throw("$error", silent => 1);
+    }
+}
+
 1;

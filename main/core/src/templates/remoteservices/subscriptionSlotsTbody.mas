@@ -45,7 +45,7 @@ if ((not exists $subs->{server}) or (not $subs->{server}->{name})) {
       <& /input/hidden.mas, name => 'uuid', value => $subs->{uuid} &>
       <& /input/hidden.mas, name => 'mode', value => $mode &>
     </form>
-    <a href='<% $baseUrl %>'><% __('Select') %></a>
+    <a data-server-name="<% $server %>" href="<% $baseUrl %>"><% __('Select') %></a>
   </td>
 </tr>
 </%def>

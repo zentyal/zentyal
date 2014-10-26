@@ -103,7 +103,7 @@ try {
             eval 'use EBox::RemoteServices::Backup';
             my $backupService = EBox::RemoteServices::Backup->new();
             my $description = $params{description};
-            $backupService->sendRemoteBackup($file, $remoteBackupName, $description);
+            $backupService->sendRemoteBackup($file, $description);
 
             if ($progress) {
                 $progress->setAsFinished();

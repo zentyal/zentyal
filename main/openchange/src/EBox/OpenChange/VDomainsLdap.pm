@@ -15,6 +15,7 @@
 use strict;
 use warnings;
 
+# TODO Remove this file
 package EBox::OpenChange::VDomainsLdap;
 use base qw(EBox::LdapVDomainBase);
 
@@ -31,20 +32,20 @@ sub new
 sub _delVDomainAbort
 {
     my ($self, $vdomain) = @_;
+
     if (not $self->{openchangeMod}->isProvisioned()) {
         # no outgoing domain really set
         return;
     }
 
-    my $confRow  = $self->{openchangeMod}->model('Configuration')->row();
-    my $outgoing = $confRow->elementByName('outgoingDomain')->printableValue();
-    if ($vdomain eq $outgoing) {
-        throw EBox::Exceptions::External(
-            __x('The virtual mail domain {dom} cannot be removed because it is {oc} outgoing domain',
-                dom => $vdomain, oc => 'OpenChange')
-           );
-    }
-
+    #my $confRow  = $self->{openchangeMod}->model('Configuration')->row();
+    #my $outgoing = $confRow->elementByName('outgoingDomain')->printableValue();
+    #if ($vdomain eq $outgoing) {
+    #    throw EBox::Exceptions::External(
+    #        __x('The virtual mail domain {dom} cannot be removed because it is {oc} outgoing domain',
+    #            dom => $vdomain, oc => 'OpenChange')
+    #       );
+    #}
 }
 
 1;

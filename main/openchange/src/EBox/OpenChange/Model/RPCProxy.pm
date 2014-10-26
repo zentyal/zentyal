@@ -17,13 +17,12 @@ use strict;
 use warnings;
 
 package EBox::OpenChange::Model::RPCProxy;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
-use EBox::Types::Text;
 use EBox::Types::Link;
-use EBox::Types::Boolean;
-use TryCatch::Lite;
+use EBox::Types::Text;
 
 # Method: new
 #
@@ -47,118 +46,97 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc = (
-        EBox::Types::Text->new(
-            fieldName => 'host',
-            printableName => __('Host name'),
-            volatile => 1,
-            filter => sub { return $self->_host },
-            editable => 0,
+    my $tableDesc = [
+        new EBox::Types::Text(
+            fieldName       => 'caname',
+            printableName   => __('CA name'),
+            volatile        => 1,
+            acquirer        => \&_getCAName,
         ),
-        EBox::Types::Link->new(
-             fieldName => 'certificate',
-             printableName => __('Certificate'),
-             volatile  => 1,
-             optionalLabel => 0,
-             acquirer => sub { return '/Downloader/RPCCert'; },
-             HTMLViewer     => '/ajax/viewer/downloadLink.mas',
-             HTMLSetter     => '/ajax/viewer/downloadLink.mas',
-         ),
-        EBox::Types::Boolean->new(
-            fieldName     => 'http',
-            printableName => __('Access without SSL'),
-            defaultValue  => 0,
-            editable      => 1
-           ),
-        EBox::Types::Boolean->new(
-            fieldName     => 'https',
-            printableName => __('Access with SSL'),
-            defaultValue  => 0,
-            editable      => 1
-           ),
-        );
+        new EBox::Types::Link(
+            fieldName       => 'certificate',
+            printableName   => __('CA Certificate'),
+            volatile        => 1,
+            optionalLabel   => 0,
+            acquirer        => sub { return '/Downloader/RPCCert'; },
+            HTMLViewer      => '/ajax/viewer/downloadLink.mas',
+            HTMLSetter      => '/ajax/viewer/downloadLink.mas',
+        ),
+        new EBox::Types::Link(
+            fieldName       => 'manage',
+            printableName   => __('Manage certificates'),
+            volatile        => 1,
+            optionalLabel   => 0,
+            acquirer        => sub { return '/CA/Index'; },
+            HTMLViewer      => '/openchange/ajax/viewer/linkViewer.mas',
+            HTMLSetter      => '/openchange/ajax/viewer/linkViewer.mas',
+        ),
+    ];
 
     my $dataForm = {
         tableName          => 'RPCProxy',
-        printableTableName => __('HTTP/HTTPS proxy access'),
+        printableTableName => __('Outlook® Anywhere access'),
         modelDomain        => 'OpenChange',
-        defaultActions     => [ 'editField' ],
-        tableDescription   => \@tableDesc,
-        help               => __x('Setup access to {oc} through HTTP/HTTPS known as {oa}.'
-                                  . 'Remember HTTPS access and autodiscover requires you to '
-                                  . 'import Zentyal CA certificate into your {win} account.',
-                                  'oc' => 'OpenChange', 'oa' => 'Outlook Anywhere',
-                                  'win' => 'Windows'),
+        defaultActions     => [],
+        tableDescription   => $tableDesc,
+        help               => __('MAPI clients have to import your CA ' .
+                                 'certificate in order to trust the ' .
+                                 'RPC/MAPI proxy.'),
     };
 
     return $dataForm;
+}
+
+sub _getCAName
+{
+    my ($type) = @_;
+
+    my $ca = EBox::Global->modInstance('ca');
+    if ($ca->isAvailable()) {
+        my $metadata = $ca->getCACertificateMetadata();
+        use Data::Dumper;
+        EBox::info(Dumper($metadata));
+        return $metadata->{dn}->attribute('organizationName');
+    }
+    return __('The CA is not available.');
 }
 
 sub precondition
 {
     my ($self) = @_;
 
-    my $host;
-    try {
-        $host = $self->_host();
-        if (not $host) {
-            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}',
-                                               oh => '<a href="/DNS/Composite/Global">',
-                                               ch => '</a>'
-                                              );
-        }
-    } catch($ex) {
-        $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name: {err}', err => "$ex");
-        $host = undef;
-    };
+    my $ca = EBox::Global->modInstance('ca');
+    unless ($ca->isAvailable()) {
+        $self->{preconditionFail} = 'noCA';
+        return 0;
+    }
 
-    return defined $host;
+    unless ($self->parentModule()->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return 0;
+    }
+
+    delete $self->{preconditionFail};
+    return 1;
 }
 
 sub preconditionFailMsg
 {
     my ($self) = @_;
-    return $self->{preconditionFailMsg};
-}
 
-sub _host
-{
-    my ($self) = @_;
-    my $hosts = $self->parentModule()->rpcProxyHosts();
-
-    my $ca = $self->parentModule()->global()->modInstance('ca');
-
-    if (@{$hosts} > 1) {
-        # Second value is the domain
-        my $domainCert = $ca->getCertificateMetadata(cn => $hosts->[1]);
-        if ($domainCert and ($domainCert->{state} eq 'V')) {
-            my $matches = grep { $_->{value} eq $hosts->[0] } @{$domainCert->{subjAltNames}};
-            if ($matches == 0) {
-                return $hosts->[1];
-            }
-        }
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __x('The {x} module is not provisioned',
+                   x => $self->parentModule->printableName());
     }
-    return $hosts->[0];
-}
 
-sub enabled
-{
-    my ($self) = @_;
-    return ($self->httpEnabled() or $self->httpsEnabled());
-}
+    if ($self->{preconditionFail} eq 'noCA') {
+        return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
+                   oh => "<a href='/CA/Index'>",
+                   ch => "</a>"
+                  );
+    }
 
-sub httpEnabled
-{
-    my ($self) = @_;
-
-    return $self->value('http');
-}
-
-sub httpsEnabled
-{
-    my ($self) = @_;
-
-    return $self->value('https');
+    return undef;
 }
 
 1;

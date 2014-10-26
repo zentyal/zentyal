@@ -104,6 +104,7 @@ sub setAccountEnabled
 
     my $samAccountName = $ldbUser->get('samAccountName');
     my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
+    my $mail = $ldbUser->get('mail');
 
     my $cmd = 'openchange_newuser ';
     $cmd .= ' --create ' unless (defined $msExchUserAccountControl);
@@ -111,6 +112,9 @@ sub setAccountEnabled
         $cmd .= ' --enable ';
     } else {
         $cmd .= ' --disable ';
+    }
+    if (defined $mail and length $mail) {
+        $cmd .= " --mail $mail ";
     }
     $cmd .= " '$samAccountName' ";
     EBox::Sudo::root($cmd);
