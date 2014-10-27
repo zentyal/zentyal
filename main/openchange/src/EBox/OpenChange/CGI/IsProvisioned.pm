@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,38 +13,29 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::RemoteServices::Composite::Technical
-#
-#    Display the form and information about technical support
-#
-
 use strict;
 use warnings;
 
-package EBox::RemoteServices::Composite::Technical;
-
-use base 'EBox::Model::Composite';
+package EBox::OpenChange::CGI::IsProvisioned;
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
+use EBox::Global;
 
-# Group: Protected methods
-
-# Method: _description
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::_description>
-#
-sub _description
+sub new
 {
-    my $description = {
-          layout          => 'top-bottom',
-          name            => __PACKAGE__->nameFromClass(),
-          pageTitle       => __('Technical Support'),
-          compositeDomain => 'RemoteServices',
-    };
+        my ($class, @params) = @_;
+        my $self = $class->SUPER::new(@params);
+        bless($self, $class);
+        return  $self;
+}
 
-    return $description;
+sub _process
+{
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    my $openchange = $global->modInstance('openchange');
+    $self->{json}->{provisioned} = $openchange->isProvisioned();
 }
 
 1;

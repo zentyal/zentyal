@@ -126,19 +126,6 @@ sub initialSetup
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
 
-        # save certificate serial, we assume that the certificate from 4.0< is
-        # valid to not issue a new certifiate
-        my $cn = $self->certificateCN();
-        if ($cn) {
-            my $ca = $self->global()->modInstance('ca');
-            my $domainCert = $ca->getCertificateMetadata(cn => $cn);
-            if ($domainCert) {
-                my $state = $self->get_state();
-                $state->{certificate_serial_number} = $domainCert->{serialNumber};
-                $self->set_state($state);
-            }
-        }
-
         my $firewall = $self->global()->modInstance('firewall');
         $firewall->setInternalService('HTTPS', 'accept');
         $firewall->saveConfigRecursive();
@@ -1059,7 +1046,23 @@ sub connectionString
     return "mysql://openchange:$pwd\@localhost/openchange";
 }
 
+# Method: certificateIsReserved
+#
+# returns whether the certificate is reserved for use by openchange. Reserved
+# certifcates must be issued only by openchange because they need 
+# special fields (dns alt names, ..)
+#
+# Parameters:
+#   cn - certificate common name
+sub certificateIsReserved
+{
+    my ($self, $cn) = @_;
+    my $vdomains = $self->model('VDomains');
+    my $managed = defined $vdomains->find(vdomain => $cn);
+    return $managed;
+}
 # EBox::CA::Observer methods
+
 
 sub certificateRevoked
 {
@@ -1073,7 +1076,9 @@ sub certificateRevoked
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
             my $vdomain = $row->printableValueByName('vdomain');
-            return 1 if (lc ($vdomain) eq lc ($commonName));
+            if (lc ($vdomain) eq lc ($commonName)) {
+                return $model->certificate($commonName) ? 1 : 0;
+            }
         }
     }
     return 0;
@@ -1122,7 +1127,6 @@ sub _kerberosKeytab
 {
     return undef;
 }
-
 
 # Method: cleanForReprovision
 #

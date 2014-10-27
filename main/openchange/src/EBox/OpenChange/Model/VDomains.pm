@@ -135,6 +135,12 @@ sub _table
                     handler => \&_doIssue,
                     message => __('Certificate issued'),
                 },
+                badissued => {
+                    name => 'revoke_and_issue',
+                    printableValue => __('Revoke and reissue certificate'),
+                    handler => \&_doRevokeAndIssue,
+                    message => __('Certificate issued'),
+                },
             }
         ),
     ];
@@ -336,18 +342,24 @@ sub _acquireIssued
 
     my $row = $self->row($id);
     my $vdomain = $row->printableValueByName('vdomain');
-    return (defined $self->certificate($vdomain) ? 'issued' : 'nonissued');
+    if ($self->certificate($vdomain)) {
+        return 'issued';
+    } 
+
+    my $metadata = $ca->getCertificateMetadata(cn => $vdomain);
+    if ($metadata and ($metadata->{state} eq 'V')) {
+        # certificate exists, but with bad parameters
+        return 'badissued';
+    }
+
+    return 'nonissued';
 }
 
-# Method: _doIssue
-#
-#   Issue the certificate for the virtual domain using Zentyal CA
-#
-sub _doIssue
-{
-    my ($self, $action, $id, %params) = @_;
 
-    my $ca = EBox::Global->modInstance('ca');
+sub _issueCertificate
+{
+    my ($self, $vdomain) = @_;
+    my $ca      = $self->global()->modInstance('ca');
     unless ($ca->isAvailable()) {
         throw EBox::Exceptions::External(
             __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
@@ -355,21 +367,14 @@ sub _doIssue
                 ch => "</a>"));
     }
 
-    my $row = $self->row($id);
-    my $vdomain = $row->printableValueByName('vdomain');
-
-    if (defined $self->certificate($vdomain)) {
-        throw EBox::Exceptions::External(
-            __x('Certificate for domain {x} already exists.', x => $vdomain));
-    }
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $sysinfo = $self->global()->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
 
     my $caCert = $ca->getCACertificateMetadata();
     $ca->issueCertificate(
         commonName => $vdomain,
         endDate    => $caCert->{expiryDate},
+        openchange => 1,
         subjAltNames => [
             { type  => 'DNS', value =>  "${hostname}.${vdomain}" },
             { type  => 'DNS', value => "autodiscover.${vdomain}" }
@@ -379,6 +384,42 @@ sub _doIssue
     # Set openchange as changed to copy the certificate to ocsmanager folder
     # on save changes
     $self->parentModule()->setAsChanged();
+    # set CA as changed, so the certificate will used by services if needed
+    $ca->setAsChanged();
+}
+
+sub _revokeCertificate
+{
+    my ($self, $vdomain) = @_;
+    my $ca = $self->global()->modInstance('ca');
+
+    $ca->revokeCertificate(
+        commonName => $vdomain,
+        reason     => 'unspecified',
+    );
+
+    # Set openchange as changed to remove the certificate from ocsmanager
+    # folder on save changes
+    $self->parentModule()->setAsChanged();
+    # no need to set CA as changed like when issue the certificate 
+    # because we cannot automatically reissue certificates services
+}
+
+# Method: _doIssue
+#
+#   Issue the certificate for the virtual domain using Zentyal CA
+#
+sub _doIssue
+{
+    my ($self, $action, $id, %params) = @_;
+    my $row = $self->row($id);
+    my $vdomain = $row->printableValueByName('vdomain');
+    if (defined $self->certificate($vdomain)) {
+        throw EBox::Exceptions::External(
+            __x('Certificate for domain {x} already exists.', x => $vdomain));
+    }
+
+    $self->_issueCertificate($vdomain);
 }
 
 # Method: _doRevoke
@@ -397,15 +438,17 @@ sub _doRevoke
             __x('Certificate for domain {x} does not exists.', x => $vdomain));
     }
 
-    my $ca = EBox::Global->modInstance('ca');
-    $ca->revokeCertificate(
-        commonName => $vdomain,
-        reason => 'unspecified',
-    );
+    $self->_revokeCertificate($vdomain);
+}
 
-    # Set openchange as changed to remove the certificate from ocsmanager
-    # folder on save changes
-    $self->parentModule()->setAsChanged();
+sub _doRevokeAndIssue
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $row = $self->row($id);
+    my $vdomain = $row->printableValueByName('vdomain');
+    $self->_revokeCertificate($vdomain);
+    $self->_issueCertificate($vdomain);
 }
 
 # Method: _setAutoDiscoverRecord
@@ -466,6 +509,7 @@ sub certificate
             }
         }
     }
+
     return undef;
 }
 
@@ -536,14 +580,13 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconditionFail} eq 'notEnabled') {
-        return __x('You must enable the {x} module before configuring the ' .
-                   'virtual domains. ',
-                   x => $self->parentModule->printableName());
+        # no show message because provision model precondition takes care of this
+        return '';
     }
 
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        return __x('The {x} module is not provisioned',
-                   x => $self->parentModule->printableName());
+        # no shown message because it is already shown in the rpcproxy model
+        return '';
     }
 
     if ($self->{preconditionFail} eq 'novdomains') {

@@ -1,5 +1,6 @@
 4.0
 	+ Fixed backup/restore
+	+ Make sure no repeated preconditons are shown
 	+ OpenChange users can have mail accounts on different virtual domains
 	+ Add conf file for openchange module, containing broker config for
 	  mapiproxy server

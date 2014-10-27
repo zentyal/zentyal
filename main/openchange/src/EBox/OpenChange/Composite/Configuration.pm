@@ -43,4 +43,11 @@ sub _description
     return $description;
 }
 
+# this method is overriden to not display the disabled warning message , it is
+# already shown in the general composite
+sub disabledModuleWarning
+{
+    return undef;
+}
+
 1;

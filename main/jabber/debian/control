@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-jabber
 Architecture: all
 Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-samba,
-         ejabberd, ${misc:Depends}
+         ejabberd (>= 2.1.11-1ubuntu2.1+zentyal1), ${misc:Depends}
 Conflicts: jabberd2
 Description: Zentyal - Jabber
  Zentyal is a Linux small business server that can act as

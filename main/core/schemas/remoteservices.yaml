@@ -1,13 +1,8 @@
 class: EBox::RemoteServices
 
 models:
-    - AccessSettings
-    - RemoteSupportAccess
-    - TechnicalInfo
     - Subscription
     - QAUpdatesInfo
 
 composites:
-#    Technical: [TechnicalInfo, RemoteSupportAccess, AccessSettings]
     General: []
-    Technical: [RemoteSupportAccess, AccessSettings]
