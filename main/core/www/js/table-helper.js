@@ -410,6 +410,11 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         if ('redirect' in response) {
             window.location.replace(response.redirect);
         }
+        if ('dataInUseForm' in response) {
+            Zentyal.TableHelper.removeWarnings(table);
+            var form = $('#' + table + '_ajaxform');
+            form.before(response.dataInUseForm);
+        }
     };
     var complete = function(response){
         $('#' + id + ' .customActions').each(function(index, element) {

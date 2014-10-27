@@ -89,9 +89,8 @@ sub setupGidMapping
 #
 #   Adds a new Samba group.
 #
-# Parameters:
+# Named parameters:
 #
-#   args - Named parameters:
 #       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.

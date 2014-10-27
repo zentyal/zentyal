@@ -80,10 +80,12 @@ sub initialSetup
                           mode => '0600'
                        };
     EBox::Module::Base::writeFile($file, $pass, $permissions);
-    
-    # migrate accounts to new 3.5.5 encrypted format
-    if (EBox::Util::Version::compare($version, '3.5.5') >= 0) {
-        return;
+
+    if ($version) {
+        # migrate accounts to new 3.5.5 encrypted format
+        if (EBox::Util::Version::compare($version, '3.5.5') >= 0) {
+            return;
+        }
     }
 
     my $samba = $self->{mailMod}->global()->modInstance('samba');
