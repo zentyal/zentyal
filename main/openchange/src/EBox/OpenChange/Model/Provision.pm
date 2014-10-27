@@ -611,8 +611,8 @@ sub customActionClickedJS
    };
     var acceptMethod = function() {
          $customActionClickedJS;
-         \$.getJSON('/SysInfo/HasUnsavedChanges',  function(response) {
-               if (response.changed) {
+         \$.getJSON('/OpenChange/IsProvisioned',  function(response) {
+               if (response.provisioned) {
                  Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
                                                          dialogClass: 'no-close',
                                                          closeOnEscape: false
