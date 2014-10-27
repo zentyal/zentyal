@@ -764,7 +764,7 @@ sub makeBackup
 
         if ($finishProgress) {
             $progress->setAsFinished();
-        } 
+        }
     } catch ($ex) {
         if ($progress) {
             $progress->setAsFinished(1, $ex->text);
@@ -1008,7 +1008,7 @@ sub _checkZentyalVersion
     my $versionOk =  ($major == $wantedMajor) && ($minor == $wantedMinor);
     if (not $versionOk) {
         throw EBox::Exceptions::External(__x(
-'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
+'Could not restore the backup because a mismatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
                 bv => $zentyalVersion,
                 wv => $actualVersion)
         );
