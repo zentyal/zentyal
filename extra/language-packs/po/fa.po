@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1702
+#: ../../main/mail/src/EBox/Mail.pm:1738
 msgid "disabled"
 msgstr "غیرفعال"
 
@@ -128,7 +128,7 @@ msgstr "کلاینت"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:257
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:218
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:346
 #: ../../main/core/src/EBox/Model/DataTable.pm:4299
@@ -155,7 +155,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1304
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -165,7 +165,7 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:276
+#: ../../main/samba/src/templates/edituser.mas:302
 msgid "Disabled"
 msgstr "غیرفعال شد"
 
@@ -321,8 +321,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:233
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:185
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:187
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:155
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:58
@@ -346,10 +345,10 @@ msgstr "نام"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:194
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:162
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:163
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:130
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:81
+#: ../../main/openchange/src/EBox/OpenChange/Composite/Configuration.pm:39
 #: ../../main/samba/src/EBox/Samba/Model/Mode.pm:190
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
@@ -721,7 +720,7 @@ msgid "Search domain"
 msgstr "جستجوی دامنه"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:173
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:413
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:445
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
 #, fuzzy
 msgid "WINS server"
@@ -933,7 +932,7 @@ msgstr "نام رایج"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1719
+#: ../../main/mail/src/EBox/Mail.pm:1755
 msgid "Address"
 msgstr "نشانی"
 
@@ -954,14 +953,14 @@ msgstr ""
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:352 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:361 ../../main/dhcp/src/EBox/DHCP.pm:972
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3728
-#: ../../main/samba/src/EBox/Samba.pm:3748
-#: ../../main/samba/src/EBox/Samba.pm:3759
+#: ../../main/samba/src/EBox/Samba.pm:3736
+#: ../../main/samba/src/EBox/Samba.pm:3756
+#: ../../main/samba/src/EBox/Samba.pm:3767
 #: ../../main/squid/src/EBox/Squid.pm:1105
-#: ../../main/mail/src/EBox/Mail.pm:1816
+#: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
@@ -976,17 +975,17 @@ msgstr "تاریخ"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:362 ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1112
-#: ../../main/mail/src/EBox/Mail.pm:1826
+#: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "Event"
 msgstr "رویداد"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3753
+#: ../../main/samba/src/EBox/Samba.pm:3761
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1004,7 +1003,7 @@ msgid "Remote Certificate"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/l2tp/src/EBox/L2TP.pm:359
+#: ../../main/l2tp/src/EBox/L2TP.pm:368
 msgid "Initialization sequence completed"
 msgstr ""
 
@@ -1051,7 +1050,7 @@ msgid "High Availability"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/RemoteServices.pm:1244
+#: ../../main/core/src/EBox/RemoteServices.pm:1212
 msgid "System"
 msgstr "سیستم"
 
@@ -1078,11 +1077,10 @@ msgid "To start corosync at boot"
 msgstr "توقف یا راه‌اندازی مجدد"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:133
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:277
-#: ../../main/core/src/EBox/RemoteServices.pm:73
-#: ../../main/core/src/EBox/RemoteServices.pm:780
-#: ../../main/core/src/EBox/RemoteServices.pm:1357
+#: ../../main/core/src/EBox/RemoteServices.pm:72
+#: ../../main/core/src/EBox/RemoteServices.pm:778
+#: ../../main/core/src/EBox/RemoteServices.pm:1317
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 #, fuzzy
@@ -1093,17 +1091,15 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:360
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:374
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:392
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:406
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:332
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:367
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:140
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1304
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
@@ -1132,7 +1128,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1704 ../../main/mail/src/EBox/Mail.pm:1825
+#: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1157,7 +1153,6 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:4333
 #: ../../main/dhcp/src/EBox/DHCP.pm:1065
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:53
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "نام میزبان"
@@ -1436,7 +1431,7 @@ msgid "resources"
 msgstr "تمام مبدأ ها"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3732
+#: ../../main/samba/src/EBox/Samba.pm:3740
 msgid "Resource"
 msgstr ""
 
@@ -1550,7 +1545,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1676
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:647
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:679
 msgid "domain"
 msgstr "دامین"
 
@@ -1588,7 +1583,7 @@ msgid "Remove bind9 init script link"
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:537 ../../main/squid/src/EBox/Squid.pm:301
-#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:80
+#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr ""
 
@@ -1617,7 +1612,7 @@ msgstr "نام میزبان"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3159
+#: ../../main/samba/src/EBox/Samba.pm:3167
 msgid "alias"
 msgstr "نام مستعار"
 
@@ -1632,7 +1627,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:77
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:327
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:347
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
 msgid "IP Address"
@@ -1717,7 +1712,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2264
+#: ../../main/samba/src/EBox/Samba.pm:2271
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -1810,19 +1805,19 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:354
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:378
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:386
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:410
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:337
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:361
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/mail/src/EBox/Mail.pm:1717
+#: ../../main/mail/src/EBox/Mail.pm:1753
 msgid "Custom"
 msgstr "سفارشی"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:594
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:626
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:150
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
@@ -1930,7 +1925,7 @@ msgstr ""
 msgid "Mail exchanger record"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:509
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:541
 #, perl-brace-format
 msgid ""
 "Domain added. The host name {nshost} has been added to this domain with "
@@ -1939,7 +1934,7 @@ msgid ""
 "domain. You can always rename it or create alias for it."
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:544
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:576
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
@@ -1947,14 +1942,14 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2258
+#: ../../main/samba/src/EBox/Samba.pm:2265
 #: ../../main/squid/src/EBox/Squid.pm:1109
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
 msgstr "دامنه"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:552
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:584
 #, fuzzy
 msgid "Domain IP Addresses"
 msgstr ""
@@ -1965,37 +1960,37 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
 "نشانی آی‌پی"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:561
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:593
 msgid "Hostnames"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:570
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:602
 msgid "Mail Exchangers"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:578
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:610
 msgid "Name Servers"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:586
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:618
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:604
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:636
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
 #, fuzzy
 msgid "Dynamic domain"
 msgstr "جستجوی دامنه"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:672
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:198
 #, fuzzy
 msgid "Domains"
 msgstr "دامنه"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:649
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:681
 msgid ""
 "Here you can add the domains for this DNS server. Each domain can have "
 "different hostnames with aliases  (A and CNAME) and other special records "
@@ -2105,7 +2100,7 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:45
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:137
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:146
-#: ../../main/samba/src/EBox/Samba/User.pm:106
+#: ../../main/samba/src/EBox/Samba/User.pm:110
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:44
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:54
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:45
@@ -2303,9 +2298,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3730
-#: ../../main/samba/src/EBox/Samba.pm:3750
-#: ../../main/samba/src/EBox/Samba.pm:3761
+#: ../../main/samba/src/EBox/Samba.pm:3738
+#: ../../main/samba/src/EBox/Samba.pm:3758
+#: ../../main/samba/src/EBox/Samba.pm:3769
 #: ../../main/squid/src/EBox/Squid.pm:1107
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2533,14 +2528,14 @@ msgstr ""
 msgid "Certification Authority"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:528
+#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:529
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:41
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:62
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:71
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:395
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:418
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -2562,8 +2557,8 @@ msgstr ""
 msgid "The country code must be the 2-characters ISO code"
 msgstr "گذرواژه بایستی دارای طول حداقل ۶ کاراکتر باشد"
 
-#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:760
-#: ../../main/ca/src/EBox/CA.pm:1389
+#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:775
+#: ../../main/ca/src/EBox/CA.pm:1404
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr ""
@@ -2572,15 +2567,22 @@ msgstr ""
 msgid "The remove operation cannot be finished. Reason: "
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:543 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:544 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:742 ../../main/ca/src/EBox/CA.pm:910
-#: ../../main/ca/src/EBox/CA.pm:1246 ../../main/ca/src/EBox/CA.pm:1316
-#: ../../main/ca/src/EBox/CA.pm:1410
+#: ../../main/ca/src/EBox/CA.pm:753
+#, perl-brace-format
+msgid ""
+"You cannot issue a certificate with CN {cn} because that CN is reserved to "
+"domain certificate by OpenChange. You can issue it from the {oh}OpenChange "
+"virtual domains interface.{ch}"
+msgstr ""
+
+#: ../../main/ca/src/EBox/CA.pm:925 ../../main/ca/src/EBox/CA.pm:1261
+#: ../../main/ca/src/EBox/CA.pm:1331 ../../main/ca/src/EBox/CA.pm:1425
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -2597,80 +2599,80 @@ msgstr ""
 msgid "Common Name"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:923 ../../main/ca/src/EBox/CA.pm:1257
+#: ../../main/ca/src/EBox/CA.pm:938 ../../main/ca/src/EBox/CA.pm:1272
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:927
+#: ../../main/ca/src/EBox/CA.pm:942
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1069
+#: ../../main/ca/src/EBox/CA.pm:1084
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1166
+#: ../../main/ca/src/EBox/CA.pm:1181
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1411
+#: ../../main/ca/src/EBox/CA.pm:1426
 msgid "or"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1412
+#: ../../main/ca/src/EBox/CA.pm:1427
 msgid "Certificate file"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1434
+#: ../../main/ca/src/EBox/CA.pm:1449
 msgid "The certificate to renew does NOT exist"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1474
+#: ../../main/ca/src/EBox/CA.pm:1489
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1755
+#: ../../main/ca/src/EBox/CA.pm:1770
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:423
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1753
+#: ../../main/mail/src/EBox/Mail.pm:1789
 msgid "General"
 msgstr "عمومی"
 
-#: ../../main/ca/src/EBox/CA.pm:1758
+#: ../../main/ca/src/EBox/CA.pm:1773
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1871
+#: ../../main/ca/src/EBox/CA.pm:1886
 msgid "Not created"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1873
+#: ../../main/ca/src/EBox/CA.pm:1888
 msgid "Available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1875
+#: ../../main/ca/src/EBox/CA.pm:1890
 msgid "Created but not available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1901
+#: ../../main/ca/src/EBox/CA.pm:1916
 #, fuzzy
 msgid "The field cannot contain only blank characters"
 msgstr "ورودی حاوی کاراکترهای نامعتبر است"
 
-#: ../../main/ca/src/EBox/CA.pm:1924
+#: ../../main/ca/src/EBox/CA.pm:1939
 #, fuzzy
 msgid "String"
 msgstr "فیلترینگ"
 
-#: ../../main/ca/src/EBox/CA.pm:1929
+#: ../../main/ca/src/EBox/CA.pm:1944
 #, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
@@ -2679,49 +2681,49 @@ msgstr ""
 "ورودی شامل کاراکتر های نامعتبر می باشد. تمامی حروف الفبا و اعداد به علاوه "
 "کاراکتر های : /.?&+:-@ و فاصله ها مجاز می باشند"
 
-#: ../../main/ca/src/EBox/CA.pm:2448
+#: ../../main/ca/src/EBox/CA.pm:2464
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2450
+#: ../../main/ca/src/EBox/CA.pm:2466
 msgid "Database corruption"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2452
+#: ../../main/ca/src/EBox/CA.pm:2468
 msgid "Identifier duplicated in Database"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2454
+#: ../../main/ca/src/EBox/CA.pm:2470
 msgid "Certificate already revoked"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2457
+#: ../../main/ca/src/EBox/CA.pm:2473
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2459
+#: ../../main/ca/src/EBox/CA.pm:2475
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2526 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2542 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2547
+#: ../../main/ca/src/EBox/CA.pm:2563
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2564
+#: ../../main/ca/src/EBox/CA.pm:2580
 msgid "Subject alternative type"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2566
+#: ../../main/ca/src/EBox/CA.pm:2582
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2610
+#: ../../main/ca/src/EBox/CA.pm:2626
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""
@@ -2742,7 +2744,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3731
+#: ../../main/samba/src/EBox/Samba.pm:3739
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -2858,7 +2860,7 @@ msgid "The new CA certificate has been issued."
 msgstr ""
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:411
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:434
 #, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr ""
@@ -2927,6 +2929,13 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:341
 msgid "This service does not allow to change the certificate common name"
+msgstr ""
+
+#: ../../main/ca/src/EBox/CA/Model/Certificates.pm:374
+#, perl-brace-format
+msgid ""
+"The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
+"You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
@@ -3465,8 +3474,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:505
-#: ../../main/core/src/EBox/RemoteServices.pm:546
+#: ../../main/core/src/EBox/RemoteServices.pm:503
+#: ../../main/core/src/EBox/RemoteServices.pm:544
 msgid "mail address"
 msgstr ""
 
@@ -3589,6 +3598,7 @@ msgid "Sender policy"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:150
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
 msgid "Virtual Domains"
 msgstr ""
@@ -3617,64 +3627,6 @@ msgstr ""
 msgid "Filter Policies"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:63
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
-#, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from} - {to} یک بازه معتبر نیست"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:93
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:121
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
-#, fuzzy, perl-brace-format
-msgid ""
-"Range {from}-{to} includes fixed address from the object member \"{name}\": "
-"{fixedIP}"
-msgstr "بازه {from}-{to} شامل نشانی ثابت '{name}': {fixedIP} باشد"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:133
-msgid "The defined range is not part of any local network"
-msgstr ""
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:155
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
-#, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"بازه {newFrom}-{newTo} با بازه '{range}': {oldFrom}-{oldTo} هم‌پوشانی دارد"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:191
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1818
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
-msgid "From"
-msgstr "از"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:197
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1819
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
-msgid "To"
-msgstr "به"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:205
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:201
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
-msgid "Ranges"
-msgstr "بازه‌ها"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/RangeTable.pm:211
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
-msgid "range"
-msgstr "بازه"
-
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
 "You are using a non fixed IP address as a VPN server address. If the IP "
@@ -3693,8 +3645,14 @@ msgid ""
 "public IP address."
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:167
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:318
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:71
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:189
+#, fuzzy
+msgid "Connections"
+msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:179
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:338
 #, fuzzy
 msgid "Remote Address"
 msgstr ""
@@ -3705,15 +3663,15 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
 "نشانی آی‌پی"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:168
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:180
 msgid "undefined"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:169
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:181
 msgid "Must be the external IP to connect but it's not defined"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:186
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:198
 #, perl-brace-format
 msgid ""
 "Must be the external IP to connect and it was the addresss of local "
@@ -3721,53 +3679,58 @@ msgid ""
 msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:216
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
+#, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from} - {to} یک بازه معتبر نیست"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:244
 #, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address for the interface "
 "\"{interface}\""
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:231
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:259
 #, fuzzy, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address from the object "
 "member \"{name}\": {fixedIP}"
 msgstr "بازه {from}-{to} شامل نشانی ثابت '{name}': {fixedIP} باشد"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:244
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:272
 #, perl-brace-format
 msgid "The Tunnel IP {localIP} is not part of any local network"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:261
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:283
 #, fuzzy, perl-brace-format
-msgid ""
-"Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
+msgid "Range {from}-{to} includes the selected tunnel IP address: {localIP}"
 msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:277
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:297
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
 msgid ""
 "DNS module must be enabled to be able to select Zentyal as primary DNS server"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:287
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:307
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:149
 msgid ""
 "Samba module must be enabled to be able to select Zentyal as WINS server"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:310
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:330
 #, fuzzy
 msgid "Public IP address"
 msgstr "نشانی آی‌پی رابط"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:314
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:334
 #, fuzzy
 msgid "Zentyal public IP address where clients will connect to."
 msgstr "نشانی آی‌پی رابط"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:323
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:343
 #, fuzzy
 msgid "Any address"
 msgstr ""
@@ -3776,118 +3739,106 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-dhcp 0.12.100)  #-#-#-#-#\n"
 "نشانی MAC"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:329
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:349
 msgid "Remote endpoint public IP address."
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:335
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:355
 msgid "PSK Shared Secret"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:337
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:357
 msgid "Pre-shared key for the IPsec connection."
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:347
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:361
+#, fuzzy
+msgid "Range start"
+msgstr "راه‌اندازی مجدد"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:367
+#, fuzzy
+msgid "Range end"
+msgstr "بازه‌ها"
+
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
 #, fuzzy
 msgid "local Zentyal DNS"
 msgstr "DNS محلی ای‌باکس"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:368
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:400
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:393
 #, fuzzy
 msgid "local Zentyal"
 msgstr "DNS محلی ای‌باکس"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:386
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:418
 msgid "Tunnel IP"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:388
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:420
 msgid ""
 "The IP to use for the VPN tunnel on the server side. It must be a free IP "
 "belonging to the local network where the VPN clients will be connected."
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:396
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:428
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
 msgid "Primary nameserver"
 msgstr "سرور نام اولیه"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:399
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:431
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:448
 msgid ""
 "If \"Zentyal DNS\" is present and selected, the Zentyal server will act as "
 "cache DNS server"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:405
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:437
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:453
 msgid "Secondary nameserver"
 msgstr "سرور نام ثانویه"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:416
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:448
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:492
+#: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:524
 #, fuzzy, perl-brace-format
 msgid "Configuration no complete, {field} not set"
 msgstr "فقط پیکربندی"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:123
-#, fuzzy
-msgid "DataTable Component"
-msgstr "مولفه‌های ای‌باکس"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:125
-msgid "Don't know how to handle this component."
-msgstr ""
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:131
-#: ../../main/software/src/templates/updates.mas:93
-#: ../../main/software/src/templates/ebox.mas:41
-#: ../../main/software/src/templates/ebox.mas:62
-#: ../../main/software/src/templates/ebox.mas:99
-msgid "Component"
-msgstr "مولفه"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:208
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:169
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:70
 msgid "Users Group"
 msgstr "گروه کاربران"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:178
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:116
 #: ../../main/core/src/templates/configurationFiles.mas:24
 msgid "Comment"
 msgstr "توضیح"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:227
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:188
 msgid "L2TP"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:228
-#, fuzzy
-msgid "Connections"
-msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:229
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:190
 #, fuzzy
 msgid "L2TP connection"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:236
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:197
 msgid ""
 "L2TP connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:256
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
 #, fuzzy
 msgid "Enabled flag"
 msgstr ""
@@ -3896,23 +3847,23 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
 "فعال"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:259
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:220
 msgid ""
 "Cannot be enabled when creating a new connection, you should edit the "
 "configuration before enabling it"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:271
-#: ../../main/l2tp/src/EBox/L2TP.pm:354
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:232
+#: ../../main/l2tp/src/EBox/L2TP.pm:363
 #, fuzzy
 msgid "Connection name"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:273
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:234
 msgid "Blank characters are not allowed"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:300
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:261
 #, fuzzy, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
@@ -3922,26 +3873,6 @@ msgstr ""
 "برای رسیدن به این، شما نیاز دازید حداقل یک رابط داخلی و خارجی داشته باشید. "
 "پیکربندی رابط را برای تطابق با آن در {openhref}شبکه->رابط‌ها{closehref} بررسی "
 "نمایید"
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:351
-#, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by connection {name}"
-msgstr ""
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:357
-#, perl-brace-format
-msgid "The range overlaps with tunnel IP {ip} used  by connection {name}"
-msgstr ""
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:372
-#, perl-brace-format
-msgid "Tunnel IP {ip} is already in use by range in connection {name}"
-msgstr ""
-
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:378
-#, perl-brace-format
-msgid "Range {range} is already in use by connection {name}"
-msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:67
 msgid "To configure OpenSwan IPsec."
@@ -3955,17 +3886,17 @@ msgstr ""
 msgid "L2TP based VPN"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:360
+#: ../../main/l2tp/src/EBox/L2TP.pm:369
 #, fuzzy
 msgid "Stopping completed"
 msgstr "درصد کامل‌شد"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:362
+#: ../../main/l2tp/src/EBox/L2TP.pm:371
 #, fuzzy
 msgid "Connection initiated"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:363
+#: ../../main/l2tp/src/EBox/L2TP.pm:372
 #, fuzzy
 msgid "Connection terminated"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
@@ -4302,17 +4233,15 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:141
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:184
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:99
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:196
 #: ../../main/core/src/templates/login/index.mas:48
 msgid "Username"
 msgstr "نام کاربری"
 
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:147
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:47
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:188
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:103
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:200
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -5200,7 +5129,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
-#: ../../main/mail/src/EBox/Mail.pm:1716 ../../main/mail/src/EBox/Mail.pm:1723
+#: ../../main/mail/src/EBox/Mail.pm:1752 ../../main/mail/src/EBox/Mail.pm:1759
 msgid "Filter type"
 msgstr ""
 
@@ -5473,10 +5402,46 @@ msgstr "بازه {from}-{to} در شبکه {net} نیست"
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
 
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:126
+#, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"بازه {newFrom}-{newTo} با بازه '{range}': {oldFrom}-{oldTo} هم‌پوشانی دارد"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:140
+#, fuzzy, perl-brace-format
+msgid ""
+"Range {from}-{to} includes fixed address from the object member \"{name}\": "
+"{fixedIP}"
+msgstr "بازه {from}-{to} شامل نشانی ثابت '{name}': {fixedIP} باشد"
+
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
 #, fuzzy, perl-brace-format
 msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
+#: ../../main/mail/src/EBox/Mail.pm:1854
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
+msgid "From"
+msgstr "از"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
+#: ../../main/mail/src/EBox/Mail.pm:1855
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
+msgid "To"
+msgstr "به"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
+msgid "Ranges"
+msgstr "بازه‌ها"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
+msgid "range"
+msgstr "بازه"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:147
 msgid "Next server"
@@ -5881,7 +5846,7 @@ msgstr "سرور یافت نشد"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1393
+#: ../../main/core/src/EBox/RemoteServices.pm:1353
 msgid "Configuration backup"
 msgstr "پشتیبان پیکربندی"
 
@@ -5896,11 +5861,11 @@ msgstr ""
 msgid "Invalid credentials"
 msgstr "ارزش برای {data}: {value} نامعتبر می باشد"
 
-#: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:79
+#: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:78
 msgid "No subscriptions available for your account"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:95
+#: ../../main/core/src/EBox/RemoteServices/CGI/SubscribeServer.pm:94
 #, perl-brace-format
 msgid "Subscribing server as name {name}"
 msgstr ""
@@ -6077,11 +6042,6 @@ msgstr "مدیر"
 msgid "The server has been disassociated"
 msgstr "سرور VPN در دسترس است"
 
-#: ../../main/core/src/EBox/RemoteServices/Composite/Technical.pm:43
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
-msgid "Technical Support"
-msgstr "پشتیبانی فنی"
-
 #: ../../main/core/src/EBox/RemoteServices/Subscription/Check.pm:156
 #, perl-brace-format
 msgid ""
@@ -6109,20 +6069,6 @@ msgstr "نام دامنه"
 #, fuzzy
 msgid "server name"
 msgstr "نام سرور"
-
-#: ../../main/core/src/EBox/RemoteServices/SupportAccess.pm:75
-msgid ""
-"Cannot get the restricted addresses for remote support. Check VPN logs for "
-"details"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/SupportAccess.pm:142
-#, perl-brace-format
-msgid ""
-"There exists already a user {u} and it does not seem created by Zentyal. "
-"Until this user is renamed or removed it would be impossible to set up "
-"remote support access"
-msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
 #, fuzzy
@@ -6152,152 +6098,6 @@ msgstr "به روزرسانی انجام نشده"
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:103
 msgid "Software module is not installed"
 msgstr "مازول نرم افزاری نصب نشده است"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
-msgid "Allow remote access to Zentyal support"
-msgstr "مجوز دسترسی راه دور به پشتیبان زنتیل"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:76
-msgid ""
-"Allow Zentyal support engineers to connect to your server from Zentyal "
-"Remote network."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:81
-msgid "Allow access from the Internet"
-msgstr "مجوز دسترسی از اینترنت"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:84
-msgid ""
-"Allow Zentyal support engineers to connect to your server directly from the "
-"Internet to your public IP address. Only use this option if you could not "
-"connect to Zentyal Remote."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:93
-#, fuzzy
-msgid "Enable Remote Support Access"
-msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:138
-msgid ""
-"Remote access from any address requires that remote access support is enabled"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:143
-#, perl-brace-format
-msgid ""
-"To allow any address remote support, you must not be connected to {cloud}"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:151
-msgid ""
-"To restrict addresses you need that your Zentyal Server is registered to "
-"Zentyal Remote. Either register it or allow access from any address"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:161
-#, perl-brace-format
-msgid ""
-"Enabling remote support will allow Zentyal staff to freely access your "
-"computer.\n"
-"You could use the 'screen' command to join their shell option. To allow "
-"that, the SUID bit of the 'screen' program is enabled. This change is undone "
-"when this option is disabled\n"
-"To join the remote session, login in the shell as a user belonging to the "
-"'adm' group and use the command: '{cmd}'."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:190
-msgid ""
-"No running ssh daemon instance found.  Support access need a running "
-"instance to allow remote connections."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:195
-msgid ""
-"Not ssh daemon instance listening on all interfaces found. Support access "
-"need a ssh daemon whom listens on all interfaces."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:200
-#, perl-brace-format
-msgid ""
-"ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
-"support which port(s) are used by ssh daemon."
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/AccessSettings.pm:78
-#, perl-brace-format
-msgid "Enable access without password from {tool} and Support"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/AccessSettings.pm:87
-msgid "Web Remote Access Settings"
-msgstr "تنظیمات دسترسی راه دور وب"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/AccessSettings.pm:92
-msgid "This is only intended for Web Administration User Interface"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:105
-#: ../../main/core/src/EBox/RemoteServices.pm:1384
-#: ../../main/core/src/templates/remoteservices/index.mas:84
-msgid "Server edition"
-msgstr "نسخه سرور"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:109
-msgid "Support available via"
-msgstr "پشتیبانی با"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:113
-msgid "Service Level Agreement"
-msgstr "سطح خدمات مورد قبول"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:150
-#, perl-brace-format
-msgid "{oh}On-line Support Platform{ch}"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:153
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:158
-#, perl-brace-format
-msgid "{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:163
-#, perl-brace-format
-msgid "{os}{oh}On-line Support Platform{ch}, Chat, Phone{cs}"
-msgstr ""
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:172
-#, fuzzy
-msgid "2 Business Days"
-msgstr "تمام سرویس ها"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:173
-#, fuzzy
-msgid "1 Business Day"
-msgstr "تمام سرویس ها"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:174
-#, fuzzy
-msgid "4 hours"
-msgstr "تا ساعت"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:175
-#, fuzzy
-msgid "1 hour"
-msgstr "تا ساعت"
-
-#: ../../main/core/src/EBox/RemoteServices/Model/TechnicalInfo.pm:193
-#, perl-brace-format
-msgid ""
-"Zentyal is a full-featured Linux server that you can use for free without "
-"cloud services, technical support or quality assured updates, or you can get "
-"it fully supported for an {oh}affordable monthly fee{ch} through your local "
-"Authorized Partner."
-msgstr ""
 
 #: ../../main/core/src/EBox/Wizard/CGI/SoftwareSetupFinish.pm:28
 #, fuzzy
@@ -6398,8 +6198,8 @@ msgid ""
 "\"{y}\""
 msgstr ""
 
-#: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:31
-msgid "Upgrade to Zentyal 3.4"
+#: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
+msgid "Upgrade to Zentyal 4.0"
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/Search.pm:29
@@ -7088,13 +6888,12 @@ msgstr "رونوشت پیکربندی گزارش اشکال"
 msgid "Invalid email address"
 msgstr "آدرس شبکه"
 
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:84
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:85
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:58
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:59
 msgid "General configuration"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:87
-#: ../../main/core/src/EBox/SysInfo/Model/Password.pm:57
+#: ../../main/core/src/EBox/SysInfo/Composite/General.pm:61
 msgid "On this page you can set different general system settings"
 msgstr ""
 
@@ -7104,8 +6903,7 @@ msgstr ""
 msgid "Date and Time"
 msgstr "زمان اجاره پیش‌فرض"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:42
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:49
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:43
 #: ../../main/network/src/templates/ifaces.mas:177
 #: ../../main/samba/src/templates/adduser.mas:14
 #, fuzzy
@@ -7116,40 +6914,28 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-usersandgroups 0.12.100Report-Msgid-Bugs-To: "
 "developers@zentyal.org)  #-#-#-#-#\n"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:60
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:49
 #, fuzzy
 msgid "Confirm Password"
 msgstr "تایید گذرواژه"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:57
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:66
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:58
 msgid "Your password must be at least 6 characters long."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:62
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
 #, fuzzy
 msgid "Administrator Accounts"
 msgstr "مدیر"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:64
 #, fuzzy
 msgid "administrator"
 msgstr "مدیر"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:192
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:115
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:204
 msgid "The password must be at least 6 characters long"
 msgstr "گذرواژه بایستی دارای طول حداقل ۶ کاراکتر باشد"
-
-#: ../../main/core/src/EBox/SysInfo/Model/Password.pm:47
-#: ../../main/core/src/EBox/SysInfo/Model/Password.pm:53
-#: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:77
-#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:153
-#: ../../main/samba/src/templates/wizard/users.mas:130
-#, fuzzy
-msgid "Administrator password"
-msgstr "مدیر"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:56
 msgid ""
@@ -7219,51 +7005,6 @@ msgid ""
 "(0-9) and the minus sign (-)"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:54
-msgid "Current password"
-msgstr "گذرواژه کنونی"
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:59
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:107
-msgid "New password"
-msgstr "گذرواژه جدید"
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:70
-#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
-#: ../../main/core/src/EBox/Model/DataTable.pm:4126
-#: ../../main/jabber/src/templates/jabber.mas:26
-#: ../../main/network/src/templates/ifaces.mas:184
-#: ../../main/core/src/templates/enable.mas:23
-#: ../../main/core/src/templates/dataInUse.mas:33
-#: ../../main/core/src/templates/dataInUse.mas:38
-#: ../../main/openchange/src/templates/openchange.mas:24
-#: ../../main/samba/src/templates/editgroup.mas:46
-#: ../../main/samba/src/templates/samba.mas:29
-#: ../../main/samba/src/templates/edituser.mas:78
-#: ../../main/samba/src/templates/editcontact.mas:35
-#: ../../main/mail/src/templates/warnusermdsize.mas:21
-#: ../../main/mail/src/templates/warnvdmdsize.mas:30
-msgid "Change"
-msgstr "تغییر"
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:73
-msgid "The password was changed successfully."
-msgstr "گذرواژه با موفقیت تغییر یافت."
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:78
-#, fuzzy
-msgid "Change administrator password"
-msgstr "تغییر گذرواژه"
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:111
-msgid "New passwords do not match."
-msgstr "گذرواژه‌های جدید مطابقت ندارند."
-
-#: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:120
-#, fuzzy
-msgid "Incorrect current password."
-msgstr "گذرواژه نادرست است."
-
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:48
 msgid "Halt"
 msgstr "خاموش‌کردن"
@@ -7295,6 +7036,23 @@ msgstr ""
 msgid "Enable bug report for daemon crashes"
 msgstr ""
 
+#: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
+#: ../../main/core/src/EBox/Model/DataTable.pm:4126
+#: ../../main/jabber/src/templates/jabber.mas:26
+#: ../../main/network/src/templates/ifaces.mas:184
+#: ../../main/core/src/templates/enable.mas:23
+#: ../../main/core/src/templates/dataInUse.mas:33
+#: ../../main/core/src/templates/dataInUse.mas:38
+#: ../../main/openchange/src/templates/openchange.mas:24
+#: ../../main/samba/src/templates/editgroup.mas:46
+#: ../../main/samba/src/templates/samba.mas:29
+#: ../../main/samba/src/templates/edituser.mas:78
+#: ../../main/samba/src/templates/editcontact.mas:35
+#: ../../main/mail/src/templates/warnusermdsize.mas:21
+#: ../../main/mail/src/templates/warnvdmdsize.mas:30
+msgid "Change"
+msgstr "تغییر"
+
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:67
 #, fuzzy
 msgid "The date and time was changed successfully."
@@ -7321,7 +7079,7 @@ msgid ""
 "You will probably have to restart some services after changing the time zone."
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:206
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:205
 #, perl-brace-format
 msgid ""
 "Crash report found! Click the button if you want to send the following files "
@@ -7331,7 +7089,7 @@ msgid ""
 "{obd}Discard{cb}{cc}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:211
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:210
 #: ../../main/core/src/templates/formTable.mas:75
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:67
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:24
@@ -7346,12 +7104,12 @@ msgstr ""
 msgid "Optional"
 msgstr "انتخابی"
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:212
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:211
 #, fuzzy
 msgid "Email address"
 msgstr "آدرس ایمیل"
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:213
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:212
 #, perl-brace-format
 msgid ""
 "Thank you for willing to submit your crash report. If you want to be "
@@ -7359,21 +7117,21 @@ msgid ""
 "report{cb}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:248
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:237
 #, perl-brace-format
 msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:253
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:242
 #, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:258
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:247
 #, perl-brace-format
 msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
@@ -7515,125 +7273,130 @@ msgstr ""
 msgid "Logout"
 msgstr "خروج"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:74
+#: ../../main/core/src/EBox/RemoteServices.pm:73
 #, fuzzy
 msgid "Community"
 msgstr "توضیح"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:75
+#: ../../main/core/src/EBox/RemoteServices.pm:74
 #, fuzzy
 msgid "Small Business"
 msgstr "تمام سرویس ها"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:76
+#: ../../main/core/src/EBox/RemoteServices.pm:75
 #, fuzzy
 msgid "Professional"
 msgstr "مجوز‌ها"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:77
+#: ../../main/core/src/EBox/RemoteServices.pm:76
 #, fuzzy
 msgid "Business"
 msgstr "تمام سرویس ها"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:78
+#: ../../main/core/src/EBox/RemoteServices.pm:77
 msgid "Trial"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:79
+#: ../../main/core/src/EBox/RemoteServices.pm:78
 #, fuzzy
 msgid "Enterprise"
 msgstr "ورود"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:80
-#: ../../main/core/src/EBox/RemoteServices.pm:1362
+#: ../../main/core/src/EBox/RemoteServices.pm:79
+#: ../../main/core/src/EBox/RemoteServices.pm:1322
 msgid "Premium"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:105
+#: ../../main/core/src/EBox/RemoteServices.pm:104
 #, fuzzy
 msgid "Zentyal Remote Client"
 msgstr "مولفه‌های ای‌باکس"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1042
+#: ../../main/core/src/EBox/RemoteServices.pm:1010
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1249
+#: ../../main/core/src/EBox/RemoteServices.pm:1217
 #, fuzzy
 msgid "Server Edition"
 msgstr "نسخه سرور"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1274
+#: ../../main/core/src/EBox/RemoteServices.pm:1234
 msgid "Not subscribed"
 msgstr "مشترک نشده"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1276
+#: ../../main/core/src/EBox/RemoteServices.pm:1236
 msgid "Subscribed"
 msgstr "مشترک"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1326
+#: ../../main/core/src/EBox/RemoteServices.pm:1286
 #, fuzzy
 msgid "Server Information"
 msgstr "اطلاعات عمومی"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1346
+#: ../../main/core/src/EBox/RemoteServices.pm:1306
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1359
+#: ../../main/core/src/EBox/RemoteServices.pm:1319
 #, fuzzy
 msgid "Standard 2 days"
 msgstr "استاندارد"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1360
+#: ../../main/core/src/EBox/RemoteServices.pm:1320
 #, fuzzy
 msgid "Standard 1 day"
 msgstr "استاندارد"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1361
+#: ../../main/core/src/EBox/RemoteServices.pm:1321
 #, fuzzy
 msgid "Standard 4 hours"
 msgstr "استاندارد"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1365
+#: ../../main/core/src/EBox/RemoteServices.pm:1325
 msgid "Configuration backup enabled"
 msgstr "پشتیبان گیری از پیکربندی فعال است"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1370
+#: ../../main/core/src/EBox/RemoteServices.pm:1330
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1373
+#: ../../main/core/src/EBox/RemoteServices.pm:1333
 msgid "unknown"
 msgstr ""
 "#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
 "نوع نامشخص\n"
 "#-#-#-#-#  fa.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1375
+#: ../../main/core/src/EBox/RemoteServices.pm:1335
 #, fuzzy, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "پﺶﺗیﺏﺎﻧ ﻡﻮﺟﻭﺩ ﻥیﺲﺗ: {n}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1377
+#: ../../main/core/src/EBox/RemoteServices.pm:1337
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1382
+#: ../../main/core/src/EBox/RemoteServices.pm:1342
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 msgid "Server name"
 msgstr "نام سرور"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1387
+#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/templates/remoteservices/index.mas:84
+msgid "Server edition"
+msgstr "نسخه سرور"
+
+#: ../../main/core/src/EBox/RemoteServices.pm:1347
 msgid "Technical support"
 msgstr "پشتیبانی فنی"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1390
+#: ../../main/core/src/EBox/RemoteServices.pm:1350
 #, fuzzy
 msgid "Registered e-mail"
 msgstr "ثبت نام"
@@ -7735,7 +7498,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Backup.pm:1011
 #, perl-brace-format
 msgid ""
-"Could not restore the backup because a missmatch between its Zentyal version "
+"Could not restore the backup because a mismatch between its Zentyal version "
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv}"
 msgstr ""
@@ -7970,7 +7733,7 @@ msgstr ""
 msgid "Administrator sessions"
 msgstr "مدیر"
 
-#: ../../main/openchange/src/EBox/Downloader/CGI/RPCCert.pm:64
+#: ../../main/openchange/src/EBox/Downloader/CGI/RPCCert.pm:68
 msgid "Cannot get the CA certificate as it is not available"
 msgstr ""
 
@@ -8030,11 +7793,11 @@ msgstr ""
 msgid "Could not bind to AD LDAP server '{server}'. Error was '{error}'"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/VDomainsLdap.pm:43
+#: ../../main/openchange/src/EBox/OpenChange/Composite/Disclaimer.pm:46
 #, perl-brace-format
 msgid ""
-"The virtual mail domain {dom} cannot be removed because it is {oc} outgoing "
-"domain"
+"{x} and {y} are registered trademarks of Microsoft Corporation, and are "
+"registered in the USA and other countries."
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:38
@@ -8042,17 +7805,6 @@ msgstr ""
 #, fuzzy
 msgid "OpenChange"
 msgstr "تغییر"
-
-#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:56
-#, perl-brace-format
-msgid "You can access the {oh}OpenChange Webmail{ch}"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:61
-msgid ""
-"OpenChange webmail is enabled but you still need to complete the OpenChange "
-"module setup."
-msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:66
@@ -8065,64 +7817,193 @@ msgstr "حساب PDC/اشتراک‌گذاری فایل"
 msgid "Unknown value for {control}: {x}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:155
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:159
 msgid "This user has a openchange account."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:60
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
 #, fuzzy
-msgid "Certificate"
+msgid "CA name"
+msgstr "نام"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:58
+#, fuzzy
+msgid "CA Certificate"
 msgstr "مجوز کلاینت"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:69
-msgid "Access without SSL"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:75
-msgid "Access with SSL"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:83
-msgid "HTTP/HTTPS proxy access"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:87
-#, perl-brace-format
-msgid ""
-"Setup access to {oc} through HTTP/HTTPS known as {oa}.Remember HTTPS access "
-"and autodiscover requires you to import Zentyal CA certificate into your "
-"{win} account."
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:105
-#, perl-brace-format
-msgid ""
-"Cannot use RPC Proxy because we cannot find this host name in {oh}DNS "
-"module{ch}"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:111
-#, perl-brace-format
-msgid "Cannot use RPC Proxy because we cannot find this host name: {err}"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:71
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:67
 #, fuzzy
-msgid "Outgoing Mail Domain"
-msgstr "جستجوی دامنه"
+msgid "Manage certificates"
+msgstr "مجوز سرور"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:75
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:78
+#, fuzzy
+msgid "Outlook Anywhere access"
+msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:82
 msgid ""
-"Outgoing mail domain of emails sent from this server will be overwritten "
-"with this one."
+"MAPI clients have to import your CA certificate in order to trust the RPC/"
+"MAPI proxy."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:85
-#, fuzzy, perl-brace-format
-msgid "Configure an {oc} server."
-msgstr "پیکربندی رابط ها"
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:101
+#, fuzzy
+msgid "The CA is not available."
+msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Configuration.pm:100
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:141
+#, perl-brace-format
+msgid "The {x} module needs to be provisioned"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:151
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:365
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:255
+#, perl-brace-format
+msgid ""
+"There is not an available Certication Authority. You must {oh}create or "
+"renew it{ch}"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:46
+#, fuzzy
+msgid "Virtual domain"
+msgstr "نام واسط مجازی"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
+#, fuzzy
+msgid "DNS domain managed by Zentyal"
+msgstr "گروه {g} وجود ندارد"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:60
+#, fuzzy
+msgid "Certificate in place"
+msgstr "مجوز کلاینت"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:68
+msgid "Auto Discover DNS record"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
+msgid ""
+"Enable the Auto Discover service, your MAPI client will automatically find "
+"server configuration. To enable this option the domain has to be handled by "
+"Zentyal DNS."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:82
+msgid "Outlook Anywhere (no SSL)"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:86
+msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:91
+msgid "Outlook Anywhere (SSL)"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:95
+msgid ""
+"RPC over HTTPS access. MAPI/RPC over HTTP, SSL enabled version. To enable "
+"this option you have to \"Issue Certificate\" first."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
+msgid "Webmail"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:106
+msgid "Webmail and groupware platform. Non-SSL version."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:111
+#, fuzzy
+msgid "HTTPS webmail enabled"
+msgstr "سرویس فعال‌شد"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:115
+msgid ""
+"Webmail and groupware platform. SSL enabled version. To enable this option "
+"you have to \"Issue Certificate\" first."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:128
+#, fuzzy
+msgid "Revoke certificate"
+msgstr "مجوز سرور"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:130
+#, fuzzy
+msgid "Certificate revoked"
+msgstr "مجوز کلاینت"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
+#, fuzzy
+msgid "Issue certificate"
+msgstr "مجوز سرور"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
+#, fuzzy
+msgid "Certificate issued"
+msgstr "مجوز کلاینت"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
+#, fuzzy
+msgid "Revoke and reissue certificate"
+msgstr "مجوز سرور"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:151
+#: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
+#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
+#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:116
+msgid "virtual domain"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
+msgid ""
+"This table is summary of the attributes and access gateways associated with "
+"each virtual mail domain."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:419
+#, fuzzy, perl-brace-format
+msgid "Certificate for domain {x} already exists."
+msgstr "{data} {value} از قبل وجود دارند"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:438
+#, fuzzy, perl-brace-format
+msgid "Certificate for domain {x} does not exists."
+msgstr "گروه {g} وجود ندارد"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:593
+#, perl-brace-format
+msgid "There are not configured {oh}virtual domains{ch}."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:52
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:60
+#, fuzzy
+msgid "ActiveSync"
+msgstr "فعال"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:55
+msgid "Enable ActiveSync support for all the mail domains"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:64
+msgid "The ActiveSync gateway, standard protocol for several mobile devices."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:99
+#, fuzzy
+msgid "The required packages are not installed."
+msgstr "بسته‌های زیر نصب خواهند شد"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:104
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
@@ -8168,69 +8049,80 @@ msgid "OpenChange Server Provision"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
-msgid "Setup an OpenChange Groupware server."
+msgid ""
+"Provision the OpenChange Groupware server. This will extend and initialize "
+"the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:215
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:224
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:239
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:248
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:246
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:261
+msgid ""
+"There are unsaved changes. Please save them be able to provision the "
+"OpenChange database."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:265
 #, perl-brace-format
 msgid ""
-"There is not an available Certication Authority. You must {oh}create or "
-"renew it{ch}"
+"{op}There are unsaved changes. Please save them to be able to provision the "
+"OpenChange database.{cp}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:252
-msgid "There are unsaved changes. Please save them before provision"
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:270
+#, perl-brace-format
+msgid ""
+"{op}There is not an available Certication Authority. You must {oh}create or "
+"renew it{ch}{cp}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:400
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:423
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:573
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:598
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "تغییر"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:574
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:599
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:575
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:600
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "ذخیره تغییرات در ماجول"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:577
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:602
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "تغییر"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:578
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:579
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "ذخیره تغییرات در ماجول"
@@ -8240,76 +8132,48 @@ msgstr "ذخیره تغییرات در ماجول"
 msgid "Enable OpenChange account"
 msgstr "حساب PDC/اشتراک‌گذاری فایل"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:212
+#: ../../main/openchange/src/EBox/OpenChange.pm:195
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:213
+#: ../../main/openchange/src/EBox/OpenChange.pm:196
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:317
+#: ../../main/openchange/src/EBox/OpenChange.pm:298
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "پیکربندی سرویس clamd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:322
+#: ../../main/openchange/src/EBox/OpenChange.pm:303
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "پیکربندی مشاهده‌گر ثبت‌وقایع"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:327
+#: ../../main/openchange/src/EBox/OpenChange.pm:308
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "پیکربندی قوانین"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:332
+#: ../../main/openchange/src/EBox/OpenChange.pm:313
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:337
+#: ../../main/openchange/src/EBox/OpenChange.pm:318
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:342
+#: ../../main/openchange/src/EBox/OpenChange.pm:323
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "پیکربندی قوانین"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:788
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1687
-#: ../../main/mail/src/EBox/Mail.pm:1851
+#: ../../main/openchange/src/EBox/OpenChange.pm:729
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
+#: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:943
-#, perl-brace-format
-msgid "The expected domain '{d}' could not be found in the dns module"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:952
-#, perl-brace-format
-msgid ""
-"The required host record '{h}' could not be found in the domain '{d}'.<br/>"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:1036
-#, fuzzy, perl-brace-format
-msgid "Domain {dom} not configured in {oh}DNS module{ch}"
-msgstr "رونوشت پیکربندی گزارش اشکال"
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:1075
-#, perl-brace-format
-msgid ""
-"Cannot find any host in {oh}DNS domain {dom}{ch} which corresponds to your "
-"interface IP addresses"
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange.pm:1109
-#, fuzzy
-msgid "No outgoing mail domain configured"
-msgstr "جستجوی دامنه"
 
 #: ../../main/software/src/EBox/Software.pm:59
 #, fuzzy
@@ -8890,6 +8754,13 @@ msgstr "سرویس دهنده نام"
 msgid "Administrator account"
 msgstr "مدیر"
 
+#: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:77
+#: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:153
+#: ../../main/samba/src/templates/wizard/users.mas:130
+#, fuzzy
+msgid "Administrator password"
+msgstr "مدیر"
+
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:78
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:159
 #: ../../main/samba/src/templates/wizard/users.mas:133
@@ -8993,7 +8864,7 @@ msgstr "حذف گروه"
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:175
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:187
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
-#: ../../main/samba/src/EBox/Samba/Group.pm:226
+#: ../../main/samba/src/EBox/Samba/Group.pm:225
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:44
 msgid "group"
@@ -9097,7 +8968,7 @@ msgstr ""
 "developers@zentyal.org)  #-#-#-#-#\n"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2302
+#: ../../main/samba/src/EBox/Samba.pm:2308
 msgid "LDAP Settings"
 msgstr ""
 
@@ -9144,7 +9015,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2291
+#: ../../main/samba/src/EBox/Samba.pm:2298
 msgid "User Template"
 msgstr ""
 
@@ -9153,7 +9024,7 @@ msgid "Recycle Bin"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2313
+#: ../../main/samba/src/EBox/Samba.pm:2319
 #, fuzzy
 msgid "File Sharing"
 msgstr "اشتراک‌گذاری فایل"
@@ -9175,52 +9046,52 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:226
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
-#: ../../main/samba/src/EBox/Samba/User.pm:208
+#: ../../main/samba/src/EBox/Samba/User.pm:237
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:120
+#: ../../main/samba/src/EBox/Samba/Group.pm:119
 #, perl-brace-format
 msgid ""
 "While creating a new group '{group}': A group cannot be a distribution group "
 "and a system group at the same time."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:178
+#: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:522
-#: ../../main/samba/src/EBox/Samba/User.pm:528
+#: ../../main/samba/src/EBox/Samba/User.pm:556
+#: ../../main/samba/src/EBox/Samba/User.pm:562
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:180
+#: ../../main/samba/src/EBox/Samba/Group.pm:179
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:281
+#: ../../main/samba/src/EBox/Samba/Group.pm:280
 #, perl-brace-format
 msgid "The group {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:342
+#: ../../main/samba/src/EBox/Samba/Group.pm:341
 #, fuzzy
 msgid "The server is unwilling to perform the requested operation"
 msgstr "ای‌باکس بالا و در حال اجراست"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:619
+#: ../../main/samba/src/EBox/Samba/Group.pm:618
 msgid "Maximum number of groups reached"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:690
+#: ../../main/samba/src/EBox/Samba/Group.pm:689
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:698
+#: ../../main/samba/src/EBox/Samba/Group.pm:697
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
@@ -9231,7 +9102,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:522
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:577
+#: ../../main/samba/src/EBox/Samba/User.pm:611
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
 #, perl-brace-format
@@ -9303,7 +9174,7 @@ msgid "Username '{x}' already exists on the same container"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
-#: ../../main/samba/src/EBox/Samba/User.pm:465
+#: ../../main/samba/src/EBox/Samba/User.pm:495
 msgid "Error on person LDAP entry creation:"
 msgstr ""
 
@@ -9471,7 +9342,7 @@ msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "شما نباید درابتدای دامنه .www را قرار دهید."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1032
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:625
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:628
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
@@ -9501,89 +9372,89 @@ msgstr ""
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:387
+#: ../../main/samba/src/EBox/Samba/User.pm:418
 msgid "Username already exists on the system"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:429
+#: ../../main/samba/src/EBox/Samba/User.pm:459
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
 "you currently have {nUsers}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:524
+#: ../../main/samba/src/EBox/Samba/User.pm:558
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:530
+#: ../../main/samba/src/EBox/Samba/User.pm:564
 #, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "نام این منبع از ۱۲ کاراکتر بیشتر است."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:541
+#: ../../main/samba/src/EBox/Samba/User.pm:575
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:553
+#: ../../main/samba/src/EBox/Samba/User.pm:587
 #, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:625
+#: ../../main/samba/src/EBox/Samba/User.pm:659
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:646
+#: ../../main/samba/src/EBox/Samba/User.pm:680
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:682
-#: ../../main/samba/src/EBox/Samba/User.pm:775
-#: ../../main/samba/src/EBox/Samba/User.pm:785
+#: ../../main/samba/src/EBox/Samba/User.pm:726
+#: ../../main/samba/src/EBox/Samba/User.pm:825
+#: ../../main/samba/src/EBox/Samba/User.pm:835
 #, fuzzy
 msgid "user quota"
 msgstr "سهمیه"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:684
+#: ../../main/samba/src/EBox/Samba/User.pm:728
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:778
+#: ../../main/samba/src/EBox/Samba/User.pm:828
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:787
+#: ../../main/samba/src/EBox/Samba/User.pm:837
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:806
+#: ../../main/samba/src/EBox/Samba/User.pm:856
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:919
+#: ../../main/samba/src/EBox/Samba/User.pm:1007
 msgid "Maximum number of system users reached"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:924
+#: ../../main/samba/src/EBox/Samba/User.pm:1012
 msgid "Maximum number of users reached"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:941
+#: ../../main/samba/src/EBox/Samba/User.pm:1029
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:951
+#: ../../main/samba/src/EBox/Samba/User.pm:1039
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -9710,37 +9581,37 @@ msgstr "اشتراک‌ها"
 msgid "share"
 msgstr "اشتراک‌گذاری"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:267
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:271
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:286
 msgid "Samba share absolute path"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:285
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:289
 #, perl-brace-format
 msgid "Path {p} is not a directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:292
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:296
 #, fuzzy
 msgid "Samba share directory"
 msgstr "پوشه اشتراک‌گذاری {group}"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:318
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:322
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:404
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:412
 #, perl-brace-format
 msgid ""
 "Domain guest account should be enabled for guest access to shares. You can "
 "enable it in the {oh}users and groups manager{ch}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:448
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:456
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -9748,36 +9619,36 @@ msgid ""
 "you to share an existing directory within your file system"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:462
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:470
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
 "you."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:506
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:514
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:511
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:519
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:522
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:532
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:527
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:537
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:533
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:543
 #, perl-brace-format
 msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
@@ -9803,7 +9674,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2280
+#: ../../main/samba/src/EBox/Samba.pm:2287
 #, fuzzy
 msgid "Users and Computers"
 msgstr "کاربران در گروه"
@@ -9914,7 +9785,7 @@ msgid "exception"
 msgstr "توضیح"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2271
+#: ../../main/samba/src/EBox/Samba.pm:2278
 msgid "Group Policy Links"
 msgstr ""
 
@@ -10103,7 +9974,7 @@ msgid "Default user quota"
 msgstr "زمان اجاره پیش‌فرض"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:275
+#: ../../main/samba/src/templates/edituser.mas:301
 msgid "Limited to"
 msgstr "محدود به"
 
@@ -10174,7 +10045,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2268
+#: ../../main/samba/src/EBox/Samba.pm:2275
 msgid "Group Policy Objects"
 msgstr ""
 
@@ -10280,11 +10151,6 @@ msgstr "سهمیه"
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "گروه: {g}"
-
-#: ../../main/samba/src/EBox/Samba/Model/Master.pm:77
-#, fuzzy
-msgid "Other Zentyal Server"
-msgstr "سرویس وب"
 
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:85
 msgid "Zentyal Cloud"
@@ -10591,11 +10457,15 @@ msgstr ""
 msgid "The server kerberos realm '{x}' does not match AD realm '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:557
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:473
+msgid "Cannot get root DSE, please check your server"
+msgstr ""
+
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:560
 msgid "Error creating computer account for Zentyal server:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:612
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:615
 #, perl-brace-format
 msgid "Could not retrive time from AD server {x} via NTP."
 msgstr ""
@@ -10632,12 +10502,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:567
+#: ../../main/mail/src/EBox/Mail.pm:569
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:542
+#: ../../main/mail/src/EBox/Mail.pm:544
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -10760,158 +10630,167 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1231
+#: ../../main/samba/src/EBox/Samba.pm:1230
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1253
+#: ../../main/samba/src/EBox/Samba.pm:1252
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1276
+#: ../../main/samba/src/EBox/Samba.pm:1275
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1640
+#: ../../main/samba/src/EBox/Samba.pm:1647
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1867
+#: ../../main/samba/src/EBox/Samba.pm:1874
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2286
+#: ../../main/samba/src/EBox/Samba.pm:2293
 #, fuzzy
 msgid "Manage"
 msgstr "فقط خواندنی"
 
-#: ../../main/samba/src/EBox/Samba.pm:2306
+#: ../../main/samba/src/EBox/Samba.pm:2302
+#, fuzzy
+msgid "Synchronization"
+msgstr ""
+"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+"پﺶﺗیﺏﺎﻧ پیکﺮﺒﻧﺩی\n"
+"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
+"پشتیبان پیکربندی"
+
+#: ../../main/samba/src/EBox/Samba.pm:2312
 #, fuzzy
 msgid "Configure mode"
 msgstr "پیکربندی‌ شده‌ها"
 
-#: ../../main/samba/src/EBox/Samba.pm:2604
+#: ../../main/samba/src/EBox/Samba.pm:2612
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2624
+#: ../../main/samba/src/EBox/Samba.pm:2632
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2648
+#: ../../main/samba/src/EBox/Samba.pm:2656
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2934
+#: ../../main/samba/src/EBox/Samba.pm:2942
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3027
+#: ../../main/samba/src/EBox/Samba.pm:3035
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "فضای مورد استفاده توسط فایل سیستم"
 
-#: ../../main/samba/src/EBox/Samba.pm:3170
+#: ../../main/samba/src/EBox/Samba.pm:3178
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3729
-#: ../../main/samba/src/EBox/Samba.pm:3749
-#: ../../main/samba/src/EBox/Samba.pm:3760
+#: ../../main/samba/src/EBox/Samba.pm:3737
+#: ../../main/samba/src/EBox/Samba.pm:3757
+#: ../../main/samba/src/EBox/Samba.pm:3768
 msgid "Client address"
 msgstr "ادرس کلاینت"
 
-#: ../../main/samba/src/EBox/Samba.pm:3736
+#: ../../main/samba/src/EBox/Samba.pm:3744
 #, fuzzy
 msgid "Connect"
 msgstr "متصل تاکنون"
 
-#: ../../main/samba/src/EBox/Samba.pm:3737
+#: ../../main/samba/src/EBox/Samba.pm:3745
 #, fuzzy
 msgid "Access to directory"
 msgstr "کنترل دسترسی"
 
-#: ../../main/samba/src/EBox/Samba.pm:3738
+#: ../../main/samba/src/EBox/Samba.pm:3746
 #, fuzzy
 msgid "Read file"
 msgstr "فقط خواندنی"
 
-#: ../../main/samba/src/EBox/Samba.pm:3739
+#: ../../main/samba/src/EBox/Samba.pm:3747
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3748
 msgid "Disconnect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3741
+#: ../../main/samba/src/EBox/Samba.pm:3749
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "حذف"
 
-#: ../../main/samba/src/EBox/Samba.pm:3742
+#: ../../main/samba/src/EBox/Samba.pm:3750
 #, fuzzy
 msgid "Create directory"
 msgstr "پوشه اشتراک‌گذاری {group}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3743
+#: ../../main/samba/src/EBox/Samba.pm:3751
 #, fuzzy
 msgid "Remove directory"
 msgstr "پوشه‌های خانه"
 
-#: ../../main/samba/src/EBox/Samba.pm:3744
+#: ../../main/samba/src/EBox/Samba.pm:3752
 #, fuzzy
 msgid "Rename"
 msgstr "نام‌کاربری"
 
-#: ../../main/samba/src/EBox/Samba.pm:3751
-#: ../../main/samba/src/EBox/Samba.pm:3762
+#: ../../main/samba/src/EBox/Samba.pm:3759
+#: ../../main/samba/src/EBox/Samba.pm:3770
 msgid "File name"
 msgstr "نام فایل"
 
-#: ../../main/samba/src/EBox/Samba.pm:3752
-#: ../../main/samba/src/EBox/Samba.pm:3756
+#: ../../main/samba/src/EBox/Samba.pm:3760
+#: ../../main/samba/src/EBox/Samba.pm:3764
 msgid "Virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3763
+#: ../../main/samba/src/EBox/Samba.pm:3771
 msgid "Quarantined file name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3764
-#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3772
+#: ../../main/samba/src/EBox/Samba.pm:3775
 msgid "Quarantine"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3778
 #, fuzzy
 msgid "Samba access"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: ../../main/samba/src/EBox/Samba.pm:3781
+#: ../../main/samba/src/EBox/Samba.pm:3789
 #, fuzzy
 msgid "Samba virus"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
-#: ../../main/samba/src/EBox/Samba.pm:3792
+#: ../../main/samba/src/EBox/Samba.pm:3800
 #, fuzzy
 msgid "Samba quarantine"
 msgstr "اشتراک‌گذاری‌های سامبا"
@@ -11919,180 +11798,180 @@ msgstr "پیکربندی قوانین"
 msgid "To let dovecot authenticate users using PAM"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:455
+#: ../../main/mail/src/EBox/Mail.pm:457
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:464
+#: ../../main/mail/src/EBox/Mail.pm:466
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:465
+#: ../../main/mail/src/EBox/Mail.pm:467
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:474
+#: ../../main/mail/src/EBox/Mail.pm:476
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:475
+#: ../../main/mail/src/EBox/Mail.pm:477
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1049
+#: ../../main/mail/src/EBox/Mail.pm:1085
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1054
+#: ../../main/mail/src/EBox/Mail.pm:1090
 msgid "The mail name must be a fully qualified name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1058 ../../main/mail/src/EBox/Mail.pm:1069
-#: ../../main/mail/src/EBox/Mail.pm:1077
+#: ../../main/mail/src/EBox/Mail.pm:1094 ../../main/mail/src/EBox/Mail.pm:1105
+#: ../../main/mail/src/EBox/Mail.pm:1113
 msgid "Host mail name"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1072
+#: ../../main/mail/src/EBox/Mail.pm:1108
 msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1633
+#: ../../main/mail/src/EBox/Mail.pm:1669
 msgid "SMTP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1640
+#: ../../main/mail/src/EBox/Mail.pm:1676
 msgid "POP3 service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1646
+#: ../../main/mail/src/EBox/Mail.pm:1682
 msgid "POP3S service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1652
+#: ../../main/mail/src/EBox/Mail.pm:1688
 msgid "IMAP service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1658
+#: ../../main/mail/src/EBox/Mail.pm:1694
 msgid "IMAPS service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1702
+#: ../../main/mail/src/EBox/Mail.pm:1738
 msgid "enabled"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1707
+#: ../../main/mail/src/EBox/Mail.pm:1743
 msgid "Mail server's filter"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1761
+#: ../../main/mail/src/EBox/Mail.pm:1797
 msgid "Virtual Mail Domains"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1768
+#: ../../main/mail/src/EBox/Mail.pm:1804
 msgid "Greylist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1775
+#: ../../main/mail/src/EBox/Mail.pm:1811
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1802
+#: ../../main/mail/src/EBox/Mail.pm:1838
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1817
+#: ../../main/mail/src/EBox/Mail.pm:1853
 msgid "Message ID"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1820
+#: ../../main/mail/src/EBox/Mail.pm:1856
 msgid "From hostname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1821
+#: ../../main/mail/src/EBox/Mail.pm:1857
 msgid "From host ip"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1822
+#: ../../main/mail/src/EBox/Mail.pm:1858
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1823
+#: ../../main/mail/src/EBox/Mail.pm:1859
 msgid "Relay"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1824
+#: ../../main/mail/src/EBox/Mail.pm:1860
 msgid "Message type"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1827
+#: ../../main/mail/src/EBox/Mail.pm:1863
 msgid "Additional Info"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1874
 msgid "Successful messages"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1839
+#: ../../main/mail/src/EBox/Mail.pm:1875
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1840
+#: ../../main/mail/src/EBox/Mail.pm:1876
 msgid "User quota exceeded"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1841
+#: ../../main/mail/src/EBox/Mail.pm:1877
 msgid "Relay access denied"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1842
+#: ../../main/mail/src/EBox/Mail.pm:1878
 msgid "Account does not exist"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1843
+#: ../../main/mail/src/EBox/Mail.pm:1879
 msgid "Host unreachable"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1844
+#: ../../main/mail/src/EBox/Mail.pm:1880
 msgid "Authentication error"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1881
 msgid "Greylisted"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1846
+#: ../../main/mail/src/EBox/Mail.pm:1882
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1847
+#: ../../main/mail/src/EBox/Mail.pm:1883
 msgid "Other events"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1911
+#: ../../main/mail/src/EBox/Mail.pm:1955
 msgid "Mail SMTP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1919
+#: ../../main/mail/src/EBox/Mail.pm:1963
 msgid "Mail POP/IMAP server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1996
+#: ../../main/mail/src/EBox/Mail.pm:2040
 msgid "Mailboxes"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2038
+#: ../../main/mail/src/EBox/Mail.pm:2082
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2073
+#: ../../main/mail/src/EBox/Mail.pm:2117
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr ""
@@ -12104,13 +11983,6 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:46
 msgid "Invalid virtual mail domain"
-msgstr ""
-
-#: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
-#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
-#: ../../main/mail/src/EBox/MailVDomainsLdap.pm:116
-msgid "virtual domain"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:51
@@ -12130,7 +12002,7 @@ msgid "Queue ID"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:423
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:563
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:121
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
 #: ../../main/mail/src/templates/externalAccounts.mas:13
@@ -12216,40 +12088,40 @@ msgstr "{iface} (رابط خارجی)"
 msgid "External account {acc} removed"
 msgstr "{iface} (رابط خارجی)"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:117
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
 #, fuzzy
 msgid "Local email account"
 msgstr "{iface} (رابط خارجی)"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:121
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:256
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:135
 msgid "Mail server"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:122
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:257
 #, fuzzy
 msgid "Mail server port"
 msgstr "کاربر"
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:358
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:498
 msgid "External retrieval service"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:429
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:436
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:569
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:576
 msgid "External account username"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:431
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:571
 msgid "No spaces allowed"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:447
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:587
 msgid "Character \"'\" is forbidden for external"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:457
+#: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:597
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
 msgstr ""
@@ -13013,23 +12885,23 @@ msgstr "سرور بعدی"
 msgid "Here you can add external NTP servers to synchronize with."
 msgstr ""
 
-#: ../../main/ntp/src/EBox/NTP.pm:79
+#: ../../main/ntp/src/EBox/NTP.pm:81
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr ""
 
-#: ../../main/ntp/src/EBox/NTP.pm:85
+#: ../../main/ntp/src/EBox/NTP.pm:87
 msgid "Override ntpd apparmor profile"
 msgstr ""
 
-#: ../../main/ntp/src/EBox/NTP.pm:86
+#: ../../main/ntp/src/EBox/NTP.pm:88
 msgid "To allow samba clients to synchronize clock with ntp server"
 msgstr ""
 
-#: ../../main/ntp/src/EBox/NTP.pm:102
+#: ../../main/ntp/src/EBox/NTP.pm:104
 msgid "NTP configuration file"
 msgstr ""
 
-#: ../../main/ntp/src/EBox/NTP.pm:132
+#: ../../main/ntp/src/EBox/NTP.pm:134
 #, fuzzy
 msgid "Network Time Protocol"
 msgstr "عیب یابی شبکه"
@@ -14973,6 +14845,13 @@ msgid "Community updates are available for the following system components"
 msgstr "به‌روزرسانی‌ها برای مولفه‌های سامانه زیر در دسترس هستند"
 
 #: ../../main/software/src/templates/updates.mas:93
+#: ../../main/software/src/templates/ebox.mas:41
+#: ../../main/software/src/templates/ebox.mas:62
+#: ../../main/software/src/templates/ebox.mas:99
+msgid "Component"
+msgstr "مولفه"
+
+#: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/updates.mas:141
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:182
@@ -15366,13 +15245,31 @@ msgstr "حساب کاربری"
 msgid "User groups"
 msgstr "کاربران در گروه"
 
-#: ../../main/samba/src/templates/edituser.mas:173
-#: ../../main/samba/src/templates/edituser.mas:257
+#: ../../main/samba/src/templates/edituser.mas:145
+#, fuzzy
+msgid "Remove mail account"
+msgstr "{iface} (رابط خارجی)"
+
+#: ../../main/samba/src/templates/edituser.mas:145
+msgid "This action removes the mail account and its associated data."
+msgstr ""
+
+#: ../../main/samba/src/templates/edituser.mas:148
+#, fuzzy
+msgid "Replace mail account"
+msgstr "{iface} (رابط خارجی)"
+
+#: ../../main/samba/src/templates/edituser.mas:148
+msgid "Replacing the mail account removes all its current data."
+msgstr ""
+
+#: ../../main/samba/src/templates/edituser.mas:199
+#: ../../main/samba/src/templates/edituser.mas:283
 #, fuzzy
 msgid "This user is not a member of any group"
 msgstr "کاربران ناموجو در گروه"
 
-#: ../../main/samba/src/templates/edituser.mas:242
+#: ../../main/samba/src/templates/edituser.mas:268
 #: ../../main/samba/src/templates/editcontact.mas:162
 #, fuzzy
 msgid "Add group"
@@ -15681,6 +15578,92 @@ msgstr ""
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
+#~ msgstr "بازه {from}-{to} شامل رابط‌ با نشانی آی‌پی: {ifaceIP}"
+
+#, fuzzy
+#~ msgid "DataTable Component"
+#~ msgstr "مولفه‌های ای‌باکس"
+
+#~ msgid "Technical Support"
+#~ msgstr "پشتیبانی فنی"
+
+#~ msgid "Allow remote access to Zentyal support"
+#~ msgstr "مجوز دسترسی راه دور به پشتیبان زنتیل"
+
+#~ msgid "Allow access from the Internet"
+#~ msgstr "مجوز دسترسی از اینترنت"
+
+#, fuzzy
+#~ msgid "Enable Remote Support Access"
+#~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
+
+#~ msgid "Web Remote Access Settings"
+#~ msgstr "تنظیمات دسترسی راه دور وب"
+
+#~ msgid "Support available via"
+#~ msgstr "پشتیبانی با"
+
+#~ msgid "Service Level Agreement"
+#~ msgstr "سطح خدمات مورد قبول"
+
+#, fuzzy
+#~ msgid "2 Business Days"
+#~ msgstr "تمام سرویس ها"
+
+#, fuzzy
+#~ msgid "1 Business Day"
+#~ msgstr "تمام سرویس ها"
+
+#, fuzzy
+#~ msgid "4 hours"
+#~ msgstr "تا ساعت"
+
+#, fuzzy
+#~ msgid "1 hour"
+#~ msgstr "تا ساعت"
+
+#~ msgid "Current password"
+#~ msgstr "گذرواژه کنونی"
+
+#~ msgid "New password"
+#~ msgstr "گذرواژه جدید"
+
+#~ msgid "The password was changed successfully."
+#~ msgstr "گذرواژه با موفقیت تغییر یافت."
+
+#, fuzzy
+#~ msgid "Change administrator password"
+#~ msgstr "تغییر گذرواژه"
+
+#~ msgid "New passwords do not match."
+#~ msgstr "گذرواژه‌های جدید مطابقت ندارند."
+
+#, fuzzy
+#~ msgid "Incorrect current password."
+#~ msgstr "گذرواژه نادرست است."
+
+#, fuzzy
+#~ msgid "Outgoing Mail Domain"
+#~ msgstr "جستجوی دامنه"
+
+#, fuzzy
+#~ msgid "Configure an {oc} server."
+#~ msgstr "پیکربندی رابط ها"
+
+#, fuzzy
+#~ msgid "Domain {dom} not configured in {oh}DNS module{ch}"
+#~ msgstr "رونوشت پیکربندی گزارش اشکال"
+
+#, fuzzy
+#~ msgid "No outgoing mail domain configured"
+#~ msgstr "جستجوی دامنه"
+
+#, fuzzy
+#~ msgid "Other Zentyal Server"
+#~ msgstr "سرویس وب"
 
 #, fuzzy
 #~ msgid "System needs at least one external interface"
@@ -17439,10 +17422,6 @@ msgstr ""
 #~ msgstr "پیکربندی سرویس"
 
 #, fuzzy
-#~ msgid "Enable Outlook Access"
-#~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
-
-#, fuzzy
 #~ msgid "Enable POP3 Access"
 #~ msgstr "ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ ﺩﻭﺭ"
 
@@ -17508,14 +17487,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "User Corner web server"
 #~ msgstr "نام کاربری"
-
-#, fuzzy
-#~ msgid "Synchronization"
-#~ msgstr ""
-#~ "#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-#~ "پﺶﺗیﺏﺎﻧ پیکﺮﺒﻧﺩی\n"
-#~ "#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-#~ "پشتیبان پیکربندی"
 
 #, fuzzy
 #~ msgid "Given name"
@@ -17705,10 +17676,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "List of Virtual Machines"
 #~ msgstr "لیست سرویس ها"
-
-#, fuzzy
-#~ msgid "virtual machine"
-#~ msgstr "نام واسط مجازی"
 
 #, fuzzy
 #~ msgid "Remove virtual machine"
