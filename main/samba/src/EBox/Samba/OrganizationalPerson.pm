@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,6 +41,10 @@ sub name
     return $self->get('cn');
 }
 
+# Method: fullname
+#
+#   Alias of <name>
+#
 sub fullname
 {
     my ($self) = @_;
@@ -237,6 +241,23 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
+# Method: generatedFullName
+#
+#   Generate the full name based on the given name, surname and the
+#   initials.
+#
+# Named optional parameters:
+#
+#   givenName - String the given name
+#
+#   initials  - String the initials without ending dot
+#
+#   sn - String the surname
+#
+# Returns:
+#
+#   String - the generated full name
+#
 sub generatedFullName
 {
     my ($self, %args) = @_;

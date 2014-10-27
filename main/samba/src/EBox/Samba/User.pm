@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -42,7 +42,7 @@ use Perl6::Junction qw(any);
 use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
-use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Net::LDAP::Constant qw(LDAP_ALREADY_EXISTS LDAP_LOCAL_ERROR);
 use Date::Calc;
 use TryCatch::Lite;
 
@@ -359,6 +359,49 @@ sub setHomeDrive
     $self->set('homeDrive', $drive);
     $self->set('homeDirectory', $path);
     $self->save() unless $lazy;
+}
+
+# Method: setFullName
+#
+#    Change the full name and name attributes.
+#
+#    This requires to modify the Distinguished Name (DN) for the
+#    object, therefore the operation cannot be lazy.
+#
+# Parameters:
+#
+#    newFullName - String the new full name
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::DataExists> - if the CN already exists in the
+#    same container.
+#
+#    <EBox::Exceptions::LDAP> if the operation cannot be done
+#
+sub setFullName
+{
+    my ($self, $newFullName) = @_;
+
+    my $entry = $self->_entry();
+    my $baseDN = $self->baseDn();
+    my $newRDN = "CN=$newFullName";
+    my $result = $self->_ldap()->connection()->moddn($entry, newrdn => $newRDN, deleteoldrdn => 1);
+    if ($result->is_error()) {
+        if ($result->code() eq LDAP_ALREADY_EXISTS) {
+            throw EBox::Exceptions::DataExists(
+                text => __x('User name with {x} full name already exists in the same container',
+                            x => $newFullName));
+        }
+        throw EBox::Exceptions::LDAP(
+            message => __('There was an error modifying the RDN:'),
+            result  => $result,
+            opArgs  => "New RDN: $newRDN"
+           );
+    }
+    # Make it work in the next calls for user
+    $self->{dn} = "$newRDN,$baseDN";
+    $self->clearCache();
 }
 
 # Method: create
