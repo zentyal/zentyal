@@ -14,10 +14,12 @@ depends:
 
 models:
     - Provision
-    - RPCProxy
     - OpenChangeUser
-    - Configuration
+    - VDomains
+    - RPCProxy
+    - ActiveSync
 
 composites:
-    General: [Provision, Configuration, RPCProxy]
-
+    Disclaimer: []
+    Configuration: [VDomains, RPCProxy, ActiveSync]
+    General: [Provision, Configuration, Disclaimer]

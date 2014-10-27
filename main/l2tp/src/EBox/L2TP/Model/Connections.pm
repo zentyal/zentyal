@@ -66,73 +66,41 @@ sub tunnels
                 next;
             }
         }
-        my @confComponents;
-
-        @confComponents = @{$conf->models(1)};
 
         my %settings;
-        foreach my $component (@confComponents) {
-            if ($component->isa('EBox::Model::DataForm')) {
-                my $elements = $component->row()->elements();
+        my $component = $row->subModel('configuration');
+        my $elements = $component->row()->elements();
+        foreach my $element (@{$elements}) {
+            my $fieldName = $element->fieldName();
+            my $fieldValue;
 
-                foreach my $element (@{ $elements }) {
-                    my $fieldName = $element->fieldName();
-                    my $fieldValue;
-
-                    given ($fieldName) {
-                        when (/^right$/) {
-                            if ($element->selectedType() eq 'right_any') {
-                                $fieldValue = '%any';
-                            } else {
-                                # Value returns array with (ip, netmask)
-                                $fieldValue = join ('/', $element->value());
-                            }
-                            $fieldName = 'right_ipaddr'; # this must be the property
-                                                         # value name
-                        }
-                        when (/^primary_ns$/) {
-                            $fieldValue = $component->nameServer(1);
-                        }
-                        when (/^wins_server$/) {
-                            $fieldValue = $component->winsServer();
-                        }
-                        default {
-                            if ($element->value()) {
-                                # Value returns array with (ip, netmask)
-                                $fieldValue = join ('/', $element->value());
-                            } else {
-                                $fieldValue = undef;
-                            }
-                        }
+            given ($fieldName) {
+                when (/^right$/) {
+                    if ($element->selectedType() eq 'right_any') {
+                        $fieldValue = '%any';
+                    } else {
+                        # Value returns array with (ip, netmask)
+                        $fieldValue = join ('/', $element->value());
                     }
-                    $settings{$fieldName} = $fieldValue;
+                    $fieldName = 'right_ipaddr'; # this must be the property
+                                                 # value name
                 }
-
-            } elsif ($component->isa('EBox::Model::DataTable')) {
-                given ($component->name()) {
-                    when (/^RangeTable$/) {
-                        my @ranges = ();
-                        foreach my $rowid (@{$component->ids()}) {
-                            my $row = $component->row($rowid);
-                            push @ranges, join ('-', ($row->valueByName('from'), $row->valueByName('to')));
-                        }
-                        $settings{'ip_range'} = join (',', @ranges);
-                    }
-                    default {
-                        throw EBox::Exceptions::InvalidData(
-                            data => __('DataTable Component'),
-                            value => $component->name(),
-                            advice => __('Don\'t know how to handle this component.'),
-                        );
+                when (/^primary_ns$/) {
+                    $fieldValue = $component->nameServer(1);
+                }
+                when (/^wins_server$/) {
+                    $fieldValue = $component->winsServer();
+                }
+                default {
+                    if ($element->value()) {
+                        # Value returns array with (ip, netmask)
+                        $fieldValue = join ('/', $element->value());
+                    } else {
+                        $fieldValue = undef;
                     }
                 }
-            } else {
-                throw EBox::Exceptions::InvalidType(
-                    data => __('Component'),
-                    value => $component->name(),
-                    advice => __('Unknown'),
-                );
             }
+            $settings{$fieldName} = $fieldValue;
         }
         $settings{'enabled'} = $enabled;
         $settings{'name'} = $row->valueByName('name');
@@ -194,13 +162,6 @@ sub _table
             printableName => __('Configuration'),
             foreignModel => 'ConnectionSettings',
             view => '/L2TP/View/ConnectionSettings',
-            backView => '/L2TP/View/Connections',
-        ),
-        new EBox::Types::HasMany(
-            fieldName => 'ranges',
-            printableName => __('Ranges'),
-            foreignModel => 'RangeTable',
-            view => '/L2TP/View/RangeTable',
             backView => '/L2TP/View/Connections',
         ),
         new EBox::Types::Select(
@@ -312,78 +273,6 @@ sub deletedRowNotify
     $self->parentModule()->addDeletedDaemon($name);
 }
 
-sub l2tpCheckDuplicateLocalIP
-{
-    my ($self, $ownId, $tunnelIP) = @_;
-    $self->_checkDuplicates($ownId, tunnelIP => $tunnelIP);
-}
-
-sub l2tpCheckDuplicateIPRange
-{
-    my ($self, $ownId, $rangeId, $from, $to) = @_;
-    $self->_checkDuplicates($ownId, range => "$from - $to", rangeOwnId => $rangeId);
-}
-
-sub _checkDuplicates
-{
-    my ($self, $ownId, %args) = @_;
-    my $range;
-    if ($args{tunnelIP}) {
-        $range = new Net::IP($args{tunnelIP});
-    } elsif ($args{range}) {
-        $range = new Net::IP($args{range});
-    } else {
-        throw EBox::Exceptions::MissingArgument('tunnel or range');
-    }
-
-    if (not defined $ownId) {
-        $ownId = '';
-    }
-
-    foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-
-        my $settings = $row->subModel('configuration');
-        my $localIP  = $settings->value('local_ip');
-        if ($localIP and $range->overlaps( Net::IP->new($localIP))) {
-            if ($args{tunnelIP} and ($id ne $ownId)) {
-                throw EBox::Exceptions::External(
-                        __x('Tunnel IP {ip} is already in use by connection {name}',
-                            ip   => $localIP,
-                            name => $row->valueByName('name'))
-                        );
-            } elsif ($args{range}) {
-                throw EBox::Exceptions::External(
-                        __x('The range overlaps with tunnel IP {ip} used  by connection {name}',
-                            ip   => $localIP,
-                            name => $row->valueByName('name'))
-                        );
-            }
-        }
-
-        my $rangeTableOwnId = '';
-        if ($args{range} and ($id eq $ownId)) {
-            $rangeTableOwnId = $args{rangeOwnId};
-        }
-        my $rangeTable = $row->subModel('RangeTable');
-        if ($rangeTable->rangeOverlaps($range, $rangeTableOwnId)) {
-            if ($args{tunnelIP}) {
-                throw EBox::Exceptions::External(
-                        __x('Tunnel IP {ip} is already in use by range in connection {name}',
-                            ip => $args{tunnelIP},
-                            name => $row->valueByName('name'))
-                        );
-            } elsif ($args{range}) {
-                throw EBox::Exceptions::External(
-                        __x('Range {range} is already in use by connection {name}',
-                            range => $args{range},
-                            name => $row->valueByName('name'))
-                        );
-            }
-        }
-    }
-}
-
 # Method: _populateGroups
 #
 # List all available groups in the system.
@@ -406,6 +295,5 @@ sub _populateGroups
     }
     return \@securityGroups;
 }
-
 
 1;

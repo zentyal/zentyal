@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Downloader::CGI::RPCCert;
+
 use base 'EBox::Downloader::CGI::Base';
 
 use EBox::Global;
@@ -28,17 +29,19 @@ use File::Basename;
 
 sub new
 {
-    my ($class, %params) = @_;
+    my ($class) = @_;
+
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return  $self;
+    bless ($self, $class);
+
+    return $self;
 }
 
 # Method: _path
 #
 # Overrides:
 #
-#     <EBox::Downloader::CGI::Base::_path>
+#   <EBox::Downloader::CGI::Base::_path>
 #
 sub _path
 {
@@ -49,11 +52,11 @@ sub _path
 
 # Method: _process
 #
-#     Make sure the CA is available
+#   Make sure the CA is available
 #
 # Overrides:
 #
-#     <EBox::Downloader::CGI::Base::_process>
+#   <EBox::Downloader::CGI::Base::_process>
 #
 sub _process
 {
@@ -61,9 +64,11 @@ sub _process
 
     my $ca = EBox::Global->getInstance()->modInstance('ca');
     if (not $ca->isAvailable()) {
-        throw EBox::Exceptions::External(__('Cannot get the CA certificate as it is not available'));
+        throw EBox::Exceptions::External(
+            __('Cannot get the CA certificate as it is not available'));
     }
     $self->SUPER::_process();
+
     # Use .crt extension to ease Windows import
     my ($filename, $directories, $suffix) = fileparse($self->{downfile}, qr/\.[^.]+$/);
     if ($suffix ne 'crt') {

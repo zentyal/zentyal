@@ -939,8 +939,7 @@ sub _setConfInternal
         push(@params, 'cloudsync_enabled' => 1);
     }
 
-    # TODO: No users sync in 3.4, reenable in 4.0
-    #$self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
+    $self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -1384,6 +1383,10 @@ sub _daemons
         return ($self->mode() eq STANDALONE_MODE);
     };
 
+    my $enabledAndProvisioned = sub {
+        return ($self->isEnabled() and $self->isProvisioned());
+    };
+
     return [
         {
             name => 'samba-ad-dc',
@@ -1400,6 +1403,10 @@ sub _daemons
         {
             name => 'zentyal.zavsd',
             precondition => \&_antivirusEnabled,
+        },
+        {
+            name => 'zentyal.set-uid-gid-numbers',
+            precondition => $enabledAndProvisioned,
         },
     ];
 }
@@ -1730,7 +1737,7 @@ sub realUsers
 {
     my ($self) = @_;
 
-    my @users = grep { not $_->isInternal() } @{$self->users()};
+    my @users = grep { not $_->isInternal() and not $_->isAdministratorOrGuest() } @{$self->users()};
 
     return \@users;
 }
@@ -2289,12 +2296,11 @@ sub menu
             $folder->add(new EBox::Menu::Item(
                 'url'  => 'Samba/Composite/UserTemplate',
                 'text' => __('User Template'), order => 30));
-            # TODO: re-enable this in Zentyal 4.0 for Cloud Sync
-            #        if ($self->mode() eq STANDALONE_MODE) {
-            #            $folder->add(new EBox::Menu::Item(
-            #                'url'  => 'Samba/Composite/Sync',
-            #                'text' => __('Synchronization'), order => 40));
-            #        }
+            if ($self->mode() eq STANDALONE_MODE) {
+                $folder->add(new EBox::Menu::Item(
+                    'url'  => 'Samba/View/Master',
+                    'text' => __('Synchronization'), order => 40));
+            }
         }
 
         $folder->add(new EBox::Menu::Item(
@@ -2479,6 +2485,8 @@ sub masterConf
 sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
+
+    return unless $self->isProvisioned();
 
     my $mode = $self->mode();
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);

@@ -410,6 +410,11 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         if ('redirect' in response) {
             window.location.replace(response.redirect);
         }
+        if ('dataInUseForm' in response) {
+            Zentyal.TableHelper.removeWarnings(table);
+            var form = $('#' + table + '_ajaxform');
+            form.before(response.dataInUseForm);
+        }
     };
     var complete = function(response){
         $('#' + id + ' .customActions').each(function(index, element) {
@@ -1068,9 +1073,10 @@ Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, cont
 };
 
 Zentyal.TableHelper.confirmationDialog = function (url, table, directory, actionToConfirm, elements) {
-    var wantDialog  = true;
+    var wantDialog  = false;
     var dialogTitle = null;
     var dialogMsg = null;
+    var abort = false;
 
     var params = 'action=confirmationDialog' +  '&tablename=' + table + '&directory=' + directory;
     params +='&actionToConfirm=' + actionToConfirm;
@@ -1084,16 +1090,21 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
 
     var success = function (text) {
         var json = $.parseJSON(text);
-        if (json.wantDialog) {
-             dialogTitle = json.title;
-             dialogMsg = json.message;
+        if (json.success) {
+            if (json.wantDialog) {
+                wantDialog = true;
+                dialogTitle = json.title;
+                dialogMsg = json.message;
+            }
         } else {
-            wantDialog = false;
+            Zentyal.TableHelper.setError(table, json.error);
+            abort = true;
         }
+
     };
-    var error = function() {
-          dialogTitle = '';
-          dialogMsg = 'Are you sure?';
+    var error = function(jqXHR) {
+        Zentyal.TableHelper.setError(table, jqXHR.responseText);
+        abort = true;
     };
 
    $.ajax({
@@ -1108,6 +1119,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
 
   return {
     'wantDialog' : wantDialog,
+    'abort' : abort,
     'title': dialogTitle,
     'message': dialogMsg
    };

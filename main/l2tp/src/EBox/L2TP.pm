@@ -227,6 +227,7 @@ sub _setConf
     $self->_setIPsecConf();
     $self->_setIPsecSecrets();
     $self->_setXL2TPDConf();
+    $self->_setKernelParameters();
 }
 
 sub _setIPsecConf
@@ -288,6 +289,14 @@ sub _setXL2TPDConf
         $self->writeConfFile(
             "/etc/init/$tunnel->{name}.conf", "l2tp/upstart-xl2tpd.mas", \@params, $permissions);
     }
+}
+
+sub _setKernelParameters
+{
+    my @commands;
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.default.accept_redirects="0"');
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.default.send_redirects="0"');
+    EBox::Sudo::root(@commands);
 }
 
 sub tunnels

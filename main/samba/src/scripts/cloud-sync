@@ -52,6 +52,15 @@ sub setIfChanged
     return 1;
 }
 
+# Get container
+sub getCN
+{
+    my ($ou) = @_;
+    # We perform the reverse transformation we did in
+    # <EBox::CloudSync::Slave::get_ou>
+    $ou =~ s/ou\=/CN=/g;
+    return $ou;
+}
 
 # Cloud syncing enabled
 EBox::debug("Syncing users with Zentyal Cloud!");
@@ -108,8 +117,8 @@ for my $ruser (@{$rusers}) {
             }
 
             # Update passwords
-            my @passwords = $luser->get('krb5Key');
-            unless (@{$ruser->{passwords}} ~~ @passwords) {
+            my $passwords = $luser->passwordHashes();
+            unless (@{$ruser->{passwords}} ~~ @{$passwords}) {
                 $luser->setPasswordFromHashes($ruser->{passwords}, 1);
                 $changed = 1;
             }
@@ -119,33 +128,27 @@ for my $ruser (@{$rusers}) {
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
             my %user;
-            $user{uid}     = $ruser->{name};
-            $user{name}    = $ruser->{firstname};
-            $user{surname} = $ruser->{lastname};
-            if ($user{name}) {
-                $user{fullname} = $user{name} . ' ' . $user{surname};
-                $user{givenname} = $user{name};
-            } else {
-                $user{fullname} = $user{surname};
-                $user{givenname} = '';
-            }
-            $user{passwords} = $ruser->{passwords};
-            $user{comment} = $ruser->{description};
-            $user{isSystemUser} = 0;
-            $user{ignoreSlaves} = IGNORE;
-            $user{parent} = $users->objectFromDN($ruser->{ou} . ',' . $users->ldap->dn());
+            $user{samAccountName} = $ruser->{name};
+            $user{givenName}      = ($ruser->{firstname} or "");
+            $user{sn}             = $ruser->{lastname};
+            $user{description}    = $ruser->{description};
+            $user{isSystemUser}   = 0;
+            $user{ignoreSlaves}   = IGNORE;
+            $user{parent} = $users->objectFromDN(getCN($ruser->{ou}) . ',' . $users->ldap->dn());
 
-            EBox::Samba::User->create(%user);
+            my $nUser = EBox::Samba::User->create(%user);
+            $nUser->setPasswordFromHashes($ruser->{passwords});
+            $nUser->setAccountEnabled(1);
         }
-    } catch {
-        EBox::error('Failed to sync remote user ' . $ruser->{name});
+    } catch ($ex) {
+        EBox::error('Failed to sync remote user ' . $ruser->{name} . ' : ' . $ex);
     };
 }
 
 
 for my $user (@{$lusers}) {
     my $name = $user->name();
-    if (not $rusernames->{$name}) {
+    if (not $rusernames->{$name} and scalar(@{$user->passwordHashes()})) {
         EBox::info("Local user $name not present in remote, removing...");
         $user->setIgnoredSlaves(IGNORE);
         $user->deleteObject();
@@ -187,7 +190,7 @@ for my $rgroup (@{$rgroups}) {
                 gidNumber     => $rgroup->{gid},
                 isSystemGroup => 0,
                 ignoreSlaves  => IGNORE,
-                parent        => $users->objectFromDN($rgroup->{ou} . ',' . $users->ldap->dn()),
+                parent        => $users->objectFromDN(getCN($rgroup->{ou}) . ',' . $users->ldap->dn()),
             );
 
             $lgroup = EBox::Samba::Group->create(%args);
@@ -209,8 +212,8 @@ for my $rgroup (@{$rgroups}) {
             }
         }
         $lgroup->save() if ($changed);
-    } catch {
-        EBox::error('Failed to sync remote group ' . $rgroup->{name});
+    } catch ($ex) {
+        EBox::error('Failed to sync remote group ' . $rgroup->{name} . ' : ' . $ex);
     }
 }
 

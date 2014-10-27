@@ -395,6 +395,22 @@ sub initialSetup
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
     }
+
+    # Migrate from 3.5 to 4.0 (old reference to haproxy)
+    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        my $certs = $self->model('Certificates');
+        foreach my $row (@{$certs->_rows()}) {
+            if ($row->valueByName('module') eq 'haproxy') {
+                $row->elementByName('module')->setValue('webadmin');
+                $row->store();
+            }
+            if ($row->valueByName('serviceId') eq 'zentyal_webadmin') {
+                $row->elementByName('serviceId')->setValue('Zentyal Administration Web Server');
+                $row->store();
+            }
+        }
+        $self->saveConfig();
+    }
 }
 
 # Method: passwordRequired
@@ -509,8 +525,9 @@ sub issueCACertificate
 {
     my ($self, %args) = @_;
 
-    throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
-        unless defined( $args{orgName} );
+    if (not defined $args{orgName}) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
     $self->_checkCertificateFieldsCharacters(%args);
 
     # Define the distinguished name -> default values in configuration file
@@ -693,6 +710,7 @@ sub CAPublicKey
 #       requestFile - path to save the new certificate request
 #                    (Optional)
 #       certFile - path to store the new certificate file (Optional)
+#       openchange - when is true it lets you to issue the openchange certificate (default: true)
 #
 #       subjAltNames - Array ref containing the subject alternative
 #                      names in a hash ref with the following keys:
@@ -723,13 +741,22 @@ sub issueCertificate
     my ($self, %args) = @_;
 
     # Treat arguments
-    throw EBox::Exceptions::DataMissing(data => __('Common Name'))
-        unless defined( $args{commonName} );
-    $self->_checkCertificateFieldsCharacters(%args);
-
-    EBox::warn("Two ways to declare expiration date through days and endDate. "
-            . "Using endDate...")
-        if ( defined( $args{days} ) and defined( $args{endDate} ) );
+    if (not defined $args{commonName}) {
+        $self->_checkCertificateFieldsCharacters(%args);
+    }
+    if (not $args{openchange}) {
+        my $openchangeCN = $self->_openchangeCertificateCN();
+        if ($openchangeCN and ($openchangeCN eq $args{commonName})) {
+            throw EBox::Exceptions::External(
+                __x('You cannot issue a certificate with CN {cn} because that CN is used by openchange. Saving changes or restarting openchange will regenerate that certifcate if needed',
+                   cn => $openchangeCN)
+            );
+        }
+    }
+    if ( defined( $args{days} ) and defined( $args{endDate} ) ) {
+        EBox::warn("Two ways to declare expiration date through days and endDate. "
+                       . "Using endDate...");
+    }
 
     my $days = undef;
     if (not defined($args{endDate}) ) {
@@ -1935,8 +1962,8 @@ sub _supportActions
 sub _setConf
 {
     my ($self) = @_;
-
-    EBox::CA::Certificates->genCerts();
+    my $skipCN = $self->_openchangeCertificateCN();
+    EBox::CA::Certificates->genCerts($skipCN);
 }
 
 # Group: Private methods
@@ -2043,8 +2070,9 @@ sub _findCertFile # (commonName)
 # return undef if any error occurs
 sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
 {
-
     my ($self, %args) = @_;
+    # remove previous request file with the same name, to avoid errors
+    unlink $args{reqFile};
 
     # To create the request the distinguished name is needed
     my $cmd = 'req';
@@ -2688,4 +2716,14 @@ sub caExpirationDate
     return $self->{caExpirationDate};
 }
 
+sub _openchangeCertificateCN
+{
+    my ($self) = @_;
+# FIXME
+#    my $openchange = $self->global()->modInstance('openchange');
+#    if ($openchange) {
+#        return $openchange->certificateCN();
+#    }
+    return undef;
+}
 1;

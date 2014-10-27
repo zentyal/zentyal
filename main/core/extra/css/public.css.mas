@@ -405,7 +405,7 @@ DASHBOARD
 }
 .summary_value {
     padding: 5px 10px 5px 15px;
-    
+
     background-color: #F4F4F4;
     line-height:25px;
 }
@@ -473,7 +473,7 @@ DASHBOARD
     border-right: <% $data_table_inner_border_color %> 2px solid;
 }
 .dataTable th {
-    
+
     padding: 8px 6px 8px 6px;
     font-weight: bold;
     vertical-align: middle;
@@ -1222,7 +1222,7 @@ TABLE LIST
 }
 .widgetName {
         font-size: 1.2em;
-        
+
         color: #666;
         padding: 12px 30px 12px 18px;
 }
@@ -2391,10 +2391,11 @@ a.btn-only-icon{
     font-weight: normal;
     padding: 0 5px;
 }
-.btn-big{
-    font-size: 18px !important;
-    height: 50px !important;
-    line-height: 50px !important;
+.btn-big, .btn.btn-big{
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
 }
 a.btn,
 span.btn{
@@ -2415,7 +2416,7 @@ span.btn{
 
 input.btn-dashboard {
     font-size: 10px;
-    
+
     margin: 0px;
     padding: 4px 8px 4px 20px;
     text-transform: none;
@@ -2594,6 +2595,9 @@ form.formDiv fieldset > div,
 form.formDiv .field {
     margin-top: 20px;
 }
+form.formDiv .field:first-child {
+    margin-top: 0;
+}
 
 form.formDiv label,
 form.formDiv .radio-group strong,
@@ -2641,7 +2645,7 @@ select:disabled {
 }
 select {
     font-size: 14px;
-    
+
     border: 1px solid #999999;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -2658,13 +2662,13 @@ select {
 .inputTextError {
     color: #000000;
     font-size: 11px;
-    
+
 }
 .inputTextError { border: 3px solid red; }
 .inputTextLogin {
     color: #000000;
     font-size: 11px;
-    
+
 }
 form.formDiv textarea{
     width: 95%;
@@ -2794,7 +2798,7 @@ form.formDiv.inline-form .btn{
 
 .btn-text{
     line-height:35px;
-    font-size:1.2em 
+    font-size:1.2em
 }
 
 /********************************************************************************
@@ -3336,4 +3340,12 @@ Responsive corrections
     #menu{
         display: block;
     }
+}
+
+
+/****
+OVERRIDED MODEL STYLES
+****/
+#RPCProxy_manage_row label {
+    display: none;
 }

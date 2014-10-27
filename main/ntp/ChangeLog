@@ -1,6 +1,7 @@
 4.0
 	+ Moved configuration from NTP menu to System -> Date/Time
 	+ Set version to 4.0
+	+ Fix sign NTP packets when samba is enabled
 3.5
 	+ Set version to 3.5
 3.4

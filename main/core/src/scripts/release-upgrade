@@ -21,7 +21,7 @@ function upgrade
         fi
     done
 
-    apt-get dist-upgrade -y --force-yes -o DPkg::Options::="--force-confdef"
+    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 }
 
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
@@ -57,26 +57,40 @@ sed -i 's/precise/saucy/g' /etc/apt/sources.list
 sed -ri 's/zentyal(.)3.3/zentyal\13.4/g' /etc/apt/sources.list
 upgrade
 
-echo; echo "Forcing pending packages installation..."; echo
-rm -f /var/lib/dpkg/info/freeradius-ldap.postinst
-sed -i '/initial-setup/d' /var/lib/dpkg/info/zentyal-users.postinst
-apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+for i in `seq 1 3`
+do
+    echo; echo "Forcing pending packages installation..."; echo
+    apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
+    rm -f /var/lib/dpkg/info/suricata.prerm
+    for pkg in freeradius-ldap suricata rabbitmq-server
+    do
+        rm -f /var/lib/dpkg/info/${pkg}.postinst
+    done
+    dpkg --configure -a --force-confdef
+    apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    if [ $? == 0 ]
+    then
+        echo; echo "Nothing more pending to upgrade"; echo
+        break
+    fi
+done
 
-pkill -9 samba
-pkill -9 smbd
-service zentyal samba restart
-
-if dpkg --configure -a --force-confdef
+if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     /usr/share/zentyal/global-action --action saveAllModules
-    /usr/share/zentyal/initial-setup users 3.3
+
+    # Purge all no longer needed running services like haproxy, collectd, etc
+    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+
+    # Restart regular webserver, Zentyal UI and logs
+    service apache2 restart
     service zentyal webadmin restart
 
     echo; echo "Zentyal upgrade finished!"
-
-    apt-get clean
 else
     echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
+
+apt-get clean
 
 touch $UPGRADE_FILE

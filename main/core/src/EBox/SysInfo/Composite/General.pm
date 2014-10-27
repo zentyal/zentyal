@@ -42,32 +42,6 @@ sub new
     return $self;
 }
 
-# Method: componentNames
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::componentNames>
-#
-sub componentNames
-{
-    my ($self) = @_;
-
-    my @components;
-
-    my $rs = EBox::Global->modInstance('remoteservices');
-    if (defined ($rs) and $rs->subscriptionLevel() > 0) {
-        push (@components, 'sysinfo/ManageAdmins');
-    } else {
-        push (@components, 'sysinfo/AdminUser');
-    }
-
-    push (@components, 'webadmin/Language',
-                       'webadmin/AdminPort',
-                       'sysinfo/HostName');
-
-    return \@components;
-}
-
 # Group: Protected methods
 
 # Method: _description

@@ -34,6 +34,7 @@ use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
 use File::Basename;
+use File::MMagic;
 
 use TryCatch::Lite;
 use Digest::MD5;
@@ -41,6 +42,7 @@ use EBox::Sudo;
 use POSIX qw(strftime);
 use DirHandle;
 use Perl6::Junction qw(any all);
+
 
 use Filesys::Df;
 
@@ -762,7 +764,7 @@ sub makeBackup
 
         if ($finishProgress) {
             $progress->setAsFinished();
-        } 
+        }
     } catch ($ex) {
         if ($progress) {
             $progress->setAsFinished(1, $ex->text);
@@ -920,9 +922,9 @@ sub _checkBackupFile
 {
     my ($self, $path) = @_;
 
-    my $output = EBox::Sudo::root("/usr/bin/file -bi '$path'");
-    my $tarFile = $output->[0] =~ m{^application/x-tar;};
-    if (not $tarFile) {
+    my $mm = new File::MMagic();
+    my $mimeType = $mm->checktype_filename($path);
+    if ($mimeType ne 'application/x-gtar') {
         throw EBox::Exceptions::External(__('The file is not a correct backup archive'));
     }
 }
@@ -1006,7 +1008,7 @@ sub _checkZentyalVersion
     my $versionOk =  ($major == $wantedMajor) && ($minor == $wantedMinor);
     if (not $versionOk) {
         throw EBox::Exceptions::External(__x(
-'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
+'Could not restore the backup because a mismatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv}',
                 bv => $zentyalVersion,
                 wv => $actualVersion)
         );

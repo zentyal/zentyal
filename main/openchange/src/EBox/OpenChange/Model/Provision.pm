@@ -131,7 +131,9 @@ sub _table
         #defaultActions     => [ 'editField' ],
         customActions      => $customActions,
         tableDescription   => \@tableDesc,
-        help               => __('Setup an OpenChange Groupware server.'),
+        help               => __('Provision the OpenChange Groupware server. '.
+                                 'This will extend and initialize the '.
+                                 'required values in the LDAP schema.'),
     };
 
     return $dataForm;
@@ -170,22 +172,22 @@ sub precondition
     }
 
     # Check the samba domain is present in the Mail Virtual Domains model
-    my $mailModule = $self->global->modInstance('mail');
-    my $VDomainsModel = $mailModule->model('VDomains');
-    my $adDomain = $users->getProvision->getADDomain('localhost');
-    my $adDomainFound = 0;
-    foreach my $id (@{$VDomainsModel->ids()}) {
-        my $row = $VDomainsModel->row($id);
-        my $vdomain = $row->valueByName('vdomain');
-        if (lc $vdomain eq lc $adDomain) {
-            $adDomainFound = 1;
-            last;
-        }
-    }
-    unless ($adDomainFound) {
-        $self->{preconditionFail} = 'vdomainNotFound';
-        return undef;
-    }
+    #my $mailModule = $self->global->modInstance('mail');
+    #my $VDomainsModel = $mailModule->model('VDomains');
+    #my $adDomain = $users->getProvision->getADDomain('localhost');
+    #my $adDomainFound = 0;
+    #foreach my $id (@{$VDomainsModel->ids()}) {
+    #    my $row = $VDomainsModel->row($id);
+    #    my $vdomain = $row->valueByName('vdomain');
+    #    if (lc $vdomain eq lc $adDomain) {
+    #        $adDomainFound = 1;
+    #        last;
+    #    }
+    #}
+    #unless ($adDomainFound) {
+    #    $self->{preconditionFail} = 'vdomainNotFound';
+    #    return undef;
+    #}
 
     my $ca = $self->global()->modInstance('ca');
     if (not $ca->isAvailable()) {
@@ -405,19 +407,18 @@ sub provision
     }
 
     my $ca = $self->global()->modInstance('ca');
-    if (not $ca->isAvailable()) {
-        # FIXME: create CA with organizationName
-        # FIXME: do this only when provisioning from wizard and not manually from model
-        # TODO: allow to specify optional fields like expiration time
+    my $state = $ca->get_state();
+    if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
+        my %args = %{$state->{provision_from_wizard}};
         my $commonName = __x('{org} Authority Certificate', org => $organizationName);
-        $ca->createCA(commonName => $commonName, orgName => $organizationName);
+        $ca->createCA(commonName => $commonName, %args);
     }
 
-    my $configuration = $openchange->model('Configuration');
-    if (not $configuration->_rowStored()) {
-        my $defaultOutgoing = $configuration->value('outgoingDomain');
-        $configuration->setValue('outgoingDomain', $defaultOutgoing);
-    }
+#    my $configuration = $openchange->model('Configuration');
+#    if (not $configuration->_rowStored()) {
+#        my $defaultOutgoing = $configuration->value('outgoingDomain');
+#        $configuration->setValue('outgoingDomain', $defaultOutgoing);
+#    }
 
     foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {
@@ -476,6 +477,7 @@ sub provision
         foreach my $ldbUser (@{$users}) {
             try {
                 my $samAccountName = $ldbUser->get('samAccountName');
+                my $mail = $ldbUser->get('mail');
 
                 next if ($ldbUser->isCritical());
 
@@ -495,6 +497,7 @@ sub provision
                     my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
+                    $cmd .= " --mail '$mail' ";
                     my $output = EBox::Sudo::root($cmd);
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
