@@ -37,10 +37,9 @@ write_sudoers(( user => $user ));
 # Write full sudoers file:
 EBox::init();
 my @extraUsers;
-my $remoteServices = EBox::Global->modInstance('remoteservices');
-if (defined $remoteServices) {
-    if ($remoteServices->can('extraSudoerUsers')) {
-        push @extraUsers, $remoteServices->extraSudoerUsers();
+foreach my $mod (@{ EBox::Global->getInstance()->modInstances() }) {
+    if ($mod->can('extraSudoerUsers')) {
+        push @extraUsers, $mod->extraSudoerUsers();
     }
 }
 
@@ -50,7 +49,7 @@ EBox::Module::Base::writeConfFileNoCheck(SUDOERS_FILE . '.tmp',
              { mode => '0440', uid => 0, gid => 0 });
 
 EBox::Sudo::root('mv ' . SUDOERS_FILE . '.tmp ' . SUDOERS_FILE);
-
+exit 0;
 
 sub write_sudoers
 {
@@ -59,7 +58,7 @@ sub write_sudoers
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
     my $comp = $interp->make_component(comp_file =>
-				(EBox::Config::stubs . 'core/sudo.mas'));
+                                (EBox::Config::stubs . 'core/sudo.mas'));
     $interp->exec($comp, @params);
 
     my $tmpFile = SUDOERS_FILE . '.tmp';
@@ -70,5 +69,4 @@ sub write_sudoers
     rename $tmpFile, SUDOERS_FILE;
     chmod 0440, SUDOERS_FILE;
 }
-
 
