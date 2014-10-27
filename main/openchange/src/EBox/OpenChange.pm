@@ -395,22 +395,11 @@ sub _postServiceHook
     my ($self, $enabled) = @_;
 
     if ($enabled) {
-        # Only if webmail enabled
-        my $webmail = 0;
-        my $model = $self->model('VDomains');
-        foreach my $id (@{$model->ids()}) {
-            my $row = $model->row($id);
-            $webmail = $row->valueByName('webmail_http');
-            $webmail |= $row->valueByName('webmail_https');
-            last if ($webmail);
-        }
-        if ($webmail) {
-            EBox::Sudo::root('service sogo restart');
-            # FIXME: common way to restart apache for rpcproxy, sogo and
-            #        activesync only if there are changes?
-            #        currently we are doing more than necessary
-            EBox::Sudo::root('service apache2 restart');
-        }
+        EBox::Sudo::root('service sogo restart');
+        # FIXME: common way to restart apache for rpcproxy, sogo and
+        #        activesync only if there are changes?
+        #        currently we are doing more than necessary
+        EBox::Sudo::root('service apache2 restart');
     }
 }
 
@@ -1093,7 +1082,7 @@ sub _certificateChanges
         my $vdomain = $row->printableValueByName('vdomain');
         if ((lc ($commonName) eq lc ($vdomain)) or $removeAll) {
             $self->setAsChanged(1);
-            EBox::Sudo::root("rm -f '/etc/ocsmanager/${vdomain}.pem' ");
+            EBox::Sudo::root("rm -f '/etc/ocsmanager/${vdomain}.pem'");
         }
     }
 }
