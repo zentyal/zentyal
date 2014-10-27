@@ -52,11 +52,11 @@ sub new
 #
 sub genCerts
 {
-    my ($self, $skipCN) = @_;
+    my ($self, $openchange) = @_;
 
     my @srvscerts = @{$self->srvsCerts()};
     foreach my $srvcert (@srvscerts) {
-        $self->_genCert($srvcert, $skipCN);
+        $self->_genCert($srvcert, $openchange);
     }
 }
 
@@ -171,7 +171,7 @@ sub srvsCerts
 #
 sub _genCert
 {
-    my ($self, $srvcert, $skipCN) = @_;
+    my ($self, $srvcert, $openchange) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -182,13 +182,14 @@ sub _genCert
 
     my $cn = $model->cnByService($serviceId);
     return undef unless (defined($cn));
-    if ($cn eq $skipCN) {
-        EBox::warn("Service certificate with CN=$cn is reserved and cannot be generated. Please, choose other CN");
-        return;
-    }
 
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
     if ((not defined($certMD)) or ($certMD->{state} ne 'V')) {
+        if ($openchange->certificateIsReserved($cn)) {
+            EBox::warn("Service certificate with CN=$cn is reserved and cannot be generated. Please, generate it using OpenChange certificate.");
+            return;
+        }
+        
         # Check the expiration date
         my $caMD = $ca->getCACertificateMetadata();
         $ca->issueCertificate(

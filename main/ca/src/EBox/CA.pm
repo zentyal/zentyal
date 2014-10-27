@@ -744,12 +744,16 @@ sub issueCertificate
     if (not defined $args{commonName}) {
         $self->_checkCertificateFieldsCharacters(%args);
     }
+    my $cn = $args{commonName};
     if (not $args{openchange}) {
-        my $openchangeCN = $self->_openchangeCertificateCN();
-        if ($openchangeCN and ($openchangeCN eq $args{commonName})) {
+
+        my $openchange = $self->global()->modInstance('openchange');
+        if ($openchange and $openchange->certificateIsReserved($cn)) {
             throw EBox::Exceptions::External(
-                __x('You cannot issue a certificate with CN {cn} because that CN is used by openchange. Saving changes or restarting openchange will regenerate that certifcate if needed',
-                   cn => $openchangeCN)
+                __x('You cannot issue a certificate with CN {cn} because that CN is reserved to domain certificate by OpenChange. You can issue it from the {oh}OpenChange virtual domains interface.{ch}',
+                   cn => $cn,
+                   oh => "<a href='/Mail/OpenChange'>",
+                   ch => '</a>')
             );
         }
     }
@@ -1962,8 +1966,8 @@ sub _supportActions
 sub _setConf
 {
     my ($self) = @_;
-    my $skipCN = $self->_openchangeCertificateCN();
-    EBox::CA::Certificates->genCerts($skipCN);
+    my $openchange = $self->global()->modInstance('openchange');
+    EBox::CA::Certificates->genCerts($openchange);
 }
 
 # Group: Private methods
@@ -2716,14 +2720,4 @@ sub caExpirationDate
     return $self->{caExpirationDate};
 }
 
-sub _openchangeCertificateCN
-{
-    my ($self) = @_;
-# FIXME
-#    my $openchange = $self->global()->modInstance('openchange');
-#    if ($openchange) {
-#        return $openchange->certificateCN();
-#    }
-    return undef;
-}
 1;
