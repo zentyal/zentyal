@@ -4,10 +4,6 @@
 
 URL=api.cloud.zentyal.com
 
-#FIXME
-echo "10.2.1.17 api.cloud.zentyal.com" >> /etc/hosts
-echo "hosts: files" >> /etc/nsswitch.conf
-
 DATA_DIR=/tmp/zinstaller-remote
 
 mkdir -p $DATA_DIR

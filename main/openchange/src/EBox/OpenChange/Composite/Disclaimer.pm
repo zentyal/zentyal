@@ -1,5 +1,3 @@
-# Copyright (C) 2014 Zentyal S.L.
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
 # published by the Free Software Foundation.
@@ -16,28 +14,43 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::CGI::Community::UnRegister;
+package EBox::OpenChange::Composite::Disclaimer;
 
-use base qw(EBox::CGI::ClientBase);
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
 
-sub optionalParameters
+# Group: Protected methods
+
+# Method: _description
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::_description>
+#
+sub _description
 {
-    return ['disassociate'];
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'Disclaimer',
+        pageTitle       => '',
+        compositeDomain => 'OpenChange',
+    };
+
+    return $description;
 }
 
-sub actuate
+sub permanentMessage
 {
-    my ($self) = @_;
+    return __x('{x}® and {y}® are registered trademarks of Microsoft ' .
+               'Corporation, and are registered in the USA and other ' .
+               'countries.', x => 'ActiveSync', y => 'Outlook');
+}
 
-    my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
-    $remoteservices->unregisterCommunityServer();
-    $self->setMsg(__('The server has been disassociated'));
-    $self->{chain} = '/RemoteServices/Backup/Index';
-    # Delete all CGI parameters for the chain
-    $self->request()->parameters()->clear();
+sub permanentMessageType
+{
+    return 'emptynote';
 }
 
 1;

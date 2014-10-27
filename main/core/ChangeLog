@@ -1,5 +1,9 @@
 4.0
 	+ sudoers-friendly take user to whatever module which implenents extraSudoerUsers
+	+ Implement data in use in JS for forms
+	+ Fixed ManageAdmins model and offer it in all editions
+	+ Pass row argument to editable function handler
+	+ Enable automatic updates on commercial servers by default
 	+ Remove excessive top margin for first child fields in forms
 	+ Better warning in change hostname confirmation dialog
 	+ Confirmation dialog action recovers correctly from errors

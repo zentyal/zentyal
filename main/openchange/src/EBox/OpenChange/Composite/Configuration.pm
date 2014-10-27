@@ -16,28 +16,31 @@
 use strict;
 use warnings;
 
-package EBox::RemoteServices::CGI::Community::UnRegister;
+package EBox::OpenChange::Composite::Configuration;
 
-use base qw(EBox::CGI::ClientBase);
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
 
-sub optionalParameters
-{
-    return ['disassociate'];
-}
+# Group: Protected methods
 
-sub actuate
+# Method: _description
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::_description>
+#
+sub _description
 {
-    my ($self) = @_;
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'General',
+        pageTitle       => __('Configuration'),
+        compositeDomain => 'OpenChange',
+    };
 
-    my $remoteservices = EBox::Global->getInstance()->modInstance('remoteservices');
-    $remoteservices->unregisterCommunityServer();
-    $self->setMsg(__('The server has been disassociated'));
-    $self->{chain} = '/RemoteServices/Backup/Index';
-    # Delete all CGI parameters for the chain
-    $self->request()->parameters()->clear();
+    return $description;
 }
 
 1;

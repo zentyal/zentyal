@@ -2391,10 +2391,11 @@ a.btn-only-icon{
     font-weight: normal;
     padding: 0 5px;
 }
-.btn-big{
-    font-size: 18px !important;
-    height: 50px !important;
-    line-height: 50px !important;
+.btn-big, .btn.btn-big{
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
 }
 a.btn,
 span.btn{
@@ -3339,4 +3340,12 @@ Responsive corrections
     #menu{
         display: block;
     }
+}
+
+
+/****
+OVERRIDED MODEL STYLES
+****/
+#RPCProxy_manage_row label {
+    display: none;
 }
