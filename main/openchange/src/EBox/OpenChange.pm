@@ -1035,6 +1035,7 @@ sub certificateIsReserved
 }
 # EBox::CA::Observer methods
 
+
 sub certificateRevoked
 {
     my ($self, $commonName, $isCACert) = @_;
@@ -1047,7 +1048,9 @@ sub certificateRevoked
         foreach my $id (@{$model->ids()}) {
             my $row = $model->row($id);
             my $vdomain = $row->printableValueByName('vdomain');
-            return 1 if (lc ($vdomain) eq lc ($commonName));
+            if (lc ($vdomain) eq lc ($commonName)) {
+                return $model->certificate($commonName) ? 1 : 0;
+            }
         }
     }
     return 0;
