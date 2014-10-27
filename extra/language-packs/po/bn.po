@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-10-14 19:40+0200\n"
+"PO-Revision-Date: 2014-10-21 09:40+0200\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: none\n"
 "Language: bn\n"
@@ -6049,7 +6049,6 @@ msgstr ""
 "জেন্ট্যায়াল্‌ ওয়েব সার্ভার"
 
 #: ../../main/core/src/EBox/WebAdmin.pm:686
-#, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr ""
 "#-#-#-#-#  bn.po (ebox-services 2.0Report-Msgid-Bugs-To: developers@zentyal."

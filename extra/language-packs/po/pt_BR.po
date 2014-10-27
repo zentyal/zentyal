@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-10-15 01:52+0200\n"
-"Last-Translator: flaviove <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2014-10-24 21:38+0200\n"
+"Last-Translator: kandrakah <kandrakah@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -7283,9 +7283,8 @@ msgid "The password was changed successfully."
 msgstr "A senha foi alterada com sucesso."
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:78
-#, fuzzy
 msgid "Change administrator password"
-msgstr "Trocar Senha"
+msgstr "Alterar senha de Administrador"
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:111
 msgid "New passwords do not match."

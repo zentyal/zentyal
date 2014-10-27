@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-10-20 03:37+0200\n"
+"PO-Revision-Date: 2014-10-26 08:04+0200\n"
 "Last-Translator: kwintim <bundit@servit.co.th>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: th\n"
@@ -593,7 +593,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "ติดตั้งได้เฉพาะเครื่องลูกข่าย Windows เท่านั้น"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:300
 msgid ""
