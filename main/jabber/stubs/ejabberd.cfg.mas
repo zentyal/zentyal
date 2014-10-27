@@ -131,15 +131,18 @@
 % if ($sharedroster) {
   {mod_shared_roster_ldap, [
     {ldap_filter, ""},
-    {ldap_rfilter, "(objectClass=group)"},
+    {ldap_rfilter, "(&(objectClass=group)(!(isCriticalSystemObject=*)))"},
     {ldap_gfilter, "(&(objectClass=group)(cn=%g))"},
-    {ldap_ufilter, "(&(jabberUid=%u)(objectClass=userJabberAccount))"},
+    {ldap_ufilter, "(&(objectClass=userJabberAccount)(distinguishedName=%u))"},
+    {ldap_group_is_dn, "off"},
     {ldap_groupattr, "cn"},
-    {ldap_groupdesc, "description"},
+    {ldap_groupdesc, "cn"},
     {ldap_memberattr, "member"},
-    {ldap_memberattr_format, "jabberUid=%u,<% $usersDn %>"},
+    {ldap_member_selection_mode, "memberattr_dn"},
     {ldap_useruid, "jabberUid"},
-    {ldap_userdesc, "cn"}
+    {ldap_useruid_format, "%u"},
+    {ldap_userdesc, "displayName"},
+    {ldap_auth_check, "off"}
   ]},
 % }
   {mod_sic, []},
