@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,38 +16,26 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::Composite::Configuration;
-
-use base 'EBox::Model::Composite';
+package EBox::OpenChange::CGI::IsProvisioned;
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Protected methods
-
-# Method: _description
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::_description>
-#
-sub _description
+sub new
 {
-    my $description = {
-        layout          => 'top-bottom',
-        name            => 'General',
-        pageTitle       => __('Configuration'),
-        compositeDomain => 'OpenChange',
-    };
-
-    return $description;
+        my ($class, @params) = @_;
+        my $self = $class->SUPER::new(@params);
+        bless($self, $class);
+        return  $self;
 }
 
-# this method is overriden to not display the disabled warning message , it is
-# already shown in the general composite
-sub disabledModuleWarning
+sub _process
 {
-    return undef;
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    my $openchange = $global->modInstance('openchange');
+    $self->{json}->{provisioned} = $openchange->isProvisioned();
 }
 
 1;
