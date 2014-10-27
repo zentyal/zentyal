@@ -138,7 +138,7 @@ sub preconditionFailMsg
         return '';
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        return __x('The {x} module is not provisioned',
+        return __x('The {x} module needs to be provisioned',
                    x => $self->parentModule->printableName());
     }
 

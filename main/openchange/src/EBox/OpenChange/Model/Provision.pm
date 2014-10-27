@@ -240,7 +240,7 @@ sub preconditionFailMsg
                   'it to apply the required changes by OpenChange.');
     }
     if ($self->{preconditionFail} eq 'notEnabled') {
-        return __x('You must enable the {x} module before provision its ' .
+        return __x('You must enable the {x} module to be able to provision its ' .
                    'database', x => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'vdomainNotFound') {
@@ -258,12 +258,12 @@ sub preconditionFailMsg
                   );
     }
     if ($self->{preconditionFail} eq 'unsavedChanges') {
-        return __x('There are unsaved changes. Please save them before '.
-                   'provision');
+        return __x('There are unsaved changes. Please save them be able to '.
+                   'provision the OpenChange database.');
     }
     if ($self->{preconditionFail} eq 'unsavedChangesAndNoCA') {
-        my $msg = __x('{op}There are unsaved changes. Please save them before '.
-                   'provision{cp}',
+        my $msg = __x('{op}There are unsaved changes. Please save them to be able to '.
+                   'provision the OpenChange database.{cp}',
                       op => '<p>',
                       cp => '</p>'
                      );
