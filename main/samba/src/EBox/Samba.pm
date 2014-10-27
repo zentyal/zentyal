@@ -2097,7 +2097,7 @@ sub initialSlaveSync
 {
     my ($self, $slave, $sync) = @_;
 
-    foreach my $user (@{$self->users()}) {
+    foreach my $user (@{$self->realUsers()}) {
         if ($sync) {
             $slave->sync('addUser', [ $user ]);
         } else {
