@@ -1080,7 +1080,7 @@ sub _certificateChanges
         my $vdomain = $row->printableValueByName('vdomain');
         if ((lc ($commonName) eq lc ($vdomain)) or $removeAll) {
             $self->setAsChanged(1);
-            EBox::Sudo::root("rm -f '/etc/ocsmanager/${vdomain}.pem");
+            EBox::Sudo::root("rm -f '/etc/ocsmanager/${vdomain}.pem'");
         }
     }
 }
