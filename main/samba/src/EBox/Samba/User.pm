@@ -79,6 +79,10 @@ use constant PASSWORD_EXPIRED               => 0x00800000;
 use constant TRUSTED_TO_AUTH_FOR_DELEGATION => 0x01000000;
 use constant PARTIAL_SECRETS_ACCOUNT        => 0x04000000;
 
+# These attributes' changes are notified to LDAP slaves
+use constant CORE_ATTRS => ('samAccountName', 'givenName', 'sn', 'description',
+                            'uidNumber', 'gidNumber', 'unicodePwd', 'supplementalCredentials');
+
 sub new
 {
     my $class = shift;
@@ -194,6 +198,31 @@ sub setCredentials
         critical => 1 );
     $self->save($bypassControl);
 }
+
+# Method: delete
+#
+#      Delete an attribute from the object
+#
+# Parameters:
+#
+#      attr - String the attribute's name
+#
+#      lazy - Boolean to perform the result directly or wait for
+#             <save> method
+#
+sub delete
+{
+    my ($self, $attr, $lazy) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any(CORE_ATTRS)) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::delete(@_);
+}
+
 
 # Method: deleteObject
 #
@@ -339,10 +368,10 @@ sub setHomeDrive
 #
 #   Adds a new user
 #
-# Parameters:
+# Named parameters:
 #
-#   args - Named parameters:
-#       name *optional*
+#       samAccountName
+#       parent
 #       givenName
 #       initials
 #       sn
@@ -354,6 +383,7 @@ sub setHomeDrive
 #       kerberosKeys - Set of kerberos keys
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber - user UID number
+#       ignoreSlaves - Boolean to avoid notifying LDAP slaves
 #
 # Returns:
 #
@@ -478,6 +508,10 @@ sub create
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled(1);
+        }
+
+        if ($args{ignoreSlaves}) {
+            $res->{ignoreSlaves} = $args{ignoreSlaves};
         }
 
         $res->setupUidMapping($uidNumber);
@@ -699,6 +733,11 @@ sub set
         $self->{set_quota} = 1;
     }
 
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any(CORE_ATTRS)) {
+        $self->{core_changed} = 1;
+    }
+
     shift @_;
     $self->SUPER::set(@_);
 }
@@ -730,6 +769,7 @@ sub save
 
     if ($changetype ne 'delete') {
         if ($hasCoreChanges or defined $passwd) {
+            delete $self->{core_changed};
 
             my $usersMod = $self->_usersMod();
             $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
@@ -822,19 +862,25 @@ sub _setFilesystemQuota
 
 # Method: setPasswordFromHashes
 #
-#   Configure user password directly from its kerberos hashes
+#   Configure user password directly from its kerberos hashes.
+#
+#   It transforms the kerberos keys to Samba credentials (unicodePwd
+#   and suplementalCredentials attributes)
 #
 # Parameters:
 #
 #   passwords - array ref of krb5keys
 #
+#   lazy - boolean this is ignored. See <setCredentials> for details.
+#
 sub setPasswordFromHashes
 {
     my ($self, $passwords, $lazy) = @_;
 
-    $self->set('userPassword', '{K5KEY}', $lazy);
-    $self->set('krb5Key', $passwords, $lazy);
-    $self->set('krb5KeyVersionNumber', 1, $lazy);
+    if (@{$passwords}) {
+        my $krb5keys = $self->decodeKrb5Keys($passwords);
+        $self->setCredentials($krb5keys);
+    }
 }
 
 # Method: passwordHashes
@@ -843,12 +889,44 @@ sub setPasswordFromHashes
 #
 #   [ hash, hash, ... ]
 #
+# Returns:
+#
+#   array ref
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if we cannot get the
+#   password hashes
+#
 sub passwordHashes
 {
     my ($self) = @_;
 
-    my @keys = $self->get('krb5Key');
-    return \@keys;
+    # To get password and credentials we need to use a special measure
+    # by getting the attributes explicitly. This is possible because
+    # we are reading from a special socket provided to do this.
+    my $result = $self->_ldap()->search(
+        { base   => $self->_ldap()->dn(),
+          scope  => 'sub',
+          filter => '(samAccountName=' . $self->name() . ')',
+          attrs  => ['supplementalCredentials', 'unicodePwd']});
+    if ($result->count() != 1) {
+        throw EBox::Exceptions::Internal('Cannot get the passwords for ' . $self->name());
+    }
+    my $entry = $result->pop_entry();
+    my ($unicodePwd, $suppCred) = ($entry->get_value('unicodePwd'),
+                                   $entry->get_value('supplementalCredentials'));
+
+    my $sambaCredentials = new EBox::Samba::Credentials(
+        unicodePwd => $unicodePwd,
+        supplementalCredentials => $suppCred
+       );
+
+    my $krb5Keys = $sambaCredentials->kerberosKeys();
+    # Transform to set it as proper value for krb5Keys in OpenLDAP
+    $krb5Keys = $self->_krb5Keys($krb5Keys);
+
+    return $krb5Keys;
 }
 
 sub _checkUserName
@@ -1001,9 +1079,14 @@ sub defaultQuota
     return $value;
 }
 
-# Method: kerberosKeys
+# Method: decodeKrb5Keys
 #
-#     Return the Kerberos key hashes for this user
+#     Return the Kerberos key hashes for this user decoded using
+#     krb5Key.asn file.
+#
+# Parameters:
+#
+#     krb5Keys - Array ref containing the encoded Kerberos 5 keys.
 #
 # Returns:
 #
@@ -1015,9 +1098,9 @@ sub defaultQuota
 #
 #         salt  - String the salt (only valid for 18 and 16 types)
 #
-sub kerberosKeys
+sub decodeKrb5Keys
 {
-    my ($self) = @_;
+    my ($self, $krb5Keys) = @_;
 
     my $keys = [];
 
@@ -1028,8 +1111,7 @@ sub kerberosKeys
     my $asn_key = $asn->find('Key') or
         throw EBox::Exceptions::Internal($asn->error());
 
-    my @aux = $self->get('krb5Key');
-    foreach my $blob (@aux) {
+    foreach my $blob (@{$krb5Keys}) {
         my $key = $asn_key->decode($blob) or
             throw EBox::Exceptions::Internal($asn_key->error());
         push @{$keys}, {
@@ -1042,7 +1124,8 @@ sub kerberosKeys
     return $keys;
 }
 
-sub setKerberosKeys
+# Transform samba credentials to krb5Keys expected by OpenLDAP
+sub _krb5Keys
 {
     my ($self, $keys) = @_;
 
@@ -1094,8 +1177,7 @@ sub setKerberosKeys
         throw EBox::Exceptions::Internal($asn_key->error());
         push (@{$blobs}, $blob);
     }
-    $self->set('krb5Key', $blobs);
-    $self->set('userPassword', '{K5KEY}');
+    return $blobs;
 }
 
 1;

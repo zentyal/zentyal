@@ -939,8 +939,7 @@ sub _setConfInternal
         push(@params, 'cloudsync_enabled' => 1);
     }
 
-    # TODO: No users sync in 3.4, reenable in 4.0
-    #$self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
+    $self->writeConfFile(CRONFILE, "samba/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -2297,12 +2296,11 @@ sub menu
             $folder->add(new EBox::Menu::Item(
                 'url'  => 'Samba/Composite/UserTemplate',
                 'text' => __('User Template'), order => 30));
-            # TODO: re-enable this in Zentyal 4.0 for Cloud Sync
-            #        if ($self->mode() eq STANDALONE_MODE) {
-            #            $folder->add(new EBox::Menu::Item(
-            #                'url'  => 'Samba/Composite/Sync',
-            #                'text' => __('Synchronization'), order => 40));
-            #        }
+            if ($self->mode() eq STANDALONE_MODE) {
+                $folder->add(new EBox::Menu::Item(
+                    'url'  => 'Samba/View/Master',
+                    'text' => __('Synchronization'), order => 40));
+            }
         }
 
         $folder->add(new EBox::Menu::Item(

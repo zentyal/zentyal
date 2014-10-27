@@ -74,7 +74,7 @@ sub _table
 
     my $master_options = [
         { value => 'none', printableValue => __('None') },
-        { value => 'zentyal', printableValue => __('Other Zentyal Server') },
+        #{ value => 'zentyal', printableValue => __('Other Zentyal Server') },
 
     ];
 
@@ -140,7 +140,7 @@ sub precondition
 {
     my ($self) = @_;
     my $usersMod = $self->parentModule();
-    return $usersMod->mode() eq $usersMod->STANDALONE_MODE();
+    return ($usersMod->mode() eq $usersMod->STANDALONE_MODE());
 }
 
 # Method: viewCustomizer
@@ -217,7 +217,7 @@ sub validateTypedRow
         my $res = $rest->GET("/v1/users/realm/")->data();
         my $realm = $res->{realm};
 
-        # If cloud is already provisoned destroy local users before sync
+        # If cloud is already provisioned destroy local users before sync
         $destroy = 0 if (not $realm);
 
         if ($realm and ($usersMod->kerberosRealm() ne $realm)) {
@@ -271,6 +271,14 @@ sub validateTypedRow
     $webAdminMod->setAsChanged();
 }
 
+# Method: master
+#
+# Returns:
+#
+#     String - the master type
+#
+#        Possible values - none, cloud or zentyal
+#
 sub master
 {
     my ($self) = @_;

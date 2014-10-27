@@ -56,8 +56,29 @@ sub mock_ldap_dn : Test(setup)
 {
     my ($self) = @_;
 
-    $self->{mock_ldap} = new Test::MockModule('EBox::Ldap');
-    $self->{mock_ldap}->mock('dn', sub { return 'dc=example,dc=com'; });
+    $self->{ldapObj} = new Test::MockObject();
+    $self->{ldapObj}->set_always('dn', 'dc=example,dc=com');
+    # Mock LDAP dn
+    $self->{mock_ldap} = new Test::MockModule('EBox::Samba::LdapObject');
+    $self->{mock_ldap}->mock('_ldap', sub { $self->{ldapObj} });
+}
+
+sub mock_samba_user : Test(setup)
+{
+    my ($self) = @_;
+
+    $self->{sambaUserMod} = new Test::MockModule('EBox::Samba::User');
+    $self->{sambaUserMod}->mock('passwordHashes', sub { return ['a', 'b', 'c'] });
+}
+
+sub setUpInstance : Test(setup)
+{
+    my ($self) = @_;
+
+    $self->{slave} = new EBox::CloudSync::Slave();
+    $self->{slave} = new Test::MockObject::Extends($self->{slave});
+    $self->{slave}->{usersMod} = new Test::MockObject();
+    $self->{slave}->{usersMod}->mock('ldap', sub { return $self->{ldapObj}});
 }
 
 sub _mockRESTClient
@@ -102,14 +123,6 @@ sub _mockRESTClient
     return $mockClient;
 }
 
-sub setUpInstance : Test(setup)
-{
-    my ($self) = @_;
-
-    $self->{slave} = new EBox::CloudSync::Slave();
-    $self->{slave} = new Test::MockObject::Extends($self->{slave});
-}
-
 sub _getTestUser
 {
     my ($self, $name, %params) = @_;
@@ -142,7 +155,7 @@ sub test_add_user :  Test(11)
         description => 'newUserDescription',
         uid         => '1234',
         gid         => '5678',
-        passwords   => [],
+        passwords   => ["YQ==\n", "Yg==\n", "Yw==\n"],  # Base 64 Encoding of a b and c
         ou          => 'ou=Users,',
     );
 
@@ -150,9 +163,7 @@ sub test_add_user :  Test(11)
     my $mockedRESTClient = $self->_mockRESTClient();
     my $slave = $self->{slave};
     $slave->mock('RESTClient', sub { return $mockedRESTClient });
-    Test::MockObject->fake_module(
-        'EBox::Samba',
-        userByUID => sub { return $newUser; });
+    $slave->{usersMod}->set_always('userByUID', $newUser);
 
     lives_ok {
         $slave->_addUser($newUser);
@@ -192,16 +203,14 @@ sub test_modify_user :  Test(11)
         description => 'newUserDescription',
         uid         => '1234',
         gid         => '5678',
-        passwords   => [],
+        passwords   => ["YQ==\n", "Yg==\n", "Yw==\n"],  # Base 64 Encoding of a b and c
         ou          => 'ou=Users,',
     );
     my $newUser = $self->_getTestUser($name, %expectedOutput);
     my $mockedRESTClient = $self->_mockRESTClient();
     my $slave = $self->{slave};
     $slave->mock('RESTClient', sub { return $mockedRESTClient });
-    Test::MockObject->fake_module(
-        'EBox::Samba',
-        userByUID => sub { return $newUser; });
+    $slave->{usersMod}->set_always('userByUID', $newUser);
 
     lives_ok {
         $slave->_modifyUser($newUser);

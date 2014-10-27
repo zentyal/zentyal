@@ -1,4 +1,5 @@
 4.0
+	+ Implement data in use in JS for forms
 	+ Fixed ManageAdmins model and offer it in all editions
 	+ Pass row argument to editable function handler
 	+ Enable automatic updates on commercial servers by default
