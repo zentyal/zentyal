@@ -122,19 +122,6 @@ sub initialSetup
         EBox::Sudo::silentRoot('service apache2 reload');
         EBox::Sudo::root('rm -f /etc/apache2/conf-available/sogo.conf');
 
-        # save certificate serial, we assume that the certificate from 4.0< is
-        # valid to not issue a new certifiate
-        my $cn = $self->certificateCN();
-        if ($cn) {
-            my $ca = $self->global()->modInstance('ca');
-            my $domainCert = $ca->getCertificateMetadata(cn => $cn);
-            if ($domainCert) {
-                my $state = $self->get_state();
-                $state->{certificate_serial_number} = $domainCert->{serialNumber};
-                $self->set_state($state);
-            }
-        }
-
         my $firewall = $self->global()->modInstance('firewall');
         $firewall->setInternalService('HTTPS', 'accept');
         $firewall->saveConfigRecursive();
