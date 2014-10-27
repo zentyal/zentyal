@@ -116,14 +116,13 @@ for my $ruser (@{$rusers}) {
                 }
             }
 
+            $luser->save() if ($changed);
+
             # Update passwords
             my $passwords = $luser->passwordHashes();
             unless (@{$ruser->{passwords}} ~~ @{$passwords}) {
                 $luser->setPasswordFromHashes($ruser->{passwords}, 1);
-                $changed = 1;
             }
-
-            $luser->save() if ($changed);
 
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
