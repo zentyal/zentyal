@@ -189,15 +189,22 @@ sub precondition
     #    return undef;
     #}
 
-    my $ca = $self->global()->modInstance('ca');
-    if (not $ca->isAvailable()) {
-        $self->{preconditionFail} = 'noCA';
-        return undef;
-    }
 
-    # Check there are not unsaved changes
-    if ($self->global->unsaved() and (not $self->parentModule->isProvisioned())) {
-        $self->{preconditionFail} = 'unsavedChanges';
+    my $ca = $self->global()->modInstance('ca');
+    my $availableCA = $ca->isAvailable();
+    my $unsavedChanges = $self->global->unsaved() and (not $self->parentModule->isProvisioned());
+    # Check there are not unsaved changes and CA is availabe
+    if ($unsavedChanges) {
+        if ($availableCA) {
+            $self->{preconditionFail} = 'unsavedChanges';
+        } else {
+            $self->{preconditionFail} = 'unsavedChangesAndNoCA';            
+        }
+
+        return undef;
+    } 
+    if (not $availableCA) {
+        $self->{preconditionFail} = 'noCA';
         return undef;
     }
 
@@ -233,7 +240,7 @@ sub preconditionFailMsg
                   'it to apply the required changes by OpenChange.');
     }
     if ($self->{preconditionFail} eq 'notEnabled') {
-        return __x('You must enable the {x} module before provision the ' .
+        return __x('You must enable the {x} module before provision its ' .
                    'database', x => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'vdomainNotFound') {
@@ -253,6 +260,20 @@ sub preconditionFailMsg
     if ($self->{preconditionFail} eq 'unsavedChanges') {
         return __x('There are unsaved changes. Please save them before '.
                    'provision');
+    }
+    if ($self->{preconditionFail} eq 'unsavedChangesAndNoCA') {
+        my $msg = __x('{op}There are unsaved changes. Please save them before '.
+                   'provision{cp}',
+                      op => '<p>',
+                      cp => '</p>'
+                     );
+        $msg .= __x('{op}There is not an available Certication Authority. You must {oh}create or renew it{ch}{cp}',
+                    oh => "<a href='/CA/Index'>",
+                    ch => "</a>",
+                    op => '<p>',
+                    cp => '</p>'
+                   );
+        return $msg;
     }
 }
 
@@ -590,10 +611,14 @@ sub customActionClickedJS
    };
     var acceptMethod = function() {
          $customActionClickedJS;
-         Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+         \$.getJSON('/SysInfo/HasUnsavedChanges',  function(response) {
+               if (response.changed) {
+                 Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
                                                          dialogClass: 'no-close',
                                                          closeOnEscape: false
                                                         });
+              }
+         });
      };
     Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
     return false;

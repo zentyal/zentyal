@@ -106,11 +106,20 @@ sub precondition
     my ($self) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
+    my $enabled = $self->parentModule->isEnabled();
+
     unless ($ca->isAvailable()) {
-        $self->{preconditionFail} = 'noCA';
+        if ($enabled) {
+            $self->{preconditionFail} = 'noCA';
+        } else  {
+            $self->{preconditionFail} = 'notEnabledAndNoCA';
+        }
         return 0;
     }
-
+    unless ($enabled) {
+        $self->{preconditionFail} = 'notEnabled';
+        return 0;
+    }
     unless ($self->parentModule()->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
         return 0;
@@ -124,12 +133,21 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
+    if ($self->{preconditionFail} eq 'notEnabled') {
+        # no show message because Provision model precondition takes care of this
+        return '';
+    }
     if ($self->{preconditionFail} eq 'notProvisioned') {
         return __x('The {x} module is not provisioned',
                    x => $self->parentModule->printableName());
     }
 
     if ($self->{preconditionFail} eq 'noCA') {
+        # no showed because this precoindition is showed in the Provision model
+        return '';
+    } elsif ($self->{preconditionFail} eq 'notEnabledAndNoCA') {
+        # showed becuase in this case there is other precondition shown in the
+        # Provision model
         return __x('There is not an available Certication Authority. You must {oh}create or renew it{ch}',
                    oh => "<a href='/CA/Index'>",
                    ch => "</a>"

@@ -536,14 +536,13 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconditionFail} eq 'notEnabled') {
-        return __x('You must enable the {x} module before configuring the ' .
-                   'virtual domains. ',
-                   x => $self->parentModule->printableName());
+        # no show message because provision model precondition takes care of this
+        return '';
     }
 
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        return __x('The {x} module is not provisioned',
-                   x => $self->parentModule->printableName());
+        # no shown message because it is already shown in the rpcproxy model
+        return '';
     }
 
     if ($self->{preconditionFail} eq 'novdomains') {
