@@ -9,25 +9,19 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var aboutToFinish = false;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
             success: function(response) {
                 $('#output').html(response.output);
-                if (aboutToFinish || response.finished) {
-                    $('#webadmin_ko').hide();
-                    $('#ajax_loader_upgrade').hide();
-                    $('#finished').show();
-                    $('#close_button').show();
-                }
             }
         }).fail(function (jqXHR) {
-            if ((jqXHR.status == 404) && !aboutToFinish) {
-                aboutToFinish = true;
-                $('#output').hide();
-                $('#webadmin_ko').show();
+            if (jqXHR.status >= 502) {
+                $('#webadmin_ko').hide();
+                $('#ajax_loader_upgrade').hide();
+                $('#finished').show();
+                $('#close_button').show();
             }
         });
         setTimeout(updateOutput, 1000);
@@ -86,6 +80,6 @@ Upgrade finished! You will be redirected to the login page of Zentyal 4.0 after 
 <center>
 <img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
 <button id="ok_button" onclick="doReleaseUpgrade(); return false;">Continue</button>
-<button id="close_button" onclick="window.location.reload(); return false;" style="display: none">Close</button>
+<button id="close_button" onclick="window.location.port = 8443; return false;" style="display: none">Close</button>
 </center>
 </div>
