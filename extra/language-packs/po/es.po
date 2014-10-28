@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-10-28 00:21+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2014-10-28 12:50+0200\n"
+"Last-Translator: figarocorso <mjulian@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -2619,6 +2619,9 @@ msgid ""
 "domain certificate by OpenChange. You can issue it from the {oh}OpenChange "
 "virtual domains interface.{ch}"
 msgstr ""
+"No se puede emitir un certificado con la CN {cn} porque dicha CN está "
+"reservada para el certificado de dominio de OpenChange. Puedes emitirlo "
+"desde la interfaz de dominios virtuales de {oh}OpenChange{ch}."
 
 #: ../../main/ca/src/EBox/CA.pm:925 ../../main/ca/src/EBox/CA.pm:1261
 #: ../../main/ca/src/EBox/CA.pm:1331 ../../main/ca/src/EBox/CA.pm:1425
@@ -2983,6 +2986,9 @@ msgid ""
 "The CN {cn} is reserved by OpenChange and cannot be generated automatically. "
 "You can issue it from the {oh}OpenChange virtual domains interface.{ch}"
 msgstr ""
+"El CN {cn} está reservado para OpenChange y no puede ser generado de forma "
+"automática. Puedes emitirlo desde la {oh}interfaz de dominios virtuales de "
+"OpenChange{ch}."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:66
 msgid "Signatures"
@@ -7611,15 +7617,16 @@ msgstr ""
 "Sólo se pueden restaurar los backups de la versión actual de Zentyal."
 
 #: ../../main/core/src/EBox/Backup.pm:1011
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Could not restore the backup because a mismatch between its Zentyal version "
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv}"
 msgstr ""
-"No se puede restaurar el backup por diferencia de versiones. El backup fue "
-"realizado con la versión de Zentyal {bv} y este sistema solo puede restaurar "
-"backups de la versión de Zentyal {wv}"
+"No se puede restaurar el backup debido a una diferencia de versiones entre "
+"la versión de Zentyal del backup y la versión actual del sistema. El backup "
+"fue realizado con la versión de Zentyal {bv} y este sistema sólo puede "
+"restaurar backups a partir de la versión de Zentyal {wv}"
 
 #: ../../main/core/src/EBox/Backup.pm:1153
 msgid "Installing Zentyal packages in backup..."
@@ -7917,6 +7924,8 @@ msgid ""
 "{x} and {y} are registered trademarks of Microsoft Corporation, and are "
 "registered in the USA and other countries."
 msgstr ""
+"{x} y {y} son marcas registradas de Microsoft Corporation, y están "
+"registradas en Estados Unidos y otros países."
 
 # Is a product. Same name.
 #: ../../main/openchange/src/EBox/OpenChange/Composite/General.pm:38
@@ -7959,6 +7968,8 @@ msgid ""
 "MAPI clients have to import your CA certificate in order to trust the RPC/"
 "MAPI proxy."
 msgstr ""
+"Los clientes MAPI tienen que importar tu certificado de CA para poder "
+"confiar el proxy RPC/MAPI."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:101
 msgid "The CA is not available."
@@ -7985,18 +7996,16 @@ msgid "Virtual domain"
 msgstr "Dominio virtual"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
-#, fuzzy
 msgid "DNS domain managed by Zentyal"
-msgstr "El dominio de correo {d} no está gestionado por Zentyal"
+msgstr "Dominio DNS gestionado por Zentyal"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:60
-#, fuzzy
 msgid "Certificate in place"
-msgstr "Fichero del certificado"
+msgstr "Certificado en orden"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:68
 msgid "Auto Discover DNS record"
-msgstr ""
+msgstr "Registro DNS Auto Discover"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
 msgid ""
@@ -8004,6 +8013,9 @@ msgid ""
 "server configuration. To enable this option the domain has to be handled by "
 "Zentyal DNS."
 msgstr ""
+"Habilita el servicio Auto Discover. Tu cliente MAPI encontrará de forma "
+"automática la configuración del servidor. Para habilitar esta opción el "
+"dominio debe estar gestionado por Zentyal."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:82
 msgid "Outlook Anywhere (no SSL)"
@@ -8011,7 +8023,7 @@ msgstr "Outlook Anywhere (sin SSL)"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:86
 msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
-msgstr ""
+msgstr "Acceso RPC sobre HTTP. Version no-SSL de MAPI/RPC sobre HTTP."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:91
 msgid "Outlook Anywhere (SSL)"
@@ -8022,6 +8034,9 @@ msgid ""
 "RPC over HTTPS access. MAPI/RPC over HTTP, SSL enabled version. To enable "
 "this option you have to \"Issue Certificate\" first."
 msgstr ""
+"Acceso RPC sobre HTTPS. Habilita la version SSL de MAPI/RPC sobre HTTP. Para "
+"habilitar esta opción necesitas primero \"Emitir Certificado\" para el "
+"dominio."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
 msgid "Webmail"
@@ -8029,7 +8044,7 @@ msgstr "Webmail"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:106
 msgid "Webmail and groupware platform. Non-SSL version."
-msgstr ""
+msgstr "Plataforma de webmail y groupware. Versión no-SSL."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:111
 msgid "HTTPS webmail enabled"
@@ -8040,6 +8055,9 @@ msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
+"Plataforma de webmail y groupware. Versión con SSL habilitado. Para "
+"habilitar esta opción necesitas primero \"Emitir Certificado\" para este "
+"dominio."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:128
 msgid "Revoke certificate"
@@ -8055,14 +8073,12 @@ msgstr "Emitir certificado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
-#, fuzzy
 msgid "Certificate issued"
-msgstr "Fichero del certificado"
+msgstr "Certificado emitido"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
-#, fuzzy
 msgid "Revoke and reissue certificate"
-msgstr "Revocar un certificado"
+msgstr "Certificado revocado y re-emitido"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:151
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
@@ -8077,21 +8093,23 @@ msgid ""
 "This table is summary of the attributes and access gateways associated with "
 "each virtual mail domain."
 msgstr ""
+"En esta tabla se muestra un resumen de los atributos y modos de acceso "
+"asociados con cada uno de los dominios virtuales de correo."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:419
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Certificate for domain {x} already exists."
-msgstr "{data} ya existente: {value}."
+msgstr "El certificado para el dominio {x} ya existe."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:438
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Certificate for domain {x} does not exists."
-msgstr "El certificado {cn} no existe"
+msgstr "El certificado para el dominio {x} no existe."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:593
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "There are not configured {oh}virtual domains{ch}."
-msgstr "No hay registros para este dominio"
+msgstr "No se ha configurado ningún {oh}dominio virtual{ch}."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:52
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:60
@@ -8099,18 +8117,17 @@ msgid "ActiveSync"
 msgstr "ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:55
-#, fuzzy
 msgid "Enable ActiveSync support for all the mail domains"
-msgstr "Enviar un copía de todos los dominios de email"
+msgstr "Habilitar soporte ActiveSync para todos los dominios de correo."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:64
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
+"Enlace ActiveSync, un protocolo estándar para diversos dispositivos móviles."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:99
-#, fuzzy
 msgid "The required packages are not installed."
-msgstr "Se instalarán los siguientes paquetes"
+msgstr "Los paquetes requeridos no están instalados."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:104
 #, perl-brace-format
@@ -8159,6 +8176,8 @@ msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
+"Configura el servidor de groupware OpenChange. Se extenderá e inicializará "
+"los valores requeridos en el esquema de LDAP."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:224
 #, perl-brace-format
@@ -8179,31 +8198,30 @@ msgstr ""
 "de Dominios Virtuales{chref}."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:261
-#, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr ""
-"Hay cambios sin guardar. Por favor, guárdalos antes de configurar por "
-"primera vez "
+"Hay cambios sin guardar. Por favor, guárdalos antes de configurar la base de "
+"datos de OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:265
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr ""
-"Hay cambios sin guardar. Por favor, guárdalos antes de configurar por "
-"primera vez "
+"{op}Hay cambios sin guardar. Por favor, guárdalos para poder configurar la "
+"base de datos de OpenChange.{cp}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:270
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr ""
-"No existe una Autoridad Certificadora disponible. Debes {oh}crearla o "
-"renovarla{ch}"
+"{op}No existe una Autoridad Certificadora disponible. Debes {oh}crearla o "
+"renovarla{ch}{cp}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:423
 #, perl-brace-format
@@ -10609,7 +10627,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:473
 msgid "Cannot get root DSE, please check your server"
-msgstr ""
+msgstr "No se ha podido obtener la raíz DSE, compruebe su servidor por favor"
 
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:560
 msgid "Error creating computer account for Zentyal server:"
@@ -15485,22 +15503,23 @@ msgid "User groups"
 msgstr "Grupos del usuario"
 
 #: ../../main/samba/src/templates/edituser.mas:145
-#, fuzzy
 msgid "Remove mail account"
-msgstr "Crear cuenta de correo"
+msgstr "Eliminar cuenta de correo"
 
 #: ../../main/samba/src/templates/edituser.mas:145
 msgid "This action removes the mail account and its associated data."
 msgstr ""
+"Esta acción eliminará la cuenta de correo y los datos asociados a la misma."
 
 #: ../../main/samba/src/templates/edituser.mas:148
-#, fuzzy
 msgid "Replace mail account"
-msgstr "Crear cuenta de correo"
+msgstr "Reemplazar cuenta de correo"
 
 #: ../../main/samba/src/templates/edituser.mas:148
 msgid "Replacing the mail account removes all its current data."
 msgstr ""
+"Reemplazar la cuenta de correo elimina todos los datos asociados a dicha "
+"cuenta."
 
 #: ../../main/samba/src/templates/edituser.mas:199
 #: ../../main/samba/src/templates/edituser.mas:283
@@ -15514,12 +15533,12 @@ msgstr "Añadir grupo"
 
 #: ../../main/samba/src/templates/wizard/users.mas:8
 msgid "Change server local domain?"
-msgstr "¿Cambiar el dominio local del servidor?"
+msgstr "¿Desea cambiar el dominio local del servidor?"
 
 #: ../../main/samba/src/templates/wizard/users.mas:9
 #, perl-brace-format
 msgid "{op}This action will trigger the change of the actual host name.{cp}"
-msgstr "{op}Esta acción conllevará el cambio del nombre de host efectivo.{cp}"
+msgstr "{op}Esta acción cambiará el nombre existente del host.{cp}"
 
 #: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
@@ -15531,11 +15550,11 @@ msgstr "Seleccionar el tipo de servidor"
 
 #: ../../main/samba/src/templates/wizard/users.mas:25
 msgid "Connect with external Active Directory server"
-msgstr "Conectar con servidor de Directorio Activo externo"
+msgstr "Conectar con  un servidor de Active Directory externo"
 
 #: ../../main/samba/src/templates/wizard/users.mas:96
 msgid "Select the domain name of the server"
-msgstr "Seleccionar nombre del dominio del servidor"
+msgstr "Seleccionar nombre de dominio del servidor"
 
 #: ../../main/samba/src/templates/wizard/users.mas:98
 msgid "Host domain name"
