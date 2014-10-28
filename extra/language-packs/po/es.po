@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-10-27 18:58+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2014-10-28 00:21+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -3793,7 +3793,7 @@ msgid "The Tunnel IP {localIP} is not part of any local network"
 msgstr "La IP del túnel {localIP} no forma parte de ninguna red local"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:283
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the selected tunnel IP address: {localIP}"
 msgstr ""
 "El rango {from}-{to} ({name}) incluye la dirección IP del túnel : {localIP}"
@@ -3839,14 +3839,12 @@ msgid "Pre-shared key for the IPsec connection."
 msgstr "Pre-shared key para la conexión IPsec"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:361
-#, fuzzy
 msgid "Range start"
-msgstr "Reiniciar"
+msgstr "Inicio del rango"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:367
-#, fuzzy
 msgid "Range end"
-msgstr "Rango"
+msgstr "Fin del rango"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:379
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:354
@@ -6298,9 +6296,8 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:32
-#, fuzzy
 msgid "Upgrade to Zentyal 4.0"
-msgstr "Actualizar a Zentyal 3.4"
+msgstr "Actualizar a Zentyal 4.0"
 
 #: ../../main/core/src/EBox/CGI/Search.pm:29
 #: ../../main/core/src/templates/ajax/tableBody.mas:266
@@ -7942,24 +7939,20 @@ msgid "This user has a openchange account."
 msgstr "Este usuario tiene una cuenta de OpenChange."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
-#, fuzzy
 msgid "CA name"
-msgstr "nombre"
+msgstr "Nombre de la CA"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:58
-#, fuzzy
 msgid "CA Certificate"
-msgstr "Certificado"
+msgstr "Certificado AC"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:67
-#, fuzzy
 msgid "Manage certificates"
-msgstr "Crear certificados"
+msgstr "Gestionar certificados"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:78
-#, fuzzy
 msgid "Outlook Anywhere access"
-msgstr "Habilitar el acceso de Outlook"
+msgstr "Acceso Outlook Anywhere"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:82
 msgid ""
@@ -7968,14 +7961,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:101
-#, fuzzy
 msgid "The CA is not available."
-msgstr "Servicio de ficheros de Zentyal Cloud no disponible"
+msgstr "La Autoridad Certificadora no está disponible."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:141
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {x} module needs to be provisioned"
-msgstr "El FQDN {x} no parece válido"
+msgstr "El módulo {x} necesita ser configurado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:151
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:365
@@ -8015,7 +8007,7 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:82
 msgid "Outlook Anywhere (no SSL)"
-msgstr ""
+msgstr "Outlook Anywhere (sin SSL)"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:86
 msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
@@ -8023,7 +8015,7 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:91
 msgid "Outlook Anywhere (SSL)"
-msgstr ""
+msgstr "Outlook Anywhere (SSL)"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:95
 msgid ""
@@ -8040,9 +8032,8 @@ msgid "Webmail and groupware platform. Non-SSL version."
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:111
-#, fuzzy
 msgid "HTTPS webmail enabled"
-msgstr "Servicio habilitado"
+msgstr "Webmail HTTPS habilitado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:115
 msgid ""
@@ -8051,19 +8042,16 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:128
-#, fuzzy
 msgid "Revoke certificate"
 msgstr "Revocar certificado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:130
-#, fuzzy
 msgid "Certificate revoked"
-msgstr "El certificado ya se revocó"
+msgstr "Certificado revocado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
-#, fuzzy
 msgid "Issue certificate"
-msgstr "Re-emitir un certificado"
+msgstr "Emitir certificado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
@@ -8107,9 +8095,8 @@ msgstr "No hay registros para este dominio"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:52
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:60
-#, fuzzy
 msgid "ActiveSync"
-msgstr "Habilitar Active Sync"
+msgstr "ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:55
 #, fuzzy

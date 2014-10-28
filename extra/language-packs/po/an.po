@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-10-21 09:39+0200\n"
+"PO-Revision-Date: 2014-10-27 23:24+0200\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: an\n"
@@ -7876,7 +7876,6 @@ msgid ""
 msgstr "Creyar Zertificato de l'Autoridá de Zertificazión"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:46
-#, fuzzy
 msgid "Virtual domain"
 msgstr ""
 "#-#-#-#-#  an.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
@@ -10683,7 +10682,6 @@ msgid "Manage"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:2302
-#, fuzzy
 msgid "Synchronization"
 msgstr "Backup d'a confegurazión"
 
