@@ -114,7 +114,7 @@ sub setAccountEnabled
         $cmd .= ' --disable ';
     }
     if (defined $mail and length $mail) {
-        $cmd .= " --mail $mail ";
+        $cmd .= " --mailbox $mail ";
     }
     $cmd .= " '$samAccountName' ";
     EBox::Sudo::root($cmd);
