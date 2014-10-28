@@ -148,7 +148,7 @@ for my $ruser (@{$rusers}) {
 
 for my $user (@{$lusers}) {
     my $name = $user->name();
-    if (not $rusernames->{$name} and scalar(@{$user->passwordHashes()})) {
+    if (not $rusernames->{$name} and scalar(@{$user->passwordHashes()}) and $user->checkObjectErasability()) {
         EBox::info("Local user $name not present in remote, removing...");
         $user->setIgnoredSlaves(IGNORE);
         $user->deleteObject();
@@ -222,7 +222,7 @@ for my $group (@{$lgroups}) {
     my $name = $group->name();
     if (not $group->isSecurityGroup()) {
         EBox::info("Local distribution group $name not synced...");
-    } elsif (not $rgroupnames->{$name}) {
+    } elsif (not $rgroupnames->{$name} and $group->checkObjectErasability()) {
         EBox::info("Local security group $name not present in remote, removing...");
         $group->setIgnoredSlaves(IGNORE);
         $group->deleteObject();
