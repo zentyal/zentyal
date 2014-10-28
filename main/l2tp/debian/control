@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-l2tp
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1), zentyal-firewall,
+Depends: zentyal-core (>= 4.0), zentyal-core (<< 4.1), zentyal-firewall,
          openswan, xl2tpd, lsof, ${misc:Depends}
 Description: Zentyal - L2TP
  Zentyal is a Linux small business server that can act as
