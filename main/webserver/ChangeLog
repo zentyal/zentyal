@@ -1,4 +1,4 @@
-HEAD
+3.5.3
 	+ Fix depends to allow uninstall when upgrading to 4.0
 3.5.2
 	+ Adapted pathHTTPSSSLCertificate() to always returns a list
