@@ -49,7 +49,6 @@ use constant OPENSSLPATH => "/usr/bin/openssl";
 use constant CATOPDIR => EBox::Config->home() . "CA/";
 
 use constant SSLCONFFILE => EBox::Config->conf() . "openssl.cnf";
-# CATOPDIR . "../openssl.cnf";
 
 # All paths related to CATOPDIR
 use constant REQDIR      => CATOPDIR . "reqs/";
@@ -151,7 +150,7 @@ sub _create
 #
 sub isCreated
 {
-    my ($self, $name) = @_;
+    my ($self) = @_;
 
     my $retValue = ((-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
             and (-f CAPUBKEY));
