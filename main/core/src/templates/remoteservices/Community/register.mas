@@ -140,7 +140,7 @@ my @register_additional_rows = (
 % if ($wizard) {
      <a href="#" title="<% __('Back') %>" id="switch_to_register_first"><% __('Back') %></a>
 % }
-     <a href="FIXME" title="<% __('Reset my password') %>"><% __('Reset my password') %></a>
+     <a href="https://portal.zentyal.com/reset/" title="<% __('Reset my password') %>"><% __('Reset my password') %></a>
    </p>
 </div>
 
