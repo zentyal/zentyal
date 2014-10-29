@@ -1,4 +1,4 @@
-HEAD
+3.5.4
 	+ Fix depends to allow uninstall when upgrading to 4.0
 3.5.3
 	+ Revert apache conf change that does not work properly without the
