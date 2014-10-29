@@ -1,3 +1,6 @@
+HEAD
+	+ Raise error on wizard when the user enter unsupported characters
+	  for the CA
 4.0
 	+ Make sure no repeated preconditons are shown
 	+ OpenChange users can have mail accounts on different virtual domains
