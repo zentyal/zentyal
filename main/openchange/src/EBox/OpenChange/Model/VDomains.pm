@@ -344,7 +344,7 @@ sub _acquireIssued
     my $vdomain = $row->printableValueByName('vdomain');
     if ($self->certificate($vdomain)) {
         return 'issued';
-    } 
+    }
 
     my $metadata = $ca->getCertificateMetadata(cn => $vdomain);
     if ($metadata and ($metadata->{state} eq 'V')) {
@@ -401,7 +401,7 @@ sub _revokeCertificate
     # Set openchange as changed to remove the certificate from ocsmanager
     # folder on save changes
     $self->parentModule()->setAsChanged();
-    # no need to set CA as changed like when issue the certificate 
+    # no need to set CA as changed like when issue the certificate
     # because we cannot automatically reissue certificates services
 }
 
@@ -594,5 +594,34 @@ sub preconditionFailMsg
                    oh => "<a href=/Mail/View/VDomains>", ch => "</a>");
     }
 }
+
+sub enableAllVDomain
+{
+    my ($self, $vdomain) = @_;
+    if (not $self->findId(vdomain => $vdomain)) {
+        EBox::warn("Cannot enable vdomain $vdomain in OpenChange because it does not exists");
+        return;
+    }
+
+    # issue certificate
+    $self->_issueCertificate($vdomain);
+    # enable options
+    my $row = $self->find(vdomain => $vdomain);
+    my $rowChanged = 0;
+    my @toEnable = qw(autodiscoverRecord rpcproxy_https webmail_https);
+    foreach my $elementName (@toEnable) {
+        my $element = $row->elementByName($elementName);
+        if ($element->editable()) {
+            $element->setValue(1);
+            $rowChanged = 1;
+        } else {
+            EBox::warn("OpenChange option $elementName no editable in $vdomain. Skipping");
+        }
+    }
+    if ($rowChanged) {
+        $row->store();
+    }
+}
+
 
 1;

@@ -34,6 +34,30 @@ sub new
     return $self;
 }
 
+sub _process
+{
+    my ($self) = @_;
+
+    if (EBox::Global->modInstance('samba')->_adcMode() or
+       (EBox::Global->modInstance('mail')->model('VDomains')->size() == 0)) {
+        $self->skipModule();
+        $self->{skip} = 1;
+    } else {
+        $self->SUPER::_process();
+    }
+}
+
+sub _print
+{
+    my ($self) = @_;
+
+    if ($self->{skip}) {
+        $self->response()->body('<script type="text/javascript">window.location = "/SaveChanges?firstTime=1&noPopup=1&save=1"</script>');
+    } else {
+        $self->SUPER::_print();
+    }
+}
+
 sub _processWizard
 {
     my ($self) = @_;

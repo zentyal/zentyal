@@ -1021,7 +1021,7 @@ sub connectionString
 # Method: certificateIsReserved
 #
 # returns whether the certificate is reserved for use by openchange. Reserved
-# certifcates must be issued only by openchange because they need 
+# certifcates must be issued only by openchange because they need
 # special fields (dns alt names, ..)
 #
 # Parameters:
@@ -1156,12 +1156,6 @@ sub dropSOGODB
 sub wizardPages
 {
     my ($self) = @_;
-
-    my $samba = $self->global()->modInstance('samba');
-    return [] if $samba->_adcMode();
-
-    my $mail = $self->global()->modInstance('mail');
-    return [] if ($mail->model('VDomains')->size() == 0);
 
     return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
 }
