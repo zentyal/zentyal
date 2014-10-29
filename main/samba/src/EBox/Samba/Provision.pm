@@ -551,20 +551,7 @@ sub provisionDC
         $passwdFile = $self->_createTmpPasswdFile($pass);
         $cmd .= " --adminpass=`cat $passwdFile`";
 
-        # Use silent root to avoid showing the admin pass in the logs if
-        # provision command fails.
-        my $output = EBox::Sudo::silentRoot($cmd);
-        if ($? == 0) {
-            EBox::debug("Provision result: @{$output}");
-        } else {
-            my @error = ();
-            my $stderr = EBox::Config::tmp() . 'stderr';
-            if (-r $stderr) {
-                @error = read_file($stderr);
-            }
-            throw EBox::Exceptions::Internal("Error provisioning database. " .
-                    "Output: @{$output}, error:@error");
-        }
+        EBox::Sudo::root($cmd);
         unlink $passwdFile;
 
         $self->setProvisioned(1);
@@ -1361,17 +1348,7 @@ sub provisionADC
                    " --realm='$realm' " .
                    " --site='$adServerSite' ";
 
-        my $output = EBox::Sudo::silentRoot($cmd2);
-        if ($? == 0) {
-            EBox::debug("Provision result: @{$output}");
-        } else {
-            my @error;
-            my $stderr = EBox::Config::tmp() . 'stderr';
-            if (-r $stderr) {
-                @error = read_file($stderr);
-            }
-            throw EBox::Exceptions::External("Error joining to domain: @error");
-        }
+        EBox::Sudo::root($cmd2);
         unlink $passwdFile;
 
         $self->setProvisioned(1);
