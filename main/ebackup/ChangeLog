@@ -1,4 +1,4 @@
-HEAD
+3.5.1
 	+ Fix depends to allow uninstall when upgrading to 4.0
 	+ Do not escape bash metacharacters in restore as it is not
 	  required once shell quote is in place
