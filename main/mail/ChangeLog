@@ -1,4 +1,4 @@
-HEAD
+3.5.5
 	+ Encrypt external accounts passwords stored in LDAP
 	+ Fixed periodical removal of Trash and Spam mails
 	+ Fixed bug in initialSetup which triggered migration on fresh install
