@@ -8,6 +8,7 @@
 	+ Add hostname change confirmation dialog to wizard
 	+ Fixed EBox::LDAPBase::lastModificationTime
 	+ Join as additional domain controller on initial configuration wizard
+	+ Fixed module instantiation with wrong mode
 	+ Name in Module Status is now "Domain Controller and File Sharing"
 	+ Set version to 4.0
 	+ Fix migration to preserve group type
