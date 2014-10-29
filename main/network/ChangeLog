@@ -1,4 +1,4 @@
-HEAD
+3.5.3
 	+ Check external IP against different providers to be more reliable
 3.5.2
 	+ Refactor and include internalNetworks method used by dns and
