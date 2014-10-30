@@ -162,6 +162,3 @@ sender_bcc_maps = <% $bccMaps %>
 recipient_bcc_maps = <% $bccMaps %>
 % }
 
-% if ($openchangeProvisioned) {
-smtp_generic_maps = hash:/etc/postfix/generic
-% }
