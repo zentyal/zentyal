@@ -559,7 +559,7 @@ sub provisionDC
         $self->setupDNS();
     } catch ($e) {
         if ($passwdFile) {
-            unlink $passwdFile
+            unlink $passwdFile;
         }
         $self->setProvisioned(0);
         $self->setupKerberos();
@@ -1504,8 +1504,8 @@ sub _createTmpPasswdFile
 {
     my ($self, $pass) = @_;
     my ($FH, $passwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
-    (print $FH $pass) or die "Error closing temporal password file $!";
-    close($FH) or die "Error closing temporal password file $!";
+    (print $FH $pass) or EBox::Exceptions::Internal->throw("Error closing temporal password file $!");
+    close($FH) or EBox::Exceptions::Internal->throw("Error closing temporal password file $!");
     return $passwdFile;
 }
 
