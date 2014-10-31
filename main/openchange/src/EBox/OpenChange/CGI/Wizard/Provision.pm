@@ -57,7 +57,7 @@ sub _processWizard
     );
 
     my $ca = EBox::Global->modInstance('ca');
-    $ca->_checkCertificateFieldsCharacters(%certificateArgs);
+    $ca->checkCertificateFieldsCharacters(%certificateArgs);
 
     my $openchange = EBox::Global->modInstance('openchange');
     my $state = $openchange->get_state();
