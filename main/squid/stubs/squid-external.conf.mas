@@ -6,6 +6,7 @@
     snmpEnabled - Boolean indicating if SNMP is enabled or not
 </%doc>
 <%args>
+    @listenAddr
     $port
     $transparent    => undef
 
@@ -155,7 +156,9 @@ snmp_access allow snmppublic from_localhost
 snmp_access deny all
 </%def>
 ###################################################################################
-http_port 0.0.0.0:<% $port %>
+% foreach my $addr (@listenAddr) { 
+http_port <% $addr %>:<% $port %>
+% }
 
 
 visible_hostname (external)<% $hostfqdn %>
