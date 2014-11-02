@@ -311,6 +311,20 @@ sub actions
            ];
 }
 
+sub enableService
+{
+    my ($self, $status) = @_;
+    if ($status) {
+        my @ifaces = @{ $self->global()->modInstance('network')->ExternalIfaces() };
+        if (not @ifaces) {
+            throw EBox::Exceptions::External(
+                __('To enable the HTTP proxy module, you need to have a lest one external network interface')
+            );
+        }
+    }
+    $self->SUPER::enableService($status);
+}
+
 sub _cache_mem
 {
     my $cache_mem = EBox::Config::configkey('cache_mem');
@@ -663,6 +677,19 @@ sub _writeSquidExternalConf
     my $generalSettings = $self->model('GeneralSettings');
 
     my $writeParam = [];
+
+    my @ifaces = @{ $network->ExternalIfaces() };
+    my @listenAddr = map {
+        my @addrs = map {
+            ($_->{address})
+        } @{ $network->ifaceAddresses($_) };
+        @addrs;
+    } @ifaces;
+     
+    if (not @listenAddr) {
+        throw EBox::Exceptions::Internal("No external interfaces addresses to listen found");
+    }
+    push @{$writeParam}, listenAddr => \@listenAddr;
 
     push (@{$writeParam}, port => SQUID_EXTERNAL_PORT);
     push (@{$writeParam}, hostfqdn => $sysinfo->fqdn());
@@ -1243,6 +1270,90 @@ sub authenticationMode
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;
     }
+}
+
+sub ifaceExternalChanged
+{
+    my ($self, $iface, $toExternal) = @_;
+    if (not $self->_externalIfacesAfterChange($toExternal)) {
+        return 1;
+    }
+    return 0;
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $old, $new) = @_;
+    my $network = $self->global()->modInstance('network');
+    if (not $network->ifaceIsExternal($iface)) {
+        return 0;
+    }
+
+    my $noExternalMethod = 0;
+    my @noExternalMethods = qw(notset trunk);
+    foreach my $method (@noExternalMethods) {
+        if ($method eq $old) {
+            return 0;
+        }
+        if ($method eq $new) {
+            $noExternalMethod = 1;
+        }
+    }
+
+    if (not $noExternalMethod) {
+        return 0;
+    }
+        
+    if (not $self->_externalIfacesAfterChange(0)) {
+        return 1;
+    }
+
+    return 0;
+
+}
+
+sub changeIfaceExternalProperty
+{
+    my ($self, $iface, $toExternal) = @_;
+    $self->_ifaceChangeDone($iface, $toExternal);
+}
+
+sub freeIface
+{
+    my ($self, $iface, $toExternal) = @_;
+    
+    my $ifaceExternal = $self->global()->modInstance('network')->ifaceIsExternal($iface);
+    if ($ifaceExternal) {
+        $self->_ifaceChangeDone($iface, 0);
+    }
+}
+
+sub _externalIfacesAfterChange
+{
+    my ($self, $toExternal) = @_;
+    if (not $self->isEnabled()) {
+        # we do not care, external interfaces are check when enabling the module
+        return 1;
+    }
+    if ($toExternal) {
+        return 1;
+    }
+    my $network = $self->global()->modInstance('network');
+    my $nExternal = @{ $network->ExternalIfaces() };
+    # simulate changed
+    $nExternal -= 1 ;
+    return ($nExternal > 0)
+}
+
+sub _ifaceChangeDone
+{
+    my ($self, $iface, $toExternal) = @_;
+    EBox::debug("XXX begr _ifchangeDone");
+    if (not $self->_externalIfacesAfterChange($toExternal)) {
+        EBox::warn("Disabling HTTP proxy because $iface is not longer external and there are not interfaces left");
+        $self->enableService(0);
+    }
+    EBox::debug("XXX after _ifchangeDone");
 }
 
 1;

@@ -34,11 +34,6 @@ sub new
     return $self;
 }
 
-sub _validateReferer
-{
-    return 1;
-}
-
 # we do nothing,
 # we can not even validate params because this is a page not found error (any parameter can be in)
 sub _process

@@ -24,7 +24,6 @@ use base qw(
 );
 
 use EBox::Config;
-use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::External;
 use EBox::Gettext;
@@ -34,6 +33,11 @@ use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::OpenChange::VDomainsLdap;
+use EBox::DBEngineFactory;
+use EBox::OpenChange::DBEngine;
+use EBox::OpenChange::SOGO::DBEngine;
+
 use EBox::Samba;
 use EBox::Sudo;
 use EBox::Util::Certificate;
@@ -516,9 +520,10 @@ sub _writeSOGoConfFile
     push (@{$array}, smtpServer => $smtpServer);
     push (@{$array}, sieveServer => $sieveServer);
 
-    my $dbName = $self->_sogoDbName();
-    my $dbUser = $self->_sogoDbUser();
-    my $dbPass = $self->_sogoDbPass();
+    my $sogoDbEngine = $self->_sogoDBEngine();
+    my $dbName = $sogoDbEngine->_dbname();
+    my $dbUser = $sogoDbEngine->_dbuser();
+    my $dbPass = $sogoDbEngine->_dbpass();
     push (@{$array}, dbName => $dbName);
     push (@{$array}, dbUser => $dbUser);
     push (@{$array}, dbPass => $dbPass);
@@ -787,13 +792,85 @@ sub setProvisioned
     $self->set_state($state);
 }
 
+sub _mysqlDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/openchange.dump';
+}
+
+sub _sogoDumpFile
+{
+    my ($self, $dir) = @_;
+    return $dir . '/sogo.dump';
+}
+
+sub dumpConfig
+{
+    my ($self, $dir) = @_;
+
+    if (not $self->isProvisioned()) {
+        # if not provisioned, there is no db to dump
+        return;
+    }
+
+    # backup openchange database
+    my $dumpFile = $self->_mysqlDumpFile($dir);
+    my $dbengine = EBox::OpenChange::DBEngine->new($self);
+    $dbengine->dumpDB($dumpFile);
+
+    # backup now sogo database
+    $dumpFile = $self->_sogoDumpFile($dir);
+    $dbengine = $self->_sogoDBEngine();
+    $dbengine->dumpDB($dumpFile);
+}
+
+sub restoreConfig
+{
+    my ($self, $dir, @params) = @_;
+
+    $self->stopService();
+
+    $self->SUPER::restoreConfig($dir, @params);
+
+    # import from state only the provision keys
+    my $state = $self->get_state();
+    $self->_load_state_from_file($dir);
+    my $stateFromBackup = $self->get_state();
+    $state->{isProvisioned} = $stateFromBackup->{isProvisioned}; 
+    $state->{Provision}     = $stateFromBackup->{Provision};
+    $self->set_state($state);
+
+    if ($self->isProvisioned()) {
+        # recreate db
+        EBox::Sudo::root(EBox::Config::scripts('openchange') .
+              'generate-database');
+
+        # load openchange database data
+        my $dumpFile = $self->_mysqlDumpFile($dir);    
+        if (-r $dumpFile) {
+            my $dbengine = EBox::OpenChange::DBEngine->new($self);
+            $dbengine->restoreDBDump($dumpFile);
+        }
+
+        # load sogo database data
+        $dumpFile = $self->_sogoDumpFile($dir);
+        if (-r $dumpFile) {
+            my $dbengine = $self->_sogoDBEngine();
+            $dbengine->restoreDBDump($dumpFile);
+        }
+    }
+
+    $self->_startService();
+}
+
 sub _setupSOGoDatabase
 {
     my ($self) = @_;
 
-    my $dbUser = $self->_sogoDbUser();
-    my $dbPass = $self->_sogoDbPass();
-    my $dbName = $self->_sogoDbName();
+    my $sogoDB = $self->_sogoDBEngine();
+    my $dbUser = $sogoDB->_dbuser();
+    my $dbPass = $sogoDB->_dbpass();
+    my $dbName = $sogoDB->_dbname();
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
@@ -804,63 +881,14 @@ sub _setupSOGoDatabase
     $db->sqlAsSuperuser(sql => 'flush privileges;');
 }
 
-sub _sogoDbName
+sub _sogoDBEngine
 {
     my ($self) = @_;
-
-    return 'sogo';
-}
-
-sub _sogoDbUser
-{
-    my ($self) = @_;
-
-    my $dbUser = EBox::Config::configkey('sogo_dbuser');
-    return (length $dbUser > 0 ? $dbUser : 'sogo');
-}
-
-sub _sogoDbPass
-{
-    my ($self) = @_;
-
-    # Return value if cached
-    if (defined $self->{sogo_db_password}) {
-        return $self->{sogo_db_password};
+    if (not $self->{'_sogoDBengine'}) {
+        $self->{'_sogoDBengine'} = EBox::OpenChange::SOGO::DBEngine->new();
     }
 
-    # Cache and return value if user configured
-    my $dbPass = EBox::Config::configkey('sogo_dbpass');
-    if (length $dbPass) {
-        $self->{sogo_db_password} = $dbPass;
-        return $dbPass;
-    }
-
-    # Otherwise, read from file
-    my $path = EBox::Config::conf() . "sogo_db.passwd";
-
-    # If file does not exists, generate random password and stash to file
-    if (not -f $path) {
-        my $generator = new String::Random();
-        my $pass = $generator->randregex('\w\w\w\w\w\w\w\w');
-
-        my ($login, $password, $uid, $gid) = getpwnam(EBox::Config::user());
-        EBox::Module::Base::writeFile($path, $pass,
-            { mode => '0600', uid => $uid, gid => $gid });
-        $self->{sogo_db_password} = $pass;
-        return $pass;
-    }
-
-    unless (defined ($self->{sogo_db_password})) {
-        open (PASSWD, $path) or
-            throw EBox::Exceptions::External('Could not get SOGo DB password');
-        my $pwd = <PASSWD>;
-        close (PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{sogo_db_password} = $pwd;
-    }
-
-    return $self->{sogo_db_password};
+    return $self->{'_sogoDBengine'};
 }
 
 # Method: configurationContainer
@@ -1145,9 +1173,11 @@ sub dropSOGODB
 
     # Drop SOGo database and db user. To avoid error if it does not exists,
     # the user is created and granted harmless privileges before drop it
+    my $sogoDB = $self->_sogoDBengine();
+    my $dbName = $sogoDB->_dbname();
+    my $dbUser = $sogoDB->_dbuser();
+
     my $db = EBox::DBEngineFactory::DBEngine();
-    my $dbName = $self->_sogoDbName();
-    my $dbUser = $self->_sogoDbUser();
     $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
     $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
