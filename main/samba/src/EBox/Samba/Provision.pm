@@ -524,7 +524,7 @@ sub provisionDC
     my ($self, $provisionIP) = @_;
 
     my $usersModule = EBox::Global->modInstance('samba');
-
+    my $passwdFile;
     try {
         $usersModule->writeSambaConfig();
 
@@ -548,31 +548,24 @@ sub provisionDC
             last if ($pass =~ /[a-z]+/ and $pass =~ /[A-Z]+/ and
                      $pass =~ /[0-9]+/ and length ($pass) >=8);
         }
-        $cmd .= " --adminpass='$pass'";
+        $passwdFile = $self->_createTmpPasswdFile($pass);
+        $cmd .= " --adminpass=`cat $passwdFile`";
 
-        # Use silent root to avoid showing the admin pass in the logs if
-        # provision command fails.
-        my $output = EBox::Sudo::silentRoot($cmd);
-        if ($? == 0) {
-            EBox::debug("Provision result: @{$output}");
-        } else {
-            my @error = ();
-            my $stderr = EBox::Config::tmp() . 'stderr';
-            if (-r $stderr) {
-                @error = read_file($stderr);
-            }
-            throw EBox::Exceptions::Internal("Error provisioning database. " .
-                    "Output: @{$output}, error:@error");
-        }
+        EBox::Sudo::root($cmd);
+        unlink $passwdFile;
+
         $self->setProvisioned(1);
         $self->setupKerberos();
         $self->setupDNS();
     } catch ($e) {
+        if ($passwdFile) {
+            unlink $passwdFile;
+        }
         $self->setProvisioned(0);
         $self->setupKerberos();
         $self->setupDNS();
         $e->throw();
-    }
+    } 
 
     try {
         # Disable password policy
@@ -1320,6 +1313,7 @@ sub provisionADC
 
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
+    my $passwdFile;
     try {
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
@@ -1344,26 +1338,18 @@ sub provisionADC
 
         # Join the domain
         EBox::info("Executing domain join");
+        $passwdFile = $self->_createTmpPasswdFile($adPwd);
         my $cmd2 = "samba-tool domain join $domainToJoin DC " .
                    " --username='$adUser' " .
                    " --workgroup='$netbiosDomain' " .
-                   " --password='$adPwd' " .
+                   " --password=`cat $passwdFile` " .
                    " --server='$adServerIp' " .
                    " --dns-backend=BIND9_DLZ " .
                    " --realm='$realm' " .
                    " --site='$adServerSite' ";
 
-        my $output = EBox::Sudo::silentRoot($cmd2);
-        if ($? == 0) {
-            EBox::debug("Provision result: @{$output}");
-        } else {
-            my @error;
-            my $stderr = EBox::Config::tmp() . 'stderr';
-            if (-r $stderr) {
-                @error = read_file($stderr);
-            }
-            throw EBox::Exceptions::External("Error joining to domain: @error");
-        }
+        EBox::Sudo::root($cmd2);
+        unlink $passwdFile;
 
         $self->setProvisioned(1);
         $self->setupKerberos();
@@ -1407,6 +1393,9 @@ sub provisionADC
             $mod->setAsChanged();
         }
     } catch ($e) {
+        if ($passwdFile) {
+            unlink $passwdFile;
+        }
         $self->setProvisioned(0);
         $self->setupKerberos();
         $self->setupDNS();
@@ -1509,6 +1498,15 @@ sub _hideInternalUsers
     if ($user->exists()) {
         $user->setCritical(1);
     }
+}
+
+sub _createTmpPasswdFile
+{
+    my ($self, $pass) = @_;
+    my ($FH, $passwdFile) = tempfile(EBox::Config::tmp() . 'XXXXXX', CLEANUP => 1);
+    (print $FH $pass) or EBox::Exceptions::Internal->throw("Error closing temporal password file $!");
+    close($FH) or EBox::Exceptions::Internal->throw("Error closing temporal password file $!");
+    return $passwdFile;
 }
 
 1;
