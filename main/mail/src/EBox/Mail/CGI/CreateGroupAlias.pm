@@ -52,10 +52,6 @@ sub _process
     my $group = new EBox::Samba::Group(dn => $groupDN);
 
     my $mail = EBox::Global->modInstance('mail');
-    if ($mail->{musers}->usersWithMailInGroup($group) == 0) {
-        throw EBox::Exceptions::External(__('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') );
-    }
-
     my $newAlias = $lhs."@".$rhs;
     $mail->{malias}->addGroupAlias($group, $newAlias);
 
