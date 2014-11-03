@@ -1,6 +1,7 @@
-4.0
+HEAD
 	+ Better check of versions numbers in backup restore
 	+ Make EBox::MyDBEngine more reusable
+4.0
 	+ sudoers-friendly take user to whatever module which implenents extraSudoerUsers
 	+ Implement data in use in JS for forms
 	+ Fixed ManageAdmins model and offer it in all editions
