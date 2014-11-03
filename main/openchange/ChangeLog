@@ -1,4 +1,5 @@
 HEAD
+	+ When removing user delete its sogo database rows
 	+ Raise error on wizard when the user enter unsupported characters
 	  for the CA
 4.0
