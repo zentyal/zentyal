@@ -80,8 +80,8 @@ sub _process
             $user->set('quota', $quota, 1);
         }
 
-        my $addMail;
-        my $delMail;
+        my ($addMail, $delMail);
+        my $modDN = 0;
         if ($editable) {
             $self->_requireParamAllowEmpty('givenname', __('first name'));
             $self->_requireParamAllowEmpty('surname', __('last name'));
@@ -94,6 +94,21 @@ sub _process
             my $givenName = $self->param('givenname');
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
+
+            $modDN = ($givenName ne $user->givenName() or $surname ne $user->surname());
+            if ($modDN) {
+                my $newCN = $user->generatedFullName(givenName => $givenName,
+                                                     initials  => scalar($user->initials()),
+                                                     sn        => $surname);
+                if ($user->fullname() ne $newCN) {
+                    $user->save();  # Save any previous modified data
+                    # Perform the moddn
+                    $user->setFullName($newCN);
+                } else {
+                    $modDN = 0;
+                }
+            }
+
 
             my $displayname = $self->unsafeParam('displayname');
             if (length ($displayname)) {
@@ -168,6 +183,9 @@ sub _process
             $self->{json}->{mail} = $addMail;
         } elsif ($delMail) {
             $self->{json}->{mail} = '';
+        }
+        if ($modDN) {
+            $self->{json}->{reload} = 1;
         }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };

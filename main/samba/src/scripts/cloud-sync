@@ -101,10 +101,15 @@ for my $ruser (@{$rusers}) {
             }
             $luser->setIgnoredSlaves(IGNORE);
 
+            # Check changes in DN
+            if ($luser->get('givenName') !~ $ruser->{firstname}
+                  or $luser->get('sn') !~ $ruser->{lastname}) {
+                $luser->setFullName($ruser->{firstname} . ' ' . $ruser->{lastname});
+            }
+
             # User exists, update fields:
             $changed |= setIfChanged($luser, 'givenname', $ruser->{firstname}, 1);
             $changed |= setIfChanged($luser, 'sn', $ruser->{lastname}, 1);
-            $changed |= setIfChanged($luser, 'cn', $ruser->{firstname} . ' ' . $ruser->{lastname}, 1);
             $changed |= setIfChanged($luser, 'gidNumber', $ruser->{gid}, 1);
             $changed |= setIfChanged($luser, 'uidNumber', $ruser->{uid}, 1);
             if ($ruser->{description}) {
@@ -116,14 +121,13 @@ for my $ruser (@{$rusers}) {
                 }
             }
 
+            $luser->save() if ($changed);
+
             # Update passwords
             my $passwords = $luser->passwordHashes();
             unless (@{$ruser->{passwords}} ~~ @{$passwords}) {
                 $luser->setPasswordFromHashes($ruser->{passwords}, 1);
-                $changed = 1;
             }
-
-            $luser->save() if ($changed);
 
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
