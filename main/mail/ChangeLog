@@ -1,3 +1,5 @@
+HEAD
+	+ Removed no longer existent smtp_generic_maps
 4.0
 	+ Load openchange plugin if openchange enabled
 	+ Added Zentyal.MailUserAddon.editFormWillRemoveAccount JS method
