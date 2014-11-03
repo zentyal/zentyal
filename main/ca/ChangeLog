@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bug in generating certificate when openchange module is
+	  not installed
 4.0
 	+ Protect openchange certificate for manipulation which could rend
 	  it invalid
