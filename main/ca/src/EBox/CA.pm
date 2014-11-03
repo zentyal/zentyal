@@ -49,7 +49,6 @@ use constant OPENSSLPATH => "/usr/bin/openssl";
 use constant CATOPDIR => EBox::Config->home() . "CA/";
 
 use constant SSLCONFFILE => EBox::Config->conf() . "openssl.cnf";
-# CATOPDIR . "../openssl.cnf";
 
 # All paths related to CATOPDIR
 use constant REQDIR      => CATOPDIR . "reqs/";
@@ -151,7 +150,7 @@ sub _create
 #
 sub isCreated
 {
-    my ($self, $name) = @_;
+    my ($self) = @_;
 
     my $retValue = ((-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
             and (-f CAPUBKEY));
@@ -215,7 +214,7 @@ sub createCA
     if (not $args{orgName} or ($args{orgName} =~ m/^\s*$/)) {
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
     }
-    $self->_checkCertificateFieldsCharacters(%args);
+    $self->checkCertificateFieldsCharacters(%args);
     if ($args{countryName}) {
         if (length($args{countryName}) > 2) {
             throw EBox::Exceptions::InvalidData(
@@ -528,7 +527,7 @@ sub issueCACertificate
     if (not defined $args{orgName}) {
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
     }
-    $self->_checkCertificateFieldsCharacters(%args);
+    $self->checkCertificateFieldsCharacters(%args);
 
     # Define the distinguished name -> default values in configuration file
     $args{commonName} = CA_CN_DEF unless ( $args{commonName} );
@@ -742,7 +741,7 @@ sub issueCertificate
 
     # Treat arguments
     if (not defined $args{commonName}) {
-        $self->_checkCertificateFieldsCharacters(%args);
+        $self->checkCertificateFieldsCharacters(%args);
     }
     my $cn = $args{commonName};
     if (not $args{openchange}) {
@@ -1899,7 +1898,7 @@ sub addModuleStatus
 
 # Group: Protected methods
 
-sub _checkCertificateFieldsCharacters
+sub checkCertificateFieldsCharacters
 {
     my ($self, %args) = @_;
     my @fieldsToCheck = qw(orgName commonName
