@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing zip dependency
 	+ EBox::CA::checkCertificateFieldsCharacters is now a public method
 4.0
 	+ Protect openchange certificate for manipulation which could rend
