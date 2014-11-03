@@ -133,7 +133,7 @@ sub _processJoinADC
     my $settings = $samba->model('DomainSettings');
     $settings->setRow(
         0, # no force mode
-        mode => $samba->MODE_ADC(),
+        mode => EBox::Samba::Model::DomainSettings::MODE_ADC(),
         realm => $domain,
         dcfqdn => $dcfqdn,
         dnsip => $dnsip,
