@@ -561,9 +561,9 @@ sub askForReplication
             next if ($node->{localNode});
             try {
                 $self->_uploadReplicationBundle($node, $path);
-            } catch {
+            } catch ($e) {
                 my $name = $node->{name};
-                EBox::error("Replication to node $name failed");
+                EBox::error("Replication to node $name failed: $e");
                 $state->{errors}->{$name} = 1;
                 $failed = 1;
             }
