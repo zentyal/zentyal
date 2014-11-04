@@ -176,7 +176,7 @@ msgstr "Aktiveret"
 #: ../../main/core/src/templates/enable.mas:20
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
-#: ../../main/samba/src/templates/edituser.mas:302
+#: ../../main/samba/src/templates/edituser.mas:305
 msgid "Disabled"
 msgstr "Slået fra"
 
@@ -1236,7 +1236,7 @@ msgstr "{iface} har ikke en IP-adresse til brug"
 msgid "HA Nodes"
 msgstr "Knuder"
 
-#: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:67
+#: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:74
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr ""
@@ -2497,7 +2497,7 @@ msgstr "Gennemført"
 msgid "Canceled"
 msgstr "Afbrudt"
 
-#: ../../main/ca/src/EBox/CA.pm:118 ../../main/ca/src/EBox/CA/CGI/Index.pm:38
+#: ../../main/ca/src/EBox/CA.pm:117 ../../main/ca/src/EBox/CA/CGI/Index.pm:38
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:43
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:42
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:42
@@ -2507,14 +2507,14 @@ msgstr "Afbrudt"
 msgid "Certification Authority"
 msgstr "Certifikat Certificering"
 
-#: ../../main/ca/src/EBox/CA.pm:216 ../../main/ca/src/EBox/CA.pm:529
+#: ../../main/ca/src/EBox/CA.pm:215 ../../main/ca/src/EBox/CA.pm:528
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:109
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:41
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:62
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:71
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:418
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:417
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -2523,36 +2523,36 @@ msgstr "Certifikat Certificering"
 msgid "Organization Name"
 msgstr "Firma/organisations navn"
 
-#: ../../main/ca/src/EBox/CA.pm:222
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:43
+#: ../../main/ca/src/EBox/CA.pm:221
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:66
 #: ../../main/ca/src/templates/createCA.mas:9
 #: ../../main/ca/src/templates/index.mas:41
 #: ../../main/openchange/src/templates/wizard/provision.mas:13
 msgid "Country code"
 msgstr "Landekode"
 
-#: ../../main/ca/src/EBox/CA.pm:224
+#: ../../main/ca/src/EBox/CA.pm:223
 msgid "The country code must be the 2-characters ISO code"
 msgstr "Landekoden skal være 2-tegn ISO-kode"
 
-#: ../../main/ca/src/EBox/CA.pm:268 ../../main/ca/src/EBox/CA.pm:775
-#: ../../main/ca/src/EBox/CA.pm:1404
+#: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:774
+#: ../../main/ca/src/EBox/CA.pm:1403
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maximum antal dage er sat til {days}: år 2038 problem"
 
-#: ../../main/ca/src/EBox/CA.pm:359
+#: ../../main/ca/src/EBox/CA.pm:358
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Slette operationen kunne ikke gennemføres. Årsag: "
 
-#: ../../main/ca/src/EBox/CA.pm:544 ../../main/ca/src/EBox/CA/TestStub.pm:263
+#: ../../main/ca/src/EBox/CA.pm:543 ../../main/ca/src/EBox/CA/TestStub.pm:263
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
 "CA certifikaterne bør inddrages _ _ eller er udløbet før et nyt er udstedt"
 
-#: ../../main/ca/src/EBox/CA.pm:753
+#: ../../main/ca/src/EBox/CA.pm:752
 #, perl-brace-format
 msgid ""
 "You cannot issue a certificate with CN {cn} because that CN is reserved to "
@@ -2560,8 +2560,8 @@ msgid ""
 "virtual domains interface.{ch}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:925 ../../main/ca/src/EBox/CA.pm:1261
-#: ../../main/ca/src/EBox/CA.pm:1331 ../../main/ca/src/EBox/CA.pm:1425
+#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1260
+#: ../../main/ca/src/EBox/CA.pm:1330 ../../main/ca/src/EBox/CA.pm:1424
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
@@ -2578,12 +2578,12 @@ msgstr ""
 msgid "Common Name"
 msgstr "Almindeligt navn "
 
-#: ../../main/ca/src/EBox/CA.pm:938 ../../main/ca/src/EBox/CA.pm:1272
+#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1271
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certifikat med almindeligt navn {cn} findes ikke"
 
-#: ../../main/ca/src/EBox/CA.pm:942
+#: ../../main/ca/src/EBox/CA.pm:941
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -2592,34 +2592,34 @@ msgstr ""
 "Årsagen {reason} er IKKE en gyldig  årsag.\n"
 "Muligheder: "
 
-#: ../../main/ca/src/EBox/CA.pm:1084
+#: ../../main/ca/src/EBox/CA.pm:1083
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "Certificeringsmyndighed infrastruktur ikke er tilgængelig, opret den først"
 
-#: ../../main/ca/src/EBox/CA.pm:1181
+#: ../../main/ca/src/EBox/CA.pm:1180
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Enten almindeligt navn, entydige navne eller serienummer er bestået"
 
-#: ../../main/ca/src/EBox/CA.pm:1426
+#: ../../main/ca/src/EBox/CA.pm:1425
 msgid "or"
 msgstr "eller"
 
-#: ../../main/ca/src/EBox/CA.pm:1427
+#: ../../main/ca/src/EBox/CA.pm:1426
 msgid "Certificate file"
 msgstr "Certifikat fil"
 
-#: ../../main/ca/src/EBox/CA.pm:1449
+#: ../../main/ca/src/EBox/CA.pm:1448
 msgid "The certificate to renew does NOT exist"
 msgstr "Certifikatet, der skulle fornys findes IKKE"
 
-#: ../../main/ca/src/EBox/CA.pm:1489
+#: ../../main/ca/src/EBox/CA.pm:1488
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Certifikat med dette almindelige navn {cn} findes IKKE i denne CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1770
+#: ../../main/ca/src/EBox/CA.pm:1769
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
@@ -2627,32 +2627,32 @@ msgstr "Certifikat med dette almindelige navn {cn} findes IKKE i denne CA"
 msgid "General"
 msgstr "Generelt"
 
-#: ../../main/ca/src/EBox/CA.pm:1773
+#: ../../main/ca/src/EBox/CA.pm:1772
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Services Certifikater"
 
-#: ../../main/ca/src/EBox/CA.pm:1886
+#: ../../main/ca/src/EBox/CA.pm:1885
 msgid "Not created"
 msgstr "Ikke oprettet"
 
-#: ../../main/ca/src/EBox/CA.pm:1888
+#: ../../main/ca/src/EBox/CA.pm:1887
 msgid "Available"
 msgstr "Tilgængelig"
 
-#: ../../main/ca/src/EBox/CA.pm:1890
+#: ../../main/ca/src/EBox/CA.pm:1889
 msgid "Created but not available"
 msgstr "Oprettet men ikke tilgængelig"
 
-#: ../../main/ca/src/EBox/CA.pm:1916
+#: ../../main/ca/src/EBox/CA.pm:1915
 msgid "The field cannot contain only blank characters"
 msgstr "Feltet kan ikke kun indeholde blanktegn"
 
-#: ../../main/ca/src/EBox/CA.pm:1939
+#: ../../main/ca/src/EBox/CA.pm:1938
 msgid "String"
 msgstr "Streng"
 
-#: ../../main/ca/src/EBox/CA.pm:1944
+#: ../../main/ca/src/EBox/CA.pm:1943
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2660,52 +2660,52 @@ msgstr ""
 "Feltet indeholder ugyldige tegn. Alle ASCII alfanumeriske tegn, plus disse "
 "ikke alfanumeriske tegn: & +: -.? @ * Og mellemrum er tilladt."
 
-#: ../../main/ca/src/EBox/CA.pm:2464
+#: ../../main/ca/src/EBox/CA.pm:2463
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Det var ikke muligt at underskrive. Forkert CA password eller er den private "
 "nøgle forsvundet ?"
 
-#: ../../main/ca/src/EBox/CA.pm:2466
+#: ../../main/ca/src/EBox/CA.pm:2465
 msgid "Database corruption"
 msgstr "Korrupt database"
 
-#: ../../main/ca/src/EBox/CA.pm:2468
+#: ../../main/ca/src/EBox/CA.pm:2467
 msgid "Identifier duplicated in Database"
 msgstr "Identificer dubletter i databasen"
 
-#: ../../main/ca/src/EBox/CA.pm:2470
+#: ../../main/ca/src/EBox/CA.pm:2469
 msgid "Certificate already revoked"
 msgstr "Certifikat, der allerede er tilbagekaldt"
 
-#: ../../main/ca/src/EBox/CA.pm:2473
+#: ../../main/ca/src/EBox/CA.pm:2472
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 feltet er for langt. Max størrelse: "
 
-#: ../../main/ca/src/EBox/CA.pm:2475
+#: ../../main/ca/src/EBox/CA.pm:2474
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Ukendt fejl. OpenSSL gav følgende output:"
 
-#: ../../main/ca/src/EBox/CA.pm:2542 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2541 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Udløbsdatoen er senere end CA certifikatets udløbsdato"
 
-#: ../../main/ca/src/EBox/CA.pm:2563
+#: ../../main/ca/src/EBox/CA.pm:2562
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr "Værdien for emnet,alternativ type {type}"
 
-#: ../../main/ca/src/EBox/CA.pm:2580
+#: ../../main/ca/src/EBox/CA.pm:2579
 msgid "Subject alternative type"
 msgstr "Emne alternativ type"
 
-#: ../../main/ca/src/EBox/CA.pm:2582
+#: ../../main/ca/src/EBox/CA.pm:2581
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
 "Kun {dns}, {ip} og {email} er gyldige emner for alternativer navngive typer"
 
-#: ../../main/ca/src/EBox/CA.pm:2626
+#: ../../main/ca/src/EBox/CA.pm:2625
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Kan ikke starte OpenSLL shell. ({errval})"
@@ -2762,7 +2762,7 @@ msgid "Boolean indicating Certification Authority Certificate"
 msgstr "On/off værdi, der indikerer certifikatudstederens certifikat"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:67
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:49
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:72
 #: ../../main/ca/src/templates/createCA.mas:22
 #: ../../main/ca/src/templates/formRenew.mas:13
 #: ../../main/ca/src/templates/index.mas:52
@@ -2842,7 +2842,7 @@ msgid "The new CA certificate has been issued."
 msgstr "Det nye CA certifikat er blevet udstedt"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:434
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:436
 #, fuzzy, perl-brace-format
 msgid "{org} Authority Certificate"
 msgstr "Opret Certifikat autoritets certifikat"
@@ -7812,14 +7812,14 @@ msgstr "Jabber konto"
 msgid "OpenChange account disabled"
 msgstr "Jabber konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:45
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:68
 #: ../../main/ca/src/templates/createCA.mas:14
 #: ../../main/ca/src/templates/index.mas:44
 #: ../../main/openchange/src/templates/wizard/provision.mas:16
 msgid "City"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:47
+#: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:70
 #: ../../main/ca/src/templates/createCA.mas:18
 #: ../../main/ca/src/templates/index.mas:47
 #: ../../main/ca/src/templates/index.mas:99
@@ -7895,18 +7895,18 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ændre"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:57
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:66
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:58
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:67
 #, fuzzy
 msgid "OpenChange Account"
 msgstr "PDC/Fil deling konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:92
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:93
 #, perl-brace-format
 msgid "Unknown value for {control}: {x}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:159
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:160
 #, fuzzy
 msgid "This user has a openchange account."
 msgstr "Denne bruger har en mail konto"
@@ -7949,7 +7949,7 @@ msgstr "FQDN {x} ser ikke ud til at være gyldig"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:151
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:365
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:255
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
 #, fuzzy, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -8148,7 +8148,7 @@ msgid ""
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:224
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:223
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -8157,28 +8157,28 @@ msgstr ""
 "Du skal have slået modulet Brugere til i modul status, for at kunne bruger "
 "det."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:248
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:247
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:261
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:260
 #, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr "Der er ingen ændringer, der ikke er gemt."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:265
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:264
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr "Der er ingen ændringer, der ikke er gemt."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:270
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:269
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -8187,14 +8187,14 @@ msgstr ""
 "Der er ikke certifikater til rådighed for denne klient. Opret, {ohref} "
 "venligst en {chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:423
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:424
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:598
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr ""
@@ -8217,18 +8217,18 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ændre"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:599
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:600
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Backup af modul ændringer"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:602
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:607
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr ""
@@ -8251,13 +8251,13 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ændre"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:608
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Backup af modul ændringer"
@@ -8983,8 +8983,8 @@ msgstr "Kontakt opdateret"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:111
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:123
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:175
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:187
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:193
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:205
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:43
 #: ../../main/samba/src/EBox/Samba/Group.pm:225
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:42
@@ -9014,12 +9014,12 @@ msgstr "E-Mail"
 msgid "confirm password"
 msgstr "bekræft password"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:153
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:168
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
 msgid "Passwords do not match."
 msgstr "De 2 passwords er ikke ens"
 
-#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:163
+#: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:178
 msgid "User updated"
 msgstr "Bruger opdateret"
 
@@ -9164,7 +9164,7 @@ msgid ""
 "Domain, or Organizational Unit in the Active Directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:226
+#: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:230
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:413
 #: ../../main/samba/src/EBox/Samba/User.pm:237
 #, perl-brace-format
@@ -9182,8 +9182,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:556
-#: ../../main/samba/src/EBox/Samba/User.pm:562
+#: ../../main/samba/src/EBox/Samba/User.pm:599
+#: ../../main/samba/src/EBox/Samba/User.pm:605
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
@@ -9225,23 +9225,23 @@ msgstr ""
 msgid "There was an error updating LDAP:"
 msgstr "Der opstod en fejl under opdatering af LDAP:"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:522
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:521
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:611
+#: ../../main/samba/src/EBox/Samba/User.pm:654
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr "Fundet {count} resultater for, forventede kun én."
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:884
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:883
 #, perl-brace-format
 msgid ""
 "There is already an object of type {type} with CN={cn} in this container"
 msgstr ""
 "Der er allerede et objekt af typen {type} med CN = ​​{cn} i denne beholder"
 
-#: ../../main/samba/src/EBox/Samba/LdapObject.pm:898
+#: ../../main/samba/src/EBox/Samba/LdapObject.pm:897
 msgid "Group E-mail"
 msgstr "Gruppe E-mail"
 
@@ -9300,7 +9300,7 @@ msgid "Username '{x}' already exists on the same container"
 msgstr "Der er allerede et hostnavn med det samme navn \"{name}\" i domænet"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:173
-#: ../../main/samba/src/EBox/Samba/User.pm:495
+#: ../../main/samba/src/EBox/Samba/User.pm:538
 msgid "Error on person LDAP entry creation:"
 msgstr "Fejl på person, LDAP indgangsoprettelse:"
 
@@ -9368,23 +9368,23 @@ msgstr "Bruger (user) {u} eksister ikke"
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:652
+#: ../../main/samba/src/EBox/Samba/Provision.pm:645
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:672
+#: ../../main/samba/src/EBox/Samba/Provision.pm:665
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:693
+#: ../../main/samba/src/EBox/Samba/Provision.pm:686
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:742
+#: ../../main/samba/src/EBox/Samba/Provision.pm:735
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -9394,79 +9394,79 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:780
+#: ../../main/samba/src/EBox/Samba/Provision.pm:773
 msgid "Could not retrieve the domain information."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:789
+#: ../../main/samba/src/EBox/Samba/Provision.pm:782
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:809
+#: ../../main/samba/src/EBox/Samba/Provision.pm:802
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:828
+#: ../../main/samba/src/EBox/Samba/Provision.pm:821
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:837
+#: ../../main/samba/src/EBox/Samba/Provision.pm:830
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:872
+#: ../../main/samba/src/EBox/Samba/Provision.pm:865
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:898
+#: ../../main/samba/src/EBox/Samba/Provision.pm:891
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:919
+#: ../../main/samba/src/EBox/Samba/Provision.pm:912
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:925
+#: ../../main/samba/src/EBox/Samba/Provision.pm:918
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:952
+#: ../../main/samba/src/EBox/Samba/Provision.pm:945
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:959
+#: ../../main/samba/src/EBox/Samba/Provision.pm:952
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:986
+#: ../../main/samba/src/EBox/Samba/Provision.pm:979
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1019
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1012
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1032
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1025
 #: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:628
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -9477,35 +9477,45 @@ msgstr ""
 "kan forårsage problemer med Kerberos-godkendelse, du skal synkronisere begge "
 "ure med en ekstern NTP kilde, og prøv så igen."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1071
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1064
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1083
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1076
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1117
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1110
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1121
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1114
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1479
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1468
 #, fuzzy
 msgid "Error on group container LDAP entry creation:"
 msgstr "Fejl på gruppe LDAP-element oprettelse:"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:418
+#: ../../main/samba/src/EBox/Samba/User.pm:393
+#, fuzzy, perl-brace-format
+msgid "User name with {x} full name already exists in the same container"
+msgstr "Der er allerede et hostnavn med det samme navn \"{name}\" i domænet"
+
+#: ../../main/samba/src/EBox/Samba/User.pm:397
+#, fuzzy
+msgid "There was an error modifying the RDN:"
+msgstr "Der opstod en fejl under opdatering af LDAP:"
+
+#: ../../main/samba/src/EBox/Samba/User.pm:461
 msgid "Username already exists on the system"
 msgstr "Brugernavnet findes allerede på systemet"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:459
+#: ../../main/samba/src/EBox/Samba/User.pm:502
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -9514,60 +9524,60 @@ msgstr ""
 "Bemærk, at det maksimale antal brugere til din udgave er {max} og du har i "
 "øjeblikket {nUsers}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:558
+#: ../../main/samba/src/EBox/Samba/User.pm:601
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:564
+#: ../../main/samba/src/EBox/Samba/User.pm:607
 #, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Netbios navn må ikke være mere end 15 karakterer"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:575
+#: ../../main/samba/src/EBox/Samba/User.pm:618
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Passwordet kan ikke være længere end {maxPwdLength} tegn"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:587
+#: ../../main/samba/src/EBox/Samba/User.pm:630
 #, fuzzy, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "Der er allerede et hostnavn med det samme navn \"{name}\" i domænet"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:659
+#: ../../main/samba/src/EBox/Samba/User.pm:702
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:680
+#: ../../main/samba/src/EBox/Samba/User.pm:723
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:726
-#: ../../main/samba/src/EBox/Samba/User.pm:825
-#: ../../main/samba/src/EBox/Samba/User.pm:835
+#: ../../main/samba/src/EBox/Samba/User.pm:769
+#: ../../main/samba/src/EBox/Samba/User.pm:868
+#: ../../main/samba/src/EBox/Samba/User.pm:878
 msgid "user quota"
 msgstr "bruger kvote"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:728
+#: ../../main/samba/src/EBox/Samba/User.pm:771
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 "Bruger kvote skal være et heltal. For at indstille en ubegrænset kvote, "
 "indtast nul."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:828
+#: ../../main/samba/src/EBox/Samba/User.pm:871
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 "Bruger kvote skal være et positivt heltal. For at indstille en ubegrænset "
 "kvote, indtast nul."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:837
+#: ../../main/samba/src/EBox/Samba/User.pm:880
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr "Den maksimale værdi er {max} MB"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:856
+#: ../../main/samba/src/EBox/Samba/User.pm:899
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
@@ -9576,15 +9586,15 @@ msgstr ""
 "Kan ikke sætte kvote for uid {uid} til {userQuota}. Måske understøtter dit "
 "filsystem ikke kvoter?"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1007
+#: ../../main/samba/src/EBox/Samba/User.pm:1050
 msgid "Maximum number of system users reached"
 msgstr "Maximum antal brugere på systemet er nået"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1012
+#: ../../main/samba/src/EBox/Samba/User.pm:1055
 msgid "Maximum number of users reached"
 msgstr "Maximum antal brugere er nået"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1029
+#: ../../main/samba/src/EBox/Samba/User.pm:1072
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -9592,7 +9602,7 @@ msgstr ""
 "Ugyldigt UID {uid} for brugeren. UID skal være det samme eller større end "
 "{min}."
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1039
+#: ../../main/samba/src/EBox/Samba/User.pm:1082
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -10119,7 +10129,7 @@ msgid "Default user quota"
 msgstr "Standard bruger kvote"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
-#: ../../main/samba/src/templates/edituser.mas:301
+#: ../../main/samba/src/templates/edituser.mas:304
 msgid "Limited to"
 msgstr "Begrænset til"
 
@@ -12211,15 +12221,7 @@ msgstr ""
 msgid "External account {acc} added"
 msgstr "Ekstern konto alias"
 
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:56
-msgid ""
-"There are no users in the group or the users do not have a mail account, so "
-"an alias account cannot be created"
-msgstr ""
-"Der er ingen brugere i gruppen eller brugerne har ikke en mailkonto, så en "
-"alias konto kan ikke oprettes"
-
-#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:62
+#: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:58
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:61
 #, perl-brace-format
 msgid "Added alias {al}"
@@ -15620,13 +15622,13 @@ msgstr "Opret mail konto"
 msgid "Replacing the mail account removes all its current data."
 msgstr ""
 
-#: ../../main/samba/src/templates/edituser.mas:199
-#: ../../main/samba/src/templates/edituser.mas:283
+#: ../../main/samba/src/templates/edituser.mas:202
+#: ../../main/samba/src/templates/edituser.mas:286
 #, fuzzy
 msgid "This user is not a member of any group"
 msgstr "Brugere der ikke er i gruppen"
 
-#: ../../main/samba/src/templates/edituser.mas:268
+#: ../../main/samba/src/templates/edituser.mas:271
 #: ../../main/samba/src/templates/editcontact.mas:162
 #, fuzzy
 msgid "Add group"
@@ -15953,6 +15955,13 @@ msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
 "Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
+
+#~ msgid ""
+#~ "There are no users in the group or the users do not have a mail account, "
+#~ "so an alias account cannot be created"
+#~ msgstr ""
+#~ "Der er ingen brugere i gruppen eller brugerne har ikke en mailkonto, så "
+#~ "en alias konto kan ikke oprettes"
 
 #, fuzzy
 #~ msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
