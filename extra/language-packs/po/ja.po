@@ -12227,6 +12227,11 @@ msgstr ""
 "それはエイリアス{al}で参照されたアカウントで外部ドメインとして表示されますの"
 "で、仮想ドメイン{vd}を追加できません"
 
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid "{oh}Manage additional OpenChange features for these domains{ch}"
+msgstr ""
+
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."
 msgstr "このフォームはユーザコーナーアプリケーションからのみ利用できます。"
