@@ -9,15 +9,22 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
+    var timeoutPeriod = 35;
+    var timeout = timeoutPeriod;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
             success: function(response) {
+                timeout = timeoutPeriod;
                 $('#output').html(response.output);
             }
         }).fail(function (jqXHR) {
             if (jqXHR.status >= 502) {
+                if (timeout > 0) {
+                     timeout -= 1;
+                     return;
+                }
                 $('#webadmin_ko').hide();
                 $('#ajax_loader_upgrade').hide();
                 $('#finished').show();

@@ -6,6 +6,11 @@ rm -f $UPGRADE_FILE
 
 export DEBIAN_FRONTEND=noninteractive
 
+function echoTS
+{
+     echo "$(date "+%Y/%m/%d %T") $1"
+}
+
 function upgrade
 {
     apt-get update
@@ -16,7 +21,7 @@ function upgrade
         then
             break
         else
-            echo "Download failed, retrying in 5 seconds..."
+            echoTS "Download failed, retrying in 5 seconds..."
             sleep 5
         fi
     done
@@ -24,35 +29,43 @@ function upgrade
     apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 }
 
+
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 
-echo; echo "Upgrading your current system to the latest packages..."; echo
+echo; echoTS "Upgrading your current system to the latest packages..."; echo
 upgrade
 
-echo; echo "Upgrading from Zentyal 3.5 to 4.0..."; echo
+echo; echoTS "Upgrading from Zentyal 3.5 to 4.0..."; echo
 sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
 upgrade
 
 for i in `seq 1 3`
 do
-    echo; echo "Forcing pending packages installation..."; echo
+    echo; echoTS "Forcing pending packages installation..."; echo
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     rm -f /var/lib/dpkg/info/suricata.prerm
     for pkg in freeradius-ldap suricata rabbitmq-server
     do
-        rm -f /var/lib/dpkg/info/${pkg}.postinst
+echo         mv -f /var/lib/dpkg/info/${pkg}.postinst /var/lib/dpkg/info/old.${pkg}.postinst >> /tmp/log
+        mv -f /var/lib/dpkg/info/${pkg}.postinst /var/lib/dpkg/info/old.${pkg}.postinst
     done
     dpkg --configure -a --force-confdef
     apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
     if [ $? == 0 ]
     then
-        echo; echo "Nothing more pending to upgrade"; echo
+        echo; echoTS "Nothing more pending to upgrade"; echo
         break
     fi
 done
 
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
+    for pkg in freeradius-ldap suricata rabbitmq-server 
+    do
+       echo         mv -f /var/lib/dpkg/info/old.${pkg}.postinst /var/lib/dpkg/info/${pkg}.postinst >> /tmp/debug
+        mv -f /var/lib/dpkg/info/old.${pkg}.postinst /var/lib/dpkg/info/${pkg}.postinst
+    done
+
     /usr/share/zentyal/global-action --action saveAllModules
 
     # Purge all no longer needed running services like haproxy, collectd, etc
@@ -63,9 +76,9 @@ then
     service zentyal webadmin restart
     service zentyal logs restart
 
-    echo; echo "Zentyal upgrade finished!"
+    echo; echoTS "Zentyal upgrade finished!"
 else
-    echo; echo "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
+    echo; echoTS "Zentyal upgrade failed. Full log at /var/log/zentyal/upgrade.log."
 fi
 
 apt-get clean
