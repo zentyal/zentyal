@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in generating certificate when openchange module is
+	  not installed
 	+ Added missing zip dependency
 	+ EBox::CA::checkCertificateFieldsCharacters is now a public method
 4.0

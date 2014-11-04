@@ -185,7 +185,7 @@ sub _genCert
 
     my $certMD = $ca->getCertificateMetadata(cn => $cn);
     if ((not defined($certMD)) or ($certMD->{state} ne 'V')) {
-        if ($openchange->certificateIsReserved($cn)) {
+        if ($openchange and $openchange->certificateIsReserved($cn)) {
             EBox::warn("Service certificate with CN=$cn is reserved and cannot be generated. Please, generate it using OpenChange certificate.");
             return;
         }
