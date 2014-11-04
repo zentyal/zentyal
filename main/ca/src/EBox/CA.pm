@@ -490,6 +490,13 @@ sub revokeCACertificate
 
     $self->_audit('revokeCACertificate', "reason: $args{reason}");
 
+    # Notify observers that certificate was revoked
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $obs (@observers) {
+        $obs->certificateRevokeDone($cn, $isCACert);
+    }
+
     return $retVal;
 }
 

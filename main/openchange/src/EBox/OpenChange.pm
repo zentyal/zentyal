@@ -1059,6 +1059,24 @@ sub certificateRevoked
     return 0;
 }
 
+sub certificateRevokeDone
+{
+    my ($self, $commonName, $isCACert) = @_;
+
+    return unless $self->isProvisioned();
+
+    my $model = $self->model('VDomains');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $vdomain = $row->printableValueByName('vdomain');
+        if (lc ($vdomain) eq lc ($commonName)) {
+            $row->elementByName('webmail_https')->setValue(0);
+            $row->elementByName('rpcproxy_https')->setValue(0);
+            $row->store();
+        }
+    }
+}
+
 sub certificateRenewed
 {
     my ($self, $commonName, $isCACert) = @_;
