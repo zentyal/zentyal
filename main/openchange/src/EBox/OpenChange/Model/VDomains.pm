@@ -32,6 +32,18 @@ use EBox::Types::MultiStateAction;
 use EBox::Types::Link;
 use EBox::Exceptions::Internal;
 
+sub new
+{
+    my $class = shift;
+
+    my $self =  $class->SUPER::new(@_);
+    bless ($self, $class);
+
+    $self->_cacheDnsDomains();
+
+    return $self;
+}
+
 sub _table
 {
     my ($self) = @_;
@@ -159,21 +171,19 @@ sub _table
 
 # Method: _zentyalManagedAcquirer
 #
-#   Checks if the domain exists in the DNS module DomainTable (it is
+#   Checks if the domain exists in the cached DNS module DomainTable (it is
 #   is managed by Zentyal) to show the value in the table.
 #
 sub _zentyalManagedAcquirer
 {
     my ($type) = @_;
 
+    my $self = $type->model();
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
+    my $domain = $self->_dnsDomainInfo($vdomain);
 
-    my $dns = EBox::Global->modInstance('dns');
-    my $dnsDomains = $dns->model('DomainTable');
-    my $dnsRow = $dnsDomains->find(domain => $vdomain);
-
-    return (defined $dnsRow);
+    return (defined $domain);
 }
 
 # Method: _certificateAcquirer
@@ -212,12 +222,15 @@ sub _autodiscoverRecordAcquirer
     my $vdomain = $row->printableValueByName('vdomain');
 
     # If the domain is managed by zentyal check the DNS model
-    my $dns = EBox::Global->modInstance('dns');
-    my $dnsDomains = $dns->model('DomainTable');
-    my $dnsRow = $dnsDomains->find(domain => $vdomain);
-    if (defined $dnsRow) {
+    my $domain = $self->_dnsDomainInfo($vdomain);
+    if (defined $domain) {
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $hostName = $sysinfo->hostName();
+
+        my $dns = EBox::Global->modInstance('dns');
+        my $dnsDomains = $dns->model('DomainTable');
+        my $dnsRowId = $domain->{rowId};
+        my $dnsRow = $dnsDomains->row($dnsRowId);
 
         my $hostModel = $dnsRow->subModel('hostnames');
         my $hostRow = $hostModel->find(hostname => $hostName);
@@ -271,12 +284,9 @@ sub _autodiscoverIsEditable
     my $self = $type->model();
     my $row = $type->row();
     my $vdomain = $row->printableValueByName('vdomain');
+    my $domain = $self->_dnsDomainInfo($vdomain);
 
-    my $dns = EBox::Global->modInstance('dns');
-    my $dnsDomains = $dns->model('DomainTable');
-    my $dnsRow = $dnsDomains->find(domain => $vdomain);
-
-    my $domainManagedByZentyal = (defined $dnsRow);
+    my $domainManagedByZentyal = (defined $domain);
     my $certInPlace = (defined $self->certificate($vdomain));
 
     return ($domainManagedByZentyal and $certInPlace);
@@ -619,5 +629,37 @@ sub enableAllVDomain
     }
 }
 
+sub _cacheDnsDomains
+{
+    my ($self) = @_;
+
+    my $info = {};
+    my $dns = EBox::Global->modInstance('dns');
+    my $dnsDomains = $dns->model('DomainTable');
+    foreach my $id (@{$dnsDomains->ids()}) {
+        my $dnsRow = $dnsDomains->row($id);
+        my $name = $dnsRow->printableValueByName('domain');
+        $info->{$name} = { rowId => $id };
+    }
+    $self->{dnsDomains} = $info;
+}
+
+sub _dnsDomainInfo
+{
+    my ($self, $vdomain) = @_;
+
+    unless (exists $self->{dnsDomains}) {
+        $self->_cacheDnsDomains();
+    }
+
+    return $self->{dnsDomains}->{$vdomain};
+}
+
+sub invalidateCache
+{
+    my ($self) = @_;
+
+    delete $self->{dnsDomains};
+}
 
 1;

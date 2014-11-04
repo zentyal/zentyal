@@ -1,4 +1,6 @@
 HEAD
+	+ Cache DomainTable DNS model in VDomains to avoid querying it in
+	  acquirers
 	+ When removing user delete its sogo database rows
 	+ Raise error on wizard when the user enter unsupported characters
 	  for the CA
