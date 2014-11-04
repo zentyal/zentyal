@@ -20,10 +20,6 @@ use warnings;
 #
 #   Helper table to aid the users to configure Virtual Domains
 #
-#   TODO list:
-#   - Show a link to the SOGo webmail for each virtual domain
-#   - Help strings (Mateo)
-#
 
 package EBox::OpenChange::Model::VDomains;
 
