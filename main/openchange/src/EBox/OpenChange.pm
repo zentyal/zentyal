@@ -1049,9 +1049,6 @@ sub certificateRevoked
             my $row = $model->row($id);
             my $vdomain = $row->printableValueByName('vdomain');
             if (lc ($vdomain) eq lc ($commonName)) {
-                $row->elementByName('webmail_https')->setValue(0);
-                $row->elementByName('rpcproxy_https')->setValue(0);
-                $row->store();
                 return $model->certificate($commonName) ? 1 : 0;
             }
         }
