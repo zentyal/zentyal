@@ -1,4 +1,5 @@
 HEAD
+	+ Disable HTTPS and SSL options for vdomain after certificate is revoked
 	+ When removing user delete its sogo database rows
 	+ Raise error on wizard when the user enter unsupported characters
 	  for the CA
