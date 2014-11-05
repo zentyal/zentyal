@@ -47,12 +47,19 @@ sub new
     return $self;
 }
 
+sub redirectOnNoParams
+{
+    return 'CA/Index';
+}
+
 # Process the HTTP query
 # Templates that come from: forceRevoke.mas and formRevoke.mas
 
 sub _process
 {
     my $self = shift;
+
+    return unless (@{$self->params()});
 
     # If it comes from forceRevoke with a cancel button
     if (defined($self->param('cancel'))) {

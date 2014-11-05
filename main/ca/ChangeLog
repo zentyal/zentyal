@@ -1,4 +1,6 @@
 HEAD
+	+ RevokeCertificate page redirects properly after save changes
+	+ Added new CA::Observer::certificateRevokeDone and call it after revoke
 	+ Fixed bug in generating certificate when openchange module is
 	  not installed
 	+ Added missing zip dependency

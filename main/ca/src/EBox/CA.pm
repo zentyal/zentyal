@@ -986,6 +986,13 @@ sub revokeCertificate
     # reason: $args{reason}
     # force: $force
 
+    # Notify observers that certificate was revoked
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $obs (@observers) {
+        $obs->certificateRevokeDone($commonName, 0);
+    }
+
     return undef;
 }
 
