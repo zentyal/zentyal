@@ -433,7 +433,7 @@ sub provision
     my $state = $self->parentModule()->get_state();
     if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
         my %args = %{$state->{provision_from_wizard}};
-        my $commonName = __x('{org} Authority Certificate', org => $organizationName);
+        my $commonName = "$organizationName Authority Certificate";
         $ca->createCA(commonName => $commonName, %args);
 
         my $vdomainToEnable = $vdomains->row($vdomainId)->valueByName('vdomain');
