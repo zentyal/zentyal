@@ -75,7 +75,7 @@ sub _table
                   }
 
                   my $title = __('Change hostname');
-                  my $msg = __x('{op}A hostname change will create a new certificate for the web administration connections. This means you will have to reload the page manually once the save change proccess ends.{cp}', op => '<p>', cp => '</p>');
+                  my $msg = __x('{op}A hostname change will create a new certificate for the web administration connections. This means you will have to accept the new certificate in your browser. Try to reload the page if automatic redirection does not work after the save changes process finishes.{cp}', op => '<p>', cp => '</p>');
                   $msg .= __x('{op}You may need to restart all the services or reboot the system to enforce the change{cp}', op => '<p>', cp => '</p>');
                   # TODO: implement this in a cooler way with SysInfo::Observer so more modules
                   #       can warn about the hostname change if needed

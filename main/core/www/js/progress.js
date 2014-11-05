@@ -88,6 +88,9 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
     }
 };
 
+var consecutiveFails = 0;
+var failRedirectURL = location.search.indexOf('firstTime=1') > 0 ? '/Wizard/SoftwareSetupFinish?firstTime=1' : '/';
+
 Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var time = 0,
     progressbar = $('#progress_bar');
@@ -99,6 +102,15 @@ Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, current
             data: requestParams,
             type : 'POST',
             complete: function (xhr) {
+                if (xhr.status == 0) {
+                    consecutiveFails++;
+                } else {
+                    consecutiveFails = 0;
+                }
+                // 10 consecutive unknown fails, probably certificate changed, force reload
+                if (consecutiveFails >= 10) {
+                    window.location.replace(failRedirectURL);
+                }
                 Zentyal.ProgressIndicator.updatePage(xhr, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
             }
         });
