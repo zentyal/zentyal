@@ -20,7 +20,6 @@ use EBox::Gettext;
                 $('#output').html(response.output);
             }
         }).fail(function (jqXHR) {
-            if (jqXHR.status >= 502) {
                 if (timeout > 0) {
                      timeout -= 1;
                      return;
@@ -29,7 +28,6 @@ use EBox::Gettext;
                 $('#ajax_loader_upgrade').hide();
                 $('#finished').show();
                 $('#close_button').show();
-            }
         });
         setTimeout(updateOutput, 1000);
     }
