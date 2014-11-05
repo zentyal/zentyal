@@ -735,7 +735,7 @@ sub isInternal
 
     # FIXME: whitelist Guest account, Administrator account
     # do this better removing isCriticalSystemObject check
-    if ( $self->isAdministratorOrGuest() ) {
+    if ($self->isAdministratorOrGuest()) {
         return 0;
     }
 
@@ -749,7 +749,7 @@ sub isInternal
 sub isAdministratorOrGuest
 {
     my ($self) = @_;
-    return ($self->sid() =~ /^S-1-5-21-.*-501$/) or ($self->sid() =~ /^S-1-5-21-.*-500$/)
+    return (($self->sid() =~ /^S-1-5-21-.*-501$/) or ($self->sid() =~ /^S-1-5-21-.*-500$/));
 }
 
 sub setInternal

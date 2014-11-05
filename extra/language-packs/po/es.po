@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-10-28 12:50+0200\n"
-"Last-Translator: figarocorso <mjulian@zentyal.com>\n"
+"PO-Revision-Date: 2014-11-04 13:21+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -9506,14 +9506,13 @@ msgid "Error on group container LDAP entry creation:"
 msgstr "Error creando entrada del contenedor LDAP de grupos:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:393
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "User name with {x} full name already exists in the same container"
-msgstr "El nombre de usuario {x} ya existe en el mismo contenedor."
+msgstr "El usuario con nombre {x} ya existe en el mismo contenedor"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:397
-#, fuzzy
 msgid "There was an error modifying the RDN:"
-msgstr "Ocurrió un error actualizando LDAP:"
+msgstr "Ocurrió un error modificando el RDN:"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:461
 msgid "Username already exists on the system"
@@ -12449,6 +12448,13 @@ msgid ""
 msgstr ""
 "No se puede añadir el domino virtual {vd} porque aparece como dominio "
 "externo en la cuenta referenciada por el alias {al}"
+
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid "{oh}Manage additional OpenChange features for these domains{ch}"
+msgstr ""
+"{oh}Gestionar características adicionales de OpenChange para estos "
+"dominios{ch}"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-10-28 13:03+0200\n"
+"PO-Revision-Date: 2014-11-04 13:04+0200\n"
 "Last-Translator: Anonymous Pootle User\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: an\n"
@@ -12249,6 +12249,11 @@ msgstr ""
 msgid ""
 "Cannot add virtual domain {vd} because it appears as external domain in the "
 "account referenced by the alias {al}"
+msgstr ""
+
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid "{oh}Manage additional OpenChange features for these domains{ch}"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80

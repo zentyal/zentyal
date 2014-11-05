@@ -1,6 +1,8 @@
 HEAD
 	+ Cache DomainTable DNS model in VDomains to avoid querying it in
 	  acquirers
+	+ Fix problems with some translations on CA name with non-ASCII chars
+	+ Disable HTTPS and SSL options for vdomain after certificate is revoked
 	+ When removing user delete its sogo database rows
 	+ Raise error on wizard when the user enter unsupported characters
 	  for the CA

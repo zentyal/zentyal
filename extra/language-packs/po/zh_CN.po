@@ -11647,6 +11647,11 @@ msgid ""
 "account referenced by the alias {al}"
 msgstr "无法添加虚拟域 {vd}， 由于它作为别名 {al} 被这个账户的外部域引用"
 
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid "{oh}Manage additional OpenChange features for these domains{ch}"
+msgstr ""
+
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."
 msgstr ""

@@ -33,22 +33,22 @@ sub new
 
 # Method: certificateRevoked
 #
-#	Invoked when a certificate is gonna be revoked, this method
-#	receives the common name which identifies the certificate and
-#	if it is the CA certificate. Returning a true value means that
-#	this module's configuration would become inconsistent if such
-#	the revokation is made. In that case the CA module will
-#	not make the change, but warn the user instead. You should
-#	override this method if you need to.
+#   Invoked when a certificate is gonna be revoked, this method
+#   receives the common name which identifies the certificate and
+#   if it is the CA certificate. Returning a true value means that
+#   this module's configuration would become inconsistent if such
+#   the revokation is made. In that case the CA module will
+#   not make the change, but warn the user instead. You should
+#   override this method if you need to.
 #
 # Parameters:
 #
-#	commonName - common name which identifies the certificate
+#   commonName - common name which identifies the certificate
 #       isCACert   - is the CA certificate?
 #
 # Returns:
 #
-#	 true  - if module's configuration becomes inconsistent
+#    true  - if module's configuration becomes inconsistent
 #        false - otherwise
 #
 sub certificateRevoked # (commonName, isCACert)
@@ -56,11 +56,25 @@ sub certificateRevoked # (commonName, isCACert)
         return undef;
 }
 
+# Method: certificateRevokeDone
+#
+#   Invoked to notify that a certificate has been revoked.
+#
+# Parameters:
+#
+#   commonName - common name which identifies the certificate
+#   isCACert   - is the CA certificate?
+#
+sub certificateRevokeDone # (commonName, isCACert)
+{
+        return undef;
+}
+
 # Method: certificateExpired
 #
-# 	Invoked when a certificate has expired or is about to do
-# 	it. You should override this method if you need to. It cannot
-# 	be prevented since time is time.
+#   Invoked when a certificate has expired or is about to do
+#   it. You should override this method if you need to. It cannot
+#   be prevented since time is time.
 #
 # Parameteres:
 #
@@ -74,8 +88,8 @@ sub certificateExpired # (commonName, isCACert)
 
 # Method: certificateRenewed
 #
-# 	Invoked when a certificate has been renewed.
-# 	You should override this method if you need to.
+#   Invoked when a certificate has been renewed.
+#   You should override this method if you need to.
 #
 # Parameteres:
 #
@@ -89,7 +103,7 @@ sub certificateRenewed # (commonName, isCACert)
 
 # Method: freeCertificate
 #
-# 	Tells this module that an certificate is going to be revoked or has expired,
+#   Tells this module that an certificate is going to be revoked or has expired,
 #       so that it can remove it from its configuration.
 #
 # Parameters:

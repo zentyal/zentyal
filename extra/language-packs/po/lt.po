@@ -12168,6 +12168,11 @@ msgstr ""
 "Nepavyko įkelti virtualios srities {vd} nes išorinė sritis paskyroje "
 "nurodoma pagal šį aliasą {al}"
 
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:231
+#, perl-brace-format
+msgid "{oh}Manage additional OpenChange features for these domains{ch}"
+msgstr ""
+
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:80
 msgid "This form is only available from the User Corner application."
 msgstr ""

@@ -1,4 +1,5 @@
-HEAD
+4.0.1
+	+ Add link in mail vdomain model to openchange virtual domains settings
 	+ Allow to create group alias on empty groups
 	+ Removed no longer existent smtp_generic_maps
 4.0

@@ -3349,3 +3349,7 @@ OVERRIDED MODEL STYLES
 #RPCProxy_manage_row label {
     display: none;
 }
+#VDomains_table button[name="revoke"] {
+    display: none;
+}
+
