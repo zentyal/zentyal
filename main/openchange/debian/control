@@ -10,6 +10,7 @@ Architecture: all
 Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 4.0), zentyal-core (<< 4.1),
          zentyal-samba, zentyal-mail, zentyal-ca (>= 4.0.1),
+         zentyal-dns (>= 4.0.1),
          openchangeserver (>> 2.3-zentyal1),
          openchange-rpcproxy, libstring-random-perl,
          openchange-ocsmanager (>> 3:2.3-zentyal1),
