@@ -1,3 +1,5 @@
+HEAD
+	+ Save changes does redirection after 10 consecutive failed requests
 4.0
 	+ sudoers-friendly take user to whatever module which implenents extraSudoerUsers
 	+ Implement data in use in JS for forms
