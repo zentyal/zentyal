@@ -1,4 +1,4 @@
-HEAD
+4.0.1
 	+ Fix problems with some translations on common name with non-ASCII chars
 	+ RevokeCertificate page redirects properly after save changes
 	+ Added new CA::Observer::certificateRevokeDone and call it after revoke
