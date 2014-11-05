@@ -39,8 +39,6 @@ sub new
     my $self =  $class->SUPER::new(@_);
     bless ($self, $class);
 
-    $self->_cacheDnsDomains();
-
     return $self;
 }
 
