@@ -9,7 +9,8 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var timeoutPeriod = 35;
+    var timeoutPeriod = 125;
+    var timeoutWebadminKO = timeoutPeriod - 10;
     var timeout = timeoutPeriod;
     function updateOutput() {
         $.ajax({
@@ -20,6 +21,9 @@ use EBox::Gettext;
                 $('#output').html(response.output);
             }
         }).fail(function (jqXHR) {
+                if (timeout < timeoutWebadminKO) {
+                     $('#webadmin_ko').show();
+                }
                 if (timeout > 0) {
                      timeout -= 1;
                      return;
