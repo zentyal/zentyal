@@ -9,30 +9,35 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var timeoutPeriod = 125;
-    var timeoutWebadminKO = timeoutPeriod - 5;
-    var timeout = timeoutPeriod;
+    var aboutToFinish = false;
+    var finished = false;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
+            timeout: 20000,
             success: function(response) {
-                timeout = timeoutPeriod;
+                if (aboutToFinish) {
+                    $('#webadmin_ko').hide();
+                    $('#output').show();
+                    aboutToFinish = false;
+                }
                 $('#output').html(response.output);
             }
         }).fail(function (jqXHR) {
-                if (timeout < timeoutWebadminKO) {
-                     $('#output').hide();
-                     $('#webadmin_ko').show();
+                if (!aboutToFinish && (jqXHR.status == 502)) {
+                    $('#output').hide();
+                    $('#webadmin_ko').show();
+                    aboutToFinish = true;
+                } else if (aboutToFinish && !finished) {
+                    if (jqXHR.status == 0) {
+                        $('#webadmin_ko').hide();
+                        $('#ajax_loader_upgrade').hide();
+                        $('#finished').show();
+                        $('#close_button').show();
+                        finished = true;
+                    }
                 }
-                if (timeout > 0) {
-                     timeout -= 1;
-                     return;
-                }
-                $('#webadmin_ko').hide();
-                $('#ajax_loader_upgrade').hide();
-                $('#finished').show();
-                $('#close_button').show();
         });
         setTimeout(updateOutput, 1000);
     }
