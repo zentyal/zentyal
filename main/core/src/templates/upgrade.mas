@@ -11,33 +11,49 @@ use EBox::Gettext;
 <script>
     var aboutToFinish = false;
     var finished = false;
+    var fails = 0;
+    var successes = 0;
+    var timeoutFails = 0;
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
-            timeout: 20000,
+            timeout: 10000,
             success: function(response) {
-                if (aboutToFinish) {
+                successes++;
+                fails = 0;
+                if (aboutToFinish && (successes >= 5)) {
                     $('#webadmin_ko').hide();
                     $('#output').show();
                     aboutToFinish = false;
                 }
                 $('#output').html(response.output);
             }
-        }).fail(function (jqXHR) {
-                if (!aboutToFinish && (jqXHR.status == 502)) {
+        }).fail(function (jqXHR, status) {
+            successes = 0;
+            if (!aboutToFinish) {
+                fails++;
+                if (fails >= 20) {
                     $('#output').hide();
                     $('#webadmin_ko').show();
+                    fails = 0;
                     aboutToFinish = true;
-                } else if (aboutToFinish && !finished) {
-                    if (jqXHR.status == 0) {
-                        $('#webadmin_ko').hide();
-                        $('#ajax_loader_upgrade').hide();
-                        $('#finished').show();
-                        $('#close_button').show();
-                        finished = true;
-                    }
                 }
+            } else if (aboutToFinish && !finished) {
+                if (status == "timeout") {
+                    timeoutFails++;
+                } else if (status == "error") {
+                    fails++;
+                }
+                if ((timeoutFails >= 5) || (fails >= 20)) {
+                    $('#output').hide();
+                    $('#webadmin_ko').hide();
+                    $('#ajax_loader_upgrade').hide();
+                    $('#finished').show();
+                    $('#close_button').show();
+                    finished = true;
+                }
+            }
         });
         setTimeout(updateOutput, 1000);
     }
