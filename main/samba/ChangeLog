@@ -1,3 +1,6 @@
+HEAD
+	+ Avoid notifying slaves while setting the password as it is does
+	  by addUser called below
 4.0.2
 	+ Fix regression in showing the Administrator account
 4.0.1

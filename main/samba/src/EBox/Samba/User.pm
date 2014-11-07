@@ -426,7 +426,7 @@ sub setFullName
 #       kerberosKeys - Set of kerberos keys
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber - user UID number
-#       ignoreSlaves - Boolean to avoid notifying LDAP slaves
+#       ignoreSlaves - Array ref with the LDAP slaves to ignore while notifying
 #
 # Returns:
 #
@@ -544,7 +544,9 @@ sub create
 
         $res = new EBox::Samba::User(dn => $dn);
 
-        # Set the password
+        # Set the password with no notifying the slaves as addUser will do
+        my @allSlavesNames = map { $_->name() } @{$usersMod->allSlaves()};
+        $res->{ignoreSlaves} = \@allSlavesNames;
         if (defined $args{password}) {
             $res->changePassword($args{password});
             $res->setAccountEnabled(1);
@@ -552,6 +554,7 @@ sub create
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled(1);
         }
+        $res->{ignoreSlaves} = undef;
 
         if ($args{ignoreSlaves}) {
             $res->{ignoreSlaves} = $args{ignoreSlaves};
