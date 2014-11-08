@@ -1,5 +1,6 @@
 <%args>
     @removedModules => ()
+    $changePort => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -9,56 +10,52 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script>
-    var aboutToFinish = false;
     var finished = false;
-    var fails = 0;
+    var serverDown = false;
     var successes = 0;
-    var timeoutFails = 0;
+    var fails = 0;
+
     function updateOutput() {
         $.ajax({
             url: '/ReleaseUpgrade?action=output',
             dataType: 'json',
-            timeout: 10000,
-            success: function(response) {
-                successes++;
-                fails = 0;
-                if (aboutToFinish && (successes >= 5)) {
-                    $('#webadmin_ko').hide();
-                    $('#output').show();
-                    aboutToFinish = false;
-                }
-                $('#output').html(response.output);
+            timeout: 20000,
+        }).done(function (data) {
+            if (finished || (data == "")) return;
+
+            if (data.finished) {
+                $('#output').hide();
+                $('#webadmin_ko').hide();
+                $('#ajax_loader_upgrade').hide();
+                $('#finished').show();
+                $('#close_button').show();
+                finished = true;
+                return;
             }
-        }).fail(function (jqXHR, status) {
+
+            $('#output').html(data.output);
+            fails = 0;
+            successes++;
+            if (successes >= 3) {
+                $('#webadmin_ko').hide();
+                $('#output').show();
+                serverDown = false;
+            }
+        }).fail(function () {
             successes = 0;
-            if (!aboutToFinish) {
-                fails++;
-                if (fails >= 20) {
-                    $('#output').hide();
-                    $('#webadmin_ko').show();
-                    fails = 0;
-                    aboutToFinish = true;
-                }
-            } else if (aboutToFinish && !finished) {
-                if (status == "timeout") {
-                    timeoutFails++;
-                } else if (status == "error") {
-                    fails++;
-                }
-                if ((timeoutFails >= 5) || (fails >= 20)) {
-                    $('#output').hide();
-                    $('#webadmin_ko').hide();
-                    $('#ajax_loader_upgrade').hide();
-                    $('#finished').show();
-                    $('#close_button').show();
-                    finished = true;
-                }
+            fails++;
+            if (fails >= 10) {
+                $('#output').hide();
+                $('#webadmin_ko').show();
+                serverDown = true;
             }
         });
+
         setTimeout(updateOutput, 1000);
     }
 
     function doReleaseUpgrade() {
+        $('button[title="close"]').hide();
         $('#ok_button').hide();
         $('#confirmation').hide();
         $('#ajax_loader_upgrade').show();
@@ -70,6 +67,23 @@ use EBox::Gettext;
             }
         });
     }
+
+    function redirectToNewPort() {
+        window.location.port = 8443;
+    }
+
+    function doChangePort() {
+        $('button[title="close"]').hide();
+        $('#ok_button').hide();
+        $('#confirmation').hide();
+        $('#port_changing').show();
+        $('#ajax_loader_upgrade').show();
+        $.ajax({
+            url: '/ReleaseUpgrade?action=changeport',
+        }).done(function () {
+            setTimeout(redirectToNewPort, 15000);
+        });
+    }
 </script>
 
 <div id="confirmation">
@@ -79,7 +93,11 @@ use EBox::Gettext;
 <p>Close this dialog if you do not want to upgrade now.</p>
 </div>
 
-% if (@removedModules) {
+% if ($changePort) {
+<div class="warning">
+<p>You are using 443 as administration port, in Zentyal 4.0 this port is reserved for other web services. If you click Continue, the administration interface will be moved to the new default 8443 port, if you want to use a different port, just set it manually <a href="/SysInfo/Composite/General#AdminPort">here</a> before upgrading.</p>
+</div>
+% } elsif (@removedModules) {
 <div class="error">
 <p>The upgrade process will remove the following modules as they are no longer part of Zentyal 4.0 officially maintained modules (data related to these modules will be deleted):</p>
 <ul>
@@ -96,6 +114,15 @@ use EBox::Gettext;
 
 </div>
 
+<div id="port_changing" class="warning" style="display: none">
+<p>
+The administration port is being changed, after that you will need to click the Upgrade button again.
+</p>
+<p>
+If you are not redirected automatically in a while, click <a href="#" onclick="window.location.port=8443; return false">here</a> to access using the new port.
+</p>
+</div>
+
 <div id="webadmin_ko" class="warning" style="display: none">
 The server is currently unavailable while the upgrade is in progress. The process is almost done and should finish in few minutes. In the meanwhile, you can keep track of the status with the following command: <b>tail -f /var/log/zentyal/upgrade.log</b>.
 </div>
@@ -110,7 +137,7 @@ Upgrade finished! You will be redirected to the login page of Zentyal 4.0 after 
 <div>
 <center>
 <img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
-<button id="ok_button" onclick="doReleaseUpgrade(); return false;">Continue</button>
+<button id="ok_button" onclick="do<% $changePort ? 'ChangePort' : 'ReleaseUpgrade' %>(); return false;">Continue</button>
 <button id="close_button" onclick="window.location.port = 8443; return false;" style="display: none">Close</button>
 </center>
 </div>

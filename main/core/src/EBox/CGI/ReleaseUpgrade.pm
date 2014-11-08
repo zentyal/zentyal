@@ -40,6 +40,7 @@ sub _process
     my ($self) = @_;
 
     my $action = $self->param('action');
+    my $global = EBox::Global->getInstance();
 
     if ($action eq 'upgrade') {
         if (fork() == 0) {
@@ -51,14 +52,23 @@ sub _process
         utf8::decode($output);
         my $finished = (-f '/var/lib/zentyal/.upgrade-finished');
         $self->{json} = { output => $output, finished => $finished };
+    } elsif ($action eq 'changeport') {
+        if (fork() == 0) {
+            EBox::WebAdmin::cleanupForExec();
+            exec ('/usr/share/zentyal/change-port 8443');
+        }
     } else {
+        my $adminPort = $global->modInstance('webadmin')->model('AdminPort')->value('port');
+        my $changePort = ($adminPort == 443);
+
         my @removedModules;
         foreach my $module (qw(ips nut ebackup monitor radius webserver webmail ipsec)) {
             if (EBox::GlobalImpl::_packageInstalled("zentyal-$module")) {
                 push (@removedModules, $module);
             }
         }
-        $self->{params} = [ removedModules => \@removedModules ];
+
+        $self->{params} = [ removedModules => \@removedModules, changePort => $changePort ];
     }
 }
 

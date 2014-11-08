@@ -46,7 +46,6 @@ do
     rm -f /var/lib/dpkg/info/suricata.prerm
     for pkg in freeradius-ldap suricata rabbitmq-server
     do
-echo         mv -f /var/lib/dpkg/info/${pkg}.postinst /var/lib/dpkg/info/old.${pkg}.postinst >> /tmp/log
         mv -f /var/lib/dpkg/info/${pkg}.postinst /var/lib/dpkg/info/old.${pkg}.postinst
     done
     dpkg --configure -a --force-confdef
@@ -60,9 +59,8 @@ done
 
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
-    for pkg in freeradius-ldap suricata rabbitmq-server 
+    for pkg in freeradius-ldap suricata rabbitmq-server
     do
-       echo         mv -f /var/lib/dpkg/info/old.${pkg}.postinst /var/lib/dpkg/info/${pkg}.postinst >> /tmp/debug
         mv -f /var/lib/dpkg/info/old.${pkg}.postinst /var/lib/dpkg/info/${pkg}.postinst
     done
 
@@ -71,10 +69,9 @@ then
     # Purge all no longer needed running services like haproxy, collectd, etc
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
-    # Restart regular webserver, Zentyal UI and logs
+    # Restart regular webserver and Zentyal UI
     service apache2 restart
     service zentyal webadmin restart
-    service zentyal logs restart
 
     echo; echoTS "Zentyal upgrade finished!"
 else

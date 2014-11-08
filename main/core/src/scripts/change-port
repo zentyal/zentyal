@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+# Copyright (C) 2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This scripts restarts webadmin, logs and events modules
+
+use warnings;
+use strict;
+
+use EBox;
+use EBox::Util::Init;
+use EBox::Global;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance();
+my $webadmin = $global->modInstance('webadmin');
+$webadmin->model('AdminPort')->setValue('port', $ARGV[0]);
+$webadmin->saveConfig();
+$global->modInstance('haproxy')->saveConfig();
+$global->modInstance('services')->saveConfig() if $global->modExists('services');
+
+EBox::Util::Init::moduleRestart('firewall') if $global->modExists('firewall');
+EBox::Util::Init::moduleRestart('haproxy');
+EBox::Util::Init::moduleRestart('webadmin');
+
+1;
