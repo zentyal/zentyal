@@ -204,7 +204,7 @@ sub portUsedByService
         for my $subId (@{$serviceConf->findAllValue('destination' => $port)}) {
             my $row = $serviceConf->row($subId);
             if ($row->valueByName('protocol') eq $protocol) {
-                return $service->valueByName('printableName')
+                return $service->valueByName('name')
             }
         }
     }

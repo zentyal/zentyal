@@ -280,7 +280,7 @@ sub availablePort
 # Returns:
 #
 #       false - if it is not used not empty string - if it is in use, the string
-#               contains the name of what is using it
+#               contains the internal name of what is using it
 sub portUsedByService
 {
    my ($self, $proto, $port, $iface) = @_;

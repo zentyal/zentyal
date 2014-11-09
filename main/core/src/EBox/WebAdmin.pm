@@ -39,6 +39,7 @@ use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
 use TryCatch::Lite;
+use EBox::Util::Version;
 
 # Constants
 use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
@@ -68,6 +69,55 @@ sub _create
 
     bless($self, $class);
     return $self;
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+    EBox::debug("XXX initilaSetup $version");
+    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        $self->_migrateTo40();
+    }
+}
+
+sub _migrateTo40
+{
+    my ($self) = @_;
+    my $redis = $self->redis();
+    my $port;
+    my @dirs = qw(haproxy/conf/HAProxyServices/keys/* 
+                  haproxy/ro/HAProxyServices/keys/*);
+    foreach my $dir (@dirs) {
+        my @keys = $redis->_keys($dir);
+        foreach my $key (@keys) {
+            EBox::debug("XXX key $key");
+            my $attr = $redis->get($key, {});
+            use Data::Dumper;
+            EBox::debug(Dumper($attr));
+            if ($attr->{module} eq 'webadmin') {
+                my $sslPort = $attr->{"sslPort_number"};
+                if ($sslPort and ($sslPort != 443)) {
+                    $port = $sslPort;
+                }
+                last;
+            }
+        }
+        if ($port) {
+            last;
+        }
+    }
+        
+    EBox::debug("XXX port $port|");
+    if ($port) {
+        $self->updateAdminPortService($port);
+        $self->model('AdminPort')->setValue('port', $port);
+    }
 }
 
 sub serverroot
@@ -846,7 +896,8 @@ sub checkAdminPort
     my $global = $self->global();
     my $fw = $global->modInstance('firewall');
     if (defined($fw)) {
-        unless ($fw->availablePort('tcp', $port)) {
+        my $service = $fw->portUsedByService('tcp', $port);
+        if ($service and ($service ne 'zentyal_webadmin')) {
             throw EBox::Exceptions::External(__x(
                 'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
                 p => $port
