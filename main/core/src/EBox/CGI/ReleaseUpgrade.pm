@@ -58,7 +58,7 @@ sub _process
             exec ('/usr/share/zentyal/change-port 8443');
         }
     } else {
-        my $adminPort = $global->modInstance('webadmin')->model('AdminPort')->value('port');
+        my $adminPort = $global->modInstance('webadmin')->listeningPort();
         my $changePort = ($adminPort == 443);
 
         my @removedModules;
