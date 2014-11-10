@@ -1,3 +1,5 @@
+HEAD
+	+ Remove incorrect directory exists warnings
 4.0.1
 	+ Save changes does redirection after 10 consecutive failed requests
 	+ Hide useless revoke button in OpenChange vdomains table
