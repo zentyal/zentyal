@@ -53,13 +53,19 @@ sub _process
         my $finished = (-f '/var/lib/zentyal/.upgrade-finished');
         $self->{json} = { output => $output, finished => $finished };
     } elsif ($action eq 'changeport') {
+        my $adminPort = $global->modInstance('webadmin')->listeningPort();
         if (fork() == 0) {
             EBox::WebAdmin::cleanupForExec();
-            exec ('/usr/share/zentyal/change-port 8443');
+            if ($adminPort == 443) {
+                exec ('/usr/share/zentyal/change-port 8443');
+            } else {
+                exec ("/usr/share/zentyal/change-port $adminPort");                
+            }
         }
     } else {
         my $adminPort = $global->modInstance('webadmin')->listeningPort();
-        my $changePort = ($adminPort == 443);
+        my $changeToStandardPort = ($adminPort == 443);
+        my $inStandardPort  = ($adminPort == 8443);
 
         my @removedModules;
         foreach my $module (qw(ips nut ebackup monitor radius webserver webmail ipsec)) {
@@ -68,7 +74,7 @@ sub _process
             }
         }
 
-        $self->{params} = [ removedModules => \@removedModules, changePort => $changePort ];
+        $self->{params} = [ removedModules => \@removedModules, changeToStandardPort => $changeToStandardPort, inStandardPort => $inStandardPort ];
     }
 }
 

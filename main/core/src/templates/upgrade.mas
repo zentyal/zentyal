@@ -1,9 +1,14 @@
 <%args>
     @removedModules => ()
-    $changePort => 0
+    $changeToStandardPort => 0
+    $inStandardPort => 1
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
+if ($changeToStandardPort and $inStandardPort) {
+    EBox::Exceptions::Internal->throw("changeToStandardPort==1 && inStandardPort==1");
+}
 </%init>
 <script type="text/javascript" src="/data/js/jquery-1.9.1.js">//</script>
 <script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
@@ -68,6 +73,19 @@ use EBox::Gettext;
         });
     }
 
+    function doReleaseUpgradeNoStandardPort() {
+        $('button[title="close"]').hide();
+        $('#ok_button').hide();
+        $('#confirmation').hide();
+        $('#ajax_loader_upgrade').show();
+        $.ajax({
+            url: '/ReleaseUpgrade?action=changeport',
+            success: function(response) {
+               doReleaseUpgrade();
+            }
+        });
+    }
+
     function redirectToNewPort() {
         window.location.port = 8443;
     }
@@ -93,11 +111,12 @@ use EBox::Gettext;
 <p>Close this dialog if you do not want to upgrade now.</p>
 </div>
 
-% if ($changePort) {
+% if ($changeToStandardPort) {
 <div class="warning">
 <p>You are using 443 as administration port, in Zentyal 4.0 this port is reserved for other web services. If you click Continue, the administration interface will be moved to the new default 8443 port, if you want to use a different port, just set it manually <a href="/SysInfo/Composite/General#AdminPort">here</a> before upgrading.</p>
 </div>
-% } elsif (@removedModules) {
+% } 
+% if (@removedModules) {
 <div class="error">
 <p>The upgrade process will remove the following modules as they are no longer part of Zentyal 4.0 officially maintained modules (data related to these modules will be deleted):</p>
 <ul>
@@ -136,8 +155,19 @@ Upgrade finished! You will be redirected to the login page of Zentyal 4.0 after 
 
 <div>
 <center>
-<img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
-<button id="ok_button" onclick="do<% $changePort ? 'ChangePort' : 'ReleaseUpgrade' %>(); return false;">Continue</button>
+<img id="ajax_loader_upgrade" style="display:none"
+     src="/data/images/ajax-loader.gif" />
+<%perl>
+my $methodToCall;
+if ($changeToStandardPort) {
+   $methodToCall = 'doChangePort';
+} elsif ($inStandardPort) {
+   $methodToCall = 'doReleaseUpgrade';
+} else {
+   $methodToCall = 'doReleaseUpgradeNoStandardPort';
+}
+</%perl>
+<button id="ok_button" onclick="<% $methodToCall %>(); return false;">Continue</button>
 <button id="close_button" onclick="window.location.port = 8443; return false;" style="display: none">Close</button>
 </center>
 </div>

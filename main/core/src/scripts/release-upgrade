@@ -64,10 +64,14 @@ then
         mv -f /var/lib/dpkg/info/old.${pkg}.postinst /var/lib/dpkg/info/${pkg}.postinst
     done
 
+    service haproxy stop
+
     /usr/share/zentyal/global-action --action saveAllModules
 
-    # Purge all no longer needed running services like haproxy, collectd, etc
+    # Purge all no longer needed running services like collectd, etc
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    # Purge haproxy to  avoid future problems with taking ports
+    apt-get remove --purge -y --force-yes -o DPkg::Options::="--force-confdef" haproxy
 
     # Restart regular webserver and Zentyal UI
     service apache2 restart

@@ -131,6 +131,9 @@ sub _storePort
 {
     my ($type, $hash) = @_;
 
+    # store in the model as normal
+    $type->_storeInHash($hash);
+
     my $haProxy = $type->model()->parentModule()->global()->modInstance('haproxy');
     my $model = $haProxy->model('HAProxyServices');
     my $haProxySrv = $model->find(module => 'webadmin');
