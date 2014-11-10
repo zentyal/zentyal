@@ -243,12 +243,29 @@ sub validateTypedRow
 #
 #   Overrid <EBox::Model::DataTable::precondition>
 #
-#   Num of external interfaces > 0
 sub precondition
 {
     my ($self) = @_;
     my $network = $self->global()->modInstance('network');
-    return (scalar(@{$network->ExternalIfaces()}) > 0);
+    if (not @{$network->ExternalIfaces()}) {
+        $self->{preconditionFailMsg}  = __x("L2TP can only be configured on interfaces tagged as 'external'"
+                   . ' Check your interface '
+                   . 'configuration to match, at '
+                   . '{openhref}Network->Interfaces{closehref}',
+               openhref  => '<a href="/Network/Ifaces">',
+               closehref => '</a>');
+        return 0;
+    }
+
+    my $samba = $self->global()->modInstance('samba');
+    if (not $samba->isProvisioned()) {
+        $self->{preconditionFailMsg}  = 
+            __x('{mod} module is not provisioned. To provision it, enable it and save changes',
+               mod => $samba->printableName());
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -257,13 +274,8 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-
-    return __x("L2TP can only be configured on interfaces tagged as 'external'"
-                   . ' Check your interface '
-                   . 'configuration to match, at '
-                   . '{openhref}Network->Interfaces{closehref}',
-               openhref  => '<a href="/Network/Ifaces">',
-               closehref => '</a>');
+    my ($self) =@_;
+    return  $self->{preconditionFailMsg};
 }
 
 sub deletedRowNotify
@@ -294,6 +306,25 @@ sub _populateGroups
         });
     }
     return \@securityGroups;
+}
+
+sub groupInUse
+{
+    my ($self, $group) = @_;
+    return $self->findId('group' => $group);
+}
+
+sub delTunnelsForGroup
+{
+    my ($self, $group) =@_;
+    my @ids = @{ $self->ids() };
+    foreach my $id (@ids) {
+        my $row = $self->row($id);
+        my $rowGroup = $row->valueByName('group');
+        if ($rowGroup eq $group) {
+            $self->removeRow($id);
+        }
+    }
 }
 
 1;

@@ -94,8 +94,6 @@ sub _getCAName
     my $ca = EBox::Global->modInstance('ca');
     if ($ca->isAvailable()) {
         my $metadata = $ca->getCACertificateMetadata();
-        use Data::Dumper;
-        EBox::info(Dumper($metadata));
         return $metadata->{dn}->attribute('organizationName');
     }
     return __('The CA is not available.');

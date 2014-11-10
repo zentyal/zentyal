@@ -26,7 +26,7 @@ use EBox::Exceptions::External;
 use EBox::Validate;
 use TryCatch::Lite;
 
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('template' => 'mail/wizard/virtualdomain.mas',
@@ -51,15 +51,6 @@ sub _processWizard
     my $model = $mail->model('VDomains');
 
     $model->addRow(vdomain => $domain, aliases => []);
-
-    if ($global->modExists('egroupware')) {
-        my $egw = $global->modInstance('egroupware');
-        my $model = $egw->model('VMailDomain');
-
-        my $row = $model->row();
-        $row->elementByName('vdomain')->setValue($domain);
-        $row->store();
-    }
 }
 
 1;

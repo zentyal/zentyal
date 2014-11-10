@@ -129,7 +129,7 @@ sub actuate
                                              days => $days));
     }
 
-    my $commonName = __x('{org} Authority Certificate', org => $orgName);
+    my $commonName = "$orgName Authority Certificate";
     my $retVal = $ca->createCA( commonName    => $commonName,
                                 orgName       => $orgName,
                                 countryName   => $countryName,
