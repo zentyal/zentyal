@@ -265,8 +265,10 @@ sub _setConf
     push(@array, 'synchronized'  => $synch);
     push(@array, 'servers'  => \@servers);
 
-    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR)
-        and $self->global()->modInstance('samba')->isEnabled()) {
+    my $samba = $self->global()->modInstance('samba');
+    if (EBox::Sudo::fileTest('-d', SAMBA_SOCKET_DIR) 
+        and $samba
+        and $samba->isEnabled()) {
         EBox::Sudo::root('chgrp ntp "' . SAMBA_SOCKET_DIR . '"');
         push(@array, 'sambaSocket' => SAMBA_SOCKET_DIR);
     }
