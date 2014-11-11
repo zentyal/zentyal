@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-04 13:21+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2014-11-06 06:32+0200\n"
+"Last-Translator: n0rman <norman@debian.org.ni>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -7251,8 +7251,8 @@ msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
-"¿Quieres un backup de configuración remoto de tu Servidor Zentyal? "
-"¡Configúralo GRATIS {oh}aquí{ch}!"
+"¿Quiere un respaldo de configuración remoto de su Servidor Zentyal? "
+"¡Configurelo GRATIS {oh}aquí{ch}!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:242
 #, perl-brace-format
@@ -7260,8 +7260,8 @@ msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
-"¿Estas interesado en una de las Ediciones Comerciales del Servidor Zentyal? "
-"¡Obtén un Trial GRATUITO de 30 días!"
+"¿Está interesado en una de las Ediciones Comerciales del Servidor Zentyal? "
+"¡Obtenga un Trial GRATUITO de 30 días!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:247
 #, perl-brace-format
@@ -7269,8 +7269,8 @@ msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
 "involved in the {oh}Community{ch}!"
 msgstr ""
-"¿Eres un usuario satisfecho del Servidor Zentyal? ¿Quieres apoyar al "
-"proyecto? ¡Involúcrate en la {oh}Comunidad{ch}!"
+"¿Es un usuario satisfecho del Servidor Zentyal? ¿Quiere apoyar al proyecto? "
+"¡Involúcrese en la {oh}Comunidad{ch}!"
 
 #: ../../main/core/src/EBox/Dashboard/CGI/ConfigureWidgets.pm:30
 msgid "Configure Widgets"
@@ -10666,7 +10666,9 @@ msgstr ""
 #: ../../main/samba/src/EBox/Module/LDAP.pm:147
 #, perl-brace-format
 msgid "Error on search: Expected one entry, got {x}.\n"
-msgstr "Error en búsqueda: Esperada una entrada, obtenidas {x}. "
+msgstr ""
+"Error en búsqueda: se esperaba una entrada, se obtuvo {x}.\n"
+" "
 
 #: ../../main/samba/src/EBox/Module/LDAP.pm:160
 #, perl-brace-format

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-08-25 06:13+0200\n"
-"Last-Translator: Priyo <psanyoto@yahoo.com>\n"
+"PO-Revision-Date: 2014-11-10 01:28+0200\n"
+"Last-Translator: bandoro <bandoro@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -1574,7 +1574,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:543
 msgid "To allow samba daemon load Active Directory zone"
-msgstr ""
+msgstr "Izinkan daemon zamba memuat zona direktori aktif"
 
 #: ../../main/dns/src/EBox/DNS.pm:568
 msgid "Domain Name Service"
@@ -1674,7 +1674,7 @@ msgstr "Antarmuka"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "nama domain akan di tetapkan ke dalam daftar IP ini"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:75
 msgid "Enable transparent DNS cache"
@@ -1932,6 +1932,10 @@ msgid ""
 "record. Moreover, the same IP addresses have been assigned to this new "
 "domain. You can always rename it or create alias for it."
 msgstr ""
+"Domain telah ditambahkan. Nama host {nshost} telah ditambahkan ke domain ini "
+"dengan alamat-alamat IP ini, nama host ini juga telah ditetapkan sebagai "
+"nameserver record. Dan juga  alamat-alamat IP telah di tetapkan ke domain "
+"baru ini. Anda dapat merubah atau membuat alias untuk domain ini."
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:576
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157

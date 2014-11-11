@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2014-10-13 16:42+0200\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
+"PO-Revision-Date: 2014-11-05 19:08+0200\n"
+"Last-Translator: Krisztián <czako.krisztian@linuxakademia.hu>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -2859,7 +2859,7 @@ msgstr "Az új CA tanúsítvány elkészült."
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:436
 #, perl-brace-format
 msgid "{org} Authority Certificate"
-msgstr "{org} szolgáltató tanúsítványa"
+msgstr "{org} hitelesites szolgaltato"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:143
 msgid "Problems creating Certification Authority has happened"
@@ -7776,7 +7776,7 @@ msgstr "Város"
 #: ../../main/core/src/templates/report/raid.mas:223
 #: ../../main/openchange/src/templates/wizard/provision.mas:19
 msgid "State"
-msgstr "Állapot"
+msgstr "Megye"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ServerList.pm:59
 msgid "No servers found"
@@ -14879,9 +14879,8 @@ msgstr "beállítás"
 
 #: ../../main/software/src/templates/welcome.mas:12
 #: ../../main/software/src/templates/del.mas:95
-#, fuzzy
 msgid "Continue"
-msgstr "Konténer DN"
+msgstr "Folytatás"
 
 #: ../../main/software/src/templates/config.mas:9
 msgid "Perform automatic software updates"
