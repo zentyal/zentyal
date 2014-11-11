@@ -1024,7 +1024,7 @@ msgstr "Service OpenVPN"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:361 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:972
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
 #: ../../main/samba/src/EBox/Samba.pm:3736
@@ -1048,7 +1048,7 @@ msgstr "Date"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:362 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1112
@@ -1076,7 +1076,7 @@ msgid "Remote Certificate"
 msgstr "Certificat distant"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/l2tp/src/EBox/L2TP.pm:368
+#: ../../main/l2tp/src/EBox/L2TP.pm:375
 msgid "Initialization sequence completed"
 msgstr "Séquence d'initialisation terminée"
 
@@ -1535,7 +1535,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1676
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:679
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:709
 msgid "domain"
 msgstr "domaine"
 
@@ -1824,7 +1824,7 @@ msgstr ""
 "Personnaliser"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:626
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:656
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:150
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
@@ -1967,7 +1967,7 @@ msgstr ""
 "que nom de serveur. De plus, la même adresse IP a été assignée à ce nouveau "
 "domaine. Vous pouvez également le renommer ou en créer un alias."
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:576
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
@@ -1982,39 +1982,39 @@ msgstr ""
 msgid "Domain"
 msgstr "Domaine"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:584
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:614
 msgid "Domain IP Addresses"
 msgstr "Adresses IP du domaine"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:593
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:623
 msgid "Hostnames"
 msgstr "Noms d'hôtes"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:602
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
 msgid "Mail Exchangers"
 msgstr "Gestionnaires de Courrier"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:610
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
 msgid "Name Servers"
 msgstr "Serveurs de noms"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:618
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:648
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
 msgstr "Enregistrement {txt}"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:636
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
 msgid "Dynamic domain"
 msgstr "Domaine dynamique"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:672
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:702
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:198
 msgid "Domains"
 msgstr "Domaines"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:681
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:711
 msgid ""
 "Here you can add the domains for this DNS server. Each domain can have "
 "different hostnames with aliases  (A and CNAME) and other special records "
@@ -2628,7 +2628,7 @@ msgid "The country code must be the 2-characters ISO code"
 msgstr "Le code du pays doit être d'un minimum de 2 caractères ISO"
 
 #: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:774
-#: ../../main/ca/src/EBox/CA.pm:1403
+#: ../../main/ca/src/EBox/CA.pm:1410
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Nombre jours maximum autorisés {days}: Bug de l'année 2038"
@@ -2653,12 +2653,12 @@ msgid ""
 "virtual domains interface.{ch}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1260
-#: ../../main/ca/src/EBox/CA.pm:1330 ../../main/ca/src/EBox/CA.pm:1424
+#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1267
+#: ../../main/ca/src/EBox/CA.pm:1337 ../../main/ca/src/EBox/CA.pm:1431
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:75
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:82
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:111
 #: ../../main/ca/src/EBox/CA/TestStub.pm:441
 #: ../../main/ca/src/EBox/CA/TestStub.pm:519
@@ -2672,7 +2672,7 @@ msgid "Common Name"
 msgstr "Nom Commun"
 
 # correction typo
-#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1271
+#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1278
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Le certificat contenant le nom commun {cn} n'existe PAS"
@@ -2686,37 +2686,37 @@ msgstr ""
 "La raison {reason} n'est pas une raison applicable.\n"
 "Options:"
 
-#: ../../main/ca/src/EBox/CA.pm:1083
+#: ../../main/ca/src/EBox/CA.pm:1090
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "L'infrastructure d'Autorité de certification (Certification Authority) n'est "
 "pas disponible, créez la d'abord"
 
-#: ../../main/ca/src/EBox/CA.pm:1180
+#: ../../main/ca/src/EBox/CA.pm:1187
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "Autant le nom commun que le non distinct ou le numéro de série ont été "
 "traités correctement"
 
-#: ../../main/ca/src/EBox/CA.pm:1425
+#: ../../main/ca/src/EBox/CA.pm:1432
 msgid "or"
 msgstr "ou"
 
-#: ../../main/ca/src/EBox/CA.pm:1426
+#: ../../main/ca/src/EBox/CA.pm:1433
 msgid "Certificate file"
 msgstr "Ficher de certificat"
 
-#: ../../main/ca/src/EBox/CA.pm:1448
+#: ../../main/ca/src/EBox/CA.pm:1455
 msgid "The certificate to renew does NOT exist"
 msgstr "Le certificat à renouveler n'existe pas"
 
-#: ../../main/ca/src/EBox/CA.pm:1488
+#: ../../main/ca/src/EBox/CA.pm:1495
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Le certificat avec ce nom commun {cn} n'existe pas dans ce CA"
 
-#: ../../main/ca/src/EBox/CA.pm:1769
+#: ../../main/ca/src/EBox/CA.pm:1776
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
@@ -2724,34 +2724,34 @@ msgstr "Le certificat avec ce nom commun {cn} n'existe pas dans ce CA"
 msgid "General"
 msgstr "Général"
 
-#: ../../main/ca/src/EBox/CA.pm:1772
+#: ../../main/ca/src/EBox/CA.pm:1779
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "Services des Certificats"
 
-#: ../../main/ca/src/EBox/CA.pm:1885
+#: ../../main/ca/src/EBox/CA.pm:1892
 msgid "Not created"
 msgstr "Non créé"
 
-#: ../../main/ca/src/EBox/CA.pm:1887
+#: ../../main/ca/src/EBox/CA.pm:1894
 msgid "Available"
 msgstr "Disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1889
+#: ../../main/ca/src/EBox/CA.pm:1896
 msgid "Created but not available"
 msgstr "Créé mais non disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1915
+#: ../../main/ca/src/EBox/CA.pm:1922
 #, fuzzy
 msgid "The field cannot contain only blank characters"
 msgstr "L'entrée contient des caractères invalides"
 
-#: ../../main/ca/src/EBox/CA.pm:1938
+#: ../../main/ca/src/EBox/CA.pm:1945
 #, fuzzy
 msgid "String"
 msgstr "Strict"
 
-#: ../../main/ca/src/EBox/CA.pm:1943
+#: ../../main/ca/src/EBox/CA.pm:1950
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2760,61 +2760,61 @@ msgstr ""
 "alphanumériques (ASCII), ainsi que ces caractères : .?&+:\\@ et les espaces "
 "sont tolérés."
 
-#: ../../main/ca/src/EBox/CA.pm:2463
+#: ../../main/ca/src/EBox/CA.pm:2470
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Impossible de signer. Phrase secrète invalide ou la clef privée de CA a-t-"
 "elle disparue?"
 
-#: ../../main/ca/src/EBox/CA.pm:2465
+#: ../../main/ca/src/EBox/CA.pm:2472
 msgid "Database corruption"
 msgstr "Base de donnée corrompue"
 
-#: ../../main/ca/src/EBox/CA.pm:2467
+#: ../../main/ca/src/EBox/CA.pm:2474
 msgid "Identifier duplicated in Database"
 msgstr "Identifiant dupliqué dans la base de données"
 
-#: ../../main/ca/src/EBox/CA.pm:2469
+#: ../../main/ca/src/EBox/CA.pm:2476
 msgid "Certificate already revoked"
 msgstr "Certificat déjà révoqué"
 
-#: ../../main/ca/src/EBox/CA.pm:2472
+#: ../../main/ca/src/EBox/CA.pm:2479
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Champs ASN1 trop long. Taille maximum :"
 
-#: ../../main/ca/src/EBox/CA.pm:2474
+#: ../../main/ca/src/EBox/CA.pm:2481
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Erreur inconnue. Voici le résultat d'OpenSSL:"
 
-#: ../../main/ca/src/EBox/CA.pm:2541 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2548 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "La date d'expiration excède la date d'expiration du certificat CA"
 
-#: ../../main/ca/src/EBox/CA.pm:2562
+#: ../../main/ca/src/EBox/CA.pm:2569
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2579
+#: ../../main/ca/src/EBox/CA.pm:2586
 #, fuzzy
 msgid "Subject alternative type"
 msgstr "Certificat SAN"
 
-#: ../../main/ca/src/EBox/CA.pm:2581
+#: ../../main/ca/src/EBox/CA.pm:2588
 #, fuzzy, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr ""
 "Seuls {dns}, {ip} et {email} sont des types de nom valide pour remplacer le "
 "sujet"
 
-#: ../../main/ca/src/EBox/CA.pm:2625
+#: ../../main/ca/src/EBox/CA.pm:2632
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Ne peut pas démarrer l'interface OpenSSL. ({errval})"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:69
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:76
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:79
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:86
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2861,7 +2861,7 @@ msgid "The certificate has NOT been renewed"
 msgstr "Le certificat n'a PAS été renouvelé"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:66
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:69
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:76
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "Booléen indiquant le certificat de l'autorité de certification"
 
@@ -2899,22 +2899,22 @@ msgstr "Le nouveau certificat CA a été renouvelé"
 msgid "Error creating archive file for  certificates: {err}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:60
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
 msgstr "Le certificat n'a PAS été révoqué."
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:70
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:77
 #: ../../main/ca/src/templates/formRevoke.mas:61
 #: ../../main/core/src/templates/configureView.mas:40
 #: ../../main/core/src/templates/configureView.mas:52
 msgid "Reason"
 msgstr "Raison"
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:136
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:143
 msgid "The certificate has been revoked"
 msgstr "Le certificat a été révoqué"
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:137
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:144
 msgid "The CA certificate has been revoked"
 msgstr "Le certificat CA a été révoqué"
 
@@ -2944,12 +2944,6 @@ msgstr "Le certificat a été créé."
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:192
 msgid "The new CA certificate has been issued."
 msgstr "Le nouveau certificat CA a été créé."
-
-#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:436
-#, fuzzy, perl-brace-format
-msgid "{org} Authority Certificate"
-msgstr "Créer le certificat d'autorité de certification"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:143
 msgid "Problems creating Certification Authority has happened"
@@ -3731,7 +3725,7 @@ msgid "Sender policy"
 msgstr "Politique d'envoi "
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:150
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
 msgid "Virtual Domains"
 msgstr "Domaines virtuels"
@@ -3759,6 +3753,11 @@ msgstr "Politique des mauvaise entêtes"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:87
 msgid "Filter Policies"
 msgstr "Politiques de filtrage"
+
+#: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
+#, fuzzy
+msgid "L2TP connections"
+msgstr "Connexion L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3990,7 +3989,7 @@ msgstr ""
 "devez modifier la configuration avant  de l'activer"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:232
-#: ../../main/l2tp/src/EBox/L2TP.pm:363
+#: ../../main/l2tp/src/EBox/L2TP.pm:370
 msgid "Connection name"
 msgstr "Nom de la connexion"
 
@@ -3998,7 +3997,7 @@ msgstr "Nom de la connexion"
 msgid "Blank characters are not allowed"
 msgstr "Les caractères vides ne sont pas autorisées"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:261
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:251
 #, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
@@ -4008,28 +4007,34 @@ msgstr ""
 "comme externes. Vérifiez votre configuration d'interface pour correspondre à "
 "{openhref}Réseau->Interfaces{closehref}"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:67
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
+#, perl-brace-format
+msgid ""
+"{mod} module is not provisioned. To provision it, enable it and save changes"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:68
 msgid "To configure OpenSwan IPsec."
 msgstr "Pour configurer OpenSwan IPsec."
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:73
+#: ../../main/l2tp/src/EBox/L2TP.pm:74
 msgid "To configure OpenSwan IPsec passwords."
 msgstr "Pour configurer les mots de passe OpenSwan IPsec."
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:175
+#: ../../main/l2tp/src/EBox/L2TP.pm:176
 #, fuzzy
 msgid "L2TP based VPN"
 msgstr "VPN IPsec"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:369
+#: ../../main/l2tp/src/EBox/L2TP.pm:376
 msgid "Stopping completed"
 msgstr "Le processus d'arrêt est terminé"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:371
+#: ../../main/l2tp/src/EBox/L2TP.pm:378
 msgid "Connection initiated"
 msgstr "Connexion initiée"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:372
+#: ../../main/l2tp/src/EBox/L2TP.pm:379
 msgid "Connection terminated"
 msgstr "Connexion terminée"
 
@@ -7190,12 +7195,12 @@ msgid "Change hostname"
 msgstr "Modifier le nom d'hôte"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
-#: ../../main/samba/src/templates/wizard/users.mas:10
 #, perl-brace-format
 msgid ""
 "{op}A hostname change will create a new certificate for the web "
-"administration connections. This means you will have to reload the page "
-"manually once the save change proccess ends.{cp}"
+"administration connections. This means you will have to accept the new "
+"certificate in your browser. Try to reload the page if automatic redirection "
+"does not work after the save changes process finishes.{cp}"
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
@@ -8137,18 +8142,18 @@ msgid ""
 "MAPI proxy."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:101
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:99
 #, fuzzy
 msgid "The CA is not available."
 msgstr "Le port {p} n'est pas disponible"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:141
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:139
 #, perl-brace-format
 msgid "The {x} module needs to be provisioned"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:151
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:365
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:369
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
 #, fuzzy, perl-brace-format
 msgid ""
@@ -8158,95 +8163,95 @@ msgstr ""
 "Aucun certificat n'est disponible pour ce client. Merci d'en {ohref}créer "
 "un{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:46
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
 msgid "Virtual domain"
 msgstr "Domaine virtuel"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:58
 #, fuzzy
 msgid "DNS domain managed by Zentyal"
 msgstr "Le domaine de courrier {d} n'existe pas"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:60
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:66
 #, fuzzy
 msgid "Certificate in place"
 msgstr "Ficher de certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:68
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
 msgid "Auto Discover DNS record"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:80
 msgid ""
 "Enable the Auto Discover service, your MAPI client will automatically find "
 "server configuration. To enable this option the domain has to be handled by "
 "Zentyal DNS."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:82
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:88
 msgid "Outlook Anywhere (no SSL)"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:86
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:92
 msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:91
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:97
 msgid "Outlook Anywhere (SSL)"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:95
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:101
 msgid ""
 "RPC over HTTPS access. MAPI/RPC over HTTP, SSL enabled version. To enable "
 "this option you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:108
 msgid "Webmail"
 msgstr "Webmail (Mail par internet)"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:106
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:112
 msgid "Webmail and groupware platform. Non-SSL version."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:111
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:117
 #, fuzzy
 msgid "HTTPS webmail enabled"
 msgstr "Service activé"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:115
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:121
 msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:128
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
 #, fuzzy
 msgid "Revoke certificate"
 msgstr "Révoquer le certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:130
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #, fuzzy
 msgid "Certificate revoked"
 msgstr "Certificat déjà révoqué"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
 #, fuzzy
 msgid "Issue certificate"
 msgstr "Renouveler un certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
 #, fuzzy
 msgid "Certificate issued"
 msgstr "Ficher de certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:146
 #, fuzzy
 msgid "Revoke and reissue certificate"
 msgstr "Révoquer un certificat"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:151
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:157
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
@@ -8254,23 +8259,23 @@ msgstr "Révoquer un certificat"
 msgid "virtual domain"
 msgstr "domaine virtuel"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:162
 msgid ""
 "This table is summary of the attributes and access gateways associated with "
 "each virtual mail domain."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:419
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:423
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} already exists."
 msgstr "{data} {value} existe déjà."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:438
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:442
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} does not exists."
 msgstr "Le certificat {cn} n'existe pas"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:593
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:597
 #, fuzzy, perl-brace-format
 msgid "There are not configured {oh}virtual domains{ch}."
 msgstr "Il n'y a aucun enregistrement pour ce domaine"
@@ -9390,8 +9395,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:599
-#: ../../main/samba/src/EBox/Samba/User.pm:605
+#: ../../main/samba/src/EBox/Samba/User.pm:602
+#: ../../main/samba/src/EBox/Samba/User.pm:608
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
@@ -9437,7 +9442,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:521
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:654
+#: ../../main/samba/src/EBox/Samba/User.pm:657
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
 #, perl-brace-format
@@ -9730,75 +9735,75 @@ msgid ""
 "you currently have {nUsers}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:601
+#: ../../main/samba/src/EBox/Samba/User.pm:604
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:607
+#: ../../main/samba/src/EBox/Samba/User.pm:610
 #, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Le nom Netbios ne peut être plus long que 15 caractères"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:618
+#: ../../main/samba/src/EBox/Samba/User.pm:621
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr ""
 "Le mot de passe ne peut pas être plus long que {maxPwdLength} caractères "
 
-#: ../../main/samba/src/EBox/Samba/User.pm:630
+#: ../../main/samba/src/EBox/Samba/User.pm:633
 #, fuzzy, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "Le nom d'utilisateur existe déjà dans le système"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:702
+#: ../../main/samba/src/EBox/Samba/User.pm:705
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:723
+#: ../../main/samba/src/EBox/Samba/User.pm:726
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:769
-#: ../../main/samba/src/EBox/Samba/User.pm:868
-#: ../../main/samba/src/EBox/Samba/User.pm:878
+#: ../../main/samba/src/EBox/Samba/User.pm:772
+#: ../../main/samba/src/EBox/Samba/User.pm:871
+#: ../../main/samba/src/EBox/Samba/User.pm:881
 #, fuzzy
 msgid "user quota"
 msgstr "Quota personnalisé"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:771
+#: ../../main/samba/src/EBox/Samba/User.pm:774
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:871
+#: ../../main/samba/src/EBox/Samba/User.pm:874
 #, fuzzy
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr "Quota doit être un nombre positif ou zéro pour un quota illimité"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:880
+#: ../../main/samba/src/EBox/Samba/User.pm:883
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:899
+#: ../../main/samba/src/EBox/Samba/User.pm:902
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1050
+#: ../../main/samba/src/EBox/Samba/User.pm:1053
 msgid "Maximum number of system users reached"
 msgstr "Nombre maximum d'utilisateurs système atteint"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1055
+#: ../../main/samba/src/EBox/Samba/User.pm:1058
 #, fuzzy
 msgid "Maximum number of users reached"
 msgstr "Nombre maximum d'utilisateurs système atteint"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1072
+#: ../../main/samba/src/EBox/Samba/User.pm:1075
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -9806,7 +9811,7 @@ msgstr ""
 "UID {uid} incorrecte pour un utilisateur. L'UID doit être plus grand ou égal "
 "à {min}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1082
+#: ../../main/samba/src/EBox/Samba/User.pm:1085
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -15902,6 +15907,14 @@ msgstr ""
 msgid "{op}This action will trigger the change of the actual host name.{cp}"
 msgstr ""
 
+#: ../../main/samba/src/templates/wizard/users.mas:10
+#, perl-brace-format
+msgid ""
+"{op}A hostname change will create a new certificate for the web "
+"administration connections. This means you will have to reload the page "
+"manually once the save change proccess ends.{cp}"
+msgstr ""
+
 #: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
 msgstr "Utilisateurs et Groupes"
@@ -16214,6 +16227,10 @@ msgid ""
 msgstr ""
 "Les paramètres suivants ne prendront effets que lorsque le module de "
 "courrier sera activé"
+
+#, fuzzy
+#~ msgid "{org} Authority Certificate"
+#~ msgstr "Créer le certificat d'autorité de certification"
 
 #~ msgid ""
 #~ "There are no users in the group or the users do not have a mail account, "

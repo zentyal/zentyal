@@ -986,7 +986,7 @@ msgstr "OpenVPN 伺服程式"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:361 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:972
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
 #: ../../main/samba/src/EBox/Samba.pm:3736
@@ -1008,7 +1008,7 @@ msgstr "日期"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:362 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:976
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1112
@@ -1036,7 +1036,7 @@ msgid "Remote Certificate"
 msgstr "遠端憑證"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1489
-#: ../../main/l2tp/src/EBox/L2TP.pm:368
+#: ../../main/l2tp/src/EBox/L2TP.pm:375
 msgid "Initialization sequence completed"
 msgstr "初始化程序完成"
 
@@ -1508,7 +1508,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1676
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:679
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:709
 msgid "domain"
 msgstr "網域"
 
@@ -1801,7 +1801,7 @@ msgstr ""
 "自訂"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:626
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:656
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:150
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
@@ -1920,7 +1920,7 @@ msgid ""
 "domain. You can always rename it or create alias for it."
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:576
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:606
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:157
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomainsFilter.pm:70
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
@@ -1948,36 +1948,36 @@ msgstr ""
 "#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "網域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:584
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:614
 #, fuzzy
 msgid "Domain IP Addresses"
 msgstr "網域已新增"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:593
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:623
 msgid "Hostnames"
 msgstr "主機名稱"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:602
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:632
 msgid "Mail Exchangers"
 msgstr "郵件伺服器"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:610
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:640
 msgid "Name Servers"
 msgstr "域名伺服器"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:618
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:648
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
 msgstr ""
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:636
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
 #, fuzzy
 msgid "Dynamic domain"
 msgstr "搜尋網域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:672
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:702
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:198
 #, fuzzy
 msgid "Domains"
@@ -1995,7 +1995,7 @@ msgstr ""
 "#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "網域"
 
-#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:681
+#: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:711
 msgid ""
 "Here you can add the domains for this DNS server. Each domain can have "
 "different hostnames with aliases  (A and CNAME) and other special records "
@@ -2593,7 +2593,7 @@ msgid "The country code must be the 2-characters ISO code"
 msgstr "密碼長度必須至少有 6 個字元"
 
 #: ../../main/ca/src/EBox/CA.pm:267 ../../main/ca/src/EBox/CA.pm:774
-#: ../../main/ca/src/EBox/CA.pm:1403
+#: ../../main/ca/src/EBox/CA.pm:1410
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "日數設為最大允許的 {days}: Year 2038 Bug"
@@ -2616,12 +2616,12 @@ msgid ""
 "virtual domains interface.{ch}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1260
-#: ../../main/ca/src/EBox/CA.pm:1330 ../../main/ca/src/EBox/CA.pm:1424
+#: ../../main/ca/src/EBox/CA.pm:924 ../../main/ca/src/EBox/CA.pm:1267
+#: ../../main/ca/src/EBox/CA.pm:1337 ../../main/ca/src/EBox/CA.pm:1431
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:65
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:72
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:66
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:75
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:82
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:111
 #: ../../main/ca/src/EBox/CA/TestStub.pm:441
 #: ../../main/ca/src/EBox/CA/TestStub.pm:519
@@ -2634,7 +2634,7 @@ msgstr ""
 msgid "Common Name"
 msgstr "一般名稱"
 
-#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1271
+#: ../../main/ca/src/EBox/CA.pm:937 ../../main/ca/src/EBox/CA.pm:1278
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "憑證具有一般名稱{cn} 的並不存在"
@@ -2648,33 +2648,33 @@ msgstr ""
 "原因 {reason} 並非合適的理由。\n"
 "選項："
 
-#: ../../main/ca/src/EBox/CA.pm:1083
+#: ../../main/ca/src/EBox/CA.pm:1090
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr "這Certification Authority Infrastructure並不可用, 先建立它."
 
-#: ../../main/ca/src/EBox/CA.pm:1180
+#: ../../main/ca/src/EBox/CA.pm:1187
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "一般名稱、易記名稱或序號任一已通過"
 
-#: ../../main/ca/src/EBox/CA.pm:1425
+#: ../../main/ca/src/EBox/CA.pm:1432
 msgid "or"
 msgstr "或"
 
-#: ../../main/ca/src/EBox/CA.pm:1426
+#: ../../main/ca/src/EBox/CA.pm:1433
 msgid "Certificate file"
 msgstr "憑證檔案"
 
-#: ../../main/ca/src/EBox/CA.pm:1448
+#: ../../main/ca/src/EBox/CA.pm:1455
 msgid "The certificate to renew does NOT exist"
 msgstr "要換新的憑證不存在"
 
-#: ../../main/ca/src/EBox/CA.pm:1488
+#: ../../main/ca/src/EBox/CA.pm:1495
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "憑證有一般名稱{cn}的並不在這個 CA 中"
 
-#: ../../main/ca/src/EBox/CA.pm:1769
+#: ../../main/ca/src/EBox/CA.pm:1776
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
@@ -2682,34 +2682,34 @@ msgstr "憑證有一般名稱{cn}的並不在這個 CA 中"
 msgid "General"
 msgstr "一般"
 
-#: ../../main/ca/src/EBox/CA.pm:1772
+#: ../../main/ca/src/EBox/CA.pm:1779
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
 msgstr "服務憑證"
 
-#: ../../main/ca/src/EBox/CA.pm:1885
+#: ../../main/ca/src/EBox/CA.pm:1892
 msgid "Not created"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1887
+#: ../../main/ca/src/EBox/CA.pm:1894
 msgid "Available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1889
+#: ../../main/ca/src/EBox/CA.pm:1896
 msgid "Created but not available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1915
+#: ../../main/ca/src/EBox/CA.pm:1922
 #, fuzzy
 msgid "The field cannot contain only blank characters"
 msgstr "輸入包含無效的字元"
 
-#: ../../main/ca/src/EBox/CA.pm:1938
+#: ../../main/ca/src/EBox/CA.pm:1945
 #, fuzzy
 msgid "String"
 msgstr "嚴格"
 
-#: ../../main/ca/src/EBox/CA.pm:1943
+#: ../../main/ca/src/EBox/CA.pm:1950
 #, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
@@ -2718,56 +2718,56 @@ msgstr ""
 "輸入包含無效的字元。所有的英文字母與數字字元，加這些非字母與數字字元：.?&+:-"
 "@* 和空白是可用的"
 
-#: ../../main/ca/src/EBox/CA.pm:2463
+#: ../../main/ca/src/EBox/CA.pm:2470
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr "無法簽署。CA 密語錯誤或是遺失 CA 私密金鑰？"
 
-#: ../../main/ca/src/EBox/CA.pm:2465
+#: ../../main/ca/src/EBox/CA.pm:2472
 msgid "Database corruption"
 msgstr "資料庫損壞"
 
-#: ../../main/ca/src/EBox/CA.pm:2467
+#: ../../main/ca/src/EBox/CA.pm:2474
 msgid "Identifier duplicated in Database"
 msgstr "資料庫中的識別符重複"
 
-#: ../../main/ca/src/EBox/CA.pm:2469
+#: ../../main/ca/src/EBox/CA.pm:2476
 msgid "Certificate already revoked"
 msgstr "憑證已經註銷"
 
-#: ../../main/ca/src/EBox/CA.pm:2472
+#: ../../main/ca/src/EBox/CA.pm:2479
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 欄位長度太長。最大的大小為："
 
-#: ../../main/ca/src/EBox/CA.pm:2474
+#: ../../main/ca/src/EBox/CA.pm:2481
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明的錯誤。顯示 OpenSSL 輸出："
 
-#: ../../main/ca/src/EBox/CA.pm:2541 ../../main/ca/src/EBox/CA/TestStub.pm:732
+#: ../../main/ca/src/EBox/CA.pm:2548 ../../main/ca/src/EBox/CA/TestStub.pm:732
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "到期日晚於 CA 憑證到期日"
 
-#: ../../main/ca/src/EBox/CA.pm:2562
+#: ../../main/ca/src/EBox/CA.pm:2569
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2579
+#: ../../main/ca/src/EBox/CA.pm:2586
 msgid "Subject alternative type"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2581
+#: ../../main/ca/src/EBox/CA.pm:2588
 #, fuzzy, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "只有{dns}, {ip}, 和{email}為正確的主語(subject)替換名稱型態."
 
-#: ../../main/ca/src/EBox/CA.pm:2625
+#: ../../main/ca/src/EBox/CA.pm:2632
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "不能啟動 OpenSSL 系統殼。 ({errval})"
 
 #: ../../main/ca/src/EBox/CA/CGI/ShowForm.pm:69
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:76
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:79
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:86
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -2813,7 +2813,7 @@ msgid "The certificate has NOT been renewed"
 msgstr "該憑證尚未換新"
 
 #: ../../main/ca/src/EBox/CA/CGI/RenewCertificate.pm:66
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:69
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:76
 msgid "Boolean indicating Certification Authority Certificate"
 msgstr "代表憑證機構憑證之布林值"
 
@@ -2851,22 +2851,22 @@ msgstr "新的 CA 憑證已經換新"
 msgid "Error creating archive file for  certificates: {err}"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:60
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
 msgstr "該憑證尚未註銷。"
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:70
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:77
 #: ../../main/ca/src/templates/formRevoke.mas:61
 #: ../../main/core/src/templates/configureView.mas:40
 #: ../../main/core/src/templates/configureView.mas:52
 msgid "Reason"
 msgstr "原因"
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:136
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:143
 msgid "The certificate has been revoked"
 msgstr "該憑證已經註銷"
 
-#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:137
+#: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:144
 msgid "The CA certificate has been revoked"
 msgstr "該 CA 憑證已經註銷"
 
@@ -2895,12 +2895,6 @@ msgstr "該憑證已經簽發。"
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:192
 msgid "The new CA certificate has been issued."
 msgstr "新的 CA 憑證已經簽發。"
-
-#: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:132
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:436
-#, fuzzy, perl-brace-format
-msgid "{org} Authority Certificate"
-msgstr "建立憑證中心的憑證"
 
 #: ../../main/ca/src/EBox/CA/CGI/CreateCA.pm:143
 msgid "Problems creating Certification Authority has happened"
@@ -3636,7 +3630,7 @@ msgid "Sender policy"
 msgstr "寄件者政策"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:150
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
 #, fuzzy
 msgid "Virtual Domains"
@@ -3670,6 +3664,11 @@ msgstr "錯誤表頭政策"
 #, fuzzy
 msgid "Filter Policies"
 msgstr "SMTP 過濾政策"
+
+#: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
+#, fuzzy
+msgid "L2TP connections"
+msgstr "允許連線"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3913,7 +3912,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:232
-#: ../../main/l2tp/src/EBox/L2TP.pm:363
+#: ../../main/l2tp/src/EBox/L2TP.pm:370
 #, fuzzy
 msgid "Connection name"
 msgstr "連接目標"
@@ -3923,7 +3922,7 @@ msgstr "連接目標"
 msgid "Blank characters are not allowed"
 msgstr "IP 位址不允許"
 
-#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:261
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:251
 #, fuzzy, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
@@ -3932,31 +3931,37 @@ msgstr ""
 "流量控管只有當 eBox 做為閘道器時才有用。要做為閘道器，您至少需要一個內部與一"
 "個外部介面。請在{openhref}網路->介面{closehref}檢查您的介面組態是否符合"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:67
+#: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
+#, perl-brace-format
+msgid ""
+"{mod} module is not provisioned. To provision it, enable it and save changes"
+msgstr ""
+
+#: ../../main/l2tp/src/EBox/L2TP.pm:68
 #, fuzzy
 msgid "To configure OpenSwan IPsec."
 msgstr "設定 renattach"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:73
+#: ../../main/l2tp/src/EBox/L2TP.pm:74
 #, fuzzy
 msgid "To configure OpenSwan IPsec passwords."
 msgstr "設定 Asterisk 模組啟用或停用。"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:175
+#: ../../main/l2tp/src/EBox/L2TP.pm:176
 msgid "L2TP based VPN"
 msgstr ""
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:369
+#: ../../main/l2tp/src/EBox/L2TP.pm:376
 #, fuzzy
 msgid "Stopping completed"
 msgstr "百分比已完成"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:371
+#: ../../main/l2tp/src/EBox/L2TP.pm:378
 #, fuzzy
 msgid "Connection initiated"
 msgstr "客戶端連線已初始化"
 
-#: ../../main/l2tp/src/EBox/L2TP.pm:372
+#: ../../main/l2tp/src/EBox/L2TP.pm:379
 #, fuzzy
 msgid "Connection terminated"
 msgstr "客戶端連線已結束"
@@ -6992,12 +6997,12 @@ msgid "Change hostname"
 msgstr "變更已儲存"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
-#: ../../main/samba/src/templates/wizard/users.mas:10
 #, perl-brace-format
 msgid ""
 "{op}A hostname change will create a new certificate for the web "
-"administration connections. This means you will have to reload the page "
-"manually once the save change proccess ends.{cp}"
+"administration connections. This means you will have to accept the new "
+"certificate in your browser. Try to reload the page if automatic redirection "
+"does not work after the save changes process finishes.{cp}"
 msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
@@ -7948,18 +7953,18 @@ msgid ""
 "MAPI proxy."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:101
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:99
 #, fuzzy
 msgid "The CA is not available."
 msgstr "連接埠 {p} 無法使用"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:141
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:139
 #, perl-brace-format
 msgid "The {x} module needs to be provisioned"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:151
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:365
+#: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:369
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
 #, fuzzy, perl-brace-format
 msgid ""
@@ -7967,99 +7972,99 @@ msgid ""
 "renew it{ch}"
 msgstr "建立憑證中心的憑證"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:46
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
 msgid "Virtual domain"
 msgstr ""
 "#-#-#-#-#  zh_TW.po (ebox-zarafa 0.12.99)  #-#-#-#-#\n"
 "#-#-#-#-#  zh_TW.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
 "虛擬網域"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:58
 #, fuzzy
 msgid "DNS domain managed by Zentyal"
 msgstr "郵件網域 {d} 不存在"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:60
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:66
 #, fuzzy
 msgid "Certificate in place"
 msgstr "憑證檔案"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:68
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
 msgid "Auto Discover DNS record"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:74
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:80
 msgid ""
 "Enable the Auto Discover service, your MAPI client will automatically find "
 "server configuration. To enable this option the domain has to be handled by "
 "Zentyal DNS."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:82
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:88
 msgid "Outlook Anywhere (no SSL)"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:86
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:92
 msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:91
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:97
 msgid "Outlook Anywhere (SSL)"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:95
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:101
 msgid ""
 "RPC over HTTPS access. MAPI/RPC over HTTP, SSL enabled version. To enable "
 "this option you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:108
 #, fuzzy
 msgid "Webmail"
 msgstr "maildrop"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:106
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:112
 msgid "Webmail and groupware platform. Non-SSL version."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:111
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:117
 #, fuzzy
 msgid "HTTPS webmail enabled"
 msgstr "服務啟動"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:115
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:121
 msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:128
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
 #, fuzzy
 msgid "Revoke certificate"
 msgstr "正在註銷憑證"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:130
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #, fuzzy
 msgid "Certificate revoked"
 msgstr "憑證已經註銷"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
 #, fuzzy
 msgid "Issue certificate"
 msgstr "換新憑證"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
 #, fuzzy
 msgid "Certificate issued"
 msgstr "憑證檔案"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:146
 #, fuzzy
 msgid "Revoke and reissue certificate"
 msgstr "註銷憑證"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:151
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:157
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
@@ -8067,23 +8072,23 @@ msgstr "註銷憑證"
 msgid "virtual domain"
 msgstr "虛擬網域"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:162
 msgid ""
 "This table is summary of the attributes and access gateways associated with "
 "each virtual mail domain."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:419
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:423
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} already exists."
 msgstr "{data} {value} 已經存在."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:438
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:442
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} does not exists."
 msgstr "憑證 {cn} 不存在"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:593
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:597
 #, fuzzy, perl-brace-format
 msgid "There are not configured {oh}virtual domains{ch}."
 msgstr "沒有這個網域的紀錄檔"
@@ -9195,8 +9200,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:177
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:203
-#: ../../main/samba/src/EBox/Samba/User.pm:599
-#: ../../main/samba/src/EBox/Samba/User.pm:605
+#: ../../main/samba/src/EBox/Samba/User.pm:602
+#: ../../main/samba/src/EBox/Samba/User.pm:608
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:49
 msgid "account name"
@@ -9238,7 +9243,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/LdapObject.pm:521
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
-#: ../../main/samba/src/EBox/Samba/User.pm:654
+#: ../../main/samba/src/EBox/Samba/User.pm:657
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
 #, perl-brace-format
@@ -9530,79 +9535,79 @@ msgid ""
 "you currently have {nUsers}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:601
+#: ../../main/samba/src/EBox/Samba/User.pm:604
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:607
+#: ../../main/samba/src/EBox/Samba/User.pm:610
 #, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "這個資源名稱長度超過 12 個字元。"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:618
+#: ../../main/samba/src/EBox/Samba/User.pm:621
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "密碼必須不超過 {maxPwdLength} 字元"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:630
+#: ../../main/samba/src/EBox/Samba/User.pm:633
 #, fuzzy, perl-brace-format
 msgid "User name {x} already exists in the same container."
 msgstr "同一個網域, 有一個主機使用相同的名稱 \"{name}\""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:702
+#: ../../main/samba/src/EBox/Samba/User.pm:705
 #, perl-brace-format
 msgid "The user {x} has not uidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:723
+#: ../../main/samba/src/EBox/Samba/User.pm:726
 #, perl-brace-format
 msgid "The user {x} has not gidNumber set. Get method returned '{y}'."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:769
-#: ../../main/samba/src/EBox/Samba/User.pm:868
-#: ../../main/samba/src/EBox/Samba/User.pm:878
+#: ../../main/samba/src/EBox/Samba/User.pm:772
+#: ../../main/samba/src/EBox/Samba/User.pm:871
+#: ../../main/samba/src/EBox/Samba/User.pm:881
 #, fuzzy
 msgid "user quota"
 msgstr "自訂"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:771
+#: ../../main/samba/src/EBox/Samba/User.pm:774
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:871
+#: ../../main/samba/src/EBox/Samba/User.pm:874
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:880
+#: ../../main/samba/src/EBox/Samba/User.pm:883
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:899
+#: ../../main/samba/src/EBox/Samba/User.pm:902
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1050
+#: ../../main/samba/src/EBox/Samba/User.pm:1053
 msgid "Maximum number of system users reached"
 msgstr "達到最大的使用者數量"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1055
+#: ../../main/samba/src/EBox/Samba/User.pm:1058
 #, fuzzy
 msgid "Maximum number of users reached"
 msgstr "達到最大的使用者數量"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1072
+#: ../../main/samba/src/EBox/Samba/User.pm:1075
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr "使用者的 UID {uid} 不正確. UID 必須等於或大於 {min}"
 
-#: ../../main/samba/src/EBox/Samba/User.pm:1082
+#: ../../main/samba/src/EBox/Samba/User.pm:1085
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr "系統使用者的 UID {uid} 不正確. UID 必須小於 {max}"
@@ -15640,6 +15645,14 @@ msgstr ""
 msgid "{op}This action will trigger the change of the actual host name.{cp}"
 msgstr ""
 
+#: ../../main/samba/src/templates/wizard/users.mas:10
+#, perl-brace-format
+msgid ""
+"{op}A hostname change will create a new certificate for the web "
+"administration connections. This means you will have to reload the page "
+"manually once the save change proccess ends.{cp}"
+msgstr ""
+
 #: ../../main/samba/src/templates/wizard/users.mas:12
 #, fuzzy
 msgid "Users and Groups"
@@ -15958,6 +15971,10 @@ msgstr "這個使用者是郵件帳號"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "以下的設定只會影響到當郵件模組是啟用的情況時"
+
+#, fuzzy
+#~ msgid "{org} Authority Certificate"
+#~ msgstr "建立憑證中心的憑證"
 
 #~ msgid ""
 #~ "There are no users in the group or the users do not have a mail account, "
