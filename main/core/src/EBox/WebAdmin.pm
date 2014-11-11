@@ -166,11 +166,8 @@ sub _setConf
     $self->_reportAdminPort();
     $self->enableRestartOnTrigger();
 
-    my $apportEnabled = 0;
-    if (EBox::Config::boolean('debug')) {
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
-        $apportEnabled = $sysinfo->model('Debug')->value('enabled');
-    }
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $apportEnabled = $sysinfo->model('Debug')->value('enabled');
     EBox::Sudo::root("sed -i 's/^enabled=.*/enabled=$apportEnabled/' /etc/default/apport");
 }
 
