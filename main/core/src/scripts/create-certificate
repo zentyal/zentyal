@@ -19,7 +19,7 @@ _checkCredentials();
 EBox::init();
 _checkPrograms();
 
-if (EBox::Sudo::fileTest('-d', $destDir)) {
+if (not EBox::Sudo::fileTest('-d', $destDir)) {
     print "SSL directory $destDir does not exist, we will create it\n";
 }
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Remove incorrect directory not exists warnings
 	+ Crash reports can be submitted also with global debug disabled
 4.0.1
 	+ Save changes does redirection after 10 consecutive failed requests
