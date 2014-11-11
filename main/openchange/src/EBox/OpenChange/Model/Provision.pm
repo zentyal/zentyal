@@ -189,7 +189,6 @@ sub precondition
     #    return undef;
     #}
 
-
     my $ca = $self->global()->modInstance('ca');
     my $availableCA = $ca->isAvailable();
     my $unsavedChanges = $self->global->unsaved() and (not $self->parentModule->isProvisioned());
@@ -198,11 +197,11 @@ sub precondition
         if ($availableCA) {
             $self->{preconditionFail} = 'unsavedChanges';
         } else {
-            $self->{preconditionFail} = 'unsavedChangesAndNoCA';            
+            $self->{preconditionFail} = 'unsavedChangesAndNoCA';
         }
 
         return undef;
-    } 
+    }
     if (not $availableCA) {
         $self->{preconditionFail} = 'noCA';
         return undef;
@@ -417,8 +416,10 @@ sub provision
     unless ($organizationName) {
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
     }
-    my $vdomains = $global->modInstance('mail')->model('VDomains')->size();
-    if ($vdomains == 0) {
+
+    my $vdomains = $global->modInstance('mail')->model('VDomains');
+    my ($vdomainId) = @{ $vdomains->ids() };
+    if (not $vdomainId) {
         throw EBox::Exceptions::External(
             __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
                 oh => q{<a href='/Mail/View/VDomains'>},
@@ -427,12 +428,16 @@ sub provision
            );
     }
 
+
     my $ca = $self->global()->modInstance('ca');
-    my $state = $ca->get_state();
+    my $state = $self->parentModule()->get_state();
     if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
         my %args = %{$state->{provision_from_wizard}};
-        my $commonName = __x('{org} Authority Certificate', org => $organizationName);
+        my $commonName = "$organizationName Authority Certificate";
         $ca->createCA(commonName => $commonName, %args);
+
+        my $vdomainToEnable = $vdomains->row($vdomainId)->valueByName('vdomain');
+        $self->parentModule()->model('VDomains')->enableAllVDomain($vdomainToEnable);
     }
 
 #    my $configuration = $openchange->model('Configuration');

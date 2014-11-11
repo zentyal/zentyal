@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-squid
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
+Depends: zentyal-core (>= 4.0), zentyal-core (<< 4.1),
          zentyal-firewall, zentyal-samba,
          squid3, dansguardian, adduser, adzapper, msktutil,
          libdata-hexdumper-perl, ${misc:Depends}

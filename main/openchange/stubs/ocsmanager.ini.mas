@@ -89,7 +89,7 @@ internal_networks = <% join(', ', @{$intNetworks}) %>
 
 [autodiscover:rpcproxy]
 # Enabled RPC/Proxy or not
-enabled = <% $rpcProxy ? 'true' : 'false' %>
+enabled = <% ($rpcProxy or $rpcProxySSL) ? 'true' : 'false' %>
 # We assume the autodiscover host and the EWS (Free/Busy) are in the same host
 # external_hostname = hostname
 % if ($rpcProxyExternalHostname) {

@@ -37,10 +37,14 @@ write_sudoers(( user => $user ));
 # Write full sudoers file:
 EBox::init();
 my @extraUsers;
-foreach my $mod (@{ EBox::Global->getInstance()->modInstances() }) {
-    if ($mod->can('extraSudoerUsers')) {
-        push @extraUsers, $mod->extraSudoerUsers();
-    }
+my $global = EBox::Global->getInstance();
+if ($global->modExists('cloud-prof')) {
+    @extraUsers = $global->modInstance('cloud-prof')->extraSudoerUsers();
+}
+
+if (not @extraUsers) {
+    # no need to rewrite sudoers file
+    exit 0;
 }
 
 EBox::Module::Base::writeConfFileNoCheck(SUDOERS_FILE . '.tmp',

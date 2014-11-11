@@ -1021,7 +1021,7 @@ sub connectionString
 # Method: certificateIsReserved
 #
 # returns whether the certificate is reserved for use by openchange. Reserved
-# certifcates must be issued only by openchange because they need 
+# certifcates must be issued only by openchange because they need
 # special fields (dns alt names, ..)
 #
 # Parameters:
@@ -1054,6 +1054,24 @@ sub certificateRevoked
         }
     }
     return 0;
+}
+
+sub certificateRevokeDone
+{
+    my ($self, $commonName, $isCACert) = @_;
+
+    return unless $self->isProvisioned();
+
+    my $model = $self->model('VDomains');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $vdomain = $row->printableValueByName('vdomain');
+        if (lc ($vdomain) eq lc ($commonName)) {
+            $row->elementByName('webmail_https')->setValue(0);
+            $row->elementByName('rpcproxy_https')->setValue(0);
+            $row->store();
+        }
+    }
 }
 
 sub certificateRenewed
@@ -1156,12 +1174,6 @@ sub dropSOGODB
 sub wizardPages
 {
     my ($self) = @_;
-
-    my $samba = $self->global()->modInstance('samba');
-    return [] if $samba->_adcMode();
-
-    my $mail = $self->global()->modInstance('mail');
-    return [] if ($mail->model('VDomains')->size() == 0);
 
     return [{ page => '/OpenChange/Wizard/Provision', order => 410 }];
 }

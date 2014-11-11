@@ -28,6 +28,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::DataNotFound;
+use EBox::HA::NodeList;
 
 sub new
 {
@@ -37,7 +38,13 @@ sub new
     return $self;
 }
 
-sub requiredParams
+# Method: requiredParameters
+#
+# Overrides:
+#
+#    <EBox::CGI::Base::requiredParameters>
+#
+sub requiredParameters
 {
     return [ 'node' ];
 }
@@ -48,7 +55,7 @@ sub requiredParams
 #
 # Overrides:
 #
-#    <EBox::CGI::ClientBase>
+#    <EBox::CGI::Base::actuate>
 #
 sub actuate
 {

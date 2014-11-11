@@ -478,7 +478,6 @@ sub entryOpChangesInUpdate
 #
 #   Return Net::LDAP::Entry entry for the object
 #
-#   Override EBox::Samba::LdapObject::_entry
 #
 sub _entry
 {

@@ -8,8 +8,9 @@ Standards-Version: 3.9.2
 Package: zentyal-openchange
 Architecture: all
 Pre-Depends: zentyal-core
-Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
-         zentyal-samba, zentyal-mail, zentyal-ca,
+Depends: zentyal-core (>= 4.0), zentyal-core (<< 4.1),
+         zentyal-samba, zentyal-mail, zentyal-ca (>= 4.0.1),
+         zentyal-dns (>= 4.0.1),
          openchangeserver (>> 2.3-zentyal1),
          openchange-rpcproxy, libstring-random-perl,
          openchange-ocsmanager (>> 3:2.3-zentyal1),
@@ -17,6 +18,7 @@ Depends: zentyal-core (>= 4.0~1), zentyal-core (<< 4.1),
          apache2, zoctools, zip, rabbitmq-server,
          sogo-openchange (>= 2.2.5-zentyal1~20140618-1~108),
          ${misc:Depends}
+Replaces: zentyal-sogo
 Description: Zentyal - OpenChange Server
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -25,3 +27,9 @@ Description: Zentyal - OpenChange Server
  .
  This module provides a complete solution to interoperate with Microsoft
  Outlook clients or Microsoft Exchange servers.
+
+Package: zentyal-sogo
+Depends: zentyal-openchange, ${misc:Depends}
+Architecture: all
+Description: transitional dummy package
+  This is a transitional dummy package. It can safely be removed.

@@ -1,4 +1,5 @@
 4.0
+	+ Set debug=no for stable release
 	+ Added EBox::Exception::Base::rethrowSilently
 	+ Added EBox::debugDump method
 	+ Added EBox::Exception::RESTRequest

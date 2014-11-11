@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::L2TP;
 
-use base qw(EBox::Module::Service
+use base qw(EBox::Module::LDAP
             EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver);
@@ -26,7 +26,8 @@ use EBox::Gettext;
 
 use EBox::L2TP::FirewallHelper;
 use EBox::L2TP::LogHelper;
-use EBox::NetWrappers qw();
+use EBox::L2TP::LDAPUser;
+use EBox::NetWrappers;
 use File::Slurp;
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
@@ -212,6 +213,12 @@ sub _services
         });
 
     return \@services;
+}
+
+sub _ldapModImplementation
+{
+    my ($self) = @_;
+    return EBox::L2TP::LDAPUser->new();
 }
 
 # Method: _setConf

@@ -1,3 +1,12 @@
+HEAD
+	+ Avoid notifying slaves while setting the password as it is does
+	  by addUser called below
+4.0.2
+	+ Fix regression in showing the Administrator account
+4.0.1
+	+ A change in first or last name make DN to change
+	+ Do not show administrator password in provision command
+	+ Fix ADC mode from the wizard
 4.0
 	+ Re-enable user synchronization with Zentyal Cloud
 	+ Proper notifications when a share is sync'ed with Zentyal Cloud

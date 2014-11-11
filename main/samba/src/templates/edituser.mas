@@ -190,6 +190,9 @@ $(function() {
         errorDiv: '#editUserForm_error',
         submitButton: '#submitEditUserForm',
         success: function(response) {
+            if ('reload' in response) {
+                location.reload();
+            }
             if ('set_text' in response) {
                 var tree =  $("#tree_Manage");
                 var selected = tree.jstree("get_selected")[0];

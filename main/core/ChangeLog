@@ -1,3 +1,9 @@
+4.0.2
+	+ Remove incorrect directory not exists warnings
+	+ Crash reports can be submitted also with global debug disabled
+4.0.1
+	+ Save changes does redirection after 10 consecutive failed requests
+	+ Hide useless revoke button in OpenChange vdomains table
 4.0
 	+ sudoers-friendly take user to whatever module which implenents extraSudoerUsers
 	+ Implement data in use in JS for forms

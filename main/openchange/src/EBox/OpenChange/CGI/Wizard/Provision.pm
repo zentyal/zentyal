@@ -34,10 +34,33 @@ sub new
     return $self;
 }
 
-sub _processWizard
+sub _process
 {
     my ($self) = @_;
 
+    if (EBox::Global->modInstance('samba')->_adcMode() or
+       (EBox::Global->modInstance('mail')->model('VDomains')->size() == 0)) {
+        $self->skipModule();
+        $self->{skip} = 1;
+    } else {
+        $self->SUPER::_process();
+    }
+}
+
+sub _print
+{
+    my ($self) = @_;
+
+    if ($self->{skip}) {
+        $self->response()->body('<script type="text/javascript">window.location = "/SaveChanges?firstTime=1&noPopup=1&save=1"</script>');
+    } else {
+        $self->SUPER::_print();
+    }
+}
+
+sub _processWizard
+{
+    my ($self) = @_;
     $self->_requireParam('orgName', __('Organization Name'));
     my $orgName = $self->param('orgName');
     $self->_requireParam('countryName', __('Country code'));
@@ -49,15 +72,20 @@ sub _processWizard
     $self->_requireParam('expiryDays', __('Days to expire'));
     my $expiryDays = $self->param('expiryDays');
 
-    my $openchange = EBox::Global->modInstance('openchange');
-    my $state = $openchange->get_state();
-    $state->{provision_from_wizard} = {
+    my %certificateArgs =  (
         orgName => $orgName,
         countryName => $countryName,
         localityName => $localityName,
         stateName => $stateName,
         days => $expiryDays
-    };
+    );
+
+    my $ca = EBox::Global->modInstance('ca');
+    $ca->checkCertificateFieldsCharacters(%certificateArgs);
+
+    my $openchange = EBox::Global->modInstance('openchange');
+    my $state = $openchange->get_state();
+    $state->{provision_from_wizard} = \%certificateArgs;
     $openchange->set_state($state);
 }
 

@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Ldap;
 use EBox::Gettext;
 use EBox::Samba::User;
+use EBox::Sudo;
 
 sub new
 {
@@ -159,6 +160,14 @@ sub _delUserWarning
     my $txt = __('This user has a openchange account.');
 
     return $txt;
+}
+
+sub _delUser
+{
+    my ($self, $user) = @_;
+    # remove user from sogo database
+    my $samAccountName = $user->get('samAccountName');
+    EBox::Sudo::silentRoot("sogo-tool remove '$samAccountName'");
 }
 
 # Method: defaultUserModel
