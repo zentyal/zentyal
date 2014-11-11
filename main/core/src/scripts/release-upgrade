@@ -40,6 +40,8 @@ sed -i 's/precise/trusty/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)3.2/d' /etc/apt/sources.list
 rm -f /etc/apt/sources.list.d/zentyal*
 echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' >> /etc/apt/sources.list
+# FIXME: remove this before releasing
+echo 'deb http://archive.zentyal.org/zentyal-beta 4.0-proposed main extra' >> /etc/apt/sources.list
 apt-get update
 upgrade
 
