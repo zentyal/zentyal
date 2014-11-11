@@ -1,0 +1,12 @@
+#!/bin/bash
+
+[ -d /var/lib/mysql/sogo ] || exit 0
+
+MYSQL_CMD="mysql -usogo -h 127.0.0.1 -p`cat /var/lib/zentyal/conf/sogo_db.passwd` sogo"
+
+echo "truncate table sogo_user_profile;" | $MYSQL_CMD
+
+for vdomain in `/usr/share/zentyal/grep-redis mail/conf/VDomains/keys|cut -d'"' -f4`
+do
+    echo "update sogo_folder_info set c_path=replace(c_path, '@$vdomain', ''), c_path2=replace(c_path2, '@$vdomain', '');" | $MYSQL_CMD
+done

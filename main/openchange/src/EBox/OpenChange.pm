@@ -114,6 +114,8 @@ sub initialSetup
 
     # Migration from 3.5 to 4.0
     if (defined($version) and  (EBox::Util::Version::compare($version, '4.0') < 0)) {
+        EBox::Sudo::silentRoot('/usr/share/zentyal-openchange/migrate-sogo-db');
+
         EBox::Sudo::silentRoot('a2disconf sogo');
         EBox::Sudo::silentRoot('a2enmod proxy');
         EBox::Sudo::silentRoot('a2enmod proxy_http');
