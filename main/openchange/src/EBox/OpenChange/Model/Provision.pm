@@ -599,14 +599,17 @@ sub customActionClickedJS
     my $confirmationMsg;
     my $savingChangesTitle;
     my $title;
+    my $wantProvision;
     if ($action eq 'provision') {
         $title = __('Provision OpenChange');
         $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
         $savingChangesTitle = __('Saving changes after provision');
+        $wantProvision = 1;
     } elsif ($action eq 'deprovision') {
         $title = __('Deprovision OpenChange');
         $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
         $savingChangesTitle = __('Saving changes after deprovision');
+        $wantProvision = 0;
     }
 
     my $jsStr = <<JS;
@@ -615,14 +618,17 @@ sub customActionClickedJS
           message: '$confirmationMsg'
    };
     var acceptMethod = function() {
+         var wantProvision    = $wantProvision;
          $customActionClickedJS;
+         
          \$.getJSON('/OpenChange/IsProvisioned',  function(response) {
-               if (response.provisioned) {
+              var provisionStateOk = (response.provisioned == wantProvision);
+              if (provisionStateOk) {
                  Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
-                                                         dialogClass: 'no-close',
-                                                         closeOnEscape: false
-                                                        });
-              }
+                                                              dialogClass: 'no-close',
+                                                              closeOnEscape: false
+                                                             });
+               }
          });
      };
     Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
