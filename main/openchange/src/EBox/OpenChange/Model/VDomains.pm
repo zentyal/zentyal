@@ -660,4 +660,21 @@ sub invalidateCache
     delete $self->{dnsDomains};
 }
 
+# Method: anyWebmailHTTPSEnabled
+#
+#   Returns wether or not any domain has HTTPS webmail enabled
+#
+sub anyWebmailHTTPSEnabled
+{
+    my ($self) = @_;
+
+    foreach my $id (@{$self->ids()}) {
+        if ($self->row($id)->valueByName('webmail_https')) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 1;

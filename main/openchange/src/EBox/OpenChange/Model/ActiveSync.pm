@@ -88,6 +88,12 @@ sub precondition
         return 0;
     }
 
+    if (not $vdomains->anyWebmailHTTPSEnabled()) {
+        $self->{preconditionFail} = 'nowebmail';
+        return 0;
+    }
+
+
     return 1;
 }
 
@@ -105,6 +111,12 @@ sub preconditionFailMsg
                     '{oh}create a mail virtual domain{oc}',
                     oh => q{<a href='/Mail/View/VDomains'>},
                     oc => q{</a>});
+    }
+
+    if ($self->{preconditionFail} eq 'nowebmail') {
+        return __x('You need to enable HTTPS webmail at any ' .
+                   'mail virtual domain to activate ActiveSync option');
+        # TODO DOC Add link to doc
     }
 }
 
