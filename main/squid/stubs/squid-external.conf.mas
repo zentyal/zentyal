@@ -159,6 +159,7 @@ snmp_access deny all
 % foreach my $addr (@listenAddr) { 
 http_port <% $addr %>:<% $port %>
 % }
+http_port  127.0.0.1:<% $port %>
 
 
 visible_hostname (external)<% $hostfqdn %>
