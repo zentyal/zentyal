@@ -26,6 +26,8 @@ use EBox::Gettext;
     server services = -dns
     server signing = auto
     dsdb:schema update allowed = yes
+    drs:max object sync = 1200
+
 
     idmap_ldb:use rfc2307 = yes
 
@@ -43,6 +45,8 @@ use EBox::Gettext;
 % if ($shares) {
     include = /etc/samba/shares.conf
 % }
+
+
 
 % if ($mode eq 'dc') {
 %   if ($roamingProfiles) {
