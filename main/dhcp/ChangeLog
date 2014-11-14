@@ -1,3 +1,5 @@
+HEAD
+	+ TFTP service is now properly managed
 4.0
 	+ Set version to 4.0
 	+ Forbid the addition of a fixed addresses object which

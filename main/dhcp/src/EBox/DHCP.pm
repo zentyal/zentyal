@@ -51,6 +51,7 @@ use Text::DHCPLeases;
 # FIXME: extract this from somewhere to support multi-distro?
 use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
 use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
+use constant TFTPD_DEFAULT_CONF => "/etc/default/tftpd-hpa";
 use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
 use constant DHCP_SERVICE => "isc-dhcp-server";
 
@@ -214,6 +215,10 @@ sub _daemons
     return [
         {
             'name' => DHCP_SERVICE,
+            'precondition' => $preSub
+        },
+        {
+            'name' => TFTP_SERVICE,
             'precondition' => $preSub
         }
     ];
@@ -1140,10 +1145,13 @@ sub _setDHCPConf
 
 # Method: _setTFTPDConf
 #
-#     Set the proper files on the TFTPD root dir
+#     Set the proper default file for TFTP daemon
 #
 sub _setTFTPDConf
 {
+    my ($self) = @_;
+
+    $self->writeConfFile(TFTPD_DEFAULT_CONF, "dhcp/tftpd-hpa.mas", []);
 }
 
 # Method: _ifacesInfo
