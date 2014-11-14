@@ -61,7 +61,7 @@ sub _table
             fieldName     => 'provisionedorganizationname',
             printableName => __('Organization Name'),
             acquirer      => \&_acquireOrganizationNameFromState,
-            storer        => \&_emptyFunc,
+            storer        => sub {},
             volatile      => 1,
             editable      => 0)
         );
@@ -157,15 +157,16 @@ sub precondition
         return undef;
     }
     my $dmd = $users->dMD();
-    unless ($dmd->ownedByZentyal()) {
-        # Samba is not managing the Schema of the Active Directory.
-        unless (defined $self->parentModule->configurationContainer()) {
-            # There is no an existing Exchange or OpenChange server already, and thus, we require to change the
-            # Schema but it's not possible.
-            $self->{preconditionFail} = 'schemaNotWritable';
-            return undef;
-        }
-    }
+    # XXX commented temporally
+    # unless ($dmd->ownedByZentyal()) {
+    #     # Samba is not managing the Schema of the Active Directory.
+    #     unless (defined $self->parentModule->configurationContainer()) {
+    #         # There is no an existing Exchange or OpenChange server already, and thus, we require to change the
+    #         # Schema but it's not possible.
+    #         $self->{preconditionFail} = 'schemaNotWritable';
+    #         return undef;
+    #     }
+    # }
     unless ($self->parentModule->isEnabled()) {
         $self->{preconditionFail} = 'notEnabled';
         return undef;
@@ -336,11 +337,6 @@ sub _existingOrganizationNames
     return \@existingOrganizations;
 }
 
-sub _emptyFunc
-{
-
-}
-
 sub _acquireProvisioned
 {
     my ($self, $id) = @_;
@@ -465,8 +461,17 @@ sub provision
             $cmd .= ' --standalone ';
         }
 
+        my $samba = $self->global()->modInstance('samba');
+        if ($samba->dcMode() eq 'adc') {
+#            $cmd .= ' --adc';
+            $cmd .= ' --user=admin --password=a'; # XXX TMP
+        }
+
+        EBox::debug("XXX provision cmd: $cmd");
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+        EBox::debug("XXX $cmd:\n$output");
+        
         my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
         $cmd = "openchange_provision --openchangedb " .
