@@ -1,4 +1,5 @@
 HEAD
+	+ Fix empty LDIF parsing loading DNS zones stored in LDB
 	+ Avoid notifying slaves while setting the password as it is does
 	  by addUser called below
 4.0.2
