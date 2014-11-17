@@ -37,6 +37,10 @@ upgrade
 
 echo; echoTS "Upgrading from Zentyal 3.5 to 4.0..."; echo
 sed -ri 's/zentyal(.)3.5/zentyal\14.0/g' /etc/apt/sources.list
+
+# remove psgi programs to avoid webadmin failures
+rm -f  /var/lib/zentyal/conf/webadmin/psgi-subapps.yaml 
+
 upgrade
 
 for i in `seq 1 3`
