@@ -117,7 +117,7 @@ sub _som
     # Query domain OUs
     my $result = $ldap->search({
         base => $dn,
-        scope => 'sub',
+        scope => 'one',
         filter => "(objectCategory=CN=Organizational-Unit," .
                   "CN=Schema,$configurationNC)",
         attrs => ['name']});
@@ -208,6 +208,7 @@ sub childNodes
     } elsif ($parentType eq 'ou') {
         my $containerDN = $parentMetadata->{dn};
         push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
+        push (@{$childNodes}, @{$self->_som($containerDN)});
     } elsif ($parentType eq 'site') {
         my $containerDN = $parentMetadata->{dn};
         push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
