@@ -1,3 +1,5 @@
+HEAD
+	+ Remove deprecated PSGI subapps on migration to 4.0
 3.5.5
 	+ Show upgrade button to 4.0 in the dashboard
 3.5.4
