@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-10-14 11:20+0200\n"
-"Last-Translator: GuISm0 <chkdsk_guismo@hotmail.com>\n"
+"PO-Revision-Date: 2014-11-14 20:15+0200\n"
+"Last-Translator: alteran67 <k.vivien@tlse.eu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -944,7 +944,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:142
 msgid "To remove system-wide VPN servers autostart"
-msgstr "Pour désactiver l'auto-démarrage des serveurs VPN du système"
+msgstr "Désactiver l'auto-démarrage des serveurs VPN du système"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:610
 #, perl-brace-format
@@ -1090,7 +1090,7 @@ msgstr "Nom commun de certificat non autorisé"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Certificate verification failed"
-msgstr "Vérification du certificat échouée"
+msgstr "Échec de la validation du certificat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1495
 msgid "Client connection initiated"
@@ -1135,11 +1135,11 @@ msgstr "Etat de la grappe"
 
 #: ../../main/ha/src/EBox/HA.pm:166
 msgid "To configure corosync daemon"
-msgstr "Configurer le démon corosync"
+msgstr "Configurer le démon (daemon) corosync"
 
 #: ../../main/ha/src/EBox/HA.pm:169
 msgid "To start corosync at boot"
-msgstr "Démarre corosync au début"
+msgstr "Lancer corosync au démarrage du système"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:277
@@ -1175,7 +1175,7 @@ msgstr "{oh}Il y a des erreurs{ch}"
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
 msgid "Last update"
-msgstr "La dernier mise à jour"
+msgstr "Dernière mise à jour"
 
 #: ../../main/ha/src/EBox/HA.pm:1029
 msgid "Errors"
@@ -1197,11 +1197,11 @@ msgstr "État"
 
 #: ../../main/ha/src/EBox/HA.pm:1034
 msgid "not enabled"
-msgstr "non activé"
+msgstr "Désactivé"
 
 #: ../../main/ha/src/EBox/HA.pm:1037
 msgid "Nodes"
-msgstr "Noeuds"
+msgstr "Nœuds"
 
 #: ../../main/ha/src/EBox/HA.pm:1039
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1254,9 +1254,7 @@ msgstr "Noeuds Haute Disponibilité"
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:74
 #, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
-msgstr ""
-"La réplication a échoué. Merci de consulter {log file} pour plus "
-"d'informations"
+msgstr "La réplication a échoué. Consultez {log file} pour plus d'informations"
 
 #: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:134
@@ -1277,22 +1275,24 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr "Le nom est trop long. La longueur maximale est {max}."
+msgstr "Le nom est trop long. La longueur maximale de caractères est de {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:72
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr "Le nom est trop court. La longueur minimale est {min}."
+msgstr ""
+"Le nom est trop court. La longueur minimale de caractères est de  {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:75
 msgid "Name must only contain letters, numbers or underscores."
 msgstr ""
-"Le nom doit uniquement contenir des lettres, des chiffres ou des underscores"
+"Le nom doit uniquement contenir des lettres, des chiffres ou des tiret_bas "
+"(underscore)"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:98
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr "L'adresse IP {ip} n'appartient à aucune interface"
+msgstr "L'adresse IP {ip} n'appartient à aucune interface."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:133
 msgid "There is a network interface with the given IP address."
@@ -1312,11 +1312,11 @@ msgstr "Adresses IP dynamique"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:249
 msgid "Floating IP addresses"
-msgstr "Adresses IP dynamique"
+msgstr "Adresses IP dynamiques"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:253
 msgid "floating IP address"
-msgstr "adresse IP dynamique"
+msgstr "Adresse IP dynamique"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:125
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:65
@@ -1326,7 +1326,7 @@ msgstr "adresse IP dynamique"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr "Valider"
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
@@ -1359,7 +1359,7 @@ msgstr "Réplication"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
 msgid "Demote"
-msgstr "rétrograder"
+msgstr "Rétrograder"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:215
 msgid "Promote"
