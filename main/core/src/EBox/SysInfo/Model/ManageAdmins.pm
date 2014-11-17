@@ -120,7 +120,8 @@ sub addTypedRow
 
         # Create user if not exists
         system("id $user");
-        if ($?) {
+        my $userNotExists = $?;
+        if ($userNotExists) {
             EBox::Sudo::root("adduser --disabled-password --gecos '' $user");
             
             my $password = $params->{password}->value();
@@ -136,7 +137,15 @@ sub addTypedRow
             EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
         }
 
-        $self->setMessage($self->message('add'));
+        my $msg;
+        if ($userNotExists) {
+            $msg = __x('User "{user}" created and granted Zentyal administrative permissions',
+                       user => $user);
+        } else {
+            $msg = __x('User "{user}" granted Zentyal administrative permissions',
+                       user => $user);            
+        }
+        $self->setMessage($msg);
 
         $id = getpwnam($user);
     } catch ($ex) {
@@ -180,13 +189,25 @@ sub removeRow
     my $row = $self->row($id);
     my $user = getpwuid($id);
 
-    EBox::Sudo::root("deluser $user $ADMIN_GROUP");
-    if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
-        EBox::Sudo::root("deluser $user $LPADMIN_GROUP");
+    my $removed;
+    try {
+        EBox::Sudo::root("deluser $user $ADMIN_GROUP");
+        $removed = 1;
+        if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
+            EBox::Sudo::root("deluser $user $LPADMIN_GROUP");
+        }
+    } catch($ex) {
+        EBox::error("Error removing administration credentials from user $user: $ex");
     }
 
-    my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'delAdmin', $user, 0);
+    if ($removed) {
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('System', 'General', 'delAdmin', $user, 0);
+    }
+
+    $self->setMessage(__x('User "{user}" has its Zentyal administration permissions revoked',
+                         user => $user)
+                     );
 }
 
 sub _changePassword
@@ -229,12 +250,6 @@ sub _groupExists
     my ($self, $group) = @_;
     system "grep '$group' /etc/group";
     return ($? == 0);
-}
-
-sub _userIsAdmin
-{
-    my ($self, $user) = @_;
-    return $self->_userIsInGroup($ADMIN_GROUP);
 }
 
 1;
