@@ -506,7 +506,12 @@ sub provision
         $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
-        throw EBox::Exceptions::External("Error provisioninig: $error");
+        if ($error =~ m/Failed to bind - LDAP error 49 LDAP_INVALID_CREDENTIALS/) {
+            throw EBox::Exceptions::External(__('Invalid administrator user name or password'));
+        }
+        throw EBox::Exceptions::External(__x("Error provisioninig: {error}", 
+                                             error => $error )
+                                        );
     }
 
     # Mark mail as changed to make dovecot listen IMAP protocol at least
