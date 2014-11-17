@@ -1020,7 +1020,7 @@ msgstr "Demonios OpenVPN"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
 #: ../../main/samba/src/EBox/Samba.pm:3736
@@ -1042,7 +1042,7 @@ msgstr "Fecha"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1112
@@ -1209,7 +1209,7 @@ msgstr "Nodos"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4312
 #: ../../main/network/src/EBox/Network.pm:4333
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
@@ -1229,7 +1229,7 @@ msgstr "Nombre de máquina"
 #: ../../main/network/src/EBox/Network.pm:4113
 #: ../../main/network/src/EBox/Network.pm:4477
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:64
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/wizard/network.mas:47
 #: ../../main/network/src/templates/ifaces.mas:125
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -1686,11 +1686,11 @@ msgstr "Dirección IP"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:888
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:281
 #: ../../main/trafficshaping/src/EBox/TC.pm:107
-#: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
-#: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
-#: ../../main/dhcp/src/EBox/DHCP.pm:519 ../../main/dhcp/src/EBox/DHCP.pm:615
-#: ../../main/dhcp/src/EBox/DHCP.pm:668 ../../main/dhcp/src/EBox/DHCP.pm:728
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/dhcp/src/EBox/DHCP.pm:347 ../../main/dhcp/src/EBox/DHCP.pm:383
+#: ../../main/dhcp/src/EBox/DHCP.pm:433 ../../main/dhcp/src/EBox/DHCP.pm:479
+#: ../../main/dhcp/src/EBox/DHCP.pm:524 ../../main/dhcp/src/EBox/DHCP.pm:620
+#: ../../main/dhcp/src/EBox/DHCP.pm:673 ../../main/dhcp/src/EBox/DHCP.pm:733
+#: ../../main/dhcp/src/EBox/DHCP.pm:978
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:124
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
 #: ../../main/common/src/EBox/NetWrappers.pm:121
@@ -2122,7 +2122,7 @@ msgstr "La IP '{ip}' ya está asignada al host '{name}' en el mismo dominio"
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
-#: ../../main/dhcp/src/EBox/DHCP.pm:975
+#: ../../main/dhcp/src/EBox/DHCP.pm:980
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
@@ -2519,7 +2519,7 @@ msgid "Disable {server} upstart job"
 msgstr "Deshabilitar el script de inicio de {server}"
 
 #: ../../main/printers/src/EBox/Printers.pm:75
-#: ../../main/dhcp/src/EBox/DHCP.pm:195
+#: ../../main/dhcp/src/EBox/DHCP.pm:196
 msgid "Zentyal will take care of start and stop the service"
 msgstr "Zentyal se encargará de parar e iniciar el servicio"
 
@@ -4089,7 +4089,7 @@ msgstr "Dirección de difusión"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
 #: ../../main/network/src/EBox/Network.pm:4471
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:81
-#: ../../main/dhcp/src/EBox/DHCP.pm:974 ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:979 ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/diag.mas:33
 msgid "MAC address"
 msgstr "Dirección MAC"
@@ -5335,54 +5335,54 @@ msgstr "Reglas para interfaces internas (descarga)"
 msgid "options"
 msgstr "opciones"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:98
+#: ../../main/dhcp/src/EBox/DHCP.pm:99
 #, perl-brace-format
 msgid "{server} configuration file"
 msgstr "Fichero de configuración de {server}"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:103
+#: ../../main/dhcp/src/EBox/DHCP.pm:104
 #, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
 msgstr "Perfil de AppArmor para el dominio de {server}"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:128
+#: ../../main/dhcp/src/EBox/DHCP.pm:129
 msgid "Trivial File Transfer Protocol"
 msgstr "Protocolo de Transferencia de Ficheros Trivial"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:142
+#: ../../main/dhcp/src/EBox/DHCP.pm:143
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Protocolo de Configuración de Máquinas Dinámico"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:194
+#: ../../main/dhcp/src/EBox/DHCP.pm:195
 #, perl-brace-format
 msgid "Disable {server} init script"
 msgstr "Deshabilitar el script de inicio {server}"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:348 ../../main/dhcp/src/EBox/DHCP.pm:384
-#: ../../main/dhcp/src/EBox/DHCP.pm:434 ../../main/dhcp/src/EBox/DHCP.pm:480
-#: ../../main/dhcp/src/EBox/DHCP.pm:525 ../../main/dhcp/src/EBox/DHCP.pm:621
-#: ../../main/dhcp/src/EBox/DHCP.pm:734
+#: ../../main/dhcp/src/EBox/DHCP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:389
+#: ../../main/dhcp/src/EBox/DHCP.pm:439 ../../main/dhcp/src/EBox/DHCP.pm:485
+#: ../../main/dhcp/src/EBox/DHCP.pm:530 ../../main/dhcp/src/EBox/DHCP.pm:626
+#: ../../main/dhcp/src/EBox/DHCP.pm:739
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} no es estática"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:607
+#: ../../main/dhcp/src/EBox/DHCP.pm:612
 msgid "Not a valid action: add, set and del are available"
 msgstr "No es una acción válida: añadir, actualizar y borrar están disponibles"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Leased"
 msgstr "Cedida"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Released"
 msgstr "Liberada"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:982
+#: ../../main/dhcp/src/EBox/DHCP.pm:987
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:1093
+#: ../../main/dhcp/src/EBox/DHCP.pm:1098
 msgid "DHCP leases"
 msgstr "IPs asignadas con DHCP"
 
@@ -6421,11 +6421,11 @@ msgstr "El usuario o la contraseña no coinciden."
 msgid "Zentyal Webadmin"
 msgstr "Administración Web de Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:686
+#: ../../main/core/src/EBox/WebAdmin.pm:683
 msgid "Zentyal Administration Web Server"
 msgstr "Servidor web de administración de Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:851
+#: ../../main/core/src/EBox/WebAdmin.pm:848
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -6434,7 +6434,7 @@ msgstr ""
 "Zentyal ya está configurado para usar el puerto {p} para {use}. Elige otro "
 "puerto o libera este y reintenta."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:864
+#: ../../main/core/src/EBox/WebAdmin.pm:861
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -8130,11 +8130,11 @@ msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
 "Enlace ActiveSync, un protocolo estándar para diversos dispositivos móviles."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:99
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:105
 msgid "The required packages are not installed."
 msgstr "Los paquetes requeridos no están instalados."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:104
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:110
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
@@ -8142,6 +8142,12 @@ msgid ""
 msgstr ""
 "Para configurar OpeChange se necesita primero {oh}crear un dominio de correo "
 "virtual{oc}"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:117
+msgid ""
+"You need to enable HTTPS webmail at any mail virtual domain to activate "
+"ActiveSync option"
+msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
 msgid "New One"
@@ -8238,11 +8244,11 @@ msgstr ""
 "correo virtual{oc}"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
 msgid "Provision OpenChange"
 msgstr "Provisionar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8250,16 +8256,16 @@ msgstr ""
 "Provisionar OpenChange activará el guardado de todos los cambios sin guardar "
 "pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:606
 msgid "Saving changes after provision"
 msgstr "Guardando cambios tras la provisión"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:607
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
 msgid "Deprovision OpenChange"
 msgstr "Desconfigurar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:608
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:610
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8267,7 +8273,7 @@ msgstr ""
 "Desconfigurar OpenChange activará el guardado de todos los cambios sin "
 "guardar pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:611
 msgid "Saving changes after deprovision"
 msgstr "Guardando cambios tras desconfigurar"
 
@@ -8276,40 +8282,40 @@ msgid "Enable OpenChange account"
 msgstr "Activar cuenta de OpenChange"
 
 # Hace referencia a activar o habilitar los modulos antes dichos en el archivo de configuración de Apache "httpd.conf"
-#: ../../main/openchange/src/EBox/OpenChange.pm:195
+#: ../../main/openchange/src/EBox/OpenChange.pm:197
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 "Habilitar los módulos proxy, proxy_http y headers en el servidor Apache"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:196
+#: ../../main/openchange/src/EBox/OpenChange.pm:198
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Para que Webmail sea accesible por http://ip/SOGo/"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:298
+#: ../../main/openchange/src/EBox/OpenChange.pm:300
 msgid "To configure sogo daemon"
 msgstr "Para configurar el demonio sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:303
+#: ../../main/openchange/src/EBox/OpenChange.pm:305
 msgid "To configure sogo parameters"
 msgstr "Para configurar los parámetros sogo"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:308
+#: ../../main/openchange/src/EBox/OpenChange.pm:310
 msgid "To configure autodiscovery service"
 msgstr "Para configurar el servicio de descubrimiento automático"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:313
+#: ../../main/openchange/src/EBox/OpenChange.pm:315
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr "Borra el fichero stock de RPC proxy para evitar interferencias"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:318
+#: ../../main/openchange/src/EBox/OpenChange.pm:320
 msgid "To make SOGo webmail available"
 msgstr "Para que el SOGo webmail sea accesible"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:323
+#: ../../main/openchange/src/EBox/OpenChange.pm:325
 msgid "To make autodiscovery service available"
 msgstr "Para activar el servicio de autodiscovery"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:729
+#: ../../main/openchange/src/EBox/OpenChange.pm:731
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
 #: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -9657,7 +9663,7 @@ msgstr ""
 "usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:158
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:279
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:280
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:281
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:134
@@ -9965,7 +9971,7 @@ msgstr "Editar enlace de Política de Grupo"
 msgid "Sites"
 msgstr "Sitio"
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:275
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:276
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:277
 msgid ""
 "You must enable the File Sharing module in the module status section in "
