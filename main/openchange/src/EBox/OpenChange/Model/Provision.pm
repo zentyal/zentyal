@@ -28,6 +28,7 @@ use EBox::Types::MultiStateAction;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
+use EBox::Types::Password;
 
 use TryCatch::Lite;
 
@@ -96,6 +97,22 @@ sub _table
 #            defaultValue => 0,
 #            editable      => 1)
 #        );
+
+        my $samba = $self->global()->modInstance('samba');
+        if ($samba->dcMode() eq 'adc') {
+            push (@tableDesc, new EBox::Types::Text(
+                fieldName     => 'admin',
+                printableName => __('Administrator user'),
+                editable     => 1,
+                help => __('Domain user with administration credentials'),
+               ));
+            push (@tableDesc, new EBox::Types::Password(
+                fieldName     => 'adminPassword',
+                printableName => __('Password'),
+                editable      => 1,
+                help => __('Password of the administrator user')
+               ));
+        }
     }
 
     my $customActions = [
@@ -384,9 +401,7 @@ sub _doProvision
 
     my $organizationNameSelected = $params{organizationname_selected};
     my $organizationName = $params{$organizationNameSelected};
-    my $enableUsers = $params{enableUsers};
-
-    $self->provision($organizationName, $enableUsers, $action);
+    $self->provision($organizationName, $action, %params);
 }
 
 # Method: provision
@@ -401,7 +416,10 @@ sub _doProvision
 #
 sub provision
 {
-    my ($self, $organizationName, $enableUsers, $action) = @_;
+    my ($self, $organizationName, $action, %params) = @_;
+    my $enableUsers   = $params{enableUsers};
+    my $admin         = $params{admin};
+    my $adminPassword = $params{adminPassword};
 
     my $global     = $self->global();
     my $openchange = $global->modInstance('openchange');
@@ -463,14 +481,14 @@ sub provision
 
         my $samba = $self->global()->modInstance('samba');
         if ($samba->dcMode() eq 'adc') {
-#            $cmd .= ' --adc';
-            $cmd .= ' --user=admin --password=a'; # XXX TMP
+            if (not $admin and not $adminPassword) {
+                throw EBox::Exceptions::Internal("Invalid provision credentials" . "($admin/$adminPassword)");
+            }
+            $cmd .= " --user='$admin' --password='$adminPassword'";
         }
 
-        EBox::debug("XXX provision cmd: $cmd");
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
-        EBox::debug("XXX $cmd:\n$output");
         
         my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
@@ -566,7 +584,7 @@ sub _doDeprovision
         EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
+        EBox::warn("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
         $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
     } catch ($error) {
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
