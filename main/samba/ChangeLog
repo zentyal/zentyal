@@ -1,4 +1,5 @@
 HEAD
+	+ Nested OUs are properly shown in GPO Links tree
 	+ Avoid notifying slaves while setting the password as it is does
 	  by addUser called below
 4.0.2
