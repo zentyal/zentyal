@@ -912,13 +912,14 @@ sub _migrateWebadminServiceName
 
         next unless ((ref ($value) eq 'HASH') and $value->{internal});
 
-        if ($value->{name} eq 'administration') {
+        if ($value->{name} eq 'zentyal_webadmin') {
+            $redis->unset($key);
+        } elsif ($value->{name} eq 'administration') {
             my $webadminMod = $self->global()->modInstance('webadmin');
             $value->{name} = 'zentyal_webadmin';
             $value->{printableName} = $self->printableName(),
             $value->{description} = $self->printableName(),
             $redis->set($key, $value);
-            last;
         }
     }
 }
