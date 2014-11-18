@@ -90,7 +90,8 @@ sub _table
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
             help            => __('RPC over HTTP access. MAPI/RPC over HTTP, '.
-                                  'non-SSL version.'),
+                                  'non-SSL version.By default HTTP protocol ' .
+                                  'is blocked by Zentyal firewall.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'rpcproxy_https',
@@ -110,7 +111,8 @@ sub _table
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/webmailViewer.mas',
             help            => __('Webmail and groupware platform. Non-SSL ' .
-                                  'version.'),
+                                  'version. By default HTTP protocol is ' .
+                                  'blocked by Zentyal firewall.'),
         ),
         new EBox::Types::Boolean(
             fieldName       => 'webmail_https',
