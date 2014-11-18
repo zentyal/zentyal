@@ -34,6 +34,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Util::Version;
 use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
@@ -881,6 +882,44 @@ sub updateAdminPortService
     if ($global->modExists('services')) {
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
+    }
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Migrate from 3.2 to 4.0 but not from 3.5
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
+        $self->_migrateWebadminServiceName();
+    }
+}
+
+sub _migrateWebadminServiceName
+{
+    my ($self) = @_;
+
+    my $redis = $self->redis();
+
+    my @servicesKeys = $redis->_keys('services/*/ServiceTable/keys/*');
+    foreach my $key (@servicesKeys) {
+        my $value = $redis->get($key);
+
+        next unless ((ref ($value) eq 'HASH') and $value->{internal});
+
+        if ($value->{name} eq 'administration') {
+            my $webadminMod = $self->global()->modInstance('webadmin');
+            $value->{name} = 'zentyal_webadmin';
+            $value->{printableName} = $self->printableName(),
+            $value->{description} = $self->printableName(),
+            $redis->set($key, $value);
+            last;
+        }
     }
 }
 
