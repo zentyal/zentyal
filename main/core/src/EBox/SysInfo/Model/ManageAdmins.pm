@@ -252,4 +252,10 @@ sub _groupExists
     return ($? == 0);
 }
 
+sub _userIsAdmin
+{
+    my ($self, $user) = @_;
+    return $self->_userIsInGroup($ADMIN_GROUP);
+}
+
 1;
