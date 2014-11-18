@@ -109,8 +109,9 @@ then
     /usr/share/zentyal/initial-setup samba 3.2
     service zentyal samba restart > /dev/null 2>&1
 
-    # Restart regular webserver, Zentyal UI and logs
+    # Restart regular webserver, firewall, Zentyal UI and logs
     service apache2 restart
+    service zentyal firewall restart
     service zentyal webadmin restart
     service zentyal logs restart
 
