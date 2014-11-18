@@ -29,6 +29,7 @@ sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 echo; echo "Upgrading your current system to the latest packages..."; echo
 upgrade
 
+echo; echo "Dumping OpenLDAP data..."; echo
 # Install samba if missing and replicate users with s4sync
 /usr/share/zentyal/migrate-users-to-samba
 
@@ -68,7 +69,7 @@ do
     echo; echo "Forcing pending packages installation..."; echo
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     rm -f /var/lib/dpkg/info/suricata.prerm
-    for pkg in zentyal-core zentyal-samba
+    for pkg in zentyal-core zentyal-samba freeradius-ldap roundcube-core
     do
         rm -f /var/lib/dpkg/info/${pkg}.postinst
     done
@@ -81,23 +82,27 @@ do
     fi
 done
 
-pkill -9 samba
-pkill -9 smbd
-service zentyal samba restart > /dev/null 2>&1
-
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
-    /usr/share/zentyal/global-action --action saveAllModules
+    # Purge all no longer needed running services like haproxy, collectd, etc
+    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+
+    echo; echo "Importing data from OpenLDAP..."; echo
+    stop zentyal.s4sync
+    stop smbd
+    pkill -9 smbd
+    pkill -9 samba
     start samba-ad-dc
-    /usr/share/zentyal/initial-setup samba 3.2
+    /usr/share/zentyal/global-action --action saveAllModules
+
     # Restart modules that need to add schemas
     for i in samba mail jabber mail mailfilter
     do
         service zentyal $i restart
     done
 
-    # Purge all no longer needed running services like haproxy, collectd, etc
-    apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
+    /usr/share/zentyal/initial-setup samba 3.2
+    service zentyal samba restart > /dev/null 2>&1
 
     # Restart regular webserver, Zentyal UI and logs
     service apache2 restart
