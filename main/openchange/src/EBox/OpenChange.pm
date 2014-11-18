@@ -375,6 +375,12 @@ sub _setConf
         delete $state->{provision_from_wizard};
         $self->set_state($state);
     }
+    if ($state->{provision}) {
+        my $params = delete $state->{provision};
+        my $provisionModel = $self->model('Provision');
+        $provisionModel->provision($params->{orgName}, undef, %{$params});
+        $self->set_state($state);
+    }
 
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
