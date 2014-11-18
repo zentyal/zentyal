@@ -69,6 +69,10 @@ use constant OC_NOTIF_SERVICE_CONF_FILE => OC_NOTIF_SERVICE_CONF_PATH . 'notific
 
 use constant APACHE_PORTS_FILE => '/etc/apache2/ports.conf';
 
+use constant Z_PUSH_CONFIG_FILE => '/usr/share/z-push/config.php';
+use constant Z_PUSH_CALDAV_CONFIG_FILE => '/usr/share/z-push/backend/caldav/config.php';
+use constant Z_PUSH_CARDDAV_CONFIG_FILE => '/usr/share/z-push/backend/carddav/config.php';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -389,6 +393,7 @@ sub _setConf
     #$self->_writeCronFile();
 
     $self->_setupActiveSync();
+    $self->_zPushConfigFiles();
 }
 
 # TODO: Review, is this really necessary?
@@ -434,6 +439,32 @@ sub _setupActiveSync
         if ($global->modExists('sogo')) {
             $global->addModuleToPostSave('sogo');
         }
+    }
+}
+
+sub _zPushConfigFiles
+{
+    my ($self) = @_;
+
+    my $zPushIsInstalled = EBox::GlobalImpl::_packageInstalled('z-push');
+    if ($zPushIsInstalled) {
+        EBox::debug("Writing Z-Push configuration files");
+        my $params = [];
+        $self->writeConfFile(Z_PUSH_CALDAV_CONFIG_FILE,
+                             "openchange/z-push-caldav-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
+        $self->writeConfFile(Z_PUSH_CARDDAV_CONFIG_FILE,
+                             "openchange/z-push-carddav-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
+        $self->writeConfFile(Z_PUSH_CONFIG_FILE,
+                             "openchange/z-push-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
     }
 }
 
