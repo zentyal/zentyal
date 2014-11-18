@@ -12,12 +12,22 @@ use EBox::Gettext;
 function sendStatus(name, enable)
 {
     var params = 'module=' + name + '&enable=' + (enable ? '1' : '0');
+    var status_error = $('#status_error');
+    var checkbox_id = name + '_status';
+
+    Zentyal.TableHelper.setLoading(checkbox_id, '', true);
+    status_error.html('').removeClass();
     $.ajax({
         url: '/ServiceModule/StatusController',
         type: 'post',
         data: params,
         success: function (response) {
           $('#modulesStatus').html(response);
+        },
+        error : function(jqXHR) {
+          var msg = jqXHR.responseText;
+          status_error.removeClass().html(msg);
+          Zentyal.TableHelper.restoreHidden(checkbox_id);
         },
         complete: function(){
             Zentyal.refreshSaveChangesButton();
@@ -45,6 +55,8 @@ $(function() {
 });
 </script>
 <br/>
+<div id='status_error'>
+</div>
 <form id="statusForm">
 <table id='statusTable' class='dataTable'>
 <thead>
@@ -83,7 +95,7 @@ $(function() {
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
-                'onChange' => qq{sendStatus('$name', this.checked); Zentyal.TableHelper.setLoading('${name}_status'); }
+                'onChange' => qq{sendStatus('$name', this.checked); }
             &>
 %   }
         </td>
