@@ -176,7 +176,7 @@ sub setTypedRow
             $self->_changePassword($user, $password);
         }
         
-        $self->SUPER::setTypedRow($id, $params);
+        $self->setMessage($self->message('update'));
     } catch ($ex) {
         EBox::Exceptions::Base::rethrowSilently($ex);
     }
