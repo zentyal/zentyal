@@ -86,6 +86,9 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
+    if (not $id) {
+        throw EBox::Exceptions::MissingArgument('id');
+    }
     my $username = getpwuid($id);
     $username or throw
         EBox::Exceptions::Internal("Inexistent user id: $id");
@@ -117,24 +120,23 @@ sub addTypedRow
 
     try {
         my $user = $params->{username}->value();
-        $self->_checkUsername($user);
         # Create user if not exists
         system("id $user");
         my $userNotExists = $?;
         if ($userNotExists) {
-            EBox::Sudo::root("adduser --disabled-password --gecos '' $user");
+            _rootWithExternalEx("adduser --disabled-password --gecos '' $user");
             
             my $password = $params->{password}->value();
             $self->_changePassword($user, $password);
         }
         
         unless ($self->_userIsAdmin($user)) {
-            EBox::Sudo::root("adduser $user $ADMIN_GROUP");
+            _rootWithExternalEx("adduser $user $ADMIN_GROUP");
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'addAdmin', $user, 0);
         }
         if ((not $self->_userIsInGroup($user, $LPADMIN_GROUP)) and $self->_groupExists($LPADMIN_GROUP)) {
-            EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
+            _rootWithExternalEx("adduser $user $LPADMIN_GROUP");
         }
 
         my $msg;
@@ -163,11 +165,10 @@ sub setTypedRow
         my $oldRow = $self->row($id);
 
         my $user = $params->{username}->value();
-        $self->_checkUsername($user);
         my $oldName = getpwuid($id);
         
         if ($user ne $oldName) {
-            EBox::Sudo::root("usermod -l $user $oldName");
+            _rootWithExternalEx("usermod -l $user $oldName");
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
         }
@@ -193,10 +194,10 @@ sub removeRow
 
     my $removed;
     try {
-        EBox::Sudo::root("deluser $user $ADMIN_GROUP");
+        _rootWithExternalEx("deluser $user $ADMIN_GROUP");
         $removed = 1;
         if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
-            EBox::Sudo::root("deluser $user $LPADMIN_GROUP");
+            _rootWithExternalEx("deluser $user $LPADMIN_GROUP");
         }
     } catch($ex) {
         EBox::error("Error removing administration credentials from user $user: $ex");
@@ -247,6 +248,17 @@ sub _userIsInGroup
     return 0;
 }
 
+sub _rootWithExternalEx
+{
+    my ($cmd) = @_;
+    try {
+        EBox::Sudo::root($cmd);
+    } catch (EBox::Exceptions::Command $ex) {
+        throw EBox::Exceptions::External($ex->error());
+    };
+
+}
+
 sub _groupExists
 {
     my ($self, $group) = @_;
@@ -258,14 +270,6 @@ sub _userIsAdmin
 {
     my ($self, $user) = @_;
     return $self->_userIsInGroup($ADMIN_GROUP);
-}
-
-sub _checkUsername
-{
-    my ($self, $name) = @_;
-    if ($name eq 'root') {
-        throw EBox::Exceptions::External(__('"root" is not a valid user name'));
-    }
 }
 
 1;
