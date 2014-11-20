@@ -117,7 +117,7 @@ sub addTypedRow
 
     try {
         my $user = $params->{username}->value();
-
+        $self->_checkUsername($user);
         # Create user if not exists
         system("id $user");
         my $userNotExists = $?;
@@ -163,6 +163,7 @@ sub setTypedRow
         my $oldRow = $self->row($id);
 
         my $user = $params->{username}->value();
+        $self->_checkUsername($user);
         my $oldName = getpwuid($id);
         
         if ($user ne $oldName) {
@@ -170,6 +171,7 @@ sub setTypedRow
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
         }
+
         
         my $password = $params->{password}->value();
         if ($password) {
@@ -256,6 +258,14 @@ sub _userIsAdmin
 {
     my ($self, $user) = @_;
     return $self->_userIsInGroup($ADMIN_GROUP);
+}
+
+sub _checkUsername
+{
+    my ($self, $name) = @_;
+    if ($name eq 'root') {
+        throw EBox::Exceptions::External(__('"root" is not a valid user name'));
+    }
 }
 
 1;
