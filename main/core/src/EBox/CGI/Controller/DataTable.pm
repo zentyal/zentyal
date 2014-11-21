@@ -26,6 +26,8 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::Internal;
 use EBox::Html;
+use EBox::View::StackTrace;
+use EBox::TraceStorable;
 
 use POSIX qw(ceil floor INT_MAX);
 use TryCatch::Lite;
@@ -149,7 +151,6 @@ sub addRow
     }
 
     my $auditId = $self->_getAuditId($id);
-
     # We don't want to include filter in the audit log
     # as it has no value (it's a function reference)
     my %fields = map { $_ => 1 } @{ $model->fields() };
@@ -759,17 +760,25 @@ sub _process
     }
 
     my $actionSub = $action . 'Action';
-    if ($self->can($actionSub)) {
-        $self->$actionSub(
-            model => $model,
-            directory => $directory,
-
+    try {
+        if ($self->can($actionSub)) {
+            $self->$actionSub(
+                model => $model,
+                directory => $directory,
+                
            );
-    } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
-        $self->customAction($action);
-        $self->refreshTable()
-    } else {
-        throw EBox::Exceptions::Internal("Action '$action' not supported");
+        } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
+            $self->customAction($action);
+            $self->refreshTable()
+        } else {
+            throw EBox::Exceptions::Internal("Action '$action' not supported");
+        }
+    } catch(EBox::Exceptions::External $ex) {
+        $ex->throw();
+    } catch(EBox::Exceptions::Internal $ex) {
+        $self->{json}->{error} = $self->_htmlForUnexpectedError($ex);
+    } catch ($ex) {
+        $self->{json}->{error} = $ex;
     }
 }
 
@@ -893,6 +902,13 @@ sub _htmlForDataInUse
                                );
 }
 
+sub _htmlForUnexpectedError
+{
+    my ($self, $ex) = @_;
+    my $trace = $ex->trace();
+    EBox::TraceStorable::storeTrace($trace, $self->request()->env());
+    return $trace->redirect_html();
+}
 
 sub _modelIds
 {

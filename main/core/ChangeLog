@@ -1,4 +1,5 @@
 HEAD
+	+ Manage correctly internal errors in data table controller
 	+ Modify webadmin service when upgrading from 3.2
 	+ Show enable errors in module status table
 4.0.2
