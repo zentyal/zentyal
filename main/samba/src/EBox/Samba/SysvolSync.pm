@@ -218,10 +218,10 @@ sub sync
 
 # Method: syncDeleted
 #
-#   Remove the deleted GPOs from our sysvol share. To guess which GPOs has
-#   been removed, this method queries the configuration partition for the
-#   current domain GPOs. If there is a GPO in our sysvol which does not have
-#   a matching GPC entry, will be deleted.
+#   Remove the deleted GPTs from our sysvol share. To guess which GPTs have
+#   to be removed, this method queries the domain configuration partition
+#   to retrieve the current existing domain GPCs. If there is a GPT in our
+#   sysvol which does not have a matching GPC entry, will be deleted.
 #
 sub syncDeleted
 {
