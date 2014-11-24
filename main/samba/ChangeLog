@@ -1,4 +1,5 @@
 HEAD
+	+ SysvolSync daemon now synchronize deleted GPOs.
 	+ Fix sysvol replication broken in some environments.
 	+ Forbid backup restore if the server has not the correct hostname
 	+ Fix empty LDIF parsing loading DNS zones stored in LDB

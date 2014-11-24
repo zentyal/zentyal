@@ -22,11 +22,20 @@ package EBox::Samba::SysvolSync;
 
 use EBox::Global;
 use EBox::Util::Random;
+use EBox::Samba::SmbClient;
 
 use TryCatch::Lite;
 use Net::Ping;
 use Net::DNS;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
+);
 
 use constant DEBUG => 0;
 
@@ -197,10 +206,80 @@ sub sync
             EBox::info("child exited with value $code");
             # Maybe user pwd has changed an we need to export keytab again
             $self->{hasTicket} = 0;
+            return $code;
         }
-        return $code;
     }
+
+    # Sync deleted
+    $self->syncDeleted();
+
     return 0;
+}
+
+# Method: syncDeleted
+#
+#   Remove the deleted GPOs from our sysvol share. To guess which GPOs has
+#   been removed, this method queries the configuration partition for the
+#   current domain GPOs. If there is a GPO in our sysvol which does not have
+#   a matching GPC entry, will be deleted.
+#
+sub syncDeleted
+{
+    my ($self) = @_;
+
+    try {
+        my $samba = EBox::Global->modInstance('samba');
+        my $ldap = $samba->ldap();
+        my $dse = $ldap->rootDse();
+        my $defaultNC = $dse->get_value('defaultNamingContext');
+        my $param = {
+            base => "CN=Policies,CN=System,$defaultNC",
+            scope => 'one',
+            filter => '(objectClass=groupPolicyContainer)',
+            attrs => ['name'],
+        };
+        my $res = $ldap->search($param);
+        my %gpc = map { $_->get_value('name') => 1; } $res->entries();
+
+        my $toDelete = [];
+
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $hostfqdn = $sysinfo->fqdn();
+        my $hostdomain = $sysinfo->hostDomain();
+        my $smb = new EBox::Samba::SmbClient(target => $hostfqdn,
+                                             service => 'sysvol',
+                                             RID => 500);
+
+        my $dir = "/$hostdomain/Policies";
+        my $attributes = FILE_ATTRIBUTE_NORMAL |
+                         FILE_ATTRIBUTE_ARCHIVE |
+                         FILE_ATTRIBUTE_DIRECTORY |
+                         FILE_ATTRIBUTE_HIDDEN |
+                         FILE_ATTRIBUTE_READONLY |
+                         FILE_ATTRIBUTE_SYSTEM;
+        my $shareContentList = $smb->list($dir, attributes => $attributes,
+                                          recursive => 0);
+        foreach my $item (@{$shareContentList}) {
+            # Skip no directory items
+            next unless $item->{is_directory};
+
+            # An item looks like this:
+            # /<dns_domain>/Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}
+            my $iname = $item->{name};
+            if ($iname =~ /.+\/Policies\/({.+})/) {
+                unless (exists $gpc{$1}) {
+                    push (@{$toDelete}, $iname);
+                }
+            }
+        }
+
+        foreach my $item (@{$toDelete}) {
+            EBox::info("Deleting GPO $item");
+            $smb->deltree($item);
+        }
+    } catch ($e) {
+        EBox::error($e);
+    }
 }
 
 # Method: run
