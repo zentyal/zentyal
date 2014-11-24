@@ -518,7 +518,7 @@ sub provision
         if ($error =~ m/Failed to bind - LDAP error 49 LDAP_INVALID_CREDENTIALS/) {
             throw EBox::Exceptions::External(__('Invalid administrator user name or password'));
         }
-        throw EBox::Exceptions::External(__x("Error provisioninig: {error}", 
+        throw EBox::Exceptions::External(__x("Error provisioning: {error}", 
                                              error => $error )
                                         );
     }

@@ -1,4 +1,6 @@
 HEAD
+	+ Add 'drs:max object sync' parameter to avoid replication error
+	  after loading schemas
 	+ Avoid notifying slaves while setting the password as it is does
 	  by addUser called below
 4.0.2
