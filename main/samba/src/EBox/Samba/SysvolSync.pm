@@ -142,6 +142,8 @@ sub sync
 
     my $source = $self->{source};
     my $destination = $self->{destination};
+    my $adUser = $self->{adUser};
+    my $keytab = $self->{keytab};
     unless (defined $source and length $source) {
         EBox::error("Source not defined");
         return;
@@ -150,23 +152,32 @@ sub sync
         EBox::error("Destination not defined");
         return;
     }
+    unless (defined $adUser and length $adUser) {
+        EBox::error("AD user not defined");
+        return;
+    }
+    unless (defined $keytab and length $keytab) {
+        EBox::error("Keytab not defined");
+        return;
+    }
 
     # Try to ping the DC
     return unless ($self->sourceReachable());
 
     # Check if ticket is expired
-    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adUser});
+    $self->{hasTicket} = kcheck($keytab, $adUser);
 
     # Get ticket
     while (not $self->{hasTicket}) {
         EBox::info("No ticket or expired");
-        $self->{hasTicket} = $self->extractKeytab($self->{keytab}, $self->{adUser});
+        $self->{hasTicket} = $self->extractKeytab($keytab, $adUser);
         sleep (2);
     }
 
     # Sync share
     my $cmd = "net rpc share migrate files sysvol " .
-              "-k --destination=$destination -S $source --acls";
+              "-k --destination=$destination -S $source --acls " .
+              "--user '$adUser' ";
     if ($debug) {
         $cmd .= " -v -d6 >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
     }
