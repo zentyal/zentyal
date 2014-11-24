@@ -1,4 +1,6 @@
 HEAD
+	+ Add 'drs:max object sync' parameter to avoid replication error
+	  after loading schemas
 	+ Backup and restore module's kerberos service password file
 4.0.5
 	+ Calling correctly to removeGroupShare from the CGI
