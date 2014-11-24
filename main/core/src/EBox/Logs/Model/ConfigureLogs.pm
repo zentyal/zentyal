@@ -112,7 +112,12 @@ sub syncRows
     my %storedLogDomains;
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
-        $storedLogDomains{$row->valueByName('domain')} = 1;
+        my $domain = $row->valueByName('domain');
+        if (not $domain) {
+            EBox::warn("ConfigureLogs row $id has not domain element");
+            next;
+        }
+        $storedLogDomains{$domain} = 1;
     }
 
     # Fetch the current available log domains
