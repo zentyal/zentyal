@@ -6,6 +6,7 @@
   $username
   $maxBackups
   $trackURI => undef
+  $openchange => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -17,12 +18,17 @@ use URI;
 <div class="insideTab">
 
 % if ($subscriptionLevel >= 0) {
-     <div class='help'>
+    <div class='help'>
        <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
-     </div>
+   </div>
    <div class='note'>
         <% __('A configuration backup will be automatically done daily. Also it will be automatically rotated') %>
    </div>
+%  if ($openchange) {
+   <div class='note'>
+    <% __(q{User mail messages are neither backed up or restored. If you want to back up them manually they reside under '/var/vmail'} ) %>
+   </div>
+% }
   <& .backupSection, modulesChanged    => $modulesChanged,
                      subscriptionLevel => $subscriptionLevel,
                      backups => \@backups,
@@ -36,7 +42,7 @@ use URI;
   <& .track, trackURI => $trackURI &>
 %    }
 % } else {
-  <& /remoteservices/NoActive.mas &>
+  <& /remoteservices/NoConnection.mas, inTab => 1 &>
 % }
 </div>
 <script>

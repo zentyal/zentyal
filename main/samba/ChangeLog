@@ -1,4 +1,5 @@
 HEAD
+	+ Forbid backup restore if the server has not the correct hostname
 	+ Fix empty LDIF parsing loading DNS zones stored in LDB
 4.0.3
 	+ Nested OUs are properly shown in GPO Links tree

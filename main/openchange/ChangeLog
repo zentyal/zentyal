@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed backup/restore
 	+ ActiveSync needs to have a HTTPS webmail enabled
 4.0.3
 	+ Fixed regresion on save changes popup on deprovision
