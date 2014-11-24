@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 11:55+0200\n"
-"PO-Revision-Date: 2014-10-02 10:40+0200\n"
-"Last-Translator: bruggied <david.brugmans@telenet.be>\n"
+"PO-Revision-Date: 2014-11-19 20:48+0200\n"
+"Last-Translator: Dennis <menace73@zonnet.nl>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -14866,22 +14866,21 @@ msgid "Continue"
 msgstr "Continent"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Automatische software updates"
+msgstr "Voer automatische software updates uit"
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
+"Zentyal is geconfigureerd om gebruik te maken van automatische QA updates"
 
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Automatische toepassingen start tijd"
 
 #: ../../main/software/src/templates/del.mas:70
-#, fuzzy
 msgid "Confirm packages to install"
-msgstr "Kies welke Zentyal pakketten te installeren"
+msgstr "Bevestig de pakketten welke je wilt installeren"
 
 #: ../../main/software/src/templates/del.mas:74
 msgid "The following packages will be installed"
@@ -14896,11 +14895,13 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
+"Software updates worden handmatig uitgevoerd. Ze worden geïnstalleerd "
+"volgens schema "
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:357
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Pakketlijst goed ververst"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:364
@@ -14908,14 +14909,17 @@ msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
+"Fout bij verversen pakketlijst. <p> Probeer het volgende commando uit te "
+"voeren in een console om het probleem te zien: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Updates zijn beschikbaar voor de volgende systeem componenten"
 
 #: ../../main/software/src/templates/updates.mas:87
 msgid "Community updates are available for the following system components"
 msgstr ""
+"Gemeenschap updates zijn beschikbaar voor de volgende systeem componenten"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:41
@@ -14932,29 +14936,28 @@ msgid "Update"
 msgstr "Update"
 
 #: ../../main/software/src/templates/updates.mas:101
-#, fuzzy
 msgid "Security update"
-msgstr "Systeem updates"
+msgstr "Beveiligingsupdates"
 
 #: ../../main/software/src/templates/updates.mas:104
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Systeem updates"
+msgstr "Zentyal QA update"
 
 #: ../../main/software/src/templates/updates.mas:126
 msgid "Update all packages"
-msgstr "Opwaardeer alle pakketten"
+msgstr "Ververs alle pakketten"
 
 #: ../../main/software/src/templates/updates.mas:137
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
 msgstr ""
+"Deze handeling vergt wat tijd, geen probleem als Zentyal geen reactie geeft "
+"na het drukken op de Update knop"
 
 #: ../../main/software/src/templates/updates.mas:141
-#, fuzzy
 msgid "Upgrading system packages"
-msgstr "Pakketten aan het installeren"
+msgstr "Systeem pakketten aan het opwaarderen"
 
 #: ../../main/software/src/templates/updates.mas:142
 #: ../../main/software/src/templates/ebox.mas:295
@@ -14969,26 +14972,28 @@ msgstr "Geïnstalleerde Versie"
 
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:72
-#, fuzzy
 msgid "Latest Version"
-msgstr "eBox versie"
+msgstr "Laatste Versie"
 
 #: ../../main/software/src/templates/ebox.mas:49
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Pakketten aan het installeren"
+msgstr "Pakketten aan het opwaarderen"
 
 #: ../../main/software/src/templates/ebox.mas:93
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"De volgende pakketten zijn niet goed geïnstalleerd. Je moet dit oplossen "
+"voordat je ze gaat gebruiken of nieuwe modules wilt installeren."
 
 #: ../../main/software/src/templates/ebox.mas:109
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
+"Om dit probleem op te lossen, kun je het volgende commando proberen in de "
+"console:"
 
 #: ../../main/software/src/templates/ebox.mas:114
 #, perl-brace-format
@@ -14997,24 +15002,25 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
+"Nadat het bovenstaande commando klaar is kun je deze pagina verversen. Als "
+"het probleem blijft bestaan, kun je hulp inroepen in {ofhref}community "
+"forum{chref} of een bestand of ticket in de {othref} Zentyal trac{chref} "
 
 #: ../../main/software/src/templates/ebox.mas:123
 msgid "View advanced mode"
 msgstr "Bekijk uitgebreide modus"
 
 #: ../../main/software/src/templates/ebox.mas:126
-#, fuzzy
 msgid "Server roles"
-msgstr "Server poort"
+msgstr "Server regels"
 
 #: ../../main/software/src/templates/ebox.mas:142
-#, fuzzy
 msgid "Additional services"
-msgstr "Diensten lijst"
+msgstr "Extra services"
 
 #: ../../main/software/src/templates/ebox.mas:164
 msgid "Skip install"
-msgstr "Instelleren overslaan"
+msgstr "Installeren overslaan"
 
 #: ../../main/software/src/templates/ebox.mas:173
 msgid "View basic mode"
@@ -15023,18 +15029,19 @@ msgstr "Bekijk basale modus"
 #: ../../main/software/src/templates/ebox.mas:362
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Fout bij updaten pakketlijst. <p>{msg}</p>"
 
 #: ../../main/firewall/src/templates/filter.mas:16
-#, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "Externe netwerken naar interne netwerken"
+msgstr "Filter regels van interne netwerken naar Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:17
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
+"Deze regels geven je toegang van het interne netwerk tot services die op je "
+"Zentyal machine draaien"
 
 #: ../../main/firewall/src/templates/filter.mas:18
 #: ../../main/firewall/src/templates/filter.mas:26
@@ -15043,11 +15050,11 @@ msgstr ""
 #: ../../main/firewall/src/templates/filter.mas:54
 #: ../../main/firewall/src/templates/filter.mas:64
 msgid "Configure rules"
-msgstr ""
+msgstr "Configureer regels"
 
 #: ../../main/firewall/src/templates/filter.mas:24
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Filter regels voor interne netwerk"
 
 #: ../../main/firewall/src/templates/filter.mas:25
 msgid ""
@@ -15055,41 +15062,46 @@ msgid ""
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your Zentyal services, you must use the above section."
 msgstr ""
+"Deze regels geven je het beheer van het interne netwerk naar het internet en "
+"het internet verkeer tussen de interne netwerken. Als je toegang wilt tot "
+"je Zentyal services, moet je het onderdeel hierboven gebruiken"
 
 #: ../../main/firewall/src/templates/filter.mas:33
 msgid "Filtering rules from external networks to Zentyal"
-msgstr ""
+msgstr "Filter regels van externe netwerken naar Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:34
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
+"Deze regels staan je de toegang toe van de services op je Zentyal machine "
+"vanuit externe netwerken"
 
 #: ../../main/firewall/src/templates/filter.mas:42
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Filter regels van externe netwerken naar interne netwerken"
 
 #: ../../main/firewall/src/templates/filter.mas:43
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Deze regels geven je toegang van externe netwerk naar het interne netwerk"
 
 #: ../../main/firewall/src/templates/filter.mas:52
-#, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Verkeer vanuit eBox"
+msgstr "Filter regels voor het uitgaande verkeer vanuit Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:53
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
-msgstr ""
+msgstr "Deze regels geven je beheer van je Zentyal naar externe services"
 
 #: ../../main/firewall/src/templates/filter.mas:63
 msgid "These rules are automatically added by the Zentyal services."
-msgstr ""
+msgstr "Deze regels zijn automatisch toegevoegd door de Zentyal services"
 
 #: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
@@ -15110,7 +15122,7 @@ msgstr "Dienst"
 #: ../../main/samba/src/templates/editgplink.mas:19
 #: ../../main/samba/src/templates/addgplink.mas:23
 msgid "Enforced"
-msgstr ""
+msgstr "Opgelegd"
 
 #: ../../main/samba/src/templates/deluser.mas:12
 #: ../../main/samba/src/templates/deluser.mas:29
@@ -15119,7 +15131,7 @@ msgstr "Gebruiker verwijderen"
 
 #: ../../main/samba/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
-msgstr ""
+msgstr "Je kunt geen gebruiker verwijderen in een slave modus"
 
 #: ../../main/samba/src/templates/deluser.mas:19
 #, fuzzy
@@ -15143,15 +15155,8 @@ msgstr "Systeem updates"
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
 #: ../../main/samba/src/templates/editgroup.mas:36
-#, fuzzy
 msgid "Distribution Group"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Beheerders rechten\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Beheerdersrechten\n"
-"#-#-#-#-#  nl.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Beheers rechten"
+msgstr "Distributiegroep"
 
 #: ../../main/samba/src/templates/addgroup.mas:12
 msgid "Group name"
@@ -15163,18 +15168,16 @@ msgid "Optional value"
 msgstr "Optionele waarde"
 
 #: ../../main/samba/src/templates/editgroup.mas:18
-#, fuzzy
 msgid "Group "
-msgstr "Groep"
+msgstr "Groep "
 
 #: ../../main/samba/src/templates/editgroup.mas:22
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
-"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-"kunnen beheren"
+"Er zijn geen gebruikers. Er moet minstens één gebruiker zijn om deze groep "
+"te kunnen beheren"
 
 #: ../../main/samba/src/templates/editgroup.mas:64
 #: ../../main/samba/src/templates/edituser.mas:92
@@ -15194,22 +15197,20 @@ msgstr "Gebruiker toevoegen"
 
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: ../../main/samba/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
-msgstr ""
+msgstr "Je kunt geen OU verwijderen in de slave modus"
 
 #: ../../main/samba/src/templates/delou.mas:14
 #: ../../main/samba/src/templates/delou.mas:25
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Organizatie Naam"
+msgstr "Verwijder Organisatie eenheid"
 
 #: ../../main/samba/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "Organizatie Naam"
+msgstr "Deze organisatie eenheid kan niet worden verwijdert"
 
 #: ../../main/samba/src/templates/delou.mas:18
 #, fuzzy
@@ -15249,21 +15250,22 @@ msgstr ""
 "ingeschakeld."
 
 #: ../../main/samba/src/templates/delgplink.mas:11
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "This operation will delete the group policy link from the container {x}. The "
 "group policy object itself will not be deleted."
 msgstr ""
+"Deze wijziging verwijdert de groepsbeleid link van het container {x}. Het "
+"groepsbeleid object zelf wordt niet verwijdert"
 
 #: ../../main/samba/src/templates/delcontact.mas:9
 #: ../../main/samba/src/templates/delcontact.mas:20
-#, fuzzy
 msgid "Delete contact"
-msgstr "Verwijder backup"
+msgstr "Verwijder contact"
 
 #: ../../main/samba/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
-msgstr ""
+msgstr "Je kunt geen contacten verwijderen in een slave"
 
 #: ../../main/samba/src/templates/delcontact.mas:16
 #, fuzzy
@@ -15454,34 +15456,31 @@ msgstr "Groep verwijderen"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
-msgstr ""
+msgstr "Je kunt geen groep verwijderen in een slave"
 
 #: ../../main/samba/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Deze groep bevat gebruikers"
+msgstr "Deze groep kan niet worden verwijderd"
 
 #: ../../main/samba/src/templates/delgroup.mas:20
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
-"accounts, gebruikers gegevens..."
+"Deze wijziging verwijdert de groep en al zijn gegevens; gedeelde mappen, etc"
 
 #: ../../main/squid/stubs/template.html.mas:13
 msgid "Access Denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 #: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
-msgstr ""
+msgstr "Toegang is geweigerd"
 
 #: ../../main/squid/stubs/template.html.mas:134
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "Toegang tot de pagina: {page} is geweigerd met de volgende reden"
 
 #: ../../main/squid/stubs/template.html.mas:141
 msgid "Categories"
@@ -15493,19 +15492,23 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"U ziet deze foutmelding, omdat u probeerde toegang te krijgen tot ongepast "
+"materiaal of gekenmerkt is als ongepast materiaal"
 
 #: ../../main/squid/stubs/template.html.mas:142
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Als u enige verzoeken heeft, moet u contact opnemen met uw ICT Coördinator "
+"of Netwerk beheerder"
 
 #: ../../main/squid/stubs/template.html.mas:147
 msgid "Powered by"
-msgstr ""
+msgstr "Aangedreven door"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
-msgstr ""
+msgstr "Dagen van de week"
 
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
 msgid "Unlimited"
@@ -15519,12 +15522,15 @@ msgstr "Mail alias"
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
 msgstr ""
+"Groep aliassen kunnen niet worden gemaakt voor een groep zonder mail account"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
 "Group aliases cannot be created for a group without a mail account belonging "
 "to a mail domain managed by Zentyal"
 msgstr ""
+"Groep aliassen kunnen niet worden gemaakt voor een groep zonder mail account "
+"die behoren tot een mail domein beheerd door Zentyal"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
 #, fuzzy
