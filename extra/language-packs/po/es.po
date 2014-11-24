@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-06 06:32+0200\n"
-"Last-Translator: n0rman <norman@debian.org.ni>\n"
+"PO-Revision-Date: 2014-11-24 13:21+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1026,7 +1026,7 @@ msgstr "Demonios OpenVPN"
 #: ../../main/samba/src/EBox/Samba.pm:3736
 #: ../../main/samba/src/EBox/Samba.pm:3756
 #: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/squid/src/EBox/Squid.pm:1105
+#: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1045,7 +1045,7 @@ msgstr "Fecha"
 #: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/squid/src/EBox/Squid.pm:1112
+#: ../../main/squid/src/EBox/Squid.pm:1139
 #: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "Event"
 msgstr "Evento"
@@ -1189,7 +1189,7 @@ msgstr "Errores"
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Estado"
@@ -1974,7 +1974,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2265
-#: ../../main/squid/src/EBox/Squid.pm:1109
+#: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2343,7 +2343,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3738
 #: ../../main/samba/src/EBox/Samba.pm:3758
 #: ../../main/samba/src/EBox/Samba.pm:3769
-#: ../../main/squid/src/EBox/Squid.pm:1107
+#: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2950,7 +2950,7 @@ msgstr "Zentyal"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:20
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Module"
 msgstr "Módulo"
 
@@ -3713,9 +3713,8 @@ msgid "Filter Policies"
 msgstr "Políticas de filtrado"
 
 #: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
-#, fuzzy
 msgid "L2TP connections"
-msgstr "Conexión L2TP"
+msgstr "Conexiones L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3970,6 +3969,8 @@ msgstr ""
 msgid ""
 "{mod} module is not provisioned. To provision it, enable it and save changes"
 msgstr ""
+"El módulo {mod} no está configurado. Para configurarlo, actívalo y guarda "
+"cambios"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:68
 msgid "To configure OpenSwan IPsec."
@@ -4074,7 +4075,7 @@ msgstr "Herramientas de Diagnóstico de Red"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/squid/src/EBox/Squid.pm:1133
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -6417,15 +6418,15 @@ msgstr ""
 msgid "User and password do not match."
 msgstr "El usuario o la contraseña no coinciden."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:65
+#: ../../main/core/src/EBox/WebAdmin.pm:66
 msgid "Zentyal Webadmin"
 msgstr "Administración Web de Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:683
+#: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
 msgstr "Servidor web de administración de Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:848
+#: ../../main/core/src/EBox/WebAdmin.pm:849
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -6434,7 +6435,7 @@ msgstr ""
 "Zentyal ya está configurado para usar el puerto {p} para {use}. Elige otro "
 "puerto o libera este y reintenta."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:861
+#: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -7066,7 +7067,7 @@ msgid "Change hostname"
 msgstr "Cambiar nombre de la máquina"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}A hostname change will create a new certificate for the web "
 "administration connections. This means you will have to accept the new "
@@ -7074,8 +7075,9 @@ msgid ""
 "does not work after the save changes process finishes.{cp}"
 msgstr ""
 "{op}Un cambio del hostname creará un nuevo certificado para las conexiones a "
-"la administración web. Esto significa que tendrá que recargar la página una "
-"vez termine el proceso de guardado. {cp}"
+"la administración web. Eso significa que habrá que aceptar el nuevo "
+"certificado. Prueba a recargar la página si la redirección automática no "
+"funciona al acabar el proceso de guardar cambios.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
 #, perl-brace-format
@@ -8148,6 +8150,8 @@ msgid ""
 "You need to enable HTTPS webmail at any mail virtual domain to activate "
 "ActiveSync option"
 msgstr ""
+"Se necesita activar la opción de webmail HTTPS en cualquier dominio virtual "
+"de correo para activar ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
 msgid "New One"
@@ -11012,7 +11016,7 @@ msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 
 #: ../../main/squid/src/EBox/Squid.pm:100
-#: ../../main/squid/src/EBox/Squid.pm:1121
+#: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
@@ -11133,20 +11137,28 @@ msgstr "Anular el script de Upstart para Squid"
 msgid "Remove dansguardian init script link"
 msgstr "Borrar enlaces al script de inicio de dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:318
+#: ../../main/squid/src/EBox/Squid.pm:321
+msgid ""
+"To enable the HTTP proxy module, you need to have a least one external "
+"network interface"
+msgstr ""
+"Para habilitar el módulo de proxy HTTP, se necesita al menos una interfaz de "
+"red externa"
+
+#: ../../main/squid/src/EBox/Squid.pm:332
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
 "Se debe establecer la variable cache_mem en el fichero de configuración de "
 "Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:327
+#: ../../main/squid/src/EBox/Squid.pm:341
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
 "Se debe establecer la variable max_object_size en el fichero de "
 "configuración de Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:952
+#: ../../main/squid/src/EBox/Squid.pm:979
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
@@ -11156,56 +11168,56 @@ msgstr ""
 "Comerciales{ch} completamente soportada para actualizaciones de seguridad "
 "automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1048
+#: ../../main/squid/src/EBox/Squid.pm:1075
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings"
 msgstr "Configuración General"
 
-#: ../../main/squid/src/EBox/Squid.pm:1051
+#: ../../main/squid/src/EBox/Squid.pm:1078
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "Reglas de acceso"
 
-#: ../../main/squid/src/EBox/Squid.pm:1054
+#: ../../main/squid/src/EBox/Squid.pm:1081
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 msgid "Filter Profiles"
 msgstr "Perfiles de Filtrado"
 
-#: ../../main/squid/src/EBox/Squid.pm:1057
+#: ../../main/squid/src/EBox/Squid.pm:1084
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Listas por categorías"
 
-#: ../../main/squid/src/EBox/Squid.pm:1060
+#: ../../main/squid/src/EBox/Squid.pm:1087
 msgid "Bandwidth Throttling"
 msgstr "Limitación de Ancho de Banda"
 
-#: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/squid/src/EBox/Squid.pm:1135
 msgid "URL"
 msgstr "Dirección URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1110
+#: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Bytes"
 msgstr "Bytes"
 
-#: ../../main/squid/src/EBox/Squid.pm:1111
+#: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Mime/type"
 msgstr "Mime/tipo"
 
-#: ../../main/squid/src/EBox/Squid.pm:1117
+#: ../../main/squid/src/EBox/Squid.pm:1144
 msgid "Accepted"
 msgstr "Aceptado"
 
-#: ../../main/squid/src/EBox/Squid.pm:1118
+#: ../../main/squid/src/EBox/Squid.pm:1145
 msgid "Denied"
 msgstr "Denegado"
 
-#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: ../../main/squid/src/EBox/Squid.pm:1229
+#: ../../main/squid/src/EBox/Squid.pm:1256
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -14765,11 +14777,11 @@ msgstr "¿Desea guardar los cambios?"
 msgid "Search..."
 msgstr "Buscar..."
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Depends"
 msgstr "Depende"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:66
+#: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Configurar módulo: {module}"
@@ -22988,9 +23000,6 @@ msgstr ""
 
 #~ msgid "Filter Settings"
 #~ msgstr "Configuración"
-
-#~ msgid "Enable it if you only have one network interface"
-#~ msgstr "Habilítelo si sólo dispone de una interfaz de red"
 
 #~ msgid "Dynamic"
 #~ msgstr "Dinámico"

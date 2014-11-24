@@ -108,6 +108,8 @@ sub masonParameters
                                                                          $self->param('nl')));
     }
 
+    push @params, (openchange => $global->modExists('openchange'));
+
     return \@params;
 }
 

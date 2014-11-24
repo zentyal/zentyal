@@ -1,3 +1,8 @@
+HEAD
+	+ Better check of versions numbers in backup restore
+	+ Make EBox::MyDBEngine more reusable
+	+ Modify webadmin service when upgrading from 3.2
+	+ Show enable errors in module status table
 4.0.2
 	+ Remove incorrect directory not exists warnings
 	+ Crash reports can be submitted also with global debug disabled

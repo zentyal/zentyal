@@ -79,7 +79,7 @@ sub requiredParameters
     if ($self->param('backup')) {
         return [qw(backup description)];
     } elsif ($self->param('bugreport')) {
-        return [qw(bugreport )];
+        return [qw(bugreport)];
     } elsif ($self->param('restoreFromFile')) {
         return [qw(restoreFromFile backupfile)];
     } elsif ($self->param('restoreFromId')) {
@@ -152,6 +152,7 @@ sub masonParameters
         my $rs = $global->modInstance('remoteservices');
         $subscribed = $rs->eBoxSubscribed();
     }
+    push @params, (openchange => $global->modExists('openchange'));
     push @params, (subscribed => $subscribed);
 
     return \@params;
