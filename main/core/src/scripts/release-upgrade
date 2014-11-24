@@ -47,7 +47,10 @@ apt-get update
 
 # Make sure we use the upgraded redis during the rest of the upgrade
 apt-get install -y --force-yes -o DPkg::Options::="--force-confdef" libredis-perl redis-server
+# Force rewrite of redis.conf with the new format (redis 2.8 instead of 2.2)
+cp /usr/share/zentyal/stubs/core/redis-4.0.conf.mas /usr/share/zentyal/stubs/core/redis.conf.mas
 stop ebox.redis
+/usr/share/zentyal/shell "call EBox::Config::Redis->instance();"
 
 upgrade
 
