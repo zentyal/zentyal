@@ -1,4 +1,5 @@
 HEAD
+	+ When unsubscribing remove extra packages before saving changes
 	+ Modify webadmin service when upgrading from 3.2
 	+ Show enable errors in module status table
 4.0.2
