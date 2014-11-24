@@ -959,7 +959,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3736
 #: ../../main/samba/src/EBox/Samba.pm:3756
 #: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/squid/src/EBox/Squid.pm:1105
+#: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -978,7 +978,7 @@ msgstr "تاریخ"
 #: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/squid/src/EBox/Squid.pm:1112
+#: ../../main/squid/src/EBox/Squid.pm:1139
 #: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "Event"
 msgstr "رویداد"
@@ -1130,7 +1130,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "وضعیت"
@@ -1943,7 +1943,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2265
-#: ../../main/squid/src/EBox/Squid.pm:1109
+#: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2301,7 +2301,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3738
 #: ../../main/samba/src/EBox/Samba.pm:3758
 #: ../../main/samba/src/EBox/Samba.pm:3769
-#: ../../main/squid/src/EBox/Squid.pm:1107
+#: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2898,7 +2898,7 @@ msgstr "صفحه اصلی eBox"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:20
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #, fuzzy
 msgid "Module"
 msgstr ""
@@ -3986,7 +3986,7 @@ msgstr "عیب یابی شبکه"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/squid/src/EBox/Squid.pm:1133
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -6309,12 +6309,12 @@ msgstr ""
 msgid "User and password do not match."
 msgstr "گذرواژه‌های جدید مطابقت ندارند."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:65
+#: ../../main/core/src/EBox/WebAdmin.pm:66
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "جستجوی دامنه"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:683
+#: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
 msgstr ""
 "#-#-#-#-#  fa.po (ebox-services 0.12.100)  #-#-#-#-#\n"
@@ -6322,14 +6322,14 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
 "مشاهده‌گر ثبت وقایع"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:848
+#: ../../main/core/src/EBox/WebAdmin.pm:849
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/WebAdmin.pm:861
+#: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -10815,7 +10815,7 @@ msgid "Samba quarantine"
 msgstr "اشتراک‌گذاری‌های سامبا"
 
 #: ../../main/squid/src/EBox/Squid.pm:100
-#: ../../main/squid/src/EBox/Squid.pm:1121
+#: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
@@ -10942,72 +10942,78 @@ msgstr ""
 msgid "Remove dansguardian init script link"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:318
+#: ../../main/squid/src/EBox/Squid.pm:321
+msgid ""
+"To enable the HTTP proxy module, you need to have a least one external "
+"network interface"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid.pm:332
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:327
+#: ../../main/squid/src/EBox/Squid.pm:341
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:952
+#: ../../main/squid/src/EBox/Squid.pm:979
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1048
+#: ../../main/squid/src/EBox/Squid.pm:1075
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
-#: ../../main/squid/src/EBox/Squid.pm:1051
+#: ../../main/squid/src/EBox/Squid.pm:1078
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "قوانین دسترسی"
 
-#: ../../main/squid/src/EBox/Squid.pm:1054
+#: ../../main/squid/src/EBox/Squid.pm:1081
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 msgid "Filter Profiles"
 msgstr "فیلتر پروفایل ها"
 
-#: ../../main/squid/src/EBox/Squid.pm:1057
+#: ../../main/squid/src/EBox/Squid.pm:1084
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "طبقه بندی لیست ها"
 
-#: ../../main/squid/src/EBox/Squid.pm:1060
+#: ../../main/squid/src/EBox/Squid.pm:1087
 msgid "Bandwidth Throttling"
 msgstr "گلوگاه پهنای باند"
 
-#: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/squid/src/EBox/Squid.pm:1135
 msgid "URL"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1110
+#: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Bytes"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1111
+#: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Mime/type"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1117
+#: ../../main/squid/src/EBox/Squid.pm:1144
 msgid "Accepted"
 msgstr "پذیرفته شده"
 
-#: ../../main/squid/src/EBox/Squid.pm:1118
+#: ../../main/squid/src/EBox/Squid.pm:1145
 msgid "Denied"
 msgstr "رد شده"
 
-#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
 msgstr "فیلتر شده"
 
-#: ../../main/squid/src/EBox/Squid.pm:1229
+#: ../../main/squid/src/EBox/Squid.pm:1256
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -14473,11 +14479,11 @@ msgstr "ذخیره تغییرات"
 msgid "Search..."
 msgstr "جستجو"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Depends"
 msgstr "وابسته"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:66
+#: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "ماجول پیکربندی: {module}"
