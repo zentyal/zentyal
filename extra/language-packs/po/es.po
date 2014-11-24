@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-06 06:32+0200\n"
-"Last-Translator: n0rman <norman@debian.org.ni>\n"
+"PO-Revision-Date: 2014-11-24 13:21+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -3713,9 +3713,8 @@ msgid "Filter Policies"
 msgstr "Políticas de filtrado"
 
 #: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
-#, fuzzy
 msgid "L2TP connections"
-msgstr "Conexión L2TP"
+msgstr "Conexiones L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3970,6 +3969,8 @@ msgstr ""
 msgid ""
 "{mod} module is not provisioned. To provision it, enable it and save changes"
 msgstr ""
+"El módulo {mod} no está configurado. Para configurarlo, actívalo y guarda "
+"cambios"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:68
 msgid "To configure OpenSwan IPsec."
@@ -7066,7 +7067,7 @@ msgid "Change hostname"
 msgstr "Cambiar nombre de la máquina"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}A hostname change will create a new certificate for the web "
 "administration connections. This means you will have to accept the new "
@@ -7074,8 +7075,9 @@ msgid ""
 "does not work after the save changes process finishes.{cp}"
 msgstr ""
 "{op}Un cambio del hostname creará un nuevo certificado para las conexiones a "
-"la administración web. Esto significa que tendrá que recargar la página una "
-"vez termine el proceso de guardado. {cp}"
+"la administración web. Eso significa que habrá que aceptar el nuevo "
+"certificado. Prueba a recargar la página si la redirección automática no "
+"funciona al acabar el proceso de guardar cambios.{cp}"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:79
 #, perl-brace-format
@@ -8148,6 +8150,8 @@ msgid ""
 "You need to enable HTTPS webmail at any mail virtual domain to activate "
 "ActiveSync option"
 msgstr ""
+"Se necesita activar la opción de webmail HTTPS en cualquier dominio virtual "
+"de correo para activar ActiveSync"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
 msgid "New One"
@@ -11134,11 +11138,12 @@ msgid "Remove dansguardian init script link"
 msgstr "Borrar enlaces al script de inicio de dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:321
-#, fuzzy
 msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
-msgstr "Habilítelo si sólo dispone de una interfaz de red"
+msgstr ""
+"Para habilitar el módulo de proxy HTTP, se necesita al menos una interfaz de "
+"red externa"
 
 #: ../../main/squid/src/EBox/Squid.pm:332
 msgid "You must set the cache_mem variable in the Zentyal configuration file"

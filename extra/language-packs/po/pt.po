@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-11-24 07:16+0200\n"
+"PO-Revision-Date: 2014-11-24 13:23+0200\n"
 "Last-Translator: APNS <ns.sp.br@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
@@ -3707,6 +3707,8 @@ msgid ""
 "Must be the external IP to connect and it was the addresss of local "
 "interface {if}"
 msgstr ""
+"Deve ser o endereço IP externo para ligar e é o endereço do interface local "
+"{if}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:216
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
@@ -3720,6 +3722,8 @@ msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address for the interface "
 "\"{interface}\""
 msgstr ""
+"O endereço IP do Túnel {localIP} já está a ser utilizado como endereço fixo "
+"para a interface \"{interface}\""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:259
 #, perl-brace-format
@@ -3733,7 +3737,7 @@ msgstr ""
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:272
 #, perl-brace-format
 msgid "The Tunnel IP {localIP} is not part of any local network"
-msgstr ""
+msgstr "O endereço do tunel IP {localIP} não pertence a nenhuma rede local"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:283
 #, perl-brace-format
@@ -3759,9 +3763,8 @@ msgstr ""
 "servidor WINS"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:330
-#, fuzzy
 msgid "Public IP address"
-msgstr "Endereço IP do interface Zentyal"
+msgstr "Endereço IP público"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:334
 msgid "Zentyal public IP address where clients will connect to."
@@ -3781,7 +3784,7 @@ msgstr "Chave PSK partilhada"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:357
 msgid "Pre-shared key for the IPsec connection."
-msgstr ""
+msgstr "Chave pré-partilhada para a ligação IPSec"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:361
 msgid "Range start"
@@ -3810,6 +3813,9 @@ msgid ""
 "The IP to use for the VPN tunnel on the server side. It must be a free IP "
 "belonging to the local network where the VPN clients will be connected."
 msgstr ""
+"O endereço IP a ser utilizado pelo tunel VPN do lado do servidor deve ser um "
+"endereço IP livre pertencente à rede local onde os clientes VPN se irão "
+"ligar."
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:428
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:445
@@ -3868,6 +3874,9 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
+"As ligações L2TP possibilitam a implementação de túneis seguros entre "
+"diferentes sub-redes. Este é um protocolo aberto e permite ligar o Zentyal "
+"com outros dispositivos de segurança."
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:217
 msgid "Enabled flag"
