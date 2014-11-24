@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 11:55+0200\n"
-"PO-Revision-Date: 2014-10-02 10:40+0200\n"
-"Last-Translator: bruggied <david.brugmans@telenet.be>\n"
+"PO-Revision-Date: 2014-11-19 20:48+0200\n"
+"Last-Translator: Dennis <menace73@zonnet.nl>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -1020,13 +1020,13 @@ msgstr "OpenVPN daemons"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
 #: ../../main/samba/src/EBox/Samba.pm:3736
 #: ../../main/samba/src/EBox/Samba.pm:3756
 #: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/squid/src/EBox/Squid.pm:1105
+#: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1042,10 +1042,10 @@ msgstr "Datum"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/squid/src/EBox/Squid.pm:1112
+#: ../../main/squid/src/EBox/Squid.pm:1139
 #: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "Event"
 msgstr "Gebeurtenis"
@@ -1185,7 +1185,7 @@ msgstr "Fouten"
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Status"
@@ -1205,7 +1205,7 @@ msgstr "Nodes"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4312
 #: ../../main/network/src/EBox/Network.pm:4333
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
@@ -1225,7 +1225,7 @@ msgstr "Host naam"
 #: ../../main/network/src/EBox/Network.pm:4113
 #: ../../main/network/src/EBox/Network.pm:4477
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:64
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/wizard/network.mas:47
 #: ../../main/network/src/templates/ifaces.mas:125
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -1653,11 +1653,11 @@ msgstr "IP Adres"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:888
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:281
 #: ../../main/trafficshaping/src/EBox/TC.pm:107
-#: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
-#: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
-#: ../../main/dhcp/src/EBox/DHCP.pm:519 ../../main/dhcp/src/EBox/DHCP.pm:615
-#: ../../main/dhcp/src/EBox/DHCP.pm:668 ../../main/dhcp/src/EBox/DHCP.pm:728
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/dhcp/src/EBox/DHCP.pm:347 ../../main/dhcp/src/EBox/DHCP.pm:383
+#: ../../main/dhcp/src/EBox/DHCP.pm:433 ../../main/dhcp/src/EBox/DHCP.pm:479
+#: ../../main/dhcp/src/EBox/DHCP.pm:524 ../../main/dhcp/src/EBox/DHCP.pm:620
+#: ../../main/dhcp/src/EBox/DHCP.pm:673 ../../main/dhcp/src/EBox/DHCP.pm:733
+#: ../../main/dhcp/src/EBox/DHCP.pm:978
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:124
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
 #: ../../main/common/src/EBox/NetWrappers.pm:121
@@ -1943,7 +1943,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2265
-#: ../../main/squid/src/EBox/Squid.pm:1109
+#: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2089,7 +2089,7 @@ msgstr "Het IP '{ip}' is al uitgegeven aan host '{name}' in hetzelfde domein"
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
-#: ../../main/dhcp/src/EBox/DHCP.pm:975
+#: ../../main/dhcp/src/EBox/DHCP.pm:980
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
@@ -2307,7 +2307,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3738
 #: ../../main/samba/src/EBox/Samba.pm:3758
 #: ../../main/samba/src/EBox/Samba.pm:3769
-#: ../../main/squid/src/EBox/Squid.pm:1107
+#: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2476,7 +2476,7 @@ msgid "Disable {server} upstart job"
 msgstr "Deactiveer {server} initialisatie script"
 
 #: ../../main/printers/src/EBox/Printers.pm:75
-#: ../../main/dhcp/src/EBox/DHCP.pm:195
+#: ../../main/dhcp/src/EBox/DHCP.pm:196
 msgid "Zentyal will take care of start and stop the service"
 msgstr "Zentyal zal de service stoppen en starten"
 
@@ -2905,7 +2905,7 @@ msgstr "Zentyal"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:20
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Module"
 msgstr "Module"
 
@@ -3992,7 +3992,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/squid/src/EBox/Squid.pm:1133
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -4008,7 +4008,7 @@ msgstr "Lokaal adres"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
 #: ../../main/network/src/EBox/Network.pm:4471
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:81
-#: ../../main/dhcp/src/EBox/DHCP.pm:974 ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:979 ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/diag.mas:33
 msgid "MAC address"
 msgstr "MAC adres"
@@ -5163,54 +5163,54 @@ msgstr "Regels voor de interne interfaces (download)"
 msgid "options"
 msgstr "opties"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:98
+#: ../../main/dhcp/src/EBox/DHCP.pm:99
 #, perl-brace-format
 msgid "{server} configuration file"
 msgstr "{server} configuratie bestand"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:103
+#: ../../main/dhcp/src/EBox/DHCP.pm:104
 #, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
 msgstr "Apparmor profiel voor {server} daemon"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:128
+#: ../../main/dhcp/src/EBox/DHCP.pm:129
 msgid "Trivial File Transfer Protocol"
 msgstr "Triviaal Bestand Overdrachts Protocol"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:142
+#: ../../main/dhcp/src/EBox/DHCP.pm:143
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Dynamisch Host Configuratie Protocol"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:194
+#: ../../main/dhcp/src/EBox/DHCP.pm:195
 #, perl-brace-format
 msgid "Disable {server} init script"
 msgstr "Deactiveer {server} initialisatie script"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:348 ../../main/dhcp/src/EBox/DHCP.pm:384
-#: ../../main/dhcp/src/EBox/DHCP.pm:434 ../../main/dhcp/src/EBox/DHCP.pm:480
-#: ../../main/dhcp/src/EBox/DHCP.pm:525 ../../main/dhcp/src/EBox/DHCP.pm:621
-#: ../../main/dhcp/src/EBox/DHCP.pm:734
+#: ../../main/dhcp/src/EBox/DHCP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:389
+#: ../../main/dhcp/src/EBox/DHCP.pm:439 ../../main/dhcp/src/EBox/DHCP.pm:485
+#: ../../main/dhcp/src/EBox/DHCP.pm:530 ../../main/dhcp/src/EBox/DHCP.pm:626
+#: ../../main/dhcp/src/EBox/DHCP.pm:739
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} is niet statisch"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:607
+#: ../../main/dhcp/src/EBox/DHCP.pm:612
 msgid "Not a valid action: add, set and del are available"
 msgstr "Geen geldige actie: voeg toe, zet of verwijder zijn beschikbaar"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Leased"
 msgstr "Verhuurd"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Released"
 msgstr "Uitgegeven"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:982
+#: ../../main/dhcp/src/EBox/DHCP.pm:987
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:1093
+#: ../../main/dhcp/src/EBox/DHCP.pm:1098
 msgid "DHCP leases"
 msgstr "DHCP uitgaves"
 
@@ -6215,23 +6215,23 @@ msgstr ""
 msgid "User and password do not match."
 msgstr "Nieuwe wachtwoorden komen niet overeen."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:65
+#: ../../main/core/src/EBox/WebAdmin.pm:66
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "eBox webpost"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:686
+#: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
 msgstr "Zentyal Administratie Webserver"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:851
+#: ../../main/core/src/EBox/WebAdmin.pm:849
 #, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
 
-#: ../../main/core/src/EBox/WebAdmin.pm:864
+#: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -7905,16 +7905,22 @@ msgstr ""
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:99
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:105
 #, fuzzy
 msgid "The required packages are not installed."
 msgstr "De volgende pakketten worden geïnstalleerd"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:104
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:110
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:117
+msgid ""
+"You need to enable HTTPS webmail at any mail virtual domain to activate "
+"ActiveSync option"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
@@ -8007,34 +8013,34 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "Wijzigen"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:606
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Wijzigingen van modules opslaan"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:607
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "Wijzigen"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:608
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:610
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:611
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Wijzigingen van modules opslaan"
@@ -8044,44 +8050,44 @@ msgstr "Wijzigingen van modules opslaan"
 msgid "Enable OpenChange account"
 msgstr "PDC/bestand sharing account"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:195
+#: ../../main/openchange/src/EBox/OpenChange.pm:197
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:196
+#: ../../main/openchange/src/EBox/OpenChange.pm:198
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Webpost zal beschikbaar zijn via http://ip/webmail/."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:298
+#: ../../main/openchange/src/EBox/OpenChange.pm:300
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "Configureer de clamd daemon"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:303
+#: ../../main/openchange/src/EBox/OpenChange.pm:305
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Configureer de freshclam updater"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:308
+#: ../../main/openchange/src/EBox/OpenChange.pm:310
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Configureer de voicemail."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:313
+#: ../../main/openchange/src/EBox/OpenChange.pm:315
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:318
+#: ../../main/openchange/src/EBox/OpenChange.pm:320
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:323
+#: ../../main/openchange/src/EBox/OpenChange.pm:325
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Configureer de voicemail."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:729
+#: ../../main/openchange/src/EBox/OpenChange.pm:731
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
 #: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -9413,7 +9419,7 @@ msgstr ""
 "te kunnen gebruiken "
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:158
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:279
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:280
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:281
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:134
@@ -9722,7 +9728,7 @@ msgstr "Groepsbeleid"
 msgid "Sites"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:275
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:276
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:277
 #, fuzzy
 msgid ""
@@ -10595,7 +10601,6 @@ msgid "Manage"
 msgstr "Alleen beheer"
 
 #: ../../main/samba/src/EBox/Samba.pm:2302
-#, fuzzy
 msgid "Synchronization"
 msgstr ""
 "#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
@@ -10728,7 +10733,7 @@ msgid "Samba quarantine"
 msgstr "Door Samba gedeelde mappen"
 
 #: ../../main/squid/src/EBox/Squid.pm:100
-#: ../../main/squid/src/EBox/Squid.pm:1121
+#: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
@@ -10852,75 +10857,82 @@ msgstr ""
 msgid "Remove dansguardian init script link"
 msgstr "Verwijder dansguardian init script koppeling"
 
-#: ../../main/squid/src/EBox/Squid.pm:318
+#: ../../main/squid/src/EBox/Squid.pm:321
+#, fuzzy
+msgid ""
+"To enable the HTTP proxy module, you need to have a least one external "
+"network interface"
+msgstr "Schakel in als je maar 1 netwerk interface hebt"
+
+#: ../../main/squid/src/EBox/Squid.pm:332
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
 "Je moet de cache_mem variabele instellen in het Zentyal configuratie bestand"
 
-#: ../../main/squid/src/EBox/Squid.pm:327
+#: ../../main/squid/src/EBox/Squid.pm:341
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
 "Je moet de max_object_size variabele instellen in het Zentyal configuratie "
 "bestand"
 
-#: ../../main/squid/src/EBox/Squid.pm:952
+#: ../../main/squid/src/EBox/Squid.pm:979
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1048
+#: ../../main/squid/src/EBox/Squid.pm:1075
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings"
 msgstr "Algemene Instellingen"
 
-#: ../../main/squid/src/EBox/Squid.pm:1051
+#: ../../main/squid/src/EBox/Squid.pm:1078
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "Toegangsregels"
 
-#: ../../main/squid/src/EBox/Squid.pm:1054
+#: ../../main/squid/src/EBox/Squid.pm:1081
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 msgid "Filter Profiles"
 msgstr "Filter profielen"
 
-#: ../../main/squid/src/EBox/Squid.pm:1057
+#: ../../main/squid/src/EBox/Squid.pm:1084
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Gecategoriseerde lijsten"
 
-#: ../../main/squid/src/EBox/Squid.pm:1060
+#: ../../main/squid/src/EBox/Squid.pm:1087
 msgid "Bandwidth Throttling"
 msgstr "Bandbreedte regeling"
 
-#: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/squid/src/EBox/Squid.pm:1135
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1110
+#: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Bytes"
 msgstr "Bytes"
 
-#: ../../main/squid/src/EBox/Squid.pm:1111
+#: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Mime/type"
 msgstr "Mime/type"
 
-#: ../../main/squid/src/EBox/Squid.pm:1117
+#: ../../main/squid/src/EBox/Squid.pm:1144
 msgid "Accepted"
 msgstr "Geaccepteerd"
 
-#: ../../main/squid/src/EBox/Squid.pm:1118
+#: ../../main/squid/src/EBox/Squid.pm:1145
 msgid "Denied"
 msgstr "Geweigerd"
 
-#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
 msgstr "Gefilterd"
 
-#: ../../main/squid/src/EBox/Squid.pm:1229
+#: ../../main/squid/src/EBox/Squid.pm:1256
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -14538,12 +14550,12 @@ msgstr "Wijzigingen opslaan?"
 msgid "Search..."
 msgstr "Zoeken"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #, fuzzy
 msgid "Depends"
 msgstr "Gebeurtenis"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:66
+#: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, fuzzy, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Ongekende herstel  mode: {mode}"
@@ -14861,22 +14873,21 @@ msgid "Continue"
 msgstr "Continent"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Automatische software updates"
+msgstr "Voer automatische software updates uit"
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
 msgstr ""
+"Zentyal is geconfigureerd om gebruik te maken van automatische QA updates"
 
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Automatische toepassingen start tijd"
 
 #: ../../main/software/src/templates/del.mas:70
-#, fuzzy
 msgid "Confirm packages to install"
-msgstr "Kies welke Zentyal pakketten te installeren"
+msgstr "Bevestig de pakketten welke je wilt installeren"
 
 #: ../../main/software/src/templates/del.mas:74
 msgid "The following packages will be installed"
@@ -14891,11 +14902,13 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
+"Software updates worden handmatig uitgevoerd. Ze worden geïnstalleerd "
+"volgens schema "
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:357
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Pakketlijst goed ververst"
 
 #: ../../main/software/src/templates/updates.mas:80
 #: ../../main/software/src/templates/ebox.mas:364
@@ -14903,14 +14916,17 @@ msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
+"Fout bij verversen pakketlijst. <p> Probeer het volgende commando uit te "
+"voeren in een console om het probleem te zien: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/updates.mas:86
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Updates zijn beschikbaar voor de volgende systeem componenten"
 
 #: ../../main/software/src/templates/updates.mas:87
 msgid "Community updates are available for the following system components"
 msgstr ""
+"Gemeenschap updates zijn beschikbaar voor de volgende systeem componenten"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:41
@@ -14927,29 +14943,28 @@ msgid "Update"
 msgstr "Update"
 
 #: ../../main/software/src/templates/updates.mas:101
-#, fuzzy
 msgid "Security update"
-msgstr "Systeem updates"
+msgstr "Beveiligingsupdates"
 
 #: ../../main/software/src/templates/updates.mas:104
-#, fuzzy
 msgid "Zentyal QA update"
-msgstr "Systeem updates"
+msgstr "Zentyal QA update"
 
 #: ../../main/software/src/templates/updates.mas:126
 msgid "Update all packages"
-msgstr "Opwaardeer alle pakketten"
+msgstr "Ververs alle pakketten"
 
 #: ../../main/software/src/templates/updates.mas:137
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
 msgstr ""
+"Deze handeling vergt wat tijd, geen probleem als Zentyal geen reactie geeft "
+"na het drukken op de Update knop"
 
 #: ../../main/software/src/templates/updates.mas:141
-#, fuzzy
 msgid "Upgrading system packages"
-msgstr "Pakketten aan het installeren"
+msgstr "Systeem pakketten aan het opwaarderen"
 
 #: ../../main/software/src/templates/updates.mas:142
 #: ../../main/software/src/templates/ebox.mas:295
@@ -14964,26 +14979,28 @@ msgstr "Geïnstalleerde Versie"
 
 #: ../../main/software/src/templates/ebox.mas:43
 #: ../../main/software/src/templates/ebox.mas:72
-#, fuzzy
 msgid "Latest Version"
-msgstr "eBox versie"
+msgstr "Laatste Versie"
 
 #: ../../main/software/src/templates/ebox.mas:49
-#, fuzzy
 msgid "Upgrading packages"
-msgstr "Pakketten aan het installeren"
+msgstr "Pakketten aan het opwaarderen"
 
 #: ../../main/software/src/templates/ebox.mas:93
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"De volgende pakketten zijn niet goed geïnstalleerd. Je moet dit oplossen "
+"voordat je ze gaat gebruiken of nieuwe modules wilt installeren."
 
 #: ../../main/software/src/templates/ebox.mas:109
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
+"Om dit probleem op te lossen, kun je het volgende commando proberen in de "
+"console:"
 
 #: ../../main/software/src/templates/ebox.mas:114
 #, perl-brace-format
@@ -14992,24 +15009,25 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
+"Nadat het bovenstaande commando klaar is kun je deze pagina verversen. Als "
+"het probleem blijft bestaan, kun je hulp inroepen in {ofhref}community "
+"forum{chref} of een bestand of ticket in de {othref} Zentyal trac{chref} "
 
 #: ../../main/software/src/templates/ebox.mas:123
 msgid "View advanced mode"
 msgstr "Bekijk uitgebreide modus"
 
 #: ../../main/software/src/templates/ebox.mas:126
-#, fuzzy
 msgid "Server roles"
-msgstr "Server poort"
+msgstr "Server regels"
 
 #: ../../main/software/src/templates/ebox.mas:142
-#, fuzzy
 msgid "Additional services"
-msgstr "Diensten lijst"
+msgstr "Extra services"
 
 #: ../../main/software/src/templates/ebox.mas:164
 msgid "Skip install"
-msgstr "Instelleren overslaan"
+msgstr "Installeren overslaan"
 
 #: ../../main/software/src/templates/ebox.mas:173
 msgid "View basic mode"
@@ -15018,18 +15036,19 @@ msgstr "Bekijk basale modus"
 #: ../../main/software/src/templates/ebox.mas:362
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Fout bij updaten pakketlijst. <p>{msg}</p>"
 
 #: ../../main/firewall/src/templates/filter.mas:16
-#, fuzzy
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr "Externe netwerken naar interne netwerken"
+msgstr "Filter regels van interne netwerken naar Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:17
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
+"Deze regels geven je toegang van het interne netwerk tot services die op je "
+"Zentyal machine draaien"
 
 #: ../../main/firewall/src/templates/filter.mas:18
 #: ../../main/firewall/src/templates/filter.mas:26
@@ -15038,11 +15057,11 @@ msgstr ""
 #: ../../main/firewall/src/templates/filter.mas:54
 #: ../../main/firewall/src/templates/filter.mas:64
 msgid "Configure rules"
-msgstr ""
+msgstr "Configureer regels"
 
 #: ../../main/firewall/src/templates/filter.mas:24
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Filter regels voor interne netwerk"
 
 #: ../../main/firewall/src/templates/filter.mas:25
 msgid ""
@@ -15050,41 +15069,46 @@ msgid ""
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your Zentyal services, you must use the above section."
 msgstr ""
+"Deze regels geven je het beheer van het interne netwerk naar het internet en "
+"het internet verkeer tussen de interne netwerken. Als je toegang wilt tot je "
+"Zentyal services, moet je het onderdeel hierboven gebruiken"
 
 #: ../../main/firewall/src/templates/filter.mas:33
 msgid "Filtering rules from external networks to Zentyal"
-msgstr ""
+msgstr "Filter regels van externe netwerken naar Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:34
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
+"Deze regels staan je de toegang toe van de services op je Zentyal machine "
+"vanuit externe netwerken"
 
 #: ../../main/firewall/src/templates/filter.mas:42
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Filter regels van externe netwerken naar interne netwerken"
 
 #: ../../main/firewall/src/templates/filter.mas:43
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Deze regels geven je toegang van externe netwerk naar het interne netwerk"
 
 #: ../../main/firewall/src/templates/filter.mas:52
-#, fuzzy
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr "Verkeer vanuit eBox"
+msgstr "Filter regels voor het uitgaande verkeer vanuit Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:53
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
-msgstr ""
+msgstr "Deze regels geven je beheer van je Zentyal naar externe services"
 
 #: ../../main/firewall/src/templates/filter.mas:63
 msgid "These rules are automatically added by the Zentyal services."
-msgstr ""
+msgstr "Deze regels zijn automatisch toegevoegd door de Zentyal services"
 
 #: ../../main/samba/stubs/shares.conf.mas:21
 msgid "Home Directories"
@@ -15105,7 +15129,7 @@ msgstr "Dienst"
 #: ../../main/samba/src/templates/editgplink.mas:19
 #: ../../main/samba/src/templates/addgplink.mas:23
 msgid "Enforced"
-msgstr ""
+msgstr "Opgelegd"
 
 #: ../../main/samba/src/templates/deluser.mas:12
 #: ../../main/samba/src/templates/deluser.mas:29
@@ -15114,7 +15138,7 @@ msgstr "Gebruiker verwijderen"
 
 #: ../../main/samba/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
-msgstr ""
+msgstr "Je kunt geen gebruiker verwijderen in een slave modus"
 
 #: ../../main/samba/src/templates/deluser.mas:19
 #, fuzzy
@@ -15138,15 +15162,8 @@ msgstr "Systeem updates"
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:30
 #: ../../main/samba/src/templates/editgroup.mas:36
-#, fuzzy
 msgid "Distribution Group"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Beheerders rechten\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Beheerdersrechten\n"
-"#-#-#-#-#  nl.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Beheers rechten"
+msgstr "Distributiegroep"
 
 #: ../../main/samba/src/templates/addgroup.mas:12
 msgid "Group name"
@@ -15158,18 +15175,16 @@ msgid "Optional value"
 msgstr "Optionele waarde"
 
 #: ../../main/samba/src/templates/editgroup.mas:18
-#, fuzzy
 msgid "Group "
-msgstr "Groep"
+msgstr "Groep "
 
 #: ../../main/samba/src/templates/editgroup.mas:22
-#, fuzzy
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
-"Er zijn geen gebruikers. Er moet er minstens één_ _zijn om deze groep te "
-"kunnen beheren"
+"Er zijn geen gebruikers. Er moet minstens één gebruiker zijn om deze groep "
+"te kunnen beheren"
 
 #: ../../main/samba/src/templates/editgroup.mas:64
 #: ../../main/samba/src/templates/edituser.mas:92
@@ -15189,22 +15204,20 @@ msgstr "Gebruiker toevoegen"
 
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: ../../main/samba/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
-msgstr ""
+msgstr "Je kunt geen OU verwijderen in de slave modus"
 
 #: ../../main/samba/src/templates/delou.mas:14
 #: ../../main/samba/src/templates/delou.mas:25
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Organizatie Naam"
+msgstr "Verwijder Organisatie eenheid"
 
 #: ../../main/samba/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "Organizatie Naam"
+msgstr "Deze organisatie eenheid kan niet worden verwijdert"
 
 #: ../../main/samba/src/templates/delou.mas:18
 #, fuzzy
@@ -15244,21 +15257,22 @@ msgstr ""
 "ingeschakeld."
 
 #: ../../main/samba/src/templates/delgplink.mas:11
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "This operation will delete the group policy link from the container {x}. The "
 "group policy object itself will not be deleted."
 msgstr ""
+"Deze wijziging verwijdert de groepsbeleid link van het container {x}. Het "
+"groepsbeleid object zelf wordt niet verwijdert"
 
 #: ../../main/samba/src/templates/delcontact.mas:9
 #: ../../main/samba/src/templates/delcontact.mas:20
-#, fuzzy
 msgid "Delete contact"
-msgstr "Verwijder backup"
+msgstr "Verwijder contact"
 
 #: ../../main/samba/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
-msgstr ""
+msgstr "Je kunt geen contacten verwijderen in een slave"
 
 #: ../../main/samba/src/templates/delcontact.mas:16
 #, fuzzy
@@ -15449,34 +15463,31 @@ msgstr "Groep verwijderen"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
-msgstr ""
+msgstr "Je kunt geen groep verwijderen in een slave"
 
 #: ../../main/samba/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Deze groep bevat gebruikers"
+msgstr "Deze groep kan niet worden verwijderd"
 
 #: ../../main/samba/src/templates/delgroup.mas:20
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Deze wijziging verwijdert de gebruiker en al zijn gegevens; zoals mail "
-"accounts, gebruikers gegevens..."
+"Deze wijziging verwijdert de groep en al zijn gegevens; gedeelde mappen, etc"
 
 #: ../../main/squid/stubs/template.html.mas:13
 msgid "Access Denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 #: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
-msgstr ""
+msgstr "Toegang is geweigerd"
 
 #: ../../main/squid/stubs/template.html.mas:134
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "Toegang tot de pagina: {page} is geweigerd met de volgende reden"
 
 #: ../../main/squid/stubs/template.html.mas:141
 msgid "Categories"
@@ -15488,19 +15499,23 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"U ziet deze foutmelding, omdat u probeerde toegang te krijgen tot ongepast "
+"materiaal of gekenmerkt is als ongepast materiaal"
 
 #: ../../main/squid/stubs/template.html.mas:142
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
+"Als u enige verzoeken heeft, moet u contact opnemen met uw ICT Coördinator "
+"of Netwerk beheerder"
 
 #: ../../main/squid/stubs/template.html.mas:147
 msgid "Powered by"
-msgstr ""
+msgstr "Aangedreven door"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
-msgstr ""
+msgstr "Dagen van de week"
 
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:11
 msgid "Unlimited"
@@ -15514,12 +15529,15 @@ msgstr "Mail alias"
 #: ../../main/mail/src/templates/groupalias.mas:68
 msgid "Group aliases cannot be created for a group without mail account"
 msgstr ""
+"Groep aliassen kunnen niet worden gemaakt voor een groep zonder mail account"
 
 #: ../../main/mail/src/templates/groupalias.mas:69
 msgid ""
 "Group aliases cannot be created for a group without a mail account belonging "
 "to a mail domain managed by Zentyal"
 msgstr ""
+"Groep aliassen kunnen niet worden gemaakt voor een groep zonder mail account "
+"die behoren tot een mail domein beheerd door Zentyal"
 
 #: ../../main/mail/src/templates/warnvd.mas:12
 #, fuzzy
@@ -20113,9 +20131,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Filter Settings"
 #~ msgstr "Filter instellingen"
-
-#~ msgid "Enable it if you only have one network interface"
-#~ msgstr "Schakel in als je maar 1 netwerk interface hebt"
 
 #~ msgid "Dynamic"
 #~ msgstr "Dynamisch"

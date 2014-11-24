@@ -112,7 +112,7 @@ LDAPDisplayName: amavisWhitelistSender
 description: White List Sender
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
-isSingleValued: TRUE
+isSingleValued: FALSE
 -
 
 dn: CN=amavisBlacklistSender,CN=Schema,CN=Configuration,DOMAIN_TOP_DN
@@ -125,7 +125,7 @@ LDAPDisplayName: amavisBlacklistSender
 description: Black List Sender
 attributeSyntax: 2.5.5.5
 oMSyntax: 22
-isSingleValued: TRUE
+isSingleValued: FALSE
 -
 
 dn: CN=amavisSpamQuarantineTo,CN=Schema,CN=Configuration,DOMAIN_TOP_DN

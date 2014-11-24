@@ -2497,6 +2497,10 @@ sub dumpConfig
 
     my @cmds;
 
+    my $hostname  =  `hostname --fqdn`;
+    chomp $hostname;
+    File::Slurp::write_file("$dir/oldhostname", $hostname);
+
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -2621,6 +2625,24 @@ sub restoreBackupPreCheck
         return;
     }
 
+    my $oldHostname;
+    my $hostnameFile = "$dir/oldhostname";
+    if (-r $hostnameFile) {
+        $oldHostname = File::Slurp::read_file($hostnameFile);
+    } 
+    if ($oldHostname) {
+        my $hostname  =  `hostname --fqdn`;
+        chomp $hostname;
+        if ($hostname ne $oldHostname) {
+            throw EBox::Exceptions::External(
+                __x('To be able to restore this backup the hostname should be first set to {hn}. Otherwise samba data could not be restored.',
+                    hn => $oldHostname)
+               );
+        }
+    } else {
+        EBox::warn("No hostname stored in backup. Samba restore will fail if you dont have the same hostname that the original server");
+    }
+
     my $userListFile = $dir . '/' . BACKUP_USERS_FILE;
     if (EBox::Sudo::fileTest('-f', $userListFile)) {
         my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
@@ -2639,7 +2661,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir, $ignoreUserInitialization) = @_;
+    my ($self, $dir) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2706,18 +2728,6 @@ sub restoreConfig
     $self->_startService();
 
     $self->getProvision()->resetSysvolACL();
-
-    return if $ignoreUserInitialization;
-
-    for my $user (@{$self->users()}) {
-
-        # Init local users
-        $self->initUser($user);
-
-        # Notify modules except samba because its users will be
-        # restored from its own LDB backup
-        $self->notifyModsLdapUserBase('addUser', $user, ['samba']);
-    }
 }
 
 sub _removePasswds
