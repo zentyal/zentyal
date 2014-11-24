@@ -90,7 +90,7 @@ sub _table
             defaultValue    => 0,
             HTMLViewer      => '/openchange/ajax/viewer/booleanViewer.mas',
             help            => __('RPC over HTTP access. MAPI/RPC over HTTP, '.
-                                  'non-SSL version.By default HTTP protocol ' .
+                                  'non-SSL version. By default, HTTP protocol ' .
                                   'is blocked by Zentyal firewall.'),
         ),
         new EBox::Types::Boolean(
