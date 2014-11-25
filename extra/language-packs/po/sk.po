@@ -329,8 +329,8 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/network/src/templates/ifaces.mas:33
 #: ../../main/network/src/templates/ifaces.mas:233
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:63
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:68
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:63
 #: ../../main/samba/src/templates/addou.mas:10
 msgid "Name"
@@ -454,7 +454,7 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
@@ -946,16 +946,16 @@ msgstr ""
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3736
-#: ../../main/samba/src/EBox/Samba.pm:3756
-#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3766
+#: ../../main/samba/src/EBox/Samba.pm:3777
 #: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:65
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:46
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
@@ -975,7 +975,7 @@ msgstr "Udalosť"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3761
+#: ../../main/samba/src/EBox/Samba.pm:3771
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1276,7 +1276,7 @@ msgstr "Doména alebo IP adresa"
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:65
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:65
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:69
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:228
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:229
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
@@ -1400,7 +1400,7 @@ msgid "resources"
 msgstr "Zdroj"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3750
 msgid "Resource"
 msgstr ""
 
@@ -1567,7 +1567,7 @@ msgstr "Názov stanice"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3167
+#: ../../main/samba/src/EBox/Samba.pm:3177
 msgid "alias"
 msgstr "alias"
 
@@ -2275,9 +2275,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3738
-#: ../../main/samba/src/EBox/Samba.pm:3758
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3779
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2371,8 +2371,8 @@ msgstr "Tlačiareň"
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/network/src/templates/ifaces.mas:194
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/backup.mas:44
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:49
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:99
@@ -2726,7 +2726,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3739
+#: ../../main/samba/src/EBox/Samba.pm:3749
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -2871,7 +2871,7 @@ msgstr "Zentyal - domovská stránka"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
 #: ../../main/core/src/EBox/AuditLogging.pm:114
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
@@ -5732,7 +5732,7 @@ msgid "Backing up modules "
 msgstr "Zálohovanie modulov"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
 #, fuzzy
 msgid "Operation"
 msgstr ""
@@ -5742,12 +5742,12 @@ msgstr ""
 "Operácia"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:79
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
 msgid "operations left to finish backup"
 msgstr "počet zostávajúcich operácii do skončenia zálohovania"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:244
 #, fuzzy
 msgid "Backup successful"
 msgstr ""
@@ -5766,7 +5766,7 @@ msgstr "Potvrďte, že chcete naozaj vymazať tento súbor so zálohou:"
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:93
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:116
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:138
-#: ../../main/core/src/templates/backup.mas:85
+#: ../../main/core/src/templates/backup.mas:90
 msgid "Restore"
 msgstr "Obnoviť"
 
@@ -5832,7 +5832,7 @@ msgid "modules left to restore"
 msgstr ""
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:83
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:265
 msgid "Restore successful"
 msgstr "Obnova bola dokončená"
 
@@ -6431,8 +6431,8 @@ msgstr ""
 #: ../../main/core/src/EBox/View/StackTrace.pm:102
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
+#: ../../main/core/src/templates/backup.mas:150
 msgid "Actions"
 msgstr "Akcie"
 
@@ -6685,31 +6685,31 @@ msgstr ""
 msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:198
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:281
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:296
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:199
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:282
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:297
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:149
 #: ../../main/core/src/EBox/Backup.pm:1623
 msgid "The input contains invalid characters"
 msgstr "Vstup obsahuje neplatné znaky"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:239
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
 msgid "Backing up"
 msgstr "Zálohovanie"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
 msgid "Backing up modules"
 msgstr "Zálohovanie modulov"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:260
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
 msgid "Restoring backup"
 msgstr "Obnova zo zálohy"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
 msgid "Restoring modules"
 msgstr "Obnovovanie modulov"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
 #, fuzzy
 msgid "modules restored"
 msgstr "Počet zostavajúcich modulov na obnovu"
@@ -7980,44 +7980,44 @@ msgstr "Ukladám zmeny v moduloch"
 msgid "Enable OpenChange account"
 msgstr "poštový účet"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:197
+#: ../../main/openchange/src/EBox/OpenChange.pm:201
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:198
+#: ../../main/openchange/src/EBox/OpenChange.pm:202
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Webmail bude dostupný na http://ip/webmail/."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:300
+#: ../../main/openchange/src/EBox/OpenChange.pm:304
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "Konfigurovať Clamd servis"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:305
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Konfigurovať Freshclam aktualizačný program"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:310
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Nastaviť cupsd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:315
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:320
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:325
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Nastaviť cupsd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:731
+#: ../../main/openchange/src/EBox/OpenChange.pm:736
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
 #: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -10454,113 +10454,120 @@ msgstr "Záloha konfigurácie"
 msgid "Configure mode"
 msgstr "Obnovovanie modulov"
 
-#: ../../main/samba/src/EBox/Samba.pm:2612
+#: ../../main/samba/src/EBox/Samba.pm:2616
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2632
+#: ../../main/samba/src/EBox/Samba.pm:2638
+#, perl-brace-format
+msgid ""
+"To be able to restore this backup the hostname should be first set to {hn}. "
+"Otherwise samba data could not be restored."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:2654
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2656
+#: ../../main/samba/src/EBox/Samba.pm:2678
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2942
+#: ../../main/samba/src/EBox/Samba.pm:2952
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3035
+#: ../../main/samba/src/EBox/Samba.pm:3045
 msgid "Users data and Filesystem shares"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3178
+#: ../../main/samba/src/EBox/Samba.pm:3188
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3737
-#: ../../main/samba/src/EBox/Samba.pm:3757
-#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3778
 msgid "Client address"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3744
+#: ../../main/samba/src/EBox/Samba.pm:3754
 msgid "Connect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3745
+#: ../../main/samba/src/EBox/Samba.pm:3755
 msgid "Access to directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3756
 msgid "Read file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3757
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3758
 msgid "Disconnect"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3749
+#: ../../main/samba/src/EBox/Samba.pm:3759
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: ../../main/samba/src/EBox/Samba.pm:3750
+#: ../../main/samba/src/EBox/Samba.pm:3760
 msgid "Create directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3751
+#: ../../main/samba/src/EBox/Samba.pm:3761
 msgid "Remove directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3752
+#: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Rename"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3759
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3780
 msgid "File name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3760
-#: ../../main/samba/src/EBox/Samba.pm:3764
+#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3774
 msgid "Virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3771
+#: ../../main/samba/src/EBox/Samba.pm:3781
 msgid "Quarantined file name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3772
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3782
+#: ../../main/samba/src/EBox/Samba.pm:3785
 msgid "Quarantine"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3788
 msgid "Samba access"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
+#: ../../main/samba/src/EBox/Samba.pm:3799
 msgid "Samba virus"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3810
 msgid "Samba quarantine"
 msgstr ""
 
@@ -12718,8 +12725,8 @@ msgstr "upraviť"
 
 #: ../../main/dns/src/templates/index.mas:55
 #: ../../main/dns/src/templates/edit.mas:86
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:174
-#: ../../main/core/src/templates/backup.mas:196
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/backup.mas:201
 #, fuzzy
 msgid "delete"
 msgstr ""
@@ -13700,8 +13707,8 @@ msgstr ""
 msgid "This server has been removed from your registered ones"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:21
-#: ../../main/core/src/templates/backup.mas:34
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:22
+#: ../../main/core/src/templates/backup.mas:39
 #, fuzzy, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -13711,18 +13718,25 @@ msgstr ""
 "Tie moduly, ktoré neboli zapnuté po prvý raz v časti {openref}Stav "
 "modulov{closeref} budú vynechané pri zálohovaní aj pri obnovovaní"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:23
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:24
 msgid ""
 "A configuration backup will be automatically done daily. Also it will be "
 "automatically rotated"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:65
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:27
+#: ../../main/core/src/templates/backup.mas:25
+msgid ""
+"User mail messages are neither backed up or restored. If you want to back up "
+"them manually they reside under '/var/vmail'"
+msgstr ""
+
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 #, fuzzy
 msgid "Remote Backup: "
 msgstr "Zálohovanie"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:99
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
 #, fuzzy
 msgid "Back up"
 msgstr ""
@@ -13731,14 +13745,14 @@ msgstr ""
 "#-#-#-#-#  sk.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
 "Záloha"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:129
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:134
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:12
 #, fuzzy
 msgid "Back up the current configuration state"
 msgstr "Záloha aktuálneho stavu"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:132
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/backup.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -13746,67 +13760,67 @@ msgstr ""
 "Zálohu nie je možné vykonať, pretože neboli uložené zmeny v konfigurácii. "
 "Najskôr ich uložte alebo zrušte, a potom bude možné konfiguráciu zálohovať."
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:142
 msgid ""
 "Please note that you have reached the maximum number of manual remote "
 "configuration backup. If you make a new configuration backup, the oldest "
 "backup will be overwritten."
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:158
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
 #, fuzzy
 msgid "Restore configuration backup"
 msgstr "Záloha konfigurácie"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:159
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:164
 #, fuzzy
 msgid "Download configuration backup"
 msgstr "Všeobecné nastavenia"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:160
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:165
 #, fuzzy
 msgid "Delete configuration backup"
 msgstr "Záloha konfigurácie"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:166
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
+#: ../../main/core/src/templates/backup.mas:200
 msgid "restore"
 msgstr "obnoviť"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:170
-#: ../../main/core/src/templates/backup.mas:194
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:175
+#: ../../main/core/src/templates/backup.mas:199
 msgid "download"
 msgstr "stiahnuť"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
 #, fuzzy
 msgid "Configuration backups' list"
 msgstr "Záloha konfigurácie"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:183
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
 msgid "Company"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Size"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #, fuzzy
 msgid "Automatic"
 msgstr "Reštartovať"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:222
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:227
 msgid "Remote backups associated mail"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:223
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:228
 msgid ""
 "The backups of this server are associate with the following email address:"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:226
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
 #, fuzzy
 msgid "Disassociate this server"
 msgstr "Zentyal FTP Server"
@@ -13830,7 +13844,7 @@ msgid "Remote backup: {desc}"
 msgstr "Obnova zo zálohy"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:67
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:51
 msgid "Archive size"
 msgstr "Veľkosť archívu"
@@ -13899,30 +13913,30 @@ msgstr ""
 msgid "Reset my password"
 msgstr "Užívateľské meno a heslo"
 
-#: ../../main/core/src/templates/backup.mas:35
+#: ../../main/core/src/templates/backup.mas:40
 #, fuzzy
 msgid "Backup the Current State"
 msgstr "Záloha aktuálneho stavu"
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
 msgstr ""
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
 "shared resource."
 msgstr ""
 
-#: ../../main/core/src/templates/backup.mas:100
+#: ../../main/core/src/templates/backup.mas:105
 #, fuzzy
 msgid "Restore Backup from File"
 msgstr "Obnovenie zálohy zo súboru"
 
-#: ../../main/core/src/templates/backup.mas:101
+#: ../../main/core/src/templates/backup.mas:106
 #, fuzzy
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
@@ -13931,46 +13945,46 @@ msgstr ""
 "Môžete obnoviť zálohu uloženú v počítači. Pri nahrávaní súborov, sa zobrazí "
 "varovanie, že niektoré prehliadače nevedia odoslať veľké súbory (>= 1 Gb)"
 
-#: ../../main/core/src/templates/backup.mas:127
+#: ../../main/core/src/templates/backup.mas:132
 #, fuzzy
 msgid "Restore backup"
 msgstr "Obnova zo zálohy"
 
-#: ../../main/core/src/templates/backup.mas:128
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Obnoviť konfiguráciu z tohto súboru"
 
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/backup.mas:135
 #, fuzzy
 msgid "Download backup file"
 msgstr "Všeobecné nastavenia"
 
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:136
 #, fuzzy
 msgid "Delete backup"
 msgstr "Zálohovanie"
 
-#: ../../main/core/src/templates/backup.mas:134
+#: ../../main/core/src/templates/backup.mas:139
 msgid "Full"
 msgstr "Úplná"
 
-#: ../../main/core/src/templates/backup.mas:135
+#: ../../main/core/src/templates/backup.mas:140
 msgid "Configuration only"
 msgstr "Iba konfigurácia"
 
-#: ../../main/core/src/templates/backup.mas:136
+#: ../../main/core/src/templates/backup.mas:141
 msgid "Unknown type"
 msgstr "Neznámy typ"
 
-#: ../../main/core/src/templates/backup.mas:142
+#: ../../main/core/src/templates/backup.mas:147
 msgid "Backups' list"
 msgstr "Zoznam záloh"
 
-#: ../../main/core/src/templates/backup.mas:204
+#: ../../main/core/src/templates/backup.mas:209
 msgid "Configuration Report"
 msgstr "Správa o konfigurácii"
 
-#: ../../main/core/src/templates/backup.mas:205
+#: ../../main/core/src/templates/backup.mas:210
 #, fuzzy
 msgid ""
 "You can generate a file with information about the state of your system. "
@@ -13979,7 +13993,7 @@ msgstr ""
 "Táto stránka umožňuje vygenerovať súbor s informáciami o stave systému. "
 "Súbor je potrebný, ak chete odoslať správu o chybe v systéme zentyal."
 
-#: ../../main/core/src/templates/backup.mas:209
+#: ../../main/core/src/templates/backup.mas:214
 msgid "Generate and Download report file"
 msgstr ""
 

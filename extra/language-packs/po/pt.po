@@ -357,8 +357,8 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/network/src/templates/ifaces.mas:33
 #: ../../main/network/src/templates/ifaces.mas:233
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:63
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:68
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:63
 #: ../../main/samba/src/templates/addou.mas:10
 msgid "Name"
@@ -492,7 +492,7 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
@@ -1020,16 +1020,16 @@ msgstr "Rotinas OpenVPN"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3736
-#: ../../main/samba/src/EBox/Samba.pm:3756
-#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3766
+#: ../../main/samba/src/EBox/Samba.pm:3777
 #: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:65
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:46
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
@@ -1049,7 +1049,7 @@ msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3761
+#: ../../main/samba/src/EBox/Samba.pm:3771
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1310,7 +1310,7 @@ msgstr "Endereço IP flutuante"
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:65
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:65
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:69
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:228
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:229
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
@@ -1426,7 +1426,7 @@ msgid "resources"
 msgstr "recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3750
 msgid "Resource"
 msgstr "Recursos"
 
@@ -1581,7 +1581,7 @@ msgstr "Nome da máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3167
+#: ../../main/samba/src/EBox/Samba.pm:3177
 msgid "alias"
 msgstr "pseudónimo"
 
@@ -2294,9 +2294,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3738
-#: ../../main/samba/src/EBox/Samba.pm:3758
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3779
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2383,8 +2383,8 @@ msgstr "Nome da impressora"
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/network/src/templates/ifaces.mas:194
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/backup.mas:44
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:49
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:99
@@ -2743,7 +2743,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3739
+#: ../../main/samba/src/EBox/Samba.pm:3749
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -2891,7 +2891,7 @@ msgstr "Zentyal"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
 #: ../../main/core/src/EBox/AuditLogging.pm:114
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
@@ -5936,12 +5936,12 @@ msgid "Backing up modules "
 msgstr "A efectuar cópia de segurança dos módulos"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
 msgid "Operation"
 msgstr "Operação"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:79
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
 #, fuzzy
 msgid "operations left to finish backup"
 msgstr ""
@@ -5951,7 +5951,7 @@ msgstr ""
 "operações restantes para concluir a cópia de segurança"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:244
 #, fuzzy
 msgid "Backup successful"
 msgstr ""
@@ -5972,7 +5972,7 @@ msgstr ""
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:93
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:116
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:138
-#: ../../main/core/src/templates/backup.mas:85
+#: ../../main/core/src/templates/backup.mas:90
 #, fuzzy
 msgid "Restore"
 msgstr ""
@@ -6038,7 +6038,7 @@ msgid "modules left to restore"
 msgstr "Módulos que faltam restaurar"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:83
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:265
 #, fuzzy
 msgid "Restore successful"
 msgstr ""
@@ -6640,8 +6640,8 @@ msgstr "Deve definir a variável {variable} no ficheiro de configuração da eBo
 #: ../../main/core/src/EBox/View/StackTrace.pm:102
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
+#: ../../main/core/src/templates/backup.mas:150
 msgid "Actions"
 msgstr "Acções"
 
@@ -6895,31 +6895,31 @@ msgstr ""
 msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:198
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:281
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:296
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:199
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:282
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:297
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:149
 #: ../../main/core/src/EBox/Backup.pm:1623
 msgid "The input contains invalid characters"
 msgstr "A entrada contém caracteres inválidos"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:239
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
 msgid "Backing up"
 msgstr "A executar a cópia de segurança"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
 msgid "Backing up modules"
 msgstr "Criar cópia de segurança dos módulos"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:260
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
 msgid "Restoring backup"
 msgstr "A restaurar cópia de segurança"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
 msgid "Restoring modules"
 msgstr "A restaurar módulos"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
 msgid "modules restored"
 msgstr "Módulos restaurados"
 
@@ -8295,44 +8295,44 @@ msgstr "Guardar alterações dos módulos"
 msgid "Enable OpenChange account"
 msgstr "Conta da partilha de ficheiros"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:197
+#: ../../main/openchange/src/EBox/OpenChange.pm:201
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:198
+#: ../../main/openchange/src/EBox/OpenChange.pm:202
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "O webmail estará acessível em http://ip/webmail"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:300
+#: ../../main/openchange/src/EBox/OpenChange.pm:304
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "Para configurar a rotina clamd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:305
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Para configurar o nome de máquina de correio electrónico"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:310
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Para configurar o dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:315
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:320
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:325
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Para configurar o dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:731
+#: ../../main/openchange/src/EBox/OpenChange.pm:736
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
 #: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -10827,14 +10827,21 @@ msgstr ""
 msgid "Configure mode"
 msgstr "Modo de configuração"
 
-#: ../../main/samba/src/EBox/Samba.pm:2612
+#: ../../main/samba/src/EBox/Samba.pm:2616
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2632
+#: ../../main/samba/src/EBox/Samba.pm:2638
+#, perl-brace-format
+msgid ""
+"To be able to restore this backup the hostname should be first set to {hn}. "
+"Otherwise samba data could not be restored."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:2654
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10843,100 +10850,100 @@ msgstr ""
 "Não é possível restaurar o utilizador LDAP {user} porque já existe como "
 "utilizador /etc/passwd. Apague ou renomeie este utilizador e tente de novo"
 
-#: ../../main/samba/src/EBox/Samba.pm:2656
+#: ../../main/samba/src/EBox/Samba.pm:2678
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2942
+#: ../../main/samba/src/EBox/Samba.pm:2952
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3035
+#: ../../main/samba/src/EBox/Samba.pm:3045
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Uso do sistema de ficheiros"
 
-#: ../../main/samba/src/EBox/Samba.pm:3178
+#: ../../main/samba/src/EBox/Samba.pm:3188
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "O endereço {addr} já se encontra em utilização por {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3737
-#: ../../main/samba/src/EBox/Samba.pm:3757
-#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3778
 msgid "Client address"
 msgstr "Endereço do cliente"
 
-#: ../../main/samba/src/EBox/Samba.pm:3744
+#: ../../main/samba/src/EBox/Samba.pm:3754
 msgid "Connect"
 msgstr "Ligado"
 
-#: ../../main/samba/src/EBox/Samba.pm:3745
+#: ../../main/samba/src/EBox/Samba.pm:3755
 msgid "Access to directory"
 msgstr "Acesso ao directório"
 
-#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3756
 msgid "Read file"
 msgstr "Escrever ficheiro"
 
-#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3757
 msgid "Write file"
 msgstr "Escrever ficheiro"
 
-#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3758
 msgid "Disconnect"
 msgstr "Desligar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3749
+#: ../../main/samba/src/EBox/Samba.pm:3759
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Remover"
 
-#: ../../main/samba/src/EBox/Samba.pm:3750
+#: ../../main/samba/src/EBox/Samba.pm:3760
 msgid "Create directory"
 msgstr "Criar directório"
 
-#: ../../main/samba/src/EBox/Samba.pm:3751
+#: ../../main/samba/src/EBox/Samba.pm:3761
 msgid "Remove directory"
 msgstr "Remover directório"
 
-#: ../../main/samba/src/EBox/Samba.pm:3752
+#: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Rename"
 msgstr "Renomear"
 
-#: ../../main/samba/src/EBox/Samba.pm:3759
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3780
 msgid "File name"
 msgstr "Nome do ficheiro"
 
-#: ../../main/samba/src/EBox/Samba.pm:3760
-#: ../../main/samba/src/EBox/Samba.pm:3764
+#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3774
 msgid "Virus"
 msgstr "Vírus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3771
+#: ../../main/samba/src/EBox/Samba.pm:3781
 msgid "Quarantined file name"
 msgstr "Nome do ficheiro em quarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3772
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3782
+#: ../../main/samba/src/EBox/Samba.pm:3785
 msgid "Quarantine"
 msgstr "Quarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3788
 msgid "Samba access"
 msgstr "Acesso samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
+#: ../../main/samba/src/EBox/Samba.pm:3799
 msgid "Samba virus"
 msgstr "Vírus samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3810
 msgid "Samba quarantine"
 msgstr "Quarentena samba"
 
@@ -13143,8 +13150,8 @@ msgstr "editar"
 
 #: ../../main/dns/src/templates/index.mas:55
 #: ../../main/dns/src/templates/edit.mas:86
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:174
-#: ../../main/core/src/templates/backup.mas:196
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/backup.mas:201
 msgid "delete"
 msgstr "eliminar"
 
@@ -14141,8 +14148,8 @@ msgstr "Seu computador não tem uma data de sistema correta"
 msgid "This server has been removed from your registered ones"
 msgstr "Este servidor foi removido da lista dos servidorex registados"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:21
-#: ../../main/core/src/templates/backup.mas:34
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:22
+#: ../../main/core/src/templates/backup.mas:39
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -14153,7 +14160,7 @@ msgstr ""
 "módulos{closeref} serão ignorados nas operações de cópia de segurança e "
 "restauração"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:23
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:24
 msgid ""
 "A configuration backup will be automatically done daily. Also it will be "
 "automatically rotated"
@@ -14161,21 +14168,28 @@ msgstr ""
 "A cópia de segurança da configuração será feita diáriamente de forma "
 "automática. Será também rodada automáticamente (FIFO)"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:65
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:27
+#: ../../main/core/src/templates/backup.mas:25
+msgid ""
+"User mail messages are neither backed up or restored. If you want to back up "
+"them manually they reside under '/var/vmail'"
+msgstr ""
+
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 msgid "Remote Backup: "
 msgstr "Cópia de segurança remota:"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:99
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
 msgid "Back up"
 msgstr "Cópia de Segurança"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:129
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:134
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:12
 msgid "Back up the current configuration state"
 msgstr "Faça cópia de segurança do estado da configuração actual"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:132
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/backup.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -14183,64 +14197,64 @@ msgstr ""
 "A cópia de segurança está desactivada porque há alterações não gravadas. "
 "Grave-as ou descarte-as para poder fazer a cópia de segurança da configuração"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:142
 msgid ""
 "Please note that you have reached the maximum number of manual remote "
 "configuration backup. If you make a new configuration backup, the oldest "
 "backup will be overwritten."
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:158
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
 msgid "Restore configuration backup"
 msgstr "Restaurar configuração Zentyal a partir de uma cópia de segurança"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:159
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:164
 msgid "Download configuration backup"
 msgstr "Descarregue a cópia de segurança do ficheiro de configuração"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:160
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:165
 msgid "Delete configuration backup"
 msgstr "Apagar a cópia de segurança da configuração"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:166
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
+#: ../../main/core/src/templates/backup.mas:200
 msgid "restore"
 msgstr "restaurar"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:170
-#: ../../main/core/src/templates/backup.mas:194
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:175
+#: ../../main/core/src/templates/backup.mas:199
 msgid "download"
 msgstr "descarregar"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
 msgid "Configuration backups' list"
 msgstr "Lista das cópias de segurança da configuração"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:183
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
 msgid "Company"
 msgstr "Companhia"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Automatic"
 msgstr "Automático"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:222
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:227
 msgid "Remote backups associated mail"
 msgstr "Correio eletrónico associado ás cópias de segurança remotas"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:223
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:228
 msgid ""
 "The backups of this server are associate with the following email address:"
 msgstr ""
 "As cópias de segurança deste servidor estão associadas com o seguinte "
 "endereço de correio:"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:226
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
 msgid "Disassociate this server"
 msgstr "Desassociar este servidor"
 
@@ -14263,7 +14277,7 @@ msgid "Remote backup: {desc}"
 msgstr "Cópia de segurança remota: {desc}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:67
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:51
 msgid "Archive size"
 msgstr "Tamanho do arquivo"
@@ -14335,11 +14349,11 @@ msgstr ""
 msgid "Reset my password"
 msgstr "Reintroduza palavra-passe"
 
-#: ../../main/core/src/templates/backup.mas:35
+#: ../../main/core/src/templates/backup.mas:40
 msgid "Backup the Current State"
 msgstr "Faça cópia de segurança do estado actual"
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
@@ -14347,7 +14361,7 @@ msgstr ""
 "As cópias de segurança serão armazenada nas Zentyal e poderá descarregá-las "
 "para o seu disco rígido"
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -14357,11 +14371,11 @@ msgstr ""
 "utilizadores com direitos de administração poderão aceder ao directório de "
 "armazenamento de cópias de segurança como recurso partilhado"
 
-#: ../../main/core/src/templates/backup.mas:100
+#: ../../main/core/src/templates/backup.mas:105
 msgid "Restore Backup from File"
 msgstr "Restaurar cópia de segurança a partir do ficheiro"
 
-#: ../../main/core/src/templates/backup.mas:101
+#: ../../main/core/src/templates/backup.mas:106
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -14370,43 +14384,43 @@ msgstr ""
 "a carga de ficheiros grandes (>= 1Gb), tenha em atenção que alguns "
 "navegadores web não o suportam"
 
-#: ../../main/core/src/templates/backup.mas:127
+#: ../../main/core/src/templates/backup.mas:132
 msgid "Restore backup"
 msgstr "Repor a partir de cópia de segurança"
 
-#: ../../main/core/src/templates/backup.mas:128
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Restaurar configuração usando este ficheiro"
 
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/backup.mas:135
 msgid "Download backup file"
 msgstr "Descarregar (download) cópia de segurança"
 
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:136
 msgid "Delete backup"
 msgstr "Apagar a cópia de segurança"
 
-#: ../../main/core/src/templates/backup.mas:134
+#: ../../main/core/src/templates/backup.mas:139
 msgid "Full"
 msgstr "Completo"
 
-#: ../../main/core/src/templates/backup.mas:135
+#: ../../main/core/src/templates/backup.mas:140
 msgid "Configuration only"
 msgstr "Somente configuração"
 
-#: ../../main/core/src/templates/backup.mas:136
+#: ../../main/core/src/templates/backup.mas:141
 msgid "Unknown type"
 msgstr "Tipo desconhecido"
 
-#: ../../main/core/src/templates/backup.mas:142
+#: ../../main/core/src/templates/backup.mas:147
 msgid "Backups' list"
 msgstr "Lista de cópias de segurança"
 
-#: ../../main/core/src/templates/backup.mas:204
+#: ../../main/core/src/templates/backup.mas:209
 msgid "Configuration Report"
 msgstr "Relatório da configuração"
 
-#: ../../main/core/src/templates/backup.mas:205
+#: ../../main/core/src/templates/backup.mas:210
 msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
@@ -14414,7 +14428,7 @@ msgstr ""
 "Você pode gerar um ficheiro com informação do estado do seu sistema. Pode "
 "ser útil para submeter um problema ou pedir suporte técnico."
 
-#: ../../main/core/src/templates/backup.mas:209
+#: ../../main/core/src/templates/backup.mas:214
 msgid "Generate and Download report file"
 msgstr "Gerar e descarregar o ficheiro de relatório"
 
