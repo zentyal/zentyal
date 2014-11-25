@@ -1,6 +1,12 @@
 HEAD
 	+ Add 'drs:max object sync' parameter to avoid replication error
 	  after loading schemas
+	+ SysvolSync daemon now synchronize deleted GPOs.
+	+ Fix sysvol replication broken in some environments.
+	+ Forbid backup restore if the server has not the correct hostname
+	+ Fix empty LDIF parsing loading DNS zones stored in LDB
+4.0.3
+	+ Nested OUs are properly shown in GPO Links tree
 	+ Avoid notifying slaves while setting the password as it is does
 	  by addUser called below
 4.0.2

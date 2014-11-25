@@ -466,8 +466,10 @@ sub unsubscribe
         my $subscriptions  = $self->subscriptionsResource($password);
         $subscriptions->unsubscribeServer();
     }
-
     $self->_removeSubscriptionData();
+
+    # remove packages added with the subscription
+    $self->_downgrade();
 
     # Mark webadmin as changed to reload composites + themes
     $self->global()->addModuleToPostSave('webadmin');

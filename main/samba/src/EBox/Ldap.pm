@@ -469,10 +469,12 @@ sub dnsZones
         my $ldif = new Net::LDAP::LDIF($ldifFile, 'r', onerror => 'undef');
         while (not $ldif->eof()) {
             my $entry = $ldif->read_entry();
-            if ($ldif->error() or not defined $entry) {
+            if ($ldif->error() or not defined $entry and not $ldif->eof()) {
                 throw EBox::Exceptions::Internal(
                 __x('Error loading LDIF. Error message: {x}, Error lines: {y}',
                     x => $ldif->error(), y => $ldif->error_lines()));
+            } elsif (not defined $entry and $ldif->eof()) {
+                # This is an empty LDIF, skip
             } else {
                 my $name = $entry->get_value('name');
                 next unless defined $name and length $name;

@@ -22,11 +22,20 @@ package EBox::Samba::SysvolSync;
 
 use EBox::Global;
 use EBox::Util::Random;
+use EBox::Samba::SmbClient;
 
 use TryCatch::Lite;
 use Net::Ping;
 use Net::DNS;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
+);
 
 use constant DEBUG => 0;
 
@@ -142,6 +151,8 @@ sub sync
 
     my $source = $self->{source};
     my $destination = $self->{destination};
+    my $adUser = $self->{adUser};
+    my $keytab = $self->{keytab};
     unless (defined $source and length $source) {
         EBox::error("Source not defined");
         return;
@@ -150,23 +161,32 @@ sub sync
         EBox::error("Destination not defined");
         return;
     }
+    unless (defined $adUser and length $adUser) {
+        EBox::error("AD user not defined");
+        return;
+    }
+    unless (defined $keytab and length $keytab) {
+        EBox::error("Keytab not defined");
+        return;
+    }
 
     # Try to ping the DC
     return unless ($self->sourceReachable());
 
     # Check if ticket is expired
-    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adUser});
+    $self->{hasTicket} = kcheck($keytab, $adUser);
 
     # Get ticket
     while (not $self->{hasTicket}) {
         EBox::info("No ticket or expired");
-        $self->{hasTicket} = $self->extractKeytab($self->{keytab}, $self->{adUser});
+        $self->{hasTicket} = $self->extractKeytab($keytab, $adUser);
         sleep (2);
     }
 
     # Sync share
     my $cmd = "net rpc share migrate files sysvol " .
-              "-k --destination=$destination -S $source --acls";
+              "-k --destination=$destination -S $source --acls " .
+              "--user '$adUser' ";
     if ($debug) {
         $cmd .= " -v -d6 >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
     }
@@ -186,10 +206,80 @@ sub sync
             EBox::info("child exited with value $code");
             # Maybe user pwd has changed an we need to export keytab again
             $self->{hasTicket} = 0;
+            return $code;
         }
-        return $code;
     }
+
+    # Sync deleted
+    $self->syncDeleted();
+
     return 0;
+}
+
+# Method: syncDeleted
+#
+#   Remove the deleted GPTs from our sysvol share. To guess which GPTs have
+#   to be removed, this method queries the domain configuration partition
+#   to retrieve the current existing domain GPCs. If there is a GPT in our
+#   sysvol which does not have a matching GPC entry, will be deleted.
+#
+sub syncDeleted
+{
+    my ($self) = @_;
+
+    try {
+        my $samba = EBox::Global->modInstance('samba');
+        my $ldap = $samba->ldap();
+        my $dse = $ldap->rootDse();
+        my $defaultNC = $dse->get_value('defaultNamingContext');
+        my $param = {
+            base => "CN=Policies,CN=System,$defaultNC",
+            scope => 'one',
+            filter => '(objectClass=groupPolicyContainer)',
+            attrs => ['name'],
+        };
+        my $res = $ldap->search($param);
+        my %gpc = map { $_->get_value('name') => 1; } $res->entries();
+
+        my $toDelete = [];
+
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $hostfqdn = $sysinfo->fqdn();
+        my $hostdomain = $sysinfo->hostDomain();
+        my $smb = new EBox::Samba::SmbClient(target => $hostfqdn,
+                                             service => 'sysvol',
+                                             RID => 500);
+
+        my $dir = "/$hostdomain/Policies";
+        my $attributes = FILE_ATTRIBUTE_NORMAL |
+                         FILE_ATTRIBUTE_ARCHIVE |
+                         FILE_ATTRIBUTE_DIRECTORY |
+                         FILE_ATTRIBUTE_HIDDEN |
+                         FILE_ATTRIBUTE_READONLY |
+                         FILE_ATTRIBUTE_SYSTEM;
+        my $shareContentList = $smb->list($dir, attributes => $attributes,
+                                          recursive => 0);
+        foreach my $item (@{$shareContentList}) {
+            # Skip no directory items
+            next unless $item->{is_directory};
+
+            # An item looks like this:
+            # /<dns_domain>/Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}
+            my $iname = $item->{name};
+            if ($iname =~ /.+\/Policies\/({.+})/) {
+                unless (exists $gpc{$1}) {
+                    push (@{$toDelete}, $iname);
+                }
+            }
+        }
+
+        foreach my $item (@{$toDelete}) {
+            EBox::info("Deleting GPO $item");
+            $smb->deltree($item);
+        }
+    } catch ($e) {
+        EBox::error($e);
+    }
 }
 
 # Method: run

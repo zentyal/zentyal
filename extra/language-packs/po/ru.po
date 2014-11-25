@@ -357,8 +357,8 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/network/src/templates/ifaces.mas:33
 #: ../../main/network/src/templates/ifaces.mas:233
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:63
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:68
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:63
 #: ../../main/samba/src/templates/addou.mas:10
 msgid "Name"
@@ -489,7 +489,7 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:41
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:61
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
@@ -1013,19 +1013,19 @@ msgstr "Демоны OpenVPN"
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:62
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:417
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:476
-#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:972
+#: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3736
-#: ../../main/samba/src/EBox/Samba.pm:3756
-#: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/squid/src/EBox/Squid.pm:1105
+#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3766
+#: ../../main/samba/src/EBox/Samba.pm:3777
+#: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:65
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:46
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
@@ -1035,17 +1035,17 @@ msgstr "Дата"
 #: ../../main/printers/src/EBox/Printers.pm:397
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:419
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:479
-#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:976
+#: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/squid/src/EBox/Squid.pm:1112
+#: ../../main/squid/src/EBox/Squid.pm:1139
 #: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "Event"
 msgstr "Событие"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3761
+#: ../../main/samba/src/EBox/Samba.pm:3771
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1180,7 +1180,7 @@ msgstr "Ошибки"
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/report/raid.mas:100
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Статус"
@@ -1200,7 +1200,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
 #: ../../main/network/src/EBox/Network.pm:4312
 #: ../../main/network/src/EBox/Network.pm:4333
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
@@ -1220,7 +1220,7 @@ msgstr "Имя узла"
 #: ../../main/network/src/EBox/Network.pm:4113
 #: ../../main/network/src/EBox/Network.pm:4477
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:64
-#: ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/wizard/network.mas:47
 #: ../../main/network/src/templates/ifaces.mas:125
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -1311,7 +1311,7 @@ msgstr "динамический IP-адрес"
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:65
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:65
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:69
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:228
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:229
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
@@ -1432,7 +1432,7 @@ msgid "resources"
 msgstr "Ресурсы"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3740
+#: ../../main/samba/src/EBox/Samba.pm:3750
 msgid "Resource"
 msgstr "Ресурс"
 
@@ -1585,7 +1585,7 @@ msgstr "имя узла"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3167
+#: ../../main/samba/src/EBox/Samba.pm:3177
 msgid "alias"
 msgstr "псевдоним"
 
@@ -1649,11 +1649,11 @@ msgstr "IP-адрес"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:888
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:281
 #: ../../main/trafficshaping/src/EBox/TC.pm:107
-#: ../../main/dhcp/src/EBox/DHCP.pm:342 ../../main/dhcp/src/EBox/DHCP.pm:378
-#: ../../main/dhcp/src/EBox/DHCP.pm:428 ../../main/dhcp/src/EBox/DHCP.pm:474
-#: ../../main/dhcp/src/EBox/DHCP.pm:519 ../../main/dhcp/src/EBox/DHCP.pm:615
-#: ../../main/dhcp/src/EBox/DHCP.pm:668 ../../main/dhcp/src/EBox/DHCP.pm:728
-#: ../../main/dhcp/src/EBox/DHCP.pm:973
+#: ../../main/dhcp/src/EBox/DHCP.pm:347 ../../main/dhcp/src/EBox/DHCP.pm:383
+#: ../../main/dhcp/src/EBox/DHCP.pm:433 ../../main/dhcp/src/EBox/DHCP.pm:479
+#: ../../main/dhcp/src/EBox/DHCP.pm:524 ../../main/dhcp/src/EBox/DHCP.pm:620
+#: ../../main/dhcp/src/EBox/DHCP.pm:673 ../../main/dhcp/src/EBox/DHCP.pm:733
+#: ../../main/dhcp/src/EBox/DHCP.pm:978
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:124
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
 #: ../../main/common/src/EBox/NetWrappers.pm:121
@@ -1929,7 +1929,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2265
-#: ../../main/squid/src/EBox/Squid.pm:1109
+#: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2076,7 +2076,7 @@ msgstr "В этом домене уже существует узел с эти�
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:117
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:139
-#: ../../main/dhcp/src/EBox/DHCP.pm:975
+#: ../../main/dhcp/src/EBox/DHCP.pm:980
 #: ../../main/core/src/EBox/AuditLogging.pm:144
 #: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
@@ -2293,10 +2293,10 @@ msgstr "Любой контроль доступа отключается, ес�
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3738
-#: ../../main/samba/src/EBox/Samba.pm:3758
-#: ../../main/samba/src/EBox/Samba.pm:3769
-#: ../../main/squid/src/EBox/Squid.pm:1107
+#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3779
+#: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2386,8 +2386,8 @@ msgstr "Принтер"
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/network/src/templates/ifaces.mas:194
 #: ../../main/core/src/templates/finish.mas:32
-#: ../../main/core/src/templates/backup.mas:44
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:49
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:99
@@ -2476,7 +2476,7 @@ msgid "Disable {server} upstart job"
 msgstr "Отключить {server} скрипт инициализации"
 
 #: ../../main/printers/src/EBox/Printers.pm:75
-#: ../../main/dhcp/src/EBox/DHCP.pm:195
+#: ../../main/dhcp/src/EBox/DHCP.pm:196
 msgid "Zentyal will take care of start and stop the service"
 msgstr "Zentyal позаботится о запуске и остановке сервиса"
 
@@ -2750,7 +2750,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3739
+#: ../../main/samba/src/EBox/Samba.pm:3749
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -2900,12 +2900,12 @@ msgstr "Zentyal"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:275
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
 #: ../../main/core/src/EBox/AuditLogging.pm:114
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:138
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/configurationFiles.mas:20
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Module"
 msgstr "Модуль"
 
@@ -4002,7 +4002,7 @@ msgstr "Средства Диагностики Сети"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/squid/src/EBox/Squid.pm:1133
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -4018,7 +4018,7 @@ msgstr "Локальный адрес"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
 #: ../../main/network/src/EBox/Network.pm:4471
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:81
-#: ../../main/dhcp/src/EBox/DHCP.pm:974 ../../main/dhcp/src/EBox/DHCP.pm:1065
+#: ../../main/dhcp/src/EBox/DHCP.pm:979 ../../main/dhcp/src/EBox/DHCP.pm:1070
 #: ../../main/network/src/templates/diag.mas:33
 msgid "MAC address"
 msgstr "MAC-адрес"
@@ -5231,54 +5231,54 @@ msgstr "Правила для внутренних интерфейсов (downl
 msgid "options"
 msgstr "настройки"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:98
+#: ../../main/dhcp/src/EBox/DHCP.pm:99
 #, perl-brace-format
 msgid "{server} configuration file"
 msgstr "{server} конфигурационный файл"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:103
+#: ../../main/dhcp/src/EBox/DHCP.pm:104
 #, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
 msgstr "Профиль Apparmor для {server} демона"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:128
+#: ../../main/dhcp/src/EBox/DHCP.pm:129
 msgid "Trivial File Transfer Protocol"
 msgstr "Простой протокол передачи файлов"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:142
+#: ../../main/dhcp/src/EBox/DHCP.pm:143
 msgid "Dynamic Host Configuration Protocol"
 msgstr "Протокол динамической конфигурации узла"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:194
+#: ../../main/dhcp/src/EBox/DHCP.pm:195
 #, perl-brace-format
 msgid "Disable {server} init script"
 msgstr "Отключить {server} скрипт инициализации"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:348 ../../main/dhcp/src/EBox/DHCP.pm:384
-#: ../../main/dhcp/src/EBox/DHCP.pm:434 ../../main/dhcp/src/EBox/DHCP.pm:480
-#: ../../main/dhcp/src/EBox/DHCP.pm:525 ../../main/dhcp/src/EBox/DHCP.pm:621
-#: ../../main/dhcp/src/EBox/DHCP.pm:734
+#: ../../main/dhcp/src/EBox/DHCP.pm:353 ../../main/dhcp/src/EBox/DHCP.pm:389
+#: ../../main/dhcp/src/EBox/DHCP.pm:439 ../../main/dhcp/src/EBox/DHCP.pm:485
+#: ../../main/dhcp/src/EBox/DHCP.pm:530 ../../main/dhcp/src/EBox/DHCP.pm:626
+#: ../../main/dhcp/src/EBox/DHCP.pm:739
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} не статический"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:607
+#: ../../main/dhcp/src/EBox/DHCP.pm:612
 msgid "Not a valid action: add, set and del are available"
 msgstr "Неправильное действие, возможны: добавить, установить или удалить"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Leased"
 msgstr "Зарезервировано"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:979
+#: ../../main/dhcp/src/EBox/DHCP.pm:984
 msgid "Released"
 msgstr "Свободно"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:982
+#: ../../main/dhcp/src/EBox/DHCP.pm:987
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm:1093
+#: ../../main/dhcp/src/EBox/DHCP.pm:1098
 msgid "DHCP leases"
 msgstr "Аренда DHCP"
 
@@ -5877,17 +5877,17 @@ msgid "Backing up modules "
 msgstr "Модуль резервного копирования "
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:78
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
 msgid "Operation"
 msgstr "Действие"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:79
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
 msgid "operations left to finish backup"
 msgstr "операций осталось до завершения резервного копирования"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:243
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:244
 msgid "Backup successful"
 msgstr "Резервное копирование успешно завершено"
 
@@ -5902,7 +5902,7 @@ msgstr ""
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:93
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:116
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:138
-#: ../../main/core/src/templates/backup.mas:85
+#: ../../main/core/src/templates/backup.mas:90
 msgid "Restore"
 msgstr "Восстановить"
 
@@ -5961,7 +5961,7 @@ msgid "modules left to restore"
 msgstr "модули для восстановления"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:83
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:265
 msgid "Restore successful"
 msgstr "Восстановление прошло успешно"
 
@@ -6300,15 +6300,15 @@ msgstr ""
 msgid "User and password do not match."
 msgstr "Новые пароли не совпадают."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:65
+#: ../../main/core/src/EBox/WebAdmin.pm:66
 msgid "Zentyal Webadmin"
 msgstr "Вэб-админка Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:686
+#: ../../main/core/src/EBox/WebAdmin.pm:684
 msgid "Zentyal Administration Web Server"
 msgstr "Веб-сервер администрирования Zentyal"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:851
+#: ../../main/core/src/EBox/WebAdmin.pm:849
 #, fuzzy, perl-brace-format
 msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
@@ -6317,7 +6317,7 @@ msgstr ""
 "Zentyal уже настроен на использование порта {р}, для другой службы. Выберите "
 "другой порт или освободите его и повторите попытку."
 
-#: ../../main/core/src/EBox/WebAdmin.pm:864
+#: ../../main/core/src/EBox/WebAdmin.pm:862
 #, perl-brace-format
 msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
@@ -6566,8 +6566,8 @@ msgstr ""
 #: ../../main/core/src/EBox/View/StackTrace.pm:102
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/remoteservices/index.mas:67
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
+#: ../../main/core/src/templates/backup.mas:150
 msgid "Actions"
 msgstr "Действия"
 
@@ -6827,31 +6827,31 @@ msgstr ""
 "Ошибка перезагрузки службы {mod}. Смотрите {logs} для дополнительной "
 "информации."
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:198
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:281
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:296
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:199
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:282
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:297
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:149
 #: ../../main/core/src/EBox/Backup.pm:1623
 msgid "The input contains invalid characters"
 msgstr "Ввод содержит неверные символы"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:239
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
 msgid "Backing up"
 msgstr "Резервирую"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
 msgid "Backing up modules"
 msgstr "Резервирую модули"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:260
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
 msgid "Restoring backup"
 msgstr "Восстановление из резервной копии"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:261
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:262
 msgid "Restoring modules"
 msgstr "Восстановление модулей"
 
-#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
+#: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:264
 msgid "modules restored"
 msgstr "модули восстановлены"
 
@@ -7995,16 +7995,22 @@ msgstr "Отправить копию всех почтовых доменов"
 msgid "The ActiveSync gateway, standard protocol for several mobile devices."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:99
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:105
 #, fuzzy
 msgid "The required packages are not installed."
 msgstr "Следующие пакеты будут установлены"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:104
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:110
 #, perl-brace-format
 msgid ""
 "To configure OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/ActiveSync.pm:117
+msgid ""
+"You need to enable HTTPS webmail at any mail virtual domain to activate "
+"ActiveSync option"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
@@ -8099,34 +8105,34 @@ msgid ""
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:603
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "Изменить"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:606
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Сохранение изменений в модулях"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:607
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "Изменить"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:608
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:610
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:611
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Сохранение изменений в модулях"
@@ -8136,44 +8142,44 @@ msgstr "Сохранение изменений в модулях"
 msgid "Enable OpenChange account"
 msgstr "PDC/File sharing аккаунт"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:195
+#: ../../main/openchange/src/EBox/OpenChange.pm:201
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:196
+#: ../../main/openchange/src/EBox/OpenChange.pm:202
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Веб-почта теперь доступна по адресу http://ip/webmail/."
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:298
+#: ../../main/openchange/src/EBox/OpenChange.pm:304
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr " Настроить демона clamd"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:303
+#: ../../main/openchange/src/EBox/OpenChange.pm:309
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Настроить почтовое имя хоста"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:308
+#: ../../main/openchange/src/EBox/OpenChange.pm:314
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Настроить dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:313
+#: ../../main/openchange/src/EBox/OpenChange.pm:319
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:318
+#: ../../main/openchange/src/EBox/OpenChange.pm:324
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:323
+#: ../../main/openchange/src/EBox/OpenChange.pm:329
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Настроить dovecot"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:729
+#: ../../main/openchange/src/EBox/OpenChange.pm:736
 #: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
 #: ../../main/mail/src/EBox/Mail.pm:1887
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
@@ -9499,7 +9505,7 @@ msgstr ""
 "использовать это."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:158
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:279
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:280
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:281
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:134
@@ -9796,7 +9802,7 @@ msgstr "Групповая' политика"
 msgid "Sites"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:275
+#: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:276
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:277
 #, fuzzy
 msgid ""
@@ -10671,7 +10677,7 @@ msgstr "Синхронизация включена"
 msgid "Configure mode"
 msgstr "Сконфигурированные"
 
-#: ../../main/samba/src/EBox/Samba.pm:2612
+#: ../../main/samba/src/EBox/Samba.pm:2616
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -10680,7 +10686,14 @@ msgstr ""
 "Вы используете частичный режим резервного копирования и эта копия сделана в "
 "не-частичном режиме"
 
-#: ../../main/samba/src/EBox/Samba.pm:2632
+#: ../../main/samba/src/EBox/Samba.pm:2638
+#, perl-brace-format
+msgid ""
+"To be able to restore this backup the hostname should be first set to {hn}. "
+"Otherwise samba data could not be restored."
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:2654
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10690,105 +10703,105 @@ msgstr ""
 "как /etc/passwd пользователь. Удалите или переименуйте этого пользователя и "
 "попробуйте ещё раз"
 
-#: ../../main/samba/src/EBox/Samba.pm:2656
+#: ../../main/samba/src/EBox/Samba.pm:2678
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2942
+#: ../../main/samba/src/EBox/Samba.pm:2952
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3035
+#: ../../main/samba/src/EBox/Samba.pm:3045
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Использование файловой системы"
 
-#: ../../main/samba/src/EBox/Samba.pm:3178
+#: ../../main/samba/src/EBox/Samba.pm:3188
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3737
-#: ../../main/samba/src/EBox/Samba.pm:3757
-#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3778
 msgid "Client address"
 msgstr "Адрес клиента"
 
-#: ../../main/samba/src/EBox/Samba.pm:3744
+#: ../../main/samba/src/EBox/Samba.pm:3754
 msgid "Connect"
 msgstr "Подключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3745
+#: ../../main/samba/src/EBox/Samba.pm:3755
 msgid "Access to directory"
 msgstr "Доступ к каталогу"
 
-#: ../../main/samba/src/EBox/Samba.pm:3746
+#: ../../main/samba/src/EBox/Samba.pm:3756
 msgid "Read file"
 msgstr "Чтение файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3747
+#: ../../main/samba/src/EBox/Samba.pm:3757
 msgid "Write file"
 msgstr "Запись файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3748
+#: ../../main/samba/src/EBox/Samba.pm:3758
 msgid "Disconnect"
 msgstr "Отключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3749
+#: ../../main/samba/src/EBox/Samba.pm:3759
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Удалить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3750
+#: ../../main/samba/src/EBox/Samba.pm:3760
 msgid "Create directory"
 msgstr "Создать каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:3751
+#: ../../main/samba/src/EBox/Samba.pm:3761
 msgid "Remove directory"
 msgstr "Удалить каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:3752
+#: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Rename"
 msgstr "Переименовать"
 
-#: ../../main/samba/src/EBox/Samba.pm:3759
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3780
 msgid "File name"
 msgstr "Имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3760
-#: ../../main/samba/src/EBox/Samba.pm:3764
+#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3774
 msgid "Virus"
 msgstr "Вирус"
 
-#: ../../main/samba/src/EBox/Samba.pm:3771
+#: ../../main/samba/src/EBox/Samba.pm:3781
 msgid "Quarantined file name"
 msgstr "Карантинное имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3772
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3782
+#: ../../main/samba/src/EBox/Samba.pm:3785
 msgid "Quarantine"
 msgstr "Крантин"
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3788
 msgid "Samba access"
 msgstr "Доступ Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
+#: ../../main/samba/src/EBox/Samba.pm:3799
 msgid "Samba virus"
 msgstr "Вирус Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3810
 msgid "Samba quarantine"
 msgstr "Карантин Samba"
 
 #: ../../main/squid/src/EBox/Squid.pm:100
-#: ../../main/squid/src/EBox/Squid.pm:1121
+#: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
@@ -10912,72 +10925,79 @@ msgstr ""
 msgid "Remove dansguardian init script link"
 msgstr "Удалить ссылку на скрипт инициализации dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:318
+#: ../../main/squid/src/EBox/Squid.pm:321
+#, fuzzy
+msgid ""
+"To enable the HTTP proxy module, you need to have a least one external "
+"network interface"
+msgstr "Включите, если у вас только один сетевой интерфейс"
+
+#: ../../main/squid/src/EBox/Squid.pm:332
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "Установите переменную cache_mem в конфигурационном файле Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:327
+#: ../../main/squid/src/EBox/Squid.pm:341
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "Установите переменную max_object_size в конфигурационном файле Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:952
+#: ../../main/squid/src/EBox/Squid.pm:979
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1048
+#: ../../main/squid/src/EBox/Squid.pm:1075
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings"
 msgstr "Общие настройки"
 
-#: ../../main/squid/src/EBox/Squid.pm:1051
+#: ../../main/squid/src/EBox/Squid.pm:1078
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "Правила доступа"
 
-#: ../../main/squid/src/EBox/Squid.pm:1054
+#: ../../main/squid/src/EBox/Squid.pm:1081
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 msgid "Filter Profiles"
 msgstr "Профили фильтра"
 
-#: ../../main/squid/src/EBox/Squid.pm:1057
+#: ../../main/squid/src/EBox/Squid.pm:1084
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Списки категорий"
 
-#: ../../main/squid/src/EBox/Squid.pm:1060
+#: ../../main/squid/src/EBox/Squid.pm:1087
 msgid "Bandwidth Throttling"
 msgstr "Управление полосой пропускания"
 
-#: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/squid/src/EBox/Squid.pm:1135
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1110
+#: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Bytes"
 msgstr "Байт"
 
-#: ../../main/squid/src/EBox/Squid.pm:1111
+#: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Mime/type"
 msgstr "Mime/тип"
 
-#: ../../main/squid/src/EBox/Squid.pm:1117
+#: ../../main/squid/src/EBox/Squid.pm:1144
 msgid "Accepted"
 msgstr "Принято"
 
-#: ../../main/squid/src/EBox/Squid.pm:1118
+#: ../../main/squid/src/EBox/Squid.pm:1145
 msgid "Denied"
 msgstr "Отклонено"
 
-#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
 msgstr "Отфильтровано"
 
-#: ../../main/squid/src/EBox/Squid.pm:1229
+#: ../../main/squid/src/EBox/Squid.pm:1256
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
@@ -12984,8 +13004,8 @@ msgstr "редактировать"
 
 #: ../../main/dns/src/templates/index.mas:55
 #: ../../main/dns/src/templates/edit.mas:86
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:174
-#: ../../main/core/src/templates/backup.mas:196
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/backup.mas:201
 msgid "delete"
 msgstr "удалить"
 
@@ -13992,8 +14012,8 @@ msgstr "У вашего компьютера неправильная систе
 msgid "This server has been removed from your registered ones"
 msgstr "Этот сервер исключён из списка ваших зарегистрированных серверов"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:21
-#: ../../main/core/src/templates/backup.mas:34
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:22
+#: ../../main/core/src/templates/backup.mas:39
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -14004,28 +14024,35 @@ msgstr ""
 "модуля{closeref} разделе будут проигнорированы, как при резервном "
 "копирование, так и при восстановлении."
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:23
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:24
 msgid ""
 "A configuration backup will be automatically done daily. Also it will be "
 "automatically rotated"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:65
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:27
+#: ../../main/core/src/templates/backup.mas:25
+msgid ""
+"User mail messages are neither backed up or restored. If you want to back up "
+"them manually they reside under '/var/vmail'"
+msgstr ""
+
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:70
 #, fuzzy
 msgid "Remote Backup: "
 msgstr "Удаленное резервное копирование"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:99
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:104
 msgid "Back up"
 msgstr "Зарезервировать"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:129
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:134
 #: ../../main/core/src/templates/remoteservices/Backup/unsubscribed.mas:12
 msgid "Back up the current configuration state"
 msgstr "Сделать резервную копию текущего состояния конфигурации"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:132
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/backup.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -14034,7 +14061,7 @@ msgstr ""
 "конфигурационный файл. Пожалуйста, запишите или отмените их, чтобы можно "
 "было сделать резервное копирование конфигурации"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:137
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:142
 #, fuzzy
 msgid ""
 "Please note that you have reached the maximum number of manual remote "
@@ -14046,61 +14073,61 @@ msgstr ""
 "резервную копию конфигурации, то предыдущая резервная копия будет "
 "перезаписана."
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:158
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:163
 #, fuzzy
 msgid "Restore configuration backup"
 msgstr "Восстановление резервной копии конфигурации"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:159
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:164
 #, fuzzy
 msgid "Download configuration backup"
 msgstr "Загружаются настройки"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:160
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:165
 #, fuzzy
 msgid "Delete configuration backup"
 msgstr "Последняя резервная копия настроек"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:166
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
+#: ../../main/core/src/templates/backup.mas:200
 msgid "restore"
 msgstr "восстановить"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:170
-#: ../../main/core/src/templates/backup.mas:194
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:175
+#: ../../main/core/src/templates/backup.mas:199
 msgid "download"
 msgstr "скачать"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:179
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
 msgid "Configuration backups' list"
 msgstr "Список резервных копий' настроек"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:183
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
 #, fuzzy
 msgid "Company"
 msgstr "Компонент"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Size"
 msgstr "Размер"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:184
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #, fuzzy
 msgid "Automatic"
 msgstr "Статический"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:222
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:227
 #, fuzzy
 msgid "Remote backups associated mail"
 msgstr "Состояние удаленного резервного копирования"
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:223
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:228
 msgid ""
 "The backups of this server are associate with the following email address:"
 msgstr ""
 
-#: ../../main/core/src/templates/remoteservices/Backup/index.mas:226
+#: ../../main/core/src/templates/remoteservices/Backup/index.mas:231
 #, fuzzy
 msgid "Disassociate this server"
 msgstr "внешний почтовый сервер"
@@ -14124,7 +14151,7 @@ msgid "Remote backup: {desc}"
 msgstr "- Последняя резервная копия: {date}"
 
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:67
-#: ../../main/core/src/templates/backup.mas:145
+#: ../../main/core/src/templates/backup.mas:150
 #: ../../main/core/src/templates/confirm-backup.mas:51
 msgid "Archive size"
 msgstr "Размер архива"
@@ -14189,11 +14216,11 @@ msgstr "Бэкап"
 msgid "Reset my password"
 msgstr "Повторите пароль"
 
-#: ../../main/core/src/templates/backup.mas:35
+#: ../../main/core/src/templates/backup.mas:40
 msgid "Backup the Current State"
 msgstr "Сделать резервную копию текущего состояния"
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
@@ -14201,7 +14228,7 @@ msgstr ""
 "Резервные копии будут сохранены в Zentyal и вы сможете скопировать их на ваш "
 "жесткий диск."
 
-#: ../../main/core/src/templates/backup.mas:36
+#: ../../main/core/src/templates/backup.mas:41
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -14211,11 +14238,11 @@ msgstr ""
 "администраторскими правами смогут получить доступ к каталогу с резервными "
 "копиями, как к файловому ресурсу."
 
-#: ../../main/core/src/templates/backup.mas:100
+#: ../../main/core/src/templates/backup.mas:105
 msgid "Restore Backup from File"
 msgstr "Восстановить из файла"
 
-#: ../../main/core/src/templates/backup.mas:101
+#: ../../main/core/src/templates/backup.mas:106
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -14224,46 +14251,46 @@ msgstr ""
 "файлов вы должны быть предупреждены, что некоторые браузеры не могут "
 "обрабатывать очень большие файлы (> = 1 Гб)."
 
-#: ../../main/core/src/templates/backup.mas:127
+#: ../../main/core/src/templates/backup.mas:132
 #, fuzzy
 msgid "Restore backup"
 msgstr "Восстановление из резервной копии"
 
-#: ../../main/core/src/templates/backup.mas:128
+#: ../../main/core/src/templates/backup.mas:133
 msgid "Restore configuration using this file"
 msgstr "Восстановить настройки используя этот файл"
 
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/backup.mas:135
 #, fuzzy
 msgid "Download backup file"
 msgstr "Загрузка данных резервной копии"
 
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:136
 #, fuzzy
 msgid "Delete backup"
 msgstr "Удалить группу"
 
-#: ../../main/core/src/templates/backup.mas:134
+#: ../../main/core/src/templates/backup.mas:139
 msgid "Full"
 msgstr "Полный"
 
-#: ../../main/core/src/templates/backup.mas:135
+#: ../../main/core/src/templates/backup.mas:140
 msgid "Configuration only"
 msgstr "Только конфигурации"
 
-#: ../../main/core/src/templates/backup.mas:136
+#: ../../main/core/src/templates/backup.mas:141
 msgid "Unknown type"
 msgstr "Неизвестный тип"
 
-#: ../../main/core/src/templates/backup.mas:142
+#: ../../main/core/src/templates/backup.mas:147
 msgid "Backups' list"
 msgstr "Список резервных копий'"
 
-#: ../../main/core/src/templates/backup.mas:204
+#: ../../main/core/src/templates/backup.mas:209
 msgid "Configuration Report"
 msgstr "Отчёт о конфигурации"
 
-#: ../../main/core/src/templates/backup.mas:205
+#: ../../main/core/src/templates/backup.mas:210
 msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
@@ -14272,7 +14299,7 @@ msgstr ""
 "быть полезным, если вы хотите сообщить о проблеме, или обратиться за "
 "поддержкой."
 
-#: ../../main/core/src/templates/backup.mas:209
+#: ../../main/core/src/templates/backup.mas:214
 msgid "Generate and Download report file"
 msgstr "Сгенерировать и Загрузить файл отчета"
 
@@ -14532,11 +14559,11 @@ msgstr "Сохранить изменения?"
 msgid "Search..."
 msgstr "Найти"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:52
+#: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Depends"
 msgstr "Зависимости"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:66
+#: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Настроить модуль: {module}"
@@ -21611,9 +21638,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Filter Settings"
 #~ msgstr "Настройка фильтра"
-
-#~ msgid "Enable it if you only have one network interface"
-#~ msgstr "Включите, если у вас только один сетевой интерфейс"
 
 #~ msgid "Dynamic"
 #~ msgstr "Динамический"

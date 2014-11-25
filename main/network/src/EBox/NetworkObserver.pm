@@ -222,19 +222,14 @@ sub vifaceAdded # (iface, viface, address, netmask)
 
 # Method: changeIfaceExternalProperty
 #
-#        Invoked when an interface is going to change from external to
-#        internal. Its argument is the name of the real interface. It
-#        works exactly the same way as two methods above.
-#
+#        Invoked when an interface is going to change from external to internal
+#        AND ifaceExternalChanged return true but the user forces the change. Its
+#        argument is the name of the real interface.
 # Parameters:
 #
 #       iface    - interface name
 #       external - boolean indicating in which way external is going to change
 #
-# Returns:
-#
-#       boolean - true if module's configuration becomes inconsistent, otherwise
-#       false
 #
 sub changeIfaceExternalProperty # (iface, external)
 {
