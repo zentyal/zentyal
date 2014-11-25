@@ -1,3 +1,5 @@
+HEAD
+	+ Add zpush logrotate file if required
 3.2.10
 	+ Redirect all /ews/ requests to OCSManager
 3.2.9
