@@ -42,6 +42,8 @@ use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanage
 
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant Z_PUSH_LOGROTATE_FILE => '/etc/logrotate.d/zentyal-z-push';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -258,6 +260,7 @@ sub _setupActiveSync
     } else {
         EBox::Sudo::root('rm -f /etc/apache2/conf.d/zentyal-activesync.conf');
     }
+
     if ($enabled xor $enable) {
         my $global = $self->global();
         $global->modChange('webserver');
@@ -265,6 +268,24 @@ sub _setupActiveSync
             my @postSaveModules = @{$global->get_list('post_save_modules')};
             push (@postSaveModules, 'sogo');
             $global->set('post_save_modules', \@postSaveModules);
+        }
+    } 
+
+    if (EBox::GlobalImpl::_packageInstalled('z-push')) {
+        if ($enable) {
+            $self->writeConfFile(Z_PUSH_LOGROTATE_FILE,
+                                 'openchange/z-push.logrotate.mas',
+                                 [],
+                                 {
+                                     user  => 0,
+                                     group => 0,
+                                     mode  => '0644'
+                                    }
+                                );
+        } else {
+            if (-e Z_PUSH_LOGROTATE_FILE) {
+                EBox::Sudo::root("rm -f '" . Z_PUSH_LOGROTATE_FILE . "'");
+            }            
         }
     }
 }
