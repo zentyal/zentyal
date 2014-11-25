@@ -73,6 +73,7 @@ sub retrieveTrace
 
     if (-f $traceFile) {
         my $trace = Storable::retrieve($traceFile);
+        unlink($traceFile);
         return $trace;
     }
     return undef;
