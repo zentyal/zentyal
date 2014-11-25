@@ -1,4 +1,5 @@
 HEAD
+	+ When unsubscribing remove extra packages before saving changes
 	+ Better check of versions numbers in backup restore
 	+ Make EBox::MyDBEngine more reusable
 	+ Modify webadmin service when upgrading from 3.2
