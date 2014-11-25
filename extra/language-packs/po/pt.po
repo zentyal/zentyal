@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-11-24 13:23+0200\n"
+"PO-Revision-Date: 2014-11-25 04:40+0200\n"
 "Last-Translator: APNS <ns.sp.br@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
@@ -3913,6 +3913,8 @@ msgstr ""
 msgid ""
 "{mod} module is not provisioned. To provision it, enable it and save changes"
 msgstr ""
+"O módulo {mod} não está pronto. Para o deixar pronto, active-o e grave as "
+"alterações"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:68
 msgid "To configure OpenSwan IPsec."
@@ -3924,22 +3926,19 @@ msgstr "Para configurar palavras-passe OpenSwan IPsec"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:176
 msgid "L2TP based VPN"
-msgstr ""
+msgstr "VPN suportada em protocolo L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:376
-#, fuzzy
 msgid "Stopping completed"
-msgstr "Percentagem completada"
+msgstr "Paragem completada"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:378
-#, fuzzy
 msgid "Connection initiated"
-msgstr "Ligação de cliente iniciada"
+msgstr "Ligação iniciada"
 
 #: ../../main/l2tp/src/EBox/L2TP.pm:379
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Ligação de cliente terminada"
+msgstr "Ligação terminada"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:56
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:308
@@ -3953,6 +3952,8 @@ msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
 msgstr ""
+"Está a ligar ao Zentyal pelo interface {i} externo. Se o configurar como "
+"externo a firewall irá bloquear-lhe o acesso durante a instalação."
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:41
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:57
@@ -11878,9 +11879,8 @@ msgid "Skip Transparent Proxy"
 msgstr "Saltar Proxy transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:69
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Excepções de Proxy transparente"
+msgstr "Excepções ao Proxy transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
 #, fuzzy
@@ -11963,26 +11963,24 @@ msgid "To configure smart host authentication"
 msgstr "Para configurar a autenticação no smarthost"
 
 #: ../../main/mail/src/EBox/Mail.pm:235
-#, fuzzy
 msgid "To configure mail transports"
-msgstr "Para configurar o amavis"
+msgstr "Para configurar o trasporte de correio"
 
 #: ../../main/mail/src/EBox/Mail.pm:240
-#, fuzzy
 msgid "To let dovecot authenticate users using PAM"
-msgstr "Para configurar a autenticação do dovecot no LDAP"
+msgstr "Para permitir ao dovecot autenticar utilizadores usando PAM"
 
 #: ../../main/mail/src/EBox/Mail.pm:457
 msgid "Outgoing Mail (SMTP protocol)."
-msgstr ""
+msgstr "Saída de correio (Protocolo SMTP)"
 
 #: ../../main/mail/src/EBox/Mail.pm:466
 msgid "Incoming Mail"
-msgstr ""
+msgstr "Entrada de correio"
 
 #: ../../main/mail/src/EBox/Mail.pm:467
 msgid "POP, IMAP and SIEVE protocols"
-msgstr ""
+msgstr "Protocolos POP, IMAP e SIEVE"
 
 #: ../../main/mail/src/EBox/Mail.pm:476
 msgid "Mail Submission"
@@ -12257,19 +12255,17 @@ msgid "Alias {al} removed"
 msgstr "{row} movida para cima"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
-#, fuzzy
 msgid "External mail account"
-msgstr "Contas de correio electrónico externas"
+msgstr "Conta externa de correio electrónico"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} removed"
-msgstr "A conta externa {ac} foi removida"
+msgstr "A conta externa {acc} foi removida"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:252
-#, fuzzy
 msgid "Local email account"
-msgstr "conta de correio electrónico"
+msgstr "Conta local de correio electrónico"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:256
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:48
@@ -12278,9 +12274,8 @@ msgid "Mail server"
 msgstr "Servidor de correio electrónico"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:257
-#, fuzzy
 msgid "Mail server port"
-msgstr "Servidor de correio electrónico"
+msgstr "Porto do servidor de correio electrónico"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:498
 msgid "External retrieval service"
@@ -12297,12 +12292,12 @@ msgstr "Não são permitidos espaços"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:587
 msgid "Character \"'\" is forbidden for external"
-msgstr ""
+msgstr "O caratere \"'\" é proibido para externo"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:597
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
-msgstr ""
+msgstr "Protocolo de correio desconhecido: {proto}"
 
 #: ../../main/mail/src/EBox/Mail/Composite/General.pm:47
 #: ../../main/mail/src/EBox/Mail/Composite/ServiceConfiguration.pm:60
@@ -12560,13 +12555,8 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:164
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:183
 #: ../../main/mail/src/templates/createaccount.mas:54
-#, fuzzy
 msgid "Unlimited size"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Tamanho ilimitado\n"
-"#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Tamanho ilimitado"
+msgstr "Tamanho ilimitado"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:168
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:187
@@ -12601,9 +12591,8 @@ msgid "Expiration period for spam mails"
 msgstr "Período de expiração para mensagens não solicitadas"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:237
-#, fuzzy
 msgid "Period for polling external mail accounts"
-msgstr "conta de correio electrónico externa"
+msgstr "Periodo para recolher as contas externas do correio electrónico"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:248
 #: ../../main/core/src/templates/report/diskUsage.mas:64
@@ -12712,7 +12701,7 @@ msgstr ""
 "virtual gerido por este servidor"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:170
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ac} is not an external account"
 msgstr "{ac} não é uma conta externa"
 
