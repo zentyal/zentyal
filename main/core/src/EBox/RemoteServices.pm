@@ -1441,6 +1441,11 @@ sub _downgrade
 
     my $gl = $self->global();
     try {
+        # stop cloud-prof service first
+        if ($gl->modExists('cloud-prof')) {
+            $gl->modInstance('cloud-prof')->stopService();
+        }
+
         if ( $gl->modExists('software') ) {
             my $software = $gl->modInstance('software');
             my $progress = $software->removePkgs(@packages);
