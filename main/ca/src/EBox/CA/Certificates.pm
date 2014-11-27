@@ -174,7 +174,6 @@ sub _genCert
     my ($self, $srvcert, $openchange) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
-
     my $model = $ca->model('Certificates');
 
     my $serviceId = $srvcert->{'serviceId'};
@@ -204,15 +203,25 @@ sub _genCert
     my ($tempfile_fh, $tempfile) = tempfile(EBox::Config::tmp . "/ca_certificates_XXXXXX") or
         throw EBox::Exceptions::Internal("Could not create temporal file.");
 
-    open(CERT, $cert) or throw EBox::Exceptions::Internal('Could not open certificate file.');
-    my @certdata = <CERT>;
-    close(CERT);
-    open(KEY, $privkey) or throw EBox::Exceptions::Internal('Could not open certificate file.');
-    my @privkeydata = <KEY>;
-    close(KEY);
+    open(my $CERT, $cert) or throw EBox::Exceptions::Internal('Could not open certificate file.');
+    my @certdata = <$CERT>;
+    close($CERT);
+    open(my $KEY, $privkey) or throw EBox::Exceptions::Internal('Could not open certificate file.');
+    my @privkeydata = <$KEY>;
+    close($KEY);
 
     print $tempfile_fh @certdata;
     print $tempfile_fh @privkeydata;
+
+    if ($srvcert->{includeCA}) {
+        open(my $CA_CERT, $ca->CACERT) or throw EBox::Exceptions::Internal('Could not open CA certificate file.');
+    
+        my @caData = <$CA_CERT>;
+        close $CA_CERT;
+
+        print $tempfile_fh @caData;
+    }
+
     close($tempfile_fh);
 
     my @commands;

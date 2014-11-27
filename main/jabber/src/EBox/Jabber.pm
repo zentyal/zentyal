@@ -295,6 +295,7 @@ sub certificates
              user => 'root',
              group => 'ejabberd',
              mode => '0440',
+             includeCA => 1,
         },
     ];
 }
