@@ -1070,6 +1070,7 @@ sub writeConfFile # (file, component, params, defaults)
 #       user    - user owner for this certificate file
 #       group   - group owner for this certificate file
 #       mode    - permission mode for this certificate file
+#       includeCA - whether needs CA to be included (default: false)
 #
 #   Example:
 #
