@@ -285,18 +285,24 @@ sub listUpgradablePkgs
     my $upgrade = [];
 
     my $file = $self->_packageListFile(0);
-
-    if ( (defined($clear) and ($clear == 1)) or (not -f $file) ) {
-        if ( -f $file ) {
-            unlink($file);
+    my $alreadyGet = 0;
+    
+    if (defined($clear) and ($clear == 1)) {
+        unlink $file;
+    } elsif (-f $file) {
+        try {
+            $upgrade = retrieve($file);
+            $alreadyGet = 1;
+        } catch ($ex) {
+            EBox::error("Error getting list upgradable packages: $ex. Refreshing file");
+            unlink $file;
         }
+    }
+
+    if (not $alreadyGet) {
         $self->_isModLocked();
-
         $upgrade = $self->_getUpgradablePkgs();
-
         store($upgrade, $file);
-    } else {
-        $upgrade = retrieve($file);
     }
 
     if ($excludeEBoxPackages) {
