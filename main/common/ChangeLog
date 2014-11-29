@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed rethrow silently to avoid constructor problems
 4.0
 	+ Set debug=no for stable release
 	+ Added EBox::Exception::Base::rethrowSilently

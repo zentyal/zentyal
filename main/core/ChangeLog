@@ -1,4 +1,5 @@
 HEAD
+	+ More robust management of administration user accounts
 	+ Fix not defined domain in log's ConfigureLogs model
 	+ When unsubscribing remove extra packages before saving changes
 	+ Better check of versions numbers in backup restore

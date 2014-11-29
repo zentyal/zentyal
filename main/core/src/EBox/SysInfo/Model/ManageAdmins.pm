@@ -86,6 +86,9 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
+    if (not $id) {
+        throw EBox::Exceptions::MissingArgument('id');
+    }
     my $username = getpwuid($id);
     $username or throw
         EBox::Exceptions::Internal("Inexistent user id: $id");
@@ -117,26 +120,34 @@ sub addTypedRow
 
     try {
         my $user = $params->{username}->value();
-
         # Create user if not exists
         system("id $user");
-        if ($?) {
-            EBox::Sudo::root("adduser --disabled-password --gecos '' $user");
+        my $userNotExists = $?;
+        if ($userNotExists) {
+            _rootWithExternalEx("adduser --disabled-password --gecos '' $user");
             
             my $password = $params->{password}->value();
             $self->_changePassword($user, $password);
         }
         
         unless ($self->_userIsAdmin($user)) {
-            EBox::Sudo::root("adduser $user $ADMIN_GROUP");
+            _rootWithExternalEx("adduser $user $ADMIN_GROUP");
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'addAdmin', $user, 0);
         }
         if ((not $self->_userIsInGroup($user, $LPADMIN_GROUP)) and $self->_groupExists($LPADMIN_GROUP)) {
-            EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
+            _rootWithExternalEx("adduser $user $LPADMIN_GROUP");
         }
 
-        $self->setMessage($self->message('add'));
+        my $msg;
+        if ($userNotExists) {
+            $msg = __x('User "{user}" created and granted Zentyal administrative permissions',
+                       user => $user);
+        } else {
+            $msg = __x('User "{user}" granted Zentyal administrative permissions',
+                       user => $user);            
+        }
+        $self->setMessage($msg);
 
         $id = getpwnam($user);
     } catch ($ex) {
@@ -157,10 +168,11 @@ sub setTypedRow
         my $oldName = getpwuid($id);
         
         if ($user ne $oldName) {
-            EBox::Sudo::root("usermod -l $user $oldName");
+            _rootWithExternalEx("usermod -l $user $oldName");
             my $audit = EBox::Global->modInstance('audit');
             $audit->logAction('System', 'General', 'changeLogin', "$oldName -> $user", 0);
         }
+
         
         my $password = $params->{password}->value();
         if ($password) {
@@ -180,13 +192,25 @@ sub removeRow
     my $row = $self->row($id);
     my $user = getpwuid($id);
 
-    EBox::Sudo::root("deluser $user $ADMIN_GROUP");
-    if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
-        EBox::Sudo::root("deluser $user $LPADMIN_GROUP");
+    my $removed;
+    try {
+        _rootWithExternalEx("deluser $user $ADMIN_GROUP");
+        $removed = 1;
+        if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
+            _rootWithExternalEx("deluser $user $LPADMIN_GROUP");
+        }
+    } catch($ex) {
+        EBox::error("Error removing administration credentials from user $user: $ex");
     }
 
-    my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('System', 'General', 'delAdmin', $user, 0);
+    if ($removed) {
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('System', 'General', 'delAdmin', $user, 0);
+    }
+
+    $self->setMessage(__x('User "{user}" has its Zentyal administration permissions revoked',
+                         user => $user)
+                     );
 }
 
 sub _changePassword
@@ -222,6 +246,17 @@ sub _userIsInGroup
         }
     }
     return 0;
+}
+
+sub _rootWithExternalEx
+{
+    my ($cmd) = @_;
+    try {
+        EBox::Sudo::root($cmd);
+    } catch (EBox::Exceptions::Command $ex) {
+        throw EBox::Exceptions::External($ex->error());
+    };
+
 }
 
 sub _groupExists
