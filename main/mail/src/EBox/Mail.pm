@@ -274,7 +274,11 @@ sub initialSetup
         }
         if (EBox::Util::Version::compare($version, '3.5') < 0) {
             $self->_migrateToMaildir();
-            $self->_chainDovecotCertificate();
+
+            # Do this only for 3.5 upgrade, not for 3.2 one
+            if (EBox::Util::Version::compare($version, '3.4') > 0) {
+                $self->_chainDovecotCertificate();
+            }
         }
         if (EBox::Util::Version::compare($version, '3.5.4') < 0) {
             $self->_migrateAliasTo35();
@@ -1926,7 +1930,7 @@ sub restoreConfig
             }
         }
     }
-    
+
     $self->{fetchmail}->restoreConfig($dir);
 }
 

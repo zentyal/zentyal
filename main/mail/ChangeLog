@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid breaking dovecot certificate when upgrading from 3.2
 4.0.1
 	+ Add link in mail vdomain model to openchange virtual domains settings
 	+ Allow to create group alias on empty groups
