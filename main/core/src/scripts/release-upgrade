@@ -77,7 +77,7 @@ do
     echo; echo "Forcing pending packages installation..."; echo
     apt-get -f install -y --force-yes -o DPkg::Options::="--force-confdef"
     rm -f /var/lib/dpkg/info/suricata.prerm
-    for pkg in zentyal-samba freeradius-ldap roundcube-core suricata
+    for pkg in zentyal-samba freeradius-ldap roundcube-core suricata rabbitmq-server
     do
         rm -f /var/lib/dpkg/info/${pkg}.postinst
     done
