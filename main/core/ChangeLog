@@ -1,4 +1,4 @@
-HEAD
+4.0.3
 	+ More robust management of administration user accounts
 	+ Fix not defined domain in log's ConfigureLogs model
 	+ When unsubscribing remove extra packages before saving changes
