@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-14 20:15+0200\n"
-"Last-Translator: alteran67 <k.vivien@tlse.eu>\n"
+"PO-Revision-Date: 2014-11-29 19:35+0200\n"
+"Last-Translator: Yogui <fab.yogui@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -87,10 +87,11 @@ msgstr "Fichier de certification CA inexistant {p}"
 msgid "Inexistent client's certificate file {p}"
 msgstr "Fichier de certificat client inexistant {p}"
 
+# Je suggère de ne pas indiquer la nature de la clé privée car précisé à la fin avec la variable {p}
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "Fichier de(s) clé(s) privée(s) du certificat inexistant {p}"
+msgstr "Clé privée du certificat inexistante {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -1493,37 +1494,27 @@ msgstr "Créer un nouveau cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:199
 msgid "Join this node to an existing cluster"
-msgstr ""
+msgstr "Joindre ce nœud à un cluster existant"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:119
-#, fuzzy
 msgid "Floating IP"
-msgstr "Adresses IP du domaine"
+msgstr "IP flottante"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
-#, fuzzy
 msgid "Cluster error"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur\n"
-"#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"nom d'utilisateur"
+msgstr "Erreur cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:115
 msgid "Node"
-msgstr ""
+msgstr "Nœud"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:130
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Ce protocole n'utilise pas de port"
+msgstr "Ce cluster fonctionne correctement."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "no error"
-msgstr "Erreur"
+msgstr "aucune erreur"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:160
 #, perl-brace-format
@@ -1532,6 +1523,9 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Il y a une ressource non gérée que nous ne pouvons traiter pour le moment. "
+"Vous devriez taper la commande suivante dans un terminal : {command} pour "
+"retrouver le contrôle de la ressource"
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1676
@@ -1542,6 +1536,8 @@ msgstr "domaine"
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
+"Zentyal va définir les variables d'environnement nécessaires pour le service "
+"bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:500
 msgid "main bind9 configuration file"
@@ -1581,7 +1577,7 @@ msgstr "Zentyal va prendre en charge le démarrage et l'arrêt des services."
 
 #: ../../main/dns/src/EBox/DNS.pm:542
 msgid "Override named apparmor profile"
-msgstr ""
+msgstr "Remplacer le profil apparmor"
 
 #: ../../main/dns/src/EBox/DNS.pm:543
 msgid "To allow samba daemon load Active Directory zone"
@@ -1592,9 +1588,9 @@ msgid "Domain Name Service"
 msgstr "Serveur de nom de domaine (DNS)"
 
 #: ../../main/dns/src/EBox/DNS.pm:959
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Fichier principal de configuration de {daemon}"
+msgstr "Clef '{key}' dans le fichier principal de configuration {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1702
 msgid "hostname"
@@ -1607,9 +1603,9 @@ msgid "alias"
 msgstr "alias"
 
 #: ../../main/dns/src/EBox/DNS.pm:1828
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Un hôte avec le nom {host} est déjà enregistré dans ce serveur Zentyal"
+msgstr "Un hôte avec le nom {x} est déjà présent dans le domaine {y}"
 
 #: ../../main/dns/src/EBox/DNS/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -1697,13 +1693,8 @@ msgstr "Activer le cache DNS transparent"
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
-#, fuzzy
 msgid "Settings"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-software 0.12.1)  #-#-#-#-#\n"
-"Paramètres\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Configuration"
+msgstr "Paramètres"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:88
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:90
@@ -1719,14 +1710,12 @@ msgstr ""
 "mode transparent est activé."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
-msgstr "Transfert"
+msgstr "Redirecteur"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
-msgstr "Transfert"
+msgstr "Redirecteurs"
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:90
 msgid ""
@@ -1737,9 +1726,8 @@ msgstr ""
 "aucune réponse n'est reçue, il essaiera de répondre aux requêtes."
 
 #: ../../main/dns/src/EBox/DNS/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
-msgstr "Transfert"
+msgstr "redirecteur"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:132
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:122
@@ -1770,13 +1758,12 @@ msgid "Weight"
 msgstr "Poids"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:157
-#, fuzzy
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
-"0 indique aucun poids et une valeur plus grande aura plus de chances d'être "
-"sélectionnée avec une priorité égale"
+"0 pour aucun poids, Un enregistrement de plus grand poids aura plus de "
+"chances d'être sélectionné que d'autres de même priorité."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:163
 msgid "Target port"
@@ -1800,6 +1787,7 @@ msgstr ""
 msgid "This domain"
 msgstr "Ce domaine"
 
+# Dans DHCP/OptionsDNSdyn, menu déroulant domaine statique, c'est bien le domaine qui est "personnalisé"
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:183
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:203
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:231
@@ -1811,17 +1799,8 @@ msgstr "Ce domaine"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
 #: ../../main/mail/src/EBox/Mail.pm:1753
-#, fuzzy
 msgid "Custom"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Personnalisé\n"
-"#-#-#-#-#  fr.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Personnalisé\n"
-"#-#-#-#-#  fr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Personaliser\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Personnaliser"
+msgstr "Personnalisé"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:656
@@ -1831,13 +1810,12 @@ msgid "Services"
 msgstr "Services"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:199
-#, fuzzy
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
-"Il gère les enregistrements SRV pour ce domaine. Ils sont utiles pour "
-"sélectionner un hôte par la priorité du service."
+"Gère les enregistrements SRV pour ce domaine. Ils sont utiles pour "
+"sélectionner un serveur selon un ordre de priorité défini pour un service."
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:202
 #, perl-brace-format
@@ -1845,9 +1823,9 @@ msgid "{srv} record"
 msgstr "{srv} enregistrement"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "Le service choisi n'est pas activé dans {file}"
+msgstr "Le service '{srv}' n'est pas présent dans {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format
@@ -1891,16 +1869,15 @@ msgid "Host names"
 msgstr "Noms d'hôtes"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:209
-#, fuzzy
 msgid ""
 "Automatic reverse resolution is done. If you repeat an IP address in another "
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
-"La résolution inverse automatique a été effectuée. Si vous répétez une "
-"adresse IP pour un autre domaine, seulement la première entrée sera utilisée "
-"par la résolution inverse. Les zones dynamiques peuvent éventuellement "
-"effacer la résolution inverse saisie manuellement."
+"La résolution inverse automatique est effectuée. Si vous répétez une adresse "
+"IP pour un autre domaine, seule la première entrée sera utilisée pour la "
+"résolution inverse. Les zones dynamiques peuvent éventuellement effacer les "
+"résolutions inverses saisies manuellement."
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
@@ -2034,9 +2011,8 @@ msgstr ""
 "Voulez-vous dire ns.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:170
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "Le dernier serveur de noms ne peut pas être supprimé"
+msgstr "Ce dernier serveur de noms ne peut pas être supprimé"
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:242
 msgid "Name servers"
@@ -2060,9 +2036,8 @@ msgid "If you select the Domain, then you are choosing the zone"
 msgstr "Si vous sélectionnez le domaine, vous devrez choisir la zone"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:161
-#, fuzzy
 msgid "Custom owner"
-msgstr "Requête personnalisée"
+msgstr "Hôte personnalisé"
 
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:168
 #, perl-brace-format
@@ -2154,17 +2129,15 @@ msgstr "utilisateur"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
-msgstr ""
+msgstr "Compte Jabber activé avec les droits d'administration"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
-#, fuzzy
 msgid "Jabber account enabled"
-msgstr "Compte Jabber"
+msgstr "Compte Jabber activé"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
-#, fuzzy
 msgid "Jabber account disabled"
-msgstr "Compte Jabber"
+msgstr "Compte Jabber désactivé"
 
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:40
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:58
@@ -2172,40 +2145,24 @@ msgid "Jabber"
 msgstr "Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
-#, fuzzy
 msgid "Allow SSL"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Autorise le SSL\n"
-"#-#-#-#-#  fr.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Autorisé SSL"
+msgstr "Autoriser SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
-#, fuzzy
 msgid "Force SSL"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Force le SSL\n"
-"#-#-#-#-#  fr.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Forcer l'utilisation de SSL"
+msgstr "Forcer l'utilisation de SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
 msgstr "Domaine Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:123
-#, fuzzy
 msgid "Domain used to connect to this server."
-msgstr "Aucun utilisateur n'est connecté au RPV (VPN)"
+msgstr "Domaine s'étant connecté sur ce serveur."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
-#, fuzzy
 msgid "SSL support"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Supporte le SSL\n"
-"#-#-#-#-#  fr.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"SSL supporter"
+msgstr "Supporte le SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
 msgid "SSL connection method to this server."
@@ -2221,7 +2178,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:144
-#, fuzzy
 msgid "Enable MUC (Multi User Chat) service"
 msgstr "Activer MUC (Multi User Chat)"
 
@@ -2252,12 +2208,11 @@ msgstr "Information générale"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:166
 msgid "Import users VCard information from LDAP."
-msgstr ""
+msgstr "Importer les informations des VCards utilisateurs depuis Ldap"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:172
-#, fuzzy
 msgid "Enable shared roster"
-msgstr "Activer le service"
+msgstr "Activer le partage de fichiers"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:173
 msgid "Populate users contact list with the other system users."
@@ -2295,6 +2250,7 @@ msgstr "Utilisation de la configuration du profil par défaut"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:212
 msgid "Changing the domain name will delete all your current Jabber data."
 msgstr ""
+"La modification du nom de domaine supprimera les données actuelles de jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:50
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:73
@@ -2474,9 +2430,8 @@ msgid "Description"
 msgstr "Description"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:67
-#, fuzzy
 msgid "Location"
-msgstr "Action"
+msgstr "Emplacement"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
@@ -2484,9 +2439,8 @@ msgid "Guest access"
 msgstr "Accès aux invités"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
-#, fuzzy
 msgid "This printer will not require authentication."
-msgstr "Cette part ne nécessite pas d'authentification."
+msgstr "Cette Imprimante ne nécessite pas d'authentification."
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:80
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
@@ -2494,18 +2448,18 @@ msgid "Access control"
 msgstr "Contrôle d'accès"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:89
-#, fuzzy
 msgid "Printer permissions"
-msgstr "Permissions"
+msgstr "Droit sur l'imprimante"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:94
 msgid "printer"
 msgstr "imprimante"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:96
-#, fuzzy
 msgid "Here you can define the access control list for your printers."
-msgstr "Ici vous pouvez définir les paramètres généraux du Portail Captif."
+msgstr ""
+"Ici vous pouvez définir les paramètres généraux de vos périphériques "
+"d'impression"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:219
 #, fuzzy, perl-brace-format
@@ -2553,20 +2507,19 @@ msgstr "Désactiver {server} init script"
 #: ../../main/printers/src/EBox/Printers.pm:75
 #: ../../main/dhcp/src/EBox/DHCP.pm:196
 msgid "Zentyal will take care of start and stop the service"
-msgstr ""
+msgstr "Zentyal s'occupera du démarrage et de l’arrêt du service"
 
 #: ../../main/printers/src/EBox/Printers.pm:91
 msgid "To configure cupsd"
 msgstr "Pour configurer le service \"cupsd\""
 
 #: ../../main/printers/src/EBox/Printers.pm:115
-#, fuzzy
 msgid "Network Printers"
-msgstr "Interfaces réseaux"
+msgstr "Périphérique d'impression réseau."
 
 #: ../../main/printers/src/EBox/Printers.pm:116
 msgid "Internet Printing Protocol (CUPS)"
-msgstr ""
+msgstr "Protocole d'impression internet (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:393
 msgid "Job ID"
@@ -2747,9 +2700,8 @@ msgid "The field cannot contain only blank characters"
 msgstr "L'entrée contient des caractères invalides"
 
 #: ../../main/ca/src/EBox/CA.pm:1945
-#, fuzzy
 msgid "String"
-msgstr "Strict"
+msgstr "Chaîne"
 
 #: ../../main/ca/src/EBox/CA.pm:1950
 msgid ""
@@ -2897,7 +2849,7 @@ msgstr "Le nouveau certificat CA a été renouvelé"
 #: ../../main/ca/src/EBox/CA/CGI/DownloadFiles.pm:136
 #, perl-brace-format
 msgid "Error creating archive file for  certificates: {err}"
-msgstr ""
+msgstr "Erreur à la création de l'archine pour       Certificat : {err}"
 
 #: ../../main/ca/src/EBox/CA/CGI/RevokeCertificate.pm:67
 msgid "The certificate has NOT been revoked."
@@ -2993,7 +2945,7 @@ msgstr "Module"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:305
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
-"Généré le certificat en utilisant le CA avec le nom commun défini au dessus"
+"Générez le certificat en utilisant le CA avec le nom commun défini au dessus"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:321
 msgid "certificate"
@@ -15497,7 +15449,7 @@ msgstr "Composant"
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:182
 msgid "Update"
-msgstr "Actualiser"
+msgstr "Mettre à jour"
 
 #: ../../main/software/src/templates/updates.mas:101
 msgid "Security update"
@@ -15509,7 +15461,7 @@ msgstr "Mise à jour certifiée de Zentyal (Quality Assurance)"
 
 #: ../../main/software/src/templates/updates.mas:126
 msgid "Update all packages"
-msgstr "Actualiser tous les paquets"
+msgstr "Mettre à jour tous les paquets"
 
 #: ../../main/software/src/templates/updates.mas:137
 #, fuzzy
@@ -15554,6 +15506,9 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Les paquets suivants n'ont pas été correctement installés. Vous devez "
+"corriger cela avant de tenter de les utiliser ou d'installer de nouveaux "
+"modules."
 
 #: ../../main/software/src/templates/ebox.mas:109
 #, fuzzy
@@ -15571,6 +15526,10 @@ msgid ""
 "persists, you can ask for help in the {ofhref}community forum{chref} or file "
 "a ticket in the {othref}Zentyal trac{chref}."
 msgstr ""
+"Une fois la commande ci-dessus terminée, vous pouvez rafraîchir la page. Si "
+"le problème persiste, vous pouvez demander de l'aide sur le "
+"{ofhref}forum{chref} ou ouvrir un ticket sur la plateforme de suivi de bugs "
+"{othref}trac de Zentyal{chref}."
 
 #: ../../main/software/src/templates/ebox.mas:123
 msgid "View advanced mode"

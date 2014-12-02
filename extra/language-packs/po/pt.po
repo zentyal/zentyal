@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-11-25 04:40+0200\n"
+"PO-Revision-Date: 2014-11-30 21:57+0200\n"
 "Last-Translator: APNS <ns.sp.br@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
@@ -3887,6 +3887,8 @@ msgid ""
 "Cannot be enabled when creating a new connection, you should edit the "
 "configuration before enabling it"
 msgstr ""
+"Não pode ser ativada na criação de uma nova ligação, deve editar a "
+"configuração antes de a ativar"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:232
 #: ../../main/l2tp/src/EBox/L2TP.pm:370
@@ -3898,15 +3900,14 @@ msgid "Blank characters are not allowed"
 msgstr "Caracter espaço não é permitido"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:251
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "L2TP can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"O perfil de tráfego é aplicado quando a Zentyalestá configurada como "
-"gateway. Para obter isto necessita pelo menos de um interface interno e "
-"outro externo . Verifique a configuração dos interfaces em {openhref}Network-"
-">Interfaces{closehref}"
+"L2TP só pode ser configurada em interfaces marcadas como \"externo\". "
+"Verifique a configuração da sua interface para coincidir com uma das "
+"definidas em {openhref}Network->Interfaces{closehref}"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:263
 #, perl-brace-format
@@ -3991,21 +3992,20 @@ msgstr "ponte"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:128
 msgid "bond"
-msgstr ""
+msgstr "Agregar"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:139
-#, fuzzy
 msgid "bonding mode"
-msgstr "Configurados"
+msgstr "Modo de agregação de interfaces (bonding)"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:166
-#, fuzzy
 msgid ""
 "The PPPoE password contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
 msgstr ""
-"A entrada contém caracteres inválidos. Todos os caracteres alfanuméricos "
-"mais os seguintes são permitidos: /.?&+:-@ e espaços"
+"A palavra passe do PPPoE contém caracteres inválidos. Todos os caracteres "
+"alfanuméricos, mais os seguintes caracteres são permitidos: /.?&+:-@ e "
+"espaços"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:31
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:42
@@ -4019,13 +4019,12 @@ msgstr "Ferramentas de diagnóstico de rede"
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
-msgstr "Máquina"
+msgstr "Máquina (host)"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:90
 #: ../../main/network/src/templates/diag.mas:31
-#, fuzzy
 msgid "Broadcast address"
-msgstr "Endereço local"
+msgstr "Endereço de difusão (broadcast)"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:95
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
@@ -4055,15 +4054,15 @@ msgstr "Interfaces de rede"
 #: ../../main/network/src/EBox/Network.pm:2147
 #: ../../main/network/src/templates/ifaces.mas:194
 msgid "VLAN Id"
-msgstr "Identificação da VLAN"
+msgstr "Identificação da VLAN (VLAN id)"
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:51
 msgid "WAN Failover"
-msgstr "Ligação à WAN inexistente"
+msgstr "Ligação WAN redundante a falha"
 
 #: ../../main/network/src/EBox/Network/Composite/DNS.pm:55
 msgid "Domain Name Server Resolver"
-msgstr "Servidor de resolução de nomes"
+msgstr "Servidor de resolução de nomes de domínio"
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:53
 msgid "Gateways and Proxy"
@@ -4086,13 +4085,13 @@ msgid "Balance Traffic"
 msgstr "Equilíbrio de tráfego"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
 msgstr ""
-"Para poder usar esta característica necessita de pelo menos duas gateways. "
-"Pode adicioná-las em <a href=\"/Network/View/GatewayTable\">aqui</a>primeiro"
+"Para poder usar esta característica necessita de pelo menos duas gateways "
+"activas. Pode adicioná-las {oa}aqui{ca} primeiro."
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:52
 msgid "Traffic balancing"
@@ -4253,6 +4252,8 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
+"Seleccionou o seu fornecedor da lista e introduziu os dados da sua conta. "
+"Têm igualmente que a ativar para que funcione."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:170
 msgid "Auto"
@@ -4297,10 +4298,10 @@ msgid "gateway"
 msgstr "gateway"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:275
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr "O porto {port} já está em uso pelo módulo {mod}"
+msgstr "O endereço {ip} da gateway já é o endereço do interface local {iface}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:300
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
@@ -4309,23 +4310,25 @@ msgstr ""
 "PPPoE"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:302
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that a static interface. Currently "
 "it belongs to the network of {iface} which is not static"
 msgstr ""
-"A gateway {gw} dever ser possível de encontrar por um interface estático. "
-"Actualmente é possível de alcançar por {iface} que não é estático"
+"A gateway {gw} deve estar na mesma rede de um interface estático. "
+"Actualmente está num interface {iface} que não é estático"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:313
 msgid "Since you have not gateways you should add the first one as default"
-msgstr ""
+msgstr "Como não têm gateways definidas deve adicionar a primeira por omissão."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:334
 msgid ""
 "You cannot remove the default attribute, if you want to change it assign it "
 "to another gaterway"
 msgstr ""
+"Não pode remover o atributo definido por omissão. Se o pretende alterar "
+"atribua-o a outra gateway."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:342
 msgid "Automatically added gateways can not be manually deleted"
@@ -4333,25 +4336,26 @@ msgstr ""
 "Gateways adicionadas automaticamente não podem ser apagadas manualmente"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:560
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "O porto {port} já está em uso pelo módulo {mod}"
+msgstr "A gateway '{name} está em uso pelo módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:578
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:587
-#, fuzzy
 msgid "Gateway name"
-msgstr "Gateway"
+msgstr "Nome da Gateway"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:580
 msgid "Gateways names cannot begin or end with '-'"
-msgstr ""
+msgstr "Os nomes dos gateways não podem começar ou terminar com '-'"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:589
 msgid ""
 "Gateways names can only be composed of lowercase ASCII english letters, "
 "digits and '-'"
 msgstr ""
+"Os nomes dos gateways só podem ser compostos de letras minúsculas ASCII, "
+"dígitos e '-'"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:70
@@ -4359,13 +4363,14 @@ msgid "Gateway"
 msgstr "Gateway"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:77
-#, fuzzy
 msgid "Gateways for Traffic Balance"
-msgstr "equilíbrio de tráfego"
+msgstr "Gateways para balanceamento de tráfego"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:85
 msgid "Here you can choose which gateways are used to balance the traffic"
 msgstr ""
+"Aqui pode escolher quais as gateways que vão ser usadas para balanceamento "
+"de tráfego"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:54
 msgid "Ping to gateway"
@@ -4384,9 +4389,8 @@ msgid "Test type"
 msgstr "Tipo de teste"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:92
-#, fuzzy
 msgid "Host IP address"
-msgstr "Endereços IP personalizados"
+msgstr "Endereço IP da máquina"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:99
 msgid "Number of probes"
@@ -4416,9 +4420,8 @@ msgstr "Tempo entre verificações"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverOptions.pm:71
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:238
-#, fuzzy
 msgid "minutes"
-msgstr "Minutos"
+msgstr "minutos"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverOptions.pm:81
 msgid "Global options"
@@ -4426,13 +4429,11 @@ msgstr "Opções globais"
 
 #: ../../main/network/src/EBox/Network/Model/WANFailoverOptions.pm:85
 msgid "These options affect to all the tests."
-msgstr "Estas opções afectarão todos os testes"
+msgstr "Estas opções afectarão todos os testes."
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:99
 msgid "IP address of the DNS server that Zentyal will use to resolve names."
-msgstr ""
-"Endereço IP do servidor DNS que a A Zentyal definirá o proxy HTTP para usará "
-"para resolver nomes"
+msgstr "Endereço IP do servidor DNS que Zentyal utilizará para resolver nomes"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:104
 #: ../../main/network/src/templates/wizard/network.mas:72
@@ -4459,14 +4460,14 @@ msgstr ""
 "podem ser apagadas se tiver algum interface configurado por DHCP"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:194
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This action is incompatible with the module {mod} configuration"
-msgstr "O proxy transparente não é compatível com a autentificação Kerbeos"
+msgstr "Esta acção é incompatível com a configuração do módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:223
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The nameserver '{name}' is being used by {mod}"
-msgstr "O porto {port} já está em uso pelo módulo {mod}"
+msgstr "O nome de servidor '{name} já está em uso pelo módulo {mod}"
 
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:279
 #, perl-brace-format
@@ -4477,6 +4478,11 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they does not answer the query root DNS servers will be used."
 msgstr ""
+"O módulo DNS do Zentyal está instalado e activado. Só o servidor local de "
+"DNS será usado para resolver as pesquisas. Pesquisas para as quais não tenha "
+"resposta na sua cache serão enviadas para os {ohref} configurados como "
+"forwarders {chref} em primeiro lugar, e se eles não responderem, serão "
+"usados os servidores de raiz de DNS."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:90
 msgid "Proxy server"
@@ -4507,25 +4513,28 @@ msgstr ""
 #, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"O endereço {addr} do proxy é inválido porque é o endereço do interface {if}"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:158
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
-"A entrada contém caracteres inválidos. Todos os caracteres alfanuméricos "
-"mais os seguintes são permitidos: /.?&+:-@ e espaços"
+"O nome de utilizador contém caracteres inválidos. Todos os caracteres "
+"alfanuméricos mais os seguintes são permitidos: \\/.?&+:-@ e espaços."
 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:84
 msgid "Search Domain"
 msgstr "Busca de Domínio"
 
+# (?) Context? Can somebody help? 
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:88
 msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
-msgstr "Este domínio será adicionado quando tentar resolver hospedeiros"
+msgstr ""
+"Este domínio será adicionado quando tentar resolver hospedeiros se a "
+"primeira tentativa sem o adicionar falhar."
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:75
 #, perl-brace-format
@@ -4533,18 +4542,23 @@ msgid ""
 "Gateway {gw} is already defined in the gateway table. Use a multi gateway "
 "rule instead"
 msgstr ""
+"A gateway {gh} já está definida na tabela de gateways. Utilize em "
+"substituição uma regra multi-gateway."
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
 #, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"O endereço de rede {addr} é inválido porque é o endereço do interface {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
 #, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
+"O endereço da gateway {addr} é inválido porque é o endereço do interface "
+"{if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
@@ -4552,6 +4566,8 @@ msgid ""
 "Not needed to add a route to {ip} because is reacheable directly by "
 "interface {if}"
 msgstr ""
+"Não é necessário adicionar rota para {ip} porque é atingível directamente "
+"pelo interface {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/network/src/EBox/Network.pm:118
@@ -4621,61 +4637,30 @@ msgstr ""
 # #-#-#-#-#  pt.po (ebox-openvpn 0.12)  #-#-#-#-#
 # e
 #: ../../main/network/src/EBox/Network.pm:148
-#, fuzzy
 msgid "Disable IPv6"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Inactivo\n"
-"#-#-#-#-#  pt.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox 0.12)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Desactivado\n"
-"#-#-#-#-#  pt.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Desactivado"
+msgstr "Dasabilitar IPv6"
 
 #: ../../main/network/src/EBox/Network.pm:149
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
+"Zentyal não suporta ainda IPv6. Assignar endereços IPv6 aos interfaces pode "
+"causar problemas em alguns serviços."
 
 #: ../../main/network/src/EBox/Network.pm:168
 msgid "Zentyal will set your network configuration"
-msgstr "A Zentyal definirá a sua configuração de rede"
+msgstr "Zentyal definirá a sua configuração de rede"
 
 #: ../../main/network/src/EBox/Network.pm:173
-#, fuzzy
 msgid "Zentyal will set the order of systems resolvers"
-msgstr "A Zentyal armazenará as suas palavras-passe PPPoE"
+msgstr "Zentyal irá ordenar os nós DNS a utilizar"
 
 #: ../../main/network/src/EBox/Network.pm:178
 #: ../../main/network/src/EBox/Network.pm:183
 #: ../../main/network/src/EBox/Network.pm:188
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
-msgstr "A Zentyal definirá a sua configuração de rede"
+msgstr "A Zentyal definirá a configuração resolvconf"
 
 #: ../../main/network/src/EBox/Network.pm:193
 msgid "Zentyal will set your DHCP client configuration"
@@ -4689,16 +4674,15 @@ msgstr "A Zentyal definirá a sua configuração ddclient"
 #: ../../main/network/src/EBox/Network.pm:208
 #: ../../main/network/src/EBox/Network.pm:213
 msgid "Zentyal will store your PPPoE passwords"
-msgstr "A Zentyal armazenará as suas palavras-passe PPPoE"
+msgstr "Zentyal armazenará as suas palavras-passe PPPoE"
 
 #: ../../main/network/src/EBox/Network.pm:218
-#, fuzzy
 msgid "Zentyal will disable IPV6 on this system"
-msgstr "A Zentyal disponibilizará uma conta de sistema aos utilizadores LDAP"
+msgstr "Zentyal desabilitará o IPv6 neste sistema"
 
 #: ../../main/network/src/EBox/Network.pm:225
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
-msgstr "A Zentyal adicionará a configuração do fornecedor DSL para PPoE"
+msgstr "Zentyal adicionará uma configuração do fornecedor DSL para PPPoE"
 
 #: ../../main/network/src/EBox/Network.pm:232
 msgid "Zentyal will set HTTP proxy for all users"
@@ -4706,12 +4690,11 @@ msgstr "A Zentyal definirá o proxy HTTP para todos os utilizadores"
 
 #: ../../main/network/src/EBox/Network.pm:235
 msgid "Zentyal will set HTTP proxy for APT"
-msgstr "A Zentyal definirá o proxy HTTP para o APT"
+msgstr "Zentyal definirá o proxy HTTP para o APT"
 
 #: ../../main/network/src/EBox/Network.pm:878
-#, fuzzy
 msgid "Argument must be a IP address"
-msgstr "Endereço IP do interface Zentyal"
+msgstr "O argumento têm que ser um endereço IP"
 
 #: ../../main/network/src/EBox/Network.pm:1130
 #: ../../main/network/src/EBox/Network.pm:1134
@@ -4728,9 +4711,9 @@ msgid "Netmask"
 msgstr "Máscara de rede"
 
 #: ../../main/network/src/EBox/Network.pm:1139
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
-msgstr "O porto {port} já está em uso pelo módulo {mod}"
+msgstr "O endereço {iport} já está em uso pelo interface {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1305
 #, perl-brace-format
@@ -4747,19 +4730,22 @@ msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
+"Não pode configurar um nome utilizando \":\". Este carater está reservado para "
+"interfaces virtuais"
 
 #: ../../main/network/src/EBox/Network.pm:1536
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
-msgstr "O porto {port} já está em uso pelo módulo {mod}"
+msgstr "O endereço IP {ip} já está assignado ao interface {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1680
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
 "in the same network"
 msgstr ""
-"O nome {n} não pode ser usado porque existe um cliente com o mesmo nome"
+"Não pode utilizar o endereço {addr} porque o interface {if} já possui um "
+"endereço na mesma rede"
 
 #: ../../main/network/src/EBox/Network.pm:1807
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -4782,28 +4768,28 @@ msgstr ""
 "possível adicionar mais vlans"
 
 #: ../../main/network/src/EBox/Network.pm:3947
-#, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways or static "
 "routes to become unreachable. Please remove it first if you really want to "
 "make this change."
 msgstr ""
-"A operação solicitada irá fazer com que não seja possível alcançar uma das "
-"gateways configurados. Remova-a primeiro se quiser fazer esta alteração"
+"A operação solicitada irá fazer com que uma das gateways configurados ou "
+"rotas estáticas fiquem inalcançáveis. Remova-a primeiro se quiser fazer esta "
+"alteração."
 
 #: ../../main/network/src/EBox/Network.pm:4012
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
-msgstr ""
+msgstr "A gateway {gw} têm que estar na mesma rede de um interface estático"
 
 #: ../../main/network/src/EBox/Network.pm:4015
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
 "belongs to the network of {iface} which is not static"
 msgstr ""
-"A gateway {gw} dever ser possível de encontrar por um interface estático. "
-"Actualmente é possível de alcançar por {iface} que não é estático"
+"A gateway {gw} têm que estar na mesma rede do interface estático. "
+"Actualmente está na rede do {iface} que não é estático"
 
 #: ../../main/network/src/EBox/Network.pm:4437
 msgid "down"
@@ -4850,9 +4836,8 @@ msgid "Gateways"
 msgstr "Gateways"
 
 #: ../../main/network/src/EBox/Network.pm:4553
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Dinâmico"
+msgstr "DNS dinâmico"
 
 #: ../../main/network/src/EBox/Network.pm:4557
 msgid "Tools"

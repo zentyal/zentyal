@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-11 02:43+0200\n"
+"PO-Revision-Date: 2014-12-01 03:15+0200\n"
 "Last-Translator: Tomáš <tbittner@itoutsourcing.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -2825,7 +2825,7 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
-msgstr ""
+msgstr "Byl vydán certifikát."
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:192
 msgid "The new CA certificate has been issued."
@@ -8841,7 +8841,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 #: ../../main/samba/src/EBox/Samba.pm:2319
 msgid "File Sharing"
-msgstr ""
+msgstr "Sdílení souborů"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:39
 msgid "File sharing options"
