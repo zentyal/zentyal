@@ -96,7 +96,7 @@ then
     /usr/share/zentyal/global-action --action saveAllModules
 
     # Restart modules that need to add schemas
-    for i in samba mail jabber mail mailfilter
+    for i in dns samba mail jabber mail mailfilter
     do
         service zentyal $i restart
     done
