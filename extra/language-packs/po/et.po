@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1738
+#: ../../main/mail/src/EBox/Mail.pm:1744
 msgid "disabled"
 msgstr "keelatud"
 
@@ -138,7 +138,7 @@ msgstr "Klient {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:218
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:91
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:346
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:351
 #: ../../main/core/src/EBox/Model/DataTable.pm:4299
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:127
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:133
@@ -160,7 +160,7 @@ msgstr "Lubatud"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
 #: ../../main/core/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:86
 #: ../../main/core/src/EBox/SysInfo.pm:485
-#: ../../main/core/src/EBox/RemoteServices.pm:1304
+#: ../../main/core/src/EBox/RemoteServices.pm:1306
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/mail/src/EBox/Mail/Model/VDomainSettings.pm:56
@@ -1044,7 +1044,7 @@ msgstr "Üldine nimi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1755
+#: ../../main/mail/src/EBox/Mail.pm:1761
 msgid "Address"
 msgstr "Aadress"
 
@@ -1072,7 +1072,7 @@ msgstr "OpenVPN deemonid"
 #: ../../main/samba/src/EBox/Samba.pm:3766
 #: ../../main/samba/src/EBox/Samba.pm:3777
 #: ../../main/squid/src/EBox/Squid.pm:1132
-#: ../../main/mail/src/EBox/Mail.pm:1852
+#: ../../main/mail/src/EBox/Mail.pm:1858
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -1091,7 +1091,7 @@ msgstr "Kuupäev"
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1139
-#: ../../main/mail/src/EBox/Mail.pm:1862
+#: ../../main/mail/src/EBox/Mail.pm:1868
 msgid "Event"
 msgstr "Sündmus"
 
@@ -1167,7 +1167,7 @@ msgid "High Availability"
 msgstr "Saadaval"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
-#: ../../main/core/src/EBox/RemoteServices.pm:1212
+#: ../../main/core/src/EBox/RemoteServices.pm:1214
 msgid "System"
 msgstr "Süsteem"
 
@@ -1193,8 +1193,8 @@ msgstr "Seiskamine või taaskäivitamine"
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:277
 #: ../../main/core/src/EBox/RemoteServices.pm:72
-#: ../../main/core/src/EBox/RemoteServices.pm:778
-#: ../../main/core/src/EBox/RemoteServices.pm:1317
+#: ../../main/core/src/EBox/RemoteServices.pm:780
+#: ../../main/core/src/EBox/RemoteServices.pm:1319
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
@@ -1211,7 +1211,7 @@ msgstr "Tundmatu"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:388
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:421
 #: ../../main/core/src/EBox/CGI/Search.pm:48
-#: ../../main/core/src/EBox/RemoteServices.pm:1304
+#: ../../main/core/src/EBox/RemoteServices.pm:1306
 #: ../../main/samba/src/EBox/Samba/Model/Master.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
@@ -1241,7 +1241,7 @@ msgstr "Viga"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1740 ../../main/mail/src/EBox/Mail.pm:1861
+#: ../../main/mail/src/EBox/Mail.pm:1746 ../../main/mail/src/EBox/Mail.pm:1867
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1775,7 +1775,7 @@ msgid "Enable transparent DNS cache"
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
-#: ../../main/software/src/EBox/Software.pm:664
+#: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
 #: ../../main/samba/src/EBox/Samba.pm:2271
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
@@ -1887,7 +1887,7 @@ msgstr "See domeen"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/mail/src/EBox/Mail.pm:1753
+#: ../../main/mail/src/EBox/Mail.pm:1759
 msgid "Custom"
 msgstr "Kohandatud"
 
@@ -2031,7 +2031,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:71
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:53
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:338
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
 #: ../../main/samba/src/EBox/Samba.pm:2265
 #: ../../main/squid/src/EBox/Squid.pm:1136
@@ -2800,7 +2800,7 @@ msgstr "Selle üldise nimega {cn} sertifikaati EI ole SKs olemas"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1789
+#: ../../main/mail/src/EBox/Mail.pm:1795
 #, fuzzy
 msgid "General"
 msgstr ""
@@ -3726,8 +3726,8 @@ msgid "Notify of non-spam problematic messages"
 msgstr "Teavitamine probleemsest väärtpostist"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:90
-#: ../../main/core/src/EBox/RemoteServices.pm:503
-#: ../../main/core/src/EBox/RemoteServices.pm:544
+#: ../../main/core/src/EBox/RemoteServices.pm:505
+#: ../../main/core/src/EBox/RemoteServices.pm:546
 msgid "mail address"
 msgstr "e-posti aadress"
 
@@ -3852,7 +3852,7 @@ msgid "Sender policy"
 msgstr "Saatja reegel"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:154
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:156
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:158
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:77
 msgid "Virtual Domains"
 msgstr "Virtuaaldomeenid"
@@ -4459,7 +4459,7 @@ msgstr "Dünaamilise DNSi lubamine"
 
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:141
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:75
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:196
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:220
 #: ../../main/core/src/templates/login/index.mas:48
 msgid "Username"
 msgstr "Kasutajanimi"
@@ -4467,7 +4467,7 @@ msgstr "Kasutajanimi"
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:147
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:200
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -5375,7 +5375,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
-#: ../../main/mail/src/EBox/Mail.pm:1752 ../../main/mail/src/EBox/Mail.pm:1759
+#: ../../main/mail/src/EBox/Mail.pm:1758 ../../main/mail/src/EBox/Mail.pm:1765
 msgid "Filter type"
 msgstr "Filtri tüüp"
 
@@ -5688,7 +5688,7 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "Vahemik {from}-{to} sisaldab liidest IP addressiga: {ifaceIP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1854
+#: ../../main/mail/src/EBox/Mail.pm:1860
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 #, fuzzy
@@ -5706,7 +5706,7 @@ msgstr ""
 "Kellelt"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1855
+#: ../../main/mail/src/EBox/Mail.pm:1861
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
 #, fuzzy
@@ -6171,7 +6171,7 @@ msgstr "Lehekülge ei leitud"
 #: ../../main/core/src/EBox/RemoteServices/RESTResource/ConfBackup.pm:194
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:36
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:176
-#: ../../main/core/src/EBox/RemoteServices.pm:1353
+#: ../../main/core/src/EBox/RemoteServices.pm:1355
 msgid "Configuration backup"
 msgstr "Seadistuste varundamine"
 
@@ -7299,7 +7299,22 @@ msgstr "Administraator"
 msgid "administrator"
 msgstr "Administraator"
 
-#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:204
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:144
+#, perl-brace-format
+msgid "User \"{user}\" created and granted Zentyal administrative permissions"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:147
+#, perl-brace-format
+msgid "User \"{user}\" granted Zentyal administrative permissions"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:211
+#, perl-brace-format
+msgid "User \"{user}\" has its Zentyal administration permissions revoked"
+msgstr ""
+
+#: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:228
 msgid "The password must be at least 6 characters long"
 msgstr "Parool peab olema vähemalt 6 märki pikk"
 
@@ -7540,12 +7555,12 @@ msgid "Summarized report"
 msgstr "Kokkuvõtlik aruanne"
 
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:172
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:371
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:376
 msgid "logs"
 msgstr "logid"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:95
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:353
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:358
 msgid "Purge logs older than"
 msgstr "Puhasta logid, mis on vanemad kui"
 
@@ -7559,75 +7574,75 @@ msgid "Purge"
 msgstr "Puhasta"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:120
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:273
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:278
 msgid "one hour"
 msgstr "üks tund"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:124
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:277
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:282
 msgid "twelve hours"
 msgstr "kaksteist tundi"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:128
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:281
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:286
 msgid "one day"
 msgstr "üks päev"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:132
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:285
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:290
 msgid "three days"
 msgstr "kolm päeva"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:136
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:289
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:294
 msgid "one week"
 msgstr "üks nädal"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:140
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:293
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:298
 msgid "fifteeen days"
 msgstr "viisteist päeva"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:144
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:297
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:302
 msgid "thirty days"
 msgstr "kolmkümmend päeva"
 
 #: ../../main/core/src/EBox/Logs/Model/ForcePurge.pm:148
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:301
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:306
 msgid "ninety days"
 msgstr "üheksakümmend päeva"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:189
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:194
 #, perl-brace-format
 msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
 msgstr ""
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:254
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:259
 msgid ", "
 msgstr ""
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:269
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:274
 msgid "never purge"
 msgstr "ära puhasta kunagi"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:305
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:310
 #, fuzzy
 msgid "one year"
 msgstr "1 aasta"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:309
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:314
 #, fuzzy
 msgid "two years"
 msgstr "2 aastat"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:363
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:368
 msgid "Current configuration"
 msgstr "Aktiivsed seadistused"
 
-#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:369
+#: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:374
 msgid "Enable/disable logging per-module basis"
 msgstr "Mooduli alusel logimise lubamine või keelamine"
 
@@ -7669,7 +7684,7 @@ msgid "Enterprise"
 msgstr "Sisene"
 
 #: ../../main/core/src/EBox/RemoteServices.pm:79
-#: ../../main/core/src/EBox/RemoteServices.pm:1322
+#: ../../main/core/src/EBox/RemoteServices.pm:1324
 msgid "Premium"
 msgstr ""
 
@@ -7678,90 +7693,90 @@ msgstr ""
 msgid "Zentyal Remote Client"
 msgstr "eBoxi komponendid"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1010
+#: ../../main/core/src/EBox/RemoteServices.pm:1012
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1217
+#: ../../main/core/src/EBox/RemoteServices.pm:1219
 #, fuzzy
 msgid "Server Edition"
 msgstr "Serveri loomine"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1234
+#: ../../main/core/src/EBox/RemoteServices.pm:1236
 msgid "Not subscribed"
 msgstr "Ei ole tellitud"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1236
+#: ../../main/core/src/EBox/RemoteServices.pm:1238
 msgid "Subscribed"
 msgstr "Tellitud"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1286
+#: ../../main/core/src/EBox/RemoteServices.pm:1288
 #, fuzzy
 msgid "Server Information"
 msgstr "Üldine informatsioon"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1306
+#: ../../main/core/src/EBox/RemoteServices.pm:1308
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1319
+#: ../../main/core/src/EBox/RemoteServices.pm:1321
 msgid "Standard 2 days"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1320
+#: ../../main/core/src/EBox/RemoteServices.pm:1322
 msgid "Standard 1 day"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1321
+#: ../../main/core/src/EBox/RemoteServices.pm:1323
 msgid "Standard 4 hours"
 msgstr ""
 
 # #-#-#-#-#  et.po (ebox-remoteservices 1.4)  #-#-#-#-#
 #  
-#: ../../main/core/src/EBox/RemoteServices.pm:1325
+#: ../../main/core/src/EBox/RemoteServices.pm:1327
 #, fuzzy
 msgid "Configuration backup enabled"
 msgstr "Seadistuste varundamine"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1330
+#: ../../main/core/src/EBox/RemoteServices.pm:1332
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:155
 msgid "none"
 msgstr "puudub"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1333
+#: ../../main/core/src/EBox/RemoteServices.pm:1335
 msgid "unknown"
 msgstr "Tundmatu"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1335
+#: ../../main/core/src/EBox/RemoteServices.pm:1337
 #, fuzzy, perl-brace-format
 msgid "- Latest conf backup: {date}"
 msgstr "Olematu varundus: {n}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1337
+#: ../../main/core/src/EBox/RemoteServices.pm:1339
 #, perl-brace-format
 msgid "{oh}Register to store your backups in the cloud{ch}"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1342
+#: ../../main/core/src/EBox/RemoteServices.pm:1344
 #: ../../main/core/src/templates/remoteservices/index.mas:35
 #: ../../main/core/src/templates/remoteservices/index.mas:83
 #, fuzzy
 msgid "Server name"
 msgstr "Server {name}"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1344
+#: ../../main/core/src/EBox/RemoteServices.pm:1346
 #: ../../main/core/src/templates/remoteservices/index.mas:84
 #, fuzzy
 msgid "Server edition"
 msgstr "Serveri loomine"
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1347
+#: ../../main/core/src/EBox/RemoteServices.pm:1349
 msgid "Technical support"
 msgstr ""
 
-#: ../../main/core/src/EBox/RemoteServices.pm:1350
+#: ../../main/core/src/EBox/RemoteServices.pm:1352
 #, fuzzy
 msgid "Registered e-mail"
 msgstr "Sihtkoht"
@@ -8240,7 +8255,7 @@ msgid "The {x} module needs to be provisioned"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:369
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
 #, fuzzy, perl-brace-format
 msgid ""
@@ -8278,65 +8293,69 @@ msgid "Outlook Anywhere (no SSL)"
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:92
-msgid "RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version."
+msgid ""
+"RPC over HTTP access. MAPI/RPC over HTTP, non-SSL version. By default, HTTP "
+"protocol is blocked by Zentyal firewall."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:97
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:98
 msgid "Outlook Anywhere (SSL)"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:101
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:102
 msgid ""
 "RPC over HTTPS access. MAPI/RPC over HTTP, SSL enabled version. To enable "
 "this option you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:108
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:109
 msgid "Webmail"
 msgstr "Webmail"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:112
-msgid "Webmail and groupware platform. Non-SSL version."
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:113
+msgid ""
+"Webmail and groupware platform. Non-SSL version. By default HTTP protocol is "
+"blocked by Zentyal firewall."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:117
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:119
 #, fuzzy
 msgid "HTTPS webmail enabled"
 msgstr "Teenus lubatud"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:121
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:123
 msgid ""
 "Webmail and groupware platform. SSL enabled version. To enable this option "
 "you have to \"Issue Certificate\" first."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
 #, fuzzy
 msgid "Revoke certificate"
 msgstr "Sertifikaadi tühistamine"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:136
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:138
 #, fuzzy
 msgid "Certificate revoked"
 msgstr "Sertifikaat on juba tühistatud"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
 #, fuzzy
 msgid "Issue certificate"
 msgstr "Sertifikaadi uuendamine"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:142
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:144
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:150
 #, fuzzy
 msgid "Certificate issued"
 msgstr "Sertifikaadi fail"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:146
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:148
 #, fuzzy
 msgid "Revoke and reissue certificate"
 msgstr "Sertifikaadi tühistamine"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:157
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:159
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:85
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:66
@@ -8344,23 +8363,23 @@ msgstr "Sertifikaadi tühistamine"
 msgid "virtual domain"
 msgstr "virtuaaldomeen"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:162
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:164
 msgid ""
 "This table is summary of the attributes and access gateways associated with "
 "each virtual mail domain."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:423
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:425
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} already exists."
 msgstr "{data} {value} on juba olemas."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:442
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:444
 #, fuzzy, perl-brace-format
 msgid "Certificate for domain {x} does not exists."
 msgstr "Sertifikaati {cn} ei ole olemas"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:597
+#: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:599
 #, fuzzy, perl-brace-format
 msgid "There are not configured {oh}virtual domains{ch}."
 msgstr "Selles domeenis logid puuduvad"
@@ -8527,48 +8546,48 @@ msgstr "Muudatuste salvestamine moodulites"
 msgid "Enable OpenChange account"
 msgstr "Failide jagamise konto"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:201
+#: ../../main/openchange/src/EBox/OpenChange.pm:205
 msgid "Enable proxy, proxy_http and headers Apache 2 modules."
 msgstr ""
 
 # ei tea kas "webmail" on vaja aadressis tõlkida või mitte
-#: ../../main/openchange/src/EBox/OpenChange.pm:202
+#: ../../main/openchange/src/EBox/OpenChange.pm:206
 #, fuzzy
 msgid "To make OpenChange Webmail be accesible at http://ip/SOGo/."
 msgstr "Webmail on kättesaadav aadressil http://ip/webmail/"
 
 # deemon sobib?
-#: ../../main/openchange/src/EBox/OpenChange.pm:304
+#: ../../main/openchange/src/EBox/OpenChange.pm:308
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "clamd deemoni seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:309
+#: ../../main/openchange/src/EBox/OpenChange.pm:313
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Masina e-posti nime seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:314
+#: ../../main/openchange/src/EBox/OpenChange.pm:318
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Dovecoti seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:319
+#: ../../main/openchange/src/EBox/OpenChange.pm:323
 msgid "Remove RPC Proxy stock file to avoid interference"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:324
+#: ../../main/openchange/src/EBox/OpenChange.pm:328
 msgid "To make SOGo webmail available"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:329
+#: ../../main/openchange/src/EBox/OpenChange.pm:333
 #, fuzzy
 msgid "To make autodiscovery service available"
 msgstr "Dovecoti seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:736
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1723
-#: ../../main/mail/src/EBox/Mail.pm:1887
+#: ../../main/openchange/src/EBox/OpenChange.pm:767
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1729
+#: ../../main/mail/src/EBox/Mail.pm:1893
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "E-post"
@@ -8577,34 +8596,34 @@ msgstr "E-post"
 msgid "Software Management"
 msgstr "Tarkvara haldamine"
 
-#: ../../main/software/src/EBox/Software.pm:467
+#: ../../main/software/src/EBox/Software.pm:473
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:469
+#: ../../main/software/src/EBox/Software.pm:475
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:565
+#: ../../main/software/src/EBox/Software.pm:571
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:660
+#: ../../main/software/src/EBox/Software.pm:666
 #, fuzzy
 msgid "Zentyal Components"
 msgstr "eBoxi komponendid"
 
-#: ../../main/software/src/EBox/Software.pm:662
+#: ../../main/software/src/EBox/Software.pm:668
 msgid "System Updates"
 msgstr "Süsteemiuuendused"
 
-#: ../../main/software/src/EBox/Software.pm:905
+#: ../../main/software/src/EBox/Software.pm:911
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -8612,22 +8631,22 @@ msgstr ""
 "Tarkvara haldamine on hetkel {locker} poolt lukustatud. Palun proovi hiljem "
 "uuesti"
 
-#: ../../main/software/src/EBox/Software.pm:1062
+#: ../../main/software/src/EBox/Software.pm:1068
 msgid "Package Selection"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:1063
+#: ../../main/software/src/EBox/Software.pm:1069
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:34
 #, fuzzy
 msgid "Installation"
 msgstr "Paigalda"
 
-#: ../../main/software/src/EBox/Software.pm:1064
+#: ../../main/software/src/EBox/Software.pm:1070
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "Automaatse uuendamise seadistamine"
 
-#: ../../main/software/src/EBox/Software.pm:1065
+#: ../../main/software/src/EBox/Software.pm:1071
 msgid "Save Changes"
 msgstr ""
 
@@ -10993,12 +11012,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:230
-#: ../../main/mail/src/EBox/Mail.pm:569
+#: ../../main/mail/src/EBox/Mail.pm:575
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Module/Kerberos.pm:287
-#: ../../main/mail/src/EBox/Mail.pm:544
+#: ../../main/mail/src/EBox/Mail.pm:550
 #, perl-brace-format
 msgid ""
 "Unexpected number of LDAP entries found searching for {dn}: Expected one, "
@@ -12358,27 +12377,27 @@ msgstr "Amavisi seadistamiseks"
 msgid "To let dovecot authenticate users using PAM"
 msgstr "dovecoti LDAP vastu autentimise seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:457
+#: ../../main/mail/src/EBox/Mail.pm:463
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:466
+#: ../../main/mail/src/EBox/Mail.pm:472
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:467
+#: ../../main/mail/src/EBox/Mail.pm:473
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:476
+#: ../../main/mail/src/EBox/Mail.pm:482
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:477
+#: ../../main/mail/src/EBox/Mail.pm:483
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1085
+#: ../../main/mail/src/EBox/Mail.pm:1091
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -12386,158 +12405,158 @@ msgstr ""
 "Masinanime ei saa e-posti nimena kasutada, kuna see ei ole täielikult "
 "kvalifitseeruv nimi. Palun defineeri kohandatud serveri e-posti nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:1090
+#: ../../main/mail/src/EBox/Mail.pm:1096
 msgid "The mail name must be a fully qualified name"
 msgstr "E-posti nimi peab olema täielikult kvalifitseeruv nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:1094 ../../main/mail/src/EBox/Mail.pm:1105
-#: ../../main/mail/src/EBox/Mail.pm:1113
+#: ../../main/mail/src/EBox/Mail.pm:1100 ../../main/mail/src/EBox/Mail.pm:1111
+#: ../../main/mail/src/EBox/Mail.pm:1119
 msgid "Host mail name"
 msgstr "Masina e-posti nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:1108
+#: ../../main/mail/src/EBox/Mail.pm:1114
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "E-posti nimi ja virtuaalse e-posti domeeni nimi on võrdsed"
 
-#: ../../main/mail/src/EBox/Mail.pm:1669
+#: ../../main/mail/src/EBox/Mail.pm:1675
 msgid "SMTP service"
 msgstr "SMTP teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1676
+#: ../../main/mail/src/EBox/Mail.pm:1682
 msgid "POP3 service"
 msgstr "POP3 teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1682
+#: ../../main/mail/src/EBox/Mail.pm:1688
 msgid "POP3S service"
 msgstr "POP3S teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1688
+#: ../../main/mail/src/EBox/Mail.pm:1694
 msgid "IMAP service"
 msgstr "IMAP teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1694
+#: ../../main/mail/src/EBox/Mail.pm:1700
 msgid "IMAPS service"
 msgstr "IMAPS teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1738
+#: ../../main/mail/src/EBox/Mail.pm:1744
 msgid "enabled"
 msgstr "lubatud"
 
-#: ../../main/mail/src/EBox/Mail.pm:1743
+#: ../../main/mail/src/EBox/Mail.pm:1749
 msgid "Mail server's filter"
 msgstr "E-posti serveri filter"
 
-#: ../../main/mail/src/EBox/Mail.pm:1797
+#: ../../main/mail/src/EBox/Mail.pm:1803
 msgid "Virtual Mail Domains"
 msgstr "Virtuaalsed e-posti domeenid"
 
-#: ../../main/mail/src/EBox/Mail.pm:1804
+#: ../../main/mail/src/EBox/Mail.pm:1810
 msgid "Greylist"
 msgstr "Greylist"
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1817
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Järjekorra haldamine"
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1844
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Kirjade hankimine välistelt kontodelt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1853
+#: ../../main/mail/src/EBox/Mail.pm:1859
 msgid "Message ID"
 msgstr "Sõnumi ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1856
+#: ../../main/mail/src/EBox/Mail.pm:1862
 msgid "From hostname"
 msgstr "Masinanimelt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1857
+#: ../../main/mail/src/EBox/Mail.pm:1863
 msgid "From host ip"
 msgstr "Masina IP aadressilt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1858
+#: ../../main/mail/src/EBox/Mail.pm:1864
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Suurus (baitides)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1859
+#: ../../main/mail/src/EBox/Mail.pm:1865
 msgid "Relay"
 msgstr "Edastamine"
 
-#: ../../main/mail/src/EBox/Mail.pm:1860
+#: ../../main/mail/src/EBox/Mail.pm:1866
 msgid "Message type"
 msgstr "Sõnumi tüüp"
 
-#: ../../main/mail/src/EBox/Mail.pm:1863
+#: ../../main/mail/src/EBox/Mail.pm:1869
 msgid "Additional Info"
 msgstr "Lisainfo"
 
 # koodis 'msgsent'
-#: ../../main/mail/src/EBox/Mail.pm:1874
+#: ../../main/mail/src/EBox/Mail.pm:1880
 msgid "Successful messages"
 msgstr "Edukalt saadetud sõnumid"
 
-#: ../../main/mail/src/EBox/Mail.pm:1875
+#: ../../main/mail/src/EBox/Mail.pm:1881
 msgid "Maximum message size exceeded"
 msgstr "Maksimaalse suuruse ületanud sõnumid"
 
 # koodis 'maxusrsize'
-#: ../../main/mail/src/EBox/Mail.pm:1876
+#: ../../main/mail/src/EBox/Mail.pm:1882
 #, fuzzy
 msgid "User quota exceeded"
 msgstr "Kasutajakvoot ületatud"
 
 # Edastamise juurdepääs keelatud
-#: ../../main/mail/src/EBox/Mail.pm:1877
+#: ../../main/mail/src/EBox/Mail.pm:1883
 msgid "Relay access denied"
 msgstr "Edastamine keelatud"
 
-#: ../../main/mail/src/EBox/Mail.pm:1878
+#: ../../main/mail/src/EBox/Mail.pm:1884
 msgid "Account does not exist"
 msgstr "Kontot ei ole olemas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1879
+#: ../../main/mail/src/EBox/Mail.pm:1885
 msgid "Host unreachable"
 msgstr "Masin kättesaamatu"
 
-#: ../../main/mail/src/EBox/Mail.pm:1880
+#: ../../main/mail/src/EBox/Mail.pm:1886
 msgid "Authentication error"
 msgstr "Autentimise viga"
 
-#: ../../main/mail/src/EBox/Mail.pm:1881
+#: ../../main/mail/src/EBox/Mail.pm:1887
 msgid "Greylisted"
 msgstr "Greylistis"
 
-#: ../../main/mail/src/EBox/Mail.pm:1882
+#: ../../main/mail/src/EBox/Mail.pm:1888
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1883
+#: ../../main/mail/src/EBox/Mail.pm:1889
 msgid "Other events"
 msgstr "Muud sündmused"
 
-#: ../../main/mail/src/EBox/Mail.pm:1955
+#: ../../main/mail/src/EBox/Mail.pm:1961
 msgid "Mail SMTP server"
 msgstr "SMTP server"
 
-#: ../../main/mail/src/EBox/Mail.pm:1963
+#: ../../main/mail/src/EBox/Mail.pm:1969
 msgid "Mail POP/IMAP server"
 msgstr "POP/IMAP server"
 
-#: ../../main/mail/src/EBox/Mail.pm:2040
+#: ../../main/mail/src/EBox/Mail.pm:2046
 msgid "Mailboxes"
 msgstr "Postkastid"
 
-#: ../../main/mail/src/EBox/Mail.pm:2082
+#: ../../main/mail/src/EBox/Mail.pm:2088
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:2117
+#: ../../main/mail/src/EBox/Mail.pm:2123
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
