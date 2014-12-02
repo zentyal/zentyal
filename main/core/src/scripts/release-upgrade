@@ -103,6 +103,7 @@ then
 
     /usr/share/zentyal/initial-setup samba 3.2
     service zentyal samba restart > /dev/null 2>&1
+    /usr/share/zentyal/initial-setup mail 3.2
 
     # Restart regular webserver, firewall, Zentyal UI and logs
     service apache2 restart
