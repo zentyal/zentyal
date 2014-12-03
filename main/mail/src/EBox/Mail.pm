@@ -277,6 +277,7 @@ sub initialSetup
 
             # Do the chain only for 3.5 upgrade, for 3.2 just move to the new path
             if (EBox::Util::Version::compare($version, '3.3') < 0) {
+                EBox::Sudo::silentRoot('rm /etc/dovecot/private/dovecot.pem');
                 EBox::Sudo::silentRoot('cp /etc/dovecot/ssl/dovecot.pem /etc/dovecot/private/dovecot.pem');
             } else {
                 $self->_chainDovecotCertificate();
