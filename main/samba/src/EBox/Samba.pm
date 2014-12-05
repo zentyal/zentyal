@@ -464,6 +464,20 @@ sub _migrateTo35
                         my $value = $entry->get_value($attr);
                         $user->set($attr, $value, 1) if defined ($value);
                     }
+
+                    my $mail = EBox::Global->modInstance('mail');
+                    if ($entry->get_value('mailbox') and defined ($mail) and $mail->configured()) {
+                        unless ($user->hasValue('objectClass', 'userZentyalMail')) {
+                            my @objectclass = $user->get('objectClass');
+                            push (@objectclass, 'userZentyalMail');
+                            $user->set('objectClass', \@objectclass);
+                        }
+                        for my $attr (qw(mail mailbox userMaildirSize mailquota mailHomeDirectory) {
+                            my $value = $entry->get_value($attr);
+                            $user->set($attr, $value, 1) if defined ($value);
+                        }
+                    }
+
                     $user->save();
                 }
             } elsif (defined $gidNumber) {
@@ -2629,7 +2643,7 @@ sub restoreBackupPreCheck
     my $hostnameFile = "$dir/oldhostname";
     if (-r $hostnameFile) {
         $oldHostname = File::Slurp::read_file($hostnameFile);
-    } 
+    }
     if ($oldHostname) {
         my $hostname  =  `hostname --fqdn`;
         chomp $hostname;
