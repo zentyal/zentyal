@@ -1,3 +1,5 @@
+HEAD
+	+ Do not allow user management until changes are saved
 3.2.16
 	+ Fixed possible bad mode instantation when restarting module
 	+ Ignore cloud-sync warnings from cron
