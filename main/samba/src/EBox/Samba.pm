@@ -472,7 +472,7 @@ sub _migrateTo35
                             push (@objectclass, 'userZentyalMail');
                             $user->set('objectClass', \@objectclass);
                         }
-                        for my $attr (qw(mail mailbox userMaildirSize mailquota mailHomeDirectory) {
+                        for my $attr (qw(mail mailbox userMaildirSize mailquota mailHomeDirectory)) {
                             my $value = $entry->get_value($attr);
                             $user->set($attr, $value, 1) if defined ($value);
                         }
