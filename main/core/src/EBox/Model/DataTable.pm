@@ -682,7 +682,6 @@ sub notifyForeignModelAction
 sub addRow
 {
     my ($self, %params) = @_;
-
     $self->validateRow('add', %params);
 
     my $userData = {};

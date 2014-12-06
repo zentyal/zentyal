@@ -1,3 +1,5 @@
+HEAD
+	+ Manage correctly internal errors in data table controller
 4.0.3
 	+ More robust management of administration user accounts
 	+ Fix not defined domain in log's ConfigureLogs model
