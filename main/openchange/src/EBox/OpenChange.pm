@@ -655,6 +655,7 @@ sub _setOCSManagerConf
                 push (@{$params}, rpcproxy => $rpcProxyHttp);
                 push (@{$params}, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
                 push (@{$params}, webmail => $webmailHttp);
+                push (@{$params}, debug => EBox::Config::boolean('debug'));
 
                 my $conf = "${fid}-zentyal-ocsmanager-${domain}";
                 my $file = "/etc/apache2/conf-available/$conf.conf";
