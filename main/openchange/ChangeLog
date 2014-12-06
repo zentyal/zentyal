@@ -1,4 +1,5 @@
 HEAD
+	+ Set RPC Proxy log level to debug only when debug is enabled
 	+ ActiveSync needs to have a HTTPS webmail enabled. Also handling
 	  Z-Push config files
 	+ Updated vdomains model strings warning about HTTP usage
