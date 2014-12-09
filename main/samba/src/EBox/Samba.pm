@@ -1397,10 +1397,6 @@ sub _daemons
         return ($self->mode() eq STANDALONE_MODE);
     };
 
-    my $enabledAndProvisioned = sub {
-        return ($self->isEnabled() and $self->isProvisioned());
-    };
-
     return [
         {
             name => 'samba-ad-dc',
@@ -1420,9 +1416,18 @@ sub _daemons
         },
         {
             name => 'zentyal.set-uid-gid-numbers',
-            precondition => $enabledAndProvisioned,
+            precondition => \&_uidSyncEnabled,
         },
     ];
+}
+
+sub _uidSyncEnabled
+{
+    my ($self) = @_;
+
+    return 0 if EBox::Config::boolean('disable_uid_sync');
+
+    return ($self->isEnabled() and $self->isProvisioned());
 }
 
 # Method: _daemonsToDisable
