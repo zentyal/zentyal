@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-12-01 03:15+0200\n"
+"PO-Revision-Date: 2014-12-09 00:03+0200\n"
 "Last-Translator: Tomáš <tbittner@itoutsourcing.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1744
 msgid "disabled"
-msgstr "Vypnutý"
+msgstr "Vypnuto"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -31,7 +31,7 @@ msgstr "Adresa serveru"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Musíte zadat alespoň jednu adresu serveru {název}"
+msgstr "Musíte zadat alespoň jednu adresu serveru {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
@@ -368,7 +368,7 @@ msgstr "Jméno"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:75
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:139
 msgid "Configuration"
-msgstr "Nastavení"
+msgstr "Konfigurace"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
@@ -417,7 +417,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
-msgstr "Vytváření serveru"
+msgstr "Vytvoření serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""
@@ -437,12 +437,12 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
-"není možné, protože nejsou dostupné žádné certifikáty. Prosím, v modulu "
-"Certifikační autority vytvořte nové certifikáty"
+"{act} není možné, protože nejsou dostupné žádné certifikáty. Prosím, v "
+"modulu Certifikační autority vytvořte nové certifikáty"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
-msgstr "zrušeny"
+msgstr "zrušeno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 #, fuzzy
@@ -629,7 +629,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Instalátor je k dispozici pouze pro klienty Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:300
 msgid ""
@@ -652,7 +652,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
-msgstr ""
+msgstr "VPN adresa"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
@@ -660,7 +660,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
-msgstr ""
+msgstr "Certifikát serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
@@ -747,7 +747,7 @@ msgstr "Další server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr ""
+msgstr "Konfigurace serveru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
@@ -836,7 +836,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:303
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 msgid "Enable"
-msgstr ""
+msgstr "Aktivní"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:84
 msgid "Upload client bundle"
@@ -848,7 +848,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:105
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN klienti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:149
 msgid ""
@@ -866,7 +866,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:65
 msgid "daemon"
-msgstr ""
+msgstr "démon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
 #, fuzzy
@@ -945,11 +945,11 @@ msgstr "Mail doména {d} neexistuje"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1286
 msgid "Servers"
-msgstr ""
+msgstr "Servery"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1293
 msgid "Clients"
-msgstr ""
+msgstr "Klienti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 msgid "Common name"
@@ -1017,11 +1017,11 @@ msgstr "Událost"
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:27
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 msgid "Remote IP"
-msgstr ""
+msgstr "Vzdálená IP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1484
 msgid "Remote Certificate"
@@ -1072,7 +1072,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
 #: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
 msgid "High Availability"
-msgstr ""
+msgstr "Vysoká dostupnost"
 
 #: ../../main/ha/src/EBox/HA.pm:117 ../../main/core/src/EBox/SysInfo.pm:110
 #: ../../main/core/src/EBox/RemoteServices.pm:1214
@@ -1104,7 +1104,7 @@ msgstr "Zastavit nebo restartovat"
 #: ../../main/core/src/EBox/Backup.pm:460
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:36
 msgid "Unknown"
-msgstr ""
+msgstr "Neznámo"
 
 #: ../../main/ha/src/EBox/HA.pm:1012
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:392
@@ -1287,7 +1287,7 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "Opakovat"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
@@ -1417,7 +1417,7 @@ msgstr "Zdroj"
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
 #: ../../main/samba/src/EBox/Samba.pm:3750
 msgid "Resource"
-msgstr ""
+msgstr "Prostředky"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:114
 msgid "Started at"
@@ -1741,7 +1741,7 @@ msgstr "Zdrojový port"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 msgid "Target"
-msgstr ""
+msgstr "Cíl"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
 #, fuzzy
@@ -1941,7 +1941,7 @@ msgstr "Jmenné servery"
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} záznamy"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:666
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:219
@@ -2020,7 +2020,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "{txt} záznam"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:69
 #, perl-brace-format
@@ -2082,7 +2082,7 @@ msgstr ""
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:32
 msgid "user"
-msgstr ""
+msgstr "uživatel"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
@@ -2105,7 +2105,7 @@ msgstr "Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
 msgid "Allow SSL"
-msgstr ""
+msgstr "Povolit SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
 msgid "Force SSL"
@@ -2113,7 +2113,7 @@ msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:122
 msgid "Jabber domain"
-msgstr ""
+msgstr "Jabber doména"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:123
 #, fuzzy
@@ -2122,7 +2122,7 @@ msgstr "IP adresa serveru"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
 msgid "SSL support"
-msgstr ""
+msgstr "podpora SSL"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
 #, fuzzy
@@ -2209,7 +2209,7 @@ msgstr ""
 #: ../../main/jabber/src/EBox/Jabber/Model/JabberUser.pm:50
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:73
 msgid "Jabber Account"
-msgstr ""
+msgstr "Jabber Účet"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:60
 msgid "Add Jabber LDAP schema"
@@ -2230,7 +2230,7 @@ msgstr "Jabber server"
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:64
 msgid "Jabber account"
-msgstr ""
+msgstr "Jabber účet"
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:180
 msgid ""
@@ -2254,7 +2254,7 @@ msgstr "Tiskárna"
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:133
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:299
 msgid "User/Group"
-msgstr ""
+msgstr "Uživatel/Skupina"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:168
 #: ../../main/printers/src/EBox/Printers.pm:47
@@ -2288,12 +2288,12 @@ msgstr "Uživatel"
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
 #: ../../main/samba/src/templates/adduser.mas:59
 msgid "Group"
-msgstr ""
+msgstr "Skupina"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:222
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:318
 msgid "Permissions"
-msgstr ""
+msgstr "Oprávnění"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:230
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:327
@@ -2385,7 +2385,7 @@ msgstr "Akce"
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
 msgid "Guest access"
-msgstr ""
+msgstr "Přístup hosta"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:76
 #, fuzzy
@@ -2487,7 +2487,7 @@ msgstr "Ve frontě"
 
 #: ../../main/printers/src/EBox/Printers.pm:402
 msgid "Completed"
-msgstr ""
+msgstr "Dokončený"
 
 #: ../../main/printers/src/EBox/Printers.pm:403
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:31
@@ -2598,7 +2598,7 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA.pm:1432
 msgid "or"
-msgstr ""
+msgstr "nebo"
 
 #: ../../main/ca/src/EBox/CA.pm:1433
 msgid "Certificate file"
@@ -2624,7 +2624,7 @@ msgstr "Hlavní"
 #: ../../main/ca/src/EBox/CA.pm:1779
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:320
 msgid "Services Certificates"
-msgstr ""
+msgstr "Certifikáty Služeb"
 
 #: ../../main/ca/src/EBox/CA.pm:1892
 msgid "Not created"
@@ -2632,11 +2632,11 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA.pm:1894
 msgid "Available"
-msgstr ""
+msgstr "Dostupný"
 
 #: ../../main/ca/src/EBox/CA.pm:1896
 msgid "Created but not available"
-msgstr ""
+msgstr "Vytvořen, ale není dostupný"
 
 #: ../../main/ca/src/EBox/CA.pm:1922
 #, fuzzy
@@ -3241,7 +3241,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:39
 msgid "External connections"
-msgstr ""
+msgstr "Externí připojení"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/FileFilter.pm:39
 msgid "Attached Files Filter"
@@ -3905,12 +3905,12 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:96
 #: ../../main/network/src/EBox/Network/CGI/VIface.pm:66
 msgid "netmask"
-msgstr ""
+msgstr "maska sítě"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:104
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:49
 msgid "user name"
-msgstr ""
+msgstr "uživatelské jméno"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:105
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:91
@@ -3942,7 +3942,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:31
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:42
 msgid "Network Diagnostic Tools"
-msgstr ""
+msgstr "Síťové diagnostické nástroje"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
@@ -3999,7 +3999,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:53
 msgid "Gateways and Proxy"
-msgstr ""
+msgstr "Brány a Proxy"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:59
 #, fuzzy
@@ -4195,11 +4195,11 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:209
 msgid "Default"
-msgstr ""
+msgstr "Výchozí"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:219
 msgid "Gateways List"
-msgstr ""
+msgstr "Brány Seznam"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:235
 msgid ""
@@ -4212,7 +4212,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:237
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:84
 msgid "gateway"
-msgstr ""
+msgstr "brána"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:275
 #, fuzzy, perl-brace-format
@@ -4269,7 +4269,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:70
 msgid "Gateway"
-msgstr ""
+msgstr "Brána"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:77
 msgid "Gateways for Traffic Balance"
@@ -4481,12 +4481,12 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:210
 msgid "Static Routes List"
-msgstr ""
+msgstr "Seznam statických tras"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:211
 #: ../../main/network/src/EBox/Network.pm:4549
 msgid "Static Routes"
-msgstr ""
+msgstr "Statické trasy"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:216
 msgid ""
@@ -4594,7 +4594,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:128
 #: ../../main/network/src/templates/ifaces.mas:233
 msgid "Netmask"
-msgstr ""
+msgstr "Maska sítě"
 
 #: ../../main/network/src/EBox/Network.pm:1139
 #, fuzzy, perl-brace-format
@@ -4672,15 +4672,15 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:4442
 #: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
-msgstr ""
+msgstr "Nahozeno"
 
 #: ../../main/network/src/EBox/Network.pm:4447
 msgid "external"
-msgstr ""
+msgstr "externí"
 
 #: ../../main/network/src/EBox/Network.pm:4449
 msgid "internal"
-msgstr ""
+msgstr "interní"
 
 #: ../../main/network/src/EBox/Network.pm:4455
 msgid "link ok"
@@ -4707,7 +4707,7 @@ msgstr "Rozhraní (mn.č.)"
 
 #: ../../main/network/src/EBox/Network.pm:4541
 msgid "Gateways"
-msgstr ""
+msgstr "Brány"
 
 #: ../../main/network/src/EBox/Network.pm:4553
 #, fuzzy
@@ -4716,7 +4716,7 @@ msgstr "Dynamický"
 
 #: ../../main/network/src/EBox/Network.pm:4557
 msgid "Tools"
-msgstr ""
+msgstr "Nástroje"
 
 #: ../../main/objects/src/EBox/Objects.pm:39
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:85
@@ -4854,7 +4854,7 @@ msgstr ""
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:950
 #: ../../main/samba/src/EBox/Samba/CGI/EditGroup.pm:71
 msgid "type"
-msgstr ""
+msgstr "typ"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:973
 #, perl-brace-format
@@ -4942,7 +4942,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:134
 msgid "Limited rate"
-msgstr ""
+msgstr "Omezená rychlost"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:153
 #, perl-brace-format
@@ -5050,7 +5050,7 @@ msgstr "Vše"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:93
 msgid "External Interface"
-msgstr ""
+msgstr "Externí rozhraní"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
@@ -5089,7 +5089,7 @@ msgstr "Všechny vnější rozhraní"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:72
 msgid "options"
-msgstr ""
+msgstr "možnosti"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:99
 #, fuzzy, perl-brace-format
@@ -5722,7 +5722,7 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:37
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:32
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Konfigurace zálohování"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:76
 msgid "Making remote backup"
@@ -5807,7 +5807,7 @@ msgstr "Prosím, potvrďte, že chcete odstranit tyto záložní soubory:"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:117
 msgid "Overwrite"
-msgstr ""
+msgstr "Přepsat"
 
 #: ../../main/core/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:139
 #, perl-brace-format
@@ -6337,7 +6337,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo.pm:480
 msgid "Running unmanaged"
-msgstr ""
+msgstr "Neřízený běh"
 
 #: ../../main/core/src/EBox/SysInfo.pm:481
 #, fuzzy
@@ -6404,6 +6404,8 @@ msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module "
 "Status{ch} section, otherwise your changes won't have any effect."
 msgstr ""
+"Modul {mod} není aktivován. Nezapomeňte ho aktivovat v části {oh} Stav "
+"modulů {ch}, jinak změny nebudou mít žádný vliv."
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:69
 #, perl-brace-format
@@ -6751,7 +6753,7 @@ msgstr "Změna datumu a času"
 #: ../../main/network/src/templates/ifaces.mas:177
 #: ../../main/samba/src/templates/adduser.mas:14
 msgid "User name"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:49
 #, fuzzy
@@ -6760,7 +6762,7 @@ msgstr "Změny uloženy"
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:58
 msgid "Your password must be at least 6 characters long."
-msgstr ""
+msgstr "Heslo musí být dlouhé minimálně 6 znaků."
 
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:63
 #, fuzzy
@@ -6940,11 +6942,15 @@ msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
 msgstr ""
+"Pokud je povolena synchronizace NTP s externími servery, nelze změnit datum "
+"a čas."
 
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:52
 msgid ""
 "You will probably have to restart some services after changing the time zone."
 msgstr ""
+"Pravděpodobně budete muset restartovat některé služby po změně časového "
+"pásma nebo restartujte počítač."
 
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:205
 #, perl-brace-format
@@ -7471,7 +7477,7 @@ msgstr "Stránka"
 #: ../../main/core/src/EBox/Model/DataTable.pm:4596
 #, perl-brace-format
 msgid "Page {i} of {n}"
-msgstr ""
+msgstr "Stránka {i} z {n}"
 
 #: ../../main/core/src/EBox/Model/Composite.pm:224
 #, perl-brace-format
@@ -7553,7 +7559,7 @@ msgstr "Podsítě"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:126
 msgid "Move"
-msgstr ""
+msgstr "Přemístit"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:130
 #, fuzzy
@@ -7562,7 +7568,7 @@ msgstr "Nastavení"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:149
 msgid "Login"
-msgstr ""
+msgstr "Přihlášení"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:151
 msgid "Failed login"
@@ -7897,7 +7903,7 @@ msgstr "Nastavit widgety"
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:128
 msgid "Setup"
-msgstr ""
+msgstr "Nastavení"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
 #, fuzzy
@@ -8157,7 +8163,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:241
 msgid "Installing"
-msgstr ""
+msgstr "Instalování"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:242
 #: ../../main/software/src/templates/del.mas:30
@@ -8282,7 +8288,7 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Vstup"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 #, fuzzy
@@ -8377,7 +8383,7 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:313
 msgid "Other"
-msgstr ""
+msgstr "Další"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:321
 #, fuzzy
@@ -8662,7 +8668,7 @@ msgstr "Nová hesla se neshodují."
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:43
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:186
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditContact.pm:68
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:86
@@ -8736,7 +8742,7 @@ msgstr "Mail"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:92
 msgid "confirm password"
-msgstr ""
+msgstr "potvrzení hesla"
 
 #: ../../main/samba/src/EBox/Samba/CGI/EditUser.pm:168
 #: ../../main/samba/src/EBox/Samba/CGI/AddUser.pm:74
@@ -8855,7 +8861,7 @@ msgstr "Uživatelské šablony"
 
 #: ../../main/samba/src/EBox/Samba/Composite/RecycleBin.pm:58
 msgid "Recycle Bin"
-msgstr ""
+msgstr "Koš"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
 #: ../../main/samba/src/EBox/Samba.pm:2319
@@ -9398,7 +9404,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
 msgid "Apply ACLs recursively"
-msgstr ""
+msgstr "Použít ACL rekurzivně"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
 msgid "ACL changes replace all permissions on subfolders of this share."
@@ -9407,7 +9413,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:221
 msgid "Shares"
-msgstr ""
+msgstr "Sdílení"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:152
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:121
@@ -9532,7 +9538,7 @@ msgstr "Distribuční skupiny"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:185
 msgid "Computers"
-msgstr ""
+msgstr "Počítače"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:222
 #, fuzzy
@@ -9728,7 +9734,7 @@ msgstr "externí mail server"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:106
 msgid "path"
-msgstr ""
+msgstr "cesta"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
 msgid "Logon Scripts"
@@ -9793,7 +9799,7 @@ msgstr "Výchozí kvóta"
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:56
 #: ../../main/samba/src/templates/edituser.mas:304
 msgid "Limited to"
-msgstr ""
+msgstr "Omezeno na"
 
 #: ../../main/samba/src/EBox/Samba/Model/AccountSettings.pm:58
 msgid "Mb"
@@ -9929,7 +9935,7 @@ msgstr "Jen pro čtení"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:105
 msgid "Read and write"
-msgstr ""
+msgstr "Číst a zapisovat"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:109
 msgid "Administrator"
@@ -10049,7 +10055,7 @@ msgstr ""
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:99
 msgid "Version"
-msgstr ""
+msgstr "Verze"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:51
 msgid "Deployment State"
@@ -10565,11 +10571,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba.pm:3761
 msgid "Remove directory"
-msgstr ""
+msgstr "Odstranit adresář"
 
 #: ../../main/samba/src/EBox/Samba.pm:3762
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
 #: ../../main/samba/src/EBox/Samba.pm:3769
 #: ../../main/samba/src/EBox/Samba.pm:3780
@@ -10588,7 +10594,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:3782
 #: ../../main/samba/src/EBox/Samba.pm:3785
 msgid "Quarantine"
-msgstr ""
+msgstr "Karanténa"
 
 #: ../../main/samba/src/EBox/Samba.pm:3788
 msgid "Samba access"
@@ -10796,7 +10802,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
-msgstr ""
+msgstr "Filtrovaný"
 
 #: ../../main/squid/src/EBox/Squid.pm:1256
 #, perl-brace-format
@@ -13078,7 +13084,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/diag.mas:31
 msgid "Wake On LAN"
-msgstr ""
+msgstr "Probudit v LAN"
 
 #: ../../main/network/src/templates/diag.mas:50
 msgid "Other..."
@@ -13086,7 +13092,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/diag.mas:64
 msgid "Wake"
-msgstr ""
+msgstr "Probudit"
 
 #: ../../main/network/src/templates/confirm.mas:21
 msgid ""
@@ -13111,7 +13117,7 @@ msgstr ""
 #: ../../main/network/src/templates/wizard/network.mas:41
 #: ../../main/network/src/templates/ifaces.mas:67
 msgid "Method"
-msgstr ""
+msgstr "Metoda"
 
 #: ../../main/network/src/templates/wizard/network.mas:41
 msgid "Don't configure"
@@ -13197,13 +13203,15 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:117
 msgid "External (WAN)"
-msgstr ""
+msgstr "Externí (WAN)"
 
 #: ../../main/network/src/templates/ifaces.mas:118
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
+"Zaškrtněte, pokud používáte Zentyal jako bránu, a toto rozhraní je připojeno "
+"k internetu směr router."
 
 #: ../../main/network/src/templates/ifaces.mas:154
 msgid "Bridge"
@@ -13220,7 +13228,7 @@ msgstr ""
 
 #: ../../main/network/src/templates/ifaces.mas:229
 msgid "Virtual Interfaces"
-msgstr ""
+msgstr "Virtuální Rozhraní"
 
 #: ../../main/core/src/templates/login/index.mas:42
 msgid "Warning: Caps Lock is enabled"
@@ -13273,6 +13281,9 @@ msgid ""
 "you may need to manually rewrite the url in order to access this "
 "administration interface again."
 msgstr ""
+"Pokud jste provedli změny u síťových rozhraní nebo ve správě portů, může být "
+"nutné ručně přepsat url, aby jste měli znovu přístup k tomuto "
+"administračnímu rozhraní."
 
 #: ../../main/core/src/templates/finish.mas:46
 #, fuzzy
@@ -13282,7 +13293,7 @@ msgstr "Ukládání změn"
 #: ../../main/core/src/templates/finish.mas:51
 #: ../../main/software/src/templates/welcome.mas:10
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: ../../main/core/src/templates/finish.mas:52
 msgid "Discard changes"
@@ -13408,7 +13419,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "Display help notes"
-msgstr ""
+msgstr "Zobrazit nápovědu"
 
 #: ../../main/core/src/templates/title.mas:23
 msgid "show help"
@@ -13463,7 +13474,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/logs/index.mas:24
 msgid "Select available full reports"
-msgstr ""
+msgstr "Vybrat dostupnou volbu pro úplné zprávy"
 
 #: ../../main/core/src/templates/logs/index.mas:35
 msgid "View"
@@ -13471,11 +13482,11 @@ msgstr ""
 
 #: ../../main/core/src/templates/logs/index.mas:44
 msgid "Custom query"
-msgstr ""
+msgstr "Vlastní dotaz"
 
 #: ../../main/core/src/templates/logs/index.mas:47
 msgid "From date:"
-msgstr ""
+msgstr "Od data:"
 
 #: ../../main/core/src/templates/logs/index.mas:57
 #: ../../main/core/src/templates/ajax/setter/dateSetter.mas:34
@@ -13727,7 +13738,7 @@ msgstr "Aktualizace systému"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:67
 msgid "End date"
-msgstr ""
+msgstr "Datum ukončení"
 
 #: ../../main/core/src/templates/remoteservices/index.mas:82
 #, fuzzy
@@ -13746,7 +13757,7 @@ msgstr "ID Zprávy"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:25
 msgid "Free"
-msgstr ""
+msgstr "Volný"
 
 #: ../../main/core/src/templates/remoteservices/subscriptionSlotsTbody.mas:43
 #: ../../main/software/src/templates/welcome.mas:10
@@ -13847,7 +13858,7 @@ msgstr "Záloha konfigurace"
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:171
 #: ../../main/core/src/templates/backup.mas:200
 msgid "restore"
-msgstr ""
+msgstr "obnovit"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:175
 #: ../../main/core/src/templates/backup.mas:199
@@ -13862,11 +13873,11 @@ msgstr "Záloha konfigurace"
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:188
 #: ../../main/core/src/templates/remoteservices/Backup/confirm.mas:59
 msgid "Company"
-msgstr ""
+msgstr "Společnost"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
 #, fuzzy
@@ -14024,7 +14035,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:140
 msgid "Configuration only"
-msgstr ""
+msgstr "Pouze konfigurace"
 
 #: ../../main/core/src/templates/backup.mas:141
 msgid "Unknown type"
@@ -14126,7 +14137,7 @@ msgstr "Řádek pouze pro čtení: smazání zakázané"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:29
 msgid "View all"
-msgstr ""
+msgstr "Zobrazit všechny"
 
 #: ../../main/core/src/templates/componentNotFound.mas:3
 msgid "Zentyal homepage"
@@ -14314,7 +14325,7 @@ msgstr "Hledat"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 msgid "Depends"
-msgstr ""
+msgstr "Závislý"
 
 #: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, perl-brace-format
@@ -14382,7 +14393,7 @@ msgstr "Stav"
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:19
 msgid "date"
-msgstr ""
+msgstr "datum"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:54
 #, fuzzy
@@ -14614,7 +14625,7 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:165
 #: ../../main/software/src/templates/ebox.mas:176
 msgid "Install"
-msgstr ""
+msgstr "Instalovat"
 
 #: ../../main/software/src/templates/welcome.mas:10
 #, fuzzy
@@ -14638,7 +14649,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:25
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Automatické operace čas zahájení"
 
 #: ../../main/software/src/templates/del.mas:70
 #, fuzzy
@@ -14647,7 +14658,7 @@ msgstr "zbývající balíčky k instalaci"
 
 #: ../../main/software/src/templates/del.mas:74
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Budou instalovány tyto balíčky"
 
 #: ../../main/software/src/templates/del.mas:75
 msgid "The following packages will be removed"
@@ -14658,6 +14669,8 @@ msgid ""
 "Software updates are being handled automatically. They will be installed\n"
 "automatically as scheduled"
 msgstr ""
+"Aktualizace softwaru jsou prováděny automaticky. Budou instalovány "
+"automaticky podle plánu."
 
 #: ../../main/software/src/templates/updates.mas:77
 #: ../../main/software/src/templates/ebox.mas:357
@@ -14678,20 +14691,21 @@ msgstr ""
 #: ../../main/software/src/templates/updates.mas:87
 msgid "Community updates are available for the following system components"
 msgstr ""
+"Komunitní aktualizace jsou k dispozici pro následující komponenty systému"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/ebox.mas:41
 #: ../../main/software/src/templates/ebox.mas:62
 #: ../../main/software/src/templates/ebox.mas:99
 msgid "Component"
-msgstr ""
+msgstr "Komponenta"
 
 #: ../../main/software/src/templates/updates.mas:93
 #: ../../main/software/src/templates/updates.mas:141
 #: ../../main/software/src/templates/ebox.mas:64
 #: ../../main/software/src/templates/ebox.mas:182
 msgid "Update"
-msgstr ""
+msgstr "Aktualizovat"
 
 #: ../../main/software/src/templates/updates.mas:101
 #, fuzzy
@@ -14705,13 +14719,15 @@ msgstr "Aktualizace systému"
 
 #: ../../main/software/src/templates/updates.mas:126
 msgid "Update all packages"
-msgstr ""
+msgstr "Aktualizovat všechny balíčky"
 
 #: ../../main/software/src/templates/updates.mas:137
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Update button."
 msgstr ""
+"Tato operace může trvat nějakou dobu, nebojte se, pokud Zentyal vypadá, že "
+"nereaguje po stisknutí tlačítka Aktualizovat."
 
 #: ../../main/software/src/templates/updates.mas:141
 #, fuzzy
@@ -14892,7 +14908,7 @@ msgstr ""
 #: ../../main/samba/src/templates/deluser.mas:12
 #: ../../main/samba/src/templates/deluser.mas:29
 msgid "Delete user"
-msgstr ""
+msgstr "Smazat uživatele"
 
 #: ../../main/samba/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
@@ -14901,11 +14917,11 @@ msgstr ""
 #: ../../main/samba/src/templates/deluser.mas:19
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
-msgstr ""
+msgstr "Tato operace způsobí odstranění uživatele a všech jeho jeho dat"
 
 #: ../../main/samba/src/templates/addgroup.mas:7
 msgid "Add Group"
-msgstr ""
+msgstr "Přidat Skupinu"
 
 #: ../../main/samba/src/templates/addgroup.mas:10
 #: ../../main/samba/src/templates/editgroup.mas:29
@@ -14959,7 +14975,7 @@ msgstr "Všichni uživatelé"
 
 #: ../../main/samba/src/templates/addobject.mas:10
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: ../../main/samba/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
@@ -14968,7 +14984,7 @@ msgstr ""
 #: ../../main/samba/src/templates/delou.mas:14
 #: ../../main/samba/src/templates/delou.mas:25
 msgid "Delete Organizational Unit"
-msgstr ""
+msgstr "Smazat organizační jednotku"
 
 #: ../../main/samba/src/templates/delou.mas:15
 msgid "This organizational unit cannot be deleted"
@@ -15039,14 +15055,14 @@ msgstr "Další informace"
 #: ../../main/samba/src/templates/editcontact.mas:27
 #: ../../main/samba/src/templates/addcontact.mas:12
 msgid "First name"
-msgstr ""
+msgstr "Křestní jméno"
 
 #: ../../main/samba/src/templates/edituser.mas:31
 #: ../../main/samba/src/templates/adduser.mas:21
 #: ../../main/samba/src/templates/editcontact.mas:28
 #: ../../main/samba/src/templates/addcontact.mas:17
 msgid "Last name"
-msgstr ""
+msgstr "Příjmení"
 
 #: ../../main/samba/src/templates/edituser.mas:38
 #: ../../main/samba/src/templates/editcontact.mas:29
@@ -15062,7 +15078,7 @@ msgstr "Uživatelská kvóta překročena"
 #: ../../main/samba/src/templates/edituser.mas:67
 #: ../../main/samba/src/templates/adduser.mas:33
 msgid "Retype password"
-msgstr ""
+msgstr "Opakujte heslo"
 
 #: ../../main/samba/src/templates/edituser.mas:72
 #, fuzzy
@@ -15071,7 +15087,7 @@ msgstr "mailový účet"
 
 #: ../../main/samba/src/templates/edituser.mas:83
 msgid "User groups"
-msgstr ""
+msgstr "Skupiny uživatelů"
 
 #: ../../main/samba/src/templates/edituser.mas:145
 #, fuzzy
@@ -15122,7 +15138,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/wizard/users.mas:12
 msgid "Users and Groups"
-msgstr ""
+msgstr "Uživatelé a Skupiny"
 
 #: ../../main/samba/src/templates/wizard/users.mas:16
 #, fuzzy
@@ -15168,7 +15184,7 @@ msgstr ""
 
 #: ../../main/samba/src/templates/adduser.mas:11
 msgid "Add User"
-msgstr ""
+msgstr "Přidat uživatele"
 
 #: ../../main/samba/src/templates/editcontact.mas:22
 #, fuzzy
@@ -15194,7 +15210,7 @@ msgstr ""
 #: ../../main/samba/src/templates/delgroup.mas:11
 #: ../../main/samba/src/templates/delgroup.mas:32
 msgid "Delete group"
-msgstr ""
+msgstr "Smazat skupinu"
 
 #: ../../main/samba/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
@@ -15213,7 +15229,7 @@ msgstr ""
 
 #: ../../main/squid/stubs/template.html.mas:13
 msgid "Access Denied"
-msgstr ""
+msgstr "Přístup Zamítnut"
 
 #: ../../main/squid/stubs/template.html.mas:134
 msgid "Access has been Denied"
@@ -15226,7 +15242,7 @@ msgstr ""
 
 #: ../../main/squid/stubs/template.html.mas:141
 msgid "Categories"
-msgstr ""
+msgstr "Kategorie"
 
 #: ../../main/squid/stubs/template.html.mas:142
 msgid ""
@@ -15326,7 +15342,7 @@ msgstr "Typ Kvóty"
 
 #: ../../main/mail/src/templates/alias.mas:202
 msgid "Maximum mailbox size"
-msgstr ""
+msgstr "Maximální velikost poštovní schránky"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
