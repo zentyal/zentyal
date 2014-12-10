@@ -1,4 +1,4 @@
-HEAD
+4.0.4
 	+ Restart sogod when sogo package is upgraded
 	+ Set RPC Proxy log level to debug only when debug is enabled
 	+ ActiveSync needs to have a HTTPS webmail enabled. Also handling
