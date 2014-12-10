@@ -1,5 +1,6 @@
 HEAD
 	+ Fixed external AD keytab generation
+	+ Enforce kerberos configuration in external AD mode
 	+ Fixed typo in EBox::LDAP::ExternalAD::externalServicesPrincipals
 	+ Migrate mailboxes when upgrading from Zentyal 3.2
 4.0.4
