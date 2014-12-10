@@ -245,11 +245,6 @@ sub _daemonsToDisable
         {
             name => 'ocnotification',
             type => 'upstart',
-        },
-        {
-            name => 'sogo',
-            type => 'init.d',
-            # FIXME: precondition only if enabled!
         }
     ];
     return $daemons;
@@ -264,6 +259,7 @@ sub _daemonsToDisable
 sub _daemons
 {
     my ($self) = @_;
+
     my $daemons = [
         {
             name         => 'zentyal.ocsmanager',
@@ -274,6 +270,10 @@ sub _daemons
             name         => 'ocnotification',
             type         => 'upstart',
             precondition => sub { return $self->isProvisioned() },
+        },
+        {
+            name => 'sogo',
+            type => 'init.d',
         }
     ];
 
@@ -870,7 +870,7 @@ sub restoreConfig
     my $state = $self->get_state();
     $self->_load_state_from_file($dir);
     my $stateFromBackup = $self->get_state();
-    $state->{isProvisioned} = $stateFromBackup->{isProvisioned}; 
+    $state->{isProvisioned} = $stateFromBackup->{isProvisioned};
     $state->{Provision}     = $stateFromBackup->{Provision};
     $self->set_state($state);
 
@@ -880,7 +880,7 @@ sub restoreConfig
               'generate-database');
 
         # load openchange database data
-        my $dumpFile = $self->_mysqlDumpFile($dir);    
+        my $dumpFile = $self->_mysqlDumpFile($dir);
         if (-r $dumpFile) {
             my $dbengine = EBox::OpenChange::DBEngine->new($self);
             $dbengine->restoreDBDump($dumpFile);
