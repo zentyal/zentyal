@@ -645,7 +645,7 @@ sub externalServicesPrincipals
     if (EBox::Global->modExists('squid')) {
         my $squid = EBox::Global->modInstance('squid');
         if ($squid->isEnabled()) {
-            push (@{$SPNs}, $squid->kerberosServicePrincipals());
+            push (@{$SPNs}, $squid->_kerberosServicePrincipals());
         }
     }
     return $SPNs;
