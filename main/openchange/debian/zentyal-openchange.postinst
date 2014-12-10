@@ -9,6 +9,7 @@ case "$1" in
         service zentyal openchange restart || true
 
         dpkg-trigger --no-await zentyal-core
+    ;;
     triggered)
         case "$2" in
             "/usr/sbin/sogod")
