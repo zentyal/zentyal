@@ -119,6 +119,16 @@ sub _kerberosKeytab
     };
 }
 
+sub _externalServiceKerberosKeytab
+{
+    my ($self) = @_;
+    my $keytab = $self->_kerberosKeytab();
+    $keytab->{service} = 'http';
+    $keytab->{principals} = $self->_kerberosServicePrincipals();
+    $keytab->{module} = $self->name();
+    return $keytab;
+}
+
 # Method: _kerberosSetup
 #
 #   Override to skip setup if authentication mode is not internal
