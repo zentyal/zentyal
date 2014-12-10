@@ -319,6 +319,8 @@ sub _regenConfig
     if ($samba->isProvisioned() and $samba->isEnabled()) {
         $self->_performSetup();
         $self->SUPER::_regenConfig(@_);
+    } elsif ($samba->mode() eq $samba->EXTERNAL_AD_MODE) {
+        $self->SUPER::_regenConfig(@_);
     }
 }
 

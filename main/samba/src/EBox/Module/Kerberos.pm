@@ -32,10 +32,10 @@ use EBox::Samba::User;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless ($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless ($self, $class);
+    return $self;
 }
 
 # Method: _kerberosServicePrincipals
@@ -365,6 +365,8 @@ sub _regenConfig
     my $samba = $self->global->modInstance('samba');
     if ($samba->isProvisioned()) {
         $self->_kerberosSetup();
+        $self->SUPER::_regenConfig(@_);
+    } elsif ($samba->mode() eq $samba->EXTERNAL_AD_MODE) {
         $self->SUPER::_regenConfig(@_);
     }
 }

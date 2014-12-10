@@ -1,4 +1,5 @@
 HEAD
+	+ Added _externalServiceKerberosKeytab method
 	+ Do not listen on internal interfaces
 4.0
 	+ Remove ads on deprecated features
