@@ -644,27 +644,29 @@ sub _writeSquidConf
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
 
-    my $ldap = $users->ldap();
-    push @writeParam, ('dn'       => $ldap->dn());
-    push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
-    push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());
 
+    my $ldap = $users->ldap();
     my $mode = $self->authenticationMode();
-    if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $externalAD = $self->global()->modInstance('samba')->ldap();
-        my $dc = $externalAD->dcHostname();
+    if ($mode eq AUTH_MODE_INTERNAL) {
+        push @writeParam, ('dn'       => $ldap->dn());
+        push @writeParam, ('roDn'     => $self->_kerberosServiceAccountDN());
+        push @writeParam, ('roPasswd' => $self->_kerberosServiceAccountPassword());        
+    }  elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
+        my $dc = $ldap->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
             SQUID_ZCONF_FILE);
         my $adNegativeAclTtl =
             EBox::Config::configkeyFromFile(
                 AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
-        my $adPrincipal = $externalAD->hostSamAccountName();
+        my $adPrincipal = $ldap->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
         push (@writeParam, (adAclTTL    => $adAclTtl));
         push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
         push (@writeParam, (adPrincipal => $adPrincipal));
+    } else {
+        throw EBox::Exceptions::Internal("Invalid authentication mode: $mode");
     }
 
     $self->writeConfFile(SQUID_CONF_FILE, 'squid/squid.conf.mas', \@writeParam, { mode => '0640'});

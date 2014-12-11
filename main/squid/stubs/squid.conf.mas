@@ -241,8 +241,6 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 %   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
 http_port 0.0.0.0:<% $port %> <% $transKey%> <% $sslBumpOptions %>
-# END_TAG #
-
 
 visible_hostname (frontal)<% $hostfqdn %>
 coredump_dir /var/spool/squid3
@@ -274,7 +272,9 @@ cache_peer 127.0.0.1 parent 3130 0 no-query proxy-only login=*:nopassword
 auth_param negotiate program /usr/lib/squid3/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
+%   if  (not $authModeExternalAD) {
 external_acl_type ldapgroup  ipv4 %LOGIN /usr/lib/squid3/ext_ldap_group_acl -v3 -b <% $dn %>   -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P -F "(&(userPrincipalName=%s)(objectclass=user))" -f  "(&(samAccountName=%g)(objectclass=group)(member=%u))"
+%   }
 % } else {
 auth_param basic realm Zentyal HTTP proxy
 auth_param basic program /usr/lib/squid3/basic_ldap_auth -v3 -b <% $dn %> -f "(&(samAccountName=%s)(objectclass=user))" -p 3268 -D <% $roDn %> -w <% $roPasswd %> -P
