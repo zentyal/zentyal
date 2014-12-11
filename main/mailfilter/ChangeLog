@@ -1,4 +1,5 @@
 HEAD
+	+ Adding new dependency needed by amavis and spamassassin
 	+ Fixed LDAP schema: white and black list are multi-valued
 4.0
 	+ Remove ads on deprecated features
