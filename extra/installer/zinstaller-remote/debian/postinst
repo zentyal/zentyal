@@ -102,7 +102,7 @@ if [ $? -eq 0 ]
 then
     COMPANY=$(grep "$BUNDLE_ID" $DATA_DIR/BUNDLE_IDS | head -1 | cut -d: -f3 | cut -d' ' -f1)
     QA_USERNAME="$COMPANY-$SERVERNAME"
-    QA_PASSWORD=$(echo $RESPONSE | jq -r '.password')
+    QA_PASSWORD=$(echo $RESPONSE | jq -r '.server_uuid')
 
     echo $QA_USERNAME > $DATA_DIR/QA_USERNAME
     echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
