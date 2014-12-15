@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed bugs related when setting and removing virtual domain
+	  antispam options
 4.0.1
 	+ Adding new dependency needed by amavis and spamassassin
 	+ Fixed LDAP schema: white and black list are multi-valued

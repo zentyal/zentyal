@@ -57,8 +57,8 @@ sub _vdomainAttr
     my ($self, $vdomain, $attr) = @_;
 
     my %args = (
-                base => $self->vdomainTreeDn($vdomain),
-                filter => 'domainComponent=' . $vdomain,
+                base => $self->vdomainTreeDn(),
+                filter => 'virtualdomain=' . $vdomain,
                 scope => 'one',
                 attrs => ["$attr"],
                );
@@ -71,8 +71,7 @@ sub _vdomainAttr
     my @values = $entry->get_value($attr);
     if (wantarray) {
         return @values;
-    }
-    else {
+    } else {
         return $values[0];
     }
 }
@@ -84,15 +83,12 @@ sub _vdomainBoolAttr
     if (defined $value) {
         if ($value eq 'TRUE') {
             return 1;
-        }
-        elsif ($value eq 'FALSE') {
+        } elsif ($value eq 'FALSE') {
             return 0;
-        }
-        else {
+        } else {
             throw EBox::Exceptions::Internal ("A bool attr must return either FALSE or TRUE (waas $value)");
         }
-    }
-    else {
+    } else {
         return undef;
     }
 }
@@ -106,8 +102,7 @@ sub _setVDomainAttr
     my $ldap = $self->{'ldap'};
     if (defined $value) {
         $ldap->modifyAttribute($dn, $attr => $value);
-    }
-    else {
+    } else {
         $self->_deleteVDomainAttr($vdomain, $attr);
     }
 
@@ -135,8 +130,7 @@ sub _addVDomainAttr
     my @addList;
     if (@values == 1) {
         @addList = ($attr => $values[0]);
-    }
-    else {
+    } else {
         @addList = ($attr => \@values)
     }
 
@@ -155,11 +149,9 @@ sub _deleteVDomainAttr
     my @deleteParams;
     if (@values == 0) {
         @deleteParams = ($attr);
-    }
-    elsif (@values == 1) {
+    } elsif (@values == 1) {
         @deleteParams = ($attr  => $values[0]);
-    }
-    else {
+    } else {
         @deleteParams = ($attr => \@values);
     }
 
@@ -244,17 +236,16 @@ sub setSpamThreshold
     if (defined $threshold) {
         $ldap->modifyAttribute($dn,  'amavisSpamTag2Level' => $threshold);
         $ldap->modifyAttribute($dn,  'amavisSpamKillLevel' => $threshold);
-    }
-    else {
+    } else {
         my @toDelete;
         foreach my $attr (qw(amavisSpamTag2Level amavisSpamKillLevel)) {
             # if attribute exists, mark for deletion
-            if ($self->_vdomainAttr($attr)) {
+            if ($self->_vdomainAttr($vdomain, $attr)) {
                 push @toDelete, $attr;
             }
         }
 
-        # if we don;t have nothing to delete end here
+        # if we dont have nothing to delete end here
         @toDelete or
             return;
 
@@ -469,8 +460,7 @@ sub _setAccount
 
     if ($active) {
         $self->_addAccount($vdomain, $user);
-    }
-    else {
+    } else {
         $self->_removeAccount($vdomain, $user);
     }
 }
@@ -497,8 +487,7 @@ sub _addAccount
         if (not $mailAliasLdap->aliasExists($alias)) {
             $mailAliasLdap->addUserAlias($user, $alias);
         }
-    }
-    else {
+    } else {
         $mailUserLdap->setUserAccount($user, $username, $vdomain);
     }
 }
@@ -638,6 +627,7 @@ sub resetVDomain
             'amavisSpamTagLevel', 'amavisSpamTag2Level',
             'amavisSpamKillLevel', 'amavisSpamModifiesSubj',
             'amavisSpamQuarantineTo',
+            'amavisWhitelistSender', 'amavisBlacklistSender'
     );
     # use only setted attributes
     @delAttrs = grep {
@@ -692,8 +682,7 @@ sub regenConfig
 
             if ($policy eq 'blacklist') {
                 push @blacklist, $sender;
-            }
-            elsif ($policy eq 'whitelist') {
+            } elsif ($policy eq 'whitelist') {
                 push @whitelist, $sender;
             }
         }
