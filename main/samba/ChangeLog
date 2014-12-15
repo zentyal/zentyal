@@ -1,4 +1,5 @@
 HEAD
+	+ Calling correctly to removeGroupShare from the CGI
 	+ Disable antivirus vfs if zentyal-antivirus is not installed
 	+ Increased default max log size to 100 MB
 3.2.23
