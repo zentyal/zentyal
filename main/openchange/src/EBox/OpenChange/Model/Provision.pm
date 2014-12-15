@@ -173,17 +173,7 @@ sub precondition
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
-    my $dmd = $users->dMD();
-    # XXX commented temporally
-    # unless ($dmd->ownedByZentyal()) {
-    #     # Samba is not managing the Schema of the Active Directory.
-    #     unless (defined $self->parentModule->configurationContainer()) {
-    #         # There is no an existing Exchange or OpenChange server already, and thus, we require to change the
-    #         # Schema but it's not possible.
-    #         $self->{preconditionFail} = 'schemaNotWritable';
-    #         return undef;
-    #     }
-    # }
+
     unless ($self->parentModule->isEnabled()) {
         $self->{preconditionFail} = 'notEnabled';
         return undef;
@@ -249,12 +239,6 @@ sub preconditionFailMsg
                   'provisioning the {y} module database.',
                   x => $users->printableName(),
                   y => $self->parentModule->printableName());
-    }
-    if ($self->{preconditionFail} eq 'schemaNotWritable') {
-        return __('Your setup is not supported by Zentyal right now. You need either, have a MS Exchange ' .
-                  'installed already or provision OpenChange on the Samba server that manages the Active ' .
-                  'Directory schema. This server is not able to manage the schema, and thus cannot modify ' .
-                  'it to apply the required changes by OpenChange.');
     }
     if ($self->{preconditionFail} eq 'notEnabled') {
         return __x('You must enable the {x} module to be able to provision its ' .
@@ -462,12 +446,6 @@ sub provision
         my $vdomainToEnable = $vdomains->row($vdomainId)->valueByName('vdomain');
         $self->parentModule()->model('VDomains')->enableAllVDomain($vdomainToEnable);
     }
-
-#    my $configuration = $openchange->model('Configuration');
-#    if (not $configuration->_rowStored()) {
-#        my $defaultOutgoing = $configuration->value('outgoingDomain');
-#        $configuration->setValue('outgoingDomain', $defaultOutgoing);
-#    }
 
     foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {
