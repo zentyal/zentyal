@@ -1199,7 +1199,7 @@ sub dropSOGODB
 
     # Drop SOGo database and db user. To avoid error if it does not exists,
     # the user is created and granted harmless privileges before drop it
-    my $sogoDB = $self->_sogoDBengine();
+    my $sogoDB = $self->_sogoDBEngine();
     my $dbName = $sogoDB->_dbname();
     my $dbUser = $sogoDB->_dbuser();
 

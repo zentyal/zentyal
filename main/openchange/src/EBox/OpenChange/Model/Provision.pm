@@ -67,30 +67,19 @@ sub _table
             editable      => 0)
         );
     } else {
-        push (@tableDesc, new EBox::Types::Union(
-            fieldName     => 'organizationname',
-            printableName => __('Organization Name'),
-            editable      => 1,
-            subtypes      => [
-                new EBox::Types::Text(
-                    fieldName     => 'neworganizationname',
-                    printableName => __('New One'),
+        push (@tableDesc,  new EBox::Types::Text(
+                    fieldName     => 'organizationname',
+                    printableName => __('Organization name'),
                     defaultValue  => $self->_defaultOrganizationName(),
-                    editable      => 1),
-                new EBox::Types::Select(
-                    fieldName     => 'existingorganizationname',
-                    printableName => __('Existing One'),
-                    populate      => \&_existingOrganizationNames,
-                    editable      => 1),
-            ])
-        );
+                    editable      => 1
+                   ));
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
             printableName => __('Enable OpenChange account for all existing users'),
             defaultValue  => 0,
             editable      => 1)
-        );
-# TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
+         );
+    # TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
 #        push (@tableDesc, new EBox::Types::Boolean(
 #            fieldName => 'registerAsMain',
 #            printableName => __('Set this server as the primary server'),
@@ -178,24 +167,6 @@ sub precondition
         $self->{preconditionFail} = 'notEnabled';
         return undef;
     }
-
-    # Check the samba domain is present in the Mail Virtual Domains model
-    #my $mailModule = $self->global->modInstance('mail');
-    #my $VDomainsModel = $mailModule->model('VDomains');
-    #my $adDomain = $users->getProvision->getADDomain('localhost');
-    #my $adDomainFound = 0;
-    #foreach my $id (@{$VDomainsModel->ids()}) {
-    #    my $row = $VDomainsModel->row($id);
-    #    my $vdomain = $row->valueByName('vdomain');
-    #    if (lc $vdomain eq lc $adDomain) {
-    #        $adDomainFound = 1;
-    #        last;
-    #    }
-    #}
-    #unless ($adDomainFound) {
-    #    $self->{preconditionFail} = 'vdomainNotFound';
-    #    return undef;
-    #}
 
     my $ca = $self->global()->modInstance('ca');
     my $availableCA = $ca->isAvailable();
@@ -288,30 +259,6 @@ sub organizations
     return $self->{_organizations};
 }
 
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    # FIXME: This code is not working with Union type.
-    my $onChange = {
-        organizationname => {
-            neworganizationname => {
-                show => [],
-                hide => ['enableUsers'],
-            },
-            existingorganizationname => {
-                show => ['enableUsers'],
-                hide => [],
-            },
-        },
-    };
-    $customizer->setOnChangeActions($onChange);
-    return $customizer;
-}
-
 sub _defaultOrganizationName
 {
     my ($self) = @_;
@@ -383,8 +330,7 @@ sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationNameSelected = delete $params{organizationname_selected};
-    my $organizationName         = delete $params{$organizationNameSelected};
+    my $organizationName         = delete $params{organizationname};
     $params{orgName} = $organizationName;
     
     my $openchange = $self->parentModule();
