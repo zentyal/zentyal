@@ -33,8 +33,11 @@ echo; echo "Dumping OpenLDAP data..."; echo
 # Install samba if missing and replicate users with s4sync
 /usr/share/zentyal/migrate-users-to-samba
 
-# Stop slapd
-service zentyal users stop
+# Stop services that are going to be deprecated
+for i in users remoteservices monitor
+do
+    service zentyal $i stop
+done
 
 echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
