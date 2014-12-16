@@ -1023,9 +1023,9 @@ msgstr "Dimonis OpenVPN"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3760
-#: ../../main/samba/src/EBox/Samba.pm:3780
-#: ../../main/samba/src/EBox/Samba.pm:3791
+#: ../../main/samba/src/EBox/Samba.pm:3765
+#: ../../main/samba/src/EBox/Samba.pm:3785
+#: ../../main/samba/src/EBox/Samba.pm:3796
 #: ../../main/squid/src/EBox/Squid.pm:1132
 #: ../../main/mail/src/EBox/Mail.pm:1859
 #: ../../main/ca/src/templates/index.mas:99
@@ -1052,7 +1052,7 @@ msgstr "Esdeveniment"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3785
+#: ../../main/samba/src/EBox/Samba.pm:3790
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1439,7 +1439,7 @@ msgid "resources"
 msgstr "Recurs"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3764
+#: ../../main/samba/src/EBox/Samba.pm:3769
 msgid "Resource"
 msgstr "Recurs"
 
@@ -1597,7 +1597,7 @@ msgstr "Nom de l'amfitrió"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3191
+#: ../../main/samba/src/EBox/Samba.pm:3196
 msgid "alias"
 msgstr "àlies"
 
@@ -1686,7 +1686,7 @@ msgstr "Habilita la memòria cau de DNS transparent"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2285
+#: ../../main/samba/src/EBox/Samba.pm:2290
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -1939,7 +1939,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2279
+#: ../../main/samba/src/EBox/Samba.pm:2284
 #: ../../main/squid/src/EBox/Squid.pm:1136
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2305,9 +2305,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3762
-#: ../../main/samba/src/EBox/Samba.pm:3782
-#: ../../main/samba/src/EBox/Samba.pm:3793
+#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3787
+#: ../../main/samba/src/EBox/Samba.pm:3798
 #: ../../main/squid/src/EBox/Squid.pm:1134
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2761,7 +2761,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3763
+#: ../../main/samba/src/EBox/Samba.pm:3768
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3248,7 +3248,7 @@ msgstr "Filtre de correu intern de Zentyal"
 msgid "SMTP filter proxy"
 msgstr "Filtre proxy SMTP"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:610
+#: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:599
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
 msgstr "El domini virtual de correu {vd} no existeix"
@@ -8977,7 +8977,7 @@ msgid "OU name"
 msgstr "Nom d'usuari"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2322
+#: ../../main/samba/src/EBox/Samba.pm:2327
 msgid "LDAP Settings"
 msgstr "Configuració LDAP"
 
@@ -9024,7 +9024,7 @@ msgstr ""
 "creat."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2312
+#: ../../main/samba/src/EBox/Samba.pm:2317
 msgid "User Template"
 msgstr "Plantilla d'usuari"
 
@@ -9033,7 +9033,7 @@ msgid "Recycle Bin"
 msgstr "Paperera"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2333
+#: ../../main/samba/src/EBox/Samba.pm:2338
 msgid "File Sharing"
 msgstr "Compartició de fitxers"
 
@@ -9703,7 +9703,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "El port {p} no està disponible"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2301
+#: ../../main/samba/src/EBox/Samba.pm:2306
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Usuaris i grups"
@@ -9739,8 +9739,8 @@ msgstr "Completat"
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:222
 #, fuzzy
 msgid ""
-"You need to enable Users module in the module status section and save "
-"changes in order to use it."
+"You need to enable Domain Controller and File Sharing module in the module "
+"status section and save changes in order to use it."
 msgstr ""
 "Ha d'activar el mòdul d'Usuaris a la secció d'estat del mòdul per poder usar-"
 "lo."
@@ -9806,7 +9806,7 @@ msgid "exception"
 msgstr "excepció"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2292
+#: ../../main/samba/src/EBox/Samba.pm:2297
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Política de Grup"
@@ -10076,7 +10076,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2289
+#: ../../main/samba/src/EBox/Samba.pm:2294
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Política de Grup"
@@ -10687,31 +10687,31 @@ msgid ""
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1661
+#: ../../main/samba/src/EBox/Samba.pm:1666
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1888
+#: ../../main/samba/src/EBox/Samba.pm:1893
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2307
+#: ../../main/samba/src/EBox/Samba.pm:2312
 #, fuzzy
 msgid "Manage"
 msgstr "Només gestionar"
 
-#: ../../main/samba/src/EBox/Samba.pm:2316
+#: ../../main/samba/src/EBox/Samba.pm:2321
 msgid "Synchronization"
 msgstr "Sincronització habilitada"
 
-#: ../../main/samba/src/EBox/Samba.pm:2326
+#: ../../main/samba/src/EBox/Samba.pm:2331
 #, fuzzy
 msgid "Configure mode"
 msgstr "Configurats"
 
-#: ../../main/samba/src/EBox/Samba.pm:2630
+#: ../../main/samba/src/EBox/Samba.pm:2635
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -10720,14 +10720,14 @@ msgstr ""
 "Està utilitzant el mode de còpia de seguretat per parts i aquesta còpia de "
 "seguretat va ser feta sense el mode per parts"
 
-#: ../../main/samba/src/EBox/Samba.pm:2652
+#: ../../main/samba/src/EBox/Samba.pm:2657
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2668
+#: ../../main/samba/src/EBox/Samba.pm:2673
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10736,100 +10736,100 @@ msgstr ""
 "No es pot restaurar perquè l'usuari LDAP {user} ja existeix com usuari a /"
 "etc/passwd. Elimina o torna a anomenar-lo"
 
-#: ../../main/samba/src/EBox/Samba.pm:2692
+#: ../../main/samba/src/EBox/Samba.pm:2697
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2966
+#: ../../main/samba/src/EBox/Samba.pm:2971
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3059
+#: ../../main/samba/src/EBox/Samba.pm:3064
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Ús del sistema de fitxers"
 
-#: ../../main/samba/src/EBox/Samba.pm:3202
+#: ../../main/samba/src/EBox/Samba.pm:3207
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "L'adreça VPN {addr} ja està en ús per la interfície {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3761
-#: ../../main/samba/src/EBox/Samba.pm:3781
-#: ../../main/samba/src/EBox/Samba.pm:3792
+#: ../../main/samba/src/EBox/Samba.pm:3766
+#: ../../main/samba/src/EBox/Samba.pm:3786
+#: ../../main/samba/src/EBox/Samba.pm:3797
 msgid "Client address"
 msgstr "Adreça del client"
 
-#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3773
 msgid "Connect"
 msgstr "Connectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3774
 msgid "Access to directory"
 msgstr "Accés al directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3775
 msgid "Read file"
 msgstr "Lectura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3771
+#: ../../main/samba/src/EBox/Samba.pm:3776
 msgid "Write file"
 msgstr "Escriptura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3772
+#: ../../main/samba/src/EBox/Samba.pm:3777
 msgid "Disconnect"
 msgstr "Desconnectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3773
+#: ../../main/samba/src/EBox/Samba.pm:3778
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3774
+#: ../../main/samba/src/EBox/Samba.pm:3779
 msgid "Create directory"
 msgstr "Crear directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3780
 msgid "Remove directory"
 msgstr "Eliminar directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3776
+#: ../../main/samba/src/EBox/Samba.pm:3781
 msgid "Rename"
 msgstr "Canviar el nom"
 
-#: ../../main/samba/src/EBox/Samba.pm:3783
-#: ../../main/samba/src/EBox/Samba.pm:3794
+#: ../../main/samba/src/EBox/Samba.pm:3788
+#: ../../main/samba/src/EBox/Samba.pm:3799
 msgid "File name"
 msgstr "Nom de l'arxiu"
 
-#: ../../main/samba/src/EBox/Samba.pm:3784
-#: ../../main/samba/src/EBox/Samba.pm:3788
+#: ../../main/samba/src/EBox/Samba.pm:3789
+#: ../../main/samba/src/EBox/Samba.pm:3793
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3795
+#: ../../main/samba/src/EBox/Samba.pm:3800
 msgid "Quarantined file name"
 msgstr "Fitxer en quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3796
-#: ../../main/samba/src/EBox/Samba.pm:3799
+#: ../../main/samba/src/EBox/Samba.pm:3801
+#: ../../main/samba/src/EBox/Samba.pm:3804
 msgid "Quarantine"
 msgstr "Quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3802
+#: ../../main/samba/src/EBox/Samba.pm:3807
 msgid "Samba access"
 msgstr "Accessos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3813
+#: ../../main/samba/src/EBox/Samba.pm:3818
 msgid "Samba virus"
 msgstr "Virus a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3824
+#: ../../main/samba/src/EBox/Samba.pm:3829
 msgid "Samba quarantine"
 msgstr "Quarentena de Samba"
 
