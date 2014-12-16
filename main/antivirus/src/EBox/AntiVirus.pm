@@ -42,9 +42,10 @@ use constant {
   CLAMD_CONF_FILE               => '/etc/clamav/clamd.conf',
   CLAMD_SOCKET                  => CLAMAV_PID_DIR . 'clamd.ctl',
 
+  FRESHCLAM_INIT                => 'clamav-freshclam',
+  FRESHCLAMPIDFILE              => CLAMAV_PID_DIR . 'freshclam.pid',
   FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
-  FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
   FRESHCLAM_LOG_FILE            => '/var/log/clamav/freshclam.log',
   FRESHCLAM_USER                => 'clamav',
@@ -170,11 +171,6 @@ sub usedFiles
             module => 'antivirus',
         },
         {
-            file => FRESHCLAM_CONF_FILE,
-            reason => __('To schedule the launch of the updater'),
-            module => 'antivirus',
-        },
-        {
             file   => APPARMOR_FRESHCLAM,
             reason => __x('Custom {app} profile configuration '
                           . 'for {bin} binary',
@@ -198,6 +194,11 @@ sub _daemons
             type => 'init.d',
             pidfiles => [CLAMAVPIDFILE],
         },
+        {
+            name => FRESHCLAM_INIT,
+            type => 'init.d',
+            pidfiles => [FRESHCLAMPIDFILE],
+        }
     ];
 }
 
@@ -253,12 +254,6 @@ sub _setConf
 
     $self->writeConfFile(FRESHCLAM_CONF_FILE,
             "antivirus/freshclam.conf.mas", \@freshclamParams);
-
-    # Regenerate freshclam cron hourly script
-    $self->writeConfFile(FRESHCLAM_CRON_FILE,
-                         'antivirus/clamav-freshclam.cron.mas',
-                         [ enabled => $self->isEnabled() ]);
-
 }
 
 # Method: freshclamState
