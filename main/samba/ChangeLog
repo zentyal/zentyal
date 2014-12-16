@@ -1,4 +1,5 @@
 HEAD
+	+ Calling correctly to removeGroupShare from the CGI
 	+ Fixed external AD keytab generation
 	+ Enforce kerberos configuration in external AD mode
 	+ Fixed typo in EBox::LDAP::ExternalAD::externalServicesPrincipals
