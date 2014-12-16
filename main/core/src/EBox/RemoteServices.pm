@@ -1471,7 +1471,7 @@ sub initialSetup
     my ($self, $version) = @_;
 
     # Migrate from 3.2
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2') < 0)) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '4.0') < 0)) {
         $self->_migrateTo40();
     }
 }
