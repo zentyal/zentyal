@@ -893,7 +893,8 @@ sub _setConf
 sub _setConfExternalAD
 {
     my ($self) = @_;
-
+    # setup kerberos,
+    $self->getProvision()->setupKerberos(1);
     # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);

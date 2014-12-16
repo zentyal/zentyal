@@ -514,16 +514,18 @@ sub initKeyTabs
 
         my $computerName = uc ($sysinfo->hostName());
 
-        my @servicesPrincipals = @{ $self->externalServicesPrincipals() };
-        foreach my $servPrincipal (@servicesPrincipals) {
-            my $keytab      = $servPrincipal->{keytab};
-            my $keytabFound = EBox::Sudo::fileTest('-r', $keytab);
-            my $keytabUser  = $servPrincipal->{keytabUser};
-            my $service     = $servPrincipal->{service};
+        my @keytabs = @{ $self->_externalServicesKerberosKeytabs() };
+        foreach my $ktab (@keytabs) {
+            my $path        = $ktab->{path};
+            my $keytabFound = EBox::Sudo::fileTest('-r', $path);
+            # external keytab must be owned by ebox but accessibe by the service user. We assume that the user has a group with the same name
+            my $keytabUser  = 'ebox'; 
+            my $keytabGroup = $ktab->{user};
+            my $service     = $ktab->{service};
             my $keytabTempPath = EBox::Config::tmp() . "$service.keytab";
             if ($hostFound and $keytabFound) {
-                EBox::Sudo::root("cp '$keytab' '$keytabTempPath'") ;
-                EBox::Sudo::root("chown ebox '$keytabTempPath'");
+                EBox::Sudo::root("cp '$path' '$keytabTempPath'") ;
+                EBox::Sudo::root("chown $keytabUser '$keytabTempPath'");
                 EBox::Sudo::root("chmod 660 '$keytabTempPath'" );
 
                 # Update keytab
@@ -531,7 +533,7 @@ sub initKeyTabs
                 EBox::Sudo::command($cmd);
             } else {
                 my $upn = "zentyalServices/$hostFQDN";
-                my @principals = @{ $servPrincipal->{principals} };
+                my @principals = @{ $ktab->{principals} };
                 # Create the account and extract keytab to temporary directory
                 EBox::Sudo::command("rm -f '$keytabTempPath'");
 
@@ -548,9 +550,9 @@ sub initKeyTabs
             }
 
             # Move keytab to the correct place
-            EBox::Sudo::root("mv '$keytabTempPath' '$keytab'");
-            EBox::Sudo::root("chown root:$keytabUser '$keytab'");
-            EBox::Sudo::root("chmod 440 '$keytab'");
+            EBox::Sudo::root("mv '$keytabTempPath' '$path'");
+            EBox::Sudo::root("chown $keytabUser:$keytabGroup '$path'");
+            EBox::Sudo::root("chmod 440 '$path'");
         }
     } catch ($e) {
         my $ok = kdestroy();
@@ -565,7 +567,6 @@ sub initKeyTabs
         EBox::error("kdestroy: " . kerror());
     }
 }
-
 
 sub _hostInAD
 {
@@ -645,10 +646,24 @@ sub externalServicesPrincipals
     if (EBox::Global->modExists('squid')) {
         my $squid = EBox::Global->modInstance('squid');
         if ($squid->isEnabled()) {
-            push (@{$SPNs}, $squid->kerberosServicePrincipals());
+            push (@{$SPNs}, $squid->_kerberosServicePrincipals());
         }
     }
     return $SPNs;
+}
+
+sub _externalServicesKerberosKeytabs
+{
+    my ($self) = @_;
+    my @keytabs;
+   if (EBox::Global->modExists('squid')) {
+        my $squid = EBox::Global->modInstance('squid');
+        if ($squid->isEnabled()) {
+            push @keytabs, $squid->_externalServiceKerberosKeytab();
+        }
+    }
+
+    return \@keytabs;
 }
 
 sub anonymousLdapCon

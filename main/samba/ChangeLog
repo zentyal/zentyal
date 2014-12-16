@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed external AD keytab generation
+	+ Enforce kerberos configuration in external AD mode
+	+ Fixed typo in EBox::LDAP::ExternalAD::externalServicesPrincipals
 	+ Added disable_uid_sync conf key to save resources when RSAT
 	  or ADC mode is not used
 	+ Migrate mailboxes when upgrading from Zentyal 3.2
