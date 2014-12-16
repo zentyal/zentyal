@@ -33,8 +33,8 @@ echo; echo "Dumping OpenLDAP data..."; echo
 # Install samba if missing and replicate users with s4sync
 /usr/share/zentyal/migrate-users-to-samba
 
-# FIXME: only if commercial edition
-touch /var/lib/zentyal/.commercial-edition
+# Prepare for upgrade of commercial edition if it's the case
+/usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
 
 # Stop services that are going to be deprecated
 for i in users remoteservices monitor
