@@ -1,4 +1,4 @@
-HEAD
+4.0.5
 	+ Calling correctly to removeGroupShare from the CGI
 	+ Fixed external AD keytab generation
 	+ Enforce kerberos configuration in external AD mode
