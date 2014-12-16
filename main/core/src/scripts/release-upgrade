@@ -33,6 +33,9 @@ echo; echo "Dumping OpenLDAP data..."; echo
 # Install samba if missing and replicate users with s4sync
 /usr/share/zentyal/migrate-users-to-samba
 
+# FIXME: only if commercial edition
+touch /var/lib/zentyal/.commercial-edition
+
 # Stop services that are going to be deprecated
 for i in users remoteservices monitor
 do
@@ -42,8 +45,8 @@ done
 echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
 sed -ri '/zentyal(.)3.2/d' /etc/apt/sources.list
-rm -f /etc/apt/sources.list.d/zentyal*
-echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' >> /etc/apt/sources.list
+echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' > /etc/apt/sources.list.d/zentyal-archive.list
+sed -i 's/zentyal-qa-3.2/zentyal-qa-4.0/g' /etc/apt/sources.list.d/zentyal-qa.list
 # FIXME: remove this before releasing
 echo 'deb http://archive.zentyal.org/zentyal-beta 4.0-proposed main extra' >> /etc/apt/sources.list
 apt-get update
