@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-12-09 00:03+0200\n"
+"PO-Revision-Date: 2014-12-12 02:09+0200\n"
 "Last-Translator: Tomáš <tbittner@itoutsourcing.cz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -180,7 +180,7 @@ msgstr "Povoleno"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:305
 msgid "Disabled"
-msgstr "Vypnutý"
+msgstr "Vypnuto"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -445,9 +445,8 @@ msgid "revoked"
 msgstr "zrušeno"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
-msgstr "vypršela v"
+msgstr "Vypršel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
@@ -1129,14 +1128,12 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA.pm:1027
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:65
-#, fuzzy
 msgid "Last update"
-msgstr "Aktualizace systému"
+msgstr "Poslední aktualizace"
 
 #: ../../main/ha/src/EBox/HA.pm:1029
-#, fuzzy
 msgid "Errors"
-msgstr "Chyba"
+msgstr "Chyby"
 
 #: ../../main/ha/src/EBox/HA.pm:1033
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:183
@@ -1405,9 +1402,8 @@ msgid "nodes"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Nakonfigurován jeden"
+msgstr "Konfigurace zdrojů"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
 #, fuzzy
@@ -1493,9 +1489,8 @@ msgid "The cluster does not have any errors."
 msgstr "Tento protokol nepoužívá porty"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "no error"
-msgstr "Chyba"
+msgstr "žádná chyba"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:160
 #, perl-brace-format
@@ -2245,9 +2240,8 @@ msgid "Printer Sharing"
 msgstr "Sdílení tiskárny"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:94
-#, fuzzy
 msgid "Print"
-msgstr "Tiskárna"
+msgstr "Tisk"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:127
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:202
@@ -2306,14 +2300,12 @@ msgid "ACL"
 msgstr ""
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:250
-#, fuzzy
 msgid " (user)"
-msgstr "Všichni uživatelé"
+msgstr "(uživatel)"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:252
-#, fuzzy
 msgid " (group)"
-msgstr "skupina"
+msgstr "(skupina)"
 
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:107
 #, perl-brace-format
@@ -2378,9 +2370,8 @@ msgid "Description"
 msgstr "Popis"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:67
-#, fuzzy
 msgid "Location"
-msgstr "Akce"
+msgstr "Umístění"
 
 #: ../../main/printers/src/EBox/Printers/Model/Printers.pm:73
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:120
@@ -2632,7 +2623,7 @@ msgstr ""
 
 #: ../../main/ca/src/EBox/CA.pm:1894
 msgid "Available"
-msgstr "Dostupný"
+msgstr "Dostupné"
 
 #: ../../main/ca/src/EBox/CA.pm:1896
 msgid "Created but not available"
@@ -2990,9 +2981,8 @@ msgid "Success"
 msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:423
-#, fuzzy
 msgid "Failure"
-msgstr "selhal"
+msgstr "Selhání"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:426
 #, fuzzy
