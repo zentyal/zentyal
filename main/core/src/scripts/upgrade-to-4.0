@@ -9,7 +9,7 @@ echo
 REMOVED_MODULES=""
 for module in ips nut ebackup monitor radius webserver webmail ipsec l7-protocols bwmonitor captiveportal ftp usercorner zarafa
 do
-    if ! dpkg -S zentyal-$module >/dev/null 2>&1
+    if dpkg -s zentyal-$module >/dev/null 2>&1
     then
         REMOVED_MODULES="$module $REMOVED_MODULES"
     fi
