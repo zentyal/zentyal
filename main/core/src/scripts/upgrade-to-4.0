@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo This will upgrade your Zentyal 3.2 to Zentyal 4.0.
+echo
+echo Press Control+C if you do not want to upgrade now or enter to continue...
+read
+echo
+
+REMOVED_MODULES=""
+for module in ips nut ebackup monitor radius webserver webmail ipsec l7-protocols bwmonitor captiveportal ftp usercorner zarafa
+do
+    if ! dpkg -S zentyal-$module >/dev/null 2>&1
+    then
+        REMOVED_MODULES="$module $REMOVED_MODULES"
+    fi
+done
+
+if [ -n "$REMOVED_MODULES" ]
+then
+    echo "The upgrade process will remove the following modules as they are no longer part of Zentyal 4.0 officially maintained modules (data related to these modules will be deleted):"
+    echo
+    echo $REMOVED_MODULES | tr ' ' "\n"
+    echo
+fi
+
+echo Before upgrading please read also carefully the release notes at :
+echo
+echo http://wiki.zentyal.org/wiki/Zentyal_4.0_Announcement
+echo
+echo Press Control+C if you dont want to continue, this is the last chance to abort. Upgrade will start after you press Enter...
+read
+echo
+echo Launching upgrade script...
+echo
+echo Please be patient while the upgrade process finishes. The process may take up to 1 hour or more depending on your connection speed. If you want, you can keep track of the status with the following command in a different shell:
+echo
+echo tail -f /var/log/zentyal/upgrade.log
+
+sudo /usr/share/zentyal/release-upgrade > /var/log/zentyal/upgrade.log 2>&1
+
+echo Upgrade finished! You can now access the login page of Zentyal 4.0 at:
+echo
+PORT=`grep listen /var/lib/zentyal/conf/nginx.conf | sed 's/[^0-9]//g'`
+echo https://your_server_ip:$PORT
+echo
