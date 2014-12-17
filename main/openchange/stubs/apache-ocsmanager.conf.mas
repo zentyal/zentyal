@@ -40,6 +40,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
 <VirtualHost *:<% $port %>>
     ServerName <% $hostname %>.<% $domain %>
     ServerAlias autodiscover.<% $domain %>
+    DocumentRoot /var/www/html
 
 % if ($ssl) {
     SSLEngine on
