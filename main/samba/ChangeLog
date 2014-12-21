@@ -1,3 +1,5 @@
+HEAD
+	+ Backup and restore module's kerberos service password file
 4.0.5
 	+ Calling correctly to removeGroupShare from the CGI
 	+ Fixed external AD keytab generation

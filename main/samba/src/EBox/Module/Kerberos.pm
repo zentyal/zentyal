@@ -29,6 +29,7 @@ use File::Slurp;
 use EBox::Gettext;
 use EBox::Util::Random;
 use EBox::Samba::User;
+use File::Copy;
 
 sub new
 {
@@ -116,6 +117,14 @@ sub _kerberosServiceAccountDN
     return "CN=$cn,CN=Users,$defaultNC";
 }
 
+sub _kerberosServicePasswordFile
+{
+    my ($self) = @_;
+    my $account = $self->_kerberosServiceAccount();
+    my $pwdFile = EBox::Config::conf() . $account . ".passwd";
+    return $pwdFile;
+}
+
 # Method: _kerberosServiceAccountPassword
 #
 #   Return the password of the account used by the service.
@@ -128,9 +137,7 @@ sub _kerberosServiceAccountPassword
 {
     my ($self) = @_;
 
-    my $account = $self->_kerberosServiceAccount();
-    my $pwdFile = EBox::Config::conf() . $account . ".passwd";
-
+    my $pwdFile = $self->_kerberosServicePasswordFile();
     my $pass;
     unless (-f $pwdFile) {
         my $pass;
@@ -368,6 +375,58 @@ sub _regenConfig
         $self->SUPER::_regenConfig(@_);
     } elsif ($samba->mode() eq $samba->EXTERNAL_AD_MODE) {
         $self->SUPER::_regenConfig(@_);
+    }
+}
+
+sub aroundDumpConfig
+{
+    my ($self, $dir, @options) = @_;
+    $self->_dumpServiceAccountPassword($dir);
+    $self->SUPER::aroundDumpConfig($dir, @options);
+}
+
+sub aroundRestoreConfig
+{
+    my ($self, $dir, @options) = @_;
+    $self->_restoreServiceAccountPassword($dir);
+    $self->SUPER::aroundRestoreConfig($dir, @options);
+}
+
+sub _dumpPasswordFile
+{
+    my ($self, $dir) = @_;
+    return "$dir/kerberosServicePassword";
+}
+
+sub _dumpServiceAccountPassword 
+{
+    my ($self, $dir) = @_;
+    my $pwdFile  = $self->_kerberosServicePasswordFile();
+    if (-f $pwdFile) {
+        my $dumpFile = $self->_dumpPasswordFile($dir);
+        if (-e $dumpFile) {
+            throw EBox::Exceptions::Internal("Error backing up '$dumpFile' shoud not exist");
+        }
+        my $ok = copy($pwdFile, $dumpFile);
+        if (not $ok) {
+            throw EBox::Exceptions::Internal("Error copying '$dumpFile' into backup: $!");
+        }
+    }
+}
+
+sub _restoreServiceAccountPassword 
+{
+    my ($self, $dir) = @_;
+    my $dumpFile = $self->_dumpPasswordFile($dir);
+    if (-f $dumpFile) {
+        my $pwdFile  = $self->_kerberosServicePasswordFile();
+        if (-d $pwdFile) {
+            throw EBox::Exceptions::Internal("Error restoring '$pwdFile' should not be a directory");
+        }
+        my $ok = copy($dumpFile, $pwdFile);
+        if (not $ok) {
+            throw EBox::Exceptions::Internal("Error restoring '$pwdFile' from backup: $!");
+        }
     }
 }
 
