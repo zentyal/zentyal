@@ -1,3 +1,5 @@
+HEAD
+	+ Remove amavis-new warnings due to deprecated config keys
 4.0.2
 	+ Fixed bugs related when setting and removing virtual domain
 	  antispam options
