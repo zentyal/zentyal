@@ -47,7 +47,7 @@ use String::Random;
 use File::Basename;
 
 use constant SOGO_PORT => 20000;
-use constant SOGO_DEFAULT_PREFORK => 1;
+use constant SOGO_DEFAULT_PREFORK => 3;
 use constant SOGO_APACHE_CONF => '/etc/apache2/conf-available/sogo.conf';
 
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
