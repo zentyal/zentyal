@@ -172,6 +172,8 @@ sub vdomains
         return ();
     } elsif (not $self->{users}->getProvision()->isProvisioned()) {
         return ();
+    } elsif (not $self->{users}->isRunning()) {
+        return ();
     }
 
     my %args = (
