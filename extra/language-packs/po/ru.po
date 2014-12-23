@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -1014,10 +1014,10 @@ msgstr "Демоны OpenVPN"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3765
-#: ../../main/samba/src/EBox/Samba.pm:3785
-#: ../../main/samba/src/EBox/Samba.pm:3796
-#: ../../main/squid/src/EBox/Squid.pm:1132
+#: ../../main/samba/src/EBox/Samba.pm:3766
+#: ../../main/samba/src/EBox/Samba.pm:3786
+#: ../../main/samba/src/EBox/Samba.pm:3797
+#: ../../main/squid/src/EBox/Squid.pm:1144
 #: ../../main/mail/src/EBox/Mail.pm:1859
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
@@ -1036,14 +1036,14 @@ msgstr "Дата"
 #: ../../main/l2tp/src/EBox/L2TP.pm:369 ../../main/dhcp/src/EBox/DHCP.pm:981
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
-#: ../../main/squid/src/EBox/Squid.pm:1139
+#: ../../main/squid/src/EBox/Squid.pm:1151
 #: ../../main/mail/src/EBox/Mail.pm:1869
 msgid "Event"
 msgstr "Событие"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3790
+#: ../../main/samba/src/EBox/Samba.pm:3791
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1421,7 +1421,7 @@ msgid "resources"
 msgstr "Ресурсы"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3770
 msgid "Resource"
 msgstr "Ресурс"
 
@@ -1542,8 +1542,8 @@ msgstr "Разрешить демону bind автоматическ обнов
 msgid "Remove bind9 init script link"
 msgstr "Удалить ссылку на скрипт инициализации bind9"
 
-#: ../../main/dns/src/EBox/DNS.pm:537 ../../main/squid/src/EBox/Squid.pm:301
-#: ../../main/squid/src/EBox/Squid.pm:307 ../../main/ntp/src/EBox/NTP.pm:82
+#: ../../main/dns/src/EBox/DNS.pm:537 ../../main/squid/src/EBox/Squid.pm:311
+#: ../../main/squid/src/EBox/Squid.pm:317 ../../main/ntp/src/EBox/NTP.pm:82
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "Zentyal позаботиться о запуске и остановке служб."
 
@@ -1571,11 +1571,11 @@ msgstr "имя узла"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3196
+#: ../../main/samba/src/EBox/Samba.pm:3197
 msgid "alias"
 msgstr "псевдоним"
 
-#: ../../main/dns/src/EBox/DNS.pm:1828
+#: ../../main/dns/src/EBox/DNS.pm:1923
 #, fuzzy, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Хост с таким именем {host} уже зарегистрирован в этом Zentyal"
@@ -1660,7 +1660,7 @@ msgstr "Разрешить прозрачное кэширование DNS"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2290
+#: ../../main/samba/src/EBox/Samba.pm:2291
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -1914,8 +1914,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2284
-#: ../../main/squid/src/EBox/Squid.pm:1136
+#: ../../main/samba/src/EBox/Samba.pm:2285
+#: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2279,10 +2279,10 @@ msgstr "Любой контроль доступа отключается, ес�
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/samba/src/EBox/Samba.pm:3787
-#: ../../main/samba/src/EBox/Samba.pm:3798
-#: ../../main/squid/src/EBox/Squid.pm:1134
+#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3788
+#: ../../main/samba/src/EBox/Samba.pm:3799
+#: ../../main/squid/src/EBox/Squid.pm:1146
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -2736,7 +2736,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3768
+#: ../../main/samba/src/EBox/Samba.pm:3769
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -3988,7 +3988,7 @@ msgstr "Средства Диагностики Сети"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:65
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:154
-#: ../../main/squid/src/EBox/Squid.pm:1133
+#: ../../main/squid/src/EBox/Squid.pm:1145
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -7069,7 +7069,7 @@ msgstr ""
 "Вам, возможно, придется перезапустить некоторые службы после смены часовых "
 "поясов."
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:205
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:203
 #, perl-brace-format
 msgid ""
 "Crash report found! Click the button if you want to send the following files "
@@ -7079,7 +7079,7 @@ msgid ""
 "{obd}Discard{cb}{cc}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:210
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:208
 #: ../../main/core/src/templates/formTable.mas:75
 #: ../../main/core/src/templates/remoteservices/Community/register.mas:67
 #: ../../main/core/src/templates/ajax/typeRowLayout.mas:24
@@ -7094,12 +7094,12 @@ msgstr ""
 msgid "Optional"
 msgstr "Дополнительно"
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:211
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:209
 #, fuzzy
 msgid "Email address"
 msgstr "почтовый адрес"
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:212
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:210
 #, perl-brace-format
 msgid ""
 "Thank you for willing to submit your crash report. If you want to be "
@@ -7107,21 +7107,21 @@ msgid ""
 "report{cb}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:237
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:234
 #, perl-brace-format
 msgid ""
 "Do you want a remote configuration backup of your Zentyal Server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:242
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:239
 #, perl-brace-format
 msgid ""
 "Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a "
 "FREE 30-day Trial!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:247
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:244
 #, perl-brace-format
 msgid ""
 "Are you a happy Zentyal Server user? Do you want to help the project? Get "
@@ -8946,7 +8946,7 @@ msgid "OU name"
 msgstr "Имя пользователя"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2327
+#: ../../main/samba/src/EBox/Samba.pm:2328
 msgid "LDAP Settings"
 msgstr "Настройки LDAP"
 
@@ -8992,7 +8992,7 @@ msgstr ""
 "Эти настройки будут использоваться при создании нового аккаунта пользователя."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2317
+#: ../../main/samba/src/EBox/Samba.pm:2318
 msgid "User Template"
 msgstr "Шаблон пользователя"
 
@@ -9001,7 +9001,7 @@ msgid "Recycle Bin"
 msgstr "Корзина"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2338
+#: ../../main/samba/src/EBox/Samba.pm:2339
 msgid "File Sharing"
 msgstr "Шаринг файлов"
 
@@ -9205,7 +9205,7 @@ msgid ""
 ">You can assign it in the {ohref}IP addresses page for {dom}{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:324
+#: ../../main/samba/src/EBox/Samba/Provision.pm:325
 #, perl-brace-format
 msgid ""
 "Cannot enable Samba because this server is synchronizing its users as slave "
@@ -9213,35 +9213,35 @@ msgid ""
 "options{chref}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:395
+#: ../../main/samba/src/EBox/Samba/Provision.pm:396
 #, fuzzy, perl-brace-format
 msgid "The mode {mode} is not supported"
 msgstr "Пользователь {u} не существует"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:447
-#: ../../main/samba/src/EBox/Samba/Provision.pm:471
-#: ../../main/samba/src/EBox/Samba/Provision.pm:500
+#: ../../main/samba/src/EBox/Samba/Provision.pm:448
+#: ../../main/samba/src/EBox/Samba/Provision.pm:472
+#: ../../main/samba/src/EBox/Samba/Provision.pm:501
 #, perl-brace-format
 msgid "Unexpected number of entries. Got {x}, expected 1."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:645
+#: ../../main/samba/src/EBox/Samba/Provision.pm:646
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:665
+#: ../../main/samba/src/EBox/Samba/Provision.pm:666
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:686
+#: ../../main/samba/src/EBox/Samba/Provision.pm:687
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:735
+#: ../../main/samba/src/EBox/Samba/Provision.pm:736
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -9251,107 +9251,107 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:773
+#: ../../main/samba/src/EBox/Samba/Provision.pm:774
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "Не используйте префикс www для доменов."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:782
+#: ../../main/samba/src/EBox/Samba/Provision.pm:783
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:802
+#: ../../main/samba/src/EBox/Samba/Provision.pm:803
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:821
+#: ../../main/samba/src/EBox/Samba/Provision.pm:822
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:830
+#: ../../main/samba/src/EBox/Samba/Provision.pm:831
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:865
+#: ../../main/samba/src/EBox/Samba/Provision.pm:866
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:891
+#: ../../main/samba/src/EBox/Samba/Provision.pm:892
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:912
+#: ../../main/samba/src/EBox/Samba/Provision.pm:913
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:918
+#: ../../main/samba/src/EBox/Samba/Provision.pm:919
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:945
+#: ../../main/samba/src/EBox/Samba/Provision.pm:946
 msgid "Error querying AD schema:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:952
+#: ../../main/samba/src/EBox/Samba/Provision.pm:953
 msgid ""
 "The domain schema does not meet RFC 2307. You will need to upgrade to "
 "Windows Server 2003 R2 or greater."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:979
+#: ../../main/samba/src/EBox/Samba/Provision.pm:980
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1012
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1013
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Не используйте префикс www для доменов."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1025
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:628
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1026
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:629
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
 "problems with kerberos authentication, please sync both clocks with an "
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1064
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1065
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "Сертификат {cn} не существует"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1076
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1077
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1110
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1111
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1114
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1115
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1468
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1469
 msgid "Error on group container LDAP entry creation:"
 msgstr ""
 
@@ -9675,7 +9675,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Порт {p} не доступен"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2306
+#: ../../main/samba/src/EBox/Samba.pm:2307
 #, fuzzy
 msgid "Users and Computers"
 msgstr "Пользователи и Группы"
@@ -9778,7 +9778,7 @@ msgid "exception"
 msgstr "исключения"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2297
+#: ../../main/samba/src/EBox/Samba.pm:2298
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Групповая' политика"
@@ -10045,7 +10045,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2294
+#: ../../main/samba/src/EBox/Samba.pm:2295
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Групповая' политика"
@@ -10463,11 +10463,11 @@ msgstr ""
 msgid "Cannot get root DSE, please check your server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:560
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:562
 msgid "Error creating computer account for Zentyal server:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:615
+#: ../../main/samba/src/EBox/LDAP/ExternalAD.pm:616
 #, perl-brace-format
 msgid "Could not retrive time from AD server {x} via NTP."
 msgstr ""
@@ -10497,18 +10497,18 @@ msgstr ""
 msgid "Error binding to schama master LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:422
+#: ../../main/samba/src/EBox/Module/LDAP.pm:424
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/Kerberos.pm:230
+#: ../../main/samba/src/EBox/Module/Kerberos.pm:237
 #: ../../main/mail/src/EBox/Mail.pm:576
 msgid "Error on LDAP entry creation:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/Kerberos.pm:287
+#: ../../main/samba/src/EBox/Module/Kerberos.pm:294
 #: ../../main/mail/src/EBox/Mail.pm:551
 #, perl-brace-format
 msgid ""
@@ -10516,7 +10516,7 @@ msgid ""
 "got {count}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/Kerberos.pm:299
+#: ../../main/samba/src/EBox/Module/Kerberos.pm:306
 msgid "Error on LDAP entry update:"
 msgstr ""
 
@@ -10642,47 +10642,47 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1244
+#: ../../main/samba/src/EBox/Samba.pm:1245
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1266
+#: ../../main/samba/src/EBox/Samba.pm:1267
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1289
+#: ../../main/samba/src/EBox/Samba.pm:1290
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1666
+#: ../../main/samba/src/EBox/Samba.pm:1667
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1893
+#: ../../main/samba/src/EBox/Samba.pm:1894
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2312
+#: ../../main/samba/src/EBox/Samba.pm:2313
 #, fuzzy
 msgid "Manage"
 msgstr "Только управление"
 
-#: ../../main/samba/src/EBox/Samba.pm:2321
+#: ../../main/samba/src/EBox/Samba.pm:2322
 msgid "Synchronization"
 msgstr "Синхронизация включена"
 
-#: ../../main/samba/src/EBox/Samba.pm:2331
+#: ../../main/samba/src/EBox/Samba.pm:2332
 #, fuzzy
 msgid "Configure mode"
 msgstr "Сконфигурированные"
 
-#: ../../main/samba/src/EBox/Samba.pm:2635
+#: ../../main/samba/src/EBox/Samba.pm:2636
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -10691,14 +10691,14 @@ msgstr ""
 "Вы используете частичный режим резервного копирования и эта копия сделана в "
 "не-частичном режиме"
 
-#: ../../main/samba/src/EBox/Samba.pm:2657
+#: ../../main/samba/src/EBox/Samba.pm:2658
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2673
+#: ../../main/samba/src/EBox/Samba.pm:2674
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10708,105 +10708,105 @@ msgstr ""
 "как /etc/passwd пользователь. Удалите или переименуйте этого пользователя и "
 "попробуйте ещё раз"
 
-#: ../../main/samba/src/EBox/Samba.pm:2697
+#: ../../main/samba/src/EBox/Samba.pm:2698
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2971
+#: ../../main/samba/src/EBox/Samba.pm:2972
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3064
+#: ../../main/samba/src/EBox/Samba.pm:3065
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "Использование файловой системы"
 
-#: ../../main/samba/src/EBox/Samba.pm:3207
+#: ../../main/samba/src/EBox/Samba.pm:3208
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "VPN адрес {addr} уже используется интерфейсом {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3766
-#: ../../main/samba/src/EBox/Samba.pm:3786
-#: ../../main/samba/src/EBox/Samba.pm:3797
+#: ../../main/samba/src/EBox/Samba.pm:3767
+#: ../../main/samba/src/EBox/Samba.pm:3787
+#: ../../main/samba/src/EBox/Samba.pm:3798
 msgid "Client address"
 msgstr "Адрес клиента"
 
-#: ../../main/samba/src/EBox/Samba.pm:3773
+#: ../../main/samba/src/EBox/Samba.pm:3774
 msgid "Connect"
 msgstr "Подключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3774
+#: ../../main/samba/src/EBox/Samba.pm:3775
 msgid "Access to directory"
 msgstr "Доступ к каталогу"
 
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3776
 msgid "Read file"
 msgstr "Чтение файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3776
+#: ../../main/samba/src/EBox/Samba.pm:3777
 msgid "Write file"
 msgstr "Запись файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3777
+#: ../../main/samba/src/EBox/Samba.pm:3778
 msgid "Disconnect"
 msgstr "Отключить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3779
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Удалить"
 
-#: ../../main/samba/src/EBox/Samba.pm:3779
+#: ../../main/samba/src/EBox/Samba.pm:3780
 msgid "Create directory"
 msgstr "Создать каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:3780
+#: ../../main/samba/src/EBox/Samba.pm:3781
 msgid "Remove directory"
 msgstr "Удалить каталог"
 
-#: ../../main/samba/src/EBox/Samba.pm:3781
+#: ../../main/samba/src/EBox/Samba.pm:3782
 msgid "Rename"
 msgstr "Переименовать"
 
-#: ../../main/samba/src/EBox/Samba.pm:3788
-#: ../../main/samba/src/EBox/Samba.pm:3799
+#: ../../main/samba/src/EBox/Samba.pm:3789
+#: ../../main/samba/src/EBox/Samba.pm:3800
 msgid "File name"
 msgstr "Имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
-#: ../../main/samba/src/EBox/Samba.pm:3793
+#: ../../main/samba/src/EBox/Samba.pm:3790
+#: ../../main/samba/src/EBox/Samba.pm:3794
 msgid "Virus"
 msgstr "Вирус"
 
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3801
 msgid "Quarantined file name"
 msgstr "Карантинное имя файла"
 
-#: ../../main/samba/src/EBox/Samba.pm:3801
-#: ../../main/samba/src/EBox/Samba.pm:3804
+#: ../../main/samba/src/EBox/Samba.pm:3802
+#: ../../main/samba/src/EBox/Samba.pm:3805
 msgid "Quarantine"
 msgstr "Крантин"
 
-#: ../../main/samba/src/EBox/Samba.pm:3807
+#: ../../main/samba/src/EBox/Samba.pm:3808
 msgid "Samba access"
 msgstr "Доступ Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3818
+#: ../../main/samba/src/EBox/Samba.pm:3819
 msgid "Samba virus"
 msgstr "Вирус Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3829
+#: ../../main/samba/src/EBox/Samba.pm:3830
 msgid "Samba quarantine"
 msgstr "Карантин Samba"
 
 #: ../../main/squid/src/EBox/Squid.pm:100
-#: ../../main/squid/src/EBox/Squid.pm:1148
+#: ../../main/squid/src/EBox/Squid.pm:1160
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
@@ -10815,106 +10815,106 @@ msgstr "Карантин Samba"
 msgid "HTTP Proxy"
 msgstr "HTTP прокси"
 
-#: ../../main/squid/src/EBox/Squid.pm:171
+#: ../../main/squid/src/EBox/Squid.pm:181
 #, fuzzy
 msgid "Front HTTP Proxy configuration file"
 msgstr "Конфигурационный файл HTTP прокси"
 
-#: ../../main/squid/src/EBox/Squid.pm:176
+#: ../../main/squid/src/EBox/Squid.pm:186
 #, fuzzy
 msgid "Back HTTP Proxy configuration file"
 msgstr "Конфигурационный файл HTTP прокси"
 
-#: ../../main/squid/src/EBox/Squid.pm:181
+#: ../../main/squid/src/EBox/Squid.pm:191
 #, fuzzy
 msgid "Squid's log rotation configuration"
 msgstr "Настройка ротации журналов dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:186
+#: ../../main/squid/src/EBox/Squid.pm:196
 msgid "Content filter configuration file"
 msgstr "Конфигурационный файл контентного фильтра"
 
-#: ../../main/squid/src/EBox/Squid.pm:191
+#: ../../main/squid/src/EBox/Squid.pm:201
 msgid "Default filter group configuration"
 msgstr "Настройка группы фильтрации по умолчанию"
 
-#: ../../main/squid/src/EBox/Squid.pm:196
+#: ../../main/squid/src/EBox/Squid.pm:206
 msgid "Filter groups membership"
 msgstr "Членство в группе фильтрации"
 
-#: ../../main/squid/src/EBox/Squid.pm:201
+#: ../../main/squid/src/EBox/Squid.pm:211
 msgid "Content filter banned extension list"
 msgstr "Список запрещенных расширений в фильтре содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:206
+#: ../../main/squid/src/EBox/Squid.pm:216
 msgid "Content filter banned mime type list"
 msgstr "Список запрещенных mime-типов фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:211
+#: ../../main/squid/src/EBox/Squid.pm:221
 msgid "Content filter exception site list"
 msgstr "Список разрешенных сайтов фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:216
+#: ../../main/squid/src/EBox/Squid.pm:226
 msgid "Content filter grey site list"
 msgstr "Серый список сайтов фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:221
+#: ../../main/squid/src/EBox/Squid.pm:231
 msgid "Content filter banned site list"
 msgstr "Список запрещенных сайтов фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:226
+#: ../../main/squid/src/EBox/Squid.pm:236
 msgid "Content filter exception URL list"
 msgstr "Список исключений URL фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:231
+#: ../../main/squid/src/EBox/Squid.pm:241
 msgid "Content filter grey URL list"
 msgstr "Серый список URL фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:236
+#: ../../main/squid/src/EBox/Squid.pm:246
 msgid "Content filter banned URL list"
 msgstr "Список запрещенных URL фильтра содержимого"
 
-#: ../../main/squid/src/EBox/Squid.pm:241
+#: ../../main/squid/src/EBox/Squid.pm:251
 msgid "Forbidden phrases list"
 msgstr "Список запрещённых фраз"
 
-#: ../../main/squid/src/EBox/Squid.pm:246
+#: ../../main/squid/src/EBox/Squid.pm:256
 msgid "Exception phrases list"
 msgstr "Список фраз-исключений"
 
-#: ../../main/squid/src/EBox/Squid.pm:251
+#: ../../main/squid/src/EBox/Squid.pm:261
 msgid "PICS ratings configuration"
 msgstr "Настройка оценок PICS"
 
-#: ../../main/squid/src/EBox/Squid.pm:256
+#: ../../main/squid/src/EBox/Squid.pm:266
 msgid "Dansguardian's log rotation configuration"
 msgstr "Настройка ротации журналов dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:261
+#: ../../main/squid/src/EBox/Squid.pm:271
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "Настройка антивирусного сканера dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:266
+#: ../../main/squid/src/EBox/Squid.pm:276
 msgid "Filter groups per IP"
 msgstr "Группы фильтрации по IP"
 
-#: ../../main/squid/src/EBox/Squid.pm:271
+#: ../../main/squid/src/EBox/Squid.pm:281
 msgid "Configuration of adzapper"
 msgstr "Конфигурация adzapper"
 
-#: ../../main/squid/src/EBox/Squid.pm:276
+#: ../../main/squid/src/EBox/Squid.pm:286
 msgid "Set the kerberos keytab path"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:281
+#: ../../main/squid/src/EBox/Squid.pm:291
 msgid "Extract the service principal key"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:294
+#: ../../main/squid/src/EBox/Squid.pm:304
 msgid "Overwrite blocked page templates"
 msgstr "Перезаписать шаблоны заблокированных страниц"
 
-#: ../../main/squid/src/EBox/Squid.pm:295
+#: ../../main/squid/src/EBox/Squid.pm:305
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
@@ -10922,87 +10922,87 @@ msgstr ""
 "Шаблоны заблокированных страниц Dansguardian будут перезаписаны изменёнными "
 "с помощью Zentyal шаблонами."
 
-#: ../../main/squid/src/EBox/Squid.pm:300
+#: ../../main/squid/src/EBox/Squid.pm:310
 msgid "Override squid upstart job"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:306
+#: ../../main/squid/src/EBox/Squid.pm:316
 msgid "Remove dansguardian init script link"
 msgstr "Удалить ссылку на скрипт инициализации dansguardian"
 
-#: ../../main/squid/src/EBox/Squid.pm:321
+#: ../../main/squid/src/EBox/Squid.pm:331
 #, fuzzy
 msgid ""
 "To enable the HTTP proxy module, you need to have a least one external "
 "network interface"
 msgstr "Включите, если у вас только один сетевой интерфейс"
 
-#: ../../main/squid/src/EBox/Squid.pm:332
+#: ../../main/squid/src/EBox/Squid.pm:342
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "Установите переменную cache_mem в конфигурационном файле Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:341
+#: ../../main/squid/src/EBox/Squid.pm:351
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "Установите переменную max_object_size в конфигурационном файле Zentyal"
 
-#: ../../main/squid/src/EBox/Squid.pm:979
+#: ../../main/squid/src/EBox/Squid.pm:991
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
 "Editions{ch} for automatic security updates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:1075
+#: ../../main/squid/src/EBox/Squid.pm:1087
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 msgid "General Settings"
 msgstr "Общие настройки"
 
-#: ../../main/squid/src/EBox/Squid.pm:1078
+#: ../../main/squid/src/EBox/Squid.pm:1090
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:111
 msgid "Access Rules"
 msgstr "Правила доступа"
 
-#: ../../main/squid/src/EBox/Squid.pm:1081
+#: ../../main/squid/src/EBox/Squid.pm:1093
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:47
 msgid "Filter Profiles"
 msgstr "Профили фильтра"
 
-#: ../../main/squid/src/EBox/Squid.pm:1084
+#: ../../main/squid/src/EBox/Squid.pm:1096
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Списки категорий"
 
-#: ../../main/squid/src/EBox/Squid.pm:1087
+#: ../../main/squid/src/EBox/Squid.pm:1099
 msgid "Bandwidth Throttling"
 msgstr "Управление полосой пропускания"
 
-#: ../../main/squid/src/EBox/Squid.pm:1135
+#: ../../main/squid/src/EBox/Squid.pm:1147
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1137
+#: ../../main/squid/src/EBox/Squid.pm:1149
 msgid "Bytes"
 msgstr "Байт"
 
-#: ../../main/squid/src/EBox/Squid.pm:1138
+#: ../../main/squid/src/EBox/Squid.pm:1150
 msgid "Mime/type"
 msgstr "Mime/тип"
 
-#: ../../main/squid/src/EBox/Squid.pm:1144
+#: ../../main/squid/src/EBox/Squid.pm:1156
 msgid "Accepted"
 msgstr "Принято"
 
-#: ../../main/squid/src/EBox/Squid.pm:1145
+#: ../../main/squid/src/EBox/Squid.pm:1157
 msgid "Denied"
 msgstr "Отклонено"
 
-#: ../../main/squid/src/EBox/Squid.pm:1146
+#: ../../main/squid/src/EBox/Squid.pm:1158
 msgid "Filtered"
 msgstr "Отфильтровано"
 
-#: ../../main/squid/src/EBox/Squid.pm:1256
+#: ../../main/squid/src/EBox/Squid.pm:1268
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
