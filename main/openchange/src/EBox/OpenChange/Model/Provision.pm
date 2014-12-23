@@ -152,6 +152,7 @@ sub precondition
         $self->{preconditionFail} = 'notConfigured';
         return undef;
     }
+
     unless ($users->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
@@ -191,18 +192,17 @@ sub precondition
 
     my $ca = $self->global()->modInstance('ca');
     my $availableCA = $ca->isAvailable();
-    my $unsavedChanges = $self->global->unsaved() and (not $self->parentModule->isProvisioned());
     # Check there are not unsaved changes and CA is availabe
-    if ($unsavedChanges) {
-        if ($availableCA) {
-            $self->{preconditionFail} = 'unsavedChanges';
-        } else {
-            $self->{preconditionFail} = 'unsavedChangesAndNoCA';
+    if ($self->global->unsaved()) {
+        if (not $self->parentModule->isProvisioned()) {
+            if ($availableCA) {
+                $self->{preconditionFail} = 'unsavedChanges';
+            } else {
+                $self->{preconditionFail} = 'unsavedChangesAndNoCA';
+            }
+            return undef;
         }
-
-        return undef;
-    }
-    if (not $availableCA) {
+    } elsif (not $availableCA) {
         $self->{preconditionFail} = 'noCA';
         return undef;
     }
