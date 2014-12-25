@@ -211,8 +211,7 @@ sub fwport
 {
     my ($self) = @_;
 
-    # if $relayhost_is_client is true,
-    #  The static port number is also overridden, and cally
+    # The static port number is also overridden, and cally
     # calculated  as being one above the incoming SMTP/LMTP session port number.
     my $fwport = $self->port() + 1;
     return $fwport;

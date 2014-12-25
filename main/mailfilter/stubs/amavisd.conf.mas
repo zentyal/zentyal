@@ -231,16 +231,6 @@ my @allowedMTAs =  ('127.0.0.1', @allowedExternalMTAs);
 # Section II - MTA specific (defaults should be ok)
 #
 
-# if $relayhost_is_client is true, the IP address in $notify_method and
-# $forward_method is dynamically overridden with SMTP client peer address
-# (if available), which makes it possible for several hosts to share one
-# daemon.  The static port number is also overridden, and is dynamically
-# calculated  as being one above the incoming SMTP/LMTP session port number.
-#
-# These are logged at level 3, so enable logging until you know you got it
-# right.
-$relayhost_is_client = 1;         # to allow dimaic forward_method
-
 $insert_received_line = 1;        # behave like MTA: insert 'Received:' header
 			          # (does not apply to sendmail/milter)
 			          # (default is true (1) )
@@ -345,6 +335,7 @@ $log_level = 1;
 $log_templ = '[? %#V |[? %#F |[?%#D|Not-Delivered|Passed]|BANNED name/type (%F)]|INFECTED (%V)], #
 [?%o|(?)|<%o>] -> [<%R>|,][? %i ||, quarantine %i], Message-ID: %m,
 Hits: %c';
+$log_recip_templ = undef;
 </%text>
 
 
@@ -1185,9 +1176,6 @@ $spamSubject
 # override it (which it often does if sa_local_tests_only is not true)
 $sa_timeout = 30;           # timeout in seconds for a call to SpamAssassin
                             # (default is 30 seconds, undef disables it)
-
-# AWL (auto whitelisting), requires spamassassin 2.44 or better
-<& .scalarVar, 'sa_auto_whitelist', $autoWhitelist &>
 
 $sa_mail_body_size_limit = 150*1024;  # don't waste time on SA is mail is larger
 			    # (less than 1% of spam is > 64k)
