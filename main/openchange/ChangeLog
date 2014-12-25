@@ -1,4 +1,5 @@
 HEAD
+	+ Improve config for Sogo, setting up WOWorkersCount to 3 from 1
 	+ Fixed unsaved changes precondition
 	+ Add Ubuntu standard document root to apache virtual servers
 4.0.6
