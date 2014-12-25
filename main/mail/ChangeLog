@@ -1,3 +1,6 @@
+HEAD
+	+ Fix log helper exception trying to retrieve vdomains from LDAP when
+	  samba module is disabled
 4.0.2
 	+ Avoid breaking dovecot certificate when upgrading from 3.2
 4.0.1
