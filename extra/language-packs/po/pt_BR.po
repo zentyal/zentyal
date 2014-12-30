@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-10-24 21:38+0200\n"
-"Last-Translator: kandrakah <kandrakah@gmail.com>\n"
+"PO-Revision-Date: 2014-12-23 19:14+0200\n"
+"Last-Translator: fabiohsouza <fabiohsouza@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgid ""
 "certificate file)"
 msgstr ""
 "Este pacote não é um pacote de configuração Zentyal-para-Zentyal válido. "
-"(Faltando a certificação do arquivo)"
+"(Faltando arquivo de certificado)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
@@ -75,7 +75,7 @@ msgid ""
 "certificate private key file)"
 msgstr ""
 "Este pacote não é um pacote de configuração Zentyal-para-Zentyal válido. "
-"(Faltando o arquivo da chave privada de certificação)"
+"(Faltando arquivo de certificado da chave privada)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -90,7 +90,7 @@ msgstr "O certificado do cliente não existe {p}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:52
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr "A chave privada não existe {p}"
+msgstr "O arquivo de certificado da chave privada não existe {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
@@ -102,7 +102,7 @@ msgstr "O arquivo fornecido como certificado de cliente não é válido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr "O arquivo fornecido como chave privada de cliente não é válida"
+msgstr "O arquivo fornecido como chave privada de cliente não é válido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""

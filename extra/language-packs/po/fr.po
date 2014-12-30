@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-11-29 19:35+0200\n"
-"Last-Translator: Yogui <fab.yogui@gmail.com>\n"
+"PO-Revision-Date: 2014-12-28 21:50+0200\n"
+"Last-Translator: taupe <taupe@live.be>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -2176,6 +2176,8 @@ msgstr "Se connecter à d'autres serveurs"
 msgid ""
 "Users on this server will be able to chat with users in external servers."
 msgstr ""
+"Les utilisateurs de ce serveur seront en mesure de discuter avec les "
+"utilisateurs de serveurs externes. "
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:144
 msgid "Enable MUC (Multi User Chat) service"
@@ -2184,6 +2186,7 @@ msgstr "Activer MUC (Multi User Chat)"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:145
 msgid "Multi User Chat allows to create chat rooms in this server."
 msgstr ""
+"Chat multi utilisateur permet de créer des salles de chat dans ce serveur."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:151
 msgid "Enable STUN service"
@@ -2200,11 +2203,12 @@ msgstr "Activer le service proxy SOCKS5"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:159
 msgid "SOCKS5 proxy service helps file transfers between clients behind NAT."
 msgstr ""
+"Proxy Socks5 service permet les transferts de fichiers entre les clients "
+"derrière NAT."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:165
-#, fuzzy
 msgid "Enable VCard information"
-msgstr "Information générale"
+msgstr "Activer informations vcard"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:166
 msgid "Import users VCard information from LDAP."
@@ -2217,6 +2221,8 @@ msgstr "Activer le partage de fichiers"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:173
 msgid "Populate users contact list with the other system users."
 msgstr ""
+"Compléter la liste des contacts utilisateurs avec les utilisateurs du "
+"système"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 #, fuzzy

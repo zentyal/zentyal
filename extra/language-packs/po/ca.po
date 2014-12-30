@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2014-03-25 10:30+0200\n"
-"Last-Translator: Teresa <ttrullen@xtec.cat>\n"
+"PO-Revision-Date: 2014-12-28 18:27+0200\n"
+"Last-Translator: talo <gsolfor@openmailbox.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -555,7 +555,7 @@ msgstr "No es va subministrar cap fitxer o ja estava fixat per {f}"
 msgid ""
 "The uploaded certificates and/or private key are not valid. File: {file}, "
 "Error: {err}"
-msgstr ""
+msgstr "clau privada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
@@ -1107,9 +1107,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Has de configurar insecure_rip_conf a 'yes' o 'no'"
 
 #: ../../main/ha/src/EBox/HA.pm:70
-#, fuzzy
 msgid "Rule added by Zentyal HA module"
-msgstr "Regles afegides pels serveis de Zentyal (Avançat)"
+msgstr "Regles afegides pel mòdul d'HA Zentyal"
 
 #: ../../main/ha/src/EBox/HA.pm:92
 #: ../../main/ha/src/EBox/HA/Composite/General.pm:41
@@ -1243,12 +1242,11 @@ msgid "{iface} does not have IP address to use"
 msgstr "{iface} no té adreça IP a utilitzar"
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr "Nodes"
+msgstr "Nodes d'HA"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:74
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Replication failed. Please check {logfile} for more information."
 msgstr "Error reiniciant el servei {mod}. Vegi {logs} per més informació."
 
@@ -1264,6 +1262,8 @@ msgid ""
 "Here you can show the status of your cluster. If you want to see more info "
 "about the errors shown, please go to {logfile}"
 msgstr ""
+"Aquí pot observar l'estat del seu clúster. Si vol veure més informació sobre "
+"els errors mostrats, sis plau ir al fitxer {logfile}"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:69
 #, perl-brace-format
@@ -1282,22 +1282,19 @@ msgstr "Nom ha de contenir només lletres, números o guions baixos"
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:98
 #, perl-brace-format
 msgid "The IP {ip} does not belong to any interface."
-msgstr ""
+msgstr "La IP {ip} no pertany a cap interfície."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:133
-#, fuzzy
 msgid "There is a network interface with the given IP address."
-msgstr "Ja hi ha una interfície de xarxa amb aquesta IP"
+msgstr "Ja hi ha una interfície de xarxa amb l'adreça IP donada."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:135
-#, fuzzy
 msgid "There is a fixed address in DHCP with the given IP address."
-msgstr "Ja hi ha un client DHCP amb aquesta IP"
+msgstr "Hi ha una adreça fixada en el  DHCP amb l'adressa IP donada. "
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:137
-#, fuzzy
 msgid "There is a DHCP range that includes the given IP address."
-msgstr "Ja existeix un rang DHCP que inclou l'IP donada "
+msgstr "Hi ha un rang DHCP que inclou l'adressa IP donada ."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:240
 msgid "Floating IP Address"
@@ -1319,19 +1316,19 @@ msgstr "Adreça IP flotant"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "Reintentar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
-msgstr ""
+msgstr "En línia"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "Off-line"
-msgstr ""
+msgstr "Fora de línia"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:166
 #, perl-brace-format
@@ -1347,19 +1344,16 @@ msgid "Hostname"
 msgstr "Nom de màquina"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:199
-#, fuzzy
 msgid "Replication"
-msgstr "Aplicació"
+msgstr "Replicació"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Demote"
-msgstr "Eliminar"
+msgstr "Degradar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:215
-#, fuzzy
 msgid "Promote"
-msgstr "Eliminar"
+msgstr "Promocionar"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:226
 msgid "Node list for cluster"
@@ -1367,19 +1361,18 @@ msgstr "Llista de nodes per al clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:231
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:132
-#, fuzzy
 msgid "The cluster does not have any nodes."
-msgstr "Aquest protocol no fa servir ports"
+msgstr "El clúster no té nodes."
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:273
 #, perl-brace-format
 msgid "Node {name} is now the active node"
-msgstr ""
+msgstr "El node {name} és ara el node actiu"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:287
 #, perl-brace-format
 msgid "Node {name} is now a passive node"
-msgstr ""
+msgstr "El node{name} és ara un node passiu"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:64
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:74
@@ -1392,51 +1385,47 @@ msgstr "Nom del clúster"
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:65
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:63
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:154
-#, fuzzy
 msgid "Cluster secret"
-msgstr "Clúster secret"
+msgstr "Secret del clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:66
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:64
 msgid "Current Designated Controller"
-msgstr ""
+msgstr "Controlador Designat Actual"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:68
 msgid ""
 "The current Designated Controller performs the operations in the cluster. "
 "This node may be changed without any impact in the cluster."
 msgstr ""
+"El Controlador Designat actual realitza les operacions en el clúster. Aquest "
+"node pot ser canviat sense cap impacte en el clúster."
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:76
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error: {service} service is not running"
-msgstr "El servei està habilitat, però no executant-se"
+msgstr "Error: el servei {service} no està executant-se"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:66
-#, fuzzy
 msgid "Last modification"
-msgstr "Acció"
+msgstr "Última modificació"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "Configurated nodes"
-msgstr "Configurats"
+msgstr "Nodes configurats"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:67
-#, fuzzy
 msgid "nodes"
-msgstr "Nodes del clúster"
+msgstr "nodes"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "Configurated resources"
-msgstr "Configurats"
+msgstr "Recursos configurats"
 
 #: ../../main/ha/src/EBox/HA/Model/ClusterStatusSummary.pm:68
-#, fuzzy
 msgid "resources"
-msgstr "Recurs"
+msgstr "Recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
 #: ../../main/samba/src/EBox/Samba.pm:3770
@@ -1444,33 +1433,30 @@ msgid "Resource"
 msgstr "Recurs"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:114
-#, fuzzy
 msgid "Started at"
-msgstr "Inicia"
+msgstr "Iniciat a"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:127
-#, fuzzy
 msgid "The cluster does not have any resources defined."
-msgstr "Aquesta llista no té categories"
+msgstr "El clúster no té cap recurs definit."
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:140
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:145
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:151
-#, fuzzy
 msgid "noname"
-msgstr "nom"
+msgstr "sense nom"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:141
 msgid "Cluster host"
-msgstr "Cluster amfitrió"
+msgstr "Màquina del clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:147
 msgid "Cluster host port"
-msgstr "Port del clúster amfitrió"
+msgstr "Port de la màquina del clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:169
 msgid "Choose network interface"
-msgstr "Triar interfície de xarxa"
+msgstr "Triar la interfície de xarxa"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:171
 msgid "It will be used as communication channel between the cluster members."
@@ -1498,28 +1484,24 @@ msgid "Join this node to an existing cluster"
 msgstr "Unir aqust node a un clúster existent"
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:119
-#, fuzzy
 msgid "Floating IP"
 msgstr "Adreça IP flotant"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
-#, fuzzy
 msgid "Cluster error"
-msgstr "Clúster secret"
+msgstr "Error en el clúster"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:115
 msgid "Node"
-msgstr ""
+msgstr "Node"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:130
-#, fuzzy
 msgid "The cluster does not have any errors."
-msgstr "Aquest protocol no fa servir ports"
+msgstr "El clúster no té cap error."
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:144
-#, fuzzy
 msgid "no error"
-msgstr "Error"
+msgstr "sense error"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:160
 #, perl-brace-format
@@ -1528,6 +1510,9 @@ msgid ""
 "should type in a terminal the following command: {command} to recover the "
 "control from that resource"
 msgstr ""
+"Hi ha un recurs no gestionat, no el podem administrar ara mateix. Haurà "
+"d'escriure en una terminal la següent comanda: {command} per recuperar el "
+"control sobre aquell recurso."
 
 #: ../../main/dns/src/EBox/DNS.pm:283 ../../main/dns/src/EBox/DNS.pm:363
 #: ../../main/dns/src/EBox/DNS.pm:391 ../../main/dns/src/EBox/DNS.pm:1676
@@ -1537,7 +1522,7 @@ msgstr "domini"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "Zentyal will set the required environment variables for bind9 daemon"
-msgstr ""
+msgstr "Zentyal establirà les variables d'entorn requeridas pel dimoni bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:500
 msgid "main bind9 configuration file"
@@ -1677,7 +1662,7 @@ msgstr "Interfície"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:100
 msgid "The domain name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "El nom de domini serà resolt a aquesta llista de  direccions IP"
 
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:75
 msgid "Enable transparent DNS cache"
