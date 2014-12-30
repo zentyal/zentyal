@@ -1149,7 +1149,7 @@ msgstr "錯誤"
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:183
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1747 ../../main/mail/src/EBox/Mail.pm:1868
@@ -3168,7 +3168,7 @@ msgid "SMTP Mail Filter"
 msgstr "SMTP 郵件過濾"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:537
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:459
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
 msgid "Antispam"
@@ -3250,12 +3250,12 @@ msgstr "郵件過濾的政策"
 msgid "To configure amavis"
 msgstr "設置 amavis"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:427
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
 #, fuzzy
 msgid "Zentyal internal mail filter"
 msgstr "eBox 內部郵件過濾"
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:440
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
 msgstr "SMTP 過濾代理伺服器"
 

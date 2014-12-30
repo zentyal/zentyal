@@ -1088,7 +1088,7 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:183
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:115
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:58
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:446
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
 #: ../../main/mail/src/EBox/Mail.pm:1747 ../../main/mail/src/EBox/Mail.pm:1868
@@ -2933,7 +2933,7 @@ msgid "SMTP Mail Filter"
 msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:537
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:459
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:40
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:41
 msgid "Antispam"
@@ -3013,11 +3013,11 @@ msgstr ""
 msgid "To configure amavis"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:427
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:426
 msgid "Zentyal internal mail filter"
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:440
+#: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
 msgstr ""
 
