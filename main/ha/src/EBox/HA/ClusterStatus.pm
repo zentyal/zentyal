@@ -355,6 +355,8 @@ sub _parseCrmMon_1
     my $fullText = join(';', @reversedText);
     if (index($fullText, "Failed actions") != -1) {
         $_errors = $self->_parseErrors(\@reversedText);
+    } else {
+        $_errors = undef;
     }
 }
 
