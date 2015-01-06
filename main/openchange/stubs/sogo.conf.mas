@@ -84,6 +84,7 @@
             CNFieldName = cn;
             IDFieldName = cn;
             UIDFieldName = sAMAccountName;
+            MailFieldNames = (mail, otherMailbox);
             hostname = "<% $sambaHost %>";
             baseDN = "CN=Users,<% $sambaBaseDN %>";
             bindDN = "<% $sambaBindDN %>";
