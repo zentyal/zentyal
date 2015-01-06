@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2014-12-28 18:27+0200\n"
+"PO-Revision-Date: 2015-01-02 16:19+0200\n"
 "Last-Translator: talo <gsolfor@openmailbox.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -1572,9 +1572,9 @@ msgid "Domain Name Service"
 msgstr "Servei de Noms de Domini"
 
 #: ../../main/dns/src/EBox/DNS.pm:959
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Fitxer de configuració principal de {daemon}"
+msgstr "clau '{key}' en el fitxer de configuracio {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1702
 msgid "hostname"
@@ -1587,7 +1587,7 @@ msgid "alias"
 msgstr "àlies"
 
 #: ../../main/dns/src/EBox/DNS.pm:1923
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
 msgstr "Una màquina amb el nom {host} ja està registrada en aquest Zentyal"
 
@@ -1802,9 +1802,9 @@ msgid "{srv} record"
 msgstr "registre {srv}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "El servei seleccionat no és a {file}"
+msgstr "El servei '{srv}' no és a {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-12-28 21:50+0200\n"
+"PO-Revision-Date: 2015-01-04 15:24+0200\n"
 "Last-Translator: taupe <taupe@live.be>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
@@ -2224,17 +2224,8 @@ msgstr ""
 "Compléter la liste des contacts utilisateurs avec les utilisateurs du système"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
-#, fuzzy
 msgid "General configuration settings"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Paramètres de configuration générale\n"
-"#-#-#-#-#  fr.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Configuration Générale\n"
-"#-#-#-#-#  fr.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Paramètres de configuration générale\n"
-"#-#-#-#-#  fr.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Paramètres de configuration générale"
+msgstr "Paramètres de configuration générale"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:186
 msgid "General Jabber server configuration settings updated."
