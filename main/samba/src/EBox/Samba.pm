@@ -2261,15 +2261,6 @@ sub allWarnings
     return \@allWarns;
 }
 
-# Method: _supportActions
-#
-#       Overrides EBox::ServiceModule::ServiceInterface method.
-#
-sub _supportActions
-{
-    return undef;
-}
-
 # Method: menu
 #
 #       Overrides EBox::Module method.
