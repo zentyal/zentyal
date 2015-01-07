@@ -1,4 +1,5 @@
 HEAD
+	+ Improve doc for the conf key sodod_prefork
 	+ Fix error when removing the sogo database in deprovision
 	+ Improve config for Sogo, setting up WOWorkersCount to 3 from 1
 	+ Fixed unsaved changes precondition
