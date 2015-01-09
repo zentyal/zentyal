@@ -91,6 +91,7 @@ done
 if apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 then
     # Purge all no longer needed running services like haproxy, collectd, etc
+    dpkg -l | grep 'zentyal-' | cut -d' ' -f3 | xargs apt-mark manual
     apt-get autoremove --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 
     echo; echo "Importing data from OpenLDAP..."; echo
