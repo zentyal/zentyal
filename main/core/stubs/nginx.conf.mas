@@ -160,6 +160,8 @@ http {
         location @proxy {
             uwsgi_pass unix:///run/zentyal-webadmin/webadmin.sock;
 
+            uwsgi_read_timeout 120;
+
             uwsgi_param QUERY_STRING $query_string;
             uwsgi_param REQUEST_METHOD $request_method;
             uwsgi_param CONTENT_TYPE $content_type;
