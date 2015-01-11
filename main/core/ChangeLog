@@ -1,3 +1,5 @@
+HEAD
+	+ Increase uwsgi read timeout from 60 (default) to 120 seconds
 4.0.5
 	+ Enable sending crash report with no debug mode
 4.0.4
