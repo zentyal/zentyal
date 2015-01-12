@@ -35,6 +35,7 @@ echo; echo "Dumping OpenLDAP data..."; echo
 
 # Prepare for upgrade of commercial edition if it's the case
 /usr/share/zentyal/shell '$global->communityEdition() or system("touch /var/lib/zentyal/.commercial-edition")'
+EDITOR=cat /usr/share/zentyal/redisvi remoteservices/state|grep username|cut -d'"' -f4 > /var/lib/zentyal/conf/remoteservices/username
 
 # Stop services that are going to be deprecated
 for i in users remoteservices monitor
