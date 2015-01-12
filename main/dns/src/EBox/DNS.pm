@@ -1487,7 +1487,7 @@ sub _updateDynDirectZone
         if ( $txt !~ m:\.:g ) {
             $txt .= ".$zone";
         }
-        print $fh "update add $txt 259200 TXT " . $txtRR->{'txt_data'} . "\n";
+        print $fh qq{update add $txt 259200 TXT "} . $txtRR->{'txt_data'} . qq{"\n};
     }
 
     foreach my $srvRR ( @{$domData->{'srv'}} ) {
