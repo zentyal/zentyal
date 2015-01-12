@@ -1487,8 +1487,12 @@ sub _migrateTo40
     my $json = decode_json(read_file($jsonFile));
 
     my $state = $self->get_state();
-    my $username = $state->{Subscription}->{username};
-    $state->{username} = $username;
+    my $userFile = '/var/lib/zentyal/conf/remoteservices/username';
+    if (-f $userFile) {
+        my $username = read_file($userFile);
+        chomp ($username);
+        $state->{username} = $username;
+    }
 
     my $server_uuid = $json->{uuid};
     $server_uuid =~ s/-//g;
