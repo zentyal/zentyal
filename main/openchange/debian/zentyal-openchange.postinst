@@ -10,6 +10,14 @@ case "$1" in
 
         dpkg-trigger --no-await zentyal-core
     ;;
+    triggered)
+        case "$2" in
+            "/usr/sbin/sogod")
+                # Triggered when sogo package upgrade, restart module
+                service zentyal openchange restart || true
+            ;;
+        esac
+    ;;
 esac
 
 exit 0

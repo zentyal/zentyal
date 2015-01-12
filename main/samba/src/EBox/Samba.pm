@@ -464,6 +464,20 @@ sub _migrateTo35
                         my $value = $entry->get_value($attr);
                         $user->set($attr, $value, 1) if defined ($value);
                     }
+
+                    my $mail = EBox::Global->modInstance('mail');
+                    if ($entry->get_value('mailbox') and defined ($mail) and $mail->configured()) {
+                        unless ($user->hasValue('objectClass', 'userZentyalMail')) {
+                            my @objectclass = $user->get('objectClass');
+                            push (@objectclass, 'userZentyalMail');
+                            $user->set('objectClass', \@objectclass);
+                        }
+                        for my $attr (qw(mail mailbox userMaildirSize mailquota mailHomeDirectory)) {
+                            my $value = $entry->get_value($attr);
+                            $user->set($attr, $value, 1) if defined ($value);
+                        }
+                    }
+
                     $user->save();
                 }
             } elsif (defined $gidNumber) {
@@ -879,7 +893,8 @@ sub _setConf
 sub _setConfExternalAD
 {
     my ($self) = @_;
-
+    # setup kerberos,
+    $self->getProvision()->setupKerberos(1);
     # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "samba/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
@@ -1383,10 +1398,6 @@ sub _daemons
         return ($self->mode() eq STANDALONE_MODE);
     };
 
-    my $enabledAndProvisioned = sub {
-        return ($self->isEnabled() and $self->isProvisioned());
-    };
-
     return [
         {
             name => 'samba-ad-dc',
@@ -1406,9 +1417,18 @@ sub _daemons
         },
         {
             name => 'zentyal.set-uid-gid-numbers',
-            precondition => $enabledAndProvisioned,
+            precondition => \&_uidSyncEnabled,
         },
     ];
+}
+
+sub _uidSyncEnabled
+{
+    my ($self) = @_;
+
+    return 0 if EBox::Config::boolean('disable_uid_sync');
+
+    return ($self->isEnabled() and $self->isProvisioned());
 }
 
 # Method: _daemonsToDisable
@@ -2629,7 +2649,7 @@ sub restoreBackupPreCheck
     my $hostnameFile = "$dir/oldhostname";
     if (-r $hostnameFile) {
         $oldHostname = File::Slurp::read_file($hostnameFile);
-    } 
+    }
     if ($oldHostname) {
         my $hostname  =  `hostname --fqdn`;
         chomp $hostname;

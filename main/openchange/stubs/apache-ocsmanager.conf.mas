@@ -26,6 +26,7 @@ Parameters:
     $rpcproxy
     $rpcproxyAuthCacheDir
     $webmail
+    $debug => 0
 </%args>
 
 user  <% $user %>
@@ -39,6 +40,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
 <VirtualHost *:<% $port %>>
     ServerName <% $hostname %>.<% $domain %>
     ServerAlias autodiscover.<% $domain %>
+    DocumentRoot /var/www/html
 
 % if ($ssl) {
     SSLEngine on
@@ -75,7 +77,7 @@ WSGIScriptAlias /rpcwithcert/rpcproxy.dll /usr/lib/openchange/web/rpcproxy/rpcpr
     Include /etc/apache2/mods-available/env.load
 
     <Directory /usr/lib/openchange/web/rpcproxy/>
-        SetEnv RPCPROXY_LOGLEVEL DEBUG
+        SetEnv RPCPROXY_LOGLEVEL <% $debug ? 'DEBUG' : 'INFO' %>
         SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
         SetEnv SAMBA_HOST 127.0.0.1
         WSGIPassAuthorization On

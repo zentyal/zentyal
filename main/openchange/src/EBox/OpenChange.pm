@@ -73,6 +73,10 @@ use constant OC_NOTIF_SERVICE_CONF_FILE => OC_NOTIF_SERVICE_CONF_PATH . 'notific
 
 use constant APACHE_PORTS_FILE => '/etc/apache2/ports.conf';
 
+use constant Z_PUSH_CONFIG_FILE => '/usr/share/z-push/config.php';
+use constant Z_PUSH_CALDAV_CONFIG_FILE => '/usr/share/z-push/backend/caldav/config.php';
+use constant Z_PUSH_CARDDAV_CONFIG_FILE => '/usr/share/z-push/backend/carddav/config.php';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -241,11 +245,6 @@ sub _daemonsToDisable
         {
             name => 'ocnotification',
             type => 'upstart',
-        },
-        {
-            name => 'sogo',
-            type => 'init.d',
-            # FIXME: precondition only if enabled!
         }
     ];
     return $daemons;
@@ -260,6 +259,7 @@ sub _daemonsToDisable
 sub _daemons
 {
     my ($self) = @_;
+
     my $daemons = [
         {
             name         => 'zentyal.ocsmanager',
@@ -270,6 +270,10 @@ sub _daemons
             name         => 'ocnotification',
             type         => 'upstart',
             precondition => sub { return $self->isProvisioned() },
+        },
+        {
+            name => 'sogo',
+            type => 'init.d',
         }
     ];
 
@@ -399,6 +403,7 @@ sub _setConf
     #$self->_writeCronFile();
 
     $self->_setupActiveSync();
+    $self->_zPushConfigFiles();
 }
 
 # TODO: Review, is this really necessary?
@@ -444,6 +449,32 @@ sub _setupActiveSync
         if ($global->modExists('sogo')) {
             $global->addModuleToPostSave('sogo');
         }
+    }
+}
+
+sub _zPushConfigFiles
+{
+    my ($self) = @_;
+
+    my $zPushIsInstalled = EBox::GlobalImpl::_packageInstalled('z-push');
+    if ($zPushIsInstalled) {
+        EBox::debug("Writing Z-Push configuration files");
+        my $params = [];
+        $self->writeConfFile(Z_PUSH_CALDAV_CONFIG_FILE,
+                             "openchange/z-push-caldav-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
+        $self->writeConfFile(Z_PUSH_CARDDAV_CONFIG_FILE,
+                             "openchange/z-push-carddav-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
+        $self->writeConfFile(Z_PUSH_CONFIG_FILE,
+                             "openchange/z-push-config.php.mas",
+                             $params,
+                             { uid => 0, gid => 0, mode => '644' }
+                             );
     }
 }
 
@@ -630,6 +661,7 @@ sub _setOCSManagerConf
                 push (@{$params}, rpcproxy => $rpcProxyHttp);
                 push (@{$params}, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
                 push (@{$params}, webmail => $webmailHttp);
+                push (@{$params}, debug => EBox::Config::boolean('debug'));
 
                 my $conf = "${fid}-zentyal-ocsmanager-${domain}";
                 my $file = "/etc/apache2/conf-available/$conf.conf";
@@ -844,7 +876,7 @@ sub restoreConfig
     my $state = $self->get_state();
     $self->_load_state_from_file($dir);
     my $stateFromBackup = $self->get_state();
-    $state->{isProvisioned} = $stateFromBackup->{isProvisioned}; 
+    $state->{isProvisioned} = $stateFromBackup->{isProvisioned};
     $state->{Provision}     = $stateFromBackup->{Provision};
     $self->set_state($state);
 
@@ -854,7 +886,7 @@ sub restoreConfig
               'generate-database');
 
         # load openchange database data
-        my $dumpFile = $self->_mysqlDumpFile($dir);    
+        my $dumpFile = $self->_mysqlDumpFile($dir);
         if (-r $dumpFile) {
             my $dbengine = EBox::OpenChange::DBEngine->new($self);
             $dbengine->restoreDBDump($dumpFile);

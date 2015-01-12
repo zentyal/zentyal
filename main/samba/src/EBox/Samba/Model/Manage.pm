@@ -219,7 +219,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You need to enable Users module in the module status section and save changes in order to use it.');
+    return __('You need to enable Domain Controller and File Sharing module in the module status section and save changes in order to use it.');
 }
 
 sub _hiddenOU

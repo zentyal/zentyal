@@ -1,4 +1,11 @@
-HEAD
+4.0.5
+	+ Enable sending crash report with no debug mode
+4.0.4
+	+ Added subscription migration when upgrading from 3.2
+	+ Manage correctly internal errors in data table controller
+4.0.3
+	+ More robust management of administration user accounts
+	+ Fix not defined domain in log's ConfigureLogs model
 	+ When unsubscribing remove extra packages before saving changes
 	+ Better check of versions numbers in backup restore
 	+ Make EBox::MyDBEngine more reusable

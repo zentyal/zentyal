@@ -57,7 +57,7 @@ sub _group
         }
         $self->{json}->{share} = 1;
     } elsif ($self->param('remove')) {
-        $smbldap->removeGroupShare($group);
+        $smbldap->removeGroupShare($group->name());
         $self->{json}->{msg} = __('Group share removed');
         $self->{json}->{share} = 0;
     } else {

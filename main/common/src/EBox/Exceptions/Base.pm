@@ -151,6 +151,12 @@ sub log
     $Log::Log4perl::caller_depth -=3;
 }
 
+sub setSilent
+{
+    my ($self, $silent) = @_;
+    $self->{silent} = $silent;
+}
+
 # Function: rethrowSilently
 #
 #   Throws again the error as a silently exception. Can also be called as
@@ -173,7 +179,8 @@ sub rethrowSilently
     if (not $class) {
         EBox::Exceptions::External->throw($error, silent => 1);
     } elsif ($error->isa('EBox::Exceptions::Base')) {
-        $class->throw($error->text, silent => 1);
+        $error->setSilent(1);
+        $error->throw();
     } else {
         EBox::Exceptions::Internal->throw("$error", silent => 1);
     }
