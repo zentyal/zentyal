@@ -444,9 +444,21 @@ sub _migrateTo35
            EBox::error("Error reading LDIF file $ldifFile: " . $ldif->error() .
                        '. Error lines: ' .  $ldif->error_lines());
         } else {
+            my @entryObjectClass = $entry->get_value('objectClass');
+            my $isUser  = grep {$_ eq 'posixAccount'} @entryObjectClass;
+            my $isGroup = grep {$_ eq 'zentyalDistributionGroup'} @entryObjectClass;
+            if ($isGroup and $isUser) {
+                EBox::warn($entry->dn() . " has object classes of both user and group. We will assume it is a user and group data will not be migrated");
+            }
             my $gidNumber = $entry->get_value('gidNumber');
-            my $uid = $entry->get_value('uid');
-            if ($uid) {
+
+            if ($isUser) {
+                my $uid = $entry->get_value('uid');
+                if (not defined $uid) {
+                    EBox::warn($entry->dn() . " is a user but has not uid. Skipping");
+                    next;
+                }
+
                 my $uidNumber = $entry->get_value('uidNumber');
                 if ($uidNumber) {
                     my $user = new EBox::Samba::User(samAccountName => $uid);
@@ -479,23 +491,31 @@ sub _migrateTo35
                     }
 
                     $user->save();
+                } else {
+                    EBox::warn($entry->dn() . " is a user but has not uidNumber. Skipping");
+                    next;                    
                 }
-            } elsif (defined $gidNumber) {
+
+            } elsif ($isGroup) {
                 my $cn = $entry->get_value('cn');
                 if ($cn) {
                     my $group = new EBox::Samba::Group(samAccountName => $cn);
                     next unless $group->exists();
 
-                    my $oldGidNumber = $group->get('gidNumber');
-                    if ((not defined $oldGidNumber) or ($gidNumber != $oldGidNumber)) {
-                        $group->set('gidNumber', $gidNumber, 1);
+                    if (defined $gidNumber) {
+                        my $oldGidNumber = $group->get('gidNumber');
+                        if ((not defined $oldGidNumber) or ($gidNumber != $oldGidNumber)) {
+                            $group->set('gidNumber', $gidNumber, 1);
+                        }
                     }
-
-                    my @objectClass = $entry->get_value('objectClass');
-                    my $isSecurity = grep  { $_ eq 'posixGroup' } @objectClass;
-
+       
+                    my $isSecurity = grep  { $_ eq 'posixGroup' } @entryObjectClass;
                     $group->setSecurityGroup($isSecurity, 1);
+
                     $group->save();
+                } else {
+                    EBox::warn($entry->dn() . " is a group but has not cn. Skipping");
+                    next;                    
                 }
             }
         }
