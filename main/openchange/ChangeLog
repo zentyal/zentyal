@@ -1,7 +1,7 @@
 HEAD
 	+ Changes to allow provision as ADC
 	+ Add Ubuntu standard document root to apache virtual servers
-4.0.6
+4.0.7
 	+ Fixed postinst script
 4.0.5
 	+ sogod is now properly managed by zentyal-openchange

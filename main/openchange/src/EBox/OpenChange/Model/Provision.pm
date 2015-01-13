@@ -93,7 +93,7 @@ sub _table
                 fieldName     => 'admin',
                 printableName => __('Administrator user'),
                 editable     => 1,
-                help => __('Domain user with administration credentials'),
+                help => __('Domain user belonging to the Schema Admins group'),
                ));
             push (@tableDesc, new EBox::Types::Password(
                 fieldName     => 'adminPassword',
@@ -341,6 +341,8 @@ sub _doProvision
 
     my $global = $self->global();
     $global->addModuleToPostSave('samba');
+    $global->addModuleToPostSave('mail');
+    $global->addModuleToPostSave('webadmin');
 }
 
 # Method: provision
@@ -383,7 +385,7 @@ sub provision
 
 
     my $ca = $self->global()->modInstance('ca');
-    my $state = $self->parentModule()->get_state();
+    my $state = $openchange->get_state();
     if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
         my %args = %{$state->{provision_from_wizard}};
         my $commonName = "$organizationName Authority Certificate";
@@ -447,14 +449,9 @@ sub provision
                                         );
     }
 
-    # Mark mail as changed to make dovecot listen IMAP protocol at least
-    # on localhost
-    $global->modChange('mail');
-    # Mark users as changed to write smb.conf
-    $global->modChange('samba');
-    # Mark webadmin as changed so we are sure nginx configuration is
-    # refreshed with the new includes
-    $global->modChange('webadmin');
+    my $defaultNC = $openchange->ldap->dn();
+    my $orgDN = "CN=$organizationName,CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
+    $openchange->waitForLDAPObject($orgDN);
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();

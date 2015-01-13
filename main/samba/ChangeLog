@@ -1,9 +1,10 @@
 HEAD
+	+ Added waitForLDAPObject to EBox::Module::LDAP
 	+ Allow to manage Schema Admins group
 	+ Add 'drs:max object sync' parameter to avoid replication error
 	  after loading schemas
 	+ Backup and restore module's kerberos service password file
-4.0.5
+4.0.6
 	+ Calling correctly to removeGroupShare from the CGI
 	+ Fixed external AD keytab generation
 	+ Enforce kerberos configuration in external AD mode

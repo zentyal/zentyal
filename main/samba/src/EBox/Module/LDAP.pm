@@ -278,7 +278,6 @@ sub _loadSchemasFiles
         $self->_sendSchemaUpdate($masterLdap, $ldif);
     }
 
-    my $timeout = 30;
     my $defaultNC = $self->ldap->dn();
     # Wait for schemas replicated if we are not the master
     foreach my $ldif (@schemas) {
@@ -287,19 +286,31 @@ sub _loadSchemasFiles
             my ($dn) = $line =~ /^dn: (.*)/;
             if ($dn) {
                 $dn =~ s/DOMAIN_TOP_DN/$defaultNC/;
-                EBox::info("Waiting for schema object present: $dn");
-                while (1) {
-                    my $object = new EBox::Samba::LdapObject(dn => $dn);
-                    if ($object->exists()) {
-                        last;
-                    } else {
-                        sleep (1);
-                        $timeout--;
-                        if ($timeout == 0) {
-                            throw EBox::Exceptions::Internal("Schema object $dn not found after 30 seconds");
-                        }
-                    }
-                }
+                $self->waitForLDAPObject($dn);
+              }
+        }
+    }
+}
+
+# Method: waitForLDAPObject
+#
+# Waits 30 seconds for a LDAP entry with the given dn
+# If it is not seen it raises error
+#
+sub waitForLDAPObject
+{
+    my ($self, $dn) = @_;
+    my $timeout = 30;
+    EBox::info("Waiting for schema object present: $dn");
+    while (1) {
+        my $object = new EBox::Samba::LdapObject(dn => $dn);
+        if ($object->exists()) {
+            last;
+        } else {
+            sleep (1);
+            $timeout--;
+            if ($timeout == 0) {
+                throw EBox::Exceptions::Internal("Schema object $dn not found after 30 seconds");
             }
         }
     }
