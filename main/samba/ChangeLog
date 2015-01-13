@@ -1,4 +1,5 @@
 HEAD
+	+ Allow to manage Schema Admins group
 	+ Add 'drs:max object sync' parameter to avoid replication error
 	  after loading schemas
 	+ Backup and restore module's kerberos service password file
