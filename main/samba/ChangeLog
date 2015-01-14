@@ -1,4 +1,5 @@
 HEAD
+	+ Override smbd and nmbd daemons when migrating from 3.2
 	+ Refactor _migrateTo35 method to make it more explicit
 	+ Increased default max log size to 100 MB
 	+ Backup and restore module's kerberos service password file

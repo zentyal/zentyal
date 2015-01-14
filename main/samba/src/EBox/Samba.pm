@@ -410,6 +410,12 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
+
+    # Upgrade from previous versions (daemons have changed)
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_overrideDaemons();
+    }
+
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.5') < 0)) {
         $self->_migrateTo35();
     }
@@ -493,7 +499,7 @@ sub _migrateTo35
                     $user->save();
                 } else {
                     EBox::warn($entry->dn() . " is a user but has not uidNumber. Skipping");
-                    next;                    
+                    next;
                 }
 
             } elsif ($isGroup) {
@@ -508,14 +514,14 @@ sub _migrateTo35
                             $group->set('gidNumber', $gidNumber, 1);
                         }
                     }
-       
+
                     my $isSecurity = grep  { $_ eq 'posixGroup' } @entryObjectClass;
                     $group->setSecurityGroup($isSecurity, 1);
 
                     $group->save();
                 } else {
                     EBox::warn($entry->dn() . " is a group but has not cn. Skipping");
-                    next;                    
+                    next;
                 }
             }
         }
