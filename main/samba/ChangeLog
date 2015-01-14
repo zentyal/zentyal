@@ -1,4 +1,8 @@
 HEAD
+	+ Added waitForLDAPObject to EBox::Module::LDAP
+	+ Allow to manage Schema Admins group
+	+ Add 'drs:max object sync' parameter to avoid replication error
+	  after loading schemas
 	+ Override smbd and nmbd daemons when migrating from 3.2
 	+ Refactor _migrateTo35 method to make it more explicit
 	+ Increased default max log size to 100 MB

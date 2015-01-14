@@ -663,9 +663,12 @@ sub isInternal
 {
     my ($self) = @_;
 
-    # FIXME: whitelist Domain Admins, do this better removing
+    # FIXME: whitelist Domain Admins and Schema Admins, do this better removing
     #        isCriticalSystemObject check
-    if ($self->sid() =~ /^S-1-5-21-.*-512$/) {
+    my $sid = $self->sid();
+    if ($sid =~ /^S-1-5-21-\d+-\d+-\d+-512$/) { # Domain Admins
+        return 0;
+    } elsif ($sid =~ /^S-1-5-21-\d+-\d+-\d+-518$/) { # Schema Admins
         return 0;
     }
 

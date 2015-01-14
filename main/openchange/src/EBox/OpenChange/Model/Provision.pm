@@ -28,6 +28,7 @@ use EBox::Types::MultiStateAction;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
+use EBox::Types::Password;
 
 use TryCatch::Lite;
 
@@ -61,41 +62,46 @@ sub _table
             fieldName     => 'provisionedorganizationname',
             printableName => __('Organization Name'),
             acquirer      => \&_acquireOrganizationNameFromState,
-            storer        => \&_emptyFunc,
+            storer        => sub {},
             volatile      => 1,
             editable      => 0)
         );
     } else {
-        push (@tableDesc, new EBox::Types::Union(
-            fieldName     => 'organizationname',
-            printableName => __('Organization Name'),
-            editable      => 1,
-            subtypes      => [
-                new EBox::Types::Text(
-                    fieldName     => 'neworganizationname',
-                    printableName => __('New One'),
+        push (@tableDesc,  new EBox::Types::Text(
+                    fieldName     => 'organizationname',
+                    printableName => __('Organization name'),
                     defaultValue  => $self->_defaultOrganizationName(),
-                    editable      => 1),
-                new EBox::Types::Select(
-                    fieldName     => 'existingorganizationname',
-                    printableName => __('Existing One'),
-                    populate      => \&_existingOrganizationNames,
-                    editable      => 1),
-            ])
-        );
+                    editable      => 1
+                   ));
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
             printableName => __('Enable OpenChange account for all existing users'),
             defaultValue  => 0,
             editable      => 1)
-        );
-# TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
+         );
+    # TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
 #        push (@tableDesc, new EBox::Types::Boolean(
 #            fieldName => 'registerAsMain',
 #            printableName => __('Set this server as the primary server'),
 #            defaultValue => 0,
 #            editable      => 1)
 #        );
+
+        my $samba = $self->global()->modInstance('samba');
+        if ($samba->dcMode() eq 'adc') {
+            push (@tableDesc, new EBox::Types::Text(
+                fieldName     => 'admin',
+                printableName => __('Administrator user'),
+                editable     => 1,
+                help => __('Domain user belonging to the Schema Admins group'),
+               ));
+            push (@tableDesc, new EBox::Types::Password(
+                fieldName     => 'adminPassword',
+                printableName => __('Password'),
+                editable      => 1,
+                help => __('Password of the administrator user')
+               ));
+        }
     }
 
     my $customActions = [
@@ -157,38 +163,11 @@ sub precondition
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
     }
-    my $dmd = $users->dMD();
-    unless ($dmd->ownedByZentyal()) {
-        # Samba is not managing the Schema of the Active Directory.
-        unless (defined $self->parentModule->configurationContainer()) {
-            # There is no an existing Exchange or OpenChange server already, and thus, we require to change the
-            # Schema but it's not possible.
-            $self->{preconditionFail} = 'schemaNotWritable';
-            return undef;
-        }
-    }
+
     unless ($self->parentModule->isEnabled()) {
         $self->{preconditionFail} = 'notEnabled';
         return undef;
     }
-
-    # Check the samba domain is present in the Mail Virtual Domains model
-    #my $mailModule = $self->global->modInstance('mail');
-    #my $VDomainsModel = $mailModule->model('VDomains');
-    #my $adDomain = $users->getProvision->getADDomain('localhost');
-    #my $adDomainFound = 0;
-    #foreach my $id (@{$VDomainsModel->ids()}) {
-    #    my $row = $VDomainsModel->row($id);
-    #    my $vdomain = $row->valueByName('vdomain');
-    #    if (lc $vdomain eq lc $adDomain) {
-    #        $adDomainFound = 1;
-    #        last;
-    #    }
-    #}
-    #unless ($adDomainFound) {
-    #    $self->{preconditionFail} = 'vdomainNotFound';
-    #    return undef;
-    #}
 
     my $ca = $self->global()->modInstance('ca');
     my $availableCA = $ca->isAvailable();
@@ -231,12 +210,6 @@ sub preconditionFailMsg
                   'provisioning the {y} module database.',
                   x => $users->printableName(),
                   y => $self->parentModule->printableName());
-    }
-    if ($self->{preconditionFail} eq 'schemaNotWritable') {
-        return __('Your setup is not supported by Zentyal right now. You need either, have a MS Exchange ' .
-                  'installed already or provision OpenChange on the Samba server that manages the Active ' .
-                  'Directory schema. This server is not able to manage the schema, and thus cannot modify ' .
-                  'it to apply the required changes by OpenChange.');
     }
     if ($self->{preconditionFail} eq 'notEnabled') {
         return __x('You must enable the {x} module to be able to provision its ' .
@@ -286,30 +259,6 @@ sub organizations
     return $self->{_organizations};
 }
 
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    # FIXME: This code is not working with Union type.
-    my $onChange = {
-        organizationname => {
-            neworganizationname => {
-                show => [],
-                hide => ['enableUsers'],
-            },
-            existingorganizationname => {
-                show => ['enableUsers'],
-                hide => [],
-            },
-        },
-    };
-    $customizer->setOnChangeActions($onChange);
-    return $customizer;
-}
-
 sub _defaultOrganizationName
 {
     my ($self) = @_;
@@ -334,11 +283,6 @@ sub _existingOrganizationNames
         push (@existingOrganizations, {value => $organization->name(), printableValue => $organization->name()});
     }
     return \@existingOrganizations;
-}
-
-sub _emptyFunc
-{
-
 }
 
 sub _acquireProvisioned
@@ -386,11 +330,19 @@ sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
 
-    my $organizationNameSelected = $params{organizationname_selected};
-    my $organizationName = $params{$organizationNameSelected};
-    my $enableUsers = $params{enableUsers};
+    my $organizationName         = delete $params{organizationname};
+    $params{orgName} = $organizationName;
 
-    $self->provision($organizationName, $enableUsers, $action);
+    my $openchange = $self->parentModule();
+    my $state = $openchange->get_state();
+    $state->{provision} = \%params;
+    $openchange->set_state($state);
+    $openchange->setAsChanged(1);
+
+    my $global = $self->global();
+    $global->addModuleToPostSave('samba');
+    $global->addModuleToPostSave('mail');
+    $global->addModuleToPostSave('webadmin');
 }
 
 # Method: provision
@@ -405,7 +357,10 @@ sub _doProvision
 #
 sub provision
 {
-    my ($self, $organizationName, $enableUsers, $action) = @_;
+    my ($self, $organizationName, $action, %params) = @_;
+    my $enableUsers   = $params{enableUsers};
+    my $admin         = $params{admin};
+    my $adminPassword = $params{adminPassword};
 
     my $global     = $self->global();
     my $openchange = $global->modInstance('openchange');
@@ -430,7 +385,7 @@ sub provision
 
 
     my $ca = $self->global()->modInstance('ca');
-    my $state = $self->parentModule()->get_state();
+    my $state = $openchange->get_state();
     if ((not $ca->isAvailable()) and exists $state->{provision_from_wizard}) {
         my %args = %{$state->{provision_from_wizard}};
         my $commonName = "$organizationName Authority Certificate";
@@ -439,12 +394,6 @@ sub provision
         my $vdomainToEnable = $vdomains->row($vdomainId)->valueByName('vdomain');
         $self->parentModule()->model('VDomains')->enableAllVDomain($vdomainToEnable);
     }
-
-#    my $configuration = $openchange->model('Configuration');
-#    if (not $configuration->_rowStored()) {
-#        my $defaultOutgoing = $configuration->value('outgoingDomain');
-#        $configuration->setValue('outgoingDomain', $defaultOutgoing);
-#    }
 
     foreach my $organization (@{$self->organizations()}) {
         if ($organization->name() eq $organizationName) {
@@ -465,8 +414,17 @@ sub provision
             $cmd .= ' --standalone ';
         }
 
+        my $samba = $self->global()->modInstance('samba');
+        if ($samba->dcMode() eq 'adc') {
+            if (not $admin and not $adminPassword) {
+                throw EBox::Exceptions::Internal("Invalid provision credentials" . "($admin/$adminPassword)");
+            }
+            $cmd .= " --user='$admin' --password='$adminPassword'";
+        }
+
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
+
         my $openchangeConnectionString = $self->{openchangeMod}->connectionString();
 
         $cmd = "openchange_provision --openchangedb " .
@@ -483,17 +441,17 @@ sub provision
         $self->setMessage($action->message(), 'note') if ($action);
     } catch ($error) {
         $self->parentModule->setProvisioned(0);
-        throw EBox::Exceptions::External("Error provisioninig: $error");
+        if ($error =~ m/Failed to bind - LDAP error 49 LDAP_INVALID_CREDENTIALS/) {
+            throw EBox::Exceptions::External(__('Invalid administrator user name or password'));
+        }
+        throw EBox::Exceptions::External(__x("Error provisioning: {error}",
+                                             error => $error )
+                                        );
     }
 
-    # Mark mail as changed to make dovecot listen IMAP protocol at least
-    # on localhost
-    $global->modChange('mail');
-    # Mark users as changed to write smb.conf
-    $global->modChange('samba');
-    # Mark webadmin as changed so we are sure nginx configuration is
-    # refreshed with the new includes
-    $global->modChange('webadmin');
+    my $defaultNC = $openchange->ldap->dn();
+    my $orgDN = "CN=$organizationName,CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
+    $openchange->waitForLDAPObject($orgDN);
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -561,7 +519,7 @@ sub _doDeprovision
         EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
+        EBox::warn("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
         $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
     } catch ($error) {
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
@@ -600,40 +558,60 @@ sub customActionClickedJS
     my $savingChangesTitle;
     my $title;
     my $wantProvision;
+    my $jsStr;
     if ($action eq 'provision') {
         $title = __('Provision OpenChange');
         $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
         $savingChangesTitle = __('Saving changes after provision');
-        $wantProvision = 1;
+        $jsStr = <<JS;
+             var dialogParams = {
+                  title: '$title',
+                  message: '$confirmationMsg'
+             };
+             var acceptMethod = function() {
+                  $customActionClickedJS;
+                   Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                                   dialogClass: 'no-close',
+                                                                   closeOnEscape: false
+                                                                  });
+             };
+
+            Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
+            return false;
+JS
+
     } elsif ($action eq 'deprovision') {
         $title = __('Deprovision OpenChange');
         $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
         $savingChangesTitle = __('Saving changes after deprovision');
         $wantProvision = 0;
-    }
+        $jsStr = <<JS;
+            var dialogParams = {
+                   title: '$title',
+                   message: '$confirmationMsg'
+            };
+            var acceptMethod = function() {
+                  var wantProvision    = $wantProvision;
+                  $customActionClickedJS;
+                   Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                                       dialogClass: 'no-close',
+                                                                       closeOnEscape: false
+                                                                      });
+                   \$.getJSON('/OpenChange/IsProvisioned',  function(response) {
+                       var provisionStateOk = (response.provisioned == wantProvision);
+                       if (provisionStateOk) {
+                          Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
+                                                                       dialogClass: 'no-close',
+                                                                       closeOnEscape: false
+                                                                      });
+                        }
+                  });
+              };
 
-    my $jsStr = <<JS;
-    var dialogParams = {
-          title: '$title',
-          message: '$confirmationMsg'
-   };
-    var acceptMethod = function() {
-         var wantProvision    = $wantProvision;
-         $customActionClickedJS;
-         
-         \$.getJSON('/OpenChange/IsProvisioned',  function(response) {
-              var provisionStateOk = (response.provisioned == wantProvision);
-              if (provisionStateOk) {
-                 Zentyal.Dialog.showURL('/SaveChanges?save=1', { title: '$savingChangesTitle',
-                                                              dialogClass: 'no-close',
-                                                              closeOnEscape: false
-                                                             });
-               }
-         });
-     };
-    Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
-    return false;
+             Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
+             return false;
 JS
+    }
 
     return $jsStr;
 }
