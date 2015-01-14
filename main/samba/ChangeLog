@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed sort order of EBox::Samba::users method
 	+ Increased default max log size to 100 MB
 	+ Backup and restore module's kerberos service password file
 4.0.5
