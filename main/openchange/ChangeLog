@@ -1,3 +1,5 @@
+HEAD
+	+ Check if provision is possible before saving changes
 4.0.7
 	+ Changes to allow provision as ADC
 	+ Improve doc for the conf key sodod_prefork
