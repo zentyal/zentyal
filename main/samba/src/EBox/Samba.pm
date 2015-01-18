@@ -425,6 +425,15 @@ sub _migrateTo35
 {
     my ($self) = @_;
 
+    # Migrate external AD mode if set in the old users module
+    my $redis = $self->redis();
+    my $mode = $redis->get('users/conf/Mode/keys/form');
+    if ($mode and exists $mode->{mode} and ($mode->{mode} eq 'external-ad')) {
+        $redis->set('samba/conf/Mode/keys/form', $mode);
+        $self->saveConfig();
+        return;
+    }
+
     return unless ($self->configured());
 
 
