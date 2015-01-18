@@ -62,8 +62,8 @@ then
     pkill -9 samba
     pkill -9 smbd
     mkdir -p /var/lib/samba
-    cp -r /opt/samba4/private /var/lib/samba/
-    cp -r /opt/samba4/var/locks/* /var/lib/samba/
+    cp -a /opt/samba4/private /var/lib/samba/
+    cp -a /opt/samba4/var/locks/* /var/lib/samba/
     ln -f /var/lib/samba/private/sam.ldb.d/DC*FORESTDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
     ln -f /var/lib/samba/private/sam.ldb.d/DC*DOMAINDNSZONES* /var/lib/samba/private/dns/sam.ldb.d/
     ln -f /var/lib/samba/private/sam.ldb.d/metadata.tdb /var/lib/samba/private/dns/sam.ldb.d/
