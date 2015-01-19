@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed sort order of EBox::Samba::users method
 	+ Adapted migration code from 3.2 to 4.0
 	+ Added waitForLDAPObject to EBox::Module::LDAP
 	+ Allow to manage Schema Admins group

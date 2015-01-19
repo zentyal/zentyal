@@ -1728,9 +1728,9 @@ sub users
 {
     my ($self, $system) = @_;
 
-    my $list = [];
+    my @list;
 
-    return $list if (not $self->isEnabled());
+    return [] if (not $self->isEnabled());
 
     # Query the containers stored in the root DN and skip the ignored ones
     # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
@@ -1740,8 +1740,7 @@ sub users
         base => $self->ldap->dn(),
         scope => 'one',
         filter => '(|(objectClass=container)(objectClass=organizationalUnit)(objectClass=msExchSystemObjectsContainer))',
-        attrs => ['*'],
-    };
+        attrs => ['*'],    };
     my @entries = @{$self->ldap->pagedSearch($params)};
     @entries = sort {
             my $aValue = $a->get_value('name');
@@ -1764,19 +1763,21 @@ sub users
             attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
         };
         @entries = @{$self->ldap->pagedSearch($params)};
-        @entries = sort {
-                my $aValue = $a->get_value('samAccountName');
-                my $bValue = $b->get_value('samAccountName');
-                (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-        } @entries;
+
         foreach my $entry (@entries) {
             my $user = new EBox::Samba::User(entry => $entry);
             next if (not $system and $user->isSystem());
-            push (@{$list}, $user);
+            push @list, $user;
         }
     }
 
-    return $list;
+    @list = sort {
+        my $aValue = $a->get('samAccountName');
+        my $bValue = $b->get('samAccountName');
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @list;
+
+    return \@list;
 }
 
 # Method: realUsers
@@ -1955,7 +1956,7 @@ sub groups
 
     return [] if (not $self->isEnabled());
 
-    my $list = [];
+    my @list;
     my $params = {
         base => $self->ldap->dn(),
         scope => 'sub',
@@ -1963,18 +1964,18 @@ sub groups
         attrs => ['*'],
     };
     my @entries = @{$self->ldap->pagedSearch($params)};
-    @entries = sort {
-            my $aValue = $a->get_value('samAccountName');
-            my $bValue = $b->get_value('samAccountName');
-            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-     } @entries;
     foreach my $entry (@entries) {
         my $group = new EBox::Samba::Group(entry => $entry);
         next if (not $system and $group->isSystem());
-        push (@{$list}, $group);
+        push @list, $group;
     }
+    @list = sort {
+            my $aValue = $a->get('samAccountName');
+            my $bValue = $b->get('samAccountName');
+            (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+        } @list;
 
-    return $list;
+    return \@list;
 }
 
 # Method: securityGroups
