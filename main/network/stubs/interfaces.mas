@@ -73,4 +73,9 @@ vlan-raw-device <% $vlan->{interface} %>
 % if ($mtu) {
       mtu <% $mtu %>
 % }
+% if ($iface eq ‘eth0’) {
+    offload-gro off
+    offload-gso off
+    offload-tso off
+% }
 </%def>
