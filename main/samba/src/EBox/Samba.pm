@@ -4019,46 +4019,6 @@ sub shareByFilename
     return undef;
 }
 
-# Method: hiddenSid
-#
-#   Check if the specified LDB object belongs to the list of regexps
-#   of SIDs to hide on the UI read from /etc/zentyal/sids-to-hide.regex
-#
-sub hiddenSid
-{
-    my ($self, $object) = @_;
-
-    unless (defined $object) {
-        throw EBox::Exceptions::MissingArgument('object');
-    }
-
-    unless ($object->can('sid')) {
-        return 0;
-    }
-
-    unless ($self->{sidsToHide}) {
-        $self->{sidsToHide} = $self->_sidsToHide();
-    }
-
-    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($object->sid() =~ m/$ignoredSidMask/);
-    }
-
-    return 0;
-}
-
-sub _sidsToHide
-{
-    my ($self) = @_;
-
-    my $ignoredSidsFile = EBox::Config::etc() . 'sids-to-hide.regex';
-    my @lines = read_file($ignoredSidsFile);
-    my @sidsTmp = grep(/^\s*S-/, @lines);
-    my @sids = map { s/\n//; $_; } @sidsTmp;
-
-    return \@sids;
-}
-
 sub _cleanModulesForReprovision
 {
     my ($self) = @_;
