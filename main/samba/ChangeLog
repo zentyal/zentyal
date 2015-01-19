@@ -1,4 +1,4 @@
-HEAD
+4.0.6
 	+ Remove deprecated sids-to-hide file and associated methods
 	+ Fixed sort order of EBox::Samba::users method
 	+ Adapted migration code from 3.2 to 4.0
