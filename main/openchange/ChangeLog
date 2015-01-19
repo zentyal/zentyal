@@ -1,4 +1,4 @@
-HEAD
+4.0.7
 	+ Changes to allow provision as ADC
 	+ Improve doc for the conf key sodod_prefork
 	+ Fix error when removing the sogo database in deprovision
