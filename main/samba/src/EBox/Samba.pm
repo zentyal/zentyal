@@ -1112,7 +1112,7 @@ sub _postServiceHook
             my $realmName = $self->kerberosRealm();
             my $drive = $self->drive();
             my $drivePath = "\\\\$netbiosName.$realmName";
-            my $profilesPath = "\\\\$netbiosName.$realmName\\profiles";
+            my $profilesPath = $self->_roamingProfilesPath();
 
             # Skip if unmanaged_home_directory config key is defined and
             # no changes made to roaming profiles
@@ -1580,6 +1580,11 @@ sub initUser
             push (@cmds, "chmod $perms $qhome");
             EBox::Sudo::root(@cmds);
         }
+    }
+    
+    my $roamingEnabled = $self->global(1)->modInstance('samba')->roamingProfiles();
+    if ($roamingEnabled) {
+        $user->setRoamingProfile(1, $self->_roamingProfilesPath());
     }
 }
 
@@ -3491,6 +3496,14 @@ sub roamingProfiles
 
     my $model = $self->model('DomainSettings');
     return $model->roamingValue();
+}
+
+sub _roamingProfilesPath
+{
+    my ($self) = @_;
+    my $netbiosName = $self->netbiosName();
+    my $realmName = $self->kerberosRealm();
+    return "\\\\$netbiosName.$realmName\\profiles";
 }
 
 # Method: drive
