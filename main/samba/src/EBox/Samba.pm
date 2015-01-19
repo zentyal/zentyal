@@ -2797,12 +2797,7 @@ sub restoreConfig
     if ($provisioned) {
         $self->_startService();
         $self->getProvision()->resetSysvolACL();
-    } else {
-        # my $dns = $self->global()->modInstance('dns');
-        # $dns->save();
-        # $dns->restartService();
-        # $dns->setAsChanged(1);
-    }
+    } 
 }
 
 sub _provisionFromBackup

@@ -1,4 +1,6 @@
 HEAD
+	+ In restore postpone recreation of mail directories until next
+	  save change
 	+ Fix log helper exception trying to retrieve vdomains from LDAP when
 	  samba module is disabled
 4.0.2
