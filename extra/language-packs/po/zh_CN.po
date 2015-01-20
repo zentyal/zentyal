@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1745
+#: ../../main/mail/src/EBox/Mail.pm:1752
 msgid "disabled"
 msgstr "已禁用"
 
@@ -932,7 +932,7 @@ msgstr "通用名"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1762
+#: ../../main/mail/src/EBox/Mail.pm:1769
 msgid "Address"
 msgstr "地址"
 
@@ -956,11 +956,11 @@ msgstr "OpenVPN 守护进程"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3766
-#: ../../main/samba/src/EBox/Samba.pm:3786
-#: ../../main/samba/src/EBox/Samba.pm:3797
+#: ../../main/samba/src/EBox/Samba.pm:3838
+#: ../../main/samba/src/EBox/Samba.pm:3858
+#: ../../main/samba/src/EBox/Samba.pm:3869
 #: ../../main/squid/src/EBox/Squid.pm:1144
-#: ../../main/mail/src/EBox/Mail.pm:1859
+#: ../../main/mail/src/EBox/Mail.pm:1866
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -979,13 +979,13 @@ msgstr "日期"
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1151
-#: ../../main/mail/src/EBox/Mail.pm:1869
+#: ../../main/mail/src/EBox/Mail.pm:1876
 msgid "Event"
 msgstr "事件"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3791
+#: ../../main/samba/src/EBox/Samba.pm:3863
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1116,7 +1116,7 @@ msgstr "错误"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1747 ../../main/mail/src/EBox/Mail.pm:1868
+#: ../../main/mail/src/EBox/Mail.pm:1754 ../../main/mail/src/EBox/Mail.pm:1875
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1365,7 +1365,7 @@ msgid "resources"
 msgstr "资源"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3842
 msgid "Resource"
 msgstr "资源"
 
@@ -1518,7 +1518,7 @@ msgstr "主机名"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3197
+#: ../../main/samba/src/EBox/Samba.pm:3261
 msgid "alias"
 msgstr "别名"
 
@@ -1607,7 +1607,7 @@ msgstr "启用透明 DNS 缓存"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2291
+#: ../../main/samba/src/EBox/Samba.pm:2332
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -1707,7 +1707,7 @@ msgstr "此域名"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/mail/src/EBox/Mail.pm:1760
+#: ../../main/mail/src/EBox/Mail.pm:1767
 msgid "Custom"
 msgstr "定制"
 
@@ -1845,7 +1845,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2285
+#: ../../main/samba/src/EBox/Samba.pm:2326
 #: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2188,9 +2188,9 @@ msgstr "如果允许客人访问，任何访问控制都会被禁用。"
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3768
-#: ../../main/samba/src/EBox/Samba.pm:3788
-#: ../../main/samba/src/EBox/Samba.pm:3799
+#: ../../main/samba/src/EBox/Samba.pm:3840
+#: ../../main/samba/src/EBox/Samba.pm:3860
+#: ../../main/samba/src/EBox/Samba.pm:3871
 #: ../../main/squid/src/EBox/Squid.pm:1146
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2411,9 +2411,8 @@ msgstr "认证机构"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:62
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:71
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:417
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -2518,7 +2517,7 @@ msgstr "带有普通名称{cn} 的证书不能在这个ca中存在"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1803
 msgid "General"
 msgstr "常用"
 
@@ -2619,7 +2618,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3841
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4032,6 +4031,7 @@ msgstr "用户名"
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -4844,7 +4844,7 @@ msgid ""
 msgstr "已经存在一条“小包优先”规则在所有接口上"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
-#: ../../main/mail/src/EBox/Mail.pm:1759 ../../main/mail/src/EBox/Mail.pm:1766
+#: ../../main/mail/src/EBox/Mail.pm:1766 ../../main/mail/src/EBox/Mail.pm:1773
 msgid "Filter type"
 msgstr "过滤器类型"
 
@@ -5124,14 +5124,14 @@ msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
 msgstr "范围 {from} - {to} 包含 HA 虚拟 IP：“{name}”- {IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1861
+#: ../../main/mail/src/EBox/Mail.pm:1868
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
 msgstr "从"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1862
+#: ../../main/mail/src/EBox/Mail.pm:1869
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
 msgid "To"
@@ -7477,7 +7477,7 @@ msgstr "域名 {x} 无效"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
 #, fuzzy, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -7638,115 +7638,136 @@ msgid ""
 "ActiveSync option"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
-msgid "New One"
-msgstr "新建一个（New One）"
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
+#, fuzzy
+msgid "Organization name"
+msgstr "机构名称"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:81
-msgid "Existing One"
-msgstr "现有一个"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:88
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
 msgid "Enable OpenChange account for all existing users"
 msgstr "为所有现存用户启用 OpenChange 帐号"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:108
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:94
+#, fuzzy
+msgid "Administrator user"
+msgstr "管理员账户"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
+msgid "Domain user belonging to the Schema Admins group"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
+#, fuzzy
+msgid "Password of the administrator user"
+msgstr "修改管理员密码"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
 msgid "Unconfigure"
 msgstr "取消配置"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
 msgid "Database unconfigured"
 msgstr "数据库已取消配置"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:128
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
 msgid "Setup"
 msgstr "建立"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
 msgid "Database configured"
 msgstr "数据库已配置"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:129
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "OpenChange Server Provision"
 msgstr "OpenChange 服务器规定"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:223
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr "制备 {y} 模块的数据库之前，你必须在模块状态部分启用 {x} 模块。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:247
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr "虚拟域 {x} 未定义。您可以通过  {ohref} 虚拟域页面 {chref} 来添加一个。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:260
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
 #, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr "有尚未保存的变更。请先保存。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:264
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr "有尚未保存的变更。请先保存。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:269
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr "该客户端没有有效的证书。请{ohref}创建一个{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:424
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#, fuzzy
+msgid "Invalid administrator user name or password"
+msgstr "修改管理员密码"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#, fuzzy, perl-brace-format
+msgid "Error provisioning: {error}"
+msgstr "正则表达式错误: {err}"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:606
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "保存模块的变更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:610
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:611
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "保存模块的变更"
@@ -7789,9 +7810,9 @@ msgstr ""
 msgid "To make autodiscovery service available"
 msgstr "配置自动发现服务"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:768
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1730
-#: ../../main/mail/src/EBox/Mail.pm:1894
+#: ../../main/openchange/src/EBox/OpenChange.pm:774
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1737
+#: ../../main/mail/src/EBox/Mail.pm:1901
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "邮件"
@@ -8493,7 +8514,7 @@ msgid "OU name"
 msgstr "OU 名"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2328
+#: ../../main/samba/src/EBox/Samba.pm:2369
 msgid "LDAP Settings"
 msgstr "LDAP 设置"
 
@@ -8533,7 +8554,7 @@ msgid ""
 msgstr "创建新用户帐号时，会用到这些设置。"
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2318
+#: ../../main/samba/src/EBox/Samba.pm:2359
 msgid "User Template"
 msgstr "用户模板"
 
@@ -8542,7 +8563,7 @@ msgid "Recycle Bin"
 msgstr "回收站"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2339
+#: ../../main/samba/src/EBox/Samba.pm:2380
 msgid "File Sharing"
 msgstr "文件共享"
 
@@ -8603,13 +8624,13 @@ msgstr "其他服务器正在使用同一端口"
 msgid "Maximum number of groups reached"
 msgstr "组的数量太多了，已经达到最大值"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:689
+#: ../../main/samba/src/EBox/Samba/Group.pm:692
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "GID {gid} 不正确。GID 必须大于等于 {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:697
+#: ../../main/samba/src/EBox/Samba/Group.pm:700
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "系统组的 GID {gid} 不对。GID 必须小于 {max}"
@@ -9210,7 +9231,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Zentyal Cloud 文件不可用"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2307
+#: ../../main/samba/src/EBox/Samba.pm:2348
 msgid "Users and Computers"
 msgstr "用户和计算机"
 
@@ -9307,7 +9328,7 @@ msgid "exception"
 msgstr "例外"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2298
+#: ../../main/samba/src/EBox/Samba.pm:2339
 msgid "Group Policy Links"
 msgstr "组策略链接"
 
@@ -9563,7 +9584,7 @@ msgid "GPO Editor"
 msgstr "GPO 编辑器"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2295
+#: ../../main/samba/src/EBox/Samba.pm:2336
 msgid "Group Policy Objects"
 msgstr "组策略对象"
 
@@ -10008,7 +10029,7 @@ msgstr ""
 msgid "Error binding to schama master LDAP:"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:424
+#: ../../main/samba/src/EBox/Module/LDAP.pm:435
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
@@ -10129,7 +10150,7 @@ msgstr "启用扩展属性和 acl。"
 msgid "Domain and File sharing protocols"
 msgstr "文件共享 (samba) 协议"
 
-#: ../../main/samba/src/EBox/Samba.pm:527
+#: ../../main/samba/src/EBox/Samba.pm:562
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -10138,7 +10159,7 @@ msgid ""
 "configured or waiting for a lease can solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:531
+#: ../../main/samba/src/EBox/Samba.pm:566
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -10146,60 +10167,60 @@ msgid ""
 "solve this situation"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1245
+#: ../../main/samba/src/EBox/Samba.pm:1280
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1267
+#: ../../main/samba/src/EBox/Samba.pm:1302
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1290
+#: ../../main/samba/src/EBox/Samba.pm:1325
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1667
+#: ../../main/samba/src/EBox/Samba.pm:1707
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr "ID 为 '{uid}' 的用户找到 {count} 个（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1935
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr "找到 {count} 个 '{name}' 组（应该只有一个）。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2313
+#: ../../main/samba/src/EBox/Samba.pm:2354
 msgid "Manage"
 msgstr "管理"
 
-#: ../../main/samba/src/EBox/Samba.pm:2322
+#: ../../main/samba/src/EBox/Samba.pm:2363
 msgid "Synchronization"
 msgstr "同步"
 
-#: ../../main/samba/src/EBox/Samba.pm:2332
+#: ../../main/samba/src/EBox/Samba.pm:2373
 msgid "Configure mode"
 msgstr "配置模式"
 
-#: ../../main/samba/src/EBox/Samba.pm:2636
-#, perl-brace-format
+#: ../../main/samba/src/EBox/Samba.pm:2677
+#, fuzzy, perl-brace-format
 msgid ""
-"Cannot restore users module bacuse is running in mode {mode} and the backup "
+"Cannot restore users module because is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 "无法恢复用户模块，因为它正以 {mode} 模式运行，而备份是以 {bpMode} 模式制作的"
 
-#: ../../main/samba/src/EBox/Samba.pm:2658
+#: ../../main/samba/src/EBox/Samba.pm:2699
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2674
+#: ../../main/samba/src/EBox/Samba.pm:2715
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10208,100 +10229,108 @@ msgstr ""
 "无法恢复，因为 LDAP 用户 {user} 已经存在于  /etc/passwd。请删除（或改名）后重"
 "试。"
 
-#: ../../main/samba/src/EBox/Samba.pm:2698
+#: ../../main/samba/src/EBox/Samba.pm:2732
+#, perl-brace-format
+msgid ""
+"We cannot recreate the samba provision with the data from the backup because "
+"we get this error:\n"
+"{ex}"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:2750
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr "只有服务器是林的唯一域控制器情况下才可能恢复"
 
-#: ../../main/samba/src/EBox/Samba.pm:2972
+#: ../../main/samba/src/EBox/Samba.pm:3036
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr "一旦 Zentyal 被配置为附加域控制器， 主机名和域将不能被改变。"
 
-#: ../../main/samba/src/EBox/Samba.pm:3065
+#: ../../main/samba/src/EBox/Samba.pm:3129
 #, fuzzy
 msgid "Users data and Filesystem shares"
 msgstr "文件系统共享"
 
-#: ../../main/samba/src/EBox/Samba.pm:3208
+#: ../../main/samba/src/EBox/Samba.pm:3272
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "地址 {ip} 已经用于接口 {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/samba/src/EBox/Samba.pm:3787
-#: ../../main/samba/src/EBox/Samba.pm:3798
+#: ../../main/samba/src/EBox/Samba.pm:3839
+#: ../../main/samba/src/EBox/Samba.pm:3859
+#: ../../main/samba/src/EBox/Samba.pm:3870
 msgid "Client address"
 msgstr "客户端地址"
 
-#: ../../main/samba/src/EBox/Samba.pm:3774
+#: ../../main/samba/src/EBox/Samba.pm:3846
 msgid "Connect"
 msgstr "连接"
 
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3847
 msgid "Access to directory"
 msgstr "访问文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3776
+#: ../../main/samba/src/EBox/Samba.pm:3848
 msgid "Read file"
 msgstr "读文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3777
+#: ../../main/samba/src/EBox/Samba.pm:3849
 msgid "Write file"
 msgstr "写文件"
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3850
 msgid "Disconnect"
 msgstr "断开"
 
-#: ../../main/samba/src/EBox/Samba.pm:3779
+#: ../../main/samba/src/EBox/Samba.pm:3851
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "删除"
 
-#: ../../main/samba/src/EBox/Samba.pm:3780
+#: ../../main/samba/src/EBox/Samba.pm:3852
 msgid "Create directory"
 msgstr "建立文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3781
+#: ../../main/samba/src/EBox/Samba.pm:3853
 msgid "Remove directory"
 msgstr "移除文件夹"
 
-#: ../../main/samba/src/EBox/Samba.pm:3782
+#: ../../main/samba/src/EBox/Samba.pm:3854
 msgid "Rename"
 msgstr "重命名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3861
+#: ../../main/samba/src/EBox/Samba.pm:3872
 msgid "File name"
 msgstr "文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3790
-#: ../../main/samba/src/EBox/Samba.pm:3794
+#: ../../main/samba/src/EBox/Samba.pm:3862
+#: ../../main/samba/src/EBox/Samba.pm:3866
 msgid "Virus"
 msgstr "病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3801
+#: ../../main/samba/src/EBox/Samba.pm:3873
 msgid "Quarantined file name"
 msgstr "已隔离文件名"
 
-#: ../../main/samba/src/EBox/Samba.pm:3802
-#: ../../main/samba/src/EBox/Samba.pm:3805
+#: ../../main/samba/src/EBox/Samba.pm:3874
+#: ../../main/samba/src/EBox/Samba.pm:3877
 msgid "Quarantine"
 msgstr "隔离"
 
-#: ../../main/samba/src/EBox/Samba.pm:3808
+#: ../../main/samba/src/EBox/Samba.pm:3880
 msgid "Samba access"
 msgstr "Samba 权限"
 
-#: ../../main/samba/src/EBox/Samba.pm:3819
+#: ../../main/samba/src/EBox/Samba.pm:3891
 msgid "Samba virus"
 msgstr "Samba 病毒"
 
-#: ../../main/samba/src/EBox/Samba.pm:3830
+#: ../../main/samba/src/EBox/Samba.pm:3902
 msgid "Samba quarantine"
 msgstr "Samba 隔离"
 
@@ -11330,141 +11359,141 @@ msgstr "主机邮件名称"
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "邮件名称与虚拟邮件域名称相同"
 
-#: ../../main/mail/src/EBox/Mail.pm:1676
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "SMTP service"
 msgstr "SMTP 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "POP3 service"
 msgstr "POP3 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1689
+#: ../../main/mail/src/EBox/Mail.pm:1696
 msgid "POP3S service"
 msgstr "POP3S 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1695
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "IMAP service"
 msgstr "IMAP 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1701
+#: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "IMAPS service"
 msgstr "IMAPS 服务"
 
-#: ../../main/mail/src/EBox/Mail.pm:1745
+#: ../../main/mail/src/EBox/Mail.pm:1752
 msgid "enabled"
 msgstr "已启用"
 
-#: ../../main/mail/src/EBox/Mail.pm:1750
+#: ../../main/mail/src/EBox/Mail.pm:1757
 msgid "Mail server's filter"
 msgstr "邮件服务器过滤"
 
-#: ../../main/mail/src/EBox/Mail.pm:1804
+#: ../../main/mail/src/EBox/Mail.pm:1811
 msgid "Virtual Mail Domains"
 msgstr "虚拟邮件域"
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1818
 msgid "Greylist"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1818
+#: ../../main/mail/src/EBox/Mail.pm:1825
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "队列管理"
 
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "从外部账户邮件检索"
 
-#: ../../main/mail/src/EBox/Mail.pm:1860
+#: ../../main/mail/src/EBox/Mail.pm:1867
 msgid "Message ID"
 msgstr "消息 ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1863
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "From hostname"
 msgstr "来自主机名"
 
-#: ../../main/mail/src/EBox/Mail.pm:1864
+#: ../../main/mail/src/EBox/Mail.pm:1871
 msgid "From host ip"
 msgstr "来自站点ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1865
+#: ../../main/mail/src/EBox/Mail.pm:1872
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "大小 (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1866
+#: ../../main/mail/src/EBox/Mail.pm:1873
 msgid "Relay"
 msgstr "转发"
 
-#: ../../main/mail/src/EBox/Mail.pm:1867
+#: ../../main/mail/src/EBox/Mail.pm:1874
 msgid "Message type"
 msgstr "消息类型"
 
-#: ../../main/mail/src/EBox/Mail.pm:1870
+#: ../../main/mail/src/EBox/Mail.pm:1877
 msgid "Additional Info"
 msgstr "附加信息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1881
+#: ../../main/mail/src/EBox/Mail.pm:1888
 msgid "Successful messages"
 msgstr "成功消息"
 
-#: ../../main/mail/src/EBox/Mail.pm:1882
+#: ../../main/mail/src/EBox/Mail.pm:1889
 msgid "Maximum message size exceeded"
 msgstr "超出消息大小最大值"
 
-#: ../../main/mail/src/EBox/Mail.pm:1883
+#: ../../main/mail/src/EBox/Mail.pm:1890
 msgid "User quota exceeded"
 msgstr "超出用户配额"
 
-#: ../../main/mail/src/EBox/Mail.pm:1884
+#: ../../main/mail/src/EBox/Mail.pm:1891
 msgid "Relay access denied"
 msgstr "转发访问拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1885
+#: ../../main/mail/src/EBox/Mail.pm:1892
 msgid "Account does not exist"
 msgstr "帐户不存在"
 
-#: ../../main/mail/src/EBox/Mail.pm:1886
+#: ../../main/mail/src/EBox/Mail.pm:1893
 msgid "Host unreachable"
 msgstr "站点不可达"
 
-#: ../../main/mail/src/EBox/Mail.pm:1887
+#: ../../main/mail/src/EBox/Mail.pm:1894
 msgid "Authentication error"
 msgstr "身份验证发生错误"
 
-#: ../../main/mail/src/EBox/Mail.pm:1888
+#: ../../main/mail/src/EBox/Mail.pm:1895
 msgid "Greylisted"
 msgstr "灰名单"
 
-#: ../../main/mail/src/EBox/Mail.pm:1889
+#: ../../main/mail/src/EBox/Mail.pm:1896
 msgid "Relay rejected by the smarthost"
 msgstr "转发被 smarthost 拒绝"
 
-#: ../../main/mail/src/EBox/Mail.pm:1890
+#: ../../main/mail/src/EBox/Mail.pm:1897
 msgid "Other events"
 msgstr "其他事件"
 
-#: ../../main/mail/src/EBox/Mail.pm:1962
+#: ../../main/mail/src/EBox/Mail.pm:1975
 msgid "Mail SMTP server"
 msgstr "邮件 SMTP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:1970
+#: ../../main/mail/src/EBox/Mail.pm:1983
 msgid "Mail POP/IMAP server"
 msgstr "邮件 POP/IMAP 服务器"
 
-#: ../../main/mail/src/EBox/Mail.pm:2047
+#: ../../main/mail/src/EBox/Mail.pm:2060
 msgid "Mailboxes"
 msgstr "邮件箱"
 
-#: ../../main/mail/src/EBox/Mail.pm:2089
+#: ../../main/mail/src/EBox/Mail.pm:2102
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr "从属配置完成会将邮件域和它的账户删除"
 
-#: ../../main/mail/src/EBox/Mail.pm:2124
+#: ../../main/mail/src/EBox/Mail.pm:2137
 #, fuzzy, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "地址 {ip} 已经用于接口 {iface}"
@@ -14940,6 +14969,12 @@ msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "下来设置只有在邮件模块被启用后才能生效"
 
+#~ msgid "New One"
+#~ msgstr "新建一个（New One）"
+
+#~ msgid "Existing One"
+#~ msgstr "现有一个"
+
 #, fuzzy
 #~ msgid "{org} Authority Certificate"
 #~ msgstr "创建认证中心证书"
@@ -15097,9 +15132,6 @@ msgstr "下来设置只有在邮件模块被启用后才能生效"
 
 #~ msgid "The password was changed successfully."
 #~ msgstr "密码更新成功"
-
-#~ msgid "Change administrator password"
-#~ msgstr "修改管理员密码"
 
 #~ msgid "New passwords do not match."
 #~ msgstr "新密码不匹配"

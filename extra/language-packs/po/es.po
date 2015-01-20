@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1745
+#: ../../main/mail/src/EBox/Mail.pm:1752
 msgid "disabled"
 msgstr "deshabilitado"
 
@@ -999,7 +999,7 @@ msgstr "Nombre común"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1314
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1762
+#: ../../main/mail/src/EBox/Mail.pm:1769
 msgid "Address"
 msgstr "Dirección"
 
@@ -1023,11 +1023,11 @@ msgstr "Demonios OpenVPN"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3766
-#: ../../main/samba/src/EBox/Samba.pm:3786
-#: ../../main/samba/src/EBox/Samba.pm:3797
+#: ../../main/samba/src/EBox/Samba.pm:3838
+#: ../../main/samba/src/EBox/Samba.pm:3858
+#: ../../main/samba/src/EBox/Samba.pm:3869
 #: ../../main/squid/src/EBox/Squid.pm:1144
-#: ../../main/mail/src/EBox/Mail.pm:1859
+#: ../../main/mail/src/EBox/Mail.pm:1866
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/core/src/templates/finish.mas:32
 #: ../../main/core/src/templates/remoteservices/Backup/index.mas:189
@@ -1046,13 +1046,13 @@ msgstr "Fecha"
 #: ../../main/core/src/EBox/AuditLogging.pm:116
 #: ../../main/core/src/EBox/AuditLogging.pm:145
 #: ../../main/squid/src/EBox/Squid.pm:1151
-#: ../../main/mail/src/EBox/Mail.pm:1869
+#: ../../main/mail/src/EBox/Mail.pm:1876
 msgid "Event"
 msgstr "Evento"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3791
+#: ../../main/samba/src/EBox/Samba.pm:3863
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1187,7 +1187,7 @@ msgstr "Errores"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/network/src/EBox/Network.pm:4466
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:56
-#: ../../main/mail/src/EBox/Mail.pm:1747 ../../main/mail/src/EBox/Mail.pm:1868
+#: ../../main/mail/src/EBox/Mail.pm:1754 ../../main/mail/src/EBox/Mail.pm:1875
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:64
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -1450,7 +1450,7 @@ msgid "resources"
 msgstr "recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3770
+#: ../../main/samba/src/EBox/Samba.pm:3842
 msgid "Resource"
 msgstr "Recurso"
 
@@ -1622,7 +1622,7 @@ msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/DNS.pm:1707
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:204
-#: ../../main/samba/src/EBox/Samba.pm:3197
+#: ../../main/samba/src/EBox/Samba.pm:3261
 msgid "alias"
 msgstr "alias"
 
@@ -1711,7 +1711,7 @@ msgstr "Habilitar el caché de DNS transparente"
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
 #: ../../main/software/src/EBox/Software.pm:670
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:199
-#: ../../main/samba/src/EBox/Samba.pm:2291
+#: ../../main/samba/src/EBox/Samba.pm:2332
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -1819,7 +1819,7 @@ msgstr "Este dominio"
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:383
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:397
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:240
-#: ../../main/mail/src/EBox/Mail.pm:1760
+#: ../../main/mail/src/EBox/Mail.pm:1767
 msgid "Custom"
 msgstr "Personalizado"
 
@@ -1973,7 +1973,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:141
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:343
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:2285
+#: ../../main/samba/src/EBox/Samba.pm:2326
 #: ../../main/squid/src/EBox/Squid.pm:1148
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
@@ -2340,9 +2340,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3768
-#: ../../main/samba/src/EBox/Samba.pm:3788
-#: ../../main/samba/src/EBox/Samba.pm:3799
+#: ../../main/samba/src/EBox/Samba.pm:3840
+#: ../../main/samba/src/EBox/Samba.pm:3860
+#: ../../main/samba/src/EBox/Samba.pm:3871
 #: ../../main/squid/src/EBox/Squid.pm:1146
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2571,9 +2571,8 @@ msgstr "Autoridad de certificación"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:62
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:71
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:417
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -2689,7 +2688,7 @@ msgstr "El certificado con este nombre común {cn} NO existe en esta CA"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:455
 #: ../../main/core/src/EBox/SysInfo.pm:115
-#: ../../main/mail/src/EBox/Mail.pm:1796
+#: ../../main/mail/src/EBox/Mail.pm:1803
 msgid "General"
 msgstr "General"
 
@@ -2796,7 +2795,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3769
+#: ../../main/samba/src/EBox/Samba.pm:3841
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -4297,6 +4296,7 @@ msgstr "Usuario"
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:83
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:48
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:224
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:100
 #: ../../main/samba/src/EBox/Samba/Model/LdapInfo.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/SlavePassword.pm:55
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
@@ -5201,7 +5201,7 @@ msgstr ""
 "interfaces"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
-#: ../../main/mail/src/EBox/Mail.pm:1759 ../../main/mail/src/EBox/Mail.pm:1766
+#: ../../main/mail/src/EBox/Mail.pm:1766 ../../main/mail/src/EBox/Mail.pm:1773
 msgid "Filter type"
 msgstr "Tipo de filtro"
 
@@ -5511,14 +5511,14 @@ msgstr ""
 "{IP}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
-#: ../../main/mail/src/EBox/Mail.pm:1861
+#: ../../main/mail/src/EBox/Mail.pm:1868
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 msgid "From"
 msgstr "De"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
-#: ../../main/mail/src/EBox/Mail.pm:1862
+#: ../../main/mail/src/EBox/Mail.pm:1869
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
 msgid "To"
@@ -8004,7 +8004,7 @@ msgstr "El módulo {x} necesita ser configurado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:254
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -8174,40 +8174,51 @@ msgstr ""
 "Se necesita activar la opción de webmail HTTPS en cualquier dominio virtual "
 "de correo para activar ActiveSync"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:76
-msgid "New One"
-msgstr "Nuevo"
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:72
+#, fuzzy
+msgid "Organization name"
+msgstr "Nombre de Organización"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:81
-msgid "Existing One"
-msgstr "Uno existente"
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:88
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
 msgid "Enable OpenChange account for all existing users"
 msgstr "Cuenta de OpenChange para todos los usuarios existentes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:108
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:94
+#, fuzzy
+msgid "Administrator user"
+msgstr "Usuario administrativo"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:96
+msgid "Domain user belonging to the Schema Admins group"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:102
+#, fuzzy
+msgid "Password of the administrator user"
+msgstr "Contraseña para el usuario mencionado arriba"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:114
 msgid "Unconfigure"
 msgstr "Desconfigurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:110
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
 msgid "Database unconfigured"
 msgstr "Base de datos sin configurar"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:116
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:128
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
 msgid "Setup"
 msgstr "Puesta en marcha"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:118
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:124
 msgid "Database configured"
 msgstr "Base de datos configurada"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:129
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:135
 msgid "OpenChange Server Provision"
 msgstr "Servidor de aprovisionamiento OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:134
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
@@ -8215,7 +8226,7 @@ msgstr ""
 "Configura el servidor de groupware OpenChange. Se extenderá e inicializará "
 "los valores requeridos en el esquema de LDAP."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:223
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -8224,7 +8235,7 @@ msgstr ""
 "Debes activar el módulo {x} en la sección de estado de los módulos antes de "
 "configurar por primera vez la base de datos del módulo {y}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:247
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -8233,7 +8244,7 @@ msgstr ""
 "El dominio virtual {x} no está definido. Puedes añadirlo en la {ohref}página "
 "de Dominios Virtuales{chref}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:260
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
@@ -8241,7 +8252,7 @@ msgstr ""
 "Hay cambios sin guardar. Por favor, guárdalos antes de configurar la base de "
 "datos de OpenChange."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:264
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
 #, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
@@ -8250,7 +8261,7 @@ msgstr ""
 "{op}Hay cambios sin guardar. Por favor, guárdalos para poder configurar la "
 "base de datos de OpenChange.{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:269
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
 #, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -8259,7 +8270,7 @@ msgstr ""
 "{op}No existe una Autoridad Certificadora disponible. Debes {oh}crearla o "
 "renovarla{ch}{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:424
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
@@ -8268,12 +8279,22 @@ msgstr ""
 "Para provisionar OpenChange se necesita primero {oh}crear un dominio de "
 "correo virtual{oc}"
 
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#, fuzzy
+msgid "Invalid administrator user name or password"
+msgstr "Cambiar contraseña del administrador"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#, fuzzy, perl-brace-format
+msgid "Error provisioning: {error}"
+msgstr "Expresión regular incorrecta: {err}"
+
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:604
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
 msgid "Provision OpenChange"
 msgstr "Provisionar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:605
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8281,16 +8302,16 @@ msgstr ""
 "Provisionar OpenChange activará el guardado de todos los cambios sin guardar "
 "pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:606
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
 msgid "Saving changes after provision"
 msgstr "Guardando cambios tras la provisión"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:609
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
 msgid "Deprovision OpenChange"
 msgstr "Desconfigurar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:610
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8298,7 +8319,7 @@ msgstr ""
 "Desconfigurar OpenChange activará el guardado de todos los cambios sin "
 "guardar pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:611
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
 msgid "Saving changes after deprovision"
 msgstr "Guardando cambios tras desconfigurar"
 
@@ -8340,9 +8361,9 @@ msgstr "Para que el SOGo webmail sea accesible"
 msgid "To make autodiscovery service available"
 msgstr "Para activar el servicio de autodiscovery"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:768
-#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1730
-#: ../../main/mail/src/EBox/Mail.pm:1894
+#: ../../main/openchange/src/EBox/OpenChange.pm:774
+#: ../../main/mail/src/EBox/Mail.pm:106 ../../main/mail/src/EBox/Mail.pm:1737
+#: ../../main/mail/src/EBox/Mail.pm:1901
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 msgid "Mail"
 msgstr "Correo"
@@ -9077,7 +9098,7 @@ msgid "OU name"
 msgstr "Nombre de la OU"
 
 #: ../../main/samba/src/EBox/Samba/Composite/Settings.pm:52
-#: ../../main/samba/src/EBox/Samba.pm:2328
+#: ../../main/samba/src/EBox/Samba.pm:2369
 msgid "LDAP Settings"
 msgstr "Opciones de configuración de LDAP."
 
@@ -9125,7 +9146,7 @@ msgstr ""
 "usuario."
 
 #: ../../main/samba/src/EBox/Samba/Composite/UserTemplate.pm:73
-#: ../../main/samba/src/EBox/Samba.pm:2318
+#: ../../main/samba/src/EBox/Samba.pm:2359
 msgid "User Template"
 msgstr "Plantilla de Usuario"
 
@@ -9134,7 +9155,7 @@ msgid "Recycle Bin"
 msgstr "Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Composite/FileSharing.pm:38
-#: ../../main/samba/src/EBox/Samba.pm:2339
+#: ../../main/samba/src/EBox/Samba.pm:2380
 msgid "File Sharing"
 msgstr "Compartición de Ficheros"
 
@@ -9198,14 +9219,14 @@ msgstr "El servidor ha rechazado ejecutar la operación solicitada"
 msgid "Maximum number of groups reached"
 msgstr "Máximo número de grupos alcanzado"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:689
+#: ../../main/samba/src/EBox/Samba/Group.pm:692
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "GID {gid} incorrecto para el grupo. GID debe ser mayor o igual que {min}"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:697
+#: ../../main/samba/src/EBox/Samba/Group.pm:700
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
@@ -9867,7 +9888,7 @@ msgid "Zentyal Cloud Files not available"
 msgstr "Servicio de ficheros de Zentyal Cloud no disponible"
 
 #: ../../main/samba/src/EBox/Samba/Model/Manage.pm:37
-#: ../../main/samba/src/EBox/Samba.pm:2307
+#: ../../main/samba/src/EBox/Samba.pm:2348
 msgid "Users and Computers"
 msgstr "Usuarios y Equipos"
 
@@ -9972,7 +9993,7 @@ msgid "exception"
 msgstr "excepción"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:2298
+#: ../../main/samba/src/EBox/Samba.pm:2339
 msgid "Group Policy Links"
 msgstr "Enlaces para Políticas de Grupo"
 
@@ -10238,7 +10259,7 @@ msgid "GPO Editor"
 msgstr "Editor de GPO"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:68
-#: ../../main/samba/src/EBox/Samba.pm:2295
+#: ../../main/samba/src/EBox/Samba.pm:2336
 msgid "Group Policy Objects"
 msgstr "Objetos de política de grupo (GPO)"
 
@@ -10716,7 +10737,7 @@ msgstr "Error conectando al propietario del rol 'schema master' ({x})"
 msgid "Error binding to schama master LDAP:"
 msgstr "Error haciendo LDAP bind al schema master:"
 
-#: ../../main/samba/src/EBox/Module/LDAP.pm:424
+#: ../../main/samba/src/EBox/Module/LDAP.pm:435
 #, perl-brace-format
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
@@ -10849,7 +10870,7 @@ msgstr "Para activar atributos extendidos y ACL."
 msgid "Domain and File sharing protocols"
 msgstr "Protocolos de dominio y compartición de ficheros"
 
-#: ../../main/samba/src/EBox/Samba.pm:527
+#: ../../main/samba/src/EBox/Samba.pm:562
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -10863,7 +10884,7 @@ msgstr ""
 "esperar a que se asigne una dirección puede resolver esta situación si el "
 "módulo de Red se acaba de habilitar."
 
-#: ../../main/samba/src/EBox/Samba.pm:531
+#: ../../main/samba/src/EBox/Samba.pm:566
 #, perl-brace-format
 msgid ""
 "Cannot enable Users and Computers module because your system does not have "
@@ -10874,19 +10895,19 @@ msgstr ""
 "tiene direcciones IP disponibles. {oh}Configurando los interfaces de red{ch} "
 "y guardando cambios quizá se solucione esta situación"
 
-#: ../../main/samba/src/EBox/Samba.pm:1245
+#: ../../main/samba/src/EBox/Samba.pm:1280
 #, perl-brace-format
 msgid "Error setting security descriptor on share '{x}': {y}"
 msgstr ""
 "Error configurando el descriptor de seguridad en el recurso compartido "
 "'{x}': {y}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1267
+#: ../../main/samba/src/EBox/Samba.pm:1302
 #, perl-brace-format
 msgid "Error setting security descriptor on file {x}{y}: {z}"
 msgstr "Error configurando el descriptor de fichero {x}{y}: {z}"
 
-#: ../../main/samba/src/EBox/Samba.pm:1290
+#: ../../main/samba/src/EBox/Samba.pm:1325
 msgid ""
 "There were errors setting ACLs on samba shares, please check the zentyal log "
 "for details."
@@ -10894,48 +10915,48 @@ msgstr ""
 "Hubo errores configurando los ACL en las carpetas compartidas de samba, por "
 "favor compruebe el registro de Zentyal para más detalles."
 
-#: ../../main/samba/src/EBox/Samba.pm:1667
+#: ../../main/samba/src/EBox/Samba.pm:1707
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 "Se encontraron {count} resultados para el usuario '{uid}', se esperaba sólo "
 "uno."
 
-#: ../../main/samba/src/EBox/Samba.pm:1894
+#: ../../main/samba/src/EBox/Samba.pm:1935
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 "Encontrados {count} resultados para el grupo '{name}', sólo se esperaba uno."
 
-#: ../../main/samba/src/EBox/Samba.pm:2313
+#: ../../main/samba/src/EBox/Samba.pm:2354
 msgid "Manage"
 msgstr "Gestionar"
 
-#: ../../main/samba/src/EBox/Samba.pm:2322
+#: ../../main/samba/src/EBox/Samba.pm:2363
 msgid "Synchronization"
 msgstr "Sincronización"
 
-#: ../../main/samba/src/EBox/Samba.pm:2332
+#: ../../main/samba/src/EBox/Samba.pm:2373
 msgid "Configure mode"
 msgstr "Configurar modo"
 
-#: ../../main/samba/src/EBox/Samba.pm:2636
-#, perl-brace-format
+#: ../../main/samba/src/EBox/Samba.pm:2677
+#, fuzzy, perl-brace-format
 msgid ""
-"Cannot restore users module bacuse is running in mode {mode} and the backup "
+"Cannot restore users module because is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 "No es posible restaurar el módulo de usuarios por que se está ejecutando en "
 "modo {mode} y el respaldo se efectuó en modo {bpMode}"
 
-#: ../../main/samba/src/EBox/Samba.pm:2658
+#: ../../main/samba/src/EBox/Samba.pm:2699
 #, perl-brace-format
 msgid ""
 "To be able to restore this backup the hostname should be first set to {hn}. "
 "Otherwise samba data could not be restored."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:2674
+#: ../../main/samba/src/EBox/Samba.pm:2715
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -10944,7 +10965,15 @@ msgstr ""
 "No se puede restaurar porque el usuario {user} del LDAP ya existe como "
 "usuario de sistema. Debe borrarse o renombrarse antes de intentar de nuevo."
 
-#: ../../main/samba/src/EBox/Samba.pm:2698
+#: ../../main/samba/src/EBox/Samba.pm:2732
+#, perl-brace-format
+msgid ""
+"We cannot recreate the samba provision with the data from the backup because "
+"we get this error:\n"
+"{ex}"
+msgstr ""
+
+#: ../../main/samba/src/EBox/Samba.pm:2750
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
@@ -10952,7 +10981,7 @@ msgstr ""
 "Solo se puede restaurar si el servidor es el único controlador de dominio "
 "del bosque"
 
-#: ../../main/samba/src/EBox/Samba.pm:2972
+#: ../../main/samba/src/EBox/Samba.pm:3036
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
@@ -10960,87 +10989,87 @@ msgstr ""
 "El nombre de equipo o dominio no pueden ser modificados si Zentyal está "
 "configurado como un controlador adicional del dominio."
 
-#: ../../main/samba/src/EBox/Samba.pm:3065
+#: ../../main/samba/src/EBox/Samba.pm:3129
 msgid "Users data and Filesystem shares"
 msgstr "Datos de usuarios y comparticiones del sistema de archivos"
 
-#: ../../main/samba/src/EBox/Samba.pm:3208
+#: ../../main/samba/src/EBox/Samba.pm:3272
 #, perl-brace-format
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "La dirección {addr} ya está siendo usada por el {type} {name}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3767
-#: ../../main/samba/src/EBox/Samba.pm:3787
-#: ../../main/samba/src/EBox/Samba.pm:3798
+#: ../../main/samba/src/EBox/Samba.pm:3839
+#: ../../main/samba/src/EBox/Samba.pm:3859
+#: ../../main/samba/src/EBox/Samba.pm:3870
 msgid "Client address"
 msgstr "Dirección del cliente"
 
-#: ../../main/samba/src/EBox/Samba.pm:3774
+#: ../../main/samba/src/EBox/Samba.pm:3846
 msgid "Connect"
 msgstr "Conexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:3775
+#: ../../main/samba/src/EBox/Samba.pm:3847
 msgid "Access to directory"
 msgstr "Acceso a directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3776
+#: ../../main/samba/src/EBox/Samba.pm:3848
 msgid "Read file"
 msgstr "Lectura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3777
+#: ../../main/samba/src/EBox/Samba.pm:3849
 msgid "Write file"
 msgstr "Escritura de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3778
+#: ../../main/samba/src/EBox/Samba.pm:3850
 msgid "Disconnect"
 msgstr "Desconexión"
 
-#: ../../main/samba/src/EBox/Samba.pm:3779
+#: ../../main/samba/src/EBox/Samba.pm:3851
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3780
+#: ../../main/samba/src/EBox/Samba.pm:3852
 msgid "Create directory"
 msgstr "Crear directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3781
+#: ../../main/samba/src/EBox/Samba.pm:3853
 msgid "Remove directory"
 msgstr "Borrar directorio"
 
-#: ../../main/samba/src/EBox/Samba.pm:3782
+#: ../../main/samba/src/EBox/Samba.pm:3854
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3789
-#: ../../main/samba/src/EBox/Samba.pm:3800
+#: ../../main/samba/src/EBox/Samba.pm:3861
+#: ../../main/samba/src/EBox/Samba.pm:3872
 msgid "File name"
 msgstr "Nombre de fichero"
 
-#: ../../main/samba/src/EBox/Samba.pm:3790
-#: ../../main/samba/src/EBox/Samba.pm:3794
+#: ../../main/samba/src/EBox/Samba.pm:3862
+#: ../../main/samba/src/EBox/Samba.pm:3866
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3801
+#: ../../main/samba/src/EBox/Samba.pm:3873
 msgid "Quarantined file name"
 msgstr "Fichero en cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3802
-#: ../../main/samba/src/EBox/Samba.pm:3805
+#: ../../main/samba/src/EBox/Samba.pm:3874
+#: ../../main/samba/src/EBox/Samba.pm:3877
 msgid "Quarantine"
 msgstr "Cuarentena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3808
+#: ../../main/samba/src/EBox/Samba.pm:3880
 msgid "Samba access"
 msgstr "Accesos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3819
+#: ../../main/samba/src/EBox/Samba.pm:3891
 msgid "Samba virus"
 msgstr "Virus en Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3830
+#: ../../main/samba/src/EBox/Samba.pm:3902
 msgid "Samba quarantine"
 msgstr "Cuarentena de Samba"
 
@@ -12131,135 +12160,135 @@ msgstr "Nombre de la máquina de correo"
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "El nombre de correo y el dominio virtual de correo son iguales"
 
-#: ../../main/mail/src/EBox/Mail.pm:1676
+#: ../../main/mail/src/EBox/Mail.pm:1683
 msgid "SMTP service"
 msgstr "servicio SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1690
 msgid "POP3 service"
 msgstr "servicio POP3"
 
-#: ../../main/mail/src/EBox/Mail.pm:1689
+#: ../../main/mail/src/EBox/Mail.pm:1696
 msgid "POP3S service"
 msgstr "servicio POP3S"
 
-#: ../../main/mail/src/EBox/Mail.pm:1695
+#: ../../main/mail/src/EBox/Mail.pm:1702
 msgid "IMAP service"
 msgstr "servicio IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1701
+#: ../../main/mail/src/EBox/Mail.pm:1708
 msgid "IMAPS service"
 msgstr "servicio IMAPS"
 
-#: ../../main/mail/src/EBox/Mail.pm:1745
+#: ../../main/mail/src/EBox/Mail.pm:1752
 msgid "enabled"
 msgstr "habilitado"
 
-#: ../../main/mail/src/EBox/Mail.pm:1750
+#: ../../main/mail/src/EBox/Mail.pm:1757
 msgid "Mail server's filter"
 msgstr "Filtro del servidor de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1804
+#: ../../main/mail/src/EBox/Mail.pm:1811
 msgid "Virtual Mail Domains"
 msgstr "Dominios virtuales de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1811
+#: ../../main/mail/src/EBox/Mail.pm:1818
 msgid "Greylist"
 msgstr "Lista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1818
+#: ../../main/mail/src/EBox/Mail.pm:1825
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Gestión de cola"
 
-#: ../../main/mail/src/EBox/Mail.pm:1845
+#: ../../main/mail/src/EBox/Mail.pm:1852
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Recuperación de correo de cuentas externas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1860
+#: ../../main/mail/src/EBox/Mail.pm:1867
 msgid "Message ID"
 msgstr "ID del mensaje"
 
-#: ../../main/mail/src/EBox/Mail.pm:1863
+#: ../../main/mail/src/EBox/Mail.pm:1870
 msgid "From hostname"
 msgstr "Desde nombre de máquina"
 
-#: ../../main/mail/src/EBox/Mail.pm:1864
+#: ../../main/mail/src/EBox/Mail.pm:1871
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: ../../main/mail/src/EBox/Mail.pm:1865
+#: ../../main/mail/src/EBox/Mail.pm:1872
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1866
+#: ../../main/mail/src/EBox/Mail.pm:1873
 msgid "Relay"
 msgstr "Retransmisión"
 
-#: ../../main/mail/src/EBox/Mail.pm:1867
+#: ../../main/mail/src/EBox/Mail.pm:1874
 msgid "Message type"
 msgstr "Tipo del mensaje"
 
-#: ../../main/mail/src/EBox/Mail.pm:1870
+#: ../../main/mail/src/EBox/Mail.pm:1877
 msgid "Additional Info"
 msgstr "Información adicional"
 
-#: ../../main/mail/src/EBox/Mail.pm:1881
+#: ../../main/mail/src/EBox/Mail.pm:1888
 msgid "Successful messages"
 msgstr "Mensajes exitosos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1882
+#: ../../main/mail/src/EBox/Mail.pm:1889
 msgid "Maximum message size exceeded"
 msgstr "Tamaño máximo de mensaje excedido"
 
-#: ../../main/mail/src/EBox/Mail.pm:1883
+#: ../../main/mail/src/EBox/Mail.pm:1890
 msgid "User quota exceeded"
 msgstr "Cuota de usuario excedida"
 
-#: ../../main/mail/src/EBox/Mail.pm:1884
+#: ../../main/mail/src/EBox/Mail.pm:1891
 msgid "Relay access denied"
 msgstr "Acceso de retransmisión denegado"
 
-#: ../../main/mail/src/EBox/Mail.pm:1885
+#: ../../main/mail/src/EBox/Mail.pm:1892
 msgid "Account does not exist"
 msgstr "La cuenta no existe"
 
-#: ../../main/mail/src/EBox/Mail.pm:1886
+#: ../../main/mail/src/EBox/Mail.pm:1893
 msgid "Host unreachable"
 msgstr "Máquina inalcanzable"
 
-#: ../../main/mail/src/EBox/Mail.pm:1887
+#: ../../main/mail/src/EBox/Mail.pm:1894
 msgid "Authentication error"
 msgstr "Error de autenticación"
 
-#: ../../main/mail/src/EBox/Mail.pm:1888
+#: ../../main/mail/src/EBox/Mail.pm:1895
 msgid "Greylisted"
 msgstr "Incorporado a la lista gris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1889
+#: ../../main/mail/src/EBox/Mail.pm:1896
 msgid "Relay rejected by the smarthost"
 msgstr "Reenvío denegado por el smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1890
+#: ../../main/mail/src/EBox/Mail.pm:1897
 msgid "Other events"
 msgstr "Otros eventos"
 
-#: ../../main/mail/src/EBox/Mail.pm:1962
+#: ../../main/mail/src/EBox/Mail.pm:1975
 msgid "Mail SMTP server"
 msgstr "Servidor de correo SMTP"
 
-#: ../../main/mail/src/EBox/Mail.pm:1970
+#: ../../main/mail/src/EBox/Mail.pm:1983
 msgid "Mail POP/IMAP server"
 msgstr "Servidor de correo POP/IMAP"
 
-#: ../../main/mail/src/EBox/Mail.pm:2047
+#: ../../main/mail/src/EBox/Mail.pm:2060
 msgid "Mailboxes"
 msgstr "Buzones de correo"
 
-#: ../../main/mail/src/EBox/Mail.pm:2089
+#: ../../main/mail/src/EBox/Mail.pm:2102
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
@@ -12267,7 +12296,7 @@ msgstr ""
 "Los dominios y cuentas de correo serán borrados cuando la configuración del "
 "esclavo esté completada"
 
-#: ../../main/mail/src/EBox/Mail.pm:2124
+#: ../../main/mail/src/EBox/Mail.pm:2137
 #, perl-brace-format
 msgid "Address {addr} is in use as external alias"
 msgstr "La dirección {addr} está en uso como alias externo"
@@ -15931,6 +15960,12 @@ msgstr ""
 "Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
 "habilitado"
 
+#~ msgid "New One"
+#~ msgstr "Nuevo"
+
+#~ msgid "Existing One"
+#~ msgstr "Uno existente"
+
 #~ msgid "{org} Authority Certificate"
 #~ msgstr "Certificado de Autoridad {org}"
 
@@ -16134,9 +16169,6 @@ msgstr ""
 
 #~ msgid "The password was changed successfully."
 #~ msgstr "Se ha cambiado la contraseña correctamente."
-
-#~ msgid "Change administrator password"
-#~ msgstr "Cambiar contraseña del administrador"
 
 #~ msgid "New passwords do not match."
 #~ msgstr "Las contraseñas nuevas no coinciden."
@@ -23177,9 +23209,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Nombre de usuario para sincronizar con Windows AD (necesario crearlo en "
 #~ "el AD)"
-
-#~ msgid "Password for the above user"
-#~ msgstr "Contraseña para el usuario mencionado arriba"
 
 #~ msgid "AD Secret Key"
 #~ msgstr "Clave secreta AD"
