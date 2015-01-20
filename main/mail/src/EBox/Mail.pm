@@ -1555,6 +1555,13 @@ sub _preSetConf
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
+    my $recreateMaildirs = delete $state->{recreate_maildirs};
+    if ($recreateMaildirs) {
+        $self->_recreateMaildirs();
+        $self->set_state($state);
+    }
+
     return unless $self->configured();
 
     if ($self->service) {
@@ -1919,8 +1926,16 @@ sub dumpConfig
 sub restoreConfig
 {
     my ($self, $dir) = @_;
+    my $state = $self->get_state();
+    $state->{recreate_maildirs} = 1;
+    $self->set_state($state);
 
-    # recreate maildirs for accounts if needed
+    $self->{fetchmail}->restoreConfig($dir);
+}
+
+sub _recreateMaildirs
+{
+    my ($self) = @_;
     my @vdomains = $self->{vdomains}->vdomains();
     foreach my $vdomain (@vdomains) {
         my @addresses =
@@ -1933,8 +1948,6 @@ sub restoreConfig
             }
         }
     }
-
-    $self->{fetchmail}->restoreConfig($dir);
 }
 
 # Method: certificates

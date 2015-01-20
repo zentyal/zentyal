@@ -124,7 +124,7 @@ sub checkEnvironment
     my $domainNetbiosName = $settings->value('workgroup');
     my $hostNetbiosName = $settings->value('netbiosName');
     if (uc ($domainNetbiosName) eq uc ($hostNetbiosName)) {
-    $users->enableService(0);
+        $users->enableService(0);
         my $err = __x("The host netbios name '{x}' has to be the different " .
                       "than the domain netbios name '{y}'",
                       x => $hostNetbiosName, y => $domainNetbiosName);

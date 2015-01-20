@@ -1,4 +1,5 @@
 HEAD
+	+ Allow restore backup when samba is not provisioned
 	+ Set roaming profile for new users
 4.0.6
 	+ Remove deprecated sids-to-hide file and associated methods

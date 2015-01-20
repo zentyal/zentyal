@@ -2674,7 +2674,7 @@ sub restoreBackupPreCheck
     if ($mode ne $backupMode) {
         my $modeModel = $self->model('Mode');
         throw EBox::Exceptions::External(
-            __x('Cannot restore users module bacuse is running in mode {mode} and the backup was made in mode {bpMode}',
+            __x('Cannot restore users module because is running in mode {mode} and the backup was made in mode {bpMode}',
                 mode => $modeModel->modePrintableName($mode),
                 bpMode => $modeModel->modePrintableName($backupMode),
                )
@@ -2723,8 +2723,19 @@ sub restoreBackupPreCheck
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    my $mode = $self->mode();
+    my $provisioned = $self->isProvisioned();
+    if (not $provisioned) {
+        try {
+            $self->getProvision()->checkEnvironment(1);
+        } catch ($ex) {
+            my $exError = "$ex";
+            my $error = __x("We cannot recreate the samba provision with the data from the backup because we get this error:\n{ex}",
+                           ex => $exError);
+            throw EBox::Exceptions::External($error);
+        }
+    }
 
+    my $mode = $self->mode();
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
     if ($mode ne STANDALONE_MODE) {
         # only standalone mode needs to do this operations to restore the LDAP
@@ -2742,7 +2753,9 @@ sub restoreConfig
         return;
     }
 
-    $self->stopService();
+    if ($provisioned) {
+        $self->stopService();
+    }
 
     # Remove private and sysvol
     my $privateDir = PRIVATE_DIR;
@@ -2786,9 +2799,19 @@ sub restoreConfig
     # Set provisioned flag
     $self->getProvision->setProvisioned(1);
 
-    $self->_startService();
+    if ($provisioned) {
+        $self->_startService();
+        $self->getProvision()->resetSysvolACL();
+    } 
+}
 
-    $self->getProvision()->resetSysvolACL();
+sub _provisionFromBackup
+{
+    my ($self, $dir) = @_;
+    EBox::info("Provision samba before restoring backup");
+    my $provision = $self->getProvision();
+    $provision->checkEnvironment(1);
+    $provision->setProvisioned(1);
 }
 
 sub _removePasswds
