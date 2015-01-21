@@ -151,7 +151,7 @@ bayes_auto_learn_threshold_nonspam   <% $hamThreshold  %>
 
 </%def>
 
-
+score DNS_FROM_AHBL_RHSBL 0
 <%def .bool>
 <%init>
 my ($name, $value) = @_;
