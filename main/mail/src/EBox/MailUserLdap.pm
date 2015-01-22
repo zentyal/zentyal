@@ -147,6 +147,14 @@ sub setUserAccount
     $user->set('userMaildirSize', 0, 1);
     $user->set('mailquota', $quota, 1);
     $user->set('mailHomeDirectory', DIRVMAIL, 1);
+
+    my $openchange = EBox::Global->modInstance('openchange');
+    if ($openchange and $openchange->isProvisioned()) {
+        my @proxyAddresses = $user->get('proxyAddresses');
+        @proxyAddresses = map { $a = $_; $a =~ s/SMTP:.+$/SMTP:$email/; $a } @proxyAddresses;
+        $user->set('proxyAddresses', \@proxyAddresses);
+    }
+
     $user->save();
 
     my $dir = DIRVMAIL . "/$rhs/$lhs";
