@@ -1,4 +1,7 @@
 HEAD
+	+ Changed stub to not give points based on AHBL_RHSBL, given it is
+	  shut down and answering with false positives:
+	  http://www.ahbl.org/content/last-notice-wildcarding-services-jan-1st
 	+ Remove amavis-new warnings due to deprecated config keys
 4.0.2
 	+ Fixed bugs related when setting and removing virtual domain
