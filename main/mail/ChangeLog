@@ -1,4 +1,5 @@
 HEAD
+	+ Update OpenChange proxyAddresses attribute when setting mail account
 	+ In restore postpone recreation of mail directories until next
 	  save change
 	+ Fix log helper exception trying to retrieve vdomains from LDAP when
