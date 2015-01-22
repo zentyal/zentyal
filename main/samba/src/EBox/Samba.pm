@@ -1581,7 +1581,7 @@ sub initUser
             EBox::Sudo::root(@cmds);
         }
     }
-    
+
     my $roamingEnabled = $self->global(1)->modInstance('samba')->roamingProfiles();
     if ($roamingEnabled) {
         $user->setRoamingProfile(1, $self->_roamingProfilesPath());
@@ -2802,7 +2802,7 @@ sub restoreConfig
     if ($provisioned) {
         $self->_startService();
         $self->getProvision()->resetSysvolACL();
-    } 
+    }
 }
 
 sub _provisionFromBackup
@@ -3411,10 +3411,48 @@ sub defaultDescription
     return ucfirst($prefix) . ' Server';
 }
 
+# Method: sambaInterfaces
+#
+# Return interfaces upon samba should listen
+#
+sub sambaInterfaces
+{
+    my ($self) = @_;
+    my @ifaces = ();
+    # Always listen on loopback interface
+    push (@ifaces, 'lo');
+    my $net = EBox::Global->modInstance('network');
+    my $listen_external = EBox::Config::configkey('listen_external');
+    my $netIfaces;
+    if ($listen_external eq 'yes') {
+        $netIfaces = $net->allIfaces();
+    } else {
+        $netIfaces = $net->InternalIfaces();
+    }
+    my %seenBridges;
+    foreach my $iface (@{$netIfaces}) {
+        push @ifaces, $iface;
+        if ($net->ifaceMethod($iface) eq 'bridged') {
+            my $br = $net->ifaceBridge($iface);
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
+            next;
+        }
+        my $vifacesNames = $net->vifaceNames($iface);
+        if (defined $vifacesNames) {
+            push @ifaces, @{$vifacesNames};
+        }
+    }
+    my @moduleGeneratedIfaces = ();
+    push @ifaces, @moduleGeneratedIfaces;
+    return \@ifaces;
+}
 sub writeSambaConfig
 {
     my ($self) = @_;
-
+    my $interfaces = join (',', @{$self->sambaInterfaces()});
     my $netbiosName = $self->netbiosName();
     my $realmName   = $self->kerberosRealm();
 
@@ -3425,6 +3463,7 @@ sub writeSambaConfig
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
+    push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
