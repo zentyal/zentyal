@@ -50,7 +50,7 @@ echo 'deb http://archive.zentyal.org/zentyal 4.0 main extra' > /etc/apt/sources.
 sed -i 's/zentyal-qa-3.2/zentyal-qa-4.0/g' /etc/apt/sources.list.d/zentyal-qa.list
 
 # Workaround to avoid dependency problems when packages are hold
-rm -f /etc/apt/preferences.d/01zentyal
+for e in `grep -R "a=zentyal-qa" /etc/apt | cut -f1 -d:`; do rm -f $e; done
 
 apt-get update
 upgrade
