@@ -83,8 +83,8 @@ sub _process
         my ($addMail, $delMail);
         my $modDN = 0;
         if ($editable) {
-            $self->_requireParamAllowEmpty('givenname', __('first name'));
-            $self->_requireParamAllowEmpty('surname', __('last name'));
+            $self->_requireParam('givenname', __('first name'));
+            $self->_requireParam('surname', __('last name'));
             $self->_requireParamAllowEmpty('displayname', __('display name'));
             $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('mail', __('E-Mail'));
