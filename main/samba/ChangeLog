@@ -1,6 +1,7 @@
 HEAD
-	+ Added config file to enable samba to listen only on internal
+	+ Added config keys to enable samba to listen only on internal
 	  interfaces
+	+ Better error when editing user with empty first or last name
 	+ Allow restore backup when samba is not provisioned
 	+ Set roaming profile for new users
 4.0.6
