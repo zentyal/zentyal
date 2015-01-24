@@ -3452,7 +3452,7 @@ sub sambaInterfaces
 sub writeSambaConfig
 {
     my ($self) = @_;
-    my $interfaces = join (',', @{$self->sambaInterfaces()});
+
     my $netbiosName = $self->netbiosName();
     my $realmName   = $self->kerberosRealm();
 
@@ -3463,7 +3463,6 @@ sub writeSambaConfig
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
-    push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
@@ -3471,6 +3470,11 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'shares' => 1);
+
+    if (EBox::Config::boolean('listen_all') eq 'no') {
+        my $interfaces = join (',', @{$self->sambaInterfaces()});
+        push (@array, 'ifaces' => $interfaces);
+    }
 
     if ($self->global()->modExists('openchange')) {
         my $openchangeMod = $self->global()->modInstance('openchange');
