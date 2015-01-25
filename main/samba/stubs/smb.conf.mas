@@ -8,6 +8,7 @@
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
+    $ifaces => undef
 
     $print => 0
     $shares => 0
@@ -28,8 +29,12 @@ use EBox::Gettext;
     dsdb:schema update allowed = yes
     drs:max object sync = 1200
 
-
     idmap_ldb:use rfc2307 = yes
+
+% if ($ifaces) {
+    interfaces = <% $ifaces %>
+    bind interfaces only = yes
+% }
 
     log level = 3
     log file = /var/log/samba/samba.log

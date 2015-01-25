@@ -1581,7 +1581,7 @@ sub initUser
             EBox::Sudo::root(@cmds);
         }
     }
-    
+
     my $roamingEnabled = $self->global(1)->modInstance('samba')->roamingProfiles();
     if ($roamingEnabled) {
         $user->setRoamingProfile(1, $self->_roamingProfilesPath());
@@ -2802,7 +2802,7 @@ sub restoreConfig
     if ($provisioned) {
         $self->_startService();
         $self->getProvision()->resetSysvolACL();
-    } 
+    }
 }
 
 sub _provisionFromBackup
@@ -3411,6 +3411,44 @@ sub defaultDescription
     return ucfirst($prefix) . ' Server';
 }
 
+# Method: sambaInterfaces
+#
+# Return interfaces upon samba should listen
+#
+sub sambaInterfaces
+{
+    my ($self) = @_;
+    my @ifaces = ();
+    # Always listen on loopback interface
+    push (@ifaces, 'lo');
+    my $net = EBox::Global->modInstance('network');
+    my $listen_external = EBox::Config::configkey('listen_external');
+    my $netIfaces;
+    if ($listen_external eq 'yes') {
+        $netIfaces = $net->allIfaces();
+    } else {
+        $netIfaces = $net->InternalIfaces();
+    }
+    my %seenBridges;
+    foreach my $iface (@{$netIfaces}) {
+        push @ifaces, $iface;
+        if ($net->ifaceMethod($iface) eq 'bridged') {
+            my $br = $net->ifaceBridge($iface);
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
+            next;
+        }
+        my $vifacesNames = $net->vifaceNames($iface);
+        if (defined $vifacesNames) {
+            push @ifaces, @{$vifacesNames};
+        }
+    }
+    my @moduleGeneratedIfaces = ();
+    push @ifaces, @moduleGeneratedIfaces;
+    return \@ifaces;
+}
 sub writeSambaConfig
 {
     my ($self) = @_;
@@ -3432,6 +3470,11 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'shares' => 1);
+
+    if (EBox::Config::boolean('listen_all') eq 'no') {
+        my $interfaces = join (',', @{$self->sambaInterfaces()});
+        push (@array, 'ifaces' => $interfaces);
+    }
 
     if ($self->global()->modExists('openchange')) {
         my $openchangeMod = $self->global()->modInstance('openchange');
