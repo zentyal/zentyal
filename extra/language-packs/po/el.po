@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2014-03-28 01:25+0200\n"
+"PO-Revision-Date: 2015-01-21 01:45+0200\n"
 "Last-Translator: altiport <vasileios_s@yahoo.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
@@ -26,51 +26,61 @@ msgstr "απενεργοποιημένο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr "Διευθύνσεις Διακομιστών"
+msgstr "Διεύθυνση διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Πρέπει να δώσετε τουλάχιστον μία διεύθυνση για τον διακομιστή {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:142
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "Το πιστοποιητικό πελάτη δεν μπορεί να είναι ίδιο με αυτό του διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
+"Αυτή η δέσμη δεν είναι μία έγκυρη δέσμη ρυθμίσεων Zentyal-προς-Zentyal. (Δεν "
+"μπορεί να αποσυμπιεστεί)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:171
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Αυτή η δέσμη δεν είναι μία έγκυρη δέσμη ρυθμίσεων Zentyal-προς-Zentyal. "
+"(Λείπει το αρχείο ρυθμίσεων διακομιστή)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:178
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
+"Αυτή η δέσμη δεν είναι μία έγκυρη δέσμη ρυθμίσεων Zentyal-προς-Zentyal. "
+"(Λείπει το αρχείο πιστοποίησης CA)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:185
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Αυτή η δέσμη δεν είναι μία έγκυρη δέσμη ρυθμίσεων Zentyal-προς-Zentyal. "
+"(Λείπει το αρχείο πιστοποιητικού)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:192
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Αυτή η δέσμη δεν είναι μία έγκυρη δέσμη ρυθμίσεων Zentyal-προς-Zentyal. "
+"(Λείπει το αρχείο ιδιωτικού κλειδιού πιστοποιητικού)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr "Ανύπαρκτο αρχείο πιστοποιητικού CA {p}"
+msgstr "Ανύπαρκτο αρχείο πιστοποίησης CA {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:49
 #, perl-brace-format
@@ -84,27 +94,31 @@ msgstr "Ανύπαρκτο αρχείο πιστοποιητικού ιδιωτ�
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:68
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Το αρχείο που δόθηκε ως πιστοποιητικό CA δεν είναι έγκυρο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:80
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Το αρχείο που δόθηκε ως πιστοποιητικό πελάτη δεν είναι έγκυρο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:91
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Το αρχείο που δόθηκε ως ιδιωτικό κλειδί πελάτη δεν είναι έγκυρο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:103
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Το αρχείο που δόθηκε ως πιστοποιητικό πελάτη δεν ταιριάζει με το αρχείο που "
+"δόθηκε ως πιστοποιητικό CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:131
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Το αρχείο που δόθηκε ως πιστοποιητικό πελάτη δεν ταιριάζει με το αρχείο που "
+"δόθηκε ως πιστοποιητικό ιδιωτικού κλειδιού"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:320
 #, perl-brace-format
@@ -112,6 +126,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"Ο πελάτης VPN δεν πρέπει να ρυθμιστεί ώστε να συνδέεται με την διεύθυνση "
+"{addr} επειδή αυτή είναι η διεύθυνση του ίδιου του οικοδεσπότη"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:337
 #, perl-brace-format
@@ -119,6 +135,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of a local network interface"
 msgstr ""
+"Ο πελάτης VPN δεν πρέπει να ρυθμιστεί ώστε να συνδέεται με την διεύθυνση "
+"{addr} επειδή αυτή είναι η διεύθυνση ενός προσαρμογέα τοπικού δικτύου"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:552
 #, perl-brace-format
@@ -142,7 +160,7 @@ msgstr "Πελάτης {name}"
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr "ενεργοποιημένη"
+msgstr "Ενεργοποιημένος"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -162,7 +180,7 @@ msgstr "ενεργοποιημένη"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:305
 msgid "Disabled"
-msgstr "Απενεργοποιημένο"
+msgstr "Απενεργοποιημένος"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -179,7 +197,7 @@ msgstr "Υπηρεσία"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:470
 msgid "Running"
-msgstr "Εκτελείτε"
+msgstr "Εκτελείται"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
@@ -200,12 +218,12 @@ msgstr "Στόχος σύνδεσης"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:922
 msgid "VPN interface address"
-msgstr "Διασύνδεση δικτύου VPN"
+msgstr "Διεύθυνση διασύνδεσης VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:572
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:921
 msgid "No active"
-msgstr "Μή ενεργό"
+msgstr "Ανενεργό"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:137
 #, perl-brace-format
@@ -225,12 +243,12 @@ msgstr "Το πιστοποιητικό {cn} έχει λήξει"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:242
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "Το πιστοποιητικό {cn} έχει ανακληθεί "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:260
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "Ο διακομιστής {name} δεν έχει εκχωρημένο πιστοποιητικό"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:281
 #, perl-brace-format
@@ -238,6 +256,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
+"Δεν μπορεί να ληφθεί το κλειδί του διακομιστή {name} επειδή δεν έχει κανένα "
+"εκχωρημένο πιστοποιητικό"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:499
 #, perl-brace-format
@@ -245,20 +265,23 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
+"Ο διακομιστής VPN {name} δεν μπόρεσε να ρυθμιστεί, καμία διεύθυνση IP δεν "
+"βρέθηκε για την διασύνδεση {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:621
 msgid "OpenVPN servers cannot be used for internal services"
 msgstr ""
+"Διακομιστές OpenVPN δεν μπορούν να χρησιμοποιηθούν για εσωτερικές υπηρεσίες"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:649
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Μη υποστηριζόμενος τύπος πελάτη: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "Διακομιστής {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:903
 msgid "All external interfaces"
@@ -292,12 +315,12 @@ msgstr "Διασύνδεση δικτύου VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "Κατάλογος διαφημιζόμενων δικτύων"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr ""
+msgstr "Διαφημιζόμενο δίκτυο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -474,9 +497,8 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
-msgstr "Διασύνδεση"
+msgstr "Διασύνδεση TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
@@ -618,8 +640,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
-"Δεν υπάρχει διαθέσιμο κανένα πιστοποιητικό για αυτόν τον πελάτη.  Παρακαλώ, "
-"{ohref}δημιουργήστε ένα{chref}"
+"Δεν υπάρχει διαθέσιμο κανένα πιστοποιητικό για αυτόν τον πελάτη. Παρακαλώ, "
+"{ohref}δημιουργήστε ένα{chref}."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
@@ -1178,9 +1200,8 @@ msgid "{iface} does not have IP address to use"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA.pm:1260
-#, fuzzy
 msgid "HA Nodes"
-msgstr "όνομα χρήστη"
+msgstr "Κόμβοι Υψηλής Διαθεσιμότητας"
 
 #: ../../main/ha/src/EBox/HA/CGI/RetryReplication.pm:74
 #, perl-brace-format
@@ -1230,7 +1251,7 @@ msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:137
 msgid "There is a DHCP range that includes the given IP address."
-msgstr ""
+msgstr "Υπάρχει ένα εύρος DHCP το οποίο περιλαμβάνει τη δεδομένη διεύθυνση IP."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:240
 #, fuzzy
@@ -1255,19 +1276,19 @@ msgstr "Τομέας ή διεύθυνση IP"
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:211
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "Εντάξει"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:126
 msgid "Retry"
-msgstr ""
+msgstr "Δοκιμάστε ξανά"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "On-line"
-msgstr ""
+msgstr "Σε σύνδεση"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 msgid "Off-line"
-msgstr ""
+msgstr "Εκτός σύνδεσης"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:166
 #, perl-brace-format
@@ -1283,19 +1304,16 @@ msgid "Hostname"
 msgstr "όνομα κεντρικού υπολογιστή"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:199
-#, fuzzy
 msgid "Replication"
-msgstr "Εφαρμογή"
+msgstr "Αναδιπλασιασμός"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:209
-#, fuzzy
 msgid "Demote"
-msgstr "Αφαίρεση"
+msgstr "Υποβίβαση"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:215
-#, fuzzy
 msgid "Promote"
-msgstr "Αφαίρεση"
+msgstr "Προβιβασμός"
 
 #: ../../main/ha/src/EBox/HA/Model/Nodes.pm:226
 msgid "Node list for cluster"
@@ -1524,9 +1542,9 @@ msgid "Domain Name Service"
 msgstr "Όνομα Τομέα Διακομιστή"
 
 #: ../../main/dns/src/EBox/DNS.pm:959
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Ρυθμίσεις εξυπηρετητή RADIUS"
+msgstr "Κλειδί '{key}' στο αρχείο ρυθμίσεων {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1702
 msgid "hostname"
@@ -2828,14 +2846,8 @@ msgstr "Ενημέρωση κατάστασης Βάσης Δεδομένων"
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:383
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:388
 #: ../../main/samba/src/EBox/Samba/Composite/Antivirus.pm:59
-#, fuzzy
 msgid "Antivirus"
-msgstr ""
-"#-#-#-#-#  el.po (ebox-samba 2.0.7Report-Msgid-Bugs-To: developers@zentyal."
-"org)  #-#-#-#-#\n"
-"#-#-#-#-#  el.po (ebox-antivirus 2.0.5Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"Antivirus"
+msgstr "Antivirus"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:151
 #, fuzzy
@@ -5175,9 +5187,8 @@ msgid "Thin client file path"
 msgstr "Γενικές ρυθμίσεις"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:171
-#, fuzzy
 msgid "Thin client / External TFTP-Server"
-msgstr "Εξωτερικοί NTP διακομιστές"
+msgstr "Thin Client / Εξωτερικός διακομιστής TFTP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:176
 #, perl-brace-format
@@ -7502,13 +7513,13 @@ msgstr ""
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}"
 msgstr ""
-"Δεν υπάρχει διαθέσιμο κανένα πιστοποιητικό για αυτόν τον πελάτη.  Παρακαλώ, "
-"{ohref}δημιουργήστε ένα{chref}"
+"Δεν υπάρχει διαθέσιμη Αρχή Πιστοποίησης. Πρέπει {oh}να την δημιουργήστε ή να "
+"την ανανεώσετε{ch}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:52
 msgid "Virtual domain"
@@ -7747,13 +7758,13 @@ msgid ""
 msgstr "Υπάρχουν μη αποθηκευμένες αλλαγές, αν αποσυνδεθείτε τώρα θα χαθούν."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr ""
-"Δεν υπάρχει διαθέσιμο κανένα πιστοποιητικό για αυτόν τον πελάτη.  Παρακαλώ, "
-"{ohref}δημιουργήστε ένα{chref}"
+"{op}Δεν υπάρχει διαθέσιμη Αρχή Πιστοποίησης. Πρέπει {oh} να την "
+"δημιουργήσετε ή να την ανανεώσετε{ch}{cp}"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
 #, perl-brace-format
@@ -8984,9 +8995,9 @@ msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:610
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr "Το όνομα του Netbios δεν μπορεί να είναι πάνω από 15 χαρακτήρες"
+msgstr ""
+"Τα ονόματα των χρηστών Windows δεν μπορούν να περιέχουν τον χαρακτήρα \"@\""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:621
 #, perl-brace-format
@@ -12636,9 +12647,8 @@ msgstr "Ανάκληση"
 
 #: ../../main/ca/src/templates/index.mas:159
 #: ../../main/ca/src/templates/index.mas:184
-#, fuzzy
 msgid "Download Key(s) and Certificate"
-msgstr "Ακύρωση πιστοποιητικού"
+msgstr "Κατέβασμα κλειδιού(ών) και πιστοποιητικού"
 
 #: ../../main/ca/src/templates/index.mas:170
 #: ../../main/ca/src/templates/formReissue.mas:26
@@ -15051,6 +15061,8 @@ msgstr "Αυτός θα είναι ο τομέας για τους λογαρι�
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+"Οι παρακάτω ρυθμίσεις θα τεθούν σε εφαρμογή μόλις η ενότητα ταχυδρομείου "
+"ενεργοποιηθεί"
 
 #, fuzzy
 #~ msgid "New One"
