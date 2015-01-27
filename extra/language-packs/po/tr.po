@@ -1069,9 +1069,9 @@ msgstr "OpenVPN daemonları"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3838
-#: ../../main/samba/src/EBox/Samba.pm:3858
-#: ../../main/samba/src/EBox/Samba.pm:3869
+#: ../../main/samba/src/EBox/Samba.pm:3881
+#: ../../main/samba/src/EBox/Samba.pm:3901
+#: ../../main/samba/src/EBox/Samba.pm:3912
 #: ../../main/squid/src/EBox/Squid.pm:1144
 #: ../../main/mail/src/EBox/Mail.pm:1866
 #: ../../main/ca/src/templates/index.mas:99
@@ -1098,7 +1098,7 @@ msgstr "Olay"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3863
+#: ../../main/samba/src/EBox/Samba.pm:3906
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1551,7 +1551,7 @@ msgid "resources"
 msgstr "Kaynak"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3842
+#: ../../main/samba/src/EBox/Samba.pm:3885
 msgid "Resource"
 msgstr "Kaynak"
 
@@ -2444,9 +2444,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3840
-#: ../../main/samba/src/EBox/Samba.pm:3860
-#: ../../main/samba/src/EBox/Samba.pm:3871
+#: ../../main/samba/src/EBox/Samba.pm:3883
+#: ../../main/samba/src/EBox/Samba.pm:3903
+#: ../../main/samba/src/EBox/Samba.pm:3914
 #: ../../main/squid/src/EBox/Squid.pm:1146
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2923,7 +2923,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3841
+#: ../../main/samba/src/EBox/Samba.pm:3884
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -11330,33 +11330,33 @@ msgstr "Dosya sistemi yolu"
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "{port} portu şu anda {mod} modülü tarafından kullanılmakta"
 
-#: ../../main/samba/src/EBox/Samba.pm:3839
-#: ../../main/samba/src/EBox/Samba.pm:3859
-#: ../../main/samba/src/EBox/Samba.pm:3870
+#: ../../main/samba/src/EBox/Samba.pm:3882
+#: ../../main/samba/src/EBox/Samba.pm:3902
+#: ../../main/samba/src/EBox/Samba.pm:3913
 msgid "Client address"
 msgstr "İstemci IP adresi"
 
-#: ../../main/samba/src/EBox/Samba.pm:3846
+#: ../../main/samba/src/EBox/Samba.pm:3889
 msgid "Connect"
 msgstr "Bağlan"
 
-#: ../../main/samba/src/EBox/Samba.pm:3847
+#: ../../main/samba/src/EBox/Samba.pm:3890
 msgid "Access to directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3848
+#: ../../main/samba/src/EBox/Samba.pm:3891
 msgid "Read file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3849
+#: ../../main/samba/src/EBox/Samba.pm:3892
 msgid "Write file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:3850
+#: ../../main/samba/src/EBox/Samba.pm:3893
 msgid "Disconnect"
 msgstr "Bağlantıyı kes"
 
-#: ../../main/samba/src/EBox/Samba.pm:3851
+#: ../../main/samba/src/EBox/Samba.pm:3894
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 #, fuzzy
@@ -11371,48 +11371,48 @@ msgstr ""
 "#-#-#-#-#  tr.po (ebox-mail 0.12)  #-#-#-#-#\n"
 "Kaldır"
 
-#: ../../main/samba/src/EBox/Samba.pm:3852
+#: ../../main/samba/src/EBox/Samba.pm:3895
 msgid "Create directory"
 msgstr "Klasör Oluştur"
 
-#: ../../main/samba/src/EBox/Samba.pm:3853
+#: ../../main/samba/src/EBox/Samba.pm:3896
 #, fuzzy
 msgid "Remove directory"
 msgstr "Klasör Sil"
 
-#: ../../main/samba/src/EBox/Samba.pm:3854
+#: ../../main/samba/src/EBox/Samba.pm:3897
 #, fuzzy
 msgid "Rename"
 msgstr "İsmini değiştir"
 
-#: ../../main/samba/src/EBox/Samba.pm:3861
-#: ../../main/samba/src/EBox/Samba.pm:3872
+#: ../../main/samba/src/EBox/Samba.pm:3904
+#: ../../main/samba/src/EBox/Samba.pm:3915
 msgid "File name"
 msgstr "Dosya adı"
 
-#: ../../main/samba/src/EBox/Samba.pm:3862
-#: ../../main/samba/src/EBox/Samba.pm:3866
+#: ../../main/samba/src/EBox/Samba.pm:3905
+#: ../../main/samba/src/EBox/Samba.pm:3909
 msgid "Virus"
 msgstr "Virüs"
 
-#: ../../main/samba/src/EBox/Samba.pm:3873
+#: ../../main/samba/src/EBox/Samba.pm:3916
 msgid "Quarantined file name"
 msgstr "Karantinaya alınan dosya adı"
 
-#: ../../main/samba/src/EBox/Samba.pm:3874
-#: ../../main/samba/src/EBox/Samba.pm:3877
+#: ../../main/samba/src/EBox/Samba.pm:3917
+#: ../../main/samba/src/EBox/Samba.pm:3920
 msgid "Quarantine"
 msgstr "Karantina"
 
-#: ../../main/samba/src/EBox/Samba.pm:3880
+#: ../../main/samba/src/EBox/Samba.pm:3923
 msgid "Samba access"
 msgstr "Samba Erişimi"
 
-#: ../../main/samba/src/EBox/Samba.pm:3891
+#: ../../main/samba/src/EBox/Samba.pm:3934
 msgid "Samba virus"
 msgstr "Samba Virüs"
 
-#: ../../main/samba/src/EBox/Samba.pm:3902
+#: ../../main/samba/src/EBox/Samba.pm:3945
 msgid "Samba quarantine"
 msgstr "Samba Karantina"
 
@@ -13327,37 +13327,37 @@ msgid "mail alias account"
 msgstr "Posta takma adı hesabı"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:123
-#: ../../main/mail/src/EBox/MailUserLdap.pm:290
+#: ../../main/mail/src/EBox/MailUserLdap.pm:298
 msgid "mail account"
 msgstr "Posta hesabı"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:354
+#: ../../main/mail/src/EBox/MailUserLdap.pm:362
 msgid "This group has a mail alias"
 msgstr "Bu grubun bir posta takma adı var"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:378
+#: ../../main/mail/src/EBox/MailUserLdap.pm:386
 msgid "This user has a mail account"
 msgstr "Bu kullanıcının bir posta hesabı var"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:442
+#: ../../main/mail/src/EBox/MailUserLdap.pm:450
 #, fuzzy
 msgid "Mail account"
 msgstr "Posta hesabı"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:444
+#: ../../main/mail/src/EBox/MailUserLdap.pm:452
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Posta hesabı oluştur"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:446
+#: ../../main/mail/src/EBox/MailUserLdap.pm:454
 msgid "Mail account settings"
 msgstr "Posta hesabı ayarları"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:485
+#: ../../main/mail/src/EBox/MailUserLdap.pm:493
 msgid "Mail alias settings"
 msgstr "İleti takma isim ayarları"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:795
+#: ../../main/mail/src/EBox/MailUserLdap.pm:803
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "Kullanıcı kotlarını düzenlerken limitsiz için sıfır (0) veya limit kadar "

@@ -1023,9 +1023,9 @@ msgstr "Dimonis OpenVPN"
 #: ../../main/l2tp/src/EBox/L2TP.pm:368 ../../main/dhcp/src/EBox/DHCP.pm:977
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:786
-#: ../../main/samba/src/EBox/Samba.pm:3838
-#: ../../main/samba/src/EBox/Samba.pm:3858
-#: ../../main/samba/src/EBox/Samba.pm:3869
+#: ../../main/samba/src/EBox/Samba.pm:3881
+#: ../../main/samba/src/EBox/Samba.pm:3901
+#: ../../main/samba/src/EBox/Samba.pm:3912
 #: ../../main/squid/src/EBox/Squid.pm:1144
 #: ../../main/mail/src/EBox/Mail.pm:1866
 #: ../../main/ca/src/templates/index.mas:99
@@ -1052,7 +1052,7 @@ msgstr "Esdeveniment"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:3863
+#: ../../main/samba/src/EBox/Samba.pm:3906
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 #: ../../main/core/src/templates/remoteservices/index.mas:67
@@ -1428,7 +1428,7 @@ msgid "resources"
 msgstr "Recursos"
 
 #: ../../main/ha/src/EBox/HA/Model/ResourceStatus.pm:110
-#: ../../main/samba/src/EBox/Samba.pm:3842
+#: ../../main/samba/src/EBox/Samba.pm:3885
 msgid "Resource"
 msgstr "Recurs"
 
@@ -2290,9 +2290,9 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:113
 #: ../../main/core/src/EBox/AuditLogging.pm:143
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:3840
-#: ../../main/samba/src/EBox/Samba.pm:3860
-#: ../../main/samba/src/EBox/Samba.pm:3871
+#: ../../main/samba/src/EBox/Samba.pm:3883
+#: ../../main/samba/src/EBox/Samba.pm:3903
+#: ../../main/samba/src/EBox/Samba.pm:3914
 #: ../../main/squid/src/EBox/Squid.pm:1146
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:99
 #: ../../main/samba/src/templates/addobject.mas:10
@@ -2745,7 +2745,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Template.pm:154
 #: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:127
-#: ../../main/samba/src/EBox/Samba.pm:3841
+#: ../../main/samba/src/EBox/Samba.pm:3884
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
@@ -10771,78 +10771,78 @@ msgstr "Ús del sistema de fitxers"
 msgid "Address {addr} is already in use by the {type} {name}"
 msgstr "L'adreça VPN {addr} ja està en ús per la interfície {iface}"
 
-#: ../../main/samba/src/EBox/Samba.pm:3839
-#: ../../main/samba/src/EBox/Samba.pm:3859
-#: ../../main/samba/src/EBox/Samba.pm:3870
+#: ../../main/samba/src/EBox/Samba.pm:3882
+#: ../../main/samba/src/EBox/Samba.pm:3902
+#: ../../main/samba/src/EBox/Samba.pm:3913
 msgid "Client address"
 msgstr "Adreça del client"
 
-#: ../../main/samba/src/EBox/Samba.pm:3846
+#: ../../main/samba/src/EBox/Samba.pm:3889
 msgid "Connect"
 msgstr "Connectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3847
+#: ../../main/samba/src/EBox/Samba.pm:3890
 msgid "Access to directory"
 msgstr "Accés al directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3848
+#: ../../main/samba/src/EBox/Samba.pm:3891
 msgid "Read file"
 msgstr "Lectura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3849
+#: ../../main/samba/src/EBox/Samba.pm:3892
 msgid "Write file"
 msgstr "Escriptura de fitxer"
 
-#: ../../main/samba/src/EBox/Samba.pm:3850
+#: ../../main/samba/src/EBox/Samba.pm:3893
 msgid "Disconnect"
 msgstr "Desconnectar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3851
+#: ../../main/samba/src/EBox/Samba.pm:3894
 #: ../../main/core/src/templates/ajax/viewer/file.mas:23
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../../main/samba/src/EBox/Samba.pm:3852
+#: ../../main/samba/src/EBox/Samba.pm:3895
 msgid "Create directory"
 msgstr "Crear directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3853
+#: ../../main/samba/src/EBox/Samba.pm:3896
 msgid "Remove directory"
 msgstr "Eliminar directori"
 
-#: ../../main/samba/src/EBox/Samba.pm:3854
+#: ../../main/samba/src/EBox/Samba.pm:3897
 msgid "Rename"
 msgstr "Canviar el nom"
 
-#: ../../main/samba/src/EBox/Samba.pm:3861
-#: ../../main/samba/src/EBox/Samba.pm:3872
+#: ../../main/samba/src/EBox/Samba.pm:3904
+#: ../../main/samba/src/EBox/Samba.pm:3915
 msgid "File name"
 msgstr "Nom de l'arxiu"
 
-#: ../../main/samba/src/EBox/Samba.pm:3862
-#: ../../main/samba/src/EBox/Samba.pm:3866
+#: ../../main/samba/src/EBox/Samba.pm:3905
+#: ../../main/samba/src/EBox/Samba.pm:3909
 msgid "Virus"
 msgstr "Virus"
 
-#: ../../main/samba/src/EBox/Samba.pm:3873
+#: ../../main/samba/src/EBox/Samba.pm:3916
 msgid "Quarantined file name"
 msgstr "Fitxer en quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3874
-#: ../../main/samba/src/EBox/Samba.pm:3877
+#: ../../main/samba/src/EBox/Samba.pm:3917
+#: ../../main/samba/src/EBox/Samba.pm:3920
 msgid "Quarantine"
 msgstr "Quarantena"
 
-#: ../../main/samba/src/EBox/Samba.pm:3880
+#: ../../main/samba/src/EBox/Samba.pm:3923
 msgid "Samba access"
 msgstr "Accessos a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3891
+#: ../../main/samba/src/EBox/Samba.pm:3934
 msgid "Samba virus"
 msgstr "Virus a Samba"
 
-#: ../../main/samba/src/EBox/Samba.pm:3902
+#: ../../main/samba/src/EBox/Samba.pm:3945
 msgid "Samba quarantine"
 msgstr "Quarentena de Samba"
 
@@ -12768,36 +12768,36 @@ msgid "mail alias account"
 msgstr "àlies de compte de correu"
 
 #: ../../main/mail/src/EBox/MailUserLdap.pm:123
-#: ../../main/mail/src/EBox/MailUserLdap.pm:290
+#: ../../main/mail/src/EBox/MailUserLdap.pm:298
 msgid "mail account"
 msgstr "compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:354
+#: ../../main/mail/src/EBox/MailUserLdap.pm:362
 msgid "This group has a mail alias"
 msgstr "Aquest grup té un compte àlies de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:378
+#: ../../main/mail/src/EBox/MailUserLdap.pm:386
 msgid "This user has a mail account"
 msgstr "Aquest usuari té un compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:442
+#: ../../main/mail/src/EBox/MailUserLdap.pm:450
 msgid "Mail account"
 msgstr "Compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:444
+#: ../../main/mail/src/EBox/MailUserLdap.pm:452
 #: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Crear un compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:446
+#: ../../main/mail/src/EBox/MailUserLdap.pm:454
 msgid "Mail account settings"
 msgstr "Paràmetres del compte de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:485
+#: ../../main/mail/src/EBox/MailUserLdap.pm:493
 msgid "Mail alias settings"
 msgstr "Paràmetres de l'àlies de correu"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:795
+#: ../../main/mail/src/EBox/MailUserLdap.pm:803
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "La quota només pot ser un nombre positiu o zero per a una quota il·limitada"
