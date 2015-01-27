@@ -1,4 +1,4 @@
-HEAD
+4.0.7
 	+ Added config keys to enable samba to listen only on internal
 	  interfaces
 	+ Better error when editing user with empty first or last name
