@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2015-01-04 15:24+0200\n"
+"PO-Revision-Date: 2015-01-31 13:17+0200\n"
 "Last-Translator: taupe <taupe@live.be>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/mail/src/EBox/Mail.pm:1752
 msgid "disabled"
-msgstr "désactivé"
+msgstr "désactiver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
@@ -161,7 +161,7 @@ msgstr "Client {name}"
 #: ../../main/openchange/src/templates/openchange.mas:14
 #: ../../main/openchange/src/templates/openchange.mas:15
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Activer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
@@ -181,7 +181,7 @@ msgstr "Activé"
 #: ../../main/openchange/src/templates/openchange.mas:15
 #: ../../main/samba/src/templates/edituser.mas:305
 msgid "Disabled"
-msgstr "Désactivé"
+msgstr "Désactiver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:555
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:895
@@ -204,7 +204,7 @@ msgstr "En cours d'exécution"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/core/src/EBox/SysInfo.pm:475
 msgid "Stopped"
-msgstr "Arrêté"
+msgstr "Arrêter"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:558
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:898
@@ -381,7 +381,7 @@ msgstr "Configuration"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 msgid "Advertised networks"
-msgstr "Réseaux annoncés (Advertised networks)"
+msgstr "Réseaux annoncés"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:94
 msgid "Download client bundle"
@@ -408,9 +408,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority "
 "module{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Vous avez besoin d'un certificat CA valide pour utiliser le serveur "
-"VPN. {closepar}{openpar}Veuillez vous rendre {openhref}dans le module de "
-"certificats d'autorité{closehref} et renouvelez le.{closepar}"
+"{openpar} Vous avez besoin d'un certificat CA valide pour utiliser le "
+"serveur VPN. {closepar}{openpar}Veuillez vous rendre {openhref} dans le "
+"module de certificats d'autorité {closehref} et renouvelez le.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -419,9 +419,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority "
 "module{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Vous devez créer un certificat CA pour utiliser le serveur VPN. "
-"{closepar}{openpar}Veuillez vous rendre {openhref}dans le module de "
-"certificats d'autorité{closehref} et en créer un.{closepar}"
+"{openpar} Vous devez créer un certificat CA pour utiliser le serveur VPN. "
+"{closepar}{openpar} Veuillez vous rendre {openhref} dans le module de "
+"certificats d'autorité {closehref} et en créer un.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
@@ -433,7 +433,7 @@ msgid ""
 "configuration and retry"
 msgstr ""
 "Impossible d'activer le serveur car il n'est pas totalement configuré; S'il "
-"vous plait, éditez la configuration et essayez de nouveau"
+"vous plait, éditez la configuration et essayez a nouveau"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
@@ -451,15 +451,15 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "revoked"
-msgstr "Révoqué "
+msgstr "Révoquer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "expired"
-msgstr "Expiré"
+msgstr "Expirer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
-msgstr "Incorrect"
+msgstr "invalide "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -482,14 +482,15 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
-"{openpar}Vous pouvez configurer les serveurs \"openVPN\" pour connecter "
+"{openpar} Vous pouvez configurer les serveurs \"openVPN\" pour connecter "
 "facilement des bureaux ou utilisateurs distants.{closepar}{openpar} Cliquez "
-"sur {openit}configuration{closeit} pour définir les paramètres VPN.{closepar}"
-"{openpar}{openit}Réseaux annoncés (Advertised networks){closeit} vous permet "
-"de configurer quels réseaux vous désirez rendre accessible aux utilisateurs "
-"distants.{openpar} Une fois la configuration terminée, vous pouvez "
-"télécharger un fichier de configuration pour votre système d'exploitation "
-"qui sera utilisé dans vos applications clients."
+"sur {openit} configuration {closeit} pour définir les paramètres "
+"VPN.{closepar}{openpar}{openit} Réseaux annoncés (Advertised "
+"networks){closeit} vous permet de configurer quels réseaux vous désirez "
+"rendre accessible aux utilisateurs distants.{openpar} Une fois la "
+"configuration terminée, vous pouvez télécharger un fichier de configuration "
+"pour votre système d'exploitation qui sera utilisé dans vos applications "
+"clients."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:49
@@ -513,7 +514,7 @@ msgstr "Certificat CA"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr "Certificat client"
+msgstr "Certificat clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
@@ -599,7 +600,7 @@ msgstr "Adresse du serveur supplémentaire (optionnelle)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr "Adresse secondaire du serveur supplémentaire (optionnelle)"
+msgstr "Adresse secondaire du serveur supplémentaire (optionnel)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -619,7 +620,7 @@ msgstr "Aléatoire"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
-msgstr "Bascule"
+msgstr "Basculement"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
