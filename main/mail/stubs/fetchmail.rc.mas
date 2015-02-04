@@ -27,7 +27,7 @@ $mda => undef
 %                   join ' ', @{ $account->{options} } : '';
 % my $uidl = $account->{mailProtocol} eq 'pop3';
 poll <% $account->{server} %> proto <% $account->{mailProtocol} %> <% $uidl ? 'uidl' : '' %> port <% $account->{port} %>:
-   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %> <% $mda ? "mda '$mda'" : '' %>;
+   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %> <% $mda ? "mda '$mda'" : '' %> dropdelivered;
 % }
 
 </%def>
