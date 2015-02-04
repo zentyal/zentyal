@@ -328,7 +328,7 @@ sub createRoamingProfileDirectory
     push (@perms, 'u:root:rwx');
     push (@perms, 'g::---');
     push (@perms, "g:$gidNumber:---");
-    push (@perms, "u:$samAccountName:rwx");
+    push (@perms, "u:'$samAccountName':rwx");
     push (@cmds, "setfacl -b \'$path\'");
     push (@cmds, 'setfacl -R -m ' . join(',', @perms) . " \'$path\'");
     push (@cmds, 'setfacl -R -m d:' . join(',d:', @perms) ." \'$path\'");
