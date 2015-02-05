@@ -1,3 +1,6 @@
+HEAD
+	+ Create roaming profile directory correctly when the
+	  samAccountName has any space
 4.0.7
 	+ Added config keys to enable samba to listen only on internal
 	  interfaces
