@@ -23,6 +23,8 @@ then
     echo
 fi
 
+echo Any custom hook or stub will be renamed before upgrading, adding .32upgrade.bak to the folder in /etc/zentyal
+echo
 echo Before upgrading please read also carefully the release notes at :
 echo
 echo http://wiki.zentyal.org/wiki/Zentyal_4.0_Announcement
