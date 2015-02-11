@@ -24,6 +24,9 @@ function upgrade
     apt-get dist-upgrade --purge -y --force-yes -o DPkg::Options::="--force-confdef"
 }
 
+echo; echo "Uninstalling packages not support for the upgrade..."; echo
+apt-get remove --purge -y --force-yes -o DPkg::Options::="--force-confdef" sogo zentyal-sogo openchangeserver openchange-ocsmanager openchangeproxy zentyal-openchange libsope-core4.9 libsope-xml4.9
+
 sed -i "s/^deb-src/#deb-src/g" /etc/apt/sources.list
 
 echo; echo "Upgrading your current system to the latest packages..."; echo
@@ -42,6 +45,11 @@ for i in users remoteservices monitor
 do
     service zentyal $i stop
 done
+
+#Move the stubs and hooks folder to a safer place so it can be recovered but don't interfere with the upgrade
+mv /etc/zentyal/stubs /etc/zentyal/stubs.backup32
+mv /etc/zentyal/hooks /etc/zentyal/hooks.backup32
+
 
 echo; echo "Upgrading from Ubuntu 12.04 to 14.04 with Zentyal 4.0..."; echo
 sed -i 's/precise/trusty/g' /etc/apt/sources.list
