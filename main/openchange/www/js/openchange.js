@@ -24,7 +24,7 @@ Zentyal.OpenChange.updateAjaxValue = function(url, containerId) {
             var container = $('#' + escapedId);
             var html = '<li><span class="red">' + errorThrown + '</li>';
             container.html(html);
-         },
+         }
     });
 };
 
@@ -35,7 +35,7 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
         url: url,
         datatype : 'html',
         success: function(data) {
-            $('#' + escapedContainerId).html(data)
+            $('#' + escapedContainerId).html(data);
             Zentyal.OpenChange.initTable('migration-table');
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -53,8 +53,7 @@ Zentyal.OpenChange.initTable = function (tableClass) {
     var update_select_all = function(table) {
         var checked = table.find('.table-row :checked').length;
         var unchecked = table.find('.table-row :checkbox:not(:checked)').length;
-        table.find(':checkbox[name="select_all"]')
-            .prop('checked', checked > 0 && unchecked == 0);
+        table.find(':checkbox[name="select_all"]').prop('checked', checked > 0 && unchecked == 0);
         Zentyal.OpenChange.changeUsers(checked);
     };
     table.find(':checkbox[name="select_all"]').click(function (e) {
@@ -98,7 +97,7 @@ Zentyal.OpenChange.estimateMigration = function(params) {
     $(params.estimateButton).hide();
     $(params.loadingId).show();
     // Set the form params
-    var usersToMigrate = $.map($(params.tableClass).find('.table-row :checked'), function(el) { return el.value });
+    var usersToMigrate = $.map($(params.tableClass).find('.table-row :checked'), function(el) { return el.value; });
     $.ajax({
         type : "POST",
         url  : '/OpenChange/Migration/Estimate',
@@ -172,8 +171,7 @@ Zentyal.OpenChange.progress = function(params) {
                             Zentyal.OpenChange.formatProgressTimeDiff('#' + total_key,
                                                                       data.totals[total_key]);
                             break;
-                        case 'int':
-                        default:
+                        default: // this take cares also of the int case
                             $('#' + total_key).html(data.totals[total_key]);
                         }
                     }
@@ -311,8 +309,8 @@ Zentyal.OpenChange.setProgressStatus = function(user) {
 
 // Check to show DONE button once every user has been migrated or cancelled
 Zentyal.OpenChange.updateDone = function() {
-    var nStopped = $('.migration-table').find('.status.stopped').length
-    var nTotal   = $('.migration-table').find('.status').length
+    var nStopped = $('.migration-table').find('.status.stopped').length;
+    var nTotal   = $('.migration-table').find('.status').length;
     if (nStopped == nTotal) {
         $('#done_btn').fadeIn();
     } else {
@@ -344,8 +342,7 @@ Zentyal.OpenChange.estimateUpdate = function(params) {
                 case 'timediff':
                     formatted_val = data.result[property].value.toTimeDiffString();
                     break;
-                case 'int':
-                default:
+                default: // also covers int case
                     formatted_val = data.result[property].value;
                 }
                 migration.find('#' + property + ' .info-value').html(formatted_val);

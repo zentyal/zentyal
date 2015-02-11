@@ -11,7 +11,7 @@ Pre-Depends: zentyal-core
 Depends: zentyal-core (>= 4.0), zentyal-core (<< 4.1),
          zentyal-samba (>= 4.0.4), zentyal-mail, zentyal-ca (>= 4.0.1),
          zentyal-dns (>= 4.0.1),
-         openchangeserver (>> 2.3-zentyal1),
+         openchangeserver (>= 3:2.3-zentyal7),
          openchange-rpcproxy, libstring-random-perl,
          openchange-ocsmanager (>> 3:2.3-zentyal1),
          openchange-notification, dovecot-openchange-plugin,

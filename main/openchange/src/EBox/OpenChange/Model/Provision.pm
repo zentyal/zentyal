@@ -134,7 +134,6 @@ sub _table
         printableTableName => __('Setup'),
         pageTitle          => __('OpenChange Server Provision'),
         modelDomain        => 'OpenChange',
-        #defaultActions     => [ 'editField' ],
         customActions      => $customActions,
         tableDescription   => \@tableDesc,
         help               => __('Provision the OpenChange Groupware server. '.
@@ -345,6 +344,65 @@ sub _doProvision
     $global->addModuleToPostSave('webadmin');
 }
 
+sub checkForProvision
+{
+    my ($self, $organizationName, %params) = @_;
+    my $admin         = $params{admin};
+    my $adminPassword = $params{adminPassword};
+
+    my $vdomains = $self->global()->modInstance('mail')->model('VDomains');
+    my ($vdomainId) = @{ $vdomains->ids() };
+    $self->_checkFirstVDomainId($vdomainId);
+
+    my $cmd = "openchange_provision --check --firstorg='$organizationName' ";
+    my $samba = $self->global()->modInstance('samba');
+    my $adc = $samba->dcMode() eq 'adc';
+    if ($adc) {
+        if (not $admin and not $adminPassword) {
+            throw EBox::Exceptions::External(__("Missing user and/or password for provision"));
+        }
+        $cmd .= " --user='$admin' --password='$adminPassword'";
+    }
+
+    try {
+        EBox::Sudo::root($cmd);
+    } catch ($ex) {
+        my $errMsg;
+        my $exError;
+        if ($ex->isa('EBox::Exceptions::Command')) {
+            $exError = join("\n", @{ $ex->error()});
+        } else {
+            $exError  = "$ex";
+        }
+
+        if ($exError =~ m/There is already, at least, one provisioned organization/) {
+            if ($adc) {
+                $errMsg = __('The PDC server either has been already provisioned or has Exchange Server installed');
+            } else {
+                $errMsg = __('The PDC server has been already provisioned');                
+            }
+        } else {
+            $errMsg = __x('Server cannot be provisioned: {err}', err => $exError);            
+        }
+
+
+        throw EBox::Exceptions::External($errMsg);
+    }
+}
+
+sub _checkFirstVDomainId
+{
+    my ($self, $vdomainId) = @_;
+    if (not $vdomainId) {
+        throw EBox::Exceptions::External(
+            __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
+                oh => q{<a href='/Mail/View/VDomains'>},
+                oc => q{</a>}
+               )
+           );
+    }
+}
+
 # Method: provision
 #
 #   Real implementation for _doProvision that can be called also from wizard provision
@@ -372,17 +430,9 @@ sub provision
         throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
     }
 
-    my $vdomains = $global->modInstance('mail')->model('VDomains');
+    my $vdomains = $self->global()->modInstance('mail')->model('VDomains');
     my ($vdomainId) = @{ $vdomains->ids() };
-    if (not $vdomainId) {
-        throw EBox::Exceptions::External(
-            __x('To provision OpenChange you need first to {oh}create a mail virtual domain{oc}',
-                oh => q{<a href='/Mail/View/VDomains'>},
-                oc => q{</a>}
-               )
-           );
-    }
-
+    $self->_checkFirstVDomainId($vdomainId);
 
     my $ca = $self->global()->modInstance('ca');
     my $state = $openchange->get_state();
@@ -417,7 +467,7 @@ sub provision
         my $samba = $self->global()->modInstance('samba');
         if ($samba->dcMode() eq 'adc') {
             if (not $admin and not $adminPassword) {
-                throw EBox::Exceptions::Internal("Invalid provision credentials" . "($admin/$adminPassword)");
+                throw EBox::Exceptions::Internal("Missing user and/or password for provision");
             }
             $cmd .= " --user='$admin' --password='$adminPassword'";
         }
@@ -564,6 +614,34 @@ sub customActionClickedJS
         $confirmationMsg = __('Provisioning OpenChange will trigger the commit of unsaved configuration changes');
         $savingChangesTitle = __('Saving changes after provision');
         $jsStr = <<JS;
+             console.log('onclick');
+             var precheck_error = false;
+             var provision_params = {};
+             provision_params['orgName'] = \$('#Provision_organizationname').val();
+             provision_params['admin'] = \$('#Provision_admin').val();
+             provision_params['adminPassword'] = \$('#Provision_adminPassword').val();
+             \$.ajax('/OpenChange/CheckForProvision', { 
+                   data: provision_params, 
+                   dataType: 'json',
+                   async: false,
+                   success: function(response) {
+                      console.log('chekc for provision success: ' + response.success);
+                      if (!response.success) {
+                          Zentyal.TableHelper.setError('Provision', response.error);
+                          precheck_error = true;
+                      }
+                   },
+                   error: function(jqXHR) {
+                        Zentyal.TableHelper.setError('Provision', jqXHR.responseText);
+                        precheck_error = false;
+                   }
+              });
+              if (precheck_error) {
+                   console.log('precheck_error=true');
+                   return false;
+              }
+                   console.log('precheck_error=false');
+
              var dialogParams = {
                   title: '$title',
                   message: '$confirmationMsg'
@@ -579,7 +657,6 @@ sub customActionClickedJS
             Zentyal.TableHelper.showConfirmationDialog(dialogParams, acceptMethod);
             return false;
 JS
-
     } elsif ($action eq 'deprovision') {
         $title = __('Deprovision OpenChange');
         $confirmationMsg = __('Deprovisioning OpenChange will trigger the commit of unsaved configuration changes');
@@ -615,6 +692,8 @@ JS
 
     return $jsStr;
 }
+
+
 
 1;
 
