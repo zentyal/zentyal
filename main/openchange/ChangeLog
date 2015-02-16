@@ -1,4 +1,5 @@
 HEAD
+	+ Change separator to match the one in dovecot config
 	+ Check if provision is possible before saving changes
 4.0.7
 	+ Changes to allow provision as ADC

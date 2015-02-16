@@ -55,7 +55,7 @@
     SOGoForceExternalLoginWithEmail = YES;
 
     /* IMAP server configuration */
-    NGImap4ConnectionStringSeparator = ".";
+    NGImap4ConnectionStringSeparator = "/";
     SOGoIMAPAclConformsToIMAPExt = NO;
     SOGoMailSpoolPath = /var/spool/sogo;
     SOGoIMAPServer = <% $imapServer %>;

@@ -124,6 +124,7 @@ mail_gid=<% $gid %>
 
 namespace inbox {
     inbox=yes
+    separator = /
 
     mailbox Trash {
         auto = subscribe
@@ -149,6 +150,17 @@ namespace inbox {
         auto = create
         special_use = \Junk
     }
+
+    subscriptions = yes
+}
+
+namespace {
+    type = shared
+    separator = /
+    prefix = shared/%%u/
+    location = maildir:/var/vmail/%%d/%%n/Maildir:INDEXPVT=~/Maildir/shared/%%u
+    subscriptions = yes
+    list = children
 }
 
 ##
@@ -216,7 +228,7 @@ protocol lda {
 % if ($openchangePlugin->{enabled}) {
 %   $ldaPlugins = "notify openchange " . $ldaPlugins;
 % }
-  mail_plugins = <% $ldaPlugins %>
+  mail_plugins = <% $ldaPlugins %> acl
 }
 
 ##
@@ -283,9 +295,18 @@ service imap {
 }
 
 protocol imap {
-  mail_plugins = <% "@imapPlugins" %>
+  mail_plugins = <% "@imapPlugins" %> acl imap_acl
   mail_max_userip_connections = 20
 }
+
+plugin {
+    acl = vfile
+}
+
+plugin {
+    acl_shared_dict = file:/var/vmail/%d/shared-mailboxes.db
+}
+
 </%def>
 
 
