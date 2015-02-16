@@ -1,3 +1,6 @@
+HEAD
+	+ Improved upgrade script, removing not supported packages
+	  and moving stubs and hooks to backup
 3.2.16
 	+ Fixed issue with old preference files in upgrade
 3.2.15
