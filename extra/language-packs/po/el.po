@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2015-01-21 01:45+0200\n"
+"PO-Revision-Date: 2015-02-11 03:08+0200\n"
 "Last-Translator: altiport <vasileios_s@yahoo.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
@@ -333,6 +333,12 @@ msgid ""
 "{openpar}If an advertised network address is the same as the VPN network "
 "address, the advertised network will be ignored.{closepar}"
 msgstr ""
+"{openpar}Εδώ μπορείτε να προσθέσετε εκείνα τα δίκτυα τα οποία επιθυμείτε να "
+"καταστήσετε διαθέσιμα σε πελάτες που συνδέονται με αυτό το "
+"VPN.{closepar}{openpar}Τυπικά, θα επιτρέψετε την πρόσβαση στο LAN σας "
+"διαφημίζοντας εδώ την διεύθυνση δικτύου του.{closepar}{openpar}Εάν μία "
+"διαφημιζόμενη διεύθυνση δικτύου είναι ίδια με την διεύθυνση δικτύου του VPN, "
+"τότε το διαφημιζόμενο δίκτυο θα αγνοηθεί.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
@@ -433,14 +439,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
-msgstr "Ανάκληση"
+msgstr "ανακλήθηκε"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
-msgstr "Ληγμένο"
+msgstr "ληγμένο"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
 msgid "invalid"
@@ -481,7 +485,7 @@ msgstr "Διακομιστής"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
 msgid "Server port"
-msgstr "πόρτα διακομιστή"
+msgstr "Πύλη διακομιστή"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
@@ -646,7 +650,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
-msgstr "διεύθυνση VPN"
+msgstr "Διεύθυνση VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
@@ -721,14 +725,12 @@ msgid "Makes Zentyal the default gateway for the client"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "όνομα διακομιστή"
+msgstr "Κύριος διακομιστής ονομάτων"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Secod nameserver"
-msgstr "όνομα διακομιστή"
+msgstr "Δευτερεύων διακομιστής ονoμάτων"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:437
@@ -739,7 +741,7 @@ msgstr ""
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:445
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:467
 msgid "WINS server"
-msgstr ""
+msgstr "Διακομιστής WINS"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
@@ -1255,14 +1257,12 @@ msgid "There is a DHCP range that includes the given IP address."
 msgstr "Υπάρχει ένα εύρος DHCP το οποίο περιλαμβάνει τη δεδομένη διεύθυνση IP."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:240
-#, fuzzy
 msgid "Floating IP Address"
-msgstr "Τοπική διεύθυνση"
+msgstr "Κυλιόμενη διεύθυνση IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:249
-#, fuzzy
 msgid "Floating IP addresses"
-msgstr "Τοπική διεύθυνση"
+msgstr "Κυλιόμενες διευθύνσεις IP"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:253
 #, fuzzy
@@ -1454,9 +1454,8 @@ msgid "Join this node to an existing cluster"
 msgstr ""
 
 #: ../../main/ha/src/EBox/HA/Model/NodeStatus.pm:119
-#, fuzzy
 msgid "Floating IP"
-msgstr "Τοπική διεύθυνση"
+msgstr "Κυλιόμενη διεύθυνση IP"
 
 #: ../../main/ha/src/EBox/HA/Model/Errors.pm:111
 #, fuzzy
@@ -1881,9 +1880,8 @@ msgid "Domain"
 msgstr "Τομέας"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:614
-#, fuzzy
 msgid "Domain IP Addresses"
-msgstr "Τοπική διεύθυνση"
+msgstr "Διεύθυνση IP τομέα"
 
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:623
 msgid "Hostnames"
@@ -2079,9 +2077,8 @@ msgid "SSL support"
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:130
-#, fuzzy
 msgid "SSL connection method to this server."
-msgstr "Κανένας χρήστης συνδεδεμένος στο VPN"
+msgstr "Μέθοδος σύνδεσης SSL σε αυτόν τον διακομιστή"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:137
 msgid "Connect to other servers"
@@ -2101,9 +2098,8 @@ msgid "Multi User Chat allows to create chat rooms in this server."
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:151
-#, fuzzy
 msgid "Enable STUN service"
-msgstr "Ενεργοπίηση AD Sync"
+msgstr "Ενεργοποίηση υπηρεσίας STUN"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:152
 msgid "STUN service helps Jingle ICE clients behind NAT."
@@ -2932,9 +2928,8 @@ msgid "Failure"
 msgstr "αποτυχία"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:426
-#, fuzzy
 msgid "Antivirus DB updates"
-msgstr "Προεπιλεγμένες ρυθμίσεις αντιμετώπισης ιών"
+msgstr "Ενημέρωση βάσης δεδομένων αντιμετώπισης ιών"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:60
 msgid "Mail Filter"
@@ -3455,7 +3450,7 @@ msgstr "Επέτρεψε"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:183
 msgid "MIME types"
-msgstr "τύποι ΜΙΜΕ"
+msgstr "Tύποι ΜΙΜΕ"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:101
 msgid ""
@@ -3549,7 +3544,7 @@ msgstr ""
 #: ../../main/l2tp/src/EBox/L2TP/LDAPUser.pm:39
 #, fuzzy
 msgid "L2TP connections"
-msgstr "Αποδοχή σύνδεσης"
+msgstr "Συνδέσεις L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:55
 msgid ""
@@ -3657,9 +3652,8 @@ msgid "Remote endpoint public IP address."
 msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:355
-#, fuzzy
 msgid "PSK Shared Secret"
-msgstr "Κοινό μυστικό"
+msgstr "Κοινό μυστικό PSK"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/ConnectionSettings.pm:357
 msgid "Pre-shared key for the IPsec connection."
@@ -3738,9 +3732,8 @@ msgid "L2TP"
 msgstr ""
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:190
-#, fuzzy
 msgid "L2TP connection"
-msgstr "Αποδοχή σύνδεσης"
+msgstr "Σύνδεση L2TP"
 
 #: ../../main/l2tp/src/EBox/L2TP/Model/Connections.pm:197
 msgid ""
@@ -4624,9 +4617,8 @@ msgid "Gateways"
 msgstr "Πύλες"
 
 #: ../../main/network/src/EBox/Network.pm:4553
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Δυναμικό"
+msgstr "Δυναμικό DNS"
 
 #: ../../main/network/src/EBox/Network.pm:4557
 msgid "Tools"
@@ -5053,9 +5045,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:45
-#, fuzzy
 msgid "DHCP Configuration"
-msgstr "Ρύθμιση"
+msgstr "Ρύθμιση DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP/Composite/InterfaceConfiguration.pm:47
 msgid ""
@@ -6426,9 +6417,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:98
-#, fuzzy
 msgid "Administration interface TCP port"
-msgstr "Διαχειριστής"
+msgstr "Πύλη TCP διαχειριστικής διεπαφής"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
@@ -7476,14 +7466,12 @@ msgid "This user has a openchange account."
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:52
-#, fuzzy
 msgid "CA name"
-msgstr "Μετονομασία"
+msgstr "Όνομα CA"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:58
-#, fuzzy
 msgid "CA Certificate"
-msgstr "Απομακρυσμένο πιστοποιητικό"
+msgstr "Πιστοποιητικό CA"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:67
 #, fuzzy
@@ -7502,9 +7490,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:99
-#, fuzzy
 msgid "The CA is not available."
-msgstr "Η πόρτα {p} δεν είναι διαθέσιμη"
+msgstr "Η πύλη CA δεν είναι διαθέσιμη."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:139
 #, perl-brace-format
@@ -7527,9 +7514,8 @@ msgid "Virtual domain"
 msgstr "Εικονικός τομέας"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:58
-#, fuzzy
 msgid "DNS domain managed by Zentyal"
-msgstr "Εικονικός τομέας αλληλογραφίας {vd} δεν υπάρχει"
+msgstr "Τομέας DNS που διευθύνεται από το Zentyal"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:66
 #, fuzzy
@@ -8205,9 +8191,8 @@ msgid "LOG"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:120
-#, fuzzy
 msgid "Source MAC"
-msgstr "Πηγή"
+msgstr "MAC προέλευσης"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:172
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:124
@@ -8230,9 +8215,8 @@ msgid "Internal networks"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:56
-#, fuzzy
 msgid "SNAT address"
-msgstr "διεύθυνση VPN"
+msgstr "Διεύθυνση SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:64
 #, fuzzy
@@ -8254,9 +8238,8 @@ msgid "SNAT"
 msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:165
-#, fuzzy
 msgid "SNAT rule"
-msgstr "Κανόνες δοκιμών"
+msgstr "Κανόνας SNAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:65
 msgid "External networks to Zentyal"
@@ -8327,9 +8310,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:40
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} not found."
-msgstr "Δεν βρέθηκε"
+msgstr "Δεν βρέθηκε GPO {x}"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:56
 msgid "GPO not defined"
@@ -8355,9 +8338,8 @@ msgstr "Όνομα τομέα"
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:74
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:135
 #: ../../main/samba/src/templates/wizard/users.mas:119
-#, fuzzy
 msgid "Domain controller FQDN"
-msgstr "Όνομα τομέα"
+msgstr "FQDN ελεγκτή τομέα"
 
 #: ../../main/samba/src/EBox/Samba/CGI/Wizard/Users.pm:75
 #: ../../main/samba/src/EBox/Samba/Model/DomainSettings.pm:140
@@ -14968,24 +14950,26 @@ msgid "Custom quota"
 msgstr ""
 
 #: ../../main/mail/src/templates/alias.mas:193
-#, fuzzy
 msgid "Quota type"
-msgstr "τύπος αντικειμένου"
+msgstr "Τύπος ποσόστωσης"
 
 #: ../../main/mail/src/templates/alias.mas:202
 msgid "Maximum mailbox size"
-msgstr ""
+msgstr "Μέγιστος μέγεθος γραμματοκιβωτίου"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:10
 #: ../../main/mail/src/templates/warnvdmdsize.mas:14
 msgid "Changing maildir size of"
-msgstr ""
+msgstr "Αλλάζει το μέγεθος του αποθετηρίου αλληλογραφίας"
 
 #: ../../main/mail/src/templates/warnusermdsize.mas:11
 msgid ""
 "The new maildir size is smaller than the oldest one and the actual\n"
 "\tsize of the user maildir will surpass the new limitation."
 msgstr ""
+"Το μέγεθος του νέου αποθετηρίου αλληλογραφίας είναι μικρότερο από το "
+"προηγούμενο και το πραγματικό μέγεθος\n"
+" του καταλόγου ταχυδρομείου του χρήστη ξεπερνά το νέο όριο."
 
 #: ../../main/mail/src/templates/account.mas:37
 msgid ""
@@ -15033,18 +15017,20 @@ msgstr "Κατάργηση όλων των μηνυμάτων"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Δεν υπάρχουν μηνύματα στην ουρά ή η υπηρεσία έχει σταματήσει"
 
 #: ../../main/mail/src/templates/createaccount.mas:42
-#, fuzzy
 msgid "Maildir size"
-msgstr "Μέγεθος αρχείου"
+msgstr "Μέγεθος φακέλου ταχυδρομείου"
 
 #: ../../main/mail/src/templates/warnvdmdsize.mas:15
 msgid ""
 "The new maildir size is smaller than the oldest one, the following\n"
 "\tusers will surprass the new limitation:"
 msgstr ""
+"Το μέγεθος του νέου φακέλου ταχυδρομείου είναι μικρότερο από αυτό του "
+"προηγούμενου \n"
+"\tοι επόμενοι χρήστες θα υπερβούν το νέο όριο"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Virtual mail domain"
