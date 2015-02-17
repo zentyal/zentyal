@@ -2515,7 +2515,7 @@ msgstr "認証局"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -7856,7 +7856,7 @@ msgstr "FQDN {x}は有効であるとは思えない"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -8063,13 +8063,13 @@ msgstr "データベース構成"
 msgid "OpenChange Server Provision"
 msgstr "OpenChangeサーバのプロビジョニング"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -8078,7 +8078,7 @@ msgstr ""
 "{y}モジュールデータベースをプロビジョニングする前に、モジュール状態セクション"
 "で、{x}モジュールを有効にする必要があります。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -8087,28 +8087,48 @@ msgstr ""
 "仮想ドメイン{x}が定義されていません。あなたは、{ohref}仮想ドメインページ"
 "{chref}でそれを追加することができます。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 #, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr "保存されていない変更があります。プロビジョニング前に保存してください"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr "保存されていない変更があります。プロビジョニング前に保存してください"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr "利用可能な認証局がありません。{oh}作成または更新{ch}する必要があります"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+msgid "Missing user and/or password for provision"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+msgid ""
+"The PDC server either has been already provisioned or has Exchange Server "
+"installed"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#, fuzzy
+msgid "The PDC server has been already provisioned"
+msgstr "サーバが解離されています"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#, fuzzy, perl-brace-format
+msgid "Server cannot be provisioned: {err}"
+msgstr "正規表現のエラー：{err}"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
@@ -8117,21 +8137,21 @@ msgstr ""
 "プロビジョニングOpenChangeするには、まず{oh}メール仮想ドメイン{oc}を作成する"
 "必要があります"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 #, fuzzy
 msgid "Invalid administrator user name or password"
 msgstr "管理者パスワードの変更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
 #, fuzzy, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "正規表現のエラー：{err}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
 msgid "Provision OpenChange"
 msgstr "OpenChangeのプロビジョニング"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8139,15 +8159,15 @@ msgstr ""
 "OpenChangeのプロビジョニングは、保存されていないコンフィギュレーション変更の"
 "コミットをトリガにします"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
 msgid "Saving changes after provision"
 msgstr "プロビジョニング後の保存の変更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
 msgid "Deprovision OpenChange"
 msgstr "OpenChangeのプロビジョニング解除"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8155,7 +8175,7 @@ msgstr ""
 "OpenChangeのプロビジョニング解除は、保存されていないコンフィギュレーション変"
 "更のコミットをトリガにします"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
 msgid "Saving changes after deprovision"
 msgstr "プロビジョニング解除後の保存の変更"
 

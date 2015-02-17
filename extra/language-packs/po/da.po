@@ -2513,7 +2513,7 @@ msgstr "Certifikat Certificering"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -7969,7 +7969,7 @@ msgstr "FQDN {x} ser ikke ud til at være gyldig"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
 #, fuzzy, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -8182,13 +8182,13 @@ msgstr "DNS konfigureret"
 msgid "OpenChange Server Provision"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -8197,28 +8197,28 @@ msgstr ""
 "Du skal have slået modulet Brugere til i modul status, for at kunne bruger "
 "det."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 #, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr "Der er ingen ændringer, der ikke er gemt."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr "Der er ingen ændringer, der ikke er gemt."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -8227,24 +8227,44 @@ msgstr ""
 "Der er ikke certifikater til rådighed for denne klient. Opret, {ohref} "
 "venligst en {chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+msgid "Missing user and/or password for provision"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+msgid ""
+"The PDC server either has been already provisioned or has Exchange Server "
+"installed"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#, fuzzy
+msgid "The PDC server has been already provisioned"
+msgstr "Certifikatet er blevet udstedt"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#, fuzzy, perl-brace-format
+msgid "Server cannot be provisioned: {err}"
+msgstr "Forkert regulært udtryk (regular expression)"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 #, fuzzy
 msgid "Invalid administrator user name or password"
 msgstr "Skift password"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
 #, fuzzy, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "Forkert regulært udtryk (regular expression)"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr ""
@@ -8267,18 +8287,18 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ændre"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Backup af modul ændringer"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr ""
@@ -8301,13 +8321,13 @@ msgstr ""
 "#-#-#-#-#  da.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Ændre"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Backup af modul ændringer"

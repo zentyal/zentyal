@@ -2501,7 +2501,7 @@ msgstr "Certifikační autorita"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -7706,7 +7706,7 @@ msgstr ""
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -7914,64 +7914,84 @@ msgstr "Nastavit widgety"
 msgid "OpenChange Server Provision"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr "Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
 #, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
 #, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+msgid "Missing user and/or password for provision"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+msgid ""
+"The PDC server either has been already provisioned or has Exchange Server "
+"installed"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#, fuzzy
+msgid "The PDC server has been already provisioned"
+msgstr "Certifikát {cn} byl zrušen"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#, fuzzy, perl-brace-format
+msgid "Server cannot be provisioned: {err}"
+msgstr "name server záznam"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 #, fuzzy
 msgid "Invalid administrator user name or password"
 msgstr "Změny uloženy"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
 #, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr ""
@@ -7984,18 +8004,18 @@ msgstr ""
 "#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
 "Změna"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "Ukládání změn v modulech"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr ""
@@ -8008,13 +8028,13 @@ msgstr ""
 "#-#-#-#-#  cs.po (ebox-ebox 1.5)  #-#-#-#-#\n"
 "Změna"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "Ukládání změn v modulech"

@@ -2412,7 +2412,7 @@ msgstr "认证机构"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -7477,7 +7477,7 @@ msgstr "域名 {x} 无效"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
 #, fuzzy, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -7682,92 +7682,112 @@ msgstr "数据库已配置"
 msgid "OpenChange Server Provision"
 msgstr "OpenChange 服务器规定"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
 msgstr "制备 {y} 模块的数据库之前，你必须在模块状态部分启用 {x} 模块。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr "虚拟域 {x} 未定义。您可以通过  {ohref} 虚拟域页面 {chref} 来添加一个。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 #, fuzzy
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
 msgstr "有尚未保存的变更。请先保存。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
 "OpenChange database.{cp}"
 msgstr "有尚未保存的变更。请先保存。"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
 #, fuzzy, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
 "renew it{ch}{cp}"
 msgstr "该客户端没有有效的证书。请{ohref}创建一个{chref}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+msgid "Missing user and/or password for provision"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+msgid ""
+"The PDC server either has been already provisioned or has Exchange Server "
+"installed"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#, fuzzy
+msgid "The PDC server has been already provisioned"
+msgstr "认证被发布"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#, fuzzy, perl-brace-format
+msgid "Server cannot be provisioned: {err}"
+msgstr "正则表达式错误: {err}"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
 "domain{oc}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 #, fuzzy
 msgid "Invalid administrator user name or password"
 msgstr "修改管理员密码"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
 #, fuzzy, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "正则表达式错误: {err}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
 #, fuzzy
 msgid "Provision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
 #, fuzzy
 msgid "Saving changes after provision"
 msgstr "保存模块的变更"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
 #, fuzzy
 msgid "Deprovision OpenChange"
 msgstr "OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
 #, fuzzy
 msgid "Saving changes after deprovision"
 msgstr "保存模块的变更"

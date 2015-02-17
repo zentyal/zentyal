@@ -2572,7 +2572,7 @@ msgstr "Autoridad de certificación"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Wizard/Provision.pm:64
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:63
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:372
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:430
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -8004,7 +8004,7 @@ msgstr "El módulo {x} necesita ser configurado"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/RPCProxy.pm:149
 #: ../../main/openchange/src/EBox/OpenChange/Model/VDomains.pm:371
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:227
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
 #, perl-brace-format
 msgid ""
 "There is not an available Certication Authority. You must {oh}create or "
@@ -8218,7 +8218,7 @@ msgstr "Base de datos configurada"
 msgid "OpenChange Server Provision"
 msgstr "Servidor de aprovisionamiento OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
 msgid ""
 "Provision the OpenChange Groupware server. This will extend and initialize "
 "the required values in the LDAP schema."
@@ -8226,7 +8226,7 @@ msgstr ""
 "Configura el servidor de groupware OpenChange. Se extenderá e inicializará "
 "los valores requeridos en el esquema de LDAP."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:202
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:201
 #, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -8235,7 +8235,7 @@ msgstr ""
 "Debes activar el módulo {x} en la sección de estado de los módulos antes de "
 "configurar por primera vez la base de datos del módulo {y}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:220
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:219
 #, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -8244,7 +8244,7 @@ msgstr ""
 "El dominio virtual {x} no está definido. Puedes añadirlo en la {ohref}página "
 "de Dominios Virtuales{chref}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:232
 msgid ""
 "There are unsaved changes. Please save them be able to provision the "
 "OpenChange database."
@@ -8252,7 +8252,7 @@ msgstr ""
 "Hay cambios sin guardar. Por favor, guárdalos antes de configurar la base de "
 "datos de OpenChange."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:237
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:236
 #, perl-brace-format
 msgid ""
 "{op}There are unsaved changes. Please save them to be able to provision the "
@@ -8261,7 +8261,7 @@ msgstr ""
 "{op}Hay cambios sin guardar. Por favor, guárdalos para poder configurar la "
 "base de datos de OpenChange.{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:242
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:241
 #, perl-brace-format
 msgid ""
 "{op}There is not an available Certication Authority. You must {oh}create or "
@@ -8270,7 +8270,27 @@ msgstr ""
 "{op}No existe una Autoridad Certificadora disponible. Debes {oh}crearla o "
 "renovarla{ch}{cp}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:379
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:362
+msgid "Missing user and/or password for provision"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:380
+msgid ""
+"The PDC server either has been already provisioned or has Exchange Server "
+"installed"
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:382
+#, fuzzy
+msgid "The PDC server has been already provisioned"
+msgstr "El servidor ha sido desasociado"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:385
+#, fuzzy, perl-brace-format
+msgid "Server cannot be provisioned: {err}"
+msgstr "Expresión regular incorrecta: {err}"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:398
 #, perl-brace-format
 msgid ""
 "To provision OpenChange you need first to {oh}create a mail virtual "
@@ -8279,22 +8299,22 @@ msgstr ""
 "Para provisionar OpenChange se necesita primero {oh}crear un dominio de "
 "correo virtual{oc}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:445
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:495
 #, fuzzy
 msgid "Invalid administrator user name or password"
 msgstr "Cambiar contraseña del administrador"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:447
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:497
 #, fuzzy, perl-brace-format
 msgid "Error provisioning: {error}"
 msgstr "Expresión regular incorrecta: {err}"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:563
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:613
 msgid "Provision OpenChange"
 msgstr "Provisionar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:564
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:614
 msgid ""
 "Provisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8302,16 +8322,16 @@ msgstr ""
 "Provisionar OpenChange activará el guardado de todos los cambios sin guardar "
 "pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:565
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:615
 msgid "Saving changes after provision"
 msgstr "Guardando cambios tras la provisión"
 
 # Is a product. Same name.
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:584
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:661
 msgid "Deprovision OpenChange"
 msgstr "Desconfigurar OpenChange"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:585
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:662
 msgid ""
 "Deprovisioning OpenChange will trigger the commit of unsaved configuration "
 "changes"
@@ -8319,7 +8339,7 @@ msgstr ""
 "Desconfigurar OpenChange activará el guardado de todos los cambios sin "
 "guardar pendientes"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:586
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:663
 msgid "Saving changes after deprovision"
 msgstr "Guardando cambios tras desconfigurar"
 
