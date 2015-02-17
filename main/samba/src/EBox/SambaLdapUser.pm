@@ -370,6 +370,9 @@ sub _delGroup
         my $samAccountName = $zentyalGroup->get('cn');
         my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
+
+        $self->removeGroupShare($sambaGroup);
+
         $sambaGroup->deleteObject();
 
         # Remove group from shares ACLs
