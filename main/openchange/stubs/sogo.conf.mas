@@ -125,6 +125,10 @@
         }
     );
 
+    /* Web Interface */
+    SOGoRefreshViewCheck = every_5_minutes;
+    SOGoPageTitle = "Zentyal Webmail";
+
     /* Debug */
     GCSFolderDebugEnabled = NO;
     GCSFolderStoreDebugEnabled = NO;
