@@ -1,4 +1,5 @@
 HEAD
+	+ Enable password change from the SOGo webmail
 	+ Change separator to match the one in dovecot config
 	+ Check if provision is possible before saving changes
 4.0.7

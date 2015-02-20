@@ -39,7 +39,7 @@
     WOPidFile = <% $sogoPidFile %>;
     SOGoTimeZone = <% $sogoTimeZone %>;
     SOGoMailDomain = <% $sogoMailDomain %>;
-    SOGoPasswordChangeEnabled = NO;
+    SOGoPasswordChangeEnabled = YES;
     SOGoLanguage = English;                 // User can override parameter
 
     /* Mail preferences */
