@@ -1,4 +1,5 @@
 HEAD
+	+ Remove share group when deleting a group
 	+ Changes allow_nonscanned_files to True to avoid issues when editing 
 	  certain types of files on a share
 3.0.24
