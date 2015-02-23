@@ -1,4 +1,4 @@
-HEAD
+4.0.3
 	+ Change separator in dovecot to make work shared folders in SOGo
 	+ Fixing mail forwarding loop error with some isp's and fetchmail
 	+ Update OpenChange proxyAddresses attribute when setting mail account
