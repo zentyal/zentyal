@@ -1,3 +1,5 @@
+HEAD
+	+ Configure automatic refresh of SOGo webmail to 5 min
 4.0.8
 	+ Change separator to match the one in dovecot config
 	+ Check if provision is possible before saving changes
