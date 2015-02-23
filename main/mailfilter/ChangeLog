@@ -1,4 +1,4 @@
-HEAD
+4.0.3
 	+ Changed stub to not give points based on AHBL_RHSBL, given it is
 	  shut down and answering with false positives:
 	  http://www.ahbl.org/content/last-notice-wildcarding-services-jan-1st
