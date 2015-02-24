@@ -1263,7 +1263,7 @@ msgstr "Der Cluster ist nicht konfiguriert"
 msgid "{iface} does not have IP address to use"
 msgstr "{iface} hat keine IP Adresse"
 
-#: ../../main/ha/src/EBox/HA.pm:1260
+#: ../../main/ha/src/EBox/HA.pm:1261
 msgid "HA Nodes"
 msgstr "HA Knoten"
 
@@ -2893,8 +2893,8 @@ msgid ""
 "The Subject Alternative Name parameter must follow this pattern: type:value, "
 "type:value"
 msgstr ""
-"Der alternative Name des Betreffs muss folgendem Muster entsprechen: "
-"Typ:Wert, Typ:Wert"
+"Der alternative Name des Betreffs muss folgendem Muster entsprechen: Typ:"
+"Wert, Typ:Wert"
 
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:191
 msgid "The certificate has been issued."
@@ -9549,8 +9549,8 @@ msgstr ""
 "der Haupt-Domänen-Partition {zones} gespeichert. Dies tritt normalerweise "
 "dann auf, wenn der Server Windows Server 2000 aktualisiert wurde und Samba4 "
 "nicht in der lage ist, diese Zonen zu lesen. Bitte verschieben Sie die Zonen "
-"in die \"DomainDnsZones\" oder \"ForestDnsZones\" und versuchen Sie es erneut. "
-"Klicken sie {link}, um Hilfe zu dieser Vorgehensweise zu erhalten."
+"in die \"DomainDnsZones\" oder \"ForestDnsZones\" und versuchen Sie es "
+"erneut. Klicken sie {link}, um Hilfe zu dieser Vorgehensweise zu erhalten."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:774
 msgid "Could not retrieve the domain information."
@@ -11026,8 +11026,8 @@ msgid ""
 "Cannot restore users module because is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
-"Das Modul \"Benutzer\" konnte nicht wiederhergestellt werden, da es zurzeit im "
-"Modus {mode} läuft und die Sicherung im Modus {bpMode} erfolgte"
+"Das Modul \"Benutzer\" konnte nicht wiederhergestellt werden, da es zurzeit "
+"im Modus {mode} läuft und die Sicherung im Modus {bpMode} erfolgte"
 
 #: ../../main/samba/src/EBox/Samba.pm:2699
 #, perl-brace-format

@@ -1175,7 +1175,7 @@ msgstr "集群未配置"
 msgid "{iface} does not have IP address to use"
 msgstr "{iface} 没有 IP 地址可用"
 
-#: ../../main/ha/src/EBox/HA.pm:1260
+#: ../../main/ha/src/EBox/HA.pm:1261
 #, fuzzy
 msgid "HA Nodes"
 msgstr "集群节点"
