@@ -19,5 +19,5 @@ auth_bind = yes
 
 user_filter = (&(mail=%u)(objectClass=user)(!(userAccountControl=514)))
 pass_filter = (&(mail=%u)(objectClass=user)(!(userAccountControl=514)))
-user_attrs = =home=/var/vmail/%Ld/%Ln/,=mail=maildir:/var/vmail/%Ld/%Ln/Maildir/
+user_attrs = =home=/var/vmail/%Ld/%Ln/,=mail=maildir:/var/vmail/%Ld/%Ln/Maildir/,=quota_rule=*:storage=%{ldap:mailquota}MB
 pass_attrs = mail=user
